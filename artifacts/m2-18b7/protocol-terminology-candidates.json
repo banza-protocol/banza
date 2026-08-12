@@ -1,5 +1,5 @@
 {
-  "total": 6031,
+  "total": 6032,
   "rows": [
     {
       "raw_text": "Contributing to BANZA",
@@ -24325,8 +24325,19 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "Qwen3-4B-GGUF, quantization Q4_K_M",
-      "normalized": "qwen3-4b-gguf quantization q4 k m",
+      "raw_text": "Which model, and why this one.",
+      "normalized": "which model and why this one",
+      "sources": [
+        "docs-banzai-local-qwen-model-setup-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Qwen2.5-7B-Instruct, Q4_K_M",
+      "normalized": "qwen2 5-7b-instruct q4 k m",
       "sources": [
         "docs-banzai-local-qwen-model-setup-md"
       ],

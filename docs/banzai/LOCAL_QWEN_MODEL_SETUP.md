@@ -1,6 +1,6 @@
 # BanzAI Local Qwen Model Setup (VPS XL+)
 
-> Manual, one-time install of the Qwen3-4B-GGUF Q4_K_M weights for BanzAI's optional
+> Manual, one-time install of the Qwen2.5-7B-Instruct-GGUF Q4_K_M weights for BanzAI's optional
 > on-host language layer. The GGUF is installed by hand, verified, and kept out of Git.
 
 BanzAI is the native, non-authoritative protocol agent: **BanzAI guia; os motores
@@ -62,21 +62,31 @@ never OOM the host.
 
 ---
 
+> **Which model, and why this one.** The selected model is **Qwen2.5-7B-Instruct, Q4_K_M**. It was
+> chosen by benchmark against Qwen2.5-14B under unchanged thresholds: after the R1 remediation it
+> cleared every input, output, safety, factuality, latency and operational gate, at roughly half the
+> 14B latency and a higher clean-serve rate. The verdict and its raw artifacts are in
+> [`docs/reports/M2_18B3_UNIFIED_TWO_PASS_BENCHMARK_VERDICT.md`](../reports/M2_18B3_UNIFIED_TWO_PASS_BENCHMARK_VERDICT.md).
+>
+> This document previously described Qwen3-4B, which predates that selection. The model is a local
+> language layer only: it is non-normative, it decides nothing, and BanzAI serves deterministic answers
+> without it (ADR-055, ADR-073).
+
 ## 2. Where to obtain the weights
 
-You need **Qwen3-4B-GGUF, quantization Q4_K_M**. Choose a reputable GGUF publisher rather
+You need **Qwen2.5-7B-Instruct-GGUF, quantization Q4_K_M**. Choose a reputable GGUF publisher rather
 than a hardcoded link (download URLs and filenames change and rot). Prefer, in order:
 
 1. **The official Qwen GGUF repository on Hugging Face** (the `Qwen` organization's own
-   `Qwen3-4B-GGUF` release). This is the canonical, first-party source.
+   `Qwen2.5-7B-Instruct-GGUF` release). This is the canonical, first-party source.
 2. **A well-known, high-reputation community re-quantizer** (for example the widely used
    GGUF quantization publishers) **only if** the file's provenance and checksum are clearly
    documented on the model card.
 
 How to choose the exact file:
 
-- Search the publisher's model page for the `Q4_K_M` variant of `Qwen3-4B`. The filename
-  typically looks like `Qwen3-4B-Q4_K_M.gguf` (exact spelling varies by publisher — do not
+- Search the publisher's model page for the `Q4_K_M` variant of `Qwen2.5-7B-Instruct`. The filename
+  typically looks like `qwen2.5-7b-instruct-q4_k_m.gguf` (exact spelling varies by publisher — do not
   assume it).
 - Confirm the **architecture is Qwen3** and the **parameter count is 4B**. Do not
   substitute a different size or generation without a new benchmark (ADR-044 §8 rejects an
@@ -124,10 +134,10 @@ Never trust a downloaded weights file until its hash matches the publisher's.
 
 ```bash
 # Linux
-sha256sum ./Qwen3-4B-Q4_K_M.gguf
+sha256sum ./qwen2.5-7b-instruct-q4_k_m.gguf
 
 # macOS
-shasum -a 256 ./Qwen3-4B-Q4_K_M.gguf
+shasum -a 256 ./qwen2.5-7b-instruct-q4_k_m.gguf
 ```
 
 Compare the output byte-for-byte against the sha256 (or blob hash) shown on the publisher's
@@ -139,9 +149,9 @@ truncated, corrupted, or tampered file — do not proceed.
 stays on the VM and never enters Git):
 
 ```text
-Model:        Qwen3-4B-GGUF
+Model:        Qwen2.5-7B-Instruct-GGUF
 Variant:      Q4_K_M
-File:         Qwen3-4B-Q4_K_M.gguf
+File:         qwen2.5-7b-instruct-q4_k_m.gguf
 Source:       <publisher / Hugging Face repo URL you actually used>
 Downloaded:   2026-07-19
 sha256:       <the verified hash>
@@ -162,7 +172,7 @@ bind-mounts read-only:
 
 ```bash
 mkdir -p /srv/banza-protocol/repo/infra/banza-network/models
-mv ./Qwen3-4B-Q4_K_M.gguf \
+mv ./qwen2.5-7b-instruct-q4_k_m.gguf \
    /srv/banza-protocol/repo/infra/banza-network/models/model.gguf
 ```
 
@@ -265,7 +275,7 @@ Notes:
 
 - `LLAMA_MODEL_PATH` is the path **inside** the container. It always begins with `/models/`
   because compose mounts the host `./models` directory there. If you kept the descriptive
-  filename, set e.g. `LLAMA_MODEL_PATH=/models/Qwen3-4B-Q4_K_M.gguf`.
+  filename, set e.g. `LLAMA_MODEL_PATH=/models/qwen2.5-7b-instruct-q4_k_m.gguf`.
 - `local_qwen` is **keyless**: do not set `LLM_API_KEY`. For local inference,
   `external_model_called` stays **false** (nothing leaves the host) and the USD budget is
   bypassed (on-host generation is free).
