@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  id:        SVG-P-088
+  diagram:   Operador Zero como alvo de validação — pipeline BanzAI → motores Rust → endpoints → relatórios → evidência → registo
+  version:   2.0
+  source:    BANZA_REFERENCIA.md §9 (Operador Zero — implementação de referência só de leitura, M2.19E/F)
+  updated:   2026-07-29
+  author:    BANZA Protocol
+  style:     protocol-dark
+-->
+<svg viewBox="0 0 1000 480" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-labelledby="title-P088 desc-P088"
+     font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="title-P088">Operador Zero como alvo de validação no BANZA</title>
+  <desc id="desc-P088">Pipeline horizontal de seis fases. O BanzAI inicia a sessão de validação; os motores Rust avaliam a conformidade de forma determinística e fecham por omissão; o Operador Zero é uma implementação de referência só de leitura que apenas expõe endpoints (GET responde 200, POST responde 405); os resultados fluem para Relatórios por verificação, depois para um Evidence Bundle reproduzível e por fim para o Registo Técnico verificável. O Operador Zero é o alvo da avaliação, nunca o juiz: não se valida a si próprio, não movimenta dinheiro real e não emite qualquer credencial.</desc>
+  <defs>
+    <linearGradient id="hg-P088" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E0F1A"/><stop offset="100%" stop-color="#8E1326"/>
+    </linearGradient>
+    <marker id="arr-P088" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#8C8C95"/>
+    </marker>
+  </defs>
+
+  <rect width="1000" height="480" fill="#0E0E11"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="1000" height="64" fill="url(#hg-P088)" rx="14"/>
+  <rect x="0" y="48" width="1000" height="16" fill="#8E1326"/>
+  <text x="24" y="26" font-family="ui-monospace,'Courier New',monospace" font-size="9" fill="#FECACA" letter-spacing="2">SVG-P-088 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="24" y="50" font-size="18" font-weight="800" fill="#FFFFFF">Operador Zero — alvo de validação</text>
+  <text x="976" y="50" text-anchor="end" font-size="11" fill="#F6D9DD">BanzAI inicia · Rust avalia · o Registo publica</text>
+
+  <!-- context line -->
+  <text x="24" y="94" font-size="11.5" fill="#B6B6BE">Implementação de referência só de leitura: expõe endpoints, é avaliada por motores Rust e não se valida a si própria.</text>
+
+  <!-- ======================= pipeline cards ======================= -->
+  <!-- 1 · BanzAI (slate) -->
+  <g>
+    <rect x="28" y="128" width="132" height="150" rx="12" fill="#17171B" stroke="#33465B" stroke-width="1.5"/>
+    <circle cx="50" cy="152" r="13" fill="#33465B"/><text x="50" y="156" text-anchor="middle" font-size="12" font-weight="800" fill="#FFFFFF">1</text>
+    <text x="44" y="192" font-size="12.5" font-weight="800" fill="#8FB0D0">BanzAI</text>
+    <text x="44" y="214" font-size="10" fill="#B6B6BE">conduz a sessão</text>
+    <text x="44" y="230" font-size="10" fill="#B6B6BE">de validação</text>
+    <text x="44" y="252" font-size="8.5" fill="#8C8C95">orquestra · não decide</text>
+  </g>
+  <!-- 2 · Motores Rust (wine) -->
+  <g>
+    <rect x="190.4" y="128" width="132" height="150" rx="12" fill="#17171B" stroke="#8E1326" stroke-width="1.5"/>
+    <circle cx="212.4" cy="152" r="13" fill="#8E1326"/><text x="212.4" y="156" text-anchor="middle" font-size="12" font-weight="800" fill="#FFFFFF">2</text>
+    <text x="206.4" y="192" font-size="12.5" font-weight="800" fill="#E8909D">Motores Rust</text>
+    <text x="206.4" y="214" font-size="10" fill="#B6B6BE">avaliam a</text>
+    <text x="206.4" y="230" font-size="10" fill="#B6B6BE">conformidade</text>
+    <text x="206.4" y="252" font-size="8.5" fill="#8C8C95">determinístico · fail-closed</text>
+  </g>
+  <!-- 3 · Operador Zero (green · alvo) -->
+  <g>
+    <rect x="352.8" y="128" width="132" height="150" rx="12" fill="#13211A" stroke="#2E6A4E" stroke-width="2"/>
+    <circle cx="374.8" cy="152" r="13" fill="#2E6A4E"/><text x="374.8" y="156" text-anchor="middle" font-size="12" font-weight="800" fill="#FFFFFF">3</text>
+    <text x="470" y="146" text-anchor="end" font-size="8.5" font-weight="700" fill="#74C79E" letter-spacing="1">ALVO</text>
+    <text x="368.8" y="192" font-size="12.5" font-weight="800" fill="#74C79E">Operador Zero</text>
+    <text x="368.8" y="214" font-size="10" fill="#B6B6BE">expõe endpoints</text>
+    <text x="368.8" y="230" font-size="10" fill="#B6B6BE">só de leitura</text>
+    <text x="368.8" y="252" font-size="8.5" font-family="ui-monospace,'Courier New',monospace" fill="#8C8C95">GET → 200 · POST → 405</text>
+  </g>
+  <!-- 4 · Relatórios (steel) -->
+  <g>
+    <rect x="515.2" y="128" width="132" height="150" rx="12" fill="#17171B" stroke="#4C5563" stroke-width="1.5"/>
+    <circle cx="537.2" cy="152" r="13" fill="#4C5563"/><text x="537.2" y="156" text-anchor="middle" font-size="12" font-weight="800" fill="#FFFFFF">4</text>
+    <text x="531.2" y="192" font-size="12.5" font-weight="800" fill="#A2ABB8">Relatórios</text>
+    <text x="531.2" y="214" font-size="10" fill="#B6B6BE">resultado por</text>
+    <text x="531.2" y="230" font-size="10" fill="#B6B6BE">verificação</text>
+    <text x="531.2" y="252" font-size="8.5" fill="#8C8C95">por área de conformidade</text>
+  </g>
+  <!-- 5 · Evidence Bundle (gold) -->
+  <g>
+    <rect x="677.6" y="128" width="132" height="150" rx="12" fill="#17171B" stroke="#B98A3E" stroke-width="1.5"/>
+    <circle cx="699.6" cy="152" r="13" fill="#B98A3E"/><text x="699.6" y="156" text-anchor="middle" font-size="12" font-weight="800" fill="#FFFFFF">5</text>
+    <text x="693.6" y="192" font-size="12.5" font-weight="800" fill="#E7C67E">Evidence Bundle</text>
+    <text x="693.6" y="214" font-size="10" fill="#B6B6BE">pacote de</text>
+    <text x="693.6" y="230" font-size="10" fill="#B6B6BE">evidência</text>
+    <text x="693.6" y="252" font-size="8.5" fill="#8C8C95">reproduzível</text>
+  </g>
+  <!-- 6 · Registo Técnico (teal) -->
+  <g>
+    <rect x="840" y="128" width="132" height="150" rx="12" fill="#17171B" stroke="#0F766E" stroke-width="1.5"/>
+    <circle cx="862" cy="152" r="13" fill="#0F766E"/><text x="862" y="156" text-anchor="middle" font-size="12" font-weight="800" fill="#FFFFFF">6</text>
+    <text x="856" y="192" font-size="12.5" font-weight="800" fill="#57C6BC">Registo Técnico</text>
+    <text x="856" y="214" font-size="10" fill="#B6B6BE">publica o</text>
+    <text x="856" y="230" font-size="10" fill="#B6B6BE">resultado</text>
+    <text x="856" y="252" font-size="8.5" fill="#8C8C95">verificável por pares</text>
+  </g>
+
+  <!-- arrows -->
+  <line x1="160" y1="203" x2="188" y2="203" stroke="#8C8C95" stroke-width="1.8" marker-end="url(#arr-P088)"/>
+  <line x1="322.4" y1="203" x2="350.4" y2="203" stroke="#8C8C95" stroke-width="1.8" marker-end="url(#arr-P088)"/>
+  <line x1="484.8" y1="203" x2="512.8" y2="203" stroke="#8C8C95" stroke-width="1.8" marker-end="url(#arr-P088)"/>
+  <line x1="647.2" y1="203" x2="675.2" y2="203" stroke="#8C8C95" stroke-width="1.8" marker-end="url(#arr-P088)"/>
+  <line x1="809.6" y1="203" x2="837.6" y2="203" stroke="#8C8C95" stroke-width="1.8" marker-end="url(#arr-P088)"/>
+
+  <!-- authority direction band -->
+  <rect x="28" y="306" width="944" height="30" rx="9" fill="#141418" stroke="#2B2B33" stroke-width="1"/>
+  <text x="44" y="325" font-size="10.5" fill="#B6B6BE"><tspan font-weight="700" fill="#8FB0D0">BanzAI</tspan> inicia  →  <tspan font-weight="700" fill="#E8909D">Rust</tspan> avalia  →  o <tspan font-weight="700" fill="#74C79E">Operador Zero</tspan> apenas expõe  →  o resultado flui para o <tspan font-weight="700" fill="#57C6BC">Registo</tspan>.</text>
+
+  <!-- boundary band -->
+  <rect x="28" y="346" width="944" height="86" rx="10" fill="#1B1113" stroke="#5A1A22" stroke-width="1.2"/>
+  <text x="44" y="372" font-size="11.5" font-weight="700" fill="#E8909D">O Operador Zero é o alvo da validação, nunca o juiz.</text>
+  <text x="44" y="394" font-size="10.5" fill="#B6B6BE">Não se valida a si próprio · não movimenta dinheiro real · não emite certificado.</text>
+  <text x="44" y="414" font-size="10.5" fill="#B6B6BE">Sem simulador autónomo · sem ledger mutável · a avaliação é sempre externa, em Rust.</text>
+
+  <text x="500" y="462" text-anchor="middle" font-size="9" fill="#7C7C85">SVG-P-088 · Operador Zero — alvo de validação · BANZA_REFERENCIA.md §9 · v2.0 · 2026-07-29</text>
+</svg>

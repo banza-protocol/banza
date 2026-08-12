@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "milestone": "Increment 7 §18 — canonical eval count reconciliation",
+  "generated_by": "eval/canonical-reconciliation.mjs (deterministic; prior counts computed from source)",
+  "prior_suites": [
+    {
+      "key": "m2-18b6-grounded",
+      "label": "M2.18B.6 grounded-synthesis dataset (12 categories)",
+      "count": 709,
+      "source": "services/banzai-api/eval/m2-18b6-grounded.dataset.json (total)",
+      "canonical_class_mapping": [
+        "base",
+        "variation",
+        "negative",
+        "comparison→regression"
+      ],
+      "note": "This is the 709. Its explanation/exact/impact/mixed/follow_up/example/concept categories map to the canonical base+variation classes; its boundary/adversarial/unsupported/ambiguity categories map to negative; compare maps to regression."
+    },
+    {
+      "key": "bzc-4-coverage",
+      "label": "BZC-4 cross-protocol resolution coverage (entity×artifact×lang×surface + neg + documental)",
+      "count": 1564,
+      "source": "services/banzai-api/eval/bzc-coverage.mjs (summary.metrics.total, runtime-computed = 1500 positive + 49 negative-entity + 15 documental)",
+      "canonical_class_mapping": [
+        "live",
+        "negative"
+      ],
+      "note": "This is the 1564. Its 1500 positive entity×artifact cases map to the canonical live class; its 49 non-entity + 15 documental cases map to negative. The canonical suite re-expresses this resolution family under the same structured schema (a curated, deduplicated subset), not a copy."
+    },
+    {
+      "key": "m2-18b2-boundary",
+      "label": "M2.18B.2 action-boundary dataset (boundary + informational)",
+      "count": 165,
+      "source": "services/banzai-api/eval/m2-18b2-boundary.dataset.json (boundary_cases + informational_cases)",
+      "canonical_class_mapping": [
+        "negative"
+      ],
+      "note": "115 boundary + 50 informational = 165. Maps to the canonical negative class (boundary refusals) + intent cases."
+    },
+    {
+      "key": "typo-intent-recovery",
+      "label": "M2.18B.5 typo / misspelling intent-recovery dataset",
+      "count": 248,
+      "source": "services/banzai-api/eval/typo-dataset.mjs (DATASET)",
+      "canonical_class_mapping": [
+        "variation"
+      ],
+      "note": "Lexical robustness — the canonical suite generalizes this into the variation class (capitalization/punctuation/accent/whitespace + paraphrases over every family)."
+    },
+    {
+      "key": "answer-quality-matrix",
+      "label": "M2.13C answer-quality regression matrix (inline arrays)",
+      "count": 172,
+      "source": "services/banzai-api/eval/answer-quality-matrix.mjs (MANDATORY+DANGEROUS+AMBIGUOUS+ENGLISH+RANKING+FAMILIES.questions)",
+      "canonical_class_mapping": [
+        "base",
+        "negative",
+        "variation"
+      ],
+      "note": "Behavioural answer-quality matrix — its mandatory/English/ambiguous/ranking questions map to base+variation, its dangerous questions to negative."
+    },
+    {
+      "key": "multi-turn-conversations",
+      "label": "Increment 6 multi-turn conversational context (behavioural guard)",
+      "count": 112,
+      "source": "tools/check-banzai-multiturn-context.sh + engines/banzai-query-core/src/context.rs (112 conversations / 812 asserted turns — guard-only, no dataset file)",
+      "canonical_class_mapping": [
+        "multi_turn"
+      ],
+      "note": "Guard-asserted (not a committed dataset file). The canonical suite materializes multi-turn as a first-class multi_turn class with committed, structured expectations."
+    }
+  ],
+  "prior_total_no_double_counting": 2970,
+  "canonical_suite": {
+    "total": 2791,
+    "floor": 2500,
+    "distinct_semantic_seeds": 46,
+    "by_class": {
+      "base": 46,
+      "variation": 643,
+      "multi_turn": 61,
+      "negative": 199,
+      "live": 1165,
+      "regression": 677
+    },
+    "class_definitions": {
+      "base": "base semantic cases — one canonical human-authored phrasing per meaning",
+      "variation": "generated lexical variations — capitalization/punctuation/accent/whitespace + paraphrases of the base seeds (a capitalization/punctuation change is a VARIATION, never a new semantic case)",
+      "multi_turn": "multi-turn conversations — anaphora resolved against the safe technical prior context",
+      "negative": "negative cases — off-domain declines, non-entity guards, boundary refusals, and zero-tolerance adversarial probes",
+      "live": "live cases — implementation-scoped artifacts (entity×artifact) and operational metrics (metric×aggregation) that require the live tool / telemetry",
+      "regression": "regression cases — documentary corpus coverage + grounded claim/calculation anchors that protect the prior grounded families"
+    },
+    "by_family": {
+      "concepts": 958,
+      "procedures": 30,
+      "security": 14,
+      "apis": 32,
+      "governance": 41,
+      "profiles": 24,
+      "duration": 23,
+      "metrics": 76,
+      "reason_codes": 138,
+      "diagnosis": 16,
+      "reproduction": 14,
+      "hypotheses": 17,
+      "comparison": 23,
+      "artifacts": 1125,
+      "multi_turn": 61,
+      "negative": 199
+    }
+  },
+  "how_709_1564_map": {
+    "709": "M2.18B.6 grounded-synthesis total (m2-18b6-grounded.dataset.json). Subsumed by the canonical base + variation (grounded documentary families) and negative (boundary/adversarial/unsupported/ambiguity) classes.",
+    "1564": "BZC-4 resolution-coverage total (bzc-coverage.mjs = 1500 positive + 49 negative-entity + 15 documental). Subsumed by the canonical live (entity×artifact) and negative classes.",
+    "new_cases": "The operational families (metrics, duration, diagnosis, reason_codes, reproduction, comparison-of-executions), the multi_turn class, and the zero-tolerance adversarial probes are ADDITIVE — they cover behaviours neither 709 nor 1564 measured. The canonical suite counts every case ONCE, by class; it does not add the prior suites' totals to its own."
+  }
+}

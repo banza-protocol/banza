@@ -1,0 +1,20 @@
+{
+  "schema_version": "1",
+  "metadata_type": "protocol_metadata",
+  "operator_id": "operator-b-test",
+  "protocol_version": "1.0",
+  "capabilities": [],
+  "conformance_scope": 3,
+  "public_key": "ed25519:<operator-b-ed25519-public-key-base64url>",
+  "issued_at": "<ISSUED_YESTERDAY>",
+  "expires_at": "<EXPIRES_89_DAYS>",
+  "trust_root_version": "2026-05",
+  "signatures": [
+    {
+      "key_id": "test-banza-key-2026-05",
+      "signer_type": "delegated_signing_key",
+      "algorithm": "ed25519",
+      "signature": "<ed25519-base64url-64-bytes>"
+    }
+  ]
+}

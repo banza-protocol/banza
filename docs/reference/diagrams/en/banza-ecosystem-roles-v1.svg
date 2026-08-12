@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 650" role="img" aria-labelledby="title desc" font-family="system-ui,-apple-system,sans-serif">
+  <title id="title">The Four Roles</title>
+  <desc id="desc">The four roles of the open financial protocol, never merged: BANZA sets the protocol rules, invariants, contracts and conformance criteria; Protocol Governance maintains the protocol and never certifies operators; Operators are independent implementations on any technology stack; and BanzAI, the native protocol agent, guides and verifies but never decides. No operator is privileged and no technology is mandated.</desc>
+  <defs>
+    <linearGradient id="hg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#990011"/>
+      <stop offset="100%" stop-color="#B11226"/>
+    </linearGradient>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#9CA3AF"/>
+    </marker>
+  </defs>
+  <rect width="900" height="650" fill="#FCF6F5" rx="16"/>
+  <rect x="0" y="0" width="900" height="64" fill="url(#hg)" rx="16"/>
+  <rect x="0" y="48" width="900" height="16" fill="#B11226"/>
+  <text x="32" y="28" font-family="ui-monospace,'Courier New',monospace" font-size="9" fill="#FECACA" letter-spacing="2">SVG-PE-002 · OPEN FINANCIAL PROTOCOL</text>
+  <text x="32" y="50" font-size="17" font-weight="800" fill="white">The Four Roles</text>
+  <text x="868" y="50" text-anchor="end" font-size="10.5" fill="#FECACA">BANZA defines · Operators implement · Tools verify · BanzAI explains</text>
+  <rect x="190" y="92" width="520" height="92" fill="url(#hg)" rx="14"/>
+  <text x="450" y="130" text-anchor="middle" font-size="19" font-weight="800" fill="white">BANZA</text>
+  <text x="450" y="156" text-anchor="middle" font-size="12" font-weight="600" fill="#FECACA" letter-spacing="2">DEFINES</text>
+  <text x="726" y="134" text-anchor="start" font-size="8.5" fill="#9CA3AF">Protocol rules, invariants,</text>
+  <text x="726" y="148" text-anchor="start" font-size="8.5" fill="#9CA3AF">contracts, conformance criteria</text>
+  <line x1="450" y1="184" x2="450" y2="208" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="190" y="214" width="520" height="92" fill="white" rx="14" stroke="#B11226" stroke-width="2"/>
+  <text x="450" y="252" text-anchor="middle" font-size="19" font-weight="800" fill="#991B1B">Protocol Governance</text>
+  <text x="450" y="278" text-anchor="middle" font-size="12" font-weight="600" fill="#B91C1C" letter-spacing="2">MAINTAINS</text>
+  <text x="726" y="256" text-anchor="start" font-size="8.5" fill="#9CA3AF">Maintains the protocol —</text>
+  <text x="726" y="270" text-anchor="start" font-size="8.5" fill="#9CA3AF">never certifies operators</text>
+  <line x1="450" y1="306" x2="450" y2="330" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="190" y="336" width="520" height="92" fill="white" rx="14" stroke="#D1D5DB" stroke-width="1.5"/>
+  <text x="450" y="374" text-anchor="middle" font-size="19" font-weight="800" fill="#1F2937">Operators</text>
+  <text x="450" y="400" text-anchor="middle" font-size="12" font-weight="600" fill="#6B7280" letter-spacing="2">IMPLEMENT</text>
+  <text x="726" y="378" text-anchor="start" font-size="8.5" fill="#9CA3AF">Independent implementations —</text>
+  <text x="726" y="392" text-anchor="start" font-size="8.5" fill="#9CA3AF">any technology stack</text>
+  <line x1="450" y1="428" x2="450" y2="452" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="190" y="458" width="520" height="92" fill="#1F2937" rx="14"/>
+  <text x="450" y="496" text-anchor="middle" font-size="19" font-weight="800" fill="white">BanzAI</text>
+  <text x="450" y="522" text-anchor="middle" font-size="12" font-weight="600" fill="#9CA3AF" letter-spacing="2">EXPLAINS</text>
+  <text x="726" y="500" text-anchor="start" font-size="8.5" fill="#9CA3AF">Native Protocol Agent —</text>
+  <text x="726" y="514" text-anchor="start" font-size="8.5" fill="#9CA3AF">explains and verifies, never decides</text>
+  <text x="450" y="592" text-anchor="middle" font-size="10.5" font-weight="600" fill="#6B7280">Four roles — never merged. No operator is privileged. No technology is mandated.</text>
+
+  <line x1="32" y1="602" x2="868" y2="602" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="450" y="622" text-anchor="middle" font-size="8.5" fill="#9CA3AF">SVG-PE-002 · The Four Roles · BANZA Open Financial Protocol · v1.0 · 2026-06-12</text>
+</svg>

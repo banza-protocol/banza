@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  id:        SVG-P-090
+  diagram:   Jornada de validação do Operador Zero — nove passos: descoberta → manifest → chaves → conformidade → interoperabilidade → confiança → federação → evidência → prontidão
+  version:   2.1
+  source:    BANZA_REFERENCIA.md §9 (Operador Zero — jornada de validação em BanzAI, M2.19E/F)
+  updated:   2026-08-09 (Ch09: /.well-known/banza/operator.json · banda demo/sem-fundos · «manifest» · sem vocabulário «simulador»)
+  author:    BANZA Protocol
+  style:     protocol-dark
+-->
+<svg viewBox="0 0 1000 720" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-labelledby="title-P090 desc-P090"
+     font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="title-P090">Jornada de validação do Operador Zero em nove passos</title>
+  <desc id="desc-P090">Uma sequência ordenada de nove passos, conduzida pelo BanzAI e avaliada em cada passo pelos motores Rust, sobre um ambiente de demonstração que não movimenta dinheiro real (moeda KZ_DEMO). Passo 1 descoberta dos endpoints. Passo 2 manifest em /.well-known/banza/operator.json. Passo 3 chaves e metadata de protocolo assinada. Passo 4 conformidade avaliada sobre os vectores. Passo 5 interoperabilidade e contrato de endpoint entre pares. Passo 6 confiança pela Open Trust Evaluation, que fecha por omissão. Passo 7 federação avaliada entre pares. Passo 8 evidência empacotada de forma reproduzível. Passo 9 prontidão para certificação, em que o Operador Zero não emite qualquer certificado — a prontidão é evidência técnica, não uma credencial concedida.</desc>
+  <defs>
+    <linearGradient id="hg-P090" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E0F1A"/><stop offset="100%" stop-color="#8E1326"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1000" height="720" fill="#0E0E11"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="1000" height="64" fill="url(#hg-P090)" rx="14"/>
+  <rect x="0" y="48" width="1000" height="16" fill="#8E1326"/>
+  <text x="24" y="26" font-family="ui-monospace,'Courier New',monospace" font-size="9" fill="#FECACA" letter-spacing="2">SVG-P-090 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="24" y="50" font-size="18" font-weight="800" fill="#FFFFFF">Jornada de validação — nove passos</text>
+  <text x="976" y="50" text-anchor="end" font-size="11" fill="#F6D9DD">BanzAI conduz · Rust avalia em cada passo</text>
+
+  <!-- journey spine -->
+  <line x1="88" y1="134" x2="88" y2="582" stroke="#2B2B33" stroke-width="2"/>
+
+  <!-- 1 · Descoberta (slate) -->
+  <rect x="64" y="112" width="872" height="44" rx="10" fill="#17171B" stroke="#2B2B33" stroke-width="1"/>
+  <circle cx="88" cy="134" r="14" fill="#33465B"/><text x="88" y="139" text-anchor="middle" font-size="12" font-weight="800" fill="#FFFFFF">1</text>
+  <text x="118" y="139" font-size="13" font-weight="700" fill="#ECECF0">Descoberta</text>
+  <text x="924" y="139" text-anchor="end" font-size="10" fill="#8FB0D0">BanzAI localiza os endpoints do Operador Zero</text>
+
+  <!-- 2 · Manifesto (green) -->
+  <rect x="64" y="168" width="872" height="44" rx="10" fill="#17171B" stroke="#2B2B33" stroke-width="1"/>
+  <circle cx="88" cy="190" r="14" fill="#2E6A4E"/><text x="88" y="195" text-anchor="middle" font-size="12" font-weight="800" fill="#FFFFFF">2</text>
+  <text x="118" y="195" font-size="13" font-weight="700" fill="#ECECF0">Manifest</text>
+  <text x="924" y="195" text-anchor="end" font-size="10" font-family="ui-monospace,'Courier New',monospace" fill="#74C79E">GET /.well-known/banza/operator.json</text>
+
+  <!-- 3 · Chaves (teal) -->
+  <rect x="64" y="224" width="872" height="44" rx="10" fill="#17171B" stroke="#2B2B33" stroke-width="1"/>
+  <circle cx="88" cy="246" r="14" fill="#0F766E"/><text x="88" y="251" text-anchor="middle" font-size="12" font-weight="800" fill="#FFFFFF">3</text>
+  <text x="118" y="251" font-size="13" font-weight="700" fill="#ECECF0">Chaves</text>
+  <text x="924" y="251" text-anchor="end" font-size="10" fill="#57C6BC">metadata de protocolo assinada · chaves delegadas</text>
+
+  <!-- 4 · Conformidade (wine) -->
+  <rect x="64" y="280" width="872" height="44" rx="10" fill="#17171B" stroke="#2B2B33" stroke-width="1"/>
+  <circle cx="88" cy="302" r="14" fill="#8E1326"/><text x="88" y="307" text-anchor="middle" font-size="12" font-weight="800" fill="#FFFFFF">4</text>
+  <text x="118" y="307" font-size="13" font-weight="700" fill="#ECECF0">Conformidade</text>
+  <text x="924" y="307" text-anchor="end" font-size="10" fill="#E8909D">motores Rust avaliam os vectores de conformidade</text>
+
+  <!-- 5 · Interoperabilidade (teal) -->
+  <rect x="64" y="336" width="872" height="44" rx="10" fill="#17171B" stroke="#2B2B33" stroke-width="1"/>
+  <circle cx="88" cy="358" r="14" fill="#0F766E"/><text x="88" y="363" text-anchor="middle" font-size="12" font-weight="800" fill="#FFFFFF">5</text>
+  <text x="118" y="363" font-size="13" font-weight="700" fill="#ECECF0">Interoperabilidade</text>
+  <text x="924" y="363" text-anchor="end" font-size="10" fill="#57C6BC">troca entre pares · contrato de endpoint</text>
+
+  <!-- 6 · Confiança (slate) -->
+  <rect x="64" y="392" width="872" height="44" rx="10" fill="#17171B" stroke="#2B2B33" stroke-width="1"/>
+  <circle cx="88" cy="414" r="14" fill="#33465B"/><text x="88" y="419" text-anchor="middle" font-size="12" font-weight="800" fill="#FFFFFF">6</text>
+  <text x="118" y="419" font-size="13" font-weight="700" fill="#ECECF0">Confiança</text>
+  <text x="924" y="419" text-anchor="end" font-size="10" fill="#8FB0D0">Open Trust Evaluation · fecho por omissão</text>
+
+  <!-- 7 · Federação (teal) -->
+  <rect x="64" y="448" width="872" height="44" rx="10" fill="#17171B" stroke="#2B2B33" stroke-width="1"/>
+  <circle cx="88" cy="470" r="14" fill="#0F766E"/><text x="88" y="475" text-anchor="middle" font-size="12" font-weight="800" fill="#FFFFFF">7</text>
+  <text x="118" y="475" font-size="13" font-weight="700" fill="#ECECF0">Federação</text>
+  <text x="924" y="475" text-anchor="end" font-size="10" fill="#57C6BC">avaliação de federação entre pares</text>
+
+  <!-- 8 · Evidência (gold) -->
+  <rect x="64" y="504" width="872" height="44" rx="10" fill="#17171B" stroke="#2B2B33" stroke-width="1"/>
+  <circle cx="88" cy="526" r="14" fill="#B98A3E"/><text x="88" y="531" text-anchor="middle" font-size="12" font-weight="800" fill="#26200F">8</text>
+  <text x="118" y="531" font-size="13" font-weight="700" fill="#ECECF0">Evidência</text>
+  <text x="924" y="531" text-anchor="end" font-size="10" fill="#E7C67E">evidence bundle reproduzível</text>
+
+  <!-- 9 · Prontidão para Certificação — não emite certificado (wine emphasis) -->
+  <rect x="64" y="560" width="872" height="44" rx="10" fill="#1B1113" stroke="#5A1A22" stroke-width="1.4"/>
+  <circle cx="88" cy="582" r="14" fill="#8E1326"/><text x="88" y="587" text-anchor="middle" font-size="12" font-weight="800" fill="#FFFFFF">9</text>
+  <text x="118" y="587" font-size="13" font-weight="700" fill="#ECECF0">Prontidão para Certificação<tspan font-size="10.5" font-weight="600" fill="#E8909D"> — o Operador Zero não emite certificado</tspan></text>
+  <text x="924" y="587" text-anchor="end" font-size="10" fill="#B6B6BE">evidência técnica</text>
+
+  <!-- boundary band -->
+  <rect x="64" y="618" width="872" height="66" rx="10" fill="#141418" stroke="#2B2B33" stroke-width="1"/>
+  <text x="80" y="638" font-size="10.5" fill="#B6B6BE">Sequência conduzida em BanzAI e avaliada em Rust, sobre um ambiente de demonstração: moeda KZ_DEMO, não movimenta dinheiro real.</text>
+  <text x="80" y="655" font-size="10.5" fill="#B6B6BE">A prontidão é evidência de conformidade reproduzível — não uma credencial concedida.</text>
+  <text x="80" y="672" font-size="10.5" fill="#B6B6BE">Sem execução ao vivo nesta superfície, sem auto-validação e sem autoridade central.</text>
+
+  <text x="500" y="706" text-anchor="middle" font-size="9" fill="#7C7C85">SVG-P-090 · Jornada de validação do Operador Zero · BANZA_REFERENCIA.md §9 · v2.1 · 2026-08-09</text>
+</svg>

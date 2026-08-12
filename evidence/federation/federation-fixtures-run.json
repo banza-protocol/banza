@@ -1,0 +1,378 @@
+{
+  "classification": {
+    "crypto_delegated_to_banza_trust": [
+      "FED-SPM-003"
+    ],
+    "executed_cases": 37,
+    "execution_driven_by_banza_simb": [
+      "FED-EXEC-001",
+      "FED-EXEC-002",
+      "FED-FAIL-006"
+    ],
+    "structural_semantic": 33
+  },
+  "drift": {
+    "ab_scenario_fixtures": [
+      "MANIFEST-B-VALID"
+    ],
+    "clean": true,
+    "embedded_fixtures": 31,
+    "referenced_but_missing": [],
+    "referenced_by_suite": 30,
+    "unreferenced_fixtures": []
+  },
+  "evaluation_instant": "2026-06-01T00:00:00Z",
+  "honesty": "Fixtures carry structural placeholder signatures; ed25519 verification is executed by banza-trust (real keypairs) and cross-referenced, not asserted from static fixtures. Fund-movement terminals are driven by the in-process banza-simb Federation engine. No network, no funds, no secrets.",
+  "report": {
+    "certification_disclaimer": "PASS is technical conformance evidence, not production certification. Production certification requires the offline root-key ceremony and the first published production conformance evidence; no implementation holds production certification and no production certificate is active.",
+    "level": "federation-fixtures-L3",
+    "machine_readable": true,
+    "mode": "committed-fixture-vectors",
+    "not_yet_ported": [],
+    "outcomes": [
+      {
+        "case_id": "FED-SPM-001",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "accepted → signed protocol metadata is structurally valid and not revoked",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-SPM-002",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "rejected → signed protocol metadata is past its expiry",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-SPM-003",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "invalid signature rejected via banza-trust (real ed25519; fixture carries a structural placeholder signature)",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-SPM-004",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "rejected → signing key_id is not an active key in the Key Manifest at issuance",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-SPM-005",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "rejected → operator_id is not a known federation participant",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-SPM-006",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "rejected → conformance scope is below the L3 federation requirement",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-SPM-007",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "rejected → capabilities do not include cross_operator_routing",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-SPM-009",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "rejected → operator appears in the current BANZA Revocation List",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-DISC-001",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "accepted → manifest supports federation with a declared capability and published L3 evidence",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-DISC-002",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "rejected → manifest does not declare supports_federation",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-DISC-004",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "rejected → supports_federation is true but cross_operator_routing is not declared",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-DISC-005",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "rejected → manifest federation_version is not supported",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-DISC-006",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "rejected → manifest operator_id is not a known participant",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-DISC-007",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "rejected → manifest does not declare supports_federation",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-DISC-008",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "rejected → supports_federation without published L3+ conformance evidence (INV-FEDEVAL-007)",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-TRUST-001",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "accepted → Key Manifest carries the full expected active issuer key set",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-TRUST-002",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "rejected → Key Manifest is missing an expected issuer key",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-TRUST-003",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "no_revocations_active → fresh BRL with an empty revocation set",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-TRUST-004",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "peer_rejected → the routing peer appears in the current BRL",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-TRUST-005",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "re_fetch_triggered → BRL is past its freshness window; re-fetch required",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-TRUST-006",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "processed_immediately → fresh BRL carrying revocations is applied at once",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-ROUTE-001",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "accepted → routing request satisfies the routing contract",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-ROUTE-002",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "rejected → recipient wallet does not exist on the peer",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-ROUTE-003",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "rejected → recipient wallet is suspended",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-ROUTE-004",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "rejected → amount currency is not supported by the peer",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-ROUTE-005",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "rejected → request is addressed to a different operator",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-ROUTE-006",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "rejected → routing amount is zero",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-ROUTE-007",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "rejected → same routing_request_id, different content",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-ROUTE-008",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "transfer_initiated → accepted response → transfer initiated (SimB atomicity proves the debit+obligation posting)",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-ROUTE-009",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "transfer_not_created → rejected response → no transfer created (SimB atomicity: a rejected route never debits)",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-EXEC-001",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "payment_completed → SimB route: atomic debit + obligation (net==amount)",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-EXEC-002",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "original_result_returned → SimB idempotent replay returned original result",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-EXEC-003",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "rejected → same routing_request_id, different content",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-EXEC-007",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "source_debit_reversed → rejected response → any provisional source debit reversed (SimB atomicity: net obligation unchanged)",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-FAIL-002",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "routing_rejected_gracefully → rejected response handled without fund loss",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-FAIL-004",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "stale_brl_used_with_flag → stale BRL is served only under an explicit staleness flag pending re-fetch",
+        "status": "pass"
+      },
+      {
+        "case_id": "FED-FAIL-006",
+        "duration_ms": 0,
+        "error_code": null,
+        "evidence": [],
+        "invariant_results": [],
+        "reason": "second_request_idempotent → SimB second identical route replayed idempotently",
+        "status": "pass"
+      }
+    ],
+    "protocol_version": "1.0.0",
+    "runner": "banza-conformance-fed-fixtures",
+    "runner_version": "0.1.0",
+    "totals": {
+      "error": 0,
+      "fail": 0,
+      "pass": 37,
+      "skip": 0,
+      "total": 37
+    }
+  }
+}

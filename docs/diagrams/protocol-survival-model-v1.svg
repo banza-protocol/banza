@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  id:        SVG-P-061
+  diagram:   Protocol Survival Model
+  version:   1.0
+  source:    ADR-001 — Open financial protocol, implementation independence
+  updated:   2026-07-17
+  author:    BANZA Protocol
+  style:     protocol
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 760" role="img" aria-labelledby="title-P061 desc-P061" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="title-P061">Protocol Survival Model</title>
+  <desc id="desc-P061">The ingredients that let the BANZA protocol outlive its founding team: open specs, open code, tests, docs, protocol maintainers, independent operators and community. Maintainers maintain the protocol through the open RFC process; they do not authorise, accept or approve operators. Survival comes from public, forkable artifacts and independently run operators, not from any single organisation.</desc>
+
+  <defs>
+    <linearGradient id="hg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#990011"/><stop offset="100%" stop-color="#B11226"/>
+    </linearGradient>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="4.5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#6B7280"/>
+    </marker>
+  </defs>
+
+  <rect width="1120" height="760" fill="#FCF6F5" rx="16"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="1120" height="72" fill="url(#hg)" rx="16"/>
+  <rect x="0" y="56" width="1120" height="16" fill="#B11226"/>
+  <text x="36" y="32" font-family="ui-monospace,'Courier New',monospace" font-size="10" fill="#FECACA" letter-spacing="2">SVG-P-061 · OPEN FINANCIAL PROTOCOL</text>
+  <text x="36" y="56" font-size="19" font-weight="800" fill="white">Protocol Survival Model</text>
+  <text x="1084" y="56" text-anchor="end" font-size="11" fill="#FECACA">open specs · open code · tests · docs · maintainers · operators · community</text>
+
+  <!-- ── Prominent message callout ── -->
+  <rect x="36" y="88" width="1048" height="58" rx="12" fill="white" stroke="#D4C9C7" stroke-width="1.5"/>
+  <rect x="36" y="88" width="14" height="58" rx="12" fill="#990011"/>
+  <rect x="44" y="88" width="6" height="58" fill="#990011"/>
+  <text x="68" y="118" font-size="22" font-weight="800" fill="#1A1A1A">Protocol can outlive founding team.</text>
+  <text x="68" y="137" font-size="11.5" fill="#6B6265">Everything needed to run, verify and evolve the protocol is public, reproducible and independently held — no single team holds a switch.</text>
+
+  <!-- ── LAYER 1 — Persistent artifacts ── -->
+  <rect x="36" y="164" width="1048" height="180" fill="white" rx="12" stroke="#E5E7EB" stroke-width="1.5"/>
+  <rect x="36" y="164" width="1048" height="32" fill="#1F2937" rx="12"/>
+  <rect x="36" y="182" width="1048" height="14" fill="#1F2937"/>
+  <text x="56" y="184" font-size="10" font-weight="700" fill="#9CA3AF" letter-spacing="1.5">LAYER 1 — PERSISTENT ARTIFACTS</text>
+  <text x="560" y="184" text-anchor="middle" font-size="14" font-weight="800" fill="white">Public · forkable · self-describing</text>
+
+  <!-- Open Specs -->
+  <rect x="56" y="210" width="240" height="118" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/>
+  <text x="176" y="234" text-anchor="middle" font-size="12.5" font-weight="800" fill="#1F2937">Open Specs</text>
+  <text x="176" y="254" text-anchor="middle" font-family="ui-monospace,'Courier New',monospace" font-size="9.5" fill="#991B1B">contracts/</text>
+  <text x="176" y="276" text-anchor="middle" font-size="10" fill="#374151">OpenAPI · webhooks · QR payload</text>
+  <text x="176" y="296" text-anchor="middle" font-size="10" fill="#6B6265">Invariants are written down —</text>
+  <text x="176" y="311" text-anchor="middle" font-size="10" fill="#6B6265">not held in anyone's head.</text>
+
+  <!-- Open Code -->
+  <rect x="312" y="210" width="240" height="118" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/>
+  <text x="432" y="234" text-anchor="middle" font-size="12.5" font-weight="800" fill="#1F2937">Open Code</text>
+  <text x="432" y="254" text-anchor="middle" font-family="ui-monospace,'Courier New',monospace" font-size="9.5" fill="#991B1B">engines/ · examples/</text>
+  <text x="432" y="276" text-anchor="middle" font-size="10" fill="#374151">Reference implementations</text>
+  <text x="432" y="296" text-anchor="middle" font-size="10" fill="#6B6265">Behaviour is readable and</text>
+  <text x="432" y="311" text-anchor="middle" font-size="10" fill="#6B6265">reproducible by anyone.</text>
+
+  <!-- Tests -->
+  <rect x="568" y="210" width="240" height="118" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/>
+  <text x="688" y="234" text-anchor="middle" font-size="12.5" font-weight="800" fill="#1F2937">Tests</text>
+  <text x="688" y="254" text-anchor="middle" font-family="ui-monospace,'Courier New',monospace" font-size="9.5" fill="#991B1B">conformance/</text>
+  <text x="688" y="276" text-anchor="middle" font-size="10" fill="#374151">Test vectors · automation · evidence</text>
+  <text x="688" y="296" text-anchor="middle" font-size="10" fill="#6B6265">Correctness is checkable</text>
+  <text x="688" y="311" text-anchor="middle" font-size="10" fill="#6B6265">without asking anyone.</text>
+
+  <!-- Docs -->
+  <rect x="824" y="210" width="240" height="118" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/>
+  <text x="944" y="234" text-anchor="middle" font-size="12.5" font-weight="800" fill="#1F2937">Docs</text>
+  <text x="944" y="254" text-anchor="middle" font-family="ui-monospace,'Courier New',monospace" font-size="9.5" fill="#991B1B">decisions/adr/ · docs/</text>
+  <text x="944" y="276" text-anchor="middle" font-size="10" fill="#374151">ADRs · RFC history · governance</text>
+  <text x="944" y="296" text-anchor="middle" font-size="10" fill="#6B6265">Intent survives the people</text>
+  <text x="944" y="311" text-anchor="middle" font-size="10" fill="#6B6265">who wrote it.</text>
+
+  <!-- ── LAYER 2 — Regenerating roles ── -->
+  <rect x="36" y="360" width="1048" height="186" fill="white" rx="12" stroke="#E5E7EB" stroke-width="1.5"/>
+  <rect x="36" y="360" width="1048" height="32" fill="#166534" rx="12"/>
+  <rect x="36" y="378" width="1048" height="14" fill="#166534"/>
+  <text x="56" y="380" font-size="10" font-weight="700" fill="#BBF7D0" letter-spacing="1.5">LAYER 2 — REGENERATING ROLES</text>
+  <text x="560" y="380" text-anchor="middle" font-size="14" font-weight="800" fill="white">Replaceable people · never owners</text>
+
+  <!-- Protocol Maintainers -->
+  <rect x="56" y="402" width="324" height="128" rx="10" fill="#F0FDF4" stroke="#BBF7D0"/>
+  <text x="218" y="426" text-anchor="middle" font-size="12.5" font-weight="800" fill="#166534">Protocol Maintainers</text>
+  <text x="218" y="444" text-anchor="middle" font-family="ui-monospace,'Courier New',monospace" font-size="9.5" fill="#6B6265">RFC process · public review</text>
+  <text x="218" y="466" text-anchor="middle" font-size="10" fill="#374151">Merge specs, code, tests and releases</text>
+  <text x="218" y="481" text-anchor="middle" font-size="10" fill="#374151">through the open RFC process.</text>
+  <text x="218" y="500" text-anchor="middle" font-size="10" fill="#6B6265">They maintain the protocol — they do not</text>
+  <text x="218" y="515" text-anchor="middle" font-size="10" fill="#6B6265">authorise, accept or approve operators.</text>
+
+  <!-- Independent Operators -->
+  <rect x="398" y="402" width="324" height="128" rx="10" fill="#EFF6FF" stroke="#BFDBFE"/>
+  <text x="560" y="426" text-anchor="middle" font-size="12.5" font-weight="800" fill="#1E40AF">Independent Operators</text>
+  <text x="560" y="444" text-anchor="middle" font-family="ui-monospace,'Courier New',monospace" font-size="9.5" fill="#6B6265">Operator A · Operator B · Operator C</text>
+  <text x="560" y="466" text-anchor="middle" font-size="10" fill="#374151">Each runs the protocol locally, on its own</text>
+  <text x="560" y="481" text-anchor="middle" font-size="10" fill="#374151">infrastructure, under its own control.</text>
+  <text x="560" y="500" text-anchor="middle" font-size="10" fill="#6B6265">If one stops, the others keep running.</text>
+  <text x="560" y="515" text-anchor="middle" font-size="10" fill="#6B6265">No operator owns the protocol.</text>
+
+  <!-- Community -->
+  <rect x="740" y="402" width="324" height="128" rx="10" fill="#FEFCE8" stroke="#FDE68A"/>
+  <text x="902" y="426" text-anchor="middle" font-size="12.5" font-weight="800" fill="#854D0E">Community</text>
+  <text x="902" y="444" text-anchor="middle" font-family="ui-monospace,'Courier New',monospace" font-size="9.5" fill="#6B6265">public registry · public repositories</text>
+  <text x="902" y="466" text-anchor="middle" font-size="10" fill="#374151">Reads, forks, proposes RFCs, reports</text>
+  <text x="902" y="481" text-anchor="middle" font-size="10" fill="#374151">issues, verifies conformance evidence.</text>
+  <text x="902" y="500" text-anchor="middle" font-size="10" fill="#6B6265">The right to fork needs no permission —</text>
+  <text x="902" y="515" text-anchor="middle" font-size="10" fill="#6B6265">so continuity has no single owner.</text>
+
+  <!-- ── CONTINUITY CHAIN ── -->
+  <rect x="36" y="562" width="1048" height="104" fill="white" rx="12" stroke="#BFDBFE" stroke-width="1.5"/>
+  <rect x="36" y="562" width="1048" height="28" fill="#1E40AF" rx="12"/>
+  <rect x="36" y="576" width="1048" height="14" fill="#1E40AF"/>
+  <text x="56" y="581" font-size="10" font-weight="700" fill="#BFDBFE" letter-spacing="1">CONTINUITY — WHAT HAPPENS IF THE FOUNDING TEAM STOPS</text>
+
+  <rect x="56" y="604" width="225" height="50" rx="8" fill="#F3F4F6" stroke="#9CA3AF" stroke-dasharray="5 3"/>
+  <text x="168" y="623" text-anchor="middle" font-size="10" font-weight="700" fill="#6B6265">Founding team stops</text>
+  <text x="168" y="638" text-anchor="middle" font-size="10" fill="#6B6265">replaceable role, not a switch</text>
+  <line x1="285" y1="629" x2="313" y2="629" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr)"/>
+
+  <rect x="317" y="604" width="225" height="50" rx="8" fill="#F9FAFB" stroke="#E5E7EB"/>
+  <text x="430" y="623" text-anchor="middle" font-size="10" font-weight="700" fill="#1F2937">Specs · code · tests · docs</text>
+  <text x="430" y="638" text-anchor="middle" font-size="10" fill="#6B6265">remain public and forkable</text>
+  <line x1="546" y1="629" x2="574" y2="629" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr)"/>
+
+  <rect x="578" y="604" width="225" height="50" rx="8" fill="#F0FDF4" stroke="#BBF7D0"/>
+  <text x="690" y="623" text-anchor="middle" font-size="10" font-weight="700" fill="#166534">Maintainers regenerate</text>
+  <text x="690" y="638" text-anchor="middle" font-size="10" fill="#6B6265">open RFC process continues</text>
+  <line x1="807" y1="629" x2="835" y2="629" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr)"/>
+
+  <rect x="839" y="604" width="225" height="50" rx="8" fill="#EFF6FF" stroke="#BFDBFE"/>
+  <text x="952" y="623" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Operator A · B · C keep running</text>
+  <text x="952" y="638" text-anchor="middle" font-size="10" fill="#6B6265">the protocol continues</text>
+
+  <!-- Closing band -->
+  <rect x="36" y="680" width="1048" height="44" rx="10" fill="#F3F4F6"/>
+  <text x="560" y="700" text-anchor="middle" font-size="11.5" font-weight="700" fill="#374151">Protocol can outlive founding team.</text>
+  <text x="560" y="716" text-anchor="middle" font-size="10.5" fill="#6B6265">Survival is a property of open artifacts and independent operators — not of any single organisation, team or institution.</text>
+
+  <!-- Footer -->
+  <text x="560" y="744" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-061 · Protocol Survival Model · M2.2 Open Protocol Governance · ADR-001 · 2026-07-17</text>
+</svg>

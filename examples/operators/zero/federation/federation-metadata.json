@@ -1,0 +1,41 @@
+{
+  "demo_only": true,
+  "monetary_value": false,
+  "production_allowed": false,
+  "operator_id": "operator-zero",
+  "operator_display_name": "Operador Zero",
+  "implementation_id": "operator-zero-ref-impl",
+  "artifact_type": "federation_metadata",
+  "currency": "KZ_DEMO",
+  "protocol_version": "1.0.0",
+  "environment": "sandbox",
+  "profile": "L0",
+  "discovery_url": "https://zero.banza.network/discovery.json",
+  "signed_metadata_url": "https://zero.banza.network/.well-known/banza/signed-protocol-metadata.json",
+  "federation_status": "demo_federation_compatible",
+  "profile_compatibility": {
+    "supported_levels": ["L0"],
+    "compatible_profiles": ["L0"]
+  },
+  "capabilities": [
+    "qr_payment_demo",
+    "refund_demo",
+    "reconciliation_demo",
+    "settlement_simulation_demo"
+  ],
+  "routing_eligibility": {
+    "eligible": false,
+    "reason": "Ambiente de demonstração — não participa no scheme operacional (Camada 3) nem encaminha valor real."
+  },
+  "handshake": {
+    "method": "signed_challenge",
+    "signature_algorithm": "ed25519",
+    "nonce_required": true,
+    "signed_metadata_url": "https://zero.banza.network/.well-known/banza/signed-protocol-metadata.json"
+  },
+  "peers": [
+    "peer-zero-alpha",
+    "peer-zero-beta"
+  ],
+  "note": "Metadata de federação da implementação de referência (compatibilidade de perfil, capacidades, elegibilidade de encaminhamento e handshake). Artefacto demonstrativo. Não certifica, não aprova e não movimenta dinheiro real."
+}

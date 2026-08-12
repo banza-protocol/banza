@@ -1,0 +1,47 @@
+{
+  "demo_only": true,
+  "monetary_value": false,
+  "production_allowed": false,
+  "operator_id": "operator-zero",
+  "operator_display_name": "Operador Zero",
+  "currency": "KZ_DEMO",
+  "artifact_type": "ledger",
+  "transactions": [
+    {
+      "transaction_id": "txn_qr_demo_0001",
+      "demo_only": true,
+      "monetary_value": false,
+      "currency": "KZ_DEMO",
+      "amount": 1500,
+      "from_account": "demo-user-ana",
+      "to_account": "demo-merchant-kiosque",
+      "type": "payment",
+      "status": "confirmed",
+      "created_at": "2026-07-21T00:00:00Z",
+      "reference": "qr_demo_0001",
+      "trace_id": "trace_operator_zero_full_e2e",
+      "evidence_refs": [
+        "conformance-pass",
+        "trust-pass"
+      ]
+    },
+    {
+      "transaction_id": "txn_qr_demo_0001_refund",
+      "demo_only": true,
+      "monetary_value": false,
+      "currency": "KZ_DEMO",
+      "amount": 500,
+      "from_account": "demo-merchant-kiosque",
+      "to_account": "demo-user-ana",
+      "type": "refund",
+      "status": "partially_refunded",
+      "created_at": "2026-07-21T00:01:00Z",
+      "reference": "txn_qr_demo_0001",
+      "trace_id": "trace_operator_zero_full_e2e",
+      "evidence_refs": [
+        "conformance-pass"
+      ]
+    }
+  ],
+  "note": "Artefacto demonstrativo. Não certifica, não aprova e não movimenta dinheiro real."
+}

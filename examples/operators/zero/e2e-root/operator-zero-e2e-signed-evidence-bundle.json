@@ -1,0 +1,38 @@
+{
+  "algorithm": "ed25519",
+  "artifact_type": "signed_evidence_bundle",
+  "demo_only": true,
+  "key_id": "oz-e2e-root-b8a61e9480e3265b",
+  "monetary_value": false,
+  "not_protocol_trust_root": true,
+  "operator_display_name": "Operador Zero",
+  "operator_id": "operator-zero",
+  "payload": {
+    "artifact_type": "evidence_bundle",
+    "currency": "KZ_DEMO",
+    "demo_only": true,
+    "includes": [
+      "manifest",
+      "conformance",
+      "trust",
+      "payment",
+      "refund",
+      "reconciliation",
+      "federation",
+      "traces"
+    ],
+    "monetary_value": false,
+    "not_protocol_trust_root": true,
+    "note": "Evidence técnica local da simulação. Não é certificação, licença nem autorização.",
+    "operator_display_name": "Operador Zero",
+    "operator_id": "operator-zero",
+    "production_allowed": false,
+    "root_type": "demo_operator_root",
+    "status": "complete"
+  },
+  "payload_canonical_sha256": "557a6d09993fce3983c7d9d8e912d76647bc45cf474e367d3ae7619dc8ca8a06",
+  "production_allowed": false,
+  "public_key_multibase": "mmE/Bmy7SowTKustm13LbF+vfl/5Bl6sy9kJ7earQ73A",
+  "root_type": "demo_operator_root",
+  "signature_multibase": "mYGApvQxhUmxmHC1MXkEDsFV+i3b4NARPDEy6wi5FqWmLlpYBFaYoI7mRs9VEC5cbvSi1wMFZUSe2bN4Wxr3DBw"
+}

@@ -1,0 +1,135 @@
+{
+  "milestone": "M2.19",
+  "title": "Certificação Técnica de Interoperabilidade BANZA v1.0",
+  "status": "PAUSED_PENDING_M2.19A",
+  "opened": "2026-07-28",
+  "canonical_adr": "ADR-057",
+  "canonical_decision": "BANZA technically certifies that a concrete implementation (operator + implementation + environment + profile + protocol version + capabilities + evidence + validity window) demonstrated conformance with a public, versioned interoperability profile. Determined by verifiable Rust engines from public, reproducible, time-bounded, revocable evidence. NOT a financial licence, regulatory authorisation, commercial approval or institutional guarantee. No CA, no discretionary human approval, no Qwen in the decision path.",
+  "supersedes_or_amends": [
+    "ADR-040 (Federation Trust Evaluation Without Certificates) — amended: adds evidence-based technical certification records, still without a CA",
+    "public 'BANZA nunca certifica' absolute framing — replaced by the qualified technical-interop-certification framing"
+  ],
+  "preserves": [
+    "ADR-038 no-CA open trust model",
+    "operator neutrality",
+    "financial invariants",
+    "fail-closed determinism",
+    "zero external model calls",
+    "PASS = verifiable evidence not a licence"
+  ],
+  "invariants": {
+    "rust_is_sole_decision_authority": true,
+    "no_ca": true,
+    "no_discretionary_approval": true,
+    "no_qwen_in_decision_path": true,
+    "operator_zero_never_counted": true,
+    "public_surface_no_unqualified_certificado": true,
+    "footer_no_absolute_does_not_certify": true,
+    "production_flip_gated_until_infra_real": true
+  },
+  "phases": [
+    {
+      "n": 1,
+      "name": "Inventory / ambiguity diagnosis (all surfaces)",
+      "status": "in_progress"
+    },
+    {
+      "n": 2,
+      "name": "ADR-057 canonical decision",
+      "status": "pending"
+    },
+    {
+      "n": 3,
+      "name": "Schemas: InteroperabilityCertificationProfile + InteroperabilityCertificationRecord",
+      "status": "pending"
+    },
+    {
+      "n": 4,
+      "name": "Rust engine banza-interoperability-certification (pipeline, fail-closed)",
+      "status": "pending"
+    },
+    {
+      "n": 5,
+      "name": "Certification Record (validator/serializer/canonical-json/checksum/sign/verify)",
+      "status": "pending"
+    },
+    {
+      "n": 6,
+      "name": "Lifecycle state enum + reason codes + transitions",
+      "status": "pending"
+    },
+    {
+      "n": 7,
+      "name": "Registry (publication vs implementation vs certification; OZ demo excluded)",
+      "status": "pending"
+    },
+    {
+      "n": 8,
+      "name": "APIs + OpenAPI + verification routes + .well-known profile",
+      "status": "pending"
+    },
+    {
+      "n": 9,
+      "name": "BanzAI (knowledge, prompts, guardrails, journey, reason codes, UX)",
+      "status": "pending"
+    },
+    {
+      "n": 10,
+      "name": "Home (hero subtitle, one-cert-many-integrations, metrics, state line, diagram)",
+      "status": "pending"
+    },
+    {
+      "n": 11,
+      "name": "Operators pages + operator journey (add Certification step)",
+      "status": "pending"
+    },
+    {
+      "n": 12,
+      "name": "Reference + remaining docs + glossary + FAQ + runbooks",
+      "status": "pending"
+    },
+    {
+      "n": 13,
+      "name": "SVGs (certification pipeline + lifecycle + responsibility boundary; audit existing)",
+      "status": "pending"
+    },
+    {
+      "n": 14,
+      "name": "Threat model + security",
+      "status": "pending"
+    },
+    {
+      "n": 15,
+      "name": "Terminology migration (classified, non-blind)",
+      "status": "pending"
+    },
+    {
+      "n": 16,
+      "name": "Tests (positive/negative/property)",
+      "status": "pending"
+    },
+    {
+      "n": 17,
+      "name": "Guards (6 new/reinforced) + CI wiring",
+      "status": "pending"
+    },
+    {
+      "n": 18,
+      "name": "Report + PR(s) + CI green + merge + deploy",
+      "status": "pending"
+    },
+    {
+      "n": 19,
+      "name": "Public-edge QA + browser QA + cleanup",
+      "status": "pending"
+    },
+    {
+      "n": 20,
+      "name": "COMPLETE verdict",
+      "status": "pending"
+    }
+  ],
+  "launch_gate": "Home may only claim active certifications once engine+schemas+record+registry+APIs+reason-codes+revocation+guards are green and docs aligned. Until then: 'Infraestrutura de Certificação de Interoperabilidade BANZA v1.0 em pré-produção' + '0 certificações activas'.",
+  "notes": "Execute continuously to COMPLETE; commits/PRs are internal checkpoints. Ship in coherent gated increments so the repo is never split between 'certifies' and 'never certifies'.",
+  "pause_note": "M2.19A (canonical ADR clean-slate) must complete first — do not start the certification engine/schemas/public changes on an incoherent ADR set. Done so far: diagnosis + ADR-057 draft (will be integrated/renumbered by M2.19A). Resume M2.19 after M2.19A COMPLETE."
+}

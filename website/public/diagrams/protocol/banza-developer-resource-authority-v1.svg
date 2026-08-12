@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  id:        SVG-P-112
+  diagram:   Autoridade dos recursos para programadores — define / implementa-verifica / exemplifica
+  version:   1.0
+  source:    BANZA_REFERENCIA.md §13 (Recursos para Programadores)
+  updated:   2026-08-10
+  author:    BANZA Protocol
+  style:     protocol
+-->
+<svg viewBox="0 0 900 580" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-labelledby="title-P112 desc-P112"
+     font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="title-P112">Autoridade dos recursos para programadores do BANZA</title>
+  <desc id="desc-P112">Os recursos para programadores dividem-se por função em três camadas. Em cima, os artefactos normativos — contratos, invariantes, esquemas e vectores de conformidade (com as ADRs e RFCs a registar as decisões) — DEFINEM as regras. No meio, as ferramentas — os motores determinísticos e o BanzAI — ajudam a aplicar essas regras: os motores verificam e o BanzAI orienta e explica; não são normativas e são substituíveis. Em baixo, as referências — o Operador Zero e os exemplos — EXEMPLIFICAM as regras; são materializações possíveis e não substituem os contratos. As ferramentas e as referências nunca estão acima dos contratos, e nenhuma linguagem, base de dados ou stack é imposta ao operador.</desc>
+  <defs>
+    <linearGradient id="hg-P112" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E0F1A"/><stop offset="100%" stop-color="#8E1326"/>
+    </linearGradient>
+    <marker id="arr-P112" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#8E1326"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="580" fill="#F4F1EA"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="900" height="64" fill="url(#hg-P112)" rx="14"/>
+  <rect x="0" y="48" width="900" height="16" fill="#8E1326"/>
+  <text x="24" y="26" font-family="ui-monospace,'Courier New',monospace" font-size="9" fill="#FECACA" letter-spacing="2">SVG-P-112 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="24" y="50" font-size="18" font-weight="800" fill="white">Autoridade dos recursos para programadores</text>
+  <text x="876" y="50" text-anchor="end" font-size="11" fill="#FECACA">define · implementa/verifica · exemplifica</text>
+
+  <!-- Tier 1 — NORMATIVO (define) -->
+  <rect x="72" y="86" width="756" height="118" rx="10" fill="#8E1326"/>
+  <text x="92" y="112" font-size="11" font-weight="700" fill="#FECACA" letter-spacing="1.5">ARTEFACTOS NORMATIVOS — DEFINEM AS REGRAS</text>
+  <rect x="92" y="126" width="164" height="34" rx="7" fill="#6E0F1A"/><text x="174" y="148" text-anchor="middle" font-size="12" font-weight="700" fill="white">Contratos</text>
+  <rect x="266" y="126" width="164" height="34" rx="7" fill="#6E0F1A"/><text x="348" y="148" text-anchor="middle" font-size="12" font-weight="700" fill="white">Invariantes</text>
+  <rect x="440" y="126" width="164" height="34" rx="7" fill="#6E0F1A"/><text x="522" y="148" text-anchor="middle" font-size="12" font-weight="700" fill="white">Esquemas (JSON)</text>
+  <rect x="614" y="126" width="192" height="34" rx="7" fill="#6E0F1A"/><text x="710" y="148" text-anchor="middle" font-size="12" font-weight="700" fill="white">Vectores de conformidade</text>
+  <text x="92" y="184" font-size="10.5" fill="#FBD7DC">As ADRs e as RFCs registam as decisões; a Referência descreve e organiza — não substitui os artefactos.</text>
+
+  <!-- arrow 1 -->
+  <line x1="450" y1="208" x2="450" y2="244" stroke="#8E1326" stroke-width="1.5" marker-end="url(#arr-P112)"/>
+  <text x="462" y="230" font-size="10" font-weight="700" fill="#8E1326">verificados e explicados por</text>
+
+  <!-- Tier 2 — FERRAMENTAS (implement/verify) -->
+  <rect x="72" y="252" width="756" height="112" rx="10" fill="#FBEFF0" stroke="#EAD2D6" stroke-width="1"/>
+  <text x="92" y="278" font-size="11" font-weight="700" fill="#8E1326" letter-spacing="1.5">FERRAMENTAS — VERIFICAM E ORIENTAM</text>
+  <rect x="92" y="292" width="344" height="34" rx="7" fill="white" stroke="#EAD2D6"/><text x="264" y="314" text-anchor="middle" font-size="12" font-weight="700" fill="#3A1014">Motores determinísticos — verificam</text>
+  <rect x="462" y="292" width="344" height="34" rx="7" fill="white" stroke="#EAD2D6"/><text x="634" y="314" text-anchor="middle" font-size="12" font-weight="700" fill="#3A1014">BanzAI — orienta e explica</text>
+  <text x="92" y="348" font-size="10.5" fill="#6B6265">Os motores determinísticos verificam; o BanzAI orienta e explica — nenhuma é normativa e ambas são substituíveis.</text>
+
+  <!-- arrow 2 -->
+  <line x1="450" y1="368" x2="450" y2="400" stroke="#8E1326" stroke-width="1.5" marker-end="url(#arr-P112)"/>
+  <text x="462" y="388" font-size="10" font-weight="700" fill="#8E1326">materializadas e observadas em</text>
+
+  <!-- Tier 3 — REFERÊNCIAS (exemplify) -->
+  <rect x="72" y="408" width="756" height="96" rx="10" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="1.5"/>
+  <text x="92" y="434" font-size="11" font-weight="700" fill="#6B7280" letter-spacing="1.5">REFERÊNCIAS — EXEMPLIFICAM</text>
+  <rect x="92" y="448" width="340" height="34" rx="7" fill="white" stroke="#E5E7EB"/><text x="262" y="470" text-anchor="middle" font-size="12" font-weight="700" fill="#4B5563">Operador Zero</text>
+  <rect x="442" y="448" width="364" height="34" rx="7" fill="white" stroke="#E5E7EB"/><text x="624" y="470" text-anchor="middle" font-size="12" font-weight="700" fill="#4B5563">Exemplos conceptuais</text>
+  <text x="92" y="498" font-size="10.5" fill="#6B6265">Materializações possíveis das regras; não são especificações nem implementações a copiar.</text>
+
+  <!-- Boundary band -->
+  <rect x="72" y="516" width="756" height="40" rx="9" fill="#3A1014"/>
+  <text x="450" y="541" text-anchor="middle" font-size="11" font-weight="700" fill="#FBD7DC">As ferramentas e as referências nunca estão acima dos contratos · nenhuma linguagem, base de dados ou stack é imposta ao operador.</text>
+
+  <text x="450" y="572" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-112 · Autoridade dos recursos · BANZA_REFERENCIA.md §13 · v1.0 · 2026-08-10</text>
+</svg>

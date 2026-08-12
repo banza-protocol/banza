@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+
+<svg viewBox="0 0 980 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title-P105 desc-P105" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="title-P105">Modelo do estado protocolar do BANZA — fonte, observação, avaliação, resultado, persistência e publicação</title>
+  <desc id="desc-P105">O estado protocolar move-se de uma fonte canónica (artefactos públicos assinados e contratos) por observação e avaliação determinística até um resultado com evidência reproduzível, que é depois materializado (persistência) e publicado numa superfície pública. A legenda distingue três naturezas de estado — fonte (a autoridade), estado derivado (recalculável a partir das fontes) e estado persistido (materialização durável, sem autoridade) — e a superfície pública onde o estado é publicado. A persistência não cria autoridade — a verdade vem das fontes, da evidência e do processo aplicável; o estado é verificável recalculando hashes e conferindo assinaturas, e nunca guarda valor financeiro.</desc>
+
+  <defs>
+    <linearGradient id="hG-P105" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6E0F1A"></stop><stop offset="100%" stop-color="#8E1326"></stop>
+    </linearGradient>
+    <linearGradient id="protoG-P105" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#5E0C18"></stop><stop offset="100%" stop-color="#7E1320"></stop>
+    </linearGradient>
+    <linearGradient id="engG-P105" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A5F"></stop><stop offset="100%" stop-color="#2C4E77"></stop>
+    </linearGradient>
+    <linearGradient id="evG-P105" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#14532D"></stop><stop offset="100%" stop-color="#1B6B3A"></stop>
+    </linearGradient>
+    <linearGradient id="opG-P105" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3C4654"></stop><stop offset="100%" stop-color="#566273"></stop>
+    </linearGradient>
+    <filter id="sh-P105" x="-5%" y="-10%" width="115%" height="130%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000018"></feDropShadow>
+    </filter>
+    <marker id="arr-P105" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#7E1320"></polygon>
+    </marker>
+  </defs>
+
+  <rect width="980" height="470" fill="#F4F1EA"></rect>
+
+
+  <rect x="16" y="12" width="948" height="54" rx="8" fill="url(#hG-P105)" filter="url(#sh-P105)"></rect>
+  <text x="34" y="32" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" letter-spacing="1.6" fill="#FECACA">SVG-P-105 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="34" y="52" fill="white" font-size="15" font-weight="800">Modelo do Estado Protocolar</text>
+  <text x="946" y="52" text-anchor="end" fill="#F6D9DD" font-size="10">semântica, não armazenamento</text>
+
+
+  <rect x="16" y="76" width="948" height="30" rx="6" fill="white" stroke="#E5E7EB" stroke-width="1"></rect>
+  <text x="490" y="95" text-anchor="middle" fill="#374151" font-size="10.5">Da <tspan font-weight="700" fill="#1A1A1A">fonte canónica</tspan> à superfície pública — a autoridade vem da fonte e da evidência, não da persistência.</text>
+
+
+  <text x="234" y="150" text-anchor="middle" fill="#5A534E" font-size="8">observação</text>
+  <text x="404" y="150" text-anchor="middle" fill="#5A534E" font-size="8">produz</text>
+  <text x="574" y="150" text-anchor="middle" fill="#5A534E" font-size="8">materializa</text>
+  <text x="744" y="150" text-anchor="middle" fill="#5A534E" font-size="8">publica</text>
+
+  <rect x="75" y="158" width="150" height="86" rx="8" fill="url(#protoG-P105)" filter="url(#sh-P105)"></rect>
+  <text x="150" y="188" text-anchor="middle" fill="white" font-size="10.5" font-weight="700">Fonte canónica</text>
+  <text x="150" y="206" text-anchor="middle" fill="#F6D9DD" font-size="8">artefactos públicos</text>
+  <text x="150" y="217" text-anchor="middle" fill="#F6D9DD" font-size="8">assinados · contratos</text>
+  <text x="150" y="233" text-anchor="middle" fill="#F1C7CC" font-size="8" font-weight="700">a autoridade</text>
+
+  <rect x="245" y="158" width="150" height="86" rx="8" fill="url(#engG-P105)" filter="url(#sh-P105)"></rect>
+  <text x="320" y="192" text-anchor="middle" fill="white" font-size="10.5" font-weight="700">Avaliação</text>
+  <text x="320" y="206" text-anchor="middle" fill="white" font-size="10.5" font-weight="700">determinística</text>
+  <text x="320" y="224" text-anchor="middle" fill="#CBD8E8" font-size="8">motores verificáveis</text>
+
+  <rect x="415" y="158" width="150" height="86" rx="8" fill="url(#evG-P105)" filter="url(#sh-P105)"></rect>
+  <text x="490" y="192" text-anchor="middle" fill="white" font-size="10.5" font-weight="700">Resultado</text>
+  <text x="490" y="206" text-anchor="middle" fill="white" font-size="10.5" font-weight="700">e evidência</text>
+  <text x="490" y="224" text-anchor="middle" fill="#C7E8D2" font-size="8">reproduzível</text>
+
+  <rect x="585" y="158" width="150" height="86" rx="8" fill="url(#opG-P105)" filter="url(#sh-P105)"></rect>
+  <text x="660" y="188" text-anchor="middle" fill="white" font-size="10.5" font-weight="700">Persistência</text>
+  <text x="660" y="206" text-anchor="middle" fill="rgba(255,255,255,0.82)" font-size="8">materialização durável</text>
+  <text x="660" y="233" text-anchor="middle" fill="#E7D9A6" font-size="8" font-weight="700">sem autoridade</text>
+
+  <rect x="755" y="158" width="150" height="86" rx="8" fill="white" stroke="#CDD3DA" stroke-width="2" filter="url(#sh-P105)"></rect>
+  <text x="830" y="188" text-anchor="middle" fill="#3C4654" font-size="10.5" font-weight="700">Superfície</text>
+  <text x="830" y="202" text-anchor="middle" fill="#3C4654" font-size="10.5" font-weight="700">pública</text>
+  <text x="830" y="220" text-anchor="middle" fill="#6B6265" font-size="8">publicação verificável</text>
+
+  <line x1="225" y1="201" x2="243" y2="201" stroke="#7E1320" stroke-width="1.8" marker-end="url(#arr-P105)"></line>
+  <line x1="395" y1="201" x2="413" y2="201" stroke="#7E1320" stroke-width="1.8" marker-end="url(#arr-P105)"></line>
+  <line x1="565" y1="201" x2="583" y2="201" stroke="#7E1320" stroke-width="1.8" marker-end="url(#arr-P105)"></line>
+  <line x1="735" y1="201" x2="753" y2="201" stroke="#7E1320" stroke-width="1.8" marker-end="url(#arr-P105)"></line>
+
+
+  <rect x="16" y="266" width="948" height="60" rx="8" fill="white" stroke="#E5E7EB" stroke-width="1"></rect>
+  <text x="34" y="286" fill="#374151" font-size="9" font-weight="700" letter-spacing="0.5">NATUREZAS DE ESTADO E SUPERFÍCIE</text>
+  <rect x="34" y="298" width="12" height="12" rx="2" fill="url(#protoG-P105)"></rect>
+  <text x="52" y="308" fill="#374151" font-size="9"><tspan font-weight="700">Fonte</tspan> — a autoridade</text>
+  <rect x="270" y="298" width="12" height="12" rx="2" fill="url(#evG-P105)"></rect>
+  <text x="288" y="308" fill="#374151" font-size="9"><tspan font-weight="700">Derivado</tspan> — recalculável das fontes</text>
+  <rect x="540" y="298" width="12" height="12" rx="2" fill="url(#opG-P105)"></rect>
+  <text x="558" y="308" fill="#374151" font-size="9"><tspan font-weight="700">Persistido</tspan> — materialização, sem autoridade</text>
+  <rect x="812" y="298" width="12" height="12" rx="2" fill="white" stroke="#CDD3DA" stroke-width="1.5"></rect>
+  <text x="830" y="308" fill="#374151" font-size="9"><tspan font-weight="700">Publicado</tspan> — superfície</text>
+
+
+  <rect x="16" y="338" width="948" height="44" rx="8" fill="#EAE0DF" stroke="#D4C9C7" stroke-width="1"></rect>
+  <text x="490" y="357" text-anchor="middle" fill="#1A1A1A" font-size="10.5" font-weight="700">A persistência não cria autoridade — a verdade vem das fontes, da evidência e do processo aplicável.</text>
+  <text x="490" y="373" text-anchor="middle" fill="#6B6265" font-size="10">O estado é verificável recalculando hashes e conferindo assinaturas; nunca guarda valor financeiro.</text>
+
+
+  <text x="490" y="410" text-anchor="middle" fill="#6B6265" font-size="10">SVG-P-105 · v1.0 · BANZA_REFERENCIA.md §5 Estado Protocolar · 2026-08-09</text>
+</svg>

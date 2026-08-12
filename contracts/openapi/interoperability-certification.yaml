@@ -1,0 +1,324 @@
+openapi: "3.1.0"
+info:
+  title: BANZA Conformance & Interoperability Certification — Public Verification & Technical Registry
+  version: "1.0"
+  description: |
+    Read-only, **account-free** public surface for Layer-2 conformance &
+    interoperability certification. It exposes two things:
+
+    1. **Interoperability certification records** — the verdicts produced by the
+       deterministic Rust certification engine (`engines/banza-certification`).
+       Each record binds a certificate to a specific **implementation artifact**
+       (by `implementation_hash`), a public **certification profile**
+       (`profile_id`), an **environment**, a **scope**, and a **validity window**,
+       and carries the hashes of the conformance and interoperability reports it
+       was decided from. A record is self-verifiable: recomputing `record_hash`
+       over its canonical form and re-evaluating temporal + revocation state
+       reproduces the served status, offline, with no authority to trust.
+
+    2. **The BANZA Technical Registry** — a public, root-verifiable index of
+       certified implementations. The registry is a *technical* index of what
+       was certified; it is **not** a scheme participant directory, an operator
+       licence list, or a list of authorised institutions. Presence in the
+       registry attests a technical certification result and nothing more.
+
+    ## What this surface is NOT
+
+    - It performs **no financial action** and holds no funds.
+    - It requires **no account, credential or authentication** to read or verify.
+    - A certification record is **not** a licence, an admission to any
+      operational scheme, a regulatory authorisation, a commercial approval, or
+      an institutional guarantee. See
+      `docs/governance/BANZA_CONFORMANCE_INTEROP_CERTIFICATION.md` and ADR-064.
+
+    ## Authority boundary
+
+    Every verdict on this surface is **decided by the Rust engine**. No language
+    model, no human override, and no registry write can turn a `FAIL` into a
+    `PASS` or a non-`CERTIFIED` status into `CERTIFIED`. The registry reflects
+    engine decisions; it never produces them. See ADR-066 (closed state machine)
+    and ADR-065 (technical registry).
+
+servers:
+  - url: https://banza.network
+    description: BANZA protocol public verification surface
+
+tags:
+  - name: Certification
+    description: Public interoperability certification records (verification, account-free)
+  - name: Registry
+    description: BANZA Technical Registry — public, root-verifiable index of certified implementations
+
+paths:
+  /interoperability-certifications:
+    get:
+      operationId: listInteroperabilityCertifications
+      summary: List interoperability certification records
+      description: |
+        Returns the public interoperability certification records, most recent
+        first. Read-only and unauthenticated. Optional filters narrow by
+        effective status, certification profile, or the certified implementation.
+      tags: [Certification]
+      parameters:
+        - name: status
+          in: query
+          required: false
+          description: Filter by effective certification status.
+          schema:
+            $ref: "#/components/schemas/CertificationStatus"
+        - name: profile_id
+          in: query
+          required: false
+          description: Filter by certification profile identifier.
+          schema:
+            type: string
+        - name: implementation_hash
+          in: query
+          required: false
+          description: Filter by the certified implementation artifact hash.
+          schema:
+            $ref: "#/components/schemas/Sha256Hex"
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 50
+      responses:
+        "200":
+          description: Certification records (may be empty).
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required: [records]
+                properties:
+                  records:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/InteroperabilityCertificationRecord"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /interoperability-certifications/{record_id}:
+    get:
+      operationId: getInteroperabilityCertification
+      summary: Fetch a single interoperability certification record
+      description: |
+        Returns the full certification record, including the effective status
+        computed for the current instant (temporal + revocation state applied
+        fail-closed). Read-only and unauthenticated.
+      tags: [Certification]
+      parameters:
+        - name: record_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The certification record.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InteroperabilityCertificationRecord"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /interoperability-certifications/{record_id}/verify:
+    get:
+      operationId: verifyInteroperabilityCertification
+      summary: Verify a certification record (recompute hash + re-evaluate status)
+      description: |
+        Recomputes `record_hash` over the record's canonical form and
+        re-evaluates its effective status (temporal expiry + revocation applied
+        fail-closed), returning a deterministic verdict. This is the same check a
+        third party can run offline from the record alone — the endpoint exists
+        only so it can be run without holding the record. Read-only,
+        unauthenticated, no side effects.
+      tags: [Certification]
+      parameters:
+        - name: record_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Verification verdict.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CertificationVerification"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /technical-registry:
+    get:
+      operationId: listTechnicalRegistry
+      summary: The BANZA Technical Registry index
+      description: |
+        Returns the public, root-verifiable index of certified implementations.
+        Each entry is derived from a certification record and points back to it.
+        This is a **technical index of certification results**, not a scheme
+        participant directory and not a list of licensed or authorised operators.
+      tags: [Registry]
+      parameters:
+        - name: status
+          in: query
+          required: false
+          description: Filter entries by effective certification status.
+          schema:
+            $ref: "#/components/schemas/CertificationStatus"
+      responses:
+        "200":
+          description: Registry entries (may be empty).
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required: [registry, notice]
+                properties:
+                  notice:
+                    type: string
+                    description: |
+                      Human-readable boundary notice restating that the registry
+                      is a technical certification index, not a scheme directory
+                      or authorisation list.
+                  registry:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/TechnicalRegistryEntry"
+
+  /technical-registry/{implementation_hash}:
+    get:
+      operationId: getTechnicalRegistryEntry
+      summary: Registry entry for a specific certified implementation
+      description: |
+        Returns the registry entry for the implementation identified by its
+        artifact hash, or 404 if that implementation has no certification record.
+      tags: [Registry]
+      parameters:
+        - name: implementation_hash
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/Sha256Hex"
+      responses:
+        "200":
+          description: The registry entry.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TechnicalRegistryEntry"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+components:
+  responses:
+    BadRequest:
+      description: Malformed request (invalid query parameter).
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    NotFound:
+      description: No such record or registry entry.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+  schemas:
+    Sha256Hex:
+      type: string
+      pattern: "^[0-9a-f]{64}$"
+      description: Lower-case hex SHA-256 digest.
+
+    CertificationStatus:
+      type: string
+      description: |
+        The closed L2 certification state (ADR-066). Only `CERTIFIED` is a valid,
+        currently-recognised certification; every other value denotes the absence
+        of a valid certification.
+      enum:
+        - NOT_CERTIFIED
+        - CERTIFIED
+        - EXPIRED
+        - SUSPENDED
+        - REVOKED
+        - SUPERSEDED
+
+    InteroperabilityCertificationRecord:
+      description: |
+        Canonical certification verdict. Mirrors
+        `contracts/production/certification-record.production.schema.json`, which
+        is the normative schema; this component is the API-surface view.
+      allOf:
+        - $ref: "../production/certification-record.production.schema.json"
+
+    CertificationVerification:
+      type: object
+      additionalProperties: false
+      required: [record_id, hash_ok, effective_status, is_valid]
+      properties:
+        record_id:
+          type: string
+        hash_ok:
+          type: boolean
+          description: True iff the recomputed `record_hash` matches the stored value.
+        recomputed_record_hash:
+          $ref: "#/components/schemas/Sha256Hex"
+        effective_status:
+          $ref: "#/components/schemas/CertificationStatus"
+        is_valid:
+          type: boolean
+          description: True iff `hash_ok` and `effective_status == CERTIFIED`.
+        reason_code:
+          type: string
+          description: Machine-readable reason for the verdict (ADR-066 reason codes).
+
+    TechnicalRegistryEntry:
+      type: object
+      additionalProperties: false
+      required:
+        - implementation_hash
+        - record_id
+        - profile_id
+        - effective_status
+        - expires_at
+      properties:
+        implementation_hash:
+          $ref: "#/components/schemas/Sha256Hex"
+        record_id:
+          type: string
+          description: The certification record this entry is derived from.
+        profile_id:
+          type: string
+        effective_status:
+          $ref: "#/components/schemas/CertificationStatus"
+        scope_levels:
+          type: array
+          items:
+            type: string
+        environment:
+          type: string
+        expires_at:
+          type: string
+          format: date-time
+        record_hash:
+          $ref: "#/components/schemas/Sha256Hex"
+
+    Error:
+      type: object
+      additionalProperties: false
+      required: [error]
+      properties:
+        error:
+          type: string
+        detail:
+          type: string

@@ -1,0 +1,39 @@
+{
+  "_spec": "BANZA Collections State Machine v1.0",
+  "_status": "canonical",
+  "_authority": "ADR-016",
+  "_description": "Valid state transitions for Collection and CollectionShare. Any transition not listed is invalid and MUST be rejected. Terminal states accept no further transitions.",
+
+  "collection": {
+    "initial": "DRAFT",
+    "states": ["DRAFT", "OPEN", "PARTIALLY_COMPLETED", "COMPLETED", "EXPIRED", "CANCELLED", "FAILED"],
+    "terminal": ["COMPLETED", "EXPIRED", "CANCELLED", "FAILED"],
+    "transitions": {
+      "DRAFT":               ["OPEN", "CANCELLED"],
+      "OPEN":                ["PARTIALLY_COMPLETED", "COMPLETED", "EXPIRED", "CANCELLED", "FAILED"],
+      "PARTIALLY_COMPLETED": ["COMPLETED", "EXPIRED", "CANCELLED", "FAILED"]
+    },
+    "rules": {
+      "OPEN": "Shares may be created/surfaced and paid.",
+      "PARTIALLY_COMPLETED": "Entered when at least one share is PAID but not all (closed rules) / target not reached (open rules).",
+      "COMPLETED": "All shares PAID (closed rules) or target reached (open rules). Terminal.",
+      "EXPIRED": "expires_at passed before completion. Terminal.",
+      "immutability": "After OPEN: currency, rule, and (closed-rule) total_amount_minor are immutable (INV-COLLECTION-007)."
+    }
+  },
+
+  "collection_share": {
+    "initial": "PENDING",
+    "states": ["PENDING", "LINK_CREATED", "PAID", "EXPIRED", "CANCELLED", "FAILED"],
+    "terminal": ["PAID", "EXPIRED", "CANCELLED", "FAILED"],
+    "transitions": {
+      "PENDING":      ["LINK_CREATED", "CANCELLED"],
+      "LINK_CREATED": ["PAID", "EXPIRED", "CANCELLED", "FAILED"]
+    },
+    "rules": {
+      "LINK_CREATED": "A PaymentIntent (ADR-014) exists; its link/QR is presentable.",
+      "PAID": "Reached ONLY on a real confirmed Transfer; transfer_id set; Transfer.causation_id == payment_intent_id (INV-COLLECTION-005). Terminal — no double payment (INV-COLLECTION-006).",
+      "EXPIRED": "Share link/expiry passed unpaid."
+    }
+  }
+}

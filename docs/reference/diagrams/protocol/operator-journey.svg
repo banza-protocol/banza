@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  id:        SVG-P-068
+  diagram:   Operator Journey — Active Model
+  version:   1.0
+  source:    M2.5 Product Surface Simplification · active open-protocol model
+  updated:   2026-07-18
+  author:    BANZA Protocol
+  style:     protocol
+-->
+<svg viewBox="0 0 1000 480" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-labelledby="title-P068 desc-P068"
+     font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="title-P068">Percurso do Operador</title>
+  <desc id="desc-P068">O percurso de um operador independente no protocolo BANZA em seis etapas. Implementar: implementa os endpoints do protocolo na própria infraestrutura. Manifest: publica o operator manifest em /.well-known/banza/operator.json. Conformidade: corre o conjunto de conformidade, offline e live. Evidence Bundle: gera um evidence bundle verificável por máquina. Public Registry: auto-publica manifest e evidência no public protocol registry. Trust Evaluation: os pares avaliam o trust por evidência, com fail-closed. Um PASS técnico é evidência verificável de conformidade, não aprovação humana, licença ou certificação.</desc>
+  <defs>
+    <linearGradient id="hg-P068" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E0F1A"/><stop offset="100%" stop-color="#8E1326"/>
+    </linearGradient>
+    <marker id="arr-P068" markerWidth="9" markerHeight="9" refX="4.5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#6B7280"/>
+    </marker>
+    <filter id="sh-P068">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#00000014"/>
+    </filter>
+  </defs>
+
+  <rect width="1000" height="480" fill="#F4F1EA"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="1000" height="64" fill="url(#hg-P068)" rx="14"/>
+  <rect x="0" y="48" width="1000" height="16" fill="#8E1326"/>
+  <text x="24" y="26" font-family="ui-monospace,'Courier New',monospace" font-size="9" fill="#FECACA" letter-spacing="2">SVG-P-068 · OPEN FINANCIAL PROTOCOL</text>
+  <text x="24" y="47" font-size="18" font-weight="800" fill="white">Percurso do Operador</text>
+  <text x="976" y="47" text-anchor="end" font-size="10.5" fill="#FECACA">Implementar → Evidência → Trust</text>
+
+  <!-- Lead -->
+  <text x="500" y="94" text-anchor="middle" font-size="12.5" font-weight="700" fill="#374151">Operadores independentes implementam o protocolo na sua própria infraestrutura, publicam manifests</text>
+  <text x="500" y="112" text-anchor="middle" font-size="12.5" font-weight="700" fill="#374151">e demonstram compatibilidade por evidência verificável de conformidade.</text>
+
+  <!-- Stage 1 — Implementar -->
+  <rect x="40" y="150" width="130" height="160" fill="white" rx="12" stroke="#BFDBFE" stroke-width="1.5" filter="url(#sh-P068)"/>
+  <rect x="40" y="150" width="130" height="30" fill="#1E40AF" rx="12"/><rect x="40" y="166" width="130" height="14" fill="#1E40AF"/>
+  <text x="105" y="170" text-anchor="middle" font-size="11" font-weight="800" fill="white">Implementar</text>
+  <text x="105" y="204" text-anchor="middle" font-size="9" fill="#374151">endpoints L0–L4</text>
+  <text x="105" y="222" text-anchor="middle" font-size="9" fill="#6B6265">na própria infra</text>
+  <text x="105" y="240" text-anchor="middle" font-size="9" fill="#6B6265">qualquer stack</text>
+  <text x="105" y="258" text-anchor="middle" font-size="9" fill="#6B6265">invariantes</text>
+  <text x="105" y="276" text-anchor="middle" font-size="9" fill="#6B6265">financeiros</text>
+  <text x="105" y="298" text-anchor="middle" font-size="8.5" font-style="italic" fill="#1E40AF">passo 1</text>
+
+  <!-- Stage 2 — Manifest -->
+  <rect x="198" y="150" width="130" height="160" fill="white" rx="12" stroke="#BBF7D0" stroke-width="1.5" filter="url(#sh-P068)"/>
+  <rect x="198" y="150" width="130" height="30" fill="#166534" rx="12"/><rect x="198" y="166" width="130" height="14" fill="#166534"/>
+  <text x="263" y="170" text-anchor="middle" font-size="11" font-weight="800" fill="white">Manifest</text>
+  <text x="263" y="204" text-anchor="middle" font-size="9" fill="#374151">operator manifest</text>
+  <text x="263" y="222" text-anchor="middle" font-size="8" fill="#6B6265">/.well-known/banza/</text>
+  <text x="263" y="236" text-anchor="middle" font-size="8" fill="#6B6265">operator.json</text>
+  <text x="263" y="256" text-anchor="middle" font-size="9" fill="#6B6265">capabilities</text>
+  <text x="263" y="274" text-anchor="middle" font-size="9" fill="#6B6265">supported_levels</text>
+  <text x="263" y="298" text-anchor="middle" font-size="8.5" font-style="italic" fill="#166534">self-published</text>
+
+  <!-- Stage 3 — Conformidade -->
+  <rect x="356" y="150" width="130" height="160" fill="white" rx="12" stroke="#BBF7D0" stroke-width="1.5" filter="url(#sh-P068)"/>
+  <rect x="356" y="150" width="130" height="30" fill="#166534" rx="12"/><rect x="356" y="166" width="130" height="14" fill="#166534"/>
+  <text x="421" y="170" text-anchor="middle" font-size="11" font-weight="800" fill="white">Conformidade</text>
+  <text x="421" y="204" text-anchor="middle" font-size="9" fill="#374151">conjunto de testes</text>
+  <text x="421" y="222" text-anchor="middle" font-size="9" fill="#6B6265">offline + live</text>
+  <text x="421" y="240" text-anchor="middle" font-size="9" fill="#6B6265">determinístico</text>
+  <text x="421" y="258" text-anchor="middle" font-size="9" fill="#6B6265">vetores + invariantes</text>
+  <text x="421" y="276" text-anchor="middle" font-size="9" fill="#6B6265">sem humano no caminho</text>
+  <text x="421" y="298" text-anchor="middle" font-size="8.5" font-style="italic" fill="#166534">PASS = evidência</text>
+
+  <!-- Stage 4 — Evidence Bundle -->
+  <rect x="514" y="150" width="130" height="160" fill="white" rx="12" stroke="#BBF7D0" stroke-width="1.5" filter="url(#sh-P068)"/>
+  <rect x="514" y="150" width="130" height="30" fill="#166534" rx="12"/><rect x="514" y="166" width="130" height="14" fill="#166534"/>
+  <text x="579" y="170" text-anchor="middle" font-size="11" font-weight="800" fill="white">Evidence Bundle</text>
+  <text x="579" y="204" text-anchor="middle" font-size="9" fill="#374151">bundle verificável</text>
+  <text x="579" y="222" text-anchor="middle" font-size="9" fill="#6B6265">por máquina</text>
+  <text x="579" y="240" text-anchor="middle" font-size="9" fill="#6B6265">hashes de conteúdo</text>
+  <text x="579" y="258" text-anchor="middle" font-size="9" fill="#6B6265">trace_id · relatório</text>
+  <text x="579" y="276" text-anchor="middle" font-size="9" fill="#6B6265">reproduzível</text>
+  <text x="579" y="298" text-anchor="middle" font-size="8.5" font-style="italic" fill="#166534">self-published</text>
+
+  <!-- Stage 5 — Public Registry -->
+  <rect x="672" y="150" width="130" height="160" fill="white" rx="12" stroke="#BFDBFE" stroke-width="1.5" filter="url(#sh-P068)"/>
+  <rect x="672" y="150" width="130" height="30" fill="#1E40AF" rx="12"/><rect x="672" y="166" width="130" height="14" fill="#1E40AF"/>
+  <text x="737" y="170" text-anchor="middle" font-size="11" font-weight="800" fill="white">Public Registry</text>
+  <text x="737" y="204" text-anchor="middle" font-size="9" fill="#374151">registo público</text>
+  <text x="737" y="222" text-anchor="middle" font-size="9" fill="#6B6265">índice verificável</text>
+  <text x="737" y="240" text-anchor="middle" font-size="9" fill="#6B6265">descoberta, não permissão</text>
+  <text x="737" y="258" text-anchor="middle" font-size="9" fill="#6B6265">replicável · forkable</text>
+  <text x="737" y="276" text-anchor="middle" font-size="9" fill="#6B6265">qualquer um verifica</text>
+  <text x="737" y="298" text-anchor="middle" font-size="8.5" font-style="italic" fill="#1E40AF">protocol-signed</text>
+
+  <!-- Stage 6 — Trust Evaluation -->
+  <rect x="830" y="150" width="130" height="160" fill="white" rx="12" stroke="#E5E7EB" stroke-width="1.5" filter="url(#sh-P068)"/>
+  <rect x="830" y="150" width="130" height="30" fill="#1F2937" rx="12"/><rect x="830" y="166" width="130" height="14" fill="#1F2937"/>
+  <text x="895" y="170" text-anchor="middle" font-size="11" font-weight="800" fill="white">Trust Evaluation</text>
+  <text x="895" y="204" text-anchor="middle" font-size="9" fill="#374151">os pares avaliam</text>
+  <text x="895" y="222" text-anchor="middle" font-size="9" fill="#6B6265">o trust por evidência</text>
+  <text x="895" y="240" text-anchor="middle" font-size="9" fill="#6B6265">signed metadata</text>
+  <text x="895" y="258" text-anchor="middle" font-size="9" fill="#6B6265">revocation</text>
+  <text x="895" y="276" text-anchor="middle" font-size="9" fill="#6B6265">fail-closed</text>
+  <text x="895" y="298" text-anchor="middle" font-size="8.5" font-style="italic" fill="#1F2937">status em Rust</text>
+
+  <!-- Arrows -->
+  <line x1="170" y1="230" x2="196" y2="230" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr-P068)"/>
+  <line x1="328" y1="230" x2="354" y2="230" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr-P068)"/>
+  <line x1="486" y1="230" x2="512" y2="230" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr-P068)"/>
+  <line x1="644" y1="230" x2="670" y2="230" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr-P068)"/>
+  <line x1="802" y1="230" x2="828" y2="230" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr-P068)"/>
+
+  <!-- Boundary note -->
+  <rect x="40" y="336" width="920" height="76" rx="10" fill="#FEF2F2" stroke="#991B1B" stroke-width="2"/>
+  <text x="500" y="362" text-anchor="middle" font-size="11.5" font-weight="800" fill="#1F2937">Um PASS técnico é evidência verificável de conformidade, não aprovação humana, licença ou certificação.</text>
+  <text x="500" y="384" text-anchor="middle" font-size="10.5" fill="#374151">Não há passo de aprovação humana entre etapas: sem revisor, sem fila de aprovação, sem decisão de admissão.</text>
+  <text x="500" y="402" text-anchor="middle" font-size="10" fill="#6B6265">Humanos mantêm e evoluem o protocolo; não autorizam, aceitam, aprovam ou certificam operadores.</text>
+
+  <!-- Footer -->
+  <text x="500" y="452" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-068 · Percurso do Operador · BANZA Protocol · M2.5 · 2026-07-18</text>
+</svg>

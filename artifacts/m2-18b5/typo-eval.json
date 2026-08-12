@@ -1,0 +1,88 @@
+{
+  "dataset_version": 1,
+  "total": 248,
+  "by_category": {
+    "correct": {
+      "total": 38,
+      "pass": 38,
+      "rate": 1
+    },
+    "no-accent": {
+      "total": 24,
+      "pass": 24,
+      "rate": 1
+    },
+    "one-edit": {
+      "total": 44,
+      "pass": 43,
+      "rate": 0.977
+    },
+    "two-edit": {
+      "total": 38,
+      "pass": 38,
+      "rate": 1
+    },
+    "id": {
+      "total": 25,
+      "pass": 25,
+      "rate": 1
+    },
+    "mixed-lang": {
+      "total": 10,
+      "pass": 10,
+      "rate": 1
+    },
+    "informal": {
+      "total": 10,
+      "pass": 10,
+      "rate": 1
+    },
+    "ambiguity": {
+      "total": 10,
+      "pass": 10,
+      "rate": 1
+    },
+    "no-candidate": {
+      "total": 12,
+      "pass": 12,
+      "rate": 1
+    },
+    "boundary-typo": {
+      "total": 18,
+      "pass": 18,
+      "rate": 1
+    },
+    "injection-typo": {
+      "total": 5,
+      "pass": 5,
+      "rate": 1
+    },
+    "internal-source": {
+      "total": 4,
+      "pass": 4,
+      "rate": 1
+    },
+    "mixed-intent": {
+      "total": 10,
+      "pass": 10,
+      "rate": 1
+    }
+  },
+  "one_edit_recovery": 0.977,
+  "boundary_recall": 1,
+  "false_automatic_corrections": 0,
+  "unsupported_reaching_trunk": 0,
+  "overall_pass": 247,
+  "failures": [
+    {
+      "text": "o que e ecossstema",
+      "category": "one-edit",
+      "band": "exact",
+      "terminal": "insufficient_evidence",
+      "expect": {
+        "band": "high_confidence",
+        "contains": "ecossistema"
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "milestone": "M2.18B.3",
+  "phase": "de-risk — entry-pass candidate benchmark (isolated, memory-capped, production untouched)",
+  "date_utc": "2026-07-25",
+  "vps": { "ip": "82.165.165.97", "os": "Ubuntu 26.04", "ram_gib": 23, "usable_for_model_gib": "16-18", "model_ceiling": "~14B Q4_K_M" },
+  "candidate": "Qwen2.5-14B-Instruct-Q4_K_M (Apache-2.0, official Qwen GGUF, 8.4GB, 3 shards)",
+  "dataset_subset": "paraphrase+implicit (27 interpreter-exercising cases from m2-18b-intent-interpretation.dataset.json)",
+  "runs": {
+    "free_json_320tok": { "json_valid_pre_repair": 0.519, "intent_accuracy": 0.667, "entity_accuracy": 0.40, "note": "failures = verbose free-text field overflow (finish_reason=length), not capability" },
+    "free_json_768tok": { "json_valid_pre_repair": 0.519, "intent_accuracy": 0.667, "entity_accuracy": 0.40, "note": "same — model rambles into *_reason fields until token cap" },
+    "terse_instruction_512tok": { "json_valid_pre_repair": 0.63, "intent_accuracy": 0.867, "entity_accuracy": 0.40 },
+    "enum_constrained_200tok": { "json_valid": 1.00, "intent_accuracy": 1.00, "entity_accuracy": 0.60, "latency_p50_ms": 4678, "latency_p90_ms": 5011, "note": "proposed_canonical_id = grammar enum of real candidate ids (+empty); lean schema, no free-text prose. Entity now gated by candidate-catalogue recall (PART 9), NOT model capability — every miss is a doc the catalogue did not surface; every surfaced candidate was selected correctly." }
+  },
+  "conclusion": "Qwen2.5-14B breaks the Qwen3-4B entry-pass wall. With candidate-constrained decoding: JSON 1.0, intent 1.0, ~5s latency, invented ids impossible. Remaining path to entity >=0.97 is deterministic Rust catalogue-recall work (PART 9), not model substitution. The two-pass architecture is empirically viable on the 24GB VPS."
+}

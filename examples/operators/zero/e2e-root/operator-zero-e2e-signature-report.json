@@ -1,0 +1,27 @@
+{
+  "algorithm": "ed25519",
+  "artifact_type": "signature_report",
+  "demo_only": true,
+  "key_id": "oz-e2e-root-b8a61e9480e3265b",
+  "monetary_value": false,
+  "not_protocol_trust_root": true,
+  "operator_display_name": "Operador Zero",
+  "operator_id": "operator-zero",
+  "production_allowed": false,
+  "public_key_multibase": "mmE/Bmy7SowTKustm13LbF+vfl/5Bl6sy9kJ7earQ73A",
+  "root_type": "demo_operator_root",
+  "signatures": [
+    {
+      "payload_canonical_sha256": "82fd23101cdb5e8af0c5dcfbe0bd16f637ac2ea58a4df8780342d897e19e62e7",
+      "payload_name": "manifest",
+      "signature_multibase": "mkF0ys+ciqZseJ72xCFFvF9CxMHPVgwuLCU1mSQaR74uMAsil5lLwJ2JBWWpI6cSJgl0giswQrT3/ZnehJ0FXAg",
+      "verifies": true
+    },
+    {
+      "payload_canonical_sha256": "557a6d09993fce3983c7d9d8e912d76647bc45cf474e367d3ae7619dc8ca8a06",
+      "payload_name": "evidence_bundle",
+      "signature_multibase": "mYGApvQxhUmxmHC1MXkEDsFV+i3b4NARPDEy6wi5FqWmLlpYBFaYoI7mRs9VEC5cbvSi1wMFZUSe2bN4Wxr3DBw",
+      "verifies": true
+    }
+  ]
+}

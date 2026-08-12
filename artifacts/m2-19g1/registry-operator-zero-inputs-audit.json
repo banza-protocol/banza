@@ -1,0 +1,316 @@
+{
+  "audit": "M2.19G.1 §43 steps 7,8,10 — Technical Registry + Operador Zero + validation engines/APIs + official-flow local-input audit",
+  "mode": "READ-ONLY (no source modified; one audit artifact written)",
+  "branch": "release/m2-19g1-endpoint-originated-operator-validation",
+  "date": "2026-07-29",
+  "target_architecture_reference": "official BanzAI journey must resolve operator_id -> implementation_id -> canonical_origin -> discovery via the CLOSED Technical Registry, then a secure Rust fetcher retrieves published artifacts from the implementation's public HTTPS endpoints, Rust engines decide, receipts bind the verdict to the exact origin. Operador Zero must use the SAME path (no fixtures/bypass/precomputed results).",
+  "verified_facts_confirmed": {
+    "oz_canonical_origin": "https://zero.banza.network (banzaiValidation.ts:32 artifacts_base; oz/page.tsx alternates.canonical; manifest base_url)",
+    "oz_served_200": "The 10 ARTIFACT_ROUTES (operadorZero.ts:28-39) incl. /manifest.json /key-manifest.json /revocation-list.json /evidence-bundle.json /conformance/evidence.json /traces/full-e2e.json /federation/metadata.json /ledger/demo.json /payments/demo-qr.json /payments/demo-refund.json — CONFIRMED",
+    "oz_404": "/discovery.json (or /.well-known/banza-discovery.json), /capabilities.json, /signed-metadata.json (or /metadata.json), /federation-manifest.json — CONFIRMED not present in ARTIFACT_ROUTES / ZERO_ENDPOINTS",
+    "host_routing_note": "banza.network /oz/* -> apex resolveZeroRoute returns {type:'notfound'} = 404 (zeroSubdomain.ts:78-79), NOT a 308 redirect. The retired /operador-zero -> 410 Gone on every host (zeroSubdomain.ts:70-72). The task's stated '/oz/* 308-redirects' is NOT confirmed in middleware/zeroSubdomain source; any 308 would be an edge/nginx artifact. zero.banza.network / -> rewrite to /oz; zero-host /banzai* -> 307 redirect to apex (middleware.ts:30, zeroSubdomain.ts:95-97)."
+  },
+
+  "technical_registry": {
+    "summary": "There is NO operator_id -> implementation_id -> canonical_origin -> discovery resolution today. The public registry is a FLAT, empty pre-production index served by a JS+PostgreSQL service; the only 'target resolution' in the validation flow is a hardcoded closed map with a single entry whose origin URL is defined but NEVER used to fetch. The resolution chain in the target architecture must be built.",
+    "human_documentary_pages": [
+      {
+        "path": "website/app/registo-tecnico/page.tsx",
+        "role": "The declared REAL owning page for the BANZA Technical Registry (Layer 2, ADR-065). Static documentary content only: DISTINCTIONS (registo-tecnico/page.tsx:18-27), canonical certification STATES (:30-37), MACHINE_ROUTES pointers (:40-56). No resolution logic, no data fetch. Points humans at machine routes /operators, /conformance/evidence, /federation/revocation-list.json. States registry is empty (/operators -> [])."
+      },
+      {
+        "path": "website/app/operadores/page.tsx",
+        "role": "Public operator + verifiable-evidence registry surface (M2.15B). Static documentary: ROLES (:21-28), registry state PANEL (:31-36: 'Public Protocol Registry 0 entradas', production_certificates false), INDEXED kinds (:39-46), MACHINE_ROUTES (:49-65). No resolution logic."
+      },
+      {
+        "path": "website/components/home/OperatorRegistry.tsx",
+        "role": "Home marquee. Client-side fetch('/operators') (OperatorRegistry.tsx:52) — same-origin CLOSED machine route only; falls back to a single Operador Zero card (FALLBACK :19-21) when the list is empty. registryCount counts only real entries (0 in pre-production)."
+      }
+    ],
+    "machine_route_source_of_truth": {
+      "path": "services/verification-api/src/routes.js",
+      "role": "The canonical /operators machine route. operators() reads PostgreSQL and returns a BARE JSON array, empty ([]) in pre-production (routes.js operators() handler; NOTE envelope :10-30). Also serves /.well-known/banza/root.json (rootManifest :46+), /.well-known/banza/key-manifest.json (keyManifest), /certificates, /conformance/evidence, /federation/revocation-list.json. This is a FLAT index of published operator metadata — it does NOT resolve operator->implementation->origin->discovery.",
+      "wiring": "infra/banza-network/compose.yml:47 (verification-api serves /.well-known/banza/*, /operators, /certificates, BRL, /conformance/evidence). Backed by PostgreSQL protocol-state DB (ADR-042). E2E expectations: infra/banza-network/tests/e2e-full-stack.sh:83-88 (/operators=[], production_certificates=false)."
+    },
+    "closed_validation_target_registry": {
+      "path": "website/lib/banzaiValidation.ts",
+      "role": "The ONLY 'target resolution' the validation flow uses today. VALIDATION_TARGETS (:28-36) is a CLOSED map with a single entry 'operator-zero' -> { id, display_name, artifacts_base: 'https://zero.banza.network', environment:'demo', demo_only:true }. resolveTarget() (:57-60) returns null off-list. Also closed workflow allowlist (:41-52) and step set (:70-89). SSRF-safe by construction: no caller URL accepted (:5-13).",
+      "critical_gap": "artifacts_base ('https://zero.banza.network') is DECLARED (banzaiValidation.ts:21 type, :32 value) but NEVER used to fetch anything — grep confirms the only references are the type field and the constant. The journey reads BUNDLED data via readArtifact(), not from this origin. So the origin binding exists as metadata but is dead for fetch purposes."
+    },
+    "registry_schemas_present": [
+      "ADR-065 (registry) / ADR-066 (certification state machine) referenced by registo-tecnico/page.tsx and operadorZeroStatus.ts, but no operator->implementation->origin->discovery resolution schema/data file exists in contracts/ or schemas/ for the validation flow to consume.",
+      "verification-api DB schema: infra/banza-network/postgres/init/001_schema.sql (operators table empty; per README.md:21,112)."
+    ],
+    "resolution_chain_exists_today": false
+  },
+
+  "operator_zero": {
+    "canonical_artifact_tree": {
+      "root": "examples/operators/zero/",
+      "file_count": 50,
+      "served_subset_source_files": {
+        "manifest": "manifest/operator-zero.manifest.valid.json",
+        "key-manifest": "keys/demo-key-manifest.json",
+        "revocation-list": "keys/revocation-list.demo.json",
+        "conformance/evidence": "conformance/conformance-pass.json",
+        "federation/metadata": "federation/federation-manifest.demo.json",
+        "evidence-bundle": "evidence-bundle/evidence-bundle.complete.json",
+        "traces/full-e2e": "traces/full-e2e-trace.json",
+        "ledger/demo": "ledger/demo-accounts.json",
+        "payments/demo-qr": "payments/demo-qr-payment.json",
+        "payments/demo-refund": "payments/demo-refund.json"
+      },
+      "non_served_examples_present": "conformance-fail/warn, evidence-bundle.invalid/partial, federation-incompatible/pass/peer-*, keys/demo-key-manifest.revoked/demo-operator-root.public, ledger/demo-balances.*/demo-reconciliation/demo-transactions, manifest/*.invalid.*, payments/demo-failed/demo-payment-*, traces/failed-e2e/session-summary, trust/trust-pass/fail-closed/revoked, and the whole e2e-root/ signed set (see operator_zero_e2e_root)."
+    },
+    "served_endpoint_surface": {
+      "artifact_routes_map": "website/lib/operadorZero.ts:28-39 (ARTIFACT_ROUTES: route -> canonical file -> label -> kind)",
+      "served_handler": "website/app/oz/[...artifact]/route.ts — force-static (:12-13), generateStaticParams from ARTIFACT_ROUTES (:18-20), GET returns readArtifact(entry.route) from BUNDLED ARTIFACT_DATA (:22-34), writes refused 405 (:39-56).",
+      "host_routing": "website/middleware.ts (thin wrapper) + website/lib/zeroSubdomain.ts (pure logic; ZERO_ENDPOINTS list :23-34 kept in sync with ARTIFACT_ROUTES; zero-host / -> rewrite /oz, *.json -> /oz/<path>).",
+      "bundled_data": "website/lib/operadorZeroArtifacts.generated.ts (ARTIFACT_DATA :12+, VALIDATION_STATE :306) — GENERATED, do-not-edit.",
+      "generator": "tools/gen-operador-zero-artifacts.mjs (ARTIFACTS map :24-35 must match ARTIFACT_ROUTES; vendors 10 artifacts + validation-state; make operator-zero-check fails on drift).",
+      "live_vs_missing": {
+        "LIVE_200": ["/manifest.json","/key-manifest.json","/revocation-list.json","/conformance/evidence.json","/federation/metadata.json","/evidence-bundle.json","/traces/full-e2e.json","/ledger/demo.json","/payments/demo-qr.json","/payments/demo-refund.json"],
+        "MISSING_404": ["/discovery.json (or /.well-known/banza-discovery.json)","/capabilities.json","/signed-metadata.json (or /metadata.json)","/federation-manifest.json"]
+      },
+      "manifest_declared_endpoints": "examples/operators/zero/manifest/operator-zero.manifest.valid.json:22-32 declares base_url, key_manifest_url, conformance_url, federation_metadata_url only; capabilities are INLINE (:17-21) not a /capabilities.json endpoint; NO discovery/signed-metadata/federation-manifest URL declared."
+    },
+    "engines": {
+      "operator-zero-core": {
+        "path": "engines/operator-zero-core/src/{lib,boundary,ledger,sim,vocab}.rs",
+        "role": "Rust engine behind the simulator. GENERATES demo artifacts + identity()/boundary + a safe_summary for BanzAI (lib.rs:23-58); sim/ledger produce the demo flows. It does NOT ingest and validate an external operator's fetched content — it is the artifact PRODUCER + vocabulary/boundary owner, not a content verdict engine.",
+        "consumes": "nothing external (deterministic, no clock/network/keys — lib.rs:12-13). examples/gen_artifacts.rs writes the canonical tree."
+      },
+      "operator-zero-e2e-root": {
+        "path": "engines/operator-zero-e2e-root/src/{lib.rs,bin/gen.rs}",
+        "role": "DEMO-ONLY ephemeral Ed25519 signing root (lib.rs:1-19). Signs the demo manifest + evidence bundle, emits ONLY public artifacts (public key, key-manifest, fingerprint, signature report, revocation list, signed manifest, signed evidence bundle, verification trace), verifies with the public key. Private key in memory only.",
+        "consumes_produces": "reads/writes examples/operators/zero/e2e-root/* (operator-zero-e2e-signed-manifest.json, -signed-evidence-bundle.json, -root.public.json, -key-manifest.json, -revocation-list.json, -signature-report.json, -root-verification-trace.json, -key-fingerprint.txt). This is the closest existing thing to a signed-metadata producer, but its output is NOT wired to a served /signed-metadata.json endpoint."
+      }
+    }
+  },
+
+  "official_flow_local_inputs": {
+    "flow_entrypoint": "website/components/banzai/validationJourney.tsx (useValidationSession, executed inside website/components/banzai/BanzaiAgent.tsx:2757). This is THE official 9-step validation journey.",
+    "core_finding": "Every step reads BUNDLED Operador Zero artifacts and/or Rust-built demo fixtures/scenarios; NO step performs an endpoint fetch. The declared origin (artifacts_base) is never used. Certification is a hardcoded TS-computed verdict. Target is hardcoded to 'operator-zero'.",
+    "items": [
+      {
+        "id": "LI-01",
+        "step": "1 discovery",
+        "loc": "validationJourney.tsx:186-188",
+        "kind": "bundled artifact (disk-substitute)",
+        "desc": "readArtifact('manifest'|'federation/metadata'|'key-manifest') — reads bundled ARTIFACT_DATA, not a fetched /discovery.json. There is no discovery document; discovery is faked from the bundled manifest."
+      },
+      {
+        "id": "LI-02",
+        "step": "2 manifest",
+        "loc": "validationJourney.tsx:234-235",
+        "kind": "bundled artifact",
+        "desc": "readArtifact('manifest') then validateManifest(JSON.stringify(artifact)). Engine takes content, but content comes from the bundle, not the endpoint."
+      },
+      {
+        "id": "LI-03",
+        "step": "3 keys",
+        "loc": "validationJourney.tsx:270-278",
+        "kind": "FIXTURE BYPASS",
+        "desc": "OZ key-manifest + revocation-list are read (:270-271) but only RECORDED as inputs/evidence. The actual trust verdict is computed on a RUST DEMO FIXTURE: loadTrustFixtures() then evaluateTrust(fx.input) (:272,277-278). Comment at :273-276 explicitly acknowledges the published key material is not evaluated."
+      },
+      {
+        "id": "LI-04",
+        "step": "4 conformance",
+        "loc": "validationJourney.tsx:308,328",
+        "kind": "bundled scenario + unused published evidence",
+        "desc": "runL0Demo({ scenario: 'valid_l0' }) runs a BUNDLED SimB scenario (:308). The published /conformance/evidence.json is read (:328) but only recorded as an input — never validated as the verdict source."
+      },
+      {
+        "id": "LI-05",
+        "step": "5 interoperability",
+        "loc": "validationJourney.tsx:343-357",
+        "kind": "bundled simulator + fixture seed",
+        "desc": "runSimbScenario('valid_l0') (bundled simulator, :343) + loadL2Fixtures() picks a READY fixture (:345-350), merged with threaded ctx (:351-356), then validateL2(input). The operator's published payment/ledger/trace artifacts are NOT fed to the L2 engine (only listed as evidence_references :375-379)."
+      },
+      {
+        "id": "LI-06",
+        "step": "6 trust",
+        "loc": "validationJourney.tsx:400-403",
+        "kind": "FIXTURE BYPASS",
+        "desc": "OZ federation/metadata read (:400) but only recorded. Trust verdict computed on a RUST DEMO FIXTURE: loadTrustFixtures() then evaluateTrust(fx.input) (:401-403). No signed protocol metadata endpoint is fetched (none exists)."
+      },
+      {
+        "id": "LI-07",
+        "step": "7 federation",
+        "loc": "validationJourney.tsx:437-452",
+        "kind": "bundled simulator + fixture seed",
+        "desc": "runSimbFederationDemo() (bundled, :437) + loadL3Fixtures() fixture (:440-444) merged with ctx (:445-451), then validateL3(input). No /federation-manifest.json fetch."
+      },
+      {
+        "id": "LI-08",
+        "step": "8 evidence",
+        "loc": "validationJourney.tsx:491-503,523",
+        "kind": "locally-built bundle + unused published bundle",
+        "desc": "buildBundle() assembles the bundle from threaded ctx reports then validateBundle() (:491-503). The published /evidence-bundle.json is read (:523) but only recorded as an input — the published bundle is not validated as the source of truth."
+      },
+      {
+        "id": "LI-09",
+        "step": "9 certification",
+        "loc": "validationJourney.tsx:549-600",
+        "kind": "HARDCODED VERDICT (TS aggregation)",
+        "desc": "runCertification() is pure TypeScript. The record is hardcoded: status 'NOT_CERTIFIED', readiness 'PRE_PRODUCTION', certified/authorised/licensed=false, production_allowed=false, demo_only=true (:556,561-582). No engine; honest for a demo but not endpoint-derived and not a Rust verdict."
+      },
+      {
+        "id": "LI-10",
+        "step": "all",
+        "loc": "validationJourney.tsx:495,567,587,842; banzaiValidation.ts:32",
+        "kind": "hardcoded target + dead origin",
+        "desc": "Target is hardcoded 'operator-zero' (operator_candidate :495, record.target :567, evidence_ref :587, journeyReceipt.target :842). artifacts_base origin (banzaiValidation.ts:32) is never read by the flow."
+      },
+      {
+        "id": "LI-11",
+        "step": "data source",
+        "loc": "website/lib/operadorZero.ts:42-44 + operadorZeroArtifacts.generated.ts",
+        "kind": "vendored disk-substitute",
+        "desc": "readArtifact(route) returns ARTIFACT_DATA[route] — vendored constants bundled into the image (comment operadorZero.ts:20-24). This is the substitute for both an endpoint fetch AND a disk read. The whole served surface and the whole validation flow read from this same bundle."
+      }
+    ]
+  },
+
+  "engine_input_contract": {
+    "note": "All Rust decision engines are JSON-in/JSON-out and take CONTENT — a secure fetcher can feed fetched payloads directly. The ONE exception is banza-simb, a self-contained simulator that generates its own run from a scenario name (it does not ingest operator content). Certification is not an engine at all.",
+    "engines": [
+      {
+        "engine": "banza-operator-manifest",
+        "wrapper": "website/lib/banzaOperatorManifest.ts:77-80 validateManifest(input: string)",
+        "contract": "TAKES CONTENT (raw manifest JSON string).",
+        "fetcher_must_provide": "the fetched /manifest.json bytes (URLs checked well-formed only, never fetched by the engine — banzaOperatorManifest.ts:8).",
+        "used_by_steps": ["1 discovery","2 manifest"]
+      },
+      {
+        "engine": "banza-trust",
+        "wrapper": "website/lib/banzaTrust.ts:85-88 evaluateTrust(input: unknown); loadTrustFixtures() :91-94",
+        "contract": "TAKES CONTENT (object). Flow currently feeds a Rust demo FIXTURE instead of OZ material (LI-03, LI-06).",
+        "fetcher_must_provide": "the fetched signed protocol metadata + key-manifest + revocation-list, shaped into the trust input. Requires a /signed-metadata.json endpoint (currently missing).",
+        "used_by_steps": ["3 keys","6 trust"]
+      },
+      {
+        "engine": "banza-conformance",
+        "wrapper": "website/lib/banzaConformance.ts:98-101 runL0Demo({scenario}|{run}); validateConformanceReport(json) :104-107",
+        "contract": "TAKES CONTENT via {run} or validateReport(json); ALSO runs a bundled scenario via {scenario}. Flow uses {scenario:'valid_l0'} (LI-04).",
+        "fetcher_must_provide": "the fetched /conformance/evidence.json -> validateConformanceReport(json), or a published run -> runL0Demo({run}).",
+        "used_by_steps": ["4 conformance"]
+      },
+      {
+        "engine": "banza-simb",
+        "wrapper": "website/lib/banzaSimb.ts:125-134 runSimbScenario(scenario), runSimbFederationDemo()",
+        "contract": "DOES NOT TAKE OPERATOR CONTENT — self-contained deterministic simulator; generates its run from a scenario name.",
+        "fetcher_must_provide": "N/A. In an endpoint-originated flow the interop/federation verdict should come from validating the operator's PUBLISHED payment/ledger/trace artifacts (L2/L3), not from re-simulating with SimB. SimB may remain as an internal reference oracle only.",
+        "used_by_steps": ["5 interoperability","7 federation"]
+      },
+      {
+        "engine": "banza-l2-readiness",
+        "wrapper": "website/lib/banzaL2Readiness.ts:93-96 validateL2(input: L2Input); L2Input :60-72",
+        "contract": "TAKES CONTENT (structured object: operator_manifest, payment_intent, idempotency_result, ledger_postings, trace_linkage, settlement_obligation, evidence_reference...). Flow currently seeds from loadL2Fixtures() + ctx (LI-05).",
+        "fetcher_must_provide": "an L2Input assembled from the fetched /manifest.json + /payments/demo-qr.json + /payments/demo-refund.json + /ledger/demo.json + /traces/full-e2e.json.",
+        "used_by_steps": ["5 interoperability"]
+      },
+      {
+        "engine": "banza-l3-readiness",
+        "wrapper": "website/lib/banzaL3Readiness.ts:97-99 validateL3(input: L3Input); L3Input :63-76",
+        "contract": "TAKES CONTENT (structured object: federation_pair/intent, cross_operator_trace, trust_and_brl, federation_settlement...). Flow seeds from loadL3Fixtures() + ctx (LI-07).",
+        "fetcher_must_provide": "an L3Input assembled from the fetched federation artifacts (/federation/metadata.json + a new /federation-manifest.json + peer descriptors).",
+        "used_by_steps": ["7 federation"]
+      },
+      {
+        "engine": "banza-evidence-bundle",
+        "wrapper": "website/lib/banzaEvidenceBundle.ts:103-118 buildBundle(input); validateBundle(json)",
+        "contract": "TAKES CONTENT. buildBundle assembles from prior reports; validateBundle(json) validates a bundle JSON directly (fields+flags+readiness+SHA-256).",
+        "fetcher_must_provide": "the fetched /evidence-bundle.json -> validateBundle(json) as the authoritative published bundle (today only recorded, LI-08).",
+        "used_by_steps": ["8 evidence"]
+      },
+      {
+        "engine": "(none) certification readiness",
+        "wrapper": "website/components/banzai/validationJourney.tsx:549-600 runCertification()",
+        "contract": "NO ENGINE. Deterministic TS aggregation of prior step statuses producing a HARDCODED demo record (LI-09).",
+        "fetcher_must_provide": "N/A — aggregation. In the target architecture the verdict must be bound to the fetched-origin receipts, not to a hardcoded literal.",
+        "used_by_steps": ["9 certification"]
+      }
+    ]
+  },
+
+  "missing_oz_endpoints": {
+    "endpoints_to_publish": [
+      {
+        "endpoint": "/discovery.json (or /.well-known/banza-discovery.json)",
+        "for_step": "1 discovery",
+        "purpose": "Entry document mapping operator_id -> implementation_id -> protocol_version -> the artifact endpoint map (manifest, key-manifest, revocation, conformance, signed-metadata, capabilities, federation-manifest, evidence-bundle, traces). This is the closed-registry discovery anchor for the whole endpoint-originated journey.",
+        "status_today": "404"
+      },
+      {
+        "endpoint": "/capabilities.json",
+        "for_step": "1 discovery / cross-cutting",
+        "purpose": "Dedicated capability matrix (today capabilities are only inline in manifest :17-21).",
+        "status_today": "404"
+      },
+      {
+        "endpoint": "/signed-metadata.json (or /metadata.json)",
+        "for_step": "3 keys / 6 trust",
+        "purpose": "Signed protocol metadata consumed by banza-trust (replaces the trust FIXTURE at LI-03/LI-06). operator-zero-e2e-root already produces a signed manifest + signature report that can back this.",
+        "status_today": "404"
+      },
+      {
+        "endpoint": "/federation-manifest.json",
+        "for_step": "7 federation",
+        "purpose": "Federation manifest for banza-l3-readiness (distinct from the existing /federation/metadata.json). Peer descriptors already exist as examples (federation/peer-zero-alpha/beta.json).",
+        "status_today": "404"
+      }
+    ],
+    "canonical_example_artifacts_to_add": {
+      "under_examples_operators_zero": [
+        "discovery/discovery.json (or well-known/banza-discovery.json)",
+        "capabilities/capabilities.json",
+        "metadata/signed-metadata.json (produced/signed via engines/operator-zero-e2e-root)",
+        "federation/federation-manifest.json"
+      ],
+      "wiring_required": [
+        "website/lib/operadorZero.ts:28-39 ARTIFACT_ROUTES — add the 4 new route entries",
+        "website/lib/zeroSubdomain.ts:23-34 ZERO_ENDPOINTS — add the 4 new endpoints (kept in sync by make zero-subdomain-routing-check)",
+        "tools/gen-operador-zero-artifacts.mjs:24-35 ARTIFACTS — add the 4 new route->file mappings then regenerate operadorZeroArtifacts.generated.ts",
+        "examples/operators/zero/manifest/operator-zero.manifest.valid.json — declare the new endpoint URLs (discovery/signed-metadata/capabilities/federation-manifest)"
+      ]
+    }
+  },
+
+  "existing_outbound_http": {
+    "summary": "No general artifact-fetch capability exists. A secure Rust fetcher must be built new (consistent with ADR-037 Rust-first). The only outbound HTTP today is banzai-api's LLM transport to a FIXED internal model host, guarded to be LOCAL-only — it cannot fetch external operator HTTPS endpoints.",
+    "banzai_api": {
+      "path": "services/banzai-api/src/provider.js",
+      "finding": "Outbound HTTP via an injected fetchImpl (createProvider :458), used ONLY to reach the LLM endpoint: local_qwen at http://llama-local:8080/v1 (:41), or hosted deepseek/qwen if configured (:39-40). Calls: /health poll (:230), /chat/completions (:267,319,428).",
+      "locality_guard": "provider.js isLocalHost() (:96) + declaredLocal handling (:84-96) restrict local_qwen to localhost/.localhost/bare Docker service names. This guard would BLOCK, not enable, fetching public operator origins — a new fetcher needs the INVERSE policy (allow public HTTPS, block private/loopback/link-local).",
+      "verdict": "NOT reusable as an operator-artifact fetcher."
+    },
+    "rust_engines": {
+      "finding": "No HTTP client dependency in any engines/*/Cargo.toml (no reqwest/ureq/hyper/isahc/surf). Engines are explicitly 'local, no-network' by design (e.g. banza-l2/l3/l4-readiness Cargo.toml descriptions; operator-zero-core lib.rs:12-13).",
+      "verdict": "No Rust fetcher exists. Must be built."
+    },
+    "website": {
+      "finding": "Only same-origin client fetch('/operators') in components/home/OperatorRegistry.tsx:52 (closed machine route). Validation flow performs NO fetch (uses bundled readArtifact).",
+      "verdict": "No arbitrary-URL fetch anywhere in the validation path."
+    },
+    "verification_api": {
+      "finding": "services/verification-api reads its own PostgreSQL (src/db.js) and serves machine routes; it makes no outbound artifact fetches.",
+      "verdict": "Not a fetcher."
+    }
+  },
+
+  "summary": {
+    "registry_target_resolution_exists_today": false,
+    "registry_today": "flat, empty pre-production index (/operators -> []) served by services/verification-api from PostgreSQL; the only in-flow 'resolution' is the closed VALIDATION_TARGETS map (1 entry) whose artifacts_base origin is never used to fetch.",
+    "official_flow_local_inputs_count": 11,
+    "official_flow_fixture_bypasses_count": 2,
+    "fixture_bypasses": ["LI-03 keys (trust fixture instead of OZ key material)","LI-06 trust (trust fixture instead of OZ signed metadata)"],
+    "hardcoded_verdicts_count": 1,
+    "hardcoded_verdicts": ["LI-09 certification (TS-computed NOT_CERTIFIED/PRE_PRODUCTION literal)"],
+    "bundled_disk_substitute_reads": ["LI-01,LI-02,LI-04(evidence),LI-08(published bundle),LI-11 — all via readArtifact()/ARTIFACT_DATA"],
+    "engine_input_contract_verdict": "content-taking for all decision engines (manifest, trust, conformance, l2, l3, evidence-bundle) EXCEPT banza-simb (self-contained simulator, no operator content); certification is not an engine (hardcoded aggregation).",
+    "missing_oz_endpoints": ["/discovery.json (or /.well-known/banza-discovery.json)","/capabilities.json","/signed-metadata.json (or /metadata.json)","/federation-manifest.json"],
+    "missing_oz_endpoints_count": 4,
+    "secure_fetcher_exists_today": false
+  }
+}

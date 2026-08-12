@@ -1,0 +1,21 @@
+[package]
+name = "operator-zero-e2e-root"
+version = "0.1.0"
+edition = "2021"
+description = "operator-zero-e2e-root (ADR-052, M2.13A): a DEMO-ONLY Operador Zero E2E signing root. `gen` generates an EPHEMERAL Ed25519 key (kept only in memory, NEVER written to disk, NEVER committed), signs the demo manifest and evidence bundle, and emits ONLY public artifacts — public key, key manifest, fingerprint, signatures, revocation list, verification trace. Verification is public-key-only (this crate + the E2E tests need no private key). NOT the protocol Trust Root; it does not certify, authorise, license or move real money."
+license = "Apache-2.0"
+
+[[bin]]
+name = "gen"
+path = "src/bin/gen.rs"
+
+[dependencies]
+ed25519-dalek = { version = "2", features = ["rand_core"] }
+rand_core = { version = "0.6", features = ["getrandom"] }
+sha2 = "0.10"
+base64 = "0.22"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[profile.release]
+opt-level = "s"

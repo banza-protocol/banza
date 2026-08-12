@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/root-signature.production.schema.json",
+  "title": "RootSignatureProduction",
+  "description": "A single custodian signature produced OFFLINE during the BANZA offline root-key ceremony. Public material only: the root key id, the custodian, a detached ed25519 signature (base64url), the hash that was signed, and the algorithm. A valid root action requires at least 2 of 3 such signatures (M2_ROOT_CEREMONY_BLOCKED_BY_THRESHOLD if fewer). NO private key, seed or passphrase appears here — a signature is public data. The signed_hash covers root metadata, a delegation, a rotation, a revocation or the trust policy only — never a payment, an operator authorisation, a licence or a fund movement. Status is computed in Rust by engines/banza-root-ceremony :: validate_root_ceremony, never in TypeScript.",
+  "_spec_version": "1.0",
+  "_status": "production-baseline",
+  "_authority": "Root Trust Ceremony (2-of-3 offline custody, docs/governance PKI trust model)",
+  "_boundary": "Root trust for the BANZA open financial protocol. The root does NOT authorise payment services, does NOT create operators, does NOT issue licences, does NOT move/settle/hold funds, and does NOT replace operator regulatory authorisation. BANZA remains an open financial protocol; PSPs/banks/authorised operators are separate entities that implement it.",
+
+  "type": "object",
+  "required": ["key_id", "custodian", "signature", "signed_hash", "algorithm"],
+  "additionalProperties": false,
+
+  "properties": {
+    "key_id": { "type": "string", "description": "Root key id that produced this signature (e.g. 'root-key-A')." },
+    "custodian": { "type": "string", "enum": ["A", "B", "C"], "description": "Custodian who signed OFFLINE with their single root private key." },
+    "signature": { "type": "string", "description": "Detached signature over signed_hash (base64url, ed25519). Public material only." },
+    "signed_hash": {
+      "type": "object",
+      "description": "The content hash that was signed. Covers a root-scope object only (root_metadata, delegation, rotation, revocation, trust_policy).",
+      "required": ["algorithm", "value"],
+      "additionalProperties": false,
+      "properties": {
+        "algorithm": { "type": "string", "enum": ["sha-256"] },
+        "value": { "type": "string", "description": "Digest over the canonical signed bytes." }
+      }
+    },
+    "algorithm": { "type": "string", "const": "ed25519", "description": "Signature algorithm." }
+  }
+}

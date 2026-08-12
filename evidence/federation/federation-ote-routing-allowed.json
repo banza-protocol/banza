@@ -1,0 +1,47 @@
+{
+  "boundary": {
+    "evaluation_is_local_and_directional": true,
+    "routing_allowed_is_not_a_mandate_to_route": true,
+    "routing_allowed_is_not_certification": true,
+    "routing_allowed_is_not_regulatory_authorisation": true,
+    "routing_allowed_is_not_scheme_admission": true
+  },
+  "checks": {
+    "capabilities_compatible": true,
+    "compatible_protocol_version": true,
+    "conformance_evidence_valid": true,
+    "endpoint_contract_compatible": true,
+    "evidence_freshness_within_policy": true,
+    "fail_closed_on_missing_or_invalid": true,
+    "not_revoked": true,
+    "signed_protocol_metadata": true,
+    "trust_root_or_delegated_signature_valid": true,
+    "valid_operator_manifest": true
+  },
+  "external_model_called": false,
+  "failed_checks": [],
+  "flags": {
+    "central_operator_authority": false,
+    "certificate_based_trust": false,
+    "conformance_is_machine_verifiable": true,
+    "does_not_authorise_operators": true,
+    "does_not_certify_operators": true,
+    "does_not_issue_payment_licence": true,
+    "does_not_move_funds": true,
+    "human_operator_approval_required": false,
+    "not_a_psp": true,
+    "open_financial_protocol": true,
+    "operator_participation_permissionless": true,
+    "signed_metadata_based_trust": true
+  },
+  "llm_calls": 0,
+  "outcome": "ROUTING_ALLOWED",
+  "production_disclaimer": "Trust engine report descreve a verificação do modelo activo de trust do protocolo financeiro aberto BANZA. Não é autorização de operador, não é certificação, não é licença e não permite prestação de serviços financeiros pelo BANZA.",
+  "protocol_stance": "BANZA é um protocolo financeiro aberto. Operadores independentes implementam o protocolo, publicam manifests e demonstram compatibilidade por evidência verificável de conformidade. O trust do protocolo é avaliado por signed protocol metadata, delegated signing keys, public protocol registry e revocation/fail-closed.",
+  "report_hash": "b20588780d9b53956e059d226e574c44a2766aead98c4cc168fe3ab29c71ed57",
+  "schema": "federation-trust-evaluation/1",
+  "test_only": true,
+  "tool": "banza-trust",
+  "tool_version": "0.2.0",
+  "trust_status": "TRUST_VALID"
+}

@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 540" width="900" height="540" font-family="'Courier New', Courier, monospace">
+  <rect width="900" height="540" fill="#0f0f0f"/>
+
+  <!-- Title -->
+  <text x="450" y="36" fill="#e8d5b7" font-size="15" text-anchor="middle" font-weight="bold" letter-spacing="1">Banza Sandbox Operator — Architecture</text>
+  <text x="450" y="54" fill="#555" font-size="11" text-anchor="middle">simulated=true · production_allowed=false · all providers local</text>
+
+  <!-- Browser / Demo Wallet -->
+  <rect x="30" y="80" width="180" height="110" rx="6" fill="#181818" stroke="#333" stroke-width="1"/>
+  <text x="120" y="102" fill="#666" font-size="9" text-anchor="middle" letter-spacing="0.8">BROWSER</text>
+  <text x="120" y="120" fill="#e8d5b7" font-size="12" text-anchor="middle" font-weight="bold">Demo Wallet</text>
+  <text x="120" y="138" fill="#555" font-size="9" text-anchor="middle">index.html</text>
+  <text x="120" y="154" fill="#555" font-size="9" text-anchor="middle">no build step</text>
+  <text x="120" y="170" fill="#555" font-size="9" text-anchor="middle">fetch() + EventSource</text>
+
+  <!-- Arrow: Browser → Operator -->
+  <line x1="210" y1="135" x2="295" y2="135" stroke="#444" stroke-width="1" stroke-dasharray="4,3"/>
+  <polygon points="295,131 303,135 295,139" fill="#444"/>
+  <text x="252" y="127" fill="#555" font-size="9" text-anchor="middle">HTTP</text>
+  <text x="252" y="147" fill="#444" font-size="9" text-anchor="middle">SSE</text>
+
+  <!-- Sandbox Operator box -->
+  <rect x="303" y="64" width="294" height="356" rx="6" fill="#141414" stroke="#2a2a2a" stroke-width="1.5"/>
+  <text x="450" y="85" fill="#555" font-size="9" text-anchor="middle" letter-spacing="0.8">SANDBOX OPERATOR  :3100</text>
+  <text x="450" y="103" fill="#e8d5b7" font-size="13" text-anchor="middle" font-weight="bold">sandbox-operator</text>
+
+  <!-- Operator inner blocks -->
+  <!-- Routes -->
+  <rect x="320" y="114" width="124" height="70" rx="4" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="382" y="132" fill="#666" font-size="8" text-anchor="middle" letter-spacing="0.6">ROUTES</text>
+  <text x="382" y="148" fill="#ccc" font-size="9" text-anchor="middle">wallets · transfers</text>
+  <text x="382" y="162" fill="#ccc" font-size="9" text-anchor="middle">qr · settlement</text>
+  <text x="382" y="176" fill="#ccc" font-size="9" text-anchor="middle">ledger · events</text>
+
+  <!-- State -->
+  <rect x="456" y="114" width="124" height="70" rx="4" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="518" y="132" fill="#666" font-size="8" text-anchor="middle" letter-spacing="0.6">IN-MEMORY STATE</text>
+  <text x="518" y="148" fill="#ccc" font-size="9" text-anchor="middle">wallets · ledger</text>
+  <text x="518" y="162" fill="#ccc" font-size="9" text-anchor="middle">transfers · QR codes</text>
+  <text x="518" y="176" fill="#ccc" font-size="9" text-anchor="middle">event history</text>
+
+  <!-- Manifest -->
+  <rect x="320" y="196" width="260" height="36" rx="4" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="450" y="210" fill="#666" font-size="8" text-anchor="middle" letter-spacing="0.6">OPERATOR MANIFEST</text>
+  <text x="450" y="224" fill="#ccc" font-size="9" text-anchor="middle">/.well-known/banza/operator.json</text>
+
+  <!-- Divider -->
+  <line x1="320" y1="248" x2="580" y2="248" stroke="#222" stroke-width="1"/>
+  <text x="450" y="262" fill="#444" font-size="8" text-anchor="middle" letter-spacing="0.8">PROVIDER LAYER  (all simulated)</text>
+
+  <!-- Provider boxes -->
+  <rect x="318" y="270" width="118" height="56" rx="4" fill="#1a1a1a" stroke="#252525" stroke-width="1"/>
+  <text x="377" y="287" fill="#555" font-size="8" text-anchor="middle">ACQUIRER</text>
+  <text x="377" y="302" fill="#aaa" font-size="9" text-anchor="middle" font-weight="bold">FakeAcquirer</text>
+  <text x="377" y="316" fill="#444" font-size="8" text-anchor="middle">HMAC-signed refs</text>
+
+  <rect x="446" y="270" width="136" height="56" rx="4" fill="#1a1a1a" stroke="#252525" stroke-width="1"/>
+  <text x="514" y="287" fill="#555" font-size="8" text-anchor="middle">SETTLEMENT</text>
+  <text x="514" y="302" fill="#aaa" font-size="9" text-anchor="middle" font-weight="bold">SimulatedSettlement</text>
+  <text x="514" y="316" fill="#444" font-size="8" text-anchor="middle">always succeeds</text>
+
+  <rect x="318" y="336" width="118" height="56" rx="4" fill="#1a1a1a" stroke="#252525" stroke-width="1"/>
+  <text x="377" y="353" fill="#555" font-size="8" text-anchor="middle">NOTIFICATIONS</text>
+  <text x="377" y="368" fill="#aaa" font-size="9" text-anchor="middle" font-weight="bold">StdoutProvider</text>
+  <text x="377" y="382" fill="#444" font-size="8" text-anchor="middle">tracing logs</text>
+
+  <rect x="446" y="336" width="136" height="56" rx="4" fill="#1a1a1a" stroke="#252525" stroke-width="1"/>
+  <text x="514" y="353" fill="#555" font-size="8" text-anchor="middle">ROUTING</text>
+  <text x="514" y="368" fill="#aaa" font-size="9" text-anchor="middle" font-weight="bold">MockRouting</text>
+  <text x="514" y="382" fill="#444" font-size="8" text-anchor="middle">verbose · failing · degraded</text>
+
+  <!-- Kernel crates box -->
+  <rect x="303" y="434" width="294" height="64" rx="4" fill="#0f1510" stroke="#1a2e1a" stroke-width="1"/>
+  <text x="450" y="451" fill="#2a4a2a" font-size="8" text-anchor="middle" letter-spacing="0.8">PROTOCOL CORE MODULES</text>
+  <text x="450" y="467" fill="#3d7a3d" font-size="9" text-anchor="middle">banza-types · banza-ledger · banza-wallets</text>
+  <text x="450" y="483" fill="#3d7a3d" font-size="9" text-anchor="middle">banza-transfers · banza-qr · banza-routing</text>
+  <text x="450" y="499" fill="#3d7a3d" font-size="9" text-anchor="middle">banza-acquiring · banza-settlement · banza-capabilities</text>
+
+  <!-- Arrow: Operator → Kernel -->
+  <line x1="450" y1="420" x2="450" y2="434" stroke="#1a2e1a" stroke-width="1" stroke-dasharray="3,2"/>
+  <polygon points="446,434 450,440 454,434" fill="#1a2e1a"/>
+
+  <!-- curl client box -->
+  <rect x="30" y="230" width="180" height="80" rx="6" fill="#181818" stroke="#333" stroke-width="1"/>
+  <text x="120" y="252" fill="#666" font-size="9" text-anchor="middle" letter-spacing="0.8">CLI / TEST CLIENT</text>
+  <text x="120" y="270" fill="#e8d5b7" font-size="12" text-anchor="middle" font-weight="bold">curl / SDK</text>
+  <text x="120" y="288" fill="#555" font-size="9" text-anchor="middle">cargo test</text>
+  <text x="120" y="303" fill="#555" font-size="9" text-anchor="middle">integration.rs</text>
+
+  <!-- Arrow: curl → Operator -->
+  <line x1="210" y1="270" x2="295" y2="240" stroke="#444" stroke-width="1" stroke-dasharray="4,3"/>
+  <polygon points="289,237 303,240 295,248" fill="#444"/>
+
+  <!-- Event stream highlight -->
+  <rect x="620" y="80" width="248" height="310" rx="6" fill="#0f1015" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="744" y="102" fill="#3a3a6a" font-size="9" text-anchor="middle" letter-spacing="0.8">EVENT STREAM</text>
+  <text x="744" y="120" fill="#6060b0" font-size="11" text-anchor="middle" font-weight="bold">broadcast::channel(256)</text>
+
+  <text x="744" y="148" fill="#444" font-size="9" text-anchor="middle">wallet.created</text>
+  <text x="744" y="165" fill="#4caf50" font-size="9" text-anchor="middle">payment.sent</text>
+  <text x="744" y="182" fill="#4caf50" font-size="9" text-anchor="middle">payment.received</text>
+  <text x="744" y="199" fill="#ffc107" font-size="9" text-anchor="middle">payment_request.created</text>
+  <text x="744" y="216" fill="#ffc107" font-size="9" text-anchor="middle">payment_request.paid</text>
+  <text x="744" y="233" fill="#e8d5b7" font-size="9" text-anchor="middle">qr.generated</text>
+  <text x="744" y="250" fill="#e8d5b7" font-size="9" text-anchor="middle">qr.paid</text>
+  <text x="744" y="267" fill="#00bcd4" font-size="9" text-anchor="middle">settlement.created</text>
+  <text x="744" y="284" fill="#00bcd4" font-size="9" text-anchor="middle">settlement.completed</text>
+
+  <line x1="640" y1="302" x2="852" y2="302" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="744" y="320" fill="#2a2a55" font-size="8" text-anchor="middle">GET /events → SSE (EventSource)</text>
+  <text x="744" y="337" fill="#2a2a55" font-size="8" text-anchor="middle">GET /events/history → JSON</text>
+  <text x="744" y="358" fill="#2a2a45" font-size="8" text-anchor="middle">In production: webhooks to</text>
+  <text x="744" y="373" fill="#2a2a45" font-size="8" text-anchor="middle">merchant backends</text>
+
+  <!-- Arrow: Operator → Event stream -->
+  <line x1="597" y1="200" x2="618" y2="200" stroke="#1a1a3a" stroke-width="1" stroke-dasharray="3,2"/>
+  <polygon points="618,196 626,200 618,204" fill="#1a1a3a"/>
+
+  <!-- Safety banner -->
+  <rect x="30" y="468" width="260" height="42" rx="4" fill="#1a0a0a" stroke="#3a1a1a" stroke-width="1"/>
+  <text x="160" y="486" fill="#7a3a3a" font-size="9" text-anchor="middle" letter-spacing="0.6">SAFETY ENFORCEMENT</text>
+  <text x="160" y="502" fill="#cc4444" font-size="9" text-anchor="middle">BANZA_ALLOW_PRODUCTION → refuse start</text>
+
+  <!-- Seed wallets -->
+  <rect x="620" y="408" width="248" height="116" rx="6" fill="#0f1510" stroke="#1a2e1a" stroke-width="1"/>
+  <text x="744" y="428" fill="#2a4a2a" font-size="9" text-anchor="middle" letter-spacing="0.8">SEED WALLETS</text>
+  <text x="744" y="447" fill="#4caf50" font-size="10" text-anchor="middle">sandbox-consumer-1   20,000.00 AOA</text>
+  <text x="744" y="463" fill="#4caf50" font-size="10" text-anchor="middle">sandbox-merchant-1  100,000.00 AOA</text>
+  <text x="744" y="479" fill="#4caf50" font-size="10" text-anchor="middle">sandbox-merchant-2   50,000.00 AOA</text>
+  <text x="744" y="495" fill="#4caf50" font-size="10" text-anchor="middle">sandbox-government-1 500,000.00 AOA</text>
+  <text x="744" y="513" fill="#2a4a2a" font-size="8" text-anchor="middle">resets on restart</text>
+</svg>

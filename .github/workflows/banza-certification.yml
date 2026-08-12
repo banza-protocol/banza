@@ -1,0 +1,33 @@
+name: banza-certification
+
+# Builds and tests the deterministic Rust certification authority (ADR-037 R4; ADR-064/065/066):
+# cargo fmt/clippy/test. Offline, no network, no secrets, no external model. A PASS here is technical
+# certification evidence, never a licence, scheme admission or regulatory authorisation (ADR-061).
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+concurrency:
+  group: banza-certification-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  banza-certification:
+    name: banza-certification (L2 authority)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+      - name: cargo fmt
+        working-directory: engines/banza-certification
+        run: cargo fmt --check
+      - name: cargo clippy
+        working-directory: engines/banza-certification
+        run: cargo clippy --all-targets -- -D warnings
+      - name: cargo test
+        working-directory: engines/banza-certification
+        run: cargo test

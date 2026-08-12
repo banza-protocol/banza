@@ -1,0 +1,9 @@
+{
+  "milestone": "M2.18B.3A Round C runtime matrix",
+  "host": "82.165.165.97 (12 vCore, 23GiB) ISOLATED bench box",
+  "model": "qwen2.5-7b-instruct-q4_k_m", "ctx": 4096, "threads": 10, "batch": 512,
+  "configs": {
+    "A_base_t10": {"flags":"","cache_off_150tok":{"prompt_n": 41, "prompt_ms": 1084.43, "prompt_per_second": 37.807880637754394, "predicted_n": 62, "predicted_ms": 3051.59, "predicted_per_second": 20.317277222693743},"cache_on_150tok":{"prompt_n": 1, "prompt_ms": 73.124, "prompt_per_second": 13.675400689240195, "predicted_n": 62, "predicted_ms": 3247.964, "predicted_per_second": 19.088881527012}},
+    "B_flash_attn": {"flags":"-fa on","cache_off_150tok":{"prompt_n": 41, "prompt_ms": 1027.323, "prompt_per_second": 39.90955132903673, "predicted_n": 62, "predicted_ms": 2878.218, "predicted_per_second": 21.541106337324},"cache_on_150tok":{"prompt_n": 1, "prompt_ms": 156.548, "prompt_per_second": 6.387817155121752, "predicted_n": 62, "predicted_ms": 3054.427, "predicted_per_second": 20.29840621497911}}
+  }
+}

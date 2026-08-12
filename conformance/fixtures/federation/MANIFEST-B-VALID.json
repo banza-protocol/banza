@@ -1,0 +1,27 @@
+{
+  "operator_id": "operator-b-test",
+  "environment": "sandbox",
+  "simulated": true,
+  "production_allowed": false,
+  "protocol_version": "1.0",
+  "certification_level": 3,
+  "capabilities": {
+    "supports_wallets": true,
+    "supports_qr": true,
+    "supports_settlement": true
+  },
+  "operator_name": "Simulated Operator B (Conformance Runner)",
+  "operator_url": "https://sim-b.conformance.banza.internal",
+  "federation_version": "1",
+  "signed_protocol_metadata_url": "https://sim-b.conformance.banza.internal/.well-known/banza/signed-protocol-metadata.json",
+  "interop_endpoint": "https://sim-b.conformance.banza.internal",
+  "supports_federation": true,
+  "cross_operator_routing": true,
+  "cross_operator_settlement": true,
+  "federation_capabilities": {
+    "routing_version": "1",
+    "settlement_version": "1",
+    "supported_currencies": ["AOA"],
+    "netting_interval_hours": 24
+  }
+}

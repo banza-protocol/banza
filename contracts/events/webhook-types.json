@@ -1,0 +1,157 @@
+{
+  "_spec": "BANZA Outbound Webhook Event Type Registry v1.0",
+  "_status": "canonical",
+  "_authority": "ADR-002",
+  "_surface": "outbound-webhook",
+  "_description": "Canonical registry of event types delivered to operator-configured webhook endpoints. Distinct from internal SSE event types. See contracts/webhooks/ for signature specification.",
+  "_source_of_truth": "contracts/events/webhook-types.json",
+
+  "envelope": {
+    "description": "All outbound webhook events share this envelope. Signed with Banza-Signature header.",
+    "schema": {
+      "id":         { "type": "string", "description": "Unique event ID for deduplication. Format: 'evt_<ulid_or_uuid>'." },
+      "type":       { "type": "string", "description": "Event type identifier from the registry below." },
+      "data":       { "type": "object", "description": "Event-specific payload. Shape defined per type in this registry." },
+      "created_at": { "type": "string", "format": "date-time", "description": "ISO 8601 UTC timestamp of event creation." }
+    },
+    "required": ["id", "type", "data", "created_at"],
+    "example": {
+      "id": "evt_01jqxyzabc123",
+      "type": "payment_link.paid",
+      "data": { "payment_link_id": "pl_abc123", "amount_minor": 50000, "currency": "AOA" },
+      "created_at": "2026-05-31T14:32:07.000Z"
+    }
+  },
+
+  "delivery": {
+    "method": "POST",
+    "content_type": "application/json",
+    "signature_header": "Banza-Signature",
+    "signature_spec": "contracts/webhooks/signature.json",
+    "retry_policy": {
+      "attempts": 5,
+      "backoff": "exponential",
+      "initial_delay_seconds": 30,
+      "description": "Failed deliveries (non-2xx response, timeout) are retried up to 5 times with exponential backoff starting at 30 seconds."
+    },
+    "idempotency": "Consumers MUST use event.id for deduplication. The same event may be delivered more than once under retry scenarios."
+  },
+
+  "event_types": [
+
+    {
+      "type": "payment_link.paid",
+      "description": "A payment link was successfully paid. The link transitions from ACTIVE to USED.",
+      "stability": "stable",
+      "data_schema": {
+        "required": ["payment_link_id", "amount_minor", "currency"],
+        "properties": {
+          "payment_link_id": { "type": "string" },
+          "slug":            { "type": "string" },
+          "amount_minor":    { "type": "integer", "description": "Amount paid in minor units." },
+          "currency":        { "type": "string" },
+          "paid_at":         { "type": "string", "format": "date-time" },
+          "trace_id":        { "type": "string" }
+        }
+      }
+    },
+
+    {
+      "type": "transaction.completed",
+      "description": "A transaction was successfully captured and posted to the ledger.",
+      "stability": "stable",
+      "data_schema": {
+        "required": ["transaction_id", "amount_minor", "currency"],
+        "properties": {
+          "transaction_id": { "type": "string" },
+          "merchant_id":    { "type": "string" },
+          "amount_minor":   { "type": "integer" },
+          "currency":       { "type": "string" },
+          "reference":      { "type": "string" },
+          "completed_at":   { "type": "string", "format": "date-time" },
+          "trace_id":       { "type": "string" }
+        }
+      }
+    },
+
+    {
+      "type": "transaction.failed",
+      "description": "A transaction failed at any stage: declined, timeout, or internal error.",
+      "stability": "stable",
+      "data_schema": {
+        "required": ["transaction_id", "failure_reason"],
+        "properties": {
+          "transaction_id": { "type": "string" },
+          "failure_reason": { "type": "string", "description": "Machine-readable failure code." },
+          "failure_message": { "type": "string", "description": "Human-readable description." },
+          "amount_minor":   { "type": "integer" },
+          "currency":       { "type": "string" },
+          "trace_id":       { "type": "string" }
+        }
+      }
+    },
+
+    {
+      "type": "payout.created",
+      "description": "A payout disbursement was initiated to a merchant's bank account.",
+      "stability": "stable",
+      "data_schema": {
+        "required": ["payout_id", "wallet_id", "amount_minor", "currency"],
+        "properties": {
+          "payout_id":    { "type": "string" },
+          "wallet_id":    { "type": "string" },
+          "amount_minor": { "type": "integer" },
+          "currency":     { "type": "string" },
+          "reference":    { "type": "string" },
+          "created_at":   { "type": "string", "format": "date-time" }
+        }
+      }
+    },
+
+    {
+      "type": "payout.completed",
+      "description": "A payout was successfully settled to the merchant's bank account.",
+      "stability": "stable",
+      "data_schema": {
+        "required": ["payout_id", "amount_minor", "currency"],
+        "properties": {
+          "payout_id":    { "type": "string" },
+          "amount_minor": { "type": "integer" },
+          "currency":     { "type": "string" },
+          "provider_ref": { "type": "string", "description": "External rail reference from settlement provider." },
+          "completed_at": { "type": "string", "format": "date-time" }
+        }
+      }
+    },
+
+    {
+      "type": "payout.failed",
+      "description": "A payout failed. The operator should investigate and may re-initiate.",
+      "stability": "stable",
+      "data_schema": {
+        "required": ["payout_id", "failure_reason"],
+        "properties": {
+          "payout_id":      { "type": "string" },
+          "failure_reason": { "type": "string" },
+          "failure_message": { "type": "string" },
+          "amount_minor":   { "type": "integer" },
+          "currency":       { "type": "string" }
+        }
+      }
+    }
+
+  ],
+
+  "subscription": {
+    "description": "Operators subscribe to webhook events by registering an endpoint with a list of event types.",
+    "wildcard": "\"*\" subscribes to all event types, including future additions.",
+    "endpoint_schema": {
+      "url":    { "type": "string", "format": "uri", "description": "HTTPS endpoint URL. HTTP not accepted." },
+      "events": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "List of event types to subscribe to, or [\"*\"] for all."
+      }
+    }
+  }
+}

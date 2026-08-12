@@ -1,0 +1,428 @@
+{
+  "boundary": "Evidence Bundle é evidência técnica verificável. Não é certificado. Não é aprovação. A conformidade demonstra-se por evidência verificável; não há aprovação humana central.",
+  "bundle_id": "bundle-e8fb84c565e5",
+  "citations": [
+    "docs/governance/EVIDENCE_BUNDLE.md",
+    "docs/governance/SIMB_PRE_REVIEW_GATE.md",
+    "/banzai"
+  ],
+  "conformance_l0": {
+    "cases": [
+      {
+        "case_id": "L0-INV-LEDGER-001",
+        "invariant_id": "INV-LEDGER-001",
+        "reason": "débitos 101000 == créditos 101000; cada trace tem 1 DEBIT + 1 CREDIT",
+        "status": "PASS"
+      },
+      {
+        "case_id": "L0-INV-IDEM-001",
+        "invariant_id": "INV-IDEM-001",
+        "reason": "cada idempotency key mapeia a uma única resposta estável",
+        "status": "PASS"
+      },
+      {
+        "case_id": "L0-INV-SETTLE-001",
+        "invariant_id": "INV-SETTLE-001",
+        "reason": "net + fee == gross em todas as settlements",
+        "status": "PASS"
+      },
+      {
+        "case_id": "L0-INV-WALLET-001",
+        "invariant_id": "INV-WALLET-001",
+        "reason": "todos os saldos derivados do ledger são >= 0",
+        "status": "PASS"
+      }
+    ],
+    "certification_disclaimer": "PASS is technical conformance evidence, not production certification. Production certification requires the offline root-key ceremony and the first published production conformance evidence; no implementation holds production certification and no production certificate is active.",
+    "demo_only": true,
+    "disclaimer_pt": "PASS técnico é evidência de conformidade, não é certificação. A certificação de produção depende da cerimónia offline da chave raiz e da primeira evidência de conformidade de produção publicada; nenhuma implementação tem evidência de conformidade de produção activa.",
+    "evidence": [
+      "simb-scenario:valid_l0",
+      "operator:SIM-A (test-only)",
+      "ledger_entries:4"
+    ],
+    "evidence_hash": "7625e9f9822e76c450827e0add1cc1512256a3e3bda59f971f2d9fab9ab99927",
+    "external_model_called": false,
+    "failures": [],
+    "injected_fault": null,
+    "invariants": [
+      {
+        "id": "INV-LEDGER-001",
+        "name": "Double-entry",
+        "reason": "débitos 101000 == créditos 101000; cada trace tem 1 DEBIT + 1 CREDIT",
+        "status": "PASS"
+      },
+      {
+        "id": "INV-IDEM-001",
+        "name": "Idempotência",
+        "reason": "cada idempotency key mapeia a uma única resposta estável",
+        "status": "PASS"
+      },
+      {
+        "id": "INV-SETTLE-001",
+        "name": "Identidade de settlement",
+        "reason": "net + fee == gross em todas as settlements",
+        "status": "PASS"
+      },
+      {
+        "id": "INV-WALLET-001",
+        "name": "Sem saldo negativo",
+        "reason": "todos os saldos derivados do ledger são >= 0",
+        "status": "PASS"
+      }
+    ],
+    "level": "L0",
+    "llm_calls": 0,
+    "mode": "demo-simb",
+    "monetary_value": false,
+    "operator_display_name": "Operador Zero",
+    "operator_id": "operator-zero",
+    "pre_review_gate": true,
+    "production_allowed": false,
+    "protocol_version": "1.0.0",
+    "ready_disclaimer": "Readiness is verifiable conformance evidence, not an approval.",
+    "ready_for_conformance_evidence_review": true,
+    "report_id": "l0-valid_l0-PASS",
+    "runner": "banza-conformance-rs",
+    "runner_version": "0.1.0",
+    "scenario_id": "valid_l0",
+    "simb_pre_review_status": "SIMB_PRE_REVIEW_PASS",
+    "status": "PASS",
+    "test_only": true,
+    "tool": "banza-conformance-rs",
+    "tool_version": "0.1.0",
+    "totals": {
+      "fail": 0,
+      "pass": 4,
+      "total": 4
+    }
+  },
+  "created_at": "2026-08-05T00:00:00Z",
+  "demo_only": true,
+  "environment": "pre-production",
+  "external_model_called": false,
+  "hashes": {
+    "bundle_hash": "f015547af6538e7ca1a3c673fdaf9be818f5ffd65fc3d369e2e7d0c70244acfa",
+    "conformance_report_hash": "2c516ba6a2ddff6671faf3ec7a888a2702247216da0ca3c02127afea8df91a0f",
+    "l1_readiness_hash": null,
+    "l2_readiness_hash": null,
+    "l3_readiness_hash": null,
+    "l4_readiness_hash": null,
+    "m2_protocol_gate_hash": null,
+    "m2_root_ceremony_hash": null,
+    "open_governance_hash": null,
+    "operator_manifest_hash": null,
+    "reference_trust_model_hash": null,
+    "security_assurance_hash": null,
+    "security_deep_assurance_hash": null,
+    "simb_report_hash": "0a85ff92af4c8a279e05a6d3484dbf8f68881dea50d7a517086465b9d447eeae",
+    "trace_report_hash": null,
+    "trust_report_hash": null
+  },
+  "l1_readiness_report": null,
+  "l2_readiness_report": null,
+  "l2_readiness_summary": {
+    "blockers": null,
+    "disclaimer": "L2 readiness não é pagamento real nem certificação.",
+    "payment_flow_summary": null,
+    "readiness": null,
+    "status": null
+  },
+  "l3_readiness_report": null,
+  "l3_readiness_summary": {
+    "blockers": null,
+    "disclaimer": "L3 readiness não é federação activa nem certificação.",
+    "federation_summary": null,
+    "readiness": null,
+    "status": null
+  },
+  "l4_readiness_report": null,
+  "l4_readiness_summary": {
+    "blockers": null,
+    "disclaimer": "L4 readiness não é integração externa activa, não é certificação, não é licença e não transforma BANZA em prestador de serviços de pagamento.",
+    "interoperability_summary": null,
+    "readiness": null,
+    "status": null
+  },
+  "limitations": [
+    "Pré-produção: inferência determinística offline, sem chamadas a modelo de linguagem e sem modelo externo (os campos estruturados de contagem de chamadas permanecem a zero).",
+    "Artefactos obrigatórios: SimB pre-review + Conformidade L0. Recomendados nesta fase: Trace, Trust & BRL, Operator Manifest Validation, L1, L2, L3, L4 Readiness e Security Assurance (preparação para os próximos níveis).",
+    "Readiness READY_FOR_TECHNICAL_REVIEW é evidência técnica de prontidão — não é certificação nem aprovação.",
+    "Os hashes são integridade técnica (SHA-256), não assinatura nem autoridade.",
+    "A conformidade é verificada por conformance automation e evidência verificável, não por decisão humana central."
+  ],
+  "llm_calls": 0,
+  "m2_protocol_gate_report": null,
+  "m2_protocol_gate_summary": {
+    "blocked_items": null,
+    "disclaimer": null,
+    "forbidden_activation_attempts": null,
+    "m2_state": null,
+    "missing_artifacts": null,
+    "protocol_production_prepared": null,
+    "status": null
+  },
+  "m2_root_ceremony_report": null,
+  "m2_root_ceremony_summary": {
+    "backup_summary": null,
+    "boundary_summary": null,
+    "custody_summary": null,
+    "disclaimer": null,
+    "forbidden_private_key_material_detected": null,
+    "offline_environment_summary": null,
+    "recovery_test_summary": null,
+    "status": null,
+    "threshold": null,
+    "valid_signature_count": null
+  },
+  "missing_recommended": [
+    "trace_verification",
+    "trust_engine_report",
+    "operator_manifest_validation",
+    "l1_readiness_report",
+    "l2_readiness_report",
+    "l3_readiness_report",
+    "l4_readiness_report",
+    "security_assurance_report",
+    "security_deep_assurance_report",
+    "m2_protocol_gate_report",
+    "m2_root_ceremony_report",
+    "open_governance_report",
+    "reference_trust_model_report"
+  ],
+  "missing_required": [],
+  "mode": "local",
+  "monetary_value": false,
+  "not_a_certificate": true,
+  "not_an_approval": true,
+  "open_governance_report": null,
+  "open_governance_summary": {
+    "blocked_items": null,
+    "ca_dependency_detected": null,
+    "certificate_semantics_detected": null,
+    "conformance_automation_summary": null,
+    "deprecated_terms": null,
+    "disclaimer": "Open governance report confirma a arquitectura de protocolo financeiro aberto. Não é autorização de operador, não é certificação, não é licença e não permite prestação de serviços financeiros pelo BANZA.",
+    "governance_model": null,
+    "human_operator_approval_detected": null,
+    "operator_self_publication_summary": null,
+    "revocation_summary": null,
+    "status": null,
+    "succession_summary": null,
+    "trust_root_summary": null
+  },
+  "operator_candidate": "operator-zero",
+  "operator_display_name": "Operador Zero",
+  "operator_id": "operator-zero",
+  "operator_manifest_validation": null,
+  "production_allowed": false,
+  "readiness": "READY_FOR_TECHNICAL_REVIEW",
+  "recommended_artifacts": [
+    "trace_verification",
+    "trust_engine_report",
+    "operator_manifest_validation",
+    "l1_readiness_report",
+    "l2_readiness_report",
+    "l3_readiness_report",
+    "l4_readiness_report",
+    "security_assurance_report",
+    "security_deep_assurance_report",
+    "m2_protocol_gate_report",
+    "m2_root_ceremony_report",
+    "open_governance_report",
+    "reference_trust_model_report"
+  ],
+  "reference_trust_model_report": null,
+  "reference_trust_model_summary": {
+    "active_trust_model_summary": null,
+    "blocked_items": null,
+    "boundary_summary": null,
+    "central_authority_claim_detected": null,
+    "conformance_evidence_summary": null,
+    "disclaimer": "Este relatório descreve o modelo activo de trust do protocolo financeiro aberto BANZA. Não é autorização de operador, não é certificação, não é licença e não permite prestação de serviços financeiros pelo BANZA.",
+    "invalid_trust_evidence_detected": null,
+    "operator_approval_claim_detected": null,
+    "public_registry_summary": null,
+    "revocation_fail_closed_summary": null,
+    "signed_metadata_summary": null,
+    "status": null,
+    "trust_evaluation_summary": null
+  },
+  "required_artifacts": [
+    "simb_pre_review",
+    "conformance_l0"
+  ],
+  "requires_conformance_evidence_review": true,
+  "schema_version": "banza-evidence-bundle/1",
+  "security_assurance_report": null,
+  "security_assurance_summary": {
+    "control_gaps": null,
+    "critical_risks": null,
+    "disclaimer": "Security & Risk Assurance não é auditoria externa, não é certificação, não é licença e não activa produção.",
+    "high_risks": null,
+    "missing_evidence": null,
+    "status": null
+  },
+  "security_deep_assurance_report": null,
+  "security_deep_assurance_summary": {
+    "disclaimer": "Deep Assurance (BX2.1–BX2.4) é aprofundamento de assurance — não é auditoria externa concluída, não é certificação, não é licença, não activa federação nem integração externa e não move fundos.",
+    "missing_documents": null,
+    "open_critical_gaps": null,
+    "pre_audit_readiness": null,
+    "status": null,
+    "tracks": null
+  },
+  "simb_pre_review": {
+    "balances": [
+      {
+        "balance_minor": 899000,
+        "wallet_id": "sandbox-consumer-1"
+      },
+      {
+        "balance_minor": 1000,
+        "wallet_id": "sandbox-merchant-1"
+      },
+      {
+        "balance_minor": 100000,
+        "wallet_id": "sandbox-merchant-2"
+      }
+    ],
+    "disclaimer": "SimB PASS é evidência técnica de pré-revisão. Não é certificação; SimB não certifica, não aprova e não cria operador real. A conformidade demonstra-se por evidência verificável, não por aprovação humana central.",
+    "events": [
+      "Operador simulado SIM-A criado (wallets sandbox seed, determinístico)",
+      "Transferência sandbox-consumer-1 → sandbox-merchant-1 (1000 minor), idem=k1",
+      "Replay idem=k1 (deve devolver a mesma resposta, sem novo posting)",
+      "Transferência sandbox-consumer-1 → sandbox-merchant-2 (100000 minor), idem=k2",
+      "Settlement da wallet sandbox-merchant-2 (net + fee == gross)"
+    ],
+    "external_model_called": false,
+    "idempotency_results": [
+      {
+        "key": "k1",
+        "replay": false,
+        "response": "ok=true;tid=transfer-SIM-A-1",
+        "transfer_id": "transfer-SIM-A-1"
+      },
+      {
+        "key": "k1",
+        "replay": true,
+        "response": "ok=true;tid=transfer-SIM-A-1",
+        "transfer_id": "transfer-SIM-A-1"
+      },
+      {
+        "key": "k2",
+        "replay": false,
+        "response": "ok=true;tid=transfer-SIM-A-2",
+        "transfer_id": "transfer-SIM-A-2"
+      }
+    ],
+    "injected_fault": null,
+    "invariant_checks": [
+      {
+        "id": "INV-LEDGER-001",
+        "name": "Double-entry",
+        "reason": "débitos 101000 == créditos 101000; cada trace tem 1 DEBIT + 1 CREDIT",
+        "status": "PASS"
+      },
+      {
+        "id": "INV-IDEM-001",
+        "name": "Idempotência",
+        "reason": "cada idempotency key mapeia a uma única resposta estável",
+        "status": "PASS"
+      },
+      {
+        "id": "INV-SETTLE-001",
+        "name": "Identidade de settlement",
+        "reason": "net + fee == gross em todas as settlements",
+        "status": "PASS"
+      },
+      {
+        "id": "INV-WALLET-001",
+        "name": "Sem saldo negativo",
+        "reason": "todos os saldos derivados do ledger são >= 0",
+        "status": "PASS"
+      }
+    ],
+    "label": "Operador válido L0",
+    "ledger_entries": [
+      {
+        "amount_minor": 1000,
+        "currency": "KZ_DEMO",
+        "kind": "DEBIT",
+        "trace_id": "trace-SIM-A-1",
+        "wallet_id": "sandbox-consumer-1"
+      },
+      {
+        "amount_minor": 100000,
+        "currency": "KZ_DEMO",
+        "kind": "DEBIT",
+        "trace_id": "trace-SIM-A-2",
+        "wallet_id": "sandbox-consumer-1"
+      },
+      {
+        "amount_minor": 1000,
+        "currency": "KZ_DEMO",
+        "kind": "CREDIT",
+        "trace_id": "trace-SIM-A-1",
+        "wallet_id": "sandbox-merchant-1"
+      },
+      {
+        "amount_minor": 100000,
+        "currency": "KZ_DEMO",
+        "kind": "CREDIT",
+        "trace_id": "trace-SIM-A-2",
+        "wallet_id": "sandbox-merchant-2"
+      }
+    ],
+    "llm_calls": 0,
+    "marker": "TEST ONLY — LOCAL SIMULATOR, NOT PRODUCTION",
+    "mode": "demo · test-only",
+    "not_a_certificate": true,
+    "operator_id": "SIM-A",
+    "pre_review_gate": true,
+    "pre_review_status": "SIMB_PRE_REVIEW_PASS",
+    "required_before_banza_ca_review": true,
+    "scenario_id": "valid_l0",
+    "settlement_summary": {
+      "currency": "KZ_DEMO",
+      "fee_minor": 1000,
+      "gross_minor": 100000,
+      "id": "settle-SIM-A-1",
+      "identity_ok": true,
+      "net_minor": 99000,
+      "tx_count": 1,
+      "wallet_id": "sandbox-merchant-2"
+    },
+    "status": "PASS",
+    "test_only": true,
+    "tool": "banza-simb",
+    "tool_version": "0.1.0",
+    "trace_summary": {
+      "count": 2,
+      "trace_ids": [
+        "trace-SIM-A-1",
+        "trace-SIM-A-2"
+      ]
+    },
+    "warnings": []
+  },
+  "tool_versions": {
+    "banza-conformance-rs": "0.1.0",
+    "banza-evidence-bundle": "0.1.0",
+    "banza-l1-readiness": null,
+    "banza-l2-readiness": null,
+    "banza-l3-readiness": null,
+    "banza-l4-readiness": null,
+    "banza-m2-protocol-gate": null,
+    "banza-open-governance": null,
+    "banza-operator-manifest": null,
+    "banza-reference-trust-model": null,
+    "banza-root-ceremony": null,
+    "banza-security-assurance": null,
+    "banza-security-assurance-deep": null,
+    "banza-simb": "0.1.0",
+    "banza-trust": null
+  },
+  "trace_verification": null,
+  "trust_engine_report": null
+}

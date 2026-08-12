@@ -1,0 +1,15 @@
+{
+  "decision": "NO_RENUMBER",
+  "policy": "delete-with-gaps",
+  "rationale": "ADR numbers are permanent, stable identifiers (the RFC discipline: an obsoleted RFC keeps its number forever). They are load-bearing across the ecosystem: BanzAI grounding pins exact ADR ids (glossary.rs, doc-index.json, repo-index, vocabulary contracts, truth tables), the website encodes them in canonicalUrls, Git history references them, and external readers cite them. Renumbering survivors would be pure broken-reference risk against the broken_references=0 gate for aesthetic-only gain. The repo-guards ADR-range check tolerates gaps (it is a range check, not a contiguity check), so deletion leaves honest, intentional gaps that signal 'removed here — see Git history'. Codified as ADR-057 D-057-05.",
+  "renumbering_pairs": [],
+  "intentional_gaps": [
+    { "number": "004", "was": "Reference Operator", "removed_reason": "removed sandbox-operator architecture; re-homed in ADR-052/053" },
+    { "number": "022", "was": "Certification Level Architecture", "removed_reason": "CA-issued certification; re-homed in ADR-021 + ADR-038" },
+    { "number": "026", "was": "Federation Trust Model", "removed_reason": "CA/certificate federation trust; re-homed in ADR-038 + ADR-040" },
+    { "number": "027", "was": "Production Root Architecture", "removed_reason": "CA root-key issuance apparatus; surviving key architecture re-homed in ADR-038" },
+    { "number": "032", "was": "BanzAI subordinate knowledge system", "removed_reason": "superseded framing; re-homed in ADR-041/049/054" }
+  ],
+  "new_adr": { "number": "057", "title": "Current-Only Canonical ADR Tree (Clean-Slate Governance Policy)", "milestone": "M2.19A" },
+  "set_aside_for_m2_19": { "was_draft": "ADR-057-technical-interoperability-certification (draft)", "moved_to": "artifacts/m2-19/ADR-DRAFT-technical-interoperability-certification.md", "note": "The certification ADR will be authored under M2.19 as the next free number (ADR-058) after this coherent set lands." }
+}

@@ -1,0 +1,16 @@
+# Controlled activation flag — zero.banza.network (ADR-052, M2.12F)
+#
+# Presence of this file declares that the maintainer has ACTIVATED the zero.banza.network subdomain:
+# the DNS record exists and is proxied, the origin certificate (CloudFlare Origin CA, SAN
+# *.banza.network) covers the host, the reverse-proxy carries the server_name zero.banza.network block
+# and has been reloaded, and the subdomain serves HTTP 200 (the single-page Operador Zero lab) rather
+# than redirecting to the apex.
+#
+# Guards key off this file:
+#   - make zero-subdomain-routing-check : with the flag present, the page must NOT say the subdomain is
+#     "preparado / não activo", and a live statement is permitted.
+#   - make zero-subdomain-design-check  : with the flag present, the lab must state the subdomain is
+#     active and carry no stale "ainda não activo" copy.
+# Removing this file returns both guards to the dormant contract (page must say prepared/not-active).
+#
+# Activated: 2026-07-22 (M2.12F). See docs/guides/OPERADOR_ZERO_SUBDOMAIN_ACTIVATION.md.

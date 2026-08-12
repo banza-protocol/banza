@@ -1,0 +1,185 @@
+<?xml version="1.0"?>
+<svg viewBox="0 0 1180 874" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title-P065 desc-P065" font-family="system-ui,-apple-system,sans-serif">
+  <title id="title-P065">Public Protocol Registry</title>
+  <desc id="desc-P065">The Public Protocol Registry shown as a verifiable index rather than an approval list. Each entry is plain metadata carrying a manifest URL, content hashes over the manifest and the evidence bundle, a protocol version, capabilities, an evidence freshness age and a signature from the trust root or a delegated key. A panel on the right shows the five steps by which any party independently re-verifies an entry: fetch the entry from any copy of the index, fetch the manifest from the operator directly, recompute the hashes, verify the signature against the trust root or its delegated keys, and check the revocation list and the freshness policy, failing closed on missing, invalid, expired, revoked or incompatible trust material. A replication band shows the index being cloned, mirrored and forked by any party, with a copy verifying identically to the origin because trust comes from the signatures over the entries and not from whoever hosts the index. A boundary band states that the registry is an index of metadata and verifiable evidence and is not a list of operators licensed, approved or certified by BANZA, that absence from the index is not a prohibition, that the revocation list is a security signal and not a regulatory sanction, and that any authorisation to operate comes from the competent regulator.</desc>
+  <!--
+    id:        SVG-P-065
+    diagram:   Public Protocol Registry
+    version:   1.0
+    source:    ADR-038 · ADR-039 · ADR-040 (M2.3 — Reference Trust Model Redesign)
+    updated:   2026-07-17
+    author:    BANZA Protocol
+    style:     protocol
+  -->
+  <defs>
+    <linearGradient id="hg-P065" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#990011"/><stop offset="100%" stop-color="#B11226"/>
+    </linearGradient>
+    <marker id="arr-P065" markerWidth="9" markerHeight="9" refX="4.5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#6B6265"/>
+    </marker>
+  </defs>
+
+  <rect width="1180" height="874" fill="#FCF6F5" rx="16"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="1180" height="72" fill="url(#hg-P065)" rx="16"/>
+  <rect x="0" y="56" width="1180" height="16" fill="#B11226"/>
+  <text x="36" y="30" font-family="ui-monospace,'Courier New',monospace" font-size="9.5" fill="#FECACA" letter-spacing="2">SVG-P-065 · OPEN FINANCIAL PROTOCOL</text>
+  <text x="36" y="54" font-size="18" font-weight="800" fill="white">Public Protocol Registry</text>
+  <text x="1144" y="54" text-anchor="end" font-size="10.5" fill="#FECACA">A verifiable index · re-checkable by anyone · replicable and forkable</text>
+
+  <!-- Lead band -->
+  <rect x="40" y="88" width="1100" height="48" rx="10" fill="white" stroke="#990011" stroke-width="1.5"/>
+  <text x="64" y="110" font-size="12.5" font-weight="800" fill="#990011">BANZA is an open financial protocol. Operator participation is demonstrated by verifiable protocol conformance, not by central human approval.</text>
+  <text x="64" y="128" font-size="10" fill="#6B6265">The panel below shows the shape of an entry. These entries are illustrative examples only — the live index lists no operators today: /operators = []</text>
+
+  <!-- ───────────── LEFT — the index and its entries ───────────── -->
+  <rect x="40" y="148" width="700" height="304" fill="white" rx="12" stroke="#D4C9C7" stroke-width="1.5"/>
+  <rect x="40" y="148" width="700" height="30" fill="#1F2937" rx="12"/><rect x="40" y="166" width="700" height="12" fill="#1F2937"/>
+  <text x="390" y="168" text-anchor="middle" font-size="11.5" font-weight="700" fill="white">The index — metadata, content hashes and signatures</text>
+  <text x="390" y="198" text-anchor="middle" font-size="10" fill="#6B6265">An entry states facts and points at material. It carries no verdict: nothing in it decides anything about the operator.</text>
+
+  <!-- Entry — Operator A -->
+  <rect x="56" y="212" width="668" height="114" fill="#FCF6F5" rx="10" stroke="#BFDBFE" stroke-width="1.5"/>
+  <text x="72" y="233" font-family="ui-monospace,'Courier New',monospace" font-size="11" font-weight="700" fill="#1E40AF">entry · operator-a</text>
+  <rect x="566" y="220" width="144" height="18" rx="6" fill="#F0FDF4" stroke="#BBF7D0"/>
+  <text x="638" y="233" text-anchor="middle" font-size="8.5" font-weight="700" fill="#166534">anyone can re-verify this</text>
+  <line x1="72" y1="241" x2="708" y2="241" stroke="#D4C9C7"/>
+  <g font-family="ui-monospace,'Courier New',monospace" font-size="8.5">
+    <text x="72" y="255" fill="#6B6265">manifest_url</text>
+    <text x="186" y="255" fill="#1A1A1A">https://operator-a.example/.well-known/banza/operator.json</text>
+    <text x="72" y="270" fill="#6B6265">manifest_sha256</text>
+    <text x="186" y="270" fill="#1A1A1A">9f2c4e0b…a41b7d</text>
+    <text x="452" y="270" fill="#6B6265">protocol_version</text>
+    <text x="566" y="270" fill="#1A1A1A">1.1 · compatible</text>
+    <text x="72" y="285" fill="#6B6265">evidence_sha256</text>
+    <text x="186" y="285" fill="#1A1A1A">4d70b13a…c918ff</text>
+    <text x="452" y="285" fill="#6B6265">evidence_age</text>
+    <text x="566" y="285" fill="#1A1A1A">12 h · policy ≤ 24 h</text>
+    <text x="72" y="300" fill="#6B6265">signature</text>
+    <text x="186" y="300" fill="#1A1A1A">ed25519 · delegated key DK-02 ← trust root</text>
+    <text x="72" y="315" fill="#6B6265">capabilities</text>
+    <text x="186" y="315" fill="#1A1A1A">payments · federation</text>
+    <text x="452" y="315" fill="#6B6265">revocation</text>
+    <text x="566" y="315" fill="#1A1A1A">not listed</text>
+  </g>
+
+  <!-- Entry — Operator B -->
+  <rect x="56" y="332" width="668" height="114" fill="#FCF6F5" rx="10" stroke="#BBF7D0" stroke-width="1.5"/>
+  <text x="72" y="353" font-family="ui-monospace,'Courier New',monospace" font-size="11" font-weight="700" fill="#166534">entry · operator-b</text>
+  <rect x="566" y="340" width="144" height="18" rx="6" fill="#F0FDF4" stroke="#BBF7D0"/>
+  <text x="638" y="353" text-anchor="middle" font-size="8.5" font-weight="700" fill="#166534">anyone can re-verify this</text>
+  <line x1="72" y1="361" x2="708" y2="361" stroke="#D4C9C7"/>
+  <g font-family="ui-monospace,'Courier New',monospace" font-size="8.5">
+    <text x="72" y="375" fill="#6B6265">manifest_url</text>
+    <text x="186" y="375" fill="#1A1A1A">https://operator-b.example/.well-known/banza/operator.json</text>
+    <text x="72" y="390" fill="#6B6265">manifest_sha256</text>
+    <text x="186" y="390" fill="#1A1A1A">c081ff27…30de55</text>
+    <text x="452" y="390" fill="#6B6265">protocol_version</text>
+    <text x="566" y="390" fill="#1A1A1A">1.1 · compatible</text>
+    <text x="72" y="405" fill="#6B6265">evidence_sha256</text>
+    <text x="186" y="405" fill="#1A1A1A">70ba9c44…e2f107</text>
+    <text x="452" y="405" fill="#6B6265">evidence_age</text>
+    <text x="566" y="405" fill="#1A1A1A">3 h · policy ≤ 24 h</text>
+    <text x="72" y="420" fill="#6B6265">signature</text>
+    <text x="186" y="420" fill="#1A1A1A">ed25519 · delegated key DK-03 ← trust root</text>
+    <text x="72" y="435" fill="#6B6265">capabilities</text>
+    <text x="186" y="435" fill="#1A1A1A">payments</text>
+    <text x="452" y="435" fill="#6B6265">revocation</text>
+    <text x="566" y="435" fill="#1A1A1A">not listed</text>
+  </g>
+
+  <!-- ───────────── RIGHT — independent re-verification ───────────── -->
+  <rect x="756" y="148" width="384" height="304" fill="white" rx="12" stroke="#D4C9C7" stroke-width="1.5"/>
+  <rect x="756" y="148" width="384" height="30" fill="#990011" rx="12"/><rect x="756" y="166" width="384" height="12" fill="#990011"/>
+  <text x="948" y="168" text-anchor="middle" font-size="11.5" font-weight="700" fill="white">Independent re-verification</text>
+
+  <rect x="770" y="192" width="356" height="30" rx="8" fill="#F3F4F6" stroke="#D4C9C7"/>
+  <circle cx="788" cy="207" r="9" fill="#990011"/>
+  <text x="788" y="210.5" text-anchor="middle" font-size="9" font-weight="700" fill="white">1</text>
+  <text x="806" y="211" font-size="9" fill="#1A1A1A">Fetch the entry from any copy of the index</text>
+
+  <rect x="770" y="228" width="356" height="30" rx="8" fill="#F3F4F6" stroke="#D4C9C7"/>
+  <circle cx="788" cy="243" r="9" fill="#990011"/>
+  <text x="788" y="246.5" text-anchor="middle" font-size="9" font-weight="700" fill="white">2</text>
+  <text x="806" y="247" font-size="9" fill="#1A1A1A">Fetch the manifest from the operator directly</text>
+
+  <rect x="770" y="264" width="356" height="30" rx="8" fill="#F3F4F6" stroke="#D4C9C7"/>
+  <circle cx="788" cy="279" r="9" fill="#990011"/>
+  <text x="788" y="282.5" text-anchor="middle" font-size="9" font-weight="700" fill="white">3</text>
+  <text x="806" y="283" font-size="9" fill="#1A1A1A">Recompute sha256 · compare to the entry hashes</text>
+
+  <rect x="770" y="300" width="356" height="30" rx="8" fill="#F3F4F6" stroke="#D4C9C7"/>
+  <circle cx="788" cy="315" r="9" fill="#990011"/>
+  <text x="788" y="318.5" text-anchor="middle" font-size="9" font-weight="700" fill="white">4</text>
+  <text x="806" y="319" font-size="9" fill="#1A1A1A">Verify the signature: trust root or delegated key</text>
+
+  <rect x="770" y="336" width="356" height="30" rx="8" fill="#F3F4F6" stroke="#D4C9C7"/>
+  <circle cx="788" cy="351" r="9" fill="#990011"/>
+  <text x="788" y="354.5" text-anchor="middle" font-size="9" font-weight="700" fill="white">5</text>
+  <text x="806" y="355" font-size="9" fill="#1A1A1A">Check the revocation list · apply freshness policy</text>
+
+  <text x="948" y="390" text-anchor="middle" font-size="10" font-weight="800" fill="#1A1A1A">Same inputs, same result — for everyone.</text>
+  <text x="948" y="408" text-anchor="middle" font-size="9" fill="#6B6265">No account, no request and no permission from BANZA.</text>
+  <text x="948" y="424" text-anchor="middle" font-size="9" fill="#6B6265">Fail-closed: missing, invalid, expired, revoked or</text>
+  <text x="948" y="440" text-anchor="middle" font-size="9" fill="#6B6265">incompatible trust material means: do not federate.</text>
+
+  <!-- ───────────── Replication band ───────────── -->
+  <rect x="40" y="466" width="1100" height="130" fill="white" rx="12" stroke="#D4C9C7" stroke-width="1.5"/>
+  <text x="66" y="490" font-size="12" font-weight="800" fill="#1A1A1A">Replicable · mirrorable · forkable</text>
+  <text x="1114" y="490" text-anchor="end" font-size="10" fill="#6B6265">Trust comes from the signatures over the entries — never from whoever hosts the index.</text>
+
+  <rect x="64" y="504" width="180" height="68" rx="10" fill="#EAE0DF" stroke="#D4C9C7"/>
+  <text x="154" y="528" text-anchor="middle" font-size="11" font-weight="800" fill="#1A1A1A">Public Protocol</text>
+  <text x="154" y="543" text-anchor="middle" font-size="11" font-weight="800" fill="#1A1A1A">Registry · origin</text>
+  <text x="154" y="560" text-anchor="middle" font-size="8.5" fill="#6B6265">public · append-only</text>
+
+  <text x="277" y="530" text-anchor="middle" font-size="8" fill="#6B6265">clone / fork</text>
+  <line x1="244" y1="538" x2="308" y2="538" stroke="#6B6265" stroke-width="2.5" marker-end="url(#arr-P065)"/>
+
+  <rect x="316" y="504" width="800" height="68" rx="10" fill="#F3F4F6" stroke="#D4C9C7" stroke-dasharray="5 3"/>
+  <rect x="332" y="516" width="240" height="44" rx="8" fill="white" stroke="#BFDBFE"/>
+  <text x="452" y="536" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A1A">Mirror · Operator A</text>
+  <text x="452" y="551" text-anchor="middle" font-size="8.5" fill="#6B6265">byte-identical · verifies the same</text>
+  <rect x="596" y="516" width="240" height="44" rx="8" fill="white" stroke="#BBF7D0"/>
+  <text x="716" y="536" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A1A">Mirror · Operator B</text>
+  <text x="716" y="551" text-anchor="middle" font-size="8.5" fill="#6B6265">byte-identical · verifies the same</text>
+  <rect x="860" y="516" width="240" height="44" rx="8" fill="white" stroke="#D4C9C7"/>
+  <text x="980" y="536" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A1A">Independent fork · any party</text>
+  <text x="980" y="551" text-anchor="middle" font-size="8.5" fill="#6B6265">no permission required to copy</text>
+
+  <text x="590" y="588" text-anchor="middle" font-size="9.5" fill="#6B6265">Entries are content-addressed and signed, so a mirror or a fork re-verifies to exactly the same result as the origin. No copy is more authoritative than another.</text>
+
+  <!-- ───────────── Boundary band ───────────── -->
+  <rect x="40" y="604" width="1100" height="232" fill="white" rx="12" stroke="#990011" stroke-width="1.5"/>
+  <rect x="40" y="604" width="1100" height="30" fill="#990011" rx="12"/><rect x="40" y="622" width="1100" height="12" fill="#990011"/>
+  <text x="590" y="624" text-anchor="middle" font-size="11.5" font-weight="700" fill="white">Protocol boundary — a verifiable index, not an approval list</text>
+
+  <text x="66" y="656" font-size="11" font-weight="800" fill="#1A1A1A">The Public Protocol Registry is</text>
+  <g font-size="10" fill="#1A1A1A">
+    <text x="66" y="678">— an index of metadata and verifiable evidence</text>
+    <text x="66" y="696">— content-addressed: hashes over manifests and evidence bundles</text>
+    <text x="66" y="714">— signed by the trust root and by its delegated keys</text>
+    <text x="66" y="732">— public, append-only, replicable and forkable by anyone</text>
+  </g>
+
+  <line x1="590" y1="646" x2="590" y2="744" stroke="#D4C9C7"/>
+
+  <text x="614" y="656" font-size="11" font-weight="800" fill="#990011">The Public Protocol Registry is not</text>
+  <g font-size="10" fill="#1A1A1A">
+    <text x="614" y="678">— not a list of operators licensed, approved or certified by BANZA</text>
+    <text x="614" y="696">— not an admission, an acceptance or an authorisation decision</text>
+    <text x="614" y="714">— not a whitelist: absence from the index is not a prohibition</text>
+    <text x="614" y="732">— no entry grants a right to operate, to trade or to move funds</text>
+  </g>
+
+  <line x1="64" y1="754" x2="1116" y2="754" stroke="#D4C9C7"/>
+
+  <text x="590" y="772" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1A1A1A">The Public Protocol Registry is an index of metadata and verifiable evidence. It is not a list of operators licensed, approved or certified by BANZA.</text>
+  <text x="590" y="790" text-anchor="middle" font-size="10" fill="#6B6265">The Revocation List is a security and protocol trust mechanism. It is not a licence, a regulatory sanction or a financial authorisation.</text>
+  <text x="590" y="806" text-anchor="middle" font-size="10" fill="#6B6265">The Trust Root signs only the Key Manifest; delegated keys sign protocol metadata, releases and the revocation list. It does not authorise operators, issue licences or authorise payments.</text>
+  <text x="590" y="822" text-anchor="middle" font-size="10" fill="#6B6265">Operators are independent and carry their own legal, regulatory and financial responsibility. Any authorisation to operate comes from the competent regulator.</text>
+
+  <text x="590" y="858" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-065 · Public Protocol Registry · ADR-038 · ADR-039 · ADR-040 · M2.3 Reference Trust Model Redesign · v1.0 · 2026-07-17</text>
+</svg>

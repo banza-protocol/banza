@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/root-ceremony-evidence.production.schema.json",
+  "title": "RootCeremonyEvidenceProduction",
+  "description": "Public evidence record of the BANZA offline root-key ceremony under the 2-of-3 custody model. Captures who was present, which PUBLIC keys were produced, the custodian signatures, the content hashes, the recovery-test result, and the witnesses. The real ceremony happens OFFLINE on the custodians' own computers; this record contains PUBLIC material only. NO secret fields exist here — no private key, no seed, no mnemonic, no passphrase, no recovery secret. Any such field is FORBIDDEN and makes the ceremony INVALID (M2_ROOT_CEREMONY_INVALID_FORBIDDEN_PRIVATE_KEY_MATERIAL). Missing offline evidence yields M2_ROOT_CEREMONY_BLOCKED_BY_OFFLINE_EVIDENCE_GAP; a missing/failed recovery test yields M2_ROOT_CEREMONY_BLOCKED_BY_RECOVERY_TEST_GAP. Status is computed in Rust by engines/banza-root-ceremony :: validate_root_ceremony, never in TypeScript.",
+  "_spec_version": "1.0",
+  "_status": "production-baseline",
+  "_authority": "Root Trust Ceremony (2-of-3 offline custody, docs/governance PKI trust model)",
+  "_boundary": "Root trust for the BANZA open financial protocol. The root does NOT authorise payment services, does NOT create operators, does NOT issue licences, does NOT move/settle/hold funds, and does NOT replace operator regulatory authorisation. BANZA remains an open financial protocol; PSPs/banks/authorised operators are separate entities that implement it.",
+
+  "type": "object",
+  "required": ["ceremony_id", "date", "custodians_present", "public_keys", "signatures", "hashes", "recovery_test_result", "witnesses"],
+  "additionalProperties": false,
+
+  "properties": {
+    "ceremony_id": { "type": "string", "description": "Identifier of this offline root-key ceremony." },
+    "date": { "type": "string", "format": "date-time", "description": "When the offline ceremony was conducted." },
+    "custodians_present": {
+      "type": "array",
+      "description": "The independent custodians present. At least 2 of 3 are required for a valid ceremony.",
+      "minItems": 2,
+      "maxItems": 3,
+      "items": { "type": "string", "enum": ["A", "B", "C"] }
+    },
+    "public_keys": {
+      "type": "array",
+      "description": "Root PUBLIC keys produced during the ceremony. Public material only.",
+      "items": { "$ref": "https://banza.network/contracts/production/root-key.production.schema.json" }
+    },
+    "signatures": {
+      "type": "array",
+      "description": "Custodian signatures produced during the ceremony. Public material only.",
+      "items": { "$ref": "https://banza.network/contracts/production/root-signature.production.schema.json" }
+    },
+    "hashes": {
+      "type": "array",
+      "description": "Content hashes recorded during the ceremony (metadata, delegations, transcript).",
+      "items": {
+        "type": "object",
+        "required": ["label", "algorithm", "value"],
+        "additionalProperties": false,
+        "properties": {
+          "label": { "type": "string", "description": "What the hash covers (e.g. 'root_metadata', 'transcript')." },
+          "algorithm": { "type": "string", "enum": ["sha-256"] },
+          "value": { "type": "string", "description": "Digest value." }
+        }
+      }
+    },
+    "recovery_test_result": {
+      "type": "object",
+      "description": "Outcome of the offline recovery test performed during the ceremony. See root-recovery-test.production.schema.json. No secret content.",
+      "required": ["performed", "all_custodians_restored", "public_keys_match_after_restore"],
+      "additionalProperties": false,
+      "properties": {
+        "performed": { "type": "boolean", "description": "Whether a recovery test was performed. Must be true or the ceremony is BLOCKED_BY_RECOVERY_TEST_GAP." },
+        "all_custodians_restored": { "type": "boolean", "description": "Whether every custodian successfully restored from their encrypted backup during the test." },
+        "public_keys_match_after_restore": { "type": "boolean", "description": "Whether the restored public keys matched the originally generated public keys." }
+      }
+    },
+    "witnesses": {
+      "type": "array",
+      "description": "Independent witnesses who attest to the ceremony. Names/roles only — no secret material.",
+      "items": {
+        "type": "object",
+        "required": ["name", "role"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string", "description": "Witness name or handle." },
+          "role": { "type": "string", "description": "Witness role (e.g. 'observer', 'notary')." }
+        }
+      }
+    }
+  }
+}

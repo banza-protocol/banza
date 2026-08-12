@@ -1,0 +1,27 @@
+{
+  "operator_id": "operator-a-test",
+  "environment": "sandbox",
+  "simulated": true,
+  "production_allowed": false,
+  "protocol_version": "1.0",
+  "certification_level": 3,
+  "capabilities": {
+    "supports_wallets": true,
+    "supports_qr": true,
+    "supports_settlement": true
+  },
+  "operator_name": "Operator A (Unsupported Version)",
+  "operator_url": "https://api.operator-a-test.example",
+  "federation_version": "99",
+  "signed_protocol_metadata_url": "https://api.operator-a-test.example/.well-known/banza/signed-protocol-metadata.json",
+  "interop_endpoint": "https://api.operator-a-test.example",
+  "supports_federation": true,
+  "cross_operator_routing": true,
+  "cross_operator_settlement": true,
+  "federation_capabilities": {
+    "routing_version": "99",
+    "settlement_version": "99",
+    "supported_currencies": ["AOA"],
+    "netting_interval_hours": 24
+  }
+}

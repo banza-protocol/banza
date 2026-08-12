@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/root-key.production.schema.json",
+  "title": "RootKeyProduction",
+  "description": "A single root PUBLIC key entry for the BANZA open financial protocol, held OFFLINE by one independent custodian under the 2-of-3 custody model. Public material only: this schema carries the key id, the custodian, the ed25519 PUBLIC key (base64url), a public fingerprint, and the creation timestamp. NO private key, seed, mnemonic or passphrase field exists here — for example a field like 'private_key' or 'seed_phrase' carrying secret bytes is FORBIDDEN and would make the ceremony INVALID (M2_ROOT_CEREMONY_INVALID_FORBIDDEN_PRIVATE_KEY_MATERIAL). Each custodian holds exactly one root private key on their own offline device; no device holds more than one. Status is computed in Rust by engines/banza-root-ceremony :: validate_root_ceremony, never in TypeScript.",
+  "_spec_version": "1.0",
+  "_status": "production-baseline",
+  "_authority": "Root Trust Ceremony (2-of-3 offline custody, docs/governance PKI trust model)",
+  "_boundary": "Root trust for the BANZA open financial protocol. The root does NOT authorise payment services, does NOT create operators, does NOT issue licences, does NOT move/settle/hold funds, and does NOT replace operator regulatory authorisation. BANZA remains an open financial protocol; PSPs/banks/authorised operators are separate entities that implement it.",
+
+  "type": "object",
+  "required": ["key_id", "custodian", "public_key", "fingerprint", "algorithm", "created_at"],
+  "additionalProperties": false,
+
+  "properties": {
+    "key_id": { "type": "string", "description": "Unique id of this root public key (e.g. 'root-key-A')." },
+    "custodian": { "type": "string", "enum": ["A", "B", "C"], "description": "Independent custodian who holds the matching private key OFFLINE. A holds only root_key_A, B only root_key_B, C only root_key_C." },
+    "public_key": { "type": "string", "description": "Root PUBLIC key material only (base64url, ed25519). Private keys are NEVER included in this or any BANZA artifact." },
+    "fingerprint": { "type": "string", "description": "Public fingerprint (hash) of the root public key, for tamper-evident reference." },
+    "algorithm": { "type": "string", "const": "ed25519", "description": "Signature algorithm." },
+    "created_at": { "type": "string", "format": "date-time", "description": "When this key pair was generated offline during the ceremony." }
+  }
+}

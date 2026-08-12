@@ -1,0 +1,24 @@
+[package]
+name = "banza-l1-readiness"
+version = "0.1.0"
+edition = "2021"
+description = "banza-l1-readiness (BX1.7): local, no-network aggregation of the L1 technical-preparation surface. It reads the Operator Manifest, SimB pre-review, Conformidade L0, key manifest, certificates, BRL, conformance evidence and well-known map, and computes the L1 readiness status IN RUST. L1 readiness is technical preparation — NOT certification, NOT approval; it does not create an operator and does not run the BANZA CA review."
+license = "Apache-2.0"
+
+[lib]
+name = "banza_l1_readiness"
+crate-type = ["cdylib", "rlib"]
+path = "src/lib.rs"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"                 # default Map = BTreeMap (sorted keys) → canonical JSON for hashing
+sha2 = "0.10"
+wasm-bindgen = { version = "0.2", optional = true }
+
+[features]
+# Enabled only for the standalone `wasm-pack build --features wasm`; keeps the WASM exports leak-free.
+wasm = ["dep:wasm-bindgen"]
+
+[profile.release]
+opt-level = 2

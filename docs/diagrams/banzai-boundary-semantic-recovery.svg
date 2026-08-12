@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 560" role="img" aria-labelledby="t d" font-family="Georgia, 'Times New Roman', serif">
+  <title id="t">BanzAI — fronteira determinística e recuperação semântica (M2.18B.2)</title>
+  <desc id="d">Cada pergunta passa primeiro por uma fronteira determinística em Rust, corrida antes de qualquer chamada ao modelo: pedidos de acção sensível (publicar operador, mover fundos, expor ou gerar uma chave, desligar um guard, aprovar uma candidatura) são recusados com uma resposta segura, sem nunca chegar ao modelo. As restantes perguntas recebem uma lista fechada de documentos reais gerada por um catálogo Rust; o modelo apenas selecciona um id dessa lista e o resolver do protocolo confirma-o. O modelo nunca inventa um id.</desc>
+  <rect x="0" y="0" width="1040" height="560" fill="#FCFAF5"/>
+  <rect x="0" y="0" width="1040" height="56" fill="#8E1326"/>
+  <text x="28" y="35" fill="#FCFAF5" font-size="20" font-weight="bold">BanzAI · Fronteira determinística e recuperação semântica — M2.18B.2</text>
+
+  <defs>
+    <marker id="arw" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#8E1326" stroke="none"/>
+    </marker>
+  </defs>
+
+  <!-- Pergunta -->
+  <rect x="40" y="96" width="180" height="56" rx="10" fill="#FBEFF0" stroke="#8E1326" stroke-width="1.5"/>
+  <text x="130" y="122" text-anchor="middle" fill="#16191E" font-size="16" font-weight="bold">Pergunta humana</text>
+  <text x="130" y="142" text-anchor="middle" fill="#3A3F45" font-size="12">PT / EN</text>
+
+  <!-- Fronteira determinística -->
+  <rect x="272" y="80" width="320" height="164" rx="12" fill="#F4EFE4" stroke="#9A6B1E" stroke-width="1.6"/>
+  <text x="292" y="106" fill="#5A4A2E" font-size="15" font-weight="bold">Fronteira determinística (Rust)</text>
+  <text x="292" y="128" fill="#8A8275" font-size="12">preflight — antes de qualquer chamada ao modelo</text>
+  <text x="292" y="152" fill="#3A3F45" font-size="13">· publicar / admitir operador</text>
+  <text x="292" y="172" fill="#3A3F45" font-size="13">· aprovar candidatura · mover fundos</text>
+  <text x="292" y="192" fill="#3A3F45" font-size="13">· expor ou gerar uma chave</text>
+  <text x="292" y="212" fill="#3A3F45" font-size="13">· desligar um guard · ignorar a CI</text>
+  <text x="292" y="233" fill="#8A8275" font-size="12">recall 1.0 · 0 falsos negativos · offline</text>
+
+  <!-- Recusa segura -->
+  <rect x="272" y="292" width="320" height="72" rx="12" fill="#FBEFF0" stroke="#8E1326" stroke-width="1.6"/>
+  <text x="432" y="320" text-anchor="middle" fill="#16191E" font-size="15" font-weight="bold">Recusa segura + alternativa</text>
+  <text x="432" y="342" text-anchor="middle" fill="#3A3F45" font-size="12">nunca chega ao modelo · trace auditável</text>
+
+  <!-- Catálogo de candidatos -->
+  <rect x="644" y="80" width="356" height="104" rx="12" fill="#EAF0EC" stroke="#2E6B4F" stroke-width="1.6"/>
+  <text x="664" y="106" fill="#274D3B" font-size="15" font-weight="bold">Catálogo de candidatos (Rust)</text>
+  <text x="664" y="128" fill="#3A3F45" font-size="13">lista FECHADA de documentos reais</text>
+  <text x="664" y="148" fill="#3A3F45" font-size="13">aliases PT/EN → ADR / RFC do registo</text>
+  <text x="664" y="170" fill="#8A8275" font-size="12">pontuada por sobreposição de termos</text>
+
+  <!-- Interpretador -->
+  <rect x="644" y="212" width="356" height="92" rx="12" fill="#FBEFF0" stroke="#8E1326" stroke-width="1.6"/>
+  <text x="822" y="238" text-anchor="middle" fill="#16191E" font-size="15" font-weight="bold">Interpretador (modelo local)</text>
+  <text x="822" y="260" text-anchor="middle" fill="#3A3F45" font-size="13">SELECCIONA um id da lista</text>
+  <text x="822" y="282" text-anchor="middle" fill="#8E1326" font-size="12" font-weight="bold">NUNCA inventa um id</text>
+
+  <!-- Resolver -->
+  <rect x="644" y="332" width="356" height="72" rx="12" fill="#EAF0EC" stroke="#2E6B4F" stroke-width="1.6"/>
+  <text x="822" y="360" text-anchor="middle" fill="#274D3B" font-size="15" font-weight="bold">Resolver do protocolo confirma</text>
+  <text x="822" y="382" text-anchor="middle" fill="#3A3F45" font-size="12">id inventado é estruturalmente impossível</text>
+
+  <!-- flows -->
+  <g fill="none" stroke="#8E1326" stroke-width="2">
+    <path d="M220,124 L266,132" marker-end="url(#arw)"/>
+    <path d="M432,244 L432,286" marker-end="url(#arw)"/>
+    <path d="M592,140 L638,124" marker-end="url(#arw)"/>
+    <path d="M822,184 L822,206" marker-end="url(#arw)"/>
+    <path d="M822,304 L822,326" marker-end="url(#arw)"/>
+  </g>
+  <text x="600" y="112" fill="#2E6B4F" font-size="12" font-weight="bold">se não for acção sensível →</text>
+  <text x="446" y="278" fill="#8E1326" font-size="12" font-weight="bold">se for acção sensível ↓</text>
+
+  <!-- footer legend -->
+  <text x="40" y="440" fill="#5A4A2E" font-size="13" font-weight="bold">A camada determinística é permanente:</text>
+  <text x="40" y="462" fill="#3A3F45" font-size="13">nenhum pedido sensível depende do modelo para ser recusado. Vive em produção mesmo com o interpretador desligado.</text>
+  <text x="40" y="492" fill="#8A8275" font-size="12">O interpretador só é activado se o veredicto for A (todos os thresholds + canário + rollback + revisão humana). Caso contrário, veredicto B: interpretador desligado, Fase 1 viva.</text>
+</svg>

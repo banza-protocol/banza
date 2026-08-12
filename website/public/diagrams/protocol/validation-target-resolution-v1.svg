@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  id:        SVG-P-095
+  diagram:   Resolução do alvo de validação — Registo Técnico → Operador → Implementação → Origem Canónica → Descoberta (registo fechado, sem URL arbitrário)
+  source:    ADR-068 §4.4/4.6 · BANZA_REFERENCIA.md §35 (validação originada nos endpoints, M2.19G.1)
+  version:   1.0
+  updated:   2026-07-30
+  author:    BANZA Protocol
+  style:     protocol-dark
+-->
+<svg viewBox="0 0 1000 480" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-labelledby="title-P095 desc-P095"
+     font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="title-P095">Resolução do alvo de validação no BANZA</title>
+  <desc id="desc-P095">Cadeia fechada de cinco fases que resolve um alvo de validação. O Registo Técnico é um conjunto fechado e a única fonte de alvos; a partir dele resolve-se o Operador elegível, depois uma Implementação publicada, depois a sua Origem Canónica pública e estável, e por fim a Descoberta dos endpoints. A interface nunca obtém um URL fornecido pelo utilizador — não há URL arbitrário. Só implementações publicadas, com origem canónica e compatíveis são alvos elegíveis. ADR-068.</desc>
+  <defs>
+    <linearGradient id="hg-P095" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E0F1A"/><stop offset="100%" stop-color="#8E1326"/>
+    </linearGradient>
+    <marker id="arr-P095" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#8C8C95"/>
+    </marker>
+  </defs>
+
+  <rect width="1000" height="480" fill="#0E0E11"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="1000" height="64" fill="url(#hg-P095)" rx="14"/>
+  <rect x="0" y="48" width="1000" height="16" fill="#8E1326"/>
+  <text x="24" y="26" font-family="ui-monospace,'Courier New',monospace" font-size="9" fill="#FECACA" letter-spacing="2">SVG-P-095 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="24" y="50" font-size="18" font-weight="800" fill="#FFFFFF">Resolução do alvo de validação</text>
+  <text x="976" y="50" text-anchor="end" font-size="11" fill="#F6D9DD">registo fechado · sem URL arbitrário</text>
+
+  <text x="24" y="94" font-size="11.5" fill="#B6B6BE">O alvo resolve-se sempre pelo Registo Técnico — a interface nunca obtém um URL fornecido pelo utilizador.</text>
+
+  <!-- ======================= resolution cards ======================= -->
+  <!-- 1 · Registo Técnico (teal) -->
+  <g>
+    <rect x="28" y="128" width="166" height="150" rx="12" fill="#0F1D1C" stroke="#0F766E" stroke-width="1.5"/>
+    <circle cx="50" cy="152" r="13" fill="#0F766E"/><text x="50" y="156" text-anchor="middle" font-size="12" font-weight="800" fill="#FFFFFF">1</text>
+    <text x="44" y="192" font-size="12" font-weight="800" fill="#57C6BC">Registo Técnico</text>
+    <text x="44" y="214" font-size="10" fill="#C9C9D0">conjunto fechado</text>
+    <text x="44" y="230" font-size="10" fill="#C9C9D0">de alvos</text>
+    <text x="44" y="252" font-size="8.5" fill="#8C8C95">única fonte de alvos</text>
+  </g>
+  <!-- 2 · Operador (slate) -->
+  <g>
+    <rect x="222.5" y="128" width="166" height="150" rx="12" fill="#141922" stroke="#33465B" stroke-width="1.5"/>
+    <circle cx="244.5" cy="152" r="13" fill="#33465B"/><text x="244.5" y="156" text-anchor="middle" font-size="12" font-weight="800" fill="#FFFFFF">2</text>
+    <text x="238.5" y="192" font-size="12.5" font-weight="800" fill="#8FB0D0">Operador</text>
+    <text x="238.5" y="214" font-size="10" fill="#C9C9D0">entidade</text>
+    <text x="238.5" y="230" font-size="10" fill="#C9C9D0">elegível</text>
+    <text x="238.5" y="252" font-size="8.5" fill="#8C8C95">registado</text>
+  </g>
+  <!-- 3 · Implementação (green) -->
+  <g>
+    <rect x="417" y="128" width="166" height="150" rx="12" fill="#13211A" stroke="#2E6A4E" stroke-width="1.5"/>
+    <circle cx="439" cy="152" r="13" fill="#2E6A4E"/><text x="439" y="156" text-anchor="middle" font-size="12" font-weight="800" fill="#FFFFFF">3</text>
+    <text x="433" y="192" font-size="12.5" font-weight="800" fill="#74C79E">Implementação</text>
+    <text x="433" y="214" font-size="10" fill="#C9C9D0">publicada</text>
+    <text x="433" y="230" font-size="10" fill="#C9C9D0">e elegível</text>
+    <text x="433" y="252" font-size="8.5" fill="#8C8C95">objecto avaliado</text>
+  </g>
+  <!-- 4 · Origem Canónica (gold) -->
+  <g>
+    <rect x="611.5" y="128" width="166" height="150" rx="12" fill="#1E1810" stroke="#B98A3E" stroke-width="1.5"/>
+    <circle cx="633.5" cy="152" r="13" fill="#B98A3E"/><text x="633.5" y="156" text-anchor="middle" font-size="12" font-weight="800" fill="#26200F">4</text>
+    <text x="627.5" y="192" font-size="12" font-weight="800" fill="#E7C67E">Origem Canónica</text>
+    <text x="627.5" y="214" font-size="10" fill="#C9C9D0">pública e estável</text>
+    <text x="627.5" y="234" font-size="9" font-family="ui-monospace,'Courier New',monospace" fill="#8C8C95">host resolvido</text>
+    <text x="627.5" y="252" font-size="8.5" fill="#8C8C95">do registo</text>
+  </g>
+  <!-- 5 · Descoberta (wine) -->
+  <g>
+    <rect x="806" y="128" width="166" height="150" rx="12" fill="#1B1113" stroke="#8E1326" stroke-width="1.5"/>
+    <circle cx="828" cy="152" r="13" fill="#8E1326"/><text x="828" y="156" text-anchor="middle" font-size="12" font-weight="800" fill="#FFFFFF">5</text>
+    <text x="822" y="192" font-size="12.5" font-weight="800" fill="#E8909D">Descoberta</text>
+    <text x="822" y="214" font-size="10" fill="#C9C9D0">endpoints</text>
+    <text x="822" y="230" font-size="10" fill="#C9C9D0">resolvidos</text>
+    <text x="822" y="252" font-size="9" font-family="ui-monospace,'Courier New',monospace" fill="#8C8C95">/.well-known/banza</text>
+  </g>
+
+  <!-- arrows -->
+  <line x1="194" y1="203" x2="220.5" y2="203" stroke="#8C8C95" stroke-width="1.8" marker-end="url(#arr-P095)"/>
+  <line x1="388.5" y1="203" x2="415" y2="203" stroke="#8C8C95" stroke-width="1.8" marker-end="url(#arr-P095)"/>
+  <line x1="583" y1="203" x2="609.5" y2="203" stroke="#8C8C95" stroke-width="1.8" marker-end="url(#arr-P095)"/>
+  <line x1="777.5" y1="203" x2="804" y2="203" stroke="#8C8C95" stroke-width="1.8" marker-end="url(#arr-P095)"/>
+
+  <!-- principle band -->
+  <rect x="28" y="306" width="944" height="30" rx="9" fill="#141418" stroke="#2B2B33" stroke-width="1"/>
+  <text x="44" y="325" font-size="10.5" fill="#B6B6BE"><tspan font-weight="700" fill="#57C6BC">Registo</tspan> fechado → operador → implementação → <tspan font-weight="700" fill="#E7C67E">origem canónica</tspan> → descoberta dos endpoints.</text>
+
+  <!-- boundary band -->
+  <rect x="28" y="346" width="944" height="86" rx="10" fill="#1B1113" stroke="#5A1A22" stroke-width="1.2"/>
+  <text x="44" y="372" font-size="11.5" font-weight="700" fill="#E8909D">Registo fechado — sem URL arbitrário; a interface nunca obtém um URL do utilizador.</text>
+  <text x="44" y="394" font-size="10.5" fill="#B6B6BE">O Registo Técnico é a única fonte de alvos de validação (ADR-068 §4.4/4.6).</text>
+  <text x="44" y="414" font-size="10.5" fill="#B6B6BE">Só implementações publicadas, com origem canónica e compatíveis são elegíveis; revogadas ou sem origem, não.</text>
+
+  <text x="500" y="462" text-anchor="middle" font-size="9" fill="#7C7C85">SVG-P-095 · Resolução do alvo de validação · ADR-068 §35 · v1.0 · 2026-07-30</text>
+</svg>

@@ -1,0 +1,24 @@
+[package]
+name = "banza-reference-trust-model"
+version = "0.1.0"
+edition = "2021"
+description = "banza-reference-trust-model (M2.3): local, no-network validation of the BANZA REFERENCE TRUST MODEL — that the deep protocol model is free of CA / operator-certificate / human-approval trust, that the legacy triple verification is gone, and that signed protocol metadata, conformance evidence, public protocol registry, revocation and fail-closed evaluation are properly defined. It computes the status IN RUST. BANZA is an open financial protocol: trust is verified by evidence, not by human approval."
+license = "Apache-2.0"
+
+[lib]
+name = "banza_reference_trust_model"
+crate-type = ["cdylib", "rlib"]
+path = "src/lib.rs"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"                 # default Map = BTreeMap (sorted keys) → canonical JSON for hashing
+sha2 = "0.10"
+wasm-bindgen = { version = "0.2", optional = true }
+
+[features]
+# Enabled only for the standalone `wasm-pack build --features wasm`; keeps the WASM exports leak-free.
+wasm = ["dep:wasm-bindgen"]
+
+[profile.release]
+opt-level = 2

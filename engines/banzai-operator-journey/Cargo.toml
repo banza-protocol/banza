@@ -1,0 +1,23 @@
+[package]
+name = "banzai-operator-journey"
+version = "0.1.0"
+edition = "2021"
+description = "banzai-operator-journey (ADR-049, M2.9B): the Rust state machine for the BanzAI guided operator journey (Guia→Manifest→Conformidade→Trust→Federação→Evidence Bundle→Traces). Owns step order, transition validation, per-step statuses, progress, the next recommended action, and a SAFE, injection-neutralized session-context summary for the local Qwen. Deterministic; no LLM, no network, no persistence. Builds to Node WASM (banzai-api /ask re-summarize) and web WASM (website UI)."
+license = "Apache-2.0"
+
+[lib]
+name = "banzai_operator_journey"
+crate-type = ["cdylib", "rlib"]
+path = "src/lib.rs"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+wasm-bindgen = { version = "0.2", optional = true }
+
+[features]
+# Enabled only for the standalone `wasm-pack build --features wasm` (web + nodejs targets).
+wasm = ["dep:wasm-bindgen"]
+
+[profile.release]
+opt-level = "s"

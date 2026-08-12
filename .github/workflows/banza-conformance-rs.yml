@@ -1,0 +1,43 @@
+name: banza-conformance-rs
+
+# Builds and tests the Rust conformance runner (ADR-037, R4): cargo fmt/clippy/test, offline
+# vector-integrity check, report validation, and golden parity. No network, no operator, no secrets.
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+concurrency:
+  group: banza-conformance-rs-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  banza-conformance-rs:
+    name: banza-conformance-rs (R4 runner)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+      - name: cargo fmt
+        working-directory: engines/banza-conformance
+        run: cargo fmt --check
+      - name: cargo clippy
+        working-directory: engines/banza-conformance
+        run: cargo clippy --all-targets -- -D warnings
+      - name: cargo test
+        working-directory: engines/banza-conformance
+        run: cargo test
+      - name: offline (check-vectors + report + parity) + live-simb + federation-simb
+        working-directory: engines/banza-conformance
+        run: |
+          cargo run --quiet -- check-vectors > /dev/null
+          cargo run --quiet -- report
+          cargo run --quiet -- parity
+          cargo run --quiet -- run-live > /dev/null
+          cargo run --quiet -- run-fed > /dev/null
+          cargo run --quiet -- run-fed-fixtures > /dev/null
+          cargo run --quiet -- run-ab > /dev/null
+          cargo run --quiet -- e2e > /dev/null

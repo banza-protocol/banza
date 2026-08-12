@@ -1,0 +1,8 @@
+{
+  "schema_version": "1",
+  "routing_request_id": "rr-00000000-0000-0000-0000-000000000002",
+  "status": "rejected",
+  "trace_id": "tr-00000000-0000-0000-0000-000000000002",
+  "rejection_code": "recipient_not_found",
+  "rejection_reason": "No wallet matching identifier 'wallet-does-not-exist-xxxxxxxx'"
+}

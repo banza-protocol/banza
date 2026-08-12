@@ -1,0 +1,338 @@
+{
+  "_spec": "the reference operator Ledger Conformance Suite v1.0",
+  "_description": "Validates double-entry ledger correctness, immutability, and balance invariants.",
+
+  "suite_id": "ledger",
+  "suite_name": "Ledger Invariant Conformance",
+  "protocol_version": "1.0",
+
+  "invariants": {
+    "zero_sum": {
+      "id": "INV-LEDGER-001",
+      "title": "Zero-sum: every transfer creates exactly one DEBIT and one CREDIT of equal amount",
+      "description": "For each transfer_id, the sum of DEBIT entries plus the sum of CREDIT entries must equal zero when signs are applied (DEBIT negative, CREDIT positive).",
+      "enforcement": "hard — violation must be rejected at the point of transfer creation"
+    },
+    "no_negative_balance": {
+      "id": "INV-LEDGER-002",
+      "title": "No wallet may reach a negative balance",
+      "description": "Before committing a transfer, the operator must verify that the sender's balance is >= amount_minor. Insufficient funds must return HTTP 422.",
+      "enforcement": "hard — violation must be rejected at the point of transfer creation"
+    },
+    "immutability": {
+      "id": "INV-LEDGER-003",
+      "title": "No ledger entry is modified after creation",
+      "description": "Ledger entries are append-only. GET /ledger must always return the same entries for a given wallet, with no retroactive edits.",
+      "enforcement": "hard — any mutating operation on ledger entries is a protocol violation"
+    },
+    "trace_propagation": {
+      "id": "INV-LEDGER-004",
+      "title": "All ledger entries for a transfer share the transfer's trace_id",
+      "description": "The DEBIT and CREDIT entries for a transfer must carry the same trace_id as the transfer response.",
+      "enforcement": "required for Level 2 (Trace-compatible) certification"
+    },
+    "settlement_idempotency": {
+      "id": "INV-LEDGER-005",
+      "title": "Each transfer appears in exactly one settlement batch",
+      "description": "A transfer must not appear in multiple settlement batches. Operators must track settled transfers and reject re-settlement.",
+      "enforcement": "required for Level 4 (Settlement-compatible) certification"
+    }
+  },
+
+  "entry_schema": {
+    "required_fields": ["entry_id", "wallet_id", "transfer_id", "direction", "amount_minor", "currency", "created_at"],
+    "optional_fields": ["trace_id", "correlation_id", "balance_after"],
+    "field_rules": {
+      "entry_id": { "type": "string", "min_length": 1 },
+      "wallet_id": { "type": "string", "min_length": 1 },
+      "transfer_id": { "type": "string", "min_length": 1 },
+      "direction": { "type": "string", "enum": ["DEBIT", "CREDIT"] },
+      "amount_minor": { "type": "integer", "minimum": 1 },
+      "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+      "created_at": { "type": "string", "format": "iso8601" },
+      "trace_id": { "type": "string", "pattern": "^tr-", "nullable": true },
+      "correlation_id": { "type": "string", "min_length": 1, "nullable": true }
+    }
+  },
+
+  "sub_suites": [
+    {
+      "id": "double-entry",
+      "name": "Double-entry enforcement",
+      "certification_level": 0,
+      "vectors": ["LED-001", "LED-002"]
+    },
+    {
+      "id": "balance-invariants",
+      "name": "Balance invariants",
+      "certification_level": 0,
+      "vectors": ["LED-003"]
+    },
+    {
+      "id": "ledger-trace",
+      "name": "Trace fields on ledger entries",
+      "certification_level": 2,
+      "vectors": ["LED-004"]
+    },
+    {
+      "id": "immutability",
+      "name": "Ledger immutability",
+      "certification_level": 1,
+      "vectors": ["LED-005"]
+    },
+    {
+      "id": "balance-query",
+      "name": "Balance query correctness",
+      "certification_level": 0,
+      "vectors": ["LED-006"]
+    },
+    {
+      "id": "entry-structure",
+      "name": "Entry schema validation",
+      "certification_level": 0,
+      "cases": [
+        {
+          "id": "LED-SCHEMA-001",
+          "title": "Ledger entry must contain all required fields",
+          "description": "After a transfer, GET /wallets/:id/ledger must return entries with all required fields present.",
+          "required_entry_fields": ["entry_id", "wallet_id", "transfer_id", "direction", "amount_minor", "currency", "created_at"]
+        },
+        {
+          "id": "LED-SCHEMA-002",
+          "title": "direction must be DEBIT or CREDIT only",
+          "description": "The direction field must be exactly one of the two canonical values. Any other string is a protocol violation.",
+          "allowed_direction_values": ["DEBIT", "CREDIT"]
+        },
+        {
+          "id": "LED-SCHEMA-003",
+          "title": "amount_minor must be a positive integer",
+          "description": "Ledger amounts are stored in minor units. Zero and negative values are protocol violations.",
+          "amount_minor_constraint": "strictly positive integer"
+        }
+      ]
+    },
+    {
+      "id": "ordering",
+      "name": "Entry ordering",
+      "certification_level": 1,
+      "cases": [
+        {
+          "id": "LED-ORD-001",
+          "title": "Ledger entries are returned in chronological order",
+          "description": "GET /wallets/:id/ledger entries must be sorted by created_at ascending (oldest first). This mirrors the event history guarantee.",
+          "order": "ascending",
+          "order_field": "created_at"
+        }
+      ]
+    },
+    {
+      "id": "atomicity",
+      "name": "Transfer atomicity",
+      "certification_level": 0,
+      "invariant_refs": ["INV-LEDGER-001"],
+      "cases": [
+        {
+          "id": "LED-ATOM-001",
+          "title": "Transfer creation is atomic — no partial writes",
+          "description": "A transfer must create both the DEBIT and CREDIT entries atomically. If either entry fails, neither must persist.",
+          "expected": "both_entries_or_none"
+        },
+        {
+          "id": "LED-ATOM-002",
+          "title": "Concurrent transfers to same wallet are serialised correctly",
+          "description": "Two concurrent transfers from the same wallet must each check balance independently. The second must not assume the first succeeded.",
+          "expected": "correct_balance_under_concurrency"
+        },
+        {
+          "id": "LED-ATOM-003",
+          "title": "Failed transfer leaves no ledger entries",
+          "description": "If a transfer fails after validation (e.g., due to a downstream error), no DEBIT or CREDIT entries must appear in the ledger.",
+          "expected": "no_partial_entries_on_failure"
+        },
+        {
+          "id": "LED-ATOM-004",
+          "title": "Rollback on insufficient funds leaves balance unchanged",
+          "description": "When a transfer is rejected for insufficient funds, the wallet balance must be identical before and after the attempt.",
+          "expected": "balance_unchanged_on_rejection"
+        },
+        {
+          "id": "LED-ATOM-005",
+          "title": "Two sequential transfers sum correctly in ledger",
+          "description": "After two completed transfers, the ledger must reflect both in order and the balance must equal the algebraic sum of both operations.",
+          "expected": "cumulative_balance_correct"
+        }
+      ]
+    },
+    {
+      "id": "precision",
+      "name": "Integer precision enforcement",
+      "certification_level": 0,
+      "invariant_refs": ["INV-LEDGER-001"],
+      "cases": [
+        {
+          "id": "LED-PREC-001",
+          "title": "Amounts stored as integer minor units",
+          "description": "All amount_minor values in ledger entries must be stored and returned as integers. Floating-point representation is a protocol violation.",
+          "amount_type": "integer",
+          "expected": "integer_stored_and_returned"
+        },
+        {
+          "id": "LED-PREC-002",
+          "title": "Amount of 1 minor unit is valid",
+          "description": "The minimum valid transfer amount is 1 minor unit. Any implementation that rejects 1-unit transfers without a business reason is non-conformant.",
+          "min_valid_amount_minor": 1,
+          "expected": "accepted"
+        },
+        {
+          "id": "LED-PREC-003",
+          "title": "Zero amount rejected",
+          "amount_minor": 0,
+          "expected": "rejected",
+          "expected_error": "amount_zero"
+        },
+        {
+          "id": "LED-PREC-004",
+          "title": "Negative amount rejected",
+          "amount_minor": -1,
+          "expected": "rejected",
+          "expected_error": "amount_negative"
+        }
+      ]
+    },
+    {
+      "id": "idempotency",
+      "name": "Transfer idempotency",
+      "certification_level": 0,
+      "invariant_refs": ["INV-IDEM-001"],
+      "cases": [
+        {
+          "id": "LED-IDEM-001",
+          "title": "Same idempotency key with same content returns original result",
+          "description": "Re-submitting a transfer request with the same Idempotency-Key and identical body must return the original transfer object without creating a duplicate.",
+          "expected": "original_result_returned"
+        },
+        {
+          "id": "LED-IDEM-002",
+          "title": "Same idempotency key with different amount returns 409",
+          "description": "Submitting a transfer with the same Idempotency-Key but a different amount_minor must return HTTP 409 Conflict.",
+          "expected": "rejected",
+          "expected_http_status": 409,
+          "expected_error": "idempotency_conflict"
+        },
+        {
+          "id": "LED-IDEM-003",
+          "title": "Idempotency key scope is per-operator",
+          "description": "The same idempotency key may be used by two different operators without collision. Keys are scoped to the issuing operator.",
+          "expected": "keys_are_operator_scoped"
+        },
+        {
+          "id": "LED-IDEM-004",
+          "title": "Retry of completed transfer returns original transfer object",
+          "description": "A retry of an already-completed transfer must return the original transfer object with its original created_at timestamp.",
+          "expected": "original_transfer_returned"
+        },
+        {
+          "id": "LED-IDEM-005",
+          "title": "Idempotency window is at least 24 hours",
+          "description": "The operator must honour idempotency keys for at least 24 hours after the original request.",
+          "min_window_hours": 24,
+          "expected": "window_enforced"
+        }
+      ]
+    },
+    {
+      "id": "balance-consistency",
+      "name": "Balance consistency",
+      "certification_level": 0,
+      "invariant_refs": ["INV-LEDGER-002", "INV-WALLET-001"],
+      "cases": [
+        {
+          "id": "LED-BAL-001",
+          "title": "Balance after DEBIT reflects subtraction",
+          "description": "After a DEBIT entry of amount A, the wallet balance must equal previous_balance - A.",
+          "expected": "balance_decremented"
+        },
+        {
+          "id": "LED-BAL-002",
+          "title": "Balance after CREDIT reflects addition",
+          "description": "After a CREDIT entry of amount A, the wallet balance must equal previous_balance + A.",
+          "expected": "balance_incremented"
+        },
+        {
+          "id": "LED-BAL-003",
+          "title": "New wallet starts at zero balance",
+          "description": "A wallet with no ledger entries must report available_minor = 0 and reserved_minor = 0.",
+          "expected": "zero_balance_on_creation"
+        },
+        {
+          "id": "LED-BAL-004",
+          "title": "Balance cannot go negative",
+          "description": "A transfer that would result in a negative balance must be rejected before any ledger entry is created.",
+          "expected": "rejected",
+          "expected_error": "insufficient_funds",
+          "expected_http_status": 422
+        },
+        {
+          "id": "LED-BAL-005",
+          "title": "Balance equals sum of CREDITs minus sum of DEBITs",
+          "description": "The available_minor reported by GET /wallets/:id must equal the algebraic sum of all ledger entries: sum(CREDIT.amount_minor) - sum(DEBIT.amount_minor).",
+          "expected": "balance_is_ledger_derived"
+        }
+      ]
+    },
+    {
+      "id": "currency",
+      "name": "Currency enforcement",
+      "certification_level": 0,
+      "cases": [
+        {
+          "id": "LED-CUR-001",
+          "title": "Currency must be 3-character ISO 4217 code",
+          "description": "The currency field must be exactly 3 uppercase ASCII characters. Any other format is a protocol violation.",
+          "pattern": "^[A-Z]{3}$",
+          "expected": "valid_format_accepted"
+        },
+        {
+          "id": "LED-CUR-002",
+          "title": "Cross-currency transfers not permitted within single ledger",
+          "description": "A transfer where from_wallet currency differs from to_wallet currency must be rejected.",
+          "expected": "rejected",
+          "expected_error": "currency_mismatch"
+        },
+        {
+          "id": "LED-CUR-003",
+          "title": "All ledger entries for a transfer share the same currency",
+          "description": "The DEBIT and CREDIT entries produced by a transfer must both carry the same currency value.",
+          "expected": "currency_consistent_across_entries"
+        }
+      ]
+    },
+    {
+      "id": "trace-propagation",
+      "name": "Trace field propagation",
+      "certification_level": 2,
+      "invariant_refs": ["INV-LEDGER-004"],
+      "cases": [
+        {
+          "id": "LED-TRACE-001",
+          "title": "Ledger entries carry trace_id from parent transfer",
+          "description": "Each ledger entry must include the trace_id from the transfer that generated it.",
+          "expected": "trace_id_present"
+        },
+        {
+          "id": "LED-TRACE-002",
+          "title": "trace_id format: must start with tr-",
+          "description": "The trace_id on ledger entries must match the pattern ^tr-[0-9a-f\\-]{36}$.",
+          "trace_id_pattern": "^tr-[0-9a-f\\-]{36}$",
+          "expected": "format_valid"
+        },
+        {
+          "id": "LED-TRACE-003",
+          "title": "All entries of a transfer share the same trace_id",
+          "description": "The DEBIT and CREDIT entries of a single transfer must both carry the same trace_id.",
+          "expected": "trace_id_consistent"
+        }
+      ]
+    }
+  ]
+}

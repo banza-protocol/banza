@@ -1,0 +1,24 @@
+name: Repository Purity
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+concurrency:
+  group: repository-purity-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  purity-check:
+    name: No non-protocol artifacts in BANZA
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Single source of truth: the guard script in tools/. CI and local
+      # `make purity-check` run the exact same logic. The script scans tracked
+      # files via `git ls-files` (no rg dependency, portable BSD/GNU).
+      - name: Repository purity guard
+        run: bash tools/check-repository-purity.sh

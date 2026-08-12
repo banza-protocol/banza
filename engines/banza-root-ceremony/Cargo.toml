@@ -1,0 +1,26 @@
+[package]
+name = "banza-root-ceremony"
+version = "0.1.0"
+edition = "2021"
+description = "banza-root-ceremony (M2.1): local, no-network validation of the BANZA root trust ceremony (2-of-3). It verifies root metadata, custodian public keys, Ed25519 signatures, the 2-of-3 threshold, custody/backup/offline/recovery declarations, root scope and the regulatory boundary — and detects any forbidden private-key material — computing the ceremony status IN RUST. The M2 root establishes trust for the BANZA OPEN FINANCIAL PROTOCOL: it does not authorise payment services, does not create operators, does not issue licences, does not move/settle/hold funds, and does not replace operator regulatory authorisation. No real private keys: verification only, public material only."
+license = "Apache-2.0"
+
+[lib]
+name = "banza_root_ceremony"
+crate-type = ["cdylib", "rlib"]
+path = "src/lib.rs"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"                 # default Map = BTreeMap (sorted keys) → canonical JSON for hashing/signing
+ed25519-dalek = "2"
+base64 = "0.22"
+sha2 = "0.10"
+wasm-bindgen = { version = "0.2", optional = true }
+
+[features]
+# Enabled only for the standalone `wasm-pack build --features wasm`; keeps the WASM exports leak-free.
+wasm = ["dep:wasm-bindgen"]
+
+[profile.release]
+opt-level = 2

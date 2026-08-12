@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  id:        SVG-P-094
+  diagram:   Modelo operador–implementação — Operador → Implementações → Perfis → Ambientes → Endpoints (um operador, muitas implementações)
+  version:   1.0
+  source:    ADR-068 §4.2/4.3 · BANZA_REFERENCIA.md §35 (validação originada nos endpoints, M2.19G.1)
+  updated:   2026-07-30
+  author:    BANZA Protocol
+  style:     protocol-dark
+-->
+<svg viewBox="0 0 1000 480" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-labelledby="title-P094 desc-P094"
+     font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="title-P094">Modelo operador–implementação no BANZA</title>
+  <desc id="desc-P094">Cadeia de cinco fases que distingue o operador da implementação. O Operador é a entidade responsável pela conformidade e publica muitas implementações. Cada implementação é o objecto técnico avaliado e tem os seus próprios perfis (versão e capacidades), ambientes (sandbox, pré-produção, produção) e endpoints públicos. Validar significa escolher o operador e uma das suas implementações publicadas — nunca a entidade em abstracto. ADR-068.</desc>
+  <defs>
+    <linearGradient id="hg-P094" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E0F1A"/><stop offset="100%" stop-color="#8E1326"/>
+    </linearGradient>
+    <marker id="arr-P094" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#8C8C95"/>
+    </marker>
+  </defs>
+
+  <rect width="1000" height="480" fill="#0E0E11"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="1000" height="64" fill="url(#hg-P094)" rx="14"/>
+  <rect x="0" y="48" width="1000" height="16" fill="#8E1326"/>
+  <text x="24" y="26" font-family="ui-monospace,'Courier New',monospace" font-size="9" fill="#FECACA" letter-spacing="2">SVG-P-094 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="24" y="50" font-size="18" font-weight="800" fill="#FFFFFF">Modelo operador–implementação</text>
+  <text x="976" y="50" text-anchor="end" font-size="11" fill="#F6D9DD">um operador · muitas implementações</text>
+
+  <text x="24" y="94" font-size="11.5" fill="#B6B6BE">O objecto avaliado é uma implementação publicada pelo operador — nunca a entidade em abstracto.</text>
+
+  <!-- ======================= model cards ======================= -->
+  <!-- 1 · Operador (slate) -->
+  <g>
+    <rect x="28" y="128" width="166" height="150" rx="12" fill="#141922" stroke="#33465B" stroke-width="1.5"/>
+    <circle cx="50" cy="152" r="13" fill="#33465B"/><text x="50" y="156" text-anchor="middle" font-size="12" font-weight="800" fill="#FFFFFF">1</text>
+    <text x="44" y="192" font-size="12.5" font-weight="800" fill="#8FB0D0">Operador</text>
+    <text x="44" y="214" font-size="10" fill="#C9C9D0">entidade responsável</text>
+    <text x="44" y="230" font-size="10" fill="#C9C9D0">pela conformidade</text>
+    <text x="44" y="252" font-size="8.5" fill="#8C8C95">publica muitas implementações</text>
+  </g>
+  <!-- 2 · Implementações (green · N) -->
+  <g>
+    <rect x="222.5" y="128" width="166" height="150" rx="12" fill="#13211A" stroke="#2E6A4E" stroke-width="2"/>
+    <circle cx="244.5" cy="152" r="13" fill="#2E6A4E"/><text x="244.5" y="156" text-anchor="middle" font-size="12" font-weight="800" fill="#FFFFFF">2</text>
+    <rect x="330.5" y="140" width="50" height="19" rx="9.5" fill="#1D4A34" stroke="#3E8E6A" stroke-width="1"/>
+    <text x="355.5" y="153.5" text-anchor="middle" font-size="10" font-weight="700" fill="#74C79E">1 → N</text>
+    <text x="238.5" y="192" font-size="12.5" font-weight="800" fill="#74C79E">Implementações</text>
+    <text x="238.5" y="214" font-size="10" fill="#C9C9D0">objecto técnico</text>
+    <text x="238.5" y="230" font-size="10" fill="#C9C9D0">avaliado</text>
+    <text x="238.5" y="252" font-size="8.5" fill="#8C8C95">muitas por operador</text>
+  </g>
+  <!-- 3 · Perfis (steel) -->
+  <g>
+    <rect x="417" y="128" width="166" height="150" rx="12" fill="#17171B" stroke="#4C5563" stroke-width="1.5"/>
+    <circle cx="439" cy="152" r="13" fill="#4C5563"/><text x="439" y="156" text-anchor="middle" font-size="12" font-weight="800" fill="#FFFFFF">3</text>
+    <text x="433" y="192" font-size="12.5" font-weight="800" fill="#A2ABB8">Perfis</text>
+    <text x="433" y="214" font-size="10" fill="#C9C9D0">versão</text>
+    <text x="433" y="230" font-size="10" fill="#C9C9D0">capacidades</text>
+    <text x="433" y="252" font-size="8.5" fill="#8C8C95">por implementação</text>
+  </g>
+  <!-- 4 · Ambientes (gold) -->
+  <g>
+    <rect x="611.5" y="128" width="166" height="150" rx="12" fill="#1E1810" stroke="#B98A3E" stroke-width="1.5"/>
+    <circle cx="633.5" cy="152" r="13" fill="#B98A3E"/><text x="633.5" y="156" text-anchor="middle" font-size="12" font-weight="800" fill="#26200F">4</text>
+    <text x="627.5" y="192" font-size="12.5" font-weight="800" fill="#E7C67E">Ambientes</text>
+    <text x="627.5" y="214" font-size="10" fill="#C9C9D0">sandbox · pré-prod</text>
+    <text x="627.5" y="230" font-size="10" fill="#C9C9D0">produção</text>
+    <text x="627.5" y="252" font-size="8.5" fill="#8C8C95">implantações distintas</text>
+  </g>
+  <!-- 5 · Endpoints (teal) -->
+  <g>
+    <rect x="806" y="128" width="166" height="150" rx="12" fill="#0F1D1C" stroke="#0F766E" stroke-width="1.5"/>
+    <circle cx="828" cy="152" r="13" fill="#0F766E"/><text x="828" y="156" text-anchor="middle" font-size="12" font-weight="800" fill="#FFFFFF">5</text>
+    <text x="822" y="192" font-size="12.5" font-weight="800" fill="#57C6BC">Endpoints</text>
+    <text x="822" y="214" font-size="10" fill="#C9C9D0">discovery · manifest</text>
+    <text x="822" y="230" font-size="10" fill="#C9C9D0">keys · conformance</text>
+    <text x="822" y="252" font-size="8.5" fill="#8C8C95">públicos · resolúveis</text>
+  </g>
+
+  <!-- arrows -->
+  <line x1="194" y1="203" x2="220.5" y2="203" stroke="#8C8C95" stroke-width="1.8" marker-end="url(#arr-P094)"/>
+  <line x1="388.5" y1="203" x2="415" y2="203" stroke="#8C8C95" stroke-width="1.8" marker-end="url(#arr-P094)"/>
+  <line x1="583" y1="203" x2="609.5" y2="203" stroke="#8C8C95" stroke-width="1.8" marker-end="url(#arr-P094)"/>
+  <line x1="777.5" y1="203" x2="804" y2="203" stroke="#8C8C95" stroke-width="1.8" marker-end="url(#arr-P094)"/>
+
+  <!-- principle band -->
+  <rect x="28" y="306" width="944" height="30" rx="9" fill="#141418" stroke="#2B2B33" stroke-width="1"/>
+  <text x="44" y="325" font-size="10.5" fill="#B6B6BE">Um <tspan font-weight="700" fill="#8FB0D0">operador</tspan> publica muitas <tspan font-weight="700" fill="#74C79E">implementações</tspan> — validar é escolher o operador e uma das suas implementações publicadas.</text>
+
+  <!-- boundary band -->
+  <rect x="28" y="346" width="944" height="86" rx="10" fill="#1B1113" stroke="#5A1A22" stroke-width="1.2"/>
+  <text x="44" y="372" font-size="11.5" font-weight="700" fill="#E8909D">A implementação é o objecto técnico avaliado — nunca a entidade em abstracto.</text>
+  <text x="44" y="394" font-size="10.5" fill="#B6B6BE">Cada implementação tem os seus próprios perfis, capacidades, ambientes e endpoints públicos.</text>
+  <text x="44" y="414" font-size="10.5" fill="#B6B6BE">Selecção do alvo = operador + uma implementação publicada (ADR-068 §4.2/4.3).</text>
+
+  <text x="500" y="462" text-anchor="middle" font-size="9" fill="#7C7C85">SVG-P-094 · Modelo operador–implementação · ADR-068 §35 · v1.0 · 2026-07-30</text>
+</svg>

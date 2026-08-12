@@ -1,0 +1,102 @@
+{
+  "total_genuine_contradictions": 16,
+  "resolution_target": "unresolved_contradictions = 0 (every one DELETEd or REWRITEd)",
+  "contradictions": [
+    {
+      "id": "ADR-008",
+      "treatment": "REWRITE",
+      "detail": "The single-source reference doc is framed around an operator as subject — section titles '## 1. What Is the reference operator?', '## 12. the reference operator for Developers', '## 14. The the reference operator Flywheel' (the last also a botched find/replace) — and the ADR hard-codes a '20 sections' build-validation model that conflicts with the current operator-neutral 14-chapter Reference Information Architecture (M2.7L: PostgreSQL=05, FAQ=14).",
+      "resolved_by": "REWRITE (remove contradicting content, keep decision)"
+    },
+    {
+      "id": "ADR-009",
+      "treatment": "REWRITE",
+      "detail": "Frontmatter Author is an operator ('the reference operator Organisation' — operator-as-author). The body is a reference-operator implementation design (concrete Rust crates, engines, EMISProvider, sandbox-operator) placed in the operator-neutral protocol ADR set, where the protocol is meant to be technology-neutral for operators. The reference sandbox-operator no longer exists in this repo.",
+      "resolved_by": "REWRITE (remove contradicting content, keep decision)"
+    },
+    {
+      "id": "ADR-011",
+      "treatment": "REWRITE",
+      "detail": "Prescribes operator implementation technology (Redis, api-gateway/core-api topology, ZADD/ZREMRANGEBYSCORE, tokio, numeric limits 1000/60 req-min, 'save 60 1') inside an operator-neutral protocol repo whose policy is explicitly technology-neutral for operators. The one genuine protocol requirement (replay-safe idempotency) is already owned by the INV-IDEM-* invariant family; rate limiting is not a protocol invariant at all.",
+      "resolved_by": "REWRITE (remove contradicting content, keep decision)"
+    },
+    {
+      "id": "ADR-012",
+      "treatment": "REWRITE",
+      "detail": "Operator-as-subject language: 'Banza needs a contactless payment mechanism', 'Banza generates QR payloads in-house' — writes BANZA-the-protocol as the entity that needs and serves payments, exactly the operator framing the ADR-010 erratum removed (BANZA moves no funds). Also carries reference-operator implementation detail (tokio::spawn expiry worker in core-api, raw UPDATE SQL, qr_flutter/qr.js client libs).",
+      "resolved_by": "REWRITE (remove contradicting content, keep decision)"
+    },
+    {
+      "id": "ADR-013",
+      "treatment": "REWRITE",
+      "detail": "Operator-as-subject language ('Banza needs a zero-friction payment primitive', 'the Banza app', 'a registered Banza account') writes the protocol as a payment product. Body is a reference-operator product design: pay.banza.network domain, Next.js apps/pay App Router, 3s polling of GET /public/pay/{slug}/status — operator implementation, not protocol.",
+      "resolved_by": "REWRITE (remove contradicting content, keep decision)"
+    },
+    {
+      "id": "ADR-016",
+      "treatment": "REWRITE",
+      "detail": "The Interoperability section names the future cross-operator path as 'the federation contracts (contracts/federation/*, ADR-026/ADR-027)'. ADR-026 (Federation Trust Model) and ADR-027 (Production Root Architecture) are the removed CA-era / production-root architecture, superseded by ADR-038/ADR-040. The current federation-trust path is ADR-040 (federation trust evaluation without certificates). Pointing future federation work at the removed CA/production-root ADRs contradicts current policy.",
+      "resolved_by": "REWRITE (remove contradicting content, keep decision)"
+    },
+    {
+      "id": "ADR-019",
+      "treatment": "REWRITE",
+      "detail": "Uses non-neutral operator-product example names — an on-demand commerce app 'Mongo' (line 143, appears only in this ADR) and the 'DOA' donation application — instead of the mandated Operator A / generic examples, breaching the operator-neutrality invariant (policy 1) and identity-check. The fee/settlement decision itself is policy-compliant and double-entry-safe.",
+      "resolved_by": "REWRITE (remove contradicting content, keep decision)"
+    },
+    {
+      "id": "ADR-020",
+      "treatment": "REWRITE",
+      "detail": "References operator-specific product/console names — the 'DOA' donation application and 'BANZADMIN' admin console (line 141, appears only in this ADR) — instead of neutral Operator A examples, breaching operator-neutrality (policy 1) / identity-check. The segregated-account decision itself is compliant (ledger-derived balances, operator-enforced segregation, no negative balance).",
+      "resolved_by": "REWRITE (remove contradicting content, keep decision)"
+    },
+    {
+      "id": "ADR-022",
+      "treatment": "DELETE",
+      "detail": "Directly contradicts current policy 2 (NO CA, NO root-key ceremony, NO issued production certificates — trust is open, self-published, deterministically verified) and policy 3 (no discretionary/central human approval; it repeatedly assumes central certificate issuance and a 'certification authority'). The header already marks the trust/certificate model superseded by ADR-038.",
+      "resolved_by": "DELETE (superseded by ADR-021)"
+    },
+    {
+      "id": "ADR-026",
+      "treatment": "DELETE",
+      "detail": "Directly contradicts current policy #2/#3: there is NO CA, NO issued production certificates, NO root key, and NO discretionary operator approval. Trust is now an open model (operators self-publish signed metadata; anyone verifies deterministically).",
+      "resolved_by": "DELETE (superseded by ADR-038 + ADR-040)"
+    },
+    {
+      "id": "ADR-027",
+      "treatment": "DELETE",
+      "detail": "Contradicts current policy #2 explicitly: NO BANZA root key ceremony, NO production root CA, NO issued production certificates. The 2026-06-19 clarification even 'approves' the root-key custody model that current policy has since removed.",
+      "resolved_by": "DELETE (superseded by ADR-038)"
+    },
+    {
+      "id": "ADR-028",
+      "treatment": "REWRITE",
+      "detail": "Its scaffolding assumes the removed CA/root-key model (root ceremony, issuing keys, operator certificates, INV-ROOT-*/INV-TRUST-*, ADR-026). Under the open trust model these anchors no longer exist.",
+      "resolved_by": "REWRITE (remove contradicting content, keep decision)"
+    },
+    {
+      "id": "ADR-031",
+      "treatment": "REWRITE",
+      "detail": "Publishes the removed CA anchors (root manifest/root key id, issuer key-manifest, issued-certificates index, BRL) and pre-production 'certificates depend on M2/M3' narrative; current policy has no root, no CA, no issued production certificates.",
+      "resolved_by": "REWRITE (remove contradicting content, keep decision)"
+    },
+    {
+      "id": "ADR-032",
+      "treatment": "DELETE",
+      "detail": "'BANZA CA certifies after validation' contradicts the no-CA policy; the 'subordinate knowledge system' framing contradicts current policy #5 (BanzAI is the PRIMARY human-operator interface / native protocol agent, ADR-041/049/050/054).",
+      "resolved_by": "DELETE (superseded by ADR-041)"
+    },
+    {
+      "id": "ADR-034",
+      "treatment": "REWRITE",
+      "detail": "Treats 'certificates' as a served public protocol artifact, which assumes the removed CA/issued-production-certificate world (production_certificates=false; removed by ADR-038/039/040).",
+      "resolved_by": "REWRITE (remove contradicting content, keep decision)"
+    },
+    {
+      "id": "ADR-036",
+      "treatment": "REWRITE",
+      "detail": "The /certificates machine route assumes issued production certificates, removed by the open-trust ADRs (038/039/040).",
+      "resolved_by": "REWRITE (remove contradicting content, keep decision)"
+    }
+  ]
+}

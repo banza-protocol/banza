@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  id:        SVG-P-103
+  diagram:   Princípios fundamentais e a sua consequência estrutural — cada princípio condiciona a arquitectura, a validação e a evolução do protocolo
+  version:   1.1
+  source:    BANZA_REFERENCIA.md §3 (Princípios Fundamentais)
+  updated:   2026-08-08
+  changes:   v1.1 — fix the malformed convergence arrowhead (rightward-triangle geometry so orient="auto" rotates
+             it cleanly to point down; no semantic change)
+             v1.0 — new canonical figure for chapter 03; maps each design principle to its structural consequence
+             (institutionally neutral: no named entities); the set converges on "condiciona a arquitectura (§4)"
+  author:    BANZA Protocol
+  style:     protocol
+-->
+<svg viewBox="0 0 900 620" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-labelledby="title-P103 desc-P103"
+     font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="title-P103">Princípios fundamentais e a sua consequência estrutural</title>
+  <desc id="desc-P103">Cada princípio fundamental do protocolo BANZA produz uma consequência de desenho verificável: correcção financeira dá operações auditáveis e reproduzíveis; neutralidade dá as mesmas regras para todas as implementações; regras públicas e versionadas dão avaliação com âncora testável; decisão determinística dá resultado reproduzível com razão legível por máquina; evidência e reprodutibilidade dão resultado verificável por terceiros; âmbito explícito e ausência de autoridade implícita fazem com que o resultado não propague estatuto institucional; fecho por omissão faz com que a interoperabilidade seja concedida por verificação; separação de responsabilidades faz com que nenhuma autoridade seja única. Em conjunto, estes princípios condicionam a arquitectura, a validação e a evolução do protocolo (§4). São propriedades de desenho independentes da tecnologia usada para implementar o protocolo.</desc>
+  <defs>
+    <linearGradient id="hg-P103" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E0F1A"/><stop offset="100%" stop-color="#8E1326"/>
+    </linearGradient>
+    <marker id="arr-P103" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#B98A3E"/>
+    </marker>
+    <marker id="arrD-P103" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#8E1326"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="620" fill="#F4F1EA"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="900" height="64" fill="url(#hg-P103)" rx="14"/>
+  <rect x="0" y="48" width="900" height="16" fill="#8E1326"/>
+  <text x="24" y="26" font-family="ui-monospace,'Courier New',monospace" font-size="9" fill="#FECACA" letter-spacing="2">SVG-P-103 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="24" y="50" font-size="18" font-weight="800" fill="white">Princípios → consequência estrutural</text>
+  <text x="876" y="50" text-anchor="end" font-size="11" fill="#FECACA">propriedades de desenho, não de implementação</text>
+
+  <!-- column headers -->
+  <text x="40" y="86" font-family="ui-monospace,'Courier New',monospace" font-size="10" font-weight="700" fill="#8E1326" letter-spacing="1">PRINCÍPIO</text>
+  <text x="372" y="86" font-family="ui-monospace,'Courier New',monospace" font-size="10" font-weight="700" fill="#6B7280" letter-spacing="1">CONSEQUÊNCIA ESTRUTURAL</text>
+
+  <!-- rows: principle pill (left) → consequence box (right) -->
+  <!-- 1 -->
+  <rect x="24" y="94" width="300" height="44" rx="9" fill="#8E1326"/>
+  <text x="40" y="121" font-size="12" font-weight="700" fill="white">Correcção financeira</text>
+  <line x1="326" y1="116" x2="354" y2="116" stroke="#B98A3E" stroke-width="1.6" marker-end="url(#arr-P103)"/>
+  <rect x="356" y="94" width="520" height="44" rx="9" fill="white" stroke="#EAD2D6" stroke-width="1.5"/>
+  <text x="372" y="121" font-size="11" fill="#4B3A3C">operações auditáveis e reproduzíveis</text>
+
+  <!-- 2 -->
+  <rect x="24" y="148" width="300" height="44" rx="9" fill="#8E1326"/>
+  <text x="40" y="175" font-size="12" font-weight="700" fill="white">Neutralidade</text>
+  <line x1="326" y1="170" x2="354" y2="170" stroke="#B98A3E" stroke-width="1.6" marker-end="url(#arr-P103)"/>
+  <rect x="356" y="148" width="520" height="44" rx="9" fill="white" stroke="#EAD2D6" stroke-width="1.5"/>
+  <text x="372" y="175" font-size="11" fill="#4B3A3C">as mesmas regras para todas as implementações</text>
+
+  <!-- 3 -->
+  <rect x="24" y="202" width="300" height="44" rx="9" fill="#8E1326"/>
+  <text x="40" y="229" font-size="12" font-weight="700" fill="white">Regras públicas e versionadas</text>
+  <line x1="326" y1="224" x2="354" y2="224" stroke="#B98A3E" stroke-width="1.6" marker-end="url(#arr-P103)"/>
+  <rect x="356" y="202" width="520" height="44" rx="9" fill="white" stroke="#EAD2D6" stroke-width="1.5"/>
+  <text x="372" y="229" font-size="11" fill="#4B3A3C">avaliação com âncora testável</text>
+
+  <!-- 4 -->
+  <rect x="24" y="256" width="300" height="44" rx="9" fill="#8E1326"/>
+  <text x="40" y="283" font-size="12" font-weight="700" fill="white">Decisão determinística</text>
+  <line x1="326" y1="278" x2="354" y2="278" stroke="#B98A3E" stroke-width="1.6" marker-end="url(#arr-P103)"/>
+  <rect x="356" y="256" width="520" height="44" rx="9" fill="white" stroke="#EAD2D6" stroke-width="1.5"/>
+  <text x="372" y="283" font-size="11" fill="#4B3A3C">resultado reproduzível, com razão legível por máquina</text>
+
+  <!-- 5 -->
+  <rect x="24" y="310" width="300" height="44" rx="9" fill="#8E1326"/>
+  <text x="40" y="337" font-size="12" font-weight="700" fill="white">Evidência e reprodutibilidade</text>
+  <line x1="326" y1="332" x2="354" y2="332" stroke="#B98A3E" stroke-width="1.6" marker-end="url(#arr-P103)"/>
+  <rect x="356" y="310" width="520" height="44" rx="9" fill="white" stroke="#EAD2D6" stroke-width="1.5"/>
+  <text x="372" y="337" font-size="11" fill="#4B3A3C">resultado verificável por terceiros</text>
+
+  <!-- 6 -->
+  <rect x="24" y="364" width="300" height="44" rx="9" fill="#8E1326"/>
+  <text x="40" y="386" font-size="11.5" font-weight="700" fill="white">Âmbito explícito ·</text>
+  <text x="40" y="400" font-size="11.5" font-weight="700" fill="white">sem autoridade implícita</text>
+  <line x1="326" y1="386" x2="354" y2="386" stroke="#B98A3E" stroke-width="1.6" marker-end="url(#arr-P103)"/>
+  <rect x="356" y="364" width="520" height="44" rx="9" fill="white" stroke="#EAD2D6" stroke-width="1.5"/>
+  <text x="372" y="391" font-size="11" fill="#4B3A3C">o resultado não propaga estatuto institucional</text>
+
+  <!-- 7 -->
+  <rect x="24" y="418" width="300" height="44" rx="9" fill="#8E1326"/>
+  <text x="40" y="445" font-size="12" font-weight="700" fill="white">Fecho por omissão</text>
+  <line x1="326" y1="440" x2="354" y2="440" stroke="#B98A3E" stroke-width="1.6" marker-end="url(#arr-P103)"/>
+  <rect x="356" y="418" width="520" height="44" rx="9" fill="white" stroke="#EAD2D6" stroke-width="1.5"/>
+  <text x="372" y="445" font-size="11" fill="#4B3A3C">interoperabilidade concedida por verificação</text>
+
+  <!-- 8 -->
+  <rect x="24" y="472" width="300" height="44" rx="9" fill="#8E1326"/>
+  <text x="40" y="499" font-size="12" font-weight="700" fill="white">Separação de responsabilidades</text>
+  <line x1="326" y1="494" x2="354" y2="494" stroke="#B98A3E" stroke-width="1.6" marker-end="url(#arr-P103)"/>
+  <rect x="356" y="472" width="520" height="44" rx="9" fill="white" stroke="#EAD2D6" stroke-width="1.5"/>
+  <text x="372" y="499" font-size="11" fill="#4B3A3C">nenhuma autoridade única</text>
+
+  <!-- convergence: the set conditions the architecture -->
+  <line x1="450" y1="520" x2="450" y2="540" stroke="#8E1326" stroke-width="2" marker-end="url(#arrD-P103)"/>
+  <rect x="24" y="548" width="852" height="46" rx="10" fill="#FBEFF0" stroke="#8E1326" stroke-width="1.5"/>
+  <text x="450" y="570" text-anchor="middle" font-size="12" font-weight="700" fill="#8E1326">Em conjunto, condicionam a arquitectura, a validação e a evolução do protocolo</text>
+  <text x="450" y="586" text-anchor="middle" font-size="10" fill="#6B6265">materialização concreta em §4 Arquitectura do Protocolo</text>
+
+  <text x="450" y="612" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-103 · Princípios → consequência estrutural · BANZA_REFERENCIA.md §3 · v1.1 · 2026-08-08</text>
+</svg>

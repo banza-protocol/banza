@@ -1,0 +1,7 @@
+{
+  "schema_version": "1",
+  "issued_at": "<ISSUED_NOW - 8 hours>",
+  "expires_at": "<ISSUED_NOW - 1 hour>",
+  "revoked": [],
+  "signature": "<ed25519-base64url-64-bytes>"
+}

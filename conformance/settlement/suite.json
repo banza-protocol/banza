@@ -1,0 +1,129 @@
+{
+  "_spec": "the reference operator Settlement Conformance Suite v1.0",
+  "_description": "Validates settlement batch creation, fee model, no-money-creation invariant, and idempotency.",
+
+  "suite_id": "settlement",
+  "suite_name": "Settlement Conformance",
+  "protocol_version": "1.0",
+
+  "invariants": {
+    "no_money_creation": {
+      "id": "INV-STL-001",
+      "title": "net_minor + fee_minor must equal gross_minor exactly",
+      "description": "The settlement fee model must satisfy: gross_minor = net_minor + fee_minor. No value may be created or destroyed during settlement.",
+      "enforcement": "hard — required for Level 4 (Settlement-compatible) certification"
+    },
+    "idempotency": {
+      "id": "INV-STL-002",
+      "title": "A transfer appears in exactly one settlement batch",
+      "description": "Each transfer must be settled exactly once. Re-settling a transfer in a second batch is a protocol violation.",
+      "enforcement": "hard — required for Level 4 (Settlement-compatible) certification"
+    },
+    "trace_propagation": {
+      "id": "INV-STL-003",
+      "title": "Settlement batch carries a trace_id",
+      "description": "A settlement batch must include trace_id. The trace view for the batch trace_id must reference the batch.",
+      "enforcement": "required for Level 2 (Trace-compatible) certification"
+    }
+  },
+
+  "batch_schema": {
+    "required_fields": ["batch_id", "wallet_id", "gross_minor", "net_minor", "fee_minor", "tx_count", "status", "created_at"],
+    "optional_fields": ["trace_id", "completed_at", "provider_ref"],
+    "field_rules": {
+      "batch_id": { "type": "string", "min_length": 1 },
+      "wallet_id": { "type": "string", "min_length": 1 },
+      "gross_minor": { "type": "integer", "minimum": 0 },
+      "net_minor": { "type": "integer", "minimum": 0 },
+      "fee_minor": { "type": "integer", "minimum": 0 },
+      "tx_count": { "type": "integer", "minimum": 1 },
+      "status": { "type": "string", "enum": ["pending", "completed", "failed"] },
+      "created_at": { "type": "string", "format": "iso8601" },
+      "trace_id": { "type": "string", "pattern": "^tr-", "nullable": true }
+    }
+  },
+
+  "sub_suites": [
+    {
+      "id": "batch-lifecycle",
+      "name": "Batch creation and completion",
+      "certification_level": 1,
+      "vectors": ["STL-001", "STL-002"]
+    },
+    {
+      "id": "fee-model",
+      "name": "Settlement fee model",
+      "certification_level": 4,
+      "vectors": ["STL-003"]
+    },
+    {
+      "id": "settlement-trace",
+      "name": "Trace fields on settlement",
+      "certification_level": 2,
+      "vectors": ["STL-004"]
+    },
+    {
+      "id": "batch-events",
+      "name": "Settlement events",
+      "certification_level": 1,
+      "vectors": ["STL-005"]
+    },
+    {
+      "id": "settlement-invariants",
+      "name": "Settlement invariants (no money creation, idempotency)",
+      "certification_level": 4,
+      "vectors": ["STL-006"]
+    },
+    {
+      "id": "batch-schema",
+      "name": "Batch schema validation",
+      "certification_level": 1,
+      "cases": [
+        {
+          "id": "STL-SCHEMA-001",
+          "title": "Settlement batch must include all required fields",
+          "required_fields": ["batch_id", "wallet_id", "gross_minor", "net_minor", "fee_minor", "tx_count", "status", "created_at"]
+        },
+        {
+          "id": "STL-SCHEMA-002",
+          "title": "Status must be pending, completed, or failed",
+          "allowed_status_values": ["pending", "completed", "failed"]
+        },
+        {
+          "id": "STL-SCHEMA-003",
+          "title": "gross_minor, net_minor, fee_minor must be non-negative integers"
+        }
+      ]
+    },
+    {
+      "id": "batch-query",
+      "name": "Batch query",
+      "certification_level": 1,
+      "cases": [
+        {
+          "id": "STL-QUERY-001",
+          "title": "GET /settlements returns list of batches for the authenticated wallet",
+          "method": "GET",
+          "path": "/settlements",
+          "expect_status": 200,
+          "expect_array_field": "batches"
+        },
+        {
+          "id": "STL-QUERY-002",
+          "title": "GET /settlements/:id returns a single batch",
+          "method": "GET",
+          "path": "/settlements/{batch_id}",
+          "expect_status": 200,
+          "expect_fields_present": ["batch_id", "status"]
+        },
+        {
+          "id": "STL-QUERY-003",
+          "title": "GET /settlements/:id for unknown batch returns 404",
+          "method": "GET",
+          "path": "/settlements/stl-does-not-exist",
+          "expect_status": 404
+        }
+      ]
+    }
+  ]
+}

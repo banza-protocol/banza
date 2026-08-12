@@ -1,0 +1,190 @@
+<?xml version="1.0"?>
+<svg viewBox="0 0 1180 684" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title-P059 desc-P059" font-family="system-ui,-apple-system,sans-serif">
+  <title id="title-P059">Operator Self-Publication Flow</title>
+  <desc id="desc-P059">A left-to-right chain in which an operator implementation produces an Operator Manifest, automated conformance tests produce an Evidence Bundle, and the operator self-publishes both to the Public Protocol Registry, where anyone may independently verify them. No human approval step exists between any two stages: there is no reviewer, no approval queue and no admission decision. The trust root signs only the Key Manifest, which endorses the delegated signing keys; the delegated keys sign protocol metadata, releases and the revocation list within their domains (the BRL by the revocation-domain key). It does not authorise payments, operators, licences or funds, and revocation is a security signal rather than a regulatory act. Humans maintain the protocol; they do not approve operators.</desc>
+  <!--
+    id:        SVG-P-059
+    diagram:   Operator Self-Publication Flow
+    version:   1.0
+    source:    ADR-001 · ADR-003 · ADR-005 (M2.2 — Open Protocol Governance)
+    updated:   2026-07-17
+    author:    BANZA Protocol
+    style:     protocol
+  -->
+  <defs>
+    <linearGradient id="hg-P059" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#990011"/><stop offset="100%" stop-color="#B11226"/>
+    </linearGradient>
+    <marker id="arr-P059" markerWidth="9" markerHeight="9" refX="4.5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#6B6265"/>
+    </marker>
+    <marker id="arrd-P059" markerWidth="9" markerHeight="9" refX="4.5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#990011"/>
+    </marker>
+  </defs>
+
+  <rect width="1180" height="684" fill="#FCF6F5" rx="16"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="1180" height="72" fill="url(#hg-P059)" rx="16"/>
+  <rect x="0" y="56" width="1180" height="16" fill="#B11226"/>
+  <text x="36" y="30" font-family="ui-monospace,'Courier New',monospace" font-size="9.5" fill="#FECACA" letter-spacing="2">SVG-P-059 · OPEN FINANCIAL PROTOCOL</text>
+  <text x="36" y="54" font-size="18" font-weight="800" fill="white">Operator Self-Publication Flow</text>
+  <text x="1144" y="54" text-anchor="end" font-size="10.5" fill="#FECACA">Self-published · automated · independently verifiable</text>
+
+  <!-- Maintainers band — humans sit above the chain, never inside it -->
+  <rect x="40" y="90" width="1100" height="46" rx="10" fill="#EAE0DF" stroke="#D4C9C7" stroke-width="1.5"/>
+  <text x="62" y="112" font-size="12" font-weight="800" fill="#1A1A1A">Protocol Maintainers · RFC Process</text>
+  <text x="62" y="128" font-size="10" fill="#6B6265">Maintain the specification and author the conformance test vectors through open RFCs.</text>
+  <text x="1118" y="112" text-anchor="end" font-size="10.5" font-weight="700" fill="#990011">They define the rules — never the outcome for any single operator.</text>
+  <text x="1118" y="128" text-anchor="end" font-size="10" fill="#6B6265">No maintainer appears at any position in the chain below.</text>
+
+  <!-- Dashed link: maintainers define the tests (rules), not the verdict -->
+  <line x1="495" y1="136" x2="495" y2="158" stroke="#990011" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrd-P059)"/>
+  <text x="506" y="152" font-size="9" fill="#990011">defines the test vectors</text>
+
+  <!-- ───────────── STEP 1 — Operator implementation ───────────── -->
+  <rect x="40" y="160" width="155" height="168" fill="white" rx="12" stroke="#BFDBFE" stroke-width="1.5"/>
+  <rect x="40" y="160" width="155" height="30" fill="#1E40AF" rx="12"/><rect x="40" y="178" width="155" height="12" fill="#1E40AF"/>
+  <text x="117" y="181" text-anchor="middle" font-size="9.5" font-weight="700" fill="#BFDBFE" letter-spacing="1.5">STEP 1</text>
+  <text x="117" y="215" text-anchor="middle" font-size="12.5" font-weight="800" fill="#1A1A1A">Operator</text>
+  <text x="117" y="231" text-anchor="middle" font-size="12.5" font-weight="800" fill="#1A1A1A">Implementation</text>
+  <line x1="54" y1="243" x2="181" y2="243" stroke="#D4C9C7"/>
+  <text x="117" y="261" text-anchor="middle" font-size="9" fill="#6B6265">Operator A · B · C</text>
+  <text x="117" y="276" text-anchor="middle" font-size="9" fill="#6B6265">independent, self-hosted</text>
+  <text x="117" y="291" text-anchor="middle" font-size="9" fill="#6B6265">any technology stack</text>
+  <text x="117" y="306" text-anchor="middle" font-size="9" fill="#6B6265">asks no one to begin</text>
+
+  <line x1="195" y1="244" x2="227" y2="244" stroke="#6B6265" stroke-width="2.5" marker-end="url(#arr-P059)"/>
+  <circle cx="212" cy="300" r="10" fill="white" stroke="#990011" stroke-width="2"/>
+  <line x1="205.5" y1="306.5" x2="218.5" y2="293.5" stroke="#990011" stroke-width="2"/>
+  <text x="212" y="322" text-anchor="middle" font-size="8.5" font-weight="700" fill="#990011">no gate</text>
+
+  <!-- ───────────── STEP 2 — Operator Manifest ───────────── -->
+  <rect x="229" y="160" width="155" height="168" fill="white" rx="12" stroke="#BBF7D0" stroke-width="1.5"/>
+  <rect x="229" y="160" width="155" height="30" fill="#166534" rx="12"/><rect x="229" y="178" width="155" height="12" fill="#166534"/>
+  <text x="306" y="181" text-anchor="middle" font-size="9.5" font-weight="700" fill="#BBF7D0" letter-spacing="1.5">STEP 2</text>
+  <text x="306" y="215" text-anchor="middle" font-size="12.5" font-weight="800" fill="#1A1A1A">Operator</text>
+  <text x="306" y="231" text-anchor="middle" font-size="12.5" font-weight="800" fill="#1A1A1A">Manifest</text>
+  <line x1="243" y1="243" x2="370" y2="243" stroke="#D4C9C7"/>
+  <text x="306" y="261" text-anchor="middle" font-size="8.5" font-family="ui-monospace,'Courier New',monospace" fill="#166534">operator.json</text>
+  <text x="306" y="276" text-anchor="middle" font-size="9" fill="#6B6265">endpoints · scope · keys</text>
+  <text x="306" y="291" text-anchor="middle" font-size="9" fill="#6B6265">self-declared</text>
+  <text x="306" y="306" text-anchor="middle" font-size="9" fill="#6B6265">hosted by the operator</text>
+
+  <line x1="384" y1="244" x2="416" y2="244" stroke="#6B6265" stroke-width="2.5" marker-end="url(#arr-P059)"/>
+  <circle cx="401" cy="300" r="10" fill="white" stroke="#990011" stroke-width="2"/>
+  <line x1="394.5" y1="306.5" x2="407.5" y2="293.5" stroke="#990011" stroke-width="2"/>
+  <text x="401" y="322" text-anchor="middle" font-size="8.5" font-weight="700" fill="#990011">no gate</text>
+
+  <!-- ───────────── STEP 3 — Conformance Tests ───────────── -->
+  <rect x="418" y="160" width="155" height="168" fill="white" rx="12" stroke="#FECACA" stroke-width="1.5"/>
+  <rect x="418" y="160" width="155" height="30" fill="#990011" rx="12"/><rect x="418" y="178" width="155" height="12" fill="#990011"/>
+  <text x="495" y="181" text-anchor="middle" font-size="9.5" font-weight="700" fill="#FECACA" letter-spacing="1.5">STEP 3</text>
+  <text x="495" y="215" text-anchor="middle" font-size="12.5" font-weight="800" fill="#1A1A1A">Conformance</text>
+  <text x="495" y="231" text-anchor="middle" font-size="12.5" font-weight="800" fill="#1A1A1A">Tests</text>
+  <line x1="432" y1="243" x2="559" y2="243" stroke="#D4C9C7"/>
+  <text x="495" y="261" text-anchor="middle" font-size="9" fill="#6B6265">automated · deterministic</text>
+  <text x="495" y="276" text-anchor="middle" font-size="9" fill="#6B6265">executed by machine</text>
+  <text x="495" y="291" text-anchor="middle" font-size="9" fill="#6B6265">L0–L4 test vectors</text>
+  <text x="495" y="306" text-anchor="middle" font-size="9" fill="#6B6265">no human judgement</text>
+
+  <line x1="573" y1="244" x2="605" y2="244" stroke="#6B6265" stroke-width="2.5" marker-end="url(#arr-P059)"/>
+  <circle cx="590" cy="300" r="10" fill="white" stroke="#990011" stroke-width="2"/>
+  <line x1="583.5" y1="306.5" x2="596.5" y2="293.5" stroke="#990011" stroke-width="2"/>
+  <text x="590" y="322" text-anchor="middle" font-size="8.5" font-weight="700" fill="#990011">no gate</text>
+
+  <!-- ───────────── STEP 4 — Evidence Bundle ───────────── -->
+  <rect x="607" y="160" width="155" height="168" fill="white" rx="12" stroke="#FECACA" stroke-width="1.5"/>
+  <rect x="607" y="160" width="155" height="30" fill="#B11226" rx="12"/><rect x="607" y="178" width="155" height="12" fill="#B11226"/>
+  <text x="684" y="181" text-anchor="middle" font-size="9.5" font-weight="700" fill="#FECACA" letter-spacing="1.5">STEP 4</text>
+  <text x="684" y="215" text-anchor="middle" font-size="12.5" font-weight="800" fill="#1A1A1A">Evidence</text>
+  <text x="684" y="231" text-anchor="middle" font-size="12.5" font-weight="800" fill="#1A1A1A">Bundle</text>
+  <line x1="621" y1="243" x2="748" y2="243" stroke="#D4C9C7"/>
+  <text x="684" y="261" text-anchor="middle" font-size="9" fill="#6B6265">signed · reproducible</text>
+  <text x="684" y="276" text-anchor="middle" font-size="9" fill="#6B6265">PASS / FAIL per vector</text>
+  <text x="684" y="291" text-anchor="middle" font-size="9" fill="#6B6265">output of the tests</text>
+  <text x="684" y="306" text-anchor="middle" font-size="9" fill="#6B6265">not an authorisation</text>
+
+  <line x1="762" y1="244" x2="794" y2="244" stroke="#6B6265" stroke-width="2.5" marker-end="url(#arr-P059)"/>
+  <circle cx="779" cy="300" r="10" fill="white" stroke="#990011" stroke-width="2"/>
+  <line x1="772.5" y1="306.5" x2="785.5" y2="293.5" stroke="#990011" stroke-width="2"/>
+  <text x="779" y="322" text-anchor="middle" font-size="8.5" font-weight="700" fill="#990011">no gate</text>
+
+  <!-- ───────────── STEP 5 — Public Protocol Registry ───────────── -->
+  <rect x="796" y="160" width="155" height="168" fill="white" rx="12" stroke="#D4C9C7" stroke-width="1.5"/>
+  <rect x="796" y="160" width="155" height="30" fill="#1F2937" rx="12"/><rect x="796" y="178" width="155" height="12" fill="#1F2937"/>
+  <text x="873" y="181" text-anchor="middle" font-size="9.5" font-weight="700" fill="#9CA3AF" letter-spacing="1.5">STEP 5</text>
+  <text x="873" y="215" text-anchor="middle" font-size="12.5" font-weight="800" fill="#1A1A1A">Public Protocol</text>
+  <text x="873" y="231" text-anchor="middle" font-size="12.5" font-weight="800" fill="#1A1A1A">Registry</text>
+  <line x1="810" y1="243" x2="937" y2="243" stroke="#D4C9C7"/>
+  <text x="873" y="261" text-anchor="middle" font-size="9" fill="#6B6265">operator self-publishes</text>
+  <text x="873" y="276" text-anchor="middle" font-size="9" fill="#6B6265">manifest + evidence</text>
+  <text x="873" y="291" text-anchor="middle" font-size="9" fill="#6B6265">append-only · public</text>
+  <text x="873" y="306" text-anchor="middle" font-size="9" fill="#6B6265">records, does not decide</text>
+
+  <line x1="951" y1="244" x2="983" y2="244" stroke="#6B6265" stroke-width="2.5" marker-end="url(#arr-P059)"/>
+  <circle cx="968" cy="300" r="10" fill="white" stroke="#990011" stroke-width="2"/>
+  <line x1="961.5" y1="306.5" x2="974.5" y2="293.5" stroke="#990011" stroke-width="2"/>
+  <text x="968" y="322" text-anchor="middle" font-size="8.5" font-weight="700" fill="#990011">no gate</text>
+
+  <!-- ───────────── STEP 6 — Anyone verifies ───────────── -->
+  <rect x="985" y="160" width="155" height="168" fill="white" rx="12" stroke="#BBF7D0" stroke-width="1.5"/>
+  <rect x="985" y="160" width="155" height="30" fill="#166534" rx="12"/><rect x="985" y="178" width="155" height="12" fill="#166534"/>
+  <text x="1062" y="181" text-anchor="middle" font-size="9.5" font-weight="700" fill="#BBF7D0" letter-spacing="1.5">STEP 6</text>
+  <text x="1062" y="215" text-anchor="middle" font-size="12.5" font-weight="800" fill="#1A1A1A">Anyone</text>
+  <text x="1062" y="231" text-anchor="middle" font-size="12.5" font-weight="800" fill="#1A1A1A">Verifies</text>
+  <line x1="999" y1="243" x2="1126" y2="243" stroke="#D4C9C7"/>
+  <text x="1062" y="261" text-anchor="middle" font-size="9" fill="#6B6265">fetch · re-run · compare</text>
+  <text x="1062" y="276" text-anchor="middle" font-size="9" fill="#6B6265">check trust root signature</text>
+  <text x="1062" y="291" text-anchor="middle" font-size="9" fill="#6B6265">check revocation list</text>
+  <text x="1062" y="306" text-anchor="middle" font-size="9" fill="#6B6265">no permission required</text>
+
+  <!-- No-approval band -->
+  <rect x="40" y="348" width="1100" height="80" rx="10" fill="#F3F4F6" stroke="#D4C9C7"/>
+  <circle cx="78" cy="388" r="11" fill="white" stroke="#990011" stroke-width="2"/>
+  <line x1="70.8" y1="395.2" x2="85.2" y2="380.8" stroke="#990011" stroke-width="2"/>
+  <circle cx="1102" cy="388" r="11" fill="white" stroke="#990011" stroke-width="2"/>
+  <line x1="1094.8" y1="395.2" x2="1109.2" y2="380.8" stroke="#990011" stroke-width="2"/>
+  <text x="590" y="376" text-anchor="middle" font-size="13" font-weight="800" fill="#1A1A1A">There is no human approval step anywhere in this chain.</text>
+  <text x="590" y="397" text-anchor="middle" font-size="10.5" fill="#6B6265">No reviewer · no approval queue · no waiting list · no admission decision · no central authority · no one accepts or authorises an operator.</text>
+  <text x="590" y="416" text-anchor="middle" font-size="10.5" fill="#6B6265">The operator publishes. The tests run themselves. The registry records. Anyone re-runs the same vectors and reaches the same result.</text>
+
+  <!-- Trust root — what it signs -->
+  <rect x="40" y="444" width="536" height="128" fill="white" rx="12" stroke="#D4C9C7" stroke-width="1.5"/>
+  <rect x="40" y="444" width="536" height="30" fill="#1F2937" rx="12"/><rect x="40" y="462" width="536" height="12" fill="#1F2937"/>
+  <text x="308" y="465" text-anchor="middle" font-size="11.5" font-weight="700" fill="white">Trust Root — what it signs</text>
+  <g font-size="10.5" fill="#1A1A1A">
+    <text x="66" y="500">— the Key Manifest, and nothing else</text>
+    <text x="66" y="520">Delegated keys sign, by domain:</text>
+    <text x="66" y="540">— metadata + releases · — the BRL</text>
+    <text x="66" y="560">— conformance evidence</text>
+    <text x="320" y="500" fill="#6B6265">Cryptographic statements only.</text>
+    <text x="320" y="520" fill="#6B6265">Machine-checkable by anyone.</text>
+    <text x="320" y="540" fill="#6B6265">Delegated keys sign day-to-day</text>
+    <text x="320" y="560" fill="#6B6265">protocol artefacts, offline root does not.</text>
+  </g>
+
+  <!-- Trust root — what it does not do -->
+  <rect x="604" y="444" width="536" height="128" fill="white" rx="12" stroke="#FECACA" stroke-width="1.5"/>
+  <rect x="604" y="444" width="536" height="30" fill="#990011" rx="12"/><rect x="604" y="462" width="536" height="12" fill="#990011"/>
+  <text x="872" y="465" text-anchor="middle" font-size="11.5" font-weight="700" fill="white">Trust Root — what it does not do</text>
+  <g font-size="10.5" fill="#1A1A1A">
+    <text x="630" y="500">— does not authorise payments</text>
+    <text x="630" y="520">— does not authorise operators</text>
+    <text x="630" y="540">— does not issue licences</text>
+    <text x="630" y="560">— does not move funds</text>
+    <text x="884" y="500" fill="#6B6265">It signs statements about the</text>
+    <text x="884" y="520" fill="#6B6265">protocol — never about a right to</text>
+    <text x="884" y="540" fill="#6B6265">operate. A licence belongs to the</text>
+    <text x="884" y="560" fill="#6B6265">operator and its own regulator.</text>
+  </g>
+
+  <text x="590" y="592" text-anchor="middle" font-size="10.5" fill="#6B6265">Revocation is a security signal, not a regulatory act: it withdraws a key or a signature, it does not withdraw anyone&#39;s permission to exist or to trade.</text>
+
+  <!-- Mandated caption -->
+  <rect x="40" y="604" width="1100" height="42" rx="10" fill="white" stroke="#990011" stroke-width="1.5"/>
+  <text x="590" y="631" text-anchor="middle" font-size="13.5" font-weight="800" fill="#990011">Humans maintain the protocol; they do not approve operators.</text>
+
+  <text x="590" y="668" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-059 · Operator Self-Publication Flow · ADR-001 · ADR-003 · ADR-005 · M2.2 Open Protocol Governance · v1.0 · 2026-07-17</text>
+</svg>

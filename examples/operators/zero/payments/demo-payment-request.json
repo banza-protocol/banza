@@ -1,0 +1,14 @@
+{
+  "demo_only": true,
+  "monetary_value": false,
+  "production_allowed": false,
+  "operator_id": "operator-zero",
+  "operator_display_name": "Operador Zero",
+  "currency": "KZ_DEMO",
+  "artifact_type": "payment",
+  "payment_status": "pending",
+  "amount": 1500,
+  "from_account": "demo-user-ana",
+  "to_account": "demo-merchant-kiosque",
+  "note": "Artefacto demonstrativo. Não certifica, não aprova e não movimenta dinheiro real."
+}

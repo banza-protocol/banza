@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  id:        SVG-P-101
+  diagram:   Processamento cognitivo de uma solicitação
+  version:   1.0
+  source:    BANZA_REFERENCIA.md §12 · ADR-055 · ADR-073
+  updated:   2026-08-03
+  author:    BANZA Protocol
+  style:     protocol
+  note:      Perspectiva interna — como o motor cognitivo do BanzAI processa uma solicitação.
+-->
+<svg viewBox="0 0 1320 748" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-labelledby="title-P101 desc-P101"
+     font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="title-P101">Processamento cognitivo de uma solicitação</title>
+  <desc id="desc-P101">Perspectiva interna do motor cognitivo do BanzAI. Uma solicitação percorre um caminho determinístico em Rust: pedido, normalização, contexto, âmbito, guardas, planeamento, fontes e ferramentas, FactualPackage, modo de resposta, verificação final e resposta citada. As fontes devolvem factos e citações; as ferramentas e motores do protocolo devolvem resultados técnicos. O FactualPackage é a evidência fechada. No modo de resposta, um template determinístico ou, opcionalmente, o modelo de linguagem local produz um rascunho explicativo — nunca a resposta final. A verificação final, obrigatória e em Rust, confere afirmações, autoridade, citações, consistência com os motores, limites, política e cobertura factual antes de publicar a resposta citada e não autoritativa. O caminho directo utilizador para modelo para resposta é rejeitado por construção: o modelo nunca responde sem a verificação.</desc>
+  <defs>
+    <linearGradient id="hg-P101" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E0F1A"/><stop offset="100%" stop-color="#8E1326"/>
+    </linearGradient>
+    <marker id="arr-P101" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#B98A3E"/></marker>
+    <marker id="arrx-P101" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#B0332C"/></marker>
+  </defs>
+
+  <rect width="1320" height="748" fill="#F8F4EC"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="1320" height="70" fill="url(#hg-P101)" rx="14"/>
+  <rect x="0" y="52" width="1320" height="18" fill="#8E1326"/>
+  <text x="28" y="30" font-family="ui-monospace,'Courier New',monospace" font-size="10" fill="#FECACA" letter-spacing="2">SVG-P-101 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="28" y="54" font-size="20" font-weight="800" fill="white">Processamento cognitivo de uma solicitação</text>
+  <text x="1292" y="54" text-anchor="end" font-size="11" fill="#FECACA">o motor cognitivo do BanzAI, passo a passo</text>
+
+  <!-- Principle band -->
+  <rect x="0" y="72" width="1320" height="26" fill="#EAEFF4"/>
+  <text x="660" y="90" text-anchor="middle" font-size="12" font-weight="700" fill="#2E4054">O Rust compreende, encaminha, fundamenta e valida · o modelo explica, no máximo uma vez · zero chamadas externas.</text>
+
+  <!-- ── Row 1: pedido → planeamento ─────────────────────────────────────── -->
+  <g>
+    <rect x="70" y="150" width="180" height="104" rx="10" fill="#F6EBD8" stroke="#E6D29A" stroke-width="1.6"/>
+    <text x="160" y="182" text-anchor="middle" font-size="11.5" font-weight="800" fill="#7A5212">Pedido</text>
+    <text x="160" y="206" text-anchor="middle" font-size="8.5" fill="#8A6A1E">pergunta · artefacto</text>
+    <text x="160" y="222" text-anchor="middle" font-size="8.5" fill="#8A6A1E">sessão · operador</text>
+    <text x="160" y="238" text-anchor="middle" font-size="8.5" fill="#8A6A1E">implementação</text>
+
+    <rect x="270" y="150" width="180" height="104" rx="10" fill="#F4F6F9" stroke="#3C4654" stroke-width="1.5"/>
+    <text x="360" y="182" text-anchor="middle" font-size="11.5" font-weight="800" fill="#2A2E35">Normalização</text>
+    <text x="360" y="206" text-anchor="middle" font-size="8.5" fill="#54595F">idioma · intenção</text>
+    <text x="360" y="222" text-anchor="middle" font-size="8.5" fill="#54595F">referências · escopo</text>
+    <text x="360" y="238" text-anchor="middle" font-size="8.5" fill="#54595F">comandos · adversarial</text>
+
+    <rect x="470" y="150" width="180" height="104" rx="10" fill="#F4F6F9" stroke="#3C4654" stroke-width="1.5"/>
+    <text x="560" y="182" text-anchor="middle" font-size="11.5" font-weight="800" fill="#2A2E35">Contexto</text>
+    <text x="560" y="206" text-anchor="middle" font-size="8.5" fill="#54595F">sessão · versão</text>
+    <text x="560" y="222" text-anchor="middle" font-size="8.5" fill="#54595F">perfil · ambiente</text>
+    <text x="560" y="238" text-anchor="middle" font-size="8.5" fill="#54595F">resultado em análise</text>
+
+    <rect x="670" y="150" width="180" height="104" rx="10" fill="#F4F6F9" stroke="#3C4654" stroke-width="1.5"/>
+    <text x="760" y="182" text-anchor="middle" font-size="11.5" font-weight="800" fill="#2A2E35">Âmbito</text>
+    <text x="760" y="206" text-anchor="middle" font-size="8.5" fill="#54595F">operador seleccionado</text>
+    <text x="760" y="222" text-anchor="middle" font-size="8.5" fill="#54595F">implementação</text>
+    <text x="760" y="238" text-anchor="middle" font-size="8.5" fill="#54595F">seleccionada</text>
+
+    <rect x="870" y="150" width="180" height="104" rx="10" fill="#EEEBF2" stroke="#8E1326" stroke-width="1.6"/>
+    <text x="960" y="182" text-anchor="middle" font-size="11.5" font-weight="800" fill="#8E1326">Guardas</text>
+    <text x="960" y="206" text-anchor="middle" font-size="8.5" fill="#6D5F86">autoridade · política</text>
+    <text x="960" y="222" text-anchor="middle" font-size="8.5" fill="#6D5F86">privacidade · escopo</text>
+    <text x="960" y="238" text-anchor="middle" font-size="8.5" fill="#6D5F86">segurança · fronteiras</text>
+
+    <rect x="1070" y="150" width="180" height="104" rx="10" fill="#F4F6F9" stroke="#3C4654" stroke-width="1.5"/>
+    <text x="1160" y="182" text-anchor="middle" font-size="11.5" font-weight="800" fill="#2A2E35">Planeamento</text>
+    <text x="1160" y="206" text-anchor="middle" font-size="8.5" fill="#54595F">fontes · ferramentas</text>
+    <text x="1160" y="222" text-anchor="middle" font-size="8.5" fill="#54595F">sequência · modo</text>
+    <text x="1160" y="238" text-anchor="middle" font-size="8.5" fill="#54595F">precisa de modelo?</text>
+  </g>
+
+  <!-- row1 arrows -->
+  <line x1="250" y1="202" x2="270" y2="202" stroke="#B98A3E" stroke-width="2.2" marker-end="url(#arr-P101)"/>
+  <line x1="450" y1="202" x2="470" y2="202" stroke="#B98A3E" stroke-width="2.2" marker-end="url(#arr-P101)"/>
+  <line x1="650" y1="202" x2="670" y2="202" stroke="#B98A3E" stroke-width="2.2" marker-end="url(#arr-P101)"/>
+  <line x1="850" y1="202" x2="870" y2="202" stroke="#B98A3E" stroke-width="2.2" marker-end="url(#arr-P101)"/>
+  <line x1="1050" y1="202" x2="1070" y2="202" stroke="#B98A3E" stroke-width="2.2" marker-end="url(#arr-P101)"/>
+
+  <!-- connector row1 → row2 -->
+  <path d="M1160 254 L1160 300 L190 300 L190 356" fill="none" stroke="#B98A3E" stroke-width="2.2" marker-end="url(#arr-P101)"/>
+  <text x="675" y="294" text-anchor="middle" font-size="8.5" fill="#7A5212">recuperação e reordenação · o modelo não escolhe fontes nem entidades</text>
+
+  <!-- ── Row 2: fontes → resposta ────────────────────────────────────────── -->
+  <!-- Fontes e ferramentas -->
+  <rect x="90" y="356" width="200" height="128" rx="10" fill="#EAF3EC" stroke="#2E6A4E" stroke-width="1.6"/>
+  <text x="190" y="382" text-anchor="middle" font-size="11" font-weight="800" fill="#1D4A34">Fontes e ferramentas</text>
+  <text x="190" y="408" text-anchor="middle" font-size="8.5" fill="#2E6A4E">fontes → factos e citações</text>
+  <text x="190" y="430" text-anchor="middle" font-size="8.5" fill="#2E6A4E">motores → resultados técnicos</text>
+  <text x="190" y="452" text-anchor="middle" font-size="8" fill="#6B6265">obtenção segura → snapshot</text>
+  <text x="190" y="468" text-anchor="middle" font-size="8" fill="#6B6265">por contrato tipado</text>
+
+  <!-- FactualPackage -->
+  <rect x="336" y="356" width="200" height="128" rx="10" fill="#EAF3EC" stroke="#2E6A4E" stroke-width="2"/>
+  <text x="436" y="382" text-anchor="middle" font-size="11" font-weight="800" fill="#1D4A34">FactualPackage</text>
+  <text x="436" y="404" text-anchor="middle" font-size="8.5" fill="#2E6A4E">a evidência fechada</text>
+  <text x="436" y="424" text-anchor="middle" font-size="8.5" fill="#2E6A4E">factos · citações · resultados</text>
+  <text x="436" y="440" text-anchor="middle" font-size="8.5" fill="#2E6A4E">reason codes · âmbito</text>
+  <text x="436" y="456" text-anchor="middle" font-size="8.5" fill="#2E6A4E">fronteiras · proveniência</text>
+  <text x="436" y="474" text-anchor="middle" font-size="8" fill="#6B6265">só factos autorizados</text>
+
+  <!-- Modo de resposta (bifurcation) -->
+  <rect x="582" y="356" width="220" height="128" rx="10" fill="#EEECEA" stroke="#3C4654" stroke-width="1.6"/>
+  <text x="692" y="380" text-anchor="middle" font-size="11" font-weight="800" fill="#2A2E35">Modo de resposta</text>
+  <rect x="594" y="392" width="100" height="60" rx="7" fill="#F4F6F9" stroke="#3C4654" stroke-width="1.2"/>
+  <text x="644" y="416" text-anchor="middle" font-size="9" font-weight="700" fill="#2A2E35">template</text>
+  <text x="644" y="432" text-anchor="middle" font-size="8" fill="#54595F">determinístico</text>
+  <rect x="700" y="392" width="90" height="60" rx="7" fill="#E3EAF1" stroke="#2E4054" stroke-width="1.2"/>
+  <text x="745" y="412" text-anchor="middle" font-size="9" font-weight="700" fill="#2E4054">modelo local</text>
+  <text x="745" y="427" text-anchor="middle" font-size="8" fill="#54595F">opcional</text>
+  <text x="745" y="442" text-anchor="middle" font-size="8" fill="#54595F">rascunho</text>
+  <text x="692" y="472" text-anchor="middle" font-size="8.5" fill="#6B6265">uma OU outra · nunca a resposta final</text>
+
+  <!-- Verificação final -->
+  <rect x="848" y="356" width="200" height="128" rx="10" fill="#EEECEA" stroke="#3C4654" stroke-width="2"/>
+  <text x="948" y="382" text-anchor="middle" font-size="11" font-weight="800" fill="#2A2E35">Verificação final</text>
+  <text x="948" y="406" text-anchor="middle" font-size="8.5" fill="#54595F">afirmações · autoridade</text>
+  <text x="948" y="424" text-anchor="middle" font-size="8.5" fill="#54595F">citações · consistência</text>
+  <text x="948" y="442" text-anchor="middle" font-size="8.5" fill="#54595F">limites · política · cobertura</text>
+  <text x="948" y="466" text-anchor="middle" font-size="8" fill="#6B6265">obrigatória, em Rust · ADR-073</text>
+
+  <!-- Resposta citada -->
+  <rect x="1094" y="356" width="180" height="128" rx="10" fill="#EAF3EC" stroke="#2E6A4E" stroke-width="2"/>
+  <text x="1184" y="384" text-anchor="middle" font-size="11" font-weight="800" fill="#1D4A34">Resposta citada</text>
+  <text x="1184" y="410" text-anchor="middle" font-size="8.5" fill="#2E6A4E">fundamentada · citada</text>
+  <text x="1184" y="430" text-anchor="middle" font-size="8.5" fill="#2E6A4E">authoritative:false</text>
+  <text x="1184" y="452" text-anchor="middle" font-size="8" fill="#6B6265">estado degradado honesto</text>
+  <text x="1184" y="468" text-anchor="middle" font-size="8" fill="#6B6265">quando necessário</text>
+
+  <!-- row2 arrows -->
+  <line x1="290" y1="420" x2="336" y2="420" stroke="#B98A3E" stroke-width="2.2" marker-end="url(#arr-P101)"/>
+  <line x1="536" y1="420" x2="582" y2="420" stroke="#B98A3E" stroke-width="2.2" marker-end="url(#arr-P101)"/>
+  <line x1="802" y1="420" x2="848" y2="420" stroke="#B98A3E" stroke-width="2.2" marker-end="url(#arr-P101)"/>
+  <line x1="1048" y1="420" x2="1094" y2="420" stroke="#B98A3E" stroke-width="2.2" marker-end="url(#arr-P101)"/>
+
+  <!-- ── Rejected direct path ────────────────────────────────────────────── -->
+  <rect x="40" y="540" width="1240" height="80" rx="11" fill="#FBEFF0" stroke="#8E1326" stroke-width="1.4" stroke-dasharray="7 5"/>
+  <text x="60" y="562" font-size="10.5" font-weight="800" fill="#8E1326">Caminho directo rejeitado</text>
+  <text x="60" y="578" font-size="8.5" fill="#6B6265">o modelo nunca responde sem a verificação em Rust</text>
+
+  <rect x="470" y="556" width="120" height="44" rx="8" fill="#FFFFFF" stroke="#8E1326" stroke-width="1.4"/>
+  <text x="530" y="582" text-anchor="middle" font-size="10" font-weight="700" fill="#8E1326">Utilizador</text>
+  <line x1="590" y1="578" x2="646" y2="578" stroke="#B0332C" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arrx-P101)"/>
+  <line x1="609" y1="570" x2="627" y2="586" stroke="#B0332C" stroke-width="2.4"/>
+  <line x1="627" y1="570" x2="609" y2="586" stroke="#B0332C" stroke-width="2.4"/>
+
+  <rect x="648" y="556" width="120" height="44" rx="8" fill="#FFFFFF" stroke="#8E1326" stroke-width="1.4"/>
+  <text x="708" y="582" text-anchor="middle" font-size="10" font-weight="700" fill="#8E1326">Modelo</text>
+  <line x1="768" y1="578" x2="824" y2="578" stroke="#B0332C" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arrx-P101)"/>
+  <line x1="787" y1="570" x2="805" y2="586" stroke="#B0332C" stroke-width="2.4"/>
+  <line x1="805" y1="570" x2="787" y2="586" stroke="#B0332C" stroke-width="2.4"/>
+
+  <rect x="826" y="556" width="120" height="44" rx="8" fill="#FFFFFF" stroke="#8E1326" stroke-width="1.4"/>
+  <text x="886" y="582" text-anchor="middle" font-size="10" font-weight="700" fill="#8E1326">Resposta</text>
+  <text x="1120" y="582" text-anchor="middle" font-size="9" fill="#8E1326">rejeitado por construção</text>
+
+  <!-- Note -->
+  <text x="660" y="656" text-anchor="middle" font-size="9.5" fill="#6B6265">O modelo é opcional e subordinado; a resposta final é sempre fundamentada e verificada em Rust. O primeiro diagrama mostra a posição; este, o motor cognitivo.</text>
+
+  <text x="660" y="728" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-101 · Processamento cognitivo de uma solicitação · BANZA_REFERENCIA.md §12 · ADR-055 · ADR-073 · v1.0 · 2026-08-03</text>
+</svg>

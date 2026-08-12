@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 760" role="img" aria-label="A cadeia de confiança BANZA — cinco níveis: da Raiz de Confiança offline ao Manifesto de Chaves, às chaves delegadas, à metadata, revogação e evidência assinadas, e aos operadores, com verificação offline. A raiz assina apenas o Manifesto de Chaves e não autoriza operadores." font-family="system-ui,-apple-system,sans-serif">
+  <title>A Cadeia de Confiança BANZA</title>
+  <desc>Cadeia de confiança em cinco níveis (não camadas da arquitectura, nem perfis de conformidade). A Raiz de Confiança, offline e em custódia repartida por limiar, assina apenas o Manifesto de Chaves; o Manifesto autoriza, por domínio, as chaves delegadas; as chaves delegadas assinam metadata de protocolo, revogação e evidência de conformidade; os operadores verificam tudo offline, sem chamada ao BANZA em tempo real. A raiz não autoriza operadores nem pagamentos.</desc>
+  <defs>
+    <linearGradient id="hg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E0F1A"></stop><stop offset="100%" stop-color="#8E1326"></stop>
+    </linearGradient>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="4.5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#6B7280"></path>
+    </marker>
+  </defs>
+
+  <rect width="960" height="760" fill="#F4F1EA" rx="16"></rect>
+
+
+  <rect x="0" y="0" width="960" height="72" fill="url(#hg)" rx="16"></rect>
+  <rect x="0" y="56" width="960" height="16" fill="#8E1326"></rect>
+  <text x="36" y="32" font-family="ui-monospace,&#39;Courier New&#39;,monospace" font-size="10" fill="#EAD2D6" letter-spacing="2">SVG-P-031 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="36" y="56" font-size="19" font-weight="800" fill="white">A Cadeia de Confiança BANZA</text>
+  <text x="924" y="56" text-anchor="end" font-size="11" fill="#EAD2D6">Raiz · Manifesto · Chaves delegadas · Metadata assinada · Operadores</text>
+
+
+  <rect x="140" y="92" width="680" height="92" fill="white" rx="12" stroke="#E5E7EB" stroke-width="1.5"></rect>
+  <rect x="140" y="92" width="680" height="34" fill="#5E0C18" rx="12"></rect>
+  <rect x="140" y="112" width="680" height="14" fill="#5E0C18"></rect>
+  <text x="160" y="114" font-size="10" font-weight="700" fill="#FCA5A5" letter-spacing="1.5">NÍVEL 1 — RAIZ DE CONFIANÇA</text>
+  <text x="480" y="114" text-anchor="middle" font-size="15" font-weight="800" fill="white">Raiz de Confiança</text>
+  <rect x="676" y="99" width="132" height="20" rx="10" fill="#F4E7E9"></rect>
+  <path d="M690,108 v-2.5 a3,3 0 0,1 6,0 v2.5 M688,108 h10 v6 h-10 z" fill="none" stroke="#7E1320" stroke-width="1.2"></path>
+  <text x="724" y="113" font-size="9" font-weight="700" fill="#7E1320" letter-spacing="1">OFFLINE</text>
+  <text x="480" y="152" text-anchor="middle" font-size="13" font-weight="600" fill="#1F2937">offline · custódia repartida por limiar</text>
+  <text x="480" y="172" text-anchor="middle" font-size="11.5" fill="#6B7280">assina <tspan font-weight="700" fill="#7E1320">apenas o Manifesto de Chaves</tspan> · não autoriza operadores nem pagamentos</text>
+
+  <line x1="480" y1="184" x2="480" y2="212" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr)"></line>
+  <text x="496" y="202" font-size="12" font-weight="700" fill="#374151">assina</text>
+
+
+  <rect x="140" y="218" width="680" height="92" fill="white" rx="12" stroke="#E5E7EB" stroke-width="1.5"></rect>
+  <rect x="140" y="218" width="680" height="34" fill="#7E1320" rx="12"></rect>
+  <rect x="140" y="238" width="680" height="14" fill="#7E1320"></rect>
+  <text x="160" y="240" font-size="10" font-weight="700" fill="#FCA5A5" letter-spacing="1.5">NÍVEL 2 — MANIFESTO PÚBLICO</text>
+  <text x="480" y="240" text-anchor="middle" font-size="15" font-weight="800" fill="white">Manifesto de Chaves</text>
+  <text x="480" y="278" text-anchor="middle" font-size="13" font-weight="600" fill="#1F2937">declara as chaves delegadas activas · assinado pela Raiz de Confiança</text>
+  <text x="480" y="298" text-anchor="middle" font-size="11.5" fill="#6B7280"><tspan font-family="ui-monospace,monospace">key-manifest.json</tspan> · as implementações fixam-no no lançamento</text>
+
+  <line x1="480" y1="310" x2="480" y2="338" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr)"></line>
+  <text x="496" y="328" font-size="12" font-weight="700" fill="#374151">autoriza (por domínio)</text>
+
+
+  <rect x="140" y="344" width="680" height="92" fill="white" rx="12" stroke="#E5E7EB" stroke-width="1.5"></rect>
+  <rect x="140" y="344" width="680" height="34" fill="#9A6B1E" rx="12"></rect>
+  <rect x="140" y="364" width="680" height="14" fill="#9A6B1E"></rect>
+  <text x="160" y="366" font-size="10" font-weight="700" fill="#E6D29A" letter-spacing="1.5">NÍVEL 3 — CHAVES DELEGADAS</text>
+  <text x="480" y="366" text-anchor="middle" font-size="15" font-weight="800" fill="white">Chaves Delegadas</text>
+  <text x="480" y="404" text-anchor="middle" font-size="13" font-weight="600" fill="#1F2937">metadata de protocolo · revogação · evidência de conformidade</text>
+  <text x="480" y="424" text-anchor="middle" font-size="11.5" fill="#6B7280">âmbito por domínio · validade curta · substituíveis sem afectar a Raiz</text>
+
+  <line x1="480" y1="436" x2="480" y2="464" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr)"></line>
+  <text x="496" y="454" font-size="12" font-weight="700" fill="#374151">assinam</text>
+
+
+  <rect x="140" y="470" width="680" height="100" fill="white" rx="12" stroke="#E5E7EB" stroke-width="1.5"></rect>
+  <rect x="140" y="470" width="680" height="34" fill="#1F2937" rx="12"></rect>
+  <rect x="140" y="490" width="680" height="14" fill="#1F2937"></rect>
+  <text x="160" y="492" font-size="10" font-weight="700" fill="#9CA3AF" letter-spacing="1.5">NÍVEL 4 — PUBLICAÇÃO</text>
+  <text x="480" y="492" text-anchor="middle" font-size="15" font-weight="800" fill="white">Metadata assinada · BRL · Evidências</text>
+  <rect x="168" y="516" width="200" height="42" rx="8" fill="#FAF0F1" stroke="#EAD2D6"></rect>
+  <text x="268" y="535" text-anchor="middle" font-size="11.5" font-weight="700" fill="#7E1320">Metadata de protocolo</text>
+  <text x="268" y="551" text-anchor="middle" font-size="9.5" fill="#8E1326">auto-publicada e assinada</text>
+  <rect x="380" y="516" width="200" height="42" rx="8" fill="#FAF0F1" stroke="#EAD2D6"></rect>
+  <text x="480" y="535" text-anchor="middle" font-size="11.5" font-weight="700" fill="#7E1320">BRL — lista de revogação</text>
+  <text x="480" y="551" text-anchor="middle" font-size="9.5" fill="#8E1326">estado de revogação</text>
+  <rect x="592" y="516" width="200" height="42" rx="8" fill="#F9FAFB" stroke="#E5E7EB"></rect>
+  <text x="692" y="535" text-anchor="middle" font-size="11.5" font-weight="700" fill="#374151">Evidência de conformidade</text>
+  <text x="692" y="551" text-anchor="middle" font-size="9.5" fill="#6B7280">reproduzível por terceiros</text>
+
+  <line x1="480" y1="570" x2="480" y2="598" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr)"></line>
+  <text x="496" y="588" font-size="12" font-weight="700" fill="#374151">os operadores verificam</text>
+
+
+  <rect x="140" y="604" width="680" height="92" fill="white" rx="12" stroke="#BBF7D0" stroke-width="1.5"></rect>
+  <rect x="140" y="604" width="680" height="34" fill="#15803D" rx="12"></rect>
+  <rect x="140" y="624" width="680" height="14" fill="#15803D"></rect>
+  <text x="160" y="626" font-size="10" font-weight="700" fill="#BBF7D0" letter-spacing="1.5">NÍVEL 5 — REDE</text>
+  <text x="480" y="626" text-anchor="middle" font-size="15" font-weight="800" fill="white">Operadores com evidência</text>
+  <text x="480" y="664" text-anchor="middle" font-size="13" font-weight="600" fill="#1F2937">verificam a metadata assinada uns dos outros · consultam o BRL · federam</text>
+  <text x="480" y="684" text-anchor="middle" font-size="11.5" fill="#6B7280">verificação offline — nenhuma chamada ao BANZA em tempo real</text>
+
+
+  <line x1="36" y1="720" x2="924" y2="720" stroke="#E5E7EB" stroke-width="1"></line>
+  <text x="480" y="740" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-031 · A Cadeia de Confiança BANZA · BANZA_REFERENCIA.md §6 · ADR-038 · ADR-040 · v2.0 · 2026-08-09</text>
+</svg>

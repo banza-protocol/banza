@@ -1,0 +1,4 @@
+# Installed at build time from the version pinned in package.json (no lockfile committed,
+# matching services/verification-api). Keeps the image reproducible via the pin.
+/node_modules
+/package-lock.json

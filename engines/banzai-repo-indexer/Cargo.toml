@@ -1,0 +1,17 @@
+[package]
+name = "banzai-repo-indexer"
+version = "0.1.0"
+edition = "2021"
+description = "banzai-repo-indexer (M2.13B PR2, ADR-037/ADR-049): deterministic Rust repository-wide indexer. Walks the BANZA protocol repo AND the BanzAI repo, applies security exclusions (secrets/.env/keys/PEM/GGUF/node_modules/target/.next/dist/build/logs/dumps + a content secret scan), classifies every indexable file into one of 12 source categories, chunks by file type (markdown heading, Rust symbol, TS component/route, JSON/schema summary, Makefile target, workflow, shell guard header), extracts rich per-chunk metadata + content hashes, and emits five artifacts: banzai-repo-index.json (bounded content chunks for retrieval), -manifest.json, -coverage.json (every file record), -exclusions.json, -safety.json. Deterministic; no network; fail-closed on any secret. TS/JS is UI/glue only."
+license = "Apache-2.0"
+
+[[bin]]
+name = "banzai-repo-indexer"
+path = "src/main.rs"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[profile.release]
+opt-level = "s"

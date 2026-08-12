@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/protocol-governance-event.production.schema.json",
+  "title": "ProtocolGovernanceEventProduction",
+  "description": "Um evento registado da Protocol Governance. A governação humana actua SOBRE A ESPECIFICAÇÃO, nunca sobre os operadores: publica releases, decide RFCs, delega e revoga chaves, e migra algoritmos. Nenhum event_type representa aprovação, aceitação, admissão, certificação ou autorização de operador — esses eventos não existem nesta arquitectura e não podem ser reintroduzidos por sinónimo, perífrase ou extensão do enum. O actor é sempre um papel de governação sobre o protocolo (docs/governance/PROTOCOL_GOVERNANCE_ROLES.md §2, lista exaustiva); a sua autoridade incide sobre o protocolo, nunca sobre quem o implementa. Um evento de revogação aqui registado é mecanismo de segurança do protocolo — nunca sanção regulatória, nunca retirada de licença.",
+  "_spec_version": "1.0",
+  "_status": "production-baseline",
+  "_authority": "docs/governance/PROTOCOL_GOVERNANCE_ROLES.md; docs/governance/OPEN_PROTOCOL_GOVERNANCE.md",
+  "_boundary": "BANZA é um protocolo financeiro aberto. A governação humana existe para manter e evoluir o protocolo, não para autorizar, certificar ou aceitar operadores. Operadores independentes assumem o seu próprio enquadramento legal, regulatório e financeiro e, quando aplicável, são autorizados pelas entidades competentes — nunca pela BANZA.",
+
+  "type": "object",
+  "required": ["event_id", "event_type", "actor", "protocol_version", "occurred_at", "subject_ref", "boundary"],
+  "additionalProperties": false,
+
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "description": "Identificador único do evento. Imutável."
+    },
+    "event_type": {
+      "type": "string",
+      "enum": ["spec_release", "rfc_accepted", "key_delegation", "revocation", "algorithm_migration"],
+      "description": "Classe do evento de governação. Lista exaustiva, toda ela sobre o protocolo: 'spec_release' publica Versioned Specifications; 'rfc_accepted' regista uma decisão do RFC Process; 'key_delegation' delega uma Delegated Signing Key sob a Trust Root; 'revocation' publica uma entrada na Revocation List (mecanismo de segurança, não sanção); 'algorithm_migration' migra material criptográfico. Nenhum destes admite, aprova, certifica ou autoriza operadores."
+    },
+    "actor": {
+      "type": "object",
+      "description": "Quem executou o evento. Papéis de governação sobre a especificação — nunca sobre operadores.",
+      "required": ["role"],
+      "additionalProperties": false,
+      "properties": {
+        "role": {
+          "type": "string",
+          "enum": ["protocol_maintainer", "security_maintainer", "specification_editor", "release_steward", "trust_root_custodian", "conformance_tool_maintainer", "community_reviewer"],
+          "description": "Papel de governação permitido (docs/governance/PROTOCOL_GOVERNANCE_ROLES.md §2). A lista é exaustiva: um papel que não conste aqui não existe. Nenhum destes papéis, isolado ou em conjunto, autoriza, certifica, aprova ou aceita um operador, nem emite atestado sobre a conformidade de um operador concreto."
+        },
+        "actor_id": { "type": ["string", "null"], "description": "Identificador do actor no processo de governação. O papel é substituível; não existe pessoa insubstituível." },
+        "quorum": {
+          "type": ["object", "null"],
+          "description": "Quórum aplicado, quando o evento o exige (ex.: acções da Trust Root sob limiar 2-de-3). O quórum é propriedade do processo, não uma cortesia.",
+          "required": ["signatures_present", "signatures_required"],
+          "additionalProperties": false,
+          "properties": {
+            "signatures_present": { "type": "integer", "minimum": 0, "description": "Assinaturas efectivamente presentes." },
+            "signatures_required": { "type": "integer", "minimum": 1, "description": "Assinaturas mínimas exigidas (2 para acções da Trust Root)." }
+          }
+        }
+      }
+    },
+    "protocol_version": {
+      "type": "string",
+      "description": "Versão das Versioned Specifications afectada pelo evento (ex.: '1.0.0')."
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Momento em que o evento ocorreu."
+    },
+    "subject_ref": {
+      "type": "string",
+      "description": "Referência ao artefacto do protocolo sobre o qual o evento incide (release, RFC, chave delegada, entrada de revogação, plano de migração). O sujeito é sempre um artefacto — nunca um participante."
+    },
+    "rfc_ref": {
+      "type": ["string", "null"],
+      "description": "Referência ao RFC de origem, quando aplicável. Toda a norma nasce no RFC Process, aberto a qualquer participante, sem estatuto especial exigido."
+    },
+    "signed_protocol_metadata": {
+      "$ref": "https://banza.network/contracts/production/signed-protocol-metadata.production.schema.json",
+      "description": "Metadados assinados que corroboram o evento, quando aplicável."
+    },
+    "rationale": {
+      "type": ["string", "null"],
+      "description": "Justificação técnica do evento, em termos de protocolo, evidência e verificação — nunca em termos de juízo sobre um participante."
+    },
+    "boundary": {
+      "type": "object",
+      "description": "Fronteira permanente deste artefacto. Um evento de governação move a especificação, não estatuto de participantes.",
+      "required": ["not_operator_authorisation", "not_certificate", "not_operator_approval", "not_payment_service_authorisation", "open_financial_protocol"],
+      "additionalProperties": false,
+      "properties": {
+        "not_operator_authorisation": { "type": "boolean", "const": true, "description": "Nenhum evento de governação autoriza um operador. Operadores independentes, quando aplicável, são autorizados pelas entidades competentes — nunca pela BANZA." },
+        "not_certificate": { "type": "boolean", "const": true, "description": "Nenhum evento de governação emite um certificado a um participante." },
+        "not_operator_approval": { "type": "boolean", "const": true, "description": "Nenhum evento de governação aprova, aceita ou admite um operador. Não existe decisão humana sobre a participação." },
+        "not_payment_service_authorisation": { "type": "boolean", "const": true, "description": "Nenhum evento de governação autoriza serviços de pagamento nem movimenta fundos." },
+        "open_financial_protocol": { "type": "boolean", "const": true, "description": "BANZA é e permanece um protocolo financeiro aberto." }
+      }
+    }
+  }
+}

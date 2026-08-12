@@ -1,0 +1,227 @@
+{
+  "schema_version": "banzai-architecture/1",
+  "architecture_version": "1.0",
+  "last_reviewed": "2026-08-03",
+  "status": "frozen",
+  "purpose": "Structured consistency contract for the canonical BanzAI architecture. The human-canonical source is Referência §12 (website/content/BANZA_REFERENCIA.md, chapter «12. BanzAI — Agente do Protocolo», published at /referencia/banzai). This manifest MUST agree with §12; where prose and manifest could drift, guards assert the manifest against §12. It never replaces the chapter — it makes the chapter's facts machine-checkable.",
+  "reference_chapter": {
+    "number": 12,
+    "title": "BanzAI — Agente do Protocolo",
+    "route": "/referencia/banzai",
+    "source": "website/content/BANZA_REFERENCIA.md",
+    "anchor": "12-banzai-agente-do-protocolo"
+  },
+  "canonical_phrase": {
+    "primary_pt": "O BanzAI é a interface humana primária e transversal e o motor cognitivo não autoritativo do BANZA.",
+    "primary_en": "BanzAI is the primary and transversal human interface and the non-authoritative cognitive engine of BANZA.",
+    "full_pt": "O BanzAI é a interface humana primária e transversal e o motor cognitivo não autoritativo do BANZA. Resolve contexto, consulta fontes públicas, invoca ferramentas e motores por contratos tipados e explica resultados verificáveis, sem determinar veredictos, certificações, admissões ou autorizações.",
+    "full_en": "BanzAI is the primary and transversal human interface and the non-authoritative cognitive engine of BANZA. It resolves context, consults public sources, invokes tools and engines through typed contracts, and explains verifiable results — without determining verdicts, certifications, admissions, or authorizations.",
+    "avoid_isolated_pt": "interface humana única",
+    "avoid_note": "The isolated 'interface humana única' reads as a mandatory dependency; always pair the interface claim with 'transversal' and preserve 'O protocolo funciona sem o BanzAI.'"
+  },
+  "protocol_works_without_banzai": {
+    "pt": "O protocolo funciona sem o BanzAI: os consumidores automáticos acedem directamente às interfaces públicas — contratos, manifests, schemas, endpoints e rotas máquina — que permanecem verificáveis de forma independente da interface humana.",
+    "en": "The protocol works without BanzAI: automatic consumers reach the public interfaces — contracts, manifests, schemas, endpoints, and machine routes — directly, and they remain independently verifiable.",
+    "required_present": true
+  },
+  "planes": [
+    {
+      "id": "human-interface",
+      "label_pt": "Interface humana",
+      "label_en": "Human interface",
+      "summary_pt": "O ponto único onde as pessoas — quem consulta, implementa, audita, regula como consumidor de informação, e os pares — falam com o BanzAI. É primária e transversal às três camadas, nunca uma quarta camada nem um ponto de passagem obrigatório."
+    },
+    {
+      "id": "cognitive-engine",
+      "label_pt": "Motor cognitivo",
+      "label_en": "Cognitive engine",
+      "summary_pt": "O caminho determinístico em Rust — normalização, contexto, âmbito, guardas, planeamento, FactualPackage, modo de resposta e verificação final obrigatória — que decide o que responder. O modelo de linguagem local é opcional e subordinado."
+    },
+    {
+      "id": "sources-provenance",
+      "label_pt": "Fontes e proveniência",
+      "label_en": "Sources and provenance",
+      "summary_pt": "As fontes que o BanzAI lê e cita, tratadas pelo seu nível de autoridade: normativas (vinculativas), governação e racional (explicativas) e informativas (não vinculativas). O output de um modelo nunca é uma fonte."
+    },
+    {
+      "id": "tools-engines",
+      "label_pt": "Ferramentas e motores",
+      "label_en": "Tools and engines",
+      "summary_pt": "Os motores verificáveis do protocolo, invocados por contrato tipado, que executam, decidem veredictos e produzem e selam a evidência formal. A obtenção segura recolhe o snapshot da origem antes dos motores (origem → obtenção segura → snapshot → motores)."
+    },
+    {
+      "id": "external-destinations",
+      "label_pt": "Destinos externos",
+      "label_en": "External destinations",
+      "summary_pt": "Fora da autoridade do BanzAI: a publicação opcional no Registo Técnico pelo operador, os pares, a federação, os esquemas operacionais e os reguladores. Cada um decide sob a sua própria autoridade."
+    }
+  ],
+  "invariants": [
+    "typed-engine-contracts: as ferramentas e motores são invocados por contrato tipado; nenhuma ligação é genérica.",
+    "secure-fetch-split: origem → obtenção segura → snapshot → motores; os motores não obtêm directamente da origem.",
+    "factual-package-closed: toda a resposta assenta num único FactualPackage — evidência fechada com apenas factos autorizados, citações, resultados, códigos de motivo, âmbito, fronteiras e proveniência.",
+    "model-optional-subordinate: o modelo de linguagem local é opcional e subordinado; recebe apenas o FactualPackage e um contrato de saída; nunca escolhe fontes, resolve entidades nem publica.",
+    "direct-path-rejected: o caminho directo utilizador → modelo → resposta é rejeitado por construção.",
+    "mandatory-rust-validation: a verificação final, obrigatória e em Rust (ADR-073), confere afirmações, autoridade, citações, consistência com os motores, limites, política e cobertura antes de publicar.",
+    "non-authoritative: a resposta é sempre não autoritativa (authoritative:false).",
+    "protocol-works-without-banzai: se o BanzAI desaparecer, o protocolo permanece integralmente verificável.",
+    "model-output-not-a-source: o output do modelo não é uma fonte de verdade.",
+    "not-a-fourth-layer: o BanzAI é transversal, nunca uma quarta camada, nem uma autoridade, nem uma interface passiva."
+  ],
+  "diagrams": [
+    {
+      "id": "SVG-P-100",
+      "name": "banzai-no-protocolo",
+      "section_pt": "Papel no BANZA",
+      "served_path": "/diagrams/protocol/banzai-no-protocolo.svg",
+      "canonical_path": "docs/reference/diagrams/protocol/banzai-no-protocolo.svg",
+      "role": "A perspectiva externa: onde o BanzAI se situa no BANZA — transversal às três camadas, delimitado por uma fronteira de mediação, sem ser uma quarta camada, com um consumidor automático a aceder directamente às interfaces públicas."
+    },
+    {
+      "id": "SVG-P-101",
+      "name": "banzai-motor-cognitivo",
+      "section_pt": "Como o BanzAI responde",
+      "served_path": "/diagrams/protocol/banzai-motor-cognitivo.svg",
+      "canonical_path": "docs/reference/diagrams/protocol/banzai-motor-cognitivo.svg",
+      "role": "A perspectiva interna: o caminho determinístico em Rust que uma solicitação percorre até à resposta citada."
+    }
+  ],
+  "retired_diagrams": [
+    "banzai-cognitive-architecture.svg",
+    "banzai-single-answer-pipeline.svg",
+    "banzai-native-protocol-agent.svg",
+    "banzai-responsibility-matrix.svg",
+    "banzai-operator-journey.svg",
+    "banzai-rule-provenance.svg"
+  ],
+  "authority_matrix": {
+    "columns": ["Função", "BanzAI", "Modelo local", "Motores BANZA", "Actor competente"],
+    "rows": [
+      ["Resolver intenção", "Sim", "Não", "Não", "Utilizador formula"],
+      ["Seleccionar fontes", "Sim", "Não", "Não", "—"],
+      ["Redigir explicação", "Organiza", "Sim", "Não", "Utilizador interpreta"],
+      ["Decidir veredicto", "Não", "Não", "Sim", "—"],
+      ["Produzir evidência formal", "Não", "Não", "Sim", "Operador publica artefactos"],
+      ["Publicar no Registo Técnico", "Não automaticamente", "Não", "Não automaticamente", "Processo autorizado"],
+      ["Decidir interoperabilidade", "Não", "Não", "Não", "Par"],
+      ["Admitir num esquema", "Não", "Não", "Não", "Esquema"],
+      ["Autorizar actividade", "Não", "Não", "Não", "Regulador"]
+    ]
+  },
+  "provenance_levels": [
+    {
+      "id": "normative",
+      "label_pt": "Normativas",
+      "binding_pt": "vinculativas",
+      "summary_pt": "A Referência, as specs, os contratos (contracts/), os schemas, os invariantes e as releases publicadas, mais os ADRs e RFCs aceites onde definem regras. Única base de uma afirmação factual."
+    },
+    {
+      "id": "governance-rationale",
+      "label_pt": "Governação e racional",
+      "binding_pt": "explicativas",
+      "summary_pt": "ADRs registam decisões e o porquê; RFCs propõem. Um RFC proposto não é regra e um ADR não é contrato: o artefacto vinculativo é o contrato, a spec ou o invariante."
+    },
+    {
+      "id": "informative",
+      "label_pt": "Informativas",
+      "binding_pt": "não vinculativas",
+      "summary_pt": "Guias, README, exemplos, runbooks e relatórios. Por si sós, não sustentam uma regra nem um veredicto."
+    }
+  ],
+  "repo_relations": [
+    {
+      "repo": "banza-protocol/banza",
+      "role": "canonical",
+      "summary_pt": "O protocolo, o website público, o runtime canónico do BanzAI (camada de serviço/glue em TypeScript sobre motores em Rust compilados para WASM), as rotas máquina, a governação, a conformidade e os contratos. Fonte de verdade e casa da integração activa.",
+      "qualifier_pt": "runtime canónico"
+    },
+    {
+      "repo": "banza-protocol/banzai",
+      "role": "historical-archive",
+      "summary_pt": "Arquivo histórico do componente; a implementação canónica vive no repositório principal.",
+      "qualifier_pt": "arquivo histórico"
+    }
+  ],
+  "runtime": {
+    "route": "/banzai/runtime",
+    "method": "GET",
+    "schema_version": "banzai-runtime/1",
+    "adr": "ADR-072",
+    "produced_by": "services/banzai-api/src/server.js",
+    "consumed_by": "website/components/reference/BanzaiRuntimeStrip.tsx",
+    "authoritative": false,
+    "fields": [
+      "schema_version",
+      "service",
+      "release",
+      "commit",
+      "status",
+      "mode",
+      "model_available",
+      "model_class",
+      "inference_location",
+      "external_calls",
+      "deterministic_engines_available",
+      "degraded_capabilities",
+      "checked_at",
+      "authoritative"
+    ],
+    "enums": {
+      "status": ["ok", "degraded", "unknown"],
+      "mode": ["local_qwen", "external_hosted", "mock", "degraded"],
+      "inference_location": ["local", "external", "none"]
+    },
+    "fetch": {
+      "origin_env": "BANZA_RUNTIME_ORIGIN",
+      "origin_default": "https://banza.network",
+      "revalidate_seconds": 15,
+      "timeout_ms": 4000,
+      "on_failure": "null → honest fallback; the reference never presents last-known state as current unqualified"
+    },
+    "labels": {
+      "provenance_pt": "Fonte: estado público do runtime",
+      "verified_prefix_pt": "Verificado em:",
+      "fallback_pt": "Estado do runtime não confirmado.",
+      "fallback_detail_pt": "A origem não respondeu — consulte a rota máquina acima ou a página /estado."
+    },
+    "rule_pt": "A rota é a fonte única que todas as páginas consomem; a página /estado é a explicação humana e, onde divergirem, a rota máquina ganha."
+  },
+  "official_links": [
+    { "label": "banza.network", "href": "https://banza.network" },
+    { "label": "Referência", "href": "/referencia" },
+    { "label": "estado verificável", "href": "/estado" },
+    { "label": "BanzAI", "href": "/banzai" },
+    { "label": "Registo Técnico", "href": "/registo-tecnico" },
+    { "label": "contratos públicos", "href": "contracts/" }
+  ],
+  "terms": [
+    { "pt": "Registo Técnico", "en": "Technical Registry", "canonical_in_chapter": "pt" },
+    { "pt": "obtenção segura", "en": "secure fetch" },
+    { "pt": "contrato tipado", "en": "typed contract" },
+    { "pt": "motor cognitivo", "en": "cognitive engine" },
+    { "pt": "modelo local", "en": "local model" },
+    { "pt": "verificação final", "en": "final validation" },
+    { "pt": "FactualPackage", "en": "FactualPackage" },
+    { "pt": "não autoritativo", "en": "non-authoritative" }
+  ],
+  "forbidden_strings": [
+    { "value": "quarta camada", "unless": "negated (e.g. «não é uma quarta camada»)" },
+    { "value": "interface passiva" },
+    { "value": "wrapper do modelo" },
+    { "value": "simples chat" },
+    { "value": "encaminhador de pedidos" },
+    { "value": "ponto de passagem obrigatório", "unless": "negated (e.g. «nunca um ponto de passagem obrigatório»)" },
+    { "value": "Technical Registry", "scope": "bare EN inside §12 (PT «Registo Técnico» is canonical there)" }
+  ],
+  "adrs": [
+    { "id": "ADR-054", "subject": "BanzAI as primary human-operator interface" },
+    { "id": "ADR-055", "subject": "Single-pass grounded synthesis" },
+    { "id": "ADR-059", "subject": "Three-layer architecture" },
+    { "id": "ADR-067", "subject": "Endpoint-originated operator validation / nine-step journey" },
+    { "id": "ADR-068", "subject": "Endpoint-originated validation + operator↔implementation model" },
+    { "id": "ADR-071", "subject": "BanzAI canonical runtime + reference correction" },
+    { "id": "ADR-072", "subject": "Runtime SSOT route (banzai-runtime/1)" },
+    { "id": "ADR-073", "subject": "Mandatory post-synthesis validator" },
+    { "id": "ADR-074", "subject": "SimB retirement from active surfaces" }
+  ]
+}

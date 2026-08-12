@@ -1,0 +1,523 @@
+[
+  {
+    "id": "what-is-banza",
+    "keywords": [
+      "banza",
+      "o que e banza",
+      "que e banza",
+      "what is banza",
+      "define banza",
+      "banza e o que",
+      "arquitetura de tres camadas",
+      "tres camadas",
+      "arquitetura do banza",
+      "three layer architecture",
+      "three-layer",
+      "protocolo financeiro aberto",
+      "open financial protocol"
+    ]
+  },
+  {
+    "id": "what-is-banzami",
+    "keywords": [
+      "o que e o banzami",
+      "o que e banzami",
+      "que e banzami",
+      "banzami e o que",
+      "quem e o banzami",
+      "quem e banzami",
+      "what is banzami",
+      "who is banzami",
+      "banzami"
+    ]
+  },
+  {
+    "id": "is-banza-an-operator",
+    "keywords": [
+      "banza e um operador",
+      "banza is an operator",
+      "banza e operador",
+      "banza opera"
+    ]
+  },
+  {
+    "id": "certified-operators",
+    "keywords": [
+      "operadores certificados",
+      "certified operators",
+      "quem sao os operadores",
+      "que operadores"
+    ]
+  },
+  {
+    "id": "pass-is-not-certificate",
+    "keywords": [
+      "pass da conformance",
+      "pass e certificado",
+      "conformance suite e certificado",
+      "pass conformance certificado",
+      "pass is a certificate"
+    ]
+  },
+  {
+    "id": "banzai-cannot-certify",
+    "keywords": [
+      "banzai pode emitir certificado",
+      "banzai emite certificado",
+      "banzai can certify",
+      "banzai certifica"
+    ]
+  },
+  {
+    "id": "root-keys",
+    "keywords": [
+      "onde vivem as root keys",
+      "root keys",
+      "chaves raiz",
+      "issuing keys",
+      "onde estao as chaves"
+    ]
+  },
+  {
+    "id": "how-to-query-brl",
+    "keywords": [
+      "como consultar a brl",
+      "consultar brl",
+      "revocation list",
+      "lista de revogacao",
+      "query brl",
+      "revogar chave",
+      "revogacao de chave",
+      "chave de assinatura delegada",
+      "delegated signing key revocation",
+      "revogacao",
+      "revocation",
+      "banza revocation list",
+      "como funciona a revogacao",
+      "operador revogado",
+      "operador suspenso",
+      "revoked operator"
+    ]
+  },
+  {
+    "id": "empty-operators-meaning",
+    "keywords": [
+      "operators vazio",
+      "operators vazia",
+      "empty operators",
+      "/operators vazio",
+      "significa operators vazio",
+      "operators mean",
+      "significa /operators",
+      "o que e /operators",
+      "what does /operators mean",
+      "/operators list"
+    ]
+  },
+  {
+    "id": "banza-processes-payments",
+    "keywords": [
+      "banza processa pagamentos",
+      "banza processes payments",
+      "banza faz pagamentos",
+      "banza executa pagamentos",
+      "banza paga",
+      "processa pagamentos"
+    ]
+  },
+  {
+    "id": "banza-limits",
+    "keywords": [
+      "limites do banza",
+      "limits of banza",
+      "o que banza nao faz",
+      "banza nao tem",
+      "limites banza",
+      "limites do protocolo",
+      "limite do protocolo",
+      "limite de estado",
+      "protocol limits",
+      "postgresql",
+      "postgres",
+      "saldos financeiros",
+      "operador de referencia deixar de operar",
+      "reference operator ceases",
+      "independencia do protocolo",
+      "protocol independence"
+    ]
+  },
+  {
+    "id": "financial-invariants",
+    "keywords": [
+      "invariantes financeiros",
+      "financial invariants",
+      "invariantes do protocolo",
+      "invariantes",
+      "protocol invariants",
+      "inv-ledger",
+      "inv-wallet",
+      "inv-settle",
+      "inv-idem",
+      "inv-recon",
+      "inv-qr",
+      "dupla entrada",
+      "double-entry",
+      "double entry ledger",
+      "ledger de dupla entrada",
+      "razao de dupla entrada",
+      "how does the double-entry ledger work",
+      "codigo qr",
+      "qr code",
+      "pagamento por qr",
+      "resolucao de qr",
+      "resolucao unica",
+      "qr unico",
+      "uso unico",
+      "saldos derivados",
+      "saldo derivado",
+      "derivados do ledger",
+      "ledger-derived",
+      "sem saldo negativo",
+      "saldo da carteira",
+      "saldos das carteiras"
+    ]
+  },
+  {
+    "id": "protocol-decisions-adrs",
+    "keywords": [
+      "adr 0",
+      "que diz a adr",
+      "o que diz a adr",
+      "decisao arquitetural",
+      "decisoes arquiteturais",
+      "architecture decision",
+      "architecture decision record",
+      "onde estao as decisoes",
+      "lista de adrs",
+      "adrs do banza",
+      "registro de decisoes",
+      "list of adrs",
+      "adr list",
+      "list the adrs",
+      "which adrs",
+      "which adrs govern",
+      "adrs govern"
+    ]
+  },
+  {
+    "id": "how-to-federate",
+    "keywords": [
+      "como federar",
+      "como federar um operador",
+      "federar um operador",
+      "federar operador",
+      "federacao entre operadores",
+      "como funciona a federacao",
+      "federacao de operadores",
+      "operador federar",
+      "pode federar",
+      "como um operador federa",
+      "how to federate",
+      "interop",
+      "interoperar",
+      "interoperate",
+      "interoperability",
+      "interoperabilidade",
+      "operator to operator",
+      "manifest",
+      "manifest de operador",
+      "operator manifest",
+      "manifesto de operador"
+    ]
+  },
+  {
+    "id": "how-to-demonstrate-conformance",
+    "keywords": [
+      "como demonstrar conformidade",
+      "demonstrar conformidade",
+      "como provar conformidade",
+      "provar conformidade",
+      "conformidade como operador",
+      "evidencia de conformidade",
+      "como ser conforme",
+      "prova de conformidade",
+      "how to demonstrate conformance",
+      "conformance evidence",
+      "demonstrar compatibilidade",
+      "conformidade",
+      "evidence bundle",
+      "pacote de evidencias",
+      "pacote de evidencia",
+      "bundle de evidencias",
+      "operador aprovado",
+      "aprovado por evidencia",
+      "auto-publicacao",
+      "self-publication",
+      "niveis de certificacao",
+      "niveis l0",
+      "l0 a l4",
+      "operador certificado",
+      "evidencia publica",
+      "que evidencia publica",
+      "conformant",
+      "am i conformant",
+      "how do i prove",
+      "prove conformance",
+      "conformance levels",
+      "l0 to l4",
+      "tests to pass",
+      "how many tests",
+      "conformance level",
+      "quantos testes",
+      "testes preciso passar",
+      "demonstro que sou conforme",
+      "sou conforme"
+    ]
+  },
+  {
+    "id": "how-trust-works",
+    "keywords": [
+      "como funciona trust",
+      "como funciona o trust",
+      "trust no protocolo",
+      "modelo de confianca",
+      "como funciona a confianca",
+      "confianca no banza",
+      "trust model",
+      "avaliacao de confianca",
+      "como funciona o trust no protocolo",
+      "revogacao de operador",
+      "revogar operador",
+      "operador revogado",
+      "operator revocation",
+      "revoke an operator",
+      "trust evaluation",
+      "open trust",
+      "open trust evaluation",
+      "como funciona trust evaluation",
+      "como funciona a avaliacao de confianca",
+      "avaliacao de trust",
+      "fail closed",
+      "fail-closed",
+      "metadata assinada",
+      "signed protocol metadata",
+      "trust root",
+      "raiz de confianca",
+      "evaluated for trust",
+      "get evaluated for trust",
+      "como sou avaliado",
+      "avaliado quanto a confianca"
+    ]
+  },
+  {
+    "id": "operator-onboarding",
+    "keywords": [
+      "onde comeco",
+      "por onde comeco",
+      "por onde comecar",
+      "onde comecar",
+      "como comeco",
+      "como comeco como operador",
+      "comeco com o meu operador",
+      "onde comeco com o meu operador",
+      "como comecar",
+      "quero comecar",
+      "primeiros passos",
+      "primeiros passos como operador",
+      "getting started",
+      "how do i start",
+      "where do i start",
+      "where to start",
+      "quero implementar um operador",
+      "quero criar um operador",
+      "quero ser operador",
+      "implementar um operador",
+      "criar um operador",
+      "montar um operador",
+      "novo operador",
+      "como me torno operador",
+      "onboarding",
+      "onboarding de operador",
+      "operator onboarding",
+      "operator quickstart",
+      "quais sao os primeiros passos",
+      "como participo",
+      "como participar",
+      "como entro na rede",
+      "quais os passos para operador"
+    ]
+  },
+  {
+    "id": "implementation-steps",
+    "keywords": [
+      "o que preciso implementar",
+      "o que tenho de implementar",
+      "o que o operador implementa",
+      "como implemento o protocolo",
+      "como implementar o protocolo banza",
+      "implementar o protocolo",
+      "passos de implementacao",
+      "what must i implement",
+      "what do i implement",
+      "operator implementation",
+      "requisitos de implementacao",
+      "o que implemento na minha infra",
+      "implementar o ledger",
+      "como implementar o ledger",
+      "implementacao do operador",
+      "idempotencia",
+      "idempotency",
+      "ciclo de vida do pagamento",
+      "payment lifecycle",
+      "ciclo de vida do qr",
+      "qr lifecycle"
+    ]
+  },
+  {
+    "id": "example-operator-manifest",
+    "keywords": [
+      "exemplo de manifesto",
+      "exemplo de manifest",
+      "exemplo de ficheiro manifesto",
+      "exemplo de um manifesto",
+      "exemplo de um ficheiro manifesto",
+      "manifest example",
+      "example manifest",
+      "example operator manifest",
+      "manifesto de operador exemplo",
+      "manifesto em json",
+      "manifest em json",
+      "manifesto exemplo",
+      "da exemplo de manifesto",
+      "mostra um manifesto",
+      "como ficaria o manifesto",
+      "exemplo manifesto operador",
+      "me da um manifest de operador",
+      "me da um manifesto de operador",
+      "da um manifest de operador",
+      "gera um manifest de operador",
+      "gerar um manifest de operador",
+      "mostra um manifest de operador",
+      "cria um manifest de operador",
+      "quero um manifest de operador",
+      "um manifest de operador",
+      "me da um manifest",
+      "gera um manifest",
+      "mostra um manifest",
+      "manifest de operador exemplo",
+      "exemplo de manifest de operador",
+      "exemplo de manifesto de operador"
+    ]
+  },
+  {
+    "id": "example-federation-manifest",
+    "keywords": [
+      "exemplo de federation manifest",
+      "exemplo de manifesto de federacao",
+      "federation manifest example",
+      "exemplo de metadata de federacao",
+      "federation metadata example",
+      "manifesto de federacao exemplo",
+      "exemplo federacao json"
+    ]
+  },
+  {
+    "id": "example-revocation-list",
+    "keywords": [
+      "exemplo de revocation list",
+      "exemplo de brl",
+      "exemplo de lista de revogacao",
+      "revocation list example",
+      "brl example",
+      "exemplo brl json",
+      "como e a revocation list"
+    ]
+  },
+  {
+    "id": "example-key-manifest",
+    "keywords": [
+      "exemplo de key manifest",
+      "exemplo de manifesto de chaves",
+      "key manifest example",
+      "exemplo key manifest json",
+      "como e o key manifest",
+      "o que e key manifest",
+      "key manifest"
+    ]
+  },
+  {
+    "id": "example-evidence-bundle",
+    "keywords": [
+      "exemplo de evidence bundle",
+      "exemplo de pacote de evidencias",
+      "evidence bundle example",
+      "exemplo de evidencia de conformidade",
+      "conformance evidence example",
+      "exemplo evidence json",
+      "como e o evidence bundle"
+    ]
+  },
+  {
+    "id": "example-invalid-manifest",
+    "keywords": [
+      "exemplo de manifesto invalido",
+      "manifesto invalido",
+      "exemplo invalido",
+      "invalid manifest example",
+      "porque e invalido",
+      "manifest invalido exemplo"
+    ]
+  },
+  {
+    "id": "what-is-operador-zero",
+    "keywords": [
+      "operador zero",
+      "o que e o operador zero",
+      "o que e operador zero",
+      "que e operador zero",
+      "operador-zero",
+      "operator zero",
+      "operator-zero",
+      "what is operador zero",
+      "what is operator zero",
+      "simulador de operador",
+      "simulador de operador de pagamentos",
+      "kz_demo",
+      "kz demo",
+      "o operador zero e um banco",
+      "operador zero e um psp",
+      "operador zero e real",
+      "operador zero certifica",
+      "adr-052",
+      "adr052",
+      "zero.banza.network"
+    ]
+  },
+  {
+    "id": "who-signs-protocol-metadata",
+    "keywords": [
+      "quem assina a protocol metadata",
+      "quem assina protocol metadata",
+      "quem assina a metadata",
+      "quem assina os metadados",
+      "quem assina metadados do protocolo",
+      "who signs protocol metadata",
+      "assinatura da protocol metadata",
+      "signed protocol metadata quem assina"
+    ]
+  },
+  {
+    "id": "what-is-m2-milestone",
+    "keywords": [
+      "o que e m2",
+      "o que e o m2",
+      "o que e m3",
+      "o que sao m2 e m3",
+      "m2 no banza",
+      "m3 no banza",
+      "what is m2",
+      "milestone m2",
+      "marco m2"
+    ]
+  }
+]

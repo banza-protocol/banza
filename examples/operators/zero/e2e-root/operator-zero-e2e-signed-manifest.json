@@ -1,0 +1,33 @@
+{
+  "algorithm": "ed25519",
+  "artifact_type": "signed_manifest",
+  "demo_only": true,
+  "key_id": "oz-e2e-root-b8a61e9480e3265b",
+  "monetary_value": false,
+  "not_protocol_trust_root": true,
+  "operator_display_name": "Operador Zero",
+  "operator_id": "operator-zero",
+  "payload": {
+    "artifact_type": "operator_manifest",
+    "capabilities": [
+      "qr_payment_demo",
+      "refund_demo",
+      "reconciliation_demo"
+    ],
+    "currency": "KZ_DEMO",
+    "demo_only": true,
+    "environment": "sandbox",
+    "monetary_value": false,
+    "not_protocol_trust_root": true,
+    "operator_display_name": "Operador Zero",
+    "operator_id": "operator-zero",
+    "production_allowed": false,
+    "protocol_version": "1.0",
+    "root_type": "demo_operator_root"
+  },
+  "payload_canonical_sha256": "82fd23101cdb5e8af0c5dcfbe0bd16f637ac2ea58a4df8780342d897e19e62e7",
+  "production_allowed": false,
+  "public_key_multibase": "mmE/Bmy7SowTKustm13LbF+vfl/5Bl6sy9kJ7earQ73A",
+  "root_type": "demo_operator_root",
+  "signature_multibase": "mkF0ys+ciqZseJ72xCFFvF9CxMHPVgwuLCU1mSQaR74uMAsil5lLwJ2JBWWpI6cSJgl0giswQrT3/ZnehJ0FXAg"
+}

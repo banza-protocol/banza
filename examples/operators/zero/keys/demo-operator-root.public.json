@@ -1,0 +1,13 @@
+{
+  "demo_only": true,
+  "monetary_value": false,
+  "production_allowed": false,
+  "operator_id": "operator-zero",
+  "operator_display_name": "Operador Zero",
+  "artifact_type": "key_manifest",
+  "root_name": "Demo Operator Root",
+  "algorithm": "ed25519",
+  "public_key_multibase": "zDEMOoperatorZEROpublicKEYplaceholderNOTaREALkey",
+  "is_protocol_trust_root": false,
+  "note": "Raiz demonstrativa. Não é a Trust Root do protocolo, não certifica operador e não autoriza produção. Nenhuma chave privada existe neste repositório."
+}

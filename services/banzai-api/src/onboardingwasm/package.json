@@ -1,0 +1,13 @@
+{
+  "name": "banzai-onboarding",
+  "description": "banzai-onboarding (M2.19G.3, ADR-069): pure Rust security-decision engine for BanzAI-hosted operator onboarding — passwordless email OTP (HMAC-SHA256 digest under a server pepper, single-use/expiry/attempts, constant-time verify), opaque server-side session hashing, the candidate state machine, the .well-known origin-ownership challenge + verification receipt, and the rate-limit policy. Pure JSON-in/JSON-out: no I/O, no clock, no randomness inside — the Node host supplies CSPRNG entropy + the current time and executes all persistence; Rust decides. Onboarding is a hosted service, never a protocol rule (ADR-069).",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "files": [
+    "banzai_onboarding_bg.wasm",
+    "banzai_onboarding.js",
+    "banzai_onboarding.d.ts"
+  ],
+  "main": "banzai_onboarding.js",
+  "types": "banzai_onboarding.d.ts"
+}

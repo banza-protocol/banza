@@ -1,0 +1,12 @@
+{
+  "schema_version": "1",
+  "routing_request_id": "rr-00000000-0000-0000-0000-000000000003",
+  "trace_id": "tr-00000000-0000-0000-0000-000000000003",
+  "from_operator_id": "operator-a-test",
+  "to_operator_id": "operator-b-test",
+  "amount": { "minor": 50000, "currency": "EUR" },
+  "sender_wallet_id": "wallet-payer-test-001",
+  "recipient_identifier": "wallet-payee-test-001",
+  "recipient_identifier_type": "wallet_id",
+  "created_at": "<ISSUED_NOW>"
+}

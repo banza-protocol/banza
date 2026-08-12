@@ -1,0 +1,1939 @@
+{
+ "milestone": "M2.19G",
+ "artifact": "public-edge-crawl",
+ "crawled_at": "2026-07-29",
+ "host": "https://banza.network (+ https://zero.banza.network)",
+ "method": "curl -sS -L (headers+body captured), ~2s pacing",
+ "notes": [
+  "forbidden_terms_found is CURATED: broad-scan false positives removed — 'autoridade certificadora' occurrences are all the correct NEGATION (open trust model, no CA); 'INV-LEDGER-*' and 'double-entry ledger' are core protocol vocabulary; 'PASS demo' matched 'PASS demonstra'.",
+  "where=visible means present in rendered body text; where=embedded means present only in the shared reference outline/nav data or RSC payload (still served HTML).",
+  "Redirecting top-level routes (/o-que-e, /porque-existe, /arquitectura, /confianca, /federacao, /certificacao, /conformidade, /programadores, /governacao, /roteiro, /faq, /racional) are intentional legacy→reference redirects; their canonical points to the reference-chapter destination."
+ ],
+ "sitemap": {
+  "url": "https://banza.network/sitemap.xml",
+  "http_status": 200,
+  "url_count": 21,
+  "urls": [
+   "https://banza.network",
+   "https://banza.network/banzai",
+   "https://banza.network/referencia",
+   "https://banza.network/estado",
+   "https://banza.network/decisoes",
+   "https://banza.network/referencia/completa",
+   "https://banza.network/referencia/o-que-e",
+   "https://banza.network/referencia/porque-existe",
+   "https://banza.network/referencia/principios",
+   "https://banza.network/referencia/arquitectura",
+   "https://banza.network/referencia/postgresql",
+   "https://banza.network/referencia/confianca",
+   "https://banza.network/referencia/certificacao",
+   "https://banza.network/referencia/operadores",
+   "https://banza.network/referencia/operador-zero",
+   "https://banza.network/referencia/federacao",
+   "https://banza.network/referencia/governacao",
+   "https://banza.network/referencia/banzai",
+   "https://banza.network/referencia/programadores",
+   "https://banza.network/referencia/roteiro",
+   "https://banza.network/referencia/faq"
+  ],
+  "sitemap_urls_that_404": []
+ },
+ "robots": {
+  "url": "https://banza.network/robots.txt",
+  "http_status": 200,
+  "sitemap_declared": "https://banza.network/sitemap.xml",
+  "ai_bots_disallowed": [
+   "ClaudeBot",
+   "GPTBot",
+   "Google-Extended",
+   "CCBot",
+   "Bytespider",
+   "Amazonbot",
+   "Applebot-Extended",
+   "meta-externalagent",
+   "CloudflareBrowserRenderingCrawler"
+  ]
+ },
+ "special_routes": {
+  "/operador-zero": "410 Gone (apex OZ retired; body points to zero.banza.network) — expected",
+  "/oz": "404 (internal rewrite target for zero.banza.network; not publicly routable) — expected",
+  "/operators": "200 JSON machine registry = [] (empty, pre-production) — not in sitemap by design",
+  "/referencia/conformidade": "404 — the conformance chapter is served at slug /referencia/certificacao instead (naming mismatch)",
+  "/conformance": "404 (EN alias not configured; nothing links to it)",
+  "/federation": "200 via 2 redirects -> /referencia/federacao"
+ },
+ "edge_findings_summary": {
+  "orphan_public_routes": [
+   {
+    "url": "https://banza.network/operadores",
+    "note": "200 HTML page absent from sitemap.xml"
+   },
+   {
+    "url": "https://banza.network/governanca",
+    "note": "200 HTML page absent from sitemap.xml"
+   },
+   {
+    "url": "https://banza.network/licenca",
+    "note": "200 HTML page absent from sitemap.xml"
+   },
+   {
+    "url": "https://banza.network/operators",
+    "note": "machine JSON registry route ([]); intentionally excluded from sitemap"
+   }
+  ],
+  "broken_public_links": [],
+  "broken_public_links_note": "No internal <a href> on any crawled page points to a 404/410 target (/oz, /referencia/conformidade, /operador-zero, /conformance are unlinked).",
+  "duplicate_canonical_pages": [],
+  "duplicate_canonical_note": "Conformance chapter is reachable at /certificacao, /conformidade and /referencia/certificacao but all set canonical=/referencia/certificacao (correctly de-duplicated). /referencia/completa duplicates all chapter text on one page but with a distinct self-canonical (intentional full-doc view).",
+  "wrong_canonical_urls": [
+   {
+    "url": "https://banza.network/referencia/certificacao",
+    "canonical": "https://banza.network/referencia/certificacao",
+    "issue": "Chapter is titled '7. Conformidade e Evidência' (ADR-064 L2) but its slug/canonical uses the retired term 'certificacao'; the natural /referencia/conformidade 404s."
+   }
+  ],
+  "unexpected_public_redirects": [
+   {
+    "from": "/conformidade",
+    "to": "https://banza.network/referencia/certificacao",
+    "issue": "A 'conformidade' URL redirects to a 'certificacao' URL (cross-term); counterintuitive given the chapter is now named Conformidade."
+   }
+  ]
+ },
+ "pages": [
+  {
+   "url": "https://banza.network/",
+   "http_status": 200,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/",
+   "redirect_status_chain": [
+    200
+   ],
+   "canonical": "https://banza.network",
+   "title": "BANZA — Protocolo financeiro aberto para interoperabilidade em Angola",
+   "meta_description": "O BANZA estabelece regras públicas, motores verificáveis e evidência verificável para a interoperabilidade entre operadores independentes em Angola, sem acordos bilaterais nem um sistema central.",
+   "in_sitemap": true,
+   "visible_h1": "Interoperabilidade financeira em Angola, sem acordos bilaterais.",
+   "forbidden_terms_found": [
+    {
+     "term": "sem acordos bilaterais",
+     "where": "visible",
+     "note": "hero tagline + subhead + badge: absolute interop claim",
+     "sample": "Interoperabilidade financeira em Angola, sem acordos bilaterais."
+    },
+    {
+     "term": "simulador (Operador Zero)",
+     "where": "visible",
+     "note": "operator marquee label",
+     "sample": "Operador Zero — simulador demo · não certificado"
+    }
+   ],
+   "notable_claims": [
+    "'Interoperabilidade financeira em Angola, sem acordos bilaterais.' (hero, absolute)",
+    "'Troca directa entre operadores — sem acordos bilaterais nem sistema central.'",
+    "hero interop diagram nodes labelled 'Banco A' / 'Banco B' (could read as live bank interoperability)"
+   ],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores"
+   ]
+  },
+  {
+   "url": "https://banza.network/o-que-e",
+   "http_status": 200,
+   "num_redirects": 1,
+   "location_header": "/referencia/o-que-e",
+   "final_url": "https://banza.network/referencia/o-que-e",
+   "redirect_status_chain": [
+    307,
+    200
+   ],
+   "canonical": "https://banza.network/referencia/o-que-e",
+   "title": "1. O Que É o BANZA · Referência · BANZA",
+   "meta_description": "Definição do protocolo, as suas propriedades essenciais e a fronteira do que o BANZA não é. Capítulo 1 da referência oficial do protocolo BANZA v1.0 (pré-produção) — a participação demonstra-se por conformidade protocolar verificável.",
+   "in_sitemap": true,
+   "visible_h1": "1. O Que É o BANZA",
+   "forbidden_terms_found": [
+    {
+     "term": "L0–L4 levels",
+     "where": "visible",
+     "note": "§7 cross-ref",
+     "sample": "Os níveis de conformidade (L0–L4) são definidos em §7"
+    },
+    {
+     "term": "sem acordos bilaterais",
+     "where": "visible",
+     "sample": "a interoperabilidade possível sem acordos bilaterais"
+    },
+    {
+     "term": "simulador/ledger fictício (Operador Zero)",
+     "where": "embedded",
+     "note": "reference outline card (reference.ts CH9 summary)",
+     "sample": "O simulador canónico ... ledger fictício KZ_DEMO"
+    }
+   ],
+   "notable_claims": [
+    "'O protocolo reside nas implementações locais que respeitam os contratos' (CANONICAL)",
+    "'A liquidação T+0 é um requisito de conformidade da especificação' (spec-scoped, real payments OFF)"
+   ],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores",
+    "/referencia",
+    "/referencia/arquitectura",
+    "/referencia/banzai",
+    "/referencia/certificacao",
+    "/referencia/completa",
+    "/referencia/confianca",
+    "/referencia/faq",
+    "/referencia/federacao",
+    "/referencia/governacao"
+   ]
+  },
+  {
+   "url": "https://banza.network/porque-existe",
+   "http_status": 200,
+   "num_redirects": 1,
+   "location_header": "/referencia/porque-existe",
+   "final_url": "https://banza.network/referencia/porque-existe",
+   "redirect_status_chain": [
+    307,
+    200
+   ],
+   "canonical": "https://banza.network/referencia/porque-existe",
+   "title": "2. Por Que o BANZA Existe · Referência · BANZA",
+   "meta_description": "O problema da integração bilateral, da fragmentação operacional e da ausência de uma camada comum de protocolo. Capítulo 2 da referência oficial do protocolo BANZA v1.0 (pré-produção) — a participação demonstra-se por conformidade protocolar verificável.",
+   "in_sitemap": true,
+   "visible_h1": "2. Por Que o BANZA Existe",
+   "forbidden_terms_found": [
+    {
+     "term": "sem acordos bilaterais",
+     "where": "visible/embedded"
+    },
+    {
+     "term": "simulador (Operador Zero)",
+     "where": "embedded",
+     "note": "reference outline card"
+    }
+   ],
+   "notable_claims": [],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores",
+    "/referencia",
+    "/referencia/arquitectura",
+    "/referencia/banzai",
+    "/referencia/certificacao",
+    "/referencia/completa",
+    "/referencia/confianca",
+    "/referencia/faq",
+    "/referencia/federacao",
+    "/referencia/governacao"
+   ]
+  },
+  {
+   "url": "https://banza.network/arquitectura",
+   "http_status": 200,
+   "num_redirects": 1,
+   "location_header": "/referencia/arquitectura",
+   "final_url": "https://banza.network/referencia/arquitectura",
+   "redirect_status_chain": [
+    307,
+    200
+   ],
+   "canonical": "https://banza.network/referencia/arquitectura",
+   "title": "4. Arquitectura do Protocolo · Referência · BANZA",
+   "meta_description": "Camadas do protocolo, fronteiras, contratos, invariantes, evidência e responsabilidades externas. Capítulo 4 da referência oficial do protocolo BANZA v1.0 (pré-produção) — a participação demonstra-se por conformidade protocolar verificável.",
+   "in_sitemap": true,
+   "visible_h1": "4. Arquitectura do Protocolo",
+   "forbidden_terms_found": [
+    {
+     "term": "sem acordos bilaterais",
+     "where": "embedded"
+    },
+    {
+     "term": "simulador (Operador Zero)",
+     "where": "embedded",
+     "note": "reference outline card"
+    }
+   ],
+   "notable_claims": [],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores",
+    "/referencia",
+    "/referencia/arquitectura",
+    "/referencia/banzai",
+    "/referencia/certificacao",
+    "/referencia/completa",
+    "/referencia/confianca",
+    "/referencia/faq",
+    "/referencia/federacao",
+    "/referencia/governacao"
+   ]
+  },
+  {
+   "url": "https://banza.network/operadores",
+   "http_status": 200,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/operadores",
+   "redirect_status_chain": [
+    200
+   ],
+   "canonical": "https://banza.network/operadores",
+   "title": "Operadores — registo público · BANZA",
+   "meta_description": "Registo público de operadores do protocolo BANZA e respectiva evidência verificável. Hoje o registo está vazio (/operators devolve []): nenhuma evidência de operador está indexada. O registo não é uma lista de operadores licenciados, aprovados ou admitidos — a participação demonstra-se por evidência verificável, não é concedida por uma autoridade central.",
+   "in_sitemap": false,
+   "visible_h1": "Quem participa no protocolo — e a evidência que o prova.",
+   "forbidden_terms_found": [],
+   "notable_claims": [],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/conformance/evidence",
+    "/estado",
+    "/federation/revocation-list.json",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/operators",
+    "/programadores",
+    "/referencia/certificacao",
+    "/referencia/operadores"
+   ]
+  },
+  {
+   "url": "https://banza.network/confianca",
+   "http_status": 200,
+   "num_redirects": 1,
+   "location_header": "/referencia/confianca",
+   "final_url": "https://banza.network/referencia/confianca",
+   "redirect_status_chain": [
+    307,
+    200
+   ],
+   "canonical": "https://banza.network/referencia/confianca",
+   "title": "6. Confiança · Referência · BANZA",
+   "meta_description": "Trust Root offline, chaves delegadas, metadata assinada do protocolo, revogação, registry público e avaliação verificável. Capítulo 6 da referência oficial do protocolo BANZA v1.0 (pré-produção) — a participação demonstra-se por conformidade protocolar verificável.",
+   "in_sitemap": true,
+   "visible_h1": "6. Confiança",
+   "forbidden_terms_found": [
+    {
+     "term": "sem acordos bilaterais",
+     "where": "visible",
+     "sample": "sem acordos bilaterais e sem intervenção humana em nenhum ponto"
+    },
+    {
+     "term": "simulador (Operador Zero)",
+     "where": "embedded"
+    }
+   ],
+   "notable_claims": [],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores",
+    "/referencia",
+    "/referencia/arquitectura",
+    "/referencia/banzai",
+    "/referencia/certificacao",
+    "/referencia/completa",
+    "/referencia/confianca",
+    "/referencia/faq",
+    "/referencia/federacao",
+    "/referencia/governacao"
+   ]
+  },
+  {
+   "url": "https://banza.network/federacao",
+   "http_status": 200,
+   "num_redirects": 1,
+   "location_header": "/referencia/federacao",
+   "final_url": "https://banza.network/referencia/federacao",
+   "redirect_status_chain": [
+    307,
+    200
+   ],
+   "canonical": "https://banza.network/referencia/federacao",
+   "title": "10. Federação · Referência · BANZA",
+   "meta_description": "Interoperabilidade entre operadores por evidência publicada, metadata verificável, revogação e verificação local por pares. Capítulo 10 da referência oficial do protocolo BANZA v1.0 (pré-produção) — a participação demonstra-se por conformidade protocolar verificável.",
+   "in_sitemap": true,
+   "visible_h1": "10. Federação",
+   "forbidden_terms_found": [
+    {
+     "term": "sem acordos bilaterais",
+     "where": "visible",
+     "sample": "sem acordos bilaterais, sem intermediários, sem negociação"
+    },
+    {
+     "term": "simulador (Operador Zero)",
+     "where": "embedded"
+    }
+   ],
+   "notable_claims": [],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores",
+    "/referencia",
+    "/referencia/arquitectura",
+    "/referencia/banzai",
+    "/referencia/certificacao",
+    "/referencia/completa",
+    "/referencia/confianca",
+    "/referencia/faq",
+    "/referencia/federacao",
+    "/referencia/governacao"
+   ]
+  },
+  {
+   "url": "https://banza.network/certificacao",
+   "http_status": 200,
+   "num_redirects": 1,
+   "location_header": "/referencia/certificacao",
+   "final_url": "https://banza.network/referencia/certificacao",
+   "redirect_status_chain": [
+    307,
+    200
+   ],
+   "canonical": "https://banza.network/referencia/certificacao",
+   "title": "7. Conformidade e Evidência · Referência · BANZA",
+   "meta_description": "Níveis L0–L4, motores determinísticos, simulação, bundles de evidência e PASS como evidência verificável — não certificação. Capítulo 7 da referência oficial do protocolo BANZA v1.0 (pré-produção) — a participação demonstra-se por conformidade protocolar verificável.",
+   "in_sitemap": true,
+   "visible_h1": "7. Conformidade e Evidência",
+   "forbidden_terms_found": [
+    {
+     "term": "L0–L4 levels",
+     "where": "visible",
+     "sample": "Os níveis L0–L4 são âmbitos de conformidade",
+     "note": "collides with three-layer L1/L2/L3 naming"
+    },
+    {
+     "term": "sem acordos bilaterais",
+     "where": "visible",
+     "note": "qualified: 'A partir do âmbito L3 ... sustenta a federação sem acordos bilaterais'"
+    },
+    {
+     "term": "simulador (Operador Zero)",
+     "where": "embedded"
+    }
+   ],
+   "notable_claims": [
+    "'A conformidade BANZA não é aprovação regulatória nem licença financeira' (CANONICAL)",
+    "'não é uma admissão — nenhuma entidade revê, aceita ou recusa um operador' (CANONICAL)",
+    "'/operators = [] e production_certificates = false' (state)",
+    "'Os níveis L0–L4 são âmbitos de conformidade' (collides with L1/L2/L3 three-layer naming)"
+   ],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores",
+    "/referencia",
+    "/referencia/arquitectura",
+    "/referencia/banzai",
+    "/referencia/certificacao",
+    "/referencia/completa",
+    "/referencia/confianca",
+    "/referencia/faq",
+    "/referencia/federacao",
+    "/referencia/governacao"
+   ]
+  },
+  {
+   "url": "https://banza.network/conformidade",
+   "http_status": 200,
+   "num_redirects": 1,
+   "location_header": "/referencia/certificacao",
+   "final_url": "https://banza.network/referencia/certificacao",
+   "redirect_status_chain": [
+    307,
+    200
+   ],
+   "canonical": "https://banza.network/referencia/certificacao",
+   "title": "7. Conformidade e Evidência · Referência · BANZA",
+   "meta_description": "Níveis L0–L4, motores determinísticos, simulação, bundles de evidência e PASS como evidência verificável — não certificação. Capítulo 7 da referência oficial do protocolo BANZA v1.0 (pré-produção) — a participação demonstra-se por conformidade protocolar verificável.",
+   "in_sitemap": true,
+   "visible_h1": "7. Conformidade e Evidência",
+   "forbidden_terms_found": [
+    {
+     "term": "L0–L4 levels",
+     "where": "visible",
+     "note": "same served content as /referencia/certificacao"
+    },
+    {
+     "term": "sem acordos bilaterais",
+     "where": "visible"
+    }
+   ],
+   "notable_claims": [
+    "same served content as /referencia/certificacao (reached via redirect)"
+   ],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores",
+    "/referencia",
+    "/referencia/arquitectura",
+    "/referencia/banzai",
+    "/referencia/certificacao",
+    "/referencia/completa",
+    "/referencia/confianca",
+    "/referencia/faq",
+    "/referencia/federacao",
+    "/referencia/governacao"
+   ]
+  },
+  {
+   "url": "https://banza.network/programadores",
+   "http_status": 200,
+   "num_redirects": 1,
+   "location_header": "/referencia/programadores",
+   "final_url": "https://banza.network/referencia/programadores",
+   "redirect_status_chain": [
+    307,
+    200
+   ],
+   "canonical": "https://banza.network/referencia/programadores",
+   "title": "13. Recursos para Programadores · Referência · BANZA",
+   "meta_description": "Contratos, schemas, endpoints, motores, exemplos e recursos para implementar e verificar o protocolo. Capítulo 13 da referência oficial do protocolo BANZA v1.0 (pré-produção) — a participação demonstra-se por conformidade protocolar verificável.",
+   "in_sitemap": true,
+   "visible_h1": "13. Recursos para Programadores",
+   "forbidden_terms_found": [
+    {
+     "term": "L0–L4 / L1/L2/L3 levels",
+     "where": "visible",
+     "sample": "os endpoints do âmbito alvo (L1/L2/L3). L0 é só de leitura"
+    },
+    {
+     "term": "simulador (Operador Zero)",
+     "where": "embedded"
+    }
+   ],
+   "notable_claims": [],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores",
+    "/referencia",
+    "/referencia/arquitectura",
+    "/referencia/banzai",
+    "/referencia/certificacao",
+    "/referencia/completa",
+    "/referencia/confianca",
+    "/referencia/faq",
+    "/referencia/federacao",
+    "/referencia/governacao"
+   ]
+  },
+  {
+   "url": "https://banza.network/governacao",
+   "http_status": 200,
+   "num_redirects": 1,
+   "location_header": "/referencia/governacao",
+   "final_url": "https://banza.network/referencia/governacao",
+   "redirect_status_chain": [
+    307,
+    200
+   ],
+   "canonical": "https://banza.network/referencia/governacao",
+   "title": "11. Governança · Referência · BANZA",
+   "meta_description": "Hierarquia normativa, ADRs, RFCs, specs, releases e processo aberto de evolução das regras. Capítulo 11 da referência oficial do protocolo BANZA v1.0 (pré-produção) — a participação demonstra-se por conformidade protocolar verificável.",
+   "in_sitemap": true,
+   "visible_h1": "11. Governança",
+   "forbidden_terms_found": [
+    {
+     "term": "simulador (Operador Zero)",
+     "where": "embedded"
+    },
+    {
+     "term": "sem acordos bilaterais",
+     "where": "embedded"
+    }
+   ],
+   "notable_claims": [],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores",
+    "/referencia",
+    "/referencia/arquitectura",
+    "/referencia/banzai",
+    "/referencia/certificacao",
+    "/referencia/completa",
+    "/referencia/confianca",
+    "/referencia/faq",
+    "/referencia/federacao",
+    "/referencia/governacao"
+   ]
+  },
+  {
+   "url": "https://banza.network/governanca",
+   "http_status": 200,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/governanca",
+   "redirect_status_chain": [
+    200
+   ],
+   "canonical": "https://banza.network/governanca",
+   "title": "Governança aberta · BANZA",
+   "meta_description": "O BANZA foi criado originalmente pela Banzami e é mantido como protocolo financeiro aberto através de governação pública no GitHub: issues, pull requests, ADRs, RFCs, specs e releases.",
+   "in_sitemap": false,
+   "visible_h1": "Governação pública, hoje — no GitHub.",
+   "forbidden_terms_found": [
+    {
+     "term": "sem acordos bilaterais",
+     "where": "embedded"
+    }
+   ],
+   "notable_claims": [],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/decisoes",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores",
+    "/referencia/governacao"
+   ]
+  },
+  {
+   "url": "https://banza.network/estado",
+   "http_status": 200,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/estado",
+   "redirect_status_chain": [
+    200
+   ],
+   "canonical": "https://banza.network/estado",
+   "title": "Estado do Protocolo · BANZA",
+   "meta_description": "Estado verificável do protocolo BANZA: pré-produção, registo público sem evidência indexada, publicação de produção da metadata de confiança dependente das condições públicas de produção. Verifique directamente pelas rotas máquina públicas.",
+   "in_sitemap": true,
+   "visible_h1": "O que é verdade hoje — e como verificá-lo.",
+   "forbidden_terms_found": [
+    {
+     "term": "sem acordos bilaterais",
+     "where": "embedded"
+    }
+   ],
+   "notable_claims": [],
+   "internal_links_sample": [
+    "/",
+    "/.well-known/banza/key-manifest.json",
+    "/.well-known/banza/root.json",
+    "/banzai",
+    "/confianca",
+    "/conformance/evidence",
+    "/estado",
+    "/federation/revocation-list.json",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/operators",
+    "/programadores",
+    "/referencia/certificacao",
+    "/referencia/confianca",
+    "/referencia/programadores",
+    "/referencia/roteiro"
+   ]
+  },
+  {
+   "url": "https://banza.network/roteiro",
+   "http_status": 200,
+   "num_redirects": 1,
+   "location_header": "/referencia/roteiro",
+   "final_url": "https://banza.network/referencia/roteiro",
+   "redirect_status_chain": [
+    307,
+    200
+   ],
+   "canonical": "https://banza.network/referencia/roteiro",
+   "title": "14. Roteiro de Maturidade · Referência · BANZA",
+   "meta_description": "Estado de maturidade do protocolo, critérios de preparação para produção e condições públicas para evolução segura. Capítulo 14 da referência oficial do protocolo BANZA v1.0 (pré-produção) — a participação demonstra-se por conformidade protocolar verificável.",
+   "in_sitemap": true,
+   "visible_h1": "14. Roteiro de Maturidade",
+   "forbidden_terms_found": [
+    {
+     "term": "/certificates route",
+     "where": "visible",
+     "sample": "production_certificates passa a true em /certificates",
+     "note": "forbidden legacy route; registry is /operators"
+    },
+    {
+     "term": "simulador (Operador Zero)",
+     "where": "embedded"
+    }
+   ],
+   "notable_claims": [],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores",
+    "/referencia",
+    "/referencia/arquitectura",
+    "/referencia/banzai",
+    "/referencia/certificacao",
+    "/referencia/completa",
+    "/referencia/confianca",
+    "/referencia/faq",
+    "/referencia/federacao",
+    "/referencia/governacao"
+   ]
+  },
+  {
+   "url": "https://banza.network/decisoes",
+   "http_status": 200,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/decisoes",
+   "redirect_status_chain": [
+    200
+   ],
+   "canonical": "https://banza.network/decisoes",
+   "title": "Decisões do Protocolo · ADRs e RFCs · BANZA · BANZA",
+   "meta_description": "Consulte ADRs e RFCs do protocolo BANZA — o registo canónico das decisões técnicas e propostas que documentam. Para implementar o protocolo, leia-os em conjunto com a Referência BANZA, contratos e invariantes aplicáveis.",
+   "in_sitemap": true,
+   "visible_h1": "Decisões do Protocolo",
+   "forbidden_terms_found": [
+    {
+     "term": "simulador canónico (Operador Zero)",
+     "where": "visible",
+     "sample": "ADR-052 ... O Operador Zero é o simulador canónico de operador de pagamentos",
+     "note": "ADR-052 present-tense summary; superseded by ADR-067 but not marked"
+    },
+    {
+     "term": "validation-workbench",
+     "where": "embedded (RSC filename only)",
+     "note": "ADR-067 markdown filename in path/canonicalUrl; NOT visible as human text"
+    }
+   ],
+   "notable_claims": [
+    "ADR-067 (current): OZ 'implementação canónica de referência, apenas de leitura ... não executa simulação, ledger ...' (CANONICAL)",
+    "ADR-052 (superseded, unmarked): 'O Operador Zero é o simulador canónico de operador de pagamentos' (OUTDATED)"
+   ],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/decisoes/adr-001",
+    "/decisoes/adr-002",
+    "/decisoes/adr-003",
+    "/decisoes/adr-005",
+    "/decisoes/adr-006",
+    "/decisoes/adr-007",
+    "/decisoes/adr-008",
+    "/decisoes/adr-009",
+    "/decisoes/adr-010",
+    "/decisoes/adr-011",
+    "/decisoes/adr-012",
+    "/decisoes/adr-013",
+    "/decisoes/adr-014",
+    "/decisoes/adr-015",
+    "/decisoes/adr-016"
+   ]
+  },
+  {
+   "url": "https://banza.network/faq",
+   "http_status": 200,
+   "num_redirects": 1,
+   "location_header": "/referencia/faq",
+   "final_url": "https://banza.network/referencia/faq",
+   "redirect_status_chain": [
+    307,
+    200
+   ],
+   "canonical": "https://banza.network/referencia/faq",
+   "title": "15. Perguntas Frequentes · Referência · BANZA",
+   "meta_description": "Respostas directas sobre estado, fronteiras, operadores, evidência, integrações externas, PostgreSQL, BanzAI e confiança. Capítulo 15 da referência oficial do protocolo BANZA v1.0 (pré-produção) — a participação demonstra-se por conformidade protocolar verificável.",
+   "in_sitemap": true,
+   "visible_h1": "15. Perguntas Frequentes",
+   "forbidden_terms_found": [
+    {
+     "term": "/certificates route",
+     "where": "visible",
+     "sample": "A rota /certificates publica este estado de forma verificável"
+    },
+    {
+     "term": "sem acordos bilaterais",
+     "where": "visible",
+     "sample": "encaminhar pagamentos entre si sem acordos bilaterais"
+    },
+    {
+     "term": "simulador (Operador Zero)",
+     "where": "embedded"
+    }
+   ],
+   "notable_claims": [
+    "'Não existe autoridade certificadora, entidade de admissão nem processo de aprovação' (CANONICAL)",
+    "'O BANZA integra actualmente a EMIS, o BNA ou bancos? Não.' (CANONICAL)",
+    "'A rota /certificates publica este estado' (references forbidden /certificates route)"
+   ],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/cdn-cgi/l/email-protection",
+    "/confianca",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores",
+    "/referencia",
+    "/referencia/arquitectura",
+    "/referencia/banzai",
+    "/referencia/certificacao",
+    "/referencia/completa",
+    "/referencia/confianca",
+    "/referencia/faq",
+    "/referencia/federacao"
+   ]
+  },
+  {
+   "url": "https://banza.network/licenca",
+   "http_status": 200,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/licenca",
+   "redirect_status_chain": [
+    200
+   ],
+   "canonical": "https://banza.network/licenca",
+   "title": "Licença e marcas · BANZA",
+   "meta_description": "O BANZA é open source sob Apache License 2.0. A licença não concede automaticamente direitos sobre as marcas BANZA, BanzAI ou Banzami. Atribuição em NOTICE; política de marcas em TRADEMARKS.",
+   "in_sitemap": false,
+   "visible_h1": "Open source sob Apache-2.0 — marcas à parte.",
+   "forbidden_terms_found": [
+    {
+     "term": "sem acordos bilaterais",
+     "where": "embedded"
+    }
+   ],
+   "notable_claims": [],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/estado",
+    "/governacao",
+    "/governanca",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores"
+   ]
+  },
+  {
+   "url": "https://banza.network/referencia",
+   "http_status": 200,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/referencia",
+   "redirect_status_chain": [
+    200
+   ],
+   "canonical": "https://banza.network/referencia",
+   "title": "Referência do Protocolo · BANZA",
+   "meta_description": "A referência oficial do protocolo BANZA v1.0 (pré-produção), organizada por capítulos: contratos, invariantes, confiança, conformidade, federação e governação. Descreve o protocolo; não confere estatuto a qualquer operador.",
+   "in_sitemap": true,
+   "visible_h1": "Referência do Protocolo",
+   "forbidden_terms_found": [
+    {
+     "term": "simulador canónico + ledger fictício (Operador Zero)",
+     "where": "visible",
+     "sample": "CAPÍTULO 09 Operador Zero — O simulador canónico de operador de pagamentos: ledger fictício KZ_DEMO ... trust e federação demo",
+     "note": "reference index card (reference.ts CH9 summary) contradicts ADR-067 read-only reference"
+    },
+    {
+     "term": "L0–L4 + 'PASS — não certificação'",
+     "where": "visible",
+     "sample": "CAPÍTULO 07 Conformidade e Evidência — Níveis L0–L4 ... PASS como evidência verificável — não certificação",
+     "note": "reference index card (reference.ts CH7 summary) predates ADR-064 L2 certification"
+    },
+    {
+     "term": "sem acordos bilaterais",
+     "where": "embedded"
+    }
+   ],
+   "notable_claims": [],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/conformidade",
+    "/decisoes",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores",
+    "/referencia/arquitectura",
+    "/referencia/banzai",
+    "/referencia/certificacao",
+    "/referencia/completa",
+    "/referencia/confianca",
+    "/referencia/faq",
+    "/referencia/federacao"
+   ]
+  },
+  {
+   "url": "https://banza.network/referencia/completa",
+   "http_status": 200,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/referencia/completa",
+   "redirect_status_chain": [
+    200
+   ],
+   "canonical": "https://banza.network/referencia/completa",
+   "title": "Referência completa (página única) · BANZA",
+   "meta_description": "A referência oficial do protocolo BANZA v1.0 numa única página — todos os capítulos e âncoras internas. Pré-produção; registo público sem evidência indexada.",
+   "in_sitemap": true,
+   "visible_h1": "Referência completa",
+   "forbidden_terms_found": [
+    {
+     "term": "simulador + ledger fictício (Operador Zero)",
+     "where": "visible",
+     "sample": "9. Operador Zero O Operador Zero é o simulador de operador de pagamentos de referência"
+    },
+    {
+     "term": "100/100",
+     "where": "visible",
+     "sample": "a evidência técnica chega a 100/100 nesta sessão",
+     "note": "ADR-067 mandates 'sem pontuação' (no score)"
+    },
+    {
+     "term": "L0–L4 levels",
+     "where": "visible"
+    },
+    {
+     "term": "/certificates route",
+     "where": "visible"
+    },
+    {
+     "term": "sem acordos bilaterais",
+     "where": "visible"
+    }
+   ],
+   "notable_claims": [
+    "'BANZA não é um banco, não é um produto, não é uma API, não é um servidor central' (absolute)",
+    "'A liquidação T+0 significa que o dinheiro se move no momento da transacção' (real payments OFF — state-dependent)",
+    "'a evidência técnica chega a 100/100 nesta sessão' (ADR-067 requires no score)",
+    "'O BNA é autoridade regulatória/supervisora, não prestador operacional' (CANONICAL, no BNA overclaim)"
+   ],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/cdn-cgi/l/email-protection",
+    "/confianca",
+    "/decisoes",
+    "/estado"
+   ]
+  },
+  {
+   "url": "https://banza.network/referencia/racional",
+   "http_status": 200,
+   "num_redirects": 1,
+   "location_header": "/referencia/porque-existe#racional-estrat�gico",
+   "final_url": "https://banza.network/referencia/porque-existe#racional-estrat%e9gico",
+   "redirect_status_chain": [
+    308,
+    200
+   ],
+   "canonical": "https://banza.network/referencia/porque-existe",
+   "title": "2. Por Que o BANZA Existe · Referência · BANZA",
+   "meta_description": "O problema da integração bilateral, da fragmentação operacional e da ausência de uma camada comum de protocolo. Capítulo 2 da referência oficial do protocolo BANZA v1.0 (pré-produção) — a participação demonstra-se por conformidade protocolar verificável.",
+   "in_sitemap": false,
+   "visible_h1": "2. Por Que o BANZA Existe",
+   "forbidden_terms_found": [
+    {
+     "term": "sem acordos bilaterais",
+     "where": "embedded"
+    },
+    {
+     "term": "simulador (Operador Zero)",
+     "where": "embedded"
+    }
+   ],
+   "notable_claims": [],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores",
+    "/referencia",
+    "/referencia/arquitectura",
+    "/referencia/banzai",
+    "/referencia/certificacao",
+    "/referencia/completa",
+    "/referencia/confianca",
+    "/referencia/faq",
+    "/referencia/federacao",
+    "/referencia/governacao"
+   ]
+  },
+  {
+   "url": "https://banza.network/banzai",
+   "http_status": 200,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/banzai",
+   "redirect_status_chain": [
+    200
+   ],
+   "canonical": "https://banza.network/banzai",
+   "title": "BanzAI — Agente do Protocolo · BANZA",
+   "meta_description": "BanzAI é a interface primária de trabalho entre humanos/operadores e o protocolo BANZA (ADR-054): interpreta pedidos, consulta a referência, orienta a implementação, encaminha para os motores verificáveis e explica os resultados. Tem dois modos no mesmo espaço — perguntar ao BanzAI e validar uma implementação (jornada determinística de 9 etapas). Responde com base nas fontes locais do protocolo através de inferência local (Qwen, on-host), sem chamadas a modelos externos; invoca motores Rust e ajuda a preparar evidência verificável. Não é fonte normativa: não certifica, não aprova operadores, não emite licenças, não publica operadores, não movimenta fundos e não substitui os motores nem a governação do protocolo.",
+   "in_sitemap": true,
+   "visible_h1": "BanzAI — interface primária humano-operador do protocolo BANZA",
+   "forbidden_terms_found": [],
+   "notable_claims": [],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/o-que-e",
+    "/operadores"
+   ]
+  },
+  {
+   "url": "https://banza.network/referencia/o-que-e",
+   "http_status": 200,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/referencia/o-que-e",
+   "redirect_status_chain": [
+    200
+   ],
+   "canonical": "https://banza.network/referencia/o-que-e",
+   "title": "1. O Que É o BANZA · Referência · BANZA",
+   "meta_description": "Definição do protocolo, as suas propriedades essenciais e a fronteira do que o BANZA não é. Capítulo 1 da referência oficial do protocolo BANZA v1.0 (pré-produção) — a participação demonstra-se por conformidade protocolar verificável.",
+   "in_sitemap": true,
+   "visible_h1": "1. O Que É o BANZA",
+   "forbidden_terms_found": [
+    {
+     "term": "L0–L4 levels",
+     "where": "visible"
+    },
+    {
+     "term": "sem acordos bilaterais",
+     "where": "visible"
+    },
+    {
+     "term": "simulador (Operador Zero)",
+     "where": "embedded"
+    }
+   ],
+   "notable_claims": [],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores",
+    "/referencia",
+    "/referencia/arquitectura",
+    "/referencia/banzai",
+    "/referencia/certificacao",
+    "/referencia/completa",
+    "/referencia/confianca",
+    "/referencia/faq",
+    "/referencia/federacao",
+    "/referencia/governacao"
+   ]
+  },
+  {
+   "url": "https://banza.network/referencia/porque-existe",
+   "http_status": 200,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/referencia/porque-existe",
+   "redirect_status_chain": [
+    200
+   ],
+   "canonical": "https://banza.network/referencia/porque-existe",
+   "title": "2. Por Que o BANZA Existe · Referência · BANZA",
+   "meta_description": "O problema da integração bilateral, da fragmentação operacional e da ausência de uma camada comum de protocolo. Capítulo 2 da referência oficial do protocolo BANZA v1.0 (pré-produção) — a participação demonstra-se por conformidade protocolar verificável.",
+   "in_sitemap": true,
+   "visible_h1": "2. Por Que o BANZA Existe",
+   "forbidden_terms_found": [
+    {
+     "term": "sem acordos bilaterais",
+     "where": "visible/embedded"
+    },
+    {
+     "term": "simulador (Operador Zero)",
+     "where": "embedded"
+    }
+   ],
+   "notable_claims": [],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores",
+    "/referencia",
+    "/referencia/arquitectura",
+    "/referencia/banzai",
+    "/referencia/certificacao",
+    "/referencia/completa",
+    "/referencia/confianca",
+    "/referencia/faq",
+    "/referencia/federacao",
+    "/referencia/governacao"
+   ]
+  },
+  {
+   "url": "https://banza.network/referencia/principios",
+   "http_status": 200,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/referencia/principios",
+   "redirect_status_chain": [
+    200
+   ],
+   "canonical": "https://banza.network/referencia/principios",
+   "title": "3. Princípios Fundamentais · Referência · BANZA",
+   "meta_description": "Neutralidade de operador, evidência verificável, correcção financeira, abertura e separação de responsabilidades. Capítulo 3 da referência oficial do protocolo BANZA v1.0 (pré-produção) — a participação demonstra-se por conformidade protocolar verificável.",
+   "in_sitemap": true,
+   "visible_h1": "3. Princípios Fundamentais",
+   "forbidden_terms_found": [
+    {
+     "term": "simulador (Operador Zero)",
+     "where": "embedded"
+    },
+    {
+     "term": "sem acordos bilaterais",
+     "where": "embedded"
+    }
+   ],
+   "notable_claims": [],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores",
+    "/referencia",
+    "/referencia/arquitectura",
+    "/referencia/banzai",
+    "/referencia/certificacao",
+    "/referencia/completa",
+    "/referencia/confianca",
+    "/referencia/faq",
+    "/referencia/federacao",
+    "/referencia/governacao"
+   ]
+  },
+  {
+   "url": "https://banza.network/referencia/arquitectura",
+   "http_status": 200,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/referencia/arquitectura",
+   "redirect_status_chain": [
+    200
+   ],
+   "canonical": "https://banza.network/referencia/arquitectura",
+   "title": "4. Arquitectura do Protocolo · Referência · BANZA",
+   "meta_description": "Camadas do protocolo, fronteiras, contratos, invariantes, evidência e responsabilidades externas. Capítulo 4 da referência oficial do protocolo BANZA v1.0 (pré-produção) — a participação demonstra-se por conformidade protocolar verificável.",
+   "in_sitemap": true,
+   "visible_h1": "4. Arquitectura do Protocolo",
+   "forbidden_terms_found": [
+    {
+     "term": "sem acordos bilaterais",
+     "where": "embedded"
+    },
+    {
+     "term": "simulador (Operador Zero)",
+     "where": "embedded"
+    }
+   ],
+   "notable_claims": [],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores",
+    "/referencia",
+    "/referencia/arquitectura",
+    "/referencia/banzai",
+    "/referencia/certificacao",
+    "/referencia/completa",
+    "/referencia/confianca",
+    "/referencia/faq",
+    "/referencia/federacao",
+    "/referencia/governacao"
+   ]
+  },
+  {
+   "url": "https://banza.network/referencia/postgresql",
+   "http_status": 200,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/referencia/postgresql",
+   "redirect_status_chain": [
+    200
+   ],
+   "canonical": "https://banza.network/referencia/postgresql",
+   "title": "5. PostgreSQL — Estado Protocolar · Referência · BANZA",
+   "meta_description": "Base de estado protocolar verificável: guarda metadata, manifestos, evidência, registry, revogação, fontes e índices; não guarda valor financeiro. Capítulo 5 da referência oficial do protocolo BANZA v1.0 (pré-produção) — a participação demonstra-se por conformidade protocolar verificável.",
+   "in_sitemap": true,
+   "visible_h1": "5. PostgreSQL — Estado Protocolar",
+   "forbidden_terms_found": [
+    {
+     "term": "simulador (Operador Zero)",
+     "where": "embedded"
+    },
+    {
+     "term": "sem acordos bilaterais",
+     "where": "embedded"
+    }
+   ],
+   "notable_claims": [],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores",
+    "/referencia",
+    "/referencia/arquitectura",
+    "/referencia/banzai",
+    "/referencia/certificacao",
+    "/referencia/completa",
+    "/referencia/confianca",
+    "/referencia/faq",
+    "/referencia/federacao",
+    "/referencia/governacao"
+   ]
+  },
+  {
+   "url": "https://banza.network/referencia/confianca",
+   "http_status": 200,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/referencia/confianca",
+   "redirect_status_chain": [
+    200
+   ],
+   "canonical": "https://banza.network/referencia/confianca",
+   "title": "6. Confiança · Referência · BANZA",
+   "meta_description": "Trust Root offline, chaves delegadas, metadata assinada do protocolo, revogação, registry público e avaliação verificável. Capítulo 6 da referência oficial do protocolo BANZA v1.0 (pré-produção) — a participação demonstra-se por conformidade protocolar verificável.",
+   "in_sitemap": true,
+   "visible_h1": "6. Confiança",
+   "forbidden_terms_found": [
+    {
+     "term": "sem acordos bilaterais",
+     "where": "visible"
+    },
+    {
+     "term": "simulador (Operador Zero)",
+     "where": "embedded"
+    }
+   ],
+   "notable_claims": [],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores",
+    "/referencia",
+    "/referencia/arquitectura",
+    "/referencia/banzai",
+    "/referencia/certificacao",
+    "/referencia/completa",
+    "/referencia/confianca",
+    "/referencia/faq",
+    "/referencia/federacao",
+    "/referencia/governacao"
+   ]
+  },
+  {
+   "url": "https://banza.network/referencia/certificacao",
+   "http_status": 200,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/referencia/certificacao",
+   "redirect_status_chain": [
+    200
+   ],
+   "canonical": "https://banza.network/referencia/certificacao",
+   "title": "7. Conformidade e Evidência · Referência · BANZA",
+   "meta_description": "Níveis L0–L4, motores determinísticos, simulação, bundles de evidência e PASS como evidência verificável — não certificação. Capítulo 7 da referência oficial do protocolo BANZA v1.0 (pré-produção) — a participação demonstra-se por conformidade protocolar verificável.",
+   "in_sitemap": true,
+   "visible_h1": "7. Conformidade e Evidência",
+   "forbidden_terms_found": [
+    {
+     "term": "L0–L4 levels",
+     "where": "visible"
+    },
+    {
+     "term": "sem acordos bilaterais",
+     "where": "visible (qualified)"
+    },
+    {
+     "term": "simulador (Operador Zero)",
+     "where": "embedded"
+    }
+   ],
+   "notable_claims": [],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores",
+    "/referencia",
+    "/referencia/arquitectura",
+    "/referencia/banzai",
+    "/referencia/certificacao",
+    "/referencia/completa",
+    "/referencia/confianca",
+    "/referencia/faq",
+    "/referencia/federacao",
+    "/referencia/governacao"
+   ]
+  },
+  {
+   "url": "https://banza.network/referencia/conformidade",
+   "http_status": 404,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/referencia/conformidade",
+   "redirect_status_chain": [
+    404
+   ],
+   "canonical": null,
+   "title": "Página não encontrada · BANZA",
+   "meta_description": "A página que procura não existe na referência do protocolo BANZA.",
+   "in_sitemap": false,
+   "visible_h1": null,
+   "forbidden_terms_found": [],
+   "notable_claims": [],
+   "internal_links_sample": []
+  },
+  {
+   "url": "https://banza.network/referencia/operadores",
+   "http_status": 200,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/referencia/operadores",
+   "redirect_status_chain": [
+    200
+   ],
+   "canonical": "https://banza.network/referencia/operadores",
+   "title": "8. Operadores · Referência · BANZA",
+   "meta_description": "Quem implementa o protocolo, que evidência publica, que responsabilidades assume e o que o BANZA nunca entrega. Capítulo 8 da referência oficial do protocolo BANZA v1.0 (pré-produção) — a participação demonstra-se por conformidade protocolar verificável.",
+   "in_sitemap": true,
+   "visible_h1": "8. Operadores",
+   "forbidden_terms_found": [
+    {
+     "term": "L0–L4 levels",
+     "where": "visible",
+     "sample": "Os níveis de conformidade L0–L4 estão completamente definidos"
+    },
+    {
+     "term": "sem acordo bilateral",
+     "where": "visible",
+     "sample": "sem acordo bilateral, sem integração adicional, sem negociação"
+    },
+    {
+     "term": "simulador (Operador Zero)",
+     "where": "embedded"
+    }
+   ],
+   "notable_claims": [],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores",
+    "/referencia",
+    "/referencia/arquitectura",
+    "/referencia/banzai",
+    "/referencia/certificacao",
+    "/referencia/completa",
+    "/referencia/confianca",
+    "/referencia/faq",
+    "/referencia/federacao",
+    "/referencia/governacao"
+   ]
+  },
+  {
+   "url": "https://banza.network/referencia/operador-zero",
+   "http_status": 200,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/referencia/operador-zero",
+   "redirect_status_chain": [
+    200
+   ],
+   "canonical": "https://banza.network/referencia/operador-zero",
+   "title": "9. Operador Zero · Referência · BANZA",
+   "meta_description": "O simulador canónico de operador de pagamentos: ledger fictício KZ_DEMO, pagamentos QR, reembolsos, falhas controladas, reconciliação, trust e federação demo — sem dinheiro real e sem prestar serviços financeiros. Capítulo 9 da referência oficial do protocolo BANZA v1.0 (pré-produção) — a participação demonstra-se por conformidade protocolar verificável.",
+   "in_sitemap": true,
+   "visible_h1": "9. Operador Zero",
+   "forbidden_terms_found": [
+    {
+     "term": "simulador + 'Arquitectura do Simulador' + 'O Ledger Fictício' (Operador Zero)",
+     "where": "visible",
+     "sample": "9. Operador Zero ... Arquitectura do Simulador ... O Ledger Fictício",
+     "note": "CH9 whole chapter contradicts ADR-067 read-only reference"
+    },
+    {
+     "term": "100/100",
+     "where": "visible",
+     "sample": "a evidência técnica chega a 100/100 nesta sessão"
+    },
+    {
+     "term": "sem acordos bilaterais",
+     "where": "embedded"
+    }
+   ],
+   "notable_claims": [
+    "OZ described as an executing 'simulador' with ledger/trust/federation and 100/100 — contradicts ADR-067"
+   ],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores",
+    "/referencia",
+    "/referencia/arquitectura",
+    "/referencia/banzai",
+    "/referencia/certificacao",
+    "/referencia/completa",
+    "/referencia/confianca",
+    "/referencia/faq",
+    "/referencia/federacao",
+    "/referencia/governacao"
+   ]
+  },
+  {
+   "url": "https://banza.network/referencia/federacao",
+   "http_status": 200,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/referencia/federacao",
+   "redirect_status_chain": [
+    200
+   ],
+   "canonical": "https://banza.network/referencia/federacao",
+   "title": "10. Federação · Referência · BANZA",
+   "meta_description": "Interoperabilidade entre operadores por evidência publicada, metadata verificável, revogação e verificação local por pares. Capítulo 10 da referência oficial do protocolo BANZA v1.0 (pré-produção) — a participação demonstra-se por conformidade protocolar verificável.",
+   "in_sitemap": true,
+   "visible_h1": "10. Federação",
+   "forbidden_terms_found": [
+    {
+     "term": "sem acordos bilaterais",
+     "where": "visible"
+    },
+    {
+     "term": "simulador (Operador Zero)",
+     "where": "embedded"
+    }
+   ],
+   "notable_claims": [],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores",
+    "/referencia",
+    "/referencia/arquitectura",
+    "/referencia/banzai",
+    "/referencia/certificacao",
+    "/referencia/completa",
+    "/referencia/confianca",
+    "/referencia/faq",
+    "/referencia/federacao",
+    "/referencia/governacao"
+   ]
+  },
+  {
+   "url": "https://banza.network/referencia/governacao",
+   "http_status": 200,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/referencia/governacao",
+   "redirect_status_chain": [
+    200
+   ],
+   "canonical": "https://banza.network/referencia/governacao",
+   "title": "11. Governança · Referência · BANZA",
+   "meta_description": "Hierarquia normativa, ADRs, RFCs, specs, releases e processo aberto de evolução das regras. Capítulo 11 da referência oficial do protocolo BANZA v1.0 (pré-produção) — a participação demonstra-se por conformidade protocolar verificável.",
+   "in_sitemap": true,
+   "visible_h1": "11. Governança",
+   "forbidden_terms_found": [
+    {
+     "term": "simulador (Operador Zero)",
+     "where": "embedded"
+    },
+    {
+     "term": "sem acordos bilaterais",
+     "where": "embedded"
+    }
+   ],
+   "notable_claims": [],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores",
+    "/referencia",
+    "/referencia/arquitectura",
+    "/referencia/banzai",
+    "/referencia/certificacao",
+    "/referencia/completa",
+    "/referencia/confianca",
+    "/referencia/faq",
+    "/referencia/federacao",
+    "/referencia/governacao"
+   ]
+  },
+  {
+   "url": "https://banza.network/referencia/banzai",
+   "http_status": 200,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/referencia/banzai",
+   "redirect_status_chain": [
+    200
+   ],
+   "canonical": "https://banza.network/referencia/banzai",
+   "title": "12. BanzAI — Agente do Protocolo · Referência · BANZA",
+   "meta_description": "Interface primária humano-operador do protocolo (ADR-054): guia, invoca motores, explica evidência; não cria regras, não aprova, não certifica. Capítulo 12 da referência oficial do protocolo BANZA v1.0 (pré-produção) — a participação demonstra-se por conformidade protocolar verificável.",
+   "in_sitemap": true,
+   "visible_h1": "12. BanzAI — Agente do Protocolo",
+   "forbidden_terms_found": [
+    {
+     "term": "simulador (Operador Zero)",
+     "where": "embedded"
+    },
+    {
+     "term": "sem acordos bilaterais",
+     "where": "embedded"
+    }
+   ],
+   "notable_claims": [],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/decisoes",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores",
+    "/referencia",
+    "/referencia/arquitectura",
+    "/referencia/banzai",
+    "/referencia/certificacao",
+    "/referencia/completa",
+    "/referencia/confianca",
+    "/referencia/faq",
+    "/referencia/federacao"
+   ]
+  },
+  {
+   "url": "https://banza.network/referencia/programadores",
+   "http_status": 200,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/referencia/programadores",
+   "redirect_status_chain": [
+    200
+   ],
+   "canonical": "https://banza.network/referencia/programadores",
+   "title": "13. Recursos para Programadores · Referência · BANZA",
+   "meta_description": "Contratos, schemas, endpoints, motores, exemplos e recursos para implementar e verificar o protocolo. Capítulo 13 da referência oficial do protocolo BANZA v1.0 (pré-produção) — a participação demonstra-se por conformidade protocolar verificável.",
+   "in_sitemap": true,
+   "visible_h1": "13. Recursos para Programadores",
+   "forbidden_terms_found": [
+    {
+     "term": "L0–L4 / L1/L2/L3 levels",
+     "where": "visible"
+    },
+    {
+     "term": "simulador (Operador Zero)",
+     "where": "embedded"
+    }
+   ],
+   "notable_claims": [],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores",
+    "/referencia",
+    "/referencia/arquitectura",
+    "/referencia/banzai",
+    "/referencia/certificacao",
+    "/referencia/completa",
+    "/referencia/confianca",
+    "/referencia/faq",
+    "/referencia/federacao",
+    "/referencia/governacao"
+   ]
+  },
+  {
+   "url": "https://banza.network/referencia/roteiro",
+   "http_status": 200,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/referencia/roteiro",
+   "redirect_status_chain": [
+    200
+   ],
+   "canonical": "https://banza.network/referencia/roteiro",
+   "title": "14. Roteiro de Maturidade · Referência · BANZA",
+   "meta_description": "Estado de maturidade do protocolo, critérios de preparação para produção e condições públicas para evolução segura. Capítulo 14 da referência oficial do protocolo BANZA v1.0 (pré-produção) — a participação demonstra-se por conformidade protocolar verificável.",
+   "in_sitemap": true,
+   "visible_h1": "14. Roteiro de Maturidade",
+   "forbidden_terms_found": [
+    {
+     "term": "/certificates route",
+     "where": "visible"
+    },
+    {
+     "term": "simulador (Operador Zero)",
+     "where": "embedded"
+    }
+   ],
+   "notable_claims": [],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/confianca",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores",
+    "/referencia",
+    "/referencia/arquitectura",
+    "/referencia/banzai",
+    "/referencia/certificacao",
+    "/referencia/completa",
+    "/referencia/confianca",
+    "/referencia/faq",
+    "/referencia/federacao",
+    "/referencia/governacao"
+   ]
+  },
+  {
+   "url": "https://banza.network/referencia/faq",
+   "http_status": 200,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/referencia/faq",
+   "redirect_status_chain": [
+    200
+   ],
+   "canonical": "https://banza.network/referencia/faq",
+   "title": "15. Perguntas Frequentes · Referência · BANZA",
+   "meta_description": "Respostas directas sobre estado, fronteiras, operadores, evidência, integrações externas, PostgreSQL, BanzAI e confiança. Capítulo 15 da referência oficial do protocolo BANZA v1.0 (pré-produção) — a participação demonstra-se por conformidade protocolar verificável.",
+   "in_sitemap": true,
+   "visible_h1": "15. Perguntas Frequentes",
+   "forbidden_terms_found": [
+    {
+     "term": "/certificates route",
+     "where": "visible"
+    },
+    {
+     "term": "sem acordos bilaterais",
+     "where": "visible"
+    },
+    {
+     "term": "simulador (Operador Zero)",
+     "where": "embedded"
+    }
+   ],
+   "notable_claims": [],
+   "internal_links_sample": [
+    "/",
+    "/banzai",
+    "/cdn-cgi/l/email-protection",
+    "/confianca",
+    "/estado",
+    "/governacao",
+    "/licenca",
+    "/o-que-e",
+    "/operadores",
+    "/programadores",
+    "/referencia",
+    "/referencia/arquitectura",
+    "/referencia/banzai",
+    "/referencia/certificacao",
+    "/referencia/completa",
+    "/referencia/confianca",
+    "/referencia/faq",
+    "/referencia/federacao"
+   ]
+  },
+  {
+   "url": "https://banza.network/operador-zero",
+   "http_status": 410,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/operador-zero",
+   "redirect_status_chain": [
+    410
+   ],
+   "canonical": null,
+   "title": "Descontinuado · Operador Zero",
+   "meta_description": null,
+   "in_sitemap": false,
+   "visible_h1": "Esta superfície foi descontinuada.",
+   "forbidden_terms_found": [],
+   "notable_claims": [],
+   "internal_links_sample": []
+  },
+  {
+   "url": "https://banza.network/oz",
+   "http_status": 404,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/oz",
+   "redirect_status_chain": [
+    404
+   ],
+   "canonical": null,
+   "title": null,
+   "meta_description": null,
+   "in_sitemap": false,
+   "visible_h1": null,
+   "forbidden_terms_found": [],
+   "notable_claims": [],
+   "internal_links_sample": []
+  },
+  {
+   "url": "https://banza.network/operators",
+   "http_status": 200,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/operators",
+   "redirect_status_chain": [
+    200
+   ],
+   "canonical": null,
+   "title": null,
+   "meta_description": null,
+   "in_sitemap": false,
+   "visible_h1": null,
+   "forbidden_terms_found": [],
+   "notable_claims": [],
+   "internal_links_sample": []
+  },
+  {
+   "url": "https://banza.network/robots.txt",
+   "http_status": 200,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/robots.txt",
+   "redirect_status_chain": [
+    200
+   ],
+   "canonical": null,
+   "title": null,
+   "meta_description": null,
+   "in_sitemap": false,
+   "visible_h1": null,
+   "forbidden_terms_found": [],
+   "notable_claims": [],
+   "internal_links_sample": []
+  },
+  {
+   "url": "https://banza.network/sitemap.xml",
+   "http_status": 200,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://banza.network/sitemap.xml",
+   "redirect_status_chain": [
+    200
+   ],
+   "canonical": null,
+   "title": null,
+   "meta_description": null,
+   "in_sitemap": false,
+   "visible_h1": null,
+   "forbidden_terms_found": [],
+   "notable_claims": [],
+   "internal_links_sample": []
+  },
+  {
+   "url": "https://zero.banza.network/",
+   "http_status": 200,
+   "num_redirects": 0,
+   "location_header": null,
+   "final_url": "https://zero.banza.network/",
+   "redirect_status_chain": [
+    200
+   ],
+   "canonical": "https://zero.banza.network",
+   "title": "Operador Zero — Implementação de referência BANZA · BANZA",
+   "meta_description": "Operador Zero é a implementação pública de referência do protocolo BANZA. Expõe identidade, manifest, capabilities, endpoints, metadata, chaves, relatórios e evidência para descoberta e verificação. Ambiente de demonstração; não movimenta fundos reais; validado exclusivamente no BanzAI.",
+   "in_sitemap": false,
+   "visible_h1": "Operador Zero",
+   "forbidden_terms_found": [
+    {
+     "term": "ledger/demo (Operador Zero endpoint)",
+     "where": "visible",
+     "sample": "Ledger Demo /ledger/demo.json",
+     "note": "residual OZ 'ledger' naming; endpoint is read-only JSON, otherwise page is canonical read-only-reference framing"
+    }
+   ],
+   "notable_claims": [
+    "badges: 'demo_only · KZ_DEMO · sem dinheiro real · não PSP · apenas leitura · sem certificação de produção · validado no BanzAI' (CANONICAL read-only-reference framing)"
+   ],
+   "internal_links_sample": [
+    "/"
+   ]
+  }
+ ]
+}

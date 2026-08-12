@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  id:        SVG-P-056
+  diagram:   Hierarquia normativa do Protocolo BANZA
+  version:   2.0
+  source:    BANZA_REFERENCIA.md §11 (Governança — O que a governança governa)
+  updated:   2026-08-10
+  author:    BANZA Protocol
+  style:     protocol
+  note:      v2.0 (revisão Ch11) — quatro níveis (N1–N4): as decisões de arquitectura
+             e as especificações passam a formar um único nível de concretização,
+             mais fiel ao canon ("as regras normativas vivem nos invariantes, contratos
+             e vectores de conformidade"). Removida a moldura de estado-actual
+             ("governação em fase de bootstrap"); "Governação" → "Governança".
+             Ficheiro mantém o slug legado "n1-n5" (como banza-trust-v1.svg = v2.0).
+-->
+<svg viewBox="0 0 900 540" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-labelledby="title-P056 desc-P056"
+     font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="title-P056">Hierarquia normativa do Protocolo BANZA</title>
+  <desc id="desc-P056">A governança do BANZA actua sobre uma hierarquia de regras com quatro níveis, cada um vinculativo para os que estão abaixo: N1 Princípios Fundamentais (autoridade máxima), N2 Invariantes, N3 decisões de arquitectura e especificações (ADRs, contratos, schemas e vectores de conformidade) e N4 guias de implementação. Nenhuma decisão pode violar um invariante, a implementação local não redefine o protocolo, o BanzAI explica mas não decide, e o BANZA não é uma autoridade regulatória.</desc>
+  <defs>
+    <linearGradient id="hg-P056" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E0F1A"/><stop offset="100%" stop-color="#8E1326"/>
+    </linearGradient>
+    <marker id="arr-P056" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#8E1326"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="540" fill="#F4F1EA"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="900" height="64" fill="url(#hg-P056)" rx="14"/>
+  <rect x="0" y="48" width="900" height="16" fill="#8E1326"/>
+  <text x="24" y="26" font-family="ui-monospace,'Courier New',monospace" font-size="9" fill="#FECACA" letter-spacing="2">SVG-P-056 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="24" y="50" font-size="18" font-weight="800" fill="white">Hierarquia normativa</text>
+  <text x="876" y="50" text-anchor="end" font-size="11" fill="#FECACA">A governança não pode quebrar a base do protocolo</text>
+
+  <!-- authority arrow (N1 no topo = máxima) -->
+  <line x1="56" y1="94" x2="56" y2="356" stroke="#8E1326" stroke-width="1.5" marker-end="url(#arr-P056)"/>
+  <text x="46" y="225" text-anchor="middle" font-size="9" font-weight="700" fill="#8E1326" letter-spacing="1" transform="rotate(-90 46 225)">CADA NÍVEL É VINCULATIVO PARA OS DE BAIXO</text>
+
+  <!-- N1 -->
+  <rect x="82" y="90" width="794" height="58" rx="9" fill="#6E0F1A"/>
+  <text x="102" y="114" font-size="15" font-weight="800" fill="white">N1</text>
+  <text x="140" y="114" font-size="13.5" font-weight="700" fill="white">Princípios Fundamentais</text>
+  <text x="140" y="134" font-size="10" fill="#FBD7DC">correcção financeira · acesso aberto · independência · rastreabilidade</text>
+  <text x="860" y="123" text-anchor="end" font-size="10" font-weight="700" fill="#FECACA">AUTORIDADE MÁXIMA</text>
+
+  <!-- N2 -->
+  <rect x="82" y="160" width="794" height="58" rx="9" fill="#8E1326"/>
+  <text x="102" y="184" font-size="15" font-weight="800" fill="white">N2</text>
+  <text x="140" y="184" font-size="13.5" font-weight="700" fill="white">Invariantes</text>
+  <text x="140" y="204" font-size="10" font-family="ui-monospace,monospace" fill="#FBD7DC">INV-LEDGER-* · INV-WALLET-* · INV-STL-* · INV-QR-* · INV-IDEM-* · INV-OTE-* · INV-FEDEVAL-* · INV-ROOT-* · …</text>
+  <text x="860" y="193" text-anchor="end" font-size="10" font-weight="700" fill="#FECACA">sobre N3–N4</text>
+
+  <!-- N3 -->
+  <rect x="82" y="230" width="794" height="58" rx="9" fill="#FBEFF0" stroke="#EAD2D6" stroke-width="1"/>
+  <text x="102" y="254" font-size="15" font-weight="800" fill="#8E1326">N3</text>
+  <text x="140" y="254" font-size="13.5" font-weight="700" fill="#3A1014">Decisões de arquitectura e especificações</text>
+  <text x="140" y="274" font-size="10" font-family="ui-monospace,monospace" fill="#6B6265">ADRs · contratos · schemas · vectores de conformidade — concretizam N1–N2</text>
+  <text x="860" y="263" text-anchor="end" font-size="10" font-weight="700" fill="#8E1326">sobre N4</text>
+
+  <!-- N4 -->
+  <rect x="82" y="300" width="794" height="58" rx="9" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="1.5"/>
+  <text x="102" y="324" font-size="15" font-weight="800" fill="#9CA3AF">N4</text>
+  <text x="140" y="324" font-size="13.5" font-weight="700" fill="#4B5563">Guias de implementação</text>
+  <text x="140" y="344" font-size="10" fill="#6B6265">orientação operacional — não estabelece regras, concretiza as que já existem</text>
+  <text x="860" y="333" text-anchor="end" font-size="10" font-weight="700" fill="#9CA3AF">orientação</text>
+
+  <!-- notes -->
+  <rect x="82" y="380" width="794" height="96" rx="9" fill="#FBEFF0" stroke="#EAD2D6" stroke-width="1"/>
+  <text x="98" y="404" font-size="11" font-weight="700" fill="#8E1326">Nenhuma decisão pode violar um invariante.</text>
+  <text x="98" y="424" font-size="11" font-weight="700" fill="#8E1326">A implementação local não redefine o protocolo.</text>
+  <text x="98" y="444" font-size="11" font-weight="700" fill="#8E1326">O BanzAI explica; não decide — não é fonte normativa.</text>
+  <text x="98" y="464" font-size="10" fill="#6B6265">A governança evolui estas regras por processo público. O BANZA não é uma autoridade regulatória.</text>
+
+  <text x="450" y="522" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-056 · Hierarquia normativa · BANZA_REFERENCIA.md §11 · v2.0 · 2026-08-10</text>
+</svg>

@@ -1,0 +1,114 @@
+{
+  "blockers": [],
+  "complete": true,
+  "currency": "KZ_DEMO",
+  "demo_only": true,
+  "evidence_status": "evidence_complete",
+  "evidence_status_label": "evidência completa",
+  "ledger": {
+    "accounts": [
+      {
+        "account_id": "demo-merchant-kiosque",
+        "balance": 1000,
+        "currency": "KZ_DEMO",
+        "display_name": "Kiosque (comerciante fictício)",
+        "is_settlement": false
+      },
+      {
+        "account_id": "demo-user-ana",
+        "balance": 99000,
+        "currency": "KZ_DEMO",
+        "display_name": "Ana (utilizador fictício)",
+        "is_settlement": false
+      },
+      {
+        "account_id": "operator-zero",
+        "balance": 0,
+        "currency": "KZ_DEMO",
+        "display_name": "Operador Zero (liquidação fictícia)",
+        "is_settlement": true
+      }
+    ],
+    "currency": "KZ_DEMO",
+    "demo_only": true,
+    "ledger_status": "balanced",
+    "monetary_value": false,
+    "operator_display_name": "Operador Zero",
+    "operator_id": "operator-zero",
+    "production_allowed": false,
+    "total": 100000
+  },
+  "monetary_value": false,
+  "next_action": "simulacao_completa",
+  "next_action_label": "Simulação completa",
+  "note": "Simulação técnica. Não certifica, não aprova e não move dinheiro real.",
+  "operator_display_name": "Operador Zero",
+  "operator_id": "operator-zero",
+  "production_allowed": false,
+  "reconciliation": {
+    "closing_total": 100000,
+    "currency": "KZ_DEMO",
+    "demo_only": true,
+    "discrepancies": [],
+    "ledger_status": "balanced",
+    "monetary_value": false,
+    "movements": 2,
+    "opening_total": 100000,
+    "status": "reconciled",
+    "status_label": "reconciliado"
+  },
+  "scenario": "full_e2e",
+  "steps": [
+    {
+      "artifact_type": "manifest",
+      "error": null,
+      "ok": true,
+      "step": "manifest"
+    },
+    {
+      "artifact_type": "conformance_evidence",
+      "ok": true,
+      "step": "conformidade"
+    },
+    {
+      "artifact_type": "trust_evidence",
+      "ok": true,
+      "status": "demo_trust_valid",
+      "status_label": "trust demo válido",
+      "step": "trust"
+    },
+    {
+      "amount": 1500,
+      "artifact_type": "payment",
+      "currency": "KZ_DEMO",
+      "ok": true,
+      "payment_status": "confirmed",
+      "payment_status_label": "confirmado",
+      "refund_status": "partially_refunded",
+      "refund_status_label": "parcialmente reembolsado",
+      "refunded": 500,
+      "step": "pagamento"
+    },
+    {
+      "artifact_type": "federation_metadata",
+      "ok": true,
+      "status": "demo_federation_compatible",
+      "status_label": "federação demo compatível",
+      "step": "federacao"
+    },
+    {
+      "artifact_type": "ledger",
+      "ok": true,
+      "status": "reconciled",
+      "status_label": "reconciliado",
+      "step": "reconciliacao"
+    },
+    {
+      "artifact_type": "evidence_bundle",
+      "ok": true,
+      "status": "evidence_complete",
+      "status_label": "evidência completa",
+      "step": "evidence_bundle"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+name: Rust Rule Guard
+
+# Enforces ADR-037 (Rust-first for official BANZA/BanzAI engines): no new non-Rust
+# engine may be introduced. UI/glue, thin wrappers, data and R0-allowlisted legacy pass.
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+concurrency:
+  group: rust-rule-guard-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  rust-rule-guard:
+    name: No new non-Rust engine (ADR-037)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+
+      - name: cargo fmt (guard)
+        working-directory: engines/rust-rule-guard
+        run: cargo fmt --check
+
+      - name: cargo clippy (guard)
+        working-directory: engines/rust-rule-guard
+        run: cargo clippy --all-targets -- -D warnings
+
+      - name: cargo test (guard)
+        working-directory: engines/rust-rule-guard
+        run: cargo test --quiet
+
+      - name: Enforce Rust-first policy on the repository
+        run: |
+          cargo build --release --quiet --manifest-path engines/rust-rule-guard/Cargo.toml
+          engines/rust-rule-guard/target/release/rust-rule-guard \
+            check --root . --allowlist docs/governance/rust-first-legacy-allowlist.json

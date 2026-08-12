@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+
+<svg viewBox="0 0 900 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title-P108 desc-P108" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="title-P108">Perfis de conformidade L0–L4 — âmbito técnico cumulativo</title>
+  <desc id="desc-P108">Os cinco perfis de conformidade de uma implementação BANZA, cumulativos: L0 Sandbox de Protocolo, L1 Capacidade de Pagamento Central, L2 Capacidade de Iniciação de Pagamento, L3 Interoperabilidade entre Operadores, L4 Interoperabilidade Externa. Cada perfil acrescenta capacidades técnicas verificáveis às dos perfis inferiores. A escada mede alcance técnico, não autoridade nem maturidade regulatória; os perfis de conformidade não são camadas da arquitectura (ADR-021/064).</desc>
+  <defs>
+    <linearGradient id="hG-P108" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#312E81"></stop><stop offset="100%" stop-color="#4338CA"></stop>
+    </linearGradient>
+    <linearGradient id="s0G-P108" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4B5563"></stop><stop offset="100%" stop-color="#6B7280"></stop>
+    </linearGradient>
+    <linearGradient id="s1G-P108" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#475569"></stop><stop offset="100%" stop-color="#64748B"></stop>
+    </linearGradient>
+    <linearGradient id="s2G-P108" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3F3D8A"></stop><stop offset="100%" stop-color="#5B54B8"></stop>
+    </linearGradient>
+    <linearGradient id="s3G-P108" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#312E81"></stop><stop offset="100%" stop-color="#4338CA"></stop>
+    </linearGradient>
+    <linearGradient id="s4G-P108" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#292567"></stop><stop offset="100%" stop-color="#3730A3"></stop>
+    </linearGradient>
+    <filter id="sh-P108" x="-2%" y="-10%" width="108%" height="130%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000015"></feDropShadow>
+    </filter>
+    <marker id="darr-P108" markerWidth="8" markerHeight="8" refX="4" refY="7" orient="auto">
+      <polygon points="0 0, 8 0, 4 7" fill="#CBD5E1"></polygon>
+    </marker>
+  </defs>
+  <rect width="900" height="512" fill="#F4F1EA"></rect>
+
+  <rect x="16" y="12" width="868" height="54" rx="8" fill="url(#hG-P108)" filter="url(#sh-P108)"></rect>
+  <text x="34" y="32" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" letter-spacing="1.6" fill="#C7D2FE">SVG-P-108 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="34" y="52" fill="white" font-size="15" font-weight="800">Perfis de conformidade L0–L4</text>
+  <text x="866" y="52" text-anchor="end" fill="#DDE1F7" font-size="10">âmbito técnico cumulativo</text>
+
+  <rect x="16" y="80" width="868" height="58" rx="6" fill="white" stroke="#E2E8F0" stroke-width="1.5" filter="url(#sh-P108)"></rect>
+  <rect x="16" y="80" width="108" height="58" rx="6" fill="url(#s0G-P108)"></rect>
+  <rect x="94" y="80" width="30" height="58" fill="url(#s0G-P108)"></rect>
+  <text x="70" y="106" text-anchor="middle" fill="white" font-size="18" font-weight="800">L0</text>
+  <text x="70" y="122" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="9" font-weight="600">Sandbox</text>
+  <text x="138" y="104" fill="#374151" font-size="10.5" font-weight="700">Sandbox de Protocolo</text>
+  <text x="138" y="120" fill="#6B7280" font-size="9.5">Instanciar o protocolo em segurança: alcançável, manifesto válido, valores monetários em unidades inteiras</text>
+  <text x="138" y="132" fill="#6B7280" font-size="9.5">Sem produção · sem dados reais</text>
+
+  <line x1="450" y1="140" x2="450" y2="150" stroke="#CBD5E1" stroke-width="1.5" marker-end="url(#darr-P108)"></line>
+
+  <rect x="16" y="152" width="868" height="58" rx="6" fill="white" stroke="#DDE1EA" stroke-width="1.5" filter="url(#sh-P108)"></rect>
+  <rect x="16" y="152" width="108" height="58" rx="6" fill="url(#s1G-P108)"></rect>
+  <rect x="94" y="152" width="30" height="58" fill="url(#s1G-P108)"></rect>
+  <text x="70" y="178" text-anchor="middle" fill="white" font-size="18" font-weight="800">L1</text>
+  <text x="70" y="194" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="9" font-weight="600">Pagamento</text>
+  <text x="138" y="176" fill="#44505F" font-size="10.5" font-weight="700">Capacidade de Pagamento Central  <tspan fill="#6B7280" font-weight="400" font-size="9">+ tudo de L0</tspan></text>
+  <text x="138" y="192" fill="#6B7280" font-size="9.5">Carteiras, transferências, livro-razão de partidas dobradas, idempotência e rastreabilidade</text>
+  <text x="138" y="204" fill="#6B7280" font-size="9.5">Capacidade de pagamento de um único operador</text>
+
+  <line x1="450" y1="212" x2="450" y2="222" stroke="#CBD5E1" stroke-width="1.5" marker-end="url(#darr-P108)"></line>
+
+  <rect x="16" y="224" width="868" height="58" rx="6" fill="white" stroke="#D4D7E6" stroke-width="1.5" filter="url(#sh-P108)"></rect>
+  <rect x="16" y="224" width="108" height="58" rx="6" fill="url(#s2G-P108)"></rect>
+  <rect x="94" y="224" width="30" height="58" fill="url(#s2G-P108)"></rect>
+  <text x="70" y="250" text-anchor="middle" fill="white" font-size="18" font-weight="800">L2</text>
+  <text x="70" y="266" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="9" font-weight="600">Iniciação</text>
+  <text x="138" y="248" fill="#3C4654" font-size="10.5" font-weight="700">Capacidade de Iniciação de Pagamento  <tspan fill="#6B7280" font-weight="400" font-size="9">+ tudo de L1</tspan></text>
+  <text x="138" y="264" fill="#6B7280" font-size="9.5">Pedidos de pagamento, QR dinâmico, execução instantânea</text>
+  <text x="138" y="276" fill="#6B7280" font-size="9.5">Iniciação de pagamento dentro de um operador</text>
+
+  <line x1="450" y1="284" x2="450" y2="294" stroke="#CBD5E1" stroke-width="1.5" marker-end="url(#darr-P108)"></line>
+
+  <rect x="16" y="296" width="868" height="58" rx="6" fill="white" stroke="#C4B5FD" stroke-width="1.5" filter="url(#sh-P108)"></rect>
+  <rect x="16" y="296" width="108" height="58" rx="6" fill="url(#s3G-P108)"></rect>
+  <rect x="94" y="296" width="30" height="58" fill="url(#s3G-P108)"></rect>
+  <text x="70" y="322" text-anchor="middle" fill="white" font-size="18" font-weight="800">L3</text>
+  <text x="70" y="338" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="9" font-weight="600">Inter-Op.</text>
+  <text x="138" y="320" fill="#312E81" font-size="10.5" font-weight="700">Interoperabilidade entre Operadores  <tspan fill="#6B7280" font-weight="400" font-size="9">+ tudo de L2</tspan></text>
+  <text x="138" y="336" fill="#6B7280" font-size="9.5">Encaminhamento e liquidação entre operadores, reconciliação, metadata de protocolo assinada</text>
+  <text x="138" y="348" fill="#6B7280" font-size="9.5">Requer evidência de interoperabilidade entre operadores distintos</text>
+
+  <line x1="450" y1="356" x2="450" y2="366" stroke="#CBD5E1" stroke-width="1.5" marker-end="url(#darr-P108)"></line>
+
+  <rect x="16" y="368" width="868" height="58" rx="6" fill="white" stroke="#C7C4E8" stroke-width="1.5" filter="url(#sh-P108)"></rect>
+  <rect x="16" y="368" width="108" height="58" rx="6" fill="url(#s4G-P108)"></rect>
+  <rect x="94" y="368" width="30" height="58" fill="url(#s4G-P108)"></rect>
+  <text x="70" y="394" text-anchor="middle" fill="white" font-size="18" font-weight="800">L4</text>
+  <text x="70" y="410" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="9" font-weight="600">Externa</text>
+  <text x="138" y="392" fill="#292567" font-size="10.5" font-weight="700">Interoperabilidade Externa  <tspan fill="#6B7280" font-weight="400" font-size="9">+ tudo de L3</tspan></text>
+  <text x="138" y="408" fill="#6B7280" font-size="9.5">Integração verificável com infraestruturas financeiras externas ao protocolo, definida por perfil</text>
+  <text x="138" y="420" fill="#6B7280" font-size="9.5">Não atribuído automaticamente · depende de versões posteriores do protocolo</text>
+
+  <rect x="16" y="438" width="868" height="58" rx="6" fill="#EAE0DF" stroke="#D4C9C7" stroke-width="1"></rect>
+  <text x="28" y="456" fill="#1A1A1A" font-size="10" font-weight="600">Âmbito técnico, não autoridade.</text>
+  <text x="214" y="456" fill="#6B6265" font-size="10">A escada mede capacidades cumulativas; L3 não é «mais autorizado» do que L1 — abrange mais comportamento avaliado.</text>
+  <text x="28" y="476" fill="#1A1A1A" font-size="10" font-weight="600">Perfis não são camadas.</text>
+  <text x="188" y="476" fill="#6B6265" font-size="10">L0–L4 descrevem uma implementação; as Camadas 1/2/3 dividem responsabilidades entre instituições (§4).</text>
+  <text x="450" y="490" text-anchor="middle" fill="#8A8285" font-size="9">Não é uma escada de maturidade regulatória nem de autoridade institucional.</text>
+  <text x="450" y="506" text-anchor="middle" fill="#6B6265" font-size="10">SVG-P-108 · v1.0 · BANZA_REFERENCIA.md §7 · ADR-021/064 · 2026-08-09</text>
+</svg>

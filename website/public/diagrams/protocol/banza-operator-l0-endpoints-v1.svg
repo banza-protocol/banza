@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  id:        SVG-P-041
+  diagram:   Endpoints L0 do operador de sandbox
+  version:   1.1
+  source:    BANZA_REFERENCIA.md §7 Conformidade e Evidência
+  updated:   2026-06-20
+  author:    BANZA Protocol
+  style:     protocol
+  changes:   v1.1 — realinhado ao sistema visual das restantes diagramas
+-->
+<svg viewBox="0 0 900 386" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-labelledby="title-P041 desc-P041"
+     font-family="system-ui,-apple-system,sans-serif">
+  <title id="title-P041">Endpoints L0 que um operador de sandbox deve expor</title>
+  <desc id="desc-P041">Para o âmbito de conformidade L0 (sandbox), o endpoint público expõe GET /health e GET /.well-known/banza/operator.json, ambos declarando as propriedades de segurança de sandbox: status ok, environment sandbox, simulated true e production_allowed false. L0 é um âmbito de conformidade, não um nível de certificação.</desc>
+  <defs>
+    <linearGradient id="hg-P041" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#990011"/><stop offset="100%" stop-color="#B11226"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="900" height="360" fill="#FCF6F5" rx="16"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="900" height="64" fill="url(#hg-P041)" rx="16"/>
+  <rect x="0" y="48" width="900" height="16" fill="#B11226"/>
+  <text x="36" y="28" font-family="ui-monospace,'Courier New',monospace" font-size="9.5" fill="#FECACA" letter-spacing="2">SVG-P-041 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="36" y="50" font-size="17" font-weight="800" fill="white">Endpoints L0 do operador de sandbox</text>
+  <text x="864" y="50" text-anchor="end" font-family="ui-monospace,'Courier New',monospace" font-size="10" fill="#FECACA">https://sandbox.operador.exemplo</text>
+
+  <!-- health -->
+  <rect x="44" y="96" width="384" height="206" fill="white" rx="12" stroke="#E5E7EB" stroke-width="1.5"/>
+  <rect x="44" y="96" width="384" height="34" fill="#7F1D1D" rx="12"/>
+  <rect x="44" y="118" width="384" height="12" fill="#7F1D1D"/>
+  <text x="236" y="118" text-anchor="middle" font-family="ui-monospace,'Courier New',monospace" font-size="12.5" font-weight="700" fill="white">GET /health</text>
+  <text x="68" y="152" font-size="8.5" font-weight="700" fill="#B91C1C" letter-spacing="1.2">PROPRIEDADES DE SANDBOX</text>
+  <g font-size="12" fill="#1F2937" font-family="ui-monospace,'Courier New',monospace">
+    <text x="68" y="180">"status": "ok"</text>
+    <text x="68" y="208">"environment": "sandbox"</text>
+    <text x="68" y="236">"simulated": true</text>
+    <text x="68" y="264">"production_allowed": false</text>
+  </g>
+
+  <!-- manifest -->
+  <rect x="472" y="96" width="384" height="206" fill="white" rx="12" stroke="#E5E7EB" stroke-width="1.5"/>
+  <rect x="472" y="96" width="384" height="34" fill="#7F1D1D" rx="12"/>
+  <rect x="472" y="118" width="384" height="12" fill="#7F1D1D"/>
+  <text x="664" y="117" text-anchor="middle" font-family="ui-monospace,'Courier New',monospace" font-size="10.5" font-weight="700" fill="white">GET /.well-known/banza/operator.json</text>
+  <text x="496" y="152" font-size="8.5" font-weight="700" fill="#B91C1C" letter-spacing="1.2">MANIFESTO MÍNIMO</text>
+  <g font-size="11" fill="#1F2937" font-family="ui-monospace,'Courier New',monospace">
+    <text x="496" y="180">operator_id · operator_name</text>
+    <text x="496" y="208">protocol_version · conformance_scope</text>
+    <text x="496" y="236">environment "sandbox" · simulated true</text>
+    <text x="496" y="264">production_allowed false · capabilities</text>
+  </g>
+
+  <text x="450" y="334" text-anchor="middle" font-size="10.5" fill="#6B7280">L0 é um âmbito de conformidade de sandbox, não um nível de certificação · sem dinheiro real.</text>
+  <text x="450" y="377" text-anchor="middle" font-size="9" fill="#9CA3AF" font-family="ui-monospace,'Courier New',monospace">SVG-P-041 · Endpoints L0 do operador de sandbox · BANZA_REFERENCIA.md §7 · v1.1 · 2026-07-19</text>
+</svg>

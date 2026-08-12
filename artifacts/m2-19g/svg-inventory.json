@@ -1,0 +1,448 @@
+{
+  "artifact": "svg-inventory",
+  "milestone": "M2.19G",
+  "purpose": "Every SVG under website/public/diagrams/** (42 files), with the page/doc that embeds it, the concept it depicts, the ADR it maps to, the FORBIDDEN legacy terms that appear as visible text, and the reconstruction treatment. Grounded by reading each SVG's title/desc/text and grepping consumers across website/**, docs/** and website/content/**.",
+  "generated_from": "release/m2-19g-public-surface-reference-canonicalization",
+  "consumer_legend": {
+    "REFERENCIA": "website/content/BANZA_REFERENCIA.md (the rendered /referencia + /referencia/<capitulo> pages)",
+    "REF-PT": "docs/reference/pt/completa.md (documentation mirror, not a rendered website page)",
+    "REF-EN": "docs/reference/en/complete.md (documentation mirror)",
+    "REGISTRY": "docs/reference/BANZA_SVG_REGISTRY.md (SVG catalog doc, not rendered)",
+    "OZ-PAGE": "website/app/oz/page.tsx + website/components/operador-zero/OperadorZeroReference.tsx (the zero.banza.network surface)"
+  },
+  "svgs": [
+    {
+      "path": "website/public/diagrams/banzai/banzai-cognitive-engine-v1.svg",
+      "consumer": ["REF-EN", "REGISTRY", "audit docs"],
+      "concept": "BanzAI cognitive engine — a question becomes a grounded answer across evidence/cognitive/model planes; model drafts, BanzAI verifies.",
+      "adr": "ADR-049/ADR-055 (grounded synthesis)",
+      "shows_forbidden": [],
+      "treatment": "KEEP",
+      "rationale": "The three 'planes' are BanzAI's internal cognition, not the ecosystem layer stack; BanzAI not drawn as a layer. Not embedded on a rendered PT surface."
+    },
+    {
+      "path": "website/public/diagrams/protocol/banza-boundary-protocol-operator-infra-v1.svg",
+      "consumer": ["REFERENCIA", "REF-PT", "audit docs"],
+      "concept": "Protocol boundary — humans/operators reach BANZA via BanzAI; operators, bank/EMIS infra and regulators sit outside; no funds flow through BANZA.",
+      "adr": "ADR-003/ADR-059 (three-layer boundary), ADR-054 (BanzAI interface)",
+      "shows_forbidden": [],
+      "treatment": "KEEP_WITH_REVIEW",
+      "rationale": "Clean boundary framing. Review only that BanzAI is shown as interface (correct), not a layer, when ch.4/12 are rewritten."
+    },
+    {
+      "path": "website/public/diagrams/protocol/banza-certification-pipeline-v1.svg",
+      "consumer": ["REFERENCIA", "REF-PT", "REF-EN", "audit docs"],
+      "concept": "Conformance pipeline — operator implementation -> sandbox endpoint -> banza-conformance -> evidence report; auto-publish/federation gated on M2/M3.",
+      "adr": "ADR-021/ADR-064 (conformance), ADR-039",
+      "shows_forbidden": [],
+      "treatment": "KEEP_WITH_REVIEW",
+      "rationale": "No L-levels visible. Align labels to the L2 certification model (Profile->CertifiedImplementation->CertificationRecord) when ch.7 is rewritten."
+    },
+    {
+      "path": "website/public/diagrams/protocol/banza-certification-v1.svg",
+      "consumer": ["REFERENCIA", "REF-PT", "REGISTRY", "audit docs"],
+      "concept": "Conformance flow (5 steps + evaluation) — 'a conformidade e medida, nao concedida'; ends in Open Trust Evaluation.",
+      "adr": "ADR-064 (certification), ADR-038 (OTE)",
+      "shows_forbidden": ["'demonstrar um ambito de conformidade (L0 a L4)' — L0-L4 presented as a certification range"],
+      "treatment": "REWRITE",
+      "rationale": "Demote L0-L4 from a headline certification range to conformance scope; reframe to the ADR-064/066 certification model."
+    },
+    {
+      "path": "website/public/diagrams/protocol/banza-controlled-federation-gate-v1.svg",
+      "consumer": ["REFERENCIA", "REF-PT", "REGISTRY", "audit docs"],
+      "concept": "Controlled federation — technical interop != federated production; Open Trust Evaluation gates between Operator A/B; fail-closed.",
+      "adr": "ADR-040 (federation trust)",
+      "shows_forbidden": ["'Ambito L3+ compativel' — certification level L3+ shown as a gate criterion"],
+      "treatment": "REWRITE",
+      "rationale": "Reword 'L3+' from a certification level to the conformance scope required for federation, per the L0-L4 clarification (scope, not public tier)."
+    },
+    {
+      "path": "website/public/diagrams/protocol/banza-decision-risk-matrix-v1.svg",
+      "consumer": ["REFERENCIA", "REF-PT", "audit docs"],
+      "concept": "Decision -> mitigated-risk matrix — protocol design rationale (contracts-first, PASS!=certificate, protocol/operator separation, offline root, signed BRL, BanzAI non-normative).",
+      "adr": "ADR-038/ADR-005",
+      "shows_forbidden": [],
+      "treatment": "KEEP",
+      "rationale": "'PASS != certificado' is a correct disclaimer. No forbidden framing."
+    },
+    {
+      "path": "website/public/diagrams/protocol/banza-developer-flow-v1.svg",
+      "consumer": ["REFERENCIA", "REF-PT", "REGISTRY", "audit docs"],
+      "concept": "Developer flow — sandbox & conformance, no real money; 7 numbered steps (Ler referencia -> Implementar -> Proteger -> Conformidade -> Evidencia -> Corrigir -> Publicar metadata assinada).",
+      "adr": "ADR-039 (self-publication)",
+      "shows_forbidden": [],
+      "treatment": "KEEP_WITH_REVIEW",
+      "rationale": "A 7-step DEVELOPER flow, NOT the retired 7-step operator journey (the operator/validation journey correctly has 9 steps). Legitimate, but review that it is not confused with the journey during the ch.13 rewrite."
+    },
+    {
+      "path": "website/public/diagrams/protocol/banza-evidence-vs-certificate-v1.svg",
+      "consumer": ["REFERENCIA", "REF-PT", "REF-EN", "audit docs"],
+      "concept": "Two planes — conformance evidence (measured, self-published) vs legal authorisation (from regulator, outside BANZA).",
+      "adr": "ADR-061 (cert != authorisation), ADR-062",
+      "shows_forbidden": [],
+      "treatment": "KEEP",
+      "rationale": "Filename says 'certificate' but visible text uses 'Autorizacao legal'; no 'certificado de operador'. Correct cert!=authorisation framing."
+    },
+    {
+      "path": "website/public/diagrams/protocol/banza-federation-v1.svg",
+      "consumer": ["REFERENCIA", "REF-PT", "REGISTRY", "audit docs"],
+      "concept": "Inter-operator federated payment — initiator/sender/receiver across Operator A/B with shared trace_id; peers evaluate signed metadata.",
+      "adr": "ADR-040",
+      "shows_forbidden": ["'Nenhum acordo bilateral necessario.' — absolute 'sem acordos bilaterais' claim (split across two text lines)"],
+      "treatment": "REWRITE",
+      "rationale": "Qualify to 'sem acordos bilaterais previos entre cada par' (matching the reference body), never the absolute claim."
+    },
+    {
+      "path": "website/public/diagrams/protocol/banza-governance-v1.svg",
+      "consumer": ["REFERENCIA", "REF-PT", "REGISTRY", "audit docs"],
+      "concept": "Governance process — RFC -> discussion -> acceptance -> ADR -> implementation -> official protocol; open to all operators.",
+      "adr": "ADR-043 (open governance)",
+      "shows_forbidden": [],
+      "treatment": "KEEP",
+      "rationale": "Clean governance flow."
+    },
+    {
+      "path": "website/public/diagrams/protocol/banza-ledger-posting-v1.svg",
+      "consumer": ["REFERENCIA", "REF-PT", "REGISTRY", "audit docs"],
+      "concept": "Double-entry posting — debit consumer wallet balanced by credits to merchant + fees; sums to zero.",
+      "adr": "ADR-006/ADR-007 (double-entry)",
+      "shows_forbidden": [],
+      "treatment": "KEEP",
+      "rationale": "Financial-invariant illustration; unaffected by M2.19G."
+    },
+    {
+      "path": "website/public/diagrams/protocol/banza-local-execution-model-v1.svg",
+      "consumer": ["REFERENCIA", "REF-PT", "REGISTRY", "audit docs"],
+      "concept": "Local execution model — each operator runs the protocol locally; BANZA is rules, not a central server (HTTP analogy).",
+      "adr": "ADR-001/ADR-059 D-059-01",
+      "shows_forbidden": [],
+      "treatment": "KEEP",
+      "rationale": "Correct 'protocol not server' framing."
+    },
+    {
+      "path": "website/public/diagrams/protocol/banza-normative-hierarchy-n1-n5-v1.svg",
+      "consumer": ["REFERENCIA", "REF-PT", "audit docs"],
+      "concept": "Normative hierarchy N1-N5 (Principles -> Invariants -> ADRs -> RFCs -> Implementation guides); each level binds those below.",
+      "adr": "ch.11 governance",
+      "shows_forbidden": [],
+      "treatment": "KEEP",
+      "rationale": "N1-N5 are NORMATIVE levels (uses 'NIVEL'), not the ecosystem 'camadas' stack and not certification levels. Not the forbidden 4/5-layer architecture."
+    },
+    {
+      "path": "website/public/diagrams/protocol/banza-operator-conformance-lifecycle-v1.svg",
+      "consumer": ["REFERENCIA", "REF-PT", "REGISTRY", "audit docs"],
+      "concept": "Operator conformance lifecycle (6 steps) — candidate -> sandbox -> PASS -> publish signed metadata -> registry index -> peer Open Trust Evaluation; fail-closed.",
+      "adr": "ADR-039/ADR-064/ADR-065",
+      "shows_forbidden": [],
+      "treatment": "KEEP_WITH_REVIEW",
+      "rationale": "No L-levels; 'nao e certificado' disclaimer present. Align 'PASS' wording to the certification model on the ch.7 rewrite."
+    },
+    {
+      "path": "website/public/diagrams/protocol/banza-operator-l0-endpoints-v1.svg",
+      "consumer": ["REFERENCIA", "REF-PT", "REF-EN", "audit docs"],
+      "concept": "L0 sandbox operator endpoints — GET /health and /.well-known/banza/operator.json minimal manifest with sandbox safety properties.",
+      "adr": "ADR-021/ADR-039",
+      "shows_forbidden": ["'Endpoints L0 do operador de sandbox' (title) + 'certification_level' manifest field — L0 as a certification level"],
+      "treatment": "REWRITE",
+      "rationale": "Reframe L0 as sandbox conformance scope, not a certification level; keep the endpoints content."
+    },
+    {
+      "path": "website/public/diagrams/protocol/banza-operators-v1.svg",
+      "consumer": ["REFERENCIA", "REF-PT", "REGISTRY", "audit docs"],
+      "concept": "Operator conformance-LEVELS chart — L0 Sandbox, L1 Payment, L2 Initiation, L3 Inter-Op, L4 External; cumulative.",
+      "adr": "ADR-021 (levels) — superseded framing",
+      "shows_forbidden": ["L0", "L1", "L2", "L3", "L4 — the certification-levels-as-levels chart ('Niveis de Conformidade de Operadores', 'Cada nivel e cumulativo')"],
+      "treatment": "REWRITE",
+      "rationale": "This IS the retired L0-L4 certification-levels diagram. Replace with the L2 certification model (Certification Profile -> CertifiedImplementation -> CertificationRecord + states), demoting L0-L4 to conformance scope."
+    },
+    {
+      "path": "website/public/diagrams/protocol/banza-protocol-architecture-overview-v1.svg",
+      "consumer": ["REFERENCIA", "REF-PT", "REGISTRY", "audit docs", "website/lib/m2_14j-public-consistency.test.ts"],
+      "concept": "Architecture overview — 'O OPERADOR EXECUTA / O BANZA DEFINE / FORA DO PROTOCOLO'; BanzAI as primary interface at the boundary; no fund flow.",
+      "adr": "ADR-059 (three-layer), ADR-054",
+      "shows_forbidden": [],
+      "treatment": "REWRITE",
+      "rationale": "Not forbidden as-is (BanzAI = interface, no layer count), but this is the primary architecture diagram and does NOT depict the canonical THREE-LAYER model (L1 protocol / L2 certification / L3 scheme). Rewrite to the three-layer architecture."
+    },
+    {
+      "path": "website/public/diagrams/protocol/banza-protocol-architecture-v1.svg",
+      "consumer": ["REFERENCIA", "REF-PT", "REGISTRY", "audit docs"],
+      "concept": "Protocol architecture — BanzAI guides -> engines verify -> evidence proves -> governance decides; machine-to-machine rail bypasses BanzAI.",
+      "adr": "ADR-059 D-059-04/05, ADR-054",
+      "shows_forbidden": [],
+      "treatment": "REWRITE",
+      "rationale": "BanzAI shown as flow entry, not a layer (good). Rewrite/augment to also carry the three-layer model and the 'Rust decides / Qwen explains' authority rule explicitly."
+    },
+    {
+      "path": "website/public/diagrams/protocol/banza-reference-operator-v1.svg",
+      "consumer": ["REFERENCIA", "REF-PT", "audit docs"],
+      "concept": "Reference-operator internal architecture — CAMADA 1 (orchestration) + CAMADA 2 (financial core) + published protocol artifacts.",
+      "adr": "ADR-003 (operator separation)",
+      "shows_forbidden": ["'L0 health check · L1 carteiras e QR · L2 liquidacao · L3 federacao · L4 acquiring' footer — L0-L4 certification levels"],
+      "treatment": "REWRITE",
+      "rationale": "Remove the L0-L4 footer level framing (the two 'CAMADA 1/2' are internal operator layers, not the ecosystem stack — those are fine). Consider whether a generic 'reference operator' internal diagram belongs on a protocol surface at all vs Operador Zero."
+    },
+    {
+      "path": "website/public/diagrams/protocol/banza-roadmap-m1-m6-v1.svg",
+      "consumer": ["REFERENCIA", "REF-PT", "REGISTRY", "audit docs"],
+      "concept": "Roadmap M1-M6 — Spec (done) -> Production Trust -> First Operator -> BanzAI Operational -> Validation Studio (M5) -> Public Launch.",
+      "adr": "ch.14 roteiro",
+      "shows_forbidden": ["'Estudio de Validacao' (M5) — legacy validation-tooling framing adjacent to 'Validation Workbench'"],
+      "treatment": "REWRITE",
+      "rationale": "Reword the M5 label away from a 'Validation Studio/Workbench' product; also verify the roadmap milestones still match the three-layer/M2.19 reality."
+    },
+    {
+      "path": "website/public/diagrams/protocol/banza-trust-v1.svg",
+      "consumer": ["REFERENCIA", "REF-PT", "REGISTRY", "audit docs"],
+      "concept": "Trust infrastructure — 5 PKI levels (Root Key offline -> Key Manifest -> Issuing Keys -> signed metadata/BRL/evidence -> operator network); offline verification.",
+      "adr": "ADR-038 (trust), ADR-028 (keys)",
+      "shows_forbidden": ["'cinco camadas' present ONLY in the non-rendered <desc> accessibility text (visible text uses 'NIVEL 1-5')"],
+      "treatment": "REWRITE",
+      "rationale": "Reword the <desc> to avoid 'cinco camadas' (which reads as the forbidden 5-layer architecture); the visible PKI-level hierarchy is legitimate."
+    },
+    {
+      "path": "website/public/diagrams/protocol/banzai-native-protocol-agent.svg",
+      "consumer": ["REFERENCIA", "REF-PT", "REGISTRY", "website/lib/decisions.ts", "website/components/home/nativeAgent.test.ts", "audit docs"],
+      "concept": "BanzAI as protocol agent — guides operator from manifest to federation; agent not authority; rule provenance RFC/ADR -> release.",
+      "adr": "ADR-041 (superseded framing) / ADR-054 / ADR-067",
+      "shows_forbidden": [],
+      "treatment": "KEEP_WITH_REVIEW",
+      "rationale": "BanzAI drawn as an 'Agent' node, not a layer. Referenced by decisions.ts/home test — review that its provenance/agent framing matches ADR-067 'single interface' and does not imply BanzAI-as-layer (ADR-041 is retired framing)."
+    },
+    {
+      "path": "website/public/diagrams/protocol/banzai-operator-journey.svg",
+      "consumer": ["REFERENCIA", "REF-PT", "REGISTRY", "website/lib/banzaOperatorJourney.ts", "operadorZeroJourney.ts", "operatorJourneyE2E.test.ts", "docs/banzai/OPERATOR_JOURNEY.md"],
+      "concept": "BanzAI-guided operator journey — 9 steps (Ler Referencia -> Manifest -> SimB -> Conformidade -> Trust -> Evidence Bundle -> Publicar metadata -> Verificacao por pares -> Federacao).",
+      "adr": "ADR-067 D-067-02 (9-step journey)",
+      "shows_forbidden": [],
+      "treatment": "REWRITE",
+      "rationale": "Correct 9-step count, but the step NAMES differ from the canonical journey (Discovery, Manifest, Keys, Conformance, Interoperability, Trust, Federation, Evidence Bundle, Certification Readiness). Align labels to ADR-067's nine canonical steps."
+    },
+    {
+      "path": "website/public/diagrams/protocol/banzai-responsibility-matrix.svg",
+      "consumer": ["REFERENCIA", "REF-PT", "REGISTRY", "audit docs"],
+      "concept": "'Who does what' — regulators / operator / Rust engines / BanzAI / peers / open governance, each with role + boundary.",
+      "adr": "ADR-059 D-059-04/05, ADR-061",
+      "shows_forbidden": [],
+      "treatment": "KEEP_WITH_REVIEW",
+      "rationale": "Authority-boundary diagram (candidate canonical). Review it reflects the three-layer owners and cert!=admission!=authorisation."
+    },
+    {
+      "path": "website/public/diagrams/protocol/banzai-rule-provenance.svg",
+      "consumer": ["REFERENCIA", "REF-PT", "REGISTRY", "audit docs"],
+      "concept": "Rule provenance — RFC/ADR -> specs/contracts -> BANZA reference -> engines verify -> BanzAI guides -> operator executes; AI output is not a rule.",
+      "adr": "ADR-059 D-059-05, ADR-055",
+      "shows_forbidden": [],
+      "treatment": "KEEP",
+      "rationale": "Correct 'Rust decides / AI is not a rule' framing."
+    },
+    {
+      "path": "website/public/diagrams/protocol/banzai-single-answer-pipeline.svg",
+      "consumer": ["REFERENCIA", "REF-PT", "REGISTRY", "docs/reports/M2_18B7_ACCEPTANCE_AUDIT.md"],
+      "concept": "Single-answer pipeline — one Rust router, exact terminals (0 Qwen calls), one Qwen synthesis, Rust factual validator before publishing.",
+      "adr": "ADR-055/ADR-056",
+      "shows_forbidden": [],
+      "treatment": "KEEP",
+      "rationale": "BanzAI ask-mode internals; unaffected."
+    },
+    {
+      "path": "website/public/diagrams/protocol/open-trust-evaluation-v1.svg",
+      "consumer": ["REFERENCIA", "REF-PT", "REGISTRY", "docs/governance/BANZA_TRUST_ARCHITECTURE.md", "audit docs"],
+      "concept": "Open Trust Evaluation — 5 evidence inputs, 10 deterministic checks, Routing-Allowed vs Fail-Closed; Operator A/B, no central arbiter.",
+      "adr": "ADR-038 (OTE)",
+      "shows_forbidden": [],
+      "treatment": "KEEP",
+      "rationale": "Canonical trust diagram; registry not framed as certified-operator list; disclaimers present."
+    },
+    {
+      "path": "website/public/diagrams/protocol/operador-zero-architecture-mono-v1.svg",
+      "consumer": ["REGISTRY", "website/lib/zeroSubdomain.test.ts"],
+      "concept": "Operador Zero architecture (mono) — Rust/WASM core, fictional ledger, Demo Operator Root, read-only JSON endpoints, in-memory BanzAI clone.",
+      "adr": "ADR-052 (superseded by ADR-067)",
+      "shows_forbidden": ["'arquitectura do simulador'", "'Ledger ficticio'", "'(laboratorio)' footer — Operador Zero as simulator + ledger + lab"],
+      "treatment": "DELETE",
+      "rationale": "Catalog/test-only mono variant carrying the retired simulator/ledger/lab framing. Superseded by operador-zero-validation-target-v2 / separation-of-responsibilities-v2."
+    },
+    {
+      "path": "website/public/diagrams/protocol/operador-zero-architecture-v1.svg",
+      "consumer": ["REFERENCIA (embedded, ch.9 l.1649)", "REGISTRY"],
+      "concept": "Operador Zero architecture (detailed) — Rust/WASM core, fictional ledger, Demo Operator Root, read-only endpoints, in-memory BanzAI clone.",
+      "adr": "ADR-052 (superseded by ADR-067)",
+      "shows_forbidden": ["'arquitectura do simulador'", "'Ledger ficticio'", "footer 'Arquitectura do Simulador' — simulator + ledger framing"],
+      "treatment": "REPLACE",
+      "rationale": "Embedded in reference ch.9. Replace the embed with the clean v2 (operador-zero-validation-target-v2 / separation-of-responsibilities-v2) and delete this v1 during the ch.9 rewrite (ADR-067 read-only reference)."
+    },
+    {
+      "path": "website/public/diagrams/protocol/operador-zero-e2e-journey-mono-v1.svg",
+      "consumer": ["REGISTRY"],
+      "concept": "Operador Zero E2E journey (mono) — Manifest->Conformidade->Trust->Federacao->Evidence->Traces progress with score.",
+      "adr": "ADR-052 (superseded)",
+      "shows_forbidden": ["'100 / 100'", "'(laboratorio)' footer"],
+      "treatment": "DELETE",
+      "rationale": "Catalog/test-only; carries the forbidden '100/100' score and lab framing; superseded by operador-zero-validation-journey-v2 (nove passos, no score)."
+    },
+    {
+      "path": "website/public/diagrams/protocol/operador-zero-e2e-journey-v1.svg",
+      "consumer": ["REFERENCIA (embedded, ch.9 l.1690)", "REGISTRY"],
+      "concept": "Operador Zero E2E journey — 6 steps (Manifest, Conformidade, Trust, Pagamento, Federacao, Evidence Bundle) + Traces; scored.",
+      "adr": "ADR-052 (superseded by ADR-067)",
+      "shows_forbidden": ["'100 / 100' — forbidden score; also only 6 steps (canonical journey is 9-step)"],
+      "treatment": "REPLACE",
+      "rationale": "Embedded in reference ch.9. Replace with the 9-step operador-zero-validation-journey-v2 (no score) and delete this v1 on the ch.9 rewrite."
+    },
+    {
+      "path": "website/public/diagrams/protocol/operador-zero-ledger-kzdemo-v1.svg",
+      "consumer": ["REFERENCIA (embedded, ch.9 l.1676)", "REGISTRY"],
+      "concept": "Operador Zero fictional KZ_DEMO ledger — 3 demo accounts, QR payment + partial refund, total conserved, monetary_value:false.",
+      "adr": "ADR-052 (superseded by ADR-067)",
+      "shows_forbidden": ["'ledger ficticio KZ_DEMO' (title)", "'Liquidacao do simulador' — Operador Zero as ledger + simulator"],
+      "treatment": "DELETE",
+      "rationale": "Embedded in reference ch.9. ADR-067 says the read-only reference runs NO mutable ledger; delete and drop the embed (the ledger illustration is not a canonical read-only-reference concept)."
+    },
+    {
+      "path": "website/public/diagrams/protocol/operador-zero-ledger-mono-v1.svg",
+      "consumer": ["REGISTRY"],
+      "concept": "Operador Zero KZ_DEMO ledger (mono) — same accounts/flow, conservation.",
+      "adr": "ADR-052 (superseded)",
+      "shows_forbidden": ["'ledger ficticio KZ_DEMO' (title)", "'(laboratorio)' footer"],
+      "treatment": "DELETE",
+      "rationale": "Catalog/test-only ledger+lab variant; not a read-only-reference concept (ADR-067)."
+    },
+    {
+      "path": "website/public/diagrams/protocol/operador-zero-negative-flow-mono-v1.svg",
+      "consumer": ["REGISTRY"],
+      "concept": "Operador Zero negative flow (mono) — 9 controlled failures/blocks; no false progression.",
+      "adr": "ADR-052 (superseded)",
+      "shows_forbidden": ["'(laboratorio)' footer — Operador Zero as lab"],
+      "treatment": "DELETE",
+      "rationale": "Catalog/test-only; lab framing; the read-only reference does not execute a negative-flow simulation (ADR-067)."
+    },
+    {
+      "path": "website/public/diagrams/protocol/operador-zero-negative-flow-v1.svg",
+      "consumer": ["REFERENCIA (embedded, ch.9 l.1708)", "REGISTRY"],
+      "concept": "Operador Zero negative flow — nine controlled failures each producing a real block; evidence does not rise.",
+      "adr": "ADR-052 (superseded by ADR-067)",
+      "shows_forbidden": ["(no forbidden VISIBLE title/footer; incidental 'o ledger ficticio nao muda' mention)"],
+      "treatment": "REPLACE",
+      "rationale": "Embedded in reference ch.9 but depicts self-executed simulation (a negative-flow run), which the read-only reference does NOT do (ADR-067). Drop the embed; validation/failure behaviour belongs to the BanzAI 9-step journey diagrams."
+    },
+    {
+      "path": "website/public/diagrams/protocol/operador-zero-proof-chain-v2.svg",
+      "consumer": ["REGISTRY"],
+      "concept": "Verifiable proof chain (v2) — hash-linked Manifest->Metadata->Evidence->Certification Record->Registry Verification; anyone re-verifies.",
+      "adr": "ADR-064/ADR-065/ADR-067",
+      "shows_forbidden": [],
+      "treatment": "KEEP",
+      "rationale": "Clean v2. 'Certification Record' shown correctly ('nao e um certificado'); maps to the emission->registry canonical diagram. Candidate to EMBED on the rewritten ch.9 / a certification page."
+    },
+    {
+      "path": "website/public/diagrams/protocol/operador-zero-separation-of-responsibilities-v2.svg",
+      "consumer": ["REGISTRY"],
+      "concept": "Separation of responsibilities (v2) — 5 roles (Operador Zero / BanzAI / Rust / Qwen / Registry), each with function + boundary.",
+      "adr": "ADR-067 D-067-03 (BanzAI initiates · OZ responds · Rust evaluates · Registry publishes · Qwen explains)",
+      "shows_forbidden": [],
+      "treatment": "KEEP",
+      "rationale": "Clean v2 authority-boundary diagram ('cinco papeis' = five roles, not layers; OZ 'e o alvo, nunca o juiz'). Candidate to EMBED on the rewritten ch.9 / /oz."
+    },
+    {
+      "path": "website/public/diagrams/protocol/operador-zero-validation-journey-v2.svg",
+      "consumer": ["REGISTRY"],
+      "concept": "Validation journey (v2) — nove passos (Descoberta, Manifesto, Chaves, Conformidade, Interoperabilidade, Confianca, Federacao, Evidencia, +); BanzAI leads, Rust evaluates.",
+      "adr": "ADR-067 D-067-02 (9-step journey)",
+      "shows_forbidden": [],
+      "treatment": "KEEP_WITH_REVIEW",
+      "rationale": "Clean canonical 9-step v2 ('Sem simulador autonomo'). Verify step 9 label is 'Certification Readiness' (Preparacao para Certificacao). EMBED on the rewritten ch.9 / /banzai validation."
+    },
+    {
+      "path": "website/public/diagrams/protocol/operador-zero-validation-target-v2.svg",
+      "consumer": ["OZ-PAGE (website/app/oz/page.tsx noscript + OperadorZeroReference.tsx)", "REGISTRY"],
+      "concept": "Operador Zero as validation target (v2) — read-only reference implementation; BanzAI initiates, Rust evaluates, Registry publishes; OZ never self-validates.",
+      "adr": "ADR-067 D-067-01/02",
+      "shows_forbidden": [],
+      "treatment": "KEEP",
+      "rationale": "The only Operador Zero diagram actually RENDERED on a page (/oz). Canonical read-only framing ('Sem simulador autonomo · sem ledger mutavel')."
+    },
+    {
+      "path": "website/public/diagrams/protocol/postgresql-data-boundary-v1.svg",
+      "consumer": ["REFERENCIA", "REF-PT", "website/lib/postgresqlBoundary.test.ts"],
+      "concept": "PostgreSQL data boundary — stores protocol state (signed artifacts, empty operator registry, evidence hashes, agent index, audit) vs never financial value.",
+      "adr": "ADR-042 (PostgreSQL as protocol-state store)",
+      "shows_forbidden": [],
+      "treatment": "KEEP",
+      "rationale": "Correct data-boundary framing; ch.5."
+    },
+    {
+      "path": "website/public/diagrams/protocol/postgresql-protocol-state-v1.svg",
+      "consumer": ["REFERENCIA", "REF-PT", "website/lib/postgresqlBoundary.test.ts"],
+      "concept": "PostgreSQL protocol-state tables — trust/registry (root/key manifest, operators/certificates empty), agent index (pgvector), audit, protocol_state=pre-production.",
+      "adr": "ADR-042",
+      "shows_forbidden": ["visible 'operators · certificates — vazios em pre-producao' names a `certificates` table (not a /certificates route nor 'certificado de operador') — low concern"],
+      "treatment": "KEEP_WITH_REVIEW",
+      "rationale": "A DB table named 'certificates' shown empty is not the forbidden CA/route framing. Optionally rename to 'certification_records' to match ADR-064/065 vocabulary during the ch.5 rewrite."
+    },
+    {
+      "path": "website/public/diagrams/protocol/postgresql-service-access-v1.svg",
+      "consumer": ["REFERENCIA", "REF-PT", "website/lib/postgresqlBoundary.test.ts"],
+      "concept": "PostgreSQL least-privilege access — banza_ro (read), banza_gov (governed writes), banzai_rw (agent index only); no public port.",
+      "adr": "ADR-042/ADR-034",
+      "shows_forbidden": ["'/operators · /certificates' — the forbidden /certificates route shown as a public route"],
+      "treatment": "REWRITE",
+      "rationale": "Remove the /certificates route from the served-routes label (replace with the Technical Registry route surface per ADR-065); the access-control content is otherwise fine."
+    }
+  ],
+  "summary": {
+    "total_svgs": 42,
+    "by_treatment": {
+      "KEEP": 14,
+      "KEEP_WITH_REVIEW": 8,
+      "REWRITE": 12,
+      "REPLACE": 3,
+      "DELETE": 5,
+      "ADD": 0
+    },
+    "forbidden_visible_text_hits": {
+      "L0_L4_as_levels": ["banza-operators-v1.svg", "banza-certification-v1.svg", "banza-reference-operator-v1.svg", "banza-operator-l0-endpoints-v1.svg", "banza-controlled-federation-gate-v1.svg"],
+      "certificates_route": ["postgresql-service-access-v1.svg"],
+      "sem_acordos_bilaterais_absolute": ["banza-federation-v1.svg"],
+      "operador_zero_simulator_ledger_lab_100_100": ["operador-zero-architecture-v1.svg", "operador-zero-architecture-mono-v1.svg", "operador-zero-ledger-kzdemo-v1.svg", "operador-zero-ledger-mono-v1.svg", "operador-zero-e2e-journey-v1.svg", "operador-zero-e2e-journey-mono-v1.svg", "operador-zero-negative-flow-mono-v1.svg"],
+      "cinco_camadas_in_desc_only": ["banza-trust-v1.svg"],
+      "validation_studio_legacy": ["banza-roadmap-m1-m6-v1.svg"]
+    },
+    "reference_embeds_stale_v1_operador_zero": {
+      "note": "website/content/BANZA_REFERENCIA.md ch.9 still embeds the v1 Operador Zero diagrams (architecture-v1 l.1649, ledger-kzdemo-v1 l.1676, e2e-journey-v1 l.1690, negative-flow-v1 l.1708) that carry simulator/ledger/100-100 framing, while the clean v2 set (proof-chain, separation-of-responsibilities, validation-journey) exists only in the SVG registry catalog and is not embedded on any rendered page. Only operador-zero-validation-target-v2 is actually rendered (on /oz).",
+      "action": "On the ch.9 rewrite, drop the v1 embeds and embed the v2 set."
+    },
+    "canonical_diagrams_needed": [
+      {
+        "name": "Three-layer institutional architecture (L1 protocol / L2 certification / L3 scheme, BanzAI transversal)",
+        "adr": "ADR-059",
+        "status": "MISSING — no SVG depicts the three-layer stack; banza-protocol-architecture-* are boundary/flow diagrams. ADD (or REWRITE banza-protocol-architecture-overview-v1 into it)."
+      },
+      {
+        "name": "Validation journey (9-step: Discovery, Manifest, Keys, Conformance, Interoperability, Trust, Federation, Evidence Bundle, Certification Readiness)",
+        "adr": "ADR-067 D-067-02",
+        "status": "EXISTS (v2) — operador-zero-validation-journey-v2.svg + banzai-operator-journey.svg (the latter needs label alignment). Embed on the rewritten surfaces."
+      },
+      {
+        "name": "Certification emission -> Technical Registry (Profile -> CertifiedImplementation -> CertificationRecord -> Registry)",
+        "adr": "ADR-064/ADR-065/ADR-066",
+        "status": "PARTIAL — operador-zero-proof-chain-v2.svg covers the hash chain into the registry. ADD a dedicated certification-model + state-machine diagram (NOT_CERTIFIED/CERTIFIED/EXPIRED/SUSPENDED/REVOKED/SUPERSEDED)."
+      },
+      {
+        "name": "Technical Certification (L2) != Scheme Admission (L3) != Regulatory Authorisation (three distinct owners, non-propagation)",
+        "adr": "ADR-061",
+        "status": "MISSING — no SVG depicts the three-determinations separation. ADD (banza-evidence-vs-certificate-v1 covers only cert vs authorisation, not admission)."
+      },
+      {
+        "name": "Operador Zero read-only reference flow (BanzAI initiates · OZ responds · Rust evaluates · Registry publishes · Qwen explains)",
+        "adr": "ADR-067 D-067-01/03",
+        "status": "EXISTS (v2) — operador-zero-validation-target-v2.svg (rendered on /oz) + operador-zero-separation-of-responsibilities-v2.svg."
+      },
+      {
+        "name": "Authority boundary (Rust decides / Qwen explains once / governance decides / regulator authorises)",
+        "adr": "ADR-059 D-059-05, ADR-037",
+        "status": "EXISTS (partial) — banzai-rule-provenance.svg + banzai-responsibility-matrix.svg + banza-protocol-architecture-v1.svg. Confirm they match the three-layer owners."
+      }
+    ]
+  }
+}

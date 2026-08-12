@@ -1,0 +1,324 @@
+openapi: 3.1.0
+info:
+  title: BANZA Collections API
+  version: "1.0"
+  description: >
+    Canonical protocol surface for Payment Collections (ADR-016). A Collection is
+    a composite financial obligation grouping N CollectionShares; each share is
+    settled by its own PaymentIntent (ADR-014) -> Transfer -> Ledger. A Collection
+    NEVER holds or moves money and NEVER posts to the ledger.
+
+    This is the operator-AGNOSTIC protocol surface. It defines what every BANZA
+    operator MUST expose; it contains no operator-specific endpoints. Authority:
+    ADR-016. Scope v1: single-operator (cross-operator settlement is deferred to a
+    future federation ADR).
+  x-authority: ADR-016
+  x-certification-level: 2
+  x-capability: supports_collections
+
+servers:
+  - url: https://{operator-host}/v1
+    variables:
+      operator-host:
+        default: api.operator.example
+
+tags:
+  - name: collections
+  - name: shares
+
+paths:
+  /collections:
+    post:
+      tags: [collections]
+      operationId: createCollection
+      summary: Create a collection (DRAFT or OPEN)
+      description: >
+        Idempotent on Idempotency-Key (INV-COLLECTION-008). For closed rules
+        (EQUAL_SPLIT/FIXED_AMOUNTS/PERCENTAGE) the resolved shares MUST sum to
+        total_amount_minor (INV-COLLECTION-002); EQUAL_SPLIT with EXACT divisibility
+        rejects a non-divisible total (INV-COLLECTION-003) with 422.
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CreateCollectionRequest' }
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Collection' }
+        '422':
+          description: Indivisible total / rule violation (no silent rounding)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+
+  /collections/{id}:
+    get:
+      tags: [collections]
+      operationId: getCollection
+      summary: Get a collection (with derived collected/remaining)
+      parameters: [ { $ref: '#/components/parameters/CollectionId' } ]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Collection' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    patch:
+      tags: [collections]
+      operationId: updateCollection
+      summary: Update mutable fields (owner only; pre-OPEN for structural fields)
+      description: >
+        Only the owner may mutate. After OPEN, currency/rule/(closed)
+        total_amount_minor are immutable (INV-COLLECTION-007); attempts return 409.
+      parameters: [ { $ref: '#/components/parameters/CollectionId' } ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/UpdateCollectionRequest' }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Collection' }
+        '409':
+          description: Immutable field after OPEN
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+
+  /collections/{id}/shares:
+    get:
+      tags: [shares]
+      operationId: listShares
+      summary: List shares (paginated — scales to thousands)
+      parameters:
+        - { $ref: '#/components/parameters/CollectionId' }
+        - { in: query, name: cursor, schema: { type: string } }
+        - { in: query, name: limit, schema: { type: integer, default: 50, maximum: 200 } }
+        - { in: query, name: status, schema: { $ref: '#/components/schemas/ShareStatus' } }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [data]
+                properties:
+                  data: { type: array, items: { $ref: '#/components/schemas/CollectionShare' } }
+                  next_cursor: { type: [string, "null"] }
+    post:
+      tags: [shares]
+      operationId: createShare
+      summary: Create a share (open-contribution rules; or pre-declared participants)
+      description: >
+        Idempotent on Idempotency-Key. For OPEN_CONTRIBUTION/MINIMUM_CONTRIBUTION a
+        new share is created per contributor; MINIMUM_CONTRIBUTION enforces min_minor
+        (422 below floor). Each share gets its own PaymentIntent (ADR-014).
+      parameters:
+        - { $ref: '#/components/parameters/CollectionId' }
+        - { $ref: '#/components/parameters/IdempotencyKey' }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CreateShareRequest' }
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CollectionShare' }
+        '422':
+          description: Below minimum / rule violation
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+
+  /collections/{id}/close:
+    post:
+      tags: [collections]
+      operationId: closeCollection
+      summary: Close a collection (owner only)
+      description: >
+        Moves OPEN/PARTIALLY_COMPLETED -> COMPLETED (if fully collected) or settles
+        as PARTIALLY_COMPLETED/EXPIRED per rule. Does not move money.
+      parameters: [ { $ref: '#/components/parameters/CollectionId' } ]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Collection' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+
+  /collections/{id}/cancel:
+    post:
+      tags: [collections]
+      operationId: cancelCollection
+      summary: Cancel a collection (owner only)
+      description: >
+        Cancels the collection and its unpaid shares. PAID shares are terminal and
+        unaffected (already-settled money is never reversed here; refunds follow
+        ADR-017 per share).
+      parameters: [ { $ref: '#/components/parameters/CollectionId' } ]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Collection' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+
+  /collections/{id}/events:
+    get:
+      tags: [collections]
+      operationId: getCollectionEvents
+      summary: Event history for a collection (audit trail / event-sourcing)
+      parameters: [ { $ref: '#/components/parameters/CollectionId' } ]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: { type: array, items: { $ref: '#/components/schemas/CollectionEvent' } }
+
+components:
+  parameters:
+    CollectionId:
+      in: path
+      name: id
+      required: true
+      schema: { type: string }
+    IdempotencyKey:
+      in: header
+      name: Idempotency-Key
+      required: true
+      schema: { type: string }
+      description: Idempotency key (INV-COLLECTION-008).
+
+  responses:
+    Unauthorized: { description: Unauthorized, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+    Forbidden:    { description: Forbidden (not the owner), content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+    NotFound:     { description: Not found, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+
+  schemas:
+    Collection:
+      description: See contracts/collections/collection.schema.json (canonical).
+      type: object
+      required: [id, operator_id, creator, owner, currency, total_amount_minor, status, rule, version, created_at]
+      properties:
+        id: { type: string }
+        operator_id: { type: string }
+        creator: { type: string }
+        owner: { type: string }
+        merchant_id: { type: [string, "null"] }
+        title: { type: [string, "null"] }
+        description: { type: [string, "null"] }
+        currency: { type: string }
+        total_amount_minor: { type: integer, description: "Integer minor units; never float." }
+        status: { $ref: '#/components/schemas/CollectionStatus' }
+        rule: { $ref: '#/components/schemas/CollectionRule' }
+        collected_amount_minor: { type: integer, description: "Derived: sum of PAID shares." }
+        remaining_amount_minor: { type: integer }
+        expires_at: { type: [string, "null"], format: date-time }
+        closed_at: { type: [string, "null"], format: date-time }
+        metadata: { type: object }
+        version: { type: integer }
+        created_at: { type: string, format: date-time }
+        updated_at: { type: [string, "null"], format: date-time }
+
+    CollectionShare:
+      description: See contracts/collections/collection-share.schema.json (canonical).
+      type: object
+      required: [id, collection_id, amount_minor, currency, status]
+      properties:
+        id: { type: string }
+        collection_id: { type: string }
+        participant: { type: [string, "null"] }
+        amount_minor: { type: integer }
+        currency: { type: string }
+        status: { $ref: '#/components/schemas/ShareStatus' }
+        payment_intent_id: { type: [string, "null"], description: "ADR-014 PaymentIntent backing this share." }
+        transfer_id: { type: [string, "null"], description: "Real settling Transfer; set only when PAID." }
+        paid_at: { type: [string, "null"], format: date-time }
+        expires_at: { type: [string, "null"], format: date-time }
+        metadata: { type: object }
+
+    CollectionRule:
+      description: See contracts/collections/collection-rule.schema.json (canonical, extensible).
+      type: object
+      required: [type]
+      properties:
+        type: { type: string, enum: [EQUAL_SPLIT, FIXED_AMOUNTS, PERCENTAGE, OPEN_CONTRIBUTION, MINIMUM_CONTRIBUTION] }
+      additionalProperties: true
+
+    CollectionStatus:
+      type: string
+      enum: [DRAFT, OPEN, PARTIALLY_COMPLETED, COMPLETED, EXPIRED, CANCELLED, FAILED]
+    ShareStatus:
+      type: string
+      enum: [PENDING, LINK_CREATED, PAID, EXPIRED, CANCELLED, FAILED]
+
+    CreateCollectionRequest:
+      type: object
+      required: [currency, total_amount_minor, rule]
+      properties:
+        title: { type: string }
+        description: { type: string }
+        merchant_id: { type: string }
+        currency: { type: string }
+        total_amount_minor: { type: integer, description: "Integer minor units." }
+        rule: { $ref: '#/components/schemas/CollectionRule' }
+        expires_at: { type: string, format: date-time }
+        open_immediately: { type: boolean, default: true, description: "false -> DRAFT; true -> OPEN." }
+        metadata: { type: object }
+
+    UpdateCollectionRequest:
+      type: object
+      properties:
+        title: { type: string }
+        description: { type: string }
+        expires_at: { type: string, format: date-time }
+        metadata: { type: object }
+
+    CreateShareRequest:
+      type: object
+      required: [amount_minor]
+      properties:
+        amount_minor: { type: integer, description: "Integer minor units. MINIMUM_CONTRIBUTION enforces min_minor." }
+        participant: { type: string }
+        expires_at: { type: string, format: date-time }
+        metadata: { type: object }
+
+    CollectionEvent:
+      type: object
+      description: BanzaEvent envelope; event_type in collection.* / collection.share.* (see contracts/events/types.json).
+      properties:
+        id: { type: string }
+        event_type: { type: string }
+        aggregate_type: { type: string, enum: [collection, collection_share] }
+        aggregate_id: { type: string }
+        trace_id: { type: string }
+        payload: { type: object }
+        created_at: { type: string, format: date-time }
+
+    Error:
+      type: object
+      required: [code, message]
+      properties:
+        code: { type: string }
+        message: { type: string }

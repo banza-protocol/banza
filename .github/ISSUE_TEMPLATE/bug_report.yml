@@ -1,0 +1,59 @@
+name: Bug Report
+description: Report a bug or unexpected behavior in the BANZA protocol implementation
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. Fill in as much detail as possible to help us reproduce and fix it.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Rust core (ledger, wallets, transactions, settlement)
+        - SDK (TypeScript, PHP, Go, Python, Flutter)
+        - Contracts (OpenAPI, webhooks, QR spec)
+        - Conformance / certification suite
+        - Documentation
+        - Infrastructure / build
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happened? What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. ...
+        2. ...
+        3. Observed: ...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - Critical — financial invariant violated, data corruption, money created/destroyed
+        - High — functionality broken, certification failure
+        - Medium — degraded functionality, wrong output
+        - Low — cosmetic, documentation, minor ergonomic issue
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Version, environment, relevant logs

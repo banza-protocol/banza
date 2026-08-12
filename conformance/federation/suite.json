@@ -1,0 +1,631 @@
+{
+  "_spec": "BANZA Federation Conformance Suite v1.0",
+  "_description": "Validates cross-operator federation: the Open Trust Evaluation over an operator's published signed protocol metadata and conformance evidence, operator discovery, routing, execution, obligations, events, settlement, and failure modes.",
+
+  "suite_id": "federation",
+  "suite_name": "Federation Conformance — L3",
+  "protocol_version": "1.0",
+  "certification_level": 3,
+  "fixture_base": "conformance/fixtures/federation",
+  "contract_refs": [
+    "contracts/federation/federation-routing.json",
+    "contracts/federation/federation-obligation.json",
+    "contracts/federation/federation-event.json",
+    "contracts/federation/federation-manifest.json",
+    "contracts/federation/federation-trust.json",
+    "contracts/production/signed-protocol-metadata.production.schema.json",
+    "contracts/production/conformance-evidence.production.schema.json",
+    "contracts/production/federation-trust-evaluation.production.schema.json"
+  ],
+  "adr_refs": ["ADR-038", "ADR-039", "ADR-040"],
+
+  "sub_suites": [
+    {
+      "id": "FED-SPM",
+      "name": "Signed Protocol Metadata Validation",
+      "description": "An operator's published signed protocol metadata is accepted only when it is not expired, its signature resolves to the trust root or a delegated signing key in the active Key Manifest, its signing key_id is listed there, and the accompanying conformance evidence is valid.",
+      "certification_level": 3,
+      "invariants": ["INV-ROOT-008"],
+      "cases": [
+        {
+          "id": "FED-SPM-001",
+          "title": "Valid signed protocol metadata accepted",
+          "fixture": "SPM-A-VALID",
+          "expected": "accepted",
+          "description": "Signed protocol metadata whose signature resolves to a key in the active Key Manifest, with an active issuer_key_id and a future expiry, must be accepted."
+        },
+        {
+          "id": "FED-SPM-002",
+          "title": "Expired signed protocol metadata rejected",
+          "fixture": "SPM-EXPIRED",
+          "expected": "rejected",
+          "expected_error": "trust_material_expired"
+        },
+        {
+          "id": "FED-SPM-003",
+          "title": "Signed protocol metadata with an invalid signature rejected",
+          "fixture": "SPM-INVALID-SIGNATURE",
+          "expected": "rejected",
+          "expected_error": "invalid_signature"
+        },
+        {
+          "id": "FED-SPM-004",
+          "title": "Unknown signing key rejected",
+          "fixture": "SPM-UNKNOWN-ISSUER-KEY-ID",
+          "expected": "rejected",
+          "expected_error": "unknown_issuer_key",
+          "description": "Signed protocol metadata whose signing key_id is not listed in the active Key Manifest must be rejected."
+        },
+        {
+          "id": "FED-SPM-005",
+          "title": "Mismatched operator_id rejected",
+          "fixture": "SPM-MISMATCHED-OPERATOR-ID",
+          "expected": "rejected",
+          "expected_error": "operator_id_mismatch"
+        },
+        {
+          "id": "FED-SPM-006",
+          "title": "L2 conformance scope cannot access L3 federation",
+          "fixture": "SPM-INSUFFICIENT-SCOPE",
+          "expected": "rejected",
+          "expected_error": "insufficient_conformance_level",
+          "description": "An operator whose published conformance evidence covers only conformance scope L2 cannot participate in L3 federation flows."
+        },
+        {
+          "id": "FED-SPM-007",
+          "title": "Metadata without routing capability cannot federate",
+          "fixture": "SPM-NO-ROUTING-CAPABILITY",
+          "expected": "rejected",
+          "expected_error": "cross_operator_routing_missing_from_capabilities"
+        },
+        {
+          "id": "FED-SPM-008",
+          "title": "Signed protocol metadata must be at canonical path",
+          "description": "The operator's signed protocol metadata must be resolvable at /.well-known/banza/signed-protocol-metadata.json on the operator's declared domain.",
+          "required_path": "/.well-known/banza/signed-protocol-metadata.json",
+          "expected": "path_verified"
+        },
+        {
+          "id": "FED-SPM-009",
+          "title": "Revoked operator (in BRL) rejected",
+          "fixture_spm": "SPM-B-VALID",
+          "fixture_brl": "BRL-REVOKED-PEER",
+          "expected": "rejected",
+          "expected_error": "operator_revoked_in_brl",
+          "description": "Structurally valid signed protocol metadata is rejected when the operator appears in the current BRL, regardless of any other trust signal. The SPM here is operator-b-test (SPM-B-VALID), the operator that BRL-REVOKED-PEER revokes — so the composed vector actually exercises operator_revoked_in_brl. (Corrected from SPM-A-VALID, whose operator-a-test was not the revoked operator, so the pairing could not produce the declared verdict.)"
+        },
+        {
+          "id": "FED-SPM-010",
+          "title": "Re-published trust material preserves operator identity",
+          "description": "When an operator re-publishes its signed protocol metadata and conformance evidence before expiry, the operator_id and public key must remain the same. A change of operator_id on re-publication is a protocol violation.",
+          "expected": "operator_id_immutable_on_republication"
+        }
+      ]
+    },
+    {
+      "id": "FED-DISC",
+      "name": "Operator Discovery",
+      "description": "Operator discovery validates manifest resolution, federation capability declaration, and manifest integrity.",
+      "certification_level": 3,
+      "invariants": ["INV-ROOT-007"],
+      "cases": [
+        {
+          "id": "FED-DISC-001",
+          "title": "Valid manifest resolved for federation",
+          "fixture": "MANIFEST-VALID",
+          "expected": "accepted",
+          "description": "A manifest with supports_federation:true and a valid signed_protocol_metadata_url is accepted for L3 routing."
+        },
+        {
+          "id": "FED-DISC-002",
+          "title": "Manifest without federation flag not routable",
+          "fixture": "MANIFEST-NO-FEDERATION",
+          "expected": "rejected",
+          "expected_error": "federation_not_supported"
+        },
+        {
+          "id": "FED-DISC-004",
+          "title": "Manifest capability mismatch rejected",
+          "fixture": "MANIFEST-CAPABILITY-MISMATCH",
+          "expected": "rejected",
+          "expected_error": "capability_mismatch"
+        },
+        {
+          "id": "FED-DISC-005",
+          "title": "Manifest with unsupported protocol version rejected",
+          "fixture": "MANIFEST-UNSUPPORTED-VERSION",
+          "expected": "rejected",
+          "expected_error": "version_unsupported"
+        },
+        {
+          "id": "FED-DISC-006",
+          "title": "Manifest with wrong operator_id rejected",
+          "fixture": "MANIFEST-WRONG-OPERATOR-ID",
+          "expected": "rejected",
+          "expected_error": "operator_id_mismatch"
+        },
+        {
+          "id": "FED-DISC-007",
+          "title": "Manifest B without federation identified correctly",
+          "fixture": "MANIFEST-B-NO-FEDERATION",
+          "expected": "rejected",
+          "expected_error": "federation_not_supported",
+          "description": "An operator-B manifest without federation support must not receive routed payments."
+        },
+        {
+          "id": "FED-DISC-008",
+          "title": "Manifest declaring federation without published conformance evidence rejected",
+          "fixture": "MANIFEST-FEDERATION-NO-EVIDENCE",
+          "expected": "rejected",
+          "expected_error": "missing_conformance_evidence",
+          "invariant": "INV-FEDEVAL-007",
+          "description": "Declaring supports_federation:true without published L3+ conformance evidence is a protocol violation: supports_federation requires published L3+ conformance evidence (INV-FEDEVAL-007)."
+        }
+      ]
+    },
+    {
+      "id": "FED-TRUST",
+      "name": "Open Trust Evaluation",
+      "description": "The Open Trust Evaluation (ADR-040) is ten conjunctive, fail-closed checks a routing peer runs locally over the evaluated operator's published material: signatures resolve to the trust root or a delegated signing key in the active Key Manifest, trust material is fresh, and nothing involved is revoked. Any missing, invalid, expired, revoked, or incompatible material fails the evaluation closed.",
+      "certification_level": 3,
+      "invariants": ["INV-ROOT-007", "INV-ROOT-008", "INV-ROOT-009"],
+      "cases": [
+        {
+          "id": "FED-TRUST-001",
+          "title": "Valid key manifest accepted",
+          "fixture": "KEY-MANIFEST-VALID",
+          "expected": "accepted"
+        },
+        {
+          "id": "FED-TRUST-002",
+          "title": "Key manifest with missing issuer key rejected",
+          "fixture": "KEY-MANIFEST-MISSING-KEY",
+          "expected": "rejected",
+          "expected_error": "missing_issuer_key"
+        },
+        {
+          "id": "FED-TRUST-003",
+          "title": "Empty BRL means no active revocations",
+          "fixture": "BRL-VALID-EMPTY",
+          "expected": "no_revocations_active"
+        },
+        {
+          "id": "FED-TRUST-004",
+          "title": "Revoked peer in BRL rejected",
+          "fixture": "BRL-REVOKED-PEER",
+          "expected": "peer_rejected",
+          "expected_error": "operator_in_revocation_list"
+        },
+        {
+          "id": "FED-TRUST-005",
+          "title": "Stale BRL triggers re-fetch before routing",
+          "fixture": "BRL-STALE",
+          "expected": "re_fetch_triggered",
+          "description": "A BRL older than the staleness threshold must be re-fetched before any routing decision."
+        },
+        {
+          "id": "FED-TRUST-006",
+          "title": "Emergency BRL update processed without delay",
+          "fixture": "BRL-EMERGENCY",
+          "expected": "processed_immediately",
+          "description": "Emergency revocations must be applied within 60 minutes per §14.9."
+        },
+        {
+          "id": "FED-TRUST-007",
+          "title": "Signature resolves from trust root through a delegated key to the operator's metadata",
+          "description": "Each step from the trust root, through a delegated signing key in the active Key Manifest, to the operator's signed protocol metadata must be cryptographically verifiable. Any gap in the chain invalidates the terminal signature.",
+          "trust_chain": ["trust_root", "delegated_signing_key", "signed_protocol_metadata"],
+          "expected": "chain_verified"
+        },
+        {
+          "id": "FED-TRUST-008",
+          "title": "Revoking a delegated signing key invalidates every signature made under it",
+          "description": "If a delegated signing key is revoked via the trust root, all signed protocol metadata and conformance evidence signed under that key become invalid regardless of their individual expiry.",
+          "expected": "all_signatures_invalid_on_delegated_key_revocation"
+        },
+        {
+          "id": "FED-TRUST-009",
+          "title": "BRL must be re-verified at each routing decision",
+          "description": "Caching the BRL result beyond the staleness window and using it for routing is a protocol violation.",
+          "max_brl_cache_seconds": 21600,
+          "expected": "brl_freshness_enforced"
+        }
+      ]
+    },
+    {
+      "id": "FED-ROUTE",
+      "name": "Federation Routing",
+      "description": "Cross-operator routing decisions must follow the routing contract. Invalid routing requests must be rejected deterministically.",
+      "certification_level": 3,
+      "contract_ref": "contracts/federation/federation-routing.json",
+      "cases": [
+        {
+          "id": "FED-ROUTE-001",
+          "title": "Valid routing request accepted",
+          "fixture": "ROUTING-REQUEST-VALID",
+          "expected": "accepted"
+        },
+        {
+          "id": "FED-ROUTE-002",
+          "title": "Unknown recipient rejected",
+          "fixture": "ROUTING-REQUEST-UNKNOWN-RECIPIENT",
+          "expected": "rejected",
+          "expected_error": "recipient_not_found"
+        },
+        {
+          "id": "FED-ROUTE-003",
+          "title": "Suspended recipient rejected",
+          "fixture": "ROUTING-REQUEST-SUSPENDED-RECIPIENT",
+          "expected": "rejected",
+          "expected_error": "recipient_suspended"
+        },
+        {
+          "id": "FED-ROUTE-004",
+          "title": "Wrong currency rejected",
+          "fixture": "ROUTING-REQUEST-WRONG-CURRENCY",
+          "expected": "rejected",
+          "expected_error": "currency_not_supported"
+        },
+        {
+          "id": "FED-ROUTE-005",
+          "title": "Wrong destination operator rejected",
+          "fixture": "ROUTING-REQUEST-WRONG-DESTINATION",
+          "expected": "rejected",
+          "expected_error": "destination_mismatch"
+        },
+        {
+          "id": "FED-ROUTE-006",
+          "title": "Zero amount rejected",
+          "fixture": "ROUTING-REQUEST-ZERO-AMOUNT",
+          "expected": "rejected",
+          "expected_error": "amount_zero"
+        },
+        {
+          "id": "FED-ROUTE-007",
+          "title": "Duplicate routing request with different content rejected",
+          "fixture": "ROUTING-REQUEST-DUPLICATE-DIFFERENT-CONTENT",
+          "expected": "rejected",
+          "expected_error": "idempotency_conflict",
+          "description": "Same idempotency_key with different payload content must return 409 Conflict."
+        },
+        {
+          "id": "FED-ROUTE-008",
+          "title": "Accepted routing response processed correctly",
+          "fixture": "ROUTING-RESPONSE-ACCEPTED",
+          "expected": "transfer_initiated"
+        },
+        {
+          "id": "FED-ROUTE-009",
+          "title": "Rejected routing response handled without fund loss",
+          "fixture": "ROUTING-RESPONSE-REJECTED",
+          "expected": "transfer_not_created",
+          "description": "A rejection response from the destination operator must result in no ledger entries at the source."
+        }
+      ]
+    },
+    {
+      "id": "FED-EXEC",
+      "name": "Cross-Operator Execution",
+      "description": "Cross-operator payment execution must preserve double-entry integrity, idempotency, and atomicity across the operator boundary.",
+      "certification_level": 3,
+      "invariants": ["INV-LEDGER-001", "INV-IDEM-001"],
+      "cases": [
+        {
+          "id": "FED-EXEC-001",
+          "title": "Cross-operator payment executes when the Open Trust Evaluation passes",
+          "fixture_spm": "SPM-A-VALID",
+          "fixture_manifest": "MANIFEST-VALID",
+          "fixture_routing": "ROUTING-REQUEST-VALID",
+          "expected": "payment_completed"
+        },
+        {
+          "id": "FED-EXEC-002",
+          "title": "Idempotent re-submission returns original result",
+          "fixture": "ROUTING-REQUEST-VALID",
+          "same_idempotency_key": true,
+          "expected": "original_result_returned",
+          "description": "A duplicate routing request with the same idempotency_key and same content must return the original accepted result without creating a duplicate transfer."
+        },
+        {
+          "id": "FED-EXEC-003",
+          "title": "Idempotency conflict on same key, different content",
+          "fixture": "ROUTING-REQUEST-DUPLICATE-DIFFERENT-CONTENT",
+          "expected": "rejected",
+          "expected_error": "idempotency_conflict"
+        },
+        {
+          "id": "FED-EXEC-004",
+          "title": "Source operator deducts balance before routing",
+          "description": "The source operator must debit the sender wallet before emitting the routing request. If routing fails, the debit is reversed.",
+          "expected": "debit_before_routing"
+        },
+        {
+          "id": "FED-EXEC-005",
+          "title": "Destination operator credits balance on receipt",
+          "description": "The destination operator must credit the recipient wallet upon receiving a valid routing request. The credit must be reflected in the ledger.",
+          "expected": "credit_on_receipt"
+        },
+        {
+          "id": "FED-EXEC-006",
+          "title": "Both operators emit events on cross-operator transfer",
+          "expected_events_source": ["payment.sent"],
+          "expected_events_destination": ["payment.received"],
+          "expected": "events_emitted_both_sides"
+        },
+        {
+          "id": "FED-EXEC-007",
+          "title": "Rejected routing response triggers source-side rollback",
+          "fixture": "ROUTING-RESPONSE-REJECTED",
+          "expected": "source_debit_reversed"
+        },
+        {
+          "id": "FED-EXEC-008",
+          "title": "Timeout during routing triggers safe abort",
+          "description": "If the destination operator does not respond within the routing timeout window, the source operator must abort and reverse the debit.",
+          "expected": "safe_abort_on_timeout"
+        },
+        {
+          "id": "FED-EXEC-009",
+          "title": "Double-entry maintained across operator boundary",
+          "description": "The sum of DEBIT entries at the source plus the sum of CREDIT entries at the destination must equal zero when summed across both ledgers for the same cross-operator transfer.",
+          "invariant": "INV-LEDGER-001",
+          "expected": "zero_sum_across_boundary"
+        },
+        {
+          "id": "FED-EXEC-010",
+          "title": "Transfer amount immutable once routing accepted",
+          "description": "After the destination operator accepts the routing request, the amount_minor cannot be modified. Any attempt to alter the amount is a protocol violation.",
+          "expected": "amount_immutable_after_acceptance"
+        }
+      ]
+    },
+    {
+      "id": "FED-OBL",
+      "name": "Federation Obligations",
+      "description": "Each operator participating in federation carries enforceable obligations. Sustained, unresolved breach is grounds for revoking the operator's trust material.",
+      "certification_level": 3,
+      "contract_ref": "contracts/federation/federation-obligation.json",
+      "cases": [
+        {
+          "id": "FED-OBL-001",
+          "title": "Receiving operator must credit within obligation window",
+          "description": "The destination operator must credit the recipient wallet within the obligation window defined in federation-obligation.json.",
+          "expected": "credit_within_window"
+        },
+        {
+          "id": "FED-OBL-002",
+          "title": "Receiving operator must emit payment.received event",
+          "expected_event": "payment.received",
+          "expected": "event_emitted"
+        },
+        {
+          "id": "FED-OBL-003",
+          "title": "Receiving operator must confirm receipt to routing operator",
+          "description": "The destination operator must return an accepted routing response before the obligation timeout.",
+          "expected": "confirmation_sent"
+        },
+        {
+          "id": "FED-OBL-004",
+          "title": "Sending operator must include trace_id on routed payment",
+          "description": "All cross-operator routing requests must include a trace_id conforming to the tr-{uuid} format.",
+          "required_field": "trace_id",
+          "trace_id_format": "^tr-[0-9a-f-]{36}$",
+          "expected": "trace_id_present_and_valid"
+        },
+        {
+          "id": "FED-OBL-005",
+          "title": "Operator must verify BRL before accepting routed payment",
+          "description": "Before crediting on a routed payment, the destination operator must verify the source operator is not in the current BRL.",
+          "fixture_brl": "BRL-VALID-EMPTY",
+          "expected": "brl_checked_before_credit"
+        },
+        {
+          "id": "FED-OBL-006",
+          "title": "Obligation timeout triggers federation incident",
+          "description": "If a destination operator fails to confirm receipt within the obligation window, the incident is logged and sustained failures are grounds for revocation.",
+          "expected": "incident_logged_on_timeout"
+        },
+        {
+          "id": "FED-OBL-007",
+          "title": "Operators must support idempotent receipt",
+          "description": "A destination operator must accept re-delivery of a routing request with the same idempotency_key without creating a duplicate credit.",
+          "expected": "idempotent_receipt"
+        },
+        {
+          "id": "FED-OBL-008",
+          "title": "Repeated obligation breach is grounds for revocation",
+          "description": "Three or more unresolved obligation breaches within a 30-day window are grounds for revoking the operator's trust material per §12.",
+          "breach_threshold": 3,
+          "window_days": 30,
+          "expected": "revocation_review_triggered"
+        }
+      ]
+    },
+    {
+      "id": "FED-EVT",
+      "name": "Federation Events",
+      "description": "Federation events must conform to the event envelope schema and carry correct trace and correlation identifiers across operator boundaries.",
+      "certification_level": 3,
+      "contract_ref": "contracts/federation/federation-event.json",
+      "cases": [
+        {
+          "id": "FED-EVT-001",
+          "title": "Cross-operator payment emits payment.sent at source",
+          "expected_event_type": "payment.sent",
+          "expected_at": "source_operator"
+        },
+        {
+          "id": "FED-EVT-002",
+          "title": "Cross-operator payment emits payment.received at destination",
+          "expected_event_type": "payment.received",
+          "expected_at": "destination_operator"
+        },
+        {
+          "id": "FED-EVT-003",
+          "title": "Federation routing event includes routing_operator_id",
+          "description": "Events emitted for cross-operator transfers must include the routing_operator_id in the payload.",
+          "required_payload_field": "routing_operator_id",
+          "expected": "field_present"
+        },
+        {
+          "id": "FED-EVT-004",
+          "title": "Events carry matching trace_id across operator boundary",
+          "description": "The trace_id on payment.sent at the source must equal the trace_id on payment.received at the destination.",
+          "expected": "trace_id_consistent_across_boundary"
+        },
+        {
+          "id": "FED-EVT-005",
+          "title": "Events use operator-scoped correlation_id",
+          "description": "Each operator's events carry that operator's own correlation_id. The cross-operator trace_id provides the linking mechanism.",
+          "expected": "correlation_id_operator_scoped"
+        },
+        {
+          "id": "FED-EVT-006",
+          "title": "payment.sent emitted before payment.received",
+          "description": "In any cross-operator transfer, payment.sent (source) must have a created_at timestamp earlier than payment.received (destination).",
+          "ordering": "payment.sent < payment.received",
+          "expected": "ordering_correct"
+        },
+        {
+          "id": "FED-EVT-007",
+          "title": "Retry of routed payment must not produce duplicate events",
+          "description": "An idempotent re-submission must not emit a second payment.sent or payment.received event.",
+          "expected": "no_duplicate_events_on_retry"
+        },
+        {
+          "id": "FED-EVT-008",
+          "title": "Federation event schema matches federation-event.json contract",
+          "contract": "contracts/federation/federation-event.json",
+          "expected": "schema_conformant"
+        }
+      ]
+    },
+    {
+      "id": "FED-SETTLE",
+      "name": "Cross-Operator Settlement",
+      "description": "Settlement of cross-operator transfers must be idempotent, complete, and reconcilable against ledger entries.",
+      "certification_level": 3,
+      "contract_ref": "contracts/federation/federation-obligation.json",
+      "invariants": ["INV-SETTLE-001", "INV-RECON-001"],
+      "cases": [
+        {
+          "id": "FED-SETTLE-001",
+          "title": "Cross-operator transfers appear in source operator settlement batch",
+          "description": "Each cross-operator payment initiated by an operator must appear in that operator's settlement batch.",
+          "expected": "transfer_in_settlement_batch"
+        },
+        {
+          "id": "FED-SETTLE-002",
+          "title": "Settlement batch amount matches sum of cross-operator transfers",
+          "description": "The gross_minor in the settlement batch must equal the sum of all amount_minor values of the included transfers.",
+          "expected": "batch_sum_correct"
+        },
+        {
+          "id": "FED-SETTLE-003",
+          "title": "Net settlement = gross minus fees",
+          "description": "net_minor in settlement batch must equal gross_minor minus any applicable federation fees.",
+          "formula": "net_minor = gross_minor - fees",
+          "expected": "net_calculation_correct"
+        },
+        {
+          "id": "FED-SETTLE-004",
+          "title": "Settlement re-submission with same batch_id is idempotent",
+          "description": "Re-submitting a settlement batch with the same batch_id must return the original result without creating a duplicate settlement.",
+          "expected": "idempotent_settlement"
+        },
+        {
+          "id": "FED-SETTLE-005",
+          "title": "Each transfer appears in exactly one settlement batch",
+          "invariant": "INV-LEDGER-005",
+          "expected": "no_double_settlement"
+        },
+        {
+          "id": "FED-SETTLE-006",
+          "title": "settlement.completed event emitted after batch confirmation",
+          "expected_event": "settlement.completed",
+          "expected": "event_emitted_on_completion"
+        },
+        {
+          "id": "FED-SETTLE-007",
+          "title": "Failed settlement triggers reconciliation process",
+          "description": "If a settlement batch fails, the operator must initiate reconciliation per §13.4 and must not mark transfers as settled.",
+          "expected": "reconciliation_triggered_on_failure"
+        },
+        {
+          "id": "FED-SETTLE-008",
+          "title": "Settlement obligation schema matches federation-obligation.json",
+          "contract": "contracts/federation/federation-obligation.json",
+          "expected": "schema_conformant"
+        },
+        {
+          "id": "FED-SETTLE-009",
+          "title": "Partial settlement not permitted",
+          "description": "A settlement batch must either be fully applied or fully rejected. Partial application is a protocol violation.",
+          "expected": "all_or_nothing_settlement"
+        }
+      ]
+    },
+    {
+      "id": "FED-FAIL",
+      "name": "Federation Failure Modes",
+      "description": "Protocol invariants must be maintained under failure conditions. No single failure must result in fund loss or double-spend.",
+      "certification_level": 3,
+      "invariants": ["INV-LEDGER-001", "INV-WALLET-001", "INV-IDEM-001"],
+      "cases": [
+        {
+          "id": "FED-FAIL-001",
+          "title": "Routing operator unavailable — payment not initiated",
+          "description": "If the routing intermediary is unavailable, the source operator must not initiate the transfer. No ledger entries must be created.",
+          "expected": "payment_not_initiated"
+        },
+        {
+          "id": "FED-FAIL-002",
+          "title": "Destination operator unavailable — routing fails gracefully",
+          "fixture": "ROUTING-RESPONSE-REJECTED",
+          "expected": "routing_rejected_gracefully",
+          "description": "Unavailability of destination must result in a clean rejected response, not a hung transaction."
+        },
+        {
+          "id": "FED-FAIL-003",
+          "title": "Trust-material expiry during routing results in clean rejection",
+          "description": "If the operator's signed protocol metadata expires between routing request and response, the payment must be rejected cleanly. The source debit must be reversed.",
+          "expected": "clean_rejection_on_trust_material_expiry"
+        },
+        {
+          "id": "FED-FAIL-004",
+          "title": "BRL unavailability uses cached BRL with staleness flag",
+          "fixture": "BRL-STALE",
+          "expected": "stale_brl_used_with_flag",
+          "description": "If BRL endpoint is unreachable, the last known BRL may be used within the staleness window. Beyond the window, routing must be suspended."
+        },
+        {
+          "id": "FED-FAIL-005",
+          "title": "Network partition does not result in double-spend",
+          "description": "If a network partition occurs between the routing request being sent and the response received, the source operator must use idempotency semantics to prevent double creation.",
+          "expected": "no_double_spend_on_partition"
+        },
+        {
+          "id": "FED-FAIL-006",
+          "title": "Double routing prevented by idempotency",
+          "fixture": "ROUTING-REQUEST-VALID",
+          "same_idempotency_key": true,
+          "expected": "second_request_idempotent",
+          "description": "Two concurrent routing requests with the same idempotency_key must result in exactly one transfer."
+        },
+        {
+          "id": "FED-FAIL-007",
+          "title": "Destination failure during receipt does not leave funds in limbo",
+          "description": "If the destination operator crashes after debiting but before confirming, the source operator's reversal mechanism must reclaim the funds.",
+          "expected": "funds_not_stranded"
+        },
+        {
+          "id": "FED-FAIL-008",
+          "title": "All protocol invariants maintained under failure scenarios",
+          "invariants": ["INV-LEDGER-001", "INV-WALLET-001", "INV-IDEM-001", "INV-ROOT-008"],
+          "description": "Failure scenarios must not cause invariant violations. Verification is performed by checking ledger state after each failure injection.",
+          "expected": "invariants_maintained"
+        }
+      ]
+    }
+  ]
+}

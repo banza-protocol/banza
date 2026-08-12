@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/payment-sessions/payment-session.schema.json",
+  "title": "PaymentSession",
+  "description": "A PaymentIntent (ADR-014) presented through one or more interfaces (ADR-015). The PaymentIntent is the single financial object; the session is the rule binding its interfaces (Payment Link, Dynamic QR, Static QR, Deep Link) to one destination, one currency, one amount-when-fixed, one expiry, one idempotency policy, and one financial result. `session_id` is the PaymentIntent id. The destination MAY be a segregated Wallet Account (ADR-020). An interface never changes the destination or amount; payment always resolves against the session, at the operator. Applications display the interfaces; they never generate an authoritative financial payload and never compute a destination.",
+  "_spec_version": "1.0",
+  "_status": "canonical",
+  "_authority": "ADR-015",
+
+  "type": "object",
+  "required": ["session_id", "operator_id", "payee_wallet_id", "currency", "status", "interfaces", "created_at"],
+  "additionalProperties": false,
+  "properties": {
+    "session_id":            { "type": "string", "description": "The PaymentIntent id (ADR-014). Non-enumerable. Every interface resolves to this." },
+    "operator_id":           { "type": "string", "description": "The operator that owns and resolves the session." },
+    "owner_ref":             { "type": "string", "description": "The session owner (e.g. the payee). Opaque to the protocol." },
+    "payee_wallet_id":       { "type": "string", "description": "Wallet that receives value (ADR-014 payee_wallet_id)." },
+    "destination_account_ref": { "type": ["string", "null"], "description": "Optional segregated Wallet Account (ADR-020) to credit — e.g. a campaign account. Absent ⇒ the payee wallet's default account. Resolved by the operator; never exposes an internal ledger account id to apps." },
+    "purpose":               { "type": ["string", "null"], "description": "Operator/app purpose tag (e.g. DONATION, ORDER, TICKET). Opaque to the protocol." },
+    "reference_type":        { "type": ["string", "null"], "description": "Opaque app reference type (e.g. DOA_CAMPAIGN)." },
+    "reference_id":          { "type": ["string", "null"], "description": "Opaque app reference id (e.g. a campaign id)." },
+    "amount_minor":          { "type": ["integer", "null"], "description": "Fixed amount in integer minor units; null for open-amount sessions. Never float." },
+    "currency":              { "type": "string", "description": "ISO 4217. Shared by every interface." },
+    "status": {
+      "type": "string",
+      "enum": ["CREATED", "ACTIVE", "PAID", "PARTIALLY_PAID", "EXPIRED", "CANCELLED", "FAILED"],
+      "description": "Session status (mirrors the PaymentIntent; PARTIALLY_PAID only where the operator supports partial collection). An interface state may differ but MUST NOT contradict this."
+    },
+    "expires_at":            { "type": ["string", "null"], "format": "date-time", "description": "Session expiry. Shared by every interface; an interface MAY expire earlier but not later." },
+    "interfaces": {
+      "type": "array",
+      "description": "The interfaces presenting this session. Each conforms to payment-session-interface.schema.json. At least one.",
+      "minItems": 1,
+      "items": { "$ref": "payment-session-interface.schema.json" }
+    },
+    "metadata":              { "type": ["object", "null"], "description": "Operator/app metadata. Opaque to the protocol." },
+    "created_at":            { "type": "string", "format": "date-time" },
+    "updated_at":            { "type": ["string", "null"], "format": "date-time" }
+  }
+}

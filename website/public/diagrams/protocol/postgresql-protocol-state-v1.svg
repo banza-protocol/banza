@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  id:        SVG-P-076
+  diagram:   PostgreSQL — estado protocolar do BANZA
+  version:   1.0
+  source:    BANZA_REFERENCIA.md §5 PostgreSQL — Estado Protocolar
+  updated:   2026-07-19
+  author:    BANZA Protocol
+  style:     protocol
+-->
+<svg viewBox="0 0 900 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title-P076 desc-P076" font-family="system-ui,-apple-system,sans-serif">
+  <title id="title-P076">PostgreSQL como base de estado protocolar do BANZA</title>
+  <desc id="desc-P076">O PostgreSQL do BANZA é uma base de estado protocolar verificável, dividida em quatro classes: confiança e registo (manifestos assinados, chaves públicas, registo de operadores, hashes de evidência), índice do agente (documentos e embeddings pgvector para o BanzAI explicar o protocolo), auditoria append-only e marcadores de estado do protocolo. Não é base financeira, ledger de pagamentos, core bancário, carteira digital nem base de dados de operador.</desc>
+  <defs>
+    <linearGradient id="hg-P076" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E0F1A"></stop><stop offset="100%" stop-color="#8E1326"></stop>
+    </linearGradient>
+  </defs>
+
+  <rect width="900" height="414" fill="#F4F1EA" rx="16"></rect>
+
+  <rect x="0" y="0" width="900" height="64" fill="url(#hg-P076)" rx="16"></rect>
+  <rect x="0" y="48" width="900" height="16" fill="#8E1326"></rect>
+  <text x="36" y="28" font-family="ui-monospace,'Courier New',monospace" font-size="9.5" fill="#EAD2D6" letter-spacing="2">SVG-P-076 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="36" y="50" font-size="17" font-weight="800" fill="white">PostgreSQL — estado protocolar verificável</text>
+  <text x="864" y="50" text-anchor="end" font-size="10.5" fill="#EAD2D6">pgvector/pgvector:pg16 · rede interna</text>
+
+  <!-- Card 1: Confiança e registo -->
+  <rect x="44" y="92" width="392" height="130" fill="white" rx="12" stroke="#E5E7EB" stroke-width="1.5"></rect>
+  <rect x="44" y="92" width="392" height="32" fill="#7F1D1D" rx="12"></rect>
+  <rect x="44" y="112" width="392" height="12" fill="#7F1D1D"></rect>
+  <text x="64" y="113" font-size="12.5" font-weight="700" fill="white">Confiança e registo (público, assinado)</text>
+  <g font-size="10.5" fill="#374151">
+    <text x="64" y="148">root_manifest · key_manifest (chaves públicas)</text>
+    <text x="64" y="170">operators · certificates — vazios em pré-produção</text>
+    <text x="64" y="192">brl_snapshot · conformance_evidence (hashes)</text>
+  </g>
+
+  <!-- Card 2: Índice do agente -->
+  <rect x="464" y="92" width="392" height="130" fill="white" rx="12" stroke="#E5E7EB" stroke-width="1.5"></rect>
+  <rect x="464" y="92" width="392" height="32" fill="#1E3A8A" rx="12"></rect>
+  <rect x="464" y="112" width="392" height="12" fill="#1E3A8A"></rect>
+  <text x="484" y="113" font-size="12.5" font-weight="700" fill="white">Índice do agente (BanzAI · pgvector)</text>
+  <g font-size="10.5" fill="#374151">
+    <text x="484" y="148">banzai_document · banzai_chunk (embeddings)</text>
+    <text x="484" y="170">banzai_answer_cache — perguntas/respostas/ids</text>
+    <text x="484" y="192">apenas texto público de referência; sem segredos</text>
+  </g>
+
+  <!-- Card 3: Auditoria -->
+  <rect x="44" y="238" width="392" height="118" fill="white" rx="12" stroke="#E5E7EB" stroke-width="1.5"></rect>
+  <rect x="44" y="238" width="392" height="32" fill="#4B5563" rx="12"></rect>
+  <rect x="44" y="258" width="392" height="12" fill="#4B5563"></rect>
+  <text x="64" y="259" font-size="12.5" font-weight="700" fill="white">Auditoria</text>
+  <g font-size="10.5" fill="#374151">
+    <text x="64" y="294">protocol_audit — registo append-only</text>
+    <text x="64" y="316">de escritas governadas (papel banza_gov)</text>
+  </g>
+
+  <!-- Card 4: Estado -->
+  <rect x="464" y="238" width="392" height="118" fill="white" rx="12" stroke="#E5E7EB" stroke-width="1.5"></rect>
+  <rect x="464" y="238" width="392" height="32" fill="#166534" rx="12"></rect>
+  <rect x="464" y="258" width="392" height="12" fill="#166534"></rect>
+  <text x="484" y="259" font-size="12.5" font-weight="700" fill="white">Estado do protocolo</text>
+  <g font-size="10.5" fill="#374151">
+    <text x="484" y="294">protocol_state — fase = pre-production</text>
+    <text x="484" y="316">produção depende da cerimónia da raiz; nenhum certificado</text>
+  </g>
+
+  <text x="450" y="382" text-anchor="middle" font-size="10.5" fill="#6B7280">Guarda estado do protocolo, não valor financeiro. Não é base financeira, ledger, core bancário, carteira nem base de operador.</text>
+  <text x="450" y="431" text-anchor="middle" font-size="9" fill="#9CA3AF" font-family="ui-monospace,'Courier New',monospace">SVG-P-076 · PostgreSQL estado protocolar · BANZA_REFERENCIA.md §5 · v1.0 · 2026-07-19</text>
+</svg>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  id:        SVG-P-053
+  diagram:   Da implementação à validação — o percurso técnico do programador
+  version:   2.0
+  source:    BANZA_REFERENCIA.md §13 (Recursos para Programadores)
+  updated:   2026-08-10
+  author:    BANZA Protocol
+  style:     protocol
+  note:      v2.0 (revisão Ch13) — 7 passos → 5 etapas alinhadas à prosa (explorar ·
+             integrar · verificar · publicar · produção); fronteira explícita
+             validar ≠ certificar ≠ admitir ≠ autorizar; §12 → §13.
+-->
+<svg viewBox="0 0 900 540" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-labelledby="title-P053 desc-P053"
+     font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="title-P053">Da implementação à validação — o percurso técnico do programador</title>
+  <desc id="desc-P053">O percurso técnico de um implementador BANZA em cinco etapas distintas: explorar e escolher o perfil de conformidade alvo contra o estado verificável; integrar, implementando as capacidades por nível em qualquer tecnologia; verificar a conformidade em sandbox e corrigir falhas; publicar a evidência numa URL estável e assinar a metadata de protocolo; e, reunidas as condições, entrar em produção. Um PASS é evidência técnica, não um certificado; a sandbox não movimenta dinheiro real; e validar uma implementação não é certificá-la, admiti-la a um esquema nem autorizá-la.</desc>
+  <defs>
+    <linearGradient id="hg-P053" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E0F1A"/><stop offset="100%" stop-color="#8E1326"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="900" height="540" fill="#F4F1EA"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="900" height="64" fill="url(#hg-P053)" rx="14"/>
+  <rect x="0" y="48" width="900" height="16" fill="#8E1326"/>
+  <text x="24" y="26" font-family="ui-monospace,'Courier New',monospace" font-size="9" fill="#FECACA" letter-spacing="2">SVG-P-053 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="24" y="50" font-size="18" font-weight="800" fill="white">Da implementação à validação</text>
+  <text x="876" y="50" text-anchor="end" font-size="11" fill="#FECACA">sandbox · sem dinheiro real</text>
+
+  <!-- spine -->
+  <line x1="56" y1="110" x2="56" y2="398" stroke="#E4DAD8" stroke-width="2"/>
+
+  <!-- Step 1 -->
+  <circle cx="56" cy="110" r="15" fill="#8E1326"/><text x="56" y="115" text-anchor="middle" font-size="12" font-weight="800" fill="white">1</text>
+  <text x="88" y="106" font-size="14" font-weight="700" fill="#1F2937">Explorar</text>
+  <text x="88" y="124" font-size="11" fill="#6B6265">escolher o perfil alvo (L0–L3) contra o estado verificável</text>
+
+  <!-- Step 2 -->
+  <circle cx="56" cy="182" r="15" fill="#8E1326"/><text x="56" y="187" text-anchor="middle" font-size="12" font-weight="800" fill="white">2</text>
+  <text x="88" y="178" font-size="14" font-weight="700" fill="#1F2937">Integrar</text>
+  <text x="88" y="196" font-size="11" fill="#6B6265">implementar as capacidades por nível — qualquer linguagem, qualquer stack</text>
+
+  <!-- Step 3 -->
+  <circle cx="56" cy="254" r="15" fill="#8E1326"/><text x="56" y="259" text-anchor="middle" font-size="12" font-weight="800" fill="white">3</text>
+  <text x="88" y="250" font-size="14" font-weight="700" fill="#1F2937">Verificar (sandbox)</text>
+  <text x="88" y="268" font-size="11" fill="#6B6265">validar a conformidade e corrigir falhas até passar o âmbito</text>
+
+  <!-- Step 4 -->
+  <circle cx="56" cy="326" r="15" fill="#8E1326"/><text x="56" y="331" text-anchor="middle" font-size="12" font-weight="800" fill="white">4</text>
+  <text x="88" y="322" font-size="14" font-weight="700" fill="#1F2937">Publicar</text>
+  <text x="88" y="340" font-size="11" fill="#6B6265">evidência em URL estável · metadata de protocolo assinada (por hash)</text>
+
+  <!-- Step 5 -->
+  <circle cx="56" cy="398" r="15" fill="#6B7280"/><text x="56" y="403" text-anchor="middle" font-size="12" font-weight="800" fill="white">5</text>
+  <text x="88" y="394" font-size="14" font-weight="700" fill="#1F2937">Produção</text>
+  <text x="88" y="412" font-size="11" fill="#6B6265">reunidas as condições — material de produção · evidência fresca · pares avaliam</text>
+
+  <!-- boundary band -->
+  <rect x="24" y="440" width="852" height="70" rx="9" fill="#FBEFF0" stroke="#EAD2D6" stroke-width="1"/>
+  <text x="40" y="463" font-size="11.5" font-weight="700" fill="#8E1326">Um PASS é evidência técnica, não um certificado.</text>
+  <text x="40" y="482" font-size="10.5" fill="#6B6265">A sandbox não movimenta dinheiro real e não confere estatuto no Registo Técnico.</text>
+  <text x="40" y="500" font-size="10.5" font-weight="700" fill="#8E1326">Validar ≠ certificar ≠ admitir a um esquema ≠ autorizar — etapas distintas, cada uma de outro dono.</text>
+
+  <text x="450" y="528" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-053 · Da implementação à validação · BANZA_REFERENCIA.md §13 · v2.0 · 2026-08-10</text>
+</svg>

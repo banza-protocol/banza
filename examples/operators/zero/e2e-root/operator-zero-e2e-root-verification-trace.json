@@ -1,0 +1,52 @@
+{
+  "algorithm": "ed25519",
+  "artifact_type": "root_verification_trace",
+  "complete": true,
+  "demo_only": true,
+  "key_id": "oz-e2e-root-b8a61e9480e3265b",
+  "monetary_value": false,
+  "not_protocol_trust_root": true,
+  "note": "Trace técnico da verificação da Demo Operator Root E2E. Evidência local, não certificação.",
+  "operator_display_name": "Operador Zero",
+  "operator_id": "operator-zero",
+  "production_allowed": false,
+  "public_key_multibase": "mmE/Bmy7SowTKustm13LbF+vfl/5Bl6sy9kJ7earQ73A",
+  "root_type": "demo_operator_root",
+  "steps": [
+    {
+      "detail": "Ed25519 efémero (só em memória, nunca em disco/Git)",
+      "ok": true,
+      "step": "keygen"
+    },
+    {
+      "detail": "assinatura sobre sha256(canonical(manifest))",
+      "ok": true,
+      "step": "sign_manifest"
+    },
+    {
+      "ok": true,
+      "step": "verify_manifest_valid"
+    },
+    {
+      "ok": true,
+      "step": "verify_manifest_tampered_must_fail"
+    },
+    {
+      "ok": true,
+      "step": "revocation_active_key_not_revoked"
+    },
+    {
+      "ok": true,
+      "step": "revocation_revoked_key_blocked"
+    },
+    {
+      "ok": true,
+      "step": "trust_active_key_valid_demo"
+    },
+    {
+      "detail": "esta raiz é demo_operator_root, não a Trust Root do protocolo BANZA",
+      "ok": true,
+      "step": "not_protocol_trust_root"
+    }
+  ]
+}

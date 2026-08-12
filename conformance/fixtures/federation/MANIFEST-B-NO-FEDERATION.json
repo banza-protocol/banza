@@ -1,0 +1,17 @@
+{
+  "operator_id": "operator-b-test",
+  "environment": "sandbox",
+  "simulated": true,
+  "production_allowed": false,
+  "federation_version": "1",
+  "interop_endpoint": "https://sim-b.conformance.banza.internal",
+  "supports_federation": false,
+  "cross_operator_routing": false,
+  "cross_operator_settlement": false,
+  "federation_capabilities": {
+    "routing_version": "1",
+    "settlement_version": "1",
+    "supported_currencies": ["AOA"],
+    "netting_interval_hours": 24
+  }
+}

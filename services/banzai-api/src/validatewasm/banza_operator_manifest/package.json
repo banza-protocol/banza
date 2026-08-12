@@ -1,0 +1,13 @@
+{
+  "name": "banza-operator-manifest",
+  "description": "banza-operator-manifest (BX1.6): local, no-network technical validation of a candidate operator manifest. It validates the canonical OperatorManifest (per contracts/openapi + conformance vectors MAN-001..004) plus a DRAFT candidate-submission extension, and computes status/readiness/hashes IN RUST. A valid manifest is technical evidence — it NEVER certifies, approves, creates an operator, or changes /operators.",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "files": [
+    "banza_operator_manifest_bg.wasm",
+    "banza_operator_manifest.js",
+    "banza_operator_manifest.d.ts"
+  ],
+  "main": "banza_operator_manifest.js",
+  "types": "banza_operator_manifest.d.ts"
+}

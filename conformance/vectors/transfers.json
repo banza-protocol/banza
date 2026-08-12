@@ -1,0 +1,247 @@
+{
+  "_spec": "BANZA Transfer Conformance Vectors v1.0",
+  "_stability": "stable",
+  "_note": "All vectors use seed wallets that exist on any freshly started sandbox operator. Amounts are chosen to be safely within seed balances.",
+
+  "vectors": [
+    {
+      "id": "TRF-001",
+      "title": "Direct transfer — basic success",
+      "certification_level": 1,
+      "stability": "stable",
+      "input": {
+        "method": "POST",
+        "path": "/transfers",
+        "body": {
+          "from_wallet_id": "sandbox-consumer-1",
+          "to_wallet_id": "sandbox-merchant-1",
+          "amount_minor": 1000,
+          "currency": "AOA"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "response_fields_required": ["id", "from_wallet_id", "to_wallet_id", "amount_minor", "currency", "created_at"],
+        "response_field_values": {
+          "from_wallet_id": "sandbox-consumer-1",
+          "to_wallet_id": "sandbox-merchant-1",
+          "amount_minor": 1000,
+          "currency": "AOA"
+        },
+        "response_field_patterns": {
+          "id": "^txfr-"
+        },
+        "ledger_effect": {
+          "debit_wallet": "sandbox-consumer-1",
+          "credit_wallet": "sandbox-merchant-1",
+          "amount_minor": 1000,
+          "entry_count": 2
+        },
+        "events": [
+          { "event_type": "payment.sent" },
+          { "event_type": "payment.received" }
+        ]
+      },
+      "invariants": ["zero_sum_ledger", "no_negative_balance"],
+      "notes": "Most basic transfer. Both wallets exist, funds sufficient."
+    },
+    {
+      "id": "TRF-002",
+      "title": "Transfer — idempotency key deduplication",
+      "certification_level": 1,
+      "stability": "stable",
+      "input": {
+        "method": "POST",
+        "path": "/transfers",
+        "body": {
+          "from_wallet_id": "sandbox-consumer-1",
+          "to_wallet_id": "sandbox-merchant-1",
+          "amount_minor": 2000,
+          "currency": "AOA",
+          "idempotency_key": "conformance-TRF-002-fixed"
+        }
+      },
+      "idempotency_check": {
+        "repeat": true,
+        "expect_same_id": true,
+        "expect_no_additional_ledger_entries": true
+      },
+      "expected": {
+        "status": 200,
+        "response_field_patterns": {
+          "id": "^txfr-"
+        }
+      },
+      "invariants": ["idempotency"],
+      "notes": "Submit the same request twice. Both responses must have identical transfer IDs. No double-charge."
+    },
+    {
+      "id": "TRF-003",
+      "title": "Transfer — insufficient funds rejected",
+      "certification_level": 1,
+      "stability": "stable",
+      "input": {
+        "method": "POST",
+        "path": "/transfers",
+        "body": {
+          "from_wallet_id": "sandbox-consumer-1",
+          "to_wallet_id": "sandbox-merchant-1",
+          "amount_minor": 999999999999,
+          "currency": "AOA"
+        }
+      },
+      "expected": {
+        "status": 422,
+        "response_fields_required": ["error"],
+        "error_contains": "insufficient"
+      },
+      "invariants": ["no_negative_balance"],
+      "notes": "Amount exceeds any seed balance. Must be rejected before any ledger write."
+    },
+    {
+      "id": "TRF-004",
+      "title": "Transfer — same-wallet rejected",
+      "certification_level": 1,
+      "stability": "stable",
+      "input": {
+        "method": "POST",
+        "path": "/transfers",
+        "body": {
+          "from_wallet_id": "sandbox-consumer-1",
+          "to_wallet_id": "sandbox-consumer-1",
+          "amount_minor": 1000,
+          "currency": "AOA"
+        }
+      },
+      "expected": {
+        "status": 422,
+        "response_fields_required": ["error"]
+      },
+      "notes": "Cannot transfer to the same wallet."
+    },
+    {
+      "id": "TRF-005",
+      "title": "Transfer — unknown sender wallet rejected",
+      "certification_level": 1,
+      "stability": "stable",
+      "input": {
+        "method": "POST",
+        "path": "/transfers",
+        "body": {
+          "from_wallet_id": "wallet-does-not-exist",
+          "to_wallet_id": "sandbox-merchant-1",
+          "amount_minor": 1000,
+          "currency": "AOA"
+        }
+      },
+      "expected": {
+        "status": 422,
+        "response_fields_required": ["error"]
+      }
+    },
+    {
+      "id": "TRF-006",
+      "title": "Transfer — zero amount rejected",
+      "certification_level": 1,
+      "stability": "stable",
+      "input": {
+        "method": "POST",
+        "path": "/transfers",
+        "body": {
+          "from_wallet_id": "sandbox-consumer-1",
+          "to_wallet_id": "sandbox-merchant-1",
+          "amount_minor": 0,
+          "currency": "AOA"
+        }
+      },
+      "expected": {
+        "status": 422,
+        "response_fields_required": ["error"]
+      }
+    },
+    {
+      "id": "TRF-007",
+      "title": "Transfer — creates double-entry ledger entries",
+      "certification_level": 1,
+      "stability": "stable",
+      "input": {
+        "method": "POST",
+        "path": "/transfers",
+        "body": {
+          "from_wallet_id": "sandbox-consumer-1",
+          "to_wallet_id": "sandbox-merchant-1",
+          "amount_minor": 3000,
+          "currency": "AOA"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "ledger_effect": {
+          "debit_wallet": "sandbox-consumer-1",
+          "credit_wallet": "sandbox-merchant-1",
+          "amount_minor": 3000,
+          "entry_count": 2,
+          "kinds_present": ["DEBIT", "CREDIT"]
+        }
+      },
+      "invariants": ["zero_sum_ledger"],
+      "notes": "Verify GET /ledger/{wallet} shows exactly one DEBIT and one CREDIT."
+    },
+    {
+      "id": "TRF-008",
+      "title": "Transfer — response includes trace_id",
+      "certification_level": 1,
+      "stability": "stable",
+      "input": {
+        "method": "POST",
+        "path": "/transfers",
+        "body": {
+          "from_wallet_id": "sandbox-consumer-1",
+          "to_wallet_id": "sandbox-merchant-1",
+          "amount_minor": 4000,
+          "currency": "AOA"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "response_fields_required": ["trace_id", "correlation_id"],
+        "response_field_patterns": {
+          "trace_id": "^tr-",
+          "correlation_id": "."
+        }
+      },
+      "invariants": ["trace_id_propagation"],
+      "notes": "trace_id and correlation_id must be present and non-empty."
+    },
+    {
+      "id": "TRF-009",
+      "title": "Transfer — trace_id queryable via GET /traces",
+      "certification_level": 1,
+      "stability": "stable",
+      "input": {
+        "method": "POST",
+        "path": "/transfers",
+        "body": {
+          "from_wallet_id": "sandbox-consumer-1",
+          "to_wallet_id": "sandbox-merchant-1",
+          "amount_minor": 5000,
+          "currency": "AOA"
+        }
+      },
+      "expected": {
+        "status": 200
+      },
+      "post_check": {
+        "fetch_trace": true,
+        "trace_expected": {
+          "transfers_count_min": 1,
+          "ledger_entries_count": 2,
+          "events_count_min": 2,
+          "timeline_nonempty": true
+        }
+      },
+      "invariants": ["trace_id_propagation"],
+      "notes": "After transfer, GET /traces/{trace_id} must return the causal chain."
+    }
+  ]
+}

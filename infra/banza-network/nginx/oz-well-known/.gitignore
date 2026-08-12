@@ -1,0 +1,7 @@
+# M2.19G.3A (ADR-069) — the Operador Zero ORIGIN publishes its ownership challenge here at runtime.
+# The published challenge document carries a live nonce; it MUST NEVER be committed to Git (the nonce
+# lives only on the origin, is fetched over the public edge, and is single-use). Track only the docs
+# that describe this directory — ignore everything else, including any ownership-challenge.json.
+*
+!.gitignore
+!README.md

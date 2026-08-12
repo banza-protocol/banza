@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 510" role="img" aria-labelledby="svgTitle svgDesc" font-family="system-ui,-apple-system,sans-serif">
+  <title id="svgTitle">What BANZA Defines</title>
+  <desc id="svgDesc">BANZA is an open financial protocol for interoperable payments. It defines the rules operators follow — invariants, contracts, conformance, federation, trust, and governance — while operators remain independent and may use any conformant implementation. Trust is established through signed protocol metadata (a trust root delegating to signing keys) and verifiable conformance evidence published to a public protocol registry; there is no certificate authority and no operator certificates. The canonical payment scans a QR, confirms, and settles instantly as a ledger transfer between consumer and merchant wallets.</desc>
+  <defs>
+    <linearGradient id="hg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#990011"/>
+      <stop offset="100%" stop-color="#B11226"/>
+    </linearGradient>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#9CA3AF"/>
+    </marker>
+  </defs>
+  <rect width="900" height="510" fill="#FCF6F5" rx="16"/>
+  <rect x="0" y="0" width="900" height="64" fill="url(#hg)" rx="16"/>
+  <rect x="0" y="48" width="900" height="16" fill="#B11226"/>
+  <text x="32" y="28" font-family="ui-monospace,'Courier New',monospace" font-size="9" fill="#FECACA" letter-spacing="2">SVG-PE-001 · OPEN FINANCIAL PROTOCOL</text>
+  <text x="32" y="50" font-size="17" font-weight="800" fill="white">What BANZA Defines</text>
+  <text x="868" y="50" text-anchor="end" font-size="10.5" fill="#FECACA">A protocol — public rules for interoperable payments</text>
+  <rect x="36" y="92" width="266" height="72" fill="#FEF2F2" rx="10" stroke="#FECACA" stroke-width="1.5"/>
+  <text x="169" y="122" text-anchor="middle" font-size="13" font-weight="700" fill="#991B1B">Rules</text>
+  <text x="169" y="144" text-anchor="middle" font-size="9.5" fill="#B91C1C">Invariants — what must be true</text>
+  <rect x="322" y="92" width="266" height="72" fill="#FEF2F2" rx="10" stroke="#FECACA" stroke-width="1.5"/>
+  <text x="455" y="122" text-anchor="middle" font-size="13" font-weight="700" fill="#991B1B">Contracts</text>
+  <text x="455" y="144" text-anchor="middle" font-size="9.5" fill="#B91C1C">OpenAPI · webhooks · QR · events</text>
+  <rect x="608" y="92" width="266" height="72" fill="#FEF2F2" rx="10" stroke="#FECACA" stroke-width="1.5"/>
+  <text x="741" y="122" text-anchor="middle" font-size="13" font-weight="700" fill="#991B1B">Certification</text>
+  <text x="741" y="144" text-anchor="middle" font-size="9.5" fill="#B91C1C">L0–L4, deterministic</text>
+  <rect x="36" y="180" width="266" height="72" fill="#FEF2F2" rx="10" stroke="#FECACA" stroke-width="1.5"/>
+  <text x="169" y="210" text-anchor="middle" font-size="13" font-weight="700" fill="#991B1B">Federation</text>
+  <text x="169" y="232" text-anchor="middle" font-size="9.5" fill="#B91C1C">Inter-operator routing</text>
+  <rect x="322" y="180" width="266" height="72" fill="#FEF2F2" rx="10" stroke="#FECACA" stroke-width="1.5"/>
+  <text x="455" y="210" text-anchor="middle" font-size="13" font-weight="700" fill="#991B1B">Trust</text>
+  <text x="455" y="226" text-anchor="middle" font-size="9.5" fill="#B91C1C"><tspan x="455" dy="0">Signed protocol metadata</tspan><tspan x="455" dy="12">trust root → operator evidence</tspan></text>
+  <rect x="608" y="180" width="266" height="72" fill="#FEF2F2" rx="10" stroke="#FECACA" stroke-width="1.5"/>
+  <text x="741" y="210" text-anchor="middle" font-size="13" font-weight="700" fill="#991B1B">Governance</text>
+  <text x="741" y="232" text-anchor="middle" font-size="9.5" fill="#B91C1C">Open ADRs &amp; RFCs</text>
+  <line x1="450" y1="268" x2="450" y2="292" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="170" y="296" width="560" height="64" fill="url(#hg)" rx="12"/>
+  <text x="450" y="322" text-anchor="middle" font-size="15" font-weight="800" fill="white">BANZA — Open Financial Protocol</text>
+  <text x="450" y="346" text-anchor="middle" font-size="9.5" fill="#FECACA">Defines behaviour, never stack — any conformant implementation is valid</text>
+  <rect x="170" y="388" width="560" height="58" fill="white" rx="12" stroke="#D1D5DB" stroke-width="1.5"/>
+  <text x="450" y="412" text-anchor="middle" font-size="13" font-weight="700" fill="#1F2937">SCAN QR  →  CONFIRM  →  INSTANT SETTLEMENT</text>
+  <text x="450" y="432" text-anchor="middle" font-size="9.5" fill="#6B7280">Canonical payment: Consumer Wallet ──[ledger transfer]──▶ Merchant Wallet</text>
+
+  <line x1="32" y1="462" x2="868" y2="462" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="450" y="482" text-anchor="middle" font-size="8.5" fill="#9CA3AF">SVG-PE-001 · What BANZA Defines · BANZA Open Financial Protocol · v1.0 · 2026-06-12</text>
+</svg>

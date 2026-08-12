@@ -1,0 +1,13 @@
+{
+  "demo_only": true,
+  "monetary_value": false,
+  "production_allowed": false,
+  "operator_id": "operator-zero",
+  "operator_display_name": "Operador Zero",
+  "currency": "KZ_DEMO",
+  "artifact_type": "payment",
+  "payment_status": "failed",
+  "amount": 10000000,
+  "simulation_error_code": "insufficient_balance",
+  "note": "Falha controlada. Artefacto demonstrativo. Não certifica, não aprova e não movimenta dinheiro real."
+}

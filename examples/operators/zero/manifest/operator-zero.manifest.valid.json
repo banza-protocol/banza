@@ -1,0 +1,43 @@
+{
+  "base_url": "https://zero.banza.network",
+  "brl_url": "https://zero.banza.network/revocation-list.json",
+  "capabilities": {
+    "supports_payment_requests": true,
+    "supports_qr": true,
+    "supports_settlement_simulation": true,
+    "supports_transfers": true,
+    "supports_wallets": true
+  },
+  "conformance_url": "https://zero.banza.network/conformance/evidence.json",
+  "contact": "ops@zero.banza.network",
+  "created_at": "2026-08-05T00:00:00Z",
+  "demo_only": true,
+  "endpoints": {
+    "base_url": "https://zero.banza.network",
+    "conformance_url": "https://zero.banza.network/conformance/evidence.json",
+    "key_manifest_url": "https://zero.banza.network/key-manifest.json"
+  },
+  "environment": "sandbox",
+  "key_manifest_url": "https://zero.banza.network/key-manifest.json",
+  "manifest_hash": "4e015bbf5fbcd92aa9a8452c2ab4d88de928df0ed41ecd22f7c6dc81c7a96966",
+  "manifest_version": 1,
+  "monetary_value": false,
+  "name": "Operador Zero (simulador demo)",
+  "operator_display_name": "Operador Zero",
+  "operator_id": "operator-zero",
+  "origin": "https://zero.banza.network",
+  "production_allowed": false,
+  "protocol_version": "1.0.0",
+  "public_keys": [
+    {
+      "algorithm": "ed25519",
+      "key_id": "operator-zero-key-1",
+      "public_key": "ed25519:AAAA"
+    }
+  ],
+  "self_publication_statement": "self-published by the operator; not issued or approved by BANZA",
+  "simulated": true,
+  "supported_levels": [
+    "L0"
+  ]
+}

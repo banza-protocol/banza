@@ -1,0 +1,11 @@
+{
+  "demo_only": true,
+  "monetary_value": false,
+  "production_allowed": false,
+  "operator_id": "operator-zero",
+  "operator_display_name": "Operador Zero",
+  "artifact_type": "federation_metadata",
+  "federation_status": "demo_federation_incompatible",
+  "peer_protocol_version": "0.9",
+  "note": "Artefacto demonstrativo. Não certifica, não aprova e não movimenta dinheiro real."
+}

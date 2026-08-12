@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12",
+  "$id": "https://banza.network/contracts/federation/federation-obligation.json",
+  "title": "BanzaFederationObligation",
+  "description": "Obligation created by the originating operator when a cross-operator payment is accepted. Input to the cross-operator netting and settlement process.",
+  "_spec_version": "1",
+  "_status": "canonical",
+  "_authority": "ADR-040, RFC-0002, INV-FED-002, INV-FED-005",
+
+  "type": "object",
+  "required": [
+    "schema_version",
+    "obligation_id",
+    "from_operator_id",
+    "to_operator_id",
+    "amount",
+    "routing_request_id",
+    "interop_transfer_id",
+    "trace_id",
+    "recorded_at",
+    "settlement_state",
+    "obligor_signature"
+  ],
+  "additionalProperties": false,
+
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1",
+      "description": "Obligation schema version. Must be '1' for this obligation format."
+    },
+
+    "obligation_id": {
+      "type": "string",
+      "pattern": "^ob-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+      "description": "Globally unique obligation identifier. Assigned by Operator A."
+    },
+
+    "from_operator_id": {
+      "type": "string",
+      "description": "operator_id of the operator that owes the money (routing requestor)."
+    },
+
+    "to_operator_id": {
+      "type": "string",
+      "description": "operator_id of the operator that is owed the money (routing acceptor)."
+    },
+
+    "amount": {
+      "type": "object",
+      "required": ["minor", "currency"],
+      "additionalProperties": false,
+      "properties": {
+        "minor": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Amount in minor units. MUST equal the amount in the routing request. INV-FED-005."
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$",
+          "description": "ISO 4217 three-letter currency code."
+        }
+      }
+    },
+
+    "routing_request_id": {
+      "type": "string",
+      "pattern": "^rr-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+      "description": "The routing request that generated this obligation. UNIQUE — one obligation per routing request. INV-FED-002."
+    },
+
+    "interop_transfer_id": {
+      "type": "string",
+      "pattern": "^itx-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+      "description": "Operator B's transfer ID from the RoutingResponse. Corroborates the obligation."
+    },
+
+    "trace_id": {
+      "type": "string",
+      "description": "Causal trace identifier. MUST match the originating payment trace_id. INV-FED-001."
+    },
+
+    "recorded_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC timestamp when Operator A recorded this obligation."
+    },
+
+    "settlement_state": {
+      "type": "string",
+      "enum": ["pending", "in_netting", "settled"],
+      "description": "Current state in the obligation lifecycle. Transitions: pending → in_netting → settled only."
+    },
+
+    "netting_period": {
+      "type": "string",
+      "description": "Netting cycle identifier. Set when settlement_state transitions to 'in_netting'. e.g. '2026-06-01'."
+    },
+
+    "settled_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC timestamp of settlement. Present only when settlement_state = 'settled'."
+    },
+
+    "settlement_batch_id": {
+      "type": "string",
+      "description": "Settlement batch identifier. Present only when settlement_state = 'settled'."
+    },
+
+    "obligor_signature": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{86}$",
+      "description": "ed25519 signature by Operator A over canonical JSON of all fields except obligor_signature. Prevents amount disputes at netting time."
+    }
+  },
+
+  "if": {
+    "properties": { "settlement_state": { "const": "settled" } },
+    "required": ["settlement_state"]
+  },
+  "then": {
+    "required": ["settled_at", "settlement_batch_id"]
+  }
+}

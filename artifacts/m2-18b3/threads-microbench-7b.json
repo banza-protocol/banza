@@ -1,0 +1,14 @@
+{
+  "milestone": "M2.18B.3A Round C (runtime)",
+  "model": "qwen2.5-7b-instruct-q4_k_m",
+  "host": "82.165.165.97 (12 vCore, 23GiB)",
+  "method": "llama.cpp /completion, fixed ~40-token prompt, n_predict=150, temp 0, warm slot, -c 4096 -b 512",
+  "results": [
+    { "threads": 4,  "gen_tok_s": 9.0,  "output_150tok_s": 16.6, "note": "current production -t 4" },
+    { "threads": 8,  "gen_tok_s": 17.4, "output_150tok_s": 8.6 },
+    { "threads": 10, "gen_tok_s": 19.3, "output_150tok_s": 7.8, "note": "PEAK" },
+    { "threads": 12, "gen_tok_s": 17.9, "output_150tok_s": 8.4, "note": "regresses vs 10 (HT/mem-bw contention)" }
+  ],
+  "decision": "select -t 10 (2.1x over -t 4). 12 threads is worse than 10.",
+  "projection_brief": "brief output ~120 tok @19.3 tok/s ≈ 6.2s + input pass ~1.5s + Rust/overhead ~0.5s ≈ p50 ~8s; with prompt-cache + flash-attention on the stable prefixes, target p50<8s / p90<=10s is reachable."
+}

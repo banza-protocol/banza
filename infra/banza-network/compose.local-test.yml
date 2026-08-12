@@ -1,0 +1,46 @@
+# LOCAL TEST OVERLAY — never used in production. Apply with:
+#   docker compose -f compose.yml -f compose.local-test.yml --env-file .env.example ...
+#
+# It exists ONLY to run the full stack on a developer machine:
+#   - builds the app images locally (see build: in compose.yml);
+#   - publishes loopback-only ports so the smoke/E2E scripts can reach services;
+#   - uses PostgreSQL `trust` auth so no passwords/secrets are needed locally
+#     (role SEGREGATION via GRANTs is still enforced — only auth is relaxed);
+#   - forces BanzAI to the deterministic mock provider (no external LLM, no key).
+#
+# No real secrets, certs, IPs or data. Nothing here is deployed.
+name: banza-protocol
+
+services:
+  postgres:
+    # LOCAL ONLY: accept connections without a password so the segregated roles
+    # (banza_ro / banzai_rw, created without passwords by 001_schema.sql) can log in.
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+
+  verification-api:
+    # Read-only role, no password (trust auth locally).
+    environment:
+      DATABASE_URL: "postgres://banza_ro@postgres:5432/banza_protocol?sslmode=disable"
+      PROTOCOL_PHASE: "pre-production"
+    ports: !override
+      - "127.0.0.1:8090:8090"   # loopback only — direct smoke test access
+
+  banzai-api:
+    # Deterministic offline provider. No external model, no API key, no GPU.
+    environment:
+      LLM_PROVIDER: "mock"
+      BANZAI_MODE: "demo"
+      LLM_API_KEY: ""      # mock uses NO key — clear the .env.example placeholder
+      LLM_API_BASE: ""     # mock calls nothing — no endpoint
+      LLM_MODEL: ""        # mock loads no model — clear the placeholder
+      DATABASE_URL: "postgres://banzai_rw@postgres:5432/banza_protocol?sslmode=disable"
+    ports: !override
+      - "127.0.0.1:8091:8091"   # loopback only — direct smoke test access
+
+  reverse-proxy:
+    # Bind on loopback high ports so local tests don't need root and don't clash
+    # with anything on 80/443.
+    ports: !override
+      - "127.0.0.1:8080:80"
+      - "127.0.0.1:8443:443"

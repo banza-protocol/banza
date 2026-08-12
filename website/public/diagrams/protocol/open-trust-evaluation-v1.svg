@@ -1,0 +1,222 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 940" role="img" aria-labelledby="title-SVG-P-063 desc-SVG-P-063" font-family="system-ui,-apple-system,sans-serif">
+  <title id="title-SVG-P-063">Avaliação Aberta de Confiança</title>
+  <desc id="desc-SVG-P-063">Cinco tipos de material publicado e verificável — o manifesto de operador, a evidência de conformidade, a metadata de protocolo assinada, uma entrada no Registo Técnico e a lista de revogação — alimentam uma única avaliação determinística de dez verificações; as dez a passar permitem o encaminhamento de federação, e qualquer material em falta, inválido, expirado, revogado ou incompatível falha fechado. A confiança estabelece-se a partir de evidência que qualquer parte verifica de forma independente, nunca de aprovação humana central.</desc>
+  <!--
+    id:        SVG-P-063
+    diagram:   Avaliação Aberta de Confiança
+    version:   2.0
+    source:    ADR-038 Modelo de Confiança do Protocolo Aberto sem CA · ADR-039 Auto-Publicação do Operador e Conformidade Verificável por Máquina · ADR-040 Avaliação de Confiança de Federação sem Certificados · ADR-079 Modelo de Assinatura de Confiança (congelado)
+    updated:   2026-08-09
+    author:    BANZA Protocol
+    style:     protocol
+    note:      Localizado para PT; verificação 5 alinhada ao modelo congelado (a Raiz de Confiança assina apenas o Manifesto de Chaves; a evidência é assinada por chave delegada que ancora no Manifesto).
+  -->
+  <defs>
+    <linearGradient id="hg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#990011"/><stop offset="100%" stop-color="#B11226"/>
+    </linearGradient>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="4.5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#6B7280"/>
+    </marker>
+    <filter id="sh">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#00000014"/>
+    </filter>
+  </defs>
+
+  <rect width="1120" height="940" fill="#FCF6F5" rx="16"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="1120" height="72" fill="url(#hg)" rx="16"/>
+  <rect x="0" y="56" width="1120" height="16" fill="#B11226"/>
+  <text x="36" y="32" font-family="ui-monospace,'Courier New',monospace" font-size="10" fill="#FECACA" letter-spacing="2">SVG-P-063 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="36" y="56" font-size="19" font-weight="800" fill="white">Avaliação Aberta de Confiança</text>
+  <text x="1084" y="56" text-anchor="end" font-size="11" fill="#FECACA">Entradas de evidência · Dez verificações · Falha fechada</text>
+
+  <!-- Lead -->
+  <text x="560" y="96" text-anchor="middle" font-size="13" font-weight="700" fill="#374151">O Operador B avalia o Operador A a partir de evidência publicada antes de encaminhar tráfego de federação.</text>
+  <text x="560" y="114" text-anchor="middle" font-size="11" fill="#6B7280">Qualquer dos operadores executa a mesma avaliação de forma independente, offline e determinística. Não há árbitro central nem pessoa no caminho.</text>
+
+  <!-- ── ENTRADAS DE EVIDÊNCIA ── -->
+  <text x="56" y="140" font-size="10" font-weight="700" fill="#6B7280" letter-spacing="1.5">ENTRADAS DE EVIDÊNCIA — MATERIAL PUBLICADO, VERIFICÁVEL POR QUALQUER PARTE</text>
+
+  <!-- Input 1 — Manifesto de Operador -->
+  <rect x="56" y="150" width="188" height="128" fill="white" rx="12" stroke="#BBF7D0" stroke-width="1.5" filter="url(#sh)"/>
+  <rect x="56" y="150" width="188" height="30" fill="#166534" rx="12"/><rect x="56" y="166" width="188" height="14" fill="#166534"/>
+  <text x="150" y="170" text-anchor="middle" font-size="11" font-weight="800" fill="white">Manifesto de Operador</text>
+  <text x="150" y="200" text-anchor="middle" font-size="10" fill="#374151">publicado pelo operador</text>
+  <text x="150" y="215" text-anchor="middle" font-size="10" fill="#6B7280">versão · capacidades</text>
+  <text x="150" y="230" text-anchor="middle" font-size="10" fill="#6B7280">endpoints · chaves públicas</text>
+  <text x="150" y="252" text-anchor="middle" font-size="8.5" font-family="ui-monospace,monospace" fill="#9CA3AF">operator.json</text>
+  <text x="150" y="269" text-anchor="middle" font-size="9" font-style="italic" fill="#166534">auto-publicado</text>
+
+  <!-- Input 2 — Evidência de Conformidade -->
+  <rect x="261" y="150" width="188" height="128" fill="white" rx="12" stroke="#BBF7D0" stroke-width="1.5" filter="url(#sh)"/>
+  <rect x="261" y="150" width="188" height="30" fill="#166534" rx="12"/><rect x="261" y="166" width="188" height="14" fill="#166534"/>
+  <text x="355" y="170" text-anchor="middle" font-size="11" font-weight="800" fill="white">Evidência de Conformidade</text>
+  <text x="355" y="200" text-anchor="middle" font-size="10" fill="#374151">resultados verificáveis por máquina</text>
+  <text x="355" y="215" text-anchor="middle" font-size="10" fill="#6B7280">da suite de conformidade</text>
+  <text x="355" y="230" text-anchor="middle" font-size="10" fill="#6B7280">assinada pelo operador</text>
+  <text x="355" y="252" text-anchor="middle" font-size="8.5" font-family="ui-monospace,monospace" fill="#9CA3AF">evidence-bundle.json</text>
+  <text x="355" y="269" text-anchor="middle" font-size="9" font-style="italic" fill="#166534">auto-publicado</text>
+
+  <!-- Input 3 — Metadata de Protocolo Assinada -->
+  <rect x="466" y="150" width="188" height="128" fill="white" rx="12" stroke="#BFDBFE" stroke-width="1.5" filter="url(#sh)"/>
+  <rect x="466" y="150" width="188" height="30" fill="#1E40AF" rx="12"/><rect x="466" y="166" width="188" height="14" fill="#1E40AF"/>
+  <text x="560" y="170" text-anchor="middle" font-size="11" font-weight="800" fill="white">Metadata de Protocolo Assinada</text>
+  <text x="560" y="200" text-anchor="middle" font-size="10" fill="#374151">specs · contratos · chaves</text>
+  <text x="560" y="215" text-anchor="middle" font-size="10" fill="#6B7280">assinada por chave delegada</text>
+  <text x="560" y="230" text-anchor="middle" font-size="10" fill="#6B7280">verificável offline</text>
+  <text x="560" y="252" text-anchor="middle" font-size="8.5" font-family="ui-monospace,monospace" fill="#9CA3AF">signed-protocol-metadata.json</text>
+  <text x="560" y="269" text-anchor="middle" font-size="9" font-style="italic" fill="#1E40AF">assinada no protocolo</text>
+
+  <!-- Input 4 — Entrada no Registo Técnico -->
+  <rect x="671" y="150" width="188" height="128" fill="white" rx="12" stroke="#BFDBFE" stroke-width="1.5" filter="url(#sh)"/>
+  <rect x="671" y="150" width="188" height="30" fill="#1E40AF" rx="12"/><rect x="671" y="166" width="188" height="14" fill="#1E40AF"/>
+  <text x="765" y="170" text-anchor="middle" font-size="11" font-weight="800" fill="white">Entrada no Registo Técnico</text>
+  <text x="765" y="200" text-anchor="middle" font-size="10" fill="#374151">índice de metadata e</text>
+  <text x="765" y="215" text-anchor="middle" font-size="10" fill="#6B7280">evidência verificável</text>
+  <text x="765" y="230" text-anchor="middle" font-size="10" fill="#6B7280">descoberta, não permissão</text>
+  <text x="765" y="252" text-anchor="middle" font-size="8.5" font-family="ui-monospace,monospace" fill="#9CA3AF">/operators (Registo Técnico)</text>
+  <text x="765" y="269" text-anchor="middle" font-size="9" font-style="italic" fill="#1E40AF">assinada no protocolo</text>
+
+  <!-- Input 5 — Lista de Revogação -->
+  <rect x="876" y="150" width="188" height="128" fill="white" rx="12" stroke="#FDE68A" stroke-width="1.5" filter="url(#sh)"/>
+  <rect x="876" y="150" width="188" height="30" fill="#854D0E" rx="12"/><rect x="876" y="166" width="188" height="14" fill="#854D0E"/>
+  <text x="970" y="170" text-anchor="middle" font-size="11" font-weight="800" fill="white">Lista de Revogação</text>
+  <text x="970" y="200" text-anchor="middle" font-size="10" fill="#374151">retira confiança criptográfica</text>
+  <text x="970" y="215" text-anchor="middle" font-size="10" fill="#6B7280">a material de chaves</text>
+  <text x="970" y="230" text-anchor="middle" font-size="10" fill="#6B7280">lida em cada avaliação</text>
+  <text x="970" y="252" text-anchor="middle" font-size="8.5" font-family="ui-monospace,monospace" fill="#9CA3AF">revocation-list.json</text>
+  <text x="970" y="269" text-anchor="middle" font-size="9" font-style="italic" fill="#854D0E">sinal de segurança</text>
+
+  <!-- Arrows into the evaluation -->
+  <line x1="150" y1="278" x2="150" y2="304" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr)"/>
+  <line x1="355" y1="278" x2="355" y2="304" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr)"/>
+  <line x1="560" y1="278" x2="560" y2="304" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr)"/>
+  <line x1="765" y1="278" x2="765" y2="304" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr)"/>
+  <line x1="970" y1="278" x2="970" y2="304" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr)"/>
+
+  <!-- ── AVALIAÇÃO DE CONFIANÇA ── -->
+  <rect x="40" y="308" width="1040" height="246" fill="white" rx="12" stroke="#E5E7EB" stroke-width="1.5" filter="url(#sh)"/>
+  <rect x="40" y="308" width="1040" height="32" fill="#1F2937" rx="12"/><rect x="40" y="326" width="1040" height="14" fill="#1F2937"/>
+  <text x="560" y="329" text-anchor="middle" font-size="13" font-weight="800" fill="white">Avaliação de Confiança — Dez Verificações Determinísticas</text>
+  <text x="560" y="358" text-anchor="middle" font-size="11" fill="#374151">Cada verificação lê apenas material publicado. Qualquer parte executa a mesma avaliação sobre as mesmas entradas e chega ao mesmo resultado.</text>
+
+  <!-- Check 1 -->
+  <rect x="56" y="372" width="188" height="78" rx="10" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1.5"/>
+  <circle cx="72" cy="388" r="11" fill="#990011"/>
+  <text x="72" y="392" text-anchor="middle" font-size="11" font-weight="800" fill="white">1</text>
+  <text x="150" y="412" text-anchor="middle" font-size="10.5" font-weight="800" fill="#1F2937">Manifesto de Operador</text>
+  <text x="150" y="428" text-anchor="middle" font-size="9" fill="#6B7280">presente · bem-formado · resolve</text>
+  <text x="150" y="441" text-anchor="middle" font-size="9" fill="#6B7280">declara versão, chaves, endpoints</text>
+
+  <!-- Check 2 -->
+  <rect x="261" y="372" width="188" height="78" rx="10" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1.5"/>
+  <circle cx="277" cy="388" r="11" fill="#990011"/>
+  <text x="277" y="392" text-anchor="middle" font-size="11" font-weight="800" fill="white">2</text>
+  <text x="355" y="412" text-anchor="middle" font-size="10.5" font-weight="800" fill="#1F2937">Versão de Protocolo</text>
+  <text x="355" y="428" text-anchor="middle" font-size="9" fill="#6B7280">versão declarada compatível</text>
+  <text x="355" y="441" text-anchor="middle" font-size="9" fill="#6B7280">com o operador avaliador</text>
+
+  <!-- Check 3 -->
+  <rect x="466" y="372" width="188" height="78" rx="10" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1.5"/>
+  <circle cx="482" cy="388" r="11" fill="#990011"/>
+  <text x="482" y="392" text-anchor="middle" font-size="11" font-weight="800" fill="white">3</text>
+  <text x="560" y="412" text-anchor="middle" font-size="10.5" font-weight="800" fill="#1F2937">Metadata de Protocolo Assinada</text>
+  <text x="560" y="428" text-anchor="middle" font-size="9" fill="#6B7280">a assinatura verifica contra</text>
+  <text x="560" y="441" text-anchor="middle" font-size="9" fill="#6B7280">o Manifesto de Chaves publicado</text>
+
+  <!-- Check 4 -->
+  <rect x="671" y="372" width="188" height="78" rx="10" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1.5"/>
+  <circle cx="687" cy="388" r="11" fill="#990011"/>
+  <text x="687" y="392" text-anchor="middle" font-size="11" font-weight="800" fill="white">4</text>
+  <text x="765" y="412" text-anchor="middle" font-size="10.5" font-weight="800" fill="#1F2937">Evidência de Conformidade</text>
+  <text x="765" y="428" text-anchor="middle" font-size="9" fill="#6B7280">presente, válida e ligada</text>
+  <text x="765" y="441" text-anchor="middle" font-size="9" fill="#6B7280">a este manifesto</text>
+
+  <!-- Check 5 (modelo congelado: ancora no Manifesto de Chaves) -->
+  <rect x="876" y="372" width="188" height="78" rx="10" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1.5"/>
+  <circle cx="892" cy="388" r="11" fill="#990011"/>
+  <text x="892" y="392" text-anchor="middle" font-size="11" font-weight="800" fill="white">5</text>
+  <text x="970" y="412" text-anchor="middle" font-size="10.5" font-weight="800" fill="#1F2937">Assinatura no Manifesto</text>
+  <text x="970" y="428" text-anchor="middle" font-size="9" fill="#6B7280">ancora numa chave delegada</text>
+  <text x="970" y="441" text-anchor="middle" font-size="9" fill="#6B7280">do Manifesto de Chaves activo</text>
+
+  <!-- Check 6 -->
+  <rect x="56" y="460" width="188" height="78" rx="10" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1.5"/>
+  <circle cx="72" cy="476" r="11" fill="#990011"/>
+  <text x="72" y="480" text-anchor="middle" font-size="11" font-weight="800" fill="white">6</text>
+  <text x="150" y="500" text-anchor="middle" font-size="10.5" font-weight="800" fill="#1F2937">Estado de Revogação</text>
+  <text x="150" y="516" text-anchor="middle" font-size="9" fill="#6B7280">material de chaves ausente</text>
+  <text x="150" y="529" text-anchor="middle" font-size="9" fill="#6B7280">da Lista de Revogação</text>
+
+  <!-- Check 7 -->
+  <rect x="261" y="460" width="188" height="78" rx="10" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1.5"/>
+  <circle cx="277" cy="476" r="11" fill="#990011"/>
+  <text x="277" y="480" text-anchor="middle" font-size="11" font-weight="800" fill="white">7</text>
+  <text x="355" y="500" text-anchor="middle" font-size="10.5" font-weight="800" fill="#1F2937">Capacidades</text>
+  <text x="355" y="516" text-anchor="middle" font-size="9" fill="#6B7280">capacidades declaradas compatíveis</text>
+  <text x="355" y="529" text-anchor="middle" font-size="9" fill="#6B7280">com a operação pedida</text>
+
+  <!-- Check 8 -->
+  <rect x="466" y="460" width="188" height="78" rx="10" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1.5"/>
+  <circle cx="482" cy="476" r="11" fill="#990011"/>
+  <text x="482" y="480" text-anchor="middle" font-size="11" font-weight="800" fill="white">8</text>
+  <text x="560" y="500" text-anchor="middle" font-size="10.5" font-weight="800" fill="#1F2937">Contrato de Endpoint</text>
+  <text x="560" y="516" text-anchor="middle" font-size="9" fill="#6B7280">os endpoints respeitam a forma</text>
+  <text x="560" y="529" text-anchor="middle" font-size="9" fill="#6B7280">que o contrato exige</text>
+
+  <!-- Check 9 -->
+  <rect x="671" y="460" width="188" height="78" rx="10" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1.5"/>
+  <circle cx="687" cy="476" r="11" fill="#990011"/>
+  <text x="687" y="480" text-anchor="middle" font-size="11" font-weight="800" fill="white">9</text>
+  <text x="765" y="500" text-anchor="middle" font-size="10.5" font-weight="800" fill="#1F2937">Frescura da Evidência</text>
+  <text x="765" y="516" text-anchor="middle" font-size="9" fill="#6B7280">idade da evidência dentro da</text>
+  <text x="765" y="529" text-anchor="middle" font-size="9" fill="#6B7280">janela de política do avaliador</text>
+
+  <!-- Check 10 — falha fechada por omissão -->
+  <rect x="876" y="460" width="188" height="78" rx="10" fill="#FEF2F2" stroke="#FECACA" stroke-width="1.5"/>
+  <circle cx="892" cy="476" r="11" fill="#991B1B"/>
+  <text x="892" y="480" text-anchor="middle" font-size="11" font-weight="800" fill="white">10</text>
+  <text x="970" y="500" text-anchor="middle" font-size="10.5" font-weight="800" fill="#991B1B">Falha Fechada por Omissão</text>
+  <text x="970" y="516" text-anchor="middle" font-size="9" fill="#6B7280">em falta · inválido · expirado</text>
+  <text x="970" y="529" text-anchor="middle" font-size="9" fill="#6B7280">revogado · incompatível → pára</text>
+
+  <!-- Split to outcomes -->
+  <path d="M560,554 L560,570 L304,570 L304,588" fill="none" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr)"/>
+  <path d="M560,554 L560,570 L816,570 L816,588" fill="none" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr)"/>
+
+  <!-- Outcome — encaminhamento permitido -->
+  <rect x="56" y="588" width="496" height="92" fill="white" rx="12" stroke="#BBF7D0" stroke-width="1.5" filter="url(#sh)"/>
+  <rect x="56" y="588" width="496" height="32" fill="#166534" rx="12"/><rect x="56" y="606" width="496" height="14" fill="#166534"/>
+  <text x="304" y="609" text-anchor="middle" font-size="13" font-weight="800" fill="white">Encaminhamento Permitido</text>
+  <text x="304" y="640" text-anchor="middle" font-size="11.5" fill="#374151">As dez verificações passam sobre material publicado e verificável.</text>
+  <text x="304" y="657" text-anchor="middle" font-size="10.5" fill="#6B7280">O operador avaliador pode encaminhar tráfego de federação para este operador.</text>
+  <text x="304" y="672" text-anchor="middle" font-size="10" font-style="italic" fill="#9CA3AF">uma conclusão tirada de evidência — não uma aprovação, uma licença ou um aval</text>
+
+  <!-- Outcome — falha fechada -->
+  <rect x="568" y="588" width="496" height="92" fill="white" rx="12" stroke="#FECACA" stroke-width="1.5" filter="url(#sh)"/>
+  <rect x="568" y="588" width="496" height="32" fill="#991B1B" rx="12"/><rect x="568" y="606" width="496" height="14" fill="#991B1B"/>
+  <text x="816" y="609" text-anchor="middle" font-size="13" font-weight="800" fill="white">Falha Fechada — Sem Encaminhamento</text>
+  <text x="816" y="640" text-anchor="middle" font-size="11.5" fill="#374151">Qualquer verificação em falta, inválida, expirada, revogada ou incompatível.</text>
+  <text x="816" y="657" text-anchor="middle" font-size="10.5" fill="#6B7280">O tráfego não é encaminhado. Por omissão pára-se, nunca se presume confiança.</text>
+  <text x="816" y="672" text-anchor="middle" font-size="10" font-style="italic" fill="#991B1B">um resultado de segurança do protocolo — não uma sanção regulatória</text>
+
+  <!-- Caption -->
+  <rect x="56" y="694" width="1008" height="44" rx="10" fill="#1F2937"/>
+  <text x="560" y="722" text-anchor="middle" font-size="15" font-weight="800" fill="white">A confiança é verificada por evidência, não por aprovação humana.</text>
+
+  <!-- Boundary band -->
+  <rect x="56" y="750" width="1008" height="150" rx="12" fill="#FEF2F2" stroke="#991B1B" stroke-width="2"/>
+  <text x="560" y="770" text-anchor="middle" font-size="10" font-weight="700" fill="#991B1B" letter-spacing="1.5">FRONTEIRA — PERMANENTE E NÃO AJUSTÁVEL POR CONVENIÊNCIA DE IMPLEMENTAÇÃO</text>
+  <text x="560" y="790" text-anchor="middle" font-size="11.5" font-weight="800" fill="#1F2937">O BANZA é um protocolo financeiro aberto. A participação de um operador é demonstrada por conformidade verificável ao protocolo, não por aprovação humana central.</text>
+  <text x="560" y="809" text-anchor="middle" font-size="10.5" fill="#374151">O Registo Técnico é um índice de metadata e evidência verificável. Não é uma lista de operadores</text>
+  <text x="560" y="824" text-anchor="middle" font-size="10.5" fill="#374151">licenciados, aprovados ou certificados pela BANZA — e a ausência dele não é proibição regulatória.</text>
+  <text x="560" y="842" text-anchor="middle" font-size="10.5" fill="#374151">A Lista de Revogação é um mecanismo de segurança e confiança do protocolo. Não é uma licença, uma sanção regulatória nem uma autorização financeira.</text>
+  <text x="560" y="860" text-anchor="middle" font-size="10.5" fill="#374151">A Raiz de Confiança assina apenas o Manifesto de Chaves; as chaves delegadas assinam a metadata</text>
+  <text x="560" y="875" text-anchor="middle" font-size="10.5" fill="#374151">de protocolo, as releases e a lista de revogação. Não autoriza operadores, não emite licenças nem autoriza pagamentos.</text>
+  <text x="560" y="893" text-anchor="middle" font-size="10" fill="#6B7280">Os operadores são independentes e assumem a sua própria responsabilidade legal, regulatória e financeira. Qualquer autorização vem do regulador competente — nunca do BANZA.</text>
+
+  <!-- Footer -->
+  <text x="560" y="922" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-063 · Avaliação Aberta de Confiança · ADR-038 · ADR-039 · ADR-040 · ADR-079 · v2.0 · 2026-08-09</text>
+</svg>

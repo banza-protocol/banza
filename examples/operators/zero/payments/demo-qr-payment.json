@@ -1,0 +1,15 @@
+{
+  "demo_only": true,
+  "monetary_value": false,
+  "production_allowed": false,
+  "operator_id": "operator-zero",
+  "operator_display_name": "Operador Zero",
+  "currency": "KZ_DEMO",
+  "artifact_type": "payment",
+  "qr_id": "qr_demo_0001",
+  "payment_status": "pending",
+  "amount": 1500,
+  "expires_at": "2026-07-21T00:05:00Z",
+  "single_use": true,
+  "note": "Artefacto demonstrativo. Não certifica, não aprova e não movimenta dinheiro real."
+}

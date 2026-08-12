@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+title: "BANZA: Protocolo Aberto de Interoperabilidade Financeira"
+message: "If you reference this whitepaper, please cite it as below."
+type: report
+authors:
+  - given-names: "Fidel R."
+    family-names: "Monteiro"
+    affiliation: "Banzami (BANZAMI – Tecnologia e Serviços, Lda.)"
+  - given-names: "Jesus R."
+    family-names: "Monteiro"
+    affiliation: "Banzami (BANZAMI – Tecnologia e Serviços, Lda.)"
+version: "1.0"
+date-released: "2026-08-01"
+publisher:
+  name: "Banzami (BANZAMI – Tecnologia e Serviços, Lda.)"
+license: "CC-BY-4.0"
+url: "https://banza.network/whitepaper"
+abstract: "Foundational whitepaper presenting BANZA as an open and verifiable protocol for financial interoperability: system model, three-layer architecture, canonical-origin discovery, deterministic validation, evidence and receipts, security boundaries and limitations. Non-normative. Portuguese edition canonical; English edition official translation."

@@ -1,0 +1,157 @@
+{
+  "files": [
+    {
+      "count": 10,
+      "ids": [
+        "COL-001",
+        "COL-002",
+        "COL-003",
+        "COL-004",
+        "COL-005",
+        "COL-006",
+        "COL-007",
+        "COL-008",
+        "COL-009",
+        "COL-010"
+      ],
+      "levels": [
+        2
+      ],
+      "name": "collections.json"
+    },
+    {
+      "count": 8,
+      "ids": [
+        "EVT-001",
+        "EVT-002",
+        "EVT-003",
+        "EVT-004",
+        "EVT-005",
+        "EVT-006",
+        "EVT-007",
+        "EVT-008"
+      ],
+      "levels": [
+        1,
+        2
+      ],
+      "name": "event-envelopes.json"
+    },
+    {
+      "count": 6,
+      "ids": [
+        "LED-001",
+        "LED-002",
+        "LED-003",
+        "LED-004",
+        "LED-005",
+        "LED-006"
+      ],
+      "levels": [
+        1
+      ],
+      "name": "ledger-postings.json"
+    },
+    {
+      "count": 4,
+      "ids": [
+        "MAN-001",
+        "MAN-002",
+        "MAN-003",
+        "MAN-004"
+      ],
+      "levels": [
+        0
+      ],
+      "name": "operator-manifests.json"
+    },
+    {
+      "count": 6,
+      "ids": [
+        "PR-001",
+        "PR-002",
+        "PR-003",
+        "PR-004",
+        "PR-005",
+        "PR-006"
+      ],
+      "levels": [
+        2
+      ],
+      "name": "payment-requests.json"
+    },
+    {
+      "count": 7,
+      "ids": [
+        "QR-001",
+        "QR-002",
+        "QR-003",
+        "QR-004",
+        "QR-005",
+        "QR-006",
+        "QR-007"
+      ],
+      "levels": [
+        1,
+        2
+      ],
+      "name": "qr-payloads.json"
+    },
+    {
+      "count": 6,
+      "ids": [
+        "STL-001",
+        "STL-002",
+        "STL-003",
+        "STL-004",
+        "STL-005",
+        "STL-006"
+      ],
+      "levels": [
+        2
+      ],
+      "name": "settlement-batches.json"
+    },
+    {
+      "count": 9,
+      "ids": [
+        "TRF-001",
+        "TRF-002",
+        "TRF-003",
+        "TRF-004",
+        "TRF-005",
+        "TRF-006",
+        "TRF-007",
+        "TRF-008",
+        "TRF-009"
+      ],
+      "levels": [
+        1
+      ],
+      "name": "transfers.json"
+    },
+    {
+      "count": 5,
+      "ids": [
+        "WLT-001",
+        "WLT-002",
+        "WLT-003",
+        "WLT-004",
+        "WLT-005"
+      ],
+      "levels": [
+        0,
+        1
+      ],
+      "name": "wallet-balances.json"
+    }
+  ],
+  "invariant_ids": [
+    "INV-LEDGER-DOUBLE-ENTRY",
+    "INV-SETTLE-IDENTITY-FIELDS"
+  ],
+  "ok": true,
+  "protocol_version": "1.0.0",
+  "runner": "banza-conformance-rs",
+  "total_vectors": 61
+}

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/implementation-record.production.schema.json",
+  "title": "ImplementationRecord",
+  "description": "A record in the closed BANZA Technical Registry for an IMPLEMENTATION — the technical system actually evaluated (ADR-068 §4.2/§13). One operator may publish many implementations (demonstration, sandbox, pre-production, production; different versions, profiles, capabilities and deployments). The validation target is always an operator AND one of its published implementations — never the entity in the abstract. An origin-less, unpublished, revoked or incompatible implementation is not an eligible target (ADR-068 §14 Consequences). Documentary/reference contract — mirrors the Rust `banza-target-registry` ImplementationRecord; it introduces no new financial invariant.",
+  "_spec_version": "1.0",
+  "_status": "reference",
+  "_authority": "ADR-068 (endpoint-originated operator validation & operator–implementation model), ADR-065 (technical registry), ADR-037 (Rust-first engines)",
+  "_boundary": "The record names a technical target and its public endpoints. It is not certification, scheme admission, or regulatory authorisation, and it never lets any entity move funds.",
+
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["implementation_id", "operator_id", "version", "protocol_version", "profile", "environment", "capabilities", "canonical_origin", "endpoints", "publication_status", "evidence_refs"],
+  "properties": {
+    "implementation_id": { "type": "string", "description": "Stable implementation identifier (e.g. 'operator-zero-ref-impl'). The subject actually evaluated." },
+    "operator_id": { "type": "string", "description": "The operator that publishes this implementation. Must match an OperatorRecord that lists this implementation_id." },
+    "version": { "type": "string", "description": "Implementation version (e.g. '0.1.0')." },
+    "protocol_version": { "type": "string", "description": "BANZA protocol version this implementation targets (e.g. '1.0.0'). Must be supported by the registry to be eligible." },
+    "profile": { "type": "string", "enum": ["L0", "L1", "L2", "L3", "L4"], "description": "Conformance profile (scope level) the implementation is published for." },
+    "environment": { "type": "string", "enum": ["sandbox", "demo"], "description": "Environment eligible for endpoint-originated validation. Never production / real-money at this baseline." },
+    "capabilities": { "type": "array", "items": { "type": "string" }, "description": "Capabilities the implementation declares (descriptive, not a grant)." },
+    "canonical_origin": {
+      "type": "string",
+      "format": "uri",
+      "description": "The implementation's canonical public HTTPS origin (e.g. 'https://zero.banza.network'). An empty/missing origin makes the implementation an ineligible (origin-less) target. The secure fetcher pins the host to this origin (ADR-068 §4.7)."
+    },
+    "endpoints": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "The 14 canonical published paths of the implementation (relative, leading-slash). Resolution joins each onto `canonical_origin`.",
+      "required": ["discovery", "manifest", "key_manifest", "signed_metadata", "capabilities", "conformance", "revocation", "federation_metadata", "federation_manifest", "evidence_bundle", "traces", "ledger", "payment_qr", "payment_refund"],
+      "properties": {
+        "discovery": { "type": "string", "description": "Discovery document path (e.g. '/discovery.json')." },
+        "manifest": { "type": "string" },
+        "key_manifest": { "type": "string" },
+        "signed_metadata": { "type": "string" },
+        "capabilities": { "type": "string" },
+        "conformance": { "type": "string" },
+        "revocation": { "type": "string" },
+        "federation_metadata": { "type": "string" },
+        "federation_manifest": { "type": "string" },
+        "evidence_bundle": { "type": "string" },
+        "traces": { "type": "string" },
+        "ledger": { "type": "string" },
+        "payment_qr": { "type": "string" },
+        "payment_refund": { "type": "string" }
+      }
+    },
+    "publication_status": {
+      "type": "string",
+      "enum": ["published", "unpublished", "removed", "revoked"],
+      "description": "Lifecycle state. Only 'published' is an eligible validation target."
+    },
+    "evidence_refs": { "type": "array", "items": { "type": "string" }, "description": "References (e.g. ADR ids) supporting the record. Never verdict-bearing." }
+  }
+}

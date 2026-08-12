@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/fees/operator-fee.schema.json",
+  "title": "OperatorFee",
+  "description": "The operator's per-payment infrastructure charge (ADR-019), realized as one balanced leg of the PaymentIntent fulfilment posting (ADR-006). The AMOUNT is resolved by the operator's Pricing Engine — the protocol stores only the resolved minor-unit result + the references that produced it, never a rule or a percentage. INTERNAL: never returned by a public API, never shown to a payer.",
+  "_spec_version": "1.0",
+  "_status": "canonical",
+  "_authority": "ADR-019",
+  "_visibility": "operator-internal",
+
+  "type": "object",
+  "required": ["id", "operator_id", "payment_intent_id", "amount_minor", "currency", "business_category", "posting_id", "created_at"],
+  "additionalProperties": false,
+  "properties": {
+    "id":                { "type": "string", "description": "Operator fee record id. Immutable." },
+    "operator_id":       { "type": "string" },
+    "payment_intent_id": { "type": "string", "description": "The fulfilled PaymentIntent (ADR-014) this fee was charged on." },
+    "transfer_id":       { "type": ["string", "null"], "description": "The Transfer produced by fulfilment." },
+    "posting_id":        { "type": "string", "description": "The ledger posting (ADR-006) whose balanced legs include this fee. Append-only." },
+    "amount_minor":      { "type": "integer", "minimum": 0, "description": "Resolved fee in integer minor units. Never float. May be 0 (e.g. GOVERNMENT / unpriced category)." },
+    "currency":          { "type": "string", "description": "ISO 4217." },
+    "business_category": { "$ref": "https://banza.network/contracts/fees/business-category.schema.json" },
+    "pricing_profile":   { "oneOf": [ { "$ref": "https://banza.network/contracts/fees/pricing-profile.schema.json" }, { "type": "null" } ] },
+    "fee_policy_ref":    { "type": ["string", "null"], "description": "The opaque policy ref used (FeePolicyRef.ref), for audit only." },
+    "irreversible":      { "type": "boolean", "const": true, "description": "Always true: corrected only by a reversal posting, never by mutation." },
+    "created_at":        { "type": "string", "format": "date-time" }
+  }
+}

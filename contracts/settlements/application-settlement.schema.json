@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/settlements/application-settlement.schema.json",
+  "title": "ApplicationSettlement",
+  "description": "An application paying a beneficiary from net value already settled into an application-controlled wallet (ADR-019), decoupled in time from the payments that funded it. The protocol provides the mechanism + lifecycle only; WHEN and HOW MUCH are application/operator policy. Produces its own balanced ledger posting(s) (ADR-006) — never altering earlier payment postings. May carry an application fee (the app's own service charge), distinct from the OperatorFee.",
+  "_spec_version": "1.0",
+  "_status": "canonical",
+  "_authority": "ADR-019",
+
+  "type": "object",
+  "required": ["id", "operator_id", "source_wallet_id", "beneficiary_wallet_id", "amount_minor", "currency", "business_category", "status", "version", "created_at"],
+  "additionalProperties": false,
+  "properties": {
+    "id":                    { "type": "string", "description": "Application settlement id. Immutable." },
+    "operator_id":           { "type": "string" },
+    "application_ref":       { "type": ["string", "null"], "description": "Opaque application/aggregate reference (e.g. a campaign id). The protocol does not interpret it." },
+    "source_wallet_id":      { "type": "string", "description": "Application-controlled wallet holding the net value (e.g. a campaign wallet)." },
+    "source_account_id":     { "type": ["string", "null"], "description": "Optional segregated account (ADR-020) within source_wallet_id to draw from — isolates one aggregate's net (e.g. one campaign). Defaults to the wallet's PRIMARY account." },
+    "beneficiary_wallet_id": { "type": "string", "description": "Wallet that receives the settlement." },
+    "beneficiary_account_id":{ "type": ["string", "null"], "description": "Optional segregated account (ADR-020) within beneficiary_wallet_id to credit. Defaults to the wallet's PRIMARY account." },
+    "amount_minor":          { "type": "integer", "minimum": 0, "description": "Gross settlement amount (net of the operator fee already charged at payment time) in integer minor units. Never float." },
+    "application_fee_minor":  { "type": ["integer", "null"], "minimum": 0, "description": "Optional application service fee, resolved by the operator's Pricing Engine from the references below. Distinct from OperatorFee. The beneficiary receives amount_minor - application_fee_minor." },
+    "currency":              { "type": "string", "description": "ISO 4217." },
+    "business_category":     { "$ref": "https://banza.network/contracts/fees/business-category.schema.json" },
+    "pricing_profile":       { "oneOf": [ { "$ref": "https://banza.network/contracts/fees/pricing-profile.schema.json" }, { "type": "null" } ] },
+    "fee_policy_ref":        { "type": ["string", "null"] },
+    "status": {
+      "type": "string",
+      "enum": ["CREATED", "PENDING", "COMPLETED", "FAILED", "CANCELLED"],
+      "description": "Lifecycle. COMPLETED/FAILED/CANCELLED are terminal."
+    },
+    "posting_id":            { "type": ["string", "null"], "description": "The ledger posting produced on COMPLETED. Append-only." },
+    "version":               { "type": "integer", "minimum": 1 },
+    "created_at":            { "type": "string", "format": "date-time" },
+    "completed_at":          { "type": ["string", "null"], "format": "date-time" }
+  }
+}

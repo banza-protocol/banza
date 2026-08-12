@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Cada mecanismo de confiança responde a uma pergunta distinta. Origem, assinatura, integridade, frescura e revogação são verificáveis dentro do protocolo, offline e de forma determinística. Conformidade e autorização são perguntas de outro domínio e não decorrem de uma assinatura válida." font-family="system-ui,-apple-system,sans-serif">
+  <title>Cada mecanismo de confiança responde a uma pergunta diferente</title>
+  <desc>Cinco perguntas verificáveis dentro do protocolo — origem (onde foi publicado), assinatura (quem o assinou com uma chave autorizada), integridade (o conteúdo mudou), frescura (ainda é válido) e revogação (a confiança foi retirada) — respondidas offline e de forma determinística. Duas perguntas ficam fora: conformidade (se a implementação satisfaz as regras, tratada no §7) e autorização (se a entidade pode operar, decidida pelas autoridades competentes). Uma assinatura válida não prova conformidade, certificação, admissão a um esquema nem autorização regulatória.</desc>
+  <defs>
+    <linearGradient id="hgq" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E0F1A"></stop><stop offset="100%" stop-color="#8E1326"></stop>
+    </linearGradient>
+  </defs>
+
+  <rect width="960" height="540" fill="#F4F1EA" rx="16"></rect>
+
+  <rect x="0" y="0" width="960" height="72" fill="url(#hgq)" rx="16"></rect>
+  <rect x="0" y="56" width="960" height="16" fill="#8E1326"></rect>
+  <text x="36" y="32" font-family="ui-monospace,&#39;Courier New&#39;,monospace" font-size="10" fill="#EAD2D6" letter-spacing="2">SVG-P-107 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="36" y="56" font-size="19" font-weight="800" fill="white">O que a confiança verifica — e o que não prova</text>
+  <text x="924" y="56" text-anchor="end" font-size="11" fill="#EAD2D6">Uma pergunta por mecanismo</text>
+
+  <text x="480" y="98" text-anchor="middle" font-size="12.5" font-weight="700" fill="#374151">Cada mecanismo de confiança responde a exactamente uma pergunta — e nenhuma resposta se converte nas outras.</text>
+
+  <text x="24" y="130" font-size="10" font-weight="700" fill="#1E40AF" letter-spacing="1.2">CINCO PERGUNTAS VERIFICÁVEIS DENTRO DO PROTOCOLO — OFFLINE E DETERMINÍSTICAS</text>
+
+  <!-- Origem -->
+  <rect x="24" y="140" width="172" height="126" fill="white" rx="12" stroke="#BFDBFE" stroke-width="1.5"></rect>
+  <rect x="24" y="140" width="172" height="26" fill="#1E40AF" rx="12"></rect>
+  <rect x="24" y="154" width="172" height="12" fill="#1E40AF"></rect>
+  <text x="110" y="158" text-anchor="middle" font-size="11" font-weight="800" fill="white">Origem</text>
+  <text x="110" y="192" text-anchor="middle" font-size="12" font-weight="700" fill="#1F2937">Onde foi publicado?</text>
+  <text x="110" y="222" text-anchor="middle" font-size="9.5" fill="#6B6265">veio do domínio que o</text>
+  <text x="110" y="236" text-anchor="middle" font-size="9.5" fill="#6B6265">operador controla</text>
+
+  <!-- Assinatura -->
+  <rect x="209" y="140" width="172" height="126" fill="white" rx="12" stroke="#BFDBFE" stroke-width="1.5"></rect>
+  <rect x="209" y="140" width="172" height="26" fill="#1E40AF" rx="12"></rect>
+  <rect x="209" y="154" width="172" height="12" fill="#1E40AF"></rect>
+  <text x="295" y="158" text-anchor="middle" font-size="11" font-weight="800" fill="white">Assinatura</text>
+  <text x="295" y="192" text-anchor="middle" font-size="12" font-weight="700" fill="#1F2937">Quem o assinou?</text>
+  <text x="295" y="222" text-anchor="middle" font-size="9.5" fill="#6B6265">com uma chave autorizada</text>
+  <text x="295" y="236" text-anchor="middle" font-size="9.5" fill="#6B6265">para aquele domínio</text>
+
+  <!-- Integridade -->
+  <rect x="394" y="140" width="172" height="126" fill="white" rx="12" stroke="#BFDBFE" stroke-width="1.5"></rect>
+  <rect x="394" y="140" width="172" height="26" fill="#1E40AF" rx="12"></rect>
+  <rect x="394" y="154" width="172" height="12" fill="#1E40AF"></rect>
+  <text x="480" y="158" text-anchor="middle" font-size="11" font-weight="800" fill="white">Integridade</text>
+  <text x="480" y="192" text-anchor="middle" font-size="12" font-weight="700" fill="#1F2937">O conteúdo mudou?</text>
+  <text x="480" y="222" text-anchor="middle" font-size="9.5" fill="#6B6265">não foi alterado desde</text>
+  <text x="480" y="236" text-anchor="middle" font-size="9.5" fill="#6B6265">que foi assinado</text>
+
+  <!-- Frescura -->
+  <rect x="579" y="140" width="172" height="126" fill="white" rx="12" stroke="#BFDBFE" stroke-width="1.5"></rect>
+  <rect x="579" y="140" width="172" height="26" fill="#1E40AF" rx="12"></rect>
+  <rect x="579" y="154" width="172" height="12" fill="#1E40AF"></rect>
+  <text x="665" y="158" text-anchor="middle" font-size="11" font-weight="800" fill="white">Frescura</text>
+  <text x="665" y="192" text-anchor="middle" font-size="12" font-weight="700" fill="#1F2937">Ainda é válido?</text>
+  <text x="665" y="222" text-anchor="middle" font-size="9.5" fill="#6B6265">está dentro da janela</text>
+  <text x="665" y="236" text-anchor="middle" font-size="9.5" fill="#6B6265">de validade actual</text>
+
+  <!-- Revogação -->
+  <rect x="764" y="140" width="172" height="126" fill="white" rx="12" stroke="#FDE68A" stroke-width="1.5"></rect>
+  <rect x="764" y="140" width="172" height="26" fill="#854D0E" rx="12"></rect>
+  <rect x="764" y="154" width="172" height="12" fill="#854D0E"></rect>
+  <text x="850" y="158" text-anchor="middle" font-size="11" font-weight="800" fill="white">Revogação</text>
+  <text x="850" y="192" text-anchor="middle" font-size="12" font-weight="700" fill="#1F2937">Foi retirada?</text>
+  <text x="850" y="222" text-anchor="middle" font-size="9.5" fill="#6B6265">a confiança neste material</text>
+  <text x="850" y="236" text-anchor="middle" font-size="9.5" fill="#6B6265">não foi revogada</text>
+
+  <text x="480" y="286" text-anchor="middle" font-size="10.5" fill="#6B6265">Reunidas, estas cinco respostas formam a Avaliação Aberta de Confiança — que falha fechada em qualquer caso duvidoso (§8).</text>
+
+  <line x1="24" y1="300" x2="936" y2="300" stroke="#E5E7EB" stroke-width="1"></line>
+  <text x="24" y="322" font-size="10" font-weight="700" fill="#8A5A00" letter-spacing="1.2">DUAS PERGUNTAS DE OUTRO DOMÍNIO — NÃO DECORREM DE UMA ASSINATURA VÁLIDA</text>
+
+  <!-- Conformidade -->
+  <rect x="24" y="332" width="448" height="86" fill="#FBFAF7" rx="12" stroke="#E5E7EB" stroke-width="1.5"></rect>
+  <rect x="24" y="332" width="448" height="26" fill="#6B7280" rx="12"></rect>
+  <rect x="24" y="346" width="448" height="12" fill="#6B7280"></rect>
+  <text x="40" y="350" font-size="11" font-weight="800" fill="white">Conformidade</text>
+  <text x="40" y="382" font-size="12" font-weight="700" fill="#1F2937">Satisfaz as regras aplicáveis?</text>
+  <text x="40" y="404" font-size="10" fill="#6B6265">Medição pública e reproduzível — tratada no capítulo Conformidade (§7).</text>
+
+  <!-- Autorização -->
+  <rect x="488" y="332" width="448" height="86" fill="#FBFAF7" rx="12" stroke="#E5E7EB" stroke-width="1.5"></rect>
+  <rect x="488" y="332" width="448" height="26" fill="#6B7280" rx="12"></rect>
+  <rect x="488" y="346" width="448" height="12" fill="#6B7280"></rect>
+  <text x="504" y="350" font-size="11" font-weight="800" fill="white">Autorização</text>
+  <text x="504" y="382" font-size="12" font-weight="700" fill="#1F2937">Pode prestar serviços financeiros?</text>
+  <text x="504" y="404" font-size="10" fill="#6B6265">Decisão das autoridades competentes, inteiramente fora do protocolo.</text>
+
+  <rect x="24" y="432" width="912" height="56" rx="10" fill="#FEF2F2" stroke="#991B1B" stroke-width="2"></rect>
+  <text x="480" y="455" text-anchor="middle" font-size="12" font-weight="800" fill="#1F2937">Uma assinatura válida não prova conformidade.</text>
+  <text x="480" y="474" text-anchor="middle" font-size="10.5" fill="#6B6265">Não substitui a Certificação de Conformidade (Camada 2), a admissão a um esquema, nem a autorização regulatória.</text>
+
+  <line x1="36" y1="508" x2="924" y2="508" stroke="#E5E7EB" stroke-width="1"></line>
+  <text x="480" y="527" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-107 · O que a confiança verifica · BANZA_REFERENCIA.md §6 · ADR-038 · ADR-061 · v1.0 · 2026-08-09</text>
+</svg>

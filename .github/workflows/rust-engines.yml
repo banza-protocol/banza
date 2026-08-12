@@ -1,0 +1,379 @@
+name: Rust Engines
+
+# Builds and tests the official Rust engines under engines/ (ADR-037). Each crate must pass
+# cargo fmt, clippy (-D warnings) and cargo test. No network, no provider.
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+concurrency:
+  group: rust-engines-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  banzai-evidence:
+    name: banzai-evidence (R2 engine)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+      - name: cargo fmt
+        working-directory: engines/banzai-evidence
+        run: cargo fmt --check
+      - name: cargo clippy
+        working-directory: engines/banzai-evidence
+        run: cargo clippy --all-targets -- -D warnings
+      - name: cargo test
+        working-directory: engines/banzai-evidence
+        run: cargo test
+      - name: engine CLI check (corpus URLs + no forbidden claim + no rogue link)
+        working-directory: engines/banzai-evidence
+        run: cargo run --quiet -- check
+
+  banzai-query-core:
+    name: banzai-query-core (M2.18B.7 single query authority)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+      - name: cargo fmt
+        working-directory: engines/banzai-query-core
+        run: cargo fmt --check
+      - name: cargo clippy
+        working-directory: engines/banzai-query-core
+        run: cargo clippy --all-targets -- -D warnings
+      - name: cargo test
+        working-directory: engines/banzai-query-core
+        run: cargo test
+
+  banzai-onboarding:
+    name: banzai-onboarding (M2.19G.3 onboarding security engine)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+      - name: cargo fmt
+        working-directory: engines/banzai-onboarding
+        run: cargo fmt --check
+      - name: cargo clippy (default + wasm feature)
+        working-directory: engines/banzai-onboarding
+        run: |
+          cargo clippy --all-targets -- -D warnings
+          cargo clippy --all-targets --features wasm -- -D warnings
+      - name: cargo test
+        working-directory: engines/banzai-onboarding
+        run: cargo test
+
+  banza-artifact-fetcher:
+    name: banza-artifact-fetcher (M2.19G.1 secure fetcher)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+      - name: cargo fmt
+        working-directory: engines/banza-artifact-fetcher
+        run: cargo fmt --check
+      - name: cargo clippy
+        working-directory: engines/banza-artifact-fetcher
+        run: cargo clippy --all-targets -- -D warnings
+      - name: cargo test
+        working-directory: engines/banza-artifact-fetcher
+        run: cargo test
+
+  banza-target-registry:
+    name: banza-target-registry (M2.19G.1 closed technical registry)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+      - name: cargo fmt
+        working-directory: engines/banza-target-registry
+        run: cargo fmt --check
+      - name: cargo clippy
+        working-directory: engines/banza-target-registry
+        run: cargo clippy --all-targets -- -D warnings
+      - name: cargo test
+        working-directory: engines/banza-target-registry
+        run: cargo test
+
+  banzai-api-kb:
+    name: banzai-api-kb (R6 retrieval)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+      - name: cargo fmt
+        working-directory: engines/banzai-api-kb
+        run: cargo fmt --check
+      - name: cargo clippy
+        working-directory: engines/banzai-api-kb
+        run: cargo clippy --all-targets -- -D warnings
+      - name: cargo test
+        working-directory: engines/banzai-api-kb
+        run: cargo test
+
+  banzai-repo-indexer:
+    name: banzai-repo-indexer (M2.13B PR2 repo-wide indexer)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+      - name: cargo fmt
+        working-directory: engines/banzai-repo-indexer
+        run: cargo fmt --check
+      - name: cargo clippy
+        working-directory: engines/banzai-repo-indexer
+        run: cargo clippy --all-targets -- -D warnings
+      - name: cargo test
+        working-directory: engines/banzai-repo-indexer
+        run: cargo test
+
+  banza-simb:
+    name: banza-simb (R8 simulator)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+      - name: cargo fmt
+        working-directory: engines/banza-simb
+        run: cargo fmt --check
+      - name: cargo clippy
+        working-directory: engines/banza-simb
+        run: cargo clippy --all-targets -- -D warnings
+      - name: cargo test
+        working-directory: engines/banza-simb
+        run: cargo test
+
+  banza-evidence-bundle:
+    name: banza-evidence-bundle (BX1.5 assembler)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+      - name: cargo fmt
+        working-directory: engines/banza-evidence-bundle
+        run: cargo fmt --check
+      - name: cargo clippy
+        working-directory: engines/banza-evidence-bundle
+        run: cargo clippy --all-targets -- -D warnings
+      - name: cargo test
+        working-directory: engines/banza-evidence-bundle
+        run: cargo test
+
+  banza-operator-manifest:
+    name: banza-operator-manifest (BX1.6 validator)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+      - name: cargo fmt
+        working-directory: engines/banza-operator-manifest
+        run: cargo fmt --check
+      - name: cargo clippy
+        working-directory: engines/banza-operator-manifest
+        run: cargo clippy --all-targets -- -D warnings
+      - name: cargo test
+        working-directory: engines/banza-operator-manifest
+        run: cargo test
+
+  banza-l1-readiness:
+    name: banza-l1-readiness (BX1.7 aggregator)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+      - name: cargo fmt
+        working-directory: engines/banza-l1-readiness
+        run: cargo fmt --check
+      - name: cargo clippy
+        working-directory: engines/banza-l1-readiness
+        run: cargo clippy --all-targets -- -D warnings
+      - name: cargo test
+        working-directory: engines/banza-l1-readiness
+        run: cargo test
+
+  banza-l2-readiness:
+    name: banza-l2-readiness (BX1.8 payment-flow)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+      - name: cargo fmt
+        working-directory: engines/banza-l2-readiness
+        run: cargo fmt --check
+      - name: cargo clippy
+        working-directory: engines/banza-l2-readiness
+        run: cargo clippy --all-targets -- -D warnings
+      - name: cargo test
+        working-directory: engines/banza-l2-readiness
+        run: cargo test
+
+  banza-l3-readiness:
+    name: banza-l3-readiness (BX1.9 federation)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+      - name: cargo fmt
+        working-directory: engines/banza-l3-readiness
+        run: cargo fmt --check
+      - name: cargo clippy
+        working-directory: engines/banza-l3-readiness
+        run: cargo clippy --all-targets -- -D warnings
+      - name: cargo test
+        working-directory: engines/banza-l3-readiness
+        run: cargo test
+
+  banza-l4-readiness:
+    name: banza-l4-readiness (BX1.10 external-interop)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+      - name: cargo fmt
+        working-directory: engines/banza-l4-readiness
+        run: cargo fmt --check
+      - name: cargo clippy
+        working-directory: engines/banza-l4-readiness
+        run: cargo clippy --all-targets -- -D warnings
+      - name: cargo test
+        working-directory: engines/banza-l4-readiness
+        run: cargo test
+
+  banza-security-assurance:
+    name: banza-security-assurance (BX2.0 assurance)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+      - name: cargo fmt
+        working-directory: engines/banza-security-assurance
+        run: cargo fmt --check
+      - name: cargo clippy
+        working-directory: engines/banza-security-assurance
+        run: cargo clippy --all-targets -- -D warnings
+      - name: cargo test
+        working-directory: engines/banza-security-assurance
+        run: cargo test
+
+  banza-m2-protocol-gate:
+    name: banza-m2-protocol-gate (M2 protocol gate)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+      - name: cargo fmt
+        working-directory: engines/banza-m2-protocol-gate
+        run: cargo fmt --check
+      - name: cargo clippy
+        working-directory: engines/banza-m2-protocol-gate
+        run: cargo clippy --all-targets -- -D warnings
+      - name: cargo test
+        working-directory: engines/banza-m2-protocol-gate
+        run: cargo test
+
+  banza-root-ceremony:
+    name: banza-root-ceremony (M2.1 root ceremony)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+      - name: cargo fmt
+        working-directory: engines/banza-root-ceremony
+        run: cargo fmt --check
+      - name: cargo clippy
+        working-directory: engines/banza-root-ceremony
+        run: cargo clippy --all-targets -- -D warnings
+      - name: cargo test
+        working-directory: engines/banza-root-ceremony
+        run: cargo test
+
+  banza-reference-trust-model:
+    name: banza-reference-trust-model (M2.3 reference trust model)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+      - name: cargo fmt
+        working-directory: engines/banza-reference-trust-model
+        run: cargo fmt --check
+      - name: cargo clippy
+        working-directory: engines/banza-reference-trust-model
+        run: cargo clippy --all-targets -- -D warnings
+      - name: cargo test
+        working-directory: engines/banza-reference-trust-model
+        run: cargo test
+
+  banza-open-governance:
+    name: banza-open-governance (M2.2 open protocol governance)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+      - name: cargo fmt
+        working-directory: engines/banza-open-governance
+        run: cargo fmt --check
+      - name: cargo clippy
+        working-directory: engines/banza-open-governance
+        run: cargo clippy --all-targets -- -D warnings
+      - name: cargo test
+        working-directory: engines/banza-open-governance
+        run: cargo test
+
+  banza-root-ceremony-cli:
+    name: banza-root-ceremony-cli (M2.1 offline CLI)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+      - name: cargo fmt
+        working-directory: engines/banza-root-ceremony-cli
+        run: cargo fmt --check
+      - name: cargo clippy
+        working-directory: engines/banza-root-ceremony-cli
+        run: cargo clippy --all-targets -- -D warnings
+      - name: cargo test
+        working-directory: engines/banza-root-ceremony-cli
+        run: cargo test
+
+  banza-repo-guards:
+    name: banza-repo-guards (R10 gates)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+      - name: cargo fmt
+        working-directory: engines/banza-repo-guards
+        run: cargo fmt --check
+      - name: cargo clippy
+        working-directory: engines/banza-repo-guards
+        run: cargo clippy --all-targets -- -D warnings
+      - name: cargo test
+        working-directory: engines/banza-repo-guards
+        run: cargo test
+      - name: gates run green on this repo (purity + contamination + invariants)
+        run: cargo run --quiet --release --manifest-path engines/banza-repo-guards/Cargo.toml -- all

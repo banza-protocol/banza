@@ -1,0 +1,31 @@
+[package]
+name = "banza-trust"
+version = "0.1.0"
+edition = "2021"
+description = "banza-trust (ADR-037, R5; M2.4): the Rust BANZA trust verifier for the open financial protocol. Ed25519 + ADR-038 canonical-JSON evaluation of signed protocol metadata, delegated signing keys, operator manifests, conformance evidence, the public protocol registry and revocation/fail-closed. Verification only — no key generation for production, no signing of production artifacts, no operator authorisation, certification or approval."
+license = "Apache-2.0"
+
+[lib]
+name = "banza_trust"
+crate-type = ["cdylib", "rlib"]
+path = "src/lib.rs"
+
+[[bin]]
+name = "banza-trust"
+path = "src/bin/cli.rs"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"                 # default Map = BTreeMap (sorted keys) → matches Python sort_keys
+ed25519-dalek = "2"
+base64 = "0.22"
+sha2 = "0.10"
+wasm-bindgen = { version = "0.2", optional = true }
+
+[features]
+# Enabled only for the standalone `wasm-pack build --features wasm`. Kept OFF when banza-trust is a
+# transitive dependency (e.g. of banza-conformance) so its WASM exports never leak into another bundle.
+wasm = ["dep:wasm-bindgen"]
+
+[profile.release]
+opt-level = 2

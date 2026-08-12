@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/settlements/state-machine.json",
+  "title": "ApplicationSettlement state machine",
+  "_authority": "ADR-019",
+  "_spec_version": "1.0",
+  "initial": "CREATED",
+  "states": ["CREATED", "PENDING", "COMPLETED", "FAILED", "CANCELLED"],
+  "terminal": ["COMPLETED", "FAILED", "CANCELLED"],
+  "transitions": [
+    { "from": "CREATED", "to": "PENDING",   "on": "submit" },
+    { "from": "PENDING", "to": "COMPLETED", "on": "post",   "note": "produces a balanced ledger posting (ADR-006)" },
+    { "from": "PENDING", "to": "FAILED",    "on": "fail" },
+    { "from": "CREATED", "to": "CANCELLED", "on": "cancel" },
+    { "from": "PENDING", "to": "CANCELLED", "on": "cancel" }
+  ],
+  "rules": [
+    "COMPLETED is the only state that writes a ledger posting; it is append-only and never mutated.",
+    "Terminal states accept no further transitions.",
+    "The beneficiary receives amount_minor - application_fee_minor; both are operator-resolved, never protocol-defined."
+  ]
+}

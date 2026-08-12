@@ -1,0 +1,14 @@
+{
+  "name": "@banza/verification-api",
+  "version": "0.1.0",
+  "private": true,
+  "description": "BANZA protocol verification API — serves canonical machine routes as read-only JSON from the dedicated PostgreSQL. Protocol-only: no wallet, ledger, KYC/KYB, payments, accounts or operator brands.",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "pg": "8.13.1"
+  }
+}

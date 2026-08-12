@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 660" role="img" aria-label="Arquitectura de Referência de um Operador BANZA — componentes típicos; o protocolo não impõe tecnologias específicas" font-family="system-ui,-apple-system,sans-serif">
+  <title>Arquitectura de Referência de um Operador BANZA</title>
+  <desc>Componentes típicos de um operador BANZA e os artefactos do protocolo. É ilustrativa: o protocolo define comportamento, não impõe tecnologias específicas.</desc>
+  <defs>
+    <linearGradient id="hg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#990011"/><stop offset="100%" stop-color="#B11226"/>
+    </linearGradient>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="4.5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#6B7280"/>
+    </marker>
+  </defs>
+
+  <rect width="1120" height="660" fill="#FCF6F5" rx="16"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="1120" height="72" fill="url(#hg)" rx="16"/>
+  <rect x="0" y="56" width="1120" height="16" fill="#B11226"/>
+  <text x="36" y="32" font-family="ui-monospace,'Courier New',monospace" font-size="10" fill="#FECACA" letter-spacing="2">SVG-P-044 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="36" y="56" font-size="19" font-weight="800" fill="white">Arquitectura de Referência de um Operador BANZA</text>
+  <text x="1084" y="56" text-anchor="end" font-size="11" fill="#FECACA">Componentes típicos · o protocolo não impõe tecnologias</text>
+
+  <!-- ── LEFT: layered operator architecture ── -->
+  <!-- Camada 1 — Orquestração -->
+  <rect x="56" y="96" width="664" height="126" fill="white" rx="12" stroke="#E5E7EB" stroke-width="1.5"/>
+  <rect x="56" y="96" width="664" height="32" fill="#166534" rx="12"/><rect x="56" y="114" width="664" height="14" fill="#166534"/>
+  <text x="76" y="116" font-size="10" font-weight="700" fill="#BBF7D0" letter-spacing="1.5">PLANO DE ORQUESTRAÇÃO</text>
+  <text x="388" y="116" text-anchor="middle" font-size="14" font-weight="800" fill="white">Camada de API</text>
+  <text x="388" y="150" text-anchor="middle" font-size="11.5" fill="#374151">recebe pedidos · valida · encaminha</text>
+  <rect x="76" y="162" width="196" height="26" rx="8" fill="#F0FDF4" stroke="#BBF7D0"/>
+  <text x="174" y="179" text-anchor="middle" font-size="10.5" font-weight="600" fill="#166534">Endpoint de Pagamento</text>
+  <rect x="284" y="162" width="196" height="26" rx="8" fill="#F0FDF4" stroke="#BBF7D0"/>
+  <text x="382" y="179" text-anchor="middle" font-size="10.5" font-weight="600" fill="#166534">Endpoint de Federação</text>
+  <rect x="492" y="162" width="212" height="26" rx="8" fill="#F0FDF4" stroke="#BBF7D0"/>
+  <text x="598" y="179" text-anchor="middle" font-size="10.5" font-weight="600" fill="#166534">Webhooks</text>
+  <text x="388" y="208" text-anchor="middle" font-size="11" fill="#6B7280">Limitação de Taxa · Chaves de Idempotência · IDs de Trace</text>
+
+  <line x1="388" y1="222" x2="388" y2="248" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr)"/>
+
+  <!-- Camada 2 — Núcleo Financeiro -->
+  <rect x="56" y="252" width="664" height="120" fill="white" rx="12" stroke="#E5E7EB" stroke-width="1.5"/>
+  <rect x="56" y="252" width="664" height="32" fill="#991B1B" rx="12"/><rect x="56" y="270" width="664" height="14" fill="#991B1B"/>
+  <text x="76" y="272" font-size="10" font-weight="700" fill="#FECACA" letter-spacing="1.5">PLANO — NÚCLEO FINANCEIRO</text>
+  <text x="388" y="272" text-anchor="middle" font-size="14" font-weight="800" fill="white">Núcleo Financeiro</text>
+  <text x="388" y="306" text-anchor="middle" font-size="11.5" fill="#374151">aritmética inteira · operações atómicas · invariantes</text>
+  <rect x="76" y="320" width="150" height="40" rx="8" fill="#FEF2F2" stroke="#FECACA"/>
+  <text x="151" y="344" text-anchor="middle" font-size="11" font-weight="700" fill="#991B1B">Livro-Razão</text>
+  <rect x="238" y="320" width="150" height="40" rx="8" fill="#FEF2F2" stroke="#FECACA"/>
+  <text x="313" y="344" text-anchor="middle" font-size="11" font-weight="700" fill="#991B1B">Carteiras</text>
+  <rect x="400" y="320" width="150" height="40" rx="8" fill="#FEF2F2" stroke="#FECACA"/>
+  <text x="475" y="344" text-anchor="middle" font-size="11" font-weight="700" fill="#991B1B">Liquidação</text>
+  <rect x="562" y="320" width="142" height="40" rx="8" fill="#FEF2F2" stroke="#FECACA"/>
+  <text x="633" y="338" text-anchor="middle" font-size="10.5" font-weight="700" fill="#991B1B">Risco e</text>
+  <text x="633" y="352" text-anchor="middle" font-size="10.5" font-weight="700" fill="#991B1B">Conformidade</text>
+
+  <line x1="388" y1="372" x2="388" y2="398" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr)"/>
+
+  <!-- Persistência + Coordenação (examples) -->
+  <rect x="56" y="402" width="324" height="78" fill="white" rx="12" stroke="#BFDBFE" stroke-width="1.5"/>
+  <rect x="56" y="402" width="324" height="28" fill="#1E40AF" rx="12"/><rect x="56" y="416" width="324" height="12" fill="#1E40AF"/>
+  <text x="218" y="421" text-anchor="middle" font-size="10" font-weight="700" fill="#BFDBFE" letter-spacing="1">PERSISTÊNCIA · EXEMPLO</text>
+  <text x="218" y="452" text-anchor="middle" font-size="13" font-weight="800" fill="#1F2937">PostgreSQL</text>
+  <text x="218" y="470" text-anchor="middle" font-size="10" fill="#6B7280">fonte de verdade financeira · transaccional</text>
+  <rect x="396" y="402" width="324" height="78" fill="white" rx="12" stroke="#BFDBFE" stroke-width="1.5"/>
+  <rect x="396" y="402" width="324" height="28" fill="#1E40AF" rx="12"/><rect x="396" y="416" width="324" height="12" fill="#1E40AF"/>
+  <text x="558" y="421" text-anchor="middle" font-size="10" font-weight="700" fill="#BFDBFE" letter-spacing="1">COORDENAÇÃO · EXEMPLO</text>
+  <text x="558" y="452" text-anchor="middle" font-size="13" font-weight="800" fill="#1F2937">Redis</text>
+  <text x="558" y="470" text-anchor="middle" font-size="10" fill="#6B7280">idempotência · locks distribuídos · limites de taxa</text>
+
+  <!-- ── RIGHT: protocol artifacts published by the operator ── -->
+  <rect x="752" y="96" width="312" height="384" fill="white" rx="12" stroke="#E5E7EB" stroke-width="1.5"/>
+  <rect x="752" y="96" width="312" height="46" fill="#1F2937" rx="12"/><rect x="752" y="120" width="312" height="22" fill="#1F2937"/>
+  <text x="908" y="116" text-anchor="middle" font-size="9.5" font-weight="700" fill="#9CA3AF" letter-spacing="1.5">ARTEFACTOS DE PROTOCOLO</text>
+  <text x="908" y="133" text-anchor="middle" font-size="12.5" font-weight="800" fill="white">Publicados pelo Operador</text>
+  <rect x="772" y="158" width="272" height="34" rx="8" fill="#FEF2F2" stroke="#FECACA"/>
+  <text x="908" y="180" text-anchor="middle" font-size="11" font-family="ui-monospace,monospace" fill="#991B1B">signed-protocol-metadata.json</text>
+  <rect x="772" y="200" width="272" height="34" rx="8" fill="#F0FDF4" stroke="#BBF7D0"/>
+  <text x="908" y="222" text-anchor="middle" font-size="11" font-family="ui-monospace,monospace" fill="#166534">operator.json</text>
+  <rect x="772" y="242" width="272" height="34" rx="8" fill="#EFF6FF" stroke="#BFDBFE"/>
+  <text x="908" y="264" text-anchor="middle" font-size="11" font-weight="600" fill="#1E40AF">Endpoint /federation</text>
+  <rect x="772" y="284" width="272" height="34" rx="8" fill="#EFF6FF" stroke="#BFDBFE"/>
+  <text x="908" y="306" text-anchor="middle" font-size="11" font-weight="600" fill="#1E40AF">Endpoint /obligations</text>
+  <rect x="772" y="326" width="272" height="34" rx="8" fill="#FEFCE8" stroke="#FDE68A"/>
+  <text x="908" y="348" text-anchor="middle" font-size="11" font-weight="600" fill="#854D0E">Verificação do BRL (a cada 6 h)</text>
+  <rect x="772" y="368" width="272" height="34" rx="8" fill="#FEFCE8" stroke="#FDE68A"/>
+  <text x="908" y="390" text-anchor="middle" font-size="11" font-weight="600" fill="#854D0E">IDs de Trace propagados</text>
+  <text x="908" y="430" text-anchor="middle" font-size="10" fill="#6B7280">É a publicação destes artefactos —</text>
+  <text x="908" y="446" text-anchor="middle" font-size="10" fill="#6B7280">não a ligação a um sistema central —</text>
+  <text x="908" y="462" text-anchor="middle" font-size="10" fill="#6B7280">que torna o operador participante na rede.</text>
+
+  <!-- Neutrality band -->
+  <rect x="56" y="498" width="1008" height="44" rx="10" fill="#F3F4F6"/>
+  <text x="560" y="518" text-anchor="middle" font-size="11.5" font-weight="700" fill="#374151">Esta é uma arquitectura de referência típica. O protocolo não impõe tecnologias específicas.</text>
+  <text x="560" y="534" text-anchor="middle" font-size="10.5" fill="#6B7280">Um operador pode usar tecnologias diferentes desde que respeite os contratos, invariantes e testes de conformidade.</text>
+
+  <!-- Conformance band -->
+  <rect x="56" y="550" width="1008" height="44" rx="10" fill="white" stroke="#E5E7EB"/>
+  <text x="560" y="570" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1F2937">Conformidade verificada pelo conjunto de testes BANZA</text>
+  <text x="560" y="586" text-anchor="middle" font-size="10.5" fill="#6B7280">L0–L4 são âmbitos de conformidade (capacidades), não níveis de certificação: health · carteiras e QR · liquidação · federação · acquiring — evidência publicada pelo operador</text>
+
+  <!-- Footer -->
+  <text x="560" y="624" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-044 · Arquitectura de Referência de um Operador BANZA · BANZA_REFERENCIA.md §12 · ADR-021 · v1.1 · 2026-07-19</text>
+</svg>

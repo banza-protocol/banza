@@ -1,0 +1,234 @@
+{
+  "_meta": {
+    "milestone": "M2.18B.7 DFN-7",
+    "generator": "tools/gen-banzai-template-schema-registry.mjs",
+    "principle": "Every published template is a deterministic instance validated against its REAL canonical schema by the engine's own validator — no invented fields, schema checksum recorded, output tied to the FactualPackage, no second Qwen call."
+  },
+  "total_templates": 7,
+  "all_valid": true,
+  "templates": [
+    {
+      "subject": "chave",
+      "schema_id": "key-manifest-schema",
+      "schema_path": "contracts/production/key-manifest.production.schema.json",
+      "schema_declared_id": "https://banza.network/contracts/production/key-manifest.production.schema.json",
+      "schema_version": "1.0",
+      "schema_checksum": "031ec2c39e2e0d66",
+      "additional_properties_closed": true,
+      "schema_required": [
+        "hash",
+        "keys",
+        "manifest_version",
+        "not_after",
+        "not_before",
+        "protocol_version",
+        "root"
+      ],
+      "claimed_required": [
+        "hash",
+        "keys",
+        "manifest_version",
+        "not_after",
+        "not_before",
+        "protocol_version",
+        "root"
+      ],
+      "body_validates": true,
+      "validation_errors": []
+    },
+    {
+      "subject": "conformidade",
+      "schema_id": "conformance-evidence-schema",
+      "schema_path": "contracts/production/conformance-evidence.production.schema.json",
+      "schema_declared_id": "https://banza.network/contracts/production/conformance-evidence.production.schema.json",
+      "schema_version": "1.0",
+      "schema_checksum": "908ebe1994f5b8c0",
+      "additional_properties_closed": true,
+      "schema_required": [
+        "boundary",
+        "conformance_report_hash",
+        "conformance_status",
+        "evidence_bundle_hash",
+        "operator_id",
+        "protocol_version",
+        "signed_protocol_metadata",
+        "trust_root_version",
+        "verified_by_tool_version"
+      ],
+      "claimed_required": [
+        "conformance_report_hash",
+        "conformance_status",
+        "evidence_bundle_hash",
+        "generated_at",
+        "operator_id",
+        "protocol_version",
+        "revocation_status",
+        "trust_root_version",
+        "verified_by_tool_version"
+      ],
+      "body_validates": true,
+      "validation_errors": []
+    },
+    {
+      "subject": "evidencia",
+      "schema_id": "evidence-bundle-schema",
+      "schema_path": "contracts/production/evidence-bundle.production.schema.json",
+      "schema_declared_id": "https://banza.network/contracts/production/evidence-bundle.production.schema.json",
+      "schema_version": "1.0",
+      "schema_checksum": "2705b35e4d7c4786",
+      "additional_properties_closed": true,
+      "schema_required": [
+        "artifacts",
+        "boundary_flags",
+        "bundle_id",
+        "hashes",
+        "protocol_version",
+        "status_refs"
+      ],
+      "claimed_required": [
+        "artifacts",
+        "boundary_flags",
+        "bundle_id",
+        "hashes",
+        "protocol_version",
+        "status_refs"
+      ],
+      "body_validates": true,
+      "validation_errors": []
+    },
+    {
+      "subject": "interoperabilidade",
+      "schema_id": "federation-manifest-schema",
+      "schema_path": "contracts/federation/federation-manifest.json",
+      "schema_declared_id": "https://banza.network/contracts/federation/federation-manifest.json",
+      "schema_version": "1",
+      "schema_checksum": "344a197e2da8bdce",
+      "additional_properties_closed": false,
+      "schema_required": [
+        "cross_operator_routing",
+        "cross_operator_settlement",
+        "federation_capabilities",
+        "federation_version",
+        "interop_endpoint",
+        "protocol_metadata_url",
+        "supports_federation"
+      ],
+      "claimed_required": [
+        "cross_operator_routing",
+        "cross_operator_settlement",
+        "federation_capabilities",
+        "federation_version",
+        "interop_endpoint",
+        "protocol_metadata_url",
+        "supports_federation"
+      ],
+      "body_validates": true,
+      "validation_errors": []
+    },
+    {
+      "subject": "manifest",
+      "schema_id": "operator-manifest-schema",
+      "schema_path": "contracts/production/operator-manifest.production.schema.json",
+      "schema_declared_id": "https://banza.network/contracts/production/operator-manifest.production.schema.json",
+      "schema_version": "1.0",
+      "schema_checksum": "50f4a61f3099b82d",
+      "additional_properties_closed": true,
+      "schema_required": [
+        "base_url",
+        "capabilities",
+        "environment",
+        "key_manifest_url",
+        "operator_id",
+        "operator_regulatory_declaration",
+        "production_allowed",
+        "protocol_version",
+        "simulated",
+        "supported_levels"
+      ],
+      "claimed_required": [
+        "base_url",
+        "capabilities",
+        "environment",
+        "key_manifest_url",
+        "operator_id",
+        "operator_regulatory_declaration",
+        "production_allowed",
+        "protocol_version",
+        "simulated",
+        "supported_levels"
+      ],
+      "body_validates": true,
+      "validation_errors": []
+    },
+    {
+      "subject": "root",
+      "schema_id": "trust-root-metadata-schema",
+      "schema_path": "contracts/production/trust-root-metadata.production.schema.json",
+      "schema_declared_id": "https://banza.network/contracts/production/trust-root-metadata.production.schema.json",
+      "schema_version": "1.0",
+      "schema_checksum": "abe78ea82ec08cc3",
+      "additional_properties_closed": true,
+      "schema_required": [
+        "boundary",
+        "delegated_keys",
+        "environment",
+        "protocol",
+        "root_public_keys",
+        "scope",
+        "threshold",
+        "total_root_keys",
+        "trust_root_version",
+        "valid_from",
+        "valid_until"
+      ],
+      "claimed_required": [
+        "environment",
+        "protocol",
+        "revocation_list_ref",
+        "root_public_keys",
+        "scope",
+        "threshold",
+        "total_root_keys",
+        "trust_root_version",
+        "valid_from",
+        "valid_until"
+      ],
+      "body_validates": true,
+      "validation_errors": []
+    },
+    {
+      "subject": "trust",
+      "schema_id": "federation-trust-evaluation-schema",
+      "schema_path": "contracts/production/federation-trust-evaluation.production.schema.json",
+      "schema_declared_id": "https://banza.network/contracts/production/federation-trust-evaluation.production.schema.json",
+      "schema_version": "1.0",
+      "schema_checksum": "f50bf7433b445d36",
+      "additional_properties_closed": true,
+      "schema_required": [
+        "boundary",
+        "checks",
+        "evaluated_at",
+        "evaluated_operator_id",
+        "evaluator_operator_id",
+        "outcome",
+        "protocol_version",
+        "trust_root_version",
+        "verified_by_tool_version"
+      ],
+      "claimed_required": [
+        "checks",
+        "evaluated_at",
+        "evaluated_operator_id",
+        "evaluator_operator_id",
+        "failed_checks",
+        "outcome",
+        "protocol_version",
+        "trust_root_version",
+        "verified_by_tool_version"
+      ],
+      "body_validates": true,
+      "validation_errors": []
+    }
+  ],
+  "checksum": "e91c1ed1af2a7cdf"
+}

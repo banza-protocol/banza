@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  id:        SVG-P-074
+  diagram:   Proveniência das regras
+  version:   1.0
+  source:    BANZA_REFERENCIA.md §11 · ADR-041 · docs/governance/BANZAI_NATIVE_PROTOCOL_AGENT.md
+  updated:   2026-07-19
+  author:    BANZA Protocol
+  style:     protocol
+-->
+<svg viewBox="0 0 1000 440" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-labelledby="title-P074 desc-P074"
+     font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="title-P074">Proveniência das regras</title>
+  <desc id="desc-P074">A proveniência das regras no BANZA: RFC/ADR, specs e contracts alimentam a Referência BANZA; os motores Rust/WASM verificam; o BanzAI orienta com base nessas fontes; o operador executa. Uma regra só se torna activa por governança formal — RFC/ADR, revisão, merge, release e publicação. O output de IA não é regra do protocolo; sem fonte, o BanzAI declara que não há regra suficiente e pode sugerir uma proposta RFC/ADR que não é regra activa.</desc>
+  <defs>
+    <linearGradient id="hg-P074" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E0F1A"/><stop offset="100%" stop-color="#8E1326"/>
+    </linearGradient>
+    <marker id="arr-P074" markerWidth="9" markerHeight="9" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#B98A3E"/>
+    </marker>
+  </defs>
+
+  <rect width="1000" height="440" fill="#F8F4EC"/>
+
+  <rect x="0" y="0" width="1000" height="66" fill="url(#hg-P074)" rx="14"/>
+  <rect x="0" y="50" width="1000" height="16" fill="#8E1326"/>
+  <text x="28" y="28" font-family="ui-monospace,'Courier New',monospace" font-size="10" fill="#FECACA" letter-spacing="2">SVG-P-074 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="28" y="51" font-size="19" font-weight="800" fill="white">Proveniência das regras</text>
+
+  <!-- Flow row -->
+  <g font-size="11">
+    <rect x="24" y="104" width="176" height="86" rx="11" fill="#F6EBD8" stroke="#9A6B1E" stroke-width="1.5"/>
+    <text x="112" y="140" text-anchor="middle" font-size="12.5" font-weight="700" fill="#7A5212">RFC / ADR</text>
+    <text x="112" y="160" text-anchor="middle" font-size="10" fill="#5A4A2E">Specs · Contracts</text>
+    <line x1="200" y1="147" x2="224" y2="147" stroke="#B98A3E" stroke-width="2" marker-end="url(#arr-P074)"/>
+
+    <rect x="226" y="104" width="176" height="86" rx="11" fill="#FBEFF0" stroke="#8E1326" stroke-width="1.5"/>
+    <text x="314" y="140" text-anchor="middle" font-size="12.5" font-weight="700" fill="#8E1326">Referência BANZA</text>
+    <text x="314" y="160" text-anchor="middle" font-size="10" fill="#6B6265">fonte normativa</text>
+    <line x1="402" y1="147" x2="426" y2="147" stroke="#B98A3E" stroke-width="2" marker-end="url(#arr-P074)"/>
+
+    <rect x="428" y="104" width="176" height="86" rx="11" fill="#EEECEA" stroke="#3C4654" stroke-width="1.5"/>
+    <text x="516" y="140" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2A2E35">Motores Rust/WASM</text>
+    <text x="516" y="160" text-anchor="middle" font-size="10" fill="#6B6265">verificam</text>
+    <line x1="604" y1="147" x2="628" y2="147" stroke="#B98A3E" stroke-width="2" marker-end="url(#arr-P074)"/>
+
+    <rect x="630" y="104" width="176" height="86" rx="11" fill="#EAEFF4" stroke="#2E4054" stroke-width="2"/>
+    <text x="718" y="140" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2E4054">BanzAI orienta</text>
+    <text x="718" y="160" text-anchor="middle" font-size="10" fill="#54595F">com base nas fontes</text>
+    <line x1="806" y1="147" x2="830" y2="147" stroke="#B98A3E" stroke-width="2" marker-end="url(#arr-P074)"/>
+
+    <rect x="832" y="104" width="144" height="86" rx="11" fill="#EAF3EC" stroke="#2E6A4E" stroke-width="1.5"/>
+    <text x="904" y="140" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1D4A34">Operador</text>
+    <text x="904" y="160" text-anchor="middle" font-size="10" fill="#2E6A4E">executa</text>
+  </g>
+
+  <!-- Activation band -->
+  <rect x="24" y="214" width="952" height="52" rx="10" fill="#FFFFFF" stroke="#E4DECF" stroke-width="1"/>
+  <text x="40" y="236" font-family="ui-monospace,'Courier New',monospace" font-size="9" font-weight="700" fill="#7A5212" letter-spacing="1">COMO UMA REGRA SE TORNA ACTIVA</text>
+  <text x="40" y="256" font-size="11" fill="#5A4A2E">Proposta → RFC/ADR → revisão → testes → merge → release → publicação na Referência. Só então vigora.</text>
+
+  <!-- Boundary band -->
+  <rect x="24" y="282" width="952" height="70" rx="10" fill="#FBEFF0" stroke="#EAD2D6" stroke-width="1"/>
+  <text x="40" y="306" font-size="11.5" font-weight="700" fill="#8E1326">Output de IA não é regra do protocolo.</text>
+  <text x="40" y="328" font-size="10.5" fill="#6B6265">Sem fonte, o BanzAI declara que não há regra suficiente e pode sugerir uma proposta RFC/ADR.</text>
+  <text x="40" y="344" font-size="10.5" fill="#6B6265">Uma proposta não é regra activa. BanzAI não inventa regras nem cria decisões arquitecturais.</text>
+
+  <text x="500" y="400" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-074 · Proveniência das regras · BANZA_REFERENCIA.md §11 · ADR-041 · v1.0 · 2026-07-19</text>
+</svg>

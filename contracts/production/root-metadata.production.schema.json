@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/root-metadata.production.schema.json",
+  "title": "RootMetadataProduction",
+  "description": "Root trust metadata for the BANZA open financial protocol, produced by the offline root-key ceremony under a 2-of-3 custody threshold. Publishes ONLY public root keys, delegations, validity windows, ceremony evidence hashes, trust policy, and a 2-of-3 set of signatures. The real ceremony happens OFFLINE on the custodians' own computers; this artifact carries public material only. NO private keys, seeds, mnemonics or passphrases ever appear here or are ever transmitted. The 'scope' array constrains the root to root_metadata, delegation, rotation, revocation and trust_policy — the root does NOT sign payments, does NOT authorise operators, does NOT issue licences and does NOT move funds. The 'boundary' object records the permanent BANZA protocol/operator frontier by the positive: BANZA permanece protocolo financeiro aberto; operadores autorizados sao entidades separadas que implementam o protocolo. Any field asserting payment_authority:true, operator_authorisation_authority:true, moves_funds:true, settles_funds:true, holds_funds:true, licensed_by_banza:true, or production_certificates:true is FORBIDDEN and makes the ceremony INVALID (M2_ROOT_CEREMONY_INVALID_REGULATORY_BOUNDARY / _INVALID_SCOPE). Status is computed in Rust by engines/banza-root-ceremony :: validate_root_ceremony, never in TypeScript.",
+  "_spec_version": "1.0",
+  "_status": "production-baseline",
+  "_authority": "Root Trust Ceremony (2-of-3 offline custody, docs/governance PKI trust model)",
+  "_boundary": "Root trust for the BANZA open financial protocol. The root does NOT authorise payment services, does NOT create operators, does NOT issue licences, does NOT move/settle/hold funds, and does NOT replace operator regulatory authorisation. BANZA remains an open financial protocol; PSPs/banks/authorised operators are separate entities that implement it.",
+
+  "type": "object",
+  "required": ["protocol", "environment", "root_id", "threshold", "total_root_keys", "keys", "delegations", "valid_from", "valid_until", "ceremony_id", "ceremony_evidence_hash", "policy", "signatures", "scope", "boundary"],
+  "additionalProperties": false,
+
+  "properties": {
+    "protocol": { "type": "string", "const": "banza", "description": "Protocol this root anchors. Always 'banza' — the open financial protocol." },
+    "environment": { "type": "string", "enum": ["production", "staging", "test"], "description": "Trust environment. 'production' anchors the published protocol root of trust." },
+    "root_id": { "type": "string", "description": "Stable identifier of this protocol root of trust (e.g. 'banza-root-2026')." },
+    "threshold": { "type": "integer", "const": 2, "description": "Signature threshold. 2-of-3: any two custodians' signatures make the root metadata valid." },
+    "total_root_keys": { "type": "integer", "const": 3, "description": "Total independent root public keys. Three custodians (A, B, C), one key each." },
+    "keys": {
+      "type": "array",
+      "description": "The three published root PUBLIC keys, one per custodian. Private keys NEVER appear. No device holds more than one root private key.",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["key_id", "custodian", "public_key", "fingerprint", "algorithm"],
+        "additionalProperties": false,
+        "properties": {
+          "key_id": { "type": "string", "description": "Unique id of this root public key (e.g. 'root-key-A')." },
+          "custodian": { "type": "string", "enum": ["A", "B", "C"], "description": "Independent custodian holding the matching private key OFFLINE. Custodian A holds only root_key_A, B only root_key_B, C only root_key_C." },
+          "public_key": { "type": "string", "description": "Root PUBLIC key material only (base64url, ed25519). Private keys are NEVER included." },
+          "fingerprint": { "type": "string", "description": "Public fingerprint (hash) of the root public key." },
+          "algorithm": { "type": "string", "const": "ed25519", "description": "Signature algorithm." }
+        }
+      }
+    },
+    "delegations": {
+      "type": "array",
+      "description": "Delegations from the root to purpose-specific signing keys (release/BRL/artifact/evidence). Delegated keys sign protocol artifacts — never payments, operators or funds. See root-delegation.production.schema.json.",
+      "items": { "$ref": "https://banza.network/contracts/production/root-delegation.production.schema.json" }
+    },
+    "valid_from": { "type": "string", "format": "date-time", "description": "Start of this root metadata's validity window." },
+    "valid_until": { "type": "string", "format": "date-time", "description": "End of this root metadata's validity window." },
+    "ceremony_id": { "type": "string", "description": "Identifier of the offline root-key ceremony that produced this metadata." },
+    "ceremony_evidence_hash": {
+      "type": "object",
+      "description": "Content hash over the public ceremony evidence record (see root-ceremony-evidence.production.schema.json). No secret material.",
+      "required": ["algorithm", "value"],
+      "additionalProperties": false,
+      "properties": {
+        "algorithm": { "type": "string", "enum": ["sha-256"] },
+        "value": { "type": "string", "description": "Digest over the canonical ceremony evidence bytes." }
+      }
+    },
+    "policy": {
+      "type": "object",
+      "description": "Trust policy governing rotation, revocation and delegation under this root.",
+      "required": ["rotation_allowed", "revocation_allowed", "min_signatures"],
+      "additionalProperties": false,
+      "properties": {
+        "rotation_allowed": { "type": "boolean", "description": "Whether root-key rotation is permitted under this policy." },
+        "revocation_allowed": { "type": "boolean", "description": "Whether root-key revocation is permitted under this policy." },
+        "min_signatures": { "type": "integer", "const": 2, "description": "Minimum signatures required for any root action (2-of-3)." },
+        "compromise_of_one_key_does_not_compromise_root": { "type": "boolean", "const": true, "description": "Property of the 2-of-3 model: compromise of a single key does not compromise the whole root." },
+        "loss_of_one_key_does_not_destroy_root": { "type": "boolean", "const": true, "description": "Property of the 2-of-3 model: loss of a single key does not destroy the root." }
+      }
+    },
+    "signatures": {
+      "type": "array",
+      "description": "Custodian signatures over the canonical root metadata bytes. At least 2 of 3 required (M2_ROOT_CEREMONY_BLOCKED_BY_THRESHOLD if fewer). Public signatures only.",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["key_id", "custodian", "signature"],
+        "additionalProperties": false,
+        "properties": {
+          "key_id": { "type": "string", "description": "Root key id that produced this signature." },
+          "custodian": { "type": "string", "enum": ["A", "B", "C"], "description": "Custodian who signed OFFLINE." },
+          "signature": { "type": "string", "description": "Detached signature over the canonical metadata (base64url, ed25519). Public material." }
+        }
+      }
+    },
+    "scope": {
+      "type": "array",
+      "description": "Allowed root actions, all of them root-metadata-scope: 'revocation' means delegated-key revocation recorded in root metadata — never the BANZA Revocation List (BRL), which is signed by the revocation-domain delegated key (INV-ROOT-005). The root signs ONLY these — never payments, operators, licences or funds.",
+      "minItems": 1,
+      "items": { "type": "string", "enum": ["root_metadata", "delegation", "rotation", "revocation", "trust_policy"] }
+    },
+    "boundary": {
+      "type": "object",
+      "description": "Permanent protocol/operator boundary, asserted by the positive. Any of payment_service_authority:true, operator_authorisation_authority:true, moves_funds:true, settles_funds:true, holds_funds:true, issues_payment_licence:true, creates_operator:true is FORBIDDEN and makes the ceremony INVALID.",
+      "required": ["open_financial_protocol", "payment_service_authority", "operator_authorisation_authority", "moves_funds", "settles_funds", "holds_funds", "issues_payment_licence", "creates_operator", "requires_operator_regulatory_authorisation_if_used_for_real_services"],
+      "additionalProperties": false,
+      "properties": {
+        "open_financial_protocol": { "const": true, "description": "BANZA permanece protocolo financeiro aberto." },
+        "payment_service_authority": { "const": false, "description": "The root does NOT authorise payment services." },
+        "operator_authorisation_authority": { "const": false, "description": "The root does NOT authorise operators." },
+        "moves_funds": { "const": false, "description": "The root does NOT move funds." },
+        "settles_funds": { "const": false, "description": "The root does NOT settle funds." },
+        "holds_funds": { "const": false, "description": "The root does NOT hold funds." },
+        "issues_payment_licence": { "const": false, "description": "The root does NOT issue payment licences." },
+        "creates_operator": { "const": false, "description": "The root does NOT create operators." },
+        "requires_operator_regulatory_authorisation_if_used_for_real_services": { "const": true, "description": "Operadores autorizados sao entidades separadas que implementam o protocolo; usar para servicos reais exige a autorizacao regulatoria do operador." }
+      }
+    }
+  }
+}

@@ -1,0 +1,1863 @@
+name: Identity Guard
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+concurrency:
+  group: identity-guard-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  operator-contamination-check:
+    name: No operator-specific brand in BANZA
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Single source of truth: the guard script in tools/. CI and local
+      # `make identity-check` run the exact same logic — no divergence.
+      # The script drives its scan from `git ls-files`, so it needs no tooling
+      # beyond git + grep (both present on ubuntu-latest).
+      - name: Operator neutrality guard
+        run: bash tools/check-operator-contamination.sh
+
+      # M2.19A — the clean-slate ADR tree stays clean: removed CA/operator-era ADRs
+      # (004/022/026/027/032) never reappear, ADR-057 is present, and no current surface
+      # reintroduces a reference to a deleted ADR (historical records exempt; ADR-057 D-057).
+      - name: ADR canonical clean-slate guard (M2.19A)
+        run: bash tools/check-adr-canonical-clean.sh
+
+  open-governance-check:
+    name: No central human authority over operators (M2.2)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Same single-source-of-truth rule: CI and local `make open-governance-check` run the exact same
+      # script. The guard also self-tests its own regexes on every run and exits 2 if that logic breaks.
+      - name: Open protocol governance guard
+        run: bash tools/check-open-governance.sh
+
+  public-surface-clean-check:
+    name: Public surfaces present only the active model (M2.5)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # CI and local `make public-surface-clean-check` run the exact same script; it self-tests its own
+      # regexes on every run and exits 2 if that logic breaks.
+      - name: Public-surface clean guard
+        run: bash tools/check-public-surface-clean.sh
+
+  workbench-only-check:
+    name: Operator verification is Workbench-only (M2.5)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # CI and local `make workbench-only-check` run the exact same script; it self-tests on every run.
+      - name: Workbench-only operator-verification guard
+        run: bash tools/check-workbench-only.sh
+
+  governance-docs-clean-check:
+    name: Governance docs present only the active model (M2.6)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # CI and local `make governance-docs-clean-check` run the exact same script; it self-tests its own
+      # clause-scoped regexes on every run and exits 2 if that logic breaks.
+      - name: Governance-docs clean guard
+        run: bash tools/check-governance-docs-clean.sh
+
+  homepage-final-public-release-check:
+    name: Homepage final public-release contract (M2.15A)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # CI and local `make homepage-final-public-release-check` run the exact same script; it self-tests.
+      - name: Homepage final public-release guard
+        run: bash tools/check-homepage-final-public-release.sh
+
+  homepage-final-validation-check:
+    name: Homepage final audit & premium polish (M2.17)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # CI and local `make homepage-final-validation-check` run the exact same script; it self-tests.
+      - name: Homepage final validation guard
+        run: bash tools/check-homepage-final-validation.sh
+
+  footer-banzai-zero-navigation-check:
+    name: Footer BanzAI/Guide + Operador Zero navigation (M2.17A)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # CI and local `make footer-banzai-zero-navigation-check` run the exact same script; it self-tests.
+      - name: Footer BanzAI/Guide + Operador Zero navigation guard
+        run: bash tools/check-footer-banzai-zero-navigation.sh
+
+  global-navigation-final-check:
+    name: Global navigation is three distinct destinations (M2.15B)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # CI and local `make global-navigation-final-check` run the exact same script; it self-tests.
+      - name: Global navigation final guard
+        run: bash tools/check-global-navigation-final.sh
+
+  home-minimal-check:
+    name: Homepage keeps the minimal public-release shape (M2.7B → M2.15A)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # CI and local `make home-minimal-check` run the exact same script; it self-tests on every run.
+      - name: Home-minimal guard
+        run: bash tools/check-home-minimal.sh
+
+  home-layout-copy-check:
+    name: Homepage layout — left-aligned headings, short footer boundary, clean copy (M2.9E)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # CI and local `make home-layout-copy-check` run the exact same script; it self-tests on every run.
+      - name: Home-layout-copy guard
+        run: bash tools/check-home-layout-copy.sh
+
+  banzai-document-aware-agent:
+    name: BanzAI resolves explicit ADR/RFC documents before generation (M2.10A)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Drives the committed Rust/WASM engine through Node — same script as local
+      # `make banzai-document-aware-agent-check`.
+      - name: Document-aware agent guard
+        run: bash tools/check-banzai-document-aware-agent.sh
+
+  banzai-document-explanation-quality:
+    name: BanzAI documentary answers are scoped to what was asked (M2.10B)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Document explanation quality guard
+        run: bash tools/check-banzai-document-explanation-quality.sh
+
+  reference-chapter-order:
+    name: Reference chapter order — Operador Zero at 09 (M2.12B)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Reference chapter order guard
+        run: bash tools/check-reference-chapter-order.sh
+
+  operator-zero:
+    name: Operador Zero stays a simulator (ADR-052)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal
+
+      - name: Operador Zero guard
+        run: bash tools/check-operator-zero.sh
+
+  operator-zero-vocabulary-contract:
+    name: Operador Zero vocabulary contract (ADR-052, M2.12B)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # The guard EXECUTES the engine (cargo) and reads the vendored WASM with node — both required.
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Operador Zero vocabulary contract guard
+        run: bash tools/check-operator-zero-vocabulary-contract.sh
+
+  operator-zero-public-hardening:
+    name: Operador Zero public surface hardened (ADR-052, M2.12C)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Operador Zero public-surface hardening guard
+        run: bash tools/check-operator-zero-public-hardening.sh
+
+  zero-subdomain-design:
+    name: zero.banza.network single-page lab design (ADR-052, M2.12D)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: zero.banza.network design guard
+        run: bash tools/check-zero-subdomain-design.sh
+
+  zero-subdomain-routing:
+    name: zero.banza.network host-aware routing (ADR-052, M2.12E)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: zero.banza.network routing guard
+        run: bash tools/check-zero-subdomain-routing.sh
+
+  operator-zero-read-only-surface:
+    name: Operador Zero read-only reference surface (ADR-067, M2.19E/F)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Operador Zero read-only surface guard
+        run: bash tools/check-operator-zero-read-only-surface.sh
+
+  operator-zero-cross-browser-routing:
+    name: Operador Zero cross-browser routing (ADR-067, M2.19E/F)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Operador Zero cross-browser routing guard
+        run: bash tools/check-operator-zero-cross-browser-routing.sh
+
+  banzai-single-interface:
+    name: BanzAI single canonical interface (ADR-067, M2.19E/F.2)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: BanzAI single-interface guard
+        run: bash tools/check-banzai-single-interface.sh
+
+  operator-zero-standalone-surface:
+    name: Operador Zero standalone surface (ADR-052, M2.12G)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Operador Zero standalone-surface guard
+        run: bash tools/check-operator-zero-standalone-surface.sh
+
+  operator-zero-full-e2e:
+    name: Operador Zero full E2E protocol validation (ADR-052, M2.13A)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # The guard EXECUTES the E2E Demo Operator Root verifier (cargo) — Ed25519 verify is the truth.
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal
+      - name: Operador Zero full E2E guard
+        run: bash tools/check-operator-zero-full-e2e.sh
+
+  operator-zero-realistic-journey:
+    name: Operador Zero realistic demo journey (ADR-052, M2.14A)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Operador Zero realistic journey guard
+        run: bash tools/check-operator-zero-realistic-journey.sh
+
+  operator-zero-only-architecture:
+    name: Operator Zero Only demo/example policy (ADR-053, M2.14B)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # M2.14B: Operador Zero is the ONLY official demo/example across the repo. These three guards run
+      # the exact same scripts as local `make operator-zero-only-architecture-check`,
+      # `make banzai-operator-zero-only-ui-check` and `make operator-zero-only-docs-examples-check`; each
+      # self-tests its detectors. Internal engine test fixtures and abstract placeholders (<…> / the
+      # RFC-2606 operator.example domain) stay allowed and are not scanned as public examples.
+      - name: Operator Zero Only architecture guard
+        run: bash tools/check-operator-zero-only-architecture.sh
+      - name: BanzAI Operator Zero Only UI guard
+        run: bash tools/check-banzai-operator-zero-only-ui.sh
+      - name: Operator Zero Only docs/examples guard
+        run: bash tools/check-operator-zero-only-docs-examples.sh
+
+  banzai-vocabulary-contract:
+    name: Rust and UI cannot disagree about a slug (M2.11D)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Vocabulary contract guard
+        run: bash tools/check-banzai-vocabulary-contract.sh
+
+  banzai-release-qa:
+    name: BanzAI release QA gate intact (M2.11C)
+    runs-on: ubuntu-latest
+    steps:
+      # Full history: this guard compares the branch against origin/main to tell whether a
+      # QA-triggering BanzAI surface changed. With the default shallow checkout there is no
+      # merge-base, and the check would silently skip rather than report.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Release QA gate guard
+        run: bash tools/check-banzai-release-qa.sh
+
+  banzai-operator-journey-e2e:
+    name: Operator journey closed end to end, one evaluator (M2.11B)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Operator journey E2E closure guard
+        run: bash tools/check-banzai-operator-journey-e2e.sh
+
+  banzai-session-context-robustness:
+    name: BanzAI session context reflects real validation state (M2.11A)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Session context robustness guard
+        run: bash tools/check-banzai-session-context-robustness.sh
+
+  website-public-copy-current-check:
+    name: Public copy matches the deployed protocol-agent architecture (M2.9F)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # CI and local `make website-public-copy-current-check` run the exact same script; it self-tests on every run.
+      - name: Website public-copy currency guard
+        run: bash tools/check-website-public-copy-current.sh
+
+  svg-visual-quality:
+    name: Official SVGs pass the visual-quality policy (M2.7E)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Holds every official diagram SVG to docs/governance/SVG_QUALITY_POLICY.md — structure
+      # (<title>/<desc>/viewBox), pure-vector, 8px legibility floor, active-model semantics (negation-aware).
+      # The script self-tests its own detection path on every run and exits 2 if that logic breaks.
+      - name: SVG visual-quality guard
+        run: bash tools/check-svg-visual-quality.sh
+
+  svg-visual-system:
+    name: Official SVGs follow the canonical visual system (M2.7J)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Holds every official protocol SVG to docs/governance/SVG_VISUAL_SYSTEM.md — canonical header
+      # (SVG-P-0XX · PROTOCOLO FINANCEIRO ABERTO), technical footer, <title>/<desc>/viewBox, no
+      # raster/base64/external links, 8px minimum, and active-model semantics. Self-tests every run.
+      - name: SVG visual-system guard
+        run: bash tools/check-svg-visual-system.sh
+
+  banzai-protocol-agent:
+    name: BanzAI is the native protocol agent, not an authority (M2.7H)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # ADR-041 / docs/governance/BANZAI_NATIVE_PROTOCOL_AGENT.md — BanzAI is the guidance/orchestration
+      # agent, never an authority/rule-source; the public product name is "BanzAI", not "BanzAI Workbench".
+      # Affirmative-substring + word-boundary + question/negation filter; self-tests on every run.
+      - name: BanzAI protocol-agent guard
+        run: bash tools/check-banzai-protocol-agent.sh
+
+  postgres-data-boundary:
+    name: PostgreSQL holds protocol state, not financial value (M2.7K)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # ADR-042 / docs/governance/POSTGRESQL_PROTOCOL_STATE.md — the protocol database stores signed public
+      # artifacts, the BanzAI document index, an audit log and pre-production markers, never funds/balances/
+      # transactions/IBAN/cards/KYC/PII/private-key/secret identifiers. Comment-stripped schema scan;
+      # self-tests on every run. Same script as local `make postgres-data-boundary-check`.
+      - name: PostgreSQL data-boundary guard
+        run: bash tools/check-postgres-data-boundary.sh
+
+  operator-onboarding:
+    name: Operator onboarding contract (M2.19G.3, ADR-069)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # ADR-069 — the BanzAI-hosted operator onboarding: Rust decides every OTP/session/candidate/origin
+      # verdict, the .well-known path is identical in Rust and JS, secrets are env-only (no Resend key or
+      # non-empty pepper in Git), onboarding is dark by default, the schema stores only digests/opaque
+      # ids (never plaintext code/token/password), the surface is same-origin under /banzai/onboarding/,
+      # and the session cookie is __Host- + HttpOnly + SameSite=Strict + Secure. Self-tests every run.
+      # Same script as local `make operator-onboarding-check`.
+      - name: Operator onboarding contract guard
+        run: bash tools/check-operator-onboarding.sh
+
+  operator-zero-origin-closure:
+    name: Operador Zero origin-proof closure (M2.19G.3A, ADR-069)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # ADR-069 (G.3A) — the origin-proof closure: the ownership challenge is published by the Operador
+      # Zero ORIGIN (zero.banza.network nginx static file, read-only mount), the verifier (banzai-api)
+      # never serves its own challenge, a positively-verified challenge is single-use (consumed_at) with a
+      # replay short-circuit, the only egress is the SSRF-hardened Rust fetcher, and reconciliation binds
+      # the candidate to the EXISTING closed-registry entry (no operator creation, no /operators write, no
+      # OZ verdict bypass, no committed nonce). Fourteen labelled invariants; self-tests every run.
+      # Same script as local `make operator-zero-origin-closure-check`.
+      - name: Operador Zero origin-closure guard
+        run: bash tools/check-operator-zero-origin-closure.sh
+
+  banzai-operator-experience:
+    name: BanzAI operator-experience canonicalization (M2.19G.3B)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # M2.19G.3B — the Validar operador + Onboarding surfaces read the operator/implementation list and
+      # the protocol option sets (version/profile/environment) from the ONE Rust registry source
+      # (banza-target-registry) via /validate/registry + /validate/options; no hardcoded/drifted TS
+      # registry, no retired certification-outcome field, onboarding validates the declared profile
+      # against the canonical sets (fail-closed). 13 labelled invariants; self-tests every run. Same
+      # script as local `make banzai-operator-experience-check`.
+      - name: BanzAI operator-experience guard
+        run: bash tools/check-banzai-operator-experience.sh
+
+      # The onboarding backend unit/integration suite (single-use replay + reconcile binding + gates).
+      - name: Onboarding backend tests
+        working-directory: services/banzai-api
+        run: node --test test/onboarding.test.js
+
+  banza-whitepaper:
+    name: BANZA Whitepaper v1.0 contract (WP1-FINAL)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # WP1-FINAL — the official BANZA Whitepaper v1.0 contract: exact authorship (Fidel R. Monteiro first)
+      # + Banzami affiliation/publisher, the BANZA: title prefix in both languages, EN/PT structural
+      # equivalence, four figures, three equations, released 10-page PDFs with no DRAFT watermark, a SHA-256
+      # manifest, no forbidden claims (regulatory authorisation / real funds / BANZA CA / invented DOI), and
+      # the additive Home hero CTA (primary BanzAI CTA preserved, exactly one whitepaper CTA). Content +
+      # committed-artifact checks; self-tests every run. Same script as local `make banza-whitepaper-check`.
+      - name: Install poppler-utils (pdfinfo/pdftotext for compressed-metadata assertions)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+      - name: BANZA Whitepaper contract guard
+        run: bash tools/check-banza-whitepaper.sh
+
+  public-claims-evidence:
+    name: Public technical claims — executable evidence gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Hermetic subset of the evidence gate: the Rust engine battery + conformance vectors + federation
+      # runner that back the load-bearing public technical claims, plus a commit-pinned hashed bundle
+      # manifest. Full claim classification lives in docs/verification/PUBLIC_TECHNICAL_CLAIMS_EVIDENCE.md.
+      - name: Public claims evidence battery
+        run: bash tools/public-claims-evidence.sh
+
+  whitepaper-canonical-source-boundary:
+    name: Whitepaper canonical-source boundary (Overleaf PT dossier is the source)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Process guard for the canonical-source governance (docs/whitepaper/BUILD.md): source-of-truth
+      # composition, derivation freshness, retired renderer out of the release path, non-destructive
+      # verify, frozen-edition wording. Static + python derivation checks only (no LaTeX, no poppler).
+      - name: Whitepaper canonical-source boundary guard
+        run: bash tools/check-whitepaper-canonical-source-boundary.sh
+
+  whitepaper-hermetic-verify:
+    name: Whitepaper canonical build is reproducible (hermetic verify)
+    runs-on: ubuntu-latest
+    env:
+      TECTONIC_CACHE_DIR: /tmp/tct-cache      # controlled cache, outside the repo tree
+    steps:
+      - uses: actions/checkout@v4
+
+      # Fully hermetic reproducibility contract on a clean checkout:
+      #  (1) install the EXACT toolchain — tectonic 0.17.0, binary verified by SHA-256;
+      #  (2) warm ONLY the pinned, immutable TeX bundle slice (network) and assert its content digest;
+      #  (3) rebuild PT+EN OFFLINE (no network namespace + tectonic --only-cached) and require byte-identity
+      #      to the committed PDFs + manifest + CHECKSUMS.
+      # Any drift in toolchain, bundle, fonts or content fails the job. LaTeX/tectonic is the sole canonical
+      # engine; a Typst build can never satisfy this job.
+      - name: Install pinned tectonic 0.17.0 (binary SHA-256 verified)
+        run: |
+          set -euo pipefail
+          cd /tmp
+          url="https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%400.17.0/tectonic-0.17.0-x86_64-unknown-linux-musl.tar.gz"
+          curl -sSL "$url" -o tectonic.tgz
+          echo "8533d07f9ccbd7a65824b9e0459041bca34af1eb33daba48f59215593753a3b7  tectonic.tgz" | sha256sum -c -
+          tar xzf tectonic.tgz
+          sudo install -m 0755 tectonic /usr/local/bin/tectonic
+          tectonic --version
+
+      # Phase 1 (network allowed): fetch ONLY the pinned immutable bundle slice into the controlled cache,
+      # reproduce the PDFs, and assert the pinned bundle content digest. `make whitepaper-verify` makes no writes.
+      - name: Install poppler-utils (pdfinfo/pdftotext for compressed-metadata assertions)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+      - name: Warm pinned bundle slice + verify byte-identity + assert bundle digest
+        run: |
+          mkdir -p "$TECTONIC_CACHE_DIR"
+          make whitepaper-verify
+
+      # Phase 2 (NO network): rebuild with tectonic --only-cached inside a network namespace with no
+      # interfaces. Proves the build needs zero network access once the toolchain + bundle are prepared.
+      - name: OFFLINE hermetic verify (no network) — --only-cached
+        run: |
+          set -euo pipefail
+          if unshare -rn true 2>/dev/null; then
+            echo "offline mode: unshare -rn (network namespace with no interfaces)"
+            unshare -rn env TECTONIC_CACHE_DIR="$TECTONIC_CACHE_DIR" WP_OFFLINE=1 make whitepaper-verify
+          else
+            echo "unshare unavailable; enforcing offline via tectonic --only-cached only"
+            WP_OFFLINE=1 make whitepaper-verify
+          fi
+
+      # The verify runs must not have modified the working tree.
+      - name: Working tree unchanged
+        run: git diff --exit-code
+
+  trust-invariant-realignment:
+    name: Trust-invariant realignment (M2.19B, ADR-058)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # ADR-058 / M2.19B — the retired central-authority trust-invariant series is gone everywhere
+      # (canonical: INV-OTE-*/INV-FEDEVAL-*/INV-ROOT-*; the retired ids survive only in the
+      # ADR-038/057/058 removal records), and the operator-certificate residue is gone (no CERT-*
+      # fixtures, no certificate_url, no /certificates route, registry has no legacy TRUST family).
+      # Self-tests every run. Same script as local `make trust-invariant-realignment-check`.
+      - name: Trust-invariant realignment guard
+        run: bash tools/check-trust-invariant-realignment.sh
+
+  reference-information-architecture:
+    name: Reference information architecture is canonical (M2.7L)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # ADR-041/042 + M2.7L — canonical chapter order (PostgreSQL=05, FAQ=14), clean public cards, stable
+      # routes, and no tool-list "anti-path" narrative on active surfaces. Fragment-based detection;
+      # self-tests on every run. Same script as local `make reference-information-architecture-check`.
+      - name: Reference information-architecture guard
+        run: bash tools/check-reference-information-architecture.sh
+
+  layer-profile-naming:
+    name: Layer/profile naming split is canonical (Camada 1/2/3 vs L0–L4)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Ch04 naming normalization — the institutional architecture uses "Camada 1/2/3" (§4) and the letter
+      # L is reserved for the L0–L4 conformance profiles (§7). Section-scoped + self-testing; same script as
+      # local `make layer-profile-naming-check`.
+      - name: Layer/profile naming guard
+        run: bash tools/check-layer-profile-naming.sh
+
+  estado-protocolar-portability:
+    name: Estado Protocolar keeps PostgreSQL as implementation, not protocol (Ch05)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Ch05 identity audit — PostgreSQL is the reference implementation's persistence, not normative.
+      # §5 stays technology-neutral: PostgreSQL confined to the implementation section, never presented as
+      # a conformance requirement. Section-scoped + self-testing; same script as
+      # local `make estado-protocolar-portability-check`.
+      - name: Estado Protocolar portability guard
+        run: bash tools/check-estado-protocolar-portability.sh
+
+  trust-semantics-boundary:
+    name: Confiança keeps the trust boundary — root signs only the Key Manifest, trust ≠ certification ≠ authorisation (Ch06)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Ch06 trust audit — trust is a bounded, verifiable technical property (ADR-038 "Open Protocol Trust
+      # Model Without CA", ADR-040/058/061). §6 states the Trust Root signs only the Key Manifest and is not
+      # a CA over operators, carries the "O que a confiança não prova" boundary + ADR-061 non-propagation,
+      # and never uses trustless / whole-entity "trusted operator" framings. Section-scoped + self-testing;
+      # same script as local `make trust-semantics-boundary-check`.
+      - name: Trust-semantics boundary guard
+        run: bash tools/check-trust-semantics-boundary.sh
+
+  conformance-certification-boundary:
+    name: Conformidade e Certificação keeps distinctions — L0–L4 profiles ≠ layers/certificates, validation ≠ readiness ≠ certification ≠ admission ≠ authorisation, no CA (Ch07)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Ch07 semantic audit — the chapter where near-synonyms must not collapse. §7 keeps L0–L4 as
+      # conformance profiles (not architecture camadas, not certificates), states validação ≠ certificação,
+      # readiness never returns CERTIFIED, the subject is an implementation (no whole-entity "operador
+      # certificado"), there is no certificate authority, and certificação técnica ≠ admissão a esquema ≠
+      # autorização regulatória. Section-scoped + self-testing; same script as local
+      # `make conformance-certification-boundary-check` (ADR-021/061/064/066/068/077).
+      - name: Conformance/certification boundary guard
+        run: bash tools/check-conformance-certification-boundary.sh
+
+  operator-implementation-boundary:
+    name: Operadores keeps operator (entity) ≠ implementation (evaluated subject) — one operator → many implementations, no property climbs to the entity as a global state (Ch08)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Ch08 central invariant — the operator is the organizational entity; the implementation is the
+      # technical subject observed/evaluated/certified (ADR-068 §4.2/§4.3). §8 states the distinction with
+      # consequences (no property climbs from the implementation to the entity, nor crosses between an
+      # operator's implementations), keeps cardinality one→many, targets validation at an implementation,
+      # states OTE yields a per-interaction local decision (never a status conferred on the operator), and
+      # that registry presence ≠ authorization / absence ≠ prohibition. Section-scoped + self-testing; same
+      # script as local `make operator-implementation-boundary-check` (ADR-068, ADR-061).
+      - name: Operator/implementation boundary guard
+        run: bash tools/check-operator-implementation-boundary.sh
+
+  operator-zero-reference-boundary:
+    name: Operador Zero stays a reference implementation — non-normative, non-production, no real funds, NOT_CERTIFIED, substitutable; not a privileged/first/official operator nor a specification (Ch09)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Ch09 risk — a reference implementation drifting into a privileged/first/official operator, an
+      # authority, or a disguised specification. §9 states it is a reference implementation whose norm lives
+      # in the contracts (não define o protocolo), is substitutable and dispensable (o protocolo funciona sem
+      # ele), moves no real funds, is NOT_CERTIFIED (= absence of a formal certification, not a conformance
+      # failure), and that "Zero" (name) ≠ L0 (profile). Section-scoped + negation-aware + self-testing; same
+      # script as local `make operator-zero-reference-boundary-check` (ADR-067/052/053/068).
+      - name: Operador Zero reference-boundary guard
+        run: bash tools/check-operator-zero-reference-boundary.sh
+
+  federation-relation-boundary:
+    name: Federation stays a bounded local per-interaction technical relation — never a network/membership/authority/scheme/settlement/authorization (Ch10)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Ch10 risk — the sharpest in the reference: turning a bounded, verifiable technical RELATION into a
+      # "BANZA network", a membership, an institutional authority, a scheme, a settlement, or a regulatory
+      # authorization. §10 states federation is a per-pair, per-interaction relation decided LOCALLY by each
+      # party over public material (result ROUTING_ALLOWED/FAIL_CLOSED, never a conferred status), with the L3
+      # profile a necessary-not-sufficient pre-condition (not Camada 3), non-symmetric, non-transitive, and
+      # non-propagating (no scheme admission / settlement / regulatory authorization); BANZA is not in the
+      # trust path nor the funds path and obliges no one to route. Section-scoped + negation-aware +
+      # self-testing; same script as local `make federation-relation-boundary-check` (ADR-040/061/079).
+      - name: Federation relation-boundary guard
+        run: bash tools/check-federation-relation-boundary.sh
+
+  governance-authority-boundary:
+    name: Governance stays a public process of the maintainers over the rules — never a regulator of operators nor the Trust Root governing (Ch11)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Ch11's two sharpest risks: turning protocol governance into a REGULATOR/ADMINISTRATOR of the
+      # operators, or turning the TRUST ROOT into the government of the whole protocol. §11 states governance
+      # is a PUBLIC PROCESS by which the RULES evolve, conducted by the ACTIVE MAINTAINERS (not a constituted
+      # institution); humans govern the rules while the deterministic engines apply them to cases — the
+      # verdict (motor Camada 2), admission (Camada 3, independent), authorisation (autoridades competentes)
+      # and commercial relationship each have another owner; no silent mutation, no retroactivity; the Trust
+      # Root signs only the Key Manifest and does not govern the protocol (Model A); BanzAI does not vote/
+      # approve/promulgate. Section-scoped + negation-aware + self-testing; same script as local
+      # `make governance-authority-boundary-check` (GOVERNANCE.md · ADR-057/061/066/079).
+      - name: Governance authority-boundary guard
+        run: bash tools/check-governance-authority-boundary.sh
+
+  developer-resources-boundary:
+    name: Developer resources keep norm vs tool distinct — no tool/stack becomes a protocol requirement (Ch13)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Ch13 risk — turning tools, SDKs, reference code or current-implementation choices into protocol
+      # requirements. §13 states the normative artefacts (contracts/invariants/vectors) DEFINE the rules and
+      # tools/SDKs/reference code/stack merely help: a BANZA implementation may use any language, database
+      # and runtime that satisfies the contracts; Rust is the reference ENGINES' language, not an operator
+      # requirement; PostgreSQL/Docker are implementation choices; an SDK is a convenience; OpenAPI describes
+      # specific HTTP interfaces, not the whole spec; the Operador Zero is a reference impl not a spec to
+      # copy; the BanzAI orients/explains and does not certify; implementing/validating is not certifying/
+      # admitting/authorizing; and the stale mirror docs/reference/pt/completa.md is never a source.
+      # Section-scoped + negation-aware + self-testing; same script as local
+      # `make developer-resources-boundary-check` (CLAUDE.md · ADR-005/037/042/052/054).
+      - name: Developer-resources boundary guard
+        run: bash tools/check-developer-resources-boundary.sh
+
+  reference-roadmap-durability:
+    name: Reference roadmap stays durable — §14 "Evolução do Protocolo" carries no milestone/date/commitment (Ch14)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Ch14 risk — a roadmap that ages, turning current state, internal milestones, dates or project plans
+      # into apparent protocol commitments. §14 was reframed from a milestone roadmap into a durable
+      # "Evolução do Protocolo" that states only DIRECTIONS of evolution (possibilities, not promises),
+      # delegates current state to §5 and the change process to §11, and carries no M1–M6/dates/em-breve/
+      # first-operator/roadmap tokens and no unadopted future architecture (L5/Camada 4/CA asserted). It must
+      # survive a 2030 read. Section-scoped + negation-aware + self-testing; same script as local
+      # `make reference-roadmap-durability-check`.
+      - name: Reference roadmap-durability guard
+        run: bash tools/check-reference-roadmap-durability.sh
+
+  reference-faq-semantic-consistency:
+    name: Reference FAQ stays a faithful compression — §15 preserves the §1–§14 distinctions (Ch15)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Ch15 risk — the FAQ compresses complex concepts into short answers, and that is exactly where the
+      # shorthand earlier chapters removed can creep back: "operador certificado" in the abstract, "rede
+      # BANZA"/membership, federation-as-membership, "operador L3" as status, Trust Root as an institution,
+      # Operator Zero as the first operator, BanzAI as a decider, readiness as certification, or a roadmap as
+      # a promise. §15 must state the canonical boundaries and re-introduce none of that. Section-scoped +
+      # negation-aware (wrong-premise terms only in questions or negated in answers) + self-testing; same
+      # script as local `make reference-faq-semantic-consistency-check`.
+      - name: Reference FAQ semantic-consistency guard
+        run: bash tools/check-reference-faq-semantic-consistency.sh
+
+  canonical-discovery-surface:
+    name: Canonical discovery surface — one .well-known machine-readable surface, no retired root routes (ADR-080)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # ADR-080 — an external implementer must discover an operator's protocol artefacts without guessing
+      # filenames. The discovery (operator) manifest and the signed protocol metadata are published at their
+      # canonical /.well-known/banza/ routes; the de-facto root routes /manifest.json and /signed-metadata.json
+      # are retired (fix-forward, no aliases). This guard proves the contract SSOT, the Rust registry the runtime
+      # resolves endpoints from, and the Operador Zero served surface all agree, that the retired routes appear on
+      # no active surface, and that the Open Trust Evaluation positive satisfiability is pinned (a federation-capable
+      # manifest is validated against the federation extension, not the candidate-submission schema). Self-testing;
+      # same script as local `make canonical-discovery-surface-check`.
+      - name: Canonical discovery-surface guard
+        run: bash tools/check-canonical-discovery-surface.sh
+
+  standalone-roadmap-surface:
+    name: Single canonical protocol-evolution surface — /roteiro retired, §14 is the only narrative
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # BANZA must not maintain two competing public narratives about protocol evolution. The single
+      # canonical explanation is §14 "Evolução do Protocolo" at /referencia/roteiro; the older standalone
+      # /roteiro page is retired (permanent redirect to the chapter, no chain via /roadmap, absent from
+      # sitemap/nav). This guard protects the intent — no active public roadmap duplicate — and is
+      # self-testing. Same script as local `make standalone-roadmap-surface-check`.
+      - name: Standalone roadmap-surface guard
+        run: bash tools/check-standalone-roadmap-surface.sh
+
+  trust-signing-chain:
+    name: Canonical trust signing chain — root signs only the Key Manifest, BRL by the revocation-domain key (ADR-079)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # ADR-079 reconciliation — the whole canonical surface (registry, ADRs, arch doc, spec,
+      # federation contracts, Reference, served diagrams) tells Model A: the Trust Root signs ONLY the
+      # Key Manifest; delegated keys sign metadata/revocation/evidence by domain; the BRL is signed by the
+      # revocation-domain delegated key. Semantic + registry↔ADR consistency; self-testing; same script as
+      # local `make trust-signing-chain-check`.
+      - name: Trust signing-chain guard
+        run: bash tools/check-trust-signing-chain.sh
+
+  license-notice-governance:
+    name: License, Notice, Trademark and Open Governance (M2.7M)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # ADR-043 / M2.7M — Apache-2.0 canonical + Banzami attribution (NOTICE) + open governance today
+      # (GOVERNANCE.md) + trademarks separate (TRADEMARKS.md); blocks closed-control / future-promise /
+      # license-grants-trademark phrasing. Self-tests every run. Same script as local
+      # `make license-notice-governance-check`.
+      - name: License / Notice / Trademark / Governance guard
+        run: bash tools/check-license-notice-governance.sh
+
+  banzai-local-inference:
+    name: BanzAI Local Qwen Inference (M2.8A, ADR-044)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # ADR-044 / M2.8A — no GGUF in Git, no external-provider key committed, llama.cpp
+      # internal-only + profile-gated, benchmark-gated default, Rust owns prompt/validation,
+      # docs keep the model non-normative. Self-tests every run. Same script as local
+      # `make banzai-local-inference-check`.
+      - name: BanzAI local inference guard
+        run: bash tools/check-banzai-local-inference.sh
+
+  banzai-public-interface:
+    name: BanzAI is a single public interface on /banzai (M2.8E)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # M2.8E — BanzAI is one public interface on the apex /banzai, wired same-origin to the
+      # local_qwen backend via /banzai/ask. No banzai.banza.network backend route (redirect only),
+      # no stale mock/demo/provider/llm_calls labels, no llama.cpp host port. Self-tests every run.
+      - name: BanzAI public interface guard
+        run: bash tools/check-banzai-public-interface.sh
+
+  banzai-qwen-routing:
+    name: BanzAI Qwen-first grounded routing (M2.8G, ADR-048)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # M2.8G / ADR-048 — grounded questions route to the local model by default; only explicit
+      # critical-boundary / safety-refusal / no-source paths skip it. Drives the committed Rust WASM
+      # routing engine through Node and asserts the contract; self-tests every run.
+      - name: BanzAI Qwen-first routing guard
+        run: bash tools/check-banzai-qwen-routing.sh
+
+  banzai-action-boundary:
+    name: BanzAI action boundary & knowledge safety (M2.13B)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # M2.13B — BanzAI is a READ-ONLY agent. Dangerous ACTION requests (delete docs, remove guards /
+      # bypass CI, alter the Trust Root, publish/certify operators, expose/generate secrets, real money,
+      # reintroduce /operador-zero, destroy infra) are refused DETERMINISTICALLY (never Qwen) with a safe
+      # alternative, while informational/process questions still ground. Drives the committed Rust WASM.
+      - name: BanzAI action-boundary guard
+        run: bash tools/check-banzai-action-boundary.sh
+
+      # M2.14D — a real FINANCIAL/patrimonial action (transfer, pay, refund, settle, cash-in/out,
+      # credit/debit, reserve/block balance, create wallet/account, charge merchant), PT or EN, with or
+      # without a value, is refused DETERMINISTICALLY before model/queue/grounding/no_source and offers
+      # the safe Operador Zero / KZ_DEMO simulation path; conceptual finance questions still answer.
+      - name: BanzAI financial-action-boundary guard
+        run: bash tools/check-banzai-financial-action-boundary.sh
+
+      # ADR-078 — a duration/metric question about the validation journey is classified operational and
+      # answered from read-only telemetry over persisted executions (or an honest INSUFFICIENT_MEASUREMENTS
+      # fallback) — never the fixed topic list and never a fabricated number; off-topic/boundary stay out.
+      - name: BanzAI operational-telemetry guard
+        run: bash tools/check-banzai-operational-telemetry.sh
+
+      # Increment 2 — the operational-intent taxonomy + contextual fallback: the rich resolve_query
+      # classifier assigns fine protocol intents + compound sub-intents from signals (boundary questions are
+      # never reclassified), and the fixed topic list is GONE from every NON-boundary route, replaced by the
+      # Rust-authored contextual fallback (understood_data_missing / ambiguous / tool_unavailable /
+      # out_of_scope / insufficient_source). The Tier-0 safety refusal is intact (safety golden rule).
+      - name: BanzAI contextual-fallback guard
+        run: bash tools/check-banzai-contextual-fallback.sh
+
+      # Increment 3 — the typed ToolPlanner (§5/§6): the 19 typed ToolKinds each carry a complete
+      # ToolContract; a boundary/refusal resolution plans exactly [HONEST_FALLBACK] (safety golden rule);
+      # every fallback chain terminates at HONEST_FALLBACK with no cycle; the intent→kind mapping is
+      # deterministic and the planner logic is pure Rust (the model never selects a tool); and the
+      # toolplan.js adapter REUSES existing tools (no reimplementation), with /ask surfacing tool_plan.
+      - name: BanzAI toolplanner guard
+        run: bash tools/check-banzai-toolplanner.sh
+
+      # SPR-1 — the "Safe Progressive Response" typed foundation (ADDITIVE; no runtime answer change): a
+      # versioned progressive-event contract (schema token banzai-progress/1) with EXACTLY the 18 declared
+      # event kinds and NO model-token/delta/partial-prose kind — no unvalidated model text is ever streamed;
+      # the 6 typed response dispositions with a safety-first mapping (a boundary → REFUSED; a deterministic
+      # terminal → DETERMINISTIC_ANSWER; a validated synthesis → GROUNDED_ANSWER); response_disposition /
+      # boundary_context expose only the three safe boundary fields (no secret/PII/echoed user text); and the
+      # progressContract.js mirror equals the Rust source of truth (engines/banzai-query-core disposition.rs).
+      - name: BanzAI progress-contract guard
+        run: bash tools/check-banzai-progress-contract.sh
+
+      # SPR-2 — the Safe Progressive Response SSE endpoint (POST /ask/stream) that WIRES the SPR-1 contract
+      # into a real stream WITHOUT ever emitting unvalidated model prose: the pipeline emits the Channel-A
+      # progress events at the REAL stage boundaries through onProgress and NEVER a terminal/model-token/delta
+      # frame itself; the ADR-073 post-synthesis validator + the Inc.4 claim/citation verification run BEFORE
+      # any FINAL_VALIDATED that carries prose (the endpoint emits the terminal only after ask() returns); a
+      # boundary/refusal streams no synthesis events (→ REFUSED); a deterministic terminal streams no
+      # model-synthesis/claim-verification events (→ FINAL_VALIDATED); a post-validation failure → HONEST_FALLBACK
+      # carrying the true degraded answer, never the model text; the terminal is chosen from the typed
+      # response_disposition (not `grounded`); the onProgress path does not alter the /ask envelope; and nginx
+      # exposes /banzai/ask/stream with proxy buffering off (SSE-safe).
+      - name: BanzAI progress-endpoint guard
+        run: bash tools/check-banzai-progress-endpoint.sh
+
+      # SPR-5 — the Safe Progressive Response INTERFACE (§9) + progressive metrics (§12) in the /banzai page.
+      # It consumes the SPR-2 SSE stream WITHOUT ever rendering unvalidated model prose: the frontend contract
+      # mirror (website/lib/banzaiProgress.ts) EQUALS the Rust-owned progressContract.js (schema token + 18
+      # event kinds + terminal kinds + the 6 response dispositions + the disposition→terminal mapping; NO
+      # model-token/delta/partial-prose kind); the progressive view (BanzaiProgress.tsx) renders only the SAFE
+      # factsFromEvents projection (ids/enums/counts/hashes) — no SafeMarkdown, no .final/answer field; the chat
+      # renders the validated answer ONLY on the terminal path (a single applyAnswer→SafeMarkdown funnel; the
+      # busy branch shows the progressive view, not the answer); the UI reacts to the typed response_disposition
+      # /boundary_context (a REFUSED disposition → a refusal), never to `grounded`; a stream failure falls back
+      # to the non-stream banzaiKb fetch; and cancel aborts the stream (frees the server queue slot).
+      - name: BanzAI progressive-ui guard
+        run: bash tools/check-banzai-progressive-ui.sh
+
+      # Increment 4 (§7–§9) — the transversal FactualPackage + claim/citation verifier: ONE package built
+      # BEFORE synthesis for the documentary trunk AND the operational/telemetry path (resolution +
+      # sub-intents + tool plan + freshness; tool_results + calculations + sample_size + aggregation_method);
+      # the 5-category claim taxonomy (SUPPORTED | DERIVED | ESTIMATED | HYPOTHETICAL | UNSUPPORTED) with the
+      # label/derivation/causality/single-observation rules (an UNSUPPORTED claim never reaches the answer);
+      # the citation verifier (a dead/invented citation is rejected); and the pipeline flow (package →
+      # template OR Qwen → claim verification → citation verification → answer) with the Qwen constraints.
+      - name: BanzAI factual-package guard
+        run: bash tools/check-banzai-factual-package.sh
+
+      # Increment 5 (§10–§15) — the question families made grounded end to end: the taxonomy resolves each
+      # family (reason code / comparison / diagnosis / hypothesis / requirement / applicability / API /
+      # security / governance / version change); a named reason code is explained from the registry
+      # (reason.rs) and an unnamed one honestly declines; the diagnosis classifier separates observed cause /
+      # consequence / hypothesis / suggestion (causality only where a receipt supports it); the tool-backed
+      # FactualPackage grounds on real tool results; the Inc.4 claim/citation verifier rejects an unsupported
+      # claim or dead citation; a boundary question stays boundary_request; and the pipeline routes each
+      # family through plan → FactualPackage → verifier with NO canned per-question strings and NO tool
+      # re-implementation (the receipts read is injected; the handler stays pg-free — the CI job has no
+      # banzai-api node_modules, so the guard drives ONLY the self-contained WASM + static greps).
+      - name: BanzAI question-families guard
+        run: bash tools/check-banzai-question-families.sh
+
+      # Increment 6 (§16-§17) — multi-turn conversational context: Rust resolve_references resolves each anaphor
+      # ("essa execução", "a anterior", "esse Manifesto", "e as chaves?", "porquê?", "compare com a última",
+      # "agora reproduza", "mostre o recibo") against the SAFE, technical-only prior context the client carried
+      # forward — the model never invents the referent; a boundary follow-up is BOUNDARY (no referent, query
+      # never rewritten — safety golden rule); an anaphor with no prior context asks to clarify (never a guess);
+      # and /ask reads + sanitizes + threads + returns only the SAFE technical conversation_context (client-
+      # carried; no server PII store). The guard drives ONLY the self-contained WASM + static /ask wiring greps
+      # (the M2.13B guard job has no banzai-api node_modules).
+      - name: BanzAI multi-turn context guard
+        run: bash tools/check-banzai-multiturn-context.sh
+
+      # Increment 7 (§18-§20) — the CANONICAL eval: the count reconciliation is reproducible + in sync
+      # (canonical-reconciliation.{json,md} ties the pre-existing 709 / 1564 / 165 / 248 / 112 counts to the
+      # six-way classification — base · variation · multi_turn · negative · live · regression — with no
+      # double-counting); the versioned canonical-eval.jsonl regenerates byte-identically, holds ≥2500
+      # structured cases across every family, and populates all six classes; and the hermetic metrics harness
+      # (committed Rust WASM, 0 model calls / 0 network / 0 pg) computes the eleven accuracy metrics (each ≥
+      # its frozen floor) and the eight zero-tolerance counters (every one exactly 0), with its committed
+      # report in sync. Drives ONLY the self-contained WASM via the pg-free knowledge.js wrappers + the JSONL
+      # (this guard job installs no banzai-api node_modules), degrading to the static checks if Node cannot
+      # load even that.
+      - name: BanzAI canonical eval guard
+        run: bash tools/check-banzai-canonical-eval.sh
+
+      # Increment 8 (§21-§23) — production robustness + observability + SLO: the reusable tool-robustness
+      # harness (toolRuntime.js) wraps each tool call with per-tool timeout (AbortController), bounded retry
+      # (idempotent reads only; NEVER a mutating/reproduce tool), a circuit breaker (opens after N failures;
+      # half-open probe recovers), freshness-scoped caching, per-tool concurrency caps and FAULT ISOLATION
+      # (a down tool degrades to its honest fallback, never crashes the request); a boundary/refusal kind is
+      # NEVER wrapped/cached/retried. ONE typed observability record (observability.js) EXTENDS the
+      # reasoning_trace with the §22 fields, excludes every secret/PII field name and leaks NONE of the
+      # forbidden items under an adversarial prompt. The in-process SLO aggregator (slo.js) exposes
+      # p50/p95/p99 (percentile_cont linear interpolation — the BZO-8 method), availability, fallback/error
+      # rate, %deterministic/%model + per-tool availability & mean cost via the read-only /slo endpoint
+      # (proxied as /banzai/slo). The behavioural drive imports ONLY the hermetic pg-free/WASM-free Inc.8
+      # modules, degrading to the static checks if this job has no banzai-api node_modules.
+      - name: BanzAI robustness-observability guard
+        run: bash tools/check-banzai-robustness-observability.sh
+
+      # Increment 9 (§24-§25) — the FINAL interface increment: a per-answer INTERFACE TRANSPARENCY layer
+      # read verbatim from the /ask envelope (Inc.8 observability record + scope_resolution +
+      # reasoning_trace + safe telemetry), rendered inside the ONE contextual inspector (each field shown
+      # only when the engine produced it, no secret/PII/prompt/raw-output surfaced); plus CONTEXTUAL,
+      # per-answer executable suggestions derived from intent/entity/scope/tools (the fixed M2.9A list is
+      # gone) that vary by answer, where a boundary/refusal offers ONLY safe reframes — never toward the
+      # refused action. Static invariants hold everywhere; the website vitest drive degrades if uninstalled.
+      - name: BanzAI interface-transparency guard
+        run: bash tools/check-banzai-interface-transparency.sh
+
+      # M2.18 (Phase 1) — the intent-first deterministic spine: the exact-document resolver (a bare
+      # "ADR 002" resolves the specific record before the glossary/critical tier), the one public-source
+      # policy (Rust source_policy applied at retrieval + presentation, excluding CLAUDE.md), the
+      # corrected home answer symbol, and the permanent contracts + architecture document.
+      - name: BanzAI intent-first grounded-reasoning guard
+        run: bash tools/check-banzai-intent-first-grounded-reasoning.sh
+
+
+      # M2.18B.6 — the Rust-First Grounded Synthesis architecture: Rust understands, routes and grounds
+      # (resolve_intent + classify_trunk_intent, candidate-only entity selection, versioned FactualPackage,
+      # factual validator gating the answer); NO input-model contracts survive; grounded-synthesis.js makes
+      # EXACTLY ONE model call (provider.synthesize, no runEntryPass); NO architecture selector.
+      - name: BanzAI grounded-synthesis architecture guard
+        run: bash tools/check-banzai-grounded-synthesis-architecture.sh
+
+      # M2.18B.6 — clean-slate: the retired two-pass / input-interpreter architecture is GONE from active
+      # code (engine + service source, tests, guards, infra). Scans for any surviving old name and fails
+      # on any hit; complements the grounded-synthesis architecture guard above.
+      - name: BanzAI old-architecture clean-slate guard
+        run: bash tools/check-banzai-old-architecture-clean.sh
+
+      # M2.18B.6 Part G — the SINGLE Grounded-Synthesis contract: exactly ONE FactualPackage builder
+      # (build_factual_package_planned; retired dual builders + wrappers gone), the enriched contract
+      # embeds the three Rust plans + provenance + package_checksum (FACTUAL_PACKAGE_VERSION=2), the Rust
+      # factual validator gates, and contract_versions_json backs the cache + startup self-check.
+      - name: BanzAI single Grounded-Synthesis contract guard
+        run: bash tools/check-banzai-single-synthesis-contract.sh
+
+      # M2.18B.6 Part G — the Rust intent engine is a typed, versioned, deterministic chain
+      # (resolve → taxonomy → relation graph → retrieval plan → answer plan); every stage versioned with a
+      # checksum and none calls a model/network. Proves BanzAI understands and grounds in Rust, not the model.
+      - name: BanzAI intent-engine quality guard
+        run: bash tools/check-banzai-intent-engine-quality.sh
+
+      # M2.18B.6 §17-19 — the OFFLINE automatic evaluation: the professional 700+-case dataset is in sync
+      # with its deterministic generator (no drift), every zero-tolerance gate passes against the WASM
+      # engine (boundary recall 1.0, boundary 0 Qwen, grounded exactly 1 Qwen, unsupported declines,
+      # determinism), and the Rust resolver matches-or-exceeds the retired model-entry bar (parity B >= A).
+      # Deterministic; no server, no Qwen, no network.
+      - name: BanzAI M2.18B.6 dataset drift + offline eval + parity
+        working-directory: services/banzai-api
+        run: |
+          node eval/gen-m2-18b6-dataset.mjs --check
+          node eval/run-m2-18b6-eval.mjs
+          node eval/parity-m2-18b6.mjs
+
+      # M2.18B.2 — the action boundary is a deterministic safety layer (Rust taxonomy run before any
+      # model call, proven at 100% recall by an OFFLINE eval this guard runs in CI), and the interpreter's
+      # semantic recovery rests on a Rust candidate catalogue (the model may only select a real id).
+      - name: BanzAI boundary hardening / semantic recovery guard
+        run: bash tools/check-banzai-boundary-semantic-recovery.sh
+
+      # M2.13B — the served knowledge base + Rust index carry no secret/key material, no build-artifact
+      # paths, no GGUF weights, and no answer presents the retired /operador-zero apex as a live surface.
+      - name: BanzAI repo knowledge-safety guard
+        run: bash tools/check-banzai-repo-knowledge-safety.sh
+
+      # M2.13B PR2 — the Rust repo-wide index (banzai-repo-indexer) covers both repos (BANZA + BanzAI);
+      # the mandatory technical questions resolve deterministically (never no_source); retrieval returns
+      # cited sources; the cache key binds the index hash; the action boundary still holds.
+      - name: BanzAI repository-wide knowledge guard
+        run: bash tools/check-banzai-repository-wide-knowledge.sh
+
+      # M2.13C — broad answer-quality evaluation over the shared matrix: every mandatory question
+      # resolves (never no_source) with existing cited paths; dangerous requests are refused
+      # deterministically (never Qwen) with a safe alternative; ambiguous/English coverage + source
+      # ranking hold; no stale /operador-zero, secret or brand leaks.
+      - name: BanzAI answer-quality evaluation guard
+        run: bash tools/check-banzai-answer-quality-eval.sh
+
+      # BZC-4 — cross-protocol RESOLUTION coverage: drives the Rust entity+artifact+scope resolver over
+      # the combinatorial matrix (entity aliases × artifacts × PT/EN × case/accent/hyphen/plural +
+      # adversarial + negative) and asserts the four zero-tolerance criteria above the case-count floor.
+      - name: BanzAI BZC resolution coverage guard
+        run: bash tools/check-banzai-bzc-coverage.sh
+
+      # M2.18B.3A — canonical corpus integrity: every public ADR/RFC (discovered from disk) is
+      # discoverable (doc-index), resolvable (candidate generation) and citable (FactualPackage
+      # allowed_source_ids via the Round B exact-source path). Drives the real committed Rust/WASM engines
+      # over the whole corpus; self-tests that a non-existent id is not citable. Same script as local
+      # make banzai-canonical-corpus-integrity-check.
+      - name: BanzAI canonical corpus integrity guard
+        run: bash tools/check-banzai-canonical-corpus-integrity.sh
+
+      # M2.18B.7 — canonical-knowledge coverage: every core entity (BANZA/BanzAI/Banzami) is bound to
+      # declared primary sources with a builder fallback (no empty package for a known entity); creation
+      # year/date is answered NOT_DECLARED (never inferred) with a precise contextual message; the reason
+      # codes flag internal coverage failures; and the WASM/JS/pipeline serve the attribute terminal, never
+      # the generic topic list. Same script as local make banzai-canonical-knowledge-coverage-check.
+      - name: BanzAI canonical knowledge coverage guard
+        run: bash tools/check-banzai-canonical-knowledge-coverage.sh
+
+      # M2.18B.7 H — the query-core single-authority contract: the query logic lives once in
+      # engines/banzai-query-core (pure rlib, no wasm-bindgen), banzai-api-kb is the WASM shim with no
+      # cycle and no mirror modules, and the compiled WASM executes the core.
+      - name: BanzAI query-core contract guard
+        run: bash tools/check-banzai-query-core-contract.sh
+
+      # M2.18B.7 H — BEHAVIORAL: drive the compiled WASM over the single scenario source and assert the
+      # boundary + routing truth table (boundary iff class=boundary; boundary/insufficient never call the
+      # model; grounded classes route grounded and never trip the boundary).
+      - name: BanzAI query scenario assurance guard
+        run: bash tools/check-banzai-query-scenario-assurance.sh
+
+      # M2.18B.7 H — BEHAVIORAL pre-deploy gate: drive the compiled WASM over the production-critical
+      # invariants (financial action refused/0-model, creation DECLARED 2025, version NOT_DECLARED, known
+      # entities answerable, off-topic insufficient, scenario source well-formed).
+      - name: BanzAI production E2E readiness guard
+        run: bash tools/check-banzai-production-e2e-readiness.sh
+
+      # M2.18B.7 Semantic Task Fulfilment — BEHAVIORAL: drive the compiled WASM over the six zero-tolerance
+      # regressions and prove the engine FULFILS the task (example→scenario, manifest→real schema fields,
+      # procedure→transparent-partial, lookup≠explanation); tasked terminals pass their TaskCompletionValidator
+      # and definition/architecture/ADR-list answers are rejected.
+      - name: BanzAI task fulfilment contract guard
+        run: bash tools/check-banzai-task-fulfilment-contract.sh
+
+      # M2.18B.7 / TFG-2 — BEHAVIORAL: source appropriateness is ACTIVE in retrieval reranking (task
+      # suitability outranks lexical similarity; a thematic-but-inadequate source never wins; documentary
+      # tasks find an exact/suitable ADR/RFC source; deterministic). The deferred deep reranking is now live.
+      - name: BanzAI source appropriateness guard
+        run: bash tools/check-banzai-source-appropriateness.sh
+
+      # M2.18B.7 / TFG-5 — BEHAVIORAL: task fulfilment GENERALIZES across every supported subject×task
+      # (not only the six regressions), driven over the human-reviewed golden dataset.
+      - name: BanzAI golden answer quality guard
+        run: bash tools/check-banzai-golden-answer-quality.sh
+
+      # M2.18B.7 / DFN-2 — the exportable task-fulfilment truth table is current vs the engine, partition-
+      # sound, full-taxonomy, N/A-audited, insufficient-legitimate, and meets the coverage floors.
+      - name: BanzAI truth-table currency guard
+        run: bash tools/check-banzai-truth-table-current.sh
+
+      # M2.18B.7 / DFN A–F — the canonical protocol vocabulary (derived from the real public corpus + the
+      # engine registries) is the source of truth for supported subjects: current, fully classified,
+      # source-linked, 0 unresolved/orphaned/conflicted, every catalogue subject in the truth table.
+      - name: BanzAI canonical protocol vocabulary guard
+        run: bash tools/check-banzai-canonical-protocol-vocabulary.sh
+
+      # M2.18B.3A — grounded-synthesis latency config invariant: the Round B compaction levers (tight brief
+      # default depth profile, brief as the default answer depth, bounded per-depth output budget, brief
+      # length directive) cannot be silently reverted. Static; the real latency is proven by a measured
+      # benchmark on production-class hardware. Same script as local make banzai-synthesis-latency-check.
+      - name: BanzAI grounded-synthesis latency config guard
+        run: bash tools/check-banzai-synthesis-latency-check.sh
+
+      # M2.18B.6: the SINGLE production answer pipeline — one classifier-driven router where exact facts are
+      # Rust-confirmed source-bound terminals, boundaries are safety refusals, and every genuine explanation
+      # goes through the ONE grounded synthesis (seeded by the deterministic resolver) validated by Rust; the
+      # layered legacy (input-only interpreter tier, direct chunk→model tier) is gone from the pipeline.
+      # Drives the real WASM engines over the routing truth-table. Same script as local
+      # make banzai-single-production-pipeline-check.
+      - name: BanzAI single production pipeline guard
+        run: bash tools/check-banzai-single-production-pipeline.sh
+
+      # M2.18B.5: deterministic typo tolerance / intent recovery / safe clarification (Rust fuzzy engine).
+      # Exact/alias beat fuzzy; a single dominant typo auto-corrects; ambiguity asks for clarification;
+      # a misspelled prohibited action stays a boundary; internal/unsupported never become candidates;
+      # scores are never exposed; no authoritative typo logic in the UI. Same script as local make.
+      - name: BanzAI typo intent recovery guard
+        run: bash tools/check-banzai-typo-intent-recovery.sh
+
+      # M2.18B.5: canonical alias integrity — the Rust-derived truth table binds every alias to a real id
+      # with ZERO silent collisions (one alias → two ids). Same script as local make.
+      - name: BanzAI canonical alias integrity guard
+        run: bash tools/check-banzai-canonical-alias-integrity.sh
+
+      # M2.13C-A: ambiguous protocol terms answered in the RIGHT domain with the RIGHT source class —
+      # software licence never confused with financial authorisation, certification never claimed,
+      # implementation vs normative kept apart, no stale /operador-zero, dangerous licence requests refused.
+      - name: BanzAI intent disambiguation + source-ranking guard
+        run: bash tools/check-banzai-intent-source-ranking.sh
+
+      # M2.13D: chat rendering polish — Markdown allowlist (no raw HTML), a dedicated source block
+      # distinct from quick prompts, safe source links, discreet metadata, RECUSA SEGURA badge.
+      - name: BanzAI answer rendering + citation UX guard
+        run: bash tools/check-banzai-answer-rendering-ux.sh
+
+      # M2.13C-B: institutional-origin questions (who created BANZA / when / initial maintainer / owner)
+      # resolve to the deterministic protocol-origin answer, cite NOTICE/MAINTAINERS/README, state the
+      # historical creation date, and never turn origin into operational control/certification/licensing.
+      - name: BanzAI protocol-origin intent guard
+        run: bash tools/check-banzai-protocol-origin-intent.sh
+
+      # M2.13C-C: short questions + core protocol/fintech terminology (federar, manifest, trust, PASS,
+      # ledger, wallet, liquidação, reconciliação, PSP, KYC, AML/CFT, …) resolve deterministically with
+      # cited sources and clear boundaries — never no_source — while dangerous imperatives still refuse.
+      - name: BanzAI protocol vocabulary guard
+        run: bash tools/check-banzai-protocol-vocabulary.sh
+
+      # M2.14C: the global answer rendering contract — clean body + separated sources on every path; no
+      # in-body "Fonte(s):/Fontes citáveis:/Sources:" when a source block exists; the server normalizer
+      # strips residual source blocks, dedups, drops nonexistent, never surfaces /operador-zero.
+      - name: BanzAI global answer format contract guard
+        run: bash tools/check-banzai-global-answer-format-contract.sh
+
+      # M2.14C: governance/developer vocabulary (ADR, RFC, spec, guard, CI, PR, issue, release,
+      # changelog, runbook, rollback, maintainer, governance, audit report) resolves deterministically
+      # with sources — never no_source — and never turns a record/process/check into an authority.
+      - name: BanzAI governance/developer vocabulary guard
+        run: bash tools/check-banzai-governance-developer-vocabulary.sh
+
+      # M2.14C-FIX1: every textual occurrence of a canonical entity (Banzami, BANZA, BanzAI, Operador
+      # Zero, KZ_DEMO, ADR, RFC, Qwen, Trust Root, …) in an answer body is bold via the single global
+      # normalizeEntityEmphasis layer — canonical spelling, code/URL/path/domain/doc-id safe, no ****.
+      - name: BanzAI entity-formatting consistency guard
+        run: bash tools/check-banzai-entity-formatting-consistency.sh
+
+      # M2.14E: BanzAI is multi-user ready at the inference layer — deterministic answers + the action
+      # & financial boundaries + cache hits bypass the queue (never wait for the model); dangerous /
+      # financial requests never reach the model or the queue; the queue is bounded with timeout,
+      # de-duplication and professional backpressure; public messages expose no internal architecture
+      # ("one request at a time"); external_model_called stays false.
+      - name: BanzAI inference-queue readiness guard
+        run: bash tools/check-banzai-inference-queue-readiness.sh
+
+      # M2.14C-FIX2: short queries / follow-ups for known tech/stack/ecosystem terms (Rust, TypeScript,
+      # WASM, Qwen, PostgreSQL, …) resolve deterministically with sources — never no_source; and every
+      # fallback/no_source/deterministic body bolds slash-separated entity lists (Banzami/BANZA/BanzAI)
+      # while paths/domains/doc-ids/routes stay untouched and never ****.
+      - name: BanzAI short-query recovery + fallback formatting guard
+        run: bash tools/check-banzai-short-query-recovery.sh
+
+      # M2.14F: deterministic answers are composed to fit the question — a capabilities/limits question
+      # resolves deterministically to a structured pode/não-pode answer (never a yes/no "Não…"); every
+      # question carries a Rust-derived answer_type that never changes routing or weakens a
+      # safety/financial/secret boundary; the chat "thinking" indicator rotates, respects
+      # prefers-reduced-motion, is politely announced, and never leaks internal terms.
+      - name: BanzAI semantic answer composition + dynamic loading guard
+        run: bash tools/check-banzai-semantic-answer-composition.sh
+
+      # M2.14F-FIX2: every BanzAI answer surface (hero/home widget AND /banzai) renders through the same
+      # shared safe Markdown renderer — never plain text; bold/lists render, raw HTML stays inert.
+      - name: BanzAI unified Markdown rendering guard
+        run: bash tools/check-banzai-unified-markdown-rendering.sh
+
+      # M2.14G: operator publication / registry-admission / production-activation / certification /
+      # licensing / federation COMMANDS are refused deterministically (action boundary) before
+      # retrieval/grounding/model/queue — never no_source — with a safe alternative; conceptual
+      # questions still answer; financial/secret/safety boundaries unchanged.
+      - name: BanzAI operator publication boundary guard
+        run: bash tools/check-banzai-operator-publication-boundary.sh
+
+      # M2.14H: /banzai opens on the interactive agent ("Perguntar ao BanzAI" first, no redundant
+      # "BanzAI" nav item, Guia never default); a pasted/typed technical artefact routes to a
+      # deterministic tool ANALYSIS (tool_routing → tool-*), not a generic Operador Zero description —
+      # after every safety/action boundary, before grounding; conceptual questions still ground.
+      - name: BanzAI workbench navigation & orchestration guard
+        run: bash tools/check-banzai-workbench-navigation-orchestration.sh
+
+      # M2.14I (ADR-054): BanzAI is the primary human-operator interface — not a normative source,
+      # authority, certifier or mandatory M2M gate. Enforces the ADR, docs/UI framing, engine role
+      # answers + primary-interface router, the SVG-P-071/051 flow + boundary, and that forbidden
+      # requests are refused before orchestration.
+      - name: BanzAI primary interface architecture guard
+        run: bash tools/check-banzai-primary-interface-architecture.sh
+
+  banzai-knowledge-quality:
+    name: BanzAI knowledge & conversational context (M2.8H, ADR-048)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # M2.8H / ADR-048 — a manifest-example request grounds on the illustrative example, anaphoric
+      # follow-ups resolve via short conversation context (never bypassing safety), examples are
+      # illustrative/non-normative, and the frontend sends history. Drives the committed WASM via Node.
+      - name: BanzAI knowledge quality guard
+        run: bash tools/check-banzai-knowledge-quality.sh
+
+  banzai-agent-quality:
+    name: BanzAI is an operational protocol agent (M2.9A, ADR-049)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # M2.9A / ADR-049 — operator onboarding + operational questions ground to Qwen with a fine
+      # operational intent (never insufficient), criticals stay deterministic, context never bypasses
+      # safety, and the documentary index is secret-free and enriches only grounded local answers.
+      # Drives the committed WASM via Node.
+      - name: BanzAI agent quality guard
+        run: bash tools/check-banzai-agent-quality.sh
+
+  banzai-operator-journey:
+    name: BanzAI guided operator journey (M2.9B, ADR-049)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # M2.9B / ADR-049 — the /banzai area is a guided operator journey: Rust owns the step order,
+      # transitions, statuses and safe session context (dual WASM); the session is in-memory only
+      # (no localStorage/sessionStorage/IndexedDB/DB); the nav is primary→secondary+Repositório; and the
+      # backend re-derives the safe context server-side without trusting the browser copy.
+      - name: BanzAI operator journey guard
+        run: bash tools/check-banzai-operator-journey.sh
+
+  banzai-upload-copy:
+    name: BanzAI journey product copy + safe JSON upload (M2.9C, ADR-049)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # M2.9C / ADR-049 — the journey uses product copy (no test-suite "fixture" term in visible UI) and
+      # a SAFE in-memory JSON upload: size-limited, gated by the Rust secret/JSON scan, never persisted
+      # to storage/DB, and never claiming to certify/approve/license an operator.
+      - name: BanzAI upload/copy guard
+        run: bash tools/check-banzai-upload-copy.sh
+
+  banzai-docs-current-state:
+    name: BanzAI docs reflect the deployed state (M2.9D)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # M2.9D — current public docs (README, docs/banzai, reference) must reflect the deployed BanzAI
+      # reality (local Qwen, unified /banzai, non-normative, pre-production): no stale mock/preview/
+      # BANZA-CA/certified-operator terms, no BanzAI-authority or BANZA-as-financial-actor claims.
+      # Historical ADR/RFC snapshots and phase reports are out of scope.
+      - name: BanzAI docs current-state guard
+        run: bash tools/check-banzai-docs-current-state.sh
+
+  banzai-public-surface-final-consistency:
+    name: BanzAI public surface final consistency (M2.14J, ADR-054)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # M2.14J — final cross-surface consistency + regression + production-readiness aggregator. Invokes
+      # the core M2.14x guards (primary interface, navigation, financial + operator-publication
+      # boundaries) and adds only-missing checks: ADR-052/053/054 published on /decisoes (registry +
+      # byte-mirror), the ADR-054 primary-interface framing on the reframed surfaces (/banzai metadata,
+      # def-banzai-agent answer, /estado 4-clause, /referencia ch.12 card), the route.rs hardening
+      # (role questions never no_source; . / newline / agora / também compound separators; the
+      # trust-root / evidence-history / credentials / verification / payment-request boundary widenings;
+      # the reflexive certifica-te/make-sure exemptions), and BEHAVIOURAL RAW-input routing through the
+      # committed Rust/WASM engine (every boundary + compound command refused; no over-block). It is
+      # negation-aware and self-tests. Same script as local `make banzai-public-surface-final-consistency-check`.
+      - name: BanzAI public surface final consistency guard
+        run: bash tools/check-banzai-public-surface-final-consistency.sh
+
+  banza-three-layer-architecture:
+    name: BANZA three-layer architecture (M2.19C, ADR-059)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # ADR-059 / docs/governance/BANZA_THREE_LAYER_ARCHITECTURE.md — the canonical frame names the three
+      # layers (L1 open protocol · L2 per-implementation certification · L3 Banzami Operational Scheme),
+      # BanzAI Web as the transversal (non-authority) human interface, and the authority rule (Rust decides
+      # / Qwen explains once / Rust validates before publishing); no public surface frames BANZA as a
+      # bank/PSP/operator. Negation-aware; self-tests every run. Same script as local
+      # `make banza-three-layer-architecture-check`.
+      - name: Three-layer architecture guard
+        run: bash tools/check-three-layer-architecture.sh
+
+  banza-banzami-scheme-role:
+    name: Banzami scheme-role boundary (M2.19C, ADR-060)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # ADR-060 / docs/governance/BANZAMI_OPERATIONAL_SCHEME.md — Banzami is named ONLY as the designated
+      # scheme operator (L3) and creator/initial maintainer, BANZA ≠ Banzami, and Banzami is never a BANZA
+      # payment operator nor added to the normative payment brands. Negation-aware; self-tests every run.
+      # Same script as local `make banza-banzami-scheme-role-check`.
+      - name: Banzami scheme-role guard
+        run: bash tools/check-banzami-scheme-role.sh
+
+  banza-regulatory-state-claim:
+    name: Regulatory-state claim boundary (M2.19C, ADR-062)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # ADR-062 / docs/governance/BANZA_REGULATORY_CLAIM_POLICY.md — no surface presents Banzami as already
+      # authorised / BNA-approved / licensed; the prudent phrasing ("em preparação regulatória … pagamentos
+      # reais permanecem desactivados") + REGULATORY_AUTHORIZATION_IN_PROGRESS are present. Context-window
+      # negation-aware (wrapped "NÃO significa" enumerations allowed); self-tests every run. Same script as
+      # local `make banza-regulatory-state-claim-check`.
+      - name: Regulatory-state claim guard
+        run: bash tools/check-regulatory-state-claim.sh
+
+  banza-real-money-activation:
+    name: Real-money activation fail-closed (M2.19C, ADR-062)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # ADR-062 / contracts/production/regulatory-state.production.schema.json — the L3 regulatory-state
+      # schema pins real_money/real_wallets/real_settlement/real_participants/bna_claim = const false at
+      # baseline (+ boundary consts), the baseline example is all-false + in-progress, the invalid example
+      # exercises the boundary, and no config/flag/env flips real money ON outside the Rust
+      # RealMoneyActivationGate. Self-tests every run. Same script as local
+      # `make banza-real-money-activation-check`.
+      - name: Real-money activation guard
+        run: bash tools/check-real-money-activation.sh
+
+  banza-protocol-scheme-separation:
+    name: Protocol/scheme separation (M2.19C, ADR-059/060)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # ADR-059 D-059-07 / ADR-060 — the protocol (L1) + certification (L2) stay separate from the scheme
+      # (L3): BANZA ≠ Banzami is stated, certification is non-exclusive to the scheme, and no surface
+      # conflates "BANZA = Banzami" or "BANZA is the scheme". Context-window negation-aware ("≠" is not
+      # "="); self-tests every run. Same script as local `make banza-protocol-scheme-separation-check`.
+      - name: Protocol/scheme separation guard
+        run: bash tools/check-protocol-scheme-separation.sh
+
+  banza-conflict-of-interest:
+    name: Conflict of interest + domain separation (M2.19C, ADR-063)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # ADR-063 / docs/governance/BANZA_CONFLICT_OF_INTEREST_POLICY.md + BANZA_SEPARATION_MATRIX.md — the
+      # creator==first-operator conflict is controlled structurally: same suite / same engine / no bypass,
+      # the seven no-self-privilege prohibitions, and the eight-key-domain separation table (K1..K8, never
+      # reused). Negation-aware; self-tests every run. Same script as local
+      # `make banza-conflict-of-interest-check`.
+      - name: Conflict-of-interest guard
+        run: bash tools/check-conflict-of-interest.sh
+
+  banza-certification-admission-separation:
+    name: Certification ≠ admission ≠ authorisation (M2.19C, ADR-061)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # ADR-061 — Technical Certification (L2) ≠ Scheme Admission (L3) ≠ Regulatory Authorisation: the
+      # three-way separation is stated on the canonical surfaces (ADR-061 + BANZA_THREE_LAYER_ARCHITECTURE.md
+      # + ADR-059) and no surface conflates certification with a licence or admission. Context-window
+      # negation-aware; self-tests every run. Same script as local
+      # `make banza-certification-admission-separation-check`.
+      - name: Certification/admission/authorisation separation guard
+        run: bash tools/check-certification-admission-separation.sh
+
+  banza-certification-model:
+    name: L2 certification model (M2.19D, ADR-064/065/066)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # ADR-064/065/066 — the L2 conformance & interoperability certification model: implementation-bound
+      # record; required profile/scope/environment/validity/evidence + interoperability; closed fail-closed
+      # state machine; Rust-sole-authority (no Qwen / no FAIL->PASS); not a licence/admission/authorisation;
+      # Technical Registry ≠ scheme directory; no /certificates. Same script as local
+      # `make banza-certification-model-check`.
+      - name: L2 certification model guard
+        run: bash tools/check-banza-certification-model.sh
+
+  m2-19g-certification-page:
+    name: M2.19G — certification page (/certificacao)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # M2.19G — /certificacao owns the L2 certification model: both canonical sentences verbatim (the "É"
+      # and the "NÃO É"), the certification ≠ admission ≠ authorisation separation, ADR-064/065/066, the
+      # closed fail-closed lifecycle states, no retired framing as a positive claim (negation-aware), and
+      # footer + sitemap linkage. Self-tests every run. Same script as local `make certification-page-check`.
+      - name: Certification page guard
+        run: bash tools/check-certification-page.sh
+
+  m2-19g-technical-registry-page:
+    name: M2.19G — technical registry page (/registo-tecnico)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # M2.19G — /registo-tecnico owns the BANZA Technical Registry (ADR-065): canonical definition, the
+      # closed certification states, the strict boundary (registry ≠ scheme-participant directory; listed ≠
+      # admission ≠ authorisation), the honest empty/pre-production state, no retired framing, and footer +
+      # sitemap linkage. Self-tests every run. Same script as local `make technical-registry-page-check`.
+      - name: Technical registry page guard
+        run: bash tools/check-technical-registry-page.sh
+
+  m2-19g-glossary-page:
+    name: M2.19G — glossary page (/glossario)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # M2.19G — /glossario is the canonical, current-only glossary: it defines the required current terms
+      # and defines NONE of the retired terms (BANZA CA, operator certificate, L0–L4 tiers, BanzAI Web,
+      # Validation Workbench) as current concepts, and is linked from footer + sitemap. Self-tests every
+      # run. Same script as local `make glossary-page-check`.
+      - name: Glossary page guard
+        run: bash tools/check-glossary-page.sh
+
+  m2-19g-public-surface-canonical:
+    name: M2.19G — public-surface canonicalization (capstone)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # M2.19G capstone — aggregate sweep over the rendered public surface (app/**/page.tsx, components/**,
+      # BANZA_REFERENCIA.md, lib/{site,reference,decisions}.ts): zero retired framings as positive claims
+      # (negation-aware; well-known operator endpoints and the SimB simulator excluded), the current
+      # three-layer vocabulary present (L1/L2/L3 + Esquema Operacional + BanzAI transversal), and the
+      # G2 hero positioning with no absolute "sem acordos bilaterais" over-claim. Self-tests every run.
+      # Same script as local `make m2-19g-public-surface-canonical-check`.
+      - name: M2.19G public-surface canonicalization guard
+        run: bash tools/check-m2-19g-public-surface-canonical.sh
+
+  # ── M2.19G.2 — Home + reference-route canonicalization guard suite (§36/§42) ──────────────────────
+  # The G2 Home is the five-band public narrative; the /o-que-e route is deleted, replaced by the
+  # reference chapter /referencia/o-que-e. Each guard is the SAME script as its `make …` target.
+
+  m2-19g2-home-canonical:
+    name: M2.19G.2 — canonical five-band Home (§36)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: G2 canonical Home guard
+        run: bash tools/check-m2-19g2-home-canonical.sh
+
+  m2-19g2-o-que-e-removal:
+    name: M2.19G.2 — /o-que-e route removal (§27-28)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: G2 /o-que-e removal guard
+        run: bash tools/check-m2-19g2-o-que-e-removal.sh
+
+  m2-19g2-readiness:
+    name: M2.19G.2 — Home + route canonicalization readiness (capstone, §42)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: G2 readiness capstone guard
+        run: bash tools/check-m2-19g2-readiness.sh
+
+  # ── M2.19G.5C — Canonical BanzAI architecture guard suite (ADR-071..074) ──────────────────────────
+  # The canonical BanzAI runtime is services/banzai-api (ADR-071); the runtime SSOT is /banzai/runtime
+  # (ADR-072); the post-synthesis authority validator is a mandatory publish gate (ADR-073); SimB is
+  # retired from active surfaces (ADR-074). Each guard is the SAME script as its `make …` target.
+
+  banzai-post-synthesis-validation:
+    name: M2.19G.5C — mandatory post-synthesis authority validator (ADR-073)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # ADR-073 — postValidate gates the grounded publish path (after synthesis, before groundedAnswer /
+      # cache writes / return), emits a stable post_validation_ fallback reason, and drives the honest
+      # three-state validation_status. Self-tests every run. Same as `make banzai-post-synthesis-validation-check`.
+      - name: Post-synthesis validation gate guard
+        run: bash tools/check-banzai-post-synthesis-validation.sh
+
+  banzai-runtime-ssot:
+    name: M2.19G.5C — runtime SSOT /banzai/runtime (ADR-072)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # ADR-072 — one secret-free public /banzai/runtime route in every apex nginx conf; the projection
+      # carries schema_version + authoritative:false and leaks no secrets; /estado consumes the route and
+      # never hardcodes the live engine. Self-tests every run. Same as `make banzai-runtime-ssot-check`.
+      - name: Runtime SSOT guard
+        run: bash tools/check-banzai-runtime-ssot.sh
+
+  banzai-simb-active-surface-clean:
+    name: M2.19G.5C — SimB retired from active surfaces (ADR-074)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # ADR-074 — no SimB/banza-simb token on any active public/agent surface (isolated draft libs, frozen
+      # crate and history exempt). Self-tests every run. Same as `make banzai-simb-active-surface-clean-check`.
+      - name: SimB active-surface clean guard
+        run: bash tools/check-banzai-simb-active-surface-clean.sh
+
+  banzai-canonical-architecture-framing:
+    name: M2.19G.5C — canonical BanzAI architecture framing (ADR-071)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # ADR-075 — services/banzai-api is the canonical runtime and the separate banza-protocol/banzai repo
+      # is being permanently removed; forbids mock-façade framing, canonical-core claims, links to the old
+      # repo, and archive/frozen framing of it. Self-tests every run.
+      # Same as `make banzai-canonical-architecture-framing-check`.
+      - name: Canonical architecture framing guard
+        run: bash tools/check-banzai-canonical-architecture-framing.sh
+
+  banzai-reference-canonical:
+    name: M2.19G.5F — canonical BanzAI reference (7 sections · 2 diagrams · frozen architecture)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # §12 (/referencia/banzai): exactly 7 sections, 1300–1700 words, exactly 2 canonical diagrams
+      # (external position + cognitive engine), frozen-architecture phrases, single authority matrix,
+      # no fourth-layer/passive-ui/mandatory-hop claims, Registo Técnico canonical. Self-tests every run.
+      # Same as `make banzai-reference-canonical-check`.
+      - name: BanzAI reference canonical guard
+        run: bash tools/check-banzai-reference-canonical.sh
+
+  banzai-architecture-manifest:
+    name: M2.19G.5F — BanzAI architecture manifest (parity with §12 + terminology invariants)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # The canonical architecture manifest (website/content/banzai/architecture-manifest.json) is the
+      # structured consistency contract behind §12: it must agree with the chapter (canonical phrase, the
+      # two diagrams, the 9-row authority matrix, the 3 provenance levels) and it enforces the four §3
+      # terminology invariants — primary+transversal interface present, zero mandatory-interface claims,
+      # protocol works without the BanzAI, direct public interfaces present. Uses node (no jq).
+      # Same as `make banzai-architecture-manifest-check`.
+      - name: BanzAI architecture manifest guard
+        run: bash tools/check-banzai-architecture-manifest.sh
+
+      # M2.19G.6 (ADR-075) — BanzAI consolidated into this monorepo as the SOLE active source; the
+      # separate banza-protocol/banzai repo is being permanently removed. Proves no legacy/ snapshot or second BanzAI
+      # workspace/API in HEAD; engines/banzai-trace + in-monorepo trace WASM; repo-indexer has no
+      # sibling remote and the manifest declares banzai_in_monorepo with zero embedded banzai chunks;
+      # ADR-075 present. Pure node+bash (reads the committed manifest + files; no WASM build needed).
+      # Same as `make banzai-monorepo-consolidation-check`.
+      - name: BanzAI monorepo consolidation guard
+        run: bash tools/check-banzai-monorepo-consolidation.sh
+
+  git-authorship-identity:
+    name: M2.19G.6B — Git authorship identity guard (no Claude attribution)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      # M2.19G.6B — blocks any NEW commit authored/committed as Claude/Anthropic, or carrying a
+      # `Co-authored-by:`/`Signed-off-by:` Claude trailer, from entering BANZA. Inspects commit METADATA
+      # and authorship TRAILERS only (base..HEAD) — never file content, so CLAUDE.md and docs mentioning
+      # Claude are not flagged. Fail-closed if the PR range is indeterminate. `make git-authorship-identity-check`.
+      - name: Git authorship identity guard — self-test
+        run: bash tools/check-git-authorship-identity.sh --self-test
+      - name: Git authorship identity guard — new commits
+        run: |
+          base="${GITHUB_BASE_REF:-main}"
+          git fetch --no-tags --quiet origin "$base" || true
+          GIT_AUTHORSHIP_BASE="origin/$base" bash tools/check-git-authorship-identity.sh
+
+  technical-registry-naming-parity:
+    name: M2.19G.5C — Technical Registry naming parity (Registo Técnico)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # PT surfaces say "Registo Técnico" (the /glossario mapping is the source of truth); no EN
+      # "Technical Registry"/"Public Protocol Registry" in PT rendered strings; layout meta clean. Dev
+      # comments + glossary en: gloss fields exempt. Self-tests every run. Same as
+      # `make technical-registry-naming-parity-check`.
+      - name: Technical Registry naming-parity guard
+        run: bash tools/check-technical-registry-naming-parity.sh
+
+  banzai-mark-consistency:
+    name: BanzAI mark consistency (one official mark)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # One official BanzAI mark across the whole site: the nav + home render components/BanzaiMark — the
+      # same two-part sparkle as the /banzai <Ico name="sparkle"> — and the retired plain 4-point star is
+      # blocked from website source. Self-tests every run. Same as `make banzai-mark-consistency-check`.
+      - name: BanzAI mark-consistency guard
+        run: bash tools/check-banzai-mark-consistency.sh
+
+  banzai-degraded-mode-render:
+    name: M2.19G.5C — degraded-mode render honesty (ADR-072 CD-9)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # ADR-072 CD-9 — a degraded/unknown BanzAI answer states its honest cause and never falsely claims
+      # "Qwen local confirmado" (BanzaiAgent engineLabel + banzaiKb telemetry). Self-tests every run.
+      # Same as `make banzai-degraded-mode-render-check`.
+      - name: Degraded-mode render guard
+        run: bash tools/check-banzai-degraded-mode-render.sh
+
+  # ── M2.19G.1 — Endpoint-Originated Operator Validation guard suite (ADR-068 §37) ──────────────────
+  # Every evaluated artifact is obtained from the selected implementation's public endpoints by the
+  # secure Rust fetcher; Rust decides every verdict; the receipt fixes the result to its exact origin.
+  # Each guard is the SAME script as its `make …` target — CI and local runs share one source of truth.
+
+  banzai-operator-validation-mode:
+    name: M2.19G.1 — "Validar operador" sidebar mode
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Operator-validation mode guard
+        run: bash tools/check-banzai-operator-validation-mode-check.sh
+
+  banzai-operator-implementation-model:
+    name: M2.19G.1 — operator → implementation target model
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Operator/implementation model guard
+        run: bash tools/check-banzai-operator-implementation-model-check.sh
+
+  banzai-endpoint-originated-validation:
+    name: M2.19G.1 — endpoint-originated official journey
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Endpoint-originated validation guard
+        run: bash tools/check-banzai-endpoint-originated-validation-check.sh
+
+  banzai-no-manual-input-official-flow:
+    name: M2.19G.1 — no manual input in the official flow
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: No-manual-input official-flow guard
+        run: bash tools/check-banzai-no-manual-input-official-flow-check.sh
+
+  banzai-draft-validation-isolation:
+    name: M2.19G.1 — developer draft tool isolation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Draft-validation isolation guard
+        run: bash tools/check-banzai-draft-validation-isolation-check.sh
+
+  banzai-closed-target-registry:
+    name: M2.19G.1 — closed target registry (operator-zero only)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Closed-target-registry guard
+        run: bash tools/check-banzai-closed-target-registry-check.sh
+
+  banzai-no-arbitrary-url:
+    name: M2.19G.1 — no arbitrary URL (registry-resolved only)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: No-arbitrary-URL guard
+        run: bash tools/check-banzai-no-arbitrary-url-check.sh
+
+  banzai-secure-fetcher:
+    name: M2.19G.1 — SSRF-hardened Rust artifact fetcher
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Secure-fetcher guard
+        run: bash tools/check-banzai-secure-fetcher-check.sh
+
+  banzai-fetch-receipt-binding:
+    name: M2.19G.1 — fetch → receipt origin binding
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch-receipt-binding guard
+        run: bash tools/check-banzai-fetch-receipt-binding-check.sh
+
+  banzai-nine-step-endpoint-input:
+    name: M2.19G.1 — nine endpoint-fetched steps
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Nine-step endpoint-input guard
+        run: bash tools/check-banzai-nine-step-endpoint-input-check.sh
+
+  banzai-single-results-area:
+    name: M2.19G.1 — single Resultados area
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Single-results-area guard
+        run: bash tools/check-banzai-single-results-area-check.sh
+
+  banzai-no-duplicate-tabs:
+    name: M2.19G.1 — no duplicate navigation tabs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: No-duplicate-tabs guard
+        run: bash tools/check-banzai-no-duplicate-tabs-check.sh
+
+  banzai-no-orphan-tabs:
+    name: M2.19G.1 — no orphan tabs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: No-orphan-tabs guard
+        run: bash tools/check-banzai-no-orphan-tabs-check.sh
+
+  banzai-contextual-actions:
+    name: M2.19G.1 — state-contextual step actions
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Contextual-actions guard
+        run: bash tools/check-banzai-contextual-actions-check.sh
+
+  banzai-contextual-right-panel:
+    name: M2.19G.1 — static header vs contextual right panel
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Contextual-right-panel guard
+        run: bash tools/check-banzai-contextual-right-panel-check.sh
+
+  banzai-certification-readiness-language:
+    name: M2.19G.1 — Certification Readiness vs Status language
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Certification-readiness-language guard
+        run: bash tools/check-banzai-certification-readiness-language-check.sh
+
+  banzai-operator-zero-parity:
+    name: M2.19G.1 — Operador Zero parity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Operator-zero parity guard
+        run: bash tools/check-banzai-operator-zero-parity-check.sh
+
+  banzai-operator-zero-no-bypass:
+    name: M2.19G.1 — Operador Zero no-bypass
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Operator-zero no-bypass guard
+        run: bash tools/check-banzai-operator-zero-no-bypass-check.sh
+
+  banzai-operator-zero-public-e2e:
+    name: M2.19G.1 — Operador Zero public E2E evidence
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Operator-zero public-E2E guard
+        run: bash tools/check-banzai-operator-zero-public-e2e-check.sh
+
+  banzai-no-fixture-as-production-evidence:
+    name: M2.19G.1 — no fixture as production evidence
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: No-fixture-as-production-evidence guard
+        run: bash tools/check-banzai-no-fixture-as-production-evidence-check.sh
+
+  banzai-receipt-origin-fields:
+    name: M2.19G.1 — OperationReceipt §30 origin fields
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Receipt-origin-fields guard
+        run: bash tools/check-banzai-receipt-origin-fields-check.sh
+
+  banzai-journey-receipt-origin:
+    name: M2.19G.1 — JourneyReceipt §31 origin fields
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Journey-receipt-origin guard
+        run: bash tools/check-banzai-journey-receipt-origin-check.sh
+
+  banzai-no-qwen-decision:
+    name: M2.19G.1 — Rust decides, Qwen only explains
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: No-qwen-decision guard
+        run: bash tools/check-banzai-no-qwen-decision-check.sh
+
+  banzai-rust-fetch-authority:
+    name: M2.19G.1 — Rust fetch authority
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rust-fetch-authority guard
+        run: bash tools/check-banzai-rust-fetch-authority-check.sh
+
+  banzai-m2-19g-semantic-regression:
+    name: M2.19G.1 — M2.19G semantic non-regression
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: M2.19G semantic-regression guard
+        run: bash tools/check-banzai-m2-19g-semantic-regression-check.sh
+
+  banzai-accessibility:
+    name: M2.19G.1 — validation UI accessibility
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Accessibility guard
+        run: bash tools/check-banzai-accessibility-check.sh
+
+  banzai-responsive:
+    name: M2.19G.1 — validation UI responsive
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Responsive guard
+        run: bash tools/check-banzai-responsive-check.sh
+
+  banzai-m2-19g1-readiness:
+    name: M2.19G.1 — endpoint-originated validation readiness (capstone)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: M2.19G.1 readiness capstone guard
+        run: bash tools/check-banzai-m2-19g1-readiness-check.sh

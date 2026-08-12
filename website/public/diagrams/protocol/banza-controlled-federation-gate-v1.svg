@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  id:        SVG-P-054
+  diagram:   Como a federação é avaliada — a Avaliação Aberta de Confiança aplicada ao encaminhamento entre dois operadores
+  version:   2.0
+  source:    BANZA_REFERENCIA.md §10 (Federação — Como a federação é avaliada) · ADR-040 · §8 (Avaliação Aberta de Confiança)
+  updated:   2026-08-09 (Ch10: resultado ROUTING_ALLOWED/FAIL_CLOSED · avaliação bidireccional · L3+ perfil ≠ Camada 3 · sem estado corrente)
+  author:    BANZA Protocol
+  style:     protocol
+-->
+<svg viewBox="0 0 900 476" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-labelledby="title-P054 desc-P054"
+     font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="title-P054">Como a federação é avaliada entre dois operadores</title>
+  <desc id="desc-P054">Antes de encaminhar um pagamento, cada operador avalia localmente, por si próprio e sobre material público, a implementação do outro. Entre o Operador A e o Operador B (exemplos), a Avaliação Aberta de Confiança verifica o manifesto e a versão de protocolo, a metadata assinada ancorada no Manifesto de Chaves, a evidência de conformidade válida e fresca, a ausência da Lista de Revogação, e as capacidades e endpoints compatíveis; o âmbito de conformidade L3+ é uma pré-condição técnica — um perfil, não a Camada 3. A avaliação é bidireccional: cada lado avalia o outro. O resultado é local e por interacção: ROUTING_ALLOWED se todas as verificações passarem, ou FAIL_CLOSED, por omissão, em qualquer outro caso. Não há fluxo de fundos pelo BANZA, a avaliação não o consulta, e passar não obriga ninguém a encaminhar.</desc>
+  <defs>
+    <linearGradient id="hg-P054" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E0F1A"/><stop offset="100%" stop-color="#8E1326"/>
+    </linearGradient>
+    <marker id="arr-P054" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#6B7280"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="476" fill="#F4F1EA"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="900" height="64" fill="url(#hg-P054)" rx="14"/>
+  <rect x="0" y="48" width="900" height="16" fill="#8E1326"/>
+  <text x="24" y="26" font-family="ui-monospace,'Courier New',monospace" font-size="9" fill="#FECACA" letter-spacing="2">SVG-P-054 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="24" y="50" font-size="18" font-weight="800" fill="white">Como a federação é avaliada</text>
+  <text x="876" y="50" text-anchor="end" font-size="11" fill="#FECACA">avaliação local, por interacção · fecho por omissão</text>
+
+  <text x="24" y="88" font-size="11" fill="#6B6265">A parte que encaminha avalia a implementação da contraparte sobre material público, sem consultar o BANZA. A avaliação é bidireccional.</text>
+
+  <!-- Operador A -->
+  <rect x="24" y="112" width="150" height="96" rx="12" fill="white" stroke="#D1D5DB" stroke-width="1.5"/>
+  <text x="99" y="150" text-anchor="middle" font-size="14" font-weight="700" fill="#1F2937">Operador A</text>
+  <text x="99" y="169" text-anchor="middle" font-size="9.5" fill="#6B6265">avalia a implementação</text>
+  <text x="99" y="183" text-anchor="middle" font-size="9.5" fill="#6B6265">publicada do Operador B</text>
+  <text x="99" y="199" text-anchor="middle" font-size="9" fill="#9CA3AF">exemplo · não é operador real</text>
+
+  <!-- Operador B -->
+  <rect x="726" y="112" width="150" height="96" rx="12" fill="white" stroke="#D1D5DB" stroke-width="1.5"/>
+  <text x="801" y="150" text-anchor="middle" font-size="14" font-weight="700" fill="#1F2937">Operador B</text>
+  <text x="801" y="169" text-anchor="middle" font-size="9.5" fill="#6B6265">avalia a implementação</text>
+  <text x="801" y="183" text-anchor="middle" font-size="9.5" fill="#6B6265">publicada do Operador A</text>
+  <text x="801" y="199" text-anchor="middle" font-size="9" fill="#9CA3AF">exemplo · não é operador real</text>
+
+  <!-- bidirectional arrows A <-> gate <-> B -->
+  <line x1="174" y1="150" x2="256" y2="150" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arr-P054)"/>
+  <line x1="644" y1="150" x2="724" y2="150" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arr-P054)"/>
+  <line x1="256" y1="172" x2="176" y2="172" stroke="#B0A6A4" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arr-P054)"/>
+  <line x1="724" y1="172" x2="644" y2="172" stroke="#B0A6A4" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arr-P054)"/>
+  <text x="450" y="104" text-anchor="middle" font-size="9.5" fill="#8C8C95">mensagens, contratos e evidência — nunca fundos</text>
+
+  <!-- gate panel -->
+  <rect x="256" y="112" width="388" height="214" rx="12" fill="#FBEFF0" stroke="#8E1326" stroke-width="1.5" stroke-dasharray="7 4"/>
+  <text x="276" y="134" font-family="ui-monospace,'Courier New',monospace" font-size="9" font-weight="700" fill="#8E1326" letter-spacing="1">AVALIAÇÃO ABERTA DE CONFIANÇA · 10 VERIFICAÇÕES</text>
+  <g font-size="11" fill="#3A1014">
+    <circle cx="284" cy="158" r="6" fill="none" stroke="#8E1326" stroke-width="1.5"/><path d="M281 158 l2.5 2.5 l4 -5" stroke="#8E1326" stroke-width="1.5" fill="none"/>
+    <text x="300" y="162">Manifesto válido · versão de protocolo compatível</text>
+    <circle cx="284" cy="184" r="6" fill="none" stroke="#8E1326" stroke-width="1.5"/><path d="M281 184 l2.5 2.5 l4 -5" stroke="#8E1326" stroke-width="1.5" fill="none"/>
+    <text x="300" y="188">Metadata assinada · ancora no Manifesto de Chaves</text>
+    <circle cx="284" cy="210" r="6" fill="none" stroke="#8E1326" stroke-width="1.5"/><path d="M281 210 l2.5 2.5 l4 -5" stroke="#8E1326" stroke-width="1.5" fill="none"/>
+    <text x="300" y="214">Evidência de conformidade válida e fresca</text>
+    <circle cx="284" cy="236" r="6" fill="none" stroke="#8E1326" stroke-width="1.5"/><path d="M281 236 l2.5 2.5 l4 -5" stroke="#8E1326" stroke-width="1.5" fill="none"/>
+    <text x="300" y="240">Não consta da Lista de Revogação (BRL)</text>
+    <circle cx="284" cy="262" r="6" fill="none" stroke="#8E1326" stroke-width="1.5"/><path d="M281 262 l2.5 2.5 l4 -5" stroke="#8E1326" stroke-width="1.5" fill="none"/>
+    <text x="300" y="266">Capacidades e endpoints compatíveis</text>
+    <circle cx="284" cy="288" r="6" fill="none" stroke="#8E1326" stroke-width="1.5"/><path d="M281 288 l2.5 2.5 l4 -5" stroke="#8E1326" stroke-width="1.5" fill="none"/>
+    <text x="300" y="292">Âmbito L3+ — pré-condição técnica (perfil, não Camada 3)</text>
+  </g>
+  <text x="276" y="316" font-size="9.5" fill="#6B6265">As dez verificações são conjuntivas (essenciais acima); qualquer material em falta ou não verificável fecha por omissão.</text>
+
+  <!-- outcome row -->
+  <rect x="256" y="338" width="186" height="34" rx="9" fill="#EAF4EC" stroke="#2E6A4E" stroke-width="1.3"/>
+  <text x="349" y="355" text-anchor="middle" font-family="ui-monospace,'Courier New',monospace" font-size="10" font-weight="700" fill="#1D4A34">ROUTING_ALLOWED</text>
+  <text x="349" y="367" text-anchor="middle" font-size="8.5" fill="#3E6E56">todas as verificações passam</text>
+  <rect x="458" y="338" width="186" height="34" rx="9" fill="#FBEFF0" stroke="#8E1326" stroke-width="1.3"/>
+  <text x="551" y="355" text-anchor="middle" font-family="ui-monospace,'Courier New',monospace" font-size="10" font-weight="700" fill="#8E1326">FAIL_CLOSED</text>
+  <text x="551" y="367" text-anchor="middle" font-size="8.5" fill="#9B5560">qualquer outro caso, por omissão</text>
+
+  <!-- notes band -->
+  <rect x="24" y="388" width="852" height="60" rx="9" fill="white" stroke="#EAD2D6" stroke-width="1"/>
+  <text x="40" y="411" font-size="11" font-weight="700" fill="#8E1326">Sem fluxo de fundos pelo BANZA — o protocolo não detém nem movimenta fundos.</text>
+  <text x="40" y="431" font-size="10" fill="#6B6265">A avaliação é local e por interacção, não consulta o BANZA, e um resultado que passa não obriga ninguém a encaminhar.</text>
+
+  <text x="450" y="466" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-054 · Como a federação é avaliada · BANZA_REFERENCIA.md §10 · ADR-040 · v2.0 · 2026-08-09</text>
+</svg>

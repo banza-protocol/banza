@@ -1,0 +1,202 @@
+{
+  "files": [
+    {
+      "name": "collections.json",
+      "count": 10,
+      "levels": [
+        2
+      ],
+      "ids": [
+        "COL-001",
+        "COL-002",
+        "COL-003",
+        "COL-004",
+        "COL-005",
+        "COL-006",
+        "COL-007",
+        "COL-008",
+        "COL-009",
+        "COL-010"
+      ]
+    },
+    {
+      "name": "event-envelopes.json",
+      "count": 8,
+      "levels": [
+        1,
+        2
+      ],
+      "ids": [
+        "EVT-001",
+        "EVT-002",
+        "EVT-003",
+        "EVT-004",
+        "EVT-005",
+        "EVT-006",
+        "EVT-007",
+        "EVT-008"
+      ]
+    },
+    {
+      "name": "ledger-postings.json",
+      "count": 6,
+      "levels": [
+        1
+      ],
+      "ids": [
+        "LED-001",
+        "LED-002",
+        "LED-003",
+        "LED-004",
+        "LED-005",
+        "LED-006"
+      ]
+    },
+    {
+      "name": "operator-manifests.json",
+      "count": 4,
+      "levels": [
+        0
+      ],
+      "ids": [
+        "MAN-001",
+        "MAN-002",
+        "MAN-003",
+        "MAN-004"
+      ]
+    },
+    {
+      "name": "payment-requests.json",
+      "count": 6,
+      "levels": [
+        2
+      ],
+      "ids": [
+        "PR-001",
+        "PR-002",
+        "PR-003",
+        "PR-004",
+        "PR-005",
+        "PR-006"
+      ]
+    },
+    {
+      "name": "qr-payloads.json",
+      "count": 7,
+      "levels": [
+        1,
+        2
+      ],
+      "ids": [
+        "QR-001",
+        "QR-002",
+        "QR-003",
+        "QR-004",
+        "QR-005",
+        "QR-006",
+        "QR-007"
+      ]
+    },
+    {
+      "name": "settlement-batches.json",
+      "count": 6,
+      "levels": [
+        2
+      ],
+      "ids": [
+        "STL-001",
+        "STL-002",
+        "STL-003",
+        "STL-004",
+        "STL-005",
+        "STL-006"
+      ]
+    },
+    {
+      "name": "transfers.json",
+      "count": 9,
+      "levels": [
+        1
+      ],
+      "ids": [
+        "TRF-001",
+        "TRF-002",
+        "TRF-003",
+        "TRF-004",
+        "TRF-005",
+        "TRF-006",
+        "TRF-007",
+        "TRF-008",
+        "TRF-009"
+      ]
+    },
+    {
+      "name": "wallet-balances.json",
+      "count": 5,
+      "levels": [
+        0,
+        1
+      ],
+      "ids": [
+        "WLT-001",
+        "WLT-002",
+        "WLT-003",
+        "WLT-004",
+        "WLT-005"
+      ]
+    }
+  ],
+  "total": 61,
+  "invariant_results": [
+    {
+      "id": "INV-LEDGER-DOUBLE-ENTRY",
+      "status": "pass",
+      "expected": "DEBIT|CREDIT",
+      "actual": "DEBIT",
+      "reason": "ledger-postings.json/LED-001"
+    },
+    {
+      "id": "INV-SETTLE-IDENTITY-FIELDS",
+      "status": "pass",
+      "expected": "gross_minor+fee_minor+net_minor required",
+      "actual": "id,wallet_id,gross_minor,fee_minor,net_minor,currency,tx_count,status,provider_ref",
+      "reason": "settlement-batches.json/STL-001"
+    },
+    {
+      "id": "INV-SETTLE-IDENTITY-FIELDS",
+      "status": "skip",
+      "expected": "gross_minor+fee_minor+net_minor required",
+      "actual": "error",
+      "reason": "settlement-batches.json/STL-002"
+    },
+    {
+      "id": "INV-SETTLE-IDENTITY-FIELDS",
+      "status": "skip",
+      "expected": "gross_minor+fee_minor+net_minor required",
+      "actual": "trace_id",
+      "reason": "settlement-batches.json/STL-004"
+    },
+    {
+      "id": "INV-SETTLE-IDENTITY-FIELDS",
+      "status": "skip",
+      "expected": "gross_minor+fee_minor+net_minor required",
+      "actual": "error",
+      "reason": "settlement-batches.json/STL-005"
+    }
+  ],
+  "warnings": [
+    "collections.json: COL-006 has no input/trigger/setup",
+    "collections.json: COL-007 has no input/trigger/setup",
+    "collections.json: COL-008 has no input/trigger/setup",
+    "collections.json: COL-009 has no input/trigger/setup",
+    "collections.json: COL-010 has no input/trigger/setup",
+    "event-envelopes.json: EVT-005 has no input/trigger/setup",
+    "event-envelopes.json: EVT-006 has no input/trigger/setup",
+    "event-envelopes.json: EVT-007 has no input/trigger/setup",
+    "ledger-postings.json: LED-002 has no input/trigger/setup",
+    "ledger-postings.json: LED-006 has no input/trigger/setup",
+    "wallet-balances.json: WLT-001 has no input/trigger/setup"
+  ],
+  "ok": true
+}
+check-vectors: 61 vectors, 5 invariant checks, 11 warnings, ok=true

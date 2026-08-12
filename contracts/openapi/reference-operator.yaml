@@ -1,0 +1,784 @@
+openapi: "3.0.3"
+
+info:
+  title: BANZA Reference Operator API
+  version: "1.0"
+  description: |
+    The reference operator is a local development sandbox (L0) server that
+    implements the BANZA payment protocol using fully simulated providers.
+
+    **This is not a production API.** All state is in-memory and resets on restart.
+    `simulated: true` and `production_allowed: false` are enforced at the protocol level.
+
+    Base URL: `http://localhost:3100`
+
+    All monetary values are minor units (smallest indivisible currency unit).
+    For AOA: 1 AOA = 100 minor units.
+
+  contact:
+    name: the reference operator
+    url: https://github.com/banza-protocol/banza
+
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+
+servers:
+  - url: http://localhost:3100
+    description: Local sandbox operator
+
+tags:
+  - name: health
+    description: Operator health and manifest
+  - name: wallets
+    description: Wallet management
+  - name: transfers
+    description: Wallet-to-wallet transfers
+  - name: payment-requests
+    description: Pull-payment request lifecycle
+  - name: qr
+    description: QR payment generation and execution
+  - name: ledger
+    description: Double-entry ledger inspection
+  - name: settlement
+    description: Settlement batch simulation
+  - name: events
+    description: SSE event stream and history
+
+paths:
+
+  /health:
+    get:
+      summary: Operator health check
+      operationId: getHealth
+      tags: [health]
+      responses:
+        "200":
+          description: Operator is healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+              example:
+                status: ok
+                environment: sandbox
+                operator: banza-sandbox
+                simulated: true
+                production_allowed: false
+                note: "This is a local development sandbox — not a production system."
+
+  /.well-known/banza/operator.json:
+    get:
+      summary: Operator capability manifest
+      description: |
+        Returns the operator's capability manifest per RFC-0005 operator discovery.
+        Clients use this endpoint to discover what a BANZA operator supports.
+      operationId: getOperatorManifest
+      tags: [health]
+      responses:
+        "200":
+          description: Operator manifest
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OperatorManifest"
+
+  /wallets:
+    get:
+      summary: List all wallets
+      operationId: listWallets
+      tags: [wallets]
+      responses:
+        "200":
+          description: Wallet list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WalletList"
+
+    post:
+      summary: Create a wallet
+      operationId: createWallet
+      tags: [wallets]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateWalletRequest"
+            example:
+              label: My Test Wallet
+              currency: AOA
+              wallet_type: merchant
+      responses:
+        "200":
+          description: Wallet created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Wallet"
+        "400":
+          description: Invalid input (unknown currency)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /wallets/{id}:
+    get:
+      summary: Get wallet by ID
+      operationId: getWallet
+      tags: [wallets]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: sandbox-consumer-1
+      responses:
+        "200":
+          description: Wallet
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Wallet"
+        "404":
+          description: Wallet not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /transfers:
+    get:
+      summary: List all transfers
+      operationId: listTransfers
+      tags: [transfers]
+      responses:
+        "200":
+          description: Transfer list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TransferList"
+
+    post:
+      summary: Execute a transfer
+      description: |
+        Move funds between two wallets via a double-entry ledger posting.
+        Creates a DEBIT on the source wallet and a CREDIT on the destination wallet.
+
+        If `idempotency_key` is provided, subsequent calls with the same key return
+        the original response without modifying balances.
+      operationId: createTransfer
+      tags: [transfers]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTransferRequest"
+            example:
+              from_wallet_id: sandbox-consumer-1
+              to_wallet_id: sandbox-merchant-1
+              amount_minor: 50000
+              currency: AOA
+              note: "lunch payment"
+              idempotency_key: "order-001-pay"
+      responses:
+        "200":
+          description: Transfer completed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Transfer"
+        "404":
+          description: Wallet not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: Insufficient funds
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /payment-requests:
+    get:
+      summary: List all payment requests
+      operationId: listPaymentRequests
+      tags: [payment-requests]
+      responses:
+        "200":
+          description: Payment request list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaymentRequestList"
+
+    post:
+      summary: Create a payment request
+      description: |
+        Creates a pull-payment request. The merchant specifies the amount and
+        their wallet. The consumer pays it via `POST /payment-requests/{id}/pay`.
+      operationId: createPaymentRequest
+      tags: [payment-requests]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreatePaymentRequestRequest"
+            example:
+              to_wallet_id: sandbox-merchant-1
+              amount_minor: 25000
+              currency: AOA
+              description: "Invoice #001"
+      responses:
+        "200":
+          description: Payment request created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaymentRequest"
+
+  /payment-requests/{id}:
+    get:
+      summary: Get payment request by ID
+      operationId: getPaymentRequest
+      tags: [payment-requests]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: pr-a1b2c3d4
+      responses:
+        "200":
+          description: Payment request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaymentRequest"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /payment-requests/{id}/pay:
+    post:
+      summary: Pay a payment request
+      description: |
+        Executes payment on a pending payment request. Creates a transfer from
+        the consumer's wallet to the merchant's wallet for the exact requested amount.
+        A payment request can only be paid once.
+      operationId: payPaymentRequest
+      tags: [payment-requests]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: pr-a1b2c3d4
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PayPaymentRequestRequest"
+            example:
+              from_wallet_id: sandbox-consumer-1
+      responses:
+        "200":
+          description: Payment request paid
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaymentRequest"
+        "422":
+          description: Already paid or insufficient funds
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /qr:
+    post:
+      summary: Generate a QR payment code
+      description: |
+        Generates a QR payment code for a merchant. Returns the QR payload in the
+        canonical `BANZA-SBX:{base64json}` format. In production, this string
+        would be encoded into an actual QR image.
+      operationId: generateQr
+      tags: [qr]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GenerateQrRequest"
+            example:
+              merchant_wallet_id: sandbox-merchant-1
+              amount_minor: 30000
+              currency: AOA
+              description: "Table 4"
+      responses:
+        "200":
+          description: QR code generated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QrCode"
+
+  /qr/{id}:
+    get:
+      summary: Get QR code by ID
+      operationId: getQrCode
+      tags: [qr]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: qr-a1b2c3d4
+      responses:
+        "200":
+          description: QR code
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QrCode"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /qr/{id}/pay:
+    post:
+      summary: Pay a QR code
+      description: |
+        Pays a QR code by transferring from the consumer's wallet to the merchant's
+        wallet. A QR code can only be paid once — subsequent attempts return 422.
+      operationId: payQrCode
+      tags: [qr]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: qr-a1b2c3d4
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PayQrRequest"
+            example:
+              consumer_wallet_id: sandbox-consumer-1
+      responses:
+        "200":
+          description: QR paid
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QrPayResult"
+        "422":
+          description: Already paid or insufficient funds
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /ledger/{wallet_id}:
+    get:
+      summary: Get wallet ledger entries
+      description: |
+        Returns all double-entry ledger postings for a wallet, plus the derived balance.
+        Balance = SUM(CREDIT amounts) - SUM(DEBIT amounts).
+        The balance is never stored — it is always computed from entries.
+      operationId: getWalletLedger
+      tags: [ledger]
+      parameters:
+        - name: wallet_id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: sandbox-consumer-1
+      responses:
+        "200":
+          description: Ledger entries and derived balance
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LedgerResponse"
+
+  /settlement/batches:
+    get:
+      summary: List settlement batches
+      operationId: listSettlementBatches
+      tags: [settlement]
+      responses:
+        "200":
+          description: Batch list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SettlementBatchList"
+
+    post:
+      summary: Create a settlement batch
+      description: |
+        Settles all unsettled inbound transfers for a wallet. Applies a 1% simulated
+        platform fee (minimum 100 minor units). Always completes instantly.
+        Emits `settlement.created` and `settlement.completed` events.
+      operationId: createSettlementBatch
+      tags: [settlement]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateSettlementBatchRequest"
+            example:
+              wallet_id: sandbox-merchant-1
+      responses:
+        "200":
+          description: Settlement batch created and completed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SettlementBatch"
+        "422":
+          description: No unsettled receipts
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /settlement/batches/{id}:
+    get:
+      summary: Get settlement batch by ID
+      operationId: getSettlementBatch
+      tags: [settlement]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: batch-a1b2c3d4
+      responses:
+        "200":
+          description: Settlement batch
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SettlementBatch"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /events:
+    get:
+      summary: Subscribe to live event stream (SSE)
+      description: |
+        Opens a Server-Sent Events stream. Every sandbox action emits a named event.
+        The server sends a `ping` keep-alive every 15 seconds.
+
+        Event types: `wallet.created`, `payment.sent`, `payment.received`,
+        `payment_request.created`, `payment_request.paid`, `qr.generated`,
+        `qr.paid`, `settlement.created`, `settlement.completed`
+
+        Each event: `id`, `event_type`, `payload`, `created_at`
+      operationId: subscribeEvents
+      tags: [events]
+      responses:
+        "200":
+          description: SSE stream
+          content:
+            text/event-stream:
+              schema:
+                type: string
+                description: Server-Sent Events stream
+
+  /events/history:
+    get:
+      summary: Get all events since startup
+      operationId: getEventHistory
+      tags: [events]
+      responses:
+        "200":
+          description: Event history
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventHistoryResponse"
+
+components:
+  schemas:
+
+    HealthResponse:
+      type: object
+      properties:
+        status:             { type: string, example: ok }
+        environment:        { type: string, example: sandbox }
+        operator:           { type: string, example: banza-sandbox }
+        simulated:          { type: boolean, example: true }
+        production_allowed: { type: boolean, example: false }
+        note:               { type: string }
+      required: [status, environment, simulated, production_allowed]
+
+    OperatorManifest:
+      type: object
+      properties:
+        operator_id:        { type: string, example: banza-sandbox }
+        environment:        { type: string, example: sandbox }
+        simulated:          { type: boolean }
+        production_allowed: { type: boolean }
+        capabilities:
+          type: object
+          properties:
+            supports_wallets:               { type: boolean }
+            supports_transfers:             { type: boolean }
+            supports_qr:                    { type: boolean }
+            supports_payment_requests:      { type: boolean }
+            supports_settlement_simulation: { type: boolean }
+            supports_events_sse:            { type: boolean }
+            supports_ledger_inspection:     { type: boolean }
+            cross_operator_routing:         { type: boolean }
+            offline_payments:               { type: boolean }
+        providers:
+          type: object
+          properties:
+            all_simulated: { type: boolean }
+            acquirer:      { type: string }
+            settlement:    { type: string }
+            notifications: { type: string }
+        seed_wallets:
+          type: array
+          items: { type: string }
+        manifest_version: { type: integer }
+
+    Wallet:
+      type: object
+      properties:
+        id:             { type: string, example: sandbox-consumer-1 }
+        label:          { type: string, example: Sandbox Consumer }
+        currency:       { type: string, example: AOA }
+        balance_minor:  { type: integer, format: int64, example: 2000000 }
+        wallet_type:    { type: string, enum: [consumer, merchant, government] }
+        created_at:     { type: string, format: date-time }
+      required: [id, label, currency, balance_minor, wallet_type, created_at]
+
+    WalletList:
+      type: object
+      properties:
+        wallets:
+          type: array
+          items:
+            $ref: "#/components/schemas/Wallet"
+
+    CreateWalletRequest:
+      type: object
+      properties:
+        label:       { type: string }
+        currency:    { type: string, example: AOA }
+        wallet_type: { type: string, enum: [consumer, merchant, government], default: consumer }
+      required: [label, currency]
+
+    Transfer:
+      type: object
+      properties:
+        id:              { type: string, example: txfr-a1b2c3d4 }
+        from_wallet_id:  { type: string }
+        to_wallet_id:    { type: string }
+        amount_minor:    { type: integer, format: int64 }
+        currency:        { type: string }
+        note:            { type: string, nullable: true }
+        idempotency_key: { type: string, nullable: true }
+        created_at:      { type: string, format: date-time }
+      required: [id, from_wallet_id, to_wallet_id, amount_minor, currency, created_at]
+
+    TransferList:
+      type: object
+      properties:
+        transfers:
+          type: array
+          items:
+            $ref: "#/components/schemas/Transfer"
+
+    CreateTransferRequest:
+      type: object
+      properties:
+        from_wallet_id:  { type: string }
+        to_wallet_id:    { type: string }
+        amount_minor:    { type: integer, format: int64 }
+        currency:        { type: string }
+        note:            { type: string }
+        idempotency_key: { type: string }
+      required: [from_wallet_id, to_wallet_id, amount_minor, currency]
+
+    PaymentRequest:
+      type: object
+      properties:
+        id:           { type: string, example: pr-a1b2c3d4 }
+        to_wallet_id: { type: string }
+        amount_minor: { type: integer, format: int64 }
+        currency:     { type: string }
+        description:  { type: string, nullable: true }
+        status:       { type: string, enum: [pending, paid] }
+        transfer_id:  { type: string, nullable: true }
+        created_at:   { type: string, format: date-time }
+      required: [id, to_wallet_id, amount_minor, currency, status, created_at]
+
+    PaymentRequestList:
+      type: object
+      properties:
+        payment_requests:
+          type: array
+          items:
+            $ref: "#/components/schemas/PaymentRequest"
+
+    CreatePaymentRequestRequest:
+      type: object
+      properties:
+        to_wallet_id: { type: string }
+        amount_minor: { type: integer, format: int64 }
+        currency:     { type: string }
+        description:  { type: string }
+      required: [to_wallet_id, amount_minor, currency]
+
+    PayPaymentRequestRequest:
+      type: object
+      properties:
+        from_wallet_id: { type: string }
+      required: [from_wallet_id]
+
+    QrCode:
+      type: object
+      properties:
+        id:                  { type: string, example: qr-a1b2c3d4 }
+        status:              { type: string, enum: [active, paid] }
+        payload_data:        { type: string, description: "BANZA-SBX:{base64json} canonical QR payload" }
+        merchant_wallet_id:  { type: string }
+        amount_minor:        { type: integer, format: int64, nullable: true }
+        currency:            { type: string }
+        description:         { type: string, nullable: true }
+        created_at:          { type: string, format: date-time }
+      required: [id, status, payload_data, merchant_wallet_id, currency, created_at]
+
+    GenerateQrRequest:
+      type: object
+      properties:
+        merchant_wallet_id: { type: string }
+        currency:           { type: string }
+        amount_minor:       { type: integer, format: int64, description: "Omit for open/dynamic QR" }
+        description:        { type: string }
+      required: [merchant_wallet_id, currency]
+
+    PayQrRequest:
+      type: object
+      properties:
+        consumer_wallet_id: { type: string }
+        amount_minor:       { type: integer, format: int64, description: "Required only for open QR codes" }
+      required: [consumer_wallet_id]
+
+    QrPayResult:
+      type: object
+      properties:
+        id:          { type: string }
+        status:      { type: string, enum: [paid] }
+        transfer_id: { type: string }
+
+    LedgerEntry:
+      type: object
+      properties:
+        id:           { type: string }
+        kind:         { type: string, enum: [DEBIT, CREDIT] }
+        amount_minor: { type: integer, format: int64 }
+        currency:     { type: string }
+        description:  { type: string, nullable: true }
+        reference:    { type: string, nullable: true }
+        created_at:   { type: string, format: date-time }
+      required: [id, kind, amount_minor, currency, created_at]
+
+    LedgerResponse:
+      type: object
+      properties:
+        wallet_id:             { type: string }
+        derived_balance_minor: { type: integer, format: int64 }
+        entry_count:           { type: integer }
+        entries:
+          type: array
+          items:
+            $ref: "#/components/schemas/LedgerEntry"
+      required: [wallet_id, derived_balance_minor, entry_count, entries]
+
+    SettlementBatch:
+      type: object
+      properties:
+        id:           { type: string, example: batch-a1b2c3d4 }
+        wallet_id:    { type: string }
+        status:       { type: string, enum: [completed] }
+        gross_minor:  { type: integer, format: int64 }
+        fee_minor:    { type: integer, format: int64 }
+        net_minor:    { type: integer, format: int64 }
+        tx_count:     { type: integer }
+        currency:     { type: string }
+        provider_ref: { type: string, example: "SBX-SETTLE-uuid-here" }
+        created_at:   { type: string, format: date-time }
+      required: [id, wallet_id, status, gross_minor, fee_minor, net_minor, tx_count, currency, provider_ref, created_at]
+
+    SettlementBatchList:
+      type: object
+      properties:
+        batches:
+          type: array
+          items:
+            $ref: "#/components/schemas/SettlementBatch"
+
+    CreateSettlementBatchRequest:
+      type: object
+      properties:
+        wallet_id: { type: string }
+      required: [wallet_id]
+
+    SandboxEvent:
+      type: object
+      properties:
+        id:         { type: string }
+        event_type: { type: string }
+        payload:    { type: object }
+        created_at: { type: string, format: date-time }
+      required: [id, event_type, payload, created_at]
+
+    EventHistoryResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+        events:
+          type: array
+          items:
+            $ref: "#/components/schemas/SandboxEvent"
+
+    ErrorResponse:
+      type: object
+      properties:
+        error: { type: string }
+      required: [error]

@@ -1,0 +1,101 @@
+--- banza-artifact-fetcher
+test result: ok. 24 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 19 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+--- banza-trust
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 21 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+--- banza-conformance
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+--- banza-certification
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+--- banza-evidence-bundle
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+--- banza-operator-manifest
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+--- banza-l1-readiness
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+--- banza-l2-readiness
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+--- banza-l3-readiness
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+--- banza-l4-readiness
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+--- banza-target-registry
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+--- banza-security-assurance
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+--- banza-root-ceremony
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 17 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+--- operator-zero-core
+test result: ok. 33 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+--- operator-zero-e2e-root
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+--- banzai-operator-journey
+test result: ok. 23 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 19 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+--- banzai-evidence
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 18 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+--- banza-reference-trust-model
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 29 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out

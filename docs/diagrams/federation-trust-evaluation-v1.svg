@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  id:        SVG-P-064
+  diagram:   Federation Trust Evaluation
+  version:   1.0
+  source:    ADR-038 · ADR-039 · ADR-040 · M2.3 (Reference Trust Model Redesign)
+  updated:   2026-07-17
+  author:    BANZA Protocol
+  style:     protocol
+-->
+<svg viewBox="0 0 980 1032" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-labelledby="title-P064 desc-P064"
+     font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="title-P064">Federation Trust Evaluation</title>
+  <desc id="desc-P064">How Operator A decides whether it may federate with Operator B under the BANZA protocol, using only verifiable evidence. At the top, Operator A is the evaluating operator and Operator B is an independent target operator that self-publishes its operator manifest, signed protocol metadata and conformance evidence. Between them sits the Open Trust Evaluation: ten ordered checks, evaluated in sequence, automated, deterministic and reproducible by anyone. Two sources of trust material feed the chain. The Public Protocol Registry is a verifiable index of protocol metadata and evidence; it is not a list of operators licensed, approved or certified by BANZA, and absence from the registry is not a regulatory prohibition. The Trust Root and its delegated signing keys sign protocol metadata, releases, delegated keys and revocations; the Trust Root does not authorise operators, does not authorise payments, issues no licence and moves no funds. The ordered chain runs downward: check one, the operator manifest is valid, well formed and self-published by Operator B; check two, the declared protocol version is compatible with Operator A; check three, the protocol metadata is signed and the signature verifies; check four, conformance evidence is present, complete and valid; check five, the signature chain from trust root to delegated key verifies; check six, the operator metadata resolves in the public protocol registry; check seven, the key and metadata are not present in the revocation list; check eight, the requested capabilities are declared and compatible; check nine, the endpoint contract is compatible with the protocol version; check ten, the evidence is within the freshness window set by policy. Each check passes downward to the next one along the spine. Every check also has a red exit to the right into the fail-closed rail: trust material that is missing, invalid, expired, revoked or incompatible stops the evaluation immediately and federation routing does not start. Fail-closed is the default exit of every check, not an exception; the chain must positively verify all ten checks before routing may begin, absence of evidence is not trust, and there is no override. Revocation is a protocol security signal: the Revocation List is a security and trust mechanism, not a licence, a regulatory sanction or a financial authorisation. When all ten checks verify, federation routing is enabled between Operator A and Operator B. Between the passing chain and enabled routing there is a position where a central approval step would sit; it is drawn as an empty dashed slot and is intentionally empty. No certificate is consulted anywhere in the chain and no human decides the outcome. Every routing decision re-evaluates the chain, and expired, revoked or incompatible trust material returns the decision to fail-closed.</desc>
+  <defs>
+    <linearGradient id="hg-P064" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E0F1A"/><stop offset="100%" stop-color="#8E1326"/>
+    </linearGradient>
+    <marker id="arr-P064" markerWidth="9" markerHeight="9" refX="4.5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#6B7280"/>
+    </marker>
+    <marker id="arrfail-P064" markerWidth="9" markerHeight="9" refX="4.5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#B91C1C"/>
+    </marker>
+    <marker id="arrpass-P064" markerWidth="9" markerHeight="9" refX="4.5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#166534"/>
+    </marker>
+  </defs>
+
+  <rect width="980" height="1032" fill="#F4F1EA"/>
+
+  <!-- ── Header ── -->
+  <rect x="0" y="0" width="980" height="64" fill="url(#hg-P064)" rx="14"/>
+  <rect x="0" y="48" width="980" height="16" fill="#8E1326"/>
+  <text x="24" y="26" font-family="ui-monospace,'Courier New',monospace" font-size="9" fill="#FECACA" letter-spacing="2">SVG-P-064 · OPEN FINANCIAL PROTOCOL</text>
+  <text x="24" y="47" font-size="18" font-weight="800" fill="white">Federation Trust Evaluation</text>
+  <text x="956" y="47" text-anchor="end" font-size="10.5" fill="#FECACA">Ten ordered checks · fail-closed by default</text>
+
+  <!-- ── Actors ── -->
+  <rect x="40" y="88" width="250" height="80" rx="10" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1.5"/>
+  <text x="60" y="112" font-size="13" font-weight="800" fill="#1E40AF">Operator A</text>
+  <text x="60" y="129" font-size="10" font-weight="600" fill="#1E40AF">evaluating operator · independent</text>
+  <text x="60" y="145" font-size="9.5" fill="#6B6265">runs the evaluation itself, by machine,</text>
+  <text x="60" y="158" font-size="9.5" fill="#6B6265">before it routes anything to Operator B</text>
+
+  <line x1="292" y1="128" x2="304" y2="128" stroke="#6B7280" stroke-width="2" marker-end="url(#arr-P064)"/>
+
+  <rect x="310" y="88" width="360" height="80" rx="10" fill="#1F2937"/>
+  <text x="490" y="110" text-anchor="middle" font-size="10" font-weight="700" fill="#9CA3AF" letter-spacing="1.5">OPEN TRUST EVALUATION</text>
+  <text x="490" y="131" text-anchor="middle" font-size="11.5" font-weight="700" fill="white">Ten ordered checks, evaluated in sequence</text>
+  <text x="490" y="149" text-anchor="middle" font-size="9.5" fill="#9CA3AF">automated · deterministic · reproducible by anyone</text>
+  <text x="490" y="162" text-anchor="middle" font-size="9.5" fill="#9CA3AF">evidence in · decision out · no party is asked</text>
+
+  <line x1="688" y1="128" x2="676" y2="128" stroke="#6B7280" stroke-width="2" marker-end="url(#arr-P064)"/>
+
+  <rect x="690" y="88" width="250" height="80" rx="10" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1.5"/>
+  <text x="710" y="112" font-size="13" font-weight="800" fill="#1E40AF">Operator B</text>
+  <text x="710" y="129" font-size="10" font-weight="600" fill="#1E40AF">target operator · independent</text>
+  <text x="710" y="145" font-size="9.5" fill="#6B6265">self-publishes manifest, signed protocol</text>
+  <text x="710" y="158" font-size="9.5" fill="#6B6265">metadata and conformance evidence</text>
+
+  <!-- ── Trust material sources ── -->
+  <rect x="40" y="184" width="450" height="76" rx="10" fill="white" stroke="#BFDBFE" stroke-width="1.5"/>
+  <text x="60" y="207" font-size="11.5" font-weight="800" fill="#1E40AF">Public Protocol Registry</text>
+  <text x="470" y="207" text-anchor="end" font-size="8.5" fill="#9CA3AF">read by checks 01 · 06 · 07</text>
+  <text x="60" y="225" font-size="9.5" fill="#6B6265">A verifiable index of protocol metadata and evidence.</text>
+  <text x="60" y="239" font-size="9.5" fill="#6B6265">Not a list of operators licensed, approved or certified by BANZA.</text>
+  <text x="60" y="253" font-size="9.5" fill="#6B6265">Registry absence is not a regulatory prohibition.</text>
+
+  <rect x="506" y="184" width="434" height="76" rx="10" fill="white" stroke="#FDE68A" stroke-width="1.5"/>
+  <text x="526" y="207" font-size="11.5" font-weight="800" fill="#854D0E">Trust Root · delegated signing keys</text>
+  <text x="920" y="207" text-anchor="end" font-size="8.5" fill="#9CA3AF">read by checks 03 · 05 · 07</text>
+  <text x="526" y="225" font-size="9.5" fill="#6B6265">Signs only the Key Manifest; delegated keys sign metadata, releases and the revocation list.</text>
+  <text x="526" y="239" font-size="9.5" fill="#6B6265">Does not authorise operators. Does not authorise payments.</text>
+  <text x="526" y="253" font-size="9.5" fill="#6B6265">Issues no licence and moves no funds.</text>
+
+  <!-- ── Chain label ── -->
+  <text x="40" y="280" font-size="10" font-weight="700" fill="#6B6265" letter-spacing="1.5">ORDERED EVALUATION CHAIN · OPERATOR A EVALUATES OPERATOR B</text>
+  <text x="637" y="280" text-anchor="middle" font-size="9" font-weight="700" fill="#B91C1C">on any failure</text>
+
+  <!-- ── Fail-closed rail ── -->
+  <rect x="676" y="288" width="264" height="548" rx="10" fill="#FEF2F2" stroke="#FECACA" stroke-width="1.5"/>
+  <rect x="676" y="288" width="264" height="34" rx="10" fill="#991B1B"/>
+  <rect x="676" y="306" width="264" height="16" fill="#991B1B"/>
+  <text x="808" y="310" text-anchor="middle" font-size="10.5" font-weight="800" fill="white" letter-spacing="1">FAIL-CLOSED · DEFAULT EXIT</text>
+
+  <text x="696" y="344" font-size="10" font-weight="700" fill="#991B1B">Trust material that is:</text>
+  <rect x="696" y="354" width="224" height="26" rx="7" fill="white" stroke="#FECACA"/>
+  <text x="808" y="371" text-anchor="middle" font-size="10.5" font-weight="700" fill="#991B1B">missing</text>
+  <rect x="696" y="386" width="224" height="26" rx="7" fill="white" stroke="#FECACA"/>
+  <text x="808" y="403" text-anchor="middle" font-size="10.5" font-weight="700" fill="#991B1B">invalid</text>
+  <rect x="696" y="418" width="224" height="26" rx="7" fill="white" stroke="#FECACA"/>
+  <text x="808" y="435" text-anchor="middle" font-size="10.5" font-weight="700" fill="#991B1B">expired</text>
+  <rect x="696" y="450" width="224" height="26" rx="7" fill="white" stroke="#FECACA"/>
+  <text x="808" y="467" text-anchor="middle" font-size="10.5" font-weight="700" fill="#991B1B">revoked</text>
+  <rect x="696" y="482" width="224" height="26" rx="7" fill="white" stroke="#FECACA"/>
+  <text x="808" y="499" text-anchor="middle" font-size="10.5" font-weight="700" fill="#991B1B">incompatible</text>
+
+  <text x="696" y="534" font-size="10.5" font-weight="800" fill="#991B1B">Federation routing does not start.</text>
+  <text x="696" y="552" font-size="10" fill="#7F1D1D">No route is opened. No protocol</text>
+  <text x="696" y="566" font-size="10" fill="#7F1D1D">messages are exchanged with</text>
+  <text x="696" y="580" font-size="10" fill="#7F1D1D">Operator B.</text>
+
+  <line x1="696" y1="598" x2="920" y2="598" stroke="#FECACA" stroke-width="1.5"/>
+
+  <text x="696" y="620" font-size="10.5" font-weight="800" fill="#991B1B">Fail-closed is the default exit</text>
+  <text x="696" y="634" font-size="10.5" font-weight="800" fill="#991B1B">of every check, not an exception.</text>
+  <text x="696" y="654" font-size="10" fill="#7F1D1D">The chain must positively verify</text>
+  <text x="696" y="668" font-size="10" fill="#7F1D1D">all ten checks before routing may</text>
+  <text x="696" y="682" font-size="10" fill="#7F1D1D">begin. Absence of evidence is not</text>
+  <text x="696" y="696" font-size="10" fill="#7F1D1D">trust. There is no override.</text>
+
+  <line x1="696" y1="714" x2="920" y2="714" stroke="#FECACA" stroke-width="1.5"/>
+
+  <text x="696" y="736" font-size="10" font-weight="800" fill="#991B1B">Revocation is a security signal.</text>
+  <text x="696" y="754" font-size="10" fill="#7F1D1D">The Revocation List is a protocol</text>
+  <text x="696" y="768" font-size="10" fill="#7F1D1D">security and trust mechanism —</text>
+  <text x="696" y="782" font-size="10" fill="#7F1D1D">not a licence, a regulatory sanction</text>
+  <text x="696" y="796" font-size="10" fill="#7F1D1D">or a financial authorisation.</text>
+  <text x="696" y="820" font-size="9.5" fill="#9CA3AF">A failed check is a protocol outcome,</text>
+  <text x="696" y="832" font-size="9.5" fill="#9CA3AF">never a judgement about an operator.</text>
+
+  <!-- ── Check 01 ── -->
+  <rect x="40" y="288" width="560" height="44" rx="8" fill="white" stroke="#E5E7EB" stroke-width="1.5"/>
+  <rect x="52" y="297" width="30" height="26" rx="6" fill="#1F2937"/>
+  <text x="67" y="315" text-anchor="middle" font-size="11" font-weight="800" fill="white">01</text>
+  <text x="96" y="308" font-size="11.5" font-weight="700" fill="#1A1A1A">Operator manifest</text>
+  <text x="96" y="322" font-size="9.5" fill="#6B6265">present, well-formed and self-published by Operator B</text>
+  <line x1="606" y1="310" x2="668" y2="310" stroke="#B91C1C" stroke-width="1.5" marker-end="url(#arrfail-P064)"/>
+  <line x1="67" y1="332" x2="67" y2="343" stroke="#166534" stroke-width="2" marker-end="url(#arrpass-P064)"/>
+  <text x="80" y="341" font-size="8" font-weight="700" fill="#166534">pass</text>
+
+  <!-- ── Check 02 ── -->
+  <rect x="40" y="344" width="560" height="44" rx="8" fill="white" stroke="#E5E7EB" stroke-width="1.5"/>
+  <rect x="52" y="353" width="30" height="26" rx="6" fill="#1F2937"/>
+  <text x="67" y="371" text-anchor="middle" font-size="11" font-weight="800" fill="white">02</text>
+  <text x="96" y="364" font-size="11.5" font-weight="700" fill="#1A1A1A">Protocol version</text>
+  <text x="96" y="378" font-size="9.5" fill="#6B6265">declared protocol version compatible with Operator A</text>
+  <line x1="606" y1="366" x2="668" y2="366" stroke="#B91C1C" stroke-width="1.5" marker-end="url(#arrfail-P064)"/>
+  <line x1="67" y1="388" x2="67" y2="399" stroke="#166534" stroke-width="2" marker-end="url(#arrpass-P064)"/>
+
+  <!-- ── Check 03 ── -->
+  <rect x="40" y="400" width="560" height="44" rx="8" fill="white" stroke="#E5E7EB" stroke-width="1.5"/>
+  <rect x="52" y="409" width="30" height="26" rx="6" fill="#1F2937"/>
+  <text x="67" y="427" text-anchor="middle" font-size="11" font-weight="800" fill="white">03</text>
+  <text x="96" y="420" font-size="11.5" font-weight="700" fill="#1A1A1A">Signed protocol metadata</text>
+  <text x="96" y="434" font-size="9.5" fill="#6B6265">signature present over canonical metadata, and it verifies</text>
+  <line x1="606" y1="422" x2="668" y2="422" stroke="#B91C1C" stroke-width="1.5" marker-end="url(#arrfail-P064)"/>
+  <line x1="67" y1="444" x2="67" y2="455" stroke="#166534" stroke-width="2" marker-end="url(#arrpass-P064)"/>
+
+  <!-- ── Check 04 ── -->
+  <rect x="40" y="456" width="560" height="44" rx="8" fill="white" stroke="#E5E7EB" stroke-width="1.5"/>
+  <rect x="52" y="465" width="30" height="26" rx="6" fill="#1F2937"/>
+  <text x="67" y="483" text-anchor="middle" font-size="11" font-weight="800" fill="white">04</text>
+  <text x="96" y="476" font-size="11.5" font-weight="700" fill="#1A1A1A">Conformance evidence</text>
+  <text x="96" y="490" font-size="9.5" fill="#6B6265">evidence bundle present, complete, valid and reproducible</text>
+  <line x1="606" y1="478" x2="668" y2="478" stroke="#B91C1C" stroke-width="1.5" marker-end="url(#arrfail-P064)"/>
+  <line x1="67" y1="500" x2="67" y2="511" stroke="#166534" stroke-width="2" marker-end="url(#arrpass-P064)"/>
+
+  <!-- ── Check 05 ── -->
+  <rect x="40" y="512" width="560" height="44" rx="8" fill="white" stroke="#E5E7EB" stroke-width="1.5"/>
+  <rect x="52" y="521" width="30" height="26" rx="6" fill="#1F2937"/>
+  <text x="67" y="539" text-anchor="middle" font-size="11" font-weight="800" fill="white">05</text>
+  <text x="96" y="532" font-size="11.5" font-weight="700" fill="#1A1A1A">Trust root · delegated signature</text>
+  <text x="96" y="546" font-size="9.5" fill="#6B6265">signature chain verifies: trust root → delegated key → signature</text>
+  <line x1="606" y1="534" x2="668" y2="534" stroke="#B91C1C" stroke-width="1.5" marker-end="url(#arrfail-P064)"/>
+  <line x1="67" y1="556" x2="67" y2="567" stroke="#166534" stroke-width="2" marker-end="url(#arrpass-P064)"/>
+
+  <!-- ── Check 06 ── -->
+  <rect x="40" y="568" width="560" height="44" rx="8" fill="white" stroke="#E5E7EB" stroke-width="1.5"/>
+  <rect x="52" y="577" width="30" height="26" rx="6" fill="#1F2937"/>
+  <text x="67" y="595" text-anchor="middle" font-size="11" font-weight="800" fill="white">06</text>
+  <text x="96" y="588" font-size="11.5" font-weight="700" fill="#1A1A1A">Public Protocol Registry metadata</text>
+  <text x="96" y="602" font-size="9.5" fill="#6B6265">operator metadata resolves in the public index and matches the manifest</text>
+  <line x1="606" y1="590" x2="668" y2="590" stroke="#B91C1C" stroke-width="1.5" marker-end="url(#arrfail-P064)"/>
+  <line x1="67" y1="612" x2="67" y2="623" stroke="#166534" stroke-width="2" marker-end="url(#arrpass-P064)"/>
+
+  <!-- ── Check 07 ── -->
+  <rect x="40" y="624" width="560" height="44" rx="8" fill="white" stroke="#E5E7EB" stroke-width="1.5"/>
+  <rect x="52" y="633" width="30" height="26" rx="6" fill="#1F2937"/>
+  <text x="67" y="651" text-anchor="middle" font-size="11" font-weight="800" fill="white">07</text>
+  <text x="96" y="644" font-size="11.5" font-weight="700" fill="#1A1A1A">Revocation</text>
+  <text x="96" y="658" font-size="9.5" fill="#6B6265">keys and metadata absent from the signed revocation list</text>
+  <line x1="606" y1="646" x2="668" y2="646" stroke="#B91C1C" stroke-width="1.5" marker-end="url(#arrfail-P064)"/>
+  <line x1="67" y1="668" x2="67" y2="679" stroke="#166534" stroke-width="2" marker-end="url(#arrpass-P064)"/>
+
+  <!-- ── Check 08 ── -->
+  <rect x="40" y="680" width="560" height="44" rx="8" fill="white" stroke="#E5E7EB" stroke-width="1.5"/>
+  <rect x="52" y="689" width="30" height="26" rx="6" fill="#1F2937"/>
+  <text x="67" y="707" text-anchor="middle" font-size="11" font-weight="800" fill="white">08</text>
+  <text x="96" y="700" font-size="11.5" font-weight="700" fill="#1A1A1A">Capabilities</text>
+  <text x="96" y="714" font-size="9.5" fill="#6B6265">the capabilities Operator A needs are declared and compatible</text>
+  <line x1="606" y1="702" x2="668" y2="702" stroke="#B91C1C" stroke-width="1.5" marker-end="url(#arrfail-P064)"/>
+  <line x1="67" y1="724" x2="67" y2="735" stroke="#166534" stroke-width="2" marker-end="url(#arrpass-P064)"/>
+
+  <!-- ── Check 09 ── -->
+  <rect x="40" y="736" width="560" height="44" rx="8" fill="white" stroke="#E5E7EB" stroke-width="1.5"/>
+  <rect x="52" y="745" width="30" height="26" rx="6" fill="#1F2937"/>
+  <text x="67" y="763" text-anchor="middle" font-size="11" font-weight="800" fill="white">09</text>
+  <text x="96" y="756" font-size="11.5" font-weight="700" fill="#1A1A1A">Endpoint contract</text>
+  <text x="96" y="770" font-size="9.5" fill="#6B6265">published endpoints match the contract for the declared version</text>
+  <line x1="606" y1="758" x2="668" y2="758" stroke="#B91C1C" stroke-width="1.5" marker-end="url(#arrfail-P064)"/>
+  <line x1="67" y1="780" x2="67" y2="791" stroke="#166534" stroke-width="2" marker-end="url(#arrpass-P064)"/>
+
+  <!-- ── Check 10 ── -->
+  <rect x="40" y="792" width="560" height="44" rx="8" fill="white" stroke="#E5E7EB" stroke-width="1.5"/>
+  <rect x="52" y="801" width="30" height="26" rx="6" fill="#1F2937"/>
+  <text x="67" y="819" text-anchor="middle" font-size="11" font-weight="800" fill="white">10</text>
+  <text x="96" y="812" font-size="11.5" font-weight="700" fill="#1A1A1A">Evidence freshness</text>
+  <text x="96" y="826" font-size="9.5" fill="#6B6265">evidence dated within the freshness window set by policy</text>
+  <line x1="606" y1="814" x2="668" y2="814" stroke="#B91C1C" stroke-width="1.5" marker-end="url(#arrfail-P064)"/>
+  <line x1="67" y1="836" x2="67" y2="847" stroke="#166534" stroke-width="2" marker-end="url(#arrpass-P064)"/>
+
+  <!-- ── Outcome row ── -->
+  <rect x="40" y="850" width="300" height="56" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="1.5"/>
+  <text x="190" y="876" text-anchor="middle" font-size="11.5" font-weight="800" fill="#166534">All ten checks verify</text>
+  <text x="190" y="892" text-anchor="middle" font-size="9.5" fill="#166534">signatures · evidence · compatibility · freshness</text>
+
+  <line x1="344" y1="878" x2="366" y2="878" stroke="#6B7280" stroke-width="2" marker-end="url(#arr-P064)"/>
+
+  <rect x="372" y="850" width="236" height="56" rx="10" fill="none" stroke="#9CA3AF" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <text x="490" y="874" text-anchor="middle" font-size="10.5" font-weight="700" fill="#9CA3AF">no central approval step</text>
+  <text x="490" y="890" text-anchor="middle" font-size="9.5" fill="#9CA3AF">this slot is empty by design</text>
+
+  <line x1="612" y1="878" x2="634" y2="878" stroke="#6B7280" stroke-width="2" marker-end="url(#arr-P064)"/>
+
+  <rect x="640" y="850" width="300" height="56" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="1.5"/>
+  <text x="790" y="876" text-anchor="middle" font-size="11.5" font-weight="800" fill="#166534">Federation routing enabled</text>
+  <text x="790" y="892" text-anchor="middle" font-size="9.5" fill="#166534">Operator A ↔ Operator B</text>
+
+  <!-- ── Notes ── -->
+  <text x="490" y="926" text-anchor="middle" font-size="10" fill="#6B6265">Every routing decision re-evaluates the chain. Expired, revoked or incompatible trust material returns the decision to fail-closed.</text>
+  <text x="490" y="942" text-anchor="middle" font-size="10" font-weight="700" fill="#374151">BANZA is an open financial protocol. Operator participation is demonstrated by verifiable protocol conformance, not by central human approval.</text>
+
+  <!-- ── Caption ── -->
+  <rect x="24" y="956" width="932" height="44" rx="10" fill="#1F2937"/>
+  <text x="490" y="984" text-anchor="middle" font-size="14" font-weight="800" fill="white">Trust is verified by evidence, not human approval.</text>
+
+  <!-- Footer -->
+  <text x="490" y="1018" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-064 · Federation Trust Evaluation · BANZA Protocol · ADR-038 · ADR-039 · ADR-040 · M2.3 · 2026-07-17</text>
+</svg>

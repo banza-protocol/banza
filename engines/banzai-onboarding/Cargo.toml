@@ -1,0 +1,26 @@
+[package]
+name = "banzai-onboarding"
+version = "0.1.0"
+edition = "2021"
+description = "banzai-onboarding (M2.19G.3, ADR-069): pure Rust security-decision engine for BanzAI-hosted operator onboarding — passwordless email OTP (HMAC-SHA256 digest under a server pepper, single-use/expiry/attempts, constant-time verify), opaque server-side session hashing, the candidate state machine, the .well-known origin-ownership challenge + verification receipt, and the rate-limit policy. Pure JSON-in/JSON-out: no I/O, no clock, no randomness inside — the Node host supplies CSPRNG entropy + the current time and executes all persistence; Rust decides. Onboarding is a hosted service, never a protocol rule (ADR-069)."
+license = "Apache-2.0"
+
+[lib]
+name = "banzai_onboarding"
+crate-type = ["cdylib", "rlib"]
+path = "src/lib.rs"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"                 # default Map = BTreeMap (sorted keys) -> canonical JSON
+sha2 = "0.10"
+hmac = "0.12"                    # Mac::verify_slice is constant-time
+hex = "0.4"
+wasm-bindgen = { version = "0.2", optional = true }
+
+[features]
+# Enabled only for the standalone `wasm-pack build --features wasm`; keeps the WASM exports leak-free.
+wasm = ["dep:wasm-bindgen"]
+
+[profile.release]
+opt-level = 2

@@ -1,0 +1,13 @@
+{
+  "demo_only": true,
+  "fail_closed_required": true,
+  "monetary_value": false,
+  "operator_display_name": "Operador Zero",
+  "operator_id": "operator-zero",
+  "production_allowed": false,
+  "reason_code": null,
+  "revocation_entry_hash": null,
+  "revocation_list_version": "2026.08-01",
+  "revoked": false,
+  "signed_by_revocation_key": "c2kFSkx9izlsXzwKM0hYGAHIdMXk6ekjwpNnI1fx1Tg"
+}

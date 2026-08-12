@@ -1,0 +1,84 @@
+{
+  "delegated_signing_key": {
+    "algorithm": "ed25519",
+    "allowed_usages": [
+      "signed_protocol_metadata"
+    ],
+    "delegated_key_id": "banza-oz-protocol-metadata-2026-08",
+    "key_scope": "protocol-metadata",
+    "public_key": "yJ3CZPcrFwoXFnGQHjLxRlOu1Rze4op94azlAypbMCo",
+    "revoked": false,
+    "signed_by_root_threshold": true,
+    "valid_from": "2026-01-01T00:00:00Z",
+    "valid_until": "2030-01-01T00:00:00Z"
+  },
+  "demo_only": true,
+  "disclaimer": "Material de chaves OTE TEST-ONLY do Operador Zero (demo). Sem chaves privadas reais. Não é certificado, não é aprovação e não movimenta dinheiro real.",
+  "keys": [
+    {
+      "key_id": "banza-oz-protocol-metadata-2026-08",
+      "public_key": "yJ3CZPcrFwoXFnGQHjLxRlOu1Rze4op94azlAypbMCo",
+      "status": "active",
+      "usage": "signed_protocol_metadata"
+    }
+  ],
+  "monetary_value": false,
+  "operator_display_name": "Operador Zero",
+  "operator_id": "operator-zero",
+  "production_allowed": false,
+  "public_registry_entry": {
+    "conformance_evidence_hash": "7625e9f9822e76c450827e0add1cc1512256a3e3bda59f971f2d9fab9ab99927",
+    "delegated_key_id": "banza-oz-protocol-metadata-2026-08",
+    "last_verified_at": "2026-08-05T00:00:00Z",
+    "manifest_hash": "4e015bbf5fbcd92aa9a8452c2ab4d88de928df0ed41ecd22f7c6dc81c7a96966",
+    "operator_id": "operator-zero",
+    "revocation_status": "active",
+    "signed_protocol_metadata_hash": "b2b2b6d782b1bcd3a2d041ba466894e72ad8958dc5c3fe8d5d2e574b2aa92467",
+    "trust_root_version": "2026.08",
+    "verified_by_tool_version": "banza-trust 0.2.0"
+  },
+  "schema": "banza-ote-key-material/1",
+  "test_only": true,
+  "trust_root_metadata": {
+    "active_root_public_keys": [
+      "72T4xy5j8-oWXzO4uCz7-Wtj7ZGPcyVfrguYHL06trw",
+      "pM7p7N5-hm3MnESKTpYxA3A164dnvRwgGDhSqnxiGog",
+      "rqQwbo1ZeXCPiGA7W3pd_SsFCzQMPb7Wuiq6Dc8LCfY"
+    ],
+    "boundary": {
+      "authorises_operators": false,
+      "moves_funds": false
+    },
+    "delegated_signing_keys": [
+      {
+        "allowed_usages": [
+          "signed_protocol_metadata"
+        ],
+        "delegated_key_id": "banza-oz-protocol-metadata-2026-08",
+        "public_key": "yJ3CZPcrFwoXFnGQHjLxRlOu1Rze4op94azlAypbMCo",
+        "revoked": false,
+        "signed_by_root_threshold": true,
+        "valid_from": "2026-01-01T00:00:00Z",
+        "valid_until": "2030-01-01T00:00:00Z"
+      }
+    ],
+    "root_id": "banza-oz-root-2026",
+    "root_signatures": [
+      "qpCXwdFrfwrOu1zPASFaOak_IhOicc5geQY1vXcBpsowBYCyasg8JYeZ_QSddQOKEi8RcwMIohj2ZADWfi3IAw",
+      "HEtYNCIG5TDi77YAVYhm87tskeqMT1cee9AMiTpVDlCU3VZJLpqGuzJLlx0X55v15vvP735bvuyi4gXS_2J7DA"
+    ],
+    "scope": "signs only the Key Manifest that endorses the delegated signing keys (ADR-079)",
+    "threshold_policy": {
+      "min_signatures": 2,
+      "total_keyholders": 3
+    },
+    "trust_root_version": "2026.08",
+    "valid_from": "2026-01-01T00:00:00Z",
+    "valid_until": "2030-01-01T00:00:00Z"
+  },
+  "trusted_root_public_keys": [
+    "72T4xy5j8-oWXzO4uCz7-Wtj7ZGPcyVfrguYHL06trw",
+    "pM7p7N5-hm3MnESKTpYxA3A164dnvRwgGDhSqnxiGog",
+    "rqQwbo1ZeXCPiGA7W3pd_SsFCzQMPb7Wuiq6Dc8LCfY"
+  ]
+}

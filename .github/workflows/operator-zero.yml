@@ -1,0 +1,51 @@
+name: operator-zero-core
+
+# The Rust engine behind Operador Zero (ADR-052, M2.12A): the fictional KZ_DEMO ledger, the demo
+# boundary, the simulated PSP-like flows, and the canonical artifact tree it validates.
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+concurrency:
+  group: operator-zero-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  operator-zero-core:
+    name: operator-zero-core (simulator engine)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+      - name: cargo fmt
+        working-directory: engines/operator-zero-core
+        run: cargo fmt --check
+      - name: cargo clippy
+        working-directory: engines/operator-zero-core
+        run: cargo clippy --all-targets -- -D warnings
+      - name: cargo test (ledger invariants, demo boundary, simulation, artifact tree)
+        working-directory: engines/operator-zero-core
+        run: cargo test
+
+  operator-zero-e2e-root:
+    name: operator-zero-e2e-root (demo signing root, ADR-052, M2.13A)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+      - name: cargo fmt
+        working-directory: engines/operator-zero-e2e-root
+        run: cargo fmt --check
+      - name: cargo clippy
+        working-directory: engines/operator-zero-e2e-root
+        run: cargo clippy --all-targets -- -D warnings
+      - name: cargo test (Ed25519 verify, tamper fails, revocation blocks, no private key)
+        working-directory: engines/operator-zero-e2e-root
+        run: cargo test
+      - name: verify committed E2E root artifacts (public-key-only)
+        working-directory: engines/operator-zero-e2e-root
+        run: cargo run --bin gen -- --verify

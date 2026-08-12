@@ -1,0 +1,19 @@
+{
+  "demo_only": true,
+  "monetary_value": false,
+  "production_allowed": false,
+  "operator_id": "operator-zero",
+  "operator_display_name": "Operador Zero",
+  "currency": "KZ_DEMO",
+  "artifact_type": "evidence_bundle",
+  "evidence_status": "evidence_partial",
+  "includes": [
+    "manifest",
+    "conformance_evidence",
+    "trust_evidence",
+    "federation_metadata",
+    "ledger",
+    "trace"
+  ],
+  "note": "Um bundle não é certificado. Artefacto demonstrativo. Não certifica, não aprova e não movimenta dinheiro real."
+}

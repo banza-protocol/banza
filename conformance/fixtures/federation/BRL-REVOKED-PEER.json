@@ -1,0 +1,14 @@
+{
+  "schema_version": "1",
+  "issued_at": "<ISSUED_NOW>",
+  "expires_at": "<ISSUED_NOW + 7 hours>",
+  "revoked": [
+    {
+      "operator_id": "operator-b-test",
+      "reason": "revoked",
+      "permanent": true,
+      "since": "<ISSUED_NOW>"
+    }
+  ],
+  "signature": "<ed25519-base64url-64-bytes>"
+}

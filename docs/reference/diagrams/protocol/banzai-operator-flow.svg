@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  id:        SVG-P-069
+  diagram:   BanzAI — Operator Flow
+  version:   1.0
+  source:    M2.5 Product Surface Simplification · BanzAI (Rust/WASM tools)
+  updated:   2026-07-18
+  author:    BANZA Protocol
+  style:     protocol
+-->
+<svg viewBox="0 0 1000 470" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-labelledby="title-P069 desc-P069"
+     font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="title-P069">BanzAI — Fluxo do Operador</title>
+  <desc id="desc-P069">Fluxo das ferramentas do BanzAI para um operador, em cinco etapas executadas em Rust/WASM. Manifest: valida o operator manifest. Conformidade: corre o conjunto de conformidade e produz evidência. Trust: avalia o trust por signed protocol metadata, delegated keys, registry e revocation/fail-closed. Evidence: monta o evidence bundle verificável. Federation Simulation: simula a avaliação de trust entre operadores. As ferramentas verificam e explicam; não decidem, não aprovam nem certificam; o status é calculado em Rust/WASM, nunca em TypeScript. BanzAI explica, cita e ajuda a usar as ferramentas; não decide, não aprova, não certifica e não substitui a referência.</desc>
+  <defs>
+    <linearGradient id="hg-P069" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E0F1A"/><stop offset="100%" stop-color="#8E1326"/>
+    </linearGradient>
+    <marker id="arr-P069" markerWidth="9" markerHeight="9" refX="4.5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#6B7280"/>
+    </marker>
+    <filter id="sh-P069">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#00000014"/>
+    </filter>
+  </defs>
+
+  <rect width="1000" height="470" fill="#F4F1EA"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="1000" height="64" fill="url(#hg-P069)" rx="14"/>
+  <rect x="0" y="48" width="1000" height="16" fill="#8E1326"/>
+  <text x="24" y="26" font-family="ui-monospace,'Courier New',monospace" font-size="9" fill="#FECACA" letter-spacing="2">SVG-P-069 · OPEN FINANCIAL PROTOCOL</text>
+  <text x="24" y="47" font-size="18" font-weight="800" fill="white">BanzAI — Fluxo do Operador</text>
+  <text x="976" y="47" text-anchor="end" font-size="10.5" fill="#FECACA">Ferramentas Rust/WASM · verificam, não decidem</text>
+
+  <!-- Lead -->
+  <text x="500" y="94" text-anchor="middle" font-size="12.5" font-weight="700" fill="#374151">O BanzAI deixa o operador verificar a compatibilidade protocolar com ferramentas reais em Rust/WASM.</text>
+  <text x="500" y="112" text-anchor="middle" font-size="10.5" fill="#6B6265">Cada ferramenta verifica e explica; nenhuma decide, aprova ou certifica. O status é calculado em Rust/WASM.</text>
+
+  <!-- Stage 1 — Manifest -->
+  <rect x="40" y="155" width="156" height="150" fill="white" rx="12" stroke="#BBF7D0" stroke-width="1.5" filter="url(#sh-P069)"/>
+  <rect x="40" y="155" width="156" height="30" fill="#166534" rx="12"/><rect x="40" y="171" width="156" height="14" fill="#166534"/>
+  <text x="118" y="175" text-anchor="middle" font-size="11" font-weight="800" fill="white">Manifest</text>
+  <text x="118" y="210" text-anchor="middle" font-size="9.5" fill="#374151">valida o operator manifest</text>
+  <text x="118" y="230" text-anchor="middle" font-size="9" fill="#6B6265">schema · capabilities</text>
+  <text x="118" y="246" text-anchor="middle" font-size="9" fill="#6B6265">supported_levels</text>
+  <text x="118" y="262" text-anchor="middle" font-size="9" fill="#6B6265">endpoints · keys</text>
+  <text x="118" y="290" text-anchor="middle" font-size="8.5" font-style="italic" fill="#166534">verifica estrutura</text>
+
+  <!-- Stage 2 — Conformidade -->
+  <rect x="231" y="155" width="156" height="150" fill="white" rx="12" stroke="#BBF7D0" stroke-width="1.5" filter="url(#sh-P069)"/>
+  <rect x="231" y="155" width="156" height="30" fill="#166534" rx="12"/><rect x="231" y="171" width="156" height="14" fill="#166534"/>
+  <text x="309" y="175" text-anchor="middle" font-size="11" font-weight="800" fill="white">Conformidade</text>
+  <text x="309" y="210" text-anchor="middle" font-size="9.5" fill="#374151">corre o conjunto de testes</text>
+  <text x="309" y="230" text-anchor="middle" font-size="9" fill="#6B6265">vetores + invariantes</text>
+  <text x="309" y="246" text-anchor="middle" font-size="9" fill="#6B6265">determinístico</text>
+  <text x="309" y="262" text-anchor="middle" font-size="9" fill="#6B6265">PASS = evidência</text>
+  <text x="309" y="290" text-anchor="middle" font-size="8.5" font-style="italic" fill="#166534">produz evidência</text>
+
+  <!-- Stage 3 — Trust -->
+  <rect x="422" y="155" width="156" height="150" fill="white" rx="12" stroke="#E5E7EB" stroke-width="1.5" filter="url(#sh-P069)"/>
+  <rect x="422" y="155" width="156" height="30" fill="#1F2937" rx="12"/><rect x="422" y="171" width="156" height="14" fill="#1F2937"/>
+  <text x="500" y="175" text-anchor="middle" font-size="11" font-weight="800" fill="white">Trust</text>
+  <text x="500" y="210" text-anchor="middle" font-size="9.5" fill="#374151">avalia o trust por evidência</text>
+  <text x="500" y="230" text-anchor="middle" font-size="9" fill="#6B6265">signed metadata · keys</text>
+  <text x="500" y="246" text-anchor="middle" font-size="9" fill="#6B6265">registry · revocation</text>
+  <text x="500" y="262" text-anchor="middle" font-size="9" fill="#6B6265">fail-closed</text>
+  <text x="500" y="290" text-anchor="middle" font-size="8.5" font-style="italic" fill="#1F2937">status em Rust</text>
+
+  <!-- Stage 4 — Evidence -->
+  <rect x="613" y="155" width="156" height="150" fill="white" rx="12" stroke="#BFDBFE" stroke-width="1.5" filter="url(#sh-P069)"/>
+  <rect x="613" y="155" width="156" height="30" fill="#1E40AF" rx="12"/><rect x="613" y="171" width="156" height="14" fill="#1E40AF"/>
+  <text x="691" y="175" text-anchor="middle" font-size="11" font-weight="800" fill="white">Evidence</text>
+  <text x="691" y="210" text-anchor="middle" font-size="9.5" fill="#374151">monta o evidence bundle</text>
+  <text x="691" y="230" text-anchor="middle" font-size="9" fill="#6B6265">hashes de conteúdo</text>
+  <text x="691" y="246" text-anchor="middle" font-size="9" fill="#6B6265">verificável por máquina</text>
+  <text x="691" y="262" text-anchor="middle" font-size="9" fill="#6B6265">reproduzível</text>
+  <text x="691" y="290" text-anchor="middle" font-size="8.5" font-style="italic" fill="#1E40AF">bundle assinável</text>
+
+  <!-- Stage 5 — Federation Simulation -->
+  <rect x="804" y="155" width="156" height="150" fill="white" rx="12" stroke="#FDE68A" stroke-width="1.5" filter="url(#sh-P069)"/>
+  <rect x="804" y="155" width="156" height="30" fill="#854D0E" rx="12"/><rect x="804" y="171" width="156" height="14" fill="#854D0E"/>
+  <text x="882" y="175" text-anchor="middle" font-size="11" font-weight="800" fill="white">Federation Simulation</text>
+  <text x="882" y="210" text-anchor="middle" font-size="9.5" fill="#374151">simula a avaliação</text>
+  <text x="882" y="230" text-anchor="middle" font-size="9" fill="#6B6265">de trust entre pares</text>
+  <text x="882" y="246" text-anchor="middle" font-size="9" fill="#6B6265">ROUTING_ALLOWED</text>
+  <text x="882" y="262" text-anchor="middle" font-size="9" fill="#6B6265">ou FAIL_CLOSED</text>
+  <text x="882" y="290" text-anchor="middle" font-size="8.5" font-style="italic" fill="#854D0E">só simulação</text>
+
+  <!-- Arrows -->
+  <line x1="196" y1="230" x2="229" y2="230" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr-P069)"/>
+  <line x1="387" y1="230" x2="420" y2="230" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr-P069)"/>
+  <line x1="578" y1="230" x2="611" y2="230" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr-P069)"/>
+  <line x1="769" y1="230" x2="802" y2="230" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr-P069)"/>
+
+  <!-- BanzAI note -->
+  <rect x="40" y="330" width="920" height="34" rx="10" fill="#EFF6FF" stroke="#1E40AF" stroke-width="1.5"/>
+  <text x="500" y="352" text-anchor="middle" font-size="10.5" fill="#1E3A8A">BanzAI explica, cita e ajuda a usar as ferramentas. Não decide, não aprova, não certifica e não substitui a referência.</text>
+
+  <!-- Boundary note -->
+  <rect x="40" y="372" width="920" height="42" rx="10" fill="#FEF2F2" stroke="#991B1B" stroke-width="2"/>
+  <text x="500" y="393" text-anchor="middle" font-size="11" font-weight="800" fill="#1F2937">As ferramentas verificam e explicam; não decidem, não aprovam nem certificam.</text>
+  <text x="500" y="408" text-anchor="middle" font-size="9.5" fill="#6B6265">O status de conformidade e de trust é calculado em Rust/WASM — nunca em TypeScript. Um PASS é evidência verificável, não certificação.</text>
+
+  <!-- Footer -->
+  <text x="500" y="452" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-069 · BanzAI — Fluxo do Operador · BANZA Protocol · M2.5 · 2026-07-18</text>
+</svg>

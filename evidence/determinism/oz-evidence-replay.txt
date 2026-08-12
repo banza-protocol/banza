@@ -1,0 +1,7 @@
+# Determinism replay — OZ evidence bundle regenerated twice
+evidence-bundle run1: 5065d6775bb509cf19d96a4b4f94d6cc364a1658f201035cac09b5c9436b7be1
+evidence-bundle run2: 5065d6775bb509cf19d96a4b4f94d6cc364a1658f201035cac09b5c9436b7be1
+DETERMINISTIC: evidence bundle byte-identical across independent runs
+manifest run1: 90859307d07707087bffb7212958ba7d5d5c2c4dbe6e987c4894c5024608b0d8
+manifest run2: 90859307d07707087bffb7212958ba7d5d5c2c4dbe6e987c4894c5024608b0d8
+DETERMINISTIC: manifest byte-identical

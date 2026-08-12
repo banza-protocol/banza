@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  id:        SVG-P-072
+  diagram:   BanzAI como Agente do Protocolo
+  version:   1.0
+  source:    BANZA_REFERENCIA.md §11 · ADR-041 · docs/governance/BANZAI_NATIVE_PROTOCOL_AGENT.md
+  updated:   2026-07-18
+  author:    BANZA Protocol
+  style:     protocol
+-->
+<svg viewBox="0 0 1040 600" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-labelledby="title-P072 desc-P072"
+     font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="title-P072">BanzAI como Agente do Protocolo</title>
+  <desc id="desc-P072">BanzAI é o agente IA nativo do protocolo BANZA: guia o operador da Referência BANZA à federação. O fluxo é Referência BANZA → Agente BanzAI → motores Rust/WASM → Evidence Bundle → Public Protocol Registry → pares → federação. BanzAI guia; os motores verificam; a evidência prova; os operadores publicam; os pares interoperam localmente. Novas regras entram por RFC/ADR → revisão → merge → release → referência. BanzAI não aprova, não certifica, não licencia, não decide participação, não inventa regras e não move fundos.</desc>
+  <defs>
+    <linearGradient id="hg-P072" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E0F1A"/><stop offset="100%" stop-color="#8E1326"/>
+    </linearGradient>
+    <marker id="arr-P072" markerWidth="9" markerHeight="9" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#B98A3E"/>
+    </marker>
+  </defs>
+
+  <rect width="1040" height="600" fill="#F8F4EC"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="1040" height="70" fill="url(#hg-P072)" rx="14"/>
+  <rect x="0" y="52" width="1040" height="18" fill="#8E1326"/>
+  <text x="28" y="30" font-family="ui-monospace,'Courier New',monospace" font-size="10" fill="#FECACA" letter-spacing="2">SVG-P-072 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="28" y="54" font-size="20" font-weight="800" fill="white">BanzAI como Agente do Protocolo</text>
+  <text x="1012" y="54" text-anchor="end" font-size="11" fill="#FECACA">guia o operador do manifesto à federação</text>
+
+  <!-- Flow row: 7 chips + gold arrows -->
+  <!-- chip geometry: width 126, height 74, top y=110 -->
+  <g font-size="11">
+    <!-- 1 Referência BANZA (red) -->
+    <rect x="24" y="110" width="126" height="74" rx="11" fill="#FBEFF0" stroke="#8E1326" stroke-width="1.5"/>
+    <text x="87" y="140" text-anchor="middle" font-size="11.5" font-weight="700" fill="#8E1326">Referência</text>
+    <text x="87" y="156" text-anchor="middle" font-size="11.5" font-weight="700" fill="#8E1326">BANZA</text>
+    <text x="87" y="174" text-anchor="middle" font-size="9" fill="#6B6265">fonte normativa</text>
+    <line x1="152" y1="147" x2="176" y2="147" stroke="#B98A3E" stroke-width="2" marker-end="url(#arr-P072)"/>
+
+    <!-- 2 BanzAI Agent (slate) -->
+    <rect x="178" y="110" width="126" height="74" rx="11" fill="#EAEFF4" stroke="#2E4054" stroke-width="2"/>
+    <text x="241" y="140" text-anchor="middle" font-size="11.5" font-weight="700" fill="#2E4054">BanzAI</text>
+    <text x="241" y="156" text-anchor="middle" font-size="11.5" font-weight="700" fill="#2E4054">Agent</text>
+    <text x="241" y="174" text-anchor="middle" font-size="9" fill="#54595F">guia · orquestra · explica</text>
+    <line x1="306" y1="147" x2="330" y2="147" stroke="#B98A3E" stroke-width="2" marker-end="url(#arr-P072)"/>
+
+    <!-- 3 Motores Rust/WASM (charcoal) -->
+    <rect x="332" y="110" width="126" height="74" rx="11" fill="#EEECEA" stroke="#3C4654" stroke-width="1.5"/>
+    <text x="395" y="140" text-anchor="middle" font-size="11.5" font-weight="700" fill="#2A2E35">Motores</text>
+    <text x="395" y="156" text-anchor="middle" font-size="11.5" font-weight="700" fill="#2A2E35">Rust/WASM</text>
+    <text x="395" y="174" text-anchor="middle" font-size="9" fill="#6B6265">verificam</text>
+    <line x1="460" y1="147" x2="484" y2="147" stroke="#B98A3E" stroke-width="2" marker-end="url(#arr-P072)"/>
+
+    <!-- 4 Evidence Bundle (green) -->
+    <rect x="486" y="110" width="126" height="74" rx="11" fill="#EAF3EC" stroke="#2E6A4E" stroke-width="1.5"/>
+    <text x="549" y="140" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1D4A34">Evidence</text>
+    <text x="549" y="156" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1D4A34">Bundle</text>
+    <text x="549" y="174" text-anchor="middle" font-size="9" fill="#2E6A4E">evidência prova</text>
+    <line x1="614" y1="147" x2="638" y2="147" stroke="#B98A3E" stroke-width="2" marker-end="url(#arr-P072)"/>
+
+    <!-- 5 Registry (red) -->
+    <rect x="640" y="110" width="126" height="74" rx="11" fill="#FBEFF0" stroke="#8E1326" stroke-width="1.5"/>
+    <text x="703" y="140" text-anchor="middle" font-size="11.5" font-weight="700" fill="#8E1326">Registry</text>
+    <text x="703" y="156" text-anchor="middle" font-size="11.5" font-weight="700" fill="#8E1326">Público</text>
+    <text x="703" y="174" text-anchor="middle" font-size="9" fill="#6B6265">metadata assinada</text>
+    <line x1="768" y1="147" x2="792" y2="147" stroke="#B98A3E" stroke-width="2" marker-end="url(#arr-P072)"/>
+
+    <!-- 6 Pares (green) -->
+    <rect x="794" y="110" width="94" height="74" rx="11" fill="#EAF3EC" stroke="#2E6A4E" stroke-width="1.5"/>
+    <text x="841" y="148" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1D4A34">Pares</text>
+    <text x="841" y="166" text-anchor="middle" font-size="9" fill="#2E6A4E">verificam local</text>
+    <line x1="890" y1="147" x2="914" y2="147" stroke="#B98A3E" stroke-width="2" marker-end="url(#arr-P072)"/>
+
+    <!-- 7 Federação (teal) -->
+    <rect x="916" y="110" width="100" height="74" rx="11" fill="#E6F1F0" stroke="#0F766E" stroke-width="1.5"/>
+    <text x="966" y="148" text-anchor="middle" font-size="11.5" font-weight="700" fill="#115E59">Federação</text>
+    <text x="966" y="166" text-anchor="middle" font-size="9" fill="#0F766E">interoperam</text>
+  </g>
+
+  <!-- Matrix band -->
+  <rect x="24" y="208" width="992" height="52" rx="10" fill="#FFFFFF" stroke="#E4DECF" stroke-width="1"/>
+  <text x="40" y="230" font-family="ui-monospace,'Courier New',monospace" font-size="9" font-weight="700" fill="#2E4054" letter-spacing="1">QUEM FAZ O QUÊ</text>
+  <text x="40" y="250" font-size="11" fill="#3A3F45">BanzAI guia · motores verificam · evidência prova · operadores publicam · pares interoperam localmente · governança evolui o protocolo</text>
+
+  <!-- Rule provenance band -->
+  <rect x="24" y="276" width="992" height="52" rx="10" fill="#F6EBD8" stroke="#E6D29A" stroke-width="1"/>
+  <text x="40" y="298" font-family="ui-monospace,'Courier New',monospace" font-size="9" font-weight="700" fill="#7A5212" letter-spacing="1">PROVENIÊNCIA DAS REGRAS</text>
+  <text x="40" y="318" font-size="11" fill="#5A4A2E">Novas regras: RFC/ADR → revisão → merge → release → referência. BanzAI pode propor; a governança decide; a referência publica; os motores verificam.</text>
+
+  <!-- Boundary band -->
+  <rect x="24" y="344" width="992" height="70" rx="10" fill="#FBEFF0" stroke="#EAD2D6" stroke-width="1"/>
+  <text x="40" y="368" font-size="11.5" font-weight="700" fill="#8E1326">BanzAI é agente do protocolo, não autoridade do protocolo.</text>
+  <text x="40" y="390" font-size="10.5" fill="#6B6265">Não aprova · não certifica · não licencia · não decide participação · não inventa regras · não adiciona decisões arquitecturais · não move fundos.</text>
+  <text x="40" y="406" font-size="10.5" fill="#6B6265">Participação é demonstrada por evidência verificável, não concedida por uma entidade central. Sem fonte, BanzAI diz que não há regra suficiente.</text>
+
+  <!-- Principle strip -->
+  <rect x="24" y="430" width="992" height="40" rx="10" fill="#EAEFF4" stroke="#CBD5E0" stroke-width="1"/>
+  <text x="520" y="455" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2E4054">BanzAI guia; os motores verificam; a evidência prova.</text>
+
+  <!-- State line -->
+  <text x="40" y="500" font-family="ui-monospace,'Courier New',monospace" font-size="9.5" fill="#8A8275">Estado: inferência local (Qwen) · motores Rust · sem chamadas externas · external_model_called = false · /operators = [] · production_certificates = false</text>
+
+  <text x="520" y="560" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-072 · BanzAI como Agente do Protocolo · BANZA_REFERENCIA.md §11 · ADR-041 · v1.0 · 2026-07-18</text>
+</svg>

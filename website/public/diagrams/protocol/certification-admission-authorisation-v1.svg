@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  id:        SVG-P-093
+  diagram:   Certificação técnica ≠ Admissão a esquema ≠ Autorização regulatória — três determinações distintas, três donos, sem propagação (ADR-061)
+  version:   1.1
+  source:    BANZA_REFERENCIA.md §7 (certificação técnica, admissão a esquema, autorização regulatória) · ADR-061
+  updated:   2026-08-08
+  author:    BANZA Protocol
+  style:     protocol-dark
+-->
+<svg viewBox="0 0 1000 540" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-labelledby="title-P093 desc-P093"
+     font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="title-P093">Três determinações distintas — certificação técnica, admissão e autorização</title>
+  <desc id="desc-P093">Três determinações distintas, com donos distintos, e o estado não propaga em nenhuma direcção (ADR-061). A Certificação Técnica (Camada 2) responde se uma implementação demonstrou conformidade e interoperabilidade; é decidida pelos motores determinísticos sob a governança BANZA e não é licença, admissão nem autorização. A Admissão a Esquema (Camada 3) responde se uma entidade é admitida a um esquema segundo os seus critérios e contratos; é decisão do próprio esquema operacional, que pode exigir certificação técnica mas nunca decorre automaticamente dela. A Autorização Regulatória responde se uma entidade pode prestar serviços financeiros numa jurisdição; pertence ao regulador competente, fora do protocolo, e nunca é emitida pelo BANZA. A certificação técnica não implica admissão nem autorização, e estar no Registo Técnico nunca é admitido a um esquema nem autorizado.</desc>
+  <defs>
+    <linearGradient id="hg-P093" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E0F1A"/><stop offset="100%" stop-color="#8E1326"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1000" height="540" fill="#0E0E11"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="1000" height="64" fill="url(#hg-P093)" rx="14"/>
+  <rect x="0" y="48" width="1000" height="16" fill="#8E1326"/>
+  <text x="24" y="26" font-family="ui-monospace,'Courier New',monospace" font-size="9" fill="#FECACA" letter-spacing="2">SVG-P-093 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="24" y="50" font-size="18" font-weight="800" fill="#FFFFFF">Três determinações distintas</text>
+  <text x="976" y="50" text-anchor="end" font-size="11" fill="#F6D9DD">certificação técnica ≠ admissão ≠ autorização</text>
+
+  <text x="24" y="94" font-size="11.5" fill="#B6B6BE">Três determinações, três donos — nenhuma implica a outra e o estado não propaga em nenhuma direcção (ADR-061).</text>
+
+  <!-- ===================== columns ===================== -->
+  <!-- 1 · Certificação Técnica (Camada 2) — wine -->
+  <g>
+    <rect x="28" y="116" width="300" height="300" rx="12" fill="#1B1113" stroke="#8E1326" stroke-width="1.6"/>
+    <rect x="28" y="116" width="300" height="40" rx="12" fill="#8E1326"/>
+    <text x="178" y="142" text-anchor="middle" font-size="13" font-weight="800" fill="#FFFFFF">Certificação Técnica (Camada 2)</text>
+    <text x="48" y="182" font-size="9" font-weight="700" font-family="ui-monospace,monospace" fill="#E8909D" letter-spacing="1">DETERMINA</text>
+    <text x="48" y="202" font-size="10.5" fill="#C9C9D0">demonstrou conformidade</text>
+    <text x="48" y="218" font-size="10.5" fill="#C9C9D0">e interoperabilidade?</text>
+    <text x="48" y="252" font-size="9" font-weight="700" font-family="ui-monospace,monospace" fill="#E8909D" letter-spacing="1">DONO</text>
+    <text x="48" y="272" font-size="10.5" fill="#C9C9D0">motores Rust (governança</text>
+    <text x="48" y="288" font-size="10.5" fill="#C9C9D0">BANZA) · banza-conformance</text>
+    <text x="48" y="322" font-size="9" font-weight="700" font-family="ui-monospace,monospace" fill="#8C8C95" letter-spacing="1">RESULTADO</text>
+    <text x="48" y="342" font-size="10.5" fill="#B6B6BE">Certification Record</text>
+    <line x1="48" y1="360" x2="308" y2="360" stroke="#3A2024" stroke-width="1"/>
+    <text x="48" y="382" font-size="9" font-weight="700" font-family="ui-monospace,monospace" fill="#8C8C95" letter-spacing="1">FRONTEIRA</text>
+    <text x="48" y="402" font-size="10" fill="#C79AA0">não é licença, admissão nem autorização</text>
+  </g>
+  <!-- 2 · Admissão a Esquema (Camada 3) — gold -->
+  <g>
+    <rect x="350" y="116" width="300" height="300" rx="12" fill="#1E1810" stroke="#B98A3E" stroke-width="1.6"/>
+    <rect x="350" y="116" width="300" height="40" rx="12" fill="#B98A3E"/>
+    <text x="500" y="142" text-anchor="middle" font-size="13" font-weight="800" fill="#26200F">Admissão a Esquema (Camada 3)</text>
+    <text x="370" y="182" font-size="9" font-weight="700" font-family="ui-monospace,monospace" fill="#E7C67E" letter-spacing="1">DETERMINA</text>
+    <text x="370" y="202" font-size="10.5" fill="#C9C9D0">é admitida a este esquema,</text>
+    <text x="370" y="218" font-size="10.5" fill="#C9C9D0">pelos seus critérios?</text>
+    <text x="370" y="252" font-size="9" font-weight="700" font-family="ui-monospace,monospace" fill="#E7C67E" letter-spacing="1">DONO</text>
+    <text x="370" y="272" font-size="10.5" fill="#C9C9D0">o esquema operacional</text>
+    <text x="370" y="288" font-size="10.5" fill="#C9C9D0">(operadora designada)</text>
+    <text x="370" y="322" font-size="9" font-weight="700" font-family="ui-monospace,monospace" fill="#8C8C95" letter-spacing="1">RESULTADO</text>
+    <text x="370" y="342" font-size="10.5" fill="#B6B6BE">participante do esquema</text>
+    <line x1="370" y1="360" x2="630" y2="360" stroke="#3A3018" stroke-width="1"/>
+    <text x="370" y="382" font-size="9" font-weight="700" font-family="ui-monospace,monospace" fill="#8C8C95" letter-spacing="1">FRONTEIRA</text>
+    <text x="370" y="402" font-size="10" fill="#C7B487">pode exigir certificação técnica, nunca decorre dela</text>
+  </g>
+  <!-- 3 · Autorização Regulatória — slate -->
+  <g>
+    <rect x="672" y="116" width="300" height="300" rx="12" fill="#141922" stroke="#33465B" stroke-width="1.6"/>
+    <rect x="672" y="116" width="300" height="40" rx="12" fill="#33465B"/>
+    <text x="822" y="142" text-anchor="middle" font-size="13" font-weight="800" fill="#FFFFFF">Autorização Regulatória</text>
+    <text x="692" y="182" font-size="9" font-weight="700" font-family="ui-monospace,monospace" fill="#8FB0D0" letter-spacing="1">DETERMINA</text>
+    <text x="692" y="202" font-size="10.5" fill="#C9C9D0">pode prestar serviços</text>
+    <text x="692" y="218" font-size="10.5" fill="#C9C9D0">financeiros na jurisdição?</text>
+    <text x="692" y="252" font-size="9" font-weight="700" font-family="ui-monospace,monospace" fill="#8FB0D0" letter-spacing="1">DONO</text>
+    <text x="692" y="272" font-size="10.5" fill="#C9C9D0">regulador / autoridade</text>
+    <text x="692" y="288" font-size="10.5" fill="#C9C9D0">competente (fora do protocolo)</text>
+    <text x="692" y="322" font-size="9" font-weight="700" font-family="ui-monospace,monospace" fill="#8C8C95" letter-spacing="1">RESULTADO</text>
+    <text x="692" y="342" font-size="10.5" fill="#B6B6BE">licença / autorização</text>
+    <line x1="692" y1="360" x2="952" y2="360" stroke="#26313D" stroke-width="1"/>
+    <text x="692" y="382" font-size="9" font-weight="700" font-family="ui-monospace,monospace" fill="#8C8C95" letter-spacing="1">FRONTEIRA</text>
+    <text x="692" y="402" font-size="10" fill="#9AA7B5">fora do protocolo · nunca emitida pelo BANZA</text>
+  </g>
+
+  <!-- inequality marks -->
+  <text x="339" y="272" text-anchor="middle" font-size="22" font-weight="800" fill="#E8909D">≠</text>
+  <text x="661" y="272" text-anchor="middle" font-size="22" font-weight="800" fill="#E8909D">≠</text>
+
+  <!-- boundary band -->
+  <rect x="28" y="432" width="944" height="76" rx="10" fill="#1B1113" stroke="#5A1A22" stroke-width="1.2"/>
+  <text x="44" y="458" font-size="11" font-weight="700" fill="#E8909D">Certificação técnica, admissão a esquema e autorização regulatória são três determinações distintas — nenhuma implica a outra (ADR-061).</text>
+  <text x="44" y="480" font-size="10.5" fill="#B6B6BE">O estado não propaga em nenhuma direcção: uma certificação técnica da Camada 2 não admite nem autoriza; a admissão e a autorização não certificam.</text>
+  <text x="44" y="499" font-size="10.5" fill="#B6B6BE">Estar no Registo Técnico nunca é «admitido a um esquema» nem «autorizado». O BANZA não emite licenças nem autoriza actividade financeira.</text>
+
+  <text x="500" y="530" text-anchor="middle" font-size="9" fill="#7C7C85">SVG-P-093 · Três determinações distintas · BANZA_REFERENCIA.md §7 · v1.1 · 2026-08-08</text>
+</svg>

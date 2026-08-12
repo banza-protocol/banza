@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  id:        SVG-P-033
+  diagram:   Como uma regra se torna oficial no BANZA — do RFC ao protocolo
+  version:   2.0
+  source:    BANZA_REFERENCIA.md §11 (Governança — Quem governa e como uma mudança é decidida)
+  updated:   2026-08-10
+  author:    BANZA Protocol
+  style:     protocol
+  note:      v2.0 (revisão Ch11) — reenquadra o processo: os MAINTAINERS ACTIVOS
+             decidem, pelo processo público (antes: "BANZA aceita / BANZA decide /
+             BANZA documenta"). Etapa 5 passa de "Implementação pelos operadores" a
+             "Publicação" (o processo de governança termina na publicação; a adopção
+             pelos operadores é a jusante e independente). "Governação" → "Governança".
+-->
+<svg viewBox="0 0 900 440" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-labelledby="title-P033 desc-P033"
+     font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="title-P033">Como uma regra se torna oficial no BANZA — do RFC ao protocolo</title>
+  <desc id="desc-P033">Fluxo aberto de governança em seis etapas: 1 RFC — qualquer pessoa propõe; 2 Revisão pública — discussão e avaliação de impacto nos invariantes e na neutralidade; 3 Decisão — os maintainers activos decidem, pelo processo; 4 Registo — a decisão fica registada num ADR; 5 Publicação — especificação e/ou release, nova versão quando muda uma regra; 6 Regra oficial — a regra faz parte do protocolo, versionada e auditável. Nenhum operador singular governa, e uma alteração fora do processo não é uma alteração ao protocolo.</desc>
+  <defs>
+    <linearGradient id="hG-P033" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#990011"/><stop offset="100%" stop-color="#B11226"/>
+    </linearGradient>
+    <linearGradient id="blueG-P033" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A8A"/><stop offset="100%" stop-color="#1D4ED8"/>
+    </linearGradient>
+    <linearGradient id="redG-P033" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#7F1D1D"/><stop offset="100%" stop-color="#991B1B"/>
+    </linearGradient>
+    <linearGradient id="greenG-P033" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#14532D"/><stop offset="100%" stop-color="#15803D"/>
+    </linearGradient>
+    <filter id="sh-P033" x="-5%" y="-10%" width="115%" height="130%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000018"/>
+    </filter>
+    <marker id="arr-P033" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#94A3B8"/>
+    </marker>
+  </defs>
+  <rect width="900" height="440" fill="#FCF6F5"/>
+  <!-- Header -->
+  <rect x="16" y="12" width="868" height="54" rx="8" fill="url(#hG-P033)" filter="url(#sh-P033)"/>
+  <text x="34" y="32" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" letter-spacing="1.6" fill="#FECACA">SVG-P-033 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="34" y="52" fill="white" font-size="15" font-weight="800">Como uma regra se torna oficial no BANZA</text>
+  <text x="866" y="52" text-anchor="end" fill="#F6D9DD" font-size="10">a governança evolui as regras por processo público</text>
+
+  <!-- Step 1: RFC (blue - open to all) -->
+  <rect x="22" y="84" width="128" height="196" rx="8" fill="white" stroke="#BFDBFE" stroke-width="1.5" filter="url(#sh-P033)"/>
+  <rect x="22" y="84" width="128" height="44" rx="8" fill="url(#blueG-P033)"/>
+  <rect x="22" y="110" width="128" height="18" fill="url(#blueG-P033)"/>
+  <text x="86" y="102" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="9" font-weight="600" letter-spacing="0.5">ETAPA 1</text>
+  <text x="86" y="118" text-anchor="middle" fill="white" font-size="13" font-weight="700">RFC</text>
+  <text x="86" y="148" text-anchor="middle" fill="#6B6265" font-size="9">Qualquer operador,</text>
+  <text x="86" y="161" text-anchor="middle" fill="#6B6265" font-size="9">programador ou</text>
+  <text x="86" y="174" text-anchor="middle" fill="#6B6265" font-size="9">participante propõe</text>
+  <text x="86" y="187" text-anchor="middle" fill="#6B6265" font-size="9">uma alteração num</text>
+  <text x="86" y="200" text-anchor="middle" fill="#6B6265" font-size="9">RFC numerado</text>
+  <rect x="38" y="252" width="96" height="20" rx="10" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1"/>
+  <text x="86" y="266" text-anchor="middle" fill="#1D4ED8" font-size="9" font-weight="700">Qualquer um propõe</text>
+  <line x1="154" y1="184" x2="166" y2="184" stroke="#94A3B8" stroke-width="1.5" marker-end="url(#arr-P033)"/>
+
+  <!-- Step 2: Revisão pública (blue) -->
+  <rect x="166" y="84" width="128" height="196" rx="8" fill="white" stroke="#BFDBFE" stroke-width="1.5" filter="url(#sh-P033)"/>
+  <rect x="166" y="84" width="128" height="44" rx="8" fill="url(#blueG-P033)"/>
+  <rect x="166" y="110" width="128" height="18" fill="url(#blueG-P033)"/>
+  <text x="230" y="102" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="9" font-weight="600" letter-spacing="0.5">ETAPA 2</text>
+  <text x="230" y="118" text-anchor="middle" fill="white" font-size="13" font-weight="700">Revisão pública</text>
+  <text x="230" y="148" text-anchor="middle" fill="#6B6265" font-size="9">Discussão pública</text>
+  <text x="230" y="161" text-anchor="middle" fill="#6B6265" font-size="9">e avaliação do</text>
+  <text x="230" y="174" text-anchor="middle" fill="#6B6265" font-size="9">impacto nos</text>
+  <text x="230" y="187" text-anchor="middle" fill="#6B6265" font-size="9">invariantes e na</text>
+  <text x="230" y="200" text-anchor="middle" fill="#6B6265" font-size="9">neutralidade</text>
+  <rect x="182" y="252" width="96" height="20" rx="10" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1"/>
+  <text x="230" y="266" text-anchor="middle" fill="#1D4ED8" font-size="9" font-weight="700">Ecossistema revê</text>
+  <line x1="298" y1="184" x2="310" y2="184" stroke="#94A3B8" stroke-width="1.5" marker-end="url(#arr-P033)"/>
+
+  <!-- Step 3: Decisão (red - maintainers) -->
+  <rect x="310" y="84" width="128" height="196" rx="8" fill="white" stroke="#FECACA" stroke-width="1.5" filter="url(#sh-P033)"/>
+  <rect x="310" y="84" width="128" height="44" rx="8" fill="url(#redG-P033)"/>
+  <rect x="310" y="110" width="128" height="18" fill="url(#redG-P033)"/>
+  <text x="374" y="102" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="9" font-weight="600" letter-spacing="0.5">ETAPA 3</text>
+  <text x="374" y="118" text-anchor="middle" fill="white" font-size="13" font-weight="700">Decisão</text>
+  <text x="374" y="148" text-anchor="middle" fill="#6B6265" font-size="9">Os maintainers</text>
+  <text x="374" y="161" text-anchor="middle" fill="#6B6265" font-size="9">activos decidem</text>
+  <text x="374" y="174" text-anchor="middle" fill="#6B6265" font-size="9">integrar, pelo</text>
+  <text x="374" y="187" text-anchor="middle" fill="#6B6265" font-size="9">processo — nenhum</text>
+  <text x="374" y="200" text-anchor="middle" fill="#6B6265" font-size="9">operador sozinho</text>
+  <rect x="326" y="252" width="96" height="20" rx="10" fill="#FEF2F2" stroke="#FECACA" stroke-width="1"/>
+  <text x="374" y="266" text-anchor="middle" fill="#991B1B" font-size="9" font-weight="700">Maintainers decidem</text>
+  <line x1="442" y1="184" x2="454" y2="184" stroke="#94A3B8" stroke-width="1.5" marker-end="url(#arr-P033)"/>
+
+  <!-- Step 4: Registo ADR (red) -->
+  <rect x="454" y="84" width="128" height="196" rx="8" fill="white" stroke="#FECACA" stroke-width="1.5" filter="url(#sh-P033)"/>
+  <rect x="454" y="84" width="128" height="44" rx="8" fill="url(#redG-P033)"/>
+  <rect x="454" y="110" width="128" height="18" fill="url(#redG-P033)"/>
+  <text x="518" y="102" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="9" font-weight="600" letter-spacing="0.5">ETAPA 4</text>
+  <text x="518" y="118" text-anchor="middle" fill="white" font-size="13" font-weight="700">Registo (ADR)</text>
+  <text x="518" y="148" text-anchor="middle" fill="#6B6265" font-size="9">A decisão fica</text>
+  <text x="518" y="161" text-anchor="middle" fill="#6B6265" font-size="9">registada num ADR:</text>
+  <text x="518" y="174" text-anchor="middle" fill="#6B6265" font-size="9">o quê, o porquê e</text>
+  <text x="518" y="187" text-anchor="middle" fill="#6B6265" font-size="9">as alternativas</text>
+  <text x="518" y="200" text-anchor="middle" fill="#6B6265" font-size="9">recusadas</text>
+  <rect x="470" y="252" width="96" height="20" rx="10" fill="#FEF2F2" stroke="#FECACA" stroke-width="1"/>
+  <text x="518" y="266" text-anchor="middle" fill="#991B1B" font-size="9" font-weight="700">Registada em ADR</text>
+  <line x1="586" y1="184" x2="598" y2="184" stroke="#94A3B8" stroke-width="1.5" marker-end="url(#arr-P033)"/>
+
+  <!-- Step 5: Publicação (red - governance output) -->
+  <rect x="598" y="84" width="128" height="196" rx="8" fill="white" stroke="#FECACA" stroke-width="1.5" filter="url(#sh-P033)"/>
+  <rect x="598" y="84" width="128" height="44" rx="8" fill="url(#redG-P033)"/>
+  <rect x="598" y="110" width="128" height="18" fill="url(#redG-P033)"/>
+  <text x="662" y="102" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="9" font-weight="600" letter-spacing="0.5">ETAPA 5</text>
+  <text x="662" y="118" text-anchor="middle" fill="white" font-size="13" font-weight="700">Publicação</text>
+  <text x="662" y="148" text-anchor="middle" fill="#6B6265" font-size="9">Especificação</text>
+  <text x="662" y="161" text-anchor="middle" fill="#6B6265" font-size="9">e/ou release.</text>
+  <text x="662" y="174" text-anchor="middle" fill="#6B6265" font-size="9">Nova versão do</text>
+  <text x="662" y="187" text-anchor="middle" fill="#6B6265" font-size="9">protocolo quando</text>
+  <text x="662" y="200" text-anchor="middle" fill="#6B6265" font-size="9">muda uma regra</text>
+  <rect x="614" y="252" width="96" height="20" rx="10" fill="#FEF2F2" stroke="#FECACA" stroke-width="1"/>
+  <text x="662" y="266" text-anchor="middle" fill="#991B1B" font-size="9" font-weight="700">Publicada</text>
+  <line x1="730" y1="184" x2="742" y2="184" stroke="#94A3B8" stroke-width="1.5" marker-end="url(#arr-P033)"/>
+
+  <!-- Step 6: Regra oficial (green) -->
+  <rect x="742" y="84" width="142" height="196" rx="8" fill="white" stroke="#BBF7D0" stroke-width="1.5" filter="url(#sh-P033)"/>
+  <rect x="742" y="84" width="142" height="44" rx="8" fill="url(#greenG-P033)"/>
+  <rect x="742" y="110" width="142" height="18" fill="url(#greenG-P033)"/>
+  <text x="813" y="102" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="9" font-weight="600" letter-spacing="0.5">RESULTADO</text>
+  <text x="813" y="118" text-anchor="middle" fill="white" font-size="13" font-weight="700">Regra oficial</text>
+  <text x="813" y="148" text-anchor="middle" fill="#6B6265" font-size="9">A regra faz parte</text>
+  <text x="813" y="161" text-anchor="middle" fill="#6B6265" font-size="9">do protocolo.</text>
+  <text x="813" y="174" text-anchor="middle" fill="#6B6265" font-size="9">Versionada,</text>
+  <text x="813" y="187" text-anchor="middle" fill="#6B6265" font-size="9">registada e</text>
+  <text x="813" y="200" text-anchor="middle" fill="#6B6265" font-size="9">auditável</text>
+  <rect x="758" y="252" width="110" height="20" rx="10" fill="#DCFCE7" stroke="#BBF7D0" stroke-width="1"/>
+  <text x="813" y="266" text-anchor="middle" fill="#15803D" font-size="9" font-weight="700">Protocolo evoluiu</text>
+
+  <!-- Legend -->
+  <rect x="16" y="298" width="868" height="52" rx="6" fill="#EAE0DF" stroke="#D4C9C7" stroke-width="1"/>
+  <rect x="28" y="310" width="14" height="14" rx="3" fill="url(#blueG-P033)"/>
+  <text x="48" y="321" fill="#1A1A1A" font-size="10" font-weight="600">Processo aberto</text>
+  <text x="150" y="321" fill="#6B6265" font-size="10">— qualquer pessoa propõe; a revisão e a discussão são públicas e acessíveis a todos</text>
+  <rect x="28" y="330" width="14" height="14" rx="3" fill="url(#redG-P033)"/>
+  <text x="48" y="341" fill="#1A1A1A" font-size="10" font-weight="600">A governança decide</text>
+  <text x="167" y="341" fill="#6B6265" font-size="10">— os maintainers decidem e registam, pelo processo; uma alteração fora do processo não é uma alteração ao protocolo</text>
+  <text x="450" y="432" text-anchor="middle" fill="#6B6265" font-size="10">SVG-P-033 · Como uma regra se torna oficial · BANZA_REFERENCIA.md §11 · v2.0 · 2026-08-10</text>
+</svg>

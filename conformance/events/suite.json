@@ -1,0 +1,181 @@
+{
+  "_spec": "the reference operator Event Schema Conformance Suite v1.0",
+
+  "suite_id": "events",
+  "suite_name": "Event Schema Validation",
+  "protocol_version": "1.0",
+
+  "required_envelope_fields": [
+    "id",
+    "event_type",
+    "aggregate_type",
+    "aggregate_id",
+    "trace_id",
+    "correlation_id",
+    "payload",
+    "created_at"
+  ],
+
+  "optional_envelope_fields": [
+    "causation_id"
+  ],
+
+  "field_rules": {
+    "id": { "type": "string", "pattern": "^evt-", "description": "Event ID must start with evt-" },
+    "event_type": { "type": "string", "enum_from": "well_known_event_types" },
+    "aggregate_type": { "type": "string", "allowed": ["transfer", "payment_request", "qr", "wallet", "settlement"] },
+    "aggregate_id": { "type": "string", "min_length": 1 },
+    "trace_id": { "type": "string", "pattern": "^tr-" },
+    "correlation_id": { "type": "string", "min_length": 1 },
+    "causation_id": { "type": "string", "nullable": true },
+    "payload": { "type": "object" },
+    "created_at": { "type": "string", "format": "iso8601" }
+  },
+
+  "well_known_event_types": [
+    "wallet.created",
+    "payment.sent",
+    "payment.received",
+    "payment_request.created",
+    "payment_request.paid",
+    "qr.generated",
+    "qr.paid",
+    "settlement.created",
+    "settlement.completed"
+  ],
+
+  "event_payload_schemas": {
+    "wallet.created": {
+      "required": ["wallet_id", "label", "currency"]
+    },
+    "payment.sent": {
+      "required": ["transfer_id", "from_wallet_id", "amount_minor", "currency"]
+    },
+    "payment.received": {
+      "required": ["transfer_id", "to_wallet_id", "amount_minor", "currency"]
+    },
+    "payment_request.created": {
+      "required": ["pr_id", "to_wallet_id", "amount_minor", "currency"]
+    },
+    "payment_request.paid": {
+      "required": ["pr_id", "transfer_id", "amount_minor"]
+    },
+    "qr.generated": {
+      "required": ["qr_id", "merchant_wallet_id", "currency"]
+    },
+    "qr.paid": {
+      "required": ["qr_id", "transfer_id", "amount_minor"]
+    },
+    "settlement.created": {
+      "required": ["batch_id", "wallet_id", "gross_minor", "net_minor", "tx_count"]
+    },
+    "settlement.completed": {
+      "required": ["batch_id"]
+    }
+  },
+
+  "ordering_guarantees": {
+    "description": "Events in GET /events/history are stored in emission order. The timeline in GET /traces/:id is sorted by timestamp ascending.",
+    "payment_pair_order": "payment.sent must be emitted before payment.received within the same transfer"
+  },
+
+  "backward_compatibility": {
+    "rule": "New optional fields may be added to any event payload at any time without a major version bump.",
+    "rule2": "Existing required fields must never be removed.",
+    "rule3": "The set of well_known_event_types may be extended but not reduced."
+  },
+
+  "sub_suites": [
+    {
+      "id": "envelope-fields",
+      "name": "Envelope field presence",
+      "vectors": ["EVT-004"]
+    },
+    {
+      "id": "event-emission",
+      "name": "Event emission per operation",
+      "vectors": ["EVT-001", "EVT-002", "EVT-003", "EVT-005", "EVT-006", "EVT-007", "EVT-008"]
+    },
+    {
+      "id": "trace-fields",
+      "name": "Trace fields on events",
+      "certification_level": 2,
+      "vectors": ["EVT-004"]
+    },
+    {
+      "id": "ordering",
+      "name": "Event ordering guarantees",
+      "certification_level": 1,
+      "cases": [
+        {
+          "id": "EVT-ORD-001",
+          "title": "payment.sent emitted before payment.received for same transfer",
+          "description": "The payment.sent event at the source wallet must have a created_at timestamp earlier than or equal to the payment.received event at the destination wallet for the same transfer_id.",
+          "ordering": "payment.sent.created_at <= payment.received.created_at",
+          "expected": "ordering_correct"
+        },
+        {
+          "id": "EVT-ORD-002",
+          "title": "GET /events/history returns events in chronological order",
+          "description": "Events returned from GET /events/history must be sorted ascending by created_at. This is the canonical event feed for audit and reconciliation.",
+          "order": "ascending",
+          "order_field": "created_at",
+          "expected": "chronological_order"
+        },
+        {
+          "id": "EVT-ORD-003",
+          "title": "Trace timeline sorted by timestamp ascending",
+          "description": "GET /traces/:id must return events sorted ascending by created_at to allow deterministic trace replay.",
+          "order": "ascending",
+          "order_field": "created_at",
+          "expected": "chronological_order_in_trace"
+        }
+      ]
+    },
+    {
+      "id": "event-idempotency",
+      "name": "Event idempotency",
+      "certification_level": 1,
+      "cases": [
+        {
+          "id": "EVT-IDEM-001",
+          "title": "Idempotent operation does not emit duplicate events",
+          "description": "When a transfer is re-submitted with the same idempotency key and the original transfer is returned, no additional events must be emitted.",
+          "expected": "no_duplicate_events"
+        },
+        {
+          "id": "EVT-IDEM-002",
+          "title": "Each event has a unique event id",
+          "description": "The id field of each event must be globally unique within the operator's event store. Duplicate event IDs are a protocol violation.",
+          "expected": "unique_event_ids"
+        },
+        {
+          "id": "EVT-IDEM-003",
+          "title": "Event id must start with evt-",
+          "description": "Per the event envelope schema, the id field must match the pattern ^evt-.",
+          "id_pattern": "^evt-",
+          "expected": "format_valid"
+        }
+      ]
+    },
+    {
+      "id": "backward-compat",
+      "name": "Event backward compatibility",
+      "certification_level": 1,
+      "cases": [
+        {
+          "id": "EVT-COMPAT-001",
+          "title": "Unknown optional field in event payload does not cause rejection",
+          "description": "Consumers of the event stream must tolerate unknown optional fields introduced in future protocol versions without failing.",
+          "expected": "unknown_fields_tolerated"
+        },
+        {
+          "id": "EVT-COMPAT-002",
+          "title": "Well-known event types may be extended, never reduced",
+          "description": "A new protocol version may add event types to well_known_event_types but must never remove existing ones.",
+          "expected": "additive_only_extension"
+        }
+      ]
+    }
+  ]
+}

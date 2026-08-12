@@ -1,0 +1,34 @@
+{
+  "distinctness_boundary": "distinct OPERATORS (identity/keys/material/ledger), one shared open-protocol verification engine — operators do not reimplement verification; the protocol defines one verification semantics. TEST-ONLY deterministic keys; no network, no funds, no secrets.",
+  "pass": true,
+  "replay": {
+    "byte_identical": true,
+    "note": "two independent from-scratch runs of the full scenario produce a byte-identical result",
+    "result_sha256": "600ab19c9a992fc79071406dd54f0d807820288335fc534a986cd04c4d9591ba",
+    "runs": 2
+  },
+  "result": {
+    "a_delegated_public_key": "MxdhSsRFzO-pGfpJwrZJ__swcM9_qRUwHyEIVBx86a8",
+    "b_delegated_public_key": "RCi7CmJDUL5kuVE1CDgQ2gl6e4I8KIGtxS72bq3boGY",
+    "execution": {
+      "execution_ok": true,
+      "net_position_minor": 50000,
+      "replay_idempotent": true,
+      "routed_ok": true
+    },
+    "mutual_ote": {
+      "a_evaluates_b": "ROUTING_ALLOWED",
+      "b_evaluates_a": "ROUTING_ALLOWED",
+      "routing_allowed": true
+    },
+    "negatives": {
+      "all_fail_closed": true,
+      "capability_mismatch_outcome": "FAIL_CLOSED",
+      "revoked_peer_outcome": "FAIL_CLOSED",
+      "tampered_metadata_outcome": "FAIL_CLOSED"
+    },
+    "operators_distinct": true,
+    "scenario_pass": true
+  },
+  "scenario": "federation A→B multi-operator, executed end-to-end"
+}

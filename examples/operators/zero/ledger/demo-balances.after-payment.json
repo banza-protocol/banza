@@ -1,0 +1,16 @@
+{
+  "demo_only": true,
+  "monetary_value": false,
+  "production_allowed": false,
+  "operator_id": "operator-zero",
+  "operator_display_name": "Operador Zero",
+  "currency": "KZ_DEMO",
+  "artifact_type": "ledger",
+  "balances": {
+    "demo-user-ana": 98500,
+    "demo-merchant-kiosque": 1500,
+    "operator-zero": 0
+  },
+  "total": 100000,
+  "note": "Após o pagamento de 1500 KZ_DEMO. O total conserva-se. Artefacto demonstrativo. Não certifica, não aprova e não movimenta dinheiro real."
+}

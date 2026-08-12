@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1000 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title-P071 desc-P071" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <title id="title-P071">Arquitectura do Protocolo BANZA</title>
+  <desc id="desc-P071">Arquitectura do protocolo financeiro aberto BANZA como um fluxo primário humano-operador (ADR-054): Humanos e operadores começam pela interface primária BanzAI, que interpreta pedidos, consulta a referência, orienta, encaminha para os motores verificáveis e explica os resultados; os motores determinísticos Rust/WASM verificam e a evidência prova, produzindo um resultado técnico verificável. Na base, a governança, os ADR/RFC e a referência definem as regras que o BanzAI consulta e os motores verificam, e decidem a evolução do protocolo. O BanzAI não é fonte normativa: não decide, não certifica, não aprova, não licencia, não publica operadores e não movimenta fundos, e não substitui os motores. As integrações máquina-máquina continuam possíveis por APIs, manifests, schemas, endpoints e motores verificáveis, sem depender obrigatoriamente do BanzAI. Não há autoridade central nem credenciais emitidas pela BANZA.</desc>
+
+  <defs>
+    <linearGradient id="bgG-P071" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F8F4EC"/><stop offset="1" stop-color="#EFE9DD"/></linearGradient>
+    <linearGradient id="headG-P071" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6E0F1A"/><stop offset="1" stop-color="#8E1326"/></linearGradient>
+    <linearGradient id="goldG-P071" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#B0863A"/><stop offset="1" stop-color="#8B651C"/></linearGradient>
+    <linearGradient id="redG-P071" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8E1326"/><stop offset="1" stop-color="#5E0C18"/></linearGradient>
+    <linearGradient id="slateG-P071" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#33465B"/><stop offset="1" stop-color="#1C2836"/></linearGradient>
+    <linearGradient id="burgG-P071" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6E0F1A"/><stop offset="1" stop-color="#45080F"/></linearGradient>
+    <linearGradient id="greenG-P071" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2E6A4E"/><stop offset="1" stop-color="#1D4A34"/></linearGradient>
+    <linearGradient id="neutG-P071" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6B7280"/><stop offset="1" stop-color="#4B5563"/></linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1000" height="900" fill="url(#bgG-P071)"/>
+
+  <!-- ── Canonical header band (M2.7J visual system) ──────────────────────── -->
+  <rect x="0" y="0" width="1000" height="72" fill="url(#headG-P071)" rx="14"/>
+  <rect x="0" y="54" width="1000" height="18" fill="#8E1326"/>
+  <text x="32" y="30" font-size="11" letter-spacing="2.5" fill="#FECACA" font-family="ui-monospace, 'SF Mono', Menlo, monospace">SVG-P-071 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="32" y="56" font-size="22" font-weight="800" fill="#FFFFFF">Arquitectura do Protocolo BANZA</text>
+  <text x="968" y="48" text-anchor="end" font-size="12" fill="#F6D9DD">BanzAI guia · motores verificam · evidência prova · governança decide</text>
+
+  <!-- subtitle -->
+  <g text-anchor="middle">
+    <text x="500" y="100" font-size="13" font-weight="700" fill="#33465B">O BanzAI é a interface primária de trabalho entre humanos/operadores e o protocolo BANZA.</text>
+    <text x="500" y="120" font-size="12" fill="#54595F">BanzAI guia; os motores verificam; a evidência prova; a governança decide.</text>
+  </g>
+
+  <!-- ── STAGE 1: Humanos / Operadores (actor layer) ──────────────────────── -->
+  <g>
+    <rect x="150" y="140" width="700" height="60" rx="14" fill="url(#neutG-P071)"/>
+    <rect x="170" y="156" width="30" height="30" rx="8" fill="#FFFFFF" fill-opacity="0.16"/>
+    <g stroke="#F3F4F6" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="181" cy="167" r="4"/><path d="M173 183c0-5 3.6-8 8-8s8 3 8 8"/></g>
+    <text x="212" y="167" font-size="16" font-weight="700" fill="#FFFFFF">Humanos / Operadores</text>
+    <text x="212" y="187" font-size="11" fill="#F3F4F6" fill-opacity="0.9">querem compreender, adoptar, implementar, validar, preparar evidência ou navegar o protocolo</text>
+    <text x="832" y="160" font-size="9" letter-spacing="1" text-anchor="end" fill="#F3F4F6" fill-opacity="0.85" font-family="ui-monospace, monospace">COMEÇAM AQUI</text>
+  </g>
+
+  <!-- arrow ↓ -->
+  <g stroke="#B98A3E" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M500 202v18m-5-6l5 6 5-6"/></g>
+
+  <!-- ── STAGE 2: BanzAI — interface primária humano-operador (prominent) ─── -->
+  <g>
+    <rect x="90" y="226" width="820" height="112" rx="16" fill="url(#slateG-P071)" stroke="#6E90B4" stroke-opacity="0.5" stroke-width="2"/>
+    <rect x="112" y="246" width="42" height="42" rx="11" fill="#8FB4DC" fill-opacity="0.22"/>
+    <g stroke="#BCD6EE" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M133 252l12 6v12l-12 6-12-6v-12z"/><path d="M121 258l12 6 12-6M133 264v12"/></g>
+    <text x="170" y="260" font-size="19" font-weight="700" fill="#EAF0F6">BanzAI — interface primária humano-operador</text>
+    <text x="170" y="281" font-size="11.5" fill="#D6E4F1" fill-opacity="0.92">interpreta pedidos · consulta a referência · orienta · encaminha para os motores · explica · ajuda a preparar evidência</text>
+    <!-- capability chips -->
+    <g font-size="10" fill="#D6E4F1" text-anchor="middle">
+      <rect x="170" y="294" width="66" height="20" rx="6" fill="#FFFFFF" fill-opacity="0.08"/><text x="203" y="308">Guia</text>
+      <rect x="244" y="294" width="82" height="20" rx="6" fill="#FFFFFF" fill-opacity="0.08"/><text x="285" y="308">Manifest</text>
+      <rect x="334" y="294" width="104" height="20" rx="6" fill="#FFFFFF" fill-opacity="0.08"/><text x="386" y="308">Conformidade</text>
+      <rect x="446" y="294" width="62" height="20" rx="6" fill="#FFFFFF" fill-opacity="0.08"/><text x="477" y="308">Trust</text>
+      <rect x="516" y="294" width="90" height="20" rx="6" fill="#FFFFFF" fill-opacity="0.08"/><text x="561" y="308">Federação</text>
+      <rect x="614" y="294" width="116" height="20" rx="6" fill="#FFFFFF" fill-opacity="0.08"/><text x="672" y="308">Evidence Bundle</text>
+      <rect x="738" y="294" width="60" height="20" rx="6" fill="#FFFFFF" fill-opacity="0.08"/><text x="768" y="308">Traces</text>
+      <rect x="806" y="294" width="88" height="20" rx="6" fill="#FFFFFF" fill-opacity="0.08"/><text x="850" y="308">Referência</text>
+    </g>
+    <text x="170" y="330" font-size="10.5" fill="#F0C9CE">Não é fonte normativa: não decide · não certifica · não aprova · não licencia · não publica operadores · não movimenta fundos.</text>
+    <text x="890" y="248" font-size="9" letter-spacing="1" text-anchor="end" fill="#BCD6EE" font-family="ui-monospace, monospace">GUIA · ENCAMINHA · EXPLICA</text>
+  </g>
+
+  <!-- arrow ↓ -->
+  <g stroke="#B98A3E" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M500 340v18m-5-6l5 6 5-6"/></g>
+
+  <!-- ── STAGE 3: Motores verificáveis | Evidência verificável ────────────── -->
+  <g>
+    <rect x="90" y="364" width="400" height="96" rx="14" fill="url(#greenG-P071)"/>
+    <rect x="110" y="382" width="34" height="34" rx="9" fill="#FFFFFF" fill-opacity="0.15"/>
+    <g stroke="#E7F2EB" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M120 399l4 4 8-8"/><path d="M115 407c0-6 5-11 11-11"/></g>
+    <text x="156" y="392" font-size="15" font-weight="700" fill="#EAF6EE">Motores verificáveis</text>
+    <text x="156" y="410" font-size="10.5" fill="#EAF6EE" fill-opacity="0.9">Rust/WASM · conformidade · trust · invariantes</text>
+    <text x="156" y="426" font-size="10.5" fill="#EAF6EE" fill-opacity="0.9">determinísticos · reproduzíveis · fail-closed</text>
+    <text x="156" y="448" font-size="10.5" fill="#EAF6EE" fill-opacity="0.78">Calculam e verificam os resultados técnicos.</text>
+    <text x="472" y="384" font-size="9" letter-spacing="1" text-anchor="end" fill="#EAF6EE" fill-opacity="0.85" font-family="ui-monospace, monospace">VERIFICAM</text>
+  </g>
+  <g>
+    <rect x="510" y="364" width="400" height="96" rx="14" fill="url(#burgG-P071)"/>
+    <rect x="530" y="382" width="34" height="34" rx="9" fill="#FFFFFF" fill-opacity="0.14"/>
+    <g stroke="#F1D8DC" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M540 388h12v20h-12z"/><path d="M543 395h6M543 400h6"/></g>
+    <text x="576" y="392" font-size="15" font-weight="700" fill="#F6E7EA">Evidência verificável</text>
+    <text x="576" y="410" font-size="10.5" fill="#F6E7EA" fill-opacity="0.9">manifests · conformance evidence · trust metadata · traces</text>
+    <text x="576" y="426" font-size="10.5" fill="#F6E7EA" fill-opacity="0.9">assinada · reconciliável · re-verificável por qualquer par</text>
+    <text x="576" y="448" font-size="10.5" fill="#F6E7EA" fill-opacity="0.78">Prova os resultados de forma independente.</text>
+    <text x="892" y="384" font-size="9" letter-spacing="1" text-anchor="end" fill="#F6E7EA" fill-opacity="0.85" font-family="ui-monospace, monospace">PROVA</text>
+  </g>
+
+  <!-- arrow ↓ -->
+  <g stroke="#B98A3E" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M500 462v18m-5-6l5 6 5-6"/></g>
+
+  <!-- ── STAGE 4: Resultado técnico verificável ──────────────────────────── -->
+  <g>
+    <rect x="230" y="486" width="540" height="62" rx="14" fill="#FFFFFF" stroke="#E3D9C6" stroke-width="1.5"/>
+    <text x="500" y="510" font-size="15" font-weight="700" fill="#16191E" text-anchor="middle">Resultado técnico verificável</text>
+    <text x="500" y="530" font-size="10.5" fill="#54595F" text-anchor="middle">PASS · WARN · FAIL — reproduzível, fail-closed. Um PASS é evidência técnica, não certificado.</text>
+  </g>
+
+  <!-- ── BASE: Governança / ADR / RFC / Referência ───────────────────────── -->
+  <g>
+    <rect x="90" y="570" width="820" height="76" rx="14" fill="url(#goldG-P071)"/>
+    <rect x="110" y="590" width="36" height="36" rx="9" fill="#FFFFFF" fill-opacity="0.16"/>
+    <g stroke="#FBF3E3" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M119 620h18M120 620v-11l8-4 8 4v11M124 620v-6h8v6"/></g>
+    <text x="158" y="598" font-size="16" font-weight="700" fill="#FBF3E3">Governança · ADR / RFC · Referência</text>
+    <text x="158" y="617" font-size="11" fill="#FBF3E3" fill-opacity="0.92">define as regras que o BanzAI consulta e os motores verificam · decide a evolução · mantém a referência</text>
+    <text x="158" y="636" font-size="11" fill="#FBF3E3" fill-opacity="0.8">Base normativa do protocolo — a participação demonstra-se por evidência; não é aprovada por uma entidade central.</text>
+    <text x="892" y="592" font-size="9" letter-spacing="1" text-anchor="end" fill="#FBF3E3" fill-opacity="0.85" font-family="ui-monospace, monospace">DECIDE</text>
+  </g>
+
+  <!-- ── Machine-to-machine side note ─────────────────────────────────────── -->
+  <g>
+    <rect x="90" y="662" width="820" height="44" rx="12" fill="#FFFFFF" stroke="#CBD2DA" stroke-dasharray="5 4"/>
+    <text x="112" y="682" font-size="9.5" letter-spacing="1" fill="#6B7280" font-family="ui-monospace, monospace">TRILHO MÁQUINA-A-MÁQUINA</text>
+    <text x="112" y="698" font-size="11" fill="#54595F">Integrações máquina-máquina continuam possíveis por APIs, manifests, schemas, endpoints e motores verificáveis, sem depender obrigatoriamente do BanzAI.</text>
+  </g>
+
+  <!-- ── Invariants band ──────────────────────────────────────────────────── -->
+  <g>
+    <rect x="90" y="722" width="820" height="90" rx="14" fill="#FFFFFF" stroke="#EADFCE"/>
+    <text x="110" y="746" font-size="12" font-weight="700" fill="#16191E" font-family="ui-monospace, monospace" letter-spacing="1">INVARIANTES ARQUITECTÓNICOS</text>
+    <g font-size="11" fill="#54595F">
+      <circle cx="114" cy="768" r="3" fill="#8E1326"/><text x="124" y="771.5">BANZA define regras; não opera pagamentos.</text>
+      <circle cx="114" cy="790" r="3" fill="#33465B"/><text x="124" y="793.5">BanzAI guia e explica; não certifica nem aprova operadores.</text>
+      <circle cx="524" cy="768" r="3" fill="#2E6A4E"/><text x="534" y="771.5">Operadores publicam a sua própria evidência.</text>
+      <circle cx="524" cy="790" r="3" fill="#0F766E"/><text x="534" y="793.5">A confiança é verificável por máquina. Na dúvida, o trust falha fechado.</text>
+    </g>
+  </g>
+
+  <!-- metadata footer -->
+  <text x="500" y="896" font-size="9" text-anchor="middle" fill="#9A8F7E" font-family="ui-monospace, monospace">SVG-P-071 · Arquitectura do Protocolo BANZA · BANZA_REFERENCIA.md §1 · v2.0 · 2026-07-23</text>
+</svg>

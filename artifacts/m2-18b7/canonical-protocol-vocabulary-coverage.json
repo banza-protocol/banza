@@ -1,0 +1,28 @@
+{
+  "gates": {
+    "unresolved": 0,
+    "orphaned": 0,
+    "conflicted": 0,
+    "vocabulary_subjects_missing_from_truth_table": [],
+    "truth_table_concept_subjects_missing_from_vocabulary": [],
+    "truth_table_doc_rows_missing_from_vocabulary": [],
+    "engine_alias_without_mapping": 0,
+    "relation_alias_without_kind": 0,
+    "lexical_noise_in_vocabulary": 0,
+    "out_of_scope_is_curated_not_fallback": true
+  },
+  "candidate_summary": {
+    "total_candidates": 5841,
+    "accepted": 983,
+    "rejected": 4858,
+    "rejected_by_reason": {
+      "NON_TERMINOLOGICAL": 3209,
+      "GENERIC_PROSE": 1082,
+      "PATH_FRAGMENT": 337,
+      "MARKUP_FRAGMENT": 40,
+      "BROKEN_TOKEN": 183,
+      "STOPWORD": 7
+    }
+  },
+  "checksum": "58f0e362a7f25f33"
+}

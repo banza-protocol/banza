@@ -1,0 +1,58 @@
+<svg viewBox="0 0 900 524" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title-P109 desc-P109" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="title-P109">O sentido normativo do Operador Zero — os contratos governam a implementação de referência</title>
+  <desc id="desc-P109">Os contratos e as especificações públicas do BANZA são normativos e definem o protocolo. São materializados por uma implementação de referência — o Operador Zero, só de leitura e de demonstração — que expõe superfícies observáveis (manifest, endpoints, metadata, chaves públicas, evidência, estado de certificação técnica) para descoberta e teste. A direcção é sempre dos contratos para a implementação, nunca o contrário: uma referência executável não é uma especificação normativa. Onde a implementação e a especificação divergirem, a especificação prevalece; a implementação é substituível e o protocolo funciona sem ela.</desc>
+  <defs>
+    <linearGradient id="hG-P109" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#312E81"></stop><stop offset="100%" stop-color="#4338CA"></stop>
+    </linearGradient>
+    <linearGradient id="cG-P109" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3730A3"></stop><stop offset="100%" stop-color="#4F46E5"></stop>
+    </linearGradient>
+    <filter id="sh-P109" x="-2%" y="-10%" width="108%" height="130%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000015"></feDropShadow>
+    </filter>
+    <marker id="arr-P109" markerWidth="9" markerHeight="8" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#6B7280"></polygon>
+    </marker>
+  </defs>
+  <rect width="900" height="524" fill="#F4F1EA"></rect>
+
+  <rect x="16" y="12" width="868" height="54" rx="8" fill="url(#hG-P109)" filter="url(#sh-P109)"></rect>
+  <text x="34" y="32" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" letter-spacing="1.6" fill="#C7D2FE">SVG-P-109 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="34" y="52" fill="white" font-size="15" font-weight="800">Referência executável, não especificação</text>
+  <text x="866" y="52" text-anchor="end" fill="#DDE1F7" font-size="10">os contratos governam a implementação</text>
+
+  <!-- Box 1 — contracts (normative) -->
+  <rect x="150" y="92" width="600" height="74" rx="8" fill="url(#cG-P109)" filter="url(#sh-P109)"></rect>
+  <text x="450" y="122" text-anchor="middle" fill="white" font-size="13" font-weight="800">Contratos e especificações públicas</text>
+  <text x="450" y="142" text-anchor="middle" fill="#DDE1F7" font-size="10">normativos — definem o BANZA</text>
+  <text x="450" y="156" text-anchor="middle" fill="#C7D2FE" font-size="9.5" font-family="ui-monospace, Menlo, monospace">contracts/ · conformance/</text>
+
+  <line x1="450" y1="166" x2="450" y2="194" stroke="#6B7280" stroke-width="2" marker-end="url(#arr-P109)"></line>
+  <text x="462" y="184" fill="#6B7280" font-size="10">conforma-se aos contratos</text>
+
+  <!-- Box 2 — reference implementation -->
+  <rect x="150" y="196" width="600" height="74" rx="8" fill="white" stroke="#C4B5FD" stroke-width="1.5" filter="url(#sh-P109)"></rect>
+  <text x="450" y="226" text-anchor="middle" fill="#1F2937" font-size="13" font-weight="800">Operador Zero — implementação de referência</text>
+  <text x="450" y="246" text-anchor="middle" fill="#6B7280" font-size="10">só de leitura · demonstração (sandbox) · não normativa</text>
+  <text x="450" y="261" text-anchor="middle" fill="#6B7280" font-size="10">substituível · o protocolo funciona sem ela</text>
+
+  <line x1="450" y1="270" x2="450" y2="298" stroke="#6B7280" stroke-width="2" marker-end="url(#arr-P109)"></line>
+  <text x="462" y="288" fill="#6B7280" font-size="10">expõe</text>
+
+  <!-- Box 3 — observable surfaces -->
+  <rect x="150" y="300" width="600" height="74" rx="8" fill="#ECEBF7" stroke="#DDD9F0" stroke-width="1.5" filter="url(#sh-P109)"></rect>
+  <text x="450" y="328" text-anchor="middle" fill="#312E81" font-size="13" font-weight="800">Superfícies observáveis</text>
+  <text x="450" y="348" text-anchor="middle" fill="#4B5563" font-size="9.5">manifest · endpoints · metadata · chaves públicas</text>
+  <text x="450" y="363" text-anchor="middle" fill="#4B5563" font-size="9.5">evidência · estado de certificação técnica — descobríveis e verificáveis</text>
+
+  <!-- Boundary band -->
+  <rect x="16" y="392" width="868" height="98" rx="8" fill="#EAE0DF" stroke="#D4C9C7" stroke-width="1"></rect>
+  <text x="34" y="412" fill="#991B1B" font-size="10" font-weight="700" letter-spacing="1.4">FRONTEIRA — REFERÊNCIA EXECUTÁVEL ≠ ESPECIFICAÇÃO NORMATIVA</text>
+  <text x="34" y="432" fill="#374151" font-size="10.5">A norma vive nos contratos e nas especificações públicas; onde a implementação e a especificação divergirem, a especificação prevalece.</text>
+  <text x="34" y="450" fill="#374151" font-size="10.5">Nada do que a implementação de referência faz é normativo por o fazer; ninguém precisa de copiar os seus internals para implementar o BANZA.</text>
+  <text x="34" y="468" fill="#374151" font-size="10.5">É substituível por outra implementação que sirva os mesmos artefactos observáveis — e o protocolo funciona sem ela.</text>
+  <text x="34" y="484" fill="#6B6265" font-size="9.5">A direcção é sempre dos contratos para a implementação — nunca a implementação a definir os contratos.</text>
+
+  <text x="450" y="512" text-anchor="middle" fill="#6B6265" font-size="9.5">SVG-P-109 · Referência executável, não especificação · BANZA_REFERENCIA.md §9 · v1.0 · 2026-08-09</text>
+</svg>

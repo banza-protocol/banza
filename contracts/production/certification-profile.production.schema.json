@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/certification-profile.production.schema.json",
+  "title": "InteroperabilityCertificationProfile",
+  "description": "The public, versioned yardstick an implementation is certified against (ADR-064 D-064-02). Pins the conformance level, capabilities and the required schemas/contracts/invariants/endpoints, the identity/signature/trust requirements, and the validity window. Immutable once published (a change is a new profile_version). Derived only from L1 protocol contracts; introduces no operator-specific criteria (ADR-003).",
+  "_spec_version": "1.0",
+  "_status": "production-baseline",
+  "_authority": "engines/banza-certification (ADR-064); conformance/ suites",
+  "type": "object",
+  "required": ["profile_id", "profile_version", "protocol_version", "environment", "conformance_level", "validity_days", "profile_hash"],
+  "additionalProperties": false,
+  "properties": {
+    "profile_id": { "type": "string", "minLength": 1 },
+    "profile_version": { "type": "string", "minLength": 1 },
+    "protocol_version": { "type": "string", "minLength": 1 },
+    "environment": { "type": "string", "enum": ["sandbox", "staging", "production"] },
+    "conformance_level": { "type": "string", "enum": ["L0", "L1", "L2", "L3", "L4"] },
+    "capabilities": { "type": "array", "items": { "type": "string" } },
+    "required_schemas": { "type": "array", "items": { "type": "string" } },
+    "required_contracts": { "type": "array", "items": { "type": "string" } },
+    "required_invariants": { "type": "array", "items": { "type": "string" } },
+    "required_endpoints": { "type": "array", "items": { "type": "string" } },
+    "identity_required": { "type": "boolean" },
+    "signature_required": { "type": "boolean" },
+    "trust_required": { "type": "boolean" },
+    "validity_days": { "type": "integer", "minimum": 1, "description": "Validity window of the resulting certificate; never open-ended (ADR-064 D-064-06)." },
+    "profile_hash": { "type": "string", "minLength": 1 }
+  }
+}

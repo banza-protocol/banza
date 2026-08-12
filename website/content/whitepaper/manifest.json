@@ -1,0 +1,55 @@
+{
+  "version": "1.0",
+  "released_at": "2026-08-01",
+  "source_commit": "banza-whitepaper-v1.0",
+  "titles": {
+    "en": "BANZA: An Open Protocol for Financial Interoperability",
+    "pt": "BANZA: Protocolo Aberto de Interoperabilidade Financeira"
+  },
+  "authors": [
+    "Fidel R. Monteiro",
+    "Jesus R. Monteiro"
+  ],
+  "publisher": "Banzami (BANZAMI – Tecnologia e Serviços, Lda.)",
+  "license": "CC BY 4.0",
+  "canonical_language": "pt",
+  "translation_language": "en",
+  "pdfs": [
+    {
+      "file": "banza-whitepaper-v1.0-pt.pdf",
+      "lang": "pt",
+      "sha256": "974c4783864977b1f9a35a9afda216edac098e1331ddef2995069bfae7bb5d6e",
+      "bytes": 394363,
+      "pages": 12
+    },
+    {
+      "file": "banza-whitepaper-v1.0-en.pdf",
+      "lang": "en",
+      "sha256": "a09ad7af20d851746c25bbf9bbf9a76d3916a8482f87dae68cca1e527ff39ede",
+      "bytes": 383739,
+      "pages": 12
+    }
+  ],
+  "history": [
+    {
+      "version": "1.0",
+      "date": "2026-08-01",
+      "note": "Edição de lançamento — artigo técnico compacto (12 secções, 12 figuras)."
+    },
+    {
+      "version": "1.0",
+      "date": "2026-08-03",
+      "note": "Re-cut editorial da Secção 3 (Arquitectura) — quatro parágrafos compactos; frase de adopção movida para a Secção 4. Sem alteração de estrutura, figuras ou terminologia."
+    },
+    {
+      "version": "1.0",
+      "date": "2026-08-04",
+      "note": "Consolidação editorial integral (PT canónico + tradução EN): fusão de parágrafos fragmentados em unidades argumentativas; harmonização de tempos verbais; sem alteração de estrutura, secções, equações, figuras, referências ou terminologia. Re-freeze das SHA-256."
+    },
+    {
+      "version": "1.0",
+      "date": "2026-08-05",
+      "note": "Consolidação editorial da Secção 3 (Arquitectura): substituição do texto pelos quatro parágrafos consolidados (protocolo e Camada 1; Camada 2 e Camada 3; neutralidade e independência estrutural das determinações; BanzAI transversal e Figura 3), preservando estrutura, figura, legenda, terminologia e todas as afirmações técnicas, institucionais e regulatórias; a frase de adopção técnica permanece apenas no início da Secção 4. Re-freeze das SHA-256."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "protocol": "BANZA",
+  "protocol_version": "1.0.0",
+  "state": "M2_PROTOCOL_IMPLEMENTATION",
+  "pre_production": true,
+  "production_certificates": false,
+  "operators": [],
+  "_authority": "Production Protocol Implementation (ADR-001, ADR-003, ADR-037)",
+  "_boundary": "Production of the BANZA protocol, not financial production. BANZA is an open protocol; it does not process payments, settle value, or move funds. Licence/authorisation belongs to the operator, not to BANZA.",
+  "compatibility": {
+    "wire_compatible_with": ["1.0.x"],
+    "contracts_baseline": "contracts/production",
+    "conformance_levels": ["L0", "L1", "L2", "L3", "L4"],
+    "breaking_change_policy": "A new major protocol_version is required for any wire-incompatible change to a production contract. Minor versions are additive and backward compatible. Patch versions are documentation/clarification only.",
+    "state_model": ["PRE_PRODUCTION", "M2_PROTOCOL_IMPLEMENTATION", "M2_PROTOCOL_REVIEW", "M2_PROTOCOL_CANDIDATE", "M3_OPERATOR_CANDIDATE", "M4_PRODUCTION_NETWORK"],
+    "m4_status": "future-only; not activated"
+  },
+  "notes": "Concrete production protocol version descriptor for the BANZA open protocol at the M2_PROTOCOL_IMPLEMENTATION state. 'Production' here means production OF THE PROTOCOL as an open specification (governance, contracts, trust path, release process, operator self-publication) — NOT financial operation. This descriptor is prepared-but-gated: while it declares the production contract baseline is in place, no real operator is created (operators stays []), no production certificate is emitted (production_certificates stays false), and no funds are ever held, moved or settled by BANZA. Financial services are provided by authorised operators that implement the protocol; regulatory authorisation belongs to those operators, not to BANZA. Advancing beyond M2_PROTOCOL_IMPLEMENTATION requires the Rust M2 protocol-gate engine (engines/banza-m2-protocol-gate :: validate_m2_protocol_gate) to report M2_PROTOCOL_IMPLEMENTATION_READY, plus explicit recorded protocol-governance sign-off on advancing the protocol milestone."
+}

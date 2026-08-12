@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12",
+  "$id": "https://banza.network/contracts/events/envelope.schema.json",
+  "title": "BanzaEvent",
+  "description": "Canonical envelope for all events emitted on the BANZA internal event stream (GET /events, GET /events/history). Every state-changing operation emits one or more events in this format.",
+  "_spec_version": "1.0",
+  "_status": "canonical",
+  "_authority": "ADR-002, INV-TRACE-001",
+  "_source_of_truth": "reference/sandbox-operator/src/events.rs",
+
+  "type": "object",
+  "required": [
+    "id",
+    "event_type",
+    "aggregate_type",
+    "aggregate_id",
+    "trace_id",
+    "correlation_id",
+    "payload",
+    "created_at"
+  ],
+  "additionalProperties": false,
+
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Globally unique event identifier. Format: 'evt-<uuid>'. Used for deduplication by consumers. Immutable once emitted.",
+      "pattern": "^evt-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+      "examples": ["evt-a1b2c3d4-e5f6-7890-abcd-ef1234567890"]
+    },
+
+    "event_type": {
+      "type": "string",
+      "description": "Dotted-namespace event type identifier. See contracts/events/types.json for the canonical registry.",
+      "examples": [
+        "wallet.created",
+        "payment.sent",
+        "payment.received",
+        "payment_request.created",
+        "payment_request.paid",
+        "qr.generated",
+        "qr.paid",
+        "settlement.created",
+        "settlement.completed"
+      ]
+    },
+
+    "aggregate_type": {
+      "type": "string",
+      "description": "The entity domain this event belongs to.",
+      "enum": [
+        "wallet",
+        "transfer",
+        "payment_request",
+        "qr",
+        "settlement"
+      ]
+    },
+
+    "aggregate_id": {
+      "type": "string",
+      "description": "The ID of the primary entity this event describes. Matches the ID of the wallet, transfer, payment_request, qr, or settlement that was mutated."
+    },
+
+    "trace_id": {
+      "type": "string",
+      "description": "Causal trace identifier. Shared across all operations in the same payment flow (e.g. QR generation, resulting transfer, resulting ledger entries, and this event all share the same trace_id). INV-TRACE-001: this field MUST match the trace_id of the operation that generated this event."
+    },
+
+    "correlation_id": {
+      "type": "string",
+      "description": "Identifies the current aggregate step within the trace. Changes per operation layer. Typically equals the aggregate_id of the step that emitted the event."
+    },
+
+    "causation_id": {
+      "type": "string",
+      "description": "The ID of the direct cause of this event. Present when an operation is triggered by another (e.g. a transfer caused by a payment_request: causation_id = payment_request.id). Absent for root operations."
+    },
+
+    "payload": {
+      "type": "object",
+      "description": "Event-specific data. Shape is defined per event_type in contracts/events/types.json. All monetary values in payload MUST use integer minor units (INV-LEDGER-003)."
+    },
+
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of when this event was emitted by the protocol. UTC. Set by the emitter, not the consumer."
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "demo_only": true,
+  "monetary_value": false,
+  "production_allowed": false,
+  "operator_id": "operator-zero",
+  "operator_display_name": "Operador Zero",
+  "artifact_type": "conformance_evidence",
+  "level": "L0",
+  "result": "WARN",
+  "note": "PASS é evidência técnica local. Artefacto demonstrativo. Não certifica, não aprova e não movimenta dinheiro real."
+}

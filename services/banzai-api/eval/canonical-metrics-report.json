@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "milestone": "Increment 7 — canonical eval reconciliation + ≥2500 cases + final metrics (§18-§20)",
+  "generated_by": "eval/canonical-metrics.mjs (deterministic; committed Rust WASM; no model, no network)",
+  "total_cases": 2791,
+  "verdict": "PASS",
+  "accuracy": {
+    "intent_accuracy": {
+      "value": 1,
+      "passed": 2692,
+      "total": 2692,
+      "floor": 1
+    },
+    "entity_resolution_accuracy": {
+      "value": 1,
+      "passed": 1859,
+      "total": 1859,
+      "floor": 1
+    },
+    "artifact_resolution_accuracy": {
+      "value": 1,
+      "passed": 1125,
+      "total": 1125,
+      "floor": 1
+    },
+    "tool_selection_accuracy": {
+      "value": 1,
+      "passed": 2163,
+      "total": 2163,
+      "floor": 1
+    },
+    "metric_resolution_accuracy": {
+      "value": 1,
+      "passed": 1220,
+      "total": 1220,
+      "floor": 1
+    },
+    "aggregation_accuracy": {
+      "value": 1,
+      "passed": 56,
+      "total": 56,
+      "floor": 1
+    },
+    "citation_precision": {
+      "value": 1,
+      "passed": 7,
+      "total": 7,
+      "floor": 1
+    },
+    "claim_support_rate": {
+      "value": 1,
+      "passed": 7,
+      "total": 7,
+      "floor": 1
+    },
+    "honest_fallback_accuracy": {
+      "value": 1,
+      "passed": 132,
+      "total": 132,
+      "floor": 1
+    },
+    "multi_turn_context_accuracy": {
+      "value": 1,
+      "passed": 61,
+      "total": 61,
+      "floor": 1
+    },
+    "calculation_accuracy": {
+      "value": 1,
+      "passed": 4,
+      "total": 4,
+      "floor": 1
+    }
+  },
+  "zeroTolerance": {
+    "wrong_entity_rate": {
+      "violations": 0,
+      "applicable": 1143,
+      "rate": 0
+    },
+    "wrong_artifact_rate": {
+      "violations": 0,
+      "applicable": 1125,
+      "rate": 0
+    },
+    "unsupported_claim_rate": {
+      "violations": 0,
+      "applicable": 3,
+      "rate": 0
+    },
+    "fabricated_metric_rate": {
+      "violations": 0,
+      "applicable": 95,
+      "rate": 0
+    },
+    "mixed_incompatible_executions": {
+      "violations": 0,
+      "applicable": 4,
+      "rate": 0
+    },
+    "single_observation_presented_as_average": {
+      "violations": 0,
+      "applicable": 3,
+      "rate": 0
+    },
+    "dead_source_citations": {
+      "violations": 0,
+      "applicable": 3,
+      "rate": 0
+    },
+    "llm_authoritative_decisions": {
+      "violations": 0,
+      "applicable": 2791,
+      "rate": 0
+    }
+  },
+  "by_class": {
+    "base": 46,
+    "variation": 643,
+    "live": 1165,
+    "regression": 677,
+    "multi_turn": 61,
+    "negative": 199
+  },
+  "by_family": {
+    "concepts": 958,
+    "procedures": 30,
+    "security": 14,
+    "apis": 32,
+    "governance": 41,
+    "profiles": 24,
+    "duration": 23,
+    "metrics": 76,
+    "reason_codes": 138,
+    "diagnosis": 16,
+    "reproduction": 14,
+    "hypotheses": 17,
+    "comparison": 23,
+    "artifacts": 1125,
+    "multi_turn": 61,
+    "negative": 199
+  }
+}

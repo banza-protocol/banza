@@ -1,0 +1,191 @@
+{
+  "_spec": "BANZA SDK Conformance Suite v1.0",
+  "_description": "Validates that SDK implementations behave consistently with the canonical protocol.",
+
+  "suite_id": "sdk",
+  "suite_name": "SDK Conformance",
+  "protocol_version": "1.0",
+
+  "note": "Client-library tests are language-specific: the vectors here describe WHAT must be tested; a client library implements each described test in its own language. No official BANZA SDK exists — this suite is a specification of expected behaviour.",
+
+  "sub_suites": [
+    {
+      "id": "qr-parsing",
+      "name": "QR payload parsing",
+      "certification_level": 1,
+      "cases": [
+        {
+          "id": "SDK-QR-001",
+          "title": "Parse sandbox QR payload — BANZA-SBX: prefix",
+          "input": "BANZA-SBX:eyJzYW5kYm94Ijp0cnVlLCJ2IjoxLCJxcl9pZCI6InFyLXRlc3QiLCJtZXJjaGFudF93YWxsZXRfaWQiOiJtZXJjaGFudC0xIiwiYW1vdW50X21pbm9yIjo1MDAwMCwiY3VycmVuY3kiOiJBT0EiLCJkZXNjcmlwdGlvbiI6IlRlc3QifQ==",
+          "expected": {
+            "sandbox": true,
+            "v": 1,
+            "qr_id": "qr-test",
+            "merchant_wallet_id": "merchant-1",
+            "amount_minor": 50000,
+            "currency": "AOA",
+            "description": "Test"
+          }
+        },
+        {
+          "id": "SDK-QR-002",
+          "title": "Reject invalid QR prefix",
+          "input": "INVALID:abc",
+          "expected_error": "invalid_prefix"
+        },
+        {
+          "id": "SDK-QR-003",
+          "title": "Reject malformed base64",
+          "input": "BANZA-SBX:not-valid-base64!!!",
+          "expected_error": "decode_error"
+        },
+        {
+          "id": "SDK-QR-004",
+          "title": "Parse production QR payload — BANZA: prefix",
+          "input": "BANZA:eyJ2IjoxLCJxcl9pZCI6InFyLXByb2QiLCJtZXJjaGFudF93YWxsZXRfaWQiOiJtZXJjaGFudC0xIiwiYW1vdW50X21pbm9yIjo1MDAwMCwiY3VycmVuY3kiOiJBT0EifQ==",
+          "expected": {
+            "v": 1,
+            "qr_id": "qr-prod",
+            "merchant_wallet_id": "merchant-1",
+            "amount_minor": 50000,
+            "currency": "AOA"
+          }
+        }
+      ]
+    },
+    {
+      "id": "event-parsing",
+      "name": "Event envelope parsing",
+      "certification_level": 1,
+      "cases": [
+        {
+          "id": "SDK-EVT-001",
+          "title": "Parse payment.sent event envelope",
+          "input": {
+            "id": "evt-abc123",
+            "event_type": "payment.sent",
+            "aggregate_type": "transfer",
+            "aggregate_id": "txfr-def456",
+            "trace_id": "tr-ghi789",
+            "correlation_id": "txfr-def456",
+            "payload": {
+              "transfer_id": "txfr-def456",
+              "from_wallet_id": "wallet-consumer",
+              "amount_minor": 50000,
+              "currency": "AOA"
+            },
+            "created_at": "2026-05-28T10:00:00Z"
+          },
+          "expected_parsed": {
+            "event_type": "payment.sent",
+            "aggregate_type": "transfer",
+            "has_trace_id": true,
+            "has_correlation_id": true,
+            "payload_type": "object"
+          }
+        },
+        {
+          "id": "SDK-EVT-002",
+          "title": "Event with causation_id — PR payment transfer",
+          "input": {
+            "id": "evt-xyz",
+            "event_type": "payment.sent",
+            "aggregate_type": "transfer",
+            "aggregate_id": "txfr-abc",
+            "trace_id": "tr-pr-trace",
+            "correlation_id": "txfr-abc",
+            "causation_id": "pr-original",
+            "payload": {
+              "transfer_id": "txfr-abc",
+              "from_wallet_id": "consumer-1",
+              "amount_minor": 25000,
+              "currency": "AOA"
+            },
+            "created_at": "2026-05-28T10:00:00Z"
+          },
+          "expected_parsed": {
+            "has_causation_id": true,
+            "causation_id": "pr-original"
+          }
+        }
+      ]
+    },
+    {
+      "id": "webhook-signatures",
+      "name": "Webhook signature verification",
+      "certification_level": 1,
+      "note": "Canonical webhook-signature vectors live in contracts/webhooks/signature.json. Any client library must pass those vectors. This suite references them.",
+      "vector_file": "contracts/webhooks/signature.json",
+      "cases": [
+        {
+          "id": "SDK-WH-001",
+          "title": "All vectors in contracts/webhooks/signature.json must pass",
+          "reference": "contracts/webhooks/signature.json"
+        }
+      ]
+    },
+    {
+      "id": "schema-compatibility",
+      "name": "Schema compatibility",
+      "certification_level": 1,
+      "cases": [
+        {
+          "id": "SDK-SCH-001",
+          "title": "Transfer response must deserialize without error",
+          "input": {
+            "id": "txfr-abc",
+            "from_wallet_id": "sandbox-consumer-1",
+            "to_wallet_id": "sandbox-merchant-1",
+            "amount_minor": 50000,
+            "currency": "AOA",
+            "note": "test",
+            "idempotency_key": null,
+            "trace_id": "tr-xyz",
+            "correlation_id": "txfr-abc",
+            "causation_id": null,
+            "created_at": "2026-05-28T10:00:00Z"
+          },
+          "expect_deserializes": true
+        },
+        {
+          "id": "SDK-SCH-002",
+          "title": "Unknown fields must not cause deserialization failure",
+          "description": "SDKs must be forward-compatible. Adding new optional fields to a response must not break existing SDK versions.",
+          "input": {
+            "id": "txfr-abc",
+            "from_wallet_id": "sandbox-consumer-1",
+            "to_wallet_id": "sandbox-merchant-1",
+            "amount_minor": 50000,
+            "currency": "AOA",
+            "trace_id": "tr-xyz",
+            "correlation_id": "txfr-abc",
+            "created_at": "2026-05-28T10:00:00Z",
+            "future_field_unknown_to_sdk": "must be ignored"
+          },
+          "expect_deserializes": true,
+          "expect_unknown_fields_ignored": true
+        }
+      ]
+    },
+    {
+      "id": "trace-propagation",
+      "name": "Trace propagation",
+      "certification_level": 2,
+      "cases": [
+        {
+          "id": "SDK-TRC-001",
+          "title": "SDK extracts trace_id from transfer response",
+          "description": "After creating a transfer, the SDK must be able to extract trace_id from the response and pass it to a tracing provider.",
+          "expect_trace_id_accessible": true
+        },
+        {
+          "id": "SDK-TRC-002",
+          "title": "SDK extracts causation_id when present",
+          "description": "For transfers resulting from PR/QR payments, causation_id must be accessible.",
+          "expect_causation_id_accessible": true
+        }
+      ]
+    }
+  ]
+}

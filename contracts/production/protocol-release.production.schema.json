@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/protocol-release.production.schema.json",
+  "title": "ProtocolReleaseProduction",
+  "description": "Protocol release record. Governs the publication lifecycle of a BANZA protocol version as an open specification: draft, review, release candidate, approval for protocol publication, and published. Every state concerns publication of the PROTOCOL (contracts, conformance vectors, docs) — there is NO payment, operation, settlement, or fund-movement approval state, because BANZA does not process payments, settle value, or move funds. Reaching PUBLISHED does not activate any operator and does not emit a production certificate. BANZA is an open protocol.",
+  "_spec_version": "1.0",
+  "_status": "production-baseline",
+  "_authority": "Production Protocol Implementation; ADR governance process",
+  "_boundary": "Production of the BANZA protocol, not financial production. BANZA is an open protocol; it does not process payments, settle value, or move funds. Licence/authorisation belongs to the operator, not to BANZA.",
+
+  "type": "object",
+  "required": ["release_id", "protocol_version", "state", "changelog", "compatibility", "signatures_ref", "approvals"],
+  "additionalProperties": false,
+
+  "properties": {
+    "release_id":       { "type": "string", "description": "Unique protocol release id. Immutable." },
+    "protocol_version": { "type": "string", "description": "BANZA protocol version being released (e.g. '1.0.0')." },
+    "state":            { "type": "string", "enum": ["DRAFT", "REVIEW", "RELEASE_CANDIDATE", "APPROVED_FOR_PROTOCOL_PUBLICATION", "PUBLISHED"], "description": "Publication lifecycle state. Publication of the protocol specification only — never an operational or payment approval." },
+    "changelog": {
+      "type": "array",
+      "description": "Ordered changelog entries for this release.",
+      "items": {
+        "type": "object",
+        "required": ["summary", "kind"],
+        "additionalProperties": false,
+        "properties": {
+          "summary": { "type": "string", "description": "What changed." },
+          "kind":    { "type": "string", "enum": ["breaking", "additive", "clarification", "fix"], "description": "Change classification (drives version policy)." },
+          "ref":     { "type": ["string", "null"], "description": "ADR/RFC/PR reference." }
+        }
+      }
+    },
+    "compatibility": {
+      "type": "object",
+      "description": "Compatibility statement for this release.",
+      "required": ["backward_compatible"],
+      "additionalProperties": false,
+      "properties": {
+        "backward_compatible": { "type": "boolean", "description": "True if wire-compatible with the prior minor line." },
+        "supersedes":          { "type": ["string", "null"], "description": "Prior protocol_version this release supersedes." },
+        "wire_compatible_with":{ "type": "array", "items": { "type": "string" }, "description": "Version ranges this release remains compatible with." }
+      }
+    },
+    "signatures_ref":   { "type": "string", "description": "Reference to detached signatures over the canonical release bytes." },
+    "approvals": {
+      "type": "array",
+      "description": "Recorded governance approvals for advancing the release state. Human sign-offs, protocol-publication scope only.",
+      "items": {
+        "type": "object",
+        "required": ["role", "decision", "at"],
+        "additionalProperties": false,
+        "properties": {
+          "role":     { "type": "string", "description": "Approver governance role." },
+          "decision": { "type": "string", "enum": ["approve", "reject", "abstain"] },
+          "at":       { "type": "string", "format": "date-time" },
+          "note":     { "type": ["string", "null"] }
+        }
+      }
+    },
+    "published_at":     { "type": ["string", "null"], "format": "date-time", "description": "Timestamp when state became PUBLISHED. Null until published." }
+  }
+}

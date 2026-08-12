@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/federation/key-manifest.json",
+  "title": "BanzaKeyManifest",
+  "description": "The BANZA Key Manifest — the production trust anchor distribution mechanism. It is signed by the BANZA Root Key and lists every active BANZA issuing key by domain. The root signature on the manifest is the SOLE basis for trusting any issuing key: an issuing key that does not appear in a valid, root-signed Key Manifest is not a BANZA key. Published at the canonical location https://banza.network/.well-known/banza/key-manifest.json.",
+  "_spec_version": "1",
+  "_status": "canonical",
+  "_authority": "ADR-038",
+  "_source_of_truth": "tools/root-ceremony/ceremony_script.py — cmd_generate_key_manifest(). This schema mirrors the artifact the ceremony emits, not earlier prose.",
+  "_updated": "2026-06-19",
+
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "published_at",
+    "root_key_id",
+    "root_public_key",
+    "expires_at",
+    "keys",
+    "manifest_signature"
+  ],
+
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1",
+      "description": "Key Manifest schema version. Must be '1' for this format."
+    },
+    "published_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC timestamp (ISO 8601, e.g. 2026-08-01T00:00:00Z) when this manifest was produced and signed by the root key."
+    },
+    "root_key_id": {
+      "type": "string",
+      "pattern": "^(test-)?banza-root-[0-9]{4}$",
+      "description": "Stable identifier of the offline BANZA Root Key that signed this manifest. Format 'banza-root-YYYY' (year only). The 'test-' prefix denotes a sandbox/dry-run manifest; INV-ROOT-001 forbids 'test-' keys in production verification (enforced by the conformance runner, not by this schema)."
+    },
+    "root_public_key": {
+      "type": "string",
+      "pattern": "^ed25519:[A-Za-z0-9_-]{43}$",
+      "description": "The root public key in 'ed25519:<base64url>' form (43 base64url chars for 32 bytes). Verifiers use this to check manifest_signature."
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC timestamp after which this manifest is stale and MUST be rejected (INV-ROOT-003). A new root ceremony republishes the manifest before this time. ADR-038: root validity does not exceed 24 months."
+    },
+    "keys": {
+      "type": "array",
+      "minItems": 1,
+      "description": "All currently listed BANZA issuing keys, one per domain. Each is signed into the manifest by the root key.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "key_id",
+          "public_key",
+          "domain",
+          "active_since",
+          "expires_at",
+          "status"
+        ],
+        "properties": {
+          "key_id": {
+            "type": "string",
+            "pattern": "^(test-)?banza-[a-z]+-[0-9]{6}$",
+            "description": "Stable identifier for this issuing key. Format 'banza-{domain-abbrev}-YYYYMM' (e.g. banza-meta-202608, banza-brl-202608, banza-evidence-202608). The 'test-' prefix denotes sandbox keys. The domain is normative; the identifier format is a naming convention (ADR-079)."
+          },
+          "public_key": {
+            "type": "string",
+            "pattern": "^ed25519:[A-Za-z0-9_-]{43}$",
+            "description": "Issuing key public key in 'ed25519:<base64url>' form."
+          },
+          "domain": {
+            "type": "string",
+            "enum": ["protocol-metadata", "revocation", "conformance-evidence"],
+            "description": "The single domain this key is authorised to sign for. ADR-038 domain separation: a 'protocol-metadata' key signs signed protocol metadata and releases, a 'revocation' key signs the BRL, a 'conformance-evidence' key signs evidence packages. No key signs across domains, and no key authorises, certifies or approves an operator."
+          },
+          "active_since": {
+            "type": "string",
+            "format": "date-time",
+            "description": "UTC timestamp from which this issuing key is valid."
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "UTC timestamp after which this issuing key is invalid. ADR-038: issuing-key validity does not exceed 6 months. A verifier MUST reject an issuing key whose expires_at <= now() (INV-ROOT-003/005)."
+          },
+          "status": {
+            "type": "string",
+            "enum": ["active", "retiring"],
+            "description": "'active' — key may sign new artifacts. 'retiring' — key signs nothing new but remains listed so artifacts it already signed verify until they expire (ADR-038). A verifier MUST require status == 'active' to trust newly produced artifacts."
+          }
+        }
+      }
+    },
+    "manifest_signature": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{86}$",
+      "description": "ed25519 signature by the BANZA Root Key over the canonical JSON of all other fields (keys sorted lexicographically, no whitespace, UTF-8, signature field excluded). Base64url-encoded, 86 chars for 64 bytes — the canonical ADR-038 signing form used across signed protocol material."
+    }
+  }
+}

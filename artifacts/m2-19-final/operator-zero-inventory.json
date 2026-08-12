@@ -1,0 +1,154 @@
+{
+  "milestone": "M2.19-final",
+  "task": "operator-zero-inventory (prompt §26)",
+  "generated": "2026-07-28",
+  "read_only_investigation": true,
+  "canonical_origin": {
+    "public_host": "https://zero.banza.network/",
+    "repo": "/Users/fm65/banza",
+    "workspace": "website/ (Next.js app, deployed as the `website` service on :3005)",
+    "adr": ["ADR-052 (Operador Zero simulator)", "ADR-053 (Operator-Zero-only demo/example policy)"],
+    "ownership": "BANZA protocol repo; demo-only reference simulator; NOT a real/published operator; never in /operators; no CA/certification (post-M2.19A open trust)",
+    "deploy": {
+      "reverse_proxy": "infra/banza-network/nginx/conf.d/banza.conf → server_name zero.banza.network (443) → proxy_pass http://website:3005 with Host preserved (NO routing logic in nginx; BanzAI never proxied here)",
+      "cloudflare": "proxied DNS record `zero`, SSL Full (strict), CloudFlare Origin CA cert SAN *.banza.network",
+      "activation_flag": "infra/banza-network/ZERO_SUBDOMAIN_ACTIVE (present = live since 2026-07-22 M2.12F)",
+      "activation_guide": "docs/guides/OPERADOR_ZERO_SUBDOMAIN_ACTIVATION.md"
+    },
+    "host_routing": {
+      "logic_file": "website/lib/zeroSubdomain.ts (pure resolveZeroRoute, unit-tested)",
+      "wrapper": "website/middleware.ts",
+      "rules": [
+        "zero host `/` → rewrite to internal /oz (the standalone lab)",
+        "zero host `/<artifact>.json` → rewrite to /oz/<artifact>.json (read-only handler)",
+        "zero host `/banzai*` → 307 redirect to https://banza.network/banzai (BanzAI stays on apex)",
+        "/operador-zero and /operador-zero/* → 410 Gone on EVERY host (retired apex surface, M2.12G)",
+        "/oz, /oz/* on the apex → 404 (internal name, never public)"
+      ]
+    },
+    "app_component_tree": {
+      "shell": "website/app/oz/page.tsx (chromeless: own header/footer, suppresses SiteNav/SiteFooter; NAV badges + BanzAI/Reference/GitHub links)",
+      "interactive_lab": "website/components/operador-zero/OperadorZeroLab.tsx ('use client'; the entire simulator UI)",
+      "artifact_api": "website/app/oz/[...artifact]/route.ts (force-static GET handler for the 10 demo JSON endpoints; POST/PUT/PATCH/DELETE → 405)"
+    },
+    "engine_and_libs": {
+      "rust_engine": "engines/operator-zero-core/ (src/sim.rs, ledger.rs, boundary.rs, vocab.rs) — Rust authority for ledger/payment/refund/reconciliation/trust/federation/evidence/traces (ADR-037)",
+      "wasm_bundle": "website/lib/wasm/operator_zero_core.js|.d.ts|_bg.wasm(.d.ts) (built from the Rust engine)",
+      "adapters": [
+        "website/lib/operadorZeroEngine.ts (runOperadorZeroE2E, identity, boundary, safeSummary — WASM I/O glue)",
+        "website/lib/operadorZero.ts (10 ARTIFACT_ROUTES, readArtifact, VALIDATION_STATE, identity constants)",
+        "website/lib/operadorZeroClone.ts (session-clone evidence mapping)",
+        "website/lib/operadorZeroJourney.ts (BanzAI journey step model, STEP_FILES, unlock gating)",
+        "website/lib/operadorZeroArtifacts.generated.ts (bundled payloads, vendored)"
+      ]
+    },
+    "data_state": {
+      "database": "NONE — no PostgreSQL, no server state, no per-visitor storage",
+      "client_state": "in-memory React only (no localStorage/sessionStorage/IndexedDB/cookies; reload clears)",
+      "served_bytes": "bundled constants from lib/operadorZeroArtifacts.generated.ts (website image is built from website/ alone; examples/ tree absent at runtime)",
+      "canonical_source_tree": "examples/operators/zero/ (52 files; validated by the Rust engine; vendored to the website by tools/gen-operador-zero-artifacts.mjs)",
+      "service_worker": "NONE (website/public has no sw.js)"
+    }
+  },
+  "simulation_entrypoints": [
+    { "path": "website/components/operador-zero/OperadorZeroLab.tsx:266", "kind": "execute-simulation-cta", "what": "Hero \"Iniciar simulação\" button → run(true) → runOperadorZeroE2E — executes the full E2E simulation" },
+    { "path": "website/components/operador-zero/OperadorZeroLab.tsx:351", "kind": "execute-simulation-cta", "what": "Painel operacional \"Executar fluxo feliz\" → run(true)" },
+    { "path": "website/components/operador-zero/OperadorZeroLab.tsx:352", "kind": "execute-simulation-cta", "what": "Painel operacional \"Executar fluxo negativo\" → run(false)" },
+    { "path": "website/components/operador-zero/OperadorZeroLab.tsx:353", "kind": "execute-simulation-cta", "what": "Painel operacional \"Resetar\" → reset() (clears in-memory run)" },
+    { "path": "website/components/operador-zero/OperadorZeroLab.tsx:171-178", "kind": "simulation-engine-invocation", "what": "run() callback invoking runOperadorZeroE2E(happy) — the client-side WASM simulation driver + trace/score state" },
+    { "path": "website/components/operador-zero/OperadorZeroLab.tsx:534-562 (PaymentSim)", "kind": "financial-action-payment-refund", "what": "Fictional QR payment (1500 KZ_DEMO) + partial refund (500) simulation surface (Ana→Kiosque), driven by the run" },
+    { "path": "website/components/operador-zero/OperadorZeroLab.tsx:576-601 (LedgerSection/openLedger)", "kind": "ledger-manipulation", "what": "Fictional ledger + reconciliation re-derivation display fed by the live run (balances, total conservation)" },
+    { "path": "website/components/operador-zero/OperadorZeroLab.tsx:374-400 (E2E journey + openStep)", "kind": "start-conformance-trust-federation-evidence", "what": "Interactive 9-step journey (Manifest/Conformidade/Trust/Pagamento/Reembolso/Reconciliação/Federação/EvidenceBundle/Traces) whose verdicts come from the run" },
+    { "path": "website/components/operador-zero/OperadorZeroLab.tsx:604-649 (NegativeFlow)", "kind": "start-negative-flow", "what": "11 negative-case triggers producing blockers (secret leak, revoked, incompatible federation, etc.)" },
+    { "path": "website/components/operador-zero/OperadorZeroLab.tsx:81-97", "kind": "generate-evidence-score", "what": "evidenceScore()/artifactsReady() computing a live 0..100 evidence score + '6/6 artefactos' from the run (evidence generation)" },
+    { "path": "website/components/operador-zero/OperadorZeroLab.tsx:267,446 (\"Clonar no BanzAI\")", "kind": "clone-and-run-cta", "what": "CTA → banza.network/banzai?template=operador-zero&clone=1 (clone the simulator into a BanzAI session and run the journey)" },
+    { "path": "website/components/operador-zero/OperadorZeroLab.tsx:447-449 (BanzAI section)", "kind": "scenario-execution-cta", "what": "\"Abrir cenário feliz/negativo\" CTAs → banzai?template=operador-zero&scenario=happy|negative" },
+    { "path": "website/lib/operadorZeroEngine.ts:90-128", "kind": "simulation-engine-api", "what": "runOperadorZeroE2E / operadorZeroBoundary / operadorZeroSafeSummary — the client execution surface over the WASM engine" },
+    { "path": "website/lib/wasm/operator_zero_core*.{js,wasm,d.ts}", "kind": "client-simulation-compute", "what": "Vendored WASM build of engines/operator-zero-core that performs the in-browser simulation" },
+    { "path": "website/lib/operadorZeroClone.ts + website/lib/operadorZeroJourney.ts", "kind": "clone-journey-model", "what": "Session-clone evidence + step-unlock gating that turn the Zero template into a runnable journey" },
+    { "path": "website/components/banzai/BanzaiAgent.tsx:3187-3200", "kind": "banzai-clone-consumer", "what": "Consumes ?template=operador-zero → startZeroSession() (apex; runs the cloned Zero journey inside BanzAI)" }
+  ],
+  "removable": {
+    "routes": [
+      "Simulation-driving parts of website/app/oz/page.tsx (keep a chromeless read-only shell; drop the interactive lab mount)",
+      "website/app/oz/[...artifact]/route.ts — KEEP (already read-only GET; already refuses writes with 405) — repurpose as the read-only reference API"
+    ],
+    "components": [
+      "website/components/operador-zero/OperadorZeroLab.tsx — the entire interactive lab (run buttons, PaymentSim, LedgerSection, E2E journey, NegativeFlow, drawers, evidence score)",
+      "BanzAI clone/journey UI in website/components/banzai/BanzaiAgent.tsx (template=operador-zero session start + per-step run/clone panels)"
+    ],
+    "handlers_state": [
+      "run()/reset() callbacks + trace/scenario/score React state in OperadorZeroLab.tsx",
+      "startZeroSession/clearZero + journey report state in BanzaiAgent.tsx"
+    ],
+    "engine_libs": [
+      "website/lib/operadorZeroEngine.ts (run/boundary/summary execution API)",
+      "website/lib/wasm/operator_zero_core.* (client simulation compute)",
+      "website/lib/operadorZeroClone.ts, website/lib/operadorZeroJourney.ts (clone/journey run model)"
+    ],
+    "ui_only_apis": [
+      "In-browser evidenceScore()/artifactsReady()/stepOk() 'generate evidence' computations"
+    ],
+    "mocks_data": [
+      "Negative/execution-only fixtures surfaced by the lab (examples/operators/zero: *.invalid*.json, *fail*.json, *revoked*.json, demo-failed-payment.json, failed-e2e-trace.json, evidence-bundle.partial/invalid.json, federation-incompatible.json, trust-fail-closed/revoked.json) — keep only what a read-only reference must expose"
+    ],
+    "docs": [
+      "docs/guides/OPERADOR_ZERO_SUBDOMAIN_ACTIVATION.md (interactive-lab framing)",
+      "Reference chapter 09 'operador-zero' interactive-experience copy (website/lib/reference.ts:85 + content) — retune from 'watch one work' to read-only reference",
+      "examples/operators/zero/README.md + ZERO_OPERATOR_BOUNDARY.md (simulator framing)"
+    ],
+    "tests_guards": [
+      "tools/check-zero-subdomain-design.sh (asserts a single-page INTERACTIVE lab)",
+      "tools/check-operator-zero-standalone-surface.sh (asserts <OperadorZeroLab/> + BanzAI deep links)",
+      "tools/check-operator-zero-realistic-journey.sh (journey run assertions)",
+      "tools/check-operator-zero-full-e2e.sh (E2E run)",
+      "services/banzai-api/test/operador-zero-journey.test.js, operador-zero.test.js",
+      "website/lib/operadorZeroJourney.test.ts, operadorZeroClone.test.ts (run/clone models)",
+      "make targets: operator-zero-realistic-journey-check, operator-zero-full-e2e (implied), zero-subdomain-design-check"
+    ],
+    "svgs": [
+      "website/public/diagrams/protocol/operador-zero-e2e-journey-*.svg (journey/score narrative)",
+      "website/public/diagrams/protocol/operador-zero-negative-flow-*.svg (negative-run narrative)",
+      "operador-zero-ledger-*.svg / operador-zero-ledger-kzdemo-v1.svg (payment/ledger run narrative)"
+    ],
+    "nav": [
+      "website/lib/site.ts:56 footer link 'Operador Zero' → https://zero.banza.network/ (repoint to the read-only reference, keep neutrality controls)",
+      "website/components/home/OperatorRegistry.tsx:18 FALLBACK card → zero.banza.network (marquee entry that presents Zero as a live surface)",
+      "OperadorZeroLab NAV_LINks / BanzAI-section CTAs in app/oz/page.tsx + OperadorZeroLab.tsx"
+    ]
+  },
+  "read_only_surface_present": [
+    "10 machine-readable GET JSON endpoints on zero.banza.network via app/oz/[...artifact]/route.ts (GET 200 / write 405 / unknown 404, cache 300s, force-static): manifest, key-manifest, revocation-list, conformance/evidence, federation/metadata, evidence-bundle, traces/full-e2e, ledger/demo, payments/demo-qr, payments/demo-refund",
+    "Identity + environment: /manifest.json → operator_id=operator-zero, operator_display_name, environment=sandbox, protocol_version=1.0.0, manifest_version=1, created_at, operator_status=READY_FOR_SIMB_PRE_REVIEW, currency=KZ_DEMO",
+    "Capabilities: manifest.capabilities {supports_wallets, supports_qr, supports_settlement_simulation}, supported_levels=[L0]",
+    "Endpoints block: manifest.endpoints/base_url/key_manifest_url/conformance_url/federation_metadata_url (self-describing)",
+    "Public keys: /key-manifest.json (delegated demo signing keys) + Demo Operator Root (demo-operator-root.public.json in canonical tree)",
+    "Revocation state: /revocation-list.json (demo, fail-closed semantics)",
+    "Conformance state: /conformance/evidence.json (L0 PASS evidence)",
+    "Federation/interop state: /federation/metadata.json",
+    "Evidence + traces: /evidence-bundle.json, /traces/full-e2e.json",
+    "Demo/boundary flags exposed in-page: demo_only, monetary_value=false, production_allowed=false, real_money=false, certification=false, operator_real=false, currency=KZ_DEMO",
+    "Contact: manifest.contact → GitHub issues; canonical artifacts link → examples/operators/zero on GitHub"
+  ],
+  "read_only_surface_missing": [
+    "/health — no liveness/health endpoint on the subdomain",
+    "/version(s) — no dedicated version endpoint (protocol_version lives only inside manifest; no engine/build/spec version triple)",
+    "/schemas — no machine-readable JSON Schemas for the artifact types (only Rust ARTIFACT_TYPE vocabulary internally)",
+    "metadata_hash / integrity digest — no top-level content hash of the manifest/bundle for deterministic verification",
+    "verification URLs / instructions — no machine field pointing at how to reproduce/verify locally (deterministic-local)",
+    "endpoint index / .well-known catalog — no /index.json or /.well-known listing of all endpoints (only the UI ARTIFACT_ROUTES + manifest.endpoints)",
+    "trust state endpoint — key-manifest + revocation-list are served, but no served current trust-evaluation result (trust-pass/trust-revoked exist only in examples/ tree)",
+    "certification/validation state as a served route — status/operator-zero-validation-state.json is bundled into the UI (OPERADOR_ZERO_VALIDATION_STATE) but is NOT in ZERO_ENDPOINTS (not fetchable as JSON)",
+    "interoperability certification state — federation/metadata is served, but no explicit technical-interop-cert state (aligns with M2.19 ADR-DRAFT-technical-interoperability-certification)",
+    "signed evidence refs — examples/operators/zero/e2e-root/*signed* (signed manifest/bundle/verification-trace/fingerprint) are NOT served on the subdomain",
+    "identity/capabilities as a standalone endpoint — only embedded in manifest, not a discrete /identity or /capabilities route",
+    "explicit read-only technical-test endpoints for BanzAI-initiated verification (a stable GET contract BanzAI can fetch to run deterministic checks)"
+  ],
+  "banzai_deeplink_targets": [
+    { "url": "https://banza.network/banzai?template=operador-zero&clone=1", "current": "Clone-and-run CTA (app/oz/page.tsx NAV + OperadorZeroLab hero/BanzAI section)", "consumed_by": "BanzaiAgent.tsx:3196 startZeroSession()", "disposition": "remove clone/run intent; repoint to read-only reference exploration" },
+    { "url": "https://banza.network/banzai?template=operador-zero&scenario=happy", "current": "Open happy scenario", "disposition": "scenario param already a no-op beyond session start; drop" },
+    { "url": "https://banza.network/banzai?template=operador-zero&scenario=negative", "current": "Open negative scenario", "disposition": "drop" },
+    { "url": "https://banza.network/banzai#perguntar", "current": "Ask BanzAI", "disposition": "keep (read-only Q&A; not an execution)" },
+    { "target": "Zero read-only GET endpoints for BanzAI-initiated tests (BanzAI fetches, verifies locally/deterministically)", "endpoints": ["https://zero.banza.network/manifest.json", "https://zero.banza.network/key-manifest.json", "https://zero.banza.network/revocation-list.json", "https://zero.banza.network/conformance/evidence.json", "https://zero.banza.network/federation/metadata.json", "https://zero.banza.network/evidence-bundle.json", "https://zero.banza.network/traces/full-e2e.json"], "disposition": "keep + extend with the read_only_surface_missing routes (schemas, version, health, metadata_hash, verification URLs, endpoint index)" }
+  ]
+}

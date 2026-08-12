@@ -1,0 +1,441 @@
+{
+  "_spec": "BANZA Internal Event Type Registry v1.0",
+  "_status": "canonical",
+  "_authority": "ADR-002",
+  "_surface": "internal-sse",
+  "_description": "Canonical registry of all event types emitted on the BANZA internal event stream (GET /events). These are protocol-level events — not webhook delivery events. See contracts/webhooks/event-types.json for outbound webhook types.",
+  "_source_of_truth": "reference/sandbox-operator/src/events.rs",
+
+  "naming_convention": {
+    "pattern": "<aggregate_type>.<verb>",
+    "aggregate_types": ["wallet", "payment", "payment_request", "qr", "settlement", "payment_intent", "payment_session", "collection", "collection_share"],
+    "verbs": ["created", "sent", "received", "paid", "generated", "completed", "failed", "expired", "cancelled", "opened", "requested", "payment_requested", "partially_completed"]
+  },
+
+  "event_types": [
+
+    {
+      "type": "wallet.created",
+      "aggregate_type": "wallet",
+      "description": "A wallet was created. Emitted for all wallet types: consumer, merchant, internal, government.",
+      "certification_level": 0,
+      "stability": "stable",
+      "payload": {
+        "required": ["wallet_id", "currency"],
+        "schema": {
+          "wallet_id": { "type": "string", "description": "ID of the created wallet." },
+          "label":     { "type": "string", "description": "Human-readable wallet label." },
+          "currency":  { "type": "string", "description": "ISO 4217 currency code (e.g. 'AOA')." }
+        }
+      }
+    },
+
+    {
+      "type": "payment.sent",
+      "aggregate_type": "transfer",
+      "description": "A transfer was completed from a wallet's perspective as the sender. One payment.sent event is emitted per completed transfer.",
+      "certification_level": 1,
+      "stability": "stable",
+      "payload": {
+        "required": ["transfer_id", "from_wallet_id", "amount_minor", "currency"],
+        "schema": {
+          "transfer_id":    { "type": "string", "description": "ID of the executed transfer." },
+          "from_wallet_id": { "type": "string", "description": "ID of the debited wallet." },
+          "amount_minor":   { "type": "integer", "description": "Amount debited in minor units. INV-LEDGER-003: integer, never float." },
+          "currency":       { "type": "string" }
+        }
+      },
+      "invariants": ["INV-LEDGER-003"],
+      "notes": "Emitted atomically with payment.received. Both events share the same trace_id and correlation_id."
+    },
+
+    {
+      "type": "payment.received",
+      "aggregate_type": "transfer",
+      "description": "A transfer was completed from a wallet's perspective as the recipient. One payment.received event is emitted per completed transfer.",
+      "certification_level": 1,
+      "stability": "stable",
+      "payload": {
+        "required": ["transfer_id", "to_wallet_id", "amount_minor", "currency"],
+        "schema": {
+          "transfer_id":  { "type": "string" },
+          "to_wallet_id": { "type": "string", "description": "ID of the credited wallet." },
+          "amount_minor": { "type": "integer", "description": "Amount credited in minor units." },
+          "currency":     { "type": "string" }
+        }
+      },
+      "invariants": ["INV-LEDGER-003"]
+    },
+
+    {
+      "type": "payment_request.created",
+      "aggregate_type": "payment_request",
+      "description": "A payment request (pull payment) was created and is awaiting payment.",
+      "certification_level": 1,
+      "stability": "stable",
+      "payload": {
+        "required": ["pr_id", "to_wallet_id", "amount_minor", "currency"],
+        "schema": {
+          "pr_id":        { "type": "string", "description": "Payment request ID." },
+          "to_wallet_id": { "type": "string", "description": "Wallet that will receive funds." },
+          "amount_minor": { "type": "integer" },
+          "currency":     { "type": "string" },
+          "description":  { "type": "string" }
+        }
+      }
+    },
+
+    {
+      "type": "payment_request.paid",
+      "aggregate_type": "payment_request",
+      "description": "A payment request was fulfilled. The resulting transfer ID is included. The payment_request and the resulting transfer share the same trace_id.",
+      "certification_level": 1,
+      "stability": "stable",
+      "payload": {
+        "required": ["pr_id", "transfer_id", "amount_minor"],
+        "schema": {
+          "pr_id":       { "type": "string" },
+          "transfer_id": { "type": "string", "description": "The transfer that fulfilled this payment request. Its causation_id equals the pr_id." },
+          "amount_minor": { "type": "integer" }
+        }
+      },
+      "invariants": ["INV-TRACE-001"],
+      "notes": "causation_id on the resulting transfer MUST equal the payment_request ID."
+    },
+
+    {
+      "type": "qr.generated",
+      "aggregate_type": "qr",
+      "description": "A QR code was generated. This is the root event for a QR payment flow.",
+      "certification_level": 1,
+      "stability": "stable",
+      "payload": {
+        "required": ["qr_id", "merchant_wallet_id", "currency"],
+        "schema": {
+          "qr_id":              { "type": "string" },
+          "merchant_wallet_id": { "type": "string" },
+          "amount_minor":       { "type": ["integer", "null"], "description": "null for open-amount QR codes." },
+          "currency":           { "type": "string" }
+        }
+      }
+    },
+
+    {
+      "type": "qr.paid",
+      "aggregate_type": "qr",
+      "description": "A QR code was paid. The QR code transitions to PAID/USED status. The resulting transfer ID is included.",
+      "certification_level": 1,
+      "stability": "stable",
+      "payload": {
+        "required": ["qr_id", "transfer_id", "amount_minor"],
+        "schema": {
+          "qr_id":       { "type": "string" },
+          "transfer_id": { "type": "string", "description": "The transfer that settled this QR payment." },
+          "amount_minor": { "type": "integer" }
+        }
+      },
+      "invariants": ["INV-QR-001", "INV-TRACE-001"],
+      "notes": "After qr.paid, the QR code MUST NOT accept further payments (INV-QR-001: single-use enforcement)."
+    },
+
+    {
+      "type": "settlement.created",
+      "aggregate_type": "settlement",
+      "description": "A settlement batch was initiated. Emitted when the batch transitions to CREATED status.",
+      "certification_level": 1,
+      "stability": "stable",
+      "payload": {
+        "required": ["batch_id", "wallet_id", "gross_minor", "net_minor", "tx_count"],
+        "schema": {
+          "batch_id":    { "type": "string" },
+          "wallet_id":   { "type": "string" },
+          "gross_minor": { "type": "integer", "description": "Total gross amount before fees. INV-STL-001: gross = net + fee." },
+          "fee_minor":   { "type": "integer" },
+          "net_minor":   { "type": "integer", "description": "Amount disbursed after fees." },
+          "tx_count":    { "type": "integer" }
+        }
+      },
+      "invariants": ["INV-STL-001"]
+    },
+
+    {
+      "type": "settlement.completed",
+      "aggregate_type": "settlement",
+      "description": "A settlement batch completed successfully. The provider reference for the rail settlement is included.",
+      "certification_level": 1,
+      "stability": "stable",
+      "payload": {
+        "required": ["batch_id"],
+        "schema": {
+          "batch_id":     { "type": "string" },
+          "provider_ref": { "type": ["string", "null"], "description": "External settlement rail reference. Null in sandbox." }
+        }
+      }
+    },
+
+    {
+      "type": "payment_intent.created",
+      "aggregate_type": "payment_intent",
+      "description": "A PaymentIntent (ADR-014) was created — the canonical payment-initiation primitive. Payment links / QR / payment requests are surfaces of it.",
+      "certification_level": 2,
+      "stability": "stable",
+      "payload": {
+        "required": ["payment_intent_id", "payee_wallet_id", "currency"],
+        "schema": {
+          "payment_intent_id": { "type": "string" },
+          "payee_wallet_id":   { "type": "string" },
+          "amount_minor":      { "type": ["integer", "null"], "description": "null for open-amount intents. Integer minor units." },
+          "currency":          { "type": "string" },
+          "surface":           { "type": "string", "description": "LINK | QR | REQUEST." }
+        }
+      }
+    },
+
+    {
+      "type": "payment_intent.paid",
+      "aggregate_type": "payment_intent",
+      "description": "A PaymentIntent was fulfilled by a real payer. The resulting transfer id is included.",
+      "certification_level": 2,
+      "stability": "stable",
+      "payload": {
+        "required": ["payment_intent_id", "transfer_id", "amount_minor"],
+        "schema": {
+          "payment_intent_id": { "type": "string" },
+          "transfer_id":       { "type": "string", "description": "The Transfer that settled the intent. Its causation_id MUST equal payment_intent_id." },
+          "amount_minor":      { "type": "integer" }
+        }
+      },
+      "invariants": ["INV-TRACE-001", "INV-LEDGER-003"],
+      "notes": "causation_id on the resulting transfer MUST equal the payment_intent_id."
+    },
+
+    {
+      "type": "payment_session.created",
+      "aggregate_type": "payment_session",
+      "description": "A Payment Session (ADR-015) was created — a PaymentIntent presented through one or more interfaces (payment link, dynamic/static QR, deep link), all crediting one destination. payment_session_id is the PaymentIntent id.",
+      "certification_level": 2,
+      "stability": "stable",
+      "payload": {
+        "required": ["payment_session_id", "payee_wallet_id", "currency"],
+        "schema": {
+          "payment_session_id": { "type": "string", "description": "The session id (= PaymentIntent id)." },
+          "payee_wallet_id": { "type": "string" },
+          "destination_account_ref": { "type": ["string", "null"], "description": "Segregated Wallet Account (ADR-020) credited by every interface; null ⇒ the payee wallet default account." },
+          "amount_minor": { "type": ["integer", "null"], "description": "null for open-amount sessions. Integer minor units." },
+          "currency": { "type": "string" },
+          "purpose": { "type": ["string", "null"] },
+          "reference_type": { "type": ["string", "null"] },
+          "reference_id": { "type": ["string", "null"] },
+          "interfaces": { "type": "array", "items": { "type": "string", "enum": ["PAYMENT_LINK", "DYNAMIC_QR", "STATIC_QR", "DEEP_LINK"] }, "description": "Interface kinds presenting this session." }
+        }
+      }
+    },
+
+    {
+      "type": "payment_session.paid",
+      "aggregate_type": "payment_session",
+      "description": "A Payment Session was fulfilled by a real payer through one of its interfaces. Every interface credits the same destination and produces this one result.",
+      "certification_level": 2,
+      "stability": "stable",
+      "payload": {
+        "required": ["payment_session_id", "transfer_id", "amount_minor"],
+        "schema": {
+          "payment_session_id": { "type": "string" },
+          "transfer_id": { "type": "string", "description": "The Transfer that settled the session. Its causation_id MUST equal payment_session_id." },
+          "amount_minor": { "type": "integer" },
+          "interface": { "type": ["string", "null"], "enum": ["PAYMENT_LINK", "DYNAMIC_QR", "STATIC_QR", "DEEP_LINK", null], "description": "Which interface the payer used. Informational; never changes the destination." },
+          "destination_account_ref": { "type": ["string", "null"], "description": "The Wallet Account credited (ADR-020)." },
+          "reference_type": { "type": ["string", "null"] },
+          "reference_id": { "type": ["string", "null"] }
+        }
+      },
+      "invariants": ["INV-TRACE-001", "INV-LEDGER-003"],
+      "notes": "causation_id on the resulting transfer MUST equal the payment_session_id (= the PaymentIntent id)."
+    },
+
+    {
+      "type": "payment_session.expired",
+      "aggregate_type": "payment_session",
+      "description": "A Payment Session passed its expiry without being paid. Every interface is invalid thereafter.",
+      "certification_level": 2,
+      "stability": "stable",
+      "payload": {
+        "required": ["payment_session_id"],
+        "schema": {
+          "payment_session_id": { "type": "string" },
+          "reference_type": { "type": ["string", "null"] },
+          "reference_id": { "type": ["string", "null"] }
+        }
+      }
+    },
+
+    {
+      "type": "payment_session.cancelled",
+      "aggregate_type": "payment_session",
+      "description": "A Payment Session was cancelled by the owner/operator before payment. Every interface is invalid thereafter.",
+      "certification_level": 2,
+      "stability": "stable",
+      "payload": {
+        "required": ["payment_session_id"],
+        "schema": {
+          "payment_session_id": { "type": "string" },
+          "reference_type": { "type": ["string", "null"] },
+          "reference_id": { "type": ["string", "null"] }
+        }
+      }
+    },
+
+    {
+      "type": "collection.created",
+      "aggregate_type": "collection",
+      "description": "A Collection (ADR-016) was created. A Collection is a composite financial obligation, never money — it holds no balance and never posts to the ledger.",
+      "certification_level": 2,
+      "stability": "stable",
+      "payload": {
+        "required": ["collection_id", "currency", "total_amount_minor", "rule_type"],
+        "schema": {
+          "collection_id":      { "type": "string" },
+          "currency":           { "type": "string" },
+          "total_amount_minor": { "type": "integer", "description": "Integer minor units. Hard total (closed rules) or target (open rules)." },
+          "rule_type":          { "type": "string", "description": "EQUAL_SPLIT | FIXED_AMOUNTS | PERCENTAGE | OPEN_CONTRIBUTION | MINIMUM_CONTRIBUTION." }
+        }
+      },
+      "invariants": ["INV-COLLECTION-001", "INV-COLLECTION-002"]
+    },
+
+    {
+      "type": "collection.opened",
+      "aggregate_type": "collection",
+      "description": "A Collection transitioned DRAFT -> OPEN. After OPEN, currency/rule/(closed) total are immutable (INV-COLLECTION-007).",
+      "certification_level": 2,
+      "stability": "stable",
+      "payload": { "required": ["collection_id"], "schema": { "collection_id": { "type": "string" } } },
+      "invariants": ["INV-COLLECTION-007"]
+    },
+
+    {
+      "type": "collection.share.created",
+      "aggregate_type": "collection_share",
+      "description": "A CollectionShare was created (one payer's portion). Holds no balance and no ledger reference.",
+      "certification_level": 2,
+      "stability": "stable",
+      "payload": {
+        "required": ["collection_id", "share_id", "amount_minor", "currency"],
+        "schema": {
+          "collection_id": { "type": "string" },
+          "share_id":      { "type": "string" },
+          "amount_minor":  { "type": "integer", "description": "Integer minor units." },
+          "currency":      { "type": "string" },
+          "participant":   { "type": ["string", "null"] }
+        }
+      }
+    },
+
+    {
+      "type": "collection.share.payment_requested",
+      "aggregate_type": "collection_share",
+      "description": "A share was surfaced for payment: its PaymentIntent (ADR-014) and link/QR were created (PENDING -> LINK_CREATED).",
+      "certification_level": 2,
+      "stability": "stable",
+      "payload": {
+        "required": ["collection_id", "share_id", "payment_intent_id"],
+        "schema": {
+          "collection_id":     { "type": "string" },
+          "share_id":          { "type": "string" },
+          "payment_intent_id": { "type": "string" }
+        }
+      }
+    },
+
+    {
+      "type": "collection.share.paid",
+      "aggregate_type": "collection_share",
+      "description": "A share was paid by a real payer. The PaymentIntent settled into a real Transfer. The share is now terminal (no double payment).",
+      "certification_level": 2,
+      "stability": "stable",
+      "payload": {
+        "required": ["collection_id", "share_id", "payment_intent_id", "transfer_id", "amount_minor"],
+        "schema": {
+          "collection_id":     { "type": "string" },
+          "share_id":          { "type": "string" },
+          "payment_intent_id": { "type": "string" },
+          "transfer_id":       { "type": "string", "description": "Real settling Transfer; causation_id == payment_intent_id." },
+          "amount_minor":      { "type": "integer" }
+        }
+      },
+      "invariants": ["INV-COLLECTION-005", "INV-COLLECTION-006", "INV-TRACE-001", "INV-LEDGER-003"]
+    },
+
+    {
+      "type": "collection.partially_completed",
+      "aggregate_type": "collection",
+      "description": "At least one share is PAID but the Collection is not fully collected (closed rules) / target not reached (open rules).",
+      "certification_level": 2,
+      "stability": "stable",
+      "payload": {
+        "required": ["collection_id", "collected_amount_minor"],
+        "schema": {
+          "collection_id":          { "type": "string" },
+          "collected_amount_minor": { "type": "integer", "description": "Derived sum of PAID shares (INV-COLLECTION-004)." }
+        }
+      },
+      "invariants": ["INV-COLLECTION-004"]
+    },
+
+    {
+      "type": "collection.completed",
+      "aggregate_type": "collection",
+      "description": "All shares PAID (closed rules) or target reached (open rules). Terminal. No money is moved by this event — value moved per share.",
+      "certification_level": 2,
+      "stability": "stable",
+      "payload": {
+        "required": ["collection_id", "collected_amount_minor"],
+        "schema": {
+          "collection_id":          { "type": "string" },
+          "collected_amount_minor": { "type": "integer" }
+        }
+      },
+      "invariants": ["INV-COLLECTION-001", "INV-COLLECTION-004"]
+    },
+
+    {
+      "type": "collection.expired",
+      "aggregate_type": "collection",
+      "description": "The Collection deadline passed before completion. Terminal.",
+      "certification_level": 2,
+      "stability": "stable",
+      "payload": { "required": ["collection_id"], "schema": { "collection_id": { "type": "string" } } }
+    },
+
+    {
+      "type": "collection.cancelled",
+      "aggregate_type": "collection",
+      "description": "The owner cancelled the Collection. Unpaid shares are cancelled; PAID shares are terminal and unaffected (refunds follow ADR-017 per share).",
+      "certification_level": 2,
+      "stability": "stable",
+      "payload": { "required": ["collection_id"], "schema": { "collection_id": { "type": "string" } } }
+    },
+
+    {
+      "type": "collection.failed",
+      "aggregate_type": "collection",
+      "description": "Terminal unrecoverable error on the Collection. No money implication (the ledger never knows Collections).",
+      "certification_level": 2,
+      "stability": "stable",
+      "payload": { "required": ["collection_id"], "schema": { "collection_id": { "type": "string" } } }
+    }
+
+  ],
+
+  "invariants": {
+    "INV-TRACE-001": "Every event MUST carry trace_id and correlation_id. All events in the same payment flow MUST share the same trace_id.",
+    "INV-EVENT-001": "Event IDs are globally unique. No id value appears twice in the event stream.",
+    "INV-EVENT-002": "created_at is set at emission time. It is immutable after emission.",
+    "INV-LEDGER-003": "All amount_minor values in event payloads MUST be integers. Float monetary values are a certification FAIL.",
+    "INV-COLLECTION-001": "A Collection never holds or moves value; no balance, no ledger posting.",
+    "INV-COLLECTION-004": "collected_amount_minor == sum of shares where status=PAID.",
+    "INV-COLLECTION-005": "A share reaches PAID only via a real confirmed Transfer; the Transfer causation_id equals the share payment_intent_id.",
+    "INV-COLLECTION-006": "A PAID share is terminal and MUST NOT accept further payment (no double payment).",
+    "INV-COLLECTION-007": "After OPEN, currency/rule/(closed-rule) total_amount_minor are immutable."
+  }
+}

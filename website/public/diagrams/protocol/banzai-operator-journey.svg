@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  id:        SVG-P-073
+  diagram:   Jornada do operador guiada pelo BanzAI — nove passos canónicos (ADR-067)
+  version:   2.0
+  source:    BANZA_REFERENCIA.md §9/§7 · ADR-067 D-067-02
+  updated:   2026-07-29
+  author:    BANZA Protocol
+  style:     protocol
+-->
+<svg viewBox="0 0 1040 480" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-labelledby="title-P073 desc-P073"
+     font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="title-P073">Jornada do operador guiada pelo BanzAI</title>
+  <desc id="desc-P073">A jornada canónica de nove passos, conduzida pelo BanzAI e avaliada em cada passo pelos motores Rust: 1 Descoberta dos endpoints, 2 Manifesto em /.well-known/banza/operator.json, 3 Chaves e metadata de protocolo assinada, 4 Conformidade sobre os vectores, 5 Interoperabilidade e contrato de endpoint entre pares, 6 Confiança pela Open Trust Evaluation com fecho por omissão, 7 Federação avaliada entre pares, 8 Evidência empacotada de forma reproduzível, e 9 Prontidão para certificação, em que a implementação não recebe qualquer credencial concedida — a prontidão é evidência técnica. O BanzAI guia cada passo; os motores Rust/WASM verificam; a evidência prova. A participação é demonstrada por evidência verificável, não aprovada por uma entidade central.</desc>
+  <defs>
+    <linearGradient id="hg-P073" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E0F1A"/><stop offset="100%" stop-color="#8E1326"/>
+    </linearGradient>
+    <marker id="arr-P073" markerWidth="9" markerHeight="9" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#B98A3E"/>
+    </marker>
+  </defs>
+
+  <rect width="1040" height="480" fill="#F8F4EC"/>
+
+  <rect x="0" y="0" width="1040" height="66" fill="url(#hg-P073)" rx="14"/>
+  <rect x="0" y="50" width="1040" height="16" fill="#8E1326"/>
+  <text x="28" y="28" font-family="ui-monospace,'Courier New',monospace" font-size="10" fill="#FECACA" letter-spacing="2">SVG-P-073 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="28" y="51" font-size="19" font-weight="800" fill="white">Jornada do operador guiada pelo BanzAI</text>
+
+  <!-- Row 1: steps 1-5 -->
+  <g font-size="11">
+    <g>
+      <rect x="24" y="96" width="180" height="92" rx="11" fill="#FBEFF0" stroke="#8E1326" stroke-width="1.5"/>
+      <circle cx="46" cy="118" r="11" fill="#8E1326"/><text x="46" y="122" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">1</text>
+      <text x="68" y="122" font-size="12.5" font-weight="700" fill="#8E1326">Descoberta</text>
+      <text x="40" y="146" font-size="10" fill="#6B6265">BanzAI localiza os</text>
+      <text x="40" y="160" font-size="10" fill="#6B6265">endpoints do operador.</text>
+    </g>
+    <line x1="204" y1="142" x2="228" y2="142" stroke="#B98A3E" stroke-width="2" marker-end="url(#arr-P073)"/>
+    <g>
+      <rect x="230" y="96" width="180" height="92" rx="11" fill="#FBEFF0" stroke="#8E1326" stroke-width="1.5"/>
+      <circle cx="252" cy="118" r="11" fill="#8E1326"/><text x="252" y="122" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">2</text>
+      <text x="274" y="122" font-size="12.5" font-weight="700" fill="#8E1326">Manifesto</text>
+      <text x="246" y="146" font-size="10" fill="#6B6265">GET /.well-known/</text>
+      <text x="246" y="160" font-size="10" fill="#6B6265">banza/operator.json</text>
+    </g>
+    <line x1="410" y1="142" x2="434" y2="142" stroke="#B98A3E" stroke-width="2" marker-end="url(#arr-P073)"/>
+    <g>
+      <rect x="436" y="96" width="180" height="92" rx="11" fill="#E6F1F0" stroke="#0F766E" stroke-width="1.5"/>
+      <circle cx="458" cy="118" r="11" fill="#0F766E"/><text x="458" y="122" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">3</text>
+      <text x="480" y="122" font-size="12.5" font-weight="700" fill="#115E59">Chaves</text>
+      <text x="452" y="146" font-size="10" fill="#0F766E">Metadata assinada e</text>
+      <text x="452" y="160" font-size="10" fill="#0F766E">chaves delegadas.</text>
+    </g>
+    <line x1="616" y1="142" x2="640" y2="142" stroke="#B98A3E" stroke-width="2" marker-end="url(#arr-P073)"/>
+    <g>
+      <rect x="642" y="96" width="180" height="92" rx="11" fill="#EAF3EC" stroke="#2E6A4E" stroke-width="1.5"/>
+      <circle cx="664" cy="118" r="11" fill="#2E6A4E"/><text x="664" y="122" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">4</text>
+      <text x="686" y="122" font-size="12.5" font-weight="700" fill="#1D4A34">Conformidade</text>
+      <text x="658" y="146" font-size="10" fill="#2E6A4E">Motores Rust avaliam</text>
+      <text x="658" y="160" font-size="10" fill="#2E6A4E">os vectores.</text>
+    </g>
+    <line x1="822" y1="142" x2="846" y2="142" stroke="#B98A3E" stroke-width="2" marker-end="url(#arr-P073)"/>
+    <g>
+      <rect x="848" y="96" width="168" height="92" rx="11" fill="#EAEFF4" stroke="#2E4054" stroke-width="1.5"/>
+      <circle cx="870" cy="118" r="11" fill="#2E4054"/><text x="870" y="122" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">5</text>
+      <text x="892" y="122" font-size="10.5" font-weight="700" fill="#2E4054">Interoperabilidade</text>
+      <text x="864" y="146" font-size="10" fill="#54595F">Troca entre pares e</text>
+      <text x="864" y="160" font-size="10" fill="#54595F">contrato de endpoint.</text>
+    </g>
+  </g>
+
+  <!-- wrap connector -->
+  <path d="M932 188 v22 h-908 v22" fill="none" stroke="#B98A3E" stroke-width="2" marker-end="url(#arr-P073)"/>
+
+  <!-- Row 2: steps 6-9 -->
+  <g font-size="11">
+    <g>
+      <rect x="24" y="248" width="228" height="92" rx="11" fill="#EAEFF4" stroke="#2E4054" stroke-width="1.5"/>
+      <circle cx="46" cy="270" r="11" fill="#2E4054"/><text x="46" y="274" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">6</text>
+      <text x="68" y="274" font-size="12.5" font-weight="700" fill="#2E4054">Confiança</text>
+      <text x="40" y="298" font-size="10" fill="#54595F">Open Trust Evaluation · fail-closed.</text>
+    </g>
+    <line x1="252" y1="294" x2="276" y2="294" stroke="#B98A3E" stroke-width="2" marker-end="url(#arr-P073)"/>
+    <g>
+      <rect x="278" y="248" width="240" height="92" rx="11" fill="#E6F1F0" stroke="#0F766E" stroke-width="1.5"/>
+      <circle cx="300" cy="270" r="11" fill="#0F766E"/><text x="300" y="274" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">7</text>
+      <text x="322" y="274" font-size="12.5" font-weight="700" fill="#115E59">Federação</text>
+      <text x="294" y="298" font-size="10" fill="#0F766E">Avaliação de federação entre pares.</text>
+    </g>
+    <line x1="518" y1="294" x2="542" y2="294" stroke="#B98A3E" stroke-width="2" marker-end="url(#arr-P073)"/>
+    <g>
+      <rect x="544" y="248" width="228" height="92" rx="11" fill="#EAF3EC" stroke="#2E6A4E" stroke-width="1.5"/>
+      <circle cx="566" cy="270" r="11" fill="#2E6A4E"/><text x="566" y="274" text-anchor="middle" font-size="11" font-weight="700" fill="#1D4A34">8</text>
+      <text x="588" y="274" font-size="12.5" font-weight="700" fill="#1D4A34">Evidência</text>
+      <text x="560" y="298" font-size="10" fill="#2E6A4E">Evidence bundle reproduzível.</text>
+    </g>
+    <line x1="772" y1="294" x2="796" y2="294" stroke="#B98A3E" stroke-width="2" marker-end="url(#arr-P073)"/>
+    <g>
+      <rect x="798" y="248" width="218" height="92" rx="11" fill="#FBEFF0" stroke="#8E1326" stroke-width="1.5"/>
+      <circle cx="820" cy="270" r="11" fill="#8E1326"/><text x="820" y="274" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">9</text>
+      <text x="842" y="274" font-size="12.5" font-weight="700" fill="#8E1326">Prontidão</text>
+      <text x="812" y="298" font-size="10" fill="#6B6265">Para certificação — não é credencial.</text>
+    </g>
+  </g>
+
+  <!-- principle band -->
+  <rect x="24" y="372" width="992" height="40" rx="10" fill="#EAEFF4" stroke="#CBD5E0" stroke-width="1"/>
+  <text x="520" y="397" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2E4054">BanzAI guia; os motores Rust verificam; a evidência prova. A participação é demonstrada, não aprovada.</text>
+
+  <text x="520" y="450" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-073 · Jornada do operador guiada pelo BanzAI · BANZA_REFERENCIA.md §9 · ADR-067 · v2.0 · 2026-07-29</text>
+</svg>

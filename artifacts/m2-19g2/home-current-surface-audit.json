@@ -1,0 +1,284 @@
+{
+  "artifact": "home-current-surface-audit",
+  "milestone": "M2.19G.2",
+  "milestone_title": "Home Canonicalization, Reference Route Consolidation & Public Navigation Cleanup",
+  "base_commit": "fffa9f7",
+  "branch": "release/m2-19g2-home-reference-route-canonicalization",
+  "rollback_tag": "rollback-pre-m2-19g2-home-reference-canonicalization",
+  "date": "2026-07-30",
+  "status": "RUNNING (documentation grounded in the working-tree diff; live/deploy facts are PENDING)",
+  "method": "Every 'current_text' below is the PRE-G2 value read from git (HEAD = fffa9f7, the branch base) for the same element; every 'final_text' is the post-G2 value read from the working tree. Element-level treatments: KEEP / REWRITE / DELETE / MERGE / MOVE / DERIVE_FROM_CANONICAL_SOURCE / DERIVE_FROM_LIVE_STATE.",
+  "qa_result_legend": {
+    "PASS_SOURCE": "Verified against the working-tree diff; the element is present/absent/edited exactly as recorded.",
+    "PENDING_DEPLOY": "Requires the deployed build, a rendered browser, public-edge crawl or request-ids; the parent finalizes after deploy."
+  },
+  "elements": [
+    {
+      "element": "header / global navigation",
+      "current_text": "navPrimary = [ /operadores 'Operadores', /banzai 'BanzAI', /o-que-e 'Ler a referência' ]",
+      "source_path": "website/lib/site.ts (navPrimary) rendered by website/components/SiteNav.tsx (chip key 'operadores' -> 'registo'; 'Operadores' -> 'Registo técnico' with a registry/list icon; CTA -> /referencia)",
+      "data_origin": "static route map",
+      "treatment": "REWRITE",
+      "final_text": "navPrimary = [ /registo-tecnico 'Registo técnico', /banzai 'BanzAI', /referencia 'Ler a referência' ]",
+      "notes": "Relabel 'Operadores' -> 'Registo técnico' (retarget /operadores -> /registo-tecnico); retarget 'Ler a referência' from /o-que-e to /referencia (direct, no redirect). Exactly three destinations; one consistent label desktop+mobile.",
+      "qa_result": "PASS_SOURCE; rendered desktop/mobile parity PENDING_DEPLOY"
+    },
+    {
+      "element": "hero eyebrow",
+      "current_text": "PROTOCOLO FINANCEIRO ABERTO · v1.0",
+      "source_path": "website/app/page.tsx (hero pill)",
+      "data_origin": "static copy",
+      "treatment": "KEEP",
+      "final_text": "PROTOCOLO FINANCEIRO ABERTO · v1.0",
+      "notes": "Unchanged.",
+      "qa_result": "PASS_SOURCE"
+    },
+    {
+      "element": "hero title (h1)",
+      "current_text": "Interoperabilidade financeira em Angola, sem reconstruir integrações técnicas bilaterais.",
+      "source_path": "website/app/page.tsx (h1#hero-title)",
+      "data_origin": "static copy",
+      "treatment": "REWRITE",
+      "final_text": "Regras públicas para uma interoperabilidade financeira verificável.",
+      "notes": "h1 gains id='hero-title' and the section is aria-labelledby='hero-title'.",
+      "qa_result": "PASS_SOURCE"
+    },
+    {
+      "element": "hero paragraph",
+      "current_text": "O BANZA define regras públicas, perfis versionados, testes de conformidade, verificação de interoperabilidade e certificação técnica para implementações independentes.",
+      "source_path": "website/app/page.tsx (hero lede paragraph)",
+      "data_origin": "static copy",
+      "treatment": "REWRITE",
+      "final_text": "O BANZA é um protocolo financeiro aberto que permite a operadores publicar implementações e os respectivos endpoints públicos, demonstrar conformidade e verificar interoperabilidade através de perfis versionados e evidência reproduzível.",
+      "notes": "This is the SHORT protocol definition; the full canonical introductory definition lives at /referencia/o-que-e.",
+      "qa_result": "PASS_SOURCE"
+    },
+    {
+      "element": "hero indicators (3)",
+      "current_text": "Regras públicas e verificáveis · Interoperabilidade verificável · Confiança técnica por evidência",
+      "source_path": "website/app/page.tsx (HERO_INDICATORS)",
+      "data_origin": "static copy",
+      "treatment": "REWRITE",
+      "final_text": "Endpoints públicos · Motores Rust determinísticos · Resultados rastreáveis por evidência",
+      "notes": "Exactly 3 indicators; each icon + short label. Rendered as a <ul aria-label='O que o protocolo oferece'>; decorative glyphs marked aria-hidden; separators aria-hidden.",
+      "qa_result": "PASS_SOURCE; contrast/AT reading PENDING_DEPLOY"
+    },
+    {
+      "element": "value-proposition (extra serif line)",
+      "current_text": "Implementar uma vez. Demonstrar conformidade. Verificar interoperabilidade. Certificar tecnicamente. Interoperar através de um perfil comum.",
+      "source_path": "website/app/page.tsx (removed serif <p> under the hero paragraph)",
+      "data_origin": "static copy",
+      "treatment": "DELETE",
+      "final_text": "",
+      "notes": "Removed with no replacement (PROMPT §8/§42 home_value_proposition_extra_blocks=0).",
+      "qa_result": "PASS_SOURCE"
+    },
+    {
+      "element": "manifest-testing form",
+      "current_text": "'TESTAR UM MANIFESTO' island: text input (operator.json or URL), 'TESTAR' button, 'NO BANZAI' link (-> /banzai?q=), five local verdicts + 'Verificação estrutural local — não certifica' disclaimer.",
+      "source_path": "website/components/home/ManifestTester.tsx (imported by website/app/page.tsx)",
+      "data_origin": "client component; local structural check only",
+      "treatment": "DELETE",
+      "final_text": "",
+      "notes": "Component file DELETED and its import removed from the Home. No textarea/URL/paste/upload input remains on the Home (PROMPT §42 home_manifest_forms=0, home_manual_url_inputs=0).",
+      "qa_result": "PASS_SOURCE"
+    },
+    {
+      "element": "hero CTA(s)",
+      "current_text": "No single hero CTA. Primary actions were spread across the ManifestTester ('TESTAR'/'NO BANZAI') and downstream sections (registry CTAs 'Ler a referência' -> /o-que-e, 'Ver operadores' -> /operadores, 'Começar a implementar' -> /banzai; journey CTAs 'Validar uma implementação' -> /banzai?mode=validation&target=operator-zero&workflow=full, 'Ver a arquitectura' -> /arquitectura).",
+      "source_path": "website/app/page.tsx (hero); ManifestTester.tsx",
+      "data_origin": "static links",
+      "treatment": "MERGE",
+      "final_text": "Single hero CTA: 'Validar operador no BanzAI' -> /banzai?mode=validation",
+      "notes": "One primary CTA in the hero; no OZ pre-set/target/workflow/query params (PROMPT §42 home_primary_ctas=1).",
+      "qa_result": "PASS_SOURCE; navigation target 200 PENDING_DEPLOY"
+    },
+    {
+      "element": "hero diagram",
+      "current_text": "'INTEROPERABILIDADE / ILUSTRATIVO' circular diagram with FOUR operator cards (Operador A/B/C/D, each labelled 'OPERADOR'), a 'REGRAS PÚBLICAS' centre, and manifest.json / mensagem / 'signature valid' / 'trust: verified' chips. Caption: 'Diagrama ilustrativo: troca entre operadores por regras e perfis comuns, sem reconstruir integrações técnicas bilaterais entre cada par.'",
+      "source_path": "website/app/page.tsx (right hero card; OperatorCard/flowDots helpers)",
+      "data_origin": "static illustration",
+      "treatment": "REWRITE",
+      "final_text": "'INTEROPERABILIDADE / CONCEPTUAL' diagram with TWO operator≠implementation nodes (PairNode 'Operador A / Implementação A1', 'Operador B / Implementação B1'), a centre 'Perfil BANZA v1.0 / Regras públicas e versionadas', four state chips (manifest verificado, assinatura válida, profile compatível, evidence ligada à origem), and the mandatory legend: 'Diagrama conceptual: implementações independentes verificam identidade, profiles e evidência através de regras públicas comuns. Não representa participantes activos nem pagamentos reais.'",
+      "notes": "Distinguishes operator from implementation; badge 'ILUSTRATIVO' -> 'CONCEPTUAL'; drops the 4-operator ring so it cannot read as an active scheme/network or real payments.",
+      "qa_result": "PASS_SOURCE"
+    },
+    {
+      "element": "institutional phrase",
+      "current_text": "Transparente. Auditável. Aberto a todos. (inline in the hero copy column)",
+      "source_path": "website/app/page.tsx (moved out of the hero copy into a dedicated band)",
+      "data_origin": "static copy",
+      "treatment": "REWRITE + MOVE",
+      "final_text": "Aberto. Auditável. Verificável. (heads the 'Estado público' band, immediately above the status bar)",
+      "notes": "PROMPT §12 replacement; relocated per the §6 band order (institutional phrase + public status).",
+      "qa_result": "PASS_SOURCE"
+    },
+    {
+      "element": "public status bar",
+      "current_text": "PROTOCOLO ACTIVO · v1.0 (pulsing green dot) · última verificação há Ns (decorative counter, +1s, resets at 240s) · 6 nós em pré-produção · 0 certificados emitidos",
+      "source_path": "website/components/home/HeroStatusBar.tsx",
+      "data_origin": "PRE-G2: hardcoded / browser-seeded counter",
+      "treatment": "REWRITE + DERIVE_FROM_LIVE_STATE + DERIVE_FROM_CANONICAL_SOURCE",
+      "final_text": "PROTOCOLO v1.0 · PRÉ-PRODUÇÃO · última verificação pública há X · 1 implementação de referência publicada · 0 certificações técnicas activas",
+      "notes": "Line 1 from protocolStatus.PROTOCOL_VERSION/PROTOCOL_PHASE; line 2 elapsed relative to the REAL build timestamp NEXT_PUBLIC_BANZA_BUILD_TIME (next.config.mjs) rendered client-side; lines 3-4 from REGISTRY_SUMMARY. Forbidden terms removed: 'nós', 'certificados emitidos', 'PROTOCOLO ACTIVO'. (PROMPT §42 home_public_node_counts=0.)",
+      "qa_result": "PASS_SOURCE; rendered elapsed value / real timestamp PENDING_DEPLOY"
+    },
+    {
+      "element": "registry section ('Quem faz parte do protocolo')",
+      "current_text": "Eyebrow 'REGISTO DE OPERADORES · PÚBLICO' (pulsing green dot); title 'Quem faz parte do protocolo'; a horizontal marquee of operator cards; closing line 'Nenhum operador está certificado hoje. O registo é público e consultável sem autenticação — a entrada é verificável, não autorizada.'",
+      "source_path": "website/components/home/OperatorRegistry.tsx",
+      "data_origin": "GET /operators (public, no auth) with a client fallback",
+      "treatment": "REWRITE",
+      "final_text": "Eyebrow 'REGISTO TÉCNICO · PÚBLICO'; title kept 'Quem faz parte do protocolo'; single boundary paragraph: 'O Technical Registry publica operadores, implementações e estados técnicos verificáveis. Nesta secção, \"fazer parte\" significa possuir uma publicação técnica consultável; não significa admissão num scheme, certificação activa ou autorização regulatória.'",
+      "notes": "No marquee; boundary stated once. Appears immediately after the public-status band (PROMPT §6).",
+      "qa_result": "PASS_SOURCE"
+    },
+    {
+      "element": "registry metrics",
+      "current_text": "0 Certificados · 0 Em conformidade · 00 Operadores registados (2-digit zero-padded, includes decorative '00')",
+      "source_path": "website/components/home/OperatorRegistry.tsx",
+      "data_origin": "PRE-G2: opCount zero-padded from registry length",
+      "treatment": "REWRITE + DERIVE_FROM_CANONICAL_SOURCE + DERIVE_FROM_LIVE_STATE",
+      "final_text": "{prodCount} operadores de produção publicados · 1 implementação de referência (accent) · 0 certificações técnicas activas",
+      "notes": "prodCount = live GET /operators length or REGISTRY_SUMMARY.productionOperators (0) fallback; reference implementations + active certifications from REGISTRY_SUMMARY. No 'Certificados' / 'Em conformidade' (unscoped) / 'Operadores registados' (which counted OZ) / decorative '00'. Operador Zero is never counted as a production operator.",
+      "qa_result": "PASS_SOURCE; live /operators value PENDING_DEPLOY"
+    },
+    {
+      "element": "operator cards",
+      "current_text": "Marquee of cards: an Operador Zero card ('implementação de referência (demo, só leitura) · não certificado', level 'KZ_DEMO') plus five empty 'Sem operador / registo vazio' placeholder cards, doubled for the loop.",
+      "source_path": "website/components/home/OperatorRegistry.tsx",
+      "data_origin": "static fallback + empty placeholders",
+      "treatment": "REWRITE",
+      "final_text": "A single Operador Zero card ('Operador Zero' / 'Implementação canónica de referência') exposing operator_id=operator-zero, implementation_id=operator-zero-ref-impl, ambiente=demonstração, superfície=read-only, origem=endpoints públicos, fundos reais=desactivados, certificação=NOT_CERTIFIED, validação=disponível no BanzAI; link -> https://zero.banza.network/. Real production operators (if any) render from GET /operators. If none: 'Nenhuma outra implementação está publicada neste momento.'",
+      "notes": "No empty/placeholder cards, no carousel, no KZ_DEMO-as-primary, no score/PASS. (PROMPT §42 home_empty_operator_cards=0.)",
+      "qa_result": "PASS_SOURCE"
+    },
+    {
+      "element": "registry section CTA(s) + trailing state line",
+      "current_text": "Three trailing CTAs ('Ler a referência' -> /o-que-e, 'Ver operadores' -> /operadores, 'Começar a implementar' -> /banzai) and a centred mono state line 'Especificação pública v1.0 · Rede em pré-produção · Sem evidência de operador indexada'.",
+      "source_path": "website/app/page.tsx (registry section footer)",
+      "data_origin": "static links + copy",
+      "treatment": "MERGE",
+      "final_text": "Single section CTA: 'Consultar o Technical Registry' -> /registo-tecnico. The trailing 'Rede em pré-produção' state line is removed (its facts now live in the honest status bar / registry metrics).",
+      "notes": "Removes 'Rede' terminology and the repeated CTAs.",
+      "qa_result": "PASS_SOURCE"
+    },
+    {
+      "element": "three-layer section ('Três camadas. Uma interface.')",
+      "current_text": "Eyebrow 'ARQUITECTURA · TRÊS CAMADAS'; title kept; intro 'O protocolo, a certificação técnica e o esquema operacional são camadas distintas. O BanzAI atravessa as três como interface única — não é uma quarta camada.'; L1 'BANZA · Protocolo' (body names the registo técnico), L2 'Certificação de Conformidade e Interoperabilidade', L3 'Esquema Operacional'; BanzAI band: 'BanzAI — interface única, transversal ... o Rust decide, encaminha e valida; a explicação é gerada localmente.'",
+      "source_path": "website/app/page.tsx (layers section)",
+      "data_origin": "static copy (grounded in ADR-059..066)",
+      "treatment": "REWRITE",
+      "final_text": "Eyebrow + title kept; intro 'O BANZA separa as regras do protocolo, a certificação técnica e a operação de um scheme. O BanzAI é a interface transversal de consulta e validação; não constitui uma quarta camada.'; L1 body rewritten (perfis/contratos/schemas/identidade/discovery/metadata assinada/trust/revogação/federação; not bank/PSP/wallet/operator; moves no funds); L2 body rewritten (Rust determina os resultados; estados técnicos publicáveis no Technical Registry; não é licença/admissão/autorização); L3 renamed 'Banzami Operational Scheme' (Operadora designada: Banzami; preparação regulatória em curso; pagamentos reais desactivados); BanzAI band rewritten ('Os motores Rust executam e determinam os veredictos; o Qwen apenas explica. O BanzAI não é uma camada nem uma autoridade.').",
+      "notes": "Section is kept and is the last main narrative band; removes 'o Rust encaminha' and stops naming the registry as L1's primary function.",
+      "qa_result": "PASS_SOURCE"
+    },
+    {
+      "element": "validation-journey section ('PERCURSO DE VALIDAÇÃO')",
+      "current_text": "Eyebrow 'PERCURSO DE VALIDAÇÃO'; title 'Da descoberta à prontidão para certificação.'; Discovery -> Manifest -> Keys -> Conformance -> Interoperability -> Trust -> Federation -> Evidence Bundle -> Certification Readiness chips; 'DEPOIS, SE CERTIFICADA:' Certification Record / Technical Registry chips; an explainer paragraph; CTAs 'Validar uma implementação' -> /banzai?mode=validation&target=operator-zero&workflow=full and 'Ver a arquitectura' -> /arquitectura.",
+      "source_path": "website/app/page.tsx (removed section)",
+      "data_origin": "static copy",
+      "treatment": "DELETE",
+      "final_text": "",
+      "notes": "Entire section removed with no summarized replacement; the Home narrative ends after 'Três camadas. Uma interface.' (PROMPT §25/§42 home_validation_journey_sections=0).",
+      "qa_result": "PASS_SOURCE"
+    },
+    {
+      "element": "footer",
+      "current_text": "Four columns (BanzAI / Protocolo / Implementação / Contacto); version line 'Banza · v1.0 · 2026'; boundary lines: 'O BANZA não é banco, PSP, carteira ou operador financeiro.' + 'O BanzAI não certifica, não aprova operadores e não movimenta fundos.'",
+      "source_path": "website/lib/site.ts (footerColumns) + website/components/SiteFooter.tsx",
+      "data_origin": "static route map",
+      "treatment": "REWRITE",
+      "final_text": "Three groups — Protocolo (O que é o BANZA -> /referencia/o-que-e, Arquitectura -> /arquitectura, Referência -> /referencia, Estado -> /estado) · Implementar e validar (Programadores, Technical Registry -> /registo-tecnico, BanzAI, Operador Zero -> zero.banza.network) · Governança (Decisões, Segurança -> /confianca, Licença, GitHub). Version/institutional line -> 'BANZA v1.0 · protocolo financeiro aberto · pré-produção'; added boundary note 'O BANZA não movimenta fundos nem concede autorização regulatória.' (the two prior neutrality lines are kept). Added a GitHub footer icon; footer links use positional React keys.",
+      "notes": "The 'O que é o BANZA' footer link points at the canonical /referencia/o-que-e, not the removed standalone /o-que-e.",
+      "qa_result": "PASS_SOURCE"
+    },
+    {
+      "element": "metadata / canonical / OG / JSON-LD",
+      "current_text": "Home page.tsx exported only { alternates: { canonical: '/' } }; title/description inherited from the root layout template ('%s · BANZA'). OG + JSON-LD live in app/layout.tsx.",
+      "source_path": "website/app/page.tsx (metadata) + website/app/layout.tsx (OG/JSON-LD, unchanged)",
+      "data_origin": "Next.js metadata",
+      "treatment": "REWRITE",
+      "final_text": "metadata = { title: { absolute: 'BANZA — Protocolo financeiro aberto para interoperabilidade verificável' }, description: 'O BANZA define regras públicas, perfis versionados e mecanismos verificáveis para operadores publicarem implementações e demonstrarem conformidade e interoperabilidade.', alternates: { canonical: '/' } }.",
+      "notes": "Home now sets an explicit absolute title (overrides the layout template) + description (PROMPT §32). OG and JSON-LD are inherited from the root layout and were NOT modified by G2. The removed /o-que-e page (which carried canonical '/o-que-e') no longer emits any metadata/canonical/OG/JSON-LD (PROMPT §32/§72).",
+      "qa_result": "PASS_SOURCE; rendered <title>/<link rel=canonical>/OG tags PENDING_DEPLOY"
+    }
+  ],
+  "route_audit": [
+    {
+      "route": "/o-que-e",
+      "before": "Real page website/app/o-que-e/page.tsx (editorial intro, canonical '/o-que-e', in sitemap, in repo-guards Banzami-attribution allowlist).",
+      "after": "DELETED. No page file. No redirect/rewrite/alias whose SOURCE is '/o-que-e' in next.config.mjs. Removed from sitemap. Removed from the engines/banza-repo-guards allowlist. GET /o-que-e is expected to 404.",
+      "qa_result": "PASS_SOURCE (file deletion, sitemap, redirects table, guard allowlist all verified in diff); live GET /o-que-e -> 404 PENDING_DEPLOY"
+    },
+    {
+      "route": "/referencia/o-que-e",
+      "before": "Reference chapter 1 ('1. O Que É o BANZA', BANZA_REFERENCIA.md L97) rendered by app/referencia/[capitulo]/page.tsx; already the canonical definition; already cited by BanzAI grounding.",
+      "after": "The SINGLE canonical introductory definition of BANZA. Now the target of the header/footer 'reference' links (via /referencia and the footer 'O que é o BANZA'), the /porque-existe cross-link, and the retargeted /o-que-e-o-banza + /introduction redirects. Canonical URL: https://banza.network/referencia/o-que-e.",
+      "qa_result": "PASS_SOURCE; live 200 + canonical tag PENDING_DEPLOY"
+    },
+    {
+      "route": "/o-que-e-o-banza (legacy redirect source)",
+      "before": "{ source: '/o-que-e-o-banza', destination: '/o-que-e', permanent: true }",
+      "after": "{ source: '/o-que-e-o-banza', destination: '/referencia/o-que-e', permanent: true }",
+      "qa_result": "PASS_SOURCE; live 308 -> /referencia/o-que-e PENDING_DEPLOY"
+    },
+    {
+      "route": "/introduction (legacy EN redirect source)",
+      "before": "{ source: '/introduction', destination: '/o-que-e', permanent: true }",
+      "after": "{ source: '/introduction', destination: '/referencia/o-que-e', permanent: true }",
+      "qa_result": "PASS_SOURCE; live 308 -> /referencia/o-que-e PENDING_DEPLOY"
+    }
+  ],
+  "final_metrics_targets": {
+    "note": "PROMPT §42 targets. 'source-verified' = confirmed against the working-tree diff; live-surface confirmation is PENDING_DEPLOY.",
+    "home_primary_ctas": {"target": 1, "source_verified": true},
+    "home_manifest_forms": {"target": 0, "source_verified": true},
+    "home_manual_url_inputs": {"target": 0, "source_verified": true},
+    "home_value_proposition_extra_blocks": {"target": 0, "source_verified": true},
+    "home_public_node_counts": {"target": 0, "source_verified": true},
+    "home_operator_zero_production_counts": {"target": 0, "source_verified": true},
+    "home_empty_operator_cards": {"target": 0, "source_verified": true},
+    "home_validation_journey_sections": {"target": 0, "source_verified": true},
+    "home_section_order_failures": {"target": 0, "source_verified": true},
+    "reference_cta_wrong_targets": {"target": 0, "source_verified": true, "caveat": "Shipped nav/footer/page links verified; the test fixtures have been converged to the G2 contract (see outstanding_findings OF-1, resolved)."},
+    "legacy_o_que_e_route_files": {"target": 0, "source_verified": true},
+    "legacy_o_que_e_redirects": {"target": 0, "source_verified": true},
+    "legacy_o_que_e_rewrites": {"target": 0, "source_verified": true},
+    "legacy_o_que_e_internal_links": {"target": 0, "source_verified": true, "caveat": "Shipped pages/components/sitemap clean; test fixtures now assert the /o-que-e route is ABSENT (G2 contract). Only website/README.md's human route inventory still mentions /o-que-e (see outstanding_findings OF-2)."},
+    "legacy_o_que_e_sitemap_entries": {"target": 0, "source_verified": true},
+    "legacy_o_que_e_service_worker_entries": {"target": 0, "source_verified": true, "caveat": "The site ships no service worker; trivially 0."},
+    "canonical_o_que_e_sources": {"target": 1, "source_verified": true, "value": "/referencia/o-que-e"},
+    "duplicated_banza_introductory_definitions": {"target": 0, "source_verified": true, "caveat": "The standalone /o-que-e editorial intro was the duplicate; it is deleted."},
+    "banzai_legacy_o_que_e_sources": {"target": 0, "source_verified": true, "detail": "banzai-evidence ALLOWED_URLS cites /referencia/o-que-e (index.rs:19), never bare /o-que-e; doc-index.json carries 0 records for website/app/o-que-e."},
+    "broken_public_links": {"target": 0, "source_verified": false, "note": "PENDING_DEPLOY (public-edge crawl)"},
+    "accessibility_blockers": {"target": 0, "source_verified": false, "note": "PENDING_DEPLOY (axe/AT pass)"},
+    "mobile_blockers": {"target": 0, "source_verified": false, "note": "PENDING_DEPLOY (375px render)"},
+    "unexpected_public_fallbacks": {"target": 0, "source_verified": false, "note": "PENDING_DEPLOY (public-edge crawl)"}
+  },
+  "outstanding_findings": [
+    {
+      "id": "OF-1",
+      "severity": "resolved",
+      "finding": "The website test fixtures that formerly asserted the PRE-G2 nav/home have been converged to the G2 contract by the implementer, and a dedicated G2 test was added.",
+      "resolution": [
+        "website/lib/m2_15b-global-navigation.test.ts now asserts the header is [/registo-tecnico,/banzai,/referencia] and that navPrimary contains ZERO items with href '/o-que-e'.",
+        "website/lib/m2_16-home.test.ts and website/lib/m2_17-homepage.test.ts updated (m2_17 now asserts the Home does NOT contain href=\"/o-que-e\").",
+        "website/lib/m2_17a-footer-navigation.test.ts asserts the three footer groups [Protocolo, Implementar e validar, Governança].",
+        "website/lib/m2_19g-new-pages.test.ts updated.",
+        "NEW website/lib/m2_19g2-home.test.ts covers §6/§7/§9/§10/§12/§13/§14-19/§20-24/§26/§27/§28/§32, including that app/o-que-e/page.tsx does not exist and the /o-que-e route is unlinked and absent from the sitemap.",
+        "website/components/SiteNav.tsx updated to render 'Registo técnico' (key 'registo') and the /referencia CTA."
+      ],
+      "documentation_scope": "Test/website files were NOT edited by this documentation task; the convergence was performed by the implementer. Recorded here for accuracy.",
+      "impact_on_metrics": "None on the shipped surface; the tests now positively guard the G2 contract."
+    },
+    {
+      "id": "OF-2",
+      "severity": "cosmetic",
+      "finding": "website/README.md line 67 still lists '/o-que-e' in a human top-level route inventory.",
+      "locations": ["website/README.md:67"],
+      "documentation_scope": "OUT OF SCOPE (website file). Flagged for a README sweep.",
+      "impact_on_metrics": "No shipped-link impact; documentation hygiene only."
+    }
+  ]
+}

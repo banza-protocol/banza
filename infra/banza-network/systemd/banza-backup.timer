@@ -1,0 +1,21 @@
+# /etc/systemd/system/banza-backup.timer + banza-backup.service
+# Daily pg_dump; weekly artifacts (run the weekly variant on Sundays).
+# enable: systemctl enable --now banza-backup.timer
+[Unit]
+Description=Daily BANZA encrypted backup
+
+[Timer]
+OnCalendar=*-*-* 03:20:00 UTC
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+
+# ── Companion service: /etc/systemd/system/banza-backup.service ──
+# [Unit]
+# Description=BANZA encrypted backup
+# [Service]
+# Type=oneshot
+# User=banza
+# ExecStart=/srv/banza-protocol/backup/banza-backup.sh daily
+# # Weekly artifacts: a second timer (Sun) calling `banza-backup.sh weekly`.

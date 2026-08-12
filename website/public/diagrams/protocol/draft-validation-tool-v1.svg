@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  id:        SVG-P-097
+  diagram:   Validação em rascunho — JSON local → DRAFT_VALIDATION_RESULT, separado e sem ligação ao Evidence Bundle / Receipts oficiais
+  source:    ADR-068 §4.5 · BANZA_REFERENCIA.md §35 (validação originada nos endpoints, M2.19G.1)
+  version:   1.0
+  updated:   2026-07-30
+  author:    BANZA Protocol
+  style:     protocol-dark
+-->
+<svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-labelledby="title-P097 desc-P097"
+     font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="title-P097">Validação em rascunho, separada da jornada oficial</title>
+  <desc id="desc-P097">Duas zonas separadas. À esquerda, a ferramenta de rascunho local e não-autoritativa do programador: JSON local (colar ou carregar) alimenta uma validação em rascunho que produz um DRAFT_VALIDATION_RESULT. À direita, a jornada oficial originada nos endpoints públicos, cujos artefactos são o Evidence Bundle, os Receipts e o Registo Técnico. Uma barreira entre as duas zonas mostra que o rascunho não liga: um DRAFT_VALIDATION_RESULT é local, nunca é evidência nem receipt e nunca entra na jornada oficial. ADR-068.</desc>
+  <defs>
+    <linearGradient id="hg-P097" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E0F1A"/><stop offset="100%" stop-color="#8E1326"/>
+    </linearGradient>
+    <marker id="arr-P097" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#8C8C95"/>
+    </marker>
+  </defs>
+
+  <rect width="1000" height="500" fill="#0E0E11"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="1000" height="64" fill="url(#hg-P097)" rx="14"/>
+  <rect x="0" y="48" width="1000" height="16" fill="#8E1326"/>
+  <text x="24" y="26" font-family="ui-monospace,'Courier New',monospace" font-size="9" fill="#FECACA" letter-spacing="2">SVG-P-097 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="24" y="50" font-size="18" font-weight="800" fill="#FFFFFF">Validação em rascunho</text>
+  <text x="976" y="50" text-anchor="end" font-size="11" fill="#F6D9DD">local · não-autoritativo · nunca é evidência</text>
+
+  <text x="24" y="94" font-size="11.5" fill="#B6B6BE">Colar e carregar existem só numa ferramenta de rascunho local, separada da jornada oficial.</text>
+
+  <!-- ================= left zone · developer draft ================= -->
+  <rect x="28" y="112" width="452" height="256" rx="12" fill="#141418" stroke="#3A3A44" stroke-width="1.4"/>
+  <text x="44" y="136" font-size="11" font-weight="700" fill="#A2ABB8">Ferramenta de rascunho (local · não-autoritativa)</text>
+
+  <!-- A · JSON local -->
+  <g>
+    <rect x="44" y="156" width="126" height="140" rx="10" fill="#17171B" stroke="#4C5563" stroke-width="1.4"/>
+    <text x="58" y="196" font-size="12" font-weight="800" fill="#A2ABB8">JSON local</text>
+    <text x="58" y="222" font-size="10" fill="#C9C9D0">colar</text>
+    <text x="58" y="240" font-size="10" fill="#C9C9D0">carregar</text>
+    <text x="58" y="266" font-size="8.5" fill="#8C8C95">entrada do</text>
+    <text x="58" y="280" font-size="8.5" fill="#8C8C95">programador</text>
+  </g>
+  <!-- B · Validação em rascunho -->
+  <g>
+    <rect x="186" y="156" width="126" height="140" rx="10" fill="#17171B" stroke="#4C5563" stroke-width="1.4"/>
+    <text x="200" y="190" font-size="12" font-weight="800" fill="#A2ABB8">Validação em</text>
+    <text x="200" y="206" font-size="12" font-weight="800" fill="#A2ABB8">rascunho</text>
+    <text x="200" y="230" font-size="10" fill="#C9C9D0">local</text>
+    <text x="200" y="248" font-size="10" fill="#C9C9D0">não oficial</text>
+    <text x="200" y="274" font-size="8.5" fill="#8C8C95">só apoio ao dev</text>
+  </g>
+  <!-- C · Resultado de rascunho -->
+  <g>
+    <rect x="328" y="156" width="126" height="140" rx="10" fill="#1B1113" stroke="#7A2530" stroke-width="1.4"/>
+    <text x="342" y="190" font-size="11.5" font-weight="800" fill="#E8909D">Resultado de</text>
+    <text x="342" y="206" font-size="11.5" font-weight="800" fill="#E8909D">rascunho</text>
+    <text x="342" y="234" font-size="9" font-family="ui-monospace,'Courier New',monospace" fill="#C9C9D0">DRAFT_VALIDATION_</text>
+    <text x="342" y="248" font-size="9" font-family="ui-monospace,'Courier New',monospace" fill="#C9C9D0">RESULT</text>
+    <text x="342" y="274" font-size="8.5" fill="#8C8C95">não é evidência</text>
+  </g>
+
+  <!-- draft internal arrows -->
+  <line x1="170" y1="226" x2="184" y2="226" stroke="#8C8C95" stroke-width="1.8" marker-end="url(#arr-P097)"/>
+  <line x1="312" y1="226" x2="326" y2="226" stroke="#8C8C95" stroke-width="1.8" marker-end="url(#arr-P097)"/>
+
+  <text x="254" y="340" text-anchor="middle" font-size="9.5" fill="#8C8C95">não-autoritativo · nunca é evidência</text>
+
+  <!-- ================= barrier · not connected ================= -->
+  <line x1="514" y1="140" x2="514" y2="342" stroke="#5A1A22" stroke-width="1.6" stroke-dasharray="5 5"/>
+  <line x1="456" y1="226" x2="494" y2="226" stroke="#5A1A22" stroke-width="1.6" stroke-dasharray="4 4"/>
+  <circle cx="514" cy="226" r="16" fill="#1B1113" stroke="#8E1326" stroke-width="1.6"/>
+  <line x1="507" y1="219" x2="521" y2="233" stroke="#E8909D" stroke-width="2"/>
+  <line x1="521" y1="219" x2="507" y2="233" stroke="#E8909D" stroke-width="2"/>
+  <rect x="486" y="256" width="56" height="18" rx="9" fill="#1B1113" stroke="#5A1A22" stroke-width="1"/>
+  <text x="514" y="268.5" text-anchor="middle" font-size="9" font-weight="700" fill="#E8909D">não liga</text>
+
+  <!-- ================= right zone · official journey ================= -->
+  <rect x="548" y="112" width="424" height="256" rx="12" fill="#101314" stroke="#2E4A47" stroke-width="1.4"/>
+  <text x="564" y="136" font-size="11" font-weight="700" fill="#57C6BC">Jornada oficial (endpoints públicos)</text>
+
+  <!-- Evidence Bundle -->
+  <g>
+    <rect x="564" y="156" width="392" height="56" rx="10" fill="#1E1810" stroke="#B98A3E" stroke-width="1.4"/>
+    <text x="582" y="182" font-size="12.5" font-weight="800" fill="#E7C67E">Evidence Bundle</text>
+    <text x="582" y="200" font-size="9.5" fill="#B6B6BE">reproduzível · por verificação</text>
+    <text x="940" y="190" text-anchor="end" font-size="9" fill="#8C8C95">oficial</text>
+  </g>
+  <!-- Receipts -->
+  <g>
+    <rect x="564" y="224" width="392" height="56" rx="10" fill="#0F1D1C" stroke="#0F766E" stroke-width="1.4"/>
+    <text x="582" y="250" font-size="12.5" font-weight="800" fill="#57C6BC">Receipts</text>
+    <text x="582" y="268" font-size="9.5" fill="#B6B6BE">OperationReceipt · JourneyReceipt · ligam ao endpoint</text>
+  </g>
+  <!-- Registo Técnico -->
+  <g>
+    <rect x="564" y="292" width="392" height="56" rx="10" fill="#0F1D1C" stroke="#0F766E" stroke-width="1.4"/>
+    <text x="582" y="318" font-size="12.5" font-weight="800" fill="#57C6BC">Registo Técnico</text>
+    <text x="582" y="336" font-size="9.5" fill="#B6B6BE">publica o estado verificável por pares</text>
+  </g>
+  <!-- official internal arrows -->
+  <line x1="760" y1="212" x2="760" y2="222" stroke="#8C8C95" stroke-width="1.8" marker-end="url(#arr-P097)"/>
+  <line x1="760" y1="280" x2="760" y2="290" stroke="#8C8C95" stroke-width="1.8" marker-end="url(#arr-P097)"/>
+
+  <!-- boundary band -->
+  <rect x="28" y="382" width="944" height="88" rx="10" fill="#1B1113" stroke="#5A1A22" stroke-width="1.2"/>
+  <text x="44" y="408" font-size="11.5" font-weight="700" fill="#E8909D">O rascunho é local e não-autoritativo — nunca é evidência nem receipt.</text>
+  <text x="44" y="430" font-size="10.5" fill="#B6B6BE">Colar e carregar existem só na ferramenta de rascunho do programador, separada da jornada oficial.</text>
+  <text x="44" y="450" font-size="10.5" fill="#B6B6BE">Um DRAFT_VALIDATION_RESULT não liga ao Evidence Bundle nem aos Receipts oficiais (ADR-068 §4.5).</text>
+
+  <text x="500" y="486" text-anchor="middle" font-size="9" fill="#7C7C85">SVG-P-097 · Validação em rascunho · ADR-068 §35 · v1.0 · 2026-07-30</text>
+</svg>

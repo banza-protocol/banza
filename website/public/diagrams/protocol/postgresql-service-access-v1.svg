@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  id:        SVG-P-078
+  diagram:   Acesso de serviços ao PostgreSQL do BANZA (privilégio mínimo)
+  version:   1.0
+  source:    BANZA_REFERENCIA.md §5 PostgreSQL — Estado Protocolar
+  updated:   2026-07-19
+  author:    BANZA Protocol
+  style:     protocol
+-->
+<svg viewBox="0 0 900 404" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title-P078 desc-P078" font-family="system-ui,-apple-system,sans-serif">
+  <title id="title-P078">Acesso de serviços ao PostgreSQL do BANZA por privilégio mínimo</title>
+  <desc id="desc-P078">Três papéis segregados acedem à base, todos sem privilégios de superutilizador. O papel banza_ro serve rotas públicas apenas de leitura. O papel banza_gov faz escritas governadas e auditadas em confiança e registo. O papel banzai_rw só escreve o índice de documentos do agente e lê os artefactos públicos para os explicar — nunca escreve confiança, registo nem certificados. A base corre numa rede Docker interna, sem exposição ao host nem à Internet.</desc>
+  <defs>
+    <linearGradient id="hg-P078" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E0F1A"></stop><stop offset="100%" stop-color="#8E1326"></stop>
+    </linearGradient>
+  </defs>
+
+  <rect width="900" height="378" fill="#F4F1EA" rx="16"></rect>
+
+  <rect x="0" y="0" width="900" height="64" fill="url(#hg-P078)" rx="16"></rect>
+  <rect x="0" y="48" width="900" height="16" fill="#8E1326"></rect>
+  <text x="36" y="28" font-family="ui-monospace,'Courier New',monospace" font-size="9.5" fill="#EAD2D6" letter-spacing="2">SVG-P-078 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="36" y="50" font-size="17" font-weight="800" fill="white">Acesso por privilégio mínimo</text>
+  <text x="864" y="50" text-anchor="end" font-size="10.5" fill="#EAD2D6">Rede Docker interna · sem porta pública</text>
+
+  <!-- banza_ro -->
+  <rect x="40" y="94" width="264" height="196" fill="white" rx="12" stroke="#E5E7EB" stroke-width="1.5"></rect>
+  <rect x="40" y="94" width="264" height="34" fill="#15803D" rx="12"></rect>
+  <rect x="40" y="116" width="264" height="12" fill="#15803D"></rect>
+  <text x="172" y="116" text-anchor="middle" font-family="ui-monospace,'Courier New',monospace" font-size="12.5" font-weight="700" fill="white">banza_ro</text>
+  <text x="60" y="152" font-size="9" font-weight="700" fill="#166534" letter-spacing="1">verification-api</text>
+  <g font-size="10.5" fill="#374151">
+    <text x="60" y="176">SELECT apenas</text>
+    <text x="60" y="198">serve rotas públicas:</text>
+    <text x="60" y="218">/operators (Registo Técnico)</text>
+    <text x="60" y="238">/conformance/evidence</text>
+    <text x="60" y="258">/.well-known/banza/{root,key-manifest}.json</text>
+  </g>
+  <text x="172" y="280" text-anchor="middle" font-size="10.5" font-weight="700" fill="#15803D">Só leitura</text>
+
+  <!-- banza_gov -->
+  <rect x="318" y="94" width="264" height="196" fill="white" rx="12" stroke="#E5E7EB" stroke-width="1.5"></rect>
+  <rect x="318" y="94" width="264" height="34" fill="#7F1D1D" rx="12"></rect>
+  <rect x="318" y="116" width="264" height="12" fill="#7F1D1D"></rect>
+  <text x="450" y="116" text-anchor="middle" font-family="ui-monospace,'Courier New',monospace" font-size="12.5" font-weight="700" fill="white">banza_gov</text>
+  <text x="338" y="152" font-size="9" font-weight="700" fill="#B91C1C" letter-spacing="1">governança</text>
+  <g font-size="10.5" fill="#374151">
+    <text x="338" y="176">SELECT / INSERT / UPDATE</text>
+    <text x="338" y="198">em confiança e registo</text>
+    <text x="338" y="218">escreve protocol_audit</text>
+    <text x="338" y="238">escritas auditadas</text>
+    <text x="338" y="258">nunca chaves privadas</text>
+  </g>
+  <text x="450" y="280" text-anchor="middle" font-size="10.5" font-weight="700" fill="#8E1326">Escritas governadas</text>
+
+  <!-- banzai_rw -->
+  <rect x="596" y="94" width="264" height="196" fill="white" rx="12" stroke="#E5E7EB" stroke-width="1.5"></rect>
+  <rect x="596" y="94" width="264" height="34" fill="#1E3A8A" rx="12"></rect>
+  <rect x="596" y="116" width="264" height="12" fill="#1E3A8A"></rect>
+  <text x="728" y="116" text-anchor="middle" font-family="ui-monospace,'Courier New',monospace" font-size="12.5" font-weight="700" fill="white">banzai_rw</text>
+  <text x="616" y="152" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">banzai-api (agente)</text>
+  <g font-size="10.5" fill="#374151">
+    <text x="616" y="176">RW só no índice do agente:</text>
+    <text x="616" y="198">banzai_document · banzai_chunk</text>
+    <text x="616" y="218">banzai_answer_cache</text>
+    <text x="616" y="238">lê artefactos para explicar</text>
+    <text x="616" y="258">nunca escreve confiança/registo</text>
+  </g>
+  <text x="728" y="280" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1E40AF">Só o índice</text>
+
+  <text x="450" y="320" text-anchor="middle" font-size="10.5" fill="#6B7280">Nenhum papel de serviço é superutilizador. O BanzAI explica; não define. A base nunca é publicada no host nem na Internet.</text>
+  <text x="450" y="369" text-anchor="middle" font-size="9" fill="#9CA3AF" font-family="ui-monospace,'Courier New',monospace">SVG-P-078 · Acesso de serviços ao PostgreSQL · BANZA_REFERENCIA.md §5 · v1.0 · 2026-07-19</text>
+</svg>

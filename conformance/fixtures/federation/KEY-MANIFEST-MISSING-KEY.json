@@ -1,0 +1,13 @@
+{
+  "schema_version": "1",
+  "published_at": "<ISSUED_NOW>",
+  "keys": [
+    {
+      "key_id": "test-banza-key-2026-05",
+      "public_key": "ed25519:<test-banza-root-public-key-base64url>",
+      "active_since": "2026-05-01T00:00:00Z",
+      "status": "active"
+    }
+  ],
+  "signature": "<ed25519-base64url-signed-by-pinned-root-key>"
+}

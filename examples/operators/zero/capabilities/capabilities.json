@@ -1,0 +1,29 @@
+{
+  "demo_only": true,
+  "monetary_value": false,
+  "production_allowed": false,
+  "operator_id": "operator-zero",
+  "operator_display_name": "Operador Zero",
+  "implementation_id": "operator-zero-ref-impl",
+  "artifact_type": "capabilities",
+  "currency": "KZ_DEMO",
+  "protocol_version": "1.0.0",
+  "environment": "sandbox",
+  "profile": "L0",
+  "supported_levels": ["L0"],
+  "capabilities": {
+    "supports_wallets": true,
+    "supports_qr": true,
+    "supports_payments": true,
+    "supports_refunds": true,
+    "supports_settlement_simulation": true,
+    "supports_reconciliation": true
+  },
+  "capability_list": [
+    "qr_payment_demo",
+    "refund_demo",
+    "reconciliation_demo",
+    "settlement_simulation_demo"
+  ],
+  "note": "Matriz de capacidades declaradas pela implementação de referência. Artefacto demonstrativo. Não certifica, não aprova e não movimenta dinheiro real."
+}

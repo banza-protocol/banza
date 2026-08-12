@@ -1,0 +1,86 @@
+# Local AI/tooling
+.claude/
+.cursor/
+.vscode/
+.idea/
+
+# Python/cache
+.pytest_cache/
+__pycache__/
+*.pyc
+.pyre/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+.venv/
+.coverage
+coverage.xml
+
+# Node/dependencies/build
+node_modules/
+.next/
+dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# App-specific generated files
+website/node_modules/
+website/.next/
+website/out/
+website/tsconfig.tsbuildinfo
+
+# Env/secrets
+.env
+.env.*
+!.env.example
+*.p8
+*.p12
+*-service-account.json
+*-firebase-adminsdk-*.json
+google-services.json
+GoogleService-Info.plist
+
+# OS
+.DS_Store
+Thumbs.db
+Thumbs.db:encryptable
+
+# Non-protocol implementation directories — belong in separate repositories.
+# Anchored to the repo root so they do not also match protocol content nested
+# under docs/ (e.g. spec/, docs/reference/) or conformance/ (conformance/sdk/).
+/core/
+/reference/
+/sdk/
+/sdk-certification/
+/integrations/
+/docker/
+scripts/
+
+# Temp/cache
+tmp/
+.cache/
+
+# BANZA infra/banza-network — runtime, secrets & generated (never commit).
+# (.env is already covered above; .env.example stays tracked. Schema .sql stays tracked.)
+infra/banza-network/nginx/certs/
+infra/banza-network/postgres/data/
+infra/banza-network/backups/
+infra/banza-network/logs/
+infra/banza-network/**/*.pem
+# ADR-044: local inference model volume — GGUF files NEVER enter Git.
+infra/banza-network/models/
+*.gguf
+infra/banza-network/**/*.key
+infra/banza-network/**/*.age
+infra/banza-network/**/*.sql.dump
+
+# Rust engine build artifacts (ADR-037)
+engines/*/target/
+**/target/
+artifacts/banza-wp1-1/
+
+# Whitepaper: the canonical published PDFs live in docs/whitepaper/pdf/ and website/public/whitepaper/.
+# Any PDF compiled next to the .tex source (docs/whitepaper/latex/*.pdf) is a local convenience build,
+# never canonical — ignore it so a stale copy can't be committed. (Vector figures in latex/figures/ stay tracked.)
+docs/whitepaper/latex/*.pdf

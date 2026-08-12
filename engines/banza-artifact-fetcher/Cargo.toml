@@ -1,0 +1,36 @@
+[package]
+name = "banza-artifact-fetcher"
+version = "0.1.0"
+edition = "2021"
+description = "banza-artifact-fetcher (ADR-037, ADR-068 §4.7/§19; M2.19G.1): the ONLY BANZA component that reaches operator public endpoints. SSRF-hardened Rust library + internal HTTP service that performs ALL official artifact retrieval for BanzAI's endpoint-originated operator-validation journey. HTTPS-only, registry-supplied host+port, full IPv4/IPv6 blocklist (private/loopback/link-local/unique-local/CGNAT/cloud-metadata/reserved), zero redirects, hard size cap, decompression-bomb guard, TLS validation, media-type allowlist, per-fetch audit. The no-network protocol engines stay no-network; they receive already-fetched content."
+license = "Apache-2.0"
+
+[lib]
+name = "banza_artifact_fetcher"
+path = "src/lib.rs"
+
+[[bin]]
+name = "banza-fetcher"
+path = "src/bin/server.rs"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+# TLS via rustls with the pure-Rust `ring` provider (rustls-tls -> webpki-roots + __rustls-ring):
+# no aws-lc-sys, no OpenSSL, no C toolchain in CI/distroless. `chunk()` streaming needs no extra
+# feature. `default-features = false` also drops `system-proxy` so no ambient proxy can route
+# around the SSRF policy; the client additionally sets `.no_proxy()`.
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "http2"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "time"] }
+axum = "0.7"
+url = "2"
+sha2 = "0.10"
+time = { version = "0.3", features = ["formatting"] }
+
+[dev-dependencies]
+# Deterministic tests only: a hand-rolled loopback mock speaks minimal HTTP/1.1 (and a raw TLS
+# alert for the tls-invalid case) over tokio TcpListener. No real external network.
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "time", "io-util"] }
+
+[profile.release]
+opt-level = 2

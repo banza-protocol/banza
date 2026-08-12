@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" width="760" height="420" font-family="'Courier New', Courier, monospace">
+  <rect width="760" height="420" fill="#0f0f0f"/>
+
+  <text x="380" y="30" fill="#e8d5b7" font-size="14" text-anchor="middle" font-weight="bold" letter-spacing="1">Settlement Lifecycle</text>
+  <text x="380" y="48" fill="#555" font-size="10" text-anchor="middle">POST /settlement/batches → batch unsettled receipts → simulated disbursement</text>
+
+  <!-- Flow stages -->
+  <!-- 1: POST -->
+  <rect x="40" y="66" width="680" height="48" rx="4" fill="#141414" stroke="#2a2a2a"/>
+  <rect x="40" y="66" width="4" height="48" rx="2" fill="#e8d5b7"/>
+  <text x="60" y="86" fill="#e8d5b7" font-size="9" font-weight="bold" letter-spacing="0.8">REQUEST</text>
+  <text x="60" y="102" fill="#aaa" font-size="10">POST /settlement/batches  { wallet_id: "sandbox-merchant-1" }</text>
+
+  <line x1="380" y1="114" x2="380" y2="128" stroke="#333" stroke-width="1"/>
+  <polygon points="376,128 380,134 384,128" fill="#333"/>
+
+  <!-- 2: Validation -->
+  <rect x="40" y="134" width="680" height="48" rx="4" fill="#141414" stroke="#2a2a2a"/>
+  <rect x="40" y="134" width="4" height="48" rx="2" fill="#ffc107"/>
+  <text x="60" y="154" fill="#ffc107" font-size="9" font-weight="bold" letter-spacing="0.8">VALIDATION</text>
+  <text x="60" y="170" fill="#aaa" font-size="10">wallet exists? · unsettled inbound transfers exist?  →  422 if empty</text>
+
+  <line x1="380" y1="182" x2="380" y2="196" stroke="#333" stroke-width="1"/>
+  <polygon points="376,196 380,202 384,196" fill="#333"/>
+
+  <!-- 3: Batch computation -->
+  <rect x="40" y="202" width="680" height="70" rx="4" fill="#141414" stroke="#2a2a2a"/>
+  <rect x="40" y="202" width="4" height="70" rx="2" fill="#26c6da"/>
+  <text x="60" y="222" fill="#26c6da" font-size="9" font-weight="bold" letter-spacing="0.8">BATCH COMPUTATION</text>
+  <text x="60" y="240" fill="#aaa" font-size="10">gross_minor  = SUM(unsettled inbound transfer amounts)</text>
+  <text x="60" y="256" fill="#aaa" font-size="10">fee_minor    = MAX(gross_minor / 100, 100)  ← 1% simulated platform fee, minimum 1.00 AOA</text>
+  <text x="60" y="272" fill="#aaa" font-size="10">net_minor    = gross_minor − fee_minor</text>
+
+  <line x1="380" y1="272" x2="380" y2="286" stroke="#333" stroke-width="1"/>
+  <polygon points="376,286 380,292 384,286" fill="#333"/>
+
+  <!-- 4: Settlement + events -->
+  <rect x="40" y="292" width="680" height="64" rx="4" fill="#0f1015" stroke="#1a1a2e"/>
+  <rect x="40" y="292" width="4" height="64" rx="2" fill="#26c6da"/>
+  <text x="60" y="312" fill="#26c6da" font-size="9" font-weight="bold" letter-spacing="0.8">SETTLEMENT EXECUTED  (sandbox: always succeeds instantly)</text>
+  <text x="60" y="328" fill="#aaa" font-size="10">provider_ref: "SBX-SETTLE-{uuid}"  ·  completed_at: now</text>
+  <text x="60" y="346" fill="#26c6da" font-size="9">emit → settlement.created · settlement.completed</text>
+
+  <line x1="380" y1="356" x2="380" y2="368" stroke="#333" stroke-width="1"/>
+  <polygon points="376,368 380,374 384,368" fill="#333"/>
+
+  <!-- 5: Response -->
+  <rect x="40" y="374" width="680" height="34" rx="4" fill="#141414" stroke="#2a2a2a"/>
+  <rect x="40" y="374" width="4" height="34" rx="2" fill="#e8d5b7"/>
+  <text x="60" y="391" fill="#e8d5b7" font-size="9" font-weight="bold">RESPONSE</text>
+  <text x="140" y="391" fill="#aaa" font-size="9">SandboxSettlementBatch { id, trace_id, gross_minor, fee_minor, net_minor, provider_ref, status: completed }</text>
+</svg>

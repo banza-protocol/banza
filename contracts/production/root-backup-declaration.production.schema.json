@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/root-backup-declaration.production.schema.json",
+  "title": "RootBackupDeclarationProduction",
+  "description": "A custodian's public declaration of how their single BANZA root private key is backed up under the 2-of-3 custody model. Declarative and public: it asserts that the backup is encrypted, that the passphrase is stored off-device (separately from the encrypted backup), that the backup medium is a USB device, and that NO plaintext private key exists. This declaration carries NO secret content — no private key, no seed, no passphrase value ever appears; only the boolean assertions do. A declaration with plaintext_private_key:true, or missing encrypted backup, is a backup gap and yields M2_ROOT_CEREMONY_BLOCKED_BY_BACKUP_GAP. Status is computed in Rust by engines/banza-root-ceremony :: validate_root_ceremony, never in TypeScript.",
+  "_spec_version": "1.0",
+  "_status": "production-baseline",
+  "_authority": "Root Trust Ceremony (2-of-3 offline custody, docs/governance PKI trust model)",
+  "_boundary": "Root trust for the BANZA open financial protocol. The root does NOT authorise payment services, does NOT create operators, does NOT issue licences, does NOT move/settle/hold funds, and does NOT replace operator regulatory authorisation. BANZA remains an open financial protocol; PSPs/banks/authorised operators are separate entities that implement it.",
+
+  "type": "object",
+  "required": ["custodian", "key_id", "encrypted_backup", "passphrase_stored_off_device", "backup_medium", "plaintext_private_key"],
+  "additionalProperties": false,
+
+  "properties": {
+    "custodian": { "type": "string", "enum": ["A", "B", "C"], "description": "The declaring custodian." },
+    "key_id": { "type": "string", "description": "The single root key id this backup protects (e.g. 'root-key-A')." },
+    "encrypted_backup": { "const": true, "description": "The backup of the root private key is encrypted. False/absent is a backup gap (M2_ROOT_CEREMONY_BLOCKED_BY_BACKUP_GAP)." },
+    "passphrase_stored_off_device": { "const": true, "description": "The decryption passphrase is stored off-device, separately from the encrypted backup. The passphrase VALUE never appears in any artifact." },
+    "backup_medium": { "type": "string", "const": "usb", "description": "Offline backup medium. A USB device kept in secure custody." },
+    "plaintext_private_key": { "const": false, "description": "No plaintext private key exists anywhere. True is FORBIDDEN and makes the ceremony INVALID (M2_ROOT_CEREMONY_INVALID_FORBIDDEN_PRIVATE_KEY_MATERIAL)." }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "banza-evidence-bundle",
+  "description": "banza-evidence-bundle (BX1.5): assembles the technical evidence bundle a candidate operator prepares before a real BANZA CA review. It gathers the SimB pre-review, Conformidade L0, Trace and Trust & BRL reports, computes readiness (SimB PASS + L0 PASS) and SHA-256 integrity hashes IN RUST, and emits a JSON bundle. It NEVER certifies, approves, adds an operator, or issues a certificate — the bundle is technical evidence, not a certificate.",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "files": [
+    "banza_evidence_bundle_bg.wasm",
+    "banza_evidence_bundle.js",
+    "banza_evidence_bundle.d.ts"
+  ],
+  "main": "banza_evidence_bundle.js",
+  "types": "banza_evidence_bundle.d.ts"
+}

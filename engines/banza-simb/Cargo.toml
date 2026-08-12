@@ -1,0 +1,28 @@
+[package]
+name = "banza-simb"
+version = "0.1.0"
+edition = "2021"
+description = "banza-simb (ADR-037, R8): a local, deterministic, in-process Rust simulator of a BANZA operator and federation peer. Test-only: no real funds, no network, no Postgres, no secrets, no production. Drives the Rust conformance runner without a live operator."
+license = "Apache-2.0"
+
+[lib]
+name = "banza_simb"
+crate-type = ["cdylib", "rlib"]
+path = "src/lib.rs"
+
+[[bin]]
+name = "banza-simb"
+path = "src/bin/cli.rs"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+wasm-bindgen = { version = "0.2", optional = true }
+
+[features]
+# Enabled only for the standalone `wasm-pack build --features wasm`. Kept OFF when banza-simb is a
+# transitive dependency (e.g. of banza-conformance) so its WASM exports never leak into another bundle.
+wasm = ["dep:wasm-bindgen"]
+
+[profile.release]
+opt-level = 2

@@ -1,0 +1,193 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/conformance/report-schema.json",
+  "title": "BANZA Conformance Report",
+  "description": "Canonical format for conformance test results produced by the BANZA conformance runner.",
+  "type": "object",
+
+  "required": ["report_id", "generated_at", "runner_version", "operator_url", "protocol_version", "certification_level_achieved", "summary", "suites"],
+
+  "properties": {
+    "report_id": {
+      "type": "string",
+      "description": "Unique report identifier, e.g. rpt-2026-05-28T10:00:00Z-sandbox."
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the report was generated."
+    },
+    "runner_version": {
+      "type": "string",
+      "description": "Version of the conformance runner that produced this report."
+    },
+    "operator_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Base URL of the operator under test."
+    },
+    "operator_id": {
+      "type": ["string", "null"],
+      "description": "operator_id declared in the operator manifest, if available."
+    },
+    "protocol_version": {
+      "type": "string",
+      "description": "BANZA protocol version being tested against."
+    },
+    "suite_version": {
+      "type": "string",
+      "description": "Version of the conformance suite (vectors + runner) this report was produced against."
+    },
+    "certification_level_achieved": {
+      "type": "integer",
+      "minimum": -1,
+      "maximum": 4,
+      "description": "The highest certification level fully passed. -1 if no level passed. 0–4 per the canonical certification model (docs/governance/certification-boundary.md). Note: the sandbox runner awards at most L3; L4 (External Interoperability) is profile-defined."
+    },
+    "certification_level_name": {
+      "type": "string",
+      "description": "Canonical name of the achieved level (Protocol Sandbox, Core Payment Capability, Payment Initiation Capability, Inter-Operator Interoperability, External Interoperability, or None)."
+    },
+    "evidence": {
+      "$ref": "#/$defs/Evidence",
+      "description": "Provenance metadata. A report alone is NOT a certification; certification requires recorded provenance per docs/governance/certification-boundary.md."
+    },
+    "summary": {
+      "$ref": "#/$defs/Summary"
+    },
+    "suites": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/SuiteResult" },
+      "description": "Results for each conformance suite executed."
+    },
+    "invariant_results": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/InvariantResult" },
+      "description": "Results of financial invariant checks."
+    },
+    "errors": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Top-level runner errors (connectivity failures, auth errors, etc.)."
+    }
+  },
+
+  "$defs": {
+    "Evidence": {
+      "type": "object",
+      "description": "Provenance and environment metadata for the report. Required for any certification claim; the runner output alone is not a certification.",
+      "properties": {
+        "suite_version": { "type": "string", "description": "Conformance suite version." },
+        "suite_commit": { "type": ["string", "null"], "description": "Git commit of the suite that produced this report, if recorded." },
+        "protocol_version": { "type": "string", "description": "BANZA protocol version targeted." },
+        "simulated": { "type": ["boolean", "null"], "description": "Whether the operator under test declared simulated=true (sandbox). A simulated run cannot ground a production certification claim." },
+        "note": { "type": "string", "description": "Human-readable provenance note / certification caveat." }
+      }
+    },
+
+    "Summary": {
+      "type": "object",
+      "required": ["total", "passed", "failed", "skipped", "duration_ms"],
+      "properties": {
+        "total": { "type": "integer", "minimum": 0 },
+        "passed": { "type": "integer", "minimum": 0 },
+        "failed": { "type": "integer", "minimum": 0 },
+        "skipped": { "type": "integer", "minimum": 0 },
+        "duration_ms": { "type": "integer", "minimum": 0 }
+      }
+    },
+
+    "SuiteResult": {
+      "type": "object",
+      "required": ["suite_id", "suite_name", "certification_level", "passed", "failed", "skipped", "cases"],
+      "properties": {
+        "suite_id": { "type": "string" },
+        "suite_name": { "type": "string" },
+        "certification_level": { "type": "integer", "minimum": 0, "maximum": 4 },
+        "certification_level_name": { "type": "string", "description": "Canonical name of the suite's level." },
+        "passed": { "type": "integer" },
+        "failed": { "type": "integer" },
+        "skipped": { "type": "integer" },
+        "cases": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/CaseResult" }
+        }
+      }
+    },
+
+    "CaseResult": {
+      "type": "object",
+      "required": ["id", "title", "status"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Vector or case ID, e.g. TRF-001, QR-002, EVT-004."
+        },
+        "title": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["PASS", "FAIL", "SKIP", "ERROR"]
+        },
+        "duration_ms": { "type": "integer", "minimum": 0 },
+        "request": {
+          "type": ["object", "null"],
+          "description": "The HTTP request sent, for debugging.",
+          "properties": {
+            "method": { "type": "string" },
+            "path": { "type": "string" },
+            "body": {}
+          }
+        },
+        "response": {
+          "type": ["object", "null"],
+          "description": "The HTTP response received.",
+          "properties": {
+            "status": { "type": "integer" },
+            "body": {}
+          }
+        },
+        "failure_reason": {
+          "type": ["string", "null"],
+          "description": "Human-readable explanation of what failed and why."
+        },
+        "assertions": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/AssertionResult" }
+        }
+      }
+    },
+
+    "AssertionResult": {
+      "type": "object",
+      "required": ["assertion", "passed"],
+      "properties": {
+        "assertion": {
+          "type": "string",
+          "description": "What was checked, e.g. 'status == 200', 'response.id starts with txfr-'."
+        },
+        "passed": { "type": "boolean" },
+        "expected": { "description": "Expected value." },
+        "actual": { "description": "Actual value observed." }
+      }
+    },
+
+    "InvariantResult": {
+      "type": "object",
+      "required": ["invariant_id", "name", "status"],
+      "properties": {
+        "invariant_id": {
+          "type": "string",
+          "description": "e.g. INV-LEDGER-001, INV-STL-001"
+        },
+        "name": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["PASS", "FAIL", "NOT_RUN"]
+        },
+        "details": {
+          "type": ["string", "null"]
+        }
+      }
+    }
+  }
+}

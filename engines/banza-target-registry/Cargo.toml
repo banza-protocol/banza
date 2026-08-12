@@ -1,0 +1,23 @@
+[package]
+name = "banza-target-registry"
+version = "0.1.0"
+edition = "2021"
+description = "banza-target-registry (M2.19G.1, ADR-068): the CLOSED Technical Registry domain model + resolution/eligibility logic for endpoint-originated operator validation. It resolves operator_id -> implementation_id -> canonical_origin -> discovery over a closed set, decides eligibility (published/revoked/origin/compat/environment) in Rust, and aggregates Certification Readiness (READY/BLOCKED — never CERTIFIED). Presence in the registry never implies admission, authorisation, or the ability to move funds."
+license = "Apache-2.0"
+
+[lib]
+name = "banza_target_registry"
+crate-type = ["cdylib", "rlib"]
+path = "src/lib.rs"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"                 # default Map = BTreeMap (sorted keys) -> canonical JSON
+wasm-bindgen = { version = "0.2", optional = true }
+
+[features]
+# Enabled only for the standalone `wasm-pack build --features wasm`; keeps the WASM exports leak-free.
+wasm = ["dep:wasm-bindgen"]
+
+[profile.release]
+opt-level = 2

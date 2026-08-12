@@ -1,0 +1,24 @@
+[package]
+name = "banza-l4-readiness"
+version = "0.1.0"
+edition = "2021"
+description = "banza-l4-readiness (BX1.10): local, no-network preparation of the L4 external-interoperability surface. It reads the Operator Manifest, SimB pre-review, Conformidade L0, L1, L2 and L3 readiness reports, and validates the minimum BANZA external-interoperability artifacts a candidate must have structured before a later technical review — an external interoperability profile, protocol version negotiation, an endpoint contract map, a capability matrix, a request/response envelope, an error mapping, trust & BRL material and an interop evidence reference — computing the L4 readiness status IN RUST. L4 readiness is preparation of external interoperability — NOT active external integration, NOT production, NOT certification, NOT approval, NOT a licence; it does not create an operator, does not move funds, and does not make BANZA a payment service provider."
+license = "Apache-2.0"
+
+[lib]
+name = "banza_l4_readiness"
+crate-type = ["cdylib", "rlib"]
+path = "src/lib.rs"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"                 # default Map = BTreeMap (sorted keys) → canonical JSON for hashing
+sha2 = "0.10"
+wasm-bindgen = { version = "0.2", optional = true }
+
+[features]
+# Enabled only for the standalone `wasm-pack build --features wasm`; keeps the WASM exports leak-free.
+wasm = ["dep:wasm-bindgen"]
+
+[profile.release]
+opt-level = 2

@@ -1,0 +1,90 @@
+{
+  "runner": "banza-conformance-rs",
+  "runner_version": "0.1.0",
+  "protocol_version": "1.0.0",
+  "level": "fed-simb",
+  "mode": "federation-simb",
+  "totals": {
+    "total": 7,
+    "pass": 7,
+    "fail": 0,
+    "skip": 0,
+    "error": 0
+  },
+  "outcomes": [
+    {
+      "case_id": "FED-TRUST",
+      "status": "pass",
+      "reason": "peer signed protocol metadata verifies (banza-trust)",
+      "evidence": [],
+      "duration_ms": 0,
+      "error_code": null,
+      "invariant_results": []
+    },
+    {
+      "case_id": "FED-SIGNATURE",
+      "status": "pass",
+      "reason": "tampered signed metadata rejected (fail-closed)",
+      "evidence": [],
+      "duration_ms": 0,
+      "error_code": null,
+      "invariant_results": []
+    },
+    {
+      "case_id": "FED-REVOCATION",
+      "status": "pass",
+      "reason": "revoked peer rejected (fail-closed)",
+      "evidence": [],
+      "duration_ms": 0,
+      "error_code": null,
+      "invariant_results": []
+    },
+    {
+      "case_id": "FED-ROUTE",
+      "status": "pass",
+      "reason": "federated route accepted (atomic debit + obligation)",
+      "evidence": [],
+      "duration_ms": 0,
+      "error_code": null,
+      "invariant_results": []
+    },
+    {
+      "case_id": "FED-ROUTE-IDEMPOTENT",
+      "status": "pass",
+      "reason": "route replay is idempotent",
+      "evidence": [],
+      "duration_ms": 0,
+      "error_code": null,
+      "invariant_results": []
+    },
+    {
+      "case_id": "FED-NETTING",
+      "status": "pass",
+      "reason": "INV-RECON: net position == obligations",
+      "evidence": [],
+      "duration_ms": 0,
+      "error_code": null,
+      "invariant_results": []
+    },
+    {
+      "case_id": "FED-INVARIANTS",
+      "status": "pass",
+      "reason": "INV-FEDEVAL-005 fail-closed applied via banza-trust",
+      "evidence": [],
+      "duration_ms": 0,
+      "error_code": null,
+      "invariant_results": [
+        {
+          "id": "INV-FEDEVAL-005",
+          "status": "pass",
+          "expected": "fail-closed",
+          "actual": "fail-closed",
+          "reason": "revoked/unverifiable rejected"
+        }
+      ]
+    }
+  ],
+  "machine_readable": true,
+  "certification_disclaimer": "PASS is technical conformance evidence, not production certification. Production certification requires the offline root-key ceremony and the first published production conformance evidence; no implementation holds production certification and no production certificate is active.",
+  "not_yet_ported": []
+}

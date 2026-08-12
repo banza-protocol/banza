@@ -1,0 +1,470 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   BANZA website — base + reusable design-system classes.
+   Handoff §2/§3: "norma técnica clara" + bordô. Light paper base,
+   hairline rules, mono eyebrows, hairline tables, terminal code.
+   ============================================================ */
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: #f4f1ea;
+    color: #16191e;
+    font-family: var(--font-sans), "Public Sans", system-ui, sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+    letter-spacing: -0.015em;
+    line-height: 1.1;
+  }
+  a {
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  }
+  :focus-visible {
+    outline: 2px solid #8e1326;
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* Section rhythm — handoff §2.3 */
+  .section {
+    padding-block: clamp(48px, 7vw, 110px);
+  }
+  .section-tight {
+    padding-block: clamp(36px, 5vw, 72px);
+  }
+  .wrap {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: clamp(16px, 4vw, 40px);
+  }
+
+  /* Mono eyebrow — "§n" / "0n /" numbered labels */
+  .eyebrow {
+    font-family: var(--font-mono), monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #8a8275;
+  }
+
+  /* Display + serif headings */
+  .h-display {
+    font-family: var(--font-display), serif;
+    font-weight: 600;
+    font-size: clamp(34px, 4.6vw, 56px);
+    line-height: 1.04;
+    color: #16191e;
+  }
+  .h-section {
+    font-family: var(--font-serif), serif;
+    font-weight: 600;
+    font-size: clamp(22px, 3vw, 42px);
+    color: #16191e;
+  }
+  .h-card {
+    font-family: var(--font-serif), serif;
+    font-weight: 600;
+    color: #16191e;
+  }
+
+  /* Lede / body copy */
+  .lede {
+    font-size: clamp(15px, 1.7vw, 19px);
+    line-height: 1.6;
+    color: #54595f;
+  }
+  .prose-body {
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: #3a3f45;
+  }
+
+  /* Cards & panels */
+  .card-hair {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 3px;
+  }
+  .panel {
+    background: #fbf8f2;
+    border: 1px solid #e7dfd0;
+    border-radius: 16px;
+  }
+
+  /* Pre-production status chips */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--font-mono), monospace;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    padding: 4px 8px;
+    border-radius: 2px;
+    color: #3a3f45;
+  }
+  .chip-pend {
+    border-color: rgba(154, 107, 30, 0.4);
+    color: #94701f;
+  }
+  .chip-neg {
+    border-color: rgba(142, 19, 38, 0.45);
+    color: #a33547;
+  }
+  .chip-ok {
+    border-color: rgba(46, 106, 78, 0.4);
+    color: #2e6a4e;
+  }
+
+  /* Hairline tables — handoff §3 */
+  .table-hair {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .table-hair th,
+  .table-hair td {
+    text-align: left;
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    vertical-align: top;
+  }
+  .table-hair th {
+    font-family: var(--font-mono), monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #8a8275;
+    font-weight: 500;
+  }
+  .table-hair td {
+    color: #3a3f45;
+  }
+
+  /* Terminal / code block */
+  .terminal {
+    background: #14110f;
+    color: #f6e9dd;
+    border-radius: 4px;
+    font-family: var(--font-mono), monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    padding: 18px 20px;
+    overflow-x: auto;
+  }
+
+  /* Primary CTA */
+  .btn-bordo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #8e1326;
+    color: #fff;
+    font-weight: 600;
+    font-size: 13.5px;
+    padding: 10px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+  }
+  .btn-bordo:hover {
+    background: #7a0f20;
+  }
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #d8d0c0;
+    color: #16191e;
+    font-weight: 600;
+    font-size: 13.5px;
+    padding: 9px 17px;
+    border-radius: 6px;
+    background: #fff;
+    text-decoration: none;
+  }
+  .link-bordo {
+    color: #8e1326;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .link-bordo:hover {
+    color: #7a0f20;
+  }
+
+  /* Poster band hero (bordô) — used by content-page heroes */
+  .band {
+    position: relative;
+    background: #8e1326;
+    color: #f8f0e2;
+    overflow: hidden;
+  }
+  .band::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 34px 34px;
+    -webkit-mask-image: radial-gradient(circle at 70% 30%, #000, transparent 75%);
+    mask-image: radial-gradient(circle at 70% 30%, #000, transparent 75%);
+    pointer-events: none;
+  }
+  .band-eyebrow {
+    font-family: var(--font-mono), monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #f2c9bd;
+  }
+}
+
+/* Reveal-on-scroll — visible by default, degrades without JS (handoff §2.5) */
+[data-reveal] {
+  opacity: 1;
+}
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s cubic-bezier(0.2, 0.6, 0.2, 1),
+    transform 0.7s cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  * {
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================
+   Reference reader (/referencia) — institutional document typography.
+   react-markdown output styled here; no raw HTML is rendered.
+   ============================================================ */
+.reference-body {
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: #3a3f45;
+}
+.reference-body > :first-child {
+  margin-top: 0;
+}
+.reference-body h1 {
+  font-family: var(--font-serif), serif;
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 600;
+  color: #16191e;
+  margin: 0 0 18px;
+}
+.reference-body h2 {
+  font-family: var(--font-serif), serif;
+  font-size: clamp(21px, 2.6vw, 28px);
+  font-weight: 600;
+  color: #16191e;
+  margin: 56px 0 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(0, 0, 0, 0.09);
+  scroll-margin-top: 84px;
+}
+.reference-body h3 {
+  font-family: var(--font-serif), serif;
+  font-size: clamp(17px, 1.9vw, 20px);
+  font-weight: 600;
+  color: #16191e;
+  margin: 34px 0 12px;
+  scroll-margin-top: 84px;
+}
+.reference-body h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #16191e;
+  margin: 24px 0 8px;
+}
+.reference-body p {
+  margin: 0 0 16px;
+}
+.reference-body a {
+  color: #8e1326;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(142, 19, 38, 0.25);
+}
+.reference-body a:hover {
+  border-bottom-color: #8e1326;
+}
+.reference-body strong {
+  color: #16191e;
+  font-weight: 600;
+}
+.reference-body ul,
+.reference-body ol {
+  margin: 0 0 16px;
+  padding-left: 22px;
+}
+.reference-body li {
+  margin: 4px 0;
+}
+.reference-body blockquote {
+  margin: 0 0 18px;
+  padding: 14px 18px;
+  border-left: 3px solid #8e1326;
+  background: #fbeff0;
+  border-radius: 0 3px 3px 0;
+  color: #5a4a2e;
+}
+.reference-body blockquote p {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.65;
+}
+.reference-body code {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.86em;
+  background: #efeadf;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  border-radius: 3px;
+  padding: 1px 5px;
+  color: #16191e;
+}
+.reference-body pre {
+  background: #14110f;
+  color: #f6e9dd;
+  border-radius: 4px;
+  padding: 16px 18px;
+  overflow-x: auto;
+  margin: 0 0 18px;
+}
+.reference-body pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.reference-body hr {
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  margin: 32px 0;
+}
+.reference-body .table-scroll {
+  overflow-x: auto;
+  margin: 0 0 18px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+}
+.reference-body table {
+  width: 100%;
+  min-width: 520px;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+.reference-body th,
+.reference-body td {
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  vertical-align: top;
+}
+.reference-body thead th {
+  background: #efeadf;
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #6b6358;
+  font-weight: 500;
+}
+
+/* Home v2 (dossier-home-v2 · Home.dc.html <style>) — keyframes, animation selectors, hover states and
+   responsive. The prototype runtime is replaced by the site stack; the markup/styles/animations are the
+   dossier's, verbatim. The nav keeps a mobile hamburger (the dossier nav is desktop-only); the hero
+   collapses per the dossier breakpoints (1279px → 900px); the footer reflows below 820px. */
+@keyframes banzaGlow { 0%, 100% { opacity: .55; } 50% { opacity: .9; } }
+@keyframes banzaMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes flowX { 0% { left: 0%; opacity: 0; } 12% { opacity: 1; } 88% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
+@keyframes flowY { 0% { top: 0%; opacity: 0; } 12% { opacity: 1; } 88% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
+@keyframes heroRise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes heroLine { from { opacity: 0; transform: translateY(105%); } to { opacity: 1; transform: none; } }
+[data-rise] { animation: heroRise .9s cubic-bezier(.2, .7, .2, 1) both; }
+[data-line] { display: block; animation: heroLine 1s cubic-bezier(.2, .75, .15, 1) both; }
+[data-marquee]:hover { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  [data-marquee] { animation: none !important; }
+  [data-rise], [data-line] { animation: none !important; opacity: 1 !important; transform: none !important; }
+}
+/* Hover states ported from the dossier's style-hover attributes. */
+.home-op-card { transition: border-color .18s ease, transform .18s ease, box-shadow .18s ease; }
+.home-op-card:hover { border-color: #C8A96F; transform: translateY(-2px); box-shadow: 0 16px 32px -22px rgba(94, 12, 24, 0.35); }
+.home-mf-test { transition: background .15s ease, border-color .15s ease; }
+.home-mf-test:hover { background: #F7EEDD; border-color: #C8A96F; }
+.home-mf-banzai { transition: color .15s ease, border-color .15s ease; }
+.home-mf-banzai:hover { color: #8B1428; border-color: #C8A96F; }
+
+.site-nav-desktop { display: flex; }
+.site-nav-toggle { display: none; }
+@media (max-width: 1279px) {
+  [data-hero-grid] { grid-template-columns: minmax(0, 1fr) minmax(320px, 0.8fr) !important; gap: clamp(20px, 3vw, 40px) !important; min-height: 0 !important; }
+}
+@media (max-width: 900px) {
+  [data-hero-grid] { grid-template-columns: minmax(0, 1fr) !important; gap: 28px !important; }
+  [data-hero-copy] { max-width: 640px !important; padding-right: 0 !important; }
+}
+@media (max-width: 820px) {
+  .site-nav-desktop { display: none !important; }
+  .site-nav-toggle { display: inline-flex !important; }
+  .footer-top { grid-template-columns: 1fr !important; }
+  .footer-divider { display: none !important; }
+  .footer-cols { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .footer-bottom { flex-wrap: wrap !important; }
+  .footer-bottom-right { flex-wrap: wrap !important; }
+}
+@media (max-width: 480px) {
+  .footer-cols { grid-template-columns: 1fr !important; }
+}
+
+/* M2.17 — homepage final audit & premium polish. A single, consistent keyboard focus ring across the
+   public journey (0-specificity :where so any component's own focus style still wins), and coherent
+   hover/press states for the three-tier global nav family (referencia = primary fill · banzai =
+   secondary outline chip · operadores = tertiary ghost). No new libraries; interaction states only. */
+:where(a, button, textarea, [tabindex]):focus-visible {
+  outline: 2px solid #8E1326;
+  outline-offset: 2px;
+}
+.site-nav-item {
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, filter 0.15s ease;
+}
+.site-nav-item:not(.site-nav-cta):hover {
+  background: #fbf3e3;
+  border-color: #d3b98a;
+  color: #8e1326;
+}
+.site-nav-cta:hover {
+  filter: brightness(0.94);
+}
+.site-nav-item:active {
+  transform: translateY(0.5px);
+}

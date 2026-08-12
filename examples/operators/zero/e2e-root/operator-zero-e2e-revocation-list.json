@@ -1,0 +1,17 @@
+{
+  "artifact_type": "revocation_list",
+  "demo_only": true,
+  "monetary_value": false,
+  "not_protocol_trust_root": true,
+  "operator_display_name": "Operador Zero",
+  "operator_id": "operator-zero",
+  "production_allowed": false,
+  "revoked": [
+    {
+      "key_id": "oz-e2e-revoked-demo-1",
+      "reason": "demonstração de fail-closed do E2E",
+      "revoked_at": "2026-07-22T00:00:00Z"
+    }
+  ],
+  "root_type": "demo_operator_root"
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "record_id": "rec-bad-001",
+  "implementation_id": "operator-a-impl",
+  "implementation_hash": "sha256:artifact-a",
+  "profile_id": "banza-l2-core",
+  "profile_version": "1.0.0",
+  "protocol_version": "1.0.0",
+  "environment": "sandbox",
+  "status": "AUTHORISED",
+  "reason_code": "OK_CONFORMANT_INTEROPERABLE",
+  "scope_levels": ["L2"],
+  "scope_capabilities": ["payments"],
+  "conformance_report_hash": "sha256:conf-ev",
+  "interoperability_report_hash": "sha256:interop-ev",
+  "issued_at": 1800000000,
+  "expires_at": 1831536000,
+  "record_hash": "sha256:whatever",
+  "regulatory_authorisation": true,
+  "licence": "granted"
+}

@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 640" role="img" aria-labelledby="t d" font-family="Georgia, 'Times New Roman', serif">
+  <title id="t">BanzAI — interpretação de intenção antes da recuperação (M2.18B)</title>
+  <desc id="d">A pergunta segue por um percurso determinístico rápido para identificadores exactos e fronteiras; a linguagem natural é interpretada pelo Qwen num contrato de intenção validado, cujas entidades são confirmadas pelos resolvers Rust antes de qualquer recuperação documental ampla. Recuperação, síntese e validação final pertencem a fases seguintes.</desc>
+  <rect x="0" y="0" width="1040" height="640" fill="#FCFAF5"/>
+  <rect x="0" y="0" width="1040" height="56" fill="#8E1326"/>
+  <text x="28" y="35" fill="#FCFAF5" font-size="20" font-weight="bold">BanzAI · Interpretação de intenção antes da recuperação — M2.18B</text>
+
+  <!-- palette helpers via inline styles; strokes 1.5 -->
+  <g fill="none" stroke="#8E1326" stroke-width="2">
+    <marker id="arw" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#8E1326" stroke="none"/>
+    </marker>
+  </g>
+
+  <!-- Pergunta -->
+  <rect x="40" y="92" width="180" height="52" rx="10" fill="#FBEFF0" stroke="#8E1326" stroke-width="1.5"/>
+  <text x="130" y="124" text-anchor="middle" fill="#16191E" font-size="16" font-weight="bold">Pergunta humana</text>
+
+  <!-- Fast-path -->
+  <rect x="40" y="196" width="300" height="120" rx="12" fill="#F4EFE4" stroke="#9A6B1E" stroke-width="1.5"/>
+  <text x="60" y="222" fill="#5A4A2E" font-size="14" font-weight="bold">Percurso determinístico (rápido)</text>
+  <text x="60" y="246" fill="#3A3F45" font-size="13">· identificador exacto (ADR-002, RFC 14)</text>
+  <text x="60" y="268" fill="#3A3F45" font-size="13">· fronteira (publicar / mover fundos / chave)</text>
+  <text x="60" y="290" fill="#3A3F45" font-size="13">· artefacto inequívoco</text>
+  <text x="60" y="308" fill="#8A8275" font-size="12">Sem Qwen. Resolver Rust. Comportamento da Fase 1.</text>
+
+  <!-- Qwen interpretation -->
+  <rect x="400" y="92" width="260" height="86" rx="12" fill="#FBEFF0" stroke="#8E1326" stroke-width="1.5"/>
+  <text x="530" y="124" text-anchor="middle" fill="#16191E" font-size="16" font-weight="bold">Qwen — interpretação</text>
+  <text x="530" y="150" text-anchor="middle" fill="#3A3F45" font-size="13">compreende; NÃO responde</text>
+  <text x="530" y="168" text-anchor="middle" fill="#8A8275" font-size="12">linguagem natural, follow-ups</text>
+
+  <!-- IntentEnvelope -->
+  <rect x="400" y="212" width="260" height="70" rx="12" fill="#FFFFFF" stroke="#8E1326" stroke-width="1.5"/>
+  <text x="530" y="240" text-anchor="middle" fill="#16191E" font-size="15" font-weight="bold">IntentEnvelope v1</text>
+  <text x="530" y="262" text-anchor="middle" fill="#3A3F45" font-size="13">intenção · entidades · confiança</text>
+
+  <!-- Validation -->
+  <rect x="400" y="316" width="260" height="60" rx="12" fill="#FFFFFF" stroke="#8E1326" stroke-width="1.5"/>
+  <text x="530" y="343" text-anchor="middle" fill="#16191E" font-size="15" font-weight="bold">Validação do contrato (Rust)</text>
+  <text x="530" y="363" text-anchor="middle" fill="#8A8275" font-size="12">enums · coerência · uma reparação · fallback</text>
+
+  <!-- Resolver -->
+  <rect x="400" y="410" width="260" height="66" rx="12" fill="#FBEFF0" stroke="#8E1326" stroke-width="1.5"/>
+  <text x="530" y="438" text-anchor="middle" fill="#16191E" font-size="15" font-weight="bold">Resolver Rust — confirma</text>
+  <text x="530" y="460" text-anchor="middle" fill="#3A3F45" font-size="13">o Qwen propõe; o Rust confirma</text>
+
+  <!-- Outcomes -->
+  <g font-size="13">
+    <rect x="720" y="96" width="280" height="34" rx="8" fill="#FFFFFF" stroke="#9A6B1E" stroke-width="1.3"/>
+    <text x="736" y="118" fill="#3A3F45">entidade confirmada → recuperação orientada</text>
+    <rect x="720" y="146" width="280" height="34" rx="8" fill="#FFFFFF" stroke="#9A6B1E" stroke-width="1.3"/>
+    <text x="736" y="168" fill="#3A3F45">candidatos → pedido de esclarecimento</text>
+    <rect x="720" y="196" width="280" height="34" rx="8" fill="#FFFFFF" stroke="#9A6B1E" stroke-width="1.3"/>
+    <text x="736" y="218" fill="#3A3F45">fora de âmbito → explica o âmbito</text>
+    <rect x="720" y="246" width="280" height="34" rx="8" fill="#FFFFFF" stroke="#9A6B1E" stroke-width="1.3"/>
+    <text x="736" y="268" fill="#3A3F45">fronteira → recusa segura, sem recuperação</text>
+  </g>
+
+  <!-- later phases (marked) -->
+  <rect x="720" y="330" width="280" height="150" rx="12" fill="#EFEAdf" stroke="#B8AE99" stroke-width="1.3" stroke-dasharray="6 4"/>
+  <text x="736" y="356" fill="#6B6358" font-size="13" font-weight="bold">Fases seguintes (desenhadas, não activas)</text>
+  <text x="736" y="380" fill="#8A8275" font-size="12">· recuperação + reranker (Fase 1, activa)</text>
+  <text x="736" y="402" fill="#8A8275" font-size="12">· Qwen — síntese fundamentada (M2.18C)</text>
+  <text x="736" y="424" fill="#8A8275" font-size="12">· validador factual final (M2.18C)</text>
+  <text x="736" y="446" fill="#8A8275" font-size="12">· estado conversacional (M2.18D)</text>
+  <text x="736" y="468" fill="#8A8275" font-size="12">· avaliação + human eval (M2.18)</text>
+
+  <!-- arrows -->
+  <g stroke="#8E1326" stroke-width="1.8" fill="none" marker-end="url(#arw)">
+    <path d="M130,144 L130,196"/>
+    <path d="M220,118 L400,126"/>
+    <path d="M530,178 L530,212"/>
+    <path d="M530,282 L530,316"/>
+    <path d="M530,376 L530,410"/>
+    <path d="M660,435 C700,435 700,113 720,113"/>
+    <path d="M660,443 C702,443 700,163 720,163"/>
+    <path d="M660,451 C704,451 700,213 720,213"/>
+    <path d="M660,459 C706,459 700,263 720,263"/>
+  </g>
+
+  <!-- legend -->
+  <rect x="40" y="560" width="960" height="52" rx="10" fill="#FBF3E3" stroke="#9A6B1E" stroke-width="1.3"/>
+  <text x="60" y="583" fill="#5A4A2E" font-size="15" font-weight="bold">O Qwen interpreta; o Rust confirma; cada resposta fica observável (M2.18B.1).</text>
+  <text x="60" y="602" fill="#3A3F45" font-size="12">Nenhuma recuperação documental ampla começa antes de existir uma intenção estruturada válida. Não certifica, não aprova operadores e não movimenta fundos.</text>
+</svg>

@@ -1,0 +1,103 @@
+{
+  "before_profile": {
+    "facts": 8,
+    "fact_chars": 400,
+    "output_budget_tokens": 640,
+    "entry_budget_tokens": 220
+  },
+  "after_profile": {
+    "facts": 3,
+    "fact_chars": 260,
+    "output_budget_tokens": 256,
+    "entry_budget_tokens": 160
+  },
+  "output_budget_reduction_pct": "60.0",
+  "entry_budget_reduction_pct": "27.3",
+  "avg_prompt_chars_before": 2494,
+  "avg_prompt_chars_after": 1870,
+  "avg_prompt_chars_reduction_pct": "25.0",
+  "avg_facts_before": "4.3",
+  "avg_facts_after": "2.6",
+  "rows": [
+    {
+      "q": "o que decidiu a ADR-002?",
+      "entity": "ADR-002",
+      "before_facts": 5,
+      "after_facts": 3,
+      "before_prompt_chars": 2855,
+      "after_prompt_chars": 2029,
+      "before_prompt_tok": 714,
+      "after_prompt_tok": 508
+    },
+    {
+      "q": "o que diz a ADR-006 sobre dupla entrada?",
+      "entity": "ADR-006",
+      "before_facts": 5,
+      "after_facts": 3,
+      "before_prompt_chars": 2641,
+      "after_prompt_chars": 1884,
+      "before_prompt_tok": 661,
+      "after_prompt_tok": 471
+    },
+    {
+      "q": "qual é a política da ADR-037?",
+      "entity": "ADR-037",
+      "before_facts": 4,
+      "after_facts": 3,
+      "before_prompt_chars": 2272,
+      "after_prompt_chars": 1883,
+      "before_prompt_tok": 568,
+      "after_prompt_tok": 471
+    },
+    {
+      "q": "o que define a ADR-053?",
+      "entity": "ADR-053",
+      "before_facts": 5,
+      "after_facts": 3,
+      "before_prompt_chars": 2815,
+      "after_prompt_chars": 2028,
+      "before_prompt_tok": 704,
+      "after_prompt_tok": 507
+    },
+    {
+      "q": "qual o papel do BanzAI segundo a ADR-054?",
+      "entity": "ADR-054",
+      "before_facts": 5,
+      "after_facts": 3,
+      "before_prompt_chars": 2799,
+      "after_prompt_chars": 2045,
+      "before_prompt_tok": 700,
+      "after_prompt_tok": 512
+    },
+    {
+      "q": "o que especifica a ADR-012?",
+      "entity": "ADR-012",
+      "before_facts": 5,
+      "after_facts": 3,
+      "before_prompt_chars": 2582,
+      "after_prompt_chars": 1855,
+      "before_prompt_tok": 646,
+      "after_prompt_tok": 464
+    },
+    {
+      "q": "qual o estado da ADR-044?",
+      "entity": "ADR-044",
+      "before_facts": 5,
+      "after_facts": 3,
+      "before_prompt_chars": 2810,
+      "after_prompt_chars": 2035,
+      "before_prompt_tok": 703,
+      "after_prompt_tok": 509
+    },
+    {
+      "q": "o que é a dupla entrada no ledger?",
+      "entity": "(concept)",
+      "before_facts": 0,
+      "after_facts": 0,
+      "before_prompt_chars": 1178,
+      "after_prompt_chars": 1199,
+      "before_prompt_tok": 295,
+      "after_prompt_tok": 300
+    }
+  ]
+}

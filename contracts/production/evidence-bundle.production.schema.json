@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/evidence-bundle.production.schema.json",
+  "title": "EvidenceBundleProduction",
+  "description": "Production evidence bundle reference. Binds together the hashed artifacts and status references (readiness, assurance, deep-assurance, M2 protocol-gate) that a candidate operator publishes as verifiable conformance evidence. An evidence bundle is a package of reproducible, independently checkable inputs; it is NOT a certificate and by itself grants nothing. The M2 protocol-gate status is computed by the Rust engine (engines/banza-m2-protocol-gate :: validate_m2_protocol_gate), never in TypeScript. Publishing a bundle does not activate an operator, does not process payments, and does not move funds. BANZA is an open protocol.",
+  "_spec_version": "1.0",
+  "_status": "production-baseline",
+  "_authority": "Production Protocol Implementation; docs/security/ASSURANCE_READINESS",
+  "_boundary": "Production of the BANZA protocol, not financial production. BANZA is an open protocol; it does not process payments, settle value, or move funds. Licence/authorisation belongs to the operator, not to BANZA.",
+
+  "type": "object",
+  "required": ["bundle_id", "protocol_version", "hashes", "artifacts", "status_refs", "boundary_flags"],
+  "additionalProperties": false,
+
+  "properties": {
+    "bundle_id":        { "type": "string", "description": "Unique evidence bundle id. Immutable." },
+    "protocol_version": { "type": "string", "description": "BANZA protocol version the bundle targets (e.g. '1.0.0')." },
+    "hashes": {
+      "type": "object",
+      "description": "Content hashes over the bundle and its manifest for tamper-evidence.",
+      "required": ["algorithm", "bundle_digest"],
+      "additionalProperties": false,
+      "properties": {
+        "algorithm":     { "type": "string", "enum": ["sha-256"] },
+        "bundle_digest": { "type": "string", "description": "Digest over the canonical bundle bytes." },
+        "manifest_digest": { "type": ["string", "null"], "description": "Digest over the artifact manifest." }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "description": "Enumerated artifacts included in the bundle, each with its own digest.",
+      "items": {
+        "type": "object",
+        "required": ["name", "digest"],
+        "additionalProperties": false,
+        "properties": {
+          "name":   { "type": "string", "description": "Artifact name/path within the bundle." },
+          "digest": { "type": "string", "description": "sha-256 digest of the artifact." },
+          "kind":   { "type": ["string", "null"], "description": "Artifact kind (e.g. 'conformance-report', 'key-manifest', 'operator-manifest')." }
+        }
+      }
+    },
+    "status_refs": {
+      "type": "object",
+      "description": "References to the status reports the bundle depends on. Status values are computed by their respective Rust engines.",
+      "required": ["m2_gate_status"],
+      "additionalProperties": false,
+      "properties": {
+        "readiness_ref":       { "type": ["string", "null"], "description": "Reference to the readiness status report." },
+        "assurance_ref":       { "type": ["string", "null"], "description": "Reference to the assurance status report." },
+        "deep_assurance_ref":  { "type": ["string", "null"], "description": "Reference to the deep-assurance status report." },
+        "m2_gate_status":      { "type": "string", "enum": ["M2_PROTOCOL_IMPLEMENTATION_READY", "M2_BLOCKED_BY_MISSING_CONTRACTS", "M2_BLOCKED_BY_GOVERNANCE_GAP", "M2_BLOCKED_BY_TRUST_PATH_GAP", "M2_BLOCKED_BY_OPERATOR_ADMISSION_GAP", "M2_BLOCKED_BY_ASSURANCE_GAP", "M2_INVALID_FORBIDDEN_ACTIVATION", "M2_INVALID_REGULATORY_BOUNDARY"], "description": "M2 protocol-gate status computed by engines/banza-m2-protocol-gate :: validate_m2_protocol_gate (Rust). Never computed in TypeScript." }
+      }
+    },
+    "boundary_flags": {
+      "type": "object",
+      "description": "Machine-readable boundary assertions.",
+      "required": ["not_a_certificate", "requires_conformance_evidence_review"],
+      "additionalProperties": false,
+      "properties": {
+        "not_a_certificate":        { "type": "boolean", "const": true, "description": "An evidence bundle is not a certificate." },
+        "requires_conformance_evidence_review": { "type": "boolean", "const": true, "description": "The bundle is a package of verifiable inputs; its conformance evidence is reproducible and independently checkable by any party, and grants nothing on its own. No human authority approves it." }
+      }
+    }
+  }
+}

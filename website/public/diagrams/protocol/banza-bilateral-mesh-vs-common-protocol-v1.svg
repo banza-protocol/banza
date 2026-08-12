@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  id:        SVG-P-102
+  diagram:   Integração bilateral e protocolo comum — relações que crescem n(n−1)/2 vs implementações que crescem n
+  version:   1.0
+  source:    BANZA_REFERENCIA.md §2 (Por Que o BANZA Existe — Integrações bilaterais / Infraestruturas partilhadas)
+  updated:   2026-08-08
+  changes:   v1.0 — new canonical figure for chapter 02; institutionally neutral (Operador A–E, no named entities);
+             counts technical relations (left) vs independent implementations (right) — deliberately different quantities
+  author:    BANZA Protocol
+  style:     protocol
+-->
+<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-labelledby="title-P102 desc-P102"
+     font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="title-P102">Integração bilateral e protocolo comum</title>
+  <desc id="desc-P102">Comparação de dois padrões de crescimento. À esquerda, um modelo de integração bilateral com cinco operadores independentes (A a E) ligados par a par: cada par acorda a sua própria integração técnica, o que dá dez relações técnicas distintas — para n operadores, n(n−1)/2 relações. À direita, um protocolo comum: os mesmos cinco operadores implementam, cada um de forma independente, o mesmo conjunto de regras públicas (contratos, perfis, invariantes, evidência), o que dá cinco implementações — para n operadores, n implementações. As duas grandezas são diferentes: à esquerda contam-se relações técnicas entre pares; à direita, implementações independentes das mesmas regras. Um protocolo comum não é uma plataforma única nem um operador central, e não elimina as relações comerciais, de liquidação, de esquema ou regulatórias entre operadores.</desc>
+  <defs>
+    <linearGradient id="hg-P102" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E0F1A"/><stop offset="100%" stop-color="#8E1326"/>
+    </linearGradient>
+    <marker id="arrG-P102" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#B98A3E"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="600" fill="#F4F1EA"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="900" height="64" fill="url(#hg-P102)" rx="14"/>
+  <rect x="0" y="48" width="900" height="16" fill="#8E1326"/>
+  <text x="24" y="26" font-family="ui-monospace,'Courier New',monospace" font-size="9" fill="#FECACA" letter-spacing="2">SVG-P-102 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="24" y="50" font-size="18" font-weight="800" fill="white">Integração bilateral e protocolo comum</text>
+  <text x="876" y="50" text-anchor="end" font-size="11" fill="#FECACA">relações que crescem n(n−1)/2 · implementações que crescem n</text>
+
+  <!-- vertical divider -->
+  <line x1="450" y1="86" x2="450" y2="452" stroke="#E2D9CC" stroke-width="1.5"/>
+
+  <!-- ─────────── LEFT panel: bilateral ─────────── -->
+  <text x="40" y="94" font-family="ui-monospace,'Courier New',monospace" font-size="9" font-weight="700" fill="#6B7280" letter-spacing="1.5">MODELO BILATERAL</text>
+  <text x="40" y="116" font-size="14" font-weight="800" fill="#3A1014">Integração par a par</text>
+  <text x="40" y="134" font-size="10.5" fill="#6B6265">cada par acorda a sua própria integração técnica</text>
+
+  <!-- edges: 10 pairwise relations among A,B,C,D,E -->
+  <g stroke="#9CA3AF" stroke-width="1.5">
+    <line x1="230" y1="160" x2="325" y2="229"/>
+    <line x1="230" y1="160" x2="289" y2="341"/>
+    <line x1="230" y1="160" x2="171" y2="341"/>
+    <line x1="230" y1="160" x2="135" y2="229"/>
+    <line x1="325" y1="229" x2="289" y2="341"/>
+    <line x1="325" y1="229" x2="171" y2="341"/>
+    <line x1="325" y1="229" x2="135" y2="229"/>
+    <line x1="289" y1="341" x2="171" y2="341"/>
+    <line x1="289" y1="341" x2="135" y2="229"/>
+    <line x1="171" y1="341" x2="135" y2="229"/>
+  </g>
+  <!-- nodes A..E -->
+  <g>
+    <circle cx="230" cy="160" r="21" fill="#6B7280"/><text x="230" y="165" text-anchor="middle" font-size="13" font-weight="800" fill="white">A</text>
+    <circle cx="325" cy="229" r="21" fill="#6B7280"/><text x="325" y="234" text-anchor="middle" font-size="13" font-weight="800" fill="white">B</text>
+    <circle cx="289" cy="341" r="21" fill="#6B7280"/><text x="289" y="346" text-anchor="middle" font-size="13" font-weight="800" fill="white">C</text>
+    <circle cx="171" cy="341" r="21" fill="#6B7280"/><text x="171" y="346" text-anchor="middle" font-size="13" font-weight="800" fill="white">D</text>
+    <circle cx="135" cy="229" r="21" fill="#6B7280"/><text x="135" y="234" text-anchor="middle" font-size="13" font-weight="800" fill="white">E</text>
+  </g>
+
+  <!-- left counts -->
+  <text x="40" y="422" font-size="11.5" font-weight="700" fill="#3A1014">5 operadores → 10 relações técnicas distintas</text>
+  <text x="40" y="440" font-size="10.5" fill="#6B6265">n operadores → n(n−1)/2 relações</text>
+
+  <!-- ─────────── RIGHT panel: common protocol ─────────── -->
+  <text x="486" y="94" font-family="ui-monospace,'Courier New',monospace" font-size="9" font-weight="700" fill="#8E1326" letter-spacing="1.5">PROTOCOLO COMUM</text>
+  <text x="486" y="116" font-size="14" font-weight="800" fill="#3A1014">Regras públicas partilhadas</text>
+  <text x="486" y="134" font-size="10.5" fill="#6B6265">cada operador implementa o mesmo conjunto de regras</text>
+
+  <!-- operator nodes (same neutral colour as the left panel) -->
+  <g>
+    <circle cx="516" cy="182" r="19" fill="#6B7280"/><text x="516" y="187" text-anchor="middle" font-size="12" font-weight="800" fill="white">A</text>
+    <circle cx="596" cy="182" r="19" fill="#6B7280"/><text x="596" y="187" text-anchor="middle" font-size="12" font-weight="800" fill="white">B</text>
+    <circle cx="676" cy="182" r="19" fill="#6B7280"/><text x="676" y="187" text-anchor="middle" font-size="12" font-weight="800" fill="white">C</text>
+    <circle cx="756" cy="182" r="19" fill="#6B7280"/><text x="756" y="187" text-anchor="middle" font-size="12" font-weight="800" fill="white">D</text>
+    <circle cx="836" cy="182" r="19" fill="#6B7280"/><text x="836" y="187" text-anchor="middle" font-size="12" font-weight="800" fill="white">E</text>
+  </g>
+  <!-- each operator adopts the same public rules -->
+  <g stroke="#B98A3E" stroke-width="1.6" marker-end="url(#arrG-P102)">
+    <line x1="516" y1="201" x2="516" y2="270"/>
+    <line x1="596" y1="201" x2="596" y2="270"/>
+    <line x1="676" y1="201" x2="676" y2="270"/>
+    <line x1="756" y1="201" x2="756" y2="270"/>
+    <line x1="836" y1="201" x2="836" y2="270"/>
+  </g>
+  <!-- shared public-rules band -->
+  <rect x="486" y="276" width="380" height="58" rx="10" fill="#8E1326"/>
+  <text x="676" y="301" text-anchor="middle" font-size="12.5" font-weight="800" fill="white">Regras públicas comuns</text>
+  <text x="676" y="320" text-anchor="middle" font-size="10" fill="#F6D9DD">contratos · perfis · invariantes · evidência</text>
+  <text x="676" y="360" text-anchor="middle" font-size="10.5" fill="#6B6265">interoperam por partilharem as mesmas regras — sem redefinir a integração a cada par</text>
+
+  <!-- right counts -->
+  <text x="486" y="422" font-size="11.5" font-weight="700" fill="#3A1014">5 operadores → 5 implementações do conjunto comum</text>
+  <text x="486" y="440" font-size="10.5" fill="#6B6265">n operadores → n implementações</text>
+
+  <!-- ─────────── bottom legend ─────────── -->
+  <rect x="40" y="466" width="820" height="96" rx="10" fill="#FBEFF0" stroke="#EAD2D6" stroke-width="1"/>
+  <text x="60" y="490" font-size="11" font-weight="700" fill="#8E1326">As duas grandezas não são a mesma.</text>
+  <text x="60" y="510" font-size="10.5" fill="#4B3A3C">À esquerda contam-se relações técnicas entre pares; à direita, implementações independentes das mesmas regras públicas.</text>
+  <text x="60" y="528" font-size="10.5" fill="#4B3A3C">Um novo operador acrescenta até n novas relações no modelo bilateral, ou uma implementação no protocolo comum.</text>
+  <text x="60" y="546" font-size="10.5" fill="#4B3A3C">O protocolo comum não é uma plataforma única nem um operador central: cada operador implementa-o de forma independente,</text>
+  <text x="60" y="560" font-size="10.5" fill="#4B3A3C">e as relações comerciais, de liquidação, de esquema e regulatórias entre operadores continuam a existir.</text>
+
+  <text x="450" y="590" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-102 · Integração bilateral e protocolo comum · BANZA_REFERENCIA.md §2 · v1.0 · 2026-08-08</text>
+</svg>

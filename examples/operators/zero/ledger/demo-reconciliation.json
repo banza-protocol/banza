@@ -1,0 +1,15 @@
+{
+  "demo_only": true,
+  "monetary_value": false,
+  "production_allowed": false,
+  "operator_id": "operator-zero",
+  "operator_display_name": "Operador Zero",
+  "currency": "KZ_DEMO",
+  "artifact_type": "ledger",
+  "reconciliation_status": "reconciled",
+  "opening_total": 100000,
+  "closing_total": 100000,
+  "movements": 2,
+  "discrepancies": [],
+  "note": "O valor fictício total conserva-se. Artefacto demonstrativo. Não certifica, não aprova e não movimenta dinheiro real."
+}

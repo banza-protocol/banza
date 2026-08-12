@@ -1,0 +1,12 @@
+{
+  "currency": "KZ_DEMO",
+  "demo_only": true,
+  "evidence_status": "evidence_complete",
+  "monetary_value": false,
+  "next_action": "simulacao_completa",
+  "note": "Resumo seguro para o BanzAI: apenas slugs e contagens.",
+  "operator_display_name": "Operador Zero",
+  "operator_id": "operator-zero",
+  "production_allowed": false,
+  "summary": "operador-zero · cenário full_e2e · evidência completa · 2 movimento(s) fictício(s) · 0 bloqueio(s) · KZ_DEMO · demo_only"
+}

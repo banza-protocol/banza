@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "scheme_id": "banzami-operational-scheme",
+  "operator": "Banzami — Tecnologia e Serviços, Lda.",
+  "state": "AUTHORISED_PRODUCTION",
+  "real_money_enabled": true,
+  "real_wallets_enabled": true,
+  "real_settlement_enabled": true,
+  "real_participants_active": true,
+  "bna_approval_claimed": true,
+  "evidence_refs": [],
+  "public_statement": "Operadora autorizada e aprovada pelo BNA; pagamentos reais activos.",
+  "notes": "INVALID by design — this instance claims regulatory authorisation and real money with no evidence. It MUST be rejected against regulatory-state.production.schema.json: real_money_enabled/real_wallets_enabled/real_settlement_enabled/real_participants_active/bna_approval_claimed violate their const false baseline. If the boundary block were included it would also fail (authorisation_granted:true, banzami_presented_as_authorised:true).",
+  "boundary": {
+    "not_authorised_yet": false,
+    "no_bna_claim_without_evidence": false,
+    "real_money_fail_closed": false,
+    "authorisation_granted": true,
+    "banzami_presented_as_authorised": true,
+    "replaces_regulator": false,
+    "replaces_scheme": false,
+    "certification_is_not_admission_is_not_authorisation": true
+  }
+}

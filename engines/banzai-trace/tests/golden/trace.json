@@ -1,0 +1,273 @@
+{
+  "empty": {
+    "trace_id": null,
+    "flow_type": "unknown",
+    "event_count": 0,
+    "timeline": [],
+    "invariant_checks": [],
+    "causal_summary": "No trace data provided. Supply either trace_id (requires a certified operator API endpoint) or trace JSON.",
+    "issues": [
+      "No trace data provided"
+    ]
+  },
+  "lookup": {
+    "trace_id": "tr_lookup_test",
+    "flow_type": "unknown",
+    "event_count": 0,
+    "timeline": [],
+    "invariant_checks": [],
+    "causal_summary": "Trace lookup backend not configured. Set BANZAI_REFERENCE_OPERATOR_URL to enable trace_id lookup.",
+    "issues": [
+      "Trace lookup backend not configured"
+    ]
+  },
+  "qr": {
+    "trace_id": "tr_abc123",
+    "flow_type": "qr_payment",
+    "event_count": 2,
+    "timeline": [
+      {
+        "step": 1,
+        "entity_type": "qr",
+        "entity_id": "qr_001",
+        "trace_id": "tr_abc123",
+        "detail": "qr — status: paid, amount: 5000 AOA"
+      },
+      {
+        "step": 2,
+        "entity_type": "transfer",
+        "entity_id": "txf_001",
+        "trace_id": "tr_abc123",
+        "detail": "transfer — status: completed, gross: 5000"
+      }
+    ],
+    "invariant_checks": [
+      {
+        "id": "INV-TRACE-001",
+        "name": "Trace ID propagation",
+        "status": "PASS",
+        "reason": "All entities share trace_id: tr_abc123"
+      },
+      {
+        "id": "INV-LEDGER-001",
+        "name": "Double-entry completeness",
+        "status": "UNKNOWN",
+        "reason": "Insufficient ledger entry data in trace to verify double-entry"
+      },
+      {
+        "id": "INV-STL-001",
+        "name": "No money creation",
+        "status": "PASS",
+        "reason": "txf_001: net(4950) + fee(50) = 5000 ✓"
+      }
+    ],
+    "causal_summary": "Flow trace_id: tr_abc123. QR-triggered payment flow with 2 entities. Sequence: QR creation → customer payment → transfer execution → ledger entries. All invariants appear consistent.",
+    "issues": []
+  },
+  "badtrace": {
+    "trace_id": "tr_abc123",
+    "flow_type": "qr_payment",
+    "event_count": 2,
+    "timeline": [
+      {
+        "step": 1,
+        "entity_type": "qr",
+        "entity_id": "qr_001",
+        "trace_id": "tr_abc123",
+        "detail": "qr — status: paid, amount: 5000 AOA"
+      },
+      {
+        "step": 2,
+        "entity_type": "transfer",
+        "entity_id": "txf_001",
+        "trace_id": "tr_DIFFERENT",
+        "detail": "transfer — status: completed, gross: 5000"
+      }
+    ],
+    "invariant_checks": [
+      {
+        "id": "INV-TRACE-001",
+        "name": "Trace ID propagation",
+        "status": "FAIL",
+        "reason": "Multiple trace_ids detected: tr_abc123, tr_DIFFERENT"
+      },
+      {
+        "id": "INV-LEDGER-001",
+        "name": "Double-entry completeness",
+        "status": "UNKNOWN",
+        "reason": "Insufficient ledger entry data in trace to verify double-entry"
+      },
+      {
+        "id": "INV-STL-001",
+        "name": "No money creation",
+        "status": "PASS",
+        "reason": "txf_001: net(4950) + fee(50) = 5000 ✓"
+      }
+    ],
+    "causal_summary": "Flow trace_id: tr_abc123. QR-triggered payment flow with 2 entities. Sequence: QR creation → customer payment → transfer execution → ledger entries. ⚠ 1 invariant issue(s) detected.",
+    "issues": [
+      "INV-TRACE-001 FAIL: multiple trace_ids found: tr_abc123, tr_DIFFERENT"
+    ]
+  },
+  "badstl": {
+    "trace_id": "tr_abc123",
+    "flow_type": "qr_payment",
+    "event_count": 2,
+    "timeline": [
+      {
+        "step": 1,
+        "entity_type": "qr",
+        "entity_id": "qr_001",
+        "trace_id": "tr_abc123",
+        "detail": "qr — status: paid, amount: 5000 AOA"
+      },
+      {
+        "step": 2,
+        "entity_type": "transfer",
+        "entity_id": "txf_001",
+        "trace_id": "tr_abc123",
+        "detail": "transfer — status: completed, gross: 5000"
+      }
+    ],
+    "invariant_checks": [
+      {
+        "id": "INV-TRACE-001",
+        "name": "Trace ID propagation",
+        "status": "PASS",
+        "reason": "All entities share trace_id: tr_abc123"
+      },
+      {
+        "id": "INV-LEDGER-001",
+        "name": "Double-entry completeness",
+        "status": "UNKNOWN",
+        "reason": "Insufficient ledger entry data in trace to verify double-entry"
+      },
+      {
+        "id": "INV-STL-001",
+        "name": "No money creation",
+        "status": "FAIL",
+        "reason": "txf_001: net(4950) + fee(100) = 5050 ≠ gross(5000)"
+      }
+    ],
+    "causal_summary": "Flow trace_id: tr_abc123. QR-triggered payment flow with 2 entities. Sequence: QR creation → customer payment → transfer execution → ledger entries. ⚠ 1 invariant issue(s) detected.",
+    "issues": [
+      "INV-STL-001 FAIL on txf_001: 4950 + 100 = 5050 ≠ 5000 (+50 minor units)"
+    ]
+  },
+  "ledgerflow": {
+    "trace_id": "tr_x",
+    "flow_type": "direct_transfer",
+    "event_count": 3,
+    "timeline": [
+      {
+        "step": 1,
+        "entity_type": "transfer",
+        "entity_id": "txf_9",
+        "trace_id": "tr_x",
+        "detail": "transfer — gross: 1000"
+      },
+      {
+        "step": 2,
+        "entity_type": "ledger_entries",
+        "entity_id": "led_1",
+        "trace_id": "tr_x",
+        "detail": "ledger_entries"
+      },
+      {
+        "step": 3,
+        "entity_type": "ledger_entries",
+        "entity_id": "led_2",
+        "trace_id": "tr_x",
+        "detail": "ledger_entries"
+      }
+    ],
+    "invariant_checks": [
+      {
+        "id": "INV-TRACE-001",
+        "name": "Trace ID propagation",
+        "status": "PASS",
+        "reason": "All entities share trace_id: tr_x"
+      },
+      {
+        "id": "INV-LEDGER-001",
+        "name": "Double-entry completeness",
+        "status": "UNKNOWN",
+        "reason": "Cannot fully verify — 0 DEBITs, 0 CREDITs for 1 transfer(s)"
+      },
+      {
+        "id": "INV-STL-001",
+        "name": "No money creation",
+        "status": "PASS",
+        "reason": "txf_9: net(990) + fee(10) = 1000 ✓"
+      }
+    ],
+    "causal_summary": "Flow trace_id: tr_x. Direct transfer flow with 3 entities. Transfer executed directly without QR. All invariants appear consistent.",
+    "issues": []
+  },
+  "arr": {
+    "trace_id": "tr_p",
+    "flow_type": "payment_request",
+    "event_count": 2,
+    "timeline": [
+      {
+        "step": 1,
+        "entity_type": "payment_request",
+        "entity_id": "pr_1",
+        "trace_id": "tr_p",
+        "detail": "payment_request"
+      },
+      {
+        "step": 2,
+        "entity_type": "transfer",
+        "entity_id": "txf_2",
+        "trace_id": "tr_p",
+        "detail": "transfer"
+      }
+    ],
+    "invariant_checks": [
+      {
+        "id": "INV-TRACE-001",
+        "name": "Trace ID propagation",
+        "status": "PASS",
+        "reason": "All entities share trace_id: tr_p"
+      },
+      {
+        "id": "INV-LEDGER-001",
+        "name": "Double-entry completeness",
+        "status": "UNKNOWN",
+        "reason": "Insufficient ledger entry data in trace to verify double-entry"
+      }
+    ],
+    "causal_summary": "Flow trace_id: tr_p. Payment request flow with 2 entities. Sequence: request creation → payment → transfer. All invariants appear consistent.",
+    "issues": []
+  },
+  "raw_object": {
+    "trace_id": null,
+    "flow_type": "unknown",
+    "event_count": 1,
+    "timeline": [
+      {
+        "step": 1,
+        "entity_type": "Wallet",
+        "entity_id": "wal_1",
+        "detail": "Wallet — status: active"
+      }
+    ],
+    "invariant_checks": [
+      {
+        "id": "INV-TRACE-001",
+        "name": "Trace ID propagation",
+        "status": "UNKNOWN",
+        "reason": "No trace_id fields found in trace data — cannot verify propagation"
+      },
+      {
+        "id": "INV-LEDGER-001",
+        "name": "Double-entry completeness",
+        "status": "UNKNOWN",
+        "reason": "Insufficient ledger entry data in trace to verify double-entry"
+      }
+    ],
+    "causal_summary": "Flow with 1 entities. Type could not be determined from available data. All invariants appear consistent.",
+    "issues": []
+  }
+}

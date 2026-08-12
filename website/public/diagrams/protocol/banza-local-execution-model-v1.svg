@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+
+<svg viewBox="0 0 900 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title-P043 desc-P043" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="title-P043">Modelo de Execução Local BANZA — dois operadores independentes que implementam o protocolo localmente</title>
+  <desc id="desc-P043">O BANZA não é um servidor central. As regras do protocolo são públicas e comuns; cada operador implementa-as na sua própria infraestrutura local. Dois operadores independentes — Operador A e Operador B — interoperam por respeitarem as mesmas regras e por publicarem evidência de conformidade verificável, não por se ligarem a uma infraestrutura partilhada do BANZA.</desc>
+
+  <defs>
+    <linearGradient id="hG-P043" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6E0F1A"></stop><stop offset="100%" stop-color="#8E1326"></stop>
+    </linearGradient>
+    <linearGradient id="opG-P043" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3C4654"></stop><stop offset="100%" stop-color="#566273"></stop>
+    </linearGradient>
+    <linearGradient id="protoG-P043" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#5E0C18"></stop><stop offset="100%" stop-color="#7E1320"></stop>
+    </linearGradient>
+    <filter id="sh-P043" x="-5%" y="-10%" width="115%" height="130%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000018"></feDropShadow>
+    </filter>
+    <marker id="arrStart-P043" markerWidth="8" markerHeight="6" refX="1" refY="3" orient="auto">
+      <polygon points="8 0, 0 3, 8 6" fill="#3C4654"></polygon>
+    </marker>
+    <marker id="arrEnd-P043" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#3C4654"></polygon>
+    </marker>
+    <marker id="arrUp-P043" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#9A8F86"></polygon>
+    </marker>
+  </defs>
+
+  <rect width="900" height="470" fill="#F4F1EA"></rect>
+
+
+  <rect x="16" y="12" width="868" height="54" rx="8" fill="url(#hG-P043)" filter="url(#sh-P043)"></rect>
+  <text x="34" y="32" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" letter-spacing="1.6" fill="#FECACA">SVG-P-043 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="34" y="52" fill="white" font-size="15" font-weight="800">Modelo de Execução Local BANZA</text>
+  <text x="866" y="52" text-anchor="end" fill="#F6D9DD" font-size="10">regras comuns · infraestrutura local</text>
+
+
+  <rect x="16" y="78" width="868" height="30" rx="6" fill="white" stroke="#E5E7EB" stroke-width="1"></rect>
+  <text x="450" y="97" text-anchor="middle" fill="#374151" font-size="10.5">As regras são <tspan font-weight="700" fill="#1A1A1A">comuns e públicas</tspan>; a infraestrutura é <tspan font-weight="700" fill="#1A1A1A">local de cada operador</tspan>.</text>
+
+
+  <rect x="120" y="122" width="660" height="60" rx="8" fill="url(#protoG-P043)" filter="url(#sh-P043)"></rect>
+  <text x="450" y="141" text-anchor="middle" fill="#F6D9DD" font-size="8" font-weight="700" letter-spacing="1">REGRAS PÚBLICAS COMUNS DO PROTOCOLO</text>
+  <text x="450" y="157" text-anchor="middle" fill="white" font-size="12" font-weight="800">Protocolo BANZA</text>
+  <text x="450" y="173" text-anchor="middle" fill="#F1C7CC" font-size="9">especificação · invariantes · contratos · conformidade — não é um servidor central, não movimenta fundos</text>
+
+
+  <line x1="210" y1="212" x2="210" y2="184" stroke="#9A8F86" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#arrUp-P043)"></line>
+  <line x1="690" y1="212" x2="690" y2="184" stroke="#9A8F86" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#arrUp-P043)"></line>
+  <text x="210" y="205" text-anchor="middle" fill="#6B6265" font-size="8" font-style="italic">implementa e conforma-se</text>
+  <text x="690" y="205" text-anchor="middle" fill="#6B6265" font-size="8" font-style="italic">implementa e conforma-se</text>
+
+
+  <rect x="50" y="216" width="320" height="150" rx="8" fill="white" stroke="#CDD3DA" stroke-width="2" filter="url(#sh-P043)"></rect>
+  <rect x="50" y="216" width="320" height="42" rx="8" fill="url(#opG-P043)"></rect>
+  <rect x="50" y="238" width="320" height="20" fill="url(#opG-P043)"></rect>
+  <text x="210" y="234" text-anchor="middle" fill="rgba(255,255,255,0.72)" font-size="9" font-weight="600" letter-spacing="0.5">OPERADOR A</text>
+  <text x="210" y="251" text-anchor="middle" fill="white" font-size="12" font-weight="700">Infraestrutura local</text>
+  <rect x="66" y="272" width="288" height="38" rx="6" fill="#EEF0F2" stroke="#CDD3DA" stroke-width="1"></rect>
+  <text x="210" y="288" text-anchor="middle" fill="#3C4654" font-size="10" font-weight="700">Núcleo financeiro local</text>
+  <text x="210" y="301" text-anchor="middle" fill="#6B6265" font-size="8">livro-razão · carteiras · pagamentos · dados</text>
+  <rect x="66" y="318" width="288" height="36" rx="6" fill="#EAF3EC" stroke="#9CC7A8" stroke-width="1"></rect>
+  <text x="210" y="334" text-anchor="middle" fill="#14532D" font-size="10" font-weight="700">Evidência de conformidade</text>
+  <text x="210" y="347" text-anchor="middle" fill="#3F6B4E" font-size="8">reproduzível por terceiros</text>
+
+
+  <rect x="530" y="216" width="320" height="150" rx="8" fill="white" stroke="#CDD3DA" stroke-width="2" filter="url(#sh-P043)"></rect>
+  <rect x="530" y="216" width="320" height="42" rx="8" fill="url(#opG-P043)"></rect>
+  <rect x="530" y="238" width="320" height="20" fill="url(#opG-P043)"></rect>
+  <text x="690" y="234" text-anchor="middle" fill="rgba(255,255,255,0.72)" font-size="9" font-weight="600" letter-spacing="0.5">OPERADOR B</text>
+  <text x="690" y="251" text-anchor="middle" fill="white" font-size="12" font-weight="700">Infraestrutura local</text>
+  <rect x="546" y="272" width="288" height="38" rx="6" fill="#EEF0F2" stroke="#CDD3DA" stroke-width="1"></rect>
+  <text x="690" y="288" text-anchor="middle" fill="#3C4654" font-size="10" font-weight="700">Núcleo financeiro local</text>
+  <text x="690" y="301" text-anchor="middle" fill="#6B6265" font-size="8">livro-razão · carteiras · pagamentos · dados</text>
+  <rect x="546" y="318" width="288" height="36" rx="6" fill="#EAF3EC" stroke="#9CC7A8" stroke-width="1"></rect>
+  <text x="690" y="334" text-anchor="middle" fill="#14532D" font-size="10" font-weight="700">Evidência de conformidade</text>
+  <text x="690" y="347" text-anchor="middle" fill="#3F6B4E" font-size="8">reproduzível por terceiros</text>
+
+
+  <line x1="372" y1="291" x2="528" y2="291" stroke="#3C4654" stroke-width="1.8" marker-start="url(#arrStart-P043)" marker-end="url(#arrEnd-P043)"></line>
+  <text x="450" y="281" text-anchor="middle" fill="#1A1A1A" font-size="9" font-weight="700">interoperam</text>
+  <text x="450" y="307" text-anchor="middle" fill="#6B6265" font-size="8">pelas mesmas regras,</text>
+  <text x="450" y="318" text-anchor="middle" fill="#6B6265" font-size="8">não por infraestrutura partilhada</text>
+
+
+  <rect x="16" y="382" width="868" height="52" rx="6" fill="#EAE0DF" stroke="#D4C9C7" stroke-width="1"></rect>
+  <text x="450" y="401" text-anchor="middle" fill="#1A1A1A" font-size="11" font-weight="700">O protocolo não reside num servidor central. Reside nas implementações locais de cada operador.</text>
+  <text x="450" y="417" text-anchor="middle" fill="#6B6265" font-size="10">O BANZA define as regras; não executa pagamentos por si próprio.</text>
+  <text x="450" y="429" text-anchor="middle" fill="#6B6265" font-size="10">A conformidade verificável é o que torna os operadores interoperáveis.</text>
+
+
+  <text x="450" y="458" text-anchor="middle" fill="#6B6265" font-size="10">SVG-P-043 · v2.0 · BANZA_REFERENCIA.md §4 Arquitectura do Protocolo · 2026-08-08</text>
+</svg>

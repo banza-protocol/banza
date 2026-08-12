@@ -1,0 +1,13 @@
+{
+  "name": "banza-l3-readiness",
+  "description": "banza-l3-readiness (BX1.9): local, no-network preparation of the L3 federation surface. It reads the Operator Manifest, SimB pre-review, Conformidade L0, L1 and L2 readiness reports, and validates the minimum BANZA federation artifacts between two simulated operators — federation pair, federation intent, cross-operator trace linkage, trust & BRL material and a federation settlement obligation — computing the L3 readiness status IN RUST. L3 readiness is technical preparation of federation — NOT active federation, NOT production, NOT certification, NOT approval; it does not create an operator and does not move funds.",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "files": [
+    "banza_l3_readiness_bg.wasm",
+    "banza_l3_readiness.js",
+    "banza_l3_readiness.d.ts"
+  ],
+  "main": "banza_l3_readiness.js",
+  "types": "banza_l3_readiness.d.ts"
+}

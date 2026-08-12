@@ -1,0 +1,31 @@
+[package]
+name = "operator-zero-core"
+version = "0.1.0"
+edition = "2021"
+description = "operator-zero-core (ADR-052, M2.12A): the Rust engine behind Operador Zero, the BANZA reference payment-operator SIMULATOR. Fictional KZ_DEMO ledger, simulated QR payments, refunds, controlled failures, reconciliation, demo trust and federation, evidence bundles and end-to-end traces. Deterministic; no network, no real money, no private keys."
+license = "Apache-2.0"
+
+[lib]
+name = "operator_zero_core"
+crate-type = ["cdylib", "rlib"]
+path = "src/lib.rs"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[dependencies.wasm-bindgen]
+version = "0.2"
+optional = true
+
+[dev-dependencies]
+# The protocol's OWN manifest engine, used by `tests/protocol_contract.rs` to prove that the canonical
+# Operador Zero manifest is VALID against the protocol — not merely against this crate's own opinion.
+banza-operator-manifest = { path = "../banza-operator-manifest" }
+
+[features]
+# Enabled only for the standalone `wasm-pack build --features wasm`; keeps the WASM exports leak-free.
+wasm = ["dep:wasm-bindgen"]
+
+[profile.release]
+opt-level = "s"

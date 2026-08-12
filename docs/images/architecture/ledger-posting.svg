@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="760" height="400" font-family="'Courier New', Courier, monospace">
+  <rect width="760" height="400" fill="#0f0f0f"/>
+
+  <text x="380" y="30" fill="#e8d5b7" font-size="14" text-anchor="middle" font-weight="bold" letter-spacing="1">Double-Entry Ledger Posting</text>
+  <text x="380" y="48" fill="#555" font-size="10" text-anchor="middle">every transfer creates exactly two entries — DEBIT on sender, CREDIT on receiver</text>
+
+  <!-- Sender wallet -->
+  <rect x="40" y="72" width="280" height="100" rx="5" fill="#181818" stroke="#2a2a2a"/>
+  <text x="180" y="92" fill="#666" font-size="9" text-anchor="middle" letter-spacing="0.6">SENDER WALLET</text>
+  <text x="180" y="110" fill="#e8d5b7" font-size="12" text-anchor="middle" font-weight="bold">sandbox-consumer-1</text>
+  <text x="180" y="130" fill="#aaa" font-size="10" text-anchor="middle">balance before: 20,000.00 AOA</text>
+  <text x="180" y="152" fill="#f44336" font-size="14" text-anchor="middle" font-weight="bold">− 500.00 AOA</text>
+  <text x="180" y="166" fill="#555" font-size="9" text-anchor="middle">balance after: 19,500.00 AOA</text>
+
+  <!-- Receiver wallet -->
+  <rect x="440" y="72" width="280" height="100" rx="5" fill="#181818" stroke="#2a2a2a"/>
+  <text x="580" y="92" fill="#666" font-size="9" text-anchor="middle" letter-spacing="0.6">RECEIVER WALLET</text>
+  <text x="580" y="110" fill="#e8d5b7" font-size="12" text-anchor="middle" font-weight="bold">sandbox-merchant-1</text>
+  <text x="580" y="130" fill="#aaa" font-size="10" text-anchor="middle">balance before: 100,000.00 AOA</text>
+  <text x="580" y="152" fill="#4caf50" font-size="14" text-anchor="middle" font-weight="bold">+ 500.00 AOA</text>
+  <text x="580" y="166" fill="#555" font-size="9" text-anchor="middle">balance after: 100,500.00 AOA</text>
+
+  <!-- Transfer bar -->
+  <rect x="280" y="100" width="200" height="44" rx="3" fill="#141414" stroke="#1e1e1e"/>
+  <text x="380" y="120" fill="#e8d5b7" font-size="10" text-anchor="middle" font-weight="bold">TRANSFER</text>
+  <text x="380" y="136" fill="#555" font-size="9" text-anchor="middle">txfr-xxx · 500.00 AOA</text>
+  <line x1="320" y1="122" x2="280" y2="122" stroke="#f44336" stroke-width="1.5"/>
+  <polygon points="280,118 272,122 280,126" fill="#f44336"/>
+  <line x1="440" y1="122" x2="480" y2="122" stroke="#4caf50" stroke-width="1.5"/>
+  <polygon points="480,118 488,122 480,126" fill="#4caf50"/>
+
+  <!-- Ledger entries -->
+  <text x="380" y="200" fill="#555" font-size="9" text-anchor="middle" letter-spacing="0.8">LEDGER ENTRIES  (append-only — never modified after creation)</text>
+  <line x1="40" y1="206" x2="720" y2="206" stroke="#1e1e1e" stroke-width="1"/>
+
+  <!-- DEBIT entry -->
+  <rect x="40" y="214" width="320" height="90" rx="4" fill="#140808" stroke="#3a1a1a"/>
+  <text x="200" y="234" fill="#f44336" font-size="11" text-anchor="middle" font-weight="bold">DEBIT ENTRY</text>
+  <text x="60" y="254" fill="#aaa" font-size="9">id:             le-aaa</text>
+  <text x="60" y="268" fill="#aaa" font-size="9">wallet_id:      sandbox-consumer-1</text>
+  <text x="60" y="282" fill="#aaa" font-size="9">kind:           DEBIT</text>
+  <text x="60" y="296" fill="#aaa" font-size="9">amount_minor:   50000   (500.00 AOA)</text>
+  <text x="60" y="310" fill="#6060b0" font-size="9">trace_id:       tr-xyz</text>
+
+  <!-- CREDIT entry -->
+  <rect x="400" y="214" width="320" height="90" rx="4" fill="#080f08" stroke="#1a3a1a"/>
+  <text x="560" y="234" fill="#4caf50" font-size="11" text-anchor="middle" font-weight="bold">CREDIT ENTRY</text>
+  <text x="420" y="254" fill="#aaa" font-size="9">id:             le-bbb</text>
+  <text x="420" y="268" fill="#aaa" font-size="9">wallet_id:      sandbox-merchant-1</text>
+  <text x="420" y="282" fill="#aaa" font-size="9">kind:           CREDIT</text>
+  <text x="420" y="296" fill="#aaa" font-size="9">amount_minor:   50000   (500.00 AOA)</text>
+  <text x="420" y="310" fill="#6060b0" font-size="9">trace_id:       tr-xyz</text>
+
+  <!-- Invariant bar -->
+  <rect x="40" y="320" width="680" height="56" rx="4" fill="#0f1510" stroke="#1a2e1a"/>
+  <text x="380" y="342" fill="#2a4a2a" font-size="9" text-anchor="middle" letter-spacing="0.6">INVARIANT: DEBIT amount + CREDIT amount = 0  (double-entry always sums to zero)</text>
+  <text x="380" y="358" fill="#2a4a2a" font-size="9" text-anchor="middle">Balance is never stored — always recomputed as SUM(CREDIT) − SUM(DEBIT) over ledger entries</text>
+  <text x="380" y="374" fill="#3d7a3d" font-size="9" text-anchor="middle">GET /ledger/{wallet_id}  →  derived_balance_minor = Σ credits − Σ debits</text>
+</svg>

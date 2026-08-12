@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/capabilities-document.production.schema.json",
+  "title": "CapabilitiesDocument",
+  "description": "The capabilities document an implementation publishes at its canonical origin (ADR-068 §13 endpoint map). It declares the protocol surfaces the implementation implements. It is descriptive, not a permission or a grant — a certification's scope is never wider than the evidence. Documentary/reference contract; introduces no new financial invariant.",
+  "_spec_version": "1.0",
+  "_status": "reference",
+  "_authority": "ADR-068 (§4.4 origin of inputs), ADR-067 (Operador Zero read-only reference)",
+  "_boundary": "Declaring a capability confers no permission and moves no funds.",
+
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["operator_id", "implementation_id", "protocol_version"],
+  "properties": {
+    "operator_id": { "type": "string" },
+    "operator_display_name": { "type": "string" },
+    "implementation_id": { "type": "string" },
+    "artifact_type": { "type": "string", "const": "capabilities" },
+    "protocol_version": { "type": "string" },
+    "environment": { "type": "string", "enum": ["sandbox", "demo"] },
+    "profile": { "type": "string", "enum": ["L0", "L1", "L2", "L3", "L4"] },
+    "supported_levels": { "type": "array", "items": { "type": "string" } },
+    "currency": { "type": "string" },
+    "demo_only": { "type": "boolean" },
+    "monetary_value": { "type": "boolean" },
+    "production_allowed": { "type": "boolean" },
+    "capabilities": {
+      "type": "object",
+      "description": "Named capability flags the implementation declares (e.g. supports_wallets, supports_qr).",
+      "additionalProperties": { "type": "boolean" }
+    },
+    "capability_list": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Flat list of declared capability identifiers."
+    },
+    "note": { "type": "string" }
+  }
+}

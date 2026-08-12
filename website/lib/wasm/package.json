@@ -1,0 +1,6 @@
+{
+  "type": "module",
+  "description": "Vendored BanzAI/BANZA Rust→WASM modules (ADR-037), each built from an in-monorepo engines/* crate and imported by path alias (e.g. @/lib/wasm/banzai_trace). Deterministic, no LLM, no network, no GPU. There is no single 'core' package entrypoint.",
+  "version": "0.1.0",
+  "license": "Apache-2.0"
+}

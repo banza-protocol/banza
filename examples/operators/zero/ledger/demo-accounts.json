@@ -1,0 +1,33 @@
+{
+  "accounts": [
+    {
+      "account_id": "demo-merchant-kiosque",
+      "balance": 0,
+      "currency": "KZ_DEMO",
+      "display_name": "Kiosque (comerciante fictício)",
+      "is_settlement": false
+    },
+    {
+      "account_id": "demo-user-ana",
+      "balance": 100000,
+      "currency": "KZ_DEMO",
+      "display_name": "Ana (utilizador fictício)",
+      "is_settlement": false
+    },
+    {
+      "account_id": "operator-zero",
+      "balance": 0,
+      "currency": "KZ_DEMO",
+      "display_name": "Operador Zero (liquidação fictícia)",
+      "is_settlement": true
+    }
+  ],
+  "currency": "KZ_DEMO",
+  "demo_only": true,
+  "ledger_status": "empty",
+  "monetary_value": false,
+  "operator_display_name": "Operador Zero",
+  "operator_id": "operator-zero",
+  "production_allowed": false,
+  "total": 100000
+}

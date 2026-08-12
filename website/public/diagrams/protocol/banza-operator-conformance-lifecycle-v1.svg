@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  id:        SVG-P-055
+  diagram:   Ciclo de vida da conformidade de um operador — implementação → auto-publicação → indexação → avaliação local
+  version:   1.0
+  source:    BANZA_REFERENCIA.md §7 (Conformidade) e §8 (Estados de um Participante)
+  updated:   2026-07-17
+  author:    BANZA Protocol
+  style:     protocol
+-->
+<svg viewBox="0 0 900 540" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-labelledby="title-P055 desc-P055"
+     font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="title-P055">Ciclo de vida da conformidade de um operador no BANZA</title>
+  <desc id="desc-P055">A progressão de um operador em seis passos: candidato, ambiente de sandbox, PASS técnico (evidência de conformidade reproduzível), metadata de protocolo assinada e auto-publicada, indexação determinística no Registo Técnico e avaliação local pelos pares (Open Trust Evaluation, ROUTING_ALLOWED/FAIL_CLOSED). À direita, os estados de confiança que reprovam fechado: evidência sem frescura, material revogado na BRL e assinatura inválida. Hoje /operators devolve [], production_certificates é false, e a conformidade é medida e auto-publicada — nunca concedida.</desc>
+  <defs>
+    <linearGradient id="hg-P055" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E0F1A"/><stop offset="100%" stop-color="#8E1326"/>
+    </linearGradient>
+    <marker id="arr-P055" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#9CA3AF"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="540" fill="#F4F1EA"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="900" height="64" fill="url(#hg-P055)" rx="14"/>
+  <rect x="0" y="48" width="900" height="16" fill="#8E1326"/>
+  <text x="24" y="26" font-family="ui-monospace,'Courier New',monospace" font-size="9" fill="#FECACA" letter-spacing="2">SVG-P-055 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="24" y="50" font-size="18" font-weight="800" fill="white">Ciclo de vida da conformidade de um operador</text>
+  <text x="876" y="50" text-anchor="end" font-size="11" fill="#FECACA">Medida, não concedida</text>
+
+  <!-- main spine -->
+  <line x1="56" y1="102" x2="56" y2="404" stroke="#E4DAD8" stroke-width="2"/>
+
+  <!-- Step 1 (bordô = alcançável hoje) -->
+  <circle cx="56" cy="102" r="15" fill="#8E1326"/><text x="56" y="107" text-anchor="middle" font-size="12" font-weight="800" fill="white">1</text>
+  <text x="88" y="98" font-size="14" font-weight="700" fill="#1F2937">Candidato</text>
+  <text x="88" y="116" font-size="11" fill="#6B6265">lê a referência · prepara a implementação</text>
+
+  <!-- Step 2 -->
+  <circle cx="56" cy="162" r="15" fill="#8E1326"/><text x="56" y="167" text-anchor="middle" font-size="12" font-weight="800" fill="white">2</text>
+  <text x="88" y="158" font-size="14" font-weight="700" fill="#1F2937">Sandbox</text>
+  <text x="88" y="176" font-size="11" fill="#6B6265">testes · sem dinheiro real (simulated: true)</text>
+
+  <!-- Step 3 -->
+  <circle cx="56" cy="222" r="15" fill="#8E1326"/><text x="56" y="227" text-anchor="middle" font-size="12" font-weight="800" fill="white">3</text>
+  <text x="88" y="218" font-size="14" font-weight="700" fill="#1F2937">PASS técnico</text>
+  <text x="88" y="236" font-size="11" fill="#6B6265">evidência de conformidade reproduzível · não é certificado</text>
+
+  <!-- Step 4 (cinza = depende da cerimónia da chave raiz) -->
+  <circle cx="56" cy="282" r="15" fill="#6B7280"/><text x="56" y="287" text-anchor="middle" font-size="12" font-weight="800" fill="white">4</text>
+  <text x="88" y="278" font-size="14" font-weight="700" fill="#1F2937">Metadata assinada e auto-publicada <tspan font-size="10" font-weight="600" fill="#9A6B1E">(após a cerimónia da raiz)</tspan></text>
+  <text x="88" y="296" font-size="11" fill="#6B6265">o operador publica signed protocol metadata + conformance evidence</text>
+
+  <!-- Step 5 -->
+  <circle cx="56" cy="342" r="15" fill="#6B7280"/><text x="56" y="347" text-anchor="middle" font-size="12" font-weight="800" fill="white">5</text>
+  <text x="88" y="338" font-size="14" font-weight="700" fill="#1F2937">Indexação no Registo Técnico <tspan font-size="10" font-weight="600" fill="#9A6B1E">(após a cerimónia da raiz)</tspan></text>
+  <text x="88" y="356" font-size="11" fill="#6B6265">índice determinístico e verificável · não é lista de admitidos</text>
+
+  <!-- Step 6 -->
+  <circle cx="56" cy="402" r="15" fill="#6B7280"/><text x="56" y="407" text-anchor="middle" font-size="12" font-weight="800" fill="white">6</text>
+  <text x="88" y="398" font-size="14" font-weight="700" fill="#1F2937">Avaliação local pelos pares <tspan font-size="10" font-weight="600" fill="#9A6B1E">(após a cerimónia da raiz)</tspan></text>
+  <text x="88" y="416" font-size="11" fill="#6B6265">cada par corre a Open Trust Evaluation · ROUTING_ALLOWED / FAIL_CLOSED</text>
+
+  <!-- control-states branch -->
+  <line x1="470" y1="402" x2="556" y2="360" stroke="#9CA3AF" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-P055)"/>
+  <rect x="560" y="278" width="316" height="150" rx="12" fill="white" stroke="#E5E7EB" stroke-width="1.5"/>
+  <text x="578" y="300" font-family="ui-monospace,'Courier New',monospace" font-size="9" font-weight="700" fill="#9A6B1E" letter-spacing="1">ESTADOS DE CONFIANÇA (FAIL-CLOSED)</text>
+  <g font-size="12" fill="#3A3A3A">
+    <rect x="578" y="312" width="10" height="10" rx="2" fill="#9A6B1E"/><text x="598" y="322">Evidência sem frescura — fora da janela</text>
+    <rect x="578" y="342" width="10" height="10" rx="2" fill="#B98A3E"/><text x="598" y="352" font-size="10.5">Material revogado na BRL</text>
+    <rect x="578" y="372" width="10" height="10" rx="2" fill="#8E1326"/><text x="598" y="382" font-size="10.5">Assinatura inválida — não resolve</text>
+  </g>
+  <text x="578" y="410" font-size="9.5" fill="#6B6265">A Open Trust Evaluation reprova fechado nestes estados.</text>
+
+  <!-- notes band -->
+  <rect x="24" y="446" width="852" height="58" rx="9" fill="#FBEFF0" stroke="#EAD2D6" stroke-width="1"/>
+  <text x="40" y="470" font-size="11.5" font-weight="700" fill="#8E1326">Conformidade medida e auto-publicada · nenhuma autoridade concede participação.</text>
+  <text x="40" y="490" font-size="10.5" fill="#6B6265">Hoje: /operators = [] · production_certificates = false · a sandbox não movimenta dinheiro real.</text>
+
+  <text x="450" y="524" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-055 · Ciclo de vida da conformidade de um operador · BANZA_REFERENCIA.md §7/§8 · v1.0 · 2026-07-17</text>
+</svg>

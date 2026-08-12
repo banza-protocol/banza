@@ -1,0 +1,322 @@
+{
+  "milestone": "M2.19-FINAL",
+  "title": "BANZA v1.0 — Canonical Protocol, Interoperability Certification, scheme-operator Operational Scheme, BanzAI Web, Operator Zero Realignment, 1 Aug 2026 Launch",
+  "status": "RUNNING",
+  "launch_target": "2026-08-01",
+  "base_commit": "76323672",
+  "branch": "main",
+  "rollback_tag": "rollback-pre-5C",
+  "next_free_adr": "ADR-075",
+  "current_submilestone": "M2.19G_5C COMPLETE + LIVE (PR #260 -> main 76323672, CI green, deployed 2026-08-03; rollback tag rollback-pre-5C). BanzAI canonical architecture: ADR-071 (canonical runtime = services/banzai-api in this repo; banza-protocol/banzai = frozen archive), ADR-072 (public runtime SSOT GET /banzai/runtime), ADR-073 (mandatory post-synthesis authority validator on the publish path, env BANZAI_POST_VALIDATE_ENFORCE default ON), ADR-074 (SimB retired from active surfaces; engine/gate/draft/history kept), ADR-065 amendment (Registo Tecnico / Technical Registry naming parity). 9 sub-phases 5C-0..5C-7 + adversarial-review fixes (cacheKey binds policy/contract/doc/entity; SemanticCache cross-entity filter; honest validation_status under enforce-OFF) + 6 cache regression tests. Reindex ADR-071..074 (doc_instances 71->75), vocabulary unresolved=0, banzai-api-kb WASM rebuilt (6 new authority checks live). Local battery: cargo 214 + node 339 + website 459 vitest + offline eval/parity PASS + all guards (6 new + updates) + next build. Public-edge QA PASS: /banzai/runtime 200 secret-free (schema_version banzai-runtime/1, mode local_qwen, external_calls false, deterministic_engines_available true, authoritative false), POST /banzai/runtime 405, /ask grounded=true external_model_called=false validation_status=passed (mandatory gate live, no false positive), ADR-072 grounded from source (reindex live E2E), §12 contradiction-phrase count 0 + 'uma unica sintese', naming 'Registo Tecnico BANZA' on /estado + /registo-tecnico, SimB absent from active surfaces. next=M2.19H (NOT STARTED).",
+  "previous_submilestone": "M2.19G_3B RUNNING (started 2026-08-02) — BanzAI Operator Experience Canonicalization: one-operator-per-session, multi-implementation onboarding, dynamic Technical-Registry selection, canonical version/profile/environment options, premium accessible UX for the 'Validar operador' + 'Onboarding de operador' tabs. base_commit=2c4bfb74 branch=feat/m2-19g3b-banzai-operator-experience rollback_tag=rollback-pre-m2-19g3b-banzai-operator-experience. Phase: Gate inicial (read-only audit) in progress. NOT started: M2.19H, Whitepaper, Banzami scheme, KYB, AML/CFT, real funds, passkeys, magic links, operator API keys, new origin-proof methods, new validation engine, new journey, Home redesign, M2.19I.",
+  "next_submilestone": "M2.19H — Scheme + regulatory readiness (NOT STARTED)",
+  "supersedes_prompts": [
+    "three-layer arch",
+    "technical certification",
+    "scheme-operator scheme",
+    "BanzAI Web",
+    "Workbench",
+    "Operador Zero",
+    "website",
+    "Home",
+    "chapters",
+    "public pages",
+    "docs",
+    "Reference",
+    "READMEs",
+    "SVGs",
+    "launch prep"
+  ],
+  "canonical_invariants": {
+    "three_layers": "L1 BANZA Protocol (open, no funds/PSP/CA) · L2 Conformance+Interoperability Certification (per-implementation, evidence-based, Rust-decided) · L3 scheme-operator Operational Scheme (designated operator, regulatory prep) · BanzAI Web = transversal human interface (control plane, not a 4th authority)",
+    "separations": "Technical Certification ≠ Scheme Admission ≠ Regulatory Authorisation; BANZA ≠ scheme-operator; registry(technical) ≠ scheme participant directory",
+    "authority": "Rust understands/routes/executes/grounds + DECIDES; Qwen explains ONCE (0 calls for terminals/actions, 1 for complex explanation, 0 external, no 2nd try); Qwen never certifies/approves/admits/publishes/activates",
+    "regulatory_state": "scheme-operator REGULATORY_AUTHORIZATION_IN_PROGRESS — NOT authorized; real money/wallets/settlement/clients fail-closed; no BNA-approval language/logos without evidence+founder approval+review",
+    "real_money": "RealMoneyActivationGate fail-closed; no bypass via config/flag/admin/CLI/API/NL/Qwen",
+    "operator_zero": "passive machine-verifiable reference implementation; NO standalone simulator; all human simulations initiate in BanzAI (BanzAI initiates → Zero responds → Rust evaluates); Zero not counted in metrics",
+    "preserve": "M2.19A intact (52 current-only ADRs; 004/022/026/027/032 stay deleted; no renumber; no BANZA CA / operator-financial arch / generic certs / discretionary approval / tombstones / historical public narrative); financial invariants untouched"
+  },
+  "submilestones": [
+    {
+      "id": "M2.19A",
+      "title": "Canonical ADR clean-slate",
+      "status": "DONE (merged 8caf872)"
+    },
+    {
+      "id": "M2.19B",
+      "title": "Trust/Security/Contracts realignment (Finding B) — 0 CA content, self-contained trust",
+      "status": "DONE + LIVE (PR #216 → main b15851b, CI 145/0, deployed 2026-07-28, live-QA PASS)",
+      "gates": [
+        "removed_ca_content=0",
+        "ambiguous_certificate_routes=0",
+        "legacy_trust_invariants=0",
+        "trust_contract_adr_divergence=0",
+        "certificate_chain_runtime_paths=0"
+      ],
+      "live_qa": "/certificates→404 (dropped from canonical hint); /operators []; /conformance/evidence + revocation-list (NOT degraded, revoked_ref migration verified) + key-manifest 200; /banzai/ask trust question grounds on INV-FEDEVAL-002, 0 INV-TRUST, grounded=true external_model_called=false",
+      "gotchas": "repo-guards ADR range 1..=57→1..=58 for each new ADR (engines/banza-repo-guards/src/lib.rs ~line172/185); Banzami stays out of committed artifacts until M2.19C/H introduces the scheme + its identity-guard allowance (M2.19B artifacts use 'scheme-operator'); DB migration required on live pre-prod DB (revoked_ref rename) applied as banza_admin; open-governance guard SURFACES + operator[_ ]?certificate regex + no-transition-narrative → deleted the legacy /certificates tombstone doc rather than keep it; banzai_core WASM is a pre-existing orphan (spawn_task filed)",
+      "done": [
+        "discovery 5 maps written",
+        "ADR-058 (mapping table: INV-TRUST retired→INV-OTE/INV-FEDEVAL/INV-ROOT; operator-cert/route/DB disposition)",
+        "contracts/invariants.json realigned (0 INV-TRUST; +INV-OTE-001..010 +INV-FEDEVAL-001..010 +INV-ROOT-007..010; families block)",
+        "verification-api /certificates route removed (routes.js+server.js) + operators() cert cols dropped + brl revoked_ref",
+        "DB 001_schema.sql (drop certificates table, operators cert cols, brl_entry cert col, GRANTs, note) + idempotent migration M2_19B_remove_operator_certificates.sql",
+        "README/ANNEX/verification-api README/estado/brl.production.schema /certificates+cert-id cleanup",
+        "LEGACY_CERTIFICATES_ROUTE_COMPATIBILITY.md rewritten to removal record"
+      ],
+      "sweep_done": "workflow wx8l2x1b5: 333 INV-TRUST citations remapped across ~66 files (verify-mapping CHECK2 semantic=PASS 0 mismaps, CHECK3 surviving-trust=PASS; verify-conformance 4/4 PASS: suite valid, 0 dangling fixtures, 7 SPM recasts, 0 certificate_url/issuer:BANZA). CHECK1 found 9 residual leaks → ALL FIXED (CONTRIBUTING/Makefile→FEDEVAL-005, SECURITY.md family, 4 PHASE_ docs, normative-hierarchy SVG family list; doc-index regenerated below)",
+      "guard_added": "tools/check-trust-invariant-realignment.sh (5 gates, self-test) + Makefile trust-invariant-realignment-check + CI job — PASSES; invariant-check PASSES; 0 residual INV-TRUST on active surface",
+      "running": [
+        "bg agent a9cfef37: SVG rename banza-operator-certificate-lifecycle→conformance-lifecycle + repoint 8 refs + ADR-053/054/EVIDENCE_BUNDLE /certificates disclaimer polish + mirrors"
+      ],
+      "remaining": [
+        "process cleanup-agent result",
+        "regen grounding doc-index+repo-index + rebuild WASM (banzai-query-core embeds via include_str!)",
+        "cargo test workspace + full guards battery (fmt/clippy) + node tests + website build",
+        "TRUST_SECURITY_CONTRACTS_REALIGNMENT_REPORT.md (gates=0)",
+        "PR/CI/merge/deploy(+apply DB migration M2_19B)/live-QA"
+      ],
+      "exclusions_preserved": [
+        "ADR-038/057/058 + website mirrors legitimately name retired INV-TRUST series (explain removal)",
+        "query-core repo-index removed-term catalogue",
+        "production_certificates=false is the ADR-038-endorsed honest boundary flag — KEPT everywhere"
+      ]
+    },
+    {
+      "id": "M2.19C",
+      "title": "Three-layer institutional architecture + Banzami Operational Scheme + regulatory state + conflict controls (ADR-059..063)",
+      "status": "COMPLETE + LIVE (PR #217 -> main 6dfbecd; #218 concept grounding; #219 deterministic three-layer/scheme cards; deployed 2026-07-29; live-QA PASS)",
+      "adrs": "ADR-059 (three layers) / ADR-060 (Banzami Operational Scheme) / ADR-061 (certification != admission != authorisation) / ADR-062 (regulatory-state boundary + RealMoneyActivationGate) / ADR-063 (conflict of interest + infra/key separation)",
+      "guards": [
+        "banza-three-layer-architecture-check",
+        "banza-banzami-scheme-role-check",
+        "banza-regulatory-state-claim-check",
+        "banza-real-money-activation-check",
+        "banza-protocol-scheme-separation-check",
+        "banza-conflict-of-interest-check",
+        "banza-certification-admission-separation-check"
+      ],
+      "live_qa": "/decisoes shows ADR-059..063; /decisoes/adr-059..063 render L1/L2/L3; /o-que-e + /confianca 307 -> /referencia (200); /certificates 404. BanzAI: 'quais são as três camadas?' -> deterministic ADR-059 card (0 model, L1 Protocolo / L2 Certificação de Conformidade e Interoperabilidade / L3 Banzami Operational Scheme); 'Banzami Operational Scheme' -> deterministic ADR-060/062 (L3, REGULATORY_AUTHORIZATION_IN_PROGRESS, fail-closed); bare 'o que é o Banzami' -> entity boundary intact; 'certificação = autorização regulatória?' -> Não (cert != authorisation); federação still grounds ADR-040. 0 fabrication, 0 degraded, external_model_called=false.",
+      "banzai_grounding": "concept.rs maps the 5 concepts to ADR-059..063 (brand-free); route.rs critical_entry serves def-three-layer-architecture + def-operational-scheme deterministically (0 model) ahead of the trunk, before the what-is-banzami identity arm; knowledge.js carries the canonical answers + SOURCES.adr059/060/062.",
+      "deferred_to_m2_19e": "Broader BanzAI answer-contract polish (e.g. routing 'certificação vs autorização' through ADR-061 rather than the generic license/boundary answer) rides in M2.19E (BanzAI Web control plane)."
+    },
+    {
+      "id": "M2.19D",
+      "title": "Certification & interoperability — profiles/reports/engines/records/registry/lifecycle/verification",
+      "status": "COMPLETE + LIVE (PR #221 -> main 67f5c05, CI 163/0, deployed 2026-07-29; ADR-064/065/066 + banza-certification engine (14 tests) + L2 contracts/OpenAPI + Technical Registry + BanzAI deterministic grounding; public-edge QA PASS: /decisoes renders ADR-064/065/066, /banzai/ask L2-certification 0-model grounded on ADR-064/065/066 (technical/per-implementation, not licence/authorisation/admission), registry->ADR-065, cert!=authorisation held; website sha256:ef5d346b, banzai-api sha256:8ccd60c2)"
+    },
+    {
+      "id": "M2.19E",
+      "title": "BanzAI Web control plane — Workbench integrated, workflows, RBAC, receipts, authority boundary, browser E2E",
+      "status": "Consolidado em M2.19E_F = COMPLETE + LIVE (PR #223 -> main 734517e)."
+    },
+    {
+      "id": "M2.19F",
+      "title": "Operator Zero realignment — remove simulator, read-only surface, endpoints, deeplinks, deploy",
+      "status": "Consolidado em M2.19E_F = COMPLETE + LIVE (PR #223 -> main 734517e)."
+    },
+    {
+      "id": "M2.19G",
+      "title": "Public website & Reference — inventory, Home, chapters, standalone pages, Reference, READMEs, nav, SEO, SVGs",
+      "status": "COMPLETE + LIVE (PR #226 -> main 768697b, CI 177/177 SUCCESS, deployed 2026-07-29; website sha256:9ab40223, banzai-api sha256:d1f5d3fa; rollback tag rollback-pre-m2-19g->6891ddc). Full three-layer public-surface reconstruction: 3 new owner pages (/certificacao, /registo-tecnico, /glossario), reference chapters (three-layer/L2/OZ read-only/BanzAI transversal), home+editorial rebuilt (qualified hero, operator-neutral), 12 SVGs rewritten + 2 new (SVG-P-092/093) + 8 simulator SVGs deleted, Operador Zero + knowledge.js grounding reframed to ADR-067 read-only, 11 READMEs realigned, 4 new guards + realigned battery, 11 reports. Public-edge QA PASS: 16/16 pages 200, forbidden-terms 0, three-layer vocab present, GET /banzai/ask 405, BanzAI OZ grounding 0 simulador/PASS-demo/score, external_model_called=false."
+    },
+    {
+      "id": "M2.19G_1",
+      "title": "Endpoint-Originated Operator Validation — operator–implementation model, Technical Registry target resolution, secure Rust fetcher (SSRF-hardened), endpoint-only official journey, draft-validation isolation, BanzAI UX simplification, Operador Zero public E2E parity",
+      "status": "COMPLETE + LIVE (PR #228 -> main c06f7f8, CI 237/237 SUCCESS, deployed 2026-07-30; new service banza-fetcher (SSRF-hardened Rust) + banzai-api + website live, all containers healthy (banza-fetcher/banzai-api/website/llama-local/reverse-proxy); rollback tag rollback-pre-m2-19g1-operator-validation->a272d32, ADR-068; website sha256:2088bfa1, banza-fetcher sha256:366f109f, banzai-api sha256:f019c3f6 (federation-path build, PR #229)). Definitive post-deploy Operador Zero public E2E (POST banza.network/banzai/validate/journey {operator-zero, operator-zero-ref-impl}) -> HTTP 200 ~1.5s: 9 OperationReceipts + 1 JourneyReceipt, real endpoints+sha256 (endpoint 8/9, input_hash 9/9); discovery/manifest VERIFIED, keys/trust FAILED (fail-closed root metadata expired/revoked), conformance PENDING (incomplete evidence), interoperability FAILED (L2 blocked), federation FAILED (content verdict L3_BLOCKED_BY_MANIFEST on served /federation/metadata.json, 200), evidence FAILED (bundle schema incomplete); overall FAILED / certification_readiness BLOCKED / certification_status NOT_CERTIFIED / certified false (honest ADR-068 no-bypass demo state), qwen_calls 0 / external_model_calls 0 / protocol_fetch_count 23. Evidence artifacts/m2-19g1/operator-zero-public-e2e.json; reports M2_19G1_PRODUCTION_VALIDATION_REPORT + OPERATOR_ZERO_PUBLIC_E2E_REPORT finalized. previous=M2.19G. next=M2.19H (NOT STARTED)."
+    },
+    {
+      "id": "M2.19G_3",
+      "title": "Simple, secure operator onboarding in BanzAI (ADR-069) — passwordless email-OTP, private Candidate Registry + recovery, .well-known origin proof, validation via public endpoints",
+      "status": "COMPLETE + LIVE (PR #236 -> main 5946ad8, deployed 2026-07-30; real OTP verified LIVE; secrets .env-only; dark-by-default; __Host- SameSite=Strict sessions). Note: the Operador Zero re-enrolment in this submilestone stopped at ORIGIN_PENDING (no live challenge published by the origin) — closed by M2.19G_3A."
+    },
+    {
+      "id": "M2.19G_3A",
+      "title": "Operador Zero origin proof + re-enrolment closure (ADR-069) — independent origin publication, single-use challenge, reconciliation without duplication",
+      "status": "COMPLETE + LIVE (PR #238 -> main 61646a5, CI 249/249, deployed 2026-07-30; rollback tag rollback-pre-m2-19g3a-operator-zero-origin-closure). Independent OZ-origin static .well-known publication (nginx zero.banza.network exact-match location, alias, 405/no-store, read-only compose mount) + single-use challenge (consumed_at, Rust already_used gate, write-once store, consume-on-verify + replay short-circuit) + authenticated reconcile route binding to the CLOSED registry (never creates an operator / writes /operators). Guard tools/check-operator-zero-origin-closure.sh (14 invariants) + CI job; onboarding tests 11/11; Rust 9/9. LIVE run behind the human OTP gate: recovered the EXISTING candidate 10e14892 (no duplicate), fresh challenge published at the origin, external edge verify PASS (200/json/no-store/0-redirect/nonce-hash match, PUT 405), positive OriginVerificationReceipt (response_sha256 e1da8af1), consumed -> removed -> replay refused (already_used), nine-stage journey EXECUTED 9/9 (JourneyReceipt journey-c8525897, NOT_CERTIFIED/BLOCKED honest, external_model_calls=0), reconcile -> PUBLISHED bound to operator-zero/operator-zero-ref-impl. Metrics: entries=1, reference_implementations=1, duplicates=0, origin_verified=true, journey_executed=true, external_model_called=0, /operators [] unchanged. Report docs/reports/M2_19G3A_OPERATOR_ZERO_ORIGIN_AND_REENROLMENT_CLOSURE.md + G.3 addendum. next=M2.19H (NOT STARTED)."
+    },
+    {
+      "id": "M2.19G_5C",
+      "title": "BanzAI canonical architecture (ADR-071..074)",
+      "status": "COMPLETE + LIVE (PR #260 -> main 76323672, CI green, deployed 2026-08-03; rollback tag rollback-pre-5C). BanzAI canonical architecture: ADR-071 (canonical runtime = services/banzai-api in this repo; banza-protocol/banzai = frozen archive), ADR-072 (public runtime SSOT GET /banzai/runtime), ADR-073 (mandatory post-synthesis authority validator on the publish path, env BANZAI_POST_VALIDATE_ENFORCE default ON), ADR-074 (SimB retired from active surfaces; engine/gate/draft/history kept), ADR-065 amendment (Registo Tecnico / Technical Registry naming parity). 9 sub-phases 5C-0..5C-7 + adversarial-review fixes (cacheKey binds policy/contract/doc/entity; SemanticCache cross-entity filter; honest validation_status under enforce-OFF) + 6 cache regression tests. Reindex ADR-071..074 (doc_instances 71->75), vocabulary unresolved=0, banzai-api-kb WASM rebuilt (6 new authority checks live). Local battery: cargo 214 + node 339 + website 459 vitest + offline eval/parity PASS + all guards (6 new + updates) + next build. Public-edge QA PASS: /banzai/runtime 200 secret-free (schema_version banzai-runtime/1, mode local_qwen, external_calls false, deterministic_engines_available true, authoritative false), POST /banzai/runtime 405, /ask grounded=true external_model_called=false validation_status=passed (mandatory gate live, no false positive), ADR-072 grounded from source (reindex live E2E), §12 contradiction-phrase count 0 + 'uma unica sintese', naming 'Registo Tecnico BANZA' on /estado + /registo-tecnico, SimB absent from active surfaces. next=M2.19H (NOT STARTED)."
+    },
+    {
+      "id": "M2.19H",
+      "title": "Scheme & regulatory readiness — participant workflows, scheme rules, sandbox, regulatory gate, real-money block",
+      "status": "PENDING"
+    },
+    {
+      "id": "M2.19I",
+      "title": "1 August launch — RC, freeze, public+browser QA, production validation, release tag, rollback",
+      "status": "PENDING"
+    },
+    {
+      "id": "M2.19E_F",
+      "status": "COMPLETE + LIVE (PR #223 -> main 734517e, CI 169/0, deployed 2026-07-29; Operador Zero read-only reference implementation + BanzAI Web Validation Workbench /banzai/validar; public-edge QA PASS: zero.banza.network 200 no-redirect Chrome/Safari/Firefox + reference language + zero simulator strings; /banzai/validar 9-step journey EXECUTED live via Rust WASM — Discovery VERIFIED (banza-operator-manifest 0.1.0, reason codes, SHA-256 receipt, qwen_calls:0/external_calls:0), JourneyReceipt NOT_CERTIFIED/PRE_PRODUCTION exportable; ADR-067; website sha256:3bef7a2c, banzai-api sha256:44c6216f)"
+    },
+    {
+      "id": "M2.19E_F_2",
+      "status": "COMPLETE + LIVE (2026-07-29) — BanzAI single canonical interface. PR #224 -> main e9959d1 (consolidation) + PR #225 -> main 5b57cc4 (guard realignment, CI 169/0). Deployed: website sha256:7539d7ae, banzai-api sha256:738997a0 (repo 5b57cc4). Public-edge QA PASS: /banzai/validar -> 404 (0 redirects, no Location) plain+query; /banzai + ?mode=ask + ?mode=validation&target=operator-zero&workflow=full -> 200; Operador Zero CTAs -> /banzai?mode=validation (7 workflows, 0 /banzai/validar); 'BanzAI Web' count 0; ask backend GET->405; ADR-067 live on /decisoes. Validation mode renders single shell (MODOS/JORNADA 9 steps/RECURSOS/RESULTADOS); full journey EXECUTED live: 9/9 receipts, Discovery VERIFIED, NOT_CERTIFIED/Bloqueado, qwen_calls:0/external_calls:0."
+    }
+  ],
+  "final_gates": {
+    "unresolved_contradictions": null,
+    "broken_adr_references": null,
+    "obsolete_public_terms": null,
+    "removed_ca_content": null,
+    "ambiguous_certification_claims": null,
+    "certification_admission_confusions": null,
+    "regulatory_claim_violations": null,
+    "protocol_scheme_confusions": null,
+    "unreviewed_public_routes": null,
+    "orphan_public_routes": null,
+    "stale_public_pages": null,
+    "broken_public_links": null,
+    "duplicate_canonical_pages": null,
+    "duplicated_reference_claims": null,
+    "obsolete_svgs": null,
+    "operator_zero_simulation_entrypoints": null,
+    "operator_zero_duplicate_workflows": null,
+    "operator_zero_metric_leaks": null,
+    "qwen_decision_calls": null,
+    "critical_actions_without_receipt": null,
+    "real_money_activation_paths": null,
+    "unexpected_public_fallbacks": null,
+    "external_model_calls": null
+  },
+  "reports_required": [
+    "TRUST_SECURITY_CONTRACTS_REALIGNMENT_REPORT",
+    "THREE_LAYER_ARCHITECTURE_REPORT",
+    "OPERATIONAL_SCHEME_REPORT",
+    "REGULATORY_STATE_BOUNDARY_REPORT",
+    "CERTIFICATION_REPORT",
+    "INTEROPERABILITY_REPORT",
+    "BANZAI_WEB_CONTROL_PLANE_REPORT",
+    "OPERATOR_ZERO_REALIGNMENT_REPORT",
+    "PUBLIC_SURFACE_INVENTORY_REPORT",
+    "PUBLIC_SURFACE_ALIGNMENT_REPORT",
+    "REFERENCE_RESTRUCTURING_REPORT",
+    "SVG_AUDIT_REPORT",
+    "README_ALIGNMENT_REPORT",
+    "SECURITY_BOUNDARY_REPORT",
+    "LAUNCH_READINESS_REPORT",
+    "PRODUCTION_VALIDATION_REPORT"
+  ],
+  "phase": "M2.19G.3A — Operador Zero origin proof + re-enrolment closure (ADR-069) — COMPLETE + LIVE",
+  "next_action": "M2.19G.3A COMPLETE + LIVE (PR #238 -> main 61646a5, CI 249/249, deployed, live human-OTP run PASS: origin proof positive, single-use consumed, nine-stage journey executed, candidate reconciled to operator-zero, /operators [] unchanged, no duplicate); next=M2.19H (NOT STARTED); do NOT start M2.19H/I or the Whitepaper Gate",
+  "next_free_adr_after_058": "ADR-059",
+  "prs": [
+    "#215 M2.19A→8caf872",
+    "#216 M2.19B→b15851b"
+  ],
+  "deployments": [
+    "2026-07-28 M2.19B: website+verification-api+banzai-api rebuilt, M2_19B DB migration applied, reverse-proxy restarted, live-QA PASS"
+  ],
+  "blockers": [],
+  "carried_followups_from_m2_19a": [
+    "finding-B (now M2.19B)",
+    "website/lib/wasm client-bundle refresh",
+    "query-core routing for 'o que substitui o certificado?' returns clarification not ADR-038"
+  ],
+  "m2_19g_3b": {
+    "status": "IMPLEMENTATION_COMPLETE",
+    "phase": "implementation COMPLETE + all local gates green; opening PR → CI → merge → deploy → public-edge QA",
+    "base_commit": "2c4bfb74",
+    "branch": "feat/m2-19g3b-banzai-operator-experience",
+    "rollback_tag": "rollback-pre-m2-19g3b-banzai-operator-experience",
+    "human_gate": "§43 stop WAIVED by user ('Sim faz tudo sem parar', 2026-08-02) — execute autonomously to COMPLETE+LIVE; still self-verify (screenshots/a11y/tests/guards/QA); do NOT start M2.19H after.",
+    "reports_required": [
+      "BANZAI_OPERATOR_EXPERIENCE_CURRENT_STATE_AUDIT.md",
+      "BANZAI_ONE_OPERATOR_PER_SESSION_ARCHITECTURE.md",
+      "BANZAI_MULTI_IMPLEMENTATION_ONBOARDING_REPORT.md",
+      "BANZAI_DYNAMIC_REGISTRY_SELECTION_REPORT.md",
+      "BANZAI_OPERATOR_UX_ACCESSIBILITY_REPORT.md",
+      "M2_19G3B_BANZAI_OPERATOR_EXPERIENCE_CANONICALIZATION.md"
+    ],
+    "audit": {
+      "report": "docs/reports/BANZAI_OPERATOR_EXPERIENCE_CURRENT_STATE_AUDIT.md",
+      "method": "8 read-only parallel readers (0 errors)",
+      "session_model_found": "session bound to EMAIL (candidate_sessions.email_normalized); one email → unlimited candidates(operators); no server-side active_candidate; client passes candidate_id per request",
+      "candidate_registry": "private Postgres tables (candidates, candidate_implementations 1..N via FK, origin_challenges w/ consumed_at, candidate_sessions) — 001_schema.sql + M2_19G3/M2_19G3A migrations",
+      "technical_registry_source": "engines/banza-target-registry production_registry() (canonical Rust); /operators machine route returns [] pre-prod; /registo-tecnico prose",
+      "option_sources": "version/profile/environment come from HARDCODED TS website/lib/banzaiValidation.ts OPERATOR_REGISTRY (DRIFTED from Rust SUPPORTED_* sets) — must move to canonical Rust",
+      "canonical_state_enum": "engines/banzai-onboarding/src/lib.rs candidate_states: EMAIL_PENDING,EMAIL_VERIFIED,DRAFT,ORIGIN_PENDING,ORIGIN_VERIFIED,VALIDATING,BLOCKED,VALIDATION_COMPLETED,PUBLICATION_ELIGIBLE,PUBLISHED,EXPIRED",
+      "preserved_data_gotcha": "Banzami candidate + Banzami Sandbox impl + sandbox-operator.banzami.com + challenge exist ONLY in prod DB (no git seed) → preserve idempotently, never duplicate; absent from local/CI",
+      "problem_counts": {
+        "arquitectural": 8,
+        "consistencia_dados": 8,
+        "funcional": 6,
+        "terminologico": 4,
+        "acessibilidade": 6,
+        "visual": 2,
+        "seguranca": 3
+      },
+      "high_severity": 13,
+      "reused_untouched": [
+        "nine-stage journey + validatewasm engines",
+        "Rust onboarding security core (OTP/session/state-machine/origin-proof)",
+        "Operador Zero canonical entry",
+        "public Technical Registry semantics",
+        "Home",
+        "Whitepaper"
+      ]
+    },
+    "execution_mode": "continuous-to-live",
+    "progress": [
+      "§34 canonical read endpoints GET /validate/registry (catalogue) + /validate/options (supported version/profile/environment) — Rust-sourced (banza-target-registry WASM), ETag+max-age=300+304, 0 model; verified returns canonical operator-zero 0.1.0/L0/sandbox (not drifted TS). validate.js catalogue()/options() + server.js routes.",
+      "§10-30 (Validar operador) canonicalized: operator list fetched from GET /validate/registry (fetchRegistry+mapCatalogueToOperators pure mapper) instead of hardcoded OPERATOR_REGISTRY; deleted drifted TS data (version 1.0.0→canonical 0.1.0, profile 'demonstração'→L0, wallets/qr/settlement→qr_payment_demo/refund_demo/reconciliation_demo) + the misleading last_known_state cert-outcome field; added publication_status/eligible from Rust; loading/empty/error states; banzaiState now carries shape-checked seed ids (async resolution against fetched list); impl display_name from Rust registry. tsc clean, vitest 423/423 (rewrote 3 test files to mapper/list-resolver model incl. synthetic multi-operator proof), next build clean.",
+      "Guard tools/check-banzai-operator-experience.sh (OE1..OE13) + Makefile + identity-guard CI + onboarding profile round-trip node test; report docs/reports/M2_19G3B_BANZAI_OPERATOR_EXPERIENCE_CANONICALIZATION.md. No new DB migration needed (candidate_implementations already 1..N with expected_protocol_version/profile/environment)."
+    ],
+    "gates": {
+      "rust_target_registry": "13/13",
+      "banzai_api_node": "325/325",
+      "website_tsc": "clean",
+      "website_vitest": "423/423",
+      "next_build": "clean",
+      "operator_experience_guard": "OE1..OE13 13/13"
+    }
+  },
+  "current": "M2.19G_4",
+  "previous": "M2.19G_3B",
+  "next": "M2.19H",
+  "m2_19g_4": {
+    "title": "Premium Production Workspace — Operator Context & Implementation Validation UX",
+    "status": "COMPLETE + LIVE (PR #259 -> main e624d6d5, CI 253/253, deployed 2026-08-03 to banza.network; website+banzai-api rebuilt/recreated healthy, repo e624d6d5). Public-edge QA PASS: global/operator/implementation contexts 200; bad-shape segments (OPERATOR/bad_slug/UPPER) -> 404 (server-side closed-slug notFound at the edge); GET /banzai/ask 405; /banzai/validate/registry canonical (operator-zero display_name 'Operador Zero', impl 0.1.0/L0/sandbox/protocol 1.0.0/published, no drift) + /options ['1.0.0']+sandbox/demo; operator segment metadata title + shared-layout sr-only h1 present; POST /ask x2 grounded=true degraded=false external_model_called=false engine=local_qwen (ADR-001) AND 'Explica o ADR-070' -> grounded from source ADR-070 (reindex live end-to-end); browser: deployed premium workspace renders CONTEXTO 'Global > Operador Zero' breadcrumb (registry-resolved display name), operator+implementation cards, boundary+engine panels. Do NOT start M2.19H.",
+    "status_prev": "RUNNING",
+    "base_commit_main": "2c4bfb74",
+    "branch": "release/m2-19g4-premium-production-workspace",
+    "human_gate": "§36 STOP at 'READY FOR HUMAN REVIEW'; await 'APROVADO PARA MERGE E DEPLOY' before merge/deploy",
+    "execution_mode": "autonomous to READY-FOR-REVIEW, then STOP (do NOT auto-merge/deploy; do NOT start M2.19H)",
+    "governance": "routes-per-level contradicts ADR-067 + check-banzai-single-interface guard -> superseding ADR + explicit guard update (single interface preserved; deep links resolved server-side; closed-registry invariant kept)",
+    "preserve": [
+      "security(G.1/G.3/G.3A)",
+      "data model",
+      "Rust engines",
+      "PostgreSQL",
+      "closed registry",
+      "Registo Tecnico name",
+      "BanzAI single interface",
+      "BanzAI no decisive authority",
+      "operator!=implementation",
+      "validation!=certification!=admission!=authorization"
+    ],
+    "phase": "COMPLETE + LIVE — merged (e624d6d5), deployed to banza.network, public-edge + browser QA PASS. next=M2.19H (NOT STARTED).",
+    "progress": [
+      "Phase 0: ADR-070 written (operator-neutral) + repo-guards range 1..=70 + build plan; identity/contamination PASS. (Phase 8 later removed the unused website ADR-070 mirror and reworded ADR-070 to avoid the retired /banzai/validar + 'BanzAI Web' tokens that tripped the single-interface guard #4/#5.)",
+      "Phase 1: check-banzai-single-interface #2 → closed ADR-070 allowlist (layout.tsx/page.tsx/operador/[operatorId]/[implementationId]) + anti-conflation assertion (D-070-05). PASS.",
+      "Phase 2: parseBanzaiState(sp, pathSeed) → BanzaiContext/BanzaiPathSeed (path seed wins; operator/impl imply validation); atomic useValidationSession.selectTarget; BanzaiWorkspaceProvider (single always-mounted shell) + BanzaiRouteBinder + app/banzai/layout.tsx + two segment pages (server-side isClosedId + notFound); BanzaiAgent consumes reactive routeState, syncs mode/context, reflects Fase-0 selection back to the URL. tsc clean, guard PASS, browser smoke PASS (operator context renders, honest registry fallback locally).",
+      "Phases 4-7: BanzaiContextTrail CONTEXTO breadcrumb (D-070-05); F5 runtime-truth engine label derived from /ask telemetry; F6 'Emitir desafio de origem'→'Preparar prova de origem' ('Validar operador' preserved per ADR-068 §4.1 + guard); F7 legacy ?mode= deep links preserved + ?target= canonicalises to a segment.",
+      "Phase 8: guard battery green; ADR-070 reindexed into BanzAI grounding (doc-index + banzai-api-kb WASM rebuilt/re-vendored → corpus 71/71; vocabulary regenerated unresolved=0); reconciled realistic-journey + workbench-navigation + accessibility guards to routeState rename / shared-layout <h1>. Rust query-core 201+ tests + contamination PASS.",
+      "Phase 9: banzaiState.test +7 path-seed/context cases; m2_19g4-navigable-contexts.test (new); 2 stale specs reconciled. Website vitest 436/436. next build clean (all three /banzai routes dynamic).",
+      "Phase 10: visual QA desktop+mobile (context trail + responsive confirmed; full-data premium state needs the deployed backend); report docs/reports/M2_19G4_PREMIUM_PRODUCTION_WORKSPACE.md; PR opened."
+    ],
+    "adr": "ADR-070 (navigable contexts in the single BanzAI interface; supersedes ADR-067 D-067-02 one-route-file reading)",
+    "next_free_adr": "ADR-071",
+    "decisions_for_reviewer": [
+      "'Validar operador' mode label PRESERVED (ADR-068 §4.1 + check-banzai-operator-validation-mode-check hard-lock; reject 'Validar implementação'). If §25 wants the sidebar label changed, it is a governed change (guard + ADR-068 §4.1 together).",
+      "?mode=validation canonicalises to /banzai/operador/operator-zero (Operador Zero is the default/only demo operator; progressive disclosure into the operator context).",
+      "Deep-linked segment first-paints the global default for one client tick, then the binder applies the segment via an isomorphic layout effect (no visible flash; session empty on fresh deep link; operator name needs async registry fetch anyway)."
+    ],
+    "resume": "READY FOR HUMAN REVIEW. On 'APROVADO PARA MERGE E DEPLOY': gh pr merge --admin → deploy website (+ rebuilt banzai-api WASM: sudo docker compose build banzai-api website && up -d --force-recreate) on VPS 82.165.165.97 → public-edge + browser E2E QA (registry loads, contexts navigate, 9-step journey, no degraded/external) → declare COMPLETE+LIVE → STOP (do NOT start M2.19H). Full plan: docs/reports/M2_19G4_BUILD_PLAN.md + M2_19G4_PREMIUM_PRODUCTION_WORKSPACE.md."
+  }
+}

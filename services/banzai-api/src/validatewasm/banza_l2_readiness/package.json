@@ -1,0 +1,13 @@
+{
+  "name": "banza-l2-readiness",
+  "description": "banza-l2-readiness (BX1.8): local, no-network preparation of the L2 payment-flow surface. It reads the Operator Manifest, SimB pre-review, Conformidade L0 and L1 readiness reports, and validates the minimum BANZA payment-flow artifacts — payment intent, idempotency handling, double-entry ledger postings, trace linkage, settlement obligation and an evidence reference — computing the L2 readiness status IN RUST. L2 readiness is technical preparation of a payment flow — NOT a real payment, NOT certification, NOT approval; it does not create an operator and does not move funds.",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "files": [
+    "banza_l2_readiness_bg.wasm",
+    "banza_l2_readiness.js",
+    "banza_l2_readiness.d.ts"
+  ],
+  "main": "banza_l2_readiness.js",
+  "types": "banza_l2_readiness.d.ts"
+}

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  id:        SVG-P-066
+  diagram:   Trust Engine — Active Model
+  version:   1.0
+  source:    banza-trust (engines/banza-trust) · M2.4 Trust Engine — Signed Protocol Metadata
+  updated:   2026-07-17
+  author:    BANZA Protocol
+  style:     protocol
+-->
+<svg viewBox="0 0 1000 672" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-labelledby="title-P066 desc-P066"
+     font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="title-P066">Trust Engine — Active Model</title>
+  <desc id="desc-P066">How the BANZA trust engine establishes protocol trust from published, verifiable material. Six kinds of evidence feed the engine: signed protocol metadata and a delegated signing key that anchors to the trust root, an operator manifest and conformance evidence that the operator self-publishes, a public protocol registry entry, and a revocation list. The trust engine evaluates them in Rust: it verifies the ed25519 signature over the ADR-038 canonical form, checks the delegated key against the trust root, the freshness window, the protocol version, the manifest, conformance evidence and registry bindings, and the revocation status. Every branch is fail-closed. When all checks verify the status is TRUST_VALID and the evaluating operator may route federation traffic; when any input is missing, invalid, expired, revoked or incompatible the status is fail-closed and no trust is established. No operator certificate, no certification authority signature, no human approval and no certificate badge appear anywhere in the evaluation. The validation of trust is not authorisation, certification, a licence or a financial service.</desc>
+  <defs>
+    <linearGradient id="hg-P066" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E0F1A"/><stop offset="100%" stop-color="#8E1326"/>
+    </linearGradient>
+    <marker id="arr-P066" markerWidth="9" markerHeight="9" refX="4.5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#6B7280"/>
+    </marker>
+    <marker id="arrpass-P066" markerWidth="9" markerHeight="9" refX="4.5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#166534"/>
+    </marker>
+    <marker id="arrfail-P066" markerWidth="9" markerHeight="9" refX="4.5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#B91C1C"/>
+    </marker>
+    <filter id="sh-P066">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#00000014"/>
+    </filter>
+  </defs>
+
+  <rect width="1000" height="672" fill="#F4F1EA"/>
+
+  <!-- ── Header ── -->
+  <rect x="0" y="0" width="1000" height="64" fill="url(#hg-P066)" rx="14"/>
+  <rect x="0" y="48" width="1000" height="16" fill="#8E1326"/>
+  <text x="24" y="26" font-family="ui-monospace,'Courier New',monospace" font-size="9" fill="#FECACA" letter-spacing="2">SVG-P-066 · OPEN FINANCIAL PROTOCOL</text>
+  <text x="24" y="47" font-size="18" font-weight="800" fill="white">Trust Engine — Active Model</text>
+  <text x="976" y="47" text-anchor="end" font-size="10.5" fill="#FECACA">Signed metadata · delegated keys · evidence · fail-closed</text>
+
+  <!-- ── Lead ── -->
+  <text x="500" y="92" text-anchor="middle" font-size="12.5" font-weight="700" fill="#374151">The engine establishes protocol trust from published, verifiable evidence — status computed in Rust.</text>
+  <text x="500" y="110" text-anchor="middle" font-size="10.5" fill="#6B6265">Deterministic and offline: the same inputs yield the same result for anyone who runs the evaluation.</text>
+
+  <!-- ── Evidence inputs ── -->
+  <text x="40" y="136" font-size="10" font-weight="700" fill="#6B6265" letter-spacing="1.5">EVIDENCE INPUTS — PUBLISHED, VERIFIABLE MATERIAL</text>
+
+  <!-- Input 1 — Signed Protocol Metadata (protocol-signed) -->
+  <rect x="40" y="146" width="140" height="120" fill="white" rx="12" stroke="#BFDBFE" stroke-width="1.5" filter="url(#sh-P066)"/>
+  <rect x="40" y="146" width="140" height="30" fill="#1E40AF" rx="12"/><rect x="40" y="162" width="140" height="14" fill="#1E40AF"/>
+  <text x="110" y="166" text-anchor="middle" font-size="9.5" font-weight="800" fill="white">Signed Protocol Metadata</text>
+  <text x="110" y="196" text-anchor="middle" font-size="9.5" fill="#374151">specs · contracts · hashes</text>
+  <text x="110" y="211" text-anchor="middle" font-size="9.5" fill="#6B6265">ed25519 over the</text>
+  <text x="110" y="226" text-anchor="middle" font-size="9.5" fill="#6B6265">ADR-038 canonical form</text>
+  <text x="110" y="251" text-anchor="middle" font-size="9" font-style="italic" fill="#1E40AF">protocol-signed</text>
+
+  <!-- Input 2 — Delegated Signing Key (protocol-signed) -->
+  <rect x="196" y="146" width="140" height="120" fill="white" rx="12" stroke="#BFDBFE" stroke-width="1.5" filter="url(#sh-P066)"/>
+  <rect x="196" y="146" width="140" height="30" fill="#1E40AF" rx="12"/><rect x="196" y="162" width="140" height="14" fill="#1E40AF"/>
+  <text x="266" y="166" text-anchor="middle" font-size="9.5" font-weight="800" fill="white">Delegated Signing Key</text>
+  <text x="266" y="196" text-anchor="middle" font-size="9.5" fill="#374151">listed by the trust root</text>
+  <text x="266" y="211" text-anchor="middle" font-size="9.5" fill="#6B6265">scoped usage · in window</text>
+  <text x="266" y="226" text-anchor="middle" font-size="9.5" fill="#6B6265">root-threshold signed</text>
+  <text x="266" y="251" text-anchor="middle" font-size="9" font-style="italic" fill="#1E40AF">anchors to trust root</text>
+
+  <!-- Input 3 — Operator Manifest (self-published) -->
+  <rect x="352" y="146" width="140" height="120" fill="white" rx="12" stroke="#BBF7D0" stroke-width="1.5" filter="url(#sh-P066)"/>
+  <rect x="352" y="146" width="140" height="30" fill="#166534" rx="12"/><rect x="352" y="162" width="140" height="14" fill="#166534"/>
+  <text x="422" y="166" text-anchor="middle" font-size="9.5" font-weight="800" fill="white">Operator Manifest</text>
+  <text x="422" y="196" text-anchor="middle" font-size="9.5" fill="#374151">operator_id · capabilities</text>
+  <text x="422" y="211" text-anchor="middle" font-size="9.5" fill="#6B6265">endpoints · public keys</text>
+  <text x="422" y="226" text-anchor="middle" font-size="9.5" fill="#6B6265">bound by manifest_hash</text>
+  <text x="422" y="251" text-anchor="middle" font-size="9" font-style="italic" fill="#166534">self-published</text>
+
+  <!-- Input 4 — Conformance Evidence (self-published) -->
+  <rect x="508" y="146" width="140" height="120" fill="white" rx="12" stroke="#BBF7D0" stroke-width="1.5" filter="url(#sh-P066)"/>
+  <rect x="508" y="146" width="140" height="30" fill="#166534" rx="12"/><rect x="508" y="162" width="140" height="14" fill="#166534"/>
+  <text x="578" y="166" text-anchor="middle" font-size="9.5" font-weight="800" fill="white">Conformance Evidence</text>
+  <text x="578" y="196" text-anchor="middle" font-size="9.5" fill="#374151">machine-verifiable results</text>
+  <text x="578" y="211" text-anchor="middle" font-size="9.5" fill="#6B6265">of the conformance suite</text>
+  <text x="578" y="226" text-anchor="middle" font-size="9.5" fill="#6B6265">bound by evidence_hash</text>
+  <text x="578" y="251" text-anchor="middle" font-size="9" font-style="italic" fill="#166534">self-published</text>
+
+  <!-- Input 5 — Public Protocol Registry (protocol-signed) -->
+  <rect x="664" y="146" width="140" height="120" fill="white" rx="12" stroke="#BFDBFE" stroke-width="1.5" filter="url(#sh-P066)"/>
+  <rect x="664" y="146" width="140" height="30" fill="#1E40AF" rx="12"/><rect x="664" y="162" width="140" height="14" fill="#1E40AF"/>
+  <text x="734" y="166" text-anchor="middle" font-size="9.5" font-weight="800" fill="white">Public Protocol Registry</text>
+  <text x="734" y="196" text-anchor="middle" font-size="9.5" fill="#374151">verifiable index entry</text>
+  <text x="734" y="211" text-anchor="middle" font-size="9.5" fill="#6B6265">bound to the operator</text>
+  <text x="734" y="226" text-anchor="middle" font-size="9.5" fill="#6B6265">discovery, not permission</text>
+  <text x="734" y="251" text-anchor="middle" font-size="9" font-style="italic" fill="#1E40AF">protocol-signed</text>
+
+  <!-- Input 6 — Revocation List (security signal) -->
+  <rect x="820" y="146" width="140" height="120" fill="white" rx="12" stroke="#FDE68A" stroke-width="1.5" filter="url(#sh-P066)"/>
+  <rect x="820" y="146" width="140" height="30" fill="#854D0E" rx="12"/><rect x="820" y="162" width="140" height="14" fill="#854D0E"/>
+  <text x="890" y="166" text-anchor="middle" font-size="9.5" font-weight="800" fill="white">Revocation List</text>
+  <text x="890" y="196" text-anchor="middle" font-size="9.5" fill="#374151">withdraws trust from</text>
+  <text x="890" y="211" text-anchor="middle" font-size="9.5" fill="#6B6265">key material</text>
+  <text x="890" y="226" text-anchor="middle" font-size="9.5" fill="#6B6265">read on every evaluation</text>
+  <text x="890" y="251" text-anchor="middle" font-size="9" font-style="italic" fill="#854D0E">security signal</text>
+
+  <!-- Arrows into the engine -->
+  <line x1="110" y1="266" x2="110" y2="298" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr-P066)"/>
+  <line x1="266" y1="266" x2="266" y2="298" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr-P066)"/>
+  <line x1="422" y1="266" x2="422" y2="298" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr-P066)"/>
+  <line x1="578" y1="266" x2="578" y2="298" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr-P066)"/>
+  <line x1="734" y1="266" x2="734" y2="298" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr-P066)"/>
+  <line x1="890" y1="266" x2="890" y2="298" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr-P066)"/>
+
+  <!-- ── Trust Engine ── -->
+  <rect x="40" y="300" width="920" height="132" fill="white" rx="12" stroke="#E5E7EB" stroke-width="1.5" filter="url(#sh-P066)"/>
+  <rect x="40" y="300" width="920" height="32" fill="#1F2937" rx="12"/><rect x="40" y="318" width="920" height="14" fill="#1F2937"/>
+  <text x="500" y="321" text-anchor="middle" font-size="13" font-weight="800" fill="white">Trust Engine · banza-trust</text>
+  <text x="500" y="352" text-anchor="middle" font-size="10.5" fill="#374151">The status is computed in Rust — ed25519 over the ADR-038 canonical JSON — and every gate is fail-closed.</text>
+
+  <!-- Gate chips -->
+  <rect x="56" y="366" width="136" height="42" rx="8" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1.2"/>
+  <text x="124" y="384" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1F2937">Boundary</text>
+  <text x="124" y="398" text-anchor="middle" font-size="8" fill="#6B6265">no certificate / approval</text>
+
+  <rect x="204" y="366" width="136" height="42" rx="8" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1.2"/>
+  <text x="272" y="384" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1F2937">Root + Delegated Key</text>
+  <text x="272" y="398" text-anchor="middle" font-size="8" fill="#6B6265">listed · usage · in window</text>
+
+  <rect x="352" y="366" width="136" height="42" rx="8" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1.2"/>
+  <text x="420" y="384" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1F2937">Signature</text>
+  <text x="420" y="398" text-anchor="middle" font-size="8" fill="#6B6265">ed25519 verifies</text>
+
+  <rect x="500" y="366" width="136" height="42" rx="8" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1.2"/>
+  <text x="568" y="384" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1F2937">Freshness + Version</text>
+  <text x="568" y="398" text-anchor="middle" font-size="8" fill="#6B6265">in window · compatible</text>
+
+  <rect x="648" y="366" width="136" height="42" rx="8" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1.2"/>
+  <text x="716" y="382" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1F2937">Manifest · Evidence</text>
+  <text x="716" y="394" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1F2937">· Registry</text>
+  <text x="716" y="405" text-anchor="middle" font-size="8" fill="#6B6265">bound by hash</text>
+
+  <rect x="796" y="366" width="136" height="42" rx="8" fill="#FEF2F2" stroke="#FECACA" stroke-width="1.2"/>
+  <text x="864" y="384" text-anchor="middle" font-size="9.5" font-weight="700" fill="#991B1B">Revocation</text>
+  <text x="864" y="398" text-anchor="middle" font-size="8" fill="#7F1D1D">clear · fail-closed</text>
+
+  <text x="500" y="424" text-anchor="middle" font-size="9.5" fill="#6B6265">Any gate that is missing, invalid, expired, revoked or incompatible returns the evaluation to fail-closed — there is no override.</text>
+
+  <!-- Split to outcomes -->
+  <path d="M500,432 L500,452 L270,452 L270,468" fill="none" stroke="#166534" stroke-width="2.5" marker-end="url(#arrpass-P066)"/>
+  <path d="M500,432 L500,452 L730,452 L730,468" fill="none" stroke="#B91C1C" stroke-width="2.5" marker-end="url(#arrfail-P066)"/>
+
+  <!-- Outcome — TRUST_VALID -->
+  <rect x="90" y="470" width="360" height="92" fill="white" rx="12" stroke="#BBF7D0" stroke-width="1.5" filter="url(#sh-P066)"/>
+  <rect x="90" y="470" width="360" height="30" fill="#166534" rx="12"/><rect x="90" y="486" width="360" height="14" fill="#166534"/>
+  <text x="270" y="491" text-anchor="middle" font-family="ui-monospace,'Courier New',monospace" font-size="13" font-weight="800" fill="white">TRUST_VALID</text>
+  <text x="270" y="520" text-anchor="middle" font-size="11" fill="#374151">All gates verify on published, verifiable material.</text>
+  <text x="270" y="537" text-anchor="middle" font-size="10" fill="#6B6265">The evaluating operator may route federation traffic to this operator.</text>
+  <text x="270" y="553" text-anchor="middle" font-size="9.5" font-style="italic" fill="#9CA3AF">a conclusion drawn from evidence — not an approval, licence or endorsement</text>
+
+  <!-- Outcome — FAIL_CLOSED -->
+  <rect x="550" y="470" width="360" height="92" fill="white" rx="12" stroke="#FECACA" stroke-width="1.5" filter="url(#sh-P066)"/>
+  <rect x="550" y="470" width="360" height="30" fill="#991B1B" rx="12"/><rect x="550" y="486" width="360" height="14" fill="#991B1B"/>
+  <text x="730" y="491" text-anchor="middle" font-family="ui-monospace,'Courier New',monospace" font-size="13" font-weight="800" fill="white">FAIL_CLOSED</text>
+  <text x="730" y="520" text-anchor="middle" font-size="11" fill="#374151">Any input missing, invalid, expired, revoked or incompatible.</text>
+  <text x="730" y="537" text-anchor="middle" font-size="10" fill="#6B6265">Trust is not established. The default is to stop, never to assume trust.</text>
+  <text x="730" y="553" text-anchor="middle" font-size="9.5" font-style="italic" fill="#991B1B">a protocol security outcome — not a regulatory sanction</text>
+
+  <!-- ── Boundary note ── -->
+  <rect x="40" y="582" width="920" height="46" rx="10" fill="#FEF2F2" stroke="#991B1B" stroke-width="2"/>
+  <text x="500" y="603" text-anchor="middle" font-size="11.5" font-weight="800" fill="#1F2937">A validação do trust não é autorização, certificação, licença nem serviço financeiro.</text>
+  <text x="500" y="620" text-anchor="middle" font-size="9.5" fill="#6B6265">BANZA é um protocolo financeiro aberto: não autoriza, certifica, aceita ou aprova operadores, não emite licença e não movimenta fundos.</text>
+
+  <!-- Footer -->
+  <text x="500" y="652" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-066 · Trust Engine — Active Model · BANZA Protocol · banza-trust · M2.4 · 2026-07-17</text>
+</svg>

@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+
+<svg viewBox="0 0 960 438" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title-P030 desc-P030" font-family="system-ui,-apple-system,sans-serif">
+  <title id="title-P030">Pipeline de conformidade BANZA</title>
+  <desc id="desc-P030">Da implementação do operador à avaliação local: implementação, endpoint público de sandbox, banza-conformance e relatório de evidência estão disponíveis hoje; a auto-publicação de metadata de protocolo assinada, a indexação no Registo Técnico e a avaliação local pelos pares (Open Trust Evaluation) dependem da cerimónia offline da chave raiz e da primeira evidência de conformidade de produção publicada.</desc>
+  <defs>
+    <linearGradient id="hg-P030" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E0F1A"></stop><stop offset="100%" stop-color="#8E1326"></stop>
+    </linearGradient>
+    <marker id="arr-P030" markerWidth="8" markerHeight="8" refX="4" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#9CA3AF"></path>
+    </marker>
+  </defs>
+
+  <rect width="960" height="412" fill="#F4F1EA" rx="16"></rect>
+
+
+  <rect x="0" y="0" width="960" height="64" fill="url(#hg-P030)" rx="16"></rect>
+  <rect x="0" y="48" width="960" height="16" fill="#8E1326"></rect>
+  <text x="36" y="28" font-family="ui-monospace,&#39;Courier New&#39;,monospace" font-size="9.5" fill="#EAD2D6" letter-spacing="2">SVG-P-030 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="36" y="50" font-size="17" font-weight="800" fill="white">Pipeline de conformidade BANZA</text>
+  <text x="924" y="50" text-anchor="end" font-size="10.5" fill="#EAD2D6">Da implementação à avaliação local</text>
+
+
+  <rect x="24" y="92" width="556" height="244" fill="#F0FDF4" rx="12" stroke="#BBF7D0" stroke-width="1.5"></rect>
+  <text x="44" y="116" font-size="9.5" font-weight="700" fill="#16A34A" letter-spacing="1.2">DISPONÍVEL HOJE — CONFORMIDADE E EVIDÊNCIA</text>
+
+
+  <rect x="600" y="92" width="336" height="244" fill="#FFFBEB" rx="12" stroke="#FCD34D" stroke-width="1.5"></rect>
+  <text x="620" y="116" font-size="9.5" font-weight="700" fill="#9A6B1E" letter-spacing="1.2">DEPENDE DA CERIMÓNIA DA RAIZ — AUTO-PUBLICAÇÃO E FEDERAÇÃO</text>
+
+
+  <g font-size="12.5" font-weight="700" fill="#1F2937" text-anchor="middle">
+    <g>
+      <rect x="44" y="132" width="250" height="58" fill="white" rx="10" stroke="#E5E7EB" stroke-width="1.5"></rect>
+      <text x="169" y="150" font-size="8.5" font-weight="700" fill="#16A34A" letter-spacing="1.2">DISPONÍVEL</text>
+      <text x="169" y="172">Implementação do operador</text>
+    </g>
+    <g>
+      <rect x="44" y="206" width="250" height="58" fill="white" rx="10" stroke="#E5E7EB" stroke-width="1.5"></rect>
+      <text x="169" y="224" font-size="8.5" font-weight="700" fill="#16A34A" letter-spacing="1.2">DISPONÍVEL</text>
+      <text x="169" y="246">Endpoint público de sandbox</text>
+    </g>
+    <g>
+      <rect x="318" y="132" width="244" height="58" fill="white" rx="10" stroke="#E5E7EB" stroke-width="1.5"></rect>
+      <text x="440" y="150" font-size="8.5" font-weight="700" fill="#16A34A" letter-spacing="1.2">DISPONÍVEL</text>
+      <text x="440" y="166" font-family="ui-monospace,&#39;Courier New&#39;,monospace" font-size="12">banza-conformance</text>
+      <text x="440" y="182" font-size="9.5" font-weight="400" fill="#6B7280">testa a URL pública</text>
+    </g>
+    <g>
+      <rect x="318" y="206" width="244" height="58" fill="white" rx="10" stroke="#E5E7EB" stroke-width="1.5"></rect>
+      <text x="440" y="224" font-size="8.5" font-weight="700" fill="#16A34A" letter-spacing="1.2">DISPONÍVEL</text>
+      <text x="440" y="246">Relatório de evidência</text>
+    </g>
+  </g>
+
+
+  <g font-size="12.5" font-weight="700" fill="#1F2937" text-anchor="middle">
+    <g>
+      <rect x="620" y="132" width="296" height="50" fill="white" rx="10" stroke="#E6D29A" stroke-width="1.5"></rect>
+      <text x="768" y="150" font-size="8.5" font-weight="700" fill="#9A6B1E" letter-spacing="1.2">APÓS A CERIMÓNIA DA RAIZ</text>
+      <text x="768" y="168">Auto-publicação de metadata assinada</text>
+    </g>
+    <g>
+      <rect x="620" y="196" width="296" height="50" fill="white" rx="10" stroke="#E6D29A" stroke-width="1.5"></rect>
+      <text x="768" y="214" font-size="8.5" font-weight="700" fill="#9A6B1E" letter-spacing="1.2">APÓS A CERIMÓNIA DA RAIZ</text>
+      <text x="768" y="232">Indexação no Registo Técnico</text>
+    </g>
+    <g>
+      <rect x="620" y="260" width="296" height="50" fill="white" rx="10" stroke="#E6D29A" stroke-width="1.5"></rect>
+      <text x="768" y="278" font-size="8.5" font-weight="700" fill="#9A6B1E" letter-spacing="1.2">APÓS A CERIMÓNIA DA RAIZ</text>
+      <text x="768" y="296">Avaliação local pelos pares</text>
+    </g>
+  </g>
+
+
+  <g fill="none" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr-P030)">
+    <path d="M169,190 V206"></path>
+    <path d="M294,235 H318"></path>
+    <path d="M440,190 V206"></path>
+    <path d="M562,235 H600 V157 H620"></path>
+    <path d="M768,182 V196"></path>
+    <path d="M768,246 V260"></path>
+  </g>
+  <text x="586" y="200" text-anchor="middle" font-size="8.5" fill="#6B7280">publicação</text>
+
+  <text x="480" y="368" text-anchor="middle" font-size="10.5" fill="#6B7280">PASS gera evidência de conformidade reproduzível · a auto-publicação de produção e a federação dependem da cerimónia da chave raiz.</text>
+  <text x="480" y="429" text-anchor="middle" font-size="9" fill="#9CA3AF" font-family="ui-monospace,'Courier New',monospace">SVG-P-030 · Pipeline de conformidade BANZA · BANZA_REFERENCIA.md §7 · v1.1 · 2026-07-19</text>
+</svg>

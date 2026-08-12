@@ -1,0 +1,27 @@
+{
+  "demo_only": true,
+  "monetary_value": false,
+  "production_allowed": false,
+  "operator_id": "operator-zero",
+  "operator_display_name": "Operador Zero",
+  "implementation_id": "operator-zero-ref-impl",
+  "artifact_type": "discovery",
+  "currency": "KZ_DEMO",
+  "protocol_version": "1.0.0",
+  "environment": "sandbox",
+  "profile": "L0",
+  "supported_levels": ["L0"],
+  "canonical_origin": "https://zero.banza.network",
+  "endpoints": {
+    "manifest_url": "https://zero.banza.network/.well-known/banza/operator.json",
+    "key_manifest_url": "https://zero.banza.network/key-manifest.json",
+    "signed_metadata_url": "https://zero.banza.network/.well-known/banza/signed-protocol-metadata.json",
+    "capabilities_url": "https://zero.banza.network/capabilities.json",
+    "conformance_url": "https://zero.banza.network/conformance/evidence.json",
+    "revocation_url": "https://zero.banza.network/revocation-list.json",
+    "federation_metadata_url": "https://zero.banza.network/federation-metadata.json",
+    "evidence_bundle_url": "https://zero.banza.network/evidence-bundle.json",
+    "traces_url": "https://zero.banza.network/traces/full-e2e.json"
+  },
+  "note": "Documento de descoberta da implementação de referência. Artefacto demonstrativo. Não certifica, não aprova e não movimenta dinheiro real."
+}

@@ -1,0 +1,85 @@
+{
+  "_spec": "BANZA Operator Manifest Conformance Vectors v1.0",
+  "_stability": "stable",
+
+  "vectors": [
+    {
+      "id": "MAN-001",
+      "title": "Operator manifest — responds at well-known path",
+      "certification_level": 0,
+      "stability": "stable",
+      "input": {
+        "method": "GET",
+        "path": "/.well-known/banza/operator.json"
+      },
+      "expected": {
+        "status": 200,
+        "response_fields_required": [
+          "operator_id",
+          "environment",
+          "simulated",
+          "production_allowed",
+          "capabilities"
+        ]
+      }
+    },
+    {
+      "id": "MAN-002",
+      "title": "Sandbox operator must declare simulated=true",
+      "certification_level": 0,
+      "stability": "stable",
+      "input": {
+        "method": "GET",
+        "path": "/.well-known/banza/operator.json"
+      },
+      "expected": {
+        "status": 200,
+        "response_field_values": {
+          "simulated": true,
+          "production_allowed": false,
+          "environment": "sandbox"
+        }
+      },
+      "notes": "A sandbox operator MUST declare simulated=true and production_allowed=false. This is a safety invariant."
+    },
+    {
+      "id": "MAN-003",
+      "title": "Manifest capabilities — required fields",
+      "certification_level": 0,
+      "stability": "stable",
+      "input": {
+        "method": "GET",
+        "path": "/.well-known/banza/operator.json"
+      },
+      "expected": {
+        "status": 200,
+        "nested_fields_required": {
+          "capabilities": [
+            "supports_wallets",
+            "supports_qr",
+            "supports_settlement"
+          ]
+        }
+      }
+    },
+    {
+      "id": "MAN-004",
+      "title": "Health endpoint confirms sandbox environment",
+      "certification_level": 0,
+      "stability": "stable",
+      "input": {
+        "method": "GET",
+        "path": "/health"
+      },
+      "expected": {
+        "status": 200,
+        "response_field_values": {
+          "status": "ok",
+          "environment": "sandbox",
+          "simulated": true,
+          "production_allowed": false
+        }
+      }
+    }
+  ]
+}

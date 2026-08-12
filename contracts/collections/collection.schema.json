@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/collections/collection.schema.json",
+  "title": "Collection",
+  "description": "Canonical Collection aggregate root (ADR-016). A composite financial obligation that groups N CollectionShares. NEVER money: a Collection holds no balance and never posts to the Ledger. Value moves only when each share's PaymentIntent (ADR-014) is fulfilled into a Transfer.",
+  "_spec_version": "1.0",
+  "_status": "canonical",
+  "_authority": "ADR-016",
+
+  "type": "object",
+  "required": ["id", "operator_id", "creator", "owner", "currency", "total_amount_minor", "status", "rule", "version", "created_at"],
+  "additionalProperties": false,
+
+  "properties": {
+    "id":                 { "type": "string", "description": "Collection id. Immutable." },
+    "operator_id":        { "type": "string" },
+    "creator":            { "type": "string", "description": "Principal that created the collection." },
+    "owner":              { "type": "string", "description": "Principal that controls the collection (mutate/close/cancel)." },
+    "merchant_id":        { "type": ["string", "null"], "description": "Merchant payee, when applicable." },
+    "title":              { "type": ["string", "null"] },
+    "description":        { "type": ["string", "null"] },
+    "currency":           { "type": "string", "description": "ISO 4217. Immutable after OPEN." },
+    "total_amount_minor": { "type": "integer", "minimum": 0, "description": "Integer minor units. Hard total for closed rules; target/goal for open rules. Immutable after OPEN for closed rules. Never float." },
+    "status":             { "type": "string", "enum": ["DRAFT", "OPEN", "PARTIALLY_COMPLETED", "COMPLETED", "EXPIRED", "CANCELLED", "FAILED"] },
+    "rule":               { "$ref": "https://banza.network/contracts/collections/collection-rule.schema.json" },
+    "expires_at":         { "type": ["string", "null"], "format": "date-time" },
+    "metadata":           { "type": "object", "additionalProperties": true },
+    "version":            { "type": "integer", "minimum": 1, "description": "Optimistic concurrency version." },
+    "created_at":         { "type": "string", "format": "date-time" },
+    "updated_at":         { "type": ["string", "null"], "format": "date-time" },
+    "closed_at":          { "type": ["string", "null"], "format": "date-time" },
+
+    "collected_amount_minor":  { "type": "integer", "minimum": 0, "description": "DERIVED, never stored as money: sum of PAID shares (INV-COLLECTION-004)." },
+    "remaining_amount_minor":  { "type": "integer", "description": "DERIVED: total - collected (closed rules)." }
+  },
+
+  "invariants": [
+    "INV-COLLECTION-001: never holds or moves value; no balance, no ledger posting.",
+    "INV-COLLECTION-002: closed rules -> sum(shares.amount_minor) == total_amount_minor (exact, integer minor units).",
+    "INV-COLLECTION-004: collected_amount_minor == sum(shares where status=PAID).",
+    "INV-COLLECTION-007: currency/rule/(closed) total_amount_minor immutable after OPEN."
+  ]
+}

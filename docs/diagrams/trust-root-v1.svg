@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 812" role="img" aria-labelledby="title-SVG-P-060 desc-SVG-P-060" font-family="system-ui,-apple-system,sans-serif">
+  <title id="title-SVG-P-060">BANZA Trust Root — 2-of-3 Custody</title>
+  <desc id="desc-SVG-P-060">Three independent custodians each hold one root key; any two of the three meet the threshold that lets the Trust Root sign Delegated Signing Keys, which in turn sign protocol metadata, protocol releases and the Revocation List — the root signs protocol artefacts only and never authorises payments, creates operators, issues licences or moves funds.</desc>
+  <!--
+    id:        SVG-P-060
+    diagram:   BANZA Trust Root — 2-of-3 Custody
+    version:   1.0
+    source:    contracts/production/trust-root-metadata.production.schema.json · docs/governance/BANZA_TRUST_ARCHITECTURE.md · M2.1 Root Trust Ceremony (2-of-3 offline custody)
+    updated:   2026-07-17
+    author:    BANZA Protocol
+    style:     protocol
+  -->
+  <defs>
+    <linearGradient id="hg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#990011"/><stop offset="100%" stop-color="#B11226"/>
+    </linearGradient>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="4.5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#6B7280"/>
+    </marker>
+    <filter id="sh">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#00000014"/>
+    </filter>
+  </defs>
+
+  <rect width="1120" height="812" fill="#FCF6F5" rx="16"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="1120" height="72" fill="url(#hg)" rx="16"/>
+  <rect x="0" y="56" width="1120" height="16" fill="#B11226"/>
+  <text x="36" y="32" font-family="ui-monospace,'Courier New',monospace" font-size="10" fill="#FECACA" letter-spacing="2">SVG-P-060 · OPEN FINANCIAL PROTOCOL</text>
+  <text x="36" y="56" font-size="19" font-weight="800" fill="white">BANZA Trust Root — 2-of-3 Custody</text>
+  <text x="1084" y="56" text-anchor="end" font-size="11" fill="#FECACA">Custodians · Threshold · Delegated Keys · Signed Artefacts</text>
+
+  <!-- ── STEP 1 — three independent custodians ── -->
+  <text x="56" y="94" font-size="10" font-weight="700" fill="#6B7280" letter-spacing="1.5">STEP 1 — INDEPENDENT CUSTODY</text>
+
+  <rect x="56" y="104" width="320" height="118" fill="white" rx="12" stroke="#E5E7EB" stroke-width="1.5" filter="url(#sh)"/>
+  <rect x="56" y="104" width="320" height="32" fill="#1F2937" rx="12"/><rect x="56" y="122" width="320" height="14" fill="#1F2937"/>
+  <text x="216" y="125" text-anchor="middle" font-size="12" font-weight="800" fill="white">Custodian A</text>
+  <text x="216" y="158" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1F2937">one independent root key</text>
+  <text x="216" y="178" text-anchor="middle" font-size="10.5" fill="#6B7280">generated and held offline</text>
+  <text x="216" y="194" text-anchor="middle" font-size="10.5" fill="#6B7280">encrypted at rest · never transmitted</text>
+  <text x="216" y="212" text-anchor="middle" font-size="10" font-style="italic" fill="#9CA3AF">1 signature — not enough on its own</text>
+
+  <rect x="400" y="104" width="320" height="118" fill="white" rx="12" stroke="#E5E7EB" stroke-width="1.5" filter="url(#sh)"/>
+  <rect x="400" y="104" width="320" height="32" fill="#1F2937" rx="12"/><rect x="400" y="122" width="320" height="14" fill="#1F2937"/>
+  <text x="560" y="125" text-anchor="middle" font-size="12" font-weight="800" fill="white">Custodian B</text>
+  <text x="560" y="158" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1F2937">one independent root key</text>
+  <text x="560" y="178" text-anchor="middle" font-size="10.5" fill="#6B7280">generated and held offline</text>
+  <text x="560" y="194" text-anchor="middle" font-size="10.5" fill="#6B7280">encrypted at rest · never transmitted</text>
+  <text x="560" y="212" text-anchor="middle" font-size="10" font-style="italic" fill="#9CA3AF">1 signature — not enough on its own</text>
+
+  <rect x="744" y="104" width="320" height="118" fill="white" rx="12" stroke="#E5E7EB" stroke-width="1.5" filter="url(#sh)"/>
+  <rect x="744" y="104" width="320" height="32" fill="#1F2937" rx="12"/><rect x="744" y="122" width="320" height="14" fill="#1F2937"/>
+  <text x="904" y="125" text-anchor="middle" font-size="12" font-weight="800" fill="white">Custodian C</text>
+  <text x="904" y="158" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1F2937">one independent root key</text>
+  <text x="904" y="178" text-anchor="middle" font-size="10.5" fill="#6B7280">generated and held offline</text>
+  <text x="904" y="194" text-anchor="middle" font-size="10.5" fill="#6B7280">encrypted at rest · never transmitted</text>
+  <text x="904" y="212" text-anchor="middle" font-size="10" font-style="italic" fill="#9CA3AF">1 signature — not enough on its own</text>
+
+  <path d="M216,222 L216,236 L560,236 L560,248" fill="none" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr)"/>
+  <path d="M904,222 L904,236 L560,236 L560,248" fill="none" stroke="#6B7280" stroke-width="2.5"/>
+  <line x1="560" y1="222" x2="560" y2="248" stroke="#6B7280" stroke-width="2.5"/>
+
+  <!-- ── STEP 2 — threshold ── -->
+  <rect x="56" y="258" width="1008" height="66" rx="12" fill="#FEF2F2" stroke="#FECACA" stroke-width="1.5"/>
+  <text x="560" y="282" text-anchor="middle" font-size="14" font-weight="800" fill="#991B1B">2-of-3 THRESHOLD</text>
+  <text x="560" y="302" text-anchor="middle" font-size="11.5" fill="#374151">any 2 of the 3 custodians together produce a valid root signature · no single custodian ever signs alone</text>
+  <text x="560" y="317" text-anchor="middle" font-size="10.5" fill="#6B7280">the ceremony runs offline on the custodians' own machines · no secret key material is ever published</text>
+
+  <line x1="560" y1="324" x2="560" y2="348" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr)"/>
+
+  <!-- Resilience notes flanking the root -->
+  <rect x="56" y="352" width="248" height="92" rx="10" fill="#F3F4F6"/>
+  <text x="180" y="376" text-anchor="middle" font-size="10" font-weight="700" fill="#6B7280" letter-spacing="1">AVAILABILITY</text>
+  <text x="180" y="398" text-anchor="middle" font-size="10.5" fill="#374151">Loss of one key does not</text>
+  <text x="180" y="413" text-anchor="middle" font-size="10.5" fill="#374151">destroy the root — the two</text>
+  <text x="180" y="428" text-anchor="middle" font-size="10.5" fill="#374151">remaining custodians still sign.</text>
+
+  <rect x="816" y="352" width="248" height="92" rx="10" fill="#F3F4F6"/>
+  <text x="940" y="376" text-anchor="middle" font-size="10" font-weight="700" fill="#6B7280" letter-spacing="1">CONTAINMENT</text>
+  <text x="940" y="398" text-anchor="middle" font-size="10.5" fill="#374151">Compromise of one key does</text>
+  <text x="940" y="413" text-anchor="middle" font-size="10.5" fill="#374151">not compromise the root —</text>
+  <text x="940" y="428" text-anchor="middle" font-size="10.5" fill="#374151">one signature is rejected.</text>
+
+  <!-- ── STEP 3 — Trust Root ── -->
+  <rect x="328" y="352" width="464" height="92" fill="white" rx="12" stroke="#FECACA" stroke-width="1.5" filter="url(#sh)"/>
+  <rect x="328" y="352" width="464" height="32" fill="#991B1B" rx="12"/><rect x="328" y="370" width="464" height="14" fill="#991B1B"/>
+  <text x="560" y="373" text-anchor="middle" font-size="13" font-weight="800" fill="white">Trust Root</text>
+  <text x="560" y="404" text-anchor="middle" font-size="11.5" fill="#374151">public root keys · Ed25519 · public material only</text>
+  <text x="560" y="424" text-anchor="middle" font-size="10.5" fill="#6B7280">signs protocol artefacts — never participants</text>
+  <text x="560" y="438" text-anchor="middle" font-size="10" font-style="italic" fill="#9CA3AF">a root signature is a statement about an artefact</text>
+
+  <line x1="560" y1="444" x2="560" y2="474" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr)"/>
+  <text x="576" y="464" font-size="10" fill="#6B7280">signed under 2-of-3</text>
+
+  <!-- ── STEP 4 — Delegated Signing Keys ── -->
+  <rect x="328" y="478" width="464" height="86" fill="white" rx="12" stroke="#BFDBFE" stroke-width="1.5" filter="url(#sh)"/>
+  <rect x="328" y="478" width="464" height="32" fill="#1E40AF" rx="12"/><rect x="328" y="496" width="464" height="14" fill="#1E40AF"/>
+  <text x="560" y="499" text-anchor="middle" font-size="13" font-weight="800" fill="white">Delegated Signing Keys</text>
+  <text x="560" y="530" text-anchor="middle" font-size="11.5" fill="#374151">online signing scope · bounded by the root policy</text>
+  <text x="560" y="548" text-anchor="middle" font-size="10.5" fill="#6B7280">rotated and revoked without re-running a root ceremony</text>
+
+  <path d="M560,564 L560,580 L216,580 L216,596" fill="none" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr)"/>
+  <path d="M560,564 L560,580 L904,580 L904,596" fill="none" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr)"/>
+  <line x1="560" y1="564" x2="560" y2="596" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr)"/>
+
+  <!-- ── STEP 5 — signed artefact classes ── -->
+  <text x="56" y="590" font-size="10" font-weight="700" fill="#6B7280" letter-spacing="1.5">SIGNED ARTEFACTS</text>
+
+  <rect x="56" y="600" width="320" height="82" fill="white" rx="12" stroke="#BBF7D0" stroke-width="1.5"/>
+  <rect x="56" y="600" width="320" height="28" fill="#166534" rx="12"/><rect x="56" y="614" width="320" height="14" fill="#166534"/>
+  <text x="216" y="619" text-anchor="middle" font-size="12" font-weight="800" fill="white">Protocol Metadata</text>
+  <text x="216" y="646" text-anchor="middle" font-size="10.5" fill="#374151">specs, contracts and key manifest</text>
+  <text x="216" y="662" text-anchor="middle" font-size="10.5" fill="#374151">verifiable offline by anyone</text>
+  <text x="216" y="676" text-anchor="middle" font-size="10" font-style="italic" fill="#9CA3AF">a fact about the protocol</text>
+
+  <rect x="400" y="600" width="320" height="82" fill="white" rx="12" stroke="#BBF7D0" stroke-width="1.5"/>
+  <rect x="400" y="600" width="320" height="28" fill="#166534" rx="12"/><rect x="400" y="614" width="320" height="14" fill="#166534"/>
+  <text x="560" y="619" text-anchor="middle" font-size="12" font-weight="800" fill="white">Protocol Releases</text>
+  <text x="560" y="646" text-anchor="middle" font-size="10.5" fill="#374151">versioned, reproducible artefacts</text>
+  <text x="560" y="662" text-anchor="middle" font-size="10.5" fill="#374151">integrity of what was published</text>
+  <text x="560" y="676" text-anchor="middle" font-size="10" font-style="italic" fill="#9CA3AF">a fact about a build</text>
+
+  <rect x="744" y="600" width="320" height="82" fill="white" rx="12" stroke="#FDE68A" stroke-width="1.5"/>
+  <rect x="744" y="600" width="320" height="28" fill="#854D0E" rx="12"/><rect x="744" y="614" width="320" height="14" fill="#854D0E"/>
+  <text x="904" y="619" text-anchor="middle" font-size="12" font-weight="800" fill="white">Revocation List</text>
+  <text x="904" y="646" text-anchor="middle" font-size="10.5" fill="#374151">withdraws cryptographic trust</text>
+  <text x="904" y="662" text-anchor="middle" font-size="10.5" fill="#374151">from specific key material</text>
+  <text x="904" y="676" text-anchor="middle" font-size="10" font-style="italic" fill="#854D0E">a security signal — not a regulatory act</text>
+
+  <!-- ── Boundary band ── -->
+  <rect x="56" y="696" width="1008" height="88" rx="12" fill="#FEF2F2" stroke="#991B1B" stroke-width="2"/>
+  <text x="560" y="716" text-anchor="middle" font-size="10" font-weight="700" fill="#991B1B" letter-spacing="1.5">BOUNDARY — PERMANENT AND NOT ADJUSTABLE FOR IMPLEMENTATION CONVENIENCE</text>
+  <text x="560" y="739" text-anchor="middle" font-size="12.5" font-weight="800" fill="#1F2937">The Trust Root does not authorise payments, does not create operators, does not issue licences and does not move funds.</text>
+  <text x="560" y="758" text-anchor="middle" font-size="10.5" fill="#6B7280">It signs protocol artefacts. Independent operators, where applicable, are authorised by the competent authorities — never by this root.</text>
+  <text x="560" y="773" text-anchor="middle" font-size="10.5" fill="#6B7280">Revocation withdraws cryptographic trust from key material; it does not withdraw, suspend or affect any operator authorisation.</text>
+
+  <!-- Footer -->
+  <text x="560" y="802" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-060 · BANZA Trust Root — 2-of-3 Custody · trust-root-metadata.production.schema.json · M2.1 Root Trust Ceremony · 2026-07-17</text>
+</svg>

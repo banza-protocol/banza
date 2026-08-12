@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" role="img" aria-label="Lançamento de partidas dobradas BANZA — débito do consumidor, créditos do comerciante e de taxas" font-family="system-ui,-apple-system,sans-serif">
+  <title>Lançamento de Partidas Dobradas</title>
+  <desc>Cada pagamento gera um lançamento de partidas dobradas cuja soma é zero: um débito na carteira do consumidor equilibrado por créditos ao comerciante e às taxas.</desc>
+  <defs>
+    <linearGradient id="hg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E0F1A"></stop>
+      <stop offset="100%" stop-color="#8E1326"></stop>
+    </linearGradient>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#9CA3AF"></path>
+    </marker>
+  </defs>
+
+  <rect width="900" height="440" fill="#F4F1EA" rx="16"></rect>
+
+  <rect x="0" y="0" width="900" height="64" fill="url(#hg)" rx="16"></rect>
+  <rect x="0" y="48" width="900" height="16" fill="#8E1326"></rect>
+  <text x="32" y="28" font-family="ui-monospace,&#39;Courier New&#39;,monospace" font-size="9" fill="#EAD2D6" letter-spacing="2">SVG-P-027 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="32" y="50" font-size="17" font-weight="800" fill="white">Lançamento de Partidas Dobradas</text>
+  <text x="868" y="50" text-anchor="end" font-size="10.5" fill="#EAD2D6">Cada débito tem créditos correspondentes — soma zero</text>
+
+  
+  <rect x="60" y="120" width="280" height="120" fill="white" rx="12" stroke="#8E1326" stroke-width="2"></rect>
+  <text x="200" y="148" text-anchor="middle" font-size="9.5" font-weight="700" fill="#8E1326" letter-spacing="1.5">DÉBITO</text>
+  <text x="200" y="176" text-anchor="middle" font-size="14" font-weight="700" fill="#1F2937">Carteira do consumidor</text>
+  <text x="200" y="206" text-anchor="middle" font-family="ui-monospace,&#39;Courier New&#39;,monospace" font-size="15" font-weight="700" fill="#7E1320">− 5.000</text>
+  <text x="200" y="226" text-anchor="middle" font-size="9" fill="#6B7280">montante bruto (gross_minor)</text>
+
+  
+  <path d="M340,160 H420 V140 H494" fill="none" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"></path>
+  <path d="M340,200 H420 V236 H494" fill="none" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"></path>
+
+  
+  <rect x="500" y="104" width="340" height="86" fill="#F0FDF4" rx="12" stroke="#BBF7D0" stroke-width="1.5"></rect>
+  <text x="670" y="130" text-anchor="middle" font-size="9.5" font-weight="700" fill="#16A34A" letter-spacing="1.5">CRÉDITO</text>
+  <text x="670" y="152" text-anchor="middle" font-size="13" font-weight="700" fill="#1F2937">Carteira do comerciante</text>
+  <text x="670" y="174" text-anchor="middle" font-family="ui-monospace,&#39;Courier New&#39;,monospace" font-size="13" font-weight="700" fill="#16A34A">+ 4.900 <tspan font-size="9" fill="#6B7280">montante líquido (net_minor)</tspan></text>
+
+  <rect x="500" y="202" width="340" height="86" fill="#F0FDF4" rx="12" stroke="#BBF7D0" stroke-width="1.5"></rect>
+  <text x="670" y="228" text-anchor="middle" font-size="9.5" font-weight="700" fill="#16A34A" letter-spacing="1.5">CRÉDITO</text>
+  <text x="670" y="250" text-anchor="middle" font-size="13" font-weight="700" fill="#1F2937">Carteira de taxas</text>
+  <text x="670" y="272" text-anchor="middle" font-family="ui-monospace,&#39;Courier New&#39;,monospace" font-size="13" font-weight="700" fill="#16A34A">+ 100 <tspan font-size="9" fill="#6B7280">taxa (fee_minor)</tspan></text>
+
+  
+  <rect x="150" y="316" width="600" height="46" fill="url(#hg)" rx="23"></rect>
+  <text x="450" y="345" text-anchor="middle" font-family="ui-monospace,&#39;Courier New&#39;,monospace" font-size="13.5" font-weight="700" fill="white">gross_minor = net_minor + fee_minor   [INV-STL-001]</text>
+
+  <text x="450" y="386" text-anchor="middle" font-size="10" font-weight="600" fill="#6B7280">O lançamento soma zero (INV-LEDGER-001) · valores inteiros em unidades menores (INV-LEDGER-003) · atómico (INV-LEDGER-004)</text>
+
+  <line x1="32" y1="404" x2="868" y2="404" stroke="#E5E7EB" stroke-width="1"></line>
+  <text x="450" y="422" text-anchor="middle" font-size="8.5" fill="#9CA3AF">SVG-P-027 · Lançamento de Partidas Dobradas · BANZA_REFERENCIA.md §4 · v1.0 · 2026-06-12</text>
+</svg>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  id:        SVG-P-098
+  diagram:   Operador Zero sem atalho — Registo Técnico → Operador Zero → implementação de referência → endpoints públicos → motores Rust → receipts (mesma via segura, sem bypass)
+  source:    ADR-068 §4.9 · BANZA_REFERENCIA.md §35 (validação originada nos endpoints, M2.19G.1)
+  version:   1.0
+  updated:   2026-07-30
+  author:    BANZA Protocol
+  style:     protocol-dark
+-->
+<svg viewBox="0 0 1000 540" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-labelledby="title-P098 desc-P098"
+     font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="title-P098">Operador Zero validado pela mesma via, sem atalho</title>
+  <desc id="desc-P098">Pipeline de seis fases pelo qual o Operador Zero é validado exactamente como qualquer implementação. Do Registo Técnico resolve-se o Operador Zero, o exemplo canónico inicial; depois a sua implementação de referência só de leitura; depois os endpoints públicos na origem canónica; depois os motores Rust que avaliam o conteúdo obtido por obtenção segura endurecida contra SSRF; e por fim os receipts reais ligados aos endpoints. Um arco tracejado e riscado mostra que não existe atalho directo do Registo para os receipts: o Operador Zero não recebe fixture oficial, resultado pré-calculado nem bypass. Não é um simulador autónomo e não há autoridade central. ADR-068.</desc>
+  <defs>
+    <linearGradient id="hg-P098" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E0F1A"/><stop offset="100%" stop-color="#8E1326"/>
+    </linearGradient>
+    <marker id="arr-P098" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#8C8C95"/>
+    </marker>
+  </defs>
+
+  <rect width="1000" height="540" fill="#0E0E11"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="1000" height="64" fill="url(#hg-P098)" rx="14"/>
+  <rect x="0" y="48" width="1000" height="16" fill="#8E1326"/>
+  <text x="24" y="26" font-family="ui-monospace,'Courier New',monospace" font-size="9" fill="#FECACA" letter-spacing="2">SVG-P-098 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="24" y="50" font-size="18" font-weight="800" fill="#FFFFFF">Operador Zero — sem atalho</text>
+  <text x="976" y="50" text-anchor="end" font-size="11" fill="#F6D9DD">a mesma via segura de qualquer implementação</text>
+
+  <text x="24" y="94" font-size="11.5" fill="#B6B6BE">O Operador Zero é o exemplo canónico inicial — validado pela mesma obtenção segura e pelos mesmos motores Rust.</text>
+
+  <!-- ======================= pipeline cards ======================= -->
+  <!-- 1 · Registo Técnico (teal) -->
+  <g>
+    <rect x="28" y="128" width="132" height="150" rx="12" fill="#0F1D1C" stroke="#0F766E" stroke-width="1.5"/>
+    <circle cx="50" cy="152" r="13" fill="#0F766E"/><text x="50" y="156" text-anchor="middle" font-size="12" font-weight="800" fill="#FFFFFF">1</text>
+    <text x="44" y="190" font-size="11.5" font-weight="800" fill="#57C6BC">Registo</text>
+    <text x="44" y="206" font-size="11.5" font-weight="800" fill="#57C6BC">Técnico</text>
+    <text x="44" y="230" font-size="10" fill="#C9C9D0">alvos elegíveis</text>
+    <text x="44" y="250" font-size="8.5" fill="#8C8C95">operador + impl.</text>
+  </g>
+  <!-- 2 · Operador Zero (green · highlight) -->
+  <g>
+    <rect x="190.4" y="128" width="132" height="150" rx="12" fill="#13211A" stroke="#2E6A4E" stroke-width="2"/>
+    <circle cx="212.4" cy="152" r="13" fill="#2E6A4E"/><text x="212.4" y="156" text-anchor="middle" font-size="12" font-weight="800" fill="#FFFFFF">2</text>
+    <text x="206.4" y="190" font-size="11.5" font-weight="800" fill="#74C79E">Operador</text>
+    <text x="206.4" y="206" font-size="11.5" font-weight="800" fill="#74C79E">Zero</text>
+    <text x="206.4" y="230" font-size="10" fill="#C9C9D0">exemplo canónico</text>
+    <text x="206.4" y="250" font-size="8.5" fill="#8C8C95">inicial · sem atalho</text>
+  </g>
+  <!-- 3 · Implementação de referência (green) -->
+  <g>
+    <rect x="352.8" y="128" width="132" height="150" rx="12" fill="#13211A" stroke="#2E6A4E" stroke-width="1.5"/>
+    <circle cx="374.8" cy="152" r="13" fill="#2E6A4E"/><text x="374.8" y="156" text-anchor="middle" font-size="12" font-weight="800" fill="#FFFFFF">3</text>
+    <text x="368.8" y="190" font-size="11.5" font-weight="800" fill="#74C79E">Implementação</text>
+    <text x="368.8" y="206" font-size="11.5" font-weight="800" fill="#74C79E">de referência</text>
+    <text x="368.8" y="230" font-size="10" fill="#C9C9D0">só de leitura</text>
+    <text x="368.8" y="250" font-size="8.5" font-family="ui-monospace,'Courier New',monospace" fill="#8C8C95">GET → 200</text>
+  </g>
+  <!-- 4 · Endpoints públicos (slate) -->
+  <g>
+    <rect x="515.2" y="128" width="132" height="150" rx="12" fill="#141922" stroke="#33465B" stroke-width="1.5"/>
+    <circle cx="537.2" cy="152" r="13" fill="#33465B"/><text x="537.2" y="156" text-anchor="middle" font-size="12" font-weight="800" fill="#FFFFFF">4</text>
+    <text x="531.2" y="190" font-size="11.5" font-weight="800" fill="#8FB0D0">Endpoints</text>
+    <text x="531.2" y="206" font-size="11.5" font-weight="800" fill="#8FB0D0">públicos</text>
+    <text x="531.2" y="230" font-size="10" fill="#C9C9D0">discovery · keys</text>
+    <text x="531.2" y="250" font-size="8.5" font-family="ui-monospace,'Courier New',monospace" fill="#8C8C95">zero.banza.network</text>
+  </g>
+  <!-- 5 · Motores Rust (wine) -->
+  <g>
+    <rect x="677.6" y="128" width="132" height="150" rx="12" fill="#1B1113" stroke="#8E1326" stroke-width="1.5"/>
+    <circle cx="699.6" cy="152" r="13" fill="#8E1326"/><text x="699.6" y="156" text-anchor="middle" font-size="12" font-weight="800" fill="#FFFFFF">5</text>
+    <text x="693.6" y="190" font-size="11.5" font-weight="800" fill="#E8909D">Motores</text>
+    <text x="693.6" y="206" font-size="11.5" font-weight="800" fill="#E8909D">Rust</text>
+    <text x="693.6" y="230" font-size="10" fill="#C9C9D0">mesma avaliação</text>
+    <text x="693.6" y="250" font-size="8.5" fill="#8C8C95">SSRF-hardened</text>
+  </g>
+  <!-- 6 · Receipts (gold) -->
+  <g>
+    <rect x="840" y="128" width="132" height="150" rx="12" fill="#1E1810" stroke="#B98A3E" stroke-width="1.5"/>
+    <circle cx="862" cy="152" r="13" fill="#B98A3E"/><text x="862" y="156" text-anchor="middle" font-size="12" font-weight="800" fill="#26200F">6</text>
+    <text x="856" y="192" font-size="12" font-weight="800" fill="#E7C67E">Receipts</text>
+    <text x="856" y="216" font-size="10" fill="#C9C9D0">reais · ligados</text>
+    <text x="856" y="232" font-size="10" fill="#C9C9D0">ao endpoint</text>
+    <text x="856" y="254" font-size="8.5" font-family="ui-monospace,'Courier New',monospace" fill="#8C8C95">protocol_fetch</text>
+  </g>
+
+  <!-- forward arrows -->
+  <line x1="160" y1="203" x2="188" y2="203" stroke="#8C8C95" stroke-width="1.8" marker-end="url(#arr-P098)"/>
+  <line x1="322.4" y1="203" x2="350.4" y2="203" stroke="#8C8C95" stroke-width="1.8" marker-end="url(#arr-P098)"/>
+  <line x1="484.8" y1="203" x2="512.8" y2="203" stroke="#8C8C95" stroke-width="1.8" marker-end="url(#arr-P098)"/>
+  <line x1="647.2" y1="203" x2="675.2" y2="203" stroke="#8C8C95" stroke-width="1.8" marker-end="url(#arr-P098)"/>
+  <line x1="809.6" y1="203" x2="837.6" y2="203" stroke="#8C8C95" stroke-width="1.8" marker-end="url(#arr-P098)"/>
+
+  <!-- crossed shortcut: Registo does NOT link directly to Receipts -->
+  <path d="M 94 292 Q 500 352 906 292" fill="none" stroke="#5A1A22" stroke-width="1.6" stroke-dasharray="6 5"/>
+  <circle cx="500" cy="321" r="15" fill="#1B1113" stroke="#8E1326" stroke-width="1.6"/>
+  <line x1="493" y1="314" x2="507" y2="328" stroke="#E8909D" stroke-width="2"/>
+  <line x1="507" y1="314" x2="493" y2="328" stroke="#E8909D" stroke-width="2"/>
+  <text x="500" y="348" text-anchor="middle" font-size="10" font-weight="700" fill="#E8909D">Sem atalho — o Registo não liga directamente aos receipts.</text>
+
+  <!-- principle band -->
+  <rect x="28" y="360" width="944" height="30" rx="9" fill="#141418" stroke="#2B2B33" stroke-width="1"/>
+  <text x="44" y="379" font-size="10.5" fill="#B6B6BE"><tspan font-weight="700" fill="#57C6BC">Registo</tspan> → <tspan font-weight="700" fill="#74C79E">Operador Zero</tspan> → implementação de referência → endpoints → <tspan font-weight="700" fill="#E8909D">motores Rust</tspan> → receipts — a via de qualquer implementação.</text>
+
+  <!-- boundary band -->
+  <rect x="28" y="400" width="944" height="96" rx="10" fill="#1B1113" stroke="#5A1A22" stroke-width="1.2"/>
+  <text x="44" y="426" font-size="11.5" font-weight="700" fill="#E8909D">O Operador Zero não recebe atalho, fixture oficial, resultado pré-calculado nem bypass.</text>
+  <text x="44" y="448" font-size="10.5" fill="#B6B6BE">É validado pela mesma obtenção segura (SSRF-hardened) e pelos mesmos motores Rust de qualquer implementação futura.</text>
+  <text x="44" y="468" font-size="10.5" fill="#B6B6BE">Não é um simulador autónomo · os receipts são reais e ligam aos seus endpoints · sem autoridade central de emissão · sem atalho.</text>
+  <text x="44" y="486" font-size="10.5" fill="#B6B6BE">A prontidão que resulta é evidência técnica — não uma credencial concedida.</text>
+
+  <text x="500" y="522" text-anchor="middle" font-size="9" fill="#7C7C85">SVG-P-098 · Operador Zero — sem atalho · ADR-068 §35 · v1.0 · 2026-07-30</text>
+</svg>

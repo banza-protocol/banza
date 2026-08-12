@@ -1,0 +1,38 @@
+name: banza-trust
+
+# Builds and tests the Rust trust verifier (ADR-037, R5): cargo fmt/clippy/test + golden ed25519
+# parity (Rust verifies real signatures produced by the Python trust root's ADR-038 scheme).
+# Verification only — no signing, no key generation, no production keys, no secrets, no network.
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+concurrency:
+  group: banza-trust-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  banza-trust:
+    name: banza-trust (R5 verifier)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+      - name: cargo fmt
+        working-directory: engines/banza-trust
+        run: cargo fmt --check
+      - name: cargo clippy
+        working-directory: engines/banza-trust
+        run: cargo clippy --all-targets -- -D warnings
+      - name: cargo test (golden ed25519 parity + TEST-ONLY signing/ceremony)
+        working-directory: engines/banza-trust
+        run: cargo test
+      - name: ceremony-simulate + ceremony-check (TEST ONLY, no production state)
+        working-directory: engines/banza-trust
+        run: |
+          cargo run --quiet -- ceremony-simulate > /dev/null
+          cargo run --quiet -- ceremony-check > /dev/null

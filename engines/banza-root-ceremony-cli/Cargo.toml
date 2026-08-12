@@ -1,0 +1,26 @@
+[package]
+name = "banza-root-ceremony-cli"
+version = "0.1.0"
+edition = "2021"
+description = "banza-root-ceremony-cli (M2.1): the OFFLINE command-line tool custodians run on their own air-gapped computers for the BANZA root trust ceremony (2-of-3). It generates an Ed25519 keypair, writes the private key ONLY encrypted (ChaCha20-Poly1305; never plaintext), exports the public key + fingerprint, signs/verifies root metadata, checks the 2-of-3 threshold, and runs a TEST-ONLY recovery test. It refuses to write into a Git worktree, never prints a private key/seed/passphrase, has NO network and makes NO HTTP/LLM call. It establishes trust for the BANZA open financial protocol — it does not authorise payments, create operators, issue licences or move funds."
+license = "Apache-2.0"
+
+[lib]
+name = "banza_root_ceremony_cli"
+path = "src/lib.rs"
+
+[[bin]]
+name = "banza-root-ceremony"
+path = "src/main.rs"
+
+[dependencies]
+banza-root-ceremony = { path = "../banza-root-ceremony" }
+serde_json = "1"
+ed25519-dalek = { version = "2", features = ["rand_core"] }
+base64 = "0.22"
+sha2 = "0.10"
+chacha20poly1305 = "0.10"
+rand = "0.8"
+
+[profile.release]
+opt-level = 2

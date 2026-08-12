@@ -1,0 +1,16 @@
+{
+  "algorithm": "ed25519",
+  "artifact_type": "demo_operator_root_public_key",
+  "demo_only": true,
+  "fingerprint": "sha256:b8a61e9480e3265b77251b2f6b0b3ef028535b53e733e4e4094bfd6b8f1a2c09",
+  "key_id": "oz-e2e-root-b8a61e9480e3265b",
+  "monetary_value": false,
+  "not_protocol_trust_root": true,
+  "note": "Raiz demonstrativa E2E. Não é a Trust Root do protocolo BANZA. Nenhuma chave privada existe neste repositório; a verificação usa apenas a chave pública.",
+  "operator_display_name": "Operador Zero",
+  "operator_id": "operator-zero",
+  "production_allowed": false,
+  "public_key_multibase": "mmE/Bmy7SowTKustm13LbF+vfl/5Bl6sy9kJ7earQ73A",
+  "root_name": "Operator Zero E2E Demo Root",
+  "root_type": "demo_operator_root"
+}

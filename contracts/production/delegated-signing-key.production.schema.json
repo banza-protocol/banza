@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/delegated-signing-key.production.schema.json",
+  "title": "DelegatedSigningKeyProduction",
+  "description": "Uma Delegated Signing Key — chave delegada pela Trust Root para assinatura operacional de artefactos do protocolo, com âmbito e validade limitados. Material público apenas: key_id, chave PÚBLICA ed25519, âmbito, janela de validade e as assinaturas 2-de-3 da raiz que sustentam a delegação. Nenhuma chave privada, seed ou passphrase aparece aqui. Uma chave delegada assina releases, metadados do protocolo, listas de revogação, artefactos e evidence bundles — NUNCA assina pagamentos, NUNCA autoriza operadores, NUNCA emite licenças e NUNCA movimenta fundos. A delegação não transfere poder que a raiz não tem: nenhum âmbito delegável inclui autoridade sobre participantes. Uma delegação cujo âmbito implicasse autoridade de pagamento, autorização de operador ou movimentação de fundos é FORBIDDEN e inválida.",
+  "_spec_version": "1.0",
+  "_status": "production-baseline",
+  "_authority": "docs/governance/PROTOCOL_GOVERNANCE_ROLES.md §2.5; Root Trust Ceremony (2-of-3 offline custody)",
+  "_boundary": "BANZA é um protocolo financeiro aberto. A governação humana existe para manter e evoluir o protocolo, não para autorizar, certificar ou aceitar operadores. Operadores independentes assumem o seu próprio enquadramento legal, regulatório e financeiro e, quando aplicável, são autorizados pelas entidades competentes — nunca pela BANZA.",
+
+  "type": "object",
+  "required": ["key_id", "public_key", "algorithm", "delegated_by", "scope", "valid_from", "valid_until", "revocation_status", "boundary"],
+  "additionalProperties": false,
+
+  "properties": {
+    "key_id": {
+      "type": "string",
+      "description": "Identificador único desta chave delegada. Imutável."
+    },
+    "public_key": {
+      "type": "string",
+      "description": "Material de chave PÚBLICA apenas (base64url, ed25519). Chaves privadas NUNCA são incluídas nem transmitidas."
+    },
+    "algorithm": {
+      "type": "string",
+      "enum": ["ed25519"],
+      "description": "Algoritmo de assinatura."
+    },
+    "fingerprint": {
+      "type": ["string", "null"],
+      "description": "Impressão digital pública (hash) da chave pública delegada."
+    },
+    "delegated_by": {
+      "type": "object",
+      "description": "A Trust Root que delegou esta chave, e as assinaturas 2-de-3 que sustentam a delegação. A raiz delega apenas o que ela própria pode fazer: assinar artefactos do protocolo.",
+      "required": ["trust_root_version", "signatures"],
+      "additionalProperties": false,
+      "properties": {
+        "trust_root_version": { "type": "string", "description": "Versão da Trust Root que emitiu a delegação. Ver trust-root-metadata.production.schema.json." },
+        "root_id": { "type": ["string", "null"], "description": "Identificador estável da raiz de confiança (ex.: 'banza-root-2026')." },
+        "signatures": {
+          "type": "array",
+          "description": "Assinaturas dos custodiantes sobre os bytes canónicos da delegação. Pelo menos 2 de 3 são exigidas. Material público apenas.",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "required": ["key_id", "custodian", "signature", "algorithm"],
+            "additionalProperties": false,
+            "properties": {
+              "key_id": { "type": "string", "description": "Identificador da chave raiz que produziu a assinatura." },
+              "custodian": { "type": "string", "enum": ["A", "B", "C"], "description": "Custodiante que assinou OFFLINE. Nunca assina isoladamente." },
+              "signature": { "type": "string", "description": "Assinatura destacada sobre os bytes canónicos da delegação (base64url, ed25519). Material público." },
+              "algorithm": { "type": "string", "enum": ["ed25519"], "description": "Algoritmo de assinatura." }
+            }
+          }
+        },
+        "delegated_at": { "type": ["string", "null"], "format": "date-time", "description": "Momento da delegação." }
+      }
+    },
+    "scope": {
+      "type": "array",
+      "description": "O que esta chave delegada pode assinar. Lista exaustiva, toda ela de artefactos do protocolo. Um âmbito que implicasse pagamentos, operadores, licenças ou fundos é FORBIDDEN e torna a delegação inválida.",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": ["protocol_release_signing", "protocol_metadata_signing", "revocation_list_signing", "protocol_artifact_signing", "evidence_signing"]
+      }
+    },
+    "valid_from": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Início da janela de validade da delegação."
+    },
+    "valid_until": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Fim da janela de validade. Uma chave delegada expirada é obsoleta e MUST ser tratada como falha fail-closed — nunca válida por omissão."
+    },
+    "revocation_status": {
+      "type": "string",
+      "enum": ["active", "revoked", "unknown"],
+      "description": "Estado desta chave face à Revocation List. Semântica fail-closed: 'revoked' e 'unknown' são tratados como não confiáveis. Revogar uma chave delegada é mecanismo de segurança do protocolo — não é sanção regulatória nem licença. Ver revocation-entry.production.schema.json."
+    },
+    "revocation_ref": {
+      "type": ["string", "null"],
+      "description": "Referência à entrada de revogação aplicável, quando esta chave está revogada."
+    },
+    "boundary": {
+      "type": "object",
+      "description": "Fronteira permanente deste artefacto. A delegação estende a assinatura de artefactos do protocolo — nunca autoridade sobre participantes.",
+      "required": ["not_operator_authorisation", "not_certificate", "not_operator_approval", "not_payment_service_authorisation", "open_financial_protocol"],
+      "additionalProperties": false,
+      "properties": {
+        "not_operator_authorisation": { "type": "boolean", "const": true, "description": "Uma chave delegada não autoriza operadores e não cria operadores. Operadores independentes, quando aplicável, são autorizados pelas entidades competentes — nunca pela BANZA." },
+        "not_certificate": { "type": "boolean", "const": true, "description": "Esta delegação não é um certificado emitido a um participante." },
+        "not_operator_approval": { "type": "boolean", "const": true, "description": "Uma chave delegada não aprova, não aceita e não admite operadores. Assina artefactos, não participantes." },
+        "not_payment_service_authorisation": { "type": "boolean", "const": true, "description": "Uma chave delegada não assina pagamentos, não autoriza serviços de pagamento, não emite licenças e não movimenta fundos." },
+        "open_financial_protocol": { "type": "boolean", "const": true, "description": "BANZA é e permanece um protocolo financeiro aberto." }
+      }
+    }
+  }
+}

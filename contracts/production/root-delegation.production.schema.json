@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/root-delegation.production.schema.json",
+  "title": "RootDelegationProduction",
+  "description": "A delegation from the BANZA protocol root to a purpose-specific signing key, produced under the 2-of-3 root-key ceremony. Public material only: a delegation id, the purpose (release/BRL/artifact/evidence signing), the delegated ed25519 PUBLIC key (base64url), a validity window, and at least 2 of 3 custodian signatures over the delegation. NO private key, seed or passphrase appears here. Delegated keys sign protocol releases, BANZA Revocation Lists, protocol artifacts and evidence bundles — they NEVER sign payments, NEVER authorise operators and NEVER move funds. A delegation whose purpose implied payment authority, operator authorisation or fund movement is FORBIDDEN and makes the ceremony INVALID (M2_ROOT_CEREMONY_INVALID_SCOPE). Status is computed in Rust by engines/banza-root-ceremony :: validate_root_ceremony, never in TypeScript.",
+  "_spec_version": "1.0",
+  "_status": "production-baseline",
+  "_authority": "Root Trust Ceremony (2-of-3 offline custody, docs/governance PKI trust model)",
+  "_boundary": "Root trust for the BANZA open financial protocol. The root does NOT authorise payment services, does NOT create operators, does NOT issue licences, does NOT move/settle/hold funds, and does NOT replace operator regulatory authorisation. BANZA remains an open financial protocol; PSPs/banks/authorised operators are separate entities that implement it.",
+
+  "type": "object",
+  "required": ["delegation_id", "purpose", "delegated_public_key", "valid_from", "valid_until", "signatures"],
+  "additionalProperties": false,
+
+  "properties": {
+    "delegation_id": { "type": "string", "description": "Unique id of this delegation." },
+    "purpose": { "type": "string", "enum": ["release_signing", "brl_signing", "artifact_signing", "evidence_signing"], "description": "What the delegated key may sign. Protocol artifacts only — never payments, operators or funds." },
+    "delegated_public_key": { "type": "string", "description": "Delegated PUBLIC key material only (base64url, ed25519). Private keys are NEVER included." },
+    "valid_from": { "type": "string", "format": "date-time", "description": "Start of the delegation validity window." },
+    "valid_until": { "type": "string", "format": "date-time", "description": "End of the delegation validity window." },
+    "signatures": {
+      "type": "array",
+      "description": "Custodian signatures over the canonical delegation bytes. At least 2 of 3 required (M2_ROOT_CEREMONY_BLOCKED_BY_THRESHOLD if fewer).",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["key_id", "custodian", "signature"],
+        "additionalProperties": false,
+        "properties": {
+          "key_id": { "type": "string", "description": "Root key id that produced this signature." },
+          "custodian": { "type": "string", "enum": ["A", "B", "C"], "description": "Custodian who signed OFFLINE." },
+          "signature": { "type": "string", "description": "Detached signature over the canonical delegation (base64url, ed25519). Public material." }
+        }
+      }
+    }
+  }
+}

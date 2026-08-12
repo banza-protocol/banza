@@ -1,0 +1,61 @@
+name: "BANZA Conformance"
+description: >-
+  Run BANZA protocol conformance against a public operator URL and generate an
+  evidence report. This produces conformance EVIDENCE, not certification.
+
+inputs:
+  url:
+    description: "Public base URL of the operator/sandbox endpoint to test (required)."
+    required: true
+  level:
+    description: "Maximum certification level to test (0–2 for the sandbox runner)."
+    required: false
+    default: "0"
+  output:
+    description: "Path to write the JSON evidence report."
+    required: false
+    default: "banza-conformance-report.json"
+  suite:
+    description: "Run a single suite by ID (optional)."
+    required: false
+    default: ""
+  federation:
+    description: "Run L3 federation conformance in dry-run (true/false)."
+    required: false
+    default: "false"
+  quiet:
+    description: "Suppress per-case output (true/false)."
+    required: false
+    default: "false"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+
+    - name: Install banza-conformance
+      shell: bash
+      run: |
+        set -euo pipefail
+        if [ "${{ inputs.federation }}" = "true" ]; then
+          pip install "${{ github.action_path }}/../../../tools/banza-conformance[federation]"
+        else
+          pip install "${{ github.action_path }}/../../../tools/banza-conformance"
+        fi
+
+    - name: Run BANZA conformance
+      shell: bash
+      run: |
+        set -euo pipefail
+        ARGS=(--url "${{ inputs.url }}" --level "${{ inputs.level }}" --output "${{ inputs.output }}")
+        if [ -n "${{ inputs.suite }}" ]; then ARGS+=(--suite "${{ inputs.suite }}"); fi
+        if [ "${{ inputs.federation }}" = "true" ]; then ARGS+=(--federation); fi
+        if [ "${{ inputs.quiet }}" = "true" ]; then ARGS+=(--quiet); fi
+        banza-conformance "${ARGS[@]}"
+
+branding:
+  icon: "check-circle"
+  color: "green"

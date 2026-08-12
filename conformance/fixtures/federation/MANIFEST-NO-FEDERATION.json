@@ -1,0 +1,26 @@
+{
+  "operator_id": "operator-a-test",
+  "environment": "sandbox",
+  "simulated": true,
+  "production_allowed": false,
+  "protocol_version": "1.0",
+  "certification_level": 0,
+  "capabilities": {
+    "supports_wallets": true,
+    "supports_qr": true,
+    "supports_settlement": false
+  },
+  "operator_name": "Operator A (No Federation)",
+  "operator_url": "https://api.operator-a-test.example",
+  "federation_version": "1",
+  "interop_endpoint": "https://api.operator-a-test.example",
+  "supports_federation": false,
+  "cross_operator_routing": false,
+  "cross_operator_settlement": false,
+  "federation_capabilities": {
+    "routing_version": "1",
+    "settlement_version": "1",
+    "supported_currencies": ["AOA"],
+    "netting_interval_hours": 24
+  }
+}

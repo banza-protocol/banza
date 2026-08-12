@@ -1,0 +1,18 @@
+{
+  "demo_only": true,
+  "monetary_value": false,
+  "production_allowed": false,
+  "operator_id": "operator-zero",
+  "operator_display_name": "Operador Zero",
+  "artifact_type": "key_manifest",
+  "root_name": "Demo Operator Root",
+  "keys": [
+    {
+      "key_id": "demo-signing-1",
+      "usage": "signing",
+      "status": "revoked",
+      "public_key_multibase": "zDEMOsigning1publicKEYplaceholderNOTaREALkey"
+    }
+  ],
+  "note": "Estado revogado, para demonstrar fail-closed. Artefacto demonstrativo. Não certifica, não aprova e não movimenta dinheiro real."
+}

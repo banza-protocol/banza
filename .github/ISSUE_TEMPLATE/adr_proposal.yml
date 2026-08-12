@@ -1,0 +1,61 @@
+name: ADR Proposal
+description: Propose an Architecture Decision Record for the BANZA protocol
+labels: ["adr", "protocol"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ADRs govern protocol-level decisions. See `decisions/adr/` for existing ADRs.
+
+        **An ADR is required for:**
+        - Changes to protocol financial invariants
+        - Changes to OpenAPI contracts, webhook schemas, or QR payload format
+        - New certification levels or capability requirements
+        - Changes to the @handle identity system
+        - Federation protocol changes
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: What problem is this decision solving? What is the current situation?
+    validations:
+      required: true
+
+  - type: textarea
+    id: decision
+    attributes:
+      label: Proposed decision
+      description: What do you propose we do?
+    validations:
+      required: true
+
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Rationale
+      description: Why is this the right decision?
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: What else did you evaluate? Why were they rejected?
+    validations:
+      required: true
+
+  - type: textarea
+    id: consequences
+    attributes:
+      label: Consequences and tradeoffs
+      description: What are the downsides or risks? What does this enable?
+    validations:
+      required: true
+
+  - type: textarea
+    id: invariants
+    attributes:
+      label: Financial invariant impact
+      description: Does this ADR change, add, or remove any financial invariants? If so, list them.

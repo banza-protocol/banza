@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/root-revocation.production.schema.json",
+  "title": "RootRevocationProduction",
+  "description": "A 2-of-3-signed revocation record for the BANZA open financial protocol root, produced under the 2-of-3 custody model. Public material only: the root id, the revoked key id, the reason, the effective date, at least 2 of 3 custodian signatures, and the threshold. NO private key, seed or passphrase appears here. Because the model is 2-of-3, revoking one key does not destroy the root: the two remaining custodians can still sign, and a rotation can introduce a replacement key. Revocation is a root-scope action (never a payment, operator or fund action). Fewer than 2 signatures yields M2_ROOT_CEREMONY_BLOCKED_BY_THRESHOLD. Status is computed in Rust by engines/banza-root-ceremony :: validate_root_ceremony, never in TypeScript.",
+  "_spec_version": "1.0",
+  "_status": "production-baseline",
+  "_authority": "Root Trust Ceremony (2-of-3 offline custody, docs/governance PKI trust model)",
+  "_boundary": "Root trust for the BANZA open financial protocol. The root does NOT authorise payment services, does NOT create operators, does NOT issue licences, does NOT move/settle/hold funds, and does NOT replace operator regulatory authorisation. BANZA remains an open financial protocol; PSPs/banks/authorised operators are separate entities that implement it.",
+
+  "type": "object",
+  "required": ["root_id", "revoked_key_id", "reason", "effective_from", "signatures", "threshold"],
+  "additionalProperties": false,
+
+  "properties": {
+    "root_id": { "type": "string", "description": "The protocol root of trust whose key is being revoked." },
+    "revoked_key_id": { "type": "string", "description": "The root key id being revoked (e.g. 'root-key-B')." },
+    "reason": { "type": "string", "enum": ["compromise", "loss", "rotation", "policy"], "description": "Why the key is being revoked. Compromise of one key does not compromise the whole root under 2-of-3." },
+    "effective_from": { "type": "string", "format": "date-time", "description": "When the revocation takes effect." },
+    "signatures": {
+      "type": "array",
+      "description": "Custodian signatures authorising the revocation. At least 2 of 3 required (M2_ROOT_CEREMONY_BLOCKED_BY_THRESHOLD if fewer). The revoked key's own signature does not count toward the threshold.",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["key_id", "custodian", "signature"],
+        "additionalProperties": false,
+        "properties": {
+          "key_id": { "type": "string", "description": "Root key id that produced this signature." },
+          "custodian": { "type": "string", "enum": ["A", "B", "C"], "description": "Custodian who signed OFFLINE." },
+          "signature": { "type": "string", "description": "Detached signature over the canonical revocation bytes (base64url, ed25519). Public material." }
+        }
+      }
+    },
+    "threshold": { "type": "integer", "const": 2, "description": "Signature threshold for revocation. 2-of-3." }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "scheme_id": "banzami-operational-scheme",
+  "operator": "Banzami — Tecnologia e Serviços, Lda.",
+  "state": "REGULATORY_AUTHORIZATION_IN_PROGRESS",
+  "real_money_enabled": false,
+  "real_wallets_enabled": false,
+  "real_settlement_enabled": false,
+  "real_participants_active": false,
+  "bna_approval_claimed": false,
+  "evidence_refs": [],
+  "public_statement": "A camada operacional encontra-se em preparação regulatória. Os pagamentos reais permanecem desactivados.",
+  "notes": "Baseline Layer-3 posture. Real funds, wallets, settlement and participants fail-closed. No authorisation granted; no BNA approval claimed.",
+  "boundary": {
+    "not_authorised_yet": true,
+    "no_bna_claim_without_evidence": true,
+    "real_money_fail_closed": true,
+    "authorisation_granted": false,
+    "banzami_presented_as_authorised": false,
+    "replaces_regulator": false,
+    "replaces_scheme": false,
+    "certification_is_not_admission_is_not_authorisation": true
+  }
+}

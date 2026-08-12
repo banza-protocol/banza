@@ -1,0 +1,922 @@
+{
+  "ok": true,
+  "journey_receipt": {
+    "receipt_version": "1.0.0",
+    "journey_id": "journey-3851b33a-3eec-4768-94f1-ec076aa4ba5f",
+    "request_id": "3474f160-aadd-43e8-b654-74de1b7e5501",
+    "workflow": "operator-validation",
+    "operator_id": "operator-zero",
+    "implementation_id": "operator-zero-ref-impl",
+    "environment": "sandbox",
+    "profile": "L0",
+    "protocol_version": "1.0.0",
+    "canonical_origin": "https://zero.banza.network",
+    "resolved_host": "zero.banza.network",
+    "started_at": "2026-07-29T23:23:46.283Z",
+    "finished_at": "2026-07-29T23:23:47.760Z",
+    "duration_ms": 1477,
+    "step_count": 9,
+    "steps": [
+      {
+        "receipt_version": "1.0.0",
+        "operation_id": "op-825cddd7-71da-4fd2-9736-9767506e2822",
+        "request_id": "3474f160-aadd-43e8-b654-74de1b7e5501",
+        "workflow": "operator-validation",
+        "step": "discovery",
+        "operator_id": "operator-zero",
+        "implementation_id": "operator-zero-ref-impl",
+        "environment": "sandbox",
+        "profile": "L0",
+        "protocol_version": "1.0.0",
+        "canonical_origin": "https://zero.banza.network",
+        "endpoint": "https://zero.banza.network/discovery.json",
+        "resolved_host": "zero.banza.network",
+        "fetched_at": "2026-07-29T23:23:46.286328924Z",
+        "http_status": 200,
+        "content_type": "application/json",
+        "content_length": 1156,
+        "etag": null,
+        "last_modified": null,
+        "input_hash": "sha256:c41401d643bc89344bbed02ac6cd9fd4bb8d2083ab4c03aecb72f036a4f8d361",
+        "signature_status": "not_applicable",
+        "engine": "banza-target-registry",
+        "engine_version": "0.1.0",
+        "result": {
+          "status": "VERIFIED",
+          "engine_status": "DISCOVERY_OK",
+          "engine_result": {
+            "checks": [
+              {
+                "check": "operator_id",
+                "expected": "operator-zero",
+                "got": "operator-zero",
+                "pass": true
+              },
+              {
+                "check": "implementation_id",
+                "expected": "operator-zero-ref-impl",
+                "got": "operator-zero-ref-impl",
+                "pass": true
+              },
+              {
+                "check": "canonical_origin",
+                "expected": "https://zero.banza.network",
+                "got": "https://zero.banza.network",
+                "pass": true
+              },
+              {
+                "check": "protocol_version",
+                "expected": "1.0.0",
+                "got": "1.0.0",
+                "pass": true
+              },
+              {
+                "check": "endpoints_host_bound",
+                "expected_host": "zero.banza.network",
+                "pass": true
+              }
+            ],
+            "ok": true,
+            "reason_codes": [
+              "DISCOVERY_OK"
+            ],
+            "status": "DISCOVERY_OK",
+            "tool": "banza-target-registry",
+            "tool_version": "0.1.0"
+          }
+        },
+        "reason_codes": [
+          "DISCOVERY:DISCOVERY_OK"
+        ],
+        "evidence_refs": [
+          "https://zero.banza.network/discovery.json#c41401d643bc89344bbed02ac6cd9fd4bb8d2083ab4c03aecb72f036a4f8d361"
+        ],
+        "output_hash": "sha256:bfe3ae3270ae8be021b0833449eb7a9e080da2bb9556d93285f3586c5b778d9f",
+        "duration_ms": 97,
+        "qwen_calls": 0,
+        "external_model_calls": 0,
+        "protocol_fetch_count": 1,
+        "audit_ref": "3474f160-aadd-43e8-b654-74de1b7e5501:af-18c6e63705599209-000000000017"
+      },
+      {
+        "receipt_version": "1.0.0",
+        "operation_id": "op-940231f5-b882-48fc-855e-e258c9057f5a",
+        "request_id": "3474f160-aadd-43e8-b654-74de1b7e5501",
+        "workflow": "operator-validation",
+        "step": "manifest",
+        "operator_id": "operator-zero",
+        "implementation_id": "operator-zero-ref-impl",
+        "environment": "sandbox",
+        "profile": "L0",
+        "protocol_version": "1.0.0",
+        "canonical_origin": "https://zero.banza.network",
+        "endpoint": "https://zero.banza.network/manifest.json",
+        "resolved_host": "zero.banza.network",
+        "fetched_at": "2026-07-29T23:23:46.382794954Z",
+        "http_status": 200,
+        "content_type": "application/json",
+        "content_length": 1191,
+        "etag": null,
+        "last_modified": null,
+        "input_hash": "sha256:b6f6399104b81c888dda3bec51a3c2ff48e6d060d864df9d5f6314ab283b2f69",
+        "signature_status": "not_applicable",
+        "engine": "banza-operator-manifest",
+        "engine_version": "0.1.0",
+        "result": {
+          "status": "VERIFIED",
+          "engine_status": "VALID",
+          "engine_result": {
+            "boundary": "Operator Manifest Validation é evidência técnica. Não é certificação, não é aprovação e não cria operador real.",
+            "does_not_create_operator": true,
+            "endpoint_checks": [
+              {
+                "field": "base_url",
+                "note": "Operator URL validation disabled in this phase (no network).",
+                "url": "https://zero.banza.network",
+                "well_formed": true
+              },
+              {
+                "field": "key_manifest_url",
+                "note": "Operator URL validation disabled in this phase (no network).",
+                "url": "https://zero.banza.network/key-manifest.json",
+                "well_formed": true
+              },
+              {
+                "field": "conformance_url",
+                "note": "Operator URL validation disabled in this phase (no network).",
+                "url": "https://zero.banza.network/conformance/evidence.json",
+                "well_formed": true
+              }
+            ],
+            "environment": "sandbox",
+            "errors": [],
+            "external_model_called": false,
+            "key_manifest_reference": {
+              "note": "A raiz de confiança do operador é referida por key_manifest_url; o seu conteúdo não é validado nesta fase (sem rede).",
+              "present": true,
+              "url": "https://zero.banza.network/key-manifest.json",
+              "well_formed": true
+            },
+            "llm_calls": 0,
+            "manifest_hash": "0b36a385b02e997a8ead11e141a18b541f939f8f02dfb628bba1d545cb77ee5d",
+            "manifest_id": "manifest-05787a978481",
+            "missing_fields": [],
+            "next_step": "Manifesto válido (evidência técnica). Prossiga para o SimB Pre-Review Gate.",
+            "not_a_certificate": true,
+            "not_an_approval": true,
+            "operator_id": "operator-zero",
+            "protocol_version": "1.0.0",
+            "readiness": "READY_FOR_SIMB_PRE_REVIEW",
+            "required_fields": [
+              "operator_id",
+              "environment",
+              "simulated",
+              "production_allowed",
+              "capabilities",
+              "key_manifest_url",
+              "protocol_version",
+              "base_url",
+              "supported_levels"
+            ],
+            "requires_conformance_evidence_review": true,
+            "requires_simb_pre_review": true,
+            "status": "VALID",
+            "test_only": true,
+            "tool": "banza-operator-manifest",
+            "tool_version": "0.1.0",
+            "warnings": [
+              "campo recomendado em falta: certificates_url",
+              "campo recomendado em falta: brl_url"
+            ],
+            "well_known_path": "/.well-known/banza/operator.json"
+          }
+        },
+        "reason_codes": [
+          "MANIFEST_VALID"
+        ],
+        "evidence_refs": [
+          "https://zero.banza.network/manifest.json#b6f6399104b81c888dda3bec51a3c2ff48e6d060d864df9d5f6314ab283b2f69"
+        ],
+        "output_hash": "sha256:24af9c9ebcc231d7efcfcf8cb2217f2ec6ad81442aa18cecabf37bf733b36c37",
+        "duration_ms": 74,
+        "qwen_calls": 0,
+        "external_model_calls": 0,
+        "protocol_fetch_count": 1,
+        "audit_ref": "3474f160-aadd-43e8-b654-74de1b7e5501:af-18c6e6370b1985f5-000000000018"
+      },
+      {
+        "receipt_version": "1.0.0",
+        "operation_id": "op-c69c3ff3-98bd-4a9e-b0d5-2d56b5266caf",
+        "request_id": "3474f160-aadd-43e8-b654-74de1b7e5501",
+        "workflow": "operator-validation",
+        "step": "keys",
+        "operator_id": "operator-zero",
+        "implementation_id": "operator-zero-ref-impl",
+        "environment": "sandbox",
+        "profile": "L0",
+        "protocol_version": "1.0.0",
+        "canonical_origin": "https://zero.banza.network",
+        "endpoint": "https://zero.banza.network/signed-metadata.json",
+        "resolved_host": "zero.banza.network",
+        "fetched_at": "2026-07-29T23:23:46.456611793Z",
+        "http_status": 200,
+        "content_type": "application/json",
+        "content_length": 1715,
+        "etag": null,
+        "last_modified": null,
+        "input_hash": "sha256:f3917194eebc64eec2756490f1885eefd6ec098ad790dd5957b41a581686fd1f",
+        "signature_status": "INVALID",
+        "engine": "banza-trust",
+        "engine_version": "0.2.0",
+        "result": {
+          "status": "FAILED",
+          "engine_status": "TRUST_INVALID_ROOT_METADATA",
+          "engine_result": {
+            "checks": {
+              "boundary_status": "VALID",
+              "conformance_evidence_status": "MISSING",
+              "delegated_key_status": "INVALID",
+              "fail_closed_required": true,
+              "manifest_status": "MISSING",
+              "metadata_freshness_status": "EXPIRED",
+              "protocol_compatibility_status": "VALID",
+              "registry_status": "MISSING",
+              "revocation_status": "REVOKED",
+              "root_metadata_status": "INVALID",
+              "signature_status": "INVALID",
+              "signed_metadata_status": "INVALID"
+            },
+            "detail": "trust root metadata is absent or malformed (fail-closed)",
+            "external_model_called": false,
+            "flags": {
+              "central_operator_authority": false,
+              "certificate_based_trust": false,
+              "conformance_is_machine_verifiable": true,
+              "does_not_authorise_operators": true,
+              "does_not_certify_operators": true,
+              "does_not_issue_payment_licence": true,
+              "does_not_move_funds": true,
+              "human_operator_approval_required": false,
+              "not_a_psp": true,
+              "open_financial_protocol": true,
+              "operator_participation_permissionless": true,
+              "signed_metadata_based_trust": true
+            },
+            "llm_calls": 0,
+            "production_disclaimer": "Trust engine report descreve a verificação do modelo activo de trust do protocolo financeiro aberto BANZA. Não é autorização de operador, não é certificação, não é licença e não permite prestação de serviços financeiros pelo BANZA.",
+            "protocol_stance": "BANZA é um protocolo financeiro aberto. Operadores independentes implementam o protocolo, publicam manifests e demonstram compatibilidade por evidência verificável de conformidade. O trust do protocolo é avaliado por signed protocol metadata, delegated signing keys, public protocol registry e revocation/fail-closed.",
+            "report_hash": "8cf92c29b3763a15a30e8eb8fdc86ee756bacf206f7ed703e21d3f8a0b09a878",
+            "test_only": true,
+            "tool": "banza-trust",
+            "tool_version": "0.2.0",
+            "trust_status": "TRUST_INVALID_ROOT_METADATA"
+          }
+        },
+        "reason_codes": [
+          "TRUST_INVALID_ROOT_METADATA"
+        ],
+        "evidence_refs": [
+          "https://zero.banza.network/signed-metadata.json#39233f05dfd2b5213f3bf758db6e3299f03ba8ffcea49308b90f9f2fea0c43c1",
+          "https://zero.banza.network/key-manifest.json#a2d9f90eb94130de1be915a71f6ee114ebc4d4cfd327bd166069d76feed1d31a",
+          "https://zero.banza.network/revocation-list.json#0d08c9e18e118d511428bb8a5619f4cb5c47be94febed4e400a3a3ee3f443053",
+          "https://zero.banza.network/manifest.json#b6f6399104b81c888dda3bec51a3c2ff48e6d060d864df9d5f6314ab283b2f69",
+          "https://zero.banza.network/conformance/evidence.json#553dd3541ba7446464d43f3e5199bdd28548c335723e30e724becde6a5736c41"
+        ],
+        "output_hash": "sha256:4045291ee8cfd09a2f4ae5fcbe651276ca756cc4562b7479988a49e35df450d9",
+        "duration_ms": 303,
+        "qwen_calls": 0,
+        "external_model_calls": 0,
+        "protocol_fetch_count": 5,
+        "audit_ref": "3474f160-aadd-43e8-b654-74de1b7e5501:af-18c6e6370f7fdea3-000000000019"
+      },
+      {
+        "receipt_version": "1.0.0",
+        "operation_id": "op-418fcb47-a27f-4dca-b469-bc8a97c3120b",
+        "request_id": "3474f160-aadd-43e8-b654-74de1b7e5501",
+        "workflow": "operator-validation",
+        "step": "conformance",
+        "operator_id": "operator-zero",
+        "implementation_id": "operator-zero-ref-impl",
+        "environment": "sandbox",
+        "profile": "L0",
+        "protocol_version": "1.0.0",
+        "canonical_origin": "https://zero.banza.network",
+        "endpoint": "https://zero.banza.network/conformance/evidence.json",
+        "resolved_host": "zero.banza.network",
+        "fetched_at": "2026-07-29T23:23:46.7610857Z",
+        "http_status": 200,
+        "content_type": "application/json",
+        "content_length": 335,
+        "etag": null,
+        "last_modified": null,
+        "input_hash": "sha256:553dd3541ba7446464d43f3e5199bdd28548c335723e30e724becde6a5736c41",
+        "signature_status": "not_applicable",
+        "engine": "banza-conformance",
+        "engine_version": "0.1.0",
+        "result": {
+          "status": "PENDING",
+          "engine_status": "INCOMPLETE_EVIDENCE",
+          "engine_result": {
+            "error": "report missing required field: runner",
+            "ok": false,
+            "tool": "banza-conformance-rs",
+            "tool_version": "0.1.0"
+          }
+        },
+        "reason_codes": [
+          "CONFORMANCE_EVIDENCE_INCOMPLETE",
+          "ENGINE:report missing required field: runner"
+        ],
+        "evidence_refs": [
+          "https://zero.banza.network/conformance/evidence.json#553dd3541ba7446464d43f3e5199bdd28548c335723e30e724becde6a5736c41"
+        ],
+        "output_hash": "sha256:81d87530c96016e8a816fecb51d501bbd8c4a8dc73ab14767ffafd61dd5ce605",
+        "duration_ms": 76,
+        "qwen_calls": 0,
+        "external_model_calls": 0,
+        "protocol_fetch_count": 1,
+        "audit_ref": "3474f160-aadd-43e8-b654-74de1b7e5501:af-18c6e63721a5c48b-00000000001e"
+      },
+      {
+        "receipt_version": "1.0.0",
+        "operation_id": "op-944780ed-f4b0-4eea-991b-2e026a496f41",
+        "request_id": "3474f160-aadd-43e8-b654-74de1b7e5501",
+        "workflow": "operator-validation",
+        "step": "interoperability",
+        "operator_id": "operator-zero",
+        "implementation_id": "operator-zero-ref-impl",
+        "environment": "sandbox",
+        "profile": "L0",
+        "protocol_version": "1.0.0",
+        "canonical_origin": "https://zero.banza.network",
+        "endpoint": "https://zero.banza.network/manifest.json",
+        "resolved_host": "zero.banza.network",
+        "fetched_at": "2026-07-29T23:23:46.836947747Z",
+        "http_status": 200,
+        "content_type": "application/json",
+        "content_length": 1191,
+        "etag": null,
+        "last_modified": null,
+        "input_hash": "sha256:913a45c59e911c11bfa55cf1d44249d564154cb1cc4e5613952c5156a03981e2",
+        "signature_status": "not_applicable",
+        "engine": "banza-l2-readiness",
+        "engine_version": "0.1.0",
+        "result": {
+          "status": "FAILED",
+          "engine_status": "L2_BLOCKED_BY_MANIFEST",
+          "engine_result": {
+            "boundary": "L2 Readiness é preparação técnica de fluxo de pagamento. Não é pagamento real, não é certificação, não é aprovação, não cria operador e não move fundos.",
+            "does_not_create_operator": true,
+            "does_not_move_funds": true,
+            "evidence_summary": {
+              "bundle_hash": null,
+              "bundle_id": null,
+              "disclaimer": "Evidência técnica — não é certificação nem pagamento real.",
+              "evidence": "missing"
+            },
+            "external_model_called": false,
+            "idempotency_summary": {
+              "errors": [],
+              "idempotency": "missing",
+              "key": null,
+              "replay_detected": null
+            },
+            "invalid_artifacts": [
+              "operator_manifest",
+              "payment_intent",
+              "ledger",
+              "trace",
+              "settlement"
+            ],
+            "l2_report_hash": "92f6ca70eff0afc0be4f2e420ab45c9b5ff01f5f20ca50e6a71dbfd735133c7c",
+            "ledger_summary": {
+              "credit_minor": 0,
+              "debit_minor": 0,
+              "errors": [
+                "ledger sem entries"
+              ],
+              "ledger": "invalid",
+              "zero_sum": true
+            },
+            "llm_calls": 0,
+            "missing_artifacts": [
+              "simb_pre_review",
+              "conformance_l0",
+              "l1_readiness",
+              "idempotency",
+              "evidence"
+            ],
+            "next_steps": [
+              "Corrija o Operator Manifest (deve ser VALID) e revalide."
+            ],
+            "not_a_certificate": true,
+            "not_a_payment": true,
+            "not_an_approval": true,
+            "operator_url_note": "Validação por URL/endpoint de pagamento do operador desactivada nesta fase; exigirá confirmação explícita.",
+            "operator_url_validation": "disabled",
+            "payment_flow_summary": {
+              "amount_minor": null,
+              "currency": "KZ_DEMO",
+              "errors": [
+                "payment_intent sem id",
+                "payment_intent sem status",
+                "payment_intent sem idempotency_key",
+                "payment_intent sem ligação de trace (trace_id/transfer_id)"
+              ],
+              "intent_id": null,
+              "note": "Fluxo test-only; sem rede; sem movimentação de fundos.",
+              "payment_intent": "invalid"
+            },
+            "readiness": "NOT_READY",
+            "recommended_artifacts": [
+              "failure_handling"
+            ],
+            "report_id": "l2-ab03e39ec23c",
+            "required_artifacts": [
+              "operator_manifest",
+              "simb_pre_review",
+              "conformance_l0",
+              "l1_readiness",
+              "payment_intent",
+              "idempotency",
+              "ledger",
+              "trace",
+              "settlement",
+              "evidence"
+            ],
+            "requires_conformance_evidence_review": true,
+            "settlement_summary": {
+              "errors": [
+                "settlement sem ligação ao payment intent (intent_id)",
+                "settlement sem gross/net/fee coerentes (inteiros minor units)"
+              ],
+              "fee_minor": null,
+              "gross_minor": null,
+              "net_minor": null,
+              "settlement": "invalid"
+            },
+            "status": "L2_BLOCKED_BY_MANIFEST",
+            "test_only": true,
+            "tool": "banza-l2-readiness",
+            "tool_version": "0.1.0",
+            "trace_summary": {
+              "errors": [
+                "trace_linkage sem trace_id",
+                "trace_linkage sem eventos mínimos"
+              ],
+              "trace": "invalid",
+              "trace_id": null
+            },
+            "warnings": [
+              "recomendado em falta: failure_handling (como o fluxo trata falhas/replay)"
+            ]
+          }
+        },
+        "reason_codes": [
+          "L2_BLOCKED_BY_MANIFEST"
+        ],
+        "evidence_refs": [
+          "https://zero.banza.network/manifest.json#b6f6399104b81c888dda3bec51a3c2ff48e6d060d864df9d5f6314ab283b2f69",
+          "https://zero.banza.network/payments/demo-qr.json#a43113651bff53d58642f5c70c9937b3a31961bb9cfbed3f7c187957940663de",
+          "https://zero.banza.network/payments/demo-refund.json#a6661068d6027edb708c65f47ebb66f6eae9f2f4552ae61eaa8b274ec56809ca",
+          "https://zero.banza.network/ledger/demo.json#c6329645c854f8d100e8cd5dd60fc1e04549a7532c6a6c0b4fc13935222ee772",
+          "https://zero.banza.network/traces/full-e2e.json#b05f3c090e8d4466340d5e0517b90bc296d6d7367a8858ec704bec9a7034e61e"
+        ],
+        "output_hash": "sha256:38e51daad1f4f0a0029e22b3539e904a14a179e346a51a0ebc53bb131a1c6e6e",
+        "duration_ms": 339,
+        "qwen_calls": 0,
+        "external_model_calls": 0,
+        "protocol_fetch_count": 5,
+        "audit_ref": "3474f160-aadd-43e8-b654-74de1b7e5501:af-18c6e637262b5626-00000000001f"
+      },
+      {
+        "receipt_version": "1.0.0",
+        "operation_id": "op-d56dde33-bc6c-4b4c-8303-35ed4ef6f06b",
+        "request_id": "3474f160-aadd-43e8-b654-74de1b7e5501",
+        "workflow": "operator-validation",
+        "step": "trust",
+        "operator_id": "operator-zero",
+        "implementation_id": "operator-zero-ref-impl",
+        "environment": "sandbox",
+        "profile": "L0",
+        "protocol_version": "1.0.0",
+        "canonical_origin": "https://zero.banza.network",
+        "endpoint": "https://zero.banza.network/signed-metadata.json",
+        "resolved_host": "zero.banza.network",
+        "fetched_at": "2026-07-29T23:23:47.174315799Z",
+        "http_status": 200,
+        "content_type": "application/json",
+        "content_length": 1715,
+        "etag": null,
+        "last_modified": null,
+        "input_hash": "sha256:2c5e15de02ff8b92acfdb0c758761a310c60878166779984c053dbf775992484",
+        "signature_status": "INVALID",
+        "engine": "banza-trust",
+        "engine_version": "0.2.0",
+        "result": {
+          "status": "FAILED",
+          "engine_status": "TRUST_INVALID_ROOT_METADATA",
+          "engine_result": {
+            "checks": {
+              "boundary_status": "VALID",
+              "conformance_evidence_status": "MISSING",
+              "delegated_key_status": "INVALID",
+              "fail_closed_required": true,
+              "manifest_status": "MISSING",
+              "metadata_freshness_status": "EXPIRED",
+              "protocol_compatibility_status": "VALID",
+              "registry_status": "MISSING",
+              "revocation_status": "REVOKED",
+              "root_metadata_status": "INVALID",
+              "signature_status": "INVALID",
+              "signed_metadata_status": "INVALID"
+            },
+            "detail": "trust root metadata is absent or malformed (fail-closed)",
+            "external_model_called": false,
+            "flags": {
+              "central_operator_authority": false,
+              "certificate_based_trust": false,
+              "conformance_is_machine_verifiable": true,
+              "does_not_authorise_operators": true,
+              "does_not_certify_operators": true,
+              "does_not_issue_payment_licence": true,
+              "does_not_move_funds": true,
+              "human_operator_approval_required": false,
+              "not_a_psp": true,
+              "open_financial_protocol": true,
+              "operator_participation_permissionless": true,
+              "signed_metadata_based_trust": true
+            },
+            "llm_calls": 0,
+            "production_disclaimer": "Trust engine report descreve a verificação do modelo activo de trust do protocolo financeiro aberto BANZA. Não é autorização de operador, não é certificação, não é licença e não permite prestação de serviços financeiros pelo BANZA.",
+            "protocol_stance": "BANZA é um protocolo financeiro aberto. Operadores independentes implementam o protocolo, publicam manifests e demonstram compatibilidade por evidência verificável de conformidade. O trust do protocolo é avaliado por signed protocol metadata, delegated signing keys, public protocol registry e revocation/fail-closed.",
+            "report_hash": "8cf92c29b3763a15a30e8eb8fdc86ee756bacf206f7ed703e21d3f8a0b09a878",
+            "test_only": true,
+            "tool": "banza-trust",
+            "tool_version": "0.2.0",
+            "trust_status": "TRUST_INVALID_ROOT_METADATA"
+          }
+        },
+        "reason_codes": [
+          "TRUST_INVALID_ROOT_METADATA"
+        ],
+        "evidence_refs": [
+          "https://zero.banza.network/signed-metadata.json#39233f05dfd2b5213f3bf758db6e3299f03ba8ffcea49308b90f9f2fea0c43c1",
+          "https://zero.banza.network/key-manifest.json#a2d9f90eb94130de1be915a71f6ee114ebc4d4cfd327bd166069d76feed1d31a",
+          "https://zero.banza.network/manifest.json#b6f6399104b81c888dda3bec51a3c2ff48e6d060d864df9d5f6314ab283b2f69",
+          "https://zero.banza.network/conformance/evidence.json#553dd3541ba7446464d43f3e5199bdd28548c335723e30e724becde6a5736c41",
+          "https://zero.banza.network/revocation-list.json#0d08c9e18e118d511428bb8a5619f4cb5c47be94febed4e400a3a3ee3f443053"
+        ],
+        "output_hash": "sha256:4045291ee8cfd09a2f4ae5fcbe651276ca756cc4562b7479988a49e35df450d9",
+        "duration_ms": 300,
+        "qwen_calls": 0,
+        "external_model_calls": 0,
+        "protocol_fetch_count": 5,
+        "audit_ref": "3474f160-aadd-43e8-b654-74de1b7e5501:af-18c6e6373a472cf5-000000000024"
+      },
+      {
+        "receipt_version": "1.0.0",
+        "operation_id": "op-4d870068-51a7-4fbb-87c6-15be66d1094b",
+        "request_id": "3474f160-aadd-43e8-b654-74de1b7e5501",
+        "workflow": "operator-validation",
+        "step": "federation",
+        "operator_id": "operator-zero",
+        "implementation_id": "operator-zero-ref-impl",
+        "environment": "sandbox",
+        "profile": "L0",
+        "protocol_version": "1.0.0",
+        "canonical_origin": "https://zero.banza.network",
+        "endpoint": "https://zero.banza.network/federation/metadata.json",
+        "resolved_host": "zero.banza.network",
+        "fetched_at": "2026-07-29T23:23:47.475376815Z",
+        "http_status": 200,
+        "content_type": "application/json",
+        "content_length": 340,
+        "etag": null,
+        "last_modified": null,
+        "input_hash": "sha256:4263ba337c90b50091764ab3c89fbb5f48604d64b4d341e66fc301304a3ce1ab",
+        "signature_status": "not_applicable",
+        "engine": "banza-l3-readiness",
+        "engine_version": "0.1.0",
+        "result": {
+          "status": "FAILED",
+          "engine_status": "L3_BLOCKED_BY_MANIFEST",
+          "engine_result": {
+            "boundary": "L3 Readiness é preparação técnica de federação. Não é federação activa, não é produção, não é certificação, não é aprovação, não cria operador e não move fundos.",
+            "brl_summary": {
+              "brl": "missing",
+              "errors": [],
+              "note": "BRL fail-closed: um operador revogado bloqueia o routing (INV-FEDEVAL-002).",
+              "revoked_operators": []
+            },
+            "cross_operator_trace_summary": {
+              "correlation_id": null,
+              "errors": [
+                "cross_operator_trace sem trace_a/trace_b",
+                "cross_operator_trace sem linkage (correlation_id) entre A e B",
+                "cross_operator_trace sem eventos mínimos"
+              ],
+              "trace": "invalid"
+            },
+            "does_not_create_operator": true,
+            "does_not_move_funds": true,
+            "evidence_summary": {
+              "bundle_hash": null,
+              "bundle_id": null,
+              "disclaimer": "Evidência técnica — não é certificação nem federação activa.",
+              "evidence": "missing"
+            },
+            "external_model_called": false,
+            "federation_summary": {
+              "errors": [
+                "federation_pair sem operator_a/operator_b",
+                "federation_pair.environment deve ser demo/pre-production",
+                "federation_intent sem id",
+                "federation_intent sem source/target operator",
+                "federation_intent sem amount (minor units)",
+                "federation_intent sem trace_id",
+                "federation_intent sem idempotency_key",
+                "federation_intent sem status"
+              ],
+              "federation_id": null,
+              "intent": "invalid",
+              "note": "Federação test-only entre operadores simulados; sem rede; sem federação activa; sem fundos.",
+              "operators": [],
+              "pair": "invalid"
+            },
+            "invalid_artifacts": [
+              "operator_manifest",
+              "federation_pair",
+              "federation_intent",
+              "cross_operator_trace"
+            ],
+            "l3_report_hash": "e4846c693ceab52ec7ecc5a460071f0daa7e45b3f8b6bc3c5e810c670b6d349a",
+            "llm_calls": 0,
+            "missing_artifacts": [
+              "simb_pre_review",
+              "conformance_l0",
+              "l1_readiness",
+              "l2_readiness",
+              "trust",
+              "brl",
+              "settlement",
+              "evidence"
+            ],
+            "next_steps": [
+              "Corrija o Operator Manifest (deve ser VALID) e revalide."
+            ],
+            "not_a_certificate": true,
+            "not_a_payment": true,
+            "not_active_federation": true,
+            "not_an_approval": true,
+            "operator_url_note": "Validação por URL/endpoint de federação do operador desactivada nesta fase; exigirá confirmação explícita.",
+            "operator_url_validation": "disabled",
+            "readiness": "NOT_READY",
+            "recommended_artifacts": [
+              "failure_handling"
+            ],
+            "report_id": "l3-a5c89acfcdab",
+            "required_artifacts": [
+              "operator_manifest",
+              "simb_pre_review",
+              "conformance_l0",
+              "l1_readiness",
+              "l2_readiness",
+              "federation_pair",
+              "federation_intent",
+              "cross_operator_trace",
+              "trust",
+              "brl",
+              "settlement",
+              "evidence"
+            ],
+            "requires_conformance_evidence_review": true,
+            "settlement_summary": {
+              "errors": [],
+              "fee_minor": null,
+              "gross_minor": null,
+              "net_minor": null,
+              "settlement": "missing"
+            },
+            "status": "L3_BLOCKED_BY_MANIFEST",
+            "test_only": true,
+            "tool": "banza-l3-readiness",
+            "tool_version": "0.1.0",
+            "trust_summary": {
+              "errors": [],
+              "note": "Verificação de forma; sem rede; sem chave de produção.",
+              "trust": "missing"
+            },
+            "warnings": [
+              "recomendado em falta: failure_handling (como a federação trata falhas/revogação)"
+            ]
+          }
+        },
+        "reason_codes": [
+          "L3_BLOCKED_BY_MANIFEST"
+        ],
+        "evidence_refs": [
+          "https://zero.banza.network/federation/metadata.json#c96830593b440582b56d30844018ccbe619e393e7efbc7200ce1469a76fca703",
+          "https://zero.banza.network/federation-metadata.json#0087a6266c99c431b7d875cc83b3d3e1c820a6dca95dab135d7b5ffa55269940",
+          "https://zero.banza.network/traces/full-e2e.json#b05f3c090e8d4466340d5e0517b90bc296d6d7367a8858ec704bec9a7034e61e",
+          "https://zero.banza.network/manifest.json#b6f6399104b81c888dda3bec51a3c2ff48e6d060d864df9d5f6314ab283b2f69"
+        ],
+        "output_hash": "sha256:def1a2cdff5817ecabbfc2d5a2ad32ad36dbe1c34ad2edc6100586d9fcf12ce4",
+        "duration_ms": 235,
+        "qwen_calls": 0,
+        "external_model_calls": 0,
+        "protocol_fetch_count": 4,
+        "audit_ref": "3474f160-aadd-43e8-b654-74de1b7e5501:af-18c6e6374c3900bf-000000000029"
+      },
+      {
+        "receipt_version": "1.0.0",
+        "operation_id": "op-426533ba-2a0d-4f87-acaa-f21dbd5b89d6",
+        "request_id": "3474f160-aadd-43e8-b654-74de1b7e5501",
+        "workflow": "operator-validation",
+        "step": "evidence",
+        "operator_id": "operator-zero",
+        "implementation_id": "operator-zero-ref-impl",
+        "environment": "sandbox",
+        "profile": "L0",
+        "protocol_version": "1.0.0",
+        "canonical_origin": "https://zero.banza.network",
+        "endpoint": "https://zero.banza.network/evidence-bundle.json",
+        "resolved_host": "zero.banza.network",
+        "fetched_at": "2026-07-29T23:23:47.709351655Z",
+        "http_status": 200,
+        "content_type": "application/json",
+        "content_length": 459,
+        "etag": null,
+        "last_modified": null,
+        "input_hash": "sha256:2ec6d5d8d70245e770e4e2f936da2d2a64f38a048ab8e509ebb8afffdb61425d",
+        "signature_status": "not_applicable",
+        "engine": "banza-evidence-bundle",
+        "engine_version": "0.1.0",
+        "result": {
+          "status": "FAILED",
+          "engine_status": "",
+          "engine_result": {
+            "errors": [
+              "campo em falta: schema_version",
+              "campo em falta: bundle_id",
+              "campo em falta: readiness",
+              "campo em falta: hashes",
+              "campo em falta: boundary",
+              "not_a_certificate deve ser true",
+              "not_an_approval deve ser true",
+              "requires_conformance_evidence_review deve ser true",
+              "llm_calls deve ser 0",
+              "external_model_called deve ser false",
+              "hashes.bundle_hash em falta"
+            ],
+            "ok": false,
+            "readiness": null,
+            "tool": "banza-evidence-bundle",
+            "tool_version": "0.1.0"
+          }
+        },
+        "reason_codes": [
+          "EVIDENCE_BUNDLE_INVALID",
+          "READINESS:",
+          "ERROR:campo em falta: schema_version",
+          "ERROR:campo em falta: bundle_id",
+          "ERROR:campo em falta: readiness",
+          "ERROR:campo em falta: hashes",
+          "ERROR:campo em falta: boundary",
+          "ERROR:not_a_certificate deve ser true",
+          "ERROR:not_an_approval deve ser true",
+          "ERROR:requires_conformance_evidence_review deve ser true",
+          "ERROR:llm_calls deve ser 0",
+          "ERROR:external_model_called deve ser false",
+          "ERROR:hashes.bundle_hash em falta"
+        ],
+        "evidence_refs": [
+          "https://zero.banza.network/evidence-bundle.json#2ec6d5d8d70245e770e4e2f936da2d2a64f38a048ab8e509ebb8afffdb61425d"
+        ],
+        "output_hash": "sha256:a9dae724056b18bed6b52542c0e9cb2b58aa08d400060865447abd6f7c68ad8d",
+        "duration_ms": 50,
+        "qwen_calls": 0,
+        "external_model_calls": 0,
+        "protocol_fetch_count": 1,
+        "audit_ref": "3474f160-aadd-43e8-b654-74de1b7e5501:af-18c6e6375a2b28b4-00000000002d"
+      },
+      {
+        "receipt_version": "1.0.0",
+        "operation_id": "op-b79c6a79-c6c8-45c1-9e71-e6bcbd7d9882",
+        "request_id": "3474f160-aadd-43e8-b654-74de1b7e5501",
+        "workflow": "operator-validation",
+        "step": "certification",
+        "operator_id": "operator-zero",
+        "implementation_id": "operator-zero-ref-impl",
+        "environment": "sandbox",
+        "profile": "L0",
+        "protocol_version": "1.0.0",
+        "canonical_origin": "https://zero.banza.network",
+        "endpoint": null,
+        "resolved_host": "zero.banza.network",
+        "fetched_at": "2026-07-29T23:23:47.760Z",
+        "http_status": null,
+        "content_type": null,
+        "content_length": null,
+        "etag": null,
+        "last_modified": null,
+        "input_hash": "sha256:cfa0c67c1dab1fd653349f1da259da3a1c3270c6dd37a1d46a0c48b4516f4766",
+        "signature_status": "not_applicable",
+        "engine": "banza-target-registry",
+        "engine_version": "0.1.0",
+        "result": {
+          "status": "BLOCKED",
+          "certification": {
+            "aggregated_in": "rust",
+            "authorised": false,
+            "certification_status": "NOT_CERTIFIED",
+            "certified": false,
+            "external_model_calls": 0,
+            "licensed": false,
+            "note": "Certification Readiness aggregates the endpoint-originated step verdicts. It is NOT a Certification Record; it never certifies, authorises, or admits an operator, and never returns CERTIFIED.",
+            "qwen_calls": 0,
+            "readiness": "BLOCKED",
+            "reason_codes": [
+              "NOT_CERTIFIED",
+              "PRECEDING_STEP_FAILED",
+              "TECHNICAL_STEPS_INCOMPLETE"
+            ],
+            "record_kind": "READINESS_AGGREGATE",
+            "schema": "banza.certification.readiness",
+            "technical_step_verdicts": [
+              {
+                "status": "VERIFIED",
+                "step": "discovery"
+              },
+              {
+                "status": "VERIFIED",
+                "step": "manifest"
+              },
+              {
+                "status": "FAILED",
+                "step": "keys"
+              },
+              {
+                "status": "PENDING",
+                "step": "conformance"
+              },
+              {
+                "status": "FAILED",
+                "step": "interoperability"
+              },
+              {
+                "status": "FAILED",
+                "step": "trust"
+              },
+              {
+                "status": "FAILED",
+                "step": "federation"
+              },
+              {
+                "status": "FAILED",
+                "step": "evidence"
+              }
+            ],
+            "tool": "banza-target-registry",
+            "tool_version": "0.1.0"
+          }
+        },
+        "reason_codes": [
+          "NOT_CERTIFIED",
+          "PRECEDING_STEP_FAILED",
+          "TECHNICAL_STEPS_INCOMPLETE"
+        ],
+        "evidence_refs": [
+          "receipt:op-825cddd7-71da-4fd2-9736-9767506e2822",
+          "receipt:op-940231f5-b882-48fc-855e-e258c9057f5a",
+          "receipt:op-c69c3ff3-98bd-4a9e-b0d5-2d56b5266caf",
+          "receipt:op-418fcb47-a27f-4dca-b469-bc8a97c3120b",
+          "receipt:op-944780ed-f4b0-4eea-991b-2e026a496f41",
+          "receipt:op-d56dde33-bc6c-4b4c-8303-35ed4ef6f06b",
+          "receipt:op-4d870068-51a7-4fbb-87c6-15be66d1094b",
+          "receipt:op-426533ba-2a0d-4f87-acaa-f21dbd5b89d6"
+        ],
+        "output_hash": "sha256:98d59b0e7853a765a6af2e3cb1cfbbb9316d3065b7fb20d0e03a26c154819679",
+        "duration_ms": 1475,
+        "qwen_calls": 0,
+        "external_model_calls": 0,
+        "protocol_fetch_count": 0,
+        "audit_ref": "3474f160-aadd-43e8-b654-74de1b7e5501:no-fetch"
+      }
+    ],
+    "overall_status": "FAILED",
+    "certification_readiness": "BLOCKED",
+    "certification_status": "NOT_CERTIFIED",
+    "certified": false,
+    "reason_codes": [
+      "NOT_CERTIFIED",
+      "PRECEDING_STEP_FAILED",
+      "TECHNICAL_STEPS_INCOMPLETE"
+    ],
+    "qwen_calls": 0,
+    "external_model_calls": 0,
+    "protocol_fetch_count": 23,
+    "audit_ref": "3474f160-aadd-43e8-b654-74de1b7e5501",
+    "disclaimer": "Validação com origem nos endpoints públicos da implementação. Rust decide; a IA nunca decide. A Prontidão de Certificação agrega verdictos — não é um Registo de Certificação e nunca devolve CERTIFIED."
+  }
+}

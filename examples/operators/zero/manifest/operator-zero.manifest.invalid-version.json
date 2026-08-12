@@ -1,0 +1,19 @@
+{
+  "demo_only": true,
+  "monetary_value": false,
+  "production_allowed": false,
+  "operator_id": "operator-zero",
+  "operator_display_name": "Operador Zero",
+  "currency": "KZ_DEMO",
+  "protocol_version": "0.1-unsupported",
+  "artifact_type": "manifest",
+  "operator_status": "READY_FOR_SIMB_PRE_REVIEW",
+  "environment": "sandbox",
+  "endpoints": {
+    "base_url": "https://zero.banza.network",
+    "key_manifest_url": "https://zero.banza.network/key-manifest.json",
+    "conformance_url": "https://zero.banza.network/conformance/evidence.json",
+    "federation_metadata_url": "https://zero.banza.network/federation/metadata.json"
+  },
+  "note": "INVÁLIDO de propósito: versão de protocolo não suportada. Artefacto demonstrativo. Não certifica, não aprova e não movimenta dinheiro real."
+}

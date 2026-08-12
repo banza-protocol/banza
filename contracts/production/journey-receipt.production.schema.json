@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/journey-receipt.production.schema.json",
+  "title": "JourneyReceipt",
+  "description": "The aggregate receipt of a full nine-step endpoint-originated validation journey (ADR-068 §31, §21 step 9). It seals the eight technical OperationReceipts plus the Certification Readiness step, binding the whole result to the implementation's canonical origin. `certification_readiness` is READY or BLOCKED; `certification_status` is always NOT_CERTIFIED and `certified` is always false — the journey aggregates verdicts, it NEVER issues a Certification Record and NEVER returns CERTIFIED (ADR-068 §4.10, ADR-066). Documentary/reference contract; introduces no new financial invariant.",
+  "_spec_version": "1.2",
+  "_status": "reference",
+  "_authority": "ADR-068 (§31 JourneyReceipt, §21 step 9, §4.10), ADR-076 (§D-076-08 durable append-only persistence, retry/reproduction lineage), ADR-077 (profile applicability model — applicability summary + readiness over REQUIRED-only steps), ADR-066 (closed certification-state machine), ADR-061 (certification ≠ admission ≠ authorisation)",
+  "_boundary": "A journey receipt records what was fetched and what Rust decided across the journey. It never certifies, admits, authorises, or moves funds. It carries NO free BanzAI/model text (ADR-076 §D-076-08); the model never decides a verdict.",
+
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "receipt_version", "journey_id", "request_id", "workflow",
+    "operator_id", "implementation_id", "environment", "profile", "protocol_version",
+    "canonical_origin", "resolved_host", "started_at", "finished_at", "duration_ms",
+    "step_count", "steps", "overall_status", "certification_readiness", "certification_status",
+    "certified", "reason_codes", "qwen_calls", "external_model_calls", "protocol_fetch_count", "audit_ref"
+  ],
+  "properties": {
+    "receipt_version": { "type": "string" },
+    "journey_id": { "type": "string", "description": "Unique id of this journey (e.g. 'journey-<uuid>')." },
+    "request_id": { "type": "string" },
+    "workflow": { "type": "string", "description": "'operator-validation'." },
+    "operator_id": { "type": "string" },
+    "implementation_id": { "type": "string" },
+    "environment": { "type": "string" },
+    "profile": { "type": "string" },
+    "protocol_version": { "type": "string" },
+    "canonical_origin": { "type": "string", "format": "uri" },
+    "resolved_host": { "type": "string" },
+    "started_at": { "type": "string", "format": "date-time" },
+    "finished_at": { "type": "string", "format": "date-time" },
+    "duration_ms": { "type": "integer" },
+    "step_count": { "type": "integer", "description": "Number of receipts (nine: eight technical + certification readiness)." },
+    "steps": {
+      "type": "array",
+      "description": "The ordered OperationReceipts of the journey.",
+      "items": { "$ref": "operation-receipt.production.schema.json" }
+    },
+    "overall_status": {
+      "type": "string",
+      "enum": ["VERIFIED", "PENDING", "FAILED", "BLOCKED"],
+      "description": "Aggregate of the technical step statuses that APPLY to the profile, decided in Rust. NOT_APPLICABLE steps (ADR-077) are excluded — they never contribute FAILED/BLOCKED/PENDING."
+    },
+    "certification_readiness": {
+      "type": "string",
+      "enum": ["READY", "BLOCKED"],
+      "description": "Aggregate readiness over the steps REQUIRED for the profile. READY only when every REQUIRED step is VERIFIED (ADR-077 excludes NOT_APPLICABLE steps). Never CERTIFIED."
+    },
+    "applicability": {
+      "type": "object",
+      "description": "ADR-077: the Rust-decided step→applicability map for this profile (each of the eight technical steps → REQUIRED | OPTIONAL | NOT_APPLICABLE). Orthogonal to per-step result.status.",
+      "additionalProperties": { "type": "string", "enum": ["REQUIRED", "OPTIONAL", "NOT_APPLICABLE"] }
+    },
+    "not_applicable_steps": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "ADR-077: the technical steps that are NOT_APPLICABLE for this profile (out of scope; not fetched or evaluated)."
+    },
+    "required_steps_evaluated": {
+      "type": ["integer", "null"],
+      "description": "ADR-077: count of profile-REQUIRED technical steps aggregated into readiness."
+    },
+    "certification_status": {
+      "type": "string",
+      "const": "NOT_CERTIFIED",
+      "description": "Always NOT_CERTIFIED. The journey never issues a Certification Record (ADR-066)."
+    },
+    "certified": { "type": "boolean", "const": false },
+    "reason_codes": { "type": "array", "items": { "type": "string" } },
+    "qwen_calls": { "type": "integer", "const": 0 },
+    "external_model_calls": { "type": "integer", "const": 0 },
+    "protocol_fetch_count": { "type": "integer", "description": "Total successful protocol fetches across the journey." },
+    "audit_ref": { "type": "string" },
+    "disclaimer": { "type": "string", "description": "Human-readable boundary notice: endpoint-originated, Rust-decided, readiness is not a Certification Record." },
+    "previous_journey_id": { "type": ["string", "null"], "description": "ADR-076 §D-076-08: when this run is a retry, the journey_id it supersedes. A retry creates a NEW record linked to the prior; it never rewrites it." },
+    "reproduction_of": { "type": ["string", "null"], "description": "ADR-076 §D-076-08: when this run is a reproduction from pinned artefacts, the original journey_id it reproduces. The reproduction is a NEW execution and never overwrites the original." },
+    "reproduction_result": { "type": ["string", "null"], "enum": ["OBSERVED_INPUTS_CHANGED", "ORIGINAL_INPUTS_UNAVAILABLE", "ENGINE_VERSION_UNAVAILABLE", "REPRODUCTION_BLOCKED", "SEMANTICALLY_EQUIVALENT", "NOT_EQUIVALENT", null], "description": "ADR-076 §D-076-08: set only when reproduction_of is present. A reproduction re-runs the FULL secure pipeline (registry-resolved origin + secure fetch + DNS/IP/TLS validation), NEVER a fetch to a URL stored in the receipt, then compares the newly observed artefact hashes against the original." }
+  }
+}

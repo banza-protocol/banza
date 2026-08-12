@@ -1,0 +1,39 @@
+[package]
+name = "banza-evidence-bundle"
+version = "0.1.0"
+edition = "2021"
+description = "banza-evidence-bundle (BX1.5): assembles the technical evidence bundle a candidate operator prepares before a real BANZA CA review. It gathers the SimB pre-review, Conformidade L0, Trace and Trust & BRL reports, computes readiness (SimB PASS + L0 PASS) and SHA-256 integrity hashes IN RUST, and emits a JSON bundle. It NEVER certifies, approves, adds an operator, or issues a certificate — the bundle is technical evidence, not a certificate."
+license = "Apache-2.0"
+
+[lib]
+name = "banza_evidence_bundle"
+crate-type = ["cdylib", "rlib"]
+path = "src/lib.rs"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"                 # default Map = BTreeMap (sorted keys) → canonical JSON for hashing
+sha2 = "0.10"
+# Demo-only: assemble a real demo bundle from the actual engines (no leakage — their wasm feature is off).
+banza-simb = { path = "../banza-simb" }
+banza-conformance = { path = "../banza-conformance" }
+banza-trust = { path = "../banza-trust" }
+banza-operator-manifest = { path = "../banza-operator-manifest" }
+banza-l1-readiness = { path = "../banza-l1-readiness" }
+banza-l2-readiness = { path = "../banza-l2-readiness" }
+banza-l3-readiness = { path = "../banza-l3-readiness" }
+banza-l4-readiness = { path = "../banza-l4-readiness" }
+banza-security-assurance = { path = "../banza-security-assurance" }
+banza-m2-protocol-gate = { path = "../banza-m2-protocol-gate" }
+banza-root-ceremony = { path = "../banza-root-ceremony" }
+banza-open-governance = { path = "../banza-open-governance" }
+banza-reference-trust-model = { path = "../banza-reference-trust-model" }
+wasm-bindgen = { version = "0.2", optional = true }
+
+[features]
+# Enabled only for the standalone `wasm-pack build --features wasm`. Does NOT enable the deps' `wasm`
+# features, so the bundle's WASM exports only evidence_bundle_* (no simb_*/conformance_*/trust_* leakage).
+wasm = ["dep:wasm-bindgen"]
+
+[profile.release]
+opt-level = 2

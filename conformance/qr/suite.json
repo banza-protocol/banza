@@ -1,0 +1,123 @@
+{
+  "_spec": "BANZA QR Runtime Conformance Suite v1.0",
+
+  "suite_id": "qr",
+  "suite_name": "QR Runtime Conformance",
+  "protocol_version": "1.0",
+
+  "payload_format": {
+    "sandbox": "BANZA-SBX:{base64url(json)}",
+    "production": "BANZA:{base64url(signed_json)}",
+    "spec": "contracts/qr/"
+  },
+
+  "sub_suites": [
+    {
+      "id": "canonical-vectors",
+      "name": "Canonical QR vectors",
+      "vectors": ["QR-001", "QR-002", "QR-003", "QR-004", "QR-005", "QR-007"]
+    },
+    {
+      "id": "payload-validation",
+      "name": "Payload structure validation",
+      "cases": [
+        {
+          "id": "QR-PAYLOAD-001",
+          "title": "v1 payload must contain required fields",
+          "required_payload_fields": ["v", "qr_id", "merchant_wallet_id", "currency"],
+          "optional_payload_fields": ["amount_minor", "description", "sandbox"]
+        },
+        {
+          "id": "QR-PAYLOAD-002",
+          "title": "Sandbox payload must set sandbox=true",
+          "description": "Any payload with BANZA-SBX: prefix must contain sandbox:true in the decoded JSON.",
+          "prefix": "BANZA-SBX:",
+          "required_json_field": { "sandbox": true }
+        },
+        {
+          "id": "QR-PAYLOAD-003",
+          "title": "amount_minor null means open-amount QR",
+          "description": "A QR payload where amount_minor is absent or null indicates an open-amount code. The paying party must supply the amount.",
+          "payload": {
+            "v": 1,
+            "qr_id": "qr-open",
+            "merchant_wallet_id": "merchant-1",
+            "currency": "AOA"
+          },
+          "expected_type": "open_amount"
+        },
+        {
+          "id": "QR-PAYLOAD-004",
+          "title": "amount_minor present means fixed-amount QR",
+          "payload": {
+            "v": 1,
+            "qr_id": "qr-fixed",
+            "merchant_wallet_id": "merchant-1",
+            "currency": "AOA",
+            "amount_minor": 50000
+          },
+          "expected_type": "fixed_amount"
+        }
+      ]
+    },
+    {
+      "id": "malformed-vectors",
+      "name": "Malformed input rejection",
+      "cases": [
+        {
+          "id": "QR-MAL-001",
+          "title": "Unknown prefix rejected",
+          "input": "INVALID_PREFIX:abc123",
+          "expected_error": "invalid_prefix"
+        },
+        {
+          "id": "QR-MAL-002",
+          "title": "Malformed base64 rejected",
+          "input": "BANZA-SBX:not!valid!base64",
+          "expected_error": "decode_error"
+        },
+        {
+          "id": "QR-MAL-003",
+          "title": "Valid base64 but invalid JSON rejected",
+          "input_base64": "aW52YWxpZCBqc29u",
+          "prefix": "BANZA-SBX:",
+          "expected_error": "json_parse_error"
+        },
+        {
+          "id": "QR-MAL-004",
+          "title": "Missing qr_id field rejected",
+          "payload": {
+            "v": 1,
+            "merchant_wallet_id": "merchant-1",
+            "currency": "AOA"
+          },
+          "expected_error": "missing_field_qr_id"
+        },
+        {
+          "id": "QR-MAL-005",
+          "title": "Empty string rejected",
+          "input": "",
+          "expected_error": "empty_payload"
+        }
+      ]
+    },
+    {
+      "id": "version-compat",
+      "name": "Version compatibility",
+      "cases": [
+        {
+          "id": "QR-VER-001",
+          "title": "v=1 payload must be parsed successfully",
+          "payload": { "v": 1, "qr_id": "qr-v1", "merchant_wallet_id": "m1", "currency": "AOA" },
+          "expected": "parsed"
+        },
+        {
+          "id": "QR-VER-002",
+          "title": "Unknown version (v=99) must return version_unsupported error",
+          "payload": { "v": 99, "qr_id": "qr-future", "merchant_wallet_id": "m1", "currency": "AOA" },
+          "expected_error": "version_unsupported"
+        }
+      ]
+    }
+  ]
+}

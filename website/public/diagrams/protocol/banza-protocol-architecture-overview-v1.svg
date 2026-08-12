@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  id:        SVG-P-057
+  diagram:   Arquitectura institucional do BANZA — três camadas (Camada 1 Protocolo aberto · Camada 2 Certificação de Conformidade e Interoperabilidade · Camada 3 Esquemas operacionais) com o BanzAI transversal
+  version:   2.2
+  source:    BANZA_REFERENCIA.md §4 (As três camadas) · ADR-059..063
+  updated:   2026-08-08
+  changes:   v2.2 — Ch04 naming normalization: institutional layers L1/L2/L3 → Camada 1/2/3 (the letter L is
+             reserved for the L0–L4 conformance profiles); Camada 1 titled "Protocolo aberto"
+             v2.1 — Ch04 final revision: timeless (removed operational state — v1.0/Modelo activo/pagamentos-desligados
+             chips and the /operators=[] line); "interface humana única" → "primária"; engine wording generalised to
+             "motores determinísticos" (no Rust/Qwen); canonical authority band; added the layers≠profiles note
+             v2.0 — three-layer institutional model (M2.19C / ADR-059)
+  author:    BANZA Protocol
+  style:     protocol
+-->
+<svg viewBox="0 0 960 648" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-labelledby="title-P057 desc-P057"
+     font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="title-P057">Arquitectura institucional do BANZA em três camadas</title>
+  <desc id="desc-P057">Arquitectura institucional do BANZA em três camadas separadas por responsabilidade, infraestrutura e chaves (ADR-059). A Camada 1 é o Protocolo aberto: regras públicas, neutras e verificáveis; não movimenta fundos. A Camada 2 é a Certificação de Conformidade e Interoperabilidade: certifica uma implementação, nunca uma entidade, por evidência e decisão determinística, e não é licença, admissão nem autorização. A Camada 3 são esquemas operacionais independentes que podem adoptar o protocolo para operar; o BANZA não é o operador nem o esquema. O BanzAI é a interface humana primária e transversal às três camadas: não é uma quarta camada nem uma autoridade, e o protocolo funciona sem ele — a verificação máquina-a-máquina é possível directamente pelas interfaces públicas. Regra de autoridade: o BanzAI orienta, os motores determinísticos verificam, a evidência prova e a autoridade competente decide. Certificação técnica, admissão a um esquema e autorização regulatória são três determinações distintas e nenhuma implica a outra. As camadas (Camada 1/Camada 2/Camada 3) não são os perfis de conformidade (L0–L4).</desc>
+  <defs>
+    <linearGradient id="hg-P057" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E0F1A"/><stop offset="100%" stop-color="#8E1326"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="960" height="648" fill="#F4F1EA"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="960" height="64" fill="url(#hg-P057)" rx="14"/>
+  <rect x="0" y="48" width="960" height="16" fill="#8E1326"/>
+  <text x="24" y="26" font-family="ui-monospace,'Courier New',monospace" font-size="9" fill="#FECACA" letter-spacing="2">SVG-P-057 · PROTOCOLO FINANCEIRO ABERTO</text>
+  <text x="24" y="50" font-size="18" font-weight="800" fill="white">Arquitectura institucional — três camadas</text>
+  <text x="936" y="50" text-anchor="end" font-size="11" fill="#FECACA">Camada 1 · Camada 2 · Camada 3 — BanzAI transversal</text>
+
+  <!-- subtitle -->
+  <text x="24" y="86" font-size="11" fill="#6B6265">Três camadas separadas por responsabilidade, infraestrutura e chaves (ADR-059). O BanzAI é transversal — não é uma quarta camada.</text>
+
+  <!-- ── Camada 1 — Protocolo aberto ── -->
+  <rect x="40" y="104" width="680" height="116" rx="12" fill="#FBEFF0" stroke="#8E1326" stroke-width="1.5"/>
+  <text x="64" y="134" font-size="16" font-weight="800" fill="#8E1326">Camada 1 · Protocolo aberto</text>
+  <text x="700" y="130" text-anchor="end" font-family="ui-monospace,'Courier New',monospace" font-size="9" fill="#B0868A" letter-spacing="1">DEFINE AS REGRAS</text>
+  <text x="64" y="160" font-size="10.5" fill="#6B6265">Regras públicas, neutras e verificáveis: contratos, invariantes, conformidade, confiança, registo técnico, evidência.</text>
+  <text x="64" y="180" font-size="10.5" fill="#6B6265">Não é banco, PSP, carteira, esquema nem operador; não detém nem movimenta fundos.</text>
+  <rect x="64" y="192" width="238" height="20" rx="10" fill="white" stroke="#EAD2D6"/>
+  <text x="76" y="206" font-size="9.5" font-weight="700" fill="#8E1326">regras comuns · não movimenta fundos</text>
+
+  <!-- ── Camada 2 — Certificação de Conformidade e Interoperabilidade ── -->
+  <rect x="40" y="228" width="680" height="116" rx="12" fill="#E6F1F0" stroke="#0F766E" stroke-width="1.5"/>
+  <text x="64" y="258" font-size="12" font-weight="800" fill="#115E59">Camada 2 · Certificação de Conformidade e Interoperabilidade</text>
+  <text x="700" y="254" text-anchor="end" font-family="ui-monospace,'Courier New',monospace" font-size="9" fill="#7FB3AD" letter-spacing="1">AVALIA A IMPLEMENTAÇÃO</text>
+  <text x="64" y="284" font-size="10.5" fill="#0F766E">Certifica uma implementação, nunca uma entidade — por evidência e decisão determinística, com âmbito e validade (ADR-064).</text>
+  <text x="64" y="304" font-size="10.5" fill="#0F766E">Não é licença, admissão a esquema nem autorização regulatória.</text>
+  <rect x="64" y="316" width="238" height="20" rx="10" fill="white" stroke="#BFE0DC"/>
+  <text x="76" y="330" font-size="9.5" font-weight="700" fill="#115E59">certifica a implementação, não a entidade</text>
+
+  <!-- ── Camada 3 — Esquemas operacionais ── -->
+  <rect x="40" y="352" width="680" height="116" rx="12" fill="#FBF3E3" stroke="#B98A3E" stroke-width="1.5"/>
+  <text x="64" y="382" font-size="16" font-weight="800" fill="#8B651C">Camada 3 · Esquemas operacionais</text>
+  <text x="700" y="378" text-anchor="end" font-family="ui-monospace,'Courier New',monospace" font-size="9" fill="#C9AE76" letter-spacing="1">ADOPTAM O PROTOCOLO</text>
+  <text x="64" y="408" font-size="10.5" fill="#6B5A2E">Esquemas operacionais independentes que podem adoptar o protocolo, sob o enquadramento regulatório aplicável (ADR-060).</text>
+  <text x="64" y="428" font-size="10.5" fill="#6B5A2E">Definem participação, operação e responsabilidades. O BANZA ≠ esquema.</text>
+  <rect x="64" y="440" width="238" height="20" rx="10" fill="white" stroke="#EAD9B4"/>
+  <text x="76" y="454" font-size="9.5" font-weight="700" fill="#8B651C">operam sob o seu próprio enquadramento</text>
+
+  <!-- ── BanzAI transversal band ── -->
+  <rect x="740" y="104" width="196" height="364" rx="12" fill="#EAEFF4" stroke="#2E4054" stroke-width="2"/>
+  <rect x="740" y="104" width="196" height="40" rx="12" fill="#2E4054"/>
+  <rect x="740" y="132" width="196" height="12" fill="#2E4054"/>
+  <text x="838" y="130" text-anchor="middle" font-size="15" font-weight="800" fill="white">BanzAI</text>
+  <text x="838" y="182" text-anchor="middle" font-size="10.5" font-weight="700" fill="#2E4054">interface humana primária</text>
+  <text x="838" y="202" text-anchor="middle" font-size="10.5" fill="#54595F">transversal às três camadas</text>
+  <line x1="762" y1="222" x2="914" y2="222" stroke="#CBD5E0" stroke-width="1"/>
+  <text x="838" y="250" text-anchor="middle" font-size="10" fill="#54595F">orienta · encaminha · explica</text>
+  <text x="838" y="272" text-anchor="middle" font-size="10" fill="#54595F">não decide · não certifica</text>
+  <line x1="762" y1="292" x2="914" y2="292" stroke="#CBD5E0" stroke-width="1"/>
+  <text x="838" y="320" text-anchor="middle" font-size="10" fill="#8E1326">Não é uma quarta camada</text>
+  <text x="838" y="336" text-anchor="middle" font-size="10" fill="#8E1326">nem uma autoridade.</text>
+  <text x="838" y="384" text-anchor="middle" font-size="9.5" fill="#54595F">O protocolo funciona</text>
+  <text x="838" y="400" text-anchor="middle" font-size="9.5" fill="#54595F">sem o BanzAI —</text>
+  <text x="838" y="416" text-anchor="middle" font-size="9.5" fill="#54595F">máquina-a-máquina directo.</text>
+
+  <!-- ── Authority rule band ── -->
+  <rect x="40" y="482" width="896" height="42" rx="10" fill="#F4ECDF" stroke="#E3D9C6" stroke-width="1"/>
+  <text x="60" y="502" font-size="11" font-weight="700" fill="#8B651C">Regra de autoridade (ADR-059)</text>
+  <text x="60" y="518" font-size="10.5" fill="#54595F">O BanzAI orienta · os motores determinísticos verificam · a evidência prova · a autoridade competente decide. A explicação nunca é a decisão.</text>
+
+  <!-- ── Boundary band ── -->
+  <rect x="40" y="532" width="896" height="86" rx="10" fill="#FBEFF0" stroke="#EAD2D6" stroke-width="1"/>
+  <text x="60" y="556" font-size="10.5" font-weight="700" fill="#8E1326">Certificação técnica, admissão a esquema e autorização regulatória são três determinações distintas — nenhuma implica a outra (ADR-061).</text>
+  <text x="60" y="576" font-size="10" fill="#6B6265">O BANZA não movimenta fundos; a autorização financeira vem do regulador competente, fora do protocolo. O BANZA ≠ Esquema Operacional.</text>
+  <text x="60" y="596" font-size="10" fill="#6B6265">As Camadas 1, 2 e 3 são responsabilidades institucionais — não são os perfis de conformidade (L0–L4).</text>
+  <text x="60" y="612" font-size="9.5" fill="#9CA3AF">A separação das camadas é um invariante arquitectónico, não uma escolha de apresentação.</text>
+
+  <text x="480" y="640" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-057 · Arquitectura institucional em três camadas · BANZA_REFERENCIA.md §4 · v2.2 · 2026-08-08</text>
+</svg>

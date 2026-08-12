@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/operator-record.production.schema.json",
+  "title": "OperatorRecord",
+  "description": "A record in the closed BANZA Technical Registry for an OPERATOR — the responsible entity (ADR-068 §4.2/§4.3, §13). An operator publishes zero or more implementations; the operator is the entity responsible, the implementation is the technical system evaluated. Presence of a record NEVER implies admission to a scheme, regulatory authorisation, or the ability to move funds (ADR-068 §4.10, ADR-061). Documentary/reference contract — mirrors the Rust `banza-target-registry` OperatorRecord; it introduces no new financial invariant.",
+  "_spec_version": "1.0",
+  "_status": "reference",
+  "_authority": "ADR-068 (endpoint-originated operator validation & operator–implementation model), ADR-065 (technical registry), ADR-037 (Rust-first engines)",
+  "_boundary": "Registry presence is a technical fact only. It is not certification, scheme admission, or regulatory authorisation, and it never lets any entity move funds.",
+
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["operator_id", "display_name", "publication_status", "implementation_ids", "registry_ref"],
+  "properties": {
+    "operator_id": { "type": "string", "description": "Stable operator identifier (a lowercase slug, e.g. 'operator-zero'). Operator-agnostic; never a commercial brand." },
+    "display_name": { "type": "string", "description": "Human-readable operator display name." },
+    "publication_status": {
+      "type": "string",
+      "enum": ["published", "unpublished", "removed", "revoked"],
+      "description": "Lifecycle state of the record. Only 'published' is an eligible validation target; every other value is a typed ineligibility reason during resolution."
+    },
+    "implementation_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "The implementation ids this operator publishes. An implementation is only resolvable if the operator lists it here AND it belongs to this operator."
+    },
+    "registry_ref": { "type": "string", "description": "Reference of this record inside the technical registry (e.g. 'banza-technical-registry:operator-zero')." }
+  }
+}

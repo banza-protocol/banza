@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/root-custody-declaration.production.schema.json",
+  "title": "RootCustodyDeclarationProduction",
+  "description": "A custodian's public declaration of how they hold their single BANZA root private key under the 2-of-3 custody model. Declarative and public: it states WHICH key id the custodian holds and asserts the custody invariants — the custodian holds exactly one root key, no device holds more than one root private key, and the key is offline-only. This declaration carries NO secret whatsoever — no private key, no seed, no passphrase — a declaration WITHOUT any secret. In the 2-of-3 model, losing one key does not destroy the root and compromise of one key does not compromise the whole root. A declaration with device_holds_more_than_one_root_key:true is a custody gap and yields M2_ROOT_CEREMONY_BLOCKED_BY_CUSTODY_GAP. Status is computed in Rust by engines/banza-root-ceremony :: validate_root_ceremony, never in TypeScript.",
+  "_spec_version": "1.0",
+  "_status": "production-baseline",
+  "_authority": "Root Trust Ceremony (2-of-3 offline custody, docs/governance PKI trust model)",
+  "_boundary": "Root trust for the BANZA open financial protocol. The root does NOT authorise payment services, does NOT create operators, does NOT issue licences, does NOT move/settle/hold funds, and does NOT replace operator regulatory authorisation. BANZA remains an open financial protocol; PSPs/banks/authorised operators are separate entities that implement it.",
+
+  "type": "object",
+  "required": ["custodian", "key_id", "holds_single_root_key", "device_holds_more_than_one_root_key", "offline_only"],
+  "additionalProperties": false,
+
+  "properties": {
+    "custodian": { "type": "string", "enum": ["A", "B", "C"], "description": "The declaring custodian." },
+    "key_id": { "type": "string", "description": "The single root key id this custodian holds (e.g. 'root-key-A')." },
+    "holds_single_root_key": { "const": true, "description": "The custodian holds exactly one root private key." },
+    "device_holds_more_than_one_root_key": { "const": false, "description": "No device holds more than one root private key. True would be a custody gap (M2_ROOT_CEREMONY_BLOCKED_BY_CUSTODY_GAP)." },
+    "offline_only": { "const": true, "description": "The root private key exists only on an offline device; it is never brought online, into the repo, CI, website, server or Workbench." }
+  }
+}
