@@ -179,7 +179,11 @@ done
 echo "  ok: PDFs published to $PUB1 + $PUB2"
 # 9. sync the single-source web edition mirror
 for lang in pt en; do cp "$CONTENT/$lang.json" "$WEBMIRROR/$lang.json"; done
-echo "  ok: web edition mirror synced ($WEBMIRROR)"
+# The online edition renders the figures from its own served copy; sync it from the single figure source
+# so the published page can never show figures from a superseded edition.
+mkdir -p "$PUB1/figures"
+cp docs/whitepaper/figures/*.svg "$PUB1/figures/"
+echo "  ok: web edition mirror synced ($WEBMIRROR) + $(ls docs/whitepaper/figures/*.svg | wc -l | tr -d ' ') figures served from $PUB1/figures"
 # 10/11. update manifest (pdfs sha/bytes/pages — idempotent; history untouched) + CHECKSUMS + mirror
 python3 - <<'PY'
 import json, hashlib, os

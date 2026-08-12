@@ -70,6 +70,17 @@ check() {
     && diff -q docs/whitepaper/content/en.json website/content/whitepaper/en.json >/dev/null \
     && ok "web edition mirrors are in sync" || bad "web edition mirrors are stale"
 
+  # 5b. the figures SERVED by the online edition must be the canonical ones. The web page renders from
+  # website/public/whitepaper/figures, a separate copy: if it drifts, the published page shows the text of
+  # the current edition with the figures of a superseded one.
+  fig_drift=0
+  for f in docs/whitepaper/figures/*.svg; do
+    cmp -s "$f" "website/public/whitepaper/figures/$(basename "$f")" || fig_drift=$((fig_drift + 1))
+  done
+  [ "$fig_drift" -eq 0 ] \
+    && ok "served figures match the canonical figure source ($(ls docs/whitepaper/figures/*.svg | wc -l | tr -d ' ') files)" \
+    || bad "$fig_drift served figure(s) differ from the canonical source — the online edition would show superseded figures"
+
   # 6. manifest/checksums internal consistency + frozen page baseline
   python3 - "$FROZEN_PAGES" <<'PY' || fail=1
 import json, sys, hashlib
