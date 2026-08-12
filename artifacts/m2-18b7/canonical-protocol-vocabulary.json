@@ -2727,7 +2727,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "19958a40ee605be7"
+        "checksum": "8a836429665a4914"
       },
       {
         "id": "docs-banzai-operator-journey-md",
@@ -5443,7 +5443,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "f687f57b2fb66df9"
+    "checksum": "5558b7a3ad425e39"
   },
   "subjects": [
     {
@@ -8798,5 +8798,5 @@
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "0762c410945f0b7c"
+  "checksum": "bf9851f6305aaf71"
 }
