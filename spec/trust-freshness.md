@@ -56,11 +56,15 @@ where `authority_identity` is the identity the artifact itself declares for the 
 belongs to. Two artifacts of the same type from different authorities are independent objects and MUST
 NOT be compared.
 
-| Artifact | `artifact_type` | `authority_identity` | Ordering member |
+| Artifact | Logical authority scope | Ordering marker | Acceptance rule |
 |---|---|---|---|
-| BANZA Revocation List | `brl` | `issuer` | `issued_at` |
-| Key Manifest | `key_manifest` | `root.key_id` (the root the manifest is anchored to) | `not_before` |
-| Signed protocol metadata | `signed_protocol_metadata` | the signing `key_id` and the subject it binds | `issued_at` |
+| BANZA Revocation List | `issuer` | `issued_at` | §3 |
+| Key Manifest | `root.key_id` — the root the manifest is anchored to | `not_before` | §3 |
+| Signed protocol metadata | the signing `key_id` together with the subject it binds | `issued_at` | §3 |
+
+The ordering markers are RFC 3339 instants declared with `format: date-time`, whose granularity may be
+whole seconds. **Two legitimate consecutive publications can therefore carry the same marker**, which is
+why §3.1 is mandatory rather than defensive.
 
 **Why these members and not a sequence number.** Each is already REQUIRED by its contract, already
 carries the semantics of "when this version came into force", and is already inside the signed bytes —
@@ -87,17 +91,40 @@ On accepting an artifact with ordering value `v` for key `k`:
 
 1. If `k` has no high-water mark, record `v`. **This is a first observation** — see §1.
 2. If `v > mark(k)`, the artifact is accepted and `mark(k)` becomes `v`.
-3. If `v == mark(k)`, the artifact is accepted and the mark is unchanged. Re-fetching the current
-   artifact is normal and MUST NOT be treated as an attack.
+3. If `v == mark(k)`, see §3.1 — the marker alone is not sufficient to decide.
 4. If `v < mark(k)`, the artifact **MUST be rejected**, fail-closed, with reason code
    `trust_version_rollback`. The evaluation that depended on it MUST NOT succeed.
 
-A rejection under (4) MUST NOT modify the high-water mark. An attacker who can serve old artifacts MUST
-NOT be able to move the mark backwards by serving them.
+A rejection under (3.1) or (4) MUST NOT modify the recorded state. An attacker who can serve old or
+conflicting artifacts MUST NOT be able to move the mark backwards by serving them.
+
+### 3.1 Equal marker: the content decides
+
+Because the ordering markers are timestamps and not counters, an equal marker does not by itself mean
+"the same artifact". A verifier MUST therefore record, alongside the mark, the **content digest** of the
+artifact accepted at that mark — computed per [`spec/canonicalization.md`](canonicalization.md) §5 over
+the artifact with its signature member removed, exactly as for any other digest.
+
+On receiving an artifact whose marker equals the mark for key `k`:
+
+- **Same digest** — this is the same artifact seen again. It is **accepted** as an idempotent
+  observation. Re-fetching the current artifact is normal traffic and MUST NOT be treated as an attack.
+- **Different digest** — two distinct artifacts claim the same position in the same authority's
+  sequence. The verifier has observed **local equivocation**, and it MUST be rejected, fail-closed, with
+  reason code `trust_version_equivocation`. The evaluation MUST NOT succeed, and the recorded state MUST
+  NOT change.
+
+Silently accepting the second artifact would let a party that can serve two differently-signed documents
+at one instant choose which one a verifier acts on. Silently preferring the first would make the outcome
+depend on fetch order.
+
+This detection is **local and stateful**, exactly like §3. It sees a conflict only when one verifier
+observes both artifacts. It does not detect equivocation across observers, which remains outside this
+specification (§1).
 
 ## 4. Persistence
 
-The high-water mark **MUST survive process restart**. An implementation that keeps it only in process
+The high-water mark **and the digest recorded with it** (§3.1) **MUST survive process restart**. An implementation that keeps it only in process
 memory is not conformant: restarting is the cheapest way for an attacker to clear the defence.
 
 This specification defines observable behaviour, not storage. Any mechanism that preserves the mark
@@ -136,21 +163,30 @@ constrains only regression, so no legitimate procedure is blocked by it.
 If a recovery procedure ever required republishing at an **earlier** ordering value, that would indicate
 a defect in the versioning model rather than a reason to weaken this rule, and MUST be reported as such.
 
-## 8. Reason code
+**Publisher clock regression.** If a publisher's clock moves backwards and it issues an artifact with a
+marker earlier than one it has already published, verifiers that observed the earlier publication will
+refuse the new one under §3(4). That is the intended outcome: a verifier cannot distinguish an
+accidental clock regression from a deliberate rollback, and refusing is the correct response to not
+knowing. The rule MUST NOT be relaxed to let a lower marker reset the mark. Publishers are responsible
+for monotonic issuance.
 
-Rollback detection emits the core reason code **`trust_version_rollback`**, published in
+## 8. Reason codes
+
+Rollback detection emits the core reason code **`trust_version_rollback`**; the equal-marker conflict of
+§3.1 emits **`trust_version_equivocation`**. Both are published in
 [`contracts/production/reason-code-registry.production.json`](../contracts/production/reason-code-registry.production.json).
 
 As everywhere in BANZA, the **status decides and the reason code explains**
 ([`spec/reason-codes.md`](reason-codes.md) §1): the evaluation's outcome is carried by its status field,
-and `trust_version_rollback` states why.
+and the code states why.
 
 ## 9. Conformance
 
 An implementation conforms if, for every vector in
 [`conformance/vectors/trust-freshness.json`](../conformance/vectors/trust-freshness.json), it reaches the
-stated outcome: first observation, equal, forward, rollback, rollback after restart, and concurrent
-acceptance.
+stated outcome: first observation, idempotent re-observation, forward, rollback, rollback after restart,
+concurrent acceptance, equal-marker conflict in either arrival order, and conflict detection after
+restart.
 
 ## 10. Security considerations
 
@@ -163,5 +199,8 @@ acceptance.
   alter them without invalidating the signature. The verifier's comparison is between two signed values,
   not against its own clock; local clock use for validity windows is governed separately by
   INV-FEDEVAL-006.
+- **Same-marker substitution** — addressed by §3.1. Without it, a timestamp-ordered rule would let two
+  differently-signed artifacts at one instant both be acceptable, and fetch order would decide which one
+  a verifier acted on.
 - **False confidence** — the most serious risk in this area is describing a stateful local defence as
   transparency. §1 exists to prevent that, and it MUST be preserved in any restatement of this rule.

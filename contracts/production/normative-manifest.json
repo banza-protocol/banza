@@ -445,7 +445,7 @@
       "class": "NORMATIVE_REGISTRY",
       "tier": "implementation",
       "role": "banza-reason-codes/1 — the machine-readable vocabularies those rules govern.",
-      "sha256": "e03f9698c50a89c66f2fe243d3ad2765af98688fdde556b3c6faaaf1a01c7fa6",
+      "sha256": "7e5d2f2db3fc892d97cc24e76c0cfb5ff829f979b452fa43dd3360643cbc3ad6",
       "self_declared_status": "canonical"
     },
     {
@@ -699,7 +699,7 @@
       "class": "NORMATIVE_SPECIFICATION",
       "tier": "implementation",
       "role": "Trust-material freshness and anti-rollback: monotonic acceptance per object and authority, with an explicit statement of what the rule does NOT provide (first-observation staleness, global equivocation, suppression, availability).",
-      "sha256": "f4257b351f262668604381bc3b91c6c8573139e8e005174a5986c4d96ffcb18a"
+      "sha256": "9d88b1ac49056eb8b40f93227135ae0585b738ee170e8bf82e773b0c01ba8940"
     },
     {
       "path": "spec/validation-journey.md",
@@ -1066,7 +1066,7 @@
       "class": "CONFORMANCE_VECTOR",
       "tier": "conformance",
       "role": "Vectors for the anti-rollback rule, including restart and concurrency.",
-      "sha256": "e532340f3e04d269aea070496ab06d723c8e0d2083ff9c5a76da9be1c6a409be",
+      "sha256": "15f8319b9584f072e46689441ad0231e8b05e1dcd02fbd3f8478c161af66a29a",
       "self_declared_status": "canonical"
     },
     {

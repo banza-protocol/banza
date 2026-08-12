@@ -17,6 +17,15 @@ fn key(v: &Value) -> MonotonicKey {
     )
 }
 
+/// The digest a vector carries for a given member, defaulting to a distinct placeholder so a vector
+/// that omits one cannot accidentally collide with another artifact's digest.
+fn dig(v: &Value, member: &str, fallback: &str) -> String {
+    v.get(member)
+        .and_then(|x| x.as_str())
+        .unwrap_or(fallback)
+        .to_string()
+}
+
 #[test]
 fn the_vector_file_states_what_the_rule_does_not_provide() {
     // The boundary is part of the published material, not a footnote in prose. If it is ever
@@ -32,11 +41,18 @@ fn the_vector_file_states_what_the_rule_does_not_provide() {
     ] {
         assert!(b.contains(needle), "the boundary must still name: {needle}");
     }
+    // The conflict vectors detect equivocation only inside one verifier. The boundary must keep
+    // saying so, or TF-011..TF-013 could be read as a transparency claim.
+    assert!(
+        b.contains("one verifier") && b.contains("across observers"),
+        "the boundary must bound the conflict vectors to a single verifier"
+    );
 }
 
 #[test]
 fn engine_reproduces_every_vector() {
     let doc: Value = serde_json::from_str(VECTORS).expect("vectors parse");
+    let declared = doc["vector_count"].as_u64().expect("vector_count") as usize;
     let mut checked = 0;
 
     for v in doc["vectors"].as_array().expect("vectors array") {
@@ -46,10 +62,14 @@ fn engine_reproduces_every_vector() {
 
         // An independent authority's mark, where the vector sets one, must not interfere.
         if let Some(o) = v.get("other_key_mark") {
-            m.offer(&key(o), o["mark"].as_str().unwrap());
+            m.offer(
+                &key(o),
+                o["mark"].as_str().unwrap(),
+                &dig(o, "digest", "digest-other"),
+            );
         }
         if let Some(p) = v["prior"].as_str() {
-            m.offer(&k, p);
+            m.offer(&k, p, &dig(v, "prior_digest", "digest-prior"));
         }
 
         // Concurrency vector: both interleavings must reach the same mark.
@@ -58,8 +78,8 @@ fn engine_reproduces_every_vector() {
             let b = vals[1].as_str().unwrap();
             for (x, y) in [(a, b), (b, a)] {
                 let mut mm = HighWaterMarks::new();
-                mm.offer(&k, x);
-                mm.offer(&k, y);
+                mm.offer(&k, x, "digest-x");
+                mm.offer(&k, y, "digest-y");
                 assert_eq!(
                     mm.mark(&k),
                     v["resulting_mark"].as_str(),
@@ -76,12 +96,20 @@ fn engine_reproduces_every_vector() {
                 k.artifact_type.clone(),
                 k.authority_identity.clone(),
                 r.to_string(),
+                dig(v, "restore_digest", "digest-restored"),
             )]);
             assert_eq!(
                 m.mark(&k),
                 v["resulting_mark"].as_str(),
                 "{id}: a restore from stale storage must not undo the defence"
             );
+            if let Some(rd) = v.get("resulting_digest").and_then(|x| x.as_str()) {
+                assert_eq!(
+                    m.digest(&k),
+                    Some(rd),
+                    "{id}: a restore must not replace the digest held at the current mark"
+                );
+            }
             checked += 1;
             continue;
         }
@@ -93,39 +121,61 @@ fn engine_reproduces_every_vector() {
             m.restore(&persisted);
         }
 
-        let got = m.offer(&k, v["offered"].as_str().unwrap());
+        let got = m.offer(
+            &k,
+            v["offered"].as_str().unwrap(),
+            &dig(v, "offered_digest", "digest-offered"),
+        );
         let want = match v["expect"].as_str().unwrap() {
             "FIRST_OBSERVATION" => RollbackVerdict::FirstObservation,
             "UNCHANGED" => RollbackVerdict::Unchanged,
             "ADVANCED" => RollbackVerdict::Advanced,
+            "EQUIVOCATION" => RollbackVerdict::Equivocation,
             "ROLLBACK" => RollbackVerdict::Rollback,
             other => panic!("{id}: unknown expectation {other}"),
         };
         assert_eq!(got, want, "{id}: verdict differs from the published vector");
 
-        if let Some(rc) = v.get("reason_code").and_then(|x| x.as_str()) {
-            assert_eq!(got.reason_code(), Some(rc), "{id}: reason code differs");
+        // A vector that carries a reason code is a refusal; one that does not must be usable.
+        match v.get("reason_code").and_then(|x| x.as_str()) {
+            Some(rc) => {
+                assert_eq!(got.reason_code(), Some(rc), "{id}: reason code differs");
+                assert!(!got.accepted(), "{id}: a refusal must not be usable");
+            }
+            None => assert!(
+                got.accepted(),
+                "{id}: an outcome with no reason code must be acceptable"
+            ),
         }
         if let Some(rm) = v.get("resulting_mark").and_then(|x| x.as_str()) {
             assert_eq!(m.mark(&k), Some(rm), "{id}: resulting mark differs");
         }
+        if let Some(rd) = v.get("resulting_digest").and_then(|x| x.as_str()) {
+            assert_eq!(m.digest(&k), Some(rd), "{id}: resulting digest differs");
+        }
         checked += 1;
     }
-    assert_eq!(checked, 10, "every published vector must be exercised");
+    assert_eq!(
+        checked, declared,
+        "every published vector must be exercised"
+    );
 }
 
 #[test]
-fn the_reason_code_is_published_in_the_registry() {
-    // The rule emits a core reason code; a code with no published meaning is not a code
+fn the_reason_codes_are_published_in_the_registry() {
+    // The rule emits core reason codes; a code with no published meaning is not a code
     // (spec/reason-codes.md).
     const REG: &str =
         include_str!("../../../contracts/production/reason-code-registry.production.json");
     let reg: Value = serde_json::from_str(REG).unwrap();
-    let found = reg["vocabularies"]["fetch_reason_codes"]["values"]
+    let values = reg["vocabularies"]["fetch_reason_codes"]["values"]
         .as_array()
-        .unwrap()
-        .iter()
-        .find(|v| v["code"] == "trust_version_rollback")
-        .expect("trust_version_rollback must be published");
-    assert!(!found["meaning"].as_str().unwrap_or("").is_empty());
+        .unwrap();
+    for code in ["trust_version_rollback", "trust_version_equivocation"] {
+        let found = values
+            .iter()
+            .find(|v| v["code"] == code)
+            .unwrap_or_else(|| panic!("{code} must be published"));
+        assert!(!found["meaning"].as_str().unwrap_or("").is_empty());
+    }
 }
