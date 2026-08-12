@@ -6,9 +6,8 @@
   "_spec_version": "1",
   "_status": "canonical",
   "_authority": "ADR-038",
-  "_source_of_truth": "tools/root-ceremony/ceremony_script.py — cmd_generate_initial_brl(); consumer: tools/banza-conformance/trust_root.py (verify_brl_signature). This schema mirrors the emitted/consumed artifact.",
+  "_source_of_truth": "spec/canonicalization.md (signing/digest bytes); contracts/production/brl.production.schema.json (structure). Normative; not derived from any implementation.",
   "_updated": "2026-06-19",
-
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -20,7 +19,6 @@
     "revoked",
     "signature"
   ],
-
   "properties": {
     "schema_version": {
       "type": "string",
@@ -53,7 +51,12 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["operator_id", "reason", "permanent", "since"],
+        "required": [
+          "operator_id",
+          "reason",
+          "permanent",
+          "since"
+        ],
         "properties": {
           "operator_id": {
             "type": "string",
@@ -64,7 +67,10 @@
           },
           "reason": {
             "type": "string",
-            "enum": ["suspended", "revoked"],
+            "enum": [
+              "suspended",
+              "revoked"
+            ],
             "description": "'suspended' — the material is temporarily withdrawn; lifted by removing the entry from the BRL. 'revoked' — the material is withdrawn indefinitely; interoperation resumes only by publishing fresh signed protocol metadata and conformance evidence that pass the Open Trust Evaluation (ADR-040). No party re-admits anyone."
           },
           "permanent": {

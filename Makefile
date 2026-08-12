@@ -2,7 +2,7 @@
         rust-rule-check no-new-ts-engine-check rust-engine-check \
         conformance-rs-check conformance-rs-test conformance-rs-parity \
         trust-rs-check trust-rs-test trust-rs-signing-check trust-rs-ceremony-sim-check \
-        simb-rs-check conformance-rs-live-check conformance-rs-fed-check conformance-fed-fixtures-check conformance-ab-check rust-final-closure-check \
+        simb-rs-check conformance-rs-live-check conformance-rs-fed-check conformance-fed-fixtures-check conformance-ab-check normative-surface-integrity-check rust-final-closure-check \
         repo-guards-rs-check repo-guards-rs-test \
         banzai-operator-validation-mode-check banzai-operator-implementation-model-check banzai-endpoint-originated-validation-check banzai-no-manual-input-official-flow-check banzai-draft-validation-isolation-check banzai-closed-target-registry-check banzai-no-arbitrary-url-check banzai-secure-fetcher-check banzai-fetch-receipt-binding-check banzai-nine-step-endpoint-input-check banzai-single-results-area-check banzai-no-duplicate-tabs-check banzai-no-orphan-tabs-check banzai-contextual-actions-check banzai-contextual-right-panel-check banzai-certification-readiness-language-check banzai-operator-zero-parity-check banzai-operator-zero-no-bypass-check banzai-operator-zero-public-e2e-check banzai-no-fixture-as-production-evidence-check banzai-receipt-origin-fields-check banzai-journey-receipt-origin-check banzai-no-qwen-decision-check banzai-rust-fetch-authority-check banzai-m2-19g-semantic-regression-check banzai-accessibility-check banzai-responsive-check banzai-m2-19g1-readiness-check \
         pre-commit help
@@ -324,6 +324,14 @@ conformance-fed-fixtures-check: $(CONFORMANCE_RS_BIN)
 ## conformance-ab-check: Execute the consolidated A→B multi-operator scenario end-to-end (Track D) — two cryptographically distinct operators, mutual Open Trust Evaluation (ROUTING_ALLOWED), atomic routed payment + idempotent replay, negatives fail-closed, byte-identical independent replay
 conformance-ab-check: $(CONFORMANCE_RS_BIN)
 	@$(CONFORMANCE_RS_BIN) run-ab >/dev/null && echo "conformance-ab: ✓ A→B executed end-to-end; mutual ROUTING_ALLOWED; negatives fail-closed; independent replay byte-identical (PASS = evidence, not certificate)"
+
+## normative-surface-integrity-check: Protect the normative surface (ADR-081/082) — manifest complete and code-free, canonicalization spec + vectors wired to the version, no contract declaring implementation code as its source of truth, BCP 14 declared
+normative-surface-integrity-check:
+	@bash tools/check-normative-surface-integrity.sh
+
+## normative-manifest: Regenerate contracts/production/normative-manifest.json after changing any normative artifact
+normative-manifest:
+	@python3 tools/gen-normative-manifest.py
 
 ## crypto-check: Run protocol cryptographic integrity (Rust banza-trust golden ed25519 parity)
 crypto-check:

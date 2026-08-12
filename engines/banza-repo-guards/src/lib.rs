@@ -168,14 +168,16 @@ pub fn purity() -> GateResult {
             }
         }
     }
-    // ADR numbering 1..=80 (gaps at 004/022/026/027/032 are intentional — removed per ADR-057
+    // ADR numbering 1..=82 (gaps at 004/022/026/027/032 are intentional — removed per ADR-057
     // clean-slate policy; numbers are stable identifiers, survivors are never renumbered). ADR-075 =
     // BanzAI Monorepo Consolidation and Separate Repository Archive (M2.19G.6); ADR-076 = BanzAI
     // validation-journey consolidation, single technical-state authority, durable append-only receipts;
     // ADR-077 = profile applicability model (REQUIRED/OPTIONAL/NOT_APPLICABLE per conformance level);
     // ADR-078 = BanzAI operational reasoning + read-only telemetry + honest INSUFFICIENT_MEASUREMENTS fallback;
     // ADR-079 = Canonical Trust Signing Model Reconciliation (root signs only the Key Manifest; Model A);
-    // ADR-080 = Canonical Discovery-Surface Reconciliation (.well-known/banza/operator.json + signed-protocol-metadata.json).
+    // ADR-080 = Canonical Discovery-Surface Reconciliation (.well-known/banza/operator.json + signed-protocol-metadata.json);
+    // ADR-081 = Normative-completeness versioning decision (protocol_version stays 1.0.0; canonicalization
+    // versioned separately from the protocol); ADR-082 = BANZA Canonical JSON (BCJ/1), a profile of RFC 8785.
     for f in files
         .iter()
         .filter(|f| f.starts_with("decisions/adr/ADR-") && f.ends_with(".md"))
@@ -187,8 +189,8 @@ pub fn purity() -> GateResult {
             .and_then(|s| s.split('-').next())
             .and_then(|s| s.parse::<u32>().ok())
         {
-            if !(1..=80).contains(&num) {
-                failures.push(format!("ADR outside canonical 001..080: {f}"));
+            if !(1..=82).contains(&num) {
+                failures.push(format!("ADR outside canonical 001..082: {f}"));
             }
         }
     }

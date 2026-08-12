@@ -1,0 +1,234 @@
+{
+  "_spec": "BANZA Canonical JSON test vectors",
+  "_status": "canonical",
+  "_authority": "ADR-082 - BANZA Canonical JSON (BCJ/1)",
+  "_source_of_truth": "spec/canonicalization.md",
+  "canonicalization": "BCJ/1",
+  "spec_version": "1.0",
+  "description": "Public, implementation-independent vectors for BANZA Canonical JSON. An implementation conforms if it produces the stated canonical form and sha256 for every accept vector and rejects every reject vector for the stated rule. These vectors are derived from spec/canonicalization.md, not from any implementation.",
+  "digest_rule": "lowercase hex SHA-256 over the canonical UTF-8 bytes (spec/canonicalization.md section 5)",
+  "vectors": [
+    {
+      "id": "BCJ-001",
+      "title": "member order is independent of input order",
+      "expect": "accept",
+      "input": {
+        "b": 1,
+        "a": 2,
+        "z": {
+          "y": 1,
+          "x": 2
+        }
+      },
+      "canonical": "{\"a\":2,\"b\":1,\"z\":{\"x\":2,\"y\":1}}",
+      "canonical_bytes_len": 31,
+      "sha256": "f02380ef0fd8cdcd69a9234185a276b0705e97a428f910efaa794fd52c035387"
+    },
+    {
+      "id": "BCJ-002",
+      "title": "arrays keep their order",
+      "expect": "accept",
+      "input": {
+        "a": [
+          3,
+          1,
+          2
+        ]
+      },
+      "canonical": "{\"a\":[3,1,2]}",
+      "canonical_bytes_len": 13,
+      "sha256": "d934227f5a9f29b31bd6a8ceed3213dd498a07ce32bdfa9ae2488de0c0ab68f1"
+    },
+    {
+      "id": "BCJ-003",
+      "title": "integers emit with no decimal point and no exponent",
+      "expect": "accept",
+      "input": {
+        "n": 100,
+        "neg": -7,
+        "zero": 0
+      },
+      "canonical": "{\"n\":100,\"neg\":-7,\"zero\":0}",
+      "canonical_bytes_len": 27,
+      "sha256": "6061414c8cba1c12c96cbc0b6f99a0a9e1d4be56ca6a5ba254ca341770919cee"
+    },
+    {
+      "id": "BCJ-004",
+      "title": "safe-integer upper bound is accepted",
+      "expect": "accept",
+      "input": {
+        "n": 9007199254740991
+      },
+      "canonical": "{\"n\":9007199254740991}",
+      "canonical_bytes_len": 22,
+      "sha256": "e1da48c6a6089f06ecb4e0a2259e658e3786b2420f52baccdf929ec6460d7b41"
+    },
+    {
+      "id": "BCJ-005",
+      "title": "safe-integer lower bound is accepted",
+      "expect": "accept",
+      "input": {
+        "n": -9007199254740991
+      },
+      "canonical": "{\"n\":-9007199254740991}",
+      "canonical_bytes_len": 23,
+      "sha256": "d49d713821fc149f81ef6ca8054beeba696f5da052f0ab3e2d773808c5a9d625"
+    },
+    {
+      "id": "BCJ-006",
+      "title": "RFC 8785 minimal escaping",
+      "expect": "accept",
+      "input": {
+        "k": "a\"b\\c\nd"
+      },
+      "canonical": "{\"k\":\"a\\\"b\\\\c\\nd\"}",
+      "canonical_bytes_len": 18,
+      "sha256": "491e4aa6b126ff691599a664d377fa349e3f64663e1ea607a4dec189a317ea78"
+    },
+    {
+      "id": "BCJ-007",
+      "title": "unknown members are preserved",
+      "expect": "accept",
+      "input": {
+        "known": 1,
+        "x_ext": {
+          "a": 2
+        }
+      },
+      "canonical": "{\"known\":1,\"x_ext\":{\"a\":2}}",
+      "canonical_bytes_len": 27,
+      "sha256": "ccc618eaef67ccd5252e866ed9b7bd86a993f6805d0b8c19b6e4a9ec247ae41c"
+    },
+    {
+      "id": "BCJ-008",
+      "title": "no Unicode normalisation: decomposed form is preserved",
+      "expect": "accept",
+      "input": {
+        "k": "café"
+      },
+      "canonical": "{\"k\":\"café\"}",
+      "canonical_bytes_len": 14,
+      "sha256": "b458c3fea0365168e9409fb9b1b2af1ef5c785000f81905f83c5ca6c224eebad"
+    },
+    {
+      "id": "BCJ-009",
+      "title": "no Unicode normalisation: precomposed form is a distinct document",
+      "expect": "accept",
+      "input": {
+        "k": "café"
+      },
+      "canonical": "{\"k\":\"café\"}",
+      "canonical_bytes_len": 13,
+      "sha256": "2303df0176226e83b89fa2a9311d76a8a4c29b0e8ae83ffaa0e431fa4f8b5359"
+    },
+    {
+      "id": "BCJ-010",
+      "title": "empty object and empty array",
+      "expect": "accept",
+      "input": {
+        "o": {},
+        "a": []
+      },
+      "canonical": "{\"a\":[],\"o\":{}}",
+      "canonical_bytes_len": 15,
+      "sha256": "9bee7ebfc94b459dacb8cbc72cb2900e61f0aa42189df18329f84f92568f4f89"
+    },
+    {
+      "id": "BCJ-011",
+      "title": "null and booleans",
+      "expect": "accept",
+      "input": {
+        "n": null,
+        "t": true,
+        "f": false
+      },
+      "canonical": "{\"f\":false,\"n\":null,\"t\":true}",
+      "canonical_bytes_len": 29,
+      "sha256": "22e00dc2f7b01420f940fbdbfbdf34fa0667cc6500186495023ba37722cbd05e"
+    },
+    {
+      "id": "BCJ-012",
+      "title": "nested objects sort at every level",
+      "expect": "accept",
+      "input": {
+        "z": {
+          "b": {
+            "d": 1,
+            "c": 2
+          },
+          "a": 3
+        }
+      },
+      "canonical": "{\"z\":{\"a\":3,\"b\":{\"c\":2,\"d\":1}}}",
+      "canonical_bytes_len": 31,
+      "sha256": "f451e8ebb7276c2c315c8c670e1b6b4db10ff10315373033d7ed41dc5ba702d2"
+    },
+    {
+      "id": "BCJ-013",
+      "title": "non-ASCII member names sort by UTF-16 code units",
+      "expect": "accept",
+      "input": {
+        "é": 1,
+        "e": 2,
+        "z": 3
+      },
+      "canonical": "{\"e\":2,\"z\":3,\"é\":1}",
+      "canonical_bytes_len": 20,
+      "sha256": "9fd95198b233351043c9e13cbc336297f31bc76a19d0ca2ff093cd1172fa47a1"
+    },
+    {
+      "id": "BCJ-014",
+      "title": "monetary integer minor units",
+      "expect": "accept",
+      "input": {
+        "amount_minor": 50000,
+        "currency": "AOA"
+      },
+      "canonical": "{\"amount_minor\":50000,\"currency\":\"AOA\"}",
+      "canonical_bytes_len": 39,
+      "sha256": "810f98877c091639c4faea4c53cda1eaa689aeb146d14e1b199e5a7c911a1591"
+    },
+    {
+      "id": "BCJ-R01",
+      "title": "P1: fractional number rejected",
+      "expect": "reject",
+      "input_raw": "{\"amount\": 1.5}",
+      "rule": "P1"
+    },
+    {
+      "id": "BCJ-R02",
+      "title": "P1: exponent form rejected",
+      "expect": "reject",
+      "input_raw": "{\"n\": 1e2}",
+      "rule": "P1"
+    },
+    {
+      "id": "BCJ-R03",
+      "title": "P2: integer above the safe range rejected",
+      "expect": "reject",
+      "input_raw": "{\"n\": 9007199254740992}",
+      "rule": "P2"
+    },
+    {
+      "id": "BCJ-R04",
+      "title": "P2: integer below the safe range rejected",
+      "expect": "reject",
+      "input_raw": "{\"n\": -9007199254740992}",
+      "rule": "P2"
+    },
+    {
+      "id": "BCJ-R05",
+      "title": "P3: duplicate member rejected",
+      "expect": "reject",
+      "input_raw": "{\"a\":1,\"a\":2}",
+      "rule": "P3"
+    },
+    {
+      "id": "BCJ-R06",
+      "title": "P3: duplicate member in a nested object rejected",
+      "expect": "reject",
+      "input_raw": "{\"o\":{\"k\":1,\"k\":2}}",
+      "rule": "P3"
+    }
+  ]
+}

@@ -28,6 +28,9 @@ jobs:
       - name: cargo clippy
         working-directory: engines/banza-trust
         run: cargo clippy --all-targets -- -D warnings
+      - name: normative surface integrity (ADR-081/082)
+        working-directory: .
+        run: bash tools/check-normative-surface-integrity.sh
       - name: cargo test (golden ed25519 parity + TEST-ONLY signing/ceremony)
         working-directory: engines/banza-trust
         run: cargo test

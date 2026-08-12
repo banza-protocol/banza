@@ -6,9 +6,8 @@
   "_spec_version": "1",
   "_status": "canonical",
   "_authority": "ADR-038",
-  "_source_of_truth": "tools/root-ceremony/ceremony_script.py — cmd_generate_key_manifest(). This schema mirrors the artifact the ceremony emits, not earlier prose.",
+  "_source_of_truth": "spec/canonicalization.md (signing/digest bytes); contracts/production/key-manifest.production.schema.json (structure). Normative; not derived from any implementation.",
   "_updated": "2026-06-19",
-
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -20,7 +19,6 @@
     "keys",
     "manifest_signature"
   ],
-
   "properties": {
     "schema_version": {
       "type": "string",
@@ -75,7 +73,11 @@
           },
           "domain": {
             "type": "string",
-            "enum": ["protocol-metadata", "revocation", "conformance-evidence"],
+            "enum": [
+              "protocol-metadata",
+              "revocation",
+              "conformance-evidence"
+            ],
             "description": "The single domain this key is authorised to sign for. ADR-038 domain separation: a 'protocol-metadata' key signs signed protocol metadata and releases, a 'revocation' key signs the BRL, a 'conformance-evidence' key signs evidence packages. No key signs across domains, and no key authorises, certifies or approves an operator."
           },
           "active_since": {
@@ -90,7 +92,10 @@
           },
           "status": {
             "type": "string",
-            "enum": ["active", "retiring"],
+            "enum": [
+              "active",
+              "retiring"
+            ],
             "description": "'active' — key may sign new artifacts. 'retiring' — key signs nothing new but remains listed so artifacts it already signed verify until they expire (ADR-038). A verifier MUST require status == 'active' to trust newly produced artifacts."
           }
         }

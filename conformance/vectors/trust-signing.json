@@ -1,0 +1,1456 @@
+{
+  "_note": "Public cryptographic trust vectors for BANZA 1.0. Deterministic TEST-ONLY trust material (trust root metadata with a 2-of-3 threshold signature, delegated signing keys, signed protocol metadata, operator manifest, conformance evidence, public registry entry, revocation status) with fixed derivation inputs. Each case carries the expected trust status. These are the vectors an independent implementation uses to validate its Ed25519 signature verification against known-good material; unlike the federation fixtures, they carry real signatures, not placeholders. Public key material only; no confidential key material of any kind is present.",
+  "scheme": "spec/canonicalization.md (BCJ/1) for the signed bytes + Ed25519 (RFC 8032) + base64url without padding; domain-separated delegated keys per ADR-038; root anchored by a threshold of pinned root signatures (Model A, ADR-079). Trust status is computed fail-closed.",
+  "model": "signed protocol metadata + delegated signing keys + operator manifest + conformance evidence + public protocol registry + revocation/fail-closed",
+  "cases": [
+    {
+      "expected": "TRUST_VALID",
+      "input": {
+        "conformance_evidence": {
+          "evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "evidence_url": "https://operator-a.example/conformance/evidence",
+          "freshness_policy": "90d",
+          "generated_at": "2026-07-15T00:00:00Z",
+          "result_summary": {
+            "failed": 0,
+            "level": "L3",
+            "passed": 79
+          },
+          "test_suite_version": "federation-1.0",
+          "tool_version": "banza-conformance-rs 0.2.0"
+        },
+        "delegated_signing_key": {
+          "algorithm": "ed25519",
+          "allowed_usages": [
+            "signed_protocol_metadata"
+          ],
+          "delegated_key_id": "banza-protocol-metadata-2026-07",
+          "key_scope": "protocol-metadata",
+          "public_key": "pgiynFrNgBbxFPRQ7DqUUGAWT6CmqgcuPBcY7r7tfEw",
+          "revoked": false,
+          "signed_by_root_threshold": true,
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2028-07-01T00:00:00Z"
+        },
+        "evaluated_at": "2026-07-17T00:00:00Z",
+        "evaluator_protocol_version": "1.0.0",
+        "operator_manifest": {
+          "capabilities": [
+            "cross_operator_routing"
+          ],
+          "endpoints": {
+            "interop_endpoint": "https://operator-a.example/federation"
+          },
+          "manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "manifest_url": "https://operator-a.example/.well-known/banza/operator-manifest.json",
+          "operator_id": "operator-A",
+          "protocol_version": "1.0.0",
+          "public_keys": [
+            {
+              "algorithm": "ed25519",
+              "key_id": "operator-A-key-1",
+              "public_key": "ed25519:AAAA"
+            }
+          ],
+          "self_publication_statement": "self-published by the operator; not issued or approved by BANZA"
+        },
+        "public_registry_entry": {
+          "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "delegated_key_id": "banza-protocol-metadata-2026-07",
+          "last_verified_at": "2026-07-16T00:00:00Z",
+          "manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "operator_id": "operator-A",
+          "revocation_status": "active",
+          "signed_protocol_metadata_hash": "cbb9e559c72310cba10b4603c826f715800810359d3e3a4235754813b7b68501",
+          "trust_root_version": "2026.07",
+          "verified_by_tool_version": "banza-trust 0.2.0"
+        },
+        "revocation_status": {
+          "fail_closed_required": true,
+          "reason_code": null,
+          "revocation_entry_hash": null,
+          "revocation_list_version": "2026.07-01",
+          "revoked": false,
+          "signed_by_revocation_key": "cTShGvGxHjo_JzLT5AnDSm2mJVrlkA8a5MU4ZXNTS-E"
+        },
+        "signed_protocol_metadata": {
+          "capability_profile_hash": "sha256:capability-profile",
+          "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "conformance_tool_version": "banza-conformance-rs 0.2.0",
+          "evidence_bundle_hash": "sha256:evidence-bundle",
+          "metadata_id": "spm-operator-A-2026-07",
+          "operator_manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "protocol_version": "1.0.0",
+          "registry_snapshot_hash": "sha256:registry-snapshot",
+          "release_id": "banza-protocol-1.0.0",
+          "revocation_list_hash": "sha256:revocation-list",
+          "schema_versions": {
+            "conformance_evidence": "1.0",
+            "operator_manifest": "1.0"
+          },
+          "signature": "wqa3KM-tl92YoM8fV2kyIDeC6Frnpf9xLxb3vrirDOLnEaoKSBfkdKykc9tX8bo9oJLftncEiqZuaoyrjC-XDQ",
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2027-07-17T00:00:00Z"
+        },
+        "trust_root_metadata": {
+          "active_root_public_keys": [
+            "IjBqxqtbBE9fKz8OHIKfh58W0rLJliv8-7vK9du2Jks",
+            "wtVvdJAlKbL2srYheF-i7EUtnvtTQzewBam2BYucWTY",
+            "NzlClRznHuPwxhqkvQlaOCuc72-FtmtdmnnztfgHIzU"
+          ],
+          "boundary": {
+            "authorises_operators": false,
+            "moves_funds": false
+          },
+          "delegated_signing_keys": [
+            {
+              "allowed_usages": [
+                "signed_protocol_metadata"
+              ],
+              "delegated_key_id": "banza-protocol-metadata-2026-07",
+              "public_key": "pgiynFrNgBbxFPRQ7DqUUGAWT6CmqgcuPBcY7r7tfEw",
+              "revoked": false,
+              "signed_by_root_threshold": true,
+              "valid_from": "2026-07-01T00:00:00Z",
+              "valid_until": "2028-07-01T00:00:00Z"
+            }
+          ],
+          "root_id": "banza-root-2026",
+          "root_signatures": [
+            "kTOS7qRUWM75U7QZeaAtmi0Sg5m0q3d4HA0ULV4AuUU3vPQtc_BeyOT_Pl3GiXhe73layRWsm35iNTM5GvrfAA",
+            "O8Gcl6Bb3FGACSD6TUB-r_0hTUXMdl8Q1ssAzaqOCZhyjvRXUnEgfqeHFJyYtoHVywz10I_mBbbsFLRYZectCA"
+          ],
+          "scope": "signs protocol metadata, releases, delegated keys and revocation lists only",
+          "threshold_policy": {
+            "min_signatures": 2,
+            "total_keyholders": 3
+          },
+          "trust_root_version": "2026.07",
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2028-07-01T00:00:00Z"
+        },
+        "trusted_root_public_keys": [
+          "IjBqxqtbBE9fKz8OHIKfh58W0rLJliv8-7vK9du2Jks",
+          "wtVvdJAlKbL2srYheF-i7EUtnvtTQzewBam2BYucWTY",
+          "NzlClRznHuPwxhqkvQlaOCuc72-FtmtdmnnztfgHIzU"
+        ]
+      },
+      "key": "valid_signed_protocol_metadata",
+      "label": "Signed protocol metadata válida"
+    },
+    {
+      "expected": "TRUST_INVALID_SIGNATURE",
+      "input": {
+        "conformance_evidence": {
+          "evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "evidence_url": "https://operator-a.example/conformance/evidence",
+          "freshness_policy": "90d",
+          "generated_at": "2026-07-15T00:00:00Z",
+          "result_summary": {
+            "failed": 0,
+            "level": "L3",
+            "passed": 79
+          },
+          "test_suite_version": "federation-1.0",
+          "tool_version": "banza-conformance-rs 0.2.0"
+        },
+        "delegated_signing_key": {
+          "algorithm": "ed25519",
+          "allowed_usages": [
+            "signed_protocol_metadata"
+          ],
+          "delegated_key_id": "banza-protocol-metadata-2026-07",
+          "key_scope": "protocol-metadata",
+          "public_key": "pgiynFrNgBbxFPRQ7DqUUGAWT6CmqgcuPBcY7r7tfEw",
+          "revoked": false,
+          "signed_by_root_threshold": true,
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2028-07-01T00:00:00Z"
+        },
+        "evaluated_at": "2026-07-17T00:00:00Z",
+        "evaluator_protocol_version": "1.0.0",
+        "operator_manifest": {
+          "capabilities": [
+            "cross_operator_routing"
+          ],
+          "endpoints": {
+            "interop_endpoint": "https://operator-a.example/federation"
+          },
+          "manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "manifest_url": "https://operator-a.example/.well-known/banza/operator-manifest.json",
+          "operator_id": "operator-A",
+          "protocol_version": "1.0.0",
+          "public_keys": [
+            {
+              "algorithm": "ed25519",
+              "key_id": "operator-A-key-1",
+              "public_key": "ed25519:AAAA"
+            }
+          ],
+          "self_publication_statement": "self-published by the operator; not issued or approved by BANZA"
+        },
+        "public_registry_entry": {
+          "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "delegated_key_id": "banza-protocol-metadata-2026-07",
+          "last_verified_at": "2026-07-16T00:00:00Z",
+          "manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "operator_id": "operator-A",
+          "revocation_status": "active",
+          "signed_protocol_metadata_hash": "4ca2cf7ead1ad52d3677badcb9da9a1da6db57026c24c5b3de83609004c1529a",
+          "trust_root_version": "2026.07",
+          "verified_by_tool_version": "banza-trust 0.2.0"
+        },
+        "revocation_status": {
+          "fail_closed_required": true,
+          "reason_code": null,
+          "revocation_entry_hash": null,
+          "revocation_list_version": "2026.07-01",
+          "revoked": false,
+          "signed_by_revocation_key": "cTShGvGxHjo_JzLT5AnDSm2mJVrlkA8a5MU4ZXNTS-E"
+        },
+        "signed_protocol_metadata": {
+          "capability_profile_hash": "sha256:capability-profile",
+          "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "conformance_tool_version": "banza-conformance-rs 0.2.0",
+          "evidence_bundle_hash": "sha256:evidence-bundle",
+          "metadata_id": "spm-operator-A-TAMPERED",
+          "operator_manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "protocol_version": "1.0.0",
+          "registry_snapshot_hash": "sha256:registry-snapshot",
+          "release_id": "banza-protocol-1.0.0",
+          "revocation_list_hash": "sha256:revocation-list",
+          "schema_versions": {
+            "conformance_evidence": "1.0",
+            "operator_manifest": "1.0"
+          },
+          "signature": "wqa3KM-tl92YoM8fV2kyIDeC6Frnpf9xLxb3vrirDOLnEaoKSBfkdKykc9tX8bo9oJLftncEiqZuaoyrjC-XDQ",
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2027-07-17T00:00:00Z"
+        },
+        "trust_root_metadata": {
+          "active_root_public_keys": [
+            "IjBqxqtbBE9fKz8OHIKfh58W0rLJliv8-7vK9du2Jks",
+            "wtVvdJAlKbL2srYheF-i7EUtnvtTQzewBam2BYucWTY",
+            "NzlClRznHuPwxhqkvQlaOCuc72-FtmtdmnnztfgHIzU"
+          ],
+          "boundary": {
+            "authorises_operators": false,
+            "moves_funds": false
+          },
+          "delegated_signing_keys": [
+            {
+              "allowed_usages": [
+                "signed_protocol_metadata"
+              ],
+              "delegated_key_id": "banza-protocol-metadata-2026-07",
+              "public_key": "pgiynFrNgBbxFPRQ7DqUUGAWT6CmqgcuPBcY7r7tfEw",
+              "revoked": false,
+              "signed_by_root_threshold": true,
+              "valid_from": "2026-07-01T00:00:00Z",
+              "valid_until": "2028-07-01T00:00:00Z"
+            }
+          ],
+          "root_id": "banza-root-2026",
+          "root_signatures": [
+            "kTOS7qRUWM75U7QZeaAtmi0Sg5m0q3d4HA0ULV4AuUU3vPQtc_BeyOT_Pl3GiXhe73layRWsm35iNTM5GvrfAA",
+            "O8Gcl6Bb3FGACSD6TUB-r_0hTUXMdl8Q1ssAzaqOCZhyjvRXUnEgfqeHFJyYtoHVywz10I_mBbbsFLRYZectCA"
+          ],
+          "scope": "signs protocol metadata, releases, delegated keys and revocation lists only",
+          "threshold_policy": {
+            "min_signatures": 2,
+            "total_keyholders": 3
+          },
+          "trust_root_version": "2026.07",
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2028-07-01T00:00:00Z"
+        },
+        "trusted_root_public_keys": [
+          "IjBqxqtbBE9fKz8OHIKfh58W0rLJliv8-7vK9du2Jks",
+          "wtVvdJAlKbL2srYheF-i7EUtnvtTQzewBam2BYucWTY",
+          "NzlClRznHuPwxhqkvQlaOCuc72-FtmtdmnnztfgHIzU"
+        ]
+      },
+      "key": "invalid_metadata_signature",
+      "label": "Assinatura de metadata inválida"
+    },
+    {
+      "expected": "TRUST_INVALID_DELEGATED_KEY",
+      "input": {
+        "conformance_evidence": {
+          "evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "evidence_url": "https://operator-a.example/conformance/evidence",
+          "freshness_policy": "90d",
+          "generated_at": "2026-07-15T00:00:00Z",
+          "result_summary": {
+            "failed": 0,
+            "level": "L3",
+            "passed": 79
+          },
+          "test_suite_version": "federation-1.0",
+          "tool_version": "banza-conformance-rs 0.2.0"
+        },
+        "delegated_signing_key": {
+          "algorithm": "ed25519",
+          "allowed_usages": [
+            "revocation_list"
+          ],
+          "delegated_key_id": "banza-protocol-metadata-2026-07",
+          "key_scope": "protocol-metadata",
+          "public_key": "pgiynFrNgBbxFPRQ7DqUUGAWT6CmqgcuPBcY7r7tfEw",
+          "revoked": false,
+          "signed_by_root_threshold": true,
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2028-07-01T00:00:00Z"
+        },
+        "evaluated_at": "2026-07-17T00:00:00Z",
+        "evaluator_protocol_version": "1.0.0",
+        "operator_manifest": {
+          "capabilities": [
+            "cross_operator_routing"
+          ],
+          "endpoints": {
+            "interop_endpoint": "https://operator-a.example/federation"
+          },
+          "manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "manifest_url": "https://operator-a.example/.well-known/banza/operator-manifest.json",
+          "operator_id": "operator-A",
+          "protocol_version": "1.0.0",
+          "public_keys": [
+            {
+              "algorithm": "ed25519",
+              "key_id": "operator-A-key-1",
+              "public_key": "ed25519:AAAA"
+            }
+          ],
+          "self_publication_statement": "self-published by the operator; not issued or approved by BANZA"
+        },
+        "public_registry_entry": {
+          "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "delegated_key_id": "banza-protocol-metadata-2026-07",
+          "last_verified_at": "2026-07-16T00:00:00Z",
+          "manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "operator_id": "operator-A",
+          "revocation_status": "active",
+          "signed_protocol_metadata_hash": "cbb9e559c72310cba10b4603c826f715800810359d3e3a4235754813b7b68501",
+          "trust_root_version": "2026.07",
+          "verified_by_tool_version": "banza-trust 0.2.0"
+        },
+        "revocation_status": {
+          "fail_closed_required": true,
+          "reason_code": null,
+          "revocation_entry_hash": null,
+          "revocation_list_version": "2026.07-01",
+          "revoked": false,
+          "signed_by_revocation_key": "cTShGvGxHjo_JzLT5AnDSm2mJVrlkA8a5MU4ZXNTS-E"
+        },
+        "signed_protocol_metadata": {
+          "capability_profile_hash": "sha256:capability-profile",
+          "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "conformance_tool_version": "banza-conformance-rs 0.2.0",
+          "evidence_bundle_hash": "sha256:evidence-bundle",
+          "metadata_id": "spm-operator-A-2026-07",
+          "operator_manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "protocol_version": "1.0.0",
+          "registry_snapshot_hash": "sha256:registry-snapshot",
+          "release_id": "banza-protocol-1.0.0",
+          "revocation_list_hash": "sha256:revocation-list",
+          "schema_versions": {
+            "conformance_evidence": "1.0",
+            "operator_manifest": "1.0"
+          },
+          "signature": "wqa3KM-tl92YoM8fV2kyIDeC6Frnpf9xLxb3vrirDOLnEaoKSBfkdKykc9tX8bo9oJLftncEiqZuaoyrjC-XDQ",
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2027-07-17T00:00:00Z"
+        },
+        "trust_root_metadata": {
+          "active_root_public_keys": [
+            "IjBqxqtbBE9fKz8OHIKfh58W0rLJliv8-7vK9du2Jks",
+            "wtVvdJAlKbL2srYheF-i7EUtnvtTQzewBam2BYucWTY",
+            "NzlClRznHuPwxhqkvQlaOCuc72-FtmtdmnnztfgHIzU"
+          ],
+          "boundary": {
+            "authorises_operators": false,
+            "moves_funds": false
+          },
+          "delegated_signing_keys": [
+            {
+              "allowed_usages": [
+                "signed_protocol_metadata"
+              ],
+              "delegated_key_id": "banza-protocol-metadata-2026-07",
+              "public_key": "pgiynFrNgBbxFPRQ7DqUUGAWT6CmqgcuPBcY7r7tfEw",
+              "revoked": false,
+              "signed_by_root_threshold": true,
+              "valid_from": "2026-07-01T00:00:00Z",
+              "valid_until": "2028-07-01T00:00:00Z"
+            }
+          ],
+          "root_id": "banza-root-2026",
+          "root_signatures": [
+            "kTOS7qRUWM75U7QZeaAtmi0Sg5m0q3d4HA0ULV4AuUU3vPQtc_BeyOT_Pl3GiXhe73layRWsm35iNTM5GvrfAA",
+            "O8Gcl6Bb3FGACSD6TUB-r_0hTUXMdl8Q1ssAzaqOCZhyjvRXUnEgfqeHFJyYtoHVywz10I_mBbbsFLRYZectCA"
+          ],
+          "scope": "signs protocol metadata, releases, delegated keys and revocation lists only",
+          "threshold_policy": {
+            "min_signatures": 2,
+            "total_keyholders": 3
+          },
+          "trust_root_version": "2026.07",
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2028-07-01T00:00:00Z"
+        },
+        "trusted_root_public_keys": [
+          "IjBqxqtbBE9fKz8OHIKfh58W0rLJliv8-7vK9du2Jks",
+          "wtVvdJAlKbL2srYheF-i7EUtnvtTQzewBam2BYucWTY",
+          "NzlClRznHuPwxhqkvQlaOCuc72-FtmtdmnnztfgHIzU"
+        ]
+      },
+      "key": "wrong_delegated_key_usage",
+      "label": "Delegated key sem usage correcto"
+    },
+    {
+      "expected": "TRUST_INVALID_DELEGATED_KEY",
+      "input": {
+        "conformance_evidence": {
+          "evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "evidence_url": "https://operator-a.example/conformance/evidence",
+          "freshness_policy": "90d",
+          "generated_at": "2026-07-15T00:00:00Z",
+          "result_summary": {
+            "failed": 0,
+            "level": "L3",
+            "passed": 79
+          },
+          "test_suite_version": "federation-1.0",
+          "tool_version": "banza-conformance-rs 0.2.0"
+        },
+        "delegated_signing_key": {
+          "algorithm": "ed25519",
+          "allowed_usages": [
+            "signed_protocol_metadata"
+          ],
+          "delegated_key_id": "banza-protocol-metadata-2026-07",
+          "key_scope": "protocol-metadata",
+          "public_key": "pgiynFrNgBbxFPRQ7DqUUGAWT6CmqgcuPBcY7r7tfEw",
+          "revoked": true,
+          "signed_by_root_threshold": true,
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2028-07-01T00:00:00Z"
+        },
+        "evaluated_at": "2026-07-17T00:00:00Z",
+        "evaluator_protocol_version": "1.0.0",
+        "operator_manifest": {
+          "capabilities": [
+            "cross_operator_routing"
+          ],
+          "endpoints": {
+            "interop_endpoint": "https://operator-a.example/federation"
+          },
+          "manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "manifest_url": "https://operator-a.example/.well-known/banza/operator-manifest.json",
+          "operator_id": "operator-A",
+          "protocol_version": "1.0.0",
+          "public_keys": [
+            {
+              "algorithm": "ed25519",
+              "key_id": "operator-A-key-1",
+              "public_key": "ed25519:AAAA"
+            }
+          ],
+          "self_publication_statement": "self-published by the operator; not issued or approved by BANZA"
+        },
+        "public_registry_entry": {
+          "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "delegated_key_id": "banza-protocol-metadata-2026-07",
+          "last_verified_at": "2026-07-16T00:00:00Z",
+          "manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "operator_id": "operator-A",
+          "revocation_status": "active",
+          "signed_protocol_metadata_hash": "cbb9e559c72310cba10b4603c826f715800810359d3e3a4235754813b7b68501",
+          "trust_root_version": "2026.07",
+          "verified_by_tool_version": "banza-trust 0.2.0"
+        },
+        "revocation_status": {
+          "fail_closed_required": true,
+          "reason_code": null,
+          "revocation_entry_hash": null,
+          "revocation_list_version": "2026.07-01",
+          "revoked": false,
+          "signed_by_revocation_key": "cTShGvGxHjo_JzLT5AnDSm2mJVrlkA8a5MU4ZXNTS-E"
+        },
+        "signed_protocol_metadata": {
+          "capability_profile_hash": "sha256:capability-profile",
+          "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "conformance_tool_version": "banza-conformance-rs 0.2.0",
+          "evidence_bundle_hash": "sha256:evidence-bundle",
+          "metadata_id": "spm-operator-A-2026-07",
+          "operator_manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "protocol_version": "1.0.0",
+          "registry_snapshot_hash": "sha256:registry-snapshot",
+          "release_id": "banza-protocol-1.0.0",
+          "revocation_list_hash": "sha256:revocation-list",
+          "schema_versions": {
+            "conformance_evidence": "1.0",
+            "operator_manifest": "1.0"
+          },
+          "signature": "wqa3KM-tl92YoM8fV2kyIDeC6Frnpf9xLxb3vrirDOLnEaoKSBfkdKykc9tX8bo9oJLftncEiqZuaoyrjC-XDQ",
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2027-07-17T00:00:00Z"
+        },
+        "trust_root_metadata": {
+          "active_root_public_keys": [
+            "IjBqxqtbBE9fKz8OHIKfh58W0rLJliv8-7vK9du2Jks",
+            "wtVvdJAlKbL2srYheF-i7EUtnvtTQzewBam2BYucWTY",
+            "NzlClRznHuPwxhqkvQlaOCuc72-FtmtdmnnztfgHIzU"
+          ],
+          "boundary": {
+            "authorises_operators": false,
+            "moves_funds": false
+          },
+          "delegated_signing_keys": [
+            {
+              "allowed_usages": [
+                "signed_protocol_metadata"
+              ],
+              "delegated_key_id": "banza-protocol-metadata-2026-07",
+              "public_key": "pgiynFrNgBbxFPRQ7DqUUGAWT6CmqgcuPBcY7r7tfEw",
+              "revoked": false,
+              "signed_by_root_threshold": true,
+              "valid_from": "2026-07-01T00:00:00Z",
+              "valid_until": "2028-07-01T00:00:00Z"
+            }
+          ],
+          "root_id": "banza-root-2026",
+          "root_signatures": [
+            "kTOS7qRUWM75U7QZeaAtmi0Sg5m0q3d4HA0ULV4AuUU3vPQtc_BeyOT_Pl3GiXhe73layRWsm35iNTM5GvrfAA",
+            "O8Gcl6Bb3FGACSD6TUB-r_0hTUXMdl8Q1ssAzaqOCZhyjvRXUnEgfqeHFJyYtoHVywz10I_mBbbsFLRYZectCA"
+          ],
+          "scope": "signs protocol metadata, releases, delegated keys and revocation lists only",
+          "threshold_policy": {
+            "min_signatures": 2,
+            "total_keyholders": 3
+          },
+          "trust_root_version": "2026.07",
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2028-07-01T00:00:00Z"
+        },
+        "trusted_root_public_keys": [
+          "IjBqxqtbBE9fKz8OHIKfh58W0rLJliv8-7vK9du2Jks",
+          "wtVvdJAlKbL2srYheF-i7EUtnvtTQzewBam2BYucWTY",
+          "NzlClRznHuPwxhqkvQlaOCuc72-FtmtdmnnztfgHIzU"
+        ]
+      },
+      "key": "revoked_delegated_key",
+      "label": "Delegated key revogada"
+    },
+    {
+      "expected": "TRUST_MISSING_CONFORMANCE_EVIDENCE",
+      "input": {
+        "delegated_signing_key": {
+          "algorithm": "ed25519",
+          "allowed_usages": [
+            "signed_protocol_metadata"
+          ],
+          "delegated_key_id": "banza-protocol-metadata-2026-07",
+          "key_scope": "protocol-metadata",
+          "public_key": "pgiynFrNgBbxFPRQ7DqUUGAWT6CmqgcuPBcY7r7tfEw",
+          "revoked": false,
+          "signed_by_root_threshold": true,
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2028-07-01T00:00:00Z"
+        },
+        "evaluated_at": "2026-07-17T00:00:00Z",
+        "evaluator_protocol_version": "1.0.0",
+        "operator_manifest": {
+          "capabilities": [
+            "cross_operator_routing"
+          ],
+          "endpoints": {
+            "interop_endpoint": "https://operator-a.example/federation"
+          },
+          "manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "manifest_url": "https://operator-a.example/.well-known/banza/operator-manifest.json",
+          "operator_id": "operator-A",
+          "protocol_version": "1.0.0",
+          "public_keys": [
+            {
+              "algorithm": "ed25519",
+              "key_id": "operator-A-key-1",
+              "public_key": "ed25519:AAAA"
+            }
+          ],
+          "self_publication_statement": "self-published by the operator; not issued or approved by BANZA"
+        },
+        "public_registry_entry": {
+          "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "delegated_key_id": "banza-protocol-metadata-2026-07",
+          "last_verified_at": "2026-07-16T00:00:00Z",
+          "manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "operator_id": "operator-A",
+          "revocation_status": "active",
+          "signed_protocol_metadata_hash": "cbb9e559c72310cba10b4603c826f715800810359d3e3a4235754813b7b68501",
+          "trust_root_version": "2026.07",
+          "verified_by_tool_version": "banza-trust 0.2.0"
+        },
+        "revocation_status": {
+          "fail_closed_required": true,
+          "reason_code": null,
+          "revocation_entry_hash": null,
+          "revocation_list_version": "2026.07-01",
+          "revoked": false,
+          "signed_by_revocation_key": "cTShGvGxHjo_JzLT5AnDSm2mJVrlkA8a5MU4ZXNTS-E"
+        },
+        "signed_protocol_metadata": {
+          "capability_profile_hash": "sha256:capability-profile",
+          "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "conformance_tool_version": "banza-conformance-rs 0.2.0",
+          "evidence_bundle_hash": "sha256:evidence-bundle",
+          "metadata_id": "spm-operator-A-2026-07",
+          "operator_manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "protocol_version": "1.0.0",
+          "registry_snapshot_hash": "sha256:registry-snapshot",
+          "release_id": "banza-protocol-1.0.0",
+          "revocation_list_hash": "sha256:revocation-list",
+          "schema_versions": {
+            "conformance_evidence": "1.0",
+            "operator_manifest": "1.0"
+          },
+          "signature": "wqa3KM-tl92YoM8fV2kyIDeC6Frnpf9xLxb3vrirDOLnEaoKSBfkdKykc9tX8bo9oJLftncEiqZuaoyrjC-XDQ",
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2027-07-17T00:00:00Z"
+        },
+        "trust_root_metadata": {
+          "active_root_public_keys": [
+            "IjBqxqtbBE9fKz8OHIKfh58W0rLJliv8-7vK9du2Jks",
+            "wtVvdJAlKbL2srYheF-i7EUtnvtTQzewBam2BYucWTY",
+            "NzlClRznHuPwxhqkvQlaOCuc72-FtmtdmnnztfgHIzU"
+          ],
+          "boundary": {
+            "authorises_operators": false,
+            "moves_funds": false
+          },
+          "delegated_signing_keys": [
+            {
+              "allowed_usages": [
+                "signed_protocol_metadata"
+              ],
+              "delegated_key_id": "banza-protocol-metadata-2026-07",
+              "public_key": "pgiynFrNgBbxFPRQ7DqUUGAWT6CmqgcuPBcY7r7tfEw",
+              "revoked": false,
+              "signed_by_root_threshold": true,
+              "valid_from": "2026-07-01T00:00:00Z",
+              "valid_until": "2028-07-01T00:00:00Z"
+            }
+          ],
+          "root_id": "banza-root-2026",
+          "root_signatures": [
+            "kTOS7qRUWM75U7QZeaAtmi0Sg5m0q3d4HA0ULV4AuUU3vPQtc_BeyOT_Pl3GiXhe73layRWsm35iNTM5GvrfAA",
+            "O8Gcl6Bb3FGACSD6TUB-r_0hTUXMdl8Q1ssAzaqOCZhyjvRXUnEgfqeHFJyYtoHVywz10I_mBbbsFLRYZectCA"
+          ],
+          "scope": "signs protocol metadata, releases, delegated keys and revocation lists only",
+          "threshold_policy": {
+            "min_signatures": 2,
+            "total_keyholders": 3
+          },
+          "trust_root_version": "2026.07",
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2028-07-01T00:00:00Z"
+        },
+        "trusted_root_public_keys": [
+          "IjBqxqtbBE9fKz8OHIKfh58W0rLJliv8-7vK9du2Jks",
+          "wtVvdJAlKbL2srYheF-i7EUtnvtTQzewBam2BYucWTY",
+          "NzlClRznHuPwxhqkvQlaOCuc72-FtmtdmnnztfgHIzU"
+        ]
+      },
+      "key": "missing_conformance_evidence",
+      "label": "Conformance evidence em falta"
+    },
+    {
+      "expected": "TRUST_MISSING_OPERATOR_MANIFEST",
+      "input": {
+        "conformance_evidence": {
+          "evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "evidence_url": "https://operator-a.example/conformance/evidence",
+          "freshness_policy": "90d",
+          "generated_at": "2026-07-15T00:00:00Z",
+          "result_summary": {
+            "failed": 0,
+            "level": "L3",
+            "passed": 79
+          },
+          "test_suite_version": "federation-1.0",
+          "tool_version": "banza-conformance-rs 0.2.0"
+        },
+        "delegated_signing_key": {
+          "algorithm": "ed25519",
+          "allowed_usages": [
+            "signed_protocol_metadata"
+          ],
+          "delegated_key_id": "banza-protocol-metadata-2026-07",
+          "key_scope": "protocol-metadata",
+          "public_key": "pgiynFrNgBbxFPRQ7DqUUGAWT6CmqgcuPBcY7r7tfEw",
+          "revoked": false,
+          "signed_by_root_threshold": true,
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2028-07-01T00:00:00Z"
+        },
+        "evaluated_at": "2026-07-17T00:00:00Z",
+        "evaluator_protocol_version": "1.0.0",
+        "public_registry_entry": {
+          "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "delegated_key_id": "banza-protocol-metadata-2026-07",
+          "last_verified_at": "2026-07-16T00:00:00Z",
+          "manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "operator_id": "operator-A",
+          "revocation_status": "active",
+          "signed_protocol_metadata_hash": "cbb9e559c72310cba10b4603c826f715800810359d3e3a4235754813b7b68501",
+          "trust_root_version": "2026.07",
+          "verified_by_tool_version": "banza-trust 0.2.0"
+        },
+        "revocation_status": {
+          "fail_closed_required": true,
+          "reason_code": null,
+          "revocation_entry_hash": null,
+          "revocation_list_version": "2026.07-01",
+          "revoked": false,
+          "signed_by_revocation_key": "cTShGvGxHjo_JzLT5AnDSm2mJVrlkA8a5MU4ZXNTS-E"
+        },
+        "signed_protocol_metadata": {
+          "capability_profile_hash": "sha256:capability-profile",
+          "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "conformance_tool_version": "banza-conformance-rs 0.2.0",
+          "evidence_bundle_hash": "sha256:evidence-bundle",
+          "metadata_id": "spm-operator-A-2026-07",
+          "operator_manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "protocol_version": "1.0.0",
+          "registry_snapshot_hash": "sha256:registry-snapshot",
+          "release_id": "banza-protocol-1.0.0",
+          "revocation_list_hash": "sha256:revocation-list",
+          "schema_versions": {
+            "conformance_evidence": "1.0",
+            "operator_manifest": "1.0"
+          },
+          "signature": "wqa3KM-tl92YoM8fV2kyIDeC6Frnpf9xLxb3vrirDOLnEaoKSBfkdKykc9tX8bo9oJLftncEiqZuaoyrjC-XDQ",
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2027-07-17T00:00:00Z"
+        },
+        "trust_root_metadata": {
+          "active_root_public_keys": [
+            "IjBqxqtbBE9fKz8OHIKfh58W0rLJliv8-7vK9du2Jks",
+            "wtVvdJAlKbL2srYheF-i7EUtnvtTQzewBam2BYucWTY",
+            "NzlClRznHuPwxhqkvQlaOCuc72-FtmtdmnnztfgHIzU"
+          ],
+          "boundary": {
+            "authorises_operators": false,
+            "moves_funds": false
+          },
+          "delegated_signing_keys": [
+            {
+              "allowed_usages": [
+                "signed_protocol_metadata"
+              ],
+              "delegated_key_id": "banza-protocol-metadata-2026-07",
+              "public_key": "pgiynFrNgBbxFPRQ7DqUUGAWT6CmqgcuPBcY7r7tfEw",
+              "revoked": false,
+              "signed_by_root_threshold": true,
+              "valid_from": "2026-07-01T00:00:00Z",
+              "valid_until": "2028-07-01T00:00:00Z"
+            }
+          ],
+          "root_id": "banza-root-2026",
+          "root_signatures": [
+            "kTOS7qRUWM75U7QZeaAtmi0Sg5m0q3d4HA0ULV4AuUU3vPQtc_BeyOT_Pl3GiXhe73layRWsm35iNTM5GvrfAA",
+            "O8Gcl6Bb3FGACSD6TUB-r_0hTUXMdl8Q1ssAzaqOCZhyjvRXUnEgfqeHFJyYtoHVywz10I_mBbbsFLRYZectCA"
+          ],
+          "scope": "signs protocol metadata, releases, delegated keys and revocation lists only",
+          "threshold_policy": {
+            "min_signatures": 2,
+            "total_keyholders": 3
+          },
+          "trust_root_version": "2026.07",
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2028-07-01T00:00:00Z"
+        },
+        "trusted_root_public_keys": [
+          "IjBqxqtbBE9fKz8OHIKfh58W0rLJliv8-7vK9du2Jks",
+          "wtVvdJAlKbL2srYheF-i7EUtnvtTQzewBam2BYucWTY",
+          "NzlClRznHuPwxhqkvQlaOCuc72-FtmtdmnnztfgHIzU"
+        ]
+      },
+      "key": "missing_operator_manifest",
+      "label": "Operator manifest em falta"
+    },
+    {
+      "expected": "TRUST_MISSING_REGISTRY_ENTRY",
+      "input": {
+        "conformance_evidence": {
+          "evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "evidence_url": "https://operator-a.example/conformance/evidence",
+          "freshness_policy": "90d",
+          "generated_at": "2026-07-15T00:00:00Z",
+          "result_summary": {
+            "failed": 0,
+            "level": "L3",
+            "passed": 79
+          },
+          "test_suite_version": "federation-1.0",
+          "tool_version": "banza-conformance-rs 0.2.0"
+        },
+        "delegated_signing_key": {
+          "algorithm": "ed25519",
+          "allowed_usages": [
+            "signed_protocol_metadata"
+          ],
+          "delegated_key_id": "banza-protocol-metadata-2026-07",
+          "key_scope": "protocol-metadata",
+          "public_key": "pgiynFrNgBbxFPRQ7DqUUGAWT6CmqgcuPBcY7r7tfEw",
+          "revoked": false,
+          "signed_by_root_threshold": true,
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2028-07-01T00:00:00Z"
+        },
+        "evaluated_at": "2026-07-17T00:00:00Z",
+        "evaluator_protocol_version": "1.0.0",
+        "operator_manifest": {
+          "capabilities": [
+            "cross_operator_routing"
+          ],
+          "endpoints": {
+            "interop_endpoint": "https://operator-a.example/federation"
+          },
+          "manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "manifest_url": "https://operator-a.example/.well-known/banza/operator-manifest.json",
+          "operator_id": "operator-A",
+          "protocol_version": "1.0.0",
+          "public_keys": [
+            {
+              "algorithm": "ed25519",
+              "key_id": "operator-A-key-1",
+              "public_key": "ed25519:AAAA"
+            }
+          ],
+          "self_publication_statement": "self-published by the operator; not issued or approved by BANZA"
+        },
+        "revocation_status": {
+          "fail_closed_required": true,
+          "reason_code": null,
+          "revocation_entry_hash": null,
+          "revocation_list_version": "2026.07-01",
+          "revoked": false,
+          "signed_by_revocation_key": "cTShGvGxHjo_JzLT5AnDSm2mJVrlkA8a5MU4ZXNTS-E"
+        },
+        "signed_protocol_metadata": {
+          "capability_profile_hash": "sha256:capability-profile",
+          "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "conformance_tool_version": "banza-conformance-rs 0.2.0",
+          "evidence_bundle_hash": "sha256:evidence-bundle",
+          "metadata_id": "spm-operator-A-2026-07",
+          "operator_manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "protocol_version": "1.0.0",
+          "registry_snapshot_hash": "sha256:registry-snapshot",
+          "release_id": "banza-protocol-1.0.0",
+          "revocation_list_hash": "sha256:revocation-list",
+          "schema_versions": {
+            "conformance_evidence": "1.0",
+            "operator_manifest": "1.0"
+          },
+          "signature": "wqa3KM-tl92YoM8fV2kyIDeC6Frnpf9xLxb3vrirDOLnEaoKSBfkdKykc9tX8bo9oJLftncEiqZuaoyrjC-XDQ",
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2027-07-17T00:00:00Z"
+        },
+        "trust_root_metadata": {
+          "active_root_public_keys": [
+            "IjBqxqtbBE9fKz8OHIKfh58W0rLJliv8-7vK9du2Jks",
+            "wtVvdJAlKbL2srYheF-i7EUtnvtTQzewBam2BYucWTY",
+            "NzlClRznHuPwxhqkvQlaOCuc72-FtmtdmnnztfgHIzU"
+          ],
+          "boundary": {
+            "authorises_operators": false,
+            "moves_funds": false
+          },
+          "delegated_signing_keys": [
+            {
+              "allowed_usages": [
+                "signed_protocol_metadata"
+              ],
+              "delegated_key_id": "banza-protocol-metadata-2026-07",
+              "public_key": "pgiynFrNgBbxFPRQ7DqUUGAWT6CmqgcuPBcY7r7tfEw",
+              "revoked": false,
+              "signed_by_root_threshold": true,
+              "valid_from": "2026-07-01T00:00:00Z",
+              "valid_until": "2028-07-01T00:00:00Z"
+            }
+          ],
+          "root_id": "banza-root-2026",
+          "root_signatures": [
+            "kTOS7qRUWM75U7QZeaAtmi0Sg5m0q3d4HA0ULV4AuUU3vPQtc_BeyOT_Pl3GiXhe73layRWsm35iNTM5GvrfAA",
+            "O8Gcl6Bb3FGACSD6TUB-r_0hTUXMdl8Q1ssAzaqOCZhyjvRXUnEgfqeHFJyYtoHVywz10I_mBbbsFLRYZectCA"
+          ],
+          "scope": "signs protocol metadata, releases, delegated keys and revocation lists only",
+          "threshold_policy": {
+            "min_signatures": 2,
+            "total_keyholders": 3
+          },
+          "trust_root_version": "2026.07",
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2028-07-01T00:00:00Z"
+        },
+        "trusted_root_public_keys": [
+          "IjBqxqtbBE9fKz8OHIKfh58W0rLJliv8-7vK9du2Jks",
+          "wtVvdJAlKbL2srYheF-i7EUtnvtTQzewBam2BYucWTY",
+          "NzlClRznHuPwxhqkvQlaOCuc72-FtmtdmnnztfgHIzU"
+        ]
+      },
+      "key": "missing_registry_entry",
+      "label": "Registry entry em falta"
+    },
+    {
+      "expected": "TRUST_REVOKED",
+      "input": {
+        "conformance_evidence": {
+          "evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "evidence_url": "https://operator-a.example/conformance/evidence",
+          "freshness_policy": "90d",
+          "generated_at": "2026-07-15T00:00:00Z",
+          "result_summary": {
+            "failed": 0,
+            "level": "L3",
+            "passed": 79
+          },
+          "test_suite_version": "federation-1.0",
+          "tool_version": "banza-conformance-rs 0.2.0"
+        },
+        "delegated_signing_key": {
+          "algorithm": "ed25519",
+          "allowed_usages": [
+            "signed_protocol_metadata"
+          ],
+          "delegated_key_id": "banza-protocol-metadata-2026-07",
+          "key_scope": "protocol-metadata",
+          "public_key": "pgiynFrNgBbxFPRQ7DqUUGAWT6CmqgcuPBcY7r7tfEw",
+          "revoked": false,
+          "signed_by_root_threshold": true,
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2028-07-01T00:00:00Z"
+        },
+        "evaluated_at": "2026-07-17T00:00:00Z",
+        "evaluator_protocol_version": "1.0.0",
+        "operator_manifest": {
+          "capabilities": [
+            "cross_operator_routing"
+          ],
+          "endpoints": {
+            "interop_endpoint": "https://operator-a.example/federation"
+          },
+          "manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "manifest_url": "https://operator-a.example/.well-known/banza/operator-manifest.json",
+          "operator_id": "operator-A",
+          "protocol_version": "1.0.0",
+          "public_keys": [
+            {
+              "algorithm": "ed25519",
+              "key_id": "operator-A-key-1",
+              "public_key": "ed25519:AAAA"
+            }
+          ],
+          "self_publication_statement": "self-published by the operator; not issued or approved by BANZA"
+        },
+        "public_registry_entry": {
+          "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "delegated_key_id": "banza-protocol-metadata-2026-07",
+          "last_verified_at": "2026-07-16T00:00:00Z",
+          "manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "operator_id": "operator-A",
+          "revocation_status": "active",
+          "signed_protocol_metadata_hash": "cbb9e559c72310cba10b4603c826f715800810359d3e3a4235754813b7b68501",
+          "trust_root_version": "2026.07",
+          "verified_by_tool_version": "banza-trust 0.2.0"
+        },
+        "revocation_status": {
+          "fail_closed_required": true,
+          "reason_code": "key_compromise",
+          "revocation_entry_hash": null,
+          "revocation_list_version": "2026.07-01",
+          "revoked": true,
+          "signed_by_revocation_key": "cTShGvGxHjo_JzLT5AnDSm2mJVrlkA8a5MU4ZXNTS-E"
+        },
+        "signed_protocol_metadata": {
+          "capability_profile_hash": "sha256:capability-profile",
+          "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "conformance_tool_version": "banza-conformance-rs 0.2.0",
+          "evidence_bundle_hash": "sha256:evidence-bundle",
+          "metadata_id": "spm-operator-A-2026-07",
+          "operator_manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "protocol_version": "1.0.0",
+          "registry_snapshot_hash": "sha256:registry-snapshot",
+          "release_id": "banza-protocol-1.0.0",
+          "revocation_list_hash": "sha256:revocation-list",
+          "schema_versions": {
+            "conformance_evidence": "1.0",
+            "operator_manifest": "1.0"
+          },
+          "signature": "wqa3KM-tl92YoM8fV2kyIDeC6Frnpf9xLxb3vrirDOLnEaoKSBfkdKykc9tX8bo9oJLftncEiqZuaoyrjC-XDQ",
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2027-07-17T00:00:00Z"
+        },
+        "trust_root_metadata": {
+          "active_root_public_keys": [
+            "IjBqxqtbBE9fKz8OHIKfh58W0rLJliv8-7vK9du2Jks",
+            "wtVvdJAlKbL2srYheF-i7EUtnvtTQzewBam2BYucWTY",
+            "NzlClRznHuPwxhqkvQlaOCuc72-FtmtdmnnztfgHIzU"
+          ],
+          "boundary": {
+            "authorises_operators": false,
+            "moves_funds": false
+          },
+          "delegated_signing_keys": [
+            {
+              "allowed_usages": [
+                "signed_protocol_metadata"
+              ],
+              "delegated_key_id": "banza-protocol-metadata-2026-07",
+              "public_key": "pgiynFrNgBbxFPRQ7DqUUGAWT6CmqgcuPBcY7r7tfEw",
+              "revoked": false,
+              "signed_by_root_threshold": true,
+              "valid_from": "2026-07-01T00:00:00Z",
+              "valid_until": "2028-07-01T00:00:00Z"
+            }
+          ],
+          "root_id": "banza-root-2026",
+          "root_signatures": [
+            "kTOS7qRUWM75U7QZeaAtmi0Sg5m0q3d4HA0ULV4AuUU3vPQtc_BeyOT_Pl3GiXhe73layRWsm35iNTM5GvrfAA",
+            "O8Gcl6Bb3FGACSD6TUB-r_0hTUXMdl8Q1ssAzaqOCZhyjvRXUnEgfqeHFJyYtoHVywz10I_mBbbsFLRYZectCA"
+          ],
+          "scope": "signs protocol metadata, releases, delegated keys and revocation lists only",
+          "threshold_policy": {
+            "min_signatures": 2,
+            "total_keyholders": 3
+          },
+          "trust_root_version": "2026.07",
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2028-07-01T00:00:00Z"
+        },
+        "trusted_root_public_keys": [
+          "IjBqxqtbBE9fKz8OHIKfh58W0rLJliv8-7vK9du2Jks",
+          "wtVvdJAlKbL2srYheF-i7EUtnvtTQzewBam2BYucWTY",
+          "NzlClRznHuPwxhqkvQlaOCuc72-FtmtdmnnztfgHIzU"
+        ]
+      },
+      "key": "operator_revoked",
+      "label": "Operador revogado"
+    },
+    {
+      "expected": "TRUST_EXPIRED_METADATA",
+      "input": {
+        "conformance_evidence": {
+          "evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "evidence_url": "https://operator-a.example/conformance/evidence",
+          "freshness_policy": "90d",
+          "generated_at": "2026-07-15T00:00:00Z",
+          "result_summary": {
+            "failed": 0,
+            "level": "L3",
+            "passed": 79
+          },
+          "test_suite_version": "federation-1.0",
+          "tool_version": "banza-conformance-rs 0.2.0"
+        },
+        "delegated_signing_key": {
+          "algorithm": "ed25519",
+          "allowed_usages": [
+            "signed_protocol_metadata"
+          ],
+          "delegated_key_id": "banza-protocol-metadata-2026-07",
+          "key_scope": "protocol-metadata",
+          "public_key": "pgiynFrNgBbxFPRQ7DqUUGAWT6CmqgcuPBcY7r7tfEw",
+          "revoked": false,
+          "signed_by_root_threshold": true,
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2028-07-01T00:00:00Z"
+        },
+        "evaluated_at": "2026-07-17T00:00:00Z",
+        "evaluator_protocol_version": "1.0.0",
+        "operator_manifest": {
+          "capabilities": [
+            "cross_operator_routing"
+          ],
+          "endpoints": {
+            "interop_endpoint": "https://operator-a.example/federation"
+          },
+          "manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "manifest_url": "https://operator-a.example/.well-known/banza/operator-manifest.json",
+          "operator_id": "operator-A",
+          "protocol_version": "1.0.0",
+          "public_keys": [
+            {
+              "algorithm": "ed25519",
+              "key_id": "operator-A-key-1",
+              "public_key": "ed25519:AAAA"
+            }
+          ],
+          "self_publication_statement": "self-published by the operator; not issued or approved by BANZA"
+        },
+        "public_registry_entry": {
+          "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "delegated_key_id": "banza-protocol-metadata-2026-07",
+          "last_verified_at": "2026-07-16T00:00:00Z",
+          "manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "operator_id": "operator-A",
+          "revocation_status": "active",
+          "signed_protocol_metadata_hash": "0048e6a76690c6a5db0c8e3eb1ab18d804843fe2c2fc536020176854c22408ea",
+          "trust_root_version": "2026.07",
+          "verified_by_tool_version": "banza-trust 0.2.0"
+        },
+        "revocation_status": {
+          "fail_closed_required": true,
+          "reason_code": null,
+          "revocation_entry_hash": null,
+          "revocation_list_version": "2026.07-01",
+          "revoked": false,
+          "signed_by_revocation_key": "cTShGvGxHjo_JzLT5AnDSm2mJVrlkA8a5MU4ZXNTS-E"
+        },
+        "signed_protocol_metadata": {
+          "capability_profile_hash": "sha256:capability-profile",
+          "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "conformance_tool_version": "banza-conformance-rs 0.2.0",
+          "evidence_bundle_hash": "sha256:evidence-bundle",
+          "metadata_id": "spm-operator-A-2026-07",
+          "operator_manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "protocol_version": "1.0.0",
+          "registry_snapshot_hash": "sha256:registry-snapshot",
+          "release_id": "banza-protocol-1.0.0",
+          "revocation_list_hash": "sha256:revocation-list",
+          "schema_versions": {
+            "conformance_evidence": "1.0",
+            "operator_manifest": "1.0"
+          },
+          "signature": "SgRHAsUK5N16qMo2qB_tC0El96iPBWQCwun2nxkqXs2YR1nbtLw2Q5NWP1Zv8IEp2GKNMlEDvToYREUDvHCtAw",
+          "valid_from": "2026-05-01T00:00:00Z",
+          "valid_until": "2026-06-01T00:00:00Z"
+        },
+        "trust_root_metadata": {
+          "active_root_public_keys": [
+            "IjBqxqtbBE9fKz8OHIKfh58W0rLJliv8-7vK9du2Jks",
+            "wtVvdJAlKbL2srYheF-i7EUtnvtTQzewBam2BYucWTY",
+            "NzlClRznHuPwxhqkvQlaOCuc72-FtmtdmnnztfgHIzU"
+          ],
+          "boundary": {
+            "authorises_operators": false,
+            "moves_funds": false
+          },
+          "delegated_signing_keys": [
+            {
+              "allowed_usages": [
+                "signed_protocol_metadata"
+              ],
+              "delegated_key_id": "banza-protocol-metadata-2026-07",
+              "public_key": "pgiynFrNgBbxFPRQ7DqUUGAWT6CmqgcuPBcY7r7tfEw",
+              "revoked": false,
+              "signed_by_root_threshold": true,
+              "valid_from": "2026-07-01T00:00:00Z",
+              "valid_until": "2028-07-01T00:00:00Z"
+            }
+          ],
+          "root_id": "banza-root-2026",
+          "root_signatures": [
+            "kTOS7qRUWM75U7QZeaAtmi0Sg5m0q3d4HA0ULV4AuUU3vPQtc_BeyOT_Pl3GiXhe73layRWsm35iNTM5GvrfAA",
+            "O8Gcl6Bb3FGACSD6TUB-r_0hTUXMdl8Q1ssAzaqOCZhyjvRXUnEgfqeHFJyYtoHVywz10I_mBbbsFLRYZectCA"
+          ],
+          "scope": "signs protocol metadata, releases, delegated keys and revocation lists only",
+          "threshold_policy": {
+            "min_signatures": 2,
+            "total_keyholders": 3
+          },
+          "trust_root_version": "2026.07",
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2028-07-01T00:00:00Z"
+        },
+        "trusted_root_public_keys": [
+          "IjBqxqtbBE9fKz8OHIKfh58W0rLJliv8-7vK9du2Jks",
+          "wtVvdJAlKbL2srYheF-i7EUtnvtTQzewBam2BYucWTY",
+          "NzlClRznHuPwxhqkvQlaOCuc72-FtmtdmnnztfgHIzU"
+        ]
+      },
+      "key": "expired_metadata",
+      "label": "Signed metadata expirada"
+    },
+    {
+      "expected": "TRUST_INCOMPATIBLE_PROTOCOL_VERSION",
+      "input": {
+        "conformance_evidence": {
+          "evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "evidence_url": "https://operator-a.example/conformance/evidence",
+          "freshness_policy": "90d",
+          "generated_at": "2026-07-15T00:00:00Z",
+          "result_summary": {
+            "failed": 0,
+            "level": "L3",
+            "passed": 79
+          },
+          "test_suite_version": "federation-1.0",
+          "tool_version": "banza-conformance-rs 0.2.0"
+        },
+        "delegated_signing_key": {
+          "algorithm": "ed25519",
+          "allowed_usages": [
+            "signed_protocol_metadata"
+          ],
+          "delegated_key_id": "banza-protocol-metadata-2026-07",
+          "key_scope": "protocol-metadata",
+          "public_key": "pgiynFrNgBbxFPRQ7DqUUGAWT6CmqgcuPBcY7r7tfEw",
+          "revoked": false,
+          "signed_by_root_threshold": true,
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2028-07-01T00:00:00Z"
+        },
+        "evaluated_at": "2026-07-17T00:00:00Z",
+        "evaluator_protocol_version": "1.0.0",
+        "operator_manifest": {
+          "capabilities": [
+            "cross_operator_routing"
+          ],
+          "endpoints": {
+            "interop_endpoint": "https://operator-a.example/federation"
+          },
+          "manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "manifest_url": "https://operator-a.example/.well-known/banza/operator-manifest.json",
+          "operator_id": "operator-A",
+          "protocol_version": "1.0.0",
+          "public_keys": [
+            {
+              "algorithm": "ed25519",
+              "key_id": "operator-A-key-1",
+              "public_key": "ed25519:AAAA"
+            }
+          ],
+          "self_publication_statement": "self-published by the operator; not issued or approved by BANZA"
+        },
+        "public_registry_entry": {
+          "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "delegated_key_id": "banza-protocol-metadata-2026-07",
+          "last_verified_at": "2026-07-16T00:00:00Z",
+          "manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "operator_id": "operator-A",
+          "revocation_status": "active",
+          "signed_protocol_metadata_hash": "0aeffee9e135c7f76cfcbf26bac7a1909298442a39cebcdd4bad549329207d9f",
+          "trust_root_version": "2026.07",
+          "verified_by_tool_version": "banza-trust 0.2.0"
+        },
+        "revocation_status": {
+          "fail_closed_required": true,
+          "reason_code": null,
+          "revocation_entry_hash": null,
+          "revocation_list_version": "2026.07-01",
+          "revoked": false,
+          "signed_by_revocation_key": "cTShGvGxHjo_JzLT5AnDSm2mJVrlkA8a5MU4ZXNTS-E"
+        },
+        "signed_protocol_metadata": {
+          "capability_profile_hash": "sha256:capability-profile",
+          "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "conformance_tool_version": "banza-conformance-rs 0.2.0",
+          "evidence_bundle_hash": "sha256:evidence-bundle",
+          "metadata_id": "spm-operator-A-2026-07",
+          "operator_manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "protocol_version": "2.0.0",
+          "registry_snapshot_hash": "sha256:registry-snapshot",
+          "release_id": "banza-protocol-1.0.0",
+          "revocation_list_hash": "sha256:revocation-list",
+          "schema_versions": {
+            "conformance_evidence": "1.0",
+            "operator_manifest": "1.0"
+          },
+          "signature": "h_qUcQYqDskLSIDdQutkEGY5NyV6gvNfKdzzROnmu79Q4O_TGntkpeJLEcZ_D1pZPo80m8HvyZNq8eVr5aI2DQ",
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2027-07-17T00:00:00Z"
+        },
+        "trust_root_metadata": {
+          "active_root_public_keys": [
+            "IjBqxqtbBE9fKz8OHIKfh58W0rLJliv8-7vK9du2Jks",
+            "wtVvdJAlKbL2srYheF-i7EUtnvtTQzewBam2BYucWTY",
+            "NzlClRznHuPwxhqkvQlaOCuc72-FtmtdmnnztfgHIzU"
+          ],
+          "boundary": {
+            "authorises_operators": false,
+            "moves_funds": false
+          },
+          "delegated_signing_keys": [
+            {
+              "allowed_usages": [
+                "signed_protocol_metadata"
+              ],
+              "delegated_key_id": "banza-protocol-metadata-2026-07",
+              "public_key": "pgiynFrNgBbxFPRQ7DqUUGAWT6CmqgcuPBcY7r7tfEw",
+              "revoked": false,
+              "signed_by_root_threshold": true,
+              "valid_from": "2026-07-01T00:00:00Z",
+              "valid_until": "2028-07-01T00:00:00Z"
+            }
+          ],
+          "root_id": "banza-root-2026",
+          "root_signatures": [
+            "kTOS7qRUWM75U7QZeaAtmi0Sg5m0q3d4HA0ULV4AuUU3vPQtc_BeyOT_Pl3GiXhe73layRWsm35iNTM5GvrfAA",
+            "O8Gcl6Bb3FGACSD6TUB-r_0hTUXMdl8Q1ssAzaqOCZhyjvRXUnEgfqeHFJyYtoHVywz10I_mBbbsFLRYZectCA"
+          ],
+          "scope": "signs protocol metadata, releases, delegated keys and revocation lists only",
+          "threshold_policy": {
+            "min_signatures": 2,
+            "total_keyholders": 3
+          },
+          "trust_root_version": "2026.07",
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2028-07-01T00:00:00Z"
+        },
+        "trusted_root_public_keys": [
+          "IjBqxqtbBE9fKz8OHIKfh58W0rLJliv8-7vK9du2Jks",
+          "wtVvdJAlKbL2srYheF-i7EUtnvtTQzewBam2BYucWTY",
+          "NzlClRznHuPwxhqkvQlaOCuc72-FtmtdmnnztfgHIzU"
+        ]
+      },
+      "key": "incompatible_protocol_version",
+      "label": "Versão de protocolo incompatível"
+    },
+    {
+      "expected": "TRUST_INVALID_BOUNDARY",
+      "input": {
+        "conformance_evidence": {
+          "evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "evidence_url": "https://operator-a.example/conformance/evidence",
+          "freshness_policy": "90d",
+          "generated_at": "2026-07-15T00:00:00Z",
+          "result_summary": {
+            "failed": 0,
+            "level": "L3",
+            "passed": 79
+          },
+          "test_suite_version": "federation-1.0",
+          "tool_version": "banza-conformance-rs 0.2.0"
+        },
+        "delegated_signing_key": {
+          "algorithm": "ed25519",
+          "allowed_usages": [
+            "signed_protocol_metadata"
+          ],
+          "delegated_key_id": "banza-protocol-metadata-2026-07",
+          "key_scope": "protocol-metadata",
+          "public_key": "pgiynFrNgBbxFPRQ7DqUUGAWT6CmqgcuPBcY7r7tfEw",
+          "revoked": false,
+          "signed_by_root_threshold": true,
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2028-07-01T00:00:00Z"
+        },
+        "evaluated_at": "2026-07-17T00:00:00Z",
+        "evaluator_protocol_version": "1.0.0",
+        "operator_manifest": {
+          "capabilities": [
+            "cross_operator_routing"
+          ],
+          "endpoints": {
+            "interop_endpoint": "https://operator-a.example/federation"
+          },
+          "manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "manifest_url": "https://operator-a.example/.well-known/banza/operator-manifest.json",
+          "operator_id": "operator-A",
+          "protocol_version": "1.0.0",
+          "public_keys": [
+            {
+              "algorithm": "ed25519",
+              "key_id": "operator-A-key-1",
+              "public_key": "ed25519:AAAA"
+            }
+          ],
+          "self_publication_statement": "self-published by the operator; not issued or approved by BANZA"
+        },
+        "public_registry_entry": {
+          "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "delegated_key_id": "banza-protocol-metadata-2026-07",
+          "last_verified_at": "2026-07-16T00:00:00Z",
+          "manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "operator_id": "operator-A",
+          "revocation_status": "active",
+          "signed_protocol_metadata_hash": "2d6f2b8faf60ca406b7d7870ea5252b160f242fa9cd9e7144fddcded1777e5d2",
+          "trust_root_version": "2026.07",
+          "verified_by_tool_version": "banza-trust 0.2.0"
+        },
+        "revocation_status": {
+          "fail_closed_required": true,
+          "reason_code": null,
+          "revocation_entry_hash": null,
+          "revocation_list_version": "2026.07-01",
+          "revoked": false,
+          "signed_by_revocation_key": "cTShGvGxHjo_JzLT5AnDSm2mJVrlkA8a5MU4ZXNTS-E"
+        },
+        "signed_protocol_metadata": {
+          "capability_profile_hash": "sha256:capability-profile",
+          "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
+          "conformance_tool_version": "banza-conformance-rs 0.2.0",
+          "evidence_bundle_hash": "sha256:evidence-bundle",
+          "is_operator_certificate": true,
+          "metadata_id": "spm-operator-A-2026-07",
+          "operator_manifest_hash": "8a60014eb9c162ccc4b00264f61dbdf8f6065a30a9aa791d5991d743fedfa709",
+          "protocol_version": "1.0.0",
+          "registry_snapshot_hash": "sha256:registry-snapshot",
+          "release_id": "banza-protocol-1.0.0",
+          "revocation_list_hash": "sha256:revocation-list",
+          "schema_versions": {
+            "conformance_evidence": "1.0",
+            "operator_manifest": "1.0"
+          },
+          "signature": "KAdWsO_1NXTo0LjcIXu-Gwf1rCIXoechttJSH_1MqzKdxmzC4GS81DAaftbK401opWSBWt_rIMbdlNqjjU38BQ",
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2027-07-17T00:00:00Z"
+        },
+        "trust_root_metadata": {
+          "active_root_public_keys": [
+            "IjBqxqtbBE9fKz8OHIKfh58W0rLJliv8-7vK9du2Jks",
+            "wtVvdJAlKbL2srYheF-i7EUtnvtTQzewBam2BYucWTY",
+            "NzlClRznHuPwxhqkvQlaOCuc72-FtmtdmnnztfgHIzU"
+          ],
+          "boundary": {
+            "authorises_operators": false,
+            "moves_funds": false
+          },
+          "delegated_signing_keys": [
+            {
+              "allowed_usages": [
+                "signed_protocol_metadata"
+              ],
+              "delegated_key_id": "banza-protocol-metadata-2026-07",
+              "public_key": "pgiynFrNgBbxFPRQ7DqUUGAWT6CmqgcuPBcY7r7tfEw",
+              "revoked": false,
+              "signed_by_root_threshold": true,
+              "valid_from": "2026-07-01T00:00:00Z",
+              "valid_until": "2028-07-01T00:00:00Z"
+            }
+          ],
+          "root_id": "banza-root-2026",
+          "root_signatures": [
+            "kTOS7qRUWM75U7QZeaAtmi0Sg5m0q3d4HA0ULV4AuUU3vPQtc_BeyOT_Pl3GiXhe73layRWsm35iNTM5GvrfAA",
+            "O8Gcl6Bb3FGACSD6TUB-r_0hTUXMdl8Q1ssAzaqOCZhyjvRXUnEgfqeHFJyYtoHVywz10I_mBbbsFLRYZectCA"
+          ],
+          "scope": "signs protocol metadata, releases, delegated keys and revocation lists only",
+          "threshold_policy": {
+            "min_signatures": 2,
+            "total_keyholders": 3
+          },
+          "trust_root_version": "2026.07",
+          "valid_from": "2026-07-01T00:00:00Z",
+          "valid_until": "2028-07-01T00:00:00Z"
+        },
+        "trusted_root_public_keys": [
+          "IjBqxqtbBE9fKz8OHIKfh58W0rLJliv8-7vK9du2Jks",
+          "wtVvdJAlKbL2srYheF-i7EUtnvtTQzewBam2BYucWTY",
+          "NzlClRznHuPwxhqkvQlaOCuc72-FtmtdmnnztfgHIzU"
+        ]
+      },
+      "key": "boundary_fail",
+      "label": "Metadata sugere certificado/aprovação/licença"
+    },
+    {
+      "expected": "TRUST_FAIL_CLOSED",
+      "input": "malformed — not a trust object",
+      "key": "malformed_input",
+      "label": "Input malformado"
+    }
+  ],
+  "canonicalization": "BCJ/1"
+}

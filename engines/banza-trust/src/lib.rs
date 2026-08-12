@@ -11,6 +11,7 @@
 //! certifies or approves an operator, and carries no real key. It verifies TEST-ONLY fixtures. The full
 //! evaluation lives in [`evaluate`]; the deterministic TEST-ONLY signer lives in [`sign`].
 
+pub mod canonical;
 pub mod evaluate;
 pub mod sign;
 pub mod tool;
@@ -53,20 +54,19 @@ impl TrustResult {
 
 // ── Canonicalization (ADR-038) ───────────────────────────────────────────────
 
-/// Canonical bytes: the value minus the excluded keys, serialized with sorted keys and compact
-/// separators. `serde_json`'s Map is a BTreeMap (sorted) and `to_string` is compact, matching
-/// Python `json.dumps(sort_keys=True, separators=(',',':'))` for ASCII payloads.
+/// Canonical bytes under **BANZA Canonical JSON `BCJ/1`** — the normative form defined by
+/// `spec/canonicalization.md` (ADR-082). This function implements that specification; it does not
+/// define it.
+///
+/// Fail-closed: a document that violates the profile (non-integer number, integer outside
+/// ±(2^53−1)) yields EMPTY bytes, which can never produce a valid signature or a meaningful digest.
+/// Callers that must distinguish "invalid" from "empty" use [`canonical::canonicalize`] directly and
+/// handle the `Err`.
 pub fn canonical_bytes(doc: &Value, exclude: &[&str]) -> Vec<u8> {
-    let mut obj = doc.clone();
-    if let Value::Object(map) = &mut obj {
-        for k in exclude {
-            map.remove(*k);
-        }
-    }
-    serde_json::to_string(&obj).unwrap_or_default().into_bytes()
+    canonical::canonicalize(doc, exclude).unwrap_or_default()
 }
 
-/// SHA-256 hex of the canonical form (excluding the given keys).
+/// SHA-256 hex over the `BCJ/1` canonical bytes (`spec/canonicalization.md` §5).
 pub fn canonical_sha256(doc: &Value, exclude: &[&str]) -> String {
     format!("{:x}", Sha256::digest(canonical_bytes(doc, exclude)))
 }
