@@ -110,14 +110,18 @@ certificação certifica uma **implementação** — nunca genericamente uma ent
 marca (ADR-061). Um PASS é um resultado técnico de conformidade; não é autorização financeira e não
 substitui o regulador.
 
-## 5. Camada 3 — Banzami Operational Scheme
+## 5. Camada 3 — Esquemas operacionais independentes
 
-**Definição canónica.** *"A Banzami é a operadora designada do Banzami Operational Scheme, condicionada
-à obtenção do enquadramento regulatório necessário para operações com fundos reais."* (D-059-03)
+**A camada 3 é:** o conjunto das infraestruturas, redes e esquemas operacionais que podem adoptar o BANZA
+e que permanecem sujeitos às suas próprias regras jurídicas, comerciais e regulamentares. A camada é
+**genérica e operator-neutral**: não é definida por nenhum esquema em particular, e o BANZA não exige a
+participação em nenhum deles.
 
-**A camada 3 é:** o primeiro scheme operacional construído sobre o BANZA, promovido, desenhado e
-administrado pela **Banzami — Tecnologia e Serviços, Lda.** como operador designado, condicionado à
-obtenção do enquadramento regulatório aplicável (ADR-060).
+**Primeira instância.** O *Banzami Operational Scheme* é o primeiro esquema construído sobre o BANZA,
+promovido, desenhado e administrado pela **Banzami — Tecnologia e Serviços, Lda.** como operador
+designado, condicionado à obtenção do enquadramento regulatório aplicável (ADR-060, D-059-03). É **uma
+instância da camada 3, não a camada 3** — implementar o BANZA nunca exige aderir a este ou a qualquer
+outro esquema.
 
 **A camada 3 não é:** o protocolo, nem a certificação, nem um enquadramento já obtido. O seu estado
 interno é `REGULATORY_AUTHORIZATION_IN_PROGRESS`; os fundos reais, as carteiras reais, a liquidação real

@@ -453,7 +453,10 @@ makes no claim about integrations that have not been formally decided and docume
 Code, contracts and specifications in this repository are licensed under the **Apache License 2.0** —
 see [`LICENSE`](LICENSE) (standard, unmodified terms) and [`NOTICE`](NOTICE) (copyright and
 attribution). Public documentation is published under **Creative Commons Attribution 4.0 International
-(CC BY 4.0)**. Full policy: [`docs/governance/licensing.md`](docs/governance/licensing.md).
+(CC BY 4.0)**.
+
+The licensing policy is [`docs/governance/licensing.md`](docs/governance/licensing.md), which states the
+terms and their instruments. This README cites that policy; it does not define it.
 
 Nothing in the licensing requires prior authorisation to build an implementation.
 

@@ -461,7 +461,7 @@
       "class": "NORMATIVE_TRUST_RULE",
       "tier": "implementation",
       "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
-      "sha256": "61b4fe9ae5b97b5af0029dcd8e17d86246dd411f221c9510902e1cc02824ecc7",
+      "sha256": "b1dab81d46d13d0acbc78b7765b5111e77b8018d7889c616e3a875c7107687ba",
       "self_declared_status": "production-baseline"
     },
     {
@@ -541,7 +541,7 @@
       "class": "NORMATIVE_TRUST_RULE",
       "tier": "implementation",
       "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
-      "sha256": "33ab372dfb8eb0752501ebde4724945bfaf7e4477c5a3c86e22f9b4fc2c81eaa",
+      "sha256": "31a705a8ee08d4aefc5af7a4f9856daf68dada072c04ef97dccf9044967c0630",
       "self_declared_status": "production-baseline"
     },
     {
@@ -549,7 +549,7 @@
       "class": "NORMATIVE_TRUST_RULE",
       "tier": "implementation",
       "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
-      "sha256": "a47154042ecc5603b1bf8d134bbc97bae07ae4087894a16547c0e1f9cb37f93d",
+      "sha256": "183b240a11f0ad939a02a067efecb38f9f22bd675e3388174beffa73d61dcaab",
       "self_declared_status": "production-baseline"
     },
     {

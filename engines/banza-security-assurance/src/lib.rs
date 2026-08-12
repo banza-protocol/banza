@@ -57,8 +57,23 @@ const REGULATORY_FAIL_FLAGS: &[&str] = &[
 fn str_at<'a>(v: &'a Value, k: &str) -> Option<&'a str> {
     v.get(k).and_then(|x| x.as_str())
 }
+/// Canonical bytes for hashing, in **BANZA Canonical JSON `BCJ/1`** (`spec/canonicalization.md`).
+///
+/// The specification applies `BCJ/1` wherever BANZA computes a signature or a **content digest**.
+/// This helper previously used `serde_json::to_string` — the pre-BCJ/1 behaviour — which made this
+/// crate a second, unpublished definition of the byte form. It now delegates.
+///
+/// Fail-closed: a value `BCJ/1` rejects has no canonical form.
+/// substitute for one, so the caller gets a value that cannot be mistaken for a real digest input.
 fn canon(v: &Value) -> String {
-    serde_json::to_string(v).unwrap_or_default()
+    match banza_trust::canonical_bytes(v, &[]) {
+        Ok(b) => String::from_utf8(b).unwrap_or_default(),
+        // A value BCJ/1 rejects has no canonical form, and this engine must still return a verdict
+        // about it rather than abort. The marker below can never be valid canonical JSON — it opens
+        // with NUL, which canonicalization never emits — so it cannot be mistaken for one, and it
+        // carries the rejection reason so two different rejections never share a digest.
+        Err(e) => format!("\u{0}BCJ/1-REJECTED\u{0}{e}"),
+    }
 }
 fn sha256_hex(s: &str) -> String {
     format!("{:x}", Sha256::digest(s.as_bytes()))

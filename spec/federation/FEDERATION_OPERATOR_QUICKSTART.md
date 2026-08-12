@@ -104,21 +104,20 @@ pip install cryptography>=41.0.0  # for ed25519 signature tests
 
 ### Step 1 — Start the fixture server
 
-The fixture server acts as the "Operator A" adapter in the conformance test infrastructure:
+The federation runner starts the peers itself — `engines/banza-simb` is the local, deterministic,
+in-process operator/federation simulator (no network, no funds, no secrets), so there is no separate
+fixture server to run:
 
 ```bash
-python3 tools/banza-conformance/fixture_server.py --port 8099
+cd engines/banza-conformance
+cargo run --release -- run-fed
 ```
-
-Leave this running in Terminal 1.
 
 ### Step 2 — Run the full suite
 
 ```bash
-python3 tools/banza-conformance/run.py \
-  --federation \
-  --url http://localhost:8099 \
-  --output l3-evidence.json
+cd engines/banza-conformance
+cargo run --release -- run-fed
 ```
 
 If your operator is running at a different URL, replace `http://localhost:8099` with your URL.
@@ -146,10 +145,10 @@ FED-SPM-001–011, ...: ALL PASS
 Run a single suite to isolate failures:
 
 ```bash
-# Run only trust material validation
-python3 tools/banza-conformance/run.py --federation --url http://localhost:8099 --fed-suite cert
+# Execute the committed federation fixtures as vectors
+cargo run --release -- run-fed-fixtures
 
-# Available suite IDs: cert | disc | trust | route | exec | obl | evt | settle | fail
+# Suite IDs covered: cert | disc | trust | route | exec | obl | evt | settle | fail
 ```
 
 Failures print the specific assertion that failed:

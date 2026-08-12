@@ -54,6 +54,12 @@ separation is an architectural invariant, not a presentation choice.**
 | **D-059-06** | **Separation is an invariant.** The three layers are separated in responsibility, infrastructure, databases, schemas, roles, keys, secrets, logs, backups, retention, pipelines, monitoring and permissions; keys are never reused across domains (ADR-063). The protocol layer must remain buildable, governable and verifiable with no knowledge of any scheme. |
 | **D-059-07** | **Neutrality survives the scheme.** BANZA ≠ Banzami and BANZA ≠ the Banzami Operational Scheme. BANZA certification is not exclusive to the Banzami scheme; other legally-eligible entities may adopt the protocol and run independent schemes; an implementation may be certified without being admitted to any scheme; the technical registry does not depend on any scheme's participant directory; public verification requires no scheme account; and the protocol's continuity does not depend on the scheme's commercial continuity (ADR-060). |
 
+> **Nota de terminologia (alinhamento com o Whitepaper v1.0).** O nome canónico da terceira camada é
+> **"Camada 3 — Esquemas operacionais independentes"** / *"Layer 3 — Independent operational schemes"*,
+> conforme o Whitepaper actual. O *Banzami Operational Scheme* registado em D-059-03 é a **primeira
+> instância** dessa camada, não a camada. A decisão arquitectural mantém-se inalterada; apenas o rótulo
+> é operator-neutral, como a neutralidade de operador do protocolo exige.
+
 ## Canonical definitions
 
 - **BANZA (L1):** *"O BANZA é um protocolo financeiro aberto que define regras, contratos, perfis e

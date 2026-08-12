@@ -40,6 +40,7 @@ dependencies = [
 name = "banza-l1-readiness"
 version = "0.1.0"
 dependencies = [
+ "banza-trust",
  "serde",
  "serde_json",
  "sha2",
@@ -49,6 +50,7 @@ dependencies = [
 name = "banza-l2-readiness"
 version = "0.1.0"
 dependencies = [
+ "banza-trust",
  "serde",
  "serde_json",
  "sha2",
@@ -58,6 +60,7 @@ dependencies = [
 name = "banza-l3-readiness"
 version = "0.1.0"
 dependencies = [
+ "banza-trust",
  "serde",
  "serde_json",
  "sha2",
@@ -67,6 +70,7 @@ dependencies = [
 name = "banza-l4-readiness"
 version = "0.1.0"
 dependencies = [
+ "banza-trust",
  "serde",
  "serde_json",
  "sha2",
@@ -76,6 +80,7 @@ dependencies = [
 name = "banza-m2-protocol-gate"
 version = "0.1.0"
 dependencies = [
+ "banza-trust",
  "serde",
  "serde_json",
  "sha2",
@@ -85,6 +90,7 @@ dependencies = [
 name = "banza-open-governance"
 version = "0.1.0"
 dependencies = [
+ "banza-trust",
  "serde",
  "serde_json",
  "sha2",
@@ -94,6 +100,7 @@ dependencies = [
 name = "banza-operator-manifest"
 version = "0.1.0"
 dependencies = [
+ "banza-trust",
  "serde",
  "serde_json",
  "sha2",
@@ -103,6 +110,7 @@ dependencies = [
 name = "banza-reference-trust-model"
 version = "0.1.0"
 dependencies = [
+ "banza-trust",
  "serde",
  "serde_json",
  "sha2",
@@ -124,6 +132,7 @@ dependencies = [
 name = "banza-security-assurance"
 version = "0.1.0"
 dependencies = [
+ "banza-trust",
  "serde",
  "serde_json",
  "sha2",

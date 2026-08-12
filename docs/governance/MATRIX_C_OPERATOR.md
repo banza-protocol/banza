@@ -200,7 +200,7 @@ Any operator targeting a given level must pass all vectors for that level and al
 
 | Level | Required vectors | Runner |
 |-------|----------------|--------|
-| L0 | Sandbox health + valid `simulated=true` manifest | `tools/banza-conformance/run.py --level 0` |
+| L0 | Sandbox health + valid `simulated=true` manifest | `banza-conformance-rs run-live` |
 | L1 | L0 + wallets, transfers, double-entry ledger, traceability | `run.py --level 1` |
 | L2 | L1 + payment requests, dynamic QR, instant execution | `run.py --level 2` |
 | L3 | L2 + all FED-* suites | `run.py --federation` (`run_fed.py`) |

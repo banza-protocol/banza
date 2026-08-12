@@ -43,7 +43,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "5ffbd021af701110"
+        "checksum": "8efb500450b99c31"
       },
       {
         "id": "governance-md",
@@ -98,7 +98,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "17da4809b077ab50"
+        "checksum": "fd9f1855dc92c5c5"
       },
       {
         "id": "security-md",
@@ -1319,7 +1319,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "bec1eca40a18390c"
+        "checksum": "b10d6797fe6c4702"
       },
       {
         "id": "contracts-production-operation-receipt-production-schema-json",
@@ -1440,7 +1440,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "61b4fe9ae5b97b5a"
+        "checksum": "b1dab81d46d13d0a"
       },
       {
         "id": "contracts-production-root-backup-declaration-production-schema-json",
@@ -1550,7 +1550,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "33ab372dfb8eb075"
+        "checksum": "31a705a8ee08d4ae"
       },
       {
         "id": "contracts-production-trust-root-metadata-production-schema-json",
@@ -1561,7 +1561,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "a47154042ecc5603"
+        "checksum": "183b240a11f0ad93"
       },
       {
         "id": "contracts-production-validation-journey-state-machine-production-json",
@@ -1913,7 +1913,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "0cac7a92bc514e37"
+        "checksum": "1fbb282997e406e6"
       },
       {
         "id": "decisions-adr-adr-023-transaction-proof-standard-md",
@@ -2287,7 +2287,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "5e7cd28940c647a8"
+        "checksum": "30f37f892f4bb2fd"
       },
       {
         "id": "decisions-adr-adr-060-banzami-operational-scheme-md",
@@ -2991,7 +2991,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "2372891d4851780c"
+        "checksum": "ba5f4c4842610d3d"
       },
       {
         "id": "docs-governance-banza-trust-architecture-md",
@@ -3013,7 +3013,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "528a9f40162e589d"
+        "checksum": "322c0e884a10c801"
       },
       {
         "id": "docs-governance-claude-base-md",
@@ -3233,7 +3233,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "cff67039c6d5f44e"
+        "checksum": "359b7305f25b9755"
       },
       {
         "id": "docs-governance-m2-5-public-surface-audit-md",
@@ -3409,7 +3409,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "f12633da76cd1806"
+        "checksum": "f924b06e3a7ac07d"
       },
       {
         "id": "docs-governance-matrix-c-operator-md",
@@ -3420,7 +3420,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "0c2a9e8499fc77b8"
+        "checksum": "325c687cb826cff8"
       },
       {
         "id": "docs-governance-open-protocol-architecture-md",
@@ -3442,7 +3442,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "f95b78eeea674c9c"
+        "checksum": "7831da7cd82d707a"
       },
       {
         "id": "docs-governance-operator-manifest-validation-md",
@@ -4366,7 +4366,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "16a3ca243892f2b7"
+        "checksum": "88396c48f31fb3ea"
       },
       {
         "id": "docs-governance-public-protocol-docs-consistency-matrix-2026-07-md",
@@ -4509,7 +4509,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "896fd0fa1673e372"
+        "checksum": "fab3ca02c64651be"
       },
       {
         "id": "docs-governance-licensing-md",
@@ -4520,7 +4520,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "929a1fb058479363"
+        "checksum": "df397fe2587094c6"
       },
       {
         "id": "docs-governance-roadmap-md",
@@ -5191,7 +5191,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "2536786c9f9056bd"
+        "checksum": "7b8e854a8e6b580e"
       },
       {
         "id": "spec-federation-federation-contract-surface-md",
@@ -5257,7 +5257,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "aa2bfa2df0aad770"
+        "checksum": "093bdc2f88386726"
       },
       {
         "id": "spec-federation-federation-protocol-flow-md",
@@ -5443,7 +5443,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "f23845115a84c07c"
+    "checksum": "f687f57b2fb66df9"
   },
   "subjects": [
     {
@@ -8798,5 +8798,5 @@
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "0bd2c8d1d1543bec"
+  "checksum": "0762c410945f0b7c"
 }
