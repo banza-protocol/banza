@@ -5,31 +5,31 @@
     "principle": "The vocabulary is a semantic registry of real protocol terms derived from the engine's own registries + closed protocol sets; corpus terms are candidates (Phase 1), lexical noise never enters here."
   },
   "source_registry": {
-    "total": 490,
+    "total": 493,
     "by_type": {
       "root-doc": 9,
-      "conformance": 59,
+      "conformance": 60,
       "contract": 28,
       "schema": 51,
       "openapi": 7,
-      "adr": 80,
+      "adr": 81,
       "rfc": 7,
       "doc": 172,
       "example": 48,
-      "spec": 29
+      "spec": 30
     },
     "by_status": {
-      "current": 490
+      "current": 493
     },
     "by_authority_class": {
-      "current": 442,
+      "current": 445,
       "illustrative": 48
     },
     "by_language": {
-      "pt-or-neutral": 490
+      "pt-or-neutral": 493
     },
     "by_origin": {
-      "authored": 490,
+      "authored": 493,
       "generated": 0
     },
     "duplicates": [],
@@ -728,6 +728,17 @@
         "checksum": "7750406cb8351245"
       },
       {
+        "id": "conformance-vectors-trust-freshness-json",
+        "path": "conformance/vectors/trust-freshness.json",
+        "type": "conformance",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "e532340f3e04d269"
+      },
+      {
         "id": "conformance-vectors-trust-signing-json",
         "path": "conformance/vectors/trust-signing.json",
         "type": "conformance",
@@ -769,7 +780,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "deefbf440396eff1"
+        "checksum": "1a4d6733d012c499"
       },
       {
         "id": "contracts-collections-collection-share-schema-json",
@@ -780,7 +791,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "7bc7e72600211ce0"
+        "checksum": "f705532bb15ce7d1"
       },
       {
         "id": "contracts-collections-collection-schema-json",
@@ -791,7 +802,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "26a2b1f773c24c52"
+        "checksum": "382e13b5e9ddfbcc"
       },
       {
         "id": "contracts-collections-state-machine-json",
@@ -835,7 +846,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "3d493740ec39ca13"
+        "checksum": "71c130786c52b54d"
       },
       {
         "id": "contracts-events-webhook-types-json",
@@ -846,7 +857,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "730d9a61b0f40ad1"
+        "checksum": "54e86107e7361b5a"
       },
       {
         "id": "contracts-federation-federation-event-json",
@@ -868,7 +879,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "1c97bb134cf5bb44"
+        "checksum": "50a4983630968a5e"
       },
       {
         "id": "contracts-federation-federation-obligation-json",
@@ -879,7 +890,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "c6efde814cce1319"
+        "checksum": "295e67b3dcb38e75"
       },
       {
         "id": "contracts-federation-federation-routing-json",
@@ -890,7 +901,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "9a13ede9caae498e"
+        "checksum": "69ccb33d85814852"
       },
       {
         "id": "contracts-federation-federation-trust-json",
@@ -956,7 +967,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "818fc57d7f0fe17f"
+        "checksum": "483bb7b55c9dc77c"
       },
       {
         "id": "contracts-fees-pricing-profile-schema-json",
@@ -1066,7 +1077,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "398681b9f8a0f5f6"
+        "checksum": "4593537d47f9bae1"
       },
       {
         "id": "contracts-payment-sessions-payment-session-interface-schema-json",
@@ -1088,7 +1099,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "9d875f1372da1d91"
+        "checksum": "73d70e3d7ba57d7b"
       },
       {
         "id": "contracts-production-readme-md",
@@ -1121,7 +1132,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "13bfabcdb8eea3fd"
+        "checksum": "d5eb3c395843c997"
       },
       {
         "id": "contracts-production-certification-profile-production-schema-json",
@@ -1132,7 +1143,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "a0ecfe9f9e69b95e"
+        "checksum": "43e4d2423968fac4"
       },
       {
         "id": "contracts-production-certification-record-production-schema-json",
@@ -1143,7 +1154,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "904f243d824c8684"
+        "checksum": "c8957fea8fcd70a1"
       },
       {
         "id": "contracts-production-certified-implementation-production-schema-json",
@@ -1176,7 +1187,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "40b6ecfe5ac70b36"
+        "checksum": "65448eeece9c6220"
       },
       {
         "id": "contracts-production-delegated-signing-key-production-schema-json",
@@ -1297,7 +1308,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "7e3812b9cf8f5d02"
+        "checksum": "932ceb31751401e4"
       },
       {
         "id": "contracts-production-key-manifest-production-schema-json",
@@ -1319,7 +1330,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "b10d6797fe6c4702"
+        "checksum": "738a44a27378c90b"
       },
       {
         "id": "contracts-production-operation-receipt-production-schema-json",
@@ -1330,7 +1341,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "2f0e653adb6d3eed"
+        "checksum": "afdd3328cf87b9f4"
       },
       {
         "id": "contracts-production-operator-manifest-production-schema-json",
@@ -1374,7 +1385,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "9dcb910b330c9e54"
+        "checksum": "5d54b2154ace0546"
       },
       {
         "id": "contracts-production-protocol-release-production-schema-json",
@@ -1418,7 +1429,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "922a98d19239a659"
+        "checksum": "e03f9698c50a89c6"
       },
       {
         "id": "contracts-production-regulatory-state-production-schema-json",
@@ -1506,7 +1517,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "d12f189ca4c10789"
+        "checksum": "887747a867b4b36c"
       },
       {
         "id": "contracts-production-root-recovery-test-production-schema-json",
@@ -1528,7 +1539,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "e476bd42d746f317"
+        "checksum": "066eb7d88b3b1303"
       },
       {
         "id": "contracts-production-root-signature-production-schema-json",
@@ -1561,7 +1572,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "183b240a11f0ad93"
+        "checksum": "a82d70be2e3c78fb"
       },
       {
         "id": "contracts-production-validation-journey-state-machine-production-json",
@@ -1583,7 +1594,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "b19ee9fcdf596b17"
+        "checksum": "f4efed93fde92d48"
       },
       {
         "id": "contracts-proofs-verification-response-schema-json",
@@ -1594,7 +1605,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "010314db93444257"
+        "checksum": "c72fe02239d8644a"
       },
       {
         "id": "contracts-qr-readme-md",
@@ -1627,7 +1638,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "2d3801c8fa225ae8"
+        "checksum": "79fdb580308bd72a"
       },
       {
         "id": "contracts-settlements-application-settlement-schema-json",
@@ -1638,7 +1649,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "6c88d9deb542aa5a"
+        "checksum": "4ca319905f54b21b"
       },
       {
         "id": "contracts-settlements-state-machine-json",
@@ -1660,7 +1671,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "9df7a97b40c78f06"
+        "checksum": "609423d2e78dd1dd"
       },
       {
         "id": "contracts-webhooks-readme-md",
@@ -1693,7 +1704,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "6d473d50fc9e324e"
+        "checksum": "b27f60daeaefc726"
       },
       {
         "id": "decisions-adr-adr-001-open-financial-protocol-md",
@@ -2565,6 +2576,17 @@
         "checksum": "87cce1347d532c18"
       },
       {
+        "id": "decisions-adr-adr-085-trust-material-anti-rollback-md",
+        "path": "decisions/adr/ADR-085-trust-material-anti-rollback.md",
+        "type": "adr",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "f02f71305d2b8c54"
+      },
+      {
         "id": "decisions-adr-readme-md",
         "path": "decisions/adr/README.md",
         "type": "adr",
@@ -2573,7 +2595,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "7babda2919843be6"
+        "checksum": "79e2234dfbb9a86f"
       },
       {
         "id": "decisions-rfc-readme-md",
@@ -5414,6 +5436,17 @@
         "checksum": "f73215c8d1a704cb"
       },
       {
+        "id": "spec-trust-freshness-md",
+        "path": "spec/trust-freshness.md",
+        "type": "spec",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "f4257b351f262668"
+      },
+      {
         "id": "spec-validation-journey-md",
         "path": "spec/validation-journey.md",
         "type": "spec",
@@ -5443,7 +5476,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "5558b7a3ad425e39"
+    "checksum": "a917ad7fe2967bb3"
   },
   "subjects": [
     {
@@ -6449,6 +6482,12 @@
     {
       "id": "ADR-084",
       "path": "decisions/adr/ADR-084-idempotency-semantics.md",
+      "status": "current",
+      "classification": "DOCUMENT_INSTANCE"
+    },
+    {
+      "id": "ADR-085",
+      "path": "decisions/adr/ADR-085-trust-material-anti-rollback.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
@@ -8786,7 +8825,7 @@
   "counts": {
     "subjects": 21,
     "document_types": 12,
-    "document_instances": 85,
+    "document_instances": 86,
     "artifact_types": 18,
     "aliases": 262,
     "relation_kinds": 11,
@@ -8798,5 +8837,5 @@
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "bf9851f6305aaf71"
+  "checksum": "0ab59f62abe4f81d"
 }

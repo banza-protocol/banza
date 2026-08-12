@@ -15,6 +15,7 @@
 pub mod canonical;
 pub mod evaluate;
 pub mod execution;
+pub mod freshness;
 pub mod sign;
 pub mod tool;
 

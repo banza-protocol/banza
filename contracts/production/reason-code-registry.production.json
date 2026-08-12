@@ -212,6 +212,10 @@
         {
           "code": "body_decode_error",
           "meaning": "Response body was not valid UTF-8."
+        },
+        {
+          "code": "trust_version_rollback",
+          "meaning": "A trust artifact was offered whose ordering value is lower than the highest value already accepted for the same object and authority. The artifact may be correctly signed and still within its validity window; it is refused because accepting it would move the verifier backwards to superseded state (spec/trust-freshness.md §3)."
         }
       ]
     },

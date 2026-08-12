@@ -123,6 +123,12 @@ add('contracts/production/reason-code-registry.production.json', 'NORMATIVE_REGI
     'banza-reason-codes/1 — the machine-readable vocabularies those rules govern.')
 add('conformance/vectors/reason-codes.json', 'CONFORMANCE_VECTOR', CONF,
     'Vectors for the reason-code rules, derived from the specification.')
+add('spec/trust-freshness.md', 'NORMATIVE_SPECIFICATION', IMPL,
+    'Trust-material freshness and anti-rollback: monotonic acceptance per object and authority, with '
+    'an explicit statement of what the rule does NOT provide (first-observation staleness, global '
+    'equivocation, suppression, availability).')
+add('conformance/vectors/trust-freshness.json', 'CONFORMANCE_VECTOR', CONF,
+    'Vectors for the anti-rollback rule, including restart and concurrency.')
 add('spec/idempotency.md', 'NORMATIVE_SPECIFICATION', IMPL,
     'Idempotency: key scope, request identity as a BCJ/1 digest, retry and conflict semantics, '
     'retention floor and declaration, concurrency.')

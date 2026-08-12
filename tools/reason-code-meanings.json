@@ -144,5 +144,12 @@
     "_source_of_truth": "This registry, together with spec/reason-codes.md.",
     "protocol_version": "1.0.0",
     "normative_keywords": "BCP 14 (RFC 2119 + RFC 8174)."
+  },
+  "extra_core_codes": {
+    "trust_version_rollback": {
+      "meaning": "A trust artifact was offered whose ordering value is lower than the highest value already accepted for the same object and authority. The artifact may be correctly signed and still within its validity window; it is refused because accepting it would move the verifier backwards to superseded state (spec/trust-freshness.md §3).",
+      "vocabulary": "fetch_reason_codes",
+      "scope": "PROTOCOL NORMATIVE"
+    }
   }
 }

@@ -15,8 +15,8 @@
     "informative": "Published and stable, but imposes no conformance obligation. Listed so that the question 'is this normative?' has a published answer."
   },
   "tier_counts": {
-    "implementation": 85,
-    "conformance": 53,
+    "implementation": 86,
+    "conformance": 54,
     "legal": 3,
     "informative": 2
   },
@@ -39,7 +39,7 @@
     "evidence/**, artifacts/** - evidence about the reference implementation",
     "tools/** - build, guard and derivation tooling"
   ],
-  "artifact_count": 143,
+  "artifact_count": 145,
   "artifacts": [
     {
       "path": "conformance/capabilities/schema.json",
@@ -445,7 +445,7 @@
       "class": "NORMATIVE_REGISTRY",
       "tier": "implementation",
       "role": "banza-reason-codes/1 — the machine-readable vocabularies those rules govern.",
-      "sha256": "922a98d19239a659dc511f8966627efcda5a0e22604162e0dc2bb57c354aca8c",
+      "sha256": "e03f9698c50a89c66f2fe243d3ad2765af98688fdde556b3c6faaaf1a01c7fa6",
       "self_declared_status": "canonical"
     },
     {
@@ -693,6 +693,13 @@
       "tier": "implementation",
       "role": "Reason-code rules: five separate vocabularies, status decides and code explains, the reserved extension namespace, unknown-code handling, and the definition of semantic equivalence.",
       "sha256": "6391ca8dbca6d906c48614d768017b75dc46a8c7333d8fb94579865464931c47"
+    },
+    {
+      "path": "spec/trust-freshness.md",
+      "class": "NORMATIVE_SPECIFICATION",
+      "tier": "implementation",
+      "role": "Trust-material freshness and anti-rollback: monotonic acceptance per object and authority, with an explicit statement of what the rule does NOT provide (first-observation staleness, global equivocation, suppression, availability).",
+      "sha256": "f4257b351f262668604381bc3b91c6c8573139e8e005174a5986c4d96ffcb18a"
     },
     {
       "path": "spec/validation-journey.md",
@@ -1053,6 +1060,14 @@
       "tier": "conformance",
       "role": "Domain conformance vectors.",
       "sha256": "7750406cb8351245b010ca2971b2808b8cde0cf22f2fa7db5931984102186aa5"
+    },
+    {
+      "path": "conformance/vectors/trust-freshness.json",
+      "class": "CONFORMANCE_VECTOR",
+      "tier": "conformance",
+      "role": "Vectors for the anti-rollback rule, including restart and concurrency.",
+      "sha256": "e532340f3e04d269aea070496ab06d723c8e0d2083ff9c5a76da9be1c6a409be",
+      "self_declared_status": "canonical"
     },
     {
       "path": "conformance/vectors/trust-signing.json",

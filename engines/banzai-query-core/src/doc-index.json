@@ -12771,5 +12771,177 @@
     "example_flag": false,
     "normative_flag": true,
     "operator_facing_flag": true
+  },
+  {
+    "path": "decisions/adr/ADR-085-trust-material-anti-rollback.md",
+    "title": "ADR-085 — Anti-rollback for versioned trust material",
+    "section": "Introdução",
+    "anchor": "introduo",
+    "source_type": "adr",
+    "tags": [
+      "trust"
+    ],
+    "lang": "pt",
+    "hash": "7197b204489d8bff",
+    "chunk": "# ADR-085 — Anti-rollback for versioned trust material - **Status:** Accepted - **Date:** 2026-08 - **Relates:** ADR-038 (trust model), ADR-079 (Model A signing), ADR-083 (reason codes), ADR-081 (versioning) - **Normative specification:** [`spec/trust-freshness.md`](../../spec/trust-freshness.md)",
+    "schema_flag": false,
+    "example_flag": false,
+    "normative_flag": true,
+    "operator_facing_flag": false
+  },
+  {
+    "path": "decisions/adr/ADR-085-trust-material-anti-rollback.md",
+    "title": "ADR-085 — Anti-rollback for versioned trust material",
+    "section": "Context",
+    "anchor": "context",
+    "source_type": "adr",
+    "tags": [
+      "trust",
+      "manifest"
+    ],
+    "lang": "en",
+    "hash": "a4c6d199c716106b",
+    "chunk": "The trust-availability audit measured the published surface against twenty questions. Most were already answered normatively: manifests are cacheable with a stated TTL, the BRL has a six-hour staleness bound, expired material is untrusted, and evaluation fails closed on missing or stale material. Tw",
+    "schema_flag": false,
+    "example_flag": false,
+    "normative_flag": true,
+    "operator_facing_flag": true
+  },
+  {
+    "path": "decisions/adr/ADR-085-trust-material-anti-rollback.md",
+    "title": "ADR-085 — Anti-rollback for versioned trust material",
+    "section": "Decision",
+    "anchor": "decision",
+    "source_type": "adr",
+    "tags": [
+      "trust"
+    ],
+    "lang": "pt",
+    "hash": "240bdf73abbd917e",
+    "chunk": "**Adopt monotonic anti-rollback. Do not adopt Certificate Transparency. Do not add mirrors.**",
+    "schema_flag": false,
+    "example_flag": false,
+    "normative_flag": true,
+    "operator_facing_flag": false
+  },
+  {
+    "path": "decisions/adr/ADR-085-trust-material-anti-rollback.md",
+    "title": "ADR-085 — Anti-rollback for versioned trust material",
+    "section": "D-085-01 · Acceptance is monotonic per object and authority",
+    "anchor": "d-085-01-acceptance-is-monotonic-per-object-and-authority",
+    "source_type": "adr",
+    "tags": [
+      "trust"
+    ],
+    "lang": "en",
+    "hash": "92b004c0fccde808",
+    "chunk": "A verifier maintains the highest accepted ordering value per `(artifact_type, authority_identity)` and rejects any artifact whose ordering value is lower, fail-closed, with `trust_version_rollback`. Equal is accepted — re-fetching the current artifact is normal.",
+    "schema_flag": false,
+    "example_flag": false,
+    "normative_flag": true,
+    "operator_facing_flag": false
+  },
+  {
+    "path": "decisions/adr/ADR-085-trust-material-anti-rollback.md",
+    "title": "ADR-085 — Anti-rollback for versioned trust material",
+    "section": "D-085-02 · Order on members the artifacts already declare",
+    "anchor": "d-085-02-order-on-members-the-artifacts-already-declare",
+    "source_type": "adr",
+    "tags": [
+      "trust",
+      "manifest"
+    ],
+    "lang": "en",
+    "hash": "09acc9752d6a9599",
+    "chunk": "`issued_at` for the BRL and for signed protocol metadata; `not_before` for the Key Manifest. Each is already REQUIRED by its contract, already means \"when this version came into force\", and is already inside the signed bytes, so it cannot be altered without invalidating the signature. **No wire form",
+    "schema_flag": false,
+    "example_flag": false,
+    "normative_flag": true,
+    "operator_facing_flag": true
+  },
+  {
+    "path": "spec/trust-freshness.md",
+    "title": "BANZA Trust Material Freshness and Anti-Rollback — Normative Specification",
+    "section": "Introdução",
+    "anchor": "introduo",
+    "source_type": "spec",
+    "tags": [
+      "trust"
+    ],
+    "lang": "en",
+    "hash": "883cbc19a4228a53",
+    "chunk": "# BANZA Trust Material Freshness and Anti-Rollback — Normative Specification - **Status:** Normative - **Protocol version:** BANZA 1.0.0 - **Authority:** [ADR-085](../decisions/adr/ADR-085-trust-material-anti-rollback.md); extends ADR-038 and ADR-079, which are unchanged - **Test vectors:** [`confor",
+    "schema_flag": false,
+    "example_flag": false,
+    "normative_flag": true,
+    "operator_facing_flag": false
+  },
+  {
+    "path": "spec/trust-freshness.md",
+    "title": "BANZA Trust Material Freshness and Anti-Rollback — Normative Specification",
+    "section": "1. What this specification does and does not provide",
+    "anchor": "1-what-this-specification-does-and-does-not-provide",
+    "source_type": "spec",
+    "tags": [
+      "trust"
+    ],
+    "lang": "en",
+    "hash": "1666e5111745ebc0",
+    "chunk": "This is the most important section, and it is first on purpose. Anti-rollback is a **stateful local defence**. It is not transparency, and it must not be described as such. **Provided.** A verifier that has already accepted a given version of a trust object will not later accept an older one for the",
+    "schema_flag": false,
+    "example_flag": false,
+    "normative_flag": true,
+    "operator_facing_flag": false
+  },
+  {
+    "path": "spec/trust-freshness.md",
+    "title": "BANZA Trust Material Freshness and Anti-Rollback — Normative Specification",
+    "section": "2. Scope of the rule",
+    "anchor": "2-scope-of-the-rule",
+    "source_type": "spec",
+    "tags": [
+      "trust"
+    ],
+    "lang": "en",
+    "hash": "6646b7ab5bdd3bb2",
+    "chunk": "The rule applies to a trust object's **acceptance for use in an evaluation**, per logical object, per authority. It is not a global `max()` across unrelated artifacts. The **monotonic key** is: ``` (artifact_type, authority_identity) ``` where `authority_identity` is the identity the artifact itself",
+    "schema_flag": false,
+    "example_flag": true,
+    "normative_flag": true,
+    "operator_facing_flag": false
+  },
+  {
+    "path": "spec/trust-freshness.md",
+    "title": "BANZA Trust Material Freshness and Anti-Rollback — Normative Specification",
+    "section": "3. The rule",
+    "anchor": "3-the-rule",
+    "source_type": "spec",
+    "tags": [
+      "trust"
+    ],
+    "lang": "en",
+    "hash": "fd751a17f7ec9545",
+    "chunk": "A verifier MUST maintain, for each monotonic key it has observed, the **highest accepted ordering value** — the *high-water mark*. A trust artifact is **accepted** only after it has been obtained from a valid origin, verified cryptographically, found within its validity window, and passed every othe",
+    "schema_flag": false,
+    "example_flag": false,
+    "normative_flag": true,
+    "operator_facing_flag": false
+  },
+  {
+    "path": "spec/trust-freshness.md",
+    "title": "BANZA Trust Material Freshness and Anti-Rollback — Normative Specification",
+    "section": "4. Persistence",
+    "anchor": "4-persistence",
+    "source_type": "spec",
+    "tags": [
+      "trust"
+    ],
+    "lang": "en",
+    "hash": "d2ab1160684aa3dc",
+    "chunk": "The high-water mark **MUST survive process restart**. An implementation that keeps it only in process memory is not conformant: restarting is the cheapest way for an attacker to clear the defence. This specification defines observable behaviour, not storage. Any mechanism that preserves the mark acr",
+    "schema_flag": false,
+    "example_flag": false,
+    "normative_flag": true,
+    "operator_facing_flag": false
   }
 ]

@@ -168,7 +168,7 @@ pub fn purity() -> GateResult {
             }
         }
     }
-    // ADR numbering 1..=84 (gaps at 004/022/026/027/032 are intentional — removed per ADR-057
+    // ADR numbering 1..=85 (gaps at 004/022/026/027/032 are intentional — removed per ADR-057
     // clean-slate policy; numbers are stable identifiers, survivors are never renumbered). ADR-075 =
     // BanzAI Monorepo Consolidation and Separate Repository Archive (M2.19G.6); ADR-076 = BanzAI
     // validation-journey consolidation, single technical-state authority, durable append-only receipts;
@@ -189,8 +189,8 @@ pub fn purity() -> GateResult {
             .and_then(|s| s.split('-').next())
             .and_then(|s| s.parse::<u32>().ok())
         {
-            if !(1..=84).contains(&num) {
-                failures.push(format!("ADR outside canonical 001..084: {f}"));
+            if !(1..=85).contains(&num) {
+                failures.push(format!("ADR outside canonical 001..085: {f}"));
             }
         }
     }
