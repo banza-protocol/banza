@@ -333,8 +333,12 @@ end to end. It is a demonstration target with no privileged path, and it is not 
 
 ## BanzAI
 
-BanzAI is optional human-facing assistance for navigating the documentation and explaining technical
-results. It is **not part of the normative implementation path and does not determine conformance.**
+BanzAI is the **primary human-operator interface** to BANZA (ADR-054): optional assistance for
+navigating the documentation and understanding technical results.
+
+Primary *for humans* is not the same as required. BanzAI is **not part of the normative implementation
+path and does not determine conformance.** It is not a normative source, and it does not certify,
+approve or license anything.
 
 | BanzAI does | BanzAI does not |
 |---|---|
@@ -408,6 +412,12 @@ changes for open comment; accepted decisions are recorded as **ADRs**
 
 The process is public and open to participation. Maintainer responsibilities and how decisions are taken
 are defined in [`GOVERNANCE.md`](GOVERNANCE.md); this repository does not claim decentralised governance.
+
+**Origin.** BANZA was created on **01/08/2025** (1 de agosto de 2025) by **BANZAMI — TECNOLOGIA E
+SERVIÇOS, LDA.**, its original creator and initial institutional maintainer. That date records the
+protocol's creation and initial availability — not a production, certification or authorisation date —
+and the creator holds no operational authority over implementations. See [`NOTICE`](NOTICE) and
+[`MAINTAINERS.md`](MAINTAINERS.md).
 
 The current protocol version is **BANZA 1.0.0**. Compatibility and breaking-change policy are declared in
 [`protocol-version.json`](contracts/production/protocol-version.json). Canonicalization carries its own

@@ -1,5 +1,5 @@
 {
-  "total": 5996,
+  "total": 6021,
   "rows": [
     {
       "raw_text": "Contributing to BANZA",
@@ -173,11 +173,10 @@
       "normalized": "financial invariants",
       "sources": [
         "contributing-md",
-        "readme-md",
         "docs-governance-matrix-a-banza-md",
         "spec-invariants-md"
       ],
-      "frequency": 4,
+      "frequency": 3,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -226,7 +225,7 @@
         "decisions-adr-adr-020-wallet-accounts-segregated-accounts-md",
         "decisions-adr-adr-077-profile-applicability-model-md"
       ],
-      "frequency": 6,
+      "frequency": 5,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -253,10 +252,11 @@
       "normalized": "documentation",
       "sources": [
         "contributing-md",
+        "readme-md",
         "docs-governance-phase-m2-6-governance-docs-final-sweep-2026-07-md",
         "docs-governance-licensing-md"
       ],
-      "frequency": 3,
+      "frequency": 4,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -269,7 +269,7 @@
         "readme-md",
         "docs-governance-phase-7n-full-protocol-corpus-review-2026-07-md"
       ],
-      "frequency": 4,
+      "frequency": 3,
       "phrase_length": 1,
       "accepted": true,
       "rejection_reason": "",
@@ -324,7 +324,6 @@
       "normalized": "rust",
       "sources": [
         "contributing-md",
-        "readme-md",
         "decisions-adr-adr-061-certification-admission-authorisation-separation-md",
         "docs-banzai-knowledge-index-md",
         "docs-banzai-local-inference-runtime-md",
@@ -342,7 +341,7 @@
         "docs-governance-phase-r3-banzai-api-knowledge-rust-migration-2026-07-md",
         "docs-governance-phase-r7-r8-r9-final-rust-closure-2026-07-md"
       ],
-      "frequency": 22,
+      "frequency": 20,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -442,7 +441,7 @@
         "spec-federation-federation-trust-model-md",
         "spec-idempotency-md"
       ],
-      "frequency": 189,
+      "frequency": 188,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -475,12 +474,13 @@
       "normalized": "idempotency",
       "sources": [
         "contributing-md",
+        "readme-md",
         "decisions-adr-adr-011-idempotency-and-rate-limiting-md",
         "decisions-adr-adr-017-wallet-native-payment-refund-source-model-md",
         "docs-governance-l2-readiness-md",
         "spec-disputes-md"
       ],
-      "frequency": 5,
+      "frequency": 6,
       "phrase_length": 1,
       "accepted": true,
       "rejection_reason": "",
@@ -662,11 +662,10 @@
       "sources": [
         "governance-md",
         "maintainers-md",
-        "readme-md",
         "decisions-adr-adr-043-license-notice-trademark-open-governance-attribution-md",
         "docs-governance-m2-7m-license-notice-trademark-governance-audit-md"
       ],
-      "frequency": 5,
+      "frequency": 4,
       "phrase_length": 6,
       "accepted": true,
       "rejection_reason": "",
@@ -816,46 +815,18 @@
       "classification": "SUBJECT"
     },
     {
-      "raw_text": "Overview",
-      "normalized": "overview",
-      "sources": [
-        "readme-md",
-        "docs-governance-readme-md",
-        "docs-governance-certification-boundary-md",
-        "spec-federation-federation-contract-surface-md",
-        "spec-federation-federation-failure-scenarios-md",
-        "spec-federation-federation-protocol-flow-md",
-        "spec-federation-federation-runner-design-md"
-      ],
-      "frequency": 7,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "The three institutional layers",
-      "normalized": "the three institutional layers",
+      "raw_text": "Current status",
+      "normalized": "current status",
       "sources": [
         "readme-md"
       ],
       "frequency": 1,
-      "phrase_length": 4,
+      "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "The Protocol Test",
-      "normalized": "the protocol test",
-      "sources": [
-        "readme-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Why BANZA Exists",
+      "raw_text": "Why BANZA exists",
       "normalized": "why banza exists",
       "sources": [
         "readme-md"
@@ -867,8 +838,8 @@
       "classification": "SUBJECT"
     },
     {
-      "raw_text": "The Four Roles",
-      "normalized": "the four roles",
+      "raw_text": "The core idea",
+      "normalized": "the core idea",
       "sources": [
         "readme-md"
       ],
@@ -878,277 +849,176 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "Conformance Levels",
-      "normalized": "conformance levels",
+      "raw_text": "Architecture",
+      "normalized": "architecture",
       "sources": [
         "readme-md",
-        "decisions-adr-adr-038-open-protocol-trust-model-without-ca-md"
+        "decisions-adr-adr-006-double-entry-ledger-md"
       ],
       "frequency": 2,
-      "phrase_length": 2,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "Federation — Open Trust Evaluation",
-      "normalized": "federation open trust evaluation",
+      "raw_text": "Five architectural invariants",
+      "normalized": "five architectural invariants",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "What BANZA defines",
+      "normalized": "what banza defines",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "RELATION_ALIAS"
+    },
+    {
+      "raw_text": "What BANZA does not define",
+      "normalized": "what banza does not define",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "RELATION_ALIAS"
+    },
+    {
+      "raw_text": "The normative surface",
+      "normalized": "the normative surface",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "The Normative Manifest",
+      "normalized": "the normative manifest",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "ARTIFACT_TYPE"
+    },
+    {
+      "raw_text": "BANZA Canonical JSON (BCJ/1)",
+      "normalized": "banza canonical json bcj/1",
       "sources": [
         "readme-md"
       ],
       "frequency": 1,
       "phrase_length": 4,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Trust Model",
-      "normalized": "trust model",
-      "sources": [
-        "readme-md",
-        "docs-governance-m2-production-protocol-implementation-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 2,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Technology Neutrality",
-      "normalized": "technology neutrality",
-      "sources": [
-        "readme-md",
-        "spec-readme-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "BanzAI — the Native Protocol Agent",
-      "normalized": "banzai the native protocol agent",
-      "sources": [
-        "readme-md",
-        "docs-banzai-banzai-protocol-agent-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Repository Structure",
-      "normalized": "repository structure",
-      "sources": [
-        "readme-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "What BANZA Is / Is Not",
-      "normalized": "what banza is / is not",
-      "sources": [
-        "readme-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
       "accepted": false,
       "rejection_reason": "PATH_FRAGMENT"
     },
     {
-      "raw_text": "FAQ",
-      "normalized": "faq",
-      "sources": [
-        "readme-md",
-        "docs-governance-certification-boundary-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Verification",
-      "normalized": "verification",
-      "sources": [
-        "readme-md",
-        "decisions-adr-adr-024-public-verification-pages-md",
-        "docs-governance-m2-19g-6-banzai-consolidation-2026-08-md",
-        "docs-governance-phase-bx1-5a-portuguese-copy-no-corpus-2026-07-md",
-        "docs-governance-phase-m2-4-trust-engine-migration-2026-07-md",
-        "docs-governance-phase-m2-7i-hotfix-remove-chat-workbench-assistant-2026-07-md",
-        "docs-governance-phase-m2-7k-postgresql-protocol-state-audit-2026-07-md",
-        "docs-governance-phase-m2-8b-banzai-local-qwen-latency-tuning-default-readiness-2026-07-md",
-        "docs-governance-phase-m2-8c-banzai-disable-qwen-reasoning-prefix-warmup-2026-07-md",
-        "docs-governance-phase-m2-8d-local-qwen-384-token-default-readiness-2026-07-md",
-        "docs-governance-phase-r2-rust-banzai-evidence-engine-2026-07-md",
-        "docs-governance-phase-r3-banzai-api-knowledge-rust-migration-2026-07-md",
-        "docs-governance-phase-r5-rust-trust-crypto-brl-verifier-2026-07-md",
-        "spec-federation-federation-contract-surface-md"
-      ],
-      "frequency": 15,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Contributing",
-      "normalized": "contributing",
+      "raw_text": "Execution semantics",
+      "normalized": "execution semantics",
       "sources": [
         "readme-md"
       ],
-      "frequency": 1,
-      "phrase_length": 1,
+      "frequency": 2,
+      "phrase_length": 2,
       "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
+      "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "Security",
-      "normalized": "security",
-      "sources": [
-        "readme-md",
-        "decisions-adr-adr-015-payment-session-unified-payment-interface-md",
-        "decisions-adr-adr-016-payment-collections-md",
-        "decisions-adr-adr-038-open-protocol-trust-model-without-ca-md",
-        "decisions-adr-adr-039-operator-self-publication-and-machine-verifiable-conformance-md",
-        "docs-governance-readme-md",
-        "spec-collections-md"
-      ],
-      "frequency": 7,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "License, trademarks and governance",
-      "normalized": "license trademarks and governance",
+      "raw_text": "Conformance profiles",
+      "normalized": "conformance profiles",
       "sources": [
         "readme-md"
       ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "rules",
-      "normalized": "rules",
-      "sources": [
-        "readme-md",
-        "contracts-readme-md",
-        "decisions-adr-adr-020-wallet-accounts-segregated-accounts-md"
-      ],
-      "frequency": 3,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "federation",
-      "normalized": "federation",
-      "sources": [
-        "readme-md",
-        "decisions-adr-adr-029-kyc-operator-boundary-and-trust-assertions-md",
-        "decisions-adr-adr-077-profile-applicability-model-md",
-        "docs-governance-banza-three-layer-architecture-md"
-      ],
-      "frequency": 5,
-      "phrase_length": 1,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "trust",
-      "normalized": "trust",
-      "sources": [
-        "readme-md",
-        "docs-governance-banza-three-layer-architecture-md"
-      ],
       "frequency": 2,
-      "phrase_length": 1,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "native AI agent, BanzAI",
-      "normalized": "native ai agent banzai",
-      "sources": [
-        "readme-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Layer 1 — BANZA Protocol.",
-      "normalized": "layer 1 banza protocol",
-      "sources": [
-        "readme-md",
-        "decisions-adr-adr-059-three-layer-institutional-architecture-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 4,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Layer 3 — Banzami Operational Scheme.",
-      "normalized": "layer 3 banzami operational scheme",
-      "sources": [
-        "readme-md",
-        "decisions-adr-adr-059-three-layer-institutional-architecture-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Banzami — Tecnologia e Serviços, Lda.",
-      "normalized": "banzami tecnologia e servicos lda",
-      "sources": [
-        "readme-md",
-        "decisions-adr-adr-059-three-layer-institutional-architecture-md",
-        "decisions-adr-adr-060-banzami-operational-scheme-md",
-        "decisions-adr-adr-063-conflict-of-interest-and-domain-separation-md",
-        "docs-governance-banzami-operational-scheme-md",
-        "docs-governance-banza-conflict-of-interest-policy-md",
-        "docs-governance-banza-three-layer-architecture-md"
-      ],
-      "frequency": 7,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "BANZA ≠ Banzami",
-      "normalized": "banza banzami",
-      "sources": [
-        "readme-md",
-        "decisions-adr-adr-060-banzami-operational-scheme-md",
-        "docs-governance-banza-responsibility-matrix-md",
-        "docs-governance-banza-three-layer-architecture-md"
-      ],
-      "frequency": 4,
       "phrase_length": 2,
       "accepted": true,
       "rejection_reason": "",
       "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "Discovery and trust",
+      "normalized": "discovery and trust",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "Operational independence",
+      "normalized": "operational independence",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Evidence and receipts",
+      "normalized": "evidence and receipts",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 3,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "Implementation independence",
+      "normalized": "implementation independence",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Getting started for implementers",
+      "normalized": "getting started for implementers",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Reference implementation",
+      "normalized": "reference implementation",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
       "raw_text": "BanzAI",
@@ -1173,129 +1043,23 @@
         "docs-governance-workbench-only-operator-verification-md",
         "docs-governance-certification-boundary-md"
       ],
-      "frequency": 26,
+      "frequency": 24,
       "phrase_length": 1,
       "accepted": true,
       "rejection_reason": "",
       "classification": "SUBJECT"
     },
     {
-      "raw_text": "machine-verifiable evidence",
-      "normalized": "machine-verifiable evidence",
-      "sources": [
-        "readme-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Operator A",
-      "normalized": "operator a",
+      "raw_text": "Security",
+      "normalized": "security",
       "sources": [
         "readme-md",
-        "docs-governance-operator-self-publication-and-conformance-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 2,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Operator B",
-      "normalized": "operator b",
-      "sources": [
-        "readme-md",
-        "docs-governance-operator-self-publication-and-conformance-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 2,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Operator C",
-      "normalized": "operator c",
-      "sources": [
-        "readme-md",
-        "docs-governance-operator-self-publication-and-conformance-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 2,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "deterministic conformance suite",
-      "normalized": "deterministic conformance suite",
-      "sources": [
-        "readme-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Quick start — conformance evidence:",
-      "normalized": "quick start conformance evidence",
-      "sources": [
-        "readme-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "ARTIFACT_TYPE"
-    },
-    {
-      "raw_text": "URL-based",
-      "normalized": "url-based",
-      "sources": [
-        "readme-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Endpoint-originated (ADR-068).",
-      "normalized": "endpoint-originated adr-068",
-      "sources": [
-        "readme-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "published implementations",
-      "normalized": "published implementations",
-      "sources": [
-        "readme-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "official",
-      "normalized": "official",
-      "sources": [
-        "readme-md",
-        "decisions-adr-adr-055-banzai-rust-first-grounded-synthesis-md",
-        "docs-banzai-operator-journey-md",
-        "docs-governance-phase-r0-rust-rule-compliance-audit-2026-07-md"
+        "decisions-adr-adr-015-payment-session-unified-payment-interface-md",
+        "decisions-adr-adr-016-payment-collections-md",
+        "decisions-adr-adr-038-open-protocol-trust-model-without-ca-md",
+        "decisions-adr-adr-039-operator-self-publication-and-machine-verifiable-conformance-md",
+        "docs-governance-readme-md",
+        "spec-collections-md"
       ],
       "frequency": 7,
       "phrase_length": 1,
@@ -1303,21 +1067,225 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "draft",
-      "normalized": "draft",
+      "raw_text": "Repository structure",
+      "normalized": "repository structure",
       "sources": [
-        "readme-md",
-        "docs-banzai-operator-journey-md",
-        "docs-banzai-readme-md"
+        "readme-md"
       ],
-      "frequency": 3,
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Governance and versioning",
+      "normalized": "governance and versioning",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "Current limitations",
+      "normalized": "current limitations",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Next validation",
+      "normalized": "next validation",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Licence and trademarks",
+      "normalized": "licence and trademarks",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "informative",
+      "normalized": "informative",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "machine-verifiable conformance evidence",
-      "normalized": "machine-verifiable conformance evidence",
+      "raw_text": "Pre-production",
+      "normalized": "pre-production",
+      "sources": [
+        "readme-md",
+        "security-md",
+        "docs-banzai-banzai-protocol-agent-md",
+        "docs-banzai-readme-md",
+        "docs-governance-phase-bx0-banzai-workbench-navigation-2026-07-md",
+        "docs-governance-repository-structure-md"
+      ],
+      "frequency": 7,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Not yet demonstrated",
+      "normalized": "not yet demonstrated",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Layer 1 — Open protocol.",
+      "normalized": "layer 1 open protocol",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "operationally independent from BANZA",
+      "normalized": "operationally independent from banza",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "Open specification",
+      "normalized": "open specification",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Independent verification",
+      "normalized": "independent verification",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Separation of decisions",
+      "normalized": "separation of decisions",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Protocol identity and versioning",
+      "normalized": "protocol identity and versioning",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Canonical representation",
+      "normalized": "canonical representation",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Signing and hashing",
+      "normalized": "signing and hashing",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Contracts and schemas",
+      "normalized": "contracts and schemas",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Discovery",
+      "normalized": "discovery",
+      "sources": [
+        "readme-md",
+        "decisions-adr-adr-080-canonical-discovery-surface-reconciliation-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Implementation identity",
+      "normalized": "implementation identity",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Keys and delegation",
+      "normalized": "keys and delegation",
       "sources": [
         "readme-md"
       ],
@@ -1328,47 +1296,34 @@
       "classification": "ARTIFACT_TYPE"
     },
     {
-      "raw_text": "Evidence Bundle.",
-      "normalized": "evidence bundle",
+      "raw_text": "Revocation",
+      "normalized": "revocation",
       "sources": [
         "readme-md",
-        "decisions-adr-adr-076-banzai-validation-journey-consolidation-and-durable-receipts-md",
-        "docs-governance-evidence-bundle-md",
-        "docs-governance-l1-readiness-md",
-        "docs-governance-l2-readiness-md",
-        "docs-governance-l3-readiness-md",
-        "docs-governance-l4-readiness-md",
-        "docs-governance-operator-self-publication-and-conformance-md",
-        "docs-governance-phase-bx0-banzai-workbench-navigation-2026-07-md",
-        "docs-governance-phase-bx1-6-banzai-operator-manifest-validator-2026-07-md",
-        "docs-governance-phase-bx1-7-banzai-l1-readiness-well-known-validator-2026-07-md",
-        "docs-governance-phase-m2-2-remove-ca-open-protocol-governance-2026-07-md",
-        "docs-governance-phase-m2-4-trust-engine-migration-2026-07-md",
-        "docs-governance-protocol-governance-roles-md",
-        "docs-governance-simb-pre-review-gate-md",
-        "docs-governance-workbench-only-operator-verification-md",
-        "docs-governance-certification-boundary-md"
+        "decisions-adr-adr-064-conformance-interoperability-certification-md",
+        "decisions-adr-adr-065-banza-technical-registry-md"
       ],
-      "frequency": 21,
+      "frequency": 3,
+      "phrase_length": 1,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "Trust evaluation",
+      "normalized": "trust evaluation",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
       "phrase_length": 2,
       "accepted": true,
       "rejection_reason": "",
       "classification": "SUBJECT"
     },
     {
-      "raw_text": "How operators participate",
-      "normalized": "how operators participate",
-      "sources": [
-        "readme-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Published state:",
-      "normalized": "published state",
+      "raw_text": "Payment contracts",
+      "normalized": "payment contracts",
       "sources": [
         "readme-md"
       ],
@@ -1378,40 +1333,128 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "Developer / internal fallback",
-      "normalized": "developer / internal fallback",
+      "raw_text": "Reason-code semantics",
+      "normalized": "reason-code semantics",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Idempotency semantics",
+      "normalized": "idempotency semantics",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Federation and routing conditions",
+      "normalized": "federation and routing conditions",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "Semantic equivalence",
+      "normalized": "semantic equivalence",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Invariants",
+      "normalized": "invariants",
+      "sources": [
+        "readme-md",
+        "contracts-events-readme-md",
+        "decisions-adr-adr-038-open-protocol-trust-model-without-ca-md",
+        "decisions-adr-adr-084-idempotency-semantics-md",
+        "spec-collections-md",
+        "spec-idempotency-md"
+      ],
+      "frequency": 6,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Conformance vectors",
+      "normalized": "conformance vectors",
+      "sources": [
+        "readme-md",
+        "contracts-readme-md",
+        "spec-federation-federation-invariants-md"
+      ],
+      "frequency": 19,
+      "phrase_length": 2,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "normative",
+      "normalized": "normative",
+      "sources": [
+        "readme-md",
+        "decisions-adr-adr-080-canonical-discovery-surface-reconciliation-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "This is the reading list.",
+      "normalized": "this is the reading list",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Reason codes",
+      "normalized": "reason codes",
+      "sources": [
+        "readme-md",
+        "decisions-adr-adr-056-banzai-definitive-query-core-and-production-assurance-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "canonical origin it controls",
+      "normalized": "canonical origin it controls",
       "sources": [
         "readme-md"
       ],
       "frequency": 1,
       "phrase_length": 4,
       "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
+      "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "Open Trust\nEvaluation",
-      "normalized": "open trust evaluation",
-      "sources": [
-        "readme-md",
-        "decisions-adr-adr-038-open-protocol-trust-model-without-ca-md",
-        "docs-governance-federation-trust-model-md",
-        "docs-governance-simb-pre-review-gate-md",
-        "docs-governance-certification-boundary-md",
-        "spec-federation-federation-conformance-path-md",
-        "spec-federation-federation-contract-surface-md",
-        "spec-federation-federation-invariants-md",
-        "spec-federation-federation-operator-quickstart-md",
-        "spec-federation-federation-protocol-flow-md",
-        "spec-federation-federation-trust-model-md"
-      ],
-      "frequency": 15,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Fail-closed",
+      "raw_text": "fail-closed",
       "normalized": "fail-closed",
       "sources": [
         "readme-md",
@@ -1432,50 +1475,188 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "Public Protocol Registry.",
-      "normalized": "public protocol registry",
+      "raw_text": "Transaction / data plane",
+      "normalized": "transaction / data plane",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "PATH_FRAGMENT"
+    },
+    {
+      "raw_text": "Trust / governance plane",
+      "normalized": "trust / governance plane",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "PATH_FRAGMENT"
+    },
+    {
+      "raw_text": "evidence bundle",
+      "normalized": "evidence bundle",
       "sources": [
         "readme-md",
-        "decisions-adr-adr-038-open-protocol-trust-model-without-ca-md",
-        "docs-governance-m2-4-trust-engine-signed-metadata-md",
-        "docs-governance-m2-production-protocol-implementation-md",
-        "docs-governance-open-protocol-architecture-md",
+        "decisions-adr-adr-076-banzai-validation-journey-consolidation-and-durable-receipts-md",
+        "docs-governance-evidence-bundle-md",
+        "docs-governance-l1-readiness-md",
+        "docs-governance-l2-readiness-md",
+        "docs-governance-l3-readiness-md",
+        "docs-governance-l4-readiness-md",
         "docs-governance-operator-self-publication-and-conformance-md",
-        "docs-governance-phase-m2-6-governance-docs-final-sweep-2026-07-md",
+        "docs-governance-phase-bx0-banzai-workbench-navigation-2026-07-md",
+        "docs-governance-phase-bx1-6-banzai-operator-manifest-validator-2026-07-md",
+        "docs-governance-phase-bx1-7-banzai-l1-readiness-well-known-validator-2026-07-md",
+        "docs-governance-phase-m2-2-remove-ca-open-protocol-governance-2026-07-md",
+        "docs-governance-phase-m2-4-trust-engine-migration-2026-07-md",
         "docs-governance-protocol-governance-roles-md",
-        "docs-governance-public-protocol-registry-md",
         "docs-governance-simb-pre-review-gate-md",
-        "docs-governance-certification-boundary-md",
-        "spec-federation-federation-trust-model-md"
+        "docs-governance-workbench-only-operator-verification-md",
+        "docs-governance-certification-boundary-md"
       ],
-      "frequency": 13,
-      "phrase_length": 3,
+      "frequency": 20,
+      "phrase_length": 2,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "semantically\nequivalent",
+      "normalized": "semantically equivalent",
+      "sources": [
+        "readme-md",
+        "spec-reason-codes-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "Revocation List.",
-      "normalized": "revocation list",
+      "raw_text": "operator",
+      "normalized": "operator",
       "sources": [
         "readme-md",
-        "decisions-adr-adr-065-banza-technical-registry-md",
-        "docs-governance-operator-self-publication-and-conformance-md",
-        "docs-governance-protocol-governance-roles-md"
+        "decisions-adr-adr-005-protocol-first-product-development-md",
+        "decisions-adr-adr-019-fee-and-application-settlement-architecture-md",
+        "decisions-adr-adr-024-public-verification-pages-md",
+        "decisions-adr-adr-029-kyc-operator-boundary-and-trust-assertions-md",
+        "decisions-adr-adr-068-endpoint-originated-operator-validation-and-operator-implementation-model-md",
+        "decisions-rfc-rfc-0001-multi-operator-routing-md",
+        "docs-banzai-readme-md",
+        "docs-governance-phase-m2-7m-license-notice-trademark-governance-attribution-2026-07-md"
+      ],
+      "frequency": 10,
+      "phrase_length": 1,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "Operator Zero",
+      "normalized": "operator zero",
+      "sources": [
+        "readme-md",
+        "decisions-adr-adr-080-canonical-discovery-surface-reconciliation-md",
+        "docs-banzai-banzai-workbench-md",
+        "spec-validation-journey-md"
       ],
       "frequency": 4,
       "phrase_length": 2,
       "accepted": true,
       "rejection_reason": "",
-      "classification": "ALIAS"
+      "classification": "SUBJECT"
     },
     {
-      "raw_text": "ADRs",
-      "normalized": "adrs",
+      "raw_text": "Whitepaper",
+      "normalized": "whitepaper",
       "sources": [
-        "readme-md",
-        "docs-governance-claude-base-md"
+        "readme-md"
       ],
-      "frequency": 2,
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Normative Manifest",
+      "normalized": "normative manifest",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "ARTIFACT_TYPE"
+    },
+    {
+      "raw_text": "Canonicalization",
+      "normalized": "canonicalization",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Federation and trust",
+      "normalized": "federation and trust",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "Validation journey",
+      "normalized": "validation journey",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Reference material",
+      "normalized": "reference material",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Certification boundary",
+      "normalized": "certification boundary",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Contributing",
+      "normalized": "contributing",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -1492,34 +1673,11 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "To propose a change:",
-      "normalized": "to propose a change",
-      "sources": [
-        "readme-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Origin and open governance.",
-      "normalized": "origin and open governance",
-      "sources": [
-        "readme-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "orthogonal",
-      "normalized": "orthogonal",
+      "raw_text": "ADRs",
+      "normalized": "adrs",
       "sources": [
         "readme-md",
-        "docs-governance-phase-r0-rust-rule-compliance-audit-2026-07-md"
+        "docs-governance-claude-base-md"
       ],
       "frequency": 2,
       "phrase_length": 1,
@@ -1527,131 +1685,38 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "Current state (reference deployment).",
-      "normalized": "current state reference deployment",
-      "sources": [
-        "readme-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "single public interface",
-      "normalized": "single public interface",
+      "raw_text": "Origin.",
+      "normalized": "origin",
       "sources": [
         "readme-md",
-        "docs-banzai-readme-md"
+        "docs-governance-phase-m2-11c-banzai-release-qa-gate-2026-07-md"
       ],
       "frequency": 2,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "External model calls = 0",
-      "normalized": "external model calls 0",
-      "sources": [
-        "readme-md",
-        "docs-banzai-readme-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "non-normative",
-      "normalized": "non-normative",
-      "sources": [
-        "readme-md",
-        "decisions-adr-adr-049-banzai-protocol-agent-core-md",
-        "docs-banzai-banzai-protocol-agent-md",
-        "docs-banzai-readme-md",
-        "docs-governance-phase-m2-8h-knowledge-and-context-2026-07-md"
-      ],
-      "frequency": 5,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "Guided operator journey.",
-      "normalized": "guided operator journey",
-      "sources": [
-        "readme-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Pre-production.",
-      "normalized": "pre-production",
+      "raw_text": "BANZAMI — TECNOLOGIA E\nSERVIÇOS, LDA.",
+      "normalized": "banzami tecnologia e servicos lda",
       "sources": [
         "readme-md",
-        "security-md",
-        "docs-banzai-banzai-protocol-agent-md",
-        "docs-banzai-readme-md",
-        "docs-governance-phase-bx0-banzai-workbench-navigation-2026-07-md",
-        "docs-governance-repository-structure-md"
+        "decisions-adr-adr-059-three-layer-institutional-architecture-md",
+        "decisions-adr-adr-060-banzami-operational-scheme-md",
+        "decisions-adr-adr-063-conflict-of-interest-and-domain-separation-md",
+        "docs-governance-banzami-operational-scheme-md",
+        "docs-governance-banza-conflict-of-interest-policy-md",
+        "docs-governance-banza-three-layer-architecture-md"
       ],
       "frequency": 7,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Tools determine truth. AI explains truth.",
-      "normalized": "tools determine truth ai explains truth",
-      "sources": [
-        "readme-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "This repo contains:",
-      "normalized": "this repo contains",
-      "sources": [
-        "readme-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "This repo does NOT contain:",
-      "normalized": "this repo does not contain",
-      "sources": [
-        "readme-md"
-      ],
-      "frequency": 1,
       "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "no operator metadata",
-      "normalized": "no operator metadata",
-      "sources": [
-        "readme-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
       "accepted": true,
       "rejection_reason": "",
       "classification": "SUBJECT"
     },
     {
-      "raw_text": "Is BANZA a product?",
-      "normalized": "is banza a product",
+      "raw_text": "BANZA 1.0.0",
+      "normalized": "banza 1 0 0",
       "sources": [
         "readme-md"
       ],
@@ -1662,48 +1727,68 @@
       "classification": "SUBJECT"
     },
     {
-      "raw_text": "Who can become an operator?",
-      "normalized": "who can become an operator",
+      "raw_text": "no production operators",
+      "normalized": "no production operators",
       "sources": [
         "readme-md"
       ],
       "frequency": 1,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Which technology stack is required?",
-      "normalized": "which technology stack is required",
-      "sources": [
-        "readme-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
+      "phrase_length": 3,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "Does BANZA depend on BanzAI?",
-      "normalized": "does banza depend on banzai",
-      "sources": [
-        "readme-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Who owns the protocol?",
-      "normalized": "who owns the protocol",
+      "raw_text": "no active technical certifications",
+      "normalized": "no active technical certifications",
       "sources": [
         "readme-md"
       ],
       "frequency": 1,
       "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Real-money operation is disabled.",
+      "normalized": "real-money operation is disabled",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "performance or scalability",
+      "normalized": "performance or scalability",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "External interoperability (L4)",
+      "normalized": "external interoperability l4",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "external security audit",
+      "normalized": "external security audit",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
@@ -1717,28 +1802,6 @@
       ],
       "frequency": 3,
       "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Creative Commons CC BY 4.0",
-      "normalized": "creative commons cc by 4 0",
-      "sources": [
-        "readme-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "does not grant trademark rights",
-      "normalized": "does not grant trademark rights",
-      "sources": [
-        "readme-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
@@ -2435,19 +2498,6 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "Conformance vectors",
-      "normalized": "conformance vectors",
-      "sources": [
-        "contracts-readme-md",
-        "spec-federation-federation-invariants-md"
-      ],
-      "frequency": 17,
-      "phrase_length": 2,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
       "raw_text": "Endpoint-originated operator validation (ADR-068)",
       "normalized": "endpoint-originated operator validation adr-068",
       "sources": [
@@ -2458,6 +2508,18 @@
       "accepted": true,
       "rejection_reason": "",
       "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "Rules",
+      "normalized": "rules",
+      "sources": [
+        "contracts-readme-md",
+        "decisions-adr-adr-020-wallet-accounts-segregated-accounts-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
     },
     {
       "raw_text": "MUST",
@@ -2678,21 +2740,6 @@
       "accepted": true,
       "rejection_reason": "",
       "classification": "ARTIFACT_TYPE"
-    },
-    {
-      "raw_text": "Invariants",
-      "normalized": "invariants",
-      "sources": [
-        "contracts-events-readme-md",
-        "decisions-adr-adr-038-open-protocol-trust-model-without-ca-md",
-        "decisions-adr-adr-084-idempotency-semantics-md",
-        "spec-collections-md",
-        "spec-idempotency-md"
-      ],
-      "frequency": 5,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
     },
     {
       "raw_text": "Internal event stream (SSE)",
@@ -4933,25 +4980,6 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "Operator:",
-      "normalized": "operator",
-      "sources": [
-        "decisions-adr-adr-005-protocol-first-product-development-md",
-        "decisions-adr-adr-019-fee-and-application-settlement-architecture-md",
-        "decisions-adr-adr-024-public-verification-pages-md",
-        "decisions-adr-adr-029-kyc-operator-boundary-and-trust-assertions-md",
-        "decisions-adr-adr-068-endpoint-originated-operator-validation-and-operator-implementation-model-md",
-        "decisions-rfc-rfc-0001-multi-operator-routing-md",
-        "docs-banzai-readme-md",
-        "docs-governance-phase-m2-7m-license-notice-trademark-governance-attribution-2026-07-md"
-      ],
-      "frequency": 9,
-      "phrase_length": 1,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
       "raw_text": "SDK:",
       "normalized": "sdk",
       "sources": [
@@ -5008,17 +5036,6 @@
       "accepted": true,
       "rejection_reason": "",
       "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Architecture",
-      "normalized": "architecture",
-      "sources": [
-        "decisions-adr-adr-006-double-entry-ledger-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
     },
     {
       "raw_text": "Why double-entry and not simple balance columns?",
@@ -8964,6 +8981,29 @@
       "classification": "DOCUMENT_TYPE"
     },
     {
+      "raw_text": "Verification",
+      "normalized": "verification",
+      "sources": [
+        "decisions-adr-adr-024-public-verification-pages-md",
+        "docs-governance-m2-19g-6-banzai-consolidation-2026-08-md",
+        "docs-governance-phase-bx1-5a-portuguese-copy-no-corpus-2026-07-md",
+        "docs-governance-phase-m2-4-trust-engine-migration-2026-07-md",
+        "docs-governance-phase-m2-7i-hotfix-remove-chat-workbench-assistant-2026-07-md",
+        "docs-governance-phase-m2-7k-postgresql-protocol-state-audit-2026-07-md",
+        "docs-governance-phase-m2-8b-banzai-local-qwen-latency-tuning-default-readiness-2026-07-md",
+        "docs-governance-phase-m2-8c-banzai-disable-qwen-reasoning-prefix-warmup-2026-07-md",
+        "docs-governance-phase-m2-8d-local-qwen-384-token-default-readiness-2026-07-md",
+        "docs-governance-phase-r2-rust-banzai-evidence-engine-2026-07-md",
+        "docs-governance-phase-r3-banzai-api-knowledge-rust-migration-2026-07-md",
+        "docs-governance-phase-r5-rust-trust-crypto-brl-verifier-2026-07-md",
+        "spec-federation-federation-contract-surface-md"
+      ],
+      "frequency": 14,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
       "raw_text": "only the `@handle`",
       "normalized": "only the handle",
       "sources": [
@@ -9414,6 +9454,20 @@
       ],
       "frequency": 1,
       "phrase_length": 2,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "federation",
+      "normalized": "federation",
+      "sources": [
+        "decisions-adr-adr-029-kyc-operator-boundary-and-trust-assertions-md",
+        "decisions-adr-adr-077-profile-applicability-model-md",
+        "docs-governance-banza-three-layer-architecture-md"
+      ],
+      "frequency": 4,
+      "phrase_length": 1,
       "accepted": true,
       "rejection_reason": "",
       "classification": "SUBJECT"
@@ -10032,6 +10086,39 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
+      "raw_text": "Open Trust Evaluation",
+      "normalized": "open trust evaluation",
+      "sources": [
+        "decisions-adr-adr-038-open-protocol-trust-model-without-ca-md",
+        "docs-governance-federation-trust-model-md",
+        "docs-governance-simb-pre-review-gate-md",
+        "docs-governance-certification-boundary-md",
+        "spec-federation-federation-conformance-path-md",
+        "spec-federation-federation-contract-surface-md",
+        "spec-federation-federation-invariants-md",
+        "spec-federation-federation-operator-quickstart-md",
+        "spec-federation-federation-protocol-flow-md",
+        "spec-federation-federation-trust-model-md"
+      ],
+      "frequency": 14,
+      "phrase_length": 3,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "Conformance levels",
+      "normalized": "conformance levels",
+      "sources": [
+        "decisions-adr-adr-038-open-protocol-trust-model-without-ca-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
       "raw_text": "Legacy compatibility",
       "normalized": "legacy compatibility",
       "sources": [
@@ -10199,6 +10286,27 @@
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Public Protocol Registry",
+      "normalized": "public protocol registry",
+      "sources": [
+        "decisions-adr-adr-038-open-protocol-trust-model-without-ca-md",
+        "docs-governance-m2-4-trust-engine-signed-metadata-md",
+        "docs-governance-m2-production-protocol-implementation-md",
+        "docs-governance-open-protocol-architecture-md",
+        "docs-governance-operator-self-publication-and-conformance-md",
+        "docs-governance-phase-m2-6-governance-docs-final-sweep-2026-07-md",
+        "docs-governance-protocol-governance-roles-md",
+        "docs-governance-public-protocol-registry-md",
+        "docs-governance-simb-pre-review-gate-md",
+        "docs-governance-certification-boundary-md",
+        "spec-federation-federation-trust-model-md"
+      ],
+      "frequency": 12,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
       "raw_text": "D-038-06",
@@ -13374,6 +13482,20 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
+      "raw_text": "non-normative",
+      "normalized": "non-normative",
+      "sources": [
+        "decisions-adr-adr-049-banzai-protocol-agent-core-md",
+        "docs-banzai-banzai-protocol-agent-md",
+        "docs-banzai-readme-md",
+        "docs-governance-phase-m2-8h-knowledge-and-context-2026-07-md"
+      ],
+      "frequency": 4,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
       "raw_text": "Protocol Agent Core",
       "normalized": "protocol agent core",
       "sources": [
@@ -14150,6 +14272,19 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
+      "raw_text": "official",
+      "normalized": "official",
+      "sources": [
+        "decisions-adr-adr-055-banzai-rust-first-grounded-synthesis-md",
+        "docs-banzai-operator-journey-md",
+        "docs-governance-phase-r0-rust-rule-compliance-audit-2026-07-md"
+      ],
+      "frequency": 5,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
       "raw_text": "deterministic, versioned and testable",
       "normalized": "deterministic versioned and testable",
       "sources": [
@@ -14413,17 +14548,6 @@
     {
       "raw_text": "Attribute registry",
       "normalized": "attribute registry",
-      "sources": [
-        "decisions-adr-adr-056-banzai-definitive-query-core-and-production-assurance-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Reason codes",
-      "normalized": "reason codes",
       "sources": [
         "decisions-adr-adr-056-banzai-definitive-query-core-and-production-assurance-md"
       ],
@@ -15585,6 +15709,18 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
+      "raw_text": "Layer 1 — BANZA Protocol.",
+      "normalized": "layer 1 banza protocol",
+      "sources": [
+        "decisions-adr-adr-059-three-layer-institutional-architecture-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
       "raw_text": "D-059-02",
       "normalized": "d-059-02",
       "sources": [
@@ -15605,6 +15741,18 @@
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Layer 3 — Banzami Operational Scheme.",
+      "normalized": "layer 3 banzami operational scheme",
+      "sources": [
+        "decisions-adr-adr-059-three-layer-institutional-architecture-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
     },
     {
       "raw_text": "D-059-04",
@@ -15825,6 +15973,20 @@
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "BANZA ≠ Banzami.",
+      "normalized": "banza banzami",
+      "sources": [
+        "decisions-adr-adr-060-banzami-operational-scheme-md",
+        "docs-governance-banza-responsibility-matrix-md",
+        "docs-governance-banza-three-layer-architecture-md"
+      ],
+      "frequency": 3,
+      "phrase_length": 2,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
     },
     {
       "raw_text": "D-060-03",
@@ -17258,19 +17420,6 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "revocation",
-      "normalized": "revocation",
-      "sources": [
-        "decisions-adr-adr-064-conformance-interoperability-certification-md",
-        "decisions-adr-adr-065-banza-technical-registry-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
       "raw_text": "signed, dated and fail-closed",
       "normalized": "signed dated and fail-closed",
       "sources": [
@@ -17399,6 +17548,20 @@
       "phrase_length": 4,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "revocation list",
+      "normalized": "revocation list",
+      "sources": [
+        "decisions-adr-adr-065-banza-technical-registry-md",
+        "docs-governance-operator-self-publication-and-conformance-md",
+        "docs-governance-protocol-governance-roles-md"
+      ],
+      "frequency": 3,
+      "phrase_length": 2,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "ALIAS"
     },
     {
       "raw_text": "D-065-02",
@@ -20283,31 +20446,6 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "Operator Zero",
-      "normalized": "operator zero",
-      "sources": [
-        "decisions-adr-adr-080-canonical-discovery-surface-reconciliation-md",
-        "docs-banzai-banzai-workbench-md",
-        "spec-validation-journey-md"
-      ],
-      "frequency": 3,
-      "phrase_length": 2,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "discovery",
-      "normalized": "discovery",
-      "sources": [
-        "decisions-adr-adr-080-canonical-discovery-surface-reconciliation-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
       "raw_text": "candidate-\n   submission",
       "normalized": "candidate- submission",
       "sources": [
@@ -20421,17 +20559,6 @@
     {
       "raw_text": "field",
       "normalized": "field",
-      "sources": [
-        "decisions-adr-adr-080-canonical-discovery-surface-reconciliation-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "normative",
-      "normalized": "normative",
       "sources": [
         "decisions-adr-adr-080-canonical-discovery-surface-reconciliation-md"
       ],
@@ -21803,6 +21930,18 @@
       "phrase_length": 3,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "BanzAI — the Native Protocol Agent",
+      "normalized": "banzai the native protocol agent",
+      "sources": [
+        "docs-banzai-banzai-protocol-agent-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
     },
     {
       "raw_text": "1. What BanzAI is",
@@ -24654,6 +24793,18 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
+      "raw_text": "draft",
+      "normalized": "draft",
+      "sources": [
+        "docs-banzai-operator-journey-md",
+        "docs-banzai-readme-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
       "raw_text": "local simulation",
       "normalized": "local simulation",
       "sources": [
@@ -24697,6 +24848,28 @@
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "single public interface",
+      "normalized": "single public interface",
+      "sources": [
+        "docs-banzai-readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "External model calls = 0",
+      "normalized": "external model calls 0",
+      "sources": [
+        "docs-banzai-readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
       "raw_text": "BanzAI — Routing & Per-Answer Response Paths",
@@ -32423,6 +32596,18 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
+      "raw_text": "Trust",
+      "normalized": "trust",
+      "sources": [
+        "docs-governance-banza-three-layer-architecture-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
       "raw_text": "Certificação (L2):",
       "normalized": "certificacao l2",
       "sources": [
@@ -39702,6 +39887,18 @@
       "classification": "SUBJECT"
     },
     {
+      "raw_text": "trust model",
+      "normalized": "trust model",
+      "sources": [
+        "docs-governance-m2-production-protocol-implementation-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
       "raw_text": "operator self-publication",
       "normalized": "operator self-publication",
       "sources": [
@@ -41667,6 +41864,42 @@
         "docs-governance-protocol-governance-roles-md"
       ],
       "frequency": 3,
+      "phrase_length": 2,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "Operator A",
+      "normalized": "operator a",
+      "sources": [
+        "docs-governance-operator-self-publication-and-conformance-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "Operator B",
+      "normalized": "operator b",
+      "sources": [
+        "docs-governance-operator-self-publication-and-conformance-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "Operator C",
+      "normalized": "operator c",
+      "sources": [
+        "docs-governance-operator-self-publication-and-conformance-md"
+      ],
+      "frequency": 1,
       "phrase_length": 2,
       "accepted": true,
       "rejection_reason": "",
@@ -47530,17 +47763,6 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "Origin:",
-      "normalized": "origin",
-      "sources": [
-        "docs-governance-phase-m2-11c-banzai-release-qa-gate-2026-07-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
       "raw_text": "matched",
       "normalized": "matched",
       "sources": [
@@ -52372,6 +52594,17 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
+      "raw_text": "orthogonal",
+      "normalized": "orthogonal",
+      "sources": [
+        "docs-governance-phase-r0-rust-rule-compliance-audit-2026-07-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
       "raw_text": "Official engines",
       "normalized": "official engines",
       "sources": [
@@ -56811,6 +57044,22 @@
       "classification": "SUBJECT"
     },
     {
+      "raw_text": "Overview",
+      "normalized": "overview",
+      "sources": [
+        "docs-governance-readme-md",
+        "docs-governance-certification-boundary-md",
+        "spec-federation-federation-contract-surface-md",
+        "spec-federation-federation-failure-scenarios-md",
+        "spec-federation-federation-protocol-flow-md",
+        "spec-federation-federation-runner-design-md"
+      ],
+      "frequency": 6,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
       "raw_text": "Operator Independence",
       "normalized": "operator independence",
       "sources": [
@@ -59182,6 +59431,17 @@
       "classification": "SUBJECT"
     },
     {
+      "raw_text": "FAQ",
+      "normalized": "faq",
+      "sources": [
+        "docs-governance-certification-boundary-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
       "raw_text": "not open",
       "normalized": "not open",
       "sources": [
@@ -60206,6 +60466,17 @@
     {
       "raw_text": "Protocol Identity",
       "normalized": "protocol identity",
+      "sources": [
+        "spec-readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Technology Neutrality",
+      "normalized": "technology neutrality",
       "sources": [
         "spec-readme-md"
       ],
@@ -69214,17 +69485,6 @@
     {
       "raw_text": "not permitted",
       "normalized": "not permitted",
-      "sources": [
-        "spec-reason-codes-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "semantically equivalent",
-      "normalized": "semantically equivalent",
       "sources": [
         "spec-reason-codes-md"
       ],
