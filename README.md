@@ -1,522 +1,466 @@
 # BANZA
 
-**The Open Financial Protocol for interoperable payments.**
+**An Open Protocol for Financial Interoperability.**
 
-Public rules, protocol contracts, machine-verifiable conformance evidence and an open
-federation trust model — implementable by any independent operator, controlled by no one.
+BANZA is a public, versioned specification that lets independent financial implementations interoperate
+without each pair of participants negotiating its own contracts, identity model, trust rules and test
+procedure. The specification is the shared element — not a central implementation, and not a service
+operated by the protocol maintainer.
 
-> **The protocol exists independently of any operator.**
+![Protocol version](https://img.shields.io/badge/protocol-v1.0.0-blue)
+![License](https://img.shields.io/badge/license-Apache--2.0-lightgrey)
 
-![Status](https://img.shields.io/badge/status-v1.0-blue)
-![Role](https://img.shields.io/badge/role-Open%20Financial%20Protocol-red)
-![Governance](https://img.shields.io/badge/governance-Open%20ADR%2FRFC-lightgrey)
-![Neutrality](https://img.shields.io/badge/operator-neutral-darkred)
+> This README is **informative**. Normative requirements are defined by the versioned artifacts
+> identified in the [Normative Manifest](contracts/production/normative-manifest.json).
+
+---
+
+## Current status
 
 | | |
 |---|---|
-| Protocol | [github.com/banza-protocol/banza](https://github.com/banza-protocol/banza) — this repository |
-| Native Protocol Agent (BanzAI) | [services/banzai-api](services/banzai-api) — canonical runtime (this repo). Active BanzAI development lives entirely in this repository. |
-| Reference | [`docs/reference/pt/completa.md`](docs/reference/pt/completa.md) (PT — canonical) · [`docs/reference/en/complete.md`](docs/reference/en/complete.md) (EN) |
-| Website | `banza.network` |
+| Protocol version | **1.0.0** |
+| Stage | **Pre-production** |
+| Normative surface | **Complete for clean-room implementation testing** |
+| Independent implementation | **Not yet demonstrated** |
+| Production operators | 0 |
+| Active technical certifications | 0 |
+| Real-money operation | Disabled |
 
----
+The published surface is sufficient to implement BANZA without reading the reference implementation.
+Whether an external team can in fact do so has not yet been demonstrated experimentally — that is the
+next validation, not a claim this repository makes today.
 
-## Overview
+## Why BANZA exists
 
-BANZA is a protocol — a set of public rules that defines how independent payment
-operators interoperate.
+Financial operators rarely function in isolation. To move value or exchange messages, two
+implementations must agree on formats, identity, keys, discovery, failure semantics and how correctness
+is tested.
 
-```
-HTTP  → Web
-SMTP  → Email
-BGP   → Internet routing
-BANZA → Interoperable payments
-```
+Those elements are usually settled privately — in a bilateral integration, or in the rulebook of a
+shared infrastructure. Both work. What neither reliably produces is a *public, versioned* definition
+that a third party can read, implement and verify against without being party to the arrangement.
 
-![What BANZA defines](docs/reference/diagrams/en/banza-protocol-overview-v1.svg)
+BANZA makes that definition public within the scope it defines. It does not attempt to replace
+switches, clearing, settlement infrastructure, payment schemes or central banks. Those continue to
+exist, and an implementation that adopts BANZA remains subject to their rules.
 
-BANZA defines **rules** (financial invariants), **contracts** (OpenAPI, webhook
-schemas, QR payload, event schemas), **conformance** (deterministic suites and
-machine-verifiable evidence, scoped by conformance levels L0–L4),
-**conformance & interoperability certification** (per-implementation and
-evidence-based — ADR-064), **federation**
-(inter-operator routing evaluated from signed protocol metadata), **trust** (a trust root,
-delegated signing keys and a revocation list) and **governance**
-(an open ADR/RFC process).
-
-BANZA does **not** process payments, store balances, maintain accounts, move
-money, or depend on any specific rail, operator or technology stack.
-
-BANZA is an open financial protocol accompanied by a **native AI agent, BanzAI**
-(ADR-041), which is the **primary human-operator interface** for interacting with
-the protocol (ADR-054). BanzAI interprets requests, consults the Reference, guides
-implementation, routes to the verifiable Rust/WASM engines, explains results, helps
-correct failures and prepares technical evidence. It is an orchestration and
-guidance agent, not an authority: it does not approve, certify, license, publish
-operators or decide participation, does not create or add rules or architectural
-decisions, does not move funds, and does not replace the BANZA Reference or the
-deterministic verification engines. The step-by-step journey is optional guidance;
-the primary interactive interface is "Perguntar ao BanzAI". APIs, manifests,
-schemas, endpoints and engines remain verifiable technical surfaces independent of
-the AI, and machine-to-machine integration does not depend mandatorily on BanzAI.
-
-> **BanzAI guia; os motores verificam; a evidência prova; a governança decide.**
-
-## The three institutional layers
-
-BANZA is organised as three separate institutional layers (ADR-059):
-
-- **Layer 1 — BANZA Protocol.** The open, neutral, verifiable rules, contracts and
-  invariants. This repository.
-- **Layer 2 — Conformance & Interoperability Certification.** A per-implementation,
-  evidence-based, Rust-decided determination against a public, versioned profile
-  (ADR-064). It certifies an *implementation*, never an entity, and is not a licence,
-  scheme admission or regulatory authorisation. Records are published to the Technical
-  Registry (ADR-065), which is currently empty (pre-production).
-- **Layer 3 — Banzami Operational Scheme.** The first operational scheme built on
-  BANZA, with **Banzami — Tecnologia e Serviços, Lda.** as the designated operator, in
-  regulatory preparation (`REGULATORY_AUTHORIZATION_IN_PROGRESS`) with real money off
-  (ADR-060 · ADR-062). **BANZA ≠ Banzami**, and certification is never exclusive to
-  this scheme.
-
-**BanzAI** is the single human-operator interface at `/banzai` (ADR-054), transversal
-across the three layers — not a fourth layer and not an authority. Rust decides; Qwen
-only explains. Canonical detail lives in the Reference and ADR-059.
-
-## The Protocol Test
-
-HTTP does not define browsers. SMTP does not define email clients. BGP does
-not define routers. In the same way, BANZA does not define wallets, apps,
-software or companies.
-
-If every current operator ceased operations tomorrow, the BANZA protocol —
-its rules, contracts, invariants, conformance levels and open federation trust model — would remain fully valid and available to any new operator.
-
-## Why BANZA Exists
-
-Payment infrastructure exists. What is missing is a common protocol layer.
-Without one, operators cannot interoperate without bilateral agreements,
-trust must be negotiated case by case, and there is no shared definition of
-correct financial behaviour — nor an open path to prove it.
-
-BANZA defines the rules. Operators implement them. An operator that passes
-conformance produces **machine-verifiable evidence** of correctness for the tested
-level, publishes it alongside signed protocol metadata, and any counterparty can
-verify it independently. BANZA é um protocolo financeiro aberto. A participação de
-operadores é demonstrada por conformidade protocolar verificável, não por aprovação
-humana central. Operators whose trust material passes Open Trust Evaluation may
-federate — route payments between each other — without bilateral agreements.
-
-## The Four Roles
-
-![The four roles](docs/reference/diagrams/en/banza-ecosystem-roles-v1.svg)
+## The core idea
 
 ```
-BANZA                = Open Financial Protocol       (defines)
-Protocol Governance  = Protocol Maintainers          (evolve · sign releases)
-Operators            = Independent implementations   (implement · self-publish)
-BanzAI               = Native protocol AI agent      (guides · orchestrates · explains)
+                    Public BANZA specification
+                    (contracts · profiles · trust · semantics)
+                               │
+              ┌────────────────┼────────────────┐
+              │                │                │
+      Implementation A  Implementation B  Implementation C
+        (independent)    (independent)     (independent)
 ```
 
-These roles never merge. No operator is privileged. No technology is mandated.
-Examples in BANZA documentation use **Operator A**, **Operator B**,
-**Operator C** — never real commercial names.
+The shared element is the specification. Nothing above requires a common runtime, a common vendor, or a
+BANZA-operated service in the path between two implementations.
 
-## Financial Invariants
+## Architecture
 
-The protocol's integrity guarantees. Every operator implementing the protocol must
-enforce them, regardless of implementation technology:
+BANZA is organised in three institutional layers, separated by responsibility, infrastructure and keys.
 
-| Invariant | Description |
-|-----------|-------------|
-| `INV-LEDGER-001` | Every posting sums to zero (double-entry) |
-| `INV-LEDGER-002` | Ledger entries are immutable after creation |
-| `INV-LEDGER-003` | All monetary values are integers (no floating point) |
-| `INV-LEDGER-004` | Postings are atomic — never partially applied |
-| `INV-WALLET-001` | `balance = available + reserved` at all times |
-| `INV-STL-001` | `gross = net + fee` (no money creation) |
-| `INV-IDEM-001` | Same idempotency key always produces the same result |
+**Layer 1 — Open protocol.** Specifications, contracts, profiles and common mechanisms for discovery,
+identity, trust, revocation and federation, together with the execution semantics interoperability
+requires. This repository.
 
-Families: `INV-LEDGER-*` · `INV-WALLET-*` · `INV-SETTLE-*` · `INV-IDEM-*` ·
-`INV-RECON-*` · `INV-QR-*`. Machine-readable registry: [`contracts/invariants.json`](contracts/invariants.json); prose specs: [`spec/`](spec/).
+**Layer 2 — Conformance and interoperability certification.** Conformance evaluation and, where
+applicable, technical certification of implementations against public profiles and versions, based on
+deterministic engines and verifiable evidence. It evaluates an *implementation*, never an entity.
 
-## Conformance Levels
+**Layer 3 — Independent operational schemes.** Infrastructures, networks and schemes that may adopt
+BANZA. They remain subject to their own legal, commercial and regulatory rules, and remain
+**operationally independent from BANZA**.
 
-The five conformance levels (L0–L4) are defined in the table below.
+The L0–L4 profiles are distinct from these layers.
 
-| Level | Name | What it means |
-|-------|------|---------------|
-| L0 | Protocol Sandbox | Protocol-correct sandbox; financial invariants verifiable |
-| L1 | Core Payment Capability | Wallets, ledger, transfers, idempotency |
-| L2 | Payment Initiation Capability | QR payments and payment links |
-| L3 | Inter-Operator Interoperability | Routes to and receives from other conformant operators |
-| L4 | External Interoperability | Integrates with external infrastructure |
+## Five architectural invariants
 
-Conformance is established by a **deterministic conformance suite** — never by
-self-declaration and never by human approval. The suite produces evidence that any
-counterparty can re-verify from published, signed material. BanzAI explains the
-criteria; it does not evaluate trust and does not admit operators.
+1. **Open specification** — the applicable rules, contracts and profiles are public and versioned.
+2. **Implementation independence** — no particular implementation constitutes the protocol; the
+   reference implementation realises BANZA but does not define it.
+3. **Independent verification** — published artifacts must allow a party to evaluate the applicable
+   technical conditions without depending on a private decision of the evaluated operator or of the
+   protocol maintainer.
+4. **Operational independence** — BANZA does not require a central infrastructure to carry messages or
+   funds.
+5. **Separation of decisions** — conformance evaluation, technical certification, scheme admission,
+   operational agreements and regulatory authorisation belong to distinct processes.
 
-**Quick start — conformance evidence:**
+## What BANZA defines
 
-BANZA is a protocol, not a runtime or operator. Operators implement it
-independently and expose public endpoints; conformance testing is **URL-based**
-against those endpoints.
+The normative surface identified by the manifest contains **143 artifacts**, of which **85 must be
+satisfied by an implementation**. Concretely, BANZA defines:
 
-For operators, the recommended way to validate protocol compatibility is
-**BanzAI** (`/banzai`):
-
-> **Open BanzAI → Manifest → Conformance → Trust → Federation → Evidence Bundle → Traces**
-
-BanzAI guides you as you prepare the manifest, run conformance validations, verify
-signed protocol metadata, evaluate revocation/fail-closed and produce an evidence
-bundle. The operator's implementation is validated by verifiable artifacts, not by any
-particular tool.
-
-**Endpoint-originated (ADR-068).** Validating an operator means evaluating one of its
-**published implementations** (the operator is the responsible entity; the
-implementation is the technical system evaluated). BanzAI's **official** validation
-uses **exclusively artifacts obtained from the public endpoints** of the selected
-implementation: the target is resolved from the closed Technical Registry
-(`operator_id → implementation_id → canonical_origin → discovery`) and every artifact
-is fetched by a secure, SSRF-hardened **Rust** fetcher
-([`engines/banza-artifact-fetcher`](engines/banza-artifact-fetcher)) — never the
-browser, never a user-supplied URL. Each verdict is decided in Rust and bound to the
-exact origin of its inputs in an `OperationReceipt`/`JourneyReceipt`; upload/paste is a
-local, non-authoritative **draft** tool only. Technical validation is not an issued
-certification; technical certification is not scheme admission nor regulatory
-authorisation.
-
-A PASS produces **machine-verifiable conformance evidence** that any counterparty can
-re-verify independently.
-
-> **Transparency & maintenance tooling (not an operator obligation).** The
-> conformance engine, contracts and test vectors are public — the conformance runner
-> and vectors live in [`tools/banza-conformance/`](tools/banza-conformance/) and
-> [`conformance/`](conformance/), and the official Rust engines in
-> [`engines/`](engines/). They exist for transparency and protocol maintenance, so
-> anyone can inspect the rules and reproduce results independently. They are **not**
-> the operator path: for operator use, the recommended path is BanzAI.
-
-**Evidence Bundle.** The conformance report and the operator's signed protocol
-metadata are aggregated into an **Evidence Bundle** — a single integrity-checked
-artifact carrying SHA-256 hashes plus the versions of the tools that produced it. The
-operator self-publishes the bundle; any third party recomputes the hashes and re-runs
-the checks to reproduce the result. The bundle is assembled by the Rust engine
-[`engines/banza-evidence-bundle`](engines/banza-evidence-bundle) (compiled to WASM),
-so TypeScript never decides the result — it only displays it. Model:
-[`docs/governance/OPERATOR_SELF_PUBLICATION_AND_CONFORMANCE.md`](docs/governance/OPERATOR_SELF_PUBLICATION_AND_CONFORMANCE.md).
-
-**How operators participate** (ADR-039 — self-publication):
-
-1. Read the protocol reference — [`docs/reference/pt/completa.md`](docs/reference/pt/completa.md) (PT) · [`docs/reference/en/complete.md`](docs/reference/en/complete.md) (EN)
-2. Read the conformance and self-publication model — [`docs/governance/OPERATOR_SELF_PUBLICATION_AND_CONFORMANCE.md`](docs/governance/OPERATOR_SELF_PUBLICATION_AND_CONFORMANCE.md)
-3. Implement the protocol in your chosen technology stack and expose a public endpoint (`/health`, `/.well-known/banza/operator.json`)
-4. Validate conformance with **BanzAI** (`/banzai`) against your public URL to generate an evidence report — no local tooling to install
-5. Publish your manifest, signed protocol metadata and conformance evidence at your own endpoints — no submission queue, no review board, no waiting for a decision
-6. Counterparties fetch that material and run Open Trust Evaluation against it themselves; the Public Protocol Registry indexes it so it can be discovered
-
-There is no approved SDK, approved language, or approved infrastructure — and no
-entity that admits you. The conformance suite verifies correctness; its runner and
-test vectors live in [`tools/banza-conformance/`](tools/banza-conformance/) and
-[`conformance/`](conformance/) as maintainer/transparency tooling, not as an operator
-step.
-
-**Published state:**
-
-| Item | Status |
+| | |
 |---|---|
-| Operator validation path | **BanzAI** (`/banzai`, no local install) |
-| Conformance engine + test vectors | Public — `tools/`, `conformance/`, `engines/` (maintainer/transparency tooling) |
-| Public Protocol Registry (`/operators`) | `[]` — no operator metadata published yet |
-| `production_certificates` | `false` — unchanged published state (BANZA issues nothing to operators) |
-| Certification (L2) | Conformance & Interoperability Certification is per-implementation and evidence-based (ADR-064), decided by the Rust engines and published to the Technical Registry (ADR-065) — currently empty (pre-production). BANZA runs no central issuing body and grants no per-operator credential; there is no `/certificates` route. Conformance evidence is at `/conformance/evidence` |
-| M2/M3 | Trust root and protocol production milestones |
+| **Protocol identity and versioning** | Version in force, wire compatibility, breaking-change policy — [`protocol-version.json`](contracts/production/protocol-version.json) |
+| **Canonical representation** | `BCJ/1` — the exact bytes that are signed and hashed, language-independent — [`spec/canonicalization.md`](spec/canonicalization.md) |
+| **Signing and hashing** | Ed25519 over `BCJ/1` bytes, base64url without padding; SHA-256 digests with a per-artifact exclusion table |
+| **Contracts and schemas** | 21 contracts, 24 domain schemas, 4 operator-implemented API surfaces — [`contracts/`](contracts/) |
+| **Discovery** | A canonical origin controlled by the operator, with artifacts at fixed paths under `/.well-known/banza/` |
+| **Implementation identity** | Operator and implementation are distinct; a result binds to the implementation evaluated, not to the entity |
+| **Keys and delegation** | Key manifests, domain-separated delegated signing keys, and the trust chain a verifier walks |
+| **Revocation** | Revocation entries and the BANZA Revocation List, with freshness rules and fail-closed evaluation |
+| **Trust evaluation** | Thirteen published, conjunctive checks producing `ROUTING_ALLOWED` or `FAIL_CLOSED` — [`federation-trust.json`](contracts/federation/federation-trust.json) |
+| **Conformance profiles** | Five cumulative levels, L0–L4 |
+| **Payment contracts** | Payment intents and sessions, transfers, collections, QR payloads, settlements, wallet accounts, fees, proofs, events and webhooks |
+| **Reason-code semantics** | Five separate vocabularies, published with their meanings, a reserved extension namespace, and defined handling of unknown codes — [`spec/reason-codes.md`](spec/reason-codes.md) |
+| **Idempotency semantics** | Key scope, request identity, retry and conflict behaviour, retention, concurrency — [`spec/idempotency.md`](spec/idempotency.md) |
+| **Federation and routing conditions** | What must hold before one implementation routes to another, and the contract surface it routes over — [`spec/federation/`](spec/federation/) |
+| **Evidence and receipts** | Evidence bundles, journey and operation receipts, content digests binding a result to its inputs |
+| **Semantic equivalence** | When two results from different implementations count as the same result, and what may differ between them |
+| **Invariants** | 70 published financial and federation invariants — [`contracts/invariants.json`](contracts/invariants.json) |
+| **Conformance vectors** | Public vectors for canonicalization, trust signing, reason codes, idempotency and every payment domain — [`conformance/vectors/`](conformance/vectors/) |
 
-> A PASS is conformance evidence for the requested level. It is one of the ten
-> inputs to Open Trust Evaluation — it does not by itself make an operator
-> routable, and it does not replace legal, regulatory, KYC/KYB or banking
-> obligations. Operators are independent and carry their own legal, regulatory and
-> financial responsibility; any authorisation to operate comes from the competent
-> regulator, never from BANZA.
+## What BANZA does not define
 
-**Developer / internal fallback** (for contributors working inside the BANZA repository):
+BANZA does not determine, by itself:
+
+- regulatory authorisation, or any licence to provide financial services;
+- commercial agreements between participants;
+- admission to an operational scheme;
+- internal ledger implementation, liquidity management, clearing policy or operational settlement
+  policy;
+- an implementation's internal risk controls;
+- technology stack, programming language, database or hosting.
+
+An implementation satisfies BANZA by exhibiting the required *behaviour*. How it does so is its own
+decision.
+
+## The normative surface
+
+The Whitepaper is descriptive. The **normative** requirements live in versioned public artifacts, and
+the Normative Manifest identifies exactly which ones.
+
+```
+README                     orientation — this document
+  ↓
+Whitepaper                 model and architecture
+  ↓
+Normative Manifest         which artifacts are requirements
+  ↓
+Specifications · Contracts · Schemas · Registries · Vectors
+```
+
+### The Normative Manifest
+
+[`contracts/production/normative-manifest.json`](contracts/production/normative-manifest.json) lists
+every published artifact with a SHA-256 digest and two classifications: what kind of artifact it is, and
+what an implementer must do with it.
+
+| Tier | Meaning |
+|---|---|
+| `implementation` | An independent implementation must satisfy this. **This is the reading list.** |
+| `conformance` | Material for *demonstrating* conformance; it expresses requirements defined elsewhere |
+| `legal` | The legal basis for implementing at all |
+| `informative` | Published and stable, but imposes no conformance obligation |
+
+**Being listed does not make an artifact a requirement** — only `tier: implementation` does. The manifest
+also states what is *outside* the published surface entirely, including the reference implementation, the
+website, the Whitepaper, and the decision records.
+
+### BANZA Canonical JSON (`BCJ/1`)
+
+BANZA does not define signed and hashed inputs through a language-specific JSON serialization. It
+defines them through a canonicalization profile that any language can implement.
+
+`BCJ/1` is RFC 8785 (JCS) restricted by a BANZA profile: integers only within a stated range, duplicate
+members rejected, unknown members preserved and signed, no Unicode normalisation, member ordering by
+UTF-16 code units. Every signature and content digest in the protocol is computed over these bytes.
+
+- Specification: [`spec/canonicalization.md`](spec/canonicalization.md)
+- Public vectors: [`conformance/vectors/canonicalization.json`](conformance/vectors/canonicalization.json)
+
+### Execution semantics
+
+Two behaviours matter to any pair of implementations that exchange messages, and both are published:
+
+- **Reason codes** — [`spec/reason-codes.md`](spec/reason-codes.md) and the registry
+  [`reason-code-registry.production.json`](contracts/production/reason-code-registry.production.json).
+  A status decides an outcome; a reason code explains it. Decisional statuses are closed enums;
+  explanatory codes are extensible through a reserved namespace and are never allowed to change a
+  verdict.
+- **Idempotency** — [`spec/idempotency.md`](spec/idempotency.md). Key scope, what makes two requests the
+  same request, retry and conflict behaviour, the retention window and its declaration, and the
+  observable behaviour of concurrent requests carrying the same key.
+
+## Conformance profiles
+
+| Level | Name | Adds |
+|---|---|---|
+| **L0** | Protocol Sandbox | Secure protocol configuration in a test environment; valid manifest; correct monetary representation |
+| **L1** | Core Payment Capability | Essential payment and traceability capabilities |
+| **L2** | Payment Initiation Capability | Payment initiation by request or dynamic QR code |
+| **L3** | Inter-Operator Interoperability | Routing, settlement and reconciliation conditions between operators; requires evidence involving more than one operator |
+| **L4** | External Interoperability | Integration with external networks; defined by profile |
+
+The levels are cumulative. L0–L2 can be assessed within a single operator; L3 and L4 require evidence
+involving more than one operator and evidence of external integration respectively.
+
+A certification profile is distinct from a level: it fixes a level together with the capabilities,
+contracts and endpoints required.
+
+**A conformance level is not a certification, and a certification is not a regulatory authorisation.**
+A positive result at a level is evidence that the technical conditions for that level are satisfied — it
+is not, in itself, certification, admission or authorisation.
+
+## Discovery and trust
+
+Each implementation publishes its artifacts at a **canonical origin it controls**. Discovery begins at a
+fixed path under `/.well-known/banza/`, from which a verifier resolves the operator manifest, the key
+manifest and signed protocol metadata.
+
+Trust is evaluated from that published material:
+
+```
+Trust Root            signs only the Key Manifest
+    ↓
+Delegated signing keys      domain-separated, each valid for one purpose
+    ↓
+Signed protocol metadata · Revocation List
+    ↓
+Operator-published manifests and conformance evidence
+```
+
+A verifier pins the trust root once and uses it to check everything downstream. Evaluation is
+**fail-closed**: missing, malformed, expired, revoked or incompatible material produces a refusal, never
+a default acceptance.
+
+The Trust Root is not an operational hub. It signs key material; it does not authorise operators, issue
+licences, admit participants or take part in any payment.
+
+## Operational independence
+
+BANZA does not require payments, funds or protocol messages to transit a central BANZA transaction
+service. Two implementations that have evaluated each other's published material exchange directly.
+
+Two planes must be distinguished, and BANZA's position differs between them:
+
+- **Transaction / data plane** — no BANZA infrastructure is involved. This is what operational
+  independence means.
+- **Trust / governance plane** — trust material is normatively required and is currently published at a
+  single canonical origin maintained by the project. Alternative distribution is not specified. This is
+  stated rather than omitted: it is a real dependency, it sits outside the message and funds path, and
+  it cannot prevent anyone from implementing a published version.
+
+## Conformance
+
+Conformance is established by deterministic evaluation against public contracts and vectors — not by
+self-declaration and not by human approval. The same inputs produce the same verdict for any party
+running the evaluation, and every refusal names the check that refused it.
+
+Conformance is an important part of BANZA. It is not the whole of it: what conformance evaluates is the
+protocol described above.
+
+## Evidence and receipts
+
+A validation produces a result, its reason codes, and a receipt binding that result to the exact inputs
+that produced it through content digests. Receipts and reports aggregate into an **evidence bundle** —
+an integrity-checked artifact an operator publishes and a third party can re-verify.
+
+`spec/reason-codes.md` §8 defines when two results from different implementations are **semantically
+equivalent**, and what may legitimately differ between them. Byte-identical receipts are explicitly not
+the criterion.
+
+Independent reproduction by a second *complete* BANZA implementation has not been demonstrated, because
+no such implementation exists yet.
+
+## Implementation independence
+
+**The reference implementation implements BANZA; it does not define BANZA.**
+
+The normative surface is published, classified and digest-verified, and the trust plane — canonicalization,
+signing, hashing, keys, revocation, trust evaluation and the vectors that validate them — is implementable
+from published text alone.
+
+What follows from that, precisely:
+
+- Specification readiness: **ready for clean-room implementation testing**
+- Complete independent implementation: **not yet demonstrated**
+
+A demonstrated independent implementation would be evidence of the first claim. It is the next
+validation, and this repository does not anticipate its result.
+
+## Getting started for implementers
+
+This is the path for building a BANZA implementation. It starts at the normative surface, and it does
+not require the reference implementation.
+
+1. Read the [Normative Manifest](contracts/production/normative-manifest.json) — it identifies the
+   artifacts that are requirements.
+2. Fix the protocol version (**1.0.0**) and choose a target profile (L0–L4).
+3. Read the applicable specifications and contracts for that profile — [`spec/`](spec/),
+   [`contracts/`](contracts/).
+4. Implement [`BCJ/1`](spec/canonicalization.md) and validate it against
+   [its vectors](conformance/vectors/canonicalization.json). Nothing in the trust plane works until this
+   is exact.
+5. Implement discovery and the trust requirements; validate signature verification against
+   [`trust-signing.json`](conformance/vectors/trust-signing.json), which carries real signatures.
+6. Implement the [reason-code](spec/reason-codes.md) and [idempotency](spec/idempotency.md) semantics.
+7. Implement the capability contracts for your profile.
+8. Validate against the public [conformance vectors](conformance/vectors/).
+9. Produce and publish the evidence your profile requires at your canonical origin.
+
+Maintainer and transparency tooling in this repository, useful for inspecting the rules and reproducing
+results:
 
 ```bash
-python3 tools/banza-conformance/run.py \
-  --url http://localhost:3000 \
-  --level 0 \
-  --output report.json
+make conformance-check                    # conformance vectors, offline and against a simulator
+make crypto-check                         # cryptographic integrity of the trust engine
+make normative-surface-integrity-check    # the manifest matches the surface it identifies
+make execution-semantics-check            # reason-code registry and idempotency parity
 ```
 
-## Federation — Open Trust Evaluation
+An **operator** is not necessarily an implementer. An operator that runs an existing BANZA
+implementation does not need to work through this path.
 
-Operators federate when their published trust material passes **Open Trust
-Evaluation**. There is no admission step and no entity that lets an operator in:
+## Reference implementation
 
-- Operator A routes a payment to a user of Operator B
-- No bilateral agreement required — trust is established by verifying Operator B's
-  signed protocol metadata and conformance evidence against the trust root
-- Routing follows open protocol contracts; settlement rules are defined by the protocol
+This repository contains a reference implementation in [`engines/`](engines/), used to exercise the
+specification, generate fixtures and validate that the published rules are implementable.
 
-Operator A evaluates Operator B against exactly these ten checks (ADR-040):
+It carries no normative authority. Its internal technology choices do not define conformance, and
+implementing BANZA does not require forking or reusing it. Where the reference implementation and a
+specification disagree, the specification governs and the implementation is wrong.
 
-| # | Check |
-|---|-------|
-| 1 | Valid operator manifest |
-| 2 | Compatible protocol version |
-| 3 | Signed protocol metadata |
-| 4 | Conformance evidence present and valid |
-| 5 | Trust root / delegated signature valid |
-| 6 | Not revoked in the revocation list |
-| 7 | Capabilities compatible |
-| 8 | Endpoint contract compatible |
-| 9 | Evidence freshness within policy |
-| 10 | **Fail-closed** on missing, invalid, expired, revoked or incompatible trust material |
+**Operator Zero** is the canonical demonstration implementation, used to exercise the validation journey
+end to end. It is a demonstration target with no privileged path, and it is not a production operator.
 
-Every check is machine-verifiable from published material. Any party — a
-counterparty operator, an auditor, a regulator — can run the same evaluation and
-reach the same result, without asking BANZA anything.
+## BanzAI
 
-Details: [`spec/federation/`](spec/federation/) · ADR-040 · test vectors: [`conformance/`](conformance/)
+BanzAI is the **primary human-operator interface** to BANZA (ADR-054): optional assistance for
+navigating the documentation and understanding technical results.
 
-## Trust Model
+Primary *for humans* is not the same as required. BanzAI is **not part of the normative implementation
+path and does not determine conformance.** It is not a normative source, and it does not certify,
+approve or license anything.
 
-![Trust chain](docs/reference/diagrams/en/banza-trust-chain-v1.svg)
-
-```
-Trust Root  (offline · ceremony-controlled · INV-ROOT-001)
-    ↓
-Delegated Signing Keys  (HSM-protected)
-    ↓
-Signed Protocol Metadata + Revocation List  (ed25519)
-    ↓
-Operator-published Manifests & Conformance Evidence  (signed · /.well-known/banza/operator.json)
-```
-
-A Trust Root assina apenas o Manifesto de Chaves; as chaves delegadas assinam metadados do protocolo, releases e revogações.
-Ela não autoriza operadores, não emite licença e não autoriza pagamentos.
-
-Operators pin the trust root once and use it to verify all subsequent signed
-protocol metadata, delegated keys and revocations. BanzAI never holds production keys.
-
-**Public Protocol Registry.** O Public Protocol Registry é um índice de metadata e
-evidência verificável. Não é uma lista de operadores licenciados, aprovados ou
-admitidos pela BANZA. Absence from the registry is not a regulatory prohibition —
-it means metadata has not been indexed, nothing more.
-
-**Revocation List.** A Revocation List é um mecanismo de segurança e trust do
-protocolo. Não é licença, sanção regulatória ou autorização financeira. Evaluation
-fails closed against it.
-
-Details: ADR-038 · ADR-039 · ADR-040 · [`docs/security/`](docs/security/)
-
-## Governance
-
-The protocol evolves through an open process, available to all operators:
-
-- **ADRs** record accepted architecture decisions — [`decisions/adr/`](decisions/adr/)
-- **RFCs** propose protocol changes for open comment — [`decisions/rfc/`](decisions/rfc/)
-
-**To propose a change:** open an RFC in [`decisions/rfc/`](decisions/rfc/) for open
-comment; once the direction is agreed, the accepted decision is recorded as an ADR in
-[`decisions/adr/`](decisions/adr/). Anyone may propose — see [CONTRIBUTING.md](CONTRIBUTING.md).
-Humans maintain and evolve the protocol; they do not authorise, accept, approve or
-certify operators.
-
-**Origin and open governance.** BANZA was originally created on **01/08/2025 (1 de agosto de 2025)** by
-**BANZAMI - TECNOLOGIA E SERVIÇOS, LDA.**, which is the original creator and initial institutional
-maintainer. That date is the protocol's historical creation / initial availability — not a production,
-certification, financial-authorisation or active-operator date — and the creator holds no operational
-authority over operators. **BANZA governance is open
-today through the public GitHub repository** (issues, pull requests, reviews, ADRs, RFCs, specs,
-releases) — it is not a future promise. See [GOVERNANCE.md](GOVERNANCE.md) and
-[MAINTAINERS.md](MAINTAINERS.md).
-
-Model: [`docs/governance/README.md`](docs/governance/README.md)
-
-## Technology Neutrality
-
-BANZA does not prescribe implementation technology. The protocol defines
-*behaviour*, never *stack*:
-
-- Monetary values: integer arithmetic in minor units — no floating point
-- Ledger writes: synchronous and atomic at the posting step
-- Double-entry: every debit has a corresponding credit
-- Wallet balances: always ledger-derived
-- Every financial operation: idempotent and replay-safe
-
-Any language, database or runtime that satisfies the invariants and passes
-conformance is a valid implementation.
-
-This operator neutrality is permanent, and it is **orthogonal** to the language of
-the project's *own* official tooling. Per [ADR-037](decisions/adr/ADR-037-rust-first-official-engines.md),
-the **official** BANZA/BanzAI engines — conformance, crypto/trust/BRL, invariant
-checking, the BanzAI evidence engine, guards and evals — are **Rust**; TypeScript is
-UI/glue, Python is temporary legacy. A CI guard (`make rust-rule-check`) blocks new
-non-Rust engines. See
-[docs/governance/RUST_FIRST_IMPLEMENTATION_POLICY.md](docs/governance/RUST_FIRST_IMPLEMENTATION_POLICY.md).
-
-## BanzAI — the Native Protocol Agent
-
-BanzAI is the native protocol AI agent at `banza.network/banzai` (ADR-041). It
-guides operators, orchestrates the verifiable Rust/WASM tools and explains the
-rules; it never makes them:
-
-| BanzAI does | BanzAI does NOT do |
-|-------------|-------------------|
+| BanzAI does | BanzAI does not |
+|---|---|
 | Explain protocol rules with citations | Define or change rules |
-| Explain conformance criteria and gaps | Admit, approve or vouch for an operator |
-| Explain recorded traces against invariants | Execute the authoritative conformance suite |
-| Search and navigate ADRs, RFCs, contracts | Hold production keys |
-| Validate documents against published schemas | Perform Open Trust Evaluation for a counterparty |
+| Explain conformance criteria and gaps | Decide, alter or override a verdict |
+| Help navigate specifications, contracts and decisions | Certify, admit, approve or authorise anything |
+| Present results produced by the deterministic engines | Hold production keys or move funds |
 
-**Current state (reference deployment).** `banza.network/banzai` is the **single public interface**;
-the browser calls same-origin `POST /banzai/ask` → the internal `banzai-api`. The effective default
-engine is **`local_qwen`** — Qwen3-4B-GGUF run on-host by `llama.cpp`, reasoning disabled, 384 tokens,
-60 s timeout, concurrency/queue 1. **External model calls = 0** (`external_model_called=false`, no API
-key, nothing leaves the host); `llama.cpp` and PostgreSQL are internal only. Rust/WASM owns retrieval,
-Qwen-first routing, source packing, validation, the journey state machine and the upload scan; Qwen is
-only a local language layer and is **non-normative**. Every answer reports its own path — *Gerado por
-Qwen local · Resposta determinística · Resposta em cache · Evidência insuficiente · Fallback seguro*.
-
-**Guided operator journey.** The public agent walks an operator through **Guia → Manifest →
-Conformidade → Trust → Federação → Evidence Bundle → Traces/Relatório**, with *Perguntar ao BanzAI*
-available at every step. Journey **session state lives only in the browser's memory** — it persists
-across menus, disappears on reload/*Limpar sessão*, uses no `localStorage`/`sessionStorage`/
-`IndexedDB`, is never written to PostgreSQL and stores no uploaded files on the server. Steps accept a
-real protocol JSON (read only in-session, scanned by Rust — private keys/secrets are rejected); only a
-safe summary (step, statuses, file name/size) ever reaches `/ask`.
-
-**Pre-production.** The public state is pre-production: `/operators=[]`, `production_certificates=false`,
-no operator evidence published. Public validations are **technical/demonstration evidence, not
-authorisation** — BanzAI never certifies, approves, licenses or accepts operators.
-
-Runtime: [services/banzai-api](services/banzai-api) (canonical, this repo — the sole active BanzAI source) ·
-Documentation: [`docs/banzai/`](docs/banzai/) ([protocol agent](docs/banzai/BANZAI_PROTOCOL_AGENT.md) ·
-[response paths](docs/banzai/RESPONSE_PATHS.md) · [operator journey](docs/banzai/OPERATOR_JOURNEY.md) ·
-[session state](docs/banzai/SESSION_STATE.md)) · public reference: [`/referencia/banzai`](https://banza.network/referencia/banzai)
-
-> **Tools determine truth. AI explains truth.**
-
-## Contracts
-
-All protocol specifications live in [`contracts/`](contracts/):
-
-| Path | Content |
-|------|---------|
-| `contracts/openapi/` | REST API definitions — what operators must expose |
-| `contracts/webhooks/` | Webhook payload schemas |
-| `contracts/qr/` | QR code content specification |
-| `contracts/events/` | Event schemas |
-| `contracts/federation/` | Federation contract surface — trust evaluation, routing, obligations, events, manifest, key manifest and revocation list |
-
-No feature exists in prose only: once implementation begins, every feature has
-a corresponding artifact in `contracts/`.
-
-## Repository Structure
-
-```
-banza/
-├── spec/                   What the protocol IS — invariants, lifecycles, federation/ (human-normative)
-├── contracts/              Machine-readable contracts — OpenAPI, schemas, events, invariants registry
-├── conformance/            Proof — conformance test vectors + fixtures
-├── decisions/              Governance record — ADRs (adr/, ADR-001..040) and RFCs (rfc/, RFC-0001..0006)
-├── docs/
-│   ├── reference/          Consolidated reference (PT canonical · EN), diagrams, terminology
-│   ├── governance/         Public governance, policies, trust architecture, ceremony records
-│   ├── security/           Public security — root-key ceremony (M2), readiness
-│   └── guides/             Human how-to guides (conformance, operators)
-├── examples/               Conceptual examples (illustrative only, non-normative)
-├── website/                Public protocol website (banza.network, pt-PT)
-├── services/               Minimal public services — verification-api, banzai-api (local Qwen)
-├── infra/banza-network/    Minimal reproducible public infra (compose, nginx, DB schema)
-├── tools/                  Identity, purity, invariant, conformance and SVG checks
-├── assets/                 Public brand & social assets
-└── README.md · VERSION · LICENSE · SECURITY.md · Makefile
-```
-
-**This repo contains:** the protocol specification (`spec/`), machine-readable
-contracts (`contracts/`), the conformance proof (`conformance/`), the governance
-record (`decisions/`), human documentation (`docs/`), the public website
-(`website/`), minimal public services (`services/`) and reproducible infra
-(`infra/`). `examples/` is conceptual and non-normative.
-
-**This repo does NOT contain:** any operator, wallet, financial app, payments
-runtime, real settlement, custody of funds, or backoffice — those belong to
-operators. The Public Protocol Registry currently publishes **no operator metadata**
-(`/operators` returns `[]`) and `production_certificates` remains `false`; the public
-state is **pre-production**.
-
-The protocol-only boundary is documented in
-[`docs/governance/REPOSITORY_STRUCTURE.md`](docs/governance/REPOSITORY_STRUCTURE.md)
-and enforced by `make purity-check` + `make identity-check` (CI: `Repository Purity`, `Identity Guard`).
-
-## What BANZA Is / Is Not
-
-| BANZA is | BANZA is not |
-|---|---|
-| An open protocol specification | A consumer app or wallet |
-| Rules for interoperable payments | A payment processor |
-| Conformance levels and machine-verifiable evidence (L0–L4) | A card gateway |
-| A federation model for operators | Any operator's private property |
-| A trust root with delegated signing keys and a revocation list | An authority that admits or authorises operators |
-
-## FAQ
-
-**Is BANZA a product?**
-No. BANZA is a protocol specification. Products are built outside this repository by independent operator implementations. Operators are independent and carry their own legal and regulatory responsibility; any authorisation to operate comes from the competent regulator, never from BANZA.
-
-**Who can become an operator?**
-Anyone who implements the protocol. An operator publishes a manifest, exposes compatible endpoints, and produces machine-verifiable conformance evidence signed against the trust root. There is no application, no queue and no approval: counterparties run Open Trust Evaluation against the published material and decide for themselves whether to route. Participation is demonstrated by verifiable protocol conformance, not by central human approval.
-
-**Which technology stack is required?**
-None. The protocol defines behaviour, never stack.
-
-**Does BANZA depend on BanzAI?**
-No. Remove BanzAI and the protocol loses nothing normative. BanzAI depends on
-BANZA — never the other way around.
-
-**Who owns the protocol?**
-No one operator. Governance is open via ADRs and RFCs; the specification is
-published under open licenses.
-
-## Verification
-
-```bash
-make identity-check      # no operator-specific brand contamination
-make purity-check        # protocol-only artifacts, no build outputs
-make conformance-check   # conformance vectors against a live operator
-make reference-svg-check # required protocol diagrams present
-```
-
-## Contributing
-
-Contributions welcome to protocol contracts, the conformance suite,
-documentation (ADRs, RFCs, reference material) and examples.
-See [CONTRIBUTING.md](CONTRIBUTING.md). Protocol rule changes happen here —
-via the open ADR/RFC process.
+The protocol functions without it, and automated consumers use the public interfaces directly.
+Documentation: [`docs/banzai/`](docs/banzai/).
 
 ## Security
 
-Report vulnerabilities to [security@banza.network](mailto:security@banza.network).
-Do not open public issues. See [docs/security/README.md](docs/security/README.md).
+The security model rests on published, verifiable material rather than on trusted intermediaries:
 
----
+- signed artifacts with domain-separated delegated keys;
+- revocation with freshness rules;
+- fail-closed validation — an evaluation that cannot complete refuses;
+- a canonicalization that rejects ambiguity (non-integer numbers, out-of-range integers, duplicate
+  members) rather than resolving it silently;
+- hardened remote fetching for endpoint-originated validation: HTTPS only, host pinning, no redirects,
+  blocked private, loopback, link-local and cloud-metadata addresses, bounded responses;
+- evidence integrity through content digests that bind a result to its inputs.
 
-## License, trademarks and governance
+No external security audit has been performed. Report vulnerabilities to
+[security@banza.network](mailto:security@banza.network) — see [`SECURITY.md`](SECURITY.md) and
+[`docs/security/`](docs/security/).
 
-The code, protocol contracts and specifications in this repository are licensed under the
-**Apache License 2.0** — see [`LICENSE`](LICENSE) (standard template) and [`NOTICE`](NOTICE)
-(copyright/attribution). Public documentation is published under **Creative Commons CC BY 4.0**.
-Full policy: [`docs/governance/licensing.md`](docs/governance/licensing.md).
+## Repository structure
 
-The license **does not grant trademark rights** to the **BANZA**, **BanzAI** or **Banzami**
-names/logos — those are governed separately by [`TRADEMARKS.md`](TRADEMARKS.md).
+| Path | Contents |
+|---|---|
+| [`spec/`](spec/) | Normative specifications — canonicalization, execution semantics, federation, invariants |
+| [`contracts/`](contracts/) | Machine-readable contracts, schemas, registries and API surfaces |
+| [`conformance/`](conformance/) | Public conformance vectors, suites and fixtures |
+| [`decisions/`](decisions/) | Governance record — 79 ADRs and 6 RFCs |
+| [`engines/`](engines/) | Reference implementation (Rust) — non-normative |
+| [`docs/`](docs/) | Whitepaper, reference material, governance, security and guides |
+| [`website/`](website/) | The public protocol website |
 
-BANZA is not a bank, PSP, wallet, payment operator or financial service provider.
+Directories not listed here are supporting material. The protocol-only boundary is documented in
+[`REPOSITORY_STRUCTURE.md`](docs/governance/REPOSITORY_STRUCTURE.md) and enforced in CI.
 
-- [`LICENSE`](LICENSE) · [`NOTICE`](NOTICE) · [`TRADEMARKS.md`](TRADEMARKS.md)
-- [`GOVERNANCE.md`](GOVERNANCE.md) · [`MAINTAINERS.md`](MAINTAINERS.md) · [`CONTRIBUTING.md`](CONTRIBUTING.md)
-- Reference: [`docs/reference/pt/completa.md`](docs/reference/pt/completa.md) · Decisions: [`decisions/adr/`](decisions/adr/)
-BANZA is operator-neutral protocol infrastructure — no operator owns it.
+## Documentation
+
+| | |
+|---|---|
+| **Whitepaper** | [PT (canonical)](docs/whitepaper/pdf/banza-whitepaper-v1.0-pt.pdf) · [EN (translation)](docs/whitepaper/pdf/banza-whitepaper-v1.0-en.pdf) |
+| **Normative Manifest** | [`contracts/production/normative-manifest.json`](contracts/production/normative-manifest.json) |
+| **Canonicalization** | [`spec/canonicalization.md`](spec/canonicalization.md) |
+| **Execution semantics** | [reason codes](spec/reason-codes.md) · [idempotency](spec/idempotency.md) |
+| **Federation and trust** | [`spec/federation/`](spec/federation/) · [invariants](spec/federation/FEDERATION_INVARIANTS.md) |
+| **Validation journey** | [`spec/validation-journey.md`](spec/validation-journey.md) |
+| **Contracts** | [`contracts/`](contracts/) · [API surfaces](contracts/openapi/) |
+| **Conformance vectors** | [`conformance/vectors/`](conformance/vectors/) |
+| **Reference material** | [PT (canonical)](docs/reference/pt/completa.md) · [EN](docs/reference/en/complete.md) |
+| **Certification boundary** | [`docs/governance/certification-boundary.md`](docs/governance/certification-boundary.md) |
+| **Governance** | [`GOVERNANCE.md`](GOVERNANCE.md) · [`MAINTAINERS.md`](MAINTAINERS.md) · [`docs/governance/`](docs/governance/) |
+| **Contributing** | [`CONTRIBUTING.md`](CONTRIBUTING.md) |
+| **BanzAI** | [`docs/banzai/`](docs/banzai/) |
+
+The Portuguese edition of the Whitepaper is the canonical one; the English edition is its official
+translation.
+
+## Governance and versioning
+
+The protocol evolves through a public process. **RFCs** ([`decisions/rfc/`](decisions/rfc/)) propose
+changes for open comment; accepted decisions are recorded as **ADRs**
+([`decisions/adr/`](decisions/adr/)). Anyone may propose a change — see
+[`CONTRIBUTING.md`](CONTRIBUTING.md).
+
+The process is public and open to participation. Maintainer responsibilities and how decisions are taken
+are defined in [`GOVERNANCE.md`](GOVERNANCE.md); this repository does not claim decentralised governance.
+
+**Origin.** BANZA was created on **01/08/2025** (1 de agosto de 2025) by **BANZAMI — TECNOLOGIA E
+SERVIÇOS, LDA.**, its original creator and initial institutional maintainer. That date records the
+protocol's creation and initial availability — not a production, certification or authorisation date —
+and the creator holds no operational authority over implementations. See [`NOTICE`](NOTICE) and
+[`MAINTAINERS.md`](MAINTAINERS.md).
+
+The current protocol version is **BANZA 1.0.0**. Compatibility and breaking-change policy are declared in
+[`protocol-version.json`](contracts/production/protocol-version.json). Canonicalization carries its own
+identifier (`BCJ/1`) so it can evolve without being confused with the protocol version.
+
+## Current limitations
+
+Stated plainly, and not qualified elsewhere in this document:
+
+- The protocol and the reference implementation are in **pre-production**.
+- There are **no production operators** and **no active technical certifications**.
+- **Real-money operation is disabled.**
+- A **complete independent implementation has not been demonstrated**.
+- **Interoperability between two fully independent implementations** has not been demonstrated
+  experimentally.
+- No **performance or scalability** evidence has been published.
+- **External interoperability (L4)** has not been demonstrated experimentally, and its profile content
+  is not yet published.
+- No **external security audit** has been performed.
+- Adoption has not been demonstrated.
+
+## Next validation
+
+The next technical step is an **independent clean-room implementation and interoperability validation**:
+an external team implementing BANZA from the published surface alone, and two independent
+implementations interoperating.
+
+No date is committed. This is a technical validation plan, not a commercial roadmap, and this repository
+makes no claim about integrations that have not been formally decided and documented here.
+
+## Licence and trademarks
+
+Code, contracts and specifications in this repository are licensed under the **Apache License 2.0** —
+see [`LICENSE`](LICENSE) (standard, unmodified terms) and [`NOTICE`](NOTICE) (copyright and
+attribution). Public documentation is published under **Creative Commons Attribution 4.0 International
+(CC BY 4.0)**. Full policy: [`docs/governance/licensing.md`](docs/governance/licensing.md).
+
+Nothing in the licensing requires prior authorisation to build an implementation.
+
+The licence does **not** grant trademark rights to the **BANZA**, **BanzAI** or **Banzami** names and
+logos. Those are governed separately by [`TRADEMARKS.md`](TRADEMARKS.md), which permits describing a
+conformant implementation as an *"Independent implementation of the BANZA protocol"*. The right to
+implement the protocol and the right to use the marks are distinct.
+
+BANZA is not a bank, payment service provider, wallet, payment operator or financial service provider.
+Any authorisation to operate comes from the competent regulator, never from BANZA.
