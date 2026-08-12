@@ -42,10 +42,9 @@ conformance evidence is one of ten inputs.
 Start your operator, then:
 
 ```bash
-python3 tools/banza-conformance/run.py \
-  --url http://localhost:3000 \
-  --level 2 \
-  --output report.json
+cd engines/banza-conformance
+cargo run --release -- check-vectors     # offline: vectors + invariant registry
+cargo run --release -- run-live          # live operator against the SimB simulator
 ```
 
 See `tools/banza-conformance/README.md` for full options.
@@ -141,7 +140,7 @@ The manifest schema is validated by `conformance/manifests/schema.json`.
 2. Add the vector to the appropriate file in `conformance/vectors/`
 3. Set `"stability": "experimental"` until it passes the reference operator
 4. Reference the vector from the relevant suite's `vectors` array
-5. Implement the test case in `tools/banza-conformance/run.py`
+5. Implement the test case in `engines/banza-conformance` (the Rust runner, ADR-037)
 
 A vector that no longer applies is flagged in place via its `stability` marker rather than removed, so its ID is never reused.
 

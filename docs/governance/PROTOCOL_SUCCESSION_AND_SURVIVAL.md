@@ -211,7 +211,7 @@ O release é a operação que transforma trabalho em protocolo publicado. Está 
 
 ## 13. Rotação da Trust Root
 
-A Trust Root assina **metadados do protocolo, releases, Delegated Signing Keys e revogações**.
+A Trust Root assina **apenas o Manifesto de Chaves**, que endossa as Delegated Signing Keys; são estas que assinam metadados do protocolo, releases e revogações (ADR-079).
 
 **A Trust Root NÃO:**
 - não autoriza pagamentos;

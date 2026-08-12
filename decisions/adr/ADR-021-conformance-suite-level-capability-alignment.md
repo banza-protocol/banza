@@ -60,7 +60,7 @@ retained only in a crosswalk and in historical records.
 
 - `conformance/vectors/*.json` — every vector's `certification_level` is set to its
   canonical level.
-- `tools/banza-conformance/run.py` — suites map to canonical levels; a real L2
+- `engines/banza-conformance` (`banza-conformance-rs`) — suites map to canonical levels; a real L2
   `payment_initiation` suite exercises `POST /payment-requests`,
   `POST /payment-requests/{id}/pay`, and `POST /qr`.
 - `conformance/report-schema.json` — reports carry the canonical level name, suite

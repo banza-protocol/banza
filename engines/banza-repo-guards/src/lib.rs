@@ -512,7 +512,6 @@ fn banzami_attribution_allowed(path: &str) -> bool {
         || path == "website/lib/whitepaper.ts"
         || path == "tools/whitepaper-build.sh"
         || path == "tools/check-banza-whitepaper.sh"
-        || path.starts_with("docs/reports/BANZA_WHITEPAPER_")
 }
 
 pub fn contamination() -> GateResult {

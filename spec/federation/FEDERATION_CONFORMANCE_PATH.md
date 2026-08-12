@@ -124,11 +124,8 @@ Cross-operator conformance: `run_tests(Operator_A_URL, Operator_B_URL)` → pass
 The conformance runner requires a two-operator invocation mode:
 
 ```bash
-python3 tools/banza-conformance/run.py \
-  --federation \
-  --operator-a https://api.operator-a.example \
-  --operator-b https://api.operator-b.example \
-  --level 3
+cd engines/banza-conformance
+cargo run --release -- run-fed           # federation conformance across two peers
 ```
 
 The runner exercises the federation suite across both operators and reports the interoperability

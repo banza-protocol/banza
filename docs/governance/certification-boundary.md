@@ -168,7 +168,7 @@ levels denote conformance readiness only.
 - INV-IDENT-001 — handle uniqueness
 - INV-TRACE-001 — trace propagation
 
-**Conformance assets:** L1 vectors in `conformance/vectors/` (transfers, ledger-postings, wallet-balances, core event-envelopes, traceability) + runner suites `wallets`, `transfers`, `traces` (`tools/banza-conformance/run.py`).
+**Conformance assets:** L1 vectors in `conformance/vectors/` (transfers, ledger-postings, wallet-balances, core event-envelopes, traceability) + runner suites `wallets`, `transfers`, `traces` (`engines/banza-conformance`).
 
 **What this level covers:** Core payment operations (wallets, transfers, ledger, traceability), operated at the operator's own declared limits. Conformance is demonstrated by published evidence; no central authority issues credentials or keys.
 
@@ -215,7 +215,7 @@ levels denote conformance readiness only.
 - `GET /federation/obligations` endpoint operational
 - Operator not present in the BANZA Revocation List (BRL)
 
-**Conformance assets:** All L2 assets + the federation suite (`conformance/federation/`, run via `tools/banza-conformance/run.py --federation` / `run_fed.py`: FED-CERT, FED-DISC, FED-TRUST, FED-ROUTE, FED-EXEC, FED-OBL, FED-EVT, FED-SETTLE, FED-FAIL). L3 requires multi-operator evidence and is not awarded by the single-operator sandbox runner.
+**Conformance assets:** All L2 assets + the federation suite (`conformance/federation/`, run via `banza-conformance-rs run-fed`: FED-CERT, FED-DISC, FED-TRUST, FED-ROUTE, FED-EXEC, FED-OBL, FED-EVT, FED-SETTLE, FED-FAIL). L3 requires multi-operator evidence and is not awarded by the single-operator sandbox runner.
 
 **What this level covers:** Cross-operator payment routing, inter-operator settlement and reconciliation, indexing in the public protocol registry once verifiable evidence is published, and higher operator-declared limits.
 

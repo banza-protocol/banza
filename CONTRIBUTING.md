@@ -51,7 +51,7 @@ Follow the area-specific guidelines:
 **Conformance (`conformance/`)**
 - Test vectors must be deterministic and technology-neutral
 - New vectors must include a `README.md` describing the invariant tested
-- Run: `python3 tools/banza-conformance/run.py --suite <suite>`
+- Run: `make conformance-check` (or `cd engines/banza-conformance && cargo run --release -- check-vectors`)
 
 **Documentation (`docs/`)**
 - ADRs are append-only historical records — do not retroactively amend
@@ -80,7 +80,7 @@ make rust-rule-check
 make crypto-check
 
 # Required protocol diagrams present
-make svg-check
+make svg-visual-system-check
 ```
 
 ### 5. Submit a pull request

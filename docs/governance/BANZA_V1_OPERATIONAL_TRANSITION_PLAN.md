@@ -196,7 +196,7 @@ These are correct by design but their boundary must be explicit and durable:
 
 | System | Role | Can certify? | Can issue? |
 |--------|------|:------------:|:-----------:|
-| `tools/banza-conformance/run.py` | BANZA conformance suite | **Yes** | No |
+| `engines/banza-conformance` | BANZA conformance suite (Rust, ADR-037) | **Yes** | No |
 | `tools/banza-conformance/run_fed.py` | BANZA federation conformance | **Yes** | No |
 | `apps/banzai/tools/conformance-runner` | BanzAI certification copilot | No — guidance only | No |
 | BanzAI `/certification/copilot` API | BanzAI readiness analysis | No — inference only | No |

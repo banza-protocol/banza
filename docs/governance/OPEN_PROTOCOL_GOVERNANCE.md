@@ -104,7 +104,7 @@ A conformidade demonstra-se, não se declara. Uma implementação corre os vetor
 
 ## 7. Trust
 
-> "A Trust Root assina metadados do protocolo, releases, chaves delegadas, revogações e artefactos de confiança do protocolo. Ela não autoriza operadores nem serviços financeiros."
+> "A Trust Root assina apenas o Manifesto de Chaves; as chaves delegadas assinam metadados do protocolo, releases, revogações e artefactos de confiança do protocolo. Ela não autoriza operadores nem serviços financeiros."
 
 O âmbito da `Trust Root` é criptográfico e estritamente delimitado. Assina metadados do protocolo, releases de especificações, `Delegated Signing Keys` e entradas da `Revocation List`, permitindo que qualquer parte verifique a autenticidade e integridade do material que diz vir do protocolo. A `Trust Root` não autoriza pagamentos, não cria operadores, não emite licenças, não confere estatuto a implementações e não movimenta fundos. A sua custódia é distribuída e o seu uso é offline e auditável. Uma assinatura da `Trust Root` prova origem e integridade de material do protocolo — nada mais.
 

@@ -180,7 +180,7 @@ No conformance vector may test something not specified in a contract. No certifi
 
 | Item | Location | Status | Confidence |
 |------|----------|--------|-----------|
-| Conformance runner (L0–L2) | `tools/banza-conformance/run.py` | COMPLETE | HIGH |
+| Conformance runner (L0–L2) | `engines/banza-conformance` (Rust) | COMPLETE | HIGH |
 | Federation conformance runner | `tools/banza-conformance/run_fed.py` | COMPLETE | HIGH |
 | Interoperability runner | `tools/banza-conformance/run_interop.py` | COMPLETE | HIGH |
 | Conformance report schema | `conformance/report-schema.json` | COMPLETE | HIGH |
