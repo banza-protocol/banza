@@ -118,23 +118,96 @@ outside.
 the retired "quatro classes" trust wording are all absent from the served surface. BanzAI answers
 about `BCJ/1` and mentions none of them.
 
-## 7. The gap that prevents declaring the reset complete
+## 7. Provenance, and a correction to an earlier reading of it
 
-**No workflow in the repository builds or publishes the application images.**
+An earlier draft of this report treated the absence of a GHCR/GitHub Actions image pipeline as a
+blocker. **That reading was wrong**, and the correction matters more than the conclusion.
 
-`.github/workflows/` contains no image build step. The GHCR tags the VM pulls — `banza-website:v1.0.0`,
-`banzai-api:v0.1.0`, `banza-verification-api:v0.1.0`, `banza-fetcher:v0.1.0` — were produced outside
-the repository, and nothing in `main` reproduces them.
+**BANZA does not use GHCR or GitHub Actions as its build or publication mechanism.** The registry
+names in `compose.yml` are local tag names, not a dependency: every first-party service carries a
+`build:` context pointing into `${BANZA_REPO:-/srv/banza-protocol/repo}`. The stack is built on the
+host from the cloned repository. Nothing was missing — the first rebuild simply used `compose pull`
+where `compose build` was the correct operation.
 
-So the rebuild satisfied §57 for everything `main` controls: the clone, compose, nginx, database
-schema and migrations, secrets, TLS and the model configuration. It cannot satisfy it for the
-application code itself, because the path from a commit to a running image does not exist in the
-repository.
+The images were therefore rebuilt from source, with provenance made unambiguous rather than assumed:
 
-The practical consequence: **the repository consolidation from Phase A is not yet running.** The
-deleted development history, the corrected trust wording, the operator-neutral layer name and the
-licensing hierarchy are all in `main`; the containers serve images built before them.
+- the four first-party images were removed;
+- `docker compose build --no-cache --pull=false` rebuilt them from the clone at `80e6a3b`;
+- they are tagged **`src-80e6a3b`** — a tag that exists in no registry, so a pulled image could not
+  satisfy it;
+- no first-party image without that tag remains on the host.
 
-This is the deepest form of the divergence this milestone set out to eliminate, and it cannot be
-closed by a cleanup. It needs a committed build-and-publish pipeline, which is a change to how the
-project releases software.
+| Service | Image | Source |
+|---|---|---|
+| website | `banza-website:src-80e6a3b` | `website/` at `80e6a3b` |
+| verification-api | `banza-verification-api:src-80e6a3b` | `services/verification-api/` |
+| banzai-api | `banzai-api:src-80e6a3b` | `services/banzai-api/` |
+| fetcher | `banza-fetcher:src-80e6a3b` | `engines/banza-artifact-fetcher/` |
+
+Third-party dependencies remain at the versions the repository pins: `nginx:1.27-alpine`,
+`pgvector/pgvector:pg16`, and the digest-pinned `llama.cpp`.
+
+The model is the external dependency it has always been, kept out of Git and verified in place:
+`qwen2.5-7b-instruct-q4_k_m`, 3 993 201 344 bytes, SHA-256 recorded at deploy. This is the model the
+benchmark selected, per §5.1.
+
+**Everything running on the VM is now traceable to `80e6a3b`.**
+
+## 8. TLS — the transitional certificate was replaced
+
+A self-signed certificate was generated during the reset as a workaround, because the previous origin
+certificate had been destroyed with the rest of the runtime and no reissue path was available at that
+moment.
+
+It has been replaced by the project's **Cloudflare Origin Certificate**, supplied out of band and
+installed into the path the deployment defines:
+
+- issuer: CloudFlare Origin SSL Certificate Authority;
+- covers `banza.network` and `*.banza.network`;
+- valid to 2041-07-15;
+- certificate and private key verified as a matching pair before any reload, without exposing key
+  material;
+- private key `0600`, owned by the service user; no copy left in a home or temporary directory;
+- the transitional self-signed certificate and key are gone, and the origin no longer serves them.
+
+`nginx -t` passes and the origin serves the Cloudflare Origin certificate. **The origin is
+technically prepared for Cloudflare Full (strict).** Whether the zone is actually set to Full (strict)
+could not be verified from the VM — no Cloudflare credentials are present, and none were introduced.
+That setting should be confirmed in the Cloudflare dashboard.
+
+## 9. Final end-to-end
+
+Re-run after the rebuild from source and the certificate installation.
+
+**Infrastructure** — `nginx -t` passes; the origin serves the Cloudflare Origin certificate; the
+self-signed is gone; the private key is `0600`; public ports are 22, 80, 443 only; PostgreSQL is not
+published; no Redis exists.
+
+**Website** — `/`, `/whitepaper/pt`, `/referencia`, `/banzai`, `/registo-tecnico` all 200.
+
+**Protocol** — `key-manifest.json`, `root.json`, `revocation-list.json`, `/operators`,
+`/conformance/evidence`, `/banzai/runtime` all 200. `/operators` is `[]`; `pre_production` is true;
+`production_certificates` is false.
+
+**Negative** — `DELETE /operators` → 405; unknown route → 404; the retired `/certificates` → 404;
+malformed JSON → 400; PostgreSQL unreachable from off-host.
+
+**Database** — 24 tables from the committed schema, containing only the two rows the initialisation
+seeds into `protocol_state`. No historical data.
+
+**No-legacy** — "Certificate Authority", `banza-conformance/run.py`, "Banzami Operational Scheme" and
+the retired trust wording are absent from the served surface.
+
+## 10. BanzAI's role is unchanged
+
+The deployment is orchestrated on the host, from the repository. That is an operational arrangement
+and it changes nothing about BanzAI's standing: it is not a normative source, it determines no
+conformance, it is not a fourth layer, and no protocol message or payment is required to pass through
+it. The authority remains the Normative Manifest and the specification.
+
+---
+
+**BANZA v1.0.0 — REPOSITORY & VM E2E TRUTH RESET COMPLETE.**
+
+`protocol_version` is unchanged at 1.0.0. The Whitepaper was not touched. The Trust Root was not
+touched, and no ceremony was performed.
