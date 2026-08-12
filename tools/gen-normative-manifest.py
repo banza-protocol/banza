@@ -115,6 +115,21 @@ add('contracts/invariants.json', 'NORMATIVE_REGISTRY', IMPL,
     'The machine-readable registry of protocol invariants. spec/invariants.md is its human-readable '
     'restatement and is deliberately not listed: it declares this file the single source of truth.')
 
+# ── 2b. Execution semantics (X-04, X-05) ────────────────────────────────────────────────────────
+add('spec/reason-codes.md', 'NORMATIVE_SPECIFICATION', IMPL,
+    'Reason-code rules: five separate vocabularies, status decides and code explains, the reserved '
+    'extension namespace, unknown-code handling, and the definition of semantic equivalence.')
+add('contracts/production/reason-code-registry.production.json', 'NORMATIVE_REGISTRY', IMPL,
+    'banza-reason-codes/1 — the machine-readable vocabularies those rules govern.')
+add('conformance/vectors/reason-codes.json', 'CONFORMANCE_VECTOR', CONF,
+    'Vectors for the reason-code rules, derived from the specification.')
+add('spec/idempotency.md', 'NORMATIVE_SPECIFICATION', IMPL,
+    'Idempotency: key scope, request identity as a BCJ/1 digest, retry and conflict semantics, '
+    'retention floor and declaration, concurrency.')
+add('conformance/vectors/idempotency.json', 'CONFORMANCE_VECTOR', CONF,
+    'Vectors for the idempotency rules. The request-identity digests were computed by an '
+    'implementation written from the specification text.')
+
 # ── 3. Trust and security rules ─────────────────────────────────────────────────────────────────
 TRUST = ['contracts/federation/key-manifest.json', 'contracts/federation/revocation-list.json',
          'contracts/federation/federation-trust.json', 'contracts/webhooks/signature.json'] + \

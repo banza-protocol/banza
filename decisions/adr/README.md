@@ -87,6 +87,8 @@ discussions; an accepted RFC may lead to an ADR.
 | [ADR-080](ADR-080-canonical-discovery-surface-reconciliation.md) | Canonical discovery-surface reconciliation (`.well-known/banza/operator.json` + `signed-protocol-metadata.json`) |
 | [ADR-081](ADR-081-normative-completeness-versioning-decision.md) | Normative-completeness remediation: the protocol version stays 1.0.0 and the canonicalization is versioned separately |
 | [ADR-082](ADR-082-banza-canonical-json.md) | BANZA Canonical JSON (`BCJ/1`) — a profile of RFC 8785 as the single byte form for signatures and digests |
+| [ADR-083](ADR-083-reason-code-model.md) | Reason-code model: five separate vocabularies, a status decides while a code explains, reserved extension namespace |
+| [ADR-084](ADR-084-idempotency-semantics.md) | Idempotency semantics: key scope tuple, request identity as a `BCJ/1` digest, retention floor plus mandatory declaration |
 
 > Gaps in the numbering (004, 022, 026, 027, 032) are intentional — those ADRs were removed under the clean-slate policy (ADR-057); numbers are stable identifiers, so survivors are never renumbered and history lives in Git.
 

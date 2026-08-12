@@ -33,8 +33,39 @@ item. Full reasoning: [`BANZA_V1_NORMATIVE_REMEDIATION_REPORT.md`](BANZA_V1_NORM
 | P2-6 Reduce documentary-mirror framing | — | **PARTIAL** | The six `_source_of_truth` inversions are gone; the broader framing review is not done |
 | R-01 … R-04 Research | — | **REMAIN RESEARCH** | The milestone forbids auto-adoption; no finding forced a decision on any of them |
 
-**Score:** P0 1/1 done · P1 4/8 done, 1 partial, 3 deferred with rationale · P2 0/6 done, 1 partial ·
-Research 0/4 adopted, as intended.
+**Score after the remediation milestone:** P0 1/1 · P1 4/8 done, 1 partial, 3 deferred · P2 0/6, 1 partial.
+
+---
+
+## Final disposition — after the execution-semantics milestone
+
+Every finding now has a terminal disposition. **No P0 or P1 blocks a clean-room implementation.**
+
+| Item | Finding | Final disposition | Blocks clean-room? |
+|---|---|---|---|
+| P0-1 Canonical byte form | F-01 | **RESOLVED** — `spec/canonicalization.md` (`BCJ/1`), 24 vectors | No |
+| P1-1 Index of the normative surface | F-02 | **RESOLVED** — 143-artifact classified manifest | No |
+| P1-2 Normative keyword convention | F-03 | **RESOLVED** — BCP 14 declared | No |
+| P1-3 Dangling `_source_of_truth` | F-04 | **RESOLVED** — corrected in `_source_of_truth` *and* `_authority`; guarded | No |
+| **P1-4 Reason-code taxonomy** | F-05 | **RESOLVED** — `spec/reason-codes.md` + `banza-reason-codes/1` + 21 vectors. Also closed the three vocabularies that lived only in the Rust | No |
+| **P1-5 Idempotency rule** | F-06 | **RESOLVED** — `spec/idempotency.md` + 15 vectors: scope tuple, `BCJ/1` request identity, retention floor + declaration, retry, conflict, concurrency | No |
+| **P1-6 Semantic equivalence testable** | F-07 | **RESOLVED** — `spec/reason-codes.md` §8 defines equivalence and what MAY differ; 4 vectors | No |
+| P1-7 Trust-plane single origin | F-08 | **DEFERRED NON-BLOCKING** — an availability and architecture question. The rules for fetching, verifying and refusing trust material are fully published; only an alternative distribution channel is unspecified. An implementation can be written and be correct without it | No |
+| P1-8 Cryptographic trust vectors | — | **RESOLVED** — `conformance/vectors/trust-signing.json`, published out of `engines/` | No |
+| P2-1 Active maintainers | F-09 | **DEFERRED NON-BLOCKING** — governance, untouched by design | No |
+| P2-2 Contribution provenance | F-10 | **DEFERRED NON-BLOCKING** — same | No |
+| P2-3 Whitepaper cites the surface | F-11 | **DEFERRED BY DESIGN** — the Whitepaper is out of scope for both milestones; now actionable | No |
+| P2-4 L4 profile content | — | **DEFERRED NON-BLOCKING** — L4 is external interoperability, outside a v1.0.0 clean-room test. L0–L3 are fully specified | No |
+| P2-5 Secure-fetch into a contract | — | **DEFERRED NON-BLOCKING** — the rules are published in ADR-068 and the fetch reason codes are now a normative vocabulary; promoting them to a schema is an improvement, not a gap | No |
+| P2-6 Documentary-mirror framing | — | **PARTIALLY RESOLVED** — the `_source_of_truth` and `_authority` inversions are gone; seven schemas still declare `_status: reference` while being implementation-tier, recorded per artifact and frozen by the guard at seven | No |
+| R-01…R-04 Research | — | **REJECTED WITH RATIONALE for v1.0.0** — DID/VC, transparency logs, Mojaloop/PAPSS/KWiK and governance evolution remain research. No finding required a decision on any of them, and the milestones forbid auto-adoption | No |
+
+**Resolved: 8 · Partially resolved: 1 · Deferred non-blocking: 6 · Rejected with rationale: 4.**
+
+Two defects found while auditing the remediation are also recorded here so nothing is lost: four
+federation contracts cite a Draft RFC in `_authority` (a naming defect — the rules live in the contracts),
+and `verdict.rs` maps `TRUST_INCOMPLETE`, a value that is not in `STATUS_VALUES` and therefore cannot
+occur. Neither blocks anything.
 
 The audit's suggested sequencing was followed: P0-1 first, then P1-1 and P1-2, then P1-3; P1-4 and P1-5
 were reached and deliberately not specified without their scope decision.

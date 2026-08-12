@@ -1,5 +1,5 @@
 {
-  "total": 5915,
+  "total": 5996,
   "rows": [
     {
       "raw_text": "Contributing to BANZA",
@@ -439,9 +439,10 @@
         "examples-operators-zero-e2e-root-readme-md",
         "spec-canonicalization-md",
         "spec-disputes-md",
-        "spec-federation-federation-trust-model-md"
+        "spec-federation-federation-trust-model-md",
+        "spec-idempotency-md"
       ],
-      "frequency": 187,
+      "frequency": 189,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -1770,6 +1771,7 @@
         "security-md",
         "decisions-adr-adr-038-open-protocol-trust-model-without-ca-md",
         "decisions-adr-adr-064-conformance-interoperability-certification-md",
+        "decisions-adr-adr-084-idempotency-semantics-md",
         "docs-banzai-banzai-workbench-md",
         "docs-banzai-banzai-workbench-threat-model-md",
         "docs-governance-annex-banza-network-infrastructure-md",
@@ -1801,7 +1803,7 @@
         "docs-governance-phase-r10-zero-non-rust-official-gates-2026-07-md",
         "docs-governance-post-7h-public-protocol-architecture-audit-2026-07-md"
       ],
-      "frequency": 33,
+      "frequency": 34,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -1907,9 +1909,10 @@
       "sources": [
         "security-md",
         "decisions-adr-adr-069-simple-secure-operator-onboarding-md",
-        "decisions-adr-adr-077-profile-applicability-model-md"
+        "decisions-adr-adr-077-profile-applicability-model-md",
+        "spec-idempotency-md"
       ],
-      "frequency": 3,
+      "frequency": 4,
       "phrase_length": 3,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -2300,9 +2303,10 @@
       "raw_text": "Stable",
       "normalized": "stable",
       "sources": [
-        "conformance-readme-md"
+        "conformance-readme-md",
+        "spec-reason-codes-md"
       ],
-      "frequency": 1,
+      "frequency": 2,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -2461,9 +2465,11 @@
       "sources": [
         "contracts-readme-md",
         "docs-governance-ceremony-records-ceremony-record-template-md",
-        "spec-canonicalization-md"
+        "spec-canonicalization-md",
+        "spec-idempotency-md",
+        "spec-reason-codes-md"
       ],
-      "frequency": 5,
+      "frequency": 13,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -2475,9 +2481,11 @@
         "contracts-readme-md",
         "decisions-adr-adr-076-banzai-validation-journey-consolidation-and-durable-receipts-md",
         "docs-governance-banza-root-custody-future-migration-md",
-        "spec-canonicalization-md"
+        "spec-canonicalization-md",
+        "spec-idempotency-md",
+        "spec-reason-codes-md"
       ],
-      "frequency": 6,
+      "frequency": 16,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -2488,9 +2496,11 @@
       "sources": [
         "contracts-readme-md",
         "docs-governance-l1-readiness-md",
-        "spec-canonicalization-md"
+        "spec-canonicalization-md",
+        "spec-idempotency-md",
+        "spec-reason-codes-md"
       ],
-      "frequency": 3,
+      "frequency": 5,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -2500,9 +2510,11 @@
       "normalized": "shall",
       "sources": [
         "contracts-readme-md",
-        "spec-canonicalization-md"
+        "spec-canonicalization-md",
+        "spec-idempotency-md",
+        "spec-reason-codes-md"
       ],
-      "frequency": 2,
+      "frequency": 4,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -2512,9 +2524,11 @@
       "normalized": "shall not",
       "sources": [
         "contracts-readme-md",
-        "spec-canonicalization-md"
+        "spec-canonicalization-md",
+        "spec-idempotency-md",
+        "spec-reason-codes-md"
       ],
-      "frequency": 2,
+      "frequency": 4,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -2524,9 +2538,11 @@
       "normalized": "should",
       "sources": [
         "contracts-readme-md",
-        "spec-canonicalization-md"
+        "spec-canonicalization-md",
+        "spec-idempotency-md",
+        "spec-reason-codes-md"
       ],
-      "frequency": 2,
+      "frequency": 4,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -2536,9 +2552,11 @@
       "normalized": "should not",
       "sources": [
         "contracts-readme-md",
-        "spec-canonicalization-md"
+        "spec-canonicalization-md",
+        "spec-idempotency-md",
+        "spec-reason-codes-md"
       ],
-      "frequency": 2,
+      "frequency": 4,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -2550,9 +2568,11 @@
         "contracts-readme-md",
         "spec-canonicalization-md",
         "spec-federation-federation-protocol-flow-md",
-        "spec-federation-federation-trust-model-md"
+        "spec-federation-federation-trust-model-md",
+        "spec-idempotency-md",
+        "spec-reason-codes-md"
       ],
-      "frequency": 4,
+      "frequency": 8,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -2564,9 +2584,11 @@
         "contracts-readme-md",
         "decisions-adr-adr-019-fee-and-application-settlement-architecture-md",
         "decisions-adr-adr-054-banzai-primary-human-operator-interface-md",
-        "spec-canonicalization-md"
+        "spec-canonicalization-md",
+        "spec-idempotency-md",
+        "spec-reason-codes-md"
       ],
-      "frequency": 4,
+      "frequency": 6,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -2663,9 +2685,11 @@
       "sources": [
         "contracts-events-readme-md",
         "decisions-adr-adr-038-open-protocol-trust-model-without-ca-md",
-        "spec-collections-md"
+        "decisions-adr-adr-084-idempotency-semantics-md",
+        "spec-collections-md",
+        "spec-idempotency-md"
       ],
-      "frequency": 3,
+      "frequency": 5,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -3666,11 +3690,13 @@
         "decisions-adr-adr-080-canonical-discovery-surface-reconciliation-md",
         "decisions-adr-adr-081-normative-completeness-versioning-decision-md",
         "decisions-adr-adr-082-banza-canonical-json-md",
+        "decisions-adr-adr-083-reason-code-model-md",
+        "decisions-adr-adr-084-idempotency-semantics-md",
         "docs-governance-banza-v1-operational-transition-plan-md",
         "docs-governance-phase-r3-banzai-api-knowledge-rust-migration-2026-07-md",
         "docs-governance-readme-md"
       ],
-      "frequency": 68,
+      "frequency": 70,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -3744,6 +3770,8 @@
         "decisions-adr-adr-080-canonical-discovery-surface-reconciliation-md",
         "decisions-adr-adr-081-normative-completeness-versioning-decision-md",
         "decisions-adr-adr-082-banza-canonical-json-md",
+        "decisions-adr-adr-083-reason-code-model-md",
+        "decisions-adr-adr-084-idempotency-semantics-md",
         "docs-governance-banzai-native-protocol-agent-md",
         "docs-governance-m2-19g-6-banzai-consolidation-2026-08-md",
         "docs-governance-m2-8a-local-qwen-vps-xl-benchmark-md",
@@ -3753,7 +3781,7 @@
         "docs-governance-readme-md",
         "docs-governance-workbench-only-operator-verification-md"
       ],
-      "frequency": 76,
+      "frequency": 78,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -3825,9 +3853,11 @@
         "decisions-adr-adr-080-canonical-discovery-surface-reconciliation-md",
         "decisions-adr-adr-081-normative-completeness-versioning-decision-md",
         "decisions-adr-adr-082-banza-canonical-json-md",
+        "decisions-adr-adr-083-reason-code-model-md",
+        "decisions-adr-adr-084-idempotency-semantics-md",
         "docs-governance-readme-md"
       ],
-      "frequency": 64,
+      "frequency": 66,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -3862,6 +3892,8 @@
         "decisions-adr-adr-078-banzai-operational-reasoning-and-telemetry-md",
         "decisions-adr-adr-081-normative-completeness-versioning-decision-md",
         "decisions-adr-adr-082-banza-canonical-json-md",
+        "decisions-adr-adr-083-reason-code-model-md",
+        "decisions-adr-adr-084-idempotency-semantics-md",
         "decisions-rfc-readme-md",
         "decisions-rfc-rfc-0001-multi-operator-routing-md",
         "decisions-rfc-rfc-0002-cross-operator-settlement-md",
@@ -3871,7 +3903,7 @@
         "decisions-rfc-rfc-0006-offline-payment-support-md",
         "docs-governance-readme-md"
       ],
-      "frequency": 34,
+      "frequency": 36,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -3957,6 +3989,8 @@
         "decisions-adr-adr-080-canonical-discovery-surface-reconciliation-md",
         "decisions-adr-adr-081-normative-completeness-versioning-decision-md",
         "decisions-adr-adr-082-banza-canonical-json-md",
+        "decisions-adr-adr-083-reason-code-model-md",
+        "decisions-adr-adr-084-idempotency-semantics-md",
         "docs-banzai-banzai-protocol-agent-md",
         "docs-banzai-knowledge-index-md",
         "docs-banzai-local-inference-runtime-md",
@@ -4024,10 +4058,12 @@
         "spec-federation-federation-sequence-diagrams-md",
         "spec-federation-federation-test-suite-spec-md",
         "spec-federation-federation-trust-model-md",
+        "spec-idempotency-md",
         "spec-overview-md",
+        "spec-reason-codes-md",
         "spec-validation-journey-md"
       ],
-      "frequency": 146,
+      "frequency": 151,
       "phrase_length": 1,
       "accepted": true,
       "rejection_reason": "",
@@ -4114,6 +4150,8 @@
         "decisions-adr-adr-080-canonical-discovery-surface-reconciliation-md",
         "decisions-adr-adr-081-normative-completeness-versioning-decision-md",
         "decisions-adr-adr-082-banza-canonical-json-md",
+        "decisions-adr-adr-083-reason-code-model-md",
+        "decisions-adr-adr-084-idempotency-semantics-md",
         "docs-governance-banza-protocol-vs-operator-policy-md",
         "docs-governance-banza-language-policy-md",
         "docs-governance-banza-root-custody-decision-required-md",
@@ -4185,7 +4223,7 @@
         "spec-federation-federation-test-suite-spec-md",
         "spec-overview-md"
       ],
-      "frequency": 149,
+      "frequency": 151,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -9189,9 +9227,11 @@
         "decisions-adr-adr-079-canonical-trust-signing-model-reconciliation-md",
         "decisions-adr-adr-080-canonical-discovery-surface-reconciliation-md",
         "decisions-adr-adr-081-normative-completeness-versioning-decision-md",
-        "decisions-adr-adr-082-banza-canonical-json-md"
+        "decisions-adr-adr-082-banza-canonical-json-md",
+        "decisions-adr-adr-083-reason-code-model-md",
+        "decisions-adr-adr-084-idempotency-semantics-md"
       ],
-      "frequency": 5,
+      "frequency": 7,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -9938,9 +9978,10 @@
         "docs-governance-phase-m2-7l-reference-information-architecture-finalization-2026-07-md",
         "docs-governance-phase-m2-7m-license-notice-trademark-governance-attribution-2026-07-md",
         "docs-governance-phase-m2-8a-banzai-local-qwen-inference-runtime-2026-07-md",
-        "docs-governance-phase-m2-production-protocol-implementation-2026-07-md"
+        "docs-governance-phase-m2-production-protocol-implementation-2026-07-md",
+        "spec-idempotency-md"
       ],
-      "frequency": 19,
+      "frequency": 20,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -11393,13 +11434,15 @@
         "decisions-adr-adr-065-banza-technical-registry-md",
         "decisions-adr-adr-081-normative-completeness-versioning-decision-md",
         "decisions-adr-adr-082-banza-canonical-json-md",
+        "decisions-adr-adr-083-reason-code-model-md",
+        "decisions-adr-adr-084-idempotency-semantics-md",
         "docs-governance-m2-7b-home-reference-consolidation-audit-md",
         "docs-governance-m2-7d-final-protocol-architecture-svg-audit-md",
         "docs-governance-phase-bx1-2-banzai-trust-brl-wasm-2026-07-md",
         "docs-governance-phase-bx1-3-banzai-simb-conformance-l0-wasm-2026-07-md",
         "docs-governance-phase-bx1-5a-portuguese-copy-no-corpus-2026-07-md"
       ],
-      "frequency": 9,
+      "frequency": 11,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -19109,9 +19152,10 @@
       "normalized": "different",
       "sources": [
         "decisions-adr-adr-076-banzai-validation-journey-consolidation-and-durable-receipts-md",
-        "examples-operators-zero-e2e-root-readme-md"
+        "examples-operators-zero-e2e-root-readme-md",
+        "spec-idempotency-md"
       ],
-      "frequency": 2,
+      "frequency": 3,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -19497,9 +19541,10 @@
       "raw_text": "declared",
       "normalized": "declared",
       "sources": [
-        "decisions-adr-adr-077-profile-applicability-model-md"
+        "decisions-adr-adr-077-profile-applicability-model-md",
+        "decisions-adr-adr-084-idempotency-semantics-md"
       ],
-      "frequency": 1,
+      "frequency": 2,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -20483,9 +20528,11 @@
       "normalized": "audit basis",
       "sources": [
         "decisions-adr-adr-081-normative-completeness-versioning-decision-md",
-        "decisions-adr-adr-082-banza-canonical-json-md"
+        "decisions-adr-adr-082-banza-canonical-json-md",
+        "decisions-adr-adr-083-reason-code-model-md",
+        "decisions-adr-adr-084-idempotency-semantics-md"
       ],
-      "frequency": 2,
+      "frequency": 4,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -20605,9 +20652,11 @@
       "raw_text": "Normative specification:",
       "normalized": "normative specification",
       "sources": [
-        "decisions-adr-adr-082-banza-canonical-json-md"
+        "decisions-adr-adr-082-banza-canonical-json-md",
+        "decisions-adr-adr-083-reason-code-model-md",
+        "decisions-adr-adr-084-idempotency-semantics-md"
       ],
-      "frequency": 1,
+      "frequency": 3,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -20754,6 +20803,269 @@
       ],
       "frequency": 1,
       "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "ADR-083 — Reason-code model",
+      "normalized": "adr-083 reason-code model",
+      "sources": [
+        "decisions-adr-adr-083-reason-code-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "X-04",
+      "normalized": "x-04",
+      "sources": [
+        "decisions-adr-adr-083-reason-code-model-md",
+        "spec-reason-codes-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "F-05",
+      "normalized": "f-05",
+      "sources": [
+        "decisions-adr-adr-083-reason-code-model-md",
+        "docs-governance-phase-7k-final-leftovers-closure-2026-07-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "F-07",
+      "normalized": "f-07",
+      "sources": [
+        "decisions-adr-adr-083-reason-code-model-md",
+        "docs-governance-phase-7k-final-leftovers-closure-2026-07-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Machine-readable registry:",
+      "normalized": "machine-readable registry",
+      "sources": [
+        "decisions-adr-adr-083-reason-code-model-md",
+        "spec-reason-codes-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "only in the\nreference implementation",
+      "normalized": "only in the reference implementation",
+      "sources": [
+        "decisions-adr-adr-083-reason-code-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Five vocabularies, never one enum.",
+      "normalized": "five vocabularies never one enum",
+      "sources": [
+        "decisions-adr-adr-083-reason-code-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "A status decides; a reason code explains.",
+      "normalized": "a status decides a reason code explains",
+      "sources": [
+        "decisions-adr-adr-083-reason-code-model-md",
+        "spec-reason-codes-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 7,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Closed enums stay closed.",
+      "normalized": "closed enums stay closed",
+      "sources": [
+        "decisions-adr-adr-083-reason-code-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "One universal BANZA error taxonomy.",
+      "normalized": "one universal banza error taxonomy",
+      "sources": [
+        "decisions-adr-adr-083-reason-code-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "Open extension without a namespace.",
+      "normalized": "open extension without a namespace",
+      "sources": [
+        "decisions-adr-adr-083-reason-code-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "ADR-084 — Idempotency semantics: scope, retention and request identity",
+      "normalized": "adr-084 idempotency semantics scope retention and request identity",
+      "sources": [
+        "decisions-adr-adr-084-idempotency-semantics-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 8,
+      "accepted": false,
+      "rejection_reason": "BROKEN_TOKEN"
+    },
+    {
+      "raw_text": "D-1 · Key scope is a four-part tuple",
+      "normalized": "d-1 key scope is a four-part tuple",
+      "sources": [
+        "decisions-adr-adr-084-idempotency-semantics-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 7,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "D-2 · Request identity is the BCJ/1 digest of the body, minus four excluded members",
+      "normalized": "d-2 request identity is the bcj/1 digest of the body minus four excluded members",
+      "sources": [
+        "decisions-adr-adr-084-idempotency-semantics-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 14,
+      "accepted": false,
+      "rejection_reason": "PATH_FRAGMENT"
+    },
+    {
+      "raw_text": "D-3 · Retention is a normative floor plus a mandatory declaration",
+      "normalized": "d-3 retention is a normative floor plus a mandatory declaration",
+      "sources": [
+        "decisions-adr-adr-084-idempotency-semantics-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 10,
+      "accepted": false,
+      "rejection_reason": "BROKEN_TOKEN"
+    },
+    {
+      "raw_text": "D-4 · Concurrency has a normative observable behaviour, with two permitted shapes",
+      "normalized": "d-4 concurrency has a normative observable behaviour with two permitted shapes",
+      "sources": [
+        "decisions-adr-adr-084-idempotency-semantics-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 11,
+      "accepted": false,
+      "rejection_reason": "BROKEN_TOKEN"
+    },
+    {
+      "raw_text": "X-05",
+      "normalized": "x-05",
+      "sources": [
+        "decisions-adr-adr-084-idempotency-semantics-md",
+        "spec-idempotency-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "F-06",
+      "normalized": "f-06",
+      "sources": [
+        "decisions-adr-adr-084-idempotency-semantics-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Retention",
+      "normalized": "retention",
+      "sources": [
+        "decisions-adr-adr-084-idempotency-semantics-md",
+        "docs-governance-banza-separation-matrix-md",
+        "spec-idempotency-md"
+      ],
+      "frequency": 3,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "including any signature over the request",
+      "normalized": "including any signature over the request",
+      "sources": [
+        "decisions-adr-adr-084-idempotency-semantics-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "ATTRIBUTE"
+    },
+    {
+      "raw_text": "Declaration with no floor.",
+      "normalized": "declaration with no floor",
+      "sources": [
+        "decisions-adr-adr-084-idempotency-semantics-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Compare raw request bytes.",
+      "normalized": "compare raw request bytes",
+      "sources": [
+        "decisions-adr-adr-084-idempotency-semantics-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Exclude signatures from request identity.",
+      "normalized": "exclude signatures from request identity",
+      "sources": [
+        "decisions-adr-adr-084-idempotency-semantics-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
@@ -24050,9 +24362,10 @@
       "raw_text": "inside",
       "normalized": "inside",
       "sources": [
-        "docs-banzai-local-qwen-model-setup-md"
+        "docs-banzai-local-qwen-model-setup-md",
+        "spec-idempotency-md"
       ],
-      "frequency": 2,
+      "frequency": 3,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -25815,9 +26128,11 @@
         "spec-federation-federation-sequence-diagrams-md",
         "spec-federation-federation-test-suite-spec-md",
         "spec-federation-federation-trust-model-md",
-        "spec-overview-md"
+        "spec-idempotency-md",
+        "spec-overview-md",
+        "spec-reason-codes-md"
       ],
-      "frequency": 30,
+      "frequency": 32,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -30322,9 +30637,10 @@
       "sources": [
         "docs-governance-banza-responsibility-matrix-md",
         "docs-governance-banza-three-layer-architecture-md",
-        "docs-governance-phase-m2-7d-final-protocol-architecture-svg-2026-07-md"
+        "docs-governance-phase-m2-7d-final-protocol-architecture-svg-2026-07-md",
+        "spec-reason-codes-md"
       ],
-      "frequency": 3,
+      "frequency": 4,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -31727,17 +32043,6 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "Retention",
-      "normalized": "retention",
-      "sources": [
-        "docs-governance-banza-separation-matrix-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
       "raw_text": "Pipelines",
       "normalized": "pipelines",
       "sources": [
@@ -32887,9 +33192,10 @@
       "sources": [
         "docs-governance-banza-v1-operational-transition-plan-md",
         "docs-governance-m2-7k-postgresql-runtime-schema-audit-md",
-        "docs-governance-certification-boundary-md"
+        "docs-governance-certification-boundary-md",
+        "spec-reason-codes-md"
       ],
-      "frequency": 5,
+      "frequency": 9,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -42106,28 +42412,6 @@
       "phrase_length": 3,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "F-05",
-      "normalized": "f-05",
-      "sources": [
-        "docs-governance-phase-7k-final-leftovers-closure-2026-07-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "F-07",
-      "normalized": "f-07",
-      "sources": [
-        "docs-governance-phase-7k-final-leftovers-closure-2026-07-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
     },
     {
       "raw_text": "enforcing",
@@ -59014,9 +59298,10 @@
       "raw_text": "deprecated",
       "normalized": "deprecated",
       "sources": [
-        "docs-governance-certification-boundary-md"
+        "docs-governance-certification-boundary-md",
+        "spec-reason-codes-md"
       ],
-      "frequency": 1,
+      "frequency": 2,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -60167,9 +60452,10 @@
       "raw_text": "10. Security considerations",
       "normalized": "10 security considerations",
       "sources": [
-        "spec-canonicalization-md"
+        "spec-canonicalization-md",
+        "spec-reason-codes-md"
       ],
-      "frequency": 1,
+      "frequency": 2,
       "phrase_length": 3,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -60178,9 +60464,11 @@
       "raw_text": "Protocol version:",
       "normalized": "protocol version",
       "sources": [
-        "spec-canonicalization-md"
+        "spec-canonicalization-md",
+        "spec-idempotency-md",
+        "spec-reason-codes-md"
       ],
-      "frequency": 1,
+      "frequency": 3,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -60189,9 +60477,11 @@
       "raw_text": "Test vectors:",
       "normalized": "test vectors",
       "sources": [
-        "spec-canonicalization-md"
+        "spec-canonicalization-md",
+        "spec-idempotency-md",
+        "spec-reason-codes-md"
       ],
-      "frequency": 1,
+      "frequency": 3,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -60434,9 +60724,10 @@
       "raw_text": "Downgrade",
       "normalized": "downgrade",
       "sources": [
-        "spec-canonicalization-md"
+        "spec-canonicalization-md",
+        "spec-reason-codes-md"
       ],
-      "frequency": 1,
+      "frequency": 2,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -62820,9 +63111,10 @@
       "raw_text": "Ambiguity:",
       "normalized": "ambiguity",
       "sources": [
-        "spec-federation-federation-failure-scenarios-md"
+        "spec-federation-federation-failure-scenarios-md",
+        "spec-reason-codes-md"
       ],
-      "frequency": 2,
+      "frequency": 3,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -67556,6 +67848,350 @@
       "classification": "SUBJECT"
     },
     {
+      "raw_text": "BANZA Idempotency — Normative Specification",
+      "normalized": "banza idempotency normative specification",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "DOCUMENT_TYPE"
+    },
+    {
+      "raw_text": "1. Scope of this specification",
+      "normalized": "1 scope of this specification",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "2. Key scope",
+      "normalized": "2 key scope",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "3. Request identity — what makes a body \"the same\"",
+      "normalized": "3 request identity what makes a body the same",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 9,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "4. Excluded members",
+      "normalized": "4 excluded members",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "5. Retry semantics",
+      "normalized": "5 retry semantics",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "6. Conflict",
+      "normalized": "6 conflict",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "7. Retention",
+      "normalized": "7 retention",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "8. Cross-operator routing",
+      "normalized": "8 cross-operator routing",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "9. Concurrency",
+      "normalized": "9 concurrency",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "10. Idempotency is not replay protection",
+      "normalized": "10 idempotency is not replay protection",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "11. Conformance",
+      "normalized": "11 conformance",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "12. Security considerations",
+      "normalized": "12 security considerations",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "key scope",
+      "normalized": "key scope",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "what makes two requests the same request",
+      "normalized": "what makes two requests the same request",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 7,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "PROTOCOL NORMATIVE",
+      "normalized": "protocol normative",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "PROFILE NORMATIVE",
+      "normalized": "profile normative",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "same intended operation",
+      "normalized": "same intended operation",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "request identity digest",
+      "normalized": "request identity digest",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "same request",
+      "normalized": "same request",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "different request",
+      "normalized": "different request",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "rejects",
+      "normalized": "rejects",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Note on signatures.",
+      "normalized": "note on signatures",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "MUST reject the request.",
+      "normalized": "must reject the request",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "After retention expires",
+      "normalized": "after retention expires",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Cross-caller collision",
+      "normalized": "cross-caller collision",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Cross-operation collision",
+      "normalized": "cross-operation collision",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Conflict as an oracle",
+      "normalized": "conflict as an oracle",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Retention bypass",
+      "normalized": "retention bypass",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Canonicalization mismatch",
+      "normalized": "canonicalization mismatch",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Malicious unknown fields",
+      "normalized": "malicious unknown fields",
+      "sources": [
+        "spec-idempotency-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
       "raw_text": "Invariant ID crosswalk",
       "normalized": "invariant id crosswalk",
       "sources": [
@@ -68349,6 +68985,341 @@
       "accepted": true,
       "rejection_reason": "",
       "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "BANZA Reason Codes — Normative Specification",
+      "normalized": "banza reason codes normative specification",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "DOCUMENT_TYPE"
+    },
+    {
+      "raw_text": "1. The distinction that makes the rest simple",
+      "normalized": "1 the distinction that makes the rest simple",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 8,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "2. Five vocabularies, not one enum",
+      "normalized": "2 five vocabularies not one enum",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "3. trust_status",
+      "normalized": "3 trust status",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "ATTRIBUTE"
+    },
+    {
+      "raw_text": "4. failed_checks — identifiers, not free text",
+      "normalized": "4 failed checks identifiers not free text",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 7,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "5. Extension namespace",
+      "normalized": "5 extension namespace",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "6. Unknown reason codes",
+      "normalized": "6 unknown reason codes",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "7. Stability and evolution",
+      "normalized": "7 stability and evolution",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "8. Semantic equivalence of receipts",
+      "normalized": "8 semantic equivalence of receipts",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "9. Conformance",
+      "normalized": "9 conformance",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "check identifiers",
+      "normalized": "check identifiers",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "out of scope for BANZA",
+      "normalized": "out of scope for banza",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "closed enum",
+      "normalized": "closed enum",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Absence is not failure.",
+      "normalized": "absence is not failure",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Ordering is not significant.",
+      "normalized": "ordering is not significant",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Duplicates are forbidden.",
+      "normalized": "duplicates are forbidden",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "schema-invalid",
+      "normalized": "schema-invalid",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "DOCUMENT_TYPE"
+    },
+    {
+      "raw_text": "Preserve and record.",
+      "normalized": "preserve and record",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Preserve, never interpret.",
+      "normalized": "preserve never interpret",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "backward compatible",
+      "normalized": "backward compatible",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "not permitted",
+      "normalized": "not permitted",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "semantically equivalent",
+      "normalized": "semantically equivalent",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "decisional statuses",
+      "normalized": "decisional statuses",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "input bindings",
+      "normalized": "input bindings",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "core reason codes",
+      "normalized": "core reason codes",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "as sets",
+      "normalized": "as sets",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "as a set",
+      "normalized": "as a set",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Information leakage.",
+      "normalized": "information leakage",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Spoofed extensions.",
+      "normalized": "spoofed extensions",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Namespace collision.",
+      "normalized": "namespace collision",
+      "sources": [
+        "spec-reason-codes-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
       "raw_text": "Financial Tracing",

@@ -5,31 +5,31 @@
     "principle": "The vocabulary is a semantic registry of real protocol terms derived from the engine's own registries + closed protocol sets; corpus terms are candidates (Phase 1), lexical noise never enters here."
   },
   "source_registry": {
-    "total": 483,
+    "total": 490,
     "by_type": {
       "root-doc": 9,
-      "conformance": 57,
-      "contract": 27,
+      "conformance": 59,
+      "contract": 28,
       "schema": 51,
       "openapi": 7,
-      "adr": 78,
+      "adr": 80,
       "rfc": 7,
       "doc": 172,
       "example": 48,
-      "spec": 27
+      "spec": 29
     },
     "by_status": {
-      "current": 483
+      "current": 490
     },
     "by_authority_class": {
-      "current": 435,
+      "current": 442,
       "illustrative": 48
     },
     "by_language": {
-      "pt-or-neutral": 483
+      "pt-or-neutral": 490
     },
     "by_origin": {
-      "authored": 483,
+      "authored": 490,
       "generated": 0
     },
     "duplicates": [],
@@ -640,6 +640,17 @@
         "checksum": "b9508b8beb90a300"
       },
       {
+        "id": "conformance-vectors-idempotency-json",
+        "path": "conformance/vectors/idempotency.json",
+        "type": "conformance",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "9dcb68582a9a1280"
+      },
+      {
         "id": "conformance-vectors-ledger-postings-json",
         "path": "conformance/vectors/ledger-postings.json",
         "type": "conformance",
@@ -682,6 +693,17 @@
         "generated": false,
         "public_eligible": true,
         "checksum": "17a34dcd4e52b691"
+      },
+      {
+        "id": "conformance-vectors-reason-codes-json",
+        "path": "conformance/vectors/reason-codes.json",
+        "type": "conformance",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "96ac0d4382df9b1b"
       },
       {
         "id": "conformance-vectors-settlement-batches-json",
@@ -1022,7 +1044,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "56ae2dfd6fa19be5"
+        "checksum": "97ad41a3fae10b12"
       },
       {
         "id": "contracts-openapi-wallet-onboarding-yaml",
@@ -1099,7 +1121,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "fba1ec6379d44e29"
+        "checksum": "13bfabcdb8eea3fd"
       },
       {
         "id": "contracts-production-certification-profile-production-schema-json",
@@ -1242,7 +1264,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "9442845cc75d29da"
+        "checksum": "f3b15e506508a7ed"
       },
       {
         "id": "contracts-production-implementation-record-production-schema-json",
@@ -1275,7 +1297,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "3dfc24ff58588fb3"
+        "checksum": "7e3812b9cf8f5d02"
       },
       {
         "id": "contracts-production-key-manifest-production-schema-json",
@@ -1297,7 +1319,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "5724a2f03f375b50"
+        "checksum": "bec1eca40a18390c"
       },
       {
         "id": "contracts-production-operation-receipt-production-schema-json",
@@ -1308,7 +1330,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "aac4cda82828b675"
+        "checksum": "2f0e653adb6d3eed"
       },
       {
         "id": "contracts-production-operator-manifest-production-schema-json",
@@ -1386,6 +1408,17 @@
         "generated": false,
         "public_eligible": true,
         "checksum": "3d83389560b50cec"
+      },
+      {
+        "id": "contracts-production-reason-code-registry-production-json",
+        "path": "contracts/production/reason-code-registry.production.json",
+        "type": "contract",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "922a98d19239a659"
       },
       {
         "id": "contracts-production-regulatory-state-production-schema-json",
@@ -2510,6 +2543,28 @@
         "checksum": "8491fa9aabf0bad6"
       },
       {
+        "id": "decisions-adr-adr-083-reason-code-model-md",
+        "path": "decisions/adr/ADR-083-reason-code-model.md",
+        "type": "adr",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "10b64ddd36849451"
+      },
+      {
+        "id": "decisions-adr-adr-084-idempotency-semantics-md",
+        "path": "decisions/adr/ADR-084-idempotency-semantics.md",
+        "type": "adr",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "87cce1347d532c18"
+      },
+      {
         "id": "decisions-adr-readme-md",
         "path": "decisions/adr/README.md",
         "type": "adr",
@@ -2518,7 +2573,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "4df4a02615be8e2d"
+        "checksum": "7babda2919843be6"
       },
       {
         "id": "decisions-rfc-readme-md",
@@ -5271,6 +5326,17 @@
         "checksum": "51fc6c8747b6f3c3"
       },
       {
+        "id": "spec-idempotency-md",
+        "path": "spec/idempotency.md",
+        "type": "spec",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "366212b0d5a6ad58"
+      },
+      {
         "id": "spec-invariants-md",
         "path": "spec/invariants.md",
         "type": "spec",
@@ -5326,6 +5392,17 @@
         "checksum": "2babb0737c4cf735"
       },
       {
+        "id": "spec-reason-codes-md",
+        "path": "spec/reason-codes.md",
+        "type": "spec",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "6391ca8dbca6d906"
+      },
+      {
         "id": "spec-tracing-md",
         "path": "spec/tracing.md",
         "type": "spec",
@@ -5366,7 +5443,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "885c80cb3b0c1237"
+    "checksum": "9eeae8346c04b41f"
   },
   "subjects": [
     {
@@ -6360,6 +6437,18 @@
     {
       "id": "ADR-082",
       "path": "decisions/adr/ADR-082-banza-canonical-json.md",
+      "status": "current",
+      "classification": "DOCUMENT_INSTANCE"
+    },
+    {
+      "id": "ADR-083",
+      "path": "decisions/adr/ADR-083-reason-code-model.md",
+      "status": "current",
+      "classification": "DOCUMENT_INSTANCE"
+    },
+    {
+      "id": "ADR-084",
+      "path": "decisions/adr/ADR-084-idempotency-semantics.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
@@ -8697,7 +8786,7 @@
   "counts": {
     "subjects": 21,
     "document_types": 12,
-    "document_instances": 83,
+    "document_instances": 85,
     "artifact_types": 18,
     "aliases": 262,
     "relation_kinds": 11,
@@ -8709,5 +8798,5 @@
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "0da4e42a8c6d27ce"
+  "checksum": "c5fd0d02bc4dd3c5"
 }

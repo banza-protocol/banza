@@ -12446,5 +12446,330 @@
     "example_flag": false,
     "normative_flag": true,
     "operator_facing_flag": false
+  },
+  {
+    "path": "decisions/adr/ADR-083-reason-code-model.md",
+    "title": "ADR-083 — Reason-code model",
+    "section": "Introdução",
+    "anchor": "introduo",
+    "source_type": "adr",
+    "tags": [
+      "trust"
+    ],
+    "lang": "en",
+    "hash": "f9e5f69f56c358fe",
+    "chunk": "# ADR-083 — Reason-code model - **Status:** Accepted - **Date:** 2026-08 - **Relates:** ADR-081 (versioning), ADR-076 (journey receipts), ADR-068 (endpoint-originated validation), ADR-040 (Open Trust Evaluation) - **Audit basis:** clean-room blocker **X-04**; audit finding **F-05**, and the field-le",
+    "schema_flag": false,
+    "example_flag": false,
+    "normative_flag": true,
+    "operator_facing_flag": false
+  },
+  {
+    "path": "decisions/adr/ADR-083-reason-code-model.md",
+    "title": "ADR-083 — Reason-code model",
+    "section": "Context",
+    "anchor": "context",
+    "source_type": "adr",
+    "tags": [
+      "trust",
+      "revocation"
+    ],
+    "lang": "en",
+    "hash": "085b46d93b12a73f",
+    "chunk": "The remediation milestone established that five BANZA vocabularies were already closed (certification records, revocation entries, root revocation, the BRL, and the Open Trust Evaluation check ids) and that three fields remained open string arrays: `failed_checks`, and `reason_codes` on the journey ",
+    "schema_flag": false,
+    "example_flag": false,
+    "normative_flag": true,
+    "operator_facing_flag": false
+  },
+  {
+    "path": "decisions/adr/ADR-083-reason-code-model.md",
+    "title": "ADR-083 — Reason-code model",
+    "section": "Decision",
+    "anchor": "decision",
+    "source_type": "adr",
+    "tags": [
+      "trust"
+    ],
+    "lang": "en",
+    "hash": "ab8b8961c5805a58",
+    "chunk": "**Publish a core registry with a reserved extension namespace, and keep the vocabularies separate.** 1. **Five vocabularies, never one enum.** Merging a trust status, a fetch failure, a journey step status and a check identifier into one space would make each of them less precise and would invite ex",
+    "schema_flag": false,
+    "example_flag": false,
+    "normative_flag": true,
+    "operator_facing_flag": false
+  },
+  {
+    "path": "decisions/adr/ADR-083-reason-code-model.md",
+    "title": "ADR-083 — Reason-code model",
+    "section": "Alternatives considered",
+    "anchor": "alternatives-considered",
+    "source_type": "adr",
+    "tags": [],
+    "lang": "en",
+    "hash": "a28a8dbc37b2d5e2",
+    "chunk": "**One universal BANZA error taxonomy.** Rejected. It would require BANZA to have an opinion about transport errors, scheme declines and operator policy — none of which the protocol defines — and it is the specific expansion the milestone prohibits. **Leave `reason_codes` as a free string array and d",
+    "schema_flag": false,
+    "example_flag": false,
+    "normative_flag": true,
+    "operator_facing_flag": true
+  },
+  {
+    "path": "decisions/adr/ADR-083-reason-code-model.md",
+    "title": "ADR-083 — Reason-code model",
+    "section": "Consequences",
+    "anchor": "consequences",
+    "source_type": "adr",
+    "tags": [
+      "trust"
+    ],
+    "lang": "en",
+    "hash": "5d278627da7c8379",
+    "chunk": "- `trust_status`, the fetch reason codes and the step mapping become normative published artifacts. The reference implementation emits them and no longer defines them. - `failed_checks` and the two `reason_codes` fields gain published semantics; the schemas reference the registry rather than accepti",
+    "schema_flag": false,
+    "example_flag": false,
+    "normative_flag": true,
+    "operator_facing_flag": false
+  },
+  {
+    "path": "decisions/adr/ADR-084-idempotency-semantics.md",
+    "title": "ADR-084 — Idempotency semantics: scope, retention and request identity",
+    "section": "Introdução",
+    "anchor": "introduo",
+    "source_type": "adr",
+    "tags": [
+      "invariants"
+    ],
+    "lang": "en",
+    "hash": "210308ca0563db1e",
+    "chunk": "# ADR-084 — Idempotency semantics: scope, retention and request identity - **Status:** Accepted - **Date:** 2026-08 - **Relates:** ADR-011 (idempotency invariant and rate limiting — extended, not replaced), ADR-082 (`BCJ/1`), ADR-081 (versioning) - **Audit basis:** clean-room blocker **X-05**; audit",
+    "schema_flag": false,
+    "example_flag": false,
+    "normative_flag": true,
+    "operator_facing_flag": false
+  },
+  {
+    "path": "decisions/adr/ADR-084-idempotency-semantics.md",
+    "title": "ADR-084 — Idempotency semantics: scope, retention and request identity",
+    "section": "Context",
+    "anchor": "context",
+    "source_type": "adr",
+    "tags": [
+      "invariants"
+    ],
+    "lang": "en",
+    "hash": "68601ceba2543c52",
+    "chunk": "The audit recorded idempotency as unspecified. The final verification pass of the remediation established that this was wrong: `INV-IDEM-001` already carries the invariant *and* the conflict rule (same key with a different body → 409, never silently serve the first response), `INV-FED-004` and `INV-",
+    "schema_flag": false,
+    "example_flag": false,
+    "normative_flag": true,
+    "operator_facing_flag": false
+  },
+  {
+    "path": "decisions/adr/ADR-084-idempotency-semantics.md",
+    "title": "ADR-084 — Idempotency semantics: scope, retention and request identity",
+    "section": "D-1 · Key scope is a four-part tuple",
+    "anchor": "d-1-key-scope-is-a-four-part-tuple",
+    "source_type": "adr",
+    "tags": [],
+    "lang": "en",
+    "hash": "5de387d799377b1e",
+    "chunk": "`(receiving_implementation, authenticated_caller, operation, idempotency_key)`. Neither wider nor narrower. Wider creates false conflicts across callers and operations; narrower lets the same intent execute twice. `authenticated_caller` is the component that prevents one caller from probing or occup",
+    "schema_flag": false,
+    "example_flag": false,
+    "normative_flag": true,
+    "operator_facing_flag": false
+  },
+  {
+    "path": "decisions/adr/ADR-084-idempotency-semantics.md",
+    "title": "ADR-084 — Idempotency semantics: scope, retention and request identity",
+    "section": "D-2 · Request identity is the `BCJ/1` digest of the body, minus four excluded members",
+    "anchor": "d-2-request-identity-is-the-bcj1-digest-of-the-body-minus-four-excluded-members",
+    "source_type": "adr",
+    "tags": [],
+    "lang": "en",
+    "hash": "3a312683915ad7db",
+    "chunk": "Reuse `BCJ/1` rather than define a second comparison. Raw HTTP byte comparison would break a legitimate retry that re-serialised its JSON differently; a vague semantic comparison would let a materially different request be served the first response. `BCJ/1` is insensitive to formatting and member or",
+    "schema_flag": false,
+    "example_flag": false,
+    "normative_flag": true,
+    "operator_facing_flag": false
+  },
+  {
+    "path": "decisions/adr/ADR-084-idempotency-semantics.md",
+    "title": "ADR-084 — Idempotency semantics: scope, retention and request identity",
+    "section": "D-3 · Retention is a normative floor plus a mandatory declaration",
+    "anchor": "d-3-retention-is-a-normative-floor-plus-a-mandatory-declaration",
+    "source_type": "adr",
+    "tags": [],
+    "lang": "en",
+    "hash": "f21eeeb45f42f4f9",
+    "chunk": "At least **24 hours** from terminal state, and the actual window MUST be declared in the capabilities document as `idempotency.retention_seconds`. This is the decision that required a genuine choice rather than a derivation, and it is recorded as such: no BANZA artifact bounds a retry horizon, so th",
+    "schema_flag": false,
+    "example_flag": false,
+    "normative_flag": true,
+    "operator_facing_flag": false
+  },
+  {
+    "path": "spec/idempotency.md",
+    "title": "BANZA Idempotency — Normative Specification",
+    "section": "Introdução",
+    "anchor": "introduo",
+    "source_type": "spec",
+    "tags": [
+      "invariants"
+    ],
+    "lang": "en",
+    "hash": "5d14f8c3ad4c63a4",
+    "chunk": "# BANZA Idempotency — Normative Specification - **Status:** Normative - **Protocol version:** BANZA 1.0.0 - **Authority:** [ADR-084](../decisions/adr/ADR-084-idempotency-semantics.md); extends ADR-011, which established the invariant and deliberately left these questions open - **Invariants:** `INV-",
+    "schema_flag": false,
+    "example_flag": false,
+    "normative_flag": true,
+    "operator_facing_flag": false
+  },
+  {
+    "path": "spec/idempotency.md",
+    "title": "BANZA Idempotency — Normative Specification",
+    "section": "1. Scope of this specification",
+    "anchor": "1-scope-of-this-specification",
+    "source_type": "spec",
+    "tags": [],
+    "lang": "en",
+    "hash": "44126a5e127188c5",
+    "chunk": "Idempotency in BANZA is not one rule. It is three, and they have different owners: | Surface | Key | Scope classification | Governed by | |---|---|---|---| | Operator write path (transfers, collections, payment intents) | `idempotency_key` | **PROTOCOL NORMATIVE** — §2–§7 of this document | `INV-IDE",
+    "schema_flag": false,
+    "example_flag": false,
+    "normative_flag": true,
+    "operator_facing_flag": true
+  },
+  {
+    "path": "spec/idempotency.md",
+    "title": "BANZA Idempotency — Normative Specification",
+    "section": "2. Key scope",
+    "anchor": "2-key-scope",
+    "source_type": "spec",
+    "tags": [],
+    "lang": "en",
+    "hash": "9d134d8131a1d1f6",
+    "chunk": "An idempotency key is **not** globally unique, and MUST NOT be treated as such on the operator write path. Two unrelated callers using the key `order-001` are describing two different operations, and an implementation that treated them as one would be conflating two callers' intents. The identity of",
+    "schema_flag": false,
+    "example_flag": true,
+    "normative_flag": true,
+    "operator_facing_flag": true
+  },
+  {
+    "path": "spec/idempotency.md",
+    "title": "BANZA Idempotency — Normative Specification",
+    "section": "3. Request identity — what makes a body \"the same\"",
+    "anchor": "3-request-identity-what-makes-a-body-the-same",
+    "source_type": "spec",
+    "tags": [],
+    "lang": "en",
+    "hash": "b4e80ab6b6d3cd4f",
+    "chunk": "`INV-IDEM-001` distinguishes a replay (same key, same request) from a conflict (same key, different request). This section defines that comparison, and it is defined so as to be reproducible in any language. The **request identity digest** of a request is: 1. Take the request body as a JSON object. ",
+    "schema_flag": false,
+    "example_flag": false,
+    "normative_flag": true,
+    "operator_facing_flag": false
+  },
+  {
+    "path": "spec/idempotency.md",
+    "title": "BANZA Idempotency — Normative Specification",
+    "section": "4. Excluded members",
+    "anchor": "4-excluded-members",
+    "source_type": "spec",
+    "tags": [],
+    "lang": "en",
+    "hash": "73a6284b2b910bdd",
+    "chunk": "The following are removed before computing the request identity digest, because they legitimately differ between a request and its own retry, and including them would break every retry: | Member | Why excluded | |---|---| | `idempotency_key` | It is the lookup key, not part of what is being describe",
+    "schema_flag": false,
+    "example_flag": false,
+    "normative_flag": true,
+    "operator_facing_flag": false
+  },
+  {
+    "path": "spec/reason-codes.md",
+    "title": "BANZA Reason Codes — Normative Specification",
+    "section": "Introdução",
+    "anchor": "introduo",
+    "source_type": "spec",
+    "tags": [],
+    "lang": "en",
+    "hash": "a3b976c19d0d5698",
+    "chunk": "# BANZA Reason Codes — Normative Specification - **Status:** Normative - **Registry:** `banza-reason-codes/1` - **Protocol version:** BANZA 1.0.0 - **Authority:** [ADR-083](../decisions/adr/ADR-083-reason-code-model.md) - **Machine-readable registry:** [`contracts/production/reason-code-registry.pro",
+    "schema_flag": false,
+    "example_flag": false,
+    "normative_flag": true,
+    "operator_facing_flag": false
+  },
+  {
+    "path": "spec/reason-codes.md",
+    "title": "BANZA Reason Codes — Normative Specification",
+    "section": "1. The distinction that makes the rest simple",
+    "anchor": "1-the-distinction-that-makes-the-rest-simple",
+    "source_type": "spec",
+    "tags": [
+      "federation",
+      "trust"
+    ],
+    "lang": "en",
+    "hash": "5a737b11a496a493",
+    "chunk": "**A status decides. A reason code explains.** | | Decides | Explains | |---|---|---| | Trust evaluation | `trust_status` | `reason_codes` | | Validation journey step | `status` (`VERIFIED` / `PENDING` / `FAILED` / `BLOCKED`) | `reason_codes` | | Federation trust evaluation | `outcome` (`ROUTING_ALLO",
+    "schema_flag": false,
+    "example_flag": false,
+    "normative_flag": true,
+    "operator_facing_flag": true
+  },
+  {
+    "path": "spec/reason-codes.md",
+    "title": "BANZA Reason Codes — Normative Specification",
+    "section": "2. Five vocabularies, not one enum",
+    "anchor": "2-five-vocabularies-not-one-enum",
+    "source_type": "spec",
+    "tags": [
+      "trust"
+    ],
+    "lang": "en",
+    "hash": "073f0c229cdb266a",
+    "chunk": "BANZA does not have a single reason-code space, and MUST NOT acquire one. The registry publishes five distinct vocabularies, each with its own domain, producer and closure: | Vocabulary | Kind | Closed | Scope | |---|---|---|---| | `trust_status` | decisional status | **yes** — 13 values | PROTOCOL ",
+    "schema_flag": false,
+    "example_flag": false,
+    "normative_flag": true,
+    "operator_facing_flag": false
+  },
+  {
+    "path": "spec/reason-codes.md",
+    "title": "BANZA Reason Codes — Normative Specification",
+    "section": "3. `trust_status`",
+    "anchor": "3-trust-status",
+    "source_type": "spec",
+    "tags": [
+      "trust"
+    ],
+    "lang": "en",
+    "hash": "0059b3073b3bf9a5",
+    "chunk": "The outcome of evaluating an operator's published trust material. The field is a **closed enum**: a value outside it makes the artifact schema-invalid. Each value's meaning and its mapping onto a journey step status are published in the registry under `vocabularies.trust_status.values`. Two properti",
+    "schema_flag": false,
+    "example_flag": false,
+    "normative_flag": true,
+    "operator_facing_flag": true
+  },
+  {
+    "path": "spec/reason-codes.md",
+    "title": "BANZA Reason Codes — Normative Specification",
+    "section": "4. `failed_checks` — identifiers, not free text",
+    "anchor": "4-failed-checks-identifiers-not-free-text",
+    "source_type": "spec",
+    "tags": [
+      "federation",
+      "trust"
+    ],
+    "lang": "en",
+    "hash": "42b39c6c7045f070",
+    "chunk": "`failed_checks` in a federation trust evaluation carries **check identifiers**, and the only permitted values are the check `id`s published in [`contracts/federation/federation-trust.json`](../contracts/federation/federation-trust.json). It does not define a second vocabulary and it does not carry p",
+    "schema_flag": false,
+    "example_flag": false,
+    "normative_flag": true,
+    "operator_facing_flag": true
   }
 ]

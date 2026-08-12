@@ -15,8 +15,8 @@
     "informative": "Published and stable, but imposes no conformance obligation. Listed so that the question 'is this normative?' has a published answer."
   },
   "tier_counts": {
-    "implementation": 82,
-    "conformance": 51,
+    "implementation": 85,
+    "conformance": 53,
     "legal": 3,
     "informative": 2
   },
@@ -39,7 +39,7 @@
     "evidence/**, artifacts/** - evidence about the reference implementation",
     "tools/** - build, guard and derivation tooling"
   ],
-  "artifact_count": 138,
+  "artifact_count": 143,
   "artifacts": [
     {
       "path": "conformance/capabilities/schema.json",
@@ -224,7 +224,7 @@
       "class": "NORMATIVE_API",
       "tier": "implementation",
       "role": "Operator-implemented public API surfaces.",
-      "sha256": "56ae2dfd6fa19be5362d46e45fbd8f1881dc7b15b1a33e056f219e93970bf682"
+      "sha256": "97ad41a3fae10b120a9ea43b26e86d9d32788e1542d1c7d3ebb86f143f821e9e"
     },
     {
       "path": "contracts/openapi/wallet-onboarding.yaml",
@@ -270,7 +270,7 @@
       "class": "NORMATIVE_CONTRACT",
       "tier": "implementation",
       "role": "Production contract baseline.",
-      "sha256": "fba1ec6379d44e29f736b749d3d67ff2b1a4a48bb578b5c73cb9b8e61753e9be",
+      "sha256": "13bfabcdb8eea3fd465212e3c80f7dbc78fc7f2e7327d98f56f615ebb7edceb2",
       "self_declared_status": "reference"
     },
     {
@@ -342,7 +342,7 @@
       "class": "NORMATIVE_CONTRACT",
       "tier": "implementation",
       "role": "Production contract baseline.",
-      "sha256": "9442845cc75d29da1e29f830e60e249fd681be9c370ad4631016d1c4eeb73aef",
+      "sha256": "f3b15e506508a7ed9160682f821d91add7deae023ca68687c09b4d26cec3893b",
       "self_declared_status": "production-baseline"
     },
     {
@@ -366,7 +366,7 @@
       "class": "NORMATIVE_CONTRACT",
       "tier": "implementation",
       "role": "Production contract baseline.",
-      "sha256": "3dfc24ff58588fb38df63881da454f8bbac20a40bb921e9176253b341ab0414f",
+      "sha256": "7e3812b9cf8f5d0224bb623142efc0e31bdf5bd823af552de3e4be76f1751cab",
       "self_declared_status": "reference"
     },
     {
@@ -382,7 +382,7 @@
       "class": "NORMATIVE_CONTRACT",
       "tier": "implementation",
       "role": "Production contract baseline.",
-      "sha256": "aac4cda82828b675d962d1f9a3a32e2e48fb21892939c1c636cd7d68003622e3",
+      "sha256": "2f0e653adb6d3eed1f5e277b3a28f06be1a7e045e7f3e34ad9dae52574e00ee9",
       "self_declared_status": "reference"
     },
     {
@@ -439,6 +439,14 @@
       "role": "Production contract baseline.",
       "sha256": "3d83389560b50cec8ce12a98da2ab26f1c8873a3feb3433c1b75cfac1be62582",
       "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/reason-code-registry.production.json",
+      "class": "NORMATIVE_REGISTRY",
+      "tier": "implementation",
+      "role": "banza-reason-codes/1 — the machine-readable vocabularies those rules govern.",
+      "sha256": "922a98d19239a659dc511f8966627efcda5a0e22604162e0dc2bb57c354aca8c",
+      "self_declared_status": "canonical"
     },
     {
       "path": "contracts/production/regulatory-state.production.schema.json",
@@ -671,6 +679,20 @@
       "tier": "implementation",
       "role": "The trust chain a verifier walks, and what it must refuse.",
       "sha256": "51fc6c8747b6f3c32ec389153b22af85f4b22da715a91d442099f2889fb79f22"
+    },
+    {
+      "path": "spec/idempotency.md",
+      "class": "NORMATIVE_SPECIFICATION",
+      "tier": "implementation",
+      "role": "Idempotency: key scope, request identity as a BCJ/1 digest, retry and conflict semantics, retention floor and declaration, concurrency.",
+      "sha256": "366212b0d5a6ad5866383c4c1886eee1b00091806f09a1a650b57a7ac938f554"
+    },
+    {
+      "path": "spec/reason-codes.md",
+      "class": "NORMATIVE_SPECIFICATION",
+      "tier": "implementation",
+      "role": "Reason-code rules: five separate vocabularies, status decides and code explains, the reserved extension namespace, unknown-code handling, and the definition of semantic equivalence.",
+      "sha256": "6391ca8dbca6d906c48614d768017b75dc46a8c7333d8fb94579865464931c47"
     },
     {
       "path": "spec/validation-journey.md",
@@ -975,6 +997,14 @@
       "sha256": "b9508b8beb90a3007394da23cfbf2e7c94455dfc6abfef65cd22b131ee51a7d9"
     },
     {
+      "path": "conformance/vectors/idempotency.json",
+      "class": "CONFORMANCE_VECTOR",
+      "tier": "conformance",
+      "role": "Vectors for the idempotency rules. The request-identity digests were computed by an implementation written from the specification text.",
+      "sha256": "9dcb68582a9a128053e527c7bbd80e80da5412f460ebdec90600540bfc9c376c",
+      "self_declared_status": "canonical"
+    },
+    {
       "path": "conformance/vectors/ledger-postings.json",
       "class": "CONFORMANCE_VECTOR",
       "tier": "conformance",
@@ -1001,6 +1031,14 @@
       "tier": "conformance",
       "role": "Domain conformance vectors.",
       "sha256": "17a34dcd4e52b69179d9fbd0b40a59d2670de3697ff7710839b614b172fc9b9d"
+    },
+    {
+      "path": "conformance/vectors/reason-codes.json",
+      "class": "CONFORMANCE_VECTOR",
+      "tier": "conformance",
+      "role": "Vectors for the reason-code rules, derived from the specification.",
+      "sha256": "96ac0d4382df9b1b62401474630fa7535074f6e529f0349a64eac5166a828c05",
+      "self_declared_status": "canonical"
     },
     {
       "path": "conformance/vectors/settlement-batches.json",

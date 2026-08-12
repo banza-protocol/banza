@@ -5,6 +5,9 @@
 > Traces each material Whitepaper claim to the normative artifact that carries it, the implementation,
 > the test and the evidence.
 >
+> **Revision 3 — post-execution-semantics.** `ΔΔ` marks a row this milestone changed; `Δ` marks one the
+> previous milestone changed.
+>
 > **Revision 2 — post-remediation.** The claim column is unchanged: **no Whitepaper text was modified by
 > either milestone**, and none was read as needing modification. What changed is the *artifact* and *status*
 > columns, where a normative artifact now exists that did not before. Rows whose status did not change are
@@ -12,7 +15,7 @@
 
 Status values: `ALINHADO` · `IMPLEMENTADO MAS MAL ESPECIFICADO` (IMES) · `GAP REAL`.
 `OUT OF SCOPE BY DESIGN` appears as an explanation, never as a status.
-`Δ` marks a row whose status changed under remediation.
+`Δ` marks a row changed by the remediation milestone; `ΔΔ` a row changed by the execution-semantics milestone.
 
 | # | Whitepaper claim | Normative artifact | Implementation | Test | Evidence | Status | Gap | Sev |
 |---|---|---|---|---|---|---|---|---|
@@ -32,13 +35,13 @@ Status values: `ALINHADO` · `IMPLEMENTADO MAS MAL ESPECIFICADO` (IMES) · `GAP 
 | 14 | L0–L4 cumulative profiles | `protocol-version.json`; `conformance-report`; `certification-record` | readiness engines L1–L4 | engine tests | Executed | **ALINHADO** | L4 profile content not published | P2 |
 | 15 | L3 requires multi-operator evidence | `federation-*` contracts; `conformance/federation/suite.json` | `banza-l3-readiness`, `banza-conformance` | 37 fixture cases | A→B executed | **ALINHADO** | — | — |
 | 16 | Federation is bounded, local, per-interaction | `federation-trust.json`; `federation-trust-evaluation.production.schema.json` | `evaluate_federation_ote` | 14 OTE tests | Executed | **ALINHADO** | — | — |
-| 17 Δ | Technical routing between operators | `contracts/federation/federation-routing.json` + **`spec/federation/FEDERATION_CONTRACT_SURFACE.md`** (now in the manifest) | `banza-simb` (simulator) | routing fixtures | Executed | **IMES** | Error taxonomy open; idempotency published but incomplete (retention, key scope); RFC-0001 Draft cited in `_authority` but not depended on | P1 (F-05, F-06) |
+| 17 ΔΔ | Technical routing between operators | `federation-routing.json`; `FEDERATION_CONTRACT_SURFACE.md`; **`spec/reason-codes.md`** (rejection/outcome vocabulary); **`spec/idempotency.md`** §8 | `banza-simb` (simulator) | routing fixtures; reason-code + idempotency vectors | Executed | **ALINHADO** *(was IMES)* | — | — |
 | 18 Δ | Deterministic validation | `validation-journey-state-machine.production.json` + **`spec/canonicalization.md`** for the byte-level mechanism | Rust engines | journey tests + vectors | Executed | **ALINHADO** *(was ALINHADO on states / P0 on mechanism)* | Determinism of *ordering* within a journey remains engine-defined | P2 |
 | 19 | Fail-closed evaluation | Journey state machine; INV-FEDEVAL-005 | `evaluate_federation_ote` | negatives | Executed | **ALINHADO** | — | — |
-| 20 Δ | Evidence bundle; verifiable material | `evidence-bundle.production.schema.json`; digest rule now in `spec/canonicalization.md` §5 | `banza-evidence-bundle` | bundle tests | Byte-identical replay | **IMES** | A second implementation can now recompute the *digests*; whether two bundles are *semantically* equal still has no rule | P1 (F-07, partially resolved) |
-| 21 | Receipts bind result to inputs, digests, reason codes | `journey-receipt`, `operation-receipt` | receipts engine | receipt tests | Executed | **IMES** | `reason_codes` is an open string array | P1 (F-05) |
-| 22 | Semantically equivalent verdicts and reason codes | *concept only* | — | — | — | **IMES** | No rule for which fields must match; blocked on F-05 | P1 (F-07) |
-| 23 Δ | Reproducibility by third parties | `spec/canonicalization.md`; `evidence-bundle` | replay tooling | determinism tests; cross-implementation vectors | Byte-identical ×2; independent implementation agrees | **IMES** | Bytes and digests are now reproducible without the Rust; full bundle replay by a second implementation is untested because no second implementation exists | P1 (F-07) |
+| 20 ΔΔ | Evidence bundle; verifiable material | `evidence-bundle.production.schema.json`; `spec/canonicalization.md` §5; **`spec/reason-codes.md` §8** | `banza-evidence-bundle` | bundle tests; equivalence vectors | Byte-identical replay | **ALINHADO** *(was IMES)* | Full bundle replay by a second implementation is untested because no second implementation exists — an experimental gap, not a normative one | — |
+| 21 ΔΔ | Receipts bind result to inputs, digests, reason codes | `journey-receipt`, `operation-receipt` (grammar published); **`spec/reason-codes.md`**; **`banza-reason-codes/1`** | receipts engine; `execution.rs` | receipt tests; 21 reason-code vectors | Executed | **ALINHADO** *(was IMES)* | — | — |
+| 22 ΔΔ | Semantically equivalent verdicts and reason codes | **`spec/reason-codes.md` §8** — what must match and what MAY differ | `execution::core_code_set` | vectors RC-017…RC-020 | Executed | **ALINHADO** *(was IMES)* | — | — |
+| 23 ΔΔ | Reproducibility by third parties | `spec/canonicalization.md`; `spec/reason-codes.md` §8; `evidence-bundle` | replay tooling | determinism tests; 4 vector families computed by an independent implementation | Byte-identical ×2 | **ALINHADO** *(was IMES)* | Awaiting an actual second implementation — the next milestone | — |
 | 24 | Secure fetch: HTTPS only, no private/metadata addresses, no redirects, TLS validated, bounded responses | Whitepaper §8; ADR-068 §4.7 | `banza-artifact-fetcher` | full SSRF negative roster | Executed E4 | **ALINHADO** | Rules stated in prose/ADR rather than a fetch contract schema | P2 |
 | 25 | Operational independence — no BANZA infra in message/funds path | `GOVERNANCE.md`; contracts contain no runtime BANZA endpoint in the transaction path | A→B direct | A→B executed | Executed | **ALINHADO** | — | — |
 | 26 | Trust material availability | `key-manifest.json`, `revocation-list.json` (single canonical origin) | — | — | — | **GAP REAL** | No mirroring/offline distribution specified; fail-closed ⇒ liveness coupling | P1 (F-08, deferred with rationale) |
@@ -53,8 +56,8 @@ Status values: `ALINHADO` · `IMPLEMENTADO MAS MAL ESPECIFICADO` (IMES) · `GAP 
 
 | Status | Audit (rev 1) | Post-remediation (rev 2) | Δ |
 |---|---|---|---|
-| ALINHADO | 17 | **23** | +6 |
-| IMPLEMENTADO MAS MAL ESPECIFICADO | 12 | **8** | −4 |
+| ALINHADO | 17 | **28** | +11 |
+| IMPLEMENTADO MAS MAL ESPECIFICADO | 12 | **3** | −9 |
 | GAP REAL | 3 | **1** | −2 |
 
 No material claim is left unclassified.
@@ -76,3 +79,32 @@ substance of the next milestone; the second predates this milestone and is uncha
   implementation of **`BCJ/1`** exists and agrees, which is the narrower claim the evidence supports.
 - It does not assert that any status improved for a reason other than a published artifact. Rows 6, 13, 17,
   21, 22, 24, 26 and 29 are unchanged, because nothing in this milestone changed them.
+
+## Revision 3 — execution-semantics traceability
+
+### X-04 — reason codes
+
+| Requirement | Registry / spec | Schema / contract | Implementation | Vector | Test |
+|---|---|---|---|---|---|
+| Reason codes have published semantics | `spec/reason-codes.md`; `banza-reason-codes/1` | — | `execution.rs` | RC-001…RC-003 | `reason_code_vectors_hold` |
+| `trust_status` is a published closed enum | registry `vocabularies.trust_status` (13) | — | `evaluate::STATUS_VALUES` | RC-015, RC-016 | `the_registry_matches_what_the_engine_emits` (bidirectional parity) |
+| Fetch reason codes are published | registry `vocabularies.fetch_reason_codes` (27) | — | `artifact-fetcher::ReasonCode` | — | guard parity check |
+| `failed_checks` references check ids | `spec/reason-codes.md` §4 | `federation-trust-evaluation` enum + `uniqueItems` | `validate_failed_checks` | RC-003, RC-010…RC-013 | `reason_code_vectors_hold` |
+| Extension namespace is reserved | §5 | both receipt schemas (`anyOf` patterns) | `code_shape` | RC-005…RC-007 | `core_and_extension_grammars_cannot_collide` |
+| Unknown codes are preserved, not rejected | §6 | — | `validate_reason_codes` | RC-004 | `an_unregistered_core_code_is_tolerated` |
+| Semantic equivalence is defined | §8 | — | `core_code_set` | RC-017…RC-020 | `equivalence_ignores_order_duplicates_and_extensions` |
+
+### X-05 — idempotency
+
+| Requirement | Idempotency spec | Operation contract | Implementation | Vector | Test |
+|---|---|---|---|---|---|
+| Key scope is a four-part tuple | §2 | `transfers.yaml`, `collections.yaml` | `IdempotencyScope` | IDEM-003…IDEM-005 | `classification_covers_replay_conflict_and_distinct` |
+| Request identity is a `BCJ/1` digest | §3 | — | `request_identity` | IDEM-001, IDEM-002 | `idempotency_request_identity_matches_the_independent_implementation` |
+| Excluded members are closed | §4 | — | `REQUEST_IDENTITY_EXCLUDED` | vector header | guard parity check |
+| Signatures and unknown members are inside identity | §4 | — | `request_identity` | IDEM-009, IDEM-010 | `request_identity_includes_signatures_and_unknown_members` |
+| Retry returns the original result | §5 | `transfers.yaml` | `IdempotencyOutcome::Replay` | IDEM-001, IDEM-006 | `idempotency_outcome_vectors_hold` |
+| Conflict is 409 with no side effect | §6 | `transfers.yaml` 409 | `IdempotencyOutcome::Conflict` | IDEM-002 | `idempotency_outcome_vectors_hold` |
+| Retention floor and declaration | §7 | `capabilities-document` (`minimum: 86400`) | `RETENTION_FLOOR_SECONDS` | IDEM-006…IDEM-008 | `declared_retention_must_meet_the_floor` |
+| A `BCJ/1`-invalid body has no identity | §3 | — | `request_identity_from_bytes` | IDEM-011, IDEM-012 | `a_body_bcj1_rejects_has_no_request_identity` |
+| Concurrency has bounded observable behaviour | §9 | — | — | IDEM-013, IDEM-014 | vector-documented; two shapes permitted |
+| Federation key is globally scoped | §8 | `federation-routing.json` | — | IDEM-015 | `INV-FED-IDEM-001` |

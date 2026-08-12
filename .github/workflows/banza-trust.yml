@@ -31,6 +31,9 @@ jobs:
       - name: normative surface integrity (ADR-081/082)
         working-directory: .
         run: bash tools/check-normative-surface-integrity.sh
+      - name: execution semantics — reason codes + idempotency (ADR-083/084)
+        working-directory: .
+        run: bash tools/check-execution-semantics.sh
       - name: cargo test (golden ed25519 parity + TEST-ONLY signing/ceremony)
         working-directory: engines/banza-trust
         run: cargo test

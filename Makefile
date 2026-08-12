@@ -333,6 +333,14 @@ normative-surface-integrity-check:
 normative-manifest:
 	@python3 tools/gen-normative-manifest.py
 
+## execution-semantics-check: Reason codes (ADR-083) and idempotency (ADR-084) — registry/engine parity, closed check-id set, published grammar, retention floor
+execution-semantics-check:
+	@bash tools/check-execution-semantics.sh
+
+## reason-code-registry: Regenerate contracts/production/reason-code-registry.production.json
+reason-code-registry:
+	@python3 tools/gen-reason-code-registry.py
+
 ## crypto-check: Run protocol cryptographic integrity (Rust banza-trust golden ed25519 parity)
 crypto-check:
 	@cd $(TRUST_RS) && cargo test --quiet && echo "crypto: ✓ banza-trust golden ed25519 parity (INV-FEDEVAL-005)"

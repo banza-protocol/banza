@@ -19,9 +19,9 @@
 | X-03 Normative keyword convention | Missing | **Supplied** — BCP 14 declared in `contracts/README.md` and the spec |
 | X-07 Resolvable source of truth | 6 pointers to absent code paths | **Supplied** — all corrected; guarded so they cannot regress |
 | X-08 Cryptographic (non-placeholder) vectors | Inside `engines/**`, undeliverable | **Supplied** — moved to `conformance/vectors/trust-signing.json` |
-| X-04 Reason-code taxonomy | Missing | **Partially supplied, narrower than recorded** — five vocabularies are closed (certification 18, revocation-entry 7, root-revocation 4, BRL 2, and the 13 OTE check ids). Three open string arrays remain: `failed_checks` and `reason_codes` on both receipt types. Deferred (F-05) |
-| X-05 Idempotency rule | Missing | **Partially supplied, narrower than recorded** — `INV-IDEM-001` (incl. the same-key-different-body conflict rule), `INV-FED-004`, `INV-FED-IDEM-001`, `INV-COLLECTION-008` and the `rr-<uuid>` format are published. Missing: retention, the key scope of `INV-IDEM-001`, and the body-comparison rule. Deferred (F-06) |
-| X-06 Semantic-equivalence rule | Missing | **Partially supplied** — digest-level yes, field-level no (F-07) |
+| X-04 Reason-code taxonomy | Missing | **CLOSED** — `spec/reason-codes.md` + `contracts/production/reason-code-registry.production.json` (`banza-reason-codes/1`) + 21 vectors. Five vocabularies published, including the 13 `trust_status` values and the 27 fetch reason codes that previously existed only in the Rust |
+| X-05 Idempotency rule | Missing | **CLOSED** — `spec/idempotency.md` + 15 vectors. The three open questions are answered: scope is a four-part tuple, request identity is a `BCJ/1` digest, retention is a 24 h floor plus a mandatory declaration |
+| X-06 Semantic-equivalence rule | Missing | **CLOSED** — `spec/reason-codes.md` §8 defines equivalence and states exactly what may differ; vectors RC-017…RC-020 pin it |
 | X-09 L4 profile content | Missing | **Still missing** |
 | X-10 Trust-material distribution | Single origin | **Unchanged** — deferred with rationale (F-08) |
 
@@ -45,6 +45,8 @@
 | M-11 | Domain schemas | `contracts/{qr,events,webhooks,payment-intents,payment-sessions,collections,fees,settlements,wallet-accounts,proofs}/**` | Payment/QR/event/webhook artifacts |
 | M-12 | Webhook signature specification | `contracts/webhooks/signature.json` | HMAC envelope for webhook delivery |
 | M-13 | Normative keyword convention | `contracts/README.md` | BCP 14, scoped to the manifest |
+| **M-15** | **Reason codes** | `spec/reason-codes.md`, `contracts/production/reason-code-registry.production.json` | Five vocabularies with published semantics, the status-decides/code-explains rule, the reserved extension namespace, and unknown-code handling |
+| **M-16** | **Idempotency** | `spec/idempotency.md` | Key scope, request identity via `BCJ/1`, retry and conflict semantics, retention floor and declaration, concurrency |
 | M-14 | Licence, notice, trademark | `LICENSE`, `NOTICE`, `TRADEMARKS.md` | Legal basis to implement and to describe the implementation |
 
 ## 2. Test vectors
@@ -53,6 +55,8 @@
 |---|---|---|---|
 | **T-00** | **Canonicalization vectors (24)** | `conformance/vectors/canonicalization.json` | 15 accept + 9 reject, each with canonical form, byte length and SHA-256. The team validates its `BCJ/1` implementation before anything else |
 | **T-01** | **Cryptographic trust vectors (12)** | `conformance/vectors/trust-signing.json` | **Real Ed25519 signatures** over `BCJ/1` bytes — root threshold, delegated keys, signed protocol metadata, operator manifest, conformance evidence, registry entry, revocation — each with the expected trust status. Public key material only |
+| **T-06** | **Reason-code vectors (21)** | `conformance/vectors/reason-codes.json` | Unknown codes, extensions, duplicates, ordering, closed-enum rejection, and four semantic-equivalence cases |
+| **T-07** | **Idempotency vectors (15)** | `conformance/vectors/idempotency.json` | Replay, conflict, three scope dimensions, retention inside and outside the window, signature and unknown-member sensitivity, `BCJ/1` rejection, concurrency |
 | T-02 | Domain conformance vectors (61) | `conformance/vectors/*.json` | Ledger, transfers, QR, settlement, events, manifests, wallets, collections |
 | T-03 | Conformance suites (7) | `conformance/*/suite.json` | Case matrices with expected outcomes |
 | T-04 | Federation fixtures (31) | `conformance/fixtures/federation/*.json` | **Carry placeholder signatures** — structural vectors, not cryptographic ones |
@@ -92,9 +96,9 @@ any of them is ever listed as normative.
 | ~~X-01~~ | ~~Canonical byte form / signing envelope~~ | — | §14, F-01, **P0** | **CLOSED** — M-01 + T-00 |
 | ~~X-02~~ | ~~Index of what constitutes BANZA v1.0~~ | — | §5.3, F-02 | **CLOSED** — M-00 |
 | ~~X-03~~ | ~~Normative keyword convention~~ | — | §5.2, F-03 | **CLOSED** — M-13 |
-| **X-04** | Closed reason-code taxonomy | Cannot produce comparable results; semantic equivalence untestable | §7.2, F-05 | **OPEN** — deferred, scope decision required first |
-| **X-05** | Normative idempotency rule (key scope, conflict definition, retention) | Must infer replay/conflict behaviour from fixtures | §7.2, F-06 | **OPEN** — deferred, scope decision required first |
-| X-06 | Semantic-equivalence rule (which fields must match) | Can now compare *digests*; cannot self-check *field-level* equivalence | §15, F-07 | **PARTIAL** — blocked on X-04 |
+| ~~X-04~~ | ~~Closed reason-code taxonomy~~ | — | §7.2, F-05 | **CLOSED** — M-15 + T-06 |
+| ~~X-05~~ | ~~Normative idempotency rule (key scope, conflict definition, retention)~~ | — | §7.2, F-06 | **CLOSED** — M-16 + T-07 |
+| ~~X-06~~ | ~~Semantic-equivalence rule (which fields must match)~~ | — | §15, F-07 | **CLOSED** — `spec/reason-codes.md` §8 |
 | ~~X-07~~ | ~~Resolvable source of truth for Key Manifest, BRL, events, QR~~ | — | §5.4, F-04 | **CLOSED** — all six corrected and guarded |
 | ~~X-08~~ | ~~Cryptographic (non-placeholder) trust vectors~~ | — | rev-1 §2 | **CLOSED** — T-01, published out of `engines/**` |
 | X-09 | L4 profile content | Cannot implement external interoperability | §6 item 15 | **OPEN** |

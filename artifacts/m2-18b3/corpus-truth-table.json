@@ -1,13 +1,13 @@
 {
   "milestone": "M2.18B.3A canonical corpus integrity",
   "summary": {
-    "total": 83,
-    "ok": 83,
-    "discoverable": 83,
-    "resolvable": 83,
-    "citable": 83,
-    "index_chunks": 748,
-    "adr": 77,
+    "total": 85,
+    "ok": 85,
+    "discoverable": 85,
+    "resolvable": 85,
+    "citable": 85,
+    "index_chunks": 768,
+    "adr": 79,
     "rfc": 6
   },
   "rows": [
@@ -775,6 +775,26 @@
       "id": "ADR-082",
       "kind": "adr",
       "file": "decisions/adr/ADR-082-banza-canonical-json.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-083",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-083-reason-code-model.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-084",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-084-idempotency-semantics.md",
       "chunks": 5,
       "discoverable": true,
       "resolvable": true,

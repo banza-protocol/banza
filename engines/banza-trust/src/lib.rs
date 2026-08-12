@@ -14,6 +14,7 @@
 
 pub mod canonical;
 pub mod evaluate;
+pub mod execution;
 pub mod sign;
 pub mod tool;
 
