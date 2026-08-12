@@ -205,7 +205,74 @@ and it changes nothing about BanzAI's standing: it is not a normative source, it
 conformance, it is not a fourth layer, and no protocol message or payment is required to pass through
 it. The authority remains the Normative Manifest and the specification.
 
+## 11. Runtime source alignment
+
+Repository HEAD and runtime source commit differ, and the difference was proven rather than assumed.
+
+| | |
+|---|---|
+| Repository HEAD | `c7c720c` |
+| Runtime source commit | `80e6a3b` |
+| Difference | **documentation only — no runtime-affecting file changed** |
+
+**Runtime remains at `80e6a3b` because every change through `c7c720c` was proven non-runtime-affecting.**
+
+The interval `80e6a3b..c7c720c` contains one commit and modifies exactly one file: this report. It was
+checked against every consumer that could carry a document into the runtime, not merely classified by
+its extension:
+
+| Consumer | Contains it? |
+|---|---|
+| BanzAI document index | no — `docs/audit/` contributes 0 chunks |
+| BanzAI repository index | no |
+| Canonical protocol vocabulary | no |
+| `banzai_api_kb` WASM | no |
+| Website content | no |
+| Normative manifest | no |
+| Any Dockerfile `COPY` | no — none of the four copies `docs/` |
+
+The decisive check is structural rather than textual: **`docs/` lies outside all four build contexts.**
+Every first-party context is a subdirectory — `website/`, `services/verification-api/`,
+`services/banzai-api/`, `engines/banza-artifact-fetcher/` — so no file under `docs/` can enter an image
+regardless of its content.
+
+Confirmed by comparing the trees directly: all four build contexts are **git-identical** between the
+two commits, and `infra/banza-network/` is unchanged. Rebuilding from `c7c720c` would reproduce the
+same images from the same sources, so it was not done.
+
+## 12. Final verification
+
+**Provenance — source commit to running container.** Each first-party service was matched from its
+image to the container executing it:
+
+| Service | Image `src-80e6a3b` | Running container image | |
+|---|---|---|---|
+| website | `2de0f9e976f3` | `2de0f9e976f3` | match |
+| verification-api | `e7d4adf73333` | `e7d4adf73333` | match |
+| banzai-api | `edd1d7ef8574` | `edd1d7ef8574` | match |
+| fetcher | `ceee5469171d` | `ceee5469171d` | match |
+
+**Model.** `qwen2.5-7b-instruct-q4_k_m`, 3 993 201 344 bytes,
+SHA-256 `dfce12e3862a5283ccfb88221b48480e58745165de856439950d0f22590580db`, at the runtime path the
+`.env` declares. This is the benchmark-selected model of §5.1. No new benchmark was run.
+
+**TLS.** nginx references `origin.pem` and `origin.key`; the pair still matches; the key is `0600`;
+the origin serves the CloudFlare Origin SSL Certificate Authority; no self-signed certificate exists
+anywhere under `/srv`. `nginx -t` passes.
+
+**Origin readiness for Full (strict): PASS.** The Cloudflare zone mode requires owner-side panel
+confirmation — no Cloudflare credentials are present on the VM and none were introduced.
+
+**Legacy scan.** Zero on every axis: no `rollback-pre-*` image, no first-party image outside the
+`src-` tag, no exited container, no dangling volume, no `.env.bak*`, no `compose.yml.bak*`, no dump or
+backup, no self-signed certificate, no Qwen3-4B artifact, no `candidates/` directory, and no `/old`,
+`/legacy` or `/archive` tree.
+
+**Database.** 24 tables, 2 rows — the `protocol_state` seed and nothing else. PostgreSQL is not
+published; listening ports are 22, 53 (local resolver), 80 and 443.
+
 ---
+
 
 **BANZA v1.0.0 — REPOSITORY & VM E2E TRUTH RESET COMPLETE.**
 
