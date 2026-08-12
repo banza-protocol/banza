@@ -144,7 +144,7 @@ fn report_carries_the_active_model_boundary_flags() {
     assert_eq!(r["test_only"], true);
 }
 
-const GOLDEN: &str = include_str!("../golden/vectors.json");
+const GOLDEN: &str = include_str!("../../../conformance/vectors/trust-signing.json");
 
 #[test]
 fn golden_vectors_evaluate_to_their_expected_status() {

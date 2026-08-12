@@ -5,45 +5,144 @@
   "description": "The canonical Layer-2 (Conformance & Interoperability Certification) verdict (ADR-064 D-064-03). Binds a CertifiedImplementation (by implementation_hash) to an InteroperabilityCertificationProfile (by profile_id+profile_version), carries the reproducible evidence hashes, the Rust-decided status + reason_code (ADR-066), the scope (never broader than the evidence), a validity window, and a record_hash over the whole. A CERTIFIED record asserts ONLY 'this implementation passed this profile version with this evidence, in this scope, until this date' — it is NOT a licence, NOT scheme admission and NOT regulatory authorisation (ADR-061). Decided solely by the Rust engine (banza-certification); no Qwen, no external model, no human FAIL->PASS.",
   "_spec_version": "1.0",
   "_status": "production-baseline",
-  "_authority": "engines/banza-certification (ADR-064/065/066); ADR-037 Rust-first",
+  "_authority": "ADR-064 (interoperability certification), ADR-065, ADR-066 (closed certification-state machine); this schema defines the record. engines/banza-certification implements it and does not define it.",
   "_boundary": "Technical certification of an implementation. Not a licence, scheme admission or regulatory authorisation. BANZA holds no funds and admits no participant.",
   "type": "object",
   "required": [
-    "schema_version", "record_id", "implementation_id", "implementation_hash",
-    "profile_id", "profile_version", "protocol_version", "environment",
-    "status", "reason_code", "scope_levels", "scope_capabilities",
-    "conformance_report_hash", "interoperability_report_hash",
-    "issued_at", "expires_at", "record_hash"
+    "schema_version",
+    "record_id",
+    "implementation_id",
+    "implementation_hash",
+    "profile_id",
+    "profile_version",
+    "protocol_version",
+    "environment",
+    "status",
+    "reason_code",
+    "scope_levels",
+    "scope_capabilities",
+    "conformance_report_hash",
+    "interoperability_report_hash",
+    "issued_at",
+    "expires_at",
+    "record_hash"
   ],
   "additionalProperties": false,
   "properties": {
-    "schema_version": { "const": 1 },
-    "record_id": { "type": "string", "minLength": 1, "description": "Unique, immutable record id." },
-    "implementation_id": { "type": "string", "minLength": 1 },
-    "implementation_hash": { "type": "string", "minLength": 1, "description": "Content hash of the exact artifact set tested; the certificate binds to THIS hash." },
-    "profile_id": { "type": "string", "minLength": 1 },
-    "profile_version": { "type": "string", "minLength": 1 },
-    "protocol_version": { "type": "string", "minLength": 1 },
-    "environment": { "type": "string", "enum": ["sandbox", "staging", "production"] },
-    "status": { "type": "string", "enum": ["NOT_CERTIFIED", "CERTIFIED", "EXPIRED", "SUSPENDED", "REVOKED", "SUPERSEDED"], "description": "Closed certification-state (ADR-066). Only CERTIFIED (within window, evidence reproduces) reads as valid; all others fail-closed." },
+    "schema_version": {
+      "const": 1
+    },
+    "record_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique, immutable record id."
+    },
+    "implementation_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "implementation_hash": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Content hash of the exact artifact set tested; the certificate binds to THIS hash."
+    },
+    "profile_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "profile_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "protocol_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "environment": {
+      "type": "string",
+      "enum": [
+        "sandbox",
+        "staging",
+        "production"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "NOT_CERTIFIED",
+        "CERTIFIED",
+        "EXPIRED",
+        "SUSPENDED",
+        "REVOKED",
+        "SUPERSEDED"
+      ],
+      "description": "Closed certification-state (ADR-066). Only CERTIFIED (within window, evidence reproduces) reads as valid; all others fail-closed."
+    },
     "reason_code": {
       "type": "string",
       "enum": [
         "OK_CONFORMANT_INTEROPERABLE",
-        "FAIL_SCHEMA_INVALID", "FAIL_CANONICALIZATION_INVALID", "FAIL_HASH_MISMATCH",
-        "FAIL_SIGNATURE_INVALID", "FAIL_IDENTITY_INVALID", "FAIL_PROFILE_MISMATCH",
-        "FAIL_PROTOCOL_MISMATCH", "FAIL_ENVIRONMENT_MISMATCH", "FAIL_CAPABILITY_UNSUPPORTED",
-        "FAIL_CONFORMANCE", "FAIL_INTEROPERABILITY", "FAIL_EVIDENCE_INCOMPLETE",
-        "FAIL_EVIDENCE_EXPIRED", "FAIL_TRUST_INVALID", "FAIL_REVOKED",
-        "FAIL_VALIDITY_WINDOW", "FAIL_ILLEGAL_TRANSITION"
+        "FAIL_SCHEMA_INVALID",
+        "FAIL_CANONICALIZATION_INVALID",
+        "FAIL_HASH_MISMATCH",
+        "FAIL_SIGNATURE_INVALID",
+        "FAIL_IDENTITY_INVALID",
+        "FAIL_PROFILE_MISMATCH",
+        "FAIL_PROTOCOL_MISMATCH",
+        "FAIL_ENVIRONMENT_MISMATCH",
+        "FAIL_CAPABILITY_UNSUPPORTED",
+        "FAIL_CONFORMANCE",
+        "FAIL_INTEROPERABILITY",
+        "FAIL_EVIDENCE_INCOMPLETE",
+        "FAIL_EVIDENCE_EXPIRED",
+        "FAIL_TRUST_INVALID",
+        "FAIL_REVOKED",
+        "FAIL_VALIDITY_WINDOW",
+        "FAIL_ILLEGAL_TRANSITION"
       ]
     },
-    "scope_levels": { "type": "array", "items": { "type": "string", "enum": ["L0", "L1", "L2", "L3", "L4"] }, "description": "Levels the verdict covers — never broader than the evidence." },
-    "scope_capabilities": { "type": "array", "items": { "type": "string" } },
-    "conformance_report_hash": { "type": "string", "minLength": 1, "description": "Reproducible evidence hash of the ConformanceReport." },
-    "interoperability_report_hash": { "type": "string", "minLength": 1, "description": "Reproducible evidence hash of the InteroperabilityReport." },
-    "issued_at": { "type": "integer", "description": "UTC seconds." },
-    "expires_at": { "type": "integer", "description": "UTC seconds; equals issued_at for a non-CERTIFIED record." },
-    "record_hash": { "type": "string", "minLength": 1, "description": "Canonical SHA-256 over the record excluding this field; must reproduce (ADR-064 D-064-05)." }
+    "scope_levels": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "L0",
+          "L1",
+          "L2",
+          "L3",
+          "L4"
+        ]
+      },
+      "description": "Levels the verdict covers — never broader than the evidence."
+    },
+    "scope_capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "conformance_report_hash": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Reproducible evidence hash of the ConformanceReport."
+    },
+    "interoperability_report_hash": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Reproducible evidence hash of the InteroperabilityReport."
+    },
+    "issued_at": {
+      "type": "integer",
+      "description": "UTC seconds."
+    },
+    "expires_at": {
+      "type": "integer",
+      "description": "UTC seconds; equals issued_at for a non-CERTIFIED record."
+    },
+    "record_hash": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Canonical SHA-256 over the record excluding this field; must reproduce (ADR-064 D-064-05)."
+    }
   }
 }

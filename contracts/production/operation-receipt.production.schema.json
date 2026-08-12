@@ -8,84 +8,299 @@
   "_authority": "ADR-068 (§4.8 receipts, §30 OperationReceipt), ADR-076 (§D-076-07 receipt §4 field set; §D-076-08 durable append-only persistence), ADR-077 (profile applicability model — the `applicability` field + NOT_EVALUATED terminal for a NOT_APPLICABLE step), ADR-037 (Rust-first engines), ADR-066 (closed certification-state machine)",
   "_boundary": "A receipt records what was fetched and what Rust decided. It never certifies, admits, authorises, or moves funds. It carries NO free BanzAI/model text (ADR-076 §D-076-08).",
   "_canonical_field_equivalence": "ADR-076 §4 canonical names map onto this schema's origin-bound §30 names as: execution_id ≡ operation_id, engine_name ≡ engine, receipt_reference ≡ audit_ref, input_artifact_digests ⊇ input_hash (the scalar input_hash stays; input_artifact_digests adds the structured per-artefact breakdown). New durable artefacts (the Postgres receipt store, the journey state-machine contract) use the canonical §4 names; this receipt keeps its established §30 names plus the new §4 behavioural fields below.",
-
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "receipt_version", "operation_id", "request_id", "workflow", "step",
-    "operator_id", "implementation_id", "environment", "profile", "protocol_version",
-    "canonical_origin", "endpoint", "resolved_host", "fetched_at",
-    "input_hash", "signature_status", "engine", "engine_version",
-    "result", "reason_codes", "evidence_refs", "output_hash", "duration_ms",
-    "qwen_calls", "external_model_calls", "protocol_fetch_count", "audit_ref"
+    "receipt_version",
+    "operation_id",
+    "request_id",
+    "workflow",
+    "step",
+    "operator_id",
+    "implementation_id",
+    "environment",
+    "profile",
+    "protocol_version",
+    "canonical_origin",
+    "endpoint",
+    "resolved_host",
+    "fetched_at",
+    "input_hash",
+    "signature_status",
+    "engine",
+    "engine_version",
+    "result",
+    "reason_codes",
+    "evidence_refs",
+    "output_hash",
+    "duration_ms",
+    "qwen_calls",
+    "external_model_calls",
+    "protocol_fetch_count",
+    "audit_ref"
   ],
   "properties": {
-    "receipt_version": { "type": "string", "description": "Receipt schema version (e.g. '1.0.0')." },
-    "operation_id": { "type": "string", "description": "Unique id of this step operation (e.g. 'op-<uuid>')." },
-    "request_id": { "type": "string", "description": "Id shared by all steps of the same journey/step request." },
-    "workflow": { "type": "string", "description": "The workflow name ('operator-validation')." },
+    "receipt_version": {
+      "type": "string",
+      "description": "Receipt schema version (e.g. '1.0.0')."
+    },
+    "operation_id": {
+      "type": "string",
+      "description": "Unique id of this step operation (e.g. 'op-<uuid>')."
+    },
+    "request_id": {
+      "type": "string",
+      "description": "Id shared by all steps of the same journey/step request."
+    },
+    "workflow": {
+      "type": "string",
+      "description": "The workflow name ('operator-validation')."
+    },
     "step": {
       "type": "string",
-      "enum": ["discovery", "manifest", "keys", "conformance", "interoperability", "trust", "federation", "evidence", "certification"],
+      "enum": [
+        "discovery",
+        "manifest",
+        "keys",
+        "conformance",
+        "interoperability",
+        "trust",
+        "federation",
+        "evidence",
+        "certification"
+      ],
       "description": "The canonical journey step."
     },
     "applicability": {
       "type": "string",
-      "enum": ["REQUIRED", "OPTIONAL", "NOT_APPLICABLE"],
+      "enum": [
+        "REQUIRED",
+        "OPTIONAL",
+        "NOT_APPLICABLE"
+      ],
       "description": "ADR-077: the step's applicability to the target's declared conformance profile, ORTHOGONAL to result.status. REQUIRED = in scope and must be evaluated; OPTIONAL = in scope, non-blocking; NOT_APPLICABLE = out of scope for the profile (e.g. L2 interoperability / L3 federation for an L0 implementation) — such a step is never fetched or engine-evaluated (result.status = NOT_EVALUATED), never a technical failure, and never contributes to readiness. Rust decides the map (banza-target-registry). Always emitted by the runtime as of ADR-077."
     },
-    "operator_id": { "type": "string" },
-    "implementation_id": { "type": "string" },
-    "environment": { "type": "string" },
-    "profile": { "type": "string" },
-    "protocol_version": { "type": "string" },
-    "canonical_origin": { "type": "string", "format": "uri", "description": "The implementation's canonical origin the artifacts were fetched from." },
-    "endpoint": { "type": ["string", "null"], "description": "The primary endpoint URL fetched for this step." },
-    "resolved_host": { "type": ["string", "null"], "description": "The host the fetcher pinned to and connected to." },
-    "fetched_at": { "type": ["string", "null"], "format": "date-time", "description": "When the primary artifact was fetched (RFC3339 UTC)." },
-    "http_status": { "type": ["integer", "null"], "description": "HTTP status of the primary fetch." },
-    "content_type": { "type": ["string", "null"] },
-    "content_length": { "type": ["integer", "null"] },
-    "etag": { "type": ["string", "null"] },
-    "last_modified": { "type": ["string", "null"] },
-    "input_hash": { "type": "string", "description": "Hash of the engine input assembled from fetched content (e.g. 'sha256:...')." },
-    "signature_status": { "type": "string", "description": "Signature evaluation status for the key/trust steps; 'not_applicable' otherwise." },
-    "engine": { "type": "string", "description": "The Rust decision engine that produced the verdict for this step." },
-    "engine_version": { "type": "string" },
+    "operator_id": {
+      "type": "string"
+    },
+    "implementation_id": {
+      "type": "string"
+    },
+    "environment": {
+      "type": "string"
+    },
+    "profile": {
+      "type": "string"
+    },
+    "protocol_version": {
+      "type": "string"
+    },
+    "canonical_origin": {
+      "type": "string",
+      "format": "uri",
+      "description": "The implementation's canonical origin the artifacts were fetched from."
+    },
+    "endpoint": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The primary endpoint URL fetched for this step."
+    },
+    "resolved_host": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The host the fetcher pinned to and connected to."
+    },
+    "fetched_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time",
+      "description": "When the primary artifact was fetched (RFC3339 UTC)."
+    },
+    "http_status": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "HTTP status of the primary fetch."
+    },
+    "content_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "content_length": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "etag": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "last_modified": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "input_hash": {
+      "type": "string",
+      "description": "Hash of the engine input assembled from fetched content (e.g. 'sha256:...')."
+    },
+    "signature_status": {
+      "type": "string",
+      "description": "Signature evaluation status for the key/trust steps; 'not_applicable' otherwise."
+    },
+    "engine": {
+      "type": "string",
+      "description": "The Rust decision engine that produced the verdict for this step."
+    },
+    "engine_version": {
+      "type": "string"
+    },
     "result": {
       "type": "object",
       "description": "The engine verdict for this step (status + engine output/reason). Decided in Rust.",
       "additionalProperties": true,
-      "required": ["status"],
+      "required": [
+        "status"
+      ],
       "properties": {
-        "status": { "type": "string", "enum": ["VERIFIED", "PENDING", "FAILED", "BLOCKED", "NOT_EVALUATED"], "description": "Canonical step status decided by Rust. NOT_EVALUATED is the terminal of a NOT_APPLICABLE step (ADR-077) — out of scope for the profile, never fetched or evaluated." }
+        "status": {
+          "type": "string",
+          "enum": [
+            "VERIFIED",
+            "PENDING",
+            "FAILED",
+            "BLOCKED",
+            "NOT_EVALUATED"
+          ],
+          "description": "Canonical step status decided by Rust. NOT_EVALUATED is the terminal of a NOT_APPLICABLE step (ADR-077) — out of scope for the profile, never fetched or evaluated."
+        }
       }
     },
-    "reason_codes": { "type": "array", "items": { "type": "string" }, "description": "Typed reason codes (verdict reasons and/or fetcher reason codes on BLOCKED)." },
-    "evidence_refs": { "type": "array", "items": { "type": "string" }, "description": "Origin-bound references, each an endpoint URL plus the content hash fetched from it." },
-    "output_hash": { "type": "string", "description": "Hash of the engine output." },
-    "duration_ms": { "type": "integer" },
-    "qwen_calls": { "type": "integer", "const": 0, "description": "Always 0 in validation mode." },
-    "external_model_calls": { "type": "integer", "const": 0, "description": "Always 0 — nothing leaves the host." },
-    "protocol_fetch_count": { "type": "integer", "description": "Number of successful protocol fetches for this step. Never counted as external model calls." },
-    "audit_ref": { "type": "string", "description": "Correlation reference joining the request id and the fetcher audit id (≡ ADR-076 receipt_reference)." },
-
-    "started_at": { "type": ["string", "null"], "format": "date-time", "description": "ADR-076 §4: when the step began executing (RFC3339 UTC). Optional in v1.1; promoted to required once the runtime emits it." },
-    "completed_at": { "type": ["string", "null"], "format": "date-time", "description": "ADR-076 §4: when the step reached its terminal state (RFC3339 UTC)." },
-    "retryable": { "type": ["boolean", "null"], "description": "ADR-076 §4: whether this step may be safely re-run (a fetch/transient failure is retryable; a decided FAILED verdict is not)." },
-    "blocked_by": { "type": "array", "items": { "type": "string", "enum": ["discovery", "manifest", "keys", "conformance", "interoperability", "trust", "federation", "evidence", "certification"] }, "description": "ADR-076 §4: the upstream step ids whose non-VERIFIED state blocks this step. Empty when nothing blocks it." },
+    "reason_codes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "anyOf": [
+          {
+            "pattern": "^[A-Z][A-Z0-9_]*$|^[a-z][a-z0-9_]*$"
+          },
+          {
+            "pattern": "^x-[a-z0-9]([a-z0-9-]*[a-z0-9])?\\.[A-Za-z0-9_.-]+$"
+          }
+        ]
+      },
+      "description": "Reason codes explaining the outcome. They never decide it — the decision is the status field. Core codes are published in contracts/production/reason-code-registry.production.json; additional codes MUST use the reserved extension namespace x-<vendor>.<code> and MUST NOT be interpreted by a consumer. Ordering is not significant. See spec/reason-codes.md."
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Origin-bound references, each an endpoint URL plus the content hash fetched from it."
+    },
+    "output_hash": {
+      "type": "string",
+      "description": "Hash of the engine output."
+    },
+    "duration_ms": {
+      "type": "integer"
+    },
+    "qwen_calls": {
+      "type": "integer",
+      "const": 0,
+      "description": "Always 0 in validation mode."
+    },
+    "external_model_calls": {
+      "type": "integer",
+      "const": 0,
+      "description": "Always 0 — nothing leaves the host."
+    },
+    "protocol_fetch_count": {
+      "type": "integer",
+      "description": "Number of successful protocol fetches for this step. Never counted as external model calls."
+    },
+    "audit_ref": {
+      "type": "string",
+      "description": "Correlation reference joining the request id and the fetcher audit id (≡ ADR-076 receipt_reference)."
+    },
+    "started_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time",
+      "description": "ADR-076 §4: when the step began executing (RFC3339 UTC). Optional in v1.1; promoted to required once the runtime emits it."
+    },
+    "completed_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time",
+      "description": "ADR-076 §4: when the step reached its terminal state (RFC3339 UTC)."
+    },
+    "retryable": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "ADR-076 §4: whether this step may be safely re-run (a fetch/transient failure is retryable; a decided FAILED verdict is not)."
+    },
+    "blocked_by": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "discovery",
+          "manifest",
+          "keys",
+          "conformance",
+          "interoperability",
+          "trust",
+          "federation",
+          "evidence",
+          "certification"
+        ]
+      },
+      "description": "ADR-076 §4: the upstream step ids whose non-VERIFIED state blocks this step. Empty when nothing blocks it."
+    },
     "input_artifact_digests": {
       "type": "object",
       "description": "ADR-076 §4: structured per-artefact digest map (superset of the scalar input_hash). Each key is an artefact role; each value binds the endpoint fetched to its content digest.",
       "additionalProperties": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["sha256"],
+        "required": [
+          "sha256"
+        ],
         "properties": {
-          "endpoint": { "type": ["string", "null"], "description": "The endpoint URL the artefact was fetched from." },
-          "sha256": { "type": "string", "description": "Content digest 'sha256:...' of the fetched artefact." }
+          "endpoint": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The endpoint URL the artefact was fetched from."
+          },
+          "sha256": {
+            "type": "string",
+            "description": "Content digest 'sha256:...' of the fetched artefact."
+          }
         }
       }
     }
-  }
+  },
+  "_reason_codes": "banza-reason-codes/1 — spec/reason-codes.md; contracts/production/reason-code-registry.production.json"
 }

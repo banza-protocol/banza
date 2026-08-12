@@ -2,6 +2,17 @@
 
 Canonical location for all public protocol contracts — the shared truth between BANZA protocol and its consumers.
 
+## Normative keywords
+
+The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **SHOULD**,
+**SHOULD NOT**, **MAY** and **OPTIONAL** in the artifacts listed by the
+[normative manifest](production/normative-manifest.json) are to be interpreted as described in
+BCP 14 ([RFC 2119](https://www.rfc-editor.org/rfc/rfc2119),
+[RFC 8174](https://www.rfc-editor.org/rfc/rfc8174)) when, and only when, they appear in all capitals.
+
+Artifacts outside the normative manifest — the Whitepaper, the Reference, ADRs, RFCs and the reference
+implementation — use these words descriptively and carry no normative force.
+
 ## Purpose
 
 A protocol contract is any artifact that defines a formal interface that operator implementations may expose or consume when implementing BANZA. Contracts are used by candidate operator implementations, conformance tooling, public verification services, and documentation and examples. Contracts must be versioned, reviewed as breaking changes, and must not live only in prose documentation once implementation begins.

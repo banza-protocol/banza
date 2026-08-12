@@ -1,0 +1,1114 @@
+{
+  "_spec": "BANZA Protocol Normative Manifest",
+  "_status": "canonical",
+  "_authority": "ADR-081 (versioning), ADR-082 (canonicalization); remediation of audit findings F-02/F-04",
+  "_source_of_truth": "This manifest.",
+  "_boundary": "This manifest identifies the published surface of BANZA 1.0.0 and states, for each artifact, whether an independent implementation must satisfy it. Being listed here does NOT by itself make an artifact a requirement: only tier=implementation does. Artifacts not listed at all are outside the published surface entirely — see not_normative.",
+  "protocol": "BANZA",
+  "protocol_version": "1.0.0",
+  "canonicalization": "BCJ/1",
+  "normative_keywords": "BCP 14 (RFC 2119 + RFC 8174). In every artifact listed here, MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, MAY and OPTIONAL carry their BCP 14 meaning when, and only when, they appear in all capitals.",
+  "tiers": {
+    "implementation": "An independent implementation MUST satisfy this artifact to be BANZA 1.0.0. This is the clean-room reading list.",
+    "conformance": "Material for demonstrating conformance. It expresses requirements defined elsewhere; where a vector and a contract disagree, the contract governs and the vector is a defect.",
+    "legal": "The legal basis for implementing and for describing the implementation. Not a behavioural requirement.",
+    "informative": "Published and stable, but imposes no conformance obligation. Listed so that the question 'is this normative?' has a published answer."
+  },
+  "tier_counts": {
+    "implementation": 85,
+    "conformance": 53,
+    "legal": 3,
+    "informative": 2
+  },
+  "precedence": [
+    "1. spec/canonicalization.md - byte form for signatures and digests",
+    "2. contracts/production/protocol-version.json - version identity and compatibility",
+    "3. contracts/** and the tier=implementation specifications - structure and behaviour",
+    "4. contracts/invariants.json and spec/federation/FEDERATION_INVARIANTS.md - invariants",
+    "5. conformance/** - executable expression of the above",
+    "On conflict, the earlier item governs. Where a conformance vector and a contract disagree, the contract governs and the vector is a defect."
+  ],
+  "not_normative": [
+    "engines/** - reference implementation",
+    "services/**, website/** - reference services and public surface",
+    "docs/whitepaper/** - descriptive, explicitly non-normative",
+    "docs/reference/**, website/content/BANZA_REFERENCIA.md - explanatory",
+    "decisions/adr/** - decisions taken; rationale for requirements, never the requirement. No ADR is required reading to implement BANZA 1.0.0",
+    "decisions/rfc/** - proposals; every BANZA RFC is Draft and none is a requirement of 1.0.0",
+    "GOVERNANCE.md, CONTRIBUTING.md, MAINTAINERS.md, SECURITY.md - governance: how the norm evolves, not what it requires",
+    "evidence/**, artifacts/** - evidence about the reference implementation",
+    "tools/** - build, guard and derivation tooling"
+  ],
+  "artifact_count": 143,
+  "artifacts": [
+    {
+      "path": "conformance/capabilities/schema.json",
+      "class": "NORMATIVE_SCHEMA",
+      "tier": "implementation",
+      "role": "Schema of the published capabilities document.",
+      "sha256": "b711750dcfd5a4ac2dcc6b283647c9f85c5d9e2f8b8e7ea0a980d257984e2bc6"
+    },
+    {
+      "path": "conformance/manifests/schema.json",
+      "class": "NORMATIVE_SCHEMA",
+      "tier": "implementation",
+      "role": "Schema of the published discovery Operator Manifest. Normative despite living under conformance/: Open Trust Evaluation check `valid_operator_manifest` validates against it and contracts/federation/federation-manifest.json extends it.",
+      "sha256": "d91b4c9c6aca8c8df8beb67e556bf435f8ce83622efcf54c652621a884566266"
+    },
+    {
+      "path": "contracts/collections/collection-rule.schema.json",
+      "class": "NORMATIVE_SCHEMA",
+      "tier": "implementation",
+      "role": "Domain schemas: payments, QR, events, webhooks, wallets, fees, collections, settlements, proofs.",
+      "sha256": "deefbf440396eff1b674e93d357421b55b143d6c9740dc637eddb8462bba46e7",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "contracts/collections/collection-share.schema.json",
+      "class": "NORMATIVE_SCHEMA",
+      "tier": "implementation",
+      "role": "Domain schemas: payments, QR, events, webhooks, wallets, fees, collections, settlements, proofs.",
+      "sha256": "7bc7e72600211ce0eb0ba222aa644d26c001700b71dd1eaa8fe92ee5144e7d98",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "contracts/collections/collection.schema.json",
+      "class": "NORMATIVE_SCHEMA",
+      "tier": "implementation",
+      "role": "Domain schemas: payments, QR, events, webhooks, wallets, fees, collections, settlements, proofs.",
+      "sha256": "26a2b1f773c24c525a09db33ea141dc1fb57fd51afafb51f08774dbf8fa1bde3",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "contracts/collections/state-machine.json",
+      "class": "NORMATIVE_SCHEMA",
+      "tier": "implementation",
+      "role": "Domain schemas: payments, QR, events, webhooks, wallets, fees, collections, settlements, proofs.",
+      "sha256": "fd90e26ebbfe626f7faf743361e08859eb2a00453b1ad82f83d87adebfab50b7",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "contracts/events/envelope.schema.json",
+      "class": "NORMATIVE_SCHEMA",
+      "tier": "implementation",
+      "role": "Domain schemas: payments, QR, events, webhooks, wallets, fees, collections, settlements, proofs.",
+      "sha256": "4a10ffa941dfc4a4f6ac2331c748500c993cac9e61b38dc1f07eb5cd25ecb905",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "contracts/events/types.json",
+      "class": "NORMATIVE_SCHEMA",
+      "tier": "implementation",
+      "role": "Domain schemas: payments, QR, events, webhooks, wallets, fees, collections, settlements, proofs.",
+      "sha256": "3d493740ec39ca13db0a1ad439867e777bcf37463a8ac218a49b4c1618a1dc13",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "contracts/events/webhook-types.json",
+      "class": "NORMATIVE_SCHEMA",
+      "tier": "implementation",
+      "role": "Domain schemas: payments, QR, events, webhooks, wallets, fees, collections, settlements, proofs.",
+      "sha256": "730d9a61b0f40ad1f9239333242b849734fb55104a1cf539a9b73e87f195dfd3",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "contracts/federation/federation-event.json",
+      "class": "NORMATIVE_CONTRACT",
+      "tier": "implementation",
+      "role": "Federation contracts: manifest, routing, obligations, events.",
+      "sha256": "fc212371f74433a76338f7df0b39b45169805cb4098da4e1256a63d7fcc469cd",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "contracts/federation/federation-manifest.json",
+      "class": "NORMATIVE_CONTRACT",
+      "tier": "implementation",
+      "role": "Federation contracts: manifest, routing, obligations, events.",
+      "sha256": "1c97bb134cf5bb44ad5b4344d59e2e43eda9a1b5fa1eaee3d8e89fe81480ebb9",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "contracts/federation/federation-obligation.json",
+      "class": "NORMATIVE_CONTRACT",
+      "tier": "implementation",
+      "role": "Federation contracts: manifest, routing, obligations, events.",
+      "sha256": "c6efde814cce1319e868cb9ac0fa299e93396a38dee698d9df11a17f3b3d03cb",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "contracts/federation/federation-routing.json",
+      "class": "NORMATIVE_CONTRACT",
+      "tier": "implementation",
+      "role": "Federation contracts: manifest, routing, obligations, events.",
+      "sha256": "9a13ede9caae498ed9593a4029d7be143716d4a53536e8aac81121e46ab71f7d",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "contracts/federation/federation-trust.json",
+      "class": "NORMATIVE_TRUST_RULE",
+      "tier": "implementation",
+      "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
+      "sha256": "725538ae90f807d132bf84605306790e2382fae0bd0eeb5d10a208f99e8d07dc"
+    },
+    {
+      "path": "contracts/federation/key-manifest.json",
+      "class": "NORMATIVE_TRUST_RULE",
+      "tier": "implementation",
+      "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
+      "sha256": "c3f48e593608a65e9a008782af8ea17af81c67f4244afb743ff6aaabc6755b7e",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "contracts/federation/revocation-list.json",
+      "class": "NORMATIVE_TRUST_RULE",
+      "tier": "implementation",
+      "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
+      "sha256": "dee636c9a9759dd1631f95e7526341b978a463f6bee3888f4900b8f8d85876e2",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "contracts/fees/business-category.schema.json",
+      "class": "NORMATIVE_SCHEMA",
+      "tier": "implementation",
+      "role": "Domain schemas: payments, QR, events, webhooks, wallets, fees, collections, settlements, proofs.",
+      "sha256": "af47ec93b8a61b60ad44a010ef86c14df3b1bde8ebbd1b92217beb6ccac363a2",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "contracts/fees/fee-policy-ref.schema.json",
+      "class": "NORMATIVE_SCHEMA",
+      "tier": "implementation",
+      "role": "Domain schemas: payments, QR, events, webhooks, wallets, fees, collections, settlements, proofs.",
+      "sha256": "9be2c1f399d1d4de514f9322e1ff13c354d3b0873ce29d851c80387d43a297f9",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "contracts/fees/operator-fee.schema.json",
+      "class": "NORMATIVE_SCHEMA",
+      "tier": "implementation",
+      "role": "Domain schemas: payments, QR, events, webhooks, wallets, fees, collections, settlements, proofs.",
+      "sha256": "818fc57d7f0fe17f671a78d024154e0caf47f494abf5dd86c8b99d06d8d1355e",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "contracts/fees/pricing-profile.schema.json",
+      "class": "NORMATIVE_SCHEMA",
+      "tier": "implementation",
+      "role": "Domain schemas: payments, QR, events, webhooks, wallets, fees, collections, settlements, proofs.",
+      "sha256": "63cd67588353fad9bfd325f4887c6d5c38fa52ce7e49b68bcb71dc4d27be0fd6",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "contracts/invariants.json",
+      "class": "NORMATIVE_REGISTRY",
+      "tier": "implementation",
+      "role": "The machine-readable registry of protocol invariants. spec/invariants.md is its human-readable restatement and is deliberately not listed: it declares this file the single source of truth.",
+      "sha256": "5e1d5f32cb0af7277d0d89aa2772d1480f4bde2407dfc6bbc8c0e1cf1c558cbc"
+    },
+    {
+      "path": "contracts/openapi/activity.yaml",
+      "class": "NORMATIVE_API",
+      "tier": "implementation",
+      "role": "Operator-implemented public API surfaces.",
+      "sha256": "5db05041a1f04245b42a1c9d8fbb0b04a28628f92c167dcc431524b345cba132"
+    },
+    {
+      "path": "contracts/openapi/collections.yaml",
+      "class": "NORMATIVE_API",
+      "tier": "implementation",
+      "role": "Operator-implemented public API surfaces.",
+      "sha256": "6582852abe9d2d7ebe367b150dd6eee7a5c36d108af96965d25448efd40ae272"
+    },
+    {
+      "path": "contracts/openapi/transfers.yaml",
+      "class": "NORMATIVE_API",
+      "tier": "implementation",
+      "role": "Operator-implemented public API surfaces.",
+      "sha256": "97ad41a3fae10b120a9ea43b26e86d9d32788e1542d1c7d3ebb86f143f821e9e"
+    },
+    {
+      "path": "contracts/openapi/wallet-onboarding.yaml",
+      "class": "NORMATIVE_API",
+      "tier": "implementation",
+      "role": "Operator-implemented public API surfaces.",
+      "sha256": "99b93943374da25621c25d6de74ab8929cf0dc08333dba9dbd42a4f1f14751a5"
+    },
+    {
+      "path": "contracts/payment-intents/payment-intent.schema.json",
+      "class": "NORMATIVE_SCHEMA",
+      "tier": "implementation",
+      "role": "Domain schemas: payments, QR, events, webhooks, wallets, fees, collections, settlements, proofs.",
+      "sha256": "398681b9f8a0f5f6a5969d23cadca2610534d4a8805204ef25ed424966aece51",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "contracts/payment-sessions/payment-session-interface.schema.json",
+      "class": "NORMATIVE_SCHEMA",
+      "tier": "implementation",
+      "role": "Domain schemas: payments, QR, events, webhooks, wallets, fees, collections, settlements, proofs.",
+      "sha256": "c5890434d54876433f25f480a989b288fa0d4982cfb57d09dcca717506a10e40",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "contracts/payment-sessions/payment-session.schema.json",
+      "class": "NORMATIVE_SCHEMA",
+      "tier": "implementation",
+      "role": "Domain schemas: payments, QR, events, webhooks, wallets, fees, collections, settlements, proofs.",
+      "sha256": "9d875f1372da1d9194f9bcb7eb342abac92585bca374af2e4dc0c82270e670d3",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "contracts/production/brl.production.schema.json",
+      "class": "NORMATIVE_CONTRACT",
+      "tier": "implementation",
+      "role": "Production contract baseline.",
+      "sha256": "d68e35b0a0d8ed6361a2773f0ba62ff189277e40b3b34c6ce3e7b88e076fbb3a",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/capabilities-document.production.schema.json",
+      "class": "NORMATIVE_CONTRACT",
+      "tier": "implementation",
+      "role": "Production contract baseline.",
+      "sha256": "13bfabcdb8eea3fd465212e3c80f7dbc78fc7f2e7327d98f56f615ebb7edceb2",
+      "self_declared_status": "reference"
+    },
+    {
+      "path": "contracts/production/certification-profile.production.schema.json",
+      "class": "NORMATIVE_PROFILE",
+      "tier": "implementation",
+      "role": "Conformance profile and certification-record structure: what a level means and how a verdict is expressed.",
+      "sha256": "a0ecfe9f9e69b95ec705788db0b9abbdda7e05e29ecc8864adc5b64ca4fe2066",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/certification-record.production.schema.json",
+      "class": "NORMATIVE_PROFILE",
+      "tier": "implementation",
+      "role": "Conformance profile and certification-record structure: what a level means and how a verdict is expressed.",
+      "sha256": "904f243d824c868400f9709183579fdd54964575dfcb7cb7c072b39355b53d9c",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/certified-implementation.production.schema.json",
+      "class": "NORMATIVE_PROFILE",
+      "tier": "implementation",
+      "role": "Conformance profile and certification-record structure: what a level means and how a verdict is expressed.",
+      "sha256": "298e643969f32a28ff07e1816e33f3ade6c83a976bb26071c3c2fb3468c0c1a8",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/conformance-evidence.production.schema.json",
+      "class": "NORMATIVE_CONTRACT",
+      "tier": "implementation",
+      "role": "Production contract baseline.",
+      "sha256": "45993c0010a47f575929426db450f652d2c68f6d1a628850e85f816b41bbc0dd",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/conformance-report.production.schema.json",
+      "class": "NORMATIVE_PROFILE",
+      "tier": "implementation",
+      "role": "Conformance profile and certification-record structure: what a level means and how a verdict is expressed.",
+      "sha256": "40b6ecfe5ac70b36d4b34a36a9742034578c42f62e54003c8c0728e8813ec846",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/delegated-signing-key.production.schema.json",
+      "class": "NORMATIVE_TRUST_RULE",
+      "tier": "implementation",
+      "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
+      "sha256": "14ccfc63ab7196234e26cf0d3c1110b123908564af2a8d7825c66226d0614339",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/discovery-document.production.schema.json",
+      "class": "NORMATIVE_CONTRACT",
+      "tier": "implementation",
+      "role": "Production contract baseline.",
+      "sha256": "22542c119bad3448952ee22212a29d5ca4ccabf50efee91d3119f754eef2d86b",
+      "self_declared_status": "reference"
+    },
+    {
+      "path": "contracts/production/evidence-bundle.production.schema.json",
+      "class": "NORMATIVE_CONTRACT",
+      "tier": "implementation",
+      "role": "Production contract baseline.",
+      "sha256": "6d99c62d07138f6a111f1c0e362d793f9c772ca0f91e1e009a7830718f42cc95",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/federation-trust-evaluation.production.schema.json",
+      "class": "NORMATIVE_CONTRACT",
+      "tier": "implementation",
+      "role": "Production contract baseline.",
+      "sha256": "f3b15e506508a7ed9160682f821d91add7deae023ca68687c09b4d26cec3893b",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/implementation-record.production.schema.json",
+      "class": "NORMATIVE_CONTRACT",
+      "tier": "implementation",
+      "role": "Production contract baseline.",
+      "sha256": "57ba58bab628f8f217299925a3120c0f99b220dd238dc9fca3ec40fb0501abee",
+      "self_declared_status": "reference"
+    },
+    {
+      "path": "contracts/production/interoperability-report.production.schema.json",
+      "class": "NORMATIVE_PROFILE",
+      "tier": "implementation",
+      "role": "Conformance profile and certification-record structure: what a level means and how a verdict is expressed.",
+      "sha256": "f70a3e589880c9753b1f128aa743b3a84e0d8dbb2609b218f8c40819485432a1",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/journey-receipt.production.schema.json",
+      "class": "NORMATIVE_CONTRACT",
+      "tier": "implementation",
+      "role": "Production contract baseline.",
+      "sha256": "7e3812b9cf8f5d0224bb623142efc0e31bdf5bd823af552de3e4be76f1751cab",
+      "self_declared_status": "reference"
+    },
+    {
+      "path": "contracts/production/key-manifest.production.schema.json",
+      "class": "NORMATIVE_TRUST_RULE",
+      "tier": "implementation",
+      "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
+      "sha256": "b5bbc4d2f8c0aacc13b8b93b431cf372d8f61fa76b3cee2860f4431af0ab5aa6",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/operation-receipt.production.schema.json",
+      "class": "NORMATIVE_CONTRACT",
+      "tier": "implementation",
+      "role": "Production contract baseline.",
+      "sha256": "2f0e653adb6d3eed1f5e277b3a28f06be1a7e045e7f3e34ad9dae52574e00ee9",
+      "self_declared_status": "reference"
+    },
+    {
+      "path": "contracts/production/operator-manifest.production.schema.json",
+      "class": "NORMATIVE_CONTRACT",
+      "tier": "implementation",
+      "role": "Production contract baseline.",
+      "sha256": "46149d2ee85f02760def3ace1b4199d1ab3f64e616d17e0f286e23e838a28dae",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/operator-record.production.schema.json",
+      "class": "NORMATIVE_CONTRACT",
+      "tier": "implementation",
+      "role": "Production contract baseline.",
+      "sha256": "b91a8468566af9f0450f932ac2deca535d0619e383914109f8193fbd2459b51e",
+      "self_declared_status": "reference"
+    },
+    {
+      "path": "contracts/production/operator-self-publication.production.schema.json",
+      "class": "NORMATIVE_CONTRACT",
+      "tier": "implementation",
+      "role": "Production contract baseline.",
+      "sha256": "082b4ed235bf1eb54b6528be868977b4b4fbfeded6f23c1f2675f5d56733bf1b",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/protocol-governance-event.production.schema.json",
+      "class": "NORMATIVE_CONTRACT",
+      "tier": "implementation",
+      "role": "Production contract baseline.",
+      "sha256": "9dcb910b330c9e540ef290e2a204310db15b55e69a6296edff7fbe7f175fac12",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/protocol-release.production.schema.json",
+      "class": "NORMATIVE_CONTRACT",
+      "tier": "implementation",
+      "role": "Production contract baseline.",
+      "sha256": "696183d003fba4819bf128083d399bf9e23ccf70a29ab7f5c989874cf3dae9e9",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/protocol-version.json",
+      "class": "NORMATIVE_REGISTRY",
+      "tier": "implementation",
+      "role": "Declares the protocol version, compatibility policy, profile list and the canonicalization in force. The entry point of the normative surface.",
+      "sha256": "b03ef804d276092b997152510501351d108bc93cd4dfc00c1b8141a5219532fa"
+    },
+    {
+      "path": "contracts/production/public-protocol-registry.production.schema.json",
+      "class": "NORMATIVE_CONTRACT",
+      "tier": "implementation",
+      "role": "Production contract baseline.",
+      "sha256": "3d83389560b50cec8ce12a98da2ab26f1c8873a3feb3433c1b75cfac1be62582",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/reason-code-registry.production.json",
+      "class": "NORMATIVE_REGISTRY",
+      "tier": "implementation",
+      "role": "banza-reason-codes/1 — the machine-readable vocabularies those rules govern.",
+      "sha256": "922a98d19239a659dc511f8966627efcda5a0e22604162e0dc2bb57c354aca8c",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "contracts/production/regulatory-state.production.schema.json",
+      "class": "NORMATIVE_CONTRACT",
+      "tier": "implementation",
+      "role": "Production contract baseline.",
+      "sha256": "3630c30a186c52875398a1f43718163f903cd36595c27a663336c43fff225dc6",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/revocation-entry.production.schema.json",
+      "class": "NORMATIVE_TRUST_RULE",
+      "tier": "implementation",
+      "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
+      "sha256": "61b4fe9ae5b97b5af0029dcd8e17d86246dd411f221c9510902e1cc02824ecc7",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/root-backup-declaration.production.schema.json",
+      "class": "NORMATIVE_TRUST_RULE",
+      "tier": "implementation",
+      "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
+      "sha256": "cc50bc7f15a3ad08cf9d5bac56b89bc9b2cb45df2daf4a05c5e381d86ece8f34",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/root-ceremony-evidence.production.schema.json",
+      "class": "NORMATIVE_TRUST_RULE",
+      "tier": "implementation",
+      "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
+      "sha256": "93e3e6df399d2c54ca0c33fb678fb411d99ba4c344fd3e1a75749779b09b0d7b",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/root-custody-declaration.production.schema.json",
+      "class": "NORMATIVE_TRUST_RULE",
+      "tier": "implementation",
+      "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
+      "sha256": "63a762d3eaf7c1c8a3d7244976c42e4b5c471794afc3bc18b3c95fec04974aa6",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/root-delegation.production.schema.json",
+      "class": "NORMATIVE_TRUST_RULE",
+      "tier": "implementation",
+      "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
+      "sha256": "5b12520a3cebde8e41225268fef45a0bfa9f6e9ae97f69e9d1cd11f932a92958",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/root-key.production.schema.json",
+      "class": "NORMATIVE_TRUST_RULE",
+      "tier": "implementation",
+      "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
+      "sha256": "80d80eabcdb873fd1ef44dfd51b19f56be6e1dce3c945709c3085f866cbe84b0",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/root-metadata.production.schema.json",
+      "class": "NORMATIVE_TRUST_RULE",
+      "tier": "implementation",
+      "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
+      "sha256": "d12f189ca4c107899b7992fb4a692bf574cb9517a925d685096472099c8d7df6",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/root-recovery-test.production.schema.json",
+      "class": "NORMATIVE_TRUST_RULE",
+      "tier": "implementation",
+      "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
+      "sha256": "f0023117f1be01c86732854a16c85c3566dae5678781cd06e66cb4be8ab5cb57",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/root-revocation.production.schema.json",
+      "class": "NORMATIVE_TRUST_RULE",
+      "tier": "implementation",
+      "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
+      "sha256": "e476bd42d746f31785ec4f81d2df3d108b38d48377dea99103408b04dcd6f6b9",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/root-signature.production.schema.json",
+      "class": "NORMATIVE_TRUST_RULE",
+      "tier": "implementation",
+      "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
+      "sha256": "6d2f139219e43714d9f3914bafe85f2ca564089b2391e17bcefc9bfe69929cba",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/signed-protocol-metadata.production.schema.json",
+      "class": "NORMATIVE_TRUST_RULE",
+      "tier": "implementation",
+      "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
+      "sha256": "33ab372dfb8eb0752501ebde4724945bfaf7e4477c5a3c86e22f9b4fc2c81eaa",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/trust-root-metadata.production.schema.json",
+      "class": "NORMATIVE_TRUST_RULE",
+      "tier": "implementation",
+      "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
+      "sha256": "a47154042ecc5603b1bf8d134bbc97bae07ae4087894a16547c0e1f9cb37f93d",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/validation-journey-state-machine.production.json",
+      "class": "NORMATIVE_CONTRACT",
+      "tier": "implementation",
+      "role": "Production contract baseline.",
+      "sha256": "3ec3a42f5f8c842fc451392bfac99fc39cb864d2f1327f4fc03f500712c84431",
+      "self_declared_status": "reference"
+    },
+    {
+      "path": "contracts/proofs/transaction-proof.schema.json",
+      "class": "NORMATIVE_SCHEMA",
+      "tier": "implementation",
+      "role": "Domain schemas: payments, QR, events, webhooks, wallets, fees, collections, settlements, proofs.",
+      "sha256": "b19ee9fcdf596b17a7e6942fa99a24a72765bab69d95d53b86026ddc4b20b19b",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "contracts/proofs/verification-response.schema.json",
+      "class": "NORMATIVE_SCHEMA",
+      "tier": "implementation",
+      "role": "Domain schemas: payments, QR, events, webhooks, wallets, fees, collections, settlements, proofs.",
+      "sha256": "010314db93444257558d142093060f38f4cf8f01efcd8be5ad0876a73a8607f3",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "contracts/qr/lifecycle.json",
+      "class": "NORMATIVE_SCHEMA",
+      "tier": "implementation",
+      "role": "Domain schemas: payments, QR, events, webhooks, wallets, fees, collections, settlements, proofs.",
+      "sha256": "814988eec371eb46369e3ed30e0b2be1537533bd7504865b0d9073f7bee1cb07",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "contracts/qr/payload-format.json",
+      "class": "NORMATIVE_SCHEMA",
+      "tier": "implementation",
+      "role": "Domain schemas: payments, QR, events, webhooks, wallets, fees, collections, settlements, proofs.",
+      "sha256": "2d3801c8fa225ae8de61794da20f77ace1feab1e832679f160ed8373d56c9304",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "contracts/settlements/application-settlement.schema.json",
+      "class": "NORMATIVE_SCHEMA",
+      "tier": "implementation",
+      "role": "Domain schemas: payments, QR, events, webhooks, wallets, fees, collections, settlements, proofs.",
+      "sha256": "6c88d9deb542aa5a96105930eca851cae6e6159739234e14968ce5d22ae01382",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "contracts/settlements/state-machine.json",
+      "class": "NORMATIVE_SCHEMA",
+      "tier": "implementation",
+      "role": "Domain schemas: payments, QR, events, webhooks, wallets, fees, collections, settlements, proofs.",
+      "sha256": "5de0b138dacd8ef8151b0d498a3ef50aca1a5c551d9129a4abbff451fc640207"
+    },
+    {
+      "path": "contracts/wallet-accounts/wallet-account.schema.json",
+      "class": "NORMATIVE_SCHEMA",
+      "tier": "implementation",
+      "role": "Domain schemas: payments, QR, events, webhooks, wallets, fees, collections, settlements, proofs.",
+      "sha256": "9df7a97b40c78f063218516627c751792a82bfcffe530d9b73a25f716ced5c37",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "contracts/webhooks/envelope.schema.json",
+      "class": "NORMATIVE_SCHEMA",
+      "tier": "implementation",
+      "role": "Domain schemas: payments, QR, events, webhooks, wallets, fees, collections, settlements, proofs.",
+      "sha256": "c5cb82ace32e3ac3fa19d61e89f4dc02de1bb2078c56e1996a6daffbfa0449af",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "contracts/webhooks/signature.json",
+      "class": "NORMATIVE_TRUST_RULE",
+      "tier": "implementation",
+      "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
+      "sha256": "6d473d50fc9e324ebefb8a1602e91542e4d9846b5492f1dcd1883cdd43dafc1a",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "spec/canonicalization.md",
+      "class": "NORMATIVE_SPECIFICATION",
+      "tier": "implementation",
+      "role": "BCJ/1 — the byte form of every signature and digest. Nothing in the trust plane is implementable without it.",
+      "sha256": "f3cfb22401a9743b60286b2890783ef672250b9fee28f76748c91489d4caeb11"
+    },
+    {
+      "path": "spec/collections.md",
+      "class": "NORMATIVE_SPECIFICATION",
+      "tier": "implementation",
+      "role": "Self-declared canonical. The Collections capability model every operator implements at L2.",
+      "sha256": "2f56658a27e5bfff14e0536cf54d73424ba043e33d6f9f786e606ea39e2b9395"
+    },
+    {
+      "path": "spec/federation/FEDERATION_CONTRACT_SURFACE.md",
+      "class": "NORMATIVE_SPECIFICATION",
+      "tier": "implementation",
+      "role": "Field-level federation contract definitions, including freshness windows and the routing idempotency key. Carries requirements not fully expressed in any listed JSON contract.",
+      "sha256": "1cc341a4cbdf83ffd07c386ef7f7d64c9aacf56a2df053884be63d5f1d836306"
+    },
+    {
+      "path": "spec/federation/FEDERATION_INVARIANTS.md",
+      "class": "NORMATIVE_REGISTRY",
+      "tier": "implementation",
+      "role": "Federation and trust-root invariants (INV-ROOT-*, INV-FEDEVAL-*, INV-FED-*).",
+      "sha256": "bd16744acd89ce9c5186806b1ff952fd9bef1a451d26368010f1f5a6fd63ea70"
+    },
+    {
+      "path": "spec/federation/FEDERATION_PROTOCOL_FLOW.md",
+      "class": "NORMATIVE_SPECIFICATION",
+      "tier": "implementation",
+      "role": "Federation flow requirements: transport, per-interaction re-evaluation, atomicity of the three-operation step, retry behaviour.",
+      "sha256": "14620429f5242f6ca9edf5f87bd72510a591d792696be1bffba92d732d270743"
+    },
+    {
+      "path": "spec/federation/FEDERATION_PROTOCOL_SURFACES.md",
+      "class": "NORMATIVE_SPECIFICATION",
+      "tier": "implementation",
+      "role": "The surfaces a federation-capable (L3+) operator implements and publishes.",
+      "sha256": "d481f97ad5d2093666f4a2f9d7e5aec93baba28218dccbc6aea1ebb4664c543e"
+    },
+    {
+      "path": "spec/federation/FEDERATION_TRUST_MODEL.md",
+      "class": "NORMATIVE_SPECIFICATION",
+      "tier": "implementation",
+      "role": "The trust chain a verifier walks, and what it must refuse.",
+      "sha256": "51fc6c8747b6f3c32ec389153b22af85f4b22da715a91d442099f2889fb79f22"
+    },
+    {
+      "path": "spec/idempotency.md",
+      "class": "NORMATIVE_SPECIFICATION",
+      "tier": "implementation",
+      "role": "Idempotency: key scope, request identity as a BCJ/1 digest, retry and conflict semantics, retention floor and declaration, concurrency.",
+      "sha256": "366212b0d5a6ad5866383c4c1886eee1b00091806f09a1a650b57a7ac938f554"
+    },
+    {
+      "path": "spec/reason-codes.md",
+      "class": "NORMATIVE_SPECIFICATION",
+      "tier": "implementation",
+      "role": "Reason-code rules: five separate vocabularies, status decides and code explains, the reserved extension namespace, unknown-code handling, and the definition of semantic equivalence.",
+      "sha256": "6391ca8dbca6d906c48614d768017b75dc46a8c7333d8fb94579865464931c47"
+    },
+    {
+      "path": "spec/validation-journey.md",
+      "class": "NORMATIVE_SPECIFICATION",
+      "tier": "implementation",
+      "role": "Self-declared normative. Defines the nine-step endpoint-originated validation journey.",
+      "sha256": "09e6f5613c841c12975e98ca15028b1cf30a94bacf81c266f61adbcb9476b48e"
+    },
+    {
+      "path": "conformance/events/suite.json",
+      "class": "CONFORMANCE_SUITE",
+      "tier": "conformance",
+      "role": "Conformance case matrices with expected outcomes.",
+      "sha256": "969c3ad69996805be1d35f98fb0babce6ba88d634d16c6f4f0c6b6853c20239a"
+    },
+    {
+      "path": "conformance/federation/suite.json",
+      "class": "CONFORMANCE_SUITE",
+      "tier": "conformance",
+      "role": "Conformance case matrices with expected outcomes.",
+      "sha256": "3380675e9e98f38e8c2a2f8e46b4ec2195f7358da57b764532e3f16234aeada1"
+    },
+    {
+      "path": "conformance/fixtures/federation/BRL-EMERGENCY.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "7b4035d2866e14f214722e1def628b35adeb130bbe00be6b514a3ddd1b526a53"
+    },
+    {
+      "path": "conformance/fixtures/federation/BRL-REVOKED-PEER.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "43fa9b6d87c3a8a143bdd65d8db3d639f9775a14f0bac365a0aa45a385dfeec6"
+    },
+    {
+      "path": "conformance/fixtures/federation/BRL-STALE.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "9eb292a22d5f4a0635647b245ddff86901c565c772f7ff81683202e09a067fcb"
+    },
+    {
+      "path": "conformance/fixtures/federation/BRL-VALID-EMPTY.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "eb31bbef07222e3840d78fbec00ddfe715271cae5d2aa6bbbdce199b8286813e"
+    },
+    {
+      "path": "conformance/fixtures/federation/KEY-MANIFEST-MISSING-KEY.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "779a5864df66d71ea10ac5c77338aebe509cd8f79c440b34dae0208ac4edfc60"
+    },
+    {
+      "path": "conformance/fixtures/federation/KEY-MANIFEST-VALID.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "b7ae0cbe7a1bc9b39975eb1943b20267c736d4a9676854dbdac3adcf6f8fd524"
+    },
+    {
+      "path": "conformance/fixtures/federation/MANIFEST-B-NO-FEDERATION.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "8d25ffd8bd2bcdb2c0b0b45e2586fa4153e59075ea3a140d126fb7948f05b125"
+    },
+    {
+      "path": "conformance/fixtures/federation/MANIFEST-B-VALID.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "b4c15204dbb494f667a13670821ebbd4cb34d99f824fba093a633b8b63c29754"
+    },
+    {
+      "path": "conformance/fixtures/federation/MANIFEST-CAPABILITY-MISMATCH.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "b6b2cee9d38996671a8063af899a2df5b9909cd4df43637dec2cb6e2906175d0"
+    },
+    {
+      "path": "conformance/fixtures/federation/MANIFEST-FEDERATION-NO-EVIDENCE.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "51c6e15abf730f85813f1290d249ebbc91c1df0057a77f070e32b52a83d556ae"
+    },
+    {
+      "path": "conformance/fixtures/federation/MANIFEST-NO-FEDERATION.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "4bfe03eabb15a772f6fca6c5e7695ebc9a4545b735d0fbeabd733b05402ab14b"
+    },
+    {
+      "path": "conformance/fixtures/federation/MANIFEST-UNSUPPORTED-VERSION.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "e730bc86336a1aa2a1c3f9298f9671c57e22596cbfaeecd0579bc662c98f7321"
+    },
+    {
+      "path": "conformance/fixtures/federation/MANIFEST-VALID.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "535566ac1ebcb952a92c0abc1cb62f77d2344de237af7e1cb3feaf217fbeef8b"
+    },
+    {
+      "path": "conformance/fixtures/federation/MANIFEST-WRONG-OPERATOR-ID.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "16ce324680b155980ff76a4e6efeb30158aabf30ab4edb0446b71725cca48bd9"
+    },
+    {
+      "path": "conformance/fixtures/federation/ROUTING-REQUEST-DUPLICATE-DIFFERENT-CONTENT.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "48d529fa4288493f3c4b9f28cfc60ac90f9c96925a2f916c2c3dd38ec74280ee"
+    },
+    {
+      "path": "conformance/fixtures/federation/ROUTING-REQUEST-SUSPENDED-RECIPIENT.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "0900433e840cd971fffcb4a8967baf56bad1365d56732ec017e740e50fb9d61d"
+    },
+    {
+      "path": "conformance/fixtures/federation/ROUTING-REQUEST-UNKNOWN-RECIPIENT.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "03866b19297ab05ddbd5abdfa5437f736371303cdd77ed1816b3443d5a5ab713"
+    },
+    {
+      "path": "conformance/fixtures/federation/ROUTING-REQUEST-VALID.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "26aacdc1aa98ff42da7a09d0b2eef0001c3f78187e27308842cb33a840d3b281"
+    },
+    {
+      "path": "conformance/fixtures/federation/ROUTING-REQUEST-WRONG-CURRENCY.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "97f66196a12b771ecc6c5fd0aa88be594c0c85e36fb58e92361cdbeb2855eea7"
+    },
+    {
+      "path": "conformance/fixtures/federation/ROUTING-REQUEST-WRONG-DESTINATION.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "1b2edc07419a58b8c9a3c97cb0b3180b1b086f1bca86ca7f07acb592f0fdd73d"
+    },
+    {
+      "path": "conformance/fixtures/federation/ROUTING-REQUEST-ZERO-AMOUNT.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "b81d35181f8124785300d6fd4487dd127a31620aa4a53ba66108921305630e98"
+    },
+    {
+      "path": "conformance/fixtures/federation/ROUTING-RESPONSE-ACCEPTED.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "50028d669dc91ca796096520e8a5a5611ec9cc116dd79fde0808077ef0f9f78a"
+    },
+    {
+      "path": "conformance/fixtures/federation/ROUTING-RESPONSE-REJECTED.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "1b041195b78e7d40e5afb20cf259dd26674afbeb6a8f023561f6eb217705e314"
+    },
+    {
+      "path": "conformance/fixtures/federation/SPM-A-VALID.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "018a2bd9b587aba5484b973440646c041fac56f3a8710258e07905b7c2ef9061"
+    },
+    {
+      "path": "conformance/fixtures/federation/SPM-B-VALID.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "9163621f6ed4898476c9213088f574c9dc9e29cb285e147aaa13a76e9d3c219d"
+    },
+    {
+      "path": "conformance/fixtures/federation/SPM-EXPIRED.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "db4193bbdb1a0ca85d465b7b6e697141d06b338f070950185d381754f9ac05e7"
+    },
+    {
+      "path": "conformance/fixtures/federation/SPM-INSUFFICIENT-SCOPE.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "7454c11f4830c2fe6be8fc0b79bcd4d974237c7504738b68d34450ec4bf10d3d"
+    },
+    {
+      "path": "conformance/fixtures/federation/SPM-INVALID-SIGNATURE.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "2ecf2096104f91760b0b9fb2d6d3d173d5630e1d4c956afdbd7137e69b146145"
+    },
+    {
+      "path": "conformance/fixtures/federation/SPM-MISMATCHED-OPERATOR-ID.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "38acd1bc772207daccda6c29af88c713f215750d8d3882ca56ab0b98e7867ac8"
+    },
+    {
+      "path": "conformance/fixtures/federation/SPM-NO-ROUTING-CAPABILITY.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "8aa9f4e4f6d97e31ffafee00d96d7023bc9605cc68f24b675a17c8a19725622a"
+    },
+    {
+      "path": "conformance/fixtures/federation/SPM-UNKNOWN-ISSUER-KEY-ID.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
+      "sha256": "b12ea0299a77ab5ebc656e277638779ca90579bdc14c31baeab410a94aacc8e9"
+    },
+    {
+      "path": "conformance/ledger/suite.json",
+      "class": "CONFORMANCE_SUITE",
+      "tier": "conformance",
+      "role": "Conformance case matrices with expected outcomes.",
+      "sha256": "5874d8e2f7625cadeac37a25c49049505652253e075cd4e759cd36cb55116e78"
+    },
+    {
+      "path": "conformance/operators/suite.json",
+      "class": "CONFORMANCE_SUITE",
+      "tier": "conformance",
+      "role": "Conformance case matrices with expected outcomes.",
+      "sha256": "4904a8131ffadf83222b2e277d0636c4ffd1e2261854076dc34d5712da0a3005"
+    },
+    {
+      "path": "conformance/qr/suite.json",
+      "class": "CONFORMANCE_SUITE",
+      "tier": "conformance",
+      "role": "Conformance case matrices with expected outcomes.",
+      "sha256": "b4b2f0f343bf5482b658d2efd584ef42829f3174b8b0c2b38386d6a9fa0524ee"
+    },
+    {
+      "path": "conformance/report-schema.json",
+      "class": "CONFORMANCE_SUPPORT",
+      "tier": "conformance",
+      "role": "Conformance report format.",
+      "sha256": "71c3aeb923cf0d6a4968db3caabc54074e3b77be0ee89acceb06f108d95d10be"
+    },
+    {
+      "path": "conformance/sdk/suite.json",
+      "class": "CONFORMANCE_SUITE",
+      "tier": "conformance",
+      "role": "Conformance case matrices with expected outcomes.",
+      "sha256": "6235b0b202e609e5691a76e96ae5a60d69ec8cda95ef805cc0bcc9eaa2689127"
+    },
+    {
+      "path": "conformance/settlement/suite.json",
+      "class": "CONFORMANCE_SUITE",
+      "tier": "conformance",
+      "role": "Conformance case matrices with expected outcomes.",
+      "sha256": "f3db915287b9a09a1981cb7f941f302ca6580159088f3efd2d01cbe2b847206d"
+    },
+    {
+      "path": "conformance/vectors/canonicalization.json",
+      "class": "CONFORMANCE_VECTOR",
+      "tier": "conformance",
+      "role": "Vectors for BCJ/1, derived from the specification text. An implementation validates against these; they do not define the rule.",
+      "sha256": "8887da3b6b356c4a7a990f1d2a8f5532e09b979e71c102f2e5e0d10e98cbe48c",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "conformance/vectors/collections.json",
+      "class": "CONFORMANCE_VECTOR",
+      "tier": "conformance",
+      "role": "Domain conformance vectors.",
+      "sha256": "dbe6d266e04967e30cb7ab5a2fb5d16a16d9434f77aaef2f2472e79c2b39aa4f"
+    },
+    {
+      "path": "conformance/vectors/event-envelopes.json",
+      "class": "CONFORMANCE_VECTOR",
+      "tier": "conformance",
+      "role": "Domain conformance vectors.",
+      "sha256": "b9508b8beb90a3007394da23cfbf2e7c94455dfc6abfef65cd22b131ee51a7d9"
+    },
+    {
+      "path": "conformance/vectors/idempotency.json",
+      "class": "CONFORMANCE_VECTOR",
+      "tier": "conformance",
+      "role": "Vectors for the idempotency rules. The request-identity digests were computed by an implementation written from the specification text.",
+      "sha256": "9dcb68582a9a128053e527c7bbd80e80da5412f460ebdec90600540bfc9c376c",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "conformance/vectors/ledger-postings.json",
+      "class": "CONFORMANCE_VECTOR",
+      "tier": "conformance",
+      "role": "Domain conformance vectors.",
+      "sha256": "10810d8d995a01b8944b6a900ca5c8e4433d67a702d966349d13997b873a2283"
+    },
+    {
+      "path": "conformance/vectors/operator-manifests.json",
+      "class": "CONFORMANCE_VECTOR",
+      "tier": "conformance",
+      "role": "Domain conformance vectors.",
+      "sha256": "1ad6b9cbba47f315c07009c866c011b128b647273fa646d776dc27946f0354c7"
+    },
+    {
+      "path": "conformance/vectors/payment-requests.json",
+      "class": "CONFORMANCE_VECTOR",
+      "tier": "conformance",
+      "role": "Domain conformance vectors.",
+      "sha256": "6fa92eb57b6a01e458db5760d51716689293dcd07bafe65c79db8e6804e8f348"
+    },
+    {
+      "path": "conformance/vectors/qr-payloads.json",
+      "class": "CONFORMANCE_VECTOR",
+      "tier": "conformance",
+      "role": "Domain conformance vectors.",
+      "sha256": "17a34dcd4e52b69179d9fbd0b40a59d2670de3697ff7710839b614b172fc9b9d"
+    },
+    {
+      "path": "conformance/vectors/reason-codes.json",
+      "class": "CONFORMANCE_VECTOR",
+      "tier": "conformance",
+      "role": "Vectors for the reason-code rules, derived from the specification.",
+      "sha256": "96ac0d4382df9b1b62401474630fa7535074f6e529f0349a64eac5166a828c05",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "conformance/vectors/settlement-batches.json",
+      "class": "CONFORMANCE_VECTOR",
+      "tier": "conformance",
+      "role": "Domain conformance vectors.",
+      "sha256": "33f803756f14000d05fec8475fe68be2b3f86dc5dffb89360f13640491dd6feb"
+    },
+    {
+      "path": "conformance/vectors/transfers.json",
+      "class": "CONFORMANCE_VECTOR",
+      "tier": "conformance",
+      "role": "Domain conformance vectors.",
+      "sha256": "7750406cb8351245b010ca2971b2808b8cde0cf22f2fa7db5931984102186aa5"
+    },
+    {
+      "path": "conformance/vectors/trust-signing.json",
+      "class": "CONFORMANCE_VECTOR",
+      "tier": "conformance",
+      "role": "Public cryptographic trust vectors: real signatures over BCJ/1 bytes, each with its expected trust status. See the file's own `scheme` member for the algorithms. Test-only material; public key material only.",
+      "sha256": "c2a981fabb018a85e675cc5843153674336ead1893313422f47ad526ae4c1619"
+    },
+    {
+      "path": "conformance/vectors/wallet-balances.json",
+      "class": "CONFORMANCE_VECTOR",
+      "tier": "conformance",
+      "role": "Domain conformance vectors.",
+      "sha256": "33edbbf15bc5ac3837185fac9c2bb58fd0b96d3a8fa1f2919462dabf069190aa"
+    },
+    {
+      "path": "contracts/openapi/interoperability-certification.yaml",
+      "class": "certification-surface-api",
+      "tier": "conformance",
+      "role": "Read-only public surface publishing Layer-2 certification records and the Technical Registry. Operated by the certifying side, not implemented by operators; it is how conformance is published, not what conformance requires.",
+      "sha256": "2596bdbed3d62ba7a44f6a88f181d533a417b2308810007706119fa22cb416d0"
+    },
+    {
+      "path": "LICENSE",
+      "class": "LEGAL",
+      "tier": "legal",
+      "role": "Licence, notice and trademark terms that govern independent implementation.",
+      "sha256": "acf95043c76dce943103f075e7b8675b98781dece9617f7544928d9cc89af08a"
+    },
+    {
+      "path": "NOTICE",
+      "class": "LEGAL",
+      "tier": "legal",
+      "role": "Licence, notice and trademark terms that govern independent implementation.",
+      "sha256": "76525272afa25dd13e64f703740828b771d2d3c8c3bccb68e2892060f0aef1d9"
+    },
+    {
+      "path": "TRADEMARKS.md",
+      "class": "LEGAL",
+      "tier": "legal",
+      "role": "Licence, notice and trademark terms that govern independent implementation.",
+      "sha256": "d0143f5f370eccbbfdd1096a8f14fbd2f82d80290dd60e804d2421d8a7899da9"
+    },
+    {
+      "path": "contracts/openapi/operator-validation.yaml",
+      "class": "verification-surface-api",
+      "tier": "informative",
+      "role": "Self-declared \"reference/documentary contract\" for the BanzAI validation surface (ADR-068). Documents request/response shapes of the validation routes; imposes no obligation on an operator implementation.",
+      "sha256": "0c789d1ef2e5826eca322a764bce57d2f7bb18dc871f4a30cdd97ea6b76abe79"
+    },
+    {
+      "path": "contracts/openapi/reference-operator.yaml",
+      "class": "reference-implementation-api",
+      "tier": "informative",
+      "role": "The L0 sandbox API of the reference implementation. Its own text: \"This is not a production API. All state is in-memory and resets on restart.\" Not a surface any operator must expose.",
+      "sha256": "288f85d4cff011bc577cd1dda3d680629cdba7dd4517e9768d57abd59e142d3a"
+    }
+  ]
+}

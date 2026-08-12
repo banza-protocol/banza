@@ -6,12 +6,24 @@ version = 4
 name = "banza-root-ceremony"
 version = "0.1.0"
 dependencies = [
+ "banza-trust",
  "base64",
  "ed25519-dalek",
  "serde",
  "serde_json",
  "sha2",
  "wasm-bindgen",
+]
+
+[[package]]
+name = "banza-trust"
+version = "0.1.0"
+dependencies = [
+ "base64",
+ "ed25519-dalek",
+ "serde",
+ "serde_json",
+ "sha2",
 ]
 
 [[package]]

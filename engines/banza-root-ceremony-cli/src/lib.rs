@@ -225,7 +225,8 @@ pub fn sign_metadata(
 ) -> Result<Value, CliError> {
     let seed = decrypt_seed(enc_blob, passphrase)?;
     let signing = SigningKey::from_bytes(&seed);
-    let msg = canonical_bytes(meta_without_sigs, &["signatures"]);
+    let msg = canonical_bytes(meta_without_sigs, &["signatures"])
+        .expect("BCJ/1: ceremony metadata must be canonicalizable");
     let sig = signing.sign(&msg);
     Ok(json!({ "key_id": key_id, "custodian": custodian, "signature": b64url(&sig.to_bytes()) }))
 }
@@ -253,7 +254,7 @@ pub fn recovery_test(
     }
     // sign + verify a TEST-ONLY doc using the deterministic verifier path
     let doc = json!({ "recovery_test": TEST_ONLY_MARKER });
-    let msg = canonical_bytes(&doc, &[]);
+    let msg = canonical_bytes(&doc, &[]).expect("BCJ/1: document must be canonicalizable");
     let sig = signing.sign(&msg);
     Ok(banza_root_ceremony::verify_ed25519(
         &got_pub,

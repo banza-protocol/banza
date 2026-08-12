@@ -126,6 +126,21 @@ paths:
               example:
                 code: "RECIPIENT_NOT_FOUND"
                 message: "recipient handle does not exist"
+        "409":
+          description: |
+            Idempotency conflict (INV-IDEM-001, spec/idempotency.md §6). The same
+            `idempotency_key` was already used, in the same scope, for a request with a
+            different request identity digest. The original transfer is NOT returned and
+            the new transfer is NOT created; the existing idempotency record is unchanged.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                idempotency_conflict:
+                  value:
+                    code: "IDEMPOTENCY_CONFLICT"
+                    message: "this idempotency_key was used for a different request"
         "422":
           description: Transfer cannot be processed
           content:

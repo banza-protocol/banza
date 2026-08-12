@@ -126,15 +126,14 @@ fn b64url_decode(s: &str) -> Option<Vec<u8>> {
         .ok()
 }
 
-/// ADR-038-style canonical message: the object minus `exclude` fields, compact JSON (sorted keys).
-pub fn canonical_bytes(doc: &Value, exclude: &[&str]) -> Vec<u8> {
-    let mut d = doc.clone();
-    if let Value::Object(m) = &mut d {
-        for e in exclude {
-            m.remove(*e);
-        }
-    }
-    serde_json::to_vec(&d).unwrap_or_default()
+/// The canonical message: the object minus `exclude` fields, in **BANZA Canonical JSON `BCJ/1`**
+/// (`spec/canonicalization.md`).
+///
+/// This crate signs trust root metadata, which `BCJ/1` §6 covers, so it must not derive its own
+/// bytes. It previously used `serde_json::to_vec` — the pre-remediation behaviour — which made this
+/// engine a second, unpublished definition of the byte form. It now delegates.
+pub fn canonical_bytes(doc: &Value, exclude: &[&str]) -> Result<Vec<u8>, String> {
+    banza_trust::canonical_bytes(doc, exclude)
 }
 
 /// Verify an Ed25519 signature (base64url) over `msg` with a base64url 32-byte public key.
@@ -290,9 +289,9 @@ pub fn validate_root_ceremony(input: &Value) -> Value {
         .and_then(|x| x.as_u64())
         .unwrap_or(THRESHOLD);
 
-    let msg = meta
-        .map(|m| canonical_bytes(m, &["signatures"]))
-        .unwrap_or_default();
+    // Fail-closed: absent metadata, or metadata BCJ/1 rejects, yields no verifiable bytes. An empty
+    // message is NOT substituted — every signature over it would then compare against the same input.
+    let msg: Option<Vec<u8>> = meta.and_then(|m| canonical_bytes(m, &["signatures"]).ok());
     let mut valid_signatures = 0u64;
     let mut invalid_signature_present = false;
     for s in &sigs {
@@ -303,7 +302,7 @@ pub fn validate_root_ceremony(input: &Value) -> Value {
             .find(|k| str_at(k, "key_id") == Some(key_id))
             .and_then(|k| str_at(k, "public_key"));
         match pubkey {
-            Some(pk) if meta.is_some() && verify_ed25519(pk, &msg, sig_val) => {
+            Some(pk) if msg.as_ref().is_some_and(|m| verify_ed25519(pk, m, sig_val)) => {
                 valid_signatures += 1
             }
             _ => invalid_signature_present = true,
@@ -462,9 +461,9 @@ fn report(status: &str, src: &Value, next_steps: &[&str], _material: bool) -> Va
         .and_then(|x| x.as_u64())
         .unwrap_or(THRESHOLD);
 
-    let msg = meta
-        .map(|m| canonical_bytes(m, &["signatures"]))
-        .unwrap_or_default();
+    // Fail-closed: absent metadata, or metadata BCJ/1 rejects, yields no verifiable bytes. An empty
+    // message is NOT substituted — every signature over it would then compare against the same input.
+    let msg: Option<Vec<u8>> = meta.and_then(|m| canonical_bytes(m, &["signatures"]).ok());
     let mut valid = 0u64;
     let mut missing: Vec<String> = Vec::new();
     for s in &sigs {
@@ -475,7 +474,7 @@ fn report(status: &str, src: &Value, next_steps: &[&str], _material: bool) -> Va
             .find(|k| str_at(k, "key_id") == Some(key_id))
             .and_then(|k| str_at(k, "public_key"));
         if pk
-            .map(|p| verify_ed25519(p, &msg, sig_val))
+            .map(|p| msg.as_ref().is_some_and(|m| verify_ed25519(p, m, sig_val)))
             .unwrap_or(false)
         {
             valid += 1;

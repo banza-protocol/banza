@@ -1,0 +1,148 @@
+{
+  "_note": "Authored content of the reason-code registry: every meaning, rule and boundary statement. Data, not code. tools/gen-reason-code-registry.py is purely mechanical — it extracts the vocabularies from the reference implementation and merges this file in. A protocol meaning is never written in a generator.",
+  "_consumed_by": "tools/gen-reason-code-registry.py",
+  "_published_in": "contracts/production/reason-code-registry.production.json",
+  "trust_status": {
+    "TRUST_VALID": {
+      "meaning": "Every trust check passed: the chain resolves from the Trust Root through a delegated key to signed protocol metadata, bound material is present, nothing is revoked or expired, and the protocol version is compatible.",
+      "verdict": "VERIFIED"
+    },
+    "TRUST_INVALID_SIGNATURE": {
+      "meaning": "A signature over BCJ/1 canonical bytes did not verify.",
+      "verdict": "FAILED"
+    },
+    "TRUST_INVALID_DELEGATED_KEY": {
+      "meaning": "The delegated signing key is absent, malformed, not endorsed by the Key Manifest, or used outside its declared domain (ADR-038).",
+      "verdict": "FAILED"
+    },
+    "TRUST_INVALID_ROOT_METADATA": {
+      "meaning": "Trust root metadata is absent, malformed, or not anchored by the required threshold of pinned root signatures.",
+      "verdict": "FAILED"
+    },
+    "TRUST_INVALID_SIGNED_METADATA": {
+      "meaning": "Signed protocol metadata is absent or malformed, or does not bind the material it must bind.",
+      "verdict": "FAILED"
+    },
+    "TRUST_MISSING_CONFORMANCE_EVIDENCE": {
+      "meaning": "No conformance evidence was published or resolved.",
+      "verdict": "PENDING"
+    },
+    "TRUST_MISSING_OPERATOR_MANIFEST": {
+      "meaning": "No Operator Manifest was published or resolved.",
+      "verdict": "PENDING"
+    },
+    "TRUST_MISSING_REGISTRY_ENTRY": {
+      "meaning": "The subject has no entry in the public protocol registry.",
+      "verdict": "PENDING"
+    },
+    "TRUST_REVOKED": {
+      "meaning": "The subject, or a key in its chain, appears in revocation material in force.",
+      "verdict": "FAILED"
+    },
+    "TRUST_EXPIRED_METADATA": {
+      "meaning": "Trust material is past its validity window (INV-FEDEVAL-006).",
+      "verdict": "FAILED"
+    },
+    "TRUST_INCOMPATIBLE_PROTOCOL_VERSION": {
+      "meaning": "The declared protocol version is not wire-compatible with the version in force.",
+      "verdict": "FAILED"
+    },
+    "TRUST_FAIL_CLOSED": {
+      "meaning": "Evaluation could not complete over material it must have. The default outcome is refusal, never acceptance (INV-FEDEVAL-005).",
+      "verdict": "FAILED"
+    },
+    "TRUST_INVALID_BOUNDARY": {
+      "meaning": "The material asserts something the protocol forbids it to assert — for example an authorisation, certification or approval claim.",
+      "verdict": "FAILED"
+    }
+  },
+  "_boundary": "Reason codes EXPLAIN an outcome. They never decide one: the decision is carried by the status field of the artifact (trust_status, step status, outcome). A consumer that changes a verdict because of a reason code is not conformant.",
+  "extension_namespace": {
+    "pattern": "^x-[a-z0-9]([a-z0-9-]*[a-z0-9])?\\.[A-Za-z0-9_.-]+$",
+    "rule": "An implementation MAY emit additional reason codes, and every such code MUST match this pattern. Core codes never contain a dot, so a core code and an extension code can never collide. A consumer MUST preserve extension codes it does not recognise and MUST NOT interpret them.",
+    "example": "x-acme.gateway_timeout"
+  },
+  "unknown_code_handling": {
+    "core_shaped_but_unregistered": "A code that matches the core grammar but is not in this registry MUST be preserved and recorded, MUST NOT change any verdict, and MUST NOT cause the artifact to be rejected. Adding a core code is a backward-compatible change, so refusing unknown core codes would make every future addition breaking.",
+    "extension": "Preserved, never interpreted, never verdict-affecting.",
+    "in_a_closed_enum_field": "Fields whose schema declares an enum are closed: a value outside the enum makes the artifact schema-invalid. trust_status and failed_checks are such fields."
+  },
+  "authored_vocabularies": {
+    "journey_step_status": {
+      "field": "steps[].status (journey receipt), status (operation receipt)",
+      "kind": "decisional status",
+      "closed": true,
+      "scope": "PROFILE NORMATIVE — the validation journey (spec/validation-journey.md)",
+      "values": [
+        {
+          "code": "VERIFIED",
+          "meaning": "The step's requirement was met."
+        },
+        {
+          "code": "PENDING",
+          "meaning": "The step could not conclude because required material was absent. Absence is not failure; it is an incomplete publication."
+        },
+        {
+          "code": "FAILED",
+          "meaning": "The step's requirement was not met."
+        },
+        {
+          "code": "BLOCKED",
+          "meaning": "The step did not run because a prerequisite step did not verify."
+        }
+      ]
+    },
+    "failed_checks": {
+      "field": "failed_checks (federation trust evaluation)",
+      "kind": "check identifiers — NOT free text and NOT reason codes",
+      "closed": true,
+      "scope": "PROTOCOL NORMATIVE",
+      "authority": "contracts/federation/federation-trust.json — the check ids published there are the only permitted values. This field references that registry; it does not define a second vocabulary.",
+      "ordering": "Not significant. A consumer MUST NOT infer precedence from position.",
+      "duplicates": "Forbidden. The field is a set expressed as an array.",
+      "empty": "MUST be empty when outcome is ROUTING_ALLOWED, and MUST be non-empty when outcome is FAIL_CLOSED."
+    }
+  },
+  "vocabulary_headers": {
+    "trust_status": {
+      "field": "trust_status",
+      "kind": "decisional status",
+      "closed": true,
+      "scope": "PROTOCOL NORMATIVE",
+      "produced_by": "any implementation performing operator trust evaluation",
+      "consumed_by": "any party reading a trust result, a journey receipt or an evidence bundle",
+      "stability": "stable — a value is never removed or repurposed within protocol version 1.x"
+    },
+    "fetch_reason_codes": {
+      "field": "reason_codes (artifact fetch)",
+      "kind": "explanatory reason code",
+      "closed": false,
+      "core_closed": true,
+      "scope": "PROTOCOL NORMATIVE",
+      "produced_by": "the protocol fetcher when endpoint-originated retrieval is refused or fails",
+      "consumed_by": "receipts and evidence bundles; any party reproducing a validation",
+      "stability": "stable — additions are backward compatible; see unknown_code_handling",
+      "note": "Every value is a refusal or a failure. A successful fetch carries an empty array."
+    }
+  },
+  "step_rules": {
+    "keys | trust": "The engine status is a trust_status. Its mapping is the `verdict` field published for each value in the trust_status vocabulary above, and is not repeated here. Note: the reference implementation also names TRUST_INCOMPLETE in this map; that value is not in the trust_status vocabulary and therefore cannot occur. It is recorded as a defect in the reference implementation, not as a protocol value.",
+    "evidence": "The engine status is the bundle's declared readiness. READY or READY_FOR_TECHNICAL_REVIEW maps to VERIFIED; any other readiness maps to PENDING; a bundle that does not validate maps to FAILED regardless of its declared readiness."
+  },
+  "engine_status_header": {
+    "field": "engine_status (journey receipt step)",
+    "kind": "decisional status, per step",
+    "closed": true,
+    "scope": "PROFILE NORMATIVE — the validation journey",
+    "mapping_rule": "Each step's engine status maps onto exactly one journey step status. The mapping is total: a status not listed for a step maps to FAILED, so an unrecognised engine status can never be read as success."
+  },
+  "registry_header": {
+    "_spec": "BANZA Reason Code Registry",
+    "_registry": "banza-reason-codes/1",
+    "_status": "canonical",
+    "_authority": "ADR-083 (reason-code model); spec/reason-codes.md defines the rules. This file is the machine-readable registry those rules govern. The reference implementation emits these values and does not define them.",
+    "_source_of_truth": "This registry, together with spec/reason-codes.md.",
+    "protocol_version": "1.0.0",
+    "normative_keywords": "BCP 14 (RFC 2119 + RFC 8174)."
+  }
+}

@@ -414,6 +414,10 @@
     "ADR-078",
     "ADR-079",
     "ADR-080",
+    "ADR-081",
+    "ADR-082",
+    "ADR-083",
+    "ADR-084",
     "RFC-0001",
     "RFC-0002",
     "RFC-0003",
@@ -427,5 +431,5 @@
     "ADR-040",
     "RFC-0006"
   ],
-  "checksum": "7abd8d0b13d643aa"
+  "checksum": "c5fd0d02bc4dd3c5"
 }

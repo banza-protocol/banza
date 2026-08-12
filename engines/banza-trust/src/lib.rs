@@ -3,7 +3,8 @@
 //! The protocol's trust is verified by **signed protocol metadata, delegated signing keys, operator
 //! manifests, conformance evidence, the public protocol registry, and revocation/fail-closed** — never
 //! by an operator certificate, a CA signature, or a human approval. Ed25519 signatures cover the
-//! ADR-038 canonical form (all fields except `signature`, sorted keys, compact JSON), base64url-no-pad.
+//! **`BCJ/1`** canonical form defined by `spec/canonicalization.md`, base64url-no-pad. That
+//! specification is the authority; this crate implements it (ADR-082).
 //! Every check is **fail-closed**: missing, malformed, invalid, expired, revoked or incompatible trust
 //! material rejects.
 //!
@@ -11,7 +12,9 @@
 //! certifies or approves an operator, and carries no real key. It verifies TEST-ONLY fixtures. The full
 //! evaluation lives in [`evaluate`]; the deterministic TEST-ONLY signer lives in [`sign`].
 
+pub mod canonical;
 pub mod evaluate;
+pub mod execution;
 pub mod sign;
 pub mod tool;
 
@@ -51,24 +54,31 @@ impl TrustResult {
     }
 }
 
-// ── Canonicalization (ADR-038) ───────────────────────────────────────────────
+// ── Canonicalization (BCJ/1 — spec/canonicalization.md, ADR-082) ─────────────
 
-/// Canonical bytes: the value minus the excluded keys, serialized with sorted keys and compact
-/// separators. `serde_json`'s Map is a BTreeMap (sorted) and `to_string` is compact, matching
-/// Python `json.dumps(sort_keys=True, separators=(',',':'))` for ASCII payloads.
-pub fn canonical_bytes(doc: &Value, exclude: &[&str]) -> Vec<u8> {
-    let mut obj = doc.clone();
-    if let Value::Object(map) = &mut obj {
-        for k in exclude {
-            map.remove(*k);
-        }
-    }
-    serde_json::to_string(&obj).unwrap_or_default().into_bytes()
+/// Canonical bytes under **BANZA Canonical JSON `BCJ/1`** — the normative form defined by
+/// `spec/canonicalization.md` (ADR-082). This function implements that specification; it does not
+/// define it.
+///
+/// Fail-closed per `spec/canonicalization.md` §7: a document that violates the profile is
+/// **rejected**, never degraded. This returns `Err` rather than bytes.
+///
+/// It previously returned `Vec<u8>` and collapsed a rejection to an empty vector. That was a
+/// divergence from the specification with a real consequence: every rejected document produced the
+/// *same* bytes, so two different invalid artifacts shared one signing input and one digest. The
+/// signature is required to be over the artifact, so there is no correct empty value to fall back
+/// to, and the error must reach the caller.
+pub fn canonical_bytes(doc: &Value, exclude: &[&str]) -> Result<Vec<u8>, String> {
+    canonical::canonicalize(doc, exclude)
 }
 
-/// SHA-256 hex of the canonical form (excluding the given keys).
-pub fn canonical_sha256(doc: &Value, exclude: &[&str]) -> String {
-    format!("{:x}", Sha256::digest(canonical_bytes(doc, exclude)))
+/// SHA-256 hex over the `BCJ/1` canonical bytes (`spec/canonicalization.md` §5). Fail-closed for the
+/// same reason as [`canonical_bytes`]: a digest of a rejected document is not a digest of anything.
+pub fn canonical_sha256(doc: &Value, exclude: &[&str]) -> Result<String, String> {
+    Ok(format!(
+        "{:x}",
+        Sha256::digest(canonical_bytes(doc, exclude)?)
+    ))
 }
 
 fn decode_b64url(s: &str) -> Result<Vec<u8>, String> {
@@ -99,13 +109,33 @@ pub fn verify_ed25519(
         .map_err(|_| "InvalidSignature".to_string())
 }
 
+/// Verify a signed document **from its wire bytes**, which is the only form in which P3 can be
+/// enforced (`spec/canonicalization.md` §3 P3, §7 step 1).
+///
+/// P3 rejects a document containing a repeated member name. By the time JSON text has become a
+/// `Value`, the parser has already silently resolved the duplicate — `serde_json` keeps the last
+/// occurrence — so [`verify_signed_doc`] cannot see it and cannot reject it. Any caller that holds
+/// the fetched bytes MUST use this function; passing an already-parsed `Value` skips P3.
+pub fn verify_signed_doc_bytes(kind: &str, raw: &str, public_key_b64url: &str) -> TrustResult {
+    match canonical::parse_strict(raw) {
+        Ok(doc) => verify_signed_doc(kind, &doc, public_key_b64url),
+        Err(e) => TrustResult::fail(kind, &e),
+    }
+}
+
 /// Verify a document whose signature covers all fields except `signature`, under a given public key.
+///
+/// **P3 is not checked here** and cannot be: see [`verify_signed_doc_bytes`]. Prefer that function
+/// wherever the wire bytes are still available.
 pub fn verify_signed_doc(kind: &str, doc: &Value, public_key_b64url: &str) -> TrustResult {
     let sig = match doc.get("signature").and_then(|s| s.as_str()) {
         Some(s) if !s.is_empty() => s,
         _ => return TrustResult::fail(kind, "missing signature field (fail-closed)"),
     };
-    let msg = canonical_bytes(doc, &["signature"]);
+    let msg = match canonical_bytes(doc, &["signature"]) {
+        Ok(m) => m,
+        Err(e) => return TrustResult::fail(kind, &e),
+    };
     match verify_ed25519(public_key_b64url, sig, &msg) {
         Ok(()) => TrustResult::ok(kind, "signature valid"),
         Err(e) => TrustResult::fail(kind, &e),
@@ -147,7 +177,10 @@ pub fn verify_evidence_package(report: &Value, evidence_key_public_b64url: &str)
         Some(s) if !s.is_empty() => s,
         _ => return TrustResult::fail("evidence", "no package_signature.signature (fail-closed)"),
     };
-    let msg = canonical_bytes(report, &["package_signature", "evidence_hash"]);
+    let msg = match canonical_bytes(report, &["package_signature", "evidence_hash"]) {
+        Ok(m) => m,
+        Err(e) => return TrustResult::fail("evidence", &e),
+    };
     if let Err(e) = verify_ed25519(evidence_key_public_b64url, sig, &msg) {
         return TrustResult::fail("evidence", &e);
     }

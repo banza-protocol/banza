@@ -16,6 +16,9 @@ serde_json = "1"                 # default Map = BTreeMap (sorted keys) → cano
 ed25519-dalek = "2"
 base64 = "0.22"
 sha2 = "0.10"
+# The canonical byte form is BCJ/1 (spec/canonicalization.md). This crate signs trust root
+# metadata, which that specification covers, so it MUST NOT carry a second canonicalization.
+banza-trust = { path = "../banza-trust", default-features = false }
 wasm-bindgen = { version = "0.2", optional = true }
 
 [features]
