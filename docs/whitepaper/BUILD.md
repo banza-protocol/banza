@@ -81,8 +81,8 @@ Baseline congelado actual (v1.0, edição Overleaf fiel):
 
 | Edição | PDF | Páginas | SHA-256 |
 |---|---|---|---|
-| PT (canónica) | `banza-whitepaper-v1.0-pt.pdf` | 12 | `974c4783864977b1f9a35a9afda216edac098e1331ddef2995069bfae7bb5d6e` |
-| EN (tradução oficial) | `banza-whitepaper-v1.0-en.pdf` | 12 | `a09ad7af20d851746c25bbf9bbf9a76d3916a8482f87dae68cca1e527ff39ede` |
+| PT (canónica) | `banza-whitepaper-v1.0-pt.pdf` | 12 | `a39d5be6aaf48c192683c3dcfc2ab147a64b21bcc9d2afbd6a1f5bd14494e25b` |
+| EN (tradução oficial) | `banza-whitepaper-v1.0-en.pdf` | 12 | `311e6a9f3ec6a55d3f26355a2dd3beae5b5d2d520e15939927037c062582a44a` |
 
 Wording congelado da edição activa: PT contém «configuração segura do protocolo»; zero
 «instanciação segura» e zero «instantâneo de observação» (âmbito: Whitepaper activo — não repo-wide).
