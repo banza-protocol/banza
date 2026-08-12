@@ -102,8 +102,30 @@ conflicting artifacts MUST NOT be able to move the mark backwards by serving the
 
 Because the ordering markers are timestamps and not counters, an equal marker does not by itself mean
 "the same artifact". A verifier MUST therefore record, alongside the mark, the **content digest** of the
-artifact accepted at that mark — computed per [`spec/canonicalization.md`](canonicalization.md) §5 over
-the artifact with its signature member removed, exactly as for any other digest.
+artifact accepted at that mark.
+
+The content digest is **SHA-256 over the artifact's signing input**: the same canonical byte sequence,
+produced by the same BCJ/1 rule ([`spec/canonicalization.md`](canonicalization.md) §5), that the
+artifact's signature covers. It is not a second digest rule invented here — it is the digest of the bytes
+that were signed, so identical digests mean identical signed content, and a change to any member the
+signature covers changes it.
+
+The three artifacts do **not** share a member name for the signature, so the excluded member is named per
+type rather than assumed:
+
+| Artifact | Member excluded from the signing input | Why |
+|---|---|---|
+| BANZA Revocation List | `signature_ref` | It references the detached signature over the list's canonical bytes. A reference to a signature cannot lie inside the bytes that signature covers |
+| Key Manifest | `root_signatures` | The threshold signatures are attached to the document they sign |
+| Signed protocol metadata | `signatures` | Same: the signatures are attached to the document they sign |
+
+Exactly one BCJ/1 rule applies to all three; only the excluded member differs, and it differs because the
+contracts differ. An implementation MUST NOT substitute its own digest rule here: a digest taken over
+different bytes than the signature covers would compare something other than the signed content.
+
+Where an artifact is later defined whose signature covers a different member, this table is extended.
+An artifact type absent from it has no defined digest for this purpose, and MUST NOT be admitted to the
+rule by guessing one.
 
 On receiving an artifact whose marker equals the mark for key `k`:
 

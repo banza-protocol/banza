@@ -699,7 +699,7 @@
       "class": "NORMATIVE_SPECIFICATION",
       "tier": "implementation",
       "role": "Trust-material freshness and anti-rollback: monotonic acceptance per object and authority, with an explicit statement of what the rule does NOT provide (first-observation staleness, global equivocation, suppression, availability).",
-      "sha256": "9d88b1ac49056eb8b40f93227135ae0585b738ee170e8bf82e773b0c01ba8940"
+      "sha256": "69409b8a8f2592e927c9d5d3d6b9e37f6a6a0027af9ded992a21d2538e9bc75c"
     },
     {
       "path": "spec/validation-journey.md",
@@ -1066,7 +1066,7 @@
       "class": "CONFORMANCE_VECTOR",
       "tier": "conformance",
       "role": "Vectors for the anti-rollback rule, including restart and concurrency.",
-      "sha256": "15f8319b9584f072e46689441ad0231e8b05e1dcd02fbd3f8478c161af66a29a",
+      "sha256": "e8d90ef076cf1420f80e3c08f28399af37b9a79eefcc2bf0d26c3a718f98c82c",
       "self_declared_status": "canonical"
     },
     {

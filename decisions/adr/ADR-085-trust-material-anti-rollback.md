@@ -42,7 +42,11 @@ Accepting the second artifact would let a party able to serve two differently-si
 instant choose which one a verifier acts on; preferring the first silently would make the outcome depend
 on fetch order. Refusing is the only outcome that depends on neither.
 
-The digest is computed, not published: **no wire field is added**. Detection remains local to one
+The digest is that of the artifact's **signing input** — the canonical bytes its signature covers — so it
+identifies the signed content and cannot drift from the signature. The three artifacts do not share a
+member name for the signature (`signature_ref`, `root_signatures`, `signatures`), so the specification
+names the excluded member per type instead of assuming one; one BCJ/1 rule, three contracts. The digest is
+computed, not published: **no wire field is added**. Detection remains local to one
 verifier that observed both artifacts, and establishes nothing across observers.
 
 ### D-085-03 · Order on members the artifacts already declare

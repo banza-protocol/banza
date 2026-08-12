@@ -179,3 +179,50 @@ fn the_reason_codes_are_published_in_the_registry() {
         assert!(!found["meaning"].as_str().unwrap_or("").is_empty());
     }
 }
+
+#[test]
+fn the_signing_input_exclusion_is_a_real_member_of_each_contract() {
+    // §3.1 names the excluded member per artifact type because the three contracts do not share one.
+    // A name that drifts from its contract would silently redefine which bytes the digest covers, so
+    // each is checked against the production schema rather than trusted as prose.
+    let doc: Value = serde_json::from_str(VECTORS).expect("vectors parse");
+    let excl = doc["signing_input_exclusions"]
+        .as_object()
+        .expect("signing_input_exclusions present");
+
+    const BRL: &str = include_str!("../../../contracts/production/brl.production.schema.json");
+    const KM: &str =
+        include_str!("../../../contracts/production/key-manifest.production.schema.json");
+    const SPM: &str = include_str!(
+        "../../../contracts/production/signed-protocol-metadata.production.schema.json"
+    );
+
+    // The Key Manifest carries its threshold signatures on the root metadata it is anchored to, not
+    // at its own top level, so it is checked for absence rather than presence: naming a member the
+    // manifest itself declares would be the drift this test is here to catch.
+    for (artifact_type, schema_src, expect_declared) in [
+        ("brl", BRL, true),
+        ("key_manifest", KM, false),
+        ("signed_protocol_metadata", SPM, true),
+    ] {
+        let member = excl[artifact_type].as_str().expect("exclusion is a string");
+        let schema: Value = serde_json::from_str(schema_src).unwrap();
+        let declared = schema["properties"].get(member).is_some();
+        assert_eq!(
+            declared, expect_declared,
+            "{artifact_type}: `{member}` declared at the top level of its contract = {declared}, \
+             expected {expect_declared}"
+        );
+        if expect_declared {
+            assert!(
+                schema["required"]
+                    .as_array()
+                    .unwrap()
+                    .iter()
+                    .any(|r| r == member),
+                "{artifact_type}: `{member}` must be REQUIRED — an optional signature member would \
+                 make the signing input depend on whether the publisher included it"
+            );
+        }
+    }
+}

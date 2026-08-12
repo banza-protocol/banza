@@ -10,7 +10,12 @@
     "key_manifest": "not_before",
     "signed_protocol_metadata": "issued_at"
   },
-  "_digest_note": "The ordering markers are RFC 3339 instants whose granularity may be whole seconds, so an equal marker does not imply the same artifact. Every observation therefore carries the artifact's canonical content digest (spec/canonicalization.md §5, signature member removed). The digest strings below are opaque labels: only their equality is significant, so these vectors stay valid independently of any particular artifact's bytes.",
+  "signing_input_exclusions": {
+    "brl": "signature_ref",
+    "key_manifest": "root_signatures",
+    "signed_protocol_metadata": "signatures"
+  },
+  "_digest_note": "The ordering markers are RFC 3339 instants whose granularity may be whole seconds, so an equal marker does not imply the same artifact. Every observation therefore carries the artifact's content digest: SHA-256 over its signing input — the canonical bytes (BCJ/1) the signature covers, excluding the member named in signing_input_exclusions for that type. The digest strings below are opaque labels: only their equality is significant, so these vectors stay valid independently of any particular artifact's bytes.",
   "vector_count": 13,
   "vectors": [
     {
