@@ -371,7 +371,7 @@ L = {
                "operator": "operator", "operator2": "responsible entity", "impl": "implementation",
                "attr1": "version · profile", "attr2": "environment · origin", "artifacts": "artifacts",
                "artifacts2": "observed at t", "result": "result", "result2": "bounded (R, E, P)",
-               "tech": "non-normative internal technology", "tech2": "language · DB · provider"}},
+               "tech": "internal technology outside the conformance criteria", "tech2": "language · database · provider"}},
     "fig3-three-layers": {
         "pt": {"title": "As três camadas institucionais e o BanzAI transversal",
                "desc": "Camada 1, protocolo aberto; implementações distintas; Camada 2, certificação de conformidade e interoperabilidade; Camada 3, esquemas operacionais independentes; BanzAI transversal.",
@@ -387,7 +387,7 @@ L = {
                "l1": "Layer 1 — Open protocol", "l1s": "specifications · contracts · profiles · discovery · trust",
                "ia": "Implementation A", "ib": "Implementation B", "ic": "Implementation C",
                "l2": "Layer 2 — Conformance and Interoperability Certification",
-               "l2s": "determines conformance by implementation, profile, version and evidence",
+               "l2s": "evaluates the conformance of each implementation by profile, version and evidence",
                "l3": "Layer 3 — Independent operational schemes",
                "sx": "Scheme X", "sy": "Rail Y", "sz": "Network Z",
                "banzai": "BanzAI — transversal, non-authoritative interface; the protocol works without it"}},
@@ -403,10 +403,10 @@ L = {
                "note": "níveis cumulativos · evidência de conformidade, não certificação nem autorização"},
         "en": {"title": "Cumulative conformance profiles, L0 to L4",
                "desc": "Five cumulative levels: L0 secure configuration, L1 payment, L2 initiation, L3 multi-operator interoperability and federation threshold, L4 external integration.",
-               "l0": "Protocol Sandbox", "l02": "secure configuration · MON-001",
+               "l0": "Protocol Sandbox", "l02": "secure configuration · correct monetary representation",
                "l1": "Core Payment Capability", "l12": "payment · transfer · traceability",
                "l2": "Payment Initiation Capability", "l22": "requests · dynamic QR",
-               "l3": "Inter-Operator Interoperability", "l32": "multi-operator evidence · federation threshold",
+               "l3": "Inter-Operator Interoperability", "l32": "evidence between operators · federation threshold",
                "l4": "External Interoperability", "l42": "external integration · defined by profile",
                "cum": "includes the lower levels",
                "note": "cumulative levels · conformance evidence, not certification or authorisation"}},
@@ -452,7 +452,7 @@ L = {
                "laneB": "Implementation B", "b1": "publishes", "b1b": "manifest, keys, artifacts",
                "origin": "canonical origin", "originb": "signed artifacts",
                "laneA": "Implementation A / evaluator",
-               "a2": "starts", "a2b": "the journey", "a3": "fetches artifacts", "a3b": "via secure module",
+               "a2": "starts", "a2b": "the journey", "a3": "fetches artifacts", "a3b": "via secure-fetch module",
                "a4": "evaluates", "a4b": "engines · nine steps", "a5": "verifies the result", "a5b": "and applies local policy",
                "note": "BANZA does not determine agreements, admission, settlement or authorisation; use of the result is local"}},
     "fig8-evidence": {
@@ -499,7 +499,7 @@ L = {
         "en": {"title": "Protocol evolution: proposal, decision and publication",
                "desc": "Protocol evolution separates proposal and discussion (RFC), recorded decision (ADR) and versioned publication, with coexistence and migration when applicable.",
                "current": "version", "current2": "published", "rfc": "proposal and", "rfc2": "discussion (RFC)",
-               "adr": "recorded decision", "adr2": "(ADR)", "pub": "publication", "pub2": "versioned",
+               "adr": "recorded decision", "adr2": "(ADR)", "pub": "new version", "pub2": "published",
                "coex": "coexistence and migration", "coex2": "when applicable",
                "note": "governing the rules ≠ operating transactions ≠ authorising participants"}},
     "fig11-limits": {
@@ -517,7 +517,7 @@ L = {
                "outTitle": "out of observed scope",
                "out1": "· regulatory authorisation", "out2": "· operator internal controls",
                "out3": "· off-protocol behaviour", "out4": "· commercial agreements and scheme admission",
-               "out5": "· effective access to external rails or networks",
+               "out5": "· effective access to external infrastructures or networks",
                "inTitle": "BANZA evaluates", "in1": "conformance against a public profile",
                "in2": "declared artifacts, at the observed instant",
                "notrep": "a technical result does not represent authorisation"}},
@@ -539,7 +539,7 @@ L = {
                "c3a": "zero certifications", "c3b": "technical, active",
                "c4a": "real money", "c4b": "disabled",
                "c5a": "reference implementation", "c5b": "isolated test environment",
-               "c6a": "independent external implementation", "c6b": "not yet demonstrated"}},
+               "c6a": "independent third-party implementation", "c6b": "not yet demonstrated"}},
 }
 
 

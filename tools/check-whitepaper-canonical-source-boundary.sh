@@ -16,8 +16,8 @@ cd "$(dirname "$0")/.."
 # ── frozen baseline of the CURRENT approved build (update on an approved re-import) ──────────────────
 FROZEN_PAGES=12
 FROZEN_PT_SENTENCE='configuração segura do protocolo'
-FROZEN_FIG4_PT='configuração segura · MON-001'
-FROZEN_FIG4_EN='secure configuration · MON-001'
+FROZEN_FIG4_PT='configuração segura · representação monetária correcta'
+FROZEN_FIG4_EN='secure configuration · correct monetary representation'
 # forbidden in the ACTIVE whitepaper edition only (history/other docs may legitimately contain them)
 FORBIDDEN_PT_1='instanciação segura'
 FORBIDDEN_PT_2='instantâneo de observação'

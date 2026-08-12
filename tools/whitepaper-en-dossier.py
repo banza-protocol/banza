@@ -74,6 +74,15 @@ def swap_caption(env):
     return env[:cm.start(2)] + tex(f['caption']) + env[cm.end(2):]
 s = FIGENV.sub(lambda mm: swap_caption(mm.group(0)), s)
 
+# The reference list is a manual \section*{\refname} + list environment (so the printed edition shows the
+# numbered [1]--[8] labels). Split it off before the section walk — it is not prose to be translated
+# block-by-block — and substitute the EN references into it further down.
+REF_ANCHOR = '\\section*{\\refname}'
+refblock = ''
+if REF_ANCHOR in s:
+    _i = s.index(REF_ANCHOR)
+    s, refblock = s[:_i], s[_i:]
+
 # paragraphs + list, in document order
 first = re.search(r'\\section\{', s)
 head, body = s[:first.start()], s[first.start():]
@@ -115,7 +124,10 @@ for part in parts:
             for p in paras:
                 if p.strip() and not p.strip().startswith('\\end{document}') \
                         and not re.match(r'^\s*$', p) and not re.match(r'^(\n\s*\n)$', p):
-                    if re.match(r'^\s*\\', p.strip()) and len(p.strip().split()) == 1:
+                    # Not prose: LaTeX comments and bare single-command lines (e.g. \newpage) pass
+                    # through untranslated, alone or combined.
+                    code = '\n'.join(l for l in p.splitlines() if not l.strip().startswith('%')).strip()
+                    if not code or (code.startswith('\\') and len(code.split()) == 1):
                         np.append(p)
                         continue
                     b = blocks[bi]; bi += 1
@@ -128,11 +140,19 @@ for part in parts:
     out.append(''.join(new_chunks))
 s = ''.join(out)
 
-# bibliography EN (from en.json references, keeping \bibitem template)
+# bibliography EN (from en.json references, keeping \bibitem template \u2014 legacy form)
 for i, ref in enumerate(en['references'], 1):
     pat = re.compile(r'(\\bibitem\{ref%d\} ).*' % i)
     r = ref.replace('\u2014', '---').replace('\u2013', '--')
     s = pat.sub(lambda mm: mm.group(1) + r, s, count=1)
+
+# reference list EN (manual numbered list: \item[{[N]}] \u2026), re-attached after the section walk
+if refblock:
+    for i, ref in enumerate(en['references'], 1):
+        r = ref.replace('\u2014', '---').replace('\u2013', '--')
+        pat = re.compile(r'(\\item\[\{\[%d\]\}\]\s*).*?(?=\n\\item\[\{\[|\n\\end\{list\})' % i, re.S)
+        refblock = pat.sub(lambda mm: mm.group(1) + r, refblock, count=1)
+    s = s + refblock
 
 if '--check' in sys.argv:
     cur = open(OUT).read()

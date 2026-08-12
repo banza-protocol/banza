@@ -30,7 +30,7 @@
   "canonicity_notice": "The Portuguese-language edition is the canonical version of the BANZA Whitepaper. The English-language edition is an official translation. In the event of an unintended divergence, the canonical Portuguese edition prevails.",
   "scope_notice": "This document explains the problem addressed by BANZA, its model, its architecture, its security boundaries and its evidence model. Normative implementation and conformance requirements are defined by the versioned BANZA Reference, profiles, schemas, contracts and RFCs.",
   "keywords": [],
-  "abstract": "Independent financial operators interoperate through bilateral integrations and shared infrastructures, but the specifications, the tests and the results are not always public, which makes the technical validation hard to reproduce. This article presents BANZA, an open financial interoperability protocol based on public, versioned rules, deterministic validation and verifiable evidence. The model evaluates implementations against public versions and profiles, separates the protocol, certification and operational schemes, and binds each result to the inputs that produced it through canonical artifacts, cryptographic digests, reason codes and receipts. In this way, technical conformance can be inspected, reproduced and verified by third parties. The protocol and the reference implementation remain in pre-production; performance, scalability, adoption and behaviour in real operational environments have therefore not yet been demonstrated experimentally.",
+  "abstract": "Independent financial operators interoperate through bilateral integrations and shared infrastructures, but the specifications, the tests and the results are not always public, which makes technical validation hard to reproduce. This article presents BANZA, an open financial interoperability protocol grounded in public and versioned rules, in the separation between specification and implementation, in deterministic validation and in verifiable evidence. The protocol defines common contracts, profiles and mechanisms that allow implementations to be evaluated without conformance depending on the reference implementation, keeping the protocol specification, the conformance evaluation and the operational infrastructures used by participants separate. Each result is associated with the inputs that produced it through canonical artifacts, cryptographic digests, reason codes and receipts, so that the technical basis of each evaluation can be inspected and verified, and the evaluation can be reproduced by third parties. The protocol and the reference implementation remain in pre-production; independent third-party implementation, performance, scalability, adoption and behaviour in real operational environments have therefore not yet been demonstrated experimentally.",
   "sections": [
     {
       "id": "introduction",
@@ -40,7 +40,7 @@
       "blocks": [
         {
           "t": "p",
-          "text": "Financial operators rarely function in isolation. To exchange value or messages, their implementations must agree on formats, identity mechanisms, keys, error semantics and test procedures. In bilateral integrations, these elements are defined between each pair of operators; when specifications, tests and results remain private, work may be repeated and the technical validation becomes hard for third parties to reproduce."
+          "text": "Financial operators rarely function in isolation. To transfer value or exchange messages, their implementations must agree on formats, identity mechanisms, keys, error semantics and test procedures. In bilateral integrations these elements are defined between each pair of operators; when specifications, tests and results remain private, work may be repeated and technical validation becomes difficult for third parties to reproduce."
         },
         {
           "t": "p",
@@ -59,15 +59,15 @@
             {
               "n": "1b",
               "label": "eq:common",
-              "latex": "I_{\\text{common}}(n) = n",
-              "html": "I<sub>common</sub>(n) = n",
-              "typst": "I_\"common\"(n) = n"
+              "latex": "I_{\\text{comum}}(n) = n",
+              "html": "I<sub>comum</sub>(n) = n",
+              "typst": "I_\"comum\"(n) = n"
             }
           ]
         },
         {
           "t": "p",
-          "text": "Equation {{eq:bilateral}} counts the technical relationships between pairs of operators, whereas Equation {{eq:common}} counts the implementations required when each operator adopts the common protocol. The entry of a new operator may therefore require up to \\(n\\) new bilateral integrations, but only one new implementation of the protocol. Figure {{fig:bilateral}} illustrates the two regimes."
+          "text": "Equation {{eq:bilateral}} counts technical relationships between pairs, while Equation {{eq:common}} counts the implementations required when every operator adopts the same specification. If a mesh contains \\(n\\) operators, the entry of one additional operator may require \\(n\\) new bilateral integrations; under a common protocol it requires one new implementation of the protocol. Figure {{fig:bilateral}} illustrates both regimes, distinguishing a common specification from a central infrastructure."
         },
         {
           "t": "fig",
@@ -75,15 +75,19 @@
         },
         {
           "t": "p",
-          "text": "Interoperability can also be provided by shared, centralised infrastructures. These models enable operation between participants, but their specifications, tests and results are not always available in a form that permits independent reproduction. BANZA does not seek to replace this operational interoperability: it adds an open layer of public, versioned specifications, profiles and contracts, deterministic conformance and verifiable, reproducible evidence."
+          "text": "A common protocol does not imply a common infrastructure. In the BANZA model each operator may keep its own implementation, infrastructure and operational relationships, provided that it observes the specified behaviour and publishes the artifacts required by the version and the profile it adopts. The protocol defines common technical conditions; it does not require messages, funds or decisions to traverse a central BANZA infrastructure."
         },
         {
           "t": "p",
-          "text": "Standards such as ISO 20022 [1], ISO 8583 [2], the EMV specifications for QR payments [3] and ISO/IEC 9646 [4] address relevant components of messaging, payments and conformance testing. BANZA complements this work by defining an open protocol in which each implementation publishes artifacts at its canonical origin, is evaluated against a public version and profile, and produces results bound to the observed inputs. Evaluation bears on implementations, not on entities, keeping the protocol, certification and operational schemes separate."
+          "text": "Interoperability can also be provided by shared and centralised infrastructures. Those systems may continue to perform routing, clearing, settlement or other operational functions. BANZA does not seek to replace them: it adds an open layer of specifications, profiles, public and versioned contracts, deterministic conformance and verifiable, reproducible evidence. An implementation can therefore coexist with different infrastructures, switching systems, schemes or networks, subject to their respective operational and regulatory rules."
         },
         {
           "t": "p",
-          "text": "This document is foundational and non-normative. {{sec:model}} and {{sec:architecture}} present the BANZA model and architecture; {{sec:profiles}}, the conformance profiles; {{sec:discovery}}, the discovery, identity and trust mechanisms; and {{sec:validation}} and {{sec:evidence}}, validation and evidence. Security and governance are addressed in {{sec:security}} and {{sec:governance}}; the limitations and the current state, in {{sec:limitations}} and {{sec:state}}; and {{sec:conclusion}} presents the conclusions."
+          "text": "Standards such as ISO 20022 [1], ISO 8583 [2], the EMV specifications for QR payments [3] and ISO/IEC 9646 [4] address relevant components of messaging, payments and conformance testing. BANZA complements this work by defining an open protocol in which each implementation publishes artifacts at its canonical origin, is evaluated against a public version and profile, and produces results associated with the observed inputs. Evaluation applies to implementations, not to entities, keeping protocol, certification and operational schemes separate."
+        },
+        {
+          "t": "p",
+          "text": "This document is descriptive and not normative; the requirements of the protocol are defined by the applicable versioned normative artifacts. Sections {{sec:model}} and {{sec:architecture}} present the model and the architecture; Section {{sec:profiles}}, the conformance profiles; Section {{sec:discovery}}, discovery, identity and trust; and Sections {{sec:validation}} and {{sec:evidence}}, validation and evidence. Security and governance are covered in Sections {{sec:security}} and {{sec:governance}}; limitations and current state, in Sections {{sec:limitations}} and {{sec:state}}; and Section {{sec:conclusion}} presents the conclusions."
         }
       ]
     },
@@ -95,11 +99,15 @@
       "blocks": [
         {
           "t": "p",
-          "text": "BANZA distinguishes an operator from an implementation. An operator is the responsible organisational entity; an implementation is the technical system being evaluated, and one operator may publish several implementations — demonstration, test, pre-production or production. Any validation or certification result always applies to a specified implementation, protocol version, profile, environment, scope, evidence set and validity period, and never to an entity in the abstract. Each implementation has a stable identifier, and the exact set of artifacts evaluated — the build — is pinned by a cryptographic content digest. A different build is a distinct subject of evaluation, even if it belongs to the same implementation, and requires its own evaluation."
+          "text": "BANZA distinguishes an operator from an implementation. An operator is the responsible organisational entity; an implementation is the technical system under evaluation. The same operator may publish several demonstration, test, pre-production or production implementations. Any validation or certification result always applies to a determined implementation, protocol version, profile, environment, scope, evidence set and validity period, and never to an entity in the abstract."
         },
         {
           "t": "p",
-          "text": "We model an implementation as a tuple of six elements. In Equation {{eq:tuple}}, \\(o\\) identifies the operator, \\(i\\) the implementation, \\(v\\) the protocol version, \\(p\\) the conformance profile, \\(e\\) the environment and \\(u\\) the canonical origin."
+          "text": "Each implementation has a stable identifier, and the exact set of evaluated artifacts — the built version — is fixed by a cryptographic content digest. A different built version constitutes a distinct subject of evaluation, even if it belongs to the same implementation, and requires its own evaluation."
+        },
+        {
+          "t": "p",
+          "text": "We model an implementation as a six-element tuple. In Equation {{eq:tuple}}, \\(o\\) identifies the operator, \\(i\\) the implementation, \\(v\\) the protocol version, \\(p\\) the conformance profile, \\(e\\) the environment and \\(u\\) the canonical origin."
         },
         {
           "t": "eq",
@@ -112,6 +120,10 @@
               "typst": "cal(I) = (o, i, v, p, e, u)"
             }
           ]
+        },
+        {
+          "t": "p",
+          "text": "The programming language, the database, the infrastructure provider and the origin of the code are not part of this tuple. This omission is intentional: conformance must depend on the contracts and on observable behaviour, and not on the internal technology or on the use of the reference implementation."
         },
         {
           "t": "p",
@@ -131,11 +143,7 @@
         },
         {
           "t": "p",
-          "text": "Validation takes those artifacts and the applicable specification \\(S\\) for version \\(v\\) and profile \\(p\\). Equation {{eq:validation}} describes this process. The evaluation is performed by engine version \\(m\\) and produces the result \\(R\\), the evidence \\(E\\) and the receipts \\(P\\). In this model, \\(R\\) comprises the verdict and the reason code that grounds it."
-        },
-        {
-          "t": "p",
-          "text": "Scope is therefore explicit rather than implied: a result states the profile it was evaluated against, the protocol version it assumed, the environment of the execution and the evidence it consumed. It is valid only for that combination and never generalises silently from the evaluated artifact to the entity that published it. Reproducibility is a first-class property: given equivalent canonical inputs, the same specification, the same profile and the same engine version, independent executions produce semantically equivalent verdicts and reason codes [8]. Non-deterministic metadata, such as execution timestamps, is excluded from this equivalence."
+          "text": "Validation takes those artifacts and the applicable specification \\(S\\) for version \\(v\\) and profile \\(p\\). The evaluation is executed by engine version \\(m\\) and produces the result \\(R\\), the evidence \\(E\\) and the receipts \\(P\\). In this model, \\(R\\) comprises the verdict and the reason code that grounds it."
         },
         {
           "t": "eq",
@@ -150,12 +158,16 @@
           ]
         },
         {
+          "t": "p",
+          "text": "Scope is explicit and not implicit: a result declares the profile against which it was evaluated, the protocol version, the environment and the evidence consumed. It is valid only for that combination and cannot be automatically extrapolated from the evaluated artifact to the entity that published it. Reproducibility is a central property of the model: given equivalent canonical inputs, the same specification, the same profile and the same engine version, independent executions produce semantically equivalent verdicts and reason codes [8]. Non-deterministic metadata, such as execution timestamps, are excluded from this equivalence."
+        },
+        {
           "t": "fig",
           "id": "fig-model"
         },
         {
           "t": "p",
-          "text": "Cryptographic content digests, computed with SHA-256 [5], make it possible to identify and compare the observed inputs exactly. Together with the availability of those inputs, they turn “it was validated” into “anyone can re-validate it”. Figure {{fig:model}} relates the operator, the implementation and its attributes to the observed artifacts and the bounded result."
+          "text": "Cryptographic content digests, computed with SHA-256 [5], make it possible to identify and compare exactly the observed inputs. Together with the availability of those inputs, they turn a validation claim into a technical basis that can be re-evaluated by third parties."
         }
       ]
     },
@@ -167,7 +179,11 @@
       "blocks": [
         {
           "t": "p",
-          "text": "BANZA is organised into three institutional layers, separated by responsibility, infrastructure and keys. Layer 1 corresponds to the open protocol and brings together the common rules, contracts and mechanisms of discovery, identity, trust, revocation and federation. Layer 2 evaluates implementations against public profiles and versions through deterministic engines in Rust. Layer 3 comprises independent operational schemes that may adopt BANZA and remain subject to the applicable legal and regulatory framework."
+          "text": "BANZA is organised in three institutional layers, separated by responsibility, infrastructure and keys. Layer 1 – Open protocol brings together specifications, contracts, profiles and common mechanisms for discovery, identity, trust, revocation and federation. Layer 2 – Conformance and Interoperability Certification brings together conformance evaluation and, where applicable, the technical certification of implementations against public profiles and versions, based on deterministic engines and verifiable evidence. Layer 3 – Independent operational schemes comprises infrastructures, networks and schemes that may adopt BANZA and remain subject to their respective legal, commercial and regulatory rules."
+        },
+        {
+          "t": "p",
+          "text": "The architecture rests on five architectural invariants. First, open specification: the applicable rules, contracts and profiles are public and versioned. Second, implementation independence: no particular implementation constitutes the protocol; the reference implementation realises BANZA but does not define it. Third, independent verification: the published artifacts must allow a party to evaluate the applicable technical conditions without depending on a private decision of the evaluated operator or of the protocol maintainer. Fourth, operational independence: BANZA does not require a central infrastructure to carry messages or funds. Fifth, separation of decisions: conformance evaluation, technical certification, scheme admission, operational agreements and regulatory authorisation belong to distinct processes."
         },
         {
           "t": "fig",
@@ -175,7 +191,7 @@
         },
         {
           "t": "p",
-          "text": "The separation of the layers preserves the protocol's neutrality: every implementation is evaluated against the same profiles, engines and evidence model. Technical certification, admission to a scheme and regulatory authorisation are independent determinations. BanzAI serves as the human interface for consulting and explaining results, without taking part in the decision; machine consumers reach the public interfaces directly. Figure {{fig:layers}} summarises this architecture. The profiles L0–L4, presented in {{sec:profiles}}, are distinct from the three layers."
+          "text": "The separation of the layers preserves the neutrality of the protocol. Technical adoption of BANZA consists of implementing the public specification and satisfying the applicable contracts; it does not require the use of the reference implementation's code, nor a connection to a mandatory central service of the protocol maintainer. From the standpoint of the protocol, building an implementation does not require prior authorisation from the protocol maintainer; demonstrating conformance, obtaining certification, joining a scheme and operating in a market remain distinct acts. BanzAI acts as a human interface for consulting and explaining results, without taking part in the technical determination; automated consumers access the public interfaces directly. The L0–L4 profiles, presented in Section {{sec:profiles}}, are distinct from the three layers."
         }
       ]
     },
@@ -187,15 +203,15 @@
       "blocks": [
         {
           "t": "p",
-          "text": "BANZA defines five cumulative conformance levels, L0 to L4. Technical adoption proceeds by selecting a profile, publishing the artifacts at the canonical origin and executing the validation journey. A passing result at a level constitutes technical evidence of interoperability, not a certification, authorisation or approval."
+          "text": "BANZA defines five cumulative conformance levels, from L0 to L4. Technical adoption involves choosing a profile, publishing the artifacts at the canonical origin and executing the validation journey. A positive result at a level constitutes evidence that the technical conditions defined for that level are satisfied; it is not, in itself, certification, authorisation or admission."
         },
         {
           "t": "p",
-          "text": "Level L0 — Protocol Sandbox — validates the secure configuration of the protocol in a test environment, with a valid manifest and a correct monetary representation. L1 — Core Payment Capability — adds essential payment and traceability capabilities. L2 — Payment Initiation Capability — adds payment initiation by request or by dynamic QR code. L3 — Inter-Operator Interoperability — adds interoperability between operators, including settlement and reconciliation, constitutes the eligibility threshold for federation and requires multi-operator evidence. L4 — External Interoperability — adds integration with external networks; it is profile-defined and requires specific evidence of that integration."
+          "text": "Level L0 – Protocol Sandbox validates the secure configuration of the protocol in a test environment, with a valid manifest and correct monetary representation. L1 – Core Payment Capability adds essential payment and traceability capabilities. L2 – Payment Initiation Capability adds payment initiation by request or dynamic QR code. L3 – Inter-Operator Interoperability adds requirements and evidence of interoperability between operators, including technical conditions related to routing, settlement and reconciliation; those functions continue to be performed by the applicable operators or schemes. L3 constitutes the eligibility threshold for federation and requires evidence involving more than one operator. L4 – External Interoperability adds integration with external networks; it is defined by profile and requires specific evidence of that integration."
         },
         {
           "t": "p",
-          "text": "Levels L0 to L2 can be assessed within a single operator, whereas L3 and L4 require, respectively, federation evidence and external-integration evidence. A certification profile is distinct from these levels: it pins one conformance level and the set of required capabilities, schemas, contracts and endpoints. Figure {{fig:profiles}} summarises the cumulative progression and what each level adds."
+          "text": "Levels L0 to L2 can be assessed within a single operator, whereas L3 and L4 require, respectively, evidence involving more than one operator and evidence of external integration. A certification profile is distinct from these levels: it fixes a conformance level and the set of required capabilities, contracts and endpoints."
         },
         {
           "t": "fig",
@@ -211,7 +227,7 @@
       "blocks": [
         {
           "t": "p",
-          "text": "Each implementation publishes its artifacts at a canonical origin controlled by the operator [7]. Discovery begins at a fixed path under that origin and returns a Manifest with the identification of the implementation, the endpoints, the protocol version, the declared profile, the signed metadata and the public keys. The Technical Registry associates the operator, the implementation and the canonical origin, and every announced endpoint must belong to that origin."
+          "text": "Each implementation publishes its artifacts at a canonical origin controlled by the operator [7]. Discovery starts at a fixed path under that origin and returns the material needed to identify the implementation, the protocol version, the declared profile, the endpoints, the signed metadata and the public keys. The Technical Registry may index operator, implementation and canonical origin, but its presence does not constitute approval and does not replace the evaluation of the published artifacts."
         },
         {
           "t": "fig",
@@ -219,11 +235,7 @@
         },
         {
           "t": "p",
-          "text": "Identity and integrity rest on published keys and signed metadata. A trust root, kept offline, signs the Key Manifest with Ed25519 [6]; that signature is the basis for trusting the issuing keys. Keys are separated by domain, and revocation makes it possible to detect revoked, superseded or expired material."
-        },
-        {
-          "t": "p",
-          "text": "The engines retrieve the artifacts server-side through a secure retrieval component, which resolves the target from the registry and never follows a caller-supplied URL. Figure {{fig:discovery}} summarises this path."
+          "text": "Identity and integrity rest on published keys and signed metadata. A trust root, kept offline, signs only the Key Manifest with Ed25519 [6]; that manifest authorises domain-separated delegated keys, which sign the corresponding artifacts. Revocation and validity-control mechanisms make it possible to reject revoked or expired material and to track authorised replacements. The secure-fetch module resolves the target from the canonical origin and applies the security restrictions defined by the protocol."
         }
       ]
     },
@@ -235,11 +247,11 @@
       "blocks": [
         {
           "t": "p",
-          "text": "Validation follows a fixed journey of eight technical steps and one final aggregation step. Each step is executed by deterministic engines in Rust and receives one of four statuses: verified, pending, failed or blocked. The evaluation fails closed: absent, expired or inconsistent evidence never produces a pass. Certification readiness is reached only when every technical step is verified, but it does not, by itself, constitute a certification."
+          "text": "Validation follows a fixed journey of eight technical steps and one final aggregation step. Each step is executed by deterministic engines and receives one of four states: verified, pending, failed or blocked. The evaluation is fail-closed: absent, expired or inconsistent evidence never produces approval. Certification readiness is reached only when all the steps required by the profile are verified, but it does not constitute certification in itself."
         },
         {
           "t": "p",
-          "text": "Decision remains separate from explanation. The deterministic engines produce the results, while BanzAI only presents and explains them, without altering or deciding them. Technical certification is a distinct process, which formally binds an implementation to a public, versioned profile. Figure {{fig:journey}} summarises the journey, the statuses and the separation."
+          "text": "The technical determination remains separate from the explanation. The engines produce results and reason codes; BanzAI only presents and explains them, without altering them. Technical certification is a distinct process, which formally associates an implementation with a versioned public profile."
         },
         {
           "t": "fig",
@@ -247,7 +259,7 @@
         },
         {
           "t": "p",
-          "text": "Figure {{fig:example}} shows an example between two operators: B publishes its artifacts, A initiates the evaluation and the engines produce results, receipts and verifiable evidence. BANZA provides the technical basis for the decision, but it is for Operator A to decide, under its own policy, whether the result meets its needs."
+          "text": "Figure {{fig:example}} shows the directional evaluation of an implementation B by an implementation or evaluator A. B publishes its material; A starts the journey, fetches the artifacts from the canonical origin and executes the evaluation locally. BANZA provides the verifiable technical basis, but the operational use of the result remains under A's policy. The architecture does not require A and B to share code, provider or infrastructure; the experimental demonstration of this independence by third parties is presented in Section {{sec:state}} as a property that is still to be demonstrated."
         },
         {
           "t": "fig",
@@ -263,7 +275,7 @@
       "blocks": [
         {
           "t": "p",
-          "text": "Each validation produces results, receipts and verifiable evidence. Receipts record the executed steps and bind each result to the protocol version, the profile, the artifacts consumed, their cryptographic digests and the reason codes, making it possible to confirm or reproduce the technical basis of the evaluation (Figure {{fig:evidence}})."
+          "text": "Each validation produces results, receipts and verifiable evidence. The receipts record the executed steps and associate each result with the protocol version, the profile, the consumed artifacts, their cryptographic digests and the reason codes, making it possible to confirm or reproduce the technical basis of the evaluation."
         },
         {
           "t": "fig",
@@ -271,11 +283,7 @@
         },
         {
           "t": "p",
-          "text": "A receipt represents the state observed at the instant of evaluation; later changes to the artifacts require a new evaluation. The Evidence Bundle gathers the artifacts and references that support the result, but it does not constitute certification and grants no operational status."
-        },
-        {
-          "t": "p",
-          "text": "Publication is separate from evaluation. Results may be published in the Technical Registry, a public, read-only surface that indexes verifiable metadata and evidence. The absence of an entry is not a prohibition, and any third party can re-run the evaluation from the published artifacts."
+          "text": "A receipt represents the state observed at the instant of the evaluation; later changes to the artifacts require a new evaluation. The Evidence Bundle gathers the artifacts and references that support the result, but it does not constitute certification and does not confer any operational status. Publication is separate from evaluation: results may be indexed in the Technical Registry, but the absence of an entry does not constitute a prohibition and its presence does not amount to authorisation. Independent verification requires the evidence to be sufficient for a third party to repeat the applicable steps of the evaluation without depending on a private decision of the protocol maintainer."
         }
       ]
     },
@@ -287,7 +295,7 @@
       "blocks": [
         {
           "t": "p",
-          "text": "The threat model considers tampering with artifacts, invalid origins or keys, replay of challenges, expired or incomplete evidence and version divergences. For remote retrieval, it further includes SSRF and DNS rebinding. BANZA responds with signatures, revocation, expiry, single-use challenges and fail-closed evaluation, in which absent or inconsistent inputs are never passed (Figure {{fig:security}})."
+          "text": "The threat model considers artifact tampering, invalid origins or keys, challenge replay, expired or incomplete evidence and version divergence. In remote fetching it also includes SSRF and DNS rebinding attacks. BANZA responds with signatures, revocation, expiry, single-use challenges and fail-closed evaluation, in which absent or inconsistent inputs are not approved."
         },
         {
           "t": "fig",
@@ -295,7 +303,7 @@
         },
         {
           "t": "p",
-          "text": "The secure retrieval component is the only component that reaches the operator's endpoints. The target is always resolved from the registered canonical origin, never from a caller-supplied URL. The component accepts only HTTPS, blocks private, local and cloud-metadata addresses, pins the connection to the validated addresses and follows no redirects. It also validates TLS and caps the received responses."
+          "text": "The secure-fetch module is the only component that reaches the operator's endpoints along the evaluation path. The target is resolved from the canonical origin, never from an arbitrary URL supplied by the caller. The module accepts HTTPS only, blocks private and local addresses as well as addresses associated with cloud-platform metadata services, establishes the connection only with previously validated addresses, does not follow redirects, validates TLS and bounds the responses received. These guarantees are part of the observable requirements of secure fetching and do not depend on a specific internal technology."
         }
       ]
     },
@@ -307,7 +315,11 @@
       "blocks": [
         {
           "t": "p",
-          "text": "BANZA evolves through public decision instruments: ADRs record adopted decisions and RFCs propose changes still under discussion. The protocol follows semantic versioning; compatible changes enter minor or patch versions, whereas incompatible changes require a new major version. Each implementation declares the version and the profile it adopts, and a certification profile is immutable once published."
+          "text": "BANZA evolves through public and versioned instruments: RFCs structure the proposals and their discussion; ADRs record the architectural decisions and their state. The protocol follows explicit versioning; incompatible changes require a new major version, whereas compatible changes may enter minor or patch versions. Each implementation declares the version and the profile it adopts, and a certification profile remains immutable once published."
+        },
+        {
+          "t": "p",
+          "text": "The openness of the protocol does not eliminate governance. Governance determines how the public rules evolve, but it does not turn the protocol maintainer into a necessary technical intermediary between implementations. The ability to implement a published version is distinct from the authority to change that version: an implementation claiming conformance must satisfy the applicable contracts, whereas changes to the rules follow the public process of decision and versioning. Certification, scheme admission and market operation remain distinct processes."
         },
         {
           "t": "fig",
@@ -315,7 +327,7 @@
         },
         {
           "t": "p",
-          "text": "Incompatible changes are announced in advance and accompanied by a migration path, allowing temporary coexistence between versions. Deprecation is explicit and phased: a feature is first marked as deprecated and can only be removed in a major version (Figure {{fig:governance}}). The current protocol version is 1.0."
+          "text": "Incompatible changes are announced and accompanied by a migration path, allowing temporary coexistence between versions. Deprecation occurs explicitly and in phases. The current protocol version is 1.0."
         }
       ]
     },
@@ -327,19 +339,23 @@
       "blocks": [
         {
           "t": "p",
-          "text": "BANZA's guarantees have clear boundaries. First, they are technical, not regulatory: a passing result demonstrates conformance to a public profile, but does not imply authorisation to operate."
+          "text": "BANZA's guarantees have clear boundaries. First, they are technical, not regulatory: a positive result demonstrates conformance with a public profile, but it does not imply authorisation to operate, scheme admission or a commercial agreement."
         },
         {
           "t": "p",
-          "text": "Second, reproducibility applies only to the deterministic engines over the declared inputs. It does not extend to properties the protocol does not observe, such as an operator's internal controls or off-protocol behaviour. A compromised origin or key can only be addressed once there are observable signs or a declared revocation."
+          "text": "Second, reproducibility concerns the evaluations executed by deterministic engines over the declared inputs. It does not extend to properties that the protocol does not observe, such as an operator's internal controls or off-protocol behaviour. The protocol can react to a compromised origin or key only when the compromise manifests itself through observable signals, revocation material or other foreseen evidence."
         },
         {
           "t": "p",
-          "text": "Finally, the evidence presented in this document is architectural. It demonstrates the mechanism on a reference implementation, but does not measure performance, scale or adoption, which remain questions for empirical study (Figure {{fig:limits}})."
+          "text": "Third, the openness of the specification does not, in itself, demonstrate the ease of independent implementation. That property depends on the completeness of the contracts, on the quality of the conformance vectors and on the capacity of an external team to build a conformant implementation without resorting to the reference implementation's code. Likewise, the possibility of integration foreseen by the architecture with external infrastructures does not demonstrate effective access to those infrastructures, which may depend on interfaces, agreements, scheme rules or authorisation."
         },
         {
           "t": "fig",
           "id": "fig-limits"
+        },
+        {
+          "t": "p",
+          "text": "Finally, the evidence presented in this document is architectural in nature. It demonstrates mechanisms in the reference implementation, but it does not measure performance, scale or adoption. It does not, in itself, demonstrate the existence of an independent implementation developed by third parties, nor interoperability in production between unrelated organisations."
         }
       ]
     },
@@ -351,11 +367,19 @@
       "blocks": [
         {
           "t": "p",
-          "text": "BANZA remains in pre-production. At the time of publication, the Technical Registry contains zero production operators and zero active technical certifications; real-money payments remain disabled while the operational layer is in regulatory preparation. This state is enforced by a fail-closed control in Rust. No performance measurements are reported, and the empty registry corresponds to the expected current state (Figure {{fig:state}})."
+          "text": "BANZA remains in pre-production. As of this edition, the Technical Registry contains zero production operators and zero active technical certifications; payments with real money remain disabled at this stage. No public performance measurements are presented and the empty registry corresponds to the expected pre-production state."
         },
         {
           "t": "p",
-          "text": "The reference implementation, Operator Zero, runs in an isolated test environment, in read-only mode and with a demonstration currency. It moves no real funds, remains not certified and not intended for production, and is evaluated by the same engines and the same journey applicable to the other implementations."
+          "text": "The reference implementation, Operator Zero, runs in an isolated test environment, in read mode and with a demonstration currency. It moves no real funds, remains uncertified and is not intended for production, and it is evaluated by the same contracts and the same journey applicable to all other implementations."
+        },
+        {
+          "t": "p",
+          "text": "The architecture is designed to allow independent implementations from the public specification, but that property has not yet been demonstrated through a third-party implementation developed without recourse to the reference implementation's code. Interoperability between independent implementations, effective integration with external infrastructures and use in real operational environments therefore remain objectives for experimental validation and not results already established."
+        },
+        {
+          "t": "p",
+          "text": "To demonstrate implementation independence convincingly, an external implementation will be required, built from the public specifications and contracts without resorting to the reference code, able to satisfy the applicable conformance vectors and to take part in a directional evaluation with another implementation, producing semantically equivalent results and verifiable evidence. Success in that exercise will demonstrate the capacity for independent implementation, but it will still not amount to regulatory authorisation, adherence to a scheme or use in production."
         },
         {
           "t": "fig",
@@ -371,7 +395,7 @@
       "blocks": [
         {
           "t": "p",
-          "text": "This work presented BANZA as an open financial interoperability protocol based on public, versioned rules, deterministic validation and verifiable evidence. The protocol complements existing interoperability with a common technical base that can be inspected, reproduced and verified by third parties."
+          "text": "This work presented BANZA as an open financial interoperability protocol whose definition does not depend on any particular implementation and whose conformance can be evaluated through deterministic mechanisms and verifiable evidence. The protocol does not define a mandatory central infrastructure for moving messages or funds; it seeks to establish a common technical basis that can coexist with different operators, schemes and operational infrastructures."
         },
         {
           "t": "p",
@@ -381,23 +405,28 @@
           "t": "list",
           "items": [
             "evaluation of implementations against public versions and profiles, rather than entities in the abstract;",
-            "separation between the protocol, certification and operational schemes, keeping technical conformance, admission and regulatory authorisation distinct;",
+            "separation between the public specification of the protocol and any particular implementation, so that conformance depends on observable behaviour and not on the origin of the code or the technology used;",
+            "separation between protocol, certification and operational schemes, keeping technical conformance, admission, operational agreements and regulatory authorisation distinct;",
             "deterministic validation bound to the input artifacts through cryptographic digests, reason codes, receipts and verifiable evidence;",
-            "cumulative conformance profiles and a validation journey with explicit statuses and fail-closed behaviour;",
-            "separation between deterministic decision and BanzAI-assisted explanation."
+            "cumulative conformance profiles and a validation journey with explicit states and fail-closed behaviour;",
+            "separation between technical determination, operational decision and BanzAI-assisted explanation."
           ]
         },
         {
           "t": "p",
-          "text": "The guarantees remain limited to the observed technical scope. An implementation's conformance does not constitute authorisation to operate, and the current pre-production state does not yet support conclusions about performance, scalability or adoption in real operational environments."
+          "text": "The architecture rests on five architectural invariants: open specification, because the rules are public and versioned; implementation independence, because no concrete implementation constitutes the protocol on its own; independent verification, because third parties must be able to reproduce the evaluation; operational independence, because BANZA does not need to intermediate messages or funds; and separation of decisions, because conformance evaluation, technical certification, operational schemes, operational agreements and regulatory authorisation belong to distinct processes."
         },
         {
           "t": "p",
-          "text": "Future work should focus on measuring reproducibility across independent evaluators and on evaluating the protocol in multi-operator scenarios. It should also analyse performance, scalability, integration costs and the evolution of the conformance profiles."
+          "text": "These properties define an architectural direction, not a claim of maturity already attained. The conformance of an implementation does not constitute authorisation to operate, and the current pre-production state does not yet allow conclusions about performance, scalability, adoption or effective integration with external infrastructures. In particular, the capacity for independent implementation must be demonstrated by an external implementation built from the public specification without depending on the reference code."
         },
         {
           "t": "p",
-          "text": "In summary, BANZA establishes an open, reproducible foundation for financial interoperability, making verifiable the rules, the conformance and the evidence that support each implementation. Its central contribution is to allow technical interoperability to be demonstrated and reproduced by third parties."
+          "text": "Future work should test that independence directly through implementations developed by distinct teams and evaluate the resulting interoperability between several operators. It should also measure reproducibility across independent evaluators, performance, scalability, integration costs and the application of external interoperability profiles."
+        },
+        {
+          "t": "p",
+          "text": "In summary, BANZA seeks to make the technical basis of interoperability public and verifiable without turning the protocol into a mandatory operational intermediary. Its central contribution is to establish the conditions for different implementations to adopt the same specification, demonstrate that they satisfy the applicable technical requirements and produce verifiable evidence that allows third parties to reproduce the evaluation."
         }
       ]
     }
@@ -410,7 +439,7 @@
       "file_en": "fig1-bilateral-vs-protocol.en.svg",
       "label": "fig:bilateral",
       "title": "Bilateral integrations versus a common protocol",
-      "caption": "Comparison between a full bilateral mesh, with \\(n(n-1)/2\\) technical relationships, and a common protocol, with \\(n\\) implementations, one per operator.",
+      "caption": "Comparison between a complete bilateral mesh and a common protocol. In the second regime each operator keeps its own implementation; the public specification is the shared element, not a mandatory central infrastructure.",
       "alt": "On the left, four operators joined by specific bilateral integrations. On the right, the same operators each implementing one shared public rule-set, with no central box through which funds pass."
     },
     {
@@ -420,7 +449,7 @@
       "file_en": "fig2-model.en.svg",
       "label": "fig:model",
       "title": "Operator, implementation and bounded result",
-      "caption": "An operator publishes an implementation with a version, a profile, an environment and a canonical origin; the artifacts observed at that origin are evaluated and yield a result valid only for that combination.",
+      "caption": "The result is bounded by the implementation and by the observed artifacts. The internal technology is not part of the conformance criteria, provided that the observable contracts are satisfied.",
       "alt": "An operator contains one or more implementations; each implementation declares version, profile, environment and canonical origin; the origin yields observed artifacts that evaluation turns into a bounded result."
     },
     {
@@ -430,7 +459,7 @@
       "file_en": "fig3-three-layers.en.svg",
       "label": "fig:layers",
       "title": "The three institutional layers",
-      "caption": "Layer 1, open protocol; Layer 2, per-implementation certification; Layer 3, independent operational schemes. BanzAI is a transversal interface across all three, not a fourth layer or an authority.",
+      "caption": "Layer 1 defines the common specification; distinct implementations implement that specification; Layer 2 evaluates conformance by evidence; and Layer 3 remains operationally independent. BanzAI is transversal, not a fourth layer.",
       "alt": "Three stacked layers — protocol, certification and operational schemes — with BanzAI as a transversal band spanning all three, without being one of them."
     },
     {
@@ -440,7 +469,7 @@
       "file_en": "fig4-profiles.en.svg",
       "label": "fig:profiles",
       "title": "The cumulative conformance levels L0–L4",
-      "caption": "Each level includes all lower ones and adds capabilities; L3 is the federation eligibility threshold and L4 is profile-defined, with external integration evidence.",
+      "caption": "The profiles are cumulative. L3 adds evidence between operators and the technical federation threshold; L4 requires specific evidence of external integration.",
       "alt": "A five-rung ladder, from L0 at the base to L4 at the top, each rung annotated with the capabilities it adds; L3 marked as the federation threshold and L4 as profile-defined."
     },
     {
@@ -450,7 +479,7 @@
       "file_en": "fig5-discovery.en.svg",
       "label": "fig:discovery",
       "title": "Canonical origin and secure retrieval",
-      "caption": "An implementation publishes signed artifacts at the canonical origin the operator controls; a server-side secure retrieval component obtains the Manifest and keys and passes them to the engines, never from a caller-supplied URL.",
+      "caption": "The implementation publishes artifacts at its canonical origin; the evaluator fetches them through a secure-fetch module and hands them to the engines. Discovery does not depend on a private decision of the protocol maintainer.",
       "alt": "From the implementation to the canonical origin, from it to the Manifest and keys, and from these, through a secure retrieval component, to the engines."
     },
     {
@@ -460,7 +489,7 @@
       "file_en": "fig6-journey.en.svg",
       "label": "fig:journey",
       "title": "The deterministic nine-step journey",
-      "caption": "Eight technical steps and one aggregation step; each step receives a status with reason codes and fails closed; Certification Readiness is reached only when every technical step is verified and never returns a certification verdict.",
+      "caption": "Eight technical steps and one aggregation step. Certification readiness aggregates the steps required by the applicable profile and does not constitute certification.",
       "alt": "Nine steps in sequence — Discovery, Manifest, Keys, Conformance, Interoperability, Trust, Federation, Evidence Bundle and Certification Readiness — with verified, pending, failed or blocked statuses and fail-closed behaviour."
     },
     {
@@ -470,7 +499,7 @@
       "file_en": "fig7-example.en.svg",
       "label": "fig:example",
       "title": "Example — Operator A evaluates Operator B",
-      "caption": "Operator B publishes the artifacts at its canonical origin; Operator A, or an evaluator, starts the journey; the secure component retrieves the artifacts, the engines validate and produce results, receipts and evidence; Operator A verifies or reproduces the result and decides, under its own policy.",
+      "caption": "Evaluation A\\(\\rightarrow\\)B. Implementation B publishes verifiable material; A fetches the artifacts, executes the evaluation locally and can verify or reproduce the result. The protocol does not require a central intermediary between A and B.",
       "alt": "Operator B publishes artifacts; Operator A starts validation; a secure component retrieves the artifacts; the engines produce results and receipts; Operator A verifies and makes its own decision."
     },
     {
@@ -480,7 +509,7 @@
       "file_en": "fig8-evidence.en.svg",
       "label": "fig:evidence",
       "title": "From validation to evidence and the Technical Registry",
-      "caption": "Artifacts enter the engines, which decide and emit results; the results become receipts and an Evidence Bundle; publication in the Technical Registry is optional and separate; BanzAI only presents and explains.",
+      "caption": "The engines evaluate artifacts and produce results and receipts; the Evidence Bundle gathers verifiable material. Publication in the Technical Registry is optional and BanzAI remains outside the technical determination.",
       "alt": "Artifacts to engines, to results, to receipts and an Evidence Bundle, and from these, optionally, to the Technical Registry; a distinct band shows BanzAI explaining, not deciding."
     },
     {
@@ -490,7 +519,7 @@
       "file_en": "fig9-security.en.svg",
       "label": "fig:security",
       "title": "Threat, mechanism and expected outcome",
-      "caption": "Each considered threat corresponds to a protection mechanism and an expected outcome; absent or inconsistent inputs lead to non-passing, by failing closed.",
+      "caption": "Threats considered, protection mechanisms and expected results. Security does not depend on implicit trust in the origin or in the evaluated operator.",
       "alt": "Three columns — threat, protection mechanism and expected outcome — with rows for tampering, false origin, revoked key, replay, SSRF and DNS rebinding."
     },
     {
@@ -500,7 +529,7 @@
       "file_en": "fig10-governance.en.svg",
       "label": "fig:governance",
       "title": "Evolution cycle of a version",
-      "caption": "A current version may receive additive, non-breaking changes; an incompatible change opens a major version, announced as a deprecation, with coexistence during a transition window, migration and, finally, end of support.",
+      "caption": "The evolution of the protocol separates proposal, recorded decision and versioned publication. Governing rules does not amount to operating transactions or to authorising participants.",
       "alt": "From the current version, an additive compatible branch and an incompatible branch that goes through deprecation announcement, coexistence, migration and end of support."
     },
     {
@@ -510,7 +539,7 @@
       "file_en": "fig11-limits.en.svg",
       "label": "fig:limits",
       "title": "Boundary of what BANZA evaluates",
-      "caption": "BANZA evaluates the conformance of an implementation against a public profile and observes the declared artifacts; regulatory authorisation, internal controls and off-protocol behaviour remain out of scope, and a technical result represents none of these.",
+      "caption": "BANZA evaluates observable technical conditions; regulatory authorisation, internal controls, commercial agreements, scheme admission and effective access to operational infrastructures remain outside that result.",
       "alt": "An inner circle with what BANZA evaluates and observes, and an outer area with what remains out of scope and what a technical result does not represent."
     },
     {
@@ -520,7 +549,7 @@
       "file_en": "fig12-state.en.svg",
       "label": "fig:state",
       "title": "General state of BANZA",
-      "caption": "BANZA's pre-production state: zero production operators, zero active technical certifications, real money disabled and a reference implementation in a test environment.",
+      "caption": "Pre-production state: no production operators, no active technical certifications, real money disabled and no demonstration, to date, of an independent implementation developed by third parties.",
       "alt": "A compact panel with six elements of the general state: pre-production, zero production operators, zero active certifications, real money disabled, reference implementation in testing and no performance measurements."
     }
   ],
