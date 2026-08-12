@@ -43,253 +43,288 @@ def svg(vb, title, desc, body):
 # ── figure builders: each returns (viewBox, title, desc, body) for a given language dict `x` ──────────
 
 def fig_bilateral(x):
-    vb = "0 0 760 300"
+    # Left: a bilateral complete mesh. Right: a shared public-specification box over n independent
+    # implementations. A dashed divider separates the two regimes; the common spec, not a central
+    # infrastructure, is the shared element.
+    vb = "0 0 760 226"
     b = []
-    # left: bilateral mesh — 4 nodes fully connected
-    nodes = [(90, 70), (250, 70), (90, 210), (250, 210)]
+    b.append(T(178, 26, x["left"], 12.5, "n"))
+    b.append(T(578, 26, x["right"], 12.5, "n"))
+    # left: K4 mesh
+    nodes = [(108, 74), (248, 74), (108, 188), (248, 188)]
     labels = ["A", "B", "C", "D"]
     for i in range(4):
         for j in range(i + 1, 4):
             b.append(f'<line class="l" x1="{nodes[i][0]}" y1="{nodes[i][1]}" x2="{nodes[j][0]}" y2="{nodes[j][1]}"/>')
     for (cx, cy), lb in zip(nodes, labels):
         b.append(f'<circle class="b" cx="{cx}" cy="{cy}" r="22"/>')
-        b.append(T(cx, cy + 5, lb, 14))
-    b.append(T(170, 268, x["left"], 12.5))
-    b.append(T(170, 286, x["left2"], 9.5, "m"))
-    # divider
-    b.append('<line class="d" x1="380" y1="40" x2="380" y2="270"/>')
-    # right: common protocol — 4 nodes to a shared bar
-    rnodes = [(478, 95), (546, 95), (614, 95), (682, 95)]
-    b.append(box(452, 190, 256, 40))
-    b.append(T(580, 215, x["rules"], 12))
-    for (cx, cy), lb in zip(rnodes, labels):
-        b.append(f'<circle class="b" cx="{cx}" cy="{cy}" r="20"/>')
         b.append(T(cx, cy + 5, lb, 13))
-        b.append(f'<line class="l" x1="{cx}" y1="{cy+20}" x2="{cx}" y2="190" marker-end="url(#a)"/>')
-    b.append(T(580, 250, x["right"], 12.5))
-    b.append(T(580, 268, x["right2"], 9.5, "m"))
+    b.append(T(178, 216, x["left2"], 10, "m"))
+    # divider
+    b.append('<line class="d" x1="400" y1="44" x2="400" y2="200"/>')
+    # right: shared spec box on top, four implementation boxes below
+    b.append(box(440, 56, 300, 50))
+    b.append(T(590, 80, x["rules"], 11.5))
+    b.append(T(590, 97, x["rules2"], 9.5, "m"))
+    impls = [x["ia"], x["ib"], x["ic"], x["idd"]]
+    ix = [440, 517, 594, 671]
+    for xx, lb in zip(ix, impls):
+        b.append(box(xx, 148, 68, 42))
+        b.append(T(xx + 34, 174, lb, 10.5))
+        b.append(f'<line class="d" x1="{xx+34}" y1="148" x2="{xx+34}" y2="106"/>')
+    b.append(T(590, 216, x["right2"], 10, "m"))
     return vb, x["title"], x["desc"], "".join(b)
 
 
 def fig_model(x):
-    vb = "0 0 760 200"
+    # Chain operator → implementation → artifacts → bounded result, with the non-normative internal
+    # technology as a detached dashed box under the implementation.
+    vb = "0 0 760 148"
     b = [
-        box(20, 74, 120, 52), T(80, 98, x["operator"], 13), T(80, 115, x["operator2"], 9, "m"),
-        arrow(140, 100, 168, 100),
-        box(170, 54, 200, 92), T(270, 80, x["impl"], 13), T(270, 103, x["attr1"], 9, "m"), T(270, 120, x["attr2"], 9, "m"),
-        arrow(370, 100, 398, 100),
-        box(400, 74, 150, 52), T(475, 96, x["artifacts"], 11.5), T(475, 114, x["artifacts2"], 9, "m"),
-        arrow(550, 100, 578, 100),
-        box(580, 66, 160, 68), T(660, 92, x["result"], 13), T(660, 110, x["result2"], 9, "m"),
+        box(20, 34, 120, 44), T(80, 54, x["operator"], 11.5), T(80, 70, x["operator2"], 8.5, "m"),
+        arrow(140, 56, 168, 56),
+        box(170, 20, 200, 72), T(270, 42, x["impl"], 11.5), T(270, 63, x["attr1"], 8.5, "m"), T(270, 79, x["attr2"], 8.5, "m"),
+        arrow(370, 56, 398, 56),
+        box(400, 34, 150, 44), T(475, 54, x["artifacts"], 11), T(475, 70, x["artifacts2"], 8.5, "m"),
+        arrow(550, 56, 578, 56),
+        box(580, 28, 160, 56), T(660, 50, x["result"], 11.5), T(660, 67, x["result2"], 8.5, "m"),
+        # internal technology, outside the conformance criteria
+        f'<line class="d" x1="270" y1="92" x2="270" y2="112" marker-end="url(#a)"/>',
+        box(140, 112, 260, 30, "d"), T(270, 127, x["tech"], 8.5), T(270, 138, x["tech2"], 8, "m"),
     ]
     return vb, x["title"], x["desc"], "".join(b)
 
 
 def fig_layers(x):
-    vb = "0 0 760 260"
+    # Layer 1 (open protocol) over independent implementations, evaluated by Layer 2 (conformance &
+    # interoperability certification); Layer 3 (independent operational schemes) below; BanzAI is a
+    # transversal, non-authoritative interface across all three.
+    vb = "0 0 760 296"
+    ix = [70, 300, 530]
     b = []
-    # three stacked bands
-    rows = [("l1", 30), ("l2", 105), ("l3", 180)]
-    for key, y in rows:
-        b.append(box(40, y, 560, 60))
-        b.append(T(320, y + 26, x[key], 13, "n"))
-        b.append(T(320, y + 45, x[key + "s"], 9.5, "m"))
-    # BanzAI transversal side rail spanning the three
-    b.append(box(630, 30, 100, 210, "d"))
-    b.append(T(680, 120, "BanzAI", 13))
-    b.append(T(680, 140, x["banzai"], 9, "m"))
-    b.append(T(680, 154, x["banzai2"], 9, "m"))
-    b.append(f'<line class="d" x1="600" y1="135" x2="630" y2="135"/>')
-    b.append(T(320, 250, x["sep"], 9.5, "m"))
+    # Layer 1 band
+    b.append(box(40, 12, 680, 40))
+    b.append(T(380, 31, x["l1"], 12, "n"))
+    b.append(T(380, 46, x["l1s"], 9.5, "m"))
+    # independent implementations, connected up to Layer 1
+    for xx, lb in zip(ix, [x["ia"], x["ib"], x["ic"]]):
+        b.append(box(xx, 70, 160, 30))
+        b.append(T(xx + 80, 90, lb, 10.5))
+        b.append(f'<line class="d" x1="{xx+80}" y1="52" x2="{xx+80}" y2="70" marker-end="url(#a)"/>')
+    # Layer 2 band, evaluating the implementations above
+    b.append(box(40, 118, 680, 40))
+    b.append(T(380, 137, x["l2"], 12, "n"))
+    b.append(T(380, 152, x["l2s"], 9, "m"))
+    for xx in ix:
+        b.append(f'<line class="d" x1="{xx+80}" y1="100" x2="{xx+80}" y2="118" marker-end="url(#a)"/>')
+    # Layer 3 — a container rectangle that comprises its operational schemes
+    b.append(box(40, 176, 680, 80))
+    b.append(T(380, 196, x["l3"], 12, "n"))
+    for xx, lb in zip(ix, [x["sx"], x["sy"], x["sz"]]):
+        b.append(box(xx, 212, 160, 32))
+        b.append(T(xx + 80, 233, lb, 10.5))
+    b.append(f'<line class="d" x1="380" y1="158" x2="380" y2="176" marker-end="url(#a)"/>')
+    # BanzAI — transversal, non-authoritative interface across the three layers
+    b.append(box(40, 268, 680, 22, "d"))
+    b.append(T(380, 283, x["banzai"], 9.5, "m"))
     return vb, x["title"], x["desc"], "".join(b)
 
 
 def fig_profiles(x):
-    vb = "0 0 760 300"
+    # Cumulative ladder: five stacked rungs, L0 at the base, each rung a strict superset of those below.
+    vb = "0 0 760 244"
     b = []
-    # cumulative ladder: five stacked rungs, L0 at the base, each rung a strict superset of those below
-    rungs = [("L4", "l4", 30), ("L3", "l3", 78), ("L2", "l2", 126), ("L1", "l1", 174), ("L0", "l0", 222)]
+    rungs = [("L4", "l4", 20), ("L3", "l3", 62), ("L2", "l2", 104), ("L1", "l1", 146), ("L0", "l0", 188)]
     for tag, key, y in rungs:
-        b.append(box(80, y, 640, 42))
-        b.append(T(112, y + 26, tag, 13, "n"))
-        b.append(T(150, y + 18, x[key], 11, "", "start"))
-        b.append(T(150, y + 34, x[key + "2"], 9, "m", "start"))
-    # cumulative arrow (bottom → top) with rotated label
-    b.append('<line class="l" x1="52" y1="256" x2="52" y2="34" marker-end="url(#a)"/>')
-    b.append(f'<text x="46" y="150" text-anchor="middle" font-size="9.5" class="m" '
-             f'transform="rotate(-90 46 150)">{esc(x["cum"])}</text>')
-    b.append(T(400, 292, x["note"], 9.5, "m"))
+        b.append(box(80, y, 640, 38))
+        b.append(T(112, y + 24, tag, 12.5, "n"))
+        b.append(T(150, y + 16, x[key], 10.5, "", "start"))
+        b.append(T(150, y + 31, x[key + "2"], 9, "m", "start"))
+    b.append('<line class="l" x1="52" y1="222" x2="52" y2="24" marker-end="url(#a)"/>')
+    b.append(f'<text x="46" y="125" text-anchor="middle" font-size="9" class="m" '
+             f'transform="rotate(-90 46 125)">{esc(x["cum"])}</text>')
+    b.append(T(400, 238, x["note"], 9.5, "m"))
     return vb, x["title"], x["desc"], "".join(b)
 
 
 def fig_discovery(x):
-    vb = "0 0 760 210"
+    # implementation → canonical origin → signed manifest/metadata → server-side secure fetch → engines.
+    vb = "0 0 760 182"
     b = [
-        box(16, 78, 130, 54), T(81, 100, x["impl"], 12), T(81, 117, x["impl2"], 9, "m"),
-        arrow(146, 105, 172, 105),
-        box(174, 78, 140, 54), T(244, 100, x["origin"], 12), T(244, 117, ".well-known", 9, "m"),
-        arrow(314, 105, 340, 105),
-        box(342, 70, 150, 70), T(417, 94, x["manifest"], 12), T(417, 112, x["keys"], 9, "m"),
-        arrow(492, 105, 518, 105),
-        box(520, 78, 150, 54), T(595, 98, x["fetch"], 11.5), T(595, 116, x["fetch2"], 9, "m"),
-        arrow(595, 132, 595, 158),
-        box(520, 158, 150, 40), T(595, 183, x["engines"], 12),
-        T(377, 175, x["note"], 9.5, "m"),
+        box(16, 58, 130, 50), T(81, 78, x["impl"], 11.5), T(81, 95, x["impl2"], 9, "m"),
+        arrow(146, 83, 172, 83),
+        box(174, 58, 140, 50), T(244, 78, x["origin"], 11.5), T(244, 95, ".well-known", 9, "m"),
+        arrow(314, 83, 340, 83),
+        box(342, 52, 150, 62), T(417, 76, x["manifest"], 11.5), T(417, 93, x["keys"], 9, "m"),
+        arrow(492, 83, 518, 83),
+        box(520, 58, 150, 50), T(595, 78, x["fetch"], 11), T(595, 95, x["fetch2"], 9, "m"),
+        arrow(595, 108, 595, 132),
+        box(520, 132, 150, 36), T(595, 155, x["engines"], 11.5),
+        T(377, 150, x["note"], 9.5, "m"),
     ]
     return vb, x["title"], x["desc"], "".join(b)
 
 
 def fig_journey(x):
-    vb = "0 0 760 320"
+    # eight technical steps + a ninth aggregation step; states and fail-closed legend below.
+    vb = "0 0 760 228"
     b = []
     row1 = [("1", "s1"), ("2", "s2"), ("3", "s3"), ("4", "s4")]
     row2 = [("5", "s5"), ("6", "s6"), ("7", "s7"), ("8", "s8")]
     xs = [16, 202, 388, 574]
     w = 170
-    for y, row in ((30, row1), (110, row2)):
+    for y, row in ((16, row1), (82, row2)):
         for (num, key), xx in zip(row, xs):
-            b.append(box(xx, y, w, 52))
-            b.append(T(xx + w / 2, y + 24, f'{num}. {x[key]}', 11.5))
-            if x.get(key + "2"):
-                b.append(T(xx + w / 2, y + 40, x[key + "2"], 9, "m"))
-        # arrows within row
+            b.append(box(xx, y, w, 46))
+            b.append(T(xx + w / 2, y + 28, f'{num}. {x[key]}', 11))
         for i in range(3):
-            b.append(arrow(xs[i] + w, y + 26, xs[i + 1], y + 26))
-    # connector row1->row2
-    b.append(f'<line class="l" x1="{xs[3]+w/2}" y1="82" x2="{xs[3]+w/2}" y2="96"/>')
-    b.append(f'<line class="l" x1="{xs[0]+w/2}" y1="96" x2="{xs[3]+w/2}" y2="96"/>')
-    b.append(arrow(xs[0] + w / 2, 96, xs[0] + w / 2, 110))
-    # step 9 wide aggregation
-    b.append(arrow(xs[0] + w / 2, 162, xs[0] + w / 2, 196))
-    b.append(box(16, 196, 728, 52))
-    b.append(T(380, 218, f'9. {x["s9"]}', 12.5, "n"))
-    b.append(T(380, 236, x["s9note"], 9.5, "m"))
-    # legend + fail-closed
-    b.append(T(16, 278, x["legend"], 9.5, "m", anchor="start"))
-    b.append(T(16, 298, x["failclosed"], 9.5, "m", anchor="start"))
+            b.append(arrow(xs[i] + w, y + 23, xs[i + 1], y + 23))
+    # serpentine wrap: step 4 (end of row 1) feeds step 5 (start of row 2)
+    b.append(f'<line class="l" x1="{xs[3]+w/2}" y1="62" x2="{xs[3]+w/2}" y2="72"/>')
+    b.append(f'<line class="l" x1="{xs[0]+w/2}" y1="72" x2="{xs[3]+w/2}" y2="72"/>')
+    b.append(arrow(xs[0] + w / 2, 72, xs[0] + w / 2, 82))
+    # step 8 (end of the eight-step sequence) feeds the ninth aggregation step
+    b.append(arrow(xs[3] + w / 2, 128, xs[3] + w / 2, 150))
+    b.append(box(16, 150, 728, 44))
+    b.append(T(380, 170, f'9. {x["s9"]}', 12, "n"))
+    b.append(T(380, 187, x["s9note"], 9.5, "m"))
+    # legends aligned to the margins so the long strings never overflow the viewBox edges
+    b.append(T(16, 218, x["legend"], 9.5, "m", "start"))
+    b.append(T(744, 218, x["failclosed"], 9.5, "m", "end"))
     return vb, x["title"], x["desc"], "".join(b)
 
 
 def fig_example(x):
-    vb = "0 0 760 300"
+    # Directional A→B evaluation. B (top lane) publishes; A (bottom lane) starts, fetches, evaluates,
+    # verifies. An arrow crosses from B's canonical origin down to A's fetch step.
+    vb = "0 0 760 226"
     b = []
-    # two lanes A (top) and B (bottom)
-    b.append(T(20, 40, x["laneB"], 11, "n", anchor="start"))
-    b.append(T(20, 175, x["laneA"], 11, "n", anchor="start"))
-    b.append('<line class="d" x1="16" y1="110" x2="744" y2="110"/>')
-    # B publishes
-    b.append(box(30, 50, 170, 46)); b.append(T(115, 70, f'1 · {x["b1"]}', 10.5)); b.append(T(115, 86, x["b1b"], 9, "m"))
-    # A starts
-    b.append(box(30, 185, 150, 46)); b.append(T(105, 205, f'2 · {x["a2"]}', 10.5)); b.append(T(105, 221, x["a2b"], 9, "m"))
-    b.append(arrow(180, 208, 214, 208))
-    # secure fetch
-    b.append(box(216, 185, 150, 46)); b.append(T(291, 205, f'3 · {x["a3"]}', 10.5)); b.append(T(291, 221, x["a3b"], 9, "m"))
-    # fetch reaches B's origin
-    b.append(f'<line class="l" x1="291" y1="185" x2="291" y2="96" marker-end="url(#a)"/>')
-    b.append(box(216, 50, 150, 46)); b.append(T(291, 70, x["origin"], 10.5)); b.append(T(291, 86, x["originb"], 9, "m"))
-    b.append(arrow(366, 208, 400, 208))
-    # engines
-    b.append(box(402, 185, 150, 46)); b.append(T(477, 205, f'4 · {x["a4"]}', 10.5)); b.append(T(477, 221, x["a4b"], 9, "m"))
-    b.append(arrow(552, 208, 586, 208))
-    # A verifies + decides
-    b.append(box(588, 185, 156, 46)); b.append(T(666, 205, f'5 · {x["a5"]}', 10.5)); b.append(T(666, 221, x["a5b"], 9, "m"))
-    b.append(T(380, 280, x["note"], 9.5, "m"))
+    b.append(T(24, 30, x["laneB"], 11, "n", anchor="start"))
+    b.append(box(60, 40, 200, 44)); b.append(T(160, 59, f'1. {x["b1"]}', 10.5)); b.append(T(160, 75, x["b1b"], 9, "m"))
+    b.append(arrow(260, 62, 298, 62))
+    b.append(box(300, 40, 168, 44)); b.append(T(384, 59, x["origin"], 10.5)); b.append(T(384, 75, x["originb"], 9, "m"))
+    b.append('<line class="d" x1="16" y1="100" x2="744" y2="100"/>')
+    b.append(T(24, 126, x["laneA"], 11, "n", anchor="start"))
+    steps = [(f'2. {x["a2"]}', x["a2b"]), (f'3. {x["a3"]}', x["a3b"]),
+             (f'4. {x["a4"]}', x["a4b"]), (f'5. {x["a5"]}', x["a5b"])]
+    sx = [24, 208, 392, 576]
+    w = 160
+    for xx, (t1, t2) in zip(sx, steps):
+        b.append(box(xx, 138, w, 44)); b.append(T(xx + w / 2, 157, t1, 10)); b.append(T(xx + w / 2, 173, t2, 8.5, "m"))
+    for i in range(3):
+        b.append(arrow(sx[i] + w, 160, sx[i + 1], 160))
+    # cross-lane fetch: B origin → A step 3
+    b.append(f'<line class="l" x1="384" y1="84" x2="384" y2="100"/>')
+    b.append(f'<line class="l" x1="384" y1="100" x2="288" y2="100"/>')
+    b.append(arrow(288, 100, 288, 138))
+    b.append(T(380, 214, x["note"], 9.5, "m"))
     return vb, x["title"], x["desc"], "".join(b)
 
 
 def fig_evidence(x):
-    vb = "0 0 760 320"
+    # artifacts → engines → results/receipts → evidence bundle; technical registry optional (dashed);
+    # BanzAI presents/explains only (dashed bottom).
+    vb = "0 0 760 220"
     b = [
-        box(24, 46, 168, 58), T(108, 72, x["artifacts"], 12.5), T(108, 90, x["artifacts2"], 9.5, "m"),
-        arrow(192, 75, 210, 75),
-        box(212, 46, 176, 58), T(300, 72, x["engines"], 12.5), T(300, 90, x["engines2"], 9.5, "m"),
-        arrow(388, 75, 406, 75),
-        box(408, 46, 150, 58), T(483, 72, x["results"], 12.5), T(483, 90, x["results2"], 9.5, "m"),
-        arrow(558, 75, 576, 75),
-        box(578, 46, 158, 58), T(657, 72, x["bundle"], 12.5), T(657, 90, x["bundle2"], 12.5),
-        f'<line class="d" x1="657" y1="104" x2="657" y2="170" marker-end="url(#a)"/>',
-        T(669, 141, x["optional"], 9.5, "m", anchor="start"),
-        box(578, 170, 158, 52, "d"), T(657, 192, x["registry"], 12), T(657, 209, x["registry2"], 9.5, "m"),
-        box(24, 252, 712, 42, "d"), T(380, 278, x["banzai"], 12),
+        box(24, 26, 168, 50), T(108, 49, x["artifacts"], 12), T(108, 67, x["artifacts2"], 9.5, "m"),
+        arrow(192, 51, 210, 51),
+        box(212, 26, 176, 50), T(300, 49, x["engines"], 12), T(300, 67, x["engines2"], 9.5, "m"),
+        arrow(388, 51, 406, 51),
+        box(408, 26, 150, 50), T(483, 49, x["results"], 12), T(483, 67, x["results2"], 9.5, "m"),
+        arrow(558, 51, 576, 51),
+        box(578, 26, 158, 50), T(657, 47, x["bundle"], 12), T(657, 65, x["bundle2"], 12),
+        f'<line class="d" x1="657" y1="76" x2="657" y2="120" marker-end="url(#a)"/>',
+        box(578, 120, 158, 42, "d"), T(657, 140, x["registry"], 11), T(657, 156, x["registry2"], 9.5, "m"),
+        box(24, 180, 712, 32, "d"), T(380, 200, x["banzai"], 10.5),
     ]
     return vb, x["title"], x["desc"], "".join(b)
 
 
 def fig_security(x):
-    vb = "0 0 760 300"
+    # per-threat defensive flow: each row shows [threat] -> [mechanism] -> [expected result]; a shared
+    # fail-closed principle spans the whole model below.
+    vb = "0 0 760 268"
     b = []
-    cols = [x["cThreat"], x["cMech"], x["cOut"]]
-    cx = [140, 400, 640]
-    b.append(T(cx[0], 34, cols[0], 11.5, "n"))
-    b.append(T(cx[1], 34, cols[1], 11.5, "n"))
-    b.append(T(cx[2], 34, cols[2], 11.5, "n"))
-    b.append('<line class="l" x1="16" y1="44" x2="744" y2="44"/>')
+    # geometry: three columns of boxes joined by arrows
+    tx, tw = 16, 208     # threat box
+    mx, mw = 268, 250    # mechanism box
+    ox, ow = 574, 170    # outcome box
+    b.append(T(tx + tw / 2, 20, x["cThreat"], 11.5, "n"))
+    b.append(T(mx + mw / 2, 20, x["cMech"], 11.5, "n"))
+    b.append(T(ox + ow / 2, 20, x["cOut"], 11.5, "n"))
     rows = ["r1", "r2", "r3", "r4", "r5"]
-    y = 66
+    y = 32
+    h = 34
     for r in rows:
-        b.append(T(cx[0], y, x[r + "t"], 10.5))
-        b.append(arrow(250, y - 4, 286, y - 4))
-        b.append(T(cx[1], y, x[r + "m"], 10.5))
-        b.append(arrow(514, y - 4, 550, y - 4))
-        b.append(T(cx[2], y, x[r + "o"], 10.5))
-        y += 40
-    b.append('<line class="d" x1="16" y1="270" x2="744" y2="270"/>')
-    b.append(T(380, 288, x["failclosed"], 9.5, "m"))
+        cyc = y + h / 2
+        b.append(box(tx, y, tw, h))
+        b.append(T(tx + tw / 2, cyc + 4, x[r + "t"], 9.5))
+        b.append(arrow(tx + tw, cyc, mx, cyc))
+        b.append(box(mx, y, mw, h))
+        b.append(T(mx + mw / 2, cyc + 4, x[r + "m"], 9.5))
+        b.append(arrow(mx + mw, cyc, ox, cyc))
+        b.append(box(ox, y, ow, h))
+        b.append(T(ox + ow / 2, cyc + 4, x[r + "o"], 9.5, "n"))
+        y += h + 6
+    # shared fail-closed principle spanning the model
+    b.append(box(tx, y + 2, ox + ow - tx, 26, "d"))
+    b.append(T(380, y + 19, x["failclosed"], 9.5, "m"))
     return vb, x["title"], x["desc"], "".join(b)
 
 
 def fig_governance(x):
-    vb = "0 0 760 230"
-    b = [
-        box(24, 90, 130, 50), T(89, 112, x["current"], 12), T(89, 129, x["current2"], 9, "m"),
-        # additive branch (up)
-        f'<line class="l" x1="89" y1="90" x2="89" y2="46" marker-end="url(#a)"/>',
-        box(24, 12, 200, 34, "d"), T(124, 33, x["additive"], 10.5),
-        # incompatible branch (right)
-        arrow(154, 115, 182, 115),
-        box(184, 90, 120, 50), T(244, 112, x["deprec"], 11), T(244, 129, x["deprec2"], 9, "m"),
-        arrow(304, 115, 330, 115),
-        box(332, 90, 120, 50), T(392, 112, x["coexist"], 11), T(392, 129, x["coexist2"], 9, "m"),
-        arrow(452, 115, 478, 115),
-        box(480, 90, 120, 50), T(540, 116, x["migrate"], 11),
-        arrow(600, 115, 626, 115),
-        box(628, 90, 120, 50), T(688, 112, x["eos"], 11), T(688, 129, x["eos2"], 9, "m"),
-        T(380, 200, x["note"], 9.5, "m"),
-    ]
+    # linear pipeline: published version → RFC proposal/discussion → ADR recorded decision → versioned
+    # publication → coexistence and migration.
+    vb = "0 0 760 152"
+    b = []
+    boxes = [(x["current"], x["current2"]), (x["rfc"], x["rfc2"]), (x["adr"], x["adr2"]),
+             (x["pub"], x["pub2"]), (x["coex"], x["coex2"])]
+    xs = [16, 166, 316, 466, 616]
+    w = 128
+    for xx, (t1, t2) in zip(xs, boxes):
+        b.append(box(xx, 40, w, 50))
+        b.append(T(xx + w / 2, 61, t1, 10.5))
+        b.append(T(xx + w / 2, 77, t2, 9, "m"))
+    for i in range(4):
+        b.append(arrow(xs[i] + w, 65, xs[i + 1], 65))
+    b.append(T(380, 126, x["note"], 9.5, "m"))
     return vb, x["title"], x["desc"], "".join(b)
 
 
 def fig_limits(x):
-    vb = "0 0 760 300"
+    # outer dashed area = out of the observed scope (five items on the left); inner solid box = what
+    # BANZA actually evaluates (on the right).
+    vb = "0 0 760 214"
     b = [
-        # outer area = out of scope
-        box(40, 30, 680, 240, "d"),
-        T(60, 52, x["outTitle"], 11, "n", anchor="start"),
-        T(60, 74, x["out1"], 9.5, "m", anchor="start"),
-        T(60, 92, x["out2"], 9.5, "m", anchor="start"),
-        T(60, 110, x["out3"], 9.5, "m", anchor="start"),
-        # inner = what BANZA evaluates/observes
-        box(200, 140, 360, 110),
-        T(380, 168, x["inTitle"], 11.5, "n"),
-        T(380, 192, x["in1"], 10, "m"),
-        T(380, 210, x["in2"], 10, "m"),
-        T(380, 234, x["notrep"], 9.5, "m"),
+        box(30, 18, 700, 178, "d"),
+        T(54, 42, x["outTitle"], 11.5, "n", anchor="start"),
+        T(54, 70, x["out1"], 9.5, "m", anchor="start"),
+        T(54, 91, x["out2"], 9.5, "m", anchor="start"),
+        T(54, 112, x["out3"], 9.5, "m", anchor="start"),
+        T(54, 133, x["out4"], 9.5, "m", anchor="start"),
+        T(54, 154, x["out5"], 9.5, "m", anchor="start"),
+        box(398, 56, 308, 118),
+        T(552, 84, x["inTitle"], 11.5, "n"),
+        T(552, 110, x["in1"], 9.5, "m"),
+        T(552, 131, x["in2"], 9.5, "m"),
+        T(552, 158, x["notrep"], 9.5, "m"),
     ]
     return vb, x["title"], x["desc"], "".join(b)
 
 
 def fig_state(x):
-    vb = "0 0 760 220"
-    b = [T(380, 30, x["header"], 12.5, "n")]
+    # 2×3 grid of the pre-production state facts, under a header.
+    vb = "0 0 760 192"
+    b = [T(380, 26, x["header"], 12, "n")]
     cells = ["c1", "c2", "c3", "c4", "c5", "c6"]
     xs = [24, 268, 512]
-    ys = [50, 135]
+    ys = [42, 118]
     i = 0
     for ry in ys:
         for rx in xs:
-            b.append(box(rx, ry, 224, 68))
-            b.append(T(rx + 112, ry + 30, x[cells[i] + "a"], 11))
-            b.append(T(rx + 112, ry + 50, x[cells[i] + "b"], 9.5, "m"))
+            b.append(box(rx, ry, 224, 62))
+            b.append(T(rx + 112, ry + 28, x[cells[i] + "a"], 10.5))
+            b.append(T(rx + 112, ry + 46, x[cells[i] + "b"], 9.5, "m"))
             i += 1
     return vb, x["title"], x["desc"], "".join(b)
 
@@ -313,178 +348,198 @@ FIGS = {
 L = {
     "fig1-bilateral-vs-protocol": {
         "pt": {"title": "Integrações bilaterais versus um protocolo comum",
-               "desc": "À esquerda, quatro operadores ligados por integrações bilaterais; à direita, os mesmos operadores implementando as mesmas regras públicas, sem intermediário central de fundos.",
-               "left": "integrações bilaterais", "left2": "n(n−1)/2 relações", "rules": "regras públicas comuns",
-               "right": "protocolo comum", "right2": "n implementações"},
+               "desc": "À esquerda, uma malha bilateral completa; à direita, uma especificação pública comum sobre implementações independentes, sem infraestrutura central obrigatória.",
+               "left": "integrações bilaterais", "left2": "n(n−1)/2 relações",
+               "rules": "especificação pública comum", "rules2": "contratos · perfis · regras",
+               "ia": "Impl. A", "ib": "Impl. B", "ic": "Impl. C", "idd": "Impl. D",
+               "right": "protocolo comum", "right2": "n implementações independentes da mesma especificação"},
         "en": {"title": "Bilateral integrations versus a common protocol",
-               "desc": "On the left, four operators joined by bilateral integrations; on the right, the same operators implementing the same public rules, with no central intermediary for funds.",
-               "left": "bilateral integrations", "left2": "n(n−1)/2 relationships", "rules": "common public rules",
-               "right": "common protocol", "right2": "n implementations"}},
+               "desc": "On the left, a complete bilateral mesh; on the right, a common public specification over independent implementations, with no mandatory central infrastructure.",
+               "left": "bilateral integrations", "left2": "n(n−1)/2 relationships",
+               "rules": "common public specification", "rules2": "contracts · profiles · rules",
+               "ia": "Impl. A", "ib": "Impl. B", "ic": "Impl. C", "idd": "Impl. D",
+               "right": "common protocol", "right2": "n independent implementations of the same specification"}},
     "fig2-model": {
         "pt": {"title": "Operador, implementação e resultado delimitado",
-               "desc": "Um operador publica uma implementação com versão, perfil, ambiente e origem canónica; os artefactos observados produzem um resultado delimitado.",
+               "desc": "Um operador publica uma implementação com versão, perfil, ambiente e origem canónica; os artefactos observados produzem um resultado delimitado; a tecnologia interna não é normativa.",
                "operator": "operador", "operator2": "entidade responsável", "impl": "implementação",
-               "attr1": "versão · perfil", "attr2": "ambiente · origem canónica", "artifacts": "artefactos",
-               "artifacts2": "observados no instante t", "result": "resultado", "result2": "delimitado · (R, E, P)"},
+               "attr1": "versão · perfil", "attr2": "ambiente · origem", "artifacts": "artefactos",
+               "artifacts2": "observados em t", "result": "resultado", "result2": "delimitado (R, E, P)",
+               "tech": "tecnologia interna fora do âmbito da conformidade", "tech2": "linguagem · base de dados · fornecedor"},
         "en": {"title": "Operator, implementation and bounded result",
-               "desc": "An operator publishes an implementation with version, profile, environment and canonical origin; the observed artifacts yield a bounded result.",
+               "desc": "An operator publishes an implementation with version, profile, environment and canonical origin; the observed artifacts yield a bounded result; the internal technology is non-normative.",
                "operator": "operator", "operator2": "responsible entity", "impl": "implementation",
-               "attr1": "version · profile", "attr2": "environment · canonical origin", "artifacts": "artifacts",
-               "artifacts2": "observed at instant t", "result": "result", "result2": "bounded · (R, E, P)"}},
+               "attr1": "version · profile", "attr2": "environment · origin", "artifacts": "artifacts",
+               "artifacts2": "observed at t", "result": "result", "result2": "bounded (R, E, P)",
+               "tech": "internal technology outside the conformance criteria", "tech2": "language · database · provider"}},
     "fig3-three-layers": {
-        "pt": {"title": "As três camadas institucionais",
-               "desc": "Camada 1 protocolo, Camada 2 certificação, Camada 3 esquemas operacionais; o BanzAI é transversal às três, não uma quarta camada.",
-               "l1": "Camada 1 — Protocolo aberto", "l1s": "regras, contratos, identidade, confiança",
-               "l2": "Camada 2 — Certificação de Conformidade e Interoperabilidade", "l2s": "avalia uma implementação, por evidência",
-               "l3": "Camada 3 — Esquemas operacionais", "l3s": "independentes, sujeitos ao enquadramento aplicável",
-               "banzai": "interface", "banzai2": "transversal", "sep": "camadas separadas por responsabilidade, infraestrutura e chaves"},
-        "en": {"title": "The three institutional layers",
-               "desc": "Layer 1 protocol, Layer 2 certification, Layer 3 operational schemes; BanzAI is transversal across all three, not a fourth layer.",
-               "l1": "Layer 1 — Open protocol", "l1s": "rules, contracts, identity, trust",
-               "l2": "Layer 2 — Conformance and Interoperability Certification", "l2s": "evaluates an implementation, from evidence",
-               "l3": "Layer 3 — Operational schemes", "l3s": "independent, subject to the applicable framework",
-               "banzai": "transversal", "banzai2": "interface", "sep": "layers separated by responsibility, infrastructure and keys"}},
+        "pt": {"title": "As três camadas institucionais e o BanzAI transversal",
+               "desc": "Camada 1, protocolo aberto; implementações distintas; Camada 2, certificação de conformidade e interoperabilidade; Camada 3, esquemas operacionais independentes; BanzAI transversal.",
+               "l1": "Camada 1 — Protocolo aberto", "l1s": "especificações · contratos · perfis · descoberta · confiança",
+               "ia": "Implementação A", "ib": "Implementação B", "ic": "Implementação C",
+               "l2": "Camada 2 — Certificação de Conformidade e Interoperabilidade",
+               "l2s": "avalia a conformidade de cada implementação por perfil, versão e evidência",
+               "l3": "Camada 3 — Esquemas operacionais independentes",
+               "sx": "Esquema X", "sy": "Infraestrutura Y", "sz": "Rede Z",
+               "banzai": "BanzAI — interface transversal e não autoritativa; o protocolo funciona sem esta interface"},
+        "en": {"title": "The three institutional layers and the transversal BanzAI",
+               "desc": "Layer 1, open protocol; distinct implementations; Layer 2, conformance and interoperability certification; Layer 3, independent operational schemes; BanzAI transversal.",
+               "l1": "Layer 1 — Open protocol", "l1s": "specifications · contracts · profiles · discovery · trust",
+               "ia": "Implementation A", "ib": "Implementation B", "ic": "Implementation C",
+               "l2": "Layer 2 — Conformance and Interoperability Certification",
+               "l2s": "evaluates the conformance of each implementation by profile, version and evidence",
+               "l3": "Layer 3 — Independent operational schemes",
+               "sx": "Scheme X", "sy": "Rail Y", "sz": "Network Z",
+               "banzai": "BanzAI — transversal, non-authoritative interface; the protocol works without it"}},
     "fig4-profiles": {
-        "pt": {"title": "Os níveis de conformidade cumulativos L0–L4",
-               "desc": "Cada nível inclui todos os inferiores e acrescenta capacidades; L3 é o limiar de federação e L4 é definido por perfil.",
-               "l0": "Protocol Sandbox", "l02": "configuração segura · MON-001",
-               "l1": "Core Payment Capability", "l12": "pagamento, transferência, razão de dupla entrada",
-               "l2": "Payment Initiation Capability", "l22": "pedidos e QR dinâmico, execução instantânea",
-               "l3": "Inter-Operator Interoperability", "l32": "encaminhamento, liquidação · limiar de federação",
-               "l4": "External Interoperability", "l42": "integração com redes externas · definido por perfil",
+        "pt": {"title": "Perfis de conformidade cumulativos, de L0 a L4",
+               "desc": "Cinco níveis cumulativos: L0 configuração segura, L1 pagamento, L2 iniciação, L3 interoperabilidade entre operadores e limiar de federação, L4 integração externa.",
+               "l0": "Protocol Sandbox", "l02": "configuração segura · representação monetária correcta",
+               "l1": "Core Payment Capability", "l12": "pagamento · transferência · rastreabilidade",
+               "l2": "Payment Initiation Capability", "l22": "pedidos · QR dinâmico",
+               "l3": "Inter-Operator Interoperability", "l32": "evidência entre operadores · limiar de federação",
+               "l4": "External Interoperability", "l42": "integração externa · definido por perfil",
                "cum": "inclui os níveis inferiores",
-               "note": "níveis cumulativos · evidência técnica, não certificação"},
-        "en": {"title": "The cumulative conformance levels L0–L4",
-               "desc": "Each level includes all lower ones and adds capabilities; L3 is the federation threshold and L4 is profile-defined.",
-               "l0": "Protocol Sandbox", "l02": "secure configuration · MON-001",
-               "l1": "Core Payment Capability", "l12": "payment, transfer, double-entry ledger",
-               "l2": "Payment Initiation Capability", "l22": "requests and dynamic QR, instant execution",
-               "l3": "Inter-Operator Interoperability", "l32": "routing, settlement · federation threshold",
-               "l4": "External Interoperability", "l42": "integration with external networks · profile-defined",
-               "cum": "includes lower levels",
-               "note": "cumulative levels · technical evidence, not certification"}},
+               "note": "níveis cumulativos · evidência de conformidade, não certificação nem autorização"},
+        "en": {"title": "Cumulative conformance profiles, L0 to L4",
+               "desc": "Five cumulative levels: L0 secure configuration, L1 payment, L2 initiation, L3 multi-operator interoperability and federation threshold, L4 external integration.",
+               "l0": "Protocol Sandbox", "l02": "secure configuration · correct monetary representation",
+               "l1": "Core Payment Capability", "l12": "payment · transfer · traceability",
+               "l2": "Payment Initiation Capability", "l22": "requests · dynamic QR",
+               "l3": "Inter-Operator Interoperability", "l32": "evidence between operators · federation threshold",
+               "l4": "External Interoperability", "l42": "external integration · defined by profile",
+               "cum": "includes the lower levels",
+               "note": "cumulative levels · conformance evidence, not certification or authorisation"}},
     "fig5-discovery": {
-        "pt": {"title": "Origem canónica e obtenção segura",
-               "desc": "Uma implementação publica na origem canónica o Manifesto e as chaves; um módulo de obtenção segura entrega-os aos motores.",
+        "pt": {"title": "Descoberta a partir da origem canónica",
+               "desc": "A implementação publica na origem canónica; o Manifesto e os metadados assinados são obtidos por um módulo seguro do lado do avaliador e entregues aos motores.",
                "impl": "implementação", "impl2": "publica", "origin": "origem canónica",
-               "manifest": "Manifesto", "keys": "metadados · chaves", "fetch": "obtenção segura",
-               "fetch2": "lado do servidor", "engines": "motores", "note": "nunca a partir de URL do chamador"},
-        "en": {"title": "Canonical origin and secure retrieval",
-               "desc": "An implementation publishes the Manifest and keys at the canonical origin; a secure retrieval component passes them to the engines.",
+               "manifest": "manifesto e", "keys": "metadados assinados",
+               "fetch": "obtenção segura", "fetch2": "lado do avaliador", "engines": "motores",
+               "note": "nunca a partir de URL arbitrária do chamador"},
+        "en": {"title": "Discovery from the canonical origin",
+               "desc": "The implementation publishes at the canonical origin; the manifest and signed metadata are fetched by an evaluator-side secure module and handed to the engines.",
                "impl": "implementation", "impl2": "publishes", "origin": "canonical origin",
-               "manifest": "Manifest", "keys": "metadata · keys", "fetch": "secure retrieval",
-               "fetch2": "server-side", "engines": "engines", "note": "never from a caller URL"}},
+               "manifest": "manifest and", "keys": "signed metadata",
+               "fetch": "secure fetch", "fetch2": "evaluator side", "engines": "engines",
+               "note": "never from a caller-supplied URL"}},
     "fig6-journey": {
-        "pt": {"title": "A jornada determinística de nove passos",
-               "desc": "Oito passos técnicos e um passo de agregação; cada passo falha por omissão e a Prontidão nunca devolve certificação.",
+        "pt": {"title": "Jornada de validação: oito passos e agregação",
+               "desc": "Oito passos técnicos e um passo de agregação; cada passo recebe um estado e falha por omissão; a prontidão para certificação agrega os passos requeridos e não constitui certificação.",
                "s1": "Descoberta", "s2": "Manifesto", "s3": "Chaves", "s4": "Conformidade",
                "s5": "Interoper.", "s6": "Confiança", "s7": "Federação", "s8": "Pacote de Ev.",
-               "s9": "Prontidão para Certificação", "s9note": "agrega os oito passos · nunca devolve CERTIFICADO",
+               "s9": "Prontidão para Certificação", "s9note": "agrega os passos exigidos pelo perfil · não constitui certificação",
                "legend": "estados: verificado · pendente · falhado · bloqueado",
                "failclosed": "fecho por omissão: entrada ausente ou inconsistente → não aprovado"},
-        "en": {"title": "The deterministic nine-step journey",
-               "desc": "Eight technical steps and one aggregation step; each step fails closed and Readiness never returns certification.",
+        "en": {"title": "Validation journey: eight steps and aggregation",
+               "desc": "Eight technical steps and one aggregation step; each step gets a state and fails closed; certification readiness aggregates the required steps and is not a certification.",
                "s1": "Discovery", "s2": "Manifest", "s3": "Keys", "s4": "Conformance",
-               "s5": "Interop.", "s6": "Trust", "s7": "Federation", "s8": "Evidence B.",
-               "s9": "Certification Readiness", "s9note": "aggregates the eight steps · never returns CERTIFIED",
-               "legend": "statuses: verified · pending · failed · blocked",
-               "failclosed": "fail-closed: absent or inconsistent input → non-passing"}},
+               "s5": "Interop.", "s6": "Trust", "s7": "Federation", "s8": "Evidence Bundle",
+               "s9": "Certification Readiness", "s9note": "aggregates the steps required by the profile · not a certification",
+               "legend": "states: verified · pending · failed · blocked",
+               "failclosed": "fail-closed: missing or inconsistent input → not approved"}},
     "fig7-example": {
-        "pt": {"title": "Exemplo — Operador A avalia o Operador B",
-               "desc": "O Operador B publica os artefactos; o Operador A inicia a jornada; um módulo seguro obtém-nos; os motores validam; o Operador A verifica e decide.",
-               "laneB": "Operador B", "laneA": "Operador A / avaliador",
-               "b1": "publica", "b1b": "Manifesto, chaves, artefactos", "origin": "origem canónica", "originb": "artefactos assinados",
-               "a2": "inicia", "a2b": "a jornada", "a3": "obtém", "a3b": "módulo seguro",
-               "a4": "valida", "a4b": "motores · nove passos", "a5": "verifica e decide", "a5b": "sob a sua política",
-               "note": "o BANZA não decide acordos, admissão, liquidação nem autorização"},
-        "en": {"title": "Example — Operator A evaluates Operator B",
-               "desc": "Operator B publishes the artifacts; Operator A starts the journey; a secure component retrieves them; the engines validate; Operator A verifies and decides.",
-               "laneB": "Operator B", "laneA": "Operator A / evaluator",
-               "b1": "publishes", "b1b": "Manifest, keys, artifacts", "origin": "canonical origin", "originb": "signed artifacts",
-               "a2": "starts", "a2b": "the journey", "a3": "retrieves", "a3b": "secure component",
-               "a4": "validates", "a4b": "engines · nine steps", "a5": "verifies and decides", "a5b": "under its policy",
-               "note": "BANZA decides no agreements, admission, settlement or authorisation"}},
+        "pt": {"title": "Avaliação direccional A→B",
+               "desc": "A implementação B publica material verificável; a implementação ou avaliador A inicia a jornada, obtém os artefactos, avalia e verifica o resultado sob a sua política local.",
+               "laneB": "Implementação B", "b1": "publica", "b1b": "manifesto, chaves, artefactos",
+               "origin": "origem canónica", "originb": "artefactos assinados",
+               "laneA": "Implementação A / avaliador",
+               "a2": "inicia", "a2b": "a jornada", "a3": "obtém artefactos", "a3b": "via módulo de obtenção segura",
+               "a4": "avalia", "a4b": "motores · nove passos", "a5": "verifica o resultado", "a5b": "e aplica política local",
+               "note": "BANZA não determina acordos, admissão, liquidação nem autorização; a utilização do resultado é local"},
+        "en": {"title": "Directional A→B evaluation",
+               "desc": "Implementation B publishes verifiable material; implementation or evaluator A starts the journey, fetches the artifacts, evaluates and verifies the result under its local policy.",
+               "laneB": "Implementation B", "b1": "publishes", "b1b": "manifest, keys, artifacts",
+               "origin": "canonical origin", "originb": "signed artifacts",
+               "laneA": "Implementation A / evaluator",
+               "a2": "starts", "a2b": "the journey", "a3": "fetches artifacts", "a3b": "via secure-fetch module",
+               "a4": "evaluates", "a4b": "engines · nine steps", "a5": "verifies the result", "a5b": "and applies local policy",
+               "note": "BANZA does not determine agreements, admission, settlement or authorisation; use of the result is local"}},
     "fig8-evidence": {
-        "pt": {"title": "Da validação à evidência e ao Registo Técnico",
-               "desc": "Os artefactos entram nos motores, que produzem resultados, recibos e um Pacote de Evidências; a publicação no Registo Técnico é opcional; o BanzAI apenas apresenta e explica.",
-               "artifacts": "artefactos", "artifacts2": "obtidos da origem", "engines": "motores Rust",
-               "engines2": "decidem", "results": "resultados", "results2": "e recibos", "bundle": "Pacote de", "bundle2": "Evidências",
-               "optional": "opcional", "registry": "Registo Técnico", "registry2": "opcional e separado",
-               "banzai": "BanzAI — apenas apresenta e explica (não decide nem publica)"},
-        "en": {"title": "From validation to evidence and the Technical Registry",
-               "desc": "Artifacts enter the engines, which produce results, receipts and an Evidence Bundle; publication in the Technical Registry is optional; BanzAI only presents and explains.",
-               "artifacts": "artifacts", "artifacts2": "fetched from origin", "engines": "Rust engines",
-               "engines2": "decide", "results": "results", "results2": "and receipts", "bundle": "Evidence", "bundle2": "Bundle",
-               "optional": "optional", "registry": "Technical Registry", "registry2": "optional, separate",
-               "banzai": "BanzAI — only presents and explains (does not decide or publish)"}},
+        "pt": {"title": "Dos artefactos ao Pacote de Evidências",
+               "desc": "Os motores avaliam artefactos e produzem resultados e recibos; o Pacote de Evidências reúne material verificável; o Registo Técnico é opcional; o BanzAI apenas apresenta e explica.",
+               "artifacts": "artefactos", "artifacts2": "obtidos da origem",
+               "engines": "motores determinísticos", "engines2": "avaliam",
+               "results": "resultados", "results2": "e recibos", "bundle": "Pacote de", "bundle2": "Evidências",
+               "registry": "Registo Técnico", "registry2": "opcional e separado",
+               "banzai": "BanzAI — apresenta e explica; não determina resultados nem publica evidência por si só"},
+        "en": {"title": "From artifacts to the Evidence Bundle",
+               "desc": "The engines evaluate artifacts and produce results and receipts; the Evidence Bundle gathers verifiable material; the Technical Registry is optional; BanzAI only presents and explains.",
+               "artifacts": "artifacts", "artifacts2": "fetched from origin",
+               "engines": "deterministic engines", "engines2": "evaluate",
+               "results": "results", "results2": "and receipts", "bundle": "Evidence", "bundle2": "Bundle",
+               "registry": "Technical Registry", "registry2": "optional and separate",
+               "banzai": "BanzAI — presents and explains; does not determine results nor publish evidence on its own"}},
     "fig9-security": {
-        "pt": {"title": "Ameaça, mecanismo e resultado esperado",
-               "desc": "Cada ameaça corresponde a um mecanismo de protecção e a um resultado esperado; entradas ausentes conduzem à não aprovação.",
+        "pt": {"title": "Ameaças, mecanismos e resultados esperados",
+               "desc": "Cada ameaça considerada corresponde a um mecanismo de protecção e a um resultado esperado; entradas ausentes ou inconsistentes conduzem ao fecho por omissão.",
                "cThreat": "ameaça", "cMech": "mecanismo", "cOut": "resultado esperado",
-               "r1t": "adulteração de artefactos", "r1m": "assinaturas", "r1o": "detecção",
+               "r1t": "adulteração de artefactos", "r1m": "assinaturas e resumos verificados", "r1o": "detecção",
                "r2t": "origem falsa", "r2m": "origem canónica resolvida", "r2o": "rejeição",
-               "r3t": "chave revogada/expirada", "r3m": "revogação e expiração", "r3o": "não aprovado",
+               "r3t": "chave revogada ou expirada", "r3m": "verificação de revogação e validade", "r3o": "não aprovado",
                "r4t": "repetição de desafio", "r4m": "desafio de uso único", "r4o": "recusa",
-               "r5t": "SSRF · reassociação DNS", "r5m": "obtenção endurecida", "r5o": "bloqueio",
-               "failclosed": "quando a evidência falta ou é inconsistente, a avaliação fecha por omissão"},
-        "en": {"title": "Threat, mechanism and expected outcome",
-               "desc": "Each threat maps to a protection mechanism and an expected outcome; absent inputs lead to non-passing.",
-               "cThreat": "threat", "cMech": "mechanism", "cOut": "expected outcome",
-               "r1t": "artifact tampering", "r1m": "signatures", "r1o": "detection",
-               "r2t": "false origin", "r2m": "resolved canonical origin", "r2o": "rejection",
-               "r3t": "revoked/expired key", "r3m": "revocation and expiry", "r3o": "non-passing",
+               "r5t": "SSRF e reassociação DNS", "r5m": "obtenção endurecida", "r5o": "bloqueio",
+               "failclosed": "evidência ausente ou inconsistente → fecho por omissão"},
+        "en": {"title": "Threats, mechanisms and expected results",
+               "desc": "Each considered threat maps to a protection mechanism and an expected result; missing or inconsistent inputs lead to fail-closed.",
+               "cThreat": "threat", "cMech": "mechanism", "cOut": "expected result",
+               "r1t": "artifact tampering", "r1m": "signatures and digests verified", "r1o": "detection",
+               "r2t": "spoofed origin", "r2m": "canonical origin resolved", "r2o": "rejection",
+               "r3t": "revoked or expired key", "r3m": "revocation and validity check", "r3o": "not approved",
                "r4t": "challenge replay", "r4m": "single-use challenge", "r4o": "refusal",
-               "r5t": "SSRF · DNS rebinding", "r5m": "hardened retrieval", "r5o": "blocking",
-               "failclosed": "when evidence is missing or inconsistent, evaluation fails closed"}},
+               "r5t": "SSRF and DNS rebinding", "r5m": "hardened fetch", "r5o": "block",
+               "failclosed": "missing or inconsistent evidence → fail-closed"}},
     "fig10-governance": {
-        "pt": {"title": "Ciclo de evolução de uma versão",
-               "desc": "Uma versão actual recebe alterações aditivas sem ruptura; uma alteração incompatível passa por depreciação, coexistência, migração e fim de suporte.",
-               "current": "versão actual", "current2": "1.0",
-               "additive": "alteração aditiva (compatível)",
-               "deprec": "depreciação", "deprec2": "anúncio", "coexist": "coexistência", "coexist2": "janela de transição",
-               "migrate": "migração", "eos": "fim de suporte", "eos2": "versão maior",
-               "note": "aditivo: versão menor · incompatível: versão maior anunciada com antecedência"},
-        "en": {"title": "Evolution cycle of a version",
-               "desc": "A current version receives additive, non-breaking changes; an incompatible change goes through deprecation, coexistence, migration and end of support.",
-               "current": "current version", "current2": "1.0",
-               "additive": "additive change (compatible)",
-               "deprec": "deprecation", "deprec2": "announcement", "coexist": "coexistence", "coexist2": "transition window",
-               "migrate": "migration", "eos": "end of support", "eos2": "major version",
-               "note": "additive: minor version · incompatible: major version announced in advance"}},
+        "pt": {"title": "Evolução do protocolo: proposta, decisão e publicação",
+               "desc": "A evolução do protocolo separa proposta e discussão (RFC), decisão registada (ADR) e publicação versionada, com coexistência e migração quando aplicável.",
+               "current": "versão", "current2": "publicada", "rfc": "proposta e", "rfc2": "discussão (RFC)",
+               "adr": "decisão registada", "adr2": "(ADR)", "pub": "nova versão", "pub2": "publicada",
+               "coex": "coexistência e migração", "coex2": "quando aplicável",
+               "note": "governar as regras ≠ operar transacções ≠ autorizar participantes"},
+        "en": {"title": "Protocol evolution: proposal, decision and publication",
+               "desc": "Protocol evolution separates proposal and discussion (RFC), recorded decision (ADR) and versioned publication, with coexistence and migration when applicable.",
+               "current": "version", "current2": "published", "rfc": "proposal and", "rfc2": "discussion (RFC)",
+               "adr": "recorded decision", "adr2": "(ADR)", "pub": "new version", "pub2": "published",
+               "coex": "coexistence and migration", "coex2": "when applicable",
+               "note": "governing the rules ≠ operating transactions ≠ authorising participants"}},
     "fig11-limits": {
         "pt": {"title": "Fronteira do que o BANZA avalia",
-               "desc": "O BANZA avalia a conformidade e observa os artefactos declarados; a autorização regulatória, os controlos internos e o comportamento fora do protocolo ficam fora do âmbito.",
-               "outTitle": "fora do âmbito", "out1": "· autorização regulatória",
-               "out2": "· controlos internos do operador", "out3": "· comportamento fora do protocolo",
-               "inTitle": "o BANZA avalia e observa", "in1": "conformidade face a um perfil público",
+               "desc": "O BANZA avalia condições técnicas observáveis; autorização regulatória, controlos internos, acordos comerciais, admissão em esquemas e acesso a redes externas ficam fora do âmbito.",
+               "outTitle": "fora do âmbito observado",
+               "out1": "· autorização regulatória", "out2": "· controlos internos do operador",
+               "out3": "· comportamento fora do protocolo", "out4": "· acordos comerciais e admissão em esquemas",
+               "out5": "· acesso efectivo a infraestruturas ou redes externas",
+               "inTitle": "o BANZA avalia", "in1": "conformidade face a um perfil público",
                "in2": "artefactos declarados, no instante observado",
                "notrep": "um resultado técnico não representa autorização"},
         "en": {"title": "Boundary of what BANZA evaluates",
-               "desc": "BANZA evaluates conformance and observes the declared artifacts; regulatory authorisation, internal controls and off-protocol behaviour are out of scope.",
-               "outTitle": "out of scope", "out1": "· regulatory authorisation",
-               "out2": "· operator internal controls", "out3": "· off-protocol behaviour",
-               "inTitle": "BANZA evaluates and observes", "in1": "conformance against a public profile",
+               "desc": "BANZA evaluates observable technical conditions; regulatory authorisation, internal controls, commercial agreements, scheme admission and access to external networks are out of scope.",
+               "outTitle": "out of observed scope",
+               "out1": "· regulatory authorisation", "out2": "· operator internal controls",
+               "out3": "· off-protocol behaviour", "out4": "· commercial agreements and scheme admission",
+               "out5": "· effective access to external infrastructures or networks",
+               "inTitle": "BANZA evaluates", "in1": "conformance against a public profile",
                "in2": "declared artifacts, at the observed instant",
                "notrep": "a technical result does not represent authorisation"}},
     "fig12-state": {
-        "pt": {"title": "Estado geral do BANZA",
-               "desc": "Pré-produção: zero operadores de produção, zero certificações activas, dinheiro real desactivado, uma implementação de referência em testes e sem medições de desempenho.",
+        "pt": {"title": "Estado geral do BANZA — pré-produção",
+               "desc": "Pré-produção: zero operadores de produção, zero certificações técnicas activas, dinheiro real desactivado, implementação de referência em testes e sem implementação externa independente demonstrada.",
                "header": "Estado geral — pré-produção",
-               "c1a": "pré-produção", "c1b": "protocolo e referência",
+               "c1a": "protocolo e referência", "c1b": "pré-produção",
                "c2a": "zero operadores", "c2b": "de produção",
                "c3a": "zero certificações", "c3b": "técnicas activas",
-               "c4a": "dinheiro real", "c4b": "desactivado (fecho por omissão)",
+               "c4a": "dinheiro real", "c4b": "desactivado",
                "c5a": "implementação de referência", "c5b": "ambiente de testes isolado",
-               "c6a": "sem medições", "c6b": "de desempenho publicadas"},
-        "en": {"title": "General state of BANZA",
-               "desc": "Pre-production: zero production operators, zero active certifications, real money disabled, one reference implementation in testing and no performance measurements.",
+               "c6a": "implementação independente de terceiros", "c6b": "ainda não demonstrada"},
+        "en": {"title": "General state of BANZA — pre-production",
+               "desc": "Pre-production: zero production operators, zero active technical certifications, real money disabled, reference implementation in testing and no independent external implementation demonstrated.",
                "header": "General state — pre-production",
-               "c1a": "pre-production", "c1b": "protocol and reference",
+               "c1a": "protocol and reference", "c1b": "pre-production",
                "c2a": "zero operators", "c2b": "in production",
                "c3a": "zero certifications", "c3b": "technical, active",
-               "c4a": "real money", "c4b": "disabled (fail-closed)",
+               "c4a": "real money", "c4b": "disabled",
                "c5a": "reference implementation", "c5b": "isolated test environment",
-               "c6a": "no measurements", "c6b": "of performance published"}},
+               "c6a": "independent third-party implementation", "c6b": "not yet demonstrated"}},
 }
 
 

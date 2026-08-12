@@ -18,8 +18,12 @@ old_eqs = {tuple(i['label'] for i in b['items']): b
 
 def conv(t):
     t = re.sub(r'(?<!\\)%.*', '', t)
+    # print-composition directives carry no meaning in the web edition
+    t = re.sub(r'\\newpage\b\s*', '', t)
     t = re.sub(r'\\eqref\{eq:([a-z0-9-]+)\}', r'{{eq:\1}}', t)
     t = re.sub(r'\\S\\ref\{sec:([a-z0-9-]+)\}', r'{{sec:\1}}', t)
+    # bare \ref{sec:...} (used when the sentence already says "Secção"/"Section")
+    t = re.sub(r'\\ref\{sec:([a-z0-9-]+)\}', r'{{sec:\1}}', t)
     t = re.sub(r'\\ref\{fig:([a-z0-9-]+)\}', r'{{fig:\1}}', t)
     t = t.replace('~', '\u00a0')
     t = t.replace('---', '\u2014').replace('--', '\u2013')
@@ -44,7 +48,8 @@ ENV = re.compile(
 new_secs, caption_updates = [], {}
 for i in range(1, len(parts), 3):
     title, label, sbody = parts[i].strip(), parts[i+1], parts[i+2]
-    sbody = re.split(r'\\begin\{thebibliography\}|\\end\{document\}', sbody)[0]
+    # the reference list is a manual \section*{\refname} + list (numbered [1]--[8]); cut there too
+    sbody = re.split(r'\\begin\{thebibliography\}|\\section\*\{\\refname\}|\\end\{document\}', sbody)[0]
     old_sec = next(o for o in old['sections'] if o['label'] == f'sec:{label}')
     assert old_sec['title'] == title, (label, title)
     blocks = []
@@ -78,7 +83,11 @@ for i in range(1, len(parts), 3):
     new_secs.append({'id': old_sec['id'], 'number': old_sec['number'],
                      'title': title, 'label': old_sec['label'], 'blocks': blocks})
 
-refs = re.findall(r'\\bibitem\{[^}]*\}(.*?)(?=\\bibitem|\\end\{thebibliography\})', body, re.S)
+# The reference list is a manual numbered list (\item[{[N]}] …) so the printed edition shows [1]--[8];
+# the legacy \bibitem form is still accepted for backwards compatibility.
+refs = re.findall(r'\\bibitem(?:\[[^\]]*\])?\{[^}]*\}(.*?)(?=\\bibitem|\\end\{thebibliography\})', body, re.S)
+if not refs:
+    refs = re.findall(r'\\item\[\{\[\d+\]\}\]\s*(.*?)(?=\\item\[\{\[|\\end\{list\})', body, re.S)
 refs = [conv(r) for r in refs]
 assert len(refs) == 8, len(refs)
 
