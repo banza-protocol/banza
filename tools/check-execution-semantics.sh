@@ -134,6 +134,18 @@ if not bad:
     print("  ok: idempotency — floor %ds, %d excluded members, engine/contract/vectors agree"
           % (floor, len(ex_engine)))
 
+# 5b. No engine may carry a second canonicalization for digests (spec/canonicalization.md §1).
+import glob as _g
+dup = []
+for f in _g.glob('engines/*/src/lib.rs'):
+    t = io.open(f, encoding='utf-8').read()
+    if 'fn canon(' in t and 'serde_json::to_string(v)' in t:
+        dup.append(f)
+if dup:
+    X("engines derive digest bytes outside BCJ/1: %s" % ", ".join(dup))
+else:
+    print("  ok: no engine defines a second canonicalization for digests")
+
 # 6. The clean-room package may not re-list a closed blocker.
 cr = 'docs/audit/BANZA_V1_CLEAN_ROOM_PACKAGE_MANIFEST.md'
 try:
