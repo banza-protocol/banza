@@ -1,13 +1,13 @@
 {
   "milestone": "M2.18B.3A canonical corpus integrity",
   "summary": {
-    "total": 81,
-    "ok": 81,
-    "discoverable": 81,
-    "resolvable": 81,
-    "citable": 81,
-    "index_chunks": 733,
-    "adr": 75,
+    "total": 83,
+    "ok": 83,
+    "discoverable": 83,
+    "resolvable": 83,
+    "citable": 83,
+    "index_chunks": 748,
+    "adr": 77,
     "rfc": 6
   },
   "rows": [
@@ -756,6 +756,26 @@
       "kind": "adr",
       "file": "decisions/adr/ADR-080-canonical-discovery-surface-reconciliation.md",
       "chunks": 4,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-081",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-081-normative-completeness-versioning-decision.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-082",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-082-banza-canonical-json.md",
+      "chunks": 5,
       "discoverable": true,
       "resolvable": true,
       "citable": true,

@@ -1,5 +1,5 @@
 {
-  "total": 5841,
+  "total": 5910,
   "rows": [
     {
       "raw_text": "Contributing to BANZA",
@@ -437,10 +437,11 @@
         "docs-governance-ceremony-records-readme-md",
         "docs-governance-certification-boundary-md",
         "examples-operators-zero-e2e-root-readme-md",
+        "spec-canonicalization-md",
         "spec-disputes-md",
         "spec-federation-federation-trust-model-md"
       ],
-      "frequency": 186,
+      "frequency": 187,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -2384,6 +2385,17 @@
       "rejection_reason": "PATH_FRAGMENT"
     },
     {
+      "raw_text": "Normative keywords",
+      "normalized": "normative keywords",
+      "sources": [
+        "contracts-readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
       "raw_text": "Purpose",
       "normalized": "purpose",
       "sources": [
@@ -2442,6 +2454,122 @@
       "accepted": true,
       "rejection_reason": "",
       "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "MUST",
+      "normalized": "must",
+      "sources": [
+        "contracts-readme-md",
+        "docs-governance-ceremony-records-ceremony-record-template-md",
+        "spec-canonicalization-md"
+      ],
+      "frequency": 5,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "MUST NOT",
+      "normalized": "must not",
+      "sources": [
+        "contracts-readme-md",
+        "decisions-adr-adr-076-banzai-validation-journey-consolidation-and-durable-receipts-md",
+        "docs-governance-banza-root-custody-future-migration-md",
+        "spec-canonicalization-md"
+      ],
+      "frequency": 6,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "REQUIRED",
+      "normalized": "required",
+      "sources": [
+        "contracts-readme-md",
+        "docs-governance-l1-readiness-md",
+        "spec-canonicalization-md"
+      ],
+      "frequency": 3,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "SHALL",
+      "normalized": "shall",
+      "sources": [
+        "contracts-readme-md",
+        "spec-canonicalization-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "SHALL NOT",
+      "normalized": "shall not",
+      "sources": [
+        "contracts-readme-md",
+        "spec-canonicalization-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "SHOULD",
+      "normalized": "should",
+      "sources": [
+        "contracts-readme-md",
+        "spec-canonicalization-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "SHOULD NOT",
+      "normalized": "should not",
+      "sources": [
+        "contracts-readme-md",
+        "spec-canonicalization-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "MAY",
+      "normalized": "may",
+      "sources": [
+        "contracts-readme-md",
+        "spec-canonicalization-md",
+        "spec-federation-federation-protocol-flow-md",
+        "spec-federation-federation-trust-model-md"
+      ],
+      "frequency": 4,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "OPTIONAL",
+      "normalized": "optional",
+      "sources": [
+        "contracts-readme-md",
+        "decisions-adr-adr-019-fee-and-application-settlement-architecture-md",
+        "decisions-adr-adr-054-banzai-primary-human-operator-interface-md",
+        "spec-canonicalization-md"
+      ],
+      "frequency": 4,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
     },
     {
       "raw_text": "no percentages",
@@ -3536,11 +3664,13 @@
         "decisions-adr-adr-078-banzai-operational-reasoning-and-telemetry-md",
         "decisions-adr-adr-079-canonical-trust-signing-model-reconciliation-md",
         "decisions-adr-adr-080-canonical-discovery-surface-reconciliation-md",
+        "decisions-adr-adr-081-normative-completeness-versioning-decision-md",
+        "decisions-adr-adr-082-banza-canonical-json-md",
         "docs-governance-banza-v1-operational-transition-plan-md",
         "docs-governance-phase-r3-banzai-api-knowledge-rust-migration-2026-07-md",
         "docs-governance-readme-md"
       ],
-      "frequency": 66,
+      "frequency": 68,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -3612,6 +3742,8 @@
         "decisions-adr-adr-078-banzai-operational-reasoning-and-telemetry-md",
         "decisions-adr-adr-079-canonical-trust-signing-model-reconciliation-md",
         "decisions-adr-adr-080-canonical-discovery-surface-reconciliation-md",
+        "decisions-adr-adr-081-normative-completeness-versioning-decision-md",
+        "decisions-adr-adr-082-banza-canonical-json-md",
         "docs-governance-banzai-native-protocol-agent-md",
         "docs-governance-m2-19g-6-banzai-consolidation-2026-08-md",
         "docs-governance-m2-8a-local-qwen-vps-xl-benchmark-md",
@@ -3621,7 +3753,7 @@
         "docs-governance-readme-md",
         "docs-governance-workbench-only-operator-verification-md"
       ],
-      "frequency": 74,
+      "frequency": 76,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -3691,9 +3823,11 @@
         "decisions-adr-adr-076-banzai-validation-journey-consolidation-and-durable-receipts-md",
         "decisions-adr-adr-079-canonical-trust-signing-model-reconciliation-md",
         "decisions-adr-adr-080-canonical-discovery-surface-reconciliation-md",
+        "decisions-adr-adr-081-normative-completeness-versioning-decision-md",
+        "decisions-adr-adr-082-banza-canonical-json-md",
         "docs-governance-readme-md"
       ],
-      "frequency": 62,
+      "frequency": 64,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -3726,6 +3860,8 @@
         "decisions-adr-adr-076-banzai-validation-journey-consolidation-and-durable-receipts-md",
         "decisions-adr-adr-077-profile-applicability-model-md",
         "decisions-adr-adr-078-banzai-operational-reasoning-and-telemetry-md",
+        "decisions-adr-adr-081-normative-completeness-versioning-decision-md",
+        "decisions-adr-adr-082-banza-canonical-json-md",
         "decisions-rfc-readme-md",
         "decisions-rfc-rfc-0001-multi-operator-routing-md",
         "decisions-rfc-rfc-0002-cross-operator-settlement-md",
@@ -3735,7 +3871,7 @@
         "decisions-rfc-rfc-0006-offline-payment-support-md",
         "docs-governance-readme-md"
       ],
-      "frequency": 32,
+      "frequency": 34,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -3819,6 +3955,8 @@
         "decisions-adr-adr-078-banzai-operational-reasoning-and-telemetry-md",
         "decisions-adr-adr-079-canonical-trust-signing-model-reconciliation-md",
         "decisions-adr-adr-080-canonical-discovery-surface-reconciliation-md",
+        "decisions-adr-adr-081-normative-completeness-versioning-decision-md",
+        "decisions-adr-adr-082-banza-canonical-json-md",
         "docs-banzai-banzai-protocol-agent-md",
         "docs-banzai-knowledge-index-md",
         "docs-banzai-local-inference-runtime-md",
@@ -3870,6 +4008,7 @@
         "docs-governance-ceremony-records-readme-md",
         "docs-governance-certification-boundary-md",
         "docs-governance-roadmap-md",
+        "spec-canonicalization-md",
         "spec-collections-md",
         "spec-federation-federation-conformance-evidence-model-md",
         "spec-federation-federation-conformance-model-md",
@@ -3888,7 +4027,7 @@
         "spec-overview-md",
         "spec-validation-journey-md"
       ],
-      "frequency": 143,
+      "frequency": 146,
       "phrase_length": 1,
       "accepted": true,
       "rejection_reason": "",
@@ -3973,6 +4112,8 @@
         "decisions-adr-adr-078-banzai-operational-reasoning-and-telemetry-md",
         "decisions-adr-adr-079-canonical-trust-signing-model-reconciliation-md",
         "decisions-adr-adr-080-canonical-discovery-surface-reconciliation-md",
+        "decisions-adr-adr-081-normative-completeness-versioning-decision-md",
+        "decisions-adr-adr-082-banza-canonical-json-md",
         "docs-governance-banza-protocol-vs-operator-policy-md",
         "docs-governance-banza-language-policy-md",
         "docs-governance-banza-root-custody-decision-required-md",
@@ -4044,7 +4185,7 @@
         "spec-federation-federation-test-suite-spec-md",
         "spec-overview-md"
       ],
-      "frequency": 147,
+      "frequency": 149,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -4301,10 +4442,11 @@
         "decisions-adr-adr-011-idempotency-and-rate-limiting-md",
         "decisions-adr-adr-013-payment-links-md",
         "decisions-adr-adr-025-interactive-financial-documents-md",
+        "decisions-adr-adr-081-normative-completeness-versioning-decision-md",
         "docs-governance-banza-language-policy-md",
         "docs-governance-readme-md"
       ],
-      "frequency": 8,
+      "frequency": 9,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -5255,9 +5397,10 @@
       "normalized": "rejected",
       "sources": [
         "decisions-adr-adr-008-markdown-first-content-architecture-md",
-        "decisions-adr-adr-010-account-participant-identity-md"
+        "decisions-adr-adr-010-account-participant-identity-md",
+        "spec-canonicalization-md"
       ],
-      "frequency": 7,
+      "frequency": 9,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -7739,18 +7882,6 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "Optional",
-      "normalized": "optional",
-      "sources": [
-        "decisions-adr-adr-019-fee-and-application-settlement-architecture-md",
-        "decisions-adr-adr-054-banzai-primary-human-operator-interface-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
       "raw_text": "application-initiated",
       "normalized": "application-initiated",
       "sources": [
@@ -7829,10 +7960,11 @@
         "decisions-adr-adr-058-trust-invariant-registry-realignment-md",
         "decisions-adr-adr-074-simb-retirement-from-active-surfaces-md",
         "decisions-adr-adr-076-banzai-validation-journey-consolidation-and-durable-receipts-md",
+        "decisions-adr-adr-082-banza-canonical-json-md",
         "docs-governance-clean-protocol-repository-2026-07-md",
         "docs-governance-m2-19g-5f-final-closure-2026-08-md"
       ],
-      "frequency": 8,
+      "frequency": 9,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -9055,9 +9187,11 @@
       "sources": [
         "decisions-adr-adr-028-keys-never-on-serving-infrastructure-md",
         "decisions-adr-adr-079-canonical-trust-signing-model-reconciliation-md",
-        "decisions-adr-adr-080-canonical-discovery-surface-reconciliation-md"
+        "decisions-adr-adr-080-canonical-discovery-surface-reconciliation-md",
+        "decisions-adr-adr-081-normative-completeness-versioning-decision-md",
+        "decisions-adr-adr-082-banza-canonical-json-md"
       ],
-      "frequency": 3,
+      "frequency": 5,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -11257,13 +11391,15 @@
       "sources": [
         "decisions-adr-adr-040-federation-trust-evaluation-without-certificates-md",
         "decisions-adr-adr-065-banza-technical-registry-md",
+        "decisions-adr-adr-081-normative-completeness-versioning-decision-md",
+        "decisions-adr-adr-082-banza-canonical-json-md",
         "docs-governance-m2-7b-home-reference-consolidation-audit-md",
         "docs-governance-m2-7d-final-protocol-architecture-svg-audit-md",
         "docs-governance-phase-bx1-2-banzai-trust-brl-wasm-2026-07-md",
         "docs-governance-phase-bx1-3-banzai-simb-conformance-l0-wasm-2026-07-md",
         "docs-governance-phase-bx1-5a-portuguese-copy-no-corpus-2026-07-md"
       ],
-      "frequency": 7,
+      "frequency": 9,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -11369,11 +11505,12 @@
         "docs-governance-phase-r0-rust-rule-compliance-audit-2026-07-md",
         "docs-governance-phase-r4-rust-banza-conformance-runner-2026-07-md",
         "docs-governance-phase-r6-final-rust-legacy-elimination-2026-07-md",
+        "spec-canonicalization-md",
         "spec-federation-federation-invariants-md",
         "spec-federation-federation-protocol-flow-md",
         "spec-federation-federation-trust-model-md"
       ],
-      "frequency": 21,
+      "frequency": 22,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "STOPWORD"
@@ -18956,18 +19093,6 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "must not",
-      "normalized": "must not",
-      "sources": [
-        "decisions-adr-adr-076-banzai-validation-journey-consolidation-and-durable-receipts-md",
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 3,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
       "raw_text": "only by typed reference",
       "normalized": "only by typed reference",
       "sources": [
@@ -20278,9 +20403,10 @@
         "docs-governance-claude-base-md",
         "docs-governance-certification-boundary-md",
         "docs-governance-roadmap-md",
+        "spec-canonicalization-md",
         "spec-overview-md"
       ],
-      "frequency": 5,
+      "frequency": 6,
       "phrase_length": 1,
       "accepted": true,
       "rejection_reason": "",
@@ -20340,6 +20466,285 @@
       "phrase_length": 3,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "ADR-081 — Versioning Decision for the Normative-Completeness Remediation",
+      "normalized": "adr-081 versioning decision for the normative-completeness remediation",
+      "sources": [
+        "decisions-adr-adr-081-normative-completeness-versioning-decision-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 7,
+      "accepted": false,
+      "rejection_reason": "BROKEN_TOKEN"
+    },
+    {
+      "raw_text": "Audit basis:",
+      "normalized": "audit basis",
+      "sources": [
+        "decisions-adr-adr-081-normative-completeness-versioning-decision-md",
+        "decisions-adr-adr-082-banza-canonical-json-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "F-01 (P0)",
+      "normalized": "f-01 p0",
+      "sources": [
+        "decisions-adr-adr-081-normative-completeness-versioning-decision-md",
+        "decisions-adr-adr-082-banza-canonical-json-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "placeholder",
+      "normalized": "placeholder",
+      "sources": [
+        "decisions-adr-adr-081-normative-completeness-versioning-decision-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Bump to `2.0.0`.",
+      "normalized": "bump to 2 0 0",
+      "sources": [
+        "decisions-adr-adr-081-normative-completeness-versioning-decision-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "MARKUP_FRAGMENT"
+    },
+    {
+      "raw_text": "Bump to `1.1.0`.",
+      "normalized": "bump to 1 1 0",
+      "sources": [
+        "decisions-adr-adr-081-normative-completeness-versioning-decision-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "MARKUP_FRAGMENT"
+    },
+    {
+      "raw_text": "Patch `1.0.1`.",
+      "normalized": "patch 1 0 1",
+      "sources": [
+        "decisions-adr-adr-081-normative-completeness-versioning-decision-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "MARKUP_FRAGMENT"
+    },
+    {
+      "raw_text": "Measured migration impact: none.",
+      "normalized": "measured migration impact none",
+      "sources": [
+        "decisions-adr-adr-081-normative-completeness-versioning-decision-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "still verifies",
+      "normalized": "still verifies",
+      "sources": [
+        "decisions-adr-adr-081-normative-completeness-versioning-decision-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "No artifact requires regeneration.",
+      "normalized": "no artifact requires regeneration",
+      "sources": [
+        "decisions-adr-adr-081-normative-completeness-versioning-decision-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "ADR-082 — BANZA Canonical JSON (BCJ/1)",
+      "normalized": "adr-082 banza canonical json bcj/1",
+      "sources": [
+        "decisions-adr-adr-082-banza-canonical-json-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "PATH_FRAGMENT"
+    },
+    {
+      "raw_text": "Evaluation of RFC 8785 (required by the remediation milestone)",
+      "normalized": "evaluation of rfc 8785 required by the remediation milestone",
+      "sources": [
+        "decisions-adr-adr-082-banza-canonical-json-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 9,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Normative specification:",
+      "normalized": "normative specification",
+      "sources": [
+        "decisions-adr-adr-082-banza-canonical-json-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "exactly the same\nbytes",
+      "normalized": "exactly the same bytes",
+      "sources": [
+        "decisions-adr-adr-082-banza-canonical-json-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "unpublished",
+      "normalized": "unpublished",
+      "sources": [
+        "decisions-adr-adr-082-banza-canonical-json-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "language-coupled",
+      "normalized": "language-coupled",
+      "sources": [
+        "decisions-adr-adr-082-banza-canonical-json-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "BANZA Canonical JSON version 1",
+      "normalized": "banza canonical json version 1",
+      "sources": [
+        "decisions-adr-adr-082-banza-canonical-json-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "ATTRIBUTE"
+    },
+    {
+      "raw_text": "Numbers MUST be JSON integers.",
+      "normalized": "numbers must be json integers",
+      "sources": [
+        "decisions-adr-adr-082-banza-canonical-json-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Integers MUST be within ±(2⁵³−1).",
+      "normalized": "integers must be within 2 1",
+      "sources": [
+        "decisions-adr-adr-082-banza-canonical-json-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Member ordering is by UTF-16 code units",
+      "normalized": "member ordering is by utf-16 code units",
+      "sources": [
+        "decisions-adr-adr-082-banza-canonical-json-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 7,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "this is the weak point",
+      "normalized": "this is the weak point",
+      "sources": [
+        "decisions-adr-adr-082-banza-canonical-json-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Verdict: PROFILE RFC 8785.",
+      "normalized": "verdict profile rfc 8785",
+      "sources": [
+        "decisions-adr-adr-082-banza-canonical-json-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Define a bespoke BANZA canonical form.",
+      "normalized": "define a bespoke banza canonical form",
+      "sources": [
+        "decisions-adr-adr-082-banza-canonical-json-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "RELATION_ALIAS"
+    },
+    {
+      "raw_text": "Adopt RFC 8785 unprofiled.",
+      "normalized": "adopt rfc 8785 unprofiled",
+      "sources": [
+        "decisions-adr-adr-082-banza-canonical-json-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Sign a non-JSON encoding (CBOR/COSE).",
+      "normalized": "sign a non-json encoding cbor/cose",
+      "sources": [
+        "decisions-adr-adr-082-banza-canonical-json-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "PATH_FRAGMENT"
     },
     {
       "raw_text": "BANZA — Architecture Decision Records",
@@ -25382,6 +25787,7 @@
         "docs-governance-ceremony-records-readme-md",
         "docs-governance-certification-boundary-md",
         "docs-governance-roadmap-md",
+        "spec-canonicalization-md",
         "spec-collections-md",
         "spec-federation-federation-conformance-evidence-model-md",
         "spec-federation-federation-conformance-model-md",
@@ -25400,7 +25806,7 @@
         "spec-federation-federation-trust-model-md",
         "spec-overview-md"
       ],
-      "frequency": 29,
+      "frequency": 30,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -34786,17 +35192,6 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "Required",
-      "normalized": "required",
-      "sources": [
-        "docs-governance-l1-readiness-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
       "raw_text": "Recommended",
       "normalized": "recommended",
       "sources": [
@@ -36686,9 +37081,10 @@
       "raw_text": "ed25519",
       "normalized": "ed25519",
       "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
+        "docs-governance-m2-4-trust-engine-signed-metadata-md",
+        "spec-canonicalization-md"
       ],
-      "frequency": 1,
+      "frequency": 2,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -57806,17 +58202,6 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "MUST",
-      "normalized": "must",
-      "sources": [
-        "docs-governance-ceremony-records-ceremony-record-template-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
       "raw_text": "Two independent custody artifacts",
       "normalized": "two independent custody artifacts",
       "sources": [
@@ -59566,6 +59951,440 @@
       "phrase_length": 5,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "BANZA Canonical JSON (BCJ/1) — Normative Specification",
+      "normalized": "banza canonical json bcj/1 normative specification",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": false,
+      "rejection_reason": "PATH_FRAGMENT"
+    },
+    {
+      "raw_text": "1. Scope",
+      "normalized": "1 scope",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "2. Basis",
+      "normalized": "2 basis",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "3. BANZA profile rules",
+      "normalized": "3 banza profile rules",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "P1 — Numbers MUST be integers",
+      "normalized": "p1 numbers must be integers",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "P2 — Integers MUST be within the safe range",
+      "normalized": "p2 integers must be within the safe range",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 8,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "P3 — Duplicate member names MUST be rejected",
+      "normalized": "p3 duplicate member names must be rejected",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 7,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "P4 — Unknown members are preserved",
+      "normalized": "p4 unknown members are preserved",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "P5 — No Unicode normalisation during canonicalization",
+      "normalized": "p5 no unicode normalisation during canonicalization",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "P6 — Member ordering is by UTF-16 code units",
+      "normalized": "p6 member ordering is by utf-16 code units",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 8,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "P7 — Canonicalization identifier",
+      "normalized": "p7 canonicalization identifier",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "4. The signed bytes",
+      "normalized": "4 the signed bytes",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "5. The digested bytes",
+      "normalized": "5 the digested bytes",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "6. Per-artifact excluded members",
+      "normalized": "6 per-artifact excluded members",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "7. Verification procedure",
+      "normalized": "7 verification procedure",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "8. Conformance",
+      "normalized": "8 conformance",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "9. Versioning",
+      "normalized": "9 versioning",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "10. Security considerations",
+      "normalized": "10 security considerations",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Protocol version:",
+      "normalized": "protocol version",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Test vectors:",
+      "normalized": "test vectors",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "signature",
+      "normalized": "signature",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "ATTRIBUTE"
+    },
+    {
+      "raw_text": "content digest",
+      "normalized": "content digest",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "this document\ngoverns",
+      "normalized": "this document governs",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "UTF-8",
+      "normalized": "utf-8",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "sorted by member name",
+      "normalized": "sorted by member name",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "UTF-16 code units",
+      "normalized": "utf-16 code units",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Array order is preserved.",
+      "normalized": "array order is preserved",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Note on ordering.",
+      "normalized": "note on ordering",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "NFC",
+      "normalized": "nfc",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Remove the signature envelope member",
+      "normalized": "remove the signature envelope member",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "ATTRIBUTE"
+    },
+    {
+      "raw_text": "reject",
+      "normalized": "reject",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "base64url without padding",
+      "normalized": "base64url without padding",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "lowercase hexadecimal",
+      "normalized": "lowercase hexadecimal",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "array",
+      "normalized": "array",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Signature confusion",
+      "normalized": "signature confusion",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "ATTRIBUTE"
+    },
+    {
+      "raw_text": "Number ambiguity",
+      "normalized": "number ambiguity",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Unicode ambiguity",
+      "normalized": "unicode ambiguity",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Content stripping",
+      "normalized": "content stripping",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Downgrade",
+      "normalized": "downgrade",
+      "sources": [
+        "spec-canonicalization-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
     },
     {
       "raw_text": "Capability Negotiation",
@@ -64212,18 +65031,6 @@
       "phrase_length": 6,
       "accepted": false,
       "rejection_reason": "MARKUP_FRAGMENT"
-    },
-    {
-      "raw_text": "may",
-      "normalized": "may",
-      "sources": [
-        "spec-federation-federation-protocol-flow-md",
-        "spec-federation-federation-trust-model-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
     },
     {
       "raw_text": "Step 3.1 — Assign routing_request_id",

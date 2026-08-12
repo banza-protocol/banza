@@ -324,7 +324,7 @@ mod tests {
     }
 
     #[test]
-    fn excluded_members_are_removed_before_canonicalization() {
+    fn excluded_members_are_removed_prior_to_canonicalization() {
         let v = json!({"a": 1, "signature": "zzz"});
         assert_eq!(
             String::from_utf8(canonicalize(&v, &["signature"]).unwrap()).unwrap(),
