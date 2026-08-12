@@ -1,5 +1,5 @@
 {
-  "total": 6021,
+  "total": 6031,
   "rows": [
     {
       "raw_text": "Contributing to BANZA",
@@ -253,10 +253,9 @@
       "sources": [
         "contributing-md",
         "readme-md",
-        "docs-governance-phase-m2-6-governance-docs-final-sweep-2026-07-md",
-        "docs-governance-licensing-md"
+        "docs-governance-phase-m2-6-governance-docs-final-sweep-2026-07-md"
       ],
-      "frequency": 4,
+      "frequency": 3,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -435,13 +434,14 @@
         "docs-governance-ceremony-records-ceremony-record-template-md",
         "docs-governance-ceremony-records-readme-md",
         "docs-governance-certification-boundary-md",
+        "docs-governance-licensing-md",
         "examples-operators-zero-e2e-root-readme-md",
         "spec-canonicalization-md",
         "spec-disputes-md",
         "spec-federation-federation-trust-model-md",
         "spec-idempotency-md"
       ],
-      "frequency": 188,
+      "frequency": 189,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -785,9 +785,10 @@
         "trademarks-md",
         "decisions-adr-adr-061-certification-admission-authorisation-separation-md",
         "docs-governance-banza-responsibility-matrix-md",
-        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md"
+        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md",
+        "docs-governance-licensing-md"
       ],
-      "frequency": 6,
+      "frequency": 7,
       "phrase_length": 1,
       "accepted": true,
       "rejection_reason": "",
@@ -805,10 +806,11 @@
         "docs-governance-m2-7m-license-notice-trademark-governance-audit-md",
         "docs-governance-phase-7q-final-public-wording-hardening-2026-07-md",
         "docs-governance-certification-boundary-md",
+        "docs-governance-licensing-md",
         "docs-governance-roadmap-md",
         "spec-overview-md"
       ],
-      "frequency": 13,
+      "frequency": 14,
       "phrase_length": 1,
       "accepted": true,
       "rejection_reason": "",
@@ -1041,9 +1043,10 @@
         "docs-governance-protocol-succession-and-survival-md",
         "docs-governance-svg-quality-policy-md",
         "docs-governance-workbench-only-operator-verification-md",
-        "docs-governance-certification-boundary-md"
+        "docs-governance-certification-boundary-md",
+        "docs-governance-licensing-md"
       ],
-      "frequency": 24,
+      "frequency": 25,
       "phrase_length": 1,
       "accepted": true,
       "rejection_reason": "",
@@ -15855,6 +15858,18 @@
       "phrase_length": 4,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "primeira\n> instância",
+      "normalized": "primeira instancia",
+      "sources": [
+        "decisions-adr-adr-059-three-layer-institutional-architecture-md",
+        "docs-governance-banza-three-layer-architecture-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "MARKUP_FRAGMENT"
     },
     {
       "raw_text": "BANZA (L1):",
@@ -32329,16 +32344,15 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "5. Camada 3 — Banzami Operational Scheme",
-      "normalized": "5 camada 3 banzami operational scheme",
+      "raw_text": "5. Camada 3 — Esquemas operacionais independentes",
+      "normalized": "5 camada 3 esquemas operacionais independentes",
       "sources": [
         "docs-governance-banza-three-layer-architecture-md"
       ],
       "frequency": 1,
       "phrase_length": 6,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
       "raw_text": "6. BanzAI — interface humana transversal",
@@ -32435,7 +32449,7 @@
       "sources": [
         "docs-governance-banza-three-layer-architecture-md"
       ],
-      "frequency": 3,
+      "frequency": 2,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -32514,6 +32528,29 @@
       ],
       "frequency": 1,
       "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "genérica e operator-neutral",
+      "normalized": "generica e operator-neutral",
+      "sources": [
+        "docs-governance-banza-three-layer-architecture-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "uma\ninstância da camada 3, não a camada 3",
+      "normalized": "uma instancia da camada 3 nao a camada 3",
+      "sources": [
+        "docs-governance-banza-three-layer-architecture-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 9,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
@@ -54728,9 +54765,10 @@
       "raw_text": "apenas o Manifesto de Chaves",
       "normalized": "apenas o manifesto de chaves",
       "sources": [
-        "docs-governance-protocol-governance-roles-md"
+        "docs-governance-protocol-governance-roles-md",
+        "docs-governance-protocol-succession-and-survival-md"
       ],
-      "frequency": 1,
+      "frequency": 2,
       "phrase_length": 5,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -59826,15 +59864,48 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "Documentation — Creative Commons CC BY 4.0 (as stated in the README)",
-      "normalized": "documentation creative commons cc by 4 0 as stated in the readme",
+      "raw_text": "Documentation — Creative Commons CC BY 4.0",
+      "normalized": "documentation creative commons cc by 4 0",
       "sources": [
         "docs-governance-licensing-md"
       ],
       "frequency": 1,
-      "phrase_length": 12,
+      "phrase_length": 7,
       "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Trademarks are separate from the right to implement",
+      "normalized": "trademarks are separate from the right to implement",
+      "sources": [
+        "docs-governance-licensing-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 8,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "the instrument governs",
+      "normalized": "the instrument governs",
+      "sources": [
+        "docs-governance-licensing-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "that marker governs that file",
+      "normalized": "that marker governs that file",
+      "sources": [
+        "docs-governance-licensing-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
       "raw_text": "Apache License, Version 2.0",
@@ -59855,6 +59926,51 @@
       ],
       "frequency": 1,
       "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "patent grant",
+      "normalized": "patent grant",
+      "sources": [
+        "docs-governance-licensing-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Status of this term, stated plainly.",
+      "normalized": "status of this term stated plainly",
+      "sources": [
+        "docs-governance-licensing-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "no instrument at the\nrepository root",
+      "normalized": "no instrument at the repository root",
+      "sources": [
+        "docs-governance-licensing-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "this policy",
+      "normalized": "this policy",
+      "sources": [
+        "docs-governance-licensing-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
@@ -64964,20 +65080,20 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "Run only trust material validation",
-      "normalized": "run only trust material validation",
+      "raw_text": "Execute the committed federation fixtures as vectors",
+      "normalized": "execute the committed federation fixtures as vectors",
       "sources": [
         "spec-federation-federation-operator-quickstart-md"
       ],
       "frequency": 1,
-      "phrase_length": 5,
+      "phrase_length": 7,
       "accepted": true,
       "rejection_reason": "",
       "classification": "SUBJECT"
     },
     {
-      "raw_text": "Available suite IDs: cert | disc | trust | route | exec | obl | evt | settle | fail",
-      "normalized": "available suite ids cert disc trust route exec obl evt settle fail",
+      "raw_text": "Suite IDs covered: cert | disc | trust | route | exec | obl | evt | settle | fail",
+      "normalized": "suite ids covered cert disc trust route exec obl evt settle fail",
       "sources": [
         "spec-federation-federation-operator-quickstart-md"
       ],
