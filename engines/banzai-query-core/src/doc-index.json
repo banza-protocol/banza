@@ -942,11 +942,12 @@
     "anchor": "schema",
     "source_type": "contract",
     "tags": [
+      "conformance",
       "evidence"
     ],
     "lang": "en",
-    "hash": "499e57d99627ec1e",
-    "chunk": "InteroperabilityCertificationRecord. The canonical L2 certification verdict (ADR-064 D-064-03). Binds a CertifiedImplementation (by implementation_hash) to an InteroperabilityCertificationProfile (by profile_id+profile_version), carries the reproducible evidence hashes, the Rust-decided status + rea",
+    "hash": "8514882bd219d15f",
+    "chunk": "InteroperabilityCertificationRecord. The canonical Layer-2 (Conformance & Interoperability Certification) verdict (ADR-064 D-064-03). Binds a CertifiedImplementation (by implementation_hash) to an InteroperabilityCertificationProfile (by profile_id+profile_version), carries the reproducible evidence",
     "schema_flag": true,
     "example_flag": false,
     "normative_flag": true,

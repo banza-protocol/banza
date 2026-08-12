@@ -48,7 +48,8 @@ pub fn sign_root_metadata(
     meta_without_sigs: &Value,
     signers: &[(&str, &str, &TestKeypair)],
 ) -> Value {
-    let msg = canonical_bytes(meta_without_sigs, &["signatures"]);
+    let msg = canonical_bytes(meta_without_sigs, &["signatures"])
+        .expect("BCJ/1: a TEST ceremony fixture must be canonicalizable");
     Value::Array(
         signers
             .iter()

@@ -5,18 +5,54 @@
   "description": "Behavioural interoperability result for an implementation against a profile (ADR-064). Records the happy-path and NEGATIVE scenarios (malformed, invalid signature, timeout, retry, duplicate, replay, idempotency, unsupported capability, profile/protocol mismatch, stale metadata, expired evidence, revoked, reversal, refund, reconciliation, partial failure), with a reproducible evidence_hash. Certification requires interoperability AND conformance — never schema conformance alone (ADR-064 D-064-03). A PASS is technical evidence, not a licence/admission/authorisation (ADR-061).",
   "_spec_version": "1.0",
   "_status": "production-baseline",
-  "_authority": "engines/banza-certification (ADR-064); conformance/ interoperability vectors",
+  "_authority": "ADR-064 (interoperability certification); this schema and the conformance/ interoperability vectors define the report. engines/banza-certification implements it and does not define it.",
   "type": "object",
-  "required": ["report_id", "implementation_hash", "profile_id", "profile_version", "result", "evidence_hash"],
+  "required": [
+    "report_id",
+    "implementation_hash",
+    "profile_id",
+    "profile_version",
+    "result",
+    "evidence_hash"
+  ],
   "additionalProperties": false,
   "properties": {
-    "report_id": { "type": "string", "minLength": 1 },
-    "implementation_hash": { "type": "string", "minLength": 1, "description": "Must equal the CertifiedImplementation's hash (hash-binding)." },
-    "profile_id": { "type": "string", "minLength": 1 },
-    "profile_version": { "type": "string", "minLength": 1 },
-    "result": { "type": "boolean" },
-    "scenarios_passed": { "type": "array", "items": { "type": "string" } },
-    "negative_scenarios_passed": { "type": "array", "items": { "type": "string" } },
-    "evidence_hash": { "type": "string", "minLength": 1, "description": "Reproducible evidence hash (ADR-064 D-064-05)." }
+    "report_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "implementation_hash": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Must equal the CertifiedImplementation's hash (hash-binding)."
+    },
+    "profile_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "profile_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "result": {
+      "type": "boolean"
+    },
+    "scenarios_passed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "negative_scenarios_passed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence_hash": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Reproducible evidence hash (ADR-064 D-064-05)."
+    }
   }
 }

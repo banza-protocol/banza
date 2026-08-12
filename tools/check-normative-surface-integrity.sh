@@ -56,6 +56,59 @@ PY
 }
 selftest || { echo "normative-surface-integrity: SELFTEST FAILED"; exit 1; }
 
+# ── self-test 2: the manifest detectors must fire on each way a manifest can go wrong ────────────
+# A manifest that only lists paths is a documentation exercise. These four cases are what make it a
+# verifiable identification of the surface, so each is asserted to FAIL detection, on a copy.
+manifest_selftest() {
+  python3 - "$MANIFEST" <<'PY'
+import copy, hashlib, io, json, os, sys
+m = json.load(open(sys.argv[1]))
+def check(man):
+    """The manifest detectors, applied to an in-memory manifest. True = accepted."""
+    for a in man["artifacts"]:
+        if not os.path.exists(a["path"]):
+            return False
+        if hashlib.sha256(io.open(a["path"], "rb").read()).hexdigest() != a["sha256"]:
+            return False
+    return True
+
+if not check(m):
+    print("  SELFTEST_FAIL: the real manifest is not accepted by its own detectors"); sys.exit(1)
+
+# 1. an artifact removed from disk (simulated by naming one that is not there)
+bad = copy.deepcopy(m); bad["artifacts"][0]["path"] = "contracts/production/__deleted__.json"
+if check(bad):
+    print("  SELFTEST_FAIL: a removed artifact was not detected"); sys.exit(1)
+
+# 2. an artifact modified without regenerating the manifest
+bad = copy.deepcopy(m); bad["artifacts"][0]["sha256"] = "0" * 64
+if check(bad):
+    print("  SELFTEST_FAIL: a stale digest was not detected"); sys.exit(1)
+
+# 3. a path that never existed
+bad = copy.deepcopy(m)
+bad["artifacts"].append({"path": "spec/does-not-exist.md", "class": "X", "tier": "informative",
+                         "role": "", "sha256": "0" * 64})
+if check(bad):
+    print("  SELFTEST_FAIL: a non-existent path was not detected"); sys.exit(1)
+print("  ok: manifest detectors fire on removal, modification and non-existent paths")
+PY
+}
+manifest_selftest || { echo "normative-surface-integrity: MANIFEST SELFTEST FAILED"; exit 1; }
+
+# ── self-test 3: regeneration is deterministic ───────────────────────────────────────────────────
+# The manifest is only a verifiable identification if anyone regenerating it gets the same bytes.
+det_tmp="$(mktemp -d)"
+cp "$MANIFEST" "$det_tmp/before.json"
+python3 tools/gen-normative-manifest.py >/dev/null
+if cmp -s "$det_tmp/before.json" "$MANIFEST"; then
+  ok "regeneration is deterministic (byte-identical on re-run)"
+else
+  cp "$det_tmp/before.json" "$MANIFEST"
+  bad "regenerating the manifest changed its bytes — the generator is not deterministic"
+fi
+rm -rf "$det_tmp"
+
 # ── 1. manifest exists, parses, and every listed path exists ─────────────────────────────────────
 if [ ! -f "$MANIFEST" ]; then
   bad "normative manifest missing ($MANIFEST) — the normative surface is unidentifiable (F-02)"
@@ -79,6 +132,38 @@ if drifted:
 if any(a["path"].endswith("normative-manifest.json") for a in m["artifacts"]):
     print("  X the manifest lists itself; its own digest cannot be self-consistent"); sys.exit(1)
 print("  ok: every manifest digest matches the artifact on disk")
+
+# Classification must be total and closed. Listing an artifact is not the same as requiring it;
+# `tier` is what carries that meaning, so every artifact must have one and only from this set.
+TIERS = {"implementation", "conformance", "legal", "informative"}
+unclassified = [a["path"] for a in m["artifacts"] if not a.get("class") or not a.get("tier")]
+if unclassified:
+    print("  X %d artifact(s) carry no class/tier: %s"
+          % (len(unclassified), ", ".join(unclassified[:5]))); sys.exit(1)
+badtier = sorted({a["tier"] for a in m["artifacts"]} - TIERS)
+if badtier:
+    print("  X unknown tier(s): %s" % ", ".join(badtier)); sys.exit(1)
+if not m.get("tiers") or set(m["tiers"]) != TIERS:
+    print("  X the manifest does not define exactly the four tiers"); sys.exit(1)
+counts = {t: sum(1 for a in m["artifacts"] if a["tier"] == t) for t in TIERS}
+if m.get("tier_counts") != counts:
+    print("  X tier_counts disagrees with the artifact list"); sys.exit(1)
+print("  ok: every artifact classified; %d implementation, %d conformance, %d legal, %d informative"
+      % (counts["implementation"], counts["conformance"], counts["legal"], counts["informative"]))
+
+# Seven production schemas are listed as tier=implementation while declaring `_status: reference`.
+# That divergence is a known finding (audit backlog P2-6, documentary-mirror framing) deferred to a
+# later milestone. It is frozen here: the existing seven are tolerated, an eighth is not.
+DIVERGENT_BASELINE = 7
+div = [a["path"] for a in m["artifacts"]
+       if a["tier"] == "implementation"
+       and a.get("self_declared_status") not in (None, "canonical", "production-baseline")]
+if len(div) > DIVERGENT_BASELINE:
+    print("  X %d artifacts are required for implementation but do not declare themselves canonical "
+          "(baseline %d): %s" % (len(div), DIVERGENT_BASELINE, ", ".join(sorted(div)[DIVERGENT_BASELINE:])))
+    sys.exit(1)
+print("  ok: self-declared-status divergence held at %d/%d (audit backlog P2-6)"
+      % (len(div), DIVERGENT_BASELINE))
 code = [a["path"] for a in m["artifacts"]
         if a["path"].startswith(("engines/", "services/", "website/", "tools/"))]
 if code:
@@ -104,14 +189,23 @@ for f in glob.glob('contracts/**/*.json', recursive=True):
         continue
     if not isinstance(d, dict):
         continue
-    s = d.get('_source_of_truth', '')
-    if s and re.search(r'\.py\b|\.rs\b|\.mjs\b|engines/|core/crates|reference/|tools/', s):
-        bad.append((f, s[:70]))
+    CODE = r'\.py\b|\.rs\b|\.mjs\b|engines/|core/crates|reference/|tools/'
+    # `_authority` answers the same question as `_source_of_truth` — who defines this rule — so it is
+    # held to the same standard. Naming the engine as the implementation is fine; naming it as the
+    # authority is the inversion F-04 exists to prevent, and it must not creep back through a
+    # differently-named field.
+    for field in ('_source_of_truth', '_authority'):
+        s = d.get(field, '')
+        if not isinstance(s, str) or not s:
+            continue
+        if re.search(CODE, s) and not re.search(
+                r'implements it and does not define it|implementation of|never the authority', s):
+            bad.append((f, field, s[:70]))
 if bad:
-    for f, s in bad:
-        print("  X %s declares code as its source of truth: %s" % (f, s))
+    for f, field, s in bad:
+        print("  X %s declares code in %s: %s" % (f, field, s))
     sys.exit(1)
-print("  ok: no contract declares implementation code as its source of truth")
+print("  ok: no contract declares implementation code as its source of truth or its authority")
 PY
 
 # ── 3. canonicalization specification, vectors and wiring ────────────────────────────────────────
@@ -133,7 +227,7 @@ if vec.get("canonicalization") != "BCJ/1":
     print("  X vectors declare a different canonicalization than the version in force"); sys.exit(1)
 n_acc = sum(1 for x in vec["vectors"] if x["expect"] == "accept")
 n_rej = sum(1 for x in vec["vectors"] if x["expect"] == "reject")
-if n_acc < 10 or n_rej < 4:
+if n_acc < 15 or n_rej < 9:
     print("  X canonicalization vector coverage too thin (%d accept, %d reject)" % (n_acc, n_rej))
     sys.exit(1)
 print("  ok: version declares BCJ/1 + manifest; vectors cover %d accept / %d reject" % (n_acc, n_rej))

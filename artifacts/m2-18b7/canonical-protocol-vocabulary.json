@@ -615,7 +615,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "eed2f4d759609571"
+        "checksum": "8887da3b6b356c4a"
       },
       {
         "id": "conformance-vectors-collections-json",
@@ -813,7 +813,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "776b712256073e35"
+        "checksum": "3d493740ec39ca13"
       },
       {
         "id": "contracts-events-webhook-types-json",
@@ -1110,7 +1110,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "48c740a819b9d98b"
+        "checksum": "a0ecfe9f9e69b95e"
       },
       {
         "id": "contracts-production-certification-record-production-schema-json",
@@ -1121,7 +1121,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "a8979fe8abcbebcc"
+        "checksum": "904f243d824c8684"
       },
       {
         "id": "contracts-production-certified-implementation-production-schema-json",
@@ -1132,7 +1132,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "0b6f9a554317042e"
+        "checksum": "298e643969f32a28"
       },
       {
         "id": "contracts-production-conformance-evidence-production-schema-json",
@@ -1264,7 +1264,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "76e6e16d9f685a9c"
+        "checksum": "f70a3e589880c975"
       },
       {
         "id": "contracts-production-journey-receipt-production-schema-json",
@@ -1297,7 +1297,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "b60d652d29ce28d3"
+        "checksum": "5724a2f03f375b50"
       },
       {
         "id": "contracts-production-operation-receipt-production-schema-json",
@@ -2507,7 +2507,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "a3ecda0b5913ef68"
+        "checksum": "8491fa9aabf0bad6"
       },
       {
         "id": "decisions-adr-readme-md",
@@ -5070,7 +5070,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "126955842537ad21"
+        "checksum": "f3cfb22401a9743b"
       },
       {
         "id": "spec-capability-negotiation-md",
@@ -5366,7 +5366,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "3877be1409816d72"
+    "checksum": "885c80cb3b0c1237"
   },
   "subjects": [
     {
@@ -8709,5 +8709,5 @@
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "50694c9d32863a5e"
+  "checksum": "0da4e42a8c6d27ce"
 }

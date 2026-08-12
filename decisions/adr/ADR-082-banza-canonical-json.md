@@ -81,8 +81,14 @@ form, which ADR-081 explicitly determined must not happen, and no finding requir
 
 - `spec/canonicalization.md` becomes the normative definition; the Rust engine implements it. The
   direction of authority is inverted relative to the audited state.
-- Bytes change for every signed and digested artifact. Artifacts produced under the prior behaviour must
-  be regenerated (ADR-081).
+- **No artifact required regeneration.** This ADR was drafted assuming the bytes would change for every
+  signed artifact. That assumption was then measured and is false: `BCJ/1` and the prior behaviour coincide
+  for every artifact BANZA actually emits — all use ASCII member names, integers in range and no
+  fractional numbers — and a signature produced under the prior behaviour still verifies under `BCJ/1`,
+  which it could only do if the signing bytes are unchanged. Evidence:
+  `engines/banza-trust/tests/canonical_migration.rs`. The transition is a specification change, not a data
+  migration. The divergences in the Context table above are real but unreached by present artifacts; they
+  are what a *future* artifact would have hit, and P1/P2/P3 now forbid reaching them.
 - P1/P2 impose a real constraint: a BANZA artifact carrying a fractional number, or an integer beyond
   ±(2⁵³−1), is not canonicalizable and MUST be rejected. This is a deliberate narrowing.
 - P3 makes duplicate-key documents invalid rather than parser-dependent.

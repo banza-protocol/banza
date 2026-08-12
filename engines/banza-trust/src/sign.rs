@@ -46,7 +46,8 @@ impl TestKeypair {
     /// Sign a document over the ADR-038 canonical form (all fields except `sign_field`), returning the
     /// document with a base64url signature under `sign_field`. Symmetric with the verifier.
     pub fn sign_doc(&self, doc: &Value, sign_field: &str) -> Value {
-        let msg = canonical_bytes(doc, &[sign_field]);
+        let msg = canonical_bytes(doc, &[sign_field])
+            .expect("BCJ/1: a TEST fixture must be canonicalizable");
         let sig = self.signing.sign(&msg);
         let mut out = doc.clone();
         if let Value::Object(map) = &mut out {
@@ -136,7 +137,8 @@ pub fn federation_ote_input_named(
         "interop_endpoint": endpoint,
         "self_publication_statement": "self-published by the operator; not issued or approved by BANZA"
     });
-    let manifest_hash = canonical_sha256(&manifest_body, &[]);
+    let manifest_hash = canonical_sha256(&manifest_body, &[])
+        .expect("BCJ/1: a TEST fixture must be canonicalizable");
     let mut operator_manifest = manifest_body;
     operator_manifest["manifest_hash"] = json!(manifest_hash);
 
@@ -148,7 +150,8 @@ pub fn federation_ote_input_named(
         "freshness_policy": "90d",
         "result_summary": { "level": "L3", "passed": 79, "failed": 0 }
     });
-    let evidence_hash = canonical_sha256(&evidence_body, &[]);
+    let evidence_hash = canonical_sha256(&evidence_body, &[])
+        .expect("BCJ/1: a TEST fixture must be canonicalizable");
     let mut conformance_evidence = evidence_body;
     conformance_evidence["evidence_hash"] = json!(evidence_hash);
 
@@ -191,7 +194,8 @@ pub fn federation_ote_input_named(
         "scope": "signs only the Key Manifest that endorses the delegated signing keys (ADR-079)",
         "boundary": { "authorises_operators": false, "moves_funds": false }
     });
-    let root_msg = canonical_bytes(&root_body, &["root_signatures"]);
+    let root_msg = canonical_bytes(&root_body, &["root_signatures"])
+        .expect("BCJ/1: a TEST fixture must be canonicalizable");
     let mut trust_root_metadata = root_body;
     trust_root_metadata["root_signatures"] =
         json!([root_a.sign_bytes(&root_msg), root_b.sign_bytes(&root_msg)]);
@@ -210,7 +214,7 @@ pub fn federation_ote_input_named(
     let public_registry_entry = json!({
         "operator_id": operator_id,
         "manifest_hash": manifest_hash,
-        "signed_protocol_metadata_hash": canonical_sha256(&signed_protocol_metadata, &["signature"]),
+        "signed_protocol_metadata_hash": canonical_sha256(&signed_protocol_metadata, &["signature"]).expect("BCJ/1: a TEST fixture must be canonicalizable"),
         "conformance_evidence_hash": evidence_hash,
         "revocation_status": "active",
         "trust_root_version": "2026.07",
@@ -285,7 +289,8 @@ pub fn build_input(mutation: &str) -> Value {
         "interop_endpoint": "https://operator-a.example/federation",
         "self_publication_statement": "self-published by the operator; not issued or approved by BANZA"
     });
-    let manifest_hash = canonical_sha256(&manifest_body, &[]);
+    let manifest_hash = canonical_sha256(&manifest_body, &[])
+        .expect("BCJ/1: a TEST fixture must be canonicalizable");
     let mut operator_manifest = manifest_body;
     operator_manifest["manifest_hash"] = json!(manifest_hash);
 
@@ -298,7 +303,8 @@ pub fn build_input(mutation: &str) -> Value {
         "freshness_policy": "90d",
         "result_summary": { "level": "L3", "passed": 79, "failed": 0 }
     });
-    let evidence_hash = canonical_sha256(&evidence_body, &[]);
+    let evidence_hash = canonical_sha256(&evidence_body, &[])
+        .expect("BCJ/1: a TEST fixture must be canonicalizable");
     let mut conformance_evidence = evidence_body;
     conformance_evidence["evidence_hash"] = json!(evidence_hash);
 
@@ -363,7 +369,8 @@ pub fn build_input(mutation: &str) -> Value {
         "scope": "signs only the Key Manifest that endorses the delegated signing keys (ADR-079)",
         "boundary": { "authorises_operators": false, "moves_funds": false }
     });
-    let root_msg = canonical_bytes(&root_body, &["root_signatures"]);
+    let root_msg = canonical_bytes(&root_body, &["root_signatures"])
+        .expect("BCJ/1: a TEST fixture must be canonicalizable");
     let mut trust_root_metadata = root_body;
     trust_root_metadata["root_signatures"] =
         json!([root_a.sign_bytes(&root_msg), root_b.sign_bytes(&root_msg)]);
@@ -391,7 +398,7 @@ pub fn build_input(mutation: &str) -> Value {
     let public_registry_entry = json!({
         "operator_id": "operator-A",
         "manifest_hash": manifest_hash,
-        "signed_protocol_metadata_hash": canonical_sha256(&signed_protocol_metadata, &["signature"]),
+        "signed_protocol_metadata_hash": canonical_sha256(&signed_protocol_metadata, &["signature"]).expect("BCJ/1: a TEST fixture must be canonicalizable"),
         "conformance_evidence_hash": evidence_hash,
         "revocation_status": "active",
         "trust_root_version": "2026.07",
@@ -511,8 +518,10 @@ pub fn operator_zero_ote(operator_manifest_body: &Value, conformance_report_body
         revk,
     } = oz_keys();
 
-    let manifest_hash = canonical_sha256(operator_manifest_body, &[]);
-    let evidence_hash = canonical_sha256(conformance_report_body, &[]);
+    let manifest_hash = canonical_sha256(operator_manifest_body, &[])
+        .expect("BCJ/1: a TEST fixture must be canonicalizable");
+    let evidence_hash = canonical_sha256(conformance_report_body, &[])
+        .expect("BCJ/1: a TEST fixture must be canonicalizable");
 
     // Signed protocol metadata (pre-sign). The demo markers are added BEFORE signing so the signature
     // covers them; the placeholder hash fields mirror `build_input`.
@@ -554,7 +563,8 @@ pub fn operator_zero_ote(operator_manifest_body: &Value, conformance_report_body
         "scope": "signs only the Key Manifest that endorses the delegated signing keys (ADR-079)",
         "boundary": { "authorises_operators": false, "moves_funds": false }
     });
-    let root_msg = canonical_bytes(&root_body, &["root_signatures"]);
+    let root_msg = canonical_bytes(&root_body, &["root_signatures"])
+        .expect("BCJ/1: a TEST fixture must be canonicalizable");
     let mut trust_root_metadata = root_body;
     trust_root_metadata["root_signatures"] =
         json!([root_a.sign_bytes(&root_msg), root_b.sign_bytes(&root_msg)]);
@@ -576,7 +586,7 @@ pub fn operator_zero_ote(operator_manifest_body: &Value, conformance_report_body
     let public_registry_entry = json!({
         "operator_id": "operator-zero",
         "manifest_hash": manifest_hash,
-        "signed_protocol_metadata_hash": canonical_sha256(&signed_protocol_metadata, &["signature"]),
+        "signed_protocol_metadata_hash": canonical_sha256(&signed_protocol_metadata, &["signature"]).expect("BCJ/1: a TEST fixture must be canonicalizable"),
         "conformance_evidence_hash": evidence_hash,
         "revocation_status": "active",
         "trust_root_version": OZ_TRUST_ROOT_VERSION,

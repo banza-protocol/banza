@@ -189,6 +189,25 @@
       "sha256": "810f98877c091639c4faea4c53cda1eaa689aeb146d14e1b199e5a7c911a1591"
     },
     {
+      "id": "BCJ-015",
+      "title": "an unknown member is preserved and sorted like any other",
+      "expect": "accept",
+      "input": {
+        "b": 1,
+        "vendor_ext": {
+          "z": 1,
+          "a": [
+            1,
+            2
+          ]
+        }
+      },
+      "canonical": "{\"b\":1,\"vendor_ext\":{\"a\":[1,2],\"z\":1}}",
+      "canonical_bytes_len": 38,
+      "sha256": "430421b8e07d2860047c0ae4a3df42cf7e7cea4e907043a86bc8080c9876d9a7",
+      "note": "Extensibility must not relax the profile: an unknown member is subject to P1/P2/P3 exactly as a known one is (spec/canonicalization.md §3 P4)."
+    },
+    {
       "id": "BCJ-R01",
       "title": "P1: fractional number rejected",
       "expect": "reject",
@@ -229,6 +248,31 @@
       "expect": "reject",
       "input_raw": "{\"o\":{\"k\":1,\"k\":2}}",
       "rule": "P3"
+    },
+    {
+      "id": "BCJ-R07",
+      "title": "P1: a fractional number inside an unknown member is rejected",
+      "expect": "reject",
+      "input_raw": "{\"known\":1,\"vendor_ext\":0.5}",
+      "rule": "P1",
+      "note": "Extensibility must not relax the profile: an unknown member is subject to P1/P2/P3 exactly as a known one is (spec/canonicalization.md §3 P4)."
+    },
+    {
+      "id": "BCJ-R08",
+      "title": "P2: an out-of-range integer nested inside an unknown member is rejected",
+      "expect": "reject",
+      "input_raw": "{\"vendor_ext\":{\"list\":[1,{\"deep\":9007199254740992}]}}",
+      "rule": "P2",
+      "note": "Extensibility must not relax the profile: an unknown member is subject to P1/P2/P3 exactly as a known one is (spec/canonicalization.md §3 P4)."
+    },
+    {
+      "id": "BCJ-R09",
+      "title": "P3: a duplicate member inside an unknown member is rejected",
+      "expect": "reject",
+      "input_raw": "{\"known\":1,\"vendor_ext\":{\"k\":1,\"k\":2}}",
+      "rule": "P3",
+      "note": "Extensibility must not relax the profile: an unknown member is subject to P1/P2/P3 exactly as a known one is (spec/canonicalization.md §3 P4)."
     }
-  ]
+  ],
+  "vector_count": 24
 }

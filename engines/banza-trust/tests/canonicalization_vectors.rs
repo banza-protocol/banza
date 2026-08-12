@@ -60,8 +60,8 @@ fn engine_matches_the_published_vectors() {
         }
     }
 
-    assert_eq!(accepted, 14, "expected 14 accept vectors");
-    assert_eq!(rejected, 6, "expected 6 reject vectors");
+    assert_eq!(accepted, 15, "expected 15 accept vectors");
+    assert_eq!(rejected, 9, "expected 9 reject vectors");
 }
 
 #[test]

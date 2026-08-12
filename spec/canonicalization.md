@@ -77,13 +77,20 @@ be **rejected** (fail-closed). Implementations MUST NOT apply last-wins, first-w
 Rationale: duplicate members are the classic signature-confusion vector — two parsers can disagree about
 which value was signed.
 
-### P4 — Unknown members are preserved
+### P4 — Unknown members are preserved, and are fully subject to this profile
 
 Members not described by the artifact's schema MUST be preserved and canonicalized like any other member.
 They are part of the signed content.
 
+**Extensibility does not relax any rule.** An unknown member is subject to P1, P2, P3 and P5 exactly as a
+known member is, at every nesting level. In particular, an artifact MUST be rejected if an unknown member —
+or anything nested inside one, including inside arrays — carries a fractional or exponent number, an
+integer outside the P2 range, or a duplicate member name. There is no permissive mode for unrecognised
+content: a member that cannot be canonicalized cannot be signed, whether or not the schema describes it.
+
 Rationale: a signature covers the whole document. Dropping unknown members would let an intermediary
-remove content while leaving a signature that still verifies.
+remove content while leaving a signature that still verifies; admitting unconstrained types inside them
+would let an extension reintroduce exactly the ambiguity P1–P3 exist to remove.
 
 ### P5 — No Unicode normalisation during canonicalization
 
@@ -104,11 +111,21 @@ Stated in §2 item 2; repeated here because it is a profile-visible requirement.
 
 Artifacts that declare their canonicalization MUST use the exact string `BCJ/1`.
 
+### P8 — Input form
+
+A canonicalizable BANZA artifact MUST be a JSON **object** at the top level, serialised as well-formed
+JSON text encoded in **UTF-8**. Text that is not well-formed JSON, is not valid UTF-8, or contains an
+unpaired surrogate MUST be rejected before canonicalization begins; it is not repaired, replaced or
+substituted.
+
+Rationale: the per-artifact exclusions in §6 name top-level members, which presupposes an object; and a
+replacement character substituted for invalid input would silently change the bytes that get signed.
+
 ## 4. The signed bytes
 
 For every signed BANZA artifact the signing input is derived as follows. This procedure is normative.
 
-1. Take the complete artifact as a JSON object.
+1. Take the complete artifact as a JSON object (P8).
 2. **Remove the signature envelope member** — the member that carries the signature itself, named in §6
    for each artifact type. Removal is shallow: only that top-level member is removed.
 3. Verify P1, P2 and P3 over the remaining document. If any fails, **reject**; do not sign or verify.
@@ -160,7 +177,12 @@ is removed in full before canonicalization, and each signature in it is verified
 
 A verifier MUST:
 
-1. Reject if P1, P2 or P3 fails.
+0. Reject if P8 fails.
+1. Reject if P1, P2 or P3 fails. **Rejection is not degradation:** a rejected artifact yields no signing
+   input at all. An implementation MUST NOT substitute empty bytes, a partial serialisation, or any other
+   placeholder, because every rejected artifact would then share one signing input and one digest.
+   P3 is observable only on the wire text — a parser that has already resolved a duplicate member cannot
+   report one — so a verifier that receives bytes MUST apply P3 before parsing to a value.
 2. Derive the signing bytes per §4.
 3. Resolve the verification key by `key_id` through the trust path in force (ADR-079 Model A: the Trust
    Root signs only the Key Manifest; delegated keys sign domain artifacts per ADR-038).

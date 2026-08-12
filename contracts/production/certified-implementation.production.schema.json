@@ -5,17 +5,57 @@
   "description": "The subject of certification (ADR-064 D-064-01): an IMPLEMENTATION, identified by implementation_id plus the content hash of the exact artifact set tested (implementation_hash). Never an entity, brand or operator — 'declared_by' is attribution/contact only. A different build is a different subject and needs its own certification.",
   "_spec_version": "1.0",
   "_status": "production-baseline",
-  "_authority": "engines/banza-certification (ADR-064)",
+  "_authority": "ADR-064 (interoperability certification); this schema defines the record. engines/banza-certification implements it and does not define it.",
   "type": "object",
-  "required": ["implementation_id", "implementation_hash", "environment", "protocol_version"],
+  "required": [
+    "implementation_id",
+    "implementation_hash",
+    "environment",
+    "protocol_version"
+  ],
   "additionalProperties": false,
   "properties": {
-    "implementation_id": { "type": "string", "minLength": 1 },
-    "implementation_hash": { "type": "string", "minLength": 1, "description": "Content hash of the exact artifact set; the certificate binds to THIS hash." },
-    "declared_by": { "type": "string", "description": "Attribution/contact only — never the subject of the certificate. Use 'Operator A' style, never a commercial brand." },
-    "declared_capabilities": { "type": "array", "items": { "type": "string" } },
-    "declared_conformance_level": { "type": "string", "enum": ["", "L0", "L1", "L2", "L3", "L4"] },
-    "environment": { "type": "string", "enum": ["sandbox", "staging", "production"] },
-    "protocol_version": { "type": "string", "minLength": 1 }
+    "implementation_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "implementation_hash": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Content hash of the exact artifact set; the certificate binds to THIS hash."
+    },
+    "declared_by": {
+      "type": "string",
+      "description": "Attribution/contact only — never the subject of the certificate. Use 'Operator A' style, never a commercial brand."
+    },
+    "declared_capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "declared_conformance_level": {
+      "type": "string",
+      "enum": [
+        "",
+        "L0",
+        "L1",
+        "L2",
+        "L3",
+        "L4"
+      ]
+    },
+    "environment": {
+      "type": "string",
+      "enum": [
+        "sandbox",
+        "staging",
+        "production"
+      ]
+    },
+    "protocol_version": {
+      "type": "string",
+      "minLength": 1
+    }
   }
 }

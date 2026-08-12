@@ -17,7 +17,7 @@ use serde_json::{json, Value};
 
 /// Canonical SHA-256 over a value, excluding the given keys (reuses the protocol's canonicaliser so a
 /// checksum is order-independent and reproducible by any third party). Delegates to `banza-trust`.
-pub fn canonical_checksum(v: &Value, exclude: &[&str]) -> String {
+pub fn canonical_checksum(v: &Value, exclude: &[&str]) -> Result<String, String> {
     banza_trust::canonical_sha256(v, exclude)
 }
 
@@ -365,7 +365,10 @@ fn decide(i: &CertifyInput) -> (CertificationStatus, ReasonCode, Vec<String>, Ve
 /// Checksum of a record (excludes the `record_hash` field itself).
 pub fn record_checksum(rec: &InteroperabilityCertificationRecord) -> String {
     let v = serde_json::to_value(rec).unwrap_or(Value::Null);
+    // The record is a typed struct with no floating-point field, so BCJ/1 cannot reject it. If it
+    // ever can, that is a defect in the type and must be loud rather than yielding a wrong checksum.
     canonical_checksum(&v, &["record_hash"])
+        .expect("BCJ/1: a certification record is integer-only by construction")
 }
 
 /// Verify a record's `record_hash` reproduces (ADR-064 D-064-05). Fail-closed: any mismatch → false.

@@ -3,7 +3,7 @@
   "_status": "canonical",
   "_authority": "ADR-002",
   "_surface": "internal-sse",
-  "_description": "Canonical registry of all event types emitted on the BANZA internal event stream (GET /events). These are protocol-level events — not webhook delivery events. See contracts/webhooks/event-types.json for outbound webhook types.",
+  "_description": "Canonical registry of all event types emitted on the BANZA internal event stream (GET /events). These are protocol-level events — not webhook delivery events. See contracts/events/webhook-types.json for outbound webhook types.",
   "_source_of_truth": "This registry. Normative; not derived from any implementation.",
   "naming_convention": {
     "pattern": "<aggregate_type>.<verb>",

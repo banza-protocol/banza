@@ -195,7 +195,12 @@ fn root_threshold_signatures_ok(root: &Value, pinned: &[String]) -> bool {
     if sigs.is_empty() {
         return false;
     }
-    let msg = canonical_bytes(root, &["root_signatures"]);
+    // Fail-closed (spec/canonicalization.md §7): a root metadata document that BCJ/1 rejects is not
+    // anchored. It is not treated as "anchored over empty bytes".
+    let msg = match canonical_bytes(root, &["root_signatures"]) {
+        Ok(m) => m,
+        Err(_) => return false,
+    };
     let mut verified: Vec<&String> = Vec::new();
     for key in &candidates {
         if verified.contains(&key) {
@@ -281,9 +286,11 @@ pub fn evaluate_trust(input: &Value) -> Value {
     let signature_ok = match (&dkey, &meta) {
         (Some(dk), Some(m)) if meta_present => {
             let pk = s(dk, "public_key").unwrap_or("");
-            let msg = canonical_bytes(m, &["signature"]);
             let sig = s(m, "signature").unwrap_or("");
-            verify_ed25519(pk, sig, &msg).is_ok()
+            // Fail-closed: a document BCJ/1 rejects has no valid signature by definition.
+            canonical_bytes(m, &["signature"])
+                .map(|msg| verify_ed25519(pk, sig, &msg).is_ok())
+                .unwrap_or(false)
         }
         _ => false,
     };
@@ -535,7 +542,10 @@ pub fn evaluate_federation_ote(input: &Value) -> Value {
     });
     let hash = format!(
         "{:x}",
-        Sha256::digest(canonical_bytes(&body, &["report_hash"]))
+        Sha256::digest(
+            canonical_bytes(&body, &["report_hash"])
+                .expect("BCJ/1: an engine-constructed report body is always canonicalizable")
+        )
     );
     body["report_hash"] = Value::String(hash);
     body
@@ -750,7 +760,10 @@ fn report(status: &str, detail: &str, checks: &Value) -> Value {
     });
     let hash = format!(
         "{:x}",
-        Sha256::digest(canonical_bytes(&body, &["report_hash"]))
+        Sha256::digest(
+            canonical_bytes(&body, &["report_hash"])
+                .expect("BCJ/1: an engine-constructed report body is always canonicalizable")
+        )
     );
     body["report_hash"] = Value::String(hash);
     body
