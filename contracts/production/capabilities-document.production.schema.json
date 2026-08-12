@@ -93,10 +93,12 @@
         "retention_seconds": {
           "type": "integer",
           "minimum": 86400,
-          "description": "How long an idempotency record is retained after the operation reached a terminal state. The protocol floor is 86400 (24 h); an implementation MAY retain longer than it declares and MUST NOT retain less."
+          "description": "How long an idempotency record is retained after the operation reached a terminal state. The protocol floor is 86400 (24 h); an implementation MAY retain longer than it declares and MUST NOT retain less.",
+          "maximum": 9007199254740991
         }
       },
       "additionalProperties": true
     }
-  }
+  },
+  "_numeric_domain": "Integers in a signed or digested BANZA artifact are bounded by the canonicalization in force (BCJ/1: |n| <= 2^53-1, spec/canonicalization.md P2). The bound is declared here so the schema and the canonicalization cannot disagree about what is representable."
 }

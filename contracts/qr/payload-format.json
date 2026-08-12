@@ -168,7 +168,9 @@
           "integer",
           "null"
         ],
-        "description": "null for open-amount static QR."
+        "description": "null for open-amount static QR.",
+        "maximum": 9007199254740991,
+        "minimum": -9007199254740991
       },
       "status": {
         "type": "string",
@@ -235,5 +237,6 @@
     "A second POST /qr/{id}/pay on a USED QR MUST return HTTP 422",
     "An open-amount QR (amount_minor=null) MUST require amount_minor in the pay request",
     "A fixed-amount QR MUST ignore amount_minor in the pay request (use pre-set amount)"
-  ]
+  ],
+  "_numeric_domain": "Integers in a signed or digested BANZA artifact are bounded by the canonicalization in force (BCJ/1: |n| <= 2^53-1, spec/canonicalization.md P2). The bound is declared here so the schema and the canonicalization cannot disagree about what is representable."
 }

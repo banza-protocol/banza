@@ -86,7 +86,9 @@
           },
           "amount_minor": {
             "type": "integer",
-            "description": "Amount debited in minor units. INV-LEDGER-003: integer, never float."
+            "description": "Amount debited in minor units. INV-LEDGER-003: integer, never float.",
+            "maximum": 9007199254740991,
+            "minimum": -9007199254740991
           },
           "currency": {
             "type": "string"
@@ -121,7 +123,9 @@
           },
           "amount_minor": {
             "type": "integer",
-            "description": "Amount credited in minor units."
+            "description": "Amount credited in minor units.",
+            "maximum": 9007199254740991,
+            "minimum": -9007199254740991
           },
           "currency": {
             "type": "string"
@@ -155,7 +159,9 @@
             "description": "Wallet that will receive funds."
           },
           "amount_minor": {
-            "type": "integer"
+            "type": "integer",
+            "maximum": 9007199254740991,
+            "minimum": -9007199254740991
           },
           "currency": {
             "type": "string"
@@ -187,7 +193,9 @@
             "description": "The transfer that fulfilled this payment request. Its causation_id equals the pr_id."
           },
           "amount_minor": {
-            "type": "integer"
+            "type": "integer",
+            "maximum": 9007199254740991,
+            "minimum": -9007199254740991
           }
         }
       },
@@ -220,7 +228,9 @@
               "integer",
               "null"
             ],
-            "description": "null for open-amount QR codes."
+            "description": "null for open-amount QR codes.",
+            "maximum": 9007199254740991,
+            "minimum": -9007199254740991
           },
           "currency": {
             "type": "string"
@@ -249,7 +259,9 @@
             "description": "The transfer that settled this QR payment."
           },
           "amount_minor": {
-            "type": "integer"
+            "type": "integer",
+            "maximum": 9007199254740991,
+            "minimum": -9007199254740991
           }
         }
       },
@@ -282,17 +294,25 @@
           },
           "gross_minor": {
             "type": "integer",
-            "description": "Total gross amount before fees. INV-STL-001: gross = net + fee."
+            "description": "Total gross amount before fees. INV-STL-001: gross = net + fee.",
+            "maximum": 9007199254740991,
+            "minimum": -9007199254740991
           },
           "fee_minor": {
-            "type": "integer"
+            "type": "integer",
+            "maximum": 9007199254740991,
+            "minimum": -9007199254740991
           },
           "net_minor": {
             "type": "integer",
-            "description": "Amount disbursed after fees."
+            "description": "Amount disbursed after fees.",
+            "maximum": 9007199254740991,
+            "minimum": -9007199254740991
           },
           "tx_count": {
-            "type": "integer"
+            "type": "integer",
+            "maximum": 9007199254740991,
+            "minimum": -9007199254740991
           }
         }
       },
@@ -348,7 +368,9 @@
               "integer",
               "null"
             ],
-            "description": "null for open-amount intents. Integer minor units."
+            "description": "null for open-amount intents. Integer minor units.",
+            "maximum": 9007199254740991,
+            "minimum": -9007199254740991
           },
           "currency": {
             "type": "string"
@@ -381,7 +403,9 @@
             "description": "The Transfer that settled the intent. Its causation_id MUST equal payment_intent_id."
           },
           "amount_minor": {
-            "type": "integer"
+            "type": "integer",
+            "maximum": 9007199254740991,
+            "minimum": -9007199254740991
           }
         }
       },
@@ -423,7 +447,9 @@
               "integer",
               "null"
             ],
-            "description": "null for open-amount sessions. Integer minor units."
+            "description": "null for open-amount sessions. Integer minor units.",
+            "maximum": 9007199254740991,
+            "minimum": -9007199254740991
           },
           "currency": {
             "type": "string"
@@ -483,7 +509,9 @@
             "description": "The Transfer that settled the session. Its causation_id MUST equal payment_session_id."
           },
           "amount_minor": {
-            "type": "integer"
+            "type": "integer",
+            "maximum": 9007199254740991,
+            "minimum": -9007199254740991
           },
           "interface": {
             "type": [
@@ -606,7 +634,9 @@
           },
           "total_amount_minor": {
             "type": "integer",
-            "description": "Integer minor units. Hard total (closed rules) or target (open rules)."
+            "description": "Integer minor units. Hard total (closed rules) or target (open rules).",
+            "maximum": 9007199254740991,
+            "minimum": -9007199254740991
           },
           "rule_type": {
             "type": "string",
@@ -661,7 +691,9 @@
           },
           "amount_minor": {
             "type": "integer",
-            "description": "Integer minor units."
+            "description": "Integer minor units.",
+            "maximum": 9007199254740991,
+            "minimum": -9007199254740991
           },
           "currency": {
             "type": "string"
@@ -729,7 +761,9 @@
             "description": "Real settling Transfer; causation_id == payment_intent_id."
           },
           "amount_minor": {
-            "type": "integer"
+            "type": "integer",
+            "maximum": 9007199254740991,
+            "minimum": -9007199254740991
           }
         }
       },
@@ -757,7 +791,9 @@
           },
           "collected_amount_minor": {
             "type": "integer",
-            "description": "Derived sum of PAID shares (INV-COLLECTION-004)."
+            "description": "Derived sum of PAID shares (INV-COLLECTION-004).",
+            "maximum": 9007199254740991,
+            "minimum": -9007199254740991
           }
         }
       },
@@ -781,7 +817,9 @@
             "type": "string"
           },
           "collected_amount_minor": {
-            "type": "integer"
+            "type": "integer",
+            "maximum": 9007199254740991,
+            "minimum": -9007199254740991
           }
         }
       },
@@ -852,5 +890,6 @@
     "INV-COLLECTION-005": "A share reaches PAID only via a real confirmed Transfer; the Transfer causation_id equals the share payment_intent_id.",
     "INV-COLLECTION-006": "A PAID share is terminal and MUST NOT accept further payment (no double payment).",
     "INV-COLLECTION-007": "After OPEN, currency/rule/(closed-rule) total_amount_minor are immutable."
-  }
+  },
+  "_numeric_domain": "Integers in a signed or digested BANZA artifact are bounded by the canonicalization in force (BCJ/1: |n| <= 2^53-1, spec/canonicalization.md P2). The bound is declared here so the schema and the canonicalization cannot disagree about what is representable."
 }

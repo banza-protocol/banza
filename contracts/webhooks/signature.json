@@ -3,7 +3,6 @@
   "_status": "canonical",
   "_authority": "ADR-002",
   "_source_of_truth": "contracts/webhooks/signature.json",
-
   "header": {
     "name": "Banza-Signature",
     "note": "This is the canonical protocol-level constant. MUST match exactly (case-insensitive on lookup, title-case in canonical form). Any SDK using a different header name is non-conformant.",
@@ -13,7 +12,9 @@
       "t": {
         "type": "integer",
         "description": "Unix timestamp (seconds) when the webhook was dispatched by the protocol.",
-        "required": true
+        "required": true,
+        "maximum": 9007199254740991,
+        "minimum": -9007199254740991
       },
       "v1": {
         "type": "string",
@@ -23,25 +24,20 @@
       }
     }
   },
-
   "algorithm": {
     "name": "HMAC-SHA256",
     "key_encoding": "UTF-8",
     "payload_encoding": "UTF-8",
-
     "signed_payload_construction": {
       "formula": "signed_payload = utf8_encode(str(t)) + utf8_encode(\".\") + raw_body_bytes",
       "note": "raw_body_bytes MUST be the unmodified HTTP request body as received on the wire — before any JSON parsing, whitespace normalization, or re-encoding. Any alteration to the byte sequence invalidates the signature."
     },
-
     "digest": {
       "formula": "v1 = lowercase_hex( HMAC-SHA256(key=utf8(webhook_secret), msg=signed_payload) )",
       "output_length_hex_chars": 64
     },
-
     "reference_implementation_go": "mac := hmac.New(sha256.New, []byte(secret))\nfmt.Fprintf(mac, \"%d.\", ts)\nmac.Write(rawBody)\nv1 := hex.EncodeToString(mac.Sum(nil))"
   },
-
   "verification": {
     "steps": [
       {
@@ -84,18 +80,15 @@
       }
     ]
   },
-
   "tolerance": {
     "value_seconds": 300,
     "description": "Maximum age of an incoming webhook request. Requests where |now - t| > 300 MUST be rejected. Set to 0 to disable replay protection (not recommended in production).",
     "note": "Both past and future timestamps are checked — a timestamp 500 seconds in the future is also rejected."
   },
-
   "test_vectors": {
     "_description": "All vectors use the same shared secret and timestamp. Use to validate SDK implementations.",
     "shared_secret": "whsec_test_secret_for_vectors_32bytes",
     "unix_timestamp": 1716000000,
-
     "vectors": [
       {
         "id": "WHSIG-001",
@@ -160,9 +153,7 @@
       }
     ]
   },
-
   "known_implementation_discrepancies": [],
-
   "sdk_conformance_requirements": [
     "Use header name 'Banza-Signature' (canonical) with case-insensitive lookup",
     "Parse both 't' and 'v1' fields from comma-separated header value",
@@ -174,13 +165,37 @@
     "Expose constructEvent(rawBody, header, secret) -> WebhookEvent as primary API",
     "Expose generateTestSignature(rawBody, secret, timestamp?) -> string for test tooling"
   ],
-
   "common_mistakes": [
-    { "mistake": "Reading 'X-Banza-Signature'",        "consequence": "Header not found", "correct": "Read 'Banza-Signature'" },
-    { "mistake": "Using 'sha256=<hmac>' format",        "consequence": "Never matches",    "correct": "Parse 't=<ts>,v1=<hmac>'" },
-    { "mistake": "Signing only the body without timestamp", "consequence": "Signatures never match", "correct": "Sign '{ts}.{body}'" },
-    { "mistake": "Parsing JSON before verification",    "consequence": "Body bytes altered, HMAC mismatch", "correct": "Verify raw bytes first" },
-    { "mistake": "Variable-time string comparison",     "consequence": "Timing oracle attack", "correct": "Use constant-time comparison" },
-    { "mistake": "No replay protection",                "consequence": "Replay attacks succeed", "correct": "Reject |now - t| > 300" }
-  ]
+    {
+      "mistake": "Reading 'X-Banza-Signature'",
+      "consequence": "Header not found",
+      "correct": "Read 'Banza-Signature'"
+    },
+    {
+      "mistake": "Using 'sha256=<hmac>' format",
+      "consequence": "Never matches",
+      "correct": "Parse 't=<ts>,v1=<hmac>'"
+    },
+    {
+      "mistake": "Signing only the body without timestamp",
+      "consequence": "Signatures never match",
+      "correct": "Sign '{ts}.{body}'"
+    },
+    {
+      "mistake": "Parsing JSON before verification",
+      "consequence": "Body bytes altered, HMAC mismatch",
+      "correct": "Verify raw bytes first"
+    },
+    {
+      "mistake": "Variable-time string comparison",
+      "consequence": "Timing oracle attack",
+      "correct": "Use constant-time comparison"
+    },
+    {
+      "mistake": "No replay protection",
+      "consequence": "Replay attacks succeed",
+      "correct": "Reject |now - t| > 300"
+    }
+  ],
+  "_numeric_domain": "Integers in a signed or digested BANZA artifact are bounded by the canonicalization in force (BCJ/1: |n| <= 2^53-1, spec/canonicalization.md P2). The bound is declared here so the schema and the canonicalization cannot disagree about what is representable."
 }

@@ -7,11 +7,21 @@
   "_status": "production-baseline",
   "_authority": "docs/governance/PROTOCOL_GOVERNANCE_ROLES.md §2.5; Root Trust Ceremony (2-of-3 offline custody)",
   "_boundary": "BANZA é um protocolo financeiro aberto. A governação humana existe para manter e evoluir o protocolo, não para autorizar, certificar ou aceitar operadores. Operadores independentes assumem o seu próprio enquadramento legal, regulatório e financeiro e, quando aplicável, são autorizados pelas entidades competentes — nunca pela BANZA.",
-
   "type": "object",
-  "required": ["trust_root_version", "protocol", "environment", "threshold", "total_root_keys", "root_public_keys", "delegated_keys", "scope", "valid_from", "valid_until", "boundary"],
+  "required": [
+    "trust_root_version",
+    "protocol",
+    "environment",
+    "threshold",
+    "total_root_keys",
+    "root_public_keys",
+    "delegated_keys",
+    "scope",
+    "valid_from",
+    "valid_until",
+    "boundary"
+  ],
   "additionalProperties": false,
-
   "properties": {
     "trust_root_version": {
       "type": "string",
@@ -24,18 +34,26 @@
     },
     "environment": {
       "type": "string",
-      "enum": ["production", "staging", "test"],
+      "enum": [
+        "production",
+        "staging",
+        "test"
+      ],
       "description": "Ambiente de confiança. 'production' ancora a raiz publicada do protocolo. Produção do PROTOCOLO — não produção financeira."
     },
     "threshold": {
       "type": "integer",
       "const": 2,
-      "description": "Limiar de assinaturas. 2-de-3: quaisquer duas assinaturas de custodiantes tornam válida uma acção da raiz. Nenhum custodiante assina isoladamente."
+      "description": "Limiar de assinaturas. 2-de-3: quaisquer duas assinaturas de custodiantes tornam válida uma acção da raiz. Nenhum custodiante assina isoladamente.",
+      "maximum": 9007199254740991,
+      "minimum": -9007199254740991
     },
     "total_root_keys": {
       "type": "integer",
       "const": 3,
-      "description": "Total de chaves públicas raiz independentes. Três custodiantes (A, B, C), uma chave cada. Nenhum dispositivo detém mais do que uma chave raiz privada."
+      "description": "Total de chaves públicas raiz independentes. Três custodiantes (A, B, C), uma chave cada. Nenhum dispositivo detém mais do que uma chave raiz privada.",
+      "maximum": 9007199254740991,
+      "minimum": -9007199254740991
     },
     "root_public_keys": {
       "type": "array",
@@ -44,22 +62,65 @@
       "maxItems": 3,
       "items": {
         "type": "object",
-        "required": ["key_id", "custodian", "public_key", "fingerprint", "algorithm"],
+        "required": [
+          "key_id",
+          "custodian",
+          "public_key",
+          "fingerprint",
+          "algorithm"
+        ],
         "additionalProperties": false,
         "properties": {
-          "key_id": { "type": "string", "description": "Identificador único desta chave pública raiz (ex.: 'root-key-A')." },
-          "custodian": { "type": "string", "enum": ["A", "B", "C"], "description": "Custodiante independente que detém a chave privada correspondente OFFLINE." },
-          "public_key": { "type": "string", "description": "Material de chave PÚBLICA raiz apenas (base64url, ed25519)." },
-          "fingerprint": { "type": "string", "description": "Impressão digital pública (hash) da chave pública raiz." },
-          "algorithm": { "type": "string", "enum": ["ed25519"], "description": "Algoritmo de assinatura." },
-          "revocation_status": { "type": ["string", "null"], "enum": ["active", "revoked", "unknown", null], "description": "Estado da chave face à Revocation List. Fail-closed. Revogar uma chave é mecanismo de segurança; revogar uma das três não destrói a raiz." }
+          "key_id": {
+            "type": "string",
+            "description": "Identificador único desta chave pública raiz (ex.: 'root-key-A')."
+          },
+          "custodian": {
+            "type": "string",
+            "enum": [
+              "A",
+              "B",
+              "C"
+            ],
+            "description": "Custodiante independente que detém a chave privada correspondente OFFLINE."
+          },
+          "public_key": {
+            "type": "string",
+            "description": "Material de chave PÚBLICA raiz apenas (base64url, ed25519)."
+          },
+          "fingerprint": {
+            "type": "string",
+            "description": "Impressão digital pública (hash) da chave pública raiz."
+          },
+          "algorithm": {
+            "type": "string",
+            "enum": [
+              "ed25519"
+            ],
+            "description": "Algoritmo de assinatura."
+          },
+          "revocation_status": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "active",
+              "revoked",
+              "unknown",
+              null
+            ],
+            "description": "Estado da chave face à Revocation List. Fail-closed. Revogar uma chave é mecanismo de segurança; revogar uma das três não destrói a raiz."
+          }
         }
       }
     },
     "delegated_keys": {
       "type": "array",
       "description": "Delegated Signing Keys emitidas sob esta raiz, com âmbito e validade limitados. Assinam artefactos do protocolo — nunca pagamentos, nunca operadores, nunca fundos. Ver delegated-signing-key.production.schema.json.",
-      "items": { "$ref": "https://banza.network/contracts/production/delegated-signing-key.production.schema.json" }
+      "items": {
+        "$ref": "https://banza.network/contracts/production/delegated-signing-key.production.schema.json"
+      }
     },
     "scope": {
       "type": "array",
@@ -67,20 +128,52 @@
       "minItems": 1,
       "items": {
         "type": "string",
-        "enum": ["protocol_metadata", "protocol_release", "delegated_signing_key", "revocation"]
+        "enum": [
+          "protocol_metadata",
+          "protocol_release",
+          "delegated_signing_key",
+          "revocation"
+        ]
       }
     },
     "policy": {
-      "type": ["object", "null"],
+      "type": [
+        "object",
+        "null"
+      ],
       "description": "Política de confiança que rege rotação, revogação e delegação sob esta raiz.",
-      "required": ["rotation_allowed", "revocation_allowed", "min_signatures"],
+      "required": [
+        "rotation_allowed",
+        "revocation_allowed",
+        "min_signatures"
+      ],
       "additionalProperties": false,
       "properties": {
-        "rotation_allowed": { "type": "boolean", "description": "Se a rotação de chaves raiz é permitida sob esta política." },
-        "revocation_allowed": { "type": "boolean", "description": "Se a revogação de chaves raiz é permitida sob esta política. Revogação é mecanismo de segurança, não sanção." },
-        "min_signatures": { "type": "integer", "const": 2, "description": "Assinaturas mínimas para qualquer acção da raiz (2-de-3)." },
-        "compromise_of_one_key_does_not_compromise_root": { "type": "boolean", "const": true, "description": "Propriedade do modelo 2-de-3: o compromisso de uma única chave não compromete a raiz." },
-        "loss_of_one_key_does_not_destroy_root": { "type": "boolean", "const": true, "description": "Propriedade do modelo 2-de-3: a perda de uma única chave não destrói a raiz." }
+        "rotation_allowed": {
+          "type": "boolean",
+          "description": "Se a rotação de chaves raiz é permitida sob esta política."
+        },
+        "revocation_allowed": {
+          "type": "boolean",
+          "description": "Se a revogação de chaves raiz é permitida sob esta política. Revogação é mecanismo de segurança, não sanção."
+        },
+        "min_signatures": {
+          "type": "integer",
+          "const": 2,
+          "description": "Assinaturas mínimas para qualquer acção da raiz (2-de-3).",
+          "maximum": 9007199254740991,
+          "minimum": -9007199254740991
+        },
+        "compromise_of_one_key_does_not_compromise_root": {
+          "type": "boolean",
+          "const": true,
+          "description": "Propriedade do modelo 2-de-3: o compromisso de uma única chave não compromete a raiz."
+        },
+        "loss_of_one_key_does_not_destroy_root": {
+          "type": "boolean",
+          "const": true,
+          "description": "Propriedade do modelo 2-de-3: a perda de uma única chave não destrói a raiz."
+        }
       }
     },
     "valid_from": {
@@ -94,21 +187,51 @@
       "description": "Fim da janela de validade. Metadados de raiz expirados são obsoletos e MUST ser tratados como falha fail-closed."
     },
     "revocation_list_ref": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "description": "Referência à Revocation List publicada sob esta raiz. Semântica fail-closed: uma lista indisponível, inválida ou expirada torna o material não confiável."
     },
     "boundary": {
       "type": "object",
       "description": "Fronteira permanente da Trust Root, invariante e não ajustável por conveniência de implementação. A raiz assina artefactos do protocolo. Ponto. Não autoriza pagamentos, não cria operadores, não emite licenças, não certifica operadores e não movimenta fundos.",
-      "required": ["not_operator_authorisation", "not_certificate", "not_operator_approval", "not_payment_service_authorisation", "open_financial_protocol"],
+      "required": [
+        "not_operator_authorisation",
+        "not_certificate",
+        "not_operator_approval",
+        "not_payment_service_authorisation",
+        "open_financial_protocol"
+      ],
       "additionalProperties": false,
       "properties": {
-        "not_operator_authorisation": { "type": "boolean", "const": true, "description": "A raiz não autoriza operadores e não cria operadores. Operadores independentes, quando aplicável, são autorizados pelas entidades competentes — nunca pela BANZA." },
-        "not_certificate": { "type": "boolean", "const": true, "description": "A raiz não emite certificados a participantes. Assina metadados, releases, chaves delegadas e revogações." },
-        "not_operator_approval": { "type": "boolean", "const": true, "description": "A raiz não aprova, não aceita e não admite operadores, e não atesta a sua idoneidade. Uma assinatura afirma sobre artefactos, nunca sobre participantes." },
-        "not_payment_service_authorisation": { "type": "boolean", "const": true, "description": "A raiz não autoriza serviços de pagamento, não emite licenças e não detém, não liquida nem movimenta fundos." },
-        "open_financial_protocol": { "type": "boolean", "const": true, "description": "BANZA é e permanece um protocolo financeiro aberto. PSPs, bancos ou operadores autorizados são entidades separadas que podem implementar o protocolo." }
+        "not_operator_authorisation": {
+          "type": "boolean",
+          "const": true,
+          "description": "A raiz não autoriza operadores e não cria operadores. Operadores independentes, quando aplicável, são autorizados pelas entidades competentes — nunca pela BANZA."
+        },
+        "not_certificate": {
+          "type": "boolean",
+          "const": true,
+          "description": "A raiz não emite certificados a participantes. Assina metadados, releases, chaves delegadas e revogações."
+        },
+        "not_operator_approval": {
+          "type": "boolean",
+          "const": true,
+          "description": "A raiz não aprova, não aceita e não admite operadores, e não atesta a sua idoneidade. Uma assinatura afirma sobre artefactos, nunca sobre participantes."
+        },
+        "not_payment_service_authorisation": {
+          "type": "boolean",
+          "const": true,
+          "description": "A raiz não autoriza serviços de pagamento, não emite licenças e não detém, não liquida nem movimenta fundos."
+        },
+        "open_financial_protocol": {
+          "type": "boolean",
+          "const": true,
+          "description": "BANZA é e permanece um protocolo financeiro aberto. PSPs, bancos ou operadores autorizados são entidades separadas que podem implementar o protocolo."
+        }
       }
     }
-  }
+  },
+  "_numeric_domain": "Integers in a signed or digested BANZA artifact are bounded by the canonicalization in force (BCJ/1: |n| <= 2^53-1, spec/canonicalization.md P2). The bound is declared here so the schema and the canonicalization cannot disagree about what is representable."
 }

@@ -11,43 +11,119 @@
     {
       "title": "Found",
       "additionalProperties": false,
-      "required": ["exists", "status", "amount", "currency", "verification_url"],
+      "required": [
+        "exists",
+        "status",
+        "amount",
+        "currency",
+        "verification_url"
+      ],
       "properties": {
-        "exists": { "const": true },
+        "exists": {
+          "const": true
+        },
         "status": {
           "type": "string",
-          "enum": ["PENDING", "CONFIRMED", "FAILED", "REVERSED", "CANCELLED", "EXPIRED"]
+          "enum": [
+            "PENDING",
+            "CONFIRMED",
+            "FAILED",
+            "REVERSED",
+            "CANCELLED",
+            "EXPIRED"
+          ]
         },
-        "amount": { "type": "integer", "minimum": 0 },
-        "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
-        "payer_display": { "type": "string" },
-        "payer_handle": { "type": "string" },
-        "payee_display": { "type": "string" },
-        "payee_handle": { "type": "string" },
-        "method": { "type": "string" },
-        "description": { "type": "string" },
-        "confirmed_at": { "type": ["string", "null"], "format": "date-time" },
-        "issued_at": { "type": "string", "format": "date-time" },
-        "verification_url": { "type": "string", "format": "uri" },
-        "verification_count": { "type": "integer", "minimum": 0 },
-        "proof_hash_short": { "type": "string" },
-        "network": { "type": "string" },
-        "operator": { "type": "string" }
+        "amount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
+        },
+        "payer_display": {
+          "type": "string"
+        },
+        "payer_handle": {
+          "type": "string"
+        },
+        "payee_display": {
+          "type": "string"
+        },
+        "payee_handle": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "confirmed_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "issued_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "verification_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "verification_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "proof_hash_short": {
+          "type": "string"
+        },
+        "network": {
+          "type": "string"
+        },
+        "operator": {
+          "type": "string"
+        }
       }
     },
     {
       "title": "NotFound",
       "additionalProperties": false,
-      "required": ["exists", "status", "message"],
+      "required": [
+        "exists",
+        "status",
+        "message"
+      ],
       "properties": {
-        "exists": { "const": false },
-        "status": { "const": "NOT_FOUND" },
-        "message": { "type": "string" }
+        "exists": {
+          "const": false
+        },
+        "status": {
+          "const": "NOT_FOUND"
+        },
+        "message": {
+          "type": "string"
+        }
       }
     }
   ],
   "_forbidden_fields": [
-    "wallet_id", "balance", "internal_id", "email", "phone",
-    "ledger_internals", "private_key", "signature_value", "kyc", "kyb", "storage_key"
-  ]
+    "wallet_id",
+    "balance",
+    "internal_id",
+    "email",
+    "phone",
+    "ledger_internals",
+    "private_key",
+    "signature_value",
+    "kyc",
+    "kyb",
+    "storage_key"
+  ],
+  "_numeric_domain": "Integers in a signed or digested BANZA artifact are bounded by the canonicalization in force (BCJ/1: |n| <= 2^53-1, spec/canonicalization.md P2). The bound is declared here so the schema and the canonicalization cannot disagree about what is representable."
 }

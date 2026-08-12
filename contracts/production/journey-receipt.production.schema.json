@@ -82,11 +82,15 @@
       "format": "date-time"
     },
     "duration_ms": {
-      "type": "integer"
+      "type": "integer",
+      "maximum": 9007199254740991,
+      "minimum": -9007199254740991
     },
     "step_count": {
       "type": "integer",
-      "description": "Number of receipts (nine: eight technical + certification readiness)."
+      "description": "Number of receipts (nine: eight technical + certification readiness).",
+      "maximum": 9007199254740991,
+      "minimum": -9007199254740991
     },
     "steps": {
       "type": "array",
@@ -137,7 +141,9 @@
         "integer",
         "null"
       ],
-      "description": "ADR-077: count of profile-REQUIRED technical steps aggregated into readiness."
+      "description": "ADR-077: count of profile-REQUIRED technical steps aggregated into readiness.",
+      "maximum": 9007199254740991,
+      "minimum": -9007199254740991
     },
     "certification_status": {
       "type": "string",
@@ -165,15 +171,21 @@
     },
     "qwen_calls": {
       "type": "integer",
-      "const": 0
+      "const": 0,
+      "maximum": 9007199254740991,
+      "minimum": -9007199254740991
     },
     "external_model_calls": {
       "type": "integer",
-      "const": 0
+      "const": 0,
+      "maximum": 9007199254740991,
+      "minimum": -9007199254740991
     },
     "protocol_fetch_count": {
       "type": "integer",
-      "description": "Total successful protocol fetches across the journey."
+      "description": "Total successful protocol fetches across the journey.",
+      "maximum": 9007199254740991,
+      "minimum": -9007199254740991
     },
     "audit_ref": {
       "type": "string"
@@ -213,5 +225,6 @@
       "description": "ADR-076 §D-076-08: set only when reproduction_of is present. A reproduction re-runs the FULL secure pipeline (registry-resolved origin + secure fetch + DNS/IP/TLS validation), NEVER a fetch to a URL stored in the receipt, then compares the newly observed artefact hashes against the original."
     }
   },
-  "_reason_codes": "banza-reason-codes/1 — spec/reason-codes.md; contracts/production/reason-code-registry.production.json"
+  "_reason_codes": "banza-reason-codes/1 — spec/reason-codes.md; contracts/production/reason-code-registry.production.json",
+  "_numeric_domain": "Integers in a signed or digested BANZA artifact are bounded by the canonicalization in force (BCJ/1: |n| <= 2^53-1, spec/canonicalization.md P2). The bound is declared here so the schema and the canonicalization cannot disagree about what is representable."
 }

@@ -7,31 +7,80 @@
   "_status": "production-baseline",
   "_authority": "Root Trust Ceremony (2-of-3 offline custody, docs/governance PKI trust model)",
   "_boundary": "Root trust for the BANZA open financial protocol. The root does NOT authorise payment services, does NOT create operators, does NOT issue licences, does NOT move/settle/hold funds, and does NOT replace operator regulatory authorisation. BANZA remains an open financial protocol; PSPs/banks/authorised operators are separate entities that implement it.",
-
   "type": "object",
-  "required": ["root_id", "revoked_key_id", "reason", "effective_from", "signatures", "threshold"],
+  "required": [
+    "root_id",
+    "revoked_key_id",
+    "reason",
+    "effective_from",
+    "signatures",
+    "threshold"
+  ],
   "additionalProperties": false,
-
   "properties": {
-    "root_id": { "type": "string", "description": "The protocol root of trust whose key is being revoked." },
-    "revoked_key_id": { "type": "string", "description": "The root key id being revoked (e.g. 'root-key-B')." },
-    "reason": { "type": "string", "enum": ["compromise", "loss", "rotation", "policy"], "description": "Why the key is being revoked. Compromise of one key does not compromise the whole root under 2-of-3." },
-    "effective_from": { "type": "string", "format": "date-time", "description": "When the revocation takes effect." },
+    "root_id": {
+      "type": "string",
+      "description": "The protocol root of trust whose key is being revoked."
+    },
+    "revoked_key_id": {
+      "type": "string",
+      "description": "The root key id being revoked (e.g. 'root-key-B')."
+    },
+    "reason": {
+      "type": "string",
+      "enum": [
+        "compromise",
+        "loss",
+        "rotation",
+        "policy"
+      ],
+      "description": "Why the key is being revoked. Compromise of one key does not compromise the whole root under 2-of-3."
+    },
+    "effective_from": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the revocation takes effect."
+    },
     "signatures": {
       "type": "array",
       "description": "Custodian signatures authorising the revocation. At least 2 of 3 required (M2_ROOT_CEREMONY_BLOCKED_BY_THRESHOLD if fewer). The revoked key's own signature does not count toward the threshold.",
       "minItems": 2,
       "items": {
         "type": "object",
-        "required": ["key_id", "custodian", "signature"],
+        "required": [
+          "key_id",
+          "custodian",
+          "signature"
+        ],
         "additionalProperties": false,
         "properties": {
-          "key_id": { "type": "string", "description": "Root key id that produced this signature." },
-          "custodian": { "type": "string", "enum": ["A", "B", "C"], "description": "Custodian who signed OFFLINE." },
-          "signature": { "type": "string", "description": "Detached signature over the canonical revocation bytes (base64url, ed25519). Public material." }
+          "key_id": {
+            "type": "string",
+            "description": "Root key id that produced this signature."
+          },
+          "custodian": {
+            "type": "string",
+            "enum": [
+              "A",
+              "B",
+              "C"
+            ],
+            "description": "Custodian who signed OFFLINE."
+          },
+          "signature": {
+            "type": "string",
+            "description": "Detached signature over the canonical revocation bytes (base64url, ed25519). Public material."
+          }
         }
       }
     },
-    "threshold": { "type": "integer", "const": 2, "description": "Signature threshold for revocation. 2-of-3." }
-  }
+    "threshold": {
+      "type": "integer",
+      "const": 2,
+      "description": "Signature threshold for revocation. 2-of-3.",
+      "maximum": 9007199254740991,
+      "minimum": -9007199254740991
+    }
+  },
+  "_numeric_domain": "Integers in a signed or digested BANZA artifact are bounded by the canonicalization in force (BCJ/1: |n| <= 2^53-1, spec/canonicalization.md P2). The bound is declared here so the schema and the canonicalization cannot disagree about what is representable."
 }

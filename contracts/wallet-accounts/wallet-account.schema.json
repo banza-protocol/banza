@@ -6,30 +6,96 @@
   "_spec_version": "1.0",
   "_status": "canonical",
   "_authority": "ADR-020",
-
   "type": "object",
-  "required": ["wallet_id", "account_id", "owner_ref", "currency", "purpose", "status", "created_at"],
+  "required": [
+    "wallet_id",
+    "account_id",
+    "owner_ref",
+    "currency",
+    "purpose",
+    "status",
+    "created_at"
+  ],
   "additionalProperties": false,
   "properties": {
-    "wallet_id":       { "type": "string", "description": "Parent wallet (one per owner + currency)." },
-    "account_id":      { "type": "string", "description": "The segregated ledger account — the unit ledger postings reference (ADR-006). Immutable." },
-    "owner_ref":       { "type": "string", "description": "The wallet owner. Opaque to the protocol." },
-    "currency":        { "type": "string", "description": "ISO 4217. Inherited from the wallet." },
+    "wallet_id": {
+      "type": "string",
+      "description": "Parent wallet (one per owner + currency)."
+    },
+    "account_id": {
+      "type": "string",
+      "description": "The segregated ledger account — the unit ledger postings reference (ADR-006). Immutable."
+    },
+    "owner_ref": {
+      "type": "string",
+      "description": "The wallet owner. Opaque to the protocol."
+    },
+    "currency": {
+      "type": "string",
+      "description": "ISO 4217. Inherited from the wallet."
+    },
     "purpose": {
       "type": "string",
-      "enum": ["PRIMARY", "CAMPAIGN", "PROJECT", "EVENT", "STORE", "ESCROW", "RESERVE", "SETTLEMENT", "CUSTOM"],
+      "enum": [
+        "PRIMARY",
+        "CAMPAIGN",
+        "PROJECT",
+        "EVENT",
+        "STORE",
+        "ESCROW",
+        "RESERVE",
+        "SETTLEMENT",
+        "CUSTOM"
+      ],
       "description": "Segregation purpose. Exactly one PRIMARY per wallet (mandatory, unique)."
     },
-    "reference_type":  { "type": ["string", "null"], "description": "Optional external aggregate kind (e.g. a campaign-id namespace). Opaque to the operator." },
-    "reference_id":    { "type": ["string", "null"], "description": "Optional external aggregate reference (e.g. a campaign id). Opaque to the operator." },
-    "label":           { "type": ["string", "null"], "description": "Optional human label." },
+    "reference_type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Optional external aggregate kind (e.g. a campaign-id namespace). Opaque to the operator."
+    },
+    "reference_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Optional external aggregate reference (e.g. a campaign id). Opaque to the operator."
+    },
+    "label": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Optional human label."
+    },
     "status": {
       "type": "string",
-      "enum": ["ACTIVE", "INACTIVE", "SETTLED", "CLOSED"],
+      "enum": [
+        "ACTIVE",
+        "INACTIVE",
+        "SETTLED",
+        "CLOSED"
+      ],
       "description": "SETTLED/CLOSED accept no new payments."
     },
-    "available_balance_minor": { "type": "integer", "minimum": 0, "description": "Settled, spendable balance in integer minor units. Read from the operator — never computed by an application." },
-    "pending_balance_minor":   { "type": "integer", "minimum": 0, "description": "Not-yet-settled balance in integer minor units." },
-    "created_at":      { "type": "string", "format": "date-time" }
-  }
+    "available_balance_minor": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Settled, spendable balance in integer minor units. Read from the operator — never computed by an application.",
+      "maximum": 9007199254740991
+    },
+    "pending_balance_minor": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Not-yet-settled balance in integer minor units.",
+      "maximum": 9007199254740991
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "_numeric_domain": "Integers in a signed or digested BANZA artifact are bounded by the canonicalization in force (BCJ/1: |n| <= 2^53-1, spec/canonicalization.md P2). The bound is declared here so the schema and the canonicalization cannot disagree about what is representable."
 }

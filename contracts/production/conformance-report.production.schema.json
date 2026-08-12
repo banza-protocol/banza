@@ -7,27 +7,76 @@
   "_status": "production-baseline",
   "_authority": "conformance/ suite; ADR-007 (invariant enforcement)",
   "_boundary": "Production of the BANZA protocol, not financial production. BANZA is an open protocol; it does not process payments, settle value, or move funds. Licence/authorisation belongs to the operator, not to BANZA.",
-
   "type": "object",
-  "required": ["report_id", "operator_id", "protocol_version", "levels", "invariants_checked", "evidence_refs", "ready_for_operator_external_review", "generated_at"],
+  "required": [
+    "report_id",
+    "operator_id",
+    "protocol_version",
+    "levels",
+    "invariants_checked",
+    "evidence_refs",
+    "ready_for_operator_external_review",
+    "generated_at"
+  ],
   "additionalProperties": false,
-
   "properties": {
-    "report_id":        { "type": "string", "description": "Unique report id. Immutable." },
-    "operator_id":      { "type": "string", "description": "Candidate operator under test (e.g. 'operator-a'). Never a commercial brand." },
-    "protocol_version": { "type": "string", "description": "BANZA protocol version tested (e.g. '1.0.0')." },
+    "report_id": {
+      "type": "string",
+      "description": "Unique report id. Immutable."
+    },
+    "operator_id": {
+      "type": "string",
+      "description": "Candidate operator under test (e.g. 'operator-a'). Never a commercial brand."
+    },
+    "protocol_version": {
+      "type": "string",
+      "description": "BANZA protocol version tested (e.g. '1.0.0')."
+    },
     "levels": {
       "type": "array",
       "description": "Per-level results for L0–L4.",
       "items": {
         "type": "object",
-        "required": ["level", "result"],
+        "required": [
+          "level",
+          "result"
+        ],
         "additionalProperties": false,
         "properties": {
-          "level":       { "type": "string", "enum": ["L0", "L1", "L2", "L3", "L4"] },
-          "result":      { "type": "string", "enum": ["pass", "fail", "not_run"] },
-          "vectors_total":  { "type": ["integer", "null"], "minimum": 0 },
-          "vectors_passed": { "type": ["integer", "null"], "minimum": 0 }
+          "level": {
+            "type": "string",
+            "enum": [
+              "L0",
+              "L1",
+              "L2",
+              "L3",
+              "L4"
+            ]
+          },
+          "result": {
+            "type": "string",
+            "enum": [
+              "pass",
+              "fail",
+              "not_run"
+            ]
+          },
+          "vectors_total": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "vectors_passed": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
         }
       }
     },
@@ -36,16 +85,42 @@
       "description": "Financial/protocol invariants exercised (e.g. 'INV-LEDGER-001', 'INV-QR-001').",
       "items": {
         "type": "object",
-        "required": ["id", "result"],
+        "required": [
+          "id",
+          "result"
+        ],
         "additionalProperties": false,
         "properties": {
-          "id":     { "type": "string", "description": "Invariant identifier." },
-          "result": { "type": "string", "enum": ["pass", "fail", "not_applicable"] }
+          "id": {
+            "type": "string",
+            "description": "Invariant identifier."
+          },
+          "result": {
+            "type": "string",
+            "enum": [
+              "pass",
+              "fail",
+              "not_applicable"
+            ]
+          }
         }
       }
     },
-    "evidence_refs":    { "type": "array", "items": { "type": "string" }, "description": "References to evidence artifacts (logs, transcripts, digests) supporting the results." },
-    "ready_for_operator_external_review": { "type": "boolean", "description": "True when the report is ready to be submitted for the operator's own external review. NOT a certification and NOT a BANZA approval." },
-    "generated_at":     { "type": "string", "format": "date-time" }
-  }
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "References to evidence artifacts (logs, transcripts, digests) supporting the results."
+    },
+    "ready_for_operator_external_review": {
+      "type": "boolean",
+      "description": "True when the report is ready to be submitted for the operator's own external review. NOT a certification and NOT a BANZA approval."
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "_numeric_domain": "Integers in a signed or digested BANZA artifact are bounded by the canonicalization in force (BCJ/1: |n| <= 2^53-1, spec/canonicalization.md P2). The bound is declared here so the schema and the canonicalization cannot disagree about what is representable."
 }

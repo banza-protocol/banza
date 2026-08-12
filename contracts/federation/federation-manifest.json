@@ -7,7 +7,6 @@
   "_status": "canonical",
   "_authority": "ADR-040, RFC-0005, INV-FEDEVAL-007, INV-FED-003",
   "_extends": "conformance/manifests/schema.json",
-
   "type": "object",
   "required": [
     "federation_version",
@@ -18,41 +17,34 @@
     "cross_operator_settlement",
     "federation_capabilities"
   ],
-
   "properties": {
     "federation_version": {
       "type": "string",
       "const": "1",
       "description": "Federation protocol version supported by this operator."
     },
-
     "protocol_metadata_url": {
       "type": "string",
       "format": "uri",
       "description": "URL where federation peers can fetch this operator's published signed protocol metadata and conformance evidence. MUST be accessible over TLS without authentication."
     },
-
     "interop_endpoint": {
       "type": "string",
       "format": "uri",
       "description": "Base URL for this operator's federation API. POST /federation/route, GET /federation/obligations, etc. are all relative to this base."
     },
-
     "supports_federation": {
       "type": "boolean",
       "description": "True if this operator participates in federation. INV-FEDEVAL-007: MUST NOT be true unless the operator publishes valid, fresh, non-revoked signed protocol metadata and conformance evidence for a federation-capable conformance scope (L3+) that passes the Open Trust Evaluation. INV-FED-003: setting this true without that published material is a protocol violation."
     },
-
     "cross_operator_routing": {
       "type": "boolean",
       "description": "True if this operator can accept POST /federation/route requests from other operators whose published material passes the Open Trust Evaluation."
     },
-
     "cross_operator_settlement": {
       "type": "boolean",
       "description": "True if this operator participates in cross-operator netting and settlement (RFC-0002). Required for L4."
     },
-
     "federation_capabilities": {
       "type": "object",
       "required": [
@@ -92,20 +84,29 @@
         "max_transaction_amount_minor": {
           "type": "integer",
           "minimum": 1,
-          "description": "Per-transaction maximum for cross-operator payments in the primary currency's minor units. Absent means no per-transaction limit declared by this operator."
+          "description": "Per-transaction maximum for cross-operator payments in the primary currency's minor units. Absent means no per-transaction limit declared by this operator.",
+          "maximum": 9007199254740991
         }
       }
     }
   },
-
   "if": {
-    "properties": { "supports_federation": { "const": true } },
-    "required": ["supports_federation"]
+    "properties": {
+      "supports_federation": {
+        "const": true
+      }
+    },
+    "required": [
+      "supports_federation"
+    ]
   },
   "then": {
     "properties": {
-      "cross_operator_routing": { "const": true }
+      "cross_operator_routing": {
+        "const": true
+      }
     },
     "description": "If supports_federation is true, cross_operator_routing MUST also be true. A federation member that cannot route is not a federation member."
-  }
+  },
+  "_numeric_domain": "Integers in a signed or digested BANZA artifact are bounded by the canonicalization in force (BCJ/1: |n| <= 2^53-1, spec/canonicalization.md P2). The bound is declared here so the schema and the canonicalization cannot disagree about what is representable."
 }

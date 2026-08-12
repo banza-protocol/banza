@@ -133,16 +133,21 @@
     },
     "issued_at": {
       "type": "integer",
-      "description": "UTC seconds."
+      "description": "UTC seconds.",
+      "maximum": 9007199254740991,
+      "minimum": -9007199254740991
     },
     "expires_at": {
       "type": "integer",
-      "description": "UTC seconds; equals issued_at for a non-CERTIFIED record."
+      "description": "UTC seconds; equals issued_at for a non-CERTIFIED record.",
+      "maximum": 9007199254740991,
+      "minimum": -9007199254740991
     },
     "record_hash": {
       "type": "string",
       "minLength": 1,
       "description": "Canonical SHA-256 over the record excluding this field; must reproduce (ADR-064 D-064-05)."
     }
-  }
+  },
+  "_numeric_domain": "Integers in a signed or digested BANZA artifact are bounded by the canonicalization in force (BCJ/1: |n| <= 2^53-1, spec/canonicalization.md P2). The bound is declared here so the schema and the canonicalization cannot disagree about what is representable."
 }

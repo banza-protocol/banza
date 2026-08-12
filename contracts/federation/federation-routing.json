@@ -6,17 +6,20 @@
   "_spec_version": "1",
   "_status": "canonical",
   "_authority": "ADR-040, RFC-0001, INV-FED-001, INV-FED-004",
-
   "$defs": {
     "Amount": {
       "type": "object",
-      "required": ["minor", "currency"],
+      "required": [
+        "minor",
+        "currency"
+      ],
       "additionalProperties": false,
       "properties": {
         "minor": {
           "type": "integer",
           "minimum": 1,
-          "description": "Amount in currency minor units. MUST be positive. INV-LEDGER-003: integer arithmetic only."
+          "description": "Amount in currency minor units. MUST be positive. INV-LEDGER-003: integer arithmetic only.",
+          "maximum": 9007199254740991
         },
         "currency": {
           "type": "string",
@@ -25,7 +28,6 @@
         }
       }
     },
-
     "RoutingRequest": {
       "type": "object",
       "required": [
@@ -78,7 +80,12 @@
         },
         "recipient_identifier_type": {
           "type": "string",
-          "enum": ["wallet_id", "handle", "phone", "account_number"],
+          "enum": [
+            "wallet_id",
+            "handle",
+            "phone",
+            "account_number"
+          ],
           "description": "Type of recipient identifier."
         },
         "created_at": {
@@ -93,10 +100,14 @@
         }
       }
     },
-
     "RoutingResponse": {
       "type": "object",
-      "required": ["schema_version", "routing_request_id", "status", "trace_id"],
+      "required": [
+        "schema_version",
+        "routing_request_id",
+        "status",
+        "trace_id"
+      ],
       "additionalProperties": false,
       "properties": {
         "schema_version": {
@@ -110,7 +121,11 @@
         },
         "status": {
           "type": "string",
-          "enum": ["accepted", "rejected", "pending"],
+          "enum": [
+            "accepted",
+            "rejected",
+            "pending"
+          ],
           "description": "Routing decision by the destination operator."
         },
         "trace_id": {
@@ -153,7 +168,6 @@
       }
     }
   },
-
   "_signature_requirements": {
     "algorithm": "ed25519",
     "signing_party": "originating_operator",
@@ -167,7 +181,6 @@
       "5. Verify ed25519 signature against that public key"
     ]
   },
-
   "_rejection_code_registry": {
     "recipient_not_found": "No wallet matching recipient_identifier on destination operator",
     "recipient_suspended": "Recipient wallet is suspended",
@@ -178,7 +191,6 @@
     "capability_unavailable": "Destination operator is temporarily unable to accept cross-operator payments",
     "duplicate_request": "routing_request_id already processed with different content (invariant violation by originating operator)"
   },
-
   "_validation_requirements": {
     "destination_operator_must_reject_if": [
       "Banza-Federation-Signature header is missing",
@@ -189,14 +201,13 @@
       "Same routing_request_id received with different content (report duplicate_request)"
     ]
   },
-
   "_served_at": "POST /federation/route — on the destination operator's interop_endpoint",
   "_authentication": "Banza-Federation-Signature header required",
-
   "_conformance_evidence": {
     "FED-L3-007": "POST /federation/route returns valid RoutingResponse",
     "FED-L3-009_010": "Bidirectional trust verification via protocol_metadata_url in request (Open Trust Evaluation)",
     "FED-L3-011": "accepted routing request triggers payment completion on destination operator",
     "FED-L3-012": "trace_id in response matches request (INV-FED-001)"
-  }
+  },
+  "_numeric_domain": "Integers in a signed or digested BANZA artifact are bounded by the canonicalization in force (BCJ/1: |n| <= 2^53-1, spec/canonicalization.md P2). The bound is declared here so the schema and the canonicalization cannot disagree about what is representable."
 }
