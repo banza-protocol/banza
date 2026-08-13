@@ -20,18 +20,18 @@
  "excluded_reason_counts": {
   "content-secret:embedded-access-token": 1,
   "exceeds-max-file-bytes": 1,
-  "non-indexable-file-type": 57
+  "non-indexable-file-type": 55
  },
  "file_categories": {
   "banzai-runtime": 111,
-  "decision": 108,
+  "decision": 104,
   "guard-ci": 91,
-  "implementation": 169,
+  "implementation": 168,
   "infra": 23,
   "legal-license": 5,
-  "normative": 176,
+  "normative": 175,
   "operator-zero": 90,
-  "report": 54,
+  "report": 38,
   "security-boundary": 7,
   "website": 162
  },
@@ -48,8 +48,8 @@
   "applied": true,
   "entries_removed": {
    "chunks": 157,
-   "exclusions": 9,
-   "files": 175
+   "exclusions": 11,
+   "files": 197
   },
   "reason": "entries whose source file was removed from the tree",
   "reindexed": false,
@@ -58,7 +58,7 @@
  "tool_version": "banzai-repo-indexer/0.1.0",
  "total_chunks": 1202,
  "total_chunks_before_cap": 1202,
- "total_files_excluded": 59,
- "total_files_indexed": 996,
- "total_files_scanned": 1055
+ "total_files_excluded": 57,
+ "total_files_indexed": 974,
+ "total_files_scanned": 1031
 }

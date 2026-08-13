@@ -132,7 +132,6 @@ Rust as the sole decision authority; and the rule that BanzAI's model never sits
 ## References
 
 - `artifacts/m2-19-final/finding-b-map.json` — the M2.19B discovery, per-file, with the gate counts
-- `docs/reports/TRUST_SECURITY_CONTRACTS_REALIGNMENT_REPORT.md` — the realignment execution report
 - ADR-038 *Invariants* — "`INV-TRUST-001 … INV-TRUST-007` … is superseded in full"; the `INV-OTE-*` series
 - ADR-040 *Protocol Invariants* — the `INV-FEDEVAL-001 … INV-FEDEVAL-010` series
 - `contracts/invariants.json` — the canonical machine-readable registry realigned by this ADR

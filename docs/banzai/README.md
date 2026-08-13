@@ -30,7 +30,7 @@ operator-facing reference lives in the BANZA Reference, chapter 12 —
   origin of its inputs in an `OperationReceipt`/`JourneyReceipt` (`qwen_calls=0`,
   `external_model_calls=0`, `protocol_fetch_count` tracked). Upload/paste is a local, non-authoritative
   **draft** tool only. See [OPERATOR_JOURNEY.md](OPERATOR_JOURNEY.md) and
-  [../reports/SECURE_ARTIFACT_FETCHER_REPORT.md](../reports/SECURE_ARTIFACT_FETCHER_REPORT.md).
+  ADR-068 (§19 for the SSRF policy), which `engines/banza-artifact-fetcher` implements.
 - Public state is **pre-production**: `/operators=[]`, `production_certificates=false`.
 
 ## Documents

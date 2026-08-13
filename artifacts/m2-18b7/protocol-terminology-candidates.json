@@ -1,5 +1,5 @@
 {
-  "total": 4765,
+  "total": 4637,
   "rows": [
     {
       "raw_text": "Contributing to BANZA",
@@ -1777,13 +1777,12 @@
         "docs-banzai-banzai-workbench-md",
         "docs-banzai-banzai-workbench-threat-model-md",
         "docs-governance-annex-banza-network-infrastructure-md",
-        "docs-governance-banzai-intent-first-grounded-reasoning-md",
         "docs-governance-m2-7i-banzai-reference-repository-alignment-audit-md",
         "docs-governance-m2-7j-svg-visual-system-audit-md",
         "docs-governance-m2-7k-postgresql-runtime-schema-audit-md",
         "docs-governance-m2-7m-license-notice-trademark-governance-audit-md"
       ],
-      "frequency": 12,
+      "frequency": 11,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -4079,7 +4078,6 @@
         "docs-banzai-session-state-md",
         "docs-governance-annex-banza-network-infrastructure-md",
         "docs-governance-banza-protocol-vs-operator-policy-md",
-        "docs-governance-banzai-intent-first-grounded-reasoning-md",
         "docs-governance-banzai-native-protocol-agent-md",
         "docs-governance-banzami-operational-scheme-md",
         "docs-governance-banza-language-policy-md",
@@ -4121,7 +4119,7 @@
         "spec-trust-freshness-md",
         "spec-validation-journey-md"
       ],
-      "frequency": 130,
+      "frequency": 129,
       "phrase_length": 1,
       "accepted": true,
       "rejection_reason": "",
@@ -6209,7 +6207,6 @@
         "decisions-adr-adr-078-banzai-operational-reasoning-and-telemetry-md",
         "docs-banzai-operator-journey-md",
         "docs-governance-annex-banza-network-infrastructure-md",
-        "docs-governance-banzai-intent-first-grounded-reasoning-md",
         "docs-governance-banza-conformance-interop-certification-md",
         "docs-governance-m2-7k-postgresql-runtime-schema-audit-md",
         "docs-governance-m2-8a-local-qwen-vps-xl-benchmark-md",
@@ -6217,7 +6214,7 @@
         "spec-collections-md",
         "spec-disputes-md"
       ],
-      "frequency": 27,
+      "frequency": 26,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -7707,10 +7704,9 @@
         "decisions-adr-adr-020-wallet-accounts-segregated-accounts-md",
         "decisions-adr-adr-054-banzai-primary-human-operator-interface-md",
         "decisions-adr-adr-073-banzai-mandatory-post-synthesis-validator-md",
-        "docs-banzai-spr-structured-generation-and-validated-cache-md",
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
+        "docs-banzai-spr-structured-generation-and-validated-cache-md"
       ],
-      "frequency": 8,
+      "frequency": 5,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -11526,7 +11522,6 @@
         "docs-banzai-local-inference-runbook-md",
         "docs-banzai-local-inference-runtime-md",
         "docs-banzai-local-qwen-model-setup-md",
-        "docs-governance-banzai-intent-first-grounded-reasoning-md",
         "docs-governance-banza-conformance-interop-certification-md",
         "docs-governance-banza-root-custody-decision-required-md",
         "spec-canonicalization-md",
@@ -11534,7 +11529,7 @@
         "spec-federation-federation-protocol-flow-md",
         "spec-federation-federation-trust-model-md"
       ],
-      "frequency": 15,
+      "frequency": 14,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "STOPWORD"
@@ -12597,11 +12592,10 @@
       "normalized": "guard",
       "sources": [
         "decisions-adr-adr-044-banzai-local-qwen-inference-runtime-md",
-        "docs-governance-banzai-intent-first-grounded-reasoning-md",
         "docs-governance-m2-3-reference-trust-model-inventory-md",
         "docs-governance-m2-7b-home-reference-consolidation-audit-md"
       ],
-      "frequency": 4,
+      "frequency": 3,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -13307,12 +13301,11 @@
         "decisions-adr-adr-078-banzai-operational-reasoning-and-telemetry-md",
         "docs-banzai-local-inference-runtime-md",
         "docs-banzai-local-qwen-model-setup-md",
-        "docs-governance-banzai-intent-first-grounded-reasoning-md",
         "docs-governance-banzami-operational-scheme-md",
         "docs-governance-banza-regulatory-claim-policy-md",
         "docs-governance-banza-three-layer-architecture-md"
       ],
-      "frequency": 35,
+      "frequency": 34,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -14105,10 +14098,9 @@
       "raw_text": "two-pass",
       "normalized": "two-pass",
       "sources": [
-        "decisions-adr-adr-055-banzai-rust-first-grounded-synthesis-md",
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
+        "decisions-adr-adr-055-banzai-rust-first-grounded-synthesis-md"
       ],
-      "frequency": 2,
+      "frequency": 1,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -25427,10 +25419,9 @@
       "raw_text": "fresh",
       "normalized": "fresh",
       "sources": [
-        "docs-banzai-spr-structured-generation-and-validated-cache-md",
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
+        "docs-banzai-spr-structured-generation-and-validated-cache-md"
       ],
-      "frequency": 2,
+      "frequency": 1,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -26242,1517 +26233,6 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "BanzAI — Intent-First Grounded Reasoning Architecture (M2.18)",
-      "normalized": "banzai intent-first grounded reasoning architecture m2 18",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 7,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "0. The incident this milestone answers (PART 0 — reproduced live)",
-      "normalized": "0 the incident this milestone answers part 0 reproduced live",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 10,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "1. Target architecture (the full intent-first pipeline)",
-      "normalized": "1 target architecture the full intent-first pipeline",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 7,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "2. Permanent versioned contracts",
-      "normalized": "2 permanent versioned contracts",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "2.1 IntentEnvelope v1 — the structured intent (output of INTERPRET)",
-      "normalized": "2 1 intentenvelope v1 the structured intent output of interpret",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 10,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "2.2 SourceClass + public-source policy",
-      "normalized": "2 2 sourceclass public-source policy",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "2.3 FactualPackage v1 — the grounded package handed to SYNTHESIZE",
-      "normalized": "2 3 factualpackage v1 the grounded package handed to synthesize",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 10,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "2.4 ValidationResult — the deterministic gate after SYNTHESIZE",
-      "normalized": "2 4 validationresult the deterministic gate after synthesize",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 8,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "2.5 ReasoningTrace v1 — the per-answer trace",
-      "normalized": "2 5 reasoningtrace v1 the per-answer trace",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 7,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "2.6 ConversationState v1 — designed now, activated in Phase 2",
-      "normalized": "2 6 conversationstate v1 designed now activated in phase 2",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 10,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "3. The orchestration state machine (Rust)",
-      "normalized": "3 the orchestration state machine rust",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "4. Phase plan (acceptance / latency / tests / eval / rollback / dependency)",
-      "normalized": "4 phase plan acceptance / latency / tests / eval / rollback / dependency",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 14,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Phase 1 — Deterministic spine + permanent contracts (this session)",
-      "normalized": "phase 1 deterministic spine permanent contracts this session",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 8,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Phase 2 — Two-pass Qwen (interpretation + grounded synthesis) + conversational state (gated, later)",
-      "normalized": "phase 2 two-pass qwen interpretation grounded synthesis conversational state gated later",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 11,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "Phase 3 — Evaluation harness + human evaluation + final verdict (gated, later)",
-      "normalized": "phase 3 evaluation harness human evaluation final verdict gated later",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 10,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "5. Risk review (documented, pre-implementation)",
-      "normalized": "5 risk review documented pre-implementation",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "6. Files (Phase 1)",
-      "normalized": "6 files phase 1",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "7. Boundaries preserved (unchanged by M2.18)",
-      "normalized": "7 boundaries preserved unchanged by m2 18",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 7,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "8. M2.18B — Interpretação semântica de entrada (input Qwen) — IMPLEMENTED, flag-gated",
-      "normalized": "8 m2 18b interpretacao semantica de entrada input qwen implemented flag-gated",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 11,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "8.1 M2.18B.1 — Observabilidade, fiabilidade e activação de produção",
-      "normalized": "8 1 m2 18b 1 observabilidade fiabilidade e activacao de producao",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 11,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "8.2 M2.18B.2 — Endurecimento da fronteira e recuperação semântica",
-      "normalized": "8 2 m2 18b 2 endurecimento da fronteira e recuperacao semantica",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 11,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "8.3 M2.18B.3 — Arquitectura unificada de dois passos (um modelo, dois passos)",
-      "normalized": "8 3 m2 18b 3 arquitectura unificada de dois passos um modelo dois passos",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 14,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "8.4 M2.18B.3A — Integridade do corpus + perfil de latência CPU aceite",
-      "normalized": "8 4 m2 18b 3a integridade do corpus perfil de latencia cpu aceite",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 13,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "Nota pública (capítulo BanzAI)",
-      "normalized": "nota publica capitulo banzai",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "historical design record",
-      "normalized": "historical design record",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "retired",
-      "normalized": "retired",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Rust-First Grounded Synthesis",
-      "normalized": "rust-first grounded synthesis",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "exactly once",
-      "normalized": "exactly once",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "ADR-055",
-      "normalized": "adr-055",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Princípio.",
-      "normalized": "principio",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Frase canónica.",
-      "normalized": "frase canonica",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "designed and versioned here",
-      "normalized": "designed and versioned here",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "activated in later gated phases",
-      "normalized": "activated in later gated phases",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "before any document resolution",
-      "normalized": "before any document resolution",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "but sources include `CLAUDE.md`",
-      "normalized": "but sources include claude md",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "MARKUP_FRAGMENT"
-    },
-    {
-      "raw_text": "internal files",
-      "normalized": "internal files",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "no public-source policy at presentation",
-      "normalized": "no public-source policy at presentation",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "warning triangle (⚠)",
-      "normalized": "warning triangle",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "architecturally",
-      "normalized": "architecturally",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "R1 — Intent before retrieval.",
-      "normalized": "r1 intent before retrieval",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "structured intent",
-      "normalized": "structured intent",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "R2 — No protocol claim on Qwen alone.",
-      "normalized": "r2 no protocol claim on qwen alone",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 7,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "twice",
-      "normalized": "twice",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "deterministic Rust middle",
-      "normalized": "deterministic rust middle",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "deterministic Rust\nVALIDATE",
-      "normalized": "deterministic rust validate",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "versioned",
-      "normalized": "versioned",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "deterministically",
-      "normalized": "deterministically",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Policy (permanent):",
-      "normalized": "policy permanent",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "internal",
-      "normalized": "internal",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md",
-        "docs-governance-m2-production-protocol-implementation-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "downgraded",
-      "normalized": "downgraded",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Delivers, production-safe and activated:",
-      "normalized": "delivers production-safe and activated",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Acceptance:",
-      "normalized": "acceptance",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md",
-        "spec-trust-freshness-md"
-      ],
-      "frequency": 3,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "no `CLAUDE.md`",
-      "normalized": "no claude md",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "MARKUP_FRAGMENT"
-    },
-    {
-      "raw_text": "Latency budget:",
-      "normalized": "latency budget",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "no regression",
-      "normalized": "no regression",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Tests:",
-      "normalized": "tests",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "seed",
-      "normalized": "seed",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Eval threshold (Phase 1 gate):",
-      "normalized": "eval threshold phase 1 gate",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Rollback:",
-      "normalized": "rollback",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md",
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 4,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Dependency:",
-      "normalized": "dependency",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 3,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Activates",
-      "normalized": "activates",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Tests + eval:",
-      "normalized": "tests eval",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "above documented thresholds",
-      "normalized": "above documented thresholds",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Acceptance / eval:",
-      "normalized": "acceptance / eval",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "M2.18 is complete only after Phase 3.",
-      "normalized": "m2 18 is complete only after phase 3",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 8,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "family + a numeric/explicit id",
-      "normalized": "family a numeric/explicit id",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Architecture review outcome:",
-      "normalized": "architecture review outcome",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Approved to implement Phase 1.",
-      "normalized": "approved to implement phase 1",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Porquê o Qwen antes da recuperação.",
-      "normalized": "porque o qwen antes da recuperacao",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "não\nresponde",
-      "normalized": "nao responde",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Interpretação ≠ resposta.",
-      "normalized": "interpretacao resposta",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Fast-path (sem Qwen).",
-      "normalized": "fast-path sem qwen",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Contrato.",
-      "normalized": "contrato",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "propõe",
-      "normalized": "propoe",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "resolver Rust (docref) confirma",
-      "normalized": "resolver rust docref confirma",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Ambiguidade.",
-      "normalized": "ambiguidade",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "determinística",
-      "normalized": "deterministica",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Follow-up.",
-      "normalized": "follow-up",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Fallback (PART 16).",
-      "normalized": "fallback part 16",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "nunca",
-      "normalized": "nunca",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md",
-        "docs-governance-federation-trust-model-md",
-        "docs-governance-operator-self-publication-and-conformance-md"
-      ],
-      "frequency": 5,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Latência (PART 15).",
-      "normalized": "latencia part 15",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Segurança (PART 18).",
-      "normalized": "seguranca part 18",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Traces (PART 17).",
-      "normalized": "traces part 17",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Limitações desta fase.",
-      "normalized": "limitacoes desta fase",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "M2.18 não está completa.",
-      "normalized": "m2 18 nao esta completa",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Observabilidade (bloqueador A).",
-      "normalized": "observabilidade bloqueador a",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "todos",
-      "normalized": "todos",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md",
-        "docs-governance-protocol-governance-roles-md"
-      ],
-      "frequency": 3,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "STOPWORD"
-    },
-    {
-      "raw_text": "banda",
-      "normalized": "banda",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "só por\nambiente",
-      "normalized": "so por ambiente",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Fiabilidade (bloqueador B).",
-      "normalized": "fiabilidade bloqueador b",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "restringida",
-      "normalized": "restringida",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "mesmos enums",
-      "normalized": "mesmos enums",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "estruturalmente impossível",
-      "normalized": "estruturalmente impossivel",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Avaliação (PART 17).",
-      "normalized": "avaliacao part 17",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Regra de conclusão.",
-      "normalized": "regra de conclusao",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "preservando os\nseparadores",
-      "normalized": "preservando os separadores",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "lista fechada de documentos REAIS",
-      "normalized": "lista fechada de documentos reais",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Regra de conclusão (inalterada).",
-      "normalized": "regra de conclusao inalterada",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Resultado\nA",
-      "normalized": "resultado a",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Resultado B",
-      "normalized": "resultado b",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Veredicto: Resultado B.",
-      "normalized": "veredicto resultado b",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "permanece desligado",
-      "normalized": "permanece desligado",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "arquitectura definitiva do BanzAI",
-      "normalized": "arquitectura definitiva do banzai",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "descarta um id inventado",
-      "normalized": "descarta um id inventado",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "preenche",
-      "normalized": "preenche",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "pede esclarecimento",
-      "normalized": "pede esclarecimento",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "FactualPackage versionado",
-      "normalized": "factualpackage versionado",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "mais nada",
-      "normalized": "mais nada",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "fechado",
-      "normalized": "fechado",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Validador factual",
-      "normalized": "validador factual",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "não",
-      "normalized": "nao",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md",
-        "docs-governance-banzami-operational-scheme-md",
-        "docs-governance-banza-protocol-boundary-md",
-        "docs-governance-banza-regulatory-claim-policy-md",
-        "docs-governance-banza-regulatory-positioning-md",
-        "docs-governance-banza-three-layer-architecture-md",
-        "docs-governance-banza-trust-architecture-md",
-        "docs-governance-federation-trust-model-md",
-        "docs-governance-m2-2-architecture-refactor-inventory-md",
-        "docs-governance-m2-4-trust-engine-signed-metadata-md",
-        "docs-governance-open-protocol-architecture-md",
-        "docs-governance-operator-self-publication-and-conformance-md",
-        "docs-governance-protocol-governance-roles-md",
-        "docs-governance-protocol-succession-and-survival-md",
-        "docs-governance-public-protocol-registry-md",
-        "docs-governance-workbench-only-operator-verification-md",
-        "spec-overview-md"
-      ],
-      "frequency": 53,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Runtime unificado + activação.",
-      "normalized": "runtime unificado activacao",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "um único artefacto de modelo",
-      "normalized": "um unico artefacto de modelo",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "por omissão DESLIGADO",
-      "normalized": "por omissao desligado",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "uma só",
-      "normalized": "uma so",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "apenas",
-      "normalized": "apenas",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md",
-        "docs-governance-operator-self-publication-and-conformance-md"
-      ],
-      "frequency": 4,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "mesma fila",
-      "normalized": "mesma fila",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "ambos",
-      "normalized": "ambos",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "mesma metodologia",
-      "normalized": "mesma metodologia",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "servidas",
-      "normalized": "servidas",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "determinística e genérica",
-      "normalized": "deterministica e generica",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "refinamento de intent",
-      "normalized": "refinamento de intent",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "nenhum rótulo alterado",
-      "normalized": "nenhum rotulo alterado",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Modelo seleccionado: Qwen2.5-7B.",
-      "normalized": "modelo seleccionado qwen2 5-7b",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "apanhada e recusada",
-      "normalized": "apanhada e recusada",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Alvo original (aspiracional):",
-      "normalized": "alvo original aspiracional",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Limite medido em CPU:",
-      "normalized": "limite medido em cpu",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Perfil de produção ACEITE (CPU):",
-      "normalized": "perfil de producao aceite cpu",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Decisão de infraestrutura (fechada):",
-      "normalized": "decisao de infraestrutura fechada",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "apenas na VPS actual",
-      "normalized": "apenas na vps actual",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "superado pela realidade medida em CPU",
-      "normalized": "superado pela realidade medida em cpu",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "exclusivamente",
-      "normalized": "exclusivamente",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "compreender",
-      "normalized": "compreender",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "confirmada pelos resolvers do protocolo",
-      "normalized": "confirmada pelos resolvers do protocolo",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "camada determinística",
-      "normalized": "camada deterministica",
-      "sources": [
-        "docs-governance-banzai-intent-first-grounded-reasoning-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
       "raw_text": "BanzAI — Native Protocol Agent",
       "normalized": "banzai native protocol agent",
       "sources": [
@@ -28171,6 +26651,32 @@
         "docs-governance-banzami-operational-scheme-md"
       ],
       "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "não",
+      "normalized": "nao",
+      "sources": [
+        "docs-governance-banzami-operational-scheme-md",
+        "docs-governance-banza-protocol-boundary-md",
+        "docs-governance-banza-regulatory-claim-policy-md",
+        "docs-governance-banza-regulatory-positioning-md",
+        "docs-governance-banza-three-layer-architecture-md",
+        "docs-governance-banza-trust-architecture-md",
+        "docs-governance-federation-trust-model-md",
+        "docs-governance-m2-2-architecture-refactor-inventory-md",
+        "docs-governance-m2-4-trust-engine-signed-metadata-md",
+        "docs-governance-open-protocol-architecture-md",
+        "docs-governance-operator-self-publication-and-conformance-md",
+        "docs-governance-protocol-governance-roles-md",
+        "docs-governance-protocol-succession-and-survival-md",
+        "docs-governance-public-protocol-registry-md",
+        "docs-governance-workbench-only-operator-verification-md",
+        "spec-overview-md"
+      ],
+      "frequency": 51,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -33412,6 +31918,18 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
+      "raw_text": "nunca",
+      "normalized": "nunca",
+      "sources": [
+        "docs-governance-federation-trust-model-md",
+        "docs-governance-operator-self-publication-and-conformance-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
       "raw_text": "auto-publicado",
       "normalized": "auto-publicado",
       "sources": [
@@ -36873,6 +35391,17 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
+      "raw_text": "Rollback",
+      "normalized": "rollback",
+      "sources": [
+        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
       "raw_text": "Provenance",
       "normalized": "provenance",
       "sources": [
@@ -37319,6 +35848,17 @@
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "internal",
+      "normalized": "internal",
+      "sources": [
+        "docs-governance-m2-production-protocol-implementation-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
     },
     {
       "raw_text": "self-publish",
@@ -38553,6 +37093,17 @@
       "classification": "SUBJECT"
     },
     {
+      "raw_text": "apenas",
+      "normalized": "apenas",
+      "sources": [
+        "docs-governance-operator-self-publication-and-conformance-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
       "raw_text": "Operator A",
       "normalized": "operator a",
       "sources": [
@@ -39059,6 +37610,17 @@
       "phrase_length": 5,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "todos",
+      "normalized": "todos",
+      "sources": [
+        "docs-governance-protocol-governance-roles-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "STOPWORD"
     },
     {
       "raw_text": "nunca pelo BANZA",
@@ -54482,6 +53044,17 @@
       "phrase_length": 3,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "acceptance",
+      "normalized": "acceptance",
+      "sources": [
+        "spec-trust-freshness-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
     },
     {
       "raw_text": "stateful local\ndefence",

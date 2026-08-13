@@ -73,4 +73,3 @@ conflict is separated; it does not change what any layer is.
 - `docs/governance/BANZA_SEPARATION_MATRIX.md` — the five-infrastructure separation matrix + key-domain table
 - `docs/governance/BANZA_CONFLICT_OF_INTEREST_POLICY.md` — the conflict-of-interest policy
 - `docs/governance/BANZA_RESPONSIBILITY_MATRIX.md` — responsibilities across L1/L2/L3 + BanzAI + regulator + participants
-- `docs/reports/CONFLICT_OF_INTEREST_AND_SEPARATION_REPORT.md` — the M2.19C execution report

@@ -30,7 +30,7 @@ EXCLUDES=(
   ':!website/content/decisions/adr/ADR-038*' ':!website/content/decisions/adr/ADR-057*' ':!website/content/decisions/adr/ADR-058*'
   ':!engines/banzai-query-core/src/doc-index.json'
   ':!engines/banzai-query-core/src/repoindex/*.json'
-  ':!artifacts/**' ':!docs/reports/**' ':!**/*.wasm'
+  ':!artifacts/**' ':!**/*.wasm'
   ':!tools/check-trust-invariant-realignment.sh'
 )
 

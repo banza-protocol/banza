@@ -3,7 +3,7 @@
 #
 # Locks in the clean-slate: the removed CA-era / operator-era ADRs stay removed, the policy ADR stays
 # present, and no CURRENT surface reintroduces a reference to a deleted ADR. Historical records
-# (PHASE_*, *_2026_07.md, docs/reports/, artifacts/, ceremony-records) are the honest audit trail and are
+# (PHASE_*, *_2026_07.md, artifacts/, ceremony-records) are the honest audit trail and are
 # exempt — Git history preserves the removed decisions (ADR-057 D-057-02).
 set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
@@ -26,7 +26,7 @@ done
 PAT="ADR-0(04|22|26|27|32)"
 leaks="$(git grep -lIE "$PAT" -- . 2>/dev/null \
   | grep -vE 'artifacts/|/target/|node_modules|\.git/' \
-  | grep -vE 'docs/governance/PHASE_|docs/governance/.*MATRIX|docs/reports/|_2026_07\.md|ceremony-records|BANZA_ROOT_CUSTODY_FUTURE|M2_2_ARCHITECTURE_REFACTOR|M2_3_|M2_4_' \
+  | grep -vE 'docs/governance/PHASE_|docs/governance/.*MATRIX|_2026_07\.md|ceremony-records|BANZA_ROOT_CUSTODY_FUTURE|M2_2_ARCHITECTURE_REFACTOR|M2_3_|M2_4_' \
   | grep -vE 'doc-index\.json|banzai-repo-index|entries-index\.json|rustkb/|website/lib/wasm/|alias-truth-table|task-fulfilment' \
   | grep -vE 'decisions/adr/ADR-057-current-only|decisions/adr/README\.md|tools/check-adr-canonical-clean\.sh' \
   || true)"

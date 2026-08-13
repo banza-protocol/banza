@@ -64,4 +64,3 @@ no-CA / no-financial-operator boundary. Banzami is an institutional/scheme role;
 - ADR-059 (three-layer architecture), ADR-061 (certification ≠ admission ≠ authorisation), ADR-062
   (regulatory-state + real-money gate), ADR-063 (conflict-of-interest + separation)
 - `docs/governance/BANZAMI_OPERATIONAL_SCHEME.md` — the canonical scheme document
-- `docs/reports/BANZAMI_OPERATIONAL_SCHEME_REPORT.md` — the M2.19C execution report

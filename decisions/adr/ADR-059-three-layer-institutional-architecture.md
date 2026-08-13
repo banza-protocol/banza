@@ -94,4 +94,3 @@ the separations and the regulatory gate.
 
 - ADR-060/061/062/063 (M2.19C companion decisions)
 - `docs/governance/BANZA_THREE_LAYER_ARCHITECTURE.md` — the canonical architecture document
-- `docs/reports/THREE_LAYER_ARCHITECTURE_REPORT.md` — the M2.19C execution report

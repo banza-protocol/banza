@@ -121,7 +121,6 @@ export default function OperadorZeroReference() {
         <Field k="protocol" v={String(readManifest()?.protocol_version ?? "1.0.0")} />
         <Field k="environment" v="demo" />
         <Field k="certification" v="NOT_CERTIFIED" />
-        <Field k="last_evaluated" v={String(S.last_validation_phase ?? "—")} />
       </section>
 
       {/* 9.4 Implementation identity */}

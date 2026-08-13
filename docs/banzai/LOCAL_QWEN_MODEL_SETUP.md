@@ -65,8 +65,8 @@ never OOM the host.
 > **Which model, and why this one.** The selected model is **Qwen2.5-7B-Instruct, Q4_K_M**. It was
 > chosen by benchmark against Qwen2.5-14B under unchanged thresholds: after the R1 remediation it
 > cleared every input, output, safety, factuality, latency and operational gate, at roughly half the
-> 14B latency and a higher clean-serve rate. The verdict and its raw artifacts are in
-> [`docs/reports/M2_18B3_UNIFIED_TWO_PASS_BENCHMARK_VERDICT.md`](../reports/M2_18B3_UNIFIED_TWO_PASS_BENCHMARK_VERDICT.md).
+> 14B latency and a higher clean-serve rate. That comparison decided the default model; the benchmark
+> that produced it was a one-off and is not kept — the decision it informed is the durable part.
 >
 > This document previously described Qwen3-4B, which predates that selection. The model is a local
 > language layer only: it is non-normative, it decides nothing, and BanzAI serves deterministic answers

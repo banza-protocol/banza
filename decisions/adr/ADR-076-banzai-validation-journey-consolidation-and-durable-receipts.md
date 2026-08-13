@@ -16,8 +16,7 @@
 
 ## Context
 
-The Fase A audit of the BanzAI validation surface (report
-`docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md`) established that the validation core is
+The Fase A audit of the BanzAI validation surface established that the validation core is
 **stronger than assumed**: all nine steps of the endpoint-originated journey (ADR-068) are backed by
 real deterministic Rust engines, there are no mock or hardcoded verdicts on the validation path
 (`qwen_calls=0`, `external_model_calls=0` by construction), and the secure fetcher `banza-artifact-fetcher`

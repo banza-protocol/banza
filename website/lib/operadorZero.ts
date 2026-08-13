@@ -73,9 +73,6 @@ export interface OperadorZeroValidationState {
   artifacts_ready: number;
   artifacts_total: number;
   blockers: number;
-  last_validation_phase: string;
-  last_validation_commit: string;
-  last_validation_report: string;
   evidence_bundle_url: string;
   trace_url: string;
   boundary_pt: string;

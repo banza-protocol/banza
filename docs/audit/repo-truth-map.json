@@ -2,16 +2,16 @@
  "_spec": "BANZA repository truth map — Phase A of the simplification sweep",
  "_method": "Classification is by consumer, not by directory name. A file is UNREFERENCED when no other tracked file names it by path or by a distinctive basename.",
  "_warning": "UNREFERENCED is a removal CANDIDATE, not a verdict. Licences, specifications and public material can be unreferenced and still required.",
- "total_files": 1839,
+ "total_files": 1818,
  "counts": {
-  "REFERENCED": 636,
+  "REFERENCED": 635,
   "RUNTIME": 329,
   "REFERENCE_IMPLEMENTATION": 295,
   "BUILD_RELEASE": 210,
   "NORMATIVE": 150,
   "CONFORMANCE": 76,
-  "INTERNAL_AUDIT": 70,
   "PUBLIC_DOCUMENTATION": 53,
+  "INTERNAL_AUDIT": 50,
   "TEST": 12,
   "LEGAL": 8
  },
@@ -108,12 +108,12 @@
    "referenced_by": [
     "artifacts/m2-18b6/execution-state.json",
     "docs/audit/repo-truth-map.json",
-    "docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
-    "docs/reports/M2_14A_OPERATOR_ZERO_REALISTIC_OPERATOR_JOURNEY.md",
-    "docs/reports/M2_14C_BANZAI_GLOBAL_RENDERING_AND_GOVERNANCE_VOCABULARY.md",
-    "docs/reports/M2_14C_FIX1_BANZAI_ENTITY_FORMATTING_CONSISTENCY.md"
+    "docs/whitepaper/BUILD.md",
+    "engines/banza-repo-guards/src/lib.rs",
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
    ],
-   "refs": 20
+   "refs": 12
   },
   {
    "path": ".github/workflows/operator-zero.yml",
@@ -143,13 +143,13 @@
    "class": "BUILD_RELEASE",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/SECURE_ARTIFACT_FETCHER_REPORT.md",
     "engines/banza-artifact-fetcher/README.md",
     "engines/banza-simb/README.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
+    "services/banzai-api/src/knowledge.js"
    ],
-   "refs": 8
+   "refs": 7
   },
   {
    "path": ".github/workflows/rust-rule-guard.yml",
@@ -194,11 +194,11 @@
     ".github/workflows/identity-guard.yml",
     "Makefile",
     "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
-    "artifacts/m2-18b7/protocol-terminology-candidates.json",
     "artifacts/m2-19a/adr-audit-working.json",
-    "artifacts/m2-19a/adr-treatment-map.json"
+    "artifacts/m2-19a/adr-treatment-map.json",
+    "artifacts/m2-19g/canonical-concept-matrix.json"
    ],
-   "refs": 52
+   "refs": 46
   },
   {
    "path": "CODE_OF_CONDUCT.md",
@@ -236,7 +236,7 @@
     "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
     "clean-room/packages/l0/contracts/production/normative-manifest.json"
    ],
-   "refs": 64
+   "refs": 62
   },
   {
    "path": "LICENSE",
@@ -262,7 +262,7 @@
     "clean-room/packages/l0/contracts/production/normative-manifest.json",
     "contracts/production/normative-manifest.json"
    ],
-   "refs": 31
+   "refs": 30
   },
   {
    "path": "Makefile",
@@ -275,7 +275,7 @@
     "decisions/adr/ADR-037-rust-first-official-engines.md",
     "docs/audit/BANZA_V1_NORMATIVE_REMEDIATION_REPORT.md"
    ],
-   "refs": 35
+   "refs": 24
   },
   {
    "path": "NOTICE",
@@ -288,7 +288,7 @@
     "README.md",
     "TRADEMARKS.md"
    ],
-   "refs": 78
+   "refs": 75
   },
   {
    "path": "README.md",
@@ -301,7 +301,7 @@
     "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
     "artifacts/m2-19-final/finding-b-map.json"
    ],
-   "refs": 101
+   "refs": 99
   },
   {
    "path": "SECURITY.md",
@@ -314,7 +314,7 @@
     "contracts/production/normative-manifest.json",
     "docs/audit/BANZA_V1_CLEAN_ROOM_PACKAGE_MANIFEST.md"
    ],
-   "refs": 27
+   "refs": 26
   },
   {
    "path": "TRADEMARKS.md",
@@ -340,7 +340,7 @@
     "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
     "artifacts/m2-18b7/execution-state.json"
    ],
-   "refs": 121
+   "refs": 120
   },
   {
    "path": "artifacts/m2-18b2/boundary-eval.json",
@@ -356,71 +356,64 @@
    "class": "INTERNAL_AUDIT",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_18B3A_CANONICAL_CORPUS_AND_LATENCY_OPTIMISATION.md",
     "engines/banza-repo-guards/src/lib.rs",
     "services/banzai-api/eval/corpus-integrity.mjs",
     "tools/check-banzai-canonical-corpus-integrity.sh"
    ],
-   "refs": 5
+   "refs": 4
   },
   {
    "path": "artifacts/m2-18b3/out-14b-full.json",
    "class": "INTERNAL_AUDIT",
    "referenced_by": [
-    "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_18B3_UNIFIED_TWO_PASS_BENCHMARK_VERDICT.md"
+    "docs/audit/repo-truth-map.json"
    ],
-   "refs": 2
+   "refs": 1
   },
   {
    "path": "artifacts/m2-18b3/out-7b-full.json",
    "class": "INTERNAL_AUDIT",
    "referenced_by": [
-    "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_18B3_UNIFIED_TWO_PASS_BENCHMARK_VERDICT.md"
+    "docs/audit/repo-truth-map.json"
    ],
-   "refs": 2
+   "refs": 1
   },
   {
    "path": "artifacts/m2-18b3/out-7b-r1-final.json",
    "class": "INTERNAL_AUDIT",
    "referenced_by": [
-    "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_18B3_UNIFIED_TWO_PASS_BENCHMARK_VERDICT.md"
+    "docs/audit/repo-truth-map.json"
    ],
-   "refs": 2
+   "refs": 1
   },
   {
    "path": "artifacts/m2-18b3/round-b-token-evidence.json",
    "class": "INTERNAL_AUDIT",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_18B3A_CANONICAL_CORPUS_AND_LATENCY_OPTIMISATION.md",
     "tools/check-banzai-synthesis-latency-check.sh"
    ],
-   "refs": 3
+   "refs": 2
   },
   {
    "path": "artifacts/m2-18b3/round-c-e2e-brief.json",
    "class": "INTERNAL_AUDIT",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_18B3A_CANONICAL_CORPUS_AND_LATENCY_OPTIMISATION.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
     "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm",
     "tools/check-banzai-synthesis-latency-check.sh"
    ],
-   "refs": 5
+   "refs": 4
   },
   {
    "path": "artifacts/m2-18b3/round-c-runtime-matrix.json",
    "class": "INTERNAL_AUDIT",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_18B3A_CANONICAL_CORPUS_AND_LATENCY_OPTIMISATION.md",
     "tools/check-banzai-synthesis-latency-check.sh"
    ],
-   "refs": 3
+   "refs": 2
   },
   {
    "path": "artifacts/m2-18b5/alias-truth-table.md",
@@ -500,10 +493,9 @@
    "class": "INTERNAL_AUDIT",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_18B7_DEFINITIVE_QUERY_CORE_AND_PRODUCTION_ASSURANCE.md",
     "engines/banza-repo-guards/src/lib.rs"
    ],
-   "refs": 3
+   "refs": 2
   },
   {
    "path": "artifacts/m2-18b7/protocol-terminology-candidates.json",
@@ -619,10 +611,9 @@
    "class": "INTERNAL_AUDIT",
    "referenced_by": [
     "decisions/adr/ADR-058-trust-invariant-registry-realignment.md",
-    "docs/audit/repo-truth-map.json",
-    "docs/reports/TRUST_SECURITY_CONTRACTS_REALIGNMENT_REPORT.md"
+    "docs/audit/repo-truth-map.json"
    ],
-   "refs": 3
+   "refs": 2
   },
   {
    "path": "artifacts/m2-19/execution-state.json",
@@ -641,10 +632,9 @@
     "artifacts/m2-19a/execution-state.json",
     "decisions/adr/ADR-057-current-only-canonical-adr-tree.md",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/ADR_AUDIT_REPORT.md",
     "website/content/decisions/adr/ADR-057-current-only-canonical-adr-tree.md"
    ],
-   "refs": 6
+   "refs": 5
   },
   {
    "path": "artifacts/m2-19a/adr-contradiction-matrix.json",
@@ -653,10 +643,9 @@
     "artifacts/m2-19a/execution-state.json",
     "decisions/adr/ADR-057-current-only-canonical-adr-tree.md",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/ADR_AUDIT_REPORT.md",
     "website/content/decisions/adr/ADR-057-current-only-canonical-adr-tree.md"
    ],
-   "refs": 5
+   "refs": 4
   },
   {
    "path": "artifacts/m2-19a/adr-treatment-map.json",
@@ -665,10 +654,9 @@
     "artifacts/m2-19a/execution-state.json",
     "decisions/adr/ADR-057-current-only-canonical-adr-tree.md",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/ADR_AUDIT_REPORT.md",
     "website/content/decisions/adr/ADR-057-current-only-canonical-adr-tree.md"
    ],
-   "refs": 5
+   "refs": 4
   },
   {
    "path": "artifacts/m2-19a/execution-state.json",
@@ -2636,7 +2624,7 @@
     "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
     "artifacts/m2-19-final/execution-state.json"
    ],
-   "refs": 56
+   "refs": 55
   },
   {
    "path": "contracts/openapi/activity.yaml",
@@ -2675,7 +2663,7 @@
     "decisions/adr/ADR-076-banzai-validation-journey-consolidation-and-durable-receipts.md",
     "docs/audit/BANZA_V1_CLEAN_ROOM_PACKAGE_MANIFEST.md"
    ],
-   "refs": 14
+   "refs": 13
   },
   {
    "path": "contracts/openapi/operator-validation.yaml",
@@ -2978,11 +2966,11 @@
     "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
     "docs/audit/BANZA_V1_NORMATIVE_SURFACE_INVENTORY.md",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/THREE_LAYER_ARCHITECTURE_REPORT.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
+    "evidence/claims/claims-matrix.json"
    ],
-   "refs": 9
+   "refs": 8
   },
   {
    "path": "contracts/production/examples/regulatory-state.valid.json",
@@ -2991,11 +2979,11 @@
     "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
     "docs/audit/BANZA_V1_NORMATIVE_SURFACE_INVENTORY.md",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/THREE_LAYER_ARCHITECTURE_REPORT.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
+    "evidence/claims/claims-matrix.json"
    ],
-   "refs": 9
+   "refs": 8
   },
   {
    "path": "contracts/production/federation-trust-evaluation.production.schema.json",
@@ -3047,7 +3035,7 @@
     "contracts/openapi/operator-validation.yaml",
     "contracts/production/conformance-profiles.production.json"
    ],
-   "refs": 19
+   "refs": 18
   },
   {
    "path": "contracts/production/key-manifest.production.schema.json",
@@ -3203,7 +3191,7 @@
     "clean-room/packages/l0/contracts/production/normative-manifest.json",
     "contracts/production/conformance-profiles.production.json"
    ],
-   "refs": 21
+   "refs": 20
   },
   {
    "path": "contracts/production/revocation-entry.production.schema.json",
@@ -4162,10 +4150,10 @@
     "artifacts/m2-18b6/execution-state.json",
     "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
     "docs/audit/repo-truth-map.json",
-    "docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
-    "docs/reports/M2_18B6_RUST_FIRST_GROUNDED_SYNTHESIS.md"
+    "engines/banzai-query-core/src/doc-index.json",
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
-   "refs": 10
+   "refs": 8
   },
   {
    "path": "decisions/adr/ADR-056-banzai-definitive-query-core-and-production-assurance.md",
@@ -4174,11 +4162,11 @@
     "artifacts/m2-18b3/corpus-truth-table.json",
     "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_18B7_DEFINITIVE_QUERY_CORE_AND_PRODUCTION_ASSURANCE.md",
     "engines/banzai-query-core/src/doc-index.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
    ],
-   "refs": 8
+   "refs": 7
   },
   {
    "path": "decisions/adr/ADR-057-current-only-canonical-adr-tree.md",
@@ -4201,10 +4189,10 @@
     "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
     "decisions/adr/README.md",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/TRUST_SECURITY_CONTRACTS_REALIGNMENT_REPORT.md",
-    "engines/banzai-query-core/src/doc-index.json"
+    "engines/banzai-query-core/src/doc-index.json",
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
-   "refs": 9
+   "refs": 8
   },
   {
    "path": "decisions/adr/ADR-059-three-layer-institutional-architecture.md",
@@ -4213,11 +4201,11 @@
     "artifacts/m2-18b3/corpus-truth-table.json",
     "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/THREE_LAYER_ARCHITECTURE_REPORT.md",
     "engines/banzai-query-core/src/doc-index.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
+    "services/banzai-api/src/knowledge.js"
    ],
-   "refs": 12
+   "refs": 11
   },
   {
    "path": "decisions/adr/ADR-060-banzami-operational-scheme.md",
@@ -4226,11 +4214,11 @@
     "artifacts/m2-18b3/corpus-truth-table.json",
     "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/THREE_LAYER_ARCHITECTURE_REPORT.md",
     "engines/banzai-query-core/src/doc-index.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
+    "services/banzai-api/src/knowledge.js"
    ],
-   "refs": 11
+   "refs": 10
   },
   {
    "path": "decisions/adr/ADR-061-certification-admission-authorisation-separation.md",
@@ -4892,7 +4880,7 @@
     "docs/governance/M2_7I_BANZAI_REFERENCE_REPOSITORY_ALIGNMENT_AUDIT.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
-   "refs": 10
+   "refs": 8
   },
   {
    "path": "docs/banzai/README.md",
@@ -4972,21 +4960,18 @@
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-exclusions.json"
    ],
-   "refs": 3
+   "refs": 2
   },
   {
    "path": "docs/diagrams/banzai-intent-first-grounded-reasoning.svg",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
-    "docs/reports/M2_18B1_INTENT_OBSERVABILITY_RELIABILITY_ACTIVATION.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-exclusions.json"
    ],
-   "refs": 4
+   "refs": 2
   },
   {
    "path": "docs/diagrams/federation-trust-evaluation-v1.svg",
@@ -5088,19 +5073,6 @@
    "refs": 25
   },
   {
-   "path": "docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
-   "class": "REFERENCED",
-   "referenced_by": [
-    "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
-    "artifacts/m2-18b7/execution-state.json",
-    "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_18B1_INTENT_OBSERVABILITY_RELIABILITY_ACTIVATION.md",
-    "docs/reports/M2_18B3_UNIFIED_TWO_PASS_BENCHMARK_VERDICT.md",
-    "docs/reports/M2_18_PHASE1_BANZAI_INTENT_FIRST_GROUNDED_REASONING.md"
-   ],
-   "refs": 8
-  },
-  {
    "path": "docs/governance/BANZAI_NATIVE_PROTOCOL_AGENT.md",
    "class": "REFERENCED",
    "referenced_by": [
@@ -5124,7 +5096,7 @@
     "decisions/adr/ADR-061-certification-admission-authorisation-separation.md",
     "decisions/adr/ADR-062-regulatory-state-boundary-and-real-money-gate.md"
    ],
-   "refs": 20
+   "refs": 19
   },
   {
    "path": "docs/governance/BANZA_CONFLICT_OF_INTEREST_POLICY.md",
@@ -5274,7 +5246,7 @@
     "decisions/adr/ADR-061-certification-admission-authorisation-separation.md",
     "docs/audit/BANZA_V1_REPOSITORY_TRUTH_CONSOLIDATION_REPORT.md"
    ],
-   "refs": 19
+   "refs": 18
   },
   {
    "path": "docs/governance/BANZA_TRUST_ARCHITECTURE.md",
@@ -5296,11 +5268,11 @@
     "CLAUDE.md",
     "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
     "docs/audit/repo-truth-map.json",
-    "docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
     "docs/governance/M2_7I_BANZAI_REFERENCE_REPOSITORY_ALIGNMENT_AUDIT.md",
-    "docs/governance/PROTOCOL_SUCCESSION_AND_SURVIVAL.md"
+    "docs/governance/PROTOCOL_SUCCESSION_AND_SURVIVAL.md",
+    "engines/banzai-api-kb/src/lib.rs"
    ],
-   "refs": 16
+   "refs": 13
   },
   {
    "path": "docs/governance/EVIDENCE_BUNDLE.md",
@@ -5646,9 +5618,9 @@
     "docs/audit/repo-truth-map.json",
     "docs/governance/PROTOCOL_GOVERNANCE_ROLES.md",
     "docs/reference/BANZA_SVG_STANDARDS.md",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md"
+    "engines/banza-repo-guards/src/lib.rs"
    ],
-   "refs": 8
+   "refs": 7
   },
   {
    "path": "docs/governance/OPERATOR_SELF_PUBLICATION_AND_CONFORMANCE.md",
@@ -5914,7 +5886,7 @@
     "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
     "decisions/adr/ADR-037-rust-first-official-engines.md"
    ],
-   "refs": 14
+   "refs": 13
   },
   {
    "path": "docs/guides/M2_19H_VALIDATION_RECEIPTS_RUNBOOK.md",
@@ -6061,12 +6033,12 @@
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
     "docs/quality/PHASE_REPORT_TEMPLATE.md",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
-    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm",
+    "tools/check-banzai-release-qa.sh"
    ],
-   "refs": 7
+   "refs": 6
   },
   {
    "path": "docs/quality/PHASE_REPORT_TEMPLATE.md",
@@ -6086,11 +6058,11 @@
     "artifacts/m2-19-final/finding-b-map.json",
     "docs/audit/repo-truth-map.json",
     "docs/reference/BANZA_SVG_STANDARDS.md",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md",
     "engines/banzai-query-core/src/doc-index.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
    ],
-   "refs": 13
+   "refs": 12
   },
   {
    "path": "docs/reference/BANZA_SVG_STANDARDS.md",
@@ -6139,10 +6111,10 @@
     "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
     "artifacts/m2-18b7/task-fulfilment-truth-table.json",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_14C_BANZAI_GLOBAL_RENDERING_AND_GOVERNANCE_VOCABULARY.md",
-    "engines/banzai-api-kb/src/lib.rs"
+    "engines/banzai-api-kb/src/lib.rs",
+    "engines/banzai-query-core/src/concept.rs"
    ],
-   "refs": 15
+   "refs": 14
   },
   {
    "path": "docs/reference/compatibility.md",
@@ -6336,7 +6308,7 @@
     "artifacts/m2-19a/adr-audit-working.json",
     "artifacts/m2-19a/adr-treatment-map.json"
    ],
-   "refs": 45
+   "refs": 44
   },
   {
    "path": "docs/reference/getting-started.md",
@@ -6409,214 +6381,6 @@
     "engines/banzai-query-core/src/doc-index.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
-   ],
-   "refs": 4
-  },
-  {
-   "path": "docs/reports/ADR_AUDIT_REPORT.md",
-   "class": "INTERNAL_AUDIT",
-   "referenced_by": [
-    "artifacts/m2-19a/execution-state.json",
-    "decisions/adr/ADR-057-current-only-canonical-adr-tree.md",
-    "docs/audit/repo-truth-map.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "website/content/decisions/adr/ADR-057-current-only-canonical-adr-tree.md"
-   ],
-   "refs": 5
-  },
-  {
-   "path": "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md",
-   "class": "INTERNAL_AUDIT",
-   "referenced_by": [
-    "decisions/adr/ADR-076-banzai-validation-journey-consolidation-and-durable-receipts.md",
-    "docs/audit/repo-truth-map.json",
-    "engines/banzai-query-core/src/doc-index.json",
-    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
-   ],
-   "refs": 4
-  },
-  {
-   "path": "docs/reports/M2_13C_B_PROTOCOL_ORIGIN_MAINTAINER_PROVENANCE_INTENT.md",
-   "class": "INTERNAL_AUDIT",
-   "referenced_by": [
-    "docs/audit/repo-truth-map.json",
-    "engines/banza-repo-guards/src/lib.rs",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
-   ],
-   "refs": 3
-  },
-  {
-   "path": "docs/reports/M2_14A_OPERATOR_ZERO_REALISTIC_OPERATOR_JOURNEY.md",
-   "class": "INTERNAL_AUDIT",
-   "referenced_by": [
-    "docs/audit/repo-truth-map.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "examples/operators/zero/status/operator-zero-validation-state.json",
-    "website/lib/operadorZeroArtifacts.generated.ts"
-   ],
-   "refs": 4
-  },
-  {
-   "path": "docs/reports/M2_14C_BANZAI_GLOBAL_RENDERING_AND_GOVERNANCE_VOCABULARY.md",
-   "class": "INTERNAL_AUDIT",
-   "referenced_by": [
-    "docs/audit/repo-truth-map.json",
-    "engines/banza-repo-guards/src/lib.rs",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
-   ],
-   "refs": 3
-  },
-  {
-   "path": "docs/reports/M2_14C_FIX1_BANZAI_ENTITY_FORMATTING_CONSISTENCY.md",
-   "class": "INTERNAL_AUDIT",
-   "referenced_by": [
-    "docs/audit/repo-truth-map.json",
-    "engines/banza-repo-guards/src/lib.rs",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
-   ],
-   "refs": 3
-  },
-  {
-   "path": "docs/reports/M2_14C_FIX2_SHORT_QUERY_INTELLIGENCE_AND_FALLBACK_FORMATTING.md",
-   "class": "INTERNAL_AUDIT",
-   "referenced_by": [
-    "docs/audit/repo-truth-map.json",
-    "engines/banza-repo-guards/src/lib.rs",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
-   ],
-   "refs": 3
-  },
-  {
-   "path": "docs/reports/M2_14F_SEMANTIC_ANSWER_COMPOSITION_AND_DYNAMIC_LOADING.md",
-   "class": "INTERNAL_AUDIT",
-   "referenced_by": [
-    "docs/audit/repo-truth-map.json",
-    "engines/banza-repo-guards/src/lib.rs",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
-   ],
-   "refs": 3
-  },
-  {
-   "path": "docs/reports/M2_18B1_INTENT_OBSERVABILITY_RELIABILITY_ACTIVATION.md",
-   "class": "INTERNAL_AUDIT",
-   "referenced_by": [
-    "docs/audit/repo-truth-map.json",
-    "docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
-   ],
-   "refs": 3
-  },
-  {
-   "path": "docs/reports/M2_18B3A_CANONICAL_CORPUS_AND_LATENCY_OPTIMISATION.md",
-   "class": "INTERNAL_AUDIT",
-   "referenced_by": [
-    "docs/audit/repo-truth-map.json",
-    "docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
-   ],
-   "refs": 3
-  },
-  {
-   "path": "docs/reports/M2_18B3_UNIFIED_TWO_PASS_BENCHMARK_VERDICT.md",
-   "class": "INTERNAL_AUDIT",
-   "referenced_by": [
-    "docs/audit/repo-truth-map.json",
-    "docs/banzai/LOCAL_QWEN_MODEL_SETUP.md",
-    "docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
-   ],
-   "refs": 4
-  },
-  {
-   "path": "docs/reports/M2_18B6_QWEN_FALLBACK_REGRESSION.md",
-   "class": "INTERNAL_AUDIT",
-   "referenced_by": [
-    "docs/audit/repo-truth-map.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "services/banzai-api/eval/typo-dataset.mjs"
-   ],
-   "refs": 3
-  },
-  {
-   "path": "docs/reports/M2_18B6_RUST_FIRST_GROUNDED_SYNTHESIS.md",
-   "class": "INTERNAL_AUDIT",
-   "referenced_by": [
-    "artifacts/m2-18b6/execution-state.json",
-    "docs/audit/repo-truth-map.json",
-    "docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
-   ],
-   "refs": 4
-  },
-  {
-   "path": "docs/reports/M2_18B7_DEFINITIVE_QUERY_CORE_AND_PRODUCTION_ASSURANCE.md",
-   "class": "INTERNAL_AUDIT",
-   "referenced_by": [
-    "artifacts/m2-18b7/execution-state.json",
-    "docs/audit/repo-truth-map.json",
-    "engines/banza-repo-guards/src/lib.rs",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
-   ],
-   "refs": 4
-  },
-  {
-   "path": "docs/reports/M2_18_PHASE1_BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
-   "class": "INTERNAL_AUDIT",
-   "referenced_by": [
-    "docs/audit/repo-truth-map.json",
-    "docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
-   ],
-   "refs": 3
-  },
-  {
-   "path": "docs/reports/M2_19G_GUARD_CONVERGENCE.md",
-   "class": "INTERNAL_AUDIT",
-   "referenced_by": [
-    "docs/audit/repo-truth-map.json"
-   ],
-   "refs": 1
-  },
-  {
-   "path": "docs/reports/SECURE_ARTIFACT_FETCHER_REPORT.md",
-   "class": "INTERNAL_AUDIT",
-   "referenced_by": [
-    "contracts/openapi/operator-validation.yaml",
-    "docs/audit/repo-truth-map.json",
-    "docs/banzai/OPERATOR_JOURNEY.md",
-    "docs/banzai/README.md",
-    "services/banzai-api/README.md"
-   ],
-   "refs": 5
-  },
-  {
-   "path": "docs/reports/SIMPLE_SECURE_OPERATOR_ONBOARDING_ARCHITECTURE.md",
-   "class": "INTERNAL_AUDIT",
-   "referenced_by": [
-    "docs/audit/repo-truth-map.json",
-    "engines/banza-repo-guards/src/lib.rs"
-   ],
-   "refs": 2
-  },
-  {
-   "path": "docs/reports/THREE_LAYER_ARCHITECTURE_REPORT.md",
-   "class": "INTERNAL_AUDIT",
-   "referenced_by": [
-    "decisions/adr/ADR-059-three-layer-institutional-architecture.md",
-    "docs/audit/repo-truth-map.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "website/content/decisions/adr/ADR-059-three-layer-institutional-architecture.md"
-   ],
-   "refs": 4
-  },
-  {
-   "path": "docs/reports/TRUST_SECURITY_CONTRACTS_REALIGNMENT_REPORT.md",
-   "class": "INTERNAL_AUDIT",
-   "referenced_by": [
-    "artifacts/m2-19-final/execution-state.json",
-    "decisions/adr/ADR-058-trust-invariant-registry-realignment.md",
-    "docs/audit/repo-truth-map.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
    "refs": 4
   },
@@ -7737,35 +7501,32 @@
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/SECURE_ARTIFACT_FETCHER_REPORT.md",
     "engines/banza-artifact-fetcher/README.md"
    ],
-   "refs": 3
+   "refs": 2
   },
   {
    "path": "engines/banza-artifact-fetcher/src/bin/server.rs",
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/SECURE_ARTIFACT_FETCHER_REPORT.md",
     "engines/banza-artifact-fetcher/Cargo.toml",
     "engines/banza-artifact-fetcher/README.md",
     "evidence/claims/claims-matrix.json",
     "tools/check-banzai-secure-fetcher-check.sh"
    ],
-   "refs": 6
+   "refs": 5
   },
   {
    "path": "engines/banza-artifact-fetcher/src/fetch.rs",
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/SECURE_ARTIFACT_FETCHER_REPORT.md",
     "engines/banza-artifact-fetcher/README.md",
     "evidence/claims/claims-matrix.json",
     "tools/check-banzai-secure-fetcher-check.sh"
    ],
-   "refs": 5
+   "refs": 4
   },
   {
    "path": "engines/banza-artifact-fetcher/src/lib.rs",
@@ -7783,22 +7544,21 @@
     "decisions/adr/ADR-076-banzai-validation-journey-consolidation-and-durable-receipts.md",
     "docs/audit/repo-truth-map.json",
     "docs/banzai/BANZAI_WORKBENCH_THREAT_MODEL.md",
-    "docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md",
-    "docs/reports/M2_18_PHASE1_BANZAI_INTENT_FIRST_GROUNDED_REASONING.md"
+    "engines/banza-artifact-fetcher/README.md",
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
    ],
-   "refs": 19
+   "refs": 15
   },
   {
    "path": "engines/banza-artifact-fetcher/src/resolver.rs",
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/SECURE_ARTIFACT_FETCHER_REPORT.md",
     "engines/banza-artifact-fetcher/README.md",
     "evidence/claims/claims-matrix.json"
    ],
-   "refs": 4
+   "refs": 3
   },
   {
    "path": "engines/banza-artifact-fetcher/src/types.rs",
@@ -7806,25 +7566,24 @@
    "referenced_by": [
     "decisions/adr/ADR-083-reason-code-model.md",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/SECURE_ARTIFACT_FETCHER_REPORT.md",
     "engines/banza-artifact-fetcher/README.md",
     "evidence/claims/claims-matrix.json",
-    "tools/check-banzai-secure-fetcher-check.sh"
+    "tools/check-banzai-secure-fetcher-check.sh",
+    "tools/check-execution-semantics.sh"
    ],
-   "refs": 8
+   "refs": 7
   },
   {
    "path": "engines/banza-artifact-fetcher/tests/fetch_pipeline.rs",
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/SECURE_ARTIFACT_FETCHER_REPORT.md",
     "engines/banza-artifact-fetcher/README.md",
     "evidence/claims/claims-matrix.json",
     "evidence/security/negative-test-rosters.md",
     "tools/public-claims-evidence.sh"
    ],
-   "refs": 6
+   "refs": 5
   },
   {
    "path": "engines/banza-certification/Cargo.lock",
@@ -8502,11 +8261,9 @@
     "artifacts/m2-19-final/execution-state.json",
     "decisions/adr/ADR-076-banzai-validation-journey-consolidation-and-durable-receipts.md",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_19G_GUARD_CONVERGENCE.md",
-    "docs/reports/SIMPLE_SECURE_OPERATOR_ONBOARDING_ARCHITECTURE.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
-   "refs": 6
+   "refs": 4
   },
   {
    "path": "engines/banza-root-ceremony-cli/Cargo.lock",
@@ -9138,13 +8895,13 @@
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_13C_B_PROTOCOL_ORIGIN_MAINTAINER_PROVENANCE_INTENT.md",
-    "docs/reports/M2_14A_OPERATOR_ZERO_REALISTIC_OPERATOR_JOURNEY.md",
-    "docs/reports/M2_14C_BANZAI_GLOBAL_RENDERING_AND_GOVERNANCE_VOCABULARY.md",
-    "docs/reports/M2_14C_FIX2_SHORT_QUERY_INTELLIGENCE_AND_FALLBACK_FORMATTING.md",
-    "docs/reports/M2_14F_SEMANTIC_ANSWER_COMPOSITION_AND_DYNAMIC_LOADING.md"
+    "engines/banza-repo-guards/src/lib.rs",
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm",
+    "tools/check-banzai-intent-first-grounded-reasoning.sh"
    ],
-   "refs": 11
+   "refs": 6
   },
   {
    "path": "engines/banzai-doc-indexer/Cargo.lock",
@@ -9750,11 +9507,11 @@
     "Makefile",
     "artifacts/m2-18b6/execution-state.json",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_18B6_RUST_FIRST_GROUNDED_SYNTHESIS.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
    ],
-   "refs": 8
+   "refs": 7
   },
   {
    "path": "engines/banzai-query-core/src/artifact.rs",
@@ -9776,23 +9533,22 @@
     "artifacts/m2-18b7/task-fulfilment-truth-table.json",
     "decisions/adr/ADR-056-banzai-definitive-query-core-and-production-assurance.md",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_18B7_DEFINITIVE_QUERY_CORE_AND_PRODUCTION_ASSURANCE.md",
-    "engines/banza-repo-guards/src/lib.rs"
+    "engines/banza-repo-guards/src/lib.rs",
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
-   "refs": 12
+   "refs": 11
   },
   {
    "path": "engines/banzai-query-core/src/boundary.rs",
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
     "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm",
     "tools/check-banzai-boundary-semantic-recovery.sh"
    ],
-   "refs": 6
+   "refs": 5
   },
   {
    "path": "engines/banzai-query-core/src/catalogue.rs",
@@ -9801,11 +9557,11 @@
     "Makefile",
     "artifacts/m2-18b5/alias-truth-table.md",
     "docs/audit/repo-truth-map.json",
-    "docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
     "engines/banzai-query-core/src/fuzzy.rs",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
    ],
-   "refs": 14
+   "refs": 13
   },
   {
    "path": "engines/banzai-query-core/src/concept.rs",
@@ -9844,7 +9600,7 @@
     "artifacts/m2-18b7/query-core-extraction-plan.md",
     "artifacts/m2-18b7/subject-registry.json"
    ],
-   "refs": 20
+   "refs": 19
   },
   {
    "path": "engines/banzai-query-core/src/diagnose.rs",
@@ -9880,20 +9636,19 @@
     "artifacts/m2-19g2/home-current-surface-audit.json",
     "decisions/adr/ADR-049-banzai-protocol-agent-core.md"
    ],
-   "refs": 32
+   "refs": 30
   },
   {
    "path": "engines/banzai-query-core/src/docref.rs",
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
     "services/banzai-api/eval/corpus-audit.mjs",
     "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
    ],
-   "refs": 6
+   "refs": 5
   },
   {
    "path": "engines/banzai-query-core/src/entries-index.json",
@@ -9902,11 +9657,11 @@
     "artifacts/m2-18b7/query-core-extraction-plan.md",
     "decisions/adr/ADR-056-banzai-definitive-query-core-and-production-assurance.md",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_18B7_DEFINITIVE_QUERY_CORE_AND_PRODUCTION_ASSURANCE.md",
     "engines/banza-repo-guards/src/lib.rs",
-    "engines/banzai-api-kb/src/lib.rs"
+    "engines/banzai-api-kb/src/lib.rs",
+    "engines/banzai-query-core/README.md"
    ],
-   "refs": 15
+   "refs": 14
   },
   {
    "path": "engines/banzai-query-core/src/factcheck.rs",
@@ -9914,12 +9669,12 @@
    "referenced_by": [
     "artifacts/m2-18b6/execution-state.json",
     "docs/audit/repo-truth-map.json",
-    "docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
-    "docs/reports/M2_18B6_RUST_FIRST_GROUNDED_SYNTHESIS.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm",
+    "tools/check-banzai-factual-package.sh"
    ],
-   "refs": 10
+   "refs": 8
   },
   {
    "path": "engines/banzai-query-core/src/factpack.rs",
@@ -9928,11 +9683,11 @@
     "artifacts/m2-18b6/execution-state.json",
     "artifacts/m2-18b7/execution-state.json",
     "docs/audit/repo-truth-map.json",
-    "docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
-    "docs/reports/M2_18B3A_CANONICAL_CORPUS_AND_LATENCY_OPTIMISATION.md",
-    "docs/reports/M2_18B6_RUST_FIRST_GROUNDED_SYNTHESIS.md"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
    ],
-   "refs": 16
+   "refs": 12
   },
   {
    "path": "engines/banzai-query-core/src/fuzzy.rs",
@@ -9952,13 +9707,13 @@
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_14C_BANZAI_GLOBAL_RENDERING_AND_GOVERNANCE_VOCABULARY.md",
-    "docs/reports/M2_14C_FIX2_SHORT_QUERY_INTELLIGENCE_AND_FALLBACK_FORMATTING.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
-    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm",
+    "tools/check-banzai-governance-developer-vocabulary.sh",
+    "tools/check-banzai-protocol-vocabulary.sh"
    ],
-   "refs": 9
+   "refs": 7
   },
   {
    "path": "engines/banzai-query-core/src/intent.rs",
@@ -9967,11 +9722,11 @@
     "Makefile",
     "decisions/adr/ADR-078-banzai-operational-reasoning-and-telemetry.md",
     "docs/audit/repo-truth-map.json",
-    "docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
-    "docs/reports/M2_18B1_INTENT_OBSERVABILITY_RELIABILITY_ACTIVATION.md",
-    "docs/reports/M2_18B6_QWEN_FALLBACK_REGRESSION.md"
+    "engines/banzai-query-core/src/doc-index.json",
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
    ],
-   "refs": 12
+   "refs": 9
   },
   {
    "path": "engines/banzai-query-core/src/lib.rs",
@@ -10019,10 +9774,10 @@
     "decisions/adr/ADR-045-banzai-local-qwen-latency-tuning-default-readiness.md",
     "docs/audit/repo-truth-map.json",
     "docs/banzai/LOCAL_INFERENCE_RUNTIME.md",
-    "docs/reports/M2_14C_BANZAI_GLOBAL_RENDERING_AND_GOVERNANCE_VOCABULARY.md",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
    ],
-   "refs": 14
+   "refs": 13
   },
   {
    "path": "engines/banzai-query-core/src/queue_policy.rs",
@@ -10048,7 +9803,7 @@
     "artifacts/m2-19a/adr-treatment-map.json",
     "decisions/adr/ADR-056-banzai-definitive-query-core-and-production-assurance.md"
    ],
-   "refs": 26
+   "refs": 25
   },
   {
    "path": "engines/banzai-query-core/src/relation.rs",
@@ -10057,11 +9812,11 @@
     "Makefile",
     "artifacts/m2-18b6/execution-state.json",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_18B6_RUST_FIRST_GROUNDED_SYNTHESIS.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
    ],
-   "refs": 8
+   "refs": 7
   },
   {
    "path": "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
@@ -10122,11 +9877,11 @@
     "artifacts/m2-18b7/query-core-extraction-plan.md",
     "artifacts/m2-19-final/finding-b-map.json",
     "docs/audit/repo-truth-map.json",
-    "docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
     "engines/banzai-query-core/src/lib.rs",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-exclusions.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-exclusions.json",
+    "engines/banzai-query-core/tests/foundation.rs"
    ],
-   "refs": 15
+   "refs": 14
   },
   {
    "path": "engines/banzai-query-core/src/resolve.rs",
@@ -10135,11 +9890,11 @@
     "Makefile",
     "artifacts/m2-18b6/execution-state.json",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_18B6_RUST_FIRST_GROUNDED_SYNTHESIS.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
+    "engines/banzai-query-core/src/retrieval.rs"
    ],
-   "refs": 12
+   "refs": 11
   },
   {
    "path": "engines/banzai-query-core/src/retrieval.rs",
@@ -10150,9 +9905,9 @@
     "artifacts/m2-18b7/execution-state.json",
     "decisions/adr/ADR-056-banzai-definitive-query-core-and-production-assurance.md",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_18B6_RUST_FIRST_GROUNDED_SYNTHESIS.md"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
-   "refs": 11
+   "refs": 10
   },
   {
    "path": "engines/banzai-query-core/src/route.rs",
@@ -10173,12 +9928,12 @@
    "referenced_by": [
     "artifacts/m2-18b7/execution-state.json",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_18B7_DEFINITIVE_QUERY_CORE_AND_PRODUCTION_ASSURANCE.md",
     "engines/banza-repo-guards/src/lib.rs",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
    ],
-   "refs": 7
+   "refs": 6
   },
   {
    "path": "engines/banzai-query-core/src/schemacheck.rs",
@@ -10198,13 +9953,13 @@
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
-    "docs/reports/M2_18_PHASE1_BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
-    "services/banzai-api/src/answerContract.js"
+    "services/banzai-api/src/answerContract.js",
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm",
+    "services/banzai-api/test/m2-18-source-policy.test.js"
    ],
-   "refs": 9
+   "refs": 7
   },
   {
    "path": "engines/banzai-query-core/src/synth.rs",
@@ -10215,9 +9970,9 @@
     "decisions/adr/ADR-056-banzai-definitive-query-core-and-production-assurance.md",
     "docs/audit/repo-truth-map.json",
     "docs/banzai/SPR_STRUCTURED_GENERATION_AND_VALIDATED_CACHE.md",
-    "docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
-   "refs": 12
+   "refs": 11
   },
   {
    "path": "engines/banzai-query-core/src/taskcheck.rs",
@@ -10295,7 +10050,7 @@
     "docs/audit/repo-truth-map.json",
     "docs/banzai/LOCAL_INFERENCE_RUNTIME.md"
    ],
-   "refs": 17
+   "refs": 16
   },
   {
    "path": "engines/banzai-query-core/tests/assurance.rs",
@@ -11400,12 +11155,12 @@
    "referenced_by": [
     "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_14A_OPERATOR_ZERO_REALISTIC_OPERATOR_JOURNEY.md",
     "engines/banza-evidence-bundle/src/bin/gen_operator_zero.rs",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
+    "engines/operator-zero-core/tests/protocol_contract.rs"
    ],
-   "refs": 14
+   "refs": 13
   },
   {
    "path": "examples/operators/zero/metadata/signed-metadata.json",
@@ -11488,12 +11243,12 @@
    "referenced_by": [
     "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_14A_OPERATOR_ZERO_REALISTIC_OPERATOR_JOURNEY.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
-    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm",
+    "tools/check-operator-zero-realistic-journey.sh"
    ],
-   "refs": 9
+   "refs": 8
   },
   {
    "path": "examples/operators/zero/traces/failed-e2e-trace.json",
@@ -11679,7 +11434,7 @@
     "docs/audit/repo-truth-map.json",
     "docs/banzai/LOCAL_INFERENCE_RUNBOOK.md"
    ],
-   "refs": 35
+   "refs": 33
   },
   {
    "path": "infra/banza-network/nginx/conf.d/00-security-headers.conf",
@@ -11697,12 +11452,12 @@
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
     "docs/guides/OPERADOR_ZERO_SUBDOMAIN_ACTIVATION.md",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md",
-    "docs/reports/SIMPLE_SECURE_OPERATOR_ONBOARDING_ARCHITECTURE.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-exclusions.json",
-    "infra/banza-network/README.md"
+    "infra/banza-network/README.md",
+    "infra/banza-network/bootstrap.sh",
+    "infra/banza-network/nginx/conf.d/00-security-headers.conf"
    ],
-   "refs": 14
+   "refs": 12
   },
   {
    "path": "infra/banza-network/nginx/oz-well-known/.gitignore",
@@ -11731,7 +11486,7 @@
     "docs/audit/repo-truth-map.json",
     "docs/governance/M2_7K_POSTGRESQL_RUNTIME_SCHEMA_AUDIT.md"
    ],
-   "refs": 30
+   "refs": 29
   },
   {
    "path": "infra/banza-network/postgres/migrations/BZO9_telemetry_precision.sql",
@@ -11755,10 +11510,9 @@
    "referenced_by": [
     "artifacts/m2-19-final/execution-state.json",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/TRUST_SECURITY_CONTRACTS_REALIGNMENT_REPORT.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-exclusions.json"
    ],
-   "refs": 4
+   "refs": 3
   },
   {
    "path": "infra/banza-network/postgres/migrations/M2_19G3A_origin_single_use.sql",
@@ -11902,12 +11656,12 @@
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
     "docs/guides/M2_19H_VALIDATION_RECEIPTS_RUNBOOK.md",
-    "docs/reports/SIMPLE_SECURE_OPERATOR_ONBOARDING_ARCHITECTURE.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
-    "infra/banza-network/tests/README.md"
+    "infra/banza-network/tests/README.md",
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
    ],
-   "refs": 7
+   "refs": 6
   },
   {
    "path": "infra/banza-network/tests/validate-security-headers.sh",
@@ -11992,13 +11746,13 @@
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_13C_B_PROTOCOL_ORIGIN_MAINTAINER_PROVENANCE_INTENT.md",
-    "docs/reports/M2_14A_OPERATOR_ZERO_REALISTIC_OPERATOR_JOURNEY.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
-    "services/banzai-api/eval/canonical-reconciliation.json"
+    "services/banzai-api/eval/canonical-reconciliation.json",
+    "services/banzai-api/eval/canonical-reconciliation.md",
+    "services/banzai-api/eval/canonical-reconciliation.mjs"
    ],
-   "refs": 13
+   "refs": 11
   },
   {
    "path": "services/banzai-api/eval/bzc-coverage.mjs",
@@ -12153,11 +11907,11 @@
     ".github/workflows/identity-guard.yml",
     "artifacts/m2-18b6/execution-state.json",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_18B6_RUST_FIRST_GROUNDED_SYNTHESIS.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "services/banzai-api/eval/m2-18b6-grounded.dataset.json"
+    "services/banzai-api/eval/m2-18b6-grounded.dataset.json",
+    "services/banzai-api/package.json"
    ],
-   "refs": 7
+   "refs": 6
   },
   {
    "path": "services/banzai-api/eval/m2-18b2-boundary.dataset.json",
@@ -12178,12 +11932,12 @@
    "referenced_by": [
     "artifacts/m2-18b6/execution-state.json",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_18B6_RUST_FIRST_GROUNDED_SYNTHESIS.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "services/banzai-api/eval/canonical-reconciliation.json",
-    "services/banzai-api/eval/canonical-reconciliation.md"
+    "services/banzai-api/eval/canonical-reconciliation.md",
+    "services/banzai-api/eval/canonical-reconciliation.mjs"
    ],
-   "refs": 11
+   "refs": 10
   },
   {
    "path": "services/banzai-api/eval/parity-m2-18b6.mjs",
@@ -12192,23 +11946,22 @@
     ".github/workflows/identity-guard.yml",
     "artifacts/m2-18b6/execution-state.json",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_18B6_RUST_FIRST_GROUNDED_SYNTHESIS.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "services/banzai-api/eval/gen-m2-18b6-dataset.mjs"
+    "services/banzai-api/eval/gen-m2-18b6-dataset.mjs",
+    "services/banzai-api/package.json"
    ],
-   "refs": 7
+   "refs": 6
   },
   {
    "path": "services/banzai-api/eval/run-m2-18b2-boundary-eval.mjs",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "services/banzai-api/test/m2-18b2-boundary.test.js",
     "tools/check-banzai-boundary-semantic-recovery.sh"
    ],
-   "refs": 5
+   "refs": 4
   },
   {
    "path": "services/banzai-api/eval/run-m2-18b6-eval.mjs",
@@ -12217,11 +11970,11 @@
     ".github/workflows/identity-guard.yml",
     "artifacts/m2-18b6/execution-state.json",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_18B6_RUST_FIRST_GROUNDED_SYNTHESIS.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "services/banzai-api/eval/gen-m2-18b6-dataset.mjs"
+    "services/banzai-api/eval/gen-m2-18b6-dataset.mjs",
+    "services/banzai-api/package.json"
    ],
-   "refs": 7
+   "refs": 6
   },
   {
    "path": "services/banzai-api/eval/run-m2-18b6-live.mjs",
@@ -12229,24 +11982,23 @@
    "referenced_by": [
     "artifacts/m2-18b6/execution-state.json",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_18B6_RUST_FIRST_GROUNDED_SYNTHESIS.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "services/banzai-api/package.json"
    ],
-   "refs": 5
+   "refs": 4
   },
   {
    "path": "services/banzai-api/eval/typo-dataset.mjs",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_18B6_QWEN_FALLBACK_REGRESSION.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "services/banzai-api/eval/canonical-reconciliation.json",
     "services/banzai-api/eval/canonical-reconciliation.md",
-    "services/banzai-api/eval/canonical-reconciliation.mjs"
+    "services/banzai-api/eval/canonical-reconciliation.mjs",
+    "services/banzai-api/eval/typo-eval.mjs"
    ],
-   "refs": 8
+   "refs": 7
   },
   {
    "path": "services/banzai-api/eval/typo-eval.mjs",
@@ -12275,10 +12027,10 @@
     "artifacts/m2-18b7/query-core-extraction-plan.md",
     "docs/audit/repo-truth-map.json",
     "docs/banzai/SPR_STRUCTURED_GENERATION_AND_VALIDATED_CACHE.md",
-    "docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md"
+    "engines/banza-repo-guards/src/lib.rs",
+    "engines/banzai-api-kb/src/lib.rs"
    ],
-   "refs": 33
+   "refs": 26
   },
   {
    "path": "services/banzai-api/src/cache.js",
@@ -12299,25 +12051,25 @@
    "referenced_by": [
     "decisions/adr/ADR-044-banzai-local-qwen-inference-runtime.md",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md",
     "engines/banzai-query-core/src/queue_policy.rs",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
    ],
-   "refs": 15
+   "refs": 14
   },
   {
    "path": "services/banzai-api/src/fetcherClient.js",
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md",
-    "docs/reports/SIMPLE_SECURE_OPERATOR_ONBOARDING_ARCHITECTURE.md",
     "evidence/claims/claims-matrix.json",
     "services/banzai-api/README.md",
-    "services/banzai-api/src/liveArtifact.js"
+    "services/banzai-api/src/liveArtifact.js",
+    "services/banzai-api/src/onboarding/index.js",
+    "services/banzai-api/src/validate.js"
    ],
-   "refs": 12
+   "refs": 10
   },
   {
    "path": "services/banzai-api/src/grounded-synthesis.js",
@@ -12330,7 +12082,7 @@
     "docs/audit/repo-truth-map.json",
     "docs/banzai/SPR_STRUCTURED_GENERATION_AND_VALIDATED_CACHE.md"
    ],
-   "refs": 21
+   "refs": 20
   },
   {
    "path": "services/banzai-api/src/journey.js",
@@ -12340,10 +12092,10 @@
     "docs/audit/repo-truth-map.json",
     "docs/banzai/SESSION_STATE.md",
     "docs/quality/BANZAI_RELEASE_QA_GATE.md",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md",
-    "engines/banzai-operator-journey/src/lib.rs"
+    "engines/banzai-operator-journey/src/lib.rs",
+    "engines/banzai-operator-journey/src/session.rs"
    ],
-   "refs": 16
+   "refs": 15
   },
   {
    "path": "services/banzai-api/src/journeywasm/banzai_operator_journey.d.ts",
@@ -12417,20 +12169,20 @@
     "artifacts/m2-19-final/finding-b-map.json",
     "artifacts/m2-19a/adr-audit-working.json"
    ],
-   "refs": 119
+   "refs": 113
   },
   {
    "path": "services/banzai-api/src/limits.js",
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md",
-    "docs/reports/SIMPLE_SECURE_OPERATOR_ONBOARDING_ARCHITECTURE.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "services/banzai-api/src/onboarding/index.js",
-    "services/banzai-api/src/pipeline.js"
+    "services/banzai-api/src/pipeline.js",
+    "services/banzai-api/src/server.js",
+    "services/banzai-api/test/pipeline.test.js"
    ],
-   "refs": 8
+   "refs": 6
   },
   {
    "path": "services/banzai-api/src/liveArtifact.js",
@@ -12618,7 +12370,7 @@
     "decisions/adr/ADR-044-banzai-local-qwen-inference-runtime.md",
     "decisions/adr/ADR-045-banzai-local-qwen-latency-tuning-default-readiness.md"
    ],
-   "refs": 67
+   "refs": 64
   },
   {
    "path": "services/banzai-api/src/progressContract.js",
@@ -12642,9 +12394,9 @@
     "decisions/adr/ADR-047-banzai-local-qwen-384-token-default.md",
     "docs/audit/repo-truth-map.json",
     "docs/governance/M2_8D_LOCAL_QWEN_VPS_XL_384_BENCHMARK.md",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
-   "refs": 38
+   "refs": 36
   },
   {
    "path": "services/banzai-api/src/questionFamilies.js",
@@ -12662,13 +12414,13 @@
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
-    "docs/reports/M2_18B1_INTENT_OBSERVABILITY_RELIABILITY_ACTIVATION.md",
-    "docs/reports/M2_18B7_DEFINITIVE_QUERY_CORE_AND_PRODUCTION_ASSURANCE.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "services/banzai-api/src/observability.js"
+    "services/banzai-api/src/observability.js",
+    "services/banzai-api/src/server.js",
+    "services/banzai-api/test/m2-18b1-observability.test.js",
+    "services/banzai-api/test/pipeline.test.js"
    ],
-   "refs": 9
+   "refs": 6
   },
   {
    "path": "services/banzai-api/src/receipts/hash.js",
@@ -12865,7 +12617,7 @@
     "decisions/adr/ADR-077-profile-applicability-model.md",
     "docs/audit/repo-truth-map.json"
    ],
-   "refs": 41
+   "refs": 39
   },
   {
    "path": "services/banzai-api/src/validatewasm/banza_conformance/banza_conformance.d.ts",
@@ -13173,13 +12925,10 @@
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_14C_BANZAI_GLOBAL_RENDERING_AND_GOVERNANCE_VOCABULARY.md",
-    "docs/reports/M2_14C_FIX1_BANZAI_ENTITY_FORMATTING_CONSISTENCY.md",
-    "docs/reports/M2_14C_FIX2_SHORT_QUERY_INTELLIGENCE_AND_FALLBACK_FORMATTING.md",
     "engines/banza-repo-guards/src/lib.rs",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
-   "refs": 6
+   "refs": 3
   },
   {
    "path": "services/banzai-api/test/answer-quality-eval.test.js",
@@ -13293,12 +13042,10 @@
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_14C_FIX1_BANZAI_ENTITY_FORMATTING_CONSISTENCY.md",
-    "docs/reports/M2_14C_FIX2_SHORT_QUERY_INTELLIGENCE_AND_FALLBACK_FORMATTING.md",
     "engines/banza-repo-guards/src/lib.rs",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
-   "refs": 5
+   "refs": 3
   },
   {
    "path": "services/banzai-api/test/factual-package-verification.test.js",
@@ -13343,12 +13090,11 @@
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_14A_OPERATOR_ZERO_REALISTIC_OPERATOR_JOURNEY.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
     "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
    ],
-   "refs": 5
+   "refs": 4
   },
   {
    "path": "services/banzai-api/test/m2-14j-public-surface-consistency.test.js",
@@ -13364,21 +13110,19 @@
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_18_PHASE1_BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "tools/check-banzai-intent-first-grounded-reasoning.sh"
    ],
-   "refs": 4
+   "refs": 3
   },
   {
    "path": "services/banzai-api/test/m2-18b1-observability.test.js",
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_18B1_INTENT_OBSERVABILITY_RELIABILITY_ACTIVATION.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
-   "refs": 3
+   "refs": 2
   },
   {
    "path": "services/banzai-api/test/m2-18b2-boundary.test.js",
@@ -13474,12 +13218,11 @@
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_14A_OPERATOR_ZERO_REALISTIC_OPERATOR_JOURNEY.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
     "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
    ],
-   "refs": 5
+   "refs": 4
   },
   {
    "path": "services/banzai-api/test/operador-zero.test.js",
@@ -13558,10 +13301,9 @@
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_13C_B_PROTOCOL_ORIGIN_MAINTAINER_PROVENANCE_INTENT.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
-   "refs": 3
+   "refs": 2
   },
   {
    "path": "services/banzai-api/test/protocol-vocabulary.test.js",
@@ -13638,22 +13380,20 @@
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_14F_SEMANTIC_ANSWER_COMPOSITION_AND_DYNAMIC_LOADING.md",
     "engines/banza-repo-guards/src/lib.rs",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
-   "refs": 4
+   "refs": 3
   },
   {
    "path": "services/banzai-api/test/short-query-recovery.test.js",
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_14C_FIX2_SHORT_QUERY_INTELLIGENCE_AND_FALLBACK_FORMATTING.md",
     "engines/banza-repo-guards/src/lib.rs",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
-   "refs": 4
+   "refs": 3
   },
   {
    "path": "services/banzai-api/test/single-contract.test.js",
@@ -14372,11 +14112,11 @@
     ".github/workflows/identity-guard.yml",
     "Makefile",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_18B3A_CANONICAL_CORPUS_AND_LATENCY_OPTIMISATION.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
    ],
-   "refs": 7
+   "refs": 6
   },
   {
    "path": "tools/check-banzai-canonical-eval.sh",
@@ -14541,11 +14281,11 @@
     ".github/workflows/identity-guard.yml",
     "Makefile",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_14C_FIX1_BANZAI_ENTITY_FORMATTING_CONSISTENCY.md",
     "engines/banza-repo-guards/src/lib.rs",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
    ],
-   "refs": 8
+   "refs": 7
   },
   {
    "path": "tools/check-banzai-factual-package.sh",
@@ -14665,11 +14405,11 @@
     ".github/workflows/identity-guard.yml",
     "Makefile",
     "docs/audit/repo-truth-map.json",
-    "docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
-    "docs/reports/M2_18_PHASE1_BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
    ],
-   "refs": 8
+   "refs": 6
   },
   {
    "path": "tools/check-banzai-intent-source-ranking.sh",
@@ -15093,11 +14833,11 @@
     ".github/workflows/identity-guard.yml",
     "Makefile",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_13C_B_PROTOCOL_ORIGIN_MAINTAINER_PROVENANCE_INTENT.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
    ],
-   "refs": 7
+   "refs": 6
   },
   {
    "path": "tools/check-banzai-protocol-vocabulary.sh",
@@ -15132,11 +14872,11 @@
     ".github/workflows/identity-guard.yml",
     "Makefile",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_19G_GUARD_CONVERGENCE.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
    ],
-   "refs": 7
+   "refs": 6
   },
   {
    "path": "tools/check-banzai-query-core-contract.sh",
@@ -15357,10 +15097,9 @@
     ".github/workflows/identity-guard.yml",
     "Makefile",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_19G_GUARD_CONVERGENCE.md",
     "website/lib/m2_19g-new-pages.test.ts"
    ],
-   "refs": 5
+   "refs": 4
   },
   {
    "path": "tools/check-banzai-single-production-pipeline.sh",
@@ -15571,10 +15310,9 @@
    "referenced_by": [
     ".github/workflows/identity-guard.yml",
     "Makefile",
-    "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_19G_GUARD_CONVERGENCE.md"
+    "docs/audit/repo-truth-map.json"
    ],
-   "refs": 4
+   "refs": 3
   },
   {
    "path": "tools/check-clean-room-package.sh",
@@ -15692,10 +15430,9 @@
    "referenced_by": [
     ".github/workflows/identity-guard.yml",
     "Makefile",
-    "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_19G_GUARD_CONVERGENCE.md"
+    "docs/audit/repo-truth-map.json"
    ],
-   "refs": 4
+   "refs": 3
   },
   {
    "path": "tools/check-governance-authority-boundary.sh",
@@ -15753,11 +15490,11 @@
     ".github/workflows/identity-guard.yml",
     "Makefile",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_19G_GUARD_CONVERGENCE.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
    ],
-   "refs": 10
+   "refs": 9
   },
   {
    "path": "tools/check-homepage-final-validation.sh",
@@ -15766,11 +15503,11 @@
     ".github/workflows/identity-guard.yml",
     "Makefile",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_19G_GUARD_CONVERGENCE.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
    ],
-   "refs": 7
+   "refs": 6
   },
   {
    "path": "tools/check-invariants.sh",
@@ -15814,10 +15551,9 @@
    "referenced_by": [
     ".github/workflows/identity-guard.yml",
     "Makefile",
-    "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_19G_GUARD_CONVERGENCE.md"
+    "docs/audit/repo-truth-map.json"
    ],
-   "refs": 4
+   "refs": 3
   },
   {
    "path": "tools/check-m2-19g2-home-canonical.sh",
@@ -15949,11 +15685,11 @@
     ".github/workflows/identity-guard.yml",
     "Makefile",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_14A_OPERATOR_ZERO_REALISTIC_OPERATOR_JOURNEY.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
    ],
-   "refs": 7
+   "refs": 6
   },
   {
    "path": "tools/check-operator-zero-only-architecture.sh",
@@ -15999,11 +15735,11 @@
     ".github/workflows/identity-guard.yml",
     "Makefile",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_19G_GUARD_CONVERGENCE.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
    ],
-   "refs": 7
+   "refs": 6
   },
   {
    "path": "tools/check-operator-zero-read-only-surface.sh",
@@ -16022,11 +15758,11 @@
     ".github/workflows/identity-guard.yml",
     "Makefile",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_14A_OPERATOR_ZERO_REALISTIC_OPERATOR_JOURNEY.md",
-    "docs/reports/M2_19G_GUARD_CONVERGENCE.md",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
    ],
-   "refs": 8
+   "refs": 6
   },
   {
    "path": "tools/check-operator-zero-reference-boundary.sh",
@@ -16085,10 +15821,10 @@
     "Makefile",
     "decisions/adr/ADR-042-postgresql-as-protocol-state-store.md",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/SIMPLE_SECURE_OPERATOR_ONBOARDING_ARCHITECTURE.md",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
    ],
-   "refs": 11
+   "refs": 10
   },
   {
    "path": "tools/check-private-key-leak.sh",
@@ -16121,11 +15857,11 @@
     ".github/workflows/identity-guard.yml",
     "Makefile",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_19G_GUARD_CONVERGENCE.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
    ],
-   "refs": 8
+   "refs": 7
   },
   {
    "path": "tools/check-real-money-activation.sh",
@@ -16147,11 +15883,11 @@
     ".github/workflows/identity-guard.yml",
     "Makefile",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_19G_GUARD_CONVERGENCE.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
+    "engines/banzai-repo-indexer/src/main.rs"
    ],
-   "refs": 8
+   "refs": 7
   },
   {
    "path": "tools/check-reference-faq-semantic-consistency.sh",
@@ -16170,11 +15906,11 @@
     ".github/workflows/identity-guard.yml",
     "Makefile",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_19G_GUARD_CONVERGENCE.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
    ],
-   "refs": 7
+   "refs": 6
   },
   {
    "path": "tools/check-reference-roadmap-durability.sh",
@@ -16288,10 +16024,9 @@
    "referenced_by": [
     ".github/workflows/identity-guard.yml",
     "Makefile",
-    "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_19G_GUARD_CONVERGENCE.md"
+    "docs/audit/repo-truth-map.json"
    ],
-   "refs": 4
+   "refs": 3
   },
   {
    "path": "tools/check-three-layer-architecture.sh",
@@ -16314,10 +16049,10 @@
     "Makefile",
     "artifacts/m2-19-final/execution-state.json",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/TRUST_SECURITY_CONTRACTS_REALIGNMENT_REPORT.md",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
    ],
-   "refs": 8
+   "refs": 7
   },
   {
    "path": "tools/check-trust-semantics-boundary.sh",
@@ -16348,11 +16083,11 @@
     ".github/workflows/identity-guard.yml",
     "Makefile",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_19G_GUARD_CONVERGENCE.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
    ],
-   "refs": 8
+   "refs": 7
   },
   {
    "path": "tools/check-whitepaper-canonical-source-boundary.sh",
@@ -16517,13 +16252,13 @@
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_14A_OPERATOR_ZERO_REALISTIC_OPERATOR_JOURNEY.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
     "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm",
-    "tools/check-operator-zero.sh"
+    "tools/check-operator-zero.sh",
+    "website/lib/operadorZero.ts"
    ],
-   "refs": 8
+   "refs": 7
   },
   {
    "path": "tools/gen-reason-code-registry.py",
@@ -16627,10 +16362,9 @@
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/BANZA_V1_SIMPLICITY_SECURITY_ROBUSTNESS_REPORT.md",
-    "docs/audit/repo-truth-map.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-exclusions.json"
+    "docs/audit/repo-truth-map.json"
    ],
-   "refs": 3
+   "refs": 2
   },
   {
    "path": "website/.eslintrc.json",
@@ -16709,11 +16443,11 @@
     "decisions/adr/ADR-070-banzai-navigable-contexts-single-interface.md",
     "docs/audit/repo-truth-map.json",
     "docs/governance/M2_7I_BANZAI_REFERENCE_REPOSITORY_ALIGNMENT_AUDIT.md",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md",
     "engines/banzai-query-core/src/doc-index.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
    ],
-   "refs": 13
+   "refs": 12
   },
   {
    "path": "website/app/certificacao/page.tsx",
@@ -16956,9 +16690,9 @@
     "docs/audit/repo-truth-map.json",
     "docs/governance/M2_5_PUBLIC_SURFACE_AUDIT.md",
     "docs/governance/M2_7B_HOME_REFERENCE_CONSOLIDATION_AUDIT.md",
-    "docs/reports/M2_19G_GUARD_CONVERGENCE.md"
+    "engines/banza-repo-guards/src/lib.rs"
    ],
-   "refs": 25
+   "refs": 24
   },
   {
    "path": "website/app/porque-existe/page.tsx",
@@ -17075,13 +16809,13 @@
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_19G_GUARD_CONVERGENCE.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
     "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm",
-    "tools/check-banza-whitepaper.sh"
+    "tools/check-banza-whitepaper.sh",
+    "tools/check-banzai-single-interface.sh"
    ],
-   "refs": 16
+   "refs": 15
   },
   {
    "path": "website/app/whitepaper/en/page.tsx",
@@ -17226,22 +16960,21 @@
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
     "docs/banzai/SESSION_STATE.md",
-    "docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md",
-    "docs/reports/M2_14F_SEMANTIC_ANSWER_COMPOSITION_AND_DYNAMIC_LOADING.md",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm",
+    "tools/check-banzai-accessibility-check.sh"
    ],
-   "refs": 35
+   "refs": 32
   },
   {
    "path": "website/components/banzai/BanzaiOnboardingMode.tsx",
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md",
     "tools/check-banzai-operator-experience.sh"
    ],
-   "refs": 3
+   "refs": 2
   },
   {
    "path": "website/components/banzai/BanzaiProgress.render.test.tsx",
@@ -17277,12 +17010,12 @@
    "referenced_by": [
     "artifacts/m2-19g/canonical-concept-matrix.json",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md",
     "services/banzai-api/src/knowledge.js",
     "tools/check-banzai-accessibility-check.sh",
-    "tools/check-banzai-certification-readiness-language-check.sh"
+    "tools/check-banzai-certification-readiness-language-check.sh",
+    "tools/check-banzai-contextual-actions-check.sh"
    ],
-   "refs": 22
+   "refs": 21
   },
   {
    "path": "website/components/banzai/BanzaiWorkspaceProvider.tsx",
@@ -17298,13 +17031,13 @@
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md",
     "tools/check-banzai-accessibility-check.sh",
     "tools/check-banzai-draft-validation-isolation-check.sh",
     "tools/check-banzai-operator-zero-only-ui.sh",
-    "tools/check-banzai-responsive-check.sh"
+    "tools/check-banzai-responsive-check.sh",
+    "tools/check-banzai-upload-copy.sh"
    ],
-   "refs": 7
+   "refs": 6
   },
   {
    "path": "website/components/banzai/ExecutionHistoryPanel.render.test.tsx",
@@ -17327,11 +17060,10 @@
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md",
     "tools/check-banzai-draft-validation-isolation-check.sh",
     "tools/check-banzai-operator-journey.sh"
    ],
-   "refs": 4
+   "refs": 3
   },
   {
    "path": "website/components/banzai/SafeMarkdown.render.test.tsx",
@@ -17407,12 +17139,12 @@
    "referenced_by": [
     "decisions/adr/ADR-074-simb-retirement-from-active-surfaces.md",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md",
-    "docs/reports/M2_19G_GUARD_CONVERGENCE.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm",
+    "tools/check-banzai-agent-quality.sh"
    ],
-   "refs": 33
+   "refs": 31
   },
   {
    "path": "website/components/banzai/banzaiUi.tsx",
@@ -17516,10 +17248,10 @@
     "decisions/adr/ADR-076-banzai-validation-journey-consolidation-and-durable-receipts.md",
     "docs/audit/repo-truth-map.json",
     "docs/quality/BANZAI_RELEASE_QA_GATE.md",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md",
-    "tools/check-banzai-certification-readiness-language-check.sh"
+    "tools/check-banzai-certification-readiness-language-check.sh",
+    "tools/check-banzai-draft-validation-isolation-check.sh"
    ],
-   "refs": 23
+   "refs": 22
   },
   {
    "path": "website/components/decisoes/DecisionMarkdown.tsx",
@@ -17575,25 +17307,25 @@
    "referenced_by": [
     "artifacts/m2-19g2/home-current-surface-audit.json",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/SIMPLE_SECURE_OPERATOR_ONBOARDING_ARCHITECTURE.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
-    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm",
+    "tools/check-home-layout-copy.sh"
    ],
-   "refs": 14
+   "refs": 13
   },
   {
    "path": "website/components/home/HomeAsk.tsx",
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
-    "docs/reports/M2_18_PHASE1_BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
-    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm",
+    "tools/check-banzai-intent-first-grounded-reasoning.sh",
+    "tools/check-banzai-unified-markdown-rendering.sh"
    ],
-   "refs": 9
+   "refs": 7
   },
   {
    "path": "website/components/home/HomeHeroDiagram.tsx",
@@ -17613,12 +17345,12 @@
    "referenced_by": [
     "artifacts/m2-19g2/home-current-surface-audit.json",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/SIMPLE_SECURE_OPERATOR_ONBOARDING_ARCHITECTURE.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
-    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm",
+    "tools/check-home-layout-copy.sh"
    ],
-   "refs": 14
+   "refs": 13
   },
   {
    "path": "website/components/home/banzaiKb.test.ts",
@@ -17641,22 +17373,21 @@
     "docs/audit/repo-truth-map.json",
     "docs/governance/rust-first-legacy-allowlist.json",
     "docs/quality/BANZAI_RELEASE_QA_GATE.md",
-    "docs/reports/M2_14C_BANZAI_GLOBAL_RENDERING_AND_GOVERNANCE_VOCABULARY.md",
-    "docs/reports/M2_18B6_QWEN_FALLBACK_REGRESSION.md"
+    "engines/banzai-evidence/src/lib.rs",
+    "engines/banzai-query-core/src/doc-index.json"
    ],
-   "refs": 27
+   "refs": 25
   },
   {
    "path": "website/components/home/nativeAgent.test.ts",
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_19G_GUARD_CONVERGENCE.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
     "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
    ],
-   "refs": 5
+   "refs": 4
   },
   {
    "path": "website/components/operador-zero/OperadorZeroReference.tsx",
@@ -17684,10 +17415,9 @@
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md",
     "website/content/banzai/architecture-manifest.json"
    ],
-   "refs": 3
+   "refs": 2
   },
   {
    "path": "website/components/reference/ReferenceMarkdown.tsx",
@@ -17744,7 +17474,7 @@
     "artifacts/m2-19-final/finding-b-map.json",
     "artifacts/m2-19g2/home-current-surface-audit.json"
    ],
-   "refs": 136
+   "refs": 134
   },
   {
    "path": "website/content/banzai/architecture-manifest.json",
@@ -18474,12 +18204,12 @@
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
     "docs/quality/BANZAI_RELEASE_QA_GATE.md",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md",
     "engines/banzai-operator-journey/tests/journey_e2e.rs",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
    ],
-   "refs": 12
+   "refs": 11
   },
   {
    "path": "website/lib/banzaOperatorManifest.test.ts",
@@ -18517,11 +18247,11 @@
     "decisions/adr/ADR-076-banzai-validation-journey-consolidation-and-durable-receipts.md",
     "docs/audit/repo-truth-map.json",
     "docs/quality/BANZAI_RELEASE_QA_GATE.md",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "tools/check-banzai-draft-validation-isolation-check.sh"
+    "tools/check-banzai-draft-validation-isolation-check.sh",
+    "tools/check-banzai-simb-active-surface-clean.sh"
    ],
-   "refs": 7
+   "refs": 6
   },
   {
    "path": "website/lib/banzaTrust.test.ts",
@@ -18567,10 +18297,9 @@
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md",
     "tools/check-banzai-operator-experience.sh"
    ],
-   "refs": 3
+   "refs": 2
   },
   {
    "path": "website/lib/banzaiProgress.test.ts",
@@ -18635,12 +18364,11 @@
    "referenced_by": [
     "decisions/adr/ADR-076-banzai-validation-journey-consolidation-and-durable-receipts.md",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md",
     "tools/check-banzai-operator-experience.sh",
     "tools/check-banzai-single-interface.sh",
     "website/lib/m2_17a-footer-navigation.test.ts"
    ],
-   "refs": 6
+   "refs": 5
   },
   {
    "path": "website/lib/banzaiValidateClient.test.ts",
@@ -18656,12 +18384,12 @@
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
     "docs/governance/rust-first-legacy-allowlist.json",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md",
     "tools/check-banzai-endpoint-originated-validation-check.sh",
     "tools/check-banzai-m2-19g1-readiness-check.sh",
-    "tools/check-banzai-no-arbitrary-url-check.sh"
+    "tools/check-banzai-no-arbitrary-url-check.sh",
+    "tools/check-banzai-no-fixture-as-production-evidence-check.sh"
    ],
-   "refs": 10
+   "refs": 9
   },
   {
    "path": "website/lib/banzaiValidation.test.ts",
@@ -18678,11 +18406,11 @@
     "artifacts/m2-19-final/execution-state.json",
     "artifacts/m2-19g/canonical-concept-matrix.json",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md",
-    "docs/reports/SIMPLE_SECURE_OPERATOR_ONBOARDING_ARCHITECTURE.md",
-    "tools/check-banzai-closed-target-registry-check.sh"
+    "tools/check-banzai-closed-target-registry-check.sh",
+    "tools/check-banzai-nine-step-endpoint-input-check.sh",
+    "tools/check-banzai-no-arbitrary-url-check.sh"
    ],
-   "refs": 15
+   "refs": 13
   },
   {
    "path": "website/lib/banzaiValidationRegistry.test.ts",
@@ -18707,22 +18435,21 @@
    "referenced_by": [
     "artifacts/m2-19a/execution-state.json",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_19G_GUARD_CONVERGENCE.md",
-    "docs/reports/THREE_LAYER_ARCHITECTURE_REPORT.md",
     "engines/banza-repo-guards/src/lib.rs",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
+    "engines/rust-rule-guard/tests/guard.rs",
+    "tools/check-banzai-architecture-manifest.sh"
    ],
-   "refs": 14
+   "refs": 12
   },
   {
    "path": "website/lib/m2_14j-public-consistency.test.ts",
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_19G_GUARD_CONVERGENCE.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
-   "refs": 3
+   "refs": 2
   },
   {
    "path": "website/lib/m2_15b-global-navigation.test.ts",
@@ -18740,10 +18467,9 @@
    "referenced_by": [
     "artifacts/m2-19g2/home-current-surface-audit.json",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_19G_GUARD_CONVERGENCE.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
-   "refs": 4
+   "refs": 3
   },
   {
    "path": "website/lib/m2_17-homepage.test.ts",
@@ -18751,11 +18477,10 @@
    "referenced_by": [
     "artifacts/m2-19g2/home-current-surface-audit.json",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_19G_GUARD_CONVERGENCE.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "website/lib/m2_19g-new-pages.test.ts"
    ],
-   "refs": 5
+   "refs": 4
   },
   {
    "path": "website/lib/m2_17a-footer-navigation.test.ts",
@@ -18841,39 +18566,37 @@
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
     "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm",
     "tools/check-operator-zero-vocabulary-contract.sh"
    ],
-   "refs": 6
+   "refs": 5
   },
   {
    "path": "website/lib/operadorZeroJourney.test.ts",
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_14A_OPERATOR_ZERO_REALISTIC_OPERATOR_JOURNEY.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
     "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm",
     "tools/check-operator-zero-realistic-journey.sh"
    ],
-   "refs": 6
+   "refs": 5
   },
   {
    "path": "website/lib/operadorZeroJourney.ts",
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md",
-    "docs/reports/M2_14A_OPERATOR_ZERO_REALISTIC_OPERATOR_JOURNEY.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
-    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm",
+    "tools/check-operator-zero-only-architecture.sh",
+    "tools/check-operator-zero-realistic-journey.sh"
    ],
-   "refs": 8
+   "refs": 6
   },
   {
    "path": "website/lib/operadorZeroStatus.ts",
@@ -18882,10 +18605,9 @@
     "decisions/adr/ADR-074-simb-retirement-from-active-surfaces.md",
     "decisions/adr/ADR-076-banzai-validation-journey-consolidation-and-durable-receipts.md",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md",
     "tools/check-banzai-simb-active-surface-clean.sh"
    ],
-   "refs": 5
+   "refs": 4
   },
   {
    "path": "website/lib/operationReceipt.test.ts",
@@ -18902,11 +18624,11 @@
     "artifacts/m2-19g/canonical-concept-matrix.json",
     "decisions/adr/ADR-076-banzai-validation-journey-consolidation-and-durable-receipts.md",
     "docs/audit/repo-truth-map.json",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md",
     "tools/check-banzai-certification-readiness-language-check.sh",
-    "tools/check-banzai-journey-receipt-origin-check.sh"
+    "tools/check-banzai-journey-receipt-origin-check.sh",
+    "tools/check-banzai-receipt-origin-fields-check.sh"
    ],
-   "refs": 8
+   "refs": 7
   },
   {
    "path": "website/lib/operatorJourneyE2E.test.ts",
@@ -18934,22 +18656,20 @@
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/SIMPLE_SECURE_OPERATOR_ONBOARDING_ARCHITECTURE.md",
     "tools/check-m2-19g2-home-canonical.sh",
     "tools/check-m2-19g2-readiness.sh"
    ],
-   "refs": 4
+   "refs": 3
   },
   {
    "path": "website/lib/publicSurface.test.ts",
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_19G_GUARD_CONVERGENCE.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "tools/check-svg-visual-quality.sh"
    ],
-   "refs": 4
+   "refs": 3
   },
   {
    "path": "website/lib/receiptOriginFields.test.ts",
@@ -18970,17 +18690,16 @@
     "docs/audit/repo-truth-map.json",
     "docs/governance/BANZA_MULTILINGUAL_ARCHITECTURE.md"
    ],
-   "refs": 22
+   "refs": 21
   },
   {
    "path": "website/lib/referenceIA.test.ts",
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/reports/M2_19G_GUARD_CONVERGENCE.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
-   "refs": 3
+   "refs": 2
   },
   {
    "path": "website/lib/site.ts",
@@ -18991,9 +18710,9 @@
     "decisions/adr/ADR-071-banzai-canonical-runtime-and-reference-correction.md",
     "docs/audit/repo-truth-map.json",
     "docs/governance/M2_7B_HOME_REFERENCE_CONSOLIDATION_AUDIT.md",
-    "docs/reports/M2_19G_GUARD_CONVERGENCE.md"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
-   "refs": 24
+   "refs": 23
   },
   {
    "path": "website/lib/wasm/banza_conformance.d.ts",
@@ -19320,10 +19039,9 @@
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
     "docs/guides/OPERADOR_ZERO_SUBDOMAIN_ACTIVATION.md",
-    "docs/reports/M2_19G_GUARD_CONVERGENCE.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
-   "refs": 4
+   "refs": 3
   },
   {
    "path": "website/lib/zeroSubdomain.ts",

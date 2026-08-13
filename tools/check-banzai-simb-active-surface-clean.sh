@@ -13,7 +13,7 @@
 #
 # EXPLICIT allowlist (exempt — never scanned): website/lib/banzaEvidenceBundle.ts,
 # website/lib/banzaSimb.ts and its generated WASM, the engines/banza-simb crate, decisions/adr/**, and
-# docs/reports/** / docs/governance/** history.
+# closed-milestone history.
 #
 # Exit 1 on any violation. Exit 2 if the guard's own self-test is broken.
 

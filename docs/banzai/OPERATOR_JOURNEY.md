@@ -18,8 +18,8 @@
 > fetched by the secure Rust fetcher (`engines/banza-artifact-fetcher`) — never the browser, never a
 > user-supplied URL. Upload/paste (§3 below) is a **local, non-authoritative draft tool only**
 > (`DRAFT_VALIDATION_RESULT`, ADR-068 §4.5); it never enters the official journey. See the
-> [Reference — BanzAI chapter](../../website/content/BANZA_REFERENCIA.md) and
-> [SECURE_ARTIFACT_FETCHER_REPORT.md](../reports/SECURE_ARTIFACT_FETCHER_REPORT.md).
+> [Reference — BanzAI chapter](../../website/content/BANZA_REFERENCIA.md) and ADR-068 §19, which
+> carries the SSRF policy the Rust fetcher enforces.
 
 ---
 

@@ -358,7 +358,6 @@ fn banzami_attribution_allowed(path: &str) -> bool {
         || base == "check-protocol-scheme-separation.sh"
         || base == "check-conflict-of-interest.sh"
         || base == "check-certification-admission-separation.sh"
-        || path == "docs/reports/M2_18B7_DEFINITIVE_QUERY_CORE_AND_PRODUCTION_ASSURANCE.md"
         // M2.18B.7 DFN: the exportable truth table + canonical protocol vocabulary artefacts enumerate the
         // ecosystem-identity subjects (BANZA/BanzAI/Banzami) as vocabulary; same ADR-002/043 attribution.
         || path == "artifacts/m2-18b7/task-fulfilment-truth-table.json"
@@ -456,18 +455,15 @@ fn banzami_attribution_allowed(path: &str) -> bool {
         || path == "engines/banzai-query-core/src/terminal.rs"
         // M2.13C-B: the protocol-origin / creation-date phase report names the creator as institutional
         // origin (same ADR-043 attribution basis). Not a payment operator; brand stays barred elsewhere.
-        || path == "docs/reports/M2_13C_B_PROTOCOL_ORIGIN_MAINTAINER_PROVENANCE_INTENT.md"
         // M2.19G: the public-surface reconstruction reports document the three-layer work, incl. Layer 3
         // (the Banzami Operational Scheme, designated operator) — the guard-convergence, README-sweep,
         // reference, SVG and verification-battery reports name Banzami exactly to record the L3 framing.
         // Internal engineering reports; same ADR-059/060 + ADR-043 attribution basis; payment-operator
         // brands stay blocked everywhere.
-        || path.starts_with("docs/reports/M2_19G_")
         // M2.14C: the global rendering contract report documents the "Banzami" origin-answer before/after
         // (§10/§11), and the contract test + guard verify that same answer renders with a clean body.
         // Same ADR-043 institutional-attribution basis as route.rs / knowledge.js above — not a payment
         // operator; the payment-OPERATOR brands stay blocked everywhere.
-        || path == "docs/reports/M2_14C_BANZAI_GLOBAL_RENDERING_AND_GOVERNANCE_VOCABULARY.md"
         || path == "services/banzai-api/test/answer-contract.test.js"
         || path == "tools/check-banzai-global-answer-format-contract.sh"
         // M2.14C Part 16: the minimal-highlight pass lists the ecosystem ENTITIES it bolds (Banzami /
@@ -477,20 +473,17 @@ fn banzami_attribution_allowed(path: &str) -> bool {
         // M2.14C-FIX1: the entity-emphasis consistency test + guard drive the same canonical-entity
         // table (Banzami / BANZA / BanzAI …) to prove every occurrence is bold. Same ADR-043
         // institutional-attribution basis; payment-OPERATOR brands stay blocked everywhere.
-        || path == "docs/reports/M2_14C_FIX1_BANZAI_ENTITY_FORMATTING_CONSISTENCY.md"
         || path == "services/banzai-api/test/entity-formatting-consistency.test.js"
         || path == "tools/check-banzai-entity-formatting-consistency.sh"
         // M2.14C-FIX2: the short-query/fallback test + guard + report drive the same slash-separated
         // canonical-entity list (Banzami/BANZA/BanzAI) to prove each segment is bolded. Same ADR-043
         // institutional-attribution basis; payment-OPERATOR brands stay blocked everywhere.
-        || path == "docs/reports/M2_14C_FIX2_SHORT_QUERY_INTELLIGENCE_AND_FALLBACK_FORMATTING.md"
         || path == "services/banzai-api/test/short-query-recovery.test.js"
         || path == "tools/check-banzai-short-query-recovery.sh"
         // M2.14F: the semantic-answer-composition report + test + guard exercise the same
         // institutional-identity query ("o que é o banzami") and canonical entities to prove the
         // composed answers keep the ADR-043 attribution. Same basis as knowledge.js / route.rs above;
         // payment-OPERATOR brands stay blocked everywhere.
-        || path == "docs/reports/M2_14F_SEMANTIC_ANSWER_COMPOSITION_AND_DYNAMIC_LOADING.md"
         || path == "services/banzai-api/test/semantic-answer-composition.test.js"
         || path == "tools/check-banzai-semantic-answer-composition.sh"
         // M2.14F-FIX2: the SafeMarkdown render test drives the same institutional entity table

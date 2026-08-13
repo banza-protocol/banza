@@ -79,7 +79,7 @@ operator neutrality (ADR-003) all stand.
 - **Source of truth:** the glossary mapping `Registo Técnico ↔ Technical Registry`
   (`website/app/glossario/page.tsx`). Enforced by `technical-registry-naming-parity-check`.
 - **Excluded / immutable:** the whitepaper (`website/public/whitepaper/**`), invariants (e.g.
-  `INV-FEDEVAL-008` "Public Protocol Registry anchor"), `docs/reports/**`, and this ADR's own English
+  `INV-FEDEVAL-008` "Public Protocol Registry anchor"), and this ADR's own English
   title are out of scope and unchanged.
 - **Governance note:** the repo-canonicalization framing (this repo's `services/banzai-api` as the
   canonical runtime) is governed separately by ADR-071; this amendment covers naming only.

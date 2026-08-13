@@ -106,4 +106,3 @@ are all preserved — this ADR governs how the *decision record* is maintained, 
 - `artifacts/m2-19a/adr-audit-working.json` — the full per-ADR audit
 - `artifacts/m2-19a/adr-contradiction-matrix.json` — every genuine contradiction and its resolution
 - `artifacts/m2-19a/adr-treatment-map.json` — KEEP / REWRITE / DELETE per ADR, with scope decisions
-- `docs/reports/ADR_AUDIT_REPORT.md` and `docs/reports/ADR_CANONICAL_FINAL_REPORT.md`

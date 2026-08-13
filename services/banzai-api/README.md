@@ -67,8 +67,8 @@ system evaluated). `validate.js` resolves the target from the **closed Technical
 runs the matching no-network Rust/WASM decision engine on the fetched content, and binds each verdict to
 its exact public origin in a receipt (`qwen_calls=0`, `external_model_calls=0`, `protocol_fetch_count`
 tracked). **Rust decides; TypeScript never decides.** Certification Readiness is `READY`/`BLOCKED` and
-never `CERTIFIED`. Upload/paste is a local, non-authoritative **draft** tool only. See ADR-068, the
-BANZA Reference (chapters 7–9 & 12) and `docs/reports/SECURE_ARTIFACT_FETCHER_REPORT.md`.
+never `CERTIFIED`. Upload/paste is a local, non-authoritative **draft** tool only. See ADR-068 (§19 for the
+SSRF policy) and the BANZA Reference (chapters 7–9 & 12).
 
 ## Guardrails (always enforced — mock and real alike)
 `authoritative: false`, `can_certify: false`, `decides: false`,

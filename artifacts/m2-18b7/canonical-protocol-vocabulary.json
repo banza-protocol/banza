@@ -5,7 +5,7 @@
     "principle": "The vocabulary is a semantic registry of real protocol terms derived from the engine's own registries + closed protocol sets; corpus terms are candidates (Phase 1), lexical noise never enters here."
   },
   "source_registry": {
-    "total": 480,
+    "total": 479,
     "by_type": {
       "root-doc": 9,
       "conformance": 80,
@@ -14,22 +14,22 @@
       "openapi": 11,
       "adr": 81,
       "rfc": 7,
-      "doc": 80,
+      "doc": 79,
       "example": 48,
       "spec": 31
     },
     "by_status": {
-      "current": 480
+      "current": 479
     },
     "by_authority_class": {
-      "current": 432,
+      "current": 431,
       "illustrative": 48
     },
     "by_language": {
-      "pt-or-neutral": 480
+      "pt-or-neutral": 479
     },
     "by_origin": {
-      "authored": 480,
+      "authored": 479,
       "generated": 0
     },
     "duplicates": [
@@ -3423,7 +3423,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "6e403a6f185ea647"
+        "checksum": "b0d97070ffac8cab"
       },
       {
         "id": "decisions-adr-adr-058-trust-invariant-registry-realignment-md",
@@ -3434,7 +3434,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "ca15e631d5b4f5bb"
+        "checksum": "f2d58cd2be211275"
       },
       {
         "id": "decisions-adr-adr-059-three-layer-institutional-architecture-md",
@@ -3445,7 +3445,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "30f37f892f4bb2fd"
+        "checksum": "4f4335c5f2b44726"
       },
       {
         "id": "decisions-adr-adr-060-banzami-operational-scheme-md",
@@ -3456,7 +3456,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "5e98beb92ff01d4e"
+        "checksum": "ce14b43326038907"
       },
       {
         "id": "decisions-adr-adr-061-certification-admission-authorisation-separation-md",
@@ -3489,7 +3489,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "ebd102669eac3b24"
+        "checksum": "6bd6fa1c025a9561"
       },
       {
         "id": "decisions-adr-adr-064-conformance-interoperability-certification-md",
@@ -3511,7 +3511,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "70dfd9d4ee221355"
+        "checksum": "4c88aa017ac4494d"
       },
       {
         "id": "decisions-adr-adr-066-certification-state-machine-md",
@@ -3632,7 +3632,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "d5be6c446e8173da"
+        "checksum": "98d9d3e0c025ae80"
       },
       {
         "id": "decisions-adr-adr-077-profile-applicability-model-md",
@@ -3896,7 +3896,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "8a836429665a4914"
+        "checksum": "78cf8d45fdd15945"
       },
       {
         "id": "docs-banzai-operator-journey-md",
@@ -3907,7 +3907,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "7327b59aea0d3cfd"
+        "checksum": "bbc12aa4b718e32f"
       },
       {
         "id": "docs-banzai-readme-md",
@@ -3918,7 +3918,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "95da8ad9579fed55"
+        "checksum": "26b0c2e971191e28"
       },
       {
         "id": "docs-banzai-response-paths-md",
@@ -3974,17 +3974,6 @@
         "generated": false,
         "public_eligible": true,
         "checksum": "5d85c9fcfe109e45"
-      },
-      {
-        "id": "docs-governance-banzai-intent-first-grounded-reasoning-md",
-        "path": "docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "9baf2f385750acc6"
       },
       {
         "id": "docs-governance-banzai-native-protocol-agent-md",
@@ -5194,7 +5183,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "e3de42fa3ae300de"
+        "checksum": "5a45b1c2e45fcbdf"
       },
       {
         "id": "examples-operators-zero-traces-failed-e2e-trace-json",
@@ -5622,7 +5611,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "121d39ea9512882b"
+    "checksum": "34d65bb002623f6b"
   },
   "subjects": [
     {
@@ -8983,5 +8972,5 @@
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "f3024d9a67d12f47"
+  "checksum": "2d9a2dff04982606"
 }
