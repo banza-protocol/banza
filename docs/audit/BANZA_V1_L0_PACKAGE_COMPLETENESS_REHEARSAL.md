@@ -279,6 +279,83 @@ The verdict was not forced. Had the reason-code vectors omitted `published_check
 link to `contracts/federation/federation-trust.json` would have been required and this would have read
 **NOT COMPLETE**.
 
+---
+
+## 10. Re-run, after Q-0001 and Q-0002 were closed normatively
+
+Both findings were resolved on the normative surface — not in the package, not in a guide — and the
+rehearsal was executed again against a freshly frozen export.
+
+| | First run | Re-run |
+|---|---|---|
+| Source commit | `8c332f8` | `2d3dd13a6dea` |
+| Files | 21 | **24** |
+| Tree digest | `4e71ce2a…` | `6717226dbc7675b6f2416769eac1d644a9758b006fc395c6…` |
+| Normative Manifest artifacts | 147 | **150** |
+| L0 implementation set | 11 | **14** |
+
+The first package remains as it was: its identity is the historical evidence that the rehearsal found
+real defects, and it was not overwritten.
+
+### Q-0001 — closed by `required_vector_cases`
+
+The conformance-profile registry now states, per profile and per file, which cases apply: `"ALL"` or an
+explicit list. Read from the new package:
+
+| Vector file | Required at L0 |
+|---|---|
+| `canonicalization.json` | all 24 |
+| `operator-manifests.json` | all 4 |
+| `reason-codes.json` | **9 of 21** |
+| `capabilities.json` | all 12 |
+| **L0 obligation** | **49 cases — read, not inferred** |
+
+The twelve reason-code cases scoped to L3 — `failed_checks`, `trust_status`, receipt equivalence,
+per-step engine statuses — are verifiably absent from the L0 obligation. No vector file was split or
+rewritten, and the nine `(input, output)` grammars are untouched: only applicability was declared.
+
+### Q-0002 — closed by the capability registry
+
+The §6 satisfaction procedure was executed over all twelve capability vectors using only the package:
+**12 of 12 correct, 0 divergent**, with no implementation code, no ADR, no README, no assistant and no
+heuristic.
+
+The audit behind it is the part worth recording. Of ten `supports_*` flags, **exactly one** is an exact
+equivalence. `supports_qr` is narrower than `payment_request`; `supports_traces` names two routes while
+`traceability` is the property of propagating traces; `supports_federation` is broader than
+`cross_operator_routing`; `supports_wallets` is a composition; four correspond to nothing. The two
+vocabularies were never parallel, and the registry says so instead of asserting the missing rows.
+
+One alias is registered — `cross_operator_settlement` → `inter_operator_settlement` — on demonstrated
+equivalence of meaning plus the fact that the form is already published in six committed fixtures, not
+on the names resembling each other.
+
+### Re-run passes
+
+| Check | Result |
+|---|---|
+| Outgoing links required for L0 | **0** — `contracts/federation/federation-trust.json` is now further out of scope, since the `failed_checks` cases are not in L0's obligation |
+| BCJ/1 self-verification from the package | **15/15** digests match |
+| Contradictions | **none** — one protocol version across six artifacts; zero trust-scoped cases in the L0 obligation |
+| Implementation detail defining behaviour | **0 occurrences** |
+| Input modified by the rehearsal | **no** — tree digest unchanged |
+| Reference-code / ADR / README / assistant dependencies | **0 each** |
+
+### Re-run verdict
+
+## **COMPLETE WITH OBSERVED DISCOVERABILITY AND TOOLING FINDINGS**
+
+Zero `MISSING_RULE`. Zero `CONFLICT`. Zero unresolved `AMBIGUITY`.
+
+The ledger keeps all four questions with their original classifications. Q-0001 (`AMBIGUITY`) and
+Q-0002 (`MISSING_RULE`) are marked resolved with the artefact and commit that resolved them; deleting
+them would erase the evidence that the rehearsal found real defects. Q-0003 (`DISCOVERABILITY`) and
+Q-0004 (`TOOLING`) remain as observations — neither implies a defect in the specification.
+
+The result was not forced: it improved because two normative gaps were closed, and it is stated as
+*observed* findings because a single rehearsal by a reader who has seen this repository is weak
+evidence about anything else.
+
 ### What this does not establish
 
 **No independent implementation of BANZA has been demonstrated.** This rehearsal tested the artefact,
