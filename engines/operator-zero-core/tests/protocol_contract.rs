@@ -1,6 +1,6 @@
 //! The contract between the simulator and the protocol it claims to demonstrate.
 //!
-//! ADR-052 says Operador Zero "passes the whole journey". That claim is only worth anything if the
+//! ADR-041 says Operador Zero "passes the whole journey". That claim is only worth anything if the
 //! PROTOCOL's engines accept its artifacts — a simulator that passes only its own checks demonstrates
 //! nothing. This suite runs the canonical Operador Zero manifest through `banza-operator-manifest`,
 //! the same engine the BanzAI Manifest step runs in the browser.

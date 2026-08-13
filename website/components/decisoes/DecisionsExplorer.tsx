@@ -7,7 +7,7 @@ import type { Decision } from "@/lib/decisions";
 // Client-side explorer for the ADR/RFC library. Pure local state — filters and
 // search operate over the statically-indexed `decisions` array (no network, no
 // LLM, no runtime data source). BanzAI links open /banzai pre-filled with the
-// question; the agent answers there from local on-host inference (ADR-044/048).
+// question; the agent answers there from local on-host inference (ADR-042/048).
 
 type TypeFilter = "all" | "ADR" | "RFC";
 type StateFilter = "all" | "activo" | "rascunho" | "substituido";
@@ -25,7 +25,7 @@ const STATE_TABS: { key: StateFilter; label: string }[] = [
   { key: "substituido", label: "Substituídos" },
 ];
 
-function stateChipClass(state: Decision["state"]) {
+function stateChipClass(state: string) {
   if (state === "activo") return "border-line-2 bg-white text-ink-2";
   if (state === "substituido") return "border-line-2 bg-paper-3 text-ink-5";
   return "border-pend/40 bg-tint-gold text-pend"; // rascunho
@@ -47,7 +47,7 @@ export function DecisionsExplorer({
     const q = query.trim().toLowerCase();
     return decisions.filter((d) => {
       if (type !== "all" && d.type !== type) return false;
-      if (state !== "all" && d.state !== state) return false;
+      if (state !== "all" && "activo" !== state) return false;
       if (category !== "all" && d.category !== category) return false;
       if (q) {
         const hay = `${d.id} ${d.title} ${d.summary} ${d.category}`.toLowerCase();
@@ -160,8 +160,8 @@ export function DecisionsExplorer({
                   {d.type}
                 </span>
                 <span className="font-mono text-[12px] text-ink-3">{d.id}</span>
-                <span className={`ml-auto rounded-[2px] border px-[8px] py-[3px] font-mono text-[10px] ${stateChipClass(d.state)}`}>
-                  {d.status}
+                <span className={`ml-auto rounded-[2px] border px-[8px] py-[3px] font-mono text-[10px] ${stateChipClass("activo")}`}>
+                  {"Activo"}
                 </span>
               </div>
               <h3 className="m-0 mb-2 text-[15px] font-semibold leading-[1.35] text-ink">
@@ -173,13 +173,7 @@ export function DecisionsExplorer({
               <div className="mb-2 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[10.5px] text-ink-5">
                 <span>{d.category}</span>
                 <span aria-hidden="true">·</span>
-                <span>{d.normativeLevel}</span>
-                {d.date ? (
-                  <>
-                    <span aria-hidden="true">·</span>
-                    <span>{d.date}</span>
-                  </>
-                ) : null}
+                <span>Não normativo</span>
               </div>
               <div className="mb-4 font-mono text-[10px] text-ink-6">
                 Conteúdo completo · língua original

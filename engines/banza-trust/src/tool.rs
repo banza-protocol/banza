@@ -52,7 +52,7 @@ pub fn tool_version() -> Value {
     json!({
         "tool": "banza-trust",
         "tool_version": TOOL_VERSION,
-        "scheme": "ed25519 + ADR-038 canonical-json",
+        "scheme": "ed25519 + ADR-027 canonical-json",
         "model": "signed-protocol-metadata",
         "test_only": true,
         "production_disclaimer": "Verificação técnica test-only (TEST ONLY — NOT PRODUCTION). Não é certificado; o BanzAI não emite nem altera /certificates ou /operators."

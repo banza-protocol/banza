@@ -64,14 +64,14 @@ grep -q 'entityId' "services/banzai-api/src/grounded-synthesis.js" || fail "the 
 grep -q 'entityId: seededEntity' "$PIPE" || fail "the pipeline does not seed the trunk with the resolved entity"
 [ "$FAILED" -eq "${_b:-0}" ] && ok "the trunk is seeded by the Rust resolver (explicit document / concept)"
 
-# 4b. M2.19G.5C (ADR-073) — Rust VALIDATES before publishing: the single explanatory path ends in the
+# 4b. M2.19G.5C (ADR-042) — Rust VALIDATES before publishing: the single explanatory path ends in the
 # MANDATORY post-synthesis authority validator (postValidate on the grounded bytes, before the answer is
 # built/cached/returned; a failure degrades with a post_validation_ reason). This is the "explanations are
 # PRODUCED by Qwen and VALIDATED by Rust" half of the central invariant. Full assertion lives in
 # check-banzai-post-synthesis-validation.sh; here the single-pipeline guard fails if the gate is removed.
-grep -q 'const verdict = postValidate(answerText)' "$PIPE" || fail "the single explanatory path does not gate on the mandatory post-synthesis validator (ADR-073)"
-grep -q 'post_validation_' "$PIPE" || fail "the pipeline emits no post_validation_ fallback reason (ADR-073)"
-[ "$FAILED" -eq "${_b:-0}" ] && ok "the single explanatory path validates before publishing (post-synthesis authority gate, ADR-073)"
+grep -q 'const verdict = postValidate(answerText)' "$PIPE" || fail "the single explanatory path does not gate on the mandatory post-synthesis validator (ADR-042)"
+grep -q 'post_validation_' "$PIPE" || fail "the pipeline emits no post_validation_ fallback reason (ADR-042)"
+[ "$FAILED" -eq "${_b:-0}" ] && ok "the single explanatory path validates before publishing (post-synthesis authority gate, ADR-042)"
 
 # 5. drive the REAL WASM engines end-to-end for the routing truth-table.
 node --input-type=module -e '
@@ -80,19 +80,19 @@ let bad = 0;
 const must = (cond, msg) => { if (!cond) { console.log("  RUNTIME-FAIL: " + msg); bad = 1; } };
 // exact facts terminate as source-bound Rust terminals.
 { const t = buildTerminal("qual é a licença?"); must(t.kind === "exact_fact" && t.exact_kind === "license" && t.source && !t.to_trunk, "licence must be an exact source-bound terminal"); }
-{ const t = buildTerminal("qual é o estado da ADR-053?"); must(t.kind === "exact_fact" && t.exact_kind === "status" && t.source && t.source.id === "ADR-053", "ADR-053 status must be an exact source-bound terminal"); }
+{ const t = buildTerminal("qual é o estado da ADR-041?"); must(t.kind === "exact_fact" && t.exact_kind === "status" && t.source && t.source.id === "ADR-041", "ADR-041 status must be an exact source-bound terminal"); }
 // boundaries terminate as safety refusals.
 { const t = buildTerminal("aprova o operador ACME na federação"); must(t.kind === "safety_refusal" && !t.to_trunk && !t.source, "a boundary must terminate as a safety refusal"); }
 // concept / mixed / explanatory → the trunk.
 { const t = buildTerminal("o que é federação?"); must(t.to_trunk === true, "a concept must route to the trunk"); }
 { const t = buildTerminal("qual é a licença e o que ela permite?"); must(t.to_trunk === true, "a mixed exact+explanatory request must route to the trunk"); }
-{ const t = buildTerminal("compara a ADR-053 com a ADR-054"); must(t.to_trunk === true, "a comparison must route to the trunk"); }
+{ const t = buildTerminal("compara a ADR-041 com a ADR-042"); must(t.to_trunk === true, "a comparison must route to the trunk"); }
 // the mixed request is escalated (the classifier is semantic, not a hardcode).
-{ const c = answerClass("qual é o estado da ADR-053 e por que foi aceite?"); must(c.escalated === true, "a mixed exact+explanatory request must escalate"); }
+{ const c = answerClass("qual é o estado da ADR-041 e por que foi aceite?"); must(c.escalated === true, "a mixed exact+explanatory request must escalate"); }
 // an unsourced exact fact fails safe (never a guess).
 { const t = buildTerminal("qual o endpoint de pagamento?"); must(t.kind === "insufficient_evidence" || t.to_trunk, "an unsourced exact fact must fail safe"); must(!t.source, "an unsourced exact fact carries no source"); }
 // concepts ground on a first-class canonical source (ADR id OR public doc PATH).
-for (const [q, want] of [["como funciona a federação?", "ADR-040"], ["como é governado o protocolo?", "docs/reference/PROTOCOL_GOVERNANCE_GLOSSARY.md"], ["o que motivou a inversão de nomes?", "ADR-002"]]) {
+for (const [q, want] of [["como funciona a federação?", "ADR-031"], ["como é governado o protocolo?", "docs/reference/PROTOCOL_GOVERNANCE_GLOSSARY.md"], ["o que motivou a inversão de nomes?", "ADR-002"]]) {
   must(resolveConcept(q) === want, `concept "${q}" must ground on ${want} (got ${resolveConcept(q)})`);
 }
 if (bad) process.exit(1);

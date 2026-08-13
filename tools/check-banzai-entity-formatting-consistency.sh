@@ -7,7 +7,7 @@
 # answer contract bolds every occurrence and normalizes canonical spelling, while NEVER touching text
 # inside code / inline code / existing **bold** / markdown links / URLs, and never touching
 # paths / domains / packages / doc-ids (banza.network, banzai-api, engines/banzai-api-kb, BANZA.md,
-# ADR-006). No `****` (double-bold). Common words (protocolo, operador, pagamento …) are NOT entities.
+# ADR-011). No `****` (double-bold). Common words (protocolo, operador, pagamento …) are NOT entities.
 # Enforced STATICALLY (the layer exists + is wired) + BEHAVIOURALLY (drives the committed engine + the
 # server normalizer via node) + a self-test.
 set -uo pipefail
@@ -90,12 +90,12 @@ if command -v node >/dev/null 2>&1; then
     }
     // (12) Paths / domains / packages / doc-ids are NOT bolded.
     {
-      const a = N("Vê banza.network e o pacote banzai-api em engines/banzai-api-kb. O ficheiro BANZA.md e o ADR-006. Mas o BANZA é aberto.");
+      const a = N("Vê banza.network e o pacote banzai-api em engines/banzai-api-kb. O ficheiro BANZA.md e o ADR-011. Mas o BANZA é aberto.");
       emit(a.includes("banza.network") && !a.includes("**banza**.network") && !a.includes("**banza.network**"), "domain banza.network not bolded");
       emit(a.includes("banzai-api") && !a.includes("**banzai**-api") && !a.includes("**banzai-api**"), "package banzai-api not bolded");
       emit(a.includes("engines/banzai-api-kb") && !a.includes("**banzai"), "path engines/banzai-api-kb not bolded");
       emit(a.includes("BANZA.md") && !a.includes("**BANZA**.md") && !a.includes("**BANZA.md**"), "doc-id BANZA.md not bolded");
-      emit(a.includes("ADR-006") && !a.includes("**ADR**-006") && !a.includes("**ADR-006**"), "doc-id ADR-006 not bolded");
+      emit(a.includes("ADR-011") && !a.includes("**ADR**-006") && !a.includes("**ADR-011**"), "doc-id ADR-011 not bolded");
       emit(a.includes("**BANZA**"), "standalone BANZA still bolded");
     }
     // (13) Canonical spelling is emitted (drift fixed).
@@ -107,12 +107,12 @@ if command -v node >/dev/null 2>&1; then
       emit(a.includes("**Trust Root**"), "trust root → **Trust Root**");
       emit(a.includes("**KZ_DEMO**"), "kz_demo → **KZ_DEMO**");
     }
-    // (14) Whole-word: BANZA is not matched inside Banzami/BanzAI; ADR-006 preserved but ADRs plural bolded.
+    // (14) Whole-word: BANZA is not matched inside Banzami/BanzAI; ADR-011 preserved but ADRs plural bolded.
     {
       const a = N("Só o Banzami aqui.");
       emit(a.includes("**Banzami**") && !/\*\*BANZA\*\*mi/.test(a), "no mid-word bold inside Banzami");
-      const b = N("Os ADRs e os RFCs governam. O ADR-006 é um deles.");
-      emit(b.includes("**ADRs**") && b.includes("**RFCs**") && b.includes("ADR-006") && !b.includes("**ADR-006**"), "plural ADRs/RFCs bolded, ADR-006 doc-id preserved");
+      const b = N("Os ADRs e os RFCs governam. O ADR-011 é um deles.");
+      emit(b.includes("**ADRs**") && b.includes("**RFCs**") && b.includes("ADR-011") && !b.includes("**ADR-011**"), "plural ADRs/RFCs bolded, ADR-011 doc-id preserved");
     }
     // (15) Common words are NOT bolded (no over-bolding).
     {

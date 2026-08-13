@@ -57,7 +57,7 @@ Follow the area-specific guidelines:
 - ADRs are append-only historical records — do not retroactively amend
 - RFCs are open for comment before an ADR finalises the decision
 
-**Engines (`engines/`) — Rust-first (ADR-037)**
+**Engines (`engines/`) — Rust-first (ADR-043)**
 - Official engines (conformance, crypto/trust, BanzAI retrieval/scoring/guards/evals, routing,
   semantic validation) must be **Rust**. TypeScript is UI/glue; Python is temporary legacy.
 - New non-Rust engines are blocked by `make rust-rule-check`. If a file is genuinely UI/glue but
@@ -73,7 +73,7 @@ make identity-check
 # Repository purity — no non-protocol artifacts
 make purity-check
 
-# Rust-first policy — no new non-Rust engine (ADR-037)
+# Rust-first policy — no new non-Rust engine (ADR-043)
 make rust-rule-check
 
 # Cryptographic integrity tests (INV-FEDEVAL-005)

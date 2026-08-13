@@ -33,7 +33,7 @@ fn no_match_returns_empty() {
     assert!(retrieve_topk_ids("xyzzy plugh random gibberish", 3).is_empty());
 }
 
-// ── M2.9A documentary index (ADR-049) ────────────────────────────────────────
+// ── M2.9A documentary index (ADR-042) ────────────────────────────────────────
 
 #[test]
 fn doc_index_is_populated_and_secret_free() {

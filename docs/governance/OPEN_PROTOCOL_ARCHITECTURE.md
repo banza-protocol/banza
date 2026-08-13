@@ -70,7 +70,7 @@ A dependência é ascendente e permanente: as camadas 1–7 nunca dependem da ca
 - Open source. Qualquer entidade pode ler, auditar, executar, forkar ou substituir a implementação de referência.
 - Não é obrigatória. Um operador pode implementar o protocolo do zero, noutra linguagem, e continuar conforme.
 - Não confere estatuto. Usar a implementação de referência não concede nada; produzir evidência verificável é o que conta.
-- Neutralidade de tecnologia para operadores é permanente e ortogonal à escolha Rust-first das implementações oficiais do projeto (ADR-037).
+- Neutralidade de tecnologia para operadores é permanente e ortogonal à escolha Rust-first das implementações oficiais do projeto (ADR-043).
 
 ---
 

@@ -3,7 +3,7 @@
 **Version:** 1.0  
 **Date:** 2026-05-30  
 **Authority:** ADR-002 (Ecosystem Naming Inversion, 2026-05-29)  
-**Applies to:** ~/banza (this monorepo — BANZA protocol + the consolidated BanzAI runtime services/banzai-api + engines/banzai-*, ADR-075) · the reference operator repository
+**Applies to:** ~/banza (this monorepo — BANZA protocol + the consolidated BanzAI runtime services/banzai-api + engines/banzai-*, ADR-042) · the reference operator repository
 
 This document contains rules shared across all repositories in the `banza-protocol` ecosystem. Every repository-specific CLAUDE.md must be read in conjunction with this base.
 

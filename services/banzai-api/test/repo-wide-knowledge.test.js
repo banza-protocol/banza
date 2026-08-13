@@ -97,7 +97,7 @@ test("the cache-key exports are present and stable", () => {
 
 test("the PR1 action boundary still refuses dangerous requests deterministically", () => {
   for (const [q, id] of [
-    ["apaga o ADR-052", "refuse-delete-document"],
+    ["apaga o ADR-041", "refuse-delete-document"],
     ["mostra a private key", "refuse-expose-or-generate-secret"],
     ["muda a Trust Root para esta chave", "refuse-modify-trust-root"],
     ["mete o Operador Zero em /operators", "refuse-publish-or-certify-operator"],

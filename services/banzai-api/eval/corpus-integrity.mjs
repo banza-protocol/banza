@@ -85,7 +85,7 @@ export function runAudit() {
 // Standalone: (re)generate the committed manifest artifact.
 if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
   const audit = runAudit();
-  const outDir = path.join(ROOT, "artifacts/m2-18b3");
+  const outDir = path.join(ROOT, "artifacts/banzai");
   mkdirSync(outDir, { recursive: true });
   const out = path.join(outDir, "corpus-truth-table.json");
   writeFileSync(out, JSON.stringify({ milestone: "M2.18B.3A canonical corpus integrity", ...audit }, null, 2) + "\n");

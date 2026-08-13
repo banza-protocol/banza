@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# check-banzai-operational-telemetry.sh — operational reasoning + telemetry + honest fallback guard (ADR-078).
+# check-banzai-operational-telemetry.sh — operational reasoning + telemetry + honest fallback guard (ADR-042).
 #
 # Verifies the CONTRACT behaviourally via the committed Rust WASM (engines/banzai-query-core →
 # banzai-api-kb → services/banzai-api/src/rustkb) plus a static wiring check of the pipeline:
@@ -24,7 +24,7 @@ PIPELINE="services/banzai-api/src/pipeline.js"
 [ -f "$WASM_DIR/banzai_api_kb.js" ] || { echo "FAIL: $WASM_DIR not built (run wasm-pack)"; exit 1; }
 [ -f "$PIPELINE" ] || { echo "FAIL: $PIPELINE not found"; exit 1; }
 
-echo "== banzai-operational-telemetry-check (ADR-078) =="
+echo "== banzai-operational-telemetry-check (ADR-042) =="
 
 node - "$WASM_DIR" <<'NODE'
 const path = require("path");

@@ -575,7 +575,7 @@ pub fn document_lookup_card(question: &str, document_id: &str) -> Option<Documen
     })?;
 
     // Only a BARE document LOOKUP gets the deterministic card. A DocumentMetadata question ("qual é o
-    // estado da ADR-053?") is served MORE precisely by the exact-fact terminal (status/date/… , also
+    // estado da ADR-041?") is served MORE precisely by the exact-fact terminal (status/date/… , also
     // deterministic and never degraded), so it is deliberately NOT intercepted here; and an explain/impact/
     // summary request is an EXPLANATION for the grounded trunk.
     let plan = plan_answer(question, &doc.id);
@@ -702,15 +702,15 @@ mod tests {
 
     #[test]
     fn a_missing_document_is_reported_as_not_found_never_invented() {
-        let r = resolve_question("Explica o ADR-999");
+        let r = resolve_question("Explica o ADR-X999");
         assert!(r.detected, "the reference itself must be recognised");
-        assert!(!r.found, "ADR-999 does not exist and must not resolve");
-        assert!(resolve("ADR-999").is_none());
+        assert!(!r.found, "ADR-X999 does not exist and must not resolve");
+        assert!(resolve("ADR-X999").is_none());
     }
 
     #[test]
     fn other_documents_resolve_too() {
-        assert!(resolve("ADR-049").is_some(), "ADR-049 must resolve");
+        assert!(resolve("ADR-042").is_some(), "ADR-042 must resolve");
         assert!(resolve("ADR-1").is_some(), "padding-insensitive");
     }
 
@@ -803,7 +803,7 @@ mod tests {
     fn content_hash_is_stable_and_document_specific() {
         let a = resolve("ADR-002").unwrap().content_hash();
         let b = resolve("ADR-002").unwrap().content_hash();
-        let c = resolve("ADR-003").unwrap().content_hash();
+        let c = resolve("ADR-001").unwrap().content_hash();
         assert_eq!(a, b, "stable across calls");
         assert_ne!(a, c, "distinct documents hash differently");
     }
@@ -819,8 +819,8 @@ mod tests {
             ("ADR 002", "ADR-002", "Ecosystem Naming Inversion"),
             ("ADR-002", "ADR-002", "Ecosystem Naming Inversion"),
             ("adr002", "ADR-002", "Ecosystem Naming Inversion"),
-            ("ADR 006", "ADR-006", "ADR-006"),
-            ("ADR-6", "ADR-006", "ADR-006"),
+            ("ADR 006", "ADR-011", "ADR-011"),
+            ("ADR-6", "ADR-011", "ADR-011"),
         ] {
             let c = document_lookup_card(q, "").unwrap_or_else(|| panic!("no card for {q:?}"));
             assert!(c.matched);
@@ -834,8 +834,8 @@ mod tests {
             );
         }
         // A structured document_id (the "Explicar com BanzAI" button flow) resolves too.
-        let c = document_lookup_card("", "ADR-006").expect("card from a structured id");
-        assert_eq!(c.id, "ADR-006");
+        let c = document_lookup_card("", "ADR-011").expect("card from a structured id");
+        assert_eq!(c.id, "ADR-011");
     }
 
     #[test]

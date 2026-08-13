@@ -1,4 +1,4 @@
--- BANZA — durable validation-journey receipt store (BanzAI Workbench, ADR-076 §D-076-08).
+-- BANZA — durable validation-journey receipt store (BanzAI Workbench, ADR-042 §D-076-08).
 --
 -- Idempotent migration that brings an EXISTING banza_protocol database up to the receipt-store schema
 -- (init/001_schema.sql runs only on a fresh volume). Safe to run repeatedly. Adds only NEW tables,
@@ -124,7 +124,7 @@ CREATE INDEX IF NOT EXISTS validation_artifact_observations_exec_idx ON validati
 -- Append-only immutability for sealed artefacts.
 CREATE OR REPLACE FUNCTION banza_forbid_receipt_mutation() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
-  RAISE EXCEPTION 'append-only table %: % forbidden (ADR-076 D-076-08 immutable receipts)', TG_TABLE_NAME, TG_OP;
+  RAISE EXCEPTION 'append-only table %: % forbidden (ADR-042 D-076-08 immutable receipts)', TG_TABLE_NAME, TG_OP;
 END $$;
 DROP TRIGGER IF EXISTS operation_receipts_immutable ON operation_receipts;
 CREATE TRIGGER operation_receipts_immutable BEFORE UPDATE OR DELETE ON operation_receipts
@@ -143,15 +143,15 @@ CREATE TRIGGER validation_artifact_observations_immutable BEFORE UPDATE OR DELET
 CREATE OR REPLACE FUNCTION banza_execution_freeze() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
   IF TG_OP = 'DELETE' THEN
-    RAISE EXCEPTION 'validation_executions is not deletable (ADR-076 D-076-08)';
+    RAISE EXCEPTION 'validation_executions is not deletable (ADR-042 D-076-08)';
   END IF;
   IF NEW.execution_id <> OLD.execution_id OR NEW.operator_id <> OLD.operator_id
      OR NEW.implementation_id <> OLD.implementation_id OR NEW.created_at <> OLD.created_at
      OR COALESCE(NEW.snapshot_observed_at, 'epoch'::timestamptz) <> COALESCE(OLD.snapshot_observed_at, 'epoch'::timestamptz) THEN
-    RAISE EXCEPTION 'validation_executions: identity/snapshot columns are immutable (ADR-076 D-076-08)';
+    RAISE EXCEPTION 'validation_executions: identity/snapshot columns are immutable (ADR-042 D-076-08)';
   END IF;
   IF OLD.completed_at IS NOT NULL OR OLD.cancelled_at IS NOT NULL OR OLD.interrupted_at IS NOT NULL THEN
-    RAISE EXCEPTION 'validation_executions: a completed/cancelled/interrupted run is frozen (ADR-076 D-076-08)';
+    RAISE EXCEPTION 'validation_executions: a completed/cancelled/interrupted run is frozen (ADR-042 D-076-08)';
   END IF;
   RETURN NEW;
 END $$;
@@ -162,14 +162,14 @@ CREATE TRIGGER validation_executions_freeze BEFORE UPDATE OR DELETE ON validatio
 CREATE OR REPLACE FUNCTION banza_step_execution_freeze() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
   IF TG_OP = 'DELETE' THEN
-    RAISE EXCEPTION 'validation_step_executions is not deletable (ADR-076 D-076-08)';
+    RAISE EXCEPTION 'validation_step_executions is not deletable (ADR-042 D-076-08)';
   END IF;
   IF NEW.step_execution_id <> OLD.step_execution_id OR NEW.execution_id <> OLD.execution_id
      OR NEW.step_id <> OLD.step_id OR NEW.created_at <> OLD.created_at THEN
-    RAISE EXCEPTION 'validation_step_executions: identity columns are immutable (ADR-076 D-076-08)';
+    RAISE EXCEPTION 'validation_step_executions: identity columns are immutable (ADR-042 D-076-08)';
   END IF;
   IF OLD.completed_at IS NOT NULL AND OLD.status IN ('VERIFIED','PENDING','FAILED','BLOCKED') THEN
-    RAISE EXCEPTION 'validation_step_executions: a sealed step is frozen (ADR-076 D-076-08)';
+    RAISE EXCEPTION 'validation_step_executions: a sealed step is frozen (ADR-042 D-076-08)';
   END IF;
   RETURN NEW;
 END $$;

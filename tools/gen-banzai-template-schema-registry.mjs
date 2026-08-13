@@ -17,7 +17,7 @@ import { dirname, join } from "node:path";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const require = createRequire(join(ROOT, "services/banzai-api/"));
 const kb = require("./src/rustkb/banzai_api_kb.js");
-const OUT = join(ROOT, "artifacts/m2-18b7/template-schema-registry.json");
+const OUT = join(ROOT, "artifacts/banzai/template-schema-registry.json");
 
 function fnv1a(s) {
   let h = 0xcbf29ce484222325n;

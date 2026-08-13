@@ -1,12 +1,12 @@
 # BanzAI Validation Journey — Threat Model
 
-> **Scope:** the endpoint-originated validation journey and its durable receipt store (ADR-068, ADR-076, ADR-042). Complements [docs/governance/THREAT_MODEL.md](../governance/THREAT_MODEL.md). **Assets protected:** the integrity of a recorded validation result, its inputs' provenance, and the honesty of what the interface claims.
+> **Scope:** the endpoint-originated validation journey and its durable receipt store (ADR-038, ADR-042, ADR-026). Complements [docs/governance/THREAT_MODEL.md](../governance/THREAT_MODEL.md). **Assets protected:** the integrity of a recorded validation result, its inputs' provenance, and the honesty of what the interface claims.
 
 ## Trust boundaries
 
 1. **Browser ↔ banzai-api** — the browser is untrusted. The workspace it supplies is never trusted for cross-workspace reads.
 2. **banzai-api ↔ implementation origin** — the fetched artefacts are untrusted input, retrieved only through the SSRF-hardened protocol fetcher.
-3. **banzai-api ↔ PostgreSQL** — the store holds protocol state, never financial value (ADR-042); the `banzai_rw` role has `SELECT/INSERT` only on sealed tables.
+3. **banzai-api ↔ PostgreSQL** — the store holds protocol state, never financial value (ADR-026); the `banzai_rw` role has `SELECT/INSERT` only on sealed tables.
 4. **Rust engines** — the only components that decide a verdict; deterministic, no network, no model.
 
 ## Threats and mitigations

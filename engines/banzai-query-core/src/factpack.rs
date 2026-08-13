@@ -848,7 +848,7 @@ pub fn build_factual_package_planned(
 
 /// Increment 4 (§7/§9) — build the TRANSVERSAL FactualPackage for an operational (telemetry) question, from
 /// the SAME Rust resolution + ToolPlan the documentary trunk uses plus the deterministic tool output. Numbers
-/// come ONLY from the tool (SQL over persisted receipts, ADR-078/BZO-8/9) — never a model — so this routes
+/// come ONLY from the tool (SQL over persisted receipts, ADR-042/BZO-8/9) — never a model — so this routes
 /// the operational path through the same package + verification, uniformly. `duration_json` is the typed
 /// DurationAnswer view, `claims_json` the `[{claim,category,value_ms}]` map, `sources_json` the citeable
 /// `[{id,title,path}]` set the tool produced. Pure + total: no model, no I/O; every number is copied verbatim.
@@ -1285,7 +1285,7 @@ mod tests {
 
     #[test]
     fn planned_content_hash_changes_with_entity() {
-        let a = build_factual_package_planned("t", "explica a ADR-006", "ADR-006", "brief");
+        let a = build_factual_package_planned("t", "explica a ADR-011", "ADR-011", "brief");
         let b = build_factual_package_planned("t", "explica a ADR-002", "ADR-002", "brief");
         assert_ne!(a.content_hash, b.content_hash);
     }
@@ -1315,18 +1315,18 @@ mod tests {
         // A comparison must contain BOTH named documents so the answer can cite each side without the
         // validator rejecting an out-of-package citation. The RetrievalPlan makes each a primary source.
         let p =
-            build_factual_package_planned("t", "compara a ADR-053 com a ADR-054", "", "standard");
+            build_factual_package_planned("t", "compara a ADR-041 com a ADR-042", "", "standard");
         assert!(
             !p.facts.is_empty(),
             "must yield facts from the two documents"
         );
         assert!(
-            p.allowed_source_ids.contains(&"ADR-053".to_string()),
-            "ADR-053 must be citeable"
+            p.allowed_source_ids.contains(&"ADR-041".to_string()),
+            "ADR-041 must be citeable"
         );
         assert!(
-            p.allowed_source_ids.contains(&"ADR-054".to_string()),
-            "ADR-054 must be citeable"
+            p.allowed_source_ids.contains(&"ADR-042".to_string()),
+            "ADR-042 must be citeable"
         );
         assert!(p.facts.len() <= 6 + 1, "standard depth cap respected");
     }
@@ -1334,7 +1334,7 @@ mod tests {
     #[test]
     fn planned_unknown_reference_does_not_panic() {
         // A nonexistent id resolves to no eligible plan source; the corpus fallback keeps it total.
-        let p = build_factual_package_planned("t", "explica a ADR-99999", "ADR-99999", "brief");
+        let p = build_factual_package_planned("t", "explica a ADR-999", "ADR-999", "brief");
         // no panic; a package is always returned (facts may come from the corpus fallback or be empty).
         assert_eq!(p.version, FACTUAL_PACKAGE_VERSION);
     }
@@ -1345,8 +1345,8 @@ mod tests {
     fn planned_package_is_the_enriched_v2_contract() {
         let p = build_factual_package_planned(
             "tp",
-            "explica a ADR-006 sobre dupla entrada",
-            "ADR-006",
+            "explica a ADR-011 sobre dupla entrada",
+            "ADR-011",
             "",
         );
         // v2 contract with the three plans embedded.
@@ -1368,9 +1368,9 @@ mod tests {
             p.answer_plan_checksum,
             p.answer_plan.as_ref().unwrap().checksum
         );
-        // ADR-006 must ground and be citeable; every fact carries the enriched anchor.
-        assert!(!p.facts.is_empty(), "ADR-006 must yield facts");
-        assert!(p.allowed_source_ids.contains(&"ADR-006".to_string()));
+        // ADR-011 must ground and be citeable; every fact carries the enriched anchor.
+        assert!(!p.facts.is_empty(), "ADR-011 must yield facts");
+        assert!(p.allowed_source_ids.contains(&"ADR-011".to_string()));
         assert_eq!(p.claims_allowed, p.allowed_source_ids);
         assert_eq!(p.requested_format, "markdown");
         for f in &p.facts {
@@ -1430,8 +1430,8 @@ mod tests {
     fn documentary_package_carries_the_transversal_fields() {
         let p = build_factual_package_planned(
             "t4",
-            "explica a ADR-006 sobre dupla entrada",
-            "ADR-006",
+            "explica a ADR-011 sobre dupla entrada",
+            "ADR-011",
             "",
         );
         // §7 fields are populated for the documentary trunk.

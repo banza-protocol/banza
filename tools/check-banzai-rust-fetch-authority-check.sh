@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# M2.19G.1 (ADR-068 §4.7 / Consequences) — Rust fetch authority guard (§37, invariant 24).
+# M2.19G.1 (ADR-038 §4.7 / Consequences) — Rust fetch authority guard (§37, invariant 24).
 #
 # The official artifact fetch happens in RUST (banza-artifact-fetcher, service banza-fetcher) — the
 # browser never fetches official targets. banzai-api reaches the fetcher via FETCHER_URL; the browser
@@ -22,7 +22,7 @@ CLIENT=website/lib/banzaiValidateClient.ts
 LIBRS=engines/banza-artifact-fetcher/src/lib.rs
 COMPOSE=infra/banza-network/compose.yml
 
-echo "== banzai-rust-fetch-authority-check (M2.19G.1 / ADR-068 §4.7) =="
+echo "== banzai-rust-fetch-authority-check (M2.19G.1 / ADR-038 §4.7) =="
 
 # ── self-test ───────────────────────────────────────────────────────────────────────────────────────
 st=0
@@ -68,4 +68,4 @@ fi
 
 echo
 if [ "$fail" -ne 0 ]; then echo "banzai-rust-fetch-authority-check: FAIL"; exit 1; fi
-echo "banzai-rust-fetch-authority-check: ✓ official fetch is Rust (banza-fetcher); browser only POSTs closed ids (ADR-068 §4.7)"
+echo "banzai-rust-fetch-authority-check: ✓ official fetch is Rust (banza-fetcher); browser only POSTs closed ids (ADR-038 §4.7)"

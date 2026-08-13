@@ -135,7 +135,7 @@ pub fn validate_failed_checks(
 /// Members removed before computing the request identity digest (`spec/idempotency.md` §4).
 ///
 /// This list is exhaustive and closed: an implementation MUST NOT exclude any other member. In
-/// particular a signature over the request is deliberately NOT here — see §4 and ADR-084 D-2.
+/// particular a signature over the request is deliberately NOT here — see §4 and ADR-024 D-2.
 pub const REQUEST_IDENTITY_EXCLUDED: &[&str] = &[
     "idempotency_key",
     "trace_id",
@@ -298,7 +298,7 @@ mod tests {
         assert_ne!(
             request_identity(&signed_a).unwrap(),
             request_identity(&signed_b).unwrap(),
-            "a different signature over identical content is a different request (ADR-084 D-2)"
+            "a different signature over identical content is a different request (ADR-024 D-2)"
         );
         assert_ne!(
             request_identity(&base).unwrap(),

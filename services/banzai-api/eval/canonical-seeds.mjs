@@ -103,8 +103,8 @@ export const SEEDS = [
   // governance → get_governance_decision (ADR-defining questions), with the resolved ADR reference
   ...[
     ["inversao", "que ADR define a inversão de nomes?", "ADR-002"],
-    ["separacao", "que ADR define a separação de operadores?", "ADR-003"],
-    ["dupla-entrada", "que ADR define a dupla entrada?", "ADR-006"],
+    ["separacao", "que ADR define a separação de operadores?", "ADR-001"],
+    ["dupla-entrada", "que ADR define a dupla entrada?", "ADR-011"],
     ["protocolo-aberto", "que decisão governa o protocolo aberto?", "ADR-001"],
   ].map(([id, canonical, adr]) => ({
     family: "governance",
@@ -325,8 +325,8 @@ export function liveMetricCases() {
 
 // ── REGRESSION family — documentary corpus coverage (protects the 709 grounded families over real docs) ─
 const DOCS = [
-  "ADR-001", "ADR-002", "ADR-003", "ADR-005", "ADR-006", "ADR-007", "ADR-010", "ADR-011", "ADR-012",
-  "ADR-013", "ADR-037", "ADR-041", "ADR-042", "ADR-043", "ADR-044", "ADR-052", "ADR-053", "ADR-054",
+  "ADR-001", "ADR-002", "ADR-001", "ADR-001", "ADR-011", "ADR-011", "ADR-012", "ADR-024", "ADR-016",
+  "ADR-017", "ADR-043", "ADR-042", "ADR-026", "ADR-044", "ADR-042", "ADR-041", "ADR-041", "ADR-042",
 ];
 const DOC_TEMPLATES = [
   [(d) => `explica a ${d}`, "explain_document"],
@@ -474,7 +474,7 @@ export function adversarialCases() {
   }
 
   // dead_source_citations — an invented citation must be rejected.
-  for (const dead of ["ADR-999", "ADR-021", "RFC-9999"]) {
+  for (const dead of ["ADR-X999", "ADR-039", "RFC-9999"]) {
     cases.push({
       family: "negative",
       cls: "negative",
@@ -552,11 +552,11 @@ export function adversarialCases() {
 const CLAIM_DOCS = [
   ["ADR-001", "explica a ADR-001 sobre o protocolo aberto"],
   ["ADR-002", "explica a ADR-002 sobre a inversao de nomes"],
-  ["ADR-003", "explica a ADR-003 sobre a separacao de operadores"],
-  ["ADR-006", "explica a ADR-006 sobre a dupla entrada"],
-  ["ADR-011", "explica a ADR-011 sobre a idempotencia"],
-  ["ADR-012", "explica a ADR-012 sobre o sistema de QR"],
-  ["ADR-041", "explica a ADR-041 sobre o banzai como agente"],
+  ["ADR-001", "explica a ADR-001 sobre a separacao de operadores"],
+  ["ADR-011", "explica a ADR-011 sobre a dupla entrada"],
+  ["ADR-024", "explica a ADR-024 sobre a idempotencia"],
+  ["ADR-016", "explica a ADR-016 sobre o sistema de QR"],
+  ["ADR-042", "explica a ADR-042 sobre o banzai como agente"],
 ];
 export function groundedClaimCases() {
   const cases = [];

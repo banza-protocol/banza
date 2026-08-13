@@ -55,7 +55,7 @@ describe("M2.19G.2 §26 — Operador Zero lives in 'Implementar e validar'", () 
 });
 
 describe("M2.17A — deep-link mechanism (server-side view + hydration-stable + back/forward)", () => {
-  // M2.19G.4 (ADR-070) — the /banzai page still resolves ALL URL-state through the closed-allowlist parser
+  // M2.19G.4 (ADR-042) — the /banzai page still resolves ALL URL-state through the closed-allowlist parser
   // parseBanzaiState (server-side, hydration-stable) but now hands the resolved state to a <BanzaiRouteBinder>
   // that publishes it to the always-mounted workspace shell; the ?view=guia resolution stays in
   // banzaiState.ts (covered by banzaiState.test.ts). Back/forward moves between navigable-context route

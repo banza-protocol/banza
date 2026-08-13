@@ -2,10 +2,10 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://banza.network/contracts/collections/collection-share.schema.json",
   "title": "CollectionShare",
-  "description": "Canonical CollectionShare aggregate root (ADR-016). One payer's portion of a Collection. NEVER contains a balance and NEVER references the ledger. Its only money anchor is transfer_id (a pointer to the real settling Transfer, for reconciliation). Settled via its own PaymentIntent (ADR-014).",
+  "description": "Canonical CollectionShare aggregate root (ADR-018). One payer's portion of a Collection. NEVER contains a balance and NEVER references the ledger. Its only money anchor is transfer_id (a pointer to the real settling Transfer, for reconciliation). Settled via its own PaymentIntent (ADR-014).",
   "_spec_version": "1.0",
   "_status": "canonical",
-  "_authority": "ADR-016",
+  "_authority": "ADR-018",
   "type": "object",
   "required": [
     "id",

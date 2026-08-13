@@ -115,7 +115,7 @@ Before the ceremony begins, each participant's identity must be confirmed:
 
 > **The production ceremony tooling is not in this repository, and must not be taken from it.**
 > The Python scripts this section once named (`trust_root.py`, `ceremony_script.py`) were removed when
-> the official engines moved to Rust (ADR-037). What `engines/banza-trust` provides is a **TEST-ONLY
+> the official engines moved to Rust (ADR-043). What `engines/banza-trust` provides is a **TEST-ONLY
 > simulator** (`ceremony-simulate`, `generate-test-root`, `sign-test-*`) that uses deterministic test
 > keys; it exists to exercise the trust chain and **must never be used to conduct a real ceremony**.
 >
@@ -381,9 +381,9 @@ import json
 from datetime import datetime, timezone, timedelta
 
 now = datetime.now(timezone.utc)
-# Root key valid for 24 months (ADR-038)
+# Root key valid for 24 months (ADR-027)
 root_expires = (now + timedelta(days=730)).strftime("%Y-%m-%dT%H:%M:%SZ")
-# Issuing keys valid for 6 months (ADR-038)
+# Issuing keys valid for 6 months (ADR-027)
 issuing_expires = (now + timedelta(days=183)).strftime("%Y-%m-%dT%H:%M:%SZ")
 published_at = now.strftime("%Y-%m-%dT%H:%M:%SZ")
 active_since = published_at
@@ -422,7 +422,7 @@ manifest_body = {
     ]
 }
 
-# Sign the manifest with the root key (ADR-038 signing rule)
+# Sign the manifest with the root key (ADR-027 signing rule)
 # Payload: all fields sorted lexicographically, no whitespace, UTF-8
 canonical_bytes = json.dumps(manifest_body, sort_keys=True, separators=(',',':')).encode('utf-8')
 sig_bytes = root_priv.sign(canonical_bytes)
@@ -782,7 +782,7 @@ initial_pub_brl = generate_signed_brl(
     root_private_key=brl_priv,
     key_id=BRL_KEY_ID,
     revoked=[],
-    expires_hours=6  # Standard 6-hour BRL expiry per ADR-040
+    expires_hours=6  # Standard 6-hour BRL expiry per ADR-031
 )
 ```
 
@@ -880,7 +880,7 @@ The root private key leaves secure storage only for this signing operation. It m
 
 | Document | Purpose |
 |----------|---------|
-| `decisions/adr/ADR-038-open-protocol-trust-model-without-ca.md` | Trust architecture governing this ceremony |
+| `decisions/adr/ADR-027-open-protocol-trust-model-without-ca.md` | Trust architecture governing this ceremony |
 | `docs/security/ROOT_KEY_CEREMONY_REQUIREMENTS.md` | Day-of checklist |
 | `docs/security/ROOT_CEREMONY_EVIDENCE_LOG_TEMPLATE.md` | Record template to fill in during ceremony |
 | `docs/security/ROOT_KEY_CEREMONY_REQUIREMENTS.md` | Pre-production readiness assessment |

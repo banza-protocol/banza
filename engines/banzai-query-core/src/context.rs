@@ -458,7 +458,7 @@ fn explicit_execution_id(raw: &str) -> String {
 }
 
 // ── BZCI-2/3 (§4/§5/§9) — ELLIPTICAL concept follow-ups. A bare connective turn ("e uma RFC?",
-//    "e a federação?", "e Trust?", "e sobre a ADR-006?") inherits the CONCEPT intent of the conversation and
+//    "e a federação?", "e Trust?", "e sobre a ADR-011?") inherits the CONCEPT intent of the conversation and
 //    REPLACES only the subject. The rewrite is a self-contained concept question ("o que é <subject>?") that
 //    the SAME downstream catalogues (glossary/concept/document) ground — history selects WHAT to resolve, it
 //    never asserts the answer (§19). If the subject is not a known concept, the downstream honestly declines.

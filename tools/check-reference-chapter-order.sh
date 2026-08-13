@@ -124,7 +124,7 @@ echo "reference-chapter-order: chapter content…"
 awk '/^## 9\. Operador Zero$/{f=1} /^## 10\./{f=0} f' "$SRC" > "$TMP/ch.txt"
 [ -s "$TMP/ch.txt" ] && ok "the chapter has a body" || bad "the Operador Zero chapter is empty"
 
-# M2.19G boundary (ADR-067): the read-only Operador Zero states its institutional edge as a single
+# M2.19G boundary (ADR-041): the read-only Operador Zero states its institutional edge as a single
 # categorical sentence — "não é banco, PSP, carteira, operador financeiro nem prestador de serviços
 # financeiros, e não movimenta dinheiro real" — and uses the invented demo currency KZ_DEMO. The retired
 # "dinheiro fictício"/"simulador" framing is gone; the real invariant preserved here is that the chapter
@@ -146,10 +146,10 @@ while IFS= read -r line; do
 done < "$TMP/ch.txt"
 [ "$claim" -eq 0 ] && ok "the chapter claims no status"
 
-# The institutional comparison belongs to ADR-052 alone.
+# The institutional comparison belongs to ADR-041 alone.
 BRAND="$(printf 'banz'; printf 'ami')"
 grep -qi "$BRAND" "$TMP/ch.txt" \
-  && bad "the Operador Zero chapter names a commercial operator — only ADR-052 may" \
+  && bad "the Operador Zero chapter names a commercial operator — only ADR-041 may" \
   || ok "the chapter names no commercial operator"
 
 # ── 7. Self-test ───────────────────────────────────────────────────────────

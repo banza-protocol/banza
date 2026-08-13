@@ -19,17 +19,17 @@ import {
   type ValidationStepId,
 } from "@/lib/banzaiValidation";
 
-/** The modes of the single BanzAI shell. M2.19G.3 (ADR-069) adds "onboarding". */
+/** The modes of the single BanzAI shell. M2.19G.3 (ADR-040) adds "onboarding". */
 export type BanzaiMode = "ask" | "validation" | "onboarding";
 
-/** M2.19G.4 (ADR-070) — the navigable CONTEXT of the single interface. A pure *navigation* concept:
+/** M2.19G.4 (ADR-042) — the navigable CONTEXT of the single interface. A pure *navigation* concept:
  *  the global list of the session's operators → a selected operator → a selected implementation. It is
- *  NOT the three architectural layers (ADR-059..063) and NOT the L0–L4 certification profiles
- *  (ADR-064..066). Contexts are addressable route segments under /banzai; every segment is a closed slug
+ *  NOT the three architectural layers (ADR-003..063) and NOT the L0–L4 certification profiles
+ *  (ADR-034..066). Contexts are addressable route segments under /banzai; every segment is a closed slug
  *  resolved server-side against the closed registry, never a caller-supplied URL. */
 export type BanzaiContext = "global" | "operator" | "implementation";
 
-/** M2.19G.4 (ADR-070) — the closed-slug ids carried by the route segments (never a URL). The segment
+/** M2.19G.4 (ADR-042) — the closed-slug ids carried by the route segments (never a URL). The segment
  *  page shape-validates them (isClosedId) before handing them here; they are re-resolved in the session
  *  against the FETCHED registry, so an off-registry id simply falls back to the global context. */
 export interface BanzaiPathSeed {
@@ -42,7 +42,7 @@ export type BanzaiResource = "guia";
 
 export interface BanzaiState {
   mode: BanzaiMode;
-  /** M2.19G.4 (ADR-070 D-070-02/05) — the current navigable context. Derived from the route segments
+  /** M2.19G.4 (ADR-042 D-070-02/05) — the current navigable context. Derived from the route segments
    *  (path seed) with precedence over the query. "operator"/"implementation" imply the validation
    *  workspace; "global" keeps the query-selected mode. Navigation only — never a layer or a tier. */
   context: BanzaiContext;
@@ -55,7 +55,7 @@ export interface BanzaiState {
   step: ValidationStepId | null;
   /** A read-only resource to open in ask mode (?view=guia → Guia). */
   view: BanzaiResource | null;
-  /** M2.19G.1 (ADR-068) / M2.19G.3B — the Fase 0 seed ids from the deep link (?target=/?implementation=).
+  /** M2.19G.1 (ADR-038) / M2.19G.3B — the Fase 0 seed ids from the deep link (?target=/?implementation=).
    *  The operator list is fetched at runtime from the closed Technical Registry (no static map lives on
    *  the client any more), so state seeding carries only the shape-validated ids; the validation session
    *  resolves them against the fetched operators once loaded. Both may be null — the shell then shows the
@@ -104,10 +104,10 @@ export function parseBanzaiState(
 
   const view: BanzaiResource | null = rawView === "guia" ? "guia" : null;
 
-  // M2.19G.4 (ADR-070) — route-segment seeds take PRECEDENCE over the query. The segment page has already
+  // M2.19G.4 (ADR-042) — route-segment seeds take PRECEDENCE over the query. The segment page has already
   // shape-validated them; we re-check isClosedId here so parseBanzaiState stays a throw-free, allowlist-
   // only choke-point regardless of caller. A closed-shape implementation id only counts when it rides a
-  // closed-shape operator id (operator ≠ implementation; ADR-068). No URL is ever accepted.
+  // closed-shape operator id (operator ≠ implementation; ADR-038). No URL is ever accepted.
   const pathOperatorId = isClosedId(pathSeed?.operatorId) ? (pathSeed!.operatorId as string) : null;
   const pathImplementationId =
     pathOperatorId && isClosedId(pathSeed?.implementationId) ? (pathSeed!.implementationId as string) : null;
@@ -118,7 +118,7 @@ export function parseBanzaiState(
   // resolves to null there and the shell falls back to the global context (D-070-03).
   const context: BanzaiContext = pathImplementationId ? "implementation" : pathOperatorId ? "operator" : "global";
 
-  // M2.19G.3B / ADR-076 D-076-10 — the Fase 0 seed ids. A CLEAN visit (no path seed, no explicit
+  // M2.19G.3B / ADR-042 D-076-10 — the Fase 0 seed ids. A CLEAN visit (no path seed, no explicit
   // ?target=) seeds NO operator: nothing — not even Operador Zero — is pre-selected. The dynamic Rust
   // Technical Registry (GET /banzai/validate/registry) is the only source of selectable operators; a
   // target is resolved/seeded ONLY on an EXPLICIT deep link — a route-segment operator id

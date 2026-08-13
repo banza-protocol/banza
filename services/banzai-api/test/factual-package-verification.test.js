@@ -72,9 +72,9 @@ test("(§8) the claim verifier classifies the five categories and enforces the r
   // an UNSUPPORTED claim rejects the answer.
   assert.equal(verifyClaims(doc, { answer_markdown: "garante lucro", claims: [{ claim: "garante lucro certo", fact_ids: [] }], cited_source_ids: [] }).ok, false);
   // a dead/invented citation rejects the answer.
-  const dead = verifyClaims(doc, { answer_markdown: "A ADR-002 inverte a nomenclatura.", claims: [{ claim: "inverte a nomenclatura", fact_ids: ["F1"] }], cited_source_ids: ["ADR-021"] });
+  const dead = verifyClaims(doc, { answer_markdown: "A ADR-002 inverte a nomenclatura.", claims: [{ claim: "inverte a nomenclatura", fact_ids: ["F1"] }], cited_source_ids: ["ADR-039"] });
   assert.equal(dead.ok, false);
-  assert.deepEqual(dead.dead_citations, ["ADR-021"]);
+  assert.deepEqual(dead.dead_citations, ["ADR-039"]);
   // an ESTIMATED claim must be labelled: unlabelled rejects, labelled passes.
   assert.equal(verifyClaims(doc, { answer_markdown: "a duracao e rapida", claims: [{ claim: "duracao aproximadamente rapida", category: "ESTIMATED" }], cited_source_ids: [] }).ok, false);
   assert.equal(verifyClaims(doc, { answer_markdown: "a duracao e aproximadamente rapida (estimativa)", claims: [{ claim: "duracao aproximadamente rapida", category: "ESTIMATED" }], cited_source_ids: [] }).ok, true);
@@ -92,7 +92,7 @@ test("(§8) a DERIVED metric claim must expose its full derivation, backed by an
   // the DERIVED claim, cited to the telemetry source, over the exposed calc → ok.
   assert.equal(verifyClaims(op, { answer_markdown: "a mediana foi 12.8 s", claims, cited_source_ids: ["telemetry:impl:L0:sandbox:1.0.0"] }).ok, true);
   // the same DERIVED claim against a documentary package (no calculation exposed) → rejected.
-  const doc = buildFactualPackagePlanned("t", "explica a ADR-006", "ADR-006", "brief");
+  const doc = buildFactualPackagePlanned("t", "explica a ADR-011", "ADR-011", "brief");
   const bad = verifyClaims(doc, { answer_markdown: "a mediana foi X", claims: [{ claim: "median_total", category: "DERIVED" }], cited_source_ids: [] });
   assert.equal(bad.ok, false);
   assert.equal(bad.underived_calculations.length, 1);
@@ -117,7 +117,7 @@ test("(§9) an unsupported claim or a dead citation is never published (fallback
   assert.equal(r1.status, "fallback");
   assert.equal(r1.answer_markdown, null, "an unsupported claim is never published");
   // dead citation: cites a source outside the package → rejected before publish.
-  const dead = JSON.stringify({ answer_markdown: "Na verdade a ADR-021 trata disto.", claims: [{ claim: "trata disto", fact_ids: ["F1"] }], cited_source_ids: ["ADR-021"], insufficient_evidence: false });
+  const dead = JSON.stringify({ answer_markdown: "Na verdade a ADR-039 trata disto.", claims: [{ claim: "trata disto", fact_ids: ["F1"] }], cited_source_ids: ["ADR-039"], insufficient_evidence: false });
   const r2 = await runGroundedSynthesis("explica a ADR-002", { provider: scriptedProvider([dead]), entityId: "ADR-002" });
   assert.equal(r2.status, "fallback");
   assert.equal(r2.answer_markdown, null, "a dead citation is never published");
@@ -125,18 +125,18 @@ test("(§9) an unsupported claim or a dead citation is never published (fallback
 
 // ── §7 — the /ask meta surfaces the compact factual_package on the documentary trunk. ──
 test("(§7) a published grounded trunk answer surfaces the compact factual_package in meta", async () => {
-  const pkg = buildFactualPackagePlanned("t", "por que a ADR-006 usa dupla entrada", "ADR-006", "brief");
+  const pkg = buildFactualPackagePlanned("t", "por que a ADR-011 usa dupla entrada", "ADR-011", "brief");
   const trunkStub = async () => ({
     status: "grounded",
-    answer_markdown: "A ADR-006 estabelece a dupla entrada no ledger do protocolo.",
-    cited_source_ids: ["ADR-006"],
+    answer_markdown: "A ADR-011 estabelece a dupla entrada no ledger do protocolo.",
+    cited_source_ids: ["ADR-011"],
     package: pkg,
     primary_intent: "explain_document",
     clarification_candidates: [],
     trace: { synthesis_called: true, output_status: "ok", model: "qwen", output_latency_ms: 4, resolution_method: "rust_deterministic" },
   });
   const pipeline = createPipeline(localProvider(), {}, { runGroundedSynthesisFn: trunkStub });
-  const { result, meta } = await pipeline.answer("explica por que a ADR-006 usa dupla entrada no ledger");
+  const { result, meta } = await pipeline.answer("explica por que a ADR-011 usa dupla entrada no ledger");
   assert.equal(result.grounded, true, "the valid grounded answer is published");
   assert.ok(meta.factual_package, "meta carries the compact factual_package");
   assert.equal(meta.factual_package.freshness, "static");

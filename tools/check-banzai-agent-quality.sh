@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# check-banzai-agent-quality.sh — BanzAI protocol-agent quality guard (M2.9A, ADR-049).
+# check-banzai-agent-quality.sh — BanzAI protocol-agent quality guard (M2.9A, ADR-042).
 #
 # Drives the committed Rust WASM routing engine (services/banzai-api/src/rustkb) through Node and
 # inspects the wiring so BanzAI behaves as an OPERATIONAL protocol agent (not a deterministic FAQ):
@@ -33,7 +33,7 @@ DOC_INDEX="engines/banzai-query-core/src/doc-index.json"
 [ -f "$WASM_DIR/banzai_api_kb.js" ] || { echo "FAIL: $WASM_DIR not built (run wasm-pack)"; exit 1; }
 [ -f "$DOC_INDEX" ] || { echo "FAIL: $DOC_INDEX not generated (run banzai-doc-indexer)"; exit 1; }
 
-echo "== banzai-agent-quality-check (M2.9A, ADR-049) =="
+echo "== banzai-agent-quality-check (M2.9A, ADR-042) =="
 
 # 1. Behavioural agent contract through the real Rust engine (WASM).
 node - "$WASM_DIR" <<'NODE'
@@ -129,14 +129,14 @@ grep -q "SUGGESTIONS" "$SUGGESTIONS_TS" && grep -q "operationalIntent" "$SUGGEST
   && ok "frontend derives contextual suggestions from the operational intent" \
   || fail "frontend must derive contextual suggestions (SUGGESTIONS/operationalIntent)"
 
-# 7. M2.19G.5C (ADR-074) — the agent guide + dev commands reference the canonical endpoint-originated
+# 7. M2.19G.5C (ADR-042) — the agent guide + dev commands reference the canonical endpoint-originated
 # journey (prepare Manifest → validate Conformidade → Interoperabilidade/Confiança → Evidence Bundle →
 # Federação; Rust/WASM engines verify), NEVER SimB. SimB is retired from every active agent surface.
 AGENT_TS="website/components/banzai/banzai-agent.ts"
 if grep -nE 'SimB|banza-simb' "$AGENT_TS" >/dev/null 2>&1; then
-  fail "banzai-agent.ts must not reference SimB on the active agent surface (ADR-074)"
+  fail "banzai-agent.ts must not reference SimB on the active agent surface (ADR-042)"
 else
-  ok "banzai-agent.ts (AGENT_GUIA_TEXT + DEV_COMMANDS) is SimB-free (ADR-074)"
+  ok "banzai-agent.ts (AGENT_GUIA_TEXT + DEV_COMMANDS) is SimB-free (ADR-042)"
 fi
 grep -q "AGENT_GUIA_TEXT" "$AGENT_TS" && grep -qE 'os motores Rust/WASM verificam' "$AGENT_TS" && grep -qE 'validar Conformidade|Evidence Bundle|Federa' "$AGENT_TS" \
   && ok "AGENT_GUIA_TEXT frames the canonical journey (engines verify), not SimB" \

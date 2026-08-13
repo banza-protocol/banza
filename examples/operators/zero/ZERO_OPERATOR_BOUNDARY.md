@@ -23,8 +23,8 @@ de parecer uma implementação de referência só de leitura.
 | Nenhuma chave privada, seed ou token é committada | `boundary.rs` + o guard |
 | Nenhum artefacto se diz certificado, aprovado, licenciado ou autorizado | `boundary.rs`, a olhar para valores string com negação |
 | A referência nunca aparece em `/operators` como operador real | o guard |
-| A superfície é só de leitura: não corre simulação nem tem ledger mutável | ADR-067; a copy nunca diz outra coisa |
-| Uma validação é evidência técnica local | ADR-067; a copy nunca diz outra coisa |
+| A superfície é só de leitura: não corre simulação nem tem ledger mutável | ADR-041; a copy nunca diz outra coisa |
+| Uma validação é evidência técnica local | ADR-041; a copy nunca diz outra coisa |
 
 ## O que uma validação significa
 
@@ -40,7 +40,7 @@ faz para a conformance suite.
 > A fronteira é esta: é uma implementação de referência — nunca um operador real, publicado ou
 > autorizado. Não é participante do scheme operacional (Camada 3) e nunca aparece em `/operators` como operador
 > real. O modelo canónico actual está no
-> [ADR-067](../../../decisions/adr/ADR-067-operador-zero-read-only-reference-and-banzai-validation-workbench.md).
+> [ADR-041](../../../decisions/adr/ADR-041-operador-zero-read-only-reference-and-banzai-validation-workbench.md).
 
 São coisas separadas e devem continuar a sê-lo. O Operador Zero é uma implementação de referência sem
 enquadramento legal porque não precisa de nenhum — não move dinheiro e não corre um ledger mutável. Um
@@ -48,8 +48,8 @@ operador real terá a sua própria questão de licenciamento e o seu próprio ri
 a leitura mais danosa desta arquitectura.
 
 O enquadramento anterior — em que o Operador Zero foi descrito de outra forma — está no
-[ADR-052](../../../decisions/adr/ADR-052-operador-zero-reference-payment-operator-simulator.md), cujo nome
+[ADR-041](../../../decisions/adr/ADR-041-operador-zero-reference-payment-operator-simulator.md), cujo nome
 de ficheiro conserva "simulator" apenas como identificador arquival estável; esse enquadramento foi
-**substituído pelo ADR-067**. A comparação institucional, com os nomes, vive apenas no ADR-052, por
+**substituído pelo ADR-041**. A comparação institucional, com os nomes, vive apenas no ADR-041, por
 decisão explícita: o nome de um operador comercial não entra em artefactos, endpoints, UI, runtime,
 workspace clonado nem `/operators`.

@@ -1,4 +1,4 @@
-# banza-conformance-rs (ADR-037, R4)
+# banza-conformance-rs (ADR-043, R4)
 
 The Rust BANZA conformance runner. It is the **canonical** path for the scope it has ported; the Python
 runner in `tools/banza-conformance/` remains for the not-yet-ported scope.

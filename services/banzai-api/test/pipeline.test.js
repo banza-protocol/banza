@@ -231,11 +231,11 @@ test("exact-fact terminal: the licence is Rust-confirmed and source-bound (no tr
 
 test("exact-fact terminal: a document status lookup is served fast + source-bound", async () => {
   const { pipeline, stub } = pipe();
-  const { result, meta } = await pipeline.answer("qual é o estado da ADR-053?");
+  const { result, meta } = await pipeline.answer("qual é o estado da ADR-041?");
   assert.equal(meta.terminal_kind, "exact_fact");
   assert.equal(meta.exact_kind, "status");
   assert.equal(meta.llm_called, false);
-  assert.ok(result.sources.some((s) => s.id === "ADR-053"));
+  assert.ok(result.sources.some((s) => s.id === "ADR-041"));
   assert.equal(stub.calls.length, 0);
 });
 
@@ -299,7 +299,7 @@ test("federation & conformance questions no longer collapse to a critical entry 
     assert.doesNotMatch(result.answer, /não é um operador/i, `${q} must NOT get the canned boundary answer`);
   }
   // "como demonstrar conformidade" is a PROCEDURE deliverable → deterministic transparent-partial terminal
-  // (grounded in ADR-021/039), never the canned boundary.
+  // (grounded in ADR-039/039), never the canned boundary.
   {
     const { pipeline } = pipe();
     const { result, meta } = await pipeline.answer("como demonstrar conformidade como operador?");
@@ -330,7 +330,7 @@ test("a concept question SEEDS the trunk with the concept's canonical source", a
   const { pipeline, stub } = pipe();
   await pipeline.answer("como funciona a federação, em detalhe?");
   assert.equal(stub.calls.length, 1);
-  assert.equal(stub.calls[0].opts.entityId, "ADR-040", "federation seeds on its canonical ADR");
+  assert.equal(stub.calls[0].opts.entityId, "ADR-031", "federation seeds on its canonical ADR");
 });
 
 // ── trunk non-publish → the safe emergency grounding (model-free, degraded, sourced) ────────────────
@@ -403,7 +403,7 @@ test("REGRESSION — a federation how-to is FULFILLED by a deterministic procedu
   // M2.18B.7 (Semantic Task Fulfilment): "como federar um operador?" is a PROCEDURE task — it gets a
   // deterministic, transparent-partial procedure answer (0 model): requirements + illustrative steps + an
   // explicit "no complete step-by-step is published". It must never be a boundary/false-refusal and never
-  // the generic trunk blurb that merely names ADR-038/040.
+  // the generic trunk blurb that merely names ADR-027/040.
   const { pipeline, stub } = pipe();
   const { result, meta } = await pipeline.answer("como federar um operador?");
   assert.equal(result.grounded, true);
@@ -415,7 +415,7 @@ test("REGRESSION — a federation how-to is FULFILLED by a deterministic procedu
 });
 
 test("trunk clarify → a clarification terminal (asks, never silently picks)", async () => {
-  const stub = trunkStub({ status: "clarify", answer_markdown: null, clarification_candidates: ["ADR-002", "ADR-053"] });
+  const stub = trunkStub({ status: "clarify", answer_markdown: null, clarification_candidates: ["ADR-002", "ADR-041"] });
   const { pipeline } = pipe({}, stub);
   const { result, meta } = await pipeline.answer("explica essa decisão");
   assert.equal(meta.terminal_kind, "clarification");
@@ -514,14 +514,14 @@ test("postValidate rejects normative/leaky completions", () => {
   assert.equal(postValidate("Emito o certificado L3 agora.").ok, false);
   assert.equal(postValidate("O Operador B está oficialmente certificado em produção.").ok, false);
   assert.equal(postValidate("-----BEGIN PRIVATE KEY----- xyz").ok, false);
-  // NOTE: the six new ADR-073 authority rules are proven natively in
+  // NOTE: the six new ADR-042 authority rules are proven natively in
   // engines/banzai-query-core/src/validate.rs (mod authority_tests). They reach this JS wrapper only
   // after the WASM is rebuilt centrally in a later 5C phase, so they are intentionally not asserted here.
 });
 
-// ── M2.19G.5C (ADR-073) — the MANDATORY post-synthesis authority validator on the grounded publish path ──
+// ── M2.19G.5C (ADR-042) — the MANDATORY post-synthesis authority validator on the grounded publish path ──
 
-test("ADR-073 — an authority-claiming grounded answer is BLOCKED and degrades (never published)", async () => {
+test("ADR-042 — an authority-claiming grounded answer is BLOCKED and degrades (never published)", async () => {
   const stub = trunkStub({ answer_markdown: "Eu certifico o Operador A. (ADR-001)" });
   const { pipeline } = pipe({}, stub);
   const { result, meta } = await pipeline.answer("O que é BANZA?");
@@ -535,15 +535,15 @@ test("ADR-073 — an authority-claiming grounded answer is BLOCKED and degrades 
   assert.equal(meta.post_validate_ok, false);
 });
 
-test("ADR-073 — a cited id with no package fact is an unsupported claim → BLOCKED", async () => {
-  const stub = trunkStub({ cited_source_ids: ["ADR-999"] }); // package only has ADR-001
+test("ADR-042 — a cited id with no package fact is an unsupported claim → BLOCKED", async () => {
+  const stub = trunkStub({ cited_source_ids: ["ADR-X999"] }); // package only has ADR-001
   const { pipeline } = pipe({}, stub);
   const { meta } = await pipeline.answer("O que é BANZA?");
   assert.equal(meta.fallback_reason, "post_validation_unsupported_claim");
   assert.equal(meta.terminal_kind, "operational_failure");
 });
 
-test("ADR-073 — a clean grounded answer PASSES the gate and is published + cached", async () => {
+test("ADR-042 — a clean grounded answer PASSES the gate and is published + cached", async () => {
   const { pipeline, stub } = pipe();
   const a1 = await pipeline.answer("O que é BANZA?");
   assert.equal(a1.meta.llm_called, true);
@@ -556,7 +556,7 @@ test("ADR-073 — a clean grounded answer PASSES the gate and is published + cac
   assert.equal(stub.calls.length, 1);
 });
 
-test("ADR-073 — the env kill-switch OFF publishes anyway but still records the rejection telemetry", async () => {
+test("ADR-042 — the env kill-switch OFF publishes anyway but still records the rejection telemetry", async () => {
   const stub = trunkStub({ answer_markdown: "Eu certifico o Operador A. (ADR-001)" });
   const { pipeline } = pipe({ BANZAI_POST_VALIDATE_ENFORCE: "0" }, stub);
   const { result, meta } = await pipeline.answer("O que é BANZA?");
@@ -570,7 +570,7 @@ test("ADR-073 — the env kill-switch OFF publishes anyway but still records the
   assert.ok(u.post_validation.post_validation_rejections_total.post_validation_claims_to_certify >= 1);
 });
 
-test("ADR-073 — usage() surfaces safe post-validation counters (counts/enums only)", async () => {
+test("ADR-042 — usage() surfaces safe post-validation counters (counts/enums only)", async () => {
   const { pipeline } = pipe();
   await pipeline.answer("O que é BANZA?"); // published model answer
   const u = pipeline.usage();
@@ -590,7 +590,7 @@ test("context is limited: top-K entries, char-capped", () => {
   assert.ok(total <= 50, "context must respect the char cap");
 });
 
-test("ADR-045 tighter local source packing — buildContext honours a compact budget", () => {
+test("ADR-042 tighter local source packing — buildContext honours a compact budget", () => {
   const c = buildContext("Quais são os limites do BANZA?", { maxChunks: 3, maxChars: 2800 });
   assert.ok(c && Array.isArray(c.excerpts), "context built");
   assert.ok(c.excerpts.length <= 3, `≤3 excerpts, got ${c.excerpts.length}`);

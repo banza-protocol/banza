@@ -1,7 +1,7 @@
 // SPR-2 — the Safe Progressive Response SSE endpoint. These tests pin the SAFETY-CRITICAL behaviour of the
 // pipeline's Channel-A progress emission (onProgress) and the typed terminal decision the /ask/stream handler
 // makes. The whole point of Safe Progressive Response: NO unvalidated model prose is ever streamed. The
-// validated answer arrives ONCE, whole, inside the terminal FINAL_VALIDATED event — AFTER the ADR-073
+// validated answer arrives ONCE, whole, inside the terminal FINAL_VALIDATED event — AFTER the ADR-042
 // post-synthesis validator + the Inc.4 claim/citation verification. A boundary → REFUSED with no synthesis
 // events; a deterministic terminal → FINAL_VALIDATED with no model-synthesis/claim-verification events; a
 // post-validation failure → HONEST_FALLBACK (never the model text); a client-abort → CANCELLED, nothing
@@ -192,7 +192,7 @@ test("an exact-fact terminal maps to FINAL_VALIDATED (DETERMINISTIC_ANSWER), no 
 
 // ── 4. a post-validation failure → HONEST_FALLBACK (never the model text) ────────────────────────────────
 
-test("an ADR-073 post-validation reject → HONEST_FALLBACK; the rejected model text is never on the wire", async () => {
+test("an ADR-042 post-validation reject → HONEST_FALLBACK; the rejected model text is never on the wire", async () => {
   const REJECTED = "Eu certifico o Operador A. (ADR-001)";
   const stub = emittingTrunkStub({ answer_markdown: REJECTED });
   const { pipeline } = pipe({}, stub);
@@ -201,7 +201,7 @@ test("an ADR-073 post-validation reject → HONEST_FALLBACK; the rejected model 
 
   // Verification events DID run (claim + citation started) before any terminal.
   const kinds = cap.events.map((e) => e.kind);
-  assert.ok(kinds.includes("CLAIM_VERIFICATION_STARTED"), "the ADR-073 claim gate ran");
+  assert.ok(kinds.includes("CLAIM_VERIFICATION_STARTED"), "the ADR-042 claim gate ran");
   assert.ok(kinds.includes("CITATION_VERIFICATION_STARTED"), "the citation gate ran");
 
   // The reject degraded the answer — the model text was NEVER published and never streamed.

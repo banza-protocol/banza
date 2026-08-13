@@ -1,4 +1,4 @@
-//! SSRF policy (ADR-068 §19). Pure, synchronous, fully unit-testable. No I/O, no network, no clock.
+//! SSRF policy (ADR-038 §19). Pure, synchronous, fully unit-testable. No I/O, no network, no clock.
 //!
 //! The policy is split into:
 //! * [`preflight`] — URL/scheme/userinfo/host/port checks decided before any DNS or socket work;

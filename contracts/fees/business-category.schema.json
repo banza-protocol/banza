@@ -2,10 +2,10 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://banza.network/contracts/fees/business-category.schema.json",
   "title": "BusinessCategory",
-  "description": "The economic nature of a transaction (ADR-019). A reference only — it carries NO pricing. The enum is open: operators MUST treat unknown values as a category they do not price (zero fee) rather than an error, so the protocol can add categories without breaking older operators.",
+  "description": "The economic nature of a transaction (ADR-021). A reference only — it carries NO pricing. The enum is open: operators MUST treat unknown values as a category they do not price (zero fee) rather than an error, so the protocol can add categories without breaking older operators.",
   "_spec_version": "1.0",
   "_status": "canonical",
-  "_authority": "ADR-019",
+  "_authority": "ADR-021",
 
   "type": "string",
   "enum": [

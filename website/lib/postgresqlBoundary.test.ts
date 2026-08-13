@@ -3,7 +3,7 @@ import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { getReferenceChapter, getReferenceChapters } from "./reference";
 
-// M2.7K — PostgreSQL is a verifiable protocol-state store, not a financial database (ADR-042).
+// M2.7K — PostgreSQL is a verifiable protocol-state store, not a financial database (ADR-026).
 // These are pure assertions over the committed schema, the reference chapter and the public diagrams.
 // The authoritative, self-testing enforcement is tools/check-postgres-data-boundary.sh
 // (make postgres-data-boundary-check); this suite pins the same boundary at the app/test layer.
@@ -20,7 +20,7 @@ function schemaWithoutComments(): string {
     .join("\n");
 }
 
-describe("PostgreSQL data boundary (ADR-042)", () => {
+describe("PostgreSQL data boundary (ADR-026)", () => {
   const FORBIDDEN: [string, RegExp][] = [
     ["balance/wallet_balance", /balance/i],
     ["funds", /\bfunds?\b/i],

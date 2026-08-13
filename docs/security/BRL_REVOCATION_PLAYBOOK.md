@@ -22,7 +22,7 @@ cryptographic/trust artifacts, keyed by the publishing operator_id. It is not a 
 and not a judgment about the entity. It is fetched by conformant engines during federation trust
 evaluation. Material on a valid BRL **blocks routing** to the implementation whose published material
 it names (INV-FEDEVAL-002 fail-closed: missing/invalid/expired/revoked material yields non-interoperation). The BRL is signed by the **revocation-domain** key (`banza-brl-YYYYMM`), never
-by the root or protocol-metadata-signing keys (ADR-038 domain separation).
+by the root or protocol-metadata-signing keys (ADR-027 domain separation).
 
 ## Why the BRL is fail-closed
 
@@ -36,7 +36,7 @@ default". This is deliberate:
 - A revoked operator on a valid BRL is blocked (INV-FEDEVAL-002).
 - A BRL that cannot be fetched or verified is treated as untrusted → routing to peers is **not** permitted
   rather than silently allowed.
-- Operators MUST fetch a fresh BRL within its cache window (≤ 6 h, ADR-040); a stale BRL
+- Operators MUST fetch a fresh BRL within its cache window (≤ 6 h, ADR-031); a stale BRL
   (`expires_at < now()`) is not usable (mirrors INV-ROOT-003 for manifests).
 
 Fail-closed means the failure mode is **safe** (deny), never **open** (permit an unverified peer). This is
@@ -52,7 +52,7 @@ the residual-owner split recorded in [`RISK_REGISTER.md`](RISK_REGISTER.md) (`R-
 3. **Draft the BRL body.** Identify the withdrawn material (the publishing operator_id and, in the production entry model, the revoked_ref naming the key/artifact) with the revocation reason/effective time; set
    `issuer` to BANZA and `issuer_key_id` to the current `banza-brl-YYYYMM`.
 4. **Sign (revocation-domain key).** Sign the BRL with the **BRL-issuing** key using canonical JSON
-   (ADR-038). No other domain key may sign a BRL (INV-ROOT-005; the root itself signs only Key Manifests, INV-ROOT-004). *(Test-only in any rehearsal — no
+   (ADR-027). No other domain key may sign a BRL (INV-ROOT-005; the root itself signs only Key Manifests, INV-ROOT-004). *(Test-only in any rehearsal — no
    production BRL-issuing key exists.)*
 5. **Set expiry.** Routine BRL `expires_at` ≤ 6 h; an **emergency** BRL (issuing-key compromise)
    `expires_at` = 1 h.

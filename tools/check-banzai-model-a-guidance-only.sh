@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# BanzAI Model A Guidance-Only Guard (ADR-076 §D-076-01/02, Fase B).
+# BanzAI Model A Guidance-Only Guard (ADR-042 §D-076-01/02, Fase B).
 #
 # There is exactly one authority of technical validation state, and it is Model B (the deterministic
 # nine-step endpoint-originated journey, services/banzai-api/src/validate.js). Model A — the guided
@@ -85,13 +85,13 @@ selftest() {
 }
 selftest
 
-echo "== banzai-model-a-guidance-only (ADR-076 §D-076-01/02) =="
+echo "== banzai-model-a-guidance-only (ADR-042 §D-076-01/02) =="
 
 # ── 1. No verdict status / score in Model A PRODUCTION source ────────────────
 for f in "$SESSION_RS" "$LIB_RS" "$JOURNEY_JS"; do
   production_code "$f" > "$TMP/code"
   if forbidden_token < "$TMP/code" > "$TMP/hits"; then
-    fail "$f emits a verdict status or a score — Model A is guidance only (ADR-076 §D-076-02):"
+    fail "$f emits a verdict status or a score — Model A is guidance only (ADR-042 §D-076-02):"
     sed 's/^/        /' "$TMP/hits"
   else
     ok "$(basename "$f") carries no verdict status and no score"

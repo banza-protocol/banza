@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://banza.network/contracts/payment-intents/payment-intent.schema.json",
   "title": "PaymentIntent",
-  "description": "Canonical payment-initiation primitive (ADR-014). An intent to receive value into a payee wallet. Payment Links (ADR-013), QR (ADR-012) and Payment Requests are surfaces of a PaymentIntent. A PaymentIntent never holds or moves money; fulfilment produces exactly one Transfer that posts to the Ledger.",
+  "description": "Canonical payment-initiation primitive (ADR-014). An intent to receive value into a payee wallet. Payment Links (ADR-017), QR (ADR-016) and Payment Requests are surfaces of a PaymentIntent. A PaymentIntent never holds or moves money; fulfilment produces exactly one Transfer that posts to the Ledger.",
   "_spec_version": "1.0",
   "_status": "canonical",
   "_authority": "ADR-014",

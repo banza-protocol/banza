@@ -2,7 +2,7 @@
 
 Version: 1.0 · Status: Stable
 
-> **Runner.** There is one, and it is Rust (ADR-037):
+> **Runner.** There is one, and it is Rust (ADR-043):
 > [`engines/banza-conformance`](../engines/banza-conformance/README.md) (`banza-conformance-rs`). It covers
 > offline vector integrity, invariant consistency, reports and golden parity, and also live-operator
 > execution (`run-live`, `run-against-simb`), federation (`run-fed`) and end-to-end (`e2e`). The Python
@@ -58,7 +58,7 @@ obligations.
 These are conformance **scope levels** — they bound *what* an implementation was
 tested for, not a public certification tier. Conformance & Interoperability
 Certification (Layer 2) is a separate, per-implementation, evidence-based,
-Rust-decided determination (ADR-064) that consumes this evidence; passing a level is
+Rust-decided determination (ADR-034) that consumes this evidence; passing a level is
 verifiable evidence, never certification, authorization or approval.
 
 | Level | Name | What it evidences |
@@ -73,7 +73,7 @@ Levels are additive — every level requires all lower levels to pass.
 
 The level **names and per-level capabilities** above are canonical and match
 [docs/governance/certification-boundary.md](../docs/governance/certification-boundary.md) § Conformance level model and
-ADR-021. Traceability is verified at L1; payment initiation (payment requests,
+ADR-039. Traceability is verified at L1; payment initiation (payment requests,
 dynamic QR, instant execution) at L2. The single-operator conformance runner produces evidence at
 L0–L2; L3 (federation) and L4 (external) require multi-operator / external-rail
 evidence and are not produced by the single-operator runner. Conformance evidence at

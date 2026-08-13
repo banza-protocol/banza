@@ -3,16 +3,16 @@
 # BANZA Trust-Semantics Boundary Guard (Ch06 "Confiança").
 #
 # Chapter 06 defines trust as a BOUNDED, VERIFIABLE technical property — never a general approval of an
-# entity. The canonical trust model (ADR-038 "Open Protocol Trust Model Without CA", ADR-040, ADR-058,
-# ADR-061) turns a small set of claims into verifiable properties and keeps them strictly separate from
+# entity. The canonical trust model (ADR-027 "Open Protocol Trust Model Without CA", ADR-031, ADR-027,
+# ADR-004) turns a small set of claims into verifiable properties and keeps them strictly separate from
 # authority, conformance, certification and regulatory authorisation. This guard keeps §6 of the
 # Reference faithful to that boundary:
 #
 #   1. §6 is titled "Confiança".
 #   2. The Trust Root's scope is stated exactly: it signs ONLY the Key Manifest and does NOT authorise
-#      operators/payments, and it is NOT a certificate authority over operators (ADR-038 / INV-ROOT-004).
+#      operators/payments, and it is NOT a certificate authority over operators (ADR-027 / INV-ROOT-004).
 #   3. The chapter carries the non-conflation boundary: a dedicated "O que a confiança não prova" movement
-#      and the ADR-061 non-propagation statement ("Estas fronteiras não se propagam").
+#      and the ADR-004 non-propagation statement ("Estas fronteiras não se propagam").
 #   4. The evaluation is fail-closed.
 #   5. §6 never uses framings that collapse the model — "trustless" (BANZA does not eliminate trust) or a
 #      whole-entity "trusted/confiável operator/implementation" label.
@@ -46,7 +46,7 @@ check() {
   echo "$s6" | grep -qF "não é uma autoridade certificadora" \
     || { echo "  ✗ §6 does not state the Trust Root is not a certificate authority over operators"; bad=1; }
 
-  # 3. non-conflation boundary: dedicated movement + ADR-061 non-propagation
+  # 3. non-conflation boundary: dedicated movement + ADR-004 non-propagation
   echo "$s6" | grep -qF "### O que a confiança não prova" \
     || { echo "  ✗ §6 is missing the 'O que a confiança não prova' boundary movement"; bad=1; }
   echo "$s6" | grep -qF "não se propagam" \
@@ -107,10 +107,10 @@ EOF
 
 if ! selftest; then echo "Result: ✗ trust-semantics boundary guard self-test broken"; exit 2; fi
 
-echo "Trust-semantics boundary guard — §6 keeps confiança bounded and verifiable (ADR-038/040/058/061)"
+echo "Trust-semantics boundary guard — §6 keeps confiança bounded and verifiable (ADR-027/040/058/061)"
 if check "$REF"; then
   echo "Result: ✓ §6 keeps the trust boundary: root signs only the Key Manifest, not a CA over operators; trust ≠ certification ≠ admission ≠ authorisation"
 else
-  echo "Result: ✗ §6 weakens or conflates the trust boundary (see decisions/adr/ADR-038, ADR-061)"
+  echo "Result: ✗ §6 weakens or conflates the trust boundary (see decisions/adr/ADR-027, ADR-004)"
   exit 1
 fi

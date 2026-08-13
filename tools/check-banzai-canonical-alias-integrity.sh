@@ -18,7 +18,7 @@ ok() { echo "  ok: $*"; }
 CONCEPT="engines/banzai-query-core/src/concept.rs"
 CATALOGUE="engines/banzai-query-core/src/catalogue.rs"
 FUZZY="engines/banzai-query-core/src/fuzzy.rs"
-ARTIFACT="artifacts/m2-18b5/alias-truth-table.md"
+ARTIFACT="artifacts/banzai/alias-truth-table.md"
 KB="services/banzai-api/src/knowledge.js"
 
 echo "== banzai-canonical-alias-integrity-check (M2.18B.5 §25) =="

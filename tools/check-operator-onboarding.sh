@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# BANZA operator-onboarding contract guard (M2.19G.3, ADR-069).
+# BANZA operator-onboarding contract guard (M2.19G.3, ADR-040).
 #
 # Enforces the invariants of the BanzAI-hosted operator onboarding (passwordless email-OTP login, a
 # private Candidate Registry, .well-known origin proof):
@@ -108,4 +108,4 @@ tmp="$(mktemp)"; printf 'CREATE TABLE x (otp_code text);\n' > "$tmp"
 if sed 's/--.*$//' "$tmp" | grep -Eiq '\botp_code\b'; then :; else echo "operator-onboarding: self-test broken" >&2; rm -f "$tmp"; exit 2; fi
 rm -f "$tmp"
 
-echo "PASS operator-onboarding (M2.19G.3, ADR-069)"
+echo "PASS operator-onboarding (M2.19G.3, ADR-040)"

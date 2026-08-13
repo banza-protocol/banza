@@ -85,7 +85,7 @@ neither forge nor destroy the root.
 - **Signing requires collaboration.** No custodian can unilaterally sign root metadata, a delegation, a
   rotation or a revocation.
 - **Custody is separated from serving.** No root key ever lives on serving infrastructure — not the
-  website container, not the BanzAI API, not CI, not the reverse proxy (ADR-028 and
+  website container, not the BanzAI API, not CI, not the reverse proxy (ADR-029 and
   [`KEY_MANAGEMENT_POLICY.md`](KEY_MANAGEMENT_POLICY.md)). Serving infrastructure holds public artifacts
   only.
 - **Passphrase separated from media.** A backup passphrase is never stored on the medium it unlocks.
@@ -185,7 +185,7 @@ One primary authority per property. Nothing below is stated in two places as tho
 | Root cardinality (three authorities) | this document §1, implemented in `engines/banza-root-ceremony` (`TOTAL_ROOT_KEYS`) |
 | Threshold (two of three, distinct signers) | this document §1, implemented in the same engine (`THRESHOLD`, distinct-signer counting) |
 | Custodian independence | this document §3 |
-| Offline boundary | this document §4, ADR-028 (keys never on serving infrastructure) |
+| Offline boundary | this document §4, ADR-029 (keys never on serving infrastructure) |
 | Backup and recovery | this document §5–§6 |
 | Key Manifest authority (what the root signs) | [`BANZA_TRUST_ARCHITECTURE.md`](../governance/BANZA_TRUST_ARCHITECTURE.md), §9 here for scope |
 | Ceremony prerequisites and conduct | [`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md) |

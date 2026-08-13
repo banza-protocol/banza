@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# check-banzai-knowledge-quality.sh — BanzAI knowledge & conversational-context guard (M2.8H, ADR-048).
+# check-banzai-knowledge-quality.sh — BanzAI knowledge & conversational-context guard (M2.8H, ADR-042).
 #
 # Drives the committed Rust WASM routing engine (services/banzai-api/src/rustkb) through Node and
 # inspects the wiring so BanzAI stays a useful, safe protocol agent:
@@ -29,7 +29,7 @@ AGENT_TSX="website/components/banzai/BanzaiAgent.tsx"
 
 [ -f "$WASM_DIR/banzai_api_kb.js" ] || { echo "FAIL: $WASM_DIR not built (run wasm-pack)"; exit 1; }
 
-echo "== banzai-knowledge-quality-check (M2.8H, ADR-048) =="
+echo "== banzai-knowledge-quality-check (M2.8H, ADR-042) =="
 
 # 1. Behavioural contract through the real Rust engine (WASM).
 node - "$WASM_DIR" <<'NODE'

@@ -1,4 +1,4 @@
-//! operator-guidance navigation tests (ADR-049; reframed by ADR-076 §D-076-01/02).
+//! operator-guidance navigation tests (ADR-042; reframed by ADR-042 §D-076-01/02).
 //!
 //! Model A is guidance only: its per-activity status is navigation
 //! (not_started | available | in_progress | completed), it emits no verdict and no score, and the only
@@ -49,7 +49,7 @@ fn step_order_is_canonical() {
 #[test]
 fn every_compat_status_is_navigation_only() {
     // Walk a spread of sessions; every step status the compat view emits is a navigation status —
-    // never a verdict, never a score (ADR-076 §D-076-02).
+    // never a verdict, never a score (ADR-042 §D-076-02).
     for state in [
         json!({}),
         json!({ "current_step": "manifest" }),

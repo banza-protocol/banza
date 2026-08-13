@@ -45,7 +45,7 @@ workbench-only-check:
 governance-docs-clean-check:
 	@bash tools/check-governance-docs-clean.sh
 
-## homepage-final-public-release-check: Verify the final public-release homepage — canonical section order, one H1, Hero contract, ADR-054 architecture (BanzAI is the primary human-operator interface, not a mandatory layer), machine-to-machine independence, neutrality, metadata, footer dedup and links (M2.15A)
+## homepage-final-public-release-check: Verify the final public-release homepage — canonical section order, one H1, Hero contract, ADR-042 architecture (BanzAI is the primary human-operator interface, not a mandatory layer), machine-to-machine independence, neutrality, metadata, footer dedup and links (M2.15A)
 homepage-final-public-release-check:
 	@bash tools/check-homepage-final-public-release.sh
 
@@ -73,19 +73,19 @@ home-layout-copy-check:
 website-public-copy-current-check:
 	@bash tools/check-website-public-copy-current.sh
 
-## postgres-data-boundary-check: Verify the protocol PostgreSQL schema holds protocol state, not financial value — no funds/balances/transactions/IBAN/cards/KYC/PII/private-key/secret identifiers (M2.7K, ADR-042)
+## postgres-data-boundary-check: Verify the protocol PostgreSQL schema holds protocol state, not financial value — no funds/balances/transactions/IBAN/cards/KYC/PII/private-key/secret identifiers (M2.7K, ADR-026)
 postgres-data-boundary-check:
 	@bash tools/check-postgres-data-boundary.sh
 
-## receipts-e2e: Durable validation-receipt E2E (ADR-076) against a THROWAWAY pgvector container — store + fail-safe facade + outbox + crash-recovery + DB-enforced append-only immutability + PG-DOWN fail-safe. Needs Docker; not part of the CI node battery (opt-in, like the schema validator).
+## receipts-e2e: Durable validation-receipt E2E (ADR-042) against a THROWAWAY pgvector container — store + fail-safe facade + outbox + crash-recovery + DB-enforced append-only immutability + PG-DOWN fail-safe. Needs Docker; not part of the CI node battery (opt-in, like the schema validator).
 receipts-e2e:
 	@bash services/banzai-api/e2e/run-receipts-e2e.sh
 
-## operator-onboarding-check: Verify the BanzAI-hosted operator onboarding contract — Rust decides, well-known path parity, secrets env-only (no key/pepper in Git), dark by default, schema stores digests only, same-origin route + pg, __Host- SameSite=Strict cookie (M2.19G.3, ADR-069)
+## operator-onboarding-check: Verify the BanzAI-hosted operator onboarding contract — Rust decides, well-known path parity, secrets env-only (no key/pepper in Git), dark by default, schema stores digests only, same-origin route + pg, __Host- SameSite=Strict cookie (M2.19G.3, ADR-040)
 operator-onboarding-check:
 	@bash tools/check-operator-onboarding.sh
 
-## operator-zero-origin-closure-check: Verify the Operador Zero origin-proof closure — independent OZ-origin static challenge (nginx alias, 405/no-store), read-only compose mount, verifier never serves its own challenge, single-use consume + replay refusal, secure-fetcher-only egress, reconcile binds to the closed registry (no operator creation / no /operators write / no OZ verdict bypass), no committed nonce (M2.19G.3A, ADR-069)
+## operator-zero-origin-closure-check: Verify the Operador Zero origin-proof closure — independent OZ-origin static challenge (nginx alias, 405/no-store), read-only compose mount, verifier never serves its own challenge, single-use consume + replay refusal, secure-fetcher-only egress, reconcile binds to the closed registry (no operator creation / no /operators write / no OZ verdict bypass), no committed nonce (M2.19G.3A, ADR-040)
 operator-zero-origin-closure-check:
 	@bash tools/check-operator-zero-origin-closure.sh
 
@@ -189,7 +189,7 @@ related-work-boundary-check:
 standalone-roadmap-surface-check:
 	@bash tools/check-standalone-roadmap-surface.sh
 
-## canonical-discovery-surface-check: One machine-readable discovery surface (ADR-080) — contract SSOT + Rust registry + Operador Zero all publish /.well-known/banza/operator.json + /.well-known/banza/signed-protocol-metadata.json; the retired /manifest.json + /signed-metadata.json root routes appear on no active surface; OTE positive satisfiability pinned (federation-capable manifest validated against the federation extension, not the candidate schema)
+## canonical-discovery-surface-check: One machine-readable discovery surface (ADR-037) — contract SSOT + Rust registry + Operador Zero all publish /.well-known/banza/operator.json + /.well-known/banza/signed-protocol-metadata.json; the retired /manifest.json + /signed-metadata.json root routes appear on no active surface; OTE positive satisfiability pinned (federation-capable manifest validated against the federation extension, not the candidate schema)
 canonical-discovery-surface-check:
 	@bash tools/check-canonical-discovery-surface.sh
 
@@ -197,11 +197,11 @@ canonical-discovery-surface-check:
 conformance-certification-boundary-check:
 	@bash tools/check-conformance-certification-boundary.sh
 
-## trust-signing-chain-check: Keep the canonical trust chain Model-A across the reconciled surface — root signs only the Key Manifest; BRL by the revocation-domain key (ADR-079)
+## trust-signing-chain-check: Keep the canonical trust chain Model-A across the reconciled surface — root signs only the Key Manifest; BRL by the revocation-domain key (ADR-027)
 trust-signing-chain-check:
 	@bash tools/check-trust-signing-chain.sh
 
-## adr-canonical-clean-check: M2.19A — removed CA/operator-era ADRs stay removed; ADR-057 present; no deleted-ADR ref on current surfaces
+## adr-canonical-clean-check: M2.19A — removed CA/operator-era ADRs stay removed; ADR-045 present; no deleted-ADR ref on current surfaces
 adr-canonical-clean-check:
 	@bash tools/check-adr-canonical-clean.sh
 
@@ -209,47 +209,47 @@ adr-canonical-clean-check:
 license-notice-governance-check:
 	@bash tools/check-license-notice-governance.sh
 
-# ── M2.19C — Three-Layer Institutional Architecture (ADR-059..063) ─────────────
+# ── M2.19C — Three-Layer Institutional Architecture (ADR-003..063) ─────────────
 
-## banza-three-layer-architecture-check: Verify ADR-059 + BANZA_THREE_LAYER_ARCHITECTURE.md name the three layers (L1 protocol / L2 certification / L3 Banzami scheme) + BanzAI transversal + the authority rule; BANZA never framed as an operator (M2.19C, ADR-059)
+## banza-three-layer-architecture-check: Verify ADR-003 + BANZA_THREE_LAYER_ARCHITECTURE.md name the three layers (L1 protocol / L2 certification / L3 Banzami scheme) + BanzAI transversal + the authority rule; BANZA never framed as an operator (M2.19C, ADR-003)
 banza-three-layer-architecture-check:
 	@bash tools/check-three-layer-architecture.sh
 
-## banza-banzami-scheme-role-check: Verify ADR-060 + BANZAMI_OPERATIONAL_SCHEME.md name Banzami ONLY as designated scheme operator / creator-maintainer (never a BANZA payment operator; normative payment brands absent) (M2.19C, ADR-060)
+## banza-banzami-scheme-role-check: Verify ADR-006 + BANZAMI_OPERATIONAL_SCHEME.md name Banzami ONLY as designated scheme operator / creator-maintainer (never a BANZA payment operator; normative payment brands absent) (M2.19C, ADR-006)
 banza-banzami-scheme-role-check:
 	@bash tools/check-banzami-scheme-role.sh
 
-## banza-regulatory-state-claim-check: Verify no surface claims Banzami is already authorised/BNA-approved/licensed; prudent phrasing + REGULATORY_AUTHORIZATION_IN_PROGRESS present (M2.19C, ADR-062)
+## banza-regulatory-state-claim-check: Verify no surface claims Banzami is already authorised/BNA-approved/licensed; prudent phrasing + REGULATORY_AUTHORIZATION_IN_PROGRESS present (M2.19C, ADR-005)
 banza-regulatory-state-claim-check:
 	@bash tools/check-regulatory-state-claim.sh
 
-## banza-real-money-activation-check: Verify the regulatory-state schema pins real_money/real_wallets/real_settlement/real_participants/bna_claim = const false at baseline; no config/flag flips real money ON outside the Rust gate (M2.19C, ADR-062)
+## banza-real-money-activation-check: Verify the regulatory-state schema pins real_money/real_wallets/real_settlement/real_participants/bna_claim = const false at baseline; no config/flag flips real money ON outside the Rust gate (M2.19C, ADR-005)
 banza-real-money-activation-check:
 	@bash tools/check-real-money-activation.sh
 
-## banza-protocol-scheme-separation-check: Verify no BANZA=Banzami / BANZA-is-the-scheme conflation; BANZA ≠ Banzami stated; certification described as non-exclusive (M2.19C, ADR-059/060)
+## banza-protocol-scheme-separation-check: Verify no BANZA=Banzami / BANZA-is-the-scheme conflation; BANZA ≠ Banzami stated; certification described as non-exclusive (M2.19C, ADR-003/060)
 banza-protocol-scheme-separation-check:
 	@bash tools/check-protocol-scheme-separation.sh
 
-## banza-conflict-of-interest-check: Verify CONFLICT_OF_INTEREST_POLICY + SEPARATION_MATRIX document the same-suite/same-engine/no-bypass controls + the eight-key-domain separation table (M2.19C, ADR-063)
+## banza-conflict-of-interest-check: Verify CONFLICT_OF_INTEREST_POLICY + SEPARATION_MATRIX document the same-suite/same-engine/no-bypass controls + the eight-key-domain separation table (M2.19C, ADR-007)
 banza-conflict-of-interest-check:
 	@bash tools/check-conflict-of-interest.sh
 
-## banza-certification-admission-separation-check: Verify ADR-061 + canonical surfaces state certification ≠ admission ≠ authorisation; no certification=licence / certification=admission conflation (M2.19C, ADR-061)
+## banza-certification-admission-separation-check: Verify ADR-004 + canonical surfaces state certification ≠ admission ≠ authorisation; no certification=licence / certification=admission conflation (M2.19C, ADR-004)
 banza-certification-admission-separation-check:
 	@bash tools/check-certification-admission-separation.sh
 
-## banza-certification-model-check: Verify the L2 conformance & interoperability certification model (ADR-064/065/066) — implementation-bound record, required profile/scope/environment/validity/evidence/interop, closed fail-closed state machine, Rust-sole-authority, not a licence/admission/authorisation, registry ≠ scheme directory, no /certificates (M2.19D)
+## banza-certification-model-check: Verify the L2 conformance & interoperability certification model (ADR-034/065/066) — implementation-bound record, required profile/scope/environment/validity/evidence/interop, closed fail-closed state machine, Rust-sole-authority, not a licence/admission/authorisation, registry ≠ scheme directory, no /certificates (M2.19D)
 banza-certification-model-check:
 	@bash tools/check-banza-certification-model.sh
 
 # ── M2.19G — Public-surface reference canonicalization (owner pages + capstone sweep) ───────────────
 
-## certification-page-check: Verify /certificacao owns the L2 certification model — both canonical sentences verbatim, certification ≠ admission ≠ authorisation, ADR-064/065/066, closed lifecycle states, no retired framing, linked from footer + sitemap (M2.19G, ADR-064/065/066)
+## certification-page-check: Verify /certificacao owns the L2 certification model — both canonical sentences verbatim, certification ≠ admission ≠ authorisation, ADR-034/065/066, closed lifecycle states, no retired framing, linked from footer + sitemap (M2.19G, ADR-034/065/066)
 certification-page-check:
 	@bash tools/check-certification-page.sh
 
-## technical-registry-page-check: Verify /registo-tecnico owns the BANZA Technical Registry — canonical definition, closed states, registry ≠ scheme-participant directory (listed ≠ admission ≠ authorisation), honest empty/pre-production state, no retired framing, linked from footer + sitemap (M2.19G, ADR-065)
+## technical-registry-page-check: Verify /registo-tecnico owns the BANZA Technical Registry — canonical definition, closed states, registry ≠ scheme-participant directory (listed ≠ admission ≠ authorisation), honest empty/pre-production state, no retired framing, linked from footer + sitemap (M2.19G, ADR-036)
 technical-registry-page-check:
 	@bash tools/check-technical-registry-page.sh
 
@@ -277,21 +277,21 @@ m2-19g2-o-que-e-removal-check:
 m2-19g2-readiness-check:
 	@bash tools/check-m2-19g2-readiness.sh
 
-# ── M2.19G.5C — Canonical BanzAI architecture guards (ADR-071..074) ─────────────────────────────────
+# ── M2.19G.5C — Canonical BanzAI architecture guards (ADR-042..074) ─────────────────────────────────
 
-## banzai-post-synthesis-validation-check: Verify the mandatory post-synthesis authority validator gates the grounded publish path — postValidate after synthesis, before groundedAnswer/cache/return; a post_validation_ fallback reason; three-state validation_status (M2.19G.5C, ADR-073)
+## banzai-post-synthesis-validation-check: Verify the mandatory post-synthesis authority validator gates the grounded publish path — postValidate after synthesis, before groundedAnswer/cache/return; a post_validation_ fallback reason; three-state validation_status (M2.19G.5C, ADR-042)
 banzai-post-synthesis-validation-check:
 	@bash tools/check-banzai-post-synthesis-validation.sh
 
-## banzai-runtime-ssot-check: Verify the runtime SSOT — one secret-free public /banzai/runtime route in every apex nginx conf, schema_version + authoritative:false projection, /estado consumes it and never hardcodes the live engine (M2.19G.5C, ADR-072)
+## banzai-runtime-ssot-check: Verify the runtime SSOT — one secret-free public /banzai/runtime route in every apex nginx conf, schema_version + authoritative:false projection, /estado consumes it and never hardcodes the live engine (M2.19G.5C, ADR-042)
 banzai-runtime-ssot-check:
 	@bash tools/check-banzai-runtime-ssot.sh
 
-## banzai-simb-active-surface-clean-check: Verify SimB (banza-simb) is retired from every active public/agent surface (isolated draft libs + frozen crate + history exempt) (M2.19G.5C, ADR-074)
+## banzai-simb-active-surface-clean-check: Verify SimB (banza-simb) is retired from every active public/agent surface (isolated draft libs + frozen crate + history exempt) (M2.19G.5C, ADR-042)
 banzai-simb-active-surface-clean-check:
 	@bash tools/check-banzai-simb-active-surface-clean.sh
 
-## banzai-canonical-architecture-framing-check: Verify services/banzai-api is named the canonical BanzAI runtime and banza-protocol/banzai the frozen archive — no mock-façade framing, no canonical-core claim for the archive (M2.19G.5C, ADR-071)
+## banzai-canonical-architecture-framing-check: Verify services/banzai-api is named the canonical BanzAI runtime and banza-protocol/banzai the frozen archive — no mock-façade framing, no canonical-core claim for the archive (M2.19G.5C, ADR-042)
 banzai-canonical-architecture-framing-check:
 	@bash tools/check-banzai-canonical-architecture-framing.sh
 
@@ -303,7 +303,7 @@ banzai-reference-canonical-check:
 banzai-architecture-manifest-check:
 	@bash tools/check-banzai-architecture-manifest.sh
 
-## banzai-monorepo-consolidation-check: Verify M2.19G.6 (ADR-075) — BanzAI consolidated into this monorepo as the SOLE active source: no legacy/ snapshot or second BanzAI workspace/API in HEAD; engines/banzai-trace + in-monorepo trace WASM (traceVerifier imports banzai_trace; banzai_core WASM gone); repo-indexer has no sibling remote and the manifest declares banzai_in_monorepo (never banzai_repo_indexed) with zero embedded banzai chunks; ADR-075 present
+## banzai-monorepo-consolidation-check: Verify M2.19G.6 (ADR-042) — BanzAI consolidated into this monorepo as the SOLE active source: no legacy/ snapshot or second BanzAI workspace/API in HEAD; engines/banzai-trace + in-monorepo trace WASM (traceVerifier imports banzai_trace; banzai_core WASM gone); repo-indexer has no sibling remote and the manifest declares banzai_in_monorepo (never banzai_repo_indexed) with zero embedded banzai chunks; ADR-042 present
 banzai-monorepo-consolidation-check:
 	@bash tools/check-banzai-monorepo-consolidation.sh
 
@@ -315,7 +315,7 @@ git-authorship-identity-check:
 technical-registry-naming-parity-check:
 	@bash tools/check-technical-registry-naming-parity.sh
 
-## banzai-degraded-mode-render-check: Verify degraded/unknown BanzAI answers state the honest cause and never falsely claim "Qwen local confirmado" (BanzaiAgent engineLabel + banzaiKb telemetry) (M2.19G.5C, ADR-072 CD-9)
+## banzai-degraded-mode-render-check: Verify degraded/unknown BanzAI answers state the honest cause and never falsely claim "Qwen local confirmado" (BanzaiAgent engineLabel + banzaiKb telemetry) (M2.19G.5C, ADR-042 CD-9)
 banzai-degraded-mode-render-check:
 	@bash tools/check-banzai-degraded-mode-render.sh
 
@@ -331,7 +331,7 @@ purity-check:
 invariant-check:
 	@tools/check-invariants.sh
 
-## trust-invariant-realignment-check: Verify the retired central-authority trust-invariant namespace stays retired (canonical: INV-OTE-*/INV-FEDEVAL-*/INV-ROOT-*) and no operator-certificate residue survives (fixtures, certificate_url, /certificates route, TRUST family) (M2.19B, ADR-058)
+## trust-invariant-realignment-check: Verify the retired central-authority trust-invariant namespace stays retired (canonical: INV-OTE-*/INV-FEDEVAL-*/INV-ROOT-*) and no operator-certificate residue survives (fixtures, certificate_url, /certificates route, TRUST family) (M2.19B, ADR-027)
 trust-invariant-realignment-check:
 	@bash tools/check-trust-invariant-realignment.sh
 
@@ -347,7 +347,7 @@ conformance-fed-fixtures-check: $(CONFORMANCE_RS_BIN)
 conformance-ab-check: $(CONFORMANCE_RS_BIN)
 	@$(CONFORMANCE_RS_BIN) run-ab >/dev/null && echo "conformance-ab: ✓ A→B executed end-to-end; mutual ROUTING_ALLOWED; negatives fail-closed; independent replay byte-identical (PASS = evidence, not certificate)"
 
-## normative-surface-integrity-check: Protect the normative surface (ADR-081/082) — manifest complete and code-free, canonicalization spec + vectors wired to the version, no contract declaring implementation code as its source of truth, BCP 14 declared
+## normative-surface-integrity-check: Protect the normative surface (ADR-009/082) — manifest complete and code-free, canonicalization spec + vectors wired to the version, no contract declaring implementation code as its source of truth, BCP 14 declared
 normative-surface-integrity-check:
 	@bash tools/check-normative-surface-integrity.sh
 
@@ -355,7 +355,7 @@ normative-surface-integrity-check:
 normative-manifest:
 	@python3 tools/gen-normative-manifest.py
 
-## execution-semantics-check: Reason codes (ADR-083) and idempotency (ADR-084) — registry/engine parity, closed check-id set, published grammar, retention floor
+## execution-semantics-check: Reason codes (ADR-023) and idempotency (ADR-024) — registry/engine parity, closed check-id set, published grammar, retention floor
 execution-semantics-check:
 	@bash tools/check-execution-semantics.sh
 
@@ -379,11 +379,11 @@ svg-visual-quality-check:
 svg-visual-system-check:
 	@bash tools/check-svg-visual-system.sh
 
-## banzai-protocol-agent-check: Verify BanzAI is presented as the native protocol AGENT — no authority/rule-source claims, no "BanzAI Workbench" public brand (M2.7H, ADR-041)
+## banzai-protocol-agent-check: Verify BanzAI is presented as the native protocol AGENT — no authority/rule-source claims, no "BanzAI Workbench" public brand (M2.7H, ADR-042)
 banzai-protocol-agent-check:
 	@bash tools/check-banzai-protocol-agent.sh
 
-## banzai-local-inference-check: Verify BanzAI local Qwen inference invariants — no GGUF in Git, no external keys, llama.cpp internal-only, benchmark-gated default, Rust controls validation (M2.8A, ADR-044)
+## banzai-local-inference-check: Verify BanzAI local Qwen inference invariants — no GGUF in Git, no external keys, llama.cpp internal-only, benchmark-gated default, Rust controls validation (M2.8A, ADR-042)
 banzai-local-inference-check:
 	@bash tools/check-banzai-local-inference.sh
 
@@ -391,7 +391,7 @@ banzai-local-inference-check:
 banzai-public-interface-check:
 	@bash tools/check-banzai-public-interface.sh
 
-## banzai-qwen-routing-check: Verify Qwen-first grounded routing — grounded questions call the local model; only critical-boundary/refusal/no-source skip it; the pipeline executes the Rust route() decision (M2.8G, ADR-048)
+## banzai-qwen-routing-check: Verify Qwen-first grounded routing — grounded questions call the local model; only critical-boundary/refusal/no-source skip it; the pipeline executes the Rust route() decision (M2.8G, ADR-042)
 banzai-qwen-routing-check:
 	@bash tools/check-banzai-qwen-routing.sh
 
@@ -403,7 +403,7 @@ banzai-action-boundary-check:
 banzai-financial-action-boundary-check:
 	@bash tools/check-banzai-financial-action-boundary.sh
 
-## banzai-operational-telemetry-check: Verify a duration/metric question about the validation journey is classified operational and answered from read-only telemetry (or an honest INSUFFICIENT_MEASUREMENTS fallback) — never the fixed topic list, never a fabricated number; off-topic/boundary questions stay non-operational (ADR-078)
+## banzai-operational-telemetry-check: Verify a duration/metric question about the validation journey is classified operational and answered from read-only telemetry (or an honest INSUFFICIENT_MEASUREMENTS fallback) — never the fixed topic list, never a fabricated number; off-topic/boundary questions stay non-operational (ADR-042)
 banzai-operational-telemetry-check:
 	@bash tools/check-banzai-operational-telemetry.sh
 
@@ -419,7 +419,7 @@ banzai-toolplanner-check:
 banzai-progress-contract-check:
 	@bash tools/check-banzai-progress-contract.sh
 
-## banzai-progress-endpoint-check: Verify the SPR-2 Safe Progressive Response SSE endpoint — the pipeline emits the Channel-A progress events at the real stage boundaries through onProgress and NEVER a terminal/model-token/delta frame itself; the ADR-073 post-synthesis validator + Inc.4 claim/citation verification run BEFORE any FINAL_VALIDATED with prose (the SSE endpoint emits the terminal only after ask() returns); a boundary/refusal streams no synthesis events (→ REFUSED); a deterministic terminal streams no model-synthesis/claim-verification events (→ FINAL_VALIDATED); a post-validation failure → HONEST_FALLBACK carrying the true degraded answer, never the model text; the terminal is chosen from the typed response_disposition (not `grounded`); the onProgress path does not alter the /ask envelope; and nginx exposes /banzai/ask/stream with buffering off
+## banzai-progress-endpoint-check: Verify the SPR-2 Safe Progressive Response SSE endpoint — the pipeline emits the Channel-A progress events at the real stage boundaries through onProgress and NEVER a terminal/model-token/delta frame itself; the ADR-042 post-synthesis validator + Inc.4 claim/citation verification run BEFORE any FINAL_VALIDATED with prose (the SSE endpoint emits the terminal only after ask() returns); a boundary/refusal streams no synthesis events (→ REFUSED); a deterministic terminal streams no model-synthesis/claim-verification events (→ FINAL_VALIDATED); a post-validation failure → HONEST_FALLBACK carrying the true degraded answer, never the model text; the terminal is chosen from the typed response_disposition (not `grounded`); the onProgress path does not alter the /ask envelope; and nginx exposes /banzai/ask/stream with buffering off
 banzai-progress-endpoint-check:
 	@bash tools/check-banzai-progress-endpoint.sh
 
@@ -480,7 +480,7 @@ banzai-boundary-semantic-recovery-check:
 banzai-repo-knowledge-safety-check:
 	@bash tools/check-banzai-repo-knowledge-safety.sh
 
-## banzai-repository-wide-knowledge-check: Verify BanzAI has repository-wide, safe, current knowledge — the Rust repo-wide index (banzai-repo-indexer) covers LICENSE/README/NOTICE/docs/ADRs/RFCs/examples/engines/website/Makefile/guards/workflows/reports across the BANZA monorepo, which since M2.19G.6 (ADR-075) includes the consolidated BanzAI runtime (services/banzai-api) + engines (engines/banzai-*); the mandatory technical questions resolve deterministically (never no_source); retrieval returns cited sources; the cache key binds the index hash; the action boundary still holds (M2.13B PR2)
+## banzai-repository-wide-knowledge-check: Verify BanzAI has repository-wide, safe, current knowledge — the Rust repo-wide index (banzai-repo-indexer) covers LICENSE/README/NOTICE/docs/ADRs/RFCs/examples/engines/website/Makefile/guards/workflows/reports across the BANZA monorepo, which since M2.19G.6 (ADR-042) includes the consolidated BanzAI runtime (services/banzai-api) + engines (engines/banzai-*); the mandatory technical questions resolve deterministically (never no_source); retrieval returns cited sources; the cache key binds the index hash; the action boundary still holds (M2.13B PR2)
 banzai-repository-wide-knowledge-check:
 	@bash tools/check-banzai-repository-wide-knowledge.sh
 
@@ -492,7 +492,7 @@ banzai-answer-quality-eval-check:
 banzai-bzc-coverage-check:
 	@bash tools/check-banzai-bzc-coverage.sh
 
-## banzai-canonical-corpus-integrity-check: Every public canonical document (ADR + RFC, discovered from disk) is discoverable (doc-index chunks), resolvable (Rust candidate generation), AND citable (FactualPackage allowed_source_ids via the Round B exact-source path); drives the real committed Rust/WASM engines over the whole corpus, asserts 100% integrity + explicit ADR-053/054 coverage, regenerates the truth-table manifest, and self-tests that a non-existent id is not citable (M2.18B.3A)
+## banzai-canonical-corpus-integrity-check: Every public canonical document (ADR + RFC, discovered from disk) is discoverable (doc-index chunks), resolvable (Rust candidate generation), AND citable (FactualPackage allowed_source_ids via the Round B exact-source path); drives the real committed Rust/WASM engines over the whole corpus, asserts 100% integrity + explicit ADR-041/054 coverage, regenerates the truth-table manifest, and self-tests that a non-existent id is not citable (M2.18B.3A)
 banzai-canonical-corpus-integrity-check:
 	@bash tools/check-banzai-canonical-corpus-integrity.sh
 
@@ -512,7 +512,7 @@ banzai-task-fulfilment-contract-check:
 banzai-source-appropriateness-check:
 	@bash tools/check-banzai-source-appropriateness.sh
 
-## banzai-golden-answer-quality-check: BEHAVIORAL — drive the compiled WASM over the human-reviewed golden dataset (artifacts/m2-18b7/task-fulfilment-golden.json) and prove task fulfilment GENERALIZES across every supported subject×task (not only the six regressions): correct task classification, tasked terminals fulfil+publish, narrative source-appropriateness, and boundaries/unknown subjects never produce a deliverable terminal (M2.18B.7 / TFG-5)
+## banzai-golden-answer-quality-check: BEHAVIORAL — drive the compiled WASM over the human-reviewed golden dataset (artifacts/banzai/task-fulfilment-golden.json) and prove task fulfilment GENERALIZES across every supported subject×task (not only the six regressions): correct task classification, tasked terminals fulfil+publish, narrative source-appropriateness, and boundaries/unknown subjects never produce a deliverable terminal (M2.18B.7 / TFG-5)
 banzai-golden-answer-quality-check:
 	@bash tools/check-banzai-golden-answer-quality.sh
 
@@ -564,7 +564,7 @@ banzai-global-answer-format-contract-check:
 banzai-governance-developer-vocabulary-check:
 	@bash tools/check-banzai-governance-developer-vocabulary.sh
 
-## banzai-entity-formatting-consistency-check: Every textual occurrence of a canonical ecosystem entity (Banzami, BANZA, BanzAI, Operador Zero, KZ_DEMO, PASS, ADR, RFC, Qwen, Trust Root, Action Boundary, Financial Action Boundary, Apache License 2.0) in an answer body is bold — not just the first — via the single global normalizeEntityEmphasis layer, with canonical spelling, while code/inline-code/existing-bold/links/URLs and paths/domains/packages/doc-ids (banza.network, banzai-api, engines/banzai-api-kb, BANZA.md, ADR-006) stay untouched, never double-bold (****), and common words are not bolded (M2.14C-FIX1)
+## banzai-entity-formatting-consistency-check: Every textual occurrence of a canonical ecosystem entity (Banzami, BANZA, BanzAI, Operador Zero, KZ_DEMO, PASS, ADR, RFC, Qwen, Trust Root, Action Boundary, Financial Action Boundary, Apache License 2.0) in an answer body is bold — not just the first — via the single global normalizeEntityEmphasis layer, with canonical spelling, while code/inline-code/existing-bold/links/URLs and paths/domains/packages/doc-ids (banza.network, banzai-api, engines/banzai-api-kb, BANZA.md, ADR-011) stay untouched, never double-bold (****), and common words are not bolded (M2.14C-FIX1)
 banzai-entity-formatting-consistency-check:
 	@bash tools/check-banzai-entity-formatting-consistency.sh
 
@@ -588,11 +588,11 @@ banzai-operator-publication-boundary-check:
 banzai-workbench-navigation-orchestration-check:
 	@bash tools/check-banzai-workbench-navigation-orchestration.sh
 
-## banzai-primary-interface-architecture-check: BanzAI is the PRIMARY human-operator interface for the BANZA protocol (ADR-054) — but not a normative source, authority, certifier, approver, licenser, financial operator or a mandatory machine-to-machine gate. Enforces the ADR (primary interface + not normative + 4-clause phrase + M2M-not-mandatory boundary), the docs/UI framing, the engine role/architecture answers + the primary-interface router, the SVG-P-071/SVG-P-051 flow + boundary, and that every forbidden request is refused before orchestration (M2.14I)
+## banzai-primary-interface-architecture-check: BanzAI is the PRIMARY human-operator interface for the BANZA protocol (ADR-042) — but not a normative source, authority, certifier, approver, licenser, financial operator or a mandatory machine-to-machine gate. Enforces the ADR (primary interface + not normative + 4-clause phrase + M2M-not-mandatory boundary), the docs/UI framing, the engine role/architecture answers + the primary-interface router, the SVG-P-071/SVG-P-051 flow + boundary, and that every forbidden request is refused before orchestration (M2.14I)
 banzai-primary-interface-architecture-check:
 	@bash tools/check-banzai-primary-interface-architecture.sh
 
-## banzai-public-surface-final-consistency-check: M2.14J final cross-surface consistency/regression + production-readiness aggregator (ADR-054). Invokes the core M2.14x guards (primary interface, navigation, financial + operator-publication boundaries) and adds only-missing checks: ADR-052/053/054 published on /decisoes (registry + byte-mirror), the primary-interface framing on the M2.14J-reframed surfaces (/banzai metadata, def-banzai-agent answer, /estado 4-clause, /referencia ch.12 card), the route.rs hardening (role questions, . / newline / agora / também compound separators, trust-root/evidence-history/credentials/verification/payment-request boundary widenings, reflexive certifica-te/make-sure exemptions), and BEHAVIOURAL RAW-input routing (14 architectural questions never no_source, every boundary + compound command refused, no over-block of legitimate/reflexive queries); negation-aware with self-tests (M2.14J)
+## banzai-public-surface-final-consistency-check: M2.14J final cross-surface consistency/regression + production-readiness aggregator (ADR-042). Invokes the core M2.14x guards (primary interface, navigation, financial + operator-publication boundaries) and adds only-missing checks: ADR-041/053/054 published on /decisoes (registry + byte-mirror), the primary-interface framing on the M2.14J-reframed surfaces (/banzai metadata, def-banzai-agent answer, /estado 4-clause, /referencia ch.12 card), the route.rs hardening (role questions, . / newline / agora / também compound separators, trust-root/evidence-history/credentials/verification/payment-request boundary widenings, reflexive certifica-te/make-sure exemptions), and BEHAVIOURAL RAW-input routing (14 architectural questions never no_source, every boundary + compound command refused, no over-block of legitimate/reflexive queries); negation-aware with self-tests (M2.14J)
 banzai-public-surface-final-consistency-check:
 	@bash tools/check-banzai-public-surface-final-consistency.sh
 
@@ -612,59 +612,59 @@ banzai-document-explanation-quality-check:
 reference-chapter-order-check:
 	@bash tools/check-reference-chapter-order.sh
 
-## operator-zero-check: Verify the Operador Zero simulator stays a simulator — every artifact marked demo_only/monetary_value/production_allowed, KZ_DEMO the only currency, no private key material, never listed as a real operator, no status claim, and the engine's own E2E reaching completion while the negative scenario produces blockers (ADR-052, M2.12A)
+## operator-zero-check: Verify the Operador Zero simulator stays a simulator — every artifact marked demo_only/monetary_value/production_allowed, KZ_DEMO the only currency, no private key material, never listed as a real operator, no status claim, and the engine's own E2E reaching completion while the negative scenario produces blockers (ADR-041, M2.12A)
 operator-zero-check:
 	@bash tools/check-operator-zero.sh
 
-## operator-zero-vocabulary-contract-check: EXECUTE the Operador Zero engine and prove its ten slug vocabularies each have a Portuguese label, that every slug an end-to-end run emits is in the vocabulary, that the label map has no generic fallback, that the vendored web WASM the site ships is not stale, and that the TypeScript labels only through the engine (ADR-052, M2.12B)
+## operator-zero-vocabulary-contract-check: EXECUTE the Operador Zero engine and prove its ten slug vocabularies each have a Portuguese label, that every slug an end-to-end run emits is in the vocabulary, that the label map has no generic fallback, that the vendored web WASM the site ships is not stale, and that the TypeScript labels only through the engine (ADR-041, M2.12B)
 operator-zero-vocabulary-contract-check:
 	@bash tools/check-operator-zero-vocabulary-contract.sh
 
-## zero-subdomain-design-check: Keep /operador-zero (the experience prepared for zero.banza.network, not active) a single-page, black/white/grey, interactive demo-only lab — dark theme with no strong colour as visual language, a demo-status bar, KZ_DEMO, the not-a-bank/PSP/wallet boundary, 100/100-not-certification, BanzAI deep links, JSON artifacts, a modal/drawer system, grayscale SVGs with title/desc, in-memory only (no web storage), no real-payment CTAs, no commercial operator brand, and no "subdomain is live" claim (ADR-052, M2.12D)
+## zero-subdomain-design-check: Keep /operador-zero (the experience prepared for zero.banza.network, not active) a single-page, black/white/grey, interactive demo-only lab — dark theme with no strong colour as visual language, a demo-status bar, KZ_DEMO, the not-a-bank/PSP/wallet boundary, 100/100-not-certification, BanzAI deep links, JSON artifacts, a modal/drawer system, grayscale SVGs with title/desc, in-memory only (no web storage), no real-payment CTAs, no commercial operator brand, and no "subdomain is live" claim (ADR-041, M2.12D)
 zero-subdomain-design-check:
 	@bash tools/check-zero-subdomain-design.sh
 
-## operator-zero-public-hardening-check: Keep the hardened Operador Zero public surface from eroding — the Reference chapter carries ≥3 dedicated SVGs (served, with title/desc/id) and explains KZ_DEMO, the clone, Demo Operator Root, the negative flow, the fictional ledger and PASS≠certification; the page and chapter cross-link and the page states zero.banza.network is prepared-not-active; no surface makes an unqualified certification/licence claim or names a commercial operator (ADR-052, M2.12C)
+## operator-zero-public-hardening-check: Keep the hardened Operador Zero public surface from eroding — the Reference chapter carries ≥3 dedicated SVGs (served, with title/desc/id) and explains KZ_DEMO, the clone, Demo Operator Root, the negative flow, the fictional ledger and PASS≠certification; the page and chapter cross-link and the page states zero.banza.network is prepared-not-active; no surface makes an unqualified certification/licence claim or names a commercial operator (ADR-041, M2.12C)
 operator-zero-public-hardening-check:
 	@bash tools/check-operator-zero-public-hardening.sh
 
-## zero-subdomain-routing-check: Keep zero.banza.network host-aware routing intact — the pure resolveZeroRoute module + Next middleware map the subdomain `/` to the internal /oz lab and the ten root JSON endpoints onto its handler (so POST→405 and unknown→404 are inherited), the subdomain and apex endpoint lists never diverge, the retired apex /operador-zero is 410 Gone (not redirected), the apex stays a strict pass-through, and the routing layer carries no storage/db/secret/brand/CTA (ADR-052, M2.12E/G)
+## zero-subdomain-routing-check: Keep zero.banza.network host-aware routing intact — the pure resolveZeroRoute module + Next middleware map the subdomain `/` to the internal /oz lab and the ten root JSON endpoints onto its handler (so POST→405 and unknown→404 are inherited), the subdomain and apex endpoint lists never diverge, the retired apex /operador-zero is 410 Gone (not redirected), the apex stays a strict pass-through, and the routing layer carries no storage/db/secret/brand/CTA (ADR-041, M2.12E/G)
 zero-subdomain-routing-check:
 	@bash tools/check-zero-subdomain-routing.sh
 
-## operator-zero-read-only-surface-check: Keep the Operador Zero surface read-only (no local simulation/ledger/validation, categorical status not a score, NOT_CERTIFIED shown, validation delegated to the canonical BanzAI validation mode /banzai?mode=validation, machine endpoints GET/405/404) (ADR-067, M2.19E/F.2)
+## operator-zero-read-only-surface-check: Keep the Operador Zero surface read-only (no local simulation/ledger/validation, categorical status not a score, NOT_CERTIFIED shown, validation delegated to the canonical BanzAI validation mode /banzai?mode=validation, machine endpoints GET/405/404) (ADR-041, M2.19E/F.2)
 operator-zero-read-only-surface-check:
 	@bash tools/check-operator-zero-read-only-surface.sh
 
-## operator-zero-cross-browser-routing-check: The Zero apex is a rewrite (200), never a permanent (301/308) cross-host redirect; /banzai is a temporary 307; /operador-zero is 410 (ADR-067, M2.19E/F, §19)
+## operator-zero-cross-browser-routing-check: The Zero apex is a rewrite (200), never a permanent (301/308) cross-host redirect; /banzai is a temporary 307; /operador-zero is 410 (ADR-041, M2.19E/F, §19)
 operator-zero-cross-browser-routing-check:
 	@bash tools/check-operator-zero-cross-browser-routing.sh
 
-## banzai-single-interface-check: BanzAI is ONE canonical route (/banzai) with two modes (ask default; validation via ?mode=validation&target=…&workflow=…) — the parallel /banzai/validar route, the "BanzAI Web" brand and the "Validation Workbench" product are removed; the 9 canonical step ids and the operator-zero-only target registry are intact (ADR-067, M2.19E/F.2)
+## banzai-single-interface-check: BanzAI is ONE canonical route (/banzai) with two modes (ask default; validation via ?mode=validation&target=…&workflow=…) — the parallel /banzai/validar route, the "BanzAI Web" brand and the "Validation Workbench" product are removed; the 9 canonical step ids and the operator-zero-only target registry are intact (ADR-041, M2.19E/F.2)
 banzai-single-interface-check:
 	@bash tools/check-banzai-single-interface.sh
 
-## operator-zero-standalone-surface-check: Keep zero.banza.network a standalone Operador Zero surface — its own shell (no global BANZA header/nav/footer, gated by path AND host), served from the internal /oz route; the apex /operador-zero surface removed and 410 Gone (never redirected); the reference points the interactive experience at the subdomain; BanzAI stays apex-only; and the surface never reads like a PSP/bank/wallet, names a commercial operator, offers real-payment CTAs, or claims certification (ADR-052, M2.12G)
+## operator-zero-standalone-surface-check: Keep zero.banza.network a standalone Operador Zero surface — its own shell (no global BANZA header/nav/footer, gated by path AND host), served from the internal /oz route; the apex /operador-zero surface removed and 410 Gone (never redirected); the reference points the interactive experience at the subdomain; BanzAI stays apex-only; and the surface never reads like a PSP/bank/wallet, names a commercial operator, offers real-payment CTAs, or claims certification (ADR-041, M2.12G)
 operator-zero-standalone-surface-check:
 	@bash tools/check-operator-zero-standalone-surface.sh
 
-## operator-zero-full-e2e-check: Prove the Operador Zero end-to-end journey under Rust-backed verification — the E2E Demo Operator Root (real Ed25519) verifies, a tampered payload fails and a revoked key blocks trust fail-closed with the PUBLIC key only (no private key present), the engine happy trace is complete/evidence_complete with no blockers while the negative trace is blocked, the subdomain and apex endpoint lists never diverge, Operador Zero is never in an operators[] list, and the BanzAI clone reads the bundled manifest rather than the retired /operador-zero apex endpoint (ADR-052, M2.13A)
+## operator-zero-full-e2e-check: Prove the Operador Zero end-to-end journey under Rust-backed verification — the E2E Demo Operator Root (real Ed25519) verifies, a tampered payload fails and a revoked key blocks trust fail-closed with the PUBLIC key only (no private key present), the engine happy trace is complete/evidence_complete with no blockers while the negative trace is blocked, the subdomain and apex endpoint lists never diverge, Operador Zero is never in an operators[] list, and the BanzAI clone reads the bundled manifest rather than the retired /operador-zero apex endpoint (ADR-041, M2.13A)
 operator-zero-full-e2e-check:
 	@bash tools/check-operator-zero-full-e2e.sh
 
-## operator-zero-realistic-journey-check: Keep the Operador Zero a REALISTIC demo operator journey inside BanzAI — starting a session awards no step, each step exposes only its own files and unlocks the next only after the previous passes, no parallel generic example (no "Carregar exemplo válido") competes with it, zero.banza.network shows the versioned demo validation state without aprovado/certificado language, demo simulators stay separated from real operators (never in /operators), and BanzAI answers status/approval questions with the demo vocabulary (ADR-052, M2.14A)
+## operator-zero-realistic-journey-check: Keep the Operador Zero a REALISTIC demo operator journey inside BanzAI — starting a session awards no step, each step exposes only its own files and unlocks the next only after the previous passes, no parallel generic example (no "Carregar exemplo válido") competes with it, zero.banza.network shows the versioned demo validation state without aprovado/certificado language, demo simulators stay separated from real operators (never in /operators), and BanzAI answers status/approval questions with the demo vocabulary (ADR-041, M2.14A)
 operator-zero-realistic-journey-check:
 	@bash tools/check-operator-zero-realistic-journey.sh
 
-## operator-zero-only-architecture-check: Enforce the repo-wide Operator Zero Only demo/example policy (ADR-053) — every PUBLIC example/demo/sample derives from Operador Zero, no parallel fictional example operator or "valid manifest example" affordance exists on any public/product/docs surface, the served manifest fixtures are Operador Zero, the retired apex /operador-zero is not reintroduced and the action boundary stays intact; internal engine test fixtures and abstract placeholders (<…> / RFC-2606 operator.example) remain allowed (M2.14B)
+## operator-zero-only-architecture-check: Enforce the repo-wide Operator Zero Only demo/example policy (ADR-041) — every PUBLIC example/demo/sample derives from Operador Zero, no parallel fictional example operator or "valid manifest example" affordance exists on any public/product/docs surface, the served manifest fixtures are Operador Zero, the retired apex /operador-zero is not reintroduced and the action boundary stays intact; internal engine test fixtures and abstract placeholders (<…> / RFC-2606 operator.example) remain allowed (M2.14B)
 operator-zero-only-architecture-check:
 	@bash tools/check-operator-zero-only-architecture.sh
 
-## banzai-operator-zero-only-ui-check: The BanzAI product UI presents Operador Zero as the ONLY demo operator (ADR-053) — all demo scenarios belong to Operador Zero, the manual JSON upload is an ADVANCED tool explicitly "not an official example", no parallel fictional example operator appears, and BanzAI routes the two policy questions deterministically while still refusing dangerous actions (M2.14B)
+## banzai-operator-zero-only-ui-check: The BanzAI product UI presents Operador Zero as the ONLY demo operator (ADR-041) — all demo scenarios belong to Operador Zero, the manual JSON upload is an ADVANCED tool explicitly "not an official example", no parallel fictional example operator appears, and BanzAI routes the two policy questions deterministically while still refusing dangerous actions (M2.14B)
 banzai-operator-zero-only-ui-check:
 	@bash tools/check-banzai-operator-zero-only-ui.sh
 
-## operator-zero-only-docs-examples-check: Public docs, getting-started, OpenAPI and JSON schemas carry no FILLED fictional example operator identity (ADR-053) — every worked demo identity is Operador Zero, while abstract structural placeholders (<…>, RFC-2606 operator.example) and archival ADRs/reports stay allowed (M2.14B)
+## operator-zero-only-docs-examples-check: Public docs, getting-started, OpenAPI and JSON schemas carry no FILLED fictional example operator identity (ADR-041) — every worked demo identity is Operador Zero, while abstract structural placeholders (<…>, RFC-2606 operator.example) and archival ADRs/reports stay allowed (M2.14B)
 operator-zero-only-docs-examples-check:
 	@bash tools/check-operator-zero-only-docs-examples.sh
 
@@ -672,7 +672,7 @@ operator-zero-only-docs-examples-check:
 banzai-vocabulary-contract-check:
 	@bash tools/check-banzai-vocabulary-contract.sh
 
-## banzai-release-qa-check: Verify the BanzAI release QA gate is intact — the guided layer (Model A) is guidance only (no score/verdict) and the gate records the single technical-state authority (Model B, ADR-076), every response field it names still exists in the backend, the phase-report template carries its mandatory sections, and any report claiming BanzAI completeness records observed browser values (M2.11C)
+## banzai-release-qa-check: Verify the BanzAI release QA gate is intact — the guided layer (Model A) is guidance only (no score/verdict) and the gate records the single technical-state authority (Model B, ADR-042), every response field it names still exists in the backend, the phase-report template carries its mandatory sections, and any report claiming BanzAI completeness records observed browser values (M2.11C)
 banzai-release-qa-check:
 	@bash tools/check-banzai-release-qa.sh
 
@@ -684,23 +684,23 @@ banzai-operator-journey-e2e-check:
 banzai-session-context-robustness-check:
 	@bash tools/check-banzai-session-context-robustness.sh
 
-## banzai-knowledge-quality-check: Verify BanzAI knowledge & conversational context — manifest example grounds, follow-ups resolve via context (never bypassing safety), examples are illustrative/non-normative, frontend sends history (M2.8H, ADR-048)
+## banzai-knowledge-quality-check: Verify BanzAI knowledge & conversational context — manifest example grounds, follow-ups resolve via context (never bypassing safety), examples are illustrative/non-normative, frontend sends history (M2.8H, ADR-042)
 banzai-knowledge-quality-check:
 	@bash tools/check-banzai-knowledge-quality.sh
 
-## banzai-agent-quality-check: Verify BanzAI is an OPERATIONAL protocol agent — onboarding/operational questions ground to Qwen with a fine intent, criticals stay deterministic, context never bypasses safety, the documentary index is secret-free and enriches only grounded local answers (M2.9A, ADR-049)
+## banzai-agent-quality-check: Verify BanzAI is an OPERATIONAL protocol agent — onboarding/operational questions ground to Qwen with a fine intent, criticals stay deterministic, context never bypasses safety, the documentary index is secret-free and enriches only grounded local answers (M2.9A, ADR-042)
 banzai-agent-quality-check:
 	@bash tools/check-banzai-agent-quality.sh
 
-## banzai-operator-journey-check: Verify the guided operator journey — Rust owns the step order/transitions/statuses/safe context (dual WASM), the session is in-memory only (no localStorage/DB), the nav is primary→secondary+Repositório, and the backend re-derives the context server-side without trusting the browser (M2.9B, ADR-049)
+## banzai-operator-journey-check: Verify the guided operator journey — Rust owns the step order/transitions/statuses/safe context (dual WASM), the session is in-memory only (no localStorage/DB), the nav is primary→secondary+Repositório, and the backend re-derives the context server-side without trusting the browser (M2.9B, ADR-042)
 banzai-operator-journey-check:
 	@bash tools/check-banzai-operator-journey.sh
 
-## banzai-model-a-guidance-only-check: Verify Model A (the guided operator-orientation layer) is guidance ONLY — navigation statuses (not_started|available|in_progress|completed), no verdict (valid/evidence_ready) and no score/points, technical state referenced only by typed Model B id, and a Model B FAILED/BLOCKED never rendered as a positive; Model B remains the single technical-state authority (ADR-076 §D-076-01/02)
+## banzai-model-a-guidance-only-check: Verify Model A (the guided operator-orientation layer) is guidance ONLY — navigation statuses (not_started|available|in_progress|completed), no verdict (valid/evidence_ready) and no score/points, technical state referenced only by typed Model B id, and a Model B FAILED/BLOCKED never rendered as a positive; Model B remains the single technical-state authority (ADR-042 §D-076-01/02)
 banzai-model-a-guidance-only-check:
 	@bash tools/check-banzai-model-a-guidance-only.sh
 
-## banzai-upload-copy-check: Verify the journey uses product copy (no "fixture") and a SAFE in-memory JSON upload — size-limited, Rust secret/JSON scan, no browser/DB persistence, no certify/approve/license claim (M2.9C, ADR-049)
+## banzai-upload-copy-check: Verify the journey uses product copy (no "fixture") and a SAFE in-memory JSON upload — size-limited, Rust secret/JSON scan, no browser/DB persistence, no certify/approve/license claim (M2.9C, ADR-042)
 banzai-upload-copy-check:
 	@bash tools/check-banzai-upload-copy.sh
 
@@ -708,12 +708,12 @@ banzai-upload-copy-check:
 banzai-docs-current-state-check:
 	@bash tools/check-banzai-docs-current-state.sh
 
-# ── Rust-first policy (ADR-037) ───────────────────────────────────────────────
+# ── Rust-first policy (ADR-043) ───────────────────────────────────────────────
 
 $(RUST_GUARD_BIN): FORCE
 	@cd $(RUST_GUARD) && cargo build --release --quiet
 
-## rust-rule-check: Enforce ADR-037 — block new non-Rust engines (allow UI/glue/legacy)
+## rust-rule-check: Enforce ADR-043 — block new non-Rust engines (allow UI/glue/legacy)
 rust-rule-check: $(RUST_GUARD_BIN)
 	@$(RUST_GUARD_BIN) check --root . --allowlist $(ALLOWLIST)
 
@@ -816,105 +816,105 @@ banzai-canonical-protocol-vocabulary-check:
 banzai-truth-table-current-check:
 	@bash tools/check-banzai-truth-table-current.sh
 
-# ── M2.19G.1 — Endpoint-Originated Operator Validation guard suite (ADR-068 §37) ───────────────
+# ── M2.19G.1 — Endpoint-Originated Operator Validation guard suite (ADR-038 §37) ───────────────
 # Every evaluated artifact is obtained from the selected implementation's public endpoints by the secure
 # Rust fetcher; Rust decides every verdict; the receipt fixes the result to its exact origin. These
 # guards lock the §37 invariants across the fetcher, the closed registry, the served validate path, the
 # receipts, and the simplified BanzAI validation UI.
 
-## banzai-operator-validation-mode-check: M2.19G.1 — the BanzAI sidebar mode is "Validar operador" (ADR-068 §4.1)
+## banzai-operator-validation-mode-check: M2.19G.1 — the BanzAI sidebar mode is "Validar operador" (ADR-038 §4.1)
 banzai-operator-validation-mode-check:
 	@bash tools/check-banzai-operator-validation-mode-check.sh
 
-## banzai-operator-implementation-model-check: M2.19G.1 — Fase 0 selects operator THEN implementation; Operator/Implementation records present (ADR-068 §4.2/§4.3)
+## banzai-operator-implementation-model-check: M2.19G.1 — Fase 0 selects operator THEN implementation; Operator/Implementation records present (ADR-038 §4.2/§4.3)
 banzai-operator-implementation-model-check:
 	@bash tools/check-banzai-operator-implementation-model-check.sh
 
-## banzai-endpoint-originated-validation-check: M2.19G.1 — the official journey calls /banzai/validate/step|journey and the served path fetches via the Rust fetcher, never a fixture (ADR-068 core rule)
+## banzai-endpoint-originated-validation-check: M2.19G.1 — the official journey calls /banzai/validate/step|journey and the served path fetches via the Rust fetcher, never a fixture (ADR-038 core rule)
 banzai-endpoint-originated-validation-check:
 	@bash tools/check-banzai-endpoint-originated-validation-check.sh
 
-## banzai-no-manual-input-official-flow-check: M2.19G.1 — no textarea/file-picker/drag-drop/paste/URL/fixture-loader in the official validation flow (ADR-068 §4.4)
+## banzai-no-manual-input-official-flow-check: M2.19G.1 — no textarea/file-picker/drag-drop/paste/URL/fixture-loader in the official validation flow (ADR-038 §4.4)
 banzai-no-manual-input-official-flow-check:
 	@bash tools/check-banzai-no-manual-input-official-flow-check.sh
 
-## banzai-draft-validation-isolation-check: M2.19G.1 — DraftValidationTool is isolated, emits DRAFT_VALIDATION_RESULT, banner present, under Programadores, never VERIFIED/readiness/official receipt (ADR-068 §4.5/§17)
+## banzai-draft-validation-isolation-check: M2.19G.1 — DraftValidationTool is isolated, emits DRAFT_VALIDATION_RESULT, banner present, under Programadores, never VERIFIED/readiness/official receipt (ADR-038 §4.5/§17)
 banzai-draft-validation-isolation-check:
 	@bash tools/check-banzai-draft-validation-isolation-check.sh
 
-## banzai-closed-target-registry-check: M2.19G.1 — targets come from a CLOSED registry (production_registry + OPERATOR_REGISTRY); operator-zero only, no fictional operators (ADR-068 §4.6/§4.9)
+## banzai-closed-target-registry-check: M2.19G.1 — targets come from a CLOSED registry (production_registry + OPERATOR_REGISTRY); operator-zero only, no fictional operators (ADR-038 §4.6/§4.9)
 banzai-closed-target-registry-check:
 	@bash tools/check-banzai-closed-target-registry-check.sh
 
-## banzai-no-arbitrary-url-check: M2.19G.1 — fetcherClient + validate.js never accept a user-supplied URL; only registry-resolved origin+path; closed id shape (ADR-068 §4.7)
+## banzai-no-arbitrary-url-check: M2.19G.1 — fetcherClient + validate.js never accept a user-supplied URL; only registry-resolved origin+path; closed id shape (ADR-038 §4.7)
 banzai-no-arbitrary-url-check:
 	@bash tools/check-banzai-no-arbitrary-url-check.sh
 
-## banzai-secure-fetcher-check: M2.19G.1 — banza-artifact-fetcher SSRF policy (HTTPS-only, private/loopback/link-local/metadata blocks, no redirects, size/timeout/media-type/TLS) + reason codes (ADR-068 §4.7/§19)
+## banzai-secure-fetcher-check: M2.19G.1 — banza-artifact-fetcher SSRF policy (HTTPS-only, private/loopback/link-local/metadata blocks, no redirects, size/timeout/media-type/TLS) + reason codes (ADR-038 §4.7/§19)
 banzai-secure-fetcher-check:
 	@bash tools/check-banzai-secure-fetcher-check.sh
 
-## banzai-fetch-receipt-binding-check: M2.19G.1 — each OperationReceipt binds endpoint/resolved_host/fetched_at/http_status/content_type/input_hash/signature_status (ADR-068 §4.8/§30)
+## banzai-fetch-receipt-binding-check: M2.19G.1 — each OperationReceipt binds endpoint/resolved_host/fetched_at/http_status/content_type/input_hash/signature_status (ADR-038 §4.8/§30)
 banzai-fetch-receipt-binding-check:
 	@bash tools/check-banzai-fetch-receipt-binding-check.sh
 
-## banzai-nine-step-endpoint-input-check: M2.19G.1 — exactly 9 steps, each technical step mapped to an endpoint fetch (ADR-068 §21)
+## banzai-nine-step-endpoint-input-check: M2.19G.1 — exactly 9 steps, each technical step mapped to an endpoint fetch (ADR-038 §21)
 banzai-nine-step-endpoint-input-check:
 	@bash tools/check-banzai-nine-step-endpoint-input-check.sh
 
-## banzai-single-results-area-check: M2.19G.1 — ONE Resultados sidebar entry with in-area sub-views (Resumo/Receipts/Relatórios/Artefactos/Traces/Evidence) (ADR-068 §29)
+## banzai-single-results-area-check: M2.19G.1 — ONE Resultados sidebar entry with in-area sub-views (Resumo/Receipts/Relatórios/Artefactos/Traces/Evidence) (ADR-038 §29)
 banzai-single-results-area-check:
 	@bash tools/check-banzai-single-results-area-check.sh
 
-## banzai-no-duplicate-tabs-check: M2.19G.1 — no step also appears as a persistent Resultados tab (no Manifest/Conformance/Trust/Federation/Evidence duplication) (ADR-068 §29)
+## banzai-no-duplicate-tabs-check: M2.19G.1 — no step also appears as a persistent Resultados tab (no Manifest/Conformance/Trust/Federation/Evidence duplication) (ADR-038 §29)
 banzai-no-duplicate-tabs-check:
 	@bash tools/check-banzai-no-duplicate-tabs-check.sh
 
-## banzai-no-orphan-tabs-check: M2.19G.1 — no renderable panel absent from the sidebar list (no trust/simb orphans) (ADR-068 §29)
+## banzai-no-orphan-tabs-check: M2.19G.1 — no renderable panel absent from the sidebar list (no trust/simb orphans) (ADR-038 §29)
 banzai-no-orphan-tabs-check:
 	@bash tools/check-banzai-no-orphan-tabs-check.sh
 
-## banzai-contextual-actions-check: M2.19G.1 — step actions are state-contextual (VERIFIED shows Ver receipt/Explicar/Executar novamente, not Executar esta etapa) (ADR-068 §24)
+## banzai-contextual-actions-check: M2.19G.1 — step actions are state-contextual (VERIFIED shows Ver receipt/Explicar/Executar novamente, not Executar esta etapa) (ADR-038 §24)
 banzai-contextual-actions-check:
 	@bash tools/check-banzai-contextual-actions-check.sh
 
-## banzai-contextual-right-panel-check: M2.19G.1 — header carries static metadata; right panel is contextual only (no permanent header duplication) (ADR-068 §27)
+## banzai-contextual-right-panel-check: M2.19G.1 — header carries static metadata; right panel is contextual only (no permanent header duplication) (ADR-038 §27)
 banzai-contextual-right-panel-check:
 	@bash tools/check-banzai-contextual-right-panel-check.sh
 
-## banzai-certification-readiness-language-check: M2.19G.1 — Certification Readiness (BLOCKED) distinct from Certification Status (NOT_CERTIFIED); no "9/9 · Bloqueado" phrasing (ADR-068 §4.10)
+## banzai-certification-readiness-language-check: M2.19G.1 — Certification Readiness (BLOCKED) distinct from Certification Status (NOT_CERTIFIED); no "9/9 · Bloqueado" phrasing (ADR-038 §4.10)
 banzai-certification-readiness-language-check:
 	@bash tools/check-banzai-certification-readiness-language-check.sh
 
-## banzai-operator-zero-parity-check: M2.19G.1 — OZ uses the same registry/endpoint/engine path as any implementation (ADR-068 §4.9)
+## banzai-operator-zero-parity-check: M2.19G.1 — OZ uses the same registry/endpoint/engine path as any implementation (ADR-038 §4.9)
 banzai-operator-zero-parity-check:
 	@bash tools/check-banzai-operator-zero-parity-check.sh
 
-## banzai-operator-zero-no-bypass-check: M2.19G.1 — no operator-zero shortcut/fixture/precomputed verdict/bypass in the served validate path (ADR-068 §4.9)
+## banzai-operator-zero-no-bypass-check: M2.19G.1 — no operator-zero shortcut/fixture/precomputed verdict/bypass in the served validate path (ADR-038 §4.9)
 banzai-operator-zero-no-bypass-check:
 	@bash tools/check-banzai-operator-zero-no-bypass-check.sh
 
-## banzai-operator-zero-public-e2e-check: M2.19G.1 — the OZ public E2E evidence artifact (9 receipts + 1 journey, real endpoints/hashes, NOT_CERTIFIED); soft-pends if absent, hard-checks if present (ADR-068 §4.9)
+## banzai-operator-zero-public-e2e-check: M2.19G.1 — the OZ public E2E evidence artifact (9 receipts + 1 journey, real endpoints/hashes, NOT_CERTIFIED); soft-pends if absent, hard-checks if present (ADR-038 §4.9)
 banzai-operator-zero-public-e2e-check:
 	@bash tools/check-banzai-operator-zero-public-e2e-check.sh
 
-## banzai-no-fixture-as-production-evidence-check: M2.19G.1 — no example/vendored fixture flows into the official Evidence Bundle or a VERIFIED verdict (served path) (ADR-068 §4.5)
+## banzai-no-fixture-as-production-evidence-check: M2.19G.1 — no example/vendored fixture flows into the official Evidence Bundle or a VERIFIED verdict (served path) (ADR-038 §4.5)
 banzai-no-fixture-as-production-evidence-check:
 	@bash tools/check-banzai-no-fixture-as-production-evidence-check.sh
 
-## banzai-receipt-origin-fields-check: M2.19G.1 — OperationReceipt schema carries all §30 origin fields (contract + builder) (ADR-068 §30)
+## banzai-receipt-origin-fields-check: M2.19G.1 — OperationReceipt schema carries all §30 origin fields (contract + builder) (ADR-038 §30)
 banzai-receipt-origin-fields-check:
 	@bash tools/check-banzai-receipt-origin-fields-check.sh
 
-## banzai-journey-receipt-origin-check: M2.19G.1 — JourneyReceipt carries all §31 fields incl. endpoints-consulted, hashes, protocol_fetch_count (ADR-068 §31)
+## banzai-journey-receipt-origin-check: M2.19G.1 — JourneyReceipt carries all §31 fields incl. endpoints-consulted, hashes, protocol_fetch_count (ADR-038 §31)
 banzai-journey-receipt-origin-check:
 	@bash tools/check-banzai-journey-receipt-origin-check.sh
 
-## banzai-no-qwen-decision-check: M2.19G.1 — qwen_calls:0 / external_model_calls:0 in receipts; Qwen only explains, never decides in the served path (ADR-068 §4.8)
+## banzai-no-qwen-decision-check: M2.19G.1 — qwen_calls:0 / external_model_calls:0 in receipts; Qwen only explains, never decides in the served path (ADR-038 §4.8)
 banzai-no-qwen-decision-check:
 	@bash tools/check-banzai-no-qwen-decision-check.sh
 
-## banzai-rust-fetch-authority-check: M2.19G.1 — the official fetch happens in Rust (banza-artifact-fetcher); banzai-api calls FETCHER_URL; the browser only POSTs closed ids (ADR-068 §4.7)
+## banzai-rust-fetch-authority-check: M2.19G.1 — the official fetch happens in Rust (banza-artifact-fetcher); banzai-api calls FETCHER_URL; the browser only POSTs closed ids (ADR-038 §4.7)
 banzai-rust-fetch-authority-check:
 	@bash tools/check-banzai-rust-fetch-authority-check.sh
 
@@ -930,6 +930,6 @@ banzai-accessibility-check:
 banzai-responsive-check:
 	@bash tools/check-banzai-responsive-check.sh
 
-## banzai-m2-19g1-readiness-check: M2.19G.1 — CAPSTONE aggregate gate over the §44 metrics (manual/url/fixture inputs, duplicate/orphan/non-actionable tabs, receipt origin fields, OZ bypasses, qwen/TS verdicts — all 0) (ADR-068 §44)
+## banzai-m2-19g1-readiness-check: M2.19G.1 — CAPSTONE aggregate gate over the §44 metrics (manual/url/fixture inputs, duplicate/orphan/non-actionable tabs, receipt origin fields, OZ bypasses, qwen/TS verdicts — all 0) (ADR-038 §44)
 banzai-m2-19g1-readiness-check:
 	@bash tools/check-banzai-m2-19g1-readiness-check.sh

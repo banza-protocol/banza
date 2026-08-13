@@ -33,7 +33,7 @@ PATTERN='[Tt]wo[-_ ]?[Pp]ass|TWO_PASS|IntentEnvelope|IntentEntry|runEntryPass|en
 #    retired terms ("two-pass", "workbench", "banza ca") for the sole purpose of REJECTING them from the
 #    canonical vocabulary; same assert-absence category as the guards above, not surviving architecture;
 #  - the GENERATED retrieval indexes (doc-index.json / entries-index.json). These are build artifacts
-#    produced by banzai-doc-indexer from the canonical docs; ADR-055 (Rust-First Grounded Synthesis)
+#    produced by banzai-doc-indexer from the canonical docs; ADR-042 (Rust-First Grounded Synthesis)
 #    legitimately NAMES the retired "two-pass" architecture it supersedes, so its indexed chunks carry
 #    the term as history — same category as the generated WASM glue (src/rustkb), which is already excluded.
 ALLOW='tools/check-banzai-old-architecture-clean.sh|tools/check-banzai-grounded-synthesis-architecture.sh|tools/check-banzai-single-production-pipeline.sh|tools/gen-banzai-vocabulary.mjs|engines/banzai-query-core/src/doc-index.json|engines/banzai-query-core/src/entries-index.json'

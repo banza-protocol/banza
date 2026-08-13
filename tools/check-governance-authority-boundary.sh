@@ -4,7 +4,7 @@
 #
 # Chapter 11's two sharpest risks: turning protocol governance into a REGULATOR/ADMINISTRATOR of the
 # operators, or turning the TRUST ROOT into the government of the whole protocol. The canon (GOVERNANCE.md ·
-# ADR-057 current-only ADR tree · ADR-079 Model A · ADR-061/066 the verdict/admission owners) fixes
+# ADR-045 current-only ADR tree · ADR-027 Model A · ADR-004/066 the verdict/admission owners) fixes
 # governance as:
 #
 #   - a PUBLIC PROCESS by which the protocol's RULES evolve, conducted by the ACTIVE MAINTAINERS — not a
@@ -154,10 +154,10 @@ selftest() {
 
 if ! selftest; then echo "Result: ✗ Governance authority-boundary guard self-test broken"; exit 2; fi
 
-echo "Governance authority-boundary guard — §11 keeps governance a public process of the maintainers over the RULES (GOVERNANCE.md · ADR-057/061/066/079), never a regulator/administrator of operators and never the Trust Root governing the protocol"
+echo "Governance authority-boundary guard — §11 keeps governance a public process of the maintainers over the RULES (GOVERNANCE.md · ADR-045/061/066/079), never a regulator/administrator of operators and never the Trust Root governing the protocol"
 if check "$REF"; then
   echo "Result: ✓ §11 keeps governance a public process over the rules: maintainers decide, the verdict/admission/authorisation/relationship each have another owner, no silent mutation, no retroactivity, and the Trust Root is an anchor — not the government"
 else
-  echo "Result: ✗ §11 lets governance drift into a regulator/administrator of operators, or the Trust Root into the government (see GOVERNANCE.md, decisions/adr/ADR-057, ADR-061, ADR-066, ADR-079)"
+  echo "Result: ✗ §11 lets governance drift into a regulator/administrator of operators, or the Trust Root into the government (see GOVERNANCE.md, decisions/adr/ADR-045, ADR-004, ADR-035, ADR-027)"
   exit 1
 fi

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# make banzai-operator-journey-check — M2.9B guard (ADR-049).
+# make banzai-operator-journey-check — M2.9B guard (ADR-042).
 #
 # The public /banzai area is a guided operator JOURNEY with ordered validation steps + an in-memory
 # session context. This guard enforces the M2.9B invariants:
@@ -12,7 +12,7 @@
 #   - the nav is ordered primary → secondary + Repositório (Part 1);
 #   - the backend RE-DERIVES the safe journey context server-side and NEVER trusts the browser copy,
 #     emitting the new journey telemetry; the pipeline packing is step-influenced;
-#   - the guided layer stays GUIDANCE ONLY (ADR-076 §D-076-02): navigation statuses, no verdict/score,
+#   - the guided layer stays GUIDANCE ONLY (ADR-042 §D-076-02): navigation statuses, no verdict/score,
 #     Model B is the single technical-state authority; the session notice states a reload clears it.
 #
 # Self-testing: exits 2 if its own detectors regress; 1 on a real finding; 0 clean.
@@ -33,7 +33,7 @@ AGENT=website/components/banzai/BanzaiAgent.tsx
 AGENTDATA=website/components/banzai/banzai-agent.ts
 VALJOURNEY=website/components/banzai/validationJourney.tsx
 PROG=website/components/banzai/ProgramadoresTools.tsx
-# M2.19G.1 (ADR-068) — the endpoint-originated validator: the browser calls this backend, which fetches
+# M2.19G.1 (ADR-038) — the endpoint-originated validator: the browser calls this backend, which fetches
 # from the implementation's public endpoints and runs the Rust decision engines server-side.
 BACKVAL=services/banzai-api/src/validate.js
 BACK=services/banzai-api/src/journey.js
@@ -74,10 +74,10 @@ if [ -f "$ENGINE" ]; then
   grep -q 'pub fn evaluate' "$ENGINE" && grep -q 'pub fn safe_context' "$ENGINE" \
     && ok "Rust engine exposes evaluate() + safe_context()" \
     || fail "$ENGINE must expose evaluate() and safe_context()"
-  # ADR-076 §D-076-02 — Model A is guidance only; Model B is the single technical-state authority.
+  # ADR-042 §D-076-02 — Model A is guidance only; Model B is the single technical-state authority.
   grep -qiE 'guidance only|orienta o percurso' "$ENGINE" \
     && ok "Rust engine documents Model A is guidance only (Model B is the technical authority)" \
-    || fail "$ENGINE must state Model A is guidance only — Model B is the single technical-state authority (ADR-076)"
+    || fail "$ENGINE must state Model A is guidance only — Model B is the single technical-state authority (ADR-042)"
 else
   fail "$ENGINE not found (Rust journey engine missing)"
 fi
@@ -145,7 +145,7 @@ if [ -f "$AGENT" ]; then
   grep -q 'ValidationStepNav' "$AGENT" \
     && ok "BanzaiAgent renders the 9-step validation journey spine (validation mode)" \
     || fail "$AGENT must render the validation journey (ValidationStepNav)"
-  # M2.19G.1 (ADR-068 § Recursos) — the Repositório link moved out of the primary nav into Programadores.
+  # M2.19G.1 (ADR-038 § Recursos) — the Repositório link moved out of the primary nav into Programadores.
   grep -q '<ProgramadoresTools' "$AGENT" && grep -q 'REPO_LINK.href' "$PROG" \
     && ok "the Repositório link is rendered under Programadores (REPO_LINK.href)" \
     || fail "the Repositório (REPO_LINK.href) link must be rendered by ProgramadoresTools, mounted in $AGENT"
@@ -158,7 +158,7 @@ if [ -f "$AGENT" ]; then
     && fail "$AGENT must not run a second journey evaluator — the validation session is the only source of truth" \
     || ok "BanzaiAgent runs a single validation session (no engine divergence)"
 fi
-# M2.19G.1 (ADR-068) — the validation journey is ENDPOINT-ORIGINATED and engine-driven: the browser calls
+# M2.19G.1 (ADR-038) — the validation journey is ENDPOINT-ORIGINATED and engine-driven: the browser calls
 # the Rust backend (POST /banzai/validate/{step,journey}), which fetches every artifact from the
 # implementation's public endpoints and runs the Rust decision engines. The browser fabricates NO verdict:
 # it stores exactly the server-built OperationReceipt each step returns, and a demo target is never certified.

@@ -1,14 +1,14 @@
-// ADR-078 — read-only operational TELEMETRY tool. Given the Rust-decided OperationalDecision
+// ADR-042 — read-only operational TELEMETRY tool. Given the Rust-decided OperationalDecision
 // (operational.rs `resolve_operational_metric`), this answers a duration/metric question about the
 // validation journey from REAL persisted executions — latest / average / median / p95 / per-step — scoped
 // to ONE compatibility tuple (operator, implementation, profile, environment, protocol_version) so
 // incompatible runs are never mixed, and to PUBLIC executions only (workspace='public'). Numbers come
-// ONLY from SQL aggregates over the durable receipt store (ADR-076); NO model ever produces or edits a
+// ONLY from SQL aggregates over the durable receipt store (ADR-042); NO model ever produces or edits a
 // number. When there are not enough comparable measurements the tool returns ok:false and the pipeline
 // serves the Rust-authored honest, request-oriented fallback — never a fabricated value, never the fixed
 // topic list.
 //
-// Claim taxonomy (ADR-078), applied DETERMINISTICALLY here (no model in the loop):
+// Claim taxonomy (ADR-042), applied DETERMINISTICALLY here (no model in the loop):
 //   SUPPORTED  — a measured value present in the data (the latest observed run's total).
 //   DERIVED    — a value computed from measured values (avg / median / p95 / min / max / per-step).
 // ESTIMATED / HYPOTHETICAL / UNSUPPORTED never arise on this path (there is no inference and no model).
@@ -101,7 +101,7 @@ function telemetrySources(m) {
   return sources;
 }
 
-// The structured claims (each bound to its category) — the ADR-078 taxonomy, deterministic.
+// The structured claims (each bound to its category) — the ADR-042 taxonomy, deterministic.
 function durationClaims(m, decision) {
   const claims = [];
   if (m.latest && m.latest.total_ms != null) {

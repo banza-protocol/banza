@@ -2,10 +2,10 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://banza.network/contracts/production/federation-trust-evaluation.production.schema.json",
   "title": "FederationTrustEvaluationProduction",
-  "description": "Federation Trust Evaluation — o resultado de uma avaliação LOCAL e determinística que um operador corre sobre o material publicado por outro antes de encaminhar. O encaminhamento depende de evidência que o próprio operador publica e que qualquer parte reproduz. As dez verificações são conjuntivas e a avaliação é fail-closed: material de trust ausente, inválido, expirado, revogado ou incompatível reprova. O resultado é uma decisão local sobre UMA interacção — nunca um juízo sobre a entidade, nunca uma admissão, nunca uma licença. Ver ADR-040, ADR-038 e docs/governance/FEDERATION_TRUST_MODEL.md.",
+  "description": "Federation Trust Evaluation — o resultado de uma avaliação LOCAL e determinística que um operador corre sobre o material publicado por outro antes de encaminhar. O encaminhamento depende de evidência que o próprio operador publica e que qualquer parte reproduz. As dez verificações são conjuntivas e a avaliação é fail-closed: material de trust ausente, inválido, expirado, revogado ou incompatível reprova. O resultado é uma decisão local sobre UMA interacção — nunca um juízo sobre a entidade, nunca uma admissão, nunca uma licença. Ver ADR-031, ADR-027 e docs/governance/FEDERATION_TRUST_MODEL.md.",
   "_spec_version": "1.0",
   "_status": "production-baseline",
-  "_authority": "decisions/adr/ADR-040-federation-trust-evaluation-without-certificates.md; decisions/adr/ADR-038-open-protocol-trust-model-without-ca.md; docs/governance/FEDERATION_TRUST_MODEL.md",
+  "_authority": "decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md; decisions/adr/ADR-027-open-protocol-trust-model-without-ca.md; docs/governance/FEDERATION_TRUST_MODEL.md",
   "_boundary": "BANZA é um protocolo financeiro aberto. Nenhuma verificação desta avaliação é aprovação humana, licença ou certificação de operador, e nenhuma permite ao BANZA prestar serviços financeiros. A avaliação é corrida pelo operador que encaminha, não pela BANZA. Operadores independentes assumem o seu próprio enquadramento legal, regulatório e financeiro e, quando aplicável, são autorizados pelas entidades competentes — nunca pela BANZA.",
   "type": "object",
   "required": [
@@ -35,7 +35,7 @@
     },
     "checks": {
       "type": "object",
-      "description": "As dez verificações conjuntivas de ADR-040. Todas têm de passar; qualquer uma em falta, inválida, expirada, revogada ou incompatível faz a avaliação reprovar (fail-closed). Nenhuma delas é aprovação humana.",
+      "description": "As dez verificações conjuntivas de ADR-031. Todas têm de passar; qualquer uma em falta, inválida, expirada, revogada ou incompatível faz a avaliação reprovar (fail-closed). Nenhuma delas é aprovação humana.",
       "required": [
         "valid_operator_manifest",
         "compatible_protocol_version",

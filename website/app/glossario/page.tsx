@@ -29,14 +29,14 @@ type Term = {
 };
 
 // Ordered pedagogically: papéis → cadeia de certificação → determinações → confiança → registo/federação →
-// esquema → recibos. Definitions are grounded in artifacts/m2-19g/canonical-concept-matrix.json.
+// esquema → recibos. Definitions are grounded in artifacts/banzai/canonical-concept-matrix.json.
 const TERMS: Term[] = [
   {
     name: "Operador",
     en: "operator",
     id: "operator",
     short: "Entidade independente que implementa o protocolo e processa pagamentos sob as suas próprias autorizações.",
-    full: "Um operador é qualquer entidade jurídica independente que implementa o BANZA para processar pagamentos nos seus próprios sistemas, sob as suas próprias autorizações regulatórias. No plano do protocolo está sujeito apenas a verificação de conformidade — os mesmos testes públicos e determinísticos para todos. Fora do protocolo, todas as obrigações legais, regulatórias, bancárias, KYC/KYB e AML/CFT são inteiramente suas. O BANZA não é um operador. O operador é a entidade responsável; validar um operador é avaliar uma das suas implementações publicadas (ADR-068).",
+    full: "Um operador é qualquer entidade jurídica independente que implementa o BANZA para processar pagamentos nos seus próprios sistemas, sob as suas próprias autorizações regulatórias. No plano do protocolo está sujeito apenas a verificação de conformidade — os mesmos testes públicos e determinísticos para todos. Fora do protocolo, todas as obrigações legais, regulatórias, bancárias, KYC/KYB e AML/CFT são inteiramente suas. O BANZA não é um operador. O operador é a entidade responsável; validar um operador é avaliar uma das suas implementações publicadas (ADR-038).",
     href: "/operadores",
     hrefLabel: "Operadores — registo público",
     related: ["Implementação", "Participante de esquema", "Autorização regulatória"],
@@ -47,7 +47,7 @@ const TERMS: Term[] = [
     en: "implementation",
     id: "certified-implementation",
     short: "O sistema técnico avaliado e o sujeito da certificação: um build específico, identificado por hash de conteúdo — nunca uma entidade ou marca.",
-    full: "Uma implementação é o sistema técnico avaliado — identificada por um implementation_id estável e por um implementation_hash, o hash de conteúdo do conjunto exacto de artefactos testado. A certificação liga-se a esse hash: um build diferente é um sujeito diferente, que precisa da sua própria certificação. A entidade declarante (declared_by) é atribuição/contacto, nunca o sujeito. Um operador pode publicar várias implementações (demonstração, sandbox, pré-produção, produção); a validação oficial obtém os artefactos de cada uma dos endpoints públicos da sua origem canónica (ADR-068).",
+    full: "Uma implementação é o sistema técnico avaliado — identificada por um implementation_id estável e por um implementation_hash, o hash de conteúdo do conjunto exacto de artefactos testado. A certificação liga-se a esse hash: um build diferente é um sujeito diferente, que precisa da sua própria certificação. A entidade declarante (declared_by) é atribuição/contacto, nunca o sujeito. Um operador pode publicar várias implementações (demonstração, sandbox, pré-produção, produção); a validação oficial obtém os artefactos de cada uma dos endpoints públicos da sua origem canónica (ADR-038).",
     href: "/certificacao",
     hrefLabel: "Certificação (Camada 2)",
     related: ["Operador", "Perfil", "Validação por endpoints"],
@@ -244,7 +244,7 @@ const TERMS: Term[] = [
     en: "endpoint-originated validation",
     id: "endpoint-originated-validation",
     short: "A validação oficial obtém todos os artefactos avaliados exclusivamente dos endpoints públicos da implementação seleccionada.",
-    full: "A validação oficial utiliza exclusivamente artefactos obtidos dos endpoints públicos da implementação seleccionada (ADR-068). Nenhum conteúdo colado, ficheiro carregado, URL do utilizador, fixture local ou mock de frontend entra na jornada oficial: o BanzAI resolve o alvo no Registo Técnico (operador → implementação → origem canónica → descoberta) e obtém cada artefacto pela camada segura de fetch em Rust — nunca pelo navegador. O resultado é específico da implementação, do profile, da versão, do ambiente, do âmbito, dos artefactos e do momento da avaliação.",
+    full: "A validação oficial utiliza exclusivamente artefactos obtidos dos endpoints públicos da implementação seleccionada (ADR-038). Nenhum conteúdo colado, ficheiro carregado, URL do utilizador, fixture local ou mock de frontend entra na jornada oficial: o BanzAI resolve o alvo no Registo Técnico (operador → implementação → origem canónica → descoberta) e obtém cada artefacto pela camada segura de fetch em Rust — nunca pelo navegador. O resultado é específico da implementação, do profile, da versão, do ambiente, do âmbito, dos artefactos e do momento da avaliação.",
     href: "/referencia/banzai",
     hrefLabel: "Referência — BanzAI",
     related: ["Rascunho de validação", "Origem canónica", "Camada segura de fetch"],
@@ -255,7 +255,7 @@ const TERMS: Term[] = [
     en: "draft validation",
     id: "draft-validation",
     short: "Uma ferramenta local para programadores, separada da jornada oficial, que verifica um conteúdo carregado ou colado.",
-    full: "A validação de rascunho verifica apenas um conteúdo local e não constitui evidência oficial (ADR-068 §4.5). Carregar ou colar artefactos é permitido apenas nesta ferramenta de rascunho, claramente marcada e isolada da jornada oficial; o seu resultado é um DRAFT_VALIDATION_RESULT: local, não-autoritativo, nunca evidência. A jornada oficial nunca consome conteúdo de rascunho.",
+    full: "A validação de rascunho verifica apenas um conteúdo local e não constitui evidência oficial (ADR-038 §4.5). Carregar ou colar artefactos é permitido apenas nesta ferramenta de rascunho, claramente marcada e isolada da jornada oficial; o seu resultado é um DRAFT_VALIDATION_RESULT: local, não-autoritativo, nunca evidência. A jornada oficial nunca consome conteúdo de rascunho.",
     href: "/referencia/banzai",
     hrefLabel: "Referência — BanzAI",
     related: ["Validação por endpoints", "Recibo", "Evidência"],
@@ -288,7 +288,7 @@ const TERMS: Term[] = [
     en: "secure artifact fetcher",
     id: "secure-artifact-fetcher",
     short: "O componente Rust, SSRF-hardened, que realiza toda a obtenção oficial de artefactos — nunca o navegador.",
-    full: "A camada segura de fetch (engines/banza-artifact-fetcher) é o único componente que alcança os endpoints públicos de uma implementação. É Rust (ADR-037/ADR-068 §4.7): fixa o host no Registo, exige HTTPS, bloqueia loopback/gamas privadas/link-local e a metadata de nuvem, proíbe redireccionamentos entre hosts, limita tamanho e tempo, valida o tipo de media e o TLS, recusa content-encoding não-identidade e liga cada resposta a hash, carimbo temporal e (quando aplicável) assinatura. Os motores de decisão sem rede recebem o conteúdo já obtido.",
+    full: "A camada segura de fetch (engines/banza-artifact-fetcher) é o único componente que alcança os endpoints públicos de uma implementação. É Rust (ADR-043/ADR-038 §4.7): fixa o host no Registo, exige HTTPS, bloqueia loopback/gamas privadas/link-local e a metadata de nuvem, proíbe redireccionamentos entre hosts, limita tamanho e tempo, valida o tipo de media e o TLS, recusa content-encoding não-identidade e liga cada resposta a hash, carimbo temporal e (quando aplicável) assinatura. Os motores de decisão sem rede recebem o conteúdo já obtido.",
     href: "/referencia/banzai",
     hrefLabel: "Referência — BanzAI",
     related: ["Validação por endpoints", "Origem canónica", "Recibo"],

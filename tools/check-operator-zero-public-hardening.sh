@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Operador Zero public-surface hardening guard (ADR-052, M2.12C).
+# Operador Zero public-surface hardening guard (ADR-041, M2.12C).
 #
 # M2.12B shipped the Operador Zero public surface; M2.12C hardened it — a richer Reference chapter,
 # four dedicated SVGs, and clearer page copy. This guard keeps that hardening from eroding: it fails
@@ -65,7 +65,7 @@ done <<< "$SVG_REFS"
 # ── 2. The chapter explains the concepts a reader needs ───────────────────
 # "label::regex" pairs — plain array, portable to bash 3.2 (macOS) and 5.x (CI); no associative arrays.
 echo "hardening: chapter content…"
-# M2.19G (ADR-067): ch.9 was rewritten from the simulator model to the READ-ONLY reference model.
+# M2.19G (ADR-041): ch.9 was rewritten from the simulator model to the READ-ONLY reference model.
 # The boundary invariant is unchanged — the chapter must still show the read-only surface, its refusal
 # path, the demo currency, the separate demo signing root, the not-a-bank/not-a-PSP edges and that
 # readiness is not an issued certificate — but the retired simulator phrasing (clone em memória / fluxo
@@ -118,7 +118,7 @@ done
 [ "$claim_hit" -eq 0 ] && ok "no unqualified certification/licence/authorisation claim on any surface" || fail=1
 
 # Brand containment: no commercial operator on the Operador Zero surfaces (the reference-operator brand
-# is allowed ONLY in ADR-052, per the surgical identity-check allowlist). The brand is assembled below
+# is allowed ONLY in ADR-041, per the surgical identity-check allowlist). The brand is assembled below
 # with printf so this guard's own source carries no literal brand token for the contamination scanner.
 brand_hit=0
 for s in "$TMP/ch09.md" "$PAGE"; do

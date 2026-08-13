@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# BANZA Operador Zero origin-closure guard (M2.19G.3A, ADR-069).
+# BANZA Operador Zero origin-closure guard (M2.19G.3A, ADR-040).
 #
 # The corrective closes the origin-proof loop for the Operador Zero re-enrolment. Its security depends on
 # ONE structural property: the ownership challenge is published by the operator's OWN origin
@@ -150,4 +150,4 @@ if awk '/location = \/x \{/{f=1} f&&/banzai-api/{bad=1} END{exit !bad}' "$tmp"; 
 rm -f "$tmp"
 
 [ "$pass" -eq 14 ] || fail "expected 14 labelled assertions, ran $pass"
-echo "PASS operator-zero-origin-closure (M2.19G.3A, ADR-069) — 14/14 invariants"
+echo "PASS operator-zero-origin-closure (M2.19G.3A, ADR-040) — 14/14 invariants"

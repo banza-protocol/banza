@@ -1,7 +1,7 @@
 "use client";
 
 // BanzAI validation mode — the in-shell UI for the endpoint-originated operator-validation journey
-// (M2.19G.1, ADR-068).
+// (M2.19G.1, ADR-038).
 //
 // Fase 0 (§12) selects an operator + one of its published implementations from the CLOSED registry.
 // The nine-step journey (§21) then evaluates that implementation by calling the Rust backend, which
@@ -52,7 +52,7 @@ const ST_DOT: Record<StepStatus, string> = {
   FAILED: "bg-bordo",
   BLOCKED: "bg-[#8957e5]",
   NOT_EVALUATED: "bg-ink-5/40",
-  // ADR-077: out of scope for the profile — a neutral, dashed marker, never a failure colour.
+  // ADR-039: out of scope for the profile — a neutral, dashed marker, never a failure colour.
   NOT_APPLICABLE: "bg-ink-5/25",
 };
 
@@ -74,7 +74,7 @@ const ST_LEFT: Record<StepStatus, string> = {
   NOT_APPLICABLE: "border-l-ink-5/30",
 };
 
-/* ── Persistence status (ADR-076 correction 1) — the HONEST durable-archive verdict of a full-journey
+/* ── Persistence status (ADR-042 correction 1) — the HONEST durable-archive verdict of a full-journey
    run. The engine result stands regardless of storage; this badge never claims durable/consultable/
    comparable/reproducible when persistence is not confirmed, and NEVER shows an archive reference for a
    non-persisted run. `onRetry` re-checks durability (reads the store) and never re-runs the engine. */
@@ -117,7 +117,7 @@ export function PersistenceBadge({ p, onRetry, retrying }: { p: PersistenceInfo;
 }
 
 /* A labelled, clearly-separated step block. The active step shows THREE such blocks, never mixed:
-   (1) engine result, (2) verifiable evidence, (3) BanzAI explanation (ADR-068 §24/§16 / ADR-054). */
+   (1) engine result, (2) verifiable evidence, (3) BanzAI explanation (ADR-038 §24/§16 / ADR-042). */
 function StepBlock({ n, title, hint, children }: { n: number; title: string; hint?: string; children: React.ReactNode }) {
   return (
     <section className="mt-5 border-t border-black/[0.07] pt-4">
@@ -131,7 +131,7 @@ function StepBlock({ n, title, hint, children }: { n: number; title: string; hin
   );
 }
 
-/* ── The single Resultados area sub-views (ADR-068 §29) — in-area tabs, NOT sidebar entries ─────── */
+/* ── The single Resultados area sub-views (ADR-038 §29) — in-area tabs, NOT sidebar entries ─────── */
 export type ResultsSubView = "resumo" | "receipts" | "relatorios" | "artefactos" | "traces" | "evidence" | "execucoes";
 export const RESULTS_VIEWS: { id: ResultsSubView; name: string; icon: IconKey }[] = [
   { id: "resumo", name: "Resumo", icon: "info" },
@@ -140,7 +140,7 @@ export const RESULTS_VIEWS: { id: ResultsSubView; name: string; icon: IconKey }[
   { id: "artefactos", name: "Artefactos", icon: "code" },
   { id: "traces", name: "Traces", icon: "route" },
   { id: "evidence", name: "Evidence Bundle", icon: "book" },
-  // ADR-076 D-076-08 — the durable append-only archive: history · 9-step matrix · comparison · reproduction.
+  // ADR-042 D-076-08 — the durable append-only archive: history · 9-step matrix · comparison · reproduction.
   { id: "execucoes", name: "Execuções", icon: "graph" },
 ];
 
@@ -169,7 +169,7 @@ function explainPrompt(session: ValidationSession, id: StepId): string {
   return parts.join(" ");
 }
 
-/* ── Fase 0 — operator + implementation selection (ADR-068 §12) ──────────────── */
+/* ── Fase 0 — operator + implementation selection (ADR-038 §12) ──────────────── */
 export function ValidationContextSetup({ session }: { session: ValidationSession }) {
   const { operators, operator, implementation, operatorsLoading, operatorsError } = session;
   return (
@@ -313,7 +313,7 @@ export function ValidationStepNav({ session }: { session: ValidationSession }) {
   );
 }
 
-/* ── Compact validation header — STATIC metadata only (ADR-068 §27) ─────────────
+/* ── Compact validation header — STATIC metadata only (ADR-038 §27) ─────────────
    Operador · implementação · ambiente · perfil · versão do protocolo · estado da jornada. The right
    panel (contextual) NEVER re-states this permanently. */
 function HeaderField({ k, v, mono }: { k: string; v: string; mono?: boolean }) {
@@ -406,7 +406,7 @@ function ReceiptOriginGrid({ r }: { r: ServerOperationReceipt }) {
   );
 }
 
-/* ── Center workspace: the active step detail + contextual actions (ADR-068 §24) ── */
+/* ── Center workspace: the active step detail + contextual actions (ADR-038 §24) ── */
 export function ValidationWorkspace({
   session,
   onAsk,
@@ -511,7 +511,7 @@ export function ValidationWorkspace({
 
         <div className="mt-4 flex flex-wrap gap-[8px]">{actions}</div>
 
-        {/* THREE SEPARATE blocks, never mixed (ADR-068 §24/§16 · ADR-054): (1) engine result,
+        {/* THREE SEPARATE blocks, never mixed (ADR-038 §24/§16 · ADR-042): (1) engine result,
             (2) verifiable evidence, (3) BanzAI explanation. */}
         <StepBlock n={1} title="Resultado do motor" hint={`motor ${active.engine}`}>
           <div className="flex flex-wrap items-center gap-2">
@@ -570,13 +570,13 @@ export function ValidationWorkspace({
           <button type="button" onClick={() => onAsk(explainPrompt(session, activeStep))} className={`mt-3 ${ghostBtn}`}>Explicar com o BanzAI</button>
           {activeStep === "certification" && r && (
             <div className="mt-3 rounded-[10px] border border-[#8957e5]/30 bg-[#8957e5]/[0.06] px-[13px] py-[10px] text-[12.5px] leading-[1.55] text-[#6f42c1]">
-              Prontidão de Certificação: <strong>{session.certificationReadiness ?? "—"}</strong>. Estado de Certificação: <code>NOT_CERTIFIED</code>. A Prontidão agrega os veredictos das etapas técnicas — não é um Registo de Certificação e nunca devolve CERTIFIED (ADR-068 §4.10).
+              Prontidão de Certificação: <strong>{session.certificationReadiness ?? "—"}</strong>. Estado de Certificação: <code>NOT_CERTIFIED</code>. A Prontidão agrega os veredictos das etapas técnicas — não é um Registo de Certificação e nunca devolve CERTIFIED (ADR-038 §4.10).
             </div>
           )}
         </StepBlock>
       </div>
 
-      {/* Persistence status of the last full-journey run (ADR-076 correction 1) — honest, never fabricated. */}
+      {/* Persistence status of the last full-journey run (ADR-042 correction 1) — honest, never fabricated. */}
       {session.persistence && (
         <div className="mt-4">
           <div className="mb-2 font-mono text-[10px] uppercase tracking-[0.08em] text-ink-5">Persistência da jornada</div>
@@ -589,7 +589,7 @@ export function ValidationWorkspace({
   );
 }
 
-/* ── Right context panel — CONTEXTUAL content only (ADR-068 §27) ─────────────────
+/* ── Right context panel — CONTEXTUAL content only (ADR-038 §27) ─────────────────
    Progresso · próxima acção · bloqueios · endpoint seleccionado · evidência da etapa · fontes. It does
    NOT permanently re-state the header metadata. */
 function CtxSection({ icon, title, children }: { icon: IconKey; title: string; children: React.ReactNode }) {
@@ -701,7 +701,7 @@ export function ValidationContextPanel({ session }: { session: ValidationSession
   );
 }
 
-/* ── The SINGLE Resultados area (ADR-068 §29) — one surface, in-area sub-views ──── */
+/* ── The SINGLE Resultados area (ADR-038 §29) — one surface, in-area sub-views ──── */
 function ReceiptCard({ r, onExport }: { r: ServerOperationReceipt; onExport: () => void }) {
   return (
     <div className={`p-[14px] ${CARD}`}>
@@ -721,7 +721,7 @@ function ReceiptCard({ r, onExport }: { r: ServerOperationReceipt; onExport: () 
   );
 }
 
-/* ── Execuções (durable append-only archive, ADR-076 D-076-08) — history · 9-step matrix · comparison ·
+/* ── Execuções (durable append-only archive, ADR-042 D-076-08) — history · 9-step matrix · comparison ·
    reproduction · export. Reads the store by server-issued ids only (never a URL); the store preserves,
    it never recomputes a verdict. Reproduction creates a NEW execution and never overwrites the original. */
 const REPRO_LABEL: Record<ReproductionOutcome, string> = {
@@ -733,7 +733,7 @@ const REPRO_LABEL: Record<ReproductionOutcome, string> = {
 };
 
 function ExecMatrix({ session, receipts }: { session: ValidationSession; receipts: ServerOperationReceipt[] }) {
-  // ADR-077: a NOT_APPLICABLE step surfaces as its own display status (never a failure/omission).
+  // ADR-039: a NOT_APPLICABLE step surfaces as its own display status (never a failure/omission).
   const byStep = new Map(
     receipts.map((r) => [
       r.step,

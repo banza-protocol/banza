@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# M2.19G.1 (ADR-068 §4.1) — "Validar operador" mode guard (§37, invariant 1).
+# M2.19G.1 (ADR-038 §4.1) — "Validar operador" mode guard (§37, invariant 1).
 #
 # The human-facing BanzAI sidebar MODE for the endpoint-originated journey is "Validar operador"
 # (Validate operator). The technical object evaluated remains a specific IMPLEMENTATION published by that
@@ -19,7 +19,7 @@ fl() { printf 'FAIL: %s\n' "$1"; fail=1; }
 AGENT=website/components/banzai/banzai-agent.ts
 SHELL_TSX=website/components/banzai/BanzaiAgent.tsx
 
-echo "== banzai-operator-validation-mode-check (M2.19G.1 / ADR-068 §4.1) =="
+echo "== banzai-operator-validation-mode-check (M2.19G.1 / ADR-038 §4.1) =="
 
 # ── self-test ───────────────────────────────────────────────────────────────────────────────────────
 st=0
@@ -57,4 +57,4 @@ fi
 
 echo
 if [ "$fail" -ne 0 ]; then echo "banzai-operator-validation-mode-check: FAIL"; exit 1; fi
-echo "banzai-operator-validation-mode-check: ✓ sidebar mode is 'Validar operador' (ADR-068 §4.1)"
+echo "banzai-operator-validation-mode-check: ✓ sidebar mode is 'Validar operador' (ADR-038 §4.1)"

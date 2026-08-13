@@ -30,23 +30,23 @@ A missing artifact → `L3_INCOMPLETE`; an invalid one → a specific blocker.
 | `l2_readiness` | L2 Readiness (READY) | `L3_BLOCKED_BY_L2` |
 | `federation_pair` + `federation_intent` | two simulated operators + routing intent | `L3_BLOCKED_BY_FEDERATION_FLOW` |
 | `cross_operator_trace` | trace A + trace B tied by a correlation (INV-TRACE) | `L3_BLOCKED_BY_TRACE` |
-| `trust` | key manifest / certificate form (ADR-038) | `L3_BLOCKED_BY_TRUST` |
+| `trust` | key manifest / certificate form (ADR-027) | `L3_BLOCKED_BY_TRUST` |
 | `brl` | BanzaRevocationList, fail-closed (INV-FEDEVAL-002) | `L3_BLOCKED_BY_BRL` |
-| `settlement` | federation obligation, net = gross − fee (ADR-040) | `L3_BLOCKED_BY_SETTLEMENT` |
+| `settlement` | federation obligation, net = gross − fee (ADR-031) | `L3_BLOCKED_BY_SETTLEMENT` |
 | `evidence` | Evidence Bundle reference | (missing → INCOMPLETE) |
 
 ## The federation flow (validated in Rust, locally)
 
 - **Federation pair** — two **distinct** simulated operators (test-only), a demo/pre-production
   environment, `production: false`.
-- **Federation intent** — ADR-040 routing: `id`, `source_operator`/`target_operator` (distinct),
+- **Federation intent** — ADR-031 routing: `id`, `source_operator`/`target_operator` (distinct),
   `amount.minor` (integer minor units), `currency`, `trace_id`, `idempotency_key`, `status`.
 - **Cross-operator trace** — a trace on each side (`trace_a`, `trace_b`) tied by a shared
   `correlation_id`, with the minimum federation lifecycle events (INV-TRACE / INV-RECON).
 - **Trust & BRL** — key manifest (and optional certificate) form, plus the **BanzaRevocationList**. The
   BRL is **fail-closed**: it must be well-formed (`issuer: "BANZA"` + a `revoked` array) and **no**
   federation operator may appear on it — a revoked operator blocks all routing (INV-FEDEVAL-002).
-- **Federation settlement obligation** — ADR-040: gross/net/fee coherent (`net = gross − fee`, all ≥ 0),
+- **Federation settlement obligation** — ADR-031: gross/net/fee coherent (`net = gross − fee`, all ≥ 0),
   linked to both operators and to the trace/correlation.
 - **Evidence reference** — a technical reference (hash/id) to an Evidence Bundle. Technical evidence, not
   certification.

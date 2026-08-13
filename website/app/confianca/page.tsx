@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 const INPUTS = [
-  { t: "Metadata do registo público", b: "O que uma implementação publica sobre si, indexado no registo técnico para consulta sem autenticação. Na validação oficial, estes artefactos são obtidos exclusivamente dos endpoints públicos da implementação, por uma camada segura de fetch em Rust — nunca pelo navegador (ADR-068)." },
+  { t: "Metadata do registo público", b: "O que uma implementação publica sobre si, indexado no registo técnico para consulta sem autenticação. Na validação oficial, estes artefactos são obtidos exclusivamente dos endpoints públicos da implementação, por uma camada segura de fetch em Rust — nunca pelo navegador (ADR-038)." },
   { t: "Signed Protocol Metadata", b: "Metadata assinada pela chave delegada do domínio protocol-metadata, ancorada na Raiz de Confiança através do Manifesto de Chaves — uma afirmação sobre artefactos, nunca sobre um participante." },
   { t: "Evidência de conformidade", b: "Evidência reproduzível por terceiros: hashes recalculáveis e automação re-executável, com o mesmo resultado." },
 ] as const;

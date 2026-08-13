@@ -1,6 +1,6 @@
 "use client";
 
-// BanzaiRouteBinder — M2.19G.4 (ADR-070). The invisible bridge between a /banzai route segment and the
+// BanzaiRouteBinder — M2.19G.4 (ADR-042). The invisible bridge between a /banzai route segment and the
 // single always-mounted workspace. Each segment page (global, operator, implementation) shape-validates
 // its closed-slug ids SERVER-SIDE, resolves the state through the throw-free parseBanzaiState choke-point,
 // and renders this binder with that state. On mount / when the resolved context changes, it publishes the

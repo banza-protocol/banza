@@ -273,7 +273,7 @@ monitors and auditors to actually be running for its guarantees to be realised.
 
 ### What that means for BANZA, stated against what BANZA now actually does
 
-BANZA 1.0.0 adopts a **monotonic trust observation mechanism** (`spec/trust-freshness.md`, ADR-085). Set
+BANZA 1.0.0 adopts a **monotonic trust observation mechanism** (`spec/trust-freshness.md`, ADR-030). Set
 against CT, the comparison is now precise rather than approximate:
 
 | Property | BANZA monotonic observation | CT |

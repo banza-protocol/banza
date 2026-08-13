@@ -1,4 +1,4 @@
-//! `banza-simb` CLI (ADR-037, R8). A local, deterministic operator/federation simulator.
+//! `banza-simb` CLI (ADR-043, R8). A local, deterministic operator/federation simulator.
 //! No network, no funds, no secrets. SimB runs in-process (library) — the conformance runner drives
 //! it directly; `serve` documents that design (no ports are opened by default).
 

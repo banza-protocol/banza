@@ -24,11 +24,11 @@ node tools/gen-banzai-vocabulary.mjs --check
 node --input-type=module <<'NODE'
 import { readFileSync } from "node:fs";
 const rd = (p) => JSON.parse(readFileSync(p, "utf8"));
-const voc = rd("artifacts/m2-18b7/canonical-protocol-vocabulary.json");
-const cov = rd("artifacts/m2-18b7/canonical-protocol-vocabulary-coverage.json");
-const cand = rd("artifacts/m2-18b7/protocol-terminology-candidates.json");
-const recon = rd("artifacts/m2-18b7/vocabulary-alias-reconciliation.json");
-const reg = rd("artifacts/m2-18b7/subject-registry.json");
+const voc = rd("artifacts/banzai/canonical-protocol-vocabulary.json");
+const cov = rd("artifacts/banzai/canonical-protocol-vocabulary-coverage.json");
+const cand = rd("artifacts/banzai/protocol-terminology-candidates.json");
+const recon = rd("artifacts/banzai/vocabulary-alias-reconciliation.json");
+const reg = rd("artifacts/banzai/subject-registry.json");
 let bad = 0; const fail = (m) => { console.error(`  FAIL: ${m}`); bad++; };
 const g = cov.gates || {};
 const arr = (x) => Array.isArray(x) ? x : [];

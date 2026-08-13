@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # BANZA — normative-surface integrity guard.
 #
-# Protects the invariants established by the normative-completeness remediation (ADR-081, ADR-082),
+# Protects the invariants established by the normative-completeness remediation (ADR-009, ADR-010),
 # which close audit findings F-01 (P0), F-02, F-03 and F-04:
 #
 #   1. The normative manifest exists, is well formed, and every path it lists exists.

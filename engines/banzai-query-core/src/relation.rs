@@ -601,7 +601,7 @@ mod tests {
     #[test]
     fn superseded_by_field_is_parsed_as_a_reversed_supersedes_rule() {
         // A "**Superseded by: X**" field on document D is recorded REVERSED — X supersedes D — so
-        // build_graph orients the edge (X → D). M2.19A (ADR-057, current-only canonical ADR tree) removed
+        // build_graph orients the edge (X → D). M2.19A (ADR-045, current-only canonical ADR tree) removed
         // every superseded ADR from the registry, so no SURVIVING doc self-declares "Superseded by"; the
         // reversed rule is therefore verified here at the extraction level, data-independently, on a
         // self-contained input that names a current document.
@@ -626,9 +626,9 @@ mod tests {
 
     #[test]
     fn extract_ids_ignores_labels_and_paths_keeps_ids() {
-        let v = "ADR-040 (Federation trust evaluation), [BANZA-POLICY](../../docs/governance/x.md), RFC-0005";
+        let v = "ADR-031 (Federation trust evaluation), [BANZA-POLICY](../../docs/governance/x.md), RFC-0005";
         let ids = extract_id_tokens(v);
-        assert!(ids.contains(&"ADR-040".to_string()));
+        assert!(ids.contains(&"ADR-031".to_string()));
         assert!(ids.contains(&"RFC-0005".to_string()));
         // the parenthetical words and the path never become ids
         assert_eq!(ids.iter().filter(|s| s.starts_with("ADR")).count(), 1);
@@ -636,20 +636,20 @@ mod tests {
 
     #[test]
     fn extract_fields_matches_inline_labels_not_prose() {
-        let text = "**Supersedes:** None **See also:** ADR-001, ADR-009 ---";
+        let text = "**Supersedes:** None **See also:** ADR-001, ADR-013 ---";
         let fields = extract_fields(text);
         assert!(fields
             .iter()
             .any(|f| f.kind == RelationKind::Supersedes && f.value == "None"));
         let see = fields.iter().find(|f| f.field == "see also").unwrap();
-        assert!(see.value.contains("ADR-001") && see.value.contains("ADR-009"));
+        assert!(see.value.contains("ADR-001") && see.value.contains("ADR-013"));
         // "superseded by" wins its own reversed rule
-        let rev = extract_fields("**Superseded by:** ADR-038 (open protocol trust model)");
+        let rev = extract_fields("**Superseded by:** ADR-027 (open protocol trust model)");
         assert!(rev
             .iter()
             .any(|f| f.reversed && f.kind == RelationKind::Supersedes));
         // a prose mention is NOT a field
-        assert!(extract_fields("as described in ADR-006 the ledger is double-entry").is_empty());
+        assert!(extract_fields("as described in ADR-011 the ledger is double-entry").is_empty());
     }
 
     #[test]
@@ -669,7 +669,7 @@ mod tests {
             );
         }
         // and a synthetic orphan id does not resolve (so it would be rejected)
-        assert!(resolve("ADR-99999").is_none());
+        assert!(resolve("ADR-999").is_none());
     }
 
     #[test]
@@ -724,19 +724,19 @@ mod tests {
 
     #[test]
     fn queries_are_typed_and_direction_aware() {
-        // ADR-040 carries confirmed relations in both directions in the current registry.
-        let out = relations_for("ADR-040", "out");
-        assert!(!out.is_empty(), "expected outgoing relations for ADR-040");
+        // ADR-031 carries confirmed relations in both directions in the current registry.
+        let out = relations_for("ADR-031", "out");
+        assert!(!out.is_empty(), "expected outgoing relations for ADR-031");
         assert!(
-            out.iter().all(|e| e.from == "ADR-040"),
-            "out edges must start at ADR-040"
+            out.iter().all(|e| e.from == "ADR-031"),
+            "out edges must start at ADR-031"
         );
-        let incoming = relations_for("ADR-040", "in");
+        let incoming = relations_for("ADR-031", "in");
         assert!(
-            incoming.iter().all(|e| e.to == "ADR-040"),
-            "in edges must end at ADR-040"
+            incoming.iter().all(|e| e.to == "ADR-031"),
+            "in edges must end at ADR-031"
         );
         assert!(!relations_of_kind(RelationKind::RelatedTo).is_empty());
-        assert!(!neighbours("ADR-040").is_empty());
+        assert!(!neighbours("ADR-031").is_empty());
     }
 }

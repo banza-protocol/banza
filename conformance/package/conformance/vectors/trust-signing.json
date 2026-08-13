@@ -1,6 +1,6 @@
 {
   "_note": "Public cryptographic trust vectors for BANZA 1.0. Deterministic TEST-ONLY trust material (trust root metadata with a 2-of-3 threshold signature, delegated signing keys, signed protocol metadata, operator manifest, conformance evidence, public registry entry, revocation status) with fixed derivation inputs. Each case carries the expected trust status. These are the vectors an independent implementation uses to validate its Ed25519 signature verification against known-good material; unlike the federation fixtures, they carry real signatures, not placeholders. Public key material only; no confidential key material of any kind is present.",
-  "scheme": "spec/canonicalization.md (BCJ/1) for the signed bytes + Ed25519 (RFC 8032) + base64url without padding; domain-separated delegated keys per ADR-038; root anchored by a threshold of pinned root signatures (Model A, ADR-079). Trust status is computed fail-closed.",
+  "scheme": "spec/canonicalization.md (BCJ/1) for the signed bytes + Ed25519 (RFC 8032) + base64url without padding; domain-separated delegated keys per ADR-027; root anchored by a threshold of pinned root signatures (Model A, ADR-027). Trust status is computed fail-closed.",
   "model": "signed protocol metadata + delegated signing keys + operator manifest + conformance evidence + public protocol registry + revocation/fail-closed",
   "cases": [
     {

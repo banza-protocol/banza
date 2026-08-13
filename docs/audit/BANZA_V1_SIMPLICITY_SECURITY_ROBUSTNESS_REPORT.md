@@ -126,7 +126,7 @@ The BanzAI vocabulary was regenerated as the last corpus step, with all gates at
 | Anti-rollback semantics | `spec/trust-freshness.md` + `engines/banza-trust` | unchanged | **NO** |
 | 2-of-3 root custody control | `docs/security/M2_ROOT_CUSTODY_MODEL_2OF3.md` | same file, kept | **NO** |
 | Root ceremony procedure | `docs/security/M2_ROOT_TRUST_CEREMONY_2OF3.md` + runbooks | same files, kept | **NO** |
-| BanzAI runtime is canonical; BANZA is the sole active source | a governance note **and** `services/banzai-api/README.md` **and** the architecture manifest | README + architecture manifest (machine-readable, ADR-075) | **NO** |
+| BanzAI runtime is canonical; BANZA is the sole active source | a governance note **and** `services/banzai-api/README.md` **and** the architecture manifest | README + architecture manifest (machine-readable, ADR-042) | **NO** |
 | Index carries no foreign-repository chunks | a one-shot migration script's `--check` | asserted directly on the index, for any foreign repo | **NO** |
 | Independent implementation from the repository alone | clean-room L0 package + conformance package | unchanged; digests byte-identical | **NO** |
 | Build/release process | Makefile + CI targets | unchanged — 202 check targets | **NO** |
@@ -278,7 +278,7 @@ individually; most are legitimate generators cited by documentation. Four were n
 
 `tools/banza-conformance/` and `tools/root-ceremony/` each contained **one README saying the thing that
 used to be there had been removed, and where to look instead** — the Python conformance runner and the
-Python ceremony scripts, both replaced by Rust engines under ADR-037. `tools/banza-conformance/` also
+Python ceremony scripts, both replaced by Rust engines under ADR-043. `tools/banza-conformance/` also
 carried a `.dockerignore` for a Dockerfile that does not exist.
 
 Both were deleted. Git preserves the history, and the Rust engines' own READMEs already say what they
@@ -299,7 +299,7 @@ than broken. Eleven references across the repository named files that do not exi
 | `SECURITY.md`, `docs/security/README.md` | `tools/banza-conformance/` as the conformance suite | `engines/banza-conformance/` |
 | `docs/governance/README.md`, `OPERATOR_NEUTRALITY_TERMINOLOGY.md` | `scripts/check-operator-contamination.sh` | `tools/` — wrong directory, the script exists |
 | `engines/banza-trust/README.md` | regenerate goldens with `trust_root.py`'s signers | its own `sign-test-*` |
-| ADR-075 | the one-shot migration script | completed, script removed |
+| ADR-042 | the one-shot migration script | completed, script removed |
 
 All corrected to what is actually there. `conformance/README.md` additionally described the Rust
 migration as **in flight**, with live execution and federation "remaining in the Python runner until
@@ -327,7 +327,7 @@ well: a file recreated at the familiar path would have been reached for because 
 
 `tools/lib/qa-checkpoints.awk` compared a QA checklist's cumulative points (20 → 45 → 60 → 75 → 95 →
 100) against `session::weight` in the operator-journey engine. Nothing invokes it. More to the point,
-the weighted evidence score it checked was **deliberately retired** under ADR-076 — Model A is guidance
+the weighted evidence score it checked was **deliberately retired** under ADR-042 — Model A is guidance
 only — and `check-banzai-release-qa.sh` now asserts the opposite, that `fn weight` and `progress_pct`
 must be **absent** from the production session. A tool measuring a model the repository has since
 forbidden. Deleted.
@@ -435,7 +435,7 @@ derived index, seven contamination-allowlist arms in `banza-repo-guards` that ex
 reports themselves, and prose "further reading" pointers.
 
 The one plausible security case, `SECURE_ARTIFACT_FETCHER_REPORT`, was checked identifier by identifier
-against ADR-068, the secure-fetcher guard and `engines/banza-artifact-fetcher`: everything it published
+against ADR-038, the secure-fetcher guard and `engines/banza-artifact-fetcher`: everything it published
 is carried there, and the single token it appeared to own (`FETCHER_URL`) is live compose configuration.
 
 ### Rules preserved, records dropped

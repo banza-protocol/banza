@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# check-canonical-discovery-surface.sh (ADR-080 — Canonical Discovery-Surface Reconciliation)
+# check-canonical-discovery-surface.sh (ADR-037 — Canonical Discovery-Surface Reconciliation)
 #
 # One canonical, machine-readable discovery surface. An external implementer must be able to
-# discover an operator's protocol artefacts WITHOUT guessing filenames. ADR-080 fixes the canon:
+# discover an operator's protocol artefacts WITHOUT guessing filenames. ADR-037 fixes the canon:
 #
-#   discovery (operator) manifest      → /.well-known/banza/operator.json   (RFC-0005 / ADR-039)
+#   discovery (operator) manifest      → /.well-known/banza/operator.json   (RFC-0005 / ADR-033)
 #   signed protocol metadata           → /.well-known/banza/signed-protocol-metadata.json
 #
 # The de-facto root routes /manifest.json and /signed-metadata.json are RETIRED (fix-forward, no
@@ -16,7 +16,7 @@
 # actually satisfiable.
 #
 # Classified exclusions (filename is incidental to the thing under test, or the file is an immutable
-# historical record — see ADR-080): the stale docs/reference/{en,pt} mirror; artifacts/* audit
+# historical record — see ADR-037): the stale docs/reference/{en,pt} mirror; artifacts/* audit
 # snapshots; banza-artifact-fetcher SSRF host-policy fixtures; the isClosedId/zeroSubdomain negative
 # routing fixtures; the operator-manifest.production candidate-submission schema; the whitepaper
 # build manifest.json; the protocol_metadata_url FIELD name and the protocol-metadata signing DOMAIN.
@@ -34,13 +34,13 @@ run_checks() {
   local root="$1"
 
   # 1. Contract SSOT — federation-trust.json declares the canonical served paths + validates the
-  #    discovery manifest against the federation extension (ADR-080), never the candidate schema.
+  #    discovery manifest against the federation extension (ADR-037), never the candidate schema.
   local ft="$root/contracts/federation/federation-trust.json"
   [ -f "$ft" ] || fail "missing $ft"
   grep -qF "$OP_CANON" "$ft" || fail "federation-trust.json must declare $OP_CANON as a published path"
   grep -qF "$SM_CANON" "$ft" || fail "federation-trust.json must declare $SM_CANON as a published path"
-  grep -qF "federation-manifest.json" "$ft" || fail "OTE check#1 must reference the federation extension contract federation-manifest.json (ADR-080)"
-  if grep -q "validated against the candidate-submission schema operator-manifest.production.schema.json (ADR-080)" "$ft"; then
+  grep -qF "federation-manifest.json" "$ft" || fail "OTE check#1 must reference the federation extension contract federation-manifest.json (ADR-037)"
+  if grep -q "validated against the candidate-submission schema operator-manifest.production.schema.json (ADR-037)" "$ft"; then
     ok "OTE check#1 validates discovery manifest against the federation extension, not the candidate schema"
   else
     grep -q "NOT .*operator-manifest.production.schema.json" "$ft" || fail "OTE check#1 must state it is NOT validated against operator-manifest.production.schema.json"
@@ -73,7 +73,7 @@ run_checks() {
   ok "OTE positive satisfiability fixture present (supports_federation + cross_operator_routing = true)"
 
   # 5. The retired root routes must not reappear on any ACTIVE surface (fix-forward, no aliases).
-  #    Classified exclusions per ADR-080 (immutable records / incidental fixtures / field+domain names).
+  #    Classified exclusions per ADR-037 (immutable records / incidental fixtures / field+domain names).
   local hits
   hits=$(grep -rInE 'zero\.banza\.network/(manifest|signed-metadata)\.json|"/(manifest|signed-metadata)\.json"|banza/protocol-metadata\.json|banza/operator-manifest\.json' \
       --include='*.rs' --include='*.ts' --include='*.tsx' --include='*.js' --include='*.json' --include='*.svg' --include='*.md' --include='*.yaml' --include='*.yml' \
@@ -84,7 +84,7 @@ run_checks() {
       | grep -vaE 'signed-protocol-metadata\.json' || true)
   if [ -n "$hits" ]; then
     echo "$hits" >&2
-    fail "retired discovery root route(s) found on an active surface — must use the .well-known canon (ADR-080)"
+    fail "retired discovery root route(s) found on an active surface — must use the .well-known canon (ADR-037)"
   fi
   ok "no retired /manifest.json or /signed-metadata.json discovery route on any active surface"
 }
@@ -114,7 +114,7 @@ EOF
   ok "self-test holds (a retired root route on an active surface is rejected)"
 }
 
-echo "== canonical-discovery-surface-check (ADR-080) =="
+echo "== canonical-discovery-surface-check (ADR-037) =="
 selftest
 run_checks "$ROOT"
 echo "CANONICAL DISCOVERY SURFACE CHECK PASSED ✅"

@@ -3,8 +3,8 @@
 # BANZA Conformance/Certification Boundary Guard (Ch07 "Conformidade e Certificação").
 #
 # Chapter 07 is where several near-synonyms must NOT collapse into one another. The canonical model
-# (ADR-021 conformance levels · ADR-064 certification objects · ADR-066 closed state machine ·
-# ADR-068/077 validation journey + readiness · ADR-061 non-propagation · ADR-038/079 trust, frozen)
+# (ADR-039 conformance levels · ADR-034 certification objects · ADR-035 closed state machine ·
+# ADR-038/077 validation journey + readiness · ADR-004 non-propagation · ADR-027/079 trust, frozen)
 # keeps them strictly separate. This guard keeps §7 of the Reference faithful to that boundary:
 #
 #   1. §7 is titled "Conformidade e Certificação".
@@ -142,10 +142,10 @@ EOF
 
 if ! selftest; then echo "Result: ✗ conformance/certification boundary guard self-test broken"; exit 2; fi
 
-echo "Conformance/certification boundary guard — §7 keeps level/validation/readiness/certification/admission/authorisation distinct (ADR-021/061/064/066/068/077)"
+echo "Conformance/certification boundary guard — §7 keeps level/validation/readiness/certification/admission/authorisation distinct (ADR-039/061/064/066/068/077)"
 if check "$REF"; then
   echo "Result: ✓ §7 keeps the boundary: L0–L4 are profiles not layers/certificates; validação ≠ prontidão ≠ certificação técnica ≠ admissão ≠ autorização; no certificate authority"
 else
-  echo "Result: ✗ §7 collapses a conformance/certification distinction (see decisions/adr/ADR-061, ADR-064, ADR-066)"
+  echo "Result: ✗ §7 collapses a conformance/certification distinction (see decisions/adr/ADR-004, ADR-034, ADR-035)"
   exit 1
 fi

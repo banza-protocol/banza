@@ -3,7 +3,7 @@
 **Document ID:** FEDERATION-PROTOCOL-FLOW-DESIGN-001  
 **Date:** 2026-05-31  
 **Status:** Canonical — behavioral sequence diagrams for all federation flows.  
-**Authority:** FEDERATION_PROTOCOL_FLOW.md, ADR-038, ADR-039, ADR-040
+**Authority:** FEDERATION_PROTOCOL_FLOW.md, ADR-027, ADR-033, ADR-031
 
 ---
 
@@ -186,7 +186,7 @@ Consumer     Op-A                              Op-B
 
 ## Diagram 3 — Phase 2: Open Trust Evaluation (10 Checks)
 
-The ten conjunctive, fail-closed checks of ADR-040, run by Op-A locally over Op-B's self-published
+The ten conjunctive, fail-closed checks of ADR-031, run by Op-A locally over Op-B's self-published
 material. All ten must pass; any check missing / invalid / expired / revoked / incompatible ⇒ FAIL_CLOSED.
 
 ```

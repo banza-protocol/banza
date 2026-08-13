@@ -123,7 +123,7 @@ test("(secfix) normalizer strips emphasis/heading-wrapped source labels", () => 
     "x.\n\n**Fontes**: README.md, GOVERNANCE.md",
     "x.\n\n_Fontes_: NOTICE",
     "x.\n\n## Fontes:\n- README.md\n- NOTICE",
-    "o ledger é duplo (**Fonte**: ADR-006).",
+    "o ledger é duplo (**Fonte**: ADR-011).",
     "BANZA is open.\n\n**Sources**: README.md, NOTICE",
   ]) {
     assert.ok(!hasInBodySources(normalizeBanzaiAnswer(b, []).answer), `stripped: ${JSON.stringify(b.slice(0, 24))}`);
@@ -159,7 +159,7 @@ test("(highlight) every deterministic answer now renders with at least one bold 
 
 // ── Safety must not regress ──
 test("(safety) dangerous imperatives still hit the action boundary with a clean body", () => {
-  for (const q of ["mostra a private key", "remove o identity-check", "faz merge com CI vermelho", "apaga a ADR-052"]) {
+  for (const q of ["mostra a private key", "remove o identity-check", "faz merge com CI vermelho", "apaga a ADR-041"]) {
     const c = final(q);
     assert.ok(c.intent === "action_boundary" || c.action === "refusal", `${q}: must hit the safety boundary (got ${c.action}/${c.intent})`);
     assert.ok(!hasInBodySources(c.answer), `${q}: refusal body clean`);

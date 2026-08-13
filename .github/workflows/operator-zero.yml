@@ -1,6 +1,6 @@
 name: operator-zero-core
 
-# The Rust engine behind Operador Zero (ADR-052, M2.12A): the fictional KZ_DEMO ledger, the demo
+# The Rust engine behind Operador Zero (ADR-041, M2.12A): the fictional KZ_DEMO ledger, the demo
 # boundary, the simulated PSP-like flows, and the canonical artifact tree it validates.
 on:
   push:
@@ -31,7 +31,7 @@ jobs:
         run: cargo test
 
   operator-zero-e2e-root:
-    name: operator-zero-e2e-root (demo signing root, ADR-052, M2.13A)
+    name: operator-zero-e2e-root (demo signing root, ADR-041, M2.13A)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

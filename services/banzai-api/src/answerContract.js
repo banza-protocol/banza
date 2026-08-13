@@ -98,7 +98,7 @@ function extractKnownSources(seg) {
 // canonical ecosystem entities and normalizes their spelling to the canonical form — while never
 // touching text inside code / inline code / existing **bold** / markdown links / URLs, and never
 // touching paths / domains / packages / doc-ids (banza.network, banzai-api, engines/banzai-api-kb,
-// BANZA.md, ADR-006). Common words (protocolo, operador, pagamento, …) are deliberately NOT entities.
+// BANZA.md, ADR-011). Common words (protocolo, operador, pagamento, …) are deliberately NOT entities.
 // Protected regions (kept verbatim — never emphasised inside): fenced code, double- & single-backtick
 // inline code, existing **bold**, inline links/images, full reference links/images, reference
 // definitions, autolinks, and bare URLs. Ordered so the greediest/most-specific alternative wins.
@@ -158,7 +158,7 @@ const CANONICAL_ENTITIES = [
 // A match is bolded only when delimited by "safe" characters: not a word char, not "@", and not a
 // markdown-structural char (* ` [ ] ( ) < > ~) — so an entity glued to a link/code/bold/stray asterisk
 // is left plain (SAFE: under-bold, never corrupt) — nor sitting inside a "word./-…" run (so paths,
-// domains, packages and doc-ids like banza.network, banzai-api, engines/banzai-api-kb, BANZA.md, ADR-006
+// domains, packages and doc-ids like banza.network, banzai-api, engines/banzai-api-kb, BANZA.md, ADR-011
 // are skipped). A trailing sentence period ("do BANZA.") still matches (period not followed by a word).
 const NB = "\\w@*`\\[\\]()<>~";
 const BEFORE = `(?<![${NB}])(?<!\\w[./-])`;
@@ -181,7 +181,7 @@ const ciCanon = (m) => {
 // "TypeScript/React/Next.js") must bold EACH segment. The single-entity pass deliberately skips a token
 // adjacent to "/word" (the path guard), so these lists came out plain. A run qualifies here only when
 // EVERY slash-segment is a canonical entity — so real paths / domains / doc-ids ("engines/banzai-api-kb",
-// "banza.network", "ADR-006", "/operador-zero") never match (one non-entity segment disqualifies it).
+// "banza.network", "ADR-011", "/operador-zero") never match (one non-entity segment disqualifies it).
 const ENTITY_ALT = CANONICAL_ENTITIES.map((e) => e.pat).join("|");
 const SLASH_RUN = new RegExp(
   `${BEFORE}(?:${ENTITY_ALT})(?:\\s*/\\s*(?:${ENTITY_ALT}))+${AFTER}`,

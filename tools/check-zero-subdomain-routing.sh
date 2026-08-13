@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# zero.banza.network — host-aware routing guard (ADR-052, M2.12E).
+# zero.banza.network — host-aware routing guard (ADR-041, M2.12E).
 #
 # M2.12E prepares zero.banza.network to serve the SAME single-page Operador Zero lab already shipped
 # at /operador-zero, plus the SAME ten demo JSON artifacts at clean root paths — with NO redesign and
@@ -77,7 +77,7 @@ grep -qE '\$\{ZERO_LAB_ROUTE\}\$\{pathname\}' "$MOD" \
 # ── 4. Endpoint parity: subdomain list ≡ apex artifact list (no divergence) ──
 echo "routing: apex ↔ subdomain parity…"
 # ZERO_ENDPOINTS entries from the routing module.
-# Route segments may be multi-part and dotted (ADR-080: .well-known/banza/operator), so the class
+# Route segments may be multi-part and dotted (ADR-037: .well-known/banza/operator), so the class
 # includes '.' — otherwise the canonical .well-known routes are silently dropped from the parity set.
 grep -oE '"[a-z0-9/.-]+"' <(sed -n '/ZERO_ENDPOINTS *= *\[/,/\] as const/p' "$MOD") \
   | tr -d '"' | sort -u > "$TMP/sub.txt"

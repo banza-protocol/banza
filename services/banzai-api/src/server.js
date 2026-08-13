@@ -3,7 +3,7 @@
 // BanzAI is the native, non-authoritative protocol agent: it guides, invokes the
 // engines and cites sources; it never decides, certifies, or invents operators. No
 // framework, zero runtime dependencies. Providers: `mock` (default, offline), the
-// hosted `deepseek`/`qwen` APIs, or `local_qwen` (ADR-044) — an internal-only llama.cpp
+// hosted `deepseek`/`qwen` APIs, or `local_qwen` (ADR-042) — an internal-only llama.cpp
 // OpenAI-compatible endpoint on the Docker network (no key, no GPU assumed, nothing
 // leaves the host). local_qwen is benchmark-gated and never the effective default until
 // the VPS XL+ benchmark approves it; mock/degraded stay available as fallback.
@@ -32,7 +32,7 @@ import { createOnboarding } from "./onboarding/index.js";
 
 const PORT = Number(process.env.PORT || 8091);
 
-// ADR-044 local-inference flags. These NEVER auto-enable local_qwen — LLM_PROVIDER
+// ADR-042 local-inference flags. These NEVER auto-enable local_qwen — LLM_PROVIDER
 // selects the provider. `benchmark_approved` records that the VPS XL+ benchmark endorsed
 // local_qwen as the effective default; without it, local_qwen is opt-in/preview only.
 const bool = (v) => /^(1|true|yes|on)$/i.test(String(v ?? "").trim());
@@ -115,7 +115,7 @@ const inferenceQueue = createInferenceQueue(process.env);
 // so an entity+artifact question ("o manifesto do Operador Zero") is answered from the LIVE artifact with
 // origin/version/profile/environment/sha256/observed_at — never the Protocol Manifesto.
 const liveArtifactTool = createLiveArtifactTool(process.env);
-// ADR-078 — read-only operational telemetry tool (duration/metric of the validation journey, from the
+// ADR-042 — read-only operational telemetry tool (duration/metric of the validation journey, from the
 // persisted receipt store). Fail-safe + env-gated inside; a disabled store degrades to an honest
 // INSUFFICIENT_MEASUREMENTS answer, never an error.
 const telemetryTool = createTelemetryTool(process.env);
@@ -151,14 +151,14 @@ const pipeline = createPipeline(provider, process.env, {
 });
 const rateLimiter = new RateLimiter(process.env);
 
-// M2.19G.1 (ADR-068) — endpoint-originated operator validation. Resolves a target from the CLOSED
+// M2.19G.1 (ADR-038) — endpoint-originated operator validation. Resolves a target from the CLOSED
 // Technical Registry (Rust), fetches each artifact from the implementation's public endpoints via the
 // secure Rust fetcher (banza-fetcher), runs the Rust decision engines on the FETCHED content, and emits
 // origin-bound receipts. Uses the on-host global fetch to reach the internal fetcher service ONLY (never
 // an operator endpoint directly, never a user URL); tests inject a hermetic fetcher stub.
 const validator = createValidator(process.env);
 
-// M2.19G.3 (ADR-069) — BanzAI-hosted operator onboarding: passwordless email-OTP login, a private
+// M2.19G.3 (ADR-040) — BanzAI-hosted operator onboarding: passwordless email-OTP login, a private
 // Candidate Registry, and .well-known origin proof. Every security decision is computed in Rust
 // (engines/banzai-onboarding); this service supplies entropy, time, Postgres persistence (banzai_rw),
 // one Resend email and one secure fetch. OFF unless BANZAI_ONBOARDING_ENABLED — dark and unadvertised
@@ -227,12 +227,12 @@ function health() {
       // is on-host, so this stays false even when the local model answers.
       external_model_called: provider.externalCallsMade > 0,
       inference_location: provider.inferenceLocation ?? "none", // local | external | none
-      local_inference: {                          // ADR-044 — benchmark-gated
+      local_inference: {                          // ADR-042 — benchmark-gated
         location: provider.inferenceLocation ?? "none",
         enabled: LOCAL_INFERENCE_ENABLED,
         benchmark_approved: BENCHMARK_APPROVED,
         default_effective: provider.name === "local_qwen" && BENCHMARK_APPROVED,
-        // ADR-046 prefix warm-up: null = not attempted, true = system-prompt prefix primed,
+        // ADR-042 prefix warm-up: null = not attempted, true = system-prompt prefix primed,
         // false = llama.cpp never became ready in the window (best-effort; never blocks).
         warmed: provider.warmupState ?? null,
         // M2.14E queue telemetry (internal /health only): back-compat fields + richer counters
@@ -250,7 +250,7 @@ function health() {
   };
 }
 
-// GET /runtime — M2.19G.5C (ADR-072). The PUBLIC runtime SSOT: a secret-free, versioned projection of
+// GET /runtime — M2.19G.5C (ADR-042). The PUBLIC runtime SSOT: a secret-free, versioned projection of
 // the runtime facts the service already holds (the same sources /health reads), minus every internal-only
 // field. A NEW handler — never a rename or public proxy of /health (which stays unproxied and 404s
 // publicly). Every human page consumes this; where a page's prose and this route differ, the route wins.
@@ -354,7 +354,7 @@ async function ask(req, signal, onProgress) {
     // body, which the frontend never sends). Sanitized here: known step, safe basename, numeric size.
     // The presence of artifacts frames guidance; it never bypasses safety and is never trusted as data.
     uploadedArtifacts = sanitizeUploadedArtifacts(parsed.uploaded_artifacts_summary);
-    // M2.9B guided journey (ADR-049): the browser may send the SAFE, Rust-built `journey_context`
+    // M2.9B guided journey (ADR-042): the browser may send the SAFE, Rust-built `journey_context`
     // (whitelisted slugs/enums) + `current_step`. We RE-DERIVE our own view server-side through the same
     // Rust state machine and NEVER trust the browser copy. Absent/empty → a plain question.
     journey = deriveJourney(
@@ -421,7 +421,7 @@ async function ask(req, signal, onProgress) {
         journeyNextActionSentence: journey?.next_action_sentence,
         // M2.14E — aborts a QUEUED inference if the client disconnects before we answer.
         signal,
-        // M2.19G.5C (ADR-073) — request id for the safe post-validation audit line (never content).
+        // M2.19G.5C (ADR-042) — request id for the safe post-validation audit line (never content).
         requestId,
         // SPR-2 — the Channel-A progress sink (only the SSE /ask/stream handler supplies it). Absent for
         // the plain /ask handler + every test + the eval, so pipeline behaviour is byte-identical there.
@@ -446,7 +446,7 @@ async function ask(req, signal, onProgress) {
     // and its real, known references folded into sources[]). Never removes an existing source. Computed
     // BEFORE the usage record so the honest, post-normalization grounded/validation state is logged too.
     const contract = normalizeBanzaiAnswer(result.answer, result.sources);
-    // M2.19G.5C (ADR-073) — post-normalization re-assertion. normalizeBanzaiAnswer drops INTERNAL sources
+    // M2.19G.5C (ADR-042) — post-normalization re-assertion. normalizeBanzaiAnswer drops INTERNAL sources
     // (isPublicSource). If that leaves a grounded MODEL answer (the live/cached synthesis family — never a
     // deterministic terminal like the journey next-step, which is legitimately grounded without a document
     // citation) with ZERO public citations, it must NOT be published as grounded: a grounded claim with no
@@ -454,7 +454,7 @@ async function ask(req, signal, onProgress) {
     const groundedPublishable =
       Boolean(result.grounded) &&
       !(!meta.deterministic && (!Array.isArray(contract.sources) || contract.sources.length === 0));
-    // M2.19G.5C (ADR-073, D-073-04) — honest three-state validation_status. `rejected` when the post-
+    // M2.19G.5C (ADR-042, D-073-04) — honest three-state validation_status. `rejected` when the post-
     // validator blocked the model answer this turn; `passed` when a model answer actually passed the gate
     // (model called, grounded, no fallback); `n/a` otherwise (deterministic terminal, cache hit where
     // llm_called=false, insufficient, or any non-post-validation degrade). Never a disguised constant.
@@ -498,9 +498,9 @@ async function ask(req, signal, onProgress) {
         queue_running: inferenceQueue.stats().running,
         queue_pending: inferenceQueue.stats().pending,
         outcome: "ok",
-        // external_model_called stays false for on-host local inference — the whole point of ADR-044.
+        // external_model_called stays false for on-host local inference — the whole point of ADR-042.
         external_model_called: provider.externalCallsMade > 0,
-        // M2.19G.5C (ADR-073) — safe post-synthesis-validator telemetry (enums/booleans only, never
+        // M2.19G.5C (ADR-042) — safe post-synthesis-validator telemetry (enums/booleans only, never
         // content). post_validate_ran is true only on the grounded model publish path; validation_status
         // is the honest three-state derived above.
         post_validate_ran: Boolean(meta.post_validate_ran),
@@ -548,7 +548,7 @@ async function ask(req, signal, onProgress) {
         engine_state: engineState,                       // mock | local_qwen | degraded | external_hosted
         inference_location: result.inference_location ?? provider.inferenceLocation ?? "none",
         external_model_called: provider.externalCallsMade > 0,
-        // Per-answer execution-path proof (ADR-044): whether THIS answer called the on-host
+        // Per-answer execution-path proof (ADR-042): whether THIS answer called the on-host
         // local model, or came from the deterministic/cache/insufficient path. Safe telemetry
         // only — never the prompt, system prompt, reasoning or content internals.
         //
@@ -562,15 +562,15 @@ async function ask(req, signal, onProgress) {
         cache: meta.cache ?? null,
         cached_local: cachedLocal,
         insufficient_sources: groundedPublishable === false,
-        // M2.8G routing intent (ADR-048): grounded | critical_boundary | safety_refusal | no_source.
+        // M2.8G routing intent (ADR-042): grounded | critical_boundary | safety_refusal | no_source.
         intent: meta.intent ?? null,
         // M2.14F answer-composition type (capabilities_and_limits | yes_no_with_boundary | comparison |
         // how_it_works | example_safe | implementation_stack | governance_explanation |
         // operator_zero_guidance | financial_concept | safe_refusal | definition | follow_up_expansion |
         // fallback_clarification). Telemetry/composition label re-derived in Rust — never alters routing.
-        // ADR-078: a typed operational answer carries its own answer_type from the pipeline; prefer it.
+        // ADR-042: a typed operational answer carries its own answer_type from the pipeline; prefer it.
         answer_type: meta.answer_type || answerType(question),
-        // ADR-078 — operational reasoning surface: the deterministic terminal kind, the typed duration
+        // ADR-042 — operational reasoning surface: the deterministic terminal kind, the typed duration
         // view (measured numbers, for the UI's typed block) and the claim taxonomy. Passed through so the
         // UI renders the duration block + the honest measurement-gap label instead of the fixed list.
         terminal_kind: meta.terminal_kind ?? null,
@@ -624,7 +624,7 @@ async function ask(req, signal, onProgress) {
         reference_turn_type: meta.reference_turn_type ?? "STANDALONE",
         reference_resolved_subject: meta.reference_resolved_subject ?? "",
         reference_inherited_intent: meta.reference_inherited_intent ?? "",
-        // M2.9B guided-journey telemetry (ADR-049). All re-derived in Rust from the browser input; safe
+        // M2.9B guided-journey telemetry (ADR-042). All re-derived in Rust from the browser input; safe
         // slugs/enums only — never raw drafts, keys or secrets. `journey_context_used` is true only when
         // usable journey input arrived AND was re-derived; step_statuses/summary echo the Rust view.
         journey_context_used: Boolean(journey),
@@ -687,7 +687,7 @@ async function ask(req, signal, onProgress) {
         cache_invalidated_reason: meta.cache_invalidated_reason ?? null,
         index_version: meta.index_version ?? null,
         cache_hit: Boolean(meta.cache),
-        // M2.19G.5C (ADR-073, D-073-04) — honest three-state validation_status (rejected | passed | n/a),
+        // M2.19G.5C (ADR-042, D-073-04) — honest three-state validation_status (rejected | passed | n/a),
         // derived above from the real post-validation gate outcome. Never a disguised constant "passed".
         validation_status: validationStatus,
         // SPR-4 §5 / SPR-3 — structured-generation + latency-decomposition + coverage transparency
@@ -808,7 +808,7 @@ async function ask(req, signal, onProgress) {
 // event carries ONLY public-safe data (ids/enums/counts/hashes/durations) — NEVER a prompt, chain-of-thought,
 // secret, cookie, token, private content or a raw model token. There is NO model-token/delta event: the
 // validated answer arrives ONCE, whole, inside the terminal FINAL_VALIDATED event — AFTER generation →
-// candidate → ADR-073 post-synthesis validator → normalizeBanzaiAnswer → Inc.4 claim + citation verification
+// candidate → ADR-042 post-synthesis validator → normalizeBanzaiAnswer → Inc.4 claim + citation verification
 // → boundaries confirmed. The terminal event is chosen from the typed response_disposition (never from the
 // raw `grounded`): a boundary/refusal → REFUSED (REQUEST_ACCEPTED [+INTENT_RESOLVED] then REFUSED, NO
 // synthesis events); a deterministic terminal → FINAL_VALIDATED (only the stages that ran, NO model-synthesis
@@ -1011,7 +1011,7 @@ async function validateJourneyReq(req) {
   }
 }
 
-// ── ADR-076 durable receipt-store read/reproduce/cancel routes ───────────────────────────────────
+// ── ADR-042 durable receipt-store read/reproduce/cancel routes ───────────────────────────────────
 // Reads are scoped to the PUBLIC workspace only — a browser-supplied workspace/owner is NEVER trusted
 // (anti-enumeration). Every validation run today uses public artefacts (incl. Operador Zero, which has
 // NO privileged path). When the store is disabled the surface self-describes with 503, never a fake.
@@ -1149,7 +1149,7 @@ const server = http.createServer(async (req, res) => {
       return sendJson(res, 200, body, headers);
     }
     if (path === "/validate/registry" || path === "/validate/options") return sendJson(res, 405, { error: "method_not_allowed", allow: "GET" });
-    // M2.19G.5C (ADR-072) — public runtime SSOT. nginx maps public /banzai/runtime → this internal
+    // M2.19G.5C (ADR-042) — public runtime SSOT. nginx maps public /banzai/runtime → this internal
     // /runtime. GET only; secret-free projection; short public cache (state is volatile) + a weak
     // content-hash ETag. A NEW handler, not a public proxy of the internal /health.
     if (req.method === "GET" && path === "/runtime") {
@@ -1168,13 +1168,13 @@ const server = http.createServer(async (req, res) => {
       return sendJson(res, code, body, { "Cache-Control": "public, max-age=15", ETag: etag });
     }
     if (path === "/slo") return sendJson(res, 405, { error: "method_not_allowed", allow: "GET" });
-    // M2.19G.1 (ADR-068) — endpoint-originated operator validation. Same-origin under nginx
+    // M2.19G.1 (ADR-038) — endpoint-originated operator validation. Same-origin under nginx
     // `location /banzai/validate/` (like `/banzai/ask`). The browser calls these; the fetch happens
     // in the Rust fetcher. Explicit 405 for the wrong method on each so the surface self-describes.
     if (req.method === "POST" && path === "/validate/step") return sendJson(res, ...unwrap(await validateStepReq(req)));
     if (req.method === "POST" && path === "/validate/journey") return sendJson(res, ...unwrap(await validateJourneyReq(req)));
     if (path === "/validate/step" || path === "/validate/journey") return sendJson(res, 405, { error: "method_not_allowed", allow: "POST" });
-    // ADR-076 — durable receipt store: history / open / compare / reproduce / cancel. Same-origin under
+    // ADR-042 — durable receipt store: history / open / compare / reproduce / cancel. Same-origin under
     // nginx `location /banzai/validate/`. Reads are GET + PUBLIC-workspace-scoped; reproduce/cancel POST.
     if (req.method === "GET" && path === "/validate/executions") return sendJson(res, ...unwrap(await listExecutionsReq(req, url)));
     if (req.method === "GET" && path === "/validate/execution") return sendJson(res, ...unwrap(await getExecutionReq(req, url)));
@@ -1183,7 +1183,7 @@ const server = http.createServer(async (req, res) => {
     if (req.method === "POST" && path === "/validate/reproduce") return sendJson(res, ...unwrap(await reproduceReq(req)));
     if (req.method === "POST" && path === "/validate/cancel") return sendJson(res, ...unwrap(await cancelReq(req)));
     if (path === "/validate/reproduce" || path === "/validate/cancel") return sendJson(res, 405, { error: "method_not_allowed", allow: "POST" });
-    // M2.19G.3 (ADR-069) — BanzAI-hosted operator onboarding. Same-origin under nginx
+    // M2.19G.3 (ADR-040) — BanzAI-hosted operator onboarding. Same-origin under nginx
     // `location /banzai/onboarding/`. The router owns cookies, CSRF and per-IP limits; a null result
     // means onboarding is disabled → fall through to the generic 404 so the surface stays unadvertised.
     if (path === "/onboarding" || path.startsWith("/onboarding/")) {
@@ -1216,7 +1216,7 @@ server.listen(PORT, "0.0.0.0", () => {
   // M2.19G.3 — surface onboarding readiness at boot (secret-free booleans only). When enabled without a
   // configured pepper the router fails closed; this log makes the misconfiguration visible immediately.
   console.log(JSON.stringify({ level: "info", msg: "onboarding", ...onboarding.healthSync() }));
-  // ADR-076 §D-076-08 — durable receipt store: on boot, deterministically recover crash-orphaned RUNNING
+  // ADR-042 §D-076-08 — durable receipt store: on boot, deterministically recover crash-orphaned RUNNING
   // executions (stale heartbeat → INTERRUPTED, never left indefinitely active), drain any queued outbox
   // records into PostgreSQL (reusing the exact stored payload, never re-running an engine), then start the
   // periodic background loop. All no-ops when the store is disabled.
@@ -1233,7 +1233,7 @@ server.listen(PORT, "0.0.0.0", () => {
   } else {
     console.error(JSON.stringify({ level: "error", msg: "grounded-synthesis single contract NOT ready — trunk fails closed to deterministic grounding", missing: contract.missing, contract_versions: cv }));
   }
-  // ADR-045: prime local inference on startup (best-effort) so the first real answer is
+  // ADR-042: prime local inference on startup (best-effort) so the first real answer is
   // not cold. Runs in the background: it polls llama.cpp /health with bounded backoff
   // (covering the ~90s cold model load) before a tiny 1-token prime. Local-only, no user
   // data, not counted; disable with BANZAI_WARMUP=0.

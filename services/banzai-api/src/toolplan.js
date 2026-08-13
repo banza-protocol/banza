@@ -41,7 +41,7 @@ export const TOOL_ADAPTERS = Object.freeze({
   LIVE_ARTIFACT_FETCH: { module: "./liveArtifact.js", symbol: "createLiveArtifactTool", callable: createLiveArtifactTool, executable: true },
   REGISTRY_LOOKUP: { module: "./validatewasm/banza_target_registry", symbol: "registry_resolve_json", callable: registry.registry_resolve_json, executable: true },
   RUNTIME_LOOKUP: { module: "./server.js", symbol: "runtime", endpoint: "GET /banzai/runtime", callable: null, executable: true },
-  // ── durable receipt store (ADR-076/078) ──
+  // ── durable receipt store (ADR-042/078) ──
   EXECUTION_LOOKUP: { module: "./receipts/index.js", symbol: "readExecution", callable: receipts.readExecution, executable: true },
   RECEIPT_LOOKUP: { module: "./receipts/index.js", symbol: "readExecutions", callable: receipts.readExecutions, executable: true },
   EVIDENCE_LOOKUP: { module: "./receipts/index.js", symbol: "pinnedArtifacts", callable: receipts.pinnedArtifacts, executable: true },

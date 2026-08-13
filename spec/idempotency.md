@@ -2,7 +2,7 @@
 
 - **Status:** Normative
 - **Protocol version:** BANZA 1.0.0
-- **Authority:** [ADR-084](../decisions/adr/ADR-084-idempotency-semantics.md); extends ADR-011, which established the invariant and deliberately left these questions open
+- **Authority:** [ADR-024](../decisions/adr/ADR-024-idempotency-semantics.md); extends ADR-024, which established the invariant and deliberately left these questions open
 - **Invariants:** `INV-IDEM-001`, `INV-FED-004`, `INV-FED-IDEM-001`, `INV-COLLECTION-008`
 - **Test vectors:** [`conformance/vectors/idempotency.json`](../conformance/vectors/idempotency.json)
 
@@ -12,7 +12,7 @@
 > when, and only when, they appear in all capitals.
 
 This document closes audit blocker **X-05**. It does **not** redesign idempotency: `INV-IDEM-001` already
-establishes the invariant and the conflict rule, and ADR-011 already establishes that the protocol does not
+establishes the invariant and the conflict rule, and ADR-024 already establishes that the protocol does not
 prescribe storage technology. What was missing, and what this document supplies, is exactly three things:
 **key scope**, **retention**, and **what makes two requests the same request**.
 
@@ -170,7 +170,7 @@ is precisely why the window is declared and why a caller that needs replay safet
 on the key alone.
 
 The 24-hour floor is a normative decision, not a derivation: no existing BANZA artifact bounds a retry
-horizon, and ADR-011 deliberately declines to prescribe storage. Twenty-four hours is the smallest period
+horizon, and ADR-024 deliberately declines to prescribe storage. Twenty-four hours is the smallest period
 that spans a full operational day including an overnight incident and the following reconciliation, which
 is the realistic horizon over which a caller retries an operation whose outcome it never learned. The floor
 exists to exclude a degenerate implementation that forgets keys in minutes and silently double-posts; the

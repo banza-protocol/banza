@@ -42,7 +42,7 @@ test("(valid+FIX) empty answer_markdown but valid claims → composed from valid
 // (derived ⊆ allowed), so this specific defect class is structurally impossible; the structured path's own
 // rejection of a prose hallucination is covered in test/spr4-structured-synthesis.test.js.
 test("(invalid) citation outside the allowed set → rejected → fallback (never published)", async () => {
-  const out = JSON.stringify({ answer_markdown: "Na verdade a ADR-021 trata disto.", claims: [{ claim: "trata disto", fact_ids: ["F1"] }], cited_source_ids: ["ADR-021"], insufficient_evidence: false });
+  const out = JSON.stringify({ answer_markdown: "Na verdade a ADR-039 trata disto.", claims: [{ claim: "trata disto", fact_ids: ["F1"] }], cited_source_ids: ["ADR-039"], insufficient_evidence: false });
   const r = await runGroundedSynthesis("explica a ADR-002", { provider: scriptedProvider([out]), entityId: "ADR-002", structured: false });
   assert.equal(r.status, "fallback");
   assert.equal(r.answer_markdown, null);
@@ -76,19 +76,19 @@ test("(defective) honest insufficient_evidence → insufficient, nothing invente
 // ── M2.18B.4-R2 — a COMPARISON packages BOTH named documents so each side is citeable ────────────────
 test("(valid+compare) both named documents are citeable → grounded, neither citation rejected", async () => {
   // The compare path reads the explicit refs from the QUESTION (Rust detect_refs) and builds a
-  // multi-document package, so allowed_source_ids contains ADR-053 AND ADR-054. An answer that cites both
+  // multi-document package, so allowed_source_ids contains ADR-041 AND ADR-042. An answer that cites both
   // (as a comparison must) is then VALID — the single-document package would reject the second citation.
   const out = JSON.stringify({
-    answer_markdown: "A ADR-053 fixa a política de exemplo; a ADR-054 define a interface primária.",
+    answer_markdown: "A ADR-041 fixa a política de exemplo; a ADR-042 define a interface primária.",
     claims: [
-      { claim: "a ADR-053 fixa a política de exemplo", fact_ids: ["F1"] },
-      { claim: "a ADR-054 define a interface primária", fact_ids: ["F1"] },
+      { claim: "a ADR-041 fixa a política de exemplo", fact_ids: ["F1"] },
+      { claim: "a ADR-042 define a interface primária", fact_ids: ["F1"] },
     ],
-    cited_source_ids: ["ADR-053", "ADR-054"],
+    cited_source_ids: ["ADR-041", "ADR-042"],
     insufficient_evidence: false,
   });
-  const r = await runGroundedSynthesis("compara a ADR-053 com a ADR-054", { provider: scriptedProvider([out]), entityId: "ADR-053" });
+  const r = await runGroundedSynthesis("compara a ADR-041 com a ADR-042", { provider: scriptedProvider([out]), entityId: "ADR-041" });
   assert.equal(r.status, "grounded", "a compare citing both named docs must publish (both in allowed_source_ids)");
   assert.equal(r.trace.factual_ok, true);
-  assert.ok(Array.isArray(r.trace.compare_doc_ids) && r.trace.compare_doc_ids.includes("ADR-054"), "the second named document is packaged");
+  assert.ok(Array.isArray(r.trace.compare_doc_ids) && r.trace.compare_doc_ids.includes("ADR-042"), "the second named document is packaged");
 });

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# BANZA Protocol/Scheme Separation Guard (M2.19C, ADR-059 D-059-07 / ADR-060 D-060-02/03).
+# BANZA Protocol/Scheme Separation Guard (M2.19C, ADR-003 D-059-07 / ADR-006 D-060-02/03).
 #
 # The protocol (L1) and certification (L2) are operator-neutral and are NOT the Banzami Operational Scheme
 # (L3). This guard keeps that separation stated and unconflated:
@@ -19,8 +19,8 @@ cd "$(dirname "$0")/.."
 
 TLA="docs/governance/BANZA_THREE_LAYER_ARCHITECTURE.md"
 BOS="docs/governance/BANZAMI_OPERATIONAL_SCHEME.md"
-ADR059="decisions/adr/ADR-059-three-layer-institutional-architecture.md"
-ADR060="decisions/adr/ADR-060-banzami-operational-scheme.md"
+ADR059="decisions/adr/ADR-003-three-layer-institutional-architecture.md"
+ADR060="decisions/adr/ADR-006-banzami-operational-scheme.md"
 
 fail=0
 
@@ -55,14 +55,14 @@ echo "$BAD" | grep -qiE "$WIN_NEG" && { echo "SELF-TEST BROKEN: bad line wrongly
 echo "== [1/3] BANZA ≠ Banzami stated on the canonical surfaces =="
 need "$TLA"    'banza ≠ banzami' 'TLA states BANZA ≠ Banzami'
 need "$BOS"    'banza ≠ banzami' 'BOS states BANZA ≠ Banzami'
-need "$ADR060" 'banza ≠ banzami' 'ADR-060 states BANZA ≠ Banzami'
+need "$ADR060" 'banza ≠ banzami' 'ADR-006 states BANZA ≠ Banzami'
 
 # ── [2/3] certification described as non-exclusive to the scheme ─────────────────────────────────────
 echo "== [2/3] certification is NON-EXCLUSIVE to the scheme =="
 needE "$TLA"    'não é exclusiva'              'TLA: certification not exclusive to the Banzami scheme'
 needE "$BOS"    'não exclusiva'               'BOS: certification not exclusive to the scheme'
-needE "$ADR059" 'not exclusive|non-exclusive' 'ADR-059: certification not exclusive to the scheme'
-needE "$ADR060" 'not exclusive|non-exclusive' 'ADR-060: certification not exclusive to the scheme'
+needE "$ADR059" 'not exclusive|non-exclusive' 'ADR-003: certification not exclusive to the scheme'
+needE "$ADR060" 'not exclusive|non-exclusive' 'ADR-006: certification not exclusive to the scheme'
 
 # ── [3/3] no surface conflates BANZA with Banzami / the scheme ───────────────────────────────────────
 echo "== [3/3] no BANZA = Banzami / BANZA is the scheme conflation =="
@@ -87,8 +87,8 @@ done
 
 if [ "$fail" -ne 0 ]; then
   echo
-  echo "protocol-scheme-separation: FAIL — see ADR-059 D-059-07 / ADR-060 and docs/governance/BANZA_THREE_LAYER_ARCHITECTURE.md."
+  echo "protocol-scheme-separation: FAIL — see ADR-003 D-059-07 / ADR-006 and docs/governance/BANZA_THREE_LAYER_ARCHITECTURE.md."
   exit 1
 fi
 echo
-echo "protocol-scheme-separation: ✓ BANZA ≠ Banzami; certification non-exclusive; no protocol/scheme conflation (M2.19C / ADR-059/060)"
+echo "protocol-scheme-separation: ✓ BANZA ≠ Banzami; certification non-exclusive; no protocol/scheme conflation (M2.19C / ADR-003/060)"

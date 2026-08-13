@@ -1,4 +1,4 @@
-//! operator-zero-e2e-root (ADR-052, M2.13A) — a DEMO-ONLY Ed25519 signing root for the Operador Zero
+//! operator-zero-e2e-root (ADR-041, M2.13A) — a DEMO-ONLY Ed25519 signing root for the Operador Zero
 //! end-to-end protocol validation.
 //!
 //! WHAT THIS IS. A tiny, self-contained Rust crate that:
@@ -15,7 +15,7 @@
 //! `not_protocol_trust_root: true`. Verification here proves signature integrity and revocation
 //! fail-closed; it is technical evidence, never certification.
 //!
-//! Rust is the source of truth (ADR-037): signing, verification, canonicalisation, fingerprinting and
+//! Rust is the source of truth (ADR-043): signing, verification, canonicalisation, fingerprinting and
 //! the revocation/fail-closed decision all happen here.
 
 use base64::Engine as _;

@@ -3,7 +3,7 @@
 # BANZA Operator/Implementation Boundary Guard (Ch08 "Operadores").
 #
 # Chapter 08's central invariant: the OPERATOR is the organizational entity; the IMPLEMENTATION is the
-# technical subject that is observed, evaluated and eventually certified (ADR-068 §4.2/§4.3). A property
+# technical subject that is observed, evaluated and eventually certified (ADR-038 §4.2/§4.3). A property
 # demonstrated by a build — conformidade, certificação, perfil de conformidade, veredicto de confiança,
 # revogação — belongs to that build, in the scope and window in which it was shown; it does NOT become a
 # global status of the company that publishes it. This guard keeps §8 of the Reference faithful to that:
@@ -17,7 +17,7 @@
 #   5. Open Trust Evaluation yields a per-interaction local decision, never a status conferred on the
 #      operator ("nunca um estatuto conferido ao operador").
 #   6. Registry presence ≠ authorization, absence ≠ prohibition.
-#   7. ADR-068 (operator/implementation model + endpoint-originated validation) is cited.
+#   7. ADR-038 (operator/implementation model + endpoint-originated validation) is cited.
 #
 # Scoped to §8 ONLY: the entity-state idioms below ("operador conforme", "operador L3", …) are legitimate
 # federation shorthand elsewhere in the corpus (§10, §14, FAQ) — they are forbidden here because Ch08 is
@@ -42,7 +42,7 @@ POSITIVE=(
   "as propriedades técnicas não sobem da implementação para a entidade"
   "nunca um estatuto conferido ao operador"
   "a presença nunca significa autorização, e a ausência nunca significa proibição"
-  "ADR-068"
+  "ADR-038"
 )
 
 # Forbidden entity-state collapses (regex) — a technical property bound to the entity as a global state.
@@ -97,7 +97,7 @@ check() {
 # ── self-test ──
 GOOD_BODY='## 8. Operadores
 Este capítulo mantém separados dois sujeitos: **o operador é a entidade organizacional; a implementação é o sistema técnico observado, avaliado e eventualmente certificado.**
-A cardinalidade é deliberada: **um operador, muitas implementações** (ADR-068 §4.2). Daqui decorre que as propriedades técnicas não sobem da implementação para a entidade, nem atravessam entre implementações.
+A cardinalidade é deliberada: **um operador, muitas implementações** (ADR-038 §4.2). Daqui decorre que as propriedades técnicas não sobem da implementação para a entidade, nem atravessam entre implementações.
 Por isso, validar um operador significa avaliar uma das suas implementações publicadas — nunca a entidade em abstracto.
 A avaliação é uma decisão local — nunca um estatuto conferido ao operador avaliado.
 Não é uma lista de operadores licenciados: a presença nunca significa autorização, e a ausência nunca significa proibição.
@@ -124,10 +124,10 @@ selftest() {
 
 if ! selftest; then echo "Result: ✗ operator/implementation boundary guard self-test broken"; exit 2; fi
 
-echo "Operator/implementation boundary guard — §8 keeps operator (entity) distinct from implementation (evaluated technical subject) (ADR-068 §4.2/§4.3, ADR-061)"
+echo "Operator/implementation boundary guard — §8 keeps operator (entity) distinct from implementation (evaluated technical subject) (ADR-038 §4.2/§4.3, ADR-004)"
 if check "$REF"; then
   echo "Result: ✓ §8 keeps the boundary: one operator → many implementations; validation targets an implementation; no property climbs to the entity as a global state"
 else
-  echo "Result: ✗ §8 collapses a property of an implementation into a global state of the operator (see decisions/adr/ADR-068, ADR-061)"
+  echo "Result: ✗ §8 collapses a property of an implementation into a global state of the operator (see decisions/adr/ADR-038, ADR-004)"
   exit 1
 fi

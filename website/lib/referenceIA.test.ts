@@ -3,7 +3,7 @@ import { getReferenceChapters, getReferenceChapter } from "./reference";
 import { decisions, getDecision } from "./decisions";
 
 // M2.7L — public information architecture: canonical chapter order, PostgreSQL=05, FAQ last,
-// Racional merged into ch.02, stable slugs, clean public cards, and ADR-037..042 in the index.
+// Racional merged into ch.02, stable slugs, clean public cards, and ADR-043..042 in the index.
 // M2.12B — Operador Zero inserted at 09, BETWEEN Operadores and Federação, shifting 09..14 to 10..15.
 
 const ORDER = [
@@ -59,7 +59,7 @@ describe("Reference chapter order (M2.7L)", () => {
     for (const claim of ["é certificado", "é aprovado", "é licenciado", "é autorizado"]) {
       expect(body).not.toContain(claim);
     }
-    // The institutional comparison belongs to ADR-052 alone (M2.12A decision).
+    // The institutional comparison belongs to ADR-041 alone (M2.12A decision).
     expect(body).not.toContain(["banz", "ami"].join(""));
   });
 
@@ -170,7 +170,7 @@ describe("Chapter 10 — Federação (final revision)", () => {
     expect(h3).toBe(8);
   });
 
-  // Federation is a bounded, local, per-interaction technical RELATION (ADR-040): the result vocabulary
+  // Federation is a bounded, local, per-interaction technical RELATION (ADR-031): the result vocabulary
   // is ROUTING_ALLOWED/FAIL_CLOSED, it is non-symmetric and non-transitive, L3 is a necessary-not-sufficient
   // profile (never Camada 3), and BANZA is not in the trust or funds path and obliges no one.
   it("defines federation as a local per-interaction evaluation with the canonical boundary", () => {

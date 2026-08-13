@@ -14,7 +14,7 @@ const answer = async (q) => pipe.answer(q);
 
 // ── §6 exact match always beats fuzzy; canonical forms are untouched ──────────────────────────────
 test("exact concept + id forms are never fuzzy-corrected", () => {
-  for (const q of ["federacao", "o que e a federacao", "explica o ADR-053", "explica o ADR053", "explica o ADR 053", "trust"]) {
+  for (const q of ["federacao", "o que e a federacao", "explica o ADR-041", "explica o ADR053", "explica o ADR 053", "trust"]) {
     const r = recoverQuery(q);
     assert.equal(r.band, "exact", `q=${q} band=${r.band}`);
     assert.equal((r.corrections || []).length, 0, `q=${q} corrected unexpectedly`);

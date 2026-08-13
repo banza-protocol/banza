@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# M2.19G.1 (ADR-068 §24/§26) — state-contextual step actions guard (§37, invariant 14).
+# M2.19G.1 (ADR-038 §24/§26) — state-contextual step actions guard (§37, invariant 14).
 #
 # A step's actions depend on its STATE. Once a step has a receipt (VERIFIED / evaluated), the primary
 # action is "Ver receipt", accompanied by "Explicar este resultado" and "Executar novamente" — NOT
@@ -17,7 +17,7 @@ fl() { printf 'FAIL: %s\n' "$1"; fail=1; }
 
 MODE=website/components/banzai/BanzaiValidationMode.tsx
 
-echo "== banzai-contextual-actions-check (M2.19G.1 / ADR-068 §24/§26) =="
+echo "== banzai-contextual-actions-check (M2.19G.1 / ADR-038 §24/§26) =="
 
 # ── self-test ───────────────────────────────────────────────────────────────────────────────────────
 st=0
@@ -61,4 +61,4 @@ grep -qE 'Executar esta etapa' "$MODE" && ok '"Executar esta etapa" exists for t
 
 echo
 if [ "$fail" -ne 0 ]; then echo "banzai-contextual-actions-check: FAIL"; exit 1; fi
-echo "banzai-contextual-actions-check: ✓ step actions are state-contextual (ADR-068 §24)"
+echo "banzai-contextual-actions-check: ✓ step actions are state-contextual (ADR-038 §24)"

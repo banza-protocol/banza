@@ -6,7 +6,7 @@ import { SiteFooter } from "./SiteFooter";
 // Chromeless routes render no global BANZA footer:
 //   - /banzai   — a dedicated full-height chat app (no editorial content below it);
 //   - /oz       — the Operador Zero standalone surface (zero.banza.network), which carries its OWN
-//                 footer, not the BANZA institutional one (ADR-052, M2.12G).
+//                 footer, not the BANZA institutional one (ADR-041, M2.12G).
 // Route-specific logic (usePathname), evaluated during SSR and on the client, so the footer is never
 // in the DOM on these routes.
 export function SiteFooterGate() {

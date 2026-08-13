@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #
-# BANZA Banzami Scheme-Role Guard (M2.19C, ADR-060).
+# BANZA Banzami Scheme-Role Guard (M2.19C, ADR-006).
 #
-# ADR-060 designates Banzami — Tecnologia e Serviços, Lda. as the OPERATOR of the first BANZA-based
+# ADR-006 designates Banzami — Tecnologia e Serviços, Lda. as the OPERATOR of the first BANZA-based
 # operational scheme (Layer 3), and docs/governance/BANZAMI_OPERATIONAL_SCHEME.md is its readable
 # canonical form. This guard keeps both present and keeps Banzami named ONLY in its designated
 # institutional role:
@@ -16,12 +16,12 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-ADR060="decisions/adr/ADR-060-banzami-operational-scheme.md"
+ADR060="decisions/adr/ADR-006-banzami-operational-scheme.md"
 BOS="docs/governance/BANZAMI_OPERATIONAL_SCHEME.md"
 
 fail=0
 # The forbidden PAYMENT-OPERATOR framing of the designated operator, distance-bounded (PT). Negations
-# ("não é apresentada como operador de pagamentos do BANZA") and the ADR-060 NORMATIVE_BRANDS statement
+# ("não é apresentada como operador de pagamentos do BANZA") and the ADR-006 NORMATIVE_BRANDS statement
 # ("is never presented as a BANZA payment operator") are cleared by NEG.
 BZM_PAYOP_PT='banzami[^.]{0,30}operador de pagament'
 BZM_ISA_PT='banzami (é|será|sera)[^.]{0,20}(psp|banco|prestador de servi|payment operator)'
@@ -48,7 +48,7 @@ echo 'Banzami is the BANZA payment operator.' | grep -qiE "$BZM_PAYOP_EN" || { e
 [ "$st" -eq 0 ] || { echo "banzami-scheme-role: guard self-test FAILED"; exit 2; }
 
 # ── [1/4] required canonical documents present ─────────────────────────────────────────────────────
-echo "== [1/4] ADR-060 + BANZAMI_OPERATIONAL_SCHEME.md present =="
+echo "== [1/4] ADR-006 + BANZAMI_OPERATIONAL_SCHEME.md present =="
 for f in "$ADR060" "$BOS"; do
   if [ -f "$f" ]; then echo "PASS  $f"; else echo "FAIL  missing required document: $f"; fail=1; fi
 done
@@ -59,20 +59,20 @@ need "$BOS"    'operador(a)? designad'                    'BOS names Banzami the
 need "$BOS"    'banzami operational scheme'               'BOS names the Banzami Operational Scheme'
 need "$BOS"    'criador'                                  'BOS names Banzami as creator'
 need "$BOS"    'mantenedor'                               'BOS names Banzami as maintainer'
-need "$ADR060" 'designated operator'                      'ADR-060 designated operator'
-need "$ADR060" 'creator and initial institutional'       'ADR-060 creator/initial maintainer'
+need "$ADR060" 'designated operator'                      'ADR-006 designated operator'
+need "$ADR060" 'creator and initial institutional'       'ADR-006 creator/initial maintainer'
 
 # ── [3/4] BANZA ≠ Banzami stated ────────────────────────────────────────────────────────────────────
 echo "== [3/4] BANZA ≠ Banzami stated =="
 need "$BOS"    'banza ≠ banzami'                          'BOS states BANZA ≠ Banzami'
-need "$ADR060" 'banza ≠ banzami'                          'ADR-060 states BANZA ≠ Banzami'
+need "$ADR060" 'banza ≠ banzami'                          'ADR-006 states BANZA ≠ Banzami'
 
 # ── [4/4] Banzami never a BANZA payment operator; not added to normative payment brands ─────────────
 echo "== [4/4] Banzami is NOT a BANZA payment operator / normative payment brand =="
 need "$BOS"    'não[^.]{0,15}apresentada como operador de pagament' 'BOS: Banzami NOT presented as a BANZA payment operator'
 need "$BOS"    'marcas normativas'                        'BOS: normative payment-brands boundary present'
-need "$ADR060" 'normative_brands'                         'ADR-060: Banzami not added to NORMATIVE_BRANDS'
-need "$ADR060" 'never presented as a banza payment operator' 'ADR-060: never presented as a BANZA payment operator'
+need "$ADR060" 'normative_brands'                         'ADR-006: Banzami not added to NORMATIVE_BRANDS'
+need "$ADR060" 'never presented as a banza payment operator' 'ADR-006: never presented as a BANZA payment operator'
 present=(); for s in "${SURFACES[@]}"; do [ -e "$s" ] && present+=("$s"); done
 viol=0
 for pat in "$BZM_PAYOP_PT" "$BZM_ISA_PT" "$BZM_PAYOP_EN"; do
@@ -87,8 +87,8 @@ done
 
 if [ "$fail" -ne 0 ]; then
   echo
-  echo "banzami-scheme-role: FAIL — see ADR-060 and docs/governance/BANZAMI_OPERATIONAL_SCHEME.md."
+  echo "banzami-scheme-role: FAIL — see ADR-006 and docs/governance/BANZAMI_OPERATIONAL_SCHEME.md."
   exit 1
 fi
 echo
-echo "banzami-scheme-role: ✓ Banzami = designated scheme operator / creator-maintainer only; BANZA ≠ Banzami; never a BANZA payment operator (M2.19C / ADR-060)"
+echo "banzami-scheme-role: ✓ Banzami = designated scheme operator / creator-maintainer only; BANZA ≠ Banzami; never a BANZA payment operator (M2.19C / ADR-006)"

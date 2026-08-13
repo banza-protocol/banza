@@ -1,4 +1,4 @@
-// Tests for the /ask inference queue (ADR-044 gate, upgraded in M2.14E). Protects the single-threaded
+// Tests for the /ask inference queue (ADR-042 gate, upgraded in M2.14E). Protects the single-threaded
 // local CPU inference path; excess requests fail fast and safe (never a crash). `createGate` is kept
 // as a back-compat alias for `createInferenceQueue`, and the old back-compat env names
 // (BANZAI_MAX_CONCURRENCY / BANZAI_QUEUE_SIZE) and stats fields still work.

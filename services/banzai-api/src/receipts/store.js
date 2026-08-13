@@ -1,11 +1,11 @@
-// Durable, append-only validation receipt store (ADR-076 §D-076-08). DB operations over the
+// Durable, append-only validation receipt store (ADR-042 §D-076-08). DB operations over the
 // validation_executions / validation_step_executions / operation_receipts / journey_receipts /
 // evidence_bundles / validation_artifact_observations tables. The store PRESERVES what the Rust engines
 // decided; it never recomputes, edits or replaces a verdict. It reuses the single shared pg pool.
 //
 // Design notes:
 //  • A step is written straight to its TERMINAL sealed state (RUNNING is a transient UI state, never
-//    sealed — ADR-076 §D-076-04), so there is no mid-flight UPDATE to fight the freeze trigger.
+//    sealed — ADR-042 §D-076-04), so there is no mid-flight UPDATE to fight the freeze trigger.
 //  • The execution header is INSERTed at start (overall_status RUNNING) and UPDATEd exactly once at
 //    finalize (sets completed_at → frozen thereafter by the DB trigger).
 //  • Every write is idempotent: UNIQUE(execution_id, step_id) + ON CONFLICT DO NOTHING; a retry or
@@ -236,7 +236,7 @@ export async function listExecutions(env, implementationId, workspace, limit = 5
   return r.rows;
 }
 
-// ── ADR-078 read-only telemetry: journey / per-step DURATION metrics over persisted executions ──────
+// ── ADR-042 read-only telemetry: journey / per-step DURATION metrics over persisted executions ──────
 //
 // Durations prefer the monotonic microsecond measurement (BZO-9 duration_us, from process.hrtime): total =
 // COALESCE(duration_us/1000, completed_at - started_at) on the execution header; per-step likewise on the
@@ -254,7 +254,7 @@ export async function listExecutions(env, implementationId, workspace, limit = 5
 //    falls back to those and flags only_non_user_samples + sample_kind so the renderer labels them honestly.
 //    observed / comparable / excluded counts are always returned (never a silent drop);
 //  • REPRODUCTIONS are excluded from the timing aggregate (a reproduction replays pinned artifacts — it is
-//    a verification action, not a fresh journey) and their count is reported for transparency (ADR-078 §1);
+//    a verification action, not a fresh journey) and their count is reported for transparency (ADR-042 §1);
 //  • public visibility only: workspace is FORCED to 'public' and operator to the caller's scoped id — a
 //    private candidature's timing is never aggregated;
 //  • n is always returned alongside avg/median/p95; a single run is a single observation, never an average
@@ -262,7 +262,7 @@ export async function listExecutions(env, implementationId, workspace, limit = 5
 // Read-only: SELECT only. Returns numbers only — no free text, no secrets, no personal data.
 //
 // Statistics are FORMALLY DEFINED and computed by exactly ONE implementation (the SQL below), so no two
-// call sites can ever disagree on the method (ADR-078 §2):
+// call sites can ever disagree on the method (ADR-042 §2):
 export const AGGREGATION_METHOD = Object.freeze({
   unit: "ms",
   mean: "arithmetic mean (SQL avg)",

@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://banza.network/conformance/manifests/schema.json",
   "title": "BANZA Operator Discovery Manifest (RFC-0005)",
-  "description": "The RFC-0005 DISCOVERY operator manifest — the manifest an operator serves at its canonical origin /.well-known/banza/operator.json for peers and validators to fetch (ADR-039, ADR-080). Distinct from the candidate-SUBMISSION manifest (contracts/production/operator-manifest.production.schema.json), which is an onboarding descriptor and is never served at this discovery route. Federation-capable operators additionally validate against the extension contracts/federation/federation-manifest.json.",
+  "description": "The RFC-0005 DISCOVERY operator manifest — the manifest an operator serves at its canonical origin /.well-known/banza/operator.json for peers and validators to fetch (ADR-033, ADR-037). Distinct from the candidate-SUBMISSION manifest (contracts/production/operator-manifest.production.schema.json), which is an onboarding descriptor and is never served at this discovery route. Federation-capable operators additionally validate against the extension contracts/federation/federation-manifest.json.",
   "type": "object",
 
   "required": ["operator_id", "environment", "simulated", "production_allowed", "capabilities"],

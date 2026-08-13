@@ -4,7 +4,7 @@
 //   • boundary recall = 1.0 (every sensitive action is detected)               → the safety gate
 //   • zero document-prefix bypass                                              → the safety gate
 //   • informational false-positive rate ≤ threshold (precision)               → usability
-// Writes artifacts/m2-18b2/boundary-eval.{json,md}. Exit 0 iff every threshold is met.
+// Writes artifacts/banzai/boundary-eval.{json,md}. Exit 0 iff every threshold is met.
 
 import { readFileSync, mkdirSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";

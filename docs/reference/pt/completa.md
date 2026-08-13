@@ -4,7 +4,7 @@
 **Data:** 2026-06-07  
 **Última revisão editorial:** 2026-07-11  
 **Estado:** Referência oficial do protocolo v1.0 · pré-produção · sem operador em produção  
-**Autoridade:** ADR-002, ADR-038, ADR-039, ADR-040, ADR-021
+**Autoridade:** ADR-002, ADR-027, ADR-033, ADR-031, ADR-039
 
 ---
 
@@ -127,7 +127,7 @@ Este documento é a especificação canónica do protocolo BANZA — a fonte de 
 
 O documento é permanente: as secções de princípios e governação descrevem propriedades invariantes do protocolo, não estados operacionais temporários. As secções de estado (Roteiro, Estado Actual) reflectem o ponto actual de implementação e evoluem com o protocolo.
 
-Para a arquitectura do BanzAI, consulte **[Referência §12 — BanzAI](/referencia/banzai)** (fonte canónica). O desenvolvimento activo do BanzAI reside inteiramente neste repositório (`services/banzai-api` + `engines/banzai-*`); não existe um repositório BanzAI separado (ADR-075).
+Para a arquitectura do BanzAI, consulte **[Referência §12 — BanzAI](/referencia/banzai)** (fonte canónica). O desenvolvimento activo do BanzAI reside inteiramente neste repositório (`services/banzai-api` + `engines/banzai-*`); não existe um repositório BanzAI separado (ADR-042).
 
 ### BANZA: Infraestrutura, Não Software
 
@@ -173,7 +173,7 @@ Tal como HTTP não processa websites e SMTP não entrega emails por si só, o BA
 
 ### O Que um Operador Recebe do BANZA
 
-O ecossistema BANZA disponibiliza ao operador os artefactos necessários para implementar o protocolo de forma autónoma, interoperar com outros operadores e ser verificado de forma independente. Os artefactos de protocolo (contratos, esquemas, ADRs, RFCs, testes de conformidade) são publicados directamente pelo protocolo. Os artefactos de confiança — metadata de protocolo assinada, Registo Público de Protocolo, BRL e Manifesto de Chaves — são definidos pelo protocolo e assinados pela Trust Root ou pelas suas chaves delegadas. Nenhum destes artefactos aprova, admite ou autoriza um operador: o operador auto-publica a sua própria metadata e evidência (ADR-039).
+O ecossistema BANZA disponibiliza ao operador os artefactos necessários para implementar o protocolo de forma autónoma, interoperar com outros operadores e ser verificado de forma independente. Os artefactos de protocolo (contratos, esquemas, ADRs, RFCs, testes de conformidade) são publicados directamente pelo protocolo. Os artefactos de confiança — metadata de protocolo assinada, Registo Público de Protocolo, BRL e Manifesto de Chaves — são definidos pelo protocolo e assinados pela Trust Root ou pelas suas chaves delegadas. Nenhum destes artefactos aprova, admite ou autoriza um operador: o operador auto-publica a sua própria metadata e evidência (ADR-033).
 
 | Artefacto | Finalidade |
 |---|---|
@@ -229,7 +229,7 @@ O BANZA v1.0 está disponível como conjunto de artefactos públicos, auditávei
 | **Verificação de Conformidade** | um conjunto determinístico de testes de conformidade para os níveis aplicáveis; executável por qualquer entidade sem taxa | Disponível |
 | **Executor de Conformidade** | Ferramenta de código aberto para executar os testes contra qualquer implementação | Disponível |
 | **Registo Público de Protocolo** | Localização e formato especificados para descoberta de metadata e evidência de operadores; produção dependente das condições de produção | Especificado |
-| **BanzAI** | Interface humana primária e transversal e motor cognitivo não autoritativo do protocolo (ADR-054, ADR-059) — guia, invoca os motores verificáveis e explica; não normativo, não decide, não certifica | Disponível |
+| **BanzAI** | Interface humana primária e transversal e motor cognitivo não autoritativo do protocolo (ADR-042, ADR-003) — guia, invoca os motores verificáveis e explica; não normativo, não decide, não certifica | Disponível |
 | **Implementações de Referência** | Implementações auxiliares do protocolo em várias linguagens; conformidade é independente da utilização de qualquer SDK específico | Opcional · não normativo |
 | **Contratos** | Especificações OpenAPI, esquemas de federação, contratos de eventos e webhooks, payload QR | Publicados |
 
@@ -428,7 +428,7 @@ A confiança do protocolo deve permanecer distribuída, verificável e independe
 
 Nenhum conceito financeiro ou protocolar entra numa implementação sem nascer primeiro na especificação. Nada existe apenas em prosa: quando a implementação começa, a regra tem de existir como artefacto — contrato OpenAPI, schema, invariante ou vector de conformidade em `contracts/` e `conformance/`.
 
-**Na prática:** É a regra *contracts-first* (ADR-005). Um recurso que não tem contrato público não pode ser testado pela suite de conformidade — e o que não pode ser testado não pode gerar evidência nem ser avaliado por um par. A ordem é fixa: especificação → implementação pelo operador → evidência publicada → avaliação determinística pelos pares.
+**Na prática:** É a regra *contracts-first* (ADR-001). Um recurso que não tem contrato público não pode ser testado pela suite de conformidade — e o que não pode ser testado não pode gerar evidência nem ser avaliado por um par. A ordem é fixa: especificação → implementação pelo operador → evidência publicada → avaliação determinística pelos pares.
 
 **Porque este princípio importa:** A alternativa é o desvio silencioso entre o que está escrito e o que está construído — a especificação torna-se descritiva em vez de normativa, e a conformidade deixa de ter âncora. Um protocolo financeiro só é auditável se a regra escrita for a regra real.
 
@@ -503,8 +503,8 @@ O caminho de uma implementação até à rede federada tem seis passos. Cada um 
 2. **O operador implementa localmente.** Na sua própria infraestrutura e tecnologia, sob as suas próprias autorizações. *Estado: possível hoje.*
 3. **Os testes verificam o comportamento.** A suite de conformidade exercita a implementação contra os vectores oficiais. *Estado: disponível hoje.*
 4. **A evidência é publicada.** O resultado é reproduzível por terceiros; um PASS é evidência técnica — não é autorização legal. *Estado: disponível hoje.*
-5. **O operador auto-publica metadata assinada.** Manifesto, versão de protocolo, capacidades, endpoints e evidência, assinados pelo operador e ancorados na cadeia de confiança do protocolo; a entrada aparece no Registo Público de Protocolo por regras públicas de indexação, não por decisão de ninguém (ADR-039). *Estado: alvo M2 — a confiança de produção depende da Trust Root de produção.*
-6. **A federação avalia, a cada encaminhamento.** Cada par executa a Avaliação Aberta de Confiança — dez verificações determinísticas sobre metadata, evidência, assinaturas e revogação — e falha fechada perante qualquer falha (ADR-040). *Estado: alvo M3 — a federação de produção depende de material de confiança de produção.*
+5. **O operador auto-publica metadata assinada.** Manifesto, versão de protocolo, capacidades, endpoints e evidência, assinados pelo operador e ancorados na cadeia de confiança do protocolo; a entrada aparece no Registo Público de Protocolo por regras públicas de indexação, não por decisão de ninguém (ADR-033). *Estado: alvo M2 — a confiança de produção depende da Trust Root de produção.*
+6. **A federação avalia, a cada encaminhamento.** Cada par executa a Avaliação Aberta de Confiança — dez verificações determinísticas sobre metadata, evidência, assinaturas e revogação — e falha fechada perante qualquer falha (ADR-031). *Estado: alvo M3 — a federação de produção depende de material de confiança de produção.*
 
 Os passos 1–4 descrevem o presente; os passos 5–6 descrevem o alvo. A distinção é deliberada e verificável nas rotas públicas. Em nenhum dos seis passos existe uma entidade que decida quem entra: o que muda de passo para passo é a evidência disponível, não a vontade de um avaliador.
 
@@ -526,7 +526,7 @@ O comportamento do núcleo do protocolo é definido pela especificação, pelos 
 - Federação e encaminhamento inter-operadores
 - Reconciliação automatizada
 - Sistema QR estático e dinâmico
-- Identidade @handle com unicidade global — um identificador de carteira no formato `@nome` que identifica univocamente um titular na rede BANZA, independentemente do operador onde está registado (ADR-010)
+- Identidade @handle com unicidade global — um identificador de carteira no formato `@nome` que identifica univocamente um titular na rede BANZA, independentemente do operador onde está registado (ADR-012)
 - Pontos de integração para os controlos de conformidade do operador — a avaliação regulatória, o KYC/KYB e o AML/CFT são da responsabilidade do operador e das autoridades competentes, não do protocolo
 
 Esta separação modular permite que cada componente evolua de forma independente sem comprometer os invariantes fundamentais do protocolo. Uma implementação de referência do núcleo, quando disponibilizada, expõe estas capacidades de forma acessível, sem que a sua utilização seja obrigatória para conformidade.
@@ -705,7 +705,7 @@ A extensão `pgvector` existe unicamente para o índice de recuperação do agen
 
 ### Estado actual e imposição
 
-Em auditoria (só leitura), todas as tabelas de artefactos, registo, evidência e índice estavam vazias; apenas `protocol_state` continha os marcadores de pré-produção. A fronteira não é apenas prosa: é imposta pelo schema (`001_schema.sql`), pelos papéis de privilégio mínimo e pela verificação automática `make postgres-data-boundary-check` (job de CI em cada *push* e *pull request*). Se for introduzida uma tabela capaz de guardar dados financeiros ou pessoais, tem de falhar as verificações de fronteira. Os invariantes financeiros (`INV-LEDGER-*`, `INV-WALLET-*`, `INV-SETTLE-*`) permanecem regras que o protocolo **define e verifica** para os operadores — o protocolo mede livros-razão; não mantém um. Ver **ADR-042** e `docs/governance/POSTGRESQL_PROTOCOL_STATE.md`.
+Em auditoria (só leitura), todas as tabelas de artefactos, registo, evidência e índice estavam vazias; apenas `protocol_state` continha os marcadores de pré-produção. A fronteira não é apenas prosa: é imposta pelo schema (`001_schema.sql`), pelos papéis de privilégio mínimo e pela verificação automática `make postgres-data-boundary-check` (job de CI em cada *push* e *pull request*). Se for introduzida uma tabela capaz de guardar dados financeiros ou pessoais, tem de falhar as verificações de fronteira. Os invariantes financeiros (`INV-LEDGER-*`, `INV-WALLET-*`, `INV-SETTLE-*`) permanecem regras que o protocolo **define e verifica** para os operadores — o protocolo mede livros-razão; não mantém um. Ver **ADR-026** e `docs/governance/POSTGRESQL_PROTOCOL_STATE.md`.
 
 ## 6. Confiança
 
@@ -731,7 +731,7 @@ Um modelo de aprovação central resolveria a escala, mas ao custo de um ponto �
 
 A infraestrutura de confiança BANZA elimina ambos os problemas. A pergunta "posso encaminhar para o Operador B?" tem uma resposta determinística que qualquer operador calcula localmente, offline, sem contactar ninguém, sem acordos bilaterais prévios, sem intermediários e sem pedir autorização.
 
-A resposta é o resultado da **Avaliação Aberta de Confiança**: manifesto válido, versão compatível, metadata assinada, evidência de conformidade presente e válida, assinatura verificável contra a Trust Root ou uma chave delegada, ausência do BRL, capacidades compatíveis, contrato de endpoint compatível e frescura da evidência dentro da política — falhando fechado em qualquer outro caso ([§8](#avaliação-aberta-de-confiança), ADR-040). Se a avaliação passar, a confiança protocolar está estabelecida — e o operador prossegue sujeito aos seus próprios controlos legais, operacionais, bancários e regulatórios. O BANZA não movimenta fundos, não detém saldos nem executa liquidação.
+A resposta é o resultado da **Avaliação Aberta de Confiança**: manifesto válido, versão compatível, metadata assinada, evidência de conformidade presente e válida, assinatura verificável contra a Trust Root ou uma chave delegada, ausência do BRL, capacidades compatíveis, contrato de endpoint compatível e frescura da evidência dentro da política — falhando fechado em qualquer outro caso ([§8](#avaliação-aberta-de-confiança), ADR-031). Se a avaliação passar, a confiança protocolar está estabelecida — e o operador prossegue sujeito aos seus próprios controlos legais, operacionais, bancários e regulatórios. O BANZA não movimenta fundos, não detém saldos nem executa liquidação.
 
 **A confiança importa porque:**
 
@@ -749,7 +749,7 @@ Para leitura institucional, a cadeia completa — do cofre offline à verificaç
 1. **Trust Root offline.** A chave raiz é gerada em cerimónia controlada, numa máquina isolada da rede, e permanece em custódia offline. Nunca toca na infraestrutura em linha. *Estado: cerimónia de produção agendada (M2).*
 2. **Manifesto assinado.** A raiz assina apenas o Manifesto de Chaves — o documento público que lista as chaves delegadas activas. *Estado: localização canónica especificada; o manifesto de produção depende de M2.*
 3. **Chaves delegadas de assinatura.** As chaves de metadata de protocolo, de revogação e de evidência derivam a sua autoridade do manifesto, com validade curta (≤ 184 dias) e âmbito limitado. A raiz nunca assina artefactos operacionais directamente.
-4. **Metadata de protocolo auto-publicada.** O operador publica e assina a sua própria metadata — manifesto, versão, capacidades, endpoints e evidência de conformidade (≤ 90 dias de frescura para L3+) — no seu próprio domínio. Ninguém a emite em seu nome (ADR-039). *Estado: nenhuma metadata de produção publicada — depende das condições de produção.*
+4. **Metadata de protocolo auto-publicada.** O operador publica e assina a sua própria metadata — manifesto, versão, capacidades, endpoints e evidência de conformidade (≤ 90 dias de frescura para L3+) — no seu próprio domínio. Ninguém a emite em seu nome (ADR-033). *Estado: nenhuma metadata de produção publicada — depende das condições de produção.*
 5. **Revogação.** A Lista de Revogação BANZA (BRL), assinada e publicada em ciclos de 6 horas, remove confiança de forma verificável — sem notificação par a par. É um mecanismo de segurança, não uma sanção.
 6. **Verificação pública.** Qualquer parte — operador, auditor, supervisor — verifica toda a cadeia com artefactos públicos: manifesto, metadata assinada, evidência, BRL e Registo Público de Protocolo. Nenhum passo exige permissão ou canal privilegiado.
 
@@ -811,7 +811,7 @@ As implementações devem fixar o Manifesto de Chaves no momento do lançamento.
 
 ### Metadata de Protocolo Assinada
 
-Cada operador publica e assina a sua própria metadata de protocolo — ninguém a emite em seu nome (ADR-039). A metadata é disponibilizada no domínio do próprio operador em:
+Cada operador publica e assina a sua própria metadata de protocolo — ninguém a emite em seu nome (ADR-033). A metadata é disponibilizada no domínio do próprio operador em:
 
 ```
 /.well-known/banza/protocol-metadata.json
@@ -894,7 +894,7 @@ O script de automação da cerimónia (`tools/root-ceremony/ceremony_script.py`)
 
 ### Agilidade Criptográfica
 
-O protocolo utiliza ed25519 como mecanismo de assinatura para todos os artefactos da cadeia de confiança (ADR-038). Esta escolha é documentada e auditável.
+O protocolo utiliza ed25519 como mecanismo de assinatura para todos os artefactos da cadeia de confiança (ADR-027). Esta escolha é documentada e auditável.
 
 O protocolo é concebido para poder migrar — não para ficar permanentemente dependente de um único algoritmo. A migração criptográfica segue o processo de governação:
 
@@ -912,7 +912,7 @@ Nenhuma migração criptográfica é possível sem activação da Trust Root e a
 
 | Componente | Estado |
 |-----------|--------|
-| Arquitectura da Trust Root (ADR-038) | CONCLUÍDA |
+| Arquitectura da Trust Root (ADR-027) | CONCLUÍDA |
 | Invariantes INV-ROOT-001 a INV-ROOT-006 | DEFINIDOS E VERIFICADOS |
 | Script de cerimónia (`tools/root-ceremony/ceremony_script.py`) | CONCLUÍDO — 10/10 verificações passam no ensaio |
 | Contratos de federação (metadata de protocolo, BRL) | CONCLUÍDOS |
@@ -1383,8 +1383,8 @@ Esta é a diferença estrutural face a um modelo de autoridade certificadora: a 
 
 | Proibição | Justificação |
 |---|---|
-| Autorizar, admitir ou aprovar um operador | Não existe função de admissão no protocolo — ADR-038 |
-| Emitir qualquer artefacto de estatuto a favor de um operador | O operador auto-publica a sua própria metadata — ADR-039 |
+| Autorizar, admitir ou aprovar um operador | Não existe função de admissão no protocolo — ADR-027 |
+| Emitir qualquer artefacto de estatuto a favor de um operador | O operador auto-publica a sua própria metadata — ADR-033 |
 | Recusar participação a operador com conformidade demonstrada | Não existe ponto no caminho onde tal recusa possa ocorrer |
 | Alterar o protocolo, ADRs ou RFCs | Exclusivo da estrutura de governação do protocolo |
 | Modificar a verificação de conformidade | Artefacto normativo do protocolo |
@@ -1640,7 +1640,7 @@ No modelo definido pelo protocolo, a federação ocorre em cinco momentos distin
 
 **1. Confiança**
 
-Antes de qualquer pagamento, o Operador A executa a Avaliação Aberta de Confiança sobre o Operador B ([§8](#avaliação-aberta-de-confiança), ADR-040). Esta avaliação é criptográfica e local — não requer uma consulta em linha ao BANZA e não consulta nenhuma autoridade.
+Antes de qualquer pagamento, o Operador A executa a Avaliação Aberta de Confiança sobre o Operador B ([§8](#avaliação-aberta-de-confiança), ADR-031). Esta avaliação é criptográfica e local — não requer uma consulta em linha ao BANZA e não consulta nenhuma autoridade.
 
 O Operador B publica e assina a sua própria metadata de protocolo, que afirma: "esta é a minha versão de protocolo, estas as minhas capacidades, estes os meus endpoints, e esta a evidência de conformidade que o demonstra." O Operador A verifica que a assinatura ancora no Manifesto de Chaves, que a evidência é válida e fresca, e que o material não consta do BRL. Nenhum terceiro atesta o Operador B ao Operador A — os artefactos bastam.
 
@@ -1800,7 +1800,7 @@ A especificação de federação foi concluída e verificada em 2026 — a *espe
 
 | Item | Estado |
 |------|--------|
-| Especificação de arquitectura (ADR-040) | CONCLUÍDO |
+| Especificação de arquitectura (ADR-031) | CONCLUÍDO |
 | Contratos de federação (5 esquemas) | CONCLUÍDO |
 | Invariantes de federação (`INV-OTE-*`, `INV-FEDEVAL-*`, `INV-ROOT-*`, `INV-FED-*`) | CONCLUÍDO |
 | Verificação de conformidade (conjunto de testes FED-CERT a FED-FAIL) | CONCLUÍDO |
@@ -1820,7 +1820,7 @@ A governação BANZA é o processo pelo qual as regras do protocolo evoluem. Def
 
 A governação é aberta: qualquer operador, programador ou participante do ecossistema pode propor alterações ao protocolo. Nenhum operador singular decide unilateralmente. As decisões são documentadas de forma imutável. Os assentos institucionais da Trust Root são definidos e geridos pela governação — ver §6.3 Assentos Institucionais.
 
-A governação evolui as regras do protocolo. Não admite, aprova, autoriza nem certifica operadores — essa função não existe no protocolo (ADR-038).
+A governação evolui as regras do protocolo. Não admite, aprova, autoriza nem certifica operadores — essa função não existe no protocolo (ADR-027).
 
 ![Processo de Governação BANZA — do RFC ao Protocolo Oficial](/diagrams/protocol/banza-governance-v1.svg)
 
@@ -1864,7 +1864,7 @@ As regras do protocolo estão organizadas em cinco níveis. Cada nível é vincu
 
 **N2 — Invariantes** são afirmações formais que o protocolo garante sem excepção: `INV-LEDGER-*`, `INV-WALLET-*`, `INV-STL-*`, `INV-OTE-*`, `INV-FEDEVAL-*`, `INV-FED-*`, `INV-ROOT-*`. Um invariante não pode ser violado por nenhuma ADR, RFC ou implementação. Qualquer proposta que contradiga um invariante requer um RFC que reveja o próprio invariante — e esse RFC só pode ser aceite se não contradizer os Princípios Fundamentais.
 
-**N3 — ADRs** concretizam os princípios em decisões de arquitectura: o livro-razão de partidas dobradas (ADR-006), a idempotência obrigatória (ADR-011), o modelo de confiança aberto sem autoridade central, incluindo a trust root offline e as chaves delegadas (ADR-038), a auto-publicação e conformidade verificável por máquina (ADR-039), a avaliação de confiança de federação (ADR-040). As ADRs são imutáveis após aceitação. Uma ADR que contradiga um invariante é inválida por definição. Uma ADR pode ser substituída por outra posterior, com rasto explícito.
+**N3 — ADRs** concretizam os princípios em decisões de arquitectura: o livro-razão de partidas dobradas (ADR-011), a idempotência obrigatória (ADR-024), o modelo de confiança aberto sem autoridade central, incluindo a trust root offline e as chaves delegadas (ADR-027), a auto-publicação e conformidade verificável por máquina (ADR-033), a avaliação de confiança de federação (ADR-031). As ADRs são imutáveis após aceitação. Uma ADR que contradiga um invariante é inválida por definição. Uma ADR pode ser substituída por outra posterior, com rasto explícito.
 
 **N4 — RFCs** concretizam os ADRs em especificações operacionais: novos fluxos de pagamento, novos âmbitos de conformidade, novas moedas no registo, novos mecanismos criptográficos. Um RFC só pode ser aceite se não contradizer nenhuma ADR ou invariante vigente.
 
@@ -1905,16 +1905,16 @@ Os ADRs documentam decisões de arquitectura depois de tomadas: escolhas tecnol�
 
 | ADR | Decisão |
 |-----|---------|
-| ADR-006 | Livro-razão de partidas dobradas como base financeira |
-| ADR-011 | Idempotência obrigatória e limitação de taxa |
-| ADR-012 | Sistema de pagamento QR (estático e dinâmico) |
-| ADR-010 | Modelo de identidade de conta/participante (com @handle) |
+| ADR-011 | Livro-razão de partidas dobradas como base financeira |
+| ADR-024 | Idempotência obrigatória e limitação de taxa |
+| ADR-016 | Sistema de pagamento QR (estático e dinâmico) |
+| ADR-012 | Modelo de identidade de conta/participante (com @handle) |
 | ADR-001 | Protocolo financeiro aberto — independência de implementação |
-| ADR-003 | Separação entre operadores e protocolo |
+| ADR-001 | Separação entre operadores e protocolo |
 | ADR-002 | Hierarquia canónica BANZA/BanzAI/Operadores |
-| ADR-038 | Modelo de confiança de protocolo aberto sem autoridade certificadora |
-| ADR-039 | Auto-publicação do operador e conformidade verificável por máquina |
-| ADR-040 | Avaliação de confiança de federação sem certificados |
+| ADR-027 | Modelo de confiança de protocolo aberto sem autoridade certificadora |
+| ADR-033 | Auto-publicação do operador e conformidade verificável por máquina |
+| ADR-031 | Avaliação de confiança de federação sem certificados |
 
 Os ADRs são numerados sequencialmente e imutáveis após aceitação. Qualquer operador pode propor um ADR através do processo RFC.
 
@@ -1925,7 +1925,7 @@ O processo começa com uma proposta aberta — qualquer participante pode propor
 
 A rejeição documentada é tão importante quanto a aceitação. Um processo que só regista o que aceita deixa um rasto opaco: não há forma de saber que alternativas foram consideradas, que argumentos foram avançados, ou que invariantes seriam violados pela proposta rejeitada. O historial de ADRs não é apenas um registo de decisões — é o registo de todas as tentativas de mudança e das razões pelas quais algumas foram recusadas. É o que torna o protocolo auditável não apenas no presente, mas ao longo do tempo.
 
-A imutabilidade dos ADRs após aceitação não é rigidez — é a base da confiança dos operadores. Um operador que implementa L3 contra ADR-007 precisa de saber que ADR-007 não vai ser silenciosamente alterado. Se uma regra mudar, muda através de um novo ADR, com número próprio, referências explícitas ao ADR que revoga, e o mesmo processo de avaliação pública. Nada muda sem rasto.
+A imutabilidade dos ADRs após aceitação não é rigidez — é a base da confiança dos operadores. Um operador que implementa L3 contra ADR-011 precisa de saber que ADR-011 não vai ser silenciosamente alterado. Se uma regra mudar, muda através de um novo ADR, com número próprio, referências explícitas ao ADR que revoga, e o mesmo processo de avaliação pública. Nada muda sem rasto.
 
 Qualquer alteração ao protocolo que não siga este processo não é uma alteração ao protocolo — é uma alteração privada de um operador. Esta distinção é operacional, não retórica: uma alteração fora do processo pode existir numa implementação, mas não pode ser invocada como parte das regras do BANZA. A verificação de conformidade não a reconhece. Nenhum outro operador é obrigado a seguir. É precisamente esta propriedade que protege o ecossistema de ser capturado pelo operador dominante.
 
@@ -1954,7 +1954,7 @@ A operação de assinatura da cadeia de confiança — a custódia da Trust Root
 
 A governação do BANZA (em fase de bootstrap — ver "Governação em Fase de Bootstrap", abaixo) supervisiona a operação de assinatura através de quatro mecanismos:
 
-- **Definição de âmbito** — o que cada chave delegada pode assinar está definido no protocolo (ADR-038) e limitado por `INV-ROOT-008`; a operação não define o seu próprio âmbito
+- **Definição de âmbito** — o que cada chave delegada pode assinar está definido no protocolo (ADR-027) e limitado por `INV-ROOT-008`; a operação não define o seu próprio âmbito
 - **Fundamento das revogações** — toda a entrada no BRL exige fundamento objectivo e publicado; a governação processa contestações de entradas infundadas
 - **Auditoria periódica** — [periodicidade a definir] a governação audita as práticas, os registos e os procedimentos de custódia e assinatura
 - **Substituição** — a governação pode substituir os custódios sem alterar o protocolo ou a verificação de conformidade
@@ -1977,7 +1977,7 @@ A Entidade de Governação BANZA é o órgão responsável pela governação de 
 
 | Função | Autoridade | Base documental |
 |---|---|---|
-| Supervisão da operação de assinatura | Define o âmbito delegado, audita práticas, pode substituir os custódios | ADR-038 |
+| Supervisão da operação de assinatura | Define o âmbito delegado, audita práticas, pode substituir os custódios | ADR-027 |
 | Processamento de contestações de revogação | Verificação de que o fundamento publicado corresponde à evidência | §7 Contestação de Revogação |
 | Aprovação de ADRs e RFCs | Validação de alterações normativas ao protocolo | Hierarquia Normativa §10 |
 | Aprovação de activações da Trust Root | Autorização de cerimónias de activação | §6.4, §6.10 |
@@ -2074,9 +2074,9 @@ O **BanzAI guia e explica; não cria regras** — novas regras entram apenas pel
 
 > **Capítulo canónico.** A arquitectura do BanzAI — interface humana primária e
 > transversal, motor cognitivo não autoritativo, fronteira de autoridade, jornada
-> de nove passos (ADR-067/068), síntese única do modelo local (ADR-055),
-> verificação final obrigatória em Rust (ADR-073) e estado verificável em runtime
-> (ADR-072) — é mantida como fonte única em
+> de nove passos (ADR-041/068), síntese única do modelo local (ADR-042),
+> verificação final obrigatória em Rust (ADR-042) e estado verificável em runtime
+> (ADR-042) — é mantida como fonte única em
 > **[Referência §12 — BanzAI](/referencia/banzai)**
 > (`website/content/BANZA_REFERENCIA.md`, capítulo «12. BanzAI — Agente do
 > Protocolo»). Este ficheiro é um espelho de documentação; consulte sempre o
@@ -2317,7 +2317,7 @@ Lista única de todos os artefactos que um operador publica no seu domínio e na
 
 | Marco | Alcançado | Evidência |
 |-------|:---------:|---------|
-| M1 — Especificação Completa (v1.0) | **2026-06-01** | conjunto de testes de federação e cenários de interoperabilidade verificados; o modelo de confiança e federação foi redesenhado em M2.3 (ADR-038/ADR-039/ADR-040) |
+| M1 — Especificação Completa (v1.0) | **2026-06-01** | conjunto de testes de federação e cenários de interoperabilidade verificados; o modelo de confiança e federação foi redesenhado em M2.3 (ADR-027/ADR-033/ADR-031) |
 | M5 (parcial) — Estúdio de Validação | **2026-06-01** | Arquitectura de validação de três matrizes estabelecida |
 
 ### Activo
@@ -2429,7 +2429,7 @@ Quando publica metadata de protocolo assinada que verifica contra o Manifesto de
 
 **Se o BANZA é aberto, quem decide quem participa?**
 
-Ninguém. Essa é a resposta literal, e é o ponto central do modelo (ADR-038). Não existe autoridade certificadora, entidade de admissão nem processo de aprovação: um operador implementa o protocolo, publica a sua evidência e assina a sua metadata; cada par avalia esse material com as mesmas dez verificações determinísticas e chega ao mesmo veredicto. A cadeia de confiança BANZA existe para tornar esses artefactos impossíveis de forjar — não para atestar participantes. Se houvesse alguém a decidir, haveria alguém a capturar.
+Ninguém. Essa é a resposta literal, e é o ponto central do modelo (ADR-027). Não existe autoridade certificadora, entidade de admissão nem processo de aprovação: um operador implementa o protocolo, publica a sua evidência e assina a sua metadata; cada par avalia esse material com as mesmas dez verificações determinísticas e chega ao mesmo veredicto. A cadeia de confiança BANZA existe para tornar esses artefactos impossíveis de forjar — não para atestar participantes. Se houvesse alguém a decidir, haveria alguém a capturar.
 
 **Isto é aprovação regulatória?**
 
@@ -2687,7 +2687,7 @@ A Trust Root assina apenas o Manifesto de Chaves; as chaves delegadas assinam me
 
 **Quem aprova os operadores BANZA?**
 
-Ninguém. Não existe autoridade certificadora, entidade de admissão nem processo de aprovação no protocolo (ADR-038). BANZA é um protocolo financeiro aberto. A participação de operadores é demonstrada por conformidade protocolar verificável, não por aprovação humana central. Ver [§7 Conformidade e Evidência](#7-conformidade-e-evidência).
+Ninguém. Não existe autoridade certificadora, entidade de admissão nem processo de aprovação no protocolo (ADR-027). BANZA é um protocolo financeiro aberto. A participação de operadores é demonstrada por conformidade protocolar verificável, não por aprovação humana central. Ver [§7 Conformidade e Evidência](#7-conformidade-e-evidência).
 
 ---
 
@@ -2822,18 +2822,18 @@ Não. BanzAI guia e explica. Novas regras entram apenas por governação públic
 ## Referências
 
 **ADRs:**
-- ADR-006 — Livro-razão de partidas dobradas
-- ADR-011 — Idempotência e limitação de taxa
-- ADR-012 — Sistema de pagamento QR
-- ADR-010 — Modelo de identidade de conta/participante
+- ADR-011 — Livro-razão de partidas dobradas
+- ADR-024 — Idempotência e limitação de taxa
+- ADR-016 — Sistema de pagamento QR
+- ADR-012 — Modelo de identidade de conta/participante
 - ADR-001 — Protocolo financeiro aberto
-- ADR-003 — Separação de operadores
+- ADR-001 — Separação de operadores
 - ADR-002 — Nomenclatura do ecossistema (canónico)
-- ADR-038 — Modelo de confiança de protocolo aberto sem autoridade certificadora
-- ADR-039 — Auto-publicação do operador e conformidade verificável por máquina
-- ADR-040 — Avaliação de confiança de federação sem certificados
-- ADR-042 — PostgreSQL como base de estado protocolar (não livro-razão financeiro)
-- ADR-043 — Licença, atribuição, marcas e governação aberta (Apache-2.0 + NOTICE + TRADEMARKS + GOVERNANCE)
+- ADR-027 — Modelo de confiança de protocolo aberto sem autoridade certificadora
+- ADR-033 — Auto-publicação do operador e conformidade verificável por máquina
+- ADR-031 — Avaliação de confiança de federação sem certificados
+- ADR-026 — PostgreSQL como base de estado protocolar (não livro-razão financeiro)
+- ADR-044 — Licença, atribuição, marcas e governação aberta (Apache-2.0 + NOTICE + TRADEMARKS + GOVERNANCE)
 
 **Documentos complementares:**
 - `docs/governance/POSTGRESQL_PROTOCOL_STATE.md` — PostgreSQL como estado protocolar (fronteira de dados)

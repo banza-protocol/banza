@@ -214,7 +214,7 @@
       ]
     },
     {
-      "target": "decisions/adr/ADR-081-normative-completeness-versioning-decision.md",
+      "target": "decisions/adr/ADR-009-normative-completeness-versioning-decision.md",
       "kind": "rationale",
       "why": "An ADR records why a rule was adopted. It is never the rule, and nothing here requires reading it. Excluded from the package on purpose.",
       "referenced_by": [
@@ -222,7 +222,7 @@
       ]
     },
     {
-      "target": "decisions/adr/ADR-082-banza-canonical-json.md",
+      "target": "decisions/adr/ADR-010-banza-canonical-json.md",
       "kind": "rationale",
       "why": "An ADR records why a rule was adopted. It is never the rule, and nothing here requires reading it. Excluded from the package on purpose.",
       "referenced_by": [
@@ -230,7 +230,7 @@
       ]
     },
     {
-      "target": "decisions/adr/ADR-083-reason-code-model.md",
+      "target": "decisions/adr/ADR-023-reason-code-model.md",
       "kind": "rationale",
       "why": "An ADR records why a rule was adopted. It is never the rule, and nothing here requires reading it. Excluded from the package on purpose.",
       "referenced_by": [

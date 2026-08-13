@@ -635,20 +635,20 @@ mod tests {
     #[test]
     fn citation_outside_allowed_is_illegal() {
         let mut o = good();
-        o.cited_source_ids = vec!["ADR-021".into()];
+        o.cited_source_ids = vec!["ADR-039".into()];
         let v = validate_output(&pkg(), &o);
         assert!(!v.ok);
-        assert_eq!(v.illegal_citations, vec!["ADR-021".to_string()]);
+        assert_eq!(v.illegal_citations, vec!["ADR-039".to_string()]);
     }
 
     #[test]
     fn wrong_doc_identity_in_prose_is_flagged() {
         let mut o = good();
         o.answer_markdown =
-            "Na verdade a ADR-021 trata da nomenclatura do ecossistema aqui.".into();
+            "Na verdade a ADR-039 trata da nomenclatura do ecossistema aqui.".into();
         let v = validate_output(&pkg(), &o);
         assert!(!v.ok);
-        assert!(v.uncited_doc_mentions.contains(&"ADR-021".to_string()));
+        assert!(v.uncited_doc_mentions.contains(&"ADR-039".to_string()));
     }
 
     #[test]
@@ -865,10 +865,10 @@ mod tests {
             "the real citation passes"
         );
         // A citation that resolves to no package source → reject.
-        input.cited_source_ids = vec!["ADR-021".into()];
+        input.cited_source_ids = vec!["ADR-039".into()];
         let v = classify_and_verify(&pkg(), &input);
         assert!(!v.ok);
-        assert_eq!(v.dead_citations, vec!["ADR-021".to_string()]);
+        assert_eq!(v.dead_citations, vec!["ADR-039".to_string()]);
     }
 
     #[test]

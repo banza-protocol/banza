@@ -3,7 +3,7 @@
 **Version:** 1.0  
 **Date:** 2026-06-07  
 **Status:** Official v1.0 protocol reference · pre-production  
-**Authority:** ADR-002, ADR-038, ADR-039, ADR-040, ADR-021
+**Authority:** ADR-002, ADR-027, ADR-033, ADR-031, ADR-039
 
 > **Public v1.0 status:** This reference defines the BANZA v1.0 protocol in pre-production. The Public Protocol Registry returns an empty list. The Key Manifest and the BRL (BANZA Revocation List) have specified canonical locations, but production publication depends on milestone M2. Production federation depends on milestone M3. Technical conformance does not replace applicable legal, regulatory, banking, KYC/KYB or AML/CFT obligations. Operational status is defined in the [Roadmap](#11-roadmap).
 
@@ -277,7 +277,7 @@ Each level is cumulative. L3 requires everything in L2, which requires everythin
 > **Warning:** L1 and higher tests can perform **POST** requests (wallets, transfers, payments). Run them only against sandbox/test environments — never against production unless the operator has explicitly prepared a safe test environment.
 
 **L3 — Inter-Operator Interoperability — full requirements:**
-- Signed protocol metadata self-published at `/.well-known/banza/protocol-metadata.json` (ADR-039)
+- Signed protocol metadata self-published at `/.well-known/banza/protocol-metadata.json` (ADR-033)
 - Metadata signature verifies against the Trust Root or an active delegated key (INV-FEDEVAL-004)
 - Conformance evidence freshness: 90 days maximum (INV-FEDEVAL-006)
 - Operator not present in the BANZA Revocation List (BRL) (INV-FEDEVAL-002)
@@ -365,7 +365,7 @@ The operator stores the report, publishes it, and references it by hash in its s
 2. **Implement the capabilities.** Build your operator against the protocol specification. See [Developer Resources](#9-developer-resources).
 3. **Run the conformance validation in the BanzAI.** In the **Conformidade** tab of the [BanzAI](/banzai), run the validation for your target level against your public URL. All tests must pass — a single failure means the scope is not demonstrated. Run only against your own operator or sandbox endpoint. Level 0 is a read-only check (manifest + `/health`); level 1 and above may POST to wallet, transfer and payment endpoints, so it should only be run against a safe test/sandbox environment. Generate the **Evidence Bundle** and save the evidence report.
 4. **Publish the evidence.** Serve the report at a stable public URL on your own domain.
-5. **Sign and publish your protocol metadata.** Reference the evidence by hash at `/.well-known/banza/protocol-metadata.json`, signed and anchored in the protocol trust chain (ADR-039). Nobody issues it for you.
+5. **Sign and publish your protocol metadata.** Reference the evidence by hash at `/.well-known/banza/protocol-metadata.json`, signed and anchored in the protocol trust chain (ADR-033). Nobody issues it for you.
 6. **Keep it fresh.** Republish within the applicable freshness policy. From here there is nothing left to do: registry indexing and peer evaluation are automatic and deterministic.
 
 ### What Peers Verify
@@ -510,7 +510,7 @@ In the model defined by the protocol, federation occurs in five distinct moments
 
 **1. Trust**
 
-Before any payment, Operator A runs the [Open Trust Evaluation](#open-trust-evaluation) over Operator B (ADR-040). This evaluation is cryptographic and local — it does not require a real-time call to BANZA and consults no authority.
+Before any payment, Operator A runs the [Open Trust Evaluation](#open-trust-evaluation) over Operator B (ADR-031). This evaluation is cryptographic and local — it does not require a real-time call to BANZA and consults no authority.
 
 The answer is the result of ten deterministic checks over artifacts Operator B published on its own domain: a valid manifest, a compatible protocol version, signed protocol metadata, conformance evidence present and valid, a signature verifying against the Trust Root or a delegated key, absence from the BRL, compatible capabilities, a compatible endpoint contract, evidence freshness within policy — failing closed in any other case.
 
@@ -646,7 +646,7 @@ The federation specification is complete and verified; production federation dep
 
 | Item | Status |
 |------|--------|
-| Architecture specification (ADR-038 + ADR-040) | COMPLETE |
+| Architecture specification (ADR-027 + ADR-031) | COMPLETE |
 | Federation contracts (5 schemas) | COMPLETE |
 | Federation invariants (INV-OTE-*, INV-FEDEVAL-*, INV-ROOT-*, INV-FED-*) | COMPLETE |
 | Conformance test set (FED-CERT through FED-FAIL groups) | COMPLETE |
@@ -713,7 +713,7 @@ The Key Manifest contains:
 #### Trust anchor distribution
 
 The federation trust anchor is the BANZA root public key. Its distribution model
-is **protocol-owned**, not SDK-owned (full specification: ADR-038):
+is **protocol-owned**, not SDK-owned (full specification: ADR-027):
 
 - **Normative source.** The canonical distribution channel is the protocol-owned
   signed Key Manifest at `https://banza.network/.well-known/banza/key-manifest.json`.
@@ -723,7 +723,7 @@ is **protocol-owned**, not SDK-owned (full specification: ADR-038):
   `root_public_key` and reject an expired manifest (`expires_at`).
 - **Versioning.** Manifests are versioned and supersede one another; a historical
   archive (`/.well-known/banza/key-archive.json`) lets verifiers validate artifacts
-  signed under earlier manifests (ADR-038).
+  signed under earlier manifests (ADR-027).
 - **Pinning (implementation-specific).** Implementations MAY pin or cache the root
   key offline — bundled in an SDK, embedded in the conformance runner, or pinned in
   an application — for availability and offline verification. Such caches are a
@@ -742,7 +742,7 @@ is **protocol-owned**, not SDK-owned (full specification: ADR-038):
 
 ### Signed Protocol Metadata
 
-Each operator publishes and signs its own protocol metadata — nobody issues it on its behalf (ADR-039). The metadata is served on the operator's own domain at:
+Each operator publishes and signs its own protocol metadata — nobody issues it on its behalf (ADR-033). The metadata is served on the operator's own domain at:
 
 ```
 /.well-known/banza/protocol-metadata.json
@@ -841,15 +841,15 @@ Every question enters the Rust router, which decides between two destinations.
 
 **Exact terminals (Rust, no model).** A canonical fact bound to its source — status, date, identifier, version, licence, origin — a canonical definition, a safety refusal, a clarification request, insufficient evidence, or a safe operational failure. They are concise, typed and source-bound; an exact fact with no canonical source fails safe to *insufficient evidence*, never a guess.
 
-**The explanatory trunk (the only model path).** Every genuine explanation — meaning, why, how it works, implications, comparison — follows a fixed course: Rust boundary pre-check → Rust intent and entity resolution → Rust retrieval and re-ranking → **FactualPackage**, the closed evidence → **a single synthesis by the local model** (ADR-055) → **Rust validation before publishing**. Validation is dual and mandatory: the factual validator confirms the prose is anchored in the evidence, and the post-response validator rejects any text that claims normative authority, invents protocol state, or tries to expose the prompt, keys or internal reasoning. The model receives only the FactualPackage and the output contract — it never chooses sources, resolves entities, or publishes without the validators.
+**The explanatory trunk (the only model path).** Every genuine explanation — meaning, why, how it works, implications, comparison — follows a fixed course: Rust boundary pre-check → Rust intent and entity resolution → Rust retrieval and re-ranking → **FactualPackage**, the closed evidence → **a single synthesis by the local model** (ADR-042) → **Rust validation before publishing**. Validation is dual and mandatory: the factual validator confirms the prose is anchored in the evidence, and the post-response validator rejects any text that claims normative authority, invents protocol state, or tries to expose the prompt, keys or internal reasoning. The model receives only the FactualPackage and the output contract — it never chooses sources, resolves entities, or publishes without the validators.
 
 A mixed request escalates to the trunk — never a partial exact answer. Every response honestly declares the terminal it took and publishes its own state: **one model call per explanation and zero external calls, by construction.**
 
 ### How an implementation is validated
 
-In validation mode, evaluating an implementation runs nine steps — **Discovery → Manifest → Keys → Conformance → Interoperability → Trust → Federation → Evidence Bundle → Certification Readiness** — started by a human and **executed by the Rust engines** (ADR-067). BanzAI initiates the journey (human-triggered) and explains each step; it does not execute it.
+In validation mode, evaluating an implementation runs nine steps — **Discovery → Manifest → Keys → Conformance → Interoperability → Trust → Federation → Evidence Bundle → Certification Readiness** — started by a human and **executed by the Rust engines** (ADR-041). BanzAI initiates the journey (human-triggered) and explains each step; it does not execute it.
 
-Official validation uses **exclusively artifacts fetched from the public endpoints of the selected implementation** (ADR-068). The target is resolved in the Technical Registry (`operator_id → implementation_id → canonical origin → discovery`) and, at each step, **the Rust engines fetch the artifacts** through a **secure fetch layer — never through the browser**; no user-supplied URL, file or content enters the official journey. Each step emits an *OperationReceipt* bound to the exact origin of the inputs (resolved host, `fetched_at`, HTTP status, hash, signature state, engine and version, result, reason codes), and the set is sealed into a *JourneyReceipt*. By construction, `qwen_calls = 0` and `external_model_calls = 0`.
+Official validation uses **exclusively artifacts fetched from the public endpoints of the selected implementation** (ADR-038). The target is resolved in the Technical Registry (`operator_id → implementation_id → canonical origin → discovery`) and, at each step, **the Rust engines fetch the artifacts** through a **secure fetch layer — never through the browser**; no user-supplied URL, file or content enters the official journey. Each step emits an *OperationReceipt* bound to the exact origin of the inputs (resolved host, `fetched_at`, HTTP status, hash, signature state, engine and version, result, reason codes), and the set is sealed into a *JourneyReceipt*. By construction, `qwen_calls = 0` and `external_model_calls = 0`.
 
 **The validation journey produces verifiable technical evidence; it does not certify, admit or authorise.** The result is specific to the implementation, the profile, the version, the environment, the scope and the moment of evaluation. The operator is the responsible entity; the implementation is the technical system under evaluation. Operador Zero is the only demonstration implementation — read-only, NOT_CERTIFIED, no real money — and it runs exactly the same process applied to any future published implementation. A local draft tool, clearly separated from the official journey, checks a single piece of developer content and **never constitutes official evidence**.
 
@@ -887,7 +887,7 @@ The authority matrix below distributes each action to its real owners. No single
 
 Runtime state is **verifiable per response**, not a fixed assertion. Each response publishes its own state — the execution path, the cited sources, the effective engine, and whether an external model was called. In validation mode, model decision calls and external calls are **zero by construction**, and the runtime is **non-authoritative** (`authoritative: false`).
 
-This page pins neither the provider, the model, nor counters: the effective engine, the inference location and the numbers are whatever the **runtime state machine route** (`GET /banzai/runtime`, ADR-072) reports at any moment. That route is the **single source** every page consumes; the `/estado` page is the human explanation, and where they diverge, **the machine route wins**. So any claim about BanzAI's state is confirmable directly at the source — without depending on trust in this text.
+This page pins neither the provider, the model, nor counters: the effective engine, the inference location and the numbers are whatever the **runtime state machine route** (`GET /banzai/runtime`, ADR-042) reports at any moment. That route is the **single source** every page consumes; the `/estado` page is the human explanation, and where they diverge, **the machine route wins**. So any claim about BanzAI's state is confirmable directly at the source — without depending on trust in this text.
 
 ### Sources, code and repositories
 
@@ -897,7 +897,7 @@ BanzAI's sources are of two kinds.
 
 **Governance rationale (explanatory).** An ADR records a decision and its why; the binding artifact is the contract, spec or invariant it points to. **A proposed RFC is not a rule; an ADR is not a contract.** A gap becomes a public proposal, never an active rule.
 
-**Canonical two-repository map.** The `banza-protocol/banza` repository (this one) holds the protocol, the public website, the **canonical BanzAI runtime** (TypeScript glue + Rust engines), the machine routes, governance, conformance and the contracts — it is the source of truth. Active BanzAI development lives entirely in this repository — there is no separate BanzAI repository (ADR-075). AI output is never a source of truth.
+**Canonical two-repository map.** The `banza-protocol/banza` repository (this one) holds the protocol, the public website, the **canonical BanzAI runtime** (TypeScript glue + Rust engines), the machine routes, governance, conformance and the contracts — it is the source of truth. Active BanzAI development lives entirely in this repository — there is no separate BanzAI repository (ADR-042). AI output is never a source of truth.
 
 ---
 
@@ -1028,7 +1028,7 @@ SDKs, where they exist, are one of:
   they will appear in this repository and be listed here. None are published today.
 
 Any SDK that pins the federation trust anchor SHOULD pin it from the protocol-owned
-Key Manifest (see *Trust anchor distribution*, ADR-038) — SDK bundling is a
+Key Manifest (see *Trust anchor distribution*, ADR-027) — SDK bundling is a
 convenience cache, never the normative source of the root key.
 
 ### Contracts
@@ -1213,7 +1213,7 @@ An RFC is required for:
 - New currencies in the official registry
 - Federation protocol design
 
-**ADRs (Architecture Decision Records)** record decisions after they are made: technology choices, service boundaries, SDK architecture, naming. ADRs are numbered sequentially and immutable after acceptance. ADR-002 defines the canonical BANZA/BanzAI/Operators hierarchy. ADR-038 defines the open protocol trust model, including the offline Trust Root and its delegated-key hierarchy. ADR-039 defines operator self-publication and machine-verifiable conformance. ADR-040 defines federation trust evaluation.
+**ADRs (Architecture Decision Records)** record decisions after they are made: technology choices, service boundaries, SDK architecture, naming. ADRs are numbered sequentially and immutable after acceptance. ADR-002 defines the canonical BANZA/BanzAI/Operators hierarchy. ADR-027 defines the open protocol trust model, including the offline Trust Root and its delegated-key hierarchy. ADR-033 defines operator self-publication and machine-verifiable conformance. ADR-031 defines federation trust evaluation.
 
 BANZA governance maintains the protocol; it does not control who may or may not implement the protocol.
 
@@ -1251,7 +1251,7 @@ Active work is now operational (M2–M6), not specification. See [Roadmap](#11-r
 
 | Milestone | Achieved | Evidence |
 |-----------|:--------:|---------|
-| M1 — Protocol Complete | **2026-06-01** | federation and interoperability conformance test set verified; the trust and federation model was later redesigned in M2.3 (ADR-038/ADR-039/ADR-040) |
+| M1 — Protocol Complete | **2026-06-01** | federation and interoperability conformance test set verified; the trust and federation model was later redesigned in M2.3 (ADR-027/ADR-033/ADR-031) |
 | M5 (partial) — Validation Studio | **2026-06-01** | Three-matrix validation architecture established |
 
 ### Active
@@ -1295,7 +1295,7 @@ Nobody. There is no admission function in the protocol. BANZA is an open financi
 
 **How does an operator decide whether to route to another?**
 
-By running the Open Trust Evaluation (ADR-040) locally. It applies ten deterministic checks over material the evaluated operator itself publishes: valid operator manifest, compatible protocol version, signed protocol metadata, conformance evidence present and valid, valid Trust Root or delegated-key signature, absence from the BRL, compatible capabilities, compatible endpoint contract, evidence freshness within policy, and fail-closed on trust material that is missing, invalid, expired, revoked or incompatible. The checks are conjunctive — any failure refuses the routing — and none of them consults an authority or a person's judgment. See [Open Trust Evaluation](#open-trust-evaluation).
+By running the Open Trust Evaluation (ADR-031) locally. It applies ten deterministic checks over material the evaluated operator itself publishes: valid operator manifest, compatible protocol version, signed protocol metadata, conformance evidence present and valid, valid Trust Root or delegated-key signature, absence from the BRL, compatible capabilities, compatible endpoint contract, evidence freshness within policy, and fail-closed on trust material that is missing, invalid, expired, revoked or incompatible. The checks are conjunctive — any failure refuses the routing — and none of them consults an authority or a person's judgment. See [Open Trust Evaluation](#open-trust-evaluation).
 
 ---
 
@@ -1412,16 +1412,16 @@ The root key ceremony is the offline process by which the BANZA Trust Root is ge
 ## References
 
 **ADRs:**
-- ADR-006 — Double-entry ledger
-- ADR-011 — Idempotency and rate limiting
-- ADR-012 — QR payment system
-- ADR-010 — Account/Participant Identity Model
+- ADR-011 — Double-entry ledger
+- ADR-024 — Idempotency and rate limiting
+- ADR-016 — QR payment system
+- ADR-012 — Account/Participant Identity Model
 - ADR-001 — Open financial protocol (implementation independence)
-- ADR-003 — Operator separation
+- ADR-001 — Operator separation
 - ADR-002 — Ecosystem naming (canonical)
-- ADR-038 — Open Protocol Trust Model Without CA
-- ADR-039 — Operator Self-Publication and Machine-Verifiable Conformance
-- ADR-040 — Federation Trust Evaluation Without Certificates
+- ADR-027 — Open Protocol Trust Model Without CA
+- ADR-033 — Operator Self-Publication and Machine-Verifiable Conformance
+- ADR-031 — Federation Trust Evaluation Without Certificates
 
 **Companion documents:**
 - `docs/governance/certification-boundary.md` — Conformance levels, process, maintenance (authoritative)

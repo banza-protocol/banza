@@ -2,10 +2,10 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://banza.network/contracts/production/operator-record.production.schema.json",
   "title": "OperatorRecord",
-  "description": "A record in the closed BANZA Technical Registry for an OPERATOR — the responsible entity (ADR-068 §4.2/§4.3, §13). An operator publishes zero or more implementations; the operator is the entity responsible, the implementation is the technical system evaluated. Presence of a record NEVER implies admission to a scheme, regulatory authorisation, or the ability to move funds (ADR-068 §4.10, ADR-061). Documentary/reference contract — mirrors the Rust `banza-target-registry` OperatorRecord; it introduces no new financial invariant.",
+  "description": "A record in the closed BANZA Technical Registry for an OPERATOR — the responsible entity (ADR-038 §4.2/§4.3, §13). An operator publishes zero or more implementations; the operator is the entity responsible, the implementation is the technical system evaluated. Presence of a record NEVER implies admission to a scheme, regulatory authorisation, or the ability to move funds (ADR-038 §4.10, ADR-004). Documentary/reference contract — mirrors the Rust `banza-target-registry` OperatorRecord; it introduces no new financial invariant.",
   "_spec_version": "1.0",
   "_status": "reference",
-  "_authority": "ADR-068 (endpoint-originated operator validation & operator–implementation model), ADR-065 (technical registry), ADR-037 (Rust-first engines)",
+  "_authority": "ADR-038 (endpoint-originated operator validation & operator–implementation model), ADR-036 (technical registry), ADR-043 (Rust-first engines)",
   "_boundary": "Registry presence is a technical fact only. It is not certification, scheme admission, or regulatory authorisation, and it never lets any entity move funds.",
 
   "type": "object",

@@ -3,10 +3,10 @@
 # M2.19G — /certificacao owner-page guard.
 #
 # /certificacao is the REAL owning page for the BANZA Conformance & Interoperability Certification
-# (Layer 2, ADR-064/065/066). This guard locks its canonical content:
+# (Layer 2, ADR-034/065/066). This guard locks its canonical content:
 #   - both mandatory canonical sentences (the "É" and the "NÃO É") verbatim;
 #   - the "Certificação técnica ≠ Admissão a esquema ≠ Autorização regulatória" three-way separation;
-#   - the ADR-064/065/066 references;
+#   - the ADR-034/065/066 references;
 #   - the closed, fail-closed lifecycle states (NOT_CERTIFIED/CERTIFIED/EXPIRED/SUSPENDED/REVOKED/SUPERSEDED);
 #   - it is linked from the footer (website/lib/site.ts) and the sitemap (website/app/sitemap.ts);
 #   - NONE of the retired framings appear as a positive claim (negation-aware): a central certifying
@@ -76,12 +76,12 @@ if [ -f "$PAGE" ]; then
   grep -qE '&ne;|≠' "$PAGE" && ok 'carries the non-equivalence (≠) separator' || fl 'missing the ≠ / &ne; separator'
 fi
 
-echo "== [4/6] ADR-064/065/066 referenced + closed lifecycle states =="
+echo "== [4/6] ADR-034/065/066 referenced + closed lifecycle states =="
 if [ -f "$PAGE" ]; then
-  # ADR references — the page cites them compound ("ADR-064/065/066"), so accept the slash-joined forms.
-  grep -qE 'ADR-064' "$PAGE"                 && ok "references ADR-064" || fl "missing reference: ADR-064"
-  grep -qE 'ADR-065|ADR-064/065|064/065' "$PAGE" && ok "references ADR-065" || fl "missing reference: ADR-065"
-  grep -qE 'ADR-066|065/066'            "$PAGE" && ok "references ADR-066" || fl "missing reference: ADR-066"
+  # ADR references — the page cites them compound ("ADR-034/065/066"), so accept the slash-joined forms.
+  grep -qE 'ADR-034' "$PAGE"                 && ok "references ADR-034" || fl "missing reference: ADR-034"
+  grep -qE 'ADR-036|ADR-034/065|064/065' "$PAGE" && ok "references ADR-036" || fl "missing reference: ADR-036"
+  grep -qE 'ADR-035|065/066'            "$PAGE" && ok "references ADR-035" || fl "missing reference: ADR-035"
   for stt in NOT_CERTIFIED CERTIFIED EXPIRED SUSPENDED REVOKED SUPERSEDED; do
     grep -qF "$stt" "$PAGE" && ok "lifecycle state $stt present" || fl "missing lifecycle state: $stt"
   done
@@ -105,8 +105,8 @@ grep -qE '"/certificacao"' "$SITEMAP" && ok "sitemap lists /certificacao" || fl 
 
 if [ "$fail" -ne 0 ]; then
   echo
-  echo "certification-page: FAIL — /certificacao canonical content drifted (M2.19G / ADR-064/065/066)."
+  echo "certification-page: FAIL — /certificacao canonical content drifted (M2.19G / ADR-034/065/066)."
   exit 1
 fi
 echo
-echo "certification-page: ✓ /certificacao canonical (both sentences, ≠-separation, ADR-064/065/066, closed lifecycle, linked, no retired framing) (M2.19G)"
+echo "certification-page: ✓ /certificacao canonical (both sentences, ≠-separation, ADR-034/065/066, closed lifecycle, linked, no retired framing) (M2.19G)"

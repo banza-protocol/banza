@@ -231,503 +231,303 @@
     },
     {
       "category": "explanation",
-      "question": "explica a ADR-003",
-      "entity": "ADR-003"
+      "question": "explica a ADR-001",
+      "entity": "ADR-001"
     },
     {
       "category": "explanation",
-      "question": "o que diz a ADR-003?",
-      "entity": "ADR-003"
+      "question": "o que diz a ADR-001?",
+      "entity": "ADR-001"
     },
     {
       "category": "explanation",
-      "question": "podes explicar a ADR-003?",
-      "entity": "ADR-003"
+      "question": "podes explicar a ADR-001?",
+      "entity": "ADR-001"
     },
     {
       "category": "explanation",
-      "question": "explain ADR-003",
-      "entity": "ADR-003"
+      "question": "explain ADR-001",
+      "entity": "ADR-001"
     },
     {
       "category": "explanation",
-      "question": "resume a ADR-003 para mim",
-      "entity": "ADR-003"
+      "question": "resume a ADR-001 para mim",
+      "entity": "ADR-001"
     },
     {
       "category": "exact",
-      "question": "qual o estado da ADR-003?",
-      "entity": "ADR-003"
+      "question": "qual o estado da ADR-001?",
+      "entity": "ADR-001"
     },
     {
       "category": "exact",
-      "question": "a ADR-003 está ativa?",
-      "entity": "ADR-003"
+      "question": "a ADR-001 está ativa?",
+      "entity": "ADR-001"
     },
     {
       "category": "exact",
-      "question": "qual o título da ADR-003?",
-      "entity": "ADR-003"
+      "question": "qual o título da ADR-001?",
+      "entity": "ADR-001"
     },
     {
       "category": "impact",
-      "question": "qual o impacto da ADR-003 no ecossistema?",
-      "entity": "ADR-003"
+      "question": "qual o impacto da ADR-001 no ecossistema?",
+      "entity": "ADR-001"
     },
     {
       "category": "impact",
-      "question": "que consequências tem a ADR-003?",
-      "entity": "ADR-003"
+      "question": "que consequências tem a ADR-001?",
+      "entity": "ADR-001"
     },
     {
       "category": "impact",
-      "question": "o que muda com a ADR-003?",
-      "entity": "ADR-003"
+      "question": "o que muda com a ADR-001?",
+      "entity": "ADR-001"
     },
     {
       "category": "mixed",
-      "question": "explica a ADR-003 e qual o seu impacto",
-      "entity": "ADR-003"
+      "question": "explica a ADR-001 e qual o seu impacto",
+      "entity": "ADR-001"
     },
     {
       "category": "mixed",
-      "question": "o que é a ADR-003 e porque foi decidida?",
-      "entity": "ADR-003"
+      "question": "o que é a ADR-001 e porque foi decidida?",
+      "entity": "ADR-001"
     },
     {
       "category": "mixed",
-      "question": "resume a ADR-003 e diz que consequências tem",
-      "entity": "ADR-003"
+      "question": "resume a ADR-001 e diz que consequências tem",
+      "entity": "ADR-001"
     },
     {
       "category": "follow_up",
-      "question": "e a ADR-003?",
-      "entity": "ADR-003"
+      "question": "e a ADR-001?",
+      "entity": "ADR-001"
     },
     {
       "category": "follow_up",
-      "question": "e sobre a ADR-003, o que diz?",
-      "entity": "ADR-003"
+      "question": "e sobre a ADR-001, o que diz?",
+      "entity": "ADR-001"
     },
     {
       "category": "follow_up",
-      "question": "e em relação à ADR-003?",
-      "entity": "ADR-003"
+      "question": "e em relação à ADR-001?",
+      "entity": "ADR-001"
     },
     {
       "category": "example",
-      "question": "dá um exemplo de aplicação da ADR-003",
-      "entity": "ADR-003"
+      "question": "dá um exemplo de aplicação da ADR-001",
+      "entity": "ADR-001"
     },
     {
       "category": "example",
-      "question": "mostra um exemplo prático da ADR-003",
-      "entity": "ADR-003"
+      "question": "mostra um exemplo prático da ADR-001",
+      "entity": "ADR-001"
     },
     {
       "category": "example",
-      "question": "ilustra a ADR-003 com um exemplo",
-      "entity": "ADR-003"
+      "question": "ilustra a ADR-001 com um exemplo",
+      "entity": "ADR-001"
     },
     {
       "category": "explanation",
-      "question": "explica a ADR-005",
-      "entity": "ADR-005"
+      "question": "explica a ADR-001",
+      "entity": "ADR-001"
     },
     {
       "category": "explanation",
-      "question": "o que diz a ADR-005?",
-      "entity": "ADR-005"
+      "question": "o que diz a ADR-001?",
+      "entity": "ADR-001"
     },
     {
       "category": "explanation",
-      "question": "podes explicar a ADR-005?",
-      "entity": "ADR-005"
+      "question": "podes explicar a ADR-001?",
+      "entity": "ADR-001"
     },
     {
       "category": "explanation",
-      "question": "explain ADR-005",
-      "entity": "ADR-005"
+      "question": "explain ADR-001",
+      "entity": "ADR-001"
     },
     {
       "category": "explanation",
-      "question": "resume a ADR-005 para mim",
-      "entity": "ADR-005"
+      "question": "resume a ADR-001 para mim",
+      "entity": "ADR-001"
     },
     {
       "category": "exact",
-      "question": "qual o estado da ADR-005?",
-      "entity": "ADR-005"
+      "question": "qual o estado da ADR-001?",
+      "entity": "ADR-001"
     },
     {
       "category": "exact",
-      "question": "a ADR-005 está ativa?",
-      "entity": "ADR-005"
+      "question": "a ADR-001 está ativa?",
+      "entity": "ADR-001"
     },
     {
       "category": "exact",
-      "question": "qual o título da ADR-005?",
-      "entity": "ADR-005"
+      "question": "qual o título da ADR-001?",
+      "entity": "ADR-001"
     },
     {
       "category": "impact",
-      "question": "qual o impacto da ADR-005 no ecossistema?",
-      "entity": "ADR-005"
+      "question": "qual o impacto da ADR-001 no ecossistema?",
+      "entity": "ADR-001"
     },
     {
       "category": "impact",
-      "question": "que consequências tem a ADR-005?",
-      "entity": "ADR-005"
+      "question": "que consequências tem a ADR-001?",
+      "entity": "ADR-001"
     },
     {
       "category": "impact",
-      "question": "o que muda com a ADR-005?",
-      "entity": "ADR-005"
+      "question": "o que muda com a ADR-001?",
+      "entity": "ADR-001"
     },
     {
       "category": "mixed",
-      "question": "explica a ADR-005 e qual o seu impacto",
-      "entity": "ADR-005"
+      "question": "explica a ADR-001 e qual o seu impacto",
+      "entity": "ADR-001"
     },
     {
       "category": "mixed",
-      "question": "o que é a ADR-005 e porque foi decidida?",
-      "entity": "ADR-005"
+      "question": "o que é a ADR-001 e porque foi decidida?",
+      "entity": "ADR-001"
     },
     {
       "category": "mixed",
-      "question": "resume a ADR-005 e diz que consequências tem",
-      "entity": "ADR-005"
+      "question": "resume a ADR-001 e diz que consequências tem",
+      "entity": "ADR-001"
     },
     {
       "category": "follow_up",
-      "question": "e a ADR-005?",
-      "entity": "ADR-005"
+      "question": "e a ADR-001?",
+      "entity": "ADR-001"
     },
     {
       "category": "follow_up",
-      "question": "e sobre a ADR-005, o que diz?",
-      "entity": "ADR-005"
+      "question": "e sobre a ADR-001, o que diz?",
+      "entity": "ADR-001"
     },
     {
       "category": "follow_up",
-      "question": "e em relação à ADR-005?",
-      "entity": "ADR-005"
+      "question": "e em relação à ADR-001?",
+      "entity": "ADR-001"
     },
     {
       "category": "example",
-      "question": "dá um exemplo de aplicação da ADR-005",
-      "entity": "ADR-005"
+      "question": "dá um exemplo de aplicação da ADR-001",
+      "entity": "ADR-001"
     },
     {
       "category": "example",
-      "question": "mostra um exemplo prático da ADR-005",
-      "entity": "ADR-005"
+      "question": "mostra um exemplo prático da ADR-001",
+      "entity": "ADR-001"
     },
     {
       "category": "example",
-      "question": "ilustra a ADR-005 com um exemplo",
-      "entity": "ADR-005"
+      "question": "ilustra a ADR-001 com um exemplo",
+      "entity": "ADR-001"
     },
     {
       "category": "explanation",
-      "question": "explica a ADR-006",
-      "entity": "ADR-006"
+      "question": "explica a ADR-011",
+      "entity": "ADR-011"
     },
     {
       "category": "explanation",
-      "question": "o que diz a ADR-006?",
-      "entity": "ADR-006"
+      "question": "o que diz a ADR-011?",
+      "entity": "ADR-011"
     },
     {
       "category": "explanation",
-      "question": "podes explicar a ADR-006?",
-      "entity": "ADR-006"
+      "question": "podes explicar a ADR-011?",
+      "entity": "ADR-011"
     },
     {
       "category": "explanation",
-      "question": "explain ADR-006",
-      "entity": "ADR-006"
+      "question": "explain ADR-011",
+      "entity": "ADR-011"
     },
     {
       "category": "explanation",
-      "question": "resume a ADR-006 para mim",
-      "entity": "ADR-006"
+      "question": "resume a ADR-011 para mim",
+      "entity": "ADR-011"
     },
     {
       "category": "exact",
-      "question": "qual o estado da ADR-006?",
-      "entity": "ADR-006"
+      "question": "qual o estado da ADR-011?",
+      "entity": "ADR-011"
     },
     {
       "category": "exact",
-      "question": "a ADR-006 está ativa?",
-      "entity": "ADR-006"
+      "question": "a ADR-011 está ativa?",
+      "entity": "ADR-011"
     },
     {
       "category": "exact",
-      "question": "qual o título da ADR-006?",
-      "entity": "ADR-006"
+      "question": "qual o título da ADR-011?",
+      "entity": "ADR-011"
     },
     {
       "category": "impact",
-      "question": "qual o impacto da ADR-006 no ecossistema?",
-      "entity": "ADR-006"
+      "question": "qual o impacto da ADR-011 no ecossistema?",
+      "entity": "ADR-011"
     },
     {
       "category": "impact",
-      "question": "que consequências tem a ADR-006?",
-      "entity": "ADR-006"
+      "question": "que consequências tem a ADR-011?",
+      "entity": "ADR-011"
     },
     {
       "category": "impact",
-      "question": "o que muda com a ADR-006?",
-      "entity": "ADR-006"
+      "question": "o que muda com a ADR-011?",
+      "entity": "ADR-011"
     },
     {
       "category": "mixed",
-      "question": "explica a ADR-006 e qual o seu impacto",
-      "entity": "ADR-006"
+      "question": "explica a ADR-011 e qual o seu impacto",
+      "entity": "ADR-011"
     },
     {
       "category": "mixed",
-      "question": "o que é a ADR-006 e porque foi decidida?",
-      "entity": "ADR-006"
+      "question": "o que é a ADR-011 e porque foi decidida?",
+      "entity": "ADR-011"
     },
     {
       "category": "mixed",
-      "question": "resume a ADR-006 e diz que consequências tem",
-      "entity": "ADR-006"
+      "question": "resume a ADR-011 e diz que consequências tem",
+      "entity": "ADR-011"
     },
     {
       "category": "follow_up",
-      "question": "e a ADR-006?",
-      "entity": "ADR-006"
+      "question": "e a ADR-011?",
+      "entity": "ADR-011"
     },
     {
       "category": "follow_up",
-      "question": "e sobre a ADR-006, o que diz?",
-      "entity": "ADR-006"
+      "question": "e sobre a ADR-011, o que diz?",
+      "entity": "ADR-011"
     },
     {
       "category": "follow_up",
-      "question": "e em relação à ADR-006?",
-      "entity": "ADR-006"
+      "question": "e em relação à ADR-011?",
+      "entity": "ADR-011"
     },
     {
       "category": "example",
-      "question": "dá um exemplo de aplicação da ADR-006",
-      "entity": "ADR-006"
+      "question": "dá um exemplo de aplicação da ADR-011",
+      "entity": "ADR-011"
     },
     {
       "category": "example",
-      "question": "mostra um exemplo prático da ADR-006",
-      "entity": "ADR-006"
+      "question": "mostra um exemplo prático da ADR-011",
+      "entity": "ADR-011"
     },
     {
       "category": "example",
-      "question": "ilustra a ADR-006 com um exemplo",
-      "entity": "ADR-006"
-    },
-    {
-      "category": "explanation",
-      "question": "explica a ADR-007",
-      "entity": "ADR-007"
-    },
-    {
-      "category": "explanation",
-      "question": "o que diz a ADR-007?",
-      "entity": "ADR-007"
-    },
-    {
-      "category": "explanation",
-      "question": "podes explicar a ADR-007?",
-      "entity": "ADR-007"
-    },
-    {
-      "category": "explanation",
-      "question": "explain ADR-007",
-      "entity": "ADR-007"
-    },
-    {
-      "category": "explanation",
-      "question": "resume a ADR-007 para mim",
-      "entity": "ADR-007"
-    },
-    {
-      "category": "exact",
-      "question": "qual o estado da ADR-007?",
-      "entity": "ADR-007"
-    },
-    {
-      "category": "exact",
-      "question": "a ADR-007 está ativa?",
-      "entity": "ADR-007"
-    },
-    {
-      "category": "exact",
-      "question": "qual o título da ADR-007?",
-      "entity": "ADR-007"
-    },
-    {
-      "category": "impact",
-      "question": "qual o impacto da ADR-007 no ecossistema?",
-      "entity": "ADR-007"
-    },
-    {
-      "category": "impact",
-      "question": "que consequências tem a ADR-007?",
-      "entity": "ADR-007"
-    },
-    {
-      "category": "impact",
-      "question": "o que muda com a ADR-007?",
-      "entity": "ADR-007"
-    },
-    {
-      "category": "mixed",
-      "question": "explica a ADR-007 e qual o seu impacto",
-      "entity": "ADR-007"
-    },
-    {
-      "category": "mixed",
-      "question": "o que é a ADR-007 e porque foi decidida?",
-      "entity": "ADR-007"
-    },
-    {
-      "category": "mixed",
-      "question": "resume a ADR-007 e diz que consequências tem",
-      "entity": "ADR-007"
-    },
-    {
-      "category": "follow_up",
-      "question": "e a ADR-007?",
-      "entity": "ADR-007"
-    },
-    {
-      "category": "follow_up",
-      "question": "e sobre a ADR-007, o que diz?",
-      "entity": "ADR-007"
-    },
-    {
-      "category": "follow_up",
-      "question": "e em relação à ADR-007?",
-      "entity": "ADR-007"
-    },
-    {
-      "category": "example",
-      "question": "dá um exemplo de aplicação da ADR-007",
-      "entity": "ADR-007"
-    },
-    {
-      "category": "example",
-      "question": "mostra um exemplo prático da ADR-007",
-      "entity": "ADR-007"
-    },
-    {
-      "category": "example",
-      "question": "ilustra a ADR-007 com um exemplo",
-      "entity": "ADR-007"
-    },
-    {
-      "category": "explanation",
-      "question": "explica a ADR-010",
-      "entity": "ADR-010"
-    },
-    {
-      "category": "explanation",
-      "question": "o que diz a ADR-010?",
-      "entity": "ADR-010"
-    },
-    {
-      "category": "explanation",
-      "question": "podes explicar a ADR-010?",
-      "entity": "ADR-010"
-    },
-    {
-      "category": "explanation",
-      "question": "explain ADR-010",
-      "entity": "ADR-010"
-    },
-    {
-      "category": "explanation",
-      "question": "resume a ADR-010 para mim",
-      "entity": "ADR-010"
-    },
-    {
-      "category": "exact",
-      "question": "qual o estado da ADR-010?",
-      "entity": "ADR-010"
-    },
-    {
-      "category": "exact",
-      "question": "a ADR-010 está ativa?",
-      "entity": "ADR-010"
-    },
-    {
-      "category": "exact",
-      "question": "qual o título da ADR-010?",
-      "entity": "ADR-010"
-    },
-    {
-      "category": "impact",
-      "question": "qual o impacto da ADR-010 no ecossistema?",
-      "entity": "ADR-010"
-    },
-    {
-      "category": "impact",
-      "question": "que consequências tem a ADR-010?",
-      "entity": "ADR-010"
-    },
-    {
-      "category": "impact",
-      "question": "o que muda com a ADR-010?",
-      "entity": "ADR-010"
-    },
-    {
-      "category": "mixed",
-      "question": "explica a ADR-010 e qual o seu impacto",
-      "entity": "ADR-010"
-    },
-    {
-      "category": "mixed",
-      "question": "o que é a ADR-010 e porque foi decidida?",
-      "entity": "ADR-010"
-    },
-    {
-      "category": "mixed",
-      "question": "resume a ADR-010 e diz que consequências tem",
-      "entity": "ADR-010"
-    },
-    {
-      "category": "follow_up",
-      "question": "e a ADR-010?",
-      "entity": "ADR-010"
-    },
-    {
-      "category": "follow_up",
-      "question": "e sobre a ADR-010, o que diz?",
-      "entity": "ADR-010"
-    },
-    {
-      "category": "follow_up",
-      "question": "e em relação à ADR-010?",
-      "entity": "ADR-010"
-    },
-    {
-      "category": "example",
-      "question": "dá um exemplo de aplicação da ADR-010",
-      "entity": "ADR-010"
-    },
-    {
-      "category": "example",
-      "question": "mostra um exemplo prático da ADR-010",
-      "entity": "ADR-010"
-    },
-    {
-      "category": "example",
-      "question": "ilustra a ADR-010 com um exemplo",
-      "entity": "ADR-010"
+      "question": "ilustra a ADR-011 com um exemplo",
+      "entity": "ADR-011"
     },
     {
       "category": "explanation",
@@ -931,203 +731,903 @@
     },
     {
       "category": "explanation",
-      "question": "explica a ADR-013",
-      "entity": "ADR-013"
+      "question": "explica a ADR-024",
+      "entity": "ADR-024"
     },
     {
       "category": "explanation",
-      "question": "o que diz a ADR-013?",
-      "entity": "ADR-013"
+      "question": "o que diz a ADR-024?",
+      "entity": "ADR-024"
     },
     {
       "category": "explanation",
-      "question": "podes explicar a ADR-013?",
-      "entity": "ADR-013"
+      "question": "podes explicar a ADR-024?",
+      "entity": "ADR-024"
     },
     {
       "category": "explanation",
-      "question": "explain ADR-013",
-      "entity": "ADR-013"
+      "question": "explain ADR-024",
+      "entity": "ADR-024"
     },
     {
       "category": "explanation",
-      "question": "resume a ADR-013 para mim",
-      "entity": "ADR-013"
+      "question": "resume a ADR-024 para mim",
+      "entity": "ADR-024"
     },
     {
       "category": "exact",
-      "question": "qual o estado da ADR-013?",
-      "entity": "ADR-013"
+      "question": "qual o estado da ADR-024?",
+      "entity": "ADR-024"
     },
     {
       "category": "exact",
-      "question": "a ADR-013 está ativa?",
-      "entity": "ADR-013"
+      "question": "a ADR-024 está ativa?",
+      "entity": "ADR-024"
     },
     {
       "category": "exact",
-      "question": "qual o título da ADR-013?",
-      "entity": "ADR-013"
+      "question": "qual o título da ADR-024?",
+      "entity": "ADR-024"
     },
     {
       "category": "impact",
-      "question": "qual o impacto da ADR-013 no ecossistema?",
-      "entity": "ADR-013"
+      "question": "qual o impacto da ADR-024 no ecossistema?",
+      "entity": "ADR-024"
     },
     {
       "category": "impact",
-      "question": "que consequências tem a ADR-013?",
-      "entity": "ADR-013"
+      "question": "que consequências tem a ADR-024?",
+      "entity": "ADR-024"
     },
     {
       "category": "impact",
-      "question": "o que muda com a ADR-013?",
-      "entity": "ADR-013"
+      "question": "o que muda com a ADR-024?",
+      "entity": "ADR-024"
     },
     {
       "category": "mixed",
-      "question": "explica a ADR-013 e qual o seu impacto",
-      "entity": "ADR-013"
+      "question": "explica a ADR-024 e qual o seu impacto",
+      "entity": "ADR-024"
     },
     {
       "category": "mixed",
-      "question": "o que é a ADR-013 e porque foi decidida?",
-      "entity": "ADR-013"
+      "question": "o que é a ADR-024 e porque foi decidida?",
+      "entity": "ADR-024"
     },
     {
       "category": "mixed",
-      "question": "resume a ADR-013 e diz que consequências tem",
-      "entity": "ADR-013"
+      "question": "resume a ADR-024 e diz que consequências tem",
+      "entity": "ADR-024"
     },
     {
       "category": "follow_up",
-      "question": "e a ADR-013?",
-      "entity": "ADR-013"
+      "question": "e a ADR-024?",
+      "entity": "ADR-024"
     },
     {
       "category": "follow_up",
-      "question": "e sobre a ADR-013, o que diz?",
-      "entity": "ADR-013"
+      "question": "e sobre a ADR-024, o que diz?",
+      "entity": "ADR-024"
     },
     {
       "category": "follow_up",
-      "question": "e em relação à ADR-013?",
-      "entity": "ADR-013"
+      "question": "e em relação à ADR-024?",
+      "entity": "ADR-024"
     },
     {
       "category": "example",
-      "question": "dá um exemplo de aplicação da ADR-013",
-      "entity": "ADR-013"
+      "question": "dá um exemplo de aplicação da ADR-024",
+      "entity": "ADR-024"
     },
     {
       "category": "example",
-      "question": "mostra um exemplo prático da ADR-013",
-      "entity": "ADR-013"
+      "question": "mostra um exemplo prático da ADR-024",
+      "entity": "ADR-024"
     },
     {
       "category": "example",
-      "question": "ilustra a ADR-013 com um exemplo",
-      "entity": "ADR-013"
+      "question": "ilustra a ADR-024 com um exemplo",
+      "entity": "ADR-024"
     },
     {
       "category": "explanation",
-      "question": "explica a ADR-037",
-      "entity": "ADR-037"
+      "question": "explica a ADR-016",
+      "entity": "ADR-016"
     },
     {
       "category": "explanation",
-      "question": "o que diz a ADR-037?",
-      "entity": "ADR-037"
+      "question": "o que diz a ADR-016?",
+      "entity": "ADR-016"
     },
     {
       "category": "explanation",
-      "question": "podes explicar a ADR-037?",
-      "entity": "ADR-037"
+      "question": "podes explicar a ADR-016?",
+      "entity": "ADR-016"
     },
     {
       "category": "explanation",
-      "question": "explain ADR-037",
-      "entity": "ADR-037"
+      "question": "explain ADR-016",
+      "entity": "ADR-016"
     },
     {
       "category": "explanation",
-      "question": "resume a ADR-037 para mim",
-      "entity": "ADR-037"
+      "question": "resume a ADR-016 para mim",
+      "entity": "ADR-016"
     },
     {
       "category": "exact",
-      "question": "qual o estado da ADR-037?",
-      "entity": "ADR-037"
+      "question": "qual o estado da ADR-016?",
+      "entity": "ADR-016"
     },
     {
       "category": "exact",
-      "question": "a ADR-037 está ativa?",
-      "entity": "ADR-037"
+      "question": "a ADR-016 está ativa?",
+      "entity": "ADR-016"
     },
     {
       "category": "exact",
-      "question": "qual o título da ADR-037?",
-      "entity": "ADR-037"
+      "question": "qual o título da ADR-016?",
+      "entity": "ADR-016"
     },
     {
       "category": "impact",
-      "question": "qual o impacto da ADR-037 no ecossistema?",
-      "entity": "ADR-037"
+      "question": "qual o impacto da ADR-016 no ecossistema?",
+      "entity": "ADR-016"
     },
     {
       "category": "impact",
-      "question": "que consequências tem a ADR-037?",
-      "entity": "ADR-037"
+      "question": "que consequências tem a ADR-016?",
+      "entity": "ADR-016"
     },
     {
       "category": "impact",
-      "question": "o que muda com a ADR-037?",
-      "entity": "ADR-037"
+      "question": "o que muda com a ADR-016?",
+      "entity": "ADR-016"
     },
     {
       "category": "mixed",
-      "question": "explica a ADR-037 e qual o seu impacto",
-      "entity": "ADR-037"
+      "question": "explica a ADR-016 e qual o seu impacto",
+      "entity": "ADR-016"
     },
     {
       "category": "mixed",
-      "question": "o que é a ADR-037 e porque foi decidida?",
-      "entity": "ADR-037"
+      "question": "o que é a ADR-016 e porque foi decidida?",
+      "entity": "ADR-016"
     },
     {
       "category": "mixed",
-      "question": "resume a ADR-037 e diz que consequências tem",
-      "entity": "ADR-037"
+      "question": "resume a ADR-016 e diz que consequências tem",
+      "entity": "ADR-016"
     },
     {
       "category": "follow_up",
-      "question": "e a ADR-037?",
-      "entity": "ADR-037"
+      "question": "e a ADR-016?",
+      "entity": "ADR-016"
     },
     {
       "category": "follow_up",
-      "question": "e sobre a ADR-037, o que diz?",
-      "entity": "ADR-037"
+      "question": "e sobre a ADR-016, o que diz?",
+      "entity": "ADR-016"
     },
     {
       "category": "follow_up",
-      "question": "e em relação à ADR-037?",
-      "entity": "ADR-037"
+      "question": "e em relação à ADR-016?",
+      "entity": "ADR-016"
     },
     {
       "category": "example",
-      "question": "dá um exemplo de aplicação da ADR-037",
-      "entity": "ADR-037"
+      "question": "dá um exemplo de aplicação da ADR-016",
+      "entity": "ADR-016"
     },
     {
       "category": "example",
-      "question": "mostra um exemplo prático da ADR-037",
-      "entity": "ADR-037"
+      "question": "mostra um exemplo prático da ADR-016",
+      "entity": "ADR-016"
     },
     {
       "category": "example",
-      "question": "ilustra a ADR-037 com um exemplo",
-      "entity": "ADR-037"
+      "question": "ilustra a ADR-016 com um exemplo",
+      "entity": "ADR-016"
+    },
+    {
+      "category": "explanation",
+      "question": "explica a ADR-017",
+      "entity": "ADR-017"
+    },
+    {
+      "category": "explanation",
+      "question": "o que diz a ADR-017?",
+      "entity": "ADR-017"
+    },
+    {
+      "category": "explanation",
+      "question": "podes explicar a ADR-017?",
+      "entity": "ADR-017"
+    },
+    {
+      "category": "explanation",
+      "question": "explain ADR-017",
+      "entity": "ADR-017"
+    },
+    {
+      "category": "explanation",
+      "question": "resume a ADR-017 para mim",
+      "entity": "ADR-017"
+    },
+    {
+      "category": "exact",
+      "question": "qual o estado da ADR-017?",
+      "entity": "ADR-017"
+    },
+    {
+      "category": "exact",
+      "question": "a ADR-017 está ativa?",
+      "entity": "ADR-017"
+    },
+    {
+      "category": "exact",
+      "question": "qual o título da ADR-017?",
+      "entity": "ADR-017"
+    },
+    {
+      "category": "impact",
+      "question": "qual o impacto da ADR-017 no ecossistema?",
+      "entity": "ADR-017"
+    },
+    {
+      "category": "impact",
+      "question": "que consequências tem a ADR-017?",
+      "entity": "ADR-017"
+    },
+    {
+      "category": "impact",
+      "question": "o que muda com a ADR-017?",
+      "entity": "ADR-017"
+    },
+    {
+      "category": "mixed",
+      "question": "explica a ADR-017 e qual o seu impacto",
+      "entity": "ADR-017"
+    },
+    {
+      "category": "mixed",
+      "question": "o que é a ADR-017 e porque foi decidida?",
+      "entity": "ADR-017"
+    },
+    {
+      "category": "mixed",
+      "question": "resume a ADR-017 e diz que consequências tem",
+      "entity": "ADR-017"
+    },
+    {
+      "category": "follow_up",
+      "question": "e a ADR-017?",
+      "entity": "ADR-017"
+    },
+    {
+      "category": "follow_up",
+      "question": "e sobre a ADR-017, o que diz?",
+      "entity": "ADR-017"
+    },
+    {
+      "category": "follow_up",
+      "question": "e em relação à ADR-017?",
+      "entity": "ADR-017"
+    },
+    {
+      "category": "example",
+      "question": "dá um exemplo de aplicação da ADR-017",
+      "entity": "ADR-017"
+    },
+    {
+      "category": "example",
+      "question": "mostra um exemplo prático da ADR-017",
+      "entity": "ADR-017"
+    },
+    {
+      "category": "example",
+      "question": "ilustra a ADR-017 com um exemplo",
+      "entity": "ADR-017"
+    },
+    {
+      "category": "explanation",
+      "question": "explica a ADR-043",
+      "entity": "ADR-043"
+    },
+    {
+      "category": "explanation",
+      "question": "o que diz a ADR-043?",
+      "entity": "ADR-043"
+    },
+    {
+      "category": "explanation",
+      "question": "podes explicar a ADR-043?",
+      "entity": "ADR-043"
+    },
+    {
+      "category": "explanation",
+      "question": "explain ADR-043",
+      "entity": "ADR-043"
+    },
+    {
+      "category": "explanation",
+      "question": "resume a ADR-043 para mim",
+      "entity": "ADR-043"
+    },
+    {
+      "category": "exact",
+      "question": "qual o estado da ADR-043?",
+      "entity": "ADR-043"
+    },
+    {
+      "category": "exact",
+      "question": "a ADR-043 está ativa?",
+      "entity": "ADR-043"
+    },
+    {
+      "category": "exact",
+      "question": "qual o título da ADR-043?",
+      "entity": "ADR-043"
+    },
+    {
+      "category": "impact",
+      "question": "qual o impacto da ADR-043 no ecossistema?",
+      "entity": "ADR-043"
+    },
+    {
+      "category": "impact",
+      "question": "que consequências tem a ADR-043?",
+      "entity": "ADR-043"
+    },
+    {
+      "category": "impact",
+      "question": "o que muda com a ADR-043?",
+      "entity": "ADR-043"
+    },
+    {
+      "category": "mixed",
+      "question": "explica a ADR-043 e qual o seu impacto",
+      "entity": "ADR-043"
+    },
+    {
+      "category": "mixed",
+      "question": "o que é a ADR-043 e porque foi decidida?",
+      "entity": "ADR-043"
+    },
+    {
+      "category": "mixed",
+      "question": "resume a ADR-043 e diz que consequências tem",
+      "entity": "ADR-043"
+    },
+    {
+      "category": "follow_up",
+      "question": "e a ADR-043?",
+      "entity": "ADR-043"
+    },
+    {
+      "category": "follow_up",
+      "question": "e sobre a ADR-043, o que diz?",
+      "entity": "ADR-043"
+    },
+    {
+      "category": "follow_up",
+      "question": "e em relação à ADR-043?",
+      "entity": "ADR-043"
+    },
+    {
+      "category": "example",
+      "question": "dá um exemplo de aplicação da ADR-043",
+      "entity": "ADR-043"
+    },
+    {
+      "category": "example",
+      "question": "mostra um exemplo prático da ADR-043",
+      "entity": "ADR-043"
+    },
+    {
+      "category": "example",
+      "question": "ilustra a ADR-043 com um exemplo",
+      "entity": "ADR-043"
+    },
+    {
+      "category": "explanation",
+      "question": "explica a ADR-042",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "explanation",
+      "question": "o que diz a ADR-042?",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "explanation",
+      "question": "podes explicar a ADR-042?",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "explanation",
+      "question": "explain ADR-042",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "explanation",
+      "question": "resume a ADR-042 para mim",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "exact",
+      "question": "qual o estado da ADR-042?",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "exact",
+      "question": "a ADR-042 está ativa?",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "exact",
+      "question": "qual o título da ADR-042?",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "impact",
+      "question": "qual o impacto da ADR-042 no ecossistema?",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "impact",
+      "question": "que consequências tem a ADR-042?",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "impact",
+      "question": "o que muda com a ADR-042?",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "mixed",
+      "question": "explica a ADR-042 e qual o seu impacto",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "mixed",
+      "question": "o que é a ADR-042 e porque foi decidida?",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "mixed",
+      "question": "resume a ADR-042 e diz que consequências tem",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "follow_up",
+      "question": "e a ADR-042?",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "follow_up",
+      "question": "e sobre a ADR-042, o que diz?",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "follow_up",
+      "question": "e em relação à ADR-042?",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "example",
+      "question": "dá um exemplo de aplicação da ADR-042",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "example",
+      "question": "mostra um exemplo prático da ADR-042",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "example",
+      "question": "ilustra a ADR-042 com um exemplo",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "explanation",
+      "question": "explica a ADR-026",
+      "entity": "ADR-026"
+    },
+    {
+      "category": "explanation",
+      "question": "o que diz a ADR-026?",
+      "entity": "ADR-026"
+    },
+    {
+      "category": "explanation",
+      "question": "podes explicar a ADR-026?",
+      "entity": "ADR-026"
+    },
+    {
+      "category": "explanation",
+      "question": "explain ADR-026",
+      "entity": "ADR-026"
+    },
+    {
+      "category": "explanation",
+      "question": "resume a ADR-026 para mim",
+      "entity": "ADR-026"
+    },
+    {
+      "category": "exact",
+      "question": "qual o estado da ADR-026?",
+      "entity": "ADR-026"
+    },
+    {
+      "category": "exact",
+      "question": "a ADR-026 está ativa?",
+      "entity": "ADR-026"
+    },
+    {
+      "category": "exact",
+      "question": "qual o título da ADR-026?",
+      "entity": "ADR-026"
+    },
+    {
+      "category": "impact",
+      "question": "qual o impacto da ADR-026 no ecossistema?",
+      "entity": "ADR-026"
+    },
+    {
+      "category": "impact",
+      "question": "que consequências tem a ADR-026?",
+      "entity": "ADR-026"
+    },
+    {
+      "category": "impact",
+      "question": "o que muda com a ADR-026?",
+      "entity": "ADR-026"
+    },
+    {
+      "category": "mixed",
+      "question": "explica a ADR-026 e qual o seu impacto",
+      "entity": "ADR-026"
+    },
+    {
+      "category": "mixed",
+      "question": "o que é a ADR-026 e porque foi decidida?",
+      "entity": "ADR-026"
+    },
+    {
+      "category": "mixed",
+      "question": "resume a ADR-026 e diz que consequências tem",
+      "entity": "ADR-026"
+    },
+    {
+      "category": "follow_up",
+      "question": "e a ADR-026?",
+      "entity": "ADR-026"
+    },
+    {
+      "category": "follow_up",
+      "question": "e sobre a ADR-026, o que diz?",
+      "entity": "ADR-026"
+    },
+    {
+      "category": "follow_up",
+      "question": "e em relação à ADR-026?",
+      "entity": "ADR-026"
+    },
+    {
+      "category": "example",
+      "question": "dá um exemplo de aplicação da ADR-026",
+      "entity": "ADR-026"
+    },
+    {
+      "category": "example",
+      "question": "mostra um exemplo prático da ADR-026",
+      "entity": "ADR-026"
+    },
+    {
+      "category": "example",
+      "question": "ilustra a ADR-026 com um exemplo",
+      "entity": "ADR-026"
+    },
+    {
+      "category": "explanation",
+      "question": "explica a ADR-044",
+      "entity": "ADR-044"
+    },
+    {
+      "category": "explanation",
+      "question": "o que diz a ADR-044?",
+      "entity": "ADR-044"
+    },
+    {
+      "category": "explanation",
+      "question": "podes explicar a ADR-044?",
+      "entity": "ADR-044"
+    },
+    {
+      "category": "explanation",
+      "question": "explain ADR-044",
+      "entity": "ADR-044"
+    },
+    {
+      "category": "explanation",
+      "question": "resume a ADR-044 para mim",
+      "entity": "ADR-044"
+    },
+    {
+      "category": "exact",
+      "question": "qual o estado da ADR-044?",
+      "entity": "ADR-044"
+    },
+    {
+      "category": "exact",
+      "question": "a ADR-044 está ativa?",
+      "entity": "ADR-044"
+    },
+    {
+      "category": "exact",
+      "question": "qual o título da ADR-044?",
+      "entity": "ADR-044"
+    },
+    {
+      "category": "impact",
+      "question": "qual o impacto da ADR-044 no ecossistema?",
+      "entity": "ADR-044"
+    },
+    {
+      "category": "impact",
+      "question": "que consequências tem a ADR-044?",
+      "entity": "ADR-044"
+    },
+    {
+      "category": "impact",
+      "question": "o que muda com a ADR-044?",
+      "entity": "ADR-044"
+    },
+    {
+      "category": "mixed",
+      "question": "explica a ADR-044 e qual o seu impacto",
+      "entity": "ADR-044"
+    },
+    {
+      "category": "mixed",
+      "question": "o que é a ADR-044 e porque foi decidida?",
+      "entity": "ADR-044"
+    },
+    {
+      "category": "mixed",
+      "question": "resume a ADR-044 e diz que consequências tem",
+      "entity": "ADR-044"
+    },
+    {
+      "category": "follow_up",
+      "question": "e a ADR-044?",
+      "entity": "ADR-044"
+    },
+    {
+      "category": "follow_up",
+      "question": "e sobre a ADR-044, o que diz?",
+      "entity": "ADR-044"
+    },
+    {
+      "category": "follow_up",
+      "question": "e em relação à ADR-044?",
+      "entity": "ADR-044"
+    },
+    {
+      "category": "example",
+      "question": "dá um exemplo de aplicação da ADR-044",
+      "entity": "ADR-044"
+    },
+    {
+      "category": "example",
+      "question": "mostra um exemplo prático da ADR-044",
+      "entity": "ADR-044"
+    },
+    {
+      "category": "example",
+      "question": "ilustra a ADR-044 com um exemplo",
+      "entity": "ADR-044"
+    },
+    {
+      "category": "explanation",
+      "question": "explica a ADR-042",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "explanation",
+      "question": "o que diz a ADR-042?",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "explanation",
+      "question": "podes explicar a ADR-042?",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "explanation",
+      "question": "explain ADR-042",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "explanation",
+      "question": "resume a ADR-042 para mim",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "exact",
+      "question": "qual o estado da ADR-042?",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "exact",
+      "question": "a ADR-042 está ativa?",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "exact",
+      "question": "qual o título da ADR-042?",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "impact",
+      "question": "qual o impacto da ADR-042 no ecossistema?",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "impact",
+      "question": "que consequências tem a ADR-042?",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "impact",
+      "question": "o que muda com a ADR-042?",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "mixed",
+      "question": "explica a ADR-042 e qual o seu impacto",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "mixed",
+      "question": "o que é a ADR-042 e porque foi decidida?",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "mixed",
+      "question": "resume a ADR-042 e diz que consequências tem",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "follow_up",
+      "question": "e a ADR-042?",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "follow_up",
+      "question": "e sobre a ADR-042, o que diz?",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "follow_up",
+      "question": "e em relação à ADR-042?",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "example",
+      "question": "dá um exemplo de aplicação da ADR-042",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "example",
+      "question": "mostra um exemplo prático da ADR-042",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "example",
+      "question": "ilustra a ADR-042 com um exemplo",
+      "entity": "ADR-042"
+    },
+    {
+      "category": "explanation",
+      "question": "explica a ADR-041",
+      "entity": "ADR-041"
+    },
+    {
+      "category": "explanation",
+      "question": "o que diz a ADR-041?",
+      "entity": "ADR-041"
+    },
+    {
+      "category": "explanation",
+      "question": "podes explicar a ADR-041?",
+      "entity": "ADR-041"
+    },
+    {
+      "category": "explanation",
+      "question": "explain ADR-041",
+      "entity": "ADR-041"
+    },
+    {
+      "category": "explanation",
+      "question": "resume a ADR-041 para mim",
+      "entity": "ADR-041"
+    },
+    {
+      "category": "exact",
+      "question": "qual o estado da ADR-041?",
+      "entity": "ADR-041"
+    },
+    {
+      "category": "exact",
+      "question": "a ADR-041 está ativa?",
+      "entity": "ADR-041"
+    },
+    {
+      "category": "exact",
+      "question": "qual o título da ADR-041?",
+      "entity": "ADR-041"
+    },
+    {
+      "category": "impact",
+      "question": "qual o impacto da ADR-041 no ecossistema?",
+      "entity": "ADR-041"
+    },
+    {
+      "category": "impact",
+      "question": "que consequências tem a ADR-041?",
+      "entity": "ADR-041"
+    },
+    {
+      "category": "impact",
+      "question": "o que muda com a ADR-041?",
+      "entity": "ADR-041"
+    },
+    {
+      "category": "mixed",
+      "question": "explica a ADR-041 e qual o seu impacto",
+      "entity": "ADR-041"
+    },
+    {
+      "category": "mixed",
+      "question": "o que é a ADR-041 e porque foi decidida?",
+      "entity": "ADR-041"
+    },
+    {
+      "category": "mixed",
+      "question": "resume a ADR-041 e diz que consequências tem",
+      "entity": "ADR-041"
+    },
+    {
+      "category": "follow_up",
+      "question": "e a ADR-041?",
+      "entity": "ADR-041"
+    },
+    {
+      "category": "follow_up",
+      "question": "e sobre a ADR-041, o que diz?",
+      "entity": "ADR-041"
+    },
+    {
+      "category": "follow_up",
+      "question": "e em relação à ADR-041?",
+      "entity": "ADR-041"
+    },
+    {
+      "category": "example",
+      "question": "dá um exemplo de aplicação da ADR-041",
+      "entity": "ADR-041"
+    },
+    {
+      "category": "example",
+      "question": "mostra um exemplo prático da ADR-041",
+      "entity": "ADR-041"
+    },
+    {
+      "category": "example",
+      "question": "ilustra a ADR-041 com um exemplo",
+      "entity": "ADR-041"
     },
     {
       "category": "explanation",
@@ -1328,506 +1828,6 @@
       "category": "example",
       "question": "ilustra a ADR-042 com um exemplo",
       "entity": "ADR-042"
-    },
-    {
-      "category": "explanation",
-      "question": "explica a ADR-043",
-      "entity": "ADR-043"
-    },
-    {
-      "category": "explanation",
-      "question": "o que diz a ADR-043?",
-      "entity": "ADR-043"
-    },
-    {
-      "category": "explanation",
-      "question": "podes explicar a ADR-043?",
-      "entity": "ADR-043"
-    },
-    {
-      "category": "explanation",
-      "question": "explain ADR-043",
-      "entity": "ADR-043"
-    },
-    {
-      "category": "explanation",
-      "question": "resume a ADR-043 para mim",
-      "entity": "ADR-043"
-    },
-    {
-      "category": "exact",
-      "question": "qual o estado da ADR-043?",
-      "entity": "ADR-043"
-    },
-    {
-      "category": "exact",
-      "question": "a ADR-043 está ativa?",
-      "entity": "ADR-043"
-    },
-    {
-      "category": "exact",
-      "question": "qual o título da ADR-043?",
-      "entity": "ADR-043"
-    },
-    {
-      "category": "impact",
-      "question": "qual o impacto da ADR-043 no ecossistema?",
-      "entity": "ADR-043"
-    },
-    {
-      "category": "impact",
-      "question": "que consequências tem a ADR-043?",
-      "entity": "ADR-043"
-    },
-    {
-      "category": "impact",
-      "question": "o que muda com a ADR-043?",
-      "entity": "ADR-043"
-    },
-    {
-      "category": "mixed",
-      "question": "explica a ADR-043 e qual o seu impacto",
-      "entity": "ADR-043"
-    },
-    {
-      "category": "mixed",
-      "question": "o que é a ADR-043 e porque foi decidida?",
-      "entity": "ADR-043"
-    },
-    {
-      "category": "mixed",
-      "question": "resume a ADR-043 e diz que consequências tem",
-      "entity": "ADR-043"
-    },
-    {
-      "category": "follow_up",
-      "question": "e a ADR-043?",
-      "entity": "ADR-043"
-    },
-    {
-      "category": "follow_up",
-      "question": "e sobre a ADR-043, o que diz?",
-      "entity": "ADR-043"
-    },
-    {
-      "category": "follow_up",
-      "question": "e em relação à ADR-043?",
-      "entity": "ADR-043"
-    },
-    {
-      "category": "example",
-      "question": "dá um exemplo de aplicação da ADR-043",
-      "entity": "ADR-043"
-    },
-    {
-      "category": "example",
-      "question": "mostra um exemplo prático da ADR-043",
-      "entity": "ADR-043"
-    },
-    {
-      "category": "example",
-      "question": "ilustra a ADR-043 com um exemplo",
-      "entity": "ADR-043"
-    },
-    {
-      "category": "explanation",
-      "question": "explica a ADR-044",
-      "entity": "ADR-044"
-    },
-    {
-      "category": "explanation",
-      "question": "o que diz a ADR-044?",
-      "entity": "ADR-044"
-    },
-    {
-      "category": "explanation",
-      "question": "podes explicar a ADR-044?",
-      "entity": "ADR-044"
-    },
-    {
-      "category": "explanation",
-      "question": "explain ADR-044",
-      "entity": "ADR-044"
-    },
-    {
-      "category": "explanation",
-      "question": "resume a ADR-044 para mim",
-      "entity": "ADR-044"
-    },
-    {
-      "category": "exact",
-      "question": "qual o estado da ADR-044?",
-      "entity": "ADR-044"
-    },
-    {
-      "category": "exact",
-      "question": "a ADR-044 está ativa?",
-      "entity": "ADR-044"
-    },
-    {
-      "category": "exact",
-      "question": "qual o título da ADR-044?",
-      "entity": "ADR-044"
-    },
-    {
-      "category": "impact",
-      "question": "qual o impacto da ADR-044 no ecossistema?",
-      "entity": "ADR-044"
-    },
-    {
-      "category": "impact",
-      "question": "que consequências tem a ADR-044?",
-      "entity": "ADR-044"
-    },
-    {
-      "category": "impact",
-      "question": "o que muda com a ADR-044?",
-      "entity": "ADR-044"
-    },
-    {
-      "category": "mixed",
-      "question": "explica a ADR-044 e qual o seu impacto",
-      "entity": "ADR-044"
-    },
-    {
-      "category": "mixed",
-      "question": "o que é a ADR-044 e porque foi decidida?",
-      "entity": "ADR-044"
-    },
-    {
-      "category": "mixed",
-      "question": "resume a ADR-044 e diz que consequências tem",
-      "entity": "ADR-044"
-    },
-    {
-      "category": "follow_up",
-      "question": "e a ADR-044?",
-      "entity": "ADR-044"
-    },
-    {
-      "category": "follow_up",
-      "question": "e sobre a ADR-044, o que diz?",
-      "entity": "ADR-044"
-    },
-    {
-      "category": "follow_up",
-      "question": "e em relação à ADR-044?",
-      "entity": "ADR-044"
-    },
-    {
-      "category": "example",
-      "question": "dá um exemplo de aplicação da ADR-044",
-      "entity": "ADR-044"
-    },
-    {
-      "category": "example",
-      "question": "mostra um exemplo prático da ADR-044",
-      "entity": "ADR-044"
-    },
-    {
-      "category": "example",
-      "question": "ilustra a ADR-044 com um exemplo",
-      "entity": "ADR-044"
-    },
-    {
-      "category": "explanation",
-      "question": "explica a ADR-052",
-      "entity": "ADR-052"
-    },
-    {
-      "category": "explanation",
-      "question": "o que diz a ADR-052?",
-      "entity": "ADR-052"
-    },
-    {
-      "category": "explanation",
-      "question": "podes explicar a ADR-052?",
-      "entity": "ADR-052"
-    },
-    {
-      "category": "explanation",
-      "question": "explain ADR-052",
-      "entity": "ADR-052"
-    },
-    {
-      "category": "explanation",
-      "question": "resume a ADR-052 para mim",
-      "entity": "ADR-052"
-    },
-    {
-      "category": "exact",
-      "question": "qual o estado da ADR-052?",
-      "entity": "ADR-052"
-    },
-    {
-      "category": "exact",
-      "question": "a ADR-052 está ativa?",
-      "entity": "ADR-052"
-    },
-    {
-      "category": "exact",
-      "question": "qual o título da ADR-052?",
-      "entity": "ADR-052"
-    },
-    {
-      "category": "impact",
-      "question": "qual o impacto da ADR-052 no ecossistema?",
-      "entity": "ADR-052"
-    },
-    {
-      "category": "impact",
-      "question": "que consequências tem a ADR-052?",
-      "entity": "ADR-052"
-    },
-    {
-      "category": "impact",
-      "question": "o que muda com a ADR-052?",
-      "entity": "ADR-052"
-    },
-    {
-      "category": "mixed",
-      "question": "explica a ADR-052 e qual o seu impacto",
-      "entity": "ADR-052"
-    },
-    {
-      "category": "mixed",
-      "question": "o que é a ADR-052 e porque foi decidida?",
-      "entity": "ADR-052"
-    },
-    {
-      "category": "mixed",
-      "question": "resume a ADR-052 e diz que consequências tem",
-      "entity": "ADR-052"
-    },
-    {
-      "category": "follow_up",
-      "question": "e a ADR-052?",
-      "entity": "ADR-052"
-    },
-    {
-      "category": "follow_up",
-      "question": "e sobre a ADR-052, o que diz?",
-      "entity": "ADR-052"
-    },
-    {
-      "category": "follow_up",
-      "question": "e em relação à ADR-052?",
-      "entity": "ADR-052"
-    },
-    {
-      "category": "example",
-      "question": "dá um exemplo de aplicação da ADR-052",
-      "entity": "ADR-052"
-    },
-    {
-      "category": "example",
-      "question": "mostra um exemplo prático da ADR-052",
-      "entity": "ADR-052"
-    },
-    {
-      "category": "example",
-      "question": "ilustra a ADR-052 com um exemplo",
-      "entity": "ADR-052"
-    },
-    {
-      "category": "explanation",
-      "question": "explica a ADR-053",
-      "entity": "ADR-053"
-    },
-    {
-      "category": "explanation",
-      "question": "o que diz a ADR-053?",
-      "entity": "ADR-053"
-    },
-    {
-      "category": "explanation",
-      "question": "podes explicar a ADR-053?",
-      "entity": "ADR-053"
-    },
-    {
-      "category": "explanation",
-      "question": "explain ADR-053",
-      "entity": "ADR-053"
-    },
-    {
-      "category": "explanation",
-      "question": "resume a ADR-053 para mim",
-      "entity": "ADR-053"
-    },
-    {
-      "category": "exact",
-      "question": "qual o estado da ADR-053?",
-      "entity": "ADR-053"
-    },
-    {
-      "category": "exact",
-      "question": "a ADR-053 está ativa?",
-      "entity": "ADR-053"
-    },
-    {
-      "category": "exact",
-      "question": "qual o título da ADR-053?",
-      "entity": "ADR-053"
-    },
-    {
-      "category": "impact",
-      "question": "qual o impacto da ADR-053 no ecossistema?",
-      "entity": "ADR-053"
-    },
-    {
-      "category": "impact",
-      "question": "que consequências tem a ADR-053?",
-      "entity": "ADR-053"
-    },
-    {
-      "category": "impact",
-      "question": "o que muda com a ADR-053?",
-      "entity": "ADR-053"
-    },
-    {
-      "category": "mixed",
-      "question": "explica a ADR-053 e qual o seu impacto",
-      "entity": "ADR-053"
-    },
-    {
-      "category": "mixed",
-      "question": "o que é a ADR-053 e porque foi decidida?",
-      "entity": "ADR-053"
-    },
-    {
-      "category": "mixed",
-      "question": "resume a ADR-053 e diz que consequências tem",
-      "entity": "ADR-053"
-    },
-    {
-      "category": "follow_up",
-      "question": "e a ADR-053?",
-      "entity": "ADR-053"
-    },
-    {
-      "category": "follow_up",
-      "question": "e sobre a ADR-053, o que diz?",
-      "entity": "ADR-053"
-    },
-    {
-      "category": "follow_up",
-      "question": "e em relação à ADR-053?",
-      "entity": "ADR-053"
-    },
-    {
-      "category": "example",
-      "question": "dá um exemplo de aplicação da ADR-053",
-      "entity": "ADR-053"
-    },
-    {
-      "category": "example",
-      "question": "mostra um exemplo prático da ADR-053",
-      "entity": "ADR-053"
-    },
-    {
-      "category": "example",
-      "question": "ilustra a ADR-053 com um exemplo",
-      "entity": "ADR-053"
-    },
-    {
-      "category": "explanation",
-      "question": "explica a ADR-054",
-      "entity": "ADR-054"
-    },
-    {
-      "category": "explanation",
-      "question": "o que diz a ADR-054?",
-      "entity": "ADR-054"
-    },
-    {
-      "category": "explanation",
-      "question": "podes explicar a ADR-054?",
-      "entity": "ADR-054"
-    },
-    {
-      "category": "explanation",
-      "question": "explain ADR-054",
-      "entity": "ADR-054"
-    },
-    {
-      "category": "explanation",
-      "question": "resume a ADR-054 para mim",
-      "entity": "ADR-054"
-    },
-    {
-      "category": "exact",
-      "question": "qual o estado da ADR-054?",
-      "entity": "ADR-054"
-    },
-    {
-      "category": "exact",
-      "question": "a ADR-054 está ativa?",
-      "entity": "ADR-054"
-    },
-    {
-      "category": "exact",
-      "question": "qual o título da ADR-054?",
-      "entity": "ADR-054"
-    },
-    {
-      "category": "impact",
-      "question": "qual o impacto da ADR-054 no ecossistema?",
-      "entity": "ADR-054"
-    },
-    {
-      "category": "impact",
-      "question": "que consequências tem a ADR-054?",
-      "entity": "ADR-054"
-    },
-    {
-      "category": "impact",
-      "question": "o que muda com a ADR-054?",
-      "entity": "ADR-054"
-    },
-    {
-      "category": "mixed",
-      "question": "explica a ADR-054 e qual o seu impacto",
-      "entity": "ADR-054"
-    },
-    {
-      "category": "mixed",
-      "question": "o que é a ADR-054 e porque foi decidida?",
-      "entity": "ADR-054"
-    },
-    {
-      "category": "mixed",
-      "question": "resume a ADR-054 e diz que consequências tem",
-      "entity": "ADR-054"
-    },
-    {
-      "category": "follow_up",
-      "question": "e a ADR-054?",
-      "entity": "ADR-054"
-    },
-    {
-      "category": "follow_up",
-      "question": "e sobre a ADR-054, o que diz?",
-      "entity": "ADR-054"
-    },
-    {
-      "category": "follow_up",
-      "question": "e em relação à ADR-054?",
-      "entity": "ADR-054"
-    },
-    {
-      "category": "example",
-      "question": "dá um exemplo de aplicação da ADR-054",
-      "entity": "ADR-054"
-    },
-    {
-      "category": "example",
-      "question": "mostra um exemplo prático da ADR-054",
-      "entity": "ADR-054"
-    },
-    {
-      "category": "example",
-      "question": "ilustra a ADR-054 com um exemplo",
-      "entity": "ADR-054"
     },
     {
       "category": "explanation",
@@ -2183,63 +2183,39 @@
     },
     {
       "category": "compare",
-      "question": "compara a ADR-001 com a ADR-003",
+      "question": "compara a ADR-001 com a ADR-001",
       "a": "ADR-001",
-      "b": "ADR-003"
+      "b": "ADR-001"
     },
     {
       "category": "compare",
-      "question": "qual a diferença entre a ADR-001 e a ADR-003?",
+      "question": "qual a diferença entre a ADR-001 e a ADR-001?",
       "a": "ADR-001",
-      "b": "ADR-003"
+      "b": "ADR-001"
     },
     {
       "category": "compare",
-      "question": "compara a ADR-001 com a ADR-005",
+      "question": "compara a ADR-001 com a ADR-001",
       "a": "ADR-001",
-      "b": "ADR-005"
+      "b": "ADR-001"
     },
     {
       "category": "compare",
-      "question": "qual a diferença entre a ADR-001 e a ADR-005?",
+      "question": "qual a diferença entre a ADR-001 e a ADR-001?",
       "a": "ADR-001",
-      "b": "ADR-005"
+      "b": "ADR-001"
     },
     {
       "category": "compare",
-      "question": "compara a ADR-001 com a ADR-006",
+      "question": "compara a ADR-001 com a ADR-011",
       "a": "ADR-001",
-      "b": "ADR-006"
+      "b": "ADR-011"
     },
     {
       "category": "compare",
-      "question": "qual a diferença entre a ADR-001 e a ADR-006?",
+      "question": "qual a diferença entre a ADR-001 e a ADR-011?",
       "a": "ADR-001",
-      "b": "ADR-006"
-    },
-    {
-      "category": "compare",
-      "question": "compara a ADR-001 com a ADR-007",
-      "a": "ADR-001",
-      "b": "ADR-007"
-    },
-    {
-      "category": "compare",
-      "question": "qual a diferença entre a ADR-001 e a ADR-007?",
-      "a": "ADR-001",
-      "b": "ADR-007"
-    },
-    {
-      "category": "compare",
-      "question": "compara a ADR-001 com a ADR-010",
-      "a": "ADR-001",
-      "b": "ADR-010"
-    },
-    {
-      "category": "compare",
-      "question": "qual a diferença entre a ADR-001 e a ADR-010?",
-      "a": "ADR-001",
-      "b": "ADR-010"
+      "b": "ADR-011"
     },
     {
       "category": "compare",
@@ -2267,27 +2243,111 @@
     },
     {
       "category": "compare",
-      "question": "compara a ADR-001 com a ADR-013",
+      "question": "compara a ADR-001 com a ADR-024",
       "a": "ADR-001",
-      "b": "ADR-013"
+      "b": "ADR-024"
     },
     {
       "category": "compare",
-      "question": "qual a diferença entre a ADR-001 e a ADR-013?",
+      "question": "qual a diferença entre a ADR-001 e a ADR-024?",
       "a": "ADR-001",
-      "b": "ADR-013"
+      "b": "ADR-024"
     },
     {
       "category": "compare",
-      "question": "compara a ADR-001 com a ADR-037",
+      "question": "compara a ADR-001 com a ADR-016",
       "a": "ADR-001",
-      "b": "ADR-037"
+      "b": "ADR-016"
     },
     {
       "category": "compare",
-      "question": "qual a diferença entre a ADR-001 e a ADR-037?",
+      "question": "qual a diferença entre a ADR-001 e a ADR-016?",
       "a": "ADR-001",
-      "b": "ADR-037"
+      "b": "ADR-016"
+    },
+    {
+      "category": "compare",
+      "question": "compara a ADR-001 com a ADR-017",
+      "a": "ADR-001",
+      "b": "ADR-017"
+    },
+    {
+      "category": "compare",
+      "question": "qual a diferença entre a ADR-001 e a ADR-017?",
+      "a": "ADR-001",
+      "b": "ADR-017"
+    },
+    {
+      "category": "compare",
+      "question": "compara a ADR-001 com a ADR-043",
+      "a": "ADR-001",
+      "b": "ADR-043"
+    },
+    {
+      "category": "compare",
+      "question": "qual a diferença entre a ADR-001 e a ADR-043?",
+      "a": "ADR-001",
+      "b": "ADR-043"
+    },
+    {
+      "category": "compare",
+      "question": "compara a ADR-001 com a ADR-042",
+      "a": "ADR-001",
+      "b": "ADR-042"
+    },
+    {
+      "category": "compare",
+      "question": "qual a diferença entre a ADR-001 e a ADR-042?",
+      "a": "ADR-001",
+      "b": "ADR-042"
+    },
+    {
+      "category": "compare",
+      "question": "compara a ADR-001 com a ADR-026",
+      "a": "ADR-001",
+      "b": "ADR-026"
+    },
+    {
+      "category": "compare",
+      "question": "qual a diferença entre a ADR-001 e a ADR-026?",
+      "a": "ADR-001",
+      "b": "ADR-026"
+    },
+    {
+      "category": "compare",
+      "question": "compara a ADR-001 com a ADR-044",
+      "a": "ADR-001",
+      "b": "ADR-044"
+    },
+    {
+      "category": "compare",
+      "question": "qual a diferença entre a ADR-001 e a ADR-044?",
+      "a": "ADR-001",
+      "b": "ADR-044"
+    },
+    {
+      "category": "compare",
+      "question": "compara a ADR-001 com a ADR-042",
+      "a": "ADR-001",
+      "b": "ADR-042"
+    },
+    {
+      "category": "compare",
+      "question": "qual a diferença entre a ADR-001 e a ADR-042?",
+      "a": "ADR-001",
+      "b": "ADR-042"
+    },
+    {
+      "category": "compare",
+      "question": "compara a ADR-001 com a ADR-041",
+      "a": "ADR-001",
+      "b": "ADR-041"
+    },
+    {
+      "category": "compare",
+      "question": "qual a diferença entre a ADR-001 e a ADR-041?",
+      "a": "ADR-001",
+      "b": "ADR-041"
     },
     {
       "category": "compare",
@@ -2315,66 +2375,6 @@
     },
     {
       "category": "compare",
-      "question": "compara a ADR-001 com a ADR-043",
-      "a": "ADR-001",
-      "b": "ADR-043"
-    },
-    {
-      "category": "compare",
-      "question": "qual a diferença entre a ADR-001 e a ADR-043?",
-      "a": "ADR-001",
-      "b": "ADR-043"
-    },
-    {
-      "category": "compare",
-      "question": "compara a ADR-001 com a ADR-044",
-      "a": "ADR-001",
-      "b": "ADR-044"
-    },
-    {
-      "category": "compare",
-      "question": "qual a diferença entre a ADR-001 e a ADR-044?",
-      "a": "ADR-001",
-      "b": "ADR-044"
-    },
-    {
-      "category": "compare",
-      "question": "compara a ADR-001 com a ADR-052",
-      "a": "ADR-001",
-      "b": "ADR-052"
-    },
-    {
-      "category": "compare",
-      "question": "qual a diferença entre a ADR-001 e a ADR-052?",
-      "a": "ADR-001",
-      "b": "ADR-052"
-    },
-    {
-      "category": "compare",
-      "question": "compara a ADR-001 com a ADR-053",
-      "a": "ADR-001",
-      "b": "ADR-053"
-    },
-    {
-      "category": "compare",
-      "question": "qual a diferença entre a ADR-001 e a ADR-053?",
-      "a": "ADR-001",
-      "b": "ADR-053"
-    },
-    {
-      "category": "compare",
-      "question": "compara a ADR-001 com a ADR-054",
-      "a": "ADR-001",
-      "b": "ADR-054"
-    },
-    {
-      "category": "compare",
-      "question": "qual a diferença entre a ADR-001 e a ADR-054?",
-      "a": "ADR-001",
-      "b": "ADR-054"
-    },
-    {
-      "category": "compare",
       "question": "compara a ADR-001 com a RFC-0006",
       "a": "ADR-001",
       "b": "RFC-0006"
@@ -2387,63 +2387,39 @@
     },
     {
       "category": "compare",
-      "question": "compara a ADR-002 com a ADR-003",
+      "question": "compara a ADR-002 com a ADR-001",
       "a": "ADR-002",
-      "b": "ADR-003"
+      "b": "ADR-001"
     },
     {
       "category": "compare",
-      "question": "qual a diferença entre a ADR-002 e a ADR-003?",
+      "question": "qual a diferença entre a ADR-002 e a ADR-001?",
       "a": "ADR-002",
-      "b": "ADR-003"
+      "b": "ADR-001"
     },
     {
       "category": "compare",
-      "question": "compara a ADR-002 com a ADR-005",
+      "question": "compara a ADR-002 com a ADR-001",
       "a": "ADR-002",
-      "b": "ADR-005"
+      "b": "ADR-001"
     },
     {
       "category": "compare",
-      "question": "qual a diferença entre a ADR-002 e a ADR-005?",
+      "question": "qual a diferença entre a ADR-002 e a ADR-001?",
       "a": "ADR-002",
-      "b": "ADR-005"
+      "b": "ADR-001"
     },
     {
       "category": "compare",
-      "question": "compara a ADR-002 com a ADR-006",
+      "question": "compara a ADR-002 com a ADR-011",
       "a": "ADR-002",
-      "b": "ADR-006"
+      "b": "ADR-011"
     },
     {
       "category": "compare",
-      "question": "qual a diferença entre a ADR-002 e a ADR-006?",
+      "question": "qual a diferença entre a ADR-002 e a ADR-011?",
       "a": "ADR-002",
-      "b": "ADR-006"
-    },
-    {
-      "category": "compare",
-      "question": "compara a ADR-002 com a ADR-007",
-      "a": "ADR-002",
-      "b": "ADR-007"
-    },
-    {
-      "category": "compare",
-      "question": "qual a diferença entre a ADR-002 e a ADR-007?",
-      "a": "ADR-002",
-      "b": "ADR-007"
-    },
-    {
-      "category": "compare",
-      "question": "compara a ADR-002 com a ADR-010",
-      "a": "ADR-002",
-      "b": "ADR-010"
-    },
-    {
-      "category": "compare",
-      "question": "qual a diferença entre a ADR-002 e a ADR-010?",
-      "a": "ADR-002",
-      "b": "ADR-010"
+      "b": "ADR-011"
     },
     {
       "category": "compare",
@@ -2471,39 +2447,51 @@
     },
     {
       "category": "compare",
-      "question": "compara a ADR-002 com a ADR-013",
+      "question": "compara a ADR-002 com a ADR-024",
       "a": "ADR-002",
-      "b": "ADR-013"
+      "b": "ADR-024"
     },
     {
       "category": "compare",
-      "question": "qual a diferença entre a ADR-002 e a ADR-013?",
+      "question": "qual a diferença entre a ADR-002 e a ADR-024?",
       "a": "ADR-002",
-      "b": "ADR-013"
+      "b": "ADR-024"
     },
     {
       "category": "compare",
-      "question": "compara a ADR-002 com a ADR-037",
+      "question": "compara a ADR-002 com a ADR-016",
       "a": "ADR-002",
-      "b": "ADR-037"
+      "b": "ADR-016"
     },
     {
       "category": "compare",
-      "question": "qual a diferença entre a ADR-002 e a ADR-037?",
+      "question": "qual a diferença entre a ADR-002 e a ADR-016?",
       "a": "ADR-002",
-      "b": "ADR-037"
+      "b": "ADR-016"
     },
     {
       "category": "compare",
-      "question": "compara a ADR-002 com a ADR-041",
+      "question": "compara a ADR-002 com a ADR-017",
       "a": "ADR-002",
-      "b": "ADR-041"
+      "b": "ADR-017"
     },
     {
       "category": "compare",
-      "question": "qual a diferença entre a ADR-002 e a ADR-041?",
+      "question": "qual a diferença entre a ADR-002 e a ADR-017?",
       "a": "ADR-002",
-      "b": "ADR-041"
+      "b": "ADR-017"
+    },
+    {
+      "category": "compare",
+      "question": "compara a ADR-002 com a ADR-043",
+      "a": "ADR-002",
+      "b": "ADR-043"
+    },
+    {
+      "category": "compare",
+      "question": "qual a diferença entre a ADR-002 e a ADR-043?",
+      "a": "ADR-002",
+      "b": "ADR-043"
     },
     {
       "category": "compare",
@@ -2519,15 +2507,27 @@
     },
     {
       "category": "compare",
-      "question": "compara a ADR-002 com a ADR-043",
+      "question": "compara a ADR-002 com a ADR-026",
       "a": "ADR-002",
-      "b": "ADR-043"
+      "b": "ADR-026"
     },
     {
       "category": "compare",
-      "question": "qual a diferença entre a ADR-002 e a ADR-043?",
+      "question": "qual a diferença entre a ADR-002 e a ADR-026?",
       "a": "ADR-002",
-      "b": "ADR-043"
+      "b": "ADR-026"
+    },
+    {
+      "category": "compare",
+      "question": "compara a ADR-002 com a ADR-044",
+      "a": "ADR-002",
+      "b": "ADR-044"
+    },
+    {
+      "category": "compare",
+      "question": "qual a diferença entre a ADR-002 e a ADR-044?",
+      "a": "ADR-002",
+      "b": "ADR-044"
     },
     {
       "category": "boundary",

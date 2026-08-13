@@ -1,6 +1,6 @@
 "use client";
 
-// Programadores — the developer tools + reference area (M2.19G.1, ADR-068 § Recursos).
+// Programadores — the developer tools + reference area (M2.19G.1, ADR-038 § Recursos).
 //
 // This is the home for the isolated developer draft tool ("Validar rascunho") and the developer
 // reference (Rust-first commands, well-known endpoints, questions). The paste/upload manual-input

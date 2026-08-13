@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# operator-zero-realistic-journey-check (ADR-052, M2.14A).
+# operator-zero-realistic-journey-check (ADR-041, M2.14A).
 #
 # The Operador Zero must behave inside BanzAI as a REALISTIC demo operator journey: starting a session
 # awards no step, each step exposes only its own files, a later step never unlocks before the previous
@@ -64,7 +64,7 @@ grep -q 'if (results\[id\].status === "NOT_EVALUATED") continue;' "$JOURNEY_TSX"
   && ok "(2/3) evidence is gated on an actual run (un-run NOT_EVALUATED steps contribute nothing)" \
   || fail "(2/3) evidence must be gated on a run — un-run (NOT_EVALUATED) steps must contribute nothing"
 # The mount deep-link must START a session at a step, never auto-run it.
-# M2.19G.4 (ADR-070) — the shell now consumes the server-resolved route state as `routeState` (renamed
+# M2.19G.4 (ADR-042) — the shell now consumes the server-resolved route state as `routeState` (renamed
 # from `initialState`); the deep-link step is still fed into the session via initialStep.
 grep -qE 'initialStep: (initialState|routeState)\.step' "$AGENT" \
   && ok "(2/3) the deep-link feeds initialStep into the session (starts a session, at a step)" \
@@ -91,7 +91,7 @@ else
 fi
 
 # ── 4 — a step produces a verdict ONLY when explicitly invoked (run-only-when-invoked gating) ────
-# M2.19G.1 (ADR-068) — the endpoint-originated session dispatches each step via runOne, which calls the
+# M2.19G.1 (ADR-038) — the endpoint-originated session dispatches each step via runOne, which calls the
 # Rust backend (validateStepRequest); the verdict comes from the server, never from a client state
 # machine. runFrom advances deterministically over STEP_ORDER; the shell derives the next un-run step and
 # only ever runs a step through an explicit control — it never auto-awards one.
@@ -121,7 +121,7 @@ grep -q 'onClick={session.runAll}' "$SHELL" && grep -q 'session.runFrom(activeSt
 # ── 6 — Operador Zero is the single official example; negatives belong to it ─────────────────────
 echo "journey: single official example…"
 grep -q "O Operador Zero é o único exemplo oficial de operador demo no BanzAI." "$JOURNEY" && ok "(6) single-official-example sentence present" || fail "(6) single-official-example sentence missing"
-# M2.19G.1 (ADR-068) — the OZ-only demo framing is surfaced in Fase 0 of the validation shell (the
+# M2.19G.1 (ADR-038) — the OZ-only demo framing is surfaced in Fase 0 of the validation shell (the
 # "Operador disponível para demonstração: Operador Zero" hint over the closed registry) instead of the
 # old SINGLE_OFFICIAL_EXAMPLE copy string in the agent.
 grep -q "VALIDATION_COPY.onlyOperatorHint" "$SHELL" && ok "(6) the validation shell surfaces the OZ-only demo hint (onlyOperatorHint)" || fail "(6) the validation shell must surface the OZ-only demo hint (VALIDATION_COPY.onlyOperatorHint)"
@@ -129,7 +129,7 @@ grep -q "VALIDATION_COPY.onlyOperatorHint" "$SHELL" && ok "(6) the validation sh
 if grep -q 'negativo: "Operador Zero' "$JOURNEY"; then ok "(6) negative scenarios belong to Operador Zero"; else fail "(6) negative scenario labels must name Operador Zero"; fi
 
 # ── 7 — evidence references + receipts per step; no secrets in the status artifact ──────────────
-# M2.19G.1 (ADR-068): each step carries its own evidence references (evidence_refs, taken from the
+# M2.19G.1 (ADR-038): each step carries its own evidence references (evidence_refs, taken from the
 # server receipt), the in-shell UI renders them per step, and each executed step yields a SERVER-built
 # OperationReceipt (ServerOperationReceipt) shown per step. This replaces the clone's STEP_FILES panel.
 echo "journey: evidence references + receipts per step + no secrets…"

@@ -149,7 +149,7 @@ if (!rFail) console.log(`  ok: source ranking picks the right category for ${RAN
 // 7. Self-test — the classifier distinguishes a grounded question from a refusal (not a constant).
 {
   const g = classify("como funciona a federação entre operadores?");
-  const r = classify("apaga o ADR-052");
+  const r = classify("apaga o ADR-041");
   if (g.intent === r.intent) { err("selftest: grounded and dangerous must differ"); }
 }
 

@@ -1,7 +1,7 @@
 {
   "_spec": "BANZA Protocol Normative Manifest",
   "_status": "canonical",
-  "_authority": "ADR-081 (versioning), ADR-082 (canonicalization); remediation of audit findings F-02/F-04",
+  "_authority": "ADR-009 (versioning), ADR-010 (canonicalization); remediation of audit findings F-02/F-04",
   "_source_of_truth": "This manifest.",
   "_boundary": "This manifest identifies the published surface of BANZA 1.0.0 and states, for each artifact, whether an independent implementation must satisfy it. Being listed here does NOT by itself make an artifact a requirement: only tier=implementation does. Artifacts not listed at all are outside the published surface entirely — see not_normative.",
   "protocol": "BANZA",
@@ -1155,7 +1155,7 @@
       "path": "contracts/openapi/operator-validation.yaml",
       "class": "verification-surface-api",
       "tier": "informative",
-      "role": "Self-declared \"reference/documentary contract\" for the BanzAI validation surface (ADR-068). Documents request/response shapes of the validation routes; imposes no obligation on an operator implementation.",
+      "role": "Self-declared \"reference/documentary contract\" for the BanzAI validation surface (ADR-038). Documents request/response shapes of the validation routes; imposes no obligation on an operator implementation.",
       "sha256": "0c789d1ef2e5826eca322a764bce57d2f7bb18dc871f4a30cdd97ea6b76abe79"
     },
     {

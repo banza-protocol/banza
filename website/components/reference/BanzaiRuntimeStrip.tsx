@@ -1,6 +1,6 @@
 // Live runtime strip for the BanzAI reference chapter (§12 "Estado verificável do runtime").
 // It reads the runtime single source of truth server-side — GET /banzai/runtime (schema
-// banzai-runtime/1, ADR-072) — so the reference never fixes the provider, model or counters in prose.
+// banzai-runtime/1, ADR-042) — so the reference never fixes the provider, model or counters in prose.
 // Any failure or an unrecognised schema/mode/status resolves to an honest "estado não confirmado"
 // line rather than a fabricated claim. This mirrors the /estado consumer; the machine route wins.
 //

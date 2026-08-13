@@ -7,7 +7,7 @@
 //! that defines it — a real registry ADR/RFC, verified to resolve — so the trunk grounds the explanation on
 //! that source (exact-source, source-bound). It NEVER invents a definition: it only points a concept at the
 //! canonical record that already defines it. Canonical sources are FIRST-CLASS of every public type: a
-//! concept maps to a registry ADR/RFC id (double-entry→ADR-006, federation→ADR-040, revocation→ADR-038) OR
+//! concept maps to a registry ADR/RFC id (double-entry→ADR-011, federation→ADR-031, revocation→ADR-027) OR
 //! to a public Reference/spec/governance document PATH (governance→docs/reference/PROTOCOL_GOVERNANCE_
 //! GLOSSARY.md, manifest→docs/reference/manifesto.md, conformance-evidence→spec/federation/…) — never forced
 //! into an artificial ADR. A truly unmapped concept returns None and keeps corpus retrieval.
@@ -20,7 +20,7 @@ use crate::normalize;
 /// the normalized query. Ordered most-specific first so a multi-word alias wins over a bare token.
 const CONCEPTS: &[(&str, &[&str])] = &[
     (
-        "ADR-006",
+        "ADR-011",
         &[
             "dupla entrada",
             "double entry",
@@ -32,7 +32,7 @@ const CONCEPTS: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "ADR-007",
+        "ADR-011",
         &[
             "invariante de dupla entrada",
             "invariante financeiro",
@@ -41,7 +41,7 @@ const CONCEPTS: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "ADR-011",
+        "ADR-024",
         &[
             "idempotencia",
             "idempotency",
@@ -52,7 +52,7 @@ const CONCEPTS: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "ADR-012",
+        "ADR-016",
         &[
             "pagamento qr",
             "codigo qr",
@@ -62,7 +62,7 @@ const CONCEPTS: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "ADR-013",
+        "ADR-017",
         &[
             "payment link",
             "payment links",
@@ -72,7 +72,7 @@ const CONCEPTS: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "ADR-010",
+        "ADR-012",
         &[
             "identidade da carteira",
             "wallet native",
@@ -83,9 +83,9 @@ const CONCEPTS: &[(&str, &[&str])] = &[
             "identidade do participante",
         ],
     ),
-    ("ADR-052", &["operador de referencia", "reference operator"]),
+    ("ADR-041", &["operador de referencia", "reference operator"]),
     (
-        "ADR-003",
+        "ADR-001",
         &[
             "separacao de operadores",
             "separacao operador",
@@ -93,10 +93,10 @@ const CONCEPTS: &[(&str, &[&str])] = &[
             "operator separation",
             "protocol operator separation",
             // M2.18B.4-R2 — the operator DEFINITION itself ("o que é um operador?") had no canonical
-            // anchor, so the concept gate declined it even though ADR-003 defines the operator↔protocol
+            // anchor, so the concept gate declined it even though ADR-001 defines the operator↔protocol
             // boundary. Precise multi-word aliases only (never the bare token "operador", which would
             // shadow federation/manifesto/reference-operator questions); longest-alias wins keeps
-            // "operador de referencia" (ADR-052) and "manifesto de operador" ahead of these.
+            // "operador de referencia" (ADR-041) and "manifesto de operador" ahead of these.
             "que e um operador",
             "um operador no protocolo",
             "papel do operador",
@@ -130,7 +130,7 @@ const CONCEPTS: &[(&str, &[&str])] = &[
     ),
     // ── M2.18B.4 — concepts whose canonical source is a real ADR (not forced) ─────────────────────
     (
-        "ADR-038",
+        "ADR-027",
         &[
             "revogacao",
             "revocation",
@@ -141,18 +141,18 @@ const CONCEPTS: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        // ADR-040 is FEDERATION (trust evaluation). The generic "trust model" is NOT a single-document
+        // ADR-031 is FEDERATION (trust evaluation). The generic "trust model" is NOT a single-document
         // concept: in BANZA the open trust model spans several records (federation, key revocation, the
-        // evidence model), so pinning "modelo de confiança" to ADR-040 alone gave the output pass too few
+        // evidence model), so pinning "modelo de confiança" to ADR-031 alone gave the output pass too few
         // facts — it then either over-reached to other ADRs (validator-rejected) or honestly declined
         // (M2.18B.4-R2). Keep only the FEDERATION aliases here; a trust-model question carries an
         // explanatory cue, so it reaches the trunk anyway and grounds on broad corpus retrieval (proven to
         // publish, cites the Reference).
-        "ADR-040",
+        "ADR-031",
         &["federacao", "federation", "federar", "confianca federada"],
     ),
     (
-        "ADR-021",
+        "ADR-039",
         &[
             "nivel de conformidade",
             "conformance level",
@@ -162,7 +162,7 @@ const CONCEPTS: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "ADR-039",
+        "ADR-033",
         &[
             "auto publicacao",
             "self publication",
@@ -204,14 +204,14 @@ const CONCEPTS: &[(&str, &[&str])] = &[
         ],
     ),
     // ── M2.19C — the three-layer institutional architecture concepts. Each maps to the canonical
-    // ADR that DEFINES it (ADR-059..063), so a conceptual question grounds on the right record instead
+    // ADR that DEFINES it (ADR-003..063), so a conceptual question grounds on the right record instead
     // of falling to weak corpus retrieval (which mis-synthesised "as três camadas" from ADR-001/002).
     // Multi-word aliases only — never bare tokens like "arquitectura"/"camadas"/"autoriza" (nor any
     // operator brand, which repo-guards forbids in engine source); those would shadow
     // federation/naming/boundary questions. Longest-alias-wins keeps precise
     // concepts ahead of broad ones. These NEVER invent a definition — they point a concept at its record.
     (
-        "ADR-059",
+        "ADR-003",
         &[
             "tres camadas",
             "arquitectura institucional",
@@ -230,7 +230,7 @@ const CONCEPTS: &[(&str, &[&str])] = &[
     (
         // Brand-free aliases only (the repo-guards contamination check forbids the operator brand in
         // engine source): "operational scheme" already matches an "Operational Scheme" question.
-        "ADR-060",
+        "ADR-006",
         &[
             "operational scheme",
             "scheme operacional",
@@ -240,7 +240,7 @@ const CONCEPTS: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "ADR-061",
+        "ADR-004",
         &[
             "certificacao nao e autorizacao",
             "certificacao vs autorizacao",
@@ -252,7 +252,7 @@ const CONCEPTS: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "ADR-062",
+        "ADR-005",
         &[
             "estado regulatorio",
             "regulatory state",
@@ -276,7 +276,7 @@ const CONCEPTS: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "ADR-063",
+        "ADR-007",
         &[
             "conflito de interesses",
             "conflict of interest",
@@ -288,10 +288,10 @@ const CONCEPTS: &[(&str, &[&str])] = &[
             "creator and operator",
         ],
     ),
-    // ── M2.19D — Layer-2 conformance & interoperability certification concepts (ADR-064/065/066).
+    // ── M2.19D — Layer-2 conformance & interoperability certification concepts (ADR-034/065/066).
     // Brand-free, multi-word aliases only.
     (
-        "ADR-064",
+        "ADR-034",
         &[
             "certificacao de conformidade e interoperabilidade",
             "certificacao de conformidade",
@@ -305,7 +305,7 @@ const CONCEPTS: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "ADR-065",
+        "ADR-036",
         &[
             "technical registry",
             "registo tecnico",
@@ -314,7 +314,7 @@ const CONCEPTS: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "ADR-066",
+        "ADR-035",
         &[
             "estados de certificacao",
             "ciclo de vida da certificacao",
@@ -329,7 +329,7 @@ const CONCEPTS: &[(&str, &[&str])] = &[
 
 /// Resolve a concept query to its canonical registry document id, or `None` when the query does not name a
 /// concept with a single canonical document (those keep using corpus retrieval). The MOST-SPECIFIC alias
-/// wins: when several aliases match (e.g. the bare token "conformidade" for ADR-021 and the phrase
+/// wins: when several aliases match (e.g. the bare token "conformidade" for ADR-039 and the phrase
 /// "evidencia de conformidade" for the evidence spec), the longest matching alias decides, so a precise
 /// multi-word concept is never shadowed by a broad token regardless of list order.
 /// M2.18B.5 — expose the concept→aliases table so the fuzzy/recovery engine derives its canonical
@@ -362,34 +362,34 @@ mod tests {
     fn maps_concepts_to_their_canonical_adr() {
         assert_eq!(
             resolve_concept("o que é a dupla entrada no ledger?"),
-            Some("ADR-006")
+            Some("ADR-011")
         );
         assert_eq!(
             resolve_concept("como funciona a idempotência?"),
-            Some("ADR-011")
+            Some("ADR-024")
         );
-        assert_eq!(resolve_concept("o que é um payment link?"), Some("ADR-013"));
+        assert_eq!(resolve_concept("o que é um payment link?"), Some("ADR-017"));
         assert_eq!(
             resolve_concept("explica o modelo de identidade da carteira"),
-            Some("ADR-010")
+            Some("ADR-012")
         );
         assert_eq!(
             resolve_concept("o que é o operador de referência?"),
-            Some("ADR-052")
+            Some("ADR-041")
         );
-        // M2.18B.4-R2 — the generic operator definition anchors on ADR-003 …
+        // M2.18B.4-R2 — the generic operator definition anchors on ADR-001 …
         assert_eq!(
             resolve_concept("o que é um operador no protocolo?"),
-            Some("ADR-003")
+            Some("ADR-001")
         );
         assert_eq!(
             resolve_concept("qual o papel do operador?"),
-            Some("ADR-003")
+            Some("ADR-001")
         );
         // … but the more specific reference-operator / manifest concepts still win (longest alias).
         assert_eq!(
             resolve_concept("o que é o operador de referência?"),
-            Some("ADR-052")
+            Some("ADR-041")
         );
         assert_eq!(
             resolve_concept("o que é um manifesto de operador?"),
@@ -402,11 +402,11 @@ mod tests {
         // First-class non-ADR canonical sources (Reference chapters, specs) + ADR-backed concepts.
         assert_eq!(
             resolve_concept("como funciona a federação?"),
-            Some("ADR-040")
+            Some("ADR-031")
         );
         assert_eq!(
             resolve_concept("como funciona a revogação de uma chave?"),
-            Some("ADR-038")
+            Some("ADR-027")
         );
         assert_eq!(
             resolve_concept("como é governado o protocolo?"),
@@ -430,51 +430,51 @@ mod tests {
 
     #[test]
     fn m2_19c_three_layer_concepts_map_to_their_canonical_adr() {
-        // ADR-059 — three-layer institutional architecture (the flagship v1 concept).
+        // ADR-003 — three-layer institutional architecture (the flagship v1 concept).
         assert_eq!(
             resolve_concept("Quais são as três camadas da arquitectura institucional do BANZA?"),
-            Some("ADR-059")
+            Some("ADR-003")
         );
         assert_eq!(
             resolve_concept("explica a arquitetura de três camadas"),
-            Some("ADR-059")
+            Some("ADR-003")
         );
         assert_eq!(
             resolve_concept("what is the three-layer architecture?"),
-            Some("ADR-059")
+            Some("ADR-003")
         );
-        // ADR-060 — the L3 Operational Scheme (brand-free queries; the operator brand must not appear
+        // ADR-006 — the L3 Operational Scheme (brand-free queries; the operator brand must not appear
         // in engine source, but the resolver still catches the phrasings people use).
         assert_eq!(
             resolve_concept("o que é o Operational Scheme (L3)?"),
-            Some("ADR-060")
+            Some("ADR-006")
         );
         assert_eq!(
             resolve_concept("o que é o scheme operacional?"),
-            Some("ADR-060")
+            Some("ADR-006")
         );
         assert_eq!(
             resolve_concept("qual é o operador designado?"),
-            Some("ADR-060")
+            Some("ADR-006")
         );
-        // ADR-061 — certification ≠ admission ≠ authorisation.
+        // ADR-004 — certification ≠ admission ≠ authorisation.
         assert_eq!(
             resolve_concept("a certificação é a mesma coisa que admissão a scheme?"),
-            Some("ADR-061")
+            Some("ADR-004")
         );
-        // ADR-062 — regulatory state + real-money gate.
+        // ADR-005 — regulatory state + real-money gate.
         assert_eq!(
             resolve_concept("o operador já está autorizado pelo regulador?"),
-            Some("ADR-062")
+            Some("ADR-005")
         );
         assert_eq!(
             resolve_concept("os fundos reais já estão activos?"),
-            Some("ADR-062")
+            Some("ADR-005")
         );
-        // ADR-063 — conflict of interest + separation.
+        // ADR-007 — conflict of interest + separation.
         assert_eq!(
             resolve_concept("como é gerido o conflito de interesses?"),
-            Some("ADR-063")
+            Some("ADR-007")
         );
     }
 
@@ -483,9 +483,9 @@ mod tests {
         // The new multi-word aliases must not capture the pre-existing concept questions.
         assert_eq!(
             resolve_concept("como funciona a federação?"),
-            Some("ADR-040")
+            Some("ADR-031")
         );
-        assert_eq!(resolve_concept("o que é a dupla entrada?"), Some("ADR-006"));
+        assert_eq!(resolve_concept("o que é a dupla entrada?"), Some("ADR-011"));
         assert_eq!(
             resolve_concept("o que é evidência de conformidade?"),
             Some("spec/federation/FEDERATION_CONFORMANCE_EVIDENCE_MODEL.md")

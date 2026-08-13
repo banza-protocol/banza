@@ -146,14 +146,14 @@ fn matrix() -> Vec<Row> {
         // ── NARRATIVE tasks → the trunk (no deterministic terminal) ──
         row(
             "me explica o ADR 005",
-            "ADR-005",
+            "ADR-001",
             RequestedTask::Explanation,
             false,
             "narrative_trunk",
         ),
         row(
             "ADR 005",
-            "ADR-005",
+            "ADR-001",
             RequestedTask::DocumentLookup,
             false,
             "narrative_trunk",
@@ -173,14 +173,14 @@ fn matrix() -> Vec<Row> {
             "narrative_trunk",
         ),
         row(
-            "qual o impacto da ADR-040 para um operador?",
-            "ADR-040",
+            "qual o impacto da ADR-031 para um operador?",
+            "ADR-031",
             RequestedTask::Impact,
             false,
             "narrative_trunk",
         ),
         row(
-            "compara a ADR-053 e a ADR-054",
+            "compara a ADR-041 e a ADR-042",
             "",
             RequestedTask::Comparison,
             false,
@@ -265,9 +265,9 @@ fn truth_table_every_terminal_passes_the_independent_validator() {
 fn truth_table_source_appropriateness_matches_the_task() {
     // Documentary/narrative questions find a task-suitable (ADR/RFC) source.
     for (q, seed) in [
-        ("me explica o ADR 005", "ADR-005"),
-        ("qual o impacto da ADR-040 para um operador?", "ADR-040"),
-        ("o que e a federacao?", "ADR-040"),
+        ("me explica o ADR 005", "ADR-001"),
+        ("qual o impacto da ADR-031 para um operador?", "ADR-031"),
+        ("o que e a federacao?", "ADR-031"),
     ] {
         let p = plan_retrieval(q, seed);
         assert!(

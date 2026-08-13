@@ -2,7 +2,7 @@
 name = "banza-artifact-fetcher"
 version = "0.1.0"
 edition = "2021"
-description = "banza-artifact-fetcher (ADR-037, ADR-068 §4.7/§19; M2.19G.1): the ONLY BANZA component that reaches operator public endpoints. SSRF-hardened Rust library + internal HTTP service that performs ALL official artifact retrieval for BanzAI's endpoint-originated operator-validation journey. HTTPS-only, registry-supplied host+port, full IPv4/IPv6 blocklist (private/loopback/link-local/unique-local/CGNAT/cloud-metadata/reserved), zero redirects, hard size cap, decompression-bomb guard, TLS validation, media-type allowlist, per-fetch audit. The no-network protocol engines stay no-network; they receive already-fetched content."
+description = "banza-artifact-fetcher (ADR-043, ADR-038 §4.7/§19; M2.19G.1): the ONLY BANZA component that reaches operator public endpoints. SSRF-hardened Rust library + internal HTTP service that performs ALL official artifact retrieval for BanzAI's endpoint-originated operator-validation journey. HTTPS-only, registry-supplied host+port, full IPv4/IPv6 blocklist (private/loopback/link-local/unique-local/CGNAT/cloud-metadata/reserved), zero redirects, hard size cap, decompression-bomb guard, TLS validation, media-type allowlist, per-fetch audit. The no-network protocol engines stay no-network; they receive already-fetched content."
 license = "Apache-2.0"
 
 [lib]

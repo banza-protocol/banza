@@ -1,8 +1,8 @@
-// Onboarding data access (M2.19G.3, ADR-069). Thin, parameterised SQL over the six private onboarding
+// Onboarding data access (M2.19G.3, ADR-040). Thin, parameterised SQL over the six private onboarding
 // tables. Every function takes a query function `q(text, params) -> {rows}` so it works both on the
 // shared pool and inside a transaction (client.query). NOTHING here decides a verdict (that is Rust) and
 // NOTHING here stores a plaintext code, token, key or PII beyond the contact email: only HMAC digests,
-// opaque ids, states, timestamps and JSON receipts/blockers are persisted (ADR-042 boundary).
+// opaque ids, states, timestamps and JSON receipts/blockers are persisted (ADR-026 boundary).
 
 import crypto from "node:crypto";
 

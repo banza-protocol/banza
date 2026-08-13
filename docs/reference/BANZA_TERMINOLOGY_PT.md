@@ -27,7 +27,7 @@ BANZA é um protocolo financeiro aberto. A participação de operadores é demon
 | Open Financial Protocol | Protocolo Financeiro Aberto | Enquadramento canónico do BANZA |
 | Federation | Federação | |
 | Trust | Confiança | No contexto "Trust Architecture" → "Arquitectura de Confiança" |
-| Open Trust Evaluation | Avaliação Aberta de Confiança | As dez verificações do ADR-040 |
+| Open Trust Evaluation | Avaliação Aberta de Confiança | As dez verificações do ADR-031 |
 | Conformance Level | Nível de Conformidade | |
 | Conformance Evidence | Evidência de Conformidade | Verificável por máquina |
 | Operator | Operador | Sempre independente — nunca "certificado pela BANZA" |
@@ -143,14 +143,14 @@ BANZA é um protocolo financeiro aberto. A participação de operadores é demon
 | L3 — Inter-Operator Interoperability | L3 — Interoperabilidade Inter-Operadores | |
 | L4 — External Interoperability | L4 — Interoperabilidade Externa | |
 | Protocol Capability Manifest | Manifesto de Operador | Auto-publicado pelo operador |
-| Self-publication | Auto-publicação | O operador publica o seu próprio material (ADR-039) |
+| Self-publication | Auto-publicação | O operador publica o seu próprio material (ADR-033) |
 | Conformance result | Resultado de conformidade | |
 | Conformance evidence | Evidência de conformidade | Verificável por máquina; re-verificável por qualquer par |
 | Compatibility badge | Distintivo de compatibilidade | Auto-declaração — sem peso de confiança |
 | Readiness score | Pontuação de prontidão | |
 | Gap assessment | Avaliação de lacunas | |
 
-### Avaliação Aberta de Confiança (ADR-040)
+### Avaliação Aberta de Confiança (ADR-031)
 
 | Inglês | Português Canónico | Notas |
 |--------|-------------------|-------|

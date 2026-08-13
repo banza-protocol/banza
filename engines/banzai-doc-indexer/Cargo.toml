@@ -2,7 +2,7 @@
 name = "banzai-doc-indexer"
 version = "0.1.0"
 edition = "2021"
-description = "banzai-doc-indexer (ADR-049, M2.9A): build-time Rust indexer that walks the BANZA protocol documentation and emits a bounded, metadata-rich doc-index.json for the BanzAI agent's secondary source enrichment. Excludes secrets/.env/keys/backups/logs/GGUF/node_modules/target/.git/financial+operator data. Deterministic; no network."
+description = "banzai-doc-indexer (ADR-042, M2.9A): build-time Rust indexer that walks the BANZA protocol documentation and emits a bounded, metadata-rich doc-index.json for the BanzAI agent's secondary source enrichment. Excludes secrets/.env/keys/backups/logs/GGUF/node_modules/target/.git/financial+operator data. Deterministic; no network."
 license = "Apache-2.0"
 
 [[bin]]

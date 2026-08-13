@@ -1,10 +1,10 @@
-//! Domain model for the closed Technical Registry (ADR-068 §13).
+//! Domain model for the closed Technical Registry (ADR-038 §13).
 //!
 //! Two records are modelled: the **operator** (the responsible entity) and the **implementation**
 //! (the technical system actually evaluated). One operator may publish many implementations; the
 //! validation target is always an operator **and** one of its published implementations — never the
-//! entity in the abstract (ADR-068 §4.2/§4.3). Presence of a record NEVER implies admission,
-//! authorisation, or the ability to move funds (ADR-068 §4.10, ADR-061).
+//! entity in the abstract (ADR-038 §4.2/§4.3). Presence of a record NEVER implies admission,
+//! authorisation, or the ability to move funds (ADR-038 §4.10, ADR-004).
 
 use serde::{Deserialize, Serialize};
 
@@ -30,7 +30,7 @@ impl PublicationStatus {
     }
 }
 
-/// The published artifact endpoint map — the 14 canonical paths of an implementation (ADR-068 §13).
+/// The published artifact endpoint map — the 14 canonical paths of an implementation (ADR-038 §13).
 /// Paths are stored relative (leading-slash); resolution joins them onto the `canonical_origin`.
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct Endpoints {
@@ -51,10 +51,10 @@ pub struct Endpoints {
 }
 
 impl Endpoints {
-    /// The canonical published paths of the reference implementation (ADR-067 served surface + the
-    /// four endpoints ADR-068 requires: discovery, capabilities, signed-metadata, federation-manifest).
+    /// The canonical published paths of the reference implementation (ADR-041 served surface + the
+    /// four endpoints ADR-038 requires: discovery, capabilities, signed-metadata, federation-manifest).
     /// The operator (discovery) manifest and the signed protocol metadata are published at their canonical
-    /// `.well-known/banza/` discovery routes per ADR-080 (RFC-0005 / ADR-039); the remaining demo artefacts
+    /// `.well-known/banza/` discovery routes per ADR-037 (RFC-0005 / ADR-033); the remaining demo artefacts
     /// keep their reference-surface paths.
     pub fn reference() -> Self {
         Endpoints {
@@ -68,7 +68,7 @@ impl Endpoints {
             federation_metadata: "/federation/metadata.json".into(),
             // Operador Zero publishes its federation manifest at /federation-metadata.json (the path its
             // discovery document declares as federation_metadata_url). The registry must only declare
-            // endpoints the implementation actually serves (ADR-068 §4.6/§22), so this points at the
+            // endpoints the implementation actually serves (ADR-038 §4.6/§22), so this points at the
             // served artifact, not an unpublished /federation-manifest.json.
             federation_manifest: "/federation-metadata.json".into(),
             evidence_bundle: "/evidence-bundle.json".into(),
@@ -90,7 +90,7 @@ pub struct OperatorRecord {
     pub registry_ref: String,
 }
 
-/// An implementation record — the technical system actually evaluated (ADR-068 §4.2).
+/// An implementation record — the technical system actually evaluated (ADR-038 §4.2).
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct ImplementationRecord {
     pub implementation_id: String,
@@ -103,7 +103,7 @@ pub struct ImplementationRecord {
     pub profile: String,
     pub environment: String,
     pub capabilities: Vec<String>,
-    /// Empty string = origin-less (an ineligible target — ADR-068 Consequences).
+    /// Empty string = origin-less (an ineligible target — ADR-038 Consequences).
     pub canonical_origin: String,
     pub endpoints: Endpoints,
     pub publication_status: PublicationStatus,
@@ -131,7 +131,7 @@ pub struct ResolvedEndpoints {
 
 /// A fully resolved, ELIGIBLE validation target. Every URL is bound to the canonical origin; the
 /// `expected_host` is the SSRF-pin the secure fetcher validates against. Resolution proves eligibility
-/// only — never admission, authorisation, or the ability to move funds (ADR-068 §4.10).
+/// only — never admission, authorisation, or the ability to move funds (ADR-038 §4.10).
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct ResolvedTarget {
     pub operator_id: String,
@@ -150,7 +150,7 @@ pub struct ResolvedTarget {
     pub evidence_refs: Vec<String>,
 }
 
-/// Typed ineligibility / resolution-failure reasons (ADR-068 §14). Serialized as snake_case so the
+/// Typed ineligibility / resolution-failure reasons (ADR-038 §14). Serialized as snake_case so the
 /// receipt and the caller always know *why* a target is not eligible. Presence in the registry is not
 /// admission; a non-published / revoked / origin-less / incompatible / wrong-environment record is
 /// simply not an eligible target.

@@ -1,7 +1,7 @@
 {
   "_spec": "BANZA Collections Conformance Vectors v1.0",
   "_stability": "stable",
-  "_authority": "ADR-016",
+  "_authority": "ADR-018",
   "_capability": "supports_collections",
   "_note": "Collections is a Level-2 capability (requires supports_payment_intents). Vectors use seed wallets that exist on any freshly started sandbox operator. Amounts are within seed balances. A Collection NEVER posts to the ledger; settlement happens per share via PaymentIntent -> Transfer.",
 
@@ -137,7 +137,7 @@
       "title": "Only the owner can cancel; PAID shares are unaffected",
       "certification_level": 2,
       "stability": "stable",
-      "assertion": "A non-owner cancel returns 403. An owner cancel moves the collection to CANCELLED and unpaid shares to CANCELLED, while any PAID share remains terminal PAID (settled money is not reversed here; refunds follow ADR-017).",
+      "assertion": "A non-owner cancel returns 403. An owner cancel moves the collection to CANCELLED and unpaid shares to CANCELLED, while any PAID share remains terminal PAID (settled money is not reversed here; refunds follow ADR-020).",
       "expected": { "non_owner_status": 403 }
     },
 

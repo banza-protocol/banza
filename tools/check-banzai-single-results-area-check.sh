@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# M2.19G.1 (ADR-068 §29) — single "Resultados" area guard (§37, invariant 11).
+# M2.19G.1 (ADR-038 §29) — single "Resultados" area guard (§37, invariant 11).
 #
 # There is exactly ONE "Resultados" sidebar entry, whose sub-views (Resumo · Receipts · Relatórios ·
 # Artefactos · Traces · Evidence Bundle) are IN-AREA tabs, not separate persistent sidebar entries.
@@ -17,7 +17,7 @@ fl() { printf 'FAIL: %s\n' "$1"; fail=1; }
 AGENT=website/components/banzai/banzai-agent.ts
 MODE=website/components/banzai/BanzaiValidationMode.tsx
 
-echo "== banzai-single-results-area-check (M2.19G.1 / ADR-068 §29) =="
+echo "== banzai-single-results-area-check (M2.19G.1 / ADR-038 §29) =="
 
 # ── self-test ───────────────────────────────────────────────────────────────────────────────────────
 st=0
@@ -48,4 +48,4 @@ fi
 
 echo
 if [ "$fail" -ne 0 ]; then echo "banzai-single-results-area-check: FAIL"; exit 1; fi
-echo "banzai-single-results-area-check: ✓ one Resultados area with in-area sub-views (ADR-068 §29)"
+echo "banzai-single-results-area-check: ✓ one Resultados area with in-area sub-views (ADR-038 §29)"

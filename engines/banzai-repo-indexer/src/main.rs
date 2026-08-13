@@ -1,7 +1,7 @@
-//! banzai-repo-indexer (M2.13B PR2, ADR-037/ADR-049).
+//! banzai-repo-indexer (M2.13B PR2, ADR-043/ADR-042).
 //!
 //! A deterministic, dependency-light Rust indexer that gives the BanzAI agent SAFE, CURRENT,
-//! CITABLE knowledge of the whole BANZA monorepo — which since M2.19G.6 (ADR-075) includes the
+//! CITABLE knowledge of the whole BANZA monorepo — which since M2.19G.6 (ADR-042) includes the
 //! consolidated BanzAI runtime (services/banzai-api), engines (engines/banzai-*), docs and guards.
 //! The separate banza-protocol/banzai repo was permanently removed; this indexer no longer indexes any sibling. It:
 //!   1. discovers indexable files under the monorepo;
@@ -18,7 +18,7 @@
 //!      banzai-repo-index-safety.json (the secret-scan summary that proves the index is secret-free).
 //!
 //! It is DETERMINISTIC (sorted walks, stable hashing, no timestamps in the content hash), does NO
-//! network, and NEVER emits secret material. TS/JS remains UI/glue only (ADR-037).
+//! network, and NEVER emits secret material. TS/JS remains UI/glue only (ADR-043).
 //!
 //! CLI: banzai-repo-indexer <banza_repo> <banza_commit> <out_dir> [indexed_at]  (monorepo-only; M2.19G.6)
 
@@ -30,7 +30,7 @@ use std::path::{Path, PathBuf};
 const INDEX_VERSION: &str = "m2.13b-pr2";
 const TOOL_VERSION: &str = "banzai-repo-indexer/0.1.0";
 const BANZA_REMOTE: &str = "banza-protocol/banza";
-// M2.19G.6 (ADR-075): the separate banza-protocol/banzai repo was consolidated into this monorepo and
+// M2.19G.6 (ADR-042): the separate banza-protocol/banzai repo was consolidated into this monorepo and
 // permanently removed. The indexer indexes ONLY this monorepo — there is no sibling to index. The `classify`/
 // `roots_for` helpers retain generic path rules (incl. inert `banza-protocol/banzai` branches used only
 // by their unit tests) but are never invoked with any repo other than BANZA_REMOTE.
@@ -223,7 +223,7 @@ fn file_name_of(rel: &str) -> String {
 fn path_excluded(rel: &str) -> Option<&'static str> {
     let lp = format!("/{}", rel.to_lowercase());
     // Historical milestone reports that reference the permanently-removed separate `banza-protocol/banzai`
-    // repository (ADR-075). Retained in the repo for governance history, but NEVER re-indexed into active
+    // repository (ADR-042). Retained in the repo for governance history, but NEVER re-indexed into active
     // BanzAI retrieval — so BanzAI can never surface the removed repository (M2.19G.6 final micro-closure).
     const REMOVED_REPO_HISTORICAL_REPORTS: &[&str] = &[
         "/docs/governance/phase_7x_banzai_architecture_alignment_2026_07.md",
@@ -531,7 +531,7 @@ fn chunk_is_contaminated(text: &str) -> bool {
         "e-kwanza",
         "ekwanza",
         " emis ",
-        // M2.19C: Banzami (designated L3 scheme operator, ADR-059/060) is groundable now; only real
+        // M2.19C: Banzami (designated L3 scheme operator, ADR-003/060) is groundable now; only real
         // payment-operator brands stay filtered.
     ];
     // (b) forbidden implementation terminology (banza-repo-guards FORBIDDEN_TERMS)
@@ -1173,7 +1173,7 @@ fn index_repo(
 
 fn main() {
     let args: Vec<String> = std::env::args().collect();
-    // M2.19G.6 (ADR-075): monorepo-only CLI — <banza_repo> <banza_commit> <out_dir> [indexed_at].
+    // M2.19G.6 (ADR-042): monorepo-only CLI — <banza_repo> <banza_commit> <out_dir> [indexed_at].
     let banza = args.get(1).cloned().unwrap_or_else(|| ".".to_string());
     let banza_commit = args
         .get(2)
@@ -1206,7 +1206,7 @@ fn main() {
         &mut secret_skips,
     );
 
-    // M2.19G.6 (ADR-075): no sibling repo is indexed — the former banza-protocol/banzai content is
+    // M2.19G.6 (ADR-042): no sibling repo is indexed — the former banza-protocol/banzai content is
     // consolidated into this monorepo (indexed above); the separate repo is permanently removed.
 
     // Deterministic ordering: by (source_priority, repo, path, line_start).
@@ -1284,7 +1284,7 @@ fn main() {
         "index_hash": index_hash,
         "banza_repo": BANZA_REMOTE,
         "banza_commit": banza_commit,
-        // M2.19G.6 (ADR-075): the monorepo is the sole indexed source. The consolidated BanzAI runtime
+        // M2.19G.6 (ADR-042): the monorepo is the sole indexed source. The consolidated BanzAI runtime
         // (services/banzai-api) + engines (engines/banzai-*) are indexed as part of this repo; there is
         // no separate banza-protocol/banzai repo to index. `banzai_in_monorepo` records that the index
         // covers the in-monorepo BanzAI (proved by the banzai-runtime category count).
@@ -1388,7 +1388,7 @@ mod tests {
         for p in [
             "LICENSE",
             "README.md",
-            "decisions/adr/ADR-052-operador-zero.md",
+            "decisions/adr/ADR-041-operador-zero.md",
             "engines/operator-zero-core/src/lib.rs",
             "website/middleware.ts",
             "Makefile",
@@ -1455,7 +1455,7 @@ mod tests {
             classify(b, "services/banzai-api/src/pipeline.js"),
             "banzai-runtime"
         );
-        assert_eq!(classify(b, "decisions/adr/ADR-006.md"), "decision");
+        assert_eq!(classify(b, "decisions/adr/ADR-011.md"), "decision");
         assert_eq!(classify(b, "docs/reference/01-overview.md"), "normative");
         assert_eq!(classify(b, "decisions/rfc/RFC-0006.md"), "normative");
         assert_eq!(classify(b, "website/app/page.tsx"), "website");

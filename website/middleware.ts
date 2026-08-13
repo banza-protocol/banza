@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { resolveZeroRoute } from "@/lib/zeroSubdomain";
 
-// Host-aware routing for zero.banza.network (ADR-052, M2.12E/F/G). Strict pass-through on the apex —
+// Host-aware routing for zero.banza.network (ADR-041, M2.12E/F/G). Strict pass-through on the apex —
 // the decision lives in the pure resolveZeroRoute() (unit-tested). On the dedicated subdomain it
 // rewrites `/` and the demo JSON endpoints onto the internal /oz route (the standalone lab, no BANZA
 // chrome) and sends /banzai to the apex. The retired apex surface /operador-zero is 410 Gone on every

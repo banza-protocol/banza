@@ -1,6 +1,6 @@
 # BanzAI — Technical Documentation
 
-> **BanzAI is the native, non-authoritative AI agent of the BANZA protocol** (ADR-041). It guides
+> **BanzAI is the native, non-authoritative AI agent of the BANZA protocol** (ADR-042). It guides
 > operators, invokes the deterministic Rust/WASM engines, explains the rules with citations and helps
 > prepare verifiable evidence — it never becomes the rules.
 
@@ -20,7 +20,7 @@ operator-facing reference lives in the BANZA Reference, chapter 12 —
 - `llama.cpp` and PostgreSQL are internal only — never exposed.
 - Rust/WASM owns retrieval, routing, the prompt, validation, the journey state machine and the upload
   scan. Qwen is only a local language layer — **non-normative**.
-- **Official validation is endpoint-originated (ADR-068).** The nine-step journey validates a published
+- **Official validation is endpoint-originated (ADR-038).** The nine-step journey validates a published
   **implementation** of an **operator** (operator = responsible entity; implementation = system
   evaluated). The target is resolved from the closed Technical Registry
   (`operator_id → implementation_id → canonical_origin → discovery`) and every artifact is fetched from
@@ -30,7 +30,7 @@ operator-facing reference lives in the BANZA Reference, chapter 12 —
   origin of its inputs in an `OperationReceipt`/`JourneyReceipt` (`qwen_calls=0`,
   `external_model_calls=0`, `protocol_fetch_count` tracked). Upload/paste is a local, non-authoritative
   **draft** tool only. See [OPERATOR_JOURNEY.md](OPERATOR_JOURNEY.md) and
-  ADR-068 (§19 for the SSRF policy), which `engines/banza-artifact-fetcher` implements.
+  ADR-038 (§19 for the SSRF policy), which `engines/banza-artifact-fetcher` implements.
 - Public state is **pre-production**: `/operators=[]`, `production_certificates=false`.
 
 ## Documents
@@ -48,8 +48,8 @@ operator-facing reference lives in the BANZA Reference, chapter 12 —
 
 ## Governing decisions
 
-ADR-041 (native protocol agent) · ADR-044 (local Qwen runtime + benchmark gate) · ADR-045 (latency
-tuning) · ADR-046 (reasoning disabled + warm-up) · ADR-047 (384-token default) · ADR-048 (Qwen-first
-routing) · ADR-049 (protocol-agent core, journey, session) · ADR-050 (unified `/banzai` interface) ·
-ADR-051 (per-answer execution metadata) · ADR-067 (Operador Zero read-only reference + nine-step
-validation journey) · ADR-068 (endpoint-originated operator validation + operator/implementation model).
+ADR-042 (native protocol agent) · ADR-042 (local Qwen runtime + benchmark gate) · ADR-042 (latency
+tuning) · ADR-042 (reasoning disabled + warm-up) · ADR-042 (384-token default) · ADR-042 (Qwen-first
+routing) · ADR-042 (protocol-agent core, journey, session) · ADR-042 (unified `/banzai` interface) ·
+ADR-042 (per-answer execution metadata) · ADR-041 (Operador Zero read-only reference + nine-step
+validation journey) · ADR-038 (endpoint-originated operator validation + operator/implementation model).

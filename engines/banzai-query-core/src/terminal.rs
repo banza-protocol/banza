@@ -95,7 +95,7 @@ fn exact(exact_kind: &'static str, value: String, source: SourceCard) -> Termina
 }
 
 // A canonical protocol-level fact bound to its public source. These are established, guarded facts
-// (Apache-2.0 = ADR-043; creation date = M2.13C-B; Banzami = creator/initial maintainer, M2.7M). They are
+// (Apache-2.0 = ADR-044; creation date = M2.13C-B; Banzami = creator/initial maintainer, M2.7M). They are
 // source-bound canonical values, not model output. Returned only for a CLEAN exact lookup (the classifier
 // already routed any "why/permite/o que" phrasing to the trunk).
 fn protocol_fact(exact_kind: &str, nq: &str) -> Option<Terminal> {
@@ -219,14 +219,14 @@ mod tests {
 
     #[test]
     fn exact_document_facts_are_source_bound() {
-        let t = build_terminal("qual é o estado da ADR-053?");
+        let t = build_terminal("qual é o estado da ADR-041?");
         assert_eq!(t.kind, "exact_fact");
         assert_eq!(t.exact_kind, "status");
         assert!(!t.value.is_empty());
         assert!(t
             .source
             .as_ref()
-            .map(|s| s.id == "ADR-053")
+            .map(|s| s.id == "ADR-041")
             .unwrap_or(false));
         assert_eq!(t.trace_label, TRACE_EXACT_FACT);
         assert!(t.value.chars().count() <= MAX_EXACT_LEN && !t.value.contains('\n'));
@@ -247,9 +247,9 @@ mod tests {
     fn mixed_and_concepts_route_to_the_trunk() {
         assert!(build_terminal("qual é a licença e o que ela permite?").to_trunk);
         assert!(build_terminal("o que é federação?").to_trunk);
-        assert!(build_terminal("compara a ADR-053 com a ADR-054").to_trunk);
+        assert!(build_terminal("compara a ADR-041 com a ADR-042").to_trunk);
         // the mixed request preserved the explanatory part (escalated).
-        assert!(build_terminal("qual é o estado da ADR-053 e por que foi aceite?").escalated);
+        assert!(build_terminal("qual é o estado da ADR-041 e por que foi aceite?").escalated);
     }
 
     #[test]

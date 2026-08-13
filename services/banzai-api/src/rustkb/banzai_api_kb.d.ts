@@ -112,7 +112,7 @@ export function build_output_prompt_obliged_json(question: string, package_json:
 export function build_output_prompt_structured_json(question: string, package_json: string, depth: string): string;
 
 /**
- * Node WASM (ADR-044): build the `{system, user}` prompt for a language model from the
+ * Node WASM (ADR-042): build the `{system, user}` prompt for a language model from the
  * approved retrieval context. Retrieved sources and the question are treated as data;
  * the rigid system rules and injection defence are defined in Rust.
  */
@@ -193,7 +193,7 @@ export function derive_cited_source_ids_json(package_json: string, output_json: 
 
 /**
  * Node WASM (M2.18B.4-R2): the canonical ids of EVERY explicit documentary reference in a question, in
- * first-appearance order (["ADR-053","ADR-054"] for "compara a ADR-053 com a ADR-054"). Deterministic
+ * first-appearance order (["ADR-041","ADR-042"] for "compara a ADR-041 com a ADR-042"). Deterministic
  * registry match — the compare path uses it to package all named documents.
  */
 export function detect_doc_refs_json(question: string): string;
@@ -329,7 +329,7 @@ export function repo_index_manifest_json(): string;
 
 /**
  * Node WASM (M2.18B.4): resolve a broad concept question to its canonical source id — a registry
- * ADR/RFC id (federation→ADR-040) OR a public Reference/spec/governance document PATH
+ * ADR/RFC id (federation→ADR-031) OR a public Reference/spec/governance document PATH
  * (governance→docs/reference/PROTOCOL_GOVERNANCE_GLOSSARY.md). Empty string when the question names no
  * single-canonical concept. The single router uses it to SEED the trunk's resolver and to know a concept
  * has grounding before running the model. Pure; never invents a source.
@@ -353,7 +353,7 @@ export function resolve_document_json(question: string): string;
 export function resolve_intent_json(question: string, seeded_entity_id: string): string;
 
 /**
- * Node WASM (ADR-078 — operational reasoning): the deterministic classification of a question about a
+ * Node WASM (ADR-042 — operational reasoning): the deterministic classification of a question about a
  * MEASURED/OBSERVED operational property (duration, metric, live state) of the validation journey, plus
  * the Rust-authored honest, request-oriented fallback to serve when telemetry has no comparable data. The
  * pipeline calls this in the operational tier (after every safety/boundary tier). When `is_operational`
@@ -418,7 +418,7 @@ export function response_dispositions_json(): string;
 export function retrieval_plan_json(question: string, seeded_entity_id: string): string;
 
 /**
- * Node WASM (ADR-049, M2.9A): top-k DOCUMENTARY chunks for a query, as a JSON array of
+ * Node WASM (ADR-042, M2.9A): top-k DOCUMENTARY chunks for a query, as a JSON array of
  * `{path,title,section,anchor,source_type,text}`. Used ONLY to enrich the grounded Qwen context with
  * real protocol-doc excerpts (additive citations); it never changes routing. Empty array if none
  * score high enough. Rust owns the scoring; JS is glue.
@@ -439,7 +439,7 @@ export function retrieve_repo_chunks_json(query: string, k: number, categories_c
 export function retrieve_topk_ids_json(question: string, k: number): string;
 
 /**
- * Node WASM (ADR-048, M2.8G): the Qwen-first routing decision for a question. Returns
+ * Node WASM (ADR-042, M2.8G): the Qwen-first routing decision for a question. Returns
  * `{"action":"qwen|deterministic|refusal|insufficient","entry_id":<id|null>,"intent":"...","reason":"..."}`.
  * The JS pipeline executes this decision — it never decides the route itself.
  */
@@ -453,7 +453,7 @@ export function route_question_json(question: string): string;
 export function route_question_with_journey_json(question: string, journey_step: string): string;
 
 /**
- * Node WASM (ADR-048, M2.8H): the routing decision WITH short conversation context. `context_json`
+ * Node WASM (ADR-042, M2.8H): the routing decision WITH short conversation context. `context_json`
  * is a JSON array of previous USER questions (most-recent last). Returns the route plus
  * `context_used`, `turns_used`, `resolved_query`. Safety is never bypassed by context.
  */
@@ -485,7 +485,7 @@ export function select_entity_json(model_proposed_id: string, model_requires_cla
 export function source_is_public(path: string, category: string): boolean;
 
 /**
- * Node WASM (ADR-044): strip a leading echo of the question from a completion (M2.11D, QA-3).
+ * Node WASM (ADR-042): strip a leading echo of the question from a completion (M2.11D, QA-3).
  * Deterministic and narrow — see `validate::strip_question_echo` for the exact rule and why it is
  * deliberately conservative.
  */
@@ -527,7 +527,7 @@ export function validate_against_schema_json(instance_json: string, schema_json:
 export function validate_output_json(package_json: string, output_json: string): string;
 
 /**
- * Node WASM (ADR-044): validate a language-model completion. Returns
+ * Node WASM (ADR-042): validate a language-model completion. Returns
  * `{"ok":bool,"reason":"..."}`. `ok=false` → the pipeline must serve the deterministic
  * grounded fallback instead of the model text.
  */

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# check-banzai-monorepo-consolidation.sh — M2.19G.6 (ADR-075) consolidation invariants.
+# check-banzai-monorepo-consolidation.sh — M2.19G.6 (ADR-042) consolidation invariants.
 #
 # Proves BanzAI was consolidated into this monorepo as the SOLE active source and the separate
 # banza-protocol/banzai repo was reduced to removed history:
@@ -8,7 +8,7 @@
 #      (traceVerifier.ts imports banzai_trace; the old banzai_core WASM is gone);
 #   3. the repo-indexer indexes only this monorepo (no sibling remote / second index_repo call) and the
 #      repo-index manifest declares banzai_in_monorepo — never a resurrected banzai_repo_indexed;
-#   4. ADR-075 exists and the repo-guards ADR range admits it;
+#   4. ADR-042 exists and the repo-guards ADR range admits it;
 #   5. active-surface mentions of banza-protocol/banzai are qualified as removed/historical (delegated
 #      to banzai-canonical-architecture-framing-check).
 set -euo pipefail
@@ -18,7 +18,7 @@ FAILED=0
 fail() { echo "  FAIL: $*"; FAILED=1; }
 ok() { echo "  ok: $*"; }
 
-echo "== banzai-monorepo-consolidation-check (M2.19G.6, ADR-075) =="
+echo "== banzai-monorepo-consolidation-check (M2.19G.6, ADR-042) =="
 
 # 1. No compilable legacy snapshot / no second BanzAI implementation in HEAD.
 if git ls-files 'legacy/banzai-pre-consolidation/*' | grep -q .; then
@@ -75,21 +75,21 @@ process.exit(bad?1:0);
 NODE
 [ $? -ne 0 ] && FAILED=1 || true
 
-# 4. ADR-075 exists.
-[ -f decisions/adr/ADR-075-banzai-monorepo-consolidation-and-repository-removal.md ] \
-  && ok "ADR-075 present" || fail "ADR-075 missing"
+# 4. ADR-042 exists.
+[ -f decisions/adr/ADR-042-banzai-monorepo-consolidation-and-repository-removal.md ] \
+  && ok "ADR-042 present" || fail "ADR-042 missing"
 
 # 5. FINAL MICRO-CLOSURE — no old-repository references in ACTIVE BanzAI knowledge (M2.19G.6).
 #    So BanzAI can never surface / dead-link the permanently-removed banza-protocol/banzai repo. The ONLY
-#    permitted whole-token mention in an active index is inside the removal decision records (ADR-075 and
-#    the ADR-071 it supersedes), which describe the repo as *removed* and carry no URL.
+#    permitted whole-token mention in an active index is inside the removal decision records (ADR-042 and
+#    the ADR-042 it supersedes), which describe the repo as *removed* and carry no URL.
 node - <<'NODE'
 const fs=require("fs");
 const RI="engines/banzai-query-core/src/repoindex/banzai-repo-index.json";
 const DI="engines/banzai-query-core/src/doc-index.json";
 const URL="github.com/"+"banza-protocol/banzai";  // assembled: no contiguous dead-link literal in this guard
 const TOK=/banza-protocol\/banzai(?![-\w])/;          // whole-token repo ref (not banzai-local / banzai-api)
-const ALLOW=/ADR-071|ADR-075/;                         // removal decision + what it supersedes
+const ALLOW=/ADR-042|ADR-042/;                         // removal decision + what it supersedes
 const HIST=[];
 let bad=0; const M=(k,v,want=0)=>{console.log(`  ${k} = ${v}`); if(v!==want) bad++;};
 const ri=JSON.parse(fs.readFileSync(RI,"utf8"));

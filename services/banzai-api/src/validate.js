@@ -1,11 +1,11 @@
-// Endpoint-originated operator validation (M2.19G.1, ADR-068). RUST_DECIDES.
+// Endpoint-originated operator validation (M2.19G.1, ADR-038). RUST_DECIDES.
 //
-// The official nine-step journey (ADR-068 §21) resolves a validation target from the CLOSED Technical
+// The official nine-step journey (ADR-038 §21) resolves a validation target from the CLOSED Technical
 // Registry (Rust), fetches EACH artifact from the implementation's public endpoints via the secure
 // Rust fetcher (fetcherClient -> banza-fetcher), runs the matching Rust/WASM decision engine on the
 // FETCHED CONTENT, and binds every verdict to its exact public origin in an OperationReceipt. The
 // journey aggregates them into a JourneyReceipt whose Certification Readiness is READY/BLOCKED and is
-// NEVER a Certification Record and NEVER CERTIFIED (ADR-068 §21 step 9, §4.10).
+// NEVER a Certification Record and NEVER CERTIFIED (ADR-038 §21 step 9, §4.10).
 //
 // Invariants enforced here:
 //   * Rust decides every verdict (registry + decision engines). TypeScript never decides; it shuttles
@@ -33,11 +33,11 @@ const evidenceEngine = require(`${WASM}/banza_evidence_bundle/banza_evidence_bun
 
 // 1.1.0 — corrected per-step timing: step 9 (certification) now brackets only its own aggregation work
 // (see runCertificationStep). Telemetry pins aggregates to this orchestrator_version so measurements from
-// the pre-1.1.0 instrumentation (where step 9's span == the whole journey) are never mixed in (ADR-078).
+// the pre-1.1.0 instrumentation (where step 9's span == the whole journey) are never mixed in (ADR-042).
 export const RECEIPT_VERSION = "1.1.0";
-export const WORKFLOW = "operator-validation"; // ADR-068 §4.1 "Validar operador"
+export const WORKFLOW = "operator-validation"; // ADR-038 §4.1 "Validar operador"
 
-// Canonical nine-step spine (ADR-068 §21). Each step names its engine and the registry endpoint keys
+// Canonical nine-step spine (ADR-038 §21). Each step names its engine and the registry endpoint keys
 // it fetches (the FIRST key is the receipt's primary endpoint).
 export const STEP_ORDER = [
   "discovery",
@@ -79,7 +79,7 @@ function pathOf(absoluteUrl, canonicalOrigin) {
 // receive the fetched body verbatim; composite engines (trust/L2/L3) are assembled from the relevant
 // fetched artifacts. No fixture contributes any verdict-bearing content. The engine decides the verdict.
 // ----------------------------------------------------------------------------------------------------
-// Assemble the banza-trust Open Trust Evaluation input from the fetched artifacts (ADR-058 OTE schema).
+// Assemble the banza-trust Open Trust Evaluation input from the fetched artifacts (ADR-027 OTE schema).
 // The key material — trust-root metadata (with its threshold root signatures), the delegated signing key,
 // the registry entry and the pinned root anchor — is published in the fetched KEY MANIFEST
 // (`banza-ote-key-material/1`); the signed protocol metadata, operator manifest, conformance evidence and
@@ -107,7 +107,7 @@ function assembleTrustInput(target, fetched) {
   };
 }
 
-// Step 3 (Chaves/Keys, ADR-076 §D-076-03) foregrounds the KEY MATERIAL specifically — the key manifest,
+// Step 3 (Chaves/Keys, ADR-042 §D-076-03) foregrounds the KEY MATERIAL specifically — the key manifest,
 // its revocation, the signed-metadata signature and the delegated/root key material — whereas step 6
 // (Confiança/Trust) runs the full Open Trust Evaluation. banza-trust exposes a SINGLE evaluation
 // entrypoint (`trust_evaluate_signed_metadata_json`) and NO key-only mode, so by design steps 3 and 6
@@ -242,7 +242,7 @@ function buildOperationReceipt(fields) {
     request_id: requestId,
     workflow: WORKFLOW,
     step,
-    // ADR-077 applicability is ORTHOGONAL to result.status: a NOT_APPLICABLE step is out of scope for
+    // ADR-039 applicability is ORTHOGONAL to result.status: a NOT_APPLICABLE step is out of scope for
     // the declared profile (never fetched/evaluated), not a technical failure. Rust decides the map.
     applicability: applicability || "REQUIRED",
     operator_id: target.operator_id,
@@ -272,7 +272,7 @@ function buildOperationReceipt(fields) {
     // (0 when the step performs no timed work, e.g. NOT_APPLICABLE); it is the authoritative duration source,
     // with duration_ms/wall-clock kept only as an audit + historical fallback.
     duration_us: durationUs ?? 0,
-    // ADR-076 §4 execution-contract fields (terminal seal — RUNNING is never sealed):
+    // ADR-042 §4 execution-contract fields (terminal seal — RUNNING is never sealed):
     started_at: startedAt || null,
     completed_at: completedAt || new Date().toISOString(),
     retryable: retryable ?? null,
@@ -297,14 +297,14 @@ export function createValidator(env = process.env, { fetchImpl = globalThis.fetc
     return JSON.parse(registry.registry_resolve_json(String(operatorId || ""), String(implementationId || "")));
   }
 
-  // ADR-077: the Rust-decided step→applicability map for a declared profile ({ step: REQUIRED |
+  // ADR-039: the Rust-decided step→applicability map for a declared profile ({ step: REQUIRED |
   // OPTIONAL | NOT_APPLICABLE }). NOT_APPLICABLE steps are out of scope for the profile (e.g. L2
   // interoperability / L3 federation for an L0 implementation) and are never fetched or evaluated.
   function profileApplicability(profile) {
     return JSON.parse(registry.registry_profile_applicability_json(String(profile || ""))).applicability || {};
   }
 
-  // Seal a NOT_APPLICABLE step (ADR-077): the step is out of scope for the declared profile, so it is
+  // Seal a NOT_APPLICABLE step (ADR-039): the step is out of scope for the declared profile, so it is
   // NEVER fetched or evaluated (no L2/L3 endpoints hit for an L0 implementation). The receipt carries
   // applicability=NOT_APPLICABLE + state NOT_EVALUATED — this is not a technical failure and never
   // contributes FAILED/BLOCKED to readiness. Rust already decided the applicability; TS only seals it.
@@ -359,7 +359,7 @@ export function createValidator(env = process.env, { fetchImpl = globalThis.fetc
     const successfulFetches = fetchResponses.filter((f) => f.resp && f.resp.ok).length;
     const evidenceRefs = fetchResponses.map((f) => `${f.url}#${(f.resp && f.resp.sha256) || "no-hash"}`);
     const primary = (firstFailure && firstFailure.resp) || (fetchResponses[0] && fetchResponses[0].resp) || {};
-    // ADR-076 §4 structured per-artefact digest map (endpoint → observed content hash).
+    // ADR-042 §4 structured per-artefact digest map (endpoint → observed content hash).
     const inputArtifactDigests = {};
     for (const f of fetchResponses) {
       if (f.resp && f.resp.ok && f.resp.sha256) inputArtifactDigests[f.key] = { endpoint: f.url, sha256: f.resp.sha256 };
@@ -411,22 +411,22 @@ export function createValidator(env = process.env, { fetchImpl = globalThis.fetc
   }
 
   // Step 9 — Certification Readiness. Aggregates the eight technical receipts in Rust. Never issues a
-  // Certification Record; never returns CERTIFIED (ADR-068 §21 step 9).
+  // Certification Record; never returns CERTIFIED (ADR-038 §21 step 9).
   function runCertificationStep(target, requestId, technicalReceipts) {
     // Step 9 times ONLY its own aggregation work (protocol_fetch_count=0) — it must NEVER be back-dated to
     // the journey t0. The pre-1.1.0 bug passed the whole-journey elapsed as this step's duration and set
     // startedAt = journey start, so the step's own [startedAt, completedAt] spanned the ENTIRE journey and
     // its per-step telemetry read ≈ the journey median (a false "slowest step"). Fixed: the step brackets
-    // only the readiness computation below (ADR-078 §telemetry-correctness).
+    // only the readiness computation below (ADR-042 §telemetry-correctness).
     const stepStartedAt = new Date().toISOString();
     const stepT0 = Date.now();
     const stepHr0 = process.hrtime.bigint(); // BZO-9: monotonic — brackets ONLY the aggregation below
     const stepVerdicts = technicalReceipts.map((r) => ({ step: r.step, status: (r.result && r.result.status) || "NOT_EVALUATED" }));
-    // ADR-077: readiness aggregates ONLY the steps REQUIRED for the declared profile. Rust decides which
+    // ADR-039: readiness aggregates ONLY the steps REQUIRED for the declared profile. Rust decides which
     // steps are NOT_APPLICABLE and excludes them — they never contribute FAILED/BLOCKED to readiness.
     const readiness = JSON.parse(registry.registry_certification_readiness_json(JSON.stringify(stepVerdicts), target.profile));
     // Real dependency graph: blocked by any non-VERIFIED step that APPLIES to the profile (a NOT_APPLICABLE
-    // step is out of scope, never a blocker — ADR-076 §D-076-09 + ADR-077).
+    // step is out of scope, never a blocker — ADR-042 §D-076-09 + ADR-039).
     const blockedBy = technicalReceipts
       .filter((r) => r.applicability !== "NOT_APPLICABLE" && (r.result && r.result.status) !== "VERIFIED")
       .map((r) => r.step);
@@ -467,7 +467,7 @@ export function createValidator(env = process.env, { fetchImpl = globalThis.fetc
     return { ok: true, receipt };
   }
 
-  // Aggregate the per-write persistence statuses into ONE honest verdict (ADR-076 correction 1). The
+  // Aggregate the per-write persistence statuses into ONE honest verdict (ADR-042 correction 1). The
   // engine result is independent of storage; a run is only "durably concluded" when every write PERSISTED.
   function aggregatePersistence(statuses, executionId) {
     const S = receiptStore.PersistenceStatus;
@@ -509,7 +509,7 @@ export function createValidator(env = process.env, { fetchImpl = globalThis.fetc
     const executionId = begin.execution_id;
     const persistStatuses = [begin.status];
 
-    // ADR-077: NOT_APPLICABLE steps (e.g. L2/L3 for an L0 implementation) are sealed as out-of-scope
+    // ADR-039: NOT_APPLICABLE steps (e.g. L2/L3 for an L0 implementation) are sealed as out-of-scope
     // receipts — never fetched, never evaluated, never a technical failure. Rust decides the map.
     const applic = profileApplicability(target.profile);
     const technical = [];
@@ -526,7 +526,7 @@ export function createValidator(env = process.env, { fetchImpl = globalThis.fetc
 
     const readiness = certReceipt.result.certification;
     const protocolFetchCount = stepReceipts.reduce((n, r) => n + (r.protocol_fetch_count || 0), 0);
-    // ADR-077: overall status aggregates only the steps that APPLY to the profile — a NOT_APPLICABLE
+    // ADR-039: overall status aggregates only the steps that APPLY to the profile — a NOT_APPLICABLE
     // step (out of scope) is never a FAILED/BLOCKED/PENDING contributor.
     const statuses = technical
       .filter((r) => r.applicability !== "NOT_APPLICABLE")
@@ -539,7 +539,7 @@ export function createValidator(env = process.env, { fetchImpl = globalThis.fetc
           ? "PENDING"
           : "VERIFIED";
 
-    // ADR-076 §7 correction 3: when this run reproduces an earlier execution, the typed reproduction
+    // ADR-042 §7 correction 3: when this run reproduces an earlier execution, the typed reproduction
     // verdict is computed HERE (before finalize) so it is persisted immutably in the terminal UPDATE —
     // never re-derived after the row is frozen. Compares the newly OBSERVED artefact digests against the
     // original's PINNED digests (a stored URL is never re-fetched).
@@ -575,7 +575,7 @@ export function createValidator(env = process.env, { fetchImpl = globalThis.fetc
       certification_readiness: readiness.readiness, // READY | BLOCKED
       certification_status: "NOT_CERTIFIED",
       certified: false,
-      // ADR-077 applicability summary (Rust-decided): which steps are in scope for this profile, and
+      // ADR-039 applicability summary (Rust-decided): which steps are in scope for this profile, and
       // which are NOT_APPLICABLE (out of scope, never a failure). Orthogonal to per-step result.status.
       applicability: applic,
       not_applicable_steps: readiness.not_applicable_steps || [],
@@ -610,7 +610,7 @@ export function createValidator(env = process.env, { fetchImpl = globalThis.fetc
     return JSON.parse(registry.registry_tool_version_json());
   }
 
-  // ADR-076 §7 correction 3: the typed reproduction verdict, computed from a reproduction run's OBSERVED
+  // ADR-042 §7 correction 3: the typed reproduction verdict, computed from a reproduction run's OBSERVED
   // artefact digests vs the original's PINNED digests + the two overall verdicts. Pure comparison; the
   // secure re-fetch already happened during the run. Returns {result, changed_artifacts}. A stored URL is
   // never re-fetched here.
@@ -634,7 +634,7 @@ export function createValidator(env = process.env, { fetchImpl = globalThis.fetc
   // Reproduce an original execution: re-run the FULL secure pipeline (registry resolve → secure fetch →
   // engines) as a NEW execution linked via reproduction_of. validateJourney computes the typed verdict
   // BEFORE finalize (so it is PERSISTED immutably on the reproduction row); this wrapper returns it to the
-  // caller. NEVER fetches a URL stored in a receipt (ADR-076 correction 3).
+  // caller. NEVER fetches a URL stored in a receipt (ADR-042 correction 3).
   async function reproduceJourney(operatorId, implementationId, originalExecutionId, opts = {}) {
     const workspace = opts.workspace || "public";
     if ((await receiptStore.pinnedArtifacts(originalExecutionId, workspace)) === null) {

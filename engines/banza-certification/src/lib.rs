@@ -1,16 +1,16 @@
-//! banza-certification (ADR-037 R4; ADR-064/065/066) — the single deterministic Rust authority for
+//! banza-certification (ADR-043 R4; ADR-034/065/066) — the single deterministic Rust authority for
 //! BANZA Conformance & Interoperability Certification (Layer 2).
 //!
 //! It validates a [`CertifiedImplementation`] against an [`InteroperabilityCertificationProfile`] using a
 //! [`ConformanceReport`] + [`InteroperabilityReport`] + evidence + trust, and produces an
 //! [`InteroperabilityCertificationRecord`] whose standing is a value of the **closed** [`CertificationStatus`]
-//! machine (ADR-066). Every decision is:
+//! machine (ADR-035). Every decision is:
 //!   deterministic · idempotent · fail-closed · reproducible · hash-bound · profile-bound · scope-bound ·
-//!   environment-bound — with **no Qwen, no external model, no human FAIL→PASS** (ADR-037/038/061).
+//!   environment-bound — with **no Qwen, no external model, no human FAIL→PASS** (ADR-043/038/061).
 //!
 //! Certification is TECHNICAL and per-implementation. A `CERTIFIED` record is NOT a licence, NOT scheme
 //! admission and NOT regulatory authorisation, and status never propagates across those determinations
-//! (ADR-061). This crate holds no funds, moves no value and admits no participant.
+//! (ADR-004). This crate holds no funds, moves no value and admits no participant.
 
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
@@ -21,9 +21,9 @@ pub fn canonical_checksum(v: &Value, exclude: &[&str]) -> Result<String, String>
     banza_trust::canonical_sha256(v, exclude)
 }
 
-// ── Closed enums (ADR-066 / ADR-064) ─────────────────────────────────────────
+// ── Closed enums (ADR-035 / ADR-034) ─────────────────────────────────────────
 
-/// The closed certification-state machine (ADR-066 D-066-01). Any value outside this enum is a bug; an
+/// The closed certification-state machine (ADR-035 D-066-01). Any value outside this enum is a bug; an
 /// unknown/unreadable state resolves to `NotCertified` (fail-closed).
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
@@ -37,13 +37,13 @@ pub enum CertificationStatus {
 }
 
 impl CertificationStatus {
-    /// Fail-closed reading (ADR-064 D-064-06, ADR-066 D-066-05): only `Certified` is a valid certification.
+    /// Fail-closed reading (ADR-034 D-064-06, ADR-035 D-066-05): only `Certified` is a valid certification.
     pub fn is_valid(self) -> bool {
         matches!(self, CertificationStatus::Certified)
     }
 }
 
-/// Lifecycle events that drive transitions (ADR-066 D-066-02).
+/// Lifecycle events that drive transitions (ADR-035 D-066-02).
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum LifecycleEvent {
@@ -61,7 +61,7 @@ pub enum LifecycleEvent {
     Supersede,
 }
 
-/// Closed set of certification reason codes (ADR-064 / ADR-061). `Ok*` = pass; every `Fail*` is a precise,
+/// Closed set of certification reason codes (ADR-034 / ADR-004). `Ok*` = pass; every `Fail*` is a precise,
 /// fail-closed decline. No reason code outside this enum exists.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
@@ -92,9 +92,9 @@ impl ReasonCode {
     }
 }
 
-// ── Artifacts (ADR-064) ──────────────────────────────────────────────────────
+// ── Artifacts (ADR-034) ──────────────────────────────────────────────────────
 
-/// The public, versioned yardstick (ADR-064 D-064-02).
+/// The public, versioned yardstick (ADR-034 D-064-02).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct InteroperabilityCertificationProfile {
     pub profile_id: String,
@@ -123,7 +123,7 @@ pub struct InteroperabilityCertificationProfile {
     pub profile_hash: String,
 }
 
-/// The subject of certification (ADR-064 D-064-01): an implementation, identified by artifact hash.
+/// The subject of certification (ADR-034 D-064-01): an implementation, identified by artifact hash.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CertifiedImplementation {
     pub implementation_id: String,
@@ -156,7 +156,7 @@ pub struct ConformanceReport {
 }
 
 /// Behavioural interoperability result (happy + negative paths). Certification requires this, not just
-/// schema conformance (ADR-064; the L2 boundary is conformance AND interoperability).
+/// schema conformance (ADR-034; the L2 boundary is conformance AND interoperability).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct InteroperabilityReport {
     pub report_id: String,
@@ -184,7 +184,7 @@ pub struct TrustInput {
     pub signature_valid: bool,
 }
 
-/// Signed, dated suspension (ADR-066 D-066-06).
+/// Signed, dated suspension (ADR-035 D-066-06).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SuspensionRecord {
     pub record_id: String,
@@ -193,7 +193,7 @@ pub struct SuspensionRecord {
     pub signature: String,
 }
 
-/// Signed, dated revocation (ADR-066 D-066-03, terminal).
+/// Signed, dated revocation (ADR-035 D-066-03, terminal).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RevocationRecord {
     pub record_id: String,
@@ -209,14 +209,14 @@ pub struct SupersessionReference {
     pub superseded_by_record_id: String,
 }
 
-/// Renewal is re-certification (a NEW record), never an in-place extension (ADR-066 D-066-04).
+/// Renewal is re-certification (a NEW record), never an in-place extension (ADR-035 D-066-04).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RenewalReference {
     pub renews_record_id: String,
     pub new_record_id: String,
 }
 
-/// The verdict object (ADR-064 D-064-03).
+/// The verdict object (ADR-034 D-064-03).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct InteroperabilityCertificationRecord {
     pub schema_version: u32,
@@ -251,7 +251,7 @@ pub struct CertifyInput {
     pub now: i64,
 }
 
-// ── The deterministic certification pipeline (ADR-064 D-064-04, fail-closed) ──
+// ── The deterministic certification pipeline (ADR-034 D-064-04, fail-closed) ──
 
 /// Validate inputs and produce a record. Any failed check yields a `NotCertified` record with the precise
 /// reason code (fail-closed). The verdict is a pure, deterministic function of the inputs — same inputs →
@@ -288,7 +288,7 @@ pub fn certify(input: &CertifyInput) -> InteroperabilityCertificationRecord {
     rec
 }
 
-/// The 20-step decision (ADR-064): validate inputs → schemas → canonicalisation → hashes → signatures →
+/// The 20-step decision (ADR-034): validate inputs → schemas → canonicalisation → hashes → signatures →
 /// identity → versions → capabilities → conformance → interoperability → evidence → trust → revocation →
 /// validity → scope → level → status → reason. Returns the first failing reason (fail-closed).
 fn decide(i: &CertifyInput) -> (CertificationStatus, ReasonCode, Vec<String>, Vec<String>) {
@@ -304,7 +304,7 @@ fn decide(i: &CertifyInput) -> (CertificationStatus, ReasonCode, Vec<String>, Ve
     if i.profile.trust_required && !i.trust.valid {
         return fail(ReasonCode::FailTrustInvalid);
     }
-    // revocation short-circuits everything (fail-closed, ADR-066 D-066-05)
+    // revocation short-circuits everything (fail-closed, ADR-035 D-066-05)
     if i.trust.revoked {
         return fail(ReasonCode::FailRevoked);
     }
@@ -340,7 +340,7 @@ fn decide(i: &CertifyInput) -> (CertificationStatus, ReasonCode, Vec<String>, Ve
             return fail(ReasonCode::FailCapabilityUnsupported);
         }
     }
-    // conformance AND interoperability must both pass (never certify on schemas alone, ADR-064)
+    // conformance AND interoperability must both pass (never certify on schemas alone, ADR-034)
     if !i.conformance.result {
         return fail(ReasonCode::FailConformance);
     }
@@ -371,12 +371,12 @@ pub fn record_checksum(rec: &InteroperabilityCertificationRecord) -> String {
         .expect("BCJ/1: a certification record is integer-only by construction")
 }
 
-/// Verify a record's `record_hash` reproduces (ADR-064 D-064-05). Fail-closed: any mismatch → false.
+/// Verify a record's `record_hash` reproduces (ADR-034 D-064-05). Fail-closed: any mismatch → false.
 pub fn verify_record(rec: &InteroperabilityCertificationRecord) -> bool {
     !rec.record_hash.is_empty() && record_checksum(rec) == rec.record_hash
 }
 
-// ── Closed state machine (ADR-066 D-066-02) ──────────────────────────────────
+// ── Closed state machine (ADR-035 D-066-02) ──────────────────────────────────
 
 /// The total, closed transition function. Returns the next state or `FailIllegalTransition` for any pair
 /// outside the table. No human/model/config can effect a transition; `REVOKED` is terminal.
@@ -399,7 +399,7 @@ pub fn transition(
     Ok(next)
 }
 
-/// Temporal + revocation evaluation of a record's EFFECTIVE status at `now` (ADR-066 D-066-05). Fail-closed:
+/// Temporal + revocation evaluation of a record's EFFECTIVE status at `now` (ADR-035 D-066-05). Fail-closed:
 /// an unverifiable record, a past `expires_at`, or a revocation all read as not-valid.
 pub fn effective_status(
     rec: &InteroperabilityCertificationRecord,
@@ -418,7 +418,7 @@ pub fn effective_status(
     }
 }
 
-/// A compact registry entry view for a record (ADR-065) — what the public Technical Registry publishes.
+/// A compact registry entry view for a record (ADR-036) — what the public Technical Registry publishes.
 pub fn registry_entry(rec: &InteroperabilityCertificationRecord) -> Value {
     json!({
         "implementation_id": rec.implementation_id,

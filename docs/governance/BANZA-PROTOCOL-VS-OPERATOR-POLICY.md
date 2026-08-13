@@ -1,6 +1,6 @@
 # BANZA — Protocol vs Operator Policy
 
-**Status:** Determination · **Date:** 2026-06-13 · **Authority:** ADR-001, ADR-003, ADR-052, ADR-053, ADR-002
+**Status:** Determination · **Date:** 2026-06-13 · **Authority:** ADR-001, ADR-001, ADR-041, ADR-041, ADR-002
 **Purpose:** A single, citable boundary so the question *"is X a protocol rule or
 an operator policy?"* never has to be re-litigated.
 
@@ -13,15 +13,15 @@ invariants, certification criteria and the federation/trust model. It has no
 executable kernel. A conformant operator implements the rules in its own stack
 and **honours the wire contracts** (webhook signature, QR payload, events,
 federation routing/obligations, operator manifest). This is the intended model
-(ADR-001 open protocol, ADR-003 protocol/operator separation, ADR-052/ADR-053
+(ADR-001 open protocol, ADR-001 protocol/operator separation, ADR-041/ADR-041
 reference operator).
 
 What is **protocol** (lives in `~/banza`, normative):
 
 - Financial invariants (`INV-LEDGER-*`, `INV-WALLET-*`, `INV-SETTLE-*`, `INV-IDEM-*`, `INV-RECON-*`, `INV-QR-*`)
 - Wire contracts in `contracts/` (OpenAPI, webhooks, QR payload, events, federation)
-- Certification criteria and capabilities (L0–L4, ADR-021)
-- Trust/federation model (ADR-038, ADR-040)
+- Certification criteria and capabilities (L0–L4, ADR-039)
+- Trust/federation model (ADR-027, ADR-031)
 
 What is **operator policy** (lives in the operator, non-normative to the protocol):
 
@@ -47,7 +47,7 @@ A change made in an operator must be promoted to a protocol ADR/RFC in `~/banza`
 | If the change introduces… | Then… |
 |---|---|
 | a new field in a wire contract (webhook / QR / event / federation / manifest) | **ADR/RFC in `~/banza`** |
-| a new manifest capability or certification criterion | **ADR in `~/banza`** (ADR-021) |
+| a new manifest capability or certification criterion | **ADR in `~/banza`** (ADR-039) |
 | a rule another operator must respect to interoperate or federate | **ADR/RFC in `~/banza`** |
 | a change to a financial invariant | **ADR in `~/banza`** |
 | only internal authorization, product UX, pricing or compliance policy | **stays in the operator — no protocol ADR** |
@@ -87,7 +87,7 @@ its `contracts/` zone was removed; canonical home is `~/banza/contracts/`.)
 ## Direction of development (protocol-first)
 
 The litmus test above answers **where** a thing lives. It does not, on its own,
-answer **where a new concept must start**. That is the subject of **ADR-005
+answer **where a new concept must start**. That is the subject of **ADR-001
 (Protocol-first product development)**: a new *structural* financial/protocolar
 concept (a new object, a new way value is grouped/structured/settled, a new
 lifecycle, a new event or wire field) MUST originate in the protocol and flow
@@ -98,8 +98,8 @@ BANZA Protocol  →  Operator  →  SDK  →  Apps
 ```
 
 Apps and SDKs do not define new financial/protocolar behaviour on their own. A
-concept invented app-side and retrofitted into BANZA is the inversion ADR-005
-forbids. See ADR-005 for the rule and ADR-016 (Payment Collections) for the
+concept invented app-side and retrofitted into BANZA is the inversion ADR-001
+forbids. See ADR-001 for the rule and ADR-018 (Payment Collections) for the
 worked example.
 
 ---

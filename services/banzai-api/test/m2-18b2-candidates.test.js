@@ -1,6 +1,6 @@
 // M2.18B.2 / M2.18B.6 — candidate generation. `generateCandidates` (Rust `generate_candidates_json`)
 // proposes ONLY real documents from the canonical registry; it never invents an id. In the single
-// Grounded-Synthesis architecture (ADR-055) the Rust resolver/selector consumes these real candidates —
+// Grounded-Synthesis architecture (ADR-042) the Rust resolver/selector consumes these real candidates —
 // the model never proposes an entity. These tests pin that contract.
 import { test } from "node:test";
 import assert from "node:assert/strict";
@@ -32,7 +32,7 @@ test("(m2.18b2) an off-domain / empty question invents nothing", () => {
 });
 
 test("(m2.18b2) candidate generation is deterministic", () => {
-  const a = generateCandidates("compara a ADR-053 com a ADR-054");
-  const b = generateCandidates("compara a ADR-053 com a ADR-054");
+  const a = generateCandidates("compara a ADR-041 com a ADR-042");
+  const b = generateCandidates("compara a ADR-041 com a ADR-042");
   assert.deepEqual(a, b);
 });

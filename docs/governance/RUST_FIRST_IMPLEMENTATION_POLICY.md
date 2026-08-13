@@ -1,4 +1,4 @@
-# Rust-First Implementation Policy (ADR-037)
+# Rust-First Implementation Policy (ADR-043)
 
 **Status:** Accepted (2026-07) · **Enforced by:** `engines/rust-rule-guard` + the `Rust Rule Guard`
 CI workflow + `make rust-rule-check`.

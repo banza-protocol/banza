@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# banzai-public-surface-final-consistency-check (M2.14J · ADR-054).
+# banzai-public-surface-final-consistency-check (M2.14J · ADR-042).
 #
 # Final, cross-surface consistency + regression + production-readiness guard for the public BANZA/BanzAI
 # surface. It is an AGGREGATOR: it invokes the core M2.14x guards (primary interface, navigation, financial
 # + operator-publication boundaries) and then adds ONLY the checks those do not already cover:
-#   • ADR-052/053/054 are PUBLISHED on the public /decisoes (registry + byte-mirror);
-#   • the primary-interface framing (ADR-054) reached the surfaces reframed in M2.14J
+#   • ADR-041/053/054 are PUBLISHED on the public /decisoes (registry + byte-mirror);
+#   • the primary-interface framing (ADR-042) reached the surfaces reframed in M2.14J
 #     (/banzai page metadata, the def-banzai-agent answer, /estado, the /referencia ch.12 card);
 #   • the M2.14J engine hardening is present in route.rs (role questions, compound separators, the
 #     trust-root / evidence-history / credentials / verification / payment-request boundary widenings,
@@ -30,7 +30,7 @@ BANZAI_PAGE="website/app/banzai/page.tsx"
 ESTADO="website/app/estado/page.tsx"
 REFLIB="website/lib/reference.ts"
 
-echo "== banzai-public-surface-final-consistency-check (M2.14J · ADR-054) =="
+echo "== banzai-public-surface-final-consistency-check (M2.14J · ADR-042) =="
 
 # ─────────────────────────────────────────────────────────────────────────────────────────────
 # 0. Aggregate the core M2.14x guards (do not duplicate their logic).
@@ -49,7 +49,7 @@ for g in \
 done
 
 # ─────────────────────────────────────────────────────────────────────────────────────────────
-# 1. ADR-052/053/054 are PUBLISHED on the public /decisoes (registry entry + byte-mirror body).
+# 1. ADR-041/053/054 are PUBLISHED on the public /decisoes (registry entry + byte-mirror body).
 # ─────────────────────────────────────────────────────────────────────────────────────────────
 echo "-- 1. ADRs published --"
 for n in 052 053 054; do
@@ -58,7 +58,7 @@ for n in 052 053 054; do
 done
 
 # ─────────────────────────────────────────────────────────────────────────────────────────────
-# 2. The primary-interface framing (ADR-054) reached the M2.14J-reframed surfaces.
+# 2. The primary-interface framing (ADR-042) reached the M2.14J-reframed surfaces.
 # ─────────────────────────────────────────────────────────────────────────────────────────────
 echo "-- 2. primary-interface framing on reframed surfaces --"
 grep -qi "interface humana primária" "$BANZAI_PAGE" && ok "/banzai page metadata frames the primary interface" || fail "/banzai page must frame the primary interface (canonical: interface humana primária e transversal)"

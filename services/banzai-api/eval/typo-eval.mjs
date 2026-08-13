@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // M2.18B.5 §22/§23 — evaluate the typo/intent-recovery layer over the versioned dataset, against the REAL
 // Rust engine (recoverQuery) + router + pipeline (mock provider — no model, no network). Computes the
-// metrics, writes artifacts/m2-18b5/typo-eval.json, and EXITS NON-ZERO if a CRITICAL gate fails:
+// metrics, writes artifacts/banzai/typo-eval.json, and EXITS NON-ZERO if a CRITICAL gate fails:
 //   * false automatic correction on a correct/no-accent form  → must be 0
 //   * boundary recall (boundary-typo + injection-typo refused) → must be 100%
 //   * unsupported reaching the explanatory trunk               → must be 0
@@ -71,9 +71,9 @@ const metrics = {
   failures: fails.slice(0, 40),
 };
 
-mkdirSync("artifacts/m2-18b5", { recursive: true });
-try { writeFileSync("artifacts/m2-18b5/typo-eval.json", JSON.stringify(metrics, null, 2)); }
-catch { writeFileSync("../../artifacts/m2-18b5/typo-eval.json", JSON.stringify(metrics, null, 2)); }
+mkdirSync("artifacts/banzai", { recursive: true });
+try { writeFileSync("artifacts/banzai/typo-eval.json", JSON.stringify(metrics, null, 2)); }
+catch { writeFileSync("../../artifacts/banzai/typo-eval.json", JSON.stringify(metrics, null, 2)); }
 
 console.log(`M2.18B.5 typo eval — ${n} cases`);
 for (const [k, v] of Object.entries(metrics.by_category)) console.log(`  ${k.padEnd(16)} ${v.pass}/${v.total} (${(v.rate * 100).toFixed(0)}%)`);

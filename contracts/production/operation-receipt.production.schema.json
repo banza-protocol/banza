@@ -2,12 +2,12 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://banza.network/contracts/production/operation-receipt.production.schema.json",
   "title": "OperationReceipt",
-  "description": "The per-step receipt of the endpoint-originated validation journey (ADR-068 §30, §4.8). It binds the step's verdict to the EXACT ORIGIN of its inputs: operator, implementation, endpoint, resolved host, fetched-at, HTTP status, content type/length, ETag, hash, signature status and engine version. Protocol fetches are counted as `protocol_fetch_count`, never as `external_model_calls`; in validation mode `qwen_calls` and `external_model_calls` are always 0 (Rust decides, the model never decides). A receipt is NOT a certificate. A receipt seals a TERMINAL step state — `result.status` is one of {VERIFIED,PENDING,FAILED,BLOCKED}; the transient `RUNNING` state (ADR-076 §D-076-04) is a live-execution state and is never sealed into a receipt. Documentary/reference contract; introduces no new financial invariant.",
+  "description": "The per-step receipt of the endpoint-originated validation journey (ADR-038 §30, §4.8). It binds the step's verdict to the EXACT ORIGIN of its inputs: operator, implementation, endpoint, resolved host, fetched-at, HTTP status, content type/length, ETag, hash, signature status and engine version. Protocol fetches are counted as `protocol_fetch_count`, never as `external_model_calls`; in validation mode `qwen_calls` and `external_model_calls` are always 0 (Rust decides, the model never decides). A receipt is NOT a certificate. A receipt seals a TERMINAL step state — `result.status` is one of {VERIFIED,PENDING,FAILED,BLOCKED}; the transient `RUNNING` state (ADR-042 §D-076-04) is a live-execution state and is never sealed into a receipt. Documentary/reference contract; introduces no new financial invariant.",
   "_spec_version": "1.2",
   "_status": "reference",
-  "_authority": "ADR-068 (§4.8 receipts, §30 OperationReceipt), ADR-076 (§D-076-07 receipt §4 field set; §D-076-08 durable append-only persistence), ADR-077 (profile applicability model — the `applicability` field + NOT_EVALUATED terminal for a NOT_APPLICABLE step), ADR-037 (Rust-first engines), ADR-066 (closed certification-state machine)",
-  "_boundary": "A receipt records what was fetched and what Rust decided. It never certifies, admits, authorises, or moves funds. It carries NO free BanzAI/model text (ADR-076 §D-076-08).",
-  "_canonical_field_equivalence": "ADR-076 §4 canonical names map onto this schema's origin-bound §30 names as: execution_id ≡ operation_id, engine_name ≡ engine, receipt_reference ≡ audit_ref, input_artifact_digests ⊇ input_hash (the scalar input_hash stays; input_artifact_digests adds the structured per-artefact breakdown). New durable artefacts (the Postgres receipt store, the journey state-machine contract) use the canonical §4 names; this receipt keeps its established §30 names plus the new §4 behavioural fields below.",
+  "_authority": "ADR-038 (§4.8 receipts, §30 OperationReceipt), ADR-042 (§D-076-07 receipt §4 field set; §D-076-08 durable append-only persistence), ADR-039 (profile applicability model — the `applicability` field + NOT_EVALUATED terminal for a NOT_APPLICABLE step), ADR-043 (Rust-first engines), ADR-035 (closed certification-state machine)",
+  "_boundary": "A receipt records what was fetched and what Rust decided. It never certifies, admits, authorises, or moves funds. It carries NO free BanzAI/model text (ADR-042 §D-076-08).",
+  "_canonical_field_equivalence": "ADR-042 §4 canonical names map onto this schema's origin-bound §30 names as: execution_id ≡ operation_id, engine_name ≡ engine, receipt_reference ≡ audit_ref, input_artifact_digests ⊇ input_hash (the scalar input_hash stays; input_artifact_digests adds the structured per-artefact breakdown). New durable artefacts (the Postgres receipt store, the journey state-machine contract) use the canonical §4 names; this receipt keeps its established §30 names plus the new §4 behavioural fields below.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -78,7 +78,7 @@
         "OPTIONAL",
         "NOT_APPLICABLE"
       ],
-      "description": "ADR-077: the step's applicability to the target's declared conformance profile, ORTHOGONAL to result.status. REQUIRED = in scope and must be evaluated; OPTIONAL = in scope, non-blocking; NOT_APPLICABLE = out of scope for the profile (e.g. L2 interoperability / L3 federation for an L0 implementation) — such a step is never fetched or engine-evaluated (result.status = NOT_EVALUATED), never a technical failure, and never contributes to readiness. Rust decides the map (banza-target-registry). Always emitted by the runtime as of ADR-077."
+      "description": "ADR-039: the step's applicability to the target's declared conformance profile, ORTHOGONAL to result.status. REQUIRED = in scope and must be evaluated; OPTIONAL = in scope, non-blocking; NOT_APPLICABLE = out of scope for the profile (e.g. L2 interoperability / L3 federation for an L0 implementation) — such a step is never fetched or engine-evaluated (result.status = NOT_EVALUATED), never a technical failure, and never contributes to readiness. Rust decides the map (banza-target-registry). Always emitted by the runtime as of ADR-039."
     },
     "operator_id": {
       "type": "string"
@@ -189,7 +189,7 @@
             "BLOCKED",
             "NOT_EVALUATED"
           ],
-          "description": "Canonical step status decided by Rust. NOT_EVALUATED is the terminal of a NOT_APPLICABLE step (ADR-077) — out of scope for the profile, never fetched or evaluated."
+          "description": "Canonical step status decided by Rust. NOT_EVALUATED is the terminal of a NOT_APPLICABLE step (ADR-039) — out of scope for the profile, never fetched or evaluated."
         }
       }
     },
@@ -246,7 +246,7 @@
     },
     "audit_ref": {
       "type": "string",
-      "description": "Correlation reference joining the request id and the fetcher audit id (≡ ADR-076 receipt_reference)."
+      "description": "Correlation reference joining the request id and the fetcher audit id (≡ ADR-042 receipt_reference)."
     },
     "started_at": {
       "type": [
@@ -254,7 +254,7 @@
         "null"
       ],
       "format": "date-time",
-      "description": "ADR-076 §4: when the step began executing (RFC3339 UTC). Optional in v1.1; promoted to required once the runtime emits it."
+      "description": "ADR-042 §4: when the step began executing (RFC3339 UTC). Optional in v1.1; promoted to required once the runtime emits it."
     },
     "completed_at": {
       "type": [
@@ -262,14 +262,14 @@
         "null"
       ],
       "format": "date-time",
-      "description": "ADR-076 §4: when the step reached its terminal state (RFC3339 UTC)."
+      "description": "ADR-042 §4: when the step reached its terminal state (RFC3339 UTC)."
     },
     "retryable": {
       "type": [
         "boolean",
         "null"
       ],
-      "description": "ADR-076 §4: whether this step may be safely re-run (a fetch/transient failure is retryable; a decided FAILED verdict is not)."
+      "description": "ADR-042 §4: whether this step may be safely re-run (a fetch/transient failure is retryable; a decided FAILED verdict is not)."
     },
     "blocked_by": {
       "type": "array",
@@ -287,11 +287,11 @@
           "certification"
         ]
       },
-      "description": "ADR-076 §4: the upstream step ids whose non-VERIFIED state blocks this step. Empty when nothing blocks it."
+      "description": "ADR-042 §4: the upstream step ids whose non-VERIFIED state blocks this step. Empty when nothing blocks it."
     },
     "input_artifact_digests": {
       "type": "object",
-      "description": "ADR-076 §4: structured per-artefact digest map (superset of the scalar input_hash). Each key is an artefact role; each value binds the endpoint fetched to its content digest.",
+      "description": "ADR-042 §4: structured per-artefact digest map (superset of the scalar input_hash). Each key is an artefact role; each value binds the endpoint fetched to its content digest.",
       "additionalProperties": {
         "type": "object",
         "additionalProperties": false,

@@ -10,7 +10,7 @@
 #                  exact-source path), so an answer about it can actually cite it.
 #
 # The guard drives the REAL committed Rust/WASM engines (no model, no network) over the whole corpus via
-# services/banzai-api/eval/corpus-integrity.mjs, asserts 100% integrity + explicit ADR-053/054 coverage,
+# services/banzai-api/eval/corpus-integrity.mjs, asserts 100% integrity + explicit ADR-041/054 coverage,
 # regenerates the truth-table manifest as evidence, and self-tests that a non-existent id is NOT citable
 # (so the check cannot silently pass on a broken engine). Complements banzai-answer-quality-eval-check.
 
@@ -51,18 +51,18 @@ if (gaps.length) {
 if (summary.ok !== summary.total) err(`integrity ${summary.ok}/${summary.total}`);
 
 // 2. explicit coverage of the newest public policy documents (regression anchor).
-for (const id of ["ADR-053", "ADR-054"]) {
+for (const id of ["ADR-041", "ADR-042"]) {
   const r = rows.find((x) => x.id === id);
   if (!r) err(`${id} not discovered on disk`);
   else if (!r.ok) err(`${id} not fully integrated (${JSON.stringify(r)})`);
 }
-if (!bad) console.log("  ok: ADR-053 + ADR-054 fully integrated");
+if (!bad) console.log("  ok: ADR-041 + ADR-042 fully integrated");
 
 // 3. self-test — the audit is a real test, not a constant: a non-existent id must NOT be citable, and
 //    discovery must actually read the filesystem (non-empty, all ids well-formed).
 {
-  const fake = bfp("selftest", "explain_document", "ADR-99999", "explica ADR-99999", "brief");
-  const citableFake = fake && Array.isArray(fake.allowed_source_ids) && fake.allowed_source_ids.includes("ADR-99999");
+  const fake = bfp("selftest", "explain_document", "ADR-999", "explica ADR-999", "brief");
+  const citableFake = fake && Array.isArray(fake.allowed_source_ids) && fake.allowed_source_ids.includes("ADR-999");
   if (citableFake) err("selftest: a non-existent id must not be citable");
   const docs = discoverCanonicalDocs();
   if (!docs.length || !docs.every((d) => /^(ADR-\d{3}|RFC-\d{4})$/.test(d.id))) err("selftest: discovery produced malformed ids");
@@ -74,7 +74,7 @@ process.exit(bad ? 1 : 0);
 if [ $? -ne 0 ]; then fail "canonical corpus integrity violated (see above)"; else ok "canonical corpus integrity holds"; fi
 
 # Regenerate the committed truth-table manifest as evidence (does not fail on write).
-node "$EVAL" >/dev/null 2>&1 && ok "truth-table manifest regenerated (artifacts/m2-18b3/corpus-truth-table.json)" || true
+node "$EVAL" >/dev/null 2>&1 && ok "truth-table manifest regenerated (artifacts/banzai/corpus-truth-table.json)" || true
 
 if [ "$FAILED" -ne 0 ]; then
   echo "BANZAI CANONICAL CORPUS INTEGRITY CHECK FAILED ✗"

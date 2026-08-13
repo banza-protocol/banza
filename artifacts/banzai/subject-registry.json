@@ -1,0 +1,412 @@
+{
+  "_meta": {
+    "note": "Derived from the canonical vocabulary. The truth-table generator consumes this — subjects are not a manual list."
+  },
+  "subjects": [
+    {
+      "id": "operador",
+      "name": "operador",
+      "type": "concept",
+      "resolution": "deterministic-terminal (catalogue SubjectProfile) + trunk synthesis",
+      "deliverables": [
+        "example"
+      ],
+      "aliases": [
+        "operador",
+        "operator",
+        "operadora"
+      ],
+      "seed": ""
+    },
+    {
+      "id": "federacao",
+      "name": "federacao",
+      "type": "concept",
+      "resolution": "deterministic-terminal (catalogue SubjectProfile) + trunk synthesis",
+      "deliverables": [
+        "example",
+        "procedure"
+      ],
+      "aliases": [
+        "federac",
+        "federation",
+        "federar",
+        "federa "
+      ],
+      "seed": ""
+    },
+    {
+      "id": "manifest",
+      "name": "manifest",
+      "type": "artefact",
+      "resolution": "deterministic-terminal (catalogue SubjectProfile) + trunk synthesis",
+      "deliverables": [
+        "procedure",
+        "template"
+      ],
+      "aliases": [
+        "manifest",
+        "manifesto"
+      ],
+      "seed": ""
+    },
+    {
+      "id": "revogacao",
+      "name": "revogacao",
+      "type": "concept",
+      "resolution": "deterministic-terminal (catalogue SubjectProfile) + trunk synthesis",
+      "deliverables": [
+        "example",
+        "procedure"
+      ],
+      "aliases": [
+        "revoga",
+        "revocation",
+        "revogar",
+        "revogado"
+      ],
+      "seed": ""
+    },
+    {
+      "id": "trust",
+      "name": "trust",
+      "type": "concept",
+      "resolution": "deterministic-terminal (catalogue SubjectProfile) + trunk synthesis",
+      "deliverables": [
+        "example",
+        "template"
+      ],
+      "aliases": [
+        "trust",
+        "confianca",
+        "avaliacao de confianca"
+      ],
+      "seed": ""
+    },
+    {
+      "id": "evidencia",
+      "name": "evidencia",
+      "type": "artefact",
+      "resolution": "deterministic-terminal (catalogue SubjectProfile) + trunk synthesis",
+      "deliverables": [
+        "example",
+        "template"
+      ],
+      "aliases": [
+        "evidencia",
+        "evidence",
+        "evidence bundle",
+        "pacote de evidencia"
+      ],
+      "seed": ""
+    },
+    {
+      "id": "conformidade",
+      "name": "conformidade",
+      "type": "concept",
+      "resolution": "deterministic-terminal (catalogue SubjectProfile) + trunk synthesis",
+      "deliverables": [
+        "example",
+        "procedure",
+        "template"
+      ],
+      "aliases": [
+        "conformidade",
+        "conformance",
+        "conforme"
+      ],
+      "seed": ""
+    },
+    {
+      "id": "participacao",
+      "name": "participacao",
+      "type": "concept",
+      "resolution": "deterministic-terminal (catalogue SubjectProfile) + trunk synthesis",
+      "deliverables": [
+        "procedure"
+      ],
+      "aliases": [
+        "participa",
+        "participacao",
+        "participar",
+        "aderir",
+        "aderi",
+        "entrar na federacao",
+        "onboarding",
+        "integracao de operador"
+      ],
+      "seed": ""
+    },
+    {
+      "id": "chave",
+      "name": "chave",
+      "type": "artefact",
+      "resolution": "deterministic-terminal (catalogue SubjectProfile) + trunk synthesis",
+      "deliverables": [
+        "procedure",
+        "template"
+      ],
+      "aliases": [
+        "chave",
+        "key manifest",
+        "key-manifest",
+        "rotacao de chave",
+        "rotacao",
+        "rotation",
+        "signing key"
+      ],
+      "seed": ""
+    },
+    {
+      "id": "root",
+      "name": "root",
+      "type": "artefact",
+      "resolution": "deterministic-terminal (catalogue SubjectProfile) + trunk synthesis",
+      "deliverables": [
+        "procedure",
+        "template"
+      ],
+      "aliases": [
+        "root manifest",
+        "trust root",
+        "trust-root",
+        "root-of-trust",
+        "raiz de confianca",
+        "root de confianca",
+        "cerimonia de raiz",
+        "cerimonia da raiz",
+        "root ceremony",
+        "metadados da raiz",
+        "root metadata"
+      ],
+      "seed": ""
+    },
+    {
+      "id": "interoperabilidade",
+      "name": "interoperabilidade",
+      "type": "concept",
+      "resolution": "deterministic-terminal (catalogue SubjectProfile) + trunk synthesis",
+      "deliverables": [
+        "example",
+        "template"
+      ],
+      "aliases": [
+        "interoperabilidade",
+        "interoperability",
+        "interop",
+        "cross-operator",
+        "entre operadores",
+        "roteamento entre operadores"
+      ],
+      "seed": ""
+    },
+    {
+      "id": "banza",
+      "name": "BANZA",
+      "type": "entity",
+      "resolution": "entity coverage (coverage.rs) + attribute terminal + trunk",
+      "deliverables": [],
+      "aliases": [
+        "banza"
+      ],
+      "seed": "BANZA"
+    },
+    {
+      "id": "banzai",
+      "name": "BanzAI",
+      "type": "entity",
+      "resolution": "entity coverage + trunk",
+      "deliverables": [],
+      "aliases": [
+        "banzai"
+      ],
+      "seed": "def-banzai-agent"
+    },
+    {
+      "id": "banzami",
+      "name": "Banzami",
+      "type": "entity",
+      "resolution": "entity coverage + attribution (GOVERNANCE)",
+      "deliverables": [],
+      "aliases": [
+        "banzami"
+      ],
+      "seed": "what-is-banzami"
+    },
+    {
+      "id": "governanca",
+      "name": "governança",
+      "type": "concept",
+      "resolution": "trunk synthesis (documented process; no deterministic terminal)",
+      "deliverables": [],
+      "aliases": [
+        "governanca",
+        "governance",
+        "open governance",
+        "governanca aberta"
+      ],
+      "seed": ""
+    },
+    {
+      "id": "endpoint",
+      "name": "endpoint",
+      "type": "artefact",
+      "resolution": "trunk synthesis over OpenAPI (no deterministic terminal)",
+      "deliverables": [],
+      "aliases": [
+        "endpoint",
+        "api",
+        "openapi"
+      ],
+      "seed": ""
+    },
+    {
+      "id": "ledger",
+      "name": "ledger / dupla entrada",
+      "type": "concept",
+      "resolution": "trunk synthesis grounded in ADR-011 (double-entry ledger + monetary precision)",
+      "deliverables": [],
+      "aliases": [
+        "ledger",
+        "dupla entrada",
+        "double entry",
+        "double-entry",
+        "partida dobrada",
+        "posting"
+      ],
+      "seed": ""
+    },
+    {
+      "id": "wallet",
+      "name": "wallet / conta",
+      "type": "concept",
+      "resolution": "trunk synthesis grounded in ADR-012 (wallet-native identity) / account model",
+      "deliverables": [],
+      "aliases": [
+        "wallet",
+        "carteira",
+        "conta",
+        "account",
+        "saldo",
+        "balance"
+      ],
+      "seed": ""
+    },
+    {
+      "id": "liquidacao",
+      "name": "liquidação",
+      "type": "concept",
+      "resolution": "trunk synthesis grounded in the settlement invariants (INV-SETTLE)",
+      "deliverables": [],
+      "aliases": [
+        "liquidacao",
+        "settlement",
+        "reconciliacao",
+        "reconciliation"
+      ],
+      "seed": ""
+    },
+    {
+      "id": "qr",
+      "name": "QR / payment session",
+      "type": "artefact",
+      "resolution": "trunk synthesis grounded in ADR-016 (QR payment system) / ADR-015 (payment session)",
+      "deliverables": [],
+      "aliases": [
+        "qr",
+        "qr code",
+        "codigo qr",
+        "payment session",
+        "sessao de pagamento",
+        "pagamento"
+      ],
+      "seed": ""
+    },
+    {
+      "id": "webhook",
+      "name": "webhook / event",
+      "type": "artefact",
+      "resolution": "trunk synthesis grounded in the webhook/event contracts",
+      "deliverables": [],
+      "aliases": [
+        "webhook",
+        "evento",
+        "event",
+        "webhooks",
+        "eventos"
+      ],
+      "seed": ""
+    }
+  ],
+  "document_instances": [
+    "ADR-001",
+    "ADR-002",
+    "ADR-003",
+    "ADR-004",
+    "ADR-005",
+    "ADR-006",
+    "ADR-007",
+    "ADR-008",
+    "ADR-009",
+    "ADR-010",
+    "ADR-011",
+    "ADR-012",
+    "ADR-013",
+    "ADR-014",
+    "ADR-015",
+    "ADR-016",
+    "ADR-017",
+    "ADR-018",
+    "ADR-019",
+    "ADR-020",
+    "ADR-021",
+    "ADR-022",
+    "ADR-023",
+    "ADR-024",
+    "ADR-025",
+    "ADR-026",
+    "ADR-027",
+    "ADR-028",
+    "ADR-029",
+    "ADR-030",
+    "ADR-031",
+    "ADR-032",
+    "ADR-033",
+    "ADR-034",
+    "ADR-035",
+    "ADR-036",
+    "ADR-037",
+    "ADR-038",
+    "ADR-039",
+    "ADR-040",
+    "ADR-041",
+    "ADR-042",
+    "ADR-043",
+    "ADR-044",
+    "ADR-045",
+    "ADR-052",
+    "ADR-053",
+    "ADR-054",
+    "ADR-059",
+    "ADR-060",
+    "ADR-061",
+    "ADR-062",
+    "ADR-063",
+    "ADR-064",
+    "ADR-065",
+    "ADR-066",
+    "RFC-0001",
+    "RFC-0002",
+    "RFC-0003",
+    "RFC-0004",
+    "RFC-0005",
+    "RFC-0006"
+  ],
+  "document_instance_sample": [
+    "ADR-001",
+    "ADR-001",
+    "ADR-031",
+    "RFC-0006"
+  ],
+  "checksum": "5bbc3e8b059511f6"
+}

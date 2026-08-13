@@ -3,7 +3,7 @@
 - **Status:** Normative
 - **Version:** `BCJ/1`
 - **Protocol version:** BANZA 1.0
-- **Authority:** [ADR-082](../decisions/adr/ADR-082-banza-canonical-json.md); versioning per [ADR-081](../decisions/adr/ADR-081-normative-completeness-versioning-decision.md)
+- **Authority:** [ADR-010](../decisions/adr/ADR-010-banza-canonical-json.md); versioning per [ADR-009](../decisions/adr/ADR-009-normative-completeness-versioning-decision.md)
 - **Test vectors:** [`conformance/vectors/canonicalization.json`](../conformance/vectors/canonicalization.json)
 
 > The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **SHOULD**, **SHOULD NOT**,
@@ -184,8 +184,8 @@ A verifier MUST:
    P3 is observable only on the wire text — a parser that has already resolved a duplicate member cannot
    report one — so a verifier that receives bytes MUST apply P3 before parsing to a value.
 2. Derive the signing bytes per §4.
-3. Resolve the verification key by `key_id` through the trust path in force (ADR-079 Model A: the Trust
-   Root signs only the Key Manifest; delegated keys sign domain artifacts per ADR-038).
+3. Resolve the verification key by `key_id` through the trust path in force (ADR-027 Model A: the Trust
+   Root signs only the Key Manifest; delegated keys sign domain artifacts per ADR-027).
 4. Verify the Ed25519 signature over those bytes.
 5. Reject on any failure. There is no partial acceptance and no fallback to an alternative
    canonicalization.
@@ -198,7 +198,7 @@ the stated canonical bytes and digest, and rejects every vector marked as reject
 
 ## 9. Versioning
 
-`BCJ/1` is versioned independently of the protocol version (ADR-081). A change to any rule in §2–§6 that
+`BCJ/1` is versioned independently of the protocol version (ADR-009). A change to any rule in §2–§6 that
 alters produced bytes REQUIRES a new canonicalization version (`BCJ/2`, …). The protocol version in force
 declares which canonicalization applies
 (`contracts/production/protocol-version.json` → `canonicalization`).

@@ -7,7 +7,7 @@ import remarkGfm from "remark-gfm";
 // is escaped, so no scripts or unsafe markup can execute. Wrapped in
 // `.reference-body` for consistent typography, scrollable tables and code.
 //
-// Relative links inside the documents (e.g. `ADR-006-….md`, `../governance/…`)
+// Relative links inside the documents (e.g. `ADR-011-….md`, `../governance/…`)
 // are rewritten to the canonical GitHub location so they never 404 on the site.
 const GH_BLOB = "https://github.com/banza-protocol/banza/blob/main/";
 

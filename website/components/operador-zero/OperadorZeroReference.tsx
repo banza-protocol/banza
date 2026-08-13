@@ -10,7 +10,7 @@
 // JSON artifact, and filter the artifact list — all read-only. No handlers execute the protocol.
 //
 // RUST_WRAPPER_ONLY is not needed: TypeScript computes nothing about validation (no scoring, no
-// verdicts). It renders published facts. (ADR-037, ADR-052, ADR-053.)
+// verdicts). It renders published facts. (ADR-043, ADR-041, ADR-041.)
 
 import { useMemo, useState } from "react";
 import {
@@ -247,7 +247,7 @@ export default function OperadorZeroReference() {
           A validação é executada no BanzAI através dos motores Rust do protocolo. Esta página
           apenas expõe a implementação e os seus artefactos. A validação oficial utiliza
           exclusivamente artefactos obtidos dos endpoints públicos desta implementação, por uma
-          camada segura de fetch em Rust — nunca pelo navegador (ADR-068). O Operador Zero é o
+          camada segura de fetch em Rust — nunca pelo navegador (ADR-038). O Operador Zero é o
           exemplo canónico inicial, mas utiliza exactamente o mesmo processo de validação aplicado a
           qualquer futura implementação publicada.
         </p>

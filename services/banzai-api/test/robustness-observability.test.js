@@ -278,11 +278,11 @@ test("scrubObservability + containsForbidden catch secret-shaped values (defence
   assert.ok(containsForbidden("sk-ABCDEFGH12345678"));
   assert.ok(containsForbidden("user@example.com"));
   assert.ok(!containsForbidden("operator-zero"));
-  assert.ok(!containsForbidden("ADR-078"));
-  const cleaned = scrubObservability({ a: "sk-ABCDEFGH12345678", nested: { cookie: "x", ok: "ADR-078" } });
+  assert.ok(!containsForbidden("ADR-042"));
+  const cleaned = scrubObservability({ a: "sk-ABCDEFGH12345678", nested: { cookie: "x", ok: "ADR-042" } });
   assert.equal(cleaned.a, "[redacted]");
   assert.ok(!("cookie" in cleaned.nested), "a forbidden field name is dropped");
-  assert.equal(cleaned.nested.ok, "ADR-078", "a safe id survives");
+  assert.equal(cleaned.nested.ok, "ADR-042", "a safe id survives");
 });
 
 // ── §23 SLO surface ────────────────────────────────────────────────────────────────────────────────

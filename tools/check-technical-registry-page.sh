@@ -2,7 +2,7 @@
 #
 # M2.19G — /registo-tecnico owner-page guard.
 #
-# /registo-tecnico is the REAL owning page for the BANZA Technical Registry (Camada 2, ADR-065): the single
+# /registo-tecnico is the REAL owning page for the BANZA Technical Registry (Camada 2, ADR-036): the single
 # public, root-verifiable index of Camada 2 artifacts. This guard locks its canonical content:
 #   - the canonical registry definition ("BANZA Technical Registry" / index of Camada 2 artifacts, root-verifiable);
 #   - the closed certification states (NOT_CERTIFIED/CERTIFIED/EXPIRED/SUSPENDED/REVOKED/SUPERSEDED);
@@ -115,7 +115,7 @@ fi
 
 if [ "$fail" -ne 0 ]; then
   echo
-  echo "technical-registry-page: FAIL — /registo-tecnico canonical content drifted (M2.19G / ADR-065)."
+  echo "technical-registry-page: FAIL — /registo-tecnico canonical content drifted (M2.19G / ADR-036)."
   exit 1
 fi
 echo

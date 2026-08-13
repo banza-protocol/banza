@@ -2,7 +2,7 @@
 # check-banzai-synthesis-latency-check.sh — BanzAI grounded-synthesis latency-config guard (M2.18B.3A).
 #
 # The real end-to-end latency is proven by a measured benchmark on production-class hardware (recorded in
-# artifacts/m2-18b3/round-c-e2e-brief.json); CI cannot run the model. What
+# artifacts/banzai/round-c-e2e-brief.json); CI cannot run the model. What
 # this guard DOES enforce is that the Round B latency compaction cannot be silently reverted — the levers
 # that produced the measured reduction must stay in the code:
 #   * FactualPackage depth profiles exist with a TIGHT brief default (few facts, short clips);
@@ -22,8 +22,8 @@ ok() { echo "  ok: $*"; }
 FACTPACK="engines/banzai-query-core/src/factpack.rs"
 SYNTH="engines/banzai-query-core/src/synth.rs"
 GSYNTH="services/banzai-api/src/grounded-synthesis.js"
-TOKEV="artifacts/m2-18b3/round-b-token-evidence.json"
-MATRIX="artifacts/m2-18b3/round-c-runtime-matrix.json"
+TOKEV="artifacts/banzai/round-b-token-evidence.json"
+MATRIX="artifacts/banzai/round-c-runtime-matrix.json"
 
 for f in "$FACTPACK" "$SYNTH" "$GSYNTH"; do
   [ -f "$f" ] || { echo "FAIL: $f not found"; exit 1; }

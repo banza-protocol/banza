@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { PageHero, Section, Container, StatusNote, MoreLink } from "@/components/ui";
 
-// Real page that OWNS the canonical three-layer institutional architecture (ADR-059..063): L1 Protocol /
+// Real page that OWNS the canonical three-layer institutional architecture (ADR-003..063): L1 Protocol /
 // L2 Conformance & Interoperability Certification / L3 Banzami Operational Scheme, with BanzAI as the
 // single transversal interface (NOT a layer). It deliberately replaces the older "três zonas" framing
 // and states the three-way separation certification != scheme admission != regulatory authorisation.

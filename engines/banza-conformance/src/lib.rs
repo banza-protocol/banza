@@ -1,4 +1,4 @@
-//! banza-conformance-rs (ADR-037, R4) — the Rust BANZA conformance runner.
+//! banza-conformance-rs (ADR-043, R4) — the Rust BANZA conformance runner.
 //!
 //! Offline scope (this phase): conformance-vector integrity, financial-invariant consistency,
 //! certification-level computation, and schema-compatible report generation, with golden parity.

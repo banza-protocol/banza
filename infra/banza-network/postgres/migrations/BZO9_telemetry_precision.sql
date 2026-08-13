@@ -1,4 +1,4 @@
--- BANZA — telemetry precision: execution-kind classification + monotonic sub-ms duration (BZO-9, ADR-078).
+-- BANZA — telemetry precision: execution-kind classification + monotonic sub-ms duration (BZO-9, ADR-042).
 --
 -- Idempotent migration that extends the EXISTING receipt-store schema (M2_19H) with two telemetry
 -- precisions, WITHOUT ever mutating a frozen receipt row:

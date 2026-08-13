@@ -6,7 +6,7 @@
 // Runs a stratified sample of the golden dataset and records, per case: subject, task, answer_type, grounded,
 // sources, source-appropriateness signal, external_model_called, cache, HTTP status, latency, and a verdict.
 // Gates: zero 5xx, zero external providers, zero boundary regressions, zero deliverable for a boundary/
-// off-topic, zero "undefined"/"[object Object]" leak. Writes artifacts/m2-18b7/public-edge-qa.json.
+// off-topic, zero "undefined"/"[object Object]" leak. Writes artifacts/banzai/public-edge-qa.json.
 //
 // Usage: node tools/banzai-public-edge-qa.mjs [--limit N] [--concurrency C] [--url URL] [--out FILE]
 
@@ -20,7 +20,7 @@ const argv = (k, d) => { const i = args.indexOf(k); return i >= 0 ? args[i + 1] 
 const URL = argv("--url", "https://banza.network/banzai/ask");
 const LIMIT = parseInt(argv("--limit", "0"), 10);
 const CONC = parseInt(argv("--concurrency", "1"), 10);
-const OUT = argv("--out", join(ROOT, "artifacts/m2-18b7/public-edge-qa.json"));
+const OUT = argv("--out", join(ROOT, "artifacts/banzai/public-edge-qa.json"));
 const TIMEOUT_MS = parseInt(argv("--timeout", "120000"), 10);
 // The edge rate-limits /banzai/ask at 20r/m (one request per 3s) with burst=5, keyed on the client IP —
 // an intentional WAF control that protects the CPU-bound local Qwen from abuse. A real single human never
@@ -36,7 +36,7 @@ const HEADERS = {
   Referer: "https://banza.network/banzai",
 };
 
-const gold = JSON.parse(readFileSync(join(ROOT, "artifacts/m2-18b7/task-fulfilment-golden.json"), "utf8"));
+const gold = JSON.parse(readFileSync(join(ROOT, "artifacts/banzai/task-fulfilment-golden.json"), "utf8"));
 const all = gold.cases;
 
 // stratified sample: ALL safety cases (zero-tolerance, insufficient, adversarial-boundary) + all novel +

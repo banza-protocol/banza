@@ -45,8 +45,8 @@ test("grounded happy path: Rust resolves the entity, the ONE model call synthesi
 
 test("output-pass hallucination is rejected by the factual validator → fallback, never published", async () => {
   // A claim citing a source outside the FactualPackage's allowed set → validator rejects → fallback.
-  const output = groundedOutput("A ADR-002 aprova operadores certificados (ADR-999).",
-    [{ claim: "aprova operadores certificados", fact_ids: ["F1"] }], ["ADR-999"]);
+  const output = groundedOutput("A ADR-002 aprova operadores certificados (ADR-X999).",
+    [{ claim: "aprova operadores certificados", fact_ids: ["F1"] }], ["ADR-X999"]);
   const provider = scriptedProvider([output]);
   const r = await runGroundedSynthesis("explica a ADR-002", { provider, traceId: "t2", entityId: "ADR-002" });
   assert.equal(r.status, "fallback");

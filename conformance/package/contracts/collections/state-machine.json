@@ -1,7 +1,7 @@
 {
   "_spec": "BANZA Collections State Machine v1.0",
   "_status": "canonical",
-  "_authority": "ADR-016",
+  "_authority": "ADR-018",
   "_description": "Valid state transitions for Collection and CollectionShare. Any transition not listed is invalid and MUST be rejected. Terminal states accept no further transitions.",
 
   "collection": {

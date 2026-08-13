@@ -135,7 +135,7 @@ if (!ns) console.log("  ok: (9) no family-covered question falls into no_source"
 
 // BRAND / SECRET hygiene on every served deterministic family answer.
 let hy = 0;
-// The protocol-origin answer names the creator as INSTITUTIONAL ATTRIBUTION (ADR-043 / M2.13C-B),
+// The protocol-origin answer names the creator as INSTITUTIONAL ATTRIBUTION (ADR-044 / M2.13C-B),
 // an allowlisted governance/legal role — not a commercial operator brand; exempt it (like notice).
 const ATTRIB_ENTRIES = new Set(["protocol-origin", "notice-content"]);
 for (const f of FAMILIES) for (const q of f.questions) {

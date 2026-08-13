@@ -1,7 +1,7 @@
 // Trust Engine adapter — RUST_WRAPPER_ONLY (M2.4).
 //
 // Loads the Rust BANZA trust verifier (`banza-trust`) compiled to WASM and marshals JSON in/out. It
-// performs NO verification of its own: the ed25519 signature check, the ADR-038 canonicalization, the
+// performs NO verification of its own: the ed25519 signature check, the ADR-027 canonicalization, the
 // delegated-key / manifest / evidence / registry / revocation logic AND the trust-status decision all
 // run in Rust. TypeScript cannot verify a signature, evaluate a delegated key, compute revocation, or
 // decide a status — it only calls the engine and renders what it returns. Built from

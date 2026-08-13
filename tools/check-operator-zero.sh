@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Operador Zero Guard (ADR-052, M2.12A).
+# Operador Zero Guard (ADR-041, M2.12A).
 #
 # Operador Zero is a SIMULATOR of a payment operator. It has balances, transactions, QR codes and
 # settlement, and it is published on the protocol's own domain — so the one thing that must never
@@ -102,7 +102,7 @@ done < <(find "$ART" -name '*.md')
 [ "$claim" -eq 0 ] && ok "the simulator's docs claim no status"
 
 # ── 3b. The operator brand stays OUT of everything the simulator touches ────
-# ADR-052 is the ONE place the future real operator may be named, because that ADR documents the
+# ADR-041 is the ONE place the future real operator may be named, because that ADR documents the
 # institutional boundary. Everywhere else — artifacts, engine, endpoints, UI, runtime output — the
 # simulator must be brand-free, or the demo starts carrying a commercial identity.
 echo "operator-zero: operator brand containment…"
@@ -119,17 +119,17 @@ for scope in "$ART" "$ENGINE" website/app/operador-zero website/components/opera
   hits=$(git ls-files "$scope" | xargs -r grep -li "$BRAND" 2>/dev/null || true)
   if [ -n "$hits" ]; then
     printf '%s\n' "$hits" | sed 's/^/        /'
-    bad "a commercial operator brand appears in $scope — only ADR-052 may name it"
+    bad "a commercial operator brand appears in $scope — only ADR-041 may name it"
     brand=1
   fi
 done
 [ "$brand" -eq 0 ] && ok "no operator brand in the artifacts, the engine or the public surface"
 
 # …and it must still be present where the decision was recorded, or the boundary went undocumented.
-ADR=decisions/adr/ADR-052-operador-zero-reference-payment-operator-simulator.md
+ADR=decisions/adr/ADR-041-operador-zero-reference-payment-operator-simulator.md
 if [ -f "$ADR" ]; then
   grep -qi "$BRAND" "$ADR" \
-    && ok "ADR-052 still documents the institutional boundary" \
+    && ok "ADR-041 still documents the institutional boundary" \
     || bad "$ADR no longer names the future real operator — the boundary is undocumented"
 fi
 

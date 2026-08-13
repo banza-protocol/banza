@@ -1,4 +1,4 @@
-// M2.14B — Architecture-Wide "Operator Zero Only" demo/example policy (ADR-053). FULLY OFFLINE: drives
+// M2.14B — Architecture-Wide "Operator Zero Only" demo/example policy (ADR-041). FULLY OFFLINE: drives
 // the committed Rust routing engine (via knowledge.js). Asserts that BanzAI answers the policy
 // questions DETERMINISTICALLY (external_model_called stays false), that Operador Zero is the single
 // official demo example, that the manual JSON upload is an advanced tool (never an official example),
@@ -66,12 +66,12 @@ test("(19b) upload/fixtures questions answer manual-upload-not-example (advanced
   assert.ok(c.a.includes("fixtures internas"), "explains internal fixtures are not public examples");
 });
 
-test("(19c) the policy answers cite ADR-053 (Operator Zero Only)", () => {
+test("(19c) the policy answers cite ADR-041 (Operator Zero Only)", () => {
   for (const id of ["only-official-example", "manual-upload-not-example"]) {
     const e = getEntry(id);
     assert.ok(e, `${id} exists`);
     const ids = (e.sources || []).map((s) => (s.id || "") + " " + (s.path || "")).join(" ");
-    assert.ok(/053/.test(ids), `${id} cites ADR-053`);
+    assert.ok(/053/.test(ids), `${id} cites ADR-041`);
   }
 });
 

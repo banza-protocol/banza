@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# banzai-operator-zero-only-ui-check (ADR-053, M2.14B) — Part 17, retargeted for M2.19G.1 (ADR-068).
+# banzai-operator-zero-only-ui-check (ADR-041, M2.14B) — Part 17, retargeted for M2.19G.1 (ADR-038).
 #
 # The BanzAI product UI presents Operador Zero as the ONLY demo operator. In the endpoint-originated
-# model (ADR-068), the OZ-only demo framing lives in Fase 0 of the validation mode — "Operador
+# model (ADR-038), the OZ-only demo framing lives in Fase 0 of the validation mode — "Operador
 # disponível para demonstração: Operador Zero" — over a CLOSED operator registry that names no other
 # operator ("sem operadores fictícios"). The manual JSON upload is quarantined to the developer draft
 # tool ("Validar rascunho"), explicitly "não é exemplo oficial". No parallel fictional example operator,
@@ -25,7 +25,7 @@ DRAFT=website/components/banzai/DraftValidationTool.tsx
 VALID=website/lib/banzaiValidation.ts
 MW=website/lib/wasm/banza_operator_manifest_bg.wasm
 
-echo "== banzai-operator-zero-only-ui-check (M2.14B / ADR-068) =="
+echo "== banzai-operator-zero-only-ui-check (M2.14B / ADR-038) =="
 
 # 1. No parallel fictional example operator / "valid manifest example" affordance anywhere in the UI
 #    (the shell, the validation surface, the draft tool or the closed registry).

@@ -12,7 +12,7 @@ set -eu
 cd "$(dirname "$0")/.."
 
 KB="services/banzai-api/src/rustkb/banzai_api_kb.js"
-ART="artifacts/m2-18b7/task-fulfilment-truth-table.json"
+ART="artifacts/banzai/task-fulfilment-truth-table.json"
 [ -f "$KB" ] || { echo "banzai-truth-table-current-check: NEEDS_FIX (missing WASM $KB — run wasm-pack)" >&2; exit 1; }
 [ -f "$ART" ] || { echo "banzai-truth-table-current-check: NEEDS_FIX (missing artefact $ART — run node tools/gen-banzai-truth-table.mjs)" >&2; exit 1; }
 
@@ -24,7 +24,7 @@ node tools/gen-banzai-truth-table.mjs --check
 # 2. structural + coverage floors.
 node --input-type=module <<'NODE'
 import { readFileSync } from "node:fs";
-const a = JSON.parse(readFileSync("artifacts/m2-18b7/task-fulfilment-truth-table.json", "utf8"));
+const a = JSON.parse(readFileSync("artifacts/banzai/task-fulfilment-truth-table.json", "utf8"));
 const c = a.counts, rows = a.rows;
 let bad = 0; const fail = (m) => { console.error(`  FAIL: ${m}`); bad++; };
 
@@ -74,7 +74,7 @@ for (const r of rows) {
 // critical public subjects MUST appear in the matrix.
 const subjects = new Set(rows.map((r) => r.subject));
 for (const s of ["banza", "banzai", "banzami", "operador", "federacao", "governanca", "interoperabilidade",
-                 "ADR-005", "RFC-0006", "ADR-99999-nonexistent"])
+                 "ADR-001", "RFC-0006", "ADR-999-nonexistent"])
   if (!subjects.has(s)) fail(`critical subject missing from truth table: ${s}`);
 
 if (bad) { console.error(`banzai-truth-table-current-check: NEEDS_FIX (${bad})`); process.exit(1); }

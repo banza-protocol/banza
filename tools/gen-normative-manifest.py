@@ -75,7 +75,7 @@ add('contracts/openapi/reference-operator.yaml', 'reference-implementation-api',
     'The L0 sandbox API of the reference implementation. Its own text: "This is not a production '
     'API. All state is in-memory and resets on restart." Not a surface any operator must expose.')
 add('contracts/openapi/operator-validation.yaml', 'verification-surface-api', INFO,
-    'Self-declared "reference/documentary contract" for the BanzAI validation surface (ADR-068). '
+    'Self-declared "reference/documentary contract" for the BanzAI validation surface (ADR-038). '
     'Documents request/response shapes of the validation routes; imposes no obligation on an '
     'operator implementation.')
 add('contracts/openapi/interoperability-certification.yaml', 'certification-surface-api', CONF,
@@ -211,7 +211,7 @@ tier_counts = Counter(e['tier'] for e in items)
 manifest = {
     "_spec": "BANZA Protocol Normative Manifest",
     "_status": "canonical",
-    "_authority": "ADR-081 (versioning), ADR-082 (canonicalization); remediation of audit findings "
+    "_authority": "ADR-009 (versioning), ADR-010 (canonicalization); remediation of audit findings "
                   "F-02/F-04",
     "_source_of_truth": "This manifest.",
     "_boundary": (

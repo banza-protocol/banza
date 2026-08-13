@@ -67,14 +67,14 @@ check("ADR-002 carries a content hash for cache binding", typeof a2.content_hash
 check("ADR-002 plans the explain_adr tool", a2.tool === "explain_adr", a2.tool);
 
 // Other documents and kinds.
-check("ADR-049 resolves", R("Explica o ADR-049").found);
+check("ADR-042 resolves", R("Explica o ADR-042").found);
 const rfc = R("O que diz RFC-001?");
 check("RFC-001 resolves padding-insensitively → RFC-0001", rfc.found && rfc.id === "RFC-0001", rfc.id);
 check("RFC plans the explain_rfc tool", rfc.tool === "explain_rfc", rfc.tool);
 
 // A document that does not exist is reported, never invented.
-const missing = R("Explica o ADR-999");
-check("ADR-999 is detected but NOT found (never invented)", missing.detected && !missing.found);
+const missing = R("Explica o ADR-X999");
+check("ADR-X999 is detected but NOT found (never invented)", missing.detected && !missing.found);
 
 // A question with no documentary reference must not resolve one.
 for (const q of ["como federar um operador?", "o que é o BANZA?"]) {

@@ -27,8 +27,8 @@ m2_generates_no_production_keys = true
 The production root-key ceremony has **not** been executed. No production root key, no production
 issuing key, and no production signed protocol metadata exist. Everything below is **prepared but gated**: a
 prerequisite list to satisfy under governance, not an action performed in M2. The trust path is
-governed by ADR-038 (open trust model — canonical-JSON signing, domain separation), ADR-040
-(federation trust evaluation) and ADR-028 (keys never on serving infrastructure).
+governed by ADR-027 (open trust model — canonical-JSON signing, domain separation), ADR-031
+(federation trust evaluation) and ADR-029 (keys never on serving infrastructure).
 
 ## Production state model
 
@@ -56,7 +56,7 @@ execution is deliberately out of scope for M2.
 Before a production root key may be generated, all of the following must hold (none are satisfied by
 publishing this document):
 
-- ADR-038 and ADR-028 frozen and referenced (root offline, keys never on serving infra) — **met at spec level**.
+- ADR-027 and ADR-029 frozen and referenced (root offline, keys never on serving infra) — **met at spec level**.
 - Governed approval of the ceremony date, participants, and dual-control roles — **planned/gated**.
 - Air-gapped ceremony machine with its network interface physically disabled/removed — **planned/gated**.
 - Verified ceremony software with recorded SHA-256 hashes — **planned/gated**.
@@ -78,7 +78,7 @@ carried into the production path:
 
 ## 3. Key custody requirements
 
-Per [`KEY_MANAGEMENT_POLICY.md`](KEY_MANAGEMENT_POLICY.md) and ADR-028:
+Per [`KEY_MANAGEMENT_POLICY.md`](KEY_MANAGEMENT_POLICY.md) and ADR-029:
 
 | Key | Domain | Custody | On serving infra? |
 |---|---|---|---|
@@ -89,7 +89,7 @@ Per [`KEY_MANAGEMENT_POLICY.md`](KEY_MANAGEMENT_POLICY.md) and ADR-028:
 
 Private keys are encrypted (GPG / AES-256); the passphrase is stored separately from the key media. Two
 copies (`BANZA_KEYS_A`, `BANZA_KEYS_B`) plus a signed paper backup of fingerprints. The root key never
-touches the runtime verification path (ADR-038): signed protocol metadata verifies against the issuing public key
+touches the runtime verification path (ADR-027): signed protocol metadata verifies against the issuing public key
 published in the root-signed Key Manifest.
 
 ## 4. Artifact signing flow
@@ -105,7 +105,7 @@ root key ──signs──▶ Key Manifest ──endorses──▶ issuing publi
         conformance key  ──signs──▶ conformance evidence package
 ```
 
-Every signature uses canonical JSON (ADR-038). No key signs across domains (INV-ROOT-004). In M2 this
+Every signature uses canonical JSON (ADR-027). No key signs across domains (INV-ROOT-004). In M2 this
 flow is **dry-run only** against `test-banza-key-*` material; no production artifact is signed.
 
 ## 5. Signing evidence

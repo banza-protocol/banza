@@ -1,4 +1,4 @@
-//! `gen` — the Operador Zero E2E Demo Root tool (ADR-052, M2.13A).
+//! `gen` — the Operador Zero E2E Demo Root tool (ADR-041, M2.13A).
 //!
 //!   cargo run -p operator-zero-e2e-root --bin gen            # (re)generate the public artifacts
 //!   cargo run -p operator-zero-e2e-root --bin gen -- --verify # verify the committed public artifacts

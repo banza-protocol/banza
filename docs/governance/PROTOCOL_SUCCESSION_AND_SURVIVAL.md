@@ -55,7 +55,7 @@ A sobrevivência não é uma propriedade abstracta: é uma lista finita de artef
 
 **Regra:** nenhum destes artefactos pode ter como dependência a existência de uma empresa, de um servidor específico, de uma pessoa nomeada ou de um contrato privado.
 
-> **BanzAI (agente nativo do protocolo, ADR-041) fora do caminho crítico de sobrevivência.** O BANZA é um protocolo financeiro aberto acompanhado por um agente IA nativo — o **BanzAI** — que guia operadores, simula fluxos, invoca as ferramentas verificáveis, explica resultados e ajuda a preparar evidência. O BanzAI é uma camada de **orientação e orquestração**: aumenta a implementabilidade do protocolo sem introduzir um guardião do portão, humano ou de IA. O BanzAI **não** aparece nesta tabela porque **nada de essencial depende dele**: as especificações, os schemas, os testes de conformidade, os motores Rust/WASM e a evidência permanecem legíveis, executáveis e verificáveis sem o BanzAI. O BanzAI é **subordinado à Referência BANZA e aos motores determinísticos**; não aprova, não certifica, não licencia, não decide participação, não cria regras e não adiciona decisões arquitecturais. Se o BanzAI — ou o provedor que o serve — desaparecer, o protocolo continua a existir, a ser verificável e a ser bifurcável exactamente como descrito neste documento.
+> **BanzAI (agente nativo do protocolo, ADR-042) fora do caminho crítico de sobrevivência.** O BANZA é um protocolo financeiro aberto acompanhado por um agente IA nativo — o **BanzAI** — que guia operadores, simula fluxos, invoca as ferramentas verificáveis, explica resultados e ajuda a preparar evidência. O BanzAI é uma camada de **orientação e orquestração**: aumenta a implementabilidade do protocolo sem introduzir um guardião do portão, humano ou de IA. O BanzAI **não** aparece nesta tabela porque **nada de essencial depende dele**: as especificações, os schemas, os testes de conformidade, os motores Rust/WASM e a evidência permanecem legíveis, executáveis e verificáveis sem o BanzAI. O BanzAI é **subordinado à Referência BANZA e aos motores determinísticos**; não aprova, não certifica, não licencia, não decide participação, não cria regras e não adiciona decisões arquitecturais. Se o BanzAI — ou o provedor que o serve — desaparecer, o protocolo continua a existir, a ser verificável e a ser bifurcável exactamente como descrito neste documento.
 
 ---
 
@@ -107,7 +107,7 @@ Um RFC é a única via para alterar uma regra do protocolo. O processo:
 
 A Conformance Automation é o coração da sobrevivência do BANZA, porque substitui julgamento humano por verificação determinística.
 
-- **Públicos.** Os vectores de conformidade (`conformance/`) e os motores de verificação (`engines/`, Rust por ADR-037) são abertos.
+- **Públicos.** Os vectores de conformidade (`conformance/`) e os motores de verificação (`engines/`, Rust por ADR-043) são abertos.
 - **Executáveis localmente.** Um operador executa a conformidade na sua própria infraestrutura. Não existe um serviço central obrigatório contra o qual seja preciso "submeter" nada, nem uma fila de espera humana.
 - **Determinísticos.** O mesmo input produz o mesmo resultado, em qualquer máquina, hoje ou daqui a dez anos. Um resultado de conformidade não depende de quem o executou.
 - **Sem juízo humano no caminho crítico.** A conformidade é uma propriedade computável da implementação, não uma opinião de um comité.
@@ -135,7 +135,7 @@ Um schema publicado num *tag* é imutável. Corrigir um schema publicado faz-se 
 
 O tooling que produz e verifica artefactos do protocolo é aberto e reprodutível:
 
-- **Motores oficiais em Rust** (ADR-037) — conformidade, verificação de confiança e da Revocation List, verificação de invariantes, geração de Evidence Bundle.
+- **Motores oficiais em Rust** (ADR-043) — conformidade, verificação de confiança e da Revocation List, verificação de invariantes, geração de Evidence Bundle.
 - **Sem dependência de infraestrutura proprietária.** As ferramentas correm numa máquina comum; não exigem um serviço nosso, uma chave de API nossa, nem uma conta connosco.
 - **Reprodutíveis.** Builds com versões fixas, para que um verificador independente obtenha byte-a-byte o mesmo resultado.
 - **Verificação offline.** A verificação de evidência e de assinaturas não requer rede. Um auditor sem ligação a nenhum sistema nosso consegue verificar tudo o que importa.
@@ -211,7 +211,7 @@ O release é a operação que transforma trabalho em protocolo publicado. Está 
 
 ## 13. Rotação da Trust Root
 
-A Trust Root assina **apenas o Manifesto de Chaves**, que endossa as Delegated Signing Keys; são estas que assinam metadados do protocolo, releases e revogações (ADR-079).
+A Trust Root assina **apenas o Manifesto de Chaves**, que endossa as Delegated Signing Keys; são estas que assinam metadados do protocolo, releases e revogações (ADR-027).
 
 **A Trust Root NÃO:**
 - não autoriza pagamentos;
@@ -229,7 +229,7 @@ A Trust Root assina **apenas o Manifesto de Chaves**, que endossa as Delegated S
 - **Sobreposição.** A nova raiz é publicada e assinada pela raiz anterior enquanto esta ainda é válida, criando um caminho de confiança contínuo e verificável.
 - **Rotação sem antecessora.** Se a raiz anterior estiver indisponível (perda, comprometimento, ausência de custódios), a nova raiz é estabelecida por acto público e verificável de governação — publicação multi-canal, quórum, e registo escrito. Nesse cenário, os verificadores adoptam a nova raiz por decisão explícita e informada, não por confiança implícita.
 - **Custódia distribuída.** A custódia é sempre multi-custódio e multi-localização, para que nenhuma saída individual perca a raiz.
-- **Chaves fora da infraestrutura de serviço** (ADR-028). Material privado nunca vive em servidores de produção. Nenhum sistema em linha detém a capacidade de assinar como raiz.
+- **Chaves fora da infraestrutura de serviço** (ADR-029). Material privado nunca vive em servidores de produção. Nenhum sistema em linha detém a capacidade de assinar como raiz.
 - **Delegated Signing Keys de vida curta.** O uso operacional faz-se com chaves delegadas, rodadas com frequência. A raiz é usada raramente. Isto reduz a exposição da raiz e torna a perda de uma chave delegada um evento recuperável e rotineiro.
 
 **Cenário-limite:** perda total do material da Trust Root **não destrói o protocolo**. As especificações, os schemas, os testes e a evidência continuam válidos e verificáveis. O que se perde é a cadeia de autenticidade dos artefactos futuros — que é restaurável por nova raiz publicada por governação (ou por um fork, §14). A confiança no BANZA reside nas regras verificáveis, não numa chave insubstituível.
@@ -365,10 +365,10 @@ Estas afirmações são vinculativas e uma alteração que as viole é um defeit
 - `docs/governance/certification-boundary.md` — fronteira da verificação de conformidade
 - `docs/governance/OPEN_PROTOCOL_GOVERNANCE.md` — RFC Process
 - `decisions/adr/ADR-001-open-financial-protocol.md` — protocolo financeiro aberto
-- `decisions/adr/ADR-003-operator-separation.md` — separação de operadores
-- `decisions/adr/ADR-028-keys-never-on-serving-infrastructure.md` — chaves fora da infraestrutura de serviço
-- `decisions/adr/ADR-037-rust-first-official-engines.md` — motores oficiais em Rust
-- `decisions/adr/ADR-041-banzai-native-protocol-agent.md` — BanzAI como agente nativo do protocolo
+- `decisions/adr/ADR-001-operator-separation.md` — separação de operadores
+- `decisions/adr/ADR-029-keys-never-on-serving-infrastructure.md` — chaves fora da infraestrutura de serviço
+- `decisions/adr/ADR-043-rust-first-official-engines.md` — motores oficiais em Rust
+- `decisions/adr/ADR-042-banzai-native-protocol-agent.md` — BanzAI como agente nativo do protocolo
 - `docs/governance/BANZAI_NATIVE_PROTOCOL_AGENT.md` — BanzAI: agente nativo de orientação e orquestração
 - `SECURITY.md` — divulgação de segurança
 - `LICENSE` · `NOTICE` — Apache-2.0

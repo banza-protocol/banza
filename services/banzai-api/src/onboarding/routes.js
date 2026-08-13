@@ -1,4 +1,4 @@
-// Onboarding HTTP router (M2.19G.3, ADR-069). Owns the /onboarding/* surface: cookie handling, the
+// Onboarding HTTP router (M2.19G.3, ADR-040). Owns the /onboarding/* surface: cookie handling, the
 // CSRF Origin check, a per-IP rate limit, session authentication, request validation, and mapping
 // service results to typed JSON. Every security DECISION is delegated to the service → Rust engine;
 // this file only shuttles HTTP. Mounted publicly under nginx `location /banzai/onboarding/` (same

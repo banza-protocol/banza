@@ -37,7 +37,7 @@ a sua ausência torna o manifesto `INCOMPLETE`:
 
 ### Recomendados (aviso se ausentes)
 
-`name`, `brl_url`, `conformance_url`, `contact`, `manifest_version`, `created_at`. (`certificates_url` é um campo legacy: continua a ser verificado como URL quando presente, mas já não é recomendado — ADR-031: não existe rota de índice de certificados.)
+`name`, `brl_url`, `conformance_url`, `contact`, `manifest_version`, `created_at`. (`certificates_url` é um campo legacy: continua a ser verificado como URL quando presente, mas já não é recomendado — ADR-037: não existe rota de índice de certificados.)
 
 ## Status (calculado em Rust)
 

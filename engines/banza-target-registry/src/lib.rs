@@ -1,11 +1,11 @@
-//! banza-target-registry (M2.19G.1, ADR-068) — the CLOSED Technical Registry domain model plus the
+//! banza-target-registry (M2.19G.1, ADR-038) — the CLOSED Technical Registry domain model plus the
 //! resolution / eligibility / verdict logic for **endpoint-originated operator validation**.
 //!
 //! It answers, in Rust: *which operator+implementation is an eligible validation target, what is its
 //! canonical origin and its published endpoint map, and — after the secure fetcher retrieves and the
 //! decision engines judge each artifact — what is the aggregate Certification **Readiness**?*
 //!
-//! Boundaries (ADR-068 §4.10, ADR-061): resolution proves eligibility only. Presence in the registry
+//! Boundaries (ADR-038 §4.10, ADR-004): resolution proves eligibility only. Presence in the registry
 //! NEVER implies admission into any operational scheme, regulatory authorisation, or the ability to
 //! move funds. Certification Readiness is `READY`/`BLOCKED` and is never a Certification Record and
 //! never `CERTIFIED`. Rust decides; TypeScript never decides; there is no model call anywhere here.
@@ -123,7 +123,7 @@ pub fn certification_readiness_json(step_verdicts_json: &str, profile: &str) -> 
 }
 
 /// The profile→step applicability map (REQUIRED / OPTIONAL / NOT_APPLICABLE) for the eight technical
-/// steps. The single Rust-decided source for what a profile requires (ADR-021 levels, ADR-077).
+/// steps. The single Rust-decided source for what a profile requires (ADR-039 levels, ADR-039).
 pub fn profile_applicability_json(profile: &str) -> String {
     verdict::profile_applicability(profile).to_string()
 }
@@ -141,7 +141,7 @@ pub fn tool_version_json() -> String {
 }
 
 // ---------------------------------------------------------------------------------------------------
-// Unit tests (ADR-068 §38 — model + registry). Resolution/eligibility logic exercised over test-only
+// Unit tests (ADR-038 §38 — model + registry). Resolution/eligibility logic exercised over test-only
 // registries; the closed production registry is asserted to hold exactly one operator + one impl.
 // ---------------------------------------------------------------------------------------------------
 #[cfg(test)]
@@ -514,7 +514,7 @@ mod tests {
 
     #[test]
     fn l0_readiness_excludes_not_applicable_l2_l3_steps() {
-        // OZ-3 (ADR-077): an L0 implementation whose REQUIRED steps are all VERIFIED is READY even when
+        // OZ-3 (ADR-039): an L0 implementation whose REQUIRED steps are all VERIFIED is READY even when
         // the L2 (interoperability) and L3 (federation) steps are FAILED — those steps are NOT_APPLICABLE
         // to L0 and must never contribute a technical failure to readiness. Never a forced green: the
         // REQUIRED steps are genuinely VERIFIED.

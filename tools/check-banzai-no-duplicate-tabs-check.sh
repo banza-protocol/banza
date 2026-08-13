@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# M2.19G.1 (ADR-068 §29) — no duplicate navigation tabs guard (§37, invariant 12).
+# M2.19G.1 (ADR-038 §29) — no duplicate navigation tabs guard (§37, invariant 12).
 #
 # The per-analyser tabs (Manifest / Conformidade / Trust / SimB / Evidence / Traces / Receipts) were
 # RETIRED as persistent sidebar entries: their outputs live inside the single Resultados area. So no step
@@ -21,7 +21,7 @@ AGENT=website/components/banzai/banzai-agent.ts
 # Retired per-analyser sidebar tab keys that must NOT reappear as persistent tabs.
 RETIRED='manifest|conformidade|conformance|trust|simb|evidence|traces|receipts'
 
-echo "== banzai-no-duplicate-tabs-check (M2.19G.1 / ADR-068 §29) =="
+echo "== banzai-no-duplicate-tabs-check (M2.19G.1 / ADR-038 §29) =="
 
 # ── self-test ───────────────────────────────────────────────────────────────────────────────────────
 st=0
@@ -52,4 +52,4 @@ done
 
 echo
 if [ "$fail" -ne 0 ]; then echo "banzai-no-duplicate-tabs-check: FAIL"; exit 1; fi
-echo "banzai-no-duplicate-tabs-check: ✓ no step duplicated as a persistent tab (ADR-068 §29)"
+echo "banzai-no-duplicate-tabs-check: ✓ no step duplicated as a persistent tab (ADR-038 §29)"

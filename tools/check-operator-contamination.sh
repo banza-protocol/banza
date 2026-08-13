@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# check-operator-contamination.sh — RUST_WRAPPER_ONLY (ADR-037, R10)
+# check-operator-contamination.sh — RUST_WRAPPER_ONLY (ADR-043, R10)
 #
 # Operator Neutrality Guard for the BANZA protocol repository. The gate LOGIC lives in Rust:
 #   engines/banza-repo-guards  (bin `banza-repo-guards`, subcommand `contamination`).

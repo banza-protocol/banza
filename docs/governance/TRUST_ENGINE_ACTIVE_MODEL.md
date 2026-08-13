@@ -4,7 +4,7 @@
 **Date:** 2026-07-17
 **Status:** Describes the active model. Authority is `engines/banza-trust` and the trust contracts;
 every input type and `trust_status` value below is defined there, and this document is the prose account of them
-**Engine:** `engines/banza-trust` (ADR-037, R5) · WASM em `website/lib/wasm/banza_trust*`
+**Engine:** `engines/banza-trust` (ADR-043, R5) · WASM em `website/lib/wasm/banza_trust*`
 **Adapter:** `website/lib/banzaTrust.ts` (RUST_WRAPPER_ONLY)
 **Diagram:** SVG-P-066 `docs/reference/diagrams/protocol/trust-engine-active-model.svg`
 
@@ -63,7 +63,7 @@ A âncora de confiança. Requer:
 - `delegated_signing_keys` — lista das chaves delegadas que a raiz reconhece (cada uma com
   `delegated_key_id` e `public_key`).
 
-A Trust Root assina apenas o Manifesto de Chaves, que endossa as chaves delegadas; são estas que assinam metadata de protocolo, releases e revocation lists (ADR-079). **Não autoriza
+A Trust Root assina apenas o Manifesto de Chaves, que endossa as chaves delegadas; são estas que assinam metadata de protocolo, releases e revocation lists (ADR-027). **Não autoriza
 operadores, não emite licença e não autoriza pagamentos.**
 
 ### 2.2 `delegated_signing_key` — DelegatedSigningKey

@@ -1,8 +1,8 @@
 # BANZA Validation Journey — Normative Specification
 
-> **Status:** Normative · **Introduced:** M2.19 (BanzAI validation journey) · **Governs:** ADR-068 (endpoint-originated validation), ADR-076 (journey consolidation + durable receipts), ADR-042 (PostgreSQL protocol-state boundary).
+> **Status:** Normative · **Introduced:** M2.19 (BanzAI validation journey) · **Governs:** ADR-038 (endpoint-originated validation), ADR-042 (journey consolidation + durable receipts), ADR-026 (PostgreSQL protocol-state boundary).
 
-This specification defines the **nine-step technical validation journey** that any certified operator's BanzAI runs against an operator *implementation*. It is operator-neutral: it names the operator *role*, never a commercial brand. The reference demonstration uses **Operator Zero** as an ordinary external operator with **no privileged path** (ADR-052/053).
+This specification defines the **nine-step technical validation journey** that any certified operator's BanzAI runs against an operator *implementation*. It is operator-neutral: it names the operator *role*, never a commercial brand. The reference demonstration uses **Operator Zero** as an ordinary external operator with **no privileged path** (ADR-041/053).
 
 The journey is **endpoint-originated**: every input is fetched from the implementation's own published origin through the SSRF-hardened protocol fetcher, hashed, and handed to a deterministic Rust engine. **The engines decide; the receipts record; PostgreSQL preserves; the evidence enables reproduction.**
 
@@ -68,7 +68,7 @@ Receipts contain **no model-generated text**. They record what the deterministic
 
 ---
 
-## 5. Persistence, honestly (ADR-076)
+## 5. Persistence, honestly (ADR-042)
 
 Persistence is a durable *side-effect* of validation: the receipt is always returned to the caller in the HTTP body; persisting it additionally makes the run **consultable, comparable and reproducible** later. Persistence MUST be reported with an explicit status and MUST NOT be faked:
 
@@ -80,7 +80,7 @@ Persistence is a durable *side-effect* of validation: the receipt is always retu
 
 While not `PERSISTED`, the caller MUST NOT present a `receipt_reference`, history, comparison or reproduction as available, and MUST NOT emit a fake reference. A safe retry re-persists the **exact** queued payload (same hash, ids and original timestamps) — it never re-runs the engine.
 
-Receipts are **append-only**: the store forbids `UPDATE`/`DELETE` on sealed rows at the database level; a completed execution and a sealed step are frozen; identity columns are immutable; ids are never reused. (See ADR-042 for the PostgreSQL protocol-state boundary — the store holds protocol state, never financial value.)
+Receipts are **append-only**: the store forbids `UPDATE`/`DELETE` on sealed rows at the database level; a completed execution and a sealed step are frozen; identity columns are immutable; ids are never reused. (See ADR-026 for the PostgreSQL protocol-state boundary — the store holds protocol state, never financial value.)
 
 ---
 

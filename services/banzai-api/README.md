@@ -6,17 +6,17 @@ It never defines rules, emits certificates, confers status on an operator, or su
 conformance suite.
 *BanzAI guides; the engines verify; the evidence proves. AI output is never a protocol rule.*
 
-> **Canonical runtime (ADR-071).** This service **is** the canonical BanzAI runtime: a thin
+> **Canonical runtime (ADR-042).** This service **is** the canonical BanzAI runtime: a thin
 > TypeScript service/glue layer (I/O and transport only) over the Rust engines (`engines/banzai-*`,
 > compiled to WASM) that make every decision — routing, resolution, retrieval, grounding and
-> validation — plus a single local-model synthesis at the explanatory tier (ADR-055). This monorepo is
-> **the sole active BanzAI source (ADR-075)** — there is no separate BanzAI repository. This service is
+> validation — plus a single local-model synthesis at the explanatory tier (ADR-042). This monorepo is
+> **the sole active BanzAI source (ADR-042)** — there is no separate BanzAI repository. This service is
 > the canonical BanzAI runtime (TypeScript glue over the Rust engines); it is not the
 > deterministic core, and not a source of truth. In the public pre-production state no external model
 > is called (`external_model_called = false`).
 
 BanzAI supports **real LLM inference** in two shapes, both selected by `LLM_PROVIDER`:
-**hosted APIs** (`deepseek` | `qwen`, off-host) and **`local_qwen`** (ADR-044) — an
+**hosted APIs** (`deepseek` | `qwen`, off-host) and **`local_qwen`** (ADR-042) — an
 internal, sandboxed `llama.cpp` model on the Docker network (on-host CPU, no GPU, no
 key, nothing leaves the host; `external_model_called` stays false). local_qwen is
 benchmark-gated: never the effective default until the VPS XL+ benchmark approves it,
@@ -57,7 +57,7 @@ budget + cache counters. `/ask` is rate-limited per client (`429 rate_limited`).
 | `POST /validate/step` | `{ operator_id, implementation_id, step }` → a §30 `OperationReceipt` (browser calls it same-origin at `/banzai/validate/step`) |
 | `POST /validate/journey` | `{ operator_id, implementation_id }` → a §31 `JourneyReceipt` (browser: `/banzai/validate/journey`) |
 
-### Endpoint-originated validation (ADR-068)
+### Endpoint-originated validation (ADR-038)
 The validation routes run BanzAI's **official** operator-validation journey: validating an operator means
 evaluating one of its **published implementations** (operator = responsible entity; implementation =
 system evaluated). `validate.js` resolves the target from the **closed Technical Registry** in Rust
@@ -67,7 +67,7 @@ system evaluated). `validate.js` resolves the target from the **closed Technical
 runs the matching no-network Rust/WASM decision engine on the fetched content, and binds each verdict to
 its exact public origin in a receipt (`qwen_calls=0`, `external_model_calls=0`, `protocol_fetch_count`
 tracked). **Rust decides; TypeScript never decides.** Certification Readiness is `READY`/`BLOCKED` and
-never `CERTIFIED`. Upload/paste is a local, non-authoritative **draft** tool only. See ADR-068 (§19 for the
+never `CERTIFIED`. Upload/paste is a local, non-authoritative **draft** tool only. See ADR-038 (§19 for the
 SSRF policy) and the BANZA Reference (chapters 7–9 & 12).
 
 ## Guardrails (always enforced — mock and real alike)
@@ -90,7 +90,7 @@ provider are rejected by design.
 | `mock` (default) | Deterministic offline answers from fixtures — the reference for tests. No key, no network. |
 | `deepseek` | Real answers via the hosted DeepSeek chat API (OpenAI-compatible), off-host. |
 | `qwen` | Real answers via the hosted Qwen (DashScope compatible-mode) chat API, off-host. |
-| `local_qwen` | Real answers via an INTERNAL `llama.cpp` OpenAI-compatible endpoint (ADR-044): on-host CPU, no key, no GPU, nothing leaves the host. Benchmark-gated; never the effective default until the VPS XL+ benchmark approves it. See `docs/banzai/LOCAL_INFERENCE_RUNTIME.md`. |
+| `local_qwen` | Real answers via an INTERNAL `llama.cpp` OpenAI-compatible endpoint (ADR-042): on-host CPU, no key, no GPU, nothing leaves the host. Benchmark-gated; never the effective default until the VPS XL+ benchmark approves it. See `docs/banzai/LOCAL_INFERENCE_RUNTIME.md`. |
 
 Real adapters **fail safe**: with no `LLM_API_KEY` in the environment, `/ask`
 returns JSON `503 llm_key_missing` **without any network I/O**. Upstream errors and

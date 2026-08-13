@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# BANZA Real-Money Activation Guard (M2.19C, ADR-062 — RealMoneyActivationGate).
+# BANZA Real-Money Activation Guard (M2.19C, ADR-005 — RealMoneyActivationGate).
 #
 # While no applicable formal evidence exists, every real-money capability is fail-closed. This guard pins
 # that baseline in the machine-verifiable L3 regulatory-state artifact and forbids any code path that would
@@ -22,7 +22,7 @@ cd "$(dirname "$0")/.."
 SCHEMA="contracts/production/regulatory-state.production.schema.json"
 VALID="contracts/production/examples/regulatory-state.valid.json"
 INVALID="contracts/production/examples/regulatory-state.invalid-authorised-claim.json"
-ADR062="decisions/adr/ADR-062-regulatory-state-boundary-and-real-money-gate.md"
+ADR062="decisions/adr/ADR-005-regulatory-state-boundary-and-real-money-gate.md"
 
 fail=0
 
@@ -46,7 +46,7 @@ echo 'enableRealMoney()'         | grep -qiE "$ON_FN"   || { echo "SELF-TEST BRO
 [ "$st" -eq 0 ] || { echo "real-money-activation: guard self-test FAILED"; exit 2; }
 
 # ── [1/4] required artifacts present ─────────────────────────────────────────────────────────────────
-echo "== [1/4] regulatory-state schema + examples + ADR-062 present =="
+echo "== [1/4] regulatory-state schema + examples + ADR-005 present =="
 for f in "$SCHEMA" "$VALID" "$INVALID" "$ADR062"; do
   if [ -f "$f" ]; then echo "PASS  $f"; else echo "FAIL  missing required artifact: $f"; fail=1; fi
 done
@@ -104,8 +104,8 @@ done
 
 if [ "$fail" -ne 0 ]; then
   echo
-  echo "real-money-activation: FAIL — see ADR-062 and $SCHEMA."
+  echo "real-money-activation: FAIL — see ADR-005 and $SCHEMA."
   exit 1
 fi
 echo
-echo "real-money-activation: ✓ real money fail-closed at baseline (const false); no turn-on flag; gate is Rust-decided (M2.19C / ADR-062)"
+echo "real-money-activation: ✓ real money fail-closed at baseline (const false); no turn-on flag; gate is Rust-decided (M2.19C / ADR-005)"

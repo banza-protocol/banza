@@ -1,0 +1,587 @@
+{
+  "milestone": "M2.18B.3A canonical corpus integrity",
+  "summary": {
+    "total": 51,
+    "ok": 45,
+    "discoverable": 50,
+    "resolvable": 46,
+    "citable": 46,
+    "index_chunks": 778,
+    "adr": 45,
+    "rfc": 6
+  },
+  "rows": [
+    {
+      "id": "ADR-001",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-001-open-financial-protocol-what-banza-is-and-is-not.md",
+      "chunks": 15,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-002",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-002-ecosystem-naming-banza-banzai-and-operators.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-003",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-003-three-institutional-layers.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-004",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-004-technical-certification-is-not-scheme-admission-and-not-regu.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": false,
+      "citable": false,
+      "ok": false
+    },
+    {
+      "id": "ADR-005",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-005-regulatory-state-boundary-and-the-real-money-activation-gate.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-006",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-006-designated-operator-scheme.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-007",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-007-conflict-of-interest-infrastructure-and-key-separation.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-008",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-008-protocol-infrastructure-independent-of-any-operator.md",
+      "chunks": 16,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-009",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-009-normative-authority-and-versioning.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-010",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-010-banza-canonical-json-bcj-1.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-011",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-011-double-entry-ledger-and-monetary-precision.md",
+      "chunks": 10,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-012",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-012-account-and-participant-identity.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-013",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-013-provider-abstraction.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-014",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-014-payment-intent.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-015",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-015-payment-session.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-016",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-016-qr-payments.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-017",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-017-payment-links.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-018",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-018-payment-collections.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-019",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-019-wallet-accounts.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-020",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-020-wallet-payments-and-the-refund-source-model.md",
+      "chunks": 10,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-021",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-021-fees-and-application-settlement.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-022",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-022-transaction-proof-and-public-verification.md",
+      "chunks": 15,
+      "discoverable": true,
+      "resolvable": false,
+      "citable": false,
+      "ok": false
+    },
+    {
+      "id": "ADR-023",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-023-reason-codes.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-024",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-024-idempotency.md",
+      "chunks": 10,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-025",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-025-environment-isolation-sandbox-and-production.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-026",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-026-postgresql-as-protocol-state-store-not-a-ledger.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": false,
+      "citable": false,
+      "ok": false
+    },
+    {
+      "id": "ADR-027",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md",
+      "chunks": 15,
+      "discoverable": true,
+      "resolvable": false,
+      "citable": false,
+      "ok": false
+    },
+    {
+      "id": "ADR-028",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-028-root-authorization-three-authorities-threshold-two.md",
+      "chunks": 0,
+      "discoverable": false,
+      "resolvable": true,
+      "citable": true,
+      "ok": false
+    },
+    {
+      "id": "ADR-029",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-029-private-keys-never-reside-on-serving-infrastructure.md",
+      "chunks": 4,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-030",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-030-anti-rollback-for-versioned-trust-material.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-031",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-032",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-032-kyc-stays-operator-policy-only-trust-assertions-federate.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": false,
+      "citable": false,
+      "ok": false
+    },
+    {
+      "id": "ADR-033",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-033-operator-self-publication-and-machine-verifiable-conformance.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-034",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-034-conformance-and-interoperability-certification.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-035",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-035-closed-certification-state-machine.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-036",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-036-banza-technical-registry.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-037",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-037-canonical-discovery-surface.md",
+      "chunks": 8,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-038",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-038-endpoint-originated-operator-validation.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-039",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-039-conformance-profiles-and-capability-vocabulary.md",
+      "chunks": 10,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-040",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-040-operator-onboarding.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-041",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-041-operator-zero-the-read-only-reference-implementation.md",
+      "chunks": 14,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-042",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
+      "chunks": 97,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-043",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-043-rust-first-official-engines.md",
+      "chunks": 4,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-044",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-044-licence-notice-trademark-and-open-governance.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-045",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-045-current-only-canonical-adr-tree.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "RFC-0001",
+      "kind": "rfc",
+      "file": "decisions/rfc/RFC-0001-multi-operator-routing.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "RFC-0002",
+      "kind": "rfc",
+      "file": "decisions/rfc/RFC-0002-cross-operator-settlement.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "RFC-0003",
+      "kind": "rfc",
+      "file": "decisions/rfc/RFC-0003-wallet-capabilities.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "RFC-0004",
+      "kind": "rfc",
+      "file": "decisions/rfc/RFC-0004-provider-capability-negotiation.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "RFC-0005",
+      "kind": "rfc",
+      "file": "decisions/rfc/RFC-0005-operator-discovery.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "RFC-0006",
+      "kind": "rfc",
+      "file": "decisions/rfc/RFC-0006-offline-payment-support.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    }
+  ],
+  "gaps": [
+    {
+      "id": "ADR-004",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-004-technical-certification-is-not-scheme-admission-and-not-regu.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": false,
+      "citable": false,
+      "ok": false
+    },
+    {
+      "id": "ADR-022",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-022-transaction-proof-and-public-verification.md",
+      "chunks": 15,
+      "discoverable": true,
+      "resolvable": false,
+      "citable": false,
+      "ok": false
+    },
+    {
+      "id": "ADR-026",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-026-postgresql-as-protocol-state-store-not-a-ledger.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": false,
+      "citable": false,
+      "ok": false
+    },
+    {
+      "id": "ADR-027",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md",
+      "chunks": 15,
+      "discoverable": true,
+      "resolvable": false,
+      "citable": false,
+      "ok": false
+    },
+    {
+      "id": "ADR-028",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-028-root-authorization-three-authorities-threshold-two.md",
+      "chunks": 0,
+      "discoverable": false,
+      "resolvable": true,
+      "citable": true,
+      "ok": false
+    },
+    {
+      "id": "ADR-032",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-032-kyc-stays-operator-policy-only-trust-assertions-federate.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": false,
+      "citable": false,
+      "ok": false
+    }
+  ]
+}

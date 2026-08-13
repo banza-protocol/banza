@@ -43,7 +43,7 @@ grep -q 'fn answer_type_str' "$LIB" \
   && ok "lib.rs exports answer_type_str (WASM)" || fail "$LIB must export answer_type_str"
 grep -q 'export function answerType' "$KB" \
   && ok "knowledge.js exposes the answerType wrapper" || fail "$KB must expose answerType"
-# ADR-078: a typed operational answer supplies its own answer_type; the server prefers it and falls back to
+# ADR-042: a typed operational answer supplies its own answer_type; the server prefers it and falls back to
 # the Rust answerType(question) classifier — `answer_type: meta.answer_type || answerType(question)`.
 grep -qE 'answer_type: (meta\.answer_type \|\| )?answerType\(question\)' "$SERVER" \
   && ok "/ask response carries answer_type" || fail "$SERVER must include answer_type in the /ask body"

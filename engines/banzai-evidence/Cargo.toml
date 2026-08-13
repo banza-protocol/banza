@@ -2,7 +2,7 @@
 name = "banzai-evidence"
 version = "0.2.0"
 edition = "2021"
-description = "BanzAI deterministic evidence engine (ADR-037, R2): normalization, intent routing, decision library, guardrails, citation + evidence-bundle composition, and a static local retrieval index over the BANZA corpus. No LLM, no network, no GPU. Compiles native (CLI/tests) and to WASM (website)."
+description = "BanzAI deterministic evidence engine (ADR-043, R2): normalization, intent routing, decision library, guardrails, citation + evidence-bundle composition, and a static local retrieval index over the BANZA corpus. No LLM, no network, no GPU. Compiles native (CLI/tests) and to WASM (website)."
 license = "Apache-2.0"
 
 [lib]

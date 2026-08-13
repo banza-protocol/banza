@@ -1,4 +1,4 @@
-// BZO-9 (ADR-078 telemetry precision) — proves the two precisions, hermetically:
+// BZO-9 (ADR-042 telemetry precision) — proves the two precisions, hermetically:
 //
 //  §1.1 execution-kind classification: the duration renderer distinguishes genuine USER_REQUESTED journeys
 //       from non-user samples (SYSTEM_E2E / benchmark / unclassified). When the only measurements available

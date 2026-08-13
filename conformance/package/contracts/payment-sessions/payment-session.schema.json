@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://banza.network/contracts/payment-sessions/payment-session.schema.json",
   "title": "PaymentSession",
-  "description": "A PaymentIntent (ADR-014) presented through one or more interfaces (ADR-015). The PaymentIntent is the single financial object; the session is the rule binding its interfaces (Payment Link, Dynamic QR, Static QR, Deep Link) to one destination, one currency, one amount-when-fixed, one expiry, one idempotency policy, and one financial result. `session_id` is the PaymentIntent id. The destination MAY be a segregated Wallet Account (ADR-020). An interface never changes the destination or amount; payment always resolves against the session, at the operator. Applications display the interfaces; they never generate an authoritative financial payload and never compute a destination.",
+  "description": "A PaymentIntent (ADR-014) presented through one or more interfaces (ADR-015). The PaymentIntent is the single financial object; the session is the rule binding its interfaces (Payment Link, Dynamic QR, Static QR, Deep Link) to one destination, one currency, one amount-when-fixed, one expiry, one idempotency policy, and one financial result. `session_id` is the PaymentIntent id. The destination MAY be a segregated Wallet Account (ADR-019). An interface never changes the destination or amount; payment always resolves against the session, at the operator. Applications display the interfaces; they never generate an authoritative financial payload and never compute a destination.",
   "_spec_version": "1.0",
   "_status": "canonical",
   "_authority": "ADR-015",
@@ -39,7 +39,7 @@
         "string",
         "null"
       ],
-      "description": "Optional segregated Wallet Account (ADR-020) to credit — e.g. a campaign account. Absent ⇒ the payee wallet's default account. Resolved by the operator; never exposes an internal ledger account id to apps."
+      "description": "Optional segregated Wallet Account (ADR-019) to credit — e.g. a campaign account. Absent ⇒ the payee wallet's default account. Resolved by the operator; never exposes an internal ledger account id to apps."
     },
     "purpose": {
       "type": [

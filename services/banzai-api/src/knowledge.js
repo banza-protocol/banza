@@ -1,6 +1,6 @@
 // BanzAI local knowledge base (fixtures) + RUST_WRAPPER_ONLY glue.
 //
-// ADR-037 / R6: retrieval, normalization and scoring are RUST — engines/banzai-api-kb compiled to Node
+// ADR-043 / R6: retrieval, normalization and scoring are RUST — engines/banzai-api-kb compiled to Node
 // WASM (src/rustkb), a byte-parity port of the former JS algorithm (proven identical on 50/50 checks).
 // This file now keeps only DATA (SOURCES/ENTRIES/answers) and thin glue: `normalize` and `retrieveTopK`
 // call the Rust engine; `retrieve`/`buildContext` compose over the returned ids. There is NO JS
@@ -13,7 +13,7 @@
 // certifies, or invents operators. If nothing matches well enough, retrieval
 // returns null and the API says it did not find sufficient sources.
 //
-// Routing (ADR-048, M2.8G) is decided by the Rust routing policy (engines/banzai-api-kb → route.rs),
+// Routing (ADR-042, M2.8G) is decided by the Rust routing policy (engines/banzai-api-kb → route.rs),
 // NOT by these entries. A normal grounded question with sufficient sources goes to the local model
 // (Qwen) by DEFAULT; the deterministic answers here are served only for an explicit critical-boundary
 // intent, a safety refusal, no-source, or as the fallback when the model fails/times-out/is rejected.
@@ -23,7 +23,7 @@
 import crypto from "node:crypto";
 import { createRequire } from "node:module";
 
-// R6 (ADR-037): retrieval/normalization/scoring is Rust — engines/banzai-api-kb compiled to Node WASM,
+// R6 (ADR-043): retrieval/normalization/scoring is Rust — engines/banzai-api-kb compiled to Node WASM,
 // loaded synchronously here. This JS module keeps ENTRIES/SOURCES/answers as DATA and only maps the ids
 // the Rust engine returns; it performs NO matching, scoring, ranking or normalization of its own.
 const kb = createRequire(import.meta.url)("./rustkb/banzai_api_kb.js");
@@ -32,41 +32,41 @@ const kb = createRequire(import.meta.url)("./rustkb/banzai_api_kb.js");
 export const SOURCES = {
   claudeMd: { id: "CLAUDE.md", title: "BANZA — Open Financial Protocol (repo guide)", path: "CLAUDE.md" },
   adr018: { id: "ADR-001", title: "Open financial protocol — implementation independence", path: "decisions/adr/ADR-001-*.md" },
-  adr019: { id: "ADR-003", title: "Operator separation", path: "decisions/adr/ADR-003-*.md" },
+  adr019: { id: "ADR-001", title: "Operator separation", path: "decisions/adr/ADR-001-*.md" },
   adr025: { id: "ADR-002", title: "Ecosystem naming inversion (canonical)", path: "decisions/adr/ADR-002-*.md" },
-  adr048: { id: "ADR-031", title: "Canonical verification routes and pre-production behaviour", path: "decisions/adr/ADR-031-*.md" },
-  adr049: { id: "ADR-028", title: "Private keys never reside on serving infrastructure", path: "decisions/adr/ADR-028-*.md" },
-  adr050: { id: "ADR-041", title: "BanzAI as native protocol agent", path: "decisions/adr/ADR-041-*.md" },
+  adr048: { id: "ADR-037", title: "Canonical verification routes and pre-production behaviour", path: "decisions/adr/ADR-037-*.md" },
+  adr049: { id: "ADR-029", title: "Private keys never reside on serving infrastructure", path: "decisions/adr/ADR-029-*.md" },
+  adr050: { id: "ADR-042", title: "BanzAI as native protocol agent", path: "decisions/adr/ADR-042-*.md" },
   annex: { id: "ANNEX", title: "BANZA Network Infrastructure (annex)", path: "docs/governance/ANNEX-BANZA-NETWORK-INFRASTRUCTURE.md" },
   state: { id: "protocol_state", title: "PostgreSQL protocol_state (pre-production marker)", path: "infra/banza-network/postgres/init/001_schema.sql" },
   governance: { id: "GOVERNANCE", title: "BANZA governance & maintainers (Banzami = original creator / initial maintainer)", path: "GOVERNANCE.md" },
   fedQuickstart: { id: "SPEC-FED", title: "Federation operator quickstart (spec/federation)", path: "spec/federation/FEDERATION_OPERATOR_QUICKSTART.md" },
-  adr038: { id: "ADR-038", title: "Open protocol trust model without a central CA", path: "decisions/adr/ADR-038-*.md" },
-  adr079: { id: "ADR-079", title: "Canonical trust signing model reconciliation (Model A)", path: "decisions/adr/ADR-079-canonical-trust-signing-model-reconciliation.md" },
-  adr039: { id: "ADR-039", title: "Operator self-publication and machine-verifiable conformance", path: "decisions/adr/ADR-039-*.md" },
-  adr040: { id: "ADR-040", title: "Federation trust evaluation without certificates", path: "decisions/adr/ADR-040-*.md" },
-  adr059: { id: "ADR-059", title: "BANZA three-layer institutional architecture", path: "decisions/adr/ADR-059-three-layer-institutional-architecture.md" },
-  adr060: { id: "ADR-060", title: "Banzami Operational Scheme (designated operator; BANZA ≠ Banzami)", path: "decisions/adr/ADR-060-banzami-operational-scheme.md" },
-  adr062: { id: "ADR-062", title: "Regulatory-state boundary and the RealMoneyActivationGate", path: "decisions/adr/ADR-062-regulatory-state-boundary-and-real-money-gate.md" },
-  adr064: { id: "ADR-064", title: "BANZA Conformance & Interoperability Certification (Layer 2)", path: "decisions/adr/ADR-064-conformance-interoperability-certification.md" },
-  adr065: { id: "ADR-065", title: "BANZA Technical Registry", path: "decisions/adr/ADR-065-banza-technical-registry.md" },
-  adr066: { id: "ADR-066", title: "Closed certification-state machine", path: "decisions/adr/ADR-066-certification-state-machine.md" },
+  adr038: { id: "ADR-027", title: "Open protocol trust model without a central CA", path: "decisions/adr/ADR-027-*.md" },
+  adr079: { id: "ADR-027", title: "Canonical trust signing model reconciliation (Model A)", path: "decisions/adr/ADR-027-canonical-trust-signing-model-reconciliation.md" },
+  adr039: { id: "ADR-033", title: "Operator self-publication and machine-verifiable conformance", path: "decisions/adr/ADR-033-*.md" },
+  adr040: { id: "ADR-031", title: "Federation trust evaluation without certificates", path: "decisions/adr/ADR-031-*.md" },
+  adr059: { id: "ADR-003", title: "BANZA three-layer institutional architecture", path: "decisions/adr/ADR-003-three-layer-institutional-architecture.md" },
+  adr060: { id: "ADR-006", title: "Banzami Operational Scheme (designated operator; BANZA ≠ Banzami)", path: "decisions/adr/ADR-006-banzami-operational-scheme.md" },
+  adr062: { id: "ADR-005", title: "Regulatory-state boundary and the RealMoneyActivationGate", path: "decisions/adr/ADR-005-regulatory-state-boundary-and-real-money-gate.md" },
+  adr064: { id: "ADR-034", title: "BANZA Conformance & Interoperability Certification (Layer 2)", path: "decisions/adr/ADR-034-conformance-interoperability-certification.md" },
+  adr065: { id: "ADR-036", title: "BANZA Technical Registry", path: "decisions/adr/ADR-036-banza-technical-registry.md" },
+  adr066: { id: "ADR-035", title: "Closed certification-state machine", path: "decisions/adr/ADR-035-certification-state-machine.md" },
   conformanceSuite: { id: "CONFORMANCE", title: "BANZA conformance suite", path: "conformance/README.md" },
   adrIndex: { id: "ADR-INDEX", title: "Architecture Decision Records (index)", path: "decisions/adr/README.md" },
-  adr006: { id: "ADR-006", title: "Double-entry ledger", path: "decisions/adr/ADR-006-double-entry-ledger.md" },
+  adr006: { id: "ADR-011", title: "Double-entry ledger", path: "decisions/adr/ADR-011-double-entry-ledger.md" },
   invariants: { id: "invariants", title: "Financial invariants registry (INV-LEDGER/WALLET/SETTLE/IDEM/RECON/QR)", path: "contracts/invariants.json" },
   opManifestSchema: { id: "SCHEMA-OP-MANIFEST", title: "Operator manifest schema (production baseline)", path: "contracts/production/operator-manifest.production.schema.json" },
   fedManifestSchema: { id: "SCHEMA-FED-MANIFEST", title: "Federation manifest extension schema", path: "contracts/federation/federation-manifest.json" },
   brlSchema: { id: "SCHEMA-BRL", title: "BANZA Revocation List (BRL) schema", path: "contracts/federation/revocation-list.json" },
   keyManifestSchema: { id: "SCHEMA-KEY-MANIFEST", title: "BANZA Key Manifest schema", path: "contracts/federation/key-manifest.json" },
   evidenceModel: { id: "FED-EVIDENCE", title: "Federation conformance evidence model", path: "spec/federation/FEDERATION_CONFORMANCE_EVIDENCE_MODEL.md" },
-  // M2.9A (ADR-049) operator-facing sources for the agent's operational guidance.
+  // M2.9A (ADR-042) operator-facing sources for the agent's operational guidance.
   gettingStarted: { id: "GETTING-STARTED", title: "Getting started with BANZA (operator entry point)", path: "docs/reference/getting-started.md" },
   specOverview: { id: "SPEC-OVERVIEW", title: "BANZA protocol overview (layers; implementation is the operator's)", path: "spec/overview.md" },
   fedFlow: { id: "SPEC-FED-FLOW", title: "Federation protocol flow", path: "spec/federation/FEDERATION_PROTOCOL_FLOW.md" },
   fedTrustModel: { id: "SPEC-FED-TRUST", title: "Federation trust model (Open Trust Evaluation)", path: "spec/federation/FEDERATION_TRUST_MODEL.md" },
-  // M2.12B (ADR-052) — the Operador Zero reference payment-operator SIMULATOR.
-  adr052: { id: "ADR-052", title: "Operador Zero — reference payment-operator simulator", path: "decisions/adr/ADR-052-operador-zero-reference-payment-operator-simulator.md" },
+  // M2.12B (ADR-041) — the Operador Zero reference payment-operator SIMULATOR.
+  adr052: { id: "ADR-041", title: "Operador Zero — reference payment-operator simulator", path: "decisions/adr/ADR-041-operador-zero-reference-payment-operator-simulator.md" },
   // M2.13B — legal / stack / implementation sources for the basic-question answers + the action boundary.
   license: { id: "LICENSE", title: "Apache-2.0 licence (protocol)", path: "LICENSE" },
   notice: { id: "NOTICE", title: "NOTICE (attribution)", path: "NOTICE" },
@@ -76,13 +76,13 @@ export const SOURCES = {
   ozE2eRoot: { id: "operator-zero-e2e-root", title: "Operador Zero E2E Demo Root (Ed25519)", path: "engines/operator-zero-e2e-root/" },
   ozLab: { id: "OperadorZeroReference", title: "Operador Zero read-only reference surface (website)", path: "website/components/operador-zero/OperadorZeroReference.tsx" },
   ozMiddleware: { id: "middleware", title: "Host-aware routing (zero.banza.network)", path: "website/middleware.ts" },
-  rustPolicy: { id: "ADR-037", title: "Rust-first policy for official BANZA/BanzAI engines", path: "decisions/adr/ADR-037-*.md" },
+  rustPolicy: { id: "ADR-043", title: "Rust-first policy for official BANZA/BanzAI engines", path: "decisions/adr/ADR-043-*.md" },
   // M2.14C-FIX2 — short technology/stack queries cite the relevant ADR.
-  adrPostgres: { id: "ADR-042", title: "PostgreSQL as protocol-state store (not a financial DB)", path: "decisions/adr/ADR-042-*.md" },
-  adrLocalInference: { id: "ADR-044", title: "BanzAI local Qwen inference runtime (on-host, no external calls)", path: "decisions/adr/ADR-044-*.md" },
+  adrPostgres: { id: "ADR-026", title: "PostgreSQL as protocol-state store (not a financial DB)", path: "decisions/adr/ADR-026-*.md" },
+  adrLocalInference: { id: "ADR-042", title: "BanzAI local Qwen inference runtime (on-host, no external calls)", path: "decisions/adr/ADR-042-*.md" },
   governanceProc: { id: "GOVERNANCE", title: "BANZA governance & change process (RFC/ADR/PR)", path: "GOVERNANCE.md" },
   // M2.13B PR2 — repository-wide knowledge: retrieval, indexer, provider, boundary, guards. Since
-  // M2.19G.6 (ADR-075) the BanzAI runtime/engines are consolidated into this monorepo and indexed here.
+  // M2.19G.6 (ADR-042) the BanzAI runtime/engines are consolidated into this monorepo and indexed here.
   banzaiApiKb: { id: "banzai-api-kb", title: "BanzAI Rust retrieval/routing engine (WASM)", path: "engines/banzai-api-kb/" },
   repoIndexer: { id: "banzai-repo-indexer", title: "BanzAI Rust repository-wide indexer", path: "engines/banzai-repo-indexer/" },
   docIndexer: { id: "banzai-doc-indexer", title: "BanzAI Rust documentation indexer", path: "engines/banzai-doc-indexer/" },
@@ -97,18 +97,18 @@ export const SOURCES = {
   banzaiCore: { id: "banzai-core", title: "BanzAI Rust core (deterministic; no LLM/network)", path: "engines/banzai-query-core/ + engines/banzai-api-kb/ (banza-protocol/banza)" },
   banzaiRepo: { id: "banzai-source", title: "BanzAI active source — this monorepo (services/banzai-api + engines/banzai-*)", path: "services/banzai-api" },
   // M2.13C — sources for the answer-quality gap fixes (crates, guards, CI, index state).
-  enginesDir: { id: "engines/", title: "Motores Rust oficiais (ADR-037)", path: "engines/" },
+  enginesDir: { id: "engines/", title: "Motores Rust oficiais (ADR-043)", path: "engines/" },
   leakGuard: { id: "check-private-key-leak.sh", title: "Guard anti-fuga de chave privada", path: "tools/check-private-key-leak.sh" },
   identityGuard: { id: "check-operator-contamination.sh", title: "Guard de neutralidade / anti-contaminação de marca", path: "tools/check-operator-contamination.sh (make identity-check)" },
   ciWorkflows: { id: ".github/workflows", title: "CI (identity-guard.yml, rust-engines.yml, …)", path: ".github/workflows/" },
   indexManifest: { id: "banzai-repo-index-manifest.json", title: "Manifesto do índice repo-wide (contagens/commits/hash)", path: "engines/banzai-query-core/src/repoindex/banzai-repo-index-manifest.json" },
-  adr005: { id: "ADR-005", title: "Protocol-first product development (norma antes do produto)", path: "decisions/adr/ADR-005-*.md" },
+  adr005: { id: "ADR-001", title: "Protocol-first product development (norma antes do produto)", path: "decisions/adr/ADR-001-*.md" },
   // M2.13C-B — institutional-origin sources (creator, creation date, initial maintainer, open governance).
   maintainers: { id: "MAINTAINERS", title: "BANZA maintainers — institutional origin + maintainer model", path: "MAINTAINERS.md" },
   // M2.13C-C — the controlled protocol + fintech-domain glossary (explanatory layer B/C source).
   glossary: { id: "PROTOCOL-GLOSSARY", title: "BANZA protocol + fintech-domain controlled glossary", path: "docs/reference/PROTOCOL_GLOSSARY.md" },
   // M2.14B — Operator Zero Only demo/example policy.
-  adr053: { id: "ADR-053", title: "Operator Zero Only demo and example policy", path: "decisions/adr/ADR-053-operator-zero-only-demo-and-example-policy.md" },
+  adr053: { id: "ADR-041", title: "Operator Zero Only demo and example policy", path: "decisions/adr/ADR-041-operator-zero-only-demo-and-example-policy.md" },
   // M2.14C — governance / developer vocabulary sources (repo governance, engineering & process).
   govGlossary: { id: "GOVERNANCE-GLOSSARY", title: "BANZA governance & developer controlled glossary", path: "docs/reference/PROTOCOL_GOVERNANCE_GLOSSARY.md" },
   rfcIndex: { id: "RFC-INDEX", title: "Requests for Comments (protocol change proposals)", path: "decisions/rfc/" },
@@ -186,7 +186,7 @@ export const ENTRIES = [
     sources: s("adr050", "annex"),
   },
   {
-    // M2.14I (ADR-054) — BanzAI is the PRIMARY human-operator interface. "qual é o papel do BanzAI?",
+    // M2.14I (ADR-042) — BanzAI is the PRIMARY human-operator interface. "qual é o papel do BanzAI?",
     // "o BanzAI é a interface principal?", "o BanzAI substitui os motores?" get this deterministic,
     // on-message answer. It states the primary-interface role AND the boundaries, and carries the
     // 4-clause canonical phrase.
@@ -198,7 +198,7 @@ export const ENTRIES = [
     sources: s("adr050", "annex", "claudeMd"),
   },
   {
-    // M2.14I (ADR-054) — BanzAI is the primary interactive interface, but NOT mandatory for machine
+    // M2.14I (ADR-042) — BanzAI is the primary interactive interface, but NOT mandatory for machine
     // surfaces. "todos os operadores devem usar o BanzAI?", "as APIs dependem do BanzAI?", "o BanzAI é
     // obrigatório para integração máquina-máquina?" → this answer.
     id: "banzai-not-mandatory",
@@ -209,7 +209,7 @@ export const ENTRIES = [
     sources: s("adr050", "annex", "claudeMd"),
   },
   {
-    // M2.14I (ADR-054) — who verifies / BanzAI vs the engines. "quem verifica os resultados?", "qual é a
+    // M2.14I (ADR-042) — who verifies / BanzAI vs the engines. "quem verifica os resultados?", "qual é a
     // diferença entre BanzAI e os motores Rust/WASM?" → this answer.
     id: "banzai-vs-engines",
     critical: true,
@@ -223,7 +223,7 @@ export const ENTRIES = [
     critical: true,
     keywords: ["quem assina a protocol metadata", "quem assina protocol metadata", "quem assina a metadata", "quem assina os metadados", "quem assina metadados do protocolo", "who signs protocol metadata", "assinatura da protocol metadata", "signed protocol metadata quem assina"],
     answer:
-      "A **Signed Protocol Metadata** é assinada pela **chave delegada do domínio protocol-metadata**, cuja autoridade rastreia à Raiz de Confiança através do **Manifesto de Chaves** — a raiz assina **apenas** o Manifesto de Chaves, nunca a metadata directamente (INV-ROOT-004; ADR-079). As restantes chaves delegadas assinam os artefactos dos seus domínios: a BRL pela chave do domínio de revogação (INV-ROOT-005) e a evidência de conformidade pelo domínio conformance-evidence. Nenhuma assinatura autoriza operadores, pagamentos ou licenças.",
+      "A **Signed Protocol Metadata** é assinada pela **chave delegada do domínio protocol-metadata**, cuja autoridade rastreia à Raiz de Confiança através do **Manifesto de Chaves** — a raiz assina **apenas** o Manifesto de Chaves, nunca a metadata directamente (INV-ROOT-004; ADR-027). As restantes chaves delegadas assinam os artefactos dos seus domínios: a BRL pela chave do domínio de revogação (INV-ROOT-005) e a evidência de conformidade pelo domínio conformance-evidence. Nenhuma assinatura autoriza operadores, pagamentos ou licenças.",
     sources: s("adr079", "adr038", "annex"),
   },
   {
@@ -273,17 +273,17 @@ export const ENTRIES = [
     id: "financial-invariants",
     keywords: ["invariantes financeiros", "financial invariants", "invariantes do protocolo", "invariantes", "protocol invariants", "inv-ledger", "inv-wallet", "inv-settle", "inv-idem", "inv-recon", "inv-qr", "dupla entrada", "double-entry", "double entry ledger", "ledger de dupla entrada", "razao de dupla entrada", "how does the double-entry ledger work", "codigo qr", "qr code", "pagamento por qr", "resolucao de qr", "resolucao unica", "qr unico", "uso unico", "saldos derivados", "saldo derivado", "derivados do ledger", "ledger-derived", "sem saldo negativo", "saldo da carteira", "saldos das carteiras"],
     answer:
-      "As invariantes financeiras são as garantias de integridade do protocolo: INV-LEDGER (dupla entrada, imutabilidade, precisão, atomicidade), INV-WALLET (sem saldo negativo, saldos derivados do ledger), INV-SETTLE (identidade do montante de liquidação), INV-IDEM (segurança de replay/idempotência), INV-RECON (ligação de lançamentos, reconciliação externa) e INV-QR (resolução única, uso único dinâmico, expiração). O ledger de dupla entrada (ADR-006) exige que cada débito tenha um crédito correspondente. Estas invariantes são obrigatórias para qualquer operador; o BanzAI cita as fontes e não as redefine.",
+      "As invariantes financeiras são as garantias de integridade do protocolo: INV-LEDGER (dupla entrada, imutabilidade, precisão, atomicidade), INV-WALLET (sem saldo negativo, saldos derivados do ledger), INV-SETTLE (identidade do montante de liquidação), INV-IDEM (segurança de replay/idempotência), INV-RECON (ligação de lançamentos, reconciliação externa) e INV-QR (resolução única, uso único dinâmico, expiração). O ledger de dupla entrada (ADR-011) exige que cada débito tenha um crédito correspondente. Estas invariantes são obrigatórias para qualquer operador; o BanzAI cita as fontes e não as redefine.",
     sources: s("invariants", "adr006", "claudeMd"),
   },
   {
     id: "protocol-decisions-adrs",
     keywords: ["adr 0", "que diz a adr", "o que diz a adr", "decisao arquitetural", "decisoes arquiteturais", "architecture decision", "architecture decision record", "onde estao as decisoes", "lista de adrs", "adrs do banza", "registro de decisoes", "list of adrs", "adr list", "list the adrs", "which adrs", "which adrs govern", "adrs govern"],
     answer:
-      "As decisões de arquitetura do BANZA são registadas como ADRs (Architecture Decision Records) em decisions/adr/ e listadas em /decisoes. Cada ADR documenta o contexto, a decisão e as consequências de uma escolha do protocolo. Para o conteúdo de uma ADR específica (por exemplo o ledger de dupla entrada na ADR-006), consulta o documento correspondente em decisions/adr/ — o BanzAI orienta e cita fontes, não reproduz nem reinterpreta o texto normativo.",
+      "As decisões de arquitetura do BANZA são registadas como ADRs (Architecture Decision Records) em decisions/adr/ e listadas em /decisoes. Cada ADR documenta o contexto, a decisão e as consequências de uma escolha do protocolo. Para o conteúdo de uma ADR específica (por exemplo o ledger de dupla entrada na ADR-011), consulta o documento correspondente em decisions/adr/ — o BanzAI orienta e cita fontes, não reproduz nem reinterpreta o texto normativo.",
     sources: s("adrIndex", "claudeMd"),
   },
-  // ── M2.8G grounded entries (ADR-048): non-critical topics that the routing policy sends to the
+  // ── M2.8G grounded entries (ADR-042): non-critical topics that the routing policy sends to the
   // local model by default. `answer` is the source-anchored grounding excerpt AND the deterministic
   // fallback used only if the model fails, times out or is rejected by the validator. ──
   {
@@ -336,7 +336,7 @@ export const ENTRIES = [
       "No BANZA a confiança é avaliada por evidência verificável, sem autoridade certificadora central. Cada participante avalia localmente a metadata assinada do protocolo, o manifest do operador e a evidência de conformidade publicada, aplicando verificações determinísticas (Open Trust Evaluation) que falham em caso de dúvida (fail-closed). Não há CA nem certificados de operador; a interoperabilidade depende de evidência que qualquer parte pode reverificar.",
     sources: s("adr038", "adr040", "annex"),
   },
-  // ── M2.9A operational agent entries (ADR-049): practical, operator-facing guidance grounded ONLY in
+  // ── M2.9A operational agent entries (ADR-042): practical, operator-facing guidance grounded ONLY in
   // real protocol sources. The routing policy sends these to the local model (Qwen) by default; the
   // `answer` doubles as the grounding excerpt and the deterministic fallback. Non-normative: BanzAI
   // guides — it never certifies, approves, licenses or decides federation. ──
@@ -358,7 +358,7 @@ export const ENTRIES = [
       "1) Ler a especificação e os princípios (spec/overview.md e a referência) e conhecer os níveis de conformidade L0–L4.\n" +
       "2) Implementar os contratos/schemas relevantes (contracts/: OpenAPI, QR, eventos) na sua própria infraestrutura, em qualquer tecnologia.\n" +
       "3) Garantir as invariantes financeiras (dupla entrada, valores inteiros sem vírgula flutuante, atomicidade, saldos derivados do ledger, idempotência).\n" +
-      "4) Criar o manifesto de DESCOBERTA (JSON servido em /.well-known/banza/operator.json) com operator_id, environment, simulated, production_allowed e capabilities booleanas; validar contra o schema de descoberta publicado (conformance/manifests/schema.json). O manifesto de candidate-submission (com supported_levels e key_manifest_url) pertence ao onboarding (ADR-069) e nunca é servido na rota de descoberta (ADR-080).\n" +
+      "4) Criar o manifesto de DESCOBERTA (JSON servido em /.well-known/banza/operator.json) com operator_id, environment, simulated, production_allowed e capabilities booleanas; validar contra o schema de descoberta publicado (conformance/manifests/schema.json). O manifesto de candidate-submission (com supported_levels e key_manifest_url) pertence ao onboarding (ADR-040) e nunca é servido na rota de descoberta (ADR-037).\n" +
       "5) Correr a conformance suite contra o seu endpoint e gerar o evidence bundle.\n" +
       "6) Publicar o manifest, a metadata assinada do protocolo e a evidência de conformidade num URL estável; os pares correm a Open Trust Evaluation localmente e decidem interoperar.\n" +
       "Neste estado de pré-produção o registo ao vivo /operators não lista operadores e a publicação de produção depende da cerimónia offline da chave raiz e da primeira evidência de conformidade de produção publicada. O BanzAI pode gerar um manifest ilustrativo ou uma checklist, mas não certifica, não aprova, não licencia e não decide federação; a autorização regulatória pertence à autoridade competente do operador.",
@@ -376,10 +376,10 @@ export const ENTRIES = [
       "ciclo de vida do qr", "qr lifecycle",
     ],
     answer:
-      "Para satisfazer o protocolo, o operador implementa na SUA infraestrutura as invariantes financeiras obrigatórias: INV-LEDGER (dupla entrada — cada débito tem crédito; ledger imutável append-only; valores em unidades menores inteiras, sem vírgula flutuante; lançamento atómico), INV-WALLET (saldos sempre derivados do ledger, sem saldo negativo), INV-SETTLE (identidade bruto = líquido + taxa), INV-IDEM (idempotência/segurança de replay), INV-RECON (ligação e reconciliação de lançamentos) e INV-QR (resolução única, uso único, expiração). O ledger de dupla entrada está na ADR-006; os ciclos de vida de pagamento e de QR estão nas specs. A BANZA não move nem custodia fundos — a camada de implementação e a conformidade pertencem ao operador. O BanzAI explica e cita fontes; não redefine invariantes.",
+      "Para satisfazer o protocolo, o operador implementa na SUA infraestrutura as invariantes financeiras obrigatórias: INV-LEDGER (dupla entrada — cada débito tem crédito; ledger imutável append-only; valores em unidades menores inteiras, sem vírgula flutuante; lançamento atómico), INV-WALLET (saldos sempre derivados do ledger, sem saldo negativo), INV-SETTLE (identidade bruto = líquido + taxa), INV-IDEM (idempotência/segurança de replay), INV-RECON (ligação e reconciliação de lançamentos) e INV-QR (resolução única, uso único, expiração). O ledger de dupla entrada está na ADR-011; os ciclos de vida de pagamento e de QR estão nas specs. A BANZA não move nem custodia fundos — a camada de implementação e a conformidade pertencem ao operador. O BanzAI explica e cita fontes; não redefine invariantes.",
     sources: s("specOverview", "invariants", "adr006", "claudeMd"),
   },
-  // ── M2.8H safe illustrative examples (ADR-048 §examples) — pedagogical, NON-NORMATIVE, derived from
+  // ── M2.8H safe illustrative examples (ADR-042 §examples) — pedagogical, NON-NORMATIVE, derived from
   // the published contracts/schemas. Fictitious `operator.example` domain. An example never certifies,
   // approves or licenses an operator, is never sufficient for production, and never substitutes the
   // conformance suite. `answer` doubles as the model's grounding excerpt and the deterministic fallback. ──
@@ -453,7 +453,7 @@ export const ENTRIES = [
       "Exemplo ILUSTRATIVO e NÃO-NORMATIVO de um manifesto INVÁLIDO e porquê. Serve para aprendizagem; não é normativo.\n\n```json\n{\n  \"operator_id\": \"op_exemplo\",\n  \"environment\": \"production\",\n  \"simulated\": false,\n  \"production_allowed\": true\n}\n```\n\nPorque é inválido: (1) faltam campos obrigatórios (protocol_version, base_url, capabilities, supported_levels, key_manifest_url, operator_regulatory_declaration); (2) em pré-produção `simulated` tem de ser true; (3) `production_allowed=true` não move fundos nem é validado pelo BANZA — a autorização pertence à autoridade do operador. Um manifesto nunca certifica nem activa um operador.",
     sources: s("opManifestSchema", "adr019"),
   },
-  // M2.12B (ADR-052) — Operador Zero. `critical: true` so the answer is served DETERMINISTICALLY:
+  // M2.12B (ADR-041) — Operador Zero. `critical: true` so the answer is served DETERMINISTICALLY:
   // this is a demo-boundary-sensitive topic (a simulator that must never read as a bank/PSP/certified
   // operator), so the safe, brand-free wording is fixed here rather than left to the local model.
   {
@@ -597,64 +597,64 @@ export const ENTRIES = [
     critical: true,
     keywords: ["em que linguagem foi criado", "que linguagem de programacao", "linguagem de programacao", "programming language", "que stack", "qual a stack", "tecnologia usada", "que tecnologias"],
     answer:
-      "A stack do BANZA é **Rust-first para os motores oficiais** (ADR-037): conformidade, trust/crypto, invariantes, a implementação de referência Operador Zero e o motor de conhecimento do BanzAI são em **Rust** (compilado para WASM quando corre no browser/Node). O **website** (incluindo a superfície de referência só de leitura do Operador Zero e o routing) é **TypeScript/React/Next.js**; os artefactos são **JSON**; os guards são shell + o binário Rust banza-repo-guards; a orquestração usa Bash. O TypeScript/JS é só UI/glue.",
+      "A stack do BANZA é **Rust-first para os motores oficiais** (ADR-043): conformidade, trust/crypto, invariantes, a implementação de referência Operador Zero e o motor de conhecimento do BanzAI são em **Rust** (compilado para WASM quando corre no browser/Node). O **website** (incluindo a superfície de referência só de leitura do Operador Zero e o routing) é **TypeScript/React/Next.js**; os artefactos são **JSON**; os guards são shell + o binário Rust banza-repo-guards; a orquestração usa Bash. O TypeScript/JS é só UI/glue.",
     sources: s("rustPolicy", "readme"),
   },
   // ── M2.14C-FIX2 — short technology / stack terms resolve deterministically (never no_source). The
   //    entity emphasis layer bolds Rust/WASM/BANZA/BanzAI/… on render; answers are authored clean and
-  //    stay operator-neutral + Rust-first accurate (ADR-037). Package/binary/infra identifiers are in
+  //    stay operator-neutral + Rust-first accurate (ADR-043). Package/binary/infra identifiers are in
   //    inline code so they are never re-formatted.
   {
     id: "def-rust", critical: true,
     keywords: ["rust", "linguagem rust", "rust no banza", "rust language"],
     answer:
-      "Rust é a linguagem principal dos motores oficiais do BANZA — a regra do projecto é Rust-first (ADR-037): conformidade, trust/crypto, invariantes, validação, a implementação de referência Operador Zero e o motor de conhecimento do BanzAI. Quando precisam de correr no browser ou no Node.js, esses motores compilam para WASM. TypeScript/React/Next.js ficam sobretudo em website, UI e glue — não como motor crítico.",
+      "Rust é a linguagem principal dos motores oficiais do BANZA — a regra do projecto é Rust-first (ADR-043): conformidade, trust/crypto, invariantes, validação, a implementação de referência Operador Zero e o motor de conhecimento do BanzAI. Quando precisam de correr no browser ou no Node.js, esses motores compilam para WASM. TypeScript/React/Next.js ficam sobretudo em website, UI e glue — não como motor crítico.",
     sources: s("rustPolicy", "readme"),
   },
   {
     id: "def-wasm", critical: true,
     keywords: ["wasm", "webassembly", "web assembly", "compilado para wasm"],
     answer:
-      "WASM (WebAssembly) é o alvo de compilação dos motores Rust do BANZA para correrem no browser e no Node.js. O mesmo código Rust-first (ADR-037) — por exemplo o motor de conhecimento do BanzAI e a implementação de referência Operador Zero — serve o servidor e o cliente sem reescrever a lógica crítica.",
+      "WASM (WebAssembly) é o alvo de compilação dos motores Rust do BANZA para correrem no browser e no Node.js. O mesmo código Rust-first (ADR-043) — por exemplo o motor de conhecimento do BanzAI e a implementação de referência Operador Zero — serve o servidor e o cliente sem reescrever a lógica crítica.",
     sources: s("rustPolicy", "readme"),
   },
   {
     id: "def-typescript", critical: true,
     keywords: ["typescript", "javascript", "ts", "js"],
     answer:
-      "TypeScript (e JavaScript) é usado sobretudo na camada de website, UI e glue do BANZA (React/Next.js). A regra do projecto é Rust-first (ADR-037): a lógica crítica fica em Rust; TypeScript/JS é UI/glue, nunca motor crítico.",
+      "TypeScript (e JavaScript) é usado sobretudo na camada de website, UI e glue do BANZA (React/Next.js). A regra do projecto é Rust-first (ADR-043): a lógica crítica fica em Rust; TypeScript/JS é UI/glue, nunca motor crítico.",
     sources: s("rustPolicy", "readme"),
   },
   {
     id: "def-web-frontend", critical: true,
     keywords: ["react", "next.js", "nextjs", "next js", "frontend", "framework do website"],
     answer:
-      "React e Next.js formam a framework do website do BANZA (em TypeScript) — a camada de UI/glue, incluindo o laboratório do Operador Zero e o routing. Não são motores críticos: esses são Rust-first (ADR-037).",
+      "React e Next.js formam a framework do website do BANZA (em TypeScript) — a camada de UI/glue, incluindo o laboratório do Operador Zero e o routing. Não são motores críticos: esses são Rust-first (ADR-043).",
     sources: s("rustPolicy", "readme"),
   },
   {
     id: "def-json-format", critical: true,
     keywords: ["json", "formato json", "artefactos json"],
     answer:
-      "JSON é o formato dos artefactos do BANZA: manifests de operador, evidence bundles, fixtures do Operador Zero e payloads de contrato. É dados, não lógica — a lógica crítica é Rust-first (ADR-037).",
+      "JSON é o formato dos artefactos do BANZA: manifests de operador, evidence bundles, fixtures do Operador Zero e payloads de contrato. É dados, não lógica — a lógica crítica é Rust-first (ADR-043).",
     sources: s("readme", "rustPolicy"),
   },
   {
     id: "def-bash-shell", critical: true,
     keywords: ["bash", "shell", "shell script", "scripts"],
     answer:
-      "Bash orquestra os scripts e os guards do BANZA (por `make` e no CI). A lógica dos gates de higiene do repositório vive em Rust (o binário `banza-repo-guards`); o shell é apenas o invólucro fino (ADR-037).",
+      "Bash orquestra os scripts e os guards do BANZA (por `make` e no CI). A lógica dos gates de higiene do repositório vive em Rust (o binário `banza-repo-guards`); o shell é apenas o invólucro fino (ADR-043).",
     sources: s("rustPolicy", "guardsDir"),
   },
   {
     id: "def-node", critical: true,
     keywords: ["node", "node.js", "nodejs"],
     answer:
-      "Node.js corre o serviço `banzai-api` e carrega os motores Rust compilados para WASM. A lógica crítica continua Rust-first (ADR-037); Node/TypeScript é runtime e glue, não motor.",
+      "Node.js corre o serviço `banzai-api` e carrega os motores Rust compilados para WASM. A lógica crítica continua Rust-first (ADR-043); Node/TypeScript é runtime e glue, não motor.",
     sources: s("rustPolicy", "readme"),
   },
   // M2.19C — the three-layer institutional architecture, served deterministically (Rust decides;
-  // route.rs::critical_entry → def-three-layer-architecture). Canonical wording tracks ADR-059.
+  // route.rs::critical_entry → def-three-layer-architecture). Canonical wording tracks ADR-003.
   {
     id: "def-three-layer-architecture", critical: true,
     keywords: ["tres camadas", "arquitectura institucional", "arquitetura institucional", "three-layer", "camadas do banza"],
@@ -662,7 +662,7 @@ export const ENTRIES = [
       "A arquitectura institucional do BANZA tem três camadas, separadas por responsabilidade, infraestrutura e chaves:\n\n1. **Camada 1 — Protocolo BANZA**: o protocolo financeiro aberto e neutro (regras, contratos, invariantes, perfis, identidade técnica, metadados assinados, trust, revogação, registo técnico, federação e verificação pública). Não é banco, PSP, carteira, EMI nem operador; não detém nem move fundos.\n2. **Camada 2 — Certificação de Conformidade e Interoperabilidade**: certifica, por implementação, que uma implementação demonstrou conformidade e interoperabilidade com um perfil público e versionado — baseada em evidência, decidida por Rust, com âmbito e validade limitados e sujeita a revogação. Não é licença, não é admissão a scheme e não é autorização regulatória.\n3. **Camada 3 — Esquemas operacionais independentes**: esquemas construídos sobre o protocolo segundo as suas próprias regras e autorizações. O primeiro é o Esquema Operacional Banzami, com a Banzami como operadora designada do esquema, condicionado ao enquadramento regulatório aplicável; os fundos reais permanecem desactivados até existir evidência formal.\n\nO BanzAI é a interface humana transversal às três camadas — não uma quarta autoridade. O Rust compreende, encaminha, executa, valida e decide; o Qwen local explica.",
     sources: s("adr059"),
   },
-  // M2.19C — the L3 Operational Scheme (ADR-060), deterministic; distinct from the entity Banzami.
+  // M2.19C — the L3 Operational Scheme (ADR-006), deterministic; distinct from the entity Banzami.
   {
     id: "def-operational-scheme", critical: true,
     keywords: ["banzami operational scheme", "operational scheme", "scheme operacional", "operador designado"],
@@ -670,7 +670,7 @@ export const ENTRIES = [
       "O Banzami Operational Scheme é a primeira concretização da Camada 3 (esquemas operacionais independentes) da arquitectura do BANZA: um scheme operacional construído sobre o protocolo, com a Banzami — Tecnologia e Serviços, Lda. como operadora designada. Está condicionado à obtenção do enquadramento regulatório aplicável — o estado é `REGULATORY_AUTHORIZATION_IN_PROGRESS` e os fundos reais, carteiras, liquidação e participantes reais permanecem desactivados (fail-closed) até existir evidência formal. É distinto do protocolo: BANZA ≠ Banzami. A certificação BANZA não é exclusiva deste scheme, e a continuidade do protocolo não depende da continuidade comercial do scheme.",
     sources: s("adr060", "adr062"),
   },
-  // M2.19D — the L2 conformance & interoperability certification concept (ADR-064/065/066), deterministic.
+  // M2.19D — the L2 conformance & interoperability certification concept (ADR-034/065/066), deterministic.
   {
     id: "def-l2-certification", critical: true,
     keywords: ["certificacao de conformidade e interoperabilidade", "certificacao tecnica", "certification record", "certified implementation", "certification profile", "technical registry"],
@@ -682,21 +682,21 @@ export const ENTRIES = [
     id: "def-qwen", critical: true,
     keywords: ["qwen", "modelo local", "inferencia local", "local model"],
     answer:
-      "Qwen é o modelo de linguagem local do BanzAI (ADR-044): corre on-host, sem chamadas externas — external_model_called permanece false. As respostas determinísticas nem sequer usam o modelo; o Qwen só é invocado para perguntas fundamentadas que precisam de geração.",
+      "Qwen é o modelo de linguagem local do BanzAI (ADR-042): corre on-host, sem chamadas externas — external_model_called permanece false. As respostas determinísticas nem sequer usam o modelo; o Qwen só é invocado para perguntas fundamentadas que precisam de geração.",
     sources: s("adrLocalInference", "readme"),
   },
   {
     id: "def-postgresql", critical: true,
     keywords: ["postgresql", "postgres", "base de dados"],
     answer:
-      "PostgreSQL é o armazenamento de estado do protocolo no BANZA (ADR-042), não uma base de dados financeira: não guarda saldos reais nem movimenta fundos. É um detalhe de infraestrutura interno, não exposto publicamente.",
+      "PostgreSQL é o armazenamento de estado do protocolo no BANZA (ADR-026), não uma base de dados financeira: não guarda saldos reais nem movimenta fundos. É um detalhe de infraestrutura interno, não exposto publicamente.",
     sources: s("adrPostgres"),
   },
   {
     id: "def-pgvector", critical: true,
     keywords: ["pgvector", "indice vectorial", "vector index"],
     answer:
-      "pgvector é a extensão de índice vectorial usada pelo indexador do BANZA para pesquisa semântica sobre a documentação do protocolo. É um detalhe de infraestrutura interno (ADR-042).",
+      "pgvector é a extensão de índice vectorial usada pelo indexador do BANZA para pesquisa semântica sobre a documentação do protocolo. É um detalhe de infraestrutura interno (ADR-026).",
     sources: s("adrPostgres"),
   },
   {
@@ -717,7 +717,7 @@ export const ENTRIES = [
     id: "def-banzai-agent", critical: true,
     keywords: ["banzai", "o que e banzai", "what is banzai", "agente banzai"],
     answer:
-      "BanzAI é a interface humana primária e transversal entre humanos/operadores e o protocolo BANZA (ADR-054): interpreta pedidos, consulta a referência, orienta a implementação, encaminha para os motores verificáveis e explica os resultados. Guia, invoca os motores e cita fontes; não decide, não certifica, não aprova operadores, não licencia, não publica operadores e não movimenta fundos. Corre um modelo local (Qwen) on-host, sem chamadas externas. É distinto do BANZA (o protocolo) e do Banzami (a organização). BanzAI guia; os motores verificam; a evidência prova; a autoridade competente decide.",
+      "BanzAI é a interface humana primária e transversal entre humanos/operadores e o protocolo BANZA (ADR-042): interpreta pedidos, consulta a referência, orienta a implementação, encaminha para os motores verificáveis e explica os resultados. Guia, invoca os motores e cita fontes; não decide, não certifica, não aprova operadores, não licencia, não publica operadores e não movimenta fundos. Corre um modelo local (Qwen) on-host, sem chamadas externas. É distinto do BANZA (o protocolo) e do Banzami (a organização). BanzAI guia; os motores verificam; a evidência prova; a autoridade competente decide.",
     sources: s("readme", "rustPolicy"),
   },
   {
@@ -733,7 +733,7 @@ export const ENTRIES = [
     critical: true,
     keywords: ["que ficheiros implementam o operador zero", "ficheiros do operador zero", "onde esta implementado o operador zero", "files implement operator zero", "codigo do operador zero", "que ficheiros fazem o operador zero"],
     answer:
-      "O Operador Zero é implementado por: **motor Rust** `engines/operator-zero-core` (ledger/trust/federação/evidence/traces) e `engines/operator-zero-e2e-root` (raiz de assinatura Ed25519 demo); **artefactos** em `examples/operators/zero/` (manifest, key-manifest, revocation-list, evidence-bundle, traces, ledger, payments) e `examples/operators/zero/e2e-root/`; **website** `website/components/operador-zero/OperadorZeroReference.tsx` (superfície só de leitura) + `website/app/oz/` (rota interna) + `website/lib/operadorZero*.ts`; a validação corre no **modo de validação do BanzAI** (`/banzai?mode=validation`), integrado em `website/components/banzai/BanzaiValidationMode.tsx`, executada pelos motores Rust; **routing** `website/middleware.ts` + `website/lib/zeroSubdomain.ts` (zero.banza.network); **guards** `tools/check-operator-zero*.sh` + `tools/check-zero-subdomain*.sh`; **decisões** ADR-052 e ADR-067; **relatórios** em `docs/reports/M2_12*`, `M2_13A*` e `M2_19EF*`.",
+      "O Operador Zero é implementado por: **motor Rust** `engines/operator-zero-core` (ledger/trust/federação/evidence/traces) e `engines/operator-zero-e2e-root` (raiz de assinatura Ed25519 demo); **artefactos** em `examples/operators/zero/` (manifest, key-manifest, revocation-list, evidence-bundle, traces, ledger, payments) e `examples/operators/zero/e2e-root/`; **website** `website/components/operador-zero/OperadorZeroReference.tsx` (superfície só de leitura) + `website/app/oz/` (rota interna) + `website/lib/operadorZero*.ts`; a validação corre no **modo de validação do BanzAI** (`/banzai?mode=validation`), integrado em `website/components/banzai/BanzaiValidationMode.tsx`, executada pelos motores Rust; **routing** `website/middleware.ts` + `website/lib/zeroSubdomain.ts` (zero.banza.network); **guards** `tools/check-operator-zero*.sh` + `tools/check-zero-subdomain*.sh`; **decisões** ADR-041 e ADR-041; **relatórios** em `docs/reports/M2_12*`, `M2_13A*` e `M2_19EF*`.",
     sources: s("ozEngine", "ozLab", "ozMiddleware", "adr052"),
   },
   {
@@ -763,7 +763,7 @@ export const ENTRIES = [
     critical: true,
     keywords: ["em que linguagem foi criado o banzai", "linguagem do banzai", "que linguagem banzai", "banzai language", "banzai foi criado em", "que stack o banzai"],
     answer:
-      "O BanzAI é **Rust-first** (ADR-037): os motores oficiais são em **Rust** compilado para **WASM**. O runtime canónico vive **neste repositório** (`banza-protocol/banza`): `engines/banzai-query-core` (routing, resolução, recuperação, fundamentação e validação) e `engines/banzai-api-kb` (que o re-exporta e o compila para WASM), mais `engines/banzai-doc-indexer` e `engines/banzai-repo-indexer` (indexação) — todos Rust. A **camada de serviço/glue** (`services/banzai-api`) é **TypeScript/Node** — apenas I/O e transporte, sem lógica de motor. O desenvolvimento activo do BanzAI reside inteiramente neste monorepo (ADR-075); não existe um repositório BanzAI separado.",
+      "O BanzAI é **Rust-first** (ADR-043): os motores oficiais são em **Rust** compilado para **WASM**. O runtime canónico vive **neste repositório** (`banza-protocol/banza`): `engines/banzai-query-core` (routing, resolução, recuperação, fundamentação e validação) e `engines/banzai-api-kb` (que o re-exporta e o compila para WASM), mais `engines/banzai-doc-indexer` e `engines/banzai-repo-indexer` (indexação) — todos Rust. A **camada de serviço/glue** (`services/banzai-api`) é **TypeScript/Node** — apenas I/O e transporte, sem lógica de motor. O desenvolvimento activo do BanzAI reside inteiramente neste monorepo (ADR-042); não existe um repositório BanzAI separado.",
     sources: s("rustPolicy", "banzaiApiKb", "banzaiCore"),
   },
   {
@@ -819,7 +819,7 @@ export const ENTRIES = [
     critical: true,
     keywords: ["diferenca entre norma e implementacao", "norma vs implementacao", "diferenca norma implementacao", "normativo vs implementacao", "o que e norma e o que e implementacao", "difference between norm and implementation"],
     answer:
-      "No BANZA, a **norma** (normativo) define *o que é correcto* — as regras do protocolo: referência, especificações, contratos, schemas, invariantes e RFCs normativos (em `docs/reference`, `spec/`, `contracts/`). A **implementação** é *como* um operador ou o próprio ecossistema cumpre a norma — o código: motores Rust (`engines/`), o website (`website/`), guards e CI. A norma é operator-neutral e vem primeiro (ADR-005: protocolo antes do produto); a implementação consome a norma. O BanzAI classifica as fontes por categoria (`normative` vs `implementation`) precisamente para não confundir regra com código.",
+      "No BANZA, a **norma** (normativo) define *o que é correcto* — as regras do protocolo: referência, especificações, contratos, schemas, invariantes e RFCs normativos (em `docs/reference`, `spec/`, `contracts/`). A **implementação** é *como* um operador ou o próprio ecossistema cumpre a norma — o código: motores Rust (`engines/`), o website (`website/`), guards e CI. A norma é operator-neutral e vem primeiro (ADR-001: protocolo antes do produto); a implementação consome a norma. O BanzAI classifica as fontes por categoria (`normative` vs `implementation`) precisamente para não confundir regra com código.",
     sources: s("specOverview", "rustPolicy", "gettingStarted"),
   },
   {
@@ -835,7 +835,7 @@ export const ENTRIES = [
     critical: true,
     keywords: ["que crate rust indexa o conhecimento do banzai", "crate que indexa o banzai", "qual crate indexa o conhecimento", "que crate faz o indice do banzai", "rust crate indexes banzai knowledge"],
     answer:
-      "O conhecimento repo-wide do BanzAI é indexado pelo crate Rust **`engines/banzai-repo-indexer`**: percorre o monorepo BANZA (que desde a ADR-075 inclui o runtime e os motores BanzAI), aplica exclusões de segurança, classifica cada ficheiro em 12 categorias, faz chunking por tipo e emite `banzai-repo-index.json` + manifesto/cobertura/exclusões/segurança. A documentação do protocolo é indexada por **`engines/banzai-doc-indexer`**, e o motor de **retrieval/scoring** que consome os índices é **`engines/banzai-api-kb`** (WASM).",
+      "O conhecimento repo-wide do BanzAI é indexado pelo crate Rust **`engines/banzai-repo-indexer`**: percorre o monorepo BANZA (que desde a ADR-042 inclui o runtime e os motores BanzAI), aplica exclusões de segurança, classifica cada ficheiro em 12 categorias, faz chunking por tipo e emite `banzai-repo-index.json` + manifesto/cobertura/exclusões/segurança. A documentação do protocolo é indexada por **`engines/banzai-doc-indexer`**, e o motor de **retrieval/scoring** que consome os índices é **`engines/banzai-api-kb`** (WASM).",
     sources: s("repoIndexer", "docIndexer", "banzaiApiKb"),
   },
   {
@@ -869,7 +869,7 @@ export const ENTRIES = [
     critical: true,
     keywords: ["que crates rust existem", "quais crates rust", "crates rust do repo", "que crates rust no repo", "rust crates in the repo", "lista de crates rust", "que motores rust existem"],
     answer:
-      "Os motores oficiais são Rust (ADR-037), em `engines/`. Entre os crates: **`banzai-api-kb`** (retrieval + routing + fronteira de acção, WASM), **`banzai-repo-indexer`** (indexador repo-wide), **`banzai-doc-indexer`** (indexador da documentação), **`operator-zero-core`** e **`operator-zero-e2e-root`** (motor + raiz Ed25519 demo do Operador Zero), **`banza-repo-guards`** (gates de pureza/contaminação), **`banza-trust`**/**`banza-conformance`** e afins. TypeScript/React é só UI/glue.",
+      "Os motores oficiais são Rust (ADR-043), em `engines/`. Entre os crates: **`banzai-api-kb`** (retrieval + routing + fronteira de acção, WASM), **`banzai-repo-indexer`** (indexador repo-wide), **`banzai-doc-indexer`** (indexador da documentação), **`operator-zero-core`** e **`operator-zero-e2e-root`** (motor + raiz Ed25519 demo do Operador Zero), **`banza-repo-guards`** (gates de pureza/contaminação), **`banza-trust`**/**`banza-conformance`** e afins. TypeScript/React é só UI/glue.",
     sources: s("enginesDir", "rustPolicy"),
   },
   {
@@ -885,7 +885,7 @@ export const ENTRIES = [
     critical: true,
     keywords: ["quem implementa o protocolo", "quem implementa o banza", "quem constroi o protocolo", "who implements the protocol", "quem faz a implementacao do protocolo", "tem de ser em rust", "obrigatoriamente rust", "implementacoes em rust", "precisa de rust", "banza exige rust", "implementacoes banza rust", "linguagem obrigatoria"],
     answer:
-      "O protocolo BANZA é a **norma** (operator-neutral); quem o **implementa** são os **operadores** — qualquer operador pode implementá-lo em qualquer linguagem/stack que satisfaça os invariantes. O BANZA define as regras (contracts, spec, invariantes, conformidade); não é ele próprio um operador nem um PSP. O desenvolvimento é protocol-first (a norma vem antes do produto do operador — ADR-005). O Operador Zero é apenas a **implementação de referência** (demo, só de leitura), não um operador real.",
+      "O protocolo BANZA é a **norma** (operator-neutral); quem o **implementa** são os **operadores** — qualquer operador pode implementá-lo em qualquer linguagem/stack que satisfaça os invariantes. O BANZA define as regras (contracts, spec, invariantes, conformidade); não é ele próprio um operador nem um PSP. O desenvolvimento é protocol-first (a norma vem antes do produto do operador — ADR-001). O Operador Zero é apenas a **implementação de referência** (demo, só de leitura), não um operador real.",
     sources: s("specOverview", "adr018", "adr005"),
   },
   {
@@ -917,7 +917,7 @@ export const ENTRIES = [
     critical: true,
     keywords: ["qual e o estado actual do banzai", "estado actual do banzai", "o banzai conhece o repo banzai", "banzai conhece o repositorio banzai", "quantos ficheiros foram indexados", "quantos chunks foram indexados", "quantos ficheiros chunks", "que testes foram adicionados na m2.13b", "current state of banzai", "does banzai know the banzai repo"],
     answer:
-      "Estado actual do BanzAI: é um agente **read-only** com conhecimento **repo-wide** do monorepo `banza-protocol/banza`. Com a ADR-075 o BanzAI foi consolidado neste monorepo — o runtime (`services/banzai-api`) e os motores (`engines/banzai-*`) vivem aqui e são indexados como parte do repo (`banzai_in_monorepo: true`); não existe um repositório BanzAI separado — o antigo `banza-protocol/banzai` foi eliminado definitivamente (ADR-075). O índice cobre documentação, decisões, código, website, guards, relatórios, licenças e artefactos do Operador Zero — as contagens exactas estão no manifesto `banzai-repo-index-manifest.json`. Retrieval e routing são Rust (WASM); o modelo é local (`external_model_called=false`) e a fronteira de acção recusa pedidos perigosos.",
+      "Estado actual do BanzAI: é um agente **read-only** com conhecimento **repo-wide** do monorepo `banza-protocol/banza`. Com a ADR-042 o BanzAI foi consolidado neste monorepo — o runtime (`services/banzai-api`) e os motores (`engines/banzai-*`) vivem aqui e são indexados como parte do repo (`banzai_in_monorepo: true`); não existe um repositório BanzAI separado — o antigo `banza-protocol/banzai` foi eliminado definitivamente (ADR-042). O índice cobre documentação, decisões, código, website, guards, relatórios, licenças e artefactos do Operador Zero — as contagens exactas estão no manifesto `banzai-repo-index-manifest.json`. Retrieval e routing são Rust (WASM); o modelo é local (`external_model_called=false`) e a fronteira de acção recusa pedidos perigosos.",
     sources: s("indexManifest", "repoIndexer"),
   },
 
@@ -1060,7 +1060,7 @@ export const ENTRIES = [
     sources: s("governanceProc"),
   },
 
-  // ── M2.14B — Operator Zero Only demo/example policy (ADR-053) ──────────────────────────────────
+  // ── M2.14B — Operator Zero Only demo/example policy (ADR-041) ──────────────────────────────────
   {
     id: "only-official-example",
     critical: true,
@@ -1071,7 +1071,7 @@ export const ENTRIES = [
       "porque tudo e operador zero", "exemplo demo oficial", "operator zero only",
     ],
     answer:
-      "O **único exemplo demo oficial** do BANZA é o **Operador Zero** (ADR-053, Operator Zero Only). Não existem exemplos, demos, samples ou operadores fictícios paralelos — todo exemplo público deriva do Operador Zero (`operator-zero`, KZ_DEMO, `demo_only`). O antigo exemplo genérico de manifesto e as identidades fictícias (operadores de amostra com domínios `.example` de teste) foram convertidos para Operador Zero. Placeholders abstractos (`<operator_id>`, `<base_url>`) podem existir em specs/OpenAPI, mas **não são exemplos demo**. O Operador Zero **não é operador real**, **não aparece em /operators**, e a evidência que produz é **evidência técnica local**, **não certificação**.",
+      "O **único exemplo demo oficial** do BANZA é o **Operador Zero** (ADR-041, Operator Zero Only). Não existem exemplos, demos, samples ou operadores fictícios paralelos — todo exemplo público deriva do Operador Zero (`operator-zero`, KZ_DEMO, `demo_only`). O antigo exemplo genérico de manifesto e as identidades fictícias (operadores de amostra com domínios `.example` de teste) foram convertidos para Operador Zero. Placeholders abstractos (`<operator_id>`, `<base_url>`) podem existir em specs/OpenAPI, mas **não são exemplos demo**. O Operador Zero **não é operador real**, **não aparece em /operators**, e a evidência que produz é **evidência técnica local**, **não certificação**.",
     sources: s("adr053", "adr052"),
   },
   {
@@ -1084,7 +1084,7 @@ export const ENTRIES = [
       "fixtures internas sao exemplos",
     ],
     answer:
-      "Não. O **upload manual de JSON** no BanzAI é um **modo avançado / ferramenta**, **não** um exemplo oficial: valida um payload que trazes, mas **não entra na jornada demo**, **não desbloqueia artefactos demo**, **não é guardado como operador** e **não aparece** em /operators nem em zero.banza.network. O **único exemplo demo oficial** é o Operador Zero (ADR-053). As **fixtures internas de teste** também **não são exemplos públicos** — são estritamente internas (não aparecem na UI, nas docs públicas nem no índice) e não usam identidades de exemplo públicas.",
+      "Não. O **upload manual de JSON** no BanzAI é um **modo avançado / ferramenta**, **não** um exemplo oficial: valida um payload que trazes, mas **não entra na jornada demo**, **não desbloqueia artefactos demo**, **não é guardado como operador** e **não aparece** em /operators nem em zero.banza.network. O **único exemplo demo oficial** é o Operador Zero (ADR-041). As **fixtures internas de teste** também **não são exemplos públicos** — são estritamente internas (não aparecem na UI, nas docs públicas nem no índice) e não usam identidades de exemplo públicas.",
     sources: s("adr053", "adr052"),
   },
 
@@ -1502,7 +1502,7 @@ export function getEntry(id) {
   return ENTRIES_BY_ID.get(id) || null;
 }
 
-// M2.8G routing policy (ADR-048): the Rust engine decides how to answer — { action, entry_id, intent,
+// M2.8G routing policy (ADR-042): the Rust engine decides how to answer — { action, entry_id, intent,
 // reason }. action ∈ {"qwen","deterministic","refusal","insufficient"}. M2.8H adds short conversation
 // context: `contextQuestions` are the previous USER questions (most-recent last); the Rust engine
 // resolves anaphoric follow-ups ("dá exemplo aqui", "e em JSON?") into a retrieval query and returns
@@ -1545,7 +1545,7 @@ export function retrieveTopK(question, k = 3) {
   return ids.map((id) => byId.get(id)).filter(Boolean);
 }
 
-// M2.9A (ADR-049): top-K DOCUMENTARY chunks (real protocol-doc excerpts from the build-time indexer),
+// M2.9A (ADR-042): top-K DOCUMENTARY chunks (real protocol-doc excerpts from the build-time indexer),
 // used ONLY to ENRICH the grounded context with additional real citations. Rust (WASM) scores; JS maps.
 // Returns [{path,title,section,anchor,source_type,text}]. Never used for routing or as a fallback.
 export function retrieveDocChunks(question, k = 2) {
@@ -1583,7 +1583,7 @@ export function classifyQueryIntent(question) {
   }
 }
 
-// M2.14I (ADR-054): the primary human-operator interface intent — which workbench capability a
+// M2.14I (ADR-042): the primary human-operator interface intent — which workbench capability a
 // human/operator request concerns (validate_manifest, explain_protocol, governance_guidance, …). Label
 // only; routing/boundaries are unchanged. Used by the guard/tests to assert the orchestration router.
 export function primaryInterfaceIntent(question) {
@@ -1716,7 +1716,7 @@ export function answerClass(question) {
 }
 
 // M2.18B.4 — resolve a broad concept question to its canonical source id (Rust-owned). Returns a
-// registry ADR/RFC id (federation→ADR-040) OR a public Reference/spec/governance document PATH, or "" when
+// registry ADR/RFC id (federation→ADR-031) OR a public Reference/spec/governance document PATH, or "" when
 // the question names no single-canonical concept. The single router uses it to SEED the trunk's resolver
 // and to know a concept has grounding before running the model. Never invents a source.
 export function resolveConcept(question) {
@@ -1770,7 +1770,7 @@ export function resolveScope(question) {
   }
 }
 
-// ADR-078 — operational reasoning classification (duration/metric/live-state of the validation journey).
+// ADR-042 — operational reasoning classification (duration/metric/live-state of the validation journey).
 // Rust decides is_operational + subject/metric/aggregation + requires_live_data + the honest fallback text;
 // this wrapper only transports. See engines/banzai-query-core/src/operational.rs.
 export function resolveOperationalMetric(question) {
@@ -2149,7 +2149,7 @@ export function aliasTruthTable() {
 }
 
 // M2.18B.4-R2 — the canonical ids of every EXPLICIT documentary reference in a question, first-appearance
-// order (["ADR-053","ADR-054"] for "compara a ADR-053 com a ADR-054"). Deterministic registry match; the
+// order (["ADR-041","ADR-042"] for "compara a ADR-041 com a ADR-042"). Deterministic registry match; the
 // compare path uses it to package all named documents. Returns [] when the export is absent / throws.
 export function detectDocRefs(question) {
   if (typeof kb.detect_doc_refs_json !== "function") return [];
@@ -2357,7 +2357,7 @@ export function buildContext(question, { maxChunks = 3, maxChars = 6000, docChun
   };
 }
 
-// ADR-044: language-generation control logic is Rust (engines/banzai-api-kb → WASM).
+// ADR-042: language-generation control logic is Rust (engines/banzai-api-kb → WASM).
 // JS builds NO prompt and validates NO answer of its own — these are thin wrappers.
 // The prompt builder wraps sources + question as untrusted data (injection defence);
 // the validator blocks completions that claim normative authority or leak internals.

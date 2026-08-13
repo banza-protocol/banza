@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# M2.19G.1 (ADR-068 §44) — endpoint-originated validation readiness CAPSTONE (§37, invariant 28).
+# M2.19G.1 (ADR-038 §44) — endpoint-originated validation readiness CAPSTONE (§37, invariant 28).
 #
 # The aggregate gate. It computes the §44 metrics across the endpoint-originated validation surfaces and
 # requires EVERY one to be 0:
@@ -22,7 +22,7 @@ SHELL_TSX=website/components/banzai/BanzaiAgent.tsx
 VALIDATE=services/banzai-api/src/validate.js
 FCLIENT=services/banzai-api/src/fetcherClient.js
 
-echo "== banzai-m2-19g1-readiness-check (M2.19G.1 / ADR-068 §44 capstone) =="
+echo "== banzai-m2-19g1-readiness-check (M2.19G.1 / ADR-038 §44 capstone) =="
 
 # ── self-test ───────────────────────────────────────────────────────────────────────────────────────
 st=0

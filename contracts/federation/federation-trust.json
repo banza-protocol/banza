@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://banza.network/contracts/federation/federation-trust.json",
   "_spec": "BANZA Federation Trust Model Contract v1.0",
-  "_source": "ADR-038 §Open Trust Model, ADR-040 §Federation Trust Evaluation",
+  "_source": "ADR-027 §Open Trust Model, ADR-031 §Federation Trust Evaluation",
   "_updated": "2026-07-17",
 
   "description": "Defines the trust model for BANZA federation. BANZA is an open financial protocol: an operator independently implements the protocol, publishes its manifest, signed protocol metadata and conformance evidence, and each peer runs the Open Trust Evaluation locally and deterministically before routing. Trust rests on signed protocol metadata, conformance evidence, the public protocol registry, the trust root, delegated signing keys, and revocation/fail-closed. No participation depends on a central human authority; nothing is issued to, or approved for, an operator.",
@@ -14,12 +14,12 @@
         "layer": 1,
         "id": "trust_root",
         "name": "Trust Root",
-        "description": "Offline ed25519 key material. Never used directly in protocol operations — it signs only the Key Manifest (the root-signed metadata that lists and authorises the delegated signing keys). Protocol metadata, releases, the revocation list and conformance evidence are signed by delegated keys within their domains, never by the root directly (INV-ROOT-004; ADR-079). Root custody is threshold custody: three independent root signing authorities, any two of which authorise a root action. No single party can reconstruct or activate the root.",
+        "description": "Offline ed25519 key material. Never used directly in protocol operations — it signs only the Key Manifest (the root-signed metadata that lists and authorises the delegated signing keys). Protocol metadata, releases, the revocation list and conformance evidence are signed by delegated keys within their domains, never by the root directly (INV-ROOT-004; ADR-027). Root custody is threshold custody: three independent root signing authorities, any two of which authorise a root action. No single party can reconstruct or activate the root.",
         "algorithm": "ed25519",
         "custody": "multi_keyholder_threshold",
         "quorum": "2_of_3",
         "usage": "signs_key_manifest_only",
-        "adr_ref": "ADR-038",
+        "adr_ref": "ADR-027",
         "invariants": ["INV-ROOT-007"]
       },
       {
@@ -54,7 +54,7 @@
   },
 
   "revocation": {
-    "description": "Revocation is managed through the BANZA Revocation List (BRL), published at banza.network/federation/revocation-list.json. The BRL is signed by the dedicated revocation-domain delegated key (ADR-038 — distinct from other delegated keys) and must be re-fetched before each routing decision. Revocation is a protocol security signal — never a sanction, licence or authorisation.",
+    "description": "Revocation is managed through the BANZA Revocation List (BRL), published at banza.network/federation/revocation-list.json. The BRL is signed by the dedicated revocation-domain delegated key (ADR-027 — distinct from other delegated keys) and must be re-fetched before each routing decision. Revocation is a protocol security signal — never a sanction, licence or authorisation.",
     "brl_endpoint": "banza.network/federation/revocation-list.json",
     "brl_schema_ref": "contracts/federation/revocation-list.json",
     "brl_max_staleness_seconds": 21600,
@@ -63,10 +63,10 @@
   },
 
   "verification_algorithm": {
-    "description": "The Open Trust Evaluation. A peer decides whether to route to an operator by running ten conjunctive, fail-closed checks LOCALLY over the material that operator publishes. All ten must pass; any one missing, invalid, expired, revoked or incompatible fails the evaluation. The result is a local decision about ONE interaction — never a status conferred on the operator, never an admission, never a licence. The normative shape is contracts/production/federation-trust-evaluation.production.schema.json (ADR-040).",
+    "description": "The Open Trust Evaluation. A peer decides whether to route to an operator by running ten conjunctive, fail-closed checks LOCALLY over the material that operator publishes. All ten must pass; any one missing, invalid, expired, revoked or incompatible fails the evaluation. The result is a local decision about ONE interaction — never a status conferred on the operator, never an admission, never a licence. The normative shape is contracts/production/federation-trust-evaluation.production.schema.json (ADR-031).",
     "schema_ref": "contracts/production/federation-trust-evaluation.production.schema.json",
     "checks": [
-      { "id": "valid_operator_manifest", "check": "the published Operator Manifest (the RFC-0005 discovery manifest at /.well-known/banza/operator.json) resolves and validates against conformance/manifests/schema.json, and — for a federation-capable operator — against the extension contracts/federation/federation-manifest.json (which defines supports_federation / cross_operator_routing). It is NOT validated against the candidate-submission schema operator-manifest.production.schema.json (ADR-080)" },
+      { "id": "valid_operator_manifest", "check": "the published Operator Manifest (the RFC-0005 discovery manifest at /.well-known/banza/operator.json) resolves and validates against conformance/manifests/schema.json, and — for a federation-capable operator — against the extension contracts/federation/federation-manifest.json (which defines supports_federation / cross_operator_routing). It is NOT validated against the candidate-submission schema operator-manifest.production.schema.json (ADR-037)" },
       { "id": "compatible_protocol_version", "check": "the declared protocol_version is compatible with the evaluator's under the published compatibility rules" },
       { "id": "signed_protocol_metadata", "check": "the operator's signed protocol metadata verifies under the trust root / delegated key resolved from the Key Manifest" },
       { "id": "conformance_evidence_valid", "check": "conformance_report_hash and evidence_bundle_hash match and the evidence is re-executable with verified_by_tool_version" },
@@ -121,7 +121,7 @@
       "signed protocol metadata and conformance evidence are fresh (within policy)",
       "signature chain resolves to the active trust root or a delegated key"
     ],
-    "adr_ref": "ADR-040",
+    "adr_ref": "ADR-031",
     "section_ref": "docs/reference/pt/completa.md §14"
   },
 

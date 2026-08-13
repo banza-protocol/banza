@@ -458,7 +458,7 @@ mod tests {
         let o = ob("me da um exemplo de federacao");
         let v = check_completion(
             &o,
-            "Um exemplo de federação pode ser encontrado na ADR-040, que descreve avaliação de confiança sem certificados.",
+            "Um exemplo de federação pode ser encontrado na ADR-031, que descreve avaliação de confiança sem certificados.",
             &src(1),
             2,
             true,
@@ -486,7 +486,7 @@ mod tests {
         let o = ob("como federar um operador?");
         let v = check_completion(
             &o,
-            "Para federar um operador, deve-se seguir o modelo de confiança aberto sem CA (ADR-038) ou a avaliação de confiança sem certificados (ADR-040).",
+            "Para federar um operador, deve-se seguir o modelo de confiança aberto sem CA (ADR-027) ou a avaliação de confiança sem certificados (ADR-031).",
             &src(2),
             2,
             true,
@@ -650,7 +650,7 @@ mod tests {
         let o = ob("como federar um operador");
         let v = check_completion(
             &o,
-            "Para federar um operador:\n1. Publicar o manifesto do operador com os endpoints e a chave pública.\n2. Submeter a avaliação de confiança segundo a ADR-040.\n3. Aguardar a inclusão no conjunto de confiança federado.",
+            "Para federar um operador:\n1. Publicar o manifesto do operador com os endpoints e a chave pública.\n2. Submeter a avaliação de confiança segundo a ADR-031.\n3. Aguardar a inclusão no conjunto de confiança federado.",
             &src(2),
             3,
             true,

@@ -67,7 +67,7 @@
       "qpCXwdFrfwrOu1zPASFaOak_IhOicc5geQY1vXcBpsowBYCyasg8JYeZ_QSddQOKEi8RcwMIohj2ZADWfi3IAw",
       "HEtYNCIG5TDi77YAVYhm87tskeqMT1cee9AMiTpVDlCU3VZJLpqGuzJLlx0X55v15vvP735bvuyi4gXS_2J7DA"
     ],
-    "scope": "signs only the Key Manifest that endorses the delegated signing keys (ADR-079)",
+    "scope": "signs only the Key Manifest that endorses the delegated signing keys (ADR-027)",
     "threshold_policy": {
       "min_signatures": 2,
       "total_keyholders": 3

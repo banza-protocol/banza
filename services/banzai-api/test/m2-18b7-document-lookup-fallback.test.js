@@ -36,7 +36,7 @@ function pipe(trunkResult) {
 
 test("a bare document reference is a deterministic lookup terminal (0 model calls, no degraded banner)", async () => {
   const { pipeline, stub } = pipe({ status: "grounded", answer_markdown: "SHOULD NOT BE USED", trace: {} });
-  for (const q of ["ADR 002", "ADR-006", "adr002"]) {
+  for (const q of ["ADR 002", "ADR-011", "adr002"]) {
     const { result, meta } = await pipeline.answer(q);
     assert.equal(meta.terminal_kind, "document_lookup", `${q} must be a document_lookup terminal`);
     assert.equal(meta.deterministic, true, `${q} must be deterministic`);

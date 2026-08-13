@@ -10,7 +10,7 @@
 
 | control_id | description | coverage | evidence | gap | recommended next action | status |
 |---|---|---|---|---|---|---|
-| C-RUST-FIRST | All official engines are Rust; readiness decided in Rust | conformance/simb/trust/L1–L4/assurance engines | ADR-037; `make rust-rule-check` | — | keep the rust-first guard | ok |
+| C-RUST-FIRST | All official engines are Rust; readiness decided in Rust | conformance/simb/trust/L1–L4/assurance engines | ADR-043; `make rust-rule-check` | — | keep the rust-first guard | ok |
 | C-NO-TS-READINESS | TypeScript never decides readiness/status | adapters are load+marshal + render-only tone | adapter comments; vitest render-only tests | — | keep adapter discipline | ok |
 | C-MOCK-PROVIDER | BanzAI uses a mock provider only | Workbench + Assistente | `llm_calls=0` in every report | — | keep mock until an explicit gated phase | ok |
 | C-LLM-ZERO | `llm_calls=0` on every tool output | all engine reports | report flags; E2E | — | keep asserting in tests | ok |

@@ -20,13 +20,13 @@ test("(m2.18b6 §14) Rust owns the contract versions (non-empty, stable)", () =>
 });
 
 test("(m2.18b6 §14) the planned package carries the contract versions + a package checksum for cache keying", () => {
-  const p = buildFactualPackagePlanned("t", "explica a ADR-006 sobre dupla entrada", "ADR-006", "");
+  const p = buildFactualPackagePlanned("t", "explica a ADR-011 sobre dupla entrada", "ADR-011", "");
   const v = contractVersions();
   assert.equal(p.prompt_version, v.prompt_version);
   assert.equal(p.validator_policy_version, v.validator_policy_version);
   assert.equal(p.version, v.factual_package_version);
   assert.ok(p.package_checksum && p.package_checksum.length > 0, "package_checksum present");
   // the checksum is deterministic across identical builds (cache key stability)
-  const q = buildFactualPackagePlanned("t", "explica a ADR-006 sobre dupla entrada", "ADR-006", "");
+  const q = buildFactualPackagePlanned("t", "explica a ADR-011 sobre dupla entrada", "ADR-011", "");
   assert.equal(p.package_checksum, q.package_checksum);
 });

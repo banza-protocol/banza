@@ -240,7 +240,7 @@ pub fn tool_contract(kind: ToolKind) -> ToolContract {
         LiveArtifactFetch => (
             "ScopeDecision{entity_id,artifact_type,origin}",
             "LiveArtifactObservation{origin,url,sha256,version,profile,environment,observed_at}",
-            "the operator's published origin (endpoint-originated, ADR-068)",
+            "the operator's published origin (endpoint-originated, ADR-038)",
             "public",
             &["operator", "implementation", "artifact"],
             "live",
@@ -266,7 +266,7 @@ pub fn tool_contract(kind: ToolKind) -> ToolContract {
         RuntimeLookup => (
             "()",
             "RuntimeState{engine_state,version,inference_location,degraded}",
-            "the runtime SSOT (/banzai/runtime, ADR-072)",
+            "the runtime SSOT (/banzai/runtime, ADR-042)",
             "public",
             &["runtime"],
             "live",
@@ -279,7 +279,7 @@ pub fn tool_contract(kind: ToolKind) -> ToolContract {
         ExecutionLookup => (
             "ExecutionRef{execution_id|latest,workspace=public}",
             "Execution{execution_id,status,steps[],journey_receipt}",
-            "the durable receipt store (ADR-076)",
+            "the durable receipt store (ADR-042)",
             "public",
             &[
                 "validation_execution",
@@ -296,7 +296,7 @@ pub fn tool_contract(kind: ToolKind) -> ToolContract {
         ReceiptLookup => (
             "ReceiptRef{implementation_id?,workspace=public,limit}",
             "JourneyReceipt[]{execution_id,status,started_at,finished_at}",
-            "the durable receipt store — operation/journey receipts (ADR-076)",
+            "the durable receipt store — operation/journey receipts (ADR-042)",
             "public",
             &["validation_execution", "validation_journey"],
             "persisted",
@@ -309,7 +309,7 @@ pub fn tool_contract(kind: ToolKind) -> ToolContract {
         EvidenceLookup => (
             "ExecutionRef{execution_id,workspace=public}",
             "EvidenceObservation[]{step_id,artifact_role,endpoint,content_sha256}",
-            "the durable evidence store — pinned artifacts / evidence bundles (ADR-076)",
+            "the durable evidence store — pinned artifacts / evidence bundles (ADR-042)",
             "public",
             &["validation_execution", "artifact"],
             "persisted",
@@ -322,7 +322,7 @@ pub fn tool_contract(kind: ToolKind) -> ToolContract {
         MetricsQuery => (
             "OperationalDecision{subject,metric,aggregation,scope}",
             "DurationMetrics{latest,median,p95,per_step,claims,sources}",
-            "the durable receipt store — SQL telemetry aggregates (ADR-078)",
+            "the durable receipt store — SQL telemetry aggregates (ADR-042)",
             "public",
             &[
                 "validation_execution",
@@ -339,7 +339,7 @@ pub fn tool_contract(kind: ToolKind) -> ToolContract {
         CompareExecutions => (
             "ComparePair{a_execution_id,b_execution_id,workspace=public}",
             "ExecutionDiff{a,b,step_deltas[],status_delta}",
-            "the durable receipt store (ADR-076)",
+            "the durable receipt store (ADR-042)",
             "public",
             &["validation_execution", "validation_journey"],
             "persisted",
@@ -352,7 +352,7 @@ pub fn tool_contract(kind: ToolKind) -> ToolContract {
         ReproduceExecution => (
             "ReproduceRef{reproduction_of,workspace=public}",
             "Execution{execution_id,status,reproduction_of,reproduction_result}",
-            "the validation orchestrator + durable receipt store (ADR-076)",
+            "the validation orchestrator + durable receipt store (ADR-042)",
             "public",
             &["validation_execution", "validation_journey"],
             "persisted",

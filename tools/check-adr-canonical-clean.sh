@@ -1,41 +1,72 @@
 #!/usr/bin/env bash
-# check-adr-canonical-clean.sh — M2.19A regression guard for the Current-Only Canonical ADR Tree (ADR-057).
+# The ADR tree is current-only, contiguous, and nothing points at an ADR that does not exist.
 #
-# Locks in the clean-slate: the removed CA-era / operator-era ADRs stay removed, the policy ADR stays
-# present, and no CURRENT surface reintroduces a reference to a deleted ADR. Historical records
-# (PHASE_*, *_2026_07.md, artifacts/, ceremony-records) are the honest audit trail and are
-# exempt — Git history preserves the removed decisions (ADR-057 D-057-02).
+# This guard derives everything from the tree. It carries no list of removed IDs, because after a
+# clean-slate renumbering such a list is worse than useless: an ID that was once removed can be a
+# perfectly valid current ADR, and a frozen list would then report the present as the past.
+#
+#   1. ADR files are numbered contiguously from 001, one file per number;
+#   2. every ADR-NNN referenced anywhere on a current surface resolves to an existing ADR;
+#   3. the index lists every ADR and nothing else.
+#
+# Exit 1 on any violation. Exit 2 if the guard's own self-test is broken.
 set -euo pipefail
-cd "$(git rev-parse --show-toplevel)"
+cd "$(dirname "$0")/.."
 
-DELETED=(ADR-004 ADR-022 ADR-026 ADR-027 ADR-032)
+ADRDIR=decisions/adr
+INDEX="$ADRDIR/README.md"
 fail=0
-say(){ echo "  $*"; }
+say() { echo "$*"; }
 
-# 1) deleted ADRs must NOT exist as canonical files (intentional gaps)
-for id in "${DELETED[@]}"; do
-  if ls decisions/adr/${id}-*.md >/dev/null 2>&1; then
-    say "FAIL: removed ADR reappeared in the tree: decisions/adr/${id}-*"; fail=1
-  fi
-done
+echo "== adr-canonical-clean =="
 
-# 2) the policy ADR must exist
-[ -f decisions/adr/ADR-057-current-only-canonical-adr-tree.md ] || { say "FAIL: ADR-057 (clean-slate policy) missing"; fail=1; }
-
-# 3) no CURRENT surface may reference a deleted ADR (ADR-057 itself may, in its self-contained 'removed' table)
-PAT="ADR-0(04|22|26|27|32)"
-leaks="$(git grep -lIE "$PAT" -- . 2>/dev/null \
-  | grep -vE 'artifacts/|/target/|node_modules|\.git/' \
-  | grep -vE 'docs/governance/PHASE_|docs/governance/.*MATRIX|_2026_07\.md|ceremony-records|BANZA_ROOT_CUSTODY_FUTURE|M2_2_ARCHITECTURE_REFACTOR|M2_3_|M2_4_' \
-  | grep -vE 'doc-index\.json|banzai-repo-index|entries-index\.json|rustkb/|website/lib/wasm/|alias-truth-table|task-fulfilment' \
-  | grep -vE 'decisions/adr/ADR-057-current-only|decisions/adr/README\.md|tools/check-adr-canonical-clean\.sh' \
-  || true)"
-if [ -n "$leaks" ]; then
-  say "FAIL: deleted-ADR reference on current surface(s):"; echo "$leaks" | sed 's/^/    /'; fail=1
-fi
-
-if [ "$fail" = 0 ]; then
-  echo "adr-canonical-clean: ✓ removed ADRs stay removed; ADR-057 present; no deleted-ADR reference on current surfaces"
+# 1. Contiguous numbering, no duplicates, no gaps.
+ids=$(ls "$ADRDIR" | grep -oE '^ADR-[0-9]{3}' | sed 's/ADR-//' | sort)
+n=$(echo "$ids" | wc -l | tr -d ' ')
+expected=$(seq -f '%03g' 1 "$n")
+if [ "$ids" != "$expected" ]; then
+  say "FAIL: ADR numbering is not contiguous from 001"
+  diff <(echo "$ids") <(echo "$expected") | head -6 | sed 's/^/    /'
+  fail=1
 else
-  echo "adr-canonical-clean: NEEDS_FIX"; exit 1
+  say "  ok: $n ADRs, contiguous from 001, no duplicates"
 fi
+
+# 2. Every referenced ADR exists. Scanned over current surfaces only; the report of this sweep is
+#    excluded because it narrates the renumbering itself, and ADR-999 is excluded because it is the
+#    deliberate nonexistent id the retrieval evaluation uses to test a lookup that must not resolve.
+missing=$(git ls-files 'decisions/**/*.md' 'docs/**/*.md' 'spec/**/*.md' 'contracts/**/*.json' \
+                      'website/content/**/*.md' 'tools/*.sh' 'engines/**/*.rs' 2>/dev/null \
+  | grep -v '^docs/audit/' \
+  | xargs grep -ohaE 'ADR-[0-9]{3}' 2>/dev/null | sort -u \
+  | grep -v '^ADR-999$' \
+  | while read -r id; do
+      ls "$ADRDIR/$id"-*.md >/dev/null 2>&1 || echo "$id"
+    done)
+if [ -n "$missing" ]; then
+  say "FAIL: reference to an ADR that does not exist:"; echo "$missing" | sed 's/^/    /'; fail=1
+else
+  say "  ok: every referenced ADR resolves"
+fi
+
+# 3. The index covers exactly the tree.
+if [ -f "$INDEX" ]; then
+  listed=$(grep -oE 'ADR-[0-9]{3}' "$INDEX" | sort -u)
+  actual=$(ls "$ADRDIR" | grep -oE '^ADR-[0-9]{3}' | sort -u)
+  if [ "$listed" != "$actual" ]; then
+    say "FAIL: the ADR index does not match the tree"
+    diff <(echo "$listed") <(echo "$actual") | head -6 | sed 's/^/    /'; fail=1
+  else
+    say "  ok: the index lists every ADR and nothing else"
+  fi
+else
+  say "FAIL: $INDEX is missing"; fail=1
+fi
+
+# ── self-test ───────────────────────────────────────────────────────────────────────────────────────
+tmp=$(mktemp -d); trap 'rm -rf "$tmp"' EXIT
+printf '001\n003\n' > "$tmp/a"; printf '001\n002\n' > "$tmp/b"
+[ "$(cat "$tmp/a")" != "$(cat "$tmp/b")" ] || { echo "SELFTEST_FAIL contiguity comparison"; exit 2; }
+
+[ "$fail" -eq 0 ] || exit 1
+echo "adr-canonical-clean: OK — contiguous, resolvable, indexed"

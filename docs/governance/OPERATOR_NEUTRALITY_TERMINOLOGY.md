@@ -1,7 +1,7 @@
 # Operator Neutrality Terminology Guide
 
 **Authority:** ADR-002, docs/governance/README.md  
-**Applies to:** ~/banza (this monorepo, including the consolidated BanzAI runtime — services/banzai-api + engines/banzai-*, ADR-075)  
+**Applies to:** ~/banza (this monorepo, including the consolidated BanzAI runtime — services/banzai-api + engines/banzai-*, ADR-042)  
 **Enforcement:** `make identity-check`, `identity-guard` CI job
 
 ---
@@ -37,7 +37,7 @@ Use these terms when referring to entities that implement the BANZA protocol:
 
 ## Forbidden Terms in Protocol Repositories
 
-The following terms are forbidden anywhere in `~/banza` (this monorepo, including the consolidated BanzAI runtime — services/banzai-api + engines/banzai-*, ADR-075):
+The following terms are forbidden anywhere in `~/banza` (this monorepo, including the consolidated BanzAI runtime — services/banzai-api + engines/banzai-*, ADR-042):
 
 | Category | Examples |
 |----------|---------|

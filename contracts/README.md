@@ -26,10 +26,10 @@ A protocol contract is any artifact that defines a formal interface that operato
 | `qr/` | QR payload format specification and encoding rules |
 | `events/` | Internal and external domain event schemas |
 | `payment-intents/` | PaymentIntent primitive schema (ADR-014) — the canonical payment-initiation concept |
-| `collections/` | Collection, CollectionShare, CollectionRule schemas + state machine (ADR-016) |
-| `fees/` | BusinessCategory, PricingProfile, FeePolicyRef + OperatorFee schemas (ADR-019) — reference-only fee concepts; **no percentages** |
-| `settlements/` | ApplicationSettlement schema + state machine (ADR-019) — the deferred app-to-beneficiary settlement primitive |
-| `wallet-accounts/` | WalletAccount schema (ADR-020) — segregated accounts inside a wallet; PRIMARY + purpose-tagged accounts (CAMPAIGN, ESCROW, …) with isolated balances |
+| `collections/` | Collection, CollectionShare, CollectionRule schemas + state machine (ADR-018) |
+| `fees/` | BusinessCategory, PricingProfile, FeePolicyRef + OperatorFee schemas (ADR-021) — reference-only fee concepts; **no percentages** |
+| `settlements/` | ApplicationSettlement schema + state machine (ADR-021) — the deferred app-to-beneficiary settlement primitive |
+| `wallet-accounts/` | WalletAccount schema (ADR-019) — segregated accounts inside a wallet; PRIMARY + purpose-tagged accounts (CAMPAIGN, ESCROW, …) with isolated balances |
 | `payment-sessions/` | PaymentSession + PaymentSessionInterface schemas (ADR-015) — a PaymentIntent presented through one or more interfaces (Payment Link, Dynamic QR, Static QR, Deep Link), all resolving to the same session and destination. **Payment Link, QR and Deep Link are interfaces; the Payment Session is the financial object.** |
 
 ## Conformance vectors
@@ -39,11 +39,11 @@ Conformance test vectors (test suites and reference payloads) live in the top-le
 testing and certification-governance review. They are protocol artifacts, not contracts, and are governed
 by the same ADR process.
 
-## Endpoint-originated operator validation (ADR-068)
+## Endpoint-originated operator validation (ADR-038)
 
-Reference/documentary contracts for BanzAI's endpoint-originated validation surface (ADR-068). These
+Reference/documentary contracts for BanzAI's endpoint-originated validation surface (ADR-038). These
 describe the operator/implementation model, the registry-resolved artifacts and the receipts; they add
-**no** new financial invariant. See [ADR-068](../decisions/adr/ADR-068-endpoint-originated-operator-validation-and-operator-implementation-model.md)
+**no** new financial invariant. See [ADR-038](../decisions/adr/ADR-038-endpoint-originated-operator-validation-and-operator-implementation-model.md)
 and the BANZA Reference (chapters 7–9 & 12).
 
 | Artifact | File |

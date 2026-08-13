@@ -359,7 +359,7 @@ fn valid_input() -> Value {
         "risk_register": {
             "count": 2,
             "risks": [
-                { "risk_id": "R-TRUST-001", "category": "trust/key management", "severity": "HIGH", "status": "mitigated", "mitigation": "BRL fail-closed + domain-separated keys (ADR-038)" },
+                { "risk_id": "R-TRUST-001", "category": "trust/key management", "severity": "HIGH", "status": "mitigated", "mitigation": "BRL fail-closed + domain-separated keys (ADR-027)" },
                 { "risk_id": "R-EVID-001", "category": "evidence integrity", "severity": "MEDIUM", "status": "mitigated", "mitigation": "SHA-256 canonical hashing (tamper-detect)" }
             ], "note": NOTE
         },

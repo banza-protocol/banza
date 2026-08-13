@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
-// M2.19G.4 (ADR-070) — navigable contexts in the single BanzAI interface. These source-level assertions
+// M2.19G.4 (ADR-042) — navigable contexts in the single BanzAI interface. These source-level assertions
 // track the safety-load-bearing shape of the new route segments and the always-mounted workspace: the
 // segments are CLOSED slugs resolved server-side (never a caller-supplied URL), the single session is
 // mounted once in the shared layout, and the navigation contexts are never conflated with the three
@@ -11,7 +11,7 @@ import path from "node:path";
 const root = path.resolve(__dirname, "..");
 const read = (p: string) => readFileSync(path.join(root, p), "utf8");
 
-describe("M2.19G.4 — navigable contexts are closed, server-resolved route segments (ADR-070)", () => {
+describe("M2.19G.4 — navigable contexts are closed, server-resolved route segments (ADR-042)", () => {
   it("mounts the single always-mounted workspace ONCE in the shared /banzai layout", () => {
     const layout = read("app/banzai/layout.tsx");
     expect(layout).toContain("BanzaiWorkspaceProvider");

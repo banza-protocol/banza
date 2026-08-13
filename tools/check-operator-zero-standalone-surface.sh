@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Operador Zero standalone surface guard (ADR-052, M2.12G).
+# Operador Zero standalone surface guard (ADR-041, M2.12G).
 #
 # After activation, zero.banza.network is the SINGLE, dedicated, standalone surface of the Operador
 # Zero: its own shell (no global BANZA header/nav/footer), served from the internal /oz route; the old

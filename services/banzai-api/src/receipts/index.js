@@ -1,4 +1,4 @@
-// Service facade for the durable validation receipt store (ADR-076 §D-076-08).
+// Service facade for the durable validation receipt store (ADR-042 §D-076-08).
 //
 // Persistence is a durable SIDE-EFFECT of validation: the receipt is always returned to the caller in
 // the HTTP body; persisting it additionally makes the run consultable/comparable/reproducible later.
@@ -16,7 +16,7 @@ export function isEnabled(env = process.env) {
   return env.BANZAI_RECEIPTS_ENABLED === "1" && !!env.DATABASE_URL;
 }
 
-// Persistence-status vocabulary (ADR-076 correction 1) — an execution is only "durably concluded" when
+// Persistence-status vocabulary (ADR-042 correction 1) — an execution is only "durably concluded" when
 // PERSISTED. On DB failure the engine result still stands, but the caller MUST surface the honest status
 // and MUST NOT present a receipt_reference / history / comparison / reproduction as available.
 export const PersistenceStatus = {
@@ -139,7 +139,7 @@ export async function diffExecutions(aId, bId, workspace, env = process.env) {
   return store.compareExecutions(env, aId, bId, workspace);
 }
 
-// ADR-078 read-only telemetry: journey/per-step duration metrics over persisted executions. FAIL-SAFE for
+// ADR-042 read-only telemetry: journey/per-step duration metrics over persisted executions. FAIL-SAFE for
 // the agent path — a disabled store or a DB outage returns an honest `receipts_disabled` shape (n:0), never
 // throws, so the pipeline degrades to an honest INSUFFICIENT_MEASUREMENTS answer rather than an error.
 export async function readDurationMetrics(filters, env = process.env) {

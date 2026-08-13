@@ -2,7 +2,7 @@
 name = "banza-simb"
 version = "0.1.0"
 edition = "2021"
-description = "banza-simb (ADR-037, R8): a local, deterministic, in-process Rust simulator of a BANZA operator and federation peer. Test-only: no real funds, no network, no Postgres, no secrets, no production. Drives the Rust conformance runner without a live operator."
+description = "banza-simb (ADR-043, R8): a local, deterministic, in-process Rust simulator of a BANZA operator and federation peer. Test-only: no real funds, no network, no Postgres, no secrets, no production. Drives the Rust conformance runner without a live operator."
 license = "Apache-2.0"
 
 [lib]

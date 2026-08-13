@@ -1,13 +1,13 @@
 # BanzAI API — production image. Zero runtime dependencies (Node built-ins only).
 # Default provider is the deterministic offline mock. Real inference is either a HOSTED
 # external API (deepseek | qwen, off-host) or the internal local_qwen (llama.cpp on the
-# Docker network, ADR-044) — selected via LLM_PROVIDER at deploy time. This banzai-api
+# Docker network, ADR-042) — selected via LLM_PROVIDER at deploy time. This banzai-api
 # image itself never contains models, keys or GPU dependencies; the local model runs in
 # the separate, sandboxed llama-local service from a read-only, git-ignored volume.
 FROM node:22-alpine AS base
 WORKDIR /app
 
-# Production deps: only `pg` (M2.19G.3 onboarding persistence as banzai_rw; ADR-069/ADR-042). No
+# Production deps: only `pg` (M2.19G.3 onboarding persistence as banzai_rw; ADR-040/ADR-026). No
 # lockfile committed; the pin is in package.json. The image still contains no models, keys or GPU deps.
 COPY package.json ./
 RUN npm install --omit=dev --no-audit --no-fund

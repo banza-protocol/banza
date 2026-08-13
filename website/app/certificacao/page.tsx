@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PageHero, Section, Container, StatusNote, MoreLink } from "@/components/ui";
 
 // M2.19G — /certificacao is the REAL owning page for BANZA Conformance & Interoperability Certification
-// (Layer 2, ADR-064/065/066). It replaces the former redirect into the reference chapter. It presents the
+// (Layer 2, ADR-034/065/066). It replaces the former redirect into the reference chapter. It presents the
 // L2 model exactly as the canonical architecture defines it: a per-implementation, evidence-based,
 // Rust-decided, reproducible, hash-bound, scoped and time-limited determination against a public,
 // versioned profile. It certifies an implementation, never an entity, and confers no licence, admission
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/certificacao" },
 };
 
-// The three objects of the L2 model (ADR-064): the yardstick, the subject, the verdict.
+// The three objects of the L2 model (ADR-034): the yardstick, the subject, the verdict.
 const CHAIN = [
   {
     k: "PERFIL",
@@ -38,7 +38,7 @@ const CHAIN = [
   },
 ] as const;
 
-// Exactly what a Certification Record binds to (ADR-064 D-064-03).
+// Exactly what a Certification Record binds to (ADR-034 D-064-03).
 const BINDING = [
   { f: "implementation_id + implementation_hash", d: "O sujeito — o build exacto, ligado ao hash do seu conteúdo." },
   { f: "operador (declared_by)", d: "A entidade declarante, para atribuição e contacto — nunca o sujeito da certificação." },
@@ -50,7 +50,7 @@ const BINDING = [
   { f: "validity (issued_at · expires_at)", d: "A janela de validade. Fora dela a certificação deixa de ser válida." },
 ] as const;
 
-// The closed, Rust-decided certification-state machine (ADR-066). Only CERTIFIED reads as valid.
+// The closed, Rust-decided certification-state machine (ADR-035). Only CERTIFIED reads as valid.
 const STATES = [
   { s: "NOT_CERTIFIED", tone: "neutral", d: "Estado por omissão (fail-closed). Não certificado — a ausência de um veredicto válido lê-se sempre assim." },
   { s: "CERTIFIED", tone: "ok", d: "Certificado, dentro do âmbito e da janela de validade, com a evidência a reproduzir. É o único estado que se lê como válido." },
@@ -60,7 +60,7 @@ const STATES = [
   { s: "SUPERSEDED", tone: "neutral", d: "Substituído por um registo mais recente. Não certificado." },
 ] as const;
 
-// A closed enum of machine-readable reason codes decided only by Rust (ADR-064/066). Illustrative subset.
+// A closed enum of machine-readable reason codes decided only by Rust (ADR-034/066). Illustrative subset.
 const REASON_CODES = [
   { c: "OK_CONFORMANT_INTEROPERABLE", d: "Conforme e interoperável — o único veredicto positivo." },
   { c: "FAIL_CONFORMANCE", d: "Falhou a verificação de conformidade." },
@@ -71,7 +71,7 @@ const REASON_CODES = [
   { c: "FAIL_REVOKED", d: "Presente na lista de revogação." },
 ] as const;
 
-// The three distinct determinations that never imply one another (ADR-061 non-propagation).
+// The three distinct determinations that never imply one another (ADR-004 non-propagation).
 const DETERMINATIONS = [
   { t: "Certificação técnica", layer: "Camada 2 · BANZA", d: "Uma implementação demonstrou conformidade e interoperabilidade contra um perfil público. Decidida por Rust, sobre evidência." },
   { t: "Admissão a esquema", layer: "Camada 3 · esquema", d: "Um esquema operacional admite uma entidade/implementação como participante, segundo as suas próprias regras. Pode exigir certificação válida — nunca é implicada por ela." },
@@ -275,7 +275,7 @@ export default function CertificacaoPage() {
             A validação oficial utiliza exclusivamente artefactos obtidos dos endpoints públicos da
             implementação seleccionada: o BanzAI resolve o alvo no Registo Técnico (operador →
             implementação → origem canónica → descoberta) e obtém cada artefacto por uma camada segura de
-            fetch em Rust — nunca pelo navegador (ADR-068). O resultado é específico da implementação, do
+            fetch em Rust — nunca pelo navegador (ADR-038). O resultado é específico da implementação, do
             profile, da versão, do ambiente, do âmbito, dos artefactos e do momento da avaliação. Validação
             técnica não é certificação emitida; certificação técnica não é admissão num scheme nem
             autorização regulatória.

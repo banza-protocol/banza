@@ -3,7 +3,7 @@
 // Client search island for the Registo Técnico explorer. It NEVER fetches: it filters, in the browser,
 // the closed set of entries the Server Component already fetched and validated (operator/implementation
 // rows from /operators, validated server-side). No autocomplete, no invented suggestions, no network
-// round-trip on keystroke — so the ADR-068 posture holds (the browser never resolves a validation target).
+// round-trip on keystroke — so the ADR-038 posture holds (the browser never resolves a validation target).
 // Four honest states only: (1) entries === null → the /operators state was NOT confirmed (outage or
 // invalid payload) → disabled input pointing at the machine route, never presented as "empty";
 // (2) confirmed-empty → disabled input, valid-empty note; (3) query empty → all;

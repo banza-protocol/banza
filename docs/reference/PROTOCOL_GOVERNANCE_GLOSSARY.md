@@ -22,7 +22,7 @@
 | **spec** — specification | Describes the protocol's rules, formats, expected behaviour and interfaces. Lives in `spec/`. Distinct from implementation. | The spec says what is correct; an operator implements it. Not code, not certification. | `spec/` |
 | **schema** | Defines the structure and validation of data — required fields, types, formats. | Validates structure; does not authorize anything. | `contracts/` |
 | **contract** | A verifiable expectation of behaviour, interface or compatibility between components/operators (OpenAPI, JSON schemas). | The source of truth operators implement; not a business agreement or licence. | `contracts/` |
-| **invariant** | A non-negotiable integrity rule the protocol guarantees — families `INV-LEDGER`, `INV-WALLET`, `INV-SETTLE`, `INV-IDEM`, `INV-RECON`, `INV-QR`. | An integrity guarantee; never weakened for convenience. | `decisions/adr/ADR-006-*`, invariants registry |
+| **invariant** | A non-negotiable integrity rule the protocol guarantees — families `INV-LEDGER`, `INV-WALLET`, `INV-SETTLE`, `INV-IDEM`, `INV-RECON`, `INV-QR`. | An integrity guarantee; never weakened for convenience. | `decisions/adr/ADR-011-*`, invariants registry |
 
 ## Engineering & process
 

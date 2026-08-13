@@ -1,6 +1,6 @@
 "use client";
 
-// BanzAI operator onboarding — Phase 0 (M2.19G.3, ADR-069). A single in-shell mode with three paths
+// BanzAI operator onboarding — Phase 0 (M2.19G.3, ADR-040). A single in-shell mode with three paths
 // (consult a published operator · submit a new operator · continue a candidature), passwordless
 // email-OTP login, a private Candidate Registry (recovery), and .well-known origin proof. Every
 // security decision is made by the Rust backend (banzai-onboarding) reached same-origin under

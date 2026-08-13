@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# M2.19G.1 (ADR-068 §4.8/§30) — fetch→receipt origin binding guard (§37, invariant 9).
+# M2.19G.1 (ADR-038 §4.8/§30) — fetch→receipt origin binding guard (§37, invariant 9).
 #
 # Each OperationReceipt binds the verdict to the EXACT origin of its inputs. The receipt builder in
 # services/banzai-api/src/validate.js must populate: endpoint, resolved_host, fetched_at, http_status,
@@ -17,7 +17,7 @@ fl() { printf 'FAIL: %s\n' "$1"; fail=1; }
 
 VALIDATE=services/banzai-api/src/validate.js
 
-echo "== banzai-fetch-receipt-binding-check (M2.19G.1 / ADR-068 §4.8/§30) =="
+echo "== banzai-fetch-receipt-binding-check (M2.19G.1 / ADR-038 §4.8/§30) =="
 
 # ── self-test ───────────────────────────────────────────────────────────────────────────────────────
 st=0
@@ -55,4 +55,4 @@ printf '%s\n' "$body" | grep -qE 'primaryResp|const p = primaryResp' \
 
 echo
 if [ "$fail" -ne 0 ]; then echo "banzai-fetch-receipt-binding-check: FAIL"; exit 1; fi
-echo "banzai-fetch-receipt-binding-check: ✓ each receipt binds endpoint/host/fetched_at/status/type/hash/signature (ADR-068 §4.8)"
+echo "banzai-fetch-receipt-binding-check: ✓ each receipt binds endpoint/host/fetched_at/status/type/hash/signature (ADR-038 §4.8)"
