@@ -590,7 +590,11 @@ pub fn document_lookup_card(question: &str, document_id: &str) -> Option<Documen
     // is not missing information — it is the policy. Saying "não declarado" would invite the reader to
     // wonder whether the decision still stands.
     let status = if doc.status.is_empty() {
-        if doc.kind == "RFC" { "publicada".to_string() } else { "em vigor".to_string() }
+        if doc.kind == "RFC" {
+            "publicada".to_string()
+        } else {
+            "em vigor".to_string()
+        }
     } else {
         doc.status.clone()
     };

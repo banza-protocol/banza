@@ -77,10 +77,7 @@ fn duplicate_signer_is_one_authority() {
 
 #[test]
 fn no_signatures_do_not_authorise() {
-    assert_eq!(
-        status_with(vec![]),
-        "M2_ROOT_CEREMONY_BLOCKED_BY_THRESHOLD"
-    );
+    assert_eq!(status_with(vec![]), "M2_ROOT_CEREMONY_BLOCKED_BY_THRESHOLD");
 }
 
 #[test]
@@ -115,7 +112,9 @@ fn a_valid_signature_beside_an_invalid_one_fails_closed() {
 // against real Ed25519 verification rather than asserted about.
 
 fn three_authorities() -> (Vec<TestKeypair>, Value) {
-    let kps: Vec<TestKeypair> = (0u8..3).map(|i| TestKeypair::from_seed(&[i + 1; 32])).collect();
+    let kps: Vec<TestKeypair> = (0u8..3)
+        .map(|i| TestKeypair::from_seed(&[i + 1; 32]))
+        .collect();
     let mut input = valid_input();
     let keys: Vec<Value> = (0..3)
         .map(|i| {

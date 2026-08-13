@@ -1478,7 +1478,10 @@ mod tests {
             SourceKind::Fixture
         );
         assert_eq!(
-            source_kind("decisions/adr/ADR-001-open-financial-protocol-what-banza-is-and-is-not.md", "adr"),
+            source_kind(
+                "decisions/adr/ADR-001-open-financial-protocol-what-banza-is-and-is-not.md",
+                "adr"
+            ),
             SourceKind::AdrRfc
         );
         assert_eq!(
