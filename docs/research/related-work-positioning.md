@@ -39,65 +39,95 @@ own specification supports, and says what BANZA lacks by comparison before sayin
 
 ### What it is
 
-Mojaloop is **both software and specification**, governed by the Mojaloop Foundation and published open
+Mojaloop is **both specification and software**, governed by the Mojaloop Foundation and published open
 source. Its documentation describes open-source implementations together with "a standard set of
-interfaces a DFSP can implement to connect to the system." The specification set includes the FSP
-Interoperability (FSPIOP) API, an Administration API, a Settlement API and a Third-party Payment
-Initiation API.
+interfaces a DFSP can implement to connect to the system."
 
-Describing Mojaloop as "an implementation, not a specification" would be **factually wrong**. It has a
-published, versioned, interoperable API specification with a conformance-testing toolkit. Any positioning
-that depends on Mojaloop lacking a specification is unsound.
+The FSPIOP specification document set is substantial: a Logical Data Model, Generic Transaction Patterns,
+Use Cases, the API Definition, a Central Ledger API, JSON Binding Rules, Scheme Rules, and PKI Best
+Practices, Signature and Encryption documents. There are also Administration, Settlement and Third-party
+Payment Initiation APIs.
 
-### Its architectural boundary
+Describing Mojaloop as "an implementation, not a specification" would be **factually wrong**. Any
+positioning that depends on Mojaloop lacking a specification is unsound.
 
-Mojaloop's architecture is **hub-centred and scheme-bound**. Its documentation states that "a set of
-central services provides a hub through which money can flow from one DFSP to another," comparing it to
-"a central bank or clearing house," and that these central services can "provide identity lookup, fraud
-management, and enforce scheme rules." The Central Ledger API exists so that **Hub Operators** can manage
-participants, endpoints, accounts, limits and positions.
+### Its architectural boundary — specification and platform are not the same thing
 
-Three consequences follow directly, and they are the boundary:
+This distinction has to be made carefully, because the obvious summary is wrong.
 
-1. **A hub operator is architecturally required.** The hub is not an optional deployment convenience; the
-   central services are where positions live and where scheme rules are enforced.
-2. **The system is scoped to a scheme.** Participants are DFSPs onboarded into a specific hub under that
-   scheme's rules. Interoperability is *within* the scheme.
-3. **It moves value.** Positions, limits and settlement are in scope for the system, even where the
-   FSPIOP API itself scopes out post-transaction reconciliation, clearing and settlement.
+**The FSPIOP specification does not require a hub.** It states, in its own words:
 
-Mojaloop's own conformance instrument matches that boundary. The ML Testing Toolkit is documented as a
-tool for schemes to ease **DFSP onboarding** — schemes "provide a set of rules and tests on the toolkit
-and DFSPs can use it for self testing (or self-certification in some cases)," to verify integration
-between a DFSP and a Mojaloop hub. It is scheme-scoped integration testing, and it is designed to be.
+> "The API does not specify any front-end services between a Payer or Payee and its own FSP; all services
+> defined in the API are between FSPs. FSPs are connected either (a) directly to each other or (b) by a
+> _Switch_ placed between the FSPs to route financial transactions to the correct FSP."
+
+The specification carries that through: elsewhere it refers to the "optional Switch" when describing
+expiry and timeout handling, and notes that an Account Lookup Service "could either be implemented by the
+switch or as a separate service, depending on the setup in the market." So at the level of the
+interoperability specification, **bilateral and Switch-mediated topologies are both admitted**, and any
+claim that "a hub is architecturally required in Mojaloop" is false as a general statement.
+
+**The reference platform and operational architecture are hub-centred.** That is a different layer of the
+same project. The technical documentation describes "a set of central services [that] provides a hub
+through which money can flow from one DFSP to another," comparing it to "a central bank or clearing
+house," able to "provide identity lookup, fraud management, and enforce scheme rules." The Central Ledger
+API exists so that **Hub Operators** can manage participants, endpoints, accounts, limits and positions.
+
+Both statements are true, of different things. Keeping them apart is the whole of the correction:
+
+| | What it is | Topology |
+|---|---|---|
+| FSPIOP specification | An interoperability API between FSPs | Bilateral **or** Switch-mediated; the Switch is optional |
+| Mojaloop platform / reference deployment | An open-source platform and operational architecture for running a payment scheme | Organised around a Hub / Central Services, with central ledger, participant management, positions and limits, and settlement-related operations |
+
+### Conformance: a difference of scope and evidence model, not of existence
+
+Mojaloop has its own conformance instrumentation. The ML Testing Toolkit is documented as a tool by which
+schemes "provide a set of rules and tests … and DFSPs can use it for self testing (or self-certification
+in some cases)," to verify integration between a DFSP and a Mojaloop hub, easing DFSP onboarding.
+
+It would be wrong to suggest Mojaloop has only informal onboarding. It has a specification, testing
+tooling and onboarding processes. **The difference worth studying is scope and evidence model:** the
+toolkit's documented purpose is integration testing between a participant and a hub under a scheme's
+rules, whereas BANZA conformance is stated against a published specification and produces signed evidence
+intended to be re-verified by a third party without access to either endpoint. Which model suits which
+purpose is not settled here, and this document does not claim one is better.
 
 ### What that means for BANZA
 
-The difference is not quality, coverage or maturity — Mojaloop is deployed, carries real traffic, and
-solves problems BANZA has never solved. The difference is **where the boundary is drawn**:
+The accurate formulation, checked against the sources quoted above:
 
-| | Mojaloop | BANZA 1.0.0 |
-|---|---|---|
-| Central component | A hub is required; central services hold positions | None. No hub, no switch, no central ledger |
-| Scope of interoperability | Within a scheme, between onboarded DFSPs | Between implementations, independent of any scheme |
-| Value | Positions, limits, settlement are in scope | No funds move. Nothing in the protocol holds value |
-| Conformance | Scheme-scoped onboarding tests against a hub | Profile conformance against a specification, with signed evidence, no hub to test against |
-| Who must exist for it to work | A hub operator, a scheme | Nobody. The artifacts verify offline against published keys |
+> Mojaloop combines an interoperability specification with an open-source platform and operational
+> architecture for deploying payment schemes, including a Hub / Central Services model. Its FSPIOP
+> specification can support bilateral as well as Switch-based communication. BANZA places stronger
+> architectural emphasis on separating the public protocol specification, deterministic conformance
+> evidence, and operational schemes, such that no BANZA-maintained operational infrastructure is required
+> as the authority or mandatory transaction intermediary.
 
-Read honestly, these are **complementary rather than competing**. A Mojaloop scheme is exactly the kind
-of thing BANZA calls a Layer 3 operational scheme: it has an operator, it moves money, it admits
-participants under its own rules. BANZA Layer 1 and Layer 2 sit below that — they define a specification
-and a way to demonstrate conformance to it that does not presuppose which scheme, or whether any scheme
-exists at all.
+That is a difference of **emphasis and separation**, not a difference between "hub" and "no hub". BANZA
+moves no value and runs no central service of any kind, which is a stronger statement than the FSPIOP
+specification makes about itself but a weaker basis for comparison than it first appears: BANZA is not
+specifying transfers at all.
 
-The honest cost of BANZA's boundary is stated plainly: because BANZA runs no hub and moves no value, it
-also demonstrates none of the operational properties a running scheme demonstrates daily. Mojaloop has
-production evidence. BANZA has specification and verifiable artifacts, and **no independent
-implementation has yet been demonstrated**.
+**Layer 3, as a BANZA-side reading.** A deployed Mojaloop Hub and its scheme is conceptually comparable
+to what BANZA classifies as an independent operational scheme in Layer 3. This is **BANZA's architectural
+interpretation, not a description Mojaloop makes of itself** — Mojaloop does not use BANZA's layer
+categories, and nothing here should be quoted as though it did.
 
-**Conclusion: not a substitute in either direction.** BANZA adopts nothing from Mojaloop's architecture
-because the two occupy different layers, and BANZA claims no superiority over a system operating at a
-layer it deliberately does not occupy.
+### On maturity, stated only as far as the sources go
+
+Mojaloop publishes an operating open-source platform, deployment tooling and testing instrumentation, and
+names central banks, hub operators and financial institutions as its intended users. The primary sources
+consulted for this document make **no concrete claim about specific production deployments**, so this
+document makes none either, and no such claim should be attributed to it.
+
+What can be stated without qualification is the BANZA-side fact, which is verifiable in this repository:
+**no independent implementation of BANZA has yet been demonstrated.** Whatever Mojaloop's deployment
+footprint is, BANZA's is empty, and that asymmetry is real regardless of how the other side is counted.
+
+**Conclusion: not a substitute in either direction.** BANZA adopts nothing from Mojaloop's platform
+architecture because the two address different layers, and claims no superiority over a project operating
+at a layer BANZA deliberately does not occupy.
 
 ---
 
@@ -215,13 +245,22 @@ trees:
 And it explicitly does **not** provide, on its own:
 
 - prevention of misissuance
-- protection against a log presenting **inconsistent views to different clients** — split-view detection
-  requires gossip or other out-of-band mechanisms
+- protection against a log presenting **inconsistent views to different clients**
 - trust decisions about which logs to rely on
 
-That last pair matters here and is regularly overstated in comparisons: **CT does not, by itself, deliver
-cross-observer consistency either.** It delivers the proofs that make gossip *able* to detect a split
-view, and it requires monitors and auditors to actually be running for its guarantees to be realised.
+The second of those is stated by the RFC itself, in its Introduction, and it is worth quoting in full
+because comparisons regularly overstate what CT delivers:
+
+> "The log auditing mechanisms described in this document can be circumvented by a misbehaving log that
+> shows different, inconsistent views of itself to different clients. Therefore, it is necessary to treat
+> each log as a trusted third party. While mechanisms are being developed to address these shortcomings
+> and thereby avoid the need to blindly trust logs, such mechanisms are outside the scope of this
+> document."
+
+So **CT does not, by itself, deliver cross-observer consistency either.** Detecting a split view requires
+clients to compare the Signed Tree Heads they were served — a gossip mechanism that RFC 9162 explicitly
+places outside its own scope. CT delivers the proofs that make such comparison *possible*, and requires
+monitors and auditors to actually be running for its guarantees to be realised.
 
 ### What that means for BANZA, stated against what BANZA now actually does
 
@@ -233,7 +272,7 @@ against CT, the comparison is now precise rather than approximate:
 | Rollback to a previously superseded version | Detected, stateful, per object and authority | Detected via consistency proofs |
 | Two different artifacts at one already-observed ordering point | Detected as a local conflict, fail-closed | Detected as a log inconsistency, with proofs |
 | Append-only public history | **No** | Yes, with inclusion and consistency proofs |
-| Cross-observer consistency | **No** | Only with gossip; not from the log alone |
+| Cross-observer consistency | **No** | Not from the log alone — needs a gossip mechanism the RFC does not define |
 | Staleness on first observation | **Not detected** | Detectable by a monitor watching the log |
 | Roles required to operate | None beyond the verifier | Log operators, monitors, auditors |
 
@@ -294,5 +333,6 @@ All primary; retrieved for this analysis.
 - [Decentralized Identifiers (DIDs) v1.0](https://www.w3.org/TR/did-core/) (W3C Recommendation, 19 July 2022)
 - [Verifiable Credentials Data Model v2.0](https://www.w3.org/TR/vc-data-model-2.0/) (W3C Recommendation, 15 May 2025)
 - [Mojaloop Technical Overview](https://docs.mojaloop.io/technical/) (Mojaloop Foundation)
-- [Mojaloop FSPIOP API](https://docs.mojaloop.io/api/fspiop/) and [mojaloop/mojaloop-specification](https://github.com/mojaloop/mojaloop-specification) (Mojaloop Foundation)
+- [Mojaloop FSPIOP API](https://docs.mojaloop.io/api/fspiop/) and [mojaloop/mojaloop-specification](https://github.com/mojaloop/mojaloop-specification) (Mojaloop Foundation) — the topology passage is quoted from `fspiop-api/documents/API-Definition_v1.1.1.md` §1 in that repository
+- [mojaloop.io](https://mojaloop.io/) (Mojaloop Foundation) — consulted for deployment claims; it makes none, which is why this document makes none
 - [Mojaloop ML Testing Toolkit](https://docs.mojaloop.io/technical/ml-testing-toolkit/) and [mojaloop/ml-testing-toolkit](https://github.com/mojaloop/ml-testing-toolkit) (Mojaloop Foundation)

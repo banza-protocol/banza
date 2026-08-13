@@ -13,6 +13,9 @@
 #   5. every comparison ends in an explicit conclusion, including "do not adopt"
 #   6. the CT section keeps the two facts that make the comparison honest
 #   7. no superiority claim over the compared work
+#   8. Mojaloop: specification and platform stay distinguished; no absolutist hub claim; Layer 3
+#      comparison marked as BANZA's own reading; its conformance tooling acknowledged
+#   9. the RFC 9162 split-view limitation is quoted from the RFC, not paraphrased
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -93,5 +96,48 @@ while IFS= read -r hit; do
   fail "the analysis claims superiority over the work it compares against: $hit"
 done < <(grep -nEi 'BANZA is (better|superior|stronger|more (secure|advanced))|(better|superior) than (Mojaloop|CT|DID|Certificate Transparency)' "$DOC" || true)
 echo "  ok: no superiority claim"
+
+# 8. Mojaloop precision. The easy summary — "Mojaloop requires a hub" — is false at the level of the
+#    FSPIOP specification, which admits bilateral connection as well as a Switch. The specification and
+#    the reference platform must stay distinguished, and the Layer 3 comparison must stay marked as
+#    BANZA's own reading rather than something Mojaloop says about itself.
+#    As in check 7, the match must be read in context: a line that QUOTES the claim in order to refute
+#    it ("… is false as a general statement") is the document doing its job, not the defect.
+while IFS= read -r hit; do
+  case "$(printf '%s' "$hit" | tr '[:upper:]' '[:lower:]')" in
+    *" not "*|*never*|*" no "*|*none*|*false*|*wrong*|*unsound*) continue ;;
+  esac
+  fail "the document states generally that Mojaloop requires a hub — the FSPIOP specification admits bilateral connection: $hit"
+done < <(grep -nEi 'hub (is|are) (architecturally )?(required|mandatory|obligatory)|requires a (hub|switch)' "$DOC" || true)
+grep -q 'directly to each other' "$DOC" \
+  || fail "the FSPIOP topology passage (direct-or-Switch) must be quoted, not paraphrased away"
+grep -q 'optional Switch' "$DOC" \
+  || fail "the specification's own 'optional Switch' wording must be retained"
+grep -qi 'specification does not require a hub' "$DOC" \
+  || fail "the document must state plainly that the FSPIOP specification does not require a hub"
+grep -qi 'reference platform and operational architecture are hub-centred' "$DOC" \
+  || fail "the document must keep the platform/deployment side of the distinction too"
+grep -q "BANZA's architectural\s*$\|BANZA's architectural interpretation\|BANZA-side reading" "$DOC" \
+  || fail "the Layer 3 comparison must be marked as BANZA's own interpretation"
+grep -qi 'would be wrong to suggest Mojaloop has only informal onboarding' "$DOC" \
+  || fail "the document must acknowledge Mojaloop's specification, testing tooling and onboarding processes"
+grep -qi 'no concrete claim about specific production deployments' "$DOC" \
+  || fail "deployment maturity must stay bounded by what the primary sources actually claim"
+echo "  ok: Mojaloop — specification and platform distinguished, no absolutist hub claim, Layer 3 marked as interpretation"
+
+# 9. CT split-view precision, quoted rather than paraphrased. Matched against the document with its
+#    line breaks flattened: a quotation that is rewrapped by an editor is still the same quotation, and
+#    a guard that fails on rewrapping teaches people to fight their editor instead of keeping the quote.
+#    Blockquote markers are stripped first: they are how a quotation is presented, not part of it.
+FLAT=$(sed 's/^[[:space:]]*>[[:space:]]\{0,1\}//' "$DOC" | tr '\n' ' ' | tr -s ' ')
+case "$FLAT" in
+  *"shows different, inconsistent views of itself to different clients"*) ;;
+  *) fail "the RFC 9162 split-view passage must be quoted verbatim" ;;
+esac
+case "$FLAT" in
+  *"outside the scope of this document"*) ;;
+  *) fail "the quote must include that such mechanisms are outside RFC 9162's scope" ;;
+esac
+echo "  ok: CT split-view limitation quoted from the RFC itself"
 
 echo "related-work-boundary: OK — informative, primary-sourced, one-way, and bounded"

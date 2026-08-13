@@ -163,7 +163,7 @@ reference-roadmap-durability-check:
 reference-faq-semantic-consistency-check:
 	@bash tools/check-reference-faq-semantic-consistency.sh
 
-## related-work-boundary-check: Related work stays informative and bounded — docs/research/related-work-positioning.md declares itself outside the normative surface, the manifest excludes it and nothing normative derives a requirement from it, the four comparisons (Mojaloop, DID, VC, CT) each reach a stated conclusion with "do not adopt" permitted, CT is described with both its added property and its own gossip/Experimental limits, and the bounding sentence on the monotonic mechanism survives verbatim
+## related-work-boundary-check: Related work stays informative and bounded — docs/research/related-work-positioning.md declares itself outside the normative surface, the manifest excludes it and nothing normative derives a requirement from it, the four comparisons (Mojaloop, DID, VC, CT) each reach a stated conclusion with "do not adopt" permitted, Mojaloop keeps the FSPIOP-specification/reference-platform distinction (no absolutist hub claim; bilateral-or-Switch quoted; Layer 3 marked as BANZA's own reading), CT is quoted on its own split-view limitation and Experimental status, and the bounding sentence on the monotonic mechanism survives verbatim
 related-work-boundary-check:
 	@bash tools/check-related-work-boundary.sh
 
