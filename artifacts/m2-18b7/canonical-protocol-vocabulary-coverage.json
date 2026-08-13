@@ -12,17 +12,17 @@
     "out_of_scope_is_curated_not_fallback": true
   },
   "candidate_summary": {
-    "total_candidates": 6114,
-    "accepted": 1007,
-    "rejected": 5107,
+    "total_candidates": 4852,
+    "accepted": 879,
+    "rejected": 3973,
     "rejected_by_reason": {
-      "NON_TERMINOLOGICAL": 3414,
-      "GENERIC_PROSE": 1110,
-      "PATH_FRAGMENT": 342,
-      "MARKUP_FRAGMENT": 45,
-      "BROKEN_TOKEN": 189,
+      "NON_TERMINOLOGICAL": 2660,
+      "GENERIC_PROSE": 935,
+      "PATH_FRAGMENT": 189,
+      "MARKUP_FRAGMENT": 35,
+      "BROKEN_TOKEN": 147,
       "STOPWORD": 7
     }
   },
-  "checksum": "20810834311bdccc"
+  "checksum": "18f669d75ab84a52"
 }

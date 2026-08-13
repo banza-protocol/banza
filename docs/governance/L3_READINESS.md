@@ -94,4 +94,4 @@ demonstrated by verifiable conformance evidence that any party can independently
 by an authority; production federation depends on milestone M3.
 
 See the phase report:
-[`PHASE_BX1_9_BANZAI_L3_FEDERATION_READINESS_2026_07.md`](PHASE_BX1_9_BANZAI_L3_FEDERATION_READINESS_2026_07.md).
+.

@@ -97,4 +97,4 @@ surface, L2 prepares the payment flow. None of them is certification; conformanc
 verifiable conformance evidence that any party can independently reproduce, never awarded by an authority.
 
 See the phase report:
-[`PHASE_BX1_8_BANZAI_L2_READINESS_PAYMENT_FLOW_2026_07.md`](PHASE_BX1_8_BANZAI_L2_READINESS_PAYMENT_FLOW_2026_07.md).
+.

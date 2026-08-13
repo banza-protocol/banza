@@ -9,13 +9,13 @@
 # to a repository that will be deleted is a broken promise). The runtime must never be framed as a "mock
 # façade", and the old repo must never be framed as the canonical/authoritative BanzAI core.
 #
-# Over services/banzai-api/README.md, docs/governance/BANZAI_COMPONENT_BOUNDARY_2026_07.md,
-# services/banzai-api/src/knowledge.js, website/content/BANZA_REFERENCIA.md, website/lib/site.ts,
+# Over services/banzai-api/README.md, services/banzai-api/src/knowledge.js, website/content/BANZA_REFERENCIA.md, website/lib/site.ts,
 # CLAUDE.md, README.md, the PT/EN reference mirrors and the conformance guide:
 #   1. FAILS on "mock façade" / "demonstration facade" framing.
 #   2. FAILS on any claim (negation-aware) that banza-protocol/banzai is the canonical/authoritative core.
-#   3. asserts README + COMPONENT_BOUNDARY name services/banzai-api as the canonical runtime AND BANZA as
-#      the sole active BanzAI source.
+#   3. asserts the README and the architecture manifest name services/banzai-api as the canonical
+#      runtime AND BANZA as the sole active BanzAI source. The manifest is checked rather than a prose
+#      restatement: it is what the runtime loads, so drift from it has consequences.
 #   4. FAILS on any link to banza-protocol/banzai OR any archive/frozen/historical/legacy framing of it.
 # ADR history (decisions/adr/**) and governance closure reports are exempt (not scanned).
 #
@@ -25,7 +25,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 README="services/banzai-api/README.md"
-BOUNDARY="docs/governance/BANZAI_COMPONENT_BOUNDARY_2026_07.md"
+MANIFEST="website/content/banzai/architecture-manifest.json"
 KNOWLEDGE="services/banzai-api/src/knowledge.js"
 REFERENCIA="website/content/BANZA_REFERENCIA.md"
 SITE="website/lib/site.ts"
@@ -34,7 +34,7 @@ ROOT_README="README.md"
 REF_PT="docs/reference/pt/completa.md"
 REF_EN="docs/reference/en/complete.md"
 CONFORMANCE="docs/guides/conformance.md"
-FILES=("$README" "$BOUNDARY" "$KNOWLEDGE" "$REFERENCIA" "$SITE" "$CLAUDEMD" "$ROOT_README" "$REF_PT" "$REF_EN" "$CONFORMANCE")
+FILES=("$README" "$KNOWLEDGE" "$REFERENCIA" "$SITE" "$CLAUDEMD" "$ROOT_README" "$REF_PT" "$REF_EN" "$CONFORMANCE")
 
 fail=0
 ok() { printf 'PASS  %s\n' "$1"; }
@@ -82,10 +82,24 @@ if grep -qiE 'canonical BanzAI runtime|is the canonical runtime' "$README" && gr
 else
   fl "$README must name services/banzai-api as the canonical runtime + the sole active BanzAI source"
 fi
-if grep -qiE 'is the canonical runtime' "$BOUNDARY" && grep -qiE 'no separate BanzAI repository|active BanzAI development lives entirely|this monorepo only' "$BOUNDARY"; then
-  ok "$BOUNDARY names services/banzai-api as the canonical runtime + BANZA as the only active source"
+# The second assertion is made against the architecture manifest rather than against a prose
+# restatement of it. The manifest is the artifact the runtime and the website actually load, so a
+# surface that drifts from it drifts from something with consequences; a governance note that said the
+# same thing in words could go stale without anything noticing.
+if python3 - "$MANIFEST" <<'PYEOF'; then
+import json, sys
+m = json.load(open(sys.argv[1], encoding="utf-8"))
+blob = json.dumps(m, ensure_ascii=False)
+canonical_repo = any(
+    isinstance(v, dict) and v.get("repo") == "banza-protocol/banza" and v.get("role") == "canonical"
+    for v in (list(m.values()) + [x for v in m.values() if isinstance(v, list) for x in v])
+    if isinstance(v, dict)
+)
+sys.exit(0 if (canonical_repo and "services/banzai-api" in blob) else 1)
+PYEOF
+  ok "$MANIFEST declares banza-protocol/banza canonical and names services/banzai-api"
 else
-  fl "$BOUNDARY must name services/banzai-api as the canonical runtime + BANZA as the only active source"
+  fl "$MANIFEST must declare banza-protocol/banza as the canonical role and name services/banzai-api"
 fi
 
 echo "== [4/4] no link to — and no archive/frozen/historical framing of — banza-protocol/banzai =="

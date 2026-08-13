@@ -29,7 +29,7 @@ separate `banza-protocol/banzai` repository. That repository was frozen on 2026-
 nothing; it is superseded — **permanently removed by the owner after consolidation (ADR-075)** — not the
 runtime, not the deterministic core, and not a source of truth. The stale framing survives in
 `services/banzai-api/README.md`,
-`docs/governance/BANZAI_COMPONENT_BOUNDARY_2026_07.md`, `services/banzai-api/src/knowledge.js`,
+, `services/banzai-api/src/knowledge.js`,
 `website/content/BANZA_REFERENCIA.md`, `website/lib/site.ts`, and the `apps/` row of `CLAUDE.md`.
 
 The reference chapter on BanzAI (`BANZA_REFERENCIA.md` §12) additionally contradicts itself: one passage

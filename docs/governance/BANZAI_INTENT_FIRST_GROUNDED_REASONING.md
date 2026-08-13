@@ -431,7 +431,7 @@ comportamento em produção). Nunca declarar sucesso com o interpretador desliga
 A M2.18B.1 concluiu, honestamente, que o interpretador não era activável com `qwen3-4b` e que na via do
 interpretador o recall de fronteira era 0.8125 — ou seja, **alguns pedidos sensíveis podiam chegar ao
 modelo**. A M2.18B.2 resolve isto em duas frentes, numa só fase contínua e gated. Detalhe completo em
-[`docs/reports/M2_18B2_BOUNDARY_HARDENING_SEMANTIC_RECOVERY.md`](../reports/M2_18B2_BOUNDARY_HARDENING_SEMANTIC_RECOVERY.md).
+.
 
 **Fronteira determinística (a camada de segurança permanente).** `engines/banzai-query-core/src/boundary.rs`
 é um detector Rust de taxonomia — 23 categorias em cinco famílias sensíveis (**funds,
@@ -472,7 +472,7 @@ mas na avaliação em vivo o único modelo local permitido (`qwen3-4b`) não ati
 0.933 (< 0.95) e, decisivamente, entidade 0.000 (< 0.97): o modelo devolve `proposed_canonical_id: null`
 mesmo com uma lista fechada de candidatos reais. O interpretador **permanece desligado** em produção; a
 Fase 1 é o comportamento vivo. Detalhe em
-[`docs/reports/M2_18B2_BOUNDARY_HARDENING_SEMANTIC_RECOVERY.md`](../reports/M2_18B2_BOUNDARY_HARDENING_SEMANTIC_RECOVERY.md) §12.
+ §12.
 
 ### 8.3 M2.18B.3 — Arquitectura unificada de dois passos (um modelo, dois passos)
 

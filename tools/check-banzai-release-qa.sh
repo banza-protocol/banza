@@ -37,7 +37,6 @@ fi
 
 GATE="docs/quality/BANZAI_RELEASE_QA_GATE.md"
 TEMPLATE="docs/quality/PHASE_REPORT_TEMPLATE.md"
-EXEMPT="docs/quality/qa-gate-legacy-exempt.txt"
 SESSION_RS="engines/banzai-operator-journey/src/session.rs"
 SERVER_JS="services/banzai-api/src/server.js"
 
@@ -49,7 +48,7 @@ note(){ echo "  note: $1"; }
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 
-for f in "$GATE" "$TEMPLATE" "$EXEMPT" "$SESSION_RS" "$SERVER_JS"; do
+for f in "$GATE" "$TEMPLATE" "$SESSION_RS" "$SERVER_JS"; do
   [ -f "$f" ] || { echo "FAIL: missing required input $f"; exit 2; }
 done
 
@@ -179,7 +178,6 @@ checked=0
 for report in docs/governance/PHASE_*.md docs/security/PHASE_*.md; do
   [ -f "$report" ] || continue
   grep -qi "banzai" "$report" || continue
-  grep -qxF "$(basename "$report")" "$EXEMPT" && continue
   checked=$((checked + 1))
 
   if grep -qE '^#{1,4} .*Manual Browser Validation' "$report"; then

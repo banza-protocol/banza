@@ -90,8 +90,7 @@ const DI="engines/banzai-query-core/src/doc-index.json";
 const URL="github.com/"+"banza-protocol/banzai";  // assembled: no contiguous dead-link literal in this guard
 const TOK=/banza-protocol\/banzai(?![-\w])/;          // whole-token repo ref (not banzai-local / banzai-api)
 const ALLOW=/ADR-071|ADR-075/;                         // removal decision + what it supersedes
-const HIST=["docs/governance/PHASE_7X_BANZAI_ARCHITECTURE_ALIGNMENT_2026_07.md",
-            "docs/governance/PHASE_7Y_BANZAI_PUBLIC_PAGE_COGNITIVE_ENGINE_ALIGNMENT_2026_07.md"];
+const HIST=[];
 let bad=0; const M=(k,v,want=0)=>{console.log(`  ${k} = ${v}`); if(v!==want) bad++;};
 const ri=JSON.parse(fs.readFileSync(RI,"utf8"));
 M("active_repo_index_old_banzai_repo_url_literals",
@@ -120,10 +119,32 @@ for w in website/lib/wasm/*.wasm services/banzai-api/src/rustkb/*.wasm; do
   if grep -aq "$URLPAT" "$w"; then fail "active_wasm_old_banzai_repo_url_literals > 0 in $w"; WASM_HITS=1; fi
 done
 [ "$WASM_HITS" -eq 0 ] && ok "active_wasm_old_banzai_repo_url_literals = 0 (ALL compiled WASM URL-free)"
-# repo-index filter is at a fixed point (idempotent)
-node tools/migrations/remove-separate-banzai-repo-chunks.mjs --check >/dev/null 2>&1 \
-  && ok "repo_index_filter_second_run_changes = 0 (migration --check clean)" \
-  || fail "repo-index filter not at fixed point (migration --check drift)"
+# The consolidation property, asserted against the index itself rather than against the one-shot
+# migration that produced it. A completed migration is history; what must remain true is that no
+# indexed chunk claims to come from any repository other than this one. Checking the artifact instead
+# of the tool means the guard keeps working after the tool is gone, and catches a foreign chunk
+# arriving by any route — not only the route the migration knew about.
+python3 - <<'PYEOF' || fail "repo-index carries chunks from a repository other than this one"
+import json, glob, sys
+OWN = "banza-protocol/banza"
+bad = {}
+for f in sorted(glob.glob("engines/banzai-query-core/src/repoindex/*.json")):
+    try:
+        d = json.load(open(f, encoding="utf-8"))
+    except Exception:
+        continue
+    if not isinstance(d, list):
+        continue
+    foreign = sorted({c.get("repo") for c in d
+                      if isinstance(c, dict) and c.get("repo") and c["repo"] != OWN})
+    if foreign:
+        bad[f] = foreign
+if bad:
+    for f, r in bad.items():
+        print("      %s -> %s" % (f, r))
+    sys.exit(1)
+PYEOF
+ok "repo_index_foreign_repo_chunks = 0 (asserted on the index, not on the migration)"
 
 if [ "$FAILED" -ne 0 ]; then
   echo "BANZAI MONOREPO CONSOLIDATION CHECK FAILED ✗"; exit 1

@@ -373,5 +373,4 @@ found.** Specifically absent on active surfaces:
 - `contracts/production/{operation-receipt,journey-receipt,evidence-bundle,conformance-evidence,root-ceremony-evidence}.production.schema.json`
 - `contracts/invariants.json` (OTE / FEDEVAL / ROOT / revocation families)
 - `services/banzai-api/src/validate.js`, `src/journey.js`, `src/onboarding/engine.js`, `src/onboarding/routes.js`, `src/server.js` (routes)
-- `docs/reports/M2_19G3A_OPERATOR_ZERO_ORIGIN_AND_REENROLMENT_CLOSURE.md`
 - `decisions/adr/ADR-040-federation-trust-evaluation-without-certificates.md` (grep-confirmed lines 282, 287, 300)

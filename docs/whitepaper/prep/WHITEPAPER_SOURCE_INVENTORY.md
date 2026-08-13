@@ -218,7 +218,6 @@ whitepaper's certification / trust / receipt / regulatory-state claims are groun
 
 ## A.6 Live evidence — the M2.19G.3A closure report
 
-- `docs/reports/M2_19G3A_OPERATOR_ZERO_ORIGIN_AND_REENROLMENT_CLOSURE.md` — **the one live end-to-end
   evidence source the paper may cite.** Records a real Operador Zero nine-step run (`step_count=9`,
   `protocol_fetch_count=23`) with **honest blockers** (`TRUST_INVALID_ROOT_METADATA`,
   `CONFORMANCE_EVIDENCE_INCOMPLETE`, `EVIDENCE_BUNDLE_INVALID`) → `overall_status=FAILED`,

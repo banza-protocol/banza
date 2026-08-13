@@ -207,7 +207,7 @@ Certification Record** and stays distinct from Certification Status (`NOT_CERTIF
 ## 5. Onboarding + origin proof (ADR-069) and the M2.19G.3A closure
 
 Source: `decisions/adr/ADR-069-simple-secure-operator-onboarding.md` (Accepted, M2.19G.3);
-closure `docs/reports/M2_19G3A_OPERATOR_ZERO_ORIGIN_AND_REENROLMENT_CLOSURE.md`.
+closure .
 
 **Core rule.** Operator onboarding is **a service hosted by BanzAI, not part of the BANZA protocol's
 mandatory rules** (ADR-069 Decision, Core rule). It exists only to (a) protect the public validation

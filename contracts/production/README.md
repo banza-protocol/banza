@@ -113,7 +113,6 @@ never in TypeScript.
 - Canonical primitive style reference: [`../payment-intents/payment-intent.schema.json`](../payment-intents/payment-intent.schema.json)
 - Contracts index: [`../README.md`](../README.md)
 - Financial invariants: [`../invariants.json`](../invariants.json)
-- M2 readiness handoff: [`../../docs/governance/M2_READINESS_HANDOFF_2026_07.md`](../../docs/governance/M2_READINESS_HANDOFF_2026_07.md)
 
 ## Reminder
 

@@ -90,7 +90,6 @@ Open items before this is production-grade: on-call staffing, formal log review,
 None of these turns BANZA into a payment service provider. BANZA remains an open protocol; the authorised
 operators are responsible for real financial services and their licence/authorisation.
 
-See: [`PHASE_BX2_0_SECURITY_RISK_ASSURANCE_2026_07.md`](PHASE_BX2_0_SECURITY_RISK_ASSURANCE_2026_07.md),
-[`RISK_REGISTER.md`](RISK_REGISTER.md), [`THREAT_MODEL.md`](THREAT_MODEL.md),
+See: [`RISK_REGISTER.md`](RISK_REGISTER.md), [`THREAT_MODEL.md`](THREAT_MODEL.md),
 [`SECURITY_CONTROLS_MATRIX.md`](SECURITY_CONTROLS_MATRIX.md),
 [`../governance/BANZA_PROTOCOL_BOUNDARY.md`](../governance/BANZA_PROTOCOL_BOUNDARY.md).

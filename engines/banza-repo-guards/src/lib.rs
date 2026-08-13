@@ -379,7 +379,6 @@ fn banzami_attribution_allowed(path: &str) -> bool {
         // M2.18B.7 DFN-10: the public-edge QA result artifact records the served answer for the same
         // covered entity case ("o que é a Banzami") — identical ADR-002/043 institutional attribution.
         || path == "artifacts/m2-18b7/public-edge-qa.json"
-        || base == "PHASE_M2_9A_PROTOCOL_AGENT_CORE_2026_07.md"
         || path == "website/app/governanca/page.tsx"
         || path == "website/app/licenca/page.tsx"
         // M2.19G: the public reconstruction surfaces the canonical three-layer architecture (L1 protocol ·

@@ -5,7 +5,7 @@
     "principle": "The vocabulary is a semantic registry of real protocol terms derived from the engine's own registries + closed protocol sets; corpus terms are candidates (Phase 1), lexical noise never enters here."
   },
   "source_registry": {
-    "total": 572,
+    "total": 483,
     "by_type": {
       "root-doc": 9,
       "conformance": 80,
@@ -14,22 +14,22 @@
       "openapi": 11,
       "adr": 81,
       "rfc": 7,
-      "doc": 172,
+      "doc": 83,
       "example": 48,
       "spec": 31
     },
     "by_status": {
-      "current": 572
+      "current": 483
     },
     "by_authority_class": {
-      "current": 524,
+      "current": 435,
       "illustrative": 48
     },
     "by_language": {
-      "pt-or-neutral": 572
+      "pt-or-neutral": 483
     },
     "by_origin": {
-      "authored": 572,
+      "authored": 483,
       "generated": 0
     },
     "duplicates": [
@@ -2224,7 +2224,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "23d1a3e9f60203f4"
+        "checksum": "9705803d44dd03b0"
       },
       {
         "id": "contracts-production-brl-production-schema-json",
@@ -3203,7 +3203,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "81d82c91ac3931ba"
+        "checksum": "d86f691084559960"
       },
       {
         "id": "decisions-adr-adr-038-open-protocol-trust-model-without-ca-md",
@@ -3577,7 +3577,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "280c8f79b59b4b50"
+        "checksum": "9a4b7fd4988a436a"
       },
       {
         "id": "decisions-adr-adr-072-banzai-runtime-ssot-route-md",
@@ -3954,17 +3954,6 @@
         "checksum": "256e910e551d700e"
       },
       {
-        "id": "docs-governance-adr-rfc-canonical-review-matrix-2026-07-md",
-        "path": "docs/governance/ADR_RFC_CANONICAL_REVIEW_MATRIX_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "098fe6186fd19dd6"
-      },
-      {
         "id": "docs-governance-annex-banza-network-infrastructure-md",
         "path": "docs/governance/ANNEX-BANZA-NETWORK-INFRASTRUCTURE.md",
         "type": "doc",
@@ -3987,17 +3976,6 @@
         "checksum": "5d85c9fcfe109e45"
       },
       {
-        "id": "docs-governance-banzai-component-boundary-2026-07-md",
-        "path": "docs/governance/BANZAI_COMPONENT_BOUNDARY_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "ec01a548add1e75d"
-      },
-      {
         "id": "docs-governance-banzai-intent-first-grounded-reasoning-md",
         "path": "docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md",
         "type": "doc",
@@ -4006,7 +3984,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "e98b85043dae2ea7"
+        "checksum": "9baf2f385750acc6"
       },
       {
         "id": "docs-governance-banzai-native-protocol-agent-md",
@@ -4196,28 +4174,6 @@
         "checksum": "4ee4eaf05f558077"
       },
       {
-        "id": "docs-governance-clean-protocol-repository-2026-07-md",
-        "path": "docs/governance/CLEAN_PROTOCOL_REPOSITORY_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "f7d722f2c9ab9ffb"
-      },
-      {
-        "id": "docs-governance-en-reference-final-deep-hardening-matrix-2026-07-md",
-        "path": "docs/governance/EN_REFERENCE_FINAL_DEEP_HARDENING_MATRIX_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "06be560c8452e833"
-      },
-      {
         "id": "docs-governance-evidence-bundle-md",
         "path": "docs/governance/EVIDENCE_BUNDLE.md",
         "type": "doc",
@@ -4226,7 +4182,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "e8a6d3784c81ff61"
+        "checksum": "e9420b3960ffd4a7"
       },
       {
         "id": "docs-governance-federation-trust-model-md",
@@ -4240,61 +4196,6 @@
         "checksum": "9e15e23e4d7c353f"
       },
       {
-        "id": "docs-governance-final-protocol-repository-architecture-2026-07-md",
-        "path": "docs/governance/FINAL_PROTOCOL_REPOSITORY_ARCHITECTURE_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "49d5e4e4f8a1ad07"
-      },
-      {
-        "id": "docs-governance-final-public-wording-hardening-matrix-2026-07-md",
-        "path": "docs/governance/FINAL_PUBLIC_WORDING_HARDENING_MATRIX_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "4506dc0b746ce9e6"
-      },
-      {
-        "id": "docs-governance-final-website-public-surface-hardening-matrix-2026-07-md",
-        "path": "docs/governance/FINAL_WEBSITE_PUBLIC_SURFACE_HARDENING_MATRIX_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "1349b2e909f39391"
-      },
-      {
-        "id": "docs-governance-full-protocol-corpus-review-matrix-2026-07-md",
-        "path": "docs/governance/FULL_PROTOCOL_CORPUS_REVIEW_MATRIX_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "276ac242e92f6e65"
-      },
-      {
-        "id": "docs-governance-governance-getting-started-hardening-matrix-2026-07-md",
-        "path": "docs/governance/GOVERNANCE_GETTING_STARTED_HARDENING_MATRIX_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "f93035db50a4ddfa"
-      },
-      {
         "id": "docs-governance-l1-readiness-md",
         "path": "docs/governance/L1_READINESS.md",
         "type": "doc",
@@ -4303,7 +4204,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "ead246b6e9c43eaf"
+        "checksum": "ffe4aac6c7d0c99d"
       },
       {
         "id": "docs-governance-l2-readiness-md",
@@ -4314,7 +4215,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "bdea5ffdab0e08a2"
+        "checksum": "9ac25e84bf51bcdd"
       },
       {
         "id": "docs-governance-l3-readiness-md",
@@ -4325,7 +4226,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "c91f714b6dde2656"
+        "checksum": "1eae4ea50f81824c"
       },
       {
         "id": "docs-governance-l4-readiness-md",
@@ -4336,29 +4237,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "efef9ad1f98afc24"
-      },
-      {
-        "id": "docs-governance-m2-19g-5f-final-closure-2026-08-md",
-        "path": "docs/governance/M2_19G_5F_FINAL_CLOSURE_2026_08.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "8de9f2c5f1e1fa65"
-      },
-      {
-        "id": "docs-governance-m2-19g-6-banzai-consolidation-2026-08-md",
-        "path": "docs/governance/M2_19G_6_BANZAI_CONSOLIDATION_2026_08.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "1e6e421437ef8e94"
+        "checksum": "f1c62643aeffeea7"
       },
       {
         "id": "docs-governance-m2-2-architecture-refactor-inventory-md",
@@ -4556,18 +4435,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "6bc20c798d989f23"
-      },
-      {
-        "id": "docs-governance-m2-readiness-handoff-2026-07-md",
-        "path": "docs/governance/M2_READINESS_HANDOFF_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "86008cb1435083db"
+        "checksum": "3a7f3b0bb3b0fb5b"
       },
       {
         "id": "docs-governance-matrix-a-banza-md",
@@ -4647,831 +4515,6 @@
         "checksum": "b4224e82c3476149"
       },
       {
-        "id": "docs-governance-phase-7f-compose-build-reproducibility-2026-07-md",
-        "path": "docs/governance/PHASE_7F_COMPOSE_BUILD_REPRODUCIBILITY_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "5b7b72d4042883a8"
-      },
-      {
-        "id": "docs-governance-phase-7j-operator-boundary-errata-2026-07-md",
-        "path": "docs/governance/PHASE_7J_OPERATOR_BOUNDARY_ERRATA_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "3e640060975779cf"
-      },
-      {
-        "id": "docs-governance-phase-7k1-wallet-native-boundary-2026-07-md",
-        "path": "docs/governance/PHASE_7K1_WALLET_NATIVE_BOUNDARY_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "9ede86ec11e41cc1"
-      },
-      {
-        "id": "docs-governance-phase-7k-final-leftovers-closure-2026-07-md",
-        "path": "docs/governance/PHASE_7K_FINAL_LEFTOVERS_CLOSURE_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "643d2bc33bb79d8e"
-      },
-      {
-        "id": "docs-governance-phase-7l-license-chip-restoration-2026-07-md",
-        "path": "docs/governance/PHASE_7L_LICENSE_CHIP_RESTORATION_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "54397b8e9e8314b8"
-      },
-      {
-        "id": "docs-governance-phase-7m-adr-rfc-canonical-review-2026-07-md",
-        "path": "docs/governance/PHASE_7M_ADR_RFC_CANONICAL_REVIEW_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "736fbf5c235f3264"
-      },
-      {
-        "id": "docs-governance-phase-7n-full-protocol-corpus-review-2026-07-md",
-        "path": "docs/governance/PHASE_7N_FULL_PROTOCOL_CORPUS_REVIEW_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "f739090ffa529f3d"
-      },
-      {
-        "id": "docs-governance-phase-7o-adr005-certification-wording-fix-2026-07-md",
-        "path": "docs/governance/PHASE_7O_ADR005_CERTIFICATION_WORDING_FIX_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "9e4a3542ffb8fc1a"
-      },
-      {
-        "id": "docs-governance-phase-7p-public-protocol-docs-consistency-fix-2026-07-md",
-        "path": "docs/governance/PHASE_7P_PUBLIC_PROTOCOL_DOCS_CONSISTENCY_FIX_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "af4dc67e13dd2941"
-      },
-      {
-        "id": "docs-governance-phase-7q-final-public-wording-hardening-2026-07-md",
-        "path": "docs/governance/PHASE_7Q_FINAL_PUBLIC_WORDING_HARDENING_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "4f6e161d03065b29"
-      },
-      {
-        "id": "docs-governance-phase-7r-github-website-source-of-truth-reconciliation-2026-07-md",
-        "path": "docs/governance/PHASE_7R_GITHUB_WEBSITE_SOURCE_OF_TRUTH_RECONCILIATION_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "1925c60fb117e6af"
-      },
-      {
-        "id": "docs-governance-phase-7s-en-reference-final-deep-hardening-2026-07-md",
-        "path": "docs/governance/PHASE_7S_EN_REFERENCE_FINAL_DEEP_HARDENING_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "e17375e8b74cfb08"
-      },
-      {
-        "id": "docs-governance-phase-7t-broken-relative-links-closure-2026-07-md",
-        "path": "docs/governance/PHASE_7T_BROKEN_RELATIVE_LINKS_CLOSURE_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "33853e2378e4648a"
-      },
-      {
-        "id": "docs-governance-phase-7u-governance-getting-started-hardening-2026-07-md",
-        "path": "docs/governance/PHASE_7U_GOVERNANCE_GETTING_STARTED_HARDENING_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "c7e9de7331ca20ed"
-      },
-      {
-        "id": "docs-governance-phase-7v-7u-main-raw-cache-reconciliation-2026-07-md",
-        "path": "docs/governance/PHASE_7V_7U_MAIN_RAW_CACHE_RECONCILIATION_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "98a13415c05f8216"
-      },
-      {
-        "id": "docs-governance-phase-7w-final-website-public-surface-hardening-2026-07-md",
-        "path": "docs/governance/PHASE_7W_FINAL_WEBSITE_PUBLIC_SURFACE_HARDENING_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "18c79f054933bf05"
-      },
-      {
-        "id": "docs-governance-phase-7x-banzai-architecture-alignment-2026-07-md",
-        "path": "docs/governance/PHASE_7X_BANZAI_ARCHITECTURE_ALIGNMENT_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "3889bca4270c5a47"
-      },
-      {
-        "id": "docs-governance-phase-7y-banzai-public-page-cognitive-engine-alignment-2026-07-md",
-        "path": "docs/governance/PHASE_7Y_BANZAI_PUBLIC_PAGE_COGNITIVE_ENGINE_ALIGNMENT_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "428073d1aeb64438"
-      },
-      {
-        "id": "docs-governance-phase-bx0-banzai-workbench-navigation-2026-07-md",
-        "path": "docs/governance/PHASE_BX0_BANZAI_WORKBENCH_NAVIGATION_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "88e75716754ff8ba"
-      },
-      {
-        "id": "docs-governance-phase-bx1-10-banzai-l4-external-interoperability-readiness-2026-07-md",
-        "path": "docs/governance/PHASE_BX1_10_BANZAI_L4_EXTERNAL_INTEROPERABILITY_READINESS_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "bd9495ef4de9ef87"
-      },
-      {
-        "id": "docs-governance-phase-bx1-1-banzai-boundary-trace-wasm-2026-07-md",
-        "path": "docs/governance/PHASE_BX1_1_BANZAI_BOUNDARY_TRACE_WASM_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "b28b020be646d94e"
-      },
-      {
-        "id": "docs-governance-phase-bx1-2-banzai-trust-brl-wasm-2026-07-md",
-        "path": "docs/governance/PHASE_BX1_2_BANZAI_TRUST_BRL_WASM_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "9612447c57e4aa75"
-      },
-      {
-        "id": "docs-governance-phase-bx1-3-banzai-simb-conformance-l0-wasm-2026-07-md",
-        "path": "docs/governance/PHASE_BX1_3_BANZAI_SIMB_CONFORMANCE_L0_WASM_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "82b2b10a08678d66"
-      },
-      {
-        "id": "docs-governance-phase-bx1-4-mandatory-simb-pre-review-gate-2026-07-md",
-        "path": "docs/governance/PHASE_BX1_4_MANDATORY_SIMB_PRE_REVIEW_GATE_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "0230363c777a7dbd"
-      },
-      {
-        "id": "docs-governance-phase-bx1-5a-portuguese-copy-no-corpus-2026-07-md",
-        "path": "docs/governance/PHASE_BX1_5A_PORTUGUESE_COPY_NO_CORPUS_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "a05b333e58495ffd"
-      },
-      {
-        "id": "docs-governance-phase-bx1-5-banzai-evidence-bundle-export-2026-07-md",
-        "path": "docs/governance/PHASE_BX1_5_BANZAI_EVIDENCE_BUNDLE_EXPORT_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "0c0a873bb436417e"
-      },
-      {
-        "id": "docs-governance-phase-bx1-6-banzai-operator-manifest-validator-2026-07-md",
-        "path": "docs/governance/PHASE_BX1_6_BANZAI_OPERATOR_MANIFEST_VALIDATOR_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "d64de5135495a04e"
-      },
-      {
-        "id": "docs-governance-phase-bx1-7a-workbench-console-warning-cleanup-2026-07-md",
-        "path": "docs/governance/PHASE_BX1_7A_WORKBENCH_CONSOLE_WARNING_CLEANUP_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "2eb3ea9508d417d0"
-      },
-      {
-        "id": "docs-governance-phase-bx1-7-banzai-l1-readiness-well-known-validator-2026-07-md",
-        "path": "docs/governance/PHASE_BX1_7_BANZAI_L1_READINESS_WELL_KNOWN_VALIDATOR_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "bab8edb5e9297f62"
-      },
-      {
-        "id": "docs-governance-phase-bx1-8a-protocol-boundary-regulatory-language-2026-07-md",
-        "path": "docs/governance/PHASE_BX1_8A_PROTOCOL_BOUNDARY_REGULATORY_LANGUAGE_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "0b20a46d3bc9c086"
-      },
-      {
-        "id": "docs-governance-phase-bx1-8-banzai-l2-readiness-payment-flow-2026-07-md",
-        "path": "docs/governance/PHASE_BX1_8_BANZAI_L2_READINESS_PAYMENT_FLOW_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "c26e141a5b223587"
-      },
-      {
-        "id": "docs-governance-phase-bx1-9-banzai-l3-federation-readiness-2026-07-md",
-        "path": "docs/governance/PHASE_BX1_9_BANZAI_L3_FEDERATION_READINESS_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "8acfc09c6c3496c8"
-      },
-      {
-        "id": "docs-governance-phase-h1-banzai-public-visual-harmonization-2026-07-md",
-        "path": "docs/governance/PHASE_H1_BANZAI_PUBLIC_VISUAL_HARMONIZATION_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "bd66ab91b0825051"
-      },
-      {
-        "id": "docs-governance-phase-h2-banzai-public-page-dedup-reference-canon-2026-07-md",
-        "path": "docs/governance/PHASE_H2_BANZAI_PUBLIC_PAGE_DEDUP_REFERENCE_CANON_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "d82d7c287639f0ae"
-      },
-      {
-        "id": "docs-governance-phase-h3-public-website-dedup-reference-canon-2026-07-md",
-        "path": "docs/governance/PHASE_H3_PUBLIC_WEBSITE_DEDUP_REFERENCE_CANON_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "4d11b13163409633"
-      },
-      {
-        "id": "docs-governance-phase-h4-2-banzai-routes-live-reconciliation-2026-07-md",
-        "path": "docs/governance/PHASE_H4_2_BANZAI_ROUTES_LIVE_RECONCILIATION_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "e7c598b8b9855ce0"
-      },
-      {
-        "id": "docs-governance-phase-h4-banzai-landing-final-reduction-2026-07-md",
-        "path": "docs/governance/PHASE_H4_BANZAI_LANDING_FINAL_REDUCTION_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "afb25448b03d4e3d"
-      },
-      {
-        "id": "docs-governance-phase-h5-banzai-mock-evidence-chat-2026-07-md",
-        "path": "docs/governance/PHASE_H5_BANZAI_MOCK_EVIDENCE_CHAT_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "f1a36f9dc22e34ce"
-      },
-      {
-        "id": "docs-governance-phase-h6-banzai-mock-chat-coverage-decision-library-2026-07-md",
-        "path": "docs/governance/PHASE_H6_BANZAI_MOCK_CHAT_COVERAGE_DECISION_LIBRARY_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "8ca53c2693433b4e"
-      },
-      {
-        "id": "docs-governance-phase-h7-banzai-mock-chat-evaluation-harness-2026-07-md",
-        "path": "docs/governance/PHASE_H7_BANZAI_MOCK_CHAT_EVALUATION_HARNESS_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "90b4944bead0236e"
-      },
-      {
-        "id": "docs-governance-phase-m2-0a-open-financial-protocol-identity-hardening-2026-07-md",
-        "path": "docs/governance/PHASE_M2_0A_OPEN_FINANCIAL_PROTOCOL_IDENTITY_HARDENING_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "2c9b9656ab9515d6"
-      },
-      {
-        "id": "docs-governance-phase-m2-11c-banzai-release-qa-gate-2026-07-md",
-        "path": "docs/governance/PHASE_M2_11C_BANZAI_RELEASE_QA_GATE_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "a8608904c4b3aed4"
-      },
-      {
-        "id": "docs-governance-phase-m2-2-remove-ca-open-protocol-governance-2026-07-md",
-        "path": "docs/governance/PHASE_M2_2_REMOVE_CA_OPEN_PROTOCOL_GOVERNANCE_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "d5286949344d580f"
-      },
-      {
-        "id": "docs-governance-phase-m2-3-reference-trust-model-redesign-2026-07-md",
-        "path": "docs/governance/PHASE_M2_3_REFERENCE_TRUST_MODEL_REDESIGN_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "dc1423a26e06132d"
-      },
-      {
-        "id": "docs-governance-phase-m2-4-trust-engine-migration-2026-07-md",
-        "path": "docs/governance/PHASE_M2_4_TRUST_ENGINE_MIGRATION_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "965c63c2c021c002"
-      },
-      {
-        "id": "docs-governance-phase-m2-5-public-surface-workbench-cleanup-2026-07-md",
-        "path": "docs/governance/PHASE_M2_5_PUBLIC_SURFACE_WORKBENCH_CLEANUP_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "94a5171e725c74b6"
-      },
-      {
-        "id": "docs-governance-phase-m2-6-governance-docs-final-sweep-2026-07-md",
-        "path": "docs/governance/PHASE_M2_6_GOVERNANCE_DOCS_FINAL_SWEEP_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "db8c146bbd3fc131"
-      },
-      {
-        "id": "docs-governance-phase-m2-7b-minimal-home-reference-consolidation-2026-07-md",
-        "path": "docs/governance/PHASE_M2_7B_MINIMAL_HOME_REFERENCE_CONSOLIDATION_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "555bddf148fe199e"
-      },
-      {
-        "id": "docs-governance-phase-m2-7c-home-boundary-snapshot-2026-07-md",
-        "path": "docs/governance/PHASE_M2_7C_HOME_BOUNDARY_SNAPSHOT_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "76b09aabc040b8c6"
-      },
-      {
-        "id": "docs-governance-phase-m2-7d-final-protocol-architecture-svg-2026-07-md",
-        "path": "docs/governance/PHASE_M2_7D_FINAL_PROTOCOL_ARCHITECTURE_SVG_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "5427f72b475c7433"
-      },
-      {
-        "id": "docs-governance-phase-m2-7e-systemwide-svg-quality-repair-2026-07-md",
-        "path": "docs/governance/PHASE_M2_7E_SYSTEMWIDE_SVG_QUALITY_REPAIR_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "0d22e4590d02cbbe"
-      },
-      {
-        "id": "docs-governance-phase-m2-7f-home-typography-visual-harmonization-2026-07-md",
-        "path": "docs/governance/PHASE_M2_7F_HOME_TYPOGRAPHY_VISUAL_HARMONIZATION_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "1f8f36338ed539d4"
-      },
-      {
-        "id": "docs-governance-phase-m2-7h-banzai-native-protocol-agent-2026-07-md",
-        "path": "docs/governance/PHASE_M2_7H_BANZAI_NATIVE_PROTOCOL_AGENT_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "f0f108d6afbc73a3"
-      },
-      {
-        "id": "docs-governance-phase-m2-7i-banzai-reference-repository-alignment-2026-07-md",
-        "path": "docs/governance/PHASE_M2_7I_BANZAI_REFERENCE_REPOSITORY_ALIGNMENT_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "06c7e9d0655274e3"
-      },
-      {
-        "id": "docs-governance-phase-m2-7i-hotfix-remove-chat-workbench-assistant-2026-07-md",
-        "path": "docs/governance/PHASE_M2_7I_HOTFIX_REMOVE_CHAT_WORKBENCH_ASSISTANT_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "42ade6c77806370b"
-      },
-      {
-        "id": "docs-governance-phase-m2-7j-svg-visual-system-harmonization-2026-07-md",
-        "path": "docs/governance/PHASE_M2_7J_SVG_VISUAL_SYSTEM_HARMONIZATION_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "b446064a3cf569d3"
-      },
-      {
-        "id": "docs-governance-phase-m2-7k-postgresql-protocol-state-audit-2026-07-md",
-        "path": "docs/governance/PHASE_M2_7K_POSTGRESQL_PROTOCOL_STATE_AUDIT_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "70e01c55d10a065b"
-      },
-      {
-        "id": "docs-governance-phase-m2-7l-reference-information-architecture-finalization-2026-07-md",
-        "path": "docs/governance/PHASE_M2_7L_REFERENCE_INFORMATION_ARCHITECTURE_FINALIZATION_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "da7cb4ddfa1511ea"
-      },
-      {
-        "id": "docs-governance-phase-m2-7m-license-notice-trademark-governance-attribution-2026-07-md",
-        "path": "docs/governance/PHASE_M2_7M_LICENSE_NOTICE_TRADEMARK_GOVERNANCE_ATTRIBUTION_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "1a6b0f93e9a9d7e0"
-      },
-      {
-        "id": "docs-governance-phase-m2-8a-banzai-local-qwen-inference-runtime-2026-07-md",
-        "path": "docs/governance/PHASE_M2_8A_BANZAI_LOCAL_QWEN_INFERENCE_RUNTIME_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "6ca4a677a399148b"
-      },
-      {
-        "id": "docs-governance-phase-m2-8b-banzai-local-qwen-latency-tuning-default-readiness-2026-07-md",
-        "path": "docs/governance/PHASE_M2_8B_BANZAI_LOCAL_QWEN_LATENCY_TUNING_DEFAULT_READINESS_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "9215ce136871b4b9"
-      },
-      {
-        "id": "docs-governance-phase-m2-8c-banzai-disable-qwen-reasoning-prefix-warmup-2026-07-md",
-        "path": "docs/governance/PHASE_M2_8C_BANZAI_DISABLE_QWEN_REASONING_PREFIX_WARMUP_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "76bab31b10644d67"
-      },
-      {
-        "id": "docs-governance-phase-m2-8d-local-qwen-384-token-default-readiness-2026-07-md",
-        "path": "docs/governance/PHASE_M2_8D_LOCAL_QWEN_384_TOKEN_DEFAULT_READINESS_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "2ef21fa678806528"
-      },
-      {
-        "id": "docs-governance-phase-m2-8g-qwen-first-routing-2026-07-md",
-        "path": "docs/governance/PHASE_M2_8G_QWEN_FIRST_ROUTING_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "33a840bc068c85ee"
-      },
-      {
-        "id": "docs-governance-phase-m2-8h-knowledge-and-context-2026-07-md",
-        "path": "docs/governance/PHASE_M2_8H_KNOWLEDGE_AND_CONTEXT_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "78144d687a8663ac"
-      },
-      {
-        "id": "docs-governance-phase-m2-9a-protocol-agent-core-2026-07-md",
-        "path": "docs/governance/PHASE_M2_9A_PROTOCOL_AGENT_CORE_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "a7657676d30a25e3"
-      },
-      {
-        "id": "docs-governance-phase-m2-production-protocol-implementation-2026-07-md",
-        "path": "docs/governance/PHASE_M2_PRODUCTION_PROTOCOL_IMPLEMENTATION_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "12aa0d031504a453"
-      },
-      {
-        "id": "docs-governance-phase-r0-rust-rule-compliance-audit-2026-07-md",
-        "path": "docs/governance/PHASE_R0_RUST_RULE_COMPLIANCE_AUDIT_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "74580884fbe877ac"
-      },
-      {
-        "id": "docs-governance-phase-r10-zero-non-rust-official-gates-2026-07-md",
-        "path": "docs/governance/PHASE_R10_ZERO_NON_RUST_OFFICIAL_GATES_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "d75fade6cf0223f5"
-      },
-      {
-        "id": "docs-governance-phase-r2-rust-banzai-evidence-engine-2026-07-md",
-        "path": "docs/governance/PHASE_R2_RUST_BANZAI_EVIDENCE_ENGINE_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "95c77a6eefe52833"
-      },
-      {
-        "id": "docs-governance-phase-r3-banzai-api-knowledge-rust-migration-2026-07-md",
-        "path": "docs/governance/PHASE_R3_BANZAI_API_KNOWLEDGE_RUST_MIGRATION_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "e7f9c9896475c3e7"
-      },
-      {
-        "id": "docs-governance-phase-r4-rust-banza-conformance-runner-2026-07-md",
-        "path": "docs/governance/PHASE_R4_RUST_BANZA_CONFORMANCE_RUNNER_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "d48f55fcec2b5341"
-      },
-      {
-        "id": "docs-governance-phase-r5-rust-trust-crypto-brl-verifier-2026-07-md",
-        "path": "docs/governance/PHASE_R5_RUST_TRUST_CRYPTO_BRL_VERIFIER_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "06ecbd754338f1b7"
-      },
-      {
-        "id": "docs-governance-phase-r6-final-rust-legacy-elimination-2026-07-md",
-        "path": "docs/governance/PHASE_R6_FINAL_RUST_LEGACY_ELIMINATION_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "a32726f4d72eaa08"
-      },
-      {
-        "id": "docs-governance-phase-r7-r8-r9-final-rust-closure-2026-07-md",
-        "path": "docs/governance/PHASE_R7_R8_R9_FINAL_RUST_CLOSURE_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "30a1db0291993897"
-      },
-      {
         "id": "docs-governance-postgresql-protocol-state-md",
         "path": "docs/governance/POSTGRESQL_PROTOCOL_STATE.md",
         "type": "doc",
@@ -5481,17 +4524,6 @@
         "generated": false,
         "public_eligible": true,
         "checksum": "adacc0d766f1f36e"
-      },
-      {
-        "id": "docs-governance-post-7h-public-protocol-architecture-audit-2026-07-md",
-        "path": "docs/governance/POST_7H_PUBLIC_PROTOCOL_ARCHITECTURE_AUDIT_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "811d35a9fb74db57"
       },
       {
         "id": "docs-governance-protocol-governance-roles-md",
@@ -5513,7 +4545,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "2e9c8c66b2887749"
+        "checksum": "20aa8d3f7bb761bf"
       },
       {
         "id": "docs-governance-protocol-release-governance-md",
@@ -5536,17 +4568,6 @@
         "generated": false,
         "public_eligible": true,
         "checksum": "88396c48f31fb3ea"
-      },
-      {
-        "id": "docs-governance-public-protocol-docs-consistency-matrix-2026-07-md",
-        "path": "docs/governance/PUBLIC_PROTOCOL_DOCS_CONSISTENCY_MATRIX_2026_07.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "7c60544b79394326"
       },
       {
         "id": "docs-governance-public-protocol-registry-md",
@@ -5590,7 +4611,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "3e6e7e94f4e8daf9"
+        "checksum": "f07f50e172d866d7"
       },
       {
         "id": "docs-governance-simb-pre-review-gate-md",
@@ -5601,7 +4622,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "fc93db9adf5d5ac2"
+        "checksum": "ddb4371f06390260"
       },
       {
         "id": "docs-governance-svg-quality-policy-md",
@@ -6634,7 +5655,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "929f29f38c101165"
+    "checksum": "07c818484ff4f6fd"
   },
   "subjects": [
     {
@@ -9995,5 +9016,5 @@
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "9020b24e786c60fc"
+  "checksum": "d66baffeec6b3758"
 }

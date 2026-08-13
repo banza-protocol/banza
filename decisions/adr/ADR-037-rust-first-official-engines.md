@@ -11,7 +11,7 @@ protocol invariant and is not in question here.
 
 Separately, the project maintains a growing set of **official implementations** — the conformance
 runner, the cryptographic trust root, the BanzAI evidence/retrieval engine, invariant checkers, and
-various quality/authority guards. Phase R0 (`docs/governance/PHASE_R0_RUST_RULE_COMPLIANCE_AUDIT_2026_07.md`)
+various quality/authority guards. Phase R0 ()
 audited both `banza-protocol/banza` and `banza-protocol/banzai` and found these official engines
 spread across Python, TypeScript and Bash, with **no Rust present** and no policy fixing which
 language an official engine must use. That is a correctness and auditability risk for the components
