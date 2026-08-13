@@ -267,14 +267,7 @@ Um recibo representa o estado observado no instante da avaliação; alterações
 
 \section{Segurança}\label{sec:security}
 
-O modelo de ameaças considera adulteração de artefactos, origens ou chaves inválidas, repetição de desafios, evidência expirada ou incompleta, divergências de versão e, na obtenção remota, SSRF e reassociação de DNS. O BANZA responde com assinaturas, revogação, expiração, desafios de uso único e fecho por omissão.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.9\linewidth,trim={0cm 0.06cm 0cm 0.06cm},clip]{figures/fig9-security.pt.pdf}
-  \caption{Ameaças consideradas, mecanismos de protecção e resultados esperados. A segurança não depende de confiança implícita na origem ou no operador avaliado.}
-  \label{fig:security}
-\end{figure}
+O modelo de ameaças associa a cada ameaça um mecanismo determinado: a adulteração de artefactos é detectada por assinaturas e resumos criptográficos; uma origem inválida é excluída pela resolução a partir da origem canónica e pela validação da obtenção segura; material revogado ou expirado é rejeitado; a repetição de desafios é impedida por desafios de uso único; a SSRF e a reassociação de DNS são bloqueadas pelo endurecimento da obtenção remota; evidência ausente ou inconsistente conduz a fecho por omissão; e a observação monotónica protege contra regressão e contra conteúdo conflituoso no mesmo ponto de ordenação, dentro dos limites já enunciados. Nenhum destes mecanismos depende de confiança implícita na origem ou no operador avaliado.
 
 Estas propriedades distinguem-se e não se substituem: a assinatura estabelece autenticidade; a validade e a revogação, se o material é utilizável agora; o estado monotónico impede que material antigo, correctamente assinado e ainda válido, substitua material mais recente já observado, e detecta conteúdos distintos no mesmo ponto de ordenação. Nenhuma fornece história pública verificável ou consistência entre observadores, e numa primeira observação a antiguidade não é detectável.
 
@@ -304,12 +297,6 @@ Em segundo lugar, aplicam-se ao que é observado: a reprodutibilidade cobre aval
 
 Em terceiro lugar, a abertura da especificação não demonstra, por si só, a facilidade de implementação independente: essa propriedade depende da completude dos contratos, da qualidade dos vectores e da capacidade de uma equipa externa para construir uma implementação conforme sem recorrer ao código da referência. Do mesmo modo, a integração com infraestruturas externas prevista pela arquitectura não demonstra acesso efectivo a essas infraestruturas, que pode depender de interfaces, acordos, regras do esquema ou autorização.
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.9\linewidth, trim={0cm 0.06cm 0cm 0.06cm}, clip]{figures/fig11-limits.pt.pdf}
-  \caption{O BANZA avalia condições técnicas observáveis; autorização, controlos internos, acordos, admissão e acesso a infraestruturas permanecem fora do resultado.}\label{fig:limits}
-\end{figure}
-
 Em quarto lugar, algumas fronteiras decorrem do desenho actual: o material de confiança é publicado num único ponto canónico, sem réplicas, e o fecho por omissão preserva a correcção da decisão mas a indisponibilidade de material fresco pode impedir uma nova avaliação; o estado monotónico da Secção \ref{sec:discovery} é local a cada verificador e não estabelece consistência entre observadores; e sem perfil externo concreto publicado o L4 não foi ainda demonstrado. Por fim, a evidência aqui apresentada é arquitectural: demonstra mecanismos na implementação de referência e não mede desempenho, escala ou adopção. Um ensaio de completude verificou que o pacote público do perfil L0 é suficiente e fechado sobre si mesmo, o que não demonstra que uma equipa externa consiga implementar a partir dele, e não é demonstrada interoperabilidade em produção entre organizações não relacionadas.
 
 
@@ -322,13 +309,6 @@ A superfície normativa está explicitamente indexada, e o conjunto exigido por 
 A completude de uma distribuição e a capacidade de implementação independente são propriedades distintas: a primeira foi verificada, a segunda não, e permanece por demonstrar através de uma implementação de terceiros construída sem recurso ao código da referência. A interoperabilidade entre implementações independentes, a integração efectiva com infraestruturas externas e a utilização em ambientes operacionais reais permanecem, por isso, objectivos de validação experimental e não resultados já estabelecidos.
 
 Para demonstrar de forma convincente a independência de implementação, será necessária uma implementação externa construída a partir das especificações e dos contratos públicos, sem recorrer ao código da referência, capaz de satisfazer os vectores de conformidade aplicáveis e de participar numa avaliação direccional com outra implementação, produzindo resultados semanticamente equivalentes e evidência verificável. O sucesso desse ensaio demonstrará capacidade de implementação independente, mas continuará a não equivaler a autorização regulatória, adesão a um esquema ou utilização em produção.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.9\linewidth, trim={0cm 0.06cm 0cm 0.06cm}, clip]{figures/fig12-state.pt.pdf}
-  \caption{Pré-produção: sem operadores de produção, sem certificações activas, dinheiro real desactivado e sem implementação independente demonstrada.}
-  \label{fig:state}
-\end{figure}
 
 
 \section{Conclusões}\label{sec:conclusion}
