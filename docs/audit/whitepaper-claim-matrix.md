@@ -123,3 +123,60 @@ to.
 One factual error: the protocol version is stated as `1.0`, and it is `1.0.0`.
 
 The rewrite is therefore **additive and corrective**, not a retraction.
+
+---
+
+# Post-edit claim matrix — canonical Portuguese edition, 12 pages
+
+Re-run against the 12-page edition. Nothing in the paper changed to produce this table; it records
+what the edition says.
+
+| | |
+|---|---|
+| `OUTDATED` | **0** — the protocol version reads `1.0.0` in the only place it designates the current version |
+| `OVERSTATED` | **0** |
+| `UNSUPPORTED` | **0** |
+
+## The eleven mechanisms that were ABSENT
+
+One row per mechanism, as the original matrix listed them. An earlier draft of this report
+miscounted — it reported "nine represented, two deliberately omitted (CT, DID/VC)", which conflated
+two different lists. CT and DID/VC were never among these eleven; they were related-work candidates.
+
+| # | Mechanism | Section | Represented? | Where, and at what depth |
+|---|---|---|---|---|
+| 1 | BANZA Normative Manifest | §1, §2 | **yes** | Named. §1 places it as what identifies the requirements; §2 defines it as the versioned index declaring which artifacts define requirements and which do not |
+| 2 | BANZA Canonical JSON (BCJ/1) | §2 | **yes** | Named, as a restricted profile of RFC 8785 [10], with its four properties and the reason duplicate members are rejected before semantic interpretation |
+| 3 | Numeric domain | §2 | **yes** | One sentence: the numeric domains of this version were audited and no field requires integer representation above the profile's domain. No counts, no currency table |
+| 4 | Reason-code semantics | §6 | **yes** | The state decides, the code explains; a conformant consumer never changes a verdict because of a code, which is what lets the explanatory vocabulary grow without changing decisions |
+| 5 | Idempotency | §6 | **yes** | Key scope, what makes two requests the same request, conflicting reuse, minimum retention — one sentence, framed as observable operational behaviour rather than an evaluation criterion |
+| 6 | Anti-rollback / same-marker conflict | §5, §8 | **yes** | §5 states all four outcomes in prose and immediately bounds them as local; §8 places the property beside authenticity and validity without repeating §5 |
+| 7 | Signing-input digest | §5 | **yes** | As a property, not an artefact name: "a reapresentação do mesmo ponto com o mesmo input de assinatura". No member names — those stay in the specification |
+| 8 | Canonical capability registry | §4 | **yes** | As a property: capabilities identified by a common normative vocabulary, satisfaction decided by exact comparison of published identifiers, no implicit normalisation of near spellings. No identifier list, no aliases, no `supports_*` |
+| 9 | Profile-scoped vector-case applicability | §4 | **yes** | One clause: public vectors have a scope determined by the profile, and the association between case and level is declared, not inferred. No counts, no grammars |
+| 10 | Trust publication availability limitation | §10 | **yes** | Single canonical publication point without replicas; fail-closed preserves the correctness of the decision, but unavailable fresh material can prevent a new evaluation |
+| 11 | Package completeness rehearsal | §10, §11 | **yes** | §11 states what it verified; §10 states what it does not demonstrate. Never called a clean-room or an independent implementation |
+
+**11/11 represented at the appropriate editorial depth.** None was deliberately omitted, so G41's
+protected list is intact and nothing had to be argued as an acceptable omission.
+
+## Related-work topics deliberately kept out of the Whitepaper
+
+Separate list, separate decision:
+
+- **Certificate Transparency** — not adopted in 1.0.0. Mentioning it added nothing the availability
+  limitation in §10 does not already say, and it consumed space under a hard page ceiling.
+- **DID and Verifiable Credentials** — not adopted. Neither is needed to explain the identity model
+  the paper describes.
+
+Both remain analysed in full in
+[`docs/research/related-work-positioning.md`](../research/related-work-positioning.md). Mojaloop, by
+contrast, *is* in the paper (§1 and reference [9]), because the reader has to be able to answer why
+BANZA exists alongside it.
+
+## A note on the verification method
+
+Three false negatives in this audit came from the same cause: `pdftotext` emits `fi` and `fl` as
+single ligature glyphs, so `conflito`, `perfil` and `desafios` did not match literal probes. Every
+check above normalises with NFKC before comparing. A verification that reports a mechanism missing
+when it is present is worse than no verification, because it invites an edit that was never needed.
