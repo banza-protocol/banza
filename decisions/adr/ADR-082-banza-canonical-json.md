@@ -3,7 +3,7 @@
 - **Status:** Accepted
 - **Date:** 2026-08
 - **Relates:** ADR-081 (versioning decision), ADR-079 (Model A signing), ADR-038 (domain separation), ADR-037 (Rust-first engines)
-- **Audit basis:** `docs/audit/BANZA_V1_OPEN_PROTOCOL_NORMATIVE_COMPLETENESS_AUDIT.md` §14, finding **F-01 (P0)**
+- **Audit basis:** the v1.0 normative-completeness audit, finding **F-01 (P0)** — no single canonical byte form for signing and digesting. The audit record is not kept; this ADR is the durable outcome.
 - **Normative specification:** [`spec/canonicalization.md`](../../spec/canonicalization.md)
 
 ## Context

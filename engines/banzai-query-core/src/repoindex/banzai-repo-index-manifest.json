@@ -11,7 +11,7 @@
   "legal-license": 12,
   "normative": 170,
   "operator-zero": 161,
-  "report": 73,
+  "report": 2,
   "security-boundary": 17,
   "website": 161
  },
@@ -31,12 +31,12 @@
   "legal-license": 5,
   "normative": 175,
   "operator-zero": 90,
-  "report": 38,
+  "report": 20,
   "security-boundary": 7,
   "website": 162
  },
  "generated_at": "2026-07-29T00:00:00Z",
- "index_hash": "638493aa8484f06b",
+ "index_hash": "85c9b2cb8f327139",
  "index_version": "m2.13b-pr2",
  "max_chunks": 1900,
  "secret_scan": {
@@ -47,18 +47,18 @@
  "surgical_purge": {
   "applied": true,
   "entries_removed": {
-   "chunks": 157,
+   "chunks": 228,
    "exclusions": 11,
-   "files": 197
+   "files": 215
   },
   "reason": "entries whose source file was removed from the tree",
   "reindexed": false,
   "survivors_unmodified": true
  },
  "tool_version": "banzai-repo-indexer/0.1.0",
- "total_chunks": 1202,
- "total_chunks_before_cap": 1202,
+ "total_chunks": 1131,
+ "total_chunks_before_cap": 1131,
  "total_files_excluded": 57,
- "total_files_indexed": 974,
- "total_files_scanned": 1031
+ "total_files_indexed": 956,
+ "total_files_scanned": 1013
 }

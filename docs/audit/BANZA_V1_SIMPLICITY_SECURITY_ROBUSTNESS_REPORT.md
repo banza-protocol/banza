@@ -368,6 +368,165 @@ phase's first task.
 
 ---
 
+## Phase E — governance, security and reports final cleanup
+
+The decision was taken to delete the validation matrix and the transition plan rather than repair them.
+This phase carried that out and closed the surrounding surface, in three commits.
+
+### Deleted
+
+| Area | Files | What they were |
+|---|---:|---|
+| `docs/reports/` | 21 | every milestone report — the directory no longer exists |
+| `docs/governance/` (M2_*) | 17 | milestone audits, inventories and the four local-Qwen benchmarks |
+| `docs/audit/` | 14 | phase reports, rehearsals, inventories, a stale remediation backlog |
+| `docs/governance/` (matrices) | 3 | Matrix A, Matrix C, the v1 operational transition plan |
+| `docs/governance/` (other) | 1 | a BanzAI design record retained for flags that no longer exist |
+
+**56 files.** Two documents were tested and kept, one of them renamed.
+
+### The matrices
+
+Matrix A declared itself a CANONICAL validation matrix while `CLAUDE.md` states this repository owns no
+validation matrix. Its authority line rested mostly on ADRs deleted in the clean-slate, and its evidence
+column cited Python files that no longer exist — including *"Ceremony automation script — COMPLETE —
+Dry-run 10/10 PASS"*. All 25 invariants it listed are defined in `contracts/`, `conformance/`, `spec/`,
+`decisions/` or `engines/`.
+
+Matrix C had the identical defect, verified the same way: 22 invariants, none of them exclusive, a
+CANONICAL header, an authority line citing a deleted ADR, and an L0–L4 requirements summary competing
+with the normative profile registry.
+
+Both are gone, and the public reference no longer lists them. No banner: they are simply not part of
+BANZA. The two stale reference mirrors lost their entries too — they had drifted apart, one describing
+Matrix A as *"(canonical)"* and the other as *"auxiliar, não normativo"*.
+
+### One control migrated before its source was deleted
+
+The transition plan was a process snapshot, but it carried the fail-closed gate on the production
+root-key ceremony. Following the hard-stop rule, the rule moved first: the four conditions — custody
+implemented, checklist approved, evidence model complete, ceremony explicitly authorised — and the
+current state (no ceremony has run, no production root key exists, M2 OPEN and BLOCKED) now sit in
+`BANZA_ROOT_CUSTODY_DECISION_REQUIRED.md`, the approved custody decision the gate enforces. Nothing
+about the gate changed. The ceremony procedure, its trigger, its related-documents table and the
+ceremony record template now point there.
+
+### Kept, and why
+
+**`docs/governance/TRUST_ENGINE_ACTIVE_MODEL.md`** (was `M2_4_TRUST_ENGINE_SIGNED_METADATA.md`). It
+documents the active trust engine — seven input types, thirteen `trust_status` values, fail-closed
+precedence, the permanent boundary — and all 17 identifiers it names exist in `engines/banza-trust`,
+the adapter and the contracts. The property is current; only the name was historical. No alias.
+
+Promoting it exposed two defects the guard had been excluding as history:
+
+- it claimed `Status: Normative` for a document whose authority is the engine and the contracts;
+- it derived the canonical signature form from a **deleted ADR**. The canonical form is `BCJ/1`
+  (`spec/canonicalization.md`). A kept document had been carrying a dead authority for its most
+  security-relevant sentence, and the guard found it the moment the file stopped being excluded.
+
+**`L1`–`L4_READINESS.md`** were checked before being lumped in with "readiness matrices": they document
+a status `engines/banza-l1-readiness` actually computes and the website surfaces. Current behaviour.
+
+### The 21 reports
+
+Each was tested against the three retention criteria; none passed. The apparent consumers were the
+derived index, seven contamination-allowlist arms in `banza-repo-guards` that existed only to exempt the
+reports themselves, and prose "further reading" pointers.
+
+The one plausible security case, `SECURE_ARTIFACT_FETCHER_REPORT`, was checked identifier by identifier
+against ADR-068, the secure-fetcher guard and `engines/banza-artifact-fetcher`: everything it published
+is carried there, and the single token it appeared to own (`FETCHER_URL`) is live compose configuration.
+
+### Rules preserved, records dropped
+
+Three current rules would have died with their records, and were kept instead:
+
+- the **ceremony gate** (above);
+- the **internal-source policy** from the deleted BanzAI design record — implemented in
+  `engines/banzai-query-core/src/source_policy.rs`, whose own header calls it the single choke point
+  the retriever and the presenter both call;
+- the **re-benchmark rule**: local inference may not become the effective default without a fresh
+  benchmark. The rule stays; the result is now recorded with the change that invalidated it, so it
+  travels with the configuration it justifies instead of in a milestone-named file.
+
+### Canonicality sweep
+
+21 documents declare Canonical/Authoritative in their header. Thirteen are `spec/federation`, one is
+`spec/collections`, two are the SVG standards enforced by guards, one is `REPOSITORY_STRUCTURE` enforced
+by `purity-check`, one describes a current ADR. All are authority in their own domain. The two matrices
+were the only documents competing with the normative surface, and both are gone.
+
+### Public inventory
+
+Rebuilt from what survived. Operator Zero's published validation state carried three stale provenance
+fields — a milestone name, a commit hash from the archived repository that does not resolve here, and a
+report path that no longer exists. All three removed, with the TypeScript members and the
+`last_evaluated` field the website rendered from them: a public surface should not display a milestone
+identity. The live evidence bundle and trace URLs are untouched.
+
+### Guards
+
+Ten guards were changed, none weakened. Removed: seven `docs/reports` allowlist arms in
+`banza-repo-guards`; scan-exclusions for deleted directories in five shell guards; a required-directory
+entry in the repository-wide knowledge guard; a design-record file requirement in the intent-first
+guard; and a check in `check-execution-semantics.sh` that re-read an audit note to confirm two blockers
+were closed — the same guard already reads `spec/reason-codes.md`, `spec/idempotency.md` and the vectors
+directly, and a record of closure is not what keeps them closed.
+
+### Derived artifacts
+
+Index purged surgically across the phase (chunks 1202 → 1131, coverage 996 → 956, exclusions 59 → 57),
+`index_hash` recomputed to `85c9b2cb8f327139`, the api-kb WASM rebuilt from the purged source and
+verified in both directions. Zero dead paths remain in any index file. Provenance stamps were left
+alone: a `source_commit` cannot point at the commit containing it.
+
+### Metrics
+
+| Metric | Value |
+|---|---:|
+| Files at start (`main`) | 1966 |
+| Files deleted, gross | 182 |
+| Files added, gross | 3 |
+| Files renamed | 1 |
+| Files modified | 100 |
+| Net reduction | 179 |
+| Files final | **1787** |
+
+`1966 − 182 + 3 = 1787`. The arithmetic closes. An earlier summary said "146 files removed"; that figure
+was wrong — the phases before this one removed 127.
+
+| Surface | Before | After |
+|---|---:|---:|
+| `docs/reports/` | 21 | **0** |
+| `docs/audit/` | 16 | **2** |
+| `docs/governance/` | 71 | **50** |
+| `docs/security/` | 40 | **37** |
+
+### Verification
+
+202 guard targets, **200 pass**. Website suite **502/502**, `tsc` clean.
+
+### The two failures, diagnosed and not masked
+
+Both still fail, both fail identically on `main`, and neither is a real defect. They are imprecise
+guards, and both sit outside the surface this phase cleaned:
+
+- **`private-key-leak-check`** flags the secret detector's own fixtures. `boundary.rs` carries
+  `-----BEGIN PRIVATE KEY-----` in the doc-comment that explains what the detector flags and in the
+  `#[cfg(test)]` case that proves it fires; `claims-matrix.json` cites that test by name; the
+  evidence-bundle WASM embeds the same string. The guard needs to become context-aware about test
+  material, exactly as other guards here became negation-aware.
+- **`regulatory-check`** flags a **negated** sentence — *"There is no CA signature and no certificate
+  chain"* — and the word `corpus` inside mirrored ADRs, which are technical decision records, not UI
+  copy. Every hit is in `website/content/decisions/adr/`, the mirror that carries 64 of 81 ADRs.
+
+The `regulatory-check` hits belong to the ADR Architecture Reset, which owns that mirror. The
+`private-key-leak-check` hits belong to the engine pass. Neither was fixed here, and no guard was
+loosened to make a count look green.
+
+---
+
 ## Robustness backlog
 
 Carried forward, with the phase that will take each:
@@ -377,14 +536,37 @@ Carried forward, with the phase that will take each:
 2. **`private-key-leak-check` fails on `HEAD`** — a PEM block in `engines/operator-zero-core/src/boundary.rs`,
    secret-field-name tokens in `evidence/claims/claims-matrix.json` and a compiled evidence-bundle WASM.
 3. **`regulatory-check` fails on `HEAD`** — `ca signature` and `corpus` tokens in mirrored ADRs.
-4. **`website/content/decisions/adr/` mirrors 64 ADRs against 81 canonical** — a partial mirror that has
-   drifted.
-5. **Two governance status documents assert COMPLETE against uninspectable evidence** (Phase D finding),
-   one of them contradicting `CLAUDE.md` and resting on an authority line whose ADRs are mostly deleted.
-6. **`docs/reports/` holds 21 closed milestone reports**, the same class removed from `docs/governance/`
-   in Phase B; one already cites a guard that no longer exists.
+4. **`website/content/decisions/adr/` mirrors 64 ADRs against 81 canonical** — a drifted partial mirror,
+   and the source of every `regulatory-check` hit. Belongs to the ADR Architecture Reset.
+5. **`private-key-leak-check` flags its own detector's test fixtures** — needs to become context-aware
+   about test material. Belongs to the engine pass.
+6. **The custody threshold is contradicted between code and governance** — see below. Blocking.
+
+Items 5 and 6 of the earlier list are closed by Phase E.
+
+---
+
+## Blocking finding — the custody threshold
+
+`engines/banza-root-ceremony` is a real, tested, WASM-compiled validator with `TOTAL_ROOT_KEYS = 3`. It
+requires three custodians and a 2-of-3 signature threshold for `M2_ROOT_CEREMONY_VALID`, and it has a
+CLI and evidence-bundle integration.
+
+The approved governance Decision Record (2026-06-19) says the M2 bootstrap custody model is **Option A —
+2 HSM / 2+ independent keyholders (dual control)**, with 3-of-5 Shamir as the future target, and forbids
+claiming any other model. `ROOT_KEY_CEREMONY_PROCEDURE.md`, 994 lines, is written for Option A.
+
+The result is two complete, parallel ceremony document sets for two different custody models — and the
+superseded one calls itself *"the canonical M2.1 ceremony document"*. Eight documents say 2-of-3, seven
+say 2-of-2. Nothing has run: no ceremony, no production root key.
+
+This is why the root/security consolidation stopped. Which model is BANZA's is a security decision, not
+a documentation cleanup, and either answer discards real work: deleting the 2-of-3 set orphans a shipped
+validator, and keeping it entrenches a model the approved decision superseded. Everything downstream —
+which ceremony documents survive, which get consolidated, whether
+`ROOT_KEY_CEREMONY_PROCEDURE.md` is still a procedure — depends on the answer.
 
 ## Open
 
-Next: the governance status documents and `docs/reports/`, starting from the public-surface impact.
-Then the numeric, trust, normative and engine passes.
+The root/security consolidation, once the custody threshold is decided. Then the numeric, trust,
+normative and engine passes. The ADR Architecture Reset is a separate milestone and was not started.

@@ -77,7 +77,7 @@
   "/__pycache__/",
   "/vendor/"
  ],
- "index_hash": "638493aa8484f06b",
+ "index_hash": "85c9b2cb8f327139",
  "index_version": "m2.13b-pr2",
  "secrets_in_index": 0,
  "verdict": "index carries no secret/key material, no build-artifact paths, no GGUF weights"

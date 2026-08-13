@@ -3,7 +3,7 @@
 - **Status:** Accepted
 - **Date:** 2026-08
 - **Relates:** ADR-082 (BANZA Canonical JSON), ADR-079 (Canonical Trust Signing Model — Model A), ADR-038 (domain separation), ADR-001 (Open Financial Protocol)
-- **Audit basis:** `docs/audit/BANZA_V1_OPEN_PROTOCOL_NORMATIVE_COMPLETENESS_AUDIT.md` §14, finding **F-01 (P0)**
+- **Audit basis:** the v1.0 normative-completeness audit, finding **F-01 (P0)** — no single canonical byte form for signing and digesting. The audit record is not kept; this ADR is the durable outcome.
 
 ## Context
 
