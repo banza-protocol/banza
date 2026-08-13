@@ -123,6 +123,21 @@ add('contracts/production/reason-code-registry.production.json', 'NORMATIVE_REGI
     'banza-reason-codes/1 — the machine-readable vocabularies those rules govern.')
 add('conformance/vectors/reason-codes.json', 'CONFORMANCE_VECTOR', CONF,
     'Vectors for the reason-code rules, derived from the specification.')
+add('spec/capabilities.md', 'NORMATIVE_SPECIFICATION', IMPL,
+    'Capability rules: one canonical namespace, what a declaration must be to satisfy a profile '
+    'requirement, the prohibition on implicit normalisation, aliases, and the status of the '
+    'supports_* flags.')
+add('contracts/production/capability-registry.production.json', 'NORMATIVE_REGISTRY', IMPL,
+    'banza-capabilities/1 — the core capability identifiers those rules govern, with the audited '
+    'relation of every supports_* flag and the evidence for every alias.')
+add('conformance/vectors/capabilities.json', 'CONFORMANCE_VECTOR', CONF,
+    'Vectors for capability satisfaction, including that near-spellings never satisfy implicitly.')
+add('spec/trust-freshness.md', 'NORMATIVE_SPECIFICATION', IMPL,
+    'Trust-material freshness and anti-rollback: monotonic acceptance per object and authority, with '
+    'an explicit statement of what the rule does NOT provide (first-observation staleness, global '
+    'equivocation, suppression, availability).')
+add('conformance/vectors/trust-freshness.json', 'CONFORMANCE_VECTOR', CONF,
+    'Vectors for the anti-rollback rule, including restart and concurrency.')
 add('spec/idempotency.md', 'NORMATIVE_SPECIFICATION', IMPL,
     'Idempotency: key scope, request identity as a BCJ/1 digest, retry and conflict semantics, '
     'retention floor and declaration, concurrency.')
@@ -242,6 +257,8 @@ manifest = {
         "decisions/rfc/** - proposals; every BANZA RFC is Draft and none is a requirement of 1.0.0",
         "GOVERNANCE.md, CONTRIBUTING.md, MAINTAINERS.md, SECURITY.md - governance: how the norm "
         "evolves, not what it requires",
+        "docs/research/** - related-work analysis; informative, cites the normative surface and is "
+        "never cited by it",
         "evidence/**, artifacts/** - evidence about the reference implementation",
         "tools/** - build, guard and derivation tooling",
     ],

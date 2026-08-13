@@ -2,41 +2,55 @@
   "_spec": "Banza Operator Conformance Suite v1.0",
   "_description": "Tests that any operator implementing the Banza protocol must pass.",
   "_target": "HTTP operator at configurable base URL",
-
   "suite_id": "operators",
   "suite_name": "Operator Conformance",
   "protocol_version": "1.0",
-
-  "_levels_note": "The numeric bands below are suite-internal test groupings, historical to this suite. They are NOT the public BANZA conformance profiles L0\u2013L4 (L0 Protocol Sandbox \u00b7 L1 Core Payment Capability \u00b7 L2 Payment Initiation Capability \u00b7 L3 Inter-Operator Interoperability \u00b7 L4 External Interoperability \u2014 see conformance/README.md and docs/governance/certification-boundary.md). Vector certification_level values follow these internal bands and are immutable.",
-
+  "_levels_note": "The numeric bands below are suite-internal test groupings, historical to this suite. They are NOT the public BANZA conformance profiles L0–L4, which are defined normatively in contracts/production/conformance-profiles.production.json. Vector certification_level values follow these internal bands and are immutable; do not read them as profile levels.",
   "certification_levels": {
     "0": {
       "name": "Reference-compatible",
       "description": "Health endpoint, wallet creation, basic transfer, environment isolation",
-      "required_suites": ["health", "wallets", "transfers-basic", "environment"]
+      "required_suites": [
+        "health",
+        "wallets",
+        "transfers-basic",
+        "environment"
+      ]
     },
     "1": {
       "name": "Protocol-compatible",
       "description": "All Level 0 + QR, payment requests, events, ledger, settlement",
-      "required_suites": ["qr", "payment-requests", "events", "ledger", "settlement"]
+      "required_suites": [
+        "qr",
+        "payment-requests",
+        "events",
+        "ledger",
+        "settlement"
+      ]
     },
     "2": {
       "name": "Trace-compatible",
       "description": "All Level 1 + trace_id on all operations, GET /traces, causation_id",
-      "required_suites": ["traces"]
+      "required_suites": [
+        "traces"
+      ]
     },
     "3": {
       "name": "Federation-ready",
       "description": "All Level 2 + valid manifest, capability declaration",
-      "required_suites": ["manifest", "capabilities"]
+      "required_suites": [
+        "manifest",
+        "capabilities"
+      ]
     },
     "4": {
       "name": "Settlement-compatible",
       "description": "All Level 3 + settlement fee model, no-money-creation invariant",
-      "required_suites": ["settlement-invariants"]
+      "required_suites": [
+        "settlement-invariants"
+      ]
     }
   },
-
   "sub_suites": [
     {
       "id": "health",
@@ -79,7 +93,9 @@
           "method": "GET",
           "path": "/health",
           "expect_status": 200,
-          "expect_field_values": { "production_allowed": false }
+          "expect_field_values": {
+            "production_allowed": false
+          }
         }
       ]
     },
@@ -87,55 +103,110 @@
       "id": "wallets",
       "name": "Wallet management",
       "certification_level": 0,
-      "vectors": ["WLT-001", "WLT-002", "WLT-004", "WLT-005"]
+      "vectors": [
+        "WLT-001",
+        "WLT-002",
+        "WLT-004",
+        "WLT-005"
+      ]
     },
     {
       "id": "transfers-basic",
       "name": "Transfer basics",
       "certification_level": 0,
-      "vectors": ["TRF-001", "TRF-002", "TRF-003", "TRF-004", "TRF-005", "TRF-006"]
+      "vectors": [
+        "TRF-001",
+        "TRF-002",
+        "TRF-003",
+        "TRF-004",
+        "TRF-005",
+        "TRF-006"
+      ]
     },
     {
       "id": "qr",
       "name": "QR payment flow",
       "certification_level": 1,
-      "vectors": ["QR-001", "QR-002", "QR-003", "QR-004", "QR-005", "QR-007"]
+      "vectors": [
+        "QR-001",
+        "QR-002",
+        "QR-003",
+        "QR-004",
+        "QR-005",
+        "QR-007"
+      ]
     },
     {
       "id": "payment-requests",
       "name": "Payment request lifecycle",
       "certification_level": 1,
-      "vectors": ["PR-001", "PR-002", "PR-003", "PR-006"]
+      "vectors": [
+        "PR-001",
+        "PR-002",
+        "PR-003",
+        "PR-006"
+      ]
     },
     {
       "id": "events",
       "name": "Event emission",
       "certification_level": 1,
-      "vectors": ["EVT-001", "EVT-002", "EVT-003", "EVT-005", "EVT-006", "EVT-007", "EVT-008"]
+      "vectors": [
+        "EVT-001",
+        "EVT-002",
+        "EVT-003",
+        "EVT-005",
+        "EVT-006",
+        "EVT-007",
+        "EVT-008"
+      ]
     },
     {
       "id": "ledger",
       "name": "Ledger invariants",
       "certification_level": 1,
-      "vectors": ["LED-001", "LED-002", "LED-003", "LED-005"]
+      "vectors": [
+        "LED-001",
+        "LED-002",
+        "LED-003",
+        "LED-005"
+      ]
     },
     {
       "id": "settlement",
       "name": "Settlement simulation",
       "certification_level": 1,
-      "vectors": ["STL-001", "STL-002", "STL-005"]
+      "vectors": [
+        "STL-001",
+        "STL-002",
+        "STL-005"
+      ]
     },
     {
       "id": "traces",
       "name": "Financial traceability",
       "certification_level": 2,
-      "vectors": ["TRF-008", "TRF-009", "QR-006", "PR-004", "PR-005", "STL-004", "LED-004", "EVT-004"]
+      "vectors": [
+        "TRF-008",
+        "TRF-009",
+        "QR-006",
+        "PR-004",
+        "PR-005",
+        "STL-004",
+        "LED-004",
+        "EVT-004"
+      ]
     },
     {
       "id": "manifest",
       "name": "Operator manifest",
       "certification_level": 3,
-      "vectors": ["MAN-001", "MAN-002", "MAN-003", "MAN-004"]
+      "vectors": [
+        "MAN-001",
+        "MAN-002",
+        "MAN-003",
+        "MAN-004"
+      ]
     },
     {
       "id": "capabilities",
@@ -148,7 +219,9 @@
           "method": "GET",
           "path": "/.well-known/banza/operator.json",
           "expect_status": 200,
-          "expect_nested": { "capabilities.supports_wallets": true }
+          "expect_nested": {
+            "capabilities.supports_wallets": true
+          }
         },
         {
           "id": "CAP-002",
@@ -156,7 +229,9 @@
           "method": "GET",
           "path": "/.well-known/banza/operator.json",
           "expect_status": 200,
-          "expect_nested": { "capabilities.supports_qr": true }
+          "expect_nested": {
+            "capabilities.supports_qr": true
+          }
         }
       ]
     },
@@ -164,10 +239,12 @@
       "id": "settlement-invariants",
       "name": "Settlement invariants",
       "certification_level": 4,
-      "vectors": ["STL-003", "STL-006"]
+      "vectors": [
+        "STL-003",
+        "STL-006"
+      ]
     }
   ],
-
   "invariants": {
     "zero_sum_ledger": "Every transfer must create DEBIT and CREDIT entries of exactly equal amount",
     "no_negative_balance": "No wallet may reach a negative balance",

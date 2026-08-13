@@ -1,0 +1,3298 @@
+{
+  "_header": "Derived informative view. The BANZA Normative Manifest remains authoritative.",
+  "_generator": "tools/gen-implementation-sets.py",
+  "_inputs": [
+    "contracts/production/normative-manifest.json",
+    "contracts/production/conformance-profiles.production.json"
+  ],
+  "_determinism": "Sorted throughout and free of timestamps: two runs over an unchanged tree are byte-identical.",
+  "_dependency_kinds": {
+    "normative": "needed to determine conforming behaviour",
+    "conformance": "needed to test or demonstrate conformance",
+    "guidance": "helps an engineer; defines no requirement"
+  },
+  "protocol_version": "1.0.0",
+  "manifest_totals": {
+    "artifacts": 150,
+    "implementation": 90,
+    "conformance": 55,
+    "legal": 3,
+    "informative": 2
+  },
+  "edge_counts": {
+    "profile_requires": 77,
+    "schema_ref": 16,
+    "cites_normative": 277
+  },
+  "_closure_edges": [
+    "profile_requires",
+    "schema_ref"
+  ],
+  "_closure_note": "Closures traverse profile_requires and schema_ref only. cites_normative is recorded but never followed: a prose mention is not a dependency, and following it collapses every profile into the whole surface.",
+  "edges": [
+    {
+      "from": "conformance/capabilities/schema.json",
+      "to": "contracts/production/conformance-profiles.production.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "conformance/capabilities/schema.json names contracts/production/conformance-profiles.production.json in its own text"
+    },
+    {
+      "from": "conformance/federation/suite.json",
+      "to": "contracts/federation/federation-event.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "conformance/federation/suite.json names contracts/federation/federation-event.json in its own text"
+    },
+    {
+      "from": "conformance/federation/suite.json",
+      "to": "contracts/federation/federation-manifest.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "conformance/federation/suite.json names contracts/federation/federation-manifest.json in its own text"
+    },
+    {
+      "from": "conformance/federation/suite.json",
+      "to": "contracts/federation/federation-obligation.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "conformance/federation/suite.json names contracts/federation/federation-obligation.json in its own text"
+    },
+    {
+      "from": "conformance/federation/suite.json",
+      "to": "contracts/federation/federation-routing.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "conformance/federation/suite.json names contracts/federation/federation-routing.json in its own text"
+    },
+    {
+      "from": "conformance/federation/suite.json",
+      "to": "contracts/federation/federation-trust.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "conformance/federation/suite.json names contracts/federation/federation-trust.json in its own text"
+    },
+    {
+      "from": "conformance/federation/suite.json",
+      "to": "contracts/production/conformance-evidence.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "conformance/federation/suite.json names contracts/production/conformance-evidence.production.schema.json in its own text"
+    },
+    {
+      "from": "conformance/federation/suite.json",
+      "to": "contracts/production/federation-trust-evaluation.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "conformance/federation/suite.json names contracts/production/federation-trust-evaluation.production.schema.json in its own text"
+    },
+    {
+      "from": "conformance/federation/suite.json",
+      "to": "contracts/production/signed-protocol-metadata.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "conformance/federation/suite.json names contracts/production/signed-protocol-metadata.production.schema.json in its own text"
+    },
+    {
+      "from": "conformance/manifests/schema.json",
+      "to": "contracts/federation/federation-manifest.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "conformance/manifests/schema.json names contracts/federation/federation-manifest.json in its own text"
+    },
+    {
+      "from": "conformance/manifests/schema.json",
+      "to": "contracts/production/operator-manifest.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "conformance/manifests/schema.json names contracts/production/operator-manifest.production.schema.json in its own text"
+    },
+    {
+      "from": "conformance/operators/suite.json",
+      "to": "contracts/production/conformance-profiles.production.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "conformance/operators/suite.json names contracts/production/conformance-profiles.production.json in its own text"
+    },
+    {
+      "from": "conformance/report-schema.json",
+      "to": "contracts/production/conformance-profiles.production.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "conformance/report-schema.json names contracts/production/conformance-profiles.production.json in its own text"
+    },
+    {
+      "from": "conformance/sdk/suite.json",
+      "to": "contracts/webhooks/signature.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "conformance/sdk/suite.json names contracts/webhooks/signature.json in its own text"
+    },
+    {
+      "from": "conformance/vectors/canonicalization.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "conformance/vectors/canonicalization.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "conformance/vectors/capabilities.json",
+      "to": "contracts/production/capability-registry.production.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "conformance/vectors/capabilities.json names contracts/production/capability-registry.production.json in its own text"
+    },
+    {
+      "from": "conformance/vectors/capabilities.json",
+      "to": "spec/capabilities.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "conformance/vectors/capabilities.json names spec/capabilities.md in its own text"
+    },
+    {
+      "from": "conformance/vectors/idempotency.json",
+      "to": "spec/idempotency.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "conformance/vectors/idempotency.json names spec/idempotency.md in its own text"
+    },
+    {
+      "from": "conformance/vectors/reason-codes.json",
+      "to": "contracts/federation/federation-trust.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "conformance/vectors/reason-codes.json names contracts/federation/federation-trust.json in its own text"
+    },
+    {
+      "from": "conformance/vectors/reason-codes.json",
+      "to": "contracts/production/reason-code-registry.production.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "conformance/vectors/reason-codes.json names contracts/production/reason-code-registry.production.json in its own text"
+    },
+    {
+      "from": "conformance/vectors/reason-codes.json",
+      "to": "spec/reason-codes.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "conformance/vectors/reason-codes.json names spec/reason-codes.md in its own text"
+    },
+    {
+      "from": "conformance/vectors/trust-freshness.json",
+      "to": "spec/trust-freshness.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "conformance/vectors/trust-freshness.json names spec/trust-freshness.md in its own text"
+    },
+    {
+      "from": "conformance/vectors/trust-signing.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "conformance/vectors/trust-signing.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/collections/collection-rule.schema.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/collections/collection-rule.schema.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/collections/collection-share.schema.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/collections/collection-share.schema.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/collections/collection.schema.json",
+      "to": "contracts/collections/collection-rule.schema.json",
+      "edge": "schema_ref",
+      "kind": "normative",
+      "reason": "validating contracts/collections/collection.schema.json requires resolving $ref https://banza.network/contracts/collections/collection-rule.schema.json"
+    },
+    {
+      "from": "contracts/collections/collection.schema.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/collections/collection.schema.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/events/envelope.schema.json",
+      "to": "contracts/events/types.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/events/envelope.schema.json names contracts/events/types.json in its own text"
+    },
+    {
+      "from": "contracts/events/types.json",
+      "to": "contracts/events/webhook-types.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/events/types.json names contracts/events/webhook-types.json in its own text"
+    },
+    {
+      "from": "contracts/events/types.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/events/types.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/events/webhook-types.json",
+      "to": "contracts/webhooks/signature.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/events/webhook-types.json names contracts/webhooks/signature.json in its own text"
+    },
+    {
+      "from": "contracts/events/webhook-types.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/events/webhook-types.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/federation/federation-event.json",
+      "to": "contracts/events/envelope.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/federation/federation-event.json names contracts/events/envelope.schema.json in its own text"
+    },
+    {
+      "from": "contracts/federation/federation-manifest.json",
+      "to": "conformance/manifests/schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/federation/federation-manifest.json names conformance/manifests/schema.json in its own text"
+    },
+    {
+      "from": "contracts/federation/federation-manifest.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/federation/federation-manifest.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/federation/federation-obligation.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/federation/federation-obligation.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/federation/federation-routing.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/federation/federation-routing.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/federation/federation-trust.json",
+      "to": "conformance/federation/suite.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "contracts/federation/federation-trust.json names conformance/federation/suite.json in its own text"
+    },
+    {
+      "from": "contracts/federation/federation-trust.json",
+      "to": "conformance/manifests/schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/federation/federation-trust.json names conformance/manifests/schema.json in its own text"
+    },
+    {
+      "from": "contracts/federation/federation-trust.json",
+      "to": "contracts/federation/federation-manifest.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/federation/federation-trust.json names contracts/federation/federation-manifest.json in its own text"
+    },
+    {
+      "from": "contracts/federation/federation-trust.json",
+      "to": "contracts/federation/key-manifest.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/federation/federation-trust.json names contracts/federation/key-manifest.json in its own text"
+    },
+    {
+      "from": "contracts/federation/federation-trust.json",
+      "to": "contracts/federation/revocation-list.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/federation/federation-trust.json names contracts/federation/revocation-list.json in its own text"
+    },
+    {
+      "from": "contracts/federation/federation-trust.json",
+      "to": "contracts/production/conformance-evidence.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/federation/federation-trust.json names contracts/production/conformance-evidence.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/federation/federation-trust.json",
+      "to": "contracts/production/delegated-signing-key.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/federation/federation-trust.json names contracts/production/delegated-signing-key.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/federation/federation-trust.json",
+      "to": "contracts/production/federation-trust-evaluation.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/federation/federation-trust.json names contracts/production/federation-trust-evaluation.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/federation/federation-trust.json",
+      "to": "contracts/production/signed-protocol-metadata.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/federation/federation-trust.json names contracts/production/signed-protocol-metadata.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/federation/key-manifest.json",
+      "to": "contracts/production/key-manifest.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/federation/key-manifest.json names contracts/production/key-manifest.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/federation/key-manifest.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/federation/key-manifest.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/federation/revocation-list.json",
+      "to": "contracts/production/brl.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/federation/revocation-list.json names contracts/production/brl.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/federation/revocation-list.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/federation/revocation-list.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/fees/operator-fee.schema.json",
+      "to": "contracts/fees/business-category.schema.json",
+      "edge": "schema_ref",
+      "kind": "normative",
+      "reason": "validating contracts/fees/operator-fee.schema.json requires resolving $ref https://banza.network/contracts/fees/business-category.schema.json"
+    },
+    {
+      "from": "contracts/fees/operator-fee.schema.json",
+      "to": "contracts/fees/pricing-profile.schema.json",
+      "edge": "schema_ref",
+      "kind": "normative",
+      "reason": "validating contracts/fees/operator-fee.schema.json requires resolving $ref https://banza.network/contracts/fees/pricing-profile.schema.json"
+    },
+    {
+      "from": "contracts/fees/operator-fee.schema.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/fees/operator-fee.schema.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/invariants.json",
+      "to": "conformance/federation/suite.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "contracts/invariants.json names conformance/federation/suite.json in its own text"
+    },
+    {
+      "from": "contracts/invariants.json",
+      "to": "conformance/ledger/suite.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "contracts/invariants.json names conformance/ledger/suite.json in its own text"
+    },
+    {
+      "from": "contracts/invariants.json",
+      "to": "contracts/events/types.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/invariants.json names contracts/events/types.json in its own text"
+    },
+    {
+      "from": "contracts/invariants.json",
+      "to": "contracts/federation/key-manifest.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/invariants.json names contracts/federation/key-manifest.json in its own text"
+    },
+    {
+      "from": "contracts/invariants.json",
+      "to": "contracts/qr/lifecycle.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/invariants.json names contracts/qr/lifecycle.json in its own text"
+    },
+    {
+      "from": "contracts/invariants.json",
+      "to": "contracts/qr/payload-format.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/invariants.json names contracts/qr/payload-format.json in its own text"
+    },
+    {
+      "from": "contracts/invariants.json",
+      "to": "spec/federation/FEDERATION_INVARIANTS.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/invariants.json names spec/federation/FEDERATION_INVARIANTS.md in its own text"
+    },
+    {
+      "from": "contracts/openapi/collections.yaml",
+      "to": "contracts/collections/collection-rule.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/openapi/collections.yaml names contracts/collections/collection-rule.schema.json in its own text"
+    },
+    {
+      "from": "contracts/openapi/collections.yaml",
+      "to": "contracts/collections/collection-share.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/openapi/collections.yaml names contracts/collections/collection-share.schema.json in its own text"
+    },
+    {
+      "from": "contracts/openapi/collections.yaml",
+      "to": "contracts/collections/collection.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/openapi/collections.yaml names contracts/collections/collection.schema.json in its own text"
+    },
+    {
+      "from": "contracts/openapi/collections.yaml",
+      "to": "contracts/events/types.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/openapi/collections.yaml names contracts/events/types.json in its own text"
+    },
+    {
+      "from": "contracts/openapi/interoperability-certification.yaml",
+      "to": "contracts/production/certification-record.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/openapi/interoperability-certification.yaml names contracts/production/certification-record.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/openapi/operator-validation.yaml",
+      "to": "contracts/federation/federation-manifest.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/openapi/operator-validation.yaml names contracts/federation/federation-manifest.json in its own text"
+    },
+    {
+      "from": "contracts/openapi/operator-validation.yaml",
+      "to": "contracts/production/capabilities-document.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/openapi/operator-validation.yaml names contracts/production/capabilities-document.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/openapi/operator-validation.yaml",
+      "to": "contracts/production/discovery-document.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/openapi/operator-validation.yaml names contracts/production/discovery-document.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/openapi/operator-validation.yaml",
+      "to": "contracts/production/implementation-record.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/openapi/operator-validation.yaml names contracts/production/implementation-record.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/openapi/operator-validation.yaml",
+      "to": "contracts/production/journey-receipt.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/openapi/operator-validation.yaml names contracts/production/journey-receipt.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/openapi/operator-validation.yaml",
+      "to": "contracts/production/operation-receipt.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/openapi/operator-validation.yaml names contracts/production/operation-receipt.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/openapi/operator-validation.yaml",
+      "to": "contracts/production/operator-record.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/openapi/operator-validation.yaml names contracts/production/operator-record.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/openapi/operator-validation.yaml",
+      "to": "contracts/production/signed-protocol-metadata.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/openapi/operator-validation.yaml names contracts/production/signed-protocol-metadata.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/openapi/transfers.yaml",
+      "to": "spec/idempotency.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/openapi/transfers.yaml names spec/idempotency.md in its own text"
+    },
+    {
+      "from": "contracts/payment-intents/payment-intent.schema.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/payment-intents/payment-intent.schema.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/payment-sessions/payment-session.schema.json",
+      "to": "contracts/payment-sessions/payment-session-interface.schema.json",
+      "edge": "schema_ref",
+      "kind": "normative",
+      "reason": "validating contracts/payment-sessions/payment-session.schema.json requires resolving $ref payment-session-interface.schema.json"
+    },
+    {
+      "from": "contracts/payment-sessions/payment-session.schema.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/payment-sessions/payment-session.schema.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/production/capabilities-document.production.schema.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/capabilities-document.production.schema.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/production/capabilities-document.production.schema.json",
+      "to": "spec/idempotency.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/capabilities-document.production.schema.json names spec/idempotency.md in its own text"
+    },
+    {
+      "from": "contracts/production/capability-registry.production.json",
+      "to": "conformance/capabilities/schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/capability-registry.production.json names conformance/capabilities/schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/capability-registry.production.json",
+      "to": "conformance/fixtures/federation/SPM-A-VALID.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "contracts/production/capability-registry.production.json names conformance/fixtures/federation/SPM-A-VALID.json in its own text"
+    },
+    {
+      "from": "contracts/production/capability-registry.production.json",
+      "to": "conformance/vectors/operator-manifests.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "contracts/production/capability-registry.production.json names conformance/vectors/operator-manifests.json in its own text"
+    },
+    {
+      "from": "contracts/production/capability-registry.production.json",
+      "to": "contracts/federation/federation-manifest.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/capability-registry.production.json names contracts/federation/federation-manifest.json in its own text"
+    },
+    {
+      "from": "contracts/production/capability-registry.production.json",
+      "to": "contracts/production/conformance-profiles.production.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/capability-registry.production.json names contracts/production/conformance-profiles.production.json in its own text"
+    },
+    {
+      "from": "contracts/production/capability-registry.production.json",
+      "to": "contracts/production/operator-manifest.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/capability-registry.production.json names contracts/production/operator-manifest.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/capability-registry.production.json",
+      "to": "spec/capabilities.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/capability-registry.production.json names spec/capabilities.md in its own text"
+    },
+    {
+      "from": "contracts/production/certification-profile.production.schema.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/certification-profile.production.schema.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/production/certification-record.production.schema.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/certification-record.production.schema.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-evidence.production.schema.json",
+      "to": "contracts/production/signed-protocol-metadata.production.schema.json",
+      "edge": "schema_ref",
+      "kind": "normative",
+      "reason": "validating contracts/production/conformance-evidence.production.schema.json requires resolving $ref https://banza.network/contracts/production/signed-protocol-metadata.production.schema.json"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "conformance/capabilities/schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names conformance/capabilities/schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "conformance/federation/suite.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "contracts/production/conformance-profiles.production.json names conformance/federation/suite.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "conformance/manifests/schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names conformance/manifests/schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "conformance/vectors/canonicalization.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "contracts/production/conformance-profiles.production.json names conformance/vectors/canonicalization.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "conformance/vectors/capabilities.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "contracts/production/conformance-profiles.production.json names conformance/vectors/capabilities.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "conformance/vectors/collections.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "contracts/production/conformance-profiles.production.json names conformance/vectors/collections.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "conformance/vectors/event-envelopes.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "contracts/production/conformance-profiles.production.json names conformance/vectors/event-envelopes.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "conformance/vectors/idempotency.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "contracts/production/conformance-profiles.production.json names conformance/vectors/idempotency.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "conformance/vectors/ledger-postings.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "contracts/production/conformance-profiles.production.json names conformance/vectors/ledger-postings.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "conformance/vectors/operator-manifests.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "contracts/production/conformance-profiles.production.json names conformance/vectors/operator-manifests.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "conformance/vectors/payment-requests.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "contracts/production/conformance-profiles.production.json names conformance/vectors/payment-requests.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "conformance/vectors/qr-payloads.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "contracts/production/conformance-profiles.production.json names conformance/vectors/qr-payloads.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "conformance/vectors/reason-codes.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "contracts/production/conformance-profiles.production.json names conformance/vectors/reason-codes.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "conformance/vectors/settlement-batches.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "contracts/production/conformance-profiles.production.json names conformance/vectors/settlement-batches.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "conformance/vectors/transfers.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "contracts/production/conformance-profiles.production.json names conformance/vectors/transfers.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "conformance/vectors/trust-freshness.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "contracts/production/conformance-profiles.production.json names conformance/vectors/trust-freshness.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "conformance/vectors/trust-signing.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "contracts/production/conformance-profiles.production.json names conformance/vectors/trust-signing.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "conformance/vectors/wallet-balances.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "contracts/production/conformance-profiles.production.json names conformance/vectors/wallet-balances.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/collections/collection-share.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/collections/collection-share.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/collections/collection.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/collections/collection.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/collections/state-machine.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/collections/state-machine.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/events/envelope.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/events/envelope.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/events/types.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/events/types.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/events/webhook-types.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/events/webhook-types.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/federation/federation-event.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/federation/federation-event.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/federation/federation-manifest.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/federation/federation-manifest.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/federation/federation-obligation.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/federation/federation-obligation.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/federation/federation-routing.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/federation/federation-routing.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/federation/federation-trust.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/federation/federation-trust.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/federation/key-manifest.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/federation/key-manifest.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/federation/revocation-list.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/federation/revocation-list.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/fees/fee-policy-ref.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/fees/fee-policy-ref.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/fees/operator-fee.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/fees/operator-fee.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/invariants.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/invariants.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/openapi/activity.yaml",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/openapi/activity.yaml in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/openapi/collections.yaml",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/openapi/collections.yaml in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/openapi/transfers.yaml",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/openapi/transfers.yaml in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/openapi/wallet-onboarding.yaml",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/openapi/wallet-onboarding.yaml in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/payment-intents/payment-intent.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/payment-intents/payment-intent.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/payment-sessions/payment-session.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/payment-sessions/payment-session.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/brl.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/brl.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/capabilities-document.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/capabilities-document.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/capability-registry.production.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/capability-registry.production.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/certification-profile.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/certification-profile.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/certification-record.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/certification-record.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/certified-implementation.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/certified-implementation.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/conformance-profiles.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/conformance-profiles.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/conformance-report.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/conformance-report.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/discovery-document.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/discovery-document.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/evidence-bundle.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/evidence-bundle.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/federation-trust-evaluation.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/federation-trust-evaluation.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/implementation-record.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/implementation-record.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/interoperability-report.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/interoperability-report.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/journey-receipt.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/journey-receipt.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/key-manifest.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/key-manifest.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/operator-manifest.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/operator-manifest.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/operator-record.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/operator-record.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/protocol-governance-event.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/protocol-governance-event.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/protocol-release.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/protocol-release.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/protocol-version.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/protocol-version.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/public-protocol-registry.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/public-protocol-registry.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/reason-code-registry.production.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/reason-code-registry.production.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/regulatory-state.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/regulatory-state.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/revocation-entry.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/revocation-entry.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/root-backup-declaration.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/root-backup-declaration.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/root-ceremony-evidence.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/root-ceremony-evidence.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/root-custody-declaration.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/root-custody-declaration.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/root-metadata.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/root-metadata.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/root-recovery-test.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/root-recovery-test.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/root-revocation.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/root-revocation.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/signed-protocol-metadata.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/signed-protocol-metadata.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/trust-root-metadata.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/trust-root-metadata.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/validation-journey-state-machine.production.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/validation-journey-state-machine.production.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/proofs/transaction-proof.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/proofs/transaction-proof.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/proofs/verification-response.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/proofs/verification-response.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/qr/lifecycle.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/qr/lifecycle.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/qr/payload-format.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/qr/payload-format.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/settlements/application-settlement.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/settlements/application-settlement.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/settlements/state-machine.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/settlements/state-machine.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/wallet-accounts/wallet-account.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/wallet-accounts/wallet-account.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/webhooks/envelope.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/webhooks/envelope.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/webhooks/signature.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/webhooks/signature.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "spec/capabilities.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names spec/capabilities.md in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "spec/collections.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names spec/collections.md in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "spec/federation/FEDERATION_CONTRACT_SURFACE.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names spec/federation/FEDERATION_CONTRACT_SURFACE.md in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "spec/federation/FEDERATION_INVARIANTS.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names spec/federation/FEDERATION_INVARIANTS.md in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "spec/federation/FEDERATION_PROTOCOL_FLOW.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names spec/federation/FEDERATION_PROTOCOL_FLOW.md in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "spec/federation/FEDERATION_PROTOCOL_SURFACES.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names spec/federation/FEDERATION_PROTOCOL_SURFACES.md in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "spec/federation/FEDERATION_TRUST_MODEL.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names spec/federation/FEDERATION_TRUST_MODEL.md in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "spec/idempotency.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names spec/idempotency.md in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "spec/reason-codes.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names spec/reason-codes.md in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "spec/trust-freshness.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names spec/trust-freshness.md in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "spec/validation-journey.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names spec/validation-journey.md in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.schema.json",
+      "to": "contracts/invariants.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.schema.json names contracts/invariants.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.schema.json",
+      "to": "contracts/production/conformance-profiles.production.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.schema.json names contracts/production/conformance-profiles.production.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.schema.json",
+      "to": "contracts/production/conformance-report.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.schema.json names contracts/production/conformance-report.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-report.production.schema.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-report.production.schema.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/production/evidence-bundle.production.schema.json",
+      "to": "contracts/production/protocol-version.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/evidence-bundle.production.schema.json names contracts/production/protocol-version.json in its own text"
+    },
+    {
+      "from": "contracts/production/federation-trust-evaluation.production.schema.json",
+      "to": "contracts/federation/federation-trust.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/federation-trust-evaluation.production.schema.json names contracts/federation/federation-trust.json in its own text"
+    },
+    {
+      "from": "contracts/production/federation-trust-evaluation.production.schema.json",
+      "to": "contracts/production/reason-code-registry.production.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/federation-trust-evaluation.production.schema.json names contracts/production/reason-code-registry.production.json in its own text"
+    },
+    {
+      "from": "contracts/production/federation-trust-evaluation.production.schema.json",
+      "to": "spec/reason-codes.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/federation-trust-evaluation.production.schema.json names spec/reason-codes.md in its own text"
+    },
+    {
+      "from": "contracts/production/journey-receipt.production.schema.json",
+      "to": "contracts/production/operation-receipt.production.schema.json",
+      "edge": "schema_ref",
+      "kind": "normative",
+      "reason": "validating contracts/production/journey-receipt.production.schema.json requires resolving $ref operation-receipt.production.schema.json"
+    },
+    {
+      "from": "contracts/production/journey-receipt.production.schema.json",
+      "to": "contracts/production/reason-code-registry.production.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/journey-receipt.production.schema.json names contracts/production/reason-code-registry.production.json in its own text"
+    },
+    {
+      "from": "contracts/production/journey-receipt.production.schema.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/journey-receipt.production.schema.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/production/journey-receipt.production.schema.json",
+      "to": "spec/reason-codes.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/journey-receipt.production.schema.json names spec/reason-codes.md in its own text"
+    },
+    {
+      "from": "contracts/production/operation-receipt.production.schema.json",
+      "to": "contracts/production/reason-code-registry.production.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/operation-receipt.production.schema.json names contracts/production/reason-code-registry.production.json in its own text"
+    },
+    {
+      "from": "contracts/production/operation-receipt.production.schema.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/operation-receipt.production.schema.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/production/operation-receipt.production.schema.json",
+      "to": "spec/reason-codes.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/operation-receipt.production.schema.json names spec/reason-codes.md in its own text"
+    },
+    {
+      "from": "contracts/production/operator-manifest.production.schema.json",
+      "to": "conformance/manifests/schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/operator-manifest.production.schema.json names conformance/manifests/schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/protocol-governance-event.production.schema.json",
+      "to": "contracts/production/signed-protocol-metadata.production.schema.json",
+      "edge": "schema_ref",
+      "kind": "normative",
+      "reason": "validating contracts/production/protocol-governance-event.production.schema.json requires resolving $ref https://banza.network/contracts/production/signed-protocol-metadata.production.schema.json"
+    },
+    {
+      "from": "contracts/production/protocol-governance-event.production.schema.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/protocol-governance-event.production.schema.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/production/protocol-version.json",
+      "to": "conformance/vectors/canonicalization.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "contracts/production/protocol-version.json names conformance/vectors/canonicalization.json in its own text"
+    },
+    {
+      "from": "contracts/production/protocol-version.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/protocol-version.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/production/public-protocol-registry.production.schema.json",
+      "to": "contracts/production/conformance-evidence.production.schema.json",
+      "edge": "schema_ref",
+      "kind": "normative",
+      "reason": "validating contracts/production/public-protocol-registry.production.schema.json requires resolving $ref https://banza.network/contracts/production/conformance-evidence.production.schema.json"
+    },
+    {
+      "from": "contracts/production/public-protocol-registry.production.schema.json",
+      "to": "contracts/production/operator-self-publication.production.schema.json",
+      "edge": "schema_ref",
+      "kind": "normative",
+      "reason": "validating contracts/production/public-protocol-registry.production.schema.json requires resolving $ref https://banza.network/contracts/production/operator-self-publication.production.schema.json"
+    },
+    {
+      "from": "contracts/production/public-protocol-registry.production.schema.json",
+      "to": "contracts/production/signed-protocol-metadata.production.schema.json",
+      "edge": "schema_ref",
+      "kind": "normative",
+      "reason": "validating contracts/production/public-protocol-registry.production.schema.json requires resolving $ref https://banza.network/contracts/production/signed-protocol-metadata.production.schema.json"
+    },
+    {
+      "from": "contracts/production/reason-code-registry.production.json",
+      "to": "contracts/federation/federation-trust.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/reason-code-registry.production.json names contracts/federation/federation-trust.json in its own text"
+    },
+    {
+      "from": "contracts/production/reason-code-registry.production.json",
+      "to": "spec/reason-codes.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/reason-code-registry.production.json names spec/reason-codes.md in its own text"
+    },
+    {
+      "from": "contracts/production/reason-code-registry.production.json",
+      "to": "spec/trust-freshness.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/reason-code-registry.production.json names spec/trust-freshness.md in its own text"
+    },
+    {
+      "from": "contracts/production/reason-code-registry.production.json",
+      "to": "spec/validation-journey.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/reason-code-registry.production.json names spec/validation-journey.md in its own text"
+    },
+    {
+      "from": "contracts/production/root-ceremony-evidence.production.schema.json",
+      "to": "contracts/production/root-key.production.schema.json",
+      "edge": "schema_ref",
+      "kind": "normative",
+      "reason": "validating contracts/production/root-ceremony-evidence.production.schema.json requires resolving $ref https://banza.network/contracts/production/root-key.production.schema.json"
+    },
+    {
+      "from": "contracts/production/root-ceremony-evidence.production.schema.json",
+      "to": "contracts/production/root-signature.production.schema.json",
+      "edge": "schema_ref",
+      "kind": "normative",
+      "reason": "validating contracts/production/root-ceremony-evidence.production.schema.json requires resolving $ref https://banza.network/contracts/production/root-signature.production.schema.json"
+    },
+    {
+      "from": "contracts/production/root-metadata.production.schema.json",
+      "to": "contracts/production/root-delegation.production.schema.json",
+      "edge": "schema_ref",
+      "kind": "normative",
+      "reason": "validating contracts/production/root-metadata.production.schema.json requires resolving $ref https://banza.network/contracts/production/root-delegation.production.schema.json"
+    },
+    {
+      "from": "contracts/production/root-metadata.production.schema.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/root-metadata.production.schema.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/production/root-revocation.production.schema.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/root-revocation.production.schema.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/production/trust-root-metadata.production.schema.json",
+      "to": "contracts/production/delegated-signing-key.production.schema.json",
+      "edge": "schema_ref",
+      "kind": "normative",
+      "reason": "validating contracts/production/trust-root-metadata.production.schema.json requires resolving $ref https://banza.network/contracts/production/delegated-signing-key.production.schema.json"
+    },
+    {
+      "from": "contracts/production/trust-root-metadata.production.schema.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/trust-root-metadata.production.schema.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/proofs/transaction-proof.schema.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/proofs/transaction-proof.schema.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/proofs/verification-response.schema.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/proofs/verification-response.schema.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/qr/lifecycle.json",
+      "to": "contracts/qr/payload-format.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/qr/lifecycle.json names contracts/qr/payload-format.json in its own text"
+    },
+    {
+      "from": "contracts/qr/payload-format.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/qr/payload-format.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/settlements/application-settlement.schema.json",
+      "to": "contracts/fees/business-category.schema.json",
+      "edge": "schema_ref",
+      "kind": "normative",
+      "reason": "validating contracts/settlements/application-settlement.schema.json requires resolving $ref https://banza.network/contracts/fees/business-category.schema.json"
+    },
+    {
+      "from": "contracts/settlements/application-settlement.schema.json",
+      "to": "contracts/fees/pricing-profile.schema.json",
+      "edge": "schema_ref",
+      "kind": "normative",
+      "reason": "validating contracts/settlements/application-settlement.schema.json requires resolving $ref https://banza.network/contracts/fees/pricing-profile.schema.json"
+    },
+    {
+      "from": "contracts/settlements/application-settlement.schema.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/settlements/application-settlement.schema.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/wallet-accounts/wallet-account.schema.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/wallet-accounts/wallet-account.schema.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/webhooks/envelope.schema.json",
+      "to": "contracts/events/envelope.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/webhooks/envelope.schema.json names contracts/events/envelope.schema.json in its own text"
+    },
+    {
+      "from": "contracts/webhooks/envelope.schema.json",
+      "to": "contracts/events/webhook-types.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/webhooks/envelope.schema.json names contracts/events/webhook-types.json in its own text"
+    },
+    {
+      "from": "contracts/webhooks/envelope.schema.json",
+      "to": "contracts/webhooks/signature.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/webhooks/envelope.schema.json names contracts/webhooks/signature.json in its own text"
+    },
+    {
+      "from": "contracts/webhooks/signature.json",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/webhooks/signature.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "profile:L0",
+      "to": "conformance/capabilities/schema.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L0 names it under required_schemas"
+    },
+    {
+      "from": "profile:L0",
+      "to": "conformance/manifests/schema.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L0 names it under required_schemas"
+    },
+    {
+      "from": "profile:L0",
+      "to": "conformance/vectors/canonicalization.json",
+      "edge": "profile_requires",
+      "kind": "conformance",
+      "reason": "L0 names it under required_vector_cases"
+    },
+    {
+      "from": "profile:L0",
+      "to": "conformance/vectors/capabilities.json",
+      "edge": "profile_requires",
+      "kind": "conformance",
+      "reason": "L0 names it under required_vector_cases"
+    },
+    {
+      "from": "profile:L0",
+      "to": "conformance/vectors/operator-manifests.json",
+      "edge": "profile_requires",
+      "kind": "conformance",
+      "reason": "L0 names it under required_vector_cases"
+    },
+    {
+      "from": "profile:L0",
+      "to": "conformance/vectors/reason-codes.json",
+      "edge": "profile_requires",
+      "kind": "conformance",
+      "reason": "L0 names it under required_vector_cases"
+    },
+    {
+      "from": "profile:L0",
+      "to": "contracts/invariants.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L0 names it under required_registries"
+    },
+    {
+      "from": "profile:L0",
+      "to": "contracts/production/capability-registry.production.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L0 names it under required_registries"
+    },
+    {
+      "from": "profile:L0",
+      "to": "contracts/production/operator-manifest.production.schema.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L0 names it under required_schemas"
+    },
+    {
+      "from": "profile:L0",
+      "to": "contracts/production/protocol-version.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L0 names it under required_contracts"
+    },
+    {
+      "from": "profile:L0",
+      "to": "contracts/production/reason-code-registry.production.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L0 names it under required_registries"
+    },
+    {
+      "from": "profile:L0",
+      "to": "spec/canonicalization.md",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L0 names it under required_specifications"
+    },
+    {
+      "from": "profile:L0",
+      "to": "spec/capabilities.md",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L0 names it under required_specifications"
+    },
+    {
+      "from": "profile:L0",
+      "to": "spec/reason-codes.md",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L0 names it under required_specifications"
+    },
+    {
+      "from": "profile:L1",
+      "to": "conformance/vectors/event-envelopes.json",
+      "edge": "profile_requires",
+      "kind": "conformance",
+      "reason": "L1 names it under required_vector_cases"
+    },
+    {
+      "from": "profile:L1",
+      "to": "conformance/vectors/idempotency.json",
+      "edge": "profile_requires",
+      "kind": "conformance",
+      "reason": "L1 names it under required_vector_cases"
+    },
+    {
+      "from": "profile:L1",
+      "to": "conformance/vectors/ledger-postings.json",
+      "edge": "profile_requires",
+      "kind": "conformance",
+      "reason": "L1 names it under required_vector_cases"
+    },
+    {
+      "from": "profile:L1",
+      "to": "conformance/vectors/transfers.json",
+      "edge": "profile_requires",
+      "kind": "conformance",
+      "reason": "L1 names it under required_vector_cases"
+    },
+    {
+      "from": "profile:L1",
+      "to": "conformance/vectors/wallet-balances.json",
+      "edge": "profile_requires",
+      "kind": "conformance",
+      "reason": "L1 names it under required_vector_cases"
+    },
+    {
+      "from": "profile:L1",
+      "to": "contracts/events/envelope.schema.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L1 names it under required_schemas"
+    },
+    {
+      "from": "profile:L1",
+      "to": "contracts/events/types.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L1 names it under required_schemas"
+    },
+    {
+      "from": "profile:L1",
+      "to": "contracts/events/webhook-types.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L1 names it under required_schemas"
+    },
+    {
+      "from": "profile:L1",
+      "to": "contracts/openapi/activity.yaml",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L1 names it under required_apis"
+    },
+    {
+      "from": "profile:L1",
+      "to": "contracts/openapi/transfers.yaml",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L1 names it under required_apis"
+    },
+    {
+      "from": "profile:L1",
+      "to": "contracts/openapi/wallet-onboarding.yaml",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L1 names it under required_apis"
+    },
+    {
+      "from": "profile:L1",
+      "to": "contracts/proofs/transaction-proof.schema.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L1 names it under required_schemas"
+    },
+    {
+      "from": "profile:L1",
+      "to": "contracts/proofs/verification-response.schema.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L1 names it under required_schemas"
+    },
+    {
+      "from": "profile:L1",
+      "to": "contracts/wallet-accounts/wallet-account.schema.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L1 names it under required_schemas"
+    },
+    {
+      "from": "profile:L1",
+      "to": "contracts/webhooks/envelope.schema.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L1 names it under required_schemas"
+    },
+    {
+      "from": "profile:L1",
+      "to": "contracts/webhooks/signature.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L1 names it under required_schemas"
+    },
+    {
+      "from": "profile:L1",
+      "to": "spec/idempotency.md",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L1 names it under required_specifications"
+    },
+    {
+      "from": "profile:L2",
+      "to": "conformance/vectors/collections.json",
+      "edge": "profile_requires",
+      "kind": "conformance",
+      "reason": "L2 names it under required_vector_cases"
+    },
+    {
+      "from": "profile:L2",
+      "to": "conformance/vectors/payment-requests.json",
+      "edge": "profile_requires",
+      "kind": "conformance",
+      "reason": "L2 names it under required_vector_cases"
+    },
+    {
+      "from": "profile:L2",
+      "to": "conformance/vectors/qr-payloads.json",
+      "edge": "profile_requires",
+      "kind": "conformance",
+      "reason": "L2 names it under required_vector_cases"
+    },
+    {
+      "from": "profile:L2",
+      "to": "conformance/vectors/settlement-batches.json",
+      "edge": "profile_requires",
+      "kind": "conformance",
+      "reason": "L2 names it under required_vector_cases"
+    },
+    {
+      "from": "profile:L2",
+      "to": "contracts/collections/collection-share.schema.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L2 names it under required_schemas"
+    },
+    {
+      "from": "profile:L2",
+      "to": "contracts/collections/collection.schema.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L2 names it under required_schemas"
+    },
+    {
+      "from": "profile:L2",
+      "to": "contracts/collections/state-machine.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L2 names it under required_schemas"
+    },
+    {
+      "from": "profile:L2",
+      "to": "contracts/fees/fee-policy-ref.schema.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L2 names it under required_schemas"
+    },
+    {
+      "from": "profile:L2",
+      "to": "contracts/fees/operator-fee.schema.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L2 names it under required_schemas"
+    },
+    {
+      "from": "profile:L2",
+      "to": "contracts/openapi/collections.yaml",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L2 names it under required_apis"
+    },
+    {
+      "from": "profile:L2",
+      "to": "contracts/payment-intents/payment-intent.schema.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L2 names it under required_schemas"
+    },
+    {
+      "from": "profile:L2",
+      "to": "contracts/payment-sessions/payment-session.schema.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L2 names it under required_schemas"
+    },
+    {
+      "from": "profile:L2",
+      "to": "contracts/qr/lifecycle.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L2 names it under required_schemas"
+    },
+    {
+      "from": "profile:L2",
+      "to": "contracts/qr/payload-format.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L2 names it under required_schemas"
+    },
+    {
+      "from": "profile:L2",
+      "to": "contracts/settlements/application-settlement.schema.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L2 names it under required_schemas"
+    },
+    {
+      "from": "profile:L2",
+      "to": "contracts/settlements/state-machine.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L2 names it under required_schemas"
+    },
+    {
+      "from": "profile:L2",
+      "to": "spec/collections.md",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L2 names it under required_specifications"
+    },
+    {
+      "from": "profile:L3",
+      "to": "conformance/federation/suite.json",
+      "edge": "profile_requires",
+      "kind": "conformance",
+      "reason": "L3 names it under required_suites"
+    },
+    {
+      "from": "profile:L3",
+      "to": "conformance/vectors/reason-codes.json",
+      "edge": "profile_requires",
+      "kind": "conformance",
+      "reason": "L3 names it under required_vector_cases"
+    },
+    {
+      "from": "profile:L3",
+      "to": "conformance/vectors/trust-freshness.json",
+      "edge": "profile_requires",
+      "kind": "conformance",
+      "reason": "L3 names it under required_vector_cases"
+    },
+    {
+      "from": "profile:L3",
+      "to": "conformance/vectors/trust-signing.json",
+      "edge": "profile_requires",
+      "kind": "conformance",
+      "reason": "L3 names it under required_vector_cases"
+    },
+    {
+      "from": "profile:L3",
+      "to": "contracts/federation/federation-event.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L3 names it under required_schemas"
+    },
+    {
+      "from": "profile:L3",
+      "to": "contracts/federation/federation-manifest.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L3 names it under required_schemas"
+    },
+    {
+      "from": "profile:L3",
+      "to": "contracts/federation/federation-obligation.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L3 names it under required_schemas"
+    },
+    {
+      "from": "profile:L3",
+      "to": "contracts/federation/federation-routing.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L3 names it under required_schemas"
+    },
+    {
+      "from": "profile:L3",
+      "to": "contracts/federation/federation-trust.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L3 names it under required_schemas"
+    },
+    {
+      "from": "profile:L3",
+      "to": "contracts/federation/key-manifest.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L3 names it under required_schemas"
+    },
+    {
+      "from": "profile:L3",
+      "to": "contracts/federation/revocation-list.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L3 names it under required_schemas"
+    },
+    {
+      "from": "profile:L3",
+      "to": "contracts/production/brl.production.schema.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L3 names it under required_schemas"
+    },
+    {
+      "from": "profile:L3",
+      "to": "contracts/production/capabilities-document.production.schema.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L3 names it under required_schemas"
+    },
+    {
+      "from": "profile:L3",
+      "to": "contracts/production/discovery-document.production.schema.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L3 names it under required_schemas"
+    },
+    {
+      "from": "profile:L3",
+      "to": "contracts/production/evidence-bundle.production.schema.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L3 names it under required_schemas"
+    },
+    {
+      "from": "profile:L3",
+      "to": "contracts/production/federation-trust-evaluation.production.schema.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L3 names it under required_schemas"
+    },
+    {
+      "from": "profile:L3",
+      "to": "contracts/production/key-manifest.production.schema.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L3 names it under required_schemas"
+    },
+    {
+      "from": "profile:L3",
+      "to": "contracts/production/public-protocol-registry.production.schema.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L3 names it under required_schemas"
+    },
+    {
+      "from": "profile:L3",
+      "to": "contracts/production/revocation-entry.production.schema.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L3 names it under required_schemas"
+    },
+    {
+      "from": "profile:L3",
+      "to": "contracts/production/root-metadata.production.schema.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L3 names it under required_schemas"
+    },
+    {
+      "from": "profile:L3",
+      "to": "contracts/production/root-revocation.production.schema.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L3 names it under required_schemas"
+    },
+    {
+      "from": "profile:L3",
+      "to": "contracts/production/signed-protocol-metadata.production.schema.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L3 names it under required_schemas"
+    },
+    {
+      "from": "profile:L3",
+      "to": "contracts/production/trust-root-metadata.production.schema.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L3 names it under required_schemas"
+    },
+    {
+      "from": "profile:L3",
+      "to": "spec/federation/FEDERATION_CONTRACT_SURFACE.md",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L3 names it under required_specifications"
+    },
+    {
+      "from": "profile:L3",
+      "to": "spec/federation/FEDERATION_INVARIANTS.md",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L3 names it under required_registries"
+    },
+    {
+      "from": "profile:L3",
+      "to": "spec/federation/FEDERATION_PROTOCOL_FLOW.md",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L3 names it under required_specifications"
+    },
+    {
+      "from": "profile:L3",
+      "to": "spec/federation/FEDERATION_PROTOCOL_SURFACES.md",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L3 names it under required_specifications"
+    },
+    {
+      "from": "profile:L3",
+      "to": "spec/federation/FEDERATION_TRUST_MODEL.md",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L3 names it under required_specifications"
+    },
+    {
+      "from": "profile:L3",
+      "to": "spec/trust-freshness.md",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L3 names it under required_specifications"
+    },
+    {
+      "from": "spec/canonicalization.md",
+      "to": "conformance/vectors/canonicalization.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "spec/canonicalization.md names conformance/vectors/canonicalization.json in its own text"
+    },
+    {
+      "from": "spec/canonicalization.md",
+      "to": "contracts/production/protocol-version.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/canonicalization.md names contracts/production/protocol-version.json in its own text"
+    },
+    {
+      "from": "spec/canonicalization.md",
+      "to": "contracts/webhooks/signature.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/canonicalization.md names contracts/webhooks/signature.json in its own text"
+    },
+    {
+      "from": "spec/capabilities.md",
+      "to": "conformance/capabilities/schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/capabilities.md names conformance/capabilities/schema.json in its own text"
+    },
+    {
+      "from": "spec/capabilities.md",
+      "to": "conformance/vectors/capabilities.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "spec/capabilities.md names conformance/vectors/capabilities.json in its own text"
+    },
+    {
+      "from": "spec/capabilities.md",
+      "to": "contracts/production/capability-registry.production.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/capabilities.md names contracts/production/capability-registry.production.json in its own text"
+    },
+    {
+      "from": "spec/collections.md",
+      "to": "conformance/capabilities/schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/collections.md names conformance/capabilities/schema.json in its own text"
+    },
+    {
+      "from": "spec/collections.md",
+      "to": "conformance/vectors/collections.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "spec/collections.md names conformance/vectors/collections.json in its own text"
+    },
+    {
+      "from": "spec/collections.md",
+      "to": "contracts/collections/state-machine.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/collections.md names contracts/collections/state-machine.json in its own text"
+    },
+    {
+      "from": "spec/collections.md",
+      "to": "contracts/events/types.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/collections.md names contracts/events/types.json in its own text"
+    },
+    {
+      "from": "spec/collections.md",
+      "to": "contracts/openapi/collections.yaml",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/collections.md names contracts/openapi/collections.yaml in its own text"
+    },
+    {
+      "from": "spec/collections.md",
+      "to": "contracts/payment-intents/payment-intent.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/collections.md names contracts/payment-intents/payment-intent.schema.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_CONTRACT_SURFACE.md",
+      "to": "conformance/manifests/schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_CONTRACT_SURFACE.md names conformance/manifests/schema.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_CONTRACT_SURFACE.md",
+      "to": "contracts/events/envelope.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_CONTRACT_SURFACE.md names contracts/events/envelope.schema.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_CONTRACT_SURFACE.md",
+      "to": "contracts/federation/federation-event.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_CONTRACT_SURFACE.md names contracts/federation/federation-event.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_CONTRACT_SURFACE.md",
+      "to": "contracts/federation/federation-manifest.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_CONTRACT_SURFACE.md names contracts/federation/federation-manifest.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_CONTRACT_SURFACE.md",
+      "to": "contracts/federation/federation-obligation.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_CONTRACT_SURFACE.md names contracts/federation/federation-obligation.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_CONTRACT_SURFACE.md",
+      "to": "contracts/federation/federation-routing.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_CONTRACT_SURFACE.md names contracts/federation/federation-routing.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_CONTRACT_SURFACE.md",
+      "to": "contracts/production/conformance-evidence.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_CONTRACT_SURFACE.md names contracts/production/conformance-evidence.production.schema.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_CONTRACT_SURFACE.md",
+      "to": "contracts/production/federation-trust-evaluation.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_CONTRACT_SURFACE.md names contracts/production/federation-trust-evaluation.production.schema.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_CONTRACT_SURFACE.md",
+      "to": "contracts/production/signed-protocol-metadata.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_CONTRACT_SURFACE.md names contracts/production/signed-protocol-metadata.production.schema.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_INVARIANTS.md",
+      "to": "contracts/invariants.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_INVARIANTS.md names contracts/invariants.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_INVARIANTS.md",
+      "to": "contracts/production/conformance-evidence.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_INVARIANTS.md names contracts/production/conformance-evidence.production.schema.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_INVARIANTS.md",
+      "to": "contracts/production/federation-trust-evaluation.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_INVARIANTS.md names contracts/production/federation-trust-evaluation.production.schema.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_INVARIANTS.md",
+      "to": "contracts/production/signed-protocol-metadata.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_INVARIANTS.md names contracts/production/signed-protocol-metadata.production.schema.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_PROTOCOL_FLOW.md",
+      "to": "conformance/manifests/schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_PROTOCOL_FLOW.md names conformance/manifests/schema.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_PROTOCOL_FLOW.md",
+      "to": "contracts/federation/federation-manifest.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_PROTOCOL_FLOW.md names contracts/federation/federation-manifest.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_PROTOCOL_FLOW.md",
+      "to": "contracts/federation/federation-routing.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_PROTOCOL_FLOW.md names contracts/federation/federation-routing.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_PROTOCOL_FLOW.md",
+      "to": "contracts/production/federation-trust-evaluation.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_PROTOCOL_FLOW.md names contracts/production/federation-trust-evaluation.production.schema.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_PROTOCOL_SURFACES.md",
+      "to": "conformance/capabilities/schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_PROTOCOL_SURFACES.md names conformance/capabilities/schema.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_PROTOCOL_SURFACES.md",
+      "to": "conformance/manifests/schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_PROTOCOL_SURFACES.md names conformance/manifests/schema.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_PROTOCOL_SURFACES.md",
+      "to": "contracts/events/envelope.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_PROTOCOL_SURFACES.md names contracts/events/envelope.schema.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_PROTOCOL_SURFACES.md",
+      "to": "contracts/federation/federation-event.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_PROTOCOL_SURFACES.md names contracts/federation/federation-event.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_PROTOCOL_SURFACES.md",
+      "to": "contracts/federation/federation-obligation.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_PROTOCOL_SURFACES.md names contracts/federation/federation-obligation.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_PROTOCOL_SURFACES.md",
+      "to": "contracts/federation/federation-routing.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_PROTOCOL_SURFACES.md names contracts/federation/federation-routing.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_PROTOCOL_SURFACES.md",
+      "to": "contracts/federation/federation-trust.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_PROTOCOL_SURFACES.md names contracts/federation/federation-trust.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_PROTOCOL_SURFACES.md",
+      "to": "contracts/production/conformance-evidence.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_PROTOCOL_SURFACES.md names contracts/production/conformance-evidence.production.schema.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_PROTOCOL_SURFACES.md",
+      "to": "contracts/production/federation-trust-evaluation.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_PROTOCOL_SURFACES.md names contracts/production/federation-trust-evaluation.production.schema.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_PROTOCOL_SURFACES.md",
+      "to": "contracts/production/signed-protocol-metadata.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_PROTOCOL_SURFACES.md names contracts/production/signed-protocol-metadata.production.schema.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_PROTOCOL_SURFACES.md",
+      "to": "contracts/qr/payload-format.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_PROTOCOL_SURFACES.md names contracts/qr/payload-format.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_PROTOCOL_SURFACES.md",
+      "to": "contracts/webhooks/signature.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_PROTOCOL_SURFACES.md names contracts/webhooks/signature.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_TRUST_MODEL.md",
+      "to": "contracts/invariants.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_TRUST_MODEL.md names contracts/invariants.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_TRUST_MODEL.md",
+      "to": "contracts/production/conformance-evidence.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_TRUST_MODEL.md names contracts/production/conformance-evidence.production.schema.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_TRUST_MODEL.md",
+      "to": "contracts/production/delegated-signing-key.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_TRUST_MODEL.md names contracts/production/delegated-signing-key.production.schema.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_TRUST_MODEL.md",
+      "to": "contracts/production/federation-trust-evaluation.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_TRUST_MODEL.md names contracts/production/federation-trust-evaluation.production.schema.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_TRUST_MODEL.md",
+      "to": "contracts/production/public-protocol-registry.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_TRUST_MODEL.md names contracts/production/public-protocol-registry.production.schema.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_TRUST_MODEL.md",
+      "to": "contracts/production/revocation-entry.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_TRUST_MODEL.md names contracts/production/revocation-entry.production.schema.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_TRUST_MODEL.md",
+      "to": "contracts/production/signed-protocol-metadata.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_TRUST_MODEL.md names contracts/production/signed-protocol-metadata.production.schema.json in its own text"
+    },
+    {
+      "from": "spec/federation/FEDERATION_TRUST_MODEL.md",
+      "to": "contracts/production/trust-root-metadata.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/federation/FEDERATION_TRUST_MODEL.md names contracts/production/trust-root-metadata.production.schema.json in its own text"
+    },
+    {
+      "from": "spec/idempotency.md",
+      "to": "conformance/vectors/idempotency.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "spec/idempotency.md names conformance/vectors/idempotency.json in its own text"
+    },
+    {
+      "from": "spec/idempotency.md",
+      "to": "contracts/events/webhook-types.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/idempotency.md names contracts/events/webhook-types.json in its own text"
+    },
+    {
+      "from": "spec/idempotency.md",
+      "to": "contracts/federation/federation-routing.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/idempotency.md names contracts/federation/federation-routing.json in its own text"
+    },
+    {
+      "from": "spec/idempotency.md",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/idempotency.md names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "spec/idempotency.md",
+      "to": "spec/federation/FEDERATION_CONTRACT_SURFACE.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/idempotency.md names spec/federation/FEDERATION_CONTRACT_SURFACE.md in its own text"
+    },
+    {
+      "from": "spec/idempotency.md",
+      "to": "spec/reason-codes.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/idempotency.md names spec/reason-codes.md in its own text"
+    },
+    {
+      "from": "spec/reason-codes.md",
+      "to": "conformance/vectors/reason-codes.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "spec/reason-codes.md names conformance/vectors/reason-codes.json in its own text"
+    },
+    {
+      "from": "spec/reason-codes.md",
+      "to": "contracts/federation/federation-trust.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/reason-codes.md names contracts/federation/federation-trust.json in its own text"
+    },
+    {
+      "from": "spec/reason-codes.md",
+      "to": "contracts/production/reason-code-registry.production.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/reason-codes.md names contracts/production/reason-code-registry.production.json in its own text"
+    },
+    {
+      "from": "spec/reason-codes.md",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/reason-codes.md names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "spec/trust-freshness.md",
+      "to": "conformance/vectors/trust-freshness.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "spec/trust-freshness.md names conformance/vectors/trust-freshness.json in its own text"
+    },
+    {
+      "from": "spec/trust-freshness.md",
+      "to": "contracts/production/reason-code-registry.production.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/trust-freshness.md names contracts/production/reason-code-registry.production.json in its own text"
+    },
+    {
+      "from": "spec/trust-freshness.md",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/trust-freshness.md names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "spec/trust-freshness.md",
+      "to": "spec/federation/FEDERATION_PROTOCOL_FLOW.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/trust-freshness.md names spec/federation/FEDERATION_PROTOCOL_FLOW.md in its own text"
+    },
+    {
+      "from": "spec/trust-freshness.md",
+      "to": "spec/reason-codes.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/trust-freshness.md names spec/reason-codes.md in its own text"
+    }
+  ],
+  "implementation_sets": [
+    {
+      "level": "L0",
+      "name": "Protocol Sandbox",
+      "profile_closure": [
+        "L0"
+      ],
+      "direct_normative_dependencies": [
+        "conformance/capabilities/schema.json",
+        "conformance/manifests/schema.json",
+        "conformance/vectors/canonicalization.json",
+        "conformance/vectors/capabilities.json",
+        "conformance/vectors/operator-manifests.json",
+        "conformance/vectors/reason-codes.json",
+        "contracts/invariants.json",
+        "contracts/production/capability-registry.production.json",
+        "contracts/production/operator-manifest.production.schema.json",
+        "contracts/production/protocol-version.json",
+        "contracts/production/reason-code-registry.production.json",
+        "spec/canonicalization.md",
+        "spec/capabilities.md",
+        "spec/reason-codes.md"
+      ],
+      "transitive_normative_closure": [
+        "conformance/capabilities/schema.json",
+        "conformance/manifests/schema.json",
+        "conformance/vectors/canonicalization.json",
+        "conformance/vectors/capabilities.json",
+        "conformance/vectors/operator-manifests.json",
+        "conformance/vectors/reason-codes.json",
+        "contracts/invariants.json",
+        "contracts/production/capability-registry.production.json",
+        "contracts/production/operator-manifest.production.schema.json",
+        "contracts/production/protocol-version.json",
+        "contracts/production/reason-code-registry.production.json",
+        "spec/canonicalization.md",
+        "spec/capabilities.md",
+        "spec/reason-codes.md"
+      ],
+      "incremental_over_included_profiles": [
+        "conformance/capabilities/schema.json",
+        "conformance/manifests/schema.json",
+        "conformance/vectors/canonicalization.json",
+        "conformance/vectors/capabilities.json",
+        "conformance/vectors/operator-manifests.json",
+        "conformance/vectors/reason-codes.json",
+        "contracts/invariants.json",
+        "contracts/production/capability-registry.production.json",
+        "contracts/production/operator-manifest.production.schema.json",
+        "contracts/production/protocol-version.json",
+        "contracts/production/reason-code-registry.production.json",
+        "spec/canonicalization.md",
+        "spec/capabilities.md",
+        "spec/reason-codes.md"
+      ],
+      "counts": {
+        "direct": 14,
+        "transitive": 14,
+        "incremental": 14,
+        "implementation_tier": 10,
+        "conformance_tier": 4,
+        "schemas": 2,
+        "contracts": 1,
+        "registries": 4,
+        "specifications": 3,
+        "vectors": 4,
+        "invariants_cumulative": 1
+      },
+      "not_required": [
+        "Live payment rails of any kind",
+        "Wallets, transfers or a ledger — those are L1",
+        "Payment requests, QR or instant execution — those are L2",
+        "Federation, cross-operator routing or settlement — those are L3",
+        "External payment-network integration — that is L4",
+        "Trust material of your own: no signing key, no key manifest, no published metadata. L0 needs no identity and no signature",
+        "Any registration, submission, approval or credential from any party"
+      ],
+      "profile_parameterized": false,
+      "external_profile": null
+    },
+    {
+      "level": "L1",
+      "name": "Core Payment Capability",
+      "profile_closure": [
+        "L0",
+        "L1"
+      ],
+      "direct_normative_dependencies": [
+        "conformance/vectors/event-envelopes.json",
+        "conformance/vectors/idempotency.json",
+        "conformance/vectors/ledger-postings.json",
+        "conformance/vectors/transfers.json",
+        "conformance/vectors/wallet-balances.json",
+        "contracts/events/envelope.schema.json",
+        "contracts/events/types.json",
+        "contracts/events/webhook-types.json",
+        "contracts/openapi/activity.yaml",
+        "contracts/openapi/transfers.yaml",
+        "contracts/openapi/wallet-onboarding.yaml",
+        "contracts/proofs/transaction-proof.schema.json",
+        "contracts/proofs/verification-response.schema.json",
+        "contracts/wallet-accounts/wallet-account.schema.json",
+        "contracts/webhooks/envelope.schema.json",
+        "contracts/webhooks/signature.json",
+        "spec/idempotency.md"
+      ],
+      "transitive_normative_closure": [
+        "conformance/capabilities/schema.json",
+        "conformance/manifests/schema.json",
+        "conformance/vectors/canonicalization.json",
+        "conformance/vectors/capabilities.json",
+        "conformance/vectors/event-envelopes.json",
+        "conformance/vectors/idempotency.json",
+        "conformance/vectors/ledger-postings.json",
+        "conformance/vectors/operator-manifests.json",
+        "conformance/vectors/reason-codes.json",
+        "conformance/vectors/transfers.json",
+        "conformance/vectors/wallet-balances.json",
+        "contracts/events/envelope.schema.json",
+        "contracts/events/types.json",
+        "contracts/events/webhook-types.json",
+        "contracts/invariants.json",
+        "contracts/openapi/activity.yaml",
+        "contracts/openapi/transfers.yaml",
+        "contracts/openapi/wallet-onboarding.yaml",
+        "contracts/production/capability-registry.production.json",
+        "contracts/production/operator-manifest.production.schema.json",
+        "contracts/production/protocol-version.json",
+        "contracts/production/reason-code-registry.production.json",
+        "contracts/proofs/transaction-proof.schema.json",
+        "contracts/proofs/verification-response.schema.json",
+        "contracts/wallet-accounts/wallet-account.schema.json",
+        "contracts/webhooks/envelope.schema.json",
+        "contracts/webhooks/signature.json",
+        "spec/canonicalization.md",
+        "spec/capabilities.md",
+        "spec/idempotency.md",
+        "spec/reason-codes.md"
+      ],
+      "incremental_over_included_profiles": [
+        "conformance/vectors/event-envelopes.json",
+        "conformance/vectors/idempotency.json",
+        "conformance/vectors/ledger-postings.json",
+        "conformance/vectors/transfers.json",
+        "conformance/vectors/wallet-balances.json",
+        "contracts/events/envelope.schema.json",
+        "contracts/events/types.json",
+        "contracts/events/webhook-types.json",
+        "contracts/openapi/activity.yaml",
+        "contracts/openapi/transfers.yaml",
+        "contracts/openapi/wallet-onboarding.yaml",
+        "contracts/proofs/transaction-proof.schema.json",
+        "contracts/proofs/verification-response.schema.json",
+        "contracts/wallet-accounts/wallet-account.schema.json",
+        "contracts/webhooks/envelope.schema.json",
+        "contracts/webhooks/signature.json",
+        "spec/idempotency.md"
+      ],
+      "counts": {
+        "direct": 17,
+        "transitive": 31,
+        "incremental": 17,
+        "implementation_tier": 22,
+        "conformance_tier": 9,
+        "schemas": 9,
+        "contracts": 1,
+        "registries": 4,
+        "specifications": 4,
+        "vectors": 9,
+        "invariants_cumulative": 11
+      },
+      "not_required": [
+        "Payment requests, dynamic QR or instant execution — those are L2",
+        "Any federation capability — that is L3"
+      ],
+      "profile_parameterized": false,
+      "external_profile": null
+    },
+    {
+      "level": "L2",
+      "name": "Payment Initiation Capability",
+      "profile_closure": [
+        "L0",
+        "L1",
+        "L2"
+      ],
+      "direct_normative_dependencies": [
+        "conformance/vectors/collections.json",
+        "conformance/vectors/payment-requests.json",
+        "conformance/vectors/qr-payloads.json",
+        "conformance/vectors/settlement-batches.json",
+        "contracts/collections/collection-share.schema.json",
+        "contracts/collections/collection.schema.json",
+        "contracts/collections/state-machine.json",
+        "contracts/fees/fee-policy-ref.schema.json",
+        "contracts/fees/operator-fee.schema.json",
+        "contracts/openapi/collections.yaml",
+        "contracts/payment-intents/payment-intent.schema.json",
+        "contracts/payment-sessions/payment-session.schema.json",
+        "contracts/qr/lifecycle.json",
+        "contracts/qr/payload-format.json",
+        "contracts/settlements/application-settlement.schema.json",
+        "contracts/settlements/state-machine.json",
+        "spec/collections.md"
+      ],
+      "transitive_normative_closure": [
+        "conformance/capabilities/schema.json",
+        "conformance/manifests/schema.json",
+        "conformance/vectors/canonicalization.json",
+        "conformance/vectors/capabilities.json",
+        "conformance/vectors/collections.json",
+        "conformance/vectors/event-envelopes.json",
+        "conformance/vectors/idempotency.json",
+        "conformance/vectors/ledger-postings.json",
+        "conformance/vectors/operator-manifests.json",
+        "conformance/vectors/payment-requests.json",
+        "conformance/vectors/qr-payloads.json",
+        "conformance/vectors/reason-codes.json",
+        "conformance/vectors/settlement-batches.json",
+        "conformance/vectors/transfers.json",
+        "conformance/vectors/wallet-balances.json",
+        "contracts/collections/collection-rule.schema.json",
+        "contracts/collections/collection-share.schema.json",
+        "contracts/collections/collection.schema.json",
+        "contracts/collections/state-machine.json",
+        "contracts/events/envelope.schema.json",
+        "contracts/events/types.json",
+        "contracts/events/webhook-types.json",
+        "contracts/fees/business-category.schema.json",
+        "contracts/fees/fee-policy-ref.schema.json",
+        "contracts/fees/operator-fee.schema.json",
+        "contracts/fees/pricing-profile.schema.json",
+        "contracts/invariants.json",
+        "contracts/openapi/activity.yaml",
+        "contracts/openapi/collections.yaml",
+        "contracts/openapi/transfers.yaml",
+        "contracts/openapi/wallet-onboarding.yaml",
+        "contracts/payment-intents/payment-intent.schema.json",
+        "contracts/payment-sessions/payment-session-interface.schema.json",
+        "contracts/payment-sessions/payment-session.schema.json",
+        "contracts/production/capability-registry.production.json",
+        "contracts/production/operator-manifest.production.schema.json",
+        "contracts/production/protocol-version.json",
+        "contracts/production/reason-code-registry.production.json",
+        "contracts/proofs/transaction-proof.schema.json",
+        "contracts/proofs/verification-response.schema.json",
+        "contracts/qr/lifecycle.json",
+        "contracts/qr/payload-format.json",
+        "contracts/settlements/application-settlement.schema.json",
+        "contracts/settlements/state-machine.json",
+        "contracts/wallet-accounts/wallet-account.schema.json",
+        "contracts/webhooks/envelope.schema.json",
+        "contracts/webhooks/signature.json",
+        "spec/canonicalization.md",
+        "spec/capabilities.md",
+        "spec/collections.md",
+        "spec/idempotency.md",
+        "spec/reason-codes.md"
+      ],
+      "incremental_over_included_profiles": [
+        "conformance/vectors/collections.json",
+        "conformance/vectors/payment-requests.json",
+        "conformance/vectors/qr-payloads.json",
+        "conformance/vectors/settlement-batches.json",
+        "contracts/collections/collection-rule.schema.json",
+        "contracts/collections/collection-share.schema.json",
+        "contracts/collections/collection.schema.json",
+        "contracts/collections/state-machine.json",
+        "contracts/fees/business-category.schema.json",
+        "contracts/fees/fee-policy-ref.schema.json",
+        "contracts/fees/operator-fee.schema.json",
+        "contracts/fees/pricing-profile.schema.json",
+        "contracts/openapi/collections.yaml",
+        "contracts/payment-intents/payment-intent.schema.json",
+        "contracts/payment-sessions/payment-session-interface.schema.json",
+        "contracts/payment-sessions/payment-session.schema.json",
+        "contracts/qr/lifecycle.json",
+        "contracts/qr/payload-format.json",
+        "contracts/settlements/application-settlement.schema.json",
+        "contracts/settlements/state-machine.json",
+        "spec/collections.md"
+      ],
+      "counts": {
+        "direct": 17,
+        "transitive": 52,
+        "incremental": 21,
+        "implementation_tier": 39,
+        "conformance_tier": 13,
+        "schemas": 24,
+        "contracts": 1,
+        "registries": 4,
+        "specifications": 5,
+        "vectors": 13,
+        "invariants_cumulative": 13
+      },
+      "not_required": [
+        "Cross-operator routing, reconciliation or inter-operator settlement — those are L3",
+        "Published signed protocol metadata — first required at L3"
+      ],
+      "profile_parameterized": false,
+      "external_profile": null
+    },
+    {
+      "level": "L3",
+      "name": "Inter-Operator Interoperability",
+      "profile_closure": [
+        "L0",
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "direct_normative_dependencies": [
+        "conformance/federation/suite.json",
+        "conformance/vectors/reason-codes.json",
+        "conformance/vectors/trust-freshness.json",
+        "conformance/vectors/trust-signing.json",
+        "contracts/federation/federation-event.json",
+        "contracts/federation/federation-manifest.json",
+        "contracts/federation/federation-obligation.json",
+        "contracts/federation/federation-routing.json",
+        "contracts/federation/federation-trust.json",
+        "contracts/federation/key-manifest.json",
+        "contracts/federation/revocation-list.json",
+        "contracts/production/brl.production.schema.json",
+        "contracts/production/capabilities-document.production.schema.json",
+        "contracts/production/discovery-document.production.schema.json",
+        "contracts/production/evidence-bundle.production.schema.json",
+        "contracts/production/federation-trust-evaluation.production.schema.json",
+        "contracts/production/key-manifest.production.schema.json",
+        "contracts/production/public-protocol-registry.production.schema.json",
+        "contracts/production/revocation-entry.production.schema.json",
+        "contracts/production/root-metadata.production.schema.json",
+        "contracts/production/root-revocation.production.schema.json",
+        "contracts/production/signed-protocol-metadata.production.schema.json",
+        "contracts/production/trust-root-metadata.production.schema.json",
+        "spec/federation/FEDERATION_CONTRACT_SURFACE.md",
+        "spec/federation/FEDERATION_INVARIANTS.md",
+        "spec/federation/FEDERATION_PROTOCOL_FLOW.md",
+        "spec/federation/FEDERATION_PROTOCOL_SURFACES.md",
+        "spec/federation/FEDERATION_TRUST_MODEL.md",
+        "spec/trust-freshness.md"
+      ],
+      "transitive_normative_closure": [
+        "conformance/capabilities/schema.json",
+        "conformance/federation/suite.json",
+        "conformance/manifests/schema.json",
+        "conformance/vectors/canonicalization.json",
+        "conformance/vectors/capabilities.json",
+        "conformance/vectors/collections.json",
+        "conformance/vectors/event-envelopes.json",
+        "conformance/vectors/idempotency.json",
+        "conformance/vectors/ledger-postings.json",
+        "conformance/vectors/operator-manifests.json",
+        "conformance/vectors/payment-requests.json",
+        "conformance/vectors/qr-payloads.json",
+        "conformance/vectors/reason-codes.json",
+        "conformance/vectors/settlement-batches.json",
+        "conformance/vectors/transfers.json",
+        "conformance/vectors/trust-freshness.json",
+        "conformance/vectors/trust-signing.json",
+        "conformance/vectors/wallet-balances.json",
+        "contracts/collections/collection-rule.schema.json",
+        "contracts/collections/collection-share.schema.json",
+        "contracts/collections/collection.schema.json",
+        "contracts/collections/state-machine.json",
+        "contracts/events/envelope.schema.json",
+        "contracts/events/types.json",
+        "contracts/events/webhook-types.json",
+        "contracts/federation/federation-event.json",
+        "contracts/federation/federation-manifest.json",
+        "contracts/federation/federation-obligation.json",
+        "contracts/federation/federation-routing.json",
+        "contracts/federation/federation-trust.json",
+        "contracts/federation/key-manifest.json",
+        "contracts/federation/revocation-list.json",
+        "contracts/fees/business-category.schema.json",
+        "contracts/fees/fee-policy-ref.schema.json",
+        "contracts/fees/operator-fee.schema.json",
+        "contracts/fees/pricing-profile.schema.json",
+        "contracts/invariants.json",
+        "contracts/openapi/activity.yaml",
+        "contracts/openapi/collections.yaml",
+        "contracts/openapi/transfers.yaml",
+        "contracts/openapi/wallet-onboarding.yaml",
+        "contracts/payment-intents/payment-intent.schema.json",
+        "contracts/payment-sessions/payment-session-interface.schema.json",
+        "contracts/payment-sessions/payment-session.schema.json",
+        "contracts/production/brl.production.schema.json",
+        "contracts/production/capabilities-document.production.schema.json",
+        "contracts/production/capability-registry.production.json",
+        "contracts/production/conformance-evidence.production.schema.json",
+        "contracts/production/delegated-signing-key.production.schema.json",
+        "contracts/production/discovery-document.production.schema.json",
+        "contracts/production/evidence-bundle.production.schema.json",
+        "contracts/production/federation-trust-evaluation.production.schema.json",
+        "contracts/production/key-manifest.production.schema.json",
+        "contracts/production/operator-manifest.production.schema.json",
+        "contracts/production/operator-self-publication.production.schema.json",
+        "contracts/production/protocol-version.json",
+        "contracts/production/public-protocol-registry.production.schema.json",
+        "contracts/production/reason-code-registry.production.json",
+        "contracts/production/revocation-entry.production.schema.json",
+        "contracts/production/root-delegation.production.schema.json",
+        "contracts/production/root-metadata.production.schema.json",
+        "contracts/production/root-revocation.production.schema.json",
+        "contracts/production/signed-protocol-metadata.production.schema.json",
+        "contracts/production/trust-root-metadata.production.schema.json",
+        "contracts/proofs/transaction-proof.schema.json",
+        "contracts/proofs/verification-response.schema.json",
+        "contracts/qr/lifecycle.json",
+        "contracts/qr/payload-format.json",
+        "contracts/settlements/application-settlement.schema.json",
+        "contracts/settlements/state-machine.json",
+        "contracts/wallet-accounts/wallet-account.schema.json",
+        "contracts/webhooks/envelope.schema.json",
+        "contracts/webhooks/signature.json",
+        "spec/canonicalization.md",
+        "spec/capabilities.md",
+        "spec/collections.md",
+        "spec/federation/FEDERATION_CONTRACT_SURFACE.md",
+        "spec/federation/FEDERATION_INVARIANTS.md",
+        "spec/federation/FEDERATION_PROTOCOL_FLOW.md",
+        "spec/federation/FEDERATION_PROTOCOL_SURFACES.md",
+        "spec/federation/FEDERATION_TRUST_MODEL.md",
+        "spec/idempotency.md",
+        "spec/reason-codes.md",
+        "spec/trust-freshness.md"
+      ],
+      "incremental_over_included_profiles": [
+        "conformance/federation/suite.json",
+        "conformance/vectors/trust-freshness.json",
+        "conformance/vectors/trust-signing.json",
+        "contracts/federation/federation-event.json",
+        "contracts/federation/federation-manifest.json",
+        "contracts/federation/federation-obligation.json",
+        "contracts/federation/federation-routing.json",
+        "contracts/federation/federation-trust.json",
+        "contracts/federation/key-manifest.json",
+        "contracts/federation/revocation-list.json",
+        "contracts/production/brl.production.schema.json",
+        "contracts/production/capabilities-document.production.schema.json",
+        "contracts/production/conformance-evidence.production.schema.json",
+        "contracts/production/delegated-signing-key.production.schema.json",
+        "contracts/production/discovery-document.production.schema.json",
+        "contracts/production/evidence-bundle.production.schema.json",
+        "contracts/production/federation-trust-evaluation.production.schema.json",
+        "contracts/production/key-manifest.production.schema.json",
+        "contracts/production/operator-self-publication.production.schema.json",
+        "contracts/production/public-protocol-registry.production.schema.json",
+        "contracts/production/revocation-entry.production.schema.json",
+        "contracts/production/root-delegation.production.schema.json",
+        "contracts/production/root-metadata.production.schema.json",
+        "contracts/production/root-revocation.production.schema.json",
+        "contracts/production/signed-protocol-metadata.production.schema.json",
+        "contracts/production/trust-root-metadata.production.schema.json",
+        "spec/federation/FEDERATION_CONTRACT_SURFACE.md",
+        "spec/federation/FEDERATION_INVARIANTS.md",
+        "spec/federation/FEDERATION_PROTOCOL_FLOW.md",
+        "spec/federation/FEDERATION_PROTOCOL_SURFACES.md",
+        "spec/federation/FEDERATION_TRUST_MODEL.md",
+        "spec/trust-freshness.md"
+      ],
+      "counts": {
+        "direct": 29,
+        "transitive": 84,
+        "incremental": 32,
+        "implementation_tier": 68,
+        "conformance_tier": 16,
+        "schemas": 24,
+        "contracts": 13,
+        "registries": 5,
+        "specifications": 10,
+        "vectors": 15,
+        "invariants_cumulative": 32
+      },
+      "not_required": [
+        "External payment-network integration — that is L4",
+        "Any certificate issued by any party: trust is evaluated from published material, there is no BANZA CA and no operator certificate"
+      ],
+      "profile_parameterized": false,
+      "external_profile": null
+    },
+    {
+      "level": "L4",
+      "name": "External Interoperability",
+      "profile_closure": [
+        "L0",
+        "L1",
+        "L2",
+        "L3",
+        "L4"
+      ],
+      "direct_normative_dependencies": [],
+      "transitive_normative_closure": [
+        "conformance/capabilities/schema.json",
+        "conformance/federation/suite.json",
+        "conformance/manifests/schema.json",
+        "conformance/vectors/canonicalization.json",
+        "conformance/vectors/capabilities.json",
+        "conformance/vectors/collections.json",
+        "conformance/vectors/event-envelopes.json",
+        "conformance/vectors/idempotency.json",
+        "conformance/vectors/ledger-postings.json",
+        "conformance/vectors/operator-manifests.json",
+        "conformance/vectors/payment-requests.json",
+        "conformance/vectors/qr-payloads.json",
+        "conformance/vectors/reason-codes.json",
+        "conformance/vectors/settlement-batches.json",
+        "conformance/vectors/transfers.json",
+        "conformance/vectors/trust-freshness.json",
+        "conformance/vectors/trust-signing.json",
+        "conformance/vectors/wallet-balances.json",
+        "contracts/collections/collection-rule.schema.json",
+        "contracts/collections/collection-share.schema.json",
+        "contracts/collections/collection.schema.json",
+        "contracts/collections/state-machine.json",
+        "contracts/events/envelope.schema.json",
+        "contracts/events/types.json",
+        "contracts/events/webhook-types.json",
+        "contracts/federation/federation-event.json",
+        "contracts/federation/federation-manifest.json",
+        "contracts/federation/federation-obligation.json",
+        "contracts/federation/federation-routing.json",
+        "contracts/federation/federation-trust.json",
+        "contracts/federation/key-manifest.json",
+        "contracts/federation/revocation-list.json",
+        "contracts/fees/business-category.schema.json",
+        "contracts/fees/fee-policy-ref.schema.json",
+        "contracts/fees/operator-fee.schema.json",
+        "contracts/fees/pricing-profile.schema.json",
+        "contracts/invariants.json",
+        "contracts/openapi/activity.yaml",
+        "contracts/openapi/collections.yaml",
+        "contracts/openapi/transfers.yaml",
+        "contracts/openapi/wallet-onboarding.yaml",
+        "contracts/payment-intents/payment-intent.schema.json",
+        "contracts/payment-sessions/payment-session-interface.schema.json",
+        "contracts/payment-sessions/payment-session.schema.json",
+        "contracts/production/brl.production.schema.json",
+        "contracts/production/capabilities-document.production.schema.json",
+        "contracts/production/capability-registry.production.json",
+        "contracts/production/conformance-evidence.production.schema.json",
+        "contracts/production/delegated-signing-key.production.schema.json",
+        "contracts/production/discovery-document.production.schema.json",
+        "contracts/production/evidence-bundle.production.schema.json",
+        "contracts/production/federation-trust-evaluation.production.schema.json",
+        "contracts/production/key-manifest.production.schema.json",
+        "contracts/production/operator-manifest.production.schema.json",
+        "contracts/production/operator-self-publication.production.schema.json",
+        "contracts/production/protocol-version.json",
+        "contracts/production/public-protocol-registry.production.schema.json",
+        "contracts/production/reason-code-registry.production.json",
+        "contracts/production/revocation-entry.production.schema.json",
+        "contracts/production/root-delegation.production.schema.json",
+        "contracts/production/root-metadata.production.schema.json",
+        "contracts/production/root-revocation.production.schema.json",
+        "contracts/production/signed-protocol-metadata.production.schema.json",
+        "contracts/production/trust-root-metadata.production.schema.json",
+        "contracts/proofs/transaction-proof.schema.json",
+        "contracts/proofs/verification-response.schema.json",
+        "contracts/qr/lifecycle.json",
+        "contracts/qr/payload-format.json",
+        "contracts/settlements/application-settlement.schema.json",
+        "contracts/settlements/state-machine.json",
+        "contracts/wallet-accounts/wallet-account.schema.json",
+        "contracts/webhooks/envelope.schema.json",
+        "contracts/webhooks/signature.json",
+        "spec/canonicalization.md",
+        "spec/capabilities.md",
+        "spec/collections.md",
+        "spec/federation/FEDERATION_CONTRACT_SURFACE.md",
+        "spec/federation/FEDERATION_INVARIANTS.md",
+        "spec/federation/FEDERATION_PROTOCOL_FLOW.md",
+        "spec/federation/FEDERATION_PROTOCOL_SURFACES.md",
+        "spec/federation/FEDERATION_TRUST_MODEL.md",
+        "spec/idempotency.md",
+        "spec/reason-codes.md",
+        "spec/trust-freshness.md"
+      ],
+      "incremental_over_included_profiles": [],
+      "counts": {
+        "direct": 0,
+        "transitive": 84,
+        "incremental": 0,
+        "implementation_tier": 68,
+        "conformance_tier": 16,
+        "schemas": 24,
+        "contracts": 13,
+        "registries": 5,
+        "specifications": 10,
+        "vectors": 15,
+        "invariants_cumulative": 32
+      },
+      "not_required": [
+        "Any universal implementation artifact beyond L3 — L4 adds none, and this is a property of the level rather than a gap in this registry",
+        "A profile invented for the purpose: an L4 claim names a real external profile or it is not an L4 claim"
+      ],
+      "profile_parameterized": true,
+      "external_profile": {
+        "required": true,
+        "_semantics": "L4 inherits every L3 requirement and introduces NO universal implementation artifact of its own. Its additional requirements are supplied by the external-interoperability profile an implementation selects. Zero universal artifacts therefore does NOT make L4 equivalent to L3: an implementation that satisfies L3 has satisfied none of L4's profile-supplied requirements, because it has selected no profile.",
+        "must_identify": [
+          "The external network or acquiring infrastructure being integrated with",
+          "The external-interoperability profile the integration is claimed against, by identifier and version",
+          "The scope of the claim: L4 is demonstrated FOR that profile, never in general"
+        ],
+        "must_evidence": [
+          "Evidence of the external integration itself, satisfying the selected profile",
+          "The L3 evidence L4 inherits, unchanged"
+        ],
+        "demonstrability": {
+          "_scope": "A property of the selected external profile, NOT a universal property of L4. Whether an integration can be demonstrated without touching the live external network depends on what that profile accepts as evidence, and a profile may legitimately define evidence producible in a test or sandbox environment where the external counterparty is represented faithfully enough. BANZA 1.0.0 makes no universal ruling either way, because it has no basis for one.",
+          "determined_by": "the selected external-interoperability profile",
+          "current_state": "No concrete external-interoperability profile is published, so BANZA 1.0.0 has no executable L4 demonstration. This is a statement about what exists today, not about what is possible."
+        },
+        "result_without_a_selected_profile": "not_run",
+        "_result_vocabulary": "`not_run` is the per-level result vocabulary already published in contracts/production/conformance-report.production.schema.json. It is the correct outcome here and `fail` is not: nothing failed. It is not `not_applicable` either: L4 applies, and was not evaluated because no profile was selected and no external evidence supplied.",
+        "published_profiles": [],
+        "_published_profiles_note": "EMPTY, and stated rather than concealed. No concrete external-interoperability profile is published in BANZA 1.0.0, and none is invented here to make the mechanism look exercised. The L4 mechanism is defined; no L4 profile or evidence currently exists, which is consistent with a pre-production protocol."
+      }
+    }
+  ],
+  "orphans": {
+    "implementation_tier_without_profile_or_consumer": [],
+    "declared_non_profile_artifacts": [
+      "contracts/production/certification-profile.production.schema.json",
+      "contracts/production/certification-record.production.schema.json",
+      "contracts/production/certified-implementation.production.schema.json",
+      "contracts/production/conformance-profiles.production.json",
+      "contracts/production/conformance-profiles.production.schema.json",
+      "contracts/production/conformance-report.production.schema.json",
+      "contracts/production/implementation-record.production.schema.json",
+      "contracts/production/interoperability-report.production.schema.json",
+      "contracts/production/journey-receipt.production.schema.json",
+      "contracts/production/operator-record.production.schema.json",
+      "contracts/production/protocol-governance-event.production.schema.json",
+      "contracts/production/protocol-release.production.schema.json",
+      "contracts/production/regulatory-state.production.schema.json",
+      "contracts/production/root-backup-declaration.production.schema.json",
+      "contracts/production/root-ceremony-evidence.production.schema.json",
+      "contracts/production/root-custody-declaration.production.schema.json",
+      "contracts/production/root-recovery-test.production.schema.json",
+      "contracts/production/validation-journey-state-machine.production.json",
+      "spec/validation-journey.md"
+    ],
+    "declared_but_absent_from_the_surface": [],
+    "schema_never_referenced": [],
+    "vector_not_required_by_any_profile": [],
+    "manifest_entry_whose_file_is_missing": [],
+    "mentioned_in_text_but_not_depended_on": [
+      "conformance/fixtures/federation/SPM-A-VALID.json",
+      "conformance/ledger/suite.json",
+      "contracts/production/certification-profile.production.schema.json",
+      "contracts/production/certification-record.production.schema.json",
+      "contracts/production/certified-implementation.production.schema.json",
+      "contracts/production/conformance-profiles.production.json",
+      "contracts/production/conformance-profiles.production.schema.json",
+      "contracts/production/conformance-report.production.schema.json",
+      "contracts/production/implementation-record.production.schema.json",
+      "contracts/production/interoperability-report.production.schema.json",
+      "contracts/production/journey-receipt.production.schema.json",
+      "contracts/production/operator-record.production.schema.json",
+      "contracts/production/protocol-governance-event.production.schema.json",
+      "contracts/production/protocol-release.production.schema.json",
+      "contracts/production/regulatory-state.production.schema.json",
+      "contracts/production/root-backup-declaration.production.schema.json",
+      "contracts/production/root-ceremony-evidence.production.schema.json",
+      "contracts/production/root-custody-declaration.production.schema.json",
+      "contracts/production/root-recovery-test.production.schema.json",
+      "contracts/production/validation-journey-state-machine.production.json",
+      "spec/validation-journey.md"
+    ],
+    "unresolved_references": []
+  }
+}

@@ -78,11 +78,23 @@ fbody = fsrc.split('pub enum ReasonCode {', 1)[1].split('\n}', 1)[0]
 fvariants = re.findall(r'^\s+([A-Z][A-Za-z0-9]*),$', fbody, re.M)
 fsnake = [re.sub(r'(?<!^)(?=[A-Z])', '_', v).lower() for v in fvariants]
 fpub = [v['code'] for v in reg['vocabularies']['fetch_reason_codes']['values']]
-if fpub != fsnake:
-    X("fetch reason codes diverge: only in registry %s; only in engine %s"
-      % (sorted(set(fpub) - set(fsnake)), sorted(set(fsnake) - set(fpub))))
+# A code may be SPECIFIED before it is implemented as an engine variant — the specification is the
+# authority, not the enum. Such codes are declared as authored data, so they are auditable rather
+# than merely tolerated. The direction that matters is still enforced strictly: every value the
+# engine can emit MUST be published.
+authored = json.load(io.open('tools/reason-code-meanings.json', encoding='utf-8'))
+spec_first = {c for c, v in authored.get('extra_core_codes', {}).items()
+              if v.get('vocabulary') == 'fetch_reason_codes'}
+unpublished = sorted(set(fsnake) - set(fpub))
+unexplained = sorted(set(fpub) - set(fsnake) - spec_first)
+if unpublished:
+    X("engine emits fetch reason codes that are not published: %s" % unpublished)
+elif unexplained:
+    X("registry lists fetch reason codes with no engine variant and no authored declaration: %s"
+      % unexplained)
 else:
-    print("  ok: fetch reason codes — %d values, registry and engine identical" % len(fpub))
+    print("  ok: fetch reason codes — %d published, %d engine-derived, %d specified ahead of "
+          "implementation" % (len(fpub), len(fsnake), len(spec_first)))
 
 # 3. failed_checks is a closed set of published check ids.
 ote = sorted(set(re.findall(r'"id": "([a-z_]+)"',

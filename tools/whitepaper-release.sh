@@ -64,7 +64,14 @@ def shape(d):
     return (tuple(secs), tuple((f["id"],f["n"],f["label"]) for f in d["figures"]))
 assert shape(en)==shape(pt), "PT/EN structural parity broken"
 for d in (en,pt):
-    assert len(d["sections"])==12 and len(d["figures"])==12, "expected 12 sections + 12 figures"
+    # 12 sections is a decided structure and stays rigid. The figure COUNT is the current state of
+    # the edition, not a law: three restatement figures were removed deliberately, and a frozen
+    # count would refuse an approved edition for that. Integrity instead — contiguous numbering,
+    # and PT/EN carrying the same set (already asserted by shape() above).
+    assert len(d["sections"])==12, "expected 12 sections"
+    figs=[f["n"] for f in d["figures"]]
+    assert figs==list(range(1,len(figs)+1)), ("figure numbering not contiguous", figs)
+    assert figs, "no figures"
     tags=[i["n"] for s in d["sections"] for b in s["blocks"] if b["t"]=="eq" for i in b["items"]]
     assert tags==["1a","1b","2","3","4"], f"equation tags {tags}"
 print("  ok: content valid · PT/EN structural parity · 12 sections · equations 1a/1b/2/3/4")
@@ -134,8 +141,8 @@ if [ "$MODE" = "verify" ]; then
   validate_content
   # canonical direction: the PT dossier is the source; pt.json (web edition) and the EN dossier
   # must both re-derive byte-identically from it (no writes in verify).
-  python3 tools/whitepaper-pt-content.py --check || { echo "whitepaper-release: ABORT — pt.json drifted from the canonical PT dossier"; exit 1; }
-  python3 tools/whitepaper-en-dossier.py --check || { echo "whitepaper-release: ABORT — whitepaper.en.tex drifted from PT dossier + en.json"; exit 1; }
+  python3 tools/whitepaper-content.py pt --check || { echo "whitepaper-release: ABORT — pt.json drifted from the PT dossier"; exit 1; }
+  python3 tools/whitepaper-content.py en --check || { echo "whitepaper-release: ABORT — en.json drifted from the EN dossier"; exit 1; }
   build_editions "$TMP"
   verify_bundle_digest
   rc=0
@@ -165,8 +172,8 @@ fi
 echo "== whitepaper-release (CANONICAL · LaTeX/tectonic → xdvipdfmx) =="
 validate_content
 # 3. canonical direction: PT dossier is the source — re-derive pt.json (web edition) and the EN dossier
-python3 tools/whitepaper-pt-content.py >/dev/null
-python3 tools/whitepaper-en-dossier.py >/dev/null
+python3 tools/whitepaper-content.py pt >/dev/null
+python3 tools/whitepaper-content.py en >/dev/null
 echo "  ok: pt.json (web edition) + EN dossier derived from the canonical PT dossier"
 # 4–7. compile + verify (12 pp, engine, date, no draft, 0 undefined/overfull) + pinned bundle digest
 build_editions "$TMP"

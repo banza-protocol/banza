@@ -42,7 +42,7 @@
       "type": "integer",
       "minimum": -1,
       "maximum": 4,
-      "description": "The highest certification level fully passed. -1 if no level passed. 0–4 per the canonical certification model (docs/governance/certification-boundary.md). Note: the sandbox runner awards at most L3; L4 (External Interoperability) is profile-defined."
+      "description": "The highest certification level fully passed. -1 if no level passed. 0–4 per the normative profile registry (contracts/production/conformance-profiles.production.json). Note: the sandbox runner awards at most L3; L4 (External Interoperability) is profile-defined."
     },
     "certification_level_name": {
       "type": "string",
@@ -50,7 +50,7 @@
     },
     "evidence": {
       "$ref": "#/$defs/Evidence",
-      "description": "Provenance metadata. A report alone is NOT a certification; certification requires recorded provenance per docs/governance/certification-boundary.md."
+      "description": "Provenance metadata. A report alone is NOT a certification; certification requires recorded provenance per contracts/production/conformance-profiles.production.json and the evidence contracts it names."
     },
     "summary": {
       "$ref": "#/$defs/Summary"

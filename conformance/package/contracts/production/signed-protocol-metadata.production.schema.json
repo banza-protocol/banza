@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/signed-protocol-metadata.production.schema.json",
+  "title": "SignedProtocolMetadataProduction",
+  "description": "Metadados do protocolo assinados pela Trust Root (ou por Delegated Signing Keys sob ela). A Trust Root assina APENAS o Manifesto de Chaves, que endossa as Delegated Signing Keys (ADR-079, D-038-04). São as chaves delegadas — dentro do seu domínio declarado — que assinam metadados do protocolo, releases e revogações. Uma assinatura da Trust Root é uma afirmação sobre ARTEFACTOS DO PROTOCOLO — nunca uma afirmação sobre participantes. Não autoriza pagamentos, não cria operadores, não emite licenças, não certifica operadores e não movimenta fundos. Material público apenas: chaves públicas, assinaturas e hashes; nenhuma chave privada, seed, mnemónica ou passphrase existe aqui ou é alguma vez transmitida. Verificação sob limiar 2-de-3 da Trust Root, com semântica fail-closed: metadados que não se consigam obter, parsear ou verificar são tratados como não confiáveis, nunca como válidos por omissão.",
+  "_spec_version": "1.0",
+  "_status": "production-baseline",
+  "_authority": "docs/governance/PROTOCOL_GOVERNANCE_ROLES.md §2.5; Root Trust Ceremony (2-of-3 offline custody)",
+  "_boundary": "BANZA é um protocolo financeiro aberto. A governação humana existe para manter e evoluir o protocolo, não para autorizar, certificar ou aceitar operadores. Operadores independentes assumem o seu próprio enquadramento legal, regulatório e financeiro e, quando aplicável, são autorizados pelas entidades competentes — nunca pela BANZA.",
+
+  "type": "object",
+  "required": ["metadata_id", "metadata_type", "protocol_version", "content_hash", "issued_at", "expires_at", "trust_root_version", "signatures", "boundary"],
+  "additionalProperties": false,
+
+  "properties": {
+    "metadata_id": {
+      "type": "string",
+      "description": "Identificador único destes metadados assinados. Imutável."
+    },
+    "metadata_type": {
+      "type": "string",
+      "enum": ["protocol_metadata", "protocol_release", "delegated_signing_key", "revocation_list"],
+      "description": "Classe do objecto assinado. Exaustiva: a Trust Root assina apenas estas quatro classes. Qualquer outra classe está fora do âmbito da raiz e é inválida."
+    },
+    "protocol_version": {
+      "type": "string",
+      "description": "Versão das Versioned Specifications a que estes metadados se referem (ex.: '1.0.0')."
+    },
+    "specification_refs": {
+      "type": "array",
+      "description": "Referências às Versioned Specifications imutáveis cobertas por estes metadados. Referenciáveis por qualquer implementação sem intermediação humana.",
+      "items": { "type": "string" }
+    },
+    "content_hash": {
+      "type": "object",
+      "description": "Hash de conteúdo sobre os bytes canónicos do objecto assinado. Recalculável por qualquer verificador independente.",
+      "required": ["algorithm", "value"],
+      "additionalProperties": false,
+      "properties": {
+        "algorithm": { "type": "string", "enum": ["sha-256"], "description": "Algoritmo de hash." },
+        "value": { "type": "string", "pattern": "^[0-9a-f]{64}$", "description": "Digest (hex minúsculo) sobre os bytes canónicos." }
+      }
+    },
+    "issued_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Momento de emissão. Verificadores rejeitam metadados com issued_at no futuro."
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Momento de expiração. Metadados expirados são obsoletos e MUST ser tratados como falha fail-closed."
+    },
+    "trust_root_version": {
+      "type": "string",
+      "description": "Versão da Trust Root sob a qual estes metadados devem ser verificados. Ver trust-root-metadata.production.schema.json."
+    },
+    "signatures": {
+      "type": "array",
+      "description": "Assinaturas destacadas sobre os bytes canónicos dos metadados. Pelo menos 2 de 3 quando assinado directamente pela Trust Root (limiar 2-de-3); assinatura única admissível quando produzida por uma Delegated Signing Key dentro do seu âmbito e validade. Material público apenas.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["key_id", "signer_type", "signature", "algorithm"],
+        "additionalProperties": false,
+        "properties": {
+          "key_id": { "type": "string", "description": "Identificador da chave que produziu a assinatura." },
+          "signer_type": { "type": "string", "enum": ["trust_root", "delegated_signing_key"], "description": "Origem da assinatura: a própria Trust Root (offline, sob quórum) ou uma Delegated Signing Key sob ela." },
+          "custodian": { "type": ["string", "null"], "enum": ["A", "B", "C", null], "description": "Custodiante da Trust Root que assinou OFFLINE, quando signer_type é 'trust_root'. Um custodiante nunca assina isoladamente: o quórum é propriedade da cerimónia." },
+          "signature": { "type": "string", "description": "Assinatura destacada sobre os bytes canónicos (base64url, ed25519). Material público." },
+          "algorithm": { "type": "string", "enum": ["ed25519"], "description": "Algoritmo de assinatura." },
+          "signed_at": { "type": ["string", "null"], "format": "date-time", "description": "Momento da assinatura." }
+        }
+      }
+    },
+    "revocation_status": {
+      "type": ["string", "null"],
+      "enum": ["active", "revoked", "unknown", null],
+      "description": "Estado deste material face à Revocation List. Semântica fail-closed: 'revoked' e 'unknown' são tratados como não confiáveis. Revogação é mecanismo de segurança do protocolo — não é sanção regulatória nem licença."
+    },
+    "boundary": {
+      "type": "object",
+      "description": "Fronteira permanente da Trust Root, invariante e não ajustável por conveniência de implementação. A raiz assina artefactos do protocolo. Ponto.",
+      "required": ["not_operator_authorisation", "not_certificate", "not_operator_approval", "not_payment_service_authorisation", "open_financial_protocol"],
+      "additionalProperties": false,
+      "properties": {
+        "not_operator_authorisation": { "type": "boolean", "const": true, "description": "Assinar metadados não autoriza operadores. Operadores independentes, quando aplicável, são autorizados pelas entidades competentes — nunca pela BANZA." },
+        "not_certificate": { "type": "boolean", "const": true, "description": "Estes metadados assinados não são um certificado emitido a um participante." },
+        "not_operator_approval": { "type": "boolean", "const": true, "description": "Assinar metadados não aprova, não aceita e não admite operadores. A assinatura afirma sobre artefactos, não sobre participantes." },
+        "not_payment_service_authorisation": { "type": "boolean", "const": true, "description": "Estes metadados não autorizam pagamentos nem serviços de pagamento, e não movimentam fundos." },
+        "open_financial_protocol": { "type": "boolean", "const": true, "description": "BANZA é e permanece um protocolo financeiro aberto." }
+      }
+    }
+  }
+}

@@ -1,13 +1,13 @@
 {
   "milestone": "M2.18B.3A canonical corpus integrity",
   "summary": {
-    "total": 85,
-    "ok": 85,
-    "discoverable": 85,
-    "resolvable": 85,
-    "citable": 85,
-    "index_chunks": 768,
-    "adr": 79,
+    "total": 86,
+    "ok": 86,
+    "discoverable": 86,
+    "resolvable": 86,
+    "citable": 86,
+    "index_chunks": 778,
+    "adr": 80,
     "rfc": 6
   },
   "rows": [
@@ -795,6 +795,16 @@
       "id": "ADR-084",
       "kind": "adr",
       "file": "decisions/adr/ADR-084-idempotency-semantics.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-085",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-085-trust-material-anti-rollback.md",
       "chunks": 5,
       "discoverable": true,
       "resolvable": true,

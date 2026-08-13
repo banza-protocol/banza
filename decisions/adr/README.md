@@ -89,6 +89,7 @@ discussions; an accepted RFC may lead to an ADR.
 | [ADR-082](ADR-082-banza-canonical-json.md) | BANZA Canonical JSON (`BCJ/1`) — a profile of RFC 8785 as the single byte form for signatures and digests |
 | [ADR-083](ADR-083-reason-code-model.md) | Reason-code model: five separate vocabularies, a status decides while a code explains, reserved extension namespace |
 | [ADR-084](ADR-084-idempotency-semantics.md) | Idempotency semantics: key scope tuple, request identity as a `BCJ/1` digest, retention floor plus mandatory declaration |
+| [ADR-085](ADR-085-trust-material-anti-rollback.md) | Anti-rollback for versioned trust material: monotonic acceptance per object and authority; CT and mirrors explicitly not adopted |
 
 > Gaps in the numbering (004, 022, 026, 027, 032) are intentional — those ADRs were removed under the clean-slate policy (ADR-057); numbers are stable identifiers, so survivors are never renumbered and history lives in Git.
 

@@ -1,0 +1,204 @@
+{
+  "_spec": "BANZA Core Capability Registry",
+  "_status": "canonical",
+  "_authority": "This registry defines the BANZA core capability identifiers and their meaning. spec/capabilities.md states the rules that govern them. No other surface may introduce a core capability identifier, and no implementation defines one.",
+  "_why_this_exists": "Before this registry, three vocabularies described capabilities with no published mapping between them: the conformance-profile registry's required_capabilities, the supports_* flags of conformance/capabilities/schema.json, and the free-form strings of an operator manifest's capabilities member. An implementation could not determine which value to declare in order to satisfy a profile requirement. This registry supplies the missing semantics; it changes no wire form.",
+  "registry": "banza-capabilities/1",
+  "protocol_version": "1.0.0",
+  "registry_version": "1.0.0",
+  "_canonical_namespace": "The canonical identifiers are the ones below. They were adopted because contracts/production/conformance-profiles.production.json already uses them to answer the normative question 'what does this profile require?' — not because they read better than the alternatives.",
+  "capabilities": [
+    {
+      "id": "consumer_payment",
+      "meaning": "Consumer payment initiation and reception.",
+      "status": "active",
+      "since_protocol_version": "1.0.0",
+      "supports_flag": null,
+      "_supports_flag_note": "No supports_* flag is an exact equivalent. supports_wallets covers wallet creation, balance query and the ledger — infrastructure underlying this capability rather than the capability itself.",
+      "aliases": []
+    },
+    {
+      "id": "merchant_acceptance",
+      "meaning": "Merchant payment acceptance and balance management.",
+      "status": "active",
+      "since_protocol_version": "1.0.0",
+      "supports_flag": null,
+      "_supports_flag_note": "No exact equivalent published.",
+      "aliases": []
+    },
+    {
+      "id": "transfer",
+      "meaning": "Value transfer between two protocol handles.",
+      "status": "active",
+      "since_protocol_version": "1.0.0",
+      "supports_flag": null,
+      "_supports_flag_note": "supports_wallets is broader: it declares wallet creation, balance query and the ledger together, of which transfer is one use.",
+      "aliases": []
+    },
+    {
+      "id": "traceability",
+      "meaning": "Trace propagation across the implementation's payment surface.",
+      "status": "active",
+      "since_protocol_version": "1.0.0",
+      "supports_flag": null,
+      "_supports_flag_note": "supports_traces is NARROWER: it declares a specific API surface (GET /traces and GET /traces/{id}), whereas this capability is the property of propagating traces. An implementation could propagate traces without exposing those two routes, so the flag does not satisfy the capability and the mapping is not asserted.",
+      "aliases": []
+    },
+    {
+      "id": "payment_request",
+      "meaning": "Encoded payment request, QR or equivalent, carrying an embedded amount.",
+      "status": "active",
+      "since_protocol_version": "1.0.0",
+      "supports_flag": "supports_payment_requests",
+      "supports_flag_relation": "exact",
+      "_supports_flag_note": "The only exact equivalence found in the audit: the flag declares support for payment requests, and this capability is payment requests. supports_qr is NARROWER — QR is one realization of 'QR or equivalent' — and does not satisfy this capability.",
+      "aliases": []
+    },
+    {
+      "id": "payment_initiation",
+      "meaning": "Pull-payment initiation via URL or an equivalent mechanism.",
+      "status": "active",
+      "since_protocol_version": "1.0.0",
+      "supports_flag": null,
+      "_supports_flag_note": "supports_payment_intents is BROADER — its own text calls the PaymentIntent 'the canonical payment-initiation primitive that Payment Links/QR/Payment Requests realize' — so it spans more than pull initiation and does not satisfy this capability on its own.",
+      "aliases": []
+    },
+    {
+      "id": "instant_execution",
+      "meaning": "T+0 settlement to the recipient.",
+      "status": "active",
+      "since_protocol_version": "1.0.0",
+      "supports_flag": null,
+      "_supports_flag_note": "supports_settlement declares batch settlement creation, status query and a fee model — a different mechanism from instant execution, not a broader or narrower form of it.",
+      "aliases": []
+    },
+    {
+      "id": "cross_operator_routing",
+      "meaning": "Participation in cross-implementation protocol routing: accepting routed requests from implementations whose published material passes trust evaluation.",
+      "status": "active",
+      "since_protocol_version": "1.0.0",
+      "supports_flag": null,
+      "_supports_flag_note": "supports_federation is BROADER: it declares federation as a whole, of which routing is one part. Declaring it does not satisfy this capability by itself.",
+      "aliases": []
+    },
+    {
+      "id": "reconciliation",
+      "meaning": "Automated ledger reconciliation across implementation boundaries.",
+      "status": "active",
+      "since_protocol_version": "1.0.0",
+      "supports_flag": null,
+      "aliases": []
+    },
+    {
+      "id": "inter_operator_settlement",
+      "meaning": "Batch net settlement between implementations that have published conformance evidence at the federation-capable profile.",
+      "status": "active",
+      "since_protocol_version": "1.0.0",
+      "supports_flag": null,
+      "aliases": [
+        {
+          "alias": "cross_operator_settlement",
+          "status": "accepted",
+          "_equivalence_evidence": "contracts/federation/federation-manifest.json declares the member cross_operator_settlement as 'This operator participates in cross-operator netting and settlement', and this capability is 'batch net settlement between implementations'. Cross-operator netting and settlement, and batch net settlement between implementations, are the same act. The alias is registered because the form is already published in committed federation fixtures (conformance/fixtures/federation/SPM-A-VALID.json and others) and in the federation manifest contract; it is not registered on the strength of the names looking similar.",
+          "_direction": "Accepted on input. Canonical emission is always inter_operator_settlement."
+        }
+      ]
+    },
+    {
+      "id": "external_acquiring",
+      "meaning": "Integration with an external payment network or acquiring infrastructure. The network is the implementation's choice.",
+      "status": "active",
+      "since_protocol_version": "1.0.0",
+      "supports_flag": null,
+      "aliases": []
+    }
+  ],
+  "supports_flags_audit": {
+    "_why": "conformance/capabilities/schema.json declares boolean flags that predate this registry. Each was audited against the core capabilities rather than mapped by name. Only an EXACT relation permits a flag to satisfy a core capability requirement; every other relation is recorded and satisfies nothing.",
+    "flags": [
+      {
+        "flag": "supports_wallets",
+        "relation": "composition",
+        "core_capability": null,
+        "note": "Wallet creation, balance query and the ledger — infrastructure that several core capabilities rest on, equal to none of them."
+      },
+      {
+        "flag": "supports_qr",
+        "relation": "narrower",
+        "core_capability": "payment_request",
+        "note": "QR specifically; payment_request is 'QR or equivalent'. Does not satisfy it."
+      },
+      {
+        "flag": "supports_settlement",
+        "relation": "none",
+        "core_capability": null,
+        "note": "Batch settlement within one implementation. Neither instant_execution nor inter_operator_settlement."
+      },
+      {
+        "flag": "supports_payment_requests",
+        "relation": "exact",
+        "core_capability": "payment_request",
+        "note": "The one exact equivalence. Declaring this flag satisfies payment_request."
+      },
+      {
+        "flag": "supports_payment_intents",
+        "relation": "broader",
+        "core_capability": "payment_initiation",
+        "note": "Its own description places the PaymentIntent above payment links, QR and payment requests."
+      },
+      {
+        "flag": "supports_collections",
+        "relation": "none",
+        "core_capability": null,
+        "note": "Collections aggregates. No core capability corresponds."
+      },
+      {
+        "flag": "supports_events",
+        "relation": "none",
+        "core_capability": null,
+        "note": "Event emission surface. No core capability corresponds."
+      },
+      {
+        "flag": "supports_traces",
+        "relation": "narrower",
+        "core_capability": "traceability",
+        "note": "A specific API surface, not the property of propagating traces."
+      },
+      {
+        "flag": "supports_webhooks",
+        "relation": "none",
+        "core_capability": null,
+        "note": "Optional delivery mechanism."
+      },
+      {
+        "flag": "supports_federation",
+        "relation": "broader",
+        "core_capability": "cross_operator_routing",
+        "note": "Federation as a whole, of which routing is one part."
+      }
+    ]
+  },
+  "unregistered_published_forms": {
+    "_why": "Forms found in published material that are NOT core capability identifiers. Recorded so their status is a decision rather than an accident, and so that nobody later mistakes them for aliases.",
+    "forms": [
+      {
+        "form": "supports_wallets, supports_qr, supports_settlement",
+        "where": "conformance/vectors/operator-manifests.json MAN-003, as values of a manifest capabilities array",
+        "classification": "example-only",
+        "note": "The vector shows a syntactically valid manifest. These are flag names used as free-form strings; they are not core capability identifiers and satisfy no core requirement."
+      },
+      {
+        "form": "payment-intents, qr, federation",
+        "where": "contracts/production/operator-manifest.production.schema.json, as illustrative examples in the capabilities description",
+        "classification": "example-only",
+        "note": "Illustrative strings in a description. Hyphenated spellings are NOT aliases of underscored identifiers: this registry performs no case folding, separator substitution or fuzzy matching."
+      },
+      {
+        "form": "supports_payment_links, offline_payments",
+        "where": "spec/capability-negotiation.md",
+        "classification": "outside the normative surface",
+        "note": "That document is not in the Normative Manifest. Its capability table introduces forms that this registry does not adopt."
+      }
+    ]
+  }
+}

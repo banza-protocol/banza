@@ -1,0 +1,115 @@
+{
+  "_spec": "BANZA Wallet Balance Conformance Vectors v1.0",
+  "_stability": "stable",
+
+  "vectors": [
+    {
+      "id": "WLT-001",
+      "title": "Seed wallets exist with non-zero balances",
+      "certification_level": 0,
+      "stability": "stable",
+      "endpoint_check": {
+        "method": "GET",
+        "path": "/wallets",
+        "expected_fields": ["wallets"],
+        "wallets_include_ids": [
+          "sandbox-consumer-1",
+          "sandbox-merchant-1",
+          "sandbox-government-1"
+        ]
+      }
+    },
+    {
+      "id": "WLT-002",
+      "title": "Wallet creation — zero initial balance",
+      "certification_level": 1,
+      "stability": "stable",
+      "input": {
+        "method": "POST",
+        "path": "/wallets",
+        "body": {
+          "label": "Conformance Test WLT-002",
+          "currency": "AOA",
+          "wallet_type": "consumer"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "response_fields_required": ["id", "label", "currency", "balance_minor", "wallet_type", "created_at"],
+        "response_field_values": {
+          "balance_minor": 0,
+          "currency": "AOA"
+        },
+        "response_field_patterns": {
+          "id": "^wallet-"
+        }
+      }
+    },
+    {
+      "id": "WLT-003",
+      "title": "Transfer reduces sender balance and increases receiver balance",
+      "certification_level": 1,
+      "stability": "stable",
+      "pre_fetch": [
+        { "method": "GET", "path": "/wallets/sandbox-consumer-1", "capture": "consumer_balance_before", "capture_field": "balance_minor" },
+        { "method": "GET", "path": "/wallets/sandbox-merchant-1", "capture": "merchant_balance_before", "capture_field": "balance_minor" }
+      ],
+      "input": {
+        "method": "POST",
+        "path": "/transfers",
+        "body": {
+          "from_wallet_id": "sandbox-consumer-1",
+          "to_wallet_id": "sandbox-merchant-1",
+          "amount_minor": 10000,
+          "currency": "AOA"
+        }
+      },
+      "post_check": {
+        "fetch": [
+          { "method": "GET", "path": "/wallets/sandbox-consumer-1", "capture": "consumer_balance_after", "capture_field": "balance_minor" },
+          { "method": "GET", "path": "/wallets/sandbox-merchant-1", "capture": "merchant_balance_after", "capture_field": "balance_minor" }
+        ],
+        "assert": [
+          { "expr": "consumer_balance_after == consumer_balance_before - 10000" },
+          { "expr": "merchant_balance_after == merchant_balance_before + 10000" }
+        ]
+      },
+      "invariants": ["no_negative_balance"]
+    },
+    {
+      "id": "WLT-004",
+      "title": "Unknown currency rejected at wallet creation",
+      "certification_level": 1,
+      "stability": "stable",
+      "input": {
+        "method": "POST",
+        "path": "/wallets",
+        "body": {
+          "label": "Bad Currency",
+          "currency": "XYZ"
+        }
+      },
+      "expected": {
+        "status": 400,
+        "response_fields_required": ["error"]
+      }
+    },
+    {
+      "id": "WLT-005",
+      "title": "GET /wallets/{id} returns wallet",
+      "certification_level": 1,
+      "stability": "stable",
+      "input": {
+        "method": "GET",
+        "path": "/wallets/sandbox-consumer-1"
+      },
+      "expected": {
+        "status": 200,
+        "response_field_values": {
+          "id": "sandbox-consumer-1"
+        },
+        "balance_positive": true
+      }
+    }
+  ]
+}

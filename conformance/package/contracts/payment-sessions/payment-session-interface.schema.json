@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/payment-sessions/payment-session-interface.schema.json",
+  "title": "PaymentSessionInterface",
+  "description": "One interface presenting a PaymentSession (ADR-015). An interface is a presentation, not a financial flow: it carries an opaque reference to the session and never an internal account id, never a mutable destination, never an authoritative amount. A QR interface is rendered by the operator (the app never generates a financial QR). An interface MAY carry its own state but MUST NOT contradict the session.",
+  "_spec_version": "1.0",
+  "_status": "canonical",
+  "_authority": "ADR-015",
+
+  "type": "object",
+  "required": ["type", "value"],
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["PAYMENT_LINK", "DYNAMIC_QR", "STATIC_QR", "DEEP_LINK"],
+      "description": "The interface kind. STATIC_QR may allow an open amount and may be permanent; the destination is still resolved by the operator."
+    },
+    "value": {
+      "type": "string",
+      "description": "The presentable artifact — a URL (PAYMENT_LINK / DEEP_LINK) or a signed QR payload (DYNAMIC_QR / STATIC_QR). Carries only an opaque session reference, never an account id."
+    },
+    "format": {
+      "type": ["string", "null"],
+      "enum": ["URL", "QR_PAYLOAD", "PNG", "SVG", "PDF", null],
+      "description": "Representation of `value` / how a QR image is rendered. Operator-rendered for QR."
+    },
+    "expires_at": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "Interface expiry. MUST NOT be later than the session expiry."
+    },
+    "status": {
+      "type": ["string", "null"],
+      "description": "Optional interface-local state (e.g. a single-use DYNAMIC_QR becomes USED). MUST NOT contradict the session (cannot report PAID while the session is not)."
+    }
+  }
+}

@@ -57,27 +57,29 @@ def shape(d):
         secs.append((s["id"], s["number"], s["label"], blocks))
     return (tuple(secs), tuple((f["id"],f["n"],f["label"]) for f in d["figures"]))
 assert shape(en)==shape(pt), "PT/EN structural parity broken"
+FIGCOUNT=[]
 for d,l in ((en,"en"),(pt,"pt")):
     ids=[s["id"] for s in d["sections"]]; nums=[s["number"] for s in d["sections"]]; titles=[s["title"] for s in d["sections"]]
     assert ids==IDS, f"{l}: section ids/order {ids}"
+    FIGCOUNT.append((l,len(d["figures"])))
     assert nums==list(range(1,13)), f"{l}: section numbers"
     assert titles==TITLES[l], f"{l}: single-concept titles mismatch {titles}"
-    assert len(d["figures"])==12, f"{l}: expected 12 figures"
-    assert [f["n"] for f in d["figures"]]==list(range(1,13)), f"{l}: figure numbering"
-    assert len(d["references"])==8, f"{l}: expected 8 references"
-    # figure per numbered section except Conclusions (12); Validation (6) has exactly 2
-    byid={s["id"]:s for s in d["sections"]}
-    for s in d["sections"]:
-        nfig=sum(1 for b in s["blocks"] if b["t"]=="fig")
-        if s["id"]=="conclusion": assert nfig==0, f"{l}: Conclusions must have no figure"
-        elif s["id"]=="validation": assert nfig==2, f"{l}: Validation must have 2 figures"
-        else: assert nfig>=1, f"{l}: section {s['number']} needs a figure"
+    # Figures are checked for INTEGRITY, not for quantity. A figure exists because it makes a
+    # relation easier to grasp than prose does — a per-section quota would force diagrams that
+    # merely restate their own paragraph, and three such figures were removed for exactly that
+    # reason. What must hold: numbering is contiguous, every figure resolves to an asset, and
+    # PT/EN carry the same set.
+    figs=[f["n"] for f in d["figures"]]
+    assert figs==list(range(1,len(figs)+1)), f"{l}: figure numbering is not contiguous: {figs}"
+    assert len(figs)>=1, f"{l}: no figures at all"
+    assert len(d["references"])==10, f"{l}: expected 10 references"
     # equations: 4 eq-blocks, 5 items, tags 1a/1b/2/3/4
     tags=[i["n"] for s in d["sections"] for b in s["blocks"] if b["t"]=="eq" for i in b["items"]]
     assert tags==["1a","1b","2","3","4"], f"{l}: equation tags {tags}"
+assert len({n for _,n in FIGCOUNT})==1, f"PT/EN carry different figure counts: {FIGCOUNT}"
 print("structure-ok")
 PY
-ok "structure — 12 single-concept sections (parity), 12 figures (fig/section except Conclusions; §6 has 2), eqs 1a/1b/2/3/4, 8 refs"
+ok "structure — 12 single-concept sections (parity), contiguous figure numbering with PT/EN parity, eqs 1a/1b/2/3/4, 10 refs"
 
 # ── 3. cross-reference tokens resolve; all figures cited; all refs cited ──────────────────────────────
 python3 - "$EN" "$PT" <<'PY' || exit 1
@@ -91,8 +93,8 @@ for p,l in ((sys.argv[2],"pt"),(sys.argv[1],"en")):
     for kind,name in tok.findall(body+" "+d["abstract"]):
         pool=figlab if kind=="fig" else eqlab if kind=="eq" else seclab
         assert f"{kind}:{name}" in pool, f"{l}: unresolved token {kind}:{name}"
-    cited={int(m) for m in re.findall(r"\[(\d)\]", body)}
-    assert cited==set(range(1,9)), f"{l}: not all 8 refs cited: {sorted(cited)}"
+    cited={int(m) for m in re.findall(r"\[(\d+)\]", body)}  # \d+ : [10] is a citation too
+    assert cited==set(range(1,11)), f"{l}: not all 10 refs cited: {sorted(cited)}"
 print("xref-ok")
 PY
 ok "cross-references — all {{fig/eq/sec}} tokens resolve; all 8 references cited in-body"
@@ -144,11 +146,15 @@ en=json.load(open(sys.argv[1])); pt=json.load(open(sys.argv[2]))
 def body(d): return " ".join([d["abstract"]]+[b["text"] for s in d["sections"] for b in s["blocks"] if b["t"]=="p"]+[f["caption"] for f in d["figures"]]+[d["citation"]])
 LOW=(body(en)+" "+body(pt)).lower()
 NOREF=(" ".join([x["abstract"] for x in (en,pt)]+[b["text"] for x in (en,pt) for s in x["sections"] for b in s["blocks"] if b["t"]=="p"])).lower()
+# Matched on WORD BOUNDARIES, not as substrings. "BANZA CA" is a certificate authority the protocol
+# does not have; "BANZA Canonical JSON" merely starts with the same letters, and a substring test
+# forbids the second while trying to forbid the first.
+import re as _re
 for t in ["banza ca","regulator-approved","regulator approved","production-proven","trustless",
           "fully decentralised","fully decentralized","primeiro esquema previsto","first intended scheme",
           "interoperabilidade automática","automatic interoperability","certificação automática","automatic certification",
           "banco a","fintech b"]:
-    assert t not in LOW, f"forbidden claim/label: '{t}'"
+    assert not _re.search(r"(?<![\w-])" + _re.escape(t) + r"(?![\w-])", LOW), f"forbidden claim/label: '{t}'"
 for t in ["doi:","isbn","issn"]:
     assert t not in NOREF, f"whitepaper must not claim its own academic identifier: '{t}'"
 # Boundary sentences of the approved canonical edition: guarantees are technical, not regulatory;
@@ -179,7 +185,14 @@ print("web-block-ok")
 PY
 ok "BANZA na Web — canonical banza.network + github.com/banza-protocol/banza (no invented URLs)"
 
-# ── 8. released PDFs: present, no DRAFT, 12 pages, 2026 internal date (no 2025) ───────────────────────
+# NOTE ON TEXT NORMALISATION. Checks in this file that compare strings against text extracted from a
+# PDF may normalise NFKC first, because pdftotext emits `fi`/`fl` as single ligature glyphs and a
+# literal probe would report present text as missing. That normalisation belongs to PDF QA ONLY. It
+# must never be carried into BCJ/1, signing inputs, digests, request identity, normative string
+# comparison or capability identifiers: BCJ/1 applies no verifier-side Unicode normalisation, by
+# design, and the Whitepaper now states so. Comparing rendered glyphs is not comparing signed bytes.
+
+# ── 8. released PDFs: present, no DRAFT, AT MOST 12 pages, 2026 internal date (no 2025) ───────────────────────
 for L in en pt; do
   P="$PDFDIR/banza-whitepaper-v1.0-$L.pdf"
   [ -f "$P" ] || fail "missing released PDF $P"
@@ -193,14 +206,16 @@ m=json.load(open(sys.argv[1]))
 import subprocess
 for p in m["pdfs"]:
     n=p.get("pages") or 0
-    assert 10 <= n <= 14, f"{p['lang']}: {n} pages outside the compact-article range 10–14"
+    # A hard ceiling, not a range. When the edition grows past it, the text is compacted — never
+    # the font, the margins, the spacing or the figures.
+    assert n <= 12, f"{p['lang']}: {n} pages — the edition is capped at 12"
     info=subprocess.run(["pdfinfo","website/public/whitepaper/"+p["file"]],capture_output=True,text=True).stdout
     dates=[ln for ln in info.splitlines() if ln.startswith("CreationDate")]
     assert dates and "2026" in dates[0], f"{p['lang']}: PDF internal date not 2026 ({dates})"
     assert "2025" not in (dates[0] if dates else ""), f"{p['lang']}: PDF internal date still 2025"
 print("pdf-ok")
 PY
-ok "released PDFs — present, no DRAFT, compact (10–14 pp), internal CreationDate 2026 (no 2025)"
+ok "released PDFs — present, no DRAFT, at most 12 pages, internal CreationDate 2026 (no 2025)"
 
 # ── 9. manifest immutability: committed PDFs match the frozen manifest SHA-256 (v1.0 launch edition) ──
 python3 - "$MAN" <<'PY' || exit 1

@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/conformance-evidence.production.schema.json",
+  "title": "ConformanceEvidenceProduction",
+  "description": "Conformance Evidence — o resultado verificável e reprodutível da conformidade demonstrada por um operador independente contra uma protocol_version concreta. A evidência é produzida pela Conformance Automation de forma determinística: as mesmas entradas produzem o mesmo conformance_status, sem avaliador humano no caminho. Qualquer terceiro pode recalcular conformance_report_hash e evidence_bundle_hash, reexecutar os testes com verified_by_tool_version, verificar signed_protocol_metadata sob trust_root_version e concluir por si se a evidência sustenta o conformance_status declarado. A evidência descreve o que a implementação faz — não afirma que o operador está autorizado a operar. Não é atribuída, concedida nem confirmada por qualquer autoridade humana.",
+  "_spec_version": "1.0",
+  "_status": "production-baseline",
+  "_authority": "docs/governance/OPERATOR_SELF_PUBLICATION_AND_CONFORMANCE.md; conformance/ suite (Conformance Automation)",
+  "_boundary": "BANZA é um protocolo financeiro aberto. A governação humana existe para manter e evoluir o protocolo, não para autorizar, certificar ou aceitar operadores. Operadores independentes assumem o seu próprio enquadramento legal, regulatório e financeiro e, quando aplicável, são autorizados pelas entidades competentes — nunca pela BANZA.",
+
+  "type": "object",
+  "required": ["operator_id", "protocol_version", "conformance_report_hash", "evidence_bundle_hash", "verified_by_tool_version", "trust_root_version", "conformance_status", "signed_protocol_metadata", "boundary"],
+  "additionalProperties": false,
+
+  "properties": {
+    "operator_id": {
+      "type": "string",
+      "description": "Identificador do operador independente, escolhido e publicado por si (ex.: 'operator-a'). Nunca uma marca comercial. Não é atribuído pela governação do protocolo."
+    },
+    "protocol_version": {
+      "type": "string",
+      "description": "Versão das Versioned Specifications contra a qual a conformidade foi demonstrada (ex.: '1.0.0'). A evidência está sempre ligada a uma versão concreta — não é permanente nem irrevogável."
+    },
+    "conformance_report_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "SHA-256 (hex minúsculo) do relatório de conformidade publicado. Recalculável por qualquer verificador independente."
+    },
+    "evidence_bundle_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "SHA-256 (hex minúsculo) do Evidence Bundle publicado. Recalculável por qualquer verificador independente."
+    },
+    "verified_by_tool_version": {
+      "type": "string",
+      "description": "Versão da Conformance Automation que produziu a evidência. Garante reprodutibilidade: qualquer terceiro reexecuta a mesma versão e obtém o mesmo resultado."
+    },
+    "trust_root_version": {
+      "type": "string",
+      "description": "Versão da Trust Root sob a qual signed_protocol_metadata foi verificada. Ver trust-root-metadata.production.schema.json."
+    },
+    "conformance_status": {
+      "type": "string",
+      "enum": ["pass", "fail", "not_run"],
+      "description": "Resultado determinístico da Conformance Automation para esta protocol_version. Um 'pass' é um facto verificável sobre a implementação — não é aprovação, aceitação, certificação nem autorização do operador."
+    },
+    "signed_protocol_metadata": {
+      "$ref": "https://banza.network/contracts/production/signed-protocol-metadata.production.schema.json",
+      "description": "Metadados do protocolo assinados pela Trust Root (ou por Delegated Signing Keys) usados na verificação. Afirmação sobre artefactos do protocolo — nunca sobre o operador."
+    },
+    "revocation_status": {
+      "type": "string",
+      "enum": ["active", "revoked", "unknown"],
+      "description": "Estado do material de confiança envolvido, face à Revocation List. Semântica fail-closed: 'revoked' e 'unknown' são tratados como não confiáveis, nunca como válidos por omissão. Revogação é mecanismo de segurança do protocolo — não é sanção regulatória nem licença."
+    },
+    "generated_at": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "Momento em que a evidência foi gerada pela Conformance Automation."
+    },
+    "boundary": {
+      "type": "object",
+      "description": "Fronteira permanente deste artefacto. Conformance Evidence é prova reprodutível sobre uma implementação, não um estatuto concedido a um participante.",
+      "required": ["not_operator_authorisation", "not_certificate", "not_operator_approval", "not_payment_service_authorisation", "open_financial_protocol"],
+      "additionalProperties": false,
+      "properties": {
+        "not_operator_authorisation": { "type": "boolean", "const": true, "description": "Esta evidência não autoriza um operador. Operadores independentes, quando aplicável, são autorizados pelas entidades competentes — nunca pela BANZA." },
+        "not_certificate": { "type": "boolean", "const": true, "description": "Esta evidência não é um certificado. Nada é emitido a um operador: a evidência é auto-publicada e recalculável." },
+        "not_operator_approval": { "type": "boolean", "const": true, "description": "Esta evidência não é aprovação, aceitação nem admissão de operador. Não existe decisão humana no caminho da participação." },
+        "not_payment_service_authorisation": { "type": "boolean", "const": true, "description": "Esta evidência não é autorização para prestar serviços de pagamento. O enquadramento regulatório pertence integralmente ao operador." },
+        "open_financial_protocol": { "type": "boolean", "const": true, "description": "BANZA é e permanece um protocolo financeiro aberto." }
+      }
+    }
+  }
+}

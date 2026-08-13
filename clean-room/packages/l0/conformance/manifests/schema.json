@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/conformance/manifests/schema.json",
+  "title": "BANZA Operator Discovery Manifest (RFC-0005)",
+  "description": "The RFC-0005 DISCOVERY operator manifest — the manifest an operator serves at its canonical origin /.well-known/banza/operator.json for peers and validators to fetch (ADR-039, ADR-080). Distinct from the candidate-SUBMISSION manifest (contracts/production/operator-manifest.production.schema.json), which is an onboarding descriptor and is never served at this discovery route. Federation-capable operators additionally validate against the extension contracts/federation/federation-manifest.json.",
+  "type": "object",
+
+  "required": ["operator_id", "environment", "simulated", "production_allowed", "capabilities"],
+
+  "properties": {
+    "operator_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Stable identifier for this operator. Must be unique within the federation."
+    },
+    "environment": {
+      "type": "string",
+      "enum": ["sandbox", "production"],
+      "description": "The environment this operator is running in."
+    },
+    "simulated": {
+      "type": "boolean",
+      "description": "True if this operator simulates financial operations rather than executing real transactions."
+    },
+    "production_allowed": {
+      "type": "boolean",
+      "description": "SAFETY INVARIANT: Must be false for all sandbox operators. True only for production operators with real money movement enabled."
+    },
+    "protocol_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+$",
+      "description": "The BANZA protocol version this operator implements (e.g. 1.0)."
+    },
+    "certification_level": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4,
+      "description": "The highest certification level this operator has achieved (0–4)."
+    },
+    "capabilities": {
+      "$ref": "#/$defs/Capabilities",
+      "description": "Declared feature capabilities of this operator."
+    },
+    "operator_name": {
+      "type": "string",
+      "description": "Human-readable name for the operator."
+    },
+    "operator_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Base URL of the operator's API."
+    },
+    "contact": {
+      "type": "string",
+      "description": "Contact email or URL for the operator team."
+    }
+  },
+
+  "if": {
+    "properties": {
+      "environment": { "const": "sandbox" }
+    },
+    "required": ["environment"]
+  },
+  "then": {
+    "properties": {
+      "simulated": { "const": true },
+      "production_allowed": { "const": false }
+    },
+    "description": "Sandbox operators MUST declare simulated=true and production_allowed=false."
+  },
+
+  "additionalProperties": true,
+
+  "$defs": {
+    "Capabilities": {
+      "type": "object",
+      "required": ["supports_wallets", "supports_qr", "supports_settlement"],
+      "properties": {
+        "supports_wallets": {
+          "type": "boolean",
+          "description": "Operator supports wallet creation and management."
+        },
+        "supports_qr": {
+          "type": "boolean",
+          "description": "Operator supports QR code generation and payment."
+        },
+        "supports_settlement": {
+          "type": "boolean",
+          "description": "Operator supports settlement batch creation and execution."
+        },
+        "supports_payment_requests": {
+          "type": "boolean",
+          "description": "Operator supports payment request lifecycle."
+        },
+        "supports_events": {
+          "type": "boolean",
+          "description": "Operator emits conformant event envelopes."
+        },
+        "supports_traces": {
+          "type": "boolean",
+          "description": "Operator exposes GET /traces for financial traceability (Level 2)."
+        },
+        "supports_webhooks": {
+          "type": "boolean",
+          "description": "Operator supports webhook delivery with signed envelopes."
+        },
+        "supports_federation": {
+          "type": "boolean",
+          "description": "Operator participates in cross-operator federation (Level 3+)."
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

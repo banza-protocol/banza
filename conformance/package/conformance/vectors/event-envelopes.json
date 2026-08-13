@@ -1,0 +1,203 @@
+{
+  "_spec": "BANZA Event Envelope Conformance Vectors v1.0",
+  "_stability": "stable",
+  "_note": "Event shape vectors validate the structure of events emitted by the operator. Events are checked via GET /events/history after triggering operations.",
+
+  "required_event_fields": [
+    "id",
+    "event_type",
+    "aggregate_type",
+    "aggregate_id",
+    "trace_id",
+    "correlation_id",
+    "payload",
+    "created_at"
+  ],
+
+  "optional_event_fields": [
+    "causation_id"
+  ],
+
+  "vectors": [
+    {
+      "id": "EVT-001",
+      "title": "Transfer emits payment.sent and payment.received events",
+      "certification_level": 1,
+      "stability": "stable",
+      "trigger": {
+        "method": "POST",
+        "path": "/transfers",
+        "body": {
+          "from_wallet_id": "sandbox-consumer-1",
+          "to_wallet_id": "sandbox-merchant-1",
+          "amount_minor": 1000,
+          "currency": "AOA"
+        }
+      },
+      "expected_events": [
+        {
+          "event_type": "payment.sent",
+          "aggregate_type": "transfer",
+          "payload_fields_required": ["transfer_id", "from_wallet_id", "amount_minor"]
+        },
+        {
+          "event_type": "payment.received",
+          "aggregate_type": "transfer",
+          "payload_fields_required": ["transfer_id", "to_wallet_id", "amount_minor"]
+        }
+      ]
+    },
+    {
+      "id": "EVT-002",
+      "title": "QR generation emits qr.generated event",
+      "certification_level": 2,
+      "stability": "stable",
+      "trigger": {
+        "method": "POST",
+        "path": "/qr",
+        "body": {
+          "merchant_wallet_id": "sandbox-merchant-1",
+          "amount_minor": 5000,
+          "currency": "AOA"
+        }
+      },
+      "expected_events": [
+        {
+          "event_type": "qr.generated",
+          "aggregate_type": "qr",
+          "payload_fields_required": ["qr_id", "merchant_wallet_id"]
+        }
+      ]
+    },
+    {
+      "id": "EVT-003",
+      "title": "Payment request creation emits payment_request.created event",
+      "certification_level": 2,
+      "stability": "stable",
+      "trigger": {
+        "method": "POST",
+        "path": "/payment-requests",
+        "body": {
+          "to_wallet_id": "sandbox-merchant-1",
+          "amount_minor": 3000,
+          "currency": "AOA"
+        }
+      },
+      "expected_events": [
+        {
+          "event_type": "payment_request.created",
+          "aggregate_type": "payment_request",
+          "payload_fields_required": ["pr_id", "to_wallet_id", "amount_minor"]
+        }
+      ]
+    },
+    {
+      "id": "EVT-004",
+      "title": "All events carry required trace fields",
+      "certification_level": 1,
+      "stability": "stable",
+      "trigger": {
+        "method": "POST",
+        "path": "/transfers",
+        "body": {
+          "from_wallet_id": "sandbox-consumer-1",
+          "to_wallet_id": "sandbox-merchant-1",
+          "amount_minor": 2000,
+          "currency": "AOA"
+        }
+      },
+      "expected_events": [
+        {
+          "event_type": "payment.sent",
+          "required_fields": ["id", "event_type", "aggregate_type", "aggregate_id", "trace_id", "correlation_id", "payload", "created_at"],
+          "trace_id_matches_transfer": true
+        },
+        {
+          "event_type": "payment.received",
+          "required_fields": ["id", "event_type", "aggregate_type", "aggregate_id", "trace_id", "correlation_id", "payload", "created_at"],
+          "trace_id_matches_transfer": true
+        }
+      ],
+      "invariants": ["trace_id_propagation"]
+    },
+    {
+      "id": "EVT-005",
+      "title": "Settlement emits settlement.created and settlement.completed",
+      "certification_level": 2,
+      "stability": "stable",
+      "notes": "Run a transfer first to ensure there are receipts to settle.",
+      "expected_events": [
+        {
+          "event_type": "settlement.created",
+          "aggregate_type": "settlement",
+          "payload_fields_required": ["batch_id"]
+        },
+        {
+          "event_type": "settlement.completed",
+          "aggregate_type": "settlement",
+          "payload_fields_required": ["batch_id"]
+        }
+      ]
+    },
+    {
+      "id": "EVT-006",
+      "title": "QR payment emits qr.paid event",
+      "certification_level": 2,
+      "stability": "stable",
+      "expected_events": [
+        {
+          "event_type": "qr.paid",
+          "aggregate_type": "qr",
+          "payload_fields_required": ["qr_id", "transfer_id"]
+        }
+      ]
+    },
+    {
+      "id": "EVT-007",
+      "title": "Payment request payment emits payment_request.paid event",
+      "certification_level": 2,
+      "stability": "stable",
+      "expected_events": [
+        {
+          "event_type": "payment_request.paid",
+          "aggregate_type": "payment_request",
+          "payload_fields_required": ["pr_id", "transfer_id"]
+        }
+      ]
+    },
+    {
+      "id": "EVT-008",
+      "title": "Wallet creation emits wallet.created event",
+      "certification_level": 1,
+      "stability": "stable",
+      "trigger": {
+        "method": "POST",
+        "path": "/wallets",
+        "body": {
+          "label": "Conformance Test Wallet EVT-008",
+          "currency": "AOA",
+          "wallet_type": "consumer"
+        }
+      },
+      "expected_events": [
+        {
+          "event_type": "wallet.created",
+          "aggregate_type": "wallet",
+          "payload_fields_required": ["wallet_id"]
+        }
+      ]
+    }
+  ],
+
+  "well_known_event_types": [
+    "wallet.created",
+    "payment.sent",
+    "payment.received",
+    "payment_request.created",
+    "payment_request.paid",
+    "qr.generated",
+    "qr.paid",
+    "settlement.created",
+    "settlement.completed"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/fees/pricing-profile.schema.json",
+  "title": "PricingProfile",
+  "description": "The commercial-tier reference of a counterparty (ADR-019). A reference only — NEVER a percentage or a rule. The operator's Pricing Engine resolves a profile (with the other inputs) to a concrete fee; the protocol only transports the reference.",
+  "_spec_version": "1.0",
+  "_status": "canonical",
+  "_authority": "ADR-019",
+
+  "type": "string",
+  "enum": [
+    "STANDARD",
+    "BUSINESS",
+    "ENTERPRISE",
+    "PARTNER",
+    "NGO",
+    "GOVERNMENT",
+    "CUSTOM"
+  ],
+  "_extensible": true
+}

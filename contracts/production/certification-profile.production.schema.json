@@ -90,11 +90,13 @@
     "validity_days": {
       "type": "integer",
       "minimum": 1,
-      "description": "Validity window of the resulting certificate; never open-ended (ADR-064 D-064-06)."
+      "description": "Validity window of the resulting certificate; never open-ended (ADR-064 D-064-06).",
+      "maximum": 9007199254740991
     },
     "profile_hash": {
       "type": "string",
       "minLength": 1
     }
-  }
+  },
+  "_numeric_domain": "Integers in a signed or digested BANZA artifact are bounded by the canonicalization in force (BCJ/1: |n| <= 2^53-1, spec/canonicalization.md P2). The bound is declared here so the schema and the canonicalization cannot disagree about what is representable."
 }

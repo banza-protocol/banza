@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/operator-self-publication.production.schema.json",
+  "title": "OperatorSelfPublicationProduction",
+  "description": "Auto-publicação de um operador independente. O operador implementa as Versioned Specifications, publica o seu Operator Manifest num endpoint sob o seu próprio controlo, executa a Conformance Automation e publica a Conformance Evidence resultante. Este artefacto é o que o operador publica — não um pedido, não uma candidatura e não uma submissão a revisão humana. Não existe passo em que uma pessoa avalie, aceite ou recuse um operador: a participação faz-se por implementação, publicação e prova. O regulatory_responsibility_statement é uma declaração do próprio operador; a BANZA não a valida, não a endossa e não a substitui.",
+  "_spec_version": "1.0",
+  "_status": "production-baseline",
+  "_authority": "docs/governance/OPERATOR_SELF_PUBLICATION_AND_CONFORMANCE.md; docs/governance/OPEN_PROTOCOL_GOVERNANCE.md",
+  "_boundary": "BANZA é um protocolo financeiro aberto. A governação humana existe para manter e evoluir o protocolo, não para autorizar, certificar ou aceitar operadores. Operadores independentes assumem o seu próprio enquadramento legal, regulatório e financeiro e, quando aplicável, são autorizados pelas entidades competentes — nunca pela BANZA.",
+
+  "type": "object",
+  "required": ["operator_id", "operator_manifest_url", "protocol_version", "capabilities", "public_keys", "conformance_report_hash", "evidence_bundle_hash", "revocation_status", "regulatory_responsibility_statement", "boundary"],
+  "additionalProperties": false,
+
+  "properties": {
+    "operator_id": {
+      "type": "string",
+      "description": "Identificador do operador, escolhido e publicado por si (ex.: 'operator-a'). Nunca uma marca comercial. Não é atribuído nem reservado por qualquer autoridade."
+    },
+    "operator_manifest_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Endereço público, controlado pelo operador, onde o Operator Manifest é servido. O manifest é publicado pelo operador, não concedido pelo protocolo."
+    },
+    "protocol_version": {
+      "type": "string",
+      "description": "Versão das Versioned Specifications que a implementação declara cumprir (ex.: '1.0.0')."
+    },
+    "capabilities": {
+      "type": "array",
+      "description": "Capacidades de protocolo implementadas e expostas pelo operador. Auto-declaradas e verificáveis pela Conformance Automation.",
+      "items": { "type": "string" }
+    },
+    "public_keys": {
+      "type": "array",
+      "description": "Chaves públicas do operador, para verificação de assinaturas. Material público apenas — nenhuma chave privada, seed, mnemónica ou passphrase existe neste artefacto.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["key_id", "public_key", "algorithm"],
+        "additionalProperties": false,
+        "properties": {
+          "key_id": { "type": "string", "description": "Identificador da chave pública do operador." },
+          "public_key": { "type": "string", "description": "Material de chave PÚBLICA apenas (base64url)." },
+          "algorithm": { "type": "string", "enum": ["ed25519"], "description": "Algoritmo de assinatura." },
+          "fingerprint": { "type": ["string", "null"], "description": "Impressão digital pública (hash) da chave pública." }
+        }
+      }
+    },
+    "manifest_hash": {
+      "type": ["string", "null"],
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "SHA-256 (hex minúsculo) do próprio manifest, recalculável por qualquer verificador."
+    },
+    "conformance_report_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "SHA-256 (hex minúsculo) do relatório de conformidade publicado pelo operador."
+    },
+    "evidence_bundle_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "SHA-256 (hex minúsculo) do Evidence Bundle publicado pelo operador."
+    },
+    "conformance_status": {
+      "type": ["string", "null"],
+      "enum": ["pass", "fail", "not_run", null],
+      "description": "Resultado determinístico da Conformance Automation, tal como publicado pelo operador. Verificável por recomputação — não é um estatuto conferido."
+    },
+    "revocation_status": {
+      "type": "string",
+      "enum": ["active", "revoked", "unknown"],
+      "description": "Estado do material de confiança do operador face à Revocation List. Semântica fail-closed: 'revoked' e 'unknown' são tratados como não confiáveis. Uma revogação retira confiança criptográfica a material específico — não retira, suspende nem afecta qualquer autorização regulatória do operador, que nunca esteve nas mãos da BANZA."
+    },
+    "regulatory_responsibility_statement": {
+      "type": "object",
+      "description": "Declaração do próprio operador sobre o seu enquadramento legal, regulatório e financeiro. A BANZA regista-a como declaração do operador: não a valida, não a endossa, não a substitui e não responde por ela.",
+      "required": ["self_declared", "owns_regulatory_responsibility", "authorised_by_competent_authorities_when_applicable"],
+      "additionalProperties": false,
+      "properties": {
+        "self_declared": { "type": "boolean", "const": true, "description": "Declaração emitida pelo próprio operador. Nenhuma autoridade do protocolo a confirma." },
+        "owns_regulatory_responsibility": { "type": "boolean", "const": true, "description": "O operador assume integralmente o seu próprio enquadramento legal, regulatório e financeiro, incluindo fundos, liquidação e obrigações KYC/KYB e AML/CFT." },
+        "authorised_by_competent_authorities_when_applicable": { "type": "boolean", "const": true, "description": "Quando aplicável, o operador é autorizado pelas entidades competentes — nunca pela BANZA." },
+        "jurisdiction": { "type": ["string", "null"], "description": "Jurisdição declarada pelo operador." },
+        "statement_uri": { "type": ["string", "null"], "format": "uri", "description": "Endereço público, controlado pelo operador, onde a declaração integral é servida." },
+        "declared_at": { "type": ["string", "null"], "format": "date-time", "description": "Momento da declaração." }
+      }
+    },
+    "published_at": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "Momento em que o operador publicou este artefacto."
+    },
+    "boundary": {
+      "type": "object",
+      "description": "Fronteira permanente deste artefacto. A auto-publicação é um acto do operador sobre a sua própria infraestrutura, sem intermediação humana do protocolo.",
+      "required": ["not_operator_authorisation", "not_certificate", "not_operator_approval", "not_payment_service_authorisation", "open_financial_protocol"],
+      "additionalProperties": false,
+      "properties": {
+        "not_operator_authorisation": { "type": "boolean", "const": true, "description": "Publicar não autoriza o operador. Operadores independentes, quando aplicável, são autorizados pelas entidades competentes — nunca pela BANZA." },
+        "not_certificate": { "type": "boolean", "const": true, "description": "Este artefacto não é um certificado e nada nele é emitido ao operador." },
+        "not_operator_approval": { "type": "boolean", "const": true, "description": "Publicar não é aprovação, aceitação nem admissão. Não existe porta de entrada nem decisão humana de participação." },
+        "not_payment_service_authorisation": { "type": "boolean", "const": true, "description": "Este artefacto não é autorização para prestar serviços de pagamento. O enquadramento regulatório pertence integralmente ao operador." },
+        "open_financial_protocol": { "type": "boolean", "const": true, "description": "BANZA é e permanece um protocolo financeiro aberto." }
+      }
+    }
+  }
+}

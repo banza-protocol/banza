@@ -15,7 +15,10 @@ cd "$(dirname "$0")/.."
 
 # ── frozen baseline of the CURRENT approved build (update on an approved re-import) ──────────────────
 FROZEN_PAGES=12
-FROZEN_PT_SENTENCE='configuração segura do protocolo'
+# Updated consciously with the Phase G edition, which compacted the L0 sentence while keeping its
+# substance: the phrase now reads «valida a configuração segura em ambiente de testes». The guard
+# pins wording that must survive, not wording that happened to exist.
+FROZEN_PT_SENTENCE='configuração segura em ambiente de testes'
 FROZEN_FIG4_PT='configuração segura · representação monetária correcta'
 FROZEN_FIG4_EN='secure configuration · correct monetary representation'
 # forbidden in the ACTIVE whitepaper edition only (history/other docs may legitimately contain them)
@@ -51,19 +54,19 @@ check() {
     && ok "retired renderer carries its retirement header" \
     || bad "tools/whitepaper-latex.py lost its retirement header"
 
-  # 3. derivation gates are wired into the release script (verify + write mode)
-  grep -q 'whitepaper-pt-content\.py --check' "$RELEASE" \
-    && ok "verify gates pt.json derivation" || bad "release/verify lost the pt.json derivation gate"
-  grep -q 'whitepaper-en-dossier\.py --check' "$RELEASE" \
-    && ok "verify gates the EN dossier derivation" || bad "release/verify lost the EN derivation gate"
+  # 3. derivation gates are wired into the release script (verify + write mode), one per language.
+  #    Both run in the same direction: the dossier decides, the JSON follows.
+  for L in pt en; do
+    grep -q "whitepaper-content\.py $L --check" "$RELEASE" \
+      && ok "verify gates the $L derivation" || bad "release/verify lost the $L derivation gate"
+  done
 
-  # 4. derivations are CURRENTLY fresh (no writes — the tools' --check mode compares only)
-  python3 tools/whitepaper-pt-content.py --check >/dev/null \
-    && ok "content/pt.json matches the canonical PT dossier" \
-    || bad "content/pt.json drifted from the canonical PT dossier"
-  python3 tools/whitepaper-en-dossier.py --check >/dev/null \
-    && ok "whitepaper.en.tex matches PT dossier + official EN translation" \
-    || bad "whitepaper.en.tex drifted (EN must derive from PT + en.json, never be edited directly)"
+  # 4. derivations are CURRENTLY fresh (no writes — --check compares only)
+  for L in pt en; do
+    python3 tools/whitepaper-content.py "$L" --check >/dev/null \
+      && ok "content/$L.json matches the $L dossier" \
+      || bad "content/$L.json drifted from the $L dossier — edit the .tex and regenerate, never both"
+  done
 
   # 5. web edition mirrors are in sync (no stale web content)
   diff -q docs/whitepaper/content/pt.json website/content/whitepaper/pt.json >/dev/null \
@@ -153,3 +156,23 @@ if [ "$fail" -ne 0 ]; then
   exit 1
 fi
 echo "whitepaper-canonical-source-boundary: ✓ Overleaf PT dossier is the source; derivations fresh; retired renderer out; verify non-destructive; frozen edition intact"
+
+# ── source-of-truth direction, both languages ────────────────────────────────────────────────────
+# The .tex of each edition is the editorial source; content/<lang>.json is derived from it. The
+# reverse composed an approved edition out of a derived representation, twice: whitepaper-latex.py
+# for PT and whitepaper-en-dossier.py for EN. Both are retired and neither may re-enter the release
+# path.
+for retired in tools/whitepaper-latex.py tools/whitepaper-en-dossier.py; do
+  [ -f "$retired" ] || continue
+  grep -q "RETIRED FROM THE CANONICAL RELEASE PATH" "$retired" \
+    || { echo "canonical-source: ✗ $retired lost its retirement notice"; exit 1; }
+  grep -qE "sys\.exit\(2\)|DO NOT USE" "$retired" \
+    || { echo "canonical-source: ✗ $retired is retired in prose only"; exit 1; }
+  grep -q "$(basename "$retired")" tools/whitepaper-release.sh \
+    && { echo "canonical-source: ✗ $retired re-entered the release path"; exit 1; }
+done
+for lang in pt en; do
+  grep -q "whitepaper-content.py $lang" tools/whitepaper-release.sh \
+    || { echo "canonical-source: ✗ release does not derive content/$lang.json from the $lang dossier"; exit 1; }
+done
+echo "canonical-source: ✓ TEX→JSON both languages; JSON→TEX retired and out of the release path"

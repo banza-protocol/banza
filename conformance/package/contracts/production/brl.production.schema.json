@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/brl.production.schema.json",
+  "title": "BrlProduction",
+  "description": "Production BANZA Revocation List (BRL). Enumerates revoked cryptographic material — delegated keys, releases and artifacts — in the trust path. Revocation is a security signal over material, never an entity-level sanction (ADR-038/040). FAIL-CLOSED SEMANTICS: a verifier that cannot fetch, parse, or verify the signature of a current, non-expired BRL MUST treat trust as revoked (deny), never as granted. A stale (expired) BRL is a hard failure. An empty 'revoked' array means nothing is revoked, NOT that verification may be skipped. Publishing a BRL does not move funds and does not make BANZA a payment processor; BANZA is an open protocol. At M2_PROTOCOL_IMPLEMENTATION the BRL is prepared-but-gated and signed only after the offline root-key ceremony.",
+  "_spec_version": "1.0",
+  "_status": "production-baseline",
+  "_authority": "Production Trust; docs/security/BRL_REVOCATION_PLAYBOOK.md",
+  "_boundary": "Production of the BANZA protocol, not financial production. BANZA is an open protocol; it does not process payments, settle value, or move funds. Licence/authorisation belongs to the operator, not to BANZA.",
+
+  "type": "object",
+  "required": ["schema_version", "issuer", "issued_at", "expires_at", "revoked", "signature_ref"],
+  "additionalProperties": false,
+
+  "properties": {
+    "schema_version": { "type": "string", "description": "BRL schema version." },
+    "issuer":         { "type": "string", "const": "BANZA", "description": "Issuer of the revocation list: the BANZA protocol trust root." },
+    "issued_at":      { "type": "string", "format": "date-time", "description": "Issuance timestamp. Verifiers reject BRLs with issued_at in the future." },
+    "expires_at":     { "type": "string", "format": "date-time", "description": "Expiry timestamp. A BRL past expires_at is stale and MUST be treated as a hard fail-closed failure." },
+    "revoked": {
+      "type": "array",
+      "description": "Revoked entries. Empty array means nothing revoked (still requires a valid, non-expired, verified BRL).",
+      "items": {
+        "type": "object",
+        "required": ["operator_id", "reason", "permanent", "since"],
+        "additionalProperties": false,
+        "properties": {
+          "operator_id": { "type": "string", "description": "Operator whose key material is affected (context only; revocation targets the material named by revoked_ref, not the entity)." },
+          "reason":      { "type": "string", "description": "Human-readable revocation reason." },
+          "permanent":   { "type": "boolean", "description": "True if the revocation is permanent and non-reversible." },
+          "since":       { "type": "string", "format": "date-time", "description": "Effective time of revocation." },
+          "revoked_ref": { "type": ["string", "null"], "description": "Identifier of the revoked cryptographic material — a delegated key id, release id, or artifact id — when applicable." }
+        }
+      }
+    },
+    "signature_ref":  { "type": "string", "description": "Reference to the detached signature over the canonical BRL bytes, produced by a BANZA revocation-domain key. Verification is mandatory (fail-closed)." }
+  }
+}

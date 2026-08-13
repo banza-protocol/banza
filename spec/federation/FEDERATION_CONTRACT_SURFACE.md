@@ -831,7 +831,7 @@ Fields are additional to the base manifest schema (`conformance/manifests/schema
 | `interop_endpoint` | string (URI) | yes | Base URL for this operator's federation API endpoints (e.g., `POST /federation/route` is at `{interop_endpoint}/federation/route`) |
 | `supports_federation` | boolean | yes | MUST be `true` for federation participation. MUST NOT be `true` unless the operator publishes valid, fresh, non-revoked Conformance Evidence for a federation-capable conformance scope (L3+) that passes the Open Trust Evaluation. INV-FEDEVAL-007. |
 | `cross_operator_routing` | boolean | yes | This operator can accept routing requests from other operators. |
-| `cross_operator_settlement` | boolean | yes | This operator participates in cross-operator netting and settlement. |
+| `cross_operator_settlement` | boolean | yes | This operator participates in cross-operator netting and settlement. Required at L3, the federation-capable scope|
 | `federation_capabilities` | object | yes | Detailed federation capability declaration. |
 | `federation_capabilities.routing_version` | string | yes | Which federation routing protocol version. Always `"1"`. |
 | `federation_capabilities.settlement_version` | string | yes | Which federation settlement protocol version. Always `"1"`. |
@@ -894,7 +894,7 @@ Fields are additional to the base manifest schema (`conformance/manifests/schema
 
     "cross_operator_settlement": {
       "type": "boolean",
-      "description": "True if this operator participates in cross-operator netting and settlement (RFC-0002). Required for L4."
+      "description": "True if this operator participates in cross-operator netting and settlement. Required at L3, the federation-capable scope, and exercised by the federation suite."
     },
 
     "federation_capabilities": {

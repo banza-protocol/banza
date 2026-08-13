@@ -100,6 +100,11 @@ registry['vocabularies']['trust_status'] = ts
 
 fr = OrderedDict(AUTHORED['vocabulary_headers']['fetch_reason_codes'])
 fr['values'] = [OrderedDict([("code", c), ("meaning", d)]) for c, d in fetch]
+# Core codes that no engine enum carries because the rule that emits them is specified before it is
+# implemented. They are authored data like every other meaning here.
+for c, v in AUTHORED.get('extra_core_codes', {}).items():
+    if not any(x['code'] == c for x in fr['values']):
+        fr['values'].append(OrderedDict([("code", c), ("meaning", v['meaning'])]))
 registry['vocabularies']['fetch_reason_codes'] = fr
 
 registry['vocabularies']['journey_step_status'] = \

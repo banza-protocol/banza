@@ -1,0 +1,281 @@
+{
+  "_spec": "BANZA Reason Code Conformance Vectors",
+  "_status": "canonical",
+  "_authority": "spec/reason-codes.md (ADR-083) and contracts/production/reason-code-registry.production.json",
+  "_source_of_truth": "spec/reason-codes.md",
+  "protocol_version": "1.0.0",
+  "registry": "banza-reason-codes/1",
+  "published_check_ids": [
+    "capabilities_compatible",
+    "compatible_protocol_version",
+    "conformance_evidence_valid",
+    "delegated_signing_keys",
+    "endpoint_contract_compatible",
+    "evidence_freshness_within_policy",
+    "fail_closed_on_missing_or_invalid",
+    "not_revoked",
+    "operator_self_publication",
+    "signed_protocol_metadata",
+    "trust_root",
+    "trust_root_or_delegated_signature_valid",
+    "valid_operator_manifest"
+  ],
+  "vector_count": 21,
+  "vectors": [
+    {
+      "id": "RC-001",
+      "title": "a receipt carrying only core reason codes",
+      "field": "reason_codes",
+      "input": [
+        "TRUST_VALID"
+      ],
+      "expect": "accept",
+      "note": "Core codes contain no dot."
+    },
+    {
+      "id": "RC-002",
+      "title": "multiple reason codes on one step",
+      "field": "reason_codes",
+      "input": [
+        "host_mismatch",
+        "redirect_blocked"
+      ],
+      "expect": "accept"
+    },
+    {
+      "id": "RC-003",
+      "title": "a failed check names a published check id",
+      "field": "failed_checks",
+      "input": [
+        "not_revoked"
+      ],
+      "outcome": "FAIL_CLOSED",
+      "expect": "accept"
+    },
+    {
+      "id": "RC-004",
+      "title": "an unregistered core-shaped code is preserved, never rejected",
+      "field": "reason_codes",
+      "input": [
+        "SOME_FUTURE_CODE"
+      ],
+      "expect": "accept",
+      "required_behaviour": "preserve; MUST NOT change any verdict; MUST NOT reject the artifact",
+      "note": "Adding a core code is backward compatible (ADR-081)."
+    },
+    {
+      "id": "RC-005",
+      "title": "a valid extension code is preserved and never interpreted",
+      "field": "reason_codes",
+      "input": [
+        "x-acme.gateway_timeout"
+      ],
+      "expect": "accept",
+      "required_behaviour": "preserve; MUST NOT interpret; MUST NOT change any verdict"
+    },
+    {
+      "id": "RC-006",
+      "title": "an extension code with no vendor namespace is invalid",
+      "field": "reason_codes",
+      "input": [
+        "x-.oops"
+      ],
+      "expect": "reject",
+      "rule": "extension_namespace"
+    },
+    {
+      "id": "RC-007",
+      "title": "a dotted code that is not in the extension namespace is invalid",
+      "field": "reason_codes",
+      "input": [
+        "acme.timeout"
+      ],
+      "expect": "reject",
+      "rule": "extension_namespace",
+      "note": "Only the x- prefix reserves a vendor space; a bare dot would collide with nothing but means nothing."
+    },
+    {
+      "id": "RC-008",
+      "title": "duplicate reason codes are not significant",
+      "field": "reason_codes",
+      "input": [
+        "host_mismatch",
+        "host_mismatch"
+      ],
+      "expect": "accept",
+      "required_behaviour": "the set is {host_mismatch}; equivalence compares sets"
+    },
+    {
+      "id": "RC-009",
+      "title": "ordering of reason codes is not significant",
+      "field": "reason_codes",
+      "input_a": [
+        "a_first",
+        "b_second"
+      ],
+      "input_b": [
+        "b_second",
+        "a_first"
+      ],
+      "expect": "EQUIVALENT"
+    },
+    {
+      "id": "RC-010",
+      "title": "a duplicate in failed_checks is invalid",
+      "field": "failed_checks",
+      "input": [
+        "not_revoked",
+        "not_revoked"
+      ],
+      "expect": "reject",
+      "rule": "failed_checks is a set expressed as an array"
+    },
+    {
+      "id": "RC-011",
+      "title": "a failed_checks value that is not a published check id is invalid",
+      "field": "failed_checks",
+      "input": [
+        "definitely_not_a_check"
+      ],
+      "expect": "reject",
+      "rule": "failed_checks values MUST be check ids published in contracts/federation/federation-trust.json"
+    },
+    {
+      "id": "RC-012",
+      "title": "failed_checks MUST be empty when routing is allowed",
+      "field": "failed_checks",
+      "outcome": "ROUTING_ALLOWED",
+      "input": [
+        "not_revoked"
+      ],
+      "expect": "reject",
+      "rule": "empty iff ROUTING_ALLOWED"
+    },
+    {
+      "id": "RC-013",
+      "title": "failed_checks MUST be non-empty when fail-closed",
+      "field": "failed_checks",
+      "outcome": "FAIL_CLOSED",
+      "input": [],
+      "expect": "reject",
+      "rule": "an evaluation that refuses must say which check refused it"
+    },
+    {
+      "id": "RC-014",
+      "title": "an empty reason-code set on a successful outcome",
+      "field": "reason_codes",
+      "input": [],
+      "expect": "accept",
+      "note": "A successful artifact fetch carries no reason codes."
+    },
+    {
+      "id": "RC-015",
+      "title": "a trust_status outside the closed enum is schema-invalid",
+      "field": "trust_status",
+      "input": "TRUST_PROBABLY_FINE",
+      "expect": "reject",
+      "rule": "closed enum — the §6 tolerance for unknown codes does NOT apply to decisional statuses"
+    },
+    {
+      "id": "RC-016",
+      "title": "an extension code may not appear in a closed enum field",
+      "field": "trust_status",
+      "input": "x-acme.trust_ok",
+      "expect": "reject",
+      "rule": "closed enum"
+    },
+    {
+      "id": "RC-017",
+      "title": "two receipts differing only in non-decisional metadata are equivalent",
+      "a": {
+        "overall_status": "VERIFIED",
+        "steps": [
+          {
+            "step_id": "keys",
+            "status": "VERIFIED",
+            "engine_status": "TRUST_VALID",
+            "reason_codes": [
+              "TRUST_VALID"
+            ]
+          }
+        ],
+        "execution_id": "exec-1",
+        "duration_ms": 812,
+        "produced_at": "2026-08-12T10:00:00Z"
+      },
+      "b": {
+        "overall_status": "VERIFIED",
+        "steps": [
+          {
+            "step_id": "keys",
+            "status": "VERIFIED",
+            "engine_status": "TRUST_VALID",
+            "reason_codes": [
+              "TRUST_VALID"
+            ]
+          }
+        ],
+        "execution_id": "exec-2",
+        "duration_ms": 1447,
+        "produced_at": "2026-08-12T18:30:00Z"
+      },
+      "expect": "EQUIVALENT",
+      "rule": "spec/reason-codes.md §8"
+    },
+    {
+      "id": "RC-018",
+      "title": "extension codes do not affect equivalence",
+      "a": {
+        "reason_codes": [
+          "TRUST_VALID"
+        ]
+      },
+      "b": {
+        "reason_codes": [
+          "TRUST_VALID",
+          "x-acme.cache_hit"
+        ]
+      },
+      "expect": "EQUIVALENT",
+      "rule": "§8: extension codes are removed before comparison"
+    },
+    {
+      "id": "RC-019",
+      "title": "a differing core reason code breaks equivalence",
+      "a": {
+        "status": "FAILED",
+        "reason_codes": [
+          "TRUST_REVOKED"
+        ]
+      },
+      "b": {
+        "status": "FAILED",
+        "reason_codes": [
+          "TRUST_EXPIRED_METADATA"
+        ]
+      },
+      "expect": "NOT_EQUIVALENT",
+      "rule": "§8.3"
+    },
+    {
+      "id": "RC-020",
+      "title": "a differing decisional status breaks equivalence",
+      "a": {
+        "status": "VERIFIED"
+      },
+      "b": {
+        "status": "PENDING"
+      },
+      "expect": "NOT_EQUIVALENT",
+      "rule": "§8.1"
+    },
+    {
+      "id": "RC-021",
+      "title": "an engine status not listed for a step maps to FAILED",
+      "step": "discovery",
+      "engine_status": "DISCOVERY_SOMETHING_NEW",
+      "expect": "FAILED",
+      "rule": "the mapping is total; an unrecognised engine status can never be read as success"
+    }
+  ]
+}

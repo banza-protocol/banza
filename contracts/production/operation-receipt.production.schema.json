@@ -127,7 +127,9 @@
         "integer",
         "null"
       ],
-      "description": "HTTP status of the primary fetch."
+      "description": "HTTP status of the primary fetch.",
+      "maximum": 9007199254740991,
+      "minimum": -9007199254740991
     },
     "content_type": {
       "type": [
@@ -139,7 +141,9 @@
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "maximum": 9007199254740991,
+      "minimum": -9007199254740991
     },
     "etag": {
       "type": [
@@ -216,21 +220,29 @@
       "description": "Hash of the engine output."
     },
     "duration_ms": {
-      "type": "integer"
+      "type": "integer",
+      "maximum": 9007199254740991,
+      "minimum": -9007199254740991
     },
     "qwen_calls": {
       "type": "integer",
       "const": 0,
-      "description": "Always 0 in validation mode."
+      "description": "Always 0 in validation mode.",
+      "maximum": 9007199254740991,
+      "minimum": -9007199254740991
     },
     "external_model_calls": {
       "type": "integer",
       "const": 0,
-      "description": "Always 0 — nothing leaves the host."
+      "description": "Always 0 — nothing leaves the host.",
+      "maximum": 9007199254740991,
+      "minimum": -9007199254740991
     },
     "protocol_fetch_count": {
       "type": "integer",
-      "description": "Number of successful protocol fetches for this step. Never counted as external model calls."
+      "description": "Number of successful protocol fetches for this step. Never counted as external model calls.",
+      "maximum": 9007199254740991,
+      "minimum": -9007199254740991
     },
     "audit_ref": {
       "type": "string",
@@ -302,5 +314,6 @@
       }
     }
   },
-  "_reason_codes": "banza-reason-codes/1 — spec/reason-codes.md; contracts/production/reason-code-registry.production.json"
+  "_reason_codes": "banza-reason-codes/1 — spec/reason-codes.md; contracts/production/reason-code-registry.production.json",
+  "_numeric_domain": "Integers in a signed or digested BANZA artifact are bounded by the canonicalization in force (BCJ/1: |n| <= 2^53-1, spec/canonicalization.md P2). The bound is declared here so the schema and the canonicalization cannot disagree about what is representable."
 }

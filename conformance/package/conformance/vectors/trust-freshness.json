@@ -1,0 +1,230 @@
+{
+  "_spec": "BANZA Trust Freshness / Anti-Rollback Conformance Vectors",
+  "_status": "canonical",
+  "_authority": "spec/trust-freshness.md (ADR-085)",
+  "_source_of_truth": "spec/trust-freshness.md",
+  "_boundary": "These vectors exercise a STATEFUL LOCAL defence. They do not, and cannot, demonstrate transparency, cross-observer consistency, or detection of first-observation staleness — see spec/trust-freshness.md §1. The conflict vectors (TF-011..TF-013) detect equivocation only within one verifier that observed both artifacts; they establish nothing across observers.",
+  "protocol_version": "1.0.0",
+  "ordering_members": {
+    "brl": "issued_at",
+    "key_manifest": "not_before",
+    "signed_protocol_metadata": "issued_at"
+  },
+  "signing_input_exclusions": {
+    "brl": "signature_ref",
+    "key_manifest": "root_signatures",
+    "signed_protocol_metadata": "signatures"
+  },
+  "_digest_note": "The ordering markers are RFC 3339 instants whose granularity may be whole seconds, so an equal marker does not imply the same artifact. Every observation therefore carries the artifact's content digest: SHA-256 over its signing input — the canonical bytes (BCJ/1) the signature covers, excluding the member named in signing_input_exclusions for that type. The digest strings below are opaque labels: only their equality is significant, so these vectors stay valid independently of any particular artifact's bytes.",
+  "vector_count": 13,
+  "vectors": [
+    {
+      "id": "TF-001",
+      "title": "first observation records the mark and cannot detect staleness",
+      "key": {
+        "artifact_type": "brl",
+        "authority_identity": "BANZA"
+      },
+      "prior": null,
+      "offered": "2020-01-01T00:00:00Z",
+      "offered_digest": "digest-A",
+      "expect": "FIRST_OBSERVATION",
+      "resulting_mark": "2020-01-01T00:00:00Z",
+      "resulting_digest": "digest-A",
+      "note": "spec/trust-freshness.md §1 — an old but valid artifact is undetectable on first contact. Stated, not hidden."
+    },
+    {
+      "id": "TF-002",
+      "title": "equal marker with the same content is an idempotent observation",
+      "key": {
+        "artifact_type": "brl",
+        "authority_identity": "BANZA"
+      },
+      "prior": "2026-08-01T00:00:00Z",
+      "prior_digest": "digest-A",
+      "offered": "2026-08-01T00:00:00Z",
+      "offered_digest": "digest-A",
+      "expect": "UNCHANGED",
+      "resulting_mark": "2026-08-01T00:00:00Z",
+      "resulting_digest": "digest-A",
+      "note": "§3.1 — re-fetching the current artifact is normal traffic and must not be treated as an attack."
+    },
+    {
+      "id": "TF-003",
+      "title": "a newer value advances the mark",
+      "key": {
+        "artifact_type": "brl",
+        "authority_identity": "BANZA"
+      },
+      "prior": "2026-08-01T00:00:00Z",
+      "prior_digest": "digest-A",
+      "offered": "2026-08-02T00:00:00Z",
+      "offered_digest": "digest-B",
+      "expect": "ADVANCED",
+      "resulting_mark": "2026-08-02T00:00:00Z",
+      "resulting_digest": "digest-B"
+    },
+    {
+      "id": "TF-004",
+      "title": "an older value is refused fail-closed",
+      "key": {
+        "artifact_type": "brl",
+        "authority_identity": "BANZA"
+      },
+      "prior": "2026-08-02T00:00:00Z",
+      "prior_digest": "digest-B",
+      "offered": "2026-08-01T00:00:00Z",
+      "offered_digest": "digest-A",
+      "expect": "ROLLBACK",
+      "reason_code": "trust_version_rollback",
+      "resulting_mark": "2026-08-02T00:00:00Z",
+      "resulting_digest": "digest-B",
+      "note": "§3(4) — the rejection must not move the mark, or serving old artifacts would lower it."
+    },
+    {
+      "id": "TF-005",
+      "title": "the mark survives process restart",
+      "key": {
+        "artifact_type": "brl",
+        "authority_identity": "BANZA"
+      },
+      "prior": "2026-08-02T00:00:00Z",
+      "prior_digest": "digest-B",
+      "restart": true,
+      "offered": "2026-08-01T00:00:00Z",
+      "offered_digest": "digest-A",
+      "expect": "ROLLBACK",
+      "reason_code": "trust_version_rollback",
+      "note": "§4 — a memory-only mark is defeated by restarting the verifier."
+    },
+    {
+      "id": "TF-006",
+      "title": "concurrent acceptance keeps the maximum, in either interleaving",
+      "key": {
+        "artifact_type": "brl",
+        "authority_identity": "BANZA"
+      },
+      "prior": null,
+      "offered_concurrently": [
+        "2026-08-06T00:00:00Z",
+        "2026-08-07T00:00:00Z"
+      ],
+      "expect": "MARK_IS_MAX",
+      "resulting_mark": "2026-08-07T00:00:00Z",
+      "note": "§5 — a race must not be able to move the mark backwards."
+    },
+    {
+      "id": "TF-007",
+      "title": "the Key Manifest orders on not_before",
+      "key": {
+        "artifact_type": "key_manifest",
+        "authority_identity": "root-key-1"
+      },
+      "prior": "2026-08-05T00:00:00Z",
+      "prior_digest": "digest-B",
+      "offered": "2026-07-01T00:00:00Z",
+      "offered_digest": "digest-A",
+      "expect": "ROLLBACK",
+      "reason_code": "trust_version_rollback"
+    },
+    {
+      "id": "TF-008",
+      "title": "a different authority is an independent sequence",
+      "key": {
+        "artifact_type": "key_manifest",
+        "authority_identity": "root-key-2"
+      },
+      "other_key_mark": {
+        "artifact_type": "key_manifest",
+        "authority_identity": "root-key-1",
+        "mark": "2026-08-05T00:00:00Z",
+        "digest": "digest-B"
+      },
+      "prior": null,
+      "offered": "2026-01-01T00:00:00Z",
+      "offered_digest": "digest-A",
+      "expect": "FIRST_OBSERVATION",
+      "note": "§2 — artifacts of the same type from different authorities are never compared."
+    },
+    {
+      "id": "TF-009",
+      "title": "restoring stale storage cannot move a mark backwards",
+      "key": {
+        "artifact_type": "brl",
+        "authority_identity": "BANZA"
+      },
+      "prior": "2026-08-09T00:00:00Z",
+      "prior_digest": "digest-B",
+      "restore_value": "2026-08-01T00:00:00Z",
+      "restore_digest": "digest-A",
+      "expect": "MARK_UNCHANGED",
+      "resulting_mark": "2026-08-09T00:00:00Z",
+      "resulting_digest": "digest-B"
+    },
+    {
+      "id": "TF-010",
+      "title": "signed protocol metadata orders on issued_at",
+      "key": {
+        "artifact_type": "signed_protocol_metadata",
+        "authority_identity": "delegated-key-1"
+      },
+      "prior": "2026-08-10T00:00:00Z",
+      "prior_digest": "digest-A",
+      "offered": "2026-08-11T00:00:00Z",
+      "offered_digest": "digest-B",
+      "expect": "ADVANCED",
+      "resulting_mark": "2026-08-11T00:00:00Z",
+      "resulting_digest": "digest-B"
+    },
+    {
+      "id": "TF-011",
+      "title": "equal marker with different content is refused as a local conflict",
+      "key": {
+        "artifact_type": "brl",
+        "authority_identity": "BANZA"
+      },
+      "prior": "2026-08-01T00:00:00Z",
+      "prior_digest": "digest-A",
+      "offered": "2026-08-01T00:00:00Z",
+      "offered_digest": "digest-B",
+      "expect": "EQUIVOCATION",
+      "reason_code": "trust_version_equivocation",
+      "resulting_mark": "2026-08-01T00:00:00Z",
+      "resulting_digest": "digest-A",
+      "note": "§3.1 — two distinct artifacts claim one position in one authority's sequence. Refused fail-closed; the recorded state does not change, so the second artifact cannot take the position."
+    },
+    {
+      "id": "TF-012",
+      "title": "the conflict verdict does not depend on which artifact arrived first",
+      "key": {
+        "artifact_type": "brl",
+        "authority_identity": "BANZA"
+      },
+      "prior": "2026-08-01T00:00:00Z",
+      "prior_digest": "digest-B",
+      "offered": "2026-08-01T00:00:00Z",
+      "offered_digest": "digest-A",
+      "expect": "EQUIVOCATION",
+      "reason_code": "trust_version_equivocation",
+      "resulting_mark": "2026-08-01T00:00:00Z",
+      "resulting_digest": "digest-B",
+      "note": "TF-011 with the two artifacts exchanged. Whichever is observed first holds the position and the other is refused, so the outcome is a refusal in both interleavings rather than a fetch-order-dependent choice between two artifacts."
+    },
+    {
+      "id": "TF-013",
+      "title": "the recorded digest survives process restart",
+      "key": {
+        "artifact_type": "brl",
+        "authority_identity": "BANZA"
+      },
+      "prior": "2026-08-02T00:00:00Z",
+      "prior_digest": "digest-A",
+      "restart": true,
+      "offered": "2026-08-02T00:00:00Z",
+      "offered_digest": "digest-B",
+      "expect": "EQUIVOCATION",
+      "reason_code": "trust_version_equivocation",
+      "note": "§4 — persisting only the marker would reopen §3.1 across a restart: a conflicting artifact at the same instant would be readmitted."
+    }
+  ]
+}

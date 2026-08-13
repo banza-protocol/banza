@@ -1,0 +1,244 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/conformance-profiles.production.schema.json",
+  "title": "BanzaConformanceProfileRegistry",
+  "description": "Structure of the normative conformance-profile registry (contracts/production/conformance-profiles.production.json), which defines what each profile L0–L4 requires. A profile confers nothing: no certification, no admission, no authorisation. Levels denote conformance readiness only.",
+  "_spec_version": "1.0",
+  "_status": "production-baseline",
+  "_authority": "This schema constrains the registry's shape. The registry itself is the authority on profile content. No implementation code defines either.",
+  "type": "object",
+  "required": [
+    "protocol_version",
+    "registry_version",
+    "cumulative",
+    "profiles"
+  ],
+  "properties": {
+    "protocol_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "registry_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "cumulative": {
+      "type": "boolean",
+      "description": "True when each profile includes the requirements of the profiles it lists in `includes`. The obligation at a level is the transitive closure over `includes`, never a directory concatenation."
+    },
+    "schema": {
+      "type": "string"
+    },
+    "profiles": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/profile"
+      }
+    }
+  },
+  "$defs": {
+    "pathList": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "profile": {
+      "type": "object",
+      "required": [
+        "level",
+        "name",
+        "purpose",
+        "includes",
+        "required_capabilities",
+        "required_invariants",
+        "awarded_by_sandbox_runner",
+        "not_required"
+      ],
+      "properties": {
+        "level": {
+          "type": "string",
+          "enum": [
+            "L0",
+            "L1",
+            "L2",
+            "L3",
+            "L4"
+          ]
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1
+        },
+        "includes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "L0",
+              "L1",
+              "L2",
+              "L3",
+              "L4"
+            ]
+          },
+          "uniqueItems": true,
+          "description": "Profiles whose requirements this profile also carries. The remaining required_* members are this level's INCREMENT."
+        },
+        "required_capabilities": {
+          "$ref": "#/$defs/pathList"
+        },
+        "required_invariants": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(INV|MON)-[A-Z]+(-[A-Z]+)*-[0-9]{3}$"
+          },
+          "uniqueItems": true,
+          "description": "Invariant identifiers. Every one MUST exist in contracts/invariants.json."
+        },
+        "required_schemas": {
+          "$ref": "#/$defs/pathList"
+        },
+        "required_contracts": {
+          "$ref": "#/$defs/pathList"
+        },
+        "required_apis": {
+          "$ref": "#/$defs/pathList"
+        },
+        "required_specifications": {
+          "$ref": "#/$defs/pathList"
+        },
+        "required_registries": {
+          "$ref": "#/$defs/pathList"
+        },
+        "required_vectors": {
+          "$ref": "#/$defs/pathList"
+        },
+        "required_vector_cases": {
+          "type": "object",
+          "description": "Which cases of a required vector file this profile must satisfy. Either the string \"ALL\", or the explicit list of case ids. Listing a file under required_vectors states that it is in scope; this member states how much of it is, which is not the same question.",
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "const": "ALL"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "uniqueItems": true,
+                "minItems": 1
+              }
+            ]
+          }
+        },
+        "required_suites": {
+          "$ref": "#/$defs/pathList"
+        },
+        "required_endpoints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "required_publication": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "environment_declaration": {
+          "type": "string"
+        },
+        "awarded_by_sandbox_runner": {
+          "type": "boolean",
+          "description": "Whether a single-implementation conformance run can award this level. False where the level needs evidence a single implementation cannot produce."
+        },
+        "not_required": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "What this level explicitly does NOT require. Stating this is not decoration: an implementer who cannot tell where a level stops will implement more than the level asks, and a level that only lists obligations cannot be scoped."
+        },
+        "profile_parameterized": {
+          "type": "boolean",
+          "description": "True when the level's additional requirements are supplied by an external profile the implementation selects, rather than by a universal artifact set. A parameterized profile MUST carry `external_profile`."
+        },
+        "external_profile": {
+          "type": "object",
+          "description": "How a parameterized level is claimed and demonstrated. Present exactly when profile_parameterized is true.",
+          "required": [
+            "required",
+            "must_identify",
+            "must_evidence",
+            "result_without_a_selected_profile",
+            "published_profiles"
+          ],
+          "properties": {
+            "required": {
+              "type": "boolean"
+            },
+            "must_identify": {
+              "$ref": "#/$defs/pathList"
+            },
+            "must_evidence": {
+              "$ref": "#/$defs/pathList"
+            },
+            "demonstrable_in_a_simulated_environment": {
+              "type": "boolean"
+            },
+            "result_without_a_selected_profile": {
+              "type": "string",
+              "enum": [
+                "pass",
+                "fail",
+                "not_run"
+              ],
+              "description": "The per-level result when no external profile is selected. Drawn from the vocabulary published in contracts/production/conformance-report.production.schema.json; it MUST NOT be `pass`, or satisfying a lower level would silently satisfy this one."
+            },
+            "published_profiles": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Concrete external-interoperability profiles published for this level. An empty array is a truthful statement that none exists, not a placeholder to be filled with an example."
+            }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "profile_parameterized": {
+                "const": true
+              }
+            },
+            "required": [
+              "profile_parameterized"
+            ]
+          },
+          "then": {
+            "required": [
+              "external_profile"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

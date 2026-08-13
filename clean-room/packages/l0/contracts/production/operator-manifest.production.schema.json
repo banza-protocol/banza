@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/operator-manifest.production.schema.json",
+  "title": "OperatorCandidateSubmissionManifest",
+  "description": "The candidate-SUBMISSION operator manifest (ADR-069 onboarding / ADR-003) — DISTINCT from the RFC-0005 DISCOVERY manifest served at /.well-known/banza/operator.json (conformance/manifests/schema.json + federation extension). This object is a candidate's onboarding submission descriptor; it is NEVER served at the /.well-known/banza/operator.json discovery route and is NOT the artefact the Open Trust Evaluation fetches (ADR-080). Declares how a candidate operator identifies itself to the BANZA open protocol: its trust key manifest, supported conformance levels, and the operator's own regulatory declaration. SAFETY INVARIANT: 'production_allowed' asserts only that the operator's OWN regulator/authority has authorised the operator — it is validated by that authority, NOT by BANZA. BANZA records the declaration; it never grants, verifies, or substitutes a payment-service authorisation. A manifest never activates a real operator: while state=M2_PROTOCOL_IMPLEMENTATION, 'simulated' is true and 'production_allowed' MUST NOT be relied upon to move funds. BANZA does not process payments, settle value, or move funds.",
+  "_spec_version": "1.0",
+  "_status": "production-baseline",
+  "_authority": "ADR-003 (operator separation), ADR-010 (wallet-native identity), Production Protocol Implementation",
+  "_boundary": "Production of the BANZA protocol, not financial production. BANZA is an open protocol; it does not process payments, settle value, or move funds. Licence/authorisation belongs to the operator, not to BANZA.",
+
+  "type": "object",
+  "required": ["operator_id", "environment", "simulated", "production_allowed", "capabilities", "key_manifest_url", "protocol_version", "base_url", "supported_levels", "operator_regulatory_declaration"],
+  "additionalProperties": false,
+
+  "properties": {
+    "operator_id":       { "type": "string", "description": "Stable candidate-operator identifier (e.g. 'operator-a'). Operator-agnostic; never a commercial brand." },
+    "environment":       { "type": "string", "enum": ["candidate", "review", "sandbox"], "description": "Non-production environments only at this baseline. A real production environment depends on the first published production conformance evidence and the operator's own regulatory authorisation, both outside this schema." },
+    "simulated":         { "type": "boolean", "const": true, "description": "Always true at M2_PROTOCOL_IMPLEMENTATION. The manifest describes a candidate, not an activated operator." },
+    "production_allowed":{ "type": "boolean", "description": "Declarative flag asserting the operator's OWN regulator/authority has authorised it. Validated by that authority, NOT by BANZA. BANZA only records this; it never grants authorisation." },
+    "capabilities":      { "type": "array", "items": { "type": "string" }, "description": "Protocol surfaces the candidate intends to implement (e.g. 'payment-intents', 'qr', 'federation'). Descriptive, not a grant." },
+    "key_manifest_url":  { "type": "string", "format": "uri", "description": "URL of the operator's key manifest (see key-manifest.production.schema.json). Public keys only." },
+    "protocol_version":  { "type": "string", "description": "BANZA protocol version the manifest targets (e.g. '1.0.0')." },
+    "base_url":          { "type": "string", "format": "uri", "description": "Base URL of the candidate operator implementation." },
+    "supported_levels":  { "type": "array", "items": { "type": "string", "enum": ["L0", "L1", "L2", "L3", "L4"] }, "description": "Conformance levels the candidate claims to support (subject to independent conformance review)." },
+    "operator_regulatory_declaration": {
+      "type": "object",
+      "description": "Operator-owned, declarative/evidential statement of the operator's regulatory posture. BANZA stores it as evidence; BANZA does not verify or issue any licence. Authorisation belongs to the operator, not to BANZA.",
+      "required": ["declared_by", "authority", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "declared_by":     { "type": "string", "description": "Operator legal entity making the declaration." },
+        "authority":       { "type": "string", "description": "Name of the operator's own regulator/supervisory authority (operator's jurisdiction)." },
+        "status":          { "type": "string", "enum": ["not_declared", "in_progress", "declared_authorised"], "description": "Operator's self-declared status. 'declared_authorised' is an operator claim, not a BANZA verification." },
+        "reference":       { "type": ["string", "null"], "description": "Operator-provided reference (licence/registration id) evidencing the declaration. Evidential only." },
+        "evidence_url":    { "type": ["string", "null"], "format": "uri", "description": "Operator-hosted evidence supporting the declaration." },
+        "declared_at":     { "type": ["string", "null"], "format": "date-time" }
+      }
+    },
+    "created_at":        { "type": ["string", "null"], "format": "date-time" }
+  }
+}

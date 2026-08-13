@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12",
+  "$id": "https://banza.network/contracts/webhooks/envelope.schema.json",
+  "title": "WebhookEvent",
+  "description": "Canonical envelope for all outbound webhook events delivered by the BANZA protocol to operator-configured HTTPS endpoints. Always signed with Banza-Signature header — see contracts/webhooks/signature.json.",
+  "_spec_version": "1.0",
+  "_status": "canonical",
+  "_authority": "ADR-002",
+  "_source_of_truth": "contracts/webhooks/signature.json, contracts/events/webhook-types.json",
+
+  "type": "object",
+  "required": ["id", "type", "data", "created_at", "trace_id"],
+  "additionalProperties": false,
+
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Globally unique event ID. Use for deduplication — the same event may be delivered more than once under retry scenarios. Idempotent processing keyed on this field is required.",
+      "examples": ["evt_01jqxyzabc123", "evt_9f3a2b1c4d5e"]
+    },
+
+    "type": {
+      "type": "string",
+      "description": "Event type identifier. See contracts/events/webhook-types.json for the canonical registry and payload schemas per type.",
+      "examples": [
+        "payment_link.paid",
+        "transaction.completed",
+        "transaction.failed",
+        "payout.created",
+        "payout.completed",
+        "payout.failed"
+      ]
+    },
+
+    "data": {
+      "type": "object",
+      "description": "Event-specific payload. Shape varies by event type. See contracts/events/webhook-types.json for the schema per type. All monetary values use integer minor units (INV-LEDGER-003)."
+    },
+
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 UTC timestamp of when the event was created on the protocol side. Not the delivery time — a retried event retains its original created_at."
+    },
+
+    "trace_id": {
+      "type": "string",
+      "description": "Correlation ID shared by every artifact in the same causal payment flow (INV-TRACE-001). Lets an external integrator correlate this webhook back to the originating operation across the operator's systems. Matches the trace_id on the internal event envelope (contracts/events/envelope.schema.json).",
+      "examples": ["trc_abc123", "trc_9f3a2b1c4d5e"]
+    },
+
+    "correlation_id": {
+      "type": "string",
+      "description": "Optional finer-grained correlation ID for the specific sub-operation that produced this event. When present, it matches the internal event envelope's correlation_id."
+    }
+  }
+}

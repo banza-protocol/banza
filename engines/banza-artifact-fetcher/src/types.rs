@@ -163,7 +163,10 @@ pub enum ReasonCode {
     ReservedIpBlocked,
 
     // --- Transport ---
-    /// Server returned a redirect (3xx). Redirects are never followed (Policy::none()).
+    /// Server returned a redirect (3xx). Redirects are never followed: a 3xx is a refusal, not a hop.
+    // How this crate achieves it (a zero-redirect client policy) is deliberately NOT in the doc
+    // comment above: that text is harvested into the published reason-code registry, and a public
+    // meaning must state the rule rather than name the mechanism that happens to enforce it here.
     RedirectBlocked,
     /// TLS handshake / certificate validation failed (invalid, expired, mismatched, untrusted).
     TlsError,
