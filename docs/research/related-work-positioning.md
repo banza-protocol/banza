@@ -104,10 +104,19 @@ The accurate formulation, checked against the sources quoted above:
 > evidence, and operational schemes, such that no BANZA-maintained operational infrastructure is required
 > as the authority or mandatory transaction intermediary.
 
-That is a difference of **emphasis and separation**, not a difference between "hub" and "no hub". BANZA
-moves no value and runs no central service of any kind, which is a stronger statement than the FSPIOP
-specification makes about itself but a weaker basis for comparison than it first appears: BANZA is not
-specifying transfers at all.
+That is a difference of **emphasis and separation**, not a difference between "hub" and "no hub".
+
+One clarification, because an earlier draft of this document got it wrong. BANZA **does** specify
+payment operations: `contracts/openapi/transfers.yaml` is a normative API on the surface, required at
+L1, defining a transfer operation with its idempotency, currency and error semantics; payment intents,
+payment sessions and QR payloads have normative schemas and lifecycles; federation routing and
+settlement obligations have normative contracts. What BANZA does not do is **perform** any of them. It
+specifies contracts that implementations implement, and runs no service that moves value.
+
+So the comparison is between two specifications of payment interoperability, not between a payment
+specification and something else. The difference remains where §1 puts it: what each takes
+responsibility for operating, and how sharply the specification, the conformance evidence and the
+operational scheme are held apart.
 
 **Layer 3, as a BANZA-side reading.** A deployed Mojaloop Hub and its scheme is conceptually comparable
 to what BANZA classifies as an independent operational scheme in Layer 3. This is **BANZA's architectural

@@ -1,0 +1,41 @@
+{
+  "_spec": "BANZA v1.0.0 — Whitepaper alignment: frozen starting truth (Phase G, G1)",
+  "_use": "Internal audit baseline. These counts are volatile engineering evidence and MUST NOT be copied into the Whitepaper (G47).",
+  "commit": "990b042521ffb25e76d8fb42f6aaec04e3756edd",
+  "protocol_version": "1.0.0",
+  "normative_manifest": {
+    "artifacts": 150,
+    "implementation": 90,
+    "conformance": 55,
+    "legal": 3,
+    "informative": 2
+  },
+  "capability_registry": {
+    "identifiers": 11,
+    "aliases": 1,
+    "supports_flags_audited": 10,
+    "exact_relations": 1
+  },
+  "profile_registry": {
+    "profiles": [
+      "L0",
+      "L1",
+      "L2",
+      "L3",
+      "L4"
+    ],
+    "l4_parameterized": true,
+    "l4_published_external_profiles": 0,
+    "vector_applicability_declared": true
+  },
+  "implementation_sets": {
+    "L0": 14,
+    "L1": 31,
+    "L2": 52,
+    "L3": 84,
+    "L4": 84
+  },
+  "trust_model": "ADR-079 Model A — offline Trust Root signs only the Key Manifest; delegated keys sign domain artifacts. Anti-rollback per ADR-085: monotonic per (artifact_type, authority_identity), with the accepted signing-input digest recorded alongside the mark.",
+  "external_third_party_implementation": "NOT DEMONSTRATED",
+  "production_operation": "NOT DEMONSTRATED"
+}
