@@ -248,6 +248,8 @@ manifest = {
         "decisions/rfc/** - proposals; every BANZA RFC is Draft and none is a requirement of 1.0.0",
         "GOVERNANCE.md, CONTRIBUTING.md, MAINTAINERS.md, SECURITY.md - governance: how the norm "
         "evolves, not what it requires",
+        "docs/research/** - related-work analysis; informative, cites the normative surface and is "
+        "never cited by it",
         "evidence/**, artifacts/** - evidence about the reference implementation",
         "tools/** - build, guard and derivation tooling",
     ],
