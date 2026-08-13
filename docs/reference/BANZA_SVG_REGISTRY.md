@@ -16,8 +16,7 @@
 ## M2.7E — Systemwide SVG Quality Repair (2026-07-18)
 
 All official diagram SVGs were audited for visual quality and semantic alignment with the active model
-(see [`M2_7E_SVG_QUALITY_REPAIR_AUDIT.md`](../governance/M2_7E_SVG_QUALITY_REPAIR_AUDIT.md) and
-[`SVG_QUALITY_POLICY.md`](../governance/SVG_QUALITY_POLICY.md)). Machine-enforced by
+(see [`SVG_QUALITY_POLICY.md`](../governance/SVG_QUALITY_POLICY.md)). Machine-enforced by
 `make svg-visual-quality-check` (CI job `svg-visual-quality`).
 
 **Removed as orphans** (present in `website/public/diagrams` but embedded nowhere):

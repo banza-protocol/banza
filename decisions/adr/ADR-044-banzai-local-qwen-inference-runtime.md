@@ -2,7 +2,6 @@
 
 - **Status:** Accepted
 - **Date:** 2026-07
-- **See also:** ADR-037 (Rust-first engines), ADR-041 (BanzAI as native protocol agent), ADR-042 (PostgreSQL as protocol-state store), `services/banzai-api`, `engines/banzai-api-kb`, `infra/banza-network/compose.yml`, `docs/banzai/LOCAL_INFERENCE_RUNTIME.md`, `docs/governance/M2_8A_LOCAL_QWEN_VPS_XL_BENCHMARK.md`
 
 ## 1. Context
 
@@ -126,4 +125,3 @@ until then it is opt-in/preview and `mock`/`degraded` remain the default and fal
 - `infra/banza-network/compose.yml` — the `llama-local` service (profile-gated, internal-only).
 - `docs/banzai/LOCAL_QWEN_MODEL_SETUP.md`, `docs/banzai/LOCAL_INFERENCE_RUNTIME.md`,
   `docs/banzai/LOCAL_INFERENCE_RUNBOOK.md` — setup, runtime and operations.
-- `docs/governance/M2_8A_LOCAL_QWEN_VPS_XL_BENCHMARK.md` — the mandatory benchmark record.

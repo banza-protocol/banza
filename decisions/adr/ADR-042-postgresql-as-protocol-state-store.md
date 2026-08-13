@@ -124,6 +124,5 @@ ledger. The protocol measures ledgers; it does not keep one.
 - ADR-038/039/040 — Open protocol trust model, operator self-publication, federation trust evaluation
 - ADR-041 — BanzAI as native protocol agent
 - `docs/governance/POSTGRESQL_PROTOCOL_STATE.md` — canonical data-boundary document
-- `docs/governance/M2_7K_POSTGRESQL_RUNTIME_SCHEMA_AUDIT.md` — runtime and schema audit
 - `infra/banza-network/postgres/init/001_schema.sql` — schema (single source of truth)
 - `tools/check-postgres-data-boundary.sh` — the boundary guard

@@ -2,7 +2,6 @@
 
 - **Status:** Accepted
 - **Date:** 2026-07
-- **See also:** ADR-037 (Rust-first engines), ADR-041 (native protocol agent), ADR-044 (local Qwen runtime), `engines/banzai-api-kb`, `services/banzai-api`, `infra/banza-network/compose.yml`, `docs/governance/M2_8B_LOCAL_QWEN_VPS_XL_REBENCHMARK.md`
 
 ## 1. Context
 
@@ -95,4 +94,3 @@ The model, the Rust-first control split, and the benchmark gate are unchanged.
 - ADR-044 — local Qwen inference runtime; ADR-037 — Rust-first engines; ADR-041 — native agent.
 - `engines/banzai-api-kb/src/prompt.rs` — compact prompt; `.../validate.rs` — validator.
 - `services/banzai-api/src/{provider.js,pipeline.js,server.js}` — local defaults, warm-up, source packing.
-- `docs/governance/M2_8B_LOCAL_QWEN_VPS_XL_REBENCHMARK.md` — the re-benchmark record.

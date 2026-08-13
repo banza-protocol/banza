@@ -1,5 +1,5 @@
 {
-  "total": 4637,
+  "total": 4367,
   "rows": [
     {
       "raw_text": "Contributing to BANZA",
@@ -378,9 +378,6 @@
         "docs-governance-annex-banza-network-infrastructure-md",
         "docs-governance-banza-conformance-interop-certification-md",
         "docs-governance-banza-root-custody-future-migration-md",
-        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md",
-        "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md",
-        "docs-governance-m2-production-protocol-implementation-md",
         "docs-governance-readme-md",
         "docs-governance-rust-first-implementation-policy-md",
         "docs-governance-ceremony-records-ceremony-record-template-md",
@@ -394,7 +391,7 @@
         "spec-idempotency-md",
         "spec-trust-freshness-md"
       ],
-      "frequency": 129,
+      "frequency": 118,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -615,10 +612,9 @@
       "sources": [
         "governance-md",
         "maintainers-md",
-        "decisions-adr-adr-043-license-notice-trademark-open-governance-attribution-md",
-        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md"
+        "decisions-adr-adr-043-license-notice-trademark-open-governance-attribution-md"
       ],
-      "frequency": 4,
+      "frequency": 3,
       "phrase_length": 6,
       "accepted": true,
       "rejection_reason": "",
@@ -738,10 +734,9 @@
         "trademarks-md",
         "decisions-adr-adr-061-certification-admission-authorisation-separation-md",
         "docs-governance-banza-responsibility-matrix-md",
-        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md",
         "docs-governance-licensing-md"
       ],
-      "frequency": 7,
+      "frequency": 6,
       "phrase_length": 1,
       "accepted": true,
       "rejection_reason": "",
@@ -755,13 +750,12 @@
         "trademarks-md",
         "decisions-adr-adr-002-ecosystem-naming-inversion-md",
         "docs-governance-banza-regulatory-claim-policy-md",
-        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md",
         "docs-governance-certification-boundary-md",
         "docs-governance-licensing-md",
         "docs-governance-roadmap-md",
         "spec-overview-md"
       ],
-      "frequency": 10,
+      "frequency": 9,
       "phrase_length": 1,
       "accepted": true,
       "rejection_reason": "",
@@ -986,7 +980,6 @@
         "docs-governance-banza-separation-matrix-md",
         "docs-governance-banza-three-layer-architecture-md",
         "docs-governance-banza-trust-architecture-md",
-        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md",
         "docs-governance-operator-manifest-validation-md",
         "docs-governance-protocol-succession-and-survival-md",
         "docs-governance-svg-quality-policy-md",
@@ -994,7 +987,7 @@
         "docs-governance-certification-boundary-md",
         "docs-governance-licensing-md"
       ],
-      "frequency": 21,
+      "frequency": 20,
       "phrase_length": 1,
       "accepted": true,
       "rejection_reason": "",
@@ -1413,8 +1406,8 @@
         "decisions-adr-adr-062-regulatory-state-boundary-and-real-money-gate-md",
         "docs-governance-banza-trust-architecture-md",
         "docs-governance-l3-readiness-md",
-        "docs-governance-m2-4-trust-engine-signed-metadata-md",
-        "docs-governance-operator-self-publication-and-conformance-md"
+        "docs-governance-operator-self-publication-and-conformance-md",
+        "docs-governance-trust-engine-active-model-md"
       ],
       "frequency": 20,
       "phrase_length": 1,
@@ -1776,13 +1769,9 @@
         "decisions-adr-adr-084-idempotency-semantics-md",
         "docs-banzai-banzai-workbench-md",
         "docs-banzai-banzai-workbench-threat-model-md",
-        "docs-governance-annex-banza-network-infrastructure-md",
-        "docs-governance-m2-7i-banzai-reference-repository-alignment-audit-md",
-        "docs-governance-m2-7j-svg-visual-system-audit-md",
-        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md",
-        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md"
+        "docs-governance-annex-banza-network-infrastructure-md"
       ],
-      "frequency": 11,
+      "frequency": 7,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -1827,10 +1816,9 @@
         "security-md",
         "decisions-adr-adr-001-open-financial-protocol-md",
         "decisions-adr-adr-002-ecosystem-naming-inversion-md",
-        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md",
         "spec-readme-md"
       ],
-      "frequency": 5,
+      "frequency": 4,
       "phrase_length": 3,
       "accepted": true,
       "rejection_reason": "",
@@ -3167,10 +3155,9 @@
       "raw_text": "Protocol production state model",
       "normalized": "protocol production state model",
       "sources": [
-        "contracts-production-readme-md",
-        "docs-governance-m2-production-protocol-implementation-md"
+        "contracts-production-readme-md"
       ],
-      "frequency": 2,
+      "frequency": 1,
       "phrase_length": 4,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -3313,10 +3300,9 @@
       "raw_text": "planned / prepared-but-gated",
       "normalized": "planned / prepared-but-gated",
       "sources": [
-        "contracts-production-readme-md",
-        "docs-governance-m2-production-protocol-implementation-md"
+        "contracts-production-readme-md"
       ],
-      "frequency": 2,
+      "frequency": 1,
       "phrase_length": 3,
       "accepted": false,
       "rejection_reason": "PATH_FRAGMENT"
@@ -3349,12 +3335,11 @@
       "normalized": "banza e um protocolo financeiro aberto",
       "sources": [
         "contracts-production-readme-md",
-        "docs-governance-m2-production-protocol-implementation-md",
         "docs-governance-protocol-production-state-model-md",
         "docs-governance-protocol-release-governance-md",
         "docs-governance-protocol-succession-and-survival-md"
       ],
-      "frequency": 5,
+      "frequency": 4,
       "phrase_length": 6,
       "accepted": true,
       "rejection_reason": "",
@@ -3368,10 +3353,9 @@
         "decisions-adr-adr-018-merchant-refundable-source-reference-md",
         "decisions-adr-adr-053-operator-zero-only-demo-and-example-policy-md",
         "decisions-adr-adr-064-conformance-interoperability-certification-md",
-        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md",
         "docs-governance-repository-structure-md"
       ],
-      "frequency": 7,
+      "frequency": 5,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -3853,11 +3837,10 @@
         "decisions-adr-adr-084-idempotency-semantics-md",
         "decisions-adr-adr-085-trust-material-anti-rollback-md",
         "docs-governance-banzai-native-protocol-agent-md",
-        "docs-governance-m2-8a-local-qwen-vps-xl-benchmark-md",
         "docs-governance-readme-md",
         "docs-governance-workbench-only-operator-verification-md"
       ],
-      "frequency": 75,
+      "frequency": 74,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -4085,13 +4068,10 @@
         "docs-governance-banza-root-custody-decision-required-md",
         "docs-governance-banza-root-custody-future-migration-md",
         "docs-governance-banza-three-layer-architecture-md",
-        "docs-governance-m2-4-trust-engine-signed-metadata-md",
-        "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md",
-        "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md",
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md",
         "docs-governance-repository-structure-md",
         "docs-governance-rust-first-implementation-policy-md",
         "docs-governance-svg-quality-policy-md",
+        "docs-governance-trust-engine-active-model-md",
         "docs-governance-workbench-only-operator-verification-md",
         "docs-governance-ceremony-records-readme-md",
         "docs-governance-certification-boundary-md",
@@ -4119,7 +4099,7 @@
         "spec-trust-freshness-md",
         "spec-validation-journey-md"
       ],
-      "frequency": 129,
+      "frequency": 126,
       "phrase_length": 1,
       "accepted": true,
       "rejection_reason": "",
@@ -4214,17 +4194,7 @@
         "docs-governance-banza-root-custody-decision-required-md",
         "docs-governance-banza-root-custody-future-migration-md",
         "docs-governance-claude-base-md",
-        "docs-governance-m2-4-trust-engine-signed-metadata-md",
-        "docs-governance-m2-7b-home-reference-consolidation-audit-md",
-        "docs-governance-m2-7d-final-protocol-architecture-svg-audit-md",
-        "docs-governance-m2-7e-svg-quality-repair-audit-md",
-        "docs-governance-m2-7i-banzai-reference-repository-alignment-audit-md",
-        "docs-governance-m2-7j-svg-visual-system-audit-md",
-        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md",
-        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md",
-        "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md",
-        "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md",
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md",
+        "docs-governance-trust-engine-active-model-md",
         "docs-governance-certification-boundary-md",
         "docs-governance-roadmap-md",
         "spec-federation-federation-conformance-model-md",
@@ -4236,7 +4206,7 @@
         "spec-federation-federation-test-suite-spec-md",
         "spec-overview-md"
       ],
-      "frequency": 107,
+      "frequency": 97,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -4655,19 +4625,14 @@
         "decisions-adr-adr-041-banzai-native-protocol-agent-md",
         "decisions-adr-adr-042-postgresql-as-protocol-state-store-md",
         "decisions-adr-adr-043-license-notice-trademark-open-governance-attribution-md",
-        "decisions-adr-adr-044-banzai-local-qwen-inference-runtime-md",
-        "decisions-adr-adr-045-banzai-local-qwen-latency-tuning-default-readiness-md",
-        "decisions-adr-adr-046-banzai-disable-qwen-reasoning-prefix-warmup-md",
-        "decisions-adr-adr-047-banzai-local-qwen-384-token-default-md",
         "decisions-adr-adr-048-banzai-qwen-first-grounded-routing-md",
         "decisions-adr-adr-050-banzai-unified-public-interface-md",
         "decisions-adr-adr-051-banzai-per-answer-execution-path-metadata-md",
         "docs-banzai-local-inference-runbook-md",
-        "docs-governance-m2-production-protocol-implementation-md",
         "docs-governance-protocol-production-state-model-md",
         "docs-governance-protocol-release-governance-md"
       ],
-      "frequency": 30,
+      "frequency": 25,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -4927,11 +4892,10 @@
         "decisions-adr-adr-015-payment-session-unified-payment-interface-md",
         "decisions-adr-adr-060-banzami-operational-scheme-md",
         "docs-governance-banza-protocol-vs-operator-policy-md",
-        "docs-governance-m2-production-protocol-implementation-md",
         "docs-governance-protocol-production-state-model-md",
         "docs-governance-protocol-release-governance-md"
       ],
-      "frequency": 10,
+      "frequency": 8,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -5311,11 +5275,10 @@
         "decisions-adr-adr-056-banzai-definitive-query-core-and-production-assurance-md",
         "decisions-adr-adr-063-conflict-of-interest-and-domain-separation-md",
         "decisions-adr-adr-075-banzai-monorepo-consolidation-and-repository-removal-md",
-        "docs-governance-m2-7j-svg-visual-system-audit-md",
         "docs-governance-operator-neutrality-terminology-md",
         "spec-invariants-md"
       ],
-      "frequency": 9,
+      "frequency": 8,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -6208,13 +6171,11 @@
         "docs-banzai-operator-journey-md",
         "docs-governance-annex-banza-network-infrastructure-md",
         "docs-governance-banza-conformance-interop-certification-md",
-        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md",
-        "docs-governance-m2-8a-local-qwen-vps-xl-benchmark-md",
         "docs-governance-ceremony-records-ceremony-record-template-md",
         "spec-collections-md",
         "spec-disputes-md"
       ],
-      "frequency": 26,
+      "frequency": 23,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -9227,12 +9188,11 @@
         "decisions-adr-adr-028-keys-never-on-serving-infrastructure-md",
         "decisions-adr-adr-038-open-protocol-trust-model-without-ca-md",
         "decisions-adr-adr-079-canonical-trust-signing-model-reconciliation-md",
-        "docs-governance-m2-production-protocol-implementation-md",
         "docs-governance-operator-self-publication-and-conformance-md",
         "docs-governance-protocol-governance-roles-md",
         "spec-federation-federation-trust-model-md"
       ],
-      "frequency": 8,
+      "frequency": 7,
       "phrase_length": 3,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -10178,17 +10138,16 @@
       "normalized": "public protocol registry",
       "sources": [
         "decisions-adr-adr-038-open-protocol-trust-model-without-ca-md",
-        "docs-governance-m2-4-trust-engine-signed-metadata-md",
-        "docs-governance-m2-production-protocol-implementation-md",
         "docs-governance-open-protocol-architecture-md",
         "docs-governance-operator-self-publication-and-conformance-md",
         "docs-governance-protocol-governance-roles-md",
         "docs-governance-public-protocol-registry-md",
         "docs-governance-simb-pre-review-gate-md",
+        "docs-governance-trust-engine-active-model-md",
         "docs-governance-certification-boundary-md",
         "spec-federation-federation-trust-model-md"
       ],
-      "frequency": 11,
+      "frequency": 10,
       "phrase_length": 3,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -11422,11 +11381,9 @@
         "decisions-adr-adr-082-banza-canonical-json-md",
         "decisions-adr-adr-083-reason-code-model-md",
         "decisions-adr-adr-084-idempotency-semantics-md",
-        "decisions-adr-adr-085-trust-material-anti-rollback-md",
-        "docs-governance-m2-7b-home-reference-consolidation-audit-md",
-        "docs-governance-m2-7d-final-protocol-architecture-svg-audit-md"
+        "decisions-adr-adr-085-trust-material-anti-rollback-md"
       ],
-      "frequency": 9,
+      "frequency": 7,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -11999,10 +11956,9 @@
       "raw_text": "cannot",
       "normalized": "cannot",
       "sources": [
-        "decisions-adr-adr-041-banzai-native-protocol-agent-md",
-        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md"
+        "decisions-adr-adr-041-banzai-native-protocol-agent-md"
       ],
-      "frequency": 2,
+      "frequency": 1,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -12174,10 +12130,9 @@
       "raw_text": "verifiable protocol-state store",
       "normalized": "verifiable protocol-state store",
       "sources": [
-        "decisions-adr-adr-042-postgresql-as-protocol-state-store-md",
-        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md"
+        "decisions-adr-adr-042-postgresql-as-protocol-state-store-md"
       ],
-      "frequency": 2,
+      "frequency": 1,
       "phrase_length": 3,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -12222,9 +12177,9 @@
       "normalized": "conformance evidence",
       "sources": [
         "decisions-adr-adr-042-postgresql-as-protocol-state-store-md",
-        "docs-governance-m2-4-trust-engine-signed-metadata-md",
         "docs-governance-operator-self-publication-and-conformance-md",
         "docs-governance-protocol-governance-roles-md",
+        "docs-governance-trust-engine-active-model-md",
         "spec-federation-federation-contract-surface-md",
         "spec-federation-federation-invariants-md",
         "spec-federation-federation-protocol-surfaces-md",
@@ -12242,10 +12197,9 @@
       "normalized": "hashes",
       "sources": [
         "decisions-adr-adr-042-postgresql-as-protocol-state-store-md",
-        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md",
         "docs-governance-postgresql-protocol-state-md"
       ],
-      "frequency": 3,
+      "frequency": 2,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -12393,10 +12347,9 @@
       "raw_text": "today",
       "normalized": "today",
       "sources": [
-        "decisions-adr-adr-043-license-notice-trademark-open-governance-attribution-md",
-        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md"
+        "decisions-adr-adr-043-license-notice-trademark-open-governance-attribution-md"
       ],
-      "frequency": 2,
+      "frequency": 1,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -12510,10 +12463,9 @@
       "raw_text": "CPU",
       "normalized": "cpu",
       "sources": [
-        "decisions-adr-adr-044-banzai-local-qwen-inference-runtime-md",
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
+        "decisions-adr-adr-044-banzai-local-qwen-inference-runtime-md"
       ],
-      "frequency": 2,
+      "frequency": 1,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -12591,11 +12543,9 @@
       "raw_text": "Guard:",
       "normalized": "guard",
       "sources": [
-        "decisions-adr-adr-044-banzai-local-qwen-inference-runtime-md",
-        "docs-governance-m2-3-reference-trust-model-inventory-md",
-        "docs-governance-m2-7b-home-reference-consolidation-audit-md"
+        "decisions-adr-adr-044-banzai-local-qwen-inference-runtime-md"
       ],
-      "frequency": 3,
+      "frequency": 1,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -12720,10 +12670,9 @@
       "normalized": "effective default",
       "sources": [
         "decisions-adr-adr-045-banzai-local-qwen-latency-tuning-default-readiness-md",
-        "docs-banzai-local-qwen-model-setup-md",
-        "docs-governance-m2-8a-local-qwen-vps-xl-benchmark-md"
+        "docs-banzai-local-qwen-model-setup-md"
       ],
-      "frequency": 3,
+      "frequency": 2,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -12882,10 +12831,9 @@
       "raw_text": "Qwen3-4B is a reasoning model.",
       "normalized": "qwen3-4b is a reasoning model",
       "sources": [
-        "decisions-adr-adr-046-banzai-disable-qwen-reasoning-prefix-warmup-md",
-        "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md"
+        "decisions-adr-adr-046-banzai-disable-qwen-reasoning-prefix-warmup-md"
       ],
-      "frequency": 2,
+      "frequency": 1,
       "phrase_length": 5,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -12916,10 +12864,9 @@
       "raw_text": "Disable Qwen3 reasoning for BanzAI.",
       "normalized": "disable qwen3 reasoning for banzai",
       "sources": [
-        "decisions-adr-adr-046-banzai-disable-qwen-reasoning-prefix-warmup-md",
-        "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md"
+        "decisions-adr-adr-046-banzai-disable-qwen-reasoning-prefix-warmup-md"
       ],
-      "frequency": 2,
+      "frequency": 1,
       "phrase_length": 5,
       "accepted": true,
       "rejection_reason": "",
@@ -12929,10 +12876,9 @@
       "raw_text": "Warm the system-prompt prefix.",
       "normalized": "warm the system-prompt prefix",
       "sources": [
-        "decisions-adr-adr-046-banzai-disable-qwen-reasoning-prefix-warmup-md",
-        "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md"
+        "decisions-adr-adr-046-banzai-disable-qwen-reasoning-prefix-warmup-md"
       ],
-      "frequency": 2,
+      "frequency": 1,
       "phrase_length": 4,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -12976,11 +12922,9 @@
       "normalized": "explicit maintainer approval",
       "sources": [
         "decisions-adr-adr-046-banzai-disable-qwen-reasoning-prefix-warmup-md",
-        "decisions-adr-adr-047-banzai-local-qwen-384-token-default-md",
-        "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md",
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
+        "decisions-adr-adr-047-banzai-local-qwen-384-token-default-md"
       ],
-      "frequency": 4,
+      "frequency": 2,
       "phrase_length": 3,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -13068,11 +13012,9 @@
       "raw_text": "all `finish_reason=stop`",
       "normalized": "all finish reason stop",
       "sources": [
-        "decisions-adr-adr-047-banzai-local-qwen-384-token-default-md",
-        "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md",
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
+        "decisions-adr-adr-047-banzai-local-qwen-384-token-default-md"
       ],
-      "frequency": 3,
+      "frequency": 1,
       "phrase_length": 4,
       "accepted": false,
       "rejection_reason": "MARKUP_FRAGMENT"
@@ -13147,10 +13089,9 @@
       "raw_text": "no model call",
       "normalized": "no model call",
       "sources": [
-        "decisions-adr-adr-048-banzai-qwen-first-grounded-routing-md",
-        "docs-governance-m2-8a-local-qwen-vps-xl-benchmark-md"
+        "decisions-adr-adr-048-banzai-qwen-first-grounded-routing-md"
       ],
-      "frequency": 3,
+      "frequency": 2,
       "phrase_length": 3,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -13778,10 +13719,9 @@
       "normalized": "problem",
       "sources": [
         "decisions-adr-adr-054-banzai-primary-human-operator-interface-md",
-        "decisions-adr-adr-055-banzai-rust-first-grounded-synthesis-md",
-        "docs-governance-m2-7j-svg-visual-system-audit-md"
+        "decisions-adr-adr-055-banzai-rust-first-grounded-synthesis-md"
       ],
-      "frequency": 3,
+      "frequency": 2,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -13790,10 +13730,9 @@
       "raw_text": "Boundaries",
       "normalized": "boundaries",
       "sources": [
-        "decisions-adr-adr-054-banzai-primary-human-operator-interface-md",
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
+        "decisions-adr-adr-054-banzai-primary-human-operator-interface-md"
       ],
-      "frequency": 2,
+      "frequency": 1,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -13915,10 +13854,9 @@
       "raw_text": "Acceptance criteria",
       "normalized": "acceptance criteria",
       "sources": [
-        "decisions-adr-adr-054-banzai-primary-human-operator-interface-md",
-        "docs-governance-m2-8a-local-qwen-vps-xl-benchmark-md"
+        "decisions-adr-adr-054-banzai-primary-human-operator-interface-md"
       ],
-      "frequency": 2,
+      "frequency": 1,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -14356,10 +14294,9 @@
       "normalized": "empty",
       "sources": [
         "decisions-adr-adr-056-banzai-definitive-query-core-and-production-assurance-md",
-        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md",
         "spec-federation-federation-invariants-md"
       ],
-      "frequency": 4,
+      "frequency": 2,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -14944,10 +14881,9 @@
       "raw_text": "ADR-022",
       "normalized": "adr-022",
       "sources": [
-        "decisions-adr-adr-057-current-only-canonical-adr-tree-md",
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
+        "decisions-adr-adr-057-current-only-canonical-adr-tree-md"
       ],
-      "frequency": 2,
+      "frequency": 1,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -14956,10 +14892,9 @@
       "raw_text": "ADR-026",
       "normalized": "adr-026",
       "sources": [
-        "decisions-adr-adr-057-current-only-canonical-adr-tree-md",
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
+        "decisions-adr-adr-057-current-only-canonical-adr-tree-md"
       ],
-      "frequency": 2,
+      "frequency": 1,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -14968,10 +14903,9 @@
       "raw_text": "ADR-027",
       "normalized": "adr-027",
       "sources": [
-        "decisions-adr-adr-057-current-only-canonical-adr-tree-md",
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
+        "decisions-adr-adr-057-current-only-canonical-adr-tree-md"
       ],
-      "frequency": 2,
+      "frequency": 1,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -17135,10 +17069,9 @@
       "sources": [
         "decisions-adr-adr-064-conformance-interoperability-certification-md",
         "docs-governance-banza-three-layer-architecture-md",
-        "docs-governance-m2-production-protocol-implementation-md",
         "docs-governance-certification-boundary-md"
       ],
-      "frequency": 5,
+      "frequency": 3,
       "phrase_length": 1,
       "accepted": true,
       "rejection_reason": "",
@@ -17731,12 +17664,9 @@
       "sources": [
         "decisions-adr-adr-066-certification-state-machine-md",
         "decisions-adr-adr-069-simple-secure-operator-onboarding-md",
-        "docs-governance-banza-conformance-interop-certification-md",
-        "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md",
-        "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md",
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
+        "docs-governance-banza-conformance-interop-certification-md"
       ],
-      "frequency": 6,
+      "frequency": 3,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -18379,10 +18309,9 @@
       "raw_text": "layers",
       "normalized": "layers",
       "sources": [
-        "decisions-adr-adr-070-banzai-navigable-contexts-single-interface-md",
-        "docs-governance-m2-7d-final-protocol-architecture-svg-audit-md"
+        "decisions-adr-adr-070-banzai-navigable-contexts-single-interface-md"
       ],
-      "frequency": 3,
+      "frequency": 2,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -18681,10 +18610,9 @@
       "raw_text": "outside",
       "normalized": "outside",
       "sources": [
-        "decisions-adr-adr-072-banzai-runtime-ssot-route-md",
-        "docs-governance-m2-production-protocol-implementation-md"
+        "decisions-adr-adr-072-banzai-runtime-ssot-route-md"
       ],
-      "frequency": 2,
+      "frequency": 1,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -18694,10 +18622,9 @@
       "normalized": "degraded",
       "sources": [
         "decisions-adr-adr-072-banzai-runtime-ssot-route-md",
-        "docs-banzai-local-inference-runbook-md",
-        "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md"
+        "docs-banzai-local-inference-runbook-md"
       ],
-      "frequency": 3,
+      "frequency": 2,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -19730,10 +19657,9 @@
       "raw_text": "SELECT only",
       "normalized": "select only",
       "sources": [
-        "decisions-adr-adr-078-banzai-operational-reasoning-and-telemetry-md",
-        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md"
+        "decisions-adr-adr-078-banzai-operational-reasoning-and-telemetry-md"
       ],
-      "frequency": 2,
+      "frequency": 1,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -19997,9 +19923,9 @@
       "normalized": "trust root",
       "sources": [
         "decisions-adr-adr-079-canonical-trust-signing-model-reconciliation-md",
-        "docs-governance-m2-4-trust-engine-signed-metadata-md",
         "docs-governance-operator-self-publication-and-conformance-md",
         "docs-governance-protocol-governance-roles-md",
+        "docs-governance-trust-engine-active-model-md",
         "docs-governance-certification-boundary-md",
         "spec-federation-federation-trust-model-md"
       ],
@@ -20317,14 +20243,13 @@
       "sources": [
         "decisions-adr-adr-080-canonical-discovery-surface-reconciliation-md",
         "docs-governance-banza-three-layer-architecture-md",
-        "docs-governance-m2-production-protocol-implementation-md",
         "docs-governance-certification-boundary-md",
         "spec-federation-federation-contract-surface-md",
         "spec-federation-federation-invariants-md",
         "spec-federation-federation-protocol-surfaces-md",
         "spec-federation-federation-trust-model-md"
       ],
-      "frequency": 10,
+      "frequency": 9,
       "phrase_length": 3,
       "accepted": true,
       "rejection_reason": "",
@@ -23112,10 +23037,9 @@
       "normalized": "disabled",
       "sources": [
         "docs-banzai-local-inference-runbook-md",
-        "docs-banzai-local-inference-runtime-md",
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
+        "docs-banzai-local-inference-runtime-md"
       ],
-      "frequency": 4,
+      "frequency": 3,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -24250,11 +24174,10 @@
       "normalized": "none",
       "sources": [
         "docs-banzai-local-qwen-model-setup-md",
-        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md",
         "docs-governance-ceremony-records-ceremony-record-template-md",
         "spec-capabilities-md"
       ],
-      "frequency": 4,
+      "frequency": 3,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -24417,10 +24340,9 @@
       "raw_text": "RAM.",
       "normalized": "ram",
       "sources": [
-        "docs-banzai-local-qwen-model-setup-md",
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
+        "docs-banzai-local-qwen-model-setup-md"
       ],
-      "frequency": 2,
+      "frequency": 1,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -24540,10 +24462,9 @@
       "raw_text": "Remove",
       "normalized": "remove",
       "sources": [
-        "docs-banzai-local-qwen-model-setup-md",
-        "docs-governance-m2-7b-home-reference-consolidation-audit-md"
+        "docs-banzai-local-qwen-model-setup-md"
       ],
-      "frequency": 9,
+      "frequency": 1,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -24632,7 +24553,7 @@
       "normalized": "engine",
       "sources": [
         "docs-banzai-operator-journey-md",
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
+        "docs-governance-trust-engine-active-model-md"
       ],
       "frequency": 2,
       "phrase_length": 1,
@@ -26666,17 +26587,16 @@
         "docs-governance-banza-three-layer-architecture-md",
         "docs-governance-banza-trust-architecture-md",
         "docs-governance-federation-trust-model-md",
-        "docs-governance-m2-2-architecture-refactor-inventory-md",
-        "docs-governance-m2-4-trust-engine-signed-metadata-md",
         "docs-governance-open-protocol-architecture-md",
         "docs-governance-operator-self-publication-and-conformance-md",
         "docs-governance-protocol-governance-roles-md",
         "docs-governance-protocol-succession-and-survival-md",
         "docs-governance-public-protocol-registry-md",
+        "docs-governance-trust-engine-active-model-md",
         "docs-governance-workbench-only-operator-verification-md",
         "spec-overview-md"
       ],
-      "frequency": 51,
+      "frequency": 49,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -27517,7 +27437,7 @@
       "sources": [
         "docs-governance-banza-language-policy-md",
         "docs-governance-banza-multilingual-architecture-md",
-        "docs-governance-m2-4-trust-engine-signed-metadata-md",
+        "docs-governance-trust-engine-active-model-md",
         "spec-federation-federation-conformance-evidence-model-md",
         "spec-federation-federation-conformance-model-md",
         "spec-federation-federation-contract-surface-md",
@@ -27893,8 +27813,8 @@
       "sources": [
         "docs-governance-banza-protocol-boundary-md",
         "docs-governance-banza-regulatory-positioning-md",
-        "docs-governance-m2-4-trust-engine-signed-metadata-md",
-        "docs-governance-operator-self-publication-and-conformance-md"
+        "docs-governance-operator-self-publication-and-conformance-md",
+        "docs-governance-trust-engine-active-model-md"
       ],
       "frequency": 9,
       "phrase_length": 2,
@@ -28316,10 +28236,9 @@
       "raw_text": "executa",
       "normalized": "executa",
       "sources": [
-        "docs-governance-banza-protocol-boundary-md",
-        "docs-governance-m2-7b-home-reference-consolidation-audit-md"
+        "docs-governance-banza-protocol-boundary-md"
       ],
-      "frequency": 2,
+      "frequency": 1,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -30940,12 +30859,10 @@
       "sources": [
         "docs-governance-banza-trust-architecture-md",
         "docs-governance-federation-trust-model-md",
-        "docs-governance-m2-2-architecture-refactor-inventory-md",
-        "docs-governance-m2-3-reference-trust-model-inventory-md",
         "docs-governance-protocol-governance-roles-md",
         "docs-governance-public-protocol-registry-md"
       ],
-      "frequency": 6,
+      "frequency": 4,
       "phrase_length": 3,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -31563,12 +31480,9 @@
       "normalized": "regra central",
       "sources": [
         "docs-governance-evidence-bundle-md",
-        "docs-governance-m2-4-trust-engine-migration-inventory-md",
-        "docs-governance-m2-5-public-surface-audit-md",
-        "docs-governance-m2-6-governance-docs-final-sweep-audit-md",
         "docs-governance-operator-manifest-validation-md"
       ],
-      "frequency": 5,
+      "frequency": 2,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -32493,3455 +32407,6 @@
       "classification": "SUBJECT"
     },
     {
-      "raw_text": "M2.2 — Inventário do refactor arquitectural (BANZA CA → governação aberta)",
-      "normalized": "m2 2 inventario do refactor arquitectural banza ca governacao aberta",
-      "sources": [
-        "docs-governance-m2-2-architecture-refactor-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 10,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "1. Classificação usada",
-      "normalized": "1 classificacao usada",
-      "sources": [
-        "docs-governance-m2-2-architecture-refactor-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "2. Termos encontrados (sweep completo do repositório)",
-      "normalized": "2 termos encontrados sweep completo do repositorio",
-      "sources": [
-        "docs-governance-m2-2-architecture-refactor-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 7,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "3. Migrado em M2.2 — status final: CONCLUÍDO",
-      "normalized": "3 migrado em m2 2 status final concluido",
-      "sources": [
-        "docs-governance-m2-2-architecture-refactor-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 8,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "3.1 Engines Rust (arquitectura activa)",
-      "normalized": "3 1 engines rust arquitectura activa",
-      "sources": [
-        "docs-governance-m2-2-architecture-refactor-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "3.2 Contracts / schemas",
-      "normalized": "3 2 contracts / schemas",
-      "sources": [
-        "docs-governance-m2-2-architecture-refactor-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "3.3 Workbench e adaptadores",
-      "normalized": "3 3 workbench e adaptadores",
-      "sources": [
-        "docs-governance-m2-2-architecture-refactor-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "3.4 Documentos e diagramas novos",
-      "normalized": "3 4 documentos e diagramas novos",
-      "sources": [
-        "docs-governance-m2-2-architecture-refactor-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "4. Legacy de compatibilidade — status final: MANTIDO, MARCADO",
-      "normalized": "4 legacy de compatibilidade status final mantido marcado",
-      "sources": [
-        "docs-governance-m2-2-architecture-refactor-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 8,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "5. PENDENTE M2.3 — status final: NÃO MIGRADO (deliberado, com plano)",
-      "normalized": "5 pendente m2 3 status final nao migrado deliberado com plano",
-      "sources": [
-        "docs-governance-m2-2-architecture-refactor-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 11,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "6. Critério de aceitação — M2.2",
-      "normalized": "6 criterio de aceitacao m2 2",
-      "sources": [
-        "docs-governance-m2-2-architecture-refactor-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Remover",
-      "normalized": "remover",
-      "sources": [
-        "docs-governance-m2-2-architecture-refactor-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Substituir",
-      "normalized": "substituir",
-      "sources": [
-        "docs-governance-m2-2-architecture-refactor-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Histórico/depreciação",
-      "normalized": "historico/depreciacao",
-      "sources": [
-        "docs-governance-m2-2-architecture-refactor-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Teste negativo / denylist",
-      "normalized": "teste negativo / denylist",
-      "sources": [
-        "docs-governance-m2-2-architecture-refactor-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Legacy de compatibilidade",
-      "normalized": "legacy de compatibilidade",
-      "sources": [
-        "docs-governance-m2-2-architecture-refactor-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "CONCLUÍDO",
-      "normalized": "concluido",
-      "sources": [
-        "docs-governance-m2-2-architecture-refactor-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Alto",
-      "normalized": "alto",
-      "sources": [
-        "docs-governance-m2-2-architecture-refactor-inventory-md"
-      ],
-      "frequency": 8,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "MANTIDO, MARCADO",
-      "normalized": "mantido marcado",
-      "sources": [
-        "docs-governance-m2-2-architecture-refactor-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "NÃO MIGRADO (deliberado, com plano)",
-      "normalized": "nao migrado deliberado com plano",
-      "sources": [
-        "docs-governance-m2-2-architecture-refactor-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Supersede",
-      "normalized": "supersede",
-      "sources": [
-        "docs-governance-m2-2-architecture-refactor-inventory-md"
-      ],
-      "frequency": 3,
-      "phrase_length": 1,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "RELATION_ALIAS"
-    },
-    {
-      "raw_text": "Plano M2.3 (ordem obrigatória):",
-      "normalized": "plano m2 3 ordem obrigatoria",
-      "sources": [
-        "docs-governance-m2-2-architecture-refactor-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "supersede ADR-022, ADR-026, ADR-027",
-      "normalized": "supersede adr-022 adr-026 adr-027",
-      "sources": [
-        "docs-governance-m2-2-architecture-refactor-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "nos engines",
-      "normalized": "nos engines",
-      "sources": [
-        "docs-governance-m2-2-architecture-refactor-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Workbench",
-      "normalized": "workbench",
-      "sources": [
-        "docs-governance-m2-2-architecture-refactor-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "reference público e nos ADRs",
-      "normalized": "reference publico e nos adrs",
-      "sources": [
-        "docs-governance-m2-2-architecture-refactor-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "M2.3",
-      "normalized": "m2 3",
-      "sources": [
-        "docs-governance-m2-2-architecture-refactor-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "M2.3 — Inventário do reference e dos ADRs (trust model sem CA/certificado)",
-      "normalized": "m2 3 inventario do reference e dos adrs trust model sem ca/certificado",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 12,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "1. Ponto de partida — a pendência de M2.2",
-      "normalized": "1 ponto de partida a pendencia de m2 2",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 9,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "2. Classificação usada",
-      "normalized": "2 classificacao usada",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "3. Sweep — ocorrências por termo (superfícies activas)",
-      "normalized": "3 sweep ocorrencias por termo superficies activas",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 7,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "4. Decisão por grupo",
-      "normalized": "4 decisao por grupo",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "5. O que M2.3 entrega",
-      "normalized": "5 o que m2 3 entrega",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "6. Critério de aceitação",
-      "normalized": "6 criterio de aceitacao",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "arquitectura activa",
-      "normalized": "arquitectura activa",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "modelo de protocolo profundo",
-      "normalized": "modelo de protocolo profundo",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "não é linguagem — é mecanismo",
-      "normalized": "nao e linguagem e mecanismo",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Active protocol mechanism — redesign",
-      "normalized": "active protocol mechanism redesign",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Historical/superseded ADR",
-      "normalized": "historical/superseded adr",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Legacy compatibility route",
-      "normalized": "legacy compatibility route",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Negative test / denylist",
-      "normalized": "negative test / denylist",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Public copy — rewrite",
-      "normalized": "public copy rewrite",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Schema/API field",
-      "normalized": "schema/api field",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "SVG/diagram — redraw",
-      "normalized": "svg/diagram redraw",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Reference público PT",
-      "normalized": "reference publico pt",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Crítico",
-      "normalized": "critico",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Reference público EN",
-      "normalized": "reference publico en",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Docs de referência",
-      "normalized": "docs de referencia",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "README",
-      "normalized": "readme",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Rota `/certificates`",
-      "normalized": "rota /certificates",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Schemas",
-      "normalized": "schemas",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "SVGs do modelo antigo",
-      "normalized": "svgs do modelo antigo",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Denylists dos motores",
-      "normalized": "denylists dos motores",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Relatórios de fase antigos",
-      "normalized": "relatorios de fase antigos",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "ADR-038/039/040",
-      "normalized": "adr-038/039/040",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "ADR-022/026/027",
-      "normalized": "adr-022/026/027",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Reference PT/EN",
-      "normalized": "reference pt/en",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "detecta",
-      "normalized": "detecta",
-      "sources": [
-        "docs-governance-m2-3-reference-trust-model-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "M2.4 — Trust Engine Migration Inventory",
-      "normalized": "m2 4 trust engine migration inventory",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-migration-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Classificação",
-      "normalized": "classificacao",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-migration-inventory-md",
-        "docs-governance-m2-5-public-surface-audit-md",
-        "docs-governance-m2-6-governance-docs-final-sweep-audit-md"
-      ],
-      "frequency": 3,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Inventário",
-      "normalized": "inventario",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-migration-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Engine logic",
-      "normalized": "engine logic",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-migration-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Test/vector",
-      "normalized": "test/vector",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-migration-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Public copy",
-      "normalized": "public copy",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-migration-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Internal negative test/guard",
-      "normalized": "internal negative test/guard",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-migration-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Historical phase report",
-      "normalized": "historical phase report",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-migration-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Legacy route/state var",
-      "normalized": "legacy route/state var",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-migration-inventory-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Fora de âmbito (permanece):",
-      "normalized": "fora de ambito permanece",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-migration-inventory-md",
-        "docs-governance-m2-5-public-surface-audit-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Critério de aceitação:",
-      "normalized": "criterio de aceitacao",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-migration-inventory-md",
-        "docs-governance-m2-5-public-surface-audit-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "M2.4 — Trust Engine (Signed Protocol Metadata)",
-      "normalized": "m2 4 trust engine signed protocol metadata",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 7,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "ARTIFACT_TYPE"
-    },
-    {
-      "raw_text": "1. Modelo activo",
-      "normalized": "1 modelo activo",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "2. Os sete tipos de entrada",
-      "normalized": "2 os sete tipos de entrada",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "2.1 trust_root_metadata — TrustRootMetadata",
-      "normalized": "2 1 trust root metadata trustrootmetadata",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "ARTIFACT_TYPE"
-    },
-    {
-      "raw_text": "2.2 delegated_signing_key — DelegatedSigningKey",
-      "normalized": "2 2 delegated signing key delegatedsigningkey",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "2.3 signed_protocol_metadata — SignedProtocolMetadata",
-      "normalized": "2 3 signed protocol metadata signedprotocolmetadata",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "2.4 operator_manifest — OperatorManifestReference",
-      "normalized": "2 4 operator manifest operatormanifestreference",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "ARTIFACT_TYPE"
-    },
-    {
-      "raw_text": "2.5 conformance_evidence — ConformanceEvidenceReference",
-      "normalized": "2 5 conformance evidence conformanceevidencereference",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "ARTIFACT_TYPE"
-    },
-    {
-      "raw_text": "2.6 public_registry_entry — PublicProtocolRegistryEntry",
-      "normalized": "2 6 public registry entry publicprotocolregistryentry",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "2.7 revocation_status — RevocationStatus",
-      "normalized": "2 7 revocation status revocationstatus",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "3. Os treze estados (trust_status)",
-      "normalized": "3 os treze estados trust status",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "ATTRIBUTE"
-    },
-    {
-      "raw_text": "3.1 Campos de verificação (checks)",
-      "normalized": "3 1 campos de verificacao checks",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "4. Precedência fail-closed",
-      "normalized": "4 precedencia fail-closed",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "5. Relatório",
-      "normalized": "5 relatorio",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "6. Fronteira (permanente)",
-      "normalized": "6 fronteira permanente",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md",
-        "docs-governance-public-protocol-registry-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Adapter:",
-      "normalized": "adapter",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Diagram:",
-      "normalized": "diagram",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "trust engine",
-      "normalized": "trust engine",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md",
-        "docs-governance-workbench-only-operator-verification-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 2,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "material publicado e verificável",
-      "normalized": "material publicado e verificavel",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "ed25519",
-      "normalized": "ed25519",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md",
-        "spec-canonicalization-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "forma canónica ADR-026",
-      "normalized": "forma canonica adr-026",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "operator manifest",
-      "normalized": "operator manifest",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md",
-        "docs-governance-operator-manifest-validation-md",
-        "docs-governance-operator-self-publication-and-conformance-md",
-        "docs-governance-protocol-governance-roles-md",
-        "docs-governance-certification-boundary-md",
-        "spec-capability-negotiation-md"
-      ],
-      "frequency": 7,
-      "phrase_length": 2,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "ALIAS"
-    },
-    {
-      "raw_text": "revocation status",
-      "normalized": "revocation status",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "em Rust",
-      "normalized": "em rust",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md",
-        "docs-governance-operator-manifest-validation-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "listada pela Trust Root",
-      "normalized": "listada pela trust root",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "material de protocolo",
-      "normalized": "material de protocolo",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "igual",
-      "normalized": "igual",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
-      ],
-      "frequency": 3,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "ausente ou não verificável",
-      "normalized": "ausente ou nao verificavel",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "conjuntiva",
-      "normalized": "conjuntiva",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Não há override.",
-      "normalized": "nao ha override",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "primeiro",
-      "normalized": "primeiro",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "frescura da evidência",
-      "normalized": "frescura da evidencia",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "técnica e TEST-ONLY",
-      "normalized": "tecnica e test-only",
-      "sources": [
-        "docs-governance-m2-4-trust-engine-signed-metadata-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "M2.5 — Public Surface & Workbench Audit",
-      "normalized": "m2 5 public surface workbench audit",
-      "sources": [
-        "docs-governance-m2-5-public-surface-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Estado geral",
-      "normalized": "estado geral",
-      "sources": [
-        "docs-governance-m2-5-public-surface-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Ocorrências por superfície (contagem bruta em website/app + website/components)",
-      "normalized": "ocorrencias por superficie contagem bruta em website/app website/components",
-      "sources": [
-        "docs-governance-m2-5-public-surface-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 8,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Alvos principais",
-      "normalized": "alvos principais",
-      "sources": [
-        "docs-governance-m2-5-public-surface-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Princípio de UX.",
-      "normalized": "principio de ux",
-      "sources": [
-        "docs-governance-m2-5-public-surface-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "camada de produto",
-      "normalized": "camada de produto",
-      "sources": [
-        "docs-governance-m2-5-public-surface-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Workbench organizado por milestones M2.x",
-      "normalized": "workbench organizado por milestones m2 x",
-      "sources": [
-        "docs-governance-m2-5-public-surface-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Workbench por milestones",
-      "normalized": "workbench por milestones",
-      "sources": [
-        "docs-governance-m2-5-public-surface-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "M2.6 — Governance Documentation Final Sweep · Audit",
-      "normalized": "m2 6 governance documentation final sweep audit",
-      "sources": [
-        "docs-governance-m2-6-governance-docs-final-sweep-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 7,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Resultado por grupo",
-      "normalized": "resultado por grupo",
-      "sources": [
-        "docs-governance-m2-6-governance-docs-final-sweep-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Entregas",
-      "normalized": "entregas",
-      "sources": [
-        "docs-governance-m2-6-governance-docs-final-sweep-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Critério",
-      "normalized": "criterio",
-      "sources": [
-        "docs-governance-m2-6-governance-docs-final-sweep-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "M2.7B — Home & Reference Consolidation Audit",
-      "normalized": "m2 7b home reference consolidation audit",
-      "sources": [
-        "docs-governance-m2-7b-home-reference-consolidation-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Product decision",
-      "normalized": "product decision",
-      "sources": [
-        "docs-governance-m2-7b-home-reference-consolidation-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Homepage sections (website/app/page.tsx) → disposition",
-      "normalized": "homepage sections website/app/page tsx disposition",
-      "sources": [
-        "docs-governance-m2-7b-home-reference-consolidation-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Top-level routes → disposition",
-      "normalized": "top-level routes disposition",
-      "sources": [
-        "docs-governance-m2-7b-home-reference-consolidation-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Navigation (website/lib/site.ts)",
-      "normalized": "navigation website/lib/site ts",
-      "sources": [
-        "docs-governance-m2-7b-home-reference-consolidation-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Phase:",
-      "normalized": "phase",
-      "sources": [
-        "docs-governance-m2-7b-home-reference-consolidation-audit-md",
-        "docs-governance-m2-7d-final-protocol-architecture-svg-audit-md",
-        "docs-governance-m2-7e-svg-quality-repair-audit-md",
-        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md",
-        "spec-federation-federation-failure-scenarios-md"
-      ],
-      "frequency": 30,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "apresenta",
-      "normalized": "apresenta",
-      "sources": [
-        "docs-governance-m2-7b-home-reference-consolidation-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "explica",
-      "normalized": "explica",
-      "sources": [
-        "docs-governance-m2-7b-home-reference-consolidation-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "TASK_TERM"
-    },
-    {
-      "raw_text": "Keep",
-      "normalized": "keep",
-      "sources": [
-        "docs-governance-m2-7b-home-reference-consolidation-audit-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "M2.7D — Final Protocol Architecture SVG Audit",
-      "normalized": "m2 7d final protocol architecture svg audit",
-      "sources": [
-        "docs-governance-m2-7d-final-protocol-architecture-svg-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 7,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Old SVG found (obsolete)",
-      "normalized": "old svg found obsolete",
-      "sources": [
-        "docs-governance-m2-7d-final-protocol-architecture-svg-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Why obsolete",
-      "normalized": "why obsolete",
-      "sources": [
-        "docs-governance-m2-7d-final-protocol-architecture-svg-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "New SVG",
-      "normalized": "new svg",
-      "sources": [
-        "docs-governance-m2-7d-final-protocol-architecture-svg-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Validations",
-      "normalized": "validations",
-      "sources": [
-        "docs-governance-m2-7d-final-protocol-architecture-svg-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "File:",
-      "normalized": "file",
-      "sources": [
-        "docs-governance-m2-7d-final-protocol-architecture-svg-audit-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "ID / title:",
-      "normalized": "id / title",
-      "sources": [
-        "docs-governance-m2-7d-final-protocol-architecture-svg-audit-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Clientes e Comerciantes",
-      "normalized": "clientes e comerciantes",
-      "sources": [
-        "docs-governance-m2-7d-final-protocol-architecture-svg-audit-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Where used:",
-      "normalized": "where used",
-      "sources": [
-        "docs-governance-m2-7d-final-protocol-architecture-svg-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "ecosystem",
-      "normalized": "ecosystem",
-      "sources": [
-        "docs-governance-m2-7d-final-protocol-architecture-svg-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Six areas:",
-      "normalized": "six areas",
-      "sources": [
-        "docs-governance-m2-7d-final-protocol-architecture-svg-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "BanzAI Workbench",
-      "normalized": "banzai workbench",
-      "sources": [
-        "docs-governance-m2-7d-final-protocol-architecture-svg-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Operator flow (9 steps):",
-      "normalized": "operator flow 9 steps",
-      "sources": [
-        "docs-governance-m2-7d-final-protocol-architecture-svg-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Invariants band:",
-      "normalized": "invariants band",
-      "sources": [
-        "docs-governance-m2-7d-final-protocol-architecture-svg-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "M2.7E — Systemwide SVG Quality Repair Audit",
-      "normalized": "m2 7e systemwide svg quality repair audit",
-      "sources": [
-        "docs-governance-m2-7e-svg-quality-repair-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 7,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Inventory summary",
-      "normalized": "inventory summary",
-      "sources": [
-        "docs-governance-m2-7e-svg-quality-repair-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Reference-served set (27) — per-file audit",
-      "normalized": "reference-served set 27 per-file audit",
-      "sources": [
-        "docs-governance-m2-7e-svg-quality-repair-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Semantic findings (removed-model assertions repaired)",
-      "normalized": "semantic findings removed-model assertions repaired",
-      "sources": [
-        "docs-governance-m2-7e-svg-quality-repair-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Visual findings (overlap / clip / legibility repaired)",
-      "normalized": "visual findings overlap / clip / legibility repaired",
-      "sources": [
-        "docs-governance-m2-7e-svg-quality-repair-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 8,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Boundary / negative confirmations",
-      "normalized": "boundary / negative confirmations",
-      "sources": [
-        "docs-governance-m2-7e-svg-quality-repair-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "removed",
-      "normalized": "removed",
-      "sources": [
-        "docs-governance-m2-7e-svg-quality-repair-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "repaired",
-      "normalized": "repaired",
-      "sources": [
-        "docs-governance-m2-7e-svg-quality-repair-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "overlap×1",
-      "normalized": "overlap 1",
-      "sources": [
-        "docs-governance-m2-7e-svg-quality-repair-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "repairs",
-      "normalized": "repairs",
-      "sources": [
-        "docs-governance-m2-7e-svg-quality-repair-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "M2.7I — BanzAI Reference, SVG and Repository Canonical Alignment · Audit",
-      "normalized": "m2 7i banzai reference svg and repository canonical alignment audit",
-      "sources": [
-        "docs-governance-m2-7i-banzai-reference-repository-alignment-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 10,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "1. Canonical statement being enforced",
-      "normalized": "1 canonical statement being enforced",
-      "sources": [
-        "docs-governance-m2-7i-banzai-reference-repository-alignment-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "2. Findings and dispositions",
-      "normalized": "2 findings and dispositions",
-      "sources": [
-        "docs-governance-m2-7i-banzai-reference-repository-alignment-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Deliberate non-changes (documented scope decisions)",
-      "normalized": "deliberate non-changes documented scope decisions",
-      "sources": [
-        "docs-governance-m2-7i-banzai-reference-repository-alignment-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "3. Verification performed",
-      "normalized": "3 verification performed",
-      "sources": [
-        "docs-governance-m2-7i-banzai-reference-repository-alignment-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "4. Cross-repository companion",
-      "normalized": "4 cross-repository companion",
-      "sources": [
-        "docs-governance-m2-7i-banzai-reference-repository-alignment-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Branch:",
-      "normalized": "branch",
-      "sources": [
-        "docs-governance-m2-7i-banzai-reference-repository-alignment-audit-md",
-        "docs-governance-m2-7j-svg-visual-system-audit-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Rewritten",
-      "normalized": "rewritten",
-      "sources": [
-        "docs-governance-m2-7i-banzai-reference-repository-alignment-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Reframed",
-      "normalized": "reframed",
-      "sources": [
-        "docs-governance-m2-7i-banzai-reference-repository-alignment-audit-md"
-      ],
-      "frequency": 6,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Deleted",
-      "normalized": "deleted",
-      "sources": [
-        "docs-governance-m2-7i-banzai-reference-repository-alignment-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Created",
-      "normalized": "created",
-      "sources": [
-        "docs-governance-m2-7i-banzai-reference-repository-alignment-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Added",
-      "normalized": "added",
-      "sources": [
-        "docs-governance-m2-7i-banzai-reference-repository-alignment-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Broadened",
-      "normalized": "broadened",
-      "sources": [
-        "docs-governance-m2-7i-banzai-reference-repository-alignment-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "excluded",
-      "normalized": "excluded",
-      "sources": [
-        "docs-governance-m2-7i-banzai-reference-repository-alignment-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Historical ADRs / phase reports / audits",
-      "normalized": "historical adrs / phase reports / audits",
-      "sources": [
-        "docs-governance-m2-7i-banzai-reference-repository-alignment-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 7,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "M2.7J — SVG Visual System Audit",
-      "normalized": "m2 7j svg visual system audit",
-      "sources": [
-        "docs-governance-m2-7j-svg-visual-system-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Result of the audit + harmonization (25 embedded SVGs)",
-      "normalized": "result of the audit harmonization 25 embedded svgs",
-      "sources": [
-        "docs-governance-m2-7j-svg-visual-system-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 8,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Secondary / non-rendered assets",
-      "normalized": "secondary / non-rendered assets",
-      "sources": [
-        "docs-governance-m2-7j-svg-visual-system-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Grammar:",
-      "normalized": "grammar",
-      "sources": [
-        "docs-governance-m2-7j-svg-visual-system-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "semantically",
-      "normalized": "semantically",
-      "sources": [
-        "docs-governance-m2-7j-svg-visual-system-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "header/footer style",
-      "normalized": "header/footer style",
-      "sources": [
-        "docs-governance-m2-7j-svg-visual-system-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Redesigned",
-      "normalized": "redesigned",
-      "sources": [
-        "docs-governance-m2-7j-svg-visual-system-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Harmonized",
-      "normalized": "harmonized",
-      "sources": [
-        "docs-governance-m2-7j-svg-visual-system-audit-md"
-      ],
-      "frequency": 12,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "M2.7K — PostgreSQL Runtime & Schema Audit",
-      "normalized": "m2 7k postgresql runtime schema audit",
-      "sources": [
-        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "DOCUMENT_TYPE"
-    },
-    {
-      "raw_text": "1. Environment",
-      "normalized": "1 environment",
-      "sources": [
-        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md",
-        "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md",
-        "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 3,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "2. Schemas",
-      "normalized": "2 schemas",
-      "sources": [
-        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "3. Tables (12) and their purpose",
-      "normalized": "3 tables 12 and their purpose",
-      "sources": [
-        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "4. Current data (live, read-only)",
-      "normalized": "4 current data live read-only",
-      "sources": [
-        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "5. Extensions",
-      "normalized": "5 extensions",
-      "sources": [
-        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "6. Roles and privileges (verified at runtime)",
-      "normalized": "6 roles and privileges verified at runtime",
-      "sources": [
-        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 7,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "7. Service consumers",
-      "normalized": "7 service consumers",
-      "sources": [
-        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "8. Negative confirmations (what the audit did not find)",
-      "normalized": "8 negative confirmations what the audit did not find",
-      "sources": [
-        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 9,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "9. BanzAI / pgvector index audit",
-      "normalized": "9 banzai / pgvector index audit",
-      "sources": [
-        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "10. Conclusion",
-      "normalized": "10 conclusion",
-      "sources": [
-        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Method:",
-      "normalized": "method",
-      "sources": [
-        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Canonical finding:",
-      "normalized": "canonical finding",
-      "sources": [
-        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "verifiable protocol-state database",
-      "normalized": "verifiable protocol-state database",
-      "sources": [
-        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "yes",
-      "normalized": "yes",
-      "sources": [
-        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md",
-        "docs-governance-certification-boundary-md",
-        "spec-reason-codes-md"
-      ],
-      "frequency": 7,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "empty (0 rows)",
-      "normalized": "empty 0 rows",
-      "sources": [
-        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "M2.7M — License, Notice, Trademark and Open Governance Attribution Audit",
-      "normalized": "m2 7m license notice trademark and open governance attribution audit",
-      "sources": [
-        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 10,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "Files audited",
-      "normalized": "files audited",
-      "sources": [
-        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Answers to the audit questions",
-      "normalized": "answers to the audit questions",
-      "sources": [
-        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Changes / decisions",
-      "normalized": "changes / decisions",
-      "sources": [
-        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Risks",
-      "normalized": "risks",
-      "sources": [
-        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Keep as-is",
-      "normalized": "keep as-is",
-      "sources": [
-        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Update",
-      "normalized": "update",
-      "sources": [
-        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md"
-      ],
-      "frequency": 3,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "no Banzami origin",
-      "normalized": "no banzami origin",
-      "sources": [
-        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Absent",
-      "normalized": "absent",
-      "sources": [
-        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md",
-        "spec-federation-federation-invariants-md"
-      ],
-      "frequency": 4,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Create",
-      "normalized": "create",
-      "sources": [
-        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md"
-      ],
-      "frequency": 3,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Add",
-      "normalized": "add",
-      "sources": [
-        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Current license?",
-      "normalized": "current license",
-      "sources": [
-        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "NOTICE exists?",
-      "normalized": "notice exists",
-      "sources": [
-        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Trademark policy?",
-      "normalized": "trademark policy",
-      "sources": [
-        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Public governance doc?",
-      "normalized": "public governance doc",
-      "sources": [
-        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Maintainers doc?",
-      "normalized": "maintainers doc",
-      "sources": [
-        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "README explains Banzami origin?",
-      "normalized": "readme explains banzami origin",
-      "sources": [
-        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Language suggesting free trademark use?",
-      "normalized": "language suggesting free trademark use",
-      "sources": [
-        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "canonical and unmodified",
-      "normalized": "canonical and unmodified",
-      "sources": [
-        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "governance is open today",
-      "normalized": "governance is open today",
-      "sources": [
-        "docs-governance-m2-7m-license-notice-trademark-governance-audit-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "M2.8A — Local Qwen Benchmark on the VPS XL+ (mandatory before effective default)",
-      "normalized": "m2 8a local qwen benchmark on the vps xl mandatory before effective default",
-      "sources": [
-        "docs-governance-m2-8a-local-qwen-vps-xl-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 13,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "Result (2026-07-20)",
-      "normalized": "result 2026-07-20",
-      "sources": [
-        "docs-governance-m2-8a-local-qwen-vps-xl-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Pre-benchmark checklist (Part 0)",
-      "normalized": "pre-benchmark checklist part 0",
-      "sources": [
-        "docs-governance-m2-8a-local-qwen-vps-xl-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Environment",
-      "normalized": "environment",
-      "sources": [
-        "docs-governance-m2-8a-local-qwen-vps-xl-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Measurements",
-      "normalized": "measurements",
-      "sources": [
-        "docs-governance-m2-8a-local-qwen-vps-xl-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Security validation",
-      "normalized": "security validation",
-      "sources": [
-        "docs-governance-m2-8a-local-qwen-vps-xl-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Path to default-ready (re-benchmark required)",
-      "normalized": "path to default-ready re-benchmark required",
-      "sources": [
-        "docs-governance-m2-8a-local-qwen-vps-xl-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "stopped",
-      "normalized": "stopped",
-      "sources": [
-        "docs-governance-m2-8a-local-qwen-vps-xl-benchmark-md",
-        "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md",
-        "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md",
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 4,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "timed out at 45 s → degraded",
-      "normalized": "timed out at 45 s degraded",
-      "sources": [
-        "docs-governance-m2-8a-local-qwen-vps-xl-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "M2.8B — Local Qwen VPS XL+ Re-benchmark (ADR-045)",
-      "normalized": "m2 8b local qwen vps xl re-benchmark adr-045",
-      "sources": [
-        "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 8,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "2. Results",
-      "normalized": "2 results",
-      "sources": [
-        "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "3. Root cause of the cold/complex degradation",
-      "normalized": "3 root cause of the cold/complex degradation",
-      "sources": [
-        "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 7,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "4. Decision — Option B (not default-ready)",
-      "normalized": "4 decision option b not default-ready",
-      "sources": [
-        "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "5. Recommendation → M2.8C (separate phase, its own benchmark + review)",
-      "normalized": "5 recommendation m2 8c separate phase its own benchmark review",
-      "sources": [
-        "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 10,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "6. Provenance",
-      "normalized": "6 provenance",
-      "sources": [
-        "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Decision: Option B",
-      "normalized": "decision option b",
-      "sources": [
-        "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Supersedes for the default gate:",
-      "normalized": "supersedes for the default gate",
-      "sources": [
-        "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md",
-        "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Full pipeline answers (Part A):",
-      "normalized": "full pipeline answers part a",
-      "sources": [
-        "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "avg 19.3 s, ~13.2 tokens/s",
-      "normalized": "avg 19 3 s 13 2 tokens/s",
-      "sources": [
-        "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 7,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "llama.cpp internal timing:",
-      "normalized": "llama cpp internal timing",
-      "sources": [
-        "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Boundary / resource telemetry:",
-      "normalized": "boundary / resource telemetry",
-      "sources": [
-        "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "swap stayed 0 B",
-      "normalized": "swap stayed 0 b",
-      "sources": [
-        "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "not a timeout",
-      "normalized": "not a timeout",
-      "sources": [
-        "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "works",
-      "normalized": "works",
-      "sources": [
-        "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Cold/complex queries degrade",
-      "normalized": "cold/complex queries degrade",
-      "sources": [
-        "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Warm latency ~22–25 s",
-      "normalized": "warm latency 22 25 s",
-      "sources": [
-        "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "blocks `<think>` leakage",
-      "normalized": "blocks think leakage",
-      "sources": [
-        "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "MARKUP_FRAGMENT"
-    },
-    {
-      "raw_text": "M2.8C — Local Qwen VPS XL+ Re-benchmark (ADR-046)",
-      "normalized": "m2 8c local qwen vps xl re-benchmark adr-046",
-      "sources": [
-        "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 8,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "2. Functional results (in-process pipeline)",
-      "normalized": "2 functional results in-process pipeline",
-      "sources": [
-        "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "3. Security & boundaries (all pass)",
-      "normalized": "3 security boundaries all pass",
-      "sources": [
-        "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "4. Resource & service impact (all pass)",
-      "normalized": "4 resource service impact all pass",
-      "sources": [
-        "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "5. Latency (honest characterization)",
-      "normalized": "5 latency honest characterization",
-      "sources": [
-        "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "6. Decision — Option A (default-ready), activation pending approval",
-      "normalized": "6 decision option a default-ready activation pending approval",
-      "sources": [
-        "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 8,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "7. Provenance",
-      "normalized": "7 provenance",
-      "sources": [
-        "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Decision: Option A — default-ready",
-      "normalized": "decision option a default-ready",
-      "sources": [
-        "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "disables Qwen3 reasoning",
-      "normalized": "disables qwen3 reasoning",
-      "sources": [
-        "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "warms the real\nsystem-prompt prefix",
-      "normalized": "warms the real system-prompt prefix",
-      "sources": [
-        "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "no `<think>`/reasoning",
-      "normalized": "no think /reasoning",
-      "sources": [
-        "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Cold no longer degrades",
-      "normalized": "cold no longer degrades",
-      "sources": [
-        "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Stop llama.cpp → graceful degrade:",
-      "normalized": "stop llama cpp graceful degrade",
-      "sources": [
-        "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md",
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "No `<think>` / `reasoning_content` leak",
-      "normalized": "no think / reasoning content leak",
-      "sources": [
-        "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "During generation:",
-      "normalized": "during generation",
-      "sources": [
-        "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "No public port",
-      "normalized": "no public port",
-      "sources": [
-        "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Swap 0 B",
-      "normalized": "swap 0 b",
-      "sources": [
-        "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "no OOM",
-      "normalized": "no oom",
-      "sources": [
-        "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "No service restarts",
-      "normalized": "no service restarts",
-      "sources": [
-        "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "instant",
-      "normalized": "instant",
-      "sources": [
-        "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "cold ~19 s",
-      "normalized": "cold 19 s",
-      "sources": [
-        "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "M2.8D — Local Qwen VPS XL+ Benchmark at 384 Tokens (ADR-047)",
-      "normalized": "m2 8d local qwen vps xl benchmark at 384 tokens adr-047",
-      "sources": [
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 11,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Exact configuration tested",
-      "normalized": "exact configuration tested",
-      "sources": [
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Results",
-      "normalized": "results",
-      "sources": [
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Metrics (report items)",
-      "normalized": "metrics report items",
-      "sources": [
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Decision — Option A (activation pending approval)",
-      "normalized": "decision option a activation pending approval",
-      "sources": [
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Rollback",
-      "normalized": "rollback",
-      "sources": [
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Provenance",
-      "normalized": "provenance",
-      "sources": [
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Decision: Option A",
-      "normalized": "decision option a",
-      "sources": [
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Nothing was activated.",
-      "normalized": "nothing was activated",
-      "sources": [
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "max ~10 s",
-      "normalized": "max 10 s",
-      "sources": [
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Latency cold:",
-      "normalized": "latency cold",
-      "sources": [
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Warm:",
-      "normalized": "warm",
-      "sources": [
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Complex:",
-      "normalized": "complex",
-      "sources": [
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Direct at 384:",
-      "normalized": "direct at 384",
-      "sources": [
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Tokens/s:",
-      "normalized": "tokens/s",
-      "sources": [
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Swap:",
-      "normalized": "swap",
-      "sources": [
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Service impact:",
-      "normalized": "service impact",
-      "sources": [
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Safety tests:",
-      "normalized": "safety tests",
-      "sources": [
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Fallback test:",
-      "normalized": "fallback test",
-      "sources": [
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "real final content",
-      "normalized": "real final content",
-      "sources": [
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "no\n`<think>`/reasoning leak",
-      "normalized": "no think /reasoning leak",
-      "sources": [
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "do not degrade",
-      "normalized": "do not degrade",
-      "sources": [
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "complete well within\nthe timeout",
-      "normalized": "complete well within the timeout",
-      "sources": [
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "acceptable latency",
-      "normalized": "acceptable latency",
-      "sources": [
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "no service impact",
-      "normalized": "no service impact",
-      "sources": [
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "no external calls",
-      "normalized": "no external calls",
-      "sources": [
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "no public llama.cpp port",
-      "normalized": "no public llama cpp port",
-      "sources": [
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "working fallback",
-      "normalized": "working fallback",
-      "sources": [
-        "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "BANZA — M2 Production Protocol Implementation (M2)",
-      "normalized": "banza m2 production protocol implementation m2",
-      "sources": [
-        "docs-governance-m2-production-protocol-implementation-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "1. Objective of M2",
-      "normalized": "1 objective of m2",
-      "sources": [
-        "docs-governance-m2-production-protocol-implementation-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "2. Scope (what M2 implements)",
-      "normalized": "2 scope what m2 implements",
-      "sources": [
-        "docs-governance-m2-production-protocol-implementation-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "3. Out of scope (forbidden in M2)",
-      "normalized": "3 out of scope forbidden in m2",
-      "sources": [
-        "docs-governance-m2-production-protocol-implementation-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 7,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "4. Relation to L0–L4 readiness",
-      "normalized": "4 relation to l0 l4 readiness",
-      "sources": [
-        "docs-governance-m2-production-protocol-implementation-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "5. Relation to Security Assurance and Deep Assurance",
-      "normalized": "5 relation to security assurance and deep assurance",
-      "sources": [
-        "docs-governance-m2-production-protocol-implementation-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 8,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "6. Relation to operators",
-      "normalized": "6 relation to operators",
-      "sources": [
-        "docs-governance-m2-production-protocol-implementation-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "7. Relation to the trust model",
-      "normalized": "7 relation to the trust model",
-      "sources": [
-        "docs-governance-m2-production-protocol-implementation-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "8. Relation to the Evidence Bundle",
-      "normalized": "8 relation to the evidence bundle",
-      "sources": [
-        "docs-governance-m2-production-protocol-implementation-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "ARTIFACT_TYPE"
-    },
-    {
-      "raw_text": "9. Relation to operator regulation",
-      "normalized": "9 relation to operator regulation",
-      "sources": [
-        "docs-governance-m2-production-protocol-implementation-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "10. M2 protocol-gate engine",
-      "normalized": "10 m2 protocol-gate engine",
-      "sources": [
-        "docs-governance-m2-production-protocol-implementation-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "for production as an open protocol",
-      "normalized": "for production as an open protocol",
-      "sources": [
-        "docs-governance-m2-production-protocol-implementation-md",
-        "docs-governance-protocol-production-state-model-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "production-grade implementation state",
-      "normalized": "production-grade implementation state",
-      "sources": [
-        "docs-governance-m2-production-protocol-implementation-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "release governance",
-      "normalized": "release governance",
-      "sources": [
-        "docs-governance-m2-production-protocol-implementation-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "trust model",
-      "normalized": "trust model",
-      "sources": [
-        "docs-governance-m2-production-protocol-implementation-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "operator self-publication",
-      "normalized": "operator self-publication",
-      "sources": [
-        "docs-governance-m2-production-protocol-implementation-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Rust gate engine",
-      "normalized": "rust gate engine",
-      "sources": [
-        "docs-governance-m2-production-protocol-implementation-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "published framework",
-      "normalized": "published framework",
-      "sources": [
-        "docs-governance-m2-production-protocol-implementation-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "internal",
-      "normalized": "internal",
-      "sources": [
-        "docs-governance-m2-production-protocol-implementation-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "self-publish",
-      "normalized": "self-publish",
-      "sources": [
-        "docs-governance-m2-production-protocol-implementation-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "prepares",
-      "normalized": "prepares",
-      "sources": [
-        "docs-governance-m2-production-protocol-implementation-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "operator manifests",
-      "normalized": "operator manifests",
-      "sources": [
-        "docs-governance-m2-production-protocol-implementation-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "verifiable conformance evidence",
-      "normalized": "verifiable conformance evidence",
-      "sources": [
-        "docs-governance-m2-production-protocol-implementation-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "ARTIFACT_TYPE"
-    },
-    {
-      "raw_text": "revocation / fail-closed",
-      "normalized": "revocation / fail-closed",
-      "sources": [
-        "docs-governance-m2-production-protocol-implementation-md",
-        "spec-federation-federation-trust-model-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "primary evidence artifact",
-      "normalized": "primary evidence artifact",
-      "sources": [
-        "docs-governance-m2-production-protocol-implementation-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "in Rust",
-      "normalized": "in rust",
-      "sources": [
-        "docs-governance-m2-production-protocol-implementation-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
       "raw_text": "Arquitetura do Protocolo Financeiro Aberto BANZA",
       "normalized": "arquitetura do protocolo financeiro aberto banza",
       "sources": [
@@ -36568,6 +33033,23 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
+      "raw_text": "operator manifest",
+      "normalized": "operator manifest",
+      "sources": [
+        "docs-governance-operator-manifest-validation-md",
+        "docs-governance-operator-self-publication-and-conformance-md",
+        "docs-governance-protocol-governance-roles-md",
+        "docs-governance-trust-engine-active-model-md",
+        "docs-governance-certification-boundary-md",
+        "spec-capability-negotiation-md"
+      ],
+      "frequency": 7,
+      "phrase_length": 2,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "ALIAS"
+    },
+    {
       "raw_text": "localmente",
       "normalized": "localmente",
       "sources": [
@@ -36577,6 +33059,18 @@
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "em Rust",
+      "normalized": "em rust",
+      "sources": [
+        "docs-governance-operator-manifest-validation-md",
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
       "raw_text": "deve ser `true`",
@@ -37823,6 +34317,17 @@
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "for production as an open protocol",
+      "normalized": "for production as an open protocol",
+      "sources": [
+        "docs-governance-protocol-production-state-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
       "raw_text": "candidate for protocol publication",
@@ -39629,6 +36134,18 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
+      "raw_text": "6. Fronteira permanente",
+      "normalized": "6 fronteira permanente",
+      "sources": [
+        "docs-governance-public-protocol-registry-md",
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
       "raw_text": "Exactamente zero, por si só.",
       "normalized": "exactamente zero por si so",
       "sources": [
@@ -41263,6 +37780,347 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
+      "raw_text": "BANZA — Trust Engine, Active Model (Signed Protocol Metadata)",
+      "normalized": "banza trust engine active model signed protocol metadata",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 8,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "ARTIFACT_TYPE"
+    },
+    {
+      "raw_text": "1. Modelo activo",
+      "normalized": "1 modelo activo",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "2. Os sete tipos de entrada",
+      "normalized": "2 os sete tipos de entrada",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "2.1 trust_root_metadata — TrustRootMetadata",
+      "normalized": "2 1 trust root metadata trustrootmetadata",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "ARTIFACT_TYPE"
+    },
+    {
+      "raw_text": "2.2 delegated_signing_key — DelegatedSigningKey",
+      "normalized": "2 2 delegated signing key delegatedsigningkey",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "2.3 signed_protocol_metadata — SignedProtocolMetadata",
+      "normalized": "2 3 signed protocol metadata signedprotocolmetadata",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "2.4 operator_manifest — OperatorManifestReference",
+      "normalized": "2 4 operator manifest operatormanifestreference",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "ARTIFACT_TYPE"
+    },
+    {
+      "raw_text": "2.5 conformance_evidence — ConformanceEvidenceReference",
+      "normalized": "2 5 conformance evidence conformanceevidencereference",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "ARTIFACT_TYPE"
+    },
+    {
+      "raw_text": "2.6 public_registry_entry — PublicProtocolRegistryEntry",
+      "normalized": "2 6 public registry entry publicprotocolregistryentry",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "2.7 revocation_status — RevocationStatus",
+      "normalized": "2 7 revocation status revocationstatus",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "3. Os treze estados (trust_status)",
+      "normalized": "3 os treze estados trust status",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "ATTRIBUTE"
+    },
+    {
+      "raw_text": "3.1 Campos de verificação (checks)",
+      "normalized": "3 1 campos de verificacao checks",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "4. Precedência fail-closed",
+      "normalized": "4 precedencia fail-closed",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "5. Relatório",
+      "normalized": "5 relatorio",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Adapter:",
+      "normalized": "adapter",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Diagram:",
+      "normalized": "diagram",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "trust engine",
+      "normalized": "trust engine",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md",
+        "docs-governance-workbench-only-operator-verification-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 2,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "material publicado e verificável",
+      "normalized": "material publicado e verificavel",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "ed25519",
+      "normalized": "ed25519",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md",
+        "spec-canonicalization-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "BCJ/1",
+      "normalized": "bcj/1",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "PATH_FRAGMENT"
+    },
+    {
+      "raw_text": "revocation status",
+      "normalized": "revocation status",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "listada pela Trust Root",
+      "normalized": "listada pela trust root",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "material de protocolo",
+      "normalized": "material de protocolo",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "igual",
+      "normalized": "igual",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 3,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "ausente ou não verificável",
+      "normalized": "ausente ou nao verificavel",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "conjuntiva",
+      "normalized": "conjuntiva",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Não há override.",
+      "normalized": "nao ha override",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "primeiro",
+      "normalized": "primeiro",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "frescura da evidência",
+      "normalized": "frescura da evidencia",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "técnica e TEST-ONLY",
+      "normalized": "tecnica e test-only",
+      "sources": [
+        "docs-governance-trust-engine-active-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
       "raw_text": "BanzAI-Only Operator Verification",
       "normalized": "banzai-only operator verification",
       "sources": [
@@ -42622,6 +39480,18 @@
       "phrase_length": 3,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Yes",
+      "normalized": "yes",
+      "sources": [
+        "docs-governance-certification-boundary-md",
+        "spec-reason-codes-md"
+      ],
+      "frequency": 6,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
     },
     {
       "raw_text": "What happens if a conformance test fails?",
@@ -46486,6 +43356,17 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
+      "raw_text": "Phase:",
+      "normalized": "phase",
+      "sources": [
+        "spec-federation-federation-failure-scenarios-md"
+      ],
+      "frequency": 26,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
       "raw_text": "When:",
       "normalized": "when",
       "sources": [
@@ -47920,6 +44801,17 @@
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "absent",
+      "normalized": "absent",
+      "sources": [
+        "spec-federation-federation-invariants-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
     },
     {
       "raw_text": "authenticated key rotation",
@@ -51257,6 +48149,17 @@
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Revocation / fail-closed",
+      "normalized": "revocation / fail-closed",
+      "sources": [
+        "spec-federation-federation-trust-model-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "PATH_FRAGMENT"
     },
     {
       "raw_text": "local decision about one interaction",

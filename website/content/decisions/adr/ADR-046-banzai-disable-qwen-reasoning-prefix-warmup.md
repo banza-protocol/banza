@@ -2,11 +2,9 @@
 
 - **Status:** Accepted
 - **Date:** 2026-07
-- **See also:** ADR-037 (Rust-first engines), ADR-041 (native protocol agent), ADR-044 (local Qwen runtime), ADR-045 (latency tuning), `engines/banzai-api-kb`, `services/banzai-api`, and the prior [M2.8B re-benchmark record](../../docs/governance/M2_8B_LOCAL_QWEN_VPS_XL_REBENCHMARK.md). The M2.8C re-benchmark result is recorded in `docs/governance/M2_8C_LOCAL_QWEN_VPS_XL_REBENCHMARK.md` (created on the M2.8C controlled re-benchmark; see §5).
 
 ## 1. Context
 
-The M2.8B re-benchmark ([M2_8B record](../../docs/governance/M2_8B_LOCAL_QWEN_VPS_XL_REBENCHMARK.md))
 returned **Option B**. Root cause: **Qwen3-4B is a reasoning model.** On cold or complex prompts it
 spends the entire compact 256-token completion budget inside its `<think>` block (returned by
 llama.cpp as `reasoning_content`) and emits **empty final `content`** (`finish_reason=length`,
@@ -64,4 +62,3 @@ latency/correctness liability and a boundary risk.
 Promotion of `local_qwen` to the effective default still requires a **new controlled VPS XL+
 re-benchmark returning Option A** *and* **explicit maintainer approval** before setting
 `LLM_PROVIDER=local_qwen` + `BANZAI_BENCHMARK_APPROVED=true`. Result recorded in
-`docs/governance/M2_8C_LOCAL_QWEN_VPS_XL_REBENCHMARK.md`.

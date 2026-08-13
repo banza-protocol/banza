@@ -12,7 +12,7 @@
 //! and at that former repo's tip 8611191f. This crate is the sole in-monorepo source for the shipped
 //! trace WASM; the three other
 //! former `banzai-core` exports (route/search/select_route) were unused in the monorepo and are
-//! intentionally not carried. See docs/governance/M2_19G_6_BANZAI_MONOREPO_CONSOLIDATION_2026_08.md.
+//! intentionally not carried. See ADR-075 (BanzAI monorepo consolidation).
 
 use serde::Serialize;
 use serde_json::{json, Map, Value};

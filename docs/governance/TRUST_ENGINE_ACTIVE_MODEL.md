@@ -1,8 +1,9 @@
-# M2.4 — Trust Engine (Signed Protocol Metadata)
+# BANZA — Trust Engine, Active Model (Signed Protocol Metadata)
 
-**Document ID:** BANZA-M2-4-TRUST-ENGINE-001
+**Document ID:** BANZA-TRUST-ENGINE-ACTIVE-MODEL-001
 **Date:** 2026-07-17
-**Status:** Normative
+**Status:** Describes the active model. Authority is `engines/banza-trust` and the trust contracts;
+every input type and `trust_status` value below is defined there, and this document is the prose account of them
 **Engine:** `engines/banza-trust` (ADR-037, R5) · WASM em `website/lib/wasm/banza_trust*`
 **Adapter:** `website/lib/banzaTrust.ts` (RUST_WRAPPER_ONLY)
 **Diagram:** SVG-P-066 `docs/reference/diagrams/protocol/trust-engine-active-model.svg`
@@ -25,8 +26,9 @@ como ele é.
 O trust do protocolo é estabelecido a partir de **material publicado e verificável**, avaliado
 deterministicamente e offline. A avaliação é feita pelo engine Rust `banza-trust`, que:
 
-- verifica assinaturas **ed25519** sobre a **forma canónica ADR-026** (todos os campos excepto `signature`,
-  chaves ordenadas, JSON compacto, base64url sem padding);
+- verifica assinaturas **ed25519** sobre a forma canónica **BCJ/1** (`spec/canonicalization.md`) — todos
+  os campos excepto o membro de assinatura declarado pelo contrato, chaves ordenadas, JSON compacto,
+  base64url sem padding;
 - ancora a chave de assinatura delegada à **Trust Root** (metadados de raiz activos, política de threshold);
 - liga a metadata assinada ao **operator manifest**, à **conformance evidence** e à **public protocol
   registry** por hash;

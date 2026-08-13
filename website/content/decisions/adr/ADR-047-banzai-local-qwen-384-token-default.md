@@ -2,7 +2,6 @@
 
 - **Status:** Accepted
 - **Date:** 2026-07
-- **See also:** ADR-044 (local Qwen runtime), ADR-045 (latency tuning / 256), ADR-046 (reasoning disabled + prefix warm-up), `services/banzai-api`, the prior [M2.8C re-benchmark](../../docs/governance/M2_8C_LOCAL_QWEN_VPS_XL_REBENCHMARK.md). The M2.8D benchmark is recorded in `docs/governance/M2_8D_LOCAL_QWEN_VPS_XL_384_BENCHMARK.md` (created on the M2.8D controlled benchmark; see §4).
 
 ## 1. Context
 
@@ -45,7 +44,6 @@ The value lives where the other per-destination defaults live — `readLlmConfig
   change.
 - Promotion of `local_qwen` to the effective default still requires **explicit maintainer approval**
   to set `LLM_PROVIDER=local_qwen` + `BANZAI_BENCHMARK_APPROVED=true`. Result recorded in
-  `docs/governance/M2_8D_LOCAL_QWEN_VPS_XL_384_BENCHMARK.md`.
 
 ## 5. Consequences
 

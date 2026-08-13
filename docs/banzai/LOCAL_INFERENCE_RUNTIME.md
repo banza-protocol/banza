@@ -286,4 +286,4 @@ Every `/ask` response carries `non_normative: true` — a structural reminder th
 - `services/banzai-api/` — the JS I/O glue.
 - `infra/banza-network/compose.yml` — the `llama-local` service.
 - `docs/banzai/LOCAL_QWEN_MODEL_SETUP.md`, `docs/banzai/LOCAL_INFERENCE_RUNBOOK.md` — setup and operations.
-- `docs/governance/M2_8A_LOCAL_QWEN_VPS_XL_BENCHMARK.md` — the mandatory benchmark record.
+- ADR-044 / ADR-045 / ADR-047 — the benchmark gate and the defaults it fixed.

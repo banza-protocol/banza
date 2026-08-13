@@ -54,8 +54,7 @@ or a licence. Humans maintain and evolve the protocol; they do not centrally aut
 | PostgreSQL | internal only — never exposed; not used for BanzAI sessions |
 
 Local inference is **benchmark-gated in code** (ships off by default) and **activated on the reference
-deployment** via the runtime `.env` (ADR-044/045; benchmark record in
-`docs/governance/M2_8A_LOCAL_QWEN_VPS_XL_BENCHMARK.md`). See
+deployment** via the runtime `.env` (ADR-044/045, which carry the benchmark gate). See
 [LOCAL_INFERENCE_RUNTIME.md](LOCAL_INFERENCE_RUNTIME.md) and
 [LOCAL_INFERENCE_RUNBOOK.md](LOCAL_INFERENCE_RUNBOOK.md).
 

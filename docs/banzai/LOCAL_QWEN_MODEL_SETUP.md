@@ -17,10 +17,8 @@ nothing more.
   (the runtime) and [ADR-045](../../decisions/adr/ADR-045-banzai-local-qwen-latency-tuning-default-readiness.md)
   (the tuned defaults recorded throughout this document).
 - **Sibling docs:** `docs/banzai/LOCAL_INFERENCE_RUNTIME.md` (runtime behaviour, modes,
-  endpoints), `docs/banzai/LOCAL_INFERENCE_RUNBOOK.md` (operations), and
-  `docs/governance/M2_8A_LOCAL_QWEN_VPS_XL_BENCHMARK.md` (the initial benchmark record) and
-  `docs/governance/M2_8B_LOCAL_QWEN_VPS_XL_REBENCHMARK.md` (the ADR-045 post-tuning
-  re-benchmark record that gates the default).
+  endpoints) and `docs/banzai/LOCAL_INFERENCE_RUNBOOK.md` (operations). The benchmarks that chose the
+  default are not kept; ADR-044, ADR-045 and ADR-047 carry the decisions they produced.
 
 The install, checksum-verification and provenance-recording process is **unchanged** from
 M2.8A: the same manual, keep-it-out-of-Git flow in Sections 2–5 and 9 still applies. M2.8B

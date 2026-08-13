@@ -5,7 +5,7 @@
     "principle": "The vocabulary is a semantic registry of real protocol terms derived from the engine's own registries + closed protocol sets; corpus terms are candidates (Phase 1), lexical noise never enters here."
   },
   "source_registry": {
-    "total": 479,
+    "total": 462,
     "by_type": {
       "root-doc": 9,
       "conformance": 80,
@@ -14,22 +14,22 @@
       "openapi": 11,
       "adr": 81,
       "rfc": 7,
-      "doc": 79,
+      "doc": 62,
       "example": 48,
       "spec": 31
     },
     "by_status": {
-      "current": 479
+      "current": 462
     },
     "by_authority_class": {
-      "current": 431,
+      "current": 414,
       "illustrative": 48
     },
     "by_language": {
-      "pt-or-neutral": 479
+      "pt-or-neutral": 462
     },
     "by_origin": {
-      "authored": 479,
+      "authored": 462,
       "generated": 0
     },
     "duplicates": [
@@ -3258,7 +3258,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "983b655110e6fd89"
+        "checksum": "01e5c725409c7e5a"
       },
       {
         "id": "decisions-adr-adr-043-license-notice-trademark-open-governance-attribution-md",
@@ -3280,7 +3280,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "c9c0c61bb1e9bd1a"
+        "checksum": "a5c46968a022efef"
       },
       {
         "id": "decisions-adr-adr-045-banzai-local-qwen-latency-tuning-default-readiness-md",
@@ -3291,7 +3291,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "e7165ba273f90d69"
+        "checksum": "0df1cbb58276911d"
       },
       {
         "id": "decisions-adr-adr-046-banzai-disable-qwen-reasoning-prefix-warmup-md",
@@ -3302,7 +3302,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "e566a2a50dca501f"
+        "checksum": "fea2f735c71c343a"
       },
       {
         "id": "decisions-adr-adr-047-banzai-local-qwen-384-token-default-md",
@@ -3313,7 +3313,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "db9fb500059934b9"
+        "checksum": "5bb50344bca5f5b4"
       },
       {
         "id": "decisions-adr-adr-048-banzai-qwen-first-grounded-routing-md",
@@ -3830,7 +3830,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "0e7be311ef937e27"
+        "checksum": "b2db4271f2cea944"
       },
       {
         "id": "docs-banzai-banzai-workbench-md",
@@ -3874,7 +3874,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "23614bb447ce04d2"
+        "checksum": "5397d7b55b614bf6"
       },
       {
         "id": "docs-banzai-local-inference-runtime-md",
@@ -3885,7 +3885,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "c24a1e1d1c70f8e7"
+        "checksum": "f0aaa18ba4af1e20"
       },
       {
         "id": "docs-banzai-local-qwen-model-setup-md",
@@ -3896,7 +3896,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "78cf8d45fdd15945"
+        "checksum": "44b4b0ad6009a2fa"
       },
       {
         "id": "docs-banzai-operator-journey-md",
@@ -4218,204 +4218,6 @@
         "checksum": "f1c62643aeffeea7"
       },
       {
-        "id": "docs-governance-m2-2-architecture-refactor-inventory-md",
-        "path": "docs/governance/M2_2_ARCHITECTURE_REFACTOR_INVENTORY.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "b2a66b2dc3bccd32"
-      },
-      {
-        "id": "docs-governance-m2-3-reference-trust-model-inventory-md",
-        "path": "docs/governance/M2_3_REFERENCE_TRUST_MODEL_INVENTORY.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "0c65ab1d2e150441"
-      },
-      {
-        "id": "docs-governance-m2-4-trust-engine-migration-inventory-md",
-        "path": "docs/governance/M2_4_TRUST_ENGINE_MIGRATION_INVENTORY.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "a58f4a1d21ba26b7"
-      },
-      {
-        "id": "docs-governance-m2-4-trust-engine-signed-metadata-md",
-        "path": "docs/governance/M2_4_TRUST_ENGINE_SIGNED_METADATA.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "359b7305f25b9755"
-      },
-      {
-        "id": "docs-governance-m2-5-public-surface-audit-md",
-        "path": "docs/governance/M2_5_PUBLIC_SURFACE_AUDIT.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "328ea3ac3c06957c"
-      },
-      {
-        "id": "docs-governance-m2-6-governance-docs-final-sweep-audit-md",
-        "path": "docs/governance/M2_6_GOVERNANCE_DOCS_FINAL_SWEEP_AUDIT.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "dc66c353fa6a3799"
-      },
-      {
-        "id": "docs-governance-m2-7b-home-reference-consolidation-audit-md",
-        "path": "docs/governance/M2_7B_HOME_REFERENCE_CONSOLIDATION_AUDIT.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "6e30f440d3ab52d6"
-      },
-      {
-        "id": "docs-governance-m2-7d-final-protocol-architecture-svg-audit-md",
-        "path": "docs/governance/M2_7D_FINAL_PROTOCOL_ARCHITECTURE_SVG_AUDIT.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "19d8308d05e2924b"
-      },
-      {
-        "id": "docs-governance-m2-7e-svg-quality-repair-audit-md",
-        "path": "docs/governance/M2_7E_SVG_QUALITY_REPAIR_AUDIT.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "efb4c319c674df0b"
-      },
-      {
-        "id": "docs-governance-m2-7i-banzai-reference-repository-alignment-audit-md",
-        "path": "docs/governance/M2_7I_BANZAI_REFERENCE_REPOSITORY_ALIGNMENT_AUDIT.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "f7c46819c52d52ba"
-      },
-      {
-        "id": "docs-governance-m2-7j-svg-visual-system-audit-md",
-        "path": "docs/governance/M2_7J_SVG_VISUAL_SYSTEM_AUDIT.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "5a8b821c0e445b3c"
-      },
-      {
-        "id": "docs-governance-m2-7k-postgresql-runtime-schema-audit-md",
-        "path": "docs/governance/M2_7K_POSTGRESQL_RUNTIME_SCHEMA_AUDIT.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "e32a868fd2cccd86"
-      },
-      {
-        "id": "docs-governance-m2-7m-license-notice-trademark-governance-audit-md",
-        "path": "docs/governance/M2_7M_LICENSE_NOTICE_TRADEMARK_GOVERNANCE_AUDIT.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "3f172b987672ff34"
-      },
-      {
-        "id": "docs-governance-m2-8a-local-qwen-vps-xl-benchmark-md",
-        "path": "docs/governance/M2_8A_LOCAL_QWEN_VPS_XL_BENCHMARK.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "7b9bf8aa782a79ac"
-      },
-      {
-        "id": "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md",
-        "path": "docs/governance/M2_8B_LOCAL_QWEN_VPS_XL_REBENCHMARK.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "b6bf81c03e6eeebf"
-      },
-      {
-        "id": "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md",
-        "path": "docs/governance/M2_8C_LOCAL_QWEN_VPS_XL_REBENCHMARK.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "f54a46075b9f6cc3"
-      },
-      {
-        "id": "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md",
-        "path": "docs/governance/M2_8D_LOCAL_QWEN_VPS_XL_384_BENCHMARK.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "f83112db7d8f5820"
-      },
-      {
-        "id": "docs-governance-m2-production-protocol-implementation-md",
-        "path": "docs/governance/M2_PRODUCTION_PROTOCOL_IMPLEMENTATION.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "3a7f3b0bb3b0fb5b"
-      },
-      {
         "id": "docs-governance-open-protocol-architecture-md",
         "path": "docs/governance/OPEN_PROTOCOL_ARCHITECTURE.md",
         "type": "doc",
@@ -4601,6 +4403,17 @@
         "generated": false,
         "public_eligible": true,
         "checksum": "fb30bd0ef7265529"
+      },
+      {
+        "id": "docs-governance-trust-engine-active-model-md",
+        "path": "docs/governance/TRUST_ENGINE_ACTIVE_MODEL.md",
+        "type": "doc",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "a8b1d138d2077153"
       },
       {
         "id": "docs-governance-workbench-only-operator-verification-md",
@@ -5611,7 +5424,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "34d65bb002623f6b"
+    "checksum": "b1f9836bba09ed39"
   },
   "subjects": [
     {
@@ -8972,5 +8785,5 @@
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "2d9a2dff04982606"
+  "checksum": "ff5721afad57fa1b"
 }

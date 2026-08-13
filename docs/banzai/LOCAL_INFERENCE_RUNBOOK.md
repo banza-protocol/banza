@@ -34,10 +34,9 @@ Command-oriented; for internal operators only.
 
 Related docs: [`LOCAL_QWEN_MODEL_SETUP.md`](./LOCAL_QWEN_MODEL_SETUP.md) (obtain, place and
 license the model), [`LOCAL_INFERENCE_RUNTIME.md`](./LOCAL_INFERENCE_RUNTIME.md) (runtime
-architecture), [`../governance/M2_8A_LOCAL_QWEN_VPS_XL_BENCHMARK.md`](../governance/M2_8A_LOCAL_QWEN_VPS_XL_BENCHMARK.md)
-(the initial benchmark record; the post-tuning re-benchmark record is
-[`M2_8B_LOCAL_QWEN_VPS_XL_REBENCHMARK.md`](../governance/M2_8B_LOCAL_QWEN_VPS_XL_REBENCHMARK.md)),
-ADR-044 (local Qwen inference runtime) and ADR-045 (local Qwen latency tuning).
+architecture), ADR-044 (local Qwen inference runtime), ADR-045 (local Qwen latency tuning) and
+ADR-047 (the 384-token default). The individual benchmark records that produced those decisions are
+not kept — the decisions are.
 
 ---
 
@@ -146,9 +145,7 @@ remain mandatory** — these limits trade prompt length for latency, never groun
 
 Any change to `LLM_MAX_TOKENS`, `LLM_TIMEOUT_MS`, `LLAMA_CTX_SIZE`, `LLAMA_THREADS` or the
 model file invalidates the prior benchmark. Re-run the VPS XL+ benchmark and record the result
-in [`../governance/M2_8B_LOCAL_QWEN_VPS_XL_REBENCHMARK.md`](../governance/M2_8B_LOCAL_QWEN_VPS_XL_REBENCHMARK.md)
-— the ADR-045 re-benchmark record, which supersedes the pre-tuning
-[`M2_8A`](../governance/M2_8A_LOCAL_QWEN_VPS_XL_BENCHMARK.md) baseline for the default gate —
+with the change that invalidated it, so the result travels with the configuration it justifies,
 before treating `local_qwen` as the effective default. Only flip
 `BANZAI_BENCHMARK_APPROVED=true` after the new benchmark returns **Option A** *and* a maintainer
 approves; until then `mock` stays the default and `degraded` stays the fallback. No latency

@@ -30,8 +30,6 @@ cd "$(dirname "$0")/.."
 #
 # Out of scope BY DESIGN — internal engineering records of work done, not product surfaces; scanning them
 # would report the record of the work itself:
-#   docs/governance/M2_2_*_INVENTORY.md, M2_3_*_INVENTORY.md — the sweep inventories
-#   docs/governance/PHASE_*.md                          — historical phase reports
 #   decisions/adr/                                      — decision records. A superseded ADR preserves the
 #                                                         old model as history; a superseding ADR must
 #                                                         describe what it replaces. Supersession is
