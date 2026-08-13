@@ -89,12 +89,31 @@ refs = re.findall(r'\\bibitem(?:\[[^\]]*\])?\{[^}]*\}(.*?)(?=\\bibitem|\\end\{th
 if not refs:
     refs = re.findall(r'\\item\[\{\[\d+\]\}\]\s*(.*?)(?=\\item\[\{\[|\\end\{list\})', body, re.S)
 refs = [conv(r) for r in refs]
-assert len(refs) == 8, len(refs)
+# The dossier decides how many references there are. A frozen count here would mean the derivation
+# refuses an approved edition for having cited one more source — which is the tool telling the
+# canonical document what it may say. Sanity only.
+assert refs, 'no references found in the dossier'
+labels = [int(n) for n in re.findall(r'\\item\[\{\[(\d+)\]\}\]', body)]
+if labels:
+    assert labels == list(range(1, len(labels) + 1)), ('reference numbering not contiguous', labels)
+    assert len(labels) == len(refs), ('label/entry mismatch', len(labels), len(refs))
 
 new = dict(old)
 new['abstract'] = abstract
 new['sections'] = new_secs
 new['references'] = refs
+# Figure MEMBERSHIP comes from the dossier, not from the previous edition. Carrying `old['figures']`
+# forward meant a figure removed from the .tex survived in the derived JSON — the derivation
+# outliving the document it derives from. Ids and labels are reused for figures that remain, so
+# consumers keep stable anchors; numbering is recomputed from the order the dossier presents.
+present = [b['id'] for s_ in new_secs for b in s_['blocks'] if b['t'] == 'fig']
+by_id = {f['id']: f for f in old['figures']}
+figs = []
+for n, fid in enumerate(present, 1):
+    prev = by_id.get(fid, {})
+    figs.append({**prev, 'id': fid, 'n': n,
+                 'label': prev.get('label', 'fig:' + fid.replace('fig-', ''))})
+new['figures'] = figs
 new['affiliation_legal'] = 'BANZA' + 'MI – Tecnologia e Serviços, Lda., Luanda, Angola'  # assembled so the brand-contamination guard ignores this derivation tool
 for f in new['figures']:
     if f['id'] in caption_updates:
