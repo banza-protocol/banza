@@ -75,8 +75,9 @@ RESERVED = re.compile(r'^(0\.0\.0\.0|127\.|10\.|192\.168\.|169\.254\.|172\.(1[6-
 # package drawing the boundary — which is the opposite of shipping them. What must never appear is a
 # way to reach or use either: an address, an endpoint, an instruction, or example material.
 FORBIDDEN = [
-    # `(?<![A-Za-z])/banzai` is the route, not the slash in a list of marks such as
-    # "BANZA/BanzAI/Banzami" — which a trademark notice has to write exactly that way.
+    # `(?<![A-Za-z])/banzai` is the route, not a slash separating names in the covered-marks list
+    # that the trademark notice has to write exactly that way. (The list is not quoted here: naming
+    # the brand stem in a guard is itself what the contamination gate forbids.)
     (re.compile(r'(https?://\S*(banzai|zero)\S*|(?<![A-Za-z])/banzai\b|zero\.banza\.network'
                 r'|(ask|use|run|open|consult|see) the (banzai|operador[ -]?zero|operator[ -]?zero))',
                 re.I), 'a way to reach or use the assistant or demonstration operator'),
@@ -239,17 +240,26 @@ PY
   rm -rf "$ISO"
 
   # ---- STABLE -----------------------------------------------------------------------------------
+  # Reproducibility is "the same commit produces the same bytes", so the comparison is made between
+  # two exports taken NOW, at one commit. provenance.json is excluded from it: it records the source
+  # commit by design, so it changes whenever HEAD moves — comparing a committed package against a
+  # later HEAD would report drift on every commit and teach everyone to ignore this check.
   SNAP=$(mktemp -d)
-  find "$pkg" -type f -exec shasum -a 256 {} \; | sed "s#$pkg##" | sort > "$SNAP/before"
+  find "$pkg" -type f ! -name provenance.json -exec shasum -a 256 {} \; | sed "s#$pkg##" | sort > "$SNAP/before"
   python3 tools/gen-clean-room-package.py "$(echo "$level" | tr '[:lower:]' '[:upper:]')" > /dev/null
-  find "$pkg" -type f -exec shasum -a 256 {} \; | sed "s#$pkg##" | sort > "$SNAP/after"
-  if ! cmp -s "$SNAP/before" "$SNAP/after"; then
-    diff "$SNAP/before" "$SNAP/after" | head -5
-    rm -rf "$SNAP"
+  find "$pkg" -type f ! -name provenance.json -exec shasum -a 256 {} \; | sed "s#$pkg##" | sort > "$SNAP/a1"
+  python3 tools/gen-clean-room-package.py "$(echo "$level" | tr '[:lower:]' '[:upper:]')" > /dev/null
+  find "$pkg" -type f ! -name provenance.json -exec shasum -a 256 {} \; | sed "s#$pkg##" | sort > "$SNAP/a2"
+  if ! cmp -s "$SNAP/a1" "$SNAP/a2"; then
+    diff "$SNAP/a1" "$SNAP/a2" | head -5; rm -rf "$SNAP"
     fail "$level is not reproducible: two exports from the same commit differ"
   fi
+  if ! cmp -s "$SNAP/before" "$SNAP/a1"; then
+    diff "$SNAP/before" "$SNAP/a1" | head -5; rm -rf "$SNAP"
+    fail "$level is stale: regeneration changes its content (run: make clean-room-package)"
+  fi
   rm -rf "$SNAP"
-  echo "     ok: stable — two exports from the same commit are byte-identical"
+  echo "     ok: stable — two exports at one commit are byte-identical, and the committed content is current"
 done
 
 # ---- the ledger ---------------------------------------------------------------------------------
