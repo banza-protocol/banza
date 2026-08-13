@@ -22,7 +22,7 @@
   "edge_counts": {
     "profile_requires": 73,
     "schema_ref": 16,
-    "cites_normative": 261
+    "cites_normative": 262
   },
   "_closure_edges": [
     "profile_requires",
@@ -1240,6 +1240,13 @@
       "edge": "cites_normative",
       "kind": "normative",
       "reason": "contracts/production/conformance-profiles.production.schema.json names contracts/production/conformance-profiles.production.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.schema.json",
+      "to": "contracts/production/conformance-report.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.schema.json names contracts/production/conformance-report.production.schema.json in its own text"
     },
     {
       "from": "contracts/production/conformance-report.production.schema.json",
@@ -2548,7 +2555,9 @@
         "External payment-network integration — that is L4",
         "Trust material of your own: no signing key, no key manifest, no published metadata. L0 needs no identity and no signature",
         "Any registration, submission, approval or credential from any party"
-      ]
+      ],
+      "profile_parameterized": false,
+      "external_profile": null
     },
     {
       "level": "L1",
@@ -2641,7 +2650,9 @@
       "not_required": [
         "Payment requests, dynamic QR or instant execution — those are L2",
         "Any federation capability — that is L3"
-      ]
+      ],
+      "profile_parameterized": false,
+      "external_profile": null
     },
     {
       "level": "L2",
@@ -2760,7 +2771,9 @@
       "not_required": [
         "Cross-operator routing, reconciliation or inter-operator settlement — those are L3",
         "Published signed protocol metadata — first required at L3"
-      ]
+      ],
+      "profile_parameterized": false,
+      "external_profile": null
     },
     {
       "level": "L3",
@@ -2934,7 +2947,9 @@
       "not_required": [
         "External payment-network integration — that is L4",
         "Any certificate issued by any party: trust is evaluated from published material, there is no BANZA CA and no operator certificate"
-      ]
+      ],
+      "profile_parameterized": false,
+      "external_profile": null
     },
     {
       "level": "L4",
@@ -3044,7 +3059,30 @@
         "vectors": 14,
         "invariants_cumulative": 32
       },
-      "not_required": []
+      "not_required": [
+        "Any universal implementation artifact beyond L3 — L4 adds none, and this is a property of the level rather than a gap in this registry",
+        "A profile invented for the purpose: an L4 claim names a real external profile or it is not an L4 claim"
+      ],
+      "profile_parameterized": true,
+      "external_profile": {
+        "required": true,
+        "_semantics": "L4 inherits every L3 requirement and introduces NO universal implementation artifact of its own. Its additional requirements are supplied by the external-interoperability profile an implementation selects. Zero universal artifacts therefore does NOT make L4 equivalent to L3: an implementation that satisfies L3 has satisfied none of L4's profile-supplied requirements, because it has selected no profile.",
+        "must_identify": [
+          "The external network or acquiring infrastructure being integrated with",
+          "The external-interoperability profile the integration is claimed against, by identifier and version",
+          "The scope of the claim: L4 is demonstrated FOR that profile, never in general"
+        ],
+        "must_evidence": [
+          "Evidence of the external integration itself, satisfying the selected profile",
+          "The L3 evidence L4 inherits, unchanged"
+        ],
+        "demonstrable_in_a_simulated_environment": false,
+        "_not_simulable_reason": "External-rail acquiring is an integration with a party outside the protocol. A simulated environment can model the protocol's side of it and cannot produce the other side, so no single-implementation run can award L4.",
+        "result_without_a_selected_profile": "not_run",
+        "_result_vocabulary": "`not_run` is the per-level result vocabulary already published in contracts/production/conformance-report.production.schema.json. It is the correct outcome here and `fail` is not: nothing failed. It is not `not_applicable` either: L4 applies, and was not evaluated because no profile was selected and no external evidence supplied.",
+        "published_profiles": [],
+        "_published_profiles_note": "EMPTY, and stated rather than concealed. No concrete external-interoperability profile is published in BANZA 1.0.0, and none is invented here to make the mechanism look exercised. The L4 mechanism is defined; no L4 profile or evidence currently exists, which is consistent with a pre-production protocol."
+      }
     }
   ],
   "orphans": {

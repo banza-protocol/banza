@@ -130,8 +130,8 @@
     },
     {
       "path": "contracts/federation/federation-manifest.json",
-      "sha256": "50a4983630968a5e623c98b6d51ceb59f045df60dd75f94ff00cb23309738bef",
-      "bytes": 4663
+      "sha256": "00404ec04e0f33e690ff994602b71f2d58a4b53e5ee0ed204e4bc8686146c496",
+      "bytes": 4720
     },
     {
       "path": "contracts/federation/federation-obligation.json",

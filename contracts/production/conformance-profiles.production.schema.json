@@ -153,8 +153,72 @@
             "minLength": 1
           },
           "description": "What this level explicitly does NOT require. Stating this is not decoration: an implementer who cannot tell where a level stops will implement more than the level asks, and a level that only lists obligations cannot be scoped."
+        },
+        "profile_parameterized": {
+          "type": "boolean",
+          "description": "True when the level's additional requirements are supplied by an external profile the implementation selects, rather than by a universal artifact set. A parameterized profile MUST carry `external_profile`."
+        },
+        "external_profile": {
+          "type": "object",
+          "description": "How a parameterized level is claimed and demonstrated. Present exactly when profile_parameterized is true.",
+          "required": [
+            "required",
+            "must_identify",
+            "must_evidence",
+            "result_without_a_selected_profile",
+            "published_profiles"
+          ],
+          "properties": {
+            "required": {
+              "type": "boolean"
+            },
+            "must_identify": {
+              "$ref": "#/$defs/pathList"
+            },
+            "must_evidence": {
+              "$ref": "#/$defs/pathList"
+            },
+            "demonstrable_in_a_simulated_environment": {
+              "type": "boolean"
+            },
+            "result_without_a_selected_profile": {
+              "type": "string",
+              "enum": [
+                "pass",
+                "fail",
+                "not_run"
+              ],
+              "description": "The per-level result when no external profile is selected. Drawn from the vocabulary published in contracts/production/conformance-report.production.schema.json; it MUST NOT be `pass`, or satisfying a lower level would silently satisfy this one."
+            },
+            "published_profiles": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Concrete external-interoperability profiles published for this level. An empty array is a truthful statement that none exists, not a placeholder to be filled with an example."
+            }
+          }
         }
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "profile_parameterized": {
+                "const": true
+              }
+            },
+            "required": [
+              "profile_parameterized"
+            ]
+          },
+          "then": {
+            "required": [
+              "external_profile"
+            ]
+          }
+        }
+      ]
     }
   }
 }

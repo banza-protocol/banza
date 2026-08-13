@@ -43,7 +43,7 @@
     },
     "cross_operator_settlement": {
       "type": "boolean",
-      "description": "True if this operator participates in cross-operator netting and settlement (RFC-0002). Required for L4."
+      "description": "True if this operator participates in cross-operator netting and settlement. Required at L3, the federation-capable scope, and exercised by the federation suite."
     },
     "federation_capabilities": {
       "type": "object",

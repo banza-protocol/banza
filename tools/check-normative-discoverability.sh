@@ -94,13 +94,22 @@ fi
 echo "  ok: derived views declare themselves derived and impose nothing"
 
 # ---- 3. determinism and drift --------------------------------------------------------------------
-BEFORE=$(shasum -a 256 "$SETS" | cut -d' ' -f1)
+# Compared against the WORKING TREE, not against git HEAD. The property under test is that the
+# generated files match the sources they are generated from; whether those sources are committed yet
+# is a different question, and using HEAD as the baseline would fail every honest work-in-progress
+# while passing a stale file that happens to be committed.
+SNAP=$(mktemp -d)
+cp "$SETS" "$SNAP/sets.json"
+find "$PKG" -type f -exec shasum -a 256 {} \; | sort > "$SNAP/pkg.before"
 python3 tools/gen-implementation-sets.py > /dev/null
-AFTER=$(shasum -a 256 "$SETS" | cut -d' ' -f1)
-[ "$BEFORE" = "$AFTER" ] || fail "implementation sets drift: regeneration changes the committed file"
 python3 tools/gen-conformance-package.py > /dev/null
-git diff --quiet -- "$PKG" 2>/dev/null || fail "conformance package drift: regeneration changes committed files"
-echo "  ok: generation is deterministic — regeneration is a no-op on an unchanged tree"
+cmp -s "$SNAP/sets.json" "$SETS" \
+  || { rm -rf "$SNAP"; fail "implementation sets are stale: regeneration changes them"; }
+find "$PKG" -type f -exec shasum -a 256 {} \; | sort > "$SNAP/pkg.after"
+cmp -s "$SNAP/pkg.before" "$SNAP/pkg.after" \
+  || { rm -rf "$SNAP"; fail "conformance package is stale: regeneration changes it (run: make implementation-sets)"; }
+rm -rf "$SNAP"
+echo "  ok: generation is deterministic and the committed views are current"
 
 # ---- 4. no unexplained orphan --------------------------------------------------------------------
 python3 - "$SETS" <<'PY' || exit 1
@@ -265,13 +274,69 @@ if bad:
 print("  ok: no profile requires an ADR, the README, the BanzAI or reference code")
 PY
 
-# D20: discoverability is not a claim about effort.
-if grep -nEi '\b(easy|trivial|simple to implement|quick to implement|weekend|straightforward to implement)\b' \
+# D20: discoverability is not a claim about effort. The check is about claims concerning THE WORK —
+# "easy to implement" — not about the adjective anywhere: "that zero is easy to misread" is a warning
+# to the reader, and failing it would push the author to drop a useful caution to satisfy a regex.
+if grep -nEi '(easy|trivial|simple|quick|straightforward)( and [a-z]+)? to (implement|build|write|do|code)|\ban? (easy|trivial|quick|simple) (implementation|build|job|task)|weekend (project|implementation)|\bimplementation is (easy|trivial|simple|quick)\b' \
    "$GUIDE" docs/derived/implementation-sets.md 2>/dev/null | grep -q .; then
   fail "the guide or derived view characterises the work as easy — Phase D demonstrates navigability, not effort"
 fi
 grep -q 'has been demonstrated' "$GUIDE" \
   || fail "the guide must keep saying that no independent implementation has been demonstrated"
 echo "  ok: no effort claim; the unmeasured state is stated"
+
+# ---- 7. a parameterized profile is not its predecessor -------------------------------------------
+# L4 adds no universal artifact. That is correct, and it is also the shape of a silent bug: a level
+# that adds no artifact and states nothing else makes "L3 conformant" and "L4 conformant" the same
+# claim. A parameterized profile must carry the semantics that keep them apart.
+python3 - "$REG" "$SETS" <<'PY' || exit 1
+import json, sys
+reg = json.load(open(sys.argv[1]))
+sets = {s['level']: s for s in json.load(open(sys.argv[2]))['implementation_sets']}
+bad = []
+for p in reg['profiles']:
+    lvl = p['level']
+    param = bool(p.get('profile_parameterized'))
+    if sets[lvl]['counts']['incremental'] == 0 and p['includes'] and not param:
+        bad.append("%s adds no artifact over %s and is not declared profile_parameterized: as "
+                   "published, satisfying %s would satisfy %s"
+                   % (lvl, p['includes'][-1], p['includes'][-1], lvl))
+    if not param:
+        continue
+    ep = p.get('external_profile')
+    if not ep:
+        bad.append("%s is parameterized but carries no external_profile block" % lvl)
+        continue
+    res = ep.get('result_without_a_selected_profile')
+    if res == 'pass':
+        bad.append("%s would PASS with no external profile selected — the level would be awarded "
+                   "for satisfying the level below it" % lvl)
+    elif res not in ('not_run', 'fail'):
+        bad.append("%s: result_without_a_selected_profile (%r) is not from the published per-level "
+                   "vocabulary" % (lvl, res))
+    for member in ('must_identify', 'must_evidence'):
+        if not ep.get(member):
+            bad.append("%s: %s is empty — a parameterized level with nothing to identify or "
+                       "evidence is indistinguishable from the level below it" % (lvl, member))
+    # An empty published_profiles list is a truthful statement. A list holding an invented example
+    # is not: it would make the mechanism look exercised when nothing exercises it.
+    for name in ep.get('published_profiles', []):
+        bad.append("%s names a published external profile (%s): if real it belongs on the normative "
+                   "surface as an artifact, and if illustrative it must not be here" % (lvl, name))
+    if not sets[lvl].get('profile_parameterized'):
+        bad.append("%s: the derived view does not carry the parameterization, so it renders the "
+                   "increment as a bare zero" % lvl)
+if bad:
+    for b in bad:
+        print("  FAIL: %s" % b)
+    sys.exit(1)
+print("  ok: a parameterized profile states what keeps it distinct from the level below")
+PY
+
+grep -q 'does not make this level equivalent' docs/derived/implementation-sets.md \
+  || fail "the derived view shows a parameterized increment without saying it is not equivalent to the level below"
+grep -qi 'reaching L3 does not reach L4' "$GUIDE" \
+  || fail "the guide must tell an implementer that reaching L3 does not reach L4"
+echo "  ok: L3 conformant and L4 conformant are distinguishable claims"
 
 echo "normative-discoverability: OK — the surface is navigable from outside, and nothing outside it is required"

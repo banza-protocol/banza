@@ -150,11 +150,31 @@ Directly from the profile registry, `not_required`:
 This list is normative in the registry, not in this guide. It exists because an implementer who cannot
 tell where a level *stops* will implement more than the level asks.
 
-## 12. The next profile
+## 12. The next profile, and how the levels are shaped
 
 **L1 — Core Payment Capability** adds 17 artifacts: wallets, transfers, the ledger, events,
-traceability and idempotency, with ten further invariants. See
-[`docs/derived/implementation-sets.md`](../derived/implementation-sets.md) for the per-level
+traceability and idempotency, with ten further invariants.
+
+The five levels are not all shaped the same way, and an implementer should know that before
+planning:
+
+| | Shape |
+|---|---|
+| **L0** | The base. Everything else includes it |
+| **L1 · L2 · L3** | **Universal normative increments.** Each adds a fixed set of artifacts, invariants and capabilities that every implementation at that level satisfies. What to build is fully determined by the registry |
+| **L4** | **A mechanism, parameterized by an external profile.** It inherits all of L3 and adds *no universal artifact of its own*. Its additional requirements come from the external-interoperability profile an implementation selects |
+
+**Reaching L3 does not reach L4.** Because L4 adds no universal artifact, the derived tables show its
+incremental set as zero — and that zero is easy to misread. An implementation that satisfies L3 has
+satisfied *none* of L4's requirements, because it has selected no external profile, identified no
+external network, and produced no external-integration evidence. With no profile selected, the
+published per-level result for L4 is `not_run` — not `pass`.
+
+BANZA 1.0.0 publishes **no concrete external-interoperability profile**. The mechanism is defined;
+nothing currently exercises it. That is stated rather than filled with an example, because an invented
+profile would make the mechanism look demonstrated when it is not.
+
+See [`docs/derived/implementation-sets.md`](../derived/implementation-sets.md) for the per-level
 increments, and the profile registry for what each one requires.
 
 ---

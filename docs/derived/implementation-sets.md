@@ -25,7 +25,7 @@
 | L1 Core Payment Capability | 17 | 28 | 17 | 9 | 1 | 3 | 3 | 8 | 11 |
 | L2 Payment Initiation Capability | 17 | 49 | 21 | 24 | 1 | 3 | 4 | 12 | 13 |
 | L3 Inter-Operator Interoperability | 28 | 81 | 32 | 24 | 13 | 4 | 9 | 14 | 32 |
-| L4 External Interoperability | 0 | 81 | 0 | 24 | 13 | 4 | 9 | 14 | 32 |
+| L4 External Interoperability | 0 | 81 | 0 universal + external profile | 24 | 13 | 4 | 9 | 14 | 32 |
 
 These numbers are what the surface actually asks for. They are not presented as small.
 
@@ -167,7 +167,25 @@ Profile closure: L0, L1, L2, L3
 
 Profile closure: L0, L1, L2, L3, L4
 
-Adds no artifact beyond the profiles it includes; its increment is capability and evidence, not new normative material.
+| | |
+|---|---|
+| Universal additional implementation artifacts | **0** |
+| External-profile-specific requirements | **required once an external profile is selected** |
+| Result with no profile selected | `not_run` |
+| Concrete profiles published | **0** |
+
+**Zero universal artifacts does not make this level equivalent to the ones it includes.** An implementation that satisfies L3 has satisfied none of this level's profile-supplied requirements, because it has selected no profile.
+
+- must identify: The external network or acquiring infrastructure being integrated with
+- must identify: The external-interoperability profile the integration is claimed against, by identifier and version
+- must identify: The scope of the claim: L4 is demonstrated FOR that profile, never in general
+- must evidence: Evidence of the external integration itself, satisfying the selected profile
+- must evidence: The L3 evidence L4 inherits, unchanged
+
+**Explicitly not required at this level:**
+
+- Any universal implementation artifact beyond L3 — L4 adds none, and this is a property of the level rather than a gap in this registry
+- A profile invented for the purpose: an L4 claim names a real external profile or it is not an L4 claim
 
 ## Orphans and unresolved references
 

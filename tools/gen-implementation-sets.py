@@ -263,6 +263,10 @@ def main():
                     len(by_level[lv]['required_invariants']) for lv in profile_closure(lvl)),
             },
             'not_required': p['not_required'],
+            # A parameterized level adds no universal artifact, which must never be rendered as a
+            # bare zero: "L4 additional set: 0" reads as "L4 = L3", and that is false.
+            'profile_parameterized': bool(p.get('profile_parameterized')),
+            'external_profile': p.get('external_profile'),
         }
 
     # ---- orphans (D9) ------------------------------------------------------
@@ -364,8 +368,10 @@ def main():
     L.append('|---|---|---|---|---|---|---|---|---|---|')
     for s in result['implementation_sets']:
         c = s['counts']
-        L.append('| %s %s | %d | %d | %d | %d | %d | %d | %d | %d | %d |' % (
-            s['level'], s['name'], c['direct'], c['transitive'], c['incremental'],
+        incr = ('0 universal + external profile' if s['profile_parameterized']
+                and c['incremental'] == 0 else str(c['incremental']))
+        L.append('| %s %s | %d | %d | %s | %d | %d | %d | %d | %d | %d |' % (
+            s['level'], s['name'], c['direct'], c['transitive'], incr,
             c['schemas'], c['contracts'], c['registries'], c['specifications'],
             c['vectors'], c['invariants_cumulative']))
     L.append('')
@@ -382,9 +388,30 @@ def main():
             for p in s['incremental_over_included_profiles']:
                 L.append('- `%s` — %s' % (p, artifacts[p]['role'].split('.')[0]))
             L.append('')
+        elif s['profile_parameterized']:
+            ep = s['external_profile'] or {}
+            L.append('| | |')
+            L.append('|---|---|')
+            L.append('| Universal additional implementation artifacts | **0** |')
+            L.append('| External-profile-specific requirements | **required once an external '
+                     'profile is selected** |')
+            L.append('| Result with no profile selected | `%s` |'
+                     % ep.get('result_without_a_selected_profile', 'unspecified'))
+            L.append('| Concrete profiles published | **%d** |'
+                     % len(ep.get('published_profiles', [])))
+            L.append('')
+            L.append('**Zero universal artifacts does not make this level equivalent to the ones it '
+                     'includes.** An implementation that satisfies %s has satisfied none of this '
+                     "level's profile-supplied requirements, because it has selected no profile."
+                     % ', '.join(by_level[s['level']]['includes'][-1:]) or 'the lower levels')
+            L.append('')
+            for item in ep.get('must_identify', []):
+                L.append('- must identify: %s' % item)
+            for item in ep.get('must_evidence', []):
+                L.append('- must evidence: %s' % item)
+            L.append('')
         else:
-            L.append('Adds no artifact beyond the profiles it includes; its increment is capability'
-                     ' and evidence, not new normative material.')
+            L.append('Adds no artifact beyond the profiles it includes.')
             L.append('')
         if s['not_required']:
             L.append('**Explicitly not required at this level:**')

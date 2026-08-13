@@ -10,10 +10,11 @@ The answer is now yes, and it was **no** when the phase began — for a reason w
 
 ---
 
-## 1. Two material findings
+## 1. Material findings
 
 Phase D's instruction was that a rule found to exist only outside the normative surface must be
-promoted, not documented around. Two such rules were found.
+promoted, not documented around. Four were found: three at the start, and a fourth while closing the
+L4 gate.
 
 ### Finding D-1 — the profiles L0–L4 had no normative definition
 
@@ -59,6 +60,17 @@ outside the norm.
 
 **Resolution.** The annotations now agree with the registry, and the schema's `_authority` says which
 governs. A guard pins the agreement.
+
+### Finding D-2b — a third artifact carried the superseded mapping
+
+`contracts/federation/federation-manifest.json` declared `cross_operator_settlement` as *"Required for
+L4"*, mirrored in `spec/federation/FEDERATION_CONTRACT_SURFACE.md`. Three normative sources say
+otherwise: `spec/federation/FEDERATION_CONFORMANCE_PATH.md` lists it among "the cross-operator
+capabilities exercised by the federation suite" at the **federation-capable scope (L3+)**; the L3
+federation fixture `MANIFEST-VALID.json` carries `certification_level: 3` **with**
+`cross_operator_settlement: true`; and the federation suite that exercises settlement is the L3 suite.
+
+Corrected to L3. Found while resolving the L4 gate, and it is the same defect as D-2 in a third place.
 
 ### Finding D-3 — normative contracts expressed rules in terms of the reference code
 
@@ -154,10 +166,67 @@ Recomputed from the current tree, not carried over from an earlier phase.
 | Requirements depending on the README | **0** |
 | Requirements depending on the BanzAI | **0** |
 
-L4 adds no artifact: its increment is capability and external evidence, not new normative material.
-That is a real property of the profile, not a gap.
+L4's increment reads as 0 in the artifact columns. That is a real property of the level and **not**
+equivalence with L3 — see §4b.
 
 ---
+
+## 4b. The L4 gate — Model B, made explicit
+
+L4 derived as **0 direct, 0 incremental, closure identical to L3**. That number needed a normative
+explanation, not an assumption in either direction.
+
+**The evidence pointed both ways at first.** For a universal increment: `federation-manifest.json`
+declared a capability "Required for L4". For parameterization: `conformance/report-schema.json` — on
+the normative surface — states *"the sandbox runner awards at most L3; L4 (External Interoperability)
+is profile-defined."*
+
+The first turned out to be Finding D-2b: superseded mapping, corrected to L3. So no universal
+additional artifact exists, and **Model B is the architecture**: L4 inherits all of L3 and adds no
+universal implementation artifact; its additional requirements come from the external-interoperability
+profile an implementation selects.
+
+**Zero artifacts is not zero requirements.** L4's semantics — that an external profile must be
+selected and identified, that profile-specific evidence is required, that the claim is scoped to that
+profile, and what the result is when no profile is selected — existed in **no normative source**. That
+was a real finding, and it is now published as structured data in the profile registry:
+
+| L4 | |
+|---|---|
+| `profile_parameterized` | `true` |
+| Universal additional artifacts | **0** |
+| External profile | required; must be identified by identifier and version |
+| Must evidence | the external integration satisfying the selected profile, plus the inherited L3 evidence |
+| Demonstrable in a simulated environment | **no** — the other side of the integration is outside the protocol |
+| Result with no profile selected | **`not_run`** |
+| Concrete profiles published | **0** |
+
+`not_run` was taken from the vocabulary already published in
+`conformance-report.production.schema.json` for per-level results. It is correct where `fail` is not
+— nothing failed — and where `not_applicable` is not: L4 applies and was simply not evaluated.
+
+**No external profile was invented.** `published_profiles` is empty, and the registry says so in
+words: the L4 mechanism is defined, and no concrete external-interoperability profile or evidence is
+published in BANZA 1.0.0. That is the honest pre-production state; a Visa, Mojaloop or ISO 20022
+profile written for the occasion would make the mechanism look exercised when nothing exercises it.
+The guard fails if `published_profiles` gains a name that is not itself an artifact on the normative
+surface.
+
+**How a verifier distinguishes the two claims:**
+
+| Claim | What the verifier checks |
+|---|---|
+| *L3 conformant* | The L3 closure — 81 artifacts, 32 invariants, published manifest, signed protocol metadata, L3 evidence bundle, federation suite |
+| *L4 conformant for external profile X* | Everything above, **unchanged**, plus: profile X named by identifier and version, evidence satisfying X, and the claim scoped to X |
+| *L4 conformant* (unqualified) | Not a claim BANZA can express. An L4 claim names its profile or it is not one |
+| L3 satisfied, no profile selected | L4 result is `not_run` |
+
+Three places now carry this so it cannot decay into "L4 = L3": the registry (data), the derived view
+(which renders `0 universal + external profile` rather than a bare `0`, with the non-equivalence
+stated), and the guard, which fails any profile that adds no artifact without declaring itself
+parameterized. That last rule was self-tested: reverting the registry mid-check produced exactly
+*"L4 adds no artifact over L3 and is not declared profile_parameterized: as published, satisfying L3
+would satisfy L4."*
 
 ## 5. Orphans, classified
 
@@ -268,7 +337,15 @@ are regenerated by a deterministic tool that a guard re-runs.
 | No requirement depends on the README | ✅ 0 |
 | No requirement depends on the BanzAI | ✅ 0 |
 | Zero unresolved normative references | ✅ 0 |
+| A parameterized level is distinguishable from the level below it | ✅ L4, in data, view and guard |
 
-**Open item carried forward:** the vector outcome grammar (§6), published in the package manifest.
+**Phase D conclusion on L4:** *L4 is profile-parameterized; zero universal incremental artifacts does
+not imply equivalence with L3.*
+
+**Open item carried forward:** the vector outcome grammar (§6), published in the package manifest and
+deliberately not normalised. It is recorded as a clean-room hypothesis rather than a defect to fix in
+advance: *how many implementer questions are caused by the heterogeneity of the vector outcome
+grammar?* If it produces real friction, there will be evidence for normalising it; if nobody trips on
+it, the migration is not worth its cost.
 
 Regenerate everything with `make implementation-sets`; verify with `make normative-discoverability-check`.

@@ -125,7 +125,7 @@
       "class": "NORMATIVE_CONTRACT",
       "tier": "implementation",
       "role": "Federation contracts: manifest, routing, obligations, events.",
-      "sha256": "50a4983630968a5e623c98b6d51ceb59f045df60dd75f94ff00cb23309738bef",
+      "sha256": "00404ec04e0f33e690ff994602b71f2d58a4b53e5ee0ed204e4bc8686146c496",
       "self_declared_status": "canonical"
     },
     {
@@ -311,7 +311,7 @@
       "class": "NORMATIVE_CONTRACT",
       "tier": "implementation",
       "role": "Production contract baseline.",
-      "sha256": "11d5c4c6400b7f73b76ee4f534fb9a66ee840d721f2010f4edf293d17974ae88",
+      "sha256": "496cf941b50e6debbfed3002cfda3cd7229e84e30ef2459335809ef6472fd5ba",
       "self_declared_status": "canonical"
     },
     {
@@ -319,7 +319,7 @@
       "class": "NORMATIVE_CONTRACT",
       "tier": "implementation",
       "role": "Production contract baseline.",
-      "sha256": "6360f0090b149af58227e765597de7007cbf05ea96961ff87447fe2526aff5f7",
+      "sha256": "0fd314227bb0d64540fb2fecd79372a7ecc65ca5a85422df5bc65e0734bb27fe",
       "self_declared_status": "production-baseline"
     },
     {
@@ -667,7 +667,7 @@
       "class": "NORMATIVE_SPECIFICATION",
       "tier": "implementation",
       "role": "Field-level federation contract definitions, including freshness windows and the routing idempotency key. Carries requirements not fully expressed in any listed JSON contract.",
-      "sha256": "1cc341a4cbdf83ffd07c386ef7f7d64c9aacf56a2df053884be63d5f1d836306"
+      "sha256": "8d19838a09cbcb38a67495c349c68684a104869ffa767ddf9c211f9c44d4b2e8"
     },
     {
       "path": "spec/federation/FEDERATION_INVARIANTS.md",
