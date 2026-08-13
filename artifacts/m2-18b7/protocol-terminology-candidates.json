@@ -1,5 +1,5 @@
 {
-  "total": 6078,
+  "total": 6114,
   "rows": [
     {
       "raw_text": "Contributing to BANZA",
@@ -385,6 +385,7 @@
         "decisions-adr-adr-078-banzai-operational-reasoning-and-telemetry-md",
         "decisions-adr-adr-079-canonical-trust-signing-model-reconciliation-md",
         "decisions-adr-adr-080-canonical-discovery-surface-reconciliation-md",
+        "decisions-adr-adr-085-trust-material-anti-rollback-md",
         "decisions-rfc-readme-md",
         "docs-banzai-banzai-protocol-agent-md",
         "docs-banzai-local-inference-runbook-md",
@@ -439,9 +440,10 @@
         "spec-canonicalization-md",
         "spec-disputes-md",
         "spec-federation-federation-trust-model-md",
-        "spec-idempotency-md"
+        "spec-idempotency-md",
+        "spec-trust-freshness-md"
       ],
-      "frequency": 189,
+      "frequency": 191,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -2401,6 +2403,502 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
+      "raw_text": "BANZA Public Conformance Package",
+      "normalized": "banza public conformance package",
+      "sources": [
+        "conformance-package-readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "Verifying the copy",
+      "normalized": "verifying the copy",
+      "sources": [
+        "conformance-package-readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "What is here",
+      "normalized": "what is here",
+      "sources": [
+        "conformance-package-readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "What passing means",
+      "normalized": "what passing means",
+      "sources": [
+        "conformance-package-readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "What is deliberately absent",
+      "normalized": "what is deliberately absent",
+      "sources": [
+        "conformance-package-readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "data",
+      "normalized": "data",
+      "sources": [
+        "conformance-package-readme-md",
+        "docs-governance-banzami-operational-scheme-md",
+        "docs-governance-banza-multilingual-architecture-md",
+        "docs-governance-banza-regulatory-claim-policy-md",
+        "docs-governance-banza-three-layer-architecture-md",
+        "docs-governance-phase-r0-rust-rule-compliance-audit-2026-07-md",
+        "docs-governance-postgresql-protocol-state-md"
+      ],
+      "frequency": 7,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "to what those vectors cover",
+      "normalized": "to what those vectors cover",
+      "sources": [
+        "conformance-package-readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "CollectionRule",
+      "normalized": "collectionrule",
+      "sources": [
+        "conformance-package-contracts-collections-collection-rule-schema-json",
+        "contracts-collections-collection-rule-schema-json",
+        "decisions-adr-adr-016-payment-collections-md",
+        "spec-collections-md"
+      ],
+      "frequency": 4,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "CollectionShare",
+      "normalized": "collectionshare",
+      "sources": [
+        "conformance-package-contracts-collections-collection-share-schema-json",
+        "contracts-collections-collection-share-schema-json",
+        "decisions-adr-adr-016-payment-collections-md",
+        "spec-collections-md"
+      ],
+      "frequency": 7,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Collection",
+      "normalized": "collection",
+      "sources": [
+        "conformance-package-contracts-collections-collection-schema-json",
+        "contracts-collections-collection-schema-json",
+        "decisions-adr-adr-016-payment-collections-md",
+        "spec-collections-md"
+      ],
+      "frequency": 6,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "BanzaEvent",
+      "normalized": "banzaevent",
+      "sources": [
+        "conformance-package-contracts-events-envelope-schema-json",
+        "contracts-events-envelope-schema-json"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "BusinessCategory",
+      "normalized": "businesscategory",
+      "sources": [
+        "conformance-package-contracts-fees-business-category-schema-json",
+        "contracts-fees-business-category-schema-json",
+        "decisions-adr-adr-019-fee-and-application-settlement-architecture-md"
+      ],
+      "frequency": 3,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "FeePolicyRef",
+      "normalized": "feepolicyref",
+      "sources": [
+        "conformance-package-contracts-fees-fee-policy-ref-schema-json",
+        "contracts-fees-fee-policy-ref-schema-json",
+        "decisions-adr-adr-019-fee-and-application-settlement-architecture-md"
+      ],
+      "frequency": 3,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "OperatorFee",
+      "normalized": "operatorfee",
+      "sources": [
+        "conformance-package-contracts-fees-operator-fee-schema-json",
+        "contracts-fees-operator-fee-schema-json"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "PricingProfile",
+      "normalized": "pricingprofile",
+      "sources": [
+        "conformance-package-contracts-fees-pricing-profile-schema-json",
+        "contracts-fees-pricing-profile-schema-json",
+        "decisions-adr-adr-019-fee-and-application-settlement-architecture-md"
+      ],
+      "frequency": 3,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "PaymentIntent",
+      "normalized": "paymentintent",
+      "sources": [
+        "conformance-package-contracts-payment-intents-payment-intent-schema-json",
+        "contracts-payment-intents-payment-intent-schema-json",
+        "decisions-adr-adr-014-payment-intent-md",
+        "decisions-adr-adr-015-payment-session-unified-payment-interface-md",
+        "decisions-adr-adr-016-payment-collections-md",
+        "docs-governance-phase-bx1-8-banzai-l2-readiness-payment-flow-2026-07-md",
+        "spec-collections-md"
+      ],
+      "frequency": 10,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "PaymentSessionInterface",
+      "normalized": "paymentsessioninterface",
+      "sources": [
+        "conformance-package-contracts-payment-sessions-payment-session-interface-schema-json",
+        "contracts-payment-sessions-payment-session-interface-schema-json"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "PaymentSession",
+      "normalized": "paymentsession",
+      "sources": [
+        "conformance-package-contracts-payment-sessions-payment-session-schema-json",
+        "contracts-payment-sessions-payment-session-schema-json"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "BrlProduction",
+      "normalized": "brlproduction",
+      "sources": [
+        "conformance-package-contracts-production-brl-production-schema-json",
+        "contracts-production-brl-production-schema-json"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "CapabilitiesDocument",
+      "normalized": "capabilitiesdocument",
+      "sources": [
+        "conformance-package-contracts-production-capabilities-document-production-schema-json",
+        "contracts-production-capabilities-document-production-schema-json"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "ConformanceEvidenceProduction",
+      "normalized": "conformanceevidenceproduction",
+      "sources": [
+        "conformance-package-contracts-production-conformance-evidence-production-schema-json",
+        "contracts-production-conformance-evidence-production-schema-json"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "DelegatedSigningKeyProduction",
+      "normalized": "delegatedsigningkeyproduction",
+      "sources": [
+        "conformance-package-contracts-production-delegated-signing-key-production-schema-json",
+        "contracts-production-delegated-signing-key-production-schema-json"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "DiscoveryDocument",
+      "normalized": "discoverydocument",
+      "sources": [
+        "conformance-package-contracts-production-discovery-document-production-schema-json",
+        "contracts-production-discovery-document-production-schema-json"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "EvidenceBundleProduction",
+      "normalized": "evidencebundleproduction",
+      "sources": [
+        "conformance-package-contracts-production-evidence-bundle-production-schema-json",
+        "contracts-production-evidence-bundle-production-schema-json"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "FederationTrustEvaluationProduction",
+      "normalized": "federationtrustevaluationproduction",
+      "sources": [
+        "conformance-package-contracts-production-federation-trust-evaluation-production-schema-json",
+        "contracts-production-federation-trust-evaluation-production-schema-json"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "KeyManifestProduction",
+      "normalized": "keymanifestproduction",
+      "sources": [
+        "conformance-package-contracts-production-key-manifest-production-schema-json",
+        "contracts-production-key-manifest-production-schema-json"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "OperatorCandidateSubmissionManifest",
+      "normalized": "operatorcandidatesubmissionmanifest",
+      "sources": [
+        "conformance-package-contracts-production-operator-manifest-production-schema-json",
+        "contracts-production-operator-manifest-production-schema-json"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "OperatorSelfPublicationProduction",
+      "normalized": "operatorselfpublicationproduction",
+      "sources": [
+        "conformance-package-contracts-production-operator-self-publication-production-schema-json",
+        "contracts-production-operator-self-publication-production-schema-json"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "PublicProtocolRegistryProduction",
+      "normalized": "publicprotocolregistryproduction",
+      "sources": [
+        "conformance-package-contracts-production-public-protocol-registry-production-schema-json",
+        "contracts-production-public-protocol-registry-production-schema-json"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "RevocationEntryProduction",
+      "normalized": "revocationentryproduction",
+      "sources": [
+        "conformance-package-contracts-production-revocation-entry-production-schema-json",
+        "contracts-production-revocation-entry-production-schema-json"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "RootDelegationProduction",
+      "normalized": "rootdelegationproduction",
+      "sources": [
+        "conformance-package-contracts-production-root-delegation-production-schema-json",
+        "contracts-production-root-delegation-production-schema-json"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "RootMetadataProduction",
+      "normalized": "rootmetadataproduction",
+      "sources": [
+        "conformance-package-contracts-production-root-metadata-production-schema-json",
+        "contracts-production-root-metadata-production-schema-json"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "RootRevocationProduction",
+      "normalized": "rootrevocationproduction",
+      "sources": [
+        "conformance-package-contracts-production-root-revocation-production-schema-json",
+        "contracts-production-root-revocation-production-schema-json"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "SignedProtocolMetadataProduction",
+      "normalized": "signedprotocolmetadataproduction",
+      "sources": [
+        "conformance-package-contracts-production-signed-protocol-metadata-production-schema-json",
+        "contracts-production-signed-protocol-metadata-production-schema-json"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "TrustRootMetadataProduction",
+      "normalized": "trustrootmetadataproduction",
+      "sources": [
+        "conformance-package-contracts-production-trust-root-metadata-production-schema-json",
+        "contracts-production-trust-root-metadata-production-schema-json"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "TransactionProof",
+      "normalized": "transactionproof",
+      "sources": [
+        "conformance-package-contracts-proofs-transaction-proof-schema-json",
+        "contracts-proofs-transaction-proof-schema-json",
+        "decisions-adr-adr-023-transaction-proof-standard-md"
+      ],
+      "frequency": 3,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "VerificationResponse",
+      "normalized": "verificationresponse",
+      "sources": [
+        "conformance-package-contracts-proofs-verification-response-schema-json",
+        "contracts-proofs-verification-response-schema-json"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "ApplicationSettlement",
+      "normalized": "applicationsettlement",
+      "sources": [
+        "conformance-package-contracts-settlements-application-settlement-schema-json",
+        "contracts-settlements-application-settlement-schema-json",
+        "docs-governance-phase-bx1-8-banzai-l2-readiness-payment-flow-2026-07-md"
+      ],
+      "frequency": 3,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "WalletAccount",
+      "normalized": "walletaccount",
+      "sources": [
+        "conformance-package-contracts-wallet-accounts-wallet-account-schema-json",
+        "contracts-wallet-accounts-wallet-account-schema-json"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "WebhookEvent",
+      "normalized": "webhookevent",
+      "sources": [
+        "conformance-package-contracts-webhooks-envelope-schema-json",
+        "contracts-webhooks-envelope-schema-json"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
       "raw_text": "Vector fields",
       "normalized": "vector fields",
       "sources": [
@@ -2532,11 +3030,12 @@
         "contracts-readme-md",
         "docs-governance-ceremony-records-ceremony-record-template-md",
         "spec-canonicalization-md",
+        "spec-capabilities-md",
         "spec-idempotency-md",
         "spec-reason-codes-md",
         "spec-trust-freshness-md"
       ],
-      "frequency": 14,
+      "frequency": 17,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -2549,11 +3048,12 @@
         "decisions-adr-adr-076-banzai-validation-journey-consolidation-and-durable-receipts-md",
         "docs-governance-banza-root-custody-future-migration-md",
         "spec-canonicalization-md",
+        "spec-capabilities-md",
         "spec-idempotency-md",
         "spec-reason-codes-md",
         "spec-trust-freshness-md"
       ],
-      "frequency": 17,
+      "frequency": 19,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -2565,11 +3065,12 @@
         "contracts-readme-md",
         "docs-governance-l1-readiness-md",
         "spec-canonicalization-md",
+        "spec-capabilities-md",
         "spec-idempotency-md",
         "spec-reason-codes-md",
         "spec-trust-freshness-md"
       ],
-      "frequency": 6,
+      "frequency": 7,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -2580,11 +3081,12 @@
       "sources": [
         "contracts-readme-md",
         "spec-canonicalization-md",
+        "spec-capabilities-md",
         "spec-idempotency-md",
         "spec-reason-codes-md",
         "spec-trust-freshness-md"
       ],
-      "frequency": 5,
+      "frequency": 6,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -2595,11 +3097,12 @@
       "sources": [
         "contracts-readme-md",
         "spec-canonicalization-md",
+        "spec-capabilities-md",
         "spec-idempotency-md",
         "spec-reason-codes-md",
         "spec-trust-freshness-md"
       ],
-      "frequency": 5,
+      "frequency": 6,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -2610,11 +3113,12 @@
       "sources": [
         "contracts-readme-md",
         "spec-canonicalization-md",
+        "spec-capabilities-md",
         "spec-idempotency-md",
         "spec-reason-codes-md",
         "spec-trust-freshness-md"
       ],
-      "frequency": 5,
+      "frequency": 7,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -2625,11 +3129,12 @@
       "sources": [
         "contracts-readme-md",
         "spec-canonicalization-md",
+        "spec-capabilities-md",
         "spec-idempotency-md",
         "spec-reason-codes-md",
         "spec-trust-freshness-md"
       ],
-      "frequency": 5,
+      "frequency": 6,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -2640,13 +3145,14 @@
       "sources": [
         "contracts-readme-md",
         "spec-canonicalization-md",
+        "spec-capabilities-md",
         "spec-federation-federation-protocol-flow-md",
         "spec-federation-federation-trust-model-md",
         "spec-idempotency-md",
         "spec-reason-codes-md",
         "spec-trust-freshness-md"
       ],
-      "frequency": 9,
+      "frequency": 10,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -2659,11 +3165,12 @@
         "decisions-adr-adr-019-fee-and-application-settlement-architecture-md",
         "decisions-adr-adr-054-banzai-primary-human-operator-interface-md",
         "spec-canonicalization-md",
+        "spec-capabilities-md",
         "spec-idempotency-md",
         "spec-reason-codes-md",
         "spec-trust-freshness-md"
       ],
-      "frequency": 7,
+      "frequency": 8,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -2678,45 +3185,6 @@
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "CollectionRule",
-      "normalized": "collectionrule",
-      "sources": [
-        "contracts-collections-collection-rule-schema-json",
-        "decisions-adr-adr-016-payment-collections-md",
-        "spec-collections-md"
-      ],
-      "frequency": 3,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "CollectionShare",
-      "normalized": "collectionshare",
-      "sources": [
-        "contracts-collections-collection-share-schema-json",
-        "decisions-adr-adr-016-payment-collections-md",
-        "spec-collections-md"
-      ],
-      "frequency": 6,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Collection",
-      "normalized": "collection",
-      "sources": [
-        "contracts-collections-collection-schema-json",
-        "decisions-adr-adr-016-payment-collections-md",
-        "spec-collections-md"
-      ],
-      "frequency": 5,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
     },
     {
       "raw_text": "contracts/events/",
@@ -2788,102 +3256,6 @@
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "BanzaEvent",
-      "normalized": "banzaevent",
-      "sources": [
-        "contracts-events-envelope-schema-json"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "BusinessCategory",
-      "normalized": "businesscategory",
-      "sources": [
-        "contracts-fees-business-category-schema-json",
-        "decisions-adr-adr-019-fee-and-application-settlement-architecture-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "FeePolicyRef",
-      "normalized": "feepolicyref",
-      "sources": [
-        "contracts-fees-fee-policy-ref-schema-json",
-        "decisions-adr-adr-019-fee-and-application-settlement-architecture-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "OperatorFee",
-      "normalized": "operatorfee",
-      "sources": [
-        "contracts-fees-operator-fee-schema-json"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "PricingProfile",
-      "normalized": "pricingprofile",
-      "sources": [
-        "contracts-fees-pricing-profile-schema-json",
-        "decisions-adr-adr-019-fee-and-application-settlement-architecture-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "PaymentIntent",
-      "normalized": "paymentintent",
-      "sources": [
-        "contracts-payment-intents-payment-intent-schema-json",
-        "decisions-adr-adr-014-payment-intent-md",
-        "decisions-adr-adr-015-payment-session-unified-payment-interface-md",
-        "decisions-adr-adr-016-payment-collections-md",
-        "docs-governance-phase-bx1-8-banzai-l2-readiness-payment-flow-2026-07-md",
-        "spec-collections-md"
-      ],
-      "frequency": 9,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "PaymentSessionInterface",
-      "normalized": "paymentsessioninterface",
-      "sources": [
-        "contracts-payment-sessions-payment-session-interface-schema-json"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "PaymentSession",
-      "normalized": "paymentsession",
-      "sources": [
-        "contracts-payment-sessions-payment-session-schema-json"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
     },
     {
       "raw_text": "BANZA — Production Contract Baseline",
@@ -3135,28 +3507,6 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "BrlProduction",
-      "normalized": "brlproduction",
-      "sources": [
-        "contracts-production-brl-production-schema-json"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "CapabilitiesDocument",
-      "normalized": "capabilitiesdocument",
-      "sources": [
-        "contracts-production-capabilities-document-production-schema-json"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
       "raw_text": "InteroperabilityCertificationProfile",
       "normalized": "interoperabilitycertificationprofile",
       "sources": [
@@ -3190,10 +3540,10 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "ConformanceEvidenceProduction",
-      "normalized": "conformanceevidenceproduction",
+      "raw_text": "BanzaConformanceProfileRegistry",
+      "normalized": "banzaconformanceprofileregistry",
       "sources": [
-        "contracts-production-conformance-evidence-production-schema-json"
+        "contracts-production-conformance-profiles-production-schema-json"
       ],
       "frequency": 1,
       "phrase_length": 1,
@@ -3205,50 +3555,6 @@
       "normalized": "conformancereportproduction",
       "sources": [
         "contracts-production-conformance-report-production-schema-json"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "DelegatedSigningKeyProduction",
-      "normalized": "delegatedsigningkeyproduction",
-      "sources": [
-        "contracts-production-delegated-signing-key-production-schema-json"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "DiscoveryDocument",
-      "normalized": "discoverydocument",
-      "sources": [
-        "contracts-production-discovery-document-production-schema-json"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "EvidenceBundleProduction",
-      "normalized": "evidencebundleproduction",
-      "sources": [
-        "contracts-production-evidence-bundle-production-schema-json"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "FederationTrustEvaluationProduction",
-      "normalized": "federationtrustevaluationproduction",
-      "sources": [
-        "contracts-production-federation-trust-evaluation-production-schema-json"
       ],
       "frequency": 1,
       "phrase_length": 1,
@@ -3291,17 +3597,6 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "KeyManifestProduction",
-      "normalized": "keymanifestproduction",
-      "sources": [
-        "contracts-production-key-manifest-production-schema-json"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
       "raw_text": "OperationReceipt",
       "normalized": "operationreceipt",
       "sources": [
@@ -3314,32 +3609,10 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "OperatorCandidateSubmissionManifest",
-      "normalized": "operatorcandidatesubmissionmanifest",
-      "sources": [
-        "contracts-production-operator-manifest-production-schema-json"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
       "raw_text": "OperatorRecord",
       "normalized": "operatorrecord",
       "sources": [
         "contracts-production-operator-record-production-schema-json"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "OperatorSelfPublicationProduction",
-      "normalized": "operatorselfpublicationproduction",
-      "sources": [
-        "contracts-production-operator-self-publication-production-schema-json"
       ],
       "frequency": 1,
       "phrase_length": 1,
@@ -3369,32 +3642,10 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "PublicProtocolRegistryProduction",
-      "normalized": "publicprotocolregistryproduction",
-      "sources": [
-        "contracts-production-public-protocol-registry-production-schema-json"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
       "raw_text": "RegulatoryStateProduction",
       "normalized": "regulatorystateproduction",
       "sources": [
         "contracts-production-regulatory-state-production-schema-json"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "RevocationEntryProduction",
-      "normalized": "revocationentryproduction",
-      "sources": [
-        "contracts-production-revocation-entry-production-schema-json"
       ],
       "frequency": 1,
       "phrase_length": 1,
@@ -3435,32 +3686,10 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "RootDelegationProduction",
-      "normalized": "rootdelegationproduction",
-      "sources": [
-        "contracts-production-root-delegation-production-schema-json"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
       "raw_text": "RootKeyProduction",
       "normalized": "rootkeyproduction",
       "sources": [
         "contracts-production-root-key-production-schema-json"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "RootMetadataProduction",
-      "normalized": "rootmetadataproduction",
-      "sources": [
-        "contracts-production-root-metadata-production-schema-json"
       ],
       "frequency": 1,
       "phrase_length": 1,
@@ -3479,66 +3708,10 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "RootRevocationProduction",
-      "normalized": "rootrevocationproduction",
-      "sources": [
-        "contracts-production-root-revocation-production-schema-json"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
       "raw_text": "RootSignatureProduction",
       "normalized": "rootsignatureproduction",
       "sources": [
         "contracts-production-root-signature-production-schema-json"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "SignedProtocolMetadataProduction",
-      "normalized": "signedprotocolmetadataproduction",
-      "sources": [
-        "contracts-production-signed-protocol-metadata-production-schema-json"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "TrustRootMetadataProduction",
-      "normalized": "trustrootmetadataproduction",
-      "sources": [
-        "contracts-production-trust-root-metadata-production-schema-json"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "TransactionProof",
-      "normalized": "transactionproof",
-      "sources": [
-        "contracts-proofs-transaction-proof-schema-json",
-        "decisions-adr-adr-023-transaction-proof-standard-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "VerificationResponse",
-      "normalized": "verificationresponse",
-      "sources": [
-        "contracts-proofs-verification-response-schema-json"
       ],
       "frequency": 1,
       "phrase_length": 1,
@@ -3603,29 +3776,6 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "ApplicationSettlement",
-      "normalized": "applicationsettlement",
-      "sources": [
-        "contracts-settlements-application-settlement-schema-json",
-        "docs-governance-phase-bx1-8-banzai-l2-readiness-payment-flow-2026-07-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "WalletAccount",
-      "normalized": "walletaccount",
-      "sources": [
-        "contracts-wallet-accounts-wallet-account-schema-json"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
       "raw_text": "contracts/webhooks/",
       "normalized": "contracts/webhooks/",
       "sources": [
@@ -3657,17 +3807,6 @@
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "WebhookEvent",
-      "normalized": "webhookevent",
-      "sources": [
-        "contracts-webhooks-envelope-schema-json"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
     },
     {
       "raw_text": "ADR-001 — BANZA as Open Financial Protocol",
@@ -4108,6 +4247,7 @@
         "docs-governance-certification-boundary-md",
         "docs-governance-roadmap-md",
         "spec-canonicalization-md",
+        "spec-capabilities-md",
         "spec-collections-md",
         "spec-federation-federation-conformance-evidence-model-md",
         "spec-federation-federation-conformance-model-md",
@@ -4129,7 +4269,7 @@
         "spec-trust-freshness-md",
         "spec-validation-journey-md"
       ],
-      "frequency": 153,
+      "frequency": 154,
       "phrase_length": 1,
       "accepted": true,
       "rejection_reason": "",
@@ -6432,9 +6572,10 @@
         "decisions-adr-adr-069-simple-secure-operator-onboarding-md",
         "decisions-adr-adr-078-banzai-operational-reasoning-and-telemetry-md",
         "docs-governance-banza-root-custody-decision-required-md",
-        "docs-governance-phase-h2-banzai-public-page-dedup-reference-canon-2026-07-md"
+        "docs-governance-phase-h2-banzai-public-page-dedup-reference-canon-2026-07-md",
+        "spec-capabilities-md"
       ],
-      "frequency": 7,
+      "frequency": 8,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -21255,8 +21396,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "D-085-02 · Order on members the artifacts already declare",
-      "normalized": "d-085-02 order on members the artifacts already declare",
+      "raw_text": "D-085-02 · At an equal marker the content decides",
+      "normalized": "d-085-02 at an equal marker the content decides",
       "sources": [
         "decisions-adr-adr-085-trust-material-anti-rollback-md"
       ],
@@ -21266,8 +21407,19 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "D-085-03 · Schema and format versions are out of scope",
-      "normalized": "d-085-03 schema and format versions are out of scope",
+      "raw_text": "D-085-03 · Order on members the artifacts already declare",
+      "normalized": "d-085-03 order on members the artifacts already declare",
+      "sources": [
+        "decisions-adr-adr-085-trust-material-anti-rollback-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 8,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "D-085-04 · Schema and format versions are out of scope",
+      "normalized": "d-085-04 schema and format versions are out of scope",
       "sources": [
         "decisions-adr-adr-085-trust-material-anti-rollback-md"
       ],
@@ -21278,8 +21430,8 @@
       "classification": "DOCUMENT_TYPE"
     },
     {
-      "raw_text": "D-085-04 · The mark survives restart and concurrency",
-      "normalized": "d-085-04 the mark survives restart and concurrency",
+      "raw_text": "D-085-05 · The mark survives restart and concurrency",
+      "normalized": "d-085-05 the mark survives restart and concurrency",
       "sources": [
         "decisions-adr-adr-085-trust-material-anti-rollback-md"
       ],
@@ -21289,8 +21441,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "D-085-05 · What this does NOT provide is normative text, not a caveat",
-      "normalized": "d-085-05 what this does not provide is normative text not a caveat",
+      "raw_text": "D-085-06 · What this does NOT provide is normative text, not a caveat",
+      "normalized": "d-085-06 what this does not provide is normative text not a caveat",
       "sources": [
         "decisions-adr-adr-085-trust-material-anti-rollback-md"
       ],
@@ -21318,6 +21470,39 @@
       ],
       "frequency": 1,
       "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "local conflict",
+      "normalized": "local conflict",
+      "sources": [
+        "decisions-adr-adr-085-trust-material-anti-rollback-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "signing input",
+      "normalized": "signing input",
+      "sources": [
+        "decisions-adr-adr-085-trust-material-anti-rollback-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "no wire field is added",
+      "normalized": "no wire field is added",
+      "sources": [
+        "decisions-adr-adr-085-trust-material-anti-rollback-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
@@ -24460,9 +24645,10 @@
         "docs-governance-m2-7k-postgresql-runtime-schema-audit-md",
         "docs-governance-phase-m2-11c-banzai-release-qa-gate-2026-07-md",
         "docs-governance-phase-m2-7k-postgresql-protocol-state-audit-2026-07-md",
-        "docs-governance-ceremony-records-ceremony-record-template-md"
+        "docs-governance-ceremony-records-ceremony-record-template-md",
+        "spec-capabilities-md"
       ],
-      "frequency": 5,
+      "frequency": 6,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -28509,22 +28695,6 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "Data:",
-      "normalized": "data",
-      "sources": [
-        "docs-governance-banzami-operational-scheme-md",
-        "docs-governance-banza-multilingual-architecture-md",
-        "docs-governance-banza-regulatory-claim-policy-md",
-        "docs-governance-banza-three-layer-architecture-md",
-        "docs-governance-phase-r0-rust-rule-compliance-audit-2026-07-md",
-        "docs-governance-postgresql-protocol-state-md"
-      ],
-      "frequency": 6,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
       "raw_text": "Relacionado:",
       "normalized": "relacionado",
       "sources": [
@@ -30982,9 +31152,10 @@
         "docs-governance-banza-responsibility-matrix-md",
         "docs-governance-banza-three-layer-architecture-md",
         "docs-governance-phase-m2-7d-final-protocol-architecture-svg-2026-07-md",
+        "spec-capabilities-md",
         "spec-reason-codes-md"
       ],
-      "frequency": 4,
+      "frequency": 5,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -42337,7 +42508,7 @@
         "docs-governance-phase-7j-operator-boundary-errata-2026-07-md",
         "spec-trust-freshness-md"
       ],
-      "frequency": 2,
+      "frequency": 3,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -59429,13 +59600,13 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "Conformance level model (single source)",
-      "normalized": "conformance level model single source",
+      "raw_text": "Conformance level model",
+      "normalized": "conformance level model",
       "sources": [
         "docs-governance-certification-boundary-md"
       ],
       "frequency": 1,
-      "phrase_length": 5,
+      "phrase_length": 3,
       "accepted": true,
       "rejection_reason": "",
       "classification": "SUBJECT"
@@ -61010,11 +61181,12 @@
       "normalized": "protocol version",
       "sources": [
         "spec-canonicalization-md",
+        "spec-capabilities-md",
         "spec-idempotency-md",
         "spec-reason-codes-md",
         "spec-trust-freshness-md"
       ],
-      "frequency": 4,
+      "frequency": 5,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -61024,11 +61196,12 @@
       "normalized": "test vectors",
       "sources": [
         "spec-canonicalization-md",
+        "spec-capabilities-md",
         "spec-idempotency-md",
         "spec-reason-codes-md",
         "spec-trust-freshness-md"
       ],
-      "frequency": 4,
+      "frequency": 5,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -61049,9 +61222,10 @@
       "raw_text": "content digest",
       "normalized": "content digest",
       "sources": [
-        "spec-canonicalization-md"
+        "spec-canonicalization-md",
+        "spec-trust-freshness-md"
       ],
-      "frequency": 1,
+      "frequency": 2,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -61278,6 +61452,196 @@
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "BANZA Capabilities — Normative Specification",
+      "normalized": "banza capabilities normative specification",
+      "sources": [
+        "spec-capabilities-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "DOCUMENT_TYPE"
+    },
+    {
+      "raw_text": "1. One canonical namespace",
+      "normalized": "1 one canonical namespace",
+      "sources": [
+        "spec-capabilities-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "2. Declaring a capability",
+      "normalized": "2 declaring a capability",
+      "sources": [
+        "spec-capabilities-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "3. No implicit normalisation",
+      "normalized": "3 no implicit normalisation",
+      "sources": [
+        "spec-capabilities-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "4. Aliases",
+      "normalized": "4 aliases",
+      "sources": [
+        "spec-capabilities-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "5. supports_ flags",
+      "normalized": "5 supports flags",
+      "sources": [
+        "spec-capabilities-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "6. Determining satisfaction",
+      "normalized": "6 determining satisfaction",
+      "sources": [
+        "spec-capabilities-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "7. Conformance",
+      "normalized": "7 conformance",
+      "sources": [
+        "spec-capabilities-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "8. Boundary",
+      "normalized": "8 boundary",
+      "sources": [
+        "spec-capabilities-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "accepted on input",
+      "normalized": "accepted on input",
+      "sources": [
+        "spec-capabilities-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Canonical emission.",
+      "normalized": "canonical emission",
+      "sources": [
+        "spec-capabilities-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "semantically demonstrable",
+      "normalized": "semantically demonstrable",
+      "sources": [
+        "spec-capabilities-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "exact",
+      "normalized": "exact",
+      "sources": [
+        "spec-capabilities-md",
+        "spec-validation-journey-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "broader",
+      "normalized": "broader",
+      "sources": [
+        "spec-capabilities-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "narrower",
+      "normalized": "narrower",
+      "sources": [
+        "spec-capabilities-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "composition",
+      "normalized": "composition",
+      "sources": [
+        "spec-capabilities-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "not satisfied",
+      "normalized": "not satisfied",
+      "sources": [
+        "spec-capabilities-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
       "raw_text": "Capability Negotiation",
@@ -70071,6 +70435,17 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
+      "raw_text": "3.1 Equal marker: the content decides",
+      "normalized": "3 1 equal marker the content decides",
+      "sources": [
+        "spec-trust-freshness-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 7,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
       "raw_text": "4. Persistence",
       "normalized": "4 persistence",
       "sources": [
@@ -70115,8 +70490,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "8. Reason code",
-      "normalized": "8 reason code",
+      "raw_text": "8. Reason codes",
+      "normalized": "8 reason codes",
       "sources": [
         "spec-trust-freshness-md"
       ],
@@ -70281,6 +70656,72 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
+      "raw_text": "SHA-256 over the artifact's signing input",
+      "normalized": "sha-256 over the artifact s signing input",
+      "sources": [
+        "spec-trust-freshness-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 7,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Same digest",
+      "normalized": "same digest",
+      "sources": [
+        "spec-trust-freshness-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Different digest",
+      "normalized": "different digest",
+      "sources": [
+        "spec-trust-freshness-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "local equivocation",
+      "normalized": "local equivocation",
+      "sources": [
+        "spec-trust-freshness-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "local and stateful",
+      "normalized": "local and stateful",
+      "sources": [
+        "spec-trust-freshness-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "and the digest recorded with it",
+      "normalized": "and the digest recorded with it",
+      "sources": [
+        "spec-trust-freshness-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
       "raw_text": "MUST survive process restart",
       "normalized": "must survive process restart",
       "sources": [
@@ -70347,6 +70788,17 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
+      "raw_text": "Publisher clock regression.",
+      "normalized": "publisher clock regression",
+      "sources": [
+        "spec-trust-freshness-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
       "raw_text": "Replay of validly signed history",
       "normalized": "replay of validly signed history",
       "sources": [
@@ -70393,6 +70845,17 @@
     {
       "raw_text": "Clock manipulation",
       "normalized": "clock manipulation",
+      "sources": [
+        "spec-trust-freshness-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Same-marker substitution",
+      "normalized": "same-marker substitution",
       "sources": [
         "spec-trust-freshness-md"
       ],
@@ -70645,17 +71108,6 @@
       "phrase_length": 4,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "exact",
-      "normalized": "exact",
-      "sources": [
-        "spec-validation-journey-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
     },
     {
       "raw_text": "new related execution",

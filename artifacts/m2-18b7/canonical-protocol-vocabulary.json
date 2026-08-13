@@ -5,34 +5,323 @@
     "principle": "The vocabulary is a semantic registry of real protocol terms derived from the engine's own registries + closed protocol sets; corpus terms are candidates (Phase 1), lexical noise never enters here."
   },
   "source_registry": {
-    "total": 493,
+    "total": 572,
     "by_type": {
       "root-doc": 9,
-      "conformance": 60,
-      "contract": 28,
-      "schema": 51,
-      "openapi": 7,
+      "conformance": 80,
+      "schema": 85,
+      "contract": 48,
+      "openapi": 11,
       "adr": 81,
       "rfc": 7,
       "doc": 172,
       "example": 48,
-      "spec": 30
+      "spec": 31
     },
     "by_status": {
-      "current": 493
+      "current": 572
     },
     "by_authority_class": {
-      "current": 445,
+      "current": 524,
       "illustrative": 48
     },
     "by_language": {
-      "pt-or-neutral": 493
+      "pt-or-neutral": 572
     },
     "by_origin": {
-      "authored": 493,
+      "authored": 572,
       "generated": 0
     },
-    "duplicates": [],
+    "duplicates": [
+      {
+        "path": "conformance/package/conformance/capabilities/schema.json",
+        "same_as": "conformance/capabilities/schema.json"
+      },
+      {
+        "path": "conformance/package/conformance/manifests/schema.json",
+        "same_as": "conformance/manifests/schema.json"
+      },
+      {
+        "path": "conformance/vectors/canonicalization.json",
+        "same_as": "conformance/package/conformance/vectors/canonicalization.json"
+      },
+      {
+        "path": "conformance/vectors/capabilities.json",
+        "same_as": "conformance/package/conformance/vectors/capabilities.json"
+      },
+      {
+        "path": "conformance/vectors/collections.json",
+        "same_as": "conformance/package/conformance/vectors/collections.json"
+      },
+      {
+        "path": "conformance/vectors/event-envelopes.json",
+        "same_as": "conformance/package/conformance/vectors/event-envelopes.json"
+      },
+      {
+        "path": "conformance/vectors/idempotency.json",
+        "same_as": "conformance/package/conformance/vectors/idempotency.json"
+      },
+      {
+        "path": "conformance/vectors/ledger-postings.json",
+        "same_as": "conformance/package/conformance/vectors/ledger-postings.json"
+      },
+      {
+        "path": "conformance/vectors/operator-manifests.json",
+        "same_as": "conformance/package/conformance/vectors/operator-manifests.json"
+      },
+      {
+        "path": "conformance/vectors/payment-requests.json",
+        "same_as": "conformance/package/conformance/vectors/payment-requests.json"
+      },
+      {
+        "path": "conformance/vectors/qr-payloads.json",
+        "same_as": "conformance/package/conformance/vectors/qr-payloads.json"
+      },
+      {
+        "path": "conformance/vectors/reason-codes.json",
+        "same_as": "conformance/package/conformance/vectors/reason-codes.json"
+      },
+      {
+        "path": "conformance/vectors/settlement-batches.json",
+        "same_as": "conformance/package/conformance/vectors/settlement-batches.json"
+      },
+      {
+        "path": "conformance/vectors/transfers.json",
+        "same_as": "conformance/package/conformance/vectors/transfers.json"
+      },
+      {
+        "path": "conformance/vectors/trust-freshness.json",
+        "same_as": "conformance/package/conformance/vectors/trust-freshness.json"
+      },
+      {
+        "path": "conformance/vectors/trust-signing.json",
+        "same_as": "conformance/package/conformance/vectors/trust-signing.json"
+      },
+      {
+        "path": "conformance/vectors/wallet-balances.json",
+        "same_as": "conformance/package/conformance/vectors/wallet-balances.json"
+      },
+      {
+        "path": "contracts/collections/collection-rule.schema.json",
+        "same_as": "conformance/package/contracts/collections/collection-rule.schema.json"
+      },
+      {
+        "path": "contracts/collections/collection-share.schema.json",
+        "same_as": "conformance/package/contracts/collections/collection-share.schema.json"
+      },
+      {
+        "path": "contracts/collections/collection.schema.json",
+        "same_as": "conformance/package/contracts/collections/collection.schema.json"
+      },
+      {
+        "path": "contracts/collections/state-machine.json",
+        "same_as": "conformance/package/contracts/collections/state-machine.json"
+      },
+      {
+        "path": "contracts/events/envelope.schema.json",
+        "same_as": "conformance/package/contracts/events/envelope.schema.json"
+      },
+      {
+        "path": "contracts/events/types.json",
+        "same_as": "conformance/package/contracts/events/types.json"
+      },
+      {
+        "path": "contracts/events/webhook-types.json",
+        "same_as": "conformance/package/contracts/events/webhook-types.json"
+      },
+      {
+        "path": "contracts/federation/federation-event.json",
+        "same_as": "conformance/package/contracts/federation/federation-event.json"
+      },
+      {
+        "path": "contracts/federation/federation-manifest.json",
+        "same_as": "conformance/package/contracts/federation/federation-manifest.json"
+      },
+      {
+        "path": "contracts/federation/federation-obligation.json",
+        "same_as": "conformance/package/contracts/federation/federation-obligation.json"
+      },
+      {
+        "path": "contracts/federation/federation-routing.json",
+        "same_as": "conformance/package/contracts/federation/federation-routing.json"
+      },
+      {
+        "path": "contracts/federation/federation-trust.json",
+        "same_as": "conformance/package/contracts/federation/federation-trust.json"
+      },
+      {
+        "path": "contracts/federation/key-manifest.json",
+        "same_as": "conformance/package/contracts/federation/key-manifest.json"
+      },
+      {
+        "path": "contracts/federation/revocation-list.json",
+        "same_as": "conformance/package/contracts/federation/revocation-list.json"
+      },
+      {
+        "path": "contracts/fees/business-category.schema.json",
+        "same_as": "conformance/package/contracts/fees/business-category.schema.json"
+      },
+      {
+        "path": "contracts/fees/fee-policy-ref.schema.json",
+        "same_as": "conformance/package/contracts/fees/fee-policy-ref.schema.json"
+      },
+      {
+        "path": "contracts/fees/operator-fee.schema.json",
+        "same_as": "conformance/package/contracts/fees/operator-fee.schema.json"
+      },
+      {
+        "path": "contracts/fees/pricing-profile.schema.json",
+        "same_as": "conformance/package/contracts/fees/pricing-profile.schema.json"
+      },
+      {
+        "path": "contracts/invariants.json",
+        "same_as": "conformance/package/contracts/invariants.json"
+      },
+      {
+        "path": "contracts/openapi/activity.yaml",
+        "same_as": "conformance/package/contracts/openapi/activity.yaml"
+      },
+      {
+        "path": "contracts/openapi/collections.yaml",
+        "same_as": "conformance/package/contracts/openapi/collections.yaml"
+      },
+      {
+        "path": "contracts/openapi/transfers.yaml",
+        "same_as": "conformance/package/contracts/openapi/transfers.yaml"
+      },
+      {
+        "path": "contracts/openapi/wallet-onboarding.yaml",
+        "same_as": "conformance/package/contracts/openapi/wallet-onboarding.yaml"
+      },
+      {
+        "path": "contracts/payment-intents/payment-intent.schema.json",
+        "same_as": "conformance/package/contracts/payment-intents/payment-intent.schema.json"
+      },
+      {
+        "path": "contracts/payment-sessions/payment-session-interface.schema.json",
+        "same_as": "conformance/package/contracts/payment-sessions/payment-session-interface.schema.json"
+      },
+      {
+        "path": "contracts/payment-sessions/payment-session.schema.json",
+        "same_as": "conformance/package/contracts/payment-sessions/payment-session.schema.json"
+      },
+      {
+        "path": "contracts/production/brl.production.schema.json",
+        "same_as": "conformance/package/contracts/production/brl.production.schema.json"
+      },
+      {
+        "path": "contracts/production/capabilities-document.production.schema.json",
+        "same_as": "conformance/package/contracts/production/capabilities-document.production.schema.json"
+      },
+      {
+        "path": "contracts/production/capability-registry.production.json",
+        "same_as": "conformance/package/contracts/production/capability-registry.production.json"
+      },
+      {
+        "path": "contracts/production/conformance-evidence.production.schema.json",
+        "same_as": "conformance/package/contracts/production/conformance-evidence.production.schema.json"
+      },
+      {
+        "path": "contracts/production/delegated-signing-key.production.schema.json",
+        "same_as": "conformance/package/contracts/production/delegated-signing-key.production.schema.json"
+      },
+      {
+        "path": "contracts/production/discovery-document.production.schema.json",
+        "same_as": "conformance/package/contracts/production/discovery-document.production.schema.json"
+      },
+      {
+        "path": "contracts/production/evidence-bundle.production.schema.json",
+        "same_as": "conformance/package/contracts/production/evidence-bundle.production.schema.json"
+      },
+      {
+        "path": "contracts/production/federation-trust-evaluation.production.schema.json",
+        "same_as": "conformance/package/contracts/production/federation-trust-evaluation.production.schema.json"
+      },
+      {
+        "path": "contracts/production/key-manifest.production.schema.json",
+        "same_as": "conformance/package/contracts/production/key-manifest.production.schema.json"
+      },
+      {
+        "path": "contracts/production/operator-manifest.production.schema.json",
+        "same_as": "conformance/package/contracts/production/operator-manifest.production.schema.json"
+      },
+      {
+        "path": "contracts/production/operator-self-publication.production.schema.json",
+        "same_as": "conformance/package/contracts/production/operator-self-publication.production.schema.json"
+      },
+      {
+        "path": "contracts/production/protocol-version.json",
+        "same_as": "conformance/package/contracts/production/protocol-version.json"
+      },
+      {
+        "path": "contracts/production/public-protocol-registry.production.schema.json",
+        "same_as": "conformance/package/contracts/production/public-protocol-registry.production.schema.json"
+      },
+      {
+        "path": "contracts/production/reason-code-registry.production.json",
+        "same_as": "conformance/package/contracts/production/reason-code-registry.production.json"
+      },
+      {
+        "path": "contracts/production/revocation-entry.production.schema.json",
+        "same_as": "conformance/package/contracts/production/revocation-entry.production.schema.json"
+      },
+      {
+        "path": "contracts/production/root-delegation.production.schema.json",
+        "same_as": "conformance/package/contracts/production/root-delegation.production.schema.json"
+      },
+      {
+        "path": "contracts/production/root-metadata.production.schema.json",
+        "same_as": "conformance/package/contracts/production/root-metadata.production.schema.json"
+      },
+      {
+        "path": "contracts/production/root-revocation.production.schema.json",
+        "same_as": "conformance/package/contracts/production/root-revocation.production.schema.json"
+      },
+      {
+        "path": "contracts/production/signed-protocol-metadata.production.schema.json",
+        "same_as": "conformance/package/contracts/production/signed-protocol-metadata.production.schema.json"
+      },
+      {
+        "path": "contracts/production/trust-root-metadata.production.schema.json",
+        "same_as": "conformance/package/contracts/production/trust-root-metadata.production.schema.json"
+      },
+      {
+        "path": "contracts/proofs/transaction-proof.schema.json",
+        "same_as": "conformance/package/contracts/proofs/transaction-proof.schema.json"
+      },
+      {
+        "path": "contracts/proofs/verification-response.schema.json",
+        "same_as": "conformance/package/contracts/proofs/verification-response.schema.json"
+      },
+      {
+        "path": "contracts/qr/lifecycle.json",
+        "same_as": "conformance/package/contracts/qr/lifecycle.json"
+      },
+      {
+        "path": "contracts/qr/payload-format.json",
+        "same_as": "conformance/package/contracts/qr/payload-format.json"
+      },
+      {
+        "path": "contracts/settlements/application-settlement.schema.json",
+        "same_as": "conformance/package/contracts/settlements/application-settlement.schema.json"
+      },
+      {
+        "path": "contracts/settlements/state-machine.json",
+        "same_as": "conformance/package/contracts/settlements/state-machine.json"
+      },
+      {
+        "path": "contracts/wallet-accounts/wallet-account.schema.json",
+        "same_as": "conformance/package/contracts/wallet-accounts/wallet-account.schema.json"
+      },
+      {
+        "path": "contracts/webhooks/envelope.schema.json",
+        "same_as": "conformance/package/contracts/webhooks/envelope.schema.json"
+      },
+      {
+        "path": "contracts/webhooks/signature.json",
+        "same_as": "conformance/package/contracts/webhooks/signature.json"
+      }
+    ],
     "rows": [
       {
         "id": "contributing-md",
@@ -153,7 +442,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "b711750dcfd5a4ac"
+        "checksum": "d261ce2079207e31"
       },
       {
         "id": "conformance-events-suite-json",
@@ -549,7 +838,821 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "4904a8131ffadf83"
+        "checksum": "dc6f7f17dc4ab4d1"
+      },
+      {
+        "id": "conformance-package-readme-md",
+        "path": "conformance/package/README.md",
+        "type": "conformance",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "7c351b56cc12f0aa"
+      },
+      {
+        "id": "conformance-package-conformance-capabilities-schema-json",
+        "path": "conformance/package/conformance/capabilities/schema.json",
+        "type": "conformance",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "d261ce2079207e31"
+      },
+      {
+        "id": "conformance-package-conformance-manifests-schema-json",
+        "path": "conformance/package/conformance/manifests/schema.json",
+        "type": "conformance",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "d91b4c9c6aca8c8d"
+      },
+      {
+        "id": "conformance-package-conformance-vectors-canonicalization-json",
+        "path": "conformance/package/conformance/vectors/canonicalization.json",
+        "type": "conformance",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "8887da3b6b356c4a"
+      },
+      {
+        "id": "conformance-package-conformance-vectors-capabilities-json",
+        "path": "conformance/package/conformance/vectors/capabilities.json",
+        "type": "conformance",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "019fed8c10d56660"
+      },
+      {
+        "id": "conformance-package-conformance-vectors-collections-json",
+        "path": "conformance/package/conformance/vectors/collections.json",
+        "type": "conformance",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "dbe6d266e04967e3"
+      },
+      {
+        "id": "conformance-package-conformance-vectors-event-envelopes-json",
+        "path": "conformance/package/conformance/vectors/event-envelopes.json",
+        "type": "conformance",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "b9508b8beb90a300"
+      },
+      {
+        "id": "conformance-package-conformance-vectors-idempotency-json",
+        "path": "conformance/package/conformance/vectors/idempotency.json",
+        "type": "conformance",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "9dcb68582a9a1280"
+      },
+      {
+        "id": "conformance-package-conformance-vectors-ledger-postings-json",
+        "path": "conformance/package/conformance/vectors/ledger-postings.json",
+        "type": "conformance",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "10810d8d995a01b8"
+      },
+      {
+        "id": "conformance-package-conformance-vectors-operator-manifests-json",
+        "path": "conformance/package/conformance/vectors/operator-manifests.json",
+        "type": "conformance",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "1ad6b9cbba47f315"
+      },
+      {
+        "id": "conformance-package-conformance-vectors-payment-requests-json",
+        "path": "conformance/package/conformance/vectors/payment-requests.json",
+        "type": "conformance",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "6fa92eb57b6a01e4"
+      },
+      {
+        "id": "conformance-package-conformance-vectors-qr-payloads-json",
+        "path": "conformance/package/conformance/vectors/qr-payloads.json",
+        "type": "conformance",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "17a34dcd4e52b691"
+      },
+      {
+        "id": "conformance-package-conformance-vectors-reason-codes-json",
+        "path": "conformance/package/conformance/vectors/reason-codes.json",
+        "type": "conformance",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "96ac0d4382df9b1b"
+      },
+      {
+        "id": "conformance-package-conformance-vectors-settlement-batches-json",
+        "path": "conformance/package/conformance/vectors/settlement-batches.json",
+        "type": "conformance",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "33f803756f14000d"
+      },
+      {
+        "id": "conformance-package-conformance-vectors-transfers-json",
+        "path": "conformance/package/conformance/vectors/transfers.json",
+        "type": "conformance",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "7750406cb8351245"
+      },
+      {
+        "id": "conformance-package-conformance-vectors-trust-freshness-json",
+        "path": "conformance/package/conformance/vectors/trust-freshness.json",
+        "type": "conformance",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "e8d90ef076cf1420"
+      },
+      {
+        "id": "conformance-package-conformance-vectors-trust-signing-json",
+        "path": "conformance/package/conformance/vectors/trust-signing.json",
+        "type": "conformance",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "c2a981fabb018a85"
+      },
+      {
+        "id": "conformance-package-conformance-vectors-wallet-balances-json",
+        "path": "conformance/package/conformance/vectors/wallet-balances.json",
+        "type": "conformance",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "33edbbf15bc5ac38"
+      },
+      {
+        "id": "conformance-package-contracts-collections-collection-rule-schema-json",
+        "path": "conformance/package/contracts/collections/collection-rule.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "1a4d6733d012c499"
+      },
+      {
+        "id": "conformance-package-contracts-collections-collection-share-schema-json",
+        "path": "conformance/package/contracts/collections/collection-share.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "f705532bb15ce7d1"
+      },
+      {
+        "id": "conformance-package-contracts-collections-collection-schema-json",
+        "path": "conformance/package/contracts/collections/collection.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "382e13b5e9ddfbcc"
+      },
+      {
+        "id": "conformance-package-contracts-collections-state-machine-json",
+        "path": "conformance/package/contracts/collections/state-machine.json",
+        "type": "contract",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "fd90e26ebbfe626f"
+      },
+      {
+        "id": "conformance-package-contracts-events-envelope-schema-json",
+        "path": "conformance/package/contracts/events/envelope.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "4a10ffa941dfc4a4"
+      },
+      {
+        "id": "conformance-package-contracts-events-types-json",
+        "path": "conformance/package/contracts/events/types.json",
+        "type": "contract",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "71c130786c52b54d"
+      },
+      {
+        "id": "conformance-package-contracts-events-webhook-types-json",
+        "path": "conformance/package/contracts/events/webhook-types.json",
+        "type": "contract",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "54e86107e7361b5a"
+      },
+      {
+        "id": "conformance-package-contracts-federation-federation-event-json",
+        "path": "conformance/package/contracts/federation/federation-event.json",
+        "type": "contract",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "fc212371f74433a7"
+      },
+      {
+        "id": "conformance-package-contracts-federation-federation-manifest-json",
+        "path": "conformance/package/contracts/federation/federation-manifest.json",
+        "type": "contract",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "00404ec04e0f33e6"
+      },
+      {
+        "id": "conformance-package-contracts-federation-federation-obligation-json",
+        "path": "conformance/package/contracts/federation/federation-obligation.json",
+        "type": "contract",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "295e67b3dcb38e75"
+      },
+      {
+        "id": "conformance-package-contracts-federation-federation-routing-json",
+        "path": "conformance/package/contracts/federation/federation-routing.json",
+        "type": "contract",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "69ccb33d85814852"
+      },
+      {
+        "id": "conformance-package-contracts-federation-federation-trust-json",
+        "path": "conformance/package/contracts/federation/federation-trust.json",
+        "type": "contract",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "725538ae90f807d1"
+      },
+      {
+        "id": "conformance-package-contracts-federation-key-manifest-json",
+        "path": "conformance/package/contracts/federation/key-manifest.json",
+        "type": "contract",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "c3f48e593608a65e"
+      },
+      {
+        "id": "conformance-package-contracts-federation-revocation-list-json",
+        "path": "conformance/package/contracts/federation/revocation-list.json",
+        "type": "contract",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "dee636c9a9759dd1"
+      },
+      {
+        "id": "conformance-package-contracts-fees-business-category-schema-json",
+        "path": "conformance/package/contracts/fees/business-category.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "af47ec93b8a61b60"
+      },
+      {
+        "id": "conformance-package-contracts-fees-fee-policy-ref-schema-json",
+        "path": "conformance/package/contracts/fees/fee-policy-ref.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "9be2c1f399d1d4de"
+      },
+      {
+        "id": "conformance-package-contracts-fees-operator-fee-schema-json",
+        "path": "conformance/package/contracts/fees/operator-fee.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "483bb7b55c9dc77c"
+      },
+      {
+        "id": "conformance-package-contracts-fees-pricing-profile-schema-json",
+        "path": "conformance/package/contracts/fees/pricing-profile.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "63cd67588353fad9"
+      },
+      {
+        "id": "conformance-package-contracts-invariants-json",
+        "path": "conformance/package/contracts/invariants.json",
+        "type": "contract",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "bde0dbe15b5fe5e7"
+      },
+      {
+        "id": "conformance-package-contracts-openapi-activity-yaml",
+        "path": "conformance/package/contracts/openapi/activity.yaml",
+        "type": "openapi",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "5db05041a1f04245"
+      },
+      {
+        "id": "conformance-package-contracts-openapi-collections-yaml",
+        "path": "conformance/package/contracts/openapi/collections.yaml",
+        "type": "openapi",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "6582852abe9d2d7e"
+      },
+      {
+        "id": "conformance-package-contracts-openapi-transfers-yaml",
+        "path": "conformance/package/contracts/openapi/transfers.yaml",
+        "type": "openapi",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "97ad41a3fae10b12"
+      },
+      {
+        "id": "conformance-package-contracts-openapi-wallet-onboarding-yaml",
+        "path": "conformance/package/contracts/openapi/wallet-onboarding.yaml",
+        "type": "openapi",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "99b93943374da256"
+      },
+      {
+        "id": "conformance-package-contracts-payment-intents-payment-intent-schema-json",
+        "path": "conformance/package/contracts/payment-intents/payment-intent.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "4593537d47f9bae1"
+      },
+      {
+        "id": "conformance-package-contracts-payment-sessions-payment-session-interface-schema-json",
+        "path": "conformance/package/contracts/payment-sessions/payment-session-interface.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "c5890434d5487643"
+      },
+      {
+        "id": "conformance-package-contracts-payment-sessions-payment-session-schema-json",
+        "path": "conformance/package/contracts/payment-sessions/payment-session.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "73d70e3d7ba57d7b"
+      },
+      {
+        "id": "conformance-package-contracts-production-brl-production-schema-json",
+        "path": "conformance/package/contracts/production/brl.production.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "d68e35b0a0d8ed63"
+      },
+      {
+        "id": "conformance-package-contracts-production-capabilities-document-production-schema-json",
+        "path": "conformance/package/contracts/production/capabilities-document.production.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "d5eb3c395843c997"
+      },
+      {
+        "id": "conformance-package-contracts-production-capability-registry-production-json",
+        "path": "conformance/package/contracts/production/capability-registry.production.json",
+        "type": "contract",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "8d307443c2d99e41"
+      },
+      {
+        "id": "conformance-package-contracts-production-conformance-evidence-production-schema-json",
+        "path": "conformance/package/contracts/production/conformance-evidence.production.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "45993c0010a47f57"
+      },
+      {
+        "id": "conformance-package-contracts-production-delegated-signing-key-production-schema-json",
+        "path": "conformance/package/contracts/production/delegated-signing-key.production.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "14ccfc63ab719623"
+      },
+      {
+        "id": "conformance-package-contracts-production-discovery-document-production-schema-json",
+        "path": "conformance/package/contracts/production/discovery-document.production.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "22542c119bad3448"
+      },
+      {
+        "id": "conformance-package-contracts-production-evidence-bundle-production-schema-json",
+        "path": "conformance/package/contracts/production/evidence-bundle.production.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "443ced458085a951"
+      },
+      {
+        "id": "conformance-package-contracts-production-federation-trust-evaluation-production-schema-json",
+        "path": "conformance/package/contracts/production/federation-trust-evaluation.production.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "f3b15e506508a7ed"
+      },
+      {
+        "id": "conformance-package-contracts-production-key-manifest-production-schema-json",
+        "path": "conformance/package/contracts/production/key-manifest.production.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "b5bbc4d2f8c0aacc"
+      },
+      {
+        "id": "conformance-package-contracts-production-operator-manifest-production-schema-json",
+        "path": "conformance/package/contracts/production/operator-manifest.production.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "46149d2ee85f0276"
+      },
+      {
+        "id": "conformance-package-contracts-production-operator-self-publication-production-schema-json",
+        "path": "conformance/package/contracts/production/operator-self-publication.production.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "082b4ed235bf1eb5"
+      },
+      {
+        "id": "conformance-package-contracts-production-protocol-version-json",
+        "path": "conformance/package/contracts/production/protocol-version.json",
+        "type": "contract",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "4b4f612b4a0b2717"
+      },
+      {
+        "id": "conformance-package-contracts-production-public-protocol-registry-production-schema-json",
+        "path": "conformance/package/contracts/production/public-protocol-registry.production.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "3d83389560b50cec"
+      },
+      {
+        "id": "conformance-package-contracts-production-reason-code-registry-production-json",
+        "path": "conformance/package/contracts/production/reason-code-registry.production.json",
+        "type": "contract",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "7aba829e41366466"
+      },
+      {
+        "id": "conformance-package-contracts-production-revocation-entry-production-schema-json",
+        "path": "conformance/package/contracts/production/revocation-entry.production.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "b1dab81d46d13d0a"
+      },
+      {
+        "id": "conformance-package-contracts-production-root-delegation-production-schema-json",
+        "path": "conformance/package/contracts/production/root-delegation.production.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "04e86e0f8780654f"
+      },
+      {
+        "id": "conformance-package-contracts-production-root-metadata-production-schema-json",
+        "path": "conformance/package/contracts/production/root-metadata.production.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "6081ff69f1b17562"
+      },
+      {
+        "id": "conformance-package-contracts-production-root-revocation-production-schema-json",
+        "path": "conformance/package/contracts/production/root-revocation.production.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "ed7db8860a29dffb"
+      },
+      {
+        "id": "conformance-package-contracts-production-signed-protocol-metadata-production-schema-json",
+        "path": "conformance/package/contracts/production/signed-protocol-metadata.production.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "31a705a8ee08d4ae"
+      },
+      {
+        "id": "conformance-package-contracts-production-trust-root-metadata-production-schema-json",
+        "path": "conformance/package/contracts/production/trust-root-metadata.production.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "a82d70be2e3c78fb"
+      },
+      {
+        "id": "conformance-package-contracts-proofs-transaction-proof-schema-json",
+        "path": "conformance/package/contracts/proofs/transaction-proof.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "f4efed93fde92d48"
+      },
+      {
+        "id": "conformance-package-contracts-proofs-verification-response-schema-json",
+        "path": "conformance/package/contracts/proofs/verification-response.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "c72fe02239d8644a"
+      },
+      {
+        "id": "conformance-package-contracts-qr-lifecycle-json",
+        "path": "conformance/package/contracts/qr/lifecycle.json",
+        "type": "contract",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "814988eec371eb46"
+      },
+      {
+        "id": "conformance-package-contracts-qr-payload-format-json",
+        "path": "conformance/package/contracts/qr/payload-format.json",
+        "type": "contract",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "79fdb580308bd72a"
+      },
+      {
+        "id": "conformance-package-contracts-settlements-application-settlement-schema-json",
+        "path": "conformance/package/contracts/settlements/application-settlement.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "4ca319905f54b21b"
+      },
+      {
+        "id": "conformance-package-contracts-settlements-state-machine-json",
+        "path": "conformance/package/contracts/settlements/state-machine.json",
+        "type": "contract",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "5de0b138dacd8ef8"
+      },
+      {
+        "id": "conformance-package-contracts-wallet-accounts-wallet-account-schema-json",
+        "path": "conformance/package/contracts/wallet-accounts/wallet-account.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "609423d2e78dd1dd"
+      },
+      {
+        "id": "conformance-package-contracts-webhooks-envelope-schema-json",
+        "path": "conformance/package/contracts/webhooks/envelope.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "c5cb82ace32e3ac3"
+      },
+      {
+        "id": "conformance-package-contracts-webhooks-signature-json",
+        "path": "conformance/package/contracts/webhooks/signature.json",
+        "type": "contract",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "b27f60daeaefc726"
+      },
+      {
+        "id": "conformance-package-package-manifest-json",
+        "path": "conformance/package/package-manifest.json",
+        "type": "conformance",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "cbdf8113d4a58340"
       },
       {
         "id": "conformance-qr-suite-json",
@@ -571,7 +1674,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "71c3aeb923cf0d6a"
+        "checksum": "2f5e554b1fe95e1a"
       },
       {
         "id": "conformance-sdk-suite-json",
@@ -616,6 +1719,17 @@
         "generated": false,
         "public_eligible": true,
         "checksum": "8887da3b6b356c4a"
+      },
+      {
+        "id": "conformance-vectors-capabilities-json",
+        "path": "conformance/vectors/capabilities.json",
+        "type": "conformance",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "019fed8c10d56660"
       },
       {
         "id": "conformance-vectors-collections-json",
@@ -736,7 +1850,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "e532340f3e04d269"
+        "checksum": "e8d90ef076cf1420"
       },
       {
         "id": "conformance-vectors-trust-signing-json",
@@ -879,7 +1993,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "50a4983630968a5e"
+        "checksum": "00404ec04e0f33e6"
       },
       {
         "id": "contracts-federation-federation-obligation-json",
@@ -989,7 +2103,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "5e1d5f32cb0af727"
+        "checksum": "bde0dbe15b5fe5e7"
       },
       {
         "id": "contracts-openapi-activity-yaml",
@@ -1135,6 +2249,17 @@
         "checksum": "d5eb3c395843c997"
       },
       {
+        "id": "contracts-production-capability-registry-production-json",
+        "path": "contracts/production/capability-registry.production.json",
+        "type": "contract",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "8d307443c2d99e41"
+      },
+      {
         "id": "contracts-production-certification-profile-production-schema-json",
         "path": "contracts/production/certification-profile.production.schema.json",
         "type": "schema",
@@ -1179,6 +2304,28 @@
         "checksum": "45993c0010a47f57"
       },
       {
+        "id": "contracts-production-conformance-profiles-production-json",
+        "path": "contracts/production/conformance-profiles.production.json",
+        "type": "contract",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "15006dfe6909b073"
+      },
+      {
+        "id": "contracts-production-conformance-profiles-production-schema-json",
+        "path": "contracts/production/conformance-profiles.production.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "15a388491a640a38"
+      },
+      {
         "id": "contracts-production-conformance-report-production-schema-json",
         "path": "contracts/production/conformance-report.production.schema.json",
         "type": "schema",
@@ -1220,7 +2367,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "6d99c62d07138f6a"
+        "checksum": "443ced458085a951"
       },
       {
         "id": "contracts-production-examples-certification-record-invalid-authorised-claim-json",
@@ -1330,7 +2477,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "738a44a27378c90b"
+        "checksum": "ce63dc78f75a26b2"
       },
       {
         "id": "contracts-production-operation-receipt-production-schema-json",
@@ -1407,7 +2554,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "b03ef804d276092b"
+        "checksum": "4b4f612b4a0b2717"
       },
       {
         "id": "contracts-production-public-protocol-registry-production-schema-json",
@@ -1429,7 +2576,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "e03f9698c50a89c6"
+        "checksum": "7aba829e41366466"
       },
       {
         "id": "contracts-production-regulatory-state-production-schema-json",
@@ -1462,7 +2609,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "cc50bc7f15a3ad08"
+        "checksum": "b7256c48ae5ad8ce"
       },
       {
         "id": "contracts-production-root-ceremony-evidence-production-schema-json",
@@ -1473,7 +2620,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "93e3e6df399d2c54"
+        "checksum": "d2546d8a9f6f979a"
       },
       {
         "id": "contracts-production-root-custody-declaration-production-schema-json",
@@ -1484,7 +2631,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "63a762d3eaf7c1c8"
+        "checksum": "58332844beb2dd50"
       },
       {
         "id": "contracts-production-root-delegation-production-schema-json",
@@ -1495,7 +2642,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "5b12520a3cebde8e"
+        "checksum": "04e86e0f8780654f"
       },
       {
         "id": "contracts-production-root-key-production-schema-json",
@@ -1506,7 +2653,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "80d80eabcdb873fd"
+        "checksum": "2e82fc2405730f6d"
       },
       {
         "id": "contracts-production-root-metadata-production-schema-json",
@@ -1517,7 +2664,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "887747a867b4b36c"
+        "checksum": "6081ff69f1b17562"
       },
       {
         "id": "contracts-production-root-recovery-test-production-schema-json",
@@ -1528,7 +2675,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "f0023117f1be01c8"
+        "checksum": "95b064b0a28afb23"
       },
       {
         "id": "contracts-production-root-revocation-production-schema-json",
@@ -1539,7 +2686,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "066eb7d88b3b1303"
+        "checksum": "ed7db8860a29dffb"
       },
       {
         "id": "contracts-production-root-signature-production-schema-json",
@@ -1550,7 +2697,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "6d2f139219e43714"
+        "checksum": "0fa8c18345f9c6b9"
       },
       {
         "id": "contracts-production-signed-protocol-metadata-production-schema-json",
@@ -2584,7 +3731,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "f02f71305d2b8c54"
+        "checksum": "7c2b420d8ab476b9"
       },
       {
         "id": "decisions-adr-readme-md",
@@ -4531,7 +5678,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "fab3ca02c64651be"
+        "checksum": "fdbb4f971cef85d0"
       },
       {
         "id": "docs-governance-licensing-md",
@@ -5150,6 +6297,17 @@
         "checksum": "f3cfb22401a9743b"
       },
       {
+        "id": "spec-capabilities-md",
+        "path": "spec/capabilities.md",
+        "type": "spec",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "d6ffc3c620e7280a"
+      },
+      {
         "id": "spec-capability-negotiation-md",
         "path": "spec/capability-negotiation.md",
         "type": "spec",
@@ -5224,7 +6382,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "1cc341a4cbdf83ff"
+        "checksum": "8d19838a09cbcb38"
       },
       {
         "id": "spec-federation-federation-contract-traceability-md",
@@ -5444,7 +6602,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "f4257b351f262668"
+        "checksum": "69409b8a8f2592e9"
       },
       {
         "id": "spec-validation-journey-md",
@@ -5476,7 +6634,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "a917ad7fe2967bb3"
+    "checksum": "929f29f38c101165"
   },
   "subjects": [
     {
@@ -8837,5 +9995,5 @@
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "0ab59f62abe4f81d"
+  "checksum": "9020b24e786c60fc"
 }
