@@ -2,6 +2,10 @@
 
 **Verdict: PASS, ready for review.** Protocol version `1.0.0`, unchanged throughout.
 
+Every count in this report was measured at the HEAD it describes. Where two numbers exist for the same
+thing in this milestone's history, both are given with what each measures — a stale count is exactly
+the defect this milestone spent itself removing.
+
 This report is readable without the development history. It states what the milestone set out to
 close, what it actually demonstrated, and what remains undemonstrated.
 
@@ -108,10 +112,15 @@ and a guard fails if one states a requirement in its own voice. No simplified sp
 
 ## 6. Public package and the rehearsal
 
-`clean-room/packages/l0/` — **21 files**, built by positive allowlist from the L0 implementation set,
-reproducible byte-for-byte from one commit, with provenance recording the source commit and both
-digests. Excluded and asserted rather than trusted: the reference implementation, the demonstration
-operator, ADRs, the README, internal reports, the assistant, tooling, fixtures.
+`clean-room/packages/l0/` — **21 content files, plus 3 package metadata files (`package-manifest.json`,
+`provenance.json`, `README.md`) = 24 on disk.** Both numbers appear in the milestone's own reports
+because they measure different things; measured at this HEAD, the manifest declares 21, every declared
+file is present with a matching digest, and no file exists outside the manifest.
+
+Built by positive allowlist from the L0 implementation set, reproducible byte-for-byte from one
+commit, with provenance recording the source commit and both digests. Excluded and asserted rather
+than trusted: the reference implementation, the demonstration operator, ADRs, the README, internal
+reports, the assistant, tooling, fixtures.
 
 The **package completeness rehearsal** ran twice, against frozen packages.
 
@@ -133,6 +142,24 @@ package alone.
 **This is a package completeness rehearsal.** It is not a clean-room implementation, not an
 independent implementation, and not an external implementation. It tested the artefact, not a
 stranger's ability to read it.
+
+### BanzAI: no rebuild required
+
+The corpus grew this milestone, so the derived canonical protocol vocabulary was regenerated. The
+BanzAI runtime was **not** rebuilt, and the reason is verifiable rather than assumed:
+
+- The five regenerated files are audit artifacts under `artifacts/m2-18b7/`.
+- No service reads `artifacts/` at runtime. The BanzAI service loads WASM modules; a repository-wide
+  search finds the vocabulary named only in `tools/` (its generator and guards), the `Makefile`, ADRs
+  and reports as prose, and in the Rust engines as doc comments plus a path allowlist inside the guard
+  crate itself.
+- The pinned repository index references the **guard script's path**, not the vocabulary's content,
+  and was not re-cut.
+- The regeneration commit touched `artifacts/` only — zero bytes under `engines/`, `services/` or
+  `website/`.
+
+**BanzAI rebuild not required.** The artifact is evidence consumed by a derivation tool and its guard,
+not by the running service.
 
 ## 7. Whitepaper
 
