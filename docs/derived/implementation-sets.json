@@ -3076,8 +3076,11 @@
           "Evidence of the external integration itself, satisfying the selected profile",
           "The L3 evidence L4 inherits, unchanged"
         ],
-        "demonstrable_in_a_simulated_environment": false,
-        "_not_simulable_reason": "External-rail acquiring is an integration with a party outside the protocol. A simulated environment can model the protocol's side of it and cannot produce the other side, so no single-implementation run can award L4.",
+        "demonstrability": {
+          "_scope": "A property of the selected external profile, NOT a universal property of L4. Whether an integration can be demonstrated without touching the live external network depends on what that profile accepts as evidence, and a profile may legitimately define evidence producible in a test or sandbox environment where the external counterparty is represented faithfully enough. BANZA 1.0.0 makes no universal ruling either way, because it has no basis for one.",
+          "determined_by": "the selected external-interoperability profile",
+          "current_state": "No concrete external-interoperability profile is published, so BANZA 1.0.0 has no executable L4 demonstration. This is a statement about what exists today, not about what is possible."
+        },
         "result_without_a_selected_profile": "not_run",
         "_result_vocabulary": "`not_run` is the per-level result vocabulary already published in contracts/production/conformance-report.production.schema.json. It is the correct outcome here and `fail` is not: nothing failed. It is not `not_applicable` either: L4 applies, and was not evaluated because no profile was selected and no external evidence supplied.",
         "published_profiles": [],

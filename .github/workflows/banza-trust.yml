@@ -37,6 +37,9 @@ jobs:
       - name: normative surface is navigable from outside (Phase D)
         working-directory: .
         run: bash tools/check-normative-discoverability.sh
+      - name: clean-room export is safe to hand out (Phase E)
+        working-directory: .
+        run: bash tools/check-clean-room-package.sh
       - name: related work stays informative and bounded
         working-directory: .
         run: bash tools/check-related-work-boundary.sh

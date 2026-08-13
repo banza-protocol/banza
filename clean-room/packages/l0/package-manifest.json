@@ -1,0 +1,240 @@
+{
+  "_spec": "BANZA Clean-Room Export Package",
+  "package_schema_version": "1",
+  "protocol_version": "1.0.0",
+  "target_profile": "L0",
+  "target_profile_name": "Protocol Sandbox",
+  "_authority": "This package is a derived distribution of the BANZA v1.0.0 public normative surface. It is not an independent specification. The BANZA Normative Manifest remains authoritative.",
+  "_reference_implementation": "The reference implementation is intentionally excluded.",
+  "_construction": "Built by positive allowlist from the Phase D implementation set for this profile. No file is present unless the allowlist selected it; nothing is copied and then deleted.",
+  "normative_manifest_sha256": "ee404bc3a82bfbe9bb3e5c02899e25a2eab916d546505cd0fcd49c2762a00c70",
+  "file_count": 18,
+  "files": [
+    {
+      "path": "LICENSE",
+      "sha256": "acf95043c76dce943103f075e7b8675b98781dece9617f7544928d9cc89af08a",
+      "bytes": 11368,
+      "why": "the licence the exported material is under"
+    },
+    {
+      "path": "NOTICE",
+      "sha256": "76525272afa25dd13e64f703740828b771d2d3c8c3bccb68e2892060f0aef1d9",
+      "bytes": 1465,
+      "why": "copyright and attribution required by that licence"
+    },
+    {
+      "path": "TRADEMARKS.md",
+      "sha256": "d0143f5f370eccbbfdd1096a8f14fbd2f82d80290dd60e804d2421d8a7899da9",
+      "bytes": 2926,
+      "why": "what the licence does NOT grant: the right to use the marks"
+    },
+    {
+      "path": "conformance/capabilities/schema.json",
+      "sha256": "d261ce2079207e3183f3157b1649fbcd4dd4864802ca3b2b3acc16de97b63544",
+      "bytes": 4503,
+      "why": "in the L0 implementation set"
+    },
+    {
+      "path": "conformance/manifests/schema.json",
+      "sha256": "d91b4c9c6aca8c8df8beb67e556bf435f8ce83622efcf54c652621a884566266",
+      "bytes": 4245,
+      "why": "in the L0 implementation set"
+    },
+    {
+      "path": "conformance/vectors/canonicalization.json",
+      "sha256": "8887da3b6b356c4a7a990f1d2a8f5532e09b979e71c102f2e5e0d10e98cbe48c",
+      "bytes": 8683,
+      "why": "in the L0 implementation set"
+    },
+    {
+      "path": "conformance/vectors/operator-manifests.json",
+      "sha256": "1ad6b9cbba47f315c07009c866c011b128b647273fa646d776dc27946f0354c7",
+      "bytes": 2143,
+      "why": "in the L0 implementation set"
+    },
+    {
+      "path": "conformance/vectors/reason-codes.json",
+      "sha256": "96ac0d4382df9b1b62401474630fa7535074f6e529f0349a64eac5166a828c05",
+      "bytes": 7767,
+      "why": "in the L0 implementation set"
+    },
+    {
+      "path": "contracts/invariants.json",
+      "sha256": "bde0dbe15b5fe5e7f1ed74088213c0696179c9c6d25abdbd8af9aaa4d0fdb280",
+      "bytes": 30244,
+      "why": "in the L0 implementation set"
+    },
+    {
+      "path": "contracts/production/conformance-profiles.production.json",
+      "sha256": "a15b8255a8c1d35a977f7ef15619b416f0745968969eacb0ca6d4ad2af51eb26",
+      "bytes": 18233,
+      "why": "what each profile requires"
+    },
+    {
+      "path": "contracts/production/conformance-profiles.production.schema.json",
+      "sha256": "0fd314227bb0d64540fb2fecd79372a7ecc65ca5a85422df5bc65e0734bb27fe",
+      "bytes": 7100,
+      "why": "its shape"
+    },
+    {
+      "path": "contracts/production/normative-manifest.json",
+      "sha256": "ee404bc3a82bfbe9bb3e5c02899e25a2eab916d546505cd0fcd49c2762a00c70",
+      "bytes": 59626,
+      "why": "what is normative, and what is not"
+    },
+    {
+      "path": "contracts/production/operator-manifest.production.schema.json",
+      "sha256": "46149d2ee85f02760def3ace1b4199d1ab3f64e616d17e0f286e23e838a28dae",
+      "bytes": 5283,
+      "why": "in the L0 implementation set"
+    },
+    {
+      "path": "contracts/production/protocol-version.json",
+      "sha256": "4b4f612b4a0b2717a5291fe85591b57d5a07274c83ae9be32e15483d3cf116db",
+      "bytes": 2852,
+      "why": "in the L0 implementation set"
+    },
+    {
+      "path": "contracts/production/reason-code-registry.production.json",
+      "sha256": "7aba829e4136646673e679ba735eb91016873a5051ae555e6ddd03ed00f60852",
+      "bytes": 15399,
+      "why": "in the L0 implementation set"
+    },
+    {
+      "path": "docs/guides/implement-l0.md",
+      "sha256": "43ba00d6990012fd4f2835da61a880ae2116db4dfdd37434af3d912fec06fcbe",
+      "bytes": 11039,
+      "why": "a map to the L0 set; states no requirement of its own"
+    },
+    {
+      "path": "spec/canonicalization.md",
+      "sha256": "f3cfb22401a9743b60286b2890783ef672250b9fee28f76748c91489d4caeb11",
+      "bytes": 11960,
+      "why": "in the L0 implementation set"
+    },
+    {
+      "path": "spec/reason-codes.md",
+      "sha256": "6391ca8dbca6d906c48614d768017b75dc46a8c7333d8fb94579865464931c47",
+      "bytes": 9467,
+      "why": "in the L0 implementation set"
+    }
+  ],
+  "excluded": [
+    {
+      "what": "engines/",
+      "why": "the reference implementation. Excluded on purpose: the package must be sufficient without it, and including it would make the trial measure reading code rather than reading the specification"
+    },
+    {
+      "what": "services/, website/",
+      "why": "reference services and the public site"
+    },
+    {
+      "what": "Operador Zero material",
+      "why": "the demonstration operator: an example, never a requirement"
+    },
+    {
+      "what": "decisions/adr/, decisions/rfc/",
+      "why": "decisions and proposals. An ADR explains why a rule exists; it is never the rule, and requiring one would mean the rule is not on the normative surface"
+    },
+    {
+      "what": "README.md",
+      "why": "navigation and onboarding for the repository, not authority"
+    },
+    {
+      "what": "docs/audit/, docs/whitepaper/, docs/research/",
+      "why": "internal reports, the Whitepaper and related work: descriptive, none of them normative"
+    },
+    {
+      "what": "BanzAI",
+      "why": "the assistant. The first trial must prove the package suffices without human or machine assistance from us"
+    },
+    {
+      "what": "tools/, .github/",
+      "why": "build, guard and CI tooling"
+    },
+    {
+      "what": "conformance/fixtures/, internal tests",
+      "why": "material about the reference implementation"
+    },
+    {
+      "what": ".env, VM material, private trust material",
+      "why": "secrets and runtime state; no private key material exists in this repository and none is exported"
+    }
+  ],
+  "profile": {
+    "level": "L0",
+    "includes": [],
+    "required_capabilities": [],
+    "required_invariants": [
+      "MON-001"
+    ],
+    "not_required": [
+      "Live payment rails of any kind",
+      "Wallets, transfers or a ledger — those are L1",
+      "Payment requests, QR or instant execution — those are L2",
+      "Federation, cross-operator routing or settlement — those are L3",
+      "External payment-network integration — that is L4",
+      "Trust material of your own: no signing key, no key manifest, no published metadata. L0 needs no identity and no signature",
+      "Any registration, submission, approval or credential from any party"
+    ]
+  },
+  "outbound_references": [
+    {
+      "target": "conformance/package/README.md",
+      "kind": "sibling package",
+      "why": "The public conformance package: the same vectors, packaged separately.",
+      "referenced_by": [
+        "docs/guides/implement-l0.md"
+      ]
+    },
+    {
+      "target": "contracts/federation/federation-trust.json",
+      "kind": "higher profile",
+      "why": "On the normative surface, but not part of the L0 implementation set. Required at a higher profile.",
+      "referenced_by": [
+        "spec/reason-codes.md"
+      ]
+    },
+    {
+      "target": "decisions/adr/ADR-081-normative-completeness-versioning-decision.md",
+      "kind": "rationale",
+      "why": "An ADR records why a rule was adopted. It is never the rule, and nothing here requires reading it. Excluded from the package on purpose.",
+      "referenced_by": [
+        "spec/canonicalization.md"
+      ]
+    },
+    {
+      "target": "decisions/adr/ADR-082-banza-canonical-json.md",
+      "kind": "rationale",
+      "why": "An ADR records why a rule was adopted. It is never the rule, and nothing here requires reading it. Excluded from the package on purpose.",
+      "referenced_by": [
+        "spec/canonicalization.md"
+      ]
+    },
+    {
+      "target": "decisions/adr/ADR-083-reason-code-model.md",
+      "kind": "rationale",
+      "why": "An ADR records why a rule was adopted. It is never the rule, and nothing here requires reading it. Excluded from the package on purpose.",
+      "referenced_by": [
+        "spec/reason-codes.md"
+      ]
+    },
+    {
+      "target": "docs/derived/implementation-sets.json",
+      "kind": "derived view",
+      "why": "A generated view of this same material. Informative; the Normative Manifest remains authoritative.",
+      "referenced_by": [
+        "docs/guides/implement-l0.md"
+      ]
+    },
+    {
+      "target": "docs/derived/implementation-sets.md",
+      "kind": "derived view",
+      "why": "A generated view of this same material. Informative; the Normative Manifest remains authoritative.",
+      "referenced_by": [
+        "docs/guides/implement-l0.md"
+      ]
+    }
+  ],
+  "_outbound_note": "Files here are byte-identical copies, so their links are not rewritten. Every link that leaves this package is listed above with what it points to and why it is not included. None of them carries a requirement: if following one turns out to be necessary to determine behaviour, that is a defect in the specification and belongs in the question ledger."
+}

@@ -1,0 +1,161 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/clean-room/question-ledger.schema.json",
+  "title": "BanzaCleanRoomQuestionLedgerEntry",
+  "description": "One question raised by an implementer working from a clean-room export package. The ledger is EXPERIMENTAL EVIDENCE, not norm: it records what an external reader could not determine from the published surface, so that gaps are measured rather than guessed at. Nothing in a ledger entry imposes a requirement on anyone, and no entry may be cited as a rule.",
+  "_status": "canonical",
+  "_authority": "This schema constrains the ledger's shape. The ledger records observations; the Normative Manifest remains the authority on what BANZA requires. A ledger entry can cause a normative change — it can never be one.",
+  "type": "object",
+  "required": [
+    "question_id",
+    "trial_id",
+    "timestamp",
+    "protocol_version",
+    "target_profile",
+    "package_digest",
+    "artefact",
+    "location",
+    "question",
+    "classification",
+    "resolution",
+    "normative_change_required"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "question_id": {
+      "type": "string",
+      "pattern": "^Q-[0-9]{4}$",
+      "description": "Stable identifier within the ledger."
+    },
+    "trial_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Which trial raised it. Questions from different trials are not comparable as a single population: a second team reading the same package after the first has reported gaps is not an independent observation."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the question was raised. Ordering matters here — a question raised in the first hour and one raised on the third day are different evidence about discoverability."
+    },
+    "protocol_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_profile": {
+      "type": "string",
+      "enum": [
+        "L0",
+        "L1",
+        "L2",
+        "L3",
+        "L4"
+      ]
+    },
+    "external_profile_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Required when target_profile is L4: L4 is parameterized, and 'L4' alone does not identify an evaluation configuration."
+    },
+    "external_profile_version": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Required when target_profile is L4."
+    },
+    "package_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "SHA-256 of the package manifest the implementer was working from. A question is only interpretable against the exact material that produced it."
+    },
+    "artefact": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The file the question is about, as a path inside the package. `none` where the question is about something the package does not contain — which is itself the most interesting kind of entry."
+    },
+    "location": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Where in that artefact: a section, a member, a vector id. Free text, because the artefacts do not share one addressing scheme."
+    },
+    "question": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The question as the implementer asked it. Recorded verbatim: rewriting it into what we think they meant destroys the evidence."
+    },
+    "classification": {
+      "type": "string",
+      "enum": [
+        "CLARIFICATION",
+        "DISCOVERABILITY",
+        "AMBIGUITY",
+        "MISSING_RULE",
+        "CONFLICT",
+        "VECTOR_GAP",
+        "TOOLING"
+      ],
+      "description": "See clean-room/README.md for what each means. The set is closed: a question that seems to need a new category is a finding about the categories, to be argued before the set changes, not during a trial."
+    },
+    "classification_note": {
+      "type": "string",
+      "description": "Why this classification and not a neighbouring one. Required in practice for MISSING_RULE and CONFLICT, which assert a defect in the surface."
+    },
+    "resolution": {
+      "type": "string",
+      "minLength": 1,
+      "description": "What answered it, or that it is still open. An answer that had to come from a person is a different result from one found in the package, and the text should say which."
+    },
+    "answered_from_package_alone": {
+      "type": "boolean",
+      "description": "Whether the implementer could resolve it from the package without asking anyone. This is the measurement the trial exists to take."
+    },
+    "normative_change_required": {
+      "type": "boolean",
+      "description": "Whether answering it required changing the normative surface. True here is the strongest possible finding: the specification was incomplete or wrong."
+    },
+    "resolved_by_commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{7,40}$",
+      "description": "The commit that made the change, where normative_change_required is true."
+    },
+    "caused_by_vector_grammar": {
+      "type": "boolean",
+      "description": "Whether this question exists because the vector files state expected outcomes in different shapes. Recorded to measure a known open item without prompting anyone to complain about it; implementers are not told this field exists."
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "target_profile": {
+            "const": "L4"
+          }
+        },
+        "required": [
+          "target_profile"
+        ]
+      },
+      "then": {
+        "required": [
+          "external_profile_id",
+          "external_profile_version"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "normative_change_required": {
+            "const": true
+          }
+        },
+        "required": [
+          "normative_change_required"
+        ]
+      },
+      "then": {
+        "required": [
+          "resolved_by_commit"
+        ]
+      }
+    }
+  ]
+}

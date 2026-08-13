@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/conformance/capabilities/schema.json",
+  "title": "BANZA Operator Capability Descriptor",
+  "description": "Describes the declared capabilities of a BANZA operator and the conformance profile each implies.",
+  "type": "object",
+  "required": [
+    "supports_wallets",
+    "supports_qr",
+    "supports_settlement"
+  ],
+  "properties": {
+    "supports_wallets": {
+      "type": "boolean",
+      "description": "Wallet creation, balance query, and ledger. Required at the level given by certification_level (see the profile registry).",
+      "certification_level": 1
+    },
+    "supports_qr": {
+      "type": "boolean",
+      "description": "QR code generation (POST /qr), scanning (decode BANZA-SBX: or BANZA: payload), and pay (POST /qr/:id/pay). Required at the level given by certification_level (see the profile registry).",
+      "certification_level": 2
+    },
+    "supports_settlement": {
+      "type": "boolean",
+      "description": "Settlement batch creation (POST /settlements/run), status query, and fee model. Required at the level given by certification_level (see the profile registry).",
+      "certification_level": 2
+    },
+    "supports_payment_requests": {
+      "type": "boolean",
+      "description": "Payment request creation, retrieval, and payment. Required at the level given by certification_level (see the profile registry).",
+      "certification_level": 2
+    },
+    "supports_payment_intents": {
+      "type": "boolean",
+      "description": "PaymentIntent (ADR-014) — the canonical payment-initiation primitive that Payment Links/QR/Payment Requests realize. Underpins Collections. Optional; Level 2.",
+      "certification_level": 2
+    },
+    "supports_collections": {
+      "type": "boolean",
+      "description": "Payment Collections (ADR-016): Collection + CollectionShare aggregates, CollectionRule strategies, state machines, collection.* events, per-share settlement via PaymentIntent -> Transfer -> Ledger. Requires supports_payment_intents. Optional; Level 2.",
+      "certification_level": 2
+    },
+    "supports_events": {
+      "type": "boolean",
+      "description": "Event emission via GET /events/history (SSE or polling). Required at the level given by certification_level (see the profile registry).",
+      "certification_level": 1
+    },
+    "supports_traces": {
+      "type": "boolean",
+      "description": "Financial traceability via GET /traces and GET /traces/:id. Required at the level given by certification_level (see the profile registry).",
+      "certification_level": 1
+    },
+    "supports_webhooks": {
+      "type": "boolean",
+      "description": "Webhook delivery with signed event envelopes. Optional; recommended for production operators.",
+      "certification_level": null
+    },
+    "supports_federation": {
+      "type": "boolean",
+      "description": "Cross-operator federation. Requires valid manifest, capability negotiation, and Level 2 trace support. Required at the level given by certification_level (see the profile registry).",
+      "certification_level": 3
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "CertificationLevelImplications": {
+      "description": "The minimum capabilities required at each certification level.",
+      "level_0": [
+        "supports_wallets"
+      ],
+      "level_1": [
+        "supports_wallets",
+        "supports_qr",
+        "supports_settlement",
+        "supports_payment_requests",
+        "supports_events"
+      ],
+      "level_2": [
+        "supports_wallets",
+        "supports_qr",
+        "supports_settlement",
+        "supports_payment_requests",
+        "supports_events",
+        "supports_traces"
+      ],
+      "level_3": [
+        "supports_wallets",
+        "supports_qr",
+        "supports_settlement",
+        "supports_payment_requests",
+        "supports_events",
+        "supports_traces",
+        "supports_federation"
+      ],
+      "level_4": [
+        "supports_wallets",
+        "supports_qr",
+        "supports_settlement",
+        "supports_payment_requests",
+        "supports_events",
+        "supports_traces"
+      ]
+    }
+  },
+  "_authority": "contracts/production/conformance-profiles.production.json is the normative definition of which profile requires which capability. The certification_level annotations here MUST agree with it; where they differ, the registry governs. They carried a superseded mapping until this was corrected."
+}

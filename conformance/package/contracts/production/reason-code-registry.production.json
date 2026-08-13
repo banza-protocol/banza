@@ -175,7 +175,7 @@
         },
         {
           "code": "redirect_blocked",
-          "meaning": "Server returned a redirect (3xx). Redirects are never followed (Policy::none())."
+          "meaning": "Server returned a redirect (3xx). Redirects are never followed: a 3xx is a refusal, not a hop."
         },
         {
           "code": "tls_error",

@@ -280,8 +280,8 @@
     },
     {
       "path": "contracts/production/reason-code-registry.production.json",
-      "sha256": "7e5d2f2db3fc892d97cc24e76c0cfb5ff829f979b452fa43dd3360643cbc3ad6",
-      "bytes": 15385
+      "sha256": "7aba829e4136646673e679ba735eb91016873a5051ae555e6ddd03ed00f60852",
+      "bytes": 15399
     },
     {
       "path": "contracts/production/revocation-entry.production.schema.json",
