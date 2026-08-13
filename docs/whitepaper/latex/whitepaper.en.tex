@@ -294,7 +294,7 @@ Incompatible changes are announced with a migration path, allowing temporary coe
 
 \section{Limitations}\label{sec:limitations}
 
-BANZA's guarantees have clear boundaries. They are technical and not regulatory: a positive result demonstrates conformance with a public profile, without implying authorisation to operate, admission to a scheme or a commercial agreement.
+BANZA's guarantees have clear boundaries. They are technical, not regulatory: a positive result demonstrates conformance with a public profile, without implying authorisation to operate, admission to a scheme or a commercial agreement.
 
 Second, they apply to what is observed: reproducibility covers deterministic evaluations over the declared inputs, not the operator's internal controls nor behaviour outside the protocol, and a compromised origin or key is detectable only when the compromise manifests in observable signals or in revocation material.
 
@@ -305,7 +305,7 @@ Fourth, some boundaries follow from the current design: trust material is publis
 
 \section{State}\label{sec:state}
 
-BANZA remains in pre-production: the Technical Registry contains zero production operators and zero active certifications, payments with real money are disabled and the empty registry is the expected state. The reference implementation, Operator Zero, runs in an isolated test environment with demonstration currency, does not move real funds, remains uncertified and is evaluated by the same contracts and the same journey as any other implementation.
+BANZA remains in pre-production: the Technical Registry contains zero production operators and zero active technical certifications, payments with real money are disabled and the empty registry is the expected state. The reference implementation, Operator Zero, runs in an isolated test environment with demonstration currency, moves no real funds, remains uncertified and is evaluated by the same contracts and the same journey as any other implementation.
 
 The normative surface is explicitly indexed, and the set required by each profile derives from that indexing. From it a public distribution was prepared for profile L0, without the reference implementation's code; a package completeness rehearsal verified that the material is closed upon itself, resolving all references internally, with no requirement dependent on the source repository, the decision records or the BanzAI, and identified real questions, since corrected.
 

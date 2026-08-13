@@ -387,7 +387,7 @@
       "blocks": [
         {
           "t": "p",
-          "text": "O BANZA permanece em pré-produção: o Registo Técnico contém zero operadores de produção e zero certificações activas, os pagamentos com dinheiro real estão desactivados e o registo vazio é o estado esperado. A implementação de referência, o Operador Zero, funciona num ambiente de testes isolado com moeda de demonstração, não movimenta fundos reais, permanece não certificada e é avaliada pelos mesmos contratos e pela mesma jornada das restantes implementações."
+          "text": "O BANZA permanece em pré-produção: o Registo Técnico contém zero operadores de produção e zero certificações técnicas activas, os pagamentos com dinheiro real estão desactivados e o registo vazio é o estado esperado. A implementação de referência, o Operador Zero, funciona num ambiente de testes isolado com moeda de demonstração, não movimenta fundos reais, permanece não certificada e é avaliada pelos mesmos contratos e pela mesma jornada das restantes implementações."
         },
         {
           "t": "p",

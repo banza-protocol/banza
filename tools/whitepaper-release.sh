@@ -64,7 +64,14 @@ def shape(d):
     return (tuple(secs), tuple((f["id"],f["n"],f["label"]) for f in d["figures"]))
 assert shape(en)==shape(pt), "PT/EN structural parity broken"
 for d in (en,pt):
-    assert len(d["sections"])==12 and len(d["figures"])==12, "expected 12 sections + 12 figures"
+    # 12 sections is a decided structure and stays rigid. The figure COUNT is the current state of
+    # the edition, not a law: three restatement figures were removed deliberately, and a frozen
+    # count would refuse an approved edition for that. Integrity instead — contiguous numbering,
+    # and PT/EN carrying the same set (already asserted by shape() above).
+    assert len(d["sections"])==12, "expected 12 sections"
+    figs=[f["n"] for f in d["figures"]]
+    assert figs==list(range(1,len(figs)+1)), ("figure numbering not contiguous", figs)
+    assert figs, "no figures"
     tags=[i["n"] for s in d["sections"] for b in s["blocks"] if b["t"]=="eq" for i in b["items"]]
     assert tags==["1a","1b","2","3","4"], f"equation tags {tags}"
 print("  ok: content valid · PT/EN structural parity · 12 sections · equations 1a/1b/2/3/4")

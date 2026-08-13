@@ -30,7 +30,6 @@ for f in "$EN" "$PT" "$MAN" "$EDN"; do [ -f "$f" ] || fail "missing $f"; done
 python3 - "$EN" "$PT" <<'PY' || exit 1
 import json, sys
 en=json.load(open(sys.argv[1])); pt=json.load(open(sys.argv[2]))
-FIGCOUNT=[]
 for d,l in ((en,"en"),(pt,"pt")):
     a=d["authors"]
     assert len(a)==2 and a[0]["display"]=="Fidel R. Monteiro" and a[1]["display"]=="Jesus R. Monteiro", f"{l}: authorship"
@@ -58,6 +57,7 @@ def shape(d):
         secs.append((s["id"], s["number"], s["label"], blocks))
     return (tuple(secs), tuple((f["id"],f["n"],f["label"]) for f in d["figures"]))
 assert shape(en)==shape(pt), "PT/EN structural parity broken"
+FIGCOUNT=[]
 for d,l in ((en,"en"),(pt,"pt")):
     ids=[s["id"] for s in d["sections"]]; nums=[s["number"] for s in d["sections"]]; titles=[s["title"] for s in d["sections"]]
     assert ids==IDS, f"{l}: section ids/order {ids}"
@@ -93,7 +93,7 @@ for p,l in ((sys.argv[2],"pt"),(sys.argv[1],"en")):
     for kind,name in tok.findall(body+" "+d["abstract"]):
         pool=figlab if kind=="fig" else eqlab if kind=="eq" else seclab
         assert f"{kind}:{name}" in pool, f"{l}: unresolved token {kind}:{name}"
-    cited={int(m) for m in re.findall(r"\[(\d)\]", body)}
+    cited={int(m) for m in re.findall(r"\[(\d+)\]", body)}  # \d+ : [10] is a citation too
     assert cited==set(range(1,11)), f"{l}: not all 10 refs cited: {sorted(cited)}"
 print("xref-ok")
 PY
@@ -146,11 +146,15 @@ en=json.load(open(sys.argv[1])); pt=json.load(open(sys.argv[2]))
 def body(d): return " ".join([d["abstract"]]+[b["text"] for s in d["sections"] for b in s["blocks"] if b["t"]=="p"]+[f["caption"] for f in d["figures"]]+[d["citation"]])
 LOW=(body(en)+" "+body(pt)).lower()
 NOREF=(" ".join([x["abstract"] for x in (en,pt)]+[b["text"] for x in (en,pt) for s in x["sections"] for b in s["blocks"] if b["t"]=="p"])).lower()
+# Matched on WORD BOUNDARIES, not as substrings. "BANZA CA" is a certificate authority the protocol
+# does not have; "BANZA Canonical JSON" merely starts with the same letters, and a substring test
+# forbids the second while trying to forbid the first.
+import re as _re
 for t in ["banza ca","regulator-approved","regulator approved","production-proven","trustless",
           "fully decentralised","fully decentralized","primeiro esquema previsto","first intended scheme",
           "interoperabilidade automática","automatic interoperability","certificação automática","automatic certification",
           "banco a","fintech b"]:
-    assert t not in LOW, f"forbidden claim/label: '{t}'"
+    assert not _re.search(r"(?<![\w-])" + _re.escape(t) + r"(?![\w-])", LOW), f"forbidden claim/label: '{t}'"
 for t in ["doi:","isbn","issn"]:
     assert t not in NOREF, f"whitepaper must not claim its own academic identifier: '{t}'"
 # Boundary sentences of the approved canonical edition: guarantees are technical, not regulatory;
