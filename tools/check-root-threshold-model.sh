@@ -51,8 +51,9 @@ echo "  ok: threshold counts distinct authorities, with the accept/reject matrix
 # 3. No superseded or future model presented as current. Negation-aware: a sentence that says BANZA does
 #    NOT use Shamir is the documentation doing its job, not a violation.
 scan() {
-  git ls-files 'docs/**/*.md' 'spec/**/*.md' 'contracts/**/*.json' 'decisions/**/*.md' \
-               'website/content/**/*.md' 2>/dev/null \
+  git ls-files 'docs/*.md' 'docs/**/*.md' 'spec/*.md' 'spec/**/*.md' \
+               'contracts/*.json' 'contracts/**/*.json' 'conformance/**/*.json' \
+               'decisions/**/*.md' 'website/content/**/*.md' 2>/dev/null \
     | grep -v '^docs/audit/' || true
 }
 while IFS= read -r f; do

@@ -1245,7 +1245,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "bde0dbe15b5fe5e7"
+        "checksum": "e4722fa02023b36f"
       },
       {
         "id": "conformance-package-contracts-openapi-activity-yaml",
@@ -1652,7 +1652,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "0900b94db03f338a"
+        "checksum": "b535e41cb3aa9bb9"
       },
       {
         "id": "conformance-qr-suite-json",
@@ -2103,7 +2103,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "bde0dbe15b5fe5e7"
+        "checksum": "e4722fa02023b36f"
       },
       {
         "id": "contracts-openapi-activity-yaml",
@@ -2477,7 +2477,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "4d75e4c8b0352030"
+        "checksum": "264f17b948cdcf85"
       },
       {
         "id": "contracts-production-operation-receipt-production-schema-json",
@@ -5380,7 +5380,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "cb7f132ec2763268"
+    "checksum": "33d67c313c3c6ece"
   },
   "subjects": [
     {
@@ -8741,5 +8741,5 @@
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "01b86bbd9e75bc7d"
+  "checksum": "5f0b5683067f573d"
 }

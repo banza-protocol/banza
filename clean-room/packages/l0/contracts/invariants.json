@@ -173,7 +173,7 @@
       "statement": "Issuing keys have a maximum validity of 184 days; the root key has a maximum validity of 24 months.",
       "source": "docs/reference/en/complete.md:827" },
     { "id": "INV-ROOT-007", "family": "ROOT", "title": "No single-entity root control", "severity": "critical",
-      "statement": "No operator, server, domain, participant, or individual entity may solely control the maximum authority of the BANZA protocol. Root custody requires threshold control (2-of-2 at the root bootstrap; future 3-of-5 Shamir).",
+      "statement": "No operator, server, domain, participant, or individual entity may solely control the maximum authority of the BANZA protocol. Root custody requires threshold control: three independent root signing authorities, any two of which authorise a root action.",
       "source": "docs/governance/BANZA_TRUST_ARCHITECTURE.md" },
     { "id": "INV-ROOT-008", "family": "ROOT", "title": "Delegated authority is bounded", "severity": "high",
       "statement": "No delegated signing key may exercise authority beyond the scope the active Trust Root explicitly delegates to it. Verification MUST check both that the signature is valid and that the signed artifact falls within the key's delegated scope, resolved from the active Trust Root / Key Manifest and never self-asserted.",

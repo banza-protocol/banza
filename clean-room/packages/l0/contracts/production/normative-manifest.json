@@ -204,7 +204,7 @@
       "class": "NORMATIVE_REGISTRY",
       "tier": "implementation",
       "role": "The machine-readable registry of protocol invariants. spec/invariants.md is its human-readable restatement and is deliberately not listed: it declares this file the single source of truth.",
-      "sha256": "bde0dbe15b5fe5e7f1ed74088213c0696179c9c6d25abdbd8af9aaa4d0fdb280"
+      "sha256": "e4722fa02023b36f703234fb77f3b3122d2831ca4611013bf00c1409977d63ec"
     },
     {
       "path": "contracts/openapi/activity.yaml",
