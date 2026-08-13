@@ -181,6 +181,13 @@ print("web-block-ok")
 PY
 ok "BANZA na Web — canonical banza.network + github.com/banza-protocol/banza (no invented URLs)"
 
+# NOTE ON TEXT NORMALISATION. Checks in this file that compare strings against text extracted from a
+# PDF may normalise NFKC first, because pdftotext emits `fi`/`fl` as single ligature glyphs and a
+# literal probe would report present text as missing. That normalisation belongs to PDF QA ONLY. It
+# must never be carried into BCJ/1, signing inputs, digests, request identity, normative string
+# comparison or capability identifiers: BCJ/1 applies no verifier-side Unicode normalisation, by
+# design, and the Whitepaper now states so. Comparing rendered glyphs is not comparing signed bytes.
+
 # ── 8. released PDFs: present, no DRAFT, AT MOST 12 pages, 2026 internal date (no 2025) ───────────────────────
 for L in en pt; do
   P="$PDFDIR/banza-whitepaper-v1.0-$L.pdf"

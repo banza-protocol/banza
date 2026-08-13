@@ -180,3 +180,16 @@ Three false negatives in this audit came from the same cause: `pdftotext` emits 
 single ligature glyphs, so `conflito`, `perfil` and `desafios` did not match literal probes. Every
 check above normalises with NFKC before comparing. A verification that reports a mechanism missing
 when it is present is worse than no verification, because it invites an edit that was never needed.
+
+### Where that normalisation may and may not be used
+
+**NFKC here is a QA transformation applied to text extracted from a PDF, and nothing else.** It
+repairs an artefact of extraction — a typographic ligature that the renderer produced and the author
+never wrote.
+
+It is **not** part of BANZA, and must never be introduced into: BCJ/1 canonicalization, signing
+inputs, digests, request identity, normative string comparison, or capability identifiers. BCJ/1
+deliberately applies **no verifier-side Unicode normalisation**, and that property is now stated in
+the Whitepaper itself (§2). A reader who sees "we normalise NFKC before comparing" in this report
+must not conclude that the protocol does the same: the protocol compares the bytes it was given, and
+this report compares what a PDF renderer emitted.
