@@ -1,8 +1,31 @@
 #!/usr/bin/env python3
-# BANZA Whitepaper — generate the EN dossier (docs/whitepaper/latex/whitepaper.en.tex) from the
-# canonical PT dossier template + the official EN translation (content/en.json). Structural
-# transform only: same copernicus composition, EN text. --check fails on drift.
-import json, re, sys
+# RETIRED FROM THE CANONICAL RELEASE PATH — DO NOT USE TO GENERATE THE EN WHITEPAPER.
+#
+# This composed docs/whitepaper/latex/whitepaper.en.tex from content/en.json. That direction made a
+# derived representation the generation authority for an official edition — the same mistake that
+# tools/whitepaper-latex.py made for PT, where composing the .tex from JSON silently recomposed an
+# approved edition. The English edition is now written and maintained as LaTeX, translated from the
+# frozen canonical PT dossier, and content/en.json is DERIVED from it by tools/whitepaper-content.py.
+#
+# Direction, for both languages:
+#     whitepaper.<lang>.tex  ->  content/<lang>.json      allowed
+#     content/<lang>.json    ->  whitepaper.<lang>.tex    forbidden
+#
+# tools/check-whitepaper-canonical-source-boundary.sh fails the build if this script re-enters the
+# release path. Kept only as historical reference; running it aborts.
+import sys
+
+print(
+    "whitepaper-en-dossier: RETIRED. This tool composed whitepaper.en.tex from content/en.json,\n"
+    "which makes a derived representation the authority for an official edition. The EN dossier is\n"
+    "now the editorial source: edit docs/whitepaper/latex/whitepaper.en.tex and derive the JSON with\n"
+    "    python3 tools/whitepaper-content.py en",
+    file=sys.stderr)
+sys.exit(2)
+
+# ── everything below is the retired implementation, kept for reference only ──────────────────────
+RETIRED_BELOW = True
+
 
 PT_TEX = 'docs/whitepaper/latex/whitepaper.pt.tex'
 EN_JSON = 'docs/whitepaper/content/en.json'

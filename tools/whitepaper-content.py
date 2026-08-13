@@ -1,13 +1,27 @@
 #!/usr/bin/env python3
-# BANZA Whitepaper — derive content/pt.json (web edition source) from the CANONICAL PT dossier
-# (docs/whitepaper/latex/whitepaper.pt.tex, the approved Overleaf edition). The dossier is the
-# canonical source; this derivation keeps the online edition in sync. --check regenerates to a
-# temp file and fails on drift (used by whitepaper-release/verify).
-import json, re
+# BANZA Whitepaper — derive content/<lang>.json from the LaTeX dossier of that edition.
+#
+#     python3 tools/whitepaper-content.py pt|en [--check]
+#
+# DIRECTION IS THE POINT. The .tex is the editorial source; the JSON is a derived representation for
+# the website, search and other structured consumers. The reverse — composing a .tex from JSON — was
+# retired after it silently recomposed an approved edition, and the canonical-source boundary guard
+# fails the build if it re-enters the release path.
+#
+# The PT dossier is the CANONICAL edition of the Whitepaper. The EN dossier is the editorial source of
+# the official translation; it does not acquire independent semantic authority, and on unintended
+# divergence the Portuguese edition prevails.
+#
+# The dossier decides membership: which sections, paragraphs, figures, captions and references exist,
+# and in what order. The previous JSON supplies stable ids only for things the dossier still contains.
+import json, re, sys
 
-SRC = 'docs/whitepaper/latex/whitepaper.pt.tex'
-OLD = 'docs/whitepaper/content/pt.json'
-OUT = 'docs/whitepaper/content/pt.json'
+LANG = next((a for a in sys.argv[1:] if not a.startswith('-')), 'pt')
+assert LANG in ('pt', 'en'), 'usage: whitepaper-content.py pt|en [--check]'
+
+SRC = 'docs/whitepaper/latex/whitepaper.%s.tex' % LANG
+OLD = 'docs/whitepaper/content/%s.json' % LANG
+OUT = OLD
 
 s = open(SRC).read()
 body = s[s.find(r'\begin{document}'):]
@@ -125,15 +139,16 @@ for sec in new_secs:
         for txt in ([b.get('text')] if b['t'] == 'p' else b.get('items', []) if b['t'] == 'list' else []):
             if txt:
                 assert '\\' not in txt.replace('\\(', '').replace('\\)', '').replace('\\,', '') or True
-import sys, tempfile, subprocess
 if '--check' in sys.argv:
     import io
     cur = open(OUT).read()
     buf = json.dumps(new, ensure_ascii=False, indent=2) + '\n'
     if cur != buf:
-        print('whitepaper-pt-content: DRIFT — content/pt.json does not match the canonical PT dossier', file=sys.stderr)
+        print('whitepaper-content: DRIFT — content/%s.json does not match the %s dossier.\n'
+              '  Fix by editing docs/whitepaper/latex/whitepaper.%s.tex and regenerating; never edit both.'
+              % (LANG, LANG.upper(), LANG), file=sys.stderr)
         sys.exit(1)
-    print('whitepaper-pt-content: ok — pt.json matches the canonical dossier')
+    print('whitepaper-content: ok — %s.json matches the %s dossier' % (LANG, LANG.upper()))
     sys.exit(0)
 json.dump(new, open(OUT, 'w'), ensure_ascii=False, indent=2)
 open(OUT, 'a').write('\n')
@@ -141,4 +156,5 @@ kinds = {}
 for sec in new_secs:
     for b in sec['blocks']:
         kinds[b['t']] = kinds.get(b['t'], 0) + 1
-print('written. kinds:', kinds, '| captions updated:', len(caption_updates))
+print('written %s.json. kinds: %s | captions: %d | figures: %d | references: %d'
+      % (LANG, kinds, len(caption_updates), len(new['figures']), len(refs)))

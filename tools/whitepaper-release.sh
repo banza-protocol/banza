@@ -134,8 +134,8 @@ if [ "$MODE" = "verify" ]; then
   validate_content
   # canonical direction: the PT dossier is the source; pt.json (web edition) and the EN dossier
   # must both re-derive byte-identically from it (no writes in verify).
-  python3 tools/whitepaper-pt-content.py --check || { echo "whitepaper-release: ABORT — pt.json drifted from the canonical PT dossier"; exit 1; }
-  python3 tools/whitepaper-en-dossier.py --check || { echo "whitepaper-release: ABORT — whitepaper.en.tex drifted from PT dossier + en.json"; exit 1; }
+  python3 tools/whitepaper-content.py pt --check || { echo "whitepaper-release: ABORT — pt.json drifted from the PT dossier"; exit 1; }
+  python3 tools/whitepaper-content.py en --check || { echo "whitepaper-release: ABORT — en.json drifted from the EN dossier"; exit 1; }
   build_editions "$TMP"
   verify_bundle_digest
   rc=0
@@ -165,8 +165,8 @@ fi
 echo "== whitepaper-release (CANONICAL · LaTeX/tectonic → xdvipdfmx) =="
 validate_content
 # 3. canonical direction: PT dossier is the source — re-derive pt.json (web edition) and the EN dossier
-python3 tools/whitepaper-pt-content.py >/dev/null
-python3 tools/whitepaper-en-dossier.py >/dev/null
+python3 tools/whitepaper-content.py pt >/dev/null
+python3 tools/whitepaper-content.py en >/dev/null
 echo "  ok: pt.json (web edition) + EN dossier derived from the canonical PT dossier"
 # 4–7. compile + verify (12 pp, engine, date, no draft, 0 undefined/overfull) + pinned bundle digest
 build_editions "$TMP"
