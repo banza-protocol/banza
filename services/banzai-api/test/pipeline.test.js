@@ -22,7 +22,7 @@ function trunkStub(overrides = {}) {
       status: "grounded",
       answer_markdown: "A BANZA é um protocolo financeiro aberto (ADR-001).",
       cited_source_ids: ["ADR-001"],
-      package: { facts: [{ id: "F1", source: { document_id: "ADR-001", title: "ADR-001 — Protocolo aberto", path: "decisions/adr/ADR-001-open-protocol.md" } }] },
+      package: { facts: [{ id: "F1", source: { document_id: "ADR-001", title: "ADR-001 — Protocolo aberto", path: "decisions/adr/ADR-001-open-financial-protocol-what-banza-is-and-is-not.md" } }] },
       primary_intent: "explain_concept",
       clarification_candidates: [],
       trace: { synthesis_called: true, entry_status: "ok", output_status: "ok", model: "qwen2.5-7b", facts_count: 1 },
@@ -536,7 +536,7 @@ test("ADR-042 — an authority-claiming grounded answer is BLOCKED and degrades 
 });
 
 test("ADR-042 — a cited id with no package fact is an unsupported claim → BLOCKED", async () => {
-  const stub = trunkStub({ cited_source_ids: ["ADR-X999"] }); // package only has ADR-001
+  const stub = trunkStub({ cited_source_ids: ["ADR-999"] }); // package only has ADR-001
   const { pipeline } = pipe({}, stub);
   const { meta } = await pipeline.answer("O que é BANZA?");
   assert.equal(meta.fallback_reason, "post_validation_unsupported_claim");

@@ -22,7 +22,7 @@ cd "$(dirname "$0")/.."
 SCHEMA="contracts/production/regulatory-state.production.schema.json"
 VALID="contracts/production/examples/regulatory-state.valid.json"
 INVALID="contracts/production/examples/regulatory-state.invalid-authorised-claim.json"
-ADR062="decisions/adr/ADR-005-regulatory-state-boundary-and-real-money-gate.md"
+ADR062="decisions/adr/ADR-005-regulatory-state-boundary-and-the-real-money-activation-gate.md"
 
 fail=0
 

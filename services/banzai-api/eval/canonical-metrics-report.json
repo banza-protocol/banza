@@ -2,19 +2,19 @@
   "schema_version": 1,
   "milestone": "Increment 7 — canonical eval reconciliation + ≥2500 cases + final metrics (§18-§20)",
   "generated_by": "eval/canonical-metrics.mjs (deterministic; committed Rust WASM; no model, no network)",
-  "total_cases": 2791,
+  "total_cases": 2569,
   "verdict": "PASS",
   "accuracy": {
     "intent_accuracy": {
       "value": 1,
-      "passed": 2692,
-      "total": 2692,
+      "passed": 2470,
+      "total": 2470,
       "floor": 1
     },
     "entity_resolution_accuracy": {
       "value": 1,
-      "passed": 1859,
-      "total": 1859,
+      "passed": 1637,
+      "total": 1637,
       "floor": 1
     },
     "artifact_resolution_accuracy": {
@@ -25,8 +25,8 @@
     },
     "tool_selection_accuracy": {
       "value": 1,
-      "passed": 2163,
-      "total": 2163,
+      "passed": 1941,
+      "total": 1941,
       "floor": 1
     },
     "metric_resolution_accuracy": {
@@ -110,7 +110,7 @@
     },
     "llm_authoritative_decisions": {
       "violations": 0,
-      "applicable": 2791,
+      "applicable": 2569,
       "rate": 0
     }
   },
@@ -118,12 +118,12 @@
     "base": 46,
     "variation": 643,
     "live": 1165,
-    "regression": 677,
+    "regression": 455,
     "multi_turn": 61,
     "negative": 199
   },
   "by_family": {
-    "concepts": 958,
+    "concepts": 736,
     "procedures": 30,
     "security": 14,
     "apis": 32,

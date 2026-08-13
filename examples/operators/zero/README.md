@@ -12,12 +12,12 @@
 > **Rust decide · Qwen explica.** O Operador Zero é validado exclusivamente no modo de validação do
 > BanzAI: `/banzai?mode=validation&target=operator-zero&workflow=full`.
 
-Decisão actual: [ADR-041](../../../decisions/adr/ADR-041-operador-zero-read-only-reference-and-banzai-validation-workbench.md)
+Decisão actual: [ADR-041](../../../decisions/adr/ADR-041-operator-zero-the-read-only-reference-implementation.md)
 (implementação de referência só-leitura + validação no BanzAI). O ADR-041 **substitui o enquadramento
 anterior** do
-[ADR-041](../../../decisions/adr/ADR-041-operador-zero-reference-payment-operator-simulator.md) — cujo nome
+[ADR-041](../../../decisions/adr/ADR-041-operator-zero-the-read-only-reference-implementation.md) — cujo nome
 de ficheiro conserva "simulator" apenas como identificador arquival estável — e do
-[ADR-041](../../../decisions/adr/ADR-041-operator-zero-only-demo-and-example-policy.md) (decisões anteriores).
+[ADR-041](../../../decisions/adr/ADR-041-operator-zero-the-read-only-reference-implementation.md) (decisões anteriores).
 Referência pública: [`/referencia/operador-zero`](https://banza.network/referencia/operador-zero).
 
 ---

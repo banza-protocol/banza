@@ -2,7 +2,7 @@
 
 > How BanzAI decides how to answer, and how every answer honestly reports the path it took.
 
-- **Governing decisions:** [ADR-042](../../decisions/adr/ADR-042-banzai-qwen-first-grounded-routing.md) (Qwen-first routing) · [ADR-042](../../decisions/adr/ADR-042-banzai-per-answer-execution-path-metadata.md) (per-answer metadata) · [ADR-042](../../decisions/adr/ADR-042-banzai-disable-qwen-reasoning-prefix-warmup.md) (reasoning disabled)
+- **Governing decisions:** [ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md) (Qwen-first routing) · [ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md) (per-answer metadata) · [ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md) (reasoning disabled)
 - **Where it lives:** the routing policy is **Rust** (`engines/banzai-api-kb` → `route.rs`), executed by `services/banzai-api` (`pipeline.js` is thin glue)
 - **Status:** implemented and deployed
 

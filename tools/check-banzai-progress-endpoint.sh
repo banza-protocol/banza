@@ -163,7 +163,7 @@ const path = require("path");
         opts.onProgress("SYNTHESIS_STARTED", { model: "qwen-test" });
         opts.onProgress("SYNTHESIS_COMPLETED", { output_status: "ok" });
       }
-      return { status: "grounded", answer_markdown: ANSWER, cited_source_ids: ["ADR-001"], package: { facts: [{ id: "F1", source: { document_id: "ADR-001", title: "ADR-001", path: "decisions/adr/ADR-001-open-protocol.md" } }] }, primary_intent: "explain_concept", clarification_candidates: [], trace: { synthesis_called: true, entry_status: "ok", output_status: "ok", model: "qwen-test" }, ...over };
+      return { status: "grounded", answer_markdown: ANSWER, cited_source_ids: ["ADR-001"], package: { facts: [{ id: "F1", source: { document_id: "ADR-001", title: "ADR-001", path: "decisions/adr/ADR-001-open-financial-protocol-what-banza-is-and-is-not.md" } }] }, primary_intent: "explain_concept", clarification_candidates: [], trace: { synthesis_called: true, entry_status: "ok", output_status: "ok", model: "qwen-test" }, ...over };
     };
     fn.calls = calls; return fn;
   };

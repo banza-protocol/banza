@@ -17,7 +17,7 @@ presents a Payment Session resolves, when scanned, to that session and credits t
 session's destination (which MAY be a segregated Wallet Account, ADR-019) — exactly
 like the session's payment link. The QR carries only an opaque session reference,
 never an internal account id, and an application never generates a financial QR (the
-operator renders it). See [ADR-015](../../decisions/adr/ADR-015-payment-session-unified-payment-interface.md)
+operator renders it). See [ADR-015](../../decisions/adr/ADR-015-payment-session.md)
 and [`contracts/payment-sessions/`](../payment-sessions/).
 
 ## The two QR types

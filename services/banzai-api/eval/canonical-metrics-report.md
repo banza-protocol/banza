@@ -1,7 +1,7 @@
 # BanzAI Canonical Eval — Metrics Report (Increment 7, §20)
 
 - Schema version: 1
-- Total cases: **2791** (floor 2500)
+- Total cases: **2569** (floor 2500)
 - Driver: committed Rust WASM (query-core) via canonical-checks.evaluate — hermetic, 0 model calls, 0 network
 - Verdict: **PASS**
 
@@ -9,10 +9,10 @@
 
 | metric | value | floor | applicable cases |
 |---|---|---|---|
-| intent_accuracy | 1.0000 | 1.00 | 2692 |
-| entity_resolution_accuracy | 1.0000 | 1.00 | 1859 |
+| intent_accuracy | 1.0000 | 1.00 | 2470 |
+| entity_resolution_accuracy | 1.0000 | 1.00 | 1637 |
 | artifact_resolution_accuracy | 1.0000 | 1.00 | 1125 |
-| tool_selection_accuracy | 1.0000 | 1.00 | 2163 |
+| tool_selection_accuracy | 1.0000 | 1.00 | 1941 |
 | metric_resolution_accuracy | 1.0000 | 1.00 | 1220 |
 | aggregation_accuracy | 1.0000 | 1.00 | 56 |
 | citation_precision | 1.0000 | 1.00 | 7 |
@@ -32,11 +32,11 @@
 | mixed_incompatible_executions | 0 | 4 |
 | single_observation_presented_as_average | 0 | 3 |
 | dead_source_citations | 0 | 3 |
-| llm_authoritative_decisions | 0 | 2791 |
+| llm_authoritative_decisions | 0 | 2569 |
 
 ## Coverage
 
-By class: base=46 · variation=643 · live=1165 · regression=677 · multi_turn=61 · negative=199
+By class: base=46 · variation=643 · live=1165 · regression=455 · multi_turn=61 · negative=199
 
-By family: concepts=958 · procedures=30 · security=14 · apis=32 · governance=41 · profiles=24 · duration=23 · metrics=76 · reason_codes=138 · diagnosis=16 · reproduction=14 · hypotheses=17 · comparison=23 · artifacts=1125 · multi_turn=61 · negative=199
+By family: concepts=736 · procedures=30 · security=14 · apis=32 · governance=41 · profiles=24 · duration=23 · metrics=76 · reason_codes=138 · diagnosis=16 · reproduction=14 · hypotheses=17 · comparison=23 · artifacts=1125 · multi_turn=61 · negative=199
 

@@ -19,7 +19,7 @@ Humanos mantêm e evoluem o protocolo; não autorizam, aceitam, aprovam ou certi
 independentes são responsáveis pelo seu próprio enquadramento legal, regulatório, financeiro e operacional.
 
 Origem normativa:
-[ADR-027](../../decisions/adr/ADR-027-open-protocol-trust-model-without-ca.md) — modelo de confiança do
+[ADR-027](../../decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md) — modelo de confiança do
 protocolo aberto;
 [ADR-033](../../decisions/adr/ADR-033-operator-self-publication-and-machine-verifiable-conformance.md) —
 auto-publicação e conformidade verificável por máquina;
@@ -246,7 +246,7 @@ operadores.
 
 ## Referências
 
-- [ADR-027](../../decisions/adr/ADR-027-open-protocol-trust-model-without-ca.md) — modelo de confiança do protocolo aberto
+- [ADR-027](../../decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md) — modelo de confiança do protocolo aberto
 - [ADR-033](../../decisions/adr/ADR-033-operator-self-publication-and-machine-verifiable-conformance.md) — auto-publicação e conformidade verificável por máquina
 - [ADR-031](../../decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md) — avaliação de confiança de federação
 - [FEDERATION_TRUST_MODEL.md](./FEDERATION_TRUST_MODEL.md) — a `Open Trust Evaluation` e a sua fronteira

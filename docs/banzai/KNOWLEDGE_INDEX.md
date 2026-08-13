@@ -2,7 +2,7 @@
 
 > Where BanzAI's answers are grounded. Everything is local to the host; there is no external retrieval.
 
-- **Governing decisions:** [ADR-042](../../decisions/adr/ADR-042-banzai-qwen-first-grounded-routing.md) (grounded routing + conversational context) · [ADR-042](../../decisions/adr/ADR-042-banzai-protocol-agent-core.md) (documentary index)
+- **Governing decisions:** [ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md) (grounded routing + conversational context) · [ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md) (documentary index)
 - **Where it lives:** retrieval/normalization/scoring are **Rust** (`engines/banzai-api-kb`); the documentary indexer is **Rust** (`engines/banzai-doc-indexer`); `services/banzai-api/src/knowledge.js` holds only curated DATA + thin glue
 - **Status:** implemented and deployed
 

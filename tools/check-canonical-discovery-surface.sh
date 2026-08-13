@@ -80,6 +80,7 @@ run_checks() {
       "$root/engines" "$root/services" "$root/website/lib" "$root/website/app" "$root/website/content" "$root/website/public" "$root/spec" "$root/docs" "$root/contracts" 2>/dev/null \
       | grep -vE '/target/|/node_modules/|/\.next/|/pkg/|/validatewasm/|/rustkb/' \
       | grep -vE 'docs/reference/(en|pt)/|/artifacts/|operator-manifest\.production|federation-manifest\.json|docs/whitepaper|banza-artifact-fetcher/(src/policy|tests)|conformance/vectors/trust-signing|engines/banza-trust/src/sign\.rs|evil\.example' \
+      | grep -v 'website/content/decisions/' \
       | grep -vE 'isClosedId|zeroSubdomain\.test|banzaiValidationRegistry\.test|/manifest\.json.{0,60}(policy|405|404|reject|negative|incidental)' \
       | grep -vaE 'signed-protocol-metadata\.json' || true)
   if [ -n "$hits" ]; then

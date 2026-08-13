@@ -6,7 +6,7 @@
 > rules and helps prepare evidence. It never becomes the rules, and it is not mandatory for
 > machine-to-machine integration — APIs, manifests, schemas and endpoints stay verifiable without it.
 
-- **Governing decision:** [ADR-042](../../decisions/adr/ADR-042-banzai-native-protocol-agent.md) (identity) · [ADR-042](../../decisions/adr/ADR-042-banzai-protocol-agent-core.md) (agent core)
+- **Governing decision:** [ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md) (identity) · [ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md) (agent core)
 - **Public interface:** a single route — `banza.network/banzai` (ADR-042) — served same-origin
 - **Status:** implemented and deployed on the reference deployment; **pre-production**
 - **Audience:** protocol maintainers + operators of the reference deployment (English is fine on this dev surface)

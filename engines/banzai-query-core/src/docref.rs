@@ -76,7 +76,7 @@ impl RegistryDoc {
     }
 }
 
-/// Parse "ADR-002 — Ecosystem Naming Inversion" → ("ADR", 2, "ADR-002", "ecosystem naming inversion").
+/// Parse "ADR-002 — Ecosystem naming: BANZA, BanzAI and operators" → ("ADR", 2, "ADR-002", the alias).
 fn parse_title(title: &str) -> Option<(&'static str, u32, String, String)> {
     let t = title.trim();
     let (kind, rest) = if let Some(r) = t.strip_prefix("ADR-") {
@@ -585,8 +585,12 @@ pub fn document_lookup_card(question: &str, document_id: &str) -> Option<Documen
     }
 
     let kind_label = if doc.kind == "RFC" { "RFC" } else { "ADR" };
+    // The ADR tree is current-only by policy: a record that is present is in force, and records that
+    // stop being true are rewritten or removed rather than marked superseded. So an absent status line
+    // is not missing information — it is the policy. Saying "não declarado" would invite the reader to
+    // wonder whether the decision still stands.
     let status = if doc.status.is_empty() {
-        "não declarado".to_string()
+        if doc.kind == "RFC" { "publicada".to_string() } else { "em vigor".to_string() }
     } else {
         doc.status.clone()
     };
@@ -642,15 +646,12 @@ mod tests {
         assert_eq!(d.id, "ADR-002");
         assert_eq!(
             d.path,
-            "decisions/adr/ADR-002-ecosystem-naming-inversion.md"
+            "decisions/adr/ADR-002-ecosystem-naming-banza-banzai-and-operators.md"
         );
-        assert!(d.title.contains("Ecosystem Naming Inversion"));
+        assert!(d.title.contains("Ecosystem naming"));
         assert!(!d.chunk_idx.is_empty(), "must carry its indexed chunks");
-        assert!(
-            d.status.to_lowercase().contains("accepted"),
-            "status parsed: {:?}",
-            d.status
-        );
+        // No status assertion: the current-only tree carries no status header, and a present record
+        // is in force by policy (see the ADR on the current-only canonical tree).
     }
 
     #[test]
@@ -695,17 +696,17 @@ mod tests {
 
     #[test]
     fn a_title_alias_resolves_without_a_number() {
-        let refs = detect_refs("o que é a ecosystem naming inversion?");
+        let refs = detect_refs("o que é o ecosystem naming: banza, banzai and operators?");
         assert_eq!(refs.first().map(|r| r.id.as_str()), Some("ADR-002"));
         assert_eq!(refs[0].via, "alias");
     }
 
     #[test]
     fn a_missing_document_is_reported_as_not_found_never_invented() {
-        let r = resolve_question("Explica o ADR-X999");
+        let r = resolve_question("Explica o ADR-999");
         assert!(r.detected, "the reference itself must be recognised");
-        assert!(!r.found, "ADR-X999 does not exist and must not resolve");
-        assert!(resolve("ADR-X999").is_none());
+        assert!(!r.found, "ADR-999 does not exist and must not resolve");
+        assert!(resolve("ADR-999").is_none());
     }
 
     #[test]
@@ -794,7 +795,7 @@ mod tests {
         let j = resolve_question_json("Explica o ADR-002");
         assert!(j.contains("\"found\":true"));
         assert!(j.contains("ADR-002"));
-        assert!(j.contains("decisions/adr/ADR-002-ecosystem-naming-inversion.md"));
+        assert!(j.contains("decisions/adr/ADR-002-ecosystem-naming-banza-banzai-and-operators.md"));
         assert!(j.contains("\"sources\":[{"), "must carry canonical sources");
         assert!(j.contains("\"content_hash\""));
     }
@@ -816,11 +817,11 @@ mod tests {
         // validator requires (título/estado/data/caminho) so it is a clean, structured lookup — 0 model
         // calls. Every written form the resolver produces: "ADR 002" / "ADR-002" / "adr002" / "ADR-6".
         for (q, id, frag) in [
-            ("ADR 002", "ADR-002", "Ecosystem Naming Inversion"),
-            ("ADR-002", "ADR-002", "Ecosystem Naming Inversion"),
-            ("adr002", "ADR-002", "Ecosystem Naming Inversion"),
-            ("ADR 006", "ADR-011", "ADR-011"),
-            ("ADR-6", "ADR-011", "ADR-011"),
+            ("ADR 002", "ADR-002", "Ecosystem naming"),
+            ("ADR-002", "ADR-002", "Ecosystem naming"),
+            ("adr002", "ADR-002", "Ecosystem naming"),
+            ("ADR 006", "ADR-006", "ADR-006"),
+            ("ADR-6", "ADR-006", "ADR-006"),
         ] {
             let c = document_lookup_card(q, "").unwrap_or_else(|| panic!("no card for {q:?}"));
             assert!(c.matched);

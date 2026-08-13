@@ -542,7 +542,7 @@ mod tests {
         // "trust" (5 chars but a real word) — must stay; "qr" too short; digits never change.
         let r = recover("trust");
         assert!(r.corrections.iter().all(|c| c.from != "trust") || r.band == Band::Exact);
-        let r2 = recover("adr 053");
+        let r2 = recover("adr 041");
         assert!(
             r2.corrections.is_empty(),
             "ids must not be fuzzy-corrected: {r2:?}"

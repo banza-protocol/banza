@@ -2,11 +2,11 @@
   "milestone": "M2.18B.3A canonical corpus integrity",
   "summary": {
     "total": 51,
-    "ok": 45,
-    "discoverable": 50,
-    "resolvable": 46,
-    "citable": 46,
-    "index_chunks": 778,
+    "ok": 51,
+    "discoverable": 51,
+    "resolvable": 51,
+    "citable": 51,
+    "index_chunks": 607,
     "adr": 45,
     "rfc": 6
   },
@@ -15,7 +15,7 @@
       "id": "ADR-001",
       "kind": "adr",
       "file": "decisions/adr/ADR-001-open-financial-protocol-what-banza-is-and-is-not.md",
-      "chunks": 15,
+      "chunks": 5,
       "discoverable": true,
       "resolvable": true,
       "citable": true,
@@ -47,9 +47,9 @@
       "file": "decisions/adr/ADR-004-technical-certification-is-not-scheme-admission-and-not-regu.md",
       "chunks": 5,
       "discoverable": true,
-      "resolvable": false,
-      "citable": false,
-      "ok": false
+      "resolvable": true,
+      "citable": true,
+      "ok": true
     },
     {
       "id": "ADR-005",
@@ -85,7 +85,7 @@
       "id": "ADR-008",
       "kind": "adr",
       "file": "decisions/adr/ADR-008-protocol-infrastructure-independent-of-any-operator.md",
-      "chunks": 16,
+      "chunks": 5,
       "discoverable": true,
       "resolvable": true,
       "citable": true,
@@ -115,7 +115,7 @@
       "id": "ADR-011",
       "kind": "adr",
       "file": "decisions/adr/ADR-011-double-entry-ledger-and-monetary-precision.md",
-      "chunks": 10,
+      "chunks": 5,
       "discoverable": true,
       "resolvable": true,
       "citable": true,
@@ -165,7 +165,7 @@
       "id": "ADR-016",
       "kind": "adr",
       "file": "decisions/adr/ADR-016-qr-payments.md",
-      "chunks": 5,
+      "chunks": 4,
       "discoverable": true,
       "resolvable": true,
       "citable": true,
@@ -205,7 +205,7 @@
       "id": "ADR-020",
       "kind": "adr",
       "file": "decisions/adr/ADR-020-wallet-payments-and-the-refund-source-model.md",
-      "chunks": 10,
+      "chunks": 5,
       "discoverable": true,
       "resolvable": true,
       "citable": true,
@@ -225,11 +225,11 @@
       "id": "ADR-022",
       "kind": "adr",
       "file": "decisions/adr/ADR-022-transaction-proof-and-public-verification.md",
-      "chunks": 15,
+      "chunks": 5,
       "discoverable": true,
-      "resolvable": false,
-      "citable": false,
-      "ok": false
+      "resolvable": true,
+      "citable": true,
+      "ok": true
     },
     {
       "id": "ADR-023",
@@ -245,7 +245,7 @@
       "id": "ADR-024",
       "kind": "adr",
       "file": "decisions/adr/ADR-024-idempotency.md",
-      "chunks": 10,
+      "chunks": 5,
       "discoverable": true,
       "resolvable": true,
       "citable": true,
@@ -267,34 +267,34 @@
       "file": "decisions/adr/ADR-026-postgresql-as-protocol-state-store-not-a-ledger.md",
       "chunks": 5,
       "discoverable": true,
-      "resolvable": false,
-      "citable": false,
-      "ok": false
+      "resolvable": true,
+      "citable": true,
+      "ok": true
     },
     {
       "id": "ADR-027",
       "kind": "adr",
       "file": "decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md",
-      "chunks": 15,
+      "chunks": 5,
       "discoverable": true,
-      "resolvable": false,
-      "citable": false,
-      "ok": false
+      "resolvable": true,
+      "citable": true,
+      "ok": true
     },
     {
       "id": "ADR-028",
       "kind": "adr",
       "file": "decisions/adr/ADR-028-root-authorization-three-authorities-threshold-two.md",
-      "chunks": 0,
-      "discoverable": false,
+      "chunks": 5,
+      "discoverable": true,
       "resolvable": true,
       "citable": true,
-      "ok": false
+      "ok": true
     },
     {
       "id": "ADR-029",
       "kind": "adr",
-      "file": "decisions/adr/ADR-029-private-keys-never-reside-on-serving-infrastructure.md",
+      "file": "decisions/adr/ADR-029-keys-never-on-serving-infrastructure.md",
       "chunks": 4,
       "discoverable": true,
       "resolvable": true,
@@ -327,9 +327,9 @@
       "file": "decisions/adr/ADR-032-kyc-stays-operator-policy-only-trust-assertions-federate.md",
       "chunks": 5,
       "discoverable": true,
-      "resolvable": false,
-      "citable": false,
-      "ok": false
+      "resolvable": true,
+      "citable": true,
+      "ok": true
     },
     {
       "id": "ADR-033",
@@ -375,7 +375,7 @@
       "id": "ADR-037",
       "kind": "adr",
       "file": "decisions/adr/ADR-037-canonical-discovery-surface.md",
-      "chunks": 8,
+      "chunks": 5,
       "discoverable": true,
       "resolvable": true,
       "citable": true,
@@ -395,7 +395,7 @@
       "id": "ADR-039",
       "kind": "adr",
       "file": "decisions/adr/ADR-039-conformance-profiles-and-capability-vocabulary.md",
-      "chunks": 10,
+      "chunks": 5,
       "discoverable": true,
       "resolvable": true,
       "citable": true,
@@ -415,7 +415,7 @@
       "id": "ADR-041",
       "kind": "adr",
       "file": "decisions/adr/ADR-041-operator-zero-the-read-only-reference-implementation.md",
-      "chunks": 14,
+      "chunks": 5,
       "discoverable": true,
       "resolvable": true,
       "citable": true,
@@ -425,7 +425,7 @@
       "id": "ADR-042",
       "kind": "adr",
       "file": "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
-      "chunks": 97,
+      "chunks": 5,
       "discoverable": true,
       "resolvable": true,
       "citable": true,
@@ -522,66 +522,5 @@
       "ok": true
     }
   ],
-  "gaps": [
-    {
-      "id": "ADR-004",
-      "kind": "adr",
-      "file": "decisions/adr/ADR-004-technical-certification-is-not-scheme-admission-and-not-regu.md",
-      "chunks": 5,
-      "discoverable": true,
-      "resolvable": false,
-      "citable": false,
-      "ok": false
-    },
-    {
-      "id": "ADR-022",
-      "kind": "adr",
-      "file": "decisions/adr/ADR-022-transaction-proof-and-public-verification.md",
-      "chunks": 15,
-      "discoverable": true,
-      "resolvable": false,
-      "citable": false,
-      "ok": false
-    },
-    {
-      "id": "ADR-026",
-      "kind": "adr",
-      "file": "decisions/adr/ADR-026-postgresql-as-protocol-state-store-not-a-ledger.md",
-      "chunks": 5,
-      "discoverable": true,
-      "resolvable": false,
-      "citable": false,
-      "ok": false
-    },
-    {
-      "id": "ADR-027",
-      "kind": "adr",
-      "file": "decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md",
-      "chunks": 15,
-      "discoverable": true,
-      "resolvable": false,
-      "citable": false,
-      "ok": false
-    },
-    {
-      "id": "ADR-028",
-      "kind": "adr",
-      "file": "decisions/adr/ADR-028-root-authorization-three-authorities-threshold-two.md",
-      "chunks": 0,
-      "discoverable": false,
-      "resolvable": true,
-      "citable": true,
-      "ok": false
-    },
-    {
-      "id": "ADR-032",
-      "kind": "adr",
-      "file": "decisions/adr/ADR-032-kyc-stays-operator-policy-only-trust-assertions-federate.md",
-      "chunks": 5,
-      "discoverable": true,
-      "resolvable": false,
-      "citable": false,
-      "ok": false
-    }
-  ]
+  "gaps": []
 }

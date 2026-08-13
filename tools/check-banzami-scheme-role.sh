@@ -16,7 +16,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-ADR060="decisions/adr/ADR-006-banzami-operational-scheme.md"
+ADR060="decisions/adr/ADR-006-designated-operator-scheme.md"
 BOS="docs/governance/BANZAMI_OPERATIONAL_SCHEME.md"
 
 fail=0

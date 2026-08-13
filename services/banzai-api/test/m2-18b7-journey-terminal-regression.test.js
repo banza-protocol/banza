@@ -31,7 +31,7 @@ function degradingTrunk() {
       status: "task_incomplete",
       answer_markdown: "A BANZA é um protocolo financeiro aberto e neutro em relação a operadores.",
       cited_source_ids: ["ADR-001"],
-      package: { facts: [{ id: "F1", source: { document_id: "ADR-001", title: "ADR-001", path: "decisions/adr/ADR-001-open-protocol.md" } }] },
+      package: { facts: [{ id: "F1", source: { document_id: "ADR-001", title: "ADR-001", path: "decisions/adr/ADR-001-open-financial-protocol-what-banza-is-and-is-not.md" } }] },
       primary_intent: "explain_concept",
       clarification_candidates: [],
       trace: { synthesis_called: true, entry_status: "ok", output_status: "task_incomplete", model: "qwen2.5-7b", facts_count: 1 },

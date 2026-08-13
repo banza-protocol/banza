@@ -72,7 +72,7 @@
   ],
   "prior_total_no_double_counting": 2970,
   "canonical_suite": {
-    "total": 2791,
+    "total": 2569,
     "floor": 2500,
     "distinct_semantic_seeds": 46,
     "by_class": {
@@ -81,7 +81,7 @@
       "multi_turn": 61,
       "negative": 199,
       "live": 1165,
-      "regression": 677
+      "regression": 455
     },
     "class_definitions": {
       "base": "base semantic cases — one canonical human-authored phrasing per meaning",
@@ -92,7 +92,7 @@
       "regression": "regression cases — documentary corpus coverage + grounded claim/calculation anchors that protect the prior grounded families"
     },
     "by_family": {
-      "concepts": 958,
+      "concepts": 736,
       "procedures": 30,
       "security": 14,
       "apis": 32,

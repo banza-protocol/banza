@@ -55,7 +55,7 @@ test("an explain request about a document still escalates to the grounded trunk"
     status: "grounded",
     answer_markdown: "O ADR-002 estabelece a inversão de nomes do ecossistema (ADR-002).",
     cited_source_ids: ["ADR-002"],
-    package: { facts: [{ id: "F1", source: { document_id: "ADR-002", title: "ADR-002", path: "decisions/adr/ADR-002-ecosystem-naming-inversion.md" } }] },
+    package: { facts: [{ id: "F1", source: { document_id: "ADR-002", title: "ADR-002", path: "decisions/adr/ADR-002-ecosystem-naming-banza-banzai-and-operators.md" } }] },
     primary_intent: "explain_document",
     trace: { synthesis_called: true, output_status: "ok", model: "qwen2.5-7b" },
   });

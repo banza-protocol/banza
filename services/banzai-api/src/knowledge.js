@@ -42,18 +42,18 @@ export const SOURCES = {
   governance: { id: "GOVERNANCE", title: "BANZA governance & maintainers (Banzami = original creator / initial maintainer)", path: "GOVERNANCE.md" },
   fedQuickstart: { id: "SPEC-FED", title: "Federation operator quickstart (spec/federation)", path: "spec/federation/FEDERATION_OPERATOR_QUICKSTART.md" },
   adr038: { id: "ADR-027", title: "Open protocol trust model without a central CA", path: "decisions/adr/ADR-027-*.md" },
-  adr079: { id: "ADR-027", title: "Canonical trust signing model reconciliation (Model A)", path: "decisions/adr/ADR-027-canonical-trust-signing-model-reconciliation.md" },
+  adr079: { id: "ADR-027", title: "Canonical trust signing model reconciliation (Model A)", path: "decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md" },
   adr039: { id: "ADR-033", title: "Operator self-publication and machine-verifiable conformance", path: "decisions/adr/ADR-033-*.md" },
   adr040: { id: "ADR-031", title: "Federation trust evaluation without certificates", path: "decisions/adr/ADR-031-*.md" },
-  adr059: { id: "ADR-003", title: "BANZA three-layer institutional architecture", path: "decisions/adr/ADR-003-three-layer-institutional-architecture.md" },
-  adr060: { id: "ADR-006", title: "Banzami Operational Scheme (designated operator; BANZA ≠ Banzami)", path: "decisions/adr/ADR-006-banzami-operational-scheme.md" },
-  adr062: { id: "ADR-005", title: "Regulatory-state boundary and the RealMoneyActivationGate", path: "decisions/adr/ADR-005-regulatory-state-boundary-and-real-money-gate.md" },
-  adr064: { id: "ADR-034", title: "BANZA Conformance & Interoperability Certification (Layer 2)", path: "decisions/adr/ADR-034-conformance-interoperability-certification.md" },
+  adr059: { id: "ADR-003", title: "BANZA three-layer institutional architecture", path: "decisions/adr/ADR-003-three-institutional-layers.md" },
+  adr060: { id: "ADR-006", title: "Banzami Operational Scheme (designated operator; BANZA ≠ Banzami)", path: "decisions/adr/ADR-006-designated-operator-scheme.md" },
+  adr062: { id: "ADR-005", title: "Regulatory-state boundary and the RealMoneyActivationGate", path: "decisions/adr/ADR-005-regulatory-state-boundary-and-the-real-money-activation-gate.md" },
+  adr064: { id: "ADR-034", title: "BANZA Conformance & Interoperability Certification (Layer 2)", path: "decisions/adr/ADR-034-conformance-and-interoperability-certification.md" },
   adr065: { id: "ADR-036", title: "BANZA Technical Registry", path: "decisions/adr/ADR-036-banza-technical-registry.md" },
-  adr066: { id: "ADR-035", title: "Closed certification-state machine", path: "decisions/adr/ADR-035-certification-state-machine.md" },
+  adr066: { id: "ADR-035", title: "Closed certification-state machine", path: "decisions/adr/ADR-035-closed-certification-state-machine.md" },
   conformanceSuite: { id: "CONFORMANCE", title: "BANZA conformance suite", path: "conformance/README.md" },
   adrIndex: { id: "ADR-INDEX", title: "Architecture Decision Records (index)", path: "decisions/adr/README.md" },
-  adr006: { id: "ADR-011", title: "Double-entry ledger", path: "decisions/adr/ADR-011-double-entry-ledger.md" },
+  adr006: { id: "ADR-011", title: "Double-entry ledger", path: "decisions/adr/ADR-011-double-entry-ledger-and-monetary-precision.md" },
   invariants: { id: "invariants", title: "Financial invariants registry (INV-LEDGER/WALLET/SETTLE/IDEM/RECON/QR)", path: "contracts/invariants.json" },
   opManifestSchema: { id: "SCHEMA-OP-MANIFEST", title: "Operator manifest schema (production baseline)", path: "contracts/production/operator-manifest.production.schema.json" },
   fedManifestSchema: { id: "SCHEMA-FED-MANIFEST", title: "Federation manifest extension schema", path: "contracts/federation/federation-manifest.json" },
@@ -66,7 +66,7 @@ export const SOURCES = {
   fedFlow: { id: "SPEC-FED-FLOW", title: "Federation protocol flow", path: "spec/federation/FEDERATION_PROTOCOL_FLOW.md" },
   fedTrustModel: { id: "SPEC-FED-TRUST", title: "Federation trust model (Open Trust Evaluation)", path: "spec/federation/FEDERATION_TRUST_MODEL.md" },
   // M2.12B (ADR-041) — the Operador Zero reference payment-operator SIMULATOR.
-  adr052: { id: "ADR-041", title: "Operador Zero — reference payment-operator simulator", path: "decisions/adr/ADR-041-operador-zero-reference-payment-operator-simulator.md" },
+  adr052: { id: "ADR-041", title: "Operador Zero — reference payment-operator simulator", path: "decisions/adr/ADR-041-operator-zero-the-read-only-reference-implementation.md" },
   // M2.13B — legal / stack / implementation sources for the basic-question answers + the action boundary.
   license: { id: "LICENSE", title: "Apache-2.0 licence (protocol)", path: "LICENSE" },
   notice: { id: "NOTICE", title: "NOTICE (attribution)", path: "NOTICE" },
@@ -108,7 +108,7 @@ export const SOURCES = {
   // M2.13C-C — the controlled protocol + fintech-domain glossary (explanatory layer B/C source).
   glossary: { id: "PROTOCOL-GLOSSARY", title: "BANZA protocol + fintech-domain controlled glossary", path: "docs/reference/PROTOCOL_GLOSSARY.md" },
   // M2.14B — Operator Zero Only demo/example policy.
-  adr053: { id: "ADR-041", title: "Operator Zero Only demo and example policy", path: "decisions/adr/ADR-041-operator-zero-only-demo-and-example-policy.md" },
+  adr053: { id: "ADR-041", title: "Operator Zero Only demo and example policy", path: "decisions/adr/ADR-041-operator-zero-the-read-only-reference-implementation.md" },
   // M2.14C — governance / developer vocabulary sources (repo governance, engineering & process).
   govGlossary: { id: "GOVERNANCE-GLOSSARY", title: "BANZA governance & developer controlled glossary", path: "docs/reference/PROTOCOL_GOVERNANCE_GLOSSARY.md" },
   rfcIndex: { id: "RFC-INDEX", title: "Requests for Comments (protocol change proposals)", path: "decisions/rfc/" },

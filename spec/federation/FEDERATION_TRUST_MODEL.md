@@ -172,7 +172,7 @@ Current state, verifiable directly on the public routes: `/operators` = `[]` and
 
 ## References
 
-- [ADR-027](../../decisions/adr/ADR-027-open-protocol-trust-model-without-ca.md) — open protocol trust model
+- [ADR-027](../../decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md) — open protocol trust model
 - [ADR-033](../../decisions/adr/ADR-033-operator-self-publication-and-machine-verifiable-conformance.md) — operator self-publication and machine-verifiable conformance
 - [ADR-031](../../decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md) — federation trust evaluation (the ten checks)
 - [`docs/governance/FEDERATION_TRUST_MODEL.md`](../../docs/governance/FEDERATION_TRUST_MODEL.md) — canonical model document

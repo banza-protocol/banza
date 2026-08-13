@@ -13,8 +13,8 @@ nothing more.
 
 - **Milestone:** M2.8A — BanzAI Local Qwen Inference Runtime; latency tuning in
   M2.8B — BanzAI Local Qwen Latency Tuning.
-- **Governing decisions:** [ADR-042](../../decisions/adr/ADR-042-banzai-local-qwen-inference-runtime.md)
-  (the runtime) and [ADR-042](../../decisions/adr/ADR-042-banzai-local-qwen-latency-tuning-default-readiness.md)
+- **Governing decisions:** [ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md)
+  (the runtime) and [ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md)
   (the tuned defaults recorded throughout this document).
 - **Sibling docs:** `docs/banzai/LOCAL_INFERENCE_RUNTIME.md` (runtime behaviour, modes,
   endpoints) and `docs/banzai/LOCAL_INFERENCE_RUNBOOK.md` (operations). The benchmarks that chose the
@@ -415,5 +415,5 @@ model on disk at all.
 
 *For runtime behaviour and the endpoint contract see `docs/banzai/LOCAL_INFERENCE_RUNTIME.md`;
 for day-to-day operations see `docs/banzai/LOCAL_INFERENCE_RUNBOOK.md`; for the decision and
-its rationale see [ADR-042](../../decisions/adr/ADR-042-banzai-local-qwen-inference-runtime.md)
-and [ADR-042](../../decisions/adr/ADR-042-banzai-local-qwen-latency-tuning-default-readiness.md).*
+its rationale see [ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md)
+and [ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md).*

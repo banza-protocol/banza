@@ -364,11 +364,11 @@ Estas afirmações são vinculativas e uma alteração que as viole é um defeit
 - `docs/governance/OPERATOR_MANIFEST_VALIDATION.md` — validação do Operator Manifest
 - `docs/governance/certification-boundary.md` — fronteira da verificação de conformidade
 - `docs/governance/OPEN_PROTOCOL_GOVERNANCE.md` — RFC Process
-- `decisions/adr/ADR-001-open-financial-protocol.md` — protocolo financeiro aberto
-- `decisions/adr/ADR-001-operator-separation.md` — separação de operadores
+- `decisions/adr/ADR-001-open-financial-protocol-what-banza-is-and-is-not.md` — protocolo financeiro aberto
+- `decisions/adr/ADR-001-open-financial-protocol-what-banza-is-and-is-not.md` — separação de operadores
 - `decisions/adr/ADR-029-keys-never-on-serving-infrastructure.md` — chaves fora da infraestrutura de serviço
 - `decisions/adr/ADR-043-rust-first-official-engines.md` — motores oficiais em Rust
-- `decisions/adr/ADR-042-banzai-native-protocol-agent.md` — BanzAI como agente nativo do protocolo
+- `decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md` — BanzAI como agente nativo do protocolo
 - `docs/governance/BANZAI_NATIVE_PROTOCOL_AGENT.md` — BanzAI: agente nativo de orientação e orquestração
 - `SECURITY.md` — divulgação de segurança
 - `LICENSE` · `NOTICE` — Apache-2.0

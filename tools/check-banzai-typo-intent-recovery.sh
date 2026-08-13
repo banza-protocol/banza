@@ -5,7 +5,7 @@
 # runs AFTER exact/alias resolution, never overtakes an exact match, never auto-resolves an ambiguous
 # input, keeps a misspelled prohibited action a boundary (§18/§19), never lets an internal source or an
 # unsupported concept become a candidate, never exposes scores, and is NOT implemented in the UI. Static +
-# structural checks over the sources, plus the behavioural node suite (test/m2-18b5-typo-recovery.test.js)
+# structural checks over the sources, plus the behavioural node suite (test/typo-recovery.test.js)
 # which drives the REAL Rust engine + router + pipeline (mock provider). No model, no network.
 
 set -euo pipefail
@@ -19,7 +19,7 @@ FUZZY="engines/banzai-query-core/src/fuzzy.rs"
 LIB="engines/banzai-api-kb/src/lib.rs"
 PIPE="services/banzai-api/src/pipeline.js"
 KB="services/banzai-api/src/knowledge.js"
-TEST="services/banzai-api/test/m2-18b5-typo-recovery.test.js"
+TEST="services/banzai-api/test/typo-recovery.test.js"
 
 echo "== banzai-typo-intent-recovery-check (M2.18B.5 §24) =="
 for f in "$FUZZY" "$LIB" "$PIPE" "$KB" "$TEST"; do
@@ -79,10 +79,10 @@ grep -q 'correctedQuestion' "$PIPE" && grep -q 'answerClass(rq)' "$PIPE" \
 # 15-17. behavioural gate: the node suite drives the real engine + router + pipeline; then the fuzzy Rust
 #        tests; a failure here is a false-positive/regression. (build is proven by cargo/wasm in CI.)
 if command -v node >/dev/null 2>&1; then
-  if (cd services/banzai-api && node --test test/m2-18b5-typo-recovery.test.js >/tmp/b5_typo.$$ 2>&1); then
+  if (cd services/banzai-api && node --test test/typo-recovery.test.js >/tmp/b5_typo.$$ 2>&1); then
     ok "behavioural suite passed ($(grep -oE 'pass [0-9]+' /tmp/b5_typo.$$ | head -1))"
   else
-    fail "behavioural suite FAILED: $(grep -oE 'fail [0-9]+' /tmp/b5_typo.$$ | head -1); see test/m2-18b5-typo-recovery.test.js"
+    fail "behavioural suite FAILED: $(grep -oE 'fail [0-9]+' /tmp/b5_typo.$$ | head -1); see test/typo-recovery.test.js"
   fi
   rm -f /tmp/b5_typo.$$
 else

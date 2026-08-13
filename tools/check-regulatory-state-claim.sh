@@ -21,7 +21,7 @@ cd "$(dirname "$0")/.."
 
 RCP="docs/governance/BANZA_REGULATORY_CLAIM_POLICY.md"
 BOS="docs/governance/BANZAMI_OPERATIONAL_SCHEME.md"
-ADR062="decisions/adr/ADR-005-regulatory-state-boundary-and-real-money-gate.md"
+ADR062="decisions/adr/ADR-005-regulatory-state-boundary-and-the-real-money-activation-gate.md"
 
 fail=0
 

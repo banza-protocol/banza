@@ -69,7 +69,7 @@ O BanzAI **não** é uma camada normativa e **não** cria regras. A separação 
 
 As regras activas provêm da Referência BANZA, dos ADRs/RFCs aceites, das specs, contratos, schemas, invariantes e releases. O BanzAI orienta e explica, mas não é fonte normativa: não aprova, não certifica, não licencia, não decide participação, não inventa regras, não adiciona decisões arquitecturais e não substitui a Referência nem os motores determinísticos Rust/WASM. As entidades reguladoras competentes situam-se fora do protocolo e tratam de licenciamento/autorização quando aplicável ao operador.
 
-Ver [ADR-042](../decisions/adr/ADR-042-banzai-native-protocol-agent.md) e [docs/governance/BANZAI_NATIVE_PROTOCOL_AGENT.md](../docs/governance/BANZAI_NATIVE_PROTOCOL_AGENT.md).
+Ver [ADR-042](../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md) e [docs/governance/BANZAI_NATIVE_PROTOCOL_AGENT.md](../docs/governance/BANZAI_NATIVE_PROTOCOL_AGENT.md).
 
 ---
 
@@ -181,7 +181,7 @@ Manifestos de Operador  (assinados · públicos)
 Não existe autoridade de certificação. O trust é avaliado pela Open Trust Evaluation — signed protocol metadata → chaves delegadas → registo público → revocation/fail-closed. O BanzAI explica os critérios mas não certifica nem emite certificados. Os operadores fixam a chave raiz uma vez e usam-na para verificar todas as chaves delegadas e a signed protocol metadata subsequentes.
 
 Ver [docs/reference/en/complete.md §Trust](../docs/reference/en/complete.md) para a especificação normativa.  
-Ver [ADR-027](../decisions/adr/ADR-027-open-protocol-trust-model-without-ca.md) para a arquitectura da chave raiz (Trust Root offline, chaves de assinatura delegadas, manifesto de chaves assinado).
+Ver [ADR-027](../decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md) para a arquitectura da chave raiz (Trust Root offline, chaves de assinatura delegadas, manifesto de chaves assinado).
 
 ---
 

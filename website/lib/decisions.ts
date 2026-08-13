@@ -298,8 +298,8 @@ export const decisions: Decision[] = [
     "id": "ADR-029",
     "slug": "adr-029",
     "title": "Private keys never reside on serving infrastructure",
-    "path": "decisions/adr/ADR-029-private-keys-never-reside-on-serving-infrastructure.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-029-private-keys-never-reside-on-serving-infrastructure.md",
+    "path": "decisions/adr/ADR-029-keys-never-on-serving-infrastructure.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-029-keys-never-on-serving-infrastructure.md",
     "category": "Confiança e chaves",
     "summary": ""
   },

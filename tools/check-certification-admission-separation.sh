@@ -16,9 +16,9 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-ADR061="decisions/adr/ADR-004-certification-admission-authorisation-separation.md"
+ADR061="decisions/adr/ADR-004-technical-certification-is-not-scheme-admission-and-not-regu.md"
 TLA="docs/governance/BANZA_THREE_LAYER_ARCHITECTURE.md"
-ADR059="decisions/adr/ADR-003-three-layer-institutional-architecture.md"
+ADR059="decisions/adr/ADR-003-three-institutional-layers.md"
 
 fail=0
 

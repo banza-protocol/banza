@@ -2,7 +2,7 @@
 
 - **Status:** Normative
 - **Protocol version:** BANZA 1.0.0
-- **Authority:** [ADR-030](../decisions/adr/ADR-030-trust-material-anti-rollback.md); extends ADR-027 and ADR-027, which are unchanged
+- **Authority:** [ADR-030](../decisions/adr/ADR-030-anti-rollback-for-versioned-trust-material.md); extends ADR-027 and ADR-027, which are unchanged
 - **Test vectors:** [`conformance/vectors/trust-freshness.json`](../conformance/vectors/trust-freshness.json)
 
 > The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **SHOULD**, **SHOULD NOT**,

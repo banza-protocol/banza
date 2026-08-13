@@ -20,7 +20,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-ADR059="decisions/adr/ADR-003-three-layer-institutional-architecture.md"
+ADR059="decisions/adr/ADR-003-three-institutional-layers.md"
 TLA="docs/governance/BANZA_THREE_LAYER_ARCHITECTURE.md"
 
 fail=0

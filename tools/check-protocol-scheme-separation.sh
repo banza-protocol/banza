@@ -19,8 +19,8 @@ cd "$(dirname "$0")/.."
 
 TLA="docs/governance/BANZA_THREE_LAYER_ARCHITECTURE.md"
 BOS="docs/governance/BANZAMI_OPERATIONAL_SCHEME.md"
-ADR059="decisions/adr/ADR-003-three-layer-institutional-architecture.md"
-ADR060="decisions/adr/ADR-006-banzami-operational-scheme.md"
+ADR059="decisions/adr/ADR-003-three-institutional-layers.md"
+ADR060="decisions/adr/ADR-006-designated-operator-scheme.md"
 
 fail=0
 

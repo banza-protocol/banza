@@ -14,8 +14,15 @@ extra steps.
 
 ## Decision
 
-**BanzAI is an optional, transversal, non-authoritative interface to BANZA. It executes protocol rules;
-it never defines them, and it never determines conformance.**
+**BanzAI is the primary human-operator interface to BANZA, and it is optional, transversal and
+non-authoritative.** It executes protocol rules; it is **not a normative source**; it never defines them
+and never determines conformance.
+
+The boundary in one line: **BanzAI guia; os motores verificam; a evidência prova; a governança decide.**
+
+Machine-to-machine access does not depend on it. The protocol's APIs, contracts, vectors and evidence
+are consumed directly; **BanzAI is not mandatory for M2M integration**, and no conformance path routes
+through it.
 
 Four constraints make that true rather than aspirational:
 
@@ -31,8 +38,8 @@ Four constraints make that true rather than aspirational:
    not certify, does not admit, does not authorise, and refuses such requests without consulting the
    model.
 
-BanzAI runs from this repository — a TypeScript service over Rust engines compiled to WASM. Inference
-is local and off by default; enabling it changes how an answer is *worded*, never what it *says*.
+BanzAI runs from this repository — a TypeScript service over Rust engines compiled to WASM. A **inferência
+local** (local inference) is off by default; enabling it changes how an answer is *worded*, never what it *says*.
 
 ## Rationale
 

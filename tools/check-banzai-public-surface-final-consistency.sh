@@ -52,10 +52,17 @@ done
 # 1. ADR-041/053/054 are PUBLISHED on the public /decisoes (registry entry + byte-mirror body).
 # ─────────────────────────────────────────────────────────────────────────────────────────────
 echo "-- 1. ADRs published --"
-for n in 052 053 054; do
-  grep -q "\"id\": \"ADR-$n\"" "$DECISIONS" && ok "decisions.ts registers ADR-$n" || fail "decisions.ts must register ADR-$n"
-  ls website/content/decisions/adr/ADR-$n-*.md >/dev/null 2>&1 && ok "ADR-$n body mirrored under website/content" || fail "ADR-$n body must be mirrored under website/content/decisions/adr/"
+# The property is that the public surface publishes the CURRENT tree, not three particular numbers.
+# Pinning ids made this assert a numbering, and it broke on the clean-slate renumbering — exactly when
+# a public-surface contract most needs to still be checking something true.
+missing_reg=0; missing_body=0
+for f in decisions/adr/ADR-*.md; do
+  id=$(basename "$f" | cut -c1-7)
+  grep -q "\"id\": \"$id\"" "$DECISIONS" || { missing_reg=$((missing_reg+1)); }
+  [ -f "website/content/decisions/adr/$(basename "$f")" ] || { missing_body=$((missing_body+1)); }
 done
+[ "$missing_reg" -eq 0 ] && ok "decisions.ts registers every current ADR" || fail "$missing_reg ADR(s) missing from decisions.ts"
+[ "$missing_body" -eq 0 ] && ok "every current ADR body is mirrored under website/content" || fail "$missing_body ADR body/bodies not mirrored"
 
 # ─────────────────────────────────────────────────────────────────────────────────────────────
 # 2. The primary-interface framing (ADR-042) reached the M2.14J-reframed surfaces.

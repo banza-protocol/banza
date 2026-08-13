@@ -1,6 +1,6 @@
 # BanzAI Local Inference Runtime
 
-> Conceptual and architecture reference for BanzAI's optional **local** language layer — Qwen3-4B-GGUF executed on-host by `llama.cpp`, controlled by Rust, with nothing leaving the machine. Governed by **[ADR-042](../../decisions/adr/ADR-042-banzai-local-qwen-inference-runtime.md)**, with latency tuning under **[ADR-042](../../decisions/adr/ADR-042-banzai-local-qwen-latency-tuning-default-readiness.md)**.
+> Conceptual and architecture reference for BanzAI's optional **local** language layer — Qwen3-4B-GGUF executed on-host by `llama.cpp`, controlled by Rust, with nothing leaving the machine. Governed by **[ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md)**, with latency tuning under **[ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md)**.
 
 - **Milestone:** M2.8A (runtime) · M2.8B (latency tuning, ADR-042)
 - **Status:** Accepted (ADR-042, ADR-042); local inference is opt-in and benchmark-gated
@@ -275,10 +275,10 @@ Every `/ask` response carries `non_normative: true` — a structural reminder th
 
 ## 16. References
 
-- **[ADR-042](../../decisions/adr/ADR-042-banzai-local-qwen-inference-runtime.md)** — BanzAI Local Qwen Inference Runtime (this runtime's governing decision).
-- **[ADR-042](../../decisions/adr/ADR-042-banzai-local-qwen-latency-tuning-default-readiness.md)** — BanzAI Local Qwen latency tuning (M2.8B): compact Rust prompt, 256-token default output, ≤3 excerpts / ≤2800-char context budget, 60s timeout margin, optional warm-up, and the `curl` healthcheck fix.
-- **[ADR-042](../../decisions/adr/ADR-042-banzai-disable-qwen-reasoning-prefix-warmup.md)** — BanzAI disables Qwen3 reasoning (`enable_thinking:false`) so the compact budget produces the answer, and warms the real system-prompt prefix on startup (M2.8C).
-- **[ADR-042](../../decisions/adr/ADR-042-banzai-local-qwen-384-token-default.md)** — BanzAI local_qwen output default raised 256→384 for a professional answer budget (M2.8D); VPS XL+ benchmark validated (answers finish naturally, ~8.7s, 60s timeout ample).
+- **[ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md)** — BanzAI Local Qwen Inference Runtime (this runtime's governing decision).
+- **[ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md)** — BanzAI Local Qwen latency tuning (M2.8B): compact Rust prompt, 256-token default output, ≤3 excerpts / ≤2800-char context budget, 60s timeout margin, optional warm-up, and the `curl` healthcheck fix.
+- **[ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md)** — BanzAI disables Qwen3 reasoning (`enable_thinking:false`) so the compact budget produces the answer, and warms the real system-prompt prefix on startup (M2.8C).
+- **[ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md)** — BanzAI local_qwen output default raised 256→384 for a professional answer budget (M2.8D); VPS XL+ benchmark validated (answers finish naturally, ~8.7s, 60s timeout ample).
 - **ADR-043** — Rust-first policy for official engines (control logic is Rust).
 - **ADR-042** — BanzAI as the native, non-authoritative protocol agent.
 - **ADR-026** — PostgreSQL as protocol-state store (the model never touches it).

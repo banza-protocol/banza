@@ -28,7 +28,7 @@ function fakeLocalProvider({ delayMs = 40 } = {}) {
         return {
           grounded: true,
           answer: "Com base nas fontes do protocolo, aqui vai um resumo orientativo.",
-          sources: [{ id: "ADR-002", title: "Ecossistema", path: "decisions/adr/ADR-002-ecosystem.md" }],
+          sources: [{ id: "ADR-002", title: "Ecossistema", path: "decisions/adr/ADR-002-ecosystem-naming-banza-banzai-and-operators.md" }],
           entry_id: null,
           provider: "local_qwen",
           mode: "real",
@@ -57,7 +57,7 @@ function build(env = {}) {
       status: "grounded",
       answer_markdown: "Com base nas fontes do protocolo, aqui vai um resumo orientativo (ADR-002).",
       cited_source_ids: ["ADR-002"],
-      package: { facts: [{ id: "F1", source: { document_id: "ADR-002", title: "Ecossistema", path: "decisions/adr/ADR-002-ecosystem.md" } }] },
+      package: { facts: [{ id: "F1", source: { document_id: "ADR-002", title: "Ecossistema", path: "decisions/adr/ADR-002-ecosystem-naming-banza-banzai-and-operators.md" } }] },
       primary_intent: "explain_concept",
       trace: { synthesis_called: true, entry_status: "ok", output_status: "ok", model: "qwen-fake" },
     };

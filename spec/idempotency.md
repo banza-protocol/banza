@@ -2,7 +2,7 @@
 
 - **Status:** Normative
 - **Protocol version:** BANZA 1.0.0
-- **Authority:** [ADR-024](../decisions/adr/ADR-024-idempotency-semantics.md); extends ADR-024, which established the invariant and deliberately left these questions open
+- **Authority:** [ADR-024](../decisions/adr/ADR-024-idempotency.md); extends ADR-024, which established the invariant and deliberately left these questions open
 - **Invariants:** `INV-IDEM-001`, `INV-FED-004`, `INV-FED-IDEM-001`, `INV-COLLECTION-008`
 - **Test vectors:** [`conformance/vectors/idempotency.json`](../conformance/vectors/idempotency.json)
 

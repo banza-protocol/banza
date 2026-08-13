@@ -474,7 +474,7 @@ export function adversarialCases() {
   }
 
   // dead_source_citations — an invented citation must be rejected.
-  for (const dead of ["ADR-X999", "ADR-039", "RFC-9999"]) {
+  for (const dead of ["ADR-999", "ADR-039", "RFC-9999"]) {
     cases.push({
       family: "negative",
       cls: "negative",

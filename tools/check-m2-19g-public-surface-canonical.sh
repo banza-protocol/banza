@@ -42,7 +42,7 @@ while IFS= read -r f; do [ -n "$f" ] && FILES+=("$f"); done < <(
 [ "${#FILES[@]}" -gt 0 ] || { echo "m2-19g-public-surface: no surface files found — repo layout changed"; exit 2; }
 
 # Negation / prohibition / enumeration markers.
-NEG='não|nao|nunca|never|\bnot\b|\bnem\b|neither|nor|\bsem\b|ausência|ausencia|deixa de|isn'"'"'?t|does not|doesn'"'"'?t|proibid|forbidden|evitar|avoid|exemplo|example|«|»|\?'
+NEG='não|nao|nunca|never|\bnot\b|\bnem\b|neither|nor|\bsem\b|\bwithout\b|\bfree of\b|ausência|ausencia|deixa de|isn'"'"'?t|does not|doesn'"'"'?t|proibid|forbidden|evitar|avoid|exemplo|example|«|»|\?'
 # Lines that are operator well-known endpoint data (path:/rel:) or explicit well-known refs are not a
 # BANZA-website route claim; they are excluded from the /certificates positive-claim scan.
 WELLKNOWN='path:|well-known|rel:'

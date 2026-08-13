@@ -1,5 +1,8 @@
 # ADR-004 — Technical certification is not scheme admission and not regulatory authorisation
 
+> **technical certification ≠ scheme admission ≠ regulatory authorisation.** Three separate
+> decisions, taken by three different kinds of authority. Passing one grants nothing about the others.
+
 - **Status:** Accepted
 - **Date:** 2026-07
 - **Related:** ADR-003 (three-layer architecture), ADR-006 (Banzami Operational Scheme), ADR-027 (open

@@ -14,7 +14,7 @@ const answer = async (q) => pipe.answer(q);
 
 // ── §6 exact match always beats fuzzy; canonical forms are untouched ──────────────────────────────
 test("exact concept + id forms are never fuzzy-corrected", () => {
-  for (const q of ["federacao", "o que e a federacao", "explica o ADR-041", "explica o ADR053", "explica o ADR 053", "trust"]) {
+  for (const q of ["federacao", "o que e a federacao", "explica o ADR-041", "explica o ADR041", "explica o ADR 053", "trust"]) {
     const r = recoverQuery(q);
     assert.equal(r.band, "exact", `q=${q} band=${r.band}`);
     assert.equal((r.corrections || []).length, 0, `q=${q} corrected unexpectedly`);
@@ -79,9 +79,9 @@ test("a misspelled internal-source request never leaks and never becomes a candi
 
 // ── §11 a correction preserves the answer TYPE (definition vs explanation vs exact) ───────────────
 test("correction preserves intent type: exact fact stays exact, explanation stays explanation", async () => {
-  const status = await answer("qual o estado da ADR053"); // exact-fact terminal
+  const status = await answer("qual o estado da ADR041"); // exact-fact terminal
   assert.equal(status.meta.terminal_kind, "exact_fact", `status terminal=${status.meta.terminal_kind}`);
-  const explain = await answer("explica o ADR053"); // explanatory trunk
+  const explain = await answer("explica o ADR041"); // explanatory trunk
   assert.equal(explain.meta.terminal_kind, "explanatory_trunk", `explain terminal=${explain.meta.terminal_kind}`);
 });
 

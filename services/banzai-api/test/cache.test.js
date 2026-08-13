@@ -45,14 +45,14 @@ test("cacheKey is insertion-order independent", () => {
 test("SemanticCache never returns a different entity's answer (cross-entity contamination)", () => {
   const sc = new SemanticCache({ threshold: 0.5 });
   // Two near-identical-vocabulary questions about DIFFERENT entities.
-  const qA = { ...base, question: "explica o estado e o impacto da adr 055 para operadores", entity_id: "ADR-042", document_id: "ADR-042" };
-  const qB = { ...base, question: "explica o estado e o impacto da adr 068 para operadores", entity_id: "ADR-038", document_id: "ADR-038" };
+  const qA = { ...base, question: "explica o estado e o impacto da adr 042 para operadores", entity_id: "ADR-042", document_id: "ADR-042" };
+  const qB = { ...base, question: "explica o estado e o impacto da adr 038 para operadores", entity_id: "ADR-038", document_id: "ADR-038" };
   sc.add(qA, { answer: "ADR-042 answer", entity: "ADR-042" });
   // A query about entity ADR-038 must NOT return the ADR-042 entry even at high lexical similarity.
   const hit = sc.find(qB);
   assert.equal(hit, null, "a different entity_id must never match a stored entry");
   // The SAME entity paraphrase still hits.
-  const same = sc.find({ ...qA, question: "explica o estado e impacto da adr 055 para os operadores" });
+  const same = sc.find({ ...qA, question: "explica o estado e impacto da adr 042 para os operadores" });
   assert.ok(same && same.value.entity === "ADR-042", "same-entity paraphrase still hits");
 });
 

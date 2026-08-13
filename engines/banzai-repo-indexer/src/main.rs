@@ -1388,7 +1388,7 @@ mod tests {
         for p in [
             "LICENSE",
             "README.md",
-            "decisions/adr/ADR-041-operador-zero.md",
+            "decisions/adr/ADR-041-operator-zero-the-read-only-reference-implementation.md",
             "engines/operator-zero-core/src/lib.rs",
             "website/middleware.ts",
             "Makefile",

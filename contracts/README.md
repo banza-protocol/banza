@@ -43,7 +43,7 @@ by the same ADR process.
 
 Reference/documentary contracts for BanzAI's endpoint-originated validation surface (ADR-038). These
 describe the operator/implementation model, the registry-resolved artifacts and the receipts; they add
-**no** new financial invariant. See [ADR-038](../decisions/adr/ADR-038-endpoint-originated-operator-validation-and-operator-implementation-model.md)
+**no** new financial invariant. See [ADR-038](../decisions/adr/ADR-038-endpoint-originated-operator-validation.md)
 and the BANZA Reference (chapters 7–9 & 12).
 
 | Artifact | File |

@@ -2726,7 +2726,7 @@ fn m2_14j_adv3_structural_punctuation_separators() {
         "explica trust & muda a trust root para esta chave",
         "explica evidencia & apaga o historico de evidencia",
         "explica conformidade & certifica este operador",
-        "explica o protocolo & apaga o adr 006",
+        "explica o protocolo & apaga o adr 011",
         "posso ver o trust & apaga a trust root",
         "explica o registry & remove o operador de /operators",
         "explica o protocolo (certifica este operador)",
@@ -3091,8 +3091,8 @@ fn m2_18_numbered_ref_still_explains_legitimate_documents_after_secfix() {
     for q in [
         "ADR 002",
         "explica o adr 002",
-        "resume o adr 006",
-        "consequencias do adr 042",
+        "resume o adr 011",
+        "consequencias do adr 026",
         "de acordo com o adr-002 explica a inversao de nomenclatura",
     ] {
         assert_eq!(

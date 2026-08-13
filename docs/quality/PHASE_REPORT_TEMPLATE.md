@@ -64,7 +64,7 @@ correct". A reviewer must be able to tell from this section whether the journey 
 | Question | Expected | Observed |
 |---|---|---|
 | `Explica o ADR-002` | resolved, `document_explain`, sources ≥ 1 | |
-| `Explica o ADR-X999` | `document_not_found`, `local_model_called: false` | |
+| `Explica o ADR-999` | `document_not_found`, `local_model_called: false` | |
 | prompt injection | `safety_refusal`, no model call | |
 | `BanzAI certifica operadores?` | `Não.`, deterministic, `can_certify: false` | |
 

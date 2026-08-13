@@ -1,6 +1,6 @@
 # BanzAI — Native Protocol Agent
 
-**Status:** Canonical · **Since:** M2.7H (2026-07) · **Decision:** [ADR-042](../../decisions/adr/ADR-042-banzai-native-protocol-agent.md)
+**Status:** Canonical · **Since:** M2.7H (2026-07) · **Decision:** [ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md)
 
 ## 1. Definição
 **BanzAI é a interface primária de trabalho entre humanos/operadores e o protocolo BANZA (ADR-042); em concreto, o agente IA nativo do protocolo.**

@@ -58,7 +58,7 @@ for (const q of [
 
 // The resolved document must carry its OWN canonical sources — not an index, not CLAUDE.md.
 const a2 = R("Explica o ADR-002");
-check("ADR-002 resolves to its canonical path", a2.path === "decisions/adr/ADR-002-ecosystem-naming-inversion.md", a2.path);
+check("ADR-002 resolves to its canonical path", a2.path === "decisions/adr/ADR-002-ecosystem-naming-banza-banzai-and-operators.md", a2.path);
 check("ADR-002 carries its own document sources", Array.isArray(a2.sources) && a2.sources.length > 0, `sources=${(a2.sources||[]).length}`);
 check("ADR-002 sources are the ADR itself, never CLAUDE.md/ADR-INDEX",
   (a2.sources || []).every((s) => String(s.path).startsWith("decisions/adr/ADR-002")),
@@ -73,8 +73,8 @@ check("RFC-001 resolves padding-insensitively → RFC-0001", rfc.found && rfc.id
 check("RFC plans the explain_rfc tool", rfc.tool === "explain_rfc", rfc.tool);
 
 // A document that does not exist is reported, never invented.
-const missing = R("Explica o ADR-X999");
-check("ADR-X999 is detected but NOT found (never invented)", missing.detected && !missing.found);
+const missing = R("Explica o ADR-999");
+check("ADR-999 is detected but NOT found (never invented)", missing.detected && !missing.found);
 
 // A question with no documentary reference must not resolve one.
 for (const q of ["como federar um operador?", "o que é o BANZA?"]) {

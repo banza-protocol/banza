@@ -115,34 +115,39 @@ pub const DECISIONS: &[Decision] = &[
         keywords: &["adr-002", "adr 002", "adr002", "nomenclatura", "naming", "hierarquia", "inversao", "ecossistema"],
     },
     Decision {
-        id: "ADR-001", title: "Protocol/Operator Separation", url: "/decisoes/adr-003", cite: "ADR-001",
+        id: "ADR-001", title: "Protocol/Operator Separation", url: "/decisoes/adr-001", cite: "ADR-001",
         summary: "estabelece a fronteira entre o protocolo e a lógica de negócio de cada operador: o BANZA define regras e verificação; o operador implementa, opera e assume as obrigações (incluindo KYC/KYB e AML/CFT) na sua própria infraestrutura.",
-        keywords: &["adr-003", "adr 003", "adr003", "separacao de operador", "separacao operador", "fronteira operador"],
+        keywords: &["adr-001", "adr 001", "adr001", "separacao de operador", "separacao operador", "fronteira operador"],
     },
     Decision {
-        id: "ADR-041", title: "Operador Zero — Reference Operator Simulator", url: "/decisoes/adr-052", cite: "ADR-041",
+        id: "ADR-041", title: "Operador Zero — Reference Operator Simulator", url: "/decisoes/adr-041", cite: "ADR-041",
         summary: "define o Operador Zero, o operador de referência/demonstração do protocolo: um simulador canónico que demonstra as capacidades do protocolo de ponta a ponta sem ser proprietário dele. Serve de exemplo e demonstração — apenas demonstração, nunca um operador real ou publicado —, não confere autoridade nem estatuto especial.",
-        keywords: &["adr-052", "adr 052", "adr052", "operador de referencia", "reference operator", "operador zero"],
+        keywords: &["adr-041", "adr 041", "adr041", "operador de referencia", "reference operator", "operador zero"],
     },
     Decision {
-        id: "ADR-031", title: "Federation Trust Evaluation", url: "/decisoes/adr-040", cite: "ADR-031",
+        id: "ADR-031", title: "Federation Trust Evaluation", url: "/decisoes/adr-031", cite: "ADR-031",
         summary: "define como operadores conformes confiam uns nos outros para federar: uma Federation Trust Evaluation feita pela própria parte que faz o routing, sobre material público (signed protocol metadata, conformance evidence, public protocol registry, trust root/chaves delegadas e revocation/fail-closed), sem certificado emitido pela BANZA e sem passo humano. A federação de produção depende do marco M3.",
-        keywords: &["adr-040", "adr 040", "adr040", "modelo de confianca da federacao", "federation trust"],
+        keywords: &["adr-031", "adr 031", "adr031", "modelo de confianca da federacao", "federation trust"],
     },
     Decision {
-        id: "ADR-027", title: "Open Protocol Trust Model Without CA", url: "/decisoes/adr-038", cite: "ADR-027",
+        id: "ADR-027", title: "Open Protocol Trust Model Without CA", url: "/decisoes/adr-027", cite: "ADR-027",
         summary: "define o modelo de trust aberto do protocolo, sem autoridade central: a Chave Raiz offline (custódia por threshold 2-de-3) assina apenas metadata, chaves delegadas e revogação, o signed key manifest distribui o trust-anchor, e as chaves delegadas são domain-separated e geridas offline, separadas da infraestrutura em linha. Depende do marco M2.",
-        keywords: &["adr-038", "adr 038", "adr038", "raiz de producao", "production root", "modelo de trust aberto"],
+        keywords: &["adr-027", "adr 027", "adr027", "raiz de producao", "production root", "modelo de trust aberto"],
     },
     Decision {
-        id: "ADR-029", title: "Private keys never on serving infrastructure", url: "/decisoes/adr-028", cite: "ADR-029",
+        id: "ADR-028", title: "Root authorization: three authorities, threshold two", url: "/decisoes/adr-028", cite: "ADR-028",
+        summary: "A Trust Root é controlada por três autoridades de assinatura independentes; qualquer acção autorizada exige duas assinaturas de duas delas. Uma assinatura isolada nunca autoriza, e duas assinaturas da mesma autoridade contam como uma.",
+        keywords: &["adr-028", "adr 028", "adr028", "limiar da raiz", "root threshold", "2-de-3", "duas de tres"],
+    },
+    Decision {
+        id: "ADR-029", title: "Private keys never on serving infrastructure", url: "/decisoes/adr-029", cite: "ADR-029",
         summary: "estabelece que as chaves privadas nunca residem na infraestrutura que serve tráfego: o material de assinatura fica isolado da superfície pública, reduzindo o risco de comprometimento em linha.",
-        keywords: &["adr-028", "adr 028", "adr028", "chaves privadas", "private keys", "serving infrastructure"],
+        keywords: &["adr-029", "adr 029", "adr029", "chaves privadas", "private keys", "serving infrastructure"],
     },
     Decision {
-        id: "ADR-032", title: "KYC stays operator policy; only Trust Assertions federate", url: "/decisoes/adr-029", cite: "ADR-032",
+        id: "ADR-032", title: "KYC stays operator policy; only Trust Assertions federate", url: "/decisoes/adr-032", cite: "ADR-032",
         summary: "mantém o KYC como política do operador: o protocolo não centraliza KYC — apenas Trust Assertions podem federar entre operadores. As obrigações de identidade ficam do lado do operador e das autoridades competentes.",
-        keywords: &["adr-029", "adr 029", "adr029", "kyc", "trust assertion", "trust assertions"],
+        keywords: &["adr-032", "adr 032", "adr032", "kyc", "trust assertion", "trust assertions"],
     },
 ];
 

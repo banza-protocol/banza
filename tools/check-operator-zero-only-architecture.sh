@@ -22,7 +22,7 @@ bad() { echo "  FAIL: $1"; fail=1; }
 echo "== operator-zero-only-architecture-check (M2.14B / ADR-041) =="
 
 # 1. The architectural decision exists.
-ADR="decisions/adr/ADR-041-operator-zero-only-demo-and-example-policy.md"
+ADR="decisions/adr/ADR-041-operator-zero-the-read-only-reference-implementation.md"
 [ -f "$ADR" ] && grep -q "sole canonical demo operator" "$ADR" && ok "ADR-041 present and states the policy" || bad "ADR-041 missing or does not state the policy"
 
 # 2. examples/operators/ contains ONLY zero (no parallel sample/demo/test/candidate/l0 operator).

@@ -3,7 +3,7 @@
 - **Status:** Normative
 - **Version:** `BCJ/1`
 - **Protocol version:** BANZA 1.0
-- **Authority:** [ADR-010](../decisions/adr/ADR-010-banza-canonical-json.md); versioning per [ADR-009](../decisions/adr/ADR-009-normative-completeness-versioning-decision.md)
+- **Authority:** [ADR-010](../decisions/adr/ADR-010-banza-canonical-json-bcj-1.md); versioning per [ADR-009](../decisions/adr/ADR-009-normative-authority-and-versioning.md)
 - **Test vectors:** [`conformance/vectors/canonicalization.json`](../conformance/vectors/canonicalization.json)
 
 > The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **SHOULD**, **SHOULD NOT**,

@@ -15,7 +15,7 @@ FAILED=0
 fail() { echo "FAIL: $*"; FAILED=1; }
 ok()   { echo "  ok: $*"; }
 
-ADR="decisions/adr/ADR-042-banzai-primary-human-operator-interface.md"
+ADR="decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md"
 ROUTE="engines/banzai-query-core/src/route.rs"
 KB="services/banzai-api/src/knowledge.js"
 AGENT_TS="website/components/banzai/banzai-agent.ts"

@@ -220,7 +220,7 @@
     "artifacts/banzai/canonical-protocol-vocabulary.json",
     "clean-room/packages/l0/contracts/production/normative-manifest.json",
     "contracts/production/normative-manifest.json",
-    "decisions/adr/ADR-044-license-notice-trademark-open-governance-attribution.md"
+    "decisions/adr/ADR-044-licence-notice-trademark-and-open-governance.md"
    ],
    "refs": 26
   },
@@ -468,7 +468,7 @@
    "class": "INTERNAL_AUDIT",
    "referenced_by": [
     "artifacts/m2-18b7/execution-state.json",
-    "decisions/adr/ADR-042-banzai-definitive-query-core-and-production-assurance.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "engines/banza-repo-guards/src/lib.rs",
     "tools/check-banzai-canonical-protocol-vocabulary.sh",
@@ -551,7 +551,7 @@
    "referenced_by": [
     "Makefile",
     "artifacts/m2-18b7/execution-state.json",
-    "decisions/adr/ADR-042-banzai-definitive-query-core-and-production-assurance.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "engines/banza-repo-guards/src/lib.rs",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
@@ -576,11 +576,11 @@
    "class": "INTERNAL_AUDIT",
    "referenced_by": [
     "artifacts/m2-18b7/execution-state.json",
-    "decisions/adr/ADR-042-banzai-definitive-query-core-and-production-assurance.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "tools/check-banzai-production-e2e-readiness.sh",
     "tools/gen-banzai-template-schema-registry.mjs",
-    "website/content/decisions/adr/ADR-042-banzai-definitive-query-core-and-production-assurance.md"
+    "website/content/decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md"
    ],
    "refs": 6
   },
@@ -609,7 +609,7 @@
    "path": "artifacts/m2-19-final/finding-b-map.json",
    "class": "INTERNAL_AUDIT",
    "referenced_by": [
-    "decisions/adr/ADR-027-trust-invariant-registry-realignment.md",
+    "decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md",
     "docs/audit/repo-truth-map.json"
    ],
    "refs": 2
@@ -1417,7 +1417,7 @@
     "artifacts/banzai/canonical-protocol-vocabulary.json",
     "clean-room/packages/l0/contracts/production/normative-manifest.json",
     "contracts/production/normative-manifest.json",
-    "decisions/adr/ADR-037-canonical-discovery-surface-reconciliation.md",
+    "decisions/adr/ADR-037-canonical-discovery-surface.md",
     "docs/audit/repo-truth-map.json",
     "docs/derived/implementation-sets.json"
    ],
@@ -2115,7 +2115,7 @@
     "clean-room/packages/l0/contracts/production/normative-manifest.json",
     "conformance/README.md",
     "contracts/production/normative-manifest.json",
-    "decisions/adr/ADR-039-conformance-suite-level-capability-alignment.md"
+    "decisions/adr/ADR-039-conformance-profiles-and-capability-vocabulary.md"
    ],
    "refs": 21
   },
@@ -2659,7 +2659,7 @@
     "artifacts/banzai/canonical-concept-matrix.json",
     "clean-room/packages/l0/contracts/production/normative-manifest.json",
     "contracts/production/normative-manifest.json",
-    "decisions/adr/ADR-042-banzai-validation-journey-consolidation-and-durable-receipts.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/BANZA_V1_CLEAN_ROOM_PACKAGE_MANIFEST.md"
    ],
    "refs": 13
@@ -2738,7 +2738,7 @@
     "conformance/package/contracts/payment-sessions/payment-session-interface.schema.json",
     "conformance/package/package-manifest.json",
     "contracts/production/normative-manifest.json",
-    "decisions/adr/ADR-015-payment-session-unified-payment-interface.md"
+    "decisions/adr/ADR-015-payment-session.md"
    ],
    "refs": 15
   },
@@ -3505,7 +3505,7 @@
    "refs": 28
   },
   {
-   "path": "decisions/adr/ADR-001-open-financial-protocol.md",
+   "path": "decisions/adr/ADR-001-open-financial-protocol-what-banza-is-and-is-not.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -3518,7 +3518,7 @@
    "refs": 13
   },
   {
-   "path": "decisions/adr/ADR-002-ecosystem-naming-inversion.md",
+   "path": "decisions/adr/ADR-002-ecosystem-naming-banza-banzai-and-operators.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -3531,7 +3531,7 @@
    "refs": 13
   },
   {
-   "path": "decisions/adr/ADR-001-operator-separation.md",
+   "path": "decisions/adr/ADR-001-open-financial-protocol-what-banza-is-and-is-not.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -3544,7 +3544,7 @@
    "refs": 9
   },
   {
-   "path": "decisions/adr/ADR-001-protocol-first-product-development.md",
+   "path": "decisions/adr/ADR-001-open-financial-protocol-what-banza-is-and-is-not.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -3557,7 +3557,7 @@
    "refs": 9
   },
   {
-   "path": "decisions/adr/ADR-011-double-entry-ledger.md",
+   "path": "decisions/adr/ADR-011-double-entry-ledger-and-monetary-precision.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -3570,7 +3570,7 @@
    "refs": 10
   },
   {
-   "path": "decisions/adr/ADR-011-double-entry-invariant-enforcement.md",
+   "path": "decisions/adr/ADR-011-double-entry-ledger-and-monetary-precision.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -3609,7 +3609,7 @@
    "refs": 8
   },
   {
-   "path": "decisions/adr/ADR-012-account-participant-identity.md",
+   "path": "decisions/adr/ADR-012-account-and-participant-identity.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -3622,7 +3622,7 @@
    "refs": 10
   },
   {
-   "path": "decisions/adr/ADR-024-idempotency-and-rate-limiting.md",
+   "path": "decisions/adr/ADR-024-idempotency.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -3635,7 +3635,7 @@
    "refs": 11
   },
   {
-   "path": "decisions/adr/ADR-016-qr-payment-system.md",
+   "path": "decisions/adr/ADR-016-qr-payments.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -3674,7 +3674,7 @@
    "refs": 8
   },
   {
-   "path": "decisions/adr/ADR-015-payment-session-unified-payment-interface.md",
+   "path": "decisions/adr/ADR-015-payment-session.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -3700,7 +3700,7 @@
    "refs": 11
   },
   {
-   "path": "decisions/adr/ADR-020-wallet-native-payment-refund-source-model.md",
+   "path": "decisions/adr/ADR-020-wallet-payments-and-the-refund-source-model.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -3713,7 +3713,7 @@
    "refs": 8
   },
   {
-   "path": "decisions/adr/ADR-020-merchant-refundable-source-reference.md",
+   "path": "decisions/adr/ADR-020-wallet-payments-and-the-refund-source-model.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -3726,7 +3726,7 @@
    "refs": 8
   },
   {
-   "path": "decisions/adr/ADR-021-fee-and-application-settlement-architecture.md",
+   "path": "decisions/adr/ADR-021-fees-and-application-settlement.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -3739,7 +3739,7 @@
    "refs": 8
   },
   {
-   "path": "decisions/adr/ADR-019-wallet-accounts-segregated-accounts.md",
+   "path": "decisions/adr/ADR-019-wallet-accounts.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -3752,7 +3752,7 @@
    "refs": 8
   },
   {
-   "path": "decisions/adr/ADR-039-conformance-suite-level-capability-alignment.md",
+   "path": "decisions/adr/ADR-039-conformance-profiles-and-capability-vocabulary.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -3765,7 +3765,7 @@
    "refs": 9
   },
   {
-   "path": "decisions/adr/ADR-022-transaction-proof-standard.md",
+   "path": "decisions/adr/ADR-022-transaction-proof-and-public-verification.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -3778,7 +3778,7 @@
    "refs": 8
   },
   {
-   "path": "decisions/adr/ADR-022-public-verification-pages.md",
+   "path": "decisions/adr/ADR-022-transaction-proof-and-public-verification.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -3791,7 +3791,7 @@
    "refs": 8
   },
   {
-   "path": "decisions/adr/ADR-022-interactive-financial-documents.md",
+   "path": "decisions/adr/ADR-022-transaction-proof-and-public-verification.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -3817,7 +3817,7 @@
    "refs": 10
   },
   {
-   "path": "decisions/adr/ADR-032-kyc-operator-boundary-and-trust-assertions.md",
+   "path": "decisions/adr/ADR-032-kyc-stays-operator-policy-only-trust-assertions-federate.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -3830,7 +3830,7 @@
    "refs": 8
   },
   {
-   "path": "decisions/adr/ADR-025-environment-isolation.md",
+   "path": "decisions/adr/ADR-025-environment-isolation-sandbox-and-production.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -3843,7 +3843,7 @@
    "refs": 8
   },
   {
-   "path": "decisions/adr/ADR-037-canonical-verification-routes-and-preproduction.md",
+   "path": "decisions/adr/ADR-037-canonical-discovery-surface.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -3856,7 +3856,7 @@
    "refs": 9
   },
   {
-   "path": "decisions/adr/ADR-008-dedicated-independent-infrastructure.md",
+   "path": "decisions/adr/ADR-008-protocol-infrastructure-independent-of-any-operator.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -3869,7 +3869,7 @@
    "refs": 8
   },
   {
-   "path": "decisions/adr/ADR-008-dedicated-postgresql-and-backups.md",
+   "path": "decisions/adr/ADR-008-protocol-infrastructure-independent-of-any-operator.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -3882,7 +3882,7 @@
    "refs": 9
   },
   {
-   "path": "decisions/adr/ADR-008-deploy-model.md",
+   "path": "decisions/adr/ADR-008-protocol-infrastructure-independent-of-any-operator.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -3895,7 +3895,7 @@
    "refs": 8
   },
   {
-   "path": "decisions/adr/ADR-008-dns-and-tls.md",
+   "path": "decisions/adr/ADR-008-protocol-infrastructure-independent-of-any-operator.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -3921,7 +3921,7 @@
    "refs": 9
   },
   {
-   "path": "decisions/adr/ADR-027-open-protocol-trust-model-without-ca.md",
+   "path": "decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -3960,7 +3960,7 @@
    "refs": 20
   },
   {
-   "path": "decisions/adr/ADR-042-banzai-native-protocol-agent.md",
+   "path": "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -3973,7 +3973,7 @@
    "refs": 13
   },
   {
-   "path": "decisions/adr/ADR-026-postgresql-as-protocol-state-store.md",
+   "path": "decisions/adr/ADR-026-postgresql-as-protocol-state-store-not-a-ledger.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -3986,7 +3986,7 @@
    "refs": 9
   },
   {
-   "path": "decisions/adr/ADR-044-license-notice-trademark-open-governance-attribution.md",
+   "path": "decisions/adr/ADR-044-licence-notice-trademark-and-open-governance.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -3999,7 +3999,7 @@
    "refs": 8
   },
   {
-   "path": "decisions/adr/ADR-042-banzai-local-qwen-inference-runtime.md",
+   "path": "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4012,7 +4012,7 @@
    "refs": 10
   },
   {
-   "path": "decisions/adr/ADR-042-banzai-local-qwen-latency-tuning-default-readiness.md",
+   "path": "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4025,7 +4025,7 @@
    "refs": 10
   },
   {
-   "path": "decisions/adr/ADR-042-banzai-disable-qwen-reasoning-prefix-warmup.md",
+   "path": "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4038,7 +4038,7 @@
    "refs": 10
   },
   {
-   "path": "decisions/adr/ADR-042-banzai-local-qwen-384-token-default.md",
+   "path": "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4051,7 +4051,7 @@
    "refs": 9
   },
   {
-   "path": "decisions/adr/ADR-042-banzai-qwen-first-grounded-routing.md",
+   "path": "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4064,7 +4064,7 @@
    "refs": 10
   },
   {
-   "path": "decisions/adr/ADR-042-banzai-protocol-agent-core.md",
+   "path": "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4077,7 +4077,7 @@
    "refs": 12
   },
   {
-   "path": "decisions/adr/ADR-042-banzai-unified-public-interface.md",
+   "path": "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4090,7 +4090,7 @@
    "refs": 7
   },
   {
-   "path": "decisions/adr/ADR-042-banzai-per-answer-execution-path-metadata.md",
+   "path": "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4103,7 +4103,7 @@
    "refs": 8
   },
   {
-   "path": "decisions/adr/ADR-041-operador-zero-reference-payment-operator-simulator.md",
+   "path": "decisions/adr/ADR-041-operator-zero-the-read-only-reference-implementation.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4116,7 +4116,7 @@
    "refs": 12
   },
   {
-   "path": "decisions/adr/ADR-041-operator-zero-only-demo-and-example-policy.md",
+   "path": "decisions/adr/ADR-041-operator-zero-the-read-only-reference-implementation.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4129,7 +4129,7 @@
    "refs": 11
   },
   {
-   "path": "decisions/adr/ADR-042-banzai-primary-human-operator-interface.md",
+   "path": "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4142,7 +4142,7 @@
    "refs": 8
   },
   {
-   "path": "decisions/adr/ADR-042-banzai-rust-first-grounded-synthesis.md",
+   "path": "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4155,7 +4155,7 @@
    "refs": 8
   },
   {
-   "path": "decisions/adr/ADR-042-banzai-definitive-query-core-and-production-assurance.md",
+   "path": "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4181,7 +4181,7 @@
    "refs": 8
   },
   {
-   "path": "decisions/adr/ADR-027-trust-invariant-registry-realignment.md",
+   "path": "decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4194,7 +4194,7 @@
    "refs": 8
   },
   {
-   "path": "decisions/adr/ADR-003-three-layer-institutional-architecture.md",
+   "path": "decisions/adr/ADR-003-three-institutional-layers.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4207,7 +4207,7 @@
    "refs": 11
   },
   {
-   "path": "decisions/adr/ADR-006-banzami-operational-scheme.md",
+   "path": "decisions/adr/ADR-006-designated-operator-scheme.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4220,7 +4220,7 @@
    "refs": 10
   },
   {
-   "path": "decisions/adr/ADR-004-certification-admission-authorisation-separation.md",
+   "path": "decisions/adr/ADR-004-technical-certification-is-not-scheme-admission-and-not-regu.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4233,7 +4233,7 @@
    "refs": 8
   },
   {
-   "path": "decisions/adr/ADR-005-regulatory-state-boundary-and-real-money-gate.md",
+   "path": "decisions/adr/ADR-005-regulatory-state-boundary-and-the-real-money-activation-gate.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4246,7 +4246,7 @@
    "refs": 10
   },
   {
-   "path": "decisions/adr/ADR-007-conflict-of-interest-and-domain-separation.md",
+   "path": "decisions/adr/ADR-007-conflict-of-interest-infrastructure-and-key-separation.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4259,7 +4259,7 @@
    "refs": 8
   },
   {
-   "path": "decisions/adr/ADR-034-conformance-interoperability-certification.md",
+   "path": "decisions/adr/ADR-034-conformance-and-interoperability-certification.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4285,7 +4285,7 @@
    "refs": 8
   },
   {
-   "path": "decisions/adr/ADR-035-certification-state-machine.md",
+   "path": "decisions/adr/ADR-035-closed-certification-state-machine.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4298,7 +4298,7 @@
    "refs": 8
   },
   {
-   "path": "decisions/adr/ADR-041-operador-zero-read-only-reference-and-banzai-validation-workbench.md",
+   "path": "decisions/adr/ADR-041-operator-zero-the-read-only-reference-implementation.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4311,7 +4311,7 @@
    "refs": 9
   },
   {
-   "path": "decisions/adr/ADR-038-endpoint-originated-operator-validation-and-operator-implementation-model.md",
+   "path": "decisions/adr/ADR-038-endpoint-originated-operator-validation.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4324,7 +4324,7 @@
    "refs": 7
   },
   {
-   "path": "decisions/adr/ADR-040-simple-secure-operator-onboarding.md",
+   "path": "decisions/adr/ADR-040-operator-onboarding.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4336,7 +4336,7 @@
    "refs": 5
   },
   {
-   "path": "decisions/adr/ADR-042-banzai-navigable-contexts-single-interface.md",
+   "path": "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4349,7 +4349,7 @@
    "refs": 6
   },
   {
-   "path": "decisions/adr/ADR-042-banzai-canonical-runtime-and-reference-correction.md",
+   "path": "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4362,7 +4362,7 @@
    "refs": 6
   },
   {
-   "path": "decisions/adr/ADR-042-banzai-runtime-ssot-route.md",
+   "path": "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4375,7 +4375,7 @@
    "refs": 6
   },
   {
-   "path": "decisions/adr/ADR-042-banzai-mandatory-post-synthesis-validator.md",
+   "path": "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4388,7 +4388,7 @@
    "refs": 6
   },
   {
-   "path": "decisions/adr/ADR-042-simb-retirement-from-active-surfaces.md",
+   "path": "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4401,7 +4401,7 @@
    "refs": 6
   },
   {
-   "path": "decisions/adr/ADR-042-banzai-monorepo-consolidation-and-repository-removal.md",
+   "path": "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4414,7 +4414,7 @@
    "refs": 7
   },
   {
-   "path": "decisions/adr/ADR-042-banzai-validation-journey-consolidation-and-durable-receipts.md",
+   "path": "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4427,7 +4427,7 @@
    "refs": 6
   },
   {
-   "path": "decisions/adr/ADR-039-profile-applicability-model.md",
+   "path": "decisions/adr/ADR-039-conformance-profiles-and-capability-vocabulary.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4440,7 +4440,7 @@
    "refs": 6
   },
   {
-   "path": "decisions/adr/ADR-042-banzai-operational-reasoning-and-telemetry.md",
+   "path": "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4453,7 +4453,7 @@
    "refs": 6
   },
   {
-   "path": "decisions/adr/ADR-027-canonical-trust-signing-model-reconciliation.md",
+   "path": "decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4466,7 +4466,7 @@
    "refs": 7
   },
   {
-   "path": "decisions/adr/ADR-037-canonical-discovery-surface-reconciliation.md",
+   "path": "decisions/adr/ADR-037-canonical-discovery-surface.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4479,7 +4479,7 @@
    "refs": 6
   },
   {
-   "path": "decisions/adr/ADR-009-normative-completeness-versioning-decision.md",
+   "path": "decisions/adr/ADR-009-normative-authority-and-versioning.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4492,7 +4492,7 @@
    "refs": 12
   },
   {
-   "path": "decisions/adr/ADR-010-banza-canonical-json.md",
+   "path": "decisions/adr/ADR-010-banza-canonical-json-bcj-1.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4505,7 +4505,7 @@
    "refs": 13
   },
   {
-   "path": "decisions/adr/ADR-023-reason-code-model.md",
+   "path": "decisions/adr/ADR-023-reason-codes.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4518,7 +4518,7 @@
    "refs": 11
   },
   {
-   "path": "decisions/adr/ADR-024-idempotency-semantics.md",
+   "path": "decisions/adr/ADR-024-idempotency.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4531,7 +4531,7 @@
    "refs": 7
   },
   {
-   "path": "decisions/adr/ADR-030-trust-material-anti-rollback.md",
+   "path": "decisions/adr/ADR-030-anti-rollback-for-versioned-trust-material.md",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/corpus-truth-table.json",
@@ -4727,8 +4727,8 @@
    "path": "docs/audit/BANZA_V1_OPEN_PROTOCOL_NORMATIVE_COMPLETENESS_AUDIT.md",
    "class": "INTERNAL_AUDIT",
    "referenced_by": [
-    "decisions/adr/ADR-009-normative-completeness-versioning-decision.md",
-    "decisions/adr/ADR-010-banza-canonical-json.md",
+    "decisions/adr/ADR-009-normative-authority-and-versioning.md",
+    "decisions/adr/ADR-010-banza-canonical-json-bcj-1.md",
     "docs/audit/BANZA_V1_NORMATIVE_REMEDIATION_REPORT.md",
     "docs/audit/BANZA_V1_NORMATIVE_SURFACE_INVENTORY.md",
     "docs/audit/BANZA_V1_NORMATIVE_TRACEABILITY_MATRIX.md",
@@ -4834,7 +4834,7 @@
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/canonical-protocol-vocabulary.json",
-    "decisions/adr/ADR-042-banzai-local-qwen-inference-runtime.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "docs/banzai/BANZAI_PROTOCOL_AGENT.md",
     "docs/banzai/LOCAL_INFERENCE_RUNTIME.md",
@@ -4847,7 +4847,7 @@
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/canonical-protocol-vocabulary.json",
-    "decisions/adr/ADR-042-banzai-local-qwen-inference-runtime.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "docs/banzai/BANZAI_PROTOCOL_AGENT.md",
     "docs/banzai/LOCAL_INFERENCE_RUNBOOK.md",
@@ -4860,7 +4860,7 @@
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/canonical-protocol-vocabulary.json",
-    "decisions/adr/ADR-042-banzai-local-qwen-inference-runtime.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/BANZA_V1_VM_E2E_RESET_REPORT.md",
     "docs/audit/repo-truth-map.json",
     "docs/banzai/LOCAL_INFERENCE_RUNBOOK.md",
@@ -4898,7 +4898,7 @@
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/canonical-protocol-vocabulary.json",
-    "decisions/adr/ADR-042-banzai-per-answer-execution-path-metadata.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "docs/banzai/BANZAI_PROTOCOL_AGENT.md",
     "docs/banzai/KNOWLEDGE_INDEX.md",
@@ -5059,10 +5059,10 @@
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/canonical-protocol-vocabulary.json",
-    "decisions/adr/ADR-001-protocol-first-product-development.md",
-    "decisions/adr/ADR-024-idempotency-and-rate-limiting.md",
+    "decisions/adr/ADR-001-open-financial-protocol-what-banza-is-and-is-not.md",
+    "decisions/adr/ADR-024-idempotency.md",
     "decisions/adr/ADR-014-payment-intent.md",
-    "decisions/adr/ADR-015-payment-session-unified-payment-interface.md",
+    "decisions/adr/ADR-015-payment-session.md",
     "decisions/adr/ADR-018-payment-collections.md"
    ],
    "refs": 25
@@ -5073,7 +5073,7 @@
    "referenced_by": [
     ".github/workflows/identity-guard.yml",
     "artifacts/banzai/canonical-protocol-vocabulary.json",
-    "decisions/adr/ADR-042-banzai-native-protocol-agent.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "docs/governance/BANZA_TRUST_ARCHITECTURE.md",
     "docs/governance/PROTOCOL_SUCCESSION_AND_SURVIVAL.md"
@@ -5087,9 +5087,9 @@
     ".github/workflows/identity-guard.yml",
     "Makefile",
     "artifacts/banzai/canonical-protocol-vocabulary.json",
-    "decisions/adr/ADR-006-banzami-operational-scheme.md",
-    "decisions/adr/ADR-004-certification-admission-authorisation-separation.md",
-    "decisions/adr/ADR-005-regulatory-state-boundary-and-real-money-gate.md"
+    "decisions/adr/ADR-006-designated-operator-scheme.md",
+    "decisions/adr/ADR-004-technical-certification-is-not-scheme-admission-and-not-regu.md",
+    "decisions/adr/ADR-005-regulatory-state-boundary-and-the-real-money-activation-gate.md"
    ],
    "refs": 19
   },
@@ -5099,7 +5099,7 @@
    "referenced_by": [
     ".github/workflows/identity-guard.yml",
     "artifacts/banzai/canonical-protocol-vocabulary.json",
-    "decisions/adr/ADR-007-conflict-of-interest-and-domain-separation.md",
+    "decisions/adr/ADR-007-conflict-of-interest-infrastructure-and-key-separation.md",
     "docs/audit/repo-truth-map.json",
     "docs/governance/BANZA_RESPONSIBILITY_MATRIX.md",
     "docs/governance/BANZA_SEPARATION_MATRIX.md"
@@ -5112,9 +5112,9 @@
    "referenced_by": [
     "artifacts/banzai/canonical-protocol-vocabulary.json",
     "contracts/openapi/interoperability-certification.yaml",
-    "decisions/adr/ADR-034-conformance-interoperability-certification.md",
+    "decisions/adr/ADR-034-conformance-and-interoperability-certification.md",
     "decisions/adr/ADR-036-banza-technical-registry.md",
-    "decisions/adr/ADR-035-certification-state-machine.md",
+    "decisions/adr/ADR-035-closed-certification-state-machine.md",
     "docs/audit/repo-truth-map.json"
    ],
    "refs": 11
@@ -5183,7 +5183,7 @@
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/canonical-protocol-vocabulary.json",
-    "decisions/adr/ADR-007-conflict-of-interest-and-domain-separation.md",
+    "decisions/adr/ADR-007-conflict-of-interest-infrastructure-and-key-separation.md",
     "docs/audit/repo-truth-map.json",
     "docs/governance/BANZA_CONFLICT_OF_INTEREST_POLICY.md",
     "docs/governance/BANZA_SEPARATION_MATRIX.md",
@@ -5196,7 +5196,7 @@
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/canonical-protocol-vocabulary.json",
-    "decisions/adr/ADR-027-canonical-trust-signing-model-reconciliation.md",
+    "decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md",
     "docs/audit/repo-truth-map.json",
     "docs/governance/BANZA_ROOT_CUSTODY_FUTURE_MIGRATION.md",
     "docs/governance/ceremony-records/CEREMONY_RECORD_TEMPLATE.md",
@@ -5209,7 +5209,7 @@
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/canonical-protocol-vocabulary.json",
-    "decisions/adr/ADR-027-canonical-trust-signing-model-reconciliation.md",
+    "decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md",
     "docs/audit/repo-truth-map.json",
     "docs/governance/BANZA_ROOT_CUSTODY_DECISION_REQUIRED.md",
     "docs/governance/ceremony-records/M2_CUSTODY_APPROVAL_CHECKLIST.md",
@@ -5223,7 +5223,7 @@
    "referenced_by": [
     ".github/workflows/identity-guard.yml",
     "artifacts/banzai/canonical-protocol-vocabulary.json",
-    "decisions/adr/ADR-007-conflict-of-interest-and-domain-separation.md",
+    "decisions/adr/ADR-007-conflict-of-interest-infrastructure-and-key-separation.md",
     "docs/audit/repo-truth-map.json",
     "docs/governance/BANZA_CONFLICT_OF_INTEREST_POLICY.md",
     "docs/governance/BANZA_RESPONSIBILITY_MATRIX.md"
@@ -5237,8 +5237,8 @@
     ".github/workflows/identity-guard.yml",
     "Makefile",
     "artifacts/banzai/canonical-protocol-vocabulary.json",
-    "decisions/adr/ADR-003-three-layer-institutional-architecture.md",
-    "decisions/adr/ADR-004-certification-admission-authorisation-separation.md",
+    "decisions/adr/ADR-003-three-institutional-layers.md",
+    "decisions/adr/ADR-004-technical-certification-is-not-scheme-admission-and-not-regu.md",
     "docs/audit/BANZA_V1_REPOSITORY_TRUTH_CONSOLIDATION_REPORT.md"
    ],
    "refs": 18
@@ -5252,7 +5252,7 @@
     "clean-room/packages/l0/contracts/invariants.json",
     "conformance/package/contracts/invariants.json",
     "contracts/invariants.json",
-    "decisions/adr/ADR-027-canonical-trust-signing-model-reconciliation.md"
+    "decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md"
    ],
    "refs": 25
   },
@@ -5342,7 +5342,7 @@
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/banzai/canonical-protocol-vocabulary.json",
-    "decisions/adr/ADR-027-open-protocol-trust-model-without-ca.md",
+    "decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md",
     "decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md",
     "docs/audit/repo-truth-map.json",
     "docs/governance/FEDERATION_TRUST_MODEL.md",
@@ -5408,7 +5408,7 @@
    "referenced_by": [
     ".github/workflows/identity-guard.yml",
     "artifacts/banzai/canonical-protocol-vocabulary.json",
-    "decisions/adr/ADR-026-postgresql-as-protocol-state-store.md",
+    "decisions/adr/ADR-026-postgresql-as-protocol-state-store-not-a-ledger.md",
     "docs/audit/repo-truth-map.json",
     "docs/reference/pt/completa.md",
     "engines/banzai-query-core/src/doc-index.json"
@@ -5629,7 +5629,7 @@
     "CONTRIBUTING.md",
     "README.md",
     "artifacts/banzai/canonical-protocol-vocabulary.json",
-    "decisions/adr/ADR-044-license-notice-trademark-open-governance-attribution.md",
+    "decisions/adr/ADR-044-licence-notice-trademark-and-open-governance.md",
     "docs/audit/BANZA_V1_REPOSITORY_TRUTH_CONSOLIDATION_REPORT.md",
     "docs/audit/repo-truth-map.json"
    ],
@@ -6031,7 +6031,7 @@
    "path": "docs/reference/diagrams/protocol/operator-journey.svg",
    "class": "PUBLIC_DOCUMENTATION",
    "referenced_by": [
-    "decisions/adr/ADR-042-simb-retirement-from-active-surfaces.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "docs/reference/BANZA_SVG_REGISTRY.md",
     "engines/banzai-query-core/src/doc-index.json",
@@ -7306,7 +7306,7 @@
    "path": "engines/banza-artifact-fetcher/src/policy.rs",
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
-    "decisions/adr/ADR-042-banzai-validation-journey-consolidation-and-durable-receipts.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "docs/banzai/BANZAI_WORKBENCH_THREAT_MODEL.md",
     "engines/banza-artifact-fetcher/README.md",
@@ -7329,7 +7329,7 @@
    "path": "engines/banza-artifact-fetcher/src/types.rs",
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
-    "decisions/adr/ADR-023-reason-code-model.md",
+    "decisions/adr/ADR-023-reason-codes.md",
     "docs/audit/repo-truth-map.json",
     "engines/banza-artifact-fetcher/README.md",
     "evidence/claims/claims-matrix.json",
@@ -8017,7 +8017,7 @@
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
     "artifacts/m2-19-final/execution-state.json",
-    "decisions/adr/ADR-042-banzai-validation-journey-consolidation-and-durable-receipts.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
@@ -8342,8 +8342,8 @@
    "path": "engines/banza-target-registry/src/verdict.rs",
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
-    "decisions/adr/ADR-039-profile-applicability-model.md",
-    "decisions/adr/ADR-023-reason-code-model.md",
+    "decisions/adr/ADR-039-conformance-profiles-and-capability-vocabulary.md",
+    "decisions/adr/ADR-023-reason-codes.md",
     "docs/audit/BANZA_V1_AUDIT_REMEDIATION_BACKLOG.md",
     "docs/audit/repo-truth-map.json",
     "engines/banza-target-registry/README.md",
@@ -8409,7 +8409,7 @@
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
     "artifacts/m2-19-final/finding-b-map.json",
-    "decisions/adr/ADR-023-reason-code-model.md",
+    "decisions/adr/ADR-023-reason-codes.md",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "evidence/claims/claims-matrix.json",
@@ -8440,7 +8440,7 @@
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
     "artifacts/m2-19-final/finding-b-map.json",
-    "decisions/adr/ADR-009-normative-completeness-versioning-decision.md",
+    "decisions/adr/ADR-009-normative-authority-and-versioning.md",
     "docs/audit/BANZA_V1_AUDIT_REMEDIATION_BACKLOG.md",
     "docs/audit/BANZA_V1_NORMATIVE_REMEDIATION_REPORT.md",
     "docs/audit/BANZA_V1_OPEN_PROTOCOL_NORMATIVE_COMPLETENESS_AUDIT.md",
@@ -8452,7 +8452,7 @@
    "path": "engines/banza-trust/src/sign.rs",
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
-    "decisions/adr/ADR-037-canonical-discovery-surface-reconciliation.md",
+    "decisions/adr/ADR-037-canonical-discovery-surface.md",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "evidence/claims/claims-matrix.json",
@@ -8491,8 +8491,8 @@
    "path": "engines/banza-trust/tests/canonical_migration.rs",
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
-    "decisions/adr/ADR-009-normative-completeness-versioning-decision.md",
-    "decisions/adr/ADR-010-banza-canonical-json.md",
+    "decisions/adr/ADR-009-normative-authority-and-versioning.md",
+    "decisions/adr/ADR-010-banza-canonical-json-bcj-1.md",
     "docs/audit/BANZA_V1_CANONICALIZATION_MIGRATION_NOTE.md",
     "docs/audit/BANZA_V1_NORMATIVE_REMEDIATION_REPORT.md",
     "docs/audit/BANZA_V1_NORMATIVE_TRACEABILITY_MATRIX.md",
@@ -9283,7 +9283,7 @@
    "referenced_by": [
     "artifacts/m2-18b7/execution-state.json",
     "artifacts/banzai/task-fulfilment-truth-table.json",
-    "decisions/adr/ADR-042-banzai-definitive-query-core-and-production-assurance.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "engines/banza-repo-guards/src/lib.rs",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
@@ -9386,7 +9386,7 @@
     "artifacts/m2-19a/adr-audit-working.json",
     "artifacts/m2-19a/adr-treatment-map.json",
     "artifacts/banzai/home-current-surface-audit.json",
-    "decisions/adr/ADR-042-banzai-protocol-agent-core.md"
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md"
    ],
    "refs": 30
   },
@@ -9407,7 +9407,7 @@
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
     "artifacts/banzai/query-core-extraction-plan.md",
-    "decisions/adr/ADR-042-banzai-definitive-query-core-and-production-assurance.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "engines/banza-repo-guards/src/lib.rs",
     "engines/banzai-api-kb/src/lib.rs",
@@ -9472,7 +9472,7 @@
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
     "Makefile",
-    "decisions/adr/ADR-042-banzai-operational-reasoning-and-telemetry.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/doc-index.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
@@ -9497,7 +9497,7 @@
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
     "artifacts/m2-18b7/execution-state.json",
-    "decisions/adr/ADR-042-banzai-definitive-query-core-and-production-assurance.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
@@ -9509,7 +9509,7 @@
    "path": "engines/banzai-query-core/src/operational.rs",
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
-    "decisions/adr/ADR-042-banzai-operational-reasoning-and-telemetry.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/doc-index.json",
     "services/banzai-api/src/knowledge.js",
@@ -9522,8 +9522,8 @@
    "path": "engines/banzai-query-core/src/prompt.rs",
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
-    "decisions/adr/ADR-042-banzai-local-qwen-inference-runtime.md",
-    "decisions/adr/ADR-042-banzai-local-qwen-latency-tuning-default-readiness.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "docs/banzai/LOCAL_INFERENCE_RUNTIME.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
@@ -9553,7 +9553,7 @@
     "artifacts/m2-18b7/execution-state.json",
     "artifacts/m2-19a/adr-audit-working.json",
     "artifacts/m2-19a/adr-treatment-map.json",
-    "decisions/adr/ADR-042-banzai-definitive-query-core-and-production-assurance.md"
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md"
    ],
    "refs": 25
   },
@@ -9655,7 +9655,7 @@
     "Makefile",
     "artifacts/m2-18b6/execution-state.json",
     "artifacts/m2-18b7/execution-state.json",
-    "decisions/adr/ADR-042-banzai-definitive-query-core-and-production-assurance.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
@@ -9692,7 +9692,7 @@
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
     "artifacts/m2-18b7/execution-state.json",
-    "decisions/adr/ADR-042-banzai-definitive-query-core-and-production-assurance.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
@@ -9719,7 +9719,7 @@
    "referenced_by": [
     "artifacts/m2-18b6/execution-state.json",
     "artifacts/m2-18b7/execution-state.json",
-    "decisions/adr/ADR-042-banzai-definitive-query-core-and-production-assurance.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "docs/banzai/SPR_STRUCTURED_GENERATION_AND_VALIDATED_CACHE.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
@@ -9731,7 +9731,7 @@
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
     "artifacts/m2-18b7/execution-state.json",
-    "decisions/adr/ADR-042-banzai-definitive-query-core-and-production-assurance.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
@@ -9744,7 +9744,7 @@
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
     "artifacts/m2-18b7/execution-state.json",
-    "decisions/adr/ADR-042-banzai-definitive-query-core-and-production-assurance.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/obligations.rs",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
@@ -9795,10 +9795,10 @@
    "path": "engines/banzai-query-core/src/validate.rs",
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
-    "decisions/adr/ADR-042-banzai-local-qwen-inference-runtime.md",
-    "decisions/adr/ADR-042-banzai-local-qwen-latency-tuning-default-readiness.md",
-    "decisions/adr/ADR-042-banzai-disable-qwen-reasoning-prefix-warmup.md",
-    "decisions/adr/ADR-042-banzai-mandatory-post-synthesis-validator.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "docs/banzai/LOCAL_INFERENCE_RUNTIME.md"
    ],
@@ -9855,7 +9855,7 @@
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
     "artifacts/m2-18b7/execution-state.json",
-    "decisions/adr/ADR-042-banzai-definitive-query-core-and-production-assurance.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
@@ -10500,7 +10500,7 @@
     "artifacts/banzai/canonical-protocol-vocabulary.json",
     "artifacts/banzai/operator-zero-public-e2e.json",
     "contracts/production/implementation-record.production.schema.json",
-    "decisions/adr/ADR-037-canonical-discovery-surface-reconciliation.md",
+    "decisions/adr/ADR-037-canonical-discovery-surface.md",
     "docs/audit/repo-truth-map.json",
     "engines/banza-target-registry/src/lib.rs"
    ],
@@ -10921,7 +10921,7 @@
     "Makefile",
     "artifacts/banzai/canonical-protocol-vocabulary.json",
     "artifacts/banzai/operator-zero-public-e2e.json",
-    "decisions/adr/ADR-037-canonical-discovery-surface-reconciliation.md",
+    "decisions/adr/ADR-037-canonical-discovery-surface.md",
     "docs/audit/repo-truth-map.json"
    ],
    "refs": 15
@@ -11107,7 +11107,7 @@
    "class": "REFERENCED",
    "referenced_by": [
     ".gitignore",
-    "decisions/adr/ADR-008-deploy-model.md",
+    "decisions/adr/ADR-008-protocol-infrastructure-independent-of-any-operator.md",
     "docs/audit/BANZA_V1_VM_E2E_RESET_REPORT.md",
     "docs/audit/repo-truth-map.json",
     "docs/banzai/LOCAL_INFERENCE_RUNBOOK.md",
@@ -11179,7 +11179,7 @@
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/m2-18b6/execution-state.json",
-    "decisions/adr/ADR-042-banzai-local-qwen-inference-runtime.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/BANZA_V1_VM_E2E_RESET_REPORT.md",
     "docs/audit/repo-truth-map.json",
     "docs/banzai/LOCAL_INFERENCE_RUNBOOK.md",
@@ -11231,8 +11231,8 @@
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/m2-19-final/execution-state.json",
-    "decisions/adr/ADR-026-postgresql-as-protocol-state-store.md",
-    "decisions/adr/ADR-040-simple-secure-operator-onboarding.md",
+    "decisions/adr/ADR-026-postgresql-as-protocol-state-store-not-a-ledger.md",
+    "decisions/adr/ADR-040-operator-onboarding.md",
     "docs/audit/BANZA_V1_VM_E2E_RESET_REPORT.md",
     "docs/audit/repo-truth-map.json",
     "docs/governance/POSTGRESQL_PROTOCOL_STATE.md"
@@ -11306,10 +11306,10 @@
    "path": "infra/banza-network/systemd/banza-protocol.service",
    "class": "REFERENCED",
    "referenced_by": [
-    "decisions/adr/ADR-008-deploy-model.md",
+    "decisions/adr/ADR-008-protocol-infrastructure-independent-of-any-operator.md",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-exclusions.json",
-    "website/content/decisions/adr/ADR-008-deploy-model.md"
+    "website/content/decisions/adr/ADR-008-protocol-infrastructure-independent-of-any-operator.md"
    ],
    "refs": 4
   },
@@ -11392,8 +11392,8 @@
    "path": "infra/banza-network/tests/validate-compose.sh",
    "class": "TEST",
    "referenced_by": [
-    "decisions/adr/ADR-042-banzai-local-qwen-inference-runtime.md",
-    "decisions/adr/ADR-042-banzai-local-qwen-latency-tuning-default-readiness.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
@@ -11437,7 +11437,7 @@
    "path": "services/banzai-api/Dockerfile",
    "class": "REFERENCED",
    "referenced_by": [
-    "decisions/adr/ADR-042-banzai-validation-journey-consolidation-and-durable-receipts.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
@@ -11450,7 +11450,7 @@
    "path": "services/banzai-api/README.md",
    "class": "REFERENCED",
    "referenced_by": [
-    "decisions/adr/ADR-042-banzai-canonical-runtime-and-reference-correction.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/BANZA_V1_SIMPLICITY_SECURITY_ROBUSTNESS_REPORT.md",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
@@ -11800,7 +11800,7 @@
    "path": "services/banzai-api/src/concurrency.js",
    "class": "RUNTIME",
    "referenced_by": [
-    "decisions/adr/ADR-042-banzai-local-qwen-inference-runtime.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/queue_policy.rs",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
@@ -11839,7 +11839,7 @@
    "path": "services/banzai-api/src/journey.js",
    "class": "RUNTIME",
    "referenced_by": [
-    "decisions/adr/ADR-042-banzai-validation-journey-consolidation-and-durable-receipts.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "docs/banzai/SESSION_STATE.md",
     "docs/quality/BANZAI_RELEASE_QA_GATE.md",
@@ -12118,8 +12118,8 @@
     "artifacts/m2-18b7/execution-state.json",
     "artifacts/m2-19a/adr-audit-working.json",
     "artifacts/m2-19a/adr-treatment-map.json",
-    "decisions/adr/ADR-042-banzai-local-qwen-inference-runtime.md",
-    "decisions/adr/ADR-042-banzai-local-qwen-latency-tuning-default-readiness.md"
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md"
    ],
    "refs": 64
   },
@@ -12140,9 +12140,9 @@
    "path": "services/banzai-api/src/provider.js",
    "class": "RUNTIME",
    "referenced_by": [
-    "decisions/adr/ADR-042-banzai-local-qwen-inference-runtime.md",
-    "decisions/adr/ADR-042-banzai-local-qwen-latency-tuning-default-readiness.md",
-    "decisions/adr/ADR-042-banzai-local-qwen-384-token-default.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "evidence/claims/claims-matrix.json"
@@ -12364,8 +12364,8 @@
     "Makefile",
     "artifacts/m2-19-final/execution-state.json",
     "contracts/production/validation-journey-state-machine.production.json",
-    "decisions/adr/ADR-042-banzai-validation-journey-consolidation-and-durable-receipts.md",
-    "decisions/adr/ADR-039-profile-applicability-model.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
+    "decisions/adr/ADR-039-conformance-profiles-and-capability-vocabulary.md",
     "docs/audit/repo-truth-map.json"
    ],
    "refs": 39
@@ -12754,11 +12754,11 @@
    "class": "RUNTIME",
    "referenced_by": [
     "artifacts/m2-18b7/execution-state.json",
-    "decisions/adr/ADR-042-banzai-definitive-query-core-and-production-assurance.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "tools/check-banzai-production-e2e-readiness.sh",
-    "website/content/decisions/adr/ADR-042-banzai-definitive-query-core-and-production-assurance.md"
+    "website/content/decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md"
    ],
    "refs": 6
   },
@@ -13264,7 +13264,7 @@
    "class": "PUBLIC_DOCUMENTATION",
    "referenced_by": [
     "artifacts/banzai/canonical-protocol-vocabulary.json",
-    "decisions/adr/ADR-027-canonical-trust-signing-model-reconciliation.md",
+    "decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md",
     "docs/audit/BANZA_V1_CLEAN_ROOM_PACKAGE_MANIFEST.md",
     "docs/audit/BANZA_V1_NORMATIVE_SURFACE_INVENTORY.md",
     "docs/audit/BANZA_V1_NORMATIVE_TRACEABILITY_MATRIX.md",
@@ -13566,7 +13566,7 @@
     "clean-room/packages/l0/contracts/invariants.json",
     "conformance/package/contracts/invariants.json",
     "contracts/invariants.json",
-    "decisions/adr/ADR-042-simb-retirement-from-active-surfaces.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/BANZA_V1_CLEAN_ROOM_PACKAGE_MANIFEST.md"
    ],
    "refs": 18
@@ -13689,10 +13689,10 @@
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/m2-18b7/execution-state.json",
-    "decisions/adr/ADR-042-banzai-definitive-query-core-and-production-assurance.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "website/content/decisions/adr/ADR-042-banzai-definitive-query-core-and-production-assurance.md"
+    "website/content/decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md"
    ],
    "refs": 5
   },
@@ -14214,7 +14214,7 @@
    "referenced_by": [
     ".github/workflows/identity-guard.yml",
     "Makefile",
-    "decisions/adr/ADR-042-banzai-local-qwen-inference-runtime.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
@@ -14267,7 +14267,7 @@
    "referenced_by": [
     ".github/workflows/identity-guard.yml",
     "Makefile",
-    "decisions/adr/ADR-042-banzai-monorepo-consolidation-and-repository-removal.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/BANZA_V1_SIMPLICITY_SECURITY_ROBUSTNESS_REPORT.md",
     "docs/audit/repo-truth-map.json"
    ],
@@ -15570,7 +15570,7 @@
    "referenced_by": [
     ".github/workflows/identity-guard.yml",
     "Makefile",
-    "decisions/adr/ADR-026-postgresql-as-protocol-state-store.md",
+    "decisions/adr/ADR-026-postgresql-as-protocol-state-store-not-a-ledger.md",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json"
@@ -15821,9 +15821,9 @@
    "referenced_by": [
     ".github/workflows/identity-guard.yml",
     "Makefile",
-    "decisions/adr/ADR-027-canonical-trust-signing-model-reconciliation.md",
+    "decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md",
     "docs/audit/repo-truth-map.json",
-    "website/content/decisions/adr/ADR-027-canonical-trust-signing-model-reconciliation.md"
+    "website/content/decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md"
    ],
    "refs": 5
   },
@@ -15906,7 +15906,7 @@
    "referenced_by": [
     "artifacts/m2-18b7/execution-state.json",
     "artifacts/banzai/task-fulfilment-golden.json",
-    "decisions/adr/ADR-042-banzai-definitive-query-core-and-production-assurance.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "engines/banza-repo-guards/src/lib.rs",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
@@ -15944,7 +15944,7 @@
     "artifacts/banzai/canonical-protocol-vocabulary-review.md",
     "artifacts/banzai/canonical-protocol-vocabulary.json",
     "artifacts/m2-18b7/execution-state.json",
-    "decisions/adr/ADR-042-banzai-definitive-query-core-and-production-assurance.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "engines/banza-repo-guards/src/lib.rs"
    ],
@@ -16191,7 +16191,7 @@
    "path": "website/app/banzai/page.tsx",
    "class": "RUNTIME",
    "referenced_by": [
-    "decisions/adr/ADR-042-banzai-navigable-contexts-single-interface.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/doc-index.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
@@ -16888,7 +16888,7 @@
    "path": "website/components/banzai/banzai-agent.ts",
    "class": "RUNTIME",
    "referenced_by": [
-    "decisions/adr/ADR-042-simb-retirement-from-active-surfaces.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
@@ -16974,7 +16974,7 @@
    "path": "website/components/banzai/traceVerifier.ts",
    "class": "RUNTIME",
    "referenced_by": [
-    "decisions/adr/ADR-042-banzai-monorepo-consolidation-and-repository-removal.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
@@ -16996,7 +16996,7 @@
    "class": "RUNTIME",
    "referenced_by": [
     "artifacts/banzai/canonical-concept-matrix.json",
-    "decisions/adr/ADR-042-banzai-validation-journey-consolidation-and-durable-receipts.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "docs/quality/BANZAI_RELEASE_QA_GATE.md",
     "tools/check-banzai-certification-readiness-language-check.sh",
@@ -17119,7 +17119,7 @@
    "path": "website/components/home/banzaiKb.ts",
    "class": "RUNTIME",
    "referenced_by": [
-    "decisions/adr/ADR-042-banzai-per-answer-execution-path-metadata.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "docs/governance/rust-first-legacy-allowlist.json",
     "docs/quality/BANZAI_RELEASE_QA_GATE.md",
@@ -17240,7 +17240,7 @@
    "refs": 9
   },
   {
-   "path": "website/content/decisions/adr/ADR-001-open-financial-protocol.md",
+   "path": "website/content/decisions/adr/ADR-001-open-financial-protocol-what-banza-is-and-is-not.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17251,7 +17251,7 @@
    "refs": 4
   },
   {
-   "path": "website/content/decisions/adr/ADR-002-ecosystem-naming-inversion.md",
+   "path": "website/content/decisions/adr/ADR-002-ecosystem-naming-banza-banzai-and-operators.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17262,7 +17262,7 @@
    "refs": 4
   },
   {
-   "path": "website/content/decisions/adr/ADR-001-operator-separation.md",
+   "path": "website/content/decisions/adr/ADR-001-open-financial-protocol-what-banza-is-and-is-not.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17273,7 +17273,7 @@
    "refs": 4
   },
   {
-   "path": "website/content/decisions/adr/ADR-001-protocol-first-product-development.md",
+   "path": "website/content/decisions/adr/ADR-001-open-financial-protocol-what-banza-is-and-is-not.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17284,7 +17284,7 @@
    "refs": 4
   },
   {
-   "path": "website/content/decisions/adr/ADR-011-double-entry-ledger.md",
+   "path": "website/content/decisions/adr/ADR-011-double-entry-ledger-and-monetary-precision.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17295,7 +17295,7 @@
    "refs": 4
   },
   {
-   "path": "website/content/decisions/adr/ADR-011-double-entry-invariant-enforcement.md",
+   "path": "website/content/decisions/adr/ADR-011-double-entry-ledger-and-monetary-precision.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17322,7 +17322,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-012-account-participant-identity.md",
+   "path": "website/content/decisions/adr/ADR-012-account-and-participant-identity.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17331,7 +17331,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-024-idempotency-and-rate-limiting.md",
+   "path": "website/content/decisions/adr/ADR-024-idempotency.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17340,7 +17340,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-016-qr-payment-system.md",
+   "path": "website/content/decisions/adr/ADR-016-qr-payments.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17367,7 +17367,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-015-payment-session-unified-payment-interface.md",
+   "path": "website/content/decisions/adr/ADR-015-payment-session.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17385,7 +17385,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-020-wallet-native-payment-refund-source-model.md",
+   "path": "website/content/decisions/adr/ADR-020-wallet-payments-and-the-refund-source-model.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17394,7 +17394,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-020-merchant-refundable-source-reference.md",
+   "path": "website/content/decisions/adr/ADR-020-wallet-payments-and-the-refund-source-model.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17403,7 +17403,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-021-fee-and-application-settlement-architecture.md",
+   "path": "website/content/decisions/adr/ADR-021-fees-and-application-settlement.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17412,7 +17412,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-019-wallet-accounts-segregated-accounts.md",
+   "path": "website/content/decisions/adr/ADR-019-wallet-accounts.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17421,7 +17421,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-039-conformance-suite-level-capability-alignment.md",
+   "path": "website/content/decisions/adr/ADR-039-conformance-profiles-and-capability-vocabulary.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17430,7 +17430,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-022-transaction-proof-standard.md",
+   "path": "website/content/decisions/adr/ADR-022-transaction-proof-and-public-verification.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17439,7 +17439,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-022-public-verification-pages.md",
+   "path": "website/content/decisions/adr/ADR-022-transaction-proof-and-public-verification.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17448,7 +17448,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-022-interactive-financial-documents.md",
+   "path": "website/content/decisions/adr/ADR-022-transaction-proof-and-public-verification.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17466,7 +17466,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-032-kyc-operator-boundary-and-trust-assertions.md",
+   "path": "website/content/decisions/adr/ADR-032-kyc-stays-operator-policy-only-trust-assertions-federate.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17475,7 +17475,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-025-environment-isolation.md",
+   "path": "website/content/decisions/adr/ADR-025-environment-isolation-sandbox-and-production.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17484,7 +17484,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-037-canonical-verification-routes-and-preproduction.md",
+   "path": "website/content/decisions/adr/ADR-037-canonical-discovery-surface.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17493,7 +17493,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-008-dedicated-independent-infrastructure.md",
+   "path": "website/content/decisions/adr/ADR-008-protocol-infrastructure-independent-of-any-operator.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17502,7 +17502,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-008-dedicated-postgresql-and-backups.md",
+   "path": "website/content/decisions/adr/ADR-008-protocol-infrastructure-independent-of-any-operator.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17511,7 +17511,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-008-deploy-model.md",
+   "path": "website/content/decisions/adr/ADR-008-protocol-infrastructure-independent-of-any-operator.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17520,7 +17520,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-008-dns-and-tls.md",
+   "path": "website/content/decisions/adr/ADR-008-protocol-infrastructure-independent-of-any-operator.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17538,7 +17538,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-027-open-protocol-trust-model-without-ca.md",
+   "path": "website/content/decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17567,7 +17567,7 @@
    "refs": 3
   },
   {
-   "path": "website/content/decisions/adr/ADR-042-banzai-native-protocol-agent.md",
+   "path": "website/content/decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17576,7 +17576,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-026-postgresql-as-protocol-state-store.md",
+   "path": "website/content/decisions/adr/ADR-026-postgresql-as-protocol-state-store-not-a-ledger.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17585,7 +17585,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-044-license-notice-trademark-open-governance-attribution.md",
+   "path": "website/content/decisions/adr/ADR-044-licence-notice-trademark-and-open-governance.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17594,7 +17594,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-042-banzai-local-qwen-inference-runtime.md",
+   "path": "website/content/decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17603,7 +17603,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-042-banzai-local-qwen-latency-tuning-default-readiness.md",
+   "path": "website/content/decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17612,7 +17612,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-042-banzai-disable-qwen-reasoning-prefix-warmup.md",
+   "path": "website/content/decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17621,7 +17621,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-042-banzai-local-qwen-384-token-default.md",
+   "path": "website/content/decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17630,7 +17630,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-042-banzai-qwen-first-grounded-routing.md",
+   "path": "website/content/decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17639,7 +17639,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-042-banzai-protocol-agent-core.md",
+   "path": "website/content/decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17648,7 +17648,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-042-banzai-unified-public-interface.md",
+   "path": "website/content/decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17657,7 +17657,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-042-banzai-per-answer-execution-path-metadata.md",
+   "path": "website/content/decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17666,7 +17666,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-041-operador-zero-reference-payment-operator-simulator.md",
+   "path": "website/content/decisions/adr/ADR-041-operator-zero-the-read-only-reference-implementation.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17677,7 +17677,7 @@
    "refs": 4
   },
   {
-   "path": "website/content/decisions/adr/ADR-041-operator-zero-only-demo-and-example-policy.md",
+   "path": "website/content/decisions/adr/ADR-041-operator-zero-the-read-only-reference-implementation.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17688,7 +17688,7 @@
    "refs": 4
   },
   {
-   "path": "website/content/decisions/adr/ADR-042-banzai-primary-human-operator-interface.md",
+   "path": "website/content/decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17697,7 +17697,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-042-banzai-rust-first-grounded-synthesis.md",
+   "path": "website/content/decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17706,7 +17706,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-042-banzai-definitive-query-core-and-production-assurance.md",
+   "path": "website/content/decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17724,7 +17724,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-003-three-layer-institutional-architecture.md",
+   "path": "website/content/decisions/adr/ADR-003-three-institutional-layers.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17733,7 +17733,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-006-banzami-operational-scheme.md",
+   "path": "website/content/decisions/adr/ADR-006-designated-operator-scheme.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17742,7 +17742,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-004-certification-admission-authorisation-separation.md",
+   "path": "website/content/decisions/adr/ADR-004-technical-certification-is-not-scheme-admission-and-not-regu.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17751,7 +17751,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-005-regulatory-state-boundary-and-real-money-gate.md",
+   "path": "website/content/decisions/adr/ADR-005-regulatory-state-boundary-and-the-real-money-activation-gate.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17760,7 +17760,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-007-conflict-of-interest-and-domain-separation.md",
+   "path": "website/content/decisions/adr/ADR-007-conflict-of-interest-infrastructure-and-key-separation.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -17769,7 +17769,7 @@
    "refs": 2
   },
   {
-   "path": "website/content/decisions/adr/ADR-034-conformance-interoperability-certification.md",
+   "path": "website/content/decisions/adr/ADR-034-conformance-and-interoperability-certification.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json"
@@ -17785,7 +17785,7 @@
    "refs": 1
   },
   {
-   "path": "website/content/decisions/adr/ADR-035-certification-state-machine.md",
+   "path": "website/content/decisions/adr/ADR-035-closed-certification-state-machine.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json"
@@ -17793,7 +17793,7 @@
    "refs": 1
   },
   {
-   "path": "website/content/decisions/adr/ADR-041-operador-zero-read-only-reference-and-banzai-validation-workbench.md",
+   "path": "website/content/decisions/adr/ADR-041-operator-zero-the-read-only-reference-implementation.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json"
@@ -17801,7 +17801,7 @@
    "refs": 1
   },
   {
-   "path": "website/content/decisions/adr/ADR-038-endpoint-originated-operator-validation-and-operator-implementation-model.md",
+   "path": "website/content/decisions/adr/ADR-038-endpoint-originated-operator-validation.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json"
@@ -17809,7 +17809,7 @@
    "refs": 1
   },
   {
-   "path": "website/content/decisions/adr/ADR-040-simple-secure-operator-onboarding.md",
+   "path": "website/content/decisions/adr/ADR-040-operator-onboarding.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json"
@@ -17817,7 +17817,7 @@
    "refs": 1
   },
   {
-   "path": "website/content/decisions/adr/ADR-027-canonical-trust-signing-model-reconciliation.md",
+   "path": "website/content/decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json"
@@ -17938,7 +17938,7 @@
    "path": "website/lib/banzaEvidenceBundle.ts",
    "class": "RUNTIME",
    "referenced_by": [
-    "decisions/adr/ADR-042-simb-retirement-from-active-surfaces.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "docs/quality/BANZAI_RELEASE_QA_GATE.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
@@ -17991,7 +17991,7 @@
    "path": "website/lib/banzaSimb.ts",
    "class": "RUNTIME",
    "referenced_by": [
-    "decisions/adr/ADR-042-banzai-validation-journey-consolidation-and-durable-receipts.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "docs/quality/BANZAI_RELEASE_QA_GATE.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
@@ -18109,7 +18109,7 @@
    "path": "website/lib/banzaiState.ts",
    "class": "RUNTIME",
    "referenced_by": [
-    "decisions/adr/ADR-042-banzai-validation-journey-consolidation-and-durable-receipts.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "tools/check-banzai-operator-experience.sh",
     "tools/check-banzai-single-interface.sh",
@@ -18349,8 +18349,8 @@
    "path": "website/lib/operadorZeroStatus.ts",
    "class": "RUNTIME",
    "referenced_by": [
-    "decisions/adr/ADR-042-simb-retirement-from-active-surfaces.md",
-    "decisions/adr/ADR-042-banzai-validation-journey-consolidation-and-durable-receipts.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "tools/check-banzai-simb-active-surface-clean.sh"
    ],
@@ -18369,7 +18369,7 @@
    "class": "RUNTIME",
    "referenced_by": [
     "artifacts/banzai/canonical-concept-matrix.json",
-    "decisions/adr/ADR-042-banzai-validation-journey-consolidation-and-durable-receipts.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "tools/check-banzai-certification-readiness-language-check.sh",
     "tools/check-banzai-journey-receipt-origin-check.sh",
@@ -18453,7 +18453,7 @@
    "class": "RUNTIME",
    "referenced_by": [
     "artifacts/banzai/home-current-surface-audit.json",
-    "decisions/adr/ADR-042-banzai-canonical-runtime-and-reference-correction.md",
+    "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "tools/check-banzai-canonical-architecture-framing.sh",

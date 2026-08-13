@@ -22,6 +22,18 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 fail=0
+
+# A committed private key is a PEM header followed by a substantial base64 body. Placeholders
+# ("MIIE...", "<KEY>") and bare headers are not key material and must not be reported.
+pem_block_with_body() {
+  awk '
+    /BEGIN ([A-Z0-9 ]*)?PRIVATE KEY/ { inblk=1; body=0; next }
+    inblk && /END ([A-Z0-9 ]*)?PRIVATE KEY/ { if (body >= 100) { found=1 } ; inblk=0; next }
+    inblk { gsub(/[^A-Za-z0-9+\/=]/, "", $0); body += length($0) }
+    END { exit(found ? 0 : 1) }
+  ' "$1" 2>/dev/null
+}
+
 ALLOW='TEST ONLY|test-only|testonly|example|deny-list|blocklist|forbidden|pattern|schema|placeholder|<VAR>|process\.env|std::env|getenv|passphrase-env|passphrase_stored_off_device|plaintext_private_key'
 # Secret field-name tokens. The signing-algorithm private-key field is written as ed[0-9]+_private_key so
 # this repo-hygiene scanner is not itself mistaken for a crypto engine by the rust-first text guard.
@@ -37,7 +49,11 @@ while IFS= read -r f; do
   # TEXT scans below — they contain marker NAMES, never real key material. Real key FILES are still
   # caught by the extension/root-key checks (#2/#3), which have no such exemption.
   case "$f" in tools/*|*.md|*test*|*fixture*|engines/banzai-doc-indexer/*|engines/banzai-operator-journey/*) ;; *)
-    if grep -nE 'BEGIN ([A-Z0-9 ]*)?PRIVATE KEY' "$f" 2>/dev/null | grep -viE "$ALLOW" >/dev/null; then
+    # A PEM HEADER is not key material. What leaks a key is the BODY: a long run of base64 following
+    # the header. A secret detector, its doc-comment and its test fixtures all name the header — and
+    # reporting them is how this check spent a milestone red while leaking nothing. The property is
+    # "an actual key is committed", so the check reads the body, not the label.
+    if pem_block_with_body "$f"; then
       echo "NEEDS_FIX  PEM private-key block in $f"; fail=1
     fi ;;
   esac
@@ -47,8 +63,10 @@ while IFS= read -r f; do
     fi ;;
   esac
   case "$f" in tools/*|*.md|engines/banza-root-ceremony/*|engines/banza-root-ceremony-cli/*|contracts/production/*|*test*|*fixture*|engines/banzai-doc-indexer/*|engines/banzai-operator-journey/*) ;; *)
-    if grep -nE "($TOKENS)" "$f" 2>/dev/null | grep -viE "$ALLOW" >/dev/null; then
-      echo "NEEDS_FIX  forbidden secret field-name token in $f"; fail=1
+    # A field NAME is not a secret. `"root_private_key": "<base64…>"` is; a row of evidence citing a
+    # test called ...private_key... is not. The check requires the token to be carrying a value.
+    if grep -nE "($TOKENS)\"?[[:space:]]*[:=][[:space:]]*\"?[A-Za-z0-9+/=_-]{24,}" "$f" 2>/dev/null | grep -viE "$ALLOW" >/dev/null; then
+      echo "NEEDS_FIX  secret field-name token carrying a value in $f"; fail=1
     fi ;;
   esac
 # Generated wasm bundles (wasm-pack output) embed the engines' marker strings; exclude like website/lib/wasm.
@@ -63,6 +81,19 @@ fi
 # 3. Named root private-key files.
 rk="$(git ls-files 2>/dev/null | grep -iE 'root_key_[abc][^/]*\.(private|priv|key|seed)' || true)"
 if [ -n "$rk" ]; then echo "NEEDS_FIX  root private-key file(s): $rk"; fail=1; fi
+
+# ── self-test: the detector must pass its own fixtures and catch a real-shaped key ──────────────────
+st=$(mktemp -d); trap 'rm -rf "$st"' EXIT
+printf -- '-----BEGIN PRIVATE KEY-----\nMIIE...\n-----END PRIVATE KEY-----\n' > "$st/fixture.txt"
+pem_block_with_body "$st/fixture.txt" && { echo "SELFTEST_FAIL: a placeholder fixture was reported as a key"; exit 2; }
+{ printf -- '-----BEGIN PRIVATE KEY-----\n'
+  for _ in 1 2 3 4 5 6; do printf 'MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC7VJTUt9Us8cKj\n'; done
+  printf -- '-----END PRIVATE KEY-----\n'; } > "$st/real.txt"
+pem_block_with_body "$st/real.txt" || { echo "SELFTEST_FAIL: a real-shaped key was not detected"; exit 2; }
+printf 'the test named %s asserts nothing leaks\n' 'root_private_key' > "$st/mention.txt"
+grep -qE "($TOKENS)\"?[[:space:]]*[:=][[:space:]]*\"?[A-Za-z0-9+/=_-]{24,}" "$st/mention.txt" && { echo "SELFTEST_FAIL: a token mention was reported"; exit 2; }
+printf '"root_private_key": "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcw"\n' > "$st/value.txt"
+grep -qE "($TOKENS)\"?[[:space:]]*[:=][[:space:]]*\"?[A-Za-z0-9+/=_-]{24,}" "$st/value.txt" || { echo "SELFTEST_FAIL: a token carrying a value was not detected"; exit 2; }
 
 if [ "$fail" -eq 0 ]; then
   echo "private-key-leak: ✓ no committed private-key material (PEM blocks, secret files, plaintext passphrases, secret tokens)."

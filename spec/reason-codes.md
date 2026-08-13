@@ -3,7 +3,7 @@
 - **Status:** Normative
 - **Registry:** `banza-reason-codes/1`
 - **Protocol version:** BANZA 1.0.0
-- **Authority:** [ADR-023](../decisions/adr/ADR-023-reason-code-model.md)
+- **Authority:** [ADR-023](../decisions/adr/ADR-023-reason-codes.md)
 - **Machine-readable registry:** [`contracts/production/reason-code-registry.production.json`](../contracts/production/reason-code-registry.production.json)
 - **Test vectors:** [`conformance/vectors/reason-codes.json`](../conformance/vectors/reason-codes.json)
 

@@ -85,12 +85,12 @@ struct SubjectProfile {
 // Canonical sources (stable paths).
 const S_ADR001: Src = Src {
     id: "ADR-001",
-    path: "decisions/adr/ADR-001-open-financial-protocol.md",
+    path: "decisions/adr/ADR-001-open-financial-protocol-what-banza-is-and-is-not.md",
     title: "ADR-001 — BANZA as Open Financial Protocol",
 };
 const S_ADR038: Src = Src {
     id: "ADR-027",
-    path: "decisions/adr/ADR-027-open-protocol-trust-model-without-ca.md",
+    path: "decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md",
     title: "ADR-027 — Open Protocol Trust Model Without CA",
 };
 const S_ADR040: Src = Src {
@@ -105,7 +105,7 @@ const S_ADR039: Src = Src {
 };
 const S_ADR021: Src = Src {
     id: "ADR-039",
-    path: "decisions/adr/ADR-039-conformance-suite-level-capability-alignment.md",
+    path: "decisions/adr/ADR-039-conformance-profiles-and-capability-vocabulary.md",
     title: "ADR-039 — Conformance Suite / Level Capability Alignment",
 };
 const S_MANIFEST: Src = Src {

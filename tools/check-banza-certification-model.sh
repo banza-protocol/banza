@@ -22,9 +22,9 @@ echo "== banza-certification-model-check (M2.19D) =="
 
 # 1. canonical decisions + governance doc
 for f in \
-  decisions/adr/ADR-034-conformance-interoperability-certification.md \
+  decisions/adr/ADR-034-conformance-and-interoperability-certification.md \
   decisions/adr/ADR-036-banza-technical-registry.md \
-  decisions/adr/ADR-035-certification-state-machine.md \
+  decisions/adr/ADR-035-closed-certification-state-machine.md \
   docs/governance/BANZA_CONFORMANCE_INTEROP_CERTIFICATION.md; do need "$f"; done
 
 # 2. contracts present + implementation-bound + required fields

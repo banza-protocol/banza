@@ -2752,7 +2752,7 @@ fn is_financial_action(nq: &str) -> bool {
             | "withdraw"
     ) || polite;
     // A standalone numeric AMOUNT token (e.g. "100", "1.000", "50000"). `normalize` turns hyphens into
-    // spaces, so "ADR-011"→"adr 006"; a number that FOLLOWS a structural/doc-id word (adr, rfc, capítulo,
+    // spaces, so "ADR-011"→"adr 011"; a number that FOLLOWS a structural/doc-id word (adr, rfc, capítulo,
     // versão, secção…) is NOT an amount, so "transfer the knowledge from ADR-011" is not a money action.
     let toks: Vec<&str> = nq.split_whitespace().collect();
     let has_amount = toks.iter().enumerate().any(|(i, t)| {

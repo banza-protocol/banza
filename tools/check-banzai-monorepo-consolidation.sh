@@ -76,7 +76,7 @@ NODE
 [ $? -ne 0 ] && FAILED=1 || true
 
 # 4. ADR-042 exists.
-[ -f decisions/adr/ADR-042-banzai-monorepo-consolidation-and-repository-removal.md ] \
+[ -f decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md ] \
   && ok "ADR-042 present" || fail "ADR-042 missing"
 
 # 5. FINAL MICRO-CLOSURE — no old-repository references in ACTIVE BanzAI knowledge (M2.19G.6).

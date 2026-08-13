@@ -35,10 +35,10 @@ SURFACES=(
   contracts/federation/federation-trust.json
   contracts/federation/key-manifest.json
   contracts/federation/revocation-list.json
-  decisions/adr/ADR-027-open-protocol-trust-model-without-ca.md
+  decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md
   decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md
-  decisions/adr/ADR-027-canonical-trust-signing-model-reconciliation.md
-  website/content/decisions/adr/ADR-027-open-protocol-trust-model-without-ca.md
+  decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md
+  website/content/decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md
   website/content/decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md
   docs/governance/BANZA_TRUST_ARCHITECTURE.md
   docs/governance/FEDERATION_TRUST_MODEL.md
@@ -74,12 +74,12 @@ check() {
     || { echo "  ✗ INV-ROOT-005 (BRL signed by the revocation-domain key) missing from the registry"; bad=1; }
 
   # 2. Registry ↔ ADR agreement: ADR-027 carries the same Model-A INV-OTE-009 wording.
-  adr="$root/decisions/adr/ADR-027-open-protocol-trust-model-without-ca.md"
+  adr="$root/decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md"
   grep -qF "The Trust Root signs only the Key Manifest that endorses the delegated signing keys" "$adr" \
     || { echo "  ✗ ADR-027 INV-OTE-009 diverges from the registry (not Model A)"; bad=1; }
   grep -qF "signs **only the Key Manifest**" "$adr" \
     || { echo "  ✗ ADR-027 D-038-04 is not the Model-A statement"; bad=1; }
-  [ -f "$root/decisions/adr/ADR-027-canonical-trust-signing-model-reconciliation.md" ] \
+  [ -f "$root/decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md" ] \
     || { echo "  ✗ ADR-027 (the reconciliation decision) is missing"; bad=1; }
 
   # 3. No Model-B construction survives on the reconciled surfaces.
@@ -107,16 +107,15 @@ The root key signs only Key Manifests. It never signs revocation lists directly.
 The Trust Root signs only the Key Manifest that endorses the delegated signing keys.
 BRL is signed by the revocation-domain delegated key.
 EOF
-    cat > "$base/decisions/adr/ADR-027-open-protocol-trust-model-without-ca.md" <<'EOF'
+    cat > "$base/decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md" <<'EOF'
 The Trust Root signs only the Key Manifest that endorses the delegated signing keys.
 | D-038-04 | The Trust Root signs **only the Key Manifest**, which endorses the delegated keys. |
 EOF
-    : > "$base/decisions/adr/ADR-027-canonical-trust-signing-model-reconciliation.md"
   done
   # inject a Model-B residue into the bad tree's ADR
-  echo 'The trust root signs protocol metadata, releases, delegated keys and revocations.' >> "$b/decisions/adr/ADR-027-open-protocol-trust-model-without-ca.md"
-  ( SURFACES=(contracts/invariants.json decisions/adr/ADR-027-open-protocol-trust-model-without-ca.md); check "$g" >/dev/null 2>&1 ) || { echo "SELFTEST_FAIL good rejected"; st=1; }
-  ( SURFACES=(contracts/invariants.json decisions/adr/ADR-027-open-protocol-trust-model-without-ca.md); check "$b" >/dev/null 2>&1 ) && { echo "SELFTEST_FAIL model-B accepted"; st=1; }
+  echo 'The trust root signs protocol metadata, releases, delegated keys and revocations.' >> "$b/decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md"
+  ( SURFACES=(contracts/invariants.json decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md); check "$g" >/dev/null 2>&1 ) || { echo "SELFTEST_FAIL good rejected"; st=1; }
+  ( SURFACES=(contracts/invariants.json decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md); check "$b" >/dev/null 2>&1 ) && { echo "SELFTEST_FAIL model-B accepted"; st=1; }
   return $st
 }
 

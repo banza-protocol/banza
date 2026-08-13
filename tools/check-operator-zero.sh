@@ -126,7 +126,7 @@ done
 [ "$brand" -eq 0 ] && ok "no operator brand in the artifacts, the engine or the public surface"
 
 # …and it must still be present where the decision was recorded, or the boundary went undocumented.
-ADR=decisions/adr/ADR-041-operador-zero-reference-payment-operator-simulator.md
+ADR=decisions/adr/ADR-041-operator-zero-the-read-only-reference-implementation.md
 if [ -f "$ADR" ]; then
   grep -qi "$BRAND" "$ADR" \
     && ok "ADR-041 still documents the institutional boundary" \

@@ -81,7 +81,7 @@ test("trace is present + correct on every routing path (via the pipeline meta)",
     status: "grounded",
     answer_markdown: "A ADR-002 inverte a nomenclatura do ecossistema (ADR-002).",
     cited_source_ids: ["ADR-002"],
-    package: { facts: [{ id: "F1", source: { document_id: "ADR-002", title: "ADR-002", path: "decisions/adr/ADR-002-ecosystem.md" } }] },
+    package: { facts: [{ id: "F1", source: { document_id: "ADR-002", title: "ADR-002", path: "decisions/adr/ADR-002-ecosystem-naming-banza-banzai-and-operators.md" } }] },
     primary_intent: "explain_document",
     trace: { synthesis_called: true, resolution_method: "rust_deterministic", output_status: "ok", model: "qwen2.5-7b", factual_ok: true },
   });

@@ -38,7 +38,7 @@ An implementer who never opens this directory can still implement BANZA complete
 | [ADR-026](ADR-026-postgresql-as-protocol-state-store-not-a-ledger.md) | PostgreSQL as protocol state store, not a ledger |
 | [ADR-027](ADR-027-open-protocol-trust-model-without-a-certificate-authority.md) | Open protocol trust model without a certificate authority |
 | [ADR-028](ADR-028-root-authorization-three-authorities-threshold-two.md) | Root authorization: three authorities, threshold two |
-| [ADR-029](ADR-029-private-keys-never-reside-on-serving-infrastructure.md) | Private keys never reside on serving infrastructure |
+| [ADR-029](ADR-029-keys-never-on-serving-infrastructure.md) | Private keys never reside on serving infrastructure |
 | [ADR-030](ADR-030-anti-rollback-for-versioned-trust-material.md) | Anti-rollback for versioned trust material |
 | [ADR-031](ADR-031-federation-trust-evaluation-without-certificates.md) | Federation trust evaluation without certificates |
 | [ADR-032](ADR-032-kyc-stays-operator-policy-only-trust-assertions-federate.md) | KYC stays operator policy; only trust assertions federate |

@@ -24,7 +24,7 @@ The canonical protocol flow: `SCAN QR → CONFIRM → SETTLEMENT (T+0 finality i
 
 Reference models: **Pix, WeChat Pay, M-Pesa, UPI** — not Stripe checkout.
 
-See [ADR-012](../decisions/adr/ADR-012-account-participant-identity.md) and [ADR-001](../decisions/adr/ADR-001-open-financial-protocol.md) for the full architectural constraint.
+See [ADR-012](../decisions/adr/ADR-012-account-and-participant-identity.md) and [ADR-001](../decisions/adr/ADR-001-open-financial-protocol-what-banza-is-and-is-not.md) for the full architectural constraint.
 
 ---
 

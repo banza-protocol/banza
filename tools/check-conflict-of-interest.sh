@@ -19,7 +19,7 @@ cd "$(dirname "$0")/.."
 
 COI="docs/governance/BANZA_CONFLICT_OF_INTEREST_POLICY.md"
 SEP="docs/governance/BANZA_SEPARATION_MATRIX.md"
-ADR063="decisions/adr/ADR-007-conflict-of-interest-and-domain-separation.md"
+ADR063="decisions/adr/ADR-007-conflict-of-interest-infrastructure-and-key-separation.md"
 
 fail=0
 

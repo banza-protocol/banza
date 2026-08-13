@@ -12,10 +12,10 @@
 
 Este documento é subordinado a esta decisão. Nenhuma secção pode ser lida como contradizendo-a.
 
-Origem normativa: [ADR-027](../../decisions/adr/ADR-027-open-protocol-trust-model-without-ca.md),
+Origem normativa: [ADR-027](../../decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md),
 [ADR-033](../../decisions/adr/ADR-033-operator-self-publication-and-machine-verifiable-conformance.md),
 [ADR-031](../../decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md).
-Por [ADR-001](../../decisions/adr/ADR-001-protocol-first-product-development.md) (protocol-first), o
+Por [ADR-001](../../decisions/adr/ADR-001-open-financial-protocol-what-banza-is-and-is-not.md) (protocol-first), o
 modelo nasce num ADR antes de qualquer especificação, prosa ou página pública.
 
 ---
@@ -173,7 +173,7 @@ Estado actual, verificável directamente nas rotas públicas: `/operators` = `[]
 
 ## Referências
 
-- [ADR-027](../../decisions/adr/ADR-027-open-protocol-trust-model-without-ca.md) — modelo de confiança do protocolo aberto
+- [ADR-027](../../decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md) — modelo de confiança do protocolo aberto
 - [ADR-033](../../decisions/adr/ADR-033-operator-self-publication-and-machine-verifiable-conformance.md) — auto-publicação e conformidade verificável por máquina
 - [ADR-031](../../decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md) — avaliação de confiança de federação
 - [PUBLIC_PROTOCOL_REGISTRY.md](./PUBLIC_PROTOCOL_REGISTRY.md) — o índice público verificável

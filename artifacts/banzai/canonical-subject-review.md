@@ -7,12 +7,12 @@ rejected before the vocabulary). Deterministic, no model.
 ## Counts
 - subjects: 21
 - document_types: 12
-- document_instances: 62
+- document_instances: 51
 - artifact_types: 18
 - aliases: 262
 - relation_kinds: 11
 - relation_aliases: 24
-- relation_edges: 135
+- relation_edges: 56
 - attributes: 11
 - task_terms: 20
 - historical_terms: 6
@@ -20,14 +20,14 @@ rejected before the vocabulary). Deterministic, no model.
 - unresolved: 0
 
 ## Candidate pipeline (Phase 1 — noise separated from vocabulary)
-- total candidates: 4167
-- accepted (terminology): 808
-- rejected (lexical noise / non-terminological): 3359
-  - NON_TERMINOLOGICAL: 2253
-  - GENERIC_PROSE: 823
-  - PATH_FRAGMENT: 137
-  - MARKUP_FRAGMENT: 31
-  - BROKEN_TOKEN: 108
+- total candidates: 3856
+- accepted (terminology): 778
+- rejected (lexical noise / non-terminological): 3078
+  - NON_TERMINOLOGICAL: 2075
+  - GENERIC_PROSE: 749
+  - PATH_FRAGMENT: 120
+  - MARKUP_FRAGMENT: 28
+  - BROKEN_TOKEN: 99
   - STOPWORD: 7
 
 ## Coverage gates
@@ -36,7 +36,7 @@ rejected before the vocabulary). Deterministic, no model.
 - conflicted: 0
 - vocabulary_subjects_missing_from_truth_table: []
 - truth_table_concept_subjects_missing_from_vocabulary: []
-- truth_table_doc_rows_missing_from_vocabulary: ["adr-999-nonexistent"]
+- truth_table_doc_rows_missing_from_vocabulary: []
 - engine_alias_without_mapping: 0
 - relation_alias_without_kind: 0
 - lexical_noise_in_vocabulary: 0
@@ -44,16 +44,16 @@ rejected before the vocabulary). Deterministic, no model.
 
 ## Subjects (the derived authority — each a possible main subject of a supported question)
 - **operador** (concept) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [example] — sources [ADR-001, operator-manifest-schema]
-- **federacao** (concept) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [example, procedure] — sources [ADR-038, ADR-040, operator-manifest-schema]
+- **federacao** (concept) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [example, procedure] — sources [ADR-027, ADR-031, operator-manifest-schema]
 - **manifest** (artefact) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [procedure, template] — sources [operator-manifest-schema]
-- **revogacao** (concept) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [example, procedure] — sources [revocation-entry-schema, ADR-040]
-- **trust** (concept) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [example, template] — sources [ADR-038, ADR-040, federation-trust-evaluation-schema]
-- **evidencia** (artefact) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [example, template] — sources [evidence-bundle-schema, conformance-evidence-schema, ADR-039]
-- **conformidade** (concept) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [example, procedure, template] — sources [ADR-021, ADR-039, conformance-evidence-schema]
-- **participacao** (concept) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [procedure] — sources [ADR-039, operator-manifest-schema, ADR-040]
+- **revogacao** (concept) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [example, procedure] — sources [revocation-entry-schema, ADR-031]
+- **trust** (concept) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [example, template] — sources [ADR-027, ADR-031, federation-trust-evaluation-schema]
+- **evidencia** (artefact) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [example, template] — sources [evidence-bundle-schema, conformance-evidence-schema, ADR-033]
+- **conformidade** (concept) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [example, procedure, template] — sources [ADR-039, ADR-033, conformance-evidence-schema]
+- **participacao** (concept) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [procedure] — sources [ADR-033, operator-manifest-schema, ADR-031]
 - **chave** (artefact) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [procedure, template] — sources [key-manifest-schema, revocation-entry-schema]
-- **root** (artefact) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [procedure, template] — sources [trust-root-metadata-schema, root-metadata-schema, root-key-schema, ADR-028, ADR-038]
-- **interoperabilidade** (concept) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [example, template] — sources [federation-manifest-schema, ADR-040]
+- **root** (artefact) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [procedure, template] — sources [trust-root-metadata-schema, root-metadata-schema, root-key-schema, ADR-029, ADR-027]
+- **interoperabilidade** (concept) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [example, template] — sources [federation-manifest-schema, ADR-031]
 - **banza** (entity) — entity coverage (coverage.rs) + attribute terminal + trunk — deliverables [] — sources [ADR-001, ADR-002]
 - **banzai** (entity) — entity coverage + trunk — deliverables [] — sources [ADR-042, ADR-042]
 - **banzami** (entity) — entity coverage + attribution (GOVERNANCE) — deliverables [] — sources [ADR-002, GOVERNANCE]
@@ -66,10 +66,10 @@ rejected before the vocabulary). Deterministic, no model.
 - **webhook** (artefact) — trunk synthesis grounded in the webhook/event contracts — deliverables [] — sources [webhooks]
 
 ## Why the numbers differ (reconciliation)
-- The vocabulary has 21 SUBJECTS (concepts/entities/artefacts) — the things that can be the main subject of a question. Document instances (62 ADR/RFC) are DOCUMENT_INSTANCE, not subjects.
+- The vocabulary has 21 SUBJECTS (concepts/entities/artefacts) — the things that can be the main subject of a question. Document instances (51 ADR/RFC) are DOCUMENT_INSTANCE, not subjects.
 - 11 of the subjects carry a catalogue SubjectProfile (deterministic deliverable terminals); the rest resolve via entity coverage or trunk synthesis.
-- The 262 engine aliases map to 34 canonical targets (mostly document instances + concepts) — aliases are ALIAS, not subjects.
-- Relations: 11 RELATION_KIND (closed) + 24 RELATION_ALIAS + 135 graph edges — not "135 relation types".
+- The 262 engine aliases map to 28 canonical targets (mostly document instances + concepts) — aliases are ALIAS, not subjects.
+- Relations: 11 RELATION_KIND (closed) + 24 RELATION_ALIAS + 56 graph edges — not "56 relation types".
 
 ## Review policy
 - A subject is a concept/entity/artefact/document that can be the MAIN semantic subject of a supported question — never promoted by frequency/heading/substring alone.

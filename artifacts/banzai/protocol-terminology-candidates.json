@@ -1,5 +1,5 @@
 {
-  "total": 4167,
+  "total": 3856,
   "rows": [
     {
       "raw_text": "Contributing to BANZA",
@@ -358,7 +358,6 @@
         "decisions-adr-adr-038-endpoint-originated-operator-validation-md",
         "decisions-adr-adr-039-conformance-profiles-and-capability-vocabulary-md",
         "decisions-adr-adr-040-operator-onboarding-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "decisions-adr-adr-044-licence-notice-trademark-and-open-governance-md",
         "decisions-rfc-readme-md",
         "docs-banzai-banzai-protocol-agent-md",
@@ -380,7 +379,7 @@
         "spec-idempotency-md",
         "spec-trust-freshness-md"
       ],
-      "frequency": 114,
+      "frequency": 97,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -615,10 +614,9 @@
       "sources": [
         "governance-md",
         "readme-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "docs-banzai-banzai-protocol-agent-md"
       ],
-      "frequency": 4,
+      "frequency": 3,
       "phrase_length": 3,
       "accepted": true,
       "rejection_reason": "",
@@ -1366,10 +1364,9 @@
       "raw_text": "Reason codes",
       "normalized": "reason codes",
       "sources": [
-        "readme-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
+        "readme-md"
       ],
-      "frequency": 2,
+      "frequency": 1,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -1430,7 +1427,6 @@
       "normalized": "evidence bundle",
       "sources": [
         "readme-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "docs-governance-evidence-bundle-md",
         "docs-governance-l1-readiness-md",
         "docs-governance-l2-readiness-md",
@@ -1442,7 +1438,7 @@
         "docs-governance-workbench-only-operator-verification-md",
         "docs-governance-certification-boundary-md"
       ],
-      "frequency": 14,
+      "frequency": 13,
       "phrase_length": 2,
       "accepted": true,
       "rejection_reason": "",
@@ -2903,14 +2899,13 @@
       "normalized": "must not",
       "sources": [
         "contracts-readme-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "spec-canonicalization-md",
         "spec-capabilities-md",
         "spec-idempotency-md",
         "spec-reason-codes-md",
         "spec-trust-freshness-md"
       ],
-      "frequency": 18,
+      "frequency": 16,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -3190,11 +3185,9 @@
         "decisions-adr-adr-038-endpoint-originated-operator-validation-md",
         "decisions-adr-adr-039-conformance-profiles-and-capability-vocabulary-md",
         "decisions-adr-adr-040-operator-onboarding-md",
-        "decisions-adr-adr-041-operator-zero-the-read-only-reference-implementation-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
+        "decisions-adr-adr-041-operator-zero-the-read-only-reference-implementation-md"
       ],
-      "frequency": 31,
+      "frequency": 18,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -3687,7 +3680,7 @@
         "decisions-adr-adr-025-environment-isolation-sandbox-and-production-md",
         "decisions-adr-adr-027-open-protocol-trust-model-without-a-certificate-authority-md",
         "decisions-adr-adr-028-root-authorization-three-authorities-threshold-two-md",
-        "decisions-adr-adr-029-private-keys-never-reside-on-serving-infrastructure-md",
+        "decisions-adr-adr-029-keys-never-on-serving-infrastructure-md",
         "decisions-adr-adr-030-anti-rollback-for-versioned-trust-material-md",
         "decisions-adr-adr-031-federation-trust-evaluation-without-certificates-md",
         "decisions-adr-adr-032-kyc-stays-operator-policy-only-trust-assertions-federate-md",
@@ -3707,7 +3700,7 @@
         "docs-governance-readme-md",
         "docs-governance-workbench-only-operator-verification-md"
       ],
-      "frequency": 74,
+      "frequency": 62,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -3743,7 +3736,7 @@
         "decisions-adr-adr-025-environment-isolation-sandbox-and-production-md",
         "decisions-adr-adr-027-open-protocol-trust-model-without-a-certificate-authority-md",
         "decisions-adr-adr-028-root-authorization-three-authorities-threshold-two-md",
-        "decisions-adr-adr-029-private-keys-never-reside-on-serving-infrastructure-md",
+        "decisions-adr-adr-029-keys-never-on-serving-infrastructure-md",
         "decisions-adr-adr-030-anti-rollback-for-versioned-trust-material-md",
         "decisions-adr-adr-031-federation-trust-evaluation-without-certificates-md",
         "decisions-adr-adr-032-kyc-stays-operator-policy-only-trust-assertions-federate-md",
@@ -3761,7 +3754,7 @@
         "decisions-adr-adr-045-current-only-canonical-adr-tree-md",
         "docs-governance-readme-md"
       ],
-      "frequency": 67,
+      "frequency": 58,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -3789,6 +3782,7 @@
         "decisions-adr-adr-030-anti-rollback-for-versioned-trust-material-md",
         "decisions-adr-adr-039-conformance-profiles-and-capability-vocabulary-md",
         "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
+        "decisions-adr-adr-045-current-only-canonical-adr-tree-md",
         "decisions-rfc-readme-md",
         "decisions-rfc-rfc-0001-multi-operator-routing-md",
         "decisions-rfc-rfc-0002-cross-operator-settlement-md",
@@ -3798,7 +3792,7 @@
         "decisions-rfc-rfc-0006-offline-payment-support-md",
         "docs-governance-readme-md"
       ],
-      "frequency": 37,
+      "frequency": 32,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -3912,11 +3906,9 @@
         "decisions-adr-adr-033-operator-self-publication-and-machine-verifiable-conformance-md",
         "decisions-adr-adr-034-conformance-and-interoperability-certification-md",
         "decisions-adr-adr-035-closed-certification-state-machine-md",
-        "decisions-adr-adr-036-banza-technical-registry-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
+        "decisions-adr-adr-036-banza-technical-registry-md"
       ],
-      "frequency": 23,
+      "frequency": 21,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -4251,10 +4243,12 @@
         "decisions-adr-adr-022-transaction-proof-and-public-verification-md",
         "decisions-adr-adr-024-idempotency-md",
         "decisions-adr-adr-028-root-authorization-three-authorities-threshold-two-md",
+        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
+        "decisions-adr-adr-045-current-only-canonical-adr-tree-md",
         "docs-governance-banza-language-policy-md",
         "docs-governance-readme-md"
       ],
-      "frequency": 10,
+      "frequency": 12,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -4332,10 +4326,9 @@
       "normalized": "neutral",
       "sources": [
         "decisions-adr-adr-002-ecosystem-naming-banza-banzai-and-operators-md",
-        "decisions-adr-adr-033-operator-self-publication-and-machine-verifiable-conformance-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
+        "decisions-adr-adr-033-operator-self-publication-and-machine-verifiable-conformance-md"
       ],
-      "frequency": 3,
+      "frequency": 2,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -4358,18 +4351,17 @@
       "sources": [
         "decisions-adr-adr-002-ecosystem-naming-banza-banzai-and-operators-md",
         "decisions-adr-adr-027-open-protocol-trust-model-without-a-certificate-authority-md",
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md",
         "docs-banzai-local-inference-runtime-md",
         "docs-governance-annex-banza-network-infrastructure-md"
       ],
-      "frequency": 8,
+      "frequency": 5,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "ADR-001 — Three institutional layers",
-      "normalized": "adr-001 three institutional layers",
+      "raw_text": "ADR-003 — Three institutional layers",
+      "normalized": "adr-003 three institutional layers",
       "sources": [
         "decisions-adr-adr-003-three-institutional-layers-md"
       ],
@@ -4395,7 +4387,7 @@
         "decisions-adr-adr-024-idempotency-md",
         "decisions-adr-adr-027-open-protocol-trust-model-without-a-certificate-authority-md",
         "decisions-adr-adr-028-root-authorization-three-authorities-threshold-two-md",
-        "decisions-adr-adr-029-private-keys-never-reside-on-serving-infrastructure-md",
+        "decisions-adr-adr-029-keys-never-on-serving-infrastructure-md",
         "decisions-adr-adr-030-anti-rollback-for-versioned-trust-material-md",
         "decisions-adr-adr-031-federation-trust-evaluation-without-certificates-md",
         "decisions-adr-adr-033-operator-self-publication-and-machine-verifiable-conformance-md",
@@ -4412,7 +4404,7 @@
         "decisions-adr-adr-045-current-only-canonical-adr-tree-md",
         "docs-governance-readme-md"
       ],
-      "frequency": 48,
+      "frequency": 38,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -4443,14 +4435,13 @@
         "decisions-adr-adr-034-conformance-and-interoperability-certification-md",
         "decisions-adr-adr-035-closed-certification-state-machine-md",
         "decisions-adr-adr-036-banza-technical-registry-md",
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md",
         "docs-governance-banza-conflict-of-interest-policy-md",
         "docs-governance-banza-conformance-interop-certification-md",
         "docs-governance-banza-responsibility-matrix-md",
         "docs-governance-banza-separation-matrix-md",
         "spec-federation-federation-trust-model-md"
       ],
-      "frequency": 16,
+      "frequency": 15,
       "phrase_length": 1,
       "accepted": true,
       "rejection_reason": "",
@@ -4472,7 +4463,7 @@
         "decisions-adr-adr-024-idempotency-md",
         "decisions-adr-adr-026-postgresql-as-protocol-state-store-not-a-ledger-md",
         "decisions-adr-adr-027-open-protocol-trust-model-without-a-certificate-authority-md",
-        "decisions-adr-adr-029-private-keys-never-reside-on-serving-infrastructure-md",
+        "decisions-adr-adr-029-keys-never-on-serving-infrastructure-md",
         "decisions-adr-adr-030-anti-rollback-for-versioned-trust-material-md",
         "decisions-adr-adr-031-federation-trust-evaluation-without-certificates-md",
         "decisions-adr-adr-033-operator-self-publication-and-machine-verifiable-conformance-md",
@@ -4484,10 +4475,8 @@
         "decisions-adr-adr-039-conformance-profiles-and-capability-vocabulary-md",
         "decisions-adr-adr-040-operator-onboarding-md",
         "decisions-adr-adr-041-operator-zero-the-read-only-reference-implementation-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "decisions-adr-adr-043-rust-first-official-engines-md",
         "decisions-adr-adr-044-licence-notice-trademark-and-open-governance-md",
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md",
         "docs-banzai-banzai-protocol-agent-md",
         "docs-banzai-knowledge-index-md",
         "docs-banzai-local-inference-runtime-md",
@@ -4532,7 +4521,7 @@
         "spec-trust-freshness-md",
         "spec-validation-journey-md"
       ],
-      "frequency": 99,
+      "frequency": 78,
       "phrase_length": 1,
       "accepted": true,
       "rejection_reason": "",
@@ -4554,7 +4543,7 @@
         "decisions-adr-adr-024-idempotency-md",
         "decisions-adr-adr-026-postgresql-as-protocol-state-store-not-a-ledger-md",
         "decisions-adr-adr-027-open-protocol-trust-model-without-a-certificate-authority-md",
-        "decisions-adr-adr-029-private-keys-never-reside-on-serving-infrastructure-md",
+        "decisions-adr-adr-029-keys-never-on-serving-infrastructure-md",
         "decisions-adr-adr-030-anti-rollback-for-versioned-trust-material-md",
         "decisions-adr-adr-031-federation-trust-evaluation-without-certificates-md",
         "decisions-adr-adr-033-operator-self-publication-and-machine-verifiable-conformance-md",
@@ -4566,10 +4555,8 @@
         "decisions-adr-adr-039-conformance-profiles-and-capability-vocabulary-md",
         "decisions-adr-adr-040-operator-onboarding-md",
         "decisions-adr-adr-041-operator-zero-the-read-only-reference-implementation-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "decisions-adr-adr-043-rust-first-official-engines-md",
         "decisions-adr-adr-044-licence-notice-trademark-and-open-governance-md",
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md",
         "docs-governance-banza-protocol-vs-operator-policy-md",
         "docs-governance-banza-language-policy-md",
         "docs-governance-claude-base-md",
@@ -4585,7 +4572,7 @@
         "spec-federation-federation-test-suite-spec-md",
         "spec-overview-md"
       ],
-      "frequency": 69,
+      "frequency": 48,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -4646,11 +4633,10 @@
         "decisions-adr-adr-038-endpoint-originated-operator-validation-md",
         "decisions-adr-adr-039-conformance-profiles-and-capability-vocabulary-md",
         "decisions-adr-adr-040-operator-onboarding-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "docs-banzai-readme-md",
         "docs-governance-banza-conflict-of-interest-policy-md"
       ],
-      "frequency": 11,
+      "frequency": 10,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -4853,10 +4839,9 @@
         "decisions-adr-adr-033-operator-self-publication-and-machine-verifiable-conformance-md",
         "decisions-adr-adr-034-conformance-and-interoperability-certification-md",
         "decisions-adr-adr-035-closed-certification-state-machine-md",
-        "decisions-adr-adr-036-banza-technical-registry-md",
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
+        "decisions-adr-adr-036-banza-technical-registry-md"
       ],
-      "frequency": 12,
+      "frequency": 11,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -4873,17 +4858,16 @@
         "decisions-adr-adr-027-open-protocol-trust-model-without-a-certificate-authority-md",
         "decisions-adr-adr-034-conformance-and-interoperability-certification-md",
         "decisions-adr-adr-035-closed-certification-state-machine-md",
-        "decisions-adr-adr-036-banza-technical-registry-md",
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
+        "decisions-adr-adr-036-banza-technical-registry-md"
       ],
-      "frequency": 10,
+      "frequency": 9,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "ADR-X004 — Technical certification is not scheme admission and not regulatory authorisation",
-      "normalized": "adr-x004 technical certification is not scheme admission and not regulatory authorisation",
+      "raw_text": "ADR-004 — Technical certification is not scheme admission and not regulatory authorisation",
+      "normalized": "adr-004 technical certification is not scheme admission and not regulatory authorisation",
       "sources": [
         "decisions-adr-adr-004-technical-certification-is-not-scheme-admission-and-not-regu-md"
       ],
@@ -5277,8 +5261,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "ADR-001 — Regulatory-state boundary and the real-money activation gate",
-      "normalized": "adr-001 regulatory-state boundary and the real-money activation gate",
+      "raw_text": "ADR-005 — Regulatory-state boundary and the real-money activation gate",
+      "normalized": "adr-005 regulatory-state boundary and the real-money activation gate",
       "sources": [
         "decisions-adr-adr-005-regulatory-state-boundary-and-the-real-money-activation-gate-md"
       ],
@@ -5542,8 +5526,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "ADR-011 — Designated operator scheme",
-      "normalized": "adr-011 designated operator scheme",
+      "raw_text": "ADR-006 — Designated operator scheme",
+      "normalized": "adr-006 designated operator scheme",
       "sources": [
         "decisions-adr-adr-006-designated-operator-scheme-md"
       ],
@@ -5763,8 +5747,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "ADR-011 — Conflict of interest: infrastructure and key separation",
-      "normalized": "adr-011 conflict of interest infrastructure and key separation",
+      "raw_text": "ADR-007 — Conflict of interest: infrastructure and key separation",
+      "normalized": "adr-007 conflict of interest infrastructure and key separation",
       "sources": [
         "decisions-adr-adr-007-conflict-of-interest-infrastructure-and-key-separation-md"
       ],
@@ -6108,8 +6092,8 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "ADR-X008 — Protocol infrastructure independent of any operator",
-      "normalized": "adr-x008 protocol infrastructure independent of any operator",
+      "raw_text": "ADR-008 — Protocol infrastructure independent of any operator",
+      "normalized": "adr-008 protocol infrastructure independent of any operator",
       "sources": [
         "decisions-adr-adr-008-protocol-infrastructure-independent-of-any-operator-md"
       ],
@@ -6187,14 +6171,13 @@
         "decisions-adr-adr-032-kyc-stays-operator-policy-only-trust-assertions-federate-md",
         "decisions-adr-adr-034-conformance-and-interoperability-certification-md",
         "decisions-adr-adr-038-endpoint-originated-operator-validation-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "docs-banzai-operator-journey-md",
         "docs-governance-annex-banza-network-infrastructure-md",
         "docs-governance-banza-conformance-interop-certification-md",
         "spec-collections-md",
         "spec-disputes-md"
       ],
-      "frequency": 21,
+      "frequency": 17,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -6206,13 +6189,12 @@
         "decisions-adr-adr-008-protocol-infrastructure-independent-of-any-operator-md",
         "decisions-adr-adr-026-postgresql-as-protocol-state-store-not-a-ledger-md",
         "decisions-adr-adr-031-federation-trust-evaluation-without-certificates-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "decisions-adr-adr-044-licence-notice-trademark-and-open-governance-md",
         "docs-banzai-local-inference-runbook-md",
         "docs-governance-protocol-production-state-model-md",
         "docs-governance-protocol-release-governance-md"
       ],
-      "frequency": 9,
+      "frequency": 7,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -6241,8 +6223,6 @@
         "decisions-adr-adr-034-conformance-and-interoperability-certification-md",
         "decisions-adr-adr-036-banza-technical-registry-md",
         "decisions-adr-adr-037-canonical-discovery-surface-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md",
         "docs-banzai-local-inference-runbook-md",
         "docs-banzai-local-inference-runtime-md",
         "docs-banzai-local-qwen-model-setup-md",
@@ -6252,7 +6232,7 @@
         "docs-governance-annex-banza-network-infrastructure-md",
         "docs-governance-ceremony-records-readme-md"
       ],
-      "frequency": 39,
+      "frequency": 30,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -6273,7 +6253,7 @@
       "normalized": "no private keys",
       "sources": [
         "decisions-adr-adr-008-protocol-infrastructure-independent-of-any-operator-md",
-        "decisions-adr-adr-029-private-keys-never-reside-on-serving-infrastructure-md",
+        "decisions-adr-adr-029-keys-never-on-serving-infrastructure-md",
         "docs-governance-annex-banza-network-infrastructure-md"
       ],
       "frequency": 3,
@@ -6427,8 +6407,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "ADR-013 — Normative authority and versioning",
-      "normalized": "adr-013 normative authority and versioning",
+      "raw_text": "ADR-009 — Normative authority and versioning",
+      "normalized": "adr-009 normative authority and versioning",
       "sources": [
         "decisions-adr-adr-009-normative-authority-and-versioning-md"
       ],
@@ -6488,7 +6468,7 @@
         "decisions-adr-adr-023-reason-codes-md",
         "decisions-adr-adr-024-idempotency-md",
         "decisions-adr-adr-027-open-protocol-trust-model-without-a-certificate-authority-md",
-        "decisions-adr-adr-029-private-keys-never-reside-on-serving-infrastructure-md",
+        "decisions-adr-adr-029-keys-never-on-serving-infrastructure-md",
         "decisions-adr-adr-030-anti-rollback-for-versioned-trust-material-md",
         "decisions-adr-adr-037-canonical-discovery-surface-md"
       ],
@@ -6601,8 +6581,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "ADR-012 — BANZA Canonical JSON (BCJ/1)",
-      "normalized": "adr-012 banza canonical json bcj/1",
+      "raw_text": "ADR-010 — BANZA Canonical JSON (BCJ/1)",
+      "normalized": "adr-010 banza canonical json bcj/1",
       "sources": [
         "decisions-adr-adr-010-banza-canonical-json-bcj-1-md"
       ],
@@ -6687,10 +6667,9 @@
       "sources": [
         "decisions-adr-adr-010-banza-canonical-json-bcj-1-md",
         "decisions-adr-adr-021-fees-and-application-settlement-md",
-        "decisions-adr-adr-027-open-protocol-trust-model-without-a-certificate-authority-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
+        "decisions-adr-adr-027-open-protocol-trust-model-without-a-certificate-authority-md"
       ],
-      "frequency": 7,
+      "frequency": 4,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -6785,8 +6764,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "ADR-024 — Double-entry ledger and monetary precision",
-      "normalized": "adr-024 double-entry ledger and monetary precision",
+      "raw_text": "ADR-011 — Double-entry ledger and monetary precision",
+      "normalized": "adr-011 double-entry ledger and monetary precision",
       "sources": [
         "decisions-adr-adr-011-double-entry-ledger-and-monetary-precision-md"
       ],
@@ -6951,8 +6930,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "ADR-016 — Account and participant identity",
-      "normalized": "adr-016 account and participant identity",
+      "raw_text": "ADR-012 — Account and participant identity",
+      "normalized": "adr-012 account and participant identity",
       "sources": [
         "decisions-adr-adr-012-account-and-participant-identity-md"
       ],
@@ -7184,8 +7163,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "ADR-017 — Provider abstraction",
-      "normalized": "adr-017 provider abstraction",
+      "raw_text": "ADR-013 — Provider abstraction",
+      "normalized": "adr-013 provider abstraction",
       "sources": [
         "decisions-adr-adr-013-provider-abstraction-md"
       ],
@@ -7255,10 +7234,9 @@
       "sources": [
         "decisions-adr-adr-014-payment-intent-md",
         "decisions-adr-adr-019-wallet-accounts-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "docs-banzai-local-inference-runbook-md"
       ],
-      "frequency": 4,
+      "frequency": 3,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -7511,10 +7489,9 @@
       "sources": [
         "decisions-adr-adr-015-payment-session-md",
         "decisions-adr-adr-040-operator-onboarding-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "spec-capabilities-md"
       ],
-      "frequency": 5,
+      "frequency": 3,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -7586,13 +7563,12 @@
       "sources": [
         "decisions-adr-adr-015-payment-session-md",
         "decisions-adr-adr-040-operator-onboarding-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "docs-governance-banza-separation-matrix-md",
         "spec-federation-federation-failure-scenarios-md",
         "spec-federation-federation-protocol-flow-md",
         "spec-validation-journey-md"
       ],
-      "frequency": 9,
+      "frequency": 8,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -7802,8 +7778,8 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "ADR-018 — QR payments",
-      "normalized": "adr-018 qr payments",
+      "raw_text": "ADR-016 — QR payments",
+      "normalized": "adr-016 qr payments",
       "sources": [
         "decisions-adr-adr-016-qr-payments-md"
       ],
@@ -7870,8 +7846,8 @@
       "classification": "SUBJECT"
     },
     {
-      "raw_text": "ADR-020 — Payment links",
-      "normalized": "adr-020 payment links",
+      "raw_text": "ADR-017 — Payment links",
+      "normalized": "adr-017 payment links",
       "sources": [
         "decisions-adr-adr-017-payment-links-md"
       ],
@@ -7937,8 +7913,8 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "ADR-020 — Payment collections",
-      "normalized": "adr-020 payment collections",
+      "raw_text": "ADR-018 — Payment collections",
+      "normalized": "adr-018 payment collections",
       "sources": [
         "decisions-adr-adr-018-payment-collections-md"
       ],
@@ -8264,11 +8240,10 @@
         "decisions-adr-adr-018-payment-collections-md",
         "decisions-adr-adr-022-transaction-proof-and-public-verification-md",
         "decisions-adr-adr-040-operator-onboarding-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "docs-governance-annex-banza-network-infrastructure-md",
         "docs-governance-protocol-production-state-model-md"
       ],
-      "frequency": 8,
+      "frequency": 5,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -8314,8 +8289,8 @@
       "classification": "SUBJECT"
     },
     {
-      "raw_text": "ADR-021 — Wallet accounts",
-      "normalized": "adr-021 wallet accounts",
+      "raw_text": "ADR-019 — Wallet accounts",
+      "normalized": "adr-019 wallet accounts",
       "sources": [
         "decisions-adr-adr-019-wallet-accounts-md"
       ],
@@ -8411,10 +8386,9 @@
       "sources": [
         "decisions-adr-adr-019-wallet-accounts-md",
         "decisions-adr-adr-021-fees-and-application-settlement-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "docs-banzai-spr-structured-generation-and-validated-cache-md"
       ],
-      "frequency": 5,
+      "frequency": 3,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -8504,10 +8478,9 @@
       "normalized": "primary",
       "sources": [
         "decisions-adr-adr-019-wallet-accounts-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "spec-federation-federation-contract-traceability-md"
       ],
-      "frequency": 22,
+      "frequency": 21,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -8596,10 +8569,9 @@
       "normalized": "existing",
       "sources": [
         "decisions-adr-adr-019-wallet-accounts-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "spec-federation-federation-protocol-surfaces-md"
       ],
-      "frequency": 3,
+      "frequency": 2,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -8661,8 +8633,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "ADR-019 — Wallet payments and the refund source model",
-      "normalized": "adr-019 wallet payments and the refund source model",
+      "raw_text": "ADR-020 — Wallet payments and the refund source model",
+      "normalized": "adr-020 wallet payments and the refund source model",
       "sources": [
         "decisions-adr-adr-020-wallet-payments-and-the-refund-source-model-md"
       ],
@@ -9133,10 +9105,9 @@
       "raw_text": "both",
       "normalized": "both",
       "sources": [
-        "decisions-adr-adr-020-wallet-payments-and-the-refund-source-model-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
+        "decisions-adr-adr-020-wallet-payments-and-the-refund-source-model-md"
       ],
-      "frequency": 4,
+      "frequency": 1,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -9187,8 +9158,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "ADR-039 — Fees and application settlement",
-      "normalized": "adr-039 fees and application settlement",
+      "raw_text": "ADR-021 — Fees and application settlement",
+      "normalized": "adr-021 fees and application settlement",
       "sources": [
         "decisions-adr-adr-021-fees-and-application-settlement-md"
       ],
@@ -9631,8 +9602,8 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "ADR-X022 — Transaction proof and public verification",
-      "normalized": "adr-x022 transaction proof and public verification",
+      "raw_text": "ADR-022 — Transaction proof and public verification",
+      "normalized": "adr-022 transaction proof and public verification",
       "sources": [
         "decisions-adr-adr-022-transaction-proof-and-public-verification-md"
       ],
@@ -10212,8 +10183,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "ADR-022 — Reason codes",
-      "normalized": "adr-022 reason codes",
+      "raw_text": "ADR-023 — Reason codes",
+      "normalized": "adr-023 reason codes",
       "sources": [
         "decisions-adr-adr-023-reason-codes-md"
       ],
@@ -10337,8 +10308,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "ADR-022 — Idempotency",
-      "normalized": "adr-022 idempotency",
+      "raw_text": "ADR-024 — Idempotency",
+      "normalized": "adr-024 idempotency",
       "sources": [
         "decisions-adr-adr-024-idempotency-md"
       ],
@@ -10574,8 +10545,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "ADR-022 — Environment isolation: sandbox and production",
-      "normalized": "adr-022 environment isolation sandbox and production",
+      "raw_text": "ADR-025 — Environment isolation: sandbox and production",
+      "normalized": "adr-025 environment isolation sandbox and production",
       "sources": [
         "decisions-adr-adr-025-environment-isolation-sandbox-and-production-md"
       ],
@@ -10643,8 +10614,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "ADR-X026 — PostgreSQL as protocol state store, not a ledger",
-      "normalized": "adr-x026 postgresql as protocol state store not a ledger",
+      "raw_text": "ADR-026 — PostgreSQL as protocol state store, not a ledger",
+      "normalized": "adr-026 postgresql as protocol state store not a ledger",
       "sources": [
         "decisions-adr-adr-026-postgresql-as-protocol-state-store-not-a-ledger-md"
       ],
@@ -10659,10 +10630,9 @@
       "normalized": "1 context",
       "sources": [
         "decisions-adr-adr-026-postgresql-as-protocol-state-store-not-a-ledger-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "decisions-adr-adr-044-licence-notice-trademark-and-open-governance-md"
       ],
-      "frequency": 11,
+      "frequency": 2,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -10672,10 +10642,9 @@
       "normalized": "2 problem",
       "sources": [
         "decisions-adr-adr-026-postgresql-as-protocol-state-store-not-a-ledger-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "decisions-adr-adr-044-licence-notice-trademark-and-open-governance-md"
       ],
-      "frequency": 5,
+      "frequency": 2,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -10685,10 +10654,9 @@
       "normalized": "3 decision",
       "sources": [
         "decisions-adr-adr-026-postgresql-as-protocol-state-store-not-a-ledger-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "decisions-adr-adr-044-licence-notice-trademark-and-open-governance-md"
       ],
-      "frequency": 5,
+      "frequency": 2,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -10719,10 +10687,9 @@
       "raw_text": "6. Enforcement",
       "normalized": "6 enforcement",
       "sources": [
-        "decisions-adr-adr-026-postgresql-as-protocol-state-store-not-a-ledger-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
+        "decisions-adr-adr-026-postgresql-as-protocol-state-store-not-a-ledger-md"
       ],
-      "frequency": 3,
+      "frequency": 1,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -10731,10 +10698,9 @@
       "raw_text": "7. Consequences",
       "normalized": "7 consequences",
       "sources": [
-        "decisions-adr-adr-026-postgresql-as-protocol-state-store-not-a-ledger-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
+        "decisions-adr-adr-026-postgresql-as-protocol-state-store-not-a-ledger-md"
       ],
-      "frequency": 3,
+      "frequency": 1,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -10743,10 +10709,9 @@
       "raw_text": "8. Alternatives considered",
       "normalized": "8 alternatives considered",
       "sources": [
-        "decisions-adr-adr-026-postgresql-as-protocol-state-store-not-a-ledger-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
+        "decisions-adr-adr-026-postgresql-as-protocol-state-store-not-a-ledger-md"
       ],
-      "frequency": 3,
+      "frequency": 1,
       "phrase_length": 3,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -10766,10 +10731,9 @@
       "raw_text": "10. References",
       "normalized": "10 references",
       "sources": [
-        "decisions-adr-adr-026-postgresql-as-protocol-state-store-not-a-ledger-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
+        "decisions-adr-adr-026-postgresql-as-protocol-state-store-not-a-ledger-md"
       ],
-      "frequency": 2,
+      "frequency": 1,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -10980,8 +10944,8 @@
       "classification": "SUBJECT"
     },
     {
-      "raw_text": "ADR-X027 — Open protocol trust model without a certificate authority",
-      "normalized": "adr-x027 open protocol trust model without a certificate authority",
+      "raw_text": "ADR-027 — Open protocol trust model without a certificate authority",
+      "normalized": "adr-027 open protocol trust model without a certificate authority",
       "sources": [
         "decisions-adr-adr-027-open-protocol-trust-model-without-a-certificate-authority-md"
       ],
@@ -11561,7 +11525,7 @@
       "normalized": "delegated signing keys",
       "sources": [
         "decisions-adr-adr-027-open-protocol-trust-model-without-a-certificate-authority-md",
-        "decisions-adr-adr-029-private-keys-never-reside-on-serving-infrastructure-md",
+        "decisions-adr-adr-029-keys-never-on-serving-infrastructure-md",
         "docs-governance-operator-self-publication-and-conformance-md",
         "docs-governance-protocol-governance-roles-md",
         "spec-federation-federation-trust-model-md"
@@ -11976,10 +11940,9 @@
       "raw_text": "ADR-039",
       "normalized": "adr-039",
       "sources": [
-        "decisions-adr-adr-027-open-protocol-trust-model-without-a-certificate-authority-md",
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
+        "decisions-adr-adr-027-open-protocol-trust-model-without-a-certificate-authority-md"
       ],
-      "frequency": 3,
+      "frequency": 1,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -12013,10 +11976,9 @@
       "normalized": "adr-033",
       "sources": [
         "decisions-adr-adr-027-open-protocol-trust-model-without-a-certificate-authority-md",
-        "decisions-adr-adr-037-canonical-discovery-surface-md",
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
+        "decisions-adr-adr-037-canonical-discovery-surface-md"
       ],
-      "frequency": 3,
+      "frequency": 2,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -12025,10 +11987,9 @@
       "raw_text": "ADR-031",
       "normalized": "adr-031",
       "sources": [
-        "decisions-adr-adr-027-open-protocol-trust-model-without-a-certificate-authority-md",
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
+        "decisions-adr-adr-027-open-protocol-trust-model-without-a-certificate-authority-md"
       ],
-      "frequency": 4,
+      "frequency": 2,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -12049,10 +12010,9 @@
       "raw_text": "ADR-027",
       "normalized": "adr-027",
       "sources": [
-        "decisions-adr-adr-027-open-protocol-trust-model-without-a-certificate-authority-md",
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
+        "decisions-adr-adr-027-open-protocol-trust-model-without-a-certificate-authority-md"
       ],
-      "frequency": 5,
+      "frequency": 1,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -12656,8 +12616,8 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "ADR-029 — Root authorization: three authorities, threshold two",
-      "normalized": "adr-029 root authorization three authorities threshold two",
+      "raw_text": "ADR-028 — Root authorization: three authorities, threshold two",
+      "normalized": "adr-028 root authorization three authorities threshold two",
       "sources": [
         "decisions-adr-adr-028-root-authorization-three-authorities-threshold-two-md"
       ],
@@ -12723,10 +12683,10 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "ADR-032 — Private keys never reside on serving infrastructure",
-      "normalized": "adr-032 private keys never reside on serving infrastructure",
+      "raw_text": "ADR-029 — Private keys never reside on serving infrastructure",
+      "normalized": "adr-029 private keys never reside on serving infrastructure",
       "sources": [
-        "decisions-adr-adr-029-private-keys-never-reside-on-serving-infrastructure-md"
+        "decisions-adr-adr-029-keys-never-on-serving-infrastructure-md"
       ],
       "frequency": 1,
       "phrase_length": 8,
@@ -12737,7 +12697,7 @@
       "raw_text": "offline root",
       "normalized": "offline root",
       "sources": [
-        "decisions-adr-adr-029-private-keys-never-reside-on-serving-infrastructure-md"
+        "decisions-adr-adr-029-keys-never-on-serving-infrastructure-md"
       ],
       "frequency": 1,
       "phrase_length": 2,
@@ -12749,7 +12709,7 @@
       "raw_text": "threshold custody",
       "normalized": "threshold custody",
       "sources": [
-        "decisions-adr-adr-029-private-keys-never-reside-on-serving-infrastructure-md"
+        "decisions-adr-adr-029-keys-never-on-serving-infrastructure-md"
       ],
       "frequency": 1,
       "phrase_length": 2,
@@ -12760,7 +12720,7 @@
       "raw_text": "protocol metadata only",
       "normalized": "protocol metadata only",
       "sources": [
-        "decisions-adr-adr-029-private-keys-never-reside-on-serving-infrastructure-md"
+        "decisions-adr-adr-029-keys-never-on-serving-infrastructure-md"
       ],
       "frequency": 1,
       "phrase_length": 3,
@@ -12771,7 +12731,7 @@
       "raw_text": "key manifest",
       "normalized": "key manifest",
       "sources": [
-        "decisions-adr-adr-029-private-keys-never-reside-on-serving-infrastructure-md"
+        "decisions-adr-adr-029-keys-never-on-serving-infrastructure-md"
       ],
       "frequency": 1,
       "phrase_length": 2,
@@ -12783,7 +12743,7 @@
       "raw_text": "only serves signed public artifacts",
       "normalized": "only serves signed public artifacts",
       "sources": [
-        "decisions-adr-adr-029-private-keys-never-reside-on-serving-infrastructure-md"
+        "decisions-adr-adr-029-keys-never-on-serving-infrastructure-md"
       ],
       "frequency": 1,
       "phrase_length": 5,
@@ -12794,7 +12754,7 @@
       "raw_text": "no signing",
       "normalized": "no signing",
       "sources": [
-        "decisions-adr-adr-029-private-keys-never-reside-on-serving-infrastructure-md",
+        "decisions-adr-adr-029-keys-never-on-serving-infrastructure-md",
         "docs-governance-annex-banza-network-infrastructure-md"
       ],
       "frequency": 2,
@@ -12803,8 +12763,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "ADR-025 — Anti-rollback for versioned trust material",
-      "normalized": "adr-025 anti-rollback for versioned trust material",
+      "raw_text": "ADR-030 — Anti-rollback for versioned trust material",
+      "normalized": "adr-030 anti-rollback for versioned trust material",
       "sources": [
         "decisions-adr-adr-030-anti-rollback-for-versioned-trust-material-md"
       ],
@@ -12959,8 +12919,8 @@
       "rejection_reason": "MARKUP_FRAGMENT"
     },
     {
-      "raw_text": "ADR-037 — Federation trust evaluation without certificates",
-      "normalized": "adr-037 federation trust evaluation without certificates",
+      "raw_text": "ADR-031 — Federation trust evaluation without certificates",
+      "normalized": "adr-031 federation trust evaluation without certificates",
       "sources": [
         "decisions-adr-adr-031-federation-trust-evaluation-without-certificates-md"
       ],
@@ -13196,7 +13156,6 @@
       "normalized": "and",
       "sources": [
         "decisions-adr-adr-031-federation-trust-evaluation-without-certificates-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "docs-banzai-local-inference-runbook-md",
         "docs-banzai-local-inference-runtime-md",
         "docs-banzai-local-qwen-model-setup-md",
@@ -13206,7 +13165,7 @@
         "spec-federation-federation-protocol-flow-md",
         "spec-federation-federation-trust-model-md"
       ],
-      "frequency": 12,
+      "frequency": 11,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "STOPWORD"
@@ -13363,8 +13322,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "ADR-X032 — KYC stays operator policy; only trust assertions federate",
-      "normalized": "adr-x032 kyc stays operator policy only trust assertions federate",
+      "raw_text": "ADR-032 — KYC stays operator policy; only trust assertions federate",
+      "normalized": "adr-032 kyc stays operator policy only trust assertions federate",
       "sources": [
         "decisions-adr-adr-032-kyc-stays-operator-policy-only-trust-assertions-federate-md"
       ],
@@ -13401,10 +13360,9 @@
       "normalized": "does not",
       "sources": [
         "decisions-adr-adr-032-kyc-stays-operator-policy-only-trust-assertions-federate-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "docs-governance-annex-banza-network-infrastructure-md"
       ],
-      "frequency": 6,
+      "frequency": 3,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -13474,11 +13432,10 @@
       "normalized": "unchanged",
       "sources": [
         "decisions-adr-adr-032-kyc-stays-operator-policy-only-trust-assertions-federate-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "docs-banzai-local-qwen-model-setup-md",
         "docs-banzai-spr-structured-generation-and-validated-cache-md"
       ],
-      "frequency": 4,
+      "frequency": 3,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -13496,8 +13453,8 @@
       "classification": "SUBJECT"
     },
     {
-      "raw_text": "ADR-008 — Operator self-publication and machine-verifiable conformance",
-      "normalized": "adr-008 operator self-publication and machine-verifiable conformance",
+      "raw_text": "ADR-033 — Operator self-publication and machine-verifiable conformance",
+      "normalized": "adr-033 operator self-publication and machine-verifiable conformance",
       "sources": [
         "decisions-adr-adr-033-operator-self-publication-and-machine-verifiable-conformance-md"
       ],
@@ -13789,8 +13746,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "ADR-008 — Conformance and interoperability certification",
-      "normalized": "adr-008 conformance and interoperability certification",
+      "raw_text": "ADR-034 — Conformance and interoperability certification",
+      "normalized": "adr-034 conformance and interoperability certification",
       "sources": [
         "decisions-adr-adr-034-conformance-and-interoperability-certification-md"
       ],
@@ -14119,8 +14076,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "ADR-008 — Closed certification-state machine",
-      "normalized": "adr-008 closed certification-state machine",
+      "raw_text": "ADR-035 — Closed certification-state machine",
+      "normalized": "adr-035 closed certification-state machine",
       "sources": [
         "decisions-adr-adr-035-closed-certification-state-machine-md"
       ],
@@ -14226,12 +14183,11 @@
         "decisions-adr-adr-035-closed-certification-state-machine-md",
         "decisions-adr-adr-036-banza-technical-registry-md",
         "decisions-adr-adr-040-operator-onboarding-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "decisions-adr-adr-043-rust-first-official-engines-md",
         "docs-banzai-banzai-workbench-md",
         "spec-idempotency-md"
       ],
-      "frequency": 9,
+      "frequency": 6,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -14316,8 +14272,8 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "ADR-008 — BANZA Technical Registry",
-      "normalized": "adr-008 banza technical registry",
+      "raw_text": "ADR-036 — BANZA Technical Registry",
+      "normalized": "adr-036 banza technical registry",
       "sources": [
         "decisions-adr-adr-036-banza-technical-registry-md"
       ],
@@ -14669,8 +14625,8 @@
       "classification": "SUBJECT"
     },
     {
-      "raw_text": "ADR-043 — Canonical discovery surface",
-      "normalized": "adr-043 canonical discovery surface",
+      "raw_text": "ADR-037 — Canonical discovery surface",
+      "normalized": "adr-037 canonical discovery surface",
       "sources": [
         "decisions-adr-adr-037-canonical-discovery-surface-md"
       ],
@@ -15040,8 +14996,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "ADR-027 — Endpoint-originated operator validation",
-      "normalized": "adr-027 endpoint-originated operator validation",
+      "raw_text": "ADR-038 — Endpoint-originated operator validation",
+      "normalized": "adr-038 endpoint-originated operator validation",
       "sources": [
         "decisions-adr-adr-038-endpoint-originated-operator-validation-md"
       ],
@@ -15220,8 +15176,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "ADR-033 — Conformance profiles and capability vocabulary",
-      "normalized": "adr-033 conformance profiles and capability vocabulary",
+      "raw_text": "ADR-039 — Conformance profiles and capability vocabulary",
+      "normalized": "adr-039 conformance profiles and capability vocabulary",
       "sources": [
         "decisions-adr-adr-039-conformance-profiles-and-capability-vocabulary-md"
       ],
@@ -15302,10 +15258,9 @@
       "raw_text": "Boundary (what this ADR does NOT do)",
       "normalized": "boundary what this adr does not do",
       "sources": [
-        "decisions-adr-adr-039-conformance-profiles-and-capability-vocabulary-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
+        "decisions-adr-adr-039-conformance-profiles-and-capability-vocabulary-md"
       ],
-      "frequency": 2,
+      "frequency": 1,
       "phrase_length": 7,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -15548,8 +15503,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "ADR-031 — Operator onboarding",
-      "normalized": "adr-031 operator onboarding",
+      "raw_text": "ADR-040 — Operator onboarding",
+      "normalized": "adr-040 operator onboarding",
       "sources": [
         "decisions-adr-adr-040-operator-onboarding-md"
       ],
@@ -15682,8 +15637,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "ADR-042 — Operator Zero: the read-only reference implementation",
-      "normalized": "adr-042 operator zero the read-only reference implementation",
+      "raw_text": "ADR-041 — Operator Zero: the read-only reference implementation",
+      "normalized": "adr-041 operator zero the read-only reference implementation",
       "sources": [
         "decisions-adr-adr-041-operator-zero-the-read-only-reference-implementation-md"
       ],
@@ -15743,11 +15698,10 @@
       "normalized": "enforcement",
       "sources": [
         "decisions-adr-adr-041-operator-zero-the-read-only-reference-implementation-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "docs-governance-operator-neutrality-terminology-md",
         "spec-invariants-md"
       ],
-      "frequency": 6,
+      "frequency": 3,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -15767,10 +15721,9 @@
       "raw_text": "Supersedes:",
       "normalized": "supersedes",
       "sources": [
-        "decisions-adr-adr-041-operator-zero-the-read-only-reference-implementation-md",
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
+        "decisions-adr-adr-041-operator-zero-the-read-only-reference-implementation-md"
       ],
-      "frequency": 6,
+      "frequency": 2,
       "phrase_length": 1,
       "accepted": true,
       "rejection_reason": "",
@@ -16159,8 +16112,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "ADR-026 — BanzAI: a non-authoritative interface to the protocol",
-      "normalized": "adr-026 banzai a non-authoritative interface to the protocol",
+      "raw_text": "ADR-042 — BanzAI: a non-authoritative interface to the protocol",
+      "normalized": "adr-042 banzai a non-authoritative interface to the protocol",
       "sources": [
         "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
       ],
@@ -16171,79 +16124,8 @@
       "classification": "SUBJECT"
     },
     {
-      "raw_text": "4. Quem faz o quê no BANZA",
-      "normalized": "4 quem faz o que no banza",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 7,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "5. BanzAI and Rule Provenance",
-      "normalized": "5 banzai and rule provenance",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "6. O que BanzAI faz",
-      "normalized": "6 o que banzai faz",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "7. O que BanzAI não faz",
-      "normalized": "7 o que banzai nao faz",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "8. Relação com os motores Rust/WASM",
-      "normalized": "8 relacao com os motores rust/wasm",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "9. Relação com a Referência BANZA",
-      "normalized": "9 relacao com a referencia banza",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "DOCUMENT_TYPE"
-    },
-    {
-      "raw_text": "10. Relação com operadores",
-      "normalized": "10 relacao com operadores",
+      "raw_text": "not a normative source",
+      "normalized": "not a normative source",
       "sources": [
         "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
       ],
@@ -16253,8 +16135,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "11. Relação com a federação",
-      "normalized": "11 relacao com a federacao",
+      "raw_text": "Answers are validated before publication.",
+      "normalized": "answers are validated before publication",
       "sources": [
         "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
       ],
@@ -16264,87 +16146,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "12. Relação com a governança",
-      "normalized": "12 relacao com a governanca",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "13. Consequences",
-      "normalized": "13 consequences",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "BanzAI Local Qwen Inference Runtime",
-      "normalized": "banzai local qwen inference runtime",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "4. What the local runtime is",
-      "normalized": "4 what the local runtime is",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "5. What the model must never do",
-      "normalized": "5 what the model must never do",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 7,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "9. Relationship to invariants and prior ADRs",
-      "normalized": "9 relationship to invariants and prior adrs",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 7,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "BanzAI Local Qwen Latency Tuning and Default Readiness",
-      "normalized": "banzai local qwen latency tuning and default readiness",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 8,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "4. What changes",
-      "normalized": "4 what changes",
+      "raw_text": "Sources are public.",
+      "normalized": "sources are public",
       "sources": [
         "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
       ],
@@ -16354,8 +16157,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "5. What does not change",
-      "normalized": "5 what does not change",
+      "raw_text": "The action boundary is deterministic.",
+      "normalized": "the action boundary is deterministic",
       "sources": [
         "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
       ],
@@ -16365,382 +16168,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "9. References",
-      "normalized": "9 references",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "BanzAI: Disable Qwen Reasoning & Warm the System-Prompt Prefix",
-      "normalized": "banzai disable qwen reasoning warm the system-prompt prefix",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 8,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "2. Decision",
-      "normalized": "2 decision",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 6,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "3. Boundaries (unchanged)",
-      "normalized": "3 boundaries unchanged",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "4. Consequences",
-      "normalized": "4 consequences",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
-        "decisions-adr-adr-044-licence-notice-trademark-and-open-governance-md"
-      ],
-      "frequency": 3,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "5. Activation gate (unchanged)",
-      "normalized": "5 activation gate unchanged",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "BanzAI: local_qwen 384-token Default Output Budget",
-      "normalized": "banzai local qwen 384-token default output budget",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 7,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "3. Evidence (VPS XL+ benchmark, reasoning off, 384)",
-      "normalized": "3 evidence vps xl benchmark reasoning off 384",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 8,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "4. Boundaries (unchanged) & activation gate",
-      "normalized": "4 boundaries unchanged activation gate",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "5. Consequences",
-      "normalized": "5 consequences",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "BanzAI: Qwen-first Grounded Routing & Deterministic Fallback",
-      "normalized": "banzai qwen-first grounded routing deterministic fallback",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "BanzAI: Protocol Agent Core (operational intents, onboarding, documentary index)",
-      "normalized": "banzai protocol agent core operational intents onboarding documentary index",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 9,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "3. Consequences",
-      "normalized": "3 consequences",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 3,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "BanzAI: Unified Same-Origin Public Interface",
-      "normalized": "banzai unified same-origin public interface",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "BanzAI: Per-Answer Execution-Path Metadata",
-      "normalized": "banzai per-answer execution-path metadata",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "BanzAI as the Primary Human-Operator Interface for the BANZA protocol",
-      "normalized": "banzai as the primary human-operator interface for the banza protocol",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 10,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "Problem",
-      "normalized": "problem",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Boundaries",
-      "normalized": "boundaries",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Relationship with BanzAI",
-      "normalized": "relationship with banzai",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Relationship with verifiable engines",
-      "normalized": "relationship with verifiable engines",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Relationship with operators",
-      "normalized": "relationship with operators",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Relationship with governance",
-      "normalized": "relationship with governance",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Relationship with Operador Zero",
-      "normalized": "relationship with operador zero",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Relationship with /operators",
-      "normalized": "relationship with /operators",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Relationship with production_certificates=false",
-      "normalized": "relationship with production certificates false",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Relationship with UI / workbench",
-      "normalized": "relationship with ui / workbench",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Relationship with technical APIs",
-      "normalized": "relationship with technical apis",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Relationship with machine-to-machine integrations",
-      "normalized": "relationship with machine-to-machine integrations",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Acceptance criteria",
-      "normalized": "acceptance criteria",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Rust-First Grounded Synthesis for BanzAI",
-      "normalized": "rust-first grounded synthesis for banzai",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "The pipeline",
-      "normalized": "the pipeline",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Absolute rules",
-      "normalized": "absolute rules",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Versioning and cache",
-      "normalized": "versioning and cache",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Operator neutrality",
-      "normalized": "operator neutrality",
+      "raw_text": "inferência\nlocal",
+      "normalized": "inferencia local",
       "sources": [
         "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
       ],
@@ -16748,166 +16177,11 @@
       "phrase_length": 2,
       "accepted": true,
       "rejection_reason": "",
-      "classification": "SUBJECT"
+      "classification": "ALIAS"
     },
     {
-      "raw_text": "Definitive Query Core, Canonical Knowledge Coverage and Production Assurance for BanzAI",
-      "normalized": "definitive query core canonical knowledge coverage and production assurance for banzai",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 11,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "Canonical principle (unchanged)",
-      "normalized": "canonical principle unchanged",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Single Query Core authority (implemented)",
-      "normalized": "single query core authority implemented",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Navigable contexts in the single BanzAI interface (closed, server-resolved route segments)",
-      "normalized": "navigable contexts in the single banzai interface closed server-resolved route segments",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 11,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "BanzAI canonical runtime architecture and reference-chapter correction",
-      "normalized": "banzai canonical runtime architecture and reference-chapter correction",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 7,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "Public runtime SSOT route and secret-free status schema",
-      "normalized": "public runtime ssot route and secret-free status schema",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 8,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "DOCUMENT_TYPE"
-    },
-    {
-      "raw_text": "Mandatory post-synthesis authority validator on the publish path",
-      "normalized": "mandatory post-synthesis authority validator on the publish path",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 8,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "SimB retirement from active surfaces",
-      "normalized": "simb retirement from active surfaces",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "BanzAI Monorepo Consolidation and Permanent Removal of the Separate Repository",
-      "normalized": "banzai monorepo consolidation and permanent removal of the separate repository",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 10,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "Invariants (unchanged by this consolidation)",
-      "normalized": "invariants unchanged by this consolidation",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Risk of deletion",
-      "normalized": "risk of deletion",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "BanzAI validation-journey consolidation, single technical-state authority, and durable append-only receipts",
-      "normalized": "banzai validation-journey consolidation single technical-state authority and durable append-only receipts",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 10,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "Single technical-state authority",
-      "normalized": "single technical-state authority",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Authority hierarchy and step-9 attribution",
-      "normalized": "authority hierarchy and step-9 attribution",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Receipts: shape, durability, immutability",
-      "normalized": "receipts shape durability immutability",
+      "raw_text": "No interface at all.",
+      "normalized": "no interface at all",
       "sources": [
         "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
       ],
@@ -16917,2710 +16191,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "Runtime-derived state, residual hardening, doc reconciliation",
-      "normalized": "runtime-derived state residual hardening doc reconciliation",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "BanzAI operational reasoning, read-only telemetry, and honest request-oriented fallback",
-      "normalized": "banzai operational reasoning read-only telemetry and honest request-oriented fallback",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 9,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "no central human authority over operators",
-      "normalized": "no central human authority over operators",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "guidance",
-      "normalized": "guidance",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "guidance and orchestration",
-      "normalized": "guidance and orchestration",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "who does\n  what",
-      "normalized": "who does what",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "rule-provenance",
-      "normalized": "rule-provenance",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "cannot",
-      "normalized": "cannot",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "not defined",
-      "normalized": "not defined",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "BanzAI is not a protocol rule source.",
-      "normalized": "banzai is not a protocol rule source",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 7,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Output de IA nunca é regra do protocolo.",
-      "normalized": "output de ia nunca e regra do protocolo",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 8,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "local",
-      "normalized": "local",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
-        "docs-banzai-local-inference-runtime-md",
-        "spec-federation-federation-conformance-model-md",
-        "spec-federation-federation-runner-design-md"
-      ],
-      "frequency": 5,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "no external provider",
-      "normalized": "no external provider",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
-        "docs-banzai-local-inference-runtime-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "deterministic and testable",
-      "normalized": "deterministic and testable",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Q4_K_M",
-      "normalized": "q4 k m",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
-        "docs-banzai-local-inference-runbook-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "CPU",
-      "normalized": "cpu",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "llama.cpp",
-      "normalized": "llama cpp",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
-        "docs-banzai-local-inference-runbook-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Deployment:",
-      "normalized": "deployment",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "no published ports",
-      "normalized": "no published ports",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
-        "docs-banzai-local-inference-runtime-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "manually",
-      "normalized": "manually",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
-        "docs-banzai-local-inference-runbook-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Control:",
-      "normalized": "control",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Rust control engine:",
-      "normalized": "rust control engine",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Guard:",
-      "normalized": "guard",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Compose validation:",
-      "normalized": "compose validation",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Boundary/agent guards:",
-      "normalized": "boundary/agent guards",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "false",
-      "normalized": "false",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
-        "docs-banzai-local-inference-runtime-md",
-        "docs-banzai-local-qwen-model-setup-md",
-        "docs-governance-claude-base-md",
-        "docs-governance-evidence-bundle-md"
-      ],
-      "frequency": 6,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Hosted API only (status quo).",
-      "normalized": "hosted api only status quo",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Validation/prompt logic in TypeScript.",
-      "normalized": "validation/prompt logic in typescript",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Option B",
-      "normalized": "option b",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "effective default",
-      "normalized": "effective default",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
-        "docs-banzai-local-qwen-model-setup-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Compact prompt",
-      "normalized": "compact prompt",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Compact output",
-      "normalized": "compact output",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Source packing",
-      "normalized": "source packing",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Timeout policy",
-      "normalized": "timeout policy",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Healthcheck fix",
-      "normalized": "healthcheck fix",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Warm-up",
-      "normalized": "warm-up",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
-        "docs-banzai-local-inference-runtime-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Only raise the timeout (e.g. 90s).",
-      "normalized": "only raise the timeout e g 90s",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 7,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Switch to Qwen3-8B or a smaller model.",
-      "normalized": "switch to qwen3-8b or a smaller model",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 7,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Move prompt/validation to JS for speed.",
-      "normalized": "move prompt/validation to js for speed",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Qwen3-4B is a reasoning model.",
-      "normalized": "qwen3-4b is a reasoning model",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "empty final `content`",
-      "normalized": "empty final content",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "MARKUP_FRAGMENT"
-    },
-    {
-      "raw_text": "grounded, non-normative agent",
-      "normalized": "grounded non-normative agent",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Disable Qwen3 reasoning for BanzAI.",
-      "normalized": "disable qwen3 reasoning for banzai",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Warm the system-prompt prefix.",
-      "normalized": "warm the system-prompt prefix",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "real compact system prompt",
-      "normalized": "real compact system prompt",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "benchmark-gated",
-      "normalized": "benchmark-gated",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "explicit maintainer approval",
-      "normalized": "explicit maintainer approval",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "compact 256",
-      "normalized": "compact 256",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "timeout stays 60 s",
-      "normalized": "timeout stays 60 s",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "all `finish_reason=stop`",
-      "normalized": "all finish reason stop",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "MARKUP_FRAGMENT"
-    },
-    {
-      "raw_text": "well within 60 s",
-      "normalized": "well within 60 s",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "word over-match",
-      "normalized": "word over-match",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Missing grounding for common topics.",
-      "normalized": "missing grounding for common topics",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Tier 0 — safety refusal.",
-      "normalized": "tier 0 safety refusal",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "no model call",
-      "normalized": "no model call",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Tier 1 — critical-boundary intent.",
-      "normalized": "tier 1 critical-boundary intent",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "explicit",
-      "normalized": "explicit",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Tier 2 — grounded → Qwen (DEFAULT).",
-      "normalized": "tier 2 grounded qwen default",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Tier 3 — post-validation fallback.",
-      "normalized": "tier 3 post-validation fallback",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "replaced",
-      "normalized": "replaced",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Tier 4 — cache.",
-      "normalized": "tier 4 cache",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Knowledge additions.",
-      "normalized": "knowledge additions",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "routing policy",
-      "normalized": "routing policy",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "operational",
-      "normalized": "operational",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "operational protocol agent",
-      "normalized": "operational protocol agent",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "non-normative",
-      "normalized": "non-normative",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
-        "docs-banzai-banzai-protocol-agent-md",
-        "docs-banzai-readme-md"
-      ],
-      "frequency": 3,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Protocol Agent Core",
-      "normalized": "protocol agent core",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Operational grounding.",
-      "normalized": "operational grounding",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "excludes",
-      "normalized": "excludes",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Documentary enrichment.",
-      "normalized": "documentary enrichment",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Contextual UI suggestions.",
-      "normalized": "contextual ui suggestions",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "single public route",
-      "normalized": "single public route",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "same-origin",
-      "normalized": "same-origin",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "specific",
-      "normalized": "specific",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "safe per-answer telemetry",
-      "normalized": "safe per-answer telemetry",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "this-answer",
-      "normalized": "this-answer",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "native, non-authoritative AI agent",
-      "normalized": "native non-authoritative ai agent",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "architecture-level decision",
-      "normalized": "architecture-level decision",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "independently of any AI",
-      "normalized": "independently of any ai",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "without depending on BanzAI",
-      "normalized": "without depending on banzai",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "open, verifiable",
-      "normalized": "open verifiable",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Guardrail.",
-      "normalized": "guardrail",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Rust/WASM",
-      "normalized": "rust/wasm",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "open governance process",
-      "normalized": "open governance process",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "simulator",
-      "normalized": "simulator",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "without depending mandatorily on BanzAI",
-      "normalized": "without depending mandatorily on banzai",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "official",
-      "normalized": "official",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
-        "docs-banzai-operator-journey-md"
-      ],
-      "frequency": 3,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "deterministic, versioned and testable",
-      "normalized": "deterministic versioned and testable",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "One model call per explanation.",
-      "normalized": "one model call per explanation",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "exactly one",
-      "normalized": "exactly one",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Zero model calls for the rest.",
-      "normalized": "zero model calls for the rest",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "The model never decides.",
-      "normalized": "the model never decides",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Zero external calls.",
-      "normalized": "zero external calls",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Single contract.",
-      "normalized": "single contract",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Fail closed.",
-      "normalized": "fail closed",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
-        "spec-federation-federation-conformance-evidence-model-md",
-        "spec-federation-federation-conformance-path-md",
-        "spec-federation-federation-operator-quickstart-md"
-      ],
-      "frequency": 4,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Deterministic understanding.",
-      "normalized": "deterministic understanding",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Lower latency and fewer failure modes.",
-      "normalized": "lower latency and fewer failure modes",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Safety is not probabilistic.",
-      "normalized": "safety is not probabilistic",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Every claim is checkable.",
-      "normalized": "every claim is checkable",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Governed by guards.",
-      "normalized": "governed by guards",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "non-authoritative",
-      "normalized": "non-authoritative",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "coverage",
-      "normalized": "coverage",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "empty",
-      "normalized": "empty",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
-        "spec-federation-federation-invariants-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Entity → primary-source coverage",
-      "normalized": "entity primary-source coverage",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Attribute registry",
-      "normalized": "attribute registry",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Honest labels",
-      "normalized": "honest labels",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "behavioral",
-      "normalized": "behavioral",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Confirmed structural defect:",
-      "normalized": "confirmed structural defect",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Task ontology",
-      "normalized": "task ontology",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "AnswerObligations",
-      "normalized": "answerobligations",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "TaskCompletionValidator",
-      "normalized": "taskcompletionvalidator",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Tasked terminals",
-      "normalized": "tasked terminals",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Obligations-aware prompt",
-      "normalized": "obligations-aware prompt",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Pipeline wiring:",
-      "normalized": "pipeline wiring",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Invariant preserved:",
-      "normalized": "invariant preserved",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Registry/catalogue-driven engine",
-      "normalized": "registry/catalogue-driven engine",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "task-aware and specificity-ranked",
-      "normalized": "task-aware and specificity-ranked",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "even across role tiers",
-      "normalized": "even across role tiers",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Context control + typed trace",
-      "normalized": "context control typed trace",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "DFN-5 content+task source appropriateness",
-      "normalized": "dfn-5 content task source appropriateness",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "DFN-6 semantic substance",
-      "normalized": "dfn-6 semantic substance",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "DFN-7 schema-validated templates",
-      "normalized": "dfn-7 schema-validated templates",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "DOCUMENT_TYPE"
-    },
-    {
-      "raw_text": "DFN-8 context E2E",
-      "normalized": "dfn-8 context e2e",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "DFN-9/10 public-edge assurance",
-      "normalized": "dfn-9/10 public-edge assurance",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "DFN-11 consolidated readiness",
-      "normalized": "dfn-11 consolidated readiness",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Closure invariant:",
-      "normalized": "closure invariant",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "modes",
-      "normalized": "modes",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "only\n`page.tsx`",
-      "normalized": "only page tsx",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "MARKUP_FRAGMENT"
-    },
-    {
-      "raw_text": "contexts",
-      "normalized": "contexts",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "layers",
-      "normalized": "layers",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "profiles",
-      "normalized": "profiles",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "no decisive authority",
-      "normalized": "no decisive authority",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "provided that",
-      "normalized": "provided that",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "closed slug",
-      "normalized": "closed slug",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "closed\nTechnical Registry",
-      "normalized": "closed technical registry",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "server-side",
-      "normalized": "server-side",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "D-070-04 — Legacy deep links stay valid.",
-      "normalized": "d-070-04 legacy deep links stay valid",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "canonical and\nadditive",
-      "normalized": "canonical and additive",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "closed allowlist",
-      "normalized": "closed allowlist",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "A second BanzAI application per context.",
-      "normalized": "a second banzai application per context",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Superseded in part:",
-      "normalized": "superseded in part",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "permanently removed by the owner",
-      "normalized": "permanently removed by the owner",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "in this repository",
-      "normalized": "in this repository",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "active",
-      "normalized": "active",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
-        "docs-governance-svg-quality-policy-md"
-      ],
-      "frequency": 4,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "permanent removal by the owner",
-      "normalized": "permanent removal by the owner",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Leave the framing as-is.",
-      "normalized": "leave the framing as-is",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "hardcoded",
-      "normalized": "hardcoded",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "not public",
-      "normalized": "not public",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "verifiable, not asserted",
-      "normalized": "verifiable not asserted",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "the route wins",
-      "normalized": "the route wins",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "D-072-02 — Secret-free, versioned schema.",
-      "normalized": "d-072-02 secret-free versioned schema",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "DOCUMENT_TYPE"
-    },
-    {
-      "raw_text": "D-072-03 — Forbidden fields.",
-      "normalized": "d-072-03 forbidden fields",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "D-072-04 — Transport.",
-      "normalized": "d-072-04 transport",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "exact-match",
-      "normalized": "exact-match",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "outside",
-      "normalized": "outside",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "degraded",
-      "normalized": "degraded",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
-        "docs-banzai-local-inference-runbook-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Publicly proxy `/health` verbatim.",
-      "normalized": "publicly proxy /health verbatim",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "intrinsic factual validator",
-      "normalized": "intrinsic factual validator",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "second",
-      "normalized": "second",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "never called",
-      "normalized": "never called",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "D-073-03 — The validator's rule set.",
-      "normalized": "d-073-03 the validator s rule set",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "D-073-05 — Cache-policy versioning.",
-      "normalized": "d-073-05 cache-policy versioning",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Enforce immediately without a canary.",
-      "normalized": "enforce immediately without a canary",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "endpoint-originated",
-      "normalized": "endpoint-originated",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
-        "spec-validation-journey-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "labels",
-      "normalized": "labels",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "display-label",
-      "normalized": "display-label",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "kept",
-      "normalized": "kept",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "kept unchanged",
-      "normalized": "kept unchanged",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Silently flip the guard-locked test.",
-      "normalized": "silently flip the guard-locked test",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "permanent deletion",
-      "normalized": "permanent deletion",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "permanently deleted by the owner",
-      "normalized": "permanently deleted by the owner",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "clean",
-      "normalized": "clean",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "No history import, no archive.",
-      "normalized": "no history import no archive",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Sever the sibling coupling.",
-      "normalized": "sever the sibling coupling",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Do not migrate superseded code.",
-      "normalized": "do not migrate superseded code",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "own cognitive engine",
-      "normalized": "own cognitive engine",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "typed\n  contracts",
-      "normalized": "typed contracts",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "The protocol works without BanzAI.",
-      "normalized": "the protocol works without banzai",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "primary, transversal human interface",
-      "normalized": "primary transversal human interface",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "stronger than assumed",
-      "normalized": "stronger than assumed",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "eleven canonical conflicts",
-      "normalized": "eleven canonical conflicts",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "global-operator orientation layer",
-      "normalized": "global-operator orientation layer",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "navigation states",
-      "normalized": "navigation states",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "only by typed reference",
-      "normalized": "only by typed reference",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
-        "spec-validation-journey-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "different",
-      "normalized": "different",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
-        "examples-operators-zero-e2e-root-readme-md",
-        "spec-idempotency-md"
-      ],
-      "frequency": 3,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "explanatory",
-      "normalized": "explanatory",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "include",
-      "normalized": "include",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "separate",
-      "normalized": "separate",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "out of",
-      "normalized": "out of",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "demo",
-      "normalized": "demo",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "preserves",
-      "normalized": "preserves",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Append-only / immutable:",
-      "normalized": "append-only / immutable",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "in the database",
-      "normalized": "in the database",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Verifiable content:",
-      "normalized": "verifiable content",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Query / compare / reproduce:",
-      "normalized": "query / compare / reproduce",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Authorisation / privacy:",
-      "normalized": "authorisation / privacy",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Concurrency / idempotency:",
-      "normalized": "concurrency / idempotency",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Migrations",
-      "normalized": "migrations",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "plus",
-      "normalized": "plus",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
-        "docs-banzai-local-qwen-model-setup-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "D-076-12 — Documentary reconciliation.",
-      "normalized": "d-076-12 documentary reconciliation",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "D-076-13 — Enforcement.",
-      "normalized": "d-076-13 enforcement",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Retire Model A entirely.",
-      "normalized": "retire model a entirely",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Keep both journeys as-is.",
-      "normalized": "keep both journeys as-is",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Filesystem/artifact receipt store.",
-      "normalized": "filesystem/artifact receipt store",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Ephemeral + client-only receipts.",
-      "normalized": "ephemeral client-only receipts",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "non-authoritative cognitive engine",
-      "normalized": "non-authoritative cognitive engine",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "documentary",
-      "normalized": "documentary",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "measured / observed operational property",
-      "normalized": "measured / observed operational property",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "fixed topic list",
-      "normalized": "fixed topic list",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "dishonest",
-      "normalized": "dishonest",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "durable, append-only, immutable",
-      "normalized": "durable append-only immutable",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "read-only",
-      "normalized": "read-only",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
-        "docs-banzai-local-qwen-model-setup-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "honest, request-oriented decline",
-      "normalized": "honest request-oriented decline",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "measured / observed",
-      "normalized": "measured / observed",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "deterministically in Rust",
-      "normalized": "deterministically in rust",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "conservative",
-      "normalized": "conservative",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "subject",
-      "normalized": "subject",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "first",
-      "normalized": "first",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "zero model\ncalls",
-      "normalized": "zero model calls",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "real data",
-      "normalized": "real data",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "No model ever produces or edits a number",
-      "normalized": "no model ever produces or edits a number",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 8,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "SELECT only",
-      "normalized": "select only",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Pinned compatibility tuple.",
-      "normalized": "pinned compatibility tuple",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "latest completed run",
-      "normalized": "latest completed run",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Public visibility only.",
-      "normalized": "public visibility only",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "A single run is one observation.",
-      "normalized": "a single run is one observation",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "observation",
-      "normalized": "observation",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "SUPPORTED",
-      "normalized": "supported",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "DERIVED",
-      "normalized": "derived",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "ESTIMATED",
-      "normalized": "estimated",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "HYPOTHETICAL",
-      "normalized": "hypothetical",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "UNSUPPORTED",
-      "normalized": "unsupported",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "only SUPPORTED and DERIVED can arise",
-      "normalized": "only supported and derived can arise",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "prose-labelled",
-      "normalized": "prose-labelled",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "UNSUPPORTED is never published",
-      "normalized": "unsupported is never published",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "understood",
-      "normalized": "understood",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "request-oriented decline",
-      "normalized": "request-oriented decline",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "D-078-06 — Scope of Increment 1.",
-      "normalized": "d-078-06 scope of increment 1",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "explicitly follow-on and out of scope",
-      "normalized": "explicitly follow-on and out of scope",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "anticipates",
-      "normalized": "anticipates",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Telemetry read path",
-      "normalized": "telemetry read path",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Contracts reused (no new contract):",
-      "normalized": "contracts reused no new contract",
-      "sources": [
-        "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "ADR-044 — Rust-first official engines",
-      "normalized": "adr-044 rust-first official engines",
+      "raw_text": "ADR-043 — Rust-first official engines",
+      "normalized": "adr-043 rust-first official engines",
       "sources": [
         "decisions-adr-adr-043-rust-first-official-engines-md"
       ],
@@ -19729,8 +16301,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "ADR-042 — Licence, notice, trademark and open governance",
-      "normalized": "adr-042 licence notice trademark and open governance",
+      "raw_text": "ADR-044 — Licence, notice, trademark and open governance",
+      "normalized": "adr-044 licence notice trademark and open governance",
       "sources": [
         "decisions-adr-adr-044-licence-notice-trademark-and-open-governance-md"
       ],
@@ -19739,6 +16311,17 @@
       "accepted": true,
       "rejection_reason": "",
       "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "4. Consequences",
+      "normalized": "4 consequences",
+      "sources": [
+        "decisions-adr-adr-044-licence-notice-trademark-and-open-governance-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
       "raw_text": "5. Canonical statements",
@@ -19774,8 +16357,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "ADR-042 — Current-only canonical ADR tree",
-      "normalized": "adr-042 current-only canonical adr tree",
+      "raw_text": "ADR-045 — Current-only canonical ADR tree",
+      "normalized": "adr-045 current-only canonical adr tree",
       "sources": [
         "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
       ],
@@ -19785,197 +16368,8 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "Amends:",
-      "normalized": "amends",
-      "sources": [
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Certificate Authority",
-      "normalized": "certificate authority",
-      "sources": [
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "production root-key ceremony",
-      "normalized": "production root-key ceremony",
-      "sources": [
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "ARTIFACT_TYPE"
-    },
-    {
-      "raw_text": "discretionary human approval",
-      "normalized": "discretionary human approval",
-      "sources": [
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "tombstones",
-      "normalized": "tombstones",
-      "sources": [
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Removed-architecture tombstones",
-      "normalized": "removed-architecture tombstones",
-      "sources": [
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Contradictions",
-      "normalized": "contradictions",
-      "sources": [
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Operator-era contamination",
-      "normalized": "operator-era contamination",
-      "sources": [
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "D-057-01",
-      "normalized": "d-057-01",
-      "sources": [
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Current-only tree.",
-      "normalized": "current-only tree",
-      "sources": [
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "D-057-02",
-      "normalized": "d-057-02",
-      "sources": [
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Git history is the record.",
-      "normalized": "git history is the record",
-      "sources": [
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "D-057-03",
-      "normalized": "d-057-03",
-      "sources": [
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "No Git-history rewrite.",
-      "normalized": "no git-history rewrite",
-      "sources": [
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "D-057-04",
-      "normalized": "d-057-04",
-      "sources": [
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Amendment, not reversal.",
-      "normalized": "amendment not reversal",
-      "sources": [
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "D-057-05",
-      "normalized": "d-057-05",
-      "sources": [
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Stable identifiers — no renumbering.",
-      "normalized": "stable identifiers no renumbering",
+      "raw_text": "Keep superseded ADRs, marked.",
+      "normalized": "keep superseded adrs marked",
       "sources": [
         "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
       ],
@@ -19985,151 +16379,19 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "gap",
-      "normalized": "gap",
+      "raw_text": "Keep IDs stable forever, allowing gaps.",
+      "normalized": "keep ids stable forever allowing gaps",
       "sources": [
         "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
       ],
       "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "D-057-06",
-      "normalized": "d-057-06",
-      "sources": [
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "D-057-07",
-      "normalized": "d-057-07",
-      "sources": [
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Re-home before delete.",
-      "normalized": "re-home before delete",
-      "sources": [
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
+      "phrase_length": 6,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "ADR-X004",
-      "normalized": "adr-x004",
-      "sources": [
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "ADR-041",
-      "normalized": "adr-041",
-      "sources": [
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "ADR-X022",
-      "normalized": "adr-x022",
-      "sources": [
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "ADR-X026",
-      "normalized": "adr-x026",
-      "sources": [
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "ADR-X027",
-      "normalized": "adr-x027",
-      "sources": [
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "ADR-X032",
-      "normalized": "adr-x032",
-      "sources": [
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "The set is coherent.",
-      "normalized": "the set is coherent",
-      "sources": [
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "History is intact.",
-      "normalized": "history is intact",
-      "sources": [
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Grounding improves.",
-      "normalized": "grounding improves",
-      "sources": [
-        "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Gaps in the number sequence.",
-      "normalized": "gaps in the number sequence",
+      "raw_text": "Maintain an old→new map.",
+      "normalized": "maintain an old new map",
       "sources": [
         "decisions-adr-adr-045-current-only-canonical-adr-tree-md"
       ],
@@ -20151,24 +16413,13 @@
       "classification": "SUBJECT"
     },
     {
-      "raw_text": "Active ADRs",
-      "normalized": "active adrs",
+      "raw_text": "ADRs are not normative.",
+      "normalized": "adrs are not normative",
       "sources": [
         "decisions-adr-readme-md"
       ],
       "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "ADR and RFC",
-      "normalized": "adr and rfc",
-      "sources": [
-        "decisions-adr-readme-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
+      "phrase_length": 4,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
@@ -21001,6 +17252,18 @@
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "PATH_FRAGMENT"
+    },
+    {
+      "raw_text": "non-normative",
+      "normalized": "non-normative",
+      "sources": [
+        "docs-banzai-banzai-protocol-agent-md",
+        "docs-banzai-readme-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
     },
     {
       "raw_text": "verifiable technical evidence",
@@ -21937,6 +18200,39 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
+      "raw_text": "Q4_K_M",
+      "normalized": "q4 k m",
+      "sources": [
+        "docs-banzai-local-inference-runbook-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "llama.cpp",
+      "normalized": "llama cpp",
+      "sources": [
+        "docs-banzai-local-inference-runbook-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "manually",
+      "normalized": "manually",
+      "sources": [
+        "docs-banzai-local-inference-runbook-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
       "raw_text": "source and licence",
       "normalized": "source and licence",
       "sources": [
@@ -22066,6 +18362,17 @@
     {
       "raw_text": "mock",
       "normalized": "mock",
+      "sources": [
+        "docs-banzai-local-inference-runbook-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "degraded",
+      "normalized": "degraded",
       "sources": [
         "docs-banzai-local-inference-runbook-md"
       ],
@@ -22343,6 +18650,19 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
+      "raw_text": "local",
+      "normalized": "local",
+      "sources": [
+        "docs-banzai-local-inference-runtime-md",
+        "spec-federation-federation-conformance-model-md",
+        "spec-federation-federation-runner-design-md"
+      ],
+      "frequency": 4,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
       "raw_text": "Milestone:",
       "normalized": "milestone",
       "sources": [
@@ -22379,6 +18699,17 @@
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "no external provider",
+      "normalized": "no external provider",
+      "sources": [
+        "docs-banzai-local-inference-runtime-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
       "raw_text": "no API key",
@@ -22759,6 +19090,20 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
+      "raw_text": "false",
+      "normalized": "false",
+      "sources": [
+        "docs-banzai-local-inference-runtime-md",
+        "docs-banzai-local-qwen-model-setup-md",
+        "docs-governance-claude-base-md",
+        "docs-governance-evidence-bundle-md"
+      ],
+      "frequency": 5,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
       "raw_text": "Default.",
       "normalized": "default",
       "sources": [
@@ -22881,6 +19226,17 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
+      "raw_text": "Warm-up:",
+      "normalized": "warm-up",
+      "sources": [
+        "docs-banzai-local-inference-runtime-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
       "raw_text": "Gating:",
       "normalized": "gating",
       "sources": [
@@ -22890,6 +19246,17 @@
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "no published ports",
+      "normalized": "no published ports",
+      "sources": [
+        "docs-banzai-local-inference-runtime-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
       "raw_text": "ADR-026",
@@ -23392,8 +19759,30 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
+      "raw_text": "read-only",
+      "normalized": "read-only",
+      "sources": [
+        "docs-banzai-local-qwen-model-setup-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
       "raw_text": "RAM.",
       "normalized": "ram",
+      "sources": [
+        "docs-banzai-local-qwen-model-setup-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "plus",
+      "normalized": "plus",
       "sources": [
         "docs-banzai-local-qwen-model-setup-md"
       ],
@@ -23461,6 +19850,17 @@
     {
       "raw_text": "Warm-up ping.",
       "normalized": "warm-up ping",
+      "sources": [
+        "docs-banzai-local-qwen-model-setup-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "effective default",
+      "normalized": "effective default",
       "sources": [
         "docs-banzai-local-qwen-model-setup-md"
       ],
@@ -23638,6 +20038,17 @@
       "accepted": true,
       "rejection_reason": "",
       "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "official",
+      "normalized": "official",
+      "sources": [
+        "docs-banzai-operator-journey-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
     },
     {
       "raw_text": "local, non-authoritative draft tool only",
@@ -35286,6 +31697,17 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
+      "raw_text": "active",
+      "normalized": "active",
+      "sources": [
+        "docs-governance-svg-quality-policy-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
       "raw_text": "when asserted",
       "normalized": "when asserted",
       "sources": [
@@ -37489,6 +33911,18 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
+      "raw_text": "different",
+      "normalized": "different",
+      "sources": [
+        "examples-operators-zero-e2e-root-readme-md",
+        "spec-idempotency-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
       "raw_text": "no private key",
       "normalized": "no private key",
       "sources": [
@@ -39025,6 +35459,19 @@
         "spec-federation-federation-operator-quickstart-md"
       ],
       "frequency": 4,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "FAIL_CLOSED",
+      "normalized": "fail closed",
+      "sources": [
+        "spec-federation-federation-conformance-evidence-model-md",
+        "spec-federation-federation-conformance-path-md",
+        "spec-federation-federation-operator-quickstart-md"
+      ],
+      "frequency": 3,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -42163,6 +38610,17 @@
     {
       "raw_text": "absent",
       "normalized": "absent",
+      "sources": [
+        "spec-federation-federation-invariants-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "empty",
+      "normalized": "empty",
       "sources": [
         "spec-federation-federation-invariants-md"
       ],
@@ -47850,6 +44308,18 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
+      "raw_text": "endpoint-originated",
+      "normalized": "endpoint-originated",
+      "sources": [
+        "spec-validation-journey-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
       "raw_text": "Rule (normative):",
       "normalized": "rule normative",
       "sources": [
@@ -47857,6 +44327,17 @@
       ],
       "frequency": 1,
       "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "only by typed reference",
+      "normalized": "only by typed reference",
+      "sources": [
+        "spec-validation-journey-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
