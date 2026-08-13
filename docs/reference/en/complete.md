@@ -1430,5 +1430,3 @@ The root key ceremony is the offline process by which the BANZA Trust Root is ge
 - `decisions/adr/` — All Architecture Decision Records
 - `decisions/rfc/` — All Requests for Comments
 - `spec/federation/` — Federation documentation
-- `docs/governance/MATRIX_A_BANZA.md` — BANZA Validation Matrix (canonical)
-- `docs/governance/BANZA_V1_OPERATIONAL_TRANSITION_PLAN.md` — M1–M6 roadmap

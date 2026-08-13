@@ -1,5 +1,5 @@
 {
-  "total": 4852,
+  "total": 4765,
   "rows": [
     {
       "raw_text": "Contributing to BANZA",
@@ -173,10 +173,9 @@
       "normalized": "financial invariants",
       "sources": [
         "contributing-md",
-        "docs-governance-matrix-a-banza-md",
         "spec-invariants-md"
       ],
-      "frequency": 3,
+      "frequency": 2,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -1413,12 +1412,11 @@
         "decisions-adr-adr-040-federation-trust-evaluation-without-certificates-md",
         "decisions-adr-adr-062-regulatory-state-boundary-and-real-money-gate-md",
         "docs-governance-banza-trust-architecture-md",
-        "docs-governance-banza-v1-operational-transition-plan-md",
         "docs-governance-l3-readiness-md",
         "docs-governance-m2-4-trust-engine-signed-metadata-md",
         "docs-governance-operator-self-publication-and-conformance-md"
       ],
-      "frequency": 22,
+      "frequency": 20,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -2863,15 +2861,13 @@
         "contracts-readme-md",
         "decisions-adr-adr-020-wallet-accounts-segregated-accounts-md",
         "docs-governance-banza-protocol-vs-operator-policy-md",
-        "docs-governance-matrix-a-banza-md",
-        "docs-governance-matrix-c-operator-md",
         "docs-governance-ceremony-records-readme-md",
         "docs-governance-certification-boundary-md",
         "spec-federation-federation-conformance-model-md",
         "spec-federation-federation-contract-surface-md",
         "spec-federation-federation-protocol-surfaces-md"
       ],
-      "frequency": 23,
+      "frequency": 21,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -3778,10 +3774,9 @@
         "decisions-adr-adr-083-reason-code-model-md",
         "decisions-adr-adr-084-idempotency-semantics-md",
         "decisions-adr-adr-085-trust-material-anti-rollback-md",
-        "docs-governance-banza-v1-operational-transition-plan-md",
         "docs-governance-readme-md"
       ],
-      "frequency": 70,
+      "frequency": 69,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -4092,13 +4087,10 @@
         "docs-governance-banza-root-custody-decision-required-md",
         "docs-governance-banza-root-custody-future-migration-md",
         "docs-governance-banza-three-layer-architecture-md",
-        "docs-governance-banza-v1-operational-transition-plan-md",
         "docs-governance-m2-4-trust-engine-signed-metadata-md",
         "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md",
         "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md",
         "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md",
-        "docs-governance-matrix-a-banza-md",
-        "docs-governance-matrix-c-operator-md",
         "docs-governance-repository-structure-md",
         "docs-governance-rust-first-implementation-policy-md",
         "docs-governance-svg-quality-policy-md",
@@ -4129,7 +4121,7 @@
         "spec-trust-freshness-md",
         "spec-validation-journey-md"
       ],
-      "frequency": 133,
+      "frequency": 130,
       "phrase_length": 1,
       "accepted": true,
       "rejection_reason": "",
@@ -4223,7 +4215,6 @@
         "docs-governance-banza-language-policy-md",
         "docs-governance-banza-root-custody-decision-required-md",
         "docs-governance-banza-root-custody-future-migration-md",
-        "docs-governance-banza-v1-operational-transition-plan-md",
         "docs-governance-claude-base-md",
         "docs-governance-m2-4-trust-engine-signed-metadata-md",
         "docs-governance-m2-7b-home-reference-consolidation-audit-md",
@@ -4236,8 +4227,6 @@
         "docs-governance-m2-8b-local-qwen-vps-xl-rebenchmark-md",
         "docs-governance-m2-8c-local-qwen-vps-xl-rebenchmark-md",
         "docs-governance-m2-8d-local-qwen-vps-xl-384-benchmark-md",
-        "docs-governance-matrix-a-banza-md",
-        "docs-governance-matrix-c-operator-md",
         "docs-governance-certification-boundary-md",
         "docs-governance-roadmap-md",
         "spec-federation-federation-conformance-model-md",
@@ -4249,7 +4238,7 @@
         "spec-federation-federation-test-suite-spec-md",
         "spec-overview-md"
       ],
-      "frequency": 110,
+      "frequency": 107,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -8180,10 +8169,9 @@
       "raw_text": "owner",
       "normalized": "owner",
       "sources": [
-        "decisions-adr-adr-020-wallet-accounts-segregated-accounts-md",
-        "docs-governance-banza-v1-operational-transition-plan-md"
+        "decisions-adr-adr-020-wallet-accounts-segregated-accounts-md"
       ],
-      "frequency": 5,
+      "frequency": 1,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -8952,10 +8940,9 @@
       "raw_text": "explicitly authorized",
       "normalized": "explicitly authorized",
       "sources": [
-        "decisions-adr-adr-024-public-verification-pages-md",
-        "docs-governance-banza-v1-operational-transition-plan-md"
+        "decisions-adr-adr-024-public-verification-pages-md"
       ],
-      "frequency": 2,
+      "frequency": 1,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -21315,11 +21302,9 @@
         "decisions-rfc-rfc-0004-provider-capability-negotiation-md",
         "decisions-rfc-rfc-0005-operator-discovery-md",
         "decisions-rfc-rfc-0006-offline-payment-support-md",
-        "docs-governance-matrix-a-banza-md",
-        "docs-governance-matrix-c-operator-md",
         "docs-governance-licensing-md"
       ],
-      "frequency": 10,
+      "frequency": 8,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -26134,10 +26119,7 @@
         "docs-governance-banza-protocol-vs-operator-policy-md",
         "docs-governance-banza-language-policy-md",
         "docs-governance-banza-root-custody-future-migration-md",
-        "docs-governance-banza-v1-operational-transition-plan-md",
         "docs-governance-claude-base-md",
-        "docs-governance-matrix-a-banza-md",
-        "docs-governance-matrix-c-operator-md",
         "docs-governance-operator-neutrality-terminology-md",
         "docs-governance-ceremony-records-m2-custody-approval-checklist-md",
         "docs-governance-ceremony-records-readme-md",
@@ -26165,7 +26147,7 @@
         "spec-reason-codes-md",
         "spec-trust-freshness-md"
       ],
-      "frequency": 33,
+      "frequency": 30,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -29029,10 +29011,7 @@
       "sources": [
         "docs-governance-banza-language-policy-md",
         "docs-governance-banza-multilingual-architecture-md",
-        "docs-governance-banza-v1-operational-transition-plan-md",
         "docs-governance-m2-4-trust-engine-signed-metadata-md",
-        "docs-governance-matrix-a-banza-md",
-        "docs-governance-matrix-c-operator-md",
         "spec-federation-federation-conformance-evidence-model-md",
         "spec-federation-federation-conformance-model-md",
         "spec-federation-federation-contract-surface-md",
@@ -29047,7 +29026,7 @@
         "spec-federation-federation-test-suite-spec-md",
         "spec-federation-federation-trust-model-md"
       ],
-      "frequency": 19,
+      "frequency": 16,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -30836,6 +30815,40 @@
       "accepted": true,
       "rejection_reason": "",
       "classification": "ARTIFACT_TYPE"
+    },
+    {
+      "raw_text": "CEREMONY GATE (fail-closed).",
+      "normalized": "ceremony gate fail-closed",
+      "sources": [
+        "docs-governance-banza-root-custody-decision-required-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "all four",
+      "normalized": "all four",
+      "sources": [
+        "docs-governance-banza-root-custody-decision-required-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "explicitly authorised",
+      "normalized": "explicitly authorised",
+      "sources": [
+        "docs-governance-banza-root-custody-decision-required-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
       "raw_text": "ADR-029",
@@ -32656,694 +32669,6 @@
       "phrase_length": 3,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "BANZA v1 Operational Transition Plan",
-      "normalized": "banza v1 operational transition plan",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Part I — Complete Task Inventory",
-      "normalized": "part i complete task inventory",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Classification Key",
-      "normalized": "classification key",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Protocol Tasks",
-      "normalized": "protocol tasks",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Operations Tasks",
-      "normalized": "operations tasks",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Infrastructure Tasks",
-      "normalized": "infrastructure tasks",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Documentation Tasks",
-      "normalized": "documentation tasks",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Governance Tasks",
-      "normalized": "governance tasks",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Future Tasks (v1.1+)",
-      "normalized": "future tasks v1 1",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Part II — Three Execution Programs",
-      "normalized": "part ii three execution programs",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Program A — Production Launch",
-      "normalized": "program a production launch",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Task List — Program A",
-      "normalized": "task list program a",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Program B — Validation Studio Separation",
-      "normalized": "program b validation studio separation",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Task List — Program B",
-      "normalized": "task list program b",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Program C — Future L4 Infrastructure",
-      "normalized": "program c future l4 infrastructure",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Task List — Program C",
-      "normalized": "task list program c",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Part III — Critical Path to First Production Operator Certification",
-      "normalized": "part iii critical path to first production operator certification",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 9,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "Part IV — Milestone Sequence",
-      "normalized": "part iv milestone sequence",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "M1 — Protocol Complete",
-      "normalized": "m1 protocol complete",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "M2 — Production Trust Established",
-      "normalized": "m2 production trust established",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "M3 — First Operator Certified",
-      "normalized": "m3 first operator certified",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "M4 — BanzAI Operational",
-      "normalized": "m4 banzai operational",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "M5 — Validation Studio Separation Complete",
-      "normalized": "m5 validation studio separation complete",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "M6 — BANZA v1.0 Public Launch",
-      "normalized": "m6 banza v1 0 public launch",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Part V — State Summary",
-      "normalized": "part v state summary",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Protocol development: CLOSED",
-      "normalized": "protocol development closed",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Operational execution: ACTIVE — but M2 (OPS-001) is GATED",
-      "normalized": "operational execution active but m2 ops-001 is gated",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 8,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Future work: DEFERRED",
-      "normalized": "future work deferred",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Appendix — Task Register Summary",
-      "normalized": "appendix task register summary",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "no BANZA CA and no operator certificate",
-      "normalized": "no banza ca and no operator certificate",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 7,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "no conformant operator",
-      "normalized": "no conformant operator",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "M2 is GATED",
-      "normalized": "m2 is gated",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "canonical governing copy",
-      "normalized": "canonical governing copy",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "YES — Protocol is complete (L0–L3 scope)",
-      "normalized": "yes protocol is complete l0 l3 scope",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 7,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "protocol development",
-      "normalized": "protocol development",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "protocol operations",
-      "normalized": "protocol operations",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "CRITICAL",
-      "normalized": "critical",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md",
-        "spec-federation-federation-invariants-md"
-      ],
-      "frequency": 5,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "HIGH",
-      "normalized": "high",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md",
-        "spec-federation-federation-invariants-md"
-      ],
-      "frequency": 5,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "MEDIUM",
-      "normalized": "medium",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md",
-        "spec-federation-federation-invariants-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Goal:",
-      "normalized": "goal",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 3,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Completion criterion:",
-      "normalized": "completion criterion",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 6,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Dependency chain:",
-      "normalized": "dependency chain",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 3,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Program A is complete when:",
-      "normalized": "program a is complete when",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Yes",
-      "normalized": "yes",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md",
-        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md",
-        "docs-governance-certification-boundary-md",
-        "spec-reason-codes-md"
-      ],
-      "frequency": 9,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Program B is complete when:",
-      "normalized": "program b is complete when",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Program C is complete when:",
-      "normalized": "program c is complete when",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Minimum elapsed time estimate:",
-      "normalized": "minimum elapsed time estimate",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Status: ACHIEVED — 2026-06-01",
-      "normalized": "status achieved 2026-06-01",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "What M1 means:",
-      "normalized": "what m1 means",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Status: OPEN — BLOCKED",
-      "normalized": "status open blocked",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Program:",
-      "normalized": "program",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 4,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Blocked by:",
-      "normalized": "blocked by",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 4,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "OPS-001 is NOT unblocked",
-      "normalized": "ops-001 is not unblocked",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Deliverables:",
-      "normalized": "deliverables",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 5,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Status: OPEN",
-      "normalized": "status open",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 4,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Unblocked by:",
-      "normalized": "unblocked by",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "What this milestone means:",
-      "normalized": "what this milestone means",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Programs:",
-      "normalized": "programs",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "OPS-001 is gated",
-      "normalized": "ops-001 is gated",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "no ceremony may run",
-      "normalized": "no ceremony may run",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Total",
-      "normalized": "total",
-      "sources": [
-        "docs-governance-banza-v1-operational-transition-plan-md",
-        "spec-federation-federation-conformance-model-md",
-        "spec-federation-federation-fixture-catalog-md"
-      ],
-      "frequency": 3,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
     },
     {
       "raw_text": "CLAUDE_BASE — Banza Ecosystem Operating Rules",
@@ -36711,6 +36036,19 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
+      "raw_text": "yes",
+      "normalized": "yes",
+      "sources": [
+        "docs-governance-m2-7k-postgresql-runtime-schema-audit-md",
+        "docs-governance-certification-boundary-md",
+        "spec-reason-codes-md"
+      ],
+      "frequency": 7,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
       "raw_text": "empty (0 rows)",
       "normalized": "empty 0 rows",
       "sources": [
@@ -38062,428 +37400,6 @@
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Matrix A — BANZA Validation Matrix",
-      "normalized": "matrix a banza validation matrix",
-      "sources": [
-        "docs-governance-matrix-a-banza-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Status Model",
-      "normalized": "status model",
-      "sources": [
-        "docs-governance-matrix-a-banza-md",
-        "docs-governance-matrix-c-operator-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Confidence Model",
-      "normalized": "confidence model",
-      "sources": [
-        "docs-governance-matrix-a-banza-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Audit Model",
-      "normalized": "audit model",
-      "sources": [
-        "docs-governance-matrix-a-banza-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Dependency Model",
-      "normalized": "dependency model",
-      "sources": [
-        "docs-governance-matrix-a-banza-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Category 1: Governance",
-      "normalized": "category 1 governance",
-      "sources": [
-        "docs-governance-matrix-a-banza-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Category 2: Contracts",
-      "normalized": "category 2 contracts",
-      "sources": [
-        "docs-governance-matrix-a-banza-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Category 3: Invariants",
-      "normalized": "category 3 invariants",
-      "sources": [
-        "docs-governance-matrix-a-banza-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Trust and Federation Invariants",
-      "normalized": "trust and federation invariants",
-      "sources": [
-        "docs-governance-matrix-a-banza-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Root Key Invariants",
-      "normalized": "root key invariants",
-      "sources": [
-        "docs-governance-matrix-a-banza-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "ARTIFACT_TYPE"
-    },
-    {
-      "raw_text": "Category 4: Conformance",
-      "normalized": "category 4 conformance",
-      "sources": [
-        "docs-governance-matrix-a-banza-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "L0–L2 Conformance (Operator Suite)",
-      "normalized": "l0 l2 conformance operator suite",
-      "sources": [
-        "docs-governance-matrix-a-banza-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "L3 Federation Conformance (79 tests)",
-      "normalized": "l3 federation conformance 79 tests",
-      "sources": [
-        "docs-governance-matrix-a-banza-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "L4 Conformance",
-      "normalized": "l4 conformance",
-      "sources": [
-        "docs-governance-matrix-a-banza-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Conformance Infrastructure",
-      "normalized": "conformance infrastructure",
-      "sources": [
-        "docs-governance-matrix-a-banza-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Category 5: Certification",
-      "normalized": "category 5 certification",
-      "sources": [
-        "docs-governance-matrix-a-banza-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Category 6: Federation",
-      "normalized": "category 6 federation",
-      "sources": [
-        "docs-governance-matrix-a-banza-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Category 7: Trust (Production Root Architecture)",
-      "normalized": "category 7 trust production root architecture",
-      "sources": [
-        "docs-governance-matrix-a-banza-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Category 8: Documentation",
-      "normalized": "category 8 documentation",
-      "sources": [
-        "docs-governance-matrix-a-banza-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Boundary note (2026-07).",
-      "normalized": "boundary note 2026-07",
-      "sources": [
-        "docs-governance-matrix-a-banza-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "no certified operator",
-      "normalized": "no certified operator",
-      "sources": [
-        "docs-governance-matrix-a-banza-md",
-        "docs-governance-repository-structure-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "no active production certificate",
-      "normalized": "no active production certificate",
-      "sources": [
-        "docs-governance-matrix-a-banza-md",
-        "docs-governance-repository-structure-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Layer:",
-      "normalized": "layer",
-      "sources": [
-        "docs-governance-matrix-a-banza-md",
-        "docs-governance-matrix-c-operator-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Matrix C — Operator Implementation Matrix",
-      "normalized": "matrix c operator implementation matrix",
-      "sources": [
-        "docs-governance-matrix-c-operator-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Operator Independence Principle",
-      "normalized": "operator independence principle",
-      "sources": [
-        "docs-governance-matrix-c-operator-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Certification Level Requirements Summary",
-      "normalized": "certification level requirements summary",
-      "sources": [
-        "docs-governance-matrix-c-operator-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Category 1: Wallet",
-      "normalized": "category 1 wallet",
-      "sources": [
-        "docs-governance-matrix-c-operator-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Category 2: QR Payments",
-      "normalized": "category 2 qr payments",
-      "sources": [
-        "docs-governance-matrix-c-operator-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Category 3: Payments and Transfers",
-      "normalized": "category 3 payments and transfers",
-      "sources": [
-        "docs-governance-matrix-c-operator-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Category 4: Ledger",
-      "normalized": "category 4 ledger",
-      "sources": [
-        "docs-governance-matrix-c-operator-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Category 5: Events and Webhooks",
-      "normalized": "category 5 events and webhooks",
-      "sources": [
-        "docs-governance-matrix-c-operator-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Category 6: Settlement",
-      "normalized": "category 6 settlement",
-      "sources": [
-        "docs-governance-matrix-c-operator-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Category 7: APIs (Well-Known and Federation)",
-      "normalized": "category 7 apis well-known and federation",
-      "sources": [
-        "docs-governance-matrix-c-operator-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Category 8: Trust and Federation Compliance",
-      "normalized": "category 8 trust and federation compliance",
-      "sources": [
-        "docs-governance-matrix-c-operator-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Category 9: Operator-Specific (Outside Protocol Scope)",
-      "normalized": "category 9 operator-specific outside protocol scope",
-      "sources": [
-        "docs-governance-matrix-c-operator-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Conformance Vector Map",
-      "normalized": "conformance vector map",
-      "sources": [
-        "docs-governance-matrix-c-operator-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
     },
     {
       "raw_text": "Arquitetura do Protocolo Financeiro Aberto BANZA",
@@ -42832,6 +41748,29 @@
       ],
       "frequency": 1,
       "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "no certified operator",
+      "normalized": "no certified operator",
+      "sources": [
+        "docs-governance-repository-structure-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "no\nactive production certificate",
+      "normalized": "no active production certificate",
+      "sources": [
+        "docs-governance-repository-structure-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
@@ -47583,6 +46522,18 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
+      "raw_text": "Total",
+      "normalized": "total",
+      "sources": [
+        "spec-federation-federation-conformance-model-md",
+        "spec-federation-federation-fixture-catalog-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
       "raw_text": "BANZA Federation Conformance Path",
       "normalized": "banza federation conformance path",
       "sources": [
@@ -50319,6 +49270,39 @@
       "phrase_length": 3,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "CRITICAL",
+      "normalized": "critical",
+      "sources": [
+        "spec-federation-federation-invariants-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "HIGH",
+      "normalized": "high",
+      "sources": [
+        "spec-federation-federation-invariants-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "MEDIUM",
+      "normalized": "medium",
+      "sources": [
+        "spec-federation-federation-invariants-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
     },
     {
       "raw_text": "locally and deterministically",

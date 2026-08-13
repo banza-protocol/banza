@@ -5,7 +5,7 @@
     "principle": "The vocabulary is a semantic registry of real protocol terms derived from the engine's own registries + closed protocol sets; corpus terms are candidates (Phase 1), lexical noise never enters here."
   },
   "source_registry": {
-    "total": 483,
+    "total": 480,
     "by_type": {
       "root-doc": 9,
       "conformance": 80,
@@ -14,22 +14,22 @@
       "openapi": 11,
       "adr": 81,
       "rfc": 7,
-      "doc": 83,
+      "doc": 80,
       "example": 48,
       "spec": 31
     },
     "by_status": {
-      "current": 483
+      "current": 480
     },
     "by_authority_class": {
-      "current": 435,
+      "current": 432,
       "illustrative": 48
     },
     "by_language": {
-      "pt-or-neutral": 483
+      "pt-or-neutral": 480
     },
     "by_origin": {
-      "authored": 483,
+      "authored": 480,
       "generated": 0
     },
     "duplicates": [
@@ -4105,7 +4105,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "2c83d220f16a00c7"
+        "checksum": "2a6796daf18c7e20"
       },
       {
         "id": "docs-governance-banza-root-custody-future-migration-md",
@@ -4150,17 +4150,6 @@
         "generated": false,
         "public_eligible": true,
         "checksum": "9555f938ee0c0bfa"
-      },
-      {
-        "id": "docs-governance-banza-v1-operational-transition-plan-md",
-        "path": "docs/governance/BANZA_V1_OPERATIONAL_TRANSITION_PLAN.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "322c0e884a10c801"
       },
       {
         "id": "docs-governance-claude-base-md",
@@ -4438,28 +4427,6 @@
         "checksum": "3a7f3b0bb3b0fb5b"
       },
       {
-        "id": "docs-governance-matrix-a-banza-md",
-        "path": "docs/governance/MATRIX_A_BANZA.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "f924b06e3a7ac07d"
-      },
-      {
-        "id": "docs-governance-matrix-c-operator-md",
-        "path": "docs/governance/MATRIX_C_OPERATOR.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "325c687cb826cff8"
-      },
-      {
         "id": "docs-governance-open-protocol-architecture-md",
         "path": "docs/governance/OPEN_PROTOCOL_ARCHITECTURE.md",
         "type": "doc",
@@ -4666,7 +4633,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "882193b63d0e6e9f"
+        "checksum": "121cfa47cedacf48"
       },
       {
         "id": "docs-governance-ceremony-records-m2-custody-approval-checklist-md",
@@ -5655,7 +5622,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "6b1d0db34a24a135"
+    "checksum": "121d39ea9512882b"
   },
   "subjects": [
     {
@@ -9016,5 +8983,5 @@
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "c135ac3a936ace62"
+  "checksum": "f3024d9a67d12f47"
 }

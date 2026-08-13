@@ -17,6 +17,17 @@
 >
 > Implementation of Option A is deferred (ceremony not run; no production keys generated).
 > BLK-01 remains OPEN until the ceremony is executed and the §9 checklist is fully approved.
+>
+> **CEREMONY GATE (fail-closed).** No production root-key ceremony may run until **all four** hold:
+> 1. Option A custody implementation is complete — 2-HSM / dual-control, HSM-backed split custody;
+> 2. the custody checklist (§9 below) is fully approved;
+> 3. the ceremony evidence model is complete (`docs/governance/ceremony-records/`);
+> 4. the production ceremony is **explicitly authorised**.
+>
+> **Current state: no ceremony has run, no production root key exists, and M2 remains OPEN and
+> BLOCKED.** This gate was previously stated in the v1 operational transition plan, a process document
+> that has been removed; it is restated here because the gate is a standing control and belongs with
+> the custody decision it enforces, not with a plan. Nothing about it changed in the move.
 
 ---
 

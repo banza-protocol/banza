@@ -1477,4 +1477,3 @@ As regras normativas vivem nos artefactos públicos e versionados — invariante
 - `decisions/adr/` — Todos os Registos de Decisão de Arquitectura
 - `decisions/rfc/` — Todos os Pedidos de Comentários
 - `spec/federation/` — Documentação de federação
-- `docs/governance/MATRIX_A_BANZA.md` — Artefacto de validação (auxiliar, não normativo)

@@ -2843,5 +2843,3 @@ Não. BanzAI guia e explica. Novas regras entram apenas por governação públic
 - `decisions/adr/` — Todos os Registos de Decisão de Arquitectura
 - `decisions/rfc/` — Todos os Pedidos de Comentários
 - `spec/federation/` — Documentação de federação
-- `docs/governance/MATRIX_A_BANZA.md` — Artefacto de validação (auxiliar, não normativo)
-- `docs/governance/BANZA_V1_OPERATIONAL_TRANSITION_PLAN.md` — Roteiro M1–M6

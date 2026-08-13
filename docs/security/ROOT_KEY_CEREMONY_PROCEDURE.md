@@ -8,7 +8,7 @@
 - [ROOT_KEY_CEREMONY_CHECKLIST.md](ROOT_KEY_CEREMONY_CHECKLIST.md)
 - [ROOT_KEY_CEREMONY_RECORD_TEMPLATE.md](ROOT_KEY_CEREMONY_RECORD_TEMPLATE.md)
 - Governance evidence (Option A): [`docs/governance/ceremony-records/`](../governance/ceremony-records/) — record store + [`CEREMONY_RECORD_TEMPLATE.md`](../governance/ceremony-records/CEREMONY_RECORD_TEMPLATE.md) (dual-custody evidence; **no root material is ever stored there**)
-- Authorization: [`docs/governance/BANZA_V1_OPERATIONAL_TRANSITION_PLAN.md`](../governance/BANZA_V1_OPERATIONAL_TRANSITION_PLAN.md) (OPS-001 trigger; M2 is gated)
+- Authorization: [`docs/governance/BANZA_ROOT_CUSTODY_DECISION_REQUIRED.md`](../governance/BANZA_ROOT_CUSTODY_DECISION_REQUIRED.md) (the four-condition ceremony gate; M2 is gated)
 
 ---
 
@@ -43,7 +43,7 @@ This procedure is executed exactly once per root key generation. Issuing key rot
 > ceremony (ADR-038; gated by
 > [`docs/governance/BANZA_ROOT_CUSTODY_FUTURE_MIGRATION.md`](../governance/BANZA_ROOT_CUSTODY_FUTURE_MIGRATION.md)).
 
-**This ceremony is to be executed when:** OPS-001 (root key generation) is initiated per the [BANZA v1 Operational Transition Plan](../governance/BANZA_V1_OPERATIONAL_TRANSITION_PLAN.md) (now in the governing path `docs/governance/` — HI-13 resolved). That plan marks **OPS-001 as GATED**: M2 remains blocked until Option A custody is implemented, the custody checklist is approved, the ceremony evidence model is complete, and the ceremony is explicitly authorized.
+**This ceremony is to be executed when:** the four-condition ceremony gate in [`BANZA_ROOT_CUSTODY_DECISION_REQUIRED.md`](../governance/BANZA_ROOT_CUSTODY_DECISION_REQUIRED.md) is fully satisfied — custody implemented, checklist approved, evidence model complete, and the ceremony explicitly authorised. None of the four holds today: no ceremony has run and no production root key exists.
 
 > ### Ceremony evidence requirement (Option A)
 >
@@ -991,4 +991,4 @@ The root private key leaves secure storage only for this signing operation. It m
 | `docs/security/ROOT_KEY_CEREMONY_CHECKLIST.md` | Day-of checklist |
 | `docs/security/ROOT_KEY_CEREMONY_RECORD_TEMPLATE.md` | Record template to fill in during ceremony |
 | `docs/security/PRODUCTION_ROOT_READINESS_REPORT.md` | Pre-production readiness assessment |
-| `docs/governance/BANZA_V1_OPERATIONAL_TRANSITION_PLAN.md` | OPS-001 context |
+| `docs/governance/BANZA_ROOT_CUSTODY_DECISION_REQUIRED.md` | Approved custody model and the four-condition ceremony gate |

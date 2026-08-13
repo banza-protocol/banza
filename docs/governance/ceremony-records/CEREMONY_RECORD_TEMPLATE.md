@@ -21,7 +21,7 @@ passphrase, seed, HSM PIN, or custody secret (see the FORBIDDEN ATTACHMENTS sect
 | `custody_model` | dual_hsm_dual_keyholder |
 | `quorum` | 2_of_2 |
 | `procedure_ref` | docs/security/ROOT_KEY_CEREMONY_PROCEDURE.md |
-| `authorization_ref` | <OPS-001 authorization per docs/governance/BANZA_V1_OPERATIONAL_TRANSITION_PLAN.md> |
+| `authorization_ref` | <explicit authorisation, per the ceremony gate in docs/governance/BANZA_ROOT_CUSTODY_DECISION_REQUIRED.md> |
 
 ## 2. Keyholders (two independent)
 

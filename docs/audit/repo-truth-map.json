@@ -2,9 +2,9 @@
  "_spec": "BANZA repository truth map — Phase A of the simplification sweep",
  "_method": "Classification is by consumer, not by directory name. A file is UNREFERENCED when no other tracked file names it by path or by a distinctive basename.",
  "_warning": "UNREFERENCED is a removal CANDIDATE, not a verdict. Licences, specifications and public material can be unreferenced and still required.",
- "total_files": 1842,
+ "total_files": 1839,
  "counts": {
-  "REFERENCED": 639,
+  "REFERENCED": 636,
   "RUNTIME": 329,
   "REFERENCE_IMPLEMENTATION": 295,
   "BUILD_RELEASE": 210,
@@ -96,12 +96,11 @@
    "class": "BUILD_RELEASE",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/governance/MATRIX_A_BANZA.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
     "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
    ],
-   "refs": 5
+   "refs": 4
   },
   {
    "path": ".github/workflows/identity-guard.yml",
@@ -199,7 +198,7 @@
     "artifacts/m2-19a/adr-audit-working.json",
     "artifacts/m2-19a/adr-treatment-map.json"
    ],
-   "refs": 51
+   "refs": 52
   },
   {
    "path": "CODE_OF_CONDUCT.md",
@@ -302,7 +301,7 @@
     "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
     "artifacts/m2-19-final/finding-b-map.json"
    ],
-   "refs": 102
+   "refs": 101
   },
   {
    "path": "SECURITY.md",
@@ -315,7 +314,7 @@
     "contracts/production/normative-manifest.json",
     "docs/audit/BANZA_V1_CLEAN_ROOM_PACKAGE_MANIFEST.md"
    ],
-   "refs": 26
+   "refs": 27
   },
   {
    "path": "TRADEMARKS.md",
@@ -341,7 +340,7 @@
     "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
     "artifacts/m2-18b7/execution-state.json"
    ],
-   "refs": 122
+   "refs": 121
   },
   {
    "path": "artifacts/m2-18b2/boundary-eval.json",
@@ -951,12 +950,12 @@
    "referenced_by": [
     "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
     "docs/audit/BANZA_V1_OPEN_PROTOCOL_NORMATIVE_COMPLETENESS_AUDIT.md",
+    "docs/audit/BANZA_V1_SIMPLICITY_SECURITY_ROBUSTNESS_REPORT.md",
     "docs/audit/repo-truth-map.json",
     "docs/guides/conformance.md",
-    "docs/reference/PROTOCOL_GLOSSARY.md",
-    "docs/reference/conformance.md"
+    "docs/reference/PROTOCOL_GLOSSARY.md"
    ],
-   "refs": 15
+   "refs": 16
   },
   {
    "path": "conformance/capabilities/schema.json",
@@ -1422,7 +1421,7 @@
     "clean-room/packages/l0/contracts/production/normative-manifest.json",
     "clean-room/packages/l0/contracts/production/operator-manifest.production.schema.json"
    ],
-   "refs": 42
+   "refs": 41
   },
   {
    "path": "conformance/operators/suite.json",
@@ -2131,7 +2130,7 @@
     "contracts/production/normative-manifest.json",
     "decisions/adr/ADR-021-conformance-suite-level-capability-alignment.md"
    ],
-   "refs": 22
+   "refs": 21
   },
   {
    "path": "conformance/sdk/suite.json",
@@ -2221,7 +2220,7 @@
     "contracts/production/conformance-profiles.production.json",
     "contracts/production/normative-manifest.json"
    ],
-   "refs": 14
+   "refs": 13
   },
   {
    "path": "conformance/vectors/idempotency.json",
@@ -2247,7 +2246,7 @@
     "contracts/production/conformance-profiles.production.json",
     "contracts/production/normative-manifest.json"
    ],
-   "refs": 14
+   "refs": 13
   },
   {
    "path": "conformance/vectors/operator-manifests.json",
@@ -2260,7 +2259,7 @@
     "clean-room/packages/l0/docs/guides/implement-l0.md",
     "clean-room/packages/l0/package-manifest.json"
    ],
-   "refs": 23
+   "refs": 22
   },
   {
    "path": "conformance/vectors/payment-requests.json",
@@ -2273,7 +2272,7 @@
     "contracts/production/conformance-profiles.production.json",
     "contracts/production/normative-manifest.json"
    ],
-   "refs": 14
+   "refs": 13
   },
   {
    "path": "conformance/vectors/qr-payloads.json",
@@ -2286,7 +2285,7 @@
     "contracts/production/conformance-profiles.production.json",
     "contracts/production/normative-manifest.json"
    ],
-   "refs": 14
+   "refs": 13
   },
   {
    "path": "conformance/vectors/reason-codes.json",
@@ -2312,7 +2311,7 @@
     "contracts/production/conformance-profiles.production.json",
     "contracts/production/normative-manifest.json"
    ],
-   "refs": 14
+   "refs": 13
   },
   {
    "path": "conformance/vectors/transfers.json",
@@ -2325,7 +2324,7 @@
     "contracts/production/conformance-profiles.production.json",
     "contracts/production/normative-manifest.json"
    ],
-   "refs": 15
+   "refs": 14
   },
   {
    "path": "conformance/vectors/trust-freshness.json",
@@ -2364,7 +2363,7 @@
     "contracts/production/conformance-profiles.production.json",
     "contracts/production/normative-manifest.json"
    ],
-   "refs": 14
+   "refs": 13
   },
   {
    "path": "contracts/README.md",
@@ -2455,7 +2454,7 @@
     "conformance/package/contracts/federation/federation-event.json",
     "conformance/package/contracts/webhooks/envelope.schema.json"
    ],
-   "refs": 26
+   "refs": 24
   },
   {
    "path": "contracts/events/types.json",
@@ -2468,7 +2467,7 @@
     "clean-room/packages/l0/contracts/production/normative-manifest.json",
     "conformance/package/contracts/events/envelope.schema.json"
    ],
-   "refs": 29
+   "refs": 28
   },
   {
    "path": "contracts/events/webhook-types.json",
@@ -2494,7 +2493,7 @@
     "conformance/federation/suite.json",
     "conformance/package/contracts/federation/federation-event.json"
    ],
-   "refs": 22
+   "refs": 20
   },
   {
    "path": "contracts/federation/federation-manifest.json",
@@ -2507,7 +2506,7 @@
     "clean-room/packages/l0/contracts/production/capability-registry.production.json",
     "clean-room/packages/l0/contracts/production/conformance-profiles.production.json"
    ],
-   "refs": 36
+   "refs": 35
   },
   {
    "path": "contracts/federation/federation-obligation.json",
@@ -2520,7 +2519,7 @@
     "conformance/federation/suite.json",
     "conformance/package/contracts/federation/federation-obligation.json"
    ],
-   "refs": 22
+   "refs": 21
   },
   {
    "path": "contracts/federation/federation-routing.json",
@@ -2533,7 +2532,7 @@
     "conformance/federation/suite.json",
     "conformance/package/contracts/federation/federation-routing.json"
    ],
-   "refs": 23
+   "refs": 22
   },
   {
    "path": "contracts/federation/federation-trust.json",
@@ -2546,7 +2545,7 @@
     "clean-room/packages/l0/conformance/vectors/reason-codes.json",
     "clean-room/packages/l0/contracts/production/conformance-profiles.production.json"
    ],
-   "refs": 46
+   "refs": 45
   },
   {
    "path": "contracts/federation/key-manifest.json",
@@ -2559,7 +2558,7 @@
     "conformance/package/contracts/federation/federation-trust.json",
     "conformance/package/contracts/federation/key-manifest.json"
    ],
-   "refs": 29
+   "refs": 27
   },
   {
    "path": "contracts/federation/revocation-list.json",
@@ -2650,7 +2649,7 @@
     "contracts/production/conformance-profiles.production.json",
     "contracts/production/normative-manifest.json"
    ],
-   "refs": 11
+   "refs": 10
   },
   {
    "path": "contracts/openapi/collections.yaml",
@@ -2702,7 +2701,7 @@
     "docs/audit/BANZA_V1_CLEAN_ROOM_PACKAGE_MANIFEST.md",
     "docs/audit/BANZA_V1_NORMATIVE_REMEDIATION_REPORT.md"
    ],
-   "refs": 18
+   "refs": 17
   },
   {
    "path": "contracts/openapi/transfers.yaml",
@@ -2715,7 +2714,7 @@
     "contracts/production/conformance-profiles.production.json",
     "contracts/production/normative-manifest.json"
    ],
-   "refs": 13
+   "refs": 12
   },
   {
    "path": "contracts/openapi/wallet-onboarding.yaml",
@@ -2728,7 +2727,7 @@
     "contracts/production/conformance-profiles.production.json",
     "contracts/production/normative-manifest.json"
    ],
-   "refs": 11
+   "refs": 10
   },
   {
    "path": "contracts/payment-intents/payment-intent.schema.json",
@@ -3425,7 +3424,7 @@
     "conformance/package/contracts/invariants.json",
     "conformance/package/package-manifest.json"
    ],
-   "refs": 18
+   "refs": 16
   },
   {
    "path": "contracts/qr/payload-format.json",
@@ -3438,7 +3437,7 @@
     "conformance/package/contracts/invariants.json",
     "conformance/package/contracts/qr/lifecycle.json"
    ],
-   "refs": 22
+   "refs": 20
   },
   {
    "path": "contracts/settlements/application-settlement.schema.json",
@@ -3503,7 +3502,7 @@
     "conformance/package/package-manifest.json",
     "contracts/production/conformance-profiles.production.json"
    ],
-   "refs": 16
+   "refs": 15
   },
   {
    "path": "contracts/webhooks/signature.json",
@@ -3516,7 +3515,7 @@
     "conformance/package/contracts/events/webhook-types.json",
     "conformance/package/contracts/webhooks/envelope.schema.json"
    ],
-   "refs": 30
+   "refs": 28
   },
   {
    "path": "decisions/adr/ADR-001-open-financial-protocol.md",
@@ -5233,7 +5232,7 @@
     "decisions/adr/ADR-079-canonical-trust-signing-model-reconciliation.md",
     "docs/audit/repo-truth-map.json",
     "docs/governance/BANZA_ROOT_CUSTODY_FUTURE_MIGRATION.md",
-    "docs/governance/BANZA_V1_OPERATIONAL_TRANSITION_PLAN.md",
+    "docs/governance/ceremony-records/CEREMONY_RECORD_TEMPLATE.md",
     "docs/governance/ceremony-records/M2_CUSTODY_APPROVAL_CHECKLIST.md"
    ],
    "refs": 12
@@ -5289,19 +5288,6 @@
     "decisions/adr/ADR-079-canonical-trust-signing-model-reconciliation.md"
    ],
    "refs": 27
-  },
-  {
-   "path": "docs/governance/BANZA_V1_OPERATIONAL_TRANSITION_PLAN.md",
-   "class": "REFERENCED",
-   "referenced_by": [
-    "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
-    "docs/audit/repo-truth-map.json",
-    "docs/governance/ceremony-records/CEREMONY_RECORD_TEMPLATE.md",
-    "docs/reference/en/complete.md",
-    "docs/reference/pt/completa.md",
-    "docs/security/ROOT_KEY_CEREMONY_PROCEDURE.md"
-   ],
-   "refs": 7
   },
   {
    "path": "docs/governance/CLAUDE_BASE.md",
@@ -5613,30 +5599,6 @@
    "refs": 8
   },
   {
-   "path": "docs/governance/MATRIX_A_BANZA.md",
-   "class": "REFERENCED",
-   "referenced_by": [
-    "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
-    "artifacts/m2-19-final/finding-b-map.json",
-    "docs/audit/repo-truth-map.json",
-    "docs/reference/en/complete.md",
-    "docs/reference/pt/completa.md",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
-   ],
-   "refs": 7
-  },
-  {
-   "path": "docs/governance/MATRIX_C_OPERATOR.md",
-   "class": "REFERENCED",
-   "referenced_by": [
-    "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
-    "artifacts/m2-19-final/finding-b-map.json",
-    "docs/audit/repo-truth-map.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
-   ],
-   "refs": 4
-  },
-  {
    "path": "docs/governance/OPEN_PROTOCOL_ARCHITECTURE.md",
    "class": "REFERENCED",
    "referenced_by": [
@@ -5680,13 +5642,13 @@
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
+    "docs/audit/BANZA_V1_SIMPLICITY_SECURITY_ROBUSTNESS_REPORT.md",
     "docs/audit/repo-truth-map.json",
     "docs/governance/PROTOCOL_GOVERNANCE_ROLES.md",
     "docs/reference/BANZA_SVG_STANDARDS.md",
-    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md",
-    "engines/banza-repo-guards/src/lib.rs"
+    "docs/reports/BANZAI_WORKBENCH_FASE_A_AUDIT_2026-08-04.md"
    ],
-   "refs": 7
+   "refs": 8
   },
   {
    "path": "docs/governance/OPERATOR_SELF_PUBLICATION_AND_CONFORMANCE.md",
@@ -5783,9 +5745,9 @@
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
+    "docs/audit/BANZA_V1_SIMPLICITY_SECURITY_ROBUSTNESS_REPORT.md",
     "docs/audit/repo-truth-map.json",
     "docs/governance/BANZA-PROTOCOL-VS-OPERATOR-POLICY.md",
-    "docs/governance/MATRIX_A_BANZA.md",
     "docs/governance/OPERATOR_NEUTRALITY_TERMINOLOGY.md",
     "docs/governance/roadmap.md"
    ],
@@ -5873,12 +5835,12 @@
    "referenced_by": [
     "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
     "docs/audit/repo-truth-map.json",
-    "docs/governance/MATRIX_A_BANZA.md",
     "docs/governance/ceremony-records/README.md",
     "docs/security/PRODUCTION_TRUST_PATH.md",
-    "docs/security/ROOT_KEY_CEREMONY_PROCEDURE.md"
+    "docs/security/ROOT_KEY_CEREMONY_PROCEDURE.md",
+    "docs/security/ROOT_KEY_CEREMONY_RUNBOOK.md"
    ],
-   "refs": 11
+   "refs": 10
   },
   {
    "path": "docs/governance/ceremony-records/M2_CUSTODY_APPROVAL_CHECKLIST.md",
@@ -5915,7 +5877,7 @@
     "artifacts/m2-19-final/finding-b-map.json",
     "artifacts/m2-19a/adr-audit-working.json"
    ],
-   "refs": 44
+   "refs": 41
   },
   {
    "path": "docs/governance/licensing.md",
@@ -5936,12 +5898,10 @@
    "referenced_by": [
     "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
     "docs/audit/repo-truth-map.json",
-    "docs/governance/BANZA_V1_OPERATIONAL_TRANSITION_PLAN.md",
     "docs/governance/M2_7I_BANZAI_REFERENCE_REPOSITORY_ALIGNMENT_AUDIT.md",
-    "docs/governance/MATRIX_A_BANZA.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
-   "refs": 6
+   "refs": 4
   },
   {
    "path": "docs/governance/rust-first-legacy-allowlist.json",
@@ -5983,8 +5943,8 @@
    "path": "docs/guides/conformance.md",
    "class": "PUBLIC_DOCUMENTATION",
    "referenced_by": [
+    "docs/audit/BANZA_V1_SIMPLICITY_SECURITY_ROBUSTNESS_REPORT.md",
     "docs/audit/repo-truth-map.json",
-    "docs/governance/MATRIX_A_BANZA.md",
     "docs/governance/certification-boundary.md",
     "docs/governance/roadmap.md",
     "docs/reference/en/complete.md",
@@ -6199,14 +6159,14 @@
    "path": "docs/reference/conformance.md",
    "class": "PUBLIC_DOCUMENTATION",
    "referenced_by": [
+    "docs/audit/BANZA_V1_SIMPLICITY_SECURITY_ROBUSTNESS_REPORT.md",
     "docs/audit/repo-truth-map.json",
     "docs/guides/conformance.md",
     "engines/banzai-query-core/src/doc-index.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm",
-    "tools/check-open-governance.sh"
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
    ],
-   "refs": 7
+   "refs": 8
   },
   {
    "path": "docs/reference/diagrams/en/banza-ecosystem-roles-v1.svg",
@@ -6376,20 +6336,20 @@
     "artifacts/m2-19a/adr-audit-working.json",
     "artifacts/m2-19a/adr-treatment-map.json"
    ],
-   "refs": 46
+   "refs": 45
   },
   {
    "path": "docs/reference/getting-started.md",
    "class": "PUBLIC_DOCUMENTATION",
    "referenced_by": [
+    "docs/audit/BANZA_V1_SIMPLICITY_SECURITY_ROBUSTNESS_REPORT.md",
     "docs/audit/repo-truth-map.json",
     "docs/governance/M2_3_REFERENCE_TRUST_MODEL_INVENTORY.md",
     "docs/reference/PROTOCOL_GLOSSARY.md",
     "engines/banzai-query-core/src/doc-index.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "services/banzai-api/src/knowledge.js"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
-   "refs": 11
+   "refs": 12
   },
   {
    "path": "docs/reference/manifesto.md",
@@ -6964,12 +6924,12 @@
    "referenced_by": [
     ".github/ISSUE_TEMPLATE/security_report.md",
     "SECURITY.md",
+    "docs/audit/BANZA_V1_SIMPLICITY_SECURITY_ROBUSTNESS_REPORT.md",
     "docs/audit/repo-truth-map.json",
     "docs/governance/README.md",
-    "docs/reference/en/complete.md",
-    "docs/reference/pt/completa.md"
+    "docs/reference/en/complete.md"
    ],
-   "refs": 11
+   "refs": 12
   },
   {
    "path": "docs/security/RISK_REGISTER.md",
@@ -7002,21 +6962,21 @@
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/governance/MATRIX_A_BANZA.md",
     "docs/security/PRODUCTION_TRUST_PATH.md",
     "docs/security/ROOT_KEY_CEREMONY_PROCEDURE.md",
     "docs/security/ROOT_KEY_CEREMONY_RUNBOOK.md",
-    "docs/security/TRUST_CEREMONY_PLAN.md"
+    "docs/security/TRUST_CEREMONY_PLAN.md",
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
-   "refs": 9
+   "refs": 8
   },
   {
    "path": "docs/security/ROOT_KEY_CEREMONY_PROCEDURE.md",
    "class": "REFERENCED",
    "referenced_by": [
+    "docs/audit/BANZA_V1_SIMPLICITY_SECURITY_ROBUSTNESS_REPORT.md",
     "docs/audit/repo-truth-map.json",
     "docs/governance/BANZA_ROOT_CUSTODY_DECISION_REQUIRED.md",
-    "docs/governance/MATRIX_A_BANZA.md",
     "docs/governance/ceremony-records/CEREMONY_RECORD_TEMPLATE.md",
     "docs/governance/ceremony-records/M2_CUSTODY_APPROVAL_CHECKLIST.md",
     "docs/governance/ceremony-records/README.md"
@@ -7028,13 +6988,13 @@
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/governance/MATRIX_A_BANZA.md",
     "docs/security/PRODUCTION_TRUST_PATH.md",
     "docs/security/ROOT_KEY_CEREMONY_PROCEDURE.md",
     "docs/security/ROOT_KEY_CEREMONY_RUNBOOK.md",
-    "docs/security/TRUST_CEREMONY_PLAN.md"
+    "docs/security/TRUST_CEREMONY_PLAN.md",
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
-   "refs": 9
+   "refs": 8
   },
   {
    "path": "docs/security/ROOT_KEY_CEREMONY_RUNBOOK.md",
@@ -7932,13 +7892,13 @@
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
     "conformance/README.md",
+    "docs/audit/BANZA_V1_SIMPLICITY_SECURITY_ROBUSTNESS_REPORT.md",
     "docs/audit/repo-truth-map.json",
     "docs/guides/conformance.md",
     "docs/reference/conformance.md",
-    "engines/banzai-query-core/src/doc-index.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
+    "engines/banzai-query-core/src/doc-index.json"
    ],
-   "refs": 8
+   "refs": 9
   },
   {
    "path": "engines/banza-conformance/golden/parity-summary.json",
@@ -8905,10 +8865,11 @@
    "path": "engines/banza-trust/README.md",
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
+    "docs/audit/BANZA_V1_SIMPLICITY_SECURITY_ROBUSTNESS_REPORT.md",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
-   "refs": 2
+   "refs": 3
   },
   {
    "path": "engines/banza-trust/src/bin/cli.rs",
@@ -13996,11 +13957,11 @@
     "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
     "artifacts/m2-19-final/finding-b-map.json",
     "docs/audit/repo-truth-map.json",
-    "docs/governance/BANZA_V1_OPERATIONAL_TRANSITION_PLAN.md",
-    "docs/governance/MATRIX_A_BANZA.md",
-    "docs/reference/PROTOCOL_GLOSSARY.md"
+    "docs/reference/PROTOCOL_GLOSSARY.md",
+    "engines/banzai-query-core/src/doc-index.json",
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
-   "refs": 10
+   "refs": 8
   },
   {
    "path": "spec/federation/FEDERATION_PROTOCOL_FLOW.md",
@@ -14033,13 +13994,13 @@
    "class": "PUBLIC_DOCUMENTATION",
    "referenced_by": [
     "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
+    "docs/audit/BANZA_V1_SIMPLICITY_SECURITY_ROBUSTNESS_REPORT.md",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/doc-index.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm",
-    "spec/federation/FEDERATION_FIXTURE_CATALOG.md"
+    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
    ],
-   "refs": 6
+   "refs": 7
   },
   {
    "path": "spec/federation/FEDERATION_SEQUENCE_DIAGRAMS.md",
@@ -15944,12 +15905,12 @@
    "referenced_by": [
     ".github/workflows/identity-guard.yml",
     "Makefile",
+    "docs/audit/BANZA_V1_SIMPLICITY_SECURITY_ROBUSTNESS_REPORT.md",
     "docs/audit/repo-truth-map.json",
     "docs/governance/OPERATOR_NEUTRALITY_TERMINOLOGY.md",
-    "docs/governance/README.md",
-    "engines/banza-repo-guards/src/lib.rs"
+    "docs/governance/README.md"
    ],
-   "refs": 10
+   "refs": 11
   },
   {
    "path": "tools/check-operator-implementation-boundary.sh",
@@ -16665,10 +16626,11 @@
    "path": "website/.dockerignore",
    "class": "REFERENCED",
    "referenced_by": [
+    "docs/audit/BANZA_V1_SIMPLICITY_SECURITY_ROBUSTNESS_REPORT.md",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-exclusions.json"
    ],
-   "refs": 2
+   "refs": 3
   },
   {
    "path": "website/.eslintrc.json",
@@ -17782,7 +17744,7 @@
     "artifacts/m2-19-final/finding-b-map.json",
     "artifacts/m2-19g2/home-current-surface-audit.json"
    ],
-   "refs": 135
+   "refs": 136
   },
   {
    "path": "website/content/banzai/architecture-manifest.json",
