@@ -335,7 +335,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
   const runInference = typeof inferenceRun === "function" ? inferenceRun : (fn) => fn();
   // The single explanatory trunk (the grounded synthesis). Injectable so the router tests can exercise the
   // ROUTING (which terminal vs the trunk) deterministically without a real model; the trunk's own model
-  // behaviour is proven in test/m2-18b6-grounded-synthesis.test.js and in live QA.
+  // behaviour is proven in test/grounded-synthesis.test.js and in live QA.
   const runSynthesis = typeof runGroundedSynthesisFn === "function" ? runGroundedSynthesisFn : runGroundedSynthesis;
   const lang = "pt";
   const defaultMode = String(env.BANZAI_ANSWER_MODE || "fast").toLowerCase() === "deep" ? "deep" : "fast";

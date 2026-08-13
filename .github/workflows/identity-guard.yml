@@ -1006,9 +1006,9 @@ jobs:
       - name: BanzAI M2.18B.6 dataset drift + offline eval + parity
         working-directory: services/banzai-api
         run: |
-          node eval/gen-m2-18b6-dataset.mjs --check
-          node eval/run-m2-18b6-eval.mjs
-          node eval/parity-m2-18b6.mjs
+          node eval/gen-grounded-dataset.mjs --check
+          node eval/run-grounded-eval.mjs
+          node eval/parity-grounded.mjs
 
       # M2.18B.2 — the action boundary is a deterministic safety layer (Rust taxonomy run before any
       # model call, proven at 100% recall by an OFFLINE eval this guard runs in CI), and the interpreter's
@@ -1464,9 +1464,9 @@ jobs:
       # (negation-aware; well-known operator endpoints and the SimB simulator excluded), the current
       # three-layer vocabulary present (L1/L2/L3 + Esquema Operacional + BanzAI transversal), and the
       # G2 hero positioning with no absolute "sem acordos bilaterais" over-claim. Self-tests every run.
-      # Same script as local `make m2-19g-public-surface-canonical-check`.
+      # Same script as local `make public-surface-canonical-check`.
       - name: M2.19G public-surface canonicalization guard
-        run: bash tools/check-m2-19g-public-surface-canonical.sh
+        run: bash tools/check-public-surface-canonical.sh
 
   # ── M2.19G.2 — Home + reference-route canonicalization guard suite (§36/§42) ──────────────────────
   # The G2 Home is the five-band public narrative; the /o-que-e route is deleted, replaced by the
@@ -1478,7 +1478,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: G2 canonical Home guard
-        run: bash tools/check-m2-19g2-home-canonical.sh
+        run: bash tools/check-home-canonical.sh
 
   m2-19g2-o-que-e-removal:
     name: M2.19G.2 — /o-que-e route removal (§27-28)
@@ -1486,7 +1486,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: G2 /o-que-e removal guard
-        run: bash tools/check-m2-19g2-o-que-e-removal.sh
+        run: bash tools/check-retired-page-removal.sh
 
   m2-19g2-readiness:
     name: M2.19G.2 — Home + route canonicalization readiness (capstone, §42)
@@ -1494,7 +1494,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: G2 readiness capstone guard
-        run: bash tools/check-m2-19g2-readiness.sh
+        run: bash tools/check-home-readiness.sh
 
   # ── M2.19G.5C — Canonical BanzAI architecture guard suite (ADR-042..074) ──────────────────────────
   # The canonical BanzAI runtime is services/banzai-api (ADR-042); the runtime SSOT is /banzai/runtime
@@ -1836,7 +1836,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: M2.19G semantic-regression guard
-        run: bash tools/check-banzai-m2-19g-semantic-regression-check.sh
+        run: bash tools/check-banzai-semantic-regression-check.sh
 
   banzai-accessibility:
     name: M2.19G.1 — validation UI accessibility
@@ -1860,4 +1860,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: M2.19G.1 readiness capstone guard
-        run: bash tools/check-banzai-m2-19g1-readiness-check.sh
+        run: bash tools/check-banzai-endpoint-readiness-check.sh

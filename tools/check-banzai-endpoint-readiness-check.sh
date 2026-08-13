@@ -22,7 +22,7 @@ SHELL_TSX=website/components/banzai/BanzaiAgent.tsx
 VALIDATE=services/banzai-api/src/validate.js
 FCLIENT=services/banzai-api/src/fetcherClient.js
 
-echo "== banzai-m2-19g1-readiness-check (M2.19G.1 / ADR-038 §44 capstone) =="
+echo "== banzai-endpoint-readiness-check (M2.19G.1 / ADR-038 §44 capstone) =="
 
 # ── self-test ───────────────────────────────────────────────────────────────────────────────────────
 st=0
@@ -95,5 +95,5 @@ for m in $metrics; do
 done
 
 echo
-if [ "$fail" -ne 0 ]; then echo "banzai-m2-19g1-readiness-check: FAIL — an endpoint-originated invariant regressed."; exit 1; fi
-echo "banzai-m2-19g1-readiness-check: ✓ all §44 endpoint-originated metrics are 0 (M2.19G.1 capstone)"
+if [ "$fail" -ne 0 ]; then echo "banzai-endpoint-readiness-check: FAIL — an endpoint-originated invariant regressed."; exit 1; fi
+echo "banzai-endpoint-readiness-check: ✓ all §44 endpoint-originated metrics are 0 (M2.19G.1 capstone)"

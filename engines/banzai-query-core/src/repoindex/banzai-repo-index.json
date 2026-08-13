@@ -21020,7 +21020,7 @@
   "language": "en",
   "line_start": 46,
   "line_end": 55,
-  "content": "Whether the production trust path is coherent enough to proceed is computed **in Rust** by `engines/banza-m2-protocol-gate :: validate_m2_protocol_gate`, never in TypeScript. A missing or incomplete trust path resolves to `M2_BLOCKED_BY_TRUST_PATH_GAP`; a document that claimed the ceremony had run, ",
+  "content": "Whether the production trust path is coherent enough to proceed is computed **in Rust** by `engines/banza-production-gate :: validate_m2_protocol_gate`, never in TypeScript. A missing or incomplete trust path resolves to `M2_BLOCKED_BY_TRUST_PATH_GAP`; a document that claimed the ceremony had run, ",
   "content_hash": "3d59fc36f5bb0ea0",
   "indexed_at": "2026-07-29T00:00:00Z",
   "index_version": "m2.13b-pr2",

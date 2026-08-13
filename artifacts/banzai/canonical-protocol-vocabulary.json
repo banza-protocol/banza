@@ -2224,7 +2224,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "9705803d44dd03b0"
+        "checksum": "7cb2a95850438e09"
       },
       {
         "id": "contracts-production-brl-production-schema-json",
@@ -2477,7 +2477,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "e5d120e580d262e3"
+        "checksum": "bf865aa3db2a9ea6"
       },
       {
         "id": "contracts-production-operation-receipt-production-schema-json",
@@ -3456,7 +3456,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "e6d36f3c1e863acd"
+        "checksum": "eca3073366d2f5c6"
       },
       {
         "id": "docs-banzai-banzai-workbench-threat-model-md",
@@ -3896,7 +3896,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "20aa8d3f7bb761bf"
+        "checksum": "9bcf0ba82140ee20"
       },
       {
         "id": "docs-governance-protocol-release-governance-md",
@@ -4248,7 +4248,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "5065d6775bb509cf"
+        "checksum": "cdc2eec6a02d9d6e"
       },
       {
         "id": "examples-operators-zero-evidence-bundle-evidence-bundle-invalid-json",
@@ -4963,7 +4963,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "943c4397c4136679"
+        "checksum": "fb1e2456cdbb989a"
       },
       {
         "id": "spec-validation-journey-md",
@@ -4995,7 +4995,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "57e11bb89561f75c"
+    "checksum": "6af32e9d7330787b"
   },
   "subjects": [
     {
@@ -8146,5 +8146,5 @@
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "7414a0d46f8441ac"
+  "checksum": "41eb2245429be59b"
 }

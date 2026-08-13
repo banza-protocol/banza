@@ -47,7 +47,7 @@ On boot the service recovers stale `RUNNING` executions (→ `INTERRUPTED`), dra
 
 ## Configuration
 
-The store is env-gated OFF by default. Enable in production with `BANZAI_RECEIPTS_ENABLED=1`, `DATABASE_URL` (the `banzai_rw` role), and `BANZAI_RECEIPTS_OUTBOX_DIR` (a writable volume for the durable outbox). See the [migration runbook](../guides/M2_19H_VALIDATION_RECEIPTS_RUNBOOK.md).
+The store is env-gated OFF by default. Enable in production with `BANZAI_RECEIPTS_ENABLED=1`, `DATABASE_URL` (the `banzai_rw` role), and `BANZAI_RECEIPTS_OUTBOX_DIR` (a writable volume for the durable outbox). See the [migration runbook](../guides/VALIDATION_RECEIPTS_RUNBOOK.md).
 
 ## Operator Zero
 

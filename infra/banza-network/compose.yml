@@ -141,7 +141,7 @@ services:
       ONBOARDING_EMAIL_REPLY_TO: "${ONBOARDING_EMAIL_REPLY_TO:-contact@banza.network}"
       ONBOARDING_ALLOWED_ORIGINS: "${ONBOARDING_ALLOWED_ORIGINS:-https://banza.network,https://www.banza.network,https://zero.banza.network}"
       # M2.19H / ADR-042 — durable validation-journey receipt store (BanzAI Workbench). OFF by default;
-      # enable only AFTER the M2_19H migration is applied (see docs/guides/M2_19H_VALIDATION_RECEIPTS_RUNBOOK.md).
+      # enable only AFTER the M2_19H migration is applied (see docs/guides/VALIDATION_RECEIPTS_RUNBOOK.md).
       # Persistence is a fail-safe side-effect: a DB outage never breaks a validation — the receipt is
       # queued to the durable outbox volume below and retried. Uses the banzai_rw DATABASE_URL above;
       # writes only its six append-only receipt tables (ADR-026). No secrets, no funds, no model text.

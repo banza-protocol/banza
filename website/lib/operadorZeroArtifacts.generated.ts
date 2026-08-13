@@ -670,7 +670,7 @@ export const ARTIFACT_DATA: Record<string, unknown> = {
       "banza-l2-readiness": null,
       "banza-l3-readiness": null,
       "banza-l4-readiness": null,
-      "banza-m2-protocol-gate": null,
+      "banza-production-gate": null,
       "banza-open-governance": null,
       "banza-operator-manifest": null,
       "banza-reference-trust-model": null,

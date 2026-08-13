@@ -6,11 +6,11 @@
 // category INVARIANT. Incoherent cases (a boundary phrasing that does not trip the deterministic boundary,
 // an "explanation" that grounds no facts, …) are DROPPED and counted — never silently included. Boundary /
 // adversarial seeds are reused from the already-validated M2.18B.2 boundary dataset. The result is
-// reproducible (no LLM, no network) and is the ground truth the offline eval (run-m2-18b6-eval.mjs) and the
-// parity harness (parity-m2-18b6.mjs) score against.
+// reproducible (no LLM, no network) and is the ground truth the offline eval (run-grounded-eval.mjs) and the
+// parity harness (parity-grounded.mjs) score against.
 //
-// Usage:  node eval/gen-m2-18b6-dataset.mjs           # writes m2-18b6-grounded.dataset.json + prints stats
-//         node eval/gen-m2-18b6-dataset.mjs --check   # regenerate in memory + fail (exit 1) if it differs
+// Usage:  node eval/gen-grounded-dataset.mjs           # writes grounded.dataset.json + prints stats
+//         node eval/gen-grounded-dataset.mjs --check   # regenerate in memory + fail (exit 1) if it differs
 //                                                       from the committed dataset (drift guard for CI)
 
 import { readFileSync, writeFileSync } from "node:fs";
@@ -19,7 +19,7 @@ import { dirname, join } from "node:path";
 import { resolveIntent, buildFactualPackagePlanned } from "../src/knowledge.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const OUT = join(__dirname, "m2-18b6-grounded.dataset.json");
+const OUT = join(__dirname, "grounded.dataset.json");
 
 // ── Real, groundable canonical entities (verified against the engine at authoring time) ────────────────
 const DOCS = ["ADR-001","ADR-002","ADR-001","ADR-001","ADR-011","ADR-011","ADR-012","ADR-024","ADR-016","ADR-017","ADR-043","ADR-042","ADR-026","ADR-044","ADR-042","ADR-041","ADR-041","ADR-042","RFC-0006"];
@@ -117,7 +117,7 @@ function build() {
   for (let i = 0; i < DOCS.length; i++) for (let j = i + 1; j < DOCS.length; j++) pairs.push([DOCS[i], DOCS[j]]);
   for (const [a, b] of pairs.slice(0, 30)) for (const f of T.compare) pushValidated(cases, "compare", f(a, b), { a, b }, INV.compare, stats);
   // boundary + adversarial — reuse the validated M2.18B.2 boundary seeds (must trip boundary_detected)
-  const bset = JSON.parse(readFileSync(join(__dirname, "m2-18b2-boundary.dataset.json"), "utf8"));
+  const bset = JSON.parse(readFileSync(join(__dirname, "boundary.dataset.json"), "utf8"));
   const bcases = bset.boundary_cases.map((x) => x.q);
   bcases.slice(0, 60).forEach((q) => pushValidated(cases, "boundary", q, null, INV.boundary, stats));
   bcases.slice(60).forEach((q) => pushValidated(cases, "adversarial", q, null, INV.boundary, stats));
@@ -131,7 +131,7 @@ function build() {
     schema_version: 1,
     milestone: "M2.18B.6 — Rust-First Grounded Synthesis",
     description: "Real-entity-grounded, category-balanced dataset for the OFFLINE deterministic eval. Every case was validated against the Rust WASM engine (resolveIntent + buildFactualPackagePlanned) to satisfy its category invariant. Zero-tolerance gates: boundary recall 1.0, boundary 0 Qwen, every grounded answer exactly 1 Qwen, unsupported grounds 0 facts, 0 external calls.",
-    generated_by: "eval/gen-m2-18b6-dataset.mjs (deterministic; no LLM, no network)",
+    generated_by: "eval/gen-grounded-dataset.mjs (deterministic; no LLM, no network)",
     counts: byCat,
     total: cases.length,
     thresholds: {
@@ -156,7 +156,7 @@ if (process.argv.includes("--check")) {
   let current = "";
   try { current = readFileSync(OUT, "utf8"); } catch { /* fresh */ }
   if (current !== json) {
-    console.error("DRIFT: m2-18b6-grounded.dataset.json is stale — run `node eval/gen-m2-18b6-dataset.mjs`");
+    console.error("DRIFT: grounded.dataset.json is stale — run `node eval/gen-grounded-dataset.mjs`");
     process.exit(1);
   }
   console.log(`dataset in sync (${ds.total} cases)`);

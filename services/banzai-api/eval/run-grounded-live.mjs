@@ -5,8 +5,8 @@
 // EXACTLY ONE, and nothing calls an external model. It SAMPLES the dataset (grounded synthesis is ~tens of
 // seconds per call on the CPU host) so a deploy check stays minutes, not hours. Read-only.
 //
-// Usage:  BASE=https://banza.network node eval/run-m2-18b6-live.mjs
-//         BASE=http://localhost:8091 ASK_PATH=/ask PER_CAT=2 node eval/run-m2-18b6-live.mjs
+// Usage:  BASE=https://banza.network node eval/run-grounded-live.mjs
+//         BASE=http://localhost:8091 ASK_PATH=/ask PER_CAT=2 node eval/run-grounded-live.mjs
 // Exit 0 iff every sampled case honours its category's observable invariant.
 
 import { readFileSync } from "node:fs";
@@ -18,7 +18,7 @@ const BASE = (process.env.BASE || "https://banza.network").replace(/\/+$/, "");
 const ASK_PATH = process.env.ASK_PATH || "/banzai/ask";
 const PER_CAT = Number(process.env.PER_CAT || 3);
 const THROTTLE_MS = Number(process.env.THROTTLE_MS || 250);
-const ds = JSON.parse(readFileSync(join(__dirname, "m2-18b6-grounded.dataset.json"), "utf8"));
+const ds = JSON.parse(readFileSync(join(__dirname, "grounded.dataset.json"), "utf8"));
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 // deterministic per-category sample (every Nth case) so a run is reproducible.

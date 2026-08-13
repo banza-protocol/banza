@@ -30,7 +30,7 @@ PRE_PRODUCTION → M2_PROTOCOL_IMPLEMENTATION → M2_PROTOCOL_REVIEW
 ```
 
 M4 is future-only and not activated. Whether the signing policy is coherent for the production path is
-computed **in Rust** by `engines/banza-m2-protocol-gate :: validate_m2_protocol_gate`, never in
+computed **in Rust** by `engines/banza-production-gate :: validate_m2_protocol_gate`, never in
 TypeScript. A document that claimed real signing had occurred, that a production certificate was
 emitted, or that an operator was activated would resolve to `M2_INVALID_FORBIDDEN_ACTIVATION` or
 `M2_INVALID_REGULATORY_BOUNDARY`. A missing signing policy on the trust path resolves to

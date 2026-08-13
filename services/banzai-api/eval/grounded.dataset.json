@@ -2,7 +2,7 @@
   "schema_version": 1,
   "milestone": "M2.18B.6 — Rust-First Grounded Synthesis",
   "description": "Real-entity-grounded, category-balanced dataset for the OFFLINE deterministic eval. Every case was validated against the Rust WASM engine (resolveIntent + buildFactualPackagePlanned) to satisfy its category invariant. Zero-tolerance gates: boundary recall 1.0, boundary 0 Qwen, every grounded answer exactly 1 Qwen, unsupported grounds 0 facts, 0 external calls.",
-  "generated_by": "eval/gen-m2-18b6-dataset.mjs (deterministic; no LLM, no network)",
+  "generated_by": "eval/gen-grounded-dataset.mjs (deterministic; no LLM, no network)",
   "counts": {
     "explanation": 95,
     "exact": 57,

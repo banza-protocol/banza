@@ -6,7 +6,7 @@ import { footerColumns } from "./site";
 // M2.19G — the three new canonical owner pages (/certificacao, /registo-tecnico, /glossario). Source-level
 // assertions that each page carries its canonical content and NONE of the retired framings, and that all
 // three are wired into the footer (site.ts) and the sitemap (app/sitemap.ts). Reads are comment-stripped +
-// whitespace-flattened (like m2_17-homepage.test.ts) so assertions check what the components RENDER; ADR
+// whitespace-flattened (like homepage.test.ts) so assertions check what the components RENDER; ADR
 // references (which live in source comments) are asserted against the raw source instead.
 
 const root = join(__dirname, "..");

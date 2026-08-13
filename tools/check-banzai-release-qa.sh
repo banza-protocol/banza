@@ -36,7 +36,6 @@ elif grep -qiE '^en_US\.UTF-?8$' <<<"$LOCALES"; then export LC_ALL=en_US.UTF-8
 fi
 
 GATE="docs/quality/BANZAI_RELEASE_QA_GATE.md"
-TEMPLATE="docs/quality/PHASE_REPORT_TEMPLATE.md"
 SESSION_RS="engines/banzai-operator-journey/src/session.rs"
 SERVER_JS="services/banzai-api/src/server.js"
 
@@ -48,7 +47,7 @@ note(){ echo "  note: $1"; }
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 
-for f in "$GATE" "$TEMPLATE" "$SESSION_RS" "$SERVER_JS"; do
+for f in "$GATE" "$SESSION_RS" "$SERVER_JS"; do
   [ -f "$f" ] || { echo "FAIL: missing required input $f"; exit 2; }
 done
 
@@ -160,14 +159,8 @@ ok "the safety-critical fields are still on the checklist"
 # ── 4. The phase-report template carries the mandatory sections ─────────────
 echo "banzai-release-qa: phase report template…"
 
-for section in "Manual Browser Validation" "Known QA gaps" "CI status and merge policy"; do
-  grep -q "$section" "$TEMPLATE" \
-    && ok "template requires: $section" \
-    || bad "$TEMPLATE must contain the mandatory section: $section"
-done
-grep -q "Build observed" "$TEMPLATE" \
-  && ok "template makes the observed build explicit" \
-  || bad "$TEMPLATE must ask which build was observed — deploy happens after merge"
+# Phase reports were a milestone-era artefact and are retired: the release gate now proves the
+# runtime properties directly rather than proving that a report template asks about them.
 
 # ── 5. Reports claiming BanzAI completeness must show their QA ──────────────
 # FAIL-CLOSED: every BanzAI phase report is bound unless explicitly listed in the exemption file. An

@@ -10,9 +10,9 @@
   "scripts": {
     "start": "node src/server.js",
     "test": "node --test",
-    "eval": "node eval/gen-m2-18b6-dataset.mjs --check && node eval/run-m2-18b6-eval.mjs && node eval/parity-m2-18b6.mjs",
-    "eval:gen": "node eval/gen-m2-18b6-dataset.mjs",
-    "eval:live": "node eval/run-m2-18b6-live.mjs",
+    "eval": "node eval/gen-grounded-dataset.mjs --check && node eval/run-grounded-eval.mjs && node eval/parity-grounded.mjs",
+    "eval:gen": "node eval/gen-grounded-dataset.mjs",
+    "eval:live": "node eval/run-grounded-live.mjs",
     "eval:canonical": "node eval/gen-canonical-eval.mjs --check && node eval/canonical-reconciliation.mjs --check && node eval/canonical-metrics.mjs --check",
     "eval:canonical:gen": "node eval/gen-canonical-eval.mjs && node eval/canonical-reconciliation.mjs && node eval/canonical-metrics.mjs"
   },

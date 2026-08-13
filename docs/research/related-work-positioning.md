@@ -345,3 +345,29 @@ All primary; retrieved for this analysis.
 - [Mojaloop FSPIOP API](https://docs.mojaloop.io/api/fspiop/) and [mojaloop/mojaloop-specification](https://github.com/mojaloop/mojaloop-specification) (Mojaloop Foundation) — the topology passage is quoted from `fspiop-api/documents/API-Definition_v1.1.1.md` §1 in that repository
 - [mojaloop.io](https://mojaloop.io/) (Mojaloop Foundation) — consulted for deployment claims; it makes none, which is why this document makes none
 - [Mojaloop ML Testing Toolkit](https://docs.mojaloop.io/technical/ml-testing-toolkit/) and [mojaloop/ml-testing-toolkit](https://github.com/mojaloop/ml-testing-toolkit) (Mojaloop Foundation)
+
+---
+
+## The Update Framework (TUF)
+
+TUF addresses the same family of problems for software-update repositories: rollback, freeze,
+mix-and-match, key compartmentalisation and freshness. It is the closest prior art to BANZA's trust
+material rules, so the comparison is worth making precisely.
+
+| Problem | TUF | BANZA | The relevant difference |
+|---|---|---|---|
+| **Rollback** | Version numbers in signed role metadata; a client rejects a lower version | Monotonic ordering markers per (artifact type, authority), stateful and local | TUF carries an explicit counter; BANZA reuses a member each artifact already signs, so no wire form changes |
+| **Freeze** | Expiry on every role's metadata | `expires_at` on the BRL; freshness policy per artifact | Same mechanism, narrower surface: BANZA has fewer artifact types to expire |
+| **Mix-and-match** | The Snapshot role signs the set of current metadata, so a coherent state is itself signed | Not provided; each artifact is monotonic independently, and the residual is bounded by the BRL's expiry | This is the substantive gap, and it is documented rather than closed — see below |
+| **Key compartmentalisation** | Roles with distinct keys; the root role delegates | Offline root signs only the Key Manifest; delegated keys are domain-separated | Structurally the same idea, reached independently from the domain-separation invariant |
+| **Freshness** | Timestamp role, frequently re-signed | The artifact's own instant, plus expiry | TUF adds a role whose only job is to be recent; BANZA does not |
+
+**Conclusion: do not adopt Snapshot or Timestamp.** BANZA's mix-and-match residual is bounded by a field
+its own contract already requires, and closing it in general would mean introducing a signed statement
+about the *set* of current artifacts — a new document type, a new signing key, a new expiry to manage,
+and a new failure mode when it is stale. That is a large permanent cost against an already-bounded
+window. If the bound is ever shown to be insufficient in practice, this is the decision to revisit, and
+it would be a new architectural decision rather than an import.
+
+What TUF is used for here is what related work is for: it names the failure modes precisely, and it is
+why BANZA's own limits are stated as limits rather than left unexamined.

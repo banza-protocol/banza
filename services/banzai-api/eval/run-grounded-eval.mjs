@@ -15,7 +15,7 @@
 //   • external calls = 0               — structural (offline); asserted for completeness
 //   • determinism = 1.0                — re-building a sample yields the identical package_checksum
 //
-// Usage:  node eval/run-m2-18b6-eval.mjs        (exit 0 iff every gate passes)
+// Usage:  node eval/run-grounded-eval.mjs        (exit 0 iff every gate passes)
 
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -23,7 +23,7 @@ import { dirname, join } from "node:path";
 import { resolveIntent, buildFactualPackagePlanned } from "../src/knowledge.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const ds = JSON.parse(readFileSync(join(__dirname, "m2-18b6-grounded.dataset.json"), "utf8"));
+const ds = JSON.parse(readFileSync(join(__dirname, "grounded.dataset.json"), "utf8"));
 const th = ds.thresholds;
 
 const GROUNDED = new Set(["explanation", "exact", "impact", "compare", "example", "mixed", "follow_up", "concept"]);

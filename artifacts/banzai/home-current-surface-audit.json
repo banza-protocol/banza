@@ -262,11 +262,11 @@
       "severity": "resolved",
       "finding": "The website test fixtures that formerly asserted the PRE-G2 nav/home have been converged to the G2 contract by the implementer, and a dedicated G2 test was added.",
       "resolution": [
-        "website/lib/m2_15b-global-navigation.test.ts now asserts the header is [/registo-tecnico,/banzai,/referencia] and that navPrimary contains ZERO items with href '/o-que-e'.",
-        "website/lib/m2_16-home.test.ts and website/lib/m2_17-homepage.test.ts updated (m2_17 now asserts the Home does NOT contain href=\"/o-que-e\").",
-        "website/lib/m2_17a-footer-navigation.test.ts asserts the three footer groups [Protocolo, Implementar e validar, Governança].",
+        "website/lib/global-navigation.test.ts now asserts the header is [/registo-tecnico,/banzai,/referencia] and that navPrimary contains ZERO items with href '/o-que-e'.",
+        "website/lib/home.test.ts and website/lib/homepage.test.ts updated (m2_17 now asserts the Home does NOT contain href=\"/o-que-e\").",
+        "website/lib/footer-navigation.test.ts asserts the three footer groups [Protocolo, Implementar e validar, Governança].",
         "website/lib/m2_19g-new-pages.test.ts updated.",
-        "NEW website/lib/m2_19g2-home.test.ts covers §6/§7/§9/§10/§12/§13/§14-19/§20-24/§26/§27/§28/§32, including that app/o-que-e/page.tsx does not exist and the /o-que-e route is unlinked and absent from the sitemap.",
+        "NEW website/lib/home-canonical.test.ts covers §6/§7/§9/§10/§12/§13/§14-19/§20-24/§26/§27/§28/§32, including that app/o-que-e/page.tsx does not exist and the /o-que-e route is unlinked and absent from the sitemap.",
         "website/components/SiteNav.tsx updated to render 'Registo técnico' (key 'registo') and the /referencia CTA."
       ],
       "documentation_scope": "Test/website files were NOT edited by this documentation task; the convergence was performed by the implementer. Recorded here for accuracy.",

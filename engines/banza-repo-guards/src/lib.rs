@@ -400,7 +400,7 @@ fn banzami_attribution_allowed(path: &str) -> bool {
         // Home page.tsx itself is already allowlisted). Not a payment-OPERATOR brand; the NORMATIVE_BRANDS
         // payment operators stay blocked everywhere.
         || path == "artifacts/banzai/home-current-surface-audit.json"
-        || base == "m2_19g2-home.test.ts"
+        || base == "home-canonical.test.ts"
         // ADR-044 / M2.8F: the BanzAI knowledge base carries the same institutional attribution
         // when a user asks "o que é o Banzami?" — the answer names Banzami as the creator/initial
         // maintainer (a governance role), grounded in GOVERNANCE.md. This is attribution, not a

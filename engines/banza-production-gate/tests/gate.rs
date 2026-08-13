@@ -4,7 +4,7 @@
 //! flags; no fixture activates an operator, emits a real production certificate, moves funds, or represents
 //! real payment-service operation. Fixtures drive the statuses.
 
-use banza_m2_protocol_gate::{demo_fixtures, validate_m2_protocol_gate};
+use banza_production_gate::{demo_fixtures, validate_m2_protocol_gate};
 use serde_json::{json, Value};
 
 fn fixture_input(key: &str) -> Value {

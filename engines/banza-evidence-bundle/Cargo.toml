@@ -24,7 +24,7 @@ banza-l2-readiness = { path = "../banza-l2-readiness" }
 banza-l3-readiness = { path = "../banza-l3-readiness" }
 banza-l4-readiness = { path = "../banza-l4-readiness" }
 banza-security-assurance = { path = "../banza-security-assurance" }
-banza-m2-protocol-gate = { path = "../banza-m2-protocol-gate" }
+banza-production-gate = { path = "../banza-production-gate" }
 banza-root-ceremony = { path = "../banza-root-ceremony" }
 banza-open-governance = { path = "../banza-open-governance" }
 banza-reference-trust-model = { path = "../banza-reference-trust-model" }

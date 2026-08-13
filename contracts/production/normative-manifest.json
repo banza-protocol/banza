@@ -731,7 +731,7 @@
       "class": "NORMATIVE_SPECIFICATION",
       "tier": "implementation",
       "role": "Trust-material freshness and anti-rollback: monotonic acceptance per object and authority, with an explicit statement of what the rule does NOT provide (first-observation staleness, global equivocation, suppression, availability).",
-      "sha256": "943c4397c41366799fe088f029bc09643174b070fb471915efe007f478b4647a"
+      "sha256": "fb1e2456cdbb989a17e06558a5527d5baa9822063fa74c2cd48584f0dc9af45c"
     },
     {
       "path": "spec/validation-journey.md",

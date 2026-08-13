@@ -1,4 +1,4 @@
-//! banza-m2-protocol-gate (M2) — validates the BANZA **production PROTOCOL implementation** package.
+//! banza-production-gate (M2) — validates the BANZA **production PROTOCOL implementation** package.
 //!
 //! From M2 on, L0–L4 "readiness" is historical/evidence; M2 implements the production components of the
 //! protocol itself: the production state model, the production contract baseline, protocol release
@@ -358,7 +358,7 @@ pub fn validate_m2_protocol_gate(input: &Value) -> Value {
         "payment_service_operation_allowed": false,
         "boundary": BOUNDARY,
         "protocol_stance": PROTOCOL_STANCE,
-        "tool": "banza-m2-protocol-gate",
+        "tool": "banza-production-gate",
         "tool_version": TOOL_VERSION,
         "not_production_financial": true,
         "not_a_psp": true,
@@ -401,7 +401,7 @@ fn fail_closed(detail: &str) -> Value {
         "operator_activation_allowed": false, "production_certificates_allowed": false,
         "payment_service_operation_allowed": false,
         "boundary": BOUNDARY, "protocol_stance": PROTOCOL_STANCE,
-        "tool": "banza-m2-protocol-gate", "tool_version": TOOL_VERSION,
+        "tool": "banza-production-gate", "tool_version": TOOL_VERSION,
         "not_production_financial": true, "not_a_psp": true, "not_a_certificate": true, "not_an_approval": true,
         "not_a_licence": true, "does_not_move_funds": true, "does_not_create_operator": true,
         "does_not_activate_federation": true, "does_not_activate_external_integration": true,
@@ -493,7 +493,7 @@ pub fn demo_fixtures() -> Value {
 
 pub fn schema() -> Value {
     json!({
-        "tool": "banza-m2-protocol-gate", "tool_version": TOOL_VERSION,
+        "tool": "banza-production-gate", "tool_version": TOOL_VERSION,
         "required_inputs": REQUIRED_INPUTS,
         "status_values": STATUS_VALUES,
         "production_state_model": ["PRE_PRODUCTION", "M2_PROTOCOL_IMPLEMENTATION", "M2_PROTOCOL_REVIEW", "M2_PROTOCOL_CANDIDATE", "M3_OPERATOR_CANDIDATE", "M4_PRODUCTION_NETWORK"],
@@ -504,5 +504,5 @@ pub fn schema() -> Value {
 }
 
 pub fn tool_version() -> Value {
-    json!({ "tool": "banza-m2-protocol-gate", "tool_version": TOOL_VERSION, "test_only": true, "boundary": BOUNDARY })
+    json!({ "tool": "banza-production-gate", "tool_version": TOOL_VERSION, "test_only": true, "boundary": BOUNDARY })
 }

@@ -44,7 +44,7 @@ ceremony *could* run — it does not itself advance the network into M4.
 ## M2 protocol-gate
 
 Whether the production trust path is coherent enough to proceed is computed **in Rust** by
-`engines/banza-m2-protocol-gate :: validate_m2_protocol_gate`, never in TypeScript. A missing or
+`engines/banza-production-gate :: validate_m2_protocol_gate`, never in TypeScript. A missing or
 incomplete trust path resolves to `M2_BLOCKED_BY_TRUST_PATH_GAP`; a document that claimed the ceremony
 had run, that production keys existed, or that an operator was activated would resolve to
 `M2_INVALID_FORBIDDEN_ACTIVATION` or `M2_INVALID_REGULATORY_BOUNDARY`. The correct state for this

@@ -32,7 +32,7 @@ POLICY_RS="engines/banzai-query-core/src/source_policy.rs"
 ANSWER_JS="services/banzai-api/src/answerContract.js"
 HOME_ASK="website/components/home/HomeAsk.tsx"
 ROUTE_TESTS="engines/banzai-api-kb/tests/route.rs"
-POLICY_TEST="services/banzai-api/test/m2-18-source-policy.test.js"
+POLICY_TEST="services/banzai-api/test/source-policy.test.js"
 
 # Strip // and /* */ comments so a rule matches CODE, not prose/comments (Rust + JS).
 strip() { perl -0777 -pe 's{//[^\n]*}{}g; s{/\*.*?\*/}{}gs' "$1" 2>/dev/null || cat "$1"; }

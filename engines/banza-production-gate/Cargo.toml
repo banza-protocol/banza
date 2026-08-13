@@ -1,0 +1,26 @@
+[package]
+name = "banza-production-gate"
+version = "0.1.0"
+edition = "2021"
+description = "banza-production-gate (M2): local, no-network validation of the BANZA production PROTOCOL implementation package — production state model, production contract baseline, protocol release governance, protocol governance role, operator self-publication flow, production trust path, plus the security & deep assurance reports and a regulatory-boundary confirmation. It computes the M2 status IN RUST. M2 implements the BANZA protocol for production as an OPEN PROTOCOL: it does not activate a payment service, does not move funds, does not create/activate a real operator, does not emit a real production certificate, and does not make BANZA a payment service provider."
+license = "Apache-2.0"
+
+[lib]
+name = "banza_production_gate"
+crate-type = ["cdylib", "rlib"]
+path = "src/lib.rs"
+
+[dependencies]
+# BCJ/1 is the single canonical byte form (spec/canonicalization.md, ADR-010).
+banza-trust = { path = "../banza-trust", default-features = false }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"                 # default Map = BTreeMap (sorted keys) → canonical JSON for hashing
+sha2 = "0.10"
+wasm-bindgen = { version = "0.2", optional = true }
+
+[features]
+# Enabled only for the standalone `wasm-pack build --features wasm`; keeps the WASM exports leak-free.
+wasm = ["dep:wasm-bindgen"]
+
+[profile.release]
+opt-level = 2

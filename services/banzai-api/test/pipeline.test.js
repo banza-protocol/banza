@@ -2,7 +2,7 @@
 // boundaries are Rust TERMINALS (no model); every genuine explanation goes through the ONE grounded
 // synthesis, which is INJECTED here as `runGroundedSynthesisFn` so the routing is exercised
 // deterministically with no real model. The trunk's own model behaviour is proven in
-// test/m2-18b6-grounded-synthesis.test.js; nothing in this file makes a network call.
+// test/grounded-synthesis.test.js; nothing in this file makes a network call.
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { createProvider } from "../src/provider.js";

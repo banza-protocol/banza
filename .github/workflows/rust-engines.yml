@@ -274,21 +274,21 @@ jobs:
         working-directory: engines/banza-security-assurance
         run: cargo test
 
-  banza-m2-protocol-gate:
-    name: banza-m2-protocol-gate (M2 protocol gate)
+  banza-production-gate:
+    name: banza-production-gate (M2 protocol gate)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Install Rust toolchain
         run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
       - name: cargo fmt
-        working-directory: engines/banza-m2-protocol-gate
+        working-directory: engines/banza-production-gate
         run: cargo fmt --check
       - name: cargo clippy
-        working-directory: engines/banza-m2-protocol-gate
+        working-directory: engines/banza-production-gate
         run: cargo clippy --all-targets -- -D warnings
       - name: cargo test
-        working-directory: engines/banza-m2-protocol-gate
+        working-directory: engines/banza-production-gate
         run: cargo test
 
   banza-root-ceremony:

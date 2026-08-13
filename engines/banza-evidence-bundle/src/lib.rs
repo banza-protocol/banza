@@ -300,7 +300,7 @@ pub fn build_bundle(input: &Value) -> Value {
             "banza-l4-readiness": tool_version_of(l4),
             "banza-security-assurance": tool_version_of(assurance),
             "banza-security-assurance-deep": tool_version_of(deep_assurance),
-            "banza-m2-protocol-gate": tool_version_of(m2_gate),
+            "banza-production-gate": tool_version_of(m2_gate),
             "banza-root-ceremony": tool_version_of(root_ceremony),
             "banza-open-governance": tool_version_of(open_governance),
             "banza-reference-trust-model": tool_version_of(reference_trust),
@@ -666,7 +666,7 @@ pub fn demo_bundle(input: &Value) -> Value {
     let deep_assurance = banza_security_assurance::validate_deep_assurance(&d_input);
 
     // M2 protocol gate: validate the TEST-ONLY ready M2 production-protocol package with the real engine.
-    let m2fx = banza_m2_protocol_gate::demo_fixtures();
+    let m2fx = banza_production_gate::demo_fixtures();
     let m2_input = m2fx
         .get("fixtures")
         .and_then(|a| a.as_array())
@@ -678,7 +678,7 @@ pub fn demo_bundle(input: &Value) -> Value {
         .and_then(|f| f.get("input"))
         .cloned()
         .unwrap_or(json!({}));
-    let m2_gate = banza_m2_protocol_gate::validate_m2_protocol_gate(&m2_input);
+    let m2_gate = banza_production_gate::validate_m2_protocol_gate(&m2_input);
 
     // M2.1 root ceremony: validate the TEST-ONLY valid 2-of-3 ceremony with the real engine.
     let rcfx = banza_root_ceremony::demo_fixtures();

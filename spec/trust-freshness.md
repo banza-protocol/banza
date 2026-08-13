@@ -36,6 +36,13 @@ inside its validity window.
 | **Global equivocation** | Two verifiers with no shared state can be served different-but-individually-valid artifacts and both accept. Local monotonicity constrains one observer's history, not consistency across observers |
 | **Suppression** | A publication origin that withholds a newer artifact — a revocation not yet observed, for instance — is not detected by this rule. It prevents replacing a known newer version, not withholding an unknown one |
 | **Availability** | This rule says nothing about what happens when material cannot be fetched. That is §6 |
+| **Cross-artifact coherence (mix-and-match)** | Each artifact is monotonic within its own key, independently. A verifier can therefore be served a fresh Key Manifest together with an older-but-unexpired BRL that has not yet revoked a key the manifest endorses, with every artifact individually valid, fresh and monotonic. The window is **bounded by the BRL's `expires_at`**, which its contract already requires and by which a fresh BRL MUST be fetched; it is not unbounded, and it is not detected by this rule |
+
+Cross-artifact coherence is the one entry above that is bounded by a mechanism BANZA already carries
+rather than by an absent one, and it is stated here rather than solved because solving it in general
+means a signed statement about the *set* of current artifacts — a snapshot role. BANZA does not adopt
+one: the residual is bounded, the bound is enforced by an existing required field, and adding a whole
+document type to shrink an already-bounded window would buy less than it costs.
 
 Detecting the first three would require an append-only public history with inclusion and consistency
 proofs, audited across observers. BANZA 1.0.0 does not define one. See
@@ -139,6 +146,24 @@ On receiving an artifact whose marker equals the mark for key `k`:
 Silently accepting the second artifact would let a party that can serve two differently-signed documents
 at one instant choose which one a verifier acts on. Silently preferring the first would make the outcome
 depend on fetch order.
+
+#### Publisher obligation
+
+The rule above is stated for verifiers, and it implies an obligation on the other side that MUST be
+stated rather than left to be discovered:
+
+> **An authority MUST NOT publish two distinct artifacts of the same type carrying the same ordering
+> marker.** Where two artifacts would otherwise share a marker, the second MUST carry a strictly greater
+> one.
+
+This is not a new constraint on the wire form — it is the constraint verification already depends on. A
+publisher that emits two differently-signed artifacts at one marker has produced, from every verifier's
+point of view, local equivocation; the second is rejected fail-closed and the first stays in force. An
+implementation that never did this was already conforming, and one that did was already failing.
+
+Because `format: date-time` permits whole-second granularity, an authority publishing more than once per
+second MUST either use sub-second precision or defer the second publication. Neither requires a schema
+change: RFC 3339 already admits fractional seconds.
 
 This detection is **local and stateful**, exactly like §3. It sees a conflict only when one verifier
 observes both artifacts. It does not detect equivocation across observers, which remains outside this

@@ -37,7 +37,7 @@ At this baseline the following remain fixed and gated:
 - All production/ceremony/operator activities are **planned / prepared-but-gated**.
 
 The M2 protocol-gate status is computed by the Rust engine
-`engines/banza-m2-protocol-gate :: validate_m2_protocol_gate` — never in
+`engines/banza-production-gate :: validate_m2_protocol_gate` — never in
 TypeScript. Its states are `M2_PROTOCOL_IMPLEMENTATION_READY`,
 `M2_BLOCKED_BY_MISSING_CONTRACTS`, `M2_BLOCKED_BY_GOVERNANCE_GAP`,
 `M2_BLOCKED_BY_TRUST_PATH_GAP`, `M2_BLOCKED_BY_OPERATOR_ADMISSION_GAP`,

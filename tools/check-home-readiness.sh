@@ -52,7 +52,7 @@ fail=0
 # ── (1) run the two G2 guards ──────────────────────────────────────────────────────────────────────
 echo
 echo "-- sub-guards --"
-for g in check-m2-19g2-home-canonical check-m2-19g2-o-que-e-removal; do
+for g in check-home-canonical check-retired-page-removal; do
   if bash "tools/$g.sh" >/tmp/g2_$$.log 2>&1; then
     printf '  PASS  %s\n' "$g"
   else

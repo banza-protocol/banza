@@ -15,7 +15,7 @@ import { dirname, join } from "node:path";
 import { resolveIntent } from "../src/knowledge.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const ds = JSON.parse(readFileSync(join(__dirname, "m2-18b6-grounded.dataset.json"), "utf8"));
+const ds = JSON.parse(readFileSync(join(__dirname, "grounded.dataset.json"), "utf8"));
 
 // A — the model-entry baseline the retired Qwen interpretation had to clear (unchanged thresholds).
 const A = { entity_resolution: 0.97, intent_family: 0.95, boundary_recall: 1.0 };

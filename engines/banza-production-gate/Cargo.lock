@@ -3,7 +3,7 @@
 version = 4
 
 [[package]]
-name = "banza-m2-protocol-gate"
+name = "banza-production-gate"
 version = "0.1.0"
 dependencies = [
  "banza-trust",

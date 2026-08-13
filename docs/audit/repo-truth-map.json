@@ -346,7 +346,7 @@
    "class": "INTERNAL_AUDIT",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "services/banzai-api/eval/run-m2-18b2-boundary-eval.mjs"
+    "services/banzai-api/eval/run-boundary-eval.mjs"
    ],
    "refs": 2
   },
@@ -5659,7 +5659,7 @@
    "refs": 13
   },
   {
-   "path": "docs/guides/M2_19H_VALIDATION_RECEIPTS_RUNBOOK.md",
+   "path": "docs/guides/VALIDATION_RECEIPTS_RUNBOOK.md",
    "class": "PUBLIC_DOCUMENTATION",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -7792,7 +7792,7 @@
    "refs": 3
   },
   {
-   "path": "engines/banza-m2-protocol-gate/Cargo.lock",
+   "path": "engines/banza-production-gate/Cargo.lock",
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
     "docs/audit/repo-truth-map.json"
@@ -7800,7 +7800,7 @@
    "refs": 1
   },
   {
-   "path": "engines/banza-m2-protocol-gate/Cargo.toml",
+   "path": "engines/banza-production-gate/Cargo.toml",
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -7809,7 +7809,7 @@
    "refs": 2
   },
   {
-   "path": "engines/banza-m2-protocol-gate/src/lib.rs",
+   "path": "engines/banza-production-gate/src/lib.rs",
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -7822,7 +7822,7 @@
    "refs": 7
   },
   {
-   "path": "engines/banza-m2-protocol-gate/src/wasm.rs",
+   "path": "engines/banza-production-gate/src/wasm.rs",
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -7831,7 +7831,7 @@
    "refs": 2
   },
   {
-   "path": "engines/banza-m2-protocol-gate/tests/m2_gate.rs",
+   "path": "engines/banza-production-gate/tests/gate.rs",
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -9031,7 +9031,7 @@
    "refs": 2
   },
   {
-   "path": "engines/banzai-evidence/tests/m2_production.rs",
+   "path": "engines/banzai-evidence/tests/production.rs",
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -9709,7 +9709,7 @@
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
     "services/banzai-api/src/answerContract.js",
     "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm",
-    "services/banzai-api/test/m2-18-source-policy.test.js"
+    "services/banzai-api/test/source-policy.test.js"
    ],
    "refs": 7
   },
@@ -11288,7 +11288,7 @@
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/guides/M2_19H_VALIDATION_RECEIPTS_RUNBOOK.md",
+    "docs/guides/VALIDATION_RECEIPTS_RUNBOOK.md",
     "evidence/claims/claims-matrix.json"
    ],
    "refs": 3
@@ -11406,7 +11406,7 @@
    "class": "TEST",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "docs/guides/M2_19H_VALIDATION_RECEIPTS_RUNBOOK.md",
+    "docs/guides/VALIDATION_RECEIPTS_RUNBOOK.md",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
     "infra/banza-network/tests/README.md",
@@ -11455,7 +11455,7 @@
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "tools/check-banzai-canonical-architecture-framing.sh",
-    "website/lib/m2_19g5c-repo-framing.test.ts"
+    "website/lib/repo-framing.test.ts"
    ],
    "refs": 6
   },
@@ -11652,20 +11652,20 @@
    "refs": 7
   },
   {
-   "path": "services/banzai-api/eval/gen-m2-18b6-dataset.mjs",
+   "path": "services/banzai-api/eval/gen-grounded-dataset.mjs",
    "class": "REFERENCED",
    "referenced_by": [
     ".github/workflows/identity-guard.yml",
     "artifacts/m2-18b6/execution-state.json",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "services/banzai-api/eval/m2-18b6-grounded.dataset.json",
+    "services/banzai-api/eval/grounded.dataset.json",
     "services/banzai-api/package.json"
    ],
    "refs": 6
   },
   {
-   "path": "services/banzai-api/eval/m2-18b2-boundary.dataset.json",
+   "path": "services/banzai-api/eval/boundary.dataset.json",
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -11673,12 +11673,12 @@
     "services/banzai-api/eval/canonical-reconciliation.json",
     "services/banzai-api/eval/canonical-reconciliation.md",
     "services/banzai-api/eval/canonical-reconciliation.mjs",
-    "services/banzai-api/eval/gen-m2-18b6-dataset.mjs"
+    "services/banzai-api/eval/gen-grounded-dataset.mjs"
    ],
    "refs": 9
   },
   {
-   "path": "services/banzai-api/eval/m2-18b6-grounded.dataset.json",
+   "path": "services/banzai-api/eval/grounded.dataset.json",
    "class": "RUNTIME",
    "referenced_by": [
     "artifacts/m2-18b6/execution-state.json",
@@ -11691,44 +11691,44 @@
    "refs": 10
   },
   {
-   "path": "services/banzai-api/eval/parity-m2-18b6.mjs",
+   "path": "services/banzai-api/eval/parity-grounded.mjs",
    "class": "REFERENCED",
    "referenced_by": [
     ".github/workflows/identity-guard.yml",
     "artifacts/m2-18b6/execution-state.json",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "services/banzai-api/eval/gen-m2-18b6-dataset.mjs",
+    "services/banzai-api/eval/gen-grounded-dataset.mjs",
     "services/banzai-api/package.json"
    ],
    "refs": 6
   },
   {
-   "path": "services/banzai-api/eval/run-m2-18b2-boundary-eval.mjs",
+   "path": "services/banzai-api/eval/run-boundary-eval.mjs",
    "class": "REFERENCED",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "services/banzai-api/test/m2-18b2-boundary.test.js",
+    "services/banzai-api/test/boundary.test.js",
     "tools/check-banzai-boundary-semantic-recovery.sh"
    ],
    "refs": 4
   },
   {
-   "path": "services/banzai-api/eval/run-m2-18b6-eval.mjs",
+   "path": "services/banzai-api/eval/run-grounded-eval.mjs",
    "class": "REFERENCED",
    "referenced_by": [
     ".github/workflows/identity-guard.yml",
     "artifacts/m2-18b6/execution-state.json",
     "docs/audit/repo-truth-map.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "services/banzai-api/eval/gen-m2-18b6-dataset.mjs",
+    "services/banzai-api/eval/gen-grounded-dataset.mjs",
     "services/banzai-api/package.json"
    ],
    "refs": 6
   },
   {
-   "path": "services/banzai-api/eval/run-m2-18b6-live.mjs",
+   "path": "services/banzai-api/eval/run-grounded-live.mjs",
    "class": "REFERENCED",
    "referenced_by": [
     "artifacts/m2-18b6/execution-state.json",
@@ -12168,7 +12168,7 @@
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "services/banzai-api/src/observability.js",
     "services/banzai-api/src/server.js",
-    "services/banzai-api/test/m2-18b1-observability.test.js",
+    "services/banzai-api/test/observability.test.js",
     "services/banzai-api/test/pipeline.test.js"
    ],
    "refs": 6
@@ -12244,7 +12244,7 @@
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/rust-rule-guard/tests/fixtures/wrapper_marked.js",
     "services/banzai-api/eval/corpus-audit.mjs",
-    "services/banzai-api/eval/run-m2-18b2-boundary-eval.mjs",
+    "services/banzai-api/eval/run-boundary-eval.mjs",
     "services/banzai-api/src/knowledge.js"
    ],
    "refs": 46
@@ -12848,7 +12848,7 @@
    "refs": 4
   },
   {
-   "path": "services/banzai-api/test/m2-14j-public-surface-consistency.test.js",
+   "path": "services/banzai-api/test/public-surface-consistency.test.js",
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -12857,7 +12857,7 @@
    "refs": 2
   },
   {
-   "path": "services/banzai-api/test/m2-18-source-policy.test.js",
+   "path": "services/banzai-api/test/source-policy.test.js",
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -12867,7 +12867,7 @@
    "refs": 3
   },
   {
-   "path": "services/banzai-api/test/m2-18b1-observability.test.js",
+   "path": "services/banzai-api/test/observability.test.js",
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -12876,7 +12876,7 @@
    "refs": 2
   },
   {
-   "path": "services/banzai-api/test/m2-18b2-boundary.test.js",
+   "path": "services/banzai-api/test/boundary.test.js",
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -12886,7 +12886,7 @@
    "refs": 3
   },
   {
-   "path": "services/banzai-api/test/m2-18b2-candidates.test.js",
+   "path": "services/banzai-api/test/candidates.test.js",
    "class": "RUNTIME",
    "referenced_by": [
     "artifacts/m2-18b6/execution-state.json",
@@ -12907,7 +12907,7 @@
    "refs": 3
   },
   {
-   "path": "services/banzai-api/test/m2-18b6-grounded-synthesis.test.js",
+   "path": "services/banzai-api/test/grounded-synthesis.test.js",
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -12919,7 +12919,7 @@
    "refs": 5
   },
   {
-   "path": "services/banzai-api/test/m2-18b6-synthesis-publish.test.js",
+   "path": "services/banzai-api/test/synthesis-publish.test.js",
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -12929,7 +12929,7 @@
    "refs": 3
   },
   {
-   "path": "services/banzai-api/test/m2-18b7-document-lookup-fallback.test.js",
+   "path": "services/banzai-api/test/document-lookup-fallback.test.js",
    "class": "RUNTIME",
    "referenced_by": [
     "artifacts/m2-18b7/execution-state.json",
@@ -12939,7 +12939,7 @@
    "refs": 3
   },
   {
-   "path": "services/banzai-api/test/m2-18b7-journey-terminal-regression.test.js",
+   "path": "services/banzai-api/test/journey-terminal-regression.test.js",
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
@@ -13160,7 +13160,7 @@
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "services/banzai-api/test/m2-18b6-synthesis-publish.test.js"
+    "services/banzai-api/test/synthesis-publish.test.js"
    ],
    "refs": 2
   },
@@ -13740,7 +13740,7 @@
     ".github/workflows/identity-guard.yml",
     "Makefile",
     "docs/audit/repo-truth-map.json",
-    "tools/check-m2-19g2-readiness.sh"
+    "tools/check-home-readiness.sh"
    ],
    "refs": 4
   },
@@ -13852,7 +13852,7 @@
     "Makefile",
     "docs/audit/BANZA_V1_SIMPLICITY_SECURITY_ROBUSTNESS_REPORT.md",
     "docs/audit/repo-truth-map.json",
-    "website/lib/m2_19g5c-repo-framing.test.ts"
+    "website/lib/repo-framing.test.ts"
    ],
    "refs": 5
   },
@@ -14222,7 +14222,7 @@
    "refs": 8
   },
   {
-   "path": "tools/check-banzai-m2-19g-semantic-regression-check.sh",
+   "path": "tools/check-banzai-semantic-regression-check.sh",
    "class": "BUILD_RELEASE",
    "referenced_by": [
     ".github/workflows/identity-guard.yml",
@@ -14232,7 +14232,7 @@
    "refs": 3
   },
   {
-   "path": "tools/check-banzai-m2-19g1-readiness-check.sh",
+   "path": "tools/check-banzai-endpoint-readiness-check.sh",
    "class": "BUILD_RELEASE",
    "referenced_by": [
     ".github/workflows/identity-guard.yml",
@@ -14745,7 +14745,7 @@
     ".github/workflows/identity-guard.yml",
     "Makefile",
     "docs/audit/repo-truth-map.json",
-    "tools/check-m2-19g2-readiness.sh"
+    "tools/check-home-readiness.sh"
    ],
    "refs": 4
   },
@@ -15297,7 +15297,7 @@
    "refs": 7
   },
   {
-   "path": "tools/check-m2-19g-public-surface-canonical.sh",
+   "path": "tools/check-public-surface-canonical.sh",
    "class": "BUILD_RELEASE",
    "referenced_by": [
     ".github/workflows/identity-guard.yml",
@@ -15307,7 +15307,7 @@
    "refs": 3
   },
   {
-   "path": "tools/check-m2-19g2-home-canonical.sh",
+   "path": "tools/check-home-canonical.sh",
    "class": "BUILD_RELEASE",
    "referenced_by": [
     ".github/workflows/identity-guard.yml",
@@ -15317,7 +15317,7 @@
    "refs": 3
   },
   {
-   "path": "tools/check-m2-19g2-o-que-e-removal.sh",
+   "path": "tools/check-retired-page-removal.sh",
    "class": "BUILD_RELEASE",
    "referenced_by": [
     ".github/workflows/identity-guard.yml",
@@ -15327,7 +15327,7 @@
    "refs": 3
   },
   {
-   "path": "tools/check-m2-19g2-readiness.sh",
+   "path": "tools/check-home-readiness.sh",
    "class": "BUILD_RELEASE",
    "referenced_by": [
     ".github/workflows/identity-guard.yml",
@@ -15765,7 +15765,7 @@
     ".github/workflows/identity-guard.yml",
     "Makefile",
     "docs/audit/repo-truth-map.json",
-    "website/lib/m2_19g5c-naming-parity.test.ts"
+    "website/lib/naming-parity.test.ts"
    ],
    "refs": 4
   },
@@ -16364,7 +16364,7 @@
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
     "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm",
-    "tools/check-m2-19g2-home-canonical.sh"
+    "tools/check-home-canonical.sh"
    ],
    "refs": 7
   },
@@ -16427,7 +16427,7 @@
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
     "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm",
-    "tools/check-banzai-m2-19g-semantic-regression-check.sh",
+    "tools/check-banzai-semantic-regression-check.sh",
     "tools/check-operator-zero-public-hardening.sh"
    ],
    "refs": 10
@@ -16687,7 +16687,7 @@
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
     "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm",
-    "tools/check-m2-19g2-home-canonical.sh",
+    "tools/check-home-canonical.sh",
     "tools/check-operator-zero-standalone-surface.sh"
    ],
    "refs": 6
@@ -16773,7 +16773,7 @@
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "website/lib/m2_19g4-navigable-contexts.test.ts"
+    "website/lib/navigable-contexts.test.ts"
    ],
    "refs": 2
   },
@@ -18100,8 +18100,8 @@
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "website/lib/m2_17a-footer-navigation.test.ts",
-    "website/lib/m2_19g4-navigable-contexts.test.ts"
+    "website/lib/footer-navigation.test.ts",
+    "website/lib/navigable-contexts.test.ts"
    ],
    "refs": 3
   },
@@ -18113,7 +18113,7 @@
     "docs/audit/repo-truth-map.json",
     "tools/check-banzai-operator-experience.sh",
     "tools/check-banzai-single-interface.sh",
-    "website/lib/m2_17a-footer-navigation.test.ts"
+    "website/lib/footer-navigation.test.ts"
    ],
    "refs": 5
   },
@@ -18132,7 +18132,7 @@
     "docs/audit/repo-truth-map.json",
     "docs/governance/rust-first-legacy-allowlist.json",
     "tools/check-banzai-endpoint-originated-validation-check.sh",
-    "tools/check-banzai-m2-19g1-readiness-check.sh",
+    "tools/check-banzai-endpoint-readiness-check.sh",
     "tools/check-banzai-no-arbitrary-url-check.sh",
     "tools/check-banzai-no-fixture-as-production-evidence-check.sh"
    ],
@@ -18199,7 +18199,7 @@
    "refs": 2
   },
   {
-   "path": "website/lib/m2_15b-global-navigation.test.ts",
+   "path": "website/lib/global-navigation.test.ts",
    "class": "RUNTIME",
    "referenced_by": [
     "artifacts/banzai/home-current-surface-audit.json",
@@ -18209,7 +18209,7 @@
    "refs": 3
   },
   {
-   "path": "website/lib/m2_16-home.test.ts",
+   "path": "website/lib/home.test.ts",
    "class": "RUNTIME",
    "referenced_by": [
     "artifacts/banzai/home-current-surface-audit.json",
@@ -18219,7 +18219,7 @@
    "refs": 3
   },
   {
-   "path": "website/lib/m2_17-homepage.test.ts",
+   "path": "website/lib/homepage.test.ts",
    "class": "RUNTIME",
    "referenced_by": [
     "artifacts/banzai/home-current-surface-audit.json",
@@ -18230,7 +18230,7 @@
    "refs": 4
   },
   {
-   "path": "website/lib/m2_17a-footer-navigation.test.ts",
+   "path": "website/lib/footer-navigation.test.ts",
    "class": "RUNTIME",
    "referenced_by": [
     "artifacts/banzai/home-current-surface-audit.json",
@@ -18249,7 +18249,7 @@
    "refs": 2
   },
   {
-   "path": "website/lib/m2_19g2-home.test.ts",
+   "path": "website/lib/home-canonical.test.ts",
    "class": "RUNTIME",
    "referenced_by": [
     "artifacts/banzai/home-current-surface-audit.json",
@@ -18259,7 +18259,7 @@
    "refs": 3
   },
   {
-   "path": "website/lib/m2_19g4-navigable-contexts.test.ts",
+   "path": "website/lib/navigable-contexts.test.ts",
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json"
@@ -18267,7 +18267,7 @@
    "refs": 1
   },
   {
-   "path": "website/lib/m2_19g5c-naming-parity.test.ts",
+   "path": "website/lib/naming-parity.test.ts",
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json"
@@ -18275,7 +18275,7 @@
    "refs": 1
   },
   {
-   "path": "website/lib/m2_19g5c-repo-framing.test.ts",
+   "path": "website/lib/repo-framing.test.ts",
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json"
@@ -18403,8 +18403,8 @@
    "class": "RUNTIME",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "tools/check-m2-19g2-home-canonical.sh",
-    "tools/check-m2-19g2-readiness.sh"
+    "tools/check-home-canonical.sh",
+    "tools/check-home-readiness.sh"
    ],
    "refs": 3
   },
@@ -18822,8 +18822,8 @@
    "referenced_by": [
     "artifacts/banzai/home-current-surface-audit.json",
     "docs/audit/repo-truth-map.json",
-    "tools/check-m2-19g2-o-que-e-removal.sh",
-    "tools/check-m2-19g2-readiness.sh",
+    "tools/check-retired-page-removal.sh",
+    "tools/check-home-readiness.sh",
     "tools/check-standalone-roadmap-surface.sh",
     "website/lib/protocolStatus.ts"
    ],

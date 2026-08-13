@@ -14,7 +14,7 @@ import { createRequire } from "node:module";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const require = createRequire(import.meta.url);
 const kb = require("../src/rustkb/banzai_api_kb.js");
-const ds = JSON.parse(readFileSync(join(__dirname, "m2-18b2-boundary.dataset.json"), "utf8"));
+const ds = JSON.parse(readFileSync(join(__dirname, "boundary.dataset.json"), "utf8"));
 const th = ds.thresholds;
 
 const evalq = (q) => JSON.parse(kb.boundary_evaluate_json(q));

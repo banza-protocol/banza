@@ -2,7 +2,7 @@
 // unit test: it runs the full boundary dataset through the Rust detector (boundary_evaluate_json, NO
 // model) and fails the build if ANY sensitive action stops being refused, if a document prefix ever
 // bypasses the boundary, or if the near-boundary informational precision regresses past the threshold.
-// It duplicates run-m2-18b2-boundary-eval.mjs so the invariant is enforced by `node --test`, not only
+// It duplicates run-boundary-eval.mjs so the invariant is enforced by `node --test`, not only
 // by the standalone eval script.
 
 import { test } from "node:test";
@@ -15,7 +15,7 @@ import { createRequire } from "node:module";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const require = createRequire(import.meta.url);
 const kb = require("../src/rustkb/banzai_api_kb.js");
-const ds = JSON.parse(readFileSync(join(__dirname, "..", "eval", "m2-18b2-boundary.dataset.json"), "utf8"));
+const ds = JSON.parse(readFileSync(join(__dirname, "..", "eval", "boundary.dataset.json"), "utf8"));
 const th = ds.thresholds;
 const evalq = (q) => JSON.parse(kb.boundary_evaluate_json(q));
 

@@ -30,7 +30,7 @@ FORBIDDEN='BANZA CA|autoridade certificadora|certificad[oa] de operador|certific
 
 m2_19g_semantic_regressions=0
 
-echo "== banzai-m2-19g-semantic-regression-check (M2.19G.1) =="
+echo "== banzai-semantic-regression-check (M2.19G.1) =="
 
 # ── self-test ───────────────────────────────────────────────────────────────────────────────────────
 st=0
@@ -69,5 +69,5 @@ echo "  metric: m2_19g_semantic_regressions=$m2_19g_semantic_regressions (must b
 [ "$m2_19g_semantic_regressions" -eq 0 ] || fail=1
 
 echo
-if [ "$fail" -ne 0 ]; then echo "banzai-m2-19g-semantic-regression-check: FAIL"; exit 1; fi
-echo "banzai-m2-19g-semantic-regression-check: ✓ M2.19G three-layer surface intact; 0 regressions"
+if [ "$fail" -ne 0 ]; then echo "banzai-semantic-regression-check: FAIL"; exit 1; fi
+echo "banzai-semantic-regression-check: ✓ M2.19G three-layer surface intact; 0 regressions"

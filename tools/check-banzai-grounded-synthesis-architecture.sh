@@ -48,8 +48,8 @@ GATE_JS="services/banzai-api/src/synthesisGate.js"
 PROVIDER_JS="services/banzai-api/src/provider.js"
 PIPELINE_JS="services/banzai-api/src/pipeline.js"
 KNOWLEDGE_JS="services/banzai-api/src/knowledge.js"
-SYNTH_TEST="services/banzai-api/test/m2-18b6-grounded-synthesis.test.js"
-PUBLISH_TEST="services/banzai-api/test/m2-18b6-synthesis-publish.test.js"
+SYNTH_TEST="services/banzai-api/test/grounded-synthesis.test.js"
+PUBLISH_TEST="services/banzai-api/test/synthesis-publish.test.js"
 
 # Strip // and /* */ comments so a rule matches CODE, not prose/comments (Rust + JS).
 strip() { perl -0777 -pe 's{//[^\n]*}{}g; s{/\*.*?\*/}{}gs' "$1" 2>/dev/null || cat "$1"; }

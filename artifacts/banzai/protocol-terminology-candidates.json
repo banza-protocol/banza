@@ -1,5 +1,5 @@
 {
-  "total": 3856,
+  "total": 3859,
   "rows": [
     {
       "raw_text": "Contributing to BANZA",
@@ -43710,6 +43710,17 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
+      "raw_text": "Publisher obligation",
+      "normalized": "publisher obligation",
+      "sources": [
+        "spec-trust-freshness-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
       "raw_text": "4. Persistence",
       "normalized": "4 persistence",
       "sources": [
@@ -43851,6 +43862,28 @@
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Cross-artifact coherence (mix-and-match)",
+      "normalized": "cross-artifact coherence mix-and-match",
+      "sources": [
+        "spec-trust-freshness-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "bounded by the BRL's `expires_at`",
+      "normalized": "bounded by the brl s expires at",
+      "sources": [
+        "spec-trust-freshness-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 7,
+      "accepted": false,
+      "rejection_reason": "MARKUP_FRAGMENT"
     },
     {
       "raw_text": "acceptance for use in an evaluation",
