@@ -64,7 +64,7 @@ for d,l in ((en,"en"),(pt,"pt")):
     assert titles==TITLES[l], f"{l}: single-concept titles mismatch {titles}"
     assert len(d["figures"])==12, f"{l}: expected 12 figures"
     assert [f["n"] for f in d["figures"]]==list(range(1,13)), f"{l}: figure numbering"
-    assert len(d["references"])==8, f"{l}: expected 8 references"
+    assert len(d["references"])==10, f"{l}: expected 10 references"
     # figure per numbered section except Conclusions (12); Validation (6) has exactly 2
     byid={s["id"]:s for s in d["sections"]}
     for s in d["sections"]:
@@ -77,7 +77,7 @@ for d,l in ((en,"en"),(pt,"pt")):
     assert tags==["1a","1b","2","3","4"], f"{l}: equation tags {tags}"
 print("structure-ok")
 PY
-ok "structure — 12 single-concept sections (parity), 12 figures (fig/section except Conclusions; §6 has 2), eqs 1a/1b/2/3/4, 8 refs"
+ok "structure — 12 single-concept sections (parity), 12 figures (fig/section except Conclusions; §6 has 2), eqs 1a/1b/2/3/4, 10 refs"
 
 # ── 3. cross-reference tokens resolve; all figures cited; all refs cited ──────────────────────────────
 python3 - "$EN" "$PT" <<'PY' || exit 1
@@ -92,7 +92,7 @@ for p,l in ((sys.argv[2],"pt"),(sys.argv[1],"en")):
         pool=figlab if kind=="fig" else eqlab if kind=="eq" else seclab
         assert f"{kind}:{name}" in pool, f"{l}: unresolved token {kind}:{name}"
     cited={int(m) for m in re.findall(r"\[(\d)\]", body)}
-    assert cited==set(range(1,9)), f"{l}: not all 8 refs cited: {sorted(cited)}"
+    assert cited==set(range(1,11)), f"{l}: not all 10 refs cited: {sorted(cited)}"
 print("xref-ok")
 PY
 ok "cross-references — all {{fig/eq/sec}} tokens resolve; all 8 references cited in-body"
