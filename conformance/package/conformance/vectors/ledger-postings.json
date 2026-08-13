@@ -1,0 +1,113 @@
+{
+  "_spec": "BANZA Ledger Conformance Vectors v1.0",
+  "_stability": "stable",
+
+  "vectors": [
+    {
+      "id": "LED-001",
+      "title": "Transfer creates exactly 2 ledger entries",
+      "certification_level": 1,
+      "stability": "stable",
+      "trigger": {
+        "method": "POST",
+        "path": "/transfers",
+        "body": {
+          "from_wallet_id": "sandbox-consumer-1",
+          "to_wallet_id": "sandbox-merchant-1",
+          "amount_minor": 1000,
+          "currency": "AOA"
+        }
+      },
+      "check_ledger": {
+        "wallet_id": "sandbox-consumer-1",
+        "expected_new_entry_count": 1,
+        "expected_new_entry_kind": "DEBIT",
+        "expected_new_entry_amount": 1000
+      },
+      "invariants": ["zero_sum_ledger"]
+    },
+    {
+      "id": "LED-002",
+      "title": "Ledger derived balance is credit minus debit",
+      "certification_level": 1,
+      "stability": "stable",
+      "description": "GET /ledger/{wallet_id} must return derived_balance_minor = SUM(credits) - SUM(debits). The balance is never stored directly.",
+      "endpoint_check": {
+        "method": "GET",
+        "path": "/ledger/sandbox-consumer-1",
+        "expected_fields": ["wallet_id", "derived_balance_minor", "entry_count", "entries"]
+      }
+    },
+    {
+      "id": "LED-003",
+      "title": "DEBIT entry has required fields",
+      "certification_level": 1,
+      "stability": "stable",
+      "trigger": {
+        "method": "POST",
+        "path": "/transfers",
+        "body": {
+          "from_wallet_id": "sandbox-consumer-1",
+          "to_wallet_id": "sandbox-merchant-1",
+          "amount_minor": 1000,
+          "currency": "AOA"
+        }
+      },
+      "check_ledger_entry_fields": {
+        "required": ["id", "wallet_id", "kind", "amount_minor", "currency", "reference", "created_at"],
+        "kind_value": "DEBIT"
+      }
+    },
+    {
+      "id": "LED-004",
+      "title": "Ledger entries have trace_id and correlation_id",
+      "certification_level": 1,
+      "stability": "stable",
+      "trigger": {
+        "method": "POST",
+        "path": "/transfers",
+        "body": {
+          "from_wallet_id": "sandbox-consumer-1",
+          "to_wallet_id": "sandbox-merchant-1",
+          "amount_minor": 1000,
+          "currency": "AOA"
+        }
+      },
+      "check_ledger_entry_fields": {
+        "required": ["trace_id", "correlation_id"],
+        "trace_id_matches_transfer": true,
+        "correlation_id_equals_transfer_id": true
+      },
+      "invariants": ["trace_id_propagation"]
+    },
+    {
+      "id": "LED-005",
+      "title": "Zero-sum: DEBIT amount equals CREDIT amount for same transfer",
+      "certification_level": 1,
+      "stability": "stable",
+      "trigger": {
+        "method": "POST",
+        "path": "/transfers",
+        "body": {
+          "from_wallet_id": "sandbox-consumer-1",
+          "to_wallet_id": "sandbox-merchant-1",
+          "amount_minor": 12345,
+          "currency": "AOA"
+        }
+      },
+      "invariant_check": {
+        "type": "zero_sum",
+        "description": "DEBIT amount_minor must equal CREDIT amount_minor for the same transfer_id"
+      },
+      "invariants": ["zero_sum_ledger"]
+    },
+    {
+      "id": "LED-006",
+      "title": "Ledger entries are immutable — no modification after creation",
+      "certification_level": 1,
+      "stability": "stable",
+      "description": "There is no PATCH or DELETE endpoint for ledger entries. Verify that GET /ledger returns only new entries appended — existing entries never change. This is verified by comparing entry IDs across two fetches.",
+      "invariants": ["ledger_immutability"]
+    }
+  ]
+}

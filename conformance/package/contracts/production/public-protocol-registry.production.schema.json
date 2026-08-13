@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/public-protocol-registry.production.schema.json",
+  "title": "PublicProtocolRegistryProduction",
+  "description": "Public Protocol Registry — índice público e verificável de manifests, versões e evidência auto-publicados por operadores independentes. É um ÍNDICE, NÃO uma lista de admitidos e NÃO uma porta de entrada: reflecte o que é publicamente verificável, não uma decisão humana. A presença de uma entrada não confere estatuto, não implica aprovação, aceitação ou autorização, e não cria qualquer relação entre a BANZA e o operador; a ausência de uma entrada não impede ninguém de implementar o protocolo. Cada entrada é um espelho da auto-publicação do operador (operator-self-publication.production.schema.json) e é verificável de forma independente e reprodutível por qualquer terceiro, recalculando os hashes e reexecutando a Conformance Automation. O registo não avalia, não pontua e não ordena operadores por mérito.",
+  "_spec_version": "1.0",
+  "_status": "production-baseline",
+  "_authority": "docs/governance/OPERATOR_SELF_PUBLICATION_AND_CONFORMANCE.md; docs/governance/OPEN_PROTOCOL_GOVERNANCE.md",
+  "_boundary": "BANZA é um protocolo financeiro aberto. A governação humana existe para manter e evoluir o protocolo, não para autorizar, certificar ou aceitar operadores. Operadores independentes assumem o seu próprio enquadramento legal, regulatório e financeiro e, quando aplicável, são autorizados pelas entidades competentes — nunca pela BANZA.",
+
+  "type": "object",
+  "required": ["registry_version", "protocol_version", "generated_at", "index_only", "entries", "boundary"],
+  "additionalProperties": false,
+
+  "properties": {
+    "registry_version": {
+      "type": "string",
+      "description": "Versão deste índice público. Imutável uma vez publicada."
+    },
+    "protocol_version": {
+      "type": "string",
+      "description": "Versão das Versioned Specifications a que este índice se refere (ex.: '1.0.0')."
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Momento de geração do índice. O índice é derivado do que está publicado, não de deliberação."
+    },
+    "index_only": {
+      "type": "boolean",
+      "const": true,
+      "description": "Invariante: este registo é um índice público do que foi auto-publicado. NÃO é uma lista de aprovação, aceitação ou admissão. Estar listado não confere estatuto; não estar listado não retira o direito de implementar o protocolo."
+    },
+    "signed_protocol_metadata": {
+      "$ref": "https://banza.network/contracts/production/signed-protocol-metadata.production.schema.json",
+      "description": "Metadados do protocolo assinados pela Trust Root, sob os quais este índice é verificável. Assinar o índice é uma afirmação sobre um artefacto do protocolo — nunca sobre os participantes nele espelhados."
+    },
+    "trust_root_version": {
+      "type": ["string", "null"],
+      "description": "Versão da Trust Root sob a qual o índice foi verificado. Ver trust-root-metadata.production.schema.json."
+    },
+    "revocation_list_ref": {
+      "type": ["string", "null"],
+      "description": "Referência à Revocation List consultada. Semântica fail-closed: uma Revocation List indisponível, inválida ou expirada torna o material não confiável, em vez de válido por omissão."
+    },
+    "entries": {
+      "type": "array",
+      "description": "Entradas do índice, uma por auto-publicação de operador. Um array vazio significa que nada foi publicado — nunca que alguém foi recusado.",
+      "items": {
+        "type": "object",
+        "required": ["operator_id", "self_publication"],
+        "additionalProperties": false,
+        "properties": {
+          "operator_id": {
+            "type": "string",
+            "description": "Identificador do operador, tal como por si escolhido e publicado (ex.: 'operator-a'). Nunca uma marca comercial."
+          },
+          "self_publication": {
+            "$ref": "https://banza.network/contracts/production/operator-self-publication.production.schema.json",
+            "description": "A auto-publicação do operador, espelhada tal como publicada. O índice não a altera, não a valida e não a endossa."
+          },
+          "conformance_evidence": {
+            "$ref": "https://banza.network/contracts/production/conformance-evidence.production.schema.json",
+            "description": "Conformance Evidence associada, quando publicada. Verificável por recomputação independente."
+          },
+          "indexed_at": {
+            "type": ["string", "null"],
+            "format": "date-time",
+            "description": "Momento em que a entrada foi indexada. Indexar é registar o que existe publicamente — não é admitir."
+          },
+          "source_url": {
+            "type": ["string", "null"],
+            "format": "uri",
+            "description": "Endereço público, controlado pelo operador, de onde a auto-publicação foi lida."
+          }
+        }
+      }
+    },
+    "boundary": {
+      "type": "object",
+      "description": "Fronteira permanente deste artefacto. O registo é um espelho, não um portão: regista o que foi publicado e nada decide.",
+      "required": ["not_operator_authorisation", "not_certificate", "not_operator_approval", "not_payment_service_authorisation", "open_financial_protocol"],
+      "additionalProperties": false,
+      "properties": {
+        "not_operator_authorisation": { "type": "boolean", "const": true, "description": "Estar no índice não autoriza um operador. Operadores independentes, quando aplicável, são autorizados pelas entidades competentes — nunca pela BANZA." },
+        "not_certificate": { "type": "boolean", "const": true, "description": "Uma entrada do índice não é um certificado e nada é emitido a quem nele consta." },
+        "not_operator_approval": { "type": "boolean", "const": true, "description": "O índice não é uma lista de aprovados nem de admitidos. Nenhuma decisão humana determina quem nele consta." },
+        "not_payment_service_authorisation": { "type": "boolean", "const": true, "description": "Uma entrada não é autorização para prestar serviços de pagamento. O enquadramento regulatório pertence integralmente ao operador." },
+        "open_financial_protocol": { "type": "boolean", "const": true, "description": "BANZA é e permanece um protocolo financeiro aberto." }
+      }
+    }
+  }
+}

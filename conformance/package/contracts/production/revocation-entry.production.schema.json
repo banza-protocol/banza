@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/revocation-entry.production.schema.json",
+  "title": "RevocationEntryProduction",
+  "description": "Uma entrada da Revocation List, assinada pela chave delegada do domínio de revogação (ADR-038, ADR-079 — a Trust Root assina apenas o Manifesto de Chaves). REVOGAÇÃO É UM MECANISMO DE SEGURANÇA DO PROTOCOLO — nunca uma sanção regulatória, nunca uma penalização, nunca a retirada ou suspensão de uma licença, nunca um acto regulatório. Uma revogação retira confiança criptográfica a material específico; não retira, não suspende e não afecta qualquer autorização regulatória do operador, que nunca esteve nas mãos da BANZA. Semântica fail-closed: material revogado, inválido ou indisponível é tratado como não confiável, em vez de assumido válido. A Trust Root assina a Revocation List enquanto artefacto do protocolo — assinar não é julgar um participante.",
+  "_spec_version": "1.0",
+  "_status": "production-baseline",
+  "_authority": "docs/governance/PROTOCOL_GOVERNANCE_ROLES.md §2.2, §5; docs/security/BRL_REVOCATION_PLAYBOOK.md",
+  "_boundary": "BANZA é um protocolo financeiro aberto. A governação humana existe para manter e evoluir o protocolo, não para autorizar, certificar ou aceitar operadores. Operadores independentes assumem o seu próprio enquadramento legal, regulatório e financeiro e, quando aplicável, são autorizados pelas entidades competentes — nunca pela BANZA.",
+
+  "type": "object",
+  "required": ["entry_id", "subject_type", "subject_id", "reason", "effective_at", "signatures", "security_mechanism_not_regulatory_sanction", "boundary"],
+  "additionalProperties": false,
+
+  "properties": {
+    "entry_id": {
+      "type": "string",
+      "description": "Identificador único da entrada de revogação. Imutável."
+    },
+    "subject_type": {
+      "type": "string",
+      "enum": ["key", "operator", "artifact"],
+      "description": "Tipo de material de confiança revogado. 'key': uma chave criptográfica (raiz, delegada ou de operador). 'operator': o material de confiança publicado por um operador — revogar este material retira-lhe confiança criptográfica no protocolo e NÃO afecta o seu estatuto legal, regulatório ou financeiro, que lhe pertence integralmente. 'artifact': um artefacto do protocolo (release, metadados, evidência)."
+    },
+    "subject_id": {
+      "type": "string",
+      "description": "Identificador do material revogado (key_id, operator_id ou referência do artefacto). Nunca uma marca comercial."
+    },
+    "reason": {
+      "type": "string",
+      "enum": ["key_compromise", "key_superseded", "algorithm_migration", "ceremony_error", "artifact_defect", "material_no_longer_verifiable", "operator_request"],
+      "description": "Motivo técnico da revogação. Todos os motivos são propriedades do material criptográfico ou do artefacto — nenhum é um juízo sobre a idoneidade, o mérito ou a conduta de um participante."
+    },
+    "reason_detail": {
+      "type": ["string", "null"],
+      "description": "Detalhe técnico legível do motivo, expresso em termos de material criptográfico e verificação — nunca em termos de sanção ou juízo sobre um participante."
+    },
+    "effective_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Momento a partir do qual a revogação produz efeito. A partir daqui, verificadores tratam o material como não confiável (fail-closed)."
+    },
+    "permanent": {
+      "type": ["boolean", "null"],
+      "description": "Verdadeiro quando a revogação é permanente e não reversível."
+    },
+    "protocol_version": {
+      "type": ["string", "null"],
+      "description": "Versão das Versioned Specifications a que a entrada se refere, quando aplicável."
+    },
+    "trust_root_version": {
+      "type": ["string", "null"],
+      "description": "Versão da Trust Root sob a qual esta entrada deve ser verificada. Ver trust-root-metadata.production.schema.json."
+    },
+    "signatures": {
+      "type": "array",
+      "description": "Assinaturas da Trust Root sobre os bytes canónicos da entrada. Revogação está no âmbito da raiz e exige o limiar 2-de-3: pelo menos duas assinaturas de custodiantes independentes. Material público apenas — nenhuma chave privada aparece aqui.",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["key_id", "custodian", "signature", "algorithm"],
+        "additionalProperties": false,
+        "properties": {
+          "key_id": { "type": "string", "description": "Identificador da chave raiz que produziu a assinatura." },
+          "custodian": { "type": "string", "enum": ["A", "B", "C"], "description": "Custodiante que assinou OFFLINE. Um custodiante nunca assina isoladamente e nunca é ponto singular de decisão." },
+          "signature": { "type": "string", "description": "Assinatura destacada sobre os bytes canónicos da entrada (base64url, ed25519). Material público." },
+          "algorithm": { "type": "string", "enum": ["ed25519"], "description": "Algoritmo de assinatura." }
+        }
+      }
+    },
+    "security_mechanism_not_regulatory_sanction": {
+      "type": "boolean",
+      "const": true,
+      "description": "Invariante explícita e legível por máquina: esta entrada é um mecanismo de segurança do protocolo. Não é sanção regulatória, não é penalização, não é retirada nem suspensão de licença, e não é acto regulatório."
+    },
+    "boundary": {
+      "type": "object",
+      "description": "Fronteira permanente deste artefacto. Revogar retira confiança criptográfica a material — não retira estatuto a pessoas nem a entidades.",
+      "required": ["not_operator_authorisation", "not_certificate", "not_operator_approval", "not_payment_service_authorisation", "open_financial_protocol"],
+      "additionalProperties": false,
+      "properties": {
+        "not_operator_authorisation": { "type": "boolean", "const": true, "description": "Revogar não retira nem afecta autorização de operador: a BANZA nunca a concedeu. Operadores independentes, quando aplicável, são autorizados pelas entidades competentes." },
+        "not_certificate": { "type": "boolean", "const": true, "description": "Esta entrada não revoga um certificado emitido a um participante — nenhum é emitido nesta arquitectura." },
+        "not_operator_approval": { "type": "boolean", "const": true, "description": "Revogar não é recusa, exclusão nem retirada de aprovação. Não existe aprovação de operador que possa ser retirada." },
+        "not_payment_service_authorisation": { "type": "boolean", "const": true, "description": "Esta entrada não afecta autorização para prestar serviços de pagamento, que pertence ao operador e às entidades competentes." },
+        "open_financial_protocol": { "type": "boolean", "const": true, "description": "BANZA é e permanece um protocolo financeiro aberto." }
+      }
+    }
+  }
+}

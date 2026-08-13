@@ -1,0 +1,731 @@
+{
+  "_spec": "BANZA Public Conformance Package",
+  "package_schema_version": "1",
+  "protocol_version": "1.0.0",
+  "_authority": "A copy, not an edition. The BANZA Normative Manifest remains authoritative; every file here carries the digest of its published original so a consumer can verify the copy rather than trust it.",
+  "_outcome_grammar": "Cases do not share one member name for the expected outcome. Each vector file lists the members its cases actually use in `outcome_members`. Every case is determinable; the variety is a known ergonomics limitation, not a hidden one.",
+  "_self_contained": "No file here references anything outside this package. No engine, runner or reference implementation is present or needed: the vectors are data, and the expected outcome of each is stated in the vector itself.",
+  "_boundary": "Passing these vectors demonstrates conformance to what they cover. It is not a certification, an admission or an authorisation, and no party issues anything on the strength of it.",
+  "file_count": 70,
+  "files": [
+    {
+      "path": "conformance/capabilities/schema.json",
+      "sha256": "d261ce2079207e3183f3157b1649fbcd4dd4864802ca3b2b3acc16de97b63544",
+      "bytes": 4503
+    },
+    {
+      "path": "conformance/manifests/schema.json",
+      "sha256": "d91b4c9c6aca8c8df8beb67e556bf435f8ce83622efcf54c652621a884566266",
+      "bytes": 4245
+    },
+    {
+      "path": "conformance/vectors/canonicalization.json",
+      "sha256": "8887da3b6b356c4a7a990f1d2a8f5532e09b979e71c102f2e5e0d10e98cbe48c",
+      "bytes": 8683
+    },
+    {
+      "path": "conformance/vectors/collections.json",
+      "sha256": "dbe6d266e04967e30cb7ab5a2fb5d16a16d9434f77aaef2f2472e79c2b39aa4f",
+      "bytes": 6671
+    },
+    {
+      "path": "conformance/vectors/event-envelopes.json",
+      "sha256": "b9508b8beb90a3007394da23cfbf2e7c94455dfc6abfef65cd22b131ee51a7d9",
+      "bytes": 5706
+    },
+    {
+      "path": "conformance/vectors/idempotency.json",
+      "sha256": "9dcb68582a9a128053e527c7bbd80e80da5412f460ebdec90600540bfc9c376c",
+      "bytes": 9100
+    },
+    {
+      "path": "conformance/vectors/ledger-postings.json",
+      "sha256": "10810d8d995a01b8944b6a900ca5c8e4433d67a702d966349d13997b873a2283",
+      "bytes": 3650
+    },
+    {
+      "path": "conformance/vectors/operator-manifests.json",
+      "sha256": "1ad6b9cbba47f315c07009c866c011b128b647273fa646d776dc27946f0354c7",
+      "bytes": 2143
+    },
+    {
+      "path": "conformance/vectors/payment-requests.json",
+      "sha256": "6fa92eb57b6a01e458db5760d51716689293dcd07bafe65c79db8e6804e8f348",
+      "bytes": 5098
+    },
+    {
+      "path": "conformance/vectors/qr-payloads.json",
+      "sha256": "17a34dcd4e52b69179d9fbd0b40a59d2670de3697ff7710839b614b172fc9b9d",
+      "bytes": 5986
+    },
+    {
+      "path": "conformance/vectors/reason-codes.json",
+      "sha256": "96ac0d4382df9b1b62401474630fa7535074f6e529f0349a64eac5166a828c05",
+      "bytes": 7767
+    },
+    {
+      "path": "conformance/vectors/settlement-batches.json",
+      "sha256": "33f803756f14000d05fec8475fe68be2b3f86dc5dffb89360f13640491dd6feb",
+      "bytes": 5401
+    },
+    {
+      "path": "conformance/vectors/transfers.json",
+      "sha256": "7750406cb8351245b010ca2971b2808b8cde0cf22f2fa7db5931984102186aa5",
+      "bytes": 7273
+    },
+    {
+      "path": "conformance/vectors/trust-freshness.json",
+      "sha256": "e8d90ef076cf1420f80e3c08f28399af37b9a79eefcc2bf0d26c3a718f98c82c",
+      "bytes": 8803
+    },
+    {
+      "path": "conformance/vectors/trust-signing.json",
+      "sha256": "c2a981fabb018a85e675cc5843153674336ead1893313422f47ad526ae4c1619",
+      "bytes": 63970
+    },
+    {
+      "path": "conformance/vectors/wallet-balances.json",
+      "sha256": "33edbbf15bc5ac3837185fac9c2bb58fd0b96d3a8fa1f2919462dabf069190aa",
+      "bytes": 3426
+    },
+    {
+      "path": "contracts/collections/collection-rule.schema.json",
+      "sha256": "1a4d6733d012c4992f5620fc7490f68fd078a18c5dff5338321c3ec231c62bb8",
+      "bytes": 5082
+    },
+    {
+      "path": "contracts/collections/collection-share.schema.json",
+      "sha256": "f705532bb15ce7d19b0474f8c12478d288cfdbde4b900622c847636cdff4c758",
+      "bytes": 3397
+    },
+    {
+      "path": "contracts/collections/collection.schema.json",
+      "sha256": "382e13b5e9ddfbcc53a58309bd2ce3f3b70abc86d50cb2b21c4822117bad6ca3",
+      "bytes": 3939
+    },
+    {
+      "path": "contracts/collections/state-machine.json",
+      "sha256": "fd90e26ebbfe626f7faf743361e08859eb2a00453b1ad82f83d87adebfab50b7",
+      "bytes": 1970
+    },
+    {
+      "path": "contracts/events/envelope.schema.json",
+      "sha256": "4a10ffa941dfc4a4f6ac2331c748500c993cac9e61b38dc1f07eb5cd25ecb905",
+      "bytes": 3356
+    },
+    {
+      "path": "contracts/events/types.json",
+      "sha256": "71c130786c52b54dec42fa2371d06c58878a24ca271504a0fb6e5f24b0d88f68",
+      "bytes": 26563
+    },
+    {
+      "path": "contracts/events/webhook-types.json",
+      "sha256": "54e86107e7361b5a717a420ce1c72250dd843ed8d8914a3b87a0f2adbe313031",
+      "bytes": 8260
+    },
+    {
+      "path": "contracts/federation/federation-event.json",
+      "sha256": "fc212371f74433a76338f7df0b39b45169805cb4098da4e1256a63d7fcc469cd",
+      "bytes": 5363
+    },
+    {
+      "path": "contracts/federation/federation-manifest.json",
+      "sha256": "50a4983630968a5e623c98b6d51ceb59f045df60dd75f94ff00cb23309738bef",
+      "bytes": 4663
+    },
+    {
+      "path": "contracts/federation/federation-obligation.json",
+      "sha256": "295e67b3dcb38e75aca18ecf3a8074f99619e5179b9d8f6e5373739e82ea7b04",
+      "bytes": 4458
+    },
+    {
+      "path": "contracts/federation/federation-routing.json",
+      "sha256": "69ccb33d85814852dc00924168997e9dfdbf310fde300763b0c5490e6d1b2b4f",
+      "bytes": 8827
+    },
+    {
+      "path": "contracts/federation/federation-trust.json",
+      "sha256": "725538ae90f807d132bf84605306790e2382fae0bd0eeb5d10a208f99e8d07dc",
+      "bytes": 9976
+    },
+    {
+      "path": "contracts/federation/key-manifest.json",
+      "sha256": "c3f48e593608a65e9a008782af8ea17af81c67f4244afb743ff6aaabc6755b7e",
+      "bytes": 5514
+    },
+    {
+      "path": "contracts/federation/revocation-list.json",
+      "sha256": "dee636c9a9759dd1631f95e7526341b978a463f6bee3888f4900b8f8d85876e2",
+      "bytes": 5163
+    },
+    {
+      "path": "contracts/fees/business-category.schema.json",
+      "sha256": "af47ec93b8a61b60ad44a010ef86c14df3b1bde8ebbd1b92217beb6ccac363a2",
+      "bytes": 882
+    },
+    {
+      "path": "contracts/fees/fee-policy-ref.schema.json",
+      "sha256": "9be2c1f399d1d4de514f9322e1ff13c354d3b0873ce29d851c80387d43a297f9",
+      "bytes": 839
+    },
+    {
+      "path": "contracts/fees/operator-fee.schema.json",
+      "sha256": "483bb7b55c9dc77c63eec3132adb94e988c0adfd2b931f540cc6a7a57fc7b465",
+      "bytes": 2870
+    },
+    {
+      "path": "contracts/fees/pricing-profile.schema.json",
+      "sha256": "63cd67588353fad9bfd325f4887c6d5c38fa52ce7e49b68bcb71dc4d27be0fd6",
+      "bytes": 683
+    },
+    {
+      "path": "contracts/invariants.json",
+      "sha256": "bde0dbe15b5fe5e7f1ed74088213c0696179c9c6d25abdbd8af9aaa4d0fdb280",
+      "bytes": 30244
+    },
+    {
+      "path": "contracts/openapi/activity.yaml",
+      "sha256": "5db05041a1f04245b42a1c9d8fbb0b04a28628f92c167dcc431524b345cba132",
+      "bytes": 10951
+    },
+    {
+      "path": "contracts/openapi/collections.yaml",
+      "sha256": "6582852abe9d2d7ebe367b150dd6eee7a5c36d108af96965d25448efd40ae272",
+      "bytes": 12466
+    },
+    {
+      "path": "contracts/openapi/transfers.yaml",
+      "sha256": "97ad41a3fae10b120a9ea43b26e86d9d32788e1542d1c7d3ebb86f143f821e9e",
+      "bytes": 12441
+    },
+    {
+      "path": "contracts/openapi/wallet-onboarding.yaml",
+      "sha256": "99b93943374da25621c25d6de74ab8929cf0dc08333dba9dbd42a4f1f14751a5",
+      "bytes": 12628
+    },
+    {
+      "path": "contracts/payment-intents/payment-intent.schema.json",
+      "sha256": "4593537d47f9bae11ff3299edc3452b68c4737b6765b9a67763ed357517c4a74",
+      "bytes": 3890
+    },
+    {
+      "path": "contracts/payment-sessions/payment-session-interface.schema.json",
+      "sha256": "c5890434d54876433f25f480a989b288fa0d4982cfb57d09dcca717506a10e40",
+      "bytes": 1961
+    },
+    {
+      "path": "contracts/payment-sessions/payment-session.schema.json",
+      "sha256": "73d70e3d7ba57d7b36f72092eccc75fc6b6d319601c40eaefbd6490059f22cc0",
+      "bytes": 4478
+    },
+    {
+      "path": "contracts/production/brl.production.schema.json",
+      "sha256": "d68e35b0a0d8ed6361a2773f0ba62ff189277e40b3b34c6ce3e7b88e076fbb3a",
+      "bytes": 3367
+    },
+    {
+      "path": "contracts/production/capabilities-document.production.schema.json",
+      "sha256": "d5eb3c395843c9970bd06bdddcc3c68bf9bf0ba44056408f1a99084008a5fb7c",
+      "bytes": 3286
+    },
+    {
+      "path": "contracts/production/conformance-evidence.production.schema.json",
+      "sha256": "45993c0010a47f575929426db450f652d2c68f6d1a628850e85f816b41bbc0dd",
+      "bytes": 6091
+    },
+    {
+      "path": "contracts/production/delegated-signing-key.production.schema.json",
+      "sha256": "14ccfc63ab7196234e26cf0d3c1110b123908564af2a8d7825c66226d0614339",
+      "bytes": 7143
+    },
+    {
+      "path": "contracts/production/discovery-document.production.schema.json",
+      "sha256": "22542c119bad3448952ee22212a29d5ca4ccabf50efee91d3119f754eef2d86b",
+      "bytes": 2781
+    },
+    {
+      "path": "contracts/production/evidence-bundle.production.schema.json",
+      "sha256": "443ced458085a951c6b939cf1b4044d752faafa85a4fa669ac16f7dded1aeeab",
+      "bytes": 4751
+    },
+    {
+      "path": "contracts/production/federation-trust-evaluation.production.schema.json",
+      "sha256": "f3b15e506508a7ed9160682f821d91add7deae023ca68687c09b4d26cec3893b",
+      "bytes": 10902
+    },
+    {
+      "path": "contracts/production/key-manifest.production.schema.json",
+      "sha256": "b5bbc4d2f8c0aacc13b8b93b431cf372d8f61fa76b3cee2860f4431af0ab5aa6",
+      "bytes": 3748
+    },
+    {
+      "path": "contracts/production/operator-manifest.production.schema.json",
+      "sha256": "46149d2ee85f02760def3ace1b4199d1ab3f64e616d17e0f286e23e838a28dae",
+      "bytes": 5283
+    },
+    {
+      "path": "contracts/production/operator-self-publication.production.schema.json",
+      "sha256": "082b4ed235bf1eb54b6528be868977b4b4fbfeded6f23c1f2675f5d56733bf1b",
+      "bytes": 8107
+    },
+    {
+      "path": "contracts/production/protocol-version.json",
+      "sha256": "4b4f612b4a0b2717a5291fe85591b57d5a07274c83ae9be32e15483d3cf116db",
+      "bytes": 2852
+    },
+    {
+      "path": "contracts/production/public-protocol-registry.production.schema.json",
+      "sha256": "3d83389560b50cec8ce12a98da2ab26f1c8873a3feb3433c1b75cfac1be62582",
+      "bytes": 6624
+    },
+    {
+      "path": "contracts/production/reason-code-registry.production.json",
+      "sha256": "7e5d2f2db3fc892d97cc24e76c0cfb5ff829f979b452fa43dd3360643cbc3ad6",
+      "bytes": 15385
+    },
+    {
+      "path": "contracts/production/revocation-entry.production.schema.json",
+      "sha256": "b1dab81d46d13d0acbc78b7765b5111e77b8018d7889c616e3a875c7107687ba",
+      "bytes": 7074
+    },
+    {
+      "path": "contracts/production/root-delegation.production.schema.json",
+      "sha256": "04e86e0f8780654ffc20937d8cb1f04871acb9865cb6c53585da600fc2df62de",
+      "bytes": 3320
+    },
+    {
+      "path": "contracts/production/root-metadata.production.schema.json",
+      "sha256": "6081ff69f1b175626bda7814b76c00d395bb60167516297a1a9863958406c769",
+      "bytes": 11855
+    },
+    {
+      "path": "contracts/production/root-revocation.production.schema.json",
+      "sha256": "ed7db8860a29dffbb50091aa4d849d6906812d98e6a27d3065e82b7c4f28f82c",
+      "bytes": 3921
+    },
+    {
+      "path": "contracts/production/signed-protocol-metadata.production.schema.json",
+      "sha256": "31a705a8ee08d4aefc5af7a4f9856daf68dada072c04ef97dccf9044967c0630",
+      "bytes": 7332
+    },
+    {
+      "path": "contracts/production/trust-root-metadata.production.schema.json",
+      "sha256": "a82d70be2e3c78fb10b741da7e38120cca5d44d8d17e5ee7981ddb15862ad29c",
+      "bytes": 10564
+    },
+    {
+      "path": "contracts/proofs/transaction-proof.schema.json",
+      "sha256": "f4efed93fde92d48b96803922ab5a0adb0d3a4769785250664899cd5d6fa0e5a",
+      "bytes": 3484
+    },
+    {
+      "path": "contracts/proofs/verification-response.schema.json",
+      "sha256": "c72fe02239d8644ac855104017649d68bcf1d97664f41e5ed5a46ae1e3c8afb8",
+      "bytes": 3165
+    },
+    {
+      "path": "contracts/qr/lifecycle.json",
+      "sha256": "814988eec371eb46369e3ed30e0b2be1537533bd7504865b0d9073f7bee1cb07",
+      "bytes": 5954
+    },
+    {
+      "path": "contracts/qr/payload-format.json",
+      "sha256": "79fdb580308bd72a89bb5110272b3c8c2c831a8eb197daee1643ed7bed8aca53",
+      "bytes": 10265
+    },
+    {
+      "path": "contracts/settlements/application-settlement.schema.json",
+      "sha256": "4ca319905f54b21b49af5b334f2d3f30835e32c48ab7135d99b15993138fea56",
+      "bytes": 4309
+    },
+    {
+      "path": "contracts/settlements/state-machine.json",
+      "sha256": "5de0b138dacd8ef8151b0d498a3ef50aca1a5c551d9129a4abbff451fc640207",
+      "bytes": 1072
+    },
+    {
+      "path": "contracts/wallet-accounts/wallet-account.schema.json",
+      "sha256": "609423d2e78dd1dd0d7d9b555dcf291df27b43b85dc9e2b2b3c0d5d7a5feb492",
+      "bytes": 3335
+    },
+    {
+      "path": "contracts/webhooks/envelope.schema.json",
+      "sha256": "c5cb82ace32e3ac3fa19d61e89f4dc02de1bb2078c56e1996a6daffbfa0449af",
+      "bytes": 2566
+    },
+    {
+      "path": "contracts/webhooks/signature.json",
+      "sha256": "b27f60daeaefc726bc0526b8bd3a8a44ec72a62531f3fe5737279015aaff44d3",
+      "bytes": 8960
+    }
+  ],
+  "vector_files": [
+    {
+      "file": "conformance/vectors/canonicalization.json",
+      "required_by_profiles": [
+        "L0"
+      ],
+      "case_count": 24,
+      "outcome_members": [
+        "canonical",
+        "expect"
+      ],
+      "case_ids": [
+        "BCJ-001",
+        "BCJ-002",
+        "BCJ-003",
+        "BCJ-004",
+        "BCJ-005",
+        "BCJ-006",
+        "BCJ-007",
+        "BCJ-008",
+        "BCJ-009",
+        "BCJ-010",
+        "BCJ-011",
+        "BCJ-012",
+        "BCJ-013",
+        "BCJ-014",
+        "BCJ-015",
+        "BCJ-R01",
+        "BCJ-R02",
+        "BCJ-R03",
+        "BCJ-R04",
+        "BCJ-R05",
+        "BCJ-R06",
+        "BCJ-R07",
+        "BCJ-R08",
+        "BCJ-R09"
+      ]
+    },
+    {
+      "file": "conformance/vectors/collections.json",
+      "required_by_profiles": [
+        "L2"
+      ],
+      "case_count": 10,
+      "outcome_members": [
+        "assertion",
+        "expected",
+        "invariants"
+      ],
+      "case_ids": [
+        "COL-001",
+        "COL-002",
+        "COL-003",
+        "COL-004",
+        "COL-005",
+        "COL-006",
+        "COL-007",
+        "COL-008",
+        "COL-009",
+        "COL-010"
+      ]
+    },
+    {
+      "file": "conformance/vectors/event-envelopes.json",
+      "required_by_profiles": [
+        "L1"
+      ],
+      "case_count": 8,
+      "outcome_members": [
+        "expected_events",
+        "invariants"
+      ],
+      "case_ids": [
+        "EVT-001",
+        "EVT-002",
+        "EVT-003",
+        "EVT-004",
+        "EVT-005",
+        "EVT-006",
+        "EVT-007",
+        "EVT-008"
+      ]
+    },
+    {
+      "file": "conformance/vectors/idempotency.json",
+      "required_by_profiles": [
+        "L1"
+      ],
+      "case_count": 15,
+      "outcome_members": [
+        "expect"
+      ],
+      "case_ids": [
+        "IDEM-001",
+        "IDEM-002",
+        "IDEM-003",
+        "IDEM-004",
+        "IDEM-005",
+        "IDEM-006",
+        "IDEM-007",
+        "IDEM-008",
+        "IDEM-009",
+        "IDEM-010",
+        "IDEM-011",
+        "IDEM-012",
+        "IDEM-013",
+        "IDEM-014",
+        "IDEM-015"
+      ]
+    },
+    {
+      "file": "conformance/vectors/ledger-postings.json",
+      "required_by_profiles": [
+        "L1"
+      ],
+      "case_count": 6,
+      "outcome_members": [
+        "check_ledger",
+        "check_ledger_entry_fields",
+        "endpoint_check",
+        "invariant_check",
+        "invariants"
+      ],
+      "case_ids": [
+        "LED-001",
+        "LED-002",
+        "LED-003",
+        "LED-004",
+        "LED-005",
+        "LED-006"
+      ]
+    },
+    {
+      "file": "conformance/vectors/operator-manifests.json",
+      "required_by_profiles": [
+        "L0"
+      ],
+      "case_count": 4,
+      "outcome_members": [
+        "expected"
+      ],
+      "case_ids": [
+        "MAN-001",
+        "MAN-002",
+        "MAN-003",
+        "MAN-004"
+      ]
+    },
+    {
+      "file": "conformance/vectors/payment-requests.json",
+      "required_by_profiles": [
+        "L2"
+      ],
+      "case_count": 6,
+      "outcome_members": [
+        "expected",
+        "invariants",
+        "post_check"
+      ],
+      "case_ids": [
+        "PR-001",
+        "PR-002",
+        "PR-003",
+        "PR-004",
+        "PR-005",
+        "PR-006"
+      ]
+    },
+    {
+      "file": "conformance/vectors/qr-payloads.json",
+      "required_by_profiles": [
+        "L2"
+      ],
+      "case_count": 7,
+      "outcome_members": [
+        "expected",
+        "invariants",
+        "post_check"
+      ],
+      "case_ids": [
+        "QR-001",
+        "QR-002",
+        "QR-003",
+        "QR-004",
+        "QR-005",
+        "QR-006",
+        "QR-007"
+      ]
+    },
+    {
+      "file": "conformance/vectors/reason-codes.json",
+      "required_by_profiles": [
+        "L0"
+      ],
+      "case_count": 21,
+      "outcome_members": [
+        "expect",
+        "outcome"
+      ],
+      "case_ids": [
+        "RC-001",
+        "RC-002",
+        "RC-003",
+        "RC-004",
+        "RC-005",
+        "RC-006",
+        "RC-007",
+        "RC-008",
+        "RC-009",
+        "RC-010",
+        "RC-011",
+        "RC-012",
+        "RC-013",
+        "RC-014",
+        "RC-015",
+        "RC-016",
+        "RC-017",
+        "RC-018",
+        "RC-019",
+        "RC-020",
+        "RC-021"
+      ]
+    },
+    {
+      "file": "conformance/vectors/settlement-batches.json",
+      "required_by_profiles": [
+        "L2"
+      ],
+      "case_count": 6,
+      "outcome_members": [
+        "expected",
+        "invariants"
+      ],
+      "case_ids": [
+        "STL-001",
+        "STL-002",
+        "STL-003",
+        "STL-004",
+        "STL-005",
+        "STL-006"
+      ]
+    },
+    {
+      "file": "conformance/vectors/transfers.json",
+      "required_by_profiles": [
+        "L1"
+      ],
+      "case_count": 9,
+      "outcome_members": [
+        "expected",
+        "idempotency_check",
+        "invariants",
+        "post_check"
+      ],
+      "case_ids": [
+        "TRF-001",
+        "TRF-002",
+        "TRF-003",
+        "TRF-004",
+        "TRF-005",
+        "TRF-006",
+        "TRF-007",
+        "TRF-008",
+        "TRF-009"
+      ]
+    },
+    {
+      "file": "conformance/vectors/trust-freshness.json",
+      "required_by_profiles": [
+        "L3"
+      ],
+      "case_count": 13,
+      "outcome_members": [
+        "expect",
+        "reason_code"
+      ],
+      "case_ids": [
+        "TF-001",
+        "TF-002",
+        "TF-003",
+        "TF-004",
+        "TF-005",
+        "TF-006",
+        "TF-007",
+        "TF-008",
+        "TF-009",
+        "TF-010",
+        "TF-011",
+        "TF-012",
+        "TF-013"
+      ]
+    },
+    {
+      "file": "conformance/vectors/trust-signing.json",
+      "required_by_profiles": [
+        "L3"
+      ],
+      "case_count": 0,
+      "outcome_members": [
+        "expected"
+      ],
+      "case_ids": []
+    },
+    {
+      "file": "conformance/vectors/wallet-balances.json",
+      "required_by_profiles": [
+        "L1"
+      ],
+      "case_count": 5,
+      "outcome_members": [
+        "endpoint_check",
+        "expected",
+        "invariants",
+        "post_check"
+      ],
+      "case_ids": [
+        "WLT-001",
+        "WLT-002",
+        "WLT-003",
+        "WLT-004",
+        "WLT-005"
+      ]
+    }
+  ],
+  "profiles": [
+    {
+      "level": "L0",
+      "name": "Protocol Sandbox",
+      "required_vectors": [
+        "conformance/vectors/canonicalization.json",
+        "conformance/vectors/operator-manifests.json",
+        "conformance/vectors/reason-codes.json"
+      ]
+    },
+    {
+      "level": "L1",
+      "name": "Core Payment Capability",
+      "required_vectors": [
+        "conformance/vectors/event-envelopes.json",
+        "conformance/vectors/idempotency.json",
+        "conformance/vectors/ledger-postings.json",
+        "conformance/vectors/transfers.json",
+        "conformance/vectors/wallet-balances.json"
+      ]
+    },
+    {
+      "level": "L2",
+      "name": "Payment Initiation Capability",
+      "required_vectors": [
+        "conformance/vectors/collections.json",
+        "conformance/vectors/payment-requests.json",
+        "conformance/vectors/qr-payloads.json",
+        "conformance/vectors/settlement-batches.json"
+      ]
+    },
+    {
+      "level": "L3",
+      "name": "Inter-Operator Interoperability",
+      "required_vectors": [
+        "conformance/vectors/trust-freshness.json",
+        "conformance/vectors/trust-signing.json"
+      ]
+    },
+    {
+      "level": "L4",
+      "name": "External Interoperability",
+      "required_vectors": []
+    }
+  ]
+}

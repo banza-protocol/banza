@@ -1,0 +1,219 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/federation-trust-evaluation.production.schema.json",
+  "title": "FederationTrustEvaluationProduction",
+  "description": "Federation Trust Evaluation — o resultado de uma avaliação LOCAL e determinística que um operador corre sobre o material publicado por outro antes de encaminhar. O encaminhamento depende de evidência que o próprio operador publica e que qualquer parte reproduz. As dez verificações são conjuntivas e a avaliação é fail-closed: material de trust ausente, inválido, expirado, revogado ou incompatível reprova. O resultado é uma decisão local sobre UMA interacção — nunca um juízo sobre a entidade, nunca uma admissão, nunca uma licença. Ver ADR-040, ADR-038 e docs/governance/FEDERATION_TRUST_MODEL.md.",
+  "_spec_version": "1.0",
+  "_status": "production-baseline",
+  "_authority": "decisions/adr/ADR-040-federation-trust-evaluation-without-certificates.md; decisions/adr/ADR-038-open-protocol-trust-model-without-ca.md; docs/governance/FEDERATION_TRUST_MODEL.md",
+  "_boundary": "BANZA é um protocolo financeiro aberto. Nenhuma verificação desta avaliação é aprovação humana, licença ou certificação de operador, e nenhuma permite ao BANZA prestar serviços financeiros. A avaliação é corrida pelo operador que encaminha, não pela BANZA. Operadores independentes assumem o seu próprio enquadramento legal, regulatório e financeiro e, quando aplicável, são autorizados pelas entidades competentes — nunca pela BANZA.",
+  "type": "object",
+  "required": [
+    "evaluated_operator_id",
+    "evaluator_operator_id",
+    "protocol_version",
+    "checks",
+    "outcome",
+    "evaluated_at",
+    "verified_by_tool_version",
+    "trust_root_version",
+    "boundary"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "evaluated_operator_id": {
+      "type": "string",
+      "description": "Operador cujo material publicado está a ser avaliado (ex.: 'operator-b'). Nunca uma marca comercial."
+    },
+    "evaluator_operator_id": {
+      "type": "string",
+      "description": "Operador independente que corre a avaliação (ex.: 'operator-a'). A avaliação é local: cada par decide por si. A BANZA não corre esta avaliação por ninguém e não é parte na decisão."
+    },
+    "protocol_version": {
+      "type": "string",
+      "description": "Versão das Versioned Specifications sob a qual a avaliação corre (ex.: '1.0.0')."
+    },
+    "checks": {
+      "type": "object",
+      "description": "As dez verificações conjuntivas de ADR-040. Todas têm de passar; qualquer uma em falta, inválida, expirada, revogada ou incompatível faz a avaliação reprovar (fail-closed). Nenhuma delas é aprovação humana.",
+      "required": [
+        "valid_operator_manifest",
+        "compatible_protocol_version",
+        "signed_protocol_metadata",
+        "conformance_evidence_valid",
+        "trust_root_or_delegated_signature_valid",
+        "not_revoked",
+        "capabilities_compatible",
+        "endpoint_contract_compatible",
+        "evidence_freshness_within_policy",
+        "fail_closed_on_missing_or_invalid"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "valid_operator_manifest": {
+          "$ref": "#/$defs/check",
+          "description": "O manifest publicado resolve e valida contra operator-manifest.production.schema.json. Prova que o operador declarou o que implementa — não que alguém o aceitou."
+        },
+        "compatible_protocol_version": {
+          "$ref": "#/$defs/check",
+          "description": "A protocol_version declarada é compatível com a do avaliador segundo as regras de compatibilidade publicadas."
+        },
+        "signed_protocol_metadata": {
+          "$ref": "#/$defs/check",
+          "description": "Os metadados de protocolo verificam sob a trust root / chave delegada. Autenticam o material do PROTOCOLO — não autorizam o operador."
+        },
+        "conformance_evidence_valid": {
+          "$ref": "#/$defs/check",
+          "description": "conformance_report_hash e evidence_bundle_hash conferem e a evidência é reexecutável com verified_by_tool_version. Mede o que a implementação faz; não é aprovação."
+        },
+        "trust_root_or_delegated_signature_valid": {
+          "$ref": "#/$defs/check",
+          "description": "A cadeia de assinatura resolve até à trust root activa. A trust root assina o Manifesto de Chaves; as chaves delegadas assinam metadados, releases e revogações nos seus domínios — nem a raiz nem as delegadas autorizam operadores ou pagamentos."
+        },
+        "not_revoked": {
+          "$ref": "#/$defs/check",
+          "description": "Nem a chave, nem o artefacto, nem a implementação constam da revocation list. Revogação é sinal de segurança do protocolo — não sanção regulatória nem licença."
+        },
+        "capabilities_compatible": {
+          "$ref": "#/$defs/check",
+          "description": "As capabilities declaradas cobrem a interacção pretendida."
+        },
+        "endpoint_contract_compatible": {
+          "$ref": "#/$defs/check",
+          "description": "Os endpoints publicados satisfazem o contrato para as capabilities em causa."
+        },
+        "evidence_freshness_within_policy": {
+          "$ref": "#/$defs/check",
+          "description": "A idade da evidência está dentro da janela de validade publicada. É isto que a expiração de certificados protegia — agora sem emissor."
+        },
+        "fail_closed_on_missing_or_invalid": {
+          "$ref": "#/$defs/check",
+          "description": "A avaliação reprova por omissão quando material de trust está ausente, inválido, expirado, revogado ou incompatível. Nunca há passagem por defeito."
+        }
+      }
+    },
+    "outcome": {
+      "type": "string",
+      "enum": [
+        "ROUTING_ALLOWED",
+        "FAIL_CLOSED"
+      ],
+      "description": "ROUTING_ALLOWED apenas quando as dez verificações passam. FAIL_CLOSED em qualquer outro caso. É uma decisão local sobre esta interacção — não um estatuto do operador avaliado, não uma admissão, não uma recusa de participação no protocolo."
+    },
+    "failed_checks": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "capabilities_compatible",
+          "compatible_protocol_version",
+          "conformance_evidence_valid",
+          "delegated_signing_keys",
+          "endpoint_contract_compatible",
+          "evidence_freshness_within_policy",
+          "fail_closed_on_missing_or_invalid",
+          "not_revoked",
+          "operator_self_publication",
+          "signed_protocol_metadata",
+          "trust_root",
+          "trust_root_or_delegated_signature_valid",
+          "valid_operator_manifest"
+        ]
+      },
+      "description": "The checks that did not pass, when outcome = FAIL_CLOSED. Values are check identifiers published in contracts/federation/federation-trust.json — not free text and not reason codes. Ordering is not significant; duplicates are forbidden. MUST be empty when outcome = ROUTING_ALLOWED and non-empty when outcome = FAIL_CLOSED. See spec/reason-codes.md §4.",
+      "uniqueItems": true
+    },
+    "evaluated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Instante da avaliação (UTC, ISO-8601). A avaliação é pontual: o mesmo par pode reprovar mais tarde se a evidência ficar velha ou for revogada."
+    },
+    "verified_by_tool_version": {
+      "type": "string",
+      "description": "Versão da ferramenta de conformance automation usada, fixada para reprodutibilidade."
+    },
+    "trust_root_version": {
+      "type": "string",
+      "description": "Versão da trust root sob a qual as assinaturas foram verificadas."
+    },
+    "boundary": {
+      "type": "object",
+      "description": "Fronteira permanente. Nenhum campo desta avaliação pode ser lido como autorização, certificação ou licença.",
+      "required": [
+        "open_financial_protocol",
+        "central_operator_authority",
+        "human_operator_approval_required",
+        "operator_participation_permissionless",
+        "conformance_is_machine_verifiable",
+        "certificate_based_trust",
+        "not_operator_certificate",
+        "not_payment_service_authorisation",
+        "not_licence",
+        "not_regulatory_approval"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "open_financial_protocol": {
+          "const": true,
+          "description": "BANZA é um protocolo financeiro aberto."
+        },
+        "central_operator_authority": {
+          "const": false,
+          "description": "Não existe autoridade humana central sobre operadores."
+        },
+        "human_operator_approval_required": {
+          "const": false,
+          "description": "Nenhuma verificação é aprovação humana."
+        },
+        "operator_participation_permissionless": {
+          "const": true,
+          "description": "Implementar o protocolo não requer permissão da BANZA."
+        },
+        "conformance_is_machine_verifiable": {
+          "const": true,
+          "description": "A conformidade é medida, reproduzível por terceiros."
+        },
+        "certificate_based_trust": {
+          "const": false,
+          "description": "O trust não assenta num certificado emitido pela BANZA. Assenta em signed protocol metadata, conformance evidence e revocation/fail-closed."
+        },
+        "not_operator_certificate": {
+          "const": true,
+          "description": "Este resultado não é um certificado de operador."
+        },
+        "not_payment_service_authorisation": {
+          "const": true,
+          "description": "Não autoriza prestação de serviços de pagamento."
+        },
+        "not_licence": {
+          "const": true,
+          "description": "Não é licença."
+        },
+        "not_regulatory_approval": {
+          "const": true,
+          "description": "Não é aprovação regulatória. Essa pertence ao regulador competente."
+        }
+      }
+    }
+  },
+  "$defs": {
+    "check": {
+      "type": "object",
+      "required": [
+        "passed"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "passed": {
+          "type": "boolean",
+          "description": "Resultado determinístico da verificação. As mesmas entradas produzem sempre o mesmo resultado — não há avaliador humano no caminho."
+        },
+        "detail": {
+          "type": "string",
+          "description": "Detalhe técnico legível quando a verificação reprova (ex.: 'evidence 14d old, policy 7d')."
+        }
+      }
+    }
+  },
+  "_reason_codes": "banza-reason-codes/1 — spec/reason-codes.md; contracts/production/reason-code-registry.production.json"
+}

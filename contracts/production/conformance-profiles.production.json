@@ -1,0 +1,322 @@
+{
+  "_spec": "BANZA Conformance Profiles L0–L4 — Normative Registry",
+  "_status": "canonical",
+  "_authority": "This registry. It is the single normative definition of what each conformance profile requires. docs/governance/certification-boundary.md explains these profiles for a human reader and MUST agree with this file; where the two differ, this file governs and the prose is the defect.",
+  "_boundary": "A profile states what an implementation must satisfy to claim that level. It confers nothing: no certification, no admission, no authorisation, and no permission to operate. Levels denote conformance readiness only (ADR-021, ADR-060, ADR-061).",
+  "_derivation": "The capability, invariant and asset lists are the corrected per-level model of ADR-021. Every invariant id here exists in contracts/invariants.json; every vector and suite path here exists in conformance/. A guard enforces both, so this registry cannot drift from the material it references.",
+  "schema": "contracts/production/conformance-profiles.production.schema.json",
+  "protocol_version": "1.0.0",
+  "registry_version": "1.0.0",
+  "cumulative": true,
+  "_cumulative_note": "Each profile INCLUDES every requirement of the profiles it lists in `includes`. The `required_*` members of a profile are its INCREMENT — what that level adds. An implementation's full obligation at level N is the transitive closure over `includes`. Cumulative does not mean 'concatenate directories': the closure is computed over these declared members only.",
+  "profiles": [
+    {
+      "level": "L0",
+      "name": "Protocol Sandbox",
+      "purpose": "Prove the protocol can be instantiated in a controlled test environment and that the core monetary representation is correct.",
+      "includes": [],
+      "required_capabilities": [],
+      "required_invariants": [
+        "MON-001"
+      ],
+      "required_schemas": [
+        "conformance/capabilities/schema.json",
+        "conformance/manifests/schema.json",
+        "contracts/production/operator-manifest.production.schema.json"
+      ],
+      "required_contracts": [
+        "contracts/production/protocol-version.json"
+      ],
+      "required_specifications": [
+        "spec/canonicalization.md",
+        "spec/reason-codes.md"
+      ],
+      "required_registries": [
+        "contracts/invariants.json",
+        "contracts/production/reason-code-registry.production.json"
+      ],
+      "required_vectors": [
+        "conformance/vectors/canonicalization.json",
+        "conformance/vectors/operator-manifests.json",
+        "conformance/vectors/reason-codes.json"
+      ],
+      "required_endpoints": [],
+      "environment_declaration": "simulated",
+      "awarded_by_sandbox_runner": true,
+      "not_required": [
+        "Live payment rails of any kind",
+        "Wallets, transfers or a ledger — those are L1",
+        "Payment requests, QR or instant execution — those are L2",
+        "Federation, cross-operator routing or settlement — those are L3",
+        "External payment-network integration — that is L4",
+        "Trust material of your own: no signing key, no key manifest, no published metadata. L0 needs no identity and no signature",
+        "Any registration, submission, approval or credential from any party"
+      ],
+      "_note": "L0 is deliberately the smallest complete statement of the protocol: represent money as integers correctly, produce a valid manifest, canonicalize deterministically, and use published reason codes. It is exercised locally; nothing is issued to anyone."
+    },
+    {
+      "level": "L1",
+      "name": "Core Payment Capability",
+      "purpose": "Consumer payment, merchant acceptance, transfer and traceability capability.",
+      "includes": [
+        "L0"
+      ],
+      "required_capabilities": [
+        "consumer_payment",
+        "merchant_acceptance",
+        "transfer",
+        "traceability"
+      ],
+      "required_invariants": [
+        "INV-LEDGER-001",
+        "INV-LEDGER-002",
+        "INV-LEDGER-003",
+        "INV-LEDGER-004",
+        "INV-WALLET-001",
+        "INV-STL-001",
+        "INV-STL-002",
+        "INV-IDENT-001",
+        "INV-TRACE-001",
+        "INV-IDEM-001"
+      ],
+      "required_schemas": [
+        "contracts/events/envelope.schema.json",
+        "contracts/events/types.json",
+        "contracts/events/webhook-types.json",
+        "contracts/proofs/transaction-proof.schema.json",
+        "contracts/proofs/verification-response.schema.json",
+        "contracts/wallet-accounts/wallet-account.schema.json",
+        "contracts/webhooks/envelope.schema.json",
+        "contracts/webhooks/signature.json"
+      ],
+      "required_contracts": [],
+      "required_specifications": [
+        "spec/idempotency.md"
+      ],
+      "required_registries": [],
+      "required_vectors": [
+        "conformance/vectors/event-envelopes.json",
+        "conformance/vectors/idempotency.json",
+        "conformance/vectors/ledger-postings.json",
+        "conformance/vectors/transfers.json",
+        "conformance/vectors/wallet-balances.json"
+      ],
+      "required_endpoints": [],
+      "awarded_by_sandbox_runner": true,
+      "not_required": [
+        "Payment requests, dynamic QR or instant execution — those are L2",
+        "Any federation capability — that is L3"
+      ],
+      "_note": "Traceability is L1, not L2. The superseded mapping that placed it at L2 was corrected by ADR-021.",
+      "required_apis": [
+        "contracts/openapi/activity.yaml",
+        "contracts/openapi/transfers.yaml",
+        "contracts/openapi/wallet-onboarding.yaml"
+      ]
+    },
+    {
+      "level": "L2",
+      "name": "Payment Initiation Capability",
+      "purpose": "Payment request, payment initiation and instant execution capability.",
+      "includes": [
+        "L0",
+        "L1"
+      ],
+      "required_capabilities": [
+        "payment_request",
+        "payment_initiation",
+        "instant_execution"
+      ],
+      "required_invariants": [
+        "INV-QR-001",
+        "INV-QR-002"
+      ],
+      "required_schemas": [
+        "contracts/collections/collection-share.schema.json",
+        "contracts/collections/collection.schema.json",
+        "contracts/collections/state-machine.json",
+        "contracts/fees/fee-policy-ref.schema.json",
+        "contracts/fees/operator-fee.schema.json",
+        "contracts/payment-intents/payment-intent.schema.json",
+        "contracts/payment-sessions/payment-session.schema.json",
+        "contracts/qr/lifecycle.json",
+        "contracts/qr/payload-format.json",
+        "contracts/settlements/application-settlement.schema.json",
+        "contracts/settlements/state-machine.json"
+      ],
+      "required_contracts": [],
+      "required_specifications": [
+        "spec/collections.md"
+      ],
+      "required_registries": [],
+      "required_vectors": [
+        "conformance/vectors/collections.json",
+        "conformance/vectors/payment-requests.json",
+        "conformance/vectors/qr-payloads.json",
+        "conformance/vectors/settlement-batches.json"
+      ],
+      "required_endpoints": [],
+      "awarded_by_sandbox_runner": true,
+      "not_required": [
+        "Cross-operator routing, reconciliation or inter-operator settlement — those are L3",
+        "Published signed protocol metadata — first required at L3"
+      ],
+      "_note": "Payment initiation — payment requests, dynamic QR, instant execution — is L2, not L1.",
+      "required_apis": [
+        "contracts/openapi/collections.yaml"
+      ]
+    },
+    {
+      "level": "L3",
+      "name": "Inter-Operator Interoperability",
+      "purpose": "Cross-operator routing, inter-operator settlement and automated reconciliation. This is the federation eligibility threshold.",
+      "includes": [
+        "L0",
+        "L1",
+        "L2"
+      ],
+      "required_capabilities": [
+        "cross_operator_routing",
+        "reconciliation",
+        "inter_operator_settlement"
+      ],
+      "required_invariants": [
+        "INV-OTE-001",
+        "INV-OTE-002",
+        "INV-OTE-003",
+        "INV-OTE-004",
+        "INV-OTE-005",
+        "INV-OTE-006",
+        "INV-OTE-007",
+        "INV-OTE-008",
+        "INV-OTE-009",
+        "INV-OTE-010",
+        "INV-FEDEVAL-001",
+        "INV-FEDEVAL-002",
+        "INV-FEDEVAL-003",
+        "INV-FEDEVAL-004",
+        "INV-FEDEVAL-005",
+        "INV-FEDEVAL-006",
+        "INV-FEDEVAL-007",
+        "INV-FEDEVAL-008",
+        "INV-FEDEVAL-009"
+      ],
+      "required_schemas": [
+        "contracts/federation/federation-event.json",
+        "contracts/federation/federation-manifest.json",
+        "contracts/federation/federation-obligation.json",
+        "contracts/federation/federation-routing.json",
+        "contracts/federation/federation-trust.json",
+        "contracts/federation/key-manifest.json",
+        "contracts/federation/revocation-list.json",
+        "contracts/production/brl.production.schema.json",
+        "contracts/production/capabilities-document.production.schema.json",
+        "contracts/production/discovery-document.production.schema.json",
+        "contracts/production/evidence-bundle.production.schema.json",
+        "contracts/production/federation-trust-evaluation.production.schema.json",
+        "contracts/production/key-manifest.production.schema.json",
+        "contracts/production/public-protocol-registry.production.schema.json",
+        "contracts/production/revocation-entry.production.schema.json",
+        "contracts/production/root-metadata.production.schema.json",
+        "contracts/production/root-revocation.production.schema.json",
+        "contracts/production/signed-protocol-metadata.production.schema.json",
+        "contracts/production/trust-root-metadata.production.schema.json"
+      ],
+      "required_contracts": [],
+      "required_specifications": [
+        "spec/federation/FEDERATION_CONTRACT_SURFACE.md",
+        "spec/federation/FEDERATION_PROTOCOL_FLOW.md",
+        "spec/federation/FEDERATION_PROTOCOL_SURFACES.md",
+        "spec/federation/FEDERATION_TRUST_MODEL.md",
+        "spec/trust-freshness.md"
+      ],
+      "required_registries": [
+        "spec/federation/FEDERATION_INVARIANTS.md"
+      ],
+      "required_vectors": [
+        "conformance/vectors/trust-freshness.json",
+        "conformance/vectors/trust-signing.json"
+      ],
+      "required_suites": [
+        "conformance/federation/suite.json"
+      ],
+      "required_endpoints": [
+        "POST /federation/route",
+        "GET /federation/obligations"
+      ],
+      "required_publication": [
+        "Operator manifest declaring supports_federation and cross_operator_routing, served at the implementation's own well-known location",
+        "Signed protocol metadata",
+        "L3 conformance evidence bundle consistent with the manifest"
+      ],
+      "awarded_by_sandbox_runner": false,
+      "_not_awarded_reason": "L3 requires evidence produced by two independent implementations. A single-implementation run cannot produce it, so no sandbox runner awards this level.",
+      "not_required": [
+        "External payment-network integration — that is L4",
+        "Any certificate issued by any party: trust is evaluated from published material, there is no BANZA CA and no operator certificate"
+      ]
+    },
+    {
+      "level": "L4",
+      "name": "External Interoperability",
+      "purpose": "Integration with external payment networks and acquiring infrastructure.",
+      "includes": [
+        "L0",
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "required_capabilities": [
+        "external_acquiring"
+      ],
+      "required_invariants": [],
+      "required_schemas": [],
+      "required_contracts": [],
+      "required_specifications": [],
+      "required_registries": [],
+      "required_vectors": [],
+      "required_endpoints": [],
+      "awarded_by_sandbox_runner": false,
+      "_not_awarded_reason": "External-rail acquiring cannot be proven against a simulated environment. L4 is profile-defined and requires external integration evidence.",
+      "not_required": [],
+      "_note": "No production external-rail integration is claimed in this repository. This profile states what L4 would require; nothing here demonstrates it."
+    }
+  ],
+  "non_profile_artifacts": {
+    "_why": "An artifact on the normative surface that no profile requires is not automatically surplus. Two classes below are required by nobody implementing a level, for reasons that are properties of the artifact rather than gaps in this registry. Declaring them here is what makes the remaining orphans meaningful: anything outside these lists that no profile requires is a defect to be resolved, not noise to be tolerated.",
+    "evidence_and_record_structures": {
+      "reason": "These define the SHAPE OF AN OUTPUT — a report, a record, a release — produced about an implementation once it has been evaluated. An implementer does not implement them to reach a level; a party reading the evidence parses them. Placing them in a profile would tell an implementer to build the report about itself.",
+      "artifacts": [
+        "contracts/production/certification-profile.production.schema.json",
+        "contracts/production/certification-record.production.schema.json",
+        "contracts/production/certified-implementation.production.schema.json",
+        "contracts/production/conformance-report.production.schema.json",
+        "contracts/production/implementation-record.production.schema.json",
+        "contracts/production/interoperability-report.production.schema.json",
+        "contracts/production/journey-receipt.production.schema.json",
+        "contracts/production/operator-record.production.schema.json",
+        "contracts/production/protocol-governance-event.production.schema.json",
+        "contracts/production/protocol-release.production.schema.json",
+        "contracts/production/regulatory-state.production.schema.json",
+        "contracts/production/validation-journey-state-machine.production.json",
+        "spec/validation-journey.md"
+      ]
+    },
+    "trust_root_operation": {
+      "reason": "These constrain how the BANZA Trust Root itself is operated — custody, ceremony, backup, recovery, revocation of the root. They bind the party holding the root, not any implementation of the protocol. No conformance level requires an implementer to perform a root ceremony, and a profile that demanded it would be asking implementers to become the trust root.",
+      "artifacts": [
+        "contracts/production/root-backup-declaration.production.schema.json",
+        "contracts/production/root-ceremony-evidence.production.schema.json",
+        "contracts/production/root-custody-declaration.production.schema.json",
+        "contracts/production/root-recovery-test.production.schema.json"
+      ]
+    },
+    "profile_registry_itself": {
+      "reason": "The profile registry and its schema define the profiles; a profile cannot require the document that defines it without circularity. They are on the normative surface and are read by anyone determining a level, but they are not implemented at a level.",
+      "artifacts": [
+        "contracts/production/conformance-profiles.production.json",
+        "contracts/production/conformance-profiles.production.schema.json"
+      ]
+    }
+  }
+}

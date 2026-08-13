@@ -15,7 +15,7 @@
     "informative": "Published and stable, but imposes no conformance obligation. Listed so that the question 'is this normative?' has a published answer."
   },
   "tier_counts": {
-    "implementation": 86,
+    "implementation": 88,
     "conformance": 54,
     "legal": 3,
     "informative": 2
@@ -40,14 +40,14 @@
     "evidence/**, artifacts/** - evidence about the reference implementation",
     "tools/** - build, guard and derivation tooling"
   ],
-  "artifact_count": 145,
+  "artifact_count": 147,
   "artifacts": [
     {
       "path": "conformance/capabilities/schema.json",
       "class": "NORMATIVE_SCHEMA",
       "tier": "implementation",
       "role": "Schema of the published capabilities document.",
-      "sha256": "b711750dcfd5a4ac2dcc6b283647c9f85c5d9e2f8b8e7ea0a980d257984e2bc6"
+      "sha256": "d261ce2079207e3183f3157b1649fbcd4dd4864802ca3b2b3acc16de97b63544"
     },
     {
       "path": "conformance/manifests/schema.json",
@@ -204,7 +204,7 @@
       "class": "NORMATIVE_REGISTRY",
       "tier": "implementation",
       "role": "The machine-readable registry of protocol invariants. spec/invariants.md is its human-readable restatement and is deliberately not listed: it declares this file the single source of truth.",
-      "sha256": "5e1d5f32cb0af7277d0d89aa2772d1480f4bde2407dfc6bbc8c0e1cf1c558cbc"
+      "sha256": "bde0dbe15b5fe5e7f1ed74088213c0696179c9c6d25abdbd8af9aaa4d0fdb280"
     },
     {
       "path": "contracts/openapi/activity.yaml",
@@ -307,6 +307,22 @@
       "self_declared_status": "production-baseline"
     },
     {
+      "path": "contracts/production/conformance-profiles.production.json",
+      "class": "NORMATIVE_CONTRACT",
+      "tier": "implementation",
+      "role": "Production contract baseline.",
+      "sha256": "11d5c4c6400b7f73b76ee4f534fb9a66ee840d721f2010f4edf293d17974ae88",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "contracts/production/conformance-profiles.production.schema.json",
+      "class": "NORMATIVE_CONTRACT",
+      "tier": "implementation",
+      "role": "Production contract baseline.",
+      "sha256": "6360f0090b149af58227e765597de7007cbf05ea96961ff87447fe2526aff5f7",
+      "self_declared_status": "production-baseline"
+    },
+    {
       "path": "contracts/production/conformance-report.production.schema.json",
       "class": "NORMATIVE_PROFILE",
       "tier": "implementation",
@@ -335,7 +351,7 @@
       "class": "NORMATIVE_CONTRACT",
       "tier": "implementation",
       "role": "Production contract baseline.",
-      "sha256": "6d99c62d07138f6a111f1c0e362d793f9c772ca0f91e1e009a7830718f42cc95",
+      "sha256": "443ced458085a951c6b939cf1b4044d752faafa85a4fa669ac16f7dded1aeeab",
       "self_declared_status": "production-baseline"
     },
     {
@@ -431,7 +447,7 @@
       "class": "NORMATIVE_REGISTRY",
       "tier": "implementation",
       "role": "Declares the protocol version, compatibility policy, profile list and the canonicalization in force. The entry point of the normative surface.",
-      "sha256": "b03ef804d276092b997152510501351d108bc93cd4dfc00c1b8141a5219532fa"
+      "sha256": "4b4f612b4a0b2717a5291fe85591b57d5a07274c83ae9be32e15483d3cf116db"
     },
     {
       "path": "contracts/production/public-protocol-registry.production.schema.json",
@@ -470,7 +486,7 @@
       "class": "NORMATIVE_TRUST_RULE",
       "tier": "implementation",
       "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
-      "sha256": "cc50bc7f15a3ad08cf9d5bac56b89bc9b2cb45df2daf4a05c5e381d86ece8f34",
+      "sha256": "b7256c48ae5ad8ce31b0808e899a40ab51469b16bb431a1d0aa5eac29af8ca8d",
       "self_declared_status": "production-baseline"
     },
     {
@@ -478,7 +494,7 @@
       "class": "NORMATIVE_TRUST_RULE",
       "tier": "implementation",
       "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
-      "sha256": "93e3e6df399d2c54ca0c33fb678fb411d99ba4c344fd3e1a75749779b09b0d7b",
+      "sha256": "d2546d8a9f6f979abb5fed904dbef21f9a1489041198d0fd24074b5dff092ee3",
       "self_declared_status": "production-baseline"
     },
     {
@@ -486,7 +502,7 @@
       "class": "NORMATIVE_TRUST_RULE",
       "tier": "implementation",
       "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
-      "sha256": "63a762d3eaf7c1c8a3d7244976c42e4b5c471794afc3bc18b3c95fec04974aa6",
+      "sha256": "58332844beb2dd505e57b2a0d7d368a9dd0eeec65296e44b611c65b166ecca44",
       "self_declared_status": "production-baseline"
     },
     {
@@ -494,7 +510,7 @@
       "class": "NORMATIVE_TRUST_RULE",
       "tier": "implementation",
       "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
-      "sha256": "5b12520a3cebde8e41225268fef45a0bfa9f6e9ae97f69e9d1cd11f932a92958",
+      "sha256": "04e86e0f8780654ffc20937d8cb1f04871acb9865cb6c53585da600fc2df62de",
       "self_declared_status": "production-baseline"
     },
     {
@@ -502,7 +518,7 @@
       "class": "NORMATIVE_TRUST_RULE",
       "tier": "implementation",
       "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
-      "sha256": "80d80eabcdb873fd1ef44dfd51b19f56be6e1dce3c945709c3085f866cbe84b0",
+      "sha256": "2e82fc2405730f6dfa629d95f3c1042d3413bb86f8feea54d142619b01264468",
       "self_declared_status": "production-baseline"
     },
     {
@@ -510,7 +526,7 @@
       "class": "NORMATIVE_TRUST_RULE",
       "tier": "implementation",
       "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
-      "sha256": "887747a867b4b36ca4fcb8bfa13b6c6aa77fd3941582c3476bec4845d3eb79aa",
+      "sha256": "6081ff69f1b175626bda7814b76c00d395bb60167516297a1a9863958406c769",
       "self_declared_status": "production-baseline"
     },
     {
@@ -518,7 +534,7 @@
       "class": "NORMATIVE_TRUST_RULE",
       "tier": "implementation",
       "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
-      "sha256": "f0023117f1be01c86732854a16c85c3566dae5678781cd06e66cb4be8ab5cb57",
+      "sha256": "95b064b0a28afb23f6b84951eb5c75c0834f181511144d17d76e2ae5808966dc",
       "self_declared_status": "production-baseline"
     },
     {
@@ -526,7 +542,7 @@
       "class": "NORMATIVE_TRUST_RULE",
       "tier": "implementation",
       "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
-      "sha256": "066eb7d88b3b1303ed5e2b66c4432331cb8c776962ba5f85a76898b01bd9387e",
+      "sha256": "ed7db8860a29dffbb50091aa4d849d6906812d98e6a27d3065e82b7c4f28f82c",
       "self_declared_status": "production-baseline"
     },
     {
@@ -534,7 +550,7 @@
       "class": "NORMATIVE_TRUST_RULE",
       "tier": "implementation",
       "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
-      "sha256": "6d2f139219e43714d9f3914bafe85f2ca564089b2391e17bcefc9bfe69929cba",
+      "sha256": "0fa8c18345f9c6b96ae424a05a260fd9b6567da29533e3dcae02340adb810ce0",
       "self_declared_status": "production-baseline"
     },
     {
@@ -952,7 +968,7 @@
       "class": "CONFORMANCE_SUITE",
       "tier": "conformance",
       "role": "Conformance case matrices with expected outcomes.",
-      "sha256": "4904a8131ffadf83222b2e277d0636c4ffd1e2261854076dc34d5712da0a3005"
+      "sha256": "dc6f7f17dc4ab4d1465b303f9806a1ef08473735e3c9787c6e2569af5aeb993f"
     },
     {
       "path": "conformance/qr/suite.json",
@@ -966,7 +982,7 @@
       "class": "CONFORMANCE_SUPPORT",
       "tier": "conformance",
       "role": "Conformance report format.",
-      "sha256": "71c3aeb923cf0d6a4968db3caabc54074e3b77be0ee89acceb06f108d95d10be"
+      "sha256": "2f5e554b1fe95e1a21331cad2c158ed883da4d0ec8fd933294012475a6cf00f3"
     },
     {
       "path": "conformance/sdk/suite.json",

@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/conformance-profiles.production.schema.json",
+  "title": "BanzaConformanceProfileRegistry",
+  "description": "Structure of the normative conformance-profile registry (contracts/production/conformance-profiles.production.json), which defines what each profile L0–L4 requires. A profile confers nothing: no certification, no admission, no authorisation. Levels denote conformance readiness only.",
+  "_spec_version": "1.0",
+  "_status": "production-baseline",
+  "_authority": "This schema constrains the registry's shape. The registry itself is the authority on profile content. No implementation code defines either.",
+  "type": "object",
+  "required": [
+    "protocol_version",
+    "registry_version",
+    "cumulative",
+    "profiles"
+  ],
+  "properties": {
+    "protocol_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "registry_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "cumulative": {
+      "type": "boolean",
+      "description": "True when each profile includes the requirements of the profiles it lists in `includes`. The obligation at a level is the transitive closure over `includes`, never a directory concatenation."
+    },
+    "schema": {
+      "type": "string"
+    },
+    "profiles": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/profile"
+      }
+    }
+  },
+  "$defs": {
+    "pathList": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "profile": {
+      "type": "object",
+      "required": [
+        "level",
+        "name",
+        "purpose",
+        "includes",
+        "required_capabilities",
+        "required_invariants",
+        "awarded_by_sandbox_runner",
+        "not_required"
+      ],
+      "properties": {
+        "level": {
+          "type": "string",
+          "enum": [
+            "L0",
+            "L1",
+            "L2",
+            "L3",
+            "L4"
+          ]
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1
+        },
+        "includes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "L0",
+              "L1",
+              "L2",
+              "L3",
+              "L4"
+            ]
+          },
+          "uniqueItems": true,
+          "description": "Profiles whose requirements this profile also carries. The remaining required_* members are this level's INCREMENT."
+        },
+        "required_capabilities": {
+          "$ref": "#/$defs/pathList"
+        },
+        "required_invariants": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(INV|MON)-[A-Z]+(-[A-Z]+)*-[0-9]{3}$"
+          },
+          "uniqueItems": true,
+          "description": "Invariant identifiers. Every one MUST exist in contracts/invariants.json."
+        },
+        "required_schemas": {
+          "$ref": "#/$defs/pathList"
+        },
+        "required_contracts": {
+          "$ref": "#/$defs/pathList"
+        },
+        "required_apis": {
+          "$ref": "#/$defs/pathList"
+        },
+        "required_specifications": {
+          "$ref": "#/$defs/pathList"
+        },
+        "required_registries": {
+          "$ref": "#/$defs/pathList"
+        },
+        "required_vectors": {
+          "$ref": "#/$defs/pathList"
+        },
+        "required_suites": {
+          "$ref": "#/$defs/pathList"
+        },
+        "required_endpoints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "required_publication": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "environment_declaration": {
+          "type": "string"
+        },
+        "awarded_by_sandbox_runner": {
+          "type": "boolean",
+          "description": "Whether a single-implementation conformance run can award this level. False where the level needs evidence a single implementation cannot produce."
+        },
+        "not_required": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "What this level explicitly does NOT require. Stating this is not decoration: an implementer who cannot tell where a level stops will implement more than the level asks, and a level that only lists obligations cannot be scoped."
+        }
+      }
+    }
+  }
+}

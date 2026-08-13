@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/federation/revocation-list.json",
+  "title": "BanzaRevocationList",
+  "description": "The BANZA Revocation List (BRL) — the live revocation mechanism for the federation. Lists the published operator trust material currently suspended or revoked, keyed by the publishing operator_id — revocation targets the operator's published cryptographic/trust material, never the entity itself (ADR-038 D-038-06; certification suspension lives in the Layer-2 state machine, ADR-066). Signed by the BANZA revocation-domain delegated key (NOT the root key and NOT the protocol-metadata or conformance-evidence keys — ADR-038 domain separation). Operators MUST fetch a fresh BRL at least every 6 hours and MUST NOT route to any operator appearing in a valid, non-expired BRL (INV-FEDEVAL-002). Published at the canonical location https://banza.network/federation/revocation-list.json.",
+  "_spec_version": "1",
+  "_status": "canonical",
+  "_authority": "ADR-038",
+  "_source_of_truth": "spec/canonicalization.md (signing/digest bytes); contracts/production/brl.production.schema.json (structure). Normative; not derived from any implementation.",
+  "_updated": "2026-06-19",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "issuer",
+    "issuer_key_id",
+    "issued_at",
+    "expires_at",
+    "revoked",
+    "signature"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1",
+      "description": "BRL schema version. Must be '1' for this format."
+    },
+    "issuer": {
+      "type": "string",
+      "const": "BANZA",
+      "description": "Always the literal string 'BANZA'. Any other value makes this BRL invalid."
+    },
+    "issuer_key_id": {
+      "type": "string",
+      "pattern": "^(test-)?banza-brl-[0-9]{6}$",
+      "description": "Identifier of the BANZA revocation-domain delegated key that signed this BRL. Format 'banza-brl-YYYYMM'. The verifier resolves this key_id in the current Key Manifest (domain == 'revocation', status == 'active') to obtain the public key. A BRL signed by any non-revocation-domain key (e.g. a protocol-metadata key or the root key) MUST be rejected."
+    },
+    "issued_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC timestamp (ISO 8601) when this BRL was signed."
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC timestamp by which a fresh BRL MUST be fetched. ADR-038: routine cadence is at most 6 hours after issued_at; an emergency BRL may set 1 hour. A BRL past expires_at is stale and MUST trigger a refresh before any routing decision."
+    },
+    "revoked": {
+      "type": "array",
+      "description": "Entries of withdrawn operator trust material, keyed by the publishing operator_id. An empty array means no material is currently withdrawn. Routing to an implementation whose published material appears here MUST be rejected regardless of any other trust signal (INV-FEDEVAL-002). Revocation is a protocol security signal over published material — not a sanction, licence, authorisation or judgment about the entity.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "operator_id",
+          "reason",
+          "permanent",
+          "since"
+        ],
+        "properties": {
+          "operator_id": {
+            "type": "string",
+            "minLength": 4,
+            "maxLength": 64,
+            "pattern": "^[a-z0-9][a-z0-9\\-]{2,62}[a-z0-9]$",
+            "description": "The stable BANZA operator_id whose published trust material is suspended or revoked. Same identifier form as the Operator Manifest operator_id; identifies the material's publisher, never sanctions the entity."
+          },
+          "reason": {
+            "type": "string",
+            "enum": [
+              "suspended",
+              "revoked"
+            ],
+            "description": "'suspended' — the material is temporarily withdrawn; lifted by removing the entry from the BRL. 'revoked' — the material is withdrawn indefinitely; interoperation resumes only by publishing fresh signed protocol metadata and conformance evidence that pass the Open Trust Evaluation (ADR-040). No party re-admits anyone."
+          },
+          "permanent": {
+            "type": "boolean",
+            "description": "true when reason == 'revoked' and the material withdrawal is permanent; false for a suspension."
+          },
+          "since": {
+            "type": "string",
+            "format": "date-time",
+            "description": "UTC timestamp from which this suspension/revocation took effect."
+          }
+        }
+      }
+    },
+    "signature": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{86}$",
+      "description": "ed25519 signature by the BANZA revocation-domain issuing key over the canonical JSON of all other fields (keys sorted lexicographically, no whitespace, UTF-8, signature field excluded). Base64url-encoded, 86 chars for 64 bytes."
+    }
+  }
+}

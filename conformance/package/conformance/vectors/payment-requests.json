@@ -1,0 +1,182 @@
+{
+  "_spec": "BANZA Payment Request Conformance Vectors v1.0",
+  "_stability": "stable",
+
+  "vectors": [
+    {
+      "id": "PR-001",
+      "title": "Payment request — creation success",
+      "certification_level": 2,
+      "stability": "stable",
+      "input": {
+        "method": "POST",
+        "path": "/payment-requests",
+        "body": {
+          "to_wallet_id": "sandbox-merchant-1",
+          "amount_minor": 25000,
+          "currency": "AOA",
+          "description": "Invoice #conformance-PR-001"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "response_fields_required": ["id", "to_wallet_id", "amount_minor", "currency", "status", "created_at"],
+        "response_field_values": {
+          "status": "pending",
+          "to_wallet_id": "sandbox-merchant-1",
+          "amount_minor": 25000,
+          "currency": "AOA",
+          "transfer_id": null
+        },
+        "response_field_patterns": {
+          "id": "^pr-"
+        }
+      }
+    },
+    {
+      "id": "PR-002",
+      "title": "Payment request — pay success",
+      "certification_level": 2,
+      "stability": "stable",
+      "setup": [
+        {
+          "method": "POST",
+          "path": "/payment-requests",
+          "body": {
+            "to_wallet_id": "sandbox-merchant-1",
+            "amount_minor": 15000,
+            "currency": "AOA",
+            "description": "conformance PR-002"
+          },
+          "capture": "pr_id",
+          "capture_field": "id"
+        }
+      ],
+      "input": {
+        "method": "POST",
+        "path": "/payment-requests/{pr_id}/pay",
+        "body": {
+          "from_wallet_id": "sandbox-consumer-1"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "response_field_values": {
+          "status": "paid"
+        },
+        "response_fields_required": ["transfer_id", "paid_at"],
+        "ledger_effect": {
+          "debit_wallet": "sandbox-consumer-1",
+          "credit_wallet": "sandbox-merchant-1",
+          "amount_minor": 15000
+        }
+      },
+      "invariants": ["zero_sum_ledger", "single_use_pr"]
+    },
+    {
+      "id": "PR-003",
+      "title": "Payment request — double payment rejected",
+      "certification_level": 2,
+      "stability": "stable",
+      "setup": [
+        {
+          "method": "POST",
+          "path": "/payment-requests",
+          "body": { "to_wallet_id": "sandbox-merchant-1", "amount_minor": 1000, "currency": "AOA" },
+          "capture": "pr_id",
+          "capture_field": "id"
+        },
+        {
+          "method": "POST",
+          "path": "/payment-requests/{pr_id}/pay",
+          "body": { "from_wallet_id": "sandbox-consumer-1" }
+        }
+      ],
+      "input": {
+        "method": "POST",
+        "path": "/payment-requests/{pr_id}/pay",
+        "body": { "from_wallet_id": "sandbox-consumer-1" }
+      },
+      "expected": {
+        "status": 422,
+        "response_fields_required": ["error"]
+      },
+      "invariants": ["single_use_pr"]
+    },
+    {
+      "id": "PR-004",
+      "title": "Payment request — has trace_id",
+      "certification_level": 2,
+      "stability": "stable",
+      "input": {
+        "method": "POST",
+        "path": "/payment-requests",
+        "body": {
+          "to_wallet_id": "sandbox-merchant-1",
+          "amount_minor": 8000,
+          "currency": "AOA"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "response_fields_required": ["trace_id"],
+        "response_field_patterns": {
+          "trace_id": "^tr-"
+        }
+      },
+      "invariants": ["trace_id_propagation"]
+    },
+    {
+      "id": "PR-005",
+      "title": "Payment request — paid transfer shares trace_id, has causation_id",
+      "certification_level": 2,
+      "stability": "stable",
+      "setup": [
+        {
+          "method": "POST",
+          "path": "/payment-requests",
+          "body": { "to_wallet_id": "sandbox-merchant-1", "amount_minor": 9000, "currency": "AOA" },
+          "capture": "pr_id",
+          "capture_field": "id",
+          "capture_also": { "pr_trace_id": "trace_id" }
+        }
+      ],
+      "input": {
+        "method": "POST",
+        "path": "/payment-requests/{pr_id}/pay",
+        "body": { "from_wallet_id": "sandbox-consumer-1" }
+      },
+      "expected": {
+        "status": 200
+      },
+      "post_check": {
+        "fetch_trace_from": "pr_trace_id",
+        "trace_expected": {
+          "payment_requests_count": 1,
+          "transfers_count_min": 1,
+          "transfer_causation_id_equals": "pr_id"
+        }
+      },
+      "invariants": ["trace_id_propagation", "causation_id_set"]
+    },
+    {
+      "id": "PR-006",
+      "title": "Payment request — unknown wallet rejected",
+      "certification_level": 2,
+      "stability": "stable",
+      "input": {
+        "method": "POST",
+        "path": "/payment-requests",
+        "body": {
+          "to_wallet_id": "wallet-does-not-exist",
+          "amount_minor": 1000,
+          "currency": "AOA"
+        }
+      },
+      "expected": {
+        "status": 422,
+        "response_fields_required": ["error"]
+      }
+    }
+  ]
+}

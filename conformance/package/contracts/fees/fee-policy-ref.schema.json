@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/fees/fee-policy-ref.schema.json",
+  "title": "FeePolicyRef",
+  "description": "An opaque reference to a commercial fee policy that ONLY the operator resolves (ADR-019). The protocol transports the reference and never knows the rule behind it. It is a string handle (operator-defined namespace), never a percentage, table, or formula.",
+  "_spec_version": "1.0",
+  "_status": "canonical",
+  "_authority": "ADR-019",
+
+  "type": "object",
+  "required": ["ref"],
+  "additionalProperties": false,
+  "properties": {
+    "ref": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255,
+      "description": "Opaque operator-defined policy handle (e.g. 'pol_donation_standard'). The protocol does not interpret it."
+    }
+  }
+}

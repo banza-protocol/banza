@@ -1,0 +1,213 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12",
+  "$id": "https://banza.network/contracts/federation/federation-routing.json",
+  "title": "BanzaFederationRouting",
+  "description": "Wire format for cross-operator routing requests and responses. Defines how the originating operator initiates a payment on the destination operator.",
+  "_spec_version": "1",
+  "_status": "canonical",
+  "_authority": "ADR-040, RFC-0001, INV-FED-001, INV-FED-004",
+  "$defs": {
+    "Amount": {
+      "type": "object",
+      "required": [
+        "minor",
+        "currency"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "minor": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Amount in currency minor units. MUST be positive. INV-LEDGER-003: integer arithmetic only.",
+          "maximum": 9007199254740991
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$",
+          "description": "ISO 4217 three-letter currency code."
+        }
+      }
+    },
+    "RoutingRequest": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "routing_request_id",
+        "trace_id",
+        "from_operator_id",
+        "to_operator_id",
+        "amount",
+        "sender_wallet_id",
+        "recipient_identifier",
+        "recipient_identifier_type",
+        "created_at",
+        "protocol_metadata_url"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "type": "string",
+          "const": "1",
+          "description": "Always '1' for this routing contract version."
+        },
+        "routing_request_id": {
+          "type": "string",
+          "pattern": "^rr-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "description": "Globally unique idempotency key. Format: rr-<uuid>. MUST be stable across retries. INV-FED-004."
+        },
+        "trace_id": {
+          "type": "string",
+          "description": "Causal trace identifier. MUST propagate unchanged across all federation artifacts for a given payment. INV-FED-001."
+        },
+        "from_operator_id": {
+          "type": "string",
+          "description": "operator_id of the originating operator."
+        },
+        "to_operator_id": {
+          "type": "string",
+          "description": "operator_id of the destination operator. MUST match the receiving operator's operator_id."
+        },
+        "amount": {
+          "$ref": "#/$defs/Amount"
+        },
+        "sender_wallet_id": {
+          "type": "string",
+          "description": "Wallet ID of the payer on the originating operator."
+        },
+        "recipient_identifier": {
+          "type": "string",
+          "description": "Identifier for the payment recipient on the destination operator."
+        },
+        "recipient_identifier_type": {
+          "type": "string",
+          "enum": [
+            "wallet_id",
+            "handle",
+            "phone",
+            "account_number"
+          ],
+          "description": "Type of recipient identifier."
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "UTC timestamp when the originating operator created this routing request."
+        },
+        "protocol_metadata_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL where the destination operator can fetch the originating operator's published signed protocol metadata (and conformance evidence) to run the Open Trust Evaluation for bidirectional trust verification."
+        }
+      }
+    },
+    "RoutingResponse": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "routing_request_id",
+        "status",
+        "trace_id"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "type": "string",
+          "const": "1",
+          "description": "Always '1' for this routing contract version."
+        },
+        "routing_request_id": {
+          "type": "string",
+          "description": "Echo of the request routing_request_id. MUST be identical. INV-FED-004."
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "accepted",
+            "rejected",
+            "pending"
+          ],
+          "description": "Routing decision by the destination operator."
+        },
+        "trace_id": {
+          "type": "string",
+          "description": "Echo of the request trace_id. MUST be identical. INV-FED-001."
+        },
+        "interop_transfer_id": {
+          "type": "string",
+          "pattern": "^itx-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "description": "Destination operator's internal transfer identifier. Present only when status=accepted. Format: itx-<uuid>."
+        },
+        "accepted_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "UTC timestamp of acceptance. Present only when status=accepted."
+        },
+        "rejection_code": {
+          "type": "string",
+          "enum": [
+            "recipient_not_found",
+            "recipient_suspended",
+            "currency_not_supported",
+            "amount_below_minimum",
+            "amount_above_maximum",
+            "operator_trust_failure",
+            "capability_unavailable",
+            "duplicate_request"
+          ],
+          "description": "Structured rejection code. Present only when status=rejected."
+        },
+        "rejection_reason": {
+          "type": "string",
+          "description": "Human-readable rejection explanation (English). Present only when status=rejected."
+        },
+        "estimated_completion_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Estimated completion time for async routing. Present only when status=pending."
+        }
+      }
+    }
+  },
+  "_signature_requirements": {
+    "algorithm": "ed25519",
+    "signing_party": "originating_operator",
+    "http_header": "Banza-Federation-Signature: t=<unix_seconds>,v1=<ed25519_base64url>",
+    "signed_payload": "utf8(str(unix_seconds)) + '.' + raw_request_body_bytes",
+    "verification": [
+      "1. Fetch the originating operator's signed protocol metadata (and conformance evidence) from protocol_metadata_url",
+      "2. Run the Open Trust Evaluation over that material (ADR-040)",
+      "3. Extract the operator's public key from the verified signed protocol metadata",
+      "4. Reconstruct signed payload",
+      "5. Verify ed25519 signature against that public key"
+    ]
+  },
+  "_rejection_code_registry": {
+    "recipient_not_found": "No wallet matching recipient_identifier on destination operator",
+    "recipient_suspended": "Recipient wallet is suspended",
+    "currency_not_supported": "Destination operator does not accept amount.currency in cross-operator payments",
+    "amount_below_minimum": "Amount is below destination operator's cross-operator minimum",
+    "amount_above_maximum": "Amount exceeds destination operator's cross-operator limit",
+    "operator_trust_failure": "Destination operator's Open Trust Evaluation over the originating operator's published material failed (fail-closed)",
+    "capability_unavailable": "Destination operator is temporarily unable to accept cross-operator payments",
+    "duplicate_request": "routing_request_id already processed with different content (invariant violation by originating operator)"
+  },
+  "_validation_requirements": {
+    "destination_operator_must_reject_if": [
+      "Banza-Federation-Signature header is missing",
+      "Signature verification fails",
+      "to_operator_id != this operator's operator_id",
+      "from_operator_id Open Trust Evaluation fails (any of the ten checks fails — fail-closed)",
+      "amount.minor <= 0",
+      "Same routing_request_id received with different content (report duplicate_request)"
+    ]
+  },
+  "_served_at": "POST /federation/route — on the destination operator's interop_endpoint",
+  "_authentication": "Banza-Federation-Signature header required",
+  "_conformance_evidence": {
+    "FED-L3-007": "POST /federation/route returns valid RoutingResponse",
+    "FED-L3-009_010": "Bidirectional trust verification via protocol_metadata_url in request (Open Trust Evaluation)",
+    "FED-L3-011": "accepted routing request triggers payment completion on destination operator",
+    "FED-L3-012": "trace_id in response matches request (INV-FED-001)"
+  },
+  "_numeric_domain": "Integers in a signed or digested BANZA artifact are bounded by the canonicalization in force (BCJ/1: |n| <= 2^53-1, spec/canonicalization.md P2). The bound is declared here so the schema and the canonicalization cannot disagree about what is representable."
+}

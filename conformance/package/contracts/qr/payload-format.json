@@ -1,0 +1,242 @@
+{
+  "_spec": "BANZA QR Payload Format Specification v1.0",
+  "_status": "canonical",
+  "_authority": "ADR-012, ADR-002, INV-QR-001",
+  "_source_of_truth": "This contract. Normative; not derived from any implementation.",
+  "overview": {
+    "description": "The BANZA QR payload is the string encoded into a QR code image and scanned by a consumer device. It encodes enough information to initiate a payment without requiring the scanning device to be online, while keeping the payload compact for high-contrast QR rendering.",
+    "consumer_experience": "SCAN QR → CONFIRM → INSTANT SETTLEMENT"
+  },
+  "prefix_rule": {
+    "description": "Every BANZA QR payload MUST begin with an environment-specific prefix followed by ':' and the encoded payload body. A scanner MUST reject any string that does not begin with a recognized BANZA prefix.",
+    "prefixes": {
+      "production": {
+        "value": "BANZA:",
+        "condition": "simulated=false in the operator manifest",
+        "note": "Used for real payments against live wallets."
+      },
+      "sandbox": {
+        "value": "BANZA-SBX:",
+        "condition": "simulated=true in the operator manifest",
+        "note": "Used in development and conformance testing. A payment against a BANZA-SBX: payload MUST NOT move real funds."
+      }
+    },
+    "invariant": "INV-QR-ENV-001: An operator with simulated=true MUST NOT emit payloads with the BANZA: (production) prefix. This is a certification FAIL."
+  },
+  "encoding": {
+    "description": "The payload body (after the prefix and ':') is Base64url-encoded JSON (RFC 4648 §5, no padding). Base64url uses '-' and '_' instead of '+' and '/', and omits trailing '=' padding.",
+    "algorithm": "base64url_no_padding( json_compact(payload_object) )",
+    "json_rules": [
+      "Compact JSON — no whitespace",
+      "Keys are short single-character codes to minimize QR code density",
+      "UTF-8 encoded before Base64url"
+    ]
+  },
+  "payload_types": {
+    "static": {
+      "description": "Static QR code. Encodes the owner identity and currency. Reusable — never expires. The payer enters the amount at scan time.",
+      "type_code": "S",
+      "json_structure": {
+        "t": {
+          "type": "string",
+          "const": "S",
+          "description": "Type discriminator."
+        },
+        "oid": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Owner ID — the UUID of the consumer or merchant wallet that receives payment."
+        },
+        "ot": {
+          "type": "string",
+          "enum": [
+            "C",
+            "M"
+          ],
+          "description": "Owner type. 'C' = Consumer, 'M' = Merchant."
+        },
+        "c": {
+          "type": "string",
+          "description": "Currency code (ISO 4217, e.g. 'AOA')."
+        }
+      },
+      "required": [
+        "t",
+        "oid",
+        "ot",
+        "c"
+      ],
+      "example_json": {
+        "t": "S",
+        "oid": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+        "ot": "M",
+        "c": "AOA"
+      },
+      "example_encoded": "BANZA:eyJ0IjoiUyIsIm9pZCI6ImExYjJjM2Q0LWU1ZjYtNzg5MC1hYmNkLWVmMTIzNDU2Nzg5MCIsIm90IjoiTSIsImMiOiJBT0EifQ"
+    },
+    "dynamic": {
+      "description": "Dynamic QR code. Single-use. Amount is pre-set by the merchant. Expiry is mandatory. The payload is HMAC-signed to prevent forgery of the QR code ID or amount.",
+      "type_code": "D",
+      "json_structure": {
+        "t": {
+          "type": "string",
+          "const": "D",
+          "description": "Type discriminator."
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "QR code ID — the UUID of the QrCode record in the operator's database. Used to fetch amount, expiry, and status on scan."
+        },
+        "sig": {
+          "type": "string",
+          "description": "HMAC-SHA256 signature of the signing message (Base64url, no padding). See signing_algorithm below."
+        }
+      },
+      "required": [
+        "t",
+        "id",
+        "sig"
+      ],
+      "example_json": {
+        "t": "D",
+        "id": "f1e2d3c4-b5a6-7890-fedc-ba9876543210",
+        "sig": "Xk3mNpQwRv..."
+      },
+      "example_encoded": "BANZA:eyJ0IjoiRCIsImlkIjoiZjFlMmQzYzQtYjVhNi03ODkwLWZlZGMtYmE5ODc2NTQzMjEwIiwic2lnIjoiWGszbU5wUXdSdi4uLiJ9"
+    }
+  },
+  "signing_algorithm": {
+    "applies_to": "dynamic QR only",
+    "purpose": "Prevents forgery — an attacker cannot construct a valid dynamic QR for a different amount or recipient without the signing key.",
+    "algorithm": "HMAC-SHA256",
+    "key_source": "QR_SIGNING_KEY environment variable on the operator server. Never embedded in the QR payload or exposed to clients.",
+    "key_encoding": "raw bytes",
+    "output_encoding": "Base64url, no padding",
+    "signing_message": {
+      "formula": "<qr_code_id>|<owner_id>|<amount_minor>|<currency_code>|<expires_at_unix_seconds>",
+      "separator": "|",
+      "description": "Pipe-delimited concatenation of the QR record fields. All fields are taken from the QrCode database record, not from the encoded payload. amount_minor is a decimal integer string. expires_at is a decimal Unix seconds string.",
+      "example": "f1e2d3c4-b5a6-7890-fedc-ba9876543210|a1b2c3d4-e5f6-7890-abcd-ef1234567890|50000|AOA|1748822400"
+    },
+    "verification": {
+      "steps": [
+        "Decode the payload to extract 'id' and 'sig'",
+        "Fetch the QrCode record from the database using 'id'",
+        "Reconstruct the signing message from the fetched record",
+        "Compute expected_sig = base64url(HMAC-SHA256(key=signing_key, msg=signing_message))",
+        "Compare expected_sig to the 'sig' field using constant-time comparison",
+        "Check that the QrCode record status is ACTIVE",
+        "Check that expires_at > now",
+        "Proceed with payment only if all checks pass"
+      ],
+      "note": "Structural decode of the payload (extracting 'id') is safe without database access. Full verification REQUIRES fetching the database record — the payload alone is insufficient."
+    }
+  },
+  "qr_code_record": {
+    "description": "The server-side QrCode record that backs a dynamic QR payload. Not encoded in the QR image for dynamic QR — only the ID and signature are.",
+    "fields": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "owner_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Consumer or merchant wallet ID."
+      },
+      "owner_type": {
+        "type": "string",
+        "enum": [
+          "CONSUMER",
+          "MERCHANT"
+        ]
+      },
+      "qr_type": {
+        "type": "string",
+        "enum": [
+          "STATIC",
+          "DYNAMIC"
+        ]
+      },
+      "currency": {
+        "type": "string",
+        "description": "ISO 4217 code."
+      },
+      "amount_minor": {
+        "type": [
+          "integer",
+          "null"
+        ],
+        "description": "null for open-amount static QR.",
+        "maximum": 9007199254740991,
+        "minimum": -9007199254740991
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "ACTIVE",
+          "EXPIRED",
+          "USED"
+        ]
+      },
+      "expires_at": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "date-time",
+        "description": "null for static QR (never expires)."
+      },
+      "used_at": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "date-time"
+      },
+      "reference": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "Optional operator-defined reference (e.g. order ID)."
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    }
+  },
+  "sandbox_debug_format": {
+    "description": "The reference sandbox operator uses an extended debug format for development convenience. This format is NOT the canonical protocol format and MUST NOT be used in production.",
+    "prefix": "BANZA-SBX:",
+    "json_structure": {
+      "sandbox": true,
+      "v": 1,
+      "qr_id": "<string>",
+      "merchant_wallet_id": "<string>",
+      "amount_minor": "<integer_or_null>",
+      "currency": "<string>",
+      "description": "<string>"
+    },
+    "note": "This format is acceptable only when simulated=true. Conformance suite vectors targeting sandbox operators accept this format. Operators targeting production MUST use the canonical compact format."
+  },
+  "invariants": {
+    "INV-QR-001": "A dynamic QR code MUST be used at most once. After one successful payment, status MUST transition to USED and no further payments are accepted.",
+    "INV-QR-002": "A dynamic QR code MUST have expires_at set. Static QR codes MUST have expires_at = null.",
+    "INV-QR-003": "A QR code with status EXPIRED or USED MUST reject payment with an appropriate error.",
+    "INV-QR-ENV-001": "An operator with simulated=true MUST emit BANZA-SBX: prefix payloads. Use of BANZA: (production prefix) in sandbox is a certification FAIL.",
+    "INV-QR-SIGN-001": "The 'sig' field in dynamic QR payloads MUST be verified against the server-side QrCode record before any payment is initiated. Client-only signature validation without database record verification is insufficient."
+  },
+  "conformance_requirements": [
+    "Operator MUST accept POST /qr with { merchant_wallet_id, amount_minor?, currency, description? }",
+    "Operator MUST return { id, merchant_wallet_id, amount_minor, currency, payload_data, status, created_at }",
+    "payload_data MUST start with BANZA-SBX: (sandbox) or BANZA: (production)",
+    "Operator MUST accept POST /qr/{id}/pay with { consumer_wallet_id, amount_minor? }",
+    "A second POST /qr/{id}/pay on a USED QR MUST return HTTP 422",
+    "An open-amount QR (amount_minor=null) MUST require amount_minor in the pay request",
+    "A fixed-amount QR MUST ignore amount_minor in the pay request (use pre-set amount)"
+  ],
+  "_numeric_domain": "Integers in a signed or digested BANZA artifact are bounded by the canonicalization in force (BCJ/1: |n| <= 2^53-1, spec/canonicalization.md P2). The bound is declared here so the schema and the canonicalization cannot disagree about what is representable."
+}

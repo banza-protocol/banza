@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/collections/collection-share.schema.json",
+  "title": "CollectionShare",
+  "description": "Canonical CollectionShare aggregate root (ADR-016). One payer's portion of a Collection. NEVER contains a balance and NEVER references the ledger. Its only money anchor is transfer_id (a pointer to the real settling Transfer, for reconciliation). Settled via its own PaymentIntent (ADR-014).",
+  "_spec_version": "1.0",
+  "_status": "canonical",
+  "_authority": "ADR-016",
+  "type": "object",
+  "required": [
+    "id",
+    "collection_id",
+    "amount_minor",
+    "currency",
+    "status"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Share id. Immutable."
+    },
+    "collection_id": {
+      "type": "string",
+      "description": "Parent collection id."
+    },
+    "participant": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "@banza/wallet the share is addressed to, when known. Open contributions may be null until paid."
+    },
+    "amount_minor": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Integer minor units. Never float. (MINIMUM_CONTRIBUTION enforces a per-share floor.)",
+      "maximum": 9007199254740991
+    },
+    "currency": {
+      "type": "string",
+      "description": "ISO 4217. Equals the collection currency."
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "LINK_CREATED",
+        "PAID",
+        "EXPIRED",
+        "CANCELLED",
+        "FAILED"
+      ]
+    },
+    "payment_intent_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "PaymentIntent (ADR-014) backing this share; its link/QR derive from it."
+    },
+    "transfer_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Real Transfer that settled this share. Set only when status=PAID. Reconciliation anchor."
+    },
+    "paid_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "expires_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "lifecycle": {
+      "description": "PENDING -> LINK_CREATED -> PAID; PENDING/LINK_CREATED -> EXPIRED|CANCELLED|FAILED. PAID is terminal (no double payment, INV-COLLECTION-006).",
+      "transitions": {
+        "PENDING": [
+          "LINK_CREATED",
+          "CANCELLED"
+        ],
+        "LINK_CREATED": [
+          "PAID",
+          "EXPIRED",
+          "CANCELLED",
+          "FAILED"
+        ]
+      },
+      "terminal": [
+        "PAID",
+        "EXPIRED",
+        "CANCELLED",
+        "FAILED"
+      ]
+    }
+  },
+  "invariants": [
+    "INV-COLLECTION-005: PAID only via a real confirmed Transfer; causation_id of that Transfer == payment_intent_id.",
+    "INV-COLLECTION-006: a PAID share is terminal and MUST NOT accept further payment."
+  ],
+  "_numeric_domain": "Integers in a signed or digested BANZA artifact are bounded by the canonicalization in force (BCJ/1: |n| <= 2^53-1, spec/canonicalization.md P2). The bound is declared here so the schema and the canonicalization cannot disagree about what is representable."
+}

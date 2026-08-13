@@ -1,0 +1,215 @@
+{
+  "_spec": "BANZA QR Conformance Vectors v1.0",
+  "_stability": "stable",
+
+  "vectors": [
+    {
+      "id": "QR-001",
+      "title": "QR generation — fixed amount",
+      "certification_level": 2,
+      "stability": "stable",
+      "input": {
+        "method": "POST",
+        "path": "/qr",
+        "body": {
+          "merchant_wallet_id": "sandbox-merchant-1",
+          "amount_minor": 50000,
+          "currency": "AOA",
+          "description": "Table 4"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "response_fields_required": ["id", "merchant_wallet_id", "amount_minor", "currency", "payload_data", "status", "created_at"],
+        "response_field_values": {
+          "status": "active",
+          "merchant_wallet_id": "sandbox-merchant-1",
+          "amount_minor": 50000,
+          "currency": "AOA"
+        },
+        "response_field_patterns": {
+          "id": "^qr-",
+          "payload_data": "^BANZA"
+        }
+      },
+      "notes": "payload_data must start with BANZA prefix (BANZA-SBX: in sandbox, BANZA: in production)."
+    },
+    {
+      "id": "QR-002",
+      "title": "QR generation — open amount",
+      "certification_level": 2,
+      "stability": "stable",
+      "input": {
+        "method": "POST",
+        "path": "/qr",
+        "body": {
+          "merchant_wallet_id": "sandbox-merchant-1",
+          "currency": "AOA",
+          "description": "Open amount payment"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "response_field_values": {
+          "status": "active",
+          "amount_minor": null
+        }
+      },
+      "notes": "amount_minor must be null/absent for open-amount QR codes."
+    },
+    {
+      "id": "QR-003",
+      "title": "QR payment — fixed amount success",
+      "certification_level": 2,
+      "stability": "stable",
+      "setup": [
+        {
+          "method": "POST",
+          "path": "/qr",
+          "body": {
+            "merchant_wallet_id": "sandbox-merchant-1",
+            "amount_minor": 30000,
+            "currency": "AOA",
+            "description": "conformance QR-003"
+          },
+          "capture": "qr_id",
+          "capture_field": "id"
+        }
+      ],
+      "input": {
+        "method": "POST",
+        "path": "/qr/{qr_id}/pay",
+        "body": {
+          "consumer_wallet_id": "sandbox-consumer-1"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "response_field_values": {
+          "status": "paid"
+        },
+        "response_fields_required": ["transfer_id", "paid_at"],
+        "ledger_effect": {
+          "debit_wallet": "sandbox-consumer-1",
+          "credit_wallet": "sandbox-merchant-1",
+          "amount_minor": 30000
+        }
+      },
+      "invariants": ["zero_sum_ledger", "single_use_qr"]
+    },
+    {
+      "id": "QR-004",
+      "title": "QR payment — double-payment rejected",
+      "certification_level": 2,
+      "stability": "stable",
+      "setup": [
+        {
+          "method": "POST",
+          "path": "/qr",
+          "body": { "merchant_wallet_id": "sandbox-merchant-1", "amount_minor": 1000, "currency": "AOA" },
+          "capture": "qr_id",
+          "capture_field": "id"
+        },
+        {
+          "method": "POST",
+          "path": "/qr/{qr_id}/pay",
+          "body": { "consumer_wallet_id": "sandbox-consumer-1" }
+        }
+      ],
+      "input": {
+        "method": "POST",
+        "path": "/qr/{qr_id}/pay",
+        "body": {
+          "consumer_wallet_id": "sandbox-consumer-1"
+        }
+      },
+      "expected": {
+        "status": 422,
+        "response_fields_required": ["error"]
+      },
+      "invariants": ["single_use_qr"]
+    },
+    {
+      "id": "QR-005",
+      "title": "QR payment — open amount with consumer-supplied amount",
+      "certification_level": 2,
+      "stability": "stable",
+      "setup": [
+        {
+          "method": "POST",
+          "path": "/qr",
+          "body": { "merchant_wallet_id": "sandbox-merchant-1", "currency": "AOA" },
+          "capture": "qr_id",
+          "capture_field": "id"
+        }
+      ],
+      "input": {
+        "method": "POST",
+        "path": "/qr/{qr_id}/pay",
+        "body": {
+          "consumer_wallet_id": "sandbox-consumer-1",
+          "amount_minor": 7500
+        }
+      },
+      "expected": {
+        "status": 200,
+        "response_field_values": { "status": "paid" }
+      }
+    },
+    {
+      "id": "QR-006",
+      "title": "QR — trace_id propagates to transfer",
+      "certification_level": 2,
+      "stability": "stable",
+      "setup": [
+        {
+          "method": "POST",
+          "path": "/qr",
+          "body": { "merchant_wallet_id": "sandbox-merchant-1", "amount_minor": 6000, "currency": "AOA" },
+          "capture": "qr_id",
+          "capture_field": "id",
+          "capture_also": { "qr_trace_id": "trace_id" }
+        }
+      ],
+      "input": {
+        "method": "POST",
+        "path": "/qr/{qr_id}/pay",
+        "body": { "consumer_wallet_id": "sandbox-consumer-1" }
+      },
+      "expected": {
+        "status": 200
+      },
+      "post_check": {
+        "fetch_trace_from": "qr_trace_id",
+        "trace_expected": {
+          "qr_codes_count": 1,
+          "transfers_count_min": 1,
+          "transfer_causation_id_equals": "qr_id"
+        }
+      },
+      "invariants": ["trace_id_propagation", "causation_id_set"]
+    },
+    {
+      "id": "QR-007",
+      "title": "QR payload — sandbox prefix must be BANZA-SBX:",
+      "certification_level": 1,
+      "stability": "stable",
+      "input": {
+        "method": "POST",
+        "path": "/qr",
+        "body": {
+          "merchant_wallet_id": "sandbox-merchant-1",
+          "amount_minor": 1000,
+          "currency": "AOA"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "response_field_patterns": {
+          "payload_data": "^BANZA-SBX:"
+        }
+      },
+      "notes": "In sandbox mode (simulated=true), the QR payload must use BANZA-SBX: prefix, not BANZA:."
+    }
+  ]
+}

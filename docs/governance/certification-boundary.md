@@ -110,10 +110,15 @@ rewritten); everywhere else, use the canonical names above. The mapping is:
 > document's capability definitions are authoritative, and the conformance suite
 > matches them.
 
-### Conformance level model (single source)
+### Conformance level model
 
-This table is the authoritative summary of what each level proves and how it is
-verified. The conformance vectors (`conformance/vectors/`), the runner
+**The normative definition of every profile is
+[`contracts/production/conformance-profiles.production.json`](../../contracts/production/conformance-profiles.production.json).**
+That registry is on the normative surface and is machine-readable; this document explains it for a
+human reader and must agree with it. Where the two differ, the registry governs and this prose is the
+defect.
+
+This table summarises what each level proves and how it is verified. The conformance vectors (`conformance/vectors/`), the runner
 (`tools/banza-conformance/`), and the report schema (`conformance/report-schema.json`)
 all conform to it (ADR-021).
 

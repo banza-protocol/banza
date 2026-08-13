@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/capabilities-document.production.schema.json",
+  "title": "CapabilitiesDocument",
+  "description": "The capabilities document an implementation publishes at its canonical origin (ADR-068 §13 endpoint map). It declares the protocol surfaces the implementation implements. It is descriptive, not a permission or a grant — a certification's scope is never wider than the evidence. Documentary/reference contract; introduces no new financial invariant.",
+  "_spec_version": "1.0",
+  "_status": "reference",
+  "_authority": "ADR-068 (§4.4 origin of inputs), ADR-067 (Operador Zero read-only reference)",
+  "_boundary": "Declaring a capability confers no permission and moves no funds.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "operator_id",
+    "implementation_id",
+    "protocol_version"
+  ],
+  "properties": {
+    "operator_id": {
+      "type": "string"
+    },
+    "operator_display_name": {
+      "type": "string"
+    },
+    "implementation_id": {
+      "type": "string"
+    },
+    "artifact_type": {
+      "type": "string",
+      "const": "capabilities"
+    },
+    "protocol_version": {
+      "type": "string"
+    },
+    "environment": {
+      "type": "string",
+      "enum": [
+        "sandbox",
+        "demo"
+      ]
+    },
+    "profile": {
+      "type": "string",
+      "enum": [
+        "L0",
+        "L1",
+        "L2",
+        "L3",
+        "L4"
+      ]
+    },
+    "supported_levels": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "currency": {
+      "type": "string"
+    },
+    "demo_only": {
+      "type": "boolean"
+    },
+    "monetary_value": {
+      "type": "boolean"
+    },
+    "production_allowed": {
+      "type": "boolean"
+    },
+    "capabilities": {
+      "type": "object",
+      "description": "Named capability flags the implementation declares (e.g. supports_wallets, supports_qr).",
+      "additionalProperties": {
+        "type": "boolean"
+      }
+    },
+    "capability_list": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Flat list of declared capability identifiers."
+    },
+    "note": {
+      "type": "string"
+    },
+    "idempotency": {
+      "type": "object",
+      "description": "Declared idempotency behaviour (spec/idempotency.md §7). A counterparty MUST NOT rely on a retention window longer than the one declared here.",
+      "required": [
+        "retention_seconds"
+      ],
+      "properties": {
+        "retention_seconds": {
+          "type": "integer",
+          "minimum": 86400,
+          "description": "How long an idempotency record is retained after the operation reached a terminal state. The protocol floor is 86400 (24 h); an implementation MAY retain longer than it declares and MUST NOT retain less.",
+          "maximum": 9007199254740991
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "_numeric_domain": "Integers in a signed or digested BANZA artifact are bounded by the canonicalization in force (BCJ/1: |n| <= 2^53-1, spec/canonicalization.md P2). The bound is declared here so the schema and the canonicalization cannot disagree about what is representable."
+}

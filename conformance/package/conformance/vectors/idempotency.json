@@ -1,0 +1,280 @@
+{
+  "_spec": "BANZA Idempotency Conformance Vectors",
+  "_status": "canonical",
+  "_authority": "spec/idempotency.md (ADR-084). Request identity digests were computed by an implementation written from the specification text, sharing no code with the BANZA engines.",
+  "_source_of_truth": "spec/idempotency.md",
+  "protocol_version": "1.0.0",
+  "canonicalization": "BCJ/1",
+  "request_identity_excluded_members": [
+    "idempotency_key",
+    "trace_id",
+    "correlation_id",
+    "request_id",
+    "timestamp",
+    "requested_at",
+    "client_time",
+    "nonce"
+  ],
+  "vector_count": 15,
+  "vectors": [
+    {
+      "id": "IDEM-001",
+      "title": "same key, same request — member order and excluded members differ",
+      "scope": {
+        "receiving_implementation": "impl-a",
+        "authenticated_caller": "caller-1",
+        "operation": "POST /v1/transfers"
+      },
+      "first": {
+        "idempotency_key": "order-001",
+        "amount_minor": 150000,
+        "currency": "AOA",
+        "to": "@ana",
+        "trace_id": "t-1"
+      },
+      "second": {
+        "to": "@ana",
+        "currency": "AOA",
+        "amount_minor": 150000,
+        "idempotency_key": "order-001",
+        "trace_id": "t-999",
+        "timestamp": "2026-08-12T10:00:00Z"
+      },
+      "first_digest": "dde2a5a067dac680f0dd2115b2705d47ea5986b563aac6f8c7db120b3db8a560",
+      "second_digest": "dde2a5a067dac680f0dd2115b2705d47ea5986b563aac6f8c7db120b3db8a560",
+      "expect": "REPLAY",
+      "note": "Digests are equal. The original result is returned; no second operation."
+    },
+    {
+      "id": "IDEM-002",
+      "title": "same key, different request — one minor unit apart",
+      "scope": {
+        "receiving_implementation": "impl-a",
+        "authenticated_caller": "caller-1",
+        "operation": "POST /v1/transfers"
+      },
+      "first": {
+        "idempotency_key": "order-001",
+        "amount_minor": 150000,
+        "currency": "AOA",
+        "to": "@ana",
+        "trace_id": "t-1"
+      },
+      "second": {
+        "idempotency_key": "order-001",
+        "amount_minor": 150001,
+        "currency": "AOA",
+        "to": "@ana",
+        "trace_id": "t-1"
+      },
+      "first_digest": "dde2a5a067dac680f0dd2115b2705d47ea5986b563aac6f8c7db120b3db8a560",
+      "second_digest": "2f5fdddb87edd11d531521253473dfcb4c96c8927ef88e823be933cc3f5803ea",
+      "expect": "CONFLICT",
+      "http_status": 409,
+      "note": "Digests differ. MUST NOT return the original result and MUST NOT perform the new operation."
+    },
+    {
+      "id": "IDEM-003",
+      "title": "same key, different authenticated caller",
+      "scope_a": {
+        "receiving_implementation": "impl-a",
+        "authenticated_caller": "caller-1",
+        "operation": "POST /v1/transfers"
+      },
+      "scope_b": {
+        "receiving_implementation": "impl-a",
+        "authenticated_caller": "caller-2",
+        "operation": "POST /v1/transfers"
+      },
+      "first": {
+        "idempotency_key": "order-001",
+        "amount_minor": 150000,
+        "currency": "AOA",
+        "to": "@ana",
+        "trace_id": "t-1"
+      },
+      "second": {
+        "idempotency_key": "order-001",
+        "amount_minor": 150000,
+        "currency": "AOA",
+        "to": "@ana",
+        "trace_id": "t-1"
+      },
+      "expect": "DISTINCT_OPERATION",
+      "note": "Different tuple → different record. Not a replay and not a conflict."
+    },
+    {
+      "id": "IDEM-004",
+      "title": "same key, same caller, different operation",
+      "scope_a": {
+        "receiving_implementation": "impl-a",
+        "authenticated_caller": "caller-1",
+        "operation": "POST /v1/transfers"
+      },
+      "scope_b": {
+        "receiving_implementation": "impl-a",
+        "authenticated_caller": "caller-1",
+        "operation": "POST /v1/collections/{id}/shares/{share}/pay"
+      },
+      "first": {
+        "idempotency_key": "order-001",
+        "amount_minor": 150000,
+        "currency": "AOA",
+        "to": "@ana",
+        "trace_id": "t-1"
+      },
+      "second": {
+        "idempotency_key": "order-001",
+        "amount_minor": 150000,
+        "currency": "AOA",
+        "to": "@ana",
+        "trace_id": "t-1"
+      },
+      "expect": "DISTINCT_OPERATION"
+    },
+    {
+      "id": "IDEM-005",
+      "title": "same key, different receiving implementation",
+      "scope_a": {
+        "receiving_implementation": "impl-a",
+        "authenticated_caller": "caller-1",
+        "operation": "POST /v1/transfers"
+      },
+      "scope_b": {
+        "receiving_implementation": "impl-b",
+        "authenticated_caller": "caller-1",
+        "operation": "POST /v1/transfers"
+      },
+      "first": {
+        "idempotency_key": "order-001",
+        "amount_minor": 150000,
+        "currency": "AOA",
+        "to": "@ana",
+        "trace_id": "t-1"
+      },
+      "second": {
+        "idempotency_key": "order-001",
+        "amount_minor": 150000,
+        "currency": "AOA",
+        "to": "@ana",
+        "trace_id": "t-1"
+      },
+      "expect": "DISTINCT_OPERATION"
+    },
+    {
+      "id": "IDEM-006",
+      "title": "retry inside the declared retention window",
+      "declared_retention_seconds": 604800,
+      "elapsed_seconds": 3600,
+      "expect": "REPLAY"
+    },
+    {
+      "id": "IDEM-007",
+      "title": "retry after the declared retention window",
+      "declared_retention_seconds": 86400,
+      "elapsed_seconds": 90000,
+      "expect": "NEW_OPERATION",
+      "note": "The record is forgotten; the request is processed as new. This is why the window is declared."
+    },
+    {
+      "id": "IDEM-008",
+      "title": "a declared retention below the normative floor is invalid",
+      "declared_retention_seconds": 3600,
+      "expect": "REJECT",
+      "rule": "retention_seconds MUST be >= 86400"
+    },
+    {
+      "id": "IDEM-009",
+      "title": "a different signature over identical content is a different request",
+      "first": {
+        "idempotency_key": "order-001",
+        "amount_minor": 150000,
+        "currency": "AOA",
+        "to": "@ana",
+        "trace_id": "t-1",
+        "signature": "AAAA"
+      },
+      "second": {
+        "idempotency_key": "order-001",
+        "amount_minor": 150000,
+        "currency": "AOA",
+        "to": "@ana",
+        "trace_id": "t-1",
+        "signature": "BBBB"
+      },
+      "first_digest": "32623eb7528d4c4164358069a622a0eb902b8c06d4301e6ca1ff69bc196595f6",
+      "second_digest": "3a7102d2dee9b355bc94fc9060639da447b9036ce64d80f0920e8f24ef73e30e",
+      "expect": "CONFLICT",
+      "http_status": 409,
+      "note": "Signatures are INSIDE request identity (spec §4). A client retrying MUST reuse its original signed request."
+    },
+    {
+      "id": "IDEM-010",
+      "title": "an unknown member is inside request identity",
+      "first": {
+        "idempotency_key": "order-001",
+        "amount_minor": 150000,
+        "currency": "AOA",
+        "to": "@ana",
+        "trace_id": "t-1"
+      },
+      "second": {
+        "idempotency_key": "order-001",
+        "amount_minor": 150000,
+        "currency": "AOA",
+        "to": "@ana",
+        "trace_id": "t-1",
+        "vendor_note": "x"
+      },
+      "first_digest": "dde2a5a067dac680f0dd2115b2705d47ea5986b563aac6f8c7db120b3db8a560",
+      "second_digest": "2fee25d46067b8a81b67bab0ab774f1a6d51da6e8c921b872ea5314b5e3abecb",
+      "expect": "CONFLICT",
+      "http_status": 409,
+      "note": "BCJ/1 P4: an extension field is part of the request."
+    },
+    {
+      "id": "IDEM-011",
+      "title": "a body BCJ/1 rejects has no request identity",
+      "input_raw": "{\"idempotency_key\":\"k1\",\"amount_minor\":1.5}",
+      "expect": "REJECT",
+      "rule": "P1",
+      "note": "MUST be rejected before idempotency processing; MUST NOT create or consume a record."
+    },
+    {
+      "id": "IDEM-012",
+      "title": "a duplicate member in the body is rejected",
+      "input_raw": "{\"idempotency_key\":\"k1\",\"amount_minor\":100,\"amount_minor\":200}",
+      "expect": "REJECT",
+      "rule": "P3"
+    },
+    {
+      "id": "IDEM-013",
+      "title": "two concurrent requests, same key, same request",
+      "expect": "EXACTLY_ONCE",
+      "permitted_outcomes": [
+        "SECOND_WAITS_AND_REPLAYS",
+        "SECOND_REJECTED_IN_PROGRESS"
+      ],
+      "forbidden_outcomes": [
+        "OPERATION_PERFORMED_TWICE",
+        "SUCCESS_BEFORE_TERMINAL_STATE",
+        "CONFLICT_409"
+      ],
+      "note": "Concurrency is not conflict: the digests are equal."
+    },
+    {
+      "id": "IDEM-014",
+      "title": "retry while the original is still in progress",
+      "expect": "IN_PROGRESS",
+      "note": "MUST NOT start a second operation, MUST NOT report success, MUST NOT report failure."
+    },
+    {
+      "id": "IDEM-015",
+      "title": "cross-operator routing key is globally scoped",
+      "routing_request_id": "rr-550e8400-e29b-41d4-a716-446655440000",
+      "scope": "the key alone — globally unique across all operators and all time (INV-FED-IDEM-001)",
+      "expect": "REPLAY",
+      "note": "Same rr-<uuid> from the same originator is the same routing attempt."
+    }
+  ]
+}

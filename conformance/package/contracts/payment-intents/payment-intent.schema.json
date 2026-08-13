@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/payment-intents/payment-intent.schema.json",
+  "title": "PaymentIntent",
+  "description": "Canonical payment-initiation primitive (ADR-014). An intent to receive value into a payee wallet. Payment Links (ADR-013), QR (ADR-012) and Payment Requests are surfaces of a PaymentIntent. A PaymentIntent never holds or moves money; fulfilment produces exactly one Transfer that posts to the Ledger.",
+  "_spec_version": "1.0",
+  "_status": "canonical",
+  "_authority": "ADR-014",
+  "type": "object",
+  "required": [
+    "id",
+    "operator_id",
+    "payee_wallet_id",
+    "currency",
+    "surface",
+    "status",
+    "version",
+    "created_at"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "PaymentIntent id. Immutable."
+    },
+    "operator_id": {
+      "type": "string",
+      "description": "Operator that owns the intent."
+    },
+    "payee_wallet_id": {
+      "type": "string",
+      "description": "Wallet that will receive value."
+    },
+    "merchant_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Merchant, when the payee is a merchant."
+    },
+    "amount_minor": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Amount in integer minor units; null for open-amount intents. Never float.",
+      "maximum": 9007199254740991,
+      "minimum": -9007199254740991
+    },
+    "currency": {
+      "type": "string",
+      "description": "ISO 4217 (e.g. 'AOA')."
+    },
+    "surface": {
+      "type": "string",
+      "enum": [
+        "LINK",
+        "QR",
+        "REQUEST"
+      ],
+      "description": "Which realization presents the intent. Extensible."
+    },
+    "surface_ref": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Concrete artifact id (payment-link slug, qr_id, pr_id)."
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "CREATED",
+        "REQUESTED",
+        "PAID",
+        "EXPIRED",
+        "CANCELLED",
+        "FAILED"
+      ]
+    },
+    "transfer_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Transfer that fulfilled the intent. causation_id of that Transfer MUST equal this intent id (INV-TRACE-001)."
+    },
+    "idempotency_key": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "expires_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Optimistic concurrency version.",
+      "maximum": 9007199254740991
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    }
+  },
+  "$defs": {
+    "lifecycle": {
+      "description": "CREATED -> REQUESTED -> PAID; CREATED/REQUESTED -> EXPIRED|CANCELLED|FAILED. PAID/EXPIRED/CANCELLED/FAILED are terminal. PAID only via a real confirmed Transfer.",
+      "transitions": {
+        "CREATED": [
+          "REQUESTED",
+          "CANCELLED",
+          "EXPIRED",
+          "FAILED"
+        ],
+        "REQUESTED": [
+          "PAID",
+          "EXPIRED",
+          "CANCELLED",
+          "FAILED"
+        ]
+      },
+      "terminal": [
+        "PAID",
+        "EXPIRED",
+        "CANCELLED",
+        "FAILED"
+      ]
+    }
+  },
+  "_numeric_domain": "Integers in a signed or digested BANZA artifact are bounded by the canonicalization in force (BCJ/1: |n| <= 2^53-1, spec/canonicalization.md P2). The bound is declared here so the schema and the canonicalization cannot disagree about what is representable."
+}

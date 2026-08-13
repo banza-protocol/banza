@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12",
+  "$id": "https://banza.network/contracts/federation/federation-event.json",
+  "title": "BanzaFederationEvent",
+  "description": "Event envelope for events that cross operator boundaries. Extends contracts/events/envelope.schema.json with federation-specific fields. Every federation event is a valid base event envelope.",
+  "_spec_version": "1",
+  "_status": "canonical",
+  "_authority": "ADR-040, INV-FED-001",
+  "_extends": "contracts/events/envelope.schema.json",
+
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "id",
+        "event_type",
+        "aggregate_type",
+        "aggregate_id",
+        "trace_id",
+        "correlation_id",
+        "payload",
+        "created_at",
+        "federation_version",
+        "origin_operator_id",
+        "destination_operator_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^evt-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "description": "Globally unique event identifier. Format: 'evt-<uuid>'. Used for deduplication by consumers."
+        },
+
+        "event_type": {
+          "type": "string",
+          "enum": [
+            "federation.routing.received",
+            "federation.routing.accepted",
+            "federation.routing.rejected",
+            "federation.payment.initiated",
+            "federation.payment.completed",
+            "federation.payment.failed",
+            "federation.obligation.recorded",
+            "federation.obligation.settled",
+            "federation.settlement.initiated",
+            "federation.settlement.completed"
+          ],
+          "description": "Federation event type. Overrides the base event_type to restrict to the federation.* namespace."
+        },
+
+        "aggregate_type": {
+          "type": "string",
+          "const": "federation_payment",
+          "description": "Aggregate type for all federation events. Always 'federation_payment'."
+        },
+
+        "aggregate_id": {
+          "type": "string",
+          "description": "The ID of the primary aggregate this event describes. Typically the routing_request_id."
+        },
+
+        "trace_id": {
+          "type": "string",
+          "description": "Causal trace identifier. MUST be identical across ALL artifacts for the same cross-operator payment on both operators. INV-FED-001."
+        },
+
+        "correlation_id": {
+          "type": "string",
+          "description": "Identifies the current aggregate step within the trace. Typically equals the routing_request_id."
+        },
+
+        "payload": {
+          "type": "object",
+          "description": "Event-specific data. Shape is defined per event_type. All monetary values in payload MUST use integer minor units."
+        },
+
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 UTC timestamp of when this event was emitted."
+        },
+
+        "federation_version": {
+          "type": "string",
+          "const": "1",
+          "description": "Federation protocol version. Always '1'. Marks this as a federation event."
+        },
+
+        "origin_operator_id": {
+          "type": "string",
+          "description": "operator_id of the operator that emitted this event."
+        },
+
+        "destination_operator_id": {
+          "type": "string",
+          "description": "operator_id of the operator this event concerns."
+        },
+
+        "routing_request_id": {
+          "type": "string",
+          "pattern": "^rr-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "description": "Routing request this event relates to. Required for federation.routing.* and federation.payment.* event types."
+        },
+
+        "interop_transfer_id": {
+          "type": "string",
+          "pattern": "^itx-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "description": "Interop transfer ID from Operator B. Required after routing acceptance."
+        },
+
+        "obligation_id": {
+          "type": "string",
+          "pattern": "^ob-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "description": "Obligation this event relates to. Required for federation.obligation.* and federation.settlement.* event types."
+        }
+      },
+
+      "if": {
+        "properties": {
+          "event_type": {
+            "enum": [
+              "federation.routing.received",
+              "federation.routing.accepted",
+              "federation.routing.rejected",
+              "federation.payment.initiated",
+              "federation.payment.completed",
+              "federation.payment.failed"
+            ]
+          }
+        },
+        "required": ["event_type"]
+      },
+      "then": {
+        "required": ["routing_request_id"]
+      },
+
+      "else": {
+        "if": {
+          "properties": {
+            "event_type": {
+              "enum": [
+                "federation.obligation.recorded",
+                "federation.obligation.settled",
+                "federation.settlement.initiated",
+                "federation.settlement.completed"
+              ]
+            }
+          },
+          "required": ["event_type"]
+        },
+        "then": {
+          "required": ["obligation_id"]
+        }
+      }
+    }
+  ]
+}

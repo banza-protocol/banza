@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/discovery-document.production.schema.json",
+  "title": "DiscoveryDocument",
+  "description": "The discovery document an implementation publishes at its canonical origin (ADR-068 §21 step 1). It is the FIRST artifact of the endpoint-originated validation journey: it announces the implementation's identity and the map of its public endpoints, so a verifier can resolve and then fetch every other artifact from the same origin. The discovery engine checks that the announced identity matches the resolved target and that every endpoint URL is host-bound to the canonical origin. Documentary/reference contract; introduces no new financial invariant.",
+  "_spec_version": "1.0",
+  "_status": "reference",
+  "_authority": "ADR-068 (§4.4 origin of inputs, §21 step 1), ADR-067 (Operador Zero read-only reference)",
+  "_boundary": "A discovery document announces endpoints. It is not certification, scheme admission, or authorisation, and never moves funds.",
+
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["operator_id", "implementation_id", "protocol_version", "canonical_origin", "endpoints"],
+  "properties": {
+    "operator_id": { "type": "string", "description": "Operator id — must equal the resolved target's operator_id." },
+    "operator_display_name": { "type": "string" },
+    "implementation_id": { "type": "string", "description": "Implementation id — must equal the resolved target's implementation_id." },
+    "artifact_type": { "type": "string", "const": "discovery" },
+    "protocol_version": { "type": "string", "description": "Must equal the resolved target's protocol_version." },
+    "canonical_origin": { "type": "string", "format": "uri", "description": "Must equal the resolved target's canonical_origin. The host the secure fetcher pins to." },
+    "environment": { "type": "string", "enum": ["sandbox", "demo"] },
+    "profile": { "type": "string", "enum": ["L0", "L1", "L2", "L3", "L4"] },
+    "supported_levels": { "type": "array", "items": { "type": "string" } },
+    "currency": { "type": "string", "description": "Demo currency where applicable (e.g. 'KZ_DEMO'). Never a real currency at this baseline." },
+    "demo_only": { "type": "boolean" },
+    "monetary_value": { "type": "boolean" },
+    "production_allowed": { "type": "boolean" },
+    "endpoints": {
+      "type": "object",
+      "description": "Map of the implementation's public endpoint URLs. Every URL must be host-bound to the canonical origin — an off-origin URL is rejected by the discovery engine.",
+      "minProperties": 1,
+      "additionalProperties": { "type": "string", "format": "uri" }
+    },
+    "note": { "type": "string" }
+  }
+}

@@ -1,0 +1,184 @@
+{
+  "_spec": "BANZA Settlement Conformance Vectors v1.0",
+  "_stability": "stable",
+
+  "vectors": [
+    {
+      "id": "STL-001",
+      "title": "Settlement batch — creates and completes",
+      "certification_level": 2,
+      "stability": "stable",
+      "setup": [
+        {
+          "method": "POST",
+          "path": "/transfers",
+          "body": {
+            "from_wallet_id": "sandbox-consumer-1",
+            "to_wallet_id": "sandbox-merchant-2",
+            "amount_minor": 100000,
+            "currency": "AOA",
+            "idempotency_key": "conformance-STL-001-transfer"
+          }
+        }
+      ],
+      "input": {
+        "method": "POST",
+        "path": "/settlement/batches",
+        "body": {
+          "wallet_id": "sandbox-merchant-2"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "response_fields_required": ["id", "wallet_id", "gross_minor", "fee_minor", "net_minor", "currency", "tx_count", "status", "provider_ref"],
+        "response_field_values": {
+          "status": "completed",
+          "wallet_id": "sandbox-merchant-2"
+        },
+        "response_field_patterns": {
+          "id": "^settle-",
+          "provider_ref": "."
+        },
+        "math_check": {
+          "gross_minus_fee_equals_net": true
+        }
+      },
+      "invariants": ["settlement_no_money_creation"],
+      "notes": "The idempotency key ensures this setup transfer is unique per conformance run. May fail if already settled in this run."
+    },
+    {
+      "id": "STL-002",
+      "title": "Settlement batch — no unsettled receipts rejected",
+      "certification_level": 2,
+      "stability": "stable",
+      "requires_fresh_state": false,
+      "input": {
+        "method": "POST",
+        "path": "/settlement/batches",
+        "body": {
+          "wallet_id": "sandbox-float"
+        }
+      },
+      "expected": {
+        "status": 422,
+        "response_fields_required": ["error"]
+      },
+      "notes": "sandbox-float has no inbound transfers by default."
+    },
+    {
+      "id": "STL-003",
+      "title": "Settlement batch — fee model: net + fee == gross",
+      "certification_level": 2,
+      "stability": "stable",
+      "setup": [
+        {
+          "method": "POST",
+          "path": "/transfers",
+          "body": {
+            "from_wallet_id": "sandbox-government-1",
+            "to_wallet_id": "sandbox-merchant-2",
+            "amount_minor": 200000,
+            "currency": "AOA",
+            "idempotency_key": "conformance-STL-003-transfer"
+          }
+        }
+      ],
+      "input": {
+        "method": "POST",
+        "path": "/settlement/batches",
+        "body": { "wallet_id": "sandbox-merchant-2" }
+      },
+      "expected": {
+        "status": 200,
+        "math_check": {
+          "gross_minus_fee_equals_net": true,
+          "fee_positive": true,
+          "net_less_than_gross": true
+        }
+      },
+      "invariants": ["settlement_no_money_creation"]
+    },
+    {
+      "id": "STL-004",
+      "title": "Settlement batch — has trace_id",
+      "certification_level": 2,
+      "stability": "stable",
+      "setup": [
+        {
+          "method": "POST",
+          "path": "/transfers",
+          "body": {
+            "from_wallet_id": "sandbox-consumer-1",
+            "to_wallet_id": "sandbox-merchant-2",
+            "amount_minor": 50000,
+            "currency": "AOA",
+            "idempotency_key": "conformance-STL-004-transfer"
+          }
+        }
+      ],
+      "input": {
+        "method": "POST",
+        "path": "/settlement/batches",
+        "body": { "wallet_id": "sandbox-merchant-2" }
+      },
+      "expected": {
+        "status": 200,
+        "response_fields_required": ["trace_id"],
+        "response_field_patterns": {
+          "trace_id": "^tr-"
+        }
+      },
+      "invariants": ["trace_id_propagation"]
+    },
+    {
+      "id": "STL-005",
+      "title": "Settlement batch — unknown wallet rejected",
+      "certification_level": 2,
+      "stability": "stable",
+      "input": {
+        "method": "POST",
+        "path": "/settlement/batches",
+        "body": { "wallet_id": "wallet-does-not-exist" }
+      },
+      "expected": {
+        "status": 422,
+        "response_fields_required": ["error"]
+      }
+    },
+    {
+      "id": "STL-006",
+      "title": "Settlement batch — transfer appears in exactly one batch",
+      "certification_level": 2,
+      "stability": "stable",
+      "notes": "Run settlement twice for the same wallet after a single transfer. Second batch must be rejected (no unsettled receipts). Verifies settlement_idempotency invariant.",
+      "setup": [
+        {
+          "method": "POST",
+          "path": "/transfers",
+          "body": {
+            "from_wallet_id": "sandbox-consumer-1",
+            "to_wallet_id": "sandbox-merchant-2",
+            "amount_minor": 10000,
+            "currency": "AOA",
+            "idempotency_key": "conformance-STL-006-transfer"
+          }
+        },
+        {
+          "method": "POST",
+          "path": "/settlement/batches",
+          "body": { "wallet_id": "sandbox-merchant-2" }
+        }
+      ],
+      "input": {
+        "method": "POST",
+        "path": "/settlement/batches",
+        "body": { "wallet_id": "sandbox-merchant-2" }
+      },
+      "expected": {
+        "status": 422,
+        "error_contains": "unsettled"
+      },
+      "invariants": ["settlement_idempotency"]
+    }
+  ]
+}

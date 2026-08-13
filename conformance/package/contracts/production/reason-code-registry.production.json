@@ -1,0 +1,364 @@
+{
+  "_spec": "BANZA Reason Code Registry",
+  "_registry": "banza-reason-codes/1",
+  "_status": "canonical",
+  "_authority": "ADR-083 (reason-code model); spec/reason-codes.md defines the rules. This file is the machine-readable registry those rules govern. The reference implementation emits these values and does not define them.",
+  "_source_of_truth": "This registry, together with spec/reason-codes.md.",
+  "protocol_version": "1.0.0",
+  "normative_keywords": "BCP 14 (RFC 2119 + RFC 8174).",
+  "_boundary": "Reason codes EXPLAIN an outcome. They never decide one: the decision is carried by the status field of the artifact (trust_status, step status, outcome). A consumer that changes a verdict because of a reason code is not conformant.",
+  "extension_namespace": {
+    "pattern": "^x-[a-z0-9]([a-z0-9-]*[a-z0-9])?\\.[A-Za-z0-9_.-]+$",
+    "rule": "An implementation MAY emit additional reason codes, and every such code MUST match this pattern. Core codes never contain a dot, so a core code and an extension code can never collide. A consumer MUST preserve extension codes it does not recognise and MUST NOT interpret them.",
+    "example": "x-acme.gateway_timeout"
+  },
+  "unknown_code_handling": {
+    "core_shaped_but_unregistered": "A code that matches the core grammar but is not in this registry MUST be preserved and recorded, MUST NOT change any verdict, and MUST NOT cause the artifact to be rejected. Adding a core code is a backward-compatible change, so refusing unknown core codes would make every future addition breaking.",
+    "extension": "Preserved, never interpreted, never verdict-affecting.",
+    "in_a_closed_enum_field": "Fields whose schema declares an enum are closed: a value outside the enum makes the artifact schema-invalid. trust_status and failed_checks are such fields."
+  },
+  "vocabularies": {
+    "trust_status": {
+      "field": "trust_status",
+      "kind": "decisional status",
+      "closed": true,
+      "scope": "PROTOCOL NORMATIVE",
+      "produced_by": "any implementation performing operator trust evaluation",
+      "consumed_by": "any party reading a trust result, a journey receipt or an evidence bundle",
+      "stability": "stable — a value is never removed or repurposed within protocol version 1.x",
+      "values": [
+        {
+          "code": "TRUST_VALID",
+          "meaning": "Every trust check passed: the chain resolves from the Trust Root through a delegated key to signed protocol metadata, bound material is present, nothing is revoked or expired, and the protocol version is compatible.",
+          "verdict": "VERIFIED"
+        },
+        {
+          "code": "TRUST_INVALID_SIGNATURE",
+          "meaning": "A signature over BCJ/1 canonical bytes did not verify.",
+          "verdict": "FAILED"
+        },
+        {
+          "code": "TRUST_INVALID_DELEGATED_KEY",
+          "meaning": "The delegated signing key is absent, malformed, not endorsed by the Key Manifest, or used outside its declared domain (ADR-038).",
+          "verdict": "FAILED"
+        },
+        {
+          "code": "TRUST_INVALID_ROOT_METADATA",
+          "meaning": "Trust root metadata is absent, malformed, or not anchored by the required threshold of pinned root signatures.",
+          "verdict": "FAILED"
+        },
+        {
+          "code": "TRUST_INVALID_SIGNED_METADATA",
+          "meaning": "Signed protocol metadata is absent or malformed, or does not bind the material it must bind.",
+          "verdict": "FAILED"
+        },
+        {
+          "code": "TRUST_MISSING_CONFORMANCE_EVIDENCE",
+          "meaning": "No conformance evidence was published or resolved.",
+          "verdict": "PENDING"
+        },
+        {
+          "code": "TRUST_MISSING_OPERATOR_MANIFEST",
+          "meaning": "No Operator Manifest was published or resolved.",
+          "verdict": "PENDING"
+        },
+        {
+          "code": "TRUST_MISSING_REGISTRY_ENTRY",
+          "meaning": "The subject has no entry in the public protocol registry.",
+          "verdict": "PENDING"
+        },
+        {
+          "code": "TRUST_REVOKED",
+          "meaning": "The subject, or a key in its chain, appears in revocation material in force.",
+          "verdict": "FAILED"
+        },
+        {
+          "code": "TRUST_EXPIRED_METADATA",
+          "meaning": "Trust material is past its validity window (INV-FEDEVAL-006).",
+          "verdict": "FAILED"
+        },
+        {
+          "code": "TRUST_INCOMPATIBLE_PROTOCOL_VERSION",
+          "meaning": "The declared protocol version is not wire-compatible with the version in force.",
+          "verdict": "FAILED"
+        },
+        {
+          "code": "TRUST_FAIL_CLOSED",
+          "meaning": "Evaluation could not complete over material it must have. The default outcome is refusal, never acceptance (INV-FEDEVAL-005).",
+          "verdict": "FAILED"
+        },
+        {
+          "code": "TRUST_INVALID_BOUNDARY",
+          "meaning": "The material asserts something the protocol forbids it to assert — for example an authorisation, certification or approval claim.",
+          "verdict": "FAILED"
+        }
+      ]
+    },
+    "fetch_reason_codes": {
+      "field": "reason_codes (artifact fetch)",
+      "kind": "explanatory reason code",
+      "closed": false,
+      "core_closed": true,
+      "scope": "PROTOCOL NORMATIVE",
+      "produced_by": "the protocol fetcher when endpoint-originated retrieval is refused or fails",
+      "consumed_by": "receipts and evidence bundles; any party reproducing a validation",
+      "stability": "stable — additions are backward compatible; see unknown_code_handling",
+      "note": "Every value is a refusal or a failure. A successful fetch carries an empty array.",
+      "values": [
+        {
+          "code": "scheme_not_https",
+          "meaning": "Scheme is not `https` (http, ftp, ws, file, …)."
+        },
+        {
+          "code": "userinfo_in_url",
+          "meaning": "URL carried userinfo (`user:pass@host`)."
+        },
+        {
+          "code": "invalid_url",
+          "meaning": "URL could not be parsed, or had no host."
+        },
+        {
+          "code": "invalid_expected_host",
+          "meaning": "`expected_host` was empty or malformed."
+        },
+        {
+          "code": "host_mismatch",
+          "meaning": "Parsed host did not equal the registry-supplied `expected_host`."
+        },
+        {
+          "code": "port_not_allowed",
+          "meaning": "Port is not in the allowlist (default `[443]`)."
+        },
+        {
+          "code": "dns_resolution_failed",
+          "meaning": "Host resolution failed."
+        },
+        {
+          "code": "no_addresses",
+          "meaning": "Host resolved to zero addresses."
+        },
+        {
+          "code": "loopback_blocked",
+          "meaning": "A resolved IP is loopback (127.0.0.0/8, ::1)."
+        },
+        {
+          "code": "private_ip_blocked",
+          "meaning": "A resolved IP is private (10/8, 172.16/12, 192.168/16) or CGNAT (100.64/10)."
+        },
+        {
+          "code": "link_local_blocked",
+          "meaning": "A resolved IP is link-local (169.254/16, fe80::/10)."
+        },
+        {
+          "code": "unique_local_blocked",
+          "meaning": "A resolved IP is IPv6 unique-local (fc00::/7)."
+        },
+        {
+          "code": "metadata_blocked",
+          "meaning": "A resolved IP is a cloud metadata address (169.254.169.254, fd00:ec2::254)."
+        },
+        {
+          "code": "unspecified_blocked",
+          "meaning": "A resolved IP is unspecified (0.0.0.0, ::)."
+        },
+        {
+          "code": "broadcast_blocked",
+          "meaning": "A resolved IP is the IPv4 broadcast (255.255.255.255)."
+        },
+        {
+          "code": "multicast_blocked",
+          "meaning": "A resolved IP is multicast (224/4, ff00::/8)."
+        },
+        {
+          "code": "reserved_ip_blocked",
+          "meaning": "A resolved IP is otherwise reserved / non-global (0/8, 240/4, documentation ranges, …)."
+        },
+        {
+          "code": "redirect_blocked",
+          "meaning": "Server returned a redirect (3xx). Redirects are never followed (Policy::none())."
+        },
+        {
+          "code": "tls_error",
+          "meaning": "TLS handshake / certificate validation failed (invalid, expired, mismatched, untrusted)."
+        },
+        {
+          "code": "connect_error",
+          "meaning": "TCP connect failed."
+        },
+        {
+          "code": "timeout",
+          "meaning": "Connect or total timeout elapsed."
+        },
+        {
+          "code": "request_error",
+          "meaning": "Any other transport-level request error."
+        },
+        {
+          "code": "http_status_not_ok",
+          "meaning": "HTTP status was not 2xx (and not a redirect)."
+        },
+        {
+          "code": "size_cap_exceeded",
+          "meaning": "Response exceeded `max_bytes` (declared or streamed)."
+        },
+        {
+          "code": "content_encoding_rejected",
+          "meaning": "Response carried a non-identity `Content-Encoding` (decompression-bomb guard)."
+        },
+        {
+          "code": "media_type_not_allowed",
+          "meaning": "Response `Content-Type` was not in the caller's allowlist (or missing / spoofed)."
+        },
+        {
+          "code": "body_decode_error",
+          "meaning": "Response body was not valid UTF-8."
+        },
+        {
+          "code": "trust_version_rollback",
+          "meaning": "A trust artifact was offered whose ordering value is lower than the highest value already accepted for the same object and authority. The artifact may be correctly signed and still within its validity window; it is refused because accepting it would move the verifier backwards to superseded state (spec/trust-freshness.md §3)."
+        },
+        {
+          "code": "trust_version_equivocation",
+          "meaning": "Two distinct trust artifacts were observed carrying the same ordering value for the same object and authority, with different canonical content digests. Both may be correctly signed; they are refused because they claim the same position in one authority's sequence, and accepting either would let fetch order decide which superseded or conflicting state a verifier acts on (spec/trust-freshness.md §3.1). Detection is local to one verifier and does not establish cross-observer equivocation."
+        }
+      ]
+    },
+    "journey_step_status": {
+      "field": "steps[].status (journey receipt), status (operation receipt)",
+      "kind": "decisional status",
+      "closed": true,
+      "scope": "PROFILE NORMATIVE — the validation journey (spec/validation-journey.md)",
+      "values": [
+        {
+          "code": "VERIFIED",
+          "meaning": "The step's requirement was met."
+        },
+        {
+          "code": "PENDING",
+          "meaning": "The step could not conclude because required material was absent. Absence is not failure; it is an incomplete publication."
+        },
+        {
+          "code": "FAILED",
+          "meaning": "The step's requirement was not met."
+        },
+        {
+          "code": "BLOCKED",
+          "meaning": "The step did not run because a prerequisite step did not verify."
+        }
+      ]
+    },
+    "engine_status_by_step": {
+      "field": "engine_status (journey receipt step)",
+      "kind": "decisional status, per step",
+      "closed": true,
+      "scope": "PROFILE NORMATIVE — the validation journey",
+      "mapping_rule": "Each step's engine status maps onto exactly one journey step status. The mapping is total: a status not listed for a step maps to FAILED, so an unrecognised engine status can never be read as success.",
+      "steps": [
+        {
+          "step": "discovery",
+          "statuses": [
+            {
+              "engine_status": "DISCOVERY_OK",
+              "step_status": "VERIFIED"
+            },
+            {
+              "engine_status": "DISCOVERY_INCOMPLETE",
+              "step_status": "PENDING"
+            }
+          ],
+          "default": "FAILED"
+        },
+        {
+          "step": "manifest",
+          "statuses": [
+            {
+              "engine_status": "VALID",
+              "step_status": "VERIFIED"
+            },
+            {
+              "engine_status": "INCOMPLETE",
+              "step_status": "PENDING"
+            }
+          ],
+          "default": "FAILED"
+        },
+        {
+          "step": "keys",
+          "statuses": [
+            {
+              "engine_status": "TRUST_VALID",
+              "step_status": "VERIFIED"
+            },
+            {
+              "engine_status": "TRUST_INCOMPLETE",
+              "step_status": "PENDING"
+            }
+          ],
+          "default": "FAILED"
+        },
+        {
+          "step": "conformance",
+          "statuses": [
+            {
+              "engine_status": "PASS",
+              "step_status": "VERIFIED"
+            },
+            {
+              "engine_status": "WARN",
+              "step_status": "PENDING"
+            }
+          ],
+          "default": "FAILED"
+        },
+        {
+          "step": "interoperability",
+          "statuses": [
+            {
+              "engine_status": "L2_READY_FOR_TECHNICAL_REVIEW",
+              "step_status": "VERIFIED"
+            },
+            {
+              "engine_status": "L2_INCOMPLETE",
+              "step_status": "PENDING"
+            }
+          ],
+          "default": "FAILED"
+        },
+        {
+          "step": "federation",
+          "statuses": [
+            {
+              "engine_status": "L3_READY_FOR_TECHNICAL_REVIEW",
+              "step_status": "VERIFIED"
+            },
+            {
+              "engine_status": "L3_INCOMPLETE",
+              "step_status": "PENDING"
+            }
+          ],
+          "default": "FAILED"
+        },
+        {
+          "step": "keys | trust",
+          "rule": "The engine status is a trust_status. Its mapping is the `verdict` field published for each value in the trust_status vocabulary above, and is not repeated here. Note: the reference implementation also names TRUST_INCOMPLETE in this map; that value is not in the trust_status vocabulary and therefore cannot occur. It is recorded as a defect in the reference implementation, not as a protocol value.",
+          "default": "FAILED"
+        },
+        {
+          "step": "evidence",
+          "rule": "The engine status is the bundle's declared readiness. READY or READY_FOR_TECHNICAL_REVIEW maps to VERIFIED; any other readiness maps to PENDING; a bundle that does not validate maps to FAILED regardless of its declared readiness.",
+          "default": "FAILED"
+        }
+      ]
+    },
+    "failed_checks": {
+      "field": "failed_checks (federation trust evaluation)",
+      "kind": "check identifiers — NOT free text and NOT reason codes",
+      "closed": true,
+      "scope": "PROTOCOL NORMATIVE",
+      "authority": "contracts/federation/federation-trust.json — the check ids published there are the only permitted values. This field references that registry; it does not define a second vocabulary.",
+      "ordering": "Not significant. A consumer MUST NOT infer precedence from position.",
+      "duplicates": "Forbidden. The field is a set expressed as an array.",
+      "empty": "MUST be empty when outcome is ROUTING_ALLOWED, and MUST be non-empty when outcome is FAIL_CLOSED."
+    }
+  }
+}

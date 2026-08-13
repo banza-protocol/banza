@@ -1,0 +1,147 @@
+{
+  "_spec": "BANZA QR Code Lifecycle Specification v1.0",
+  "_status": "canonical",
+  "_authority": "ADR-012, INV-QR-001",
+  "_source_of_truth": "This contract together with contracts/qr/payload-format.json. Normative; not derived from any implementation.",
+  "states": {
+    "ACTIVE": "QR code is valid and accepts payment.",
+    "USED": "QR code was successfully paid. No further payments accepted. Terminal state.",
+    "EXPIRED": "QR code TTL has elapsed. No further payments accepted. Terminal state."
+  },
+  "qr_types": {
+    "STATIC": {
+      "description": "Reusable QR code. Linked to an owner identity (consumer or merchant). Amount is set by the payer at scan time.",
+      "initial_state": "ACTIVE",
+      "expires": false,
+      "reusable": true,
+      "transitions": [
+        {
+          "from": "ACTIVE",
+          "to": "ACTIVE",
+          "trigger": "Payment received",
+          "note": "Static QR does NOT transition to USED after payment. It remains ACTIVE for future use."
+        }
+      ],
+      "invariants": [
+        "INV-QR-002: expires_at MUST be null"
+      ]
+    },
+    "DYNAMIC": {
+      "description": "Single-use QR code. Amount is pre-set by the creator. Expires after TTL or after one successful payment.",
+      "initial_state": "ACTIVE",
+      "expires": true,
+      "reusable": false,
+      "transitions": [
+        {
+          "from": "ACTIVE",
+          "to": "USED",
+          "trigger": "Payment successfully completed",
+          "note": "Transition is atomic with the ledger posting. If the posting fails, status does not change.",
+          "invariants": [
+            "INV-QR-001: single-use enforcement"
+          ]
+        },
+        {
+          "from": "ACTIVE",
+          "to": "EXPIRED",
+          "trigger": "expires_at <= now (checked by expiry worker or at payment time)",
+          "note": "Expiry is enforced both proactively by the expiry worker and reactively at payment time. A QR that reaches EXPIRED cannot be paid even if the expiry worker has not run yet."
+        }
+      ],
+      "invariants": [
+        "INV-QR-001: MUST be paid at most once",
+        "INV-QR-002: expires_at MUST be set (not null)"
+      ]
+    }
+  },
+  "payment_flow": {
+    "description": "The canonical QR payment sequence from scan to ledger posting.",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Consumer scans QR payload string"
+      },
+      {
+        "step": 2,
+        "action": "Consumer device parses the prefix (BANZA: for production, BANZA-SBX: for sandbox) and decodes the Base64url body"
+      },
+      {
+        "step": 3,
+        "action": "Type discriminator 't' determines STATIC or DYNAMIC path"
+      },
+      {
+        "step": 4,
+        "action": "STATIC path: resolve owner_id from payload; consumer confirms amount",
+        "static_only": true
+      },
+      {
+        "step": 4,
+        "action": "DYNAMIC path: extract QR code ID, call operator to fetch record, verify HMAC signature, verify ACTIVE status and non-expired TTL",
+        "dynamic_only": true
+      },
+      {
+        "step": 5,
+        "action": "Consumer confirms payment on their device"
+      },
+      {
+        "step": 6,
+        "action": "Operator executes atomic ledger posting: debit consumer wallet, credit merchant wallet"
+      },
+      {
+        "step": 7,
+        "action": "DYNAMIC only: mark QR code as USED (atomic with ledger posting)",
+        "dynamic_only": true
+      },
+      {
+        "step": 8,
+        "action": "Emit qr.paid event with trace_id, qr_id, transfer_id, amount_minor"
+      },
+      {
+        "step": 9,
+        "action": "Return success response with transfer_id and paid_at"
+      }
+    ],
+    "atomicity": "Steps 6 and 7 (ledger posting + QR status update) MUST be atomic. It is not acceptable to post the ledger entry but leave the QR in ACTIVE status, or to mark USED without the ledger entry. INV-LEDGER-004."
+  },
+  "error_conditions": {
+    "QR_NOT_FOUND": {
+      "http_status": 404,
+      "description": "No QR code record exists for the given ID."
+    },
+    "QR_ALREADY_USED": {
+      "http_status": 422,
+      "description": "Dynamic QR code has already been paid. INV-QR-001."
+    },
+    "QR_EXPIRED": {
+      "http_status": 422,
+      "description": "QR code TTL has elapsed."
+    },
+    "AMOUNT_REQUIRED": {
+      "http_status": 422,
+      "description": "Open-amount QR was presented with no amount_minor in the pay request."
+    },
+    "AMOUNT_NEGATIVE": {
+      "http_status": 422,
+      "description": "amount_minor is zero or negative."
+    },
+    "INVALID_SIGNATURE": {
+      "http_status": 422,
+      "description": "HMAC verification of dynamic QR payload failed."
+    },
+    "INVALID_PAYLOAD": {
+      "http_status": 400,
+      "description": "QR payload string cannot be decoded or parsed."
+    }
+  },
+  "expiry_worker": {
+    "description": "Operators SHOULD run a background expiry worker that periodically transitions ACTIVE dynamic QR codes to EXPIRED when expires_at <= now. The reference implementation uses an async Tokio task on a 30-second interval.",
+    "note": "The expiry worker is an optimisation. The payment path MUST also check expiry synchronously at payment time, regardless of whether the expiry worker has run."
+  },
+  "invariants": {
+    "INV-QR-001": "A dynamic QR code MUST be paid at most once. Second payment attempt on a USED QR MUST return HTTP 422.",
+    "INV-QR-002": "Static QR: expires_at MUST be null. Dynamic QR: expires_at MUST be set and in the future at creation time.",
+    "INV-QR-003": "A QR code with status EXPIRED or USED MUST reject payment.",
+    "INV-QR-004": "Ledger posting and QR status update to USED MUST be atomic. Partial state (ledger without status update, or status update without ledger) is a financial invariant violation.",
+    "INV-QR-SIGN-001": "Dynamic QR HMAC signature MUST be verified against the database record before payment. Payload-only verification is insufficient."
+  }
+}
