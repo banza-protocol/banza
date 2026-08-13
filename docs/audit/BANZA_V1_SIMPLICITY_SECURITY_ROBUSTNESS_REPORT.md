@@ -162,6 +162,125 @@ later phases of this sweep.
 
 ---
 
+## Phase C — whitepaper production apparatus
+
+`docs/whitepaper/` held 83 files for a published, frozen 12-page edition. 24 were removed; the edition
+itself, its sources and its build were untouched.
+
+### Two retired renderers, kept alive by the guard watching them
+
+`tools/whitepaper-latex.py` (PT) and `tools/whitepaper-en-dossier.py` (EN) both composed a `.tex` from
+the derived JSON — the inverted direction that once silently recomposed an approved edition. Both had
+been retired in place: retirement headers, a hard `sys.exit(2)`, and a guard asserting that they kept
+their headers and stayed out of the release path.
+
+That is the pattern this milestone exists to end. 413 lines of code the repository cannot use, kept so
+that a check could confirm they were still disabled — and one of them citing `tools/whitepaper-pt-content.py`,
+which no longer exists. Both were deleted.
+
+The guard was rewritten to assert the **direction** instead of the filenames:
+
+- the release path contains no retired renderer, **and** writes no `.tex` from content JSON;
+- neither file may reappear in the tree at all — retired, not parked.
+
+Asserting the direction outlives any particular tool. A *new* generator making the same mistake would
+be caught, which a check on two known filenames never could. Both assertions were self-tested by
+injection — reintroducing the file, and putting a renderer back into the release script — and both
+failed as they should.
+
+### A second renderer for one document
+
+`docs/whitepaper/typst/whitepaper.typ` and `tools/whitepaper-build.sh` rendered the same content through
+Typst as a "preview". Its own header conceded it produces **a different composition — page count and
+layout — from the canonical LaTeX edition**, which makes it a poor preview of the thing it previews, and
+a second engine for one document is a source of divergence with nothing on the other side. Removed, with
+its `make whitepaper-preview` target, its git-ignore entries and its documentation.
+
+To look at the edition, build the edition: `make whitepaper-release`.
+
+### Closed production process
+
+`docs/whitepaper/prep/` (17 files — charter, outline, figure specification, claim-evidence matrix,
+related-work matrix, source inventory, bilingual glossary, publication-readiness note, a blueprint and
+six audit files) and `artifacts/whitepaper-v1/execution-state.json` were the production process for a
+document that is now published and frozen. Their only external citer was that execution-state record —
+each other's, and no one else's.
+
+Two were checked before removal rather than assumed:
+
+- **Authorship** is authoritative in `whitepaper.pt.tex` (the Copernicus `\Author` macros) and in
+  `docs/whitepaper/CITATION.cff`. The prep record was a third restatement.
+- **The bibliography** the build actually uses is `docs/whitepaper/latex/references.bib` (9 entries).
+  The prep `.bib` held 18 — a planning superset, not the published one.
+
+`CONSOLIDACAO_EDITORIAL_INTEGRAL_2026-08-04.md`, a dated consolidation report, went with them.
+
+### Documentation that described the prohibited direction as current
+
+`docs/whitepaper/BUILD.md` still drew the EN edition as `content/en.json → whitepaper-en-dossier.py →
+LaTeX EN gerado`. That is the direction that was retired, and the tool named had just been deleted. The
+release script does the opposite: `whitepaper.en.tex → whitepaper-content.py en → content/en.json`. The
+diagram was corrected for both languages, along with references to `tools/whitepaper-pt-content.py`,
+which has not existed for some time.
+
+`website/lib/whitepaper.ts` credited the non-canonical Typst renderer with keeping the web copy in sync
+and generating the release manifest. Both are the canonical release script's work.
+
+### Dead data in a derived artifact
+
+Each equation in `content/<lang>.json` carried a `typst` encoding beside its `latex` one. Nothing reads
+it — no component, no library, no engine — and the deriver does not write it. 20 members removed across
+the two canonical files and their two web mirrors; the derivation remains stable in both languages.
+
+### Finding: the equations are not derived from the dossier
+
+`tools/whitepaper-content.py` rebuilds each section from the `.tex`, but for equations it does
+`blocks.append(old_eqs[labels])` — it carries the block over from the previous JSON, matched by label
+set. A changed **label** fails hard; a changed equation **body** under the same label is silently
+ignored, so the web edition can drift from the published PDF while every check still passes.
+
+Not fixed here: closing it means writing a real TEX→equation derivation, which is a behaviour change and
+does not belong in a removal pass. Recorded as the first entry of the robustness backlog.
+
+### Verification
+
+- The published edition still reproduces **byte-identically**: `make whitepaper-verify` confirms 12 pp
+  each, LaTeX/xdvipdfmx, PT `b19f2b98…`, EN `275c95d3…`, matching `manifest.json` and `CHECKSUMS.txt`.
+- **202 guard targets, 200 pass** — the same two pre-existing failures, unchanged.
+- Website suite: **502 of 502 pass**, up from 496. The six failures fixed were pre-existing on `HEAD`:
+  four asserted against the removed governance note, one asserted that the **root** `README.md` names
+  the BanzAI runtime canonical — a leftover from a different milestone, since the README was rewritten
+  and frozen as the protocol's entry point and deliberately no longer says that. The positive assertion
+  now reads the architecture manifest, matching the guard.
+- `docs/whitepaper/`: 83 → **63** files. Repository: 1869 → **1846**.
+
+### Property preservation
+
+| Property | Authority before | Authority after | Lost? |
+|---|---|---|---|
+| Published PT/EN editions | committed PDFs + manifest + CHECKSUMS | unchanged, byte-identical | **NO** |
+| Editorial source of the edition | `whitepaper.pt.tex` (PT), `whitepaper.en.tex` (EN) | unchanged | **NO** |
+| Source-of-truth direction TEX→JSON | a guard requiring two retired tools to keep their headers | asserted on the release path and the tree, for any tool | **NO** |
+| Figures | 24 SVG sources → 24 figure PDFs | unchanged | **NO** |
+| Authorship and citation | `.tex` `\Author` macros + `CITATION.cff` | unchanged | **NO** |
+| Bibliography | `latex/references.bib` | unchanged | **NO** |
+| Web edition content | `content/<lang>.json`, derived | unchanged but for 20 unread members | **NO** |
+| Reproducible build | `make whitepaper-release` / `whitepaper-verify` | unchanged | **NO** |
+
+---
+
+## Robustness backlog
+
+Carried forward, with the phase that will take each:
+
+1. **Whitepaper equations are inherited, not derived** — a changed equation body under an unchanged
+   label drifts silently from the published PDF.
+2. **`private-key-leak-check` fails on `HEAD`** — a PEM block in `engines/operator-zero-core/src/boundary.rs`,
+   secret-field-name tokens in `evidence/claims/claims-matrix.json` and a compiled evidence-bundle WASM.
+3. **`regulatory-check` fails on `HEAD`** — `ca signature` and `corpus` tokens in mirrored ADRs.
+4. **`website/content/decisions/adr/` mirrors 64 ADRs against 81 canonical** — a partial mirror that has
+   drifted.
+
 ## Open
 
-Phases C onward: `docs/whitepaper/`, `tools/`, then the numeric, trust, normative and engine passes.
+`tools/`, then the numeric, trust, normative and engine passes.

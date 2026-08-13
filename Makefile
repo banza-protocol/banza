@@ -105,7 +105,7 @@ whitepaper-canonical-source-boundary-check:
 banza-whitepaper-check:
 	@bash tools/check-banza-whitepaper.sh
 
-.PHONY: whitepaper-release whitepaper-verify whitepaper-preview whitepaper-figures
+.PHONY: whitepaper-release whitepaper-verify whitepaper-figures
 ## whitepaper-release: CANONICAL Whitepaper v1.0 build — the single source of truth for the published PDFs (LaTeX/tectonic → xdvipdfmx, 12 pp, deterministic z-0 + SOURCE_DATE_EPOCH; tectonic version enforced). Regenerates .tex, compiles PT+EN, publishes PDFs, syncs the web mirror, updates manifest + CHECKSUMS, and runs banza-whitepaper-check. Idempotent (zero git diff on an unchanged tree).
 whitepaper-release:
 	@bash tools/whitepaper-release.sh
@@ -115,9 +115,6 @@ whitepaper-verify:
 ## whitepaper-figures: Regenerate the 24 vector figure PDFs from the single-source SVGs (needs rsvg-convert). Figures are committed assets; run this only when a figure SVG changes, then `make whitepaper-release`.
 whitepaper-figures:
 	@python3 tools/whitepaper-figures.py
-## whitepaper-preview: NON-CANONICAL Typst preview (quick visual/structural check only). Never publishes; writes watermarked output to docs/whitepaper/pdf/typst-preview/ (git-ignored). The published edition is `make whitepaper-release`.
-whitepaper-preview:
-	@bash tools/whitepaper-build.sh
 
 ## reference-information-architecture-check: Lock the public reference IA — canonical chapter order (PostgreSQL=05, FAQ=14), clean cards, stable routes, no tool-list narrative (M2.7L)
 reference-information-architecture-check:

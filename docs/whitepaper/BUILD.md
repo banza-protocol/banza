@@ -14,7 +14,7 @@
   canónica**, não apenas o texto).
 - **A edição inglesa NÃO é fonte independente** — é a tradução oficial, derivada semanticamente do PT.
 - **`content/pt.json` NÃO é fonte editorial primária** — é a derivação para a edição web
-  (`tools/whitepaper-pt-content.py`).
+  (`tools/whitepaper-content.py pt`).
 - **HTML/React NÃO é fonte editorial.** **PDF NÃO é fonte editável.**
 
 ### Direcção de derivação (unidireccional)
@@ -25,12 +25,13 @@ Overleaf PT aprovado
 LaTeX PT canónico no repo  (docs/whitepaper/latex/whitepaper.pt.tex)
         ↓
         ├── PDF PT                       (tectonic)
-        ├── conteúdo web PT              (tools/whitepaper-pt-content.py → content/pt.json → espelho web)
+        ├── conteúdo web PT              (tools/whitepaper-content.py pt → content/pt.json → espelho web)
         │
-        └── tradução oficial EN          (content/en.json, reconciliada do PT)
-                    ↓  (tools/whitepaper-en-dossier.py)
-                    ├── LaTeX EN gerado → PDF EN
-                    └── conteúdo web EN
+        └── tradução oficial EN          (docs/whitepaper/latex/whitepaper.en.tex, traduzida do dossier PT
+                                          congelado e mantida como LaTeX)
+                    ↓
+                    ├── PDF EN                       (tectonic)
+                    └── conteúdo web EN              (tools/whitepaper-content.py en → content/en.json)
 ```
 
 Nunca: `HTML → PT` · `EN → PT` · `content/pt.json → reconstruir editorialmente o Whitepaper` ·
@@ -143,11 +144,10 @@ controlado.
 **O motor canónico de publicação do Whitepaper BANZA v1.0 é LaTeX compilado com `tectonic` (XeTeX +
 `xdvipdfmx`).** É o único fluxo que produz os PDFs publicados, o manifesto e os checksums.
 
-O **Typst** (`docs/whitepaper/typst/whitepaper.typ`, via `tools/whitepaper-build.sh`) é apenas um
-**preview não canónico / renderer experimental / verificação estrutural**. Produz uma composição
-diferente (número de páginas e paginação distintos) e **nunca** publica, nunca escreve um caminho
-publicado, nunca actualiza o manifesto nem os checksums. Não deve ser apresentado como produtor da
-edição publicada.
+Não existe segundo motor. O renderizador Typst que servia de preview foi removido: produzia uma
+composição diferente da edição publicada, o que faz dele um mau previsualizador dela, e um segundo
+motor para o mesmo documento é uma fonte de divergência sem contrapartida. Para ver a edição, compila-se
+a edição — `make whitepaper-release`.
 
 ## Comando único de publicação
 
@@ -159,7 +159,7 @@ Executa, por ordem e falhando perante qualquer divergência:
 
 1. valida `docs/whitepaper/content/pt.json` e `en.json`;
 2. confirma a paridade estrutural PT/EN (secções, blocos, figuras, equações);
-3. deriva `content/pt.json` (edição web) e o dossier EN (`whitepaper.en.tex`) do **dossier canónico português** (`docs/whitepaper/latex/whitepaper.pt.tex`, a edição Overleaf aprovada — classe copernicus) via `tools/whitepaper-pt-content.py` + `tools/whitepaper-en-dossier.py`;
+3. deriva `content/pt.json` (edição web) e o dossier EN (`whitepaper.en.tex`) do **dossier canónico português** (`docs/whitepaper/latex/whitepaper.pt.tex`, a edição Overleaf aprovada — classe copernicus) via `tools/whitepaper-content.py pt` + `tools/whitepaper-en-dossier.py`;
 4. compila PT e EN com `tectonic`;
 5. aplica `SOURCE_DATE_EPOCH` derivado de `manifest.released_at` (2026-08-01 → `1785542400`);
 6. composição fiel do dossier Overleaf (sem reescrita de layout); metadata verificada via `pdfinfo`;
@@ -195,13 +195,6 @@ SVG mudar; depois correr `make whitepaper-release`.
 
 ## Preview Typst (não canónico)
 
-```bash
-make whitepaper-preview      # = bash tools/whitepaper-build.sh
-```
-
-Escreve apenas para `docs/whitepaper/pdf/typst-preview/` (ignorado pelo Git), com marca de água DRAFT.
-Nunca publica.
-
 ## Toolchain fixada (hermética)
 
 - **tectonic — versão EXACTA `0.17.0`** (não `0.17.x`). `whitepaper-release`/`--verify` **abortam** se a
@@ -233,9 +226,8 @@ toolchain**, nunca uma actualização transparente: exige actualizar os pins em 
 + `.github/workflows/identity-guard.yml` + este documento, correr `make whitepaper-release` (re-freeze das
 SHA-256) e rever o diff. O bundle nunca é seleccionado implicitamente pelo binário nem obtido por uma URL
 mutável/`latest`.
-- **python3** — `tools/whitepaper-pt-content.py` + `tools/whitepaper-en-dossier.py` (derivações) + validação/serialização do manifesto.
+- **python3** — `tools/whitepaper-content.py <pt|en>` (derivação TEX→JSON) + validação/serialização do manifesto.
 - **rsvg-convert** — apenas `make whitepaper-figures`.
-- **typst 0.12.0** — apenas o preview não canónico (opcional).
 
 ## Contrato de CI (obrigatório)
 

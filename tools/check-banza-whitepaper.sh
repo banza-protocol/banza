@@ -238,14 +238,14 @@ ok "manifest — v1.0 (2026-08-01), 2 PDFs, committed hashes match the frozen ma
 
 # ── 9b. canonical engine: published PDFs are LaTeX/xdvipdfmx (tectonic), never Typst ──────────────────
 # The single source of truth for the published edition is tools/whitepaper-release.sh (LaTeX/tectonic).
-# This blocks a Typst build (tools/whitepaper-build.sh — a non-canonical preview) from being published,
+# This blocks a PDF from any engine other than the canonical LaTeX/tectonic build from being published,
 # using engine metadata rather than page count alone.
 python3 - <<'PY' || exit 1
 import os, subprocess
 pubdirs=["website/public/whitepaper","docs/whitepaper/pdf"]
-# Enumerate every COMMITTED PDF under the published dirs (git-aware: ignores untracked preview output
-# such as the git-ignored typst-preview/ and *.DRAFT.pdf). EVERY committed published PDF — not just the
-# two canonical filenames — must be a LaTeX/xdvipdfmx build, so a Typst PDF committed under ANY name is caught.
+# Enumerate every COMMITTED PDF under the published dirs (git-aware: untracked files are not published).
+# EVERY committed published PDF — not just the two canonical filenames — must be a LaTeX/xdvipdfmx build,
+# so a PDF from any other engine, committed under ANY name, is caught.
 tracked=subprocess.run(["git","ls-files","--","website/public/whitepaper/*.pdf","docs/whitepaper/pdf/*.pdf"],
                        capture_output=True,text=True).stdout.split()
 for p in tracked:

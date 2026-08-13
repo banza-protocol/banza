@@ -4,7 +4,8 @@
 #
 # Engine: LaTeX compiled with **tectonic** (XeTeX → xdvipdfmx). This is the ONLY command that produces
 # the committed/published PDFs (website/public/whitepaper + docs/whitepaper/pdf), the manifest and the
-# checksums. The Typst path (tools/whitepaper-build.sh) is a NON-CANONICAL preview and never writes a
+# checksums. There is no second engine: the Typst preview renderer was removed, because a renderer that
+# produces a different composition from the published edition is a poor preview of it and a
 # published path.
 #
 # Deterministic: the date is pinned from the manifest (SOURCE_DATE_EPOCH) and compression is disabled in

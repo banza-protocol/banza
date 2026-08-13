@@ -15,7 +15,6 @@ const raw = (p: string) => readFileSync(join(repoRoot, p), "utf8");
 
 const FILES = [
   "services/banzai-api/README.md",
-  "docs/governance/BANZAI_COMPONENT_BOUNDARY_2026_07.md",
   "services/banzai-api/src/knowledge.js",
   "website/content/BANZA_REFERENCIA.md",
   "website/lib/site.ts",
@@ -58,24 +57,28 @@ describe("M2.19G.6 — BanzAI is consolidated; the separate repo is removed, not
     });
   }
 
-  it("README names services/banzai-api as the canonical runtime and BANZA as the sole active source", () => {
-    const r = raw("README.md");
-    expect(r).toMatch(/services\/banzai-api/);
-    expect(r).toMatch(/canonical runtime|is the canonical runtime|canonical, this repo/i);
-    expect(r).toMatch(/active BanzAI (development|source)|sole active BanzAI source/i);
-  });
-
   it("services/banzai-api/README names itself the canonical runtime and the sole active source", () => {
     const r = raw("services/banzai-api/README.md");
     expect(r).toMatch(/canonical BanzAI runtime|is the canonical runtime/i);
     expect(r).toMatch(/sole active BanzAI source|no separate BanzAI repository/i);
   });
 
-  it("COMPONENT_BOUNDARY names services/banzai-api as the canonical runtime; BANZA the only active source", () => {
-    const b = raw("docs/governance/BANZAI_COMPONENT_BOUNDARY_2026_07.md");
-    expect(b).toMatch(/services\/banzai-api/);
-    expect(b).toMatch(/is the canonical runtime/i);
-    expect(b).toMatch(/no separate BanzAI repository|active BanzAI development lives entirely|this monorepo only/i);
-    expect(b).not.toMatch(/frozen historical archive/i);
+  // The positive assertion is made against the architecture manifest, not against a prose restatement
+  // of it. The manifest is what the runtime and the website actually load, so drift from it has
+  // consequences; the governance note that used to carry this sentence has been removed.
+  it("the architecture manifest declares this repo canonical and names services/banzai-api", () => {
+    const m = raw("website/content/banzai/architecture-manifest.json");
+    const parsed = JSON.parse(m);
+    const nodes = [
+      ...Object.values(parsed),
+      ...Object.values(parsed).flatMap((v) => (Array.isArray(v) ? v : [])),
+    ];
+    const canonical = nodes.some(
+      (v) => v && typeof v === "object" && !Array.isArray(v) &&
+        (v as Record<string, unknown>).repo === "banza-protocol/banza" &&
+        (v as Record<string, unknown>).role === "canonical",
+    );
+    expect(canonical).toBe(true);
+    expect(m).toMatch(/services\/banzai-api/);
   });
 });
