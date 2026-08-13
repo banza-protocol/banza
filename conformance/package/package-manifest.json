@@ -6,7 +6,7 @@
   "_outcome_grammar": "Cases do not share one member name for the expected outcome. Each vector file lists the members its cases actually use in `outcome_members`. Every case is determinable; the variety is a known ergonomics limitation, not a hidden one.",
   "_self_contained": "No file here references anything outside this package. No engine, runner or reference implementation is present or needed: the vectors are data, and the expected outcome of each is stated in the vector itself.",
   "_boundary": "Passing these vectors demonstrates conformance to what they cover. It is not a certification, an admission or an authorisation, and no party issues anything on the strength of it.",
-  "file_count": 70,
+  "file_count": 72,
   "files": [
     {
       "path": "conformance/capabilities/schema.json",
@@ -22,6 +22,11 @@
       "path": "conformance/vectors/canonicalization.json",
       "sha256": "8887da3b6b356c4a7a990f1d2a8f5532e09b979e71c102f2e5e0d10e98cbe48c",
       "bytes": 8683
+    },
+    {
+      "path": "conformance/vectors/capabilities.json",
+      "sha256": "019fed8c10d56660da026c542dc5ff35269c288e74aaf699969e5f9ed08377a1",
+      "bytes": 3893
     },
     {
       "path": "conformance/vectors/collections.json",
@@ -229,6 +234,11 @@
       "bytes": 3286
     },
     {
+      "path": "contracts/production/capability-registry.production.json",
+      "sha256": "8d307443c2d99e4158eb6972fcc8b28ddbb50c23743e474bff56bab3cdb12e6a",
+      "bytes": 10763
+    },
+    {
       "path": "contracts/production/conformance-evidence.production.schema.json",
       "sha256": "45993c0010a47f575929426db450f652d2c68f6d1a628850e85f816b41bbc0dd",
       "bytes": 6091
@@ -395,6 +405,30 @@
         "BCJ-R07",
         "BCJ-R08",
         "BCJ-R09"
+      ]
+    },
+    {
+      "file": "conformance/vectors/capabilities.json",
+      "required_by_profiles": [
+        "L0"
+      ],
+      "case_count": 12,
+      "outcome_members": [
+        "expect"
+      ],
+      "case_ids": [
+        "CAP-001",
+        "CAP-002",
+        "CAP-003",
+        "CAP-004",
+        "CAP-005",
+        "CAP-006",
+        "CAP-007",
+        "CAP-008",
+        "CAP-009",
+        "CAP-010",
+        "CAP-011",
+        "CAP-012"
       ]
     },
     {
@@ -689,6 +723,7 @@
       "name": "Protocol Sandbox",
       "required_vectors": [
         "conformance/vectors/canonicalization.json",
+        "conformance/vectors/capabilities.json",
         "conformance/vectors/operator-manifests.json",
         "conformance/vectors/reason-codes.json"
       ]

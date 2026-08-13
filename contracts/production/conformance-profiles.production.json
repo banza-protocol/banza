@@ -29,14 +29,17 @@
       ],
       "required_specifications": [
         "spec/canonicalization.md",
+        "spec/capabilities.md",
         "spec/reason-codes.md"
       ],
       "required_registries": [
         "contracts/invariants.json",
+        "contracts/production/capability-registry.production.json",
         "contracts/production/reason-code-registry.production.json"
       ],
       "required_vectors": [
         "conformance/vectors/canonicalization.json",
+        "conformance/vectors/capabilities.json",
         "conformance/vectors/operator-manifests.json",
         "conformance/vectors/reason-codes.json"
       ],
@@ -52,7 +55,23 @@
         "Trust material of your own: no signing key, no key manifest, no published metadata. L0 needs no identity and no signature",
         "Any registration, submission, approval or credential from any party"
       ],
-      "_note": "L0 is deliberately the smallest complete statement of the protocol: represent money as integers correctly, produce a valid manifest, canonicalize deterministically, and use published reason codes. It is exercised locally; nothing is issued to anyone."
+      "_note": "L0 is deliberately the smallest complete statement of the protocol: represent money as integers correctly, produce a valid manifest, canonicalize deterministically, and use published reason codes. It is exercised locally; nothing is issued to anyone.",
+      "required_vector_cases": {
+        "conformance/vectors/canonicalization.json": "ALL",
+        "conformance/vectors/operator-manifests.json": "ALL",
+        "conformance/vectors/reason-codes.json": [
+          "RC-001",
+          "RC-002",
+          "RC-004",
+          "RC-005",
+          "RC-006",
+          "RC-007",
+          "RC-008",
+          "RC-009",
+          "RC-014"
+        ],
+        "conformance/vectors/capabilities.json": "ALL"
+      }
     },
     {
       "level": "L1",
@@ -112,7 +131,14 @@
         "contracts/openapi/activity.yaml",
         "contracts/openapi/transfers.yaml",
         "contracts/openapi/wallet-onboarding.yaml"
-      ]
+      ],
+      "required_vector_cases": {
+        "conformance/vectors/event-envelopes.json": "ALL",
+        "conformance/vectors/idempotency.json": "ALL",
+        "conformance/vectors/ledger-postings.json": "ALL",
+        "conformance/vectors/transfers.json": "ALL",
+        "conformance/vectors/wallet-balances.json": "ALL"
+      }
     },
     {
       "level": "L2",
@@ -164,7 +190,13 @@
       "_note": "Payment initiation — payment requests, dynamic QR, instant execution — is L2, not L1.",
       "required_apis": [
         "contracts/openapi/collections.yaml"
-      ]
+      ],
+      "required_vector_cases": {
+        "conformance/vectors/collections.json": "ALL",
+        "conformance/vectors/payment-requests.json": "ALL",
+        "conformance/vectors/qr-payloads.json": "ALL",
+        "conformance/vectors/settlement-batches.json": "ALL"
+      }
     },
     {
       "level": "L3",
@@ -254,7 +286,25 @@
       "not_required": [
         "External payment-network integration — that is L4",
         "Any certificate issued by any party: trust is evaluated from published material, there is no BANZA CA and no operator certificate"
-      ]
+      ],
+      "required_vector_cases": {
+        "conformance/vectors/reason-codes.json": [
+          "RC-003",
+          "RC-010",
+          "RC-011",
+          "RC-012",
+          "RC-013",
+          "RC-015",
+          "RC-016",
+          "RC-017",
+          "RC-018",
+          "RC-019",
+          "RC-020",
+          "RC-021"
+        ],
+        "conformance/vectors/trust-signing.json": "ALL",
+        "conformance/vectors/trust-freshness.json": "ALL"
+      }
     },
     {
       "level": "L4",
@@ -305,7 +355,8 @@
         "_result_vocabulary": "`not_run` is the per-level result vocabulary already published in contracts/production/conformance-report.production.schema.json. It is the correct outcome here and `fail` is not: nothing failed. It is not `not_applicable` either: L4 applies, and was not evaluated because no profile was selected and no external evidence supplied.",
         "published_profiles": [],
         "_published_profiles_note": "EMPTY, and stated rather than concealed. No concrete external-interoperability profile is published in BANZA 1.0.0, and none is invented here to make the mechanism look exercised. The L4 mechanism is defined; no L4 profile or evidence currently exists, which is consistent with a pre-production protocol."
-      }
+      },
+      "required_vector_cases": {}
     }
   ],
   "non_profile_artifacts": {
@@ -344,5 +395,7 @@
         "contracts/production/conformance-profiles.production.schema.json"
       ]
     }
-  }
+  },
+  "_vector_applicability_note": "`required_vector_cases` states WHICH cases of a required vector file a profile must satisfy. It exists because listing a file was not the same as requiring all of it: conformance/vectors/reason-codes.json carries both the reason-code grammar, which every profile needs, and cases about failed_checks, trust_status, receipt equivalence and per-step engine statuses, which only arise in trust evaluation. \"ALL\" means every case in the file. A list means those case ids and no others. This declares applicability only: no vector file is split, renamed or rewritten, and the case grammars are untouched.",
+  "_capability_authority": "required_capabilities names identifiers defined in contracts/production/capability-registry.production.json. This registry states WHICH a profile requires; it does not define what any of them means."
 }

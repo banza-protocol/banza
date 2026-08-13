@@ -7,8 +7,8 @@
   "_authority": "This package is a derived distribution of the BANZA v1.0.0 public normative surface. It is not an independent specification. The BANZA Normative Manifest remains authoritative.",
   "_reference_implementation": "The reference implementation is intentionally excluded.",
   "_construction": "Built by positive allowlist from the Phase D implementation set for this profile. No file is present unless the allowlist selected it; nothing is copied and then deleted.",
-  "normative_manifest_sha256": "ee404bc3a82bfbe9bb3e5c02899e25a2eab916d546505cd0fcd49c2762a00c70",
-  "file_count": 18,
+  "normative_manifest_sha256": "ce63dc78f75a26b2c9130e399212ac24b3b14cbfb1562c3c60196dbdc1fdaf22",
+  "file_count": 21,
   "files": [
     {
       "path": "LICENSE",
@@ -47,6 +47,12 @@
       "why": "in the L0 implementation set"
     },
     {
+      "path": "conformance/vectors/capabilities.json",
+      "sha256": "019fed8c10d56660da026c542dc5ff35269c288e74aaf699969e5f9ed08377a1",
+      "bytes": 3893,
+      "why": "in the L0 implementation set"
+    },
+    {
       "path": "conformance/vectors/operator-manifests.json",
       "sha256": "1ad6b9cbba47f315c07009c866c011b128b647273fa646d776dc27946f0354c7",
       "bytes": 2143,
@@ -65,21 +71,27 @@
       "why": "in the L0 implementation set"
     },
     {
+      "path": "contracts/production/capability-registry.production.json",
+      "sha256": "8d307443c2d99e4158eb6972fcc8b28ddbb50c23743e474bff56bab3cdb12e6a",
+      "bytes": 10763,
+      "why": "in the L0 implementation set"
+    },
+    {
       "path": "contracts/production/conformance-profiles.production.json",
-      "sha256": "a15b8255a8c1d35a977f7ef15619b416f0745968969eacb0ca6d4ad2af51eb26",
-      "bytes": 18233,
+      "sha256": "15006dfe6909b073cc195a2bdc1c3d7c0205fd3560c5c4f146901dac7c7299bc",
+      "bytes": 20800,
       "why": "what each profile requires"
     },
     {
       "path": "contracts/production/conformance-profiles.production.schema.json",
-      "sha256": "0fd314227bb0d64540fb2fecd79372a7ecc65ca5a85422df5bc65e0734bb27fe",
-      "bytes": 7100,
+      "sha256": "15a388491a640a38636cd14aab55d1b053d5b8b8d16c56254eca7fa8bdd0124d",
+      "bytes": 7860,
       "why": "its shape"
     },
     {
       "path": "contracts/production/normative-manifest.json",
-      "sha256": "ee404bc3a82bfbe9bb3e5c02899e25a2eab916d546505cd0fcd49c2762a00c70",
-      "bytes": 59626,
+      "sha256": "ce63dc78f75a26b2c9130e399212ac24b3b14cbfb1562c3c60196dbdc1fdaf22",
+      "bytes": 60878,
       "why": "what is normative, and what is not"
     },
     {
@@ -102,14 +114,20 @@
     },
     {
       "path": "docs/guides/implement-l0.md",
-      "sha256": "43ba00d6990012fd4f2835da61a880ae2116db4dfdd37434af3d912fec06fcbe",
-      "bytes": 11039,
+      "sha256": "39b9b2cfd62b08b8697e853f6741f4aa957032b67e8cd3b94d3745450b7eb8a1",
+      "bytes": 12923,
       "why": "a map to the L0 set; states no requirement of its own"
     },
     {
       "path": "spec/canonicalization.md",
       "sha256": "f3cfb22401a9743b60286b2890783ef672250b9fee28f76748c91489d4caeb11",
       "bytes": 11960,
+      "why": "in the L0 implementation set"
+    },
+    {
+      "path": "spec/capabilities.md",
+      "sha256": "d6ffc3c620e7280a64917b8bb018b739964bcddbec4cbc9ccbc9d1902e8844d9",
+      "bytes": 6524,
       "why": "in the L0 implementation set"
     },
     {

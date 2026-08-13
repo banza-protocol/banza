@@ -1,0 +1,129 @@
+{
+  "_spec": "BANZA Core Capability Satisfaction — Conformance Vectors",
+  "_status": "canonical",
+  "_authority": "spec/capabilities.md",
+  "_source_of_truth": "spec/capabilities.md and contracts/production/capability-registry.production.json",
+  "_boundary": "These vectors decide whether a DECLARATION satisfies a REQUIREMENT. They say nothing about whether the declaration is true: that is established by conformance evidence, never by declaring.",
+  "protocol_version": "1.0.0",
+  "registry": "banza-capabilities/1",
+  "vector_count": 12,
+  "vectors": [
+    {
+      "id": "CAP-001",
+      "title": "a canonical identifier satisfies the requirement",
+      "required": "traceability",
+      "declared": [
+        "traceability"
+      ],
+      "expect": "satisfied"
+    },
+    {
+      "id": "CAP-002",
+      "title": "a canonical identifier among others still satisfies",
+      "required": "transfer",
+      "declared": [
+        "consumer_payment",
+        "transfer",
+        "merchant_acceptance"
+      ],
+      "expect": "satisfied"
+    },
+    {
+      "id": "CAP-003",
+      "title": "a required capability that is absent is not satisfied",
+      "required": "traceability",
+      "declared": [
+        "transfer",
+        "consumer_payment"
+      ],
+      "expect": "not_satisfied"
+    },
+    {
+      "id": "CAP-004",
+      "title": "an empty declaration satisfies nothing",
+      "required": "transfer",
+      "declared": [],
+      "expect": "not_satisfied"
+    },
+    {
+      "id": "CAP-005",
+      "title": "an unrelated capability does not satisfy",
+      "required": "payment_initiation",
+      "declared": [
+        "external_acquiring",
+        "reconciliation"
+      ],
+      "expect": "not_satisfied"
+    },
+    {
+      "id": "CAP-006",
+      "title": "an unregistered string does not satisfy a core requirement",
+      "required": "payment_request",
+      "declared": [
+        "payment-requests-ish"
+      ],
+      "expect": "not_satisfied",
+      "rule": "spec/capabilities.md §2 — the member accepts other strings; they satisfy nothing"
+    },
+    {
+      "id": "CAP-007",
+      "title": "a registered alias satisfies the capability it aliases",
+      "required": "inter_operator_settlement",
+      "declared": [
+        "cross_operator_settlement"
+      ],
+      "expect": "satisfied",
+      "rule": "spec/capabilities.md §4 — accepted on input; canonical emission remains inter_operator_settlement"
+    },
+    {
+      "id": "CAP-008",
+      "title": "a separator variant is not the identifier",
+      "required": "consumer_payment",
+      "declared": [
+        "consumer-payment"
+      ],
+      "expect": "not_satisfied",
+      "rule": "§3 — no separator substitution, in either direction"
+    },
+    {
+      "id": "CAP-009",
+      "title": "a case variant is not the identifier",
+      "required": "transfer",
+      "declared": [
+        "Transfer"
+      ],
+      "expect": "not_satisfied",
+      "rule": "§3 — no case folding"
+    },
+    {
+      "id": "CAP-010",
+      "title": "a plural is not the identifier",
+      "required": "transfer",
+      "declared": [
+        "transfers"
+      ],
+      "expect": "not_satisfied",
+      "rule": "§3 — no singular/plural guessing"
+    },
+    {
+      "id": "CAP-011",
+      "title": "a prefix of an identifier is not the identifier",
+      "required": "payment_initiation",
+      "declared": [
+        "payment"
+      ],
+      "expect": "not_satisfied",
+      "rule": "§3 — no prefix matching"
+    },
+    {
+      "id": "CAP-012",
+      "title": "a supports_* flag name declared as a capability string satisfies nothing",
+      "required": "traceability",
+      "declared": [
+        "supports_traces"
+      ],
+      "expect": "not_satisfied",
+      "rule": "§5 — supports_traces is NARROWER than traceability; and a flag NAME used as a capability string is not a core identifier in any case"
+    }
+  ]
+}

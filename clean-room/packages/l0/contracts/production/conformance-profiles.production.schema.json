@@ -122,6 +122,26 @@
         "required_vectors": {
           "$ref": "#/$defs/pathList"
         },
+        "required_vector_cases": {
+          "type": "object",
+          "description": "Which cases of a required vector file this profile must satisfy. Either the string \"ALL\", or the explicit list of case ids. Listing a file under required_vectors states that it is in scope; this member states how much of it is, which is not the same question.",
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "const": "ALL"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "uniqueItems": true,
+                "minItems": 1
+              }
+            ]
+          }
+        },
         "required_suites": {
           "$ref": "#/$defs/pathList"
         },

@@ -111,15 +111,42 @@ Vendor extensions use `x-<vendor>.<code>` and never collide with core codes.
 
 **Verify against:** [`conformance/vectors/reason-codes.json`](../../conformance/vectors/reason-codes.json).
 
+## 8b. Declaring capabilities
+
+L0 requires **no** capability, so nothing here is an obligation at this level. It is stated because the
+rule is easy to get wrong at L1 and the machinery is already in your set.
+
+The core capability identifiers are published in
+[`contracts/production/capability-registry.production.json`](../../contracts/production/capability-registry.production.json),
+and [`spec/capabilities.md`](../../spec/capabilities.md) governs them. Two consequences worth knowing
+before you build anything:
+
+- To satisfy a profile's capability requirement you declare the **canonical identifier** in your
+  manifest's `capabilities` array. Other strings may appear there — the member is not a closed enum —
+  but they satisfy nothing.
+- Comparison is **exact**. No case folding, no `_` ↔ `-` substitution, no plural guessing, no prefix
+  matching. `consumer-payment` is not `consumer_payment` unless the registry says it is, and it does
+  not.
+
+The `supports_*` booleans of the capabilities schema are a separate, older vocabulary. Each was audited
+against the core capabilities and exactly one relation came out **exact**; the rest are broader,
+narrower or unrelated, and none of those satisfies a capability requirement.
+
 ## 9. Public vectors
 
-Three vector files, all self-contained:
+Four vector files, all self-contained. **Which cases apply to L0 is stated in the profile registry**
+under `required_vector_cases` — listing a file is not the same as requiring all of it:
 
-| Vectors | What passing them demonstrates |
-|---|---|
-| `canonicalization.json` | Your canonical form is byte-identical to the profile's, and your rejections are rejections |
-| `operator-manifests.json` | You accept valid manifests and refuse invalid ones for the stated reason |
-| `reason-codes.json` | Your codes are well-formed and drawn from the published vocabularies |
+| Vectors | Cases required at L0 | What passing them demonstrates |
+|---|---|---|
+| `canonicalization.json` | all 24 | Your canonical form is byte-identical to the profile's, and your rejections are rejections |
+| `operator-manifests.json` | all 4 | You accept valid manifests and refuse invalid ones for the stated reason |
+| `reason-codes.json` | **9 of 21** — RC-001, RC-002, RC-004–RC-009, RC-014 | Your codes are well-formed and drawn from the published vocabularies |
+| `capabilities.json` | all 12 | A declaration satisfies a requirement only when the registry says it does |
+
+The twelve reason-code cases **not** required at L0 concern `failed_checks`, `trust_status`, receipt
+equivalence and per-step engine statuses. Those arise in trust evaluation, which begins at L3. You do
+not need them here, and the registry says so rather than leaving you to infer it.
 
 They are data. Running them requires no BANZA code — see
 [`conformance/package/`](../../conformance/package/README.md), which is the same material packaged to

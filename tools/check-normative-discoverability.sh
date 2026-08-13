@@ -339,4 +339,97 @@ grep -qi 'reaching L3 does not reach L4' "$GUIDE" \
   || fail "the guide must tell an implementer that reaching L3 does not reach L4"
 echo "  ok: L3 conformant and L4 conformant are distinguishable claims"
 
+# ---- 8. one capability namespace, and vector applicability per profile ---------------------------
+# Both close findings the L0 rehearsal produced: three capability vocabularies with no mapping, and a
+# profile requiring a whole vector file whose cases belong to different levels.
+python3 - "$REG" <<'PY' || exit 1
+import json, sys, os
+reg = json.load(open(sys.argv[1]))
+cap = json.load(open('contracts/production/capability-registry.production.json'))
+bad = []
+
+ids = {c['id'] for c in cap['capabilities']}
+aliases = {a['alias']: c['id'] for c in cap['capabilities'] for a in c.get('aliases', [])}
+if not ids:
+    bad.append('the capability registry publishes no identifiers')
+
+# Every capability a profile requires must be defined in the registry — and nowhere else.
+for p in reg['profiles']:
+    for c in p['required_capabilities']:
+        if c not in ids:
+            bad.append('%s requires capability %r, which the capability registry does not define'
+                       % (p['level'], c))
+
+# An alias must not collide with a canonical identifier, or resolution stops being a function.
+for a, target in aliases.items():
+    if a in ids:
+        bad.append('%r is registered both as a canonical identifier and as an alias of %r' % (a, target))
+
+# Only an EXACT relation may satisfy a core capability. Anything else asserting one is the heuristic
+# mapping this registry exists to prevent.
+for f in cap['supports_flags_audit']['flags']:
+    rel = f.get('relation')
+    if rel not in ('exact', 'broader', 'narrower', 'composition', 'none'):
+        bad.append('flag %s has an unrecognised relation %r' % (f['flag'], rel))
+    if rel == 'exact' and f.get('core_capability') not in ids:
+        bad.append('flag %s claims an exact relation to %r, which is not a capability'
+                   % (f['flag'], f.get('core_capability')))
+    if rel != 'exact' and not f.get('note'):
+        bad.append('flag %s is not exact and records no reason' % f['flag'])
+for c in cap['capabilities']:
+    if c.get('supports_flag') and c.get('supports_flag_relation') != 'exact':
+        bad.append('%s names a supports_flag without an exact relation' % c['id'])
+
+# Vector applicability: every required file scoped, every listed case real, no case orphaned, and a
+# lower profile must not silently inherit a case scoped to a higher one.
+seen_by_profile = {}
+for p in reg['profiles']:
+    rvc = p.get('required_vector_cases')
+    if rvc is None:
+        bad.append('%s declares no required_vector_cases: listing a file is not the same as '
+                   'requiring all of it' % p['level'])
+        continue
+    for f in p.get('required_vectors', []):
+        if f not in rvc:
+            bad.append('%s requires %s but does not say which of its cases apply' % (p['level'], f))
+    for f, cases in rvc.items():
+        if not os.path.exists(f):
+            bad.append('%s scopes cases of %s, which does not exist' % (p['level'], f)); continue
+        doc = json.load(open(f))
+        real = {c['id'] for k in ('vectors', 'cases') if isinstance(doc.get(k), list)
+                for c in doc[k] if isinstance(c, dict) and c.get('id')}
+        if cases == 'ALL':
+            seen_by_profile.setdefault(f, {})[p['level']] = real
+            continue
+        unknown = set(cases) - real
+        if unknown:
+            bad.append('%s scopes cases of %s that do not exist: %s'
+                       % (p['level'], f, sorted(unknown)))
+        seen_by_profile.setdefault(f, {})[p['level']] = set(cases)
+
+# No case in a required file may be unassigned: an unassigned case is one nobody must pass, which is
+# how a rule quietly stops being tested.
+for f, per in seen_by_profile.items():
+    doc = json.load(open(f))
+    real = {c['id'] for k in ('vectors', 'cases') if isinstance(doc.get(k), list)
+            for c in doc[k] if isinstance(c, dict) and c.get('id')}
+    covered = set().union(*per.values()) if per else set()
+    if real - covered:
+        bad.append('%s has cases no profile requires: %s' % (f, sorted(real - covered)[:8]))
+
+if bad:
+    for b in bad:
+        print('  FAIL: %s' % b)
+    sys.exit(1)
+print('  ok: one capability namespace (%d identifiers, %d alias), %d supports_* flags audited, '
+      'vector applicability declared per profile' % (len(ids), len(aliases),
+      len(cap['supports_flags_audit']['flags'])))
+PY
+
+# The rule against implicit normalisation has to be stated, not merely intended.
+for rule in 'fold case' 'separators' 'prefix' 'fuzzy'; do
+  grep -qi "$rule" spec/capabilities.md || fail "spec/capabilities.md does not forbid: $rule"
+done
+echo "  ok: implicit normalisation is forbidden explicitly, not left to convention"
+
 echo "normative-discoverability: OK — the surface is navigable from outside, and nothing outside it is required"

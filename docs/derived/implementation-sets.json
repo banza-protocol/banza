@@ -13,16 +13,16 @@
   },
   "protocol_version": "1.0.0",
   "manifest_totals": {
-    "artifacts": 147,
-    "implementation": 88,
-    "conformance": 54,
+    "artifacts": 150,
+    "implementation": 90,
+    "conformance": 55,
     "legal": 3,
     "informative": 2
   },
   "edge_counts": {
-    "profile_requires": 73,
+    "profile_requires": 77,
     "schema_ref": 16,
-    "cites_normative": 262
+    "cites_normative": 277
   },
   "_closure_edges": [
     "profile_requires",
@@ -134,6 +134,20 @@
       "edge": "cites_normative",
       "kind": "normative",
       "reason": "conformance/vectors/canonicalization.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "conformance/vectors/capabilities.json",
+      "to": "contracts/production/capability-registry.production.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "conformance/vectors/capabilities.json names contracts/production/capability-registry.production.json in its own text"
+    },
+    {
+      "from": "conformance/vectors/capabilities.json",
+      "to": "spec/capabilities.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "conformance/vectors/capabilities.json names spec/capabilities.md in its own text"
     },
     {
       "from": "conformance/vectors/idempotency.json",
@@ -570,6 +584,55 @@
       "reason": "contracts/production/capabilities-document.production.schema.json names spec/idempotency.md in its own text"
     },
     {
+      "from": "contracts/production/capability-registry.production.json",
+      "to": "conformance/capabilities/schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/capability-registry.production.json names conformance/capabilities/schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/capability-registry.production.json",
+      "to": "conformance/fixtures/federation/SPM-A-VALID.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "contracts/production/capability-registry.production.json names conformance/fixtures/federation/SPM-A-VALID.json in its own text"
+    },
+    {
+      "from": "contracts/production/capability-registry.production.json",
+      "to": "conformance/vectors/operator-manifests.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "contracts/production/capability-registry.production.json names conformance/vectors/operator-manifests.json in its own text"
+    },
+    {
+      "from": "contracts/production/capability-registry.production.json",
+      "to": "contracts/federation/federation-manifest.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/capability-registry.production.json names contracts/federation/federation-manifest.json in its own text"
+    },
+    {
+      "from": "contracts/production/capability-registry.production.json",
+      "to": "contracts/production/conformance-profiles.production.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/capability-registry.production.json names contracts/production/conformance-profiles.production.json in its own text"
+    },
+    {
+      "from": "contracts/production/capability-registry.production.json",
+      "to": "contracts/production/operator-manifest.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/capability-registry.production.json names contracts/production/operator-manifest.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/capability-registry.production.json",
+      "to": "spec/capabilities.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/capability-registry.production.json names spec/capabilities.md in its own text"
+    },
+    {
       "from": "contracts/production/certification-profile.production.schema.json",
       "to": "spec/canonicalization.md",
       "edge": "cites_normative",
@@ -617,6 +680,13 @@
       "edge": "cites_normative",
       "kind": "conformance",
       "reason": "contracts/production/conformance-profiles.production.json names conformance/vectors/canonicalization.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "conformance/vectors/capabilities.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "contracts/production/conformance-profiles.production.json names conformance/vectors/capabilities.json in its own text"
     },
     {
       "from": "contracts/production/conformance-profiles.production.json",
@@ -876,6 +946,13 @@
       "edge": "cites_normative",
       "kind": "normative",
       "reason": "contracts/production/conformance-profiles.production.json names contracts/production/capabilities-document.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/capability-registry.production.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/capability-registry.production.json in its own text"
     },
     {
       "from": "contracts/production/conformance-profiles.production.json",
@@ -1156,6 +1233,13 @@
       "edge": "cites_normative",
       "kind": "normative",
       "reason": "contracts/production/conformance-profiles.production.json names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "spec/capabilities.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names spec/capabilities.md in its own text"
     },
     {
       "from": "contracts/production/conformance-profiles.production.json",
@@ -1568,25 +1652,39 @@
       "to": "conformance/vectors/canonicalization.json",
       "edge": "profile_requires",
       "kind": "conformance",
-      "reason": "L0 names it under required_vectors"
+      "reason": "L0 names it under required_vector_cases"
+    },
+    {
+      "from": "profile:L0",
+      "to": "conformance/vectors/capabilities.json",
+      "edge": "profile_requires",
+      "kind": "conformance",
+      "reason": "L0 names it under required_vector_cases"
     },
     {
       "from": "profile:L0",
       "to": "conformance/vectors/operator-manifests.json",
       "edge": "profile_requires",
       "kind": "conformance",
-      "reason": "L0 names it under required_vectors"
+      "reason": "L0 names it under required_vector_cases"
     },
     {
       "from": "profile:L0",
       "to": "conformance/vectors/reason-codes.json",
       "edge": "profile_requires",
       "kind": "conformance",
-      "reason": "L0 names it under required_vectors"
+      "reason": "L0 names it under required_vector_cases"
     },
     {
       "from": "profile:L0",
       "to": "contracts/invariants.json",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L0 names it under required_registries"
+    },
+    {
+      "from": "profile:L0",
+      "to": "contracts/production/capability-registry.production.json",
       "edge": "profile_requires",
       "kind": "normative",
       "reason": "L0 names it under required_registries"
@@ -1621,6 +1719,13 @@
     },
     {
       "from": "profile:L0",
+      "to": "spec/capabilities.md",
+      "edge": "profile_requires",
+      "kind": "normative",
+      "reason": "L0 names it under required_specifications"
+    },
+    {
+      "from": "profile:L0",
       "to": "spec/reason-codes.md",
       "edge": "profile_requires",
       "kind": "normative",
@@ -1631,35 +1736,35 @@
       "to": "conformance/vectors/event-envelopes.json",
       "edge": "profile_requires",
       "kind": "conformance",
-      "reason": "L1 names it under required_vectors"
+      "reason": "L1 names it under required_vector_cases"
     },
     {
       "from": "profile:L1",
       "to": "conformance/vectors/idempotency.json",
       "edge": "profile_requires",
       "kind": "conformance",
-      "reason": "L1 names it under required_vectors"
+      "reason": "L1 names it under required_vector_cases"
     },
     {
       "from": "profile:L1",
       "to": "conformance/vectors/ledger-postings.json",
       "edge": "profile_requires",
       "kind": "conformance",
-      "reason": "L1 names it under required_vectors"
+      "reason": "L1 names it under required_vector_cases"
     },
     {
       "from": "profile:L1",
       "to": "conformance/vectors/transfers.json",
       "edge": "profile_requires",
       "kind": "conformance",
-      "reason": "L1 names it under required_vectors"
+      "reason": "L1 names it under required_vector_cases"
     },
     {
       "from": "profile:L1",
       "to": "conformance/vectors/wallet-balances.json",
       "edge": "profile_requires",
       "kind": "conformance",
-      "reason": "L1 names it under required_vectors"
+      "reason": "L1 names it under required_vector_cases"
     },
     {
       "from": "profile:L1",
@@ -1750,28 +1855,28 @@
       "to": "conformance/vectors/collections.json",
       "edge": "profile_requires",
       "kind": "conformance",
-      "reason": "L2 names it under required_vectors"
+      "reason": "L2 names it under required_vector_cases"
     },
     {
       "from": "profile:L2",
       "to": "conformance/vectors/payment-requests.json",
       "edge": "profile_requires",
       "kind": "conformance",
-      "reason": "L2 names it under required_vectors"
+      "reason": "L2 names it under required_vector_cases"
     },
     {
       "from": "profile:L2",
       "to": "conformance/vectors/qr-payloads.json",
       "edge": "profile_requires",
       "kind": "conformance",
-      "reason": "L2 names it under required_vectors"
+      "reason": "L2 names it under required_vector_cases"
     },
     {
       "from": "profile:L2",
       "to": "conformance/vectors/settlement-batches.json",
       "edge": "profile_requires",
       "kind": "conformance",
-      "reason": "L2 names it under required_vectors"
+      "reason": "L2 names it under required_vector_cases"
     },
     {
       "from": "profile:L2",
@@ -1873,17 +1978,24 @@
     },
     {
       "from": "profile:L3",
+      "to": "conformance/vectors/reason-codes.json",
+      "edge": "profile_requires",
+      "kind": "conformance",
+      "reason": "L3 names it under required_vector_cases"
+    },
+    {
+      "from": "profile:L3",
       "to": "conformance/vectors/trust-freshness.json",
       "edge": "profile_requires",
       "kind": "conformance",
-      "reason": "L3 names it under required_vectors"
+      "reason": "L3 names it under required_vector_cases"
     },
     {
       "from": "profile:L3",
       "to": "conformance/vectors/trust-signing.json",
       "edge": "profile_requires",
       "kind": "conformance",
-      "reason": "L3 names it under required_vectors"
+      "reason": "L3 names it under required_vector_cases"
     },
     {
       "from": "profile:L3",
@@ -2080,6 +2192,27 @@
       "edge": "cites_normative",
       "kind": "normative",
       "reason": "spec/canonicalization.md names contracts/webhooks/signature.json in its own text"
+    },
+    {
+      "from": "spec/capabilities.md",
+      "to": "conformance/capabilities/schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/capabilities.md names conformance/capabilities/schema.json in its own text"
+    },
+    {
+      "from": "spec/capabilities.md",
+      "to": "conformance/vectors/capabilities.json",
+      "edge": "cites_normative",
+      "kind": "conformance",
+      "reason": "spec/capabilities.md names conformance/vectors/capabilities.json in its own text"
+    },
+    {
+      "from": "spec/capabilities.md",
+      "to": "contracts/production/capability-registry.production.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/capabilities.md names contracts/production/capability-registry.production.json in its own text"
     },
     {
       "from": "spec/collections.md",
@@ -2499,52 +2632,61 @@
         "conformance/capabilities/schema.json",
         "conformance/manifests/schema.json",
         "conformance/vectors/canonicalization.json",
+        "conformance/vectors/capabilities.json",
         "conformance/vectors/operator-manifests.json",
         "conformance/vectors/reason-codes.json",
         "contracts/invariants.json",
+        "contracts/production/capability-registry.production.json",
         "contracts/production/operator-manifest.production.schema.json",
         "contracts/production/protocol-version.json",
         "contracts/production/reason-code-registry.production.json",
         "spec/canonicalization.md",
+        "spec/capabilities.md",
         "spec/reason-codes.md"
       ],
       "transitive_normative_closure": [
         "conformance/capabilities/schema.json",
         "conformance/manifests/schema.json",
         "conformance/vectors/canonicalization.json",
+        "conformance/vectors/capabilities.json",
         "conformance/vectors/operator-manifests.json",
         "conformance/vectors/reason-codes.json",
         "contracts/invariants.json",
+        "contracts/production/capability-registry.production.json",
         "contracts/production/operator-manifest.production.schema.json",
         "contracts/production/protocol-version.json",
         "contracts/production/reason-code-registry.production.json",
         "spec/canonicalization.md",
+        "spec/capabilities.md",
         "spec/reason-codes.md"
       ],
       "incremental_over_included_profiles": [
         "conformance/capabilities/schema.json",
         "conformance/manifests/schema.json",
         "conformance/vectors/canonicalization.json",
+        "conformance/vectors/capabilities.json",
         "conformance/vectors/operator-manifests.json",
         "conformance/vectors/reason-codes.json",
         "contracts/invariants.json",
+        "contracts/production/capability-registry.production.json",
         "contracts/production/operator-manifest.production.schema.json",
         "contracts/production/protocol-version.json",
         "contracts/production/reason-code-registry.production.json",
         "spec/canonicalization.md",
+        "spec/capabilities.md",
         "spec/reason-codes.md"
       ],
       "counts": {
-        "direct": 11,
-        "transitive": 11,
-        "incremental": 11,
-        "implementation_tier": 8,
-        "conformance_tier": 3,
+        "direct": 14,
+        "transitive": 14,
+        "incremental": 14,
+        "implementation_tier": 10,
+        "conformance_tier": 4,
         "schemas": 2,
         "contracts": 1,
-        "registries": 3,
-        "specifications": 2,
-        "vectors": 3,
+        "registries": 4,
+        "specifications": 3,
+        "vectors": 4,
         "invariants_cumulative": 1
       },
       "not_required": [
@@ -2589,6 +2731,7 @@
         "conformance/capabilities/schema.json",
         "conformance/manifests/schema.json",
         "conformance/vectors/canonicalization.json",
+        "conformance/vectors/capabilities.json",
         "conformance/vectors/event-envelopes.json",
         "conformance/vectors/idempotency.json",
         "conformance/vectors/ledger-postings.json",
@@ -2603,6 +2746,7 @@
         "contracts/openapi/activity.yaml",
         "contracts/openapi/transfers.yaml",
         "contracts/openapi/wallet-onboarding.yaml",
+        "contracts/production/capability-registry.production.json",
         "contracts/production/operator-manifest.production.schema.json",
         "contracts/production/protocol-version.json",
         "contracts/production/reason-code-registry.production.json",
@@ -2612,6 +2756,7 @@
         "contracts/webhooks/envelope.schema.json",
         "contracts/webhooks/signature.json",
         "spec/canonicalization.md",
+        "spec/capabilities.md",
         "spec/idempotency.md",
         "spec/reason-codes.md"
       ],
@@ -2636,15 +2781,15 @@
       ],
       "counts": {
         "direct": 17,
-        "transitive": 28,
+        "transitive": 31,
         "incremental": 17,
-        "implementation_tier": 20,
-        "conformance_tier": 8,
+        "implementation_tier": 22,
+        "conformance_tier": 9,
         "schemas": 9,
         "contracts": 1,
-        "registries": 3,
-        "specifications": 3,
-        "vectors": 8,
+        "registries": 4,
+        "specifications": 4,
+        "vectors": 9,
         "invariants_cumulative": 11
       },
       "not_required": [
@@ -2685,6 +2830,7 @@
         "conformance/capabilities/schema.json",
         "conformance/manifests/schema.json",
         "conformance/vectors/canonicalization.json",
+        "conformance/vectors/capabilities.json",
         "conformance/vectors/collections.json",
         "conformance/vectors/event-envelopes.json",
         "conformance/vectors/idempotency.json",
@@ -2715,6 +2861,7 @@
         "contracts/payment-intents/payment-intent.schema.json",
         "contracts/payment-sessions/payment-session-interface.schema.json",
         "contracts/payment-sessions/payment-session.schema.json",
+        "contracts/production/capability-registry.production.json",
         "contracts/production/operator-manifest.production.schema.json",
         "contracts/production/protocol-version.json",
         "contracts/production/reason-code-registry.production.json",
@@ -2728,6 +2875,7 @@
         "contracts/webhooks/envelope.schema.json",
         "contracts/webhooks/signature.json",
         "spec/canonicalization.md",
+        "spec/capabilities.md",
         "spec/collections.md",
         "spec/idempotency.md",
         "spec/reason-codes.md"
@@ -2757,15 +2905,15 @@
       ],
       "counts": {
         "direct": 17,
-        "transitive": 49,
+        "transitive": 52,
         "incremental": 21,
-        "implementation_tier": 37,
-        "conformance_tier": 12,
+        "implementation_tier": 39,
+        "conformance_tier": 13,
         "schemas": 24,
         "contracts": 1,
-        "registries": 3,
-        "specifications": 4,
-        "vectors": 12,
+        "registries": 4,
+        "specifications": 5,
+        "vectors": 13,
         "invariants_cumulative": 13
       },
       "not_required": [
@@ -2786,6 +2934,7 @@
       ],
       "direct_normative_dependencies": [
         "conformance/federation/suite.json",
+        "conformance/vectors/reason-codes.json",
         "conformance/vectors/trust-freshness.json",
         "conformance/vectors/trust-signing.json",
         "contracts/federation/federation-event.json",
@@ -2819,6 +2968,7 @@
         "conformance/federation/suite.json",
         "conformance/manifests/schema.json",
         "conformance/vectors/canonicalization.json",
+        "conformance/vectors/capabilities.json",
         "conformance/vectors/collections.json",
         "conformance/vectors/event-envelopes.json",
         "conformance/vectors/idempotency.json",
@@ -2860,6 +3010,7 @@
         "contracts/payment-sessions/payment-session.schema.json",
         "contracts/production/brl.production.schema.json",
         "contracts/production/capabilities-document.production.schema.json",
+        "contracts/production/capability-registry.production.json",
         "contracts/production/conformance-evidence.production.schema.json",
         "contracts/production/delegated-signing-key.production.schema.json",
         "contracts/production/discovery-document.production.schema.json",
@@ -2887,6 +3038,7 @@
         "contracts/webhooks/envelope.schema.json",
         "contracts/webhooks/signature.json",
         "spec/canonicalization.md",
+        "spec/capabilities.md",
         "spec/collections.md",
         "spec/federation/FEDERATION_CONTRACT_SURFACE.md",
         "spec/federation/FEDERATION_INVARIANTS.md",
@@ -2932,16 +3084,16 @@
         "spec/trust-freshness.md"
       ],
       "counts": {
-        "direct": 28,
-        "transitive": 81,
+        "direct": 29,
+        "transitive": 84,
         "incremental": 32,
-        "implementation_tier": 66,
-        "conformance_tier": 15,
+        "implementation_tier": 68,
+        "conformance_tier": 16,
         "schemas": 24,
         "contracts": 13,
-        "registries": 4,
-        "specifications": 9,
-        "vectors": 14,
+        "registries": 5,
+        "specifications": 10,
+        "vectors": 15,
         "invariants_cumulative": 32
       },
       "not_required": [
@@ -2967,6 +3119,7 @@
         "conformance/federation/suite.json",
         "conformance/manifests/schema.json",
         "conformance/vectors/canonicalization.json",
+        "conformance/vectors/capabilities.json",
         "conformance/vectors/collections.json",
         "conformance/vectors/event-envelopes.json",
         "conformance/vectors/idempotency.json",
@@ -3008,6 +3161,7 @@
         "contracts/payment-sessions/payment-session.schema.json",
         "contracts/production/brl.production.schema.json",
         "contracts/production/capabilities-document.production.schema.json",
+        "contracts/production/capability-registry.production.json",
         "contracts/production/conformance-evidence.production.schema.json",
         "contracts/production/delegated-signing-key.production.schema.json",
         "contracts/production/discovery-document.production.schema.json",
@@ -3035,6 +3189,7 @@
         "contracts/webhooks/envelope.schema.json",
         "contracts/webhooks/signature.json",
         "spec/canonicalization.md",
+        "spec/capabilities.md",
         "spec/collections.md",
         "spec/federation/FEDERATION_CONTRACT_SURFACE.md",
         "spec/federation/FEDERATION_INVARIANTS.md",
@@ -3048,15 +3203,15 @@
       "incremental_over_included_profiles": [],
       "counts": {
         "direct": 0,
-        "transitive": 81,
+        "transitive": 84,
         "incremental": 0,
-        "implementation_tier": 66,
-        "conformance_tier": 15,
+        "implementation_tier": 68,
+        "conformance_tier": 16,
         "schemas": 24,
         "contracts": 13,
-        "registries": 4,
-        "specifications": 9,
-        "vectors": 14,
+        "registries": 5,
+        "specifications": 10,
+        "vectors": 15,
         "invariants_cumulative": 32
       },
       "not_required": [
@@ -3116,6 +3271,7 @@
     "vector_not_required_by_any_profile": [],
     "manifest_entry_whose_file_is_missing": [],
     "mentioned_in_text_but_not_depended_on": [
+      "conformance/fixtures/federation/SPM-A-VALID.json",
       "conformance/ledger/suite.json",
       "contracts/production/certification-profile.production.schema.json",
       "contracts/production/certification-record.production.schema.json",

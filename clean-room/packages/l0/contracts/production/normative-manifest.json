@@ -15,8 +15,8 @@
     "informative": "Published and stable, but imposes no conformance obligation. Listed so that the question 'is this normative?' has a published answer."
   },
   "tier_counts": {
-    "implementation": 88,
-    "conformance": 54,
+    "implementation": 90,
+    "conformance": 55,
     "legal": 3,
     "informative": 2
   },
@@ -40,7 +40,7 @@
     "evidence/**, artifacts/** - evidence about the reference implementation",
     "tools/** - build, guard and derivation tooling"
   ],
-  "artifact_count": 147,
+  "artifact_count": 150,
   "artifacts": [
     {
       "path": "conformance/capabilities/schema.json",
@@ -275,6 +275,14 @@
       "self_declared_status": "reference"
     },
     {
+      "path": "contracts/production/capability-registry.production.json",
+      "class": "NORMATIVE_REGISTRY",
+      "tier": "implementation",
+      "role": "banza-capabilities/1 — the core capability identifiers those rules govern, with the audited relation of every supports_* flag and the evidence for every alias.",
+      "sha256": "8d307443c2d99e4158eb6972fcc8b28ddbb50c23743e474bff56bab3cdb12e6a",
+      "self_declared_status": "canonical"
+    },
+    {
       "path": "contracts/production/certification-profile.production.schema.json",
       "class": "NORMATIVE_PROFILE",
       "tier": "implementation",
@@ -311,7 +319,7 @@
       "class": "NORMATIVE_CONTRACT",
       "tier": "implementation",
       "role": "Production contract baseline.",
-      "sha256": "a15b8255a8c1d35a977f7ef15619b416f0745968969eacb0ca6d4ad2af51eb26",
+      "sha256": "15006dfe6909b073cc195a2bdc1c3d7c0205fd3560c5c4f146901dac7c7299bc",
       "self_declared_status": "canonical"
     },
     {
@@ -319,7 +327,7 @@
       "class": "NORMATIVE_CONTRACT",
       "tier": "implementation",
       "role": "Production contract baseline.",
-      "sha256": "0fd314227bb0d64540fb2fecd79372a7ecc65ca5a85422df5bc65e0734bb27fe",
+      "sha256": "15a388491a640a38636cd14aab55d1b053d5b8b8d16c56254eca7fa8bdd0124d",
       "self_declared_status": "production-baseline"
     },
     {
@@ -654,6 +662,13 @@
       "tier": "implementation",
       "role": "BCJ/1 — the byte form of every signature and digest. Nothing in the trust plane is implementable without it.",
       "sha256": "f3cfb22401a9743b60286b2890783ef672250b9fee28f76748c91489d4caeb11"
+    },
+    {
+      "path": "spec/capabilities.md",
+      "class": "NORMATIVE_SPECIFICATION",
+      "tier": "implementation",
+      "role": "Capability rules: one canonical namespace, what a declaration must be to satisfy a profile requirement, the prohibition on implicit normalisation, aliases, and the status of the supports_* flags.",
+      "sha256": "d6ffc3c620e7280a64917b8bb018b739964bcddbec4cbc9ccbc9d1902e8844d9"
     },
     {
       "path": "spec/collections.md",
@@ -1004,6 +1019,14 @@
       "tier": "conformance",
       "role": "Vectors for BCJ/1, derived from the specification text. An implementation validates against these; they do not define the rule.",
       "sha256": "8887da3b6b356c4a7a990f1d2a8f5532e09b979e71c102f2e5e0d10e98cbe48c",
+      "self_declared_status": "canonical"
+    },
+    {
+      "path": "conformance/vectors/capabilities.json",
+      "class": "CONFORMANCE_VECTOR",
+      "tier": "conformance",
+      "role": "Vectors for capability satisfaction, including that near-spellings never satisfy implicitly.",
+      "sha256": "019fed8c10d56660da026c542dc5ff35269c288e74aaf699969e5f9ed08377a1",
       "self_declared_status": "canonical"
     },
     {

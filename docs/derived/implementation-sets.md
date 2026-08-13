@@ -11,21 +11,21 @@
 
 | Tier | Artifacts |
 |---|---|
-| implementation | 88 |
-| conformance | 54 |
+| implementation | 90 |
+| conformance | 55 |
 | legal | 3 |
 | informative | 2 |
-| **total** | **147** |
+| **total** | **150** |
 
 ## Per profile
 
 | Profile | Direct | Transitive closure | Incremental | Schemas | Contracts | Registries | Specs | Vectors | Invariants |
 |---|---|---|---|---|---|---|---|---|---|
-| L0 Protocol Sandbox | 11 | 11 | 11 | 2 | 1 | 3 | 2 | 3 | 1 |
-| L1 Core Payment Capability | 17 | 28 | 17 | 9 | 1 | 3 | 3 | 8 | 11 |
-| L2 Payment Initiation Capability | 17 | 49 | 21 | 24 | 1 | 3 | 4 | 12 | 13 |
-| L3 Inter-Operator Interoperability | 28 | 81 | 32 | 24 | 13 | 4 | 9 | 14 | 32 |
-| L4 External Interoperability | 0 | 81 | 0 universal + external profile | 24 | 13 | 4 | 9 | 14 | 32 |
+| L0 Protocol Sandbox | 14 | 14 | 14 | 2 | 1 | 4 | 3 | 4 | 1 |
+| L1 Core Payment Capability | 17 | 31 | 17 | 9 | 1 | 4 | 4 | 9 | 11 |
+| L2 Payment Initiation Capability | 17 | 52 | 21 | 24 | 1 | 4 | 5 | 13 | 13 |
+| L3 Inter-Operator Interoperability | 29 | 84 | 32 | 24 | 13 | 5 | 10 | 15 | 32 |
+| L4 External Interoperability | 0 | 84 | 0 universal + external profile | 24 | 13 | 5 | 10 | 15 | 32 |
 
 These numbers are what the surface actually asks for. They are not presented as small.
 
@@ -38,13 +38,16 @@ Profile closure: L0
 - `conformance/capabilities/schema.json` — Schema of the published capabilities document
 - `conformance/manifests/schema.json` — Schema of the published discovery Operator Manifest
 - `conformance/vectors/canonicalization.json` — Vectors for BCJ/1, derived from the specification text
+- `conformance/vectors/capabilities.json` — Vectors for capability satisfaction, including that near-spellings never satisfy implicitly
 - `conformance/vectors/operator-manifests.json` — Domain conformance vectors
 - `conformance/vectors/reason-codes.json` — Vectors for the reason-code rules, derived from the specification
 - `contracts/invariants.json` — The machine-readable registry of protocol invariants
+- `contracts/production/capability-registry.production.json` — banza-capabilities/1 — the core capability identifiers those rules govern, with the audited relation of every supports_* flag and the evidence for every alias
 - `contracts/production/operator-manifest.production.schema.json` — Production contract baseline
 - `contracts/production/protocol-version.json` — Declares the protocol version, compatibility policy, profile list and the canonicalization in force
 - `contracts/production/reason-code-registry.production.json` — banza-reason-codes/1 — the machine-readable vocabularies those rules govern
 - `spec/canonicalization.md` — BCJ/1 — the byte form of every signature and digest
+- `spec/capabilities.md` — Capability rules: one canonical namespace, what a declaration must be to satisfy a profile requirement, the prohibition on implicit normalisation, aliases, and the status of the supports_* flags
 - `spec/reason-codes.md` — Reason-code rules: five separate vocabularies, status decides and code explains, the reserved extension namespace, unknown-code handling, and the definition of semantic equivalence
 
 **Explicitly not required at this level:**
@@ -193,7 +196,7 @@ Profile closure: L0, L1, L2, L3, L4
 - **declared non profile artifacts (declared with a reason in the profile registry — not defects)**: 19
 - **implementation tier without profile or consumer**: 0
 - **manifest entry whose file is missing**: 0
-- **mentioned in text but not depended on**: 20
+- **mentioned in text but not depended on**: 21
 - **schema never referenced**: 0
 - **unresolved references**: 0
 - **vector not required by any profile**: 0
