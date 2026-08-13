@@ -2,9 +2,9 @@
  "_spec": "BANZA repository truth map — Phase A of the simplification sweep",
  "_method": "Classification is by consumer, not by directory name. A file is UNREFERENCED when no other tracked file names it by path or by a distinctive basename.",
  "_warning": "UNREFERENCED is a removal CANDIDATE, not a verdict. Licences, specifications and public material can be unreferenced and still required.",
- "total_files": 1846,
+ "total_files": 1842,
  "counts": {
-  "REFERENCED": 643,
+  "REFERENCED": 639,
   "RUNTIME": 329,
   "REFERENCE_IMPLEMENTATION": 295,
   "BUILD_RELEASE": 210,
@@ -302,7 +302,7 @@
     "artifacts/m2-18b7/canonical-protocol-vocabulary.json",
     "artifacts/m2-19-final/finding-b-map.json"
    ],
-   "refs": 104
+   "refs": 102
   },
   {
    "path": "SECURITY.md",
@@ -956,7 +956,7 @@
     "docs/reference/PROTOCOL_GLOSSARY.md",
     "docs/reference/conformance.md"
    ],
-   "refs": 16
+   "refs": 15
   },
   {
    "path": "conformance/capabilities/schema.json",
@@ -4761,8 +4761,10 @@
   {
    "path": "docs/audit/BANZA_V1_SIMPLICITY_SECURITY_ROBUSTNESS_REPORT.md",
    "class": "INTERNAL_AUDIT",
-   "referenced_by": [],
-   "refs": 0
+   "referenced_by": [
+    "docs/audit/repo-truth-map.json"
+   ],
+   "refs": 1
   },
   {
    "path": "docs/audit/BANZA_V1_VM_E2E_RESET_REPORT.md",
@@ -7176,32 +7178,34 @@
    "referenced_by": [
     ".github/workflows/identity-guard.yml",
     "docs/audit/BANZA_V1_AUDIT_REMEDIATION_BACKLOG.md",
+    "docs/audit/BANZA_V1_SIMPLICITY_SECURITY_ROBUSTNESS_REPORT.md",
     "docs/audit/repo-truth-map.json",
     "docs/verification/FEDERATION_EVIDENCE_COMPLETION_GATE.md",
-    "docs/verification/PUBLIC_TECHNICAL_CLAIMS_EVIDENCE.md",
-    "tools/check-whitepaper-canonical-source-boundary.sh"
+    "docs/verification/PUBLIC_TECHNICAL_CLAIMS_EVIDENCE.md"
    ],
-   "refs": 6
+   "refs": 7
   },
   {
    "path": "docs/whitepaper/CHECKSUMS.txt",
    "class": "REFERENCED",
    "referenced_by": [
+    "docs/audit/BANZA_V1_SIMPLICITY_SECURITY_ROBUSTNESS_REPORT.md",
     "docs/audit/repo-truth-map.json",
     "docs/whitepaper/BUILD.md",
     "tools/check-whitepaper-canonical-source-boundary.sh",
     "tools/whitepaper-release.sh"
    ],
-   "refs": 4
+   "refs": 5
   },
   {
    "path": "docs/whitepaper/CITATION.cff",
    "class": "LEGAL",
    "referenced_by": [
+    "docs/audit/BANZA_V1_SIMPLICITY_SECURITY_ROBUSTNESS_REPORT.md",
     "docs/audit/repo-truth-map.json",
     "tools/repo-truth-map.py"
    ],
-   "refs": 2
+   "refs": 3
   },
   {
    "path": "docs/whitepaper/citation.bib",
@@ -7672,37 +7676,39 @@
    "path": "docs/whitepaper/latex/references.bib",
    "class": "REFERENCED",
    "referenced_by": [
+    "docs/audit/BANZA_V1_SIMPLICITY_SECURITY_ROBUSTNESS_REPORT.md",
     "docs/audit/repo-truth-map.json",
     "docs/whitepaper/BUILD.md",
     "tools/check-banza-whitepaper.sh",
-    "tools/whitepaper-release.sh"
-   ],
-   "refs": 4
-  },
-  {
-   "path": "docs/whitepaper/latex/whitepaper.en.tex",
-   "class": "REFERENCED",
-   "referenced_by": [
-    "docs/audit/repo-truth-map.json",
-    "docs/whitepaper/BUILD.md",
-    "tools/check-banza-whitepaper.sh",
-    "tools/check-whitepaper-canonical-source-boundary.sh",
     "tools/whitepaper-release.sh"
    ],
    "refs": 5
   },
   {
-   "path": "docs/whitepaper/latex/whitepaper.pt.tex",
+   "path": "docs/whitepaper/latex/whitepaper.en.tex",
    "class": "REFERENCED",
    "referenced_by": [
+    "docs/audit/BANZA_V1_SIMPLICITY_SECURITY_ROBUSTNESS_REPORT.md",
     "docs/audit/repo-truth-map.json",
-    "docs/audit/whitepaper-claim-matrix.md",
     "docs/whitepaper/BUILD.md",
     "tools/check-banza-whitepaper.sh",
     "tools/check-whitepaper-canonical-source-boundary.sh",
     "tools/whitepaper-release.sh"
    ],
-   "refs": 7
+   "refs": 6
+  },
+  {
+   "path": "docs/whitepaper/latex/whitepaper.pt.tex",
+   "class": "REFERENCED",
+   "referenced_by": [
+    "docs/audit/BANZA_V1_SIMPLICITY_SECURITY_ROBUSTNESS_REPORT.md",
+    "docs/audit/repo-truth-map.json",
+    "docs/audit/whitepaper-claim-matrix.md",
+    "docs/whitepaper/BUILD.md",
+    "tools/check-banza-whitepaper.sh",
+    "tools/check-whitepaper-canonical-source-boundary.sh"
+   ],
+   "refs": 8
   },
   {
    "path": "docs/whitepaper/manifest.json",
@@ -7927,12 +7933,12 @@
    "referenced_by": [
     "conformance/README.md",
     "docs/audit/repo-truth-map.json",
+    "docs/guides/conformance.md",
+    "docs/reference/conformance.md",
     "engines/banzai-query-core/src/doc-index.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index.json",
-    "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
-   "refs": 7
+   "refs": 8
   },
   {
    "path": "engines/banza-conformance/golden/parity-summary.json",
@@ -8731,10 +8737,9 @@
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "tools/banza-conformance/README.md"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
-   "refs": 3
+   "refs": 2
   },
   {
    "path": "engines/banza-simb/src/bin/cli.rs",
@@ -8901,11 +8906,9 @@
    "class": "REFERENCE_IMPLEMENTATION",
    "referenced_by": [
     "docs/audit/repo-truth-map.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
-    "tools/banza-conformance/README.md",
-    "tools/root-ceremony/README.md"
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
-   "refs": 4
+   "refs": 2
   },
   {
    "path": "engines/banza-trust/src/bin/cli.rs",
@@ -9714,7 +9717,7 @@
     "tools/check-banzai-model-a-guidance-only.sh",
     "tools/check-banzai-operator-journey-e2e.sh"
    ],
-   "refs": 11
+   "refs": 10
   },
   {
    "path": "engines/banzai-operator-journey/src/wasm.rs",
@@ -13969,9 +13972,9 @@
     "engines/banzai-query-core/src/doc-index.json",
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json",
     "services/banzai-api/src/rustkb/banzai_api_kb_bg.wasm",
-    "spec/federation/FEDERATION_RUNNER_DESIGN.md"
+    "spec/federation/FEDERATION_TEST_SUITE_SPEC.md"
    ],
-   "refs": 7
+   "refs": 6
   },
   {
    "path": "spec/federation/FEDERATION_INVARIANTS.md",
@@ -14228,28 +14231,6 @@
     "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
    ],
    "refs": 3
-  },
-  {
-   "path": "tools/banza-conformance/.dockerignore",
-   "class": "REFERENCED",
-   "referenced_by": [
-    "docs/audit/repo-truth-map.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-exclusions.json"
-   ],
-   "refs": 2
-  },
-  {
-   "path": "tools/banza-conformance/README.md",
-   "class": "REFERENCED",
-   "referenced_by": [
-    "conformance/README.md",
-    "docs/audit/repo-truth-map.json",
-    "docs/guides/conformance.md",
-    "docs/reference/conformance.md",
-    "engines/banzai-query-core/src/doc-index.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
-   ],
-   "refs": 9
   },
   {
    "path": "tools/banzai-public-edge-qa.mjs",
@@ -16594,15 +16575,6 @@
    "refs": 3
   },
   {
-   "path": "tools/lib/qa-checkpoints.awk",
-   "class": "REFERENCED",
-   "referenced_by": [
-    "docs/audit/repo-truth-map.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-exclusions.json"
-   ],
-   "refs": 2
-  },
-  {
    "path": "tools/public-claims-evidence.sh",
    "class": "BUILD_RELEASE",
    "referenced_by": [
@@ -16632,15 +16604,6 @@
    "refs": 2
   },
   {
-   "path": "tools/root-ceremony/README.md",
-   "class": "REFERENCED",
-   "referenced_by": [
-    "docs/audit/repo-truth-map.json",
-    "engines/banzai-query-core/src/repoindex/banzai-repo-index-coverage.json"
-   ],
-   "refs": 2
-  },
-  {
    "path": "tools/spr4-ab-harness.mjs",
    "class": "REFERENCED",
    "referenced_by": [
@@ -16663,13 +16626,14 @@
    "path": "tools/whitepaper-content.py",
    "class": "REFERENCED",
    "referenced_by": [
+    "docs/audit/BANZA_V1_SIMPLICITY_SECURITY_ROBUSTNESS_REPORT.md",
     "docs/audit/repo-truth-map.json",
     "docs/whitepaper/BUILD.md",
     "tools/check-whitepaper-canonical-source-boundary.sh",
     "tools/whitepaper-release.sh",
     "website/lib/whitepaper.ts"
    ],
-   "refs": 5
+   "refs": 6
   },
   {
    "path": "tools/whitepaper-figures.py",
@@ -16701,9 +16665,10 @@
    "path": "website/.dockerignore",
    "class": "REFERENCED",
    "referenced_by": [
-    "docs/audit/repo-truth-map.json"
+    "docs/audit/repo-truth-map.json",
+    "engines/banzai-query-core/src/repoindex/banzai-repo-index-exclusions.json"
    ],
-   "refs": 1
+   "refs": 2
   },
   {
    "path": "website/.eslintrc.json",
@@ -17830,7 +17795,7 @@
     "tools/check-banzai-architecture-manifest.sh",
     "tools/check-banzai-canonical-architecture-framing.sh"
    ],
-   "refs": 8
+   "refs": 9
   },
   {
    "path": "website/content/decisions/adr/ADR-001-open-financial-protocol.md",
@@ -19380,11 +19345,12 @@
    "path": "website/lib/whitepaper.ts",
    "class": "RUNTIME",
    "referenced_by": [
+    "docs/audit/BANZA_V1_SIMPLICITY_SECURITY_ROBUSTNESS_REPORT.md",
     "docs/audit/repo-truth-map.json",
     "engines/banza-repo-guards/src/lib.rs",
     "website/lib/banzaiArchitecture.ts"
    ],
-   "refs": 3
+   "refs": 4
   },
   {
    "path": "website/lib/zeroSubdomain.test.ts",

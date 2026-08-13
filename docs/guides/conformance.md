@@ -60,7 +60,7 @@ cargo run --release -- check-vectors     # offline: vectors + invariant registry
 cargo run --release -- run-live          # live operator against the SimB simulator
 ```
 
-See `tools/banza-conformance/README.md` for full options.
+See `engines/banza-conformance/README.md` for full options.
 
 ## Conformance vectors
 

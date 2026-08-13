@@ -98,11 +98,11 @@ Use BanzAI at `banza.network/banzai` to validate your manifest against the publi
 
 ## Step 5 — Run the conformance suite
 
-The conformance suite in `conformance/` contains the conformance test vectors. Use the conformance runner in `tools/banza-conformance/` to verify your implementation:
+The conformance suite in `conformance/` contains the conformance test vectors. Use the conformance runner in `engines/banza-conformance/` to verify your implementation:
 
 ```bash
-cd tools/banza-conformance
-python run.py \
+cd engines/banza-conformance
+cargo run --release -- run-live \
   --level 1 \
   --api-key bz_test_... \
   --base-url https://sandbox-api.your-operator.ao
@@ -177,7 +177,7 @@ Levels are cumulative. Start at L0 if you are new.
 | Protocol specification (EN) | [`docs/reference/en/complete.md`](../../docs/reference/en/complete.md) |
 | Conformance levels and evidence | [`docs/governance/certification-boundary.md`](../../docs/governance/certification-boundary.md) |
 | Conformance suite docs | [`docs/guides/conformance.md`](../../docs/guides/conformance.md) |
-| Conformance runner | [`tools/banza-conformance/`](../../tools/banza-conformance/) |
+| Conformance runner | [`engines/banza-conformance/`](../../engines/banza-conformance/) |
 | Protocol contracts | [`contracts/`](../../contracts/) |
 | Trust model (ADR-038 · ADR-039 · ADR-040) | [`decisions/adr/`](../../decisions/adr/) |
 | ADRs (governance) | [`decisions/adr/`](../../decisions/adr/) |

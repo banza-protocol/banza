@@ -28,7 +28,7 @@ any public disclosure (**coordinated disclosure**).
 
 - Protocol contracts (`contracts/`) — OpenAPI, webhook / event / QR schemas, the
   invariant registry, and federation contracts.
-- Conformance suite (`conformance/`, `tools/banza-conformance/`) — test vectors,
+- Conformance suite (`conformance/`, `engines/banza-conformance/`) — test vectors,
   fixtures, and the cryptographic integrity of signed artifacts.
 - Trust model (`docs/security/`, `contracts/federation/`) — key manifests,
   signed protocol metadata, delegated signing keys, and revocation semantics.

@@ -118,13 +118,22 @@ Before the ceremony begins, each participant's identity must be confirmed:
 
 ### Software Requirements
 
-The ceremony machine must have the following software loaded on the Ceremony USB before the ceremony begins:
+> **The production ceremony tooling is not in this repository, and must not be taken from it.**
+> The Python scripts this section once named (`trust_root.py`, `ceremony_script.py`) were removed when
+> the official engines moved to Rust (ADR-037). What `engines/banza-trust` provides is a **TEST-ONLY
+> simulator** (`ceremony-simulate`, `generate-test-root`, `sign-test-*`) that uses deterministic test
+> keys; it exists to exercise the trust chain and **must never be used to conduct a real ceremony**.
+>
+> The real M2 root ceremony is a governed, out-of-band process. Its tooling is prepared, reviewed and
+> hash-recorded under that governance, not pulled from a working copy of this repository — which is
+> also why a stale path here would be dangerous: a file recreated at a familiar path could be trusted
+> because the path looked right.
+
+The ceremony machine must have, loaded on the Ceremony USB before the ceremony begins:
 
 ```
-Python 3.9+
-cryptography >= 41.0.0  (pip install cryptography)
-tools/banza-conformance/trust_root.py  (from ~/banza repository)
-ceremony_script.py  (ceremony-specific wrapper — see Appendix A)
+The signing tooling designated by the ceremony governance, with each artifact's
+SHA-256 recorded and independently verified by two witnesses before use.
 ```
 
 All software hashes must be recorded before the ceremony begins (see Phase 1 Step 5).
@@ -196,9 +205,9 @@ source /media/ceremony-usb/venv/bin/activate
 pip install "cryptography>=41.0.0"
 deactivate
 
-# Copy ceremony files
-cp ~/banza/tools/banza-conformance/trust_root.py /media/ceremony-usb/
-cp ~/banza/tools/root-ceremony/ceremony_script.py /media/ceremony-usb/
+# Load the ceremony tooling designated by the ceremony governance onto the USB.
+# NOT from a working copy of this repository: this repository ships no production
+# ceremony tooling, and engines/banza-trust is a TEST-ONLY simulator.
 ```
 
 Record software hashes:
@@ -932,9 +941,10 @@ print('expires_at:', brl.get('expires_at'))
 "
 ```
 
-### Step P.6 — Update Conformance Runner
+### Step P.6 — Enforce INV-ROOT-001 in the verifier
 
-Update `tools/banza-conformance/trust_root.py` to enforce INV-ROOT-001 in production mode. This is OPS-006 in the Transition Plan.
+Ensure the conformance runner (`engines/banza-conformance`) and the trust engine (`engines/banza-trust`)
+enforce INV-ROOT-001 against the production root. This is OPS-006 in the Transition Plan.
 
 ### Step P.7 — SDK v1.0 Release
 

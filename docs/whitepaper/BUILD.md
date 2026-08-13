@@ -159,7 +159,7 @@ Executa, por ordem e falhando perante qualquer divergência:
 
 1. valida `docs/whitepaper/content/pt.json` e `en.json`;
 2. confirma a paridade estrutural PT/EN (secções, blocos, figuras, equações);
-3. deriva `content/pt.json` (edição web) e o dossier EN (`whitepaper.en.tex`) do **dossier canónico português** (`docs/whitepaper/latex/whitepaper.pt.tex`, a edição Overleaf aprovada — classe copernicus) via `tools/whitepaper-content.py pt` + `tools/whitepaper-en-dossier.py`;
+3. deriva `content/pt.json` (edição web) e o dossier EN (`whitepaper.en.tex`) do **dossier canónico português** (`docs/whitepaper/latex/whitepaper.pt.tex`, a edição Overleaf aprovada — classe copernicus) via `tools/whitepaper-content.py pt` e `tools/whitepaper-content.py en`;
 4. compila PT e EN com `tectonic`;
 5. aplica `SOURCE_DATE_EPOCH` derivado de `manifest.released_at` (2026-08-01 → `1785542400`);
 6. composição fiel do dossier Overleaf (sem reescrita de layout); metadata verificada via `pdfinfo`;

@@ -24,7 +24,7 @@ This security policy covers:
 
 - `contracts/` — protocol specifications and schemas (OpenAPI, webhooks, QR, events)
 - `conformance/` — certification test vectors and conformance suite
-- `tools/banza-conformance/` — conformance runner
+- `engines/banza-conformance/` — conformance runner
 - `apps/` — protocol website and BanzAI backend
 
 ## Out of scope

@@ -398,7 +398,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "2e044ce31d77d9c4"
+        "checksum": "fd3a8d9261ee451e"
       },
       {
         "id": "trademarks-md",
@@ -431,7 +431,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "9a53a4430f6bfed7"
+        "checksum": "c64cb53c15d41e98"
       },
       {
         "id": "conformance-capabilities-schema-json",
@@ -3621,7 +3621,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "a6612c86571a118e"
+        "checksum": "5125a1438e6c29a0"
       },
       {
         "id": "decisions-adr-adr-076-banzai-validation-journey-consolidation-and-durable-receipts-md",
@@ -4501,7 +4501,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "7c011cb82f7d85ea"
+        "checksum": "56153fabe54079b2"
       },
       {
         "id": "docs-governance-operator-self-publication-and-conformance-md",
@@ -4589,7 +4589,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "96022b9ca7ccfcc7"
+        "checksum": "a6cd139ff3efcadf"
       },
       {
         "id": "docs-governance-repository-structure-md",
@@ -5491,7 +5491,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "f98832c4a78a7873"
+        "checksum": "87a999e1201ad553"
       },
       {
         "id": "spec-federation-federation-sequence-diagrams-md",
@@ -5655,7 +5655,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "07c818484ff4f6fd"
+    "checksum": "6b1d0db34a24a135"
   },
   "subjects": [
     {
@@ -9016,5 +9016,5 @@
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "d66baffeec6b3758"
+  "checksum": "c135ac3a936ace62"
 }

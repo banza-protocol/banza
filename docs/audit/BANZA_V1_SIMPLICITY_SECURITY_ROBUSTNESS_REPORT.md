@@ -269,6 +269,105 @@ does not belong in a removal pass. Recorded as the first entry of the robustness
 
 ---
 
+## Phase D — tooling: two tombstones and the stale instructions they propped up
+
+`tools/` held 212 files, 195 of them wired to the Makefile or CI. The 17 unwired ones were checked
+individually; most are legitimate generators cited by documentation. Four were not.
+
+### Tombstone directories
+
+`tools/banza-conformance/` and `tools/root-ceremony/` each contained **one README saying the thing that
+used to be there had been removed, and where to look instead** — the Python conformance runner and the
+Python ceremony scripts, both replaced by Rust engines under ADR-037. `tools/banza-conformance/` also
+carried a `.dockerignore` for a Dockerfile that does not exist.
+
+Both were deleted. Git preserves the history, and the Rust engines' own READMEs already say what they
+are. But the cost of keeping them was not neutral, and that is the point of this phase.
+
+### What the tombstones were holding up
+
+A signpost that says "moved" makes every stale instruction pointing at it look merely out of date rather
+than broken. Eleven references across the repository named files that do not exist:
+
+| Where | Named | Actually |
+|---|---|---|
+| `docs/security/ROOT_KEY_CEREMONY_PROCEDURE.md` | copy `trust_root.py` and `ceremony_script.py` to the ceremony USB | neither file exists |
+| `docs/reference/getting-started.md` | `cd tools/banza-conformance && python run.py` | no such directory |
+| `conformance/README.md` | `./tools/banza-conformance/run.sh` | `cargo run -- run-live` |
+| `spec/federation/FEDERATION_RUNNER_DESIGN.md` | a 25-line Python module tree | three Rust engines |
+| `docs/guides/conformance.md`, `docs/reference/conformance.md` | "see `tools/banza-conformance/README.md`" | `engines/banza-conformance/README.md` |
+| `SECURITY.md`, `docs/security/README.md` | `tools/banza-conformance/` as the conformance suite | `engines/banza-conformance/` |
+| `docs/governance/README.md`, `OPERATOR_NEUTRALITY_TERMINOLOGY.md` | `scripts/check-operator-contamination.sh` | `tools/` — wrong directory, the script exists |
+| `engines/banza-trust/README.md` | regenerate goldens with `trust_root.py`'s signers | its own `sign-test-*` |
+| ADR-075 | the one-shot migration script | completed, script removed |
+
+All corrected to what is actually there. `conformance/README.md` additionally described the Rust
+migration as **in flight**, with live execution and federation "remaining in the Python runner until
+Rust parity lands" — parity landed; the engine has `run-live`, `run-fed`, `run-against-simb` and `e2e`.
+
+### The ceremony procedure
+
+This one is a security document, so it is worth stating plainly what was wrong and what was done.
+
+`ROOT_KEY_CEREMONY_PROCEDURE.md` is a step-by-step procedure for the root key ceremony. Its Software
+Requirements section listed two Python files to load onto the ceremony USB, and its Phase 1 commands
+copied them from a working copy of this repository. Both were deleted when the engines moved to Rust.
+Anyone following the procedure would stop at `cp: no such file`.
+
+The document now states the position that is actually true: **this repository ships no production
+ceremony tooling**, `engines/banza-trust` provides only a TEST-ONLY simulator that must never be used
+for a real ceremony, and the real ceremony is a governed out-of-band process whose tooling is prepared
+and hash-recorded under that governance rather than pulled from a working copy.
+
+No new procedure was written, no ceremony was defined, and nothing about the trust root changed. The
+correction is to the description of the tooling, and it closes a small trust-on-first-use hazard as
+well: a file recreated at the familiar path would have been reached for because the path looked right.
+
+### An orphaned tool for a retired model
+
+`tools/lib/qa-checkpoints.awk` compared a QA checklist's cumulative points (20 → 45 → 60 → 75 → 95 →
+100) against `session::weight` in the operator-journey engine. Nothing invokes it. More to the point,
+the weighted evidence score it checked was **deliberately retired** under ADR-076 — Model A is guidance
+only — and `check-banzai-release-qa.sh` now asserts the opposite, that `fn weight` and `progress_pct`
+must be **absent** from the production session. A tool measuring a model the repository has since
+forbidden. Deleted.
+
+### Verification
+
+- **202 guard targets, 200 pass** — the same two pre-existing failures.
+- Website suite: **502 of 502**.
+- `tools/`: 212 → **208** files. Repository: 1846 → **1842**.
+- Dangling script references outside the governance status documents: 11 → **0**.
+
+### Finding: two governance documents assert COMPLETE against evidence that cannot be inspected
+
+Left untouched deliberately, and carried to the next phase rather than patched, because patching the
+paths would hide the real problem instead of showing it.
+
+`docs/governance/MATRIX_A_BANZA.md` is titled *"Matrix A — BANZA Validation Matrix"*, `Status: CANONICAL`.
+Three things are wrong with it at once:
+
+- **`CLAUDE.md` states that this repository does not own a validation matrix** — it owns specifications,
+  vectors and certification criteria. The document contradicts the repository's own governance.
+- Its `Authority:` line cites four ADRs, and **three of them were deleted** in the ADR clean-slate. A
+  document claiming canonical status on authority that no longer exists. (The numbers are in the file;
+  they are not repeated here, because a current surface must not name a deleted ADR — which is itself
+  the rule `adr-canonical-clean-check` enforces, and it caught this paragraph on the first draft.)
+- Its evidence column cites `run_fed.py`, `run_interop.py` and `ceremony_script.py` — including
+  *"Ceremony automation script — COMPLETE — Dry-run 10/10 PASS"* — none of which can be inspected.
+
+`BANZA_V1_OPERATIONAL_TRANSITION_PLAN.md` has the same defect in its acceptance table (79/79 federation
+tests, 14/14 interoperability scenarios, both evidenced by deleted Python files).
+
+Meanwhile the repository *does* have a maintained, CI-gated evidence map — `docs/verification/` plus the
+`evidence/` bundle behind `make public-claims-evidence`. The matrix looks like a drifted duplicate of it.
+
+It is not a simple deletion: `website/content/BANZA_REFERENCIA.md`, the live public reference, cites the
+matrix. The public-surface impact has to be established before anything is removed, which is the next
+phase's first task.
+
+---
+
 ## Robustness backlog
 
 Carried forward, with the phase that will take each:
@@ -280,7 +379,12 @@ Carried forward, with the phase that will take each:
 3. **`regulatory-check` fails on `HEAD`** — `ca signature` and `corpus` tokens in mirrored ADRs.
 4. **`website/content/decisions/adr/` mirrors 64 ADRs against 81 canonical** — a partial mirror that has
    drifted.
+5. **Two governance status documents assert COMPLETE against uninspectable evidence** (Phase D finding),
+   one of them contradicting `CLAUDE.md` and resting on an authority line whose ADRs are mostly deleted.
+6. **`docs/reports/` holds 21 closed milestone reports**, the same class removed from `docs/governance/`
+   in Phase B; one already cites a guard that no longer exists.
 
 ## Open
 
-`tools/`, then the numeric, trust, normative and engine passes.
+Next: the governance status documents and `docs/reports/`, starting from the public-surface impact.
+Then the numeric, trust, normative and engine passes.

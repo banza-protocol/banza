@@ -50,7 +50,7 @@ This is a **clean** consolidation — no technical inheritance for its own sake:
 3. **Sever the sibling coupling.** `engines/banzai-repo-indexer` indexes only this monorepo; the sibling
    code path, the `banza-protocol/banzai` remote constant and the `banzai_repo_indexed` manifest field
    are removed. The committed repo-index is deterministically purged of sibling chunks via a documented,
-   idempotent migration (`tools/migrations/remove-separate-banzai-repo-chunks.mjs`) that leaves every
+   idempotent migration, since completed and its one-shot script removed, that left every
    banza chunk byte-identical (rankings unchanged — not a re-cut), and the retrieval WASM is rebuilt.
 4. **Do not migrate superseded code.** The separate repo's TypeScript service, CLI, provider routing,
    RAG, prompt/context/eval library and older Rust engines/guards are **not** reintroduced (Rust-first,

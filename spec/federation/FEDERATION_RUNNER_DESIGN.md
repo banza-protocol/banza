@@ -497,41 +497,24 @@ The `report.json` follows the existing `conformance/report-schema.json` format, 
 
 ## 11. Integration With Existing Runner
 
-The federation runner is implemented as an extension to `tools/banza-conformance/`:
+The federation runner is implemented as part of `engines/banza-conformance` (`run-fed`):
 
 ```
-tools/banza-conformance/
-  run.py                          # Existing entrypoint; extended to accept --federation
-  suites/
-    operators.json                # Existing L0-L2 suites (unchanged)
-    federation/                   # New federation suites
-      FED-CERT.json
-      FED-DISC.json
-      FED-TRUST.json
-      FED-ROUTE.json
-      FED-EXEC.json
-      FED-OBL.json
-      FED-EVT.json
-      FED-SETTLE.json
-      FED-FAIL.json
-  fixtures/
-    federation/                   # All 44 fixtures from FEDERATION_FIXTURE_CATALOG.md
-  sim-b/                          # Simulated Operator B HTTP server
-    server.py
-    wallets.py
-    routing.py
-    obligations.py
-    events.py
-  trust-root/                     # Test trust root
-    keygen.py
-    sign_protocol_metadata.py
-    brl_server.py
-    key_manifest_server.py
-  evidence/
-    collector.py
-    packager.py
-    signer.py
+engines/banza-conformance/          # the runner (Rust); `run-fed` executes the federation suites
+engines/banza-simb/                 # deterministic in-process Operator B simulator (no network)
+engines/banza-trust/                # trust verification + TEST-ONLY signing and root-ceremony simulator
+
+conformance/
+  federation/                       # federation suites and trust configuration
+  fixtures/                         # the committed federation fixtures
+  vectors/                          # the conformance vectors the suites draw on
 ```
+
+The layout above is the current one. Earlier drafts of this document described a Python tree under
+`tools/banza-conformance/` with per-concern modules (`sim-b/server.py`, `trust-root/keygen.py`,
+`evidence/signer.py`); that implementation was replaced by the Rust engines under ADR-037 and no longer
+exists. The design below is unchanged by that move — it describes what the runner must do, not what it
+is written in.
 
 ---
 

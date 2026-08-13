@@ -2174,8 +2174,8 @@
       "classification": "SUBJECT"
     },
     {
-      "raw_text": "Runners.",
-      "normalized": "runners",
+      "raw_text": "Runner.",
+      "normalized": "runner",
       "sources": [
         "conformance-readme-md"
       ],

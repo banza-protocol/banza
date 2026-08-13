@@ -134,6 +134,6 @@ The BANZA federation model must be completely operator-neutral:
 
 The `identity-guard` CI job and `make identity-check` enforce Level 1 (explicit denylist).
 
-See `scripts/check-operator-contamination.sh` for the current denylist and exclusions.
+See `tools/check-operator-contamination.sh` for the current denylist and exclusions.
 
 Any PR that introduces operator-specific brand names will fail CI.

@@ -1,7 +1,7 @@
 # banza-trust (ADR-037, R5)
 
-The Rust BANZA **trust/crypto verifier**. It ports the *verification* side of
-`tools/banza-conformance/banza_conformance/trust_root.py` and is **canonical for verification**.
+The Rust BANZA **trust/crypto verifier**, and the canonical implementation of verification. It replaced
+the Python verifier that preceded it (ADR-037); that code no longer exists in this repository.
 
 > **Verification only.** This crate NEVER generates keys, NEVER signs, NEVER issues a certificate, and
 > carries no production key. It verifies fixtures. It does not activate M2/M3, does not emit
@@ -36,9 +36,9 @@ scheme** (test keys only). The test suite (`cargo test`) verifies every case byt
 certificate/BRL/key-manifest verify; tampered fields, wrong key, and unsigned documents all fail. This
 is the parity proof — Rust accepts exactly what the Python signer produced and rejects everything else.
 
-To regenerate the golden (test keys, off the serving path): sign a cert/BRL/manifest with
-`trust_root.py`'s `sign_certificate` / `sign_brl` / `generate_key_manifest` (ADR-038 canonical form) and
-write the signed docs + the root public key (base64url) into `golden/vectors.json`.
+To regenerate the golden (test keys, off the serving path): sign a cert/BRL/manifest with this crate's
+TEST-ONLY `sign-test-certificate` / `sign-test-brl` / `sign-test-key-manifest` (ADR-038 canonical form)
+and write the signed docs + the root public key (base64url) into `golden/vectors.json`.
 
 ## Make / CI
 
