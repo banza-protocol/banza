@@ -691,7 +691,7 @@ Key Manifest (published at banza.network/.well-known/banza/key-manifest.json)
 
 No delegated key may exercise authority beyond the scope explicitly delegated by the active Trust Root (INV-ROOT-008); governance oversees that scope without exercising it.
 
-**Trust Root custody (M2 bootstrap):** the approved custody model for the M2 bootstrap is **2-HSM / 2+ independent keyholders** (2-of-2 dual control): no single keyholder can reconstruct the key, delegate signing outside the process, or replace the protocol's maximum authority. The institutional **3-of-5 Shamir across five seats** model is a **future** target (post-institutionalization) — not in effect, and none of the five seats is constituted today. No production root key, Key Manifest, or BRL exists yet; production trust begins only after a successful ceremony (M2). See [`docs/governance/BANZA_TRUST_ARCHITECTURE.md`](https://github.com/banza-protocol/banza/blob/main/docs/governance/BANZA_TRUST_ARCHITECTURE.md).
+**Trust Root custody:** the Trust Root is controlled by **three independent root signing authorities**, and a valid Root-authorised action requires signatures from **any two of the three**. No single authority authorises alone. The threshold is cryptographic; the number of secure modules is a custody control and does not define it.
 
 ### The Key Manifest
 
@@ -796,7 +796,7 @@ An operator's entry in the BRL is a protocol security signal — compromised tru
 
 ### The Root Key Ceremony
 
-The Trust Root is generated in an **offline ceremony** on an air-gapped machine with no network connectivity, in the presence of a Ceremony Officer and an independent Witness. The private key never touches a networked machine. It is held under **2-of-2 dual control** — the approved model for the M2 milestone: 2 HSMs / 2 independent keyholders, with two independent custody artifacts and a sealed, dated, tamper-evident paper recovery copy under governance control. No single keyholder or isolated secret reconstructs the key: activation requires both keyholders.
+The Trust Root is generated in an **offline ceremony** on an air-gapped machine with no network connectivity, in the presence of an independent witness. Private key material never touches a networked machine. The Root is controlled by **three independent signing authorities**, each holding one key on their own offline machine, with their own encrypted backup in their own location. A valid Root-authorised action requires **two of the three**: no single authority reconstructs or activates the Root, and losing one does not block it.
 
 This procedure ensures that no single person and no networked system ever has access to the root private key alone.
 

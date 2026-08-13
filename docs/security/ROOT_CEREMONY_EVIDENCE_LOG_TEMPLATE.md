@@ -7,7 +7,7 @@
 > **BANZA é um protocolo financeiro aberto. PSPs, bancos ou operadores autorizados são entidades separadas que podem implementar o protocolo para prestar serviços financeiros reais.**
 
 This is a **fill-in template** for the evidence log produced by a 2-of-3 root ceremony
-([`M2_ROOT_TRUST_CEREMONY_2OF3.md`](M2_ROOT_TRUST_CEREMONY_2OF3.md)). It is designed so that **every
+([`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md)). It is designed so that **every
 recorded entry is publishable** — it captures only public keys, key IDs, fingerprints, signatures,
 hashes, declarations and results, and **no secret**. Replace each `<placeholder>` during an actual
 offline ceremony. BANZA permanece protocolo financeiro aberto; operadores autorizados são entidades
@@ -31,7 +31,7 @@ separadas que implementam o protocolo.
 | C | `<yes/no>` | `<yes>` | `<on/off>` | `<root-pub-C-id, placeholder>` |
 
 (Offline verification references
-[`OFFLINE_COMPUTER_PREPARATION_CHECKLIST.md`](OFFLINE_COMPUTER_PREPARATION_CHECKLIST.md) §F.)
+[`ROOT_KEY_CUSTODY_MODEL.md`](ROOT_KEY_CUSTODY_MODEL.md) §F.)
 
 ## 3. Public keys and fingerprints (publishable)
 
@@ -77,7 +77,7 @@ separadas que implementam o protocolo.
 | B | `<PASS/FAIL>` | `<PASS/FAIL>` | `<YYYY-MM-DD>` |
 | C | `<PASS/FAIL>` | `<PASS/FAIL>` | `<YYYY-MM-DD>` |
 
-(References [`ROOT_KEY_RECOVERY_TEST_RUNBOOK.md`](ROOT_KEY_RECOVERY_TEST_RUNBOOK.md).)
+(References [`ROOT_KEY_CUSTODY_MODEL.md`](ROOT_KEY_CUSTODY_MODEL.md).)
 
 ## 8. Witnesses
 
@@ -112,7 +112,7 @@ The following must **never** appear in this log or any attachment. If any is pre
 A complete, coherent log (3 custodians, 2-of-3 signatures, custody/backup/recovery evidence present,
 scope + boundary intact, no forbidden material) supports `M2_ROOT_CEREMONY_VALID`. Missing fields yield
 `M2_ROOT_CEREMONY_INCOMPLETE`; the specific gap states are listed in
-[`M2_ROOT_TRUST_CEREMONY_2OF3.md`](M2_ROOT_TRUST_CEREMONY_2OF3.md) §5. Status is computed **in Rust**,
+[`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md) §5. Status is computed **in Rust**,
 never in TypeScript.
 
 ## 12. Non-claims
@@ -122,9 +122,6 @@ never in TypeScript.
 - Completing this log does not create an operator, issue a licence, activate federation or move funds.
   BANZA permanece protocolo financeiro aberto.
 
-See: [`M2_ROOT_TRUST_CEREMONY_2OF3.md`](M2_ROOT_TRUST_CEREMONY_2OF3.md),
-[`M2_ROOT_CUSTODY_MODEL_2OF3.md`](M2_ROOT_CUSTODY_MODEL_2OF3.md),
-[`OFFLINE_COMPUTER_PREPARATION_CHECKLIST.md`](OFFLINE_COMPUTER_PREPARATION_CHECKLIST.md),
-[`ENCRYPTED_USB_BACKUP_POLICY.md`](ENCRYPTED_USB_BACKUP_POLICY.md),
-[`ROOT_KEY_RECOVERY_TEST_RUNBOOK.md`](ROOT_KEY_RECOVERY_TEST_RUNBOOK.md),
+See: [`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md),
+[`ROOT_KEY_CUSTODY_MODEL.md`](ROOT_KEY_CUSTODY_MODEL.md),
 [`ROOT_KEY_ROTATION_AND_REVOCATION_POLICY.md`](ROOT_KEY_ROTATION_AND_REVOCATION_POLICY.md).

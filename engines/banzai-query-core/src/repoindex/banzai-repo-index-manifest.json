@@ -6,8 +6,8 @@
   "banzai-runtime": 157,
   "decision": 170,
   "guard-ci": 94,
-  "implementation": 134,
-  "infra": 53,
+  "implementation": 114,
+  "infra": 45,
   "legal-license": 12,
   "normative": 170,
   "operator-zero": 161,
@@ -24,19 +24,19 @@
  },
  "file_categories": {
   "banzai-runtime": 111,
-  "decision": 104,
+  "decision": 101,
   "guard-ci": 91,
-  "implementation": 168,
-  "infra": 23,
+  "implementation": 162,
+  "infra": 21,
   "legal-license": 5,
   "normative": 175,
   "operator-zero": 90,
-  "report": 20,
+  "report": 16,
   "security-boundary": 7,
   "website": 162
  },
  "generated_at": "2026-07-29T00:00:00Z",
- "index_hash": "85c9b2cb8f327139",
+ "index_hash": "80d649e1933e88d7",
  "index_version": "m2.13b-pr2",
  "max_chunks": 1900,
  "secret_scan": {
@@ -47,18 +47,18 @@
  "surgical_purge": {
   "applied": true,
   "entries_removed": {
-   "chunks": 228,
+   "chunks": 256,
    "exclusions": 11,
-   "files": 215
+   "files": 230
   },
   "reason": "entries whose source file was removed from the tree",
   "reindexed": false,
   "survivors_unmodified": true
  },
  "tool_version": "banzai-repo-indexer/0.1.0",
- "total_chunks": 1131,
- "total_chunks_before_cap": 1131,
+ "total_chunks": 1103,
+ "total_chunks_before_cap": 1103,
  "total_files_excluded": 57,
- "total_files_indexed": 956,
- "total_files_scanned": 1013
+ "total_files_indexed": 941,
+ "total_files_scanned": 998
 }

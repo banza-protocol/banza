@@ -20,14 +20,14 @@ rejected before the vocabulary). Deterministic, no model.
 - unresolved: 0
 
 ## Candidate pipeline (Phase 1 — noise separated from vocabulary)
-- total candidates: 4367
-- accepted (terminology): 826
-- rejected (lexical noise / non-terminological): 3541
-  - NON_TERMINOLOGICAL: 2366
-  - GENERIC_PROSE: 853
-  - PATH_FRAGMENT: 153
-  - MARKUP_FRAGMENT: 32
-  - BROKEN_TOKEN: 130
+- total candidates: 4217
+- accepted (terminology): 797
+- rejected (lexical noise / non-terminological): 3420
+  - NON_TERMINOLOGICAL: 2275
+  - GENERIC_PROSE: 841
+  - PATH_FRAGMENT: 142
+  - MARKUP_FRAGMENT: 31
+  - BROKEN_TOKEN: 124
   - STOPWORD: 7
 
 ## Coverage gates

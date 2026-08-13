@@ -122,7 +122,7 @@ Any FAIL stops verification; there is no "allow by default" path.
 - No production root or issuing key exists; therefore **no production Key Manifest, signed protocol metadata, BRL, or
   evidence package is signed** in M2.
 - A dry-run produces a rehearsal record only — it does **not** publish to production endpoints and does
-  **not** complete the ceremony (see [`ROOT_KEY_CEREMONY_RUNBOOK.md`](ROOT_KEY_CEREMONY_RUNBOOK.md)).
+  **not** complete the ceremony (see [`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md)).
 - Test and production signing paths, media, and evidence are strictly separated (see
   [`TRUST_TEST_ONLY_BOUNDARY.md`](TRUST_TEST_ONLY_BOUNDARY.md)).
 
@@ -136,7 +136,7 @@ Any FAIL stops verification; there is no "allow by default" path.
   authorised operator.
 
 See: [`PRODUCTION_TRUST_PATH.md`](PRODUCTION_TRUST_PATH.md),
-[`TRUST_CEREMONY_PLAN.md`](TRUST_CEREMONY_PLAN.md),
+[`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md),
 [`KEY_MANAGEMENT_POLICY.md`](KEY_MANAGEMENT_POLICY.md),
 [`BRL_REVOCATION_PLAYBOOK.md`](BRL_REVOCATION_PLAYBOOK.md),
 [`TRUST_TEST_ONLY_BOUNDARY.md`](TRUST_TEST_ONLY_BOUNDARY.md),

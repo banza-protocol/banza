@@ -623,7 +623,7 @@
   {
     "id": "CLAIM-D-010",
     "wording": "The trust root is threshold-controlled (2-of-3 signatures anchored to pinned root keys); no single key/entity can produce a valid root endorsement.",
-    "source": "whitepaper §5 model + governance 2-de-2 custody; ADR-079 threshold",
+    "source": "whitepaper §5 model + the 2-of-3 root custody model; ADR-079 threshold",
     "normative_basis": "contracts/invariants.json:175 INV-ROOT-007 'No single entity... Root custody requires threshold control (2-of-2 at the root bootstrap; future 3-of-5 Shamir)'",
     "implementation": "engines/banza-trust/src/evaluate.rs:160-212 root_threshold_signatures_ok: counts DISTINCT verifying keys ≥ threshold_policy.min_signatures, restricted to the intersection of declared and evaluator-pinned anchor keys (lines 171-178); fail-closed on empty candidates / no sigs (179-197). Fixture: 2-of-3, signed by root_a+root_b (sign.rs:167-183)",
     "test": "engines/banza-trust/tests/trust.rs:171 f1_root_without_a_valid_threshold_signature_is_rejected (E3 adversarial: removed sigs, garbage sigs, and attacker-chosen root keys not in the pinned anchor all → TRUST_INVALID_ROOT_METADATA)",

@@ -73,7 +73,7 @@ the residual-owner split recorded in [`RISK_REGISTER.md`](RISK_REGISTER.md) (`R-
 | 4 | Verify endpoints; engines fetch within 1 h and re-establish trust on the new key |
 
 Federation disruption window: 1–6 h (routine) or ~1 h (emergency), per
-[`PRODUCTION_ROOT_READINESS_REPORT.md`](PRODUCTION_ROOT_READINESS_REPORT.md) §Phase 7.
+[`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md) §Phase 7.
 
 ## Invariants exercised
 
@@ -95,8 +95,8 @@ Federation disruption window: 1–6 h (routine) or ~1 h (emergency), per
 - No live operator has been revoked; there are no live operators. Publishing this playbook does not
   activate federation and does not make BANZA a PSP.
 
-See: [`TRUST_CEREMONY_PLAN.md`](TRUST_CEREMONY_PLAN.md),
+See: [`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md),
 [`KEY_MANAGEMENT_POLICY.md`](KEY_MANAGEMENT_POLICY.md),
-[`ROOT_KEY_CEREMONY_RUNBOOK.md`](ROOT_KEY_CEREMONY_RUNBOOK.md),
+[`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md),
 [`TRUST_TEST_ONLY_BOUNDARY.md`](TRUST_TEST_ONLY_BOUNDARY.md),
 [`THREAT_MODEL.md`](THREAT_MODEL.md), [`RISK_REGISTER.md`](RISK_REGISTER.md).

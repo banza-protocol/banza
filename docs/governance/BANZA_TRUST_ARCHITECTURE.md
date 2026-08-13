@@ -60,10 +60,26 @@ singular. É um conjunto de chaves em custódia distribuída, usadas offline e d
 
 | Propriedade | Valor |
 |---|---|
-| Modelo | Custódia por limiar — nenhum custódio isolado reconstrói a raiz (INV-ROOT-007). O quórum concreto é a configuração operacional de custódia (bootstrap M2: 2-de-2; alvo futuro: 3-de-5 Shamir) |
+| Modelo | **2-de-3.** Três autoridades de assinatura independentes; qualquer acção autorizada da raiz exige duas assinaturas de duas delas. Uma assinatura isolada nunca autoriza (INV-ROOT-007) |
 | Uso | Offline, apenas para assinar material do protocolo |
 | Artefacto | Root metadata assinado, com âncora fixada (pinned anchor) nos verificadores |
 | Controlo único | Nenhum custódio isolado reconstrói a raiz nem produz uma assinatura válida |
+
+O modelo de autorização é **criptográfico e lógico**: três autoridades, limiar dois. Não é definido pelo
+hardware. Quantos módulos de segurança existem, onde ficam guardados e como o material é transportado
+são **controlos de custódia** — descritos em [`ROOT_KEY_CUSTODY_MODEL.md`](../security/ROOT_KEY_CUSTODY_MODEL.md) —
+e podem evoluir sem redefinir a autoridade do protocolo. O número de dispositivos nunca determina o limiar.
+
+Três propriedades justificam esta escolha, e são as três que o BANZA precisa:
+
+| Propriedade | O que garante |
+|---|---|
+| **Autorização a dois** | Nenhuma autoridade age sozinha; um comprometimento isolado não basta |
+| **Tolerância a uma falha** | Perder ou isolar uma das três não bloqueia a raiz; as outras duas mantêm o quórum |
+| **Sem controlo unipessoal** | Não existe combinação em que uma só parte autorize uma acção da raiz |
+
+Nada mais é acrescentado para as obter: sem Shamir, sem serviço de quórum online, sem coordenação de
+HSM, sem criptossistema de assinatura por limiar. Três chaves e uma contagem.
 
 A `Trust Root` assina exclusivamente o **Manifesto de Chaves** — a root metadata que lista e endossa as `Delegated Signing Keys`. A `Signed Protocol Metadata`, as releases e a `Revocation List` são assinadas pelas `Delegated Signing Keys` endossadas pela raiz, nunca pela raiz directamente (INV-ROOT-004; ADR-079). Uma assinatura da raiz responde a
 exactamente uma pergunta — *este artefacto do protocolo é genuíno e íntegro?* — e nunca a *pode esta

@@ -52,7 +52,7 @@ certificate, no external model call, and no external audit are represented here
 | EV-021 | No "corpus" / no public "KB" (C-NO-CORPUS-KB) | public UI | `make regulatory-check`; `vitest` | yes |
 | EV-022 | BANZA presented as protocol, not PSP (C-PROTOCOL-NOT-PSP) | public copy; Assistente | boundary docs; `make regulatory-check` | yes |
 | EV-023 | BanzAI assistant refuses over-claiming authority (R-AI-001) | Assistente boundary intents | `cargo test -p banzai-evidence` boundary/kb tests | yes |
-| EV-024 | Domain-separated signing keys (root/cert/revocation) (R-TRUST-001, ADR-038) | trust engine; ceremony docs | `cargo test -p banza-trust`; `ROOT_KEY_CEREMONY_PROCEDURE.md` | yes |
+| EV-024 | Domain-separated signing keys (root/cert/revocation) (R-TRUST-001, ADR-038) | trust engine; ceremony docs | `cargo test -p banza-trust`; `ROOT_KEY_CEREMONY_REQUIREMENTS.md` | yes |
 | EV-025 | Assurance status computed in Rust (BX2.0) | security-assurance engine | `cargo test -p banza-security-assurance` | yes |
 | EV-026 | Deep-assurance status computed in Rust (BX2.4) | `validate_deep_assurance` | `cargo test -p banza-security-assurance` (deep-assurance cases) | yes |
 | EV-027 | Reproducible deploy bundle; pinned image tags (R-SUPPLY-001, R-DEPLOY-001) | `infra/banza-network/` | inspect fixed image tags; `infra/banza-network/README.md` | yes |

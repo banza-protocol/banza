@@ -648,7 +648,7 @@ pub fn validate_deep_assurance(input: &Value) -> Value {
         },
         "trust_and_crypto_ceremony": {
             "status": track_status(trust_present, trust_gap),
-            "documents": ["TRUST_CEREMONY_PLAN.md", "KEY_MANAGEMENT_POLICY.md", "ROOT_KEY_CEREMONY_RUNBOOK.md", "BRL_REVOCATION_PLAYBOOK.md", "TRUST_TEST_ONLY_BOUNDARY.md"],
+            "documents": ["ROOT_KEY_CUSTODY_MODEL.md", "ROOT_KEY_CEREMONY_REQUIREMENTS.md", "KEY_MANAGEMENT_POLICY.md", "BRL_REVOCATION_PLAYBOOK.md", "TRUST_TEST_ONLY_BOUNDARY.md"],
             "production_trust_ceremony_not_executed": true,
         },
         "operational_risk_and_incident_response": {

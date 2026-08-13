@@ -527,6 +527,127 @@ loosened to make a count look green.
 
 ---
 
+## Phase F — root trust model resolution
+
+The blocking finding from Phase E was decided: **the BANZA Trust Root is 2-of-3**. Three independent
+signing authorities; any two authorise; one never does. The choice is BANZA's own — two-party
+authorization, one-party failure tolerance, no single-party control — obtained with three keys and a
+count, and nothing else.
+
+### The contradiction, and what was actually in the tree
+
+Three custody models were in circulation: a 2-of-2 dual-control decision record, a 3-of-5 Shamir "future
+target", and a 2-of-3 validator with tests, a CLI and WASM. Under a clean slate — no ceremony has run and
+no production root key exists — the architecture was resolved rather than the history preserved.
+
+### A real security defect, found by proving the engine before trusting it
+
+The instruction was to prove the engine before changing anything. It did **not** implement the rule it
+documented.
+
+`validate_root_ceremony` counted **signature entries**, not distinct signers. A probe with the same
+signature presented twice returned `M2_ROOT_CEREMONY_VALID`:
+
+```
+A + A  ->  M2_ROOT_CEREMONY_VALID          (before)
+A + A  ->  M2_ROOT_CEREMONY_BLOCKED_BY_THRESHOLD   (after)
+```
+
+One custodian, signing twice, satisfied a 2-of-3 threshold. That defeats the single property the
+threshold exists for. The engine now counts distinct signing authorities.
+
+The defect had survived seventeen existing tests, including one named `duplicate_custodian_blocks` —
+which checks that the three **declared keys** carry distinct custodians, a different thing from checking
+that two **signatures** came from two authorities. It is the sharpest illustration in this whole sweep of
+why a property has to be tested as behaviour: the model was right, the document was right, the test name
+sounded right, and the code was wrong.
+
+### The threshold, tested as behaviour
+
+`engines/banza-root-ceremony/tests/threshold.rs` — 11 cases, signing real Ed25519 over the canonical
+bytes with deterministic TEST-ONLY keys:
+
+| Accept | Reject |
+|---|---|
+| A+B, A+C, B+C | A alone, B alone, C alone |
+| A+B+C | A+A (duplicate signer) |
+| | no signatures |
+| | unknown signer (fail-closed) |
+| | malformed signature (fail-closed) |
+| | valid beside invalid (fail-closed) |
+
+### Authorization is not hardware
+
+`2-of-3` is the cryptographic authorization model. How many secure modules exist, where they live and
+how material moves are custody controls that may change without redefining protocol authority. The old
+`2-HSM ⇒ 2-of-2` conflation is what let a device count become an architecture; the two are now stated
+separately everywhere.
+
+### Consolidation
+
+The root and ceremony surface went from **15 documents to 5**, with a sixth in governance:
+
+| Document | Owns |
+|---|---|
+| `BANZA_TRUST_ARCHITECTURE.md` (governance) | the trust chain, and now the concrete threshold in words |
+| `ROOT_KEY_CUSTODY_MODEL.md` | the model, invariants, independence, offline, backup, recovery, the fail-closed gate, the authority map |
+| `ROOT_KEY_CEREMONY_REQUIREMENTS.md` | prerequisites, participants, environment, artifacts, evidence, verification, failure paths, tooling boundary |
+| `ROOT_CEREMONY_EVIDENCE_LOG_TEMPLATE.md` | the single ceremony record |
+| `ROOT_KEY_ROTATION_AND_REVOCATION_POLICY.md` | rotation and revocation |
+| `KEY_MANAGEMENT_POLICY.md` | delegated key lifecycle |
+
+Fourteen documents were removed: both 2-of-3 originals (absorbed), the decision record, the 3-of-5
+migration note, the 994-line procedure's overlapping companions (checklist, runbook, plan), the backup,
+offline and recovery controls (absorbed into the custody model), a duplicate record template, the
+governance approval checklist and a readiness report.
+
+`ROOT_KEY_CEREMONY_PROCEDURE.md` became `ROOT_KEY_CEREMONY_REQUIREMENTS.md`, per the rule that a name
+must be factually true: with no production ceremony tooling in this repository it cannot be executed
+end to end, and calling it a procedure invited exactly the failure Phase D found — instructions naming
+tools that do not exist.
+
+Its Phase 4 was rewritten rather than relabelled. It had described writing **all** private keys to one
+medium under one passphrase, which pools three authorities back into one and violates the custody
+invariant directly. It now states the per-custodian requirement and says plainly why no command sequence
+is given.
+
+`BANZA_ROOT_CUSTODY_DECISION_REQUIRED.md` is gone, as decided: the ceremony gate it briefly held moved
+into the custody model, where the enforcing document is the one that carries it. A file whose name says
+a decision is pending, after the decision is taken, is history reintroduced into the present.
+
+### Clean-slate language
+
+Every occurrence of `2-of-2`, `2 HSM`, `Option A`, `3-of-5`, `Shamir`, `dual control`, `decision
+required` and `canonical ceremony` was classified. Most were unrelated — the benchmark verdict "Option
+A", routing "Option A" in an RFC, a UI library choice. Nine were false current architecture, and the
+worst was **normative**: `contracts/federation/federation-trust.json` declared `"quorum": "2_of_2"` and
+carried a `future_custody_target` of `"shamir_secret_sharing"`. The contract now carries `2_of_3` and no
+future target.
+
+The public reference stated no threshold at all — a reader could not learn the rule without opening
+Rust. It now states it. Both stale reference mirrors carried the superseded model as fact and were
+corrected rather than left, because a false custody claim is not ordinary staleness.
+
+### Guard
+
+`make root-threshold-model-check` protects the **property**, not filenames: engine constants,
+distinct-signer counting, the presence of the accept/reject matrix, no surface presenting a superseded or
+future model as current (negation-aware), the rule readable on a current authority, and the normative
+contract carrying the same quorum. Self-tested in both directions — declaring 2-of-2, and reverting the
+engine to entry counting — and it caught three real residues on first run, in the key-management policy,
+the production trust path and the risk register.
+
+### Verification
+
+- `engines/banza-root-ceremony`: **29 tests**; CLI **8**; security-assurance **23**.
+- **203 guard targets, 201 pass** — the two pre-existing failures, unchanged.
+- Website **502/502**, `tsc` clean.
+- Index purged and the one chunk carrying `dual control` refreshed in place; the api-kb WASM rebuilt and
+  verified in both directions — the superseded wording is not retrievable, the current wording is.
+- Nothing was generated, no ceremony was run, no key material was touched, production was not deployed.
+
+---
+
 ## Robustness backlog
 
 Carried forward, with the phase that will take each:
@@ -540,7 +661,8 @@ Carried forward, with the phase that will take each:
    and the source of every `regulatory-check` hit. Belongs to the ADR Architecture Reset.
 5. **`private-key-leak-check` flags its own detector's test fixtures** — needs to become context-aware
    about test material. Belongs to the engine pass.
-6. **The custody threshold is contradicted between code and governance** — see below. Blocking.
+6. ~~The custody threshold is contradicted between code and governance~~ — **closed by Phase F**:
+   resolved to 2-of-3, and a real defect in the validator was found and fixed on the way.
 
 Items 5 and 6 of the earlier list are closed by Phase E.
 
@@ -566,7 +688,13 @@ validator, and keeping it entrenches a model the approved decision superseded. E
 which ceremony documents survive, which get consolidated, whether
 `ROOT_KEY_CEREMONY_PROCEDURE.md` is still a procedure — depends on the answer.
 
+## Frozen
+
+**GOVERNANCE / SECURITY / REPORTS CLEANUP — FROZEN.** One root architecture, 2-of-3; engine and surfaces
+agree; no pending decision; the root/security surface is six documents; guards protect properties; tests
+green.
+
 ## Open
 
-The root/security consolidation, once the custody threshold is decided. Then the numeric, trust,
-normative and engine passes. The ADR Architecture Reset is a separate milestone and was not started.
+The numeric, trust-plane and engine passes. The ADR Architecture Reset is a separate milestone and was
+not started here — nothing in these commits touches it.

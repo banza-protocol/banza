@@ -5,7 +5,7 @@
 > **BANZA é um protocolo financeiro aberto. PSPs, bancos ou operadores autorizados são entidades separadas que podem implementar o protocolo para prestar serviços financeiros reais.**
 
 This policy defines how a root key is **rotated** or **revoked** under the 2-of-3 model
-([`M2_ROOT_TRUST_CEREMONY_2OF3.md`](M2_ROOT_TRUST_CEREMONY_2OF3.md)), and the **delegation** model by
+([`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md)), and the **delegation** model by
 which the root authorises narrower operational keys. The through-line: **every** rotation and revocation
 is a root action, and every root action needs **two of the three** custodians — never a single one.
 BANZA permanece protocolo financeiro aberto; operadores autorizados são entidades separadas que
@@ -28,7 +28,7 @@ keys:
   frequently without a full root ceremony — the root simply signs a new delegation.
 - The root itself still signs **only** root metadata, delegations, rotation, revocation and trust
   policy. It never signs payments, operators, licences or funds (see §3 of
-  [`M2_ROOT_TRUST_CEREMONY_2OF3.md`](M2_ROOT_TRUST_CEREMONY_2OF3.md)).
+  [`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md)).
 
 This is consistent with the domain-separated key model in
 [`KEY_MANAGEMENT_POLICY.md`](KEY_MANAGEMENT_POLICY.md) and the trust path in
@@ -46,7 +46,7 @@ This is consistent with the domain-separated key model in
 ## 3. How to rotate a root key (2-of-3)
 
 1. The three custodians (or the two required by threshold) convene, each on their own offline machine
-   ([`OFFLINE_COMPUTER_PREPARATION_CHECKLIST.md`](OFFLINE_COMPUTER_PREPARATION_CHECKLIST.md)).
+   ([`ROOT_KEY_CUSTODY_MODEL.md`](ROOT_KEY_CUSTODY_MODEL.md)).
 2. The affected custodian generates a **new** root keypair on their offline machine; exports the new
    **public** key + fingerprint.
 3. New root metadata is assembled: the updated root set (new public key replacing the old), threshold
@@ -117,9 +117,8 @@ the open-protocol boundary resolves to `M2_ROOT_CEREMONY_INVALID_REGULATORY_BOUN
 - Rotation or revocation does not create an operator, issue a licence, activate federation or move
   funds. BANZA permanece protocolo financeiro aberto.
 
-See: [`M2_ROOT_TRUST_CEREMONY_2OF3.md`](M2_ROOT_TRUST_CEREMONY_2OF3.md),
-[`M2_ROOT_CUSTODY_MODEL_2OF3.md`](M2_ROOT_CUSTODY_MODEL_2OF3.md),
-[`ENCRYPTED_USB_BACKUP_POLICY.md`](ENCRYPTED_USB_BACKUP_POLICY.md),
+See: [`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md),
+[`ROOT_KEY_CUSTODY_MODEL.md`](ROOT_KEY_CUSTODY_MODEL.md),
 [`ROOT_CEREMONY_EVIDENCE_LOG_TEMPLATE.md`](ROOT_CEREMONY_EVIDENCE_LOG_TEMPLATE.md),
 [`KEY_MANAGEMENT_POLICY.md`](KEY_MANAGEMENT_POLICY.md),
 [`PRODUCTION_TRUST_PATH.md`](PRODUCTION_TRUST_PATH.md).

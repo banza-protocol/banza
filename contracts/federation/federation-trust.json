@@ -14,15 +14,10 @@
         "layer": 1,
         "id": "trust_root",
         "name": "Trust Root",
-        "description": "Offline ed25519 key material. Never used directly in protocol operations — it signs only the Key Manifest (the root-signed metadata that lists and authorises the delegated signing keys). Protocol metadata, releases, the revocation list and conformance evidence are signed by delegated keys within their domains, never by the root directly (INV-ROOT-004; ADR-079). Root custody is threshold custody — no single party can reconstruct or activate the root; the bootstrap quorum of record is 2-of-2, with 3-of-5 Shamir as the future target — see future_custody_target.",
+        "description": "Offline ed25519 key material. Never used directly in protocol operations — it signs only the Key Manifest (the root-signed metadata that lists and authorises the delegated signing keys). Protocol metadata, releases, the revocation list and conformance evidence are signed by delegated keys within their domains, never by the root directly (INV-ROOT-004; ADR-079). Root custody is threshold custody: three independent root signing authorities, any two of which authorise a root action. No single party can reconstruct or activate the root.",
         "algorithm": "ed25519",
         "custody": "multi_keyholder_threshold",
-        "quorum": "2_of_2",
-        "future_custody_target": {
-          "custody": "shamir_secret_sharing",
-          "quorum": "3/5",
-          "status": "future — not in effect; requires constituted institutional seats, a separate ADR, and a key-rotation ceremony (ADR-038)"
-        },
+        "quorum": "2_of_3",
         "usage": "signs_key_manifest_only",
         "adr_ref": "ADR-038",
         "invariants": ["INV-ROOT-007"]

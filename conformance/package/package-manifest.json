@@ -150,8 +150,8 @@
     },
     {
       "path": "contracts/federation/federation-trust.json",
-      "sha256": "725538ae90f807d132bf84605306790e2382fae0bd0eeb5d10a208f99e8d07dc",
-      "bytes": 9976
+      "sha256": "0972fc9aa994e7857ee9511abaf438aff26dbd8d02bd2c92be36b460763c3cf9",
+      "bytes": 9683
     },
     {
       "path": "contracts/federation/key-manifest.json",

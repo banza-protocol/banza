@@ -600,6 +600,14 @@ O Registo Técnico pode ajudar a **localizar** uma implementação, a sua origem
 
 No topo da cadeia está a **Raiz de Confiança** (*Trust Root*): a âncora que cada implementação conforme fixa uma vez e usa para verificar todo o material subsequente. A raiz é gerada offline, mantida em custódia repartida por limiar — nenhuma pessoa isolada a reconstrói — e nunca toca no caminho operacional. O seu âmbito é deliberadamente estreito: **assina apenas o Manifesto de Chaves.** Não assina metadata de operadores, revogações ou evidência, e — o ponto que governa todo o capítulo — **não autoriza operadores, não emite licença e não autoriza pagamentos.** A Raiz de Confiança não é uma autoridade certificadora sobre operadores; é a origem verificável de uma cadeia de assinaturas (ADR-038).
 
+A raiz não é uma chave única guardada por alguém. São **três autoridades de assinatura independentes**,
+e qualquer acção autorizada da raiz exige **duas assinaturas de duas delas**. Uma assinatura isolada
+nunca autoriza. É esse o significado prático de «âncora distribuída»: nenhuma parte age sozinha, o
+comprometimento de uma chave não basta, e a indisponibilidade de uma das três não bloqueia o protocolo.
+
+O limiar é criptográfico e lógico. Quantos dispositivos existem, onde estão guardados e como o material
+é transportado são controlos de custódia, que podem mudar sem redefinir a autoridade do protocolo.
+
 Dessa raiz derivam **chaves delegadas de assinatura**, de validade curta e âmbito limitado, cada uma restrita a um único domínio:
 
 - **assinatura de metadata de protocolo**,

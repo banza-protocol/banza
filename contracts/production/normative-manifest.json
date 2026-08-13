@@ -149,7 +149,7 @@
       "class": "NORMATIVE_TRUST_RULE",
       "tier": "implementation",
       "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
-      "sha256": "725538ae90f807d132bf84605306790e2382fae0bd0eeb5d10a208f99e8d07dc"
+      "sha256": "0972fc9aa994e7857ee9511abaf438aff26dbd8d02bd2c92be36b460763c3cf9"
     },
     {
       "path": "contracts/federation/key-manifest.json",
@@ -710,7 +710,7 @@
       "class": "NORMATIVE_SPECIFICATION",
       "tier": "implementation",
       "role": "The trust chain a verifier walks, and what it must refuse.",
-      "sha256": "51fc6c8747b6f3c32ec389153b22af85f4b22da715a91d442099f2889fb79f22"
+      "sha256": "5f77c44569c48628dd334f477febc6e4eb9a024084220d9d0fe1eb27d4f4baf1"
     },
     {
       "path": "spec/idempotency.md",

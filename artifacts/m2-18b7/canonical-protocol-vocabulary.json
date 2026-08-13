@@ -5,7 +5,7 @@
     "principle": "The vocabulary is a semantic registry of real protocol terms derived from the engine's own registries + closed protocol sets; corpus terms are candidates (Phase 1), lexical noise never enters here."
   },
   "source_registry": {
-    "total": 462,
+    "total": 458,
     "by_type": {
       "root-doc": 9,
       "conformance": 80,
@@ -14,22 +14,22 @@
       "openapi": 11,
       "adr": 81,
       "rfc": 7,
-      "doc": 62,
+      "doc": 58,
       "example": 48,
       "spec": 31
     },
     "by_status": {
-      "current": 462
+      "current": 458
     },
     "by_authority_class": {
-      "current": 414,
+      "current": 410,
       "illustrative": 48
     },
     "by_language": {
-      "pt-or-neutral": 462
+      "pt-or-neutral": 458
     },
     "by_origin": {
-      "authored": 462,
+      "authored": 458,
       "generated": 0
     },
     "duplicates": [
@@ -1168,7 +1168,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "725538ae90f807d1"
+        "checksum": "0972fc9aa994e785"
       },
       {
         "id": "conformance-package-contracts-federation-key-manifest-json",
@@ -1652,7 +1652,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "cbdf8113d4a58340"
+        "checksum": "0900b94db03f338a"
       },
       {
         "id": "conformance-qr-suite-json",
@@ -2026,7 +2026,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "725538ae90f807d1"
+        "checksum": "0972fc9aa994e785"
       },
       {
         "id": "contracts-federation-key-manifest-json",
@@ -2477,7 +2477,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "ce63dc78f75a26b2"
+        "checksum": "4d75e4c8b0352030"
       },
       {
         "id": "contracts-production-operation-receipt-production-schema-json",
@@ -3665,7 +3665,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "84f122765cb12895"
+        "checksum": "e97743a950864841"
       },
       {
         "id": "decisions-adr-adr-080-canonical-discovery-surface-reconciliation-md",
@@ -4086,28 +4086,6 @@
         "checksum": "b7573c0db177b8cf"
       },
       {
-        "id": "docs-governance-banza-root-custody-decision-required-md",
-        "path": "docs/governance/BANZA_ROOT_CUSTODY_DECISION_REQUIRED.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "2a6796daf18c7e20"
-      },
-      {
-        "id": "docs-governance-banza-root-custody-future-migration-md",
-        "path": "docs/governance/BANZA_ROOT_CUSTODY_FUTURE_MIGRATION.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "2a5a801a11899332"
-      },
-      {
         "id": "docs-governance-banza-separation-matrix-md",
         "path": "docs/governance/BANZA_SEPARATION_MATRIX.md",
         "type": "doc",
@@ -4138,7 +4116,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "9555f938ee0c0bfa"
+        "checksum": "d9007a76e9b854fc"
       },
       {
         "id": "docs-governance-claude-base-md",
@@ -4427,28 +4405,6 @@
         "checksum": "3886b0a0e5311cd4"
       },
       {
-        "id": "docs-governance-ceremony-records-ceremony-record-template-md",
-        "path": "docs/governance/ceremony-records/CEREMONY_RECORD_TEMPLATE.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "121cfa47cedacf48"
-      },
-      {
-        "id": "docs-governance-ceremony-records-m2-custody-approval-checklist-md",
-        "path": "docs/governance/ceremony-records/M2_CUSTODY_APPROVAL_CHECKLIST.md",
-        "type": "doc",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "fa9417a2984e4491"
-      },
-      {
         "id": "docs-governance-ceremony-records-readme-md",
         "path": "docs/governance/ceremony-records/README.md",
         "type": "doc",
@@ -4457,7 +4413,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "881d138686272b23"
+        "checksum": "685dc27f81f9c039"
       },
       {
         "id": "docs-governance-certification-boundary-md",
@@ -5293,7 +5249,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "51fc6c8747b6f3c3"
+        "checksum": "5f77c44569c48628"
       },
       {
         "id": "spec-idempotency-md",
@@ -5424,7 +5380,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "5f736a46991ecd99"
+    "checksum": "cb7f132ec2763268"
   },
   "subjects": [
     {
@@ -8785,5 +8741,5 @@
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "a2d3964e932376bf"
+  "checksum": "01b86bbd9e75bc7d"
 }

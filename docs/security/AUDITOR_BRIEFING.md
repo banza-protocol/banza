@@ -31,7 +31,7 @@ pre-production state, the trust model, where to find evidence, and the explicit 
 | Production certificates | `production_certificates = false` | `GET /certificates` |
 | External model / LLM calls | `llm_calls = 0`, `external_model_called = false` | inspect any engine report |
 | Provider | mock provider only | Workbench + Assistente outputs |
-| Root-key ceremony (M2) | **planned, not performed** — no production keys | `ROOT_KEY_CEREMONY_PROCEDURE.md` (procedure, not a record) |
+| Root-key ceremony (M2) | **planned, not performed** — no production keys | `ROOT_KEY_CEREMONY_REQUIREMENTS.md` (procedure, not a record) |
 | Live external integration | disabled / gated to a future phase | `AUDIT_SCOPE.md` §3 |
 | External audit | **not performed** | this pack is pre-audit only |
 

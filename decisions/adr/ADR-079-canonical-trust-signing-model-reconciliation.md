@@ -43,7 +43,7 @@ removing the residue its decisions had left behind.
 | **D-079-05** | The **Revocation List (BRL) is signed by the `revocation`-domain delegated key**. The authority of that key is traced to the Trust Root **through the Key Manifest** — the root anchors revocation *indirectly*, and never signs the BRL itself. |
 | **D-079-06** | Protocol metadata is signed by the `protocol-metadata`-domain delegated key; conformance evidence by the `conformance-evidence`-domain delegated key. Neither is signed by the root. |
 | **D-079-07** | The delegated-key **domains are normative; key-id string formats are an operational naming convention** (e.g. `banza-{domain}-YYYYMM`). Where a schema enforces a name pattern, that is a deployment convenience, not a protocol conformance requirement (Reference §6). |
-| **D-079-08** | Root custody: the **durable architectural invariant is threshold custody** (`INV-ROOT-007` — no single entity solely controls the root). A concrete N-of-M is **operational configuration**, normative only where a current decision declares it: the M2 bootstrap configuration approved 2026-06-19 is `dual_hsm_dual_keyholder` / 2-of-2, with 3-of-5 Shamir as the future target (`docs/governance/BANZA_ROOT_CUSTODY_DECISION_REQUIRED.md`, `BANZA_ROOT_CUSTODY_FUTURE_MIGRATION.md`). No specific N-of-M is a protocol invariant. |
+| **D-079-08** | Root custody: the **durable architectural invariant is threshold custody** (`INV-ROOT-007` — no single entity solely controls the root). The current architecture declares the concrete threshold: **three independent root signing authorities, any two of which authorise** (`docs/security/ROOT_KEY_CUSTODY_MODEL.md`). Authorization is cryptographic and logical; the number of secure modules is a custody control and never determines the threshold. |
 | **D-079-09** | This reconciliation restates no new authority for the root. The Trust Root is **not a certificate authority over operators** (ADR-038); a valid trust result is **not** conformance, **not** BANZA Conformance & Interoperability Certification (Layer 2, ADR-061), **not** scheme admission (Layer 3), and **not** regulatory authorisation. These boundaries do not propagate. |
 
 ## Invariant impact
@@ -72,7 +72,7 @@ artifacts are schemas, fixtures and demos). This ADR is normative and documentar
 **Deliberately left for a separate operational-config alignment** (tracked; not a normative contradiction):
 the concrete 2-of-3 values still present in the ceremony engine constants
 (`engines/banza-root-ceremony`), the production custodian-enum schema, and the trust test fixtures must be
-aligned to the approved 2-of-2 when the M2 ceremony is prepared; the divergent delegated-key scope enums
+aligned to the 2-of-3 model when the ceremony is prepared; the divergent delegated-key scope enums
 across `contracts/production/*` should be reconciled to the canonical three domains; and the legacy
 `certification`-domain / `banza-cert-` shapes in the L3/L4 readiness *test fixtures* are implementation-only
 residue. These are configuration/implementation items, out of scope for this normative reconciliation.

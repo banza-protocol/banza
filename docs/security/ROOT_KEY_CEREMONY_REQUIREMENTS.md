@@ -1,14 +1,18 @@
-# BANZA Root Key Ceremony Procedure
+# BANZA Root Key Ceremony — Requirements
 
-**Document ID:** BANZA-ROOT-KEY-CEREMONY-PROCEDURE-001  
-**Date:** 2026-06-01  
-**Authority:** ADR-038 (open trust model — legacy trust root architecture); custody model per `docs/governance/BANZA_ROOT_CUSTODY_DECISION_REQUIRED.md` (Option A — approved 2026-06-19)  
-**Status:** **M2 BOOTSTRAP (Option A) — NOT YET PRODUCTION-APPROVED.** The custody steps below (single GPG-encrypted blob + `cp` to a second USB, single passphrase, "same person" fallback) are **non-compliant with the approved Option A custody model**. As of Commit 2 of the Option A plan, `tools/root-ceremony/ceremony_script.py` **enforces a custody gate**: the default mode is `dry_run` (test- key IDs only), and any production intent (`--custody-mode dual_hsm_dual_keyholder` / `manual_2of2_required`) **fails closed and generates no production key material**, because HSM-backed / 2-of-2 split custody is not implemented. A production ceremony therefore **cannot run** from this script until that custody is implemented and the dual-custody evidence model is in place (Commit 3). **Dry-run / test only. No production ceremony may run.**  
-**Companion documents:**
-- [ROOT_KEY_CEREMONY_CHECKLIST.md](ROOT_KEY_CEREMONY_CHECKLIST.md)
-- [ROOT_KEY_CEREMONY_RECORD_TEMPLATE.md](ROOT_KEY_CEREMONY_RECORD_TEMPLATE.md)
-- Governance evidence (Option A): [`docs/governance/ceremony-records/`](../governance/ceremony-records/) — record store + [`CEREMONY_RECORD_TEMPLATE.md`](../governance/ceremony-records/CEREMONY_RECORD_TEMPLATE.md) (dual-custody evidence; **no root material is ever stored there**)
-- Authorization: [`docs/governance/BANZA_ROOT_CUSTODY_DECISION_REQUIRED.md`](../governance/BANZA_ROOT_CUSTODY_DECISION_REQUIRED.md) (the four-condition ceremony gate; M2 is gated)
+**Document ID:** BANZA-ROOT-KEY-CEREMONY-REQUIREMENTS-001
+**Authority for:** ceremony prerequisites, authorised participants, environment, artifacts, evidence,
+verification, failure handling and the production-tooling boundary.
+**Custody model:** [`ROOT_KEY_CUSTODY_MODEL.md`](ROOT_KEY_CUSTODY_MODEL.md) — three independent root
+signing authorities, threshold two. That document owns the model and the fail-closed gate; this one owns
+how a root operation is conducted under it.
+**Trust chain:** [`BANZA_TRUST_ARCHITECTURE.md`](../governance/BANZA_TRUST_ARCHITECTURE.md).
+**Validator:** `engines/banza-root-ceremony :: validate_root_ceremony` (Rust, never TypeScript).
+
+> **Requirements, not a runnable procedure.** This document states what a root ceremony must satisfy to
+> be valid. It is deliberately **not** an executable script, because **this repository ships no production
+> ceremony tooling** — see §"Production tooling boundary" below. The name says requirements for that
+> reason.
 
 ---
 
@@ -20,47 +24,38 @@ The ceremony is a single, unrepeatable event. Its outputs — the BANZA root pri
 
 This procedure is executed exactly once per root key generation. Issuing key rotations do not require a full root ceremony — only a Key Manifest update signed with the existing root key.
 
-> ### ⚠ Approved custody model (Option A — M2 bootstrap)
+> ### Custody model
 >
-> The **approved** root-key custody model for M2 is **2-HSM / 2+ independent keyholders**
-> (dual control). A production ceremony **MUST** satisfy all of:
-> - **two independent keyholders** (no "same person" fallback);
-> - **two independent custody artifacts** (one per keyholder — different hardware);
-> - **two physically separate storage locations** (plus a sealed paper backup in a third
->   location for recovery);
-> - **no single custodian or single passphrase can reconstruct the root key alone.**
+> The BANZA Trust Root is controlled by **three independent root signing authorities**, and a valid
+> Root-authorised action requires signatures from **any two of the three**. No single root key
+> authorises alone. The model, its invariants and its custody controls are in
+> [`ROOT_KEY_CUSTODY_MODEL.md`](ROOT_KEY_CUSTODY_MODEL.md).
 >
-> The Phase-4 custody steps in this document (single `gpg --symmetric` blob + `cp` to a
-> second USB) **do not** meet these requirements and are retained only to mark what must
-> change. As of Commit 2, `ceremony_script.py` **enforces a fail-closed custody gate**:
-> production intent is refused and **no production key material is generated** (HSM /
-> 2-of-2 split custody is not yet implemented). **Until that custody and the dual-custody
-> evidence model (Commit 3) are complete, no production ceremony may be run** —
-> `INV-ROOT-007` ("no single entity controls the root") is not satisfied by the
-> current single-custodian steps. Use `--custody-mode dry_run` (default) for rehearsals.
->
-> The 3-of-5 Shamir / five-institutional-seat model is a **future** target, not this
-> ceremony (ADR-038; gated by
-> [`docs/governance/BANZA_ROOT_CUSTODY_FUTURE_MIGRATION.md`](../governance/BANZA_ROOT_CUSTODY_FUTURE_MIGRATION.md)).
+> Any custody step in this document that would let one party reconstruct or activate the root alone —
+> a single encrypted blob copied to a second medium, one passphrase covering more than one key — does
+> **not** satisfy the model and does not become valid by being written down. `INV-ROOT-007` ("no single
+> entity controls the root") is satisfied by three independent authorities and a threshold of two, and
+> by nothing less.
 
-**This ceremony is to be executed when:** the four-condition ceremony gate in [`BANZA_ROOT_CUSTODY_DECISION_REQUIRED.md`](../governance/BANZA_ROOT_CUSTODY_DECISION_REQUIRED.md) is fully satisfied — custody implemented, checklist approved, evidence model complete, and the ceremony explicitly authorised. None of the four holds today: no ceremony has run and no production root key exists.
+**This ceremony is to be executed when:** the four-condition ceremony gate in [`ROOT_KEY_CUSTODY_MODEL.md`](ROOT_KEY_CUSTODY_MODEL.md) is fully satisfied — custody implemented, checklist approved, evidence model complete, and the ceremony explicitly authorised. None of the four holds today: no ceremony has run and no production root key exists.
 
-> ### Ceremony evidence requirement (Option A)
+> ### Ceremony evidence requirement
 >
-> A production ceremony is **not valid** until a completed, signed ceremony record exists in
-> [`docs/governance/ceremony-records/`](../governance/ceremony-records/) using
-> [`CEREMONY_RECORD_TEMPLATE.md`](../governance/ceremony-records/CEREMONY_RECORD_TEMPLATE.md).
-> The record MUST:
-> - identify **two independent keyholders** and an **independent witness role** (the witness
->   is never a keyholder);
-> - attest two independent custody artifacts in two separate locations, and that **no single
->   party can reconstruct or activate the root key**, and **no root material is recoverable
->   under one passphrase**;
-> - contain **NO** root material, passphrase, seed, HSM PIN, or custody secret — the record
->   is metadata and attestations only (`docs/governance/ceremony-records/README.md`).
+> A production ceremony is **not valid** until a completed, signed ceremony record exists, using
+> [`ROOT_CEREMONY_EVIDENCE_LOG_TEMPLATE.md`](ROOT_CEREMONY_EVIDENCE_LOG_TEMPLATE.md). The record MUST:
 >
-> **The production ceremony remains blocked until this evidence checklist is complete** and
-> the script's fail-closed custody gate (Commit 2) is replaced by real HSM / 2-of-2 custody.
+> - identify the **three custodians** and an **independent witness role** (the witness is never a
+>   custodian);
+> - attest that each custodian holds exactly one root key, on their own offline machine, with their own
+>   encrypted backup in their own location, and that **no single party can reconstruct or activate the
+>   root**;
+> - record which **two distinct authorities** signed, and that a recovery test was performed and passed;
+> - contain **NO** root material, passphrase, seed, module PIN or custody secret — the record is
+>   metadata and attestations only.
+>
+> Absent evidence is not a pass: each missing class resolves to its own blocking status
+> (`..._BLOCKED_BY_CUSTODY_GAP`, `..._BACKUP_GAP`, `..._OFFLINE_EVIDENCE_GAP`,
+> `..._RECOVERY_TEST_GAP`).
 
 ---
 
@@ -110,8 +105,8 @@ Before the ceremony begins, each participant's identity must be confirmed:
 |------|-------------|---------|
 | **Ceremony machine** | Laptop or desktop with no permanent network interface (WiFi removed/disabled at hardware level, no Ethernet connected). Running a Linux live environment (Tails OS recommended, Ubuntu 22.04+ acceptable). | Executes all ceremony commands in an isolated environment. |
 | **Ceremony USB** | USB drive, ≥8 GB. Write-protected after software is loaded. Contains Python 3.9+ environment, `cryptography>=41.0.0` library, ceremony script. | Software transport into air-gapped machine. |
-| **Output USB A** | USB drive, ≥8 GB. Clean (freshly formatted, verified empty). Used only for key material. | Primary offline key backup. |
-| **Output USB B** | USB drive, ≥8 GB. Clean (freshly formatted, verified empty). Second physical copy. | Redundant offline key backup. |
+| **Custodian media (×3)** | One clean, freshly formatted, verified-empty drive per custodian, ≥8 GB, used only for that custodian's own key material. | Each custodian's encrypted backup. Three media, never pooled. |
+- Each custodian's encrypted medium → stored in that custodian's own secure location, under their sole control. Three custodians, three locations, three media; no location holds two.
 | **Public artifact USB** | USB drive, ≥1 GB. | Transports public artifacts (Key Manifest, initial BRL) from air-gapped machine to publication host. Contains only public material. |
 | **Printer** | Offline printer (no network, no WiFi). | Paper backup of key fingerprints and ceremony record. |
 | **Camera/phone** | Witness's camera or phone for video recording. Must be placed face-up on a separate table — Officer can see it is not pointed at screen. | Ceremony video record. |
@@ -157,14 +152,18 @@ This is not required but documents due diligence in the Ceremony Record.
 
 The ceremony produces the following artifacts. Every artifact's disposition is defined exactly.
 
-### Secret Artifacts (never leave the air-gapped environment in plaintext)
+### Secret artifacts (never leave the air-gapped environment in plaintext)
 
 | Artifact | Key ID | Storage |
-|----------|--------|---------|
-| BANZA Root private key | `banza-root-YYYY` | Encrypted on Output USB A + Output USB B. Paper backup. Never exported to any online system. |
-| Metadata-signing private key | `banza-meta-YYYYMM` | Encrypted on Output USB A + Output USB B. Used online for signing protocol metadata. |
-| BRL-issuing private key | `banza-brl-YYYYMM` | Encrypted on Output USB A + Output USB B. Used online for BRL updates. |
-| Conformance-issuing private key | `banza-evidence-YYYYMM` | Encrypted on Output USB A + Output USB B. Used online for evidence signing. |
+|---|---|---|
+| BANZA root private keys — **three, one per custodian** | `banza-root-YYYY-a` · `-b` · `-c` | Each encrypted on **its own custodian's medium only**, under that custodian's own passphrase. No medium and no passphrase covers more than one. Never exported to any online system. |
+| Metadata-signing private key | `banza-meta-YYYYMM` | A **delegated** key, endorsed by the Key Manifest the root signs. Not a root key; lifecycle in `KEY_MANAGEMENT_POLICY.md`. |
+| BRL-issuing private key | `banza-brl-YYYYMM` | Same — delegated, endorsed, not held by the root. |
+| Conformance-issuing private key | `banza-evidence-YYYYMM` | Same — delegated, endorsed, not held by the root. |
+
+Pooling the three root keys onto one medium, or covering them with one passphrase, defeats the
+threshold: it turns three authorities back into one. It resolves to
+`M2_ROOT_CEREMONY_BLOCKED_BY_CUSTODY_GAP`.
 
 **Key ID substitution rule:** `YYYY` = UTC year of ceremony. `YYYYMM` = UTC year and month of ceremony.  
 Example: Ceremony on 2026-06-15 → root `banza-root-2026`, issuing `banza-meta-202606`.
@@ -182,7 +181,7 @@ Example: Ceremony on 2026-06-15 → root `banza-root-2026`, issuing `banza-meta-
 
 | Item | Content |
 |------|---------|
-| `ROOT_KEY_CEREMONY_RECORD_TEMPLATE.md` filled in | All key fingerprints (public key hashes), all artifact hashes, participant names, timestamps, verification results, officer and witness signatures. |
+| `ROOT_CEREMONY_EVIDENCE_LOG_TEMPLATE.md` filled in | All key fingerprints (public key hashes), all artifact hashes, participant names, timestamps, verification results, officer and witness signatures. |
 
 The filled-in record is printed, signed physically by all participants, scanned, and retained by BANZA governance. It is the legal evidence of the ceremony.
 
@@ -220,17 +219,12 @@ cat /media/ceremony-usb/SOFTWARE_HASHES.txt
 
 Record the hashes in the Ceremony Record template under "Pre-ceremony software hashes."
 
-**Step 0.2 — Format Output USBs**
+**Step 0.2 — Prepare the custodian media**
 
-```bash
-# On any trusted machine — format both output USBs as ext4
-# Output USB A
-sudo mkfs.ext4 -L BANZA_KEYS_A /dev/sdX
-# Output USB B
-sudo mkfs.ext4 -L BANZA_KEYS_B /dev/sdY
-```
-
-Verify both are empty. Label physically with "BANZA KEY MATERIAL — CEREMONY DATE — COPY A/B."
+Each custodian prepares **their own** medium, on a trusted machine, freshly formatted and verified
+empty, labelled with a **non-secret** identifier only. Three media are prepared, one per custodian, and
+they are never pooled, swapped or copied between custodians. A medium prepared by one custodian for
+another breaks the independence the threshold rests on.
 
 **Step 0.3 — Confirm Participants**
 
@@ -507,138 +501,38 @@ Officer reads `BRL_HASH` aloud. Witness records it.
 
 ---
 
-### Phase 4 — Key Material Storage
+### Phase 4 — Key material storage
 
-This phase stores secret material. The Witness observes all steps but does not handle storage media.
+This phase stores secret material. Under the custody model it is **not a single step performed on one
+machine**: each custodian stores their own key, on their own offline machine, on their own medium. A
+step that gathers the three root keys — or a root key and the delegated keys — onto one medium violates
+invariant 2 and invalidates the ceremony (`M2_ROOT_CEREMONY_BLOCKED_BY_CUSTODY_GAP`).
 
-**Step 4.1 — Write Private Keys to Output USB A**
+**Required of each custodian, independently:**
 
-```python
-# Create key material directory structure
-import os
-os.makedirs("/media/output-usb-a/ceremony/private", exist_ok=True)
-os.makedirs("/media/output-usb-a/ceremony/public", exist_ok=True)
+| # | Requirement | Why |
+|---|---|---|
+| 4.1 | The custodian writes **their own root private key and no other** to their own encrypted medium | No medium concentrates two root keys |
+| 4.2 | Encryption uses a passphrase **that custodian alone holds**, stored apart from the medium | One passphrase never unlocks more than one key |
+| 4.3 | The public key and fingerprint are exported separately, in the clear, for publication | Only public material leaves the offline machine |
+| 4.4 | The custodian performs a **recovery test** and records the result | A backup that has never been recovered is unproven |
+| 4.5 | The medium is stored in that custodian's own secure location, labelled with a non-secret identifier | Independence is physical, not only nominal |
 
-# Write private key material (raw bytes in base64url)
-keys_to_store = {
-    f"{ROOT_KEY_ID}.private": b64url(root_priv_bytes),
-    f"{META_KEY_ID}.private": b64url(meta_priv_bytes),
-    f"{BRL_KEY_ID}.private":  b64url(brl_priv_bytes),
-    f"{EVID_KEY_ID}.private": b64url(evid_priv_bytes),
-}
+**Forbidden, explicitly:**
 
-for filename, keydata in keys_to_store.items():
-    path = f"/media/output-usb-a/ceremony/private/{filename}"
-    with open(path, 'w') as f:
-        f.write(keydata + "\n")
-    print(f"Written: {filename}")
+- one encrypted archive containing more than one root private key;
+- one passphrase covering more than one custodian's material;
+- a copy of a custodian's key held by another custodian "for recovery";
+- any private key written to a medium that has been, or will be, connected to an online machine.
 
-# Write corresponding public keys
-public_keys = {
-    f"{ROOT_KEY_ID}.public": ROOT_PUBLIC_KEY,
-    f"{META_KEY_ID}.public": META_PUBLIC_KEY,
-    f"{BRL_KEY_ID}.public":  BRL_PUBLIC_KEY,
-    f"{EVID_KEY_ID}.public": EVID_PUBLIC_KEY,
-}
+The delegated signing keys (protocol metadata, BRL, evidence) are **not** root keys and are not stored
+under this phase; their lifecycle is in [`KEY_MANAGEMENT_POLICY.md`](KEY_MANAGEMENT_POLICY.md). The root
+signs the Key Manifest that endorses them — it does not hold them.
 
-for filename, keydata in public_keys.items():
-    path = f"/media/output-usb-a/ceremony/public/{filename}"
-    with open(path, 'w') as f:
-        f.write(keydata + "\n")
-    print(f"Written: {filename}")
-
-# Write signed Key Manifest
-with open("/media/output-usb-a/ceremony/key-manifest.json", 'w') as f:
-    f.write(MANIFEST_JSON)
-print("Written: key-manifest.json")
-
-# Write initial BRL
-with open("/media/output-usb-a/ceremony/initial-brl.json", 'w') as f:
-    f.write(BRL_JSON)
-print("Written: initial-brl.json")
-```
-
-**Step 4.2 — Verify Output USB A Contents**
-
-```bash
-# In shell, not Python
-sha256sum /media/output-usb-a/ceremony/key-manifest.json
-sha256sum /media/output-usb-a/ceremony/initial-brl.json
-ls -la /media/output-usb-a/ceremony/private/
-ls -la /media/output-usb-a/ceremony/public/
-```
-
-Officer compares `key-manifest.json` hash to `MANIFEST_HASH` and `initial-brl.json` hash to `BRL_HASH`. Both must match.
-
-**Step 4.3 — Encrypt Output USB A**
-
-```bash
-# NON-COMPLIANT UNDER OPTION A (to be replaced in Commit 2): a single symmetric
-# passphrase held by one custodian violates 2-of-2 dual control. The aligned procedure
-# must produce two independent custody artifacts (one per keyholder) such that no single
-# passphrase reconstructs the key.
-# Encrypt the private key directory with a passphrase agreed before the ceremony
-# The passphrase must be communicated to the key custodian via separate channel
-tar -czf /tmp/private_keys.tar.gz -C /media/output-usb-a/ceremony private/
-gpg --cipher-algo AES256 --symmetric --output /media/output-usb-a/private_keys_encrypted.gpg /tmp/private_keys.tar.gz
-shred -u /tmp/private_keys.tar.gz
-rm -rf /media/output-usb-a/ceremony/private/
-```
-
-**Step 4.4 — Clone to Output USB B**
-
-```bash
-# Sync public files to USB B
-mkdir -p /media/output-usb-b/ceremony/
-cp /media/output-usb-a/ceremony/key-manifest.json /media/output-usb-b/ceremony/
-cp /media/output-usb-a/ceremony/initial-brl.json /media/output-usb-b/ceremony/
-cp -r /media/output-usb-a/ceremony/public/ /media/output-usb-b/ceremony/public/
-cp /media/output-usb-a/private_keys_encrypted.gpg /media/output-usb-b/private_keys_encrypted.gpg
-```
-
-Verify USB B hashes match USB A.
-
-**Step 4.5 — Paper Backup**
-
-Print the following:
-
-```python
-paper_backup = f"""
-BANZA ROOT KEY CEREMONY PAPER BACKUP
-=====================================
-Ceremony Date : {CEREMONY_DATE}
-Ceremony Officer : [NAME]
-Ceremony Witness : [NAME]
-
-ROOT KEY ID     : {ROOT_KEY_ID}
-ROOT FINGERPRINT: {ROOT_FINGERPRINT}
-ROOT PUBLIC KEY : {ROOT_PUBLIC_KEY}
-
-META KEY ID     : {META_KEY_ID}
-META FINGERPRINT: {META_FINGERPRINT}
-
-BRL KEY ID      : {BRL_KEY_ID}
-BRL FINGERPRINT : {BRL_FINGERPRINT}
-
-EVIDENCE KEY ID     : {EVID_KEY_ID}
-EVIDENCE FINGERPRINT: {EVID_FINGERPRINT}
-
-KEY MANIFEST SHA-256 : {MANIFEST_HASH}
-INITIAL BRL SHA-256  : {BRL_HASH}
-
-PRIVATE KEY ENCRYPTION PASSPHRASE: [STORED SEPARATELY — NOT ON THIS PAGE]
-
-This page contains no private key material.
-It is safe to store with the Ceremony Record.
-"""
-print(paper_backup)
-```
-
-Print this page. Sign it (Officer and Witness). Place it in the Ceremony Record package.
-
-**The private key encryption passphrase is recorded separately.** It is NOT written on this page or in the Ceremony Record. It is communicated to the designated key custodian (the Ceremony Officer) via a separate, secure channel (verbal, written in a separate sealed envelope, or stored in a password manager accessible only to the custodian).
-
----
+> No command sequence is given here. The tooling that would execute one is not in this repository (see
+> the production-tooling boundary), and publishing commands that cannot be run — or that were written
+> for a different custody model — is how the previous version of this document came to describe a
+> single-custodian step as if it were the procedure.
 
 ### Phase 5 — Public Artifact Preparation
 
@@ -797,8 +691,7 @@ Power off the machine.
 
 **Step 7.3 — USB Physical Control**
 
-- Output USB A → stored in a locked physical safe controlled by key custodian 1 (Ceremony Officer).
-- Output USB B → stored in a physically separate location, locked, controlled by key custodian 2. **Under Option A this MUST be an independent second keyholder — the "same person for initial ceremony" allowance is removed (non-compliant); the two custody artifacts must be independent (Commit 2).**
+- Each custodian's medium → stored in that custodian's own secure location, under their sole control. Three custodians, three locations; no location holds two.
 - Publication USB → sealed in an envelope, labeled "BANZA PUBLICATION ARTIFACTS — [CEREMONY DATE]." Ready for use in publication sequence.
 - Ceremony USB → wiped and returned to general use.
 
@@ -988,7 +881,7 @@ The root private key leaves secure storage only for this signing operation. It m
 | Document | Purpose |
 |----------|---------|
 | `decisions/adr/ADR-038-open-protocol-trust-model-without-ca.md` | Trust architecture governing this ceremony |
-| `docs/security/ROOT_KEY_CEREMONY_CHECKLIST.md` | Day-of checklist |
-| `docs/security/ROOT_KEY_CEREMONY_RECORD_TEMPLATE.md` | Record template to fill in during ceremony |
-| `docs/security/PRODUCTION_ROOT_READINESS_REPORT.md` | Pre-production readiness assessment |
-| `docs/governance/BANZA_ROOT_CUSTODY_DECISION_REQUIRED.md` | Approved custody model and the four-condition ceremony gate |
+| `docs/security/ROOT_KEY_CEREMONY_REQUIREMENTS.md` | Day-of checklist |
+| `docs/security/ROOT_CEREMONY_EVIDENCE_LOG_TEMPLATE.md` | Record template to fill in during ceremony |
+| `docs/security/ROOT_KEY_CEREMONY_REQUIREMENTS.md` | Pre-production readiness assessment |
+| `docs/security/ROOT_KEY_CUSTODY_MODEL.md` | Approved custody model and the four-condition ceremony gate |

@@ -43,6 +43,12 @@ jobs:
       - name: related work stays informative and bounded
         working-directory: .
         run: bash tools/check-related-work-boundary.sh
+      - name: root authorization model is 2-of-3, one model everywhere
+        working-directory: .
+        run: bash tools/check-root-threshold-model.sh
+      - name: cargo test (root ceremony — threshold accept/reject matrix)
+        working-directory: engines/banza-root-ceremony
+        run: cargo test
       - name: cargo test (golden ed25519 parity + TEST-ONLY signing/ceremony)
         working-directory: engines/banza-trust
         run: cargo test

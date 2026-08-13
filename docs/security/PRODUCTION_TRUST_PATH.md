@@ -9,12 +9,10 @@
 This document defines the **production trust path** for the BANZA trust anchor: the ordered set of
 prerequisites, custody requirements, signing flows, evidence, and recovery paths that would have to be
 in place before any production key exists. It is the M2-phase consolidation of the existing planning
-artifacts — [`TRUST_CEREMONY_PLAN.md`](TRUST_CEREMONY_PLAN.md),
+artifacts — [`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md),
 [`KEY_MANAGEMENT_POLICY.md`](KEY_MANAGEMENT_POLICY.md),
-[`ROOT_KEY_CEREMONY_PROCEDURE.md`](ROOT_KEY_CEREMONY_PROCEDURE.md),
-[`ROOT_KEY_CEREMONY_CHECKLIST.md`](ROOT_KEY_CEREMONY_CHECKLIST.md),
-[`ROOT_KEY_CEREMONY_RUNBOOK.md`](ROOT_KEY_CEREMONY_RUNBOOK.md),
-[`ROOT_KEY_CEREMONY_RECORD_TEMPLATE.md`](ROOT_KEY_CEREMONY_RECORD_TEMPLATE.md),
+[`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md),
+[`ROOT_CEREMONY_EVIDENCE_LOG_TEMPLATE.md`](ROOT_CEREMONY_EVIDENCE_LOG_TEMPLATE.md),
 [`BRL_REVOCATION_PLAYBOOK.md`](BRL_REVOCATION_PLAYBOOK.md) and
 [`TRUST_TEST_ONLY_BOUNDARY.md`](TRUST_TEST_ONLY_BOUNDARY.md) — into a single production-readiness map.
 
@@ -68,14 +66,14 @@ publishing this document):
 
 ## 2. Ceremony prerequisites
 
-The ceremony itself is specified in [`TRUST_CEREMONY_PLAN.md`](TRUST_CEREMONY_PLAN.md) (phases P0–P7)
-and rehearsed test-only in [`ROOT_KEY_CEREMONY_RUNBOOK.md`](ROOT_KEY_CEREMONY_RUNBOOK.md). Prerequisites
+The ceremony itself is specified in [`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md) (phases P0–P7)
+and rehearsed test-only in [`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md). Prerequisites
 carried into the production path:
 
 - **Dual control**: Ceremony Officer executes; Ceremony Witness observes and never touches key material.
 - **Sealed room**: no network cable, WiFi disabled in hardware, mobile devices collected.
 - **Governance approver**: at least one approver authorises the date under governance.
-- **Record template**: a signed [`ROOT_KEY_CEREMONY_RECORD_TEMPLATE.md`](ROOT_KEY_CEREMONY_RECORD_TEMPLATE.md)
+- **Record template**: a signed [`ROOT_CEREMONY_EVIDENCE_LOG_TEMPLATE.md`](ROOT_CEREMONY_EVIDENCE_LOG_TEMPLATE.md)
   is produced only by an actual run — not by M2 preparation.
 
 ## 3. Key custody requirements
@@ -149,7 +147,7 @@ exists to revoke.
 
 | Key | Max validity | Routine rotation | Authority |
 |---|---|---|---|
-| Root | 24 months | Every 24 months | Root ceremony (dual control) |
+| Root | 24 months | Every 24 months | Root ceremony (two of the three authorities) |
 | Protocol-metadata / BRL / Conformance (issuing) | 6 months | Every 6 months | Root re-signs a new manifest |
 
 INV-ROOT-006: issuing ≤ 6 months, root ≤ 24 months. INV-ROOT-003: a stale manifest
@@ -189,8 +187,8 @@ key is ever published, and no publication occurs in M2.
   signed protocol metadata, or make BANZA a PSP. Any licence/authorisation belongs to the authorised operator.
 
 See: [`PRODUCTION_ARTIFACT_SIGNING_POLICY.md`](PRODUCTION_ARTIFACT_SIGNING_POLICY.md),
-[`TRUST_CEREMONY_PLAN.md`](TRUST_CEREMONY_PLAN.md),
+[`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md),
 [`KEY_MANAGEMENT_POLICY.md`](KEY_MANAGEMENT_POLICY.md),
 [`BRL_REVOCATION_PLAYBOOK.md`](BRL_REVOCATION_PLAYBOOK.md),
 [`TRUST_TEST_ONLY_BOUNDARY.md`](TRUST_TEST_ONLY_BOUNDARY.md),
-[`ROOT_KEY_CEREMONY_RUNBOOK.md`](ROOT_KEY_CEREMONY_RUNBOOK.md).
+[`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md).

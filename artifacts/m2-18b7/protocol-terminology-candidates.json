@@ -1,5 +1,5 @@
 {
-  "total": 4367,
+  "total": 4217,
   "rows": [
     {
       "raw_text": "Contributing to BANZA",
@@ -377,10 +377,8 @@
         "docs-banzai-spr-structured-generation-and-validated-cache-md",
         "docs-governance-annex-banza-network-infrastructure-md",
         "docs-governance-banza-conformance-interop-certification-md",
-        "docs-governance-banza-root-custody-future-migration-md",
         "docs-governance-readme-md",
         "docs-governance-rust-first-implementation-policy-md",
-        "docs-governance-ceremony-records-ceremony-record-template-md",
         "docs-governance-ceremony-records-readme-md",
         "docs-governance-certification-boundary-md",
         "docs-governance-licensing-md",
@@ -391,7 +389,7 @@
         "spec-idempotency-md",
         "spec-trust-freshness-md"
       ],
-      "frequency": 118,
+      "frequency": 115,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -2899,14 +2897,13 @@
       "normalized": "must",
       "sources": [
         "contracts-readme-md",
-        "docs-governance-ceremony-records-ceremony-record-template-md",
         "spec-canonicalization-md",
         "spec-capabilities-md",
         "spec-idempotency-md",
         "spec-reason-codes-md",
         "spec-trust-freshness-md"
       ],
-      "frequency": 17,
+      "frequency": 15,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -2917,14 +2914,13 @@
       "sources": [
         "contracts-readme-md",
         "decisions-adr-adr-076-banzai-validation-journey-consolidation-and-durable-receipts-md",
-        "docs-governance-banza-root-custody-future-migration-md",
         "spec-canonicalization-md",
         "spec-capabilities-md",
         "spec-idempotency-md",
         "spec-reason-codes-md",
         "spec-trust-freshness-md"
       ],
-      "frequency": 19,
+      "frequency": 18,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -4065,8 +4061,6 @@
         "docs-governance-banzami-operational-scheme-md",
         "docs-governance-banza-language-policy-md",
         "docs-governance-banza-regulatory-claim-policy-md",
-        "docs-governance-banza-root-custody-decision-required-md",
-        "docs-governance-banza-root-custody-future-migration-md",
         "docs-governance-banza-three-layer-architecture-md",
         "docs-governance-repository-structure-md",
         "docs-governance-rust-first-implementation-policy-md",
@@ -4099,7 +4093,7 @@
         "spec-trust-freshness-md",
         "spec-validation-journey-md"
       ],
-      "frequency": 126,
+      "frequency": 124,
       "phrase_length": 1,
       "accepted": true,
       "rejection_reason": "",
@@ -4191,8 +4185,6 @@
         "decisions-adr-adr-085-trust-material-anti-rollback-md",
         "docs-governance-banza-protocol-vs-operator-policy-md",
         "docs-governance-banza-language-policy-md",
-        "docs-governance-banza-root-custody-decision-required-md",
-        "docs-governance-banza-root-custody-future-migration-md",
         "docs-governance-claude-base-md",
         "docs-governance-trust-engine-active-model-md",
         "docs-governance-certification-boundary-md",
@@ -4206,7 +4198,7 @@
         "spec-federation-federation-test-suite-spec-md",
         "spec-overview-md"
       ],
-      "frequency": 97,
+      "frequency": 95,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -6171,11 +6163,10 @@
         "docs-banzai-operator-journey-md",
         "docs-governance-annex-banza-network-infrastructure-md",
         "docs-governance-banza-conformance-interop-certification-md",
-        "docs-governance-ceremony-records-ceremony-record-template-md",
         "spec-collections-md",
         "spec-disputes-md"
       ],
-      "frequency": 23,
+      "frequency": 22,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -6313,10 +6304,9 @@
         "decisions-adr-adr-055-banzai-rust-first-grounded-synthesis-md",
         "decisions-adr-adr-069-simple-secure-operator-onboarding-md",
         "decisions-adr-adr-078-banzai-operational-reasoning-and-telemetry-md",
-        "docs-governance-banza-root-custody-decision-required-md",
         "spec-capabilities-md"
       ],
-      "frequency": 7,
+      "frequency": 5,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -6478,11 +6468,9 @@
         "docs-banzai-session-state-md",
         "docs-banzai-spr-structured-generation-and-validated-cache-md",
         "docs-governance-annex-banza-network-infrastructure-md",
-        "docs-governance-ceremony-records-ceremony-record-template-md",
-        "docs-governance-ceremony-records-m2-custody-approval-checklist-md",
         "docs-governance-ceremony-records-readme-md"
       ],
-      "frequency": 41,
+      "frequency": 39,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -7408,10 +7396,9 @@
       "normalized": "only after",
       "sources": [
         "decisions-adr-adr-018-merchant-refundable-source-reference-md",
-        "docs-banzai-spr-structured-generation-and-validated-cache-md",
-        "docs-governance-ceremony-records-m2-custody-approval-checklist-md"
+        "docs-banzai-spr-structured-generation-and-validated-cache-md"
       ],
-      "frequency": 3,
+      "frequency": 2,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -7872,10 +7859,9 @@
       "normalized": "distinct",
       "sources": [
         "decisions-adr-adr-019-fee-and-application-settlement-architecture-md",
-        "docs-governance-l3-readiness-md",
-        "docs-governance-ceremony-records-m2-custody-approval-checklist-md"
+        "docs-governance-l3-readiness-md"
       ],
-      "frequency": 3,
+      "frequency": 2,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -8102,10 +8088,9 @@
       "raw_text": "single",
       "normalized": "single",
       "sources": [
-        "decisions-adr-adr-020-wallet-accounts-segregated-accounts-md",
-        "docs-governance-banza-root-custody-decision-required-md"
+        "decisions-adr-adr-020-wallet-accounts-segregated-accounts-md"
       ],
-      "frequency": 3,
+      "frequency": 1,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -11480,13 +11465,12 @@
         "docs-banzai-local-inference-runtime-md",
         "docs-banzai-local-qwen-model-setup-md",
         "docs-governance-banza-conformance-interop-certification-md",
-        "docs-governance-banza-root-custody-decision-required-md",
         "spec-canonicalization-md",
         "spec-federation-federation-invariants-md",
         "spec-federation-federation-protocol-flow-md",
         "spec-federation-federation-trust-model-md"
       ],
-      "frequency": 14,
+      "frequency": 12,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "STOPWORD"
@@ -15797,10 +15781,9 @@
       "raw_text": "independent",
       "normalized": "independent",
       "sources": [
-        "decisions-adr-adr-060-banzami-operational-scheme-md",
-        "docs-governance-ceremony-records-m2-custody-approval-checklist-md"
+        "decisions-adr-adr-060-banzami-operational-scheme-md"
       ],
-      "frequency": 2,
+      "frequency": 1,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -20092,17 +20075,6 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "operational configuration",
-      "normalized": "operational configuration",
-      "sources": [
-        "decisions-adr-adr-079-canonical-trust-signing-model-reconciliation-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
       "raw_text": "D-079-09",
       "normalized": "d-079-09",
       "sources": [
@@ -23550,10 +23522,9 @@
       "raw_text": "blocks",
       "normalized": "blocks",
       "sources": [
-        "docs-banzai-local-inference-runtime-md",
-        "docs-governance-banza-root-custody-decision-required-md"
+        "docs-banzai-local-inference-runtime-md"
       ],
-      "frequency": 2,
+      "frequency": 1,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -24174,10 +24145,9 @@
       "normalized": "none",
       "sources": [
         "docs-banzai-local-qwen-model-setup-md",
-        "docs-governance-ceremony-records-ceremony-record-template-md",
         "spec-capabilities-md"
       ],
-      "frequency": 3,
+      "frequency": 2,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -25585,11 +25555,9 @@
       "raw_text": "Type:",
       "normalized": "type",
       "sources": [
-        "docs-governance-annex-banza-network-infrastructure-md",
-        "docs-governance-banza-root-custody-decision-required-md",
-        "docs-governance-banza-root-custody-future-migration-md"
+        "docs-governance-annex-banza-network-infrastructure-md"
       ],
-      "frequency": 3,
+      "frequency": 1,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -26030,10 +25998,8 @@
       "sources": [
         "docs-governance-banza-protocol-vs-operator-policy-md",
         "docs-governance-banza-language-policy-md",
-        "docs-governance-banza-root-custody-future-migration-md",
         "docs-governance-claude-base-md",
         "docs-governance-operator-neutrality-terminology-md",
-        "docs-governance-ceremony-records-m2-custody-approval-checklist-md",
         "docs-governance-ceremony-records-readme-md",
         "docs-governance-certification-boundary-md",
         "docs-governance-roadmap-md",
@@ -26059,7 +26025,7 @@
         "spec-reason-codes-md",
         "spec-trust-freshness-md"
       ],
-      "frequency": 30,
+      "frequency": 28,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -28998,1292 +28964,6 @@
       "classification": "SUBJECT"
     },
     {
-      "raw_text": "Root-Key Custody — Governance Decision Required (BLK-01)",
-      "normalized": "root-key custody governance decision required blk-01",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "1. The contradiction (three documents, three custody models)",
-      "normalized": "1 the contradiction three documents three custody models",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 8,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "2. Why this blocks M2",
-      "normalized": "2 why this blocks m2",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "3. Option A — 2-HSM / dual-custodian (bootstrap model)",
-      "normalized": "3 option a 2-hsm / dual-custodian bootstrap model",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 8,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "4. Option B — Shamir 3-of-5 across institutional seats (target model)",
-      "normalized": "4 option b shamir 3-of-5 across institutional seats target model",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 10,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "5. Recommendation (requires approval — not implemented)",
-      "normalized": "5 recommendation requires approval not implemented",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "6. Recommended decision (for sign-off)",
-      "normalized": "6 recommended decision for sign-off",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Why Option A is recommended for M2",
-      "normalized": "why option a is recommended for m2",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 7,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Why Option B remains the target but must NOT be claimed now",
-      "normalized": "why option b remains the target but must not be claimed now",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 12,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "If Option A is approved — documents that must change",
-      "normalized": "if option a is approved documents that must change",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 9,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "If Option A is approved — script changes that must be implemented",
-      "normalized": "if option a is approved script changes that must be implemented",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 11,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "Claims that must be REMOVED or reframed under Option A",
-      "normalized": "claims that must be removed or reframed under option a",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 10,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Claims that REMAIN ALLOWED under Option A (after a successful 2-HSM ceremony)",
-      "normalized": "claims that remain allowed under option a after a successful 2-hsm ceremony",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 12,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "7. Claims matrix (quick reference)",
-      "normalized": "7 claims matrix quick reference",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "8. Implementation Plan if approved (NOT implemented in this note)",
-      "normalized": "8 implementation plan if approved not implemented in this note",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 10,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "9. Decision checklist — approvals required before M2 may start",
-      "normalized": "9 decision checklist approvals required before m2 may start",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 9,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "formal recommendation",
-      "normalized": "formal recommendation",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Source finding:",
-      "normalized": "source finding",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Option A is APPROVED",
-      "normalized": "option a is approved",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "target future",
-      "normalized": "target future",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "No 3-of-5 production claim",
-      "normalized": "no 3-of-5 production claim",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "No production root-key ceremony may run",
-      "normalized": "no production root-key ceremony may run",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "ARTIFACT_TYPE"
-    },
-    {
-      "raw_text": "CEREMONY GATE (fail-closed).",
-      "normalized": "ceremony gate fail-closed",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "all four",
-      "normalized": "all four",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "explicitly authorised",
-      "normalized": "explicitly authorised",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "ADR-029",
-      "normalized": "adr-029",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "split across 2 HSM modules",
-      "normalized": "split across 2 hsm modules",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "future",
-      "normalized": "future",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md",
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 4,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "TRUST_ARCHITECTURE",
-      "normalized": "trust architecture",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "federation-trust.json",
-      "normalized": "federation-trust json",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Shamir Secret Sharing, 3-of-5",
-      "normalized": "shamir secret sharing 3-of-5",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Ceremony script + procedure",
-      "normalized": "ceremony script procedure",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "one passphrase",
-      "normalized": "one passphrase",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "neither",
-      "normalized": "neither",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "within",
-      "normalized": "within",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "first production root key",
-      "normalized": "first production root key",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "ARTIFACT_TYPE"
-    },
-    {
-      "raw_text": "literally false",
-      "normalized": "literally false",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "constituted",
-      "normalized": "constituted",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "not\n  yet exist",
-      "normalized": "not yet exist",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "first production",
-      "normalized": "first production",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Docs to update (to make all three agree):",
-      "normalized": "docs to update to make all three agree",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 8,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "target post-institutionalization",
-      "normalized": "target post-institutionalization",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Operational / legal implications:",
-      "normalized": "operational / legal implications",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Bootstrappable today",
-      "normalized": "bootstrappable today",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "described honestly",
-      "normalized": "described honestly",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Docs to update:",
-      "normalized": "docs to update",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "superseding ADR",
-      "normalized": "superseding adr",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Performability.",
-      "normalized": "performability",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "ADR alignment.",
-      "normalized": "adr alignment",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Honesty.",
-      "normalized": "honesty",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Upgrade path is built in.",
-      "normalized": "upgrade path is built in",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "However:",
-      "normalized": "however",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "deferred\nuntil this decision is approved",
-      "normalized": "deferred until this decision is approved",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Recommended decision:",
-      "normalized": "recommended decision",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "M2 bootstrap",
-      "normalized": "m2 bootstrap",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Defer Option B — 3-of-5 Shamir custody",
-      "normalized": "defer option b 3-of-5 shamir custody",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "institutionalization\n> milestone",
-      "normalized": "institutionalization milestone",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "MARKUP_FRAGMENT"
-    },
-    {
-      "raw_text": "Performable now.",
-      "normalized": "performable now",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Already the ADR-029 model.",
-      "normalized": "already the adr-029 model",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Honest and auditable.",
-      "normalized": "honest and auditable",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Removes the misrepresentation now.",
-      "normalized": "removes the misrepresentation now",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Strongest posture, but not yet real.",
-      "normalized": "strongest posture but not yet real",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Preconditions absent.",
-      "normalized": "preconditions absent",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Claiming it now would be false.",
-      "normalized": "claiming it now would be false",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "bootstrap",
-      "normalized": "bootstrap",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "no single-custodian fallback",
-      "normalized": "no single-custodian fallback",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Shamir fragmentation in production",
-      "normalized": "shamir fragmentation in production",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "root key is offline",
-      "normalized": "root key is offline",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "ARTIFACT_TYPE"
-    },
-    {
-      "raw_text": "root signs only the Key Manifest",
-      "normalized": "root signs only the key manifest",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "ARTIFACT_TYPE"
-    },
-    {
-      "raw_text": "Issuing keys are separated by domain",
-      "normalized": "issuing keys are separated by domain",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Commit 1 — ADR / document alignment",
-      "normalized": "commit 1 adr / document alignment",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Commit 2 — Ceremony script alignment",
-      "normalized": "commit 2 ceremony script alignment",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "dry-run / test-only",
-      "normalized": "dry-run / test-only",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "production ceremony manual",
-      "normalized": "production ceremony manual",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Commit 3 — Verification / evidence",
-      "normalized": "commit 3 verification / evidence",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "dual custody",
-      "normalized": "dual custody",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "independent keyholder roles",
-      "normalized": "independent keyholder roles",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Commit 4 — Future migration plan",
-      "normalized": "commit 4 future migration plan",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Custody model selected",
-      "normalized": "custody model selected",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "List of keyholders / custodians",
-      "normalized": "list of keyholders / custodians",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Custody evidence required",
-      "normalized": "custody evidence required",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Ceremony witness roles",
-      "normalized": "ceremony witness roles",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Storage locations",
-      "normalized": "storage locations",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Recovery procedure",
-      "normalized": "recovery procedure",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md",
-        "spec-federation-federation-failure-scenarios-md"
-      ],
-      "frequency": 21,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Emergency revocation procedure",
-      "normalized": "emergency revocation procedure",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Allowed claims after ceremony",
-      "normalized": "allowed claims after ceremony",
-      "sources": [
-        "docs-governance-banza-root-custody-decision-required-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "BANZA Root-Key Custody — Future Migration Gate (2-HSM → 3-of-5 Shamir)",
-      "normalized": "banza root-key custody future migration gate 2-hsm 3-of-5 shamir",
-      "sources": [
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 9,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "1. Current approved model (in effect) — 2-HSM / 2-of-2",
-      "normalized": "1 current approved model in effect 2-hsm / 2-of-2",
-      "sources": [
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 9,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "2. Future institutional target — 3-of-5 Shamir",
-      "normalized": "2 future institutional target 3-of-5 shamir",
-      "sources": [
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "3. Why this migration exists",
-      "normalized": "3 why this migration exists",
-      "sources": [
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "4. Why 3-of-5 is NOT active now",
-      "normalized": "4 why 3-of-5 is not active now",
-      "sources": [
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 7,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "5. Evidence Gate — required before any 3-of-5 claim",
-      "normalized": "5 evidence gate required before any 3-of-5 claim",
-      "sources": [
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 8,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "6. Forbidden claims (until the §5 gate is fully satisfied)",
-      "normalized": "6 forbidden claims until the 5 gate is fully satisfied",
-      "sources": [
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 10,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "7. Relationship to BLK-01",
-      "normalized": "7 relationship to blk-01",
-      "sources": [
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Target / not active.",
-      "normalized": "target / not active",
-      "sources": [
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "approved and in effect",
-      "normalized": "approved and in effect",
-      "sources": [
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "not constituted",
-      "normalized": "not constituted",
-      "sources": [
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Governance / legal / operational",
-      "normalized": "governance / legal / operational",
-      "sources": [
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "legally and operationally constituted",
-      "normalized": "legally and operationally constituted",
-      "sources": [
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "eligibility rules",
-      "normalized": "eligibility rules",
-      "sources": [
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Signed fragment-holder agreements",
-      "normalized": "signed fragment-holder agreements",
-      "sources": [
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "BANZA Governance Entity",
-      "normalized": "banza governance entity",
-      "sources": [
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Technical",
-      "normalized": "technical",
-      "sources": [
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Real Shamir split",
-      "normalized": "real shamir split",
-      "sources": [
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Emergency compromise procedure",
-      "normalized": "emergency compromise procedure",
-      "sources": [
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Ceremony / evidence",
-      "normalized": "ceremony / evidence",
-      "sources": [
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "Witness attestations",
-      "normalized": "witness attestations",
-      "sources": [
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Updated ADR or superseding ADR",
-      "normalized": "updated adr or superseding adr",
-      "sources": [
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Public reference",
-      "normalized": "public reference",
-      "sources": [
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Key rotation (the migration act itself)",
-      "normalized": "key rotation the migration act itself",
-      "sources": [
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Key-rotation ceremony",
-      "normalized": "key-rotation ceremony",
-      "sources": [
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Key Manifest re-signed",
-      "normalized": "key manifest re-signed",
-      "sources": [
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "ARTIFACT_TYPE"
-    },
-    {
-      "raw_text": "migration by documentation only",
-      "normalized": "migration by documentation only",
-      "sources": [
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "planning",
-      "normalized": "planning",
-      "sources": [
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "later",
-      "normalized": "later",
-      "sources": [
-        "docs-governance-banza-root-custody-future-migration-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
       "raw_text": "BANZA — Infrastructure & Key Separation Matrix",
       "normalized": "banza infrastructure key separation matrix",
       "sources": [
@@ -30987,6 +29667,61 @@
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "criptográfico e lógico",
+      "normalized": "criptografico e logico",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "controlos de custódia",
+      "normalized": "controlos de custodia",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Autorização a dois",
+      "normalized": "autorizacao a dois",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Tolerância a uma falha",
+      "normalized": "tolerancia a uma falha",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Sem controlo unipessoal",
+      "normalized": "sem controlo unipessoal",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
       "raw_text": "Manifesto de Chaves",
@@ -37055,10 +35790,9 @@
       "raw_text": "BLOCKED",
       "normalized": "blocked",
       "sources": [
-        "docs-governance-rust-first-implementation-policy-md",
-        "docs-governance-ceremony-records-m2-custody-approval-checklist-md"
+        "docs-governance-rust-first-implementation-policy-md"
       ],
-      "frequency": 2,
+      "frequency": 1,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -38263,456 +36997,6 @@
       ],
       "frequency": 1,
       "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "BANZA Root-Key Ceremony Record — TEMPLATE",
-      "normalized": "banza root-key ceremony record template",
-      "sources": [
-        "docs-governance-ceremony-records-ceremony-record-template-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "ARTIFACT_TYPE"
-    },
-    {
-      "raw_text": "1. Ceremony identity",
-      "normalized": "1 ceremony identity",
-      "sources": [
-        "docs-governance-ceremony-records-ceremony-record-template-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "2. Keyholders (two independent)",
-      "normalized": "2 keyholders two independent",
-      "sources": [
-        "docs-governance-ceremony-records-ceremony-record-template-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "3. Witness (independent)",
-      "normalized": "3 witness independent",
-      "sources": [
-        "docs-governance-ceremony-records-ceremony-record-template-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "4. Custody artifacts (two independent)",
-      "normalized": "4 custody artifacts two independent",
-      "sources": [
-        "docs-governance-ceremony-records-ceremony-record-template-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "5. Recovery artifact (optional, governance-controlled)",
-      "normalized": "5 recovery artifact optional governance-controlled",
-      "sources": [
-        "docs-governance-ceremony-records-ceremony-record-template-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "6. Dual-custody evidence (mandatory attestations)",
-      "normalized": "6 dual-custody evidence mandatory attestations",
-      "sources": [
-        "docs-governance-ceremony-records-ceremony-record-template-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "7. Artifacts produced (hashes only — never the keys)",
-      "normalized": "7 artifacts produced hashes only never the keys",
-      "sources": [
-        "docs-governance-ceremony-records-ceremony-record-template-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 8,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "8. Checks performed",
-      "normalized": "8 checks performed",
-      "sources": [
-        "docs-governance-ceremony-records-ceremony-record-template-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "9. Signatures / attestations",
-      "normalized": "9 signatures / attestations",
-      "sources": [
-        "docs-governance-ceremony-records-ceremony-record-template-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "10. Redactions policy",
-      "normalized": "10 redactions policy",
-      "sources": [
-        "docs-governance-ceremony-records-ceremony-record-template-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "FORBIDDEN ATTACHMENTS (negative controls — must all remain absent)",
-      "normalized": "forbidden attachments negative controls must all remain absent",
-      "sources": [
-        "docs-governance-ceremony-records-ceremony-record-template-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 8,
-      "accepted": false,
-      "rejection_reason": "BROKEN_TOKEN"
-    },
-    {
-      "raw_text": "This is a template.",
-      "normalized": "this is a template",
-      "sources": [
-        "docs-governance-ceremony-records-ceremony-record-template-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "not valid",
-      "normalized": "not valid",
-      "sources": [
-        "docs-governance-ceremony-records-ceremony-record-template-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "No secrets.",
-      "normalized": "no secrets",
-      "sources": [
-        "docs-governance-ceremony-records-ceremony-record-template-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Two independent custody artifacts",
-      "normalized": "two independent custody artifacts",
-      "sources": [
-        "docs-governance-ceremony-records-ceremony-record-template-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Two physically separate storage locations",
-      "normalized": "two physically separate storage locations",
-      "sources": [
-        "docs-governance-ceremony-records-ceremony-record-template-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Independent witness role",
-      "normalized": "independent witness role",
-      "sources": [
-        "docs-governance-ceremony-records-ceremony-record-template-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "M2 Custody Approval Checklist (pre-ceremony)",
-      "normalized": "m2 custody approval checklist pre-ceremony",
-      "sources": [
-        "docs-governance-ceremony-records-m2-custody-approval-checklist-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "1. Status",
-      "normalized": "1 status",
-      "sources": [
-        "docs-governance-ceremony-records-m2-custody-approval-checklist-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "2. Keyholder approval",
-      "normalized": "2 keyholder approval",
-      "sources": [
-        "docs-governance-ceremony-records-m2-custody-approval-checklist-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "3. Custody artifacts",
-      "normalized": "3 custody artifacts",
-      "sources": [
-        "docs-governance-ceremony-records-m2-custody-approval-checklist-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "4. Storage locations",
-      "normalized": "4 storage locations",
-      "sources": [
-        "docs-governance-ceremony-records-m2-custody-approval-checklist-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "5. Witness role",
-      "normalized": "5 witness role",
-      "sources": [
-        "docs-governance-ceremony-records-m2-custody-approval-checklist-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "6. Recovery procedure approval",
-      "normalized": "6 recovery procedure approval",
-      "sources": [
-        "docs-governance-ceremony-records-m2-custody-approval-checklist-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "7. Emergency revocation procedure approval",
-      "normalized": "7 emergency revocation procedure approval",
-      "sources": [
-        "docs-governance-ceremony-records-m2-custody-approval-checklist-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "8. Allowed claims sign-off",
-      "normalized": "8 allowed claims sign-off",
-      "sources": [
-        "docs-governance-ceremony-records-m2-custody-approval-checklist-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "9. Final approval",
-      "normalized": "9 final approval",
-      "sources": [
-        "docs-governance-ceremony-records-m2-custody-approval-checklist-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "10. Safety rules",
-      "normalized": "10 safety rules",
-      "sources": [
-        "docs-governance-ceremony-records-m2-custody-approval-checklist-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "no secrets and no key material",
-      "normalized": "no secrets and no key material",
-      "sources": [
-        "docs-governance-ceremony-records-m2-custody-approval-checklist-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 6,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "M2\nremains blocked",
-      "normalized": "m2 remains blocked",
-      "sources": [
-        "docs-governance-ceremony-records-m2-custody-approval-checklist-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "Evidence rules:",
-      "normalized": "evidence rules",
-      "sources": [
-        "docs-governance-ceremony-records-m2-custody-approval-checklist-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "no artifact secret is stored in the repo",
-      "normalized": "no artifact secret is stored in the repo",
-      "sources": [
-        "docs-governance-ceremony-records-m2-custody-approval-checklist-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 8,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "physically separate",
-      "normalized": "physically separate",
-      "sources": [
-        "docs-governance-ceremony-records-m2-custody-approval-checklist-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "not a keyholder",
-      "normalized": "not a keyholder",
-      "sources": [
-        "docs-governance-ceremony-records-m2-custody-approval-checklist-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "validates the dual-custody evidence",
-      "normalized": "validates the dual-custody evidence",
-      "sources": [
-        "docs-governance-ceremony-records-m2-custody-approval-checklist-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 4,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "This procedure MUST explicitly forbid:",
-      "normalized": "this procedure must explicitly forbid",
-      "sources": [
-        "docs-governance-ceremony-records-m2-custody-approval-checklist-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "revocation-domain issuing key",
-      "normalized": "revocation-domain issuing key",
-      "sources": [
-        "docs-governance-ceremony-records-m2-custody-approval-checklist-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "Allowed after a successful ceremony",
-      "normalized": "allowed after a successful ceremony",
-      "sources": [
-        "docs-governance-ceremony-records-m2-custody-approval-checklist-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "redacted records only",
-      "normalized": "redacted records only",
-      "sources": [
-        "docs-governance-ceremony-records-m2-custody-approval-checklist-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 3,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
@@ -43411,6 +41695,17 @@
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Recovery Procedure:",
+      "normalized": "recovery procedure",
+      "sources": [
+        "spec-federation-federation-failure-scenarios-md"
+      ],
+      "frequency": 20,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
       "raw_text": "Idempotency guarantee (INV-FED-004):",
