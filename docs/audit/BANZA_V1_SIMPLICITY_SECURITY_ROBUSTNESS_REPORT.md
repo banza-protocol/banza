@@ -162,8 +162,13 @@ was for.
 
 ## Post-deploy live QA
 
-The sweep merged and deployed. Live QA against the running service found one
-security-relevant defect and one coverage gap, both in BanzAI, neither in the protocol.
+The sweep merged and deployed. Live QA against the running service found five defects — four
+security- or fact-relevant, one coverage gap — all in BanzAI, none in the protocol. All five are fixed,
+verified in production, and answered deterministically: every question below now costs zero model calls.
+
+None was found by reading a document. Every one was found by asking the running service a question and
+comparing the answer to the normative surface, which is the only method that catches an interface
+asserting what the specification denies.
 
 ### Fixed: the root threshold was answered wrongly in production
 
@@ -186,18 +191,60 @@ A deterministic terminal in `banzai-evidence` covers the same question, with fiv
 exact wrong sentence. Verified live: *"Três autoridades independentes controlam a Trust Root"* and
 *"O limiar … é 2 de 3, exigindo duas assinaturas de duas autoridades distintas"*.
 
-### Open: BCJ/1 is refused as an operational request
+### Fixed: BCJ/1 was refused as an operational request
 
-*"O que é o BCJ/1?"* returns the action-boundary refusal — *"não encontrei uma operação ou fonte pública
-do BANZA que suporte este pedido"*. `spec/canonicalization.md` is indexed and a glossary route and
-definition were added, but the boundary evaluator classifies the question as an operational request and
-refuses **before** any concept lookup runs, so neither takes effect.
+*"O que é o BCJ/1?"* returned the action-boundary refusal — *"não encontrei uma operação ou fonte pública
+do BANZA que suporte este pedido"*. `spec/canonicalization.md` was indexed and a definition existed, but
+the router asked whether the question had grounding **without consulting the glossary**, so a term BANZA
+itself defines resolved to unsupported and was refused as an out-of-scope operation. The worst place to
+be unanswerable: BCJ/1 is the first gate an external implementation must pass.
 
-This is a boundary false positive, not a wrong answer and not a protocol defect. It matters because
-BCJ/1 is the canonical byte form and the first gate an external implementation must pass, so it is the
-worst place to be unable to explain. The fix belongs in the boundary evaluator's classification of
-definitional questions, which is a change to routing rather than to content — recorded here rather than
-attempted with the sweep already merged.
+A term the protocol defines is now grounding by construction, and the definition carries what an
+implementer needs — RFC 8785 profile, ±(2⁵³−1), duplicate members rejected before semantic
+interpretation, no verifier-side Unicode normalization. Tests pin both directions: a definitional
+question grounds, an operational request still does not.
+
+### Fixed: BanzAI claimed a guarantee the specification denies
+
+Asked whether BANZA provides global transparency, BanzAI answered that it does — *"o BANZA fornece
+transparência global através de sua natureza como um protocolo financeiro aberto"*. This was the worst
+answer found in the whole sweep. Claiming a guarantee that does not exist is worse than refusing to
+answer, because a reader designs their verification around it, and this is the guarantee an operator
+would most reasonably plan around.
+
+The four guarantees are now answered by a canonical entry that keeps them apart rather than letting
+prose blur them: **provides** artifact freshness and local monotonicity; **does not provide** set
+consistency or cross-observer consistency. The answer opens with the denial, and a test asserts expiry
+is never presented as bounding set consistency — the same conflation §"Freshness" corrects above.
+
+### Fixed: two protocol facts were composed instead of decided
+
+Root cardinality and the protocol version were both answered by the model from retrieval, and both were
+wrong. *"Quantas autoridades controlam a Trust Root?"* returned **"uma autoridade"**, then — after a
+first fix — **"uma custódia de 2 de 3 chaves"**, which also conflates authorization with custody. The
+protocol version returned *"a documentação pública canónica não declara uma versão única"*, while
+`protocol_version` is **1.0.0** in the normative manifest; telling an implementer there is nothing to
+pin against is a bad answer in the one place where pinning is the point.
+
+Both are now decided by engines. Root authorization is a canonical entry stating three independent
+authorities, any two of which authorise, counted as distinct signers, with custody named as separate
+from the authorization model and the ceremony gate stated. The version is answered by the attribute
+registry that already owned declared facts — DECLARED 1.0.0, citing the manifest — and is deliberately
+not duplicated into the glossary. The pre-deploy readiness guard, which asserted "always NOT_DECLARED",
+now reads the manifest and asserts agreement with it in either direction: a guard that pins a snapshot
+of a fact defends the stale answer against the fact.
+
+### What the three defects had in common
+
+Each was found by asking the running service a question, never by reading a document. Each was a fact
+composed by a model where an engine should have decided. And each survived a first fix that was verified
+at the wrong layer — the router, when the answer path includes a typo-tolerance rewrite **above** the
+router, which "corrected" the correctly spelled *"autoridades"* to *"autoridade"* and lost the question
+before routing ever ran.
+
+The tests now drive the pipeline with the model stubbed to a marker string: if the marker reaches an
+answer, prose replaced a fact and the test fails. That is the assertion that would have caught all three
+on the first attempt.
 
 ---
 
@@ -229,8 +276,10 @@ Real, current, and stated as limits rather than resolved:
   reproducible; nobody outside this repository has yet built from it.
 - **No production root ceremony has run**, no production root key exists, and this repository ships no
   production ceremony tooling.
-- **BanzAI refuses "what is BCJ/1?" as an operational request** — a boundary-evaluator false positive on
-  definitional questions, described above. The specification is unaffected and independently readable.
+- **Three api test files pre-date this work and still fail** — an observability trace assertion, an
+  Operator-Zero ADR citation, and `runtime-ssot`, which needs a live server. They fail identically at
+  `20bd4a2`, before the closure hotfix began; they are recorded here rather than fixed inside a closure
+  whose scope was explicitly not to expand.
 
 ---
 
@@ -279,6 +328,11 @@ which ceremony documents survive, which get consolidated, whether
 **GOVERNANCE / SECURITY / REPORTS CLEANUP — FROZEN.** One root architecture, 2-of-3; engine and surfaces
 agree; no pending decision; the root/security surface is six documents; guards protect properties; tests
 green.
+
+**BANZA v1.0.0 — SIMPLICITY, SECURITY & ROBUSTNESS SWEEP — COMPLETE.** The closure hotfix is merged,
+CI green, deployed, and verified live. `protocol_version` is 1.0.0 and unchanged. No production root
+ceremony has run. No external third-party implementation has been demonstrated. BanzAI remains
+non-authoritative: it does not define the protocol and does not determine conformance.
 
 ## Open
 
