@@ -1212,6 +1212,13 @@ export const ENTRIES = [
     sources: s("rfcIndex", "governanceProc", "govGlossary"),
   },
   {
+    id: "def-bcj",
+    critical: true, keywords: ["bcj", "bcj 1", "bcj/1", "o que e bcj", "o que e o bcj", "banza canonical json", "canonical json", "what is bcj", "json canonico", "canonicalizacao"],
+    answer:
+      "O **BCJ/1** (*BANZA Canonical JSON*) é a **forma canónica de bytes** do protocolo: um perfil restrito do RFC 8785 (JCS). Fixa como um documento JSON se converte numa sequência de bytes única e determinística — UTF-8, membros duplicados rejeitados antes de qualquer interpretação semântica, inteiros no domínio ±(2^53−1), e **sem normalização Unicode do lado do verificador**. Assinatura, digest e identidade de pedido comparam bytes produzidos por esta regra, pelo que duas implementações que discordem aqui discordam em tudo o resto. É a primeira coisa a ler e a primeira a testar. Especificação: `spec/canonicalization.md`.",
+    sources: s("specDir", "specOverview"),
+  },
+  {
     id: "def-spec",
     critical: true, keywords: ["spec", "o que e spec", "o que e uma spec", "specification", "especificacao", "o que e especificacao", "what is a spec", "what is a specification"],
     answer:

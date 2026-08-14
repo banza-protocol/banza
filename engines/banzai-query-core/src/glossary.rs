@@ -151,6 +151,18 @@ fn term_of(nq: &str) -> Option<&'static str> {
     if word(nq, "rfc") || word(nq, "rfcs") || has(nq, &["request for comments"]) {
         return Some("def-rfc");
     }
+    // BCJ/1 is the canonical byte form: signing, digesting and request identity all compare bytes
+    // produced by it, and it is the first gate an external implementation must pass. Live QA found it
+    // unanswerable — the spec was indexed but the acronym reached no concept, so the router classified
+    // the question as unsupported.
+    if word(nq, "bcj")
+        || has(
+            nq,
+            &["bcj 1", "bcj/1", "banza canonical json", "canonical json"],
+        )
+    {
+        return Some("def-bcj");
+    }
     if word(nq, "spec") || word(nq, "specification") || has(nq, &["especificac"]) {
         return Some("def-spec");
     }
