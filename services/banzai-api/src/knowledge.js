@@ -1219,6 +1219,13 @@ export const ENTRIES = [
     sources: s("specDir", "specOverview"),
   },
   {
+    id: "def-trust-guarantees",
+    critical: true, keywords: ["transparencia global", "global transparency", "split-view", "split view", "consistencia de conjunto", "set consistency", "mix-and-match", "mix and match", "consistencia entre observadores", "cross-observer", "garantias de confianca", "trust guarantees", "o banza fornece transparencia global"],
+    answer:
+      "**Não.** O **BANZA** **não** fornece transparência global nem detecção de *split-view*. Quatro garantias distintas precisam de ser separadas: **fornece — frescura do artefacto**: um artefacto expirado não é aceite (`expires_at`); **fornece — monotonicidade local**: dentro do âmbito observado, um marcador de ordem inferior é rejeitado (`trust_version_rollback`) e o mesmo marcador com conteúdo diferente falha fechado (`trust_version_equivocation`); **não fornece — consistência de conjunto**: vários artefactos individualmente válidos e frescos não são garantidamente do mesmo estado de publicação — a expiração limita a idade de cada artefacto, **não a coerência entre eles**; **não fornece — consistência entre observadores**: dois verificadores podem observar estados diferentes sem que o protocolo o detecte. Especificação: `spec/trust-freshness.md`.",
+    sources: s("specDir", "fedTrustModel"),
+  },
+  {
     id: "def-spec",
     critical: true, keywords: ["spec", "o que e spec", "o que e uma spec", "specification", "especificacao", "o que e especificacao", "what is a spec", "what is a specification"],
     answer:

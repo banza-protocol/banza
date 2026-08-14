@@ -171,6 +171,31 @@ fn term_of(nq: &str) -> Option<&'static str> {
     ) {
         return Some("def-bcj");
     }
+    // The trust guarantees, and above all the two BANZA does NOT provide. Live QA asked whether BANZA
+    // provides global transparency and was told it does — a property the specification denies in its
+    // first section. Claiming a guarantee that does not exist is worse than refusing to answer, because
+    // a reader plans around it. So the boundary is decided here, deterministically, and never left to
+    // prose. This runs BEFORE the "trust"/"confianca" catch-all below: "garantias de confiança" is a
+    // question about the boundary, not a request to define the word.
+    if has(
+        nq,
+        &[
+            "transparencia global",
+            "global transparency",
+            "split-view",
+            "split view",
+            "consistencia de conjunto",
+            "set consistency",
+            "mix-and-match",
+            "mix and match",
+            "consistencia entre observadores",
+            "cross-observer",
+            "garantias de confianca",
+            "trust guarantees",
+        ],
+    ) {
+        return Some("def-trust-guarantees");
+    }
     if word(nq, "spec") || word(nq, "specification") || has(nq, &["especificac"]) {
         return Some("def-spec");
     }
