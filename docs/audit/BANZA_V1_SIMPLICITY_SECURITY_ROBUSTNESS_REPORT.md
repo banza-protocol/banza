@@ -152,6 +152,47 @@ was for.
 
 ---
 
+## Post-deploy live QA
+
+The sweep merged and deployed. Live QA against the running service found one
+security-relevant defect and one coverage gap, both in BanzAI, neither in the protocol.
+
+### Fixed: the root threshold was answered wrongly in production
+
+Asked how many authorities control the Trust Root, BanzAI answered **"controlada por duas autoridades
+independentes durante o cerimonial offline de custódia 2-of-3"** — wrong about the most consequential
+number in the protocol, and wrong in the direction that makes the root sound weaker than it is.
+
+The corpus was not wrong. `BANZA_TRUST_ARCHITECTURE.md` was **not indexed at all** — the doc-indexer
+allowlists `docs/governance` by filename and the trust architecture was not on the list. Retrieval
+returned the Key Manifest contract and two schemas, and the model inferred the cardinality from "two
+signatures". Three fixes, each at the level the problem sat:
+
+- the trust architecture is allowlisted for indexing;
+- the authorization model is its own section, because the indexer caps a file at five sections and it
+  was the sixth, silently dropped;
+- that section now leads the document — the most consequential fact in a trust architecture belongs
+  above the framing, not below four sections of it.
+
+A deterministic terminal in `banzai-evidence` covers the same question, with five tests pinning the
+exact wrong sentence. Verified live: *"Três autoridades independentes controlam a Trust Root"* and
+*"O limiar … é 2 de 3, exigindo duas assinaturas de duas autoridades distintas"*.
+
+### Open: BCJ/1 is refused as an operational request
+
+*"O que é o BCJ/1?"* returns the action-boundary refusal — *"não encontrei uma operação ou fonte pública
+do BANZA que suporte este pedido"*. `spec/canonicalization.md` is indexed and a glossary route and
+definition were added, but the boundary evaluator classifies the question as an operational request and
+refuses **before** any concept lookup runs, so neither takes effect.
+
+This is a boundary false positive, not a wrong answer and not a protocol defect. It matters because
+BCJ/1 is the canonical byte form and the first gate an external implementation must pass, so it is the
+worst place to be unable to explain. The fix belongs in the boundary evaluator's classification of
+definitional questions, which is a change to routing rather than to content — recorded here rather than
+attempted with the sweep already merged.
+
+---
+
 ## Remaining limitations
 
 Real, current, and stated as limits rather than resolved:
@@ -165,6 +206,8 @@ Real, current, and stated as limits rather than resolved:
   reproducible; nobody outside this repository has yet built from it.
 - **No production root ceremony has run**, no production root key exists, and this repository ships no
   production ceremony tooling.
+- **BanzAI refuses "what is BCJ/1?" as an operational request** — a boundary-evaluator false positive on
+  definitional questions, described above. The specification is unaffected and independently readable.
 
 ---
 
