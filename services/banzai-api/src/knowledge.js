@@ -1219,6 +1219,13 @@ export const ENTRIES = [
     sources: s("specDir", "specOverview"),
   },
   {
+    id: "def-root-authorization",
+    critical: true, keywords: ["quantas autoridades", "how many authorities", "threshold da raiz", "threshold da trust root", "root threshold", "trust root threshold", "quorum da raiz", "root quorum", "autoridades da raiz", "root authorities", "2 de 3", "2-de-3", "2 of 3", "2-of-3"],
+    answer:
+      "A **Trust Root** do **BANZA** é controlada por **três autoridades de assinatura independentes**. Uma acção autorizada pela raiz requer assinaturas de **quaisquer duas das três** (**2-de-3**); **nenhuma chave de raiz autoriza sozinha**. O limiar conta **autoridades distintas**, não entradas de assinatura: duas assinaturas da mesma autoridade valem uma aprovação. A autorização é **criptográfica e lógica** — quantos módulos seguros existem e onde vivem os dispositivos são **controlos de custódia**, e o número de dispositivos nunca determina o limiar. **Nenhuma cerimónia de produção foi realizada, não existe chave de raiz de produção e não há raiz de produção publicada.** Modelo: `docs/security/ROOT_KEY_CUSTODY_MODEL.md`; validador: `engines/banza-root-ceremony`.",
+    sources: s("fedTrustModel", "specDir"),
+  },
+  {
     id: "def-trust-guarantees",
     critical: true, keywords: ["transparencia global", "global transparency", "split-view", "split view", "consistencia de conjunto", "set consistency", "mix-and-match", "mix and match", "consistencia entre observadores", "cross-observer", "garantias de confianca", "trust guarantees", "o banza fornece transparencia global"],
     answer:

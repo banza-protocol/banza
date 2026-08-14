@@ -6,7 +6,7 @@
 #
 #   1. the financial action is refused deterministically (boundary detected, 0 model calls);
 #   2. the protocol creation date is a DECLARED exact fact stating 2025 (from NOTICE);
-#   3. the protocol version is a precise NOT_DECLARED (never fabricated);
+#   3. the protocol version is the one the normative manifest declares (never fabricated);
 #   4. a known canonical entity is answerable (routes grounded, never a boundary/insufficient);
 #   5. an off-topic question is honest insufficient evidence (never fabricated, 0 model);
 #   6. the single scenario source is present and well-formed.
@@ -48,12 +48,24 @@ const readJson = (p) => { try { return JSON.parse(readFileSync(p, "utf8")); } ca
     ? ok("creation date is a DECLARED exact fact (2025)")
     : fail(`creation date not declared-2025: ${JSON.stringify(a).slice(0,120)}`);
 }
-// 3. version NOT_DECLARED.
+// 3. version — whatever the normative manifest declares, never a fabricated value. The guard reads the
+// manifest rather than pinning an answer: this assertion was "always NOT_DECLARED" until the protocol
+// declared a version, at which point a snapshot would have defended the stale answer against the fact.
 {
+  const manifest = readJson("contracts/production/normative-manifest.json");
+  const declared = manifest && manifest.protocol_version;
   const a = JSON.parse(kb.attribute_answer_json("qual a versão do BANZA?"));
-  (a.matched && a.status === "NOT_DECLARED")
-    ? ok("protocol version is a precise NOT_DECLARED")
-    : fail(`version not NOT_DECLARED: ${JSON.stringify(a).slice(0,120)}`);
+  if (!a.matched) {
+    fail("protocol version is not an attribute answer at all");
+  } else if (declared) {
+    (a.status === "DECLARED" && a.answer.includes(declared))
+      ? ok(`protocol version states the declared ${declared}`)
+      : fail(`version disagrees with the manifest (${declared}): ${JSON.stringify(a).slice(0,120)}`);
+  } else {
+    (a.status === "NOT_DECLARED")
+      ? ok("no version declared, and none is asserted")
+      : fail(`version asserted while the manifest declares none: ${JSON.stringify(a).slice(0,120)}`);
+  }
 }
 // 4. known entity answerable (grounded, not boundary/insufficient).
 for (const q of ["o que é o BANZA?", "me fala sobre o banza", "o que é a dupla entrada?"]) {

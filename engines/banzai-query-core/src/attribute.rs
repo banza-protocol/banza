@@ -145,14 +145,36 @@ protocolo, não uma data de produção, certificação ou autorização."
         return None;
     }
 
-    // Protocol version — NOT declared as a single value; the protocol is defined by its ADRs/RFCs/specs.
+    // Protocol version — DECLARED. This attribute answered NOT_DECLARED for as long as it was true: the
+    // protocol was defined by its records and pinned no single value. It is now declared as
+    // `protocol_version` in the normative manifest — the index of the whole normative surface — so the
+    // honest answer inverted. Live QA still received the old one, which tells an implementer there is
+    // nothing to pin against, in the one place where pinning is the whole point.
+    //
+    // Only the protocol has a declared version. BanzAI and Banzami do not, and asserting one for them
+    // would repeat the original error in the opposite direction.
     if asks_version(&nq) {
+        if entity_id == "banza" {
+            return Some(AttributeAnswer {
+                matched: true,
+                entity_id: entity_id.to_string(),
+                attribute_id: "version".to_string(),
+                status: AttributeStatus::Declared.as_str().to_string(),
+                answer:
+                    "A versão do protocolo **BANZA** é **1.0.0** — o valor de `protocol_version` \
+declarado no manifesto normativo (`contracts/production/normative-manifest.json`), que indexa toda a \
+superfície normativa. É a versão do **protocolo**, distinta de qualquer versão de release de uma \
+implementação ou serviço."
+                        .to_string(),
+                reason_code: ReasonCode::ExactFactConfirmed.as_str().to_string(),
+                source_id: "normative-manifest".to_string(),
+            });
+        }
         // "para {display}" avoids the de+o/de+a contraction (never write "de o BANZA"); the display
-        // strings carry their own article ("o BANZA" / "o BanzAI" / "a Banzami").
+        // strings carry their own article ("o BanzAI" / "a Banzami").
         let answer = format!(
-            "A documentação pública canónica não declara uma versão única para {display}. O protocolo é \
-definido pelas suas decisões registadas — ADRs, RFCs e especificações — e evolui publicamente no \
-repositório.",
+            "A documentação pública canónica não declara uma versão única para {display}. \
+A versão **1.0.0** é do **protocolo BANZA**, não desta camada.",
             display = display
         );
         return Some(AttributeAnswer {
@@ -203,16 +225,44 @@ mod tests {
     }
 
     #[test]
-    fn protocol_version_is_not_declared_precisely() {
-        let a = resolve_attribute_query("qual a versão do BANZA?").unwrap();
-        assert_eq!(a.entity_id, "banza");
-        assert_eq!(a.status, "NOT_DECLARED");
-        assert_eq!(a.reason_code, "ATTRIBUTE_NOT_DECLARED");
-        assert!(a.answer.contains("não declara"), "precise message");
-        assert!(
-            a.answer.contains("ADRs"),
-            "explains the protocol is defined by ADRs/RFCs/specs"
-        );
+    fn protocol_version_is_declared_as_one_point_zero() {
+        for q in [
+            "qual a versão do BANZA?",
+            "qual é a versão do protocolo BANZA?",
+            "what is the BANZA protocol version?",
+        ] {
+            let a = resolve_attribute_query(q).unwrap();
+            assert_eq!(a.entity_id, "banza", "{q}");
+            assert_eq!(a.status, "DECLARED", "{q}");
+            assert_eq!(a.reason_code, "EXACT_FACT_CONFIRMED", "{q}");
+            assert!(
+                a.answer.contains("1.0.0"),
+                "{q}: states the declared version"
+            );
+            assert!(
+                a.answer.contains("normative-manifest.json"),
+                "{q}: cites where it is declared"
+            );
+            assert!(
+                !a.answer.contains("não declara"),
+                "{q}: the old NOT_DECLARED message must not survive"
+            );
+        }
+    }
+
+    #[test]
+    fn only_the_protocol_has_a_declared_version() {
+        // BanzAI and Banzami declare none, and the answer must not let 1.0.0 leak onto them.
+        for q in ["qual a versão do BanzAI?", "qual a versão da Banzami?"] {
+            let a = resolve_attribute_query(q).unwrap();
+            assert_eq!(a.status, "NOT_DECLARED", "{q}");
+            assert!(a.answer.contains("não declara"), "{q}");
+            assert!(
+                !a.answer
+                    .contains("A versão do protocolo **BANZA** é **1.0.0**"),
+                "{q}: must not assert a version for this layer"
+            );
+        }
     }
 
     #[test]

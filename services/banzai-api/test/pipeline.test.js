@@ -157,16 +157,28 @@ test("declared creation date is a deterministic exact-fact terminal citing NOTIC
   }
 });
 
-test("undeclared protocol version is a deterministic NOT_DECLARED terminal, precise, never the generic list", async () => {
+// The protocol version was NOT_DECLARED here for as long as that was true. It is now declared as
+// `protocol_version` in the normative manifest, so the terminal states the value — still deterministic,
+// still 0 model calls, still never the generic topic list.
+test("the declared protocol version is a deterministic exact fact, precise, never the generic list", async () => {
   const { pipeline, stub } = pipe();
   const { result, meta } = await pipeline.answer("qual a versão do BANZA?");
   assert.equal(meta.llm_called, false, "0 model calls");
-  assert.equal(meta.terminal_kind, "attribute_not_declared", `→ ${meta.terminal_kind}`);
-  assert.equal(meta.reason_code, "ATTRIBUTE_NOT_DECLARED");
-  assert.match(result.answer, /não declara/i, "precise message");
+  assert.equal(meta.terminal_kind, "exact_fact", `→ ${meta.terminal_kind}`);
+  assert.equal(meta.reason_code, "EXACT_FACT_CONFIRMED");
+  assert.match(result.answer, /1\.0\.0/, "states the declared version");
+  assert.doesNotMatch(result.answer, /não declara/i, "the old NOT_DECLARED message must not survive");
   assert.doesNotMatch(result.answer, /manifest \(e exemplos\)/, "never the generic topic list");
   assert.ok(!["critical_boundary", "safety_refusal"].includes(meta.intent), `intent=${meta.intent}`);
   assert.equal(stub.calls.length, 0, "no trunk/model call");
+});
+
+// The layers below the protocol declare no version of their own.
+test("BanzAI still has no declared version of its own", async () => {
+  const { pipeline } = pipe();
+  const { result, meta } = await pipeline.answer("qual a versão do BanzAI?");
+  assert.equal(meta.reason_code, "ATTRIBUTE_NOT_DECLARED", `→ ${meta.reason_code}`);
+  assert.match(result.answer, /não declara/i, "precise message");
 });
 
 // Every creation-date phrasing (noun via the attribute terminal, verb/protocolo via the now-grounded

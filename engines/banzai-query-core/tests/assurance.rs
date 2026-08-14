@@ -94,8 +94,9 @@ fn c_truth_table_routing_matches_class() {
 
 #[test]
 fn c_declared_vs_not_declared_attribute_is_exact() {
-    // The M2.18B.7 correctness pair: the creation date is a DECLARED exact fact (2025, from NOTICE);
-    // the protocol version is genuinely NOT_DECLARED. Both deterministic, both from the attribute layer.
+    // The correctness pair: two attributes the canonical documents DECLARE, answered as exact facts
+    // from the attribute layer. The version was NOT_DECLARED here for as long as that was true; it is
+    // declared as `protocol_version` in the normative manifest, so the assertion follows the fact.
     let creation = attribute::resolve_attribute_query("ano de criação do banza")
         .expect("creation date is an attribute query");
     assert_eq!(creation.status, "DECLARED", "creation date is declared");
@@ -106,14 +107,17 @@ fn c_declared_vs_not_declared_attribute_is_exact() {
 
     let version = attribute::resolve_attribute_query("qual a versão do BANZA?")
         .expect("version is an attribute query");
-    assert_eq!(
-        version.status, "NOT_DECLARED",
-        "protocol version is not declared"
-    );
+    assert_eq!(version.status, "DECLARED", "protocol version is declared");
     assert!(
-        version.answer.to_lowercase().contains("não declara")
-            || version.answer.to_lowercase().contains("nao declara")
+        version.answer.contains("1.0.0"),
+        "version answer states the declared value"
     );
+
+    // The layers below the protocol declare no version of their own — asserting one for them would be
+    // the same error in the opposite direction.
+    let banzai = attribute::resolve_attribute_query("qual a versão do BanzAI?")
+        .expect("version is an attribute query");
+    assert_eq!(banzai.status, "NOT_DECLARED", "BanzAI declares no version");
 
     // A definition/explanation must NOT be captured by the attribute layer.
     assert!(attribute::resolve_attribute_query("o que é o BANZA?").is_none());

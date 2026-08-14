@@ -157,6 +157,28 @@ fn is_trust_guarantee_phrase(nq: &str) -> bool {
     )
 }
 
+/// Root cardinality and threshold asked in shapes the gates reject — "quantas autoridades controlam a
+/// Trust Root do BANZA?" is seven tokens with no definition lead, and production answered it with "uma
+/// autoridade". The most consequential fact in the protocol, stated wrongly.
+///
+/// The protocol version is deliberately NOT here: it is owned by the attribute registry
+/// (`attribute::resolve_attribute_query`), which decides it earlier and from one place.
+fn is_protocol_fact_phrase(nq: &str) -> bool {
+    has(
+        nq,
+        &[
+            "quantas autoridades",
+            "how many authorities",
+            "threshold da raiz",
+            "threshold da trust root",
+            "root threshold",
+            "trust root threshold",
+            "quorum da raiz",
+            "root quorum",
+        ],
+    )
+}
+
 /// The term → entry mapping, most-specific first. Returns the deterministic entry id for `nq`.
 fn term_of(nq: &str) -> Option<&'static str> {
     // ── Operador Zero boundary (defer to the existing OZ entries) ──
@@ -448,6 +470,38 @@ fn term_of(nq: &str) -> Option<&'static str> {
     if has(nq, &["interoperab"]) {
         return Some("def-interoperability");
     }
+    // How many authorities hold the root, and how many must act. Asked in PT, production answered
+    // "controlada por uma autoridade" — the single most consequential fact in the protocol, stated
+    // wrongly, and stated in the direction that makes the root look weaker than it is. It is decided
+    // here rather than composed from retrieval. Runs BEFORE the def-trust-root rule below, which would
+    // otherwise swallow every question naming the root; the phrases here are specific to cardinality and
+    // threshold, so "o que é a Trust Root?" still gets the definition.
+    if has(
+        nq,
+        &[
+            "quantas autoridades",
+            "how many authorities",
+            "how many root",
+            "quantas chaves de raiz",
+            "quantas chaves da raiz",
+            "threshold da raiz",
+            "threshold da trust root",
+            "threshold do root",
+            "root threshold",
+            "trust root threshold",
+            "quorum da raiz",
+            "root quorum",
+            "2 de 3",
+            "2-de-3",
+            "2 of 3",
+            "2-of-3",
+            "autoridades da raiz",
+            "autoridades de raiz",
+            "root authorities",
+        ],
+    ) {
+        return Some("def-root-authorization");
+    }
     if has(
         nq,
         &["trust root", "raiz de confianca", "raiz do protocolo"],
@@ -571,7 +625,10 @@ pub fn glossary_entry(nq: &str) -> Option<&'static str> {
     let gov_phrase = is_governance_phrase(nq);
     // A guarantee question is answered whatever shape it arrives in — see is_trust_guarantee_phrase.
     let guarantee_phrase = is_trust_guarantee_phrase(nq);
-    let definition = (starts_definition_lead(nq) && toks <= 6) || gov_phrase || guarantee_phrase;
+    let definition = (starts_definition_lead(nq) && toks <= 6)
+        || gov_phrase
+        || guarantee_phrase
+        || is_protocol_fact_phrase(nq);
     // A bare/very short term ("federar", "trust", "saldo reservado", "payment link") — ≤ 2 tokens so an
     // off-topic short phrase that merely contains a term mid-sentence ("Russian Federation history",
     // "setup de operador") is NOT captured and still grounds.
