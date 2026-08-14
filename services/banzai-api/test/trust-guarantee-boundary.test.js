@@ -14,6 +14,10 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import * as kb from "../src/rustkb/banzai_api_kb.js";
 
+// The route is what the live endpoint acts on. An earlier version of this test asserted only that the
+// question was not refused — which passed while production kept answering from the generic "what is
+// BANZA" entry, i.e. while the bug was still live. Assert the entry that actually answers.
+const routed = (q) => JSON.parse(kb.route_question_json(q)).entry_id;
 const intent = (q) => JSON.parse(kb.resolve_query_json(q)).primary_intent;
 
 const BOUNDARY = [
@@ -26,8 +30,13 @@ const BOUNDARY = [
   "quais são as garantias de confiança do BANZA?",
 ];
 
-test("a question about the trust guarantees is answered, not refused", () => {
+test("a question about the trust guarantees routes to the guarantee answer", () => {
   for (const q of BOUNDARY) {
+    assert.equal(
+      routed(q),
+      "def-trust-guarantees",
+      `answered from the wrong entry — the generic BANZA description claims what this denies: ${q}`,
+    );
     assert.notEqual(intent(q), "unsupported", `refused as out of scope: ${q}`);
   }
 });

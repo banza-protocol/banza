@@ -130,6 +130,33 @@ fn is_governance_phrase(nq: &str) -> bool {
     )
 }
 
+/// A question about what the protocol's trust material does and does NOT guarantee. These phrases name
+/// a property, so they are unambiguous wherever they appear, and they arrive in shapes the gates above
+/// reject: "o banza fornece transparência global?" is five tokens with no definition lead. Production QA
+/// asked exactly that and was told BANZA provides global transparency — a property the specification
+/// denies. Claiming a guarantee that does not exist is worse than refusing to answer, because the reader
+/// designs their verification around it. So the phrases bypass the token gate, like the governance
+/// phrases above and for the same reason.
+fn is_trust_guarantee_phrase(nq: &str) -> bool {
+    has(
+        nq,
+        &[
+            "transparencia global",
+            "global transparency",
+            "split-view",
+            "split view",
+            "consistencia de conjunto",
+            "set consistency",
+            "mix-and-match",
+            "mix and match",
+            "consistencia entre observadores",
+            "cross-observer",
+            "garantias de confianca",
+            "trust guarantees",
+        ],
+    )
+}
+
 /// The term → entry mapping, most-specific first. Returns the deterministic entry id for `nq`.
 fn term_of(nq: &str) -> Option<&'static str> {
     // ── Operador Zero boundary (defer to the existing OZ entries) ──
@@ -542,7 +569,9 @@ pub fn glossary_entry(nq: &str) -> Option<&'static str> {
     // M2.14C SEC-FIX — an unambiguous multi-word governance/dev phrase bypasses the token gate (e.g. PT
     // "o que é um relatório de auditoria?" at 7 tokens would otherwise fall to no_source).
     let gov_phrase = is_governance_phrase(nq);
-    let definition = (starts_definition_lead(nq) && toks <= 6) || gov_phrase;
+    // A guarantee question is answered whatever shape it arrives in — see is_trust_guarantee_phrase.
+    let guarantee_phrase = is_trust_guarantee_phrase(nq);
+    let definition = (starts_definition_lead(nq) && toks <= 6) || gov_phrase || guarantee_phrase;
     // A bare/very short term ("federar", "trust", "saldo reservado", "payment link") — ≤ 2 tokens so an
     // off-topic short phrase that merely contains a term mid-sentence ("Russian Federation history",
     // "setup de operador") is NOT captured and still grounds.
