@@ -6,7 +6,7 @@ One canonical, deduplicated suite reconciled against every pre-existing BanzAI e
 
 | suite | count | canonical class(es) | source |
 |---|---|---|---|
-| M2.18B.6 grounded-synthesis dataset (12 categories) | 709 | base, variation, negative, comparison→regression | `services/banzai-api/eval/grounded.dataset.json (total)` |
+| M2.18B.6 grounded-synthesis dataset (12 categories) | 701 | base, variation, negative, comparison→regression | `services/banzai-api/eval/grounded.dataset.json (total)` |
 | BZC-4 cross-protocol resolution coverage (entity×artifact×lang×surface + neg + documental) | 1564 | live, negative | `services/banzai-api/eval/bzc-coverage.mjs (summary.metrics.total, runtime-computed = 1500 positive + 49 negative-entity + 15 documental)` |
 | M2.18B.2 action-boundary dataset (boundary + informational) | 165 | negative | `services/banzai-api/eval/boundary.dataset.json (boundary_cases + informational_cases)` |
 | M2.18B.5 typo / misspelling intent-recovery dataset | 248 | variation | `services/banzai-api/eval/typo-dataset.mjs (DATASET)` |

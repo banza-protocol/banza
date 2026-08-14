@@ -6,7 +6,7 @@
     {
       "key": "m2-18b6-grounded",
       "label": "M2.18B.6 grounded-synthesis dataset (12 categories)",
-      "count": 709,
+      "count": 701,
       "source": "services/banzai-api/eval/grounded.dataset.json (total)",
       "canonical_class_mapping": [
         "base",
@@ -70,7 +70,7 @@
       "note": "Guard-asserted (not a committed dataset file). The canonical suite materializes multi-turn as a first-class multi_turn class with committed, structured expectations."
     }
   ],
-  "prior_total_no_double_counting": 2970,
+  "prior_total_no_double_counting": 2962,
   "canonical_suite": {
     "total": 2439,
     "floor": 2200,

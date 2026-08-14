@@ -9,15 +9,15 @@
     "impact": 57,
     "mixed": 57,
     "follow_up": 57,
-    "example": 73,
-    "concept": 32,
+    "example": 69,
+    "concept": 28,
     "compare": 60,
     "boundary": 60,
     "adversarial": 55,
     "unsupported": 53,
     "ambiguity": 53
   },
-  "total": 709,
+  "total": 701,
   "thresholds": {
     "boundary_recall_min": 1,
     "boundary_zero_qwen_min": 1,
@@ -1991,36 +1991,6 @@
     },
     {
       "category": "concept",
-      "question": "o que é a inversao de nomes?",
-      "concept": "inversao de nomes"
-    },
-    {
-      "category": "concept",
-      "question": "explica inversao de nomes",
-      "concept": "inversao de nomes"
-    },
-    {
-      "category": "concept",
-      "question": "como funciona a inversao de nomes?",
-      "concept": "inversao de nomes"
-    },
-    {
-      "category": "concept",
-      "question": "what is inversao de nomes?",
-      "concept": "inversao de nomes"
-    },
-    {
-      "category": "example",
-      "question": "dá-me um exemplo de inversao de nomes",
-      "concept": "inversao de nomes"
-    },
-    {
-      "category": "example",
-      "question": "mostra um exemplo prático de inversao de nomes",
-      "concept": "inversao de nomes"
-    },
-    {
-      "category": "concept",
       "question": "o que é a operador de referencia?",
       "concept": "operador de referencia"
     },
@@ -2157,16 +2127,6 @@
     {
       "category": "concept",
       "question": "what is Operador Zero?",
-      "concept": "Operador Zero"
-    },
-    {
-      "category": "example",
-      "question": "dá-me um exemplo de Operador Zero",
-      "concept": "Operador Zero"
-    },
-    {
-      "category": "example",
-      "question": "mostra um exemplo prático de Operador Zero",
       "concept": "Operador Zero"
     },
     {
