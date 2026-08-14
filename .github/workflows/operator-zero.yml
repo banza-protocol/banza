@@ -31,7 +31,7 @@ jobs:
         run: cargo test
 
   operator-zero-e2e-root:
-    name: operator-zero-e2e-root (demo signing root, ADR-041, M2.13A)
+    name: operator-zero-e2e-root
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

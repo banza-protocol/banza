@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   rust-rule-guard:
-    name: No new non-Rust engine (ADR-043)
+    name: No new non-Rust engine
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
