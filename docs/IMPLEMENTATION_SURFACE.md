@@ -61,6 +61,12 @@ The root, the Key Manifest, delegated keys, revocation and evaluation are specif
 model — three independent authorities, any two of which authorise — is in
 [`docs/security/ROOT_KEY_CUSTODY_MODEL.md`](security/ROOT_KEY_CUSTODY_MODEL.md).
 
+## The external-implementation exercise
+
+[`docs/verification/EXTERNAL_IMPLEMENTATION_INPUTS.md`](verification/EXTERNAL_IMPLEMENTATION_INPUTS.md)
+freezes what an independent team receives, what counts as a pass, and what they must not consult. It has
+**not** been run: no external third-party implementation of BANZA has been demonstrated.
+
 ## Clean-room
 
 [`clean-room/packages/l0/`](../clean-room/packages/l0/) — the minimum sufficient material to implement
