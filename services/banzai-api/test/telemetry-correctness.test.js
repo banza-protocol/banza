@@ -1,4 +1,4 @@
-// BZO-8 (ADR-042 telemetry correctness) — proves two things end to end, hermetically:
+// BZO-8 (ADR-036 telemetry correctness) — proves two things end to end, hermetically:
 //
 //  (A) INSTRUMENTATION. The certification step (step 9) times ONLY its own aggregation work. Before the
 //      1.1.0 fix it was back-dated to the journey t0, so its [started_at, completed_at] spanned the whole

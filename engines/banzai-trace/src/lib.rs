@@ -1,4 +1,4 @@
-//! Trace explanation + financial-invariant verification (ADR-043).
+//! Trace explanation + financial-invariant verification (ADR-038).
 //!
 //! Deterministic verifier: checks INV-TRACE-001 (trace-id propagation), INV-LEDGER-001 (double-entry
 //! completeness) and INV-STL-001 (no money creation: net + fee == gross) over a payment-flow trace
@@ -6,13 +6,13 @@
 //! `website/components/banzai/traceVerifier.ts` — the live BanzAI "programadores" DraftValidationTool.
 //! Parity is proven byte-for-value against golden fixtures generated from the original TypeScript.
 //!
-//! PROVENANCE (M2.19G.6 — BanzAI monorepo consolidation, ADR-042): extracted verbatim from the
+//! PROVENANCE (M2.19G.6 — BanzAI monorepo consolidation, ADR-036): extracted verbatim from the
 //! former `banza-protocol/banzai` repo `engines/banzai-core/src/trace.rs` (now permanently removed) —
 //! identical at commit 9354795 (the source the previously-vendored `banzai_core` WASM was built from)
 //! and at that former repo's tip 8611191f. This crate is the sole in-monorepo source for the shipped
 //! trace WASM; the three other
 //! former `banzai-core` exports (route/search/select_route) were unused in the monorepo and are
-//! intentionally not carried. See ADR-042 (BanzAI monorepo consolidation).
+//! intentionally not carried. See ADR-036 (BanzAI monorepo consolidation).
 
 use serde::Serialize;
 use serde_json::{json, Map, Value};

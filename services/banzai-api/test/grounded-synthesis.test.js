@@ -27,28 +27,28 @@ const groundedOutput = (answer, claims, cites) =>
 
 test("grounded happy path: Rust resolves the entity, the ONE model call synthesises, validator passes", async () => {
   const output = groundedOutput(
-    "A ADR-002 inverte a nomenclatura do ecossistema de forma canónica e permanente.",
+    "A ADR-001 inverte a nomenclatura do ecossistema de forma canónica e permanente.",
     [{ claim: "inverte a nomenclatura do ecossistema", fact_ids: ["F1"] }],
-    ["ADR-002"]
+    ["ADR-001"]
   );
   const provider = scriptedProvider([output]);
-  const r = await runGroundedSynthesis("explica a ADR-002", { provider, traceId: "t1", entityId: "ADR-002" });
+  const r = await runGroundedSynthesis("explica a ADR-001", { provider, traceId: "t1", entityId: "ADR-001" });
   assert.equal(r.status, "grounded");
   assert.match(r.answer_markdown, /nomenclatura/);
-  assert.deepEqual(r.cited_source_ids, ["ADR-002"]);
+  assert.deepEqual(r.cited_source_ids, ["ADR-001"]);
   assert.equal(r.trace.output_status, "ok");
   assert.equal(r.trace.factual_ok, true);
-  assert.equal(r.trace.resolved_entity_id, "ADR-002");
+  assert.equal(r.trace.resolved_entity_id, "ADR-001");
   assert.ok(r.trace.facts_count > 0);
   assert.equal(provider.calls.length, 1, "EXACTLY ONE model call — single pass, no input pass");
 });
 
 test("output-pass hallucination is rejected by the factual validator → fallback, never published", async () => {
   // A claim citing a source outside the FactualPackage's allowed set → validator rejects → fallback.
-  const output = groundedOutput("A ADR-002 aprova operadores certificados (ADR-999).",
+  const output = groundedOutput("A ADR-001 aprova operadores certificados (ADR-999).",
     [{ claim: "aprova operadores certificados", fact_ids: ["F1"] }], ["ADR-999"]);
   const provider = scriptedProvider([output]);
-  const r = await runGroundedSynthesis("explica a ADR-002", { provider, traceId: "t2", entityId: "ADR-002" });
+  const r = await runGroundedSynthesis("explica a ADR-001", { provider, traceId: "t2", entityId: "ADR-001" });
   assert.equal(r.status, "fallback");
   assert.equal(r.answer_markdown, null);
   assert.equal(r.trace.output_status, "rejected");
@@ -58,14 +58,14 @@ test("output-pass hallucination is rejected by the factual validator → fallbac
 test("honest insufficient_evidence output → insufficient status, nothing invented", async () => {
   const output = JSON.stringify({ answer_markdown: "", claims: [], cited_source_ids: [], insufficient_evidence: true });
   const provider = scriptedProvider([output]);
-  const r = await runGroundedSynthesis("explica a ADR-002", { provider, traceId: "t3", entityId: "ADR-002" });
+  const r = await runGroundedSynthesis("explica a ADR-001", { provider, traceId: "t3", entityId: "ADR-001" });
   assert.equal(r.status, "insufficient");
   assert.equal(provider.calls.length, 1);
 });
 
 test("malformed output JSON → fallback, output_status invalid, one model call", async () => {
   const provider = scriptedProvider(["not json at all"]);
-  const r = await runGroundedSynthesis("explica a ADR-002", { provider, traceId: "t4", entityId: "ADR-002" });
+  const r = await runGroundedSynthesis("explica a ADR-001", { provider, traceId: "t4", entityId: "ADR-001" });
   assert.equal(r.status, "fallback");
   assert.equal(r.trace.output_status, "invalid");
   assert.equal(provider.calls.length, 1);
@@ -74,12 +74,12 @@ test("malformed output JSON → fallback, output_status invalid, one model call"
 test("empty answer_markdown but valid claims → composed deterministically from validated claims, grounded", async () => {
   const output = JSON.stringify({
     answer_markdown: "",
-    claims: [{ claim: "A ADR-002 inverte a nomenclatura do ecossistema", fact_ids: ["F1"] }],
-    cited_source_ids: ["ADR-002"],
+    claims: [{ claim: "A ADR-001 inverte a nomenclatura do ecossistema", fact_ids: ["F1"] }],
+    cited_source_ids: ["ADR-001"],
     insufficient_evidence: false,
   });
   const provider = scriptedProvider([output]);
-  const r = await runGroundedSynthesis("explica a ADR-002", { provider, traceId: "t5", entityId: "ADR-002" });
+  const r = await runGroundedSynthesis("explica a ADR-001", { provider, traceId: "t5", entityId: "ADR-001" });
   assert.equal(r.status, "grounded");
   assert.match(r.answer_markdown, /nomenclatura/);
   assert.equal(r.trace.answer_composed_from_claims, true);
@@ -87,6 +87,6 @@ test("empty answer_markdown but valid claims → composed deterministically from
 });
 
 test("no provider → fallback with no model call (fail-closed)", async () => {
-  const r = await runGroundedSynthesis("explica a ADR-002", { traceId: "t6", entityId: "ADR-002" });
+  const r = await runGroundedSynthesis("explica a ADR-001", { traceId: "t6", entityId: "ADR-001" });
   assert.equal(r.status, "fallback");
 });

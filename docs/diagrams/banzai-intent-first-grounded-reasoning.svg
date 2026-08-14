@@ -19,7 +19,7 @@
   <!-- Fast-path -->
   <rect x="40" y="196" width="300" height="120" rx="12" fill="#F4EFE4" stroke="#9A6B1E" stroke-width="1.5"/>
   <text x="60" y="222" fill="#5A4A2E" font-size="14" font-weight="bold">Percurso determinístico (rápido)</text>
-  <text x="60" y="246" fill="#3A3F45" font-size="13">· identificador exacto (ADR-002, RFC 14)</text>
+  <text x="60" y="246" fill="#3A3F45" font-size="13">· identificador exacto (ADR-001, RFC 14)</text>
   <text x="60" y="268" fill="#3A3F45" font-size="13">· fronteira (publicar / mover fundos / chave)</text>
   <text x="60" y="290" fill="#3A3F45" font-size="13">· artefacto inequívoco</text>
   <text x="60" y="308" fill="#8A8275" font-size="12">Sem Qwen. Resolver Rust. Comportamento da Fase 1.</text>

@@ -1,4 +1,4 @@
-//! `banza-fetcher` — the internal HTTP service (ADR-038 §4.7). `banzai-api` calls `POST /fetch` over
+//! `banza-fetcher` — the internal HTTP service (ADR-034 §4.7). `banzai-api` calls `POST /fetch` over
 //! the internal Docker network; the service is never published to the host or reverse-proxy.
 //!
 //! Endpoints:

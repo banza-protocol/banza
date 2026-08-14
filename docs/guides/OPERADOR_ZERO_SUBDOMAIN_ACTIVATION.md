@@ -155,4 +155,4 @@ Nothing touches the apex. To back out:
   `→ 404` is not preserved, or if the routing layer grows a storage/database/private-key dependency.
 - The published artifacts use `https://zero.banza.network/...` URLs in their `endpoints` block
   (form-only; the protocol manifest engine checks URL *shape*, never fetches them).
-- Operador Zero is **never** listed in `/operators` (ADR-041 §6), on the apex or on any subdomain.
+- Operador Zero is **never** listed in `/operators` (ADR-035 §6), on the apex or on any subdomain.

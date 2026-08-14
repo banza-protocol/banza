@@ -1,4 +1,4 @@
-//! Post-response validator for BanzAI (ADR-043, ADR-042).
+//! Post-response validator for BanzAI (ADR-038, ADR-036).
 //!
 //! Runs in Rust AFTER any language model (mock, hosted, or local Qwen via llama.cpp)
 //! produces text. The prompt is the primary guardrail; this is the deterministic last
@@ -173,8 +173,8 @@ fn claim(tp: &str, subject_padded: &str, stems: &[&str], window: usize) -> bool 
     false
 }
 
-/// M2.19G.5C (ADR-042) — true when the completion CONFLATES a conformance PASS with a certificate.
-/// A PASS is verifiable evidence, never a certificate (ADR-042/054). Distinct from check #5 (first-person
+/// M2.19G.5C (ADR-036) — true when the completion CONFLATES a conformance PASS with a certificate.
+/// A PASS is verifiable evidence, never a certificate (ADR-036/054). Distinct from check #5 (first-person
 /// issuance). It must NOT block the TRUE statement "PASS é evidência verificável, não certificado": that
 /// sentence keeps words (and a negation) between "pass" and "certificado", so the affirmative equivalence
 /// lead-ins below never match it, and the "com … PASS … certificado" branch skips any negated certificate.
@@ -422,13 +422,13 @@ pub fn validate_response(raw: &str) -> Verdict {
         return block("claims_infra_custodies_keys");
     }
 
-    // ── M2.19G.5C (ADR-042) — six negation-aware authority rules. Certification ≠ admission ≠
-    // authorisation (ADR-003..063); BanzAI is non-decisive (ADR-042); a PASS/readiness is not a
-    // certificate (ADR-042/064..066). Each ties the claim to its subject (whole-word `banza`/`banzai`/
+    // ── M2.19G.5C (ADR-036) — six negation-aware authority rules. Certification ≠ admission ≠
+    // authorisation (ADR-004..063); BanzAI is non-decisive (ADR-036); a PASS/readiness is not a
+    // certificate (ADR-036/064..066). Each ties the claim to its subject (whole-word `banza`/`banzai`/
     // `qwen`) and is negation-aware, so BANZA's own correct disclaimers PASS. ──
 
     // 16. Claims BANZA/BanzAI ADMITS an operator into the operational scheme (L3). Certification is
-    //     never admission (ADR-003..063). The subject must drive the admission verb (via `claim`), so a
+    //     never admission (ADR-004..063). The subject must drive the admission verb (via `claim`), so a
     //     true statement where another actor admits — or a negated "não admite" — is not blocked.
     let scheme_phrase = any(&t, &["esquema operacional", "operational scheme"]);
     if scheme_phrase
@@ -450,7 +450,7 @@ pub fn validate_response(raw: &str) -> Verdict {
     }
 
     // 17. Claims BANZA/BanzAI grants REGULATORY authorisation, or that BANZA can operate real money.
-    //     Certification is never authorisation and the real-money gate is external (ADR-003..063).
+    //     Certification is never authorisation and the real-money gate is external (ADR-004..063).
     //     Negation-aware — "BANZA não autoriza regulatoriamente" / "não pode operar dinheiro real" PASS.
     let reg_stems = [
         "autoriza regulatoria",
@@ -481,7 +481,7 @@ pub fn validate_response(raw: &str) -> Verdict {
     }
 
     // 19. Claims BanzAI/Qwen ALTERS, REVERSES, VOIDS or REVOKES a verdict/result/certificate/registry/
-    //     status. BanzAI is non-decisive and never changes an outcome (ADR-042). Negation-aware.
+    //     status. BanzAI is non-decisive and never changes an outcome (ADR-036). Negation-aware.
     let alter_stems = [
         "altero", "altera", "reverto", "reverte", "anulo", "anula", "invalido", "invalida",
         "revogo", "revoga",
@@ -505,14 +505,14 @@ pub fn validate_response(raw: &str) -> Verdict {
     }
 
     // 20. Conflates a conformance PASS with a certificate (a PASS is verifiable evidence, never a
-    //     certificate — ADR-042/054). Distinct from check #5 (first-person issuance). The TRUE
+    //     certificate — ADR-036/054). Distinct from check #5 (first-person issuance). The TRUE
     //     "PASS é evidência verificável, não certificado" PASSES (see `pass_is_certificate`).
     if pass_is_certificate(&t) {
         return block("claims_pass_is_certificate");
     }
 
     // 21. Conflates certification READINESS with certification actually granted. A ready operator is not
-    //     a certified one (ADR-034..066/059..063). Negation-aware.
+    //     a certified one (ADR-032..066/059..063). Negation-aware.
     let readiness = any(
         &t,
         &[
@@ -610,7 +610,7 @@ mod echo_tests {
     }
 }
 
-// ── M2.19G.5C (ADR-042) — the six new authority rules (15..20 in the ADR; checks 16..21 in the file).
+// ── M2.19G.5C (ADR-036) — the six new authority rules (15..20 in the ADR; checks 16..21 in the file).
 // Each has a positive (must reject with the exact typed reason), a negation case (must pass), and — for
 // the registry-publication and PASS-is-a-certificate rules — the TRUE-statement case (must pass). ──
 #[cfg(test)]

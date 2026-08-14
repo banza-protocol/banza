@@ -1,4 +1,4 @@
-// Operator-guidance backend glue tests (ADR-042; reframed by ADR-042 §D-076-01/02). FULLY OFFLINE:
+// Operator-guidance backend glue tests (ADR-036; reframed by ADR-036/02). FULLY OFFLINE:
 // exercises the Rust guidance WASM re-derivation (services/banzai-api/src/journey.js) and the
 // pipeline's step-influenced source packing. No network, no model, no persistence.
 //

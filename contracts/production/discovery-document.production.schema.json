@@ -2,10 +2,10 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://banza.network/contracts/production/discovery-document.production.schema.json",
   "title": "DiscoveryDocument",
-  "description": "The discovery document an implementation publishes at its canonical origin (ADR-038 §21 step 1). It is the FIRST artifact of the endpoint-originated validation journey: it announces the implementation's identity and the map of its public endpoints, so a verifier can resolve and then fetch every other artifact from the same origin. The discovery engine checks that the announced identity matches the resolved target and that every endpoint URL is host-bound to the canonical origin. Documentary/reference contract; introduces no new financial invariant.",
+  "description": "The discovery document an implementation publishes at its canonical origin (ADR-034step 1). It is the FIRST artifact of the endpoint-originated validation journey: it announces the implementation's identity and the map of its public endpoints, so a verifier can resolve and then fetch every other artifact from the same origin. The discovery engine checks that the announced identity matches the resolved target and that every endpoint URL is host-bound to the canonical origin. Documentary/reference contract; introduces no new financial invariant.",
   "_spec_version": "1.0",
   "_status": "reference",
-  "_authority": "ADR-038 (§4.4 origin of inputs, §21 step 1), ADR-041 (Operador Zero read-only reference)",
+  "_authority": "ADR-034 (§4.4 origin of inputs, §21 step 1), ADR-035 (Operador Zero read-only reference)",
   "_boundary": "A discovery document announces endpoints. It is not certification, scheme admission, or authorisation, and never moves funds.",
 
   "type": "object",

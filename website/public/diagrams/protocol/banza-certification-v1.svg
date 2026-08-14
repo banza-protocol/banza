@@ -130,5 +130,5 @@
   <rect x="16" y="360" width="868" height="30" rx="6" fill="#FBEFF0" stroke="#EAD2D6" stroke-width="1"></rect>
   <text x="28" y="379" fill="#7E1320" font-size="10" font-weight="700">PRÉ-PRODUÇÃO</text>
   <text x="150" y="379" fill="#6B6265" font-size="10">A auto-publicação de produção e a federação dependem da cerimónia da raiz. Hoje /operators = [] e production_certificates = false.</text>
-  <text x="450" y="432" text-anchor="middle" fill="#6B6265" font-size="10">SVG-P-029 · v2.0 · BANZA_REFERENCIA.md §7 · ADR-039/ADR-040 · 2026-07-17</text>
+  <text x="450" y="432" text-anchor="middle" fill="#6B6265" font-size="10">SVG-P-029 · v2.0 · BANZA_REFERENCIA.md §7 · ADR-030/ADR-037 · 2026-07-17</text>
 </svg>

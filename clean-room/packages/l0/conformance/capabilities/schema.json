@@ -32,12 +32,12 @@
     },
     "supports_payment_intents": {
       "type": "boolean",
-      "description": "PaymentIntent (ADR-014) — the canonical payment-initiation primitive that Payment Links/QR/Payment Requests realize. Underpins Collections. Optional; Level 2.",
+      "description": "PaymentIntent (ADR-015) — the canonical payment-initiation primitive that Payment Links/QR/Payment Requests realize. Underpins Collections. Optional; Level 2.",
       "certification_level": 2
     },
     "supports_collections": {
       "type": "boolean",
-      "description": "Payment Collections (ADR-018): Collection + CollectionShare aggregates, CollectionRule strategies, state machines, collection.* events, per-share settlement via PaymentIntent -> Transfer -> Ledger. Requires supports_payment_intents. Optional; Level 2.",
+      "description": "Payment Collections (ADR-016): Collection + CollectionShare aggregates, CollectionRule strategies, state machines, collection.* events, per-share settlement via PaymentIntent -> Transfer -> Ledger. Requires supports_payment_intents. Optional; Level 2.",
       "certification_level": 2
     },
     "supports_events": {

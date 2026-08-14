@@ -233,7 +233,7 @@ pub fn resolve_intent(question: &str, seeded_entity_id: &str) -> ResolvedIntent 
     };
 
     // "explicit document" means the USER named a real ADR/RFC (docref::detect_refs). A seed that happens
-    // to be a doc id is NOT enough: a concept's canonical source (e.g. federação → ADR-031) is still a
+    // to be a doc id is NOT enough: a concept's canonical source (e.g. federação → ADR-025) is still a
     // CONCEPT question and must classify as explain_concept, not explain_document.
     let has_explicit_doc = !explicit_refs.is_empty();
     let mut primary_intent = classify_trunk_intent(&nq, has_explicit_doc, explicit_refs.len());
@@ -389,9 +389,9 @@ mod tests {
     #[test]
     fn explicit_document_explanations_classify_as_explain_document() {
         for q in [
-            "explica o ADR-041",
+            "explica o ADR-035",
             "explica a RFC-0006",
-            "resume a ADR-002",
+            "resume a ADR-001",
         ] {
             let it = intent(q, "");
             assert!(
@@ -403,7 +403,7 @@ mod tests {
 
     #[test]
     fn comparison_and_impact_and_governance_classify() {
-        assert_eq!(intent("compara ADR-041 e ADR-042", ""), "compare_documents");
+        assert_eq!(intent("compara ADR-035 e ADR-036", ""), "compare_documents");
         assert_eq!(
             intent("qual é o impacto para um operador?", ""),
             "explain_impact"
@@ -428,11 +428,11 @@ mod tests {
 
     #[test]
     fn resolved_intent_is_reproducible_and_single_model_call() {
-        let a = resolve_intent("explica a federação", "ADR-031");
-        let b = resolve_intent("explica a federação", "ADR-031");
+        let a = resolve_intent("explica a federação", "ADR-025");
+        let b = resolve_intent("explica a federação", "ADR-025");
         assert_eq!(a.primary_intent, b.primary_intent);
         assert_eq!(a.resolved_entity_id, b.resolved_entity_id);
-        assert_eq!(a.resolved_entity_id, "ADR-031", "seed is authoritative");
+        assert_eq!(a.resolved_entity_id, "ADR-025", "seed is authoritative");
         assert_eq!(a.expected_model_calls, 1);
         assert_eq!(a.answer_type, "inferred");
         assert_eq!(a.entity_selection_reason, "seeded_by_router");
@@ -442,14 +442,14 @@ mod tests {
     fn example_and_reason_flags_are_detected() {
         let r = resolve_intent("explica a revogação com um exemplo", "");
         assert!(r.example_requested);
-        let r2 = resolve_intent("porque foi aceite a ADR-041?", "ADR-041");
+        let r2 = resolve_intent("porque foi aceite a ADR-035?", "ADR-035");
         assert!(r2.reason_requested);
     }
 
     #[test]
     fn mixed_status_plus_reason_keeps_status_as_secondary() {
-        // "qual o estado da ADR-041 e porque foi aceite" → an explanation with a status secondary.
-        let r = resolve_intent("qual o estado da ADR-041 e porque foi aceite", "ADR-041");
+        // "qual o estado da ADR-035 e porque foi aceite" → an explanation with a status secondary.
+        let r = resolve_intent("qual o estado da ADR-035 e porque foi aceite", "ADR-035");
         assert!(r
             .secondary_intents
             .iter()

@@ -79,8 +79,12 @@ check_routes() {
   [ -e website/app/referencia/racional/page.tsx ] || err "missing /referencia/racional redirect"
   grep -q 'slug: "estado-protocolar"' "$DEFS" || err "estado-protocolar slug not stable in CHAPTER_DEFS"
   [ -d website/app/decisoes ] || err "missing /decisoes"
-  local n
-  for n in 037 038 039 040 041 042; do
+  # Derived from the tree, never a frozen list: after a reorganisation a hardcoded set reports the
+  # past as the present. EVERY current record must be indexed and mirrored — a stronger property than
+  # the six numbers this used to name.
+  local f n
+  for f in decisions/adr/ADR-*.md; do
+    n=$(basename "$f" | sed 's/^ADR-\([0-9][0-9][0-9]\)-.*/\1/')
     grep -q "\"adr-$n\"" website/lib/decisions.ts || err "ADR-$n missing from decisions index"
     ls website/content/decisions/adr/ADR-$n-*.md >/dev/null 2>&1 || err "ADR-$n website mirror missing"
   done

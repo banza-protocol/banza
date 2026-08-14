@@ -1,4 +1,4 @@
-// M2.19G.3 (ADR-040) — onboarding backend tests. Exercises the Rust decision engine wrapper, the
+// M2.19G.3 (ADR-037) — onboarding backend tests. Exercises the Rust decision engine wrapper, the
 // HTTP helpers (cookie/CSRF/sanitisers), and the full service flow (OTP → opaque session → candidate →
 // implementation → .well-known origin proof) against an in-memory Postgres fake + mock email + a fake
 // secure fetcher. Asserts the security invariants: no plaintext code/token/pepper is ever persisted,

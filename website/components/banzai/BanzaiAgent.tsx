@@ -1,7 +1,7 @@
 "use client";
 
-// BanzAI — the single protocol-agent shell (ADR-042), rebuilt for endpoint-originated operator
-// validation (M2.19G.1, ADR-038). ONE app at /banzai, TWO modes of the SAME shell:
+// BanzAI — the single protocol-agent shell (ADR-036), rebuilt for endpoint-originated operator
+// validation (M2.19G.1, ADR-034). ONE app at /banzai, TWO modes of the SAME shell:
 //
 //   • "Perguntar ao BanzAI" (ask)        — the conversation, answered by the live Rust-controlled
 //                                           banzai-api backend (local Qwen, same-origin /banzai/ask).
@@ -57,7 +57,7 @@ type Msg = {
   documentTruncated?: boolean;
   correctionDisplay?: string[];
   correctionClarification?: string[];
-  // ADR-042 — operational duration/metric. `terminalKind`/`answerType` echo the backend; `duration`
+  // ADR-036 — operational duration/metric. `terminalKind`/`answerType` echo the backend; `duration`
   // carries the measured numbers rendered by <DurationAnswerBlock/> (a typed block, never markdown).
   answerType?: string;
   terminalKind?: string;
@@ -147,7 +147,7 @@ function ThinkingIndicator() {
 const AGENT_STANCE =
   "Faça perguntas sobre a referência, a jornada de validação e os artefactos técnicos. Os motores verificam. A evidência prova. A autoridade competente decide.";
 
-// ADR-042 — format a millisecond count for display: ≥1000ms → seconds with a PT decimal comma
+// ADR-036 — format a millisecond count for display: ≥1000ms → seconds with a PT decimal comma
 // ("12,8 s"); below that → whole milliseconds ("640 ms"). Returns null for an absent value so the
 // caller renders nothing (the UI only ever shows numbers the backend actually measured).
 function fmtMs(ms: number | null | undefined): string | null {
@@ -156,7 +156,7 @@ function fmtMs(ms: number | null | undefined): string | null {
   return `${Math.round(ms)} ms`;
 }
 
-// ADR-042 — the operational duration/metric answer, rendered as a TYPED block (not markdown, because
+// ADR-036 — the operational duration/metric answer, rendered as a TYPED block (not markdown, because
 // SafeMarkdown drops tables/headings). It renders ONLY the values present in `duration`; it never
 // invents or hardcodes a number. A single run (measureType "observação") reads as one observation —
 // never an average — so both the summary and the per-step lines drop aggregate wording in that case.
@@ -333,10 +333,10 @@ function RfcPanel({ onAsk }: { onAsk: (t: string) => void }) {
   );
 }
 
-// M2.19G.4 (ADR-042 D-070-04/05) — the contextual inspector trail. Shows WHERE you are among the
+// M2.19G.4 (ADR-036/05) — the contextual inspector trail. Shows WHERE you are among the
 // navigable contexts (global → operador → implementação) and lets you move up. It labels the surface with
 // the word "contexto" exclusively: a context is a NAVIGATION position, distinct from the ecosystem's three
-// architectural strata (ADR-003..063) and from the L0–L4 conformance profiles (ADR-034..066), which this
+// architectural strata (ADR-004..063) and from the L0–L4 conformance profiles (ADR-032..066), which this
 // trail never names. Each crumb is a real /banzai route (closed slug), so browser back/forward and the
 // crumbs agree.
 function BanzaiContextTrail({
@@ -394,13 +394,13 @@ export function BanzaiAgent({
   runtimeStrip,
 }: {
   routeState: BanzaiState;
-  // ADR-042 D-076-10 — the runtime-truth strip (server component from app/banzai/layout.tsx reading
+  // ADR-036 — the runtime-truth strip (server component from app/banzai/layout.tsx reading
   // GET /banzai/runtime, fail-safe). Rendered as an inert node in the sidebar ESTADO slot; it replaces
   // the former static green badges + hardcoded "Pré-produção…" literal so displayed runtime/provider
   // state derives from the SSOT, exactly as /referencia/banzai does.
   runtimeStrip?: React.ReactNode;
 }) {
-  // ONE shell, always mounted by app/banzai/layout.tsx (ADR-042). `routeState` is the server-resolved
+  // ONE shell, always mounted by app/banzai/layout.tsx (ADR-036). `routeState` is the server-resolved
   // state of the CURRENT route segment (global → operator → implementation), pushed here by the segment's
   // <BanzaiRouteBinder>. `mode` selects "ask" / "validation" / "onboarding"; the operator/implementation
   // CONTEXTS are real route segments that seed the validation session below. The shell reflects route
@@ -424,7 +424,7 @@ export function BanzaiAgent({
   const [resultsView, setResultsView] = useState<ResultsSubView>("resumo");
   const openResults = (v: ResultsSubView) => { setResultsView(v); setMode("ask"); setActiveTool("resultados"); };
 
-  // ── Navigable contexts (ADR-042) — real /banzai route segments, closed slugs only ─────────────
+  // ── Navigable contexts (ADR-036) — real /banzai route segments, closed slugs only ─────────────
   // Canonical path for a context. Global ask/onboarding stay at /banzai (+ ?mode=); the operator and
   // implementation contexts are addressable segments. Never a caller-supplied URL — the ids are the
   // session's own closed-slug ids (already registry-resolved).
@@ -518,7 +518,7 @@ export function BanzaiAgent({
     };
   }, []);
 
-  // ADR-042 — reflect the route segment's MODE/VIEW onto the shell. Keyed on mode/view only, so it never
+  // ADR-036 — reflect the route segment's MODE/VIEW onto the shell. Keyed on mode/view only, so it never
   // clobbers an in-shell panel switch (openResults, askInChat) that leaves the URL unchanged. Browser
   // back/forward re-renders the segment page → the binder pushes a new routeState → this fires.
   useEffect(() => {
@@ -526,9 +526,9 @@ export function BanzaiAgent({
     if (routeState.view === "guia") setActiveTool("guia");
   }, [routeState.mode, routeState.view]);
 
-  // ADR-042 — seed the validation session from an operator/implementation CONTEXT segment. Retried when
+  // ADR-036 — seed the validation session from an operator/implementation CONTEXT segment. Retried when
   // the closed registry finishes loading (validation.operators dep) so a fresh deep link resolves once the
-  // list is in. selectTarget ignores off-registry ids → the shell honestly falls back (D-070-03). The
+  // list is in. selectTarget ignores off-registry ids → the shell honestly falls back. The
   // guard reads the live selection to stay idempotent; excluded from deps deliberately.
   useEffect(() => {
     if (routeState.context === "global" || !routeState.initialOperatorId) return;
@@ -540,7 +540,7 @@ export function BanzaiAgent({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [routeState.context, routeState.initialOperatorId, routeState.initialImplementationId, validation.operators]);
 
-  // ADR-042 — reflect an in-shell Fase-0 SELECTION back into the URL as the canonical context segment, so
+  // ADR-036 — reflect an in-shell Fase-0 SELECTION back into the URL as the canonical context segment, so
   // the operator/implementation becomes addressable and back/forward moves between contexts. Only in
   // validation mode, and only when the URL is not already the canonical path (prevents a navigation loop
   // with the seed effect above). Never a caller-supplied URL — the path is built from the session's own
@@ -644,7 +644,7 @@ export function BanzaiAgent({
   // Cancel the in-flight streamed query — aborts the fetch so the server frees its inference-queue slot.
   const cancelAsk = () => abortRef.current?.abort();
 
-  // F5 / ADR-042 CD-9 — the runtime-truth engine label + status dot. Derived from the last observed /ask
+  // F5 / ADR-036 CD-9 — the runtime-truth engine label + status dot. Derived from the last observed /ask
   // telemetry; the pre-response state is the configured default, honestly marked "por omissão". A
   // confirmed local run shows "· confirmado"; an (unexpected) external call, a degraded state, or an
   // unreported engine are each surfaced honestly rather than hidden — and NEVER collapse to a hardcoded
@@ -738,7 +738,7 @@ export function BanzaiAgent({
     );
   };
 
-  // A "Modos" button (Perguntar / Validar operador / Onboarding). Switching mode navigates (ADR-042):
+  // A "Modos" button (Perguntar / Validar operador / Onboarding). Switching mode navigates (ADR-036):
   // "validation" lands on the selected context segment when one exists; the others stay at /banzai (+?mode=).
   const renderMode = (m: (typeof MODES)[number], collapsed = false) => {
     const active = mode === m.mode;
@@ -876,7 +876,7 @@ export function BanzaiAgent({
           {sidebarDivider("MODOS")}
           {MODES.map((m) => renderMode(m, railCollapsed))}
 
-          {/* ADR-042 — the 9-step journey group appears only when a validation is ACTIVE (an operator +
+          {/* ADR-036 — the 9-step journey group appears only when a validation is ACTIVE (an operator +
               one of its published implementations are selected and resolved against the registry:
               validation.ready), not merely because validation mode is selected. Hidden in the collapsed
               icon strip (expand to see the step spine). Before a selection, Fase 0 owns the workspace. */}
@@ -985,7 +985,7 @@ export function BanzaiAgent({
                       <div className="max-w-[84%] flex-1">
                         {ai && m.kind && m.kind !== "answer" && (
                           <div className="mb-[7px]">
-                            {/* ADR-042 — an operational answer keys the badge on terminalKind FIRST so a
+                            {/* ADR-036 — an operational answer keys the badge on terminalKind FIRST so a
                                 measurement reads "MEDIÇÃO OPERACIONAL" and a no-data outcome reads "SEM
                                 MEDIÇÕES SUFICIENTES" — never the generic "EVIDÊNCIA INSUFICIENTE". */}
                             <span className={`inline-flex items-center gap-1.5 rounded-full px-[10px] py-[3px] font-mono text-[10px] tracking-[0.06em] ${
@@ -1019,7 +1019,7 @@ export function BanzaiAgent({
                           ) : (
                             <p className="m-0 whitespace-pre-wrap text-[14.5px] leading-[1.68] text-ink-2">{m.text}</p>
                           )}
-                          {/* ADR-042 — the measured numbers as a typed block (SafeMarkdown drops tables,
+                          {/* ADR-036 — the measured numbers as a typed block (SafeMarkdown drops tables,
                               so per-step MUST render here). Shown only when the backend sent duration. */}
                           {ai && m.duration && <DurationAnswerBlock duration={m.duration} />}
                           {ai && m.limits && m.limits.length > 0 && (
@@ -1250,7 +1250,7 @@ export function BanzaiAgent({
           </div>
         </section>
 
-        {/* ADR-042 D-076-10 — runtime/provider state is DERIVED from the runtime SSOT (GET /banzai/runtime),
+        {/* ADR-036 — runtime/provider state is DERIVED from the runtime SSOT (GET /banzai/runtime),
             not asserted by static green pills. The strip (server component, ISR + fail-safe) states its
             source, shows the live projection or an honest "estado não confirmado" fallback, and never
             presents last-known state as current. Replaces the former hardcoded BADGES + "Pré-produção…". */}

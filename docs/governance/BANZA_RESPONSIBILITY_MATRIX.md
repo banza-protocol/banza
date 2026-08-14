@@ -4,11 +4,11 @@
 > BanzAI orienta; o Qwen explica uma vez; a Banzami opera o scheme; o regulador autoriza; os participantes
 > prestam os serviços. Cada responsabilidade pertence a um actor e a uma camada — Certificação Técnica ≠
 > Admissão ao Scheme ≠ Autorização Regulatória; BANZA ≠ Banzami; Registo Técnico ≠ Directório de
-> Participantes (ADR-003/060/061/062/063).
+> Participantes (ADR-004/060/061/062/063).
 
 This matrix fixes **who is responsible for what** across the three layers, the BanzAI interface, the
 regulator and the participants. It is the reference when a responsibility is unclear or is being attributed
-to the wrong actor. It does not add any authority: it records the separations that ADR-003..063 already
+to the wrong actor. It does not add any authority: it records the separations that ADR-004..063 already
 decide.
 
 ---
@@ -53,14 +53,14 @@ informed · **—** = no role. Read each row as "who does this".
 
 - **Certification (L2) ≠ Admission (L3) ≠ Authorisation (regulator).** Three different rows, three different
   accountable actors: Rust decides certification; Banzami decides scheme admission; the regulator grants
-  authorisation. No actor spans them (ADR-004, ADR-005).
+  authorisation. No actor spans them (ADR-005, ADR-007).
 - **Registry (L2) ≠ Participant Directory (L3).** The registry publishes technical facts (Registry
   accountable); the participant directory belongs to the scheme (Banzami accountable). Public verification
-  needs neither a scheme account nor a Banzami credential (ADR-006 D-060-06, ADR-007 D-063-06).
+  needs neither a scheme account nor a Banzami credential (ADR-006, ADR-006).
 - **BANZA ≠ Banzami.** BANZA (Governance + Rust + Registry + BanzAI) never holds or moves funds, never
-  settles and never authorises; those rows are the regulator's and the participants' (ADR-003 D-059-01).
+  settles and never authorises; those rows are the regulator's and the participants' (ADR-004).
 - **Rust decides; Qwen explains.** Every "decide/evaluate/publish" row is Rust (or Registry after Rust
-  validation); every "explain" row is Qwen, which is never accountable for a decision (ADR-043/059).
+  validation); every "explain" row is Qwen, which is never accountable for a decision (ADR-038/059).
 
 ---
 
@@ -72,7 +72,7 @@ informed · **—** = no role. Read each row as "who does this".
 | **Rust engines** | Explaining to humans as authority (that is orientation), authorising real money, or converting a FAIL to a PASS. |
 | **Registry** | Deciding verdicts (it publishes what Rust decided), or listing scheme participants (that is the directory). |
 | **BanzAI / Qwen** | Deciding, certifying, admitting, publishing, activating funds, or changing a state/reason code. |
-| **Banzami (L3)** | Being BANZA, granting itself certification, self-privileging its implementation, or presenting itself as already authorised (ADR-007, ADR-005). |
+| **Banzami (L3)** | Being BANZA, granting itself certification, self-privileging its implementation, or presenting itself as already authorised (ADR-006, ADR-007). |
 | **Regulator** | Defining the protocol or deciding technical certification (that is Governance + Rust). |
 | **Participants** | Certifying themselves or authorising themselves; they implement the protocol and provide services under their own authorisation. |
 
@@ -80,9 +80,9 @@ informed · **—** = no role. Read each row as "who does this".
 
 ## References
 
-- ADR-003 (three-layer architecture; authority rule D-059-05; separation D-059-06), ADR-006 (Banzami
-  Operational Scheme), ADR-004 (certification ≠ admission ≠ authorisation), ADR-005 (regulatory-state +
-  real-money gate), ADR-007 (conflict of interest + separation)
-- ADR-043 (Rust-first engines), ADR-027 (open trust model without CA), ADR-042 (BanzAI as primary human
+- ADR-004 (three-layer architecture; authority rule; separation), ADR-006 (Banzami
+  Operational Scheme), ADR-005 (certification ≠ admission ≠ authorisation), ADR-007 (regulatory-state +
+  real-money gate), ADR-006 (conflict of interest + separation)
+- ADR-038 (Rust-first engines), ADR-025 (open trust model without CA), ADR-036 (BanzAI as primary human
   interface)
 - `docs/governance/BANZA_SEPARATION_MATRIX.md`, `docs/governance/BANZA_CONFLICT_OF_INTEREST_POLICY.md`

@@ -4,7 +4,7 @@ info:
   version: "1.0"
   description: |
     Reference/documentary contract for BanzAI's **endpoint-originated** operator
-    validation surface (ADR-038). It is not a new financial
+    validation surface (ADR-034). It is not a new financial
     invariant — it documents the request/response shapes of the two validation
     routes and the artifact/record schemas the journey resolves and fetches.
 
@@ -14,24 +14,24 @@ info:
     the result; the Technical Registry publishes the verifiable state.**
 
     - The **operator** is the responsible entity; the **implementation** is the
-      technical system evaluated (ADR-038 §4.2/§4.3). Validating an operator
+      technical system evaluated (ADR-034). Validating an operator
       always means evaluating one of its published implementations — never the
       entity in the abstract.
     - Official validation is **endpoint-originated**: every evaluated artifact is
       obtained exclusively from the **public endpoints** of the selected
       implementation. No pasted content, uploaded file, user-supplied URL, local
       fixture, frontend mock or pre-computed result may enter the official
-      journey (ADR-038 §4.4). Upload/paste lives only in a local, non-authoritative
-      **draft** tool (ADR-038 §4.5).
+      journey (ADR-034). Upload/paste lives only in a local, non-authoritative
+      **draft** tool (ADR-034).
     - The target is resolved from the closed **BANZA Technical Registry**
       (`operator_id → implementation_id → canonical_origin → discovery`), the only
-      source of validation targets (ADR-038 §4.6).
+      source of validation targets (ADR-034).
     - The official fetch is performed by a **secure Rust artifact fetcher**
       (`engines/banza-artifact-fetcher`), never by the browser: it pins the host
       to the registry, enforces HTTPS, blocks private/loopback/link-local ranges
       and cloud metadata, forbids cross-host redirects, bounds size and time,
       validates media type and TLS, and binds each response to a hash, timestamp
-      and (where applicable) signature (ADR-038 §4.7). The no-network decision
+      and (where applicable) signature (ADR-034). The no-network decision
       engines receive already-fetched content and decide the verdict.
 
     ## Authority boundary
@@ -44,8 +44,8 @@ info:
 
     **Technical validation is not an issued certification; technical
     certification is not scheme admission nor regulatory authorisation**
-    (ADR-004). See ADR-038, ADR-036 (technical registry), ADR-035 (closed
-    certification-state machine), ADR-043 (Rust-first engines) and
+    (ADR-005). See ADR-034, ADR-033 (technical registry), ADR-032 (closed
+    certification-state machine), ADR-038 (Rust-first engines) and
     `docs/reports/SECURE_ARTIFACT_FETCHER_REPORT.md`.
 
     ## What this surface is NOT
@@ -185,7 +185,7 @@ components:
   schemas:
     ValidationStep:
       type: string
-      description: The canonical nine-step spine (ADR-038 §21). The first eight are technical; `certification` aggregates.
+      description: The canonical nine-step spine (ADR-034). The first eight are technical; `certification` aggregates.
       enum:
         - discovery
         - manifest
@@ -200,7 +200,7 @@ components:
     ResolutionReason:
       type: string
       description: |
-        Typed ineligibility / resolution-failure reason (ADR-038 §14). Presence in
+        Typed ineligibility / resolution-failure reason (ADR-034). Presence in
         the registry is not admission; a non-published / revoked / origin-less /
         incompatible / wrong-environment record is simply not an eligible target.
       enum:

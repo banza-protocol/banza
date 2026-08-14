@@ -2,8 +2,8 @@
   "_spec": "BANZA Conformance Profiles L0–L4 — Normative Registry",
   "_status": "canonical",
   "_authority": "This registry. It is the single normative definition of what each conformance profile requires. docs/governance/certification-boundary.md explains these profiles for a human reader and MUST agree with this file; where the two differ, this file governs and the prose is the defect.",
-  "_boundary": "A profile states what an implementation must satisfy to claim that level. It confers nothing: no certification, no admission, no authorisation, and no permission to operate. Levels denote conformance readiness only (ADR-039, ADR-006, ADR-004).",
-  "_derivation": "The capability, invariant and asset lists are the corrected per-level model of ADR-039. Every invariant id here exists in contracts/invariants.json; every vector and suite path here exists in conformance/. A guard enforces both, so this registry cannot drift from the material it references.",
+  "_boundary": "A profile states what an implementation must satisfy to claim that level. It confers nothing: no certification, no admission, no authorisation, and no permission to operate. Levels denote conformance readiness only (ADR-030, ADR-006, ADR-005).",
+  "_derivation": "The capability, invariant and asset lists are the corrected per-level model of ADR-030. Every invariant id here exists in contracts/invariants.json; every vector and suite path here exists in conformance/. A guard enforces both, so this registry cannot drift from the material it references.",
   "schema": "contracts/production/conformance-profiles.production.schema.json",
   "protocol_version": "1.0.0",
   "registry_version": "1.0.0",
@@ -126,7 +126,7 @@
         "Payment requests, dynamic QR or instant execution — those are L2",
         "Any federation capability — that is L3"
       ],
-      "_note": "Traceability is L1, not L2. The superseded mapping that placed it at L2 was corrected by ADR-039.",
+      "_note": "Traceability is L1, not L2. The superseded mapping that placed it at L2 was corrected by ADR-030.",
       "required_apis": [
         "contracts/openapi/activity.yaml",
         "contracts/openapi/transfers.yaml",
@@ -393,6 +393,12 @@
       "artifacts": [
         "contracts/production/conformance-profiles.production.json",
         "contracts/production/conformance-profiles.production.schema.json"
+      ]
+    },
+    "capability_specific_semantics": {
+      "reason": "These define the semantics of a CAPABILITY NO v1.0.0 PROFILE REQUIRES. An implementation that does not offer the capability is unaffected; one that does offer it is bound by these rules. Placing them in a profile would make an optional capability mandatory, which is a change to what conformance means — not a documentation fix.",
+      "artifacts": [
+        "spec/refunds.md"
       ]
     }
   },

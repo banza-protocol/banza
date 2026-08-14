@@ -56,7 +56,7 @@ done
 
 # The renderer seeds mode/view SERVER-SIDE from the route state (no flash / hydration divergence) and
 # renders the Modos switch + the recursos/resultados groups, with the validation-journey divider between
-# them. M2.19G.4 (ADR-042): the prop is `routeState` (the server-resolved state of the current context
+# them. M2.19G.4 (ADR-036): the prop is `routeState` (the server-resolved state of the current context
 # segment, pushed by the route binder), renamed from `initialState`.
 grep -qE 'useState<WbMode>\((initialState|routeState)\.mode\)' "$AGENT_TSX" \
   && ok "BanzaiAgent seeds the mode from the server-resolved route state (.mode)" \

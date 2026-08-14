@@ -5,7 +5,7 @@
 // (INV-TRACE-001 / INV-LEDGER-001 / INV-STL-001) all run in Rust. The WASM artifact
 // (`@/lib/wasm/banzai_trace`) is built from the in-monorepo `engines/banzai-trace` crate's
 // `trace_explain_json` (`wasm-pack --target web --features wasm`) and vendored here. The crate was
-// consolidated into this repo in M2.19G.6 (ADR-042) from the former banza-protocol/banzai
+// consolidated into this repo in M2.19G.6 (ADR-036) from the former banza-protocol/banzai
 // `engines/banzai-core/src/trace.rs`, so the shipped WASM now has buildable in-tree source.
 // Deterministic; no LLM, no network, no provider. This is technical evidence — it is NOT certification.
 

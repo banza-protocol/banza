@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# M2.19G.1 (ADR-038 §4.6/§4.9/§14) — closed target registry guard (§37, invariant 6).
+# M2.19G.1 (ADR-034 §4.6/§4.9/§14) — closed target registry guard (§37, invariant 6).
 #
 # Validation targets come from a CLOSED registry, never from a caller. The Rust production registry
 # (banza-target-registry production_registry()) is seeded with exactly ONE operator (operator-zero) and
@@ -22,7 +22,7 @@ UILIB=website/lib/banzaiValidation.ts
 # Fictional / placeholder operator identifiers that must never seed a registry.
 FICTIONAL='operator-a|operator-b|operator-c|sample-operator|acme|example-operator|foo-operator|test-operator|demo-bank|fake-'
 
-echo "== banzai-closed-target-registry-check (M2.19G.1 / ADR-038 §4.6/§4.9) =="
+echo "== banzai-closed-target-registry-check (M2.19G.1 / ADR-034 §4.6/§4.9) =="
 
 # ── self-test ───────────────────────────────────────────────────────────────────────────────────────
 st=0
@@ -67,4 +67,4 @@ fi
 
 echo
 if [ "$fail" -ne 0 ]; then echo "banzai-closed-target-registry-check: FAIL"; exit 1; fi
-echo "banzai-closed-target-registry-check: ✓ closed registry, operator-zero only, no fictional operators (ADR-038 §4.6/§4.9)"
+echo "banzai-closed-target-registry-check: ✓ closed registry, operator-zero only, no fictional operators (ADR-034 §4.6/§4.9)"

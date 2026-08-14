@@ -1,4 +1,4 @@
-//! Live-operator + federation conformance against the Rust SimB simulator (ADR-043, R8).
+//! Live-operator + federation conformance against the Rust SimB simulator (ADR-038, R8).
 //!
 //! This is the Rust replacement for the Python `run.py` (live-operator HTTP) and `run_fed.py`
 //! (federation) runners. It drives `banza-simb` in-process — no running operator, no network, no

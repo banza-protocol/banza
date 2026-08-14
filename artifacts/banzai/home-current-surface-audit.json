@@ -167,7 +167,7 @@
       "element": "three-layer section ('Três camadas. Uma interface.')",
       "current_text": "Eyebrow 'ARQUITECTURA · TRÊS CAMADAS'; title kept; intro 'O protocolo, a certificação técnica e o esquema operacional são camadas distintas. O BanzAI atravessa as três como interface única — não é uma quarta camada.'; L1 'BANZA · Protocolo' (body names the registo técnico), L2 'Certificação de Conformidade e Interoperabilidade', L3 'Esquema Operacional'; BanzAI band: 'BanzAI — interface única, transversal ... o Rust decide, encaminha e valida; a explicação é gerada localmente.'",
       "source_path": "website/app/page.tsx (layers section)",
-      "data_origin": "static copy (grounded in ADR-003..066)",
+      "data_origin": "static copy (grounded in ADR-004..066)",
       "treatment": "REWRITE",
       "final_text": "Eyebrow + title kept; intro 'O BANZA separa as regras do protocolo, a certificação técnica e a operação de um scheme. O BanzAI é a interface transversal de consulta e validação; não constitui uma quarta camada.'; L1 body rewritten (perfis/contratos/schemas/identidade/discovery/metadata assinada/trust/revogação/federação; not bank/PSP/wallet/operator; moves no funds); L2 body rewritten (Rust determina os resultados; estados técnicos publicáveis no Technical Registry; não é licença/admissão/autorização); L3 renamed 'Banzami Operational Scheme' (Operadora designada: Banzami; preparação regulatória em curso; pagamentos reais desactivados); BanzAI band rewritten ('Os motores Rust executam e determinam os veredictos; o Qwen apenas explica. O BanzAI não é uma camada nem uma autoridade.').",
       "notes": "Section is kept and is the last main narrative band; removes 'o Rust encaminha' and stops naming the registry as L1's primary function.",

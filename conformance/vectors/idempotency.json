@@ -1,7 +1,7 @@
 {
   "_spec": "BANZA Idempotency Conformance Vectors",
   "_status": "canonical",
-  "_authority": "spec/idempotency.md (ADR-024). Request identity digests were computed by an implementation written from the specification text, sharing no code with the BANZA engines.",
+  "_authority": "spec/idempotency.md (ADR-022). Request identity digests were computed by an implementation written from the specification text, sharing no code with the BANZA engines.",
   "_source_of_truth": "spec/idempotency.md",
   "protocol_version": "1.0.0",
   "canonicalization": "BCJ/1",

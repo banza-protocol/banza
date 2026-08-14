@@ -2,10 +2,10 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://banza.network/contracts/production/regulatory-state.production.schema.json",
   "title": "RegulatoryStateProduction",
-  "description": "Layer-3 regulatory-state artifact for a BANZA operational scheme (ADR-003 three-layer architecture, ADR-006 Banzami Operational Scheme, ADR-005 regulatory-state boundary + RealMoneyActivationGate). It records, in machine-verifiable form, the regulatory posture of a designated operator's scheme and the fail-closed baseline that keeps real money OFF until formal, applicable evidence exists. This artifact belongs to Layer 3 (the scheme), NOT to Layer 1 (the open protocol) or Layer 2 (per-implementation certification): publishing it neither authorises payment services, nor admits any participant, nor certifies any implementation. The current production baseline pins state to REGULATORY_AUTHORIZATION_IN_PROGRESS with every real-money capability fail-closed: real_money_enabled, real_wallets_enabled, real_settlement_enabled, real_participants_active and bna_approval_claimed are all const false. REGULATORY_AUTHORIZATION_IN_PROGRESS does NOT mean authorisation granted, BNA approval, a completed licence, regulatory recognition, active financial operation, permission to move funds, real settlement or active production participants. The state enum reserves the future values (NOT_STARTED, AUTHORISED_PILOT, AUTHORISED_PRODUCTION) so the same shape can describe the state machine, but this baseline schema version keeps the real_* and bna_approval_claimed flags const false — relaxing them requires a future schema version conditioned on documentary evidence, founders' authorisation and Rust validation (never TypeScript, never the model). The 'boundary' object records the frontier by assertion: not_authorised_yet, no_bna_claim_without_evidence and real_money_fail_closed are const true; banzami_presented_as_authorised, authorisation_granted, replaces_regulator and replaces_scheme are const false. State is decided in Rust by the RealMoneyActivationGate, never in TypeScript and never by the local model.",
+  "description": "Layer-3 regulatory-state artifact for a BANZA operational scheme (ADR-004 three-layer architecture, ADR-006 Banzami Operational Scheme, ADR-007 regulatory-state boundary + RealMoneyActivationGate). It records, in machine-verifiable form, the regulatory posture of a designated operator's scheme and the fail-closed baseline that keeps real money OFF until formal, applicable evidence exists. This artifact belongs to Layer 3 (the scheme), NOT to Layer 1 (the open protocol) or Layer 2 (per-implementation certification): publishing it neither authorises payment services, nor admits any participant, nor certifies any implementation. The current production baseline pins state to REGULATORY_AUTHORIZATION_IN_PROGRESS with every real-money capability fail-closed: real_money_enabled, real_wallets_enabled, real_settlement_enabled, real_participants_active and bna_approval_claimed are all const false. REGULATORY_AUTHORIZATION_IN_PROGRESS does NOT mean authorisation granted, BNA approval, a completed licence, regulatory recognition, active financial operation, permission to move funds, real settlement or active production participants. The state enum reserves the future values (NOT_STARTED, AUTHORISED_PILOT, AUTHORISED_PRODUCTION) so the same shape can describe the state machine, but this baseline schema version keeps the real_* and bna_approval_claimed flags const false — relaxing them requires a future schema version conditioned on documentary evidence, founders' authorisation and Rust validation (never TypeScript, never the model). The 'boundary' object records the frontier by assertion: not_authorised_yet, no_bna_claim_without_evidence and real_money_fail_closed are const true; banzami_presented_as_authorised, authorisation_granted, replaces_regulator and replaces_scheme are const false. State is decided in Rust by the RealMoneyActivationGate, never in TypeScript and never by the local model.",
   "_spec_version": "1.0",
   "_status": "production-baseline",
-  "_authority": "Three-Layer Institutional Architecture (ADR-003/060/062); RealMoneyActivationGate decided in Rust",
+  "_authority": "Three-Layer Institutional Architecture (ADR-004/060/062); RealMoneyActivationGate decided in Rust",
   "_boundary": "Layer-3 scheme regulatory-state, not protocol authority and not certification. Publishing this artifact does NOT authorise payment services, does NOT move/settle/hold funds, does NOT admit any scheme participant, does NOT certify any implementation and does NOT present the operator as authorised. Real funds, real wallets, real settlement and real participants stay fail-closed until formal applicable evidence exists. BANZA (Layer 1) remains an open financial protocol; BANZA != Banzami; Technical Certification (Layer 2) != Scheme Admission (Layer 3) != Regulatory Authorisation.",
 
   "type": "object",
@@ -46,7 +46,7 @@
     "real_money_enabled": {
       "type": "boolean",
       "const": false,
-      "description": "Whether real funds may flow in the scheme. Fail-closed const false at this baseline. Real money stays OFF while no formal applicable evidence exists (ADR-005)."
+      "description": "Whether real funds may flow in the scheme. Fail-closed const false at this baseline. Real money stays OFF while no formal applicable evidence exists (ADR-007)."
     },
     "real_wallets_enabled": {
       "type": "boolean",
@@ -61,12 +61,12 @@
     "real_participants_active": {
       "type": "boolean",
       "const": false,
-      "description": "Whether real scheme participants are operating. Fail-closed const false at this baseline. Operador Zero is a demonstration reference implementation, never a real scheme participant (ADR-041/053)."
+      "description": "Whether real scheme participants are operating. Fail-closed const false at this baseline. Operador Zero is a demonstration reference implementation, never a real scheme participant (ADR-035/053)."
     },
     "bna_approval_claimed": {
       "type": "boolean",
       "const": false,
-      "description": "Whether the artifact claims approval by the competent regulator. Const false: no public 'authorised / licensed / approved by the BNA' claim may be made without documentary evidence, founders' authorisation and reviewed wording — none of which exists at this baseline (ADR-006 D-060-08, ADR-005)."
+      "description": "Whether the artifact claims approval by the competent regulator. Const false: no public 'authorised / licensed / approved by the BNA' claim may be made without documentary evidence, founders' authorisation and reviewed wording — none of which exists at this baseline (ADR-006, ADR-007)."
     },
     "evidence_refs": {
       "type": "array",
@@ -120,7 +120,7 @@
         "authorisation_granted": { "const": false, "description": "No regulatory authorisation has been granted." },
         "banzami_presented_as_authorised": { "const": false, "description": "The designated operator is NOT presented, in any public surface, as already authorised, licensed or approved." },
         "replaces_regulator": { "const": false, "description": "This artifact does NOT replace or substitute the competent regulator." },
-        "replaces_scheme": { "const": false, "description": "This artifact does NOT replace a scheme's own admission/participation determination; scheme admission is separate (ADR-004)." },
+        "replaces_scheme": { "const": false, "description": "This artifact does NOT replace a scheme's own admission/participation determination; scheme admission is separate (ADR-005)." },
         "certification_is_not_admission_is_not_authorisation": { "const": true, "description": "Technical Certification (Layer 2) != Scheme Admission (Layer 3) != Regulatory Authorisation. Publishing this state neither certifies an implementation nor admits a participant." }
       }
     }

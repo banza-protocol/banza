@@ -3,7 +3,7 @@
   "$id": "https://banza.network/contracts/proofs/verification-response.schema.json",
   "_spec": "BANZA Transaction Proof — Public Verification Response v1.0",
   "_status": "canonical",
-  "_authority": "ADR-022",
+  "_authority": "ADR-020",
   "title": "VerificationResponse",
   "description": "The minimal, safe payload an operator's public verification API returns for a proof_reference. Exposes only non-sensitive data. No operator branding in the protocol.",
   "type": "object",

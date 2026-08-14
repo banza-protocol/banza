@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# make banzai-local-inference-check — ADR-042 guard.
+# make banzai-local-inference-check — ADR-036 guard.
 #
 # Enforces the BanzAI local Qwen inference invariants:
 #   - NO GGUF model file is committed to Git; models/ + *.gguf are git-ignored.
@@ -12,7 +12,7 @@
 #   - The Rust control engine (prompt + validator) exists (Rust owns prompt/validation/fallback).
 #   - Docs state Qwen is NOT normative; no affirmative "model is normative/decides" claim leaks in.
 #   - The healthcheck exposes no secrets.
-#   - The llama-local image default is DIGEST-pinned (ADR-042; no :latest / rolling :server).
+#   - The llama-local image default is DIGEST-pinned (ADR-036; no :latest / rolling :server).
 #
 # Self-testing: exits 2 if its own detectors regress (the API-key detector AND the infra
 # detectors — network membership, healthcheck binary, image pinning — are all exercised
@@ -80,7 +80,7 @@ selftest() {
 }
 selftest
 
-echo "== banzai-local-inference-check (ADR-042) =="
+echo "== banzai-local-inference-check (ADR-036) =="
 COMPOSE=infra/banza-network/compose.yml
 ENVX=infra/banza-network/.env.example
 
@@ -114,7 +114,7 @@ else
   echo "$llama_block" | grep -qiE 'no-new-privileges' && ok "llama-local sets no-new-privileges" || fail "llama-local must set no-new-privileges"
   echo "$llama_block" | grep -qE 'cap_drop' && ok "llama-local drops capabilities" || fail "llama-local must cap_drop"
   echo "$llama_block" | grep -q '/models:ro' && ok "llama-local mounts the model read-only" || fail "llama-local must mount the model read-only (./models:/models:ro)"
-  # ADR-042 (FIX-6): the image default must be DIGEST-pinned (no :latest / rolling :server),
+  # ADR-036 (FIX-6): the image default must be DIGEST-pinned (no :latest / rolling :server),
   # matching the stack's fixed-tag rule; a rolling tag could swap the runtime base silently.
   img_default="$(printf '%s\n' "$llama_block" | grep -E '^\s*image:' | sed -E 's/.*:-([^}]*)}.*/\1/;s/^[[:space:]]*image:[[:space:]]*//')"
   if image_pinned "$img_default"; then
@@ -122,7 +122,7 @@ else
   else
     fail "llama-local image default must be @sha256-pinned (no :latest / rolling :server): $img_default"
   fi
-  # ADR-042: the healthcheck must not use a binary absent from the image (wget); use curl.
+  # ADR-036: the healthcheck must not use a binary absent from the image (wget); use curl.
   # Inspect only the CMD-SHELL test command (not surrounding comments).
   hc="$(echo "$llama_block" | grep 'CMD-SHELL')"
   hc_uses "$hc" 'wget' && fail "llama-local healthcheck must not use wget (absent in the llama.cpp image)" || ok "llama-local healthcheck avoids wget"
@@ -147,26 +147,26 @@ grep -qE '^[[:space:]]*LLM_PROVIDER=local_qwen[[:space:]]*(#.*)?$' "$ENVX" && fa
 grep -qE '^[[:space:]]*BANZAI_BENCHMARK_APPROVED=true[[:space:]]*(#.*)?$' "$ENVX" && fail ".env.example must NOT ship benchmark_approved=true" || ok "benchmark not pre-approved in .env.example"
 grep -q '${LLM_PROVIDER:-mock}' "$COMPOSE" && ok "compose provider fallback is mock" || fail "compose must fall back to LLM_PROVIDER:-mock"
 
-# 6. Rust controls prompt + validation (ADR-043): the control modules exist.
+# 6. Rust controls prompt + validation (ADR-038): the control modules exist.
 [ -f engines/banzai-query-core/src/validate.rs ] && ok "Rust response validator present" || fail "engines/banzai-query-core/src/validate.rs missing"
 [ -f engines/banzai-query-core/src/prompt.rs ] && ok "Rust prompt builder present" || fail "engines/banzai-query-core/src/prompt.rs missing"
 
-# 6b. ADR-042: BanzAI never uses model reasoning mode. Rust owns the policy
+# 6b. ADR-036: BanzAI never uses model reasoning mode. Rust owns the policy
 # (disable_reasoning); the JS glue maps it to the local runtime (enable_thinking:false).
 grep -q 'disable_reasoning' engines/banzai-query-core/src/prompt.rs \
   && ok "Rust prompt declares the no-reasoning policy (disable_reasoning)" \
-  || fail "prompt.rs must declare disable_reasoning (ADR-042)"
+  || fail "prompt.rs must declare disable_reasoning (ADR-036)"
 grep -q 'enable_thinking' services/banzai-api/src/provider.js \
   && ok "local requests disable Qwen reasoning (enable_thinking:false)" \
-  || fail "provider.js must disable local Qwen reasoning (enable_thinking:false; ADR-042)"
+  || fail "provider.js must disable local Qwen reasoning (enable_thinking:false; ADR-036)"
 
-# 7. ADR-042 (runtime) + ADR-042 (latency tuning) + ADR-042 (no reasoning) exist.
-ls decisions/adr/ADR-042-*.md >/dev/null 2>&1 && ok "ADR-042 present" || fail "ADR-042 missing"
-ls decisions/adr/ADR-042-*.md >/dev/null 2>&1 && ok "ADR-042 present" || fail "ADR-042 missing"
-ls decisions/adr/ADR-042-*.md >/dev/null 2>&1 && ok "ADR-042 present" || fail "ADR-042 missing"
+# 7. ADR-036 (runtime) + ADR-036 (latency tuning) + ADR-036 (no reasoning) exist.
+ls $(ls decisions/adr/ADR-036-*.md 2>/dev/null | head -1) >/dev/null 2>&1 && ok "ADR-036 present" || fail "ADR-036 missing"
+ls $(ls decisions/adr/ADR-036-*.md 2>/dev/null | head -1) >/dev/null 2>&1 && ok "ADR-036 present" || fail "ADR-036 missing"
+ls $(ls decisions/adr/ADR-036-*.md 2>/dev/null | head -1) >/dev/null 2>&1 && ok "ADR-036 present" || fail "ADR-036 missing"
 
 # 8. Docs state the model is NOT normative — AND no affirmative "model is normative" claim leaks in.
-if grep -rqiE 'não (é|e) (fonte )?normativ|not .*normative|apenas .*camada .*(de )?linguagem|only .*language (generation )?layer' docs/banzai decisions/adr/ADR-042-*.md 2>/dev/null; then
+if grep -rqiE 'não (é|e) (fonte )?normativ|not .*normative|apenas .*camada .*(de )?linguagem|only .*language (generation )?layer' docs/banzai $(ls decisions/adr/ADR-036-*.md 2>/dev/null | head -1) 2>/dev/null; then
   ok "docs state the local model is non-normative"
 else
   fail "docs must state Qwen/the local model is NOT normative (only a language layer)"

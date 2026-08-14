@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # BANZA — execution-semantics guard (X-04 reason codes, X-05 idempotency).
 #
-# Protects the invariants established by ADR-023 and ADR-024:
+# Protects the invariants established by ADR-021 and ADR-022:
 #
 #   1. The reason-code registry and the specifications exist and are wired to the manifest.
 #   2. The published trust_status vocabulary equals what the reference engine emits — in BOTH
@@ -26,7 +26,7 @@ fail=0
 ok()  { printf '  ok: %s\n' "$1"; }
 bad() { printf '  X %s\n' "$1"; fail=1; }
 
-echo "== execution-semantics (ADR-023 reason codes, ADR-024 idempotency) =="
+echo "== execution-semantics (ADR-021 reason codes, ADR-022 idempotency) =="
 
 for f in "$REGISTRY" "$RC_SPEC" "$IDEM_SPEC" "$RC_VEC" "$IDEM_VEC"; do
   [ -f "$f" ] || bad "missing normative artifact: $f"
@@ -141,7 +141,7 @@ ex_vec = json.load(io.open('conformance/vectors/idempotency.json',
 if ex_engine != ex_vec:
     X("request-identity excluded members diverge between engine and published vectors")
 if 'signature' in ex_engine:
-    X("a signature must NOT be excluded from request identity (ADR-024 D-2, security)")
+    X("a signature must NOT be excluded from request identity (ADR-022 D-2, security)")
 if not bad:
     print("  ok: idempotency — floor %ds, %d excluded members, engine/contract/vectors agree"
           % (floor, len(ex_engine)))

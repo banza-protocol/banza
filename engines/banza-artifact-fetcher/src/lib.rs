@@ -1,7 +1,7 @@
-//! # banza-artifact-fetcher (ADR-043, ADR-038 §4.7 / §18–§20; M2.19G.1)
+//! # banza-artifact-fetcher (ADR-038, ADR-034 §4.7 / §18–§20; M2.19G.1)
 //!
 //! The **only** BANZA component that reaches operator public endpoints. It performs ALL official
-//! artifact retrieval for BanzAI's endpoint-originated operator-validation journey (ADR-038). The
+//! artifact retrieval for BanzAI's endpoint-originated operator-validation journey (ADR-034). The
 //! no-network protocol engines (`banza-operator-manifest`, `banza-trust`, `banza-conformance`,
 //! `banza-l2/l3-readiness`, `banza-evidence-bundle`, …) stay no-network: they receive already-fetched
 //! content from this component and decide the verdicts.
@@ -11,7 +11,7 @@
 //! * a **service binary** (`banza-fetcher`, axum) — `POST /fetch`, called by `banzai-api` over the
 //!   internal Docker network and never exposed via the reverse-proxy.
 //!
-//! ## SSRF policy (ADR-038 §19), each a distinct [`types::ReasonCode`]
+//! ## SSRF policy (ADR-034 §19), each a distinct [`types::ReasonCode`]
 //! HTTPS-only (no http/other schemes, no userinfo); host+port from the caller's registry input with a
 //! port allowlist (443 by default); resolve the host and validate EVERY IPv4/IPv6 against a blocklist
 //! (private, loopback, link-local, unique-local, CGNAT, cloud metadata, unspecified/broadcast/

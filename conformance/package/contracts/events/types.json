@@ -1,7 +1,7 @@
 {
   "_spec": "BANZA Internal Event Type Registry v1.0",
   "_status": "canonical",
-  "_authority": "ADR-002",
+  "_authority": "ADR-001",
   "_surface": "internal-sse",
   "_description": "Canonical registry of all event types emitted on the BANZA internal event stream (GET /events). These are protocol-level events — not webhook delivery events. See contracts/events/webhook-types.json for outbound webhook types.",
   "_source_of_truth": "This registry. Normative; not derived from any implementation.",
@@ -347,7 +347,7 @@
     {
       "type": "payment_intent.created",
       "aggregate_type": "payment_intent",
-      "description": "A PaymentIntent (ADR-014) was created — the canonical payment-initiation primitive. Payment links / QR / payment requests are surfaces of it.",
+      "description": "A PaymentIntent (ADR-015) was created — the canonical payment-initiation primitive. Payment links / QR / payment requests are surfaces of it.",
       "certification_level": 2,
       "stability": "stable",
       "payload": {
@@ -440,7 +440,7 @@
               "string",
               "null"
             ],
-            "description": "Segregated Wallet Account (ADR-019) credited by every interface; null ⇒ the payee wallet default account."
+            "description": "Segregated Wallet Account (ADR-017) credited by every interface; null ⇒ the payee wallet default account."
           },
           "amount_minor": {
             "type": [
@@ -532,7 +532,7 @@
               "string",
               "null"
             ],
-            "description": "The Wallet Account credited (ADR-019)."
+            "description": "The Wallet Account credited (ADR-017)."
           },
           "reference_type": {
             "type": [
@@ -615,7 +615,7 @@
     {
       "type": "collection.created",
       "aggregate_type": "collection",
-      "description": "A Collection (ADR-018) was created. A Collection is a composite financial obligation, never money — it holds no balance and never posts to the ledger.",
+      "description": "A Collection (ADR-016) was created. A Collection is a composite financial obligation, never money — it holds no balance and never posts to the ledger.",
       "certification_level": 2,
       "stability": "stable",
       "payload": {
@@ -710,7 +710,7 @@
     {
       "type": "collection.share.payment_requested",
       "aggregate_type": "collection_share",
-      "description": "A share was surfaced for payment: its PaymentIntent (ADR-014) and link/QR were created (PENDING -> LINK_CREATED).",
+      "description": "A share was surfaced for payment: its PaymentIntent (ADR-015) and link/QR were created (PENDING -> LINK_CREATED).",
       "certification_level": 2,
       "stability": "stable",
       "payload": {
@@ -848,7 +848,7 @@
     {
       "type": "collection.cancelled",
       "aggregate_type": "collection",
-      "description": "The owner cancelled the Collection. Unpaid shares are cancelled; PAID shares are terminal and unaffected (refunds follow ADR-020 per share).",
+      "description": "The owner cancelled the Collection. Unpaid shares are cancelled; PAID shares are terminal and unaffected (refunds follow ADR-018 per share).",
       "certification_level": 2,
       "stability": "stable",
       "payload": {

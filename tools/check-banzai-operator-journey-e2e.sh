@@ -107,7 +107,7 @@ echo "banzai-operator-journey-e2e: end-to-end coverage…"
 grep -q 'buildNavigationState' "$WRAPPER" \
   && ok "the shared navigation builder is exported" \
   || bad "$WRAPPER must export buildNavigationState — one builder for the browser and the test"
-# M2.19G.1 (ADR-038) — each step stores the SERVER-built OperationReceipt (endpoint-originated: the Rust
+# M2.19G.1 (ADR-034) — each step stores the SERVER-built OperationReceipt (endpoint-originated: the Rust
 # backend builds it from fetched content). The 9-step journey is closed end to end (Discovery →
 # Prontidão de certificação) and steps run only via the session runners.
 grep -q 'ServerOperationReceipt' "$VALJOURNEY" \
@@ -134,7 +134,7 @@ grep -q '"traces"' "$E2E_RS" && ok "the end-to-end walk covers all seven steps"
 
 # ── 2b. The adapter tone vocabulary is shared (unchanged; Model B verdicts) ─────
 # The endpoint-originated adapters still share one tone vocabulary. Model A no longer maps a tone to a
-# verdict (ADR-042 §D-076-02 — it is guidance only), so there is no `toneVerdict` in the guidance
+# verdict (ADR-036 — it is guidance only), so there is no `toneVerdict` in the guidance
 # wrapper; the shared adapter contract is still pinned here.
 echo "banzai-operator-journey-e2e: adapter tone vocabulary…"
 
@@ -145,7 +145,7 @@ TONE_FNS=$(grep -rlE '\): "pass" \| "fail"' website/lib/*.ts | wc -l | tr -d ' '
 
 # The guidance wrapper must NOT re-introduce a tone→verdict mapper: Model A does not evaluate.
 if grep -q 'export function toneVerdict' "$WRAPPER"; then
-  bad "$WRAPPER must not map a tone to a verdict — Model A is guidance only (ADR-042 §D-076-02)"
+  bad "$WRAPPER must not map a tone to a verdict — Model A is guidance only (ADR-036)"
 else
   ok "the guidance wrapper maps no tone to a verdict (guidance only)"
 fi
@@ -230,7 +230,7 @@ for (const probe of [{}, st({ guia: open() }), mixed]) {
   check(`both views send the operator to the same activity (${a})`, a === b, `card=${a} ask=${b}`);
 }
 
-// A referenced Model B FAILED verdict never becomes a positive navigation state (ADR-042 §D-076-02).
+// A referenced Model B FAILED verdict never becomes a positive navigation state (ADR-036).
 const fail = S(st({ manifest: { visited: false, technical_reference: { validation_execution_id: "x", model_b_state: "FAILED" } } }, "guia"));
 const m = fail.steps.find((x) => x.step === "manifest");
 check("a FAILED Model B reference is never a positive", m.status === "available" || m.status === "not_started", m.status);

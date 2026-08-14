@@ -10,7 +10,7 @@
 // external calls (external_model_called=false; chamadas externas: 0), nothing leaves the host. The
 // validation mode + tool panels run their own deterministic Rust/WASM validators.
 
-// M2.19G.1 (ADR-038) — the shell now has a SINGLE "Resultados" area (in-area sub-views, not separate
+// M2.19G.1 (ADR-034) — the shell now has a SINGLE "Resultados" area (in-area sub-views, not separate
 // sidebar tabs) and Recursos = Guia · Referência · Programadores. The per-analyser tabs
 // (manifest/conformidade/trust/evidence/traces/receipts) were retired: their read-only outputs
 // live under "resultados", and the paste/upload developer tooling lives under Programadores.
@@ -21,7 +21,7 @@ export type WbTab =
   | "programadores"
   | "resultados";
 
-/** The modes of the single BanzAI shell (the "Modos" sidebar group). M2.19G.3 (ADR-040) adds
+/** The modes of the single BanzAI shell (the "Modos" sidebar group). M2.19G.3 (ADR-037) adds
  *  "onboarding" — the BanzAI-hosted operator onboarding (passwordless email-OTP login, a private
  *  Candidate Registry and .well-known origin proof). */
 export type WbMode = "ask" | "validation" | "onboarding";
@@ -31,7 +31,7 @@ export type WbIcon =
 
 export const BANZAI_AGENT = {
   name: "BanzAI",
-  // M2.14I (ADR-042) — BanzAI is the primary human-operator interface of the protocol.
+  // M2.14I (ADR-036) — BanzAI is the primary human-operator interface of the protocol.
   subtitle: "Interface interactiva do protocolo · consulta, valida e orienta",
   // M2.14H — the interactive tab intro: BanzAI is the entry point, the journey is optional.
   assistantIntro:
@@ -40,7 +40,7 @@ export const BANZAI_AGENT = {
   heroText:
     "Orienta a implementação e ajuda a usar as ferramentas do protocolo BANZA.",
   boundary:
-    "BanzAI é a interface primária de trabalho entre humanos/operadores e o protocolo BANZA (ADR-042); em concreto, o agente do protocolo. Guia, simula, invoca ferramentas verificáveis e explica resultados com base em fontes oficiais — não aprova, não certifica, não licencia, não publica operadores, não movimenta fundos, não decide participação, não inventa regras e não cria decisões arquitecturais. A conformidade demonstra-se por evidência verificável.",
+    "BanzAI é a interface primária de trabalho entre humanos/operadores e o protocolo BANZA (ADR-036); em concreto, o agente do protocolo. Guia, simula, invoca ferramentas verificáveis e explica resultados com base em fontes oficiais — não aprova, não certifica, não licencia, não publica operadores, não movimenta fundos, não decide participação, não inventa regras e não cria decisões arquitecturais. A conformidade demonstra-se por evidência verificável.",
   agentBoundaryTop: "guia · invoca ferramentas · explica · não decide",
   shortPhrase: "BanzAI guia; os motores verificam; a evidência prova; a autoridade competente decide.",
   assistantPlaceholder:
@@ -70,10 +70,10 @@ export const AGENT_GUIA_TEXT =
 // of the SAME shell (same header, sidebar, workspace, context panel, session). They are NOT tabs.
 export const MODES: { mode: WbMode; icon: WbIcon; name: string }[] = [
   { mode: "ask", icon: "chat", name: "Perguntar ao BanzAI" },
-  // M2.19G.1 (ADR-038 §4.1) — the human-facing feature is "Validar operador" (the technical object
+  // M2.19G.1 (ADR-034 §4.1) — the human-facing feature is "Validar operador" (the technical object
   // evaluated remains a specific implementation published by that operator).
   { mode: "validation", icon: "medal", name: "Validar operador" },
-  // M2.19G.3 (ADR-040) — BanzAI-hosted operator onboarding: passwordless email-OTP login, a private
+  // M2.19G.3 (ADR-037) — BanzAI-hosted operator onboarding: passwordless email-OTP login, a private
   // Candidate Registry (recover a candidature), and .well-known origin proof. A candidate is never a
   // published operator, an active participant nor a certified entity.
   { mode: "onboarding", icon: "route", name: "Onboarding de operador" },
@@ -92,7 +92,7 @@ export const TAB_META: Record<WbTab, { icon: WbIcon; name: string }> = {
 
 // The sidebar tabs, grouped. "resultados" = the SINGLE validation-results area (in-area sub-views);
 // "recursos" = reference/help + developer tooling. The Repositório external link now lives inside
-// Programadores (ADR-038 § Recursos), not in the primary nav.
+// Programadores (ADR-034 § Recursos), not in the primary nav.
 export const TABS: { key: WbTab; icon: WbIcon; name: string; group: "recursos" | "resultados" }[] = [
   { key: "resultados", icon: "graph", name: "Resultados", group: "resultados" },
   { key: "guia", icon: "info", name: "Guia", group: "recursos" },
@@ -107,7 +107,7 @@ export const TABS: { key: WbTab; icon: WbIcon; name: string; group: "recursos" |
 // nav into Programadores (rendered by ProgramadoresTools).
 export const REPO_LINK = { name: "Repositório", href: "https://github.com/banza-protocol/banza" } as const;
 
-// M2.19G.1 (ADR-038 §11) — the endpoint-originated validation terminology + required intro/result copy.
+// M2.19G.1 (ADR-034 §11) — the endpoint-originated validation terminology + required intro/result copy.
 // The sidebar says "Validar operador"; the header is "Validação técnica de implementação"; results are
 // phrased as the evaluation of a specific IMPLEMENTATION published by an operator — never "operador
 // certificado/validado genericamente".
@@ -125,7 +125,7 @@ export const VALIDATION_COPY = {
     `A implementação ${impl}, publicada pelo operador ${operator}, foi avaliada para o perfil ${profile}, versão ${version}, ambiente ${environment} e âmbito indicado.`,
 } as const;
 
-// M2.19G.3 (ADR-040) — BanzAI-hosted operator onboarding copy. Onboarding is a hosted BanzAI service,
+// M2.19G.3 (ADR-037) — BanzAI-hosted operator onboarding copy. Onboarding is a hosted BanzAI service,
 // NOT a protocol rule: the email authenticates the person, the domain confirms the origin, the endpoints
 // supply the artifacts, Rust verifies. A candidate is never a published operator, an active participant
 // nor a certified entity; nothing here moves funds, grants authorisation, or admits into any scheme.
@@ -166,7 +166,7 @@ export const ONBOARDING_COPY = {
     "A sua candidatura fica guardada no Registo de Candidaturas privado. A sessão é protegida por um cookie de sessão; termine sessão para a encerrar.",
 } as const;
 
-// M2.19G.1 (ADR-038 §17) — the developer draft tool copy. A draft result is LOCAL, non-authoritative,
+// M2.19G.1 (ADR-034 §17) — the developer draft tool copy. A draft result is LOCAL, non-authoritative,
 // never evidence, never a step verdict, never Certification Readiness.
 export const DRAFT_COPY = {
   title: "Validar rascunho",
@@ -235,7 +235,7 @@ export const FORBIDDEN_PHRASES = [
 
 // ── Per-tab content (copy + clearly-marked demo/skeleton) ────────────────────
 
-// Task-oriented suggestions — broad operational duration/metric demonstrators (ADR-042), not
+// Task-oriented suggestions — broad operational duration/metric demonstrators (ADR-036), not
 // certification-as-goal. They exercise the operational telemetry answers: total journey duration,
 // the slowest step, and a run-over-run comparison. The values are always measured server-side and
 // rendered by the shell's typed duration block; these are questions, never claims.
@@ -271,11 +271,11 @@ export const EVIDENCE_CONTENT = [
 ];
 
 export const RFC_DOCS = [
-  { id: "ADR-002", title: "Hierarquia BANZA / BanzAI / Operadores", q: "Explica o ADR-002 — a hierarquia BANZA / BanzAI / Operadores" },
-  { id: "ADR-042", title: "BanzAI — interface primária", q: "Explica o ADR-042 — o BanzAI como interface primária humano-operador" },
-  { id: "ADR-039", title: "Evidência e conformidade", q: "Explica o ADR-039 — evidência e conformidade" },
-  { id: "ADR-027", title: "Confiança e chaves", q: "Explica o ADR-027 — confiança e chaves" },
-  { id: "ADR-043", title: "Rust-first para engines oficiais", q: "Explica o ADR-043 — a política Rust-first" },
+  { id: "ADR-001", title: "Hierarquia BANZA / BanzAI / Operadores", q: "Explica o ADR-001 — a hierarquia BANZA / BanzAI / Operadores" },
+  { id: "ADR-036", title: "BanzAI — interface primária", q: "Explica o ADR-036 — o BanzAI como interface primária humano-operador" },
+  { id: "ADR-030", title: "Evidência e conformidade", q: "Explica o ADR-030 — evidência e conformidade" },
+  { id: "ADR-025", title: "Confiança e chaves", q: "Explica o ADR-025 — confiança e chaves" },
+  { id: "ADR-038", title: "Rust-first para engines oficiais", q: "Explica o ADR-038 — a política Rust-first" },
   { id: "RFCs", title: "RFCs do protocolo", q: "Quais são as RFCs do protocolo BANZA?" },
 ];
 
@@ -292,7 +292,7 @@ export const PROTOCOL_MAP_NODES: { id: string; role: string; q: string }[] = [
 
 export const TRACE_FLOW = ["Pedido", "trace_id", "ledger", "obrigação", "evento", "evidência"];
 
-// Programadores — Rust-first commands (no outdated pip install; ADR-043).
+// Programadores — Rust-first commands (no outdated pip install; ADR-038).
 export const DEV_COMMANDS = [
   "banza-conformance-rs run-live",
   "banza-trust ceremony-check",

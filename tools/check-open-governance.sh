@@ -131,7 +131,7 @@ CERT_PAT='operador[es]* certificad'
 st_fail=0
 # `legacy` is real, live vocabulary in exactly two places, so the rule filters rather than bans:
 #   1. the /certificates compatibility route — a published surface that keeps answering;
-#   2. the Rust-first legacy allowlist (ADR-043) — the named set of not-yet-migrated non-Rust code.
+#   2. the Rust-first legacy allowlist (ADR-038) — the named set of not-yet-migrated non-Rust code.
 #
 # (2) clears a line ONLY when that line carries no trust vocabulary. That stops the exemption being
 # borrowed: "the legacy TypeScript certificate adapter" names a language, but it also names a
@@ -226,7 +226,7 @@ lg_allow() { # <label> <line>
 }
 lg_allow  "the /certificates route"        'doc.md:1:A rota legacy /certificates continua a responder.'
 lg_allow  "the /certificates route naming a field" 'doc.md:8:A rota legacy /certificates devolve o campo production_certificates.'
-lg_allow  "the ADR-043 legacy allowlist"   'README.md:2:UI/glue, Python is temporary legacy. A CI guard blocks new non-Rust engines.'
+lg_allow  "the ADR-038 legacy allowlist"   'README.md:2:UI/glue, Python is temporary legacy. A CI guard blocks new non-Rust engines.'
 lg_allow  "a legacy concept marked as a removal record" 'ui.tsx:9:// the legacy in-browser journey + evidence-session model was removed.'
 lg_report "legacy narrating the trust model" 'doc.md:3:O legacy trust model assentava num certificado emitido pela BANZA.'
 lg_report "a language name may not clear a trust line" 'doc.md:4:The legacy TypeScript certificate adapter is gone.'
@@ -333,11 +333,11 @@ if [ -n "$narrative" ]; then
 fi
 
 # ── Hard block: `legacy` used to narrate a trust design BANZA does not have.
-# The two live uses (the /certificates route, the ADR-043 legacy allowlist) clear via legacy_filter,
+# The two live uses (the /certificates route, the ADR-038 legacy allowlist) clear via legacy_filter,
 # which is defined next to the self-test above and pinned by its probes.
 legacy="$(grep -rniE "${GREP_EXCL[@]}" '\blegacy\b' "${SURFACES[@]}" 2>/dev/null | legacy_filter || true)"
 if [ -n "$legacy" ]; then
-  echo "NEEDS_FIX  'legacy' on a product surface. It may name the /certificates compatibility route, or the Rust-first legacy allowlist (ADR-043) on a line that carries no trust vocabulary — nothing else:"
+  echo "NEEDS_FIX  'legacy' on a product surface. It may name the /certificates compatibility route, or the Rust-first legacy allowlist (ADR-038) on a line that carries no trust vocabulary — nothing else:"
   echo "$legacy" | sed 's/^/    /'
   fail=1
 fi
@@ -360,7 +360,7 @@ fi
 
 # ── Hard block: "corpus" / public "KB" anywhere in public UI/content ──
 # website/content/decisions/ is the rendered ADR/RFC decision-record mirror (developer-facing technical
-# decisions, byte-copied from decisions/adr|rfc); technical ADRs legitimately use "corpus" (e.g. ADR-042/056
+# decisions, byte-copied from decisions/adr|rfc); technical ADRs legitimately use "corpus" (e.g. ADR-036/056
 # "canonical corpus"). The marketing-token block targets user-facing product copy, not verbatim ADR text.
 for pat in '\bcorpus\b' '\bKB\b'; do
   hits="$(grep -rnE --exclude-dir=decisions "${GREP_EXCL[@]}" "$pat" website/content website/app website/components 2>/dev/null | grep -viE 'CORPUS_HASH|load_corpus|toContain|//|/\*' || true)"

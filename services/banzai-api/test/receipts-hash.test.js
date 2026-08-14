@@ -1,4 +1,4 @@
-// Unit tests for the canonical-JSON hashing of the durable receipt store (ADR-042 §D-076-08).
+// Unit tests for the canonical-JSON hashing of the durable receipt store (ADR-036).
 // No DB required — pure functions.
 
 import { test } from "node:test";

@@ -12,9 +12,9 @@
 
 Este documento é subordinado a esta decisão. Nenhuma secção pode ser lida como contradizendo-a.
 
-Origem normativa: [ADR-027](../../decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md),
-[ADR-033](../../decisions/adr/ADR-033-operator-self-publication-and-machine-verifiable-conformance.md),
-[ADR-031](../../decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md).
+Origem normativa: [ADR-025](../../decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md),
+[ADR-031](../../decisions/adr/ADR-031-operator-self-publication-and-machine-verifiable-conformance.md),
+[ADR-025](../../decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md).
 Por [ADR-001](../../decisions/adr/ADR-001-open-financial-protocol-what-banza-is-and-is-not.md) (protocol-first), o
 modelo nasce num ADR antes de qualquer especificação, prosa ou página pública.
 
@@ -36,7 +36,7 @@ pedir autorização a ninguém.
 | `Conformance Evidence` | Resultado determinístico da `Conformance Automation` sobre vetores públicos, assinado pelo operador, ligado por hashes ao manifest e ao `Evidence Bundle` | Não é estatuto atribuído, não é permanente, não é juízo sobre a entidade |
 | `Signed Protocol Metadata` | Fixa quais as versões, schemas e vetores genuínos, e os seus digests — autentica a régua da medição | Não diz nada sobre nenhum operador |
 | `Public Protocol Registry` | Índice público, verificável e replicável de manifests e evidência já auto-publicados | Não é lista de aprovação, não é whitelist, não é lista de licenças. Ver [PUBLIC_PROTOCOL_REGISTRY.md](./PUBLIC_PROTOCOL_REGISTRY.md) |
-| `Trust Root` | Assina apenas o Manifesto de Chaves que endossa as chaves delegadas; os metadados do protocolo, as releases e as revogações são assinados por essas chaves delegadas, nunca pela raiz (INV-ROOT-004; ADR-027). Custódia por limiar, uso offline e auditável | Não autoriza operadores, não emite licença, não autoriza pagamentos, não movimenta fundos |
+| `Trust Root` | Assina apenas o Manifesto de Chaves que endossa as chaves delegadas; os metadados do protocolo, as releases e as revogações são assinados por essas chaves delegadas, nunca pela raiz (INV-ROOT-004; ADR-025). Custódia por limiar, uso offline e auditável | Não autoriza operadores, não emite licença, não autoriza pagamentos, não movimenta fundos |
 | `Delegated Signing Keys` | Chaves operacionais com âmbito limitado e validade limitada, endossadas por metadados assinados pela raiz | Não conferem estatuto a implementações |
 | `Revocation List` | Mecanismo de segurança sobre material criptográfico comprometido ou retirado | Não é licença, não é sanção regulatória, não é juízo sobre conduta |
 | Fail-closed | Postura de segurança: material em falta, inválido, expirado, revogado ou incompatível ⇒ não há interoperação | Não é veredicto sobre a legalidade, os direitos ou a conduta de ninguém |
@@ -173,9 +173,9 @@ Estado actual, verificável directamente nas rotas públicas: `/operators` = `[]
 
 ## Referências
 
-- [ADR-027](../../decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md) — modelo de confiança do protocolo aberto
-- [ADR-033](../../decisions/adr/ADR-033-operator-self-publication-and-machine-verifiable-conformance.md) — auto-publicação e conformidade verificável por máquina
-- [ADR-031](../../decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md) — avaliação de confiança de federação
+- [ADR-025](../../decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md) — modelo de confiança do protocolo aberto
+- [ADR-031](../../decisions/adr/ADR-031-operator-self-publication-and-machine-verifiable-conformance.md) — auto-publicação e conformidade verificável por máquina
+- [ADR-025](../../decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md) — avaliação de confiança de federação
 - [PUBLIC_PROTOCOL_REGISTRY.md](./PUBLIC_PROTOCOL_REGISTRY.md) — o índice público verificável
 - [OPEN_PROTOCOL_GOVERNANCE.md](./OPEN_PROTOCOL_GOVERNANCE.md) — governação do protocolo aberto (canónico)
 - [OPEN_PROTOCOL_ARCHITECTURE.md](./OPEN_PROTOCOL_ARCHITECTURE.md) — versões e regras de compatibilidade

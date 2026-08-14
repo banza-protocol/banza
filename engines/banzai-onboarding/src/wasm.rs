@@ -1,4 +1,4 @@
-//! WASM (nodejs) exports for the onboarding security engine (ADR-040, M2.19G.3).
+//! WASM (nodejs) exports for the onboarding security engine (ADR-037, M2.19G.3).
 //!
 //! JSON-in/JSON-out over the native library; every OTP/session/candidate/origin/rate-limit decision is
 //! computed in Rust (see `crate`). Compiled only under the `wasm` feature; native builds exercise the

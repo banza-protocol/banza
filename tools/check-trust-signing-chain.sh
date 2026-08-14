@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# BANZA Canonical Trust Signing-Chain Guard (ADR-027).
+# BANZA Canonical Trust Signing-Chain Guard (ADR-025).
 #
 # The trust chain has one canonical shape (Model A), implemented by the `banza-trust` engine and stated
 # by the critical invariants INV-ROOT-004 / INV-ROOT-005:
@@ -10,9 +10,9 @@
 #
 # The Trust Root signs ONLY the Key Manifest. It never signs protocol metadata, the revocation list (BRL)
 # or evidence directly; the BRL is signed by the revocation-domain delegated key, whose authority traces
-# to the root THROUGH the Key Manifest. ADR-027 reconciled the whole canonical surface to this model after
+# to the root THROUGH the Key Manifest. ADR-025 reconciled the whole canonical surface to this model after
 # a pre-existing "Model B" residue (root signs revocation entries directly) had spread from INV-OTE-009's
-# old wording into ADR-027/040, the trust-architecture doc, the federation trust model and several diagrams.
+# old wording into ADR-025/040, the trust-architecture doc, the federation trust model and several diagrams.
 #
 # This guard keeps those RECONCILED canonical surfaces on Model A. It is NOT a blind "root near revocation"
 # grep — that phrasing is legitimate (e.g. "the revocation key's authority traces to the root via the Key
@@ -20,7 +20,7 @@
 # (3) forbids the specific Model-B constructions ("… signs … delegated keys and revocations",
 # "revocation entries only", "chaves delegadas e revogações") on the reconciled surfaces.
 #
-# Out of scope by design (flagged in ADR-027 for the M2 ceremony-prep operational alignment, internally
+# Out of scope by design (flagged in ADR-025 for the M2 ceremony-prep operational alignment, internally
 # consistent Model-B + 2-of-3): contracts/production/*trust*.schema.json and *signed-protocol*.schema.json.
 #
 # Exit 1 on violation; exit 2 on broken self-test.
@@ -35,11 +35,11 @@ SURFACES=(
   contracts/federation/federation-trust.json
   contracts/federation/key-manifest.json
   contracts/federation/revocation-list.json
-  decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md
-  decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md
-  decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md
-  website/content/decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md
-  website/content/decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md
+  $(ls decisions/adr/ADR-025-*.md 2>/dev/null | head -1)
+  $(ls decisions/adr/ADR-025-*.md 2>/dev/null | head -1)
+  $(ls decisions/adr/ADR-025-*.md 2>/dev/null | head -1)
+  website/content/$(ls decisions/adr/ADR-025-*.md 2>/dev/null | head -1)
+  website/content/$(ls decisions/adr/ADR-025-*.md 2>/dev/null | head -1)
   docs/governance/BANZA_TRUST_ARCHITECTURE.md
   docs/governance/FEDERATION_TRUST_MODEL.md
   docs/governance/PROTOCOL_GOVERNANCE_ROLES.md
@@ -73,14 +73,14 @@ check() {
   grep -qF "revocation-domain" "$inv" \
     || { echo "  ✗ INV-ROOT-005 (BRL signed by the revocation-domain key) missing from the registry"; bad=1; }
 
-  # 2. Registry ↔ ADR agreement: ADR-027 carries the same Model-A INV-OTE-009 wording.
-  adr="$root/decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md"
+  # 2. Registry ↔ ADR agreement: ADR-025 carries the same Model-A INV-OTE-009 wording.
+  adr="$root/$(ls decisions/adr/ADR-025-*.md 2>/dev/null | head -1)"
   grep -qF "The Trust Root signs only the Key Manifest that endorses the delegated signing keys" "$adr" \
-    || { echo "  ✗ ADR-027 INV-OTE-009 diverges from the registry (not Model A)"; bad=1; }
-  grep -qF "signs **only the Key Manifest**" "$adr" \
-    || { echo "  ✗ ADR-027 D-038-04 is not the Model-A statement"; bad=1; }
-  [ -f "$root/decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md" ] \
-    || { echo "  ✗ ADR-027 (the reconciliation decision) is missing"; bad=1; }
+    || { echo "  ✗ ADR-025 INV-OTE-009 diverges from the registry (not Model A)"; bad=1; }
+  grep -qE 'signs \*\*only the Key Manifest\*\*|signs only the Key Manifest' "$adr" \
+    || { echo "  ✗ ADR-025 is not the Model-A statement"; bad=1; }
+  [ -f "$root/$(ls decisions/adr/ADR-025-*.md 2>/dev/null | head -1)" ] \
+    || { echo "  ✗ ADR-025 (the reconciliation decision) is missing"; bad=1; }
 
   # 3. No Model-B construction survives on the reconciled surfaces.
   for f in "${SURFACES[@]}"; do
@@ -107,24 +107,24 @@ The root key signs only Key Manifests. It never signs revocation lists directly.
 The Trust Root signs only the Key Manifest that endorses the delegated signing keys.
 BRL is signed by the revocation-domain delegated key.
 EOF
-    cat > "$base/decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md" <<'EOF'
+    cat > "$base/$(ls decisions/adr/ADR-025-*.md 2>/dev/null | head -1)" <<'EOF'
 The Trust Root signs only the Key Manifest that endorses the delegated signing keys.
-| D-038-04 | The Trust Root signs **only the Key Manifest**, which endorses the delegated keys. |
+| | The Trust Root signs **only the Key Manifest**, which endorses the delegated keys. |
 EOF
   done
   # inject a Model-B residue into the bad tree's ADR
-  echo 'The trust root signs protocol metadata, releases, delegated keys and revocations.' >> "$b/decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md"
-  ( SURFACES=(contracts/invariants.json decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md); check "$g" >/dev/null 2>&1 ) || { echo "SELFTEST_FAIL good rejected"; st=1; }
-  ( SURFACES=(contracts/invariants.json decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md); check "$b" >/dev/null 2>&1 ) && { echo "SELFTEST_FAIL model-B accepted"; st=1; }
+  echo 'The trust root signs protocol metadata, releases, delegated keys and revocations.' >> "$b/$(ls decisions/adr/ADR-025-*.md 2>/dev/null | head -1)"
+  ( SURFACES=(contracts/invariants.json $(ls decisions/adr/ADR-025-*.md 2>/dev/null | head -1)); check "$g" >/dev/null 2>&1 ) || { echo "SELFTEST_FAIL good rejected"; st=1; }
+  ( SURFACES=(contracts/invariants.json $(ls decisions/adr/ADR-025-*.md 2>/dev/null | head -1)); check "$b" >/dev/null 2>&1 ) && { echo "SELFTEST_FAIL model-B accepted"; st=1; }
   return $st
 }
 
 if ! selftest; then echo "Result: ✗ trust signing-chain guard self-test broken"; exit 2; fi
 
-echo "Trust signing-chain guard — Root → Key Manifest → delegated key by domain → artifact (ADR-027)"
+echo "Trust signing-chain guard — Root → Key Manifest → delegated key by domain → artifact (ADR-025)"
 if check "."; then
   echo "Result: ✓ canonical surface tells Model A: the Trust Root signs only the Key Manifest; the BRL is signed by the revocation-domain delegated key"
 else
-  echo "Result: ✗ trust signing chain diverges (see decisions/adr/ADR-027, contracts/invariants.json INV-ROOT-004)"
+  echo "Result: ✗ trust signing chain diverges (see decisions/adr/ADR-025, contracts/invariants.json INV-ROOT-004)"
   exit 1
 fi

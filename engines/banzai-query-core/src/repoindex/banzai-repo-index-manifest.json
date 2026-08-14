@@ -4,13 +4,13 @@
  "banzai_in_monorepo": true,
  "chunk_categories": {
   "banzai-runtime": 157,
-  "decision": 170,
+  "decision": 152,
   "guard-ci": 94,
   "implementation": 114,
   "infra": 45,
-  "legal-license": 12,
+  "legal-license": 16,
   "normative": 170,
-  "operator-zero": 161,
+  "operator-zero": 157,
   "report": 2,
   "security-boundary": 17,
   "website": 161
@@ -24,13 +24,13 @@
  },
  "file_categories": {
   "banzai-runtime": 111,
-  "decision": 101,
+  "decision": 81,
   "guard-ci": 91,
   "implementation": 162,
   "infra": 21,
-  "legal-license": 5,
+  "legal-license": 6,
   "normative": 175,
-  "operator-zero": 90,
+  "operator-zero": 89,
   "report": 16,
   "security-boundary": 7,
   "website": 162
@@ -56,9 +56,9 @@
   "survivors_unmodified": true
  },
  "tool_version": "banzai-repo-indexer/0.1.0",
- "total_chunks": 1103,
+ "total_chunks": 1085,
  "total_chunks_before_cap": 1103,
  "total_files_excluded": 57,
- "total_files_indexed": 941,
+ "total_files_indexed": 921,
  "total_files_scanned": 998
 }

@@ -1,17 +1,17 @@
 {
   "$id": "https://banza.network/contracts/production/validation-journey-state-machine.production.json",
   "title": "ValidationJourneyStateMachine",
-  "description": "The versioned state machine of the endpoint-originated nine-step validation journey (ADR-042 §D-076-09; ADR-038). It is the single canonical source for the per-step state model, the step graph, and the retry / invalidation / reproduction / comparison policies that the Rust engines, the banzai-api service and the BanzAI validation UI all conform to. It is DECLARATIVE and non-normative-of-verdicts: it defines how the journey advances, never what any step decides — every verdict is decided by the responsible Rust engine from artefacts fetched by banza-artifact-fetcher. Before ADR-042 this machine lived only in ADR-038 prose, engine code and a report; this artefact makes it a versioned contract.",
+  "description": "The versioned state machine of the endpoint-originated nine-step validation journey (ADR-036; ADR-034). It is the single canonical source for the per-step state model, the step graph, and the retry / invalidation / reproduction / comparison policies that the Rust engines, the banzai-api service and the BanzAI validation UI all conform to. It is DECLARATIVE and non-normative-of-verdicts: it defines how the journey advances, never what any step decides — every verdict is decided by the responsible Rust engine from artefacts fetched by banza-artifact-fetcher. Before ADR-036 this machine lived only in ADR-034 prose, engine code and a report; this artefact makes it a versioned contract.",
   "_spec_version": "1.1",
   "_status": "reference",
-  "_authority": "ADR-042 (§D-076-04 six-state model, §D-076-09 versioned state machine), ADR-039 (profile applicability model — NOT_APPLICABLE steps, readiness over REQUIRED-only), ADR-038 (endpoint-originated validation, nine-step spine §21, receipts §30/§31), ADR-043 (Rust-first engines)",
-  "_boundary": "This machine defines navigation of the technical validation journey (Model B). It never certifies, admits, authorises, or moves funds. Model A (operator-guidance) references this machine's outputs by typed id only and never originates or duplicates a technical state (ADR-042 §D-076-01/02).",
+  "_authority": "ADR-036 ( six-state model, versioned state machine), ADR-030 (profile applicability model — NOT_APPLICABLE steps, readiness over REQUIRED-only), ADR-034 (endpoint-originated validation, nine-step spine §21, receipts §30/§31), ADR-038 (Rust-first engines)",
+  "_boundary": "This machine defines navigation of the technical validation journey (Model B). It never certifies, admits, authorises, or moves funds. Model A (operator-guidance) references this machine's outputs by typed id only and never originates or duplicates a technical state (ADR-036/02).",
 
   "machine_version": "1.0.0",
 
   "states": [
-    { "id": "NOT_EVALUATED", "kind": "initial", "terminal": false, "terminal_when_not_applicable": true, "description": "The step has not been run in this execution. The default; an un-run aggregate is expressible. ADR-039: NOT_EVALUATED is ALSO the sealed terminal of a NOT_APPLICABLE step (applicability=NOT_APPLICABLE) — an out-of-scope step for the declared profile is never fetched or evaluated, so this is a legitimate terminal receipt state in that case, not a failure." },
-    { "id": "RUNNING", "kind": "transient", "terminal": false, "description": "The step is executing (fetching artefacts and/or the engine is deciding). Transient live-execution state; never sealed into a receipt (ADR-042 §D-076-04)." },
+    { "id": "NOT_EVALUATED", "kind": "initial", "terminal": false, "terminal_when_not_applicable": true, "description": "The step has not been run in this execution. The default; an un-run aggregate is expressible. ADR-030: NOT_EVALUATED is ALSO the sealed terminal of a NOT_APPLICABLE step (applicability=NOT_APPLICABLE) — an out-of-scope step for the declared profile is never fetched or evaluated, so this is a legitimate terminal receipt state in that case, not a failure." },
+    { "id": "RUNNING", "kind": "transient", "terminal": false, "description": "The step is executing (fetching artefacts and/or the engine is deciding). Transient live-execution state; never sealed into a receipt (ADR-036)." },
     { "id": "VERIFIED", "kind": "terminal", "terminal": true, "description": "The responsible Rust engine produced local technical evidence that this step's requirements are met. NOT approval or certification." },
     { "id": "PENDING", "kind": "terminal", "terminal": true, "description": "The engine could not conclude VERIFIED from what was observed (e.g. malformed or incomplete evidence, or evidence that requires another participant not yet present)." },
     { "id": "FAILED", "kind": "terminal", "terminal": true, "description": "The engine decided the step's requirements are not met by the observed artefacts." },
@@ -32,7 +32,7 @@
   ],
   "_step_graph_note": "The eight technical steps are INDEPENDENT — each fetches its own endpoints from the implementation's canonical origin and its engine decides in isolation (this is the real validate.js model, not an invented chain). The single dependency edge is the aggregation: step 9 (certification readiness) depends on all eight technical verdicts. `depends_on` therefore captures the true graph; a technical step's own BLOCKED status is a fetch/transient failure, not a cross-step block.",
 
-  "keys_trust_note": "Steps 3 (keys) and 6 (trust) both use banza-trust over the implementation's signed metadata (ADR-042 §D-076-06 records this shared engine). Step 3 evaluates key material (signature, delegated-key domain, revocation); step 6 evaluates the full Open Trust Evaluation. They are distinct journey steps with distinct receipts.",
+  "keys_trust_note": "Steps 3 (keys) and 6 (trust) both use banza-trust over the implementation's signed metadata (ADR-036 records this shared engine). Step 3 evaluates key material (signature, delegated-key domain, revocation); step 6 evaluates the full Open Trust Evaluation. They are distinct journey steps with distinct receipts.",
 
   "aggregation": {
     "step": "certification",
@@ -40,12 +40,12 @@
     "readiness_values": ["READY", "BLOCKED"],
     "certification_status": "NOT_CERTIFIED",
     "certified": false,
-    "rule": "READY only when every technical step that is REQUIRED for the target's profile is VERIFIED; otherwise BLOCKED. NOT_APPLICABLE steps (ADR-039) are excluded from the aggregate and never block it. Readiness is never CERTIFIED — aggregation is not certification (ADR-042 §D-076-06).",
-    "overall_status_derivation": "Over the technical steps that APPLY to the profile (NOT_APPLICABLE excluded, ADR-039): FAILED if any applicable step FAILED; else BLOCKED if any BLOCKED; else PENDING if any PENDING or NOT_EVALUATED; else VERIFIED."
+    "rule": "READY only when every technical step that is REQUIRED for the target's profile is VERIFIED; otherwise BLOCKED. NOT_APPLICABLE steps (ADR-030) are excluded from the aggregate and never block it. Readiness is never CERTIFIED — aggregation is not certification (ADR-036).",
+    "overall_status_derivation": "Over the technical steps that APPLY to the profile (NOT_APPLICABLE excluded, ADR-030): FAILED if any applicable step FAILED; else BLOCKED if any BLOCKED; else PENDING if any PENDING or NOT_EVALUATED; else VERIFIED."
   },
 
   "profile_applicability": {
-    "authority": "ADR-039",
+    "authority": "ADR-030",
     "engine_call": "banza-target-registry :: registry_profile_applicability_json(profile)",
     "values": ["REQUIRED", "OPTIONAL", "NOT_APPLICABLE"],
     "note": "Applicability is ORTHOGONAL to the six-state model: it decides whether a step is IN SCOPE for the declared conformance profile, not what an evaluated step decides. A NOT_APPLICABLE step is never fetched or engine-evaluated, is sealed with result.status = NOT_EVALUATED and reason code STEP_NOT_APPLICABLE_FOR_PROFILE:<profile>, is never a technical failure, and never contributes to overall_status, blocked_by, or readiness. Rust decides the map; an unknown/empty profile is conservative (every step REQUIRED).",
@@ -71,7 +71,7 @@
       "dependents_of": { "discovery": ["certification"], "manifest": ["certification"], "keys": ["certification"], "conformance": ["certification"], "interoperability": ["certification"], "trust": ["certification"], "federation": ["certification"], "evidence": ["certification"], "certification": [] }
     },
     "reproduction": {
-      "rule": "A reproduction re-runs the FULL secure pipeline (registry-resolved origin + secure fetch + DNS/IP/TLS validation + artefact fetch), then compares the newly observed artefact hashes against the pinned originals. It NEVER fetches a URL stored in a receipt directly. It creates a NEW execution (new execution_id) linked via reproduction_of; it never overwrites the original (ADR-042 §D-076-08, correction 3).",
+      "rule": "A reproduction re-runs the FULL secure pipeline (registry-resolved origin + secure fetch + DNS/IP/TLS validation + artefact fetch), then compares the newly observed artefact hashes against the pinned originals. It NEVER fetches a URL stored in a receipt directly. It creates a NEW execution (new execution_id) linked via reproduction_of; it never overwrites the original (ADR-036, correction 3).",
       "results": ["OBSERVED_INPUTS_CHANGED", "ORIGINAL_INPUTS_UNAVAILABLE", "ENGINE_VERSION_UNAVAILABLE", "REPRODUCTION_BLOCKED", "SEMANTICALLY_EQUIVALENT", "NOT_EQUIVALENT"]
     },
     "persistence": {
@@ -90,11 +90,11 @@
     { "id": "runOne", "description": "Run a single step (resolves the target, fetches, decides, seals a receipt)." },
     { "id": "runAll", "description": "Run all eight technical steps then aggregate certification." },
     { "id": "runFrom", "description": "Run from a given step in canonical order through certification." },
-    { "id": "fromFirstUnverified", "description": "Run from the first non-VERIFIED step (ADR-042 §D-076-09)." },
+    { "id": "fromFirstUnverified", "description": "Run from the first non-VERIFIED step (ADR-036)." },
     { "id": "cancel", "description": "Cancel an in-flight execution; already-sealed step receipts persist, the execution is marked cancelled." },
     { "id": "reset", "description": "Start a fresh execution; never mutates a prior sealed execution." },
-    { "id": "invalidateDependents", "description": "Mark the certification aggregate stale after a technical step re-runs (ADR-042 §D-076-09)." },
-    { "id": "reproduce", "description": "Reproduce from pinned artefact digests into a new execution (ADR-042 §D-076-08)." },
-    { "id": "compare", "description": "Compare two executions of the same implementation (ADR-042 §D-076-08)." }
+    { "id": "invalidateDependents", "description": "Mark the certification aggregate stale after a technical step re-runs (ADR-036)." },
+    { "id": "reproduce", "description": "Reproduce from pinned artefact digests into a new execution (ADR-036)." },
+    { "id": "compare", "description": "Compare two executions of the same implementation (ADR-036)." }
   ]
 }

@@ -602,11 +602,11 @@ const CASES: &[Case] = &[
         "/referencia/governacao",
     ),
     c(
-        "Explica o ADR-002.",
+        "Explica o ADR-001.",
         "adr_explanation",
         "answer",
-        "adr-002",
-        "/decisoes/adr-002",
+        "adr-001",
+        "/decisoes/adr-001",
     ),
     c(
         "Explica ADR 029.",
@@ -677,7 +677,7 @@ const CASES: &[Case] = &[
         "secrets_security",
         "answer",
         "fora do git",
-        "/decisoes/adr-029",
+        "/decisoes/adr-027",
     ),
     // fallback
     c(
@@ -805,7 +805,7 @@ fn corpus_validates_clean() {
 
 #[test]
 fn adr_number_parsing_variants() {
-    for q in ["ADR-002", "ADR 002", "adr002", "explica o adr 2"] {
+    for q in ["ADR-001", "ADR 002", "adr002", "explica o adr 2"] {
         let a = answer(q);
         assert_eq!(a.intent, "adr_explanation", "'{q}' should resolve an ADR");
     }

@@ -1,4 +1,4 @@
-// ADR-042 — operational reasoning + read-only telemetry + honest fallback.
+// ADR-036 — operational reasoning + read-only telemetry + honest fallback.
 //
 // Regression for the demonstrated failure: "Quanto tempo leva uma jornada completa de validação?" returned
 // EVIDÊNCIA INSUFICIENTE + a fixed topic list. It must now be CLASSIFIED as an operational duration

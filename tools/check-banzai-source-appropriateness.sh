@@ -34,7 +34,7 @@ const fail = (m) => { console.error(`  FAIL: ${m}`); bad++; };
 const plan = (q, s = "") => JSON.parse(kb.retrieval_plan_json(q, s));
 
 // 1. every source carries an appropriateness class+score, and ordering is appropriateness-first.
-for (const [q, s] of [["explica a ADR-002", "ADR-002"], ["qual o impacto da ADR-031 para um operador?", "ADR-031"], ["o que e a federacao?", ""]]) {
+for (const [q, s] of [["explica a ADR-001", "ADR-001"], ["qual o impacto da ADR-025 para um operador?", "ADR-025"], ["o que e a federacao?", ""]]) {
   const p = plan(q, s);
   if (!p.requested_task) fail(`plan for "${q}" missing requested_task`);
   if (!p.source_appropriateness) fail(`plan for "${q}" missing source_appropriateness class`);
@@ -50,7 +50,7 @@ for (const [q, s] of [["explica a ADR-002", "ADR-002"], ["qual o impacto da ADR-
 }
 
 // 2. documentary/narrative questions find a task-suitable source (source_appropriate = true, exact/suitable).
-for (const [q, s] of [["me explica o ADR 005", "ADR-001"], ["qual o impacto da ADR-031 para um operador?", "ADR-031"], ["o que e a federacao?", ""]]) {
+for (const [q, s] of [["me explica o ADR 005", "ADR-001"], ["qual o impacto da ADR-025 para um operador?", "ADR-025"], ["o que e a federacao?", ""]]) {
   const p = plan(q, s);
   if (!p.source_appropriate) fail(`"${q}": documentary task must be source_appropriate (class=${p.source_appropriateness})`);
   if (!["exact", "suitable"].includes(p.source_appropriateness)) fail(`"${q}": expected exact/suitable, got ${p.source_appropriateness}`);
@@ -58,8 +58,8 @@ for (const [q, s] of [["me explica o ADR 005", "ADR-001"], ["qual o impacto da A
 
 // 3. determinism — same question yields the same verdict + checksum.
 {
-  const a = plan("qual o impacto da ADR-031 para um operador?", "ADR-031");
-  const b = plan("qual o impacto da ADR-031 para um operador?", "ADR-031");
+  const a = plan("qual o impacto da ADR-025 para um operador?", "ADR-025");
+  const b = plan("qual o impacto da ADR-025 para um operador?", "ADR-025");
   if (a.source_appropriate !== b.source_appropriate || a.source_appropriateness !== b.source_appropriateness || a.checksum !== b.checksum)
     fail("source appropriateness verdict is not deterministic");
 }

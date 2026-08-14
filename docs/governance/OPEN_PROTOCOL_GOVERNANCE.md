@@ -64,7 +64,7 @@ Não existe aprovação, admissão, seleção nem juízo humano sobre implementa
 
 ---
 
-## Agente nativo do protocolo — BanzAI (ADR-042)
+## Agente nativo do protocolo — BanzAI (ADR-036)
 
 > "BANZA é um protocolo financeiro aberto acompanhado por um agente IA nativo: BanzAI. BanzAI guia operadores, simula fluxos, invoca ferramentas verificáveis, explica resultados, ajuda a corrigir falhas e prepara evidência. BanzAI não aprova, não certifica, não licencia, não decide participação, não inventa regras, não adiciona decisões arquiteturais e não substitui a Referência BANZA nem os motores determinísticos Rust/WASM."
 

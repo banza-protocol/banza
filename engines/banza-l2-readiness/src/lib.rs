@@ -2,9 +2,9 @@
 //!
 //! It aggregates the upstream readiness reports (Operator Manifest, SimB pre-review, Conformidade L0 and
 //! L1 readiness) AND validates, locally, the minimum BANZA payment-flow artifacts a candidate operator
-//! must have structured before a later technical review: a payment intent (ADR-014), idempotency handling
-//! (INV-IDEM), double-entry ledger postings (ADR-011 / INV-LEDGER), trace linkage (INV-TRACE), a
-//! settlement obligation (ADR-021) and an evidence reference. The **L2 status/readiness is computed IN
+//! must have structured before a later technical review: a payment intent (ADR-015), idempotency handling
+//! (INV-IDEM), double-entry ledger postings (ADR-012 / INV-LEDGER), trace linkage (INV-TRACE), a
+//! settlement obligation (ADR-019) and an evidence reference. The **L2 status/readiness is computed IN
 //! RUST** (never in TypeScript), together with SHA-256 hashes. Validation is **local — no network**:
 //! payment endpoints/operator URLs are never contacted.
 //!
@@ -151,7 +151,7 @@ fn l1_verdict(v: Option<&Value>) -> V {
 
 // ── payment-flow verdicts (validated here, in Rust) ───────────────────────────────────────────────
 
-/// Payment intent: canonical PaymentIntent shape (ADR-014). Needs id + currency + status, an integer
+/// Payment intent: canonical PaymentIntent shape (ADR-015). Needs id + currency + status, an integer
 /// (or null) `amount_minor`, an `idempotency_key`, and a trace handle (`trace_id` or `transfer_id`).
 fn payment_intent_verdict(v: Option<&Value>) -> (V, Vec<String>) {
     let mut errs = Vec::new();
@@ -227,7 +227,7 @@ fn idempotency_verdict(v: Option<&Value>) -> (V, Vec<String>, bool) {
     }
 }
 
-/// Ledger: double-entry, zero-sum, single currency, entries linked to a trace_id (ADR-011 / INV-LEDGER).
+/// Ledger: double-entry, zero-sum, single currency, entries linked to a trace_id (ADR-012 / INV-LEDGER).
 fn ledger_verdict(v: Option<&Value>, trace_id: Option<&str>) -> (V, Vec<String>, i128, i128) {
     let mut errs = Vec::new();
     let entries = v
@@ -336,7 +336,7 @@ fn trace_verdict(v: Option<&Value>) -> (V, Vec<String>, Option<String>) {
 }
 
 /// Settlement obligation: gross/net/fee coherent (net = gross - fee, all ≥ 0), linked to the intent
-/// (ADR-021). Amounts are integer minor units.
+/// (ADR-019). Amounts are integer minor units.
 fn settlement_verdict(v: Option<&Value>) -> (V, Vec<String>) {
     let mut errs = Vec::new();
     match v {

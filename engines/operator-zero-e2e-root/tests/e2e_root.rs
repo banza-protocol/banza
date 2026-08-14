@@ -1,4 +1,4 @@
-//! Tests for the Operador Zero E2E Demo Root (ADR-041, M2.13A). They load the COMMITTED public
+//! Tests for the Operador Zero E2E Demo Root (ADR-035, M2.13A). They load the COMMITTED public
 //! artifacts and prove — using the public key alone — that signatures verify, a tampered payload
 //! fails, revocation blocks trust fail-closed, the demo boundary holds, and no private-key material
 //! leaked. No private key exists at test time; verification is public-key-only.

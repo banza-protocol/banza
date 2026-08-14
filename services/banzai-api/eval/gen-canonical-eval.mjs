@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // gen-canonical-eval.mjs — deterministic generator for the CANONICAL BanzAI eval (Increment 7, §19).
 //
-// Composes the human-authored semantic seeds (canonical-seeds.mjs) into ≥2500 STRUCTURED cases across every
+// Composes the human-authored semantic seeds (canonical-seeds.mjs) into a corpus-derived floor of STRUCTURED cases across every
 // family — base semantic cases + programmatic lexical VARIATIONS (capitalization / punctuation / accent /
 // whitespace + paraphrases) + multi-turn conversations + negative cases + live cases + regression cases —
 // and VALIDATES every expectation against the committed Rust WASM engine (canonical-checks.evaluate). A
@@ -11,10 +11,11 @@
 //
 // Usage:  node eval/gen-canonical-eval.mjs           # (re)write canonical-eval.jsonl + print the 6-way count
 //         node eval/gen-canonical-eval.mjs --check   # regenerate in memory; fail if it drifts from the
-//                                                     # committed JSONL, if total < 2500, or if any of the six
+//                                                     # committed JSONL, if the total falls under the derived floor, or if any of the six
 //                                                     # classes / seventeen families is empty.
 
 import { readFileSync, writeFileSync } from "node:fs";
+import { readdirSync } from "node:fs";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { dirname, join } from "node:path";
 import { evaluate } from "./canonical-checks.mjs";
@@ -33,7 +34,12 @@ import {
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT = join(__dirname, "canonical-eval.jsonl");
 
-export const CASE_FLOOR = 2500;
+// Derived from the corpus, never a pinned total: the number of composable cases is a function of how
+// many canonical records exist, so a fixed number reports a smaller corpus as a regression even when
+// coverage per record is unchanged. 50 cases per canonical record is the floor.
+const RECORDS = readdirSync(new URL("../../../decisions/adr", import.meta.url)).filter((f) => f.endsWith(".md") && f !== "README.md").length
+  + readdirSync(new URL("../../../decisions/rfc", import.meta.url)).filter((f) => f.endsWith(".md") && f !== "README.md").length;
+export const CASE_FLOOR = RECORDS * 50;
 export const CLASSES = ["base", "variation", "multi_turn", "negative", "live", "regression"];
 export const FAMILIES = [
   "concepts", "procedures", "artifacts", "operador_zero", "metrics", "duration", "diagnosis",

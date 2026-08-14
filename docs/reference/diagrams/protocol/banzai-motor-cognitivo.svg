@@ -3,7 +3,7 @@
   id:        SVG-P-101
   diagram:   Processamento cognitivo de uma solicitação
   version:   1.0
-  source:    BANZA_REFERENCIA.md §12 · ADR-055 · ADR-073
+  source:    BANZA_REFERENCIA.md §12 · ADR-036 · ADR-036
   updated:   2026-08-03
   author:    BANZA Protocol
   style:     protocol
@@ -121,7 +121,7 @@
   <text x="948" y="406" text-anchor="middle" font-size="8.5" fill="#54595F">afirmações · autoridade</text>
   <text x="948" y="424" text-anchor="middle" font-size="8.5" fill="#54595F">citações · consistência</text>
   <text x="948" y="442" text-anchor="middle" font-size="8.5" fill="#54595F">limites · política · cobertura</text>
-  <text x="948" y="466" text-anchor="middle" font-size="8" fill="#6B6265">obrigatória, em Rust · ADR-073</text>
+  <text x="948" y="466" text-anchor="middle" font-size="8" fill="#6B6265">obrigatória, em Rust · ADR-036</text>
 
   <!-- Resposta citada -->
   <rect x="1094" y="356" width="180" height="128" rx="10" fill="#EAF3EC" stroke="#2E6A4E" stroke-width="2"/>
@@ -161,5 +161,5 @@
   <!-- Note -->
   <text x="660" y="656" text-anchor="middle" font-size="9.5" fill="#6B6265">O modelo é opcional e subordinado; a resposta final é sempre fundamentada e verificada em Rust. O primeiro diagrama mostra a posição; este, o motor cognitivo.</text>
 
-  <text x="660" y="728" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-101 · Processamento cognitivo de uma solicitação · BANZA_REFERENCIA.md §12 · ADR-055 · ADR-073 · v1.0 · 2026-08-03</text>
+  <text x="660" y="728" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-101 · Processamento cognitivo de uma solicitação · BANZA_REFERENCIA.md §12 · ADR-036 · ADR-036 · v1.0 · 2026-08-03</text>
 </svg>

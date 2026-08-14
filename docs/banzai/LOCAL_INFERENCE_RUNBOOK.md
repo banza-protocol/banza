@@ -1,7 +1,7 @@
 # BanzAI Local Inference Runbook
 
 Operations runbook for enabling, verifying, operating and rolling back the optional
-on-host `local_qwen` language layer for BanzAI (ADR-042, latency-tuned per ADR-042).
+on-host `local_qwen` language layer for BanzAI (ADR-036, latency-tuned per ADR-036).
 Command-oriented; for internal operators only.
 
 > BanzAI is the native, non-authoritative protocol agent. BanzAI guia; os motores
@@ -34,8 +34,8 @@ Command-oriented; for internal operators only.
 
 Related docs: [`LOCAL_QWEN_MODEL_SETUP.md`](./LOCAL_QWEN_MODEL_SETUP.md) (obtain, place and
 license the model), [`LOCAL_INFERENCE_RUNTIME.md`](./LOCAL_INFERENCE_RUNTIME.md) (runtime
-architecture), ADR-042 (local Qwen inference runtime), ADR-042 (local Qwen latency tuning) and
-ADR-042 (the 384-token default). The individual benchmark records that produced those decisions are
+architecture), ADR-036 (local Qwen inference runtime), ADR-036 (local Qwen latency tuning) and
+ADR-036 (the 384-token default). The individual benchmark records that produced those decisions are
 not kept — the decisions are.
 
 ---
@@ -84,9 +84,9 @@ LLM_MODEL=qwen3-4b               # chat model name reported to the llama.cpp ser
 # LLM_API_BASE defaults to http://llama-local:8080/v1 for local_qwen — leave unset unless overriding
 # LLM_API_KEY — leave empty/unset for local_qwen (keyless; nothing leaves the host)
 
-# --- generation limits (tuned for CPU inference — ADR-042) ---
+# --- generation limits (tuned for CPU inference — ADR-036) ---
 LLM_TIMEOUT_MS=60000             # local_qwen default (60s operational margin); 90000 only as a documented extreme fallback
-LLM_MAX_TOKENS=384               # local_qwen default (ADR-042; professional answers); 256/512 only by explicit config; hosted providers keep 800
+LLM_MAX_TOKENS=384               # local_qwen default (ADR-036; professional answers); 256/512 only by explicit config; hosted providers keep 800
 LLM_TEMPERATURE=0.2              # 0.1–0.2
 LLM_TOP_P=0.8                    # conservative sampling
 
@@ -103,7 +103,7 @@ Configure the `llama-local` container itself and turn on the profile:
 COMPOSE_PROFILES=llama-local     # set here so every compose command manages the service consistently
 
 # --- llama.cpp container ---
-LLAMA_LOCAL_IMAGE=ghcr.io/ggml-org/llama.cpp@sha256:b832a7b7252a90a79a1e8d23d9be3ac5261a33224f60682dff0cade412fa55d3   # digest-pinned (ADR-042); override only with another @sha256 pin, never a rolling tag
+LLAMA_LOCAL_IMAGE=ghcr.io/ggml-org/llama.cpp@sha256:b832a7b7252a90a79a1e8d23d9be3ac5261a33224f60682dff0cade412fa55d3   # digest-pinned (ADR-036); override only with another @sha256 pin, never a rolling tag
 LLAMA_MODEL_PATH=/models/model.gguf                    # in-container path (bind mount ./models:ro)
 LLAMA_CTX_SIZE=4096              # 8192 ONLY if the benchmark proves it stable
 LLAMA_THREADS=4
@@ -120,12 +120,12 @@ benchmark endorses it **and** `BANZAI_BENCHMARK_APPROVED=true`. Until then `mock
 default and `degraded` remains the fallback. You may still run `local_qwen` in
 opt-in/preview by setting `LLM_PROVIDER=local_qwen` explicitly.
 
-### Tuning output length and timeout (ADR-042)
+### Tuning output length and timeout (ADR-036)
 
-`local_qwen` ships CPU-tuned defaults: `LLM_MAX_TOKENS=384` (ADR-042) and `LLM_TIMEOUT_MS=60000`
+`local_qwen` ships CPU-tuned defaults: `LLM_MAX_TOKENS=384` (ADR-036) and `LLM_TIMEOUT_MS=60000`
 (60s). Hosted providers keep their own default (800 tokens). Tune within these bounds:
 
-- **`LLM_MAX_TOKENS`** — 384 is the local default (ADR-042: a professional answer budget; the VPS
+- **`LLM_MAX_TOKENS`** — 384 is the local default (ADR-036: a professional answer budget; the VPS
   XL+ benchmark showed answers finish naturally at ~84–133 tokens with headroom). Lower to `256`
   or raise to `512` **only by explicit config**; a higher cap means more CPU decode time per
   request. BanzAI answers are intentionally short (3–6 sentences) — it guides,
@@ -141,7 +141,7 @@ local inference packs **≤3 source excerpts** within a **≤2800-char context b
 prompt, ≈945 vs ≈1450 chars, to cut CPU prefill). Every invariant is preserved and **sources
 remain mandatory** — these limits trade prompt length for latency, never grounding.
 
-### Re-benchmark after tuning (ADR-042)
+### Re-benchmark after tuning (ADR-036)
 
 Any change to `LLM_MAX_TOKENS`, `LLM_TIMEOUT_MS`, `LLAMA_CTX_SIZE`, `LLAMA_THREADS` or the
 model file invalidates the prior benchmark. Re-run the VPS XL+ benchmark and record the result
@@ -179,7 +179,7 @@ local-only prime that warms the **real system-prompt prefix** (reasoning disable
 first real answer reuses the cached KV prefix. It carries no user data and no real documents and is
 not counted; set `BANZAI_WARMUP=0` to disable. `/health` reports `local_inference.warmed`.
 
-**Reasoning disabled (ADR-042).** For the local Qwen3 runtime, BanzAI disables the model's thinking
+**Reasoning disabled (ADR-036).** For the local Qwen3 runtime, BanzAI disables the model's thinking
 mode (`chat_template_kwargs.enable_thinking=false`) so the completion budget produces the
 final answer instead of `<think>` reasoning — this removes the empty-content degradation seen in
 M2.8B on cold/complex prompts. Rust owns the policy; the JS glue maps it to the local transport.
@@ -230,7 +230,7 @@ Expected fields on the `POST /ask` response:
 
 - `request_id`, `engine_state` (`local_qwen`), `inference_location`
 - `fallback` — `false` on a healthy local completion; `true` when it degraded (see §9)
-- `sources_count` — cited sources per answer; **≤3** for local inference (ADR-042 source
+- `sources_count` — cited sources per answer; **≤3** for local inference (ADR-036 source
   packing — ≤3 excerpts within a ≤2800-char budget). Sources remain mandatory.
 - `non_normative: true` — always; BanzAI never certifies or decides
 - `elapsed_ms`
@@ -316,10 +316,10 @@ Re-installing later means repeating §1–§2 (place file, re-verify checksum).
 
 If instability, excessive memory pressure or measurable impact on the other protocol
 services appears, local inference must remain **disabled or degraded** until resources or the
-model choice are revised (ADR-042 §7). Roll back per §9.
+model choice are revised (ADR-036 §7). Roll back per §9.
 
 ---
 
-**See also:** ADR-042 (BanzAI Local Qwen Inference Runtime), ADR-042 (BanzAI Local Qwen
-Latency Tuning), ADR-043 (Rust-first engines), ADR-042 (BanzAI as native protocol agent),
-ADR-026 (PostgreSQL as protocol-state store).
+**See also:** ADR-036 (BanzAI Local Qwen Inference Runtime), ADR-036 (BanzAI Local Qwen
+Latency Tuning), ADR-038 (Rust-first engines), ADR-036 (BanzAI as native protocol agent),
+ADR-013 (PostgreSQL as protocol-state store).

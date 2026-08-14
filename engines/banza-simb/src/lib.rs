@@ -1,4 +1,4 @@
-//! banza-simb (ADR-043, R8) — a local, deterministic, in-process simulator of a BANZA operator and
+//! banza-simb (ADR-038, R8) — a local, deterministic, in-process simulator of a BANZA operator and
 //! federation peer. It exists so the Rust conformance runner can execute live-operator and federation
 //! conformance **without a running operator, without a network, without funds, and without secrets**.
 //!

@@ -2,7 +2,7 @@
 
 <svg viewBox="0 0 900 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title-P108 desc-P108" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
   <title id="title-P108">Perfis de conformidade L0–L4 — âmbito técnico cumulativo</title>
-  <desc id="desc-P108">Os cinco perfis de conformidade de uma implementação BANZA, cumulativos: L0 Sandbox de Protocolo, L1 Capacidade de Pagamento Central, L2 Capacidade de Iniciação de Pagamento, L3 Interoperabilidade entre Operadores, L4 Interoperabilidade Externa. Cada perfil acrescenta capacidades técnicas verificáveis às dos perfis inferiores. A escada mede alcance técnico, não autoridade nem maturidade regulatória; os perfis de conformidade não são camadas da arquitectura (ADR-021/064).</desc>
+  <desc id="desc-P108">Os cinco perfis de conformidade de uma implementação BANZA, cumulativos: L0 Sandbox de Protocolo, L1 Capacidade de Pagamento Central, L2 Capacidade de Iniciação de Pagamento, L3 Interoperabilidade entre Operadores, L4 Interoperabilidade Externa. Cada perfil acrescenta capacidades técnicas verificáveis às dos perfis inferiores. A escada mede alcance técnico, não autoridade nem maturidade regulatória; os perfis de conformidade não são camadas da arquitectura (ADR-019/064).</desc>
   <defs>
     <linearGradient id="hG-P108" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#312E81"></stop><stop offset="100%" stop-color="#4338CA"></stop>
@@ -95,5 +95,5 @@
   <text x="28" y="476" fill="#1A1A1A" font-size="10" font-weight="600">Perfis não são camadas.</text>
   <text x="188" y="476" fill="#6B6265" font-size="10">L0–L4 descrevem uma implementação; as Camadas 1/2/3 dividem responsabilidades entre instituições (§4).</text>
   <text x="450" y="490" text-anchor="middle" fill="#8A8285" font-size="9">Não é uma escada de maturidade regulatória nem de autoridade institucional.</text>
-  <text x="450" y="506" text-anchor="middle" fill="#6B6265" font-size="10">SVG-P-108 · v1.0 · BANZA_REFERENCIA.md §7 · ADR-021/064 · 2026-08-09</text>
+  <text x="450" y="506" text-anchor="middle" fill="#6B6265" font-size="10">SVG-P-108 · v1.0 · BANZA_REFERENCIA.md §7 · ADR-019/064 · 2026-08-09</text>
 </svg>

@@ -1,4 +1,4 @@
-// Fase D — durable validation-receipt E2E (ADR-042). Deterministic, no network.
+// Fase D — durable validation-receipt E2E (ADR-036). Deterministic, no network.
 //
 // Exercises the REAL receipt store + fail-safe facade + outbox + crash-recovery + DB-enforced
 // append-only immutability against a LIVE ephemeral Postgres (spun up by run-receipts-e2e.sh).
@@ -88,7 +88,7 @@ async function raises(sql, params, wanted) {
 }
 
 async function main() {
-  console.log("== receipts-e2e (ADR-042 durable receipts, live PG) ==");
+  console.log("== receipts-e2e (ADR-036 durable receipts, live PG) ==");
   assert.equal(receipts.isEnabled(process.env), true, "store must be enabled (DATABASE_URL + flag)");
 
   // ── 1. Happy path: begin → 9 steps (last two BLOCKED/FAILED to prove non-positive persistence) ──
@@ -103,7 +103,7 @@ async function main() {
     execId = r.execution_id;
   });
 
-  await step("the RUNNING row is persisted with lifecycle=RUNNING + heartbeat (ADR-042 correction 2)", async () => {
+  await step("the RUNNING row is persisted with lifecycle=RUNNING + heartbeat (ADR-036 correction 2)", async () => {
     const row = (await query(`SELECT execution_lifecycle, overall_status, heartbeat_at, completed_at FROM validation_executions WHERE execution_id=$1`, [execId])).rows[0];
     assert.equal(row.execution_lifecycle, "RUNNING");
     assert.equal(row.overall_status, "RUNNING");
@@ -161,7 +161,7 @@ async function main() {
     assert.equal(row.overall_status, "BLOCKED");
     assert.equal(row.certification_readiness, "BLOCKED");
     assert.ok(row.completed_at, "completed_at set → frozen");
-    assert.equal(row.execution_lifecycle, "COMPLETED", "lifecycle advances to COMPLETED at finalize (ADR-042 §6)");
+    assert.equal(row.execution_lifecycle, "COMPLETED", "lifecycle advances to COMPLETED at finalize (ADR-036 §6)");
     assert.equal(row.journey_receipt_sha256, canonicalSha256(jr));
   });
 
@@ -199,7 +199,7 @@ async function main() {
     assert.equal(forged.digest_ok, false, "mismatched stored digest is flagged on read");
   });
 
-  // ── 3. DB-enforced append-only immutability (ADR-042 §D-076-08) ──
+  // ── 3. DB-enforced append-only immutability (ADR-036) ──
   await step("operation_receipts / journey_receipts / evidence_bundles / observations reject UPDATE and DELETE", async () => {
     assert.ok(await raises(`UPDATE operation_receipts SET receipt_sha256='x' WHERE execution_id=$1`, [execId], "append-only"), "op UPDATE blocked");
     assert.ok(await raises(`DELETE FROM operation_receipts WHERE execution_id=$1`, [execId], "append-only"), "op DELETE blocked");

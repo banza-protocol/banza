@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# M2.19G.1 (ADR-038 §30) — OperationReceipt origin-fields schema guard (§37, invariant 21).
+# M2.19G.1 (ADR-034 §30) — OperationReceipt origin-fields schema guard (§37, invariant 21).
 #
 # The §30 OperationReceipt schema carries the full origin field set. Both the TypeScript contract
 # (website/lib/operationReceipt.ts ServerOperationReceipt) and the server builder
@@ -21,7 +21,7 @@ VALIDATE=services/banzai-api/src/validate.js
 # §30 origin field set (endpoint of inputs bound to the verdict).
 FIELDS="receipt_version operation_id request_id workflow step operator_id implementation_id environment profile protocol_version canonical_origin endpoint resolved_host fetched_at http_status content_type content_length etag last_modified input_hash signature_status engine engine_version result reason_codes evidence_refs output_hash duration_ms qwen_calls external_model_calls protocol_fetch_count audit_ref"
 
-echo "== banzai-receipt-origin-fields-check (M2.19G.1 / ADR-038 §30) =="
+echo "== banzai-receipt-origin-fields-check (M2.19G.1 / ADR-034 §30) =="
 
 # ── self-test ───────────────────────────────────────────────────────────────────────────────────────
 st=0

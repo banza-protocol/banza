@@ -1196,9 +1196,9 @@
       "answer_head": "Não encontrei uma fonte específica para esse pedido. Posso responder, com base nas fontes "
     },
     {
-      "id": "g389-novel-ADR-011",
+      "id": "g389-novel-ADR-012",
       "stratum": "novel",
-      "q": "quais as consequências da ADR-011",
+      "q": "quais as consequências da ADR-012",
       "expect": null,
       "journey": false,
       "journey_step": null,
@@ -1216,12 +1216,12 @@
       "fallback_reason": null,
       "terminal_kind": null,
       "local_model_called": true,
-      "answer_head": "A ADR-011 introduziu um sistema de contabilidade de entrada dupla e precisão monetária em "
+      "answer_head": "A ADR-012 introduziu um sistema de contabilidade de entrada dupla e precisão monetária em "
     },
     {
-      "id": "g390-novel2-ADR-011",
+      "id": "g390-novel2-ADR-012",
       "stratum": "novel",
-      "q": "quais as consequências da ADR-011 por favor",
+      "q": "quais as consequências da ADR-012 por favor",
       "expect": null,
       "journey": false,
       "journey_step": null,
@@ -1239,7 +1239,7 @@
       "fallback_reason": null,
       "terminal_kind": null,
       "local_model_called": true,
-      "answer_head": "A ADR-011 introduziu um sistema de contabilidade de entrada dupla e precisão monetária imu"
+      "answer_head": "A ADR-012 introduziu um sistema de contabilidade de entrada dupla e precisão monetária imu"
     },
     {
       "id": "g391-novel-qr",
@@ -2527,7 +2527,7 @@
       "fallback_reason": null,
       "terminal_kind": null,
       "local_model_called": true,
-      "answer_head": "A federacao em **BANZA** é descrita em ADR-X026, que foi substituído por ADR-027 e ADR-031."
+      "answer_head": "A federacao em **BANZA** é descrita em ADR-X026, que foi substituído por ADR-025 e ADR-025."
     },
     {
       "id": "g085-federacao-impact-0",
@@ -3312,9 +3312,9 @@
       "answer_head": "Estado de ADR-001: **Accepted**."
     },
     {
-      "id": "g247-doc-lk-ADR-011",
+      "id": "g247-doc-lk-ADR-012",
       "stratum": "document-op",
-      "q": "abre a ADR-011",
+      "q": "abre a ADR-012",
       "expect": null,
       "journey": false,
       "journey_step": null,
@@ -3332,12 +3332,12 @@
       "fallback_reason": null,
       "terminal_kind": null,
       "local_model_called": false,
-      "answer_head": "**ADR-011 — Double-Entry Ledger and Monetary Precision**\n\n- **Tipo:** **ADR** · **Estado:*"
+      "answer_head": "**ADR-012 — Double-Entry Ledger and Monetary Precision**\n\n- **Tipo:** **ADR** · **Estado:*"
     },
     {
-      "id": "g248-doc-sm-ADR-011",
+      "id": "g248-doc-sm-ADR-012",
       "stratum": "document-op",
-      "q": "resume a ADR-011",
+      "q": "resume a ADR-012",
       "expect": null,
       "journey": false,
       "journey_step": null,
@@ -3355,12 +3355,12 @@
       "fallback_reason": null,
       "terminal_kind": null,
       "local_model_called": true,
-      "answer_head": "ADR-011 estabelece o uso de um sistema de livros duplos com um ledgers imutável e anexo-só"
+      "answer_head": "ADR-012 estabelece o uso de um sistema de livros duplos com um ledgers imutável e anexo-só"
     },
     {
-      "id": "g249-doc-md-ADR-011",
+      "id": "g249-doc-md-ADR-012",
       "stratum": "document-op",
-      "q": "qual o estado da ADR-011",
+      "q": "qual o estado da ADR-012",
       "expect": null,
       "journey": false,
       "journey_step": null,
@@ -3378,7 +3378,7 @@
       "fallback_reason": null,
       "terminal_kind": null,
       "local_model_called": false,
-      "answer_head": "Estado de ADR-011: **Accepted**."
+      "answer_head": "Estado de ADR-012: **Accepted**."
     },
     {
       "id": "g250-doc-lk-ADR-X026",
@@ -3424,7 +3424,7 @@
       "fallback_reason": null,
       "terminal_kind": null,
       "local_model_called": true,
-      "answer_head": "ADR-X026 foi suprimido pela ADR-027 e ADR-031 em 2026-07."
+      "answer_head": "ADR-X026 foi suprimido pela ADR-025 e ADR-025 em 2026-07."
     },
     {
       "id": "g252-doc-md-ADR-X026",
@@ -3447,12 +3447,12 @@
       "fallback_reason": null,
       "terminal_kind": null,
       "local_model_called": false,
-      "answer_head": "Estado de ADR-X026: **Superseded by ADR-027 and ADR-031 (M2.3, 2026-07)**."
+      "answer_head": "Estado de ADR-X026: **Superseded by ADR-025 and ADR-025 (M2.3, 2026-07)**."
     },
     {
-      "id": "g253-doc-lk-ADR-031",
+      "id": "g253-doc-lk-ADR-025",
       "stratum": "document-op",
-      "q": "abre a ADR-031",
+      "q": "abre a ADR-025",
       "expect": null,
       "journey": false,
       "journey_step": null,
@@ -3470,12 +3470,12 @@
       "fallback_reason": null,
       "terminal_kind": null,
       "local_model_called": false,
-      "answer_head": "**ADR-031 — Federation Trust Evaluation Without Certificates**\n\n- **Tipo:** **ADR** · **Es"
+      "answer_head": "**ADR-025 — Federation Trust Evaluation Without Certificates**\n\n- **Tipo:** **ADR** · **Es"
     },
     {
-      "id": "g254-doc-sm-ADR-031",
+      "id": "g254-doc-sm-ADR-025",
       "stratum": "document-op",
-      "q": "resume a ADR-031",
+      "q": "resume a ADR-025",
       "expect": null,
       "journey": false,
       "journey_step": null,
@@ -3493,12 +3493,12 @@
       "fallback_reason": null,
       "terminal_kind": null,
       "local_model_called": true,
-      "answer_head": "ADR-031 descreve a supressão do mecanismo de avaliação de confiança da federação sem certi"
+      "answer_head": "ADR-025 descreve a supressão do mecanismo de avaliação de confiança da federação sem certi"
     },
     {
-      "id": "g255-doc-md-ADR-031",
+      "id": "g255-doc-md-ADR-025",
       "stratum": "document-op",
-      "q": "qual o estado da ADR-031",
+      "q": "qual o estado da ADR-025",
       "expect": null,
       "journey": false,
       "journey_step": null,
@@ -3516,7 +3516,7 @@
       "fallback_reason": null,
       "terminal_kind": null,
       "local_model_called": false,
-      "answer_head": "Estado de ADR-031: **Accepted**."
+      "answer_head": "Estado de ADR-025: **Accepted**."
     },
     {
       "id": "g256-doc-lk-RFC-0006",
@@ -4464,7 +4464,7 @@
     {
       "id": "g350-mix-349",
       "stratum": "mixed",
-      "q": "compara a ADR-001 e a ADR-011 e explica o impacto",
+      "q": "compara a ADR-001 e a ADR-012 e explica o impacto",
       "expect": null,
       "journey": false,
       "journey_step": null,
@@ -4781,7 +4781,7 @@
       "fallback_reason": null,
       "terminal_kind": null,
       "local_model_called": false,
-      "answer_head": "**ADR-002 — Ecosystem Naming Inversion**\n\n- **Tipo:** **ADR** · **Estado:** Accepted · **D"
+      "answer_head": "**ADR-001 — Ecosystem Naming Inversion**\n\n- **Tipo:** **ADR** · **Estado:** Accepted · **D"
     },
     {
       "id": "journey-operator-example",

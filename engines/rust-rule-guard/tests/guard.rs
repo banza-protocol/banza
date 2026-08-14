@@ -1,4 +1,4 @@
-//! Integration tests for the Rust-first policy guard (ADR-043).
+//! Integration tests for the Rust-first policy guard (ADR-038).
 
 use rust_rule_guard::{allowlist_covers, classify, ext_of, normalize_path, Verdict};
 use std::collections::BTreeSet;

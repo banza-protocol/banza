@@ -2,7 +2,7 @@
 name = "banza-repo-guards"
 version = "0.1.0"
 edition = "2021"
-description = "banza-repo-guards (ADR-043, R10): the Rust repository-hygiene gates — repository purity, operator-brand contamination, invariant-registry integrity, and OpenAPI compatibility. Rust owns the logic; git is a data source; the old shell scripts become thin RUST_WRAPPER_ONLY wrappers."
+description = "banza-repo-guards (ADR-038, R10): the Rust repository-hygiene gates — repository purity, operator-brand contamination, invariant-registry integrity, and OpenAPI compatibility. Rust owns the logic; git is a data source; the old shell scripts become thin RUST_WRAPPER_ONLY wrappers."
 license = "Apache-2.0"
 
 [lib]

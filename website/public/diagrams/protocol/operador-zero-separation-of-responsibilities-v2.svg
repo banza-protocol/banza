@@ -3,7 +3,7 @@
   id:        SVG-P-089
   diagram:   Separação de responsabilidades — Operador Zero expõe · BanzAI orquestra · Rust avalia · Qwen explica · Registo publica
   version:   2.0
-  source:    BANZA_REFERENCIA.md §9 (Operador Zero — separação de papéis, M2.19E/F)
+  source:    BANZA_REFERENCIA.md §9 (Operador Zero — separação de papéis, F)
   updated:   2026-07-29
   author:    BANZA Protocol
   style:     protocol-dark

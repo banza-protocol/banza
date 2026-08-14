@@ -3,7 +3,7 @@
   id:        SVG-P-088
   diagram:   Operador Zero como alvo de validação — pipeline BanzAI → motores Rust → endpoints → relatórios → evidência → registo
   version:   2.0
-  source:    BANZA_REFERENCIA.md §9 (Operador Zero — implementação de referência só de leitura, M2.19E/F)
+  source:    BANZA_REFERENCIA.md §9 (Operador Zero — implementação de referência só de leitura, F)
   updated:   2026-07-29
   author:    BANZA Protocol
   style:     protocol-dark

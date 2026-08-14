@@ -7,12 +7,12 @@ rejected before the vocabulary). Deterministic, no model.
 ## Counts
 - subjects: 21
 - document_types: 12
-- document_instances: 51
+- document_instances: 44
 - artifact_types: 18
-- aliases: 262
+- aliases: 248
 - relation_kinds: 11
 - relation_aliases: 24
-- relation_edges: 56
+- relation_edges: 8
 - attributes: 11
 - task_terms: 20
 - historical_terms: 6
@@ -20,15 +20,15 @@ rejected before the vocabulary). Deterministic, no model.
 - unresolved: 0
 
 ## Candidate pipeline (Phase 1 — noise separated from vocabulary)
-- total candidates: 3871
-- accepted (terminology): 779
-- rejected (lexical noise / non-terminological): 3092
-  - NON_TERMINOLOGICAL: 2086
-  - GENERIC_PROSE: 752
-  - PATH_FRAGMENT: 120
-  - MARKUP_FRAGMENT: 28
-  - BROKEN_TOKEN: 99
+- total candidates: 3068
+- accepted (terminology): 662
+- rejected (lexical noise / non-terminological): 2406
+  - NON_TERMINOLOGICAL: 1676
+  - GENERIC_PROSE: 538
+  - PATH_FRAGMENT: 89
+  - BROKEN_TOKEN: 80
   - STOPWORD: 7
+  - MARKUP_FRAGMENT: 16
 
 ## Coverage gates
 - unresolved: 0
@@ -44,32 +44,32 @@ rejected before the vocabulary). Deterministic, no model.
 
 ## Subjects (the derived authority — each a possible main subject of a supported question)
 - **operador** (concept) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [example] — sources [ADR-001, operator-manifest-schema]
-- **federacao** (concept) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [example, procedure] — sources [ADR-027, ADR-031, operator-manifest-schema]
+- **federacao** (concept) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [example, procedure] — sources [ADR-025, ADR-025, operator-manifest-schema]
 - **manifest** (artefact) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [procedure, template] — sources [operator-manifest-schema]
-- **revogacao** (concept) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [example, procedure] — sources [revocation-entry-schema, ADR-031]
-- **trust** (concept) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [example, template] — sources [ADR-027, ADR-031, federation-trust-evaluation-schema]
-- **evidencia** (artefact) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [example, template] — sources [evidence-bundle-schema, conformance-evidence-schema, ADR-033]
-- **conformidade** (concept) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [example, procedure, template] — sources [ADR-039, ADR-033, conformance-evidence-schema]
-- **participacao** (concept) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [procedure] — sources [ADR-033, operator-manifest-schema, ADR-031]
+- **revogacao** (concept) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [example, procedure] — sources [revocation-entry-schema, ADR-025]
+- **trust** (concept) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [example, template] — sources [ADR-025, ADR-025, federation-trust-evaluation-schema]
+- **evidencia** (artefact) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [example, template] — sources [evidence-bundle-schema, conformance-evidence-schema, ADR-031]
+- **conformidade** (concept) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [example, procedure, template] — sources [ADR-030, ADR-031, conformance-evidence-schema]
+- **participacao** (concept) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [procedure] — sources [ADR-031, operator-manifest-schema, ADR-025]
 - **chave** (artefact) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [procedure, template] — sources [key-manifest-schema, revocation-entry-schema]
-- **root** (artefact) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [procedure, template] — sources [trust-root-metadata-schema, root-metadata-schema, root-key-schema, ADR-029, ADR-027]
-- **interoperabilidade** (concept) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [example, template] — sources [federation-manifest-schema, ADR-031]
-- **banza** (entity) — entity coverage (coverage.rs) + attribute terminal + trunk — deliverables [] — sources [ADR-001, ADR-002]
-- **banzai** (entity) — entity coverage + trunk — deliverables [] — sources [ADR-042, ADR-042]
-- **banzami** (entity) — entity coverage + attribution (GOVERNANCE) — deliverables [] — sources [ADR-002, GOVERNANCE]
+- **root** (artefact) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [procedure, template] — sources [trust-root-metadata-schema, root-metadata-schema, root-key-schema, ADR-027, ADR-025]
+- **interoperabilidade** (concept) — deterministic-terminal (catalogue SubjectProfile) + trunk synthesis — deliverables [example, template] — sources [federation-manifest-schema, ADR-025]
+- **banza** (entity) — entity coverage (coverage.rs) + attribute terminal + trunk — deliverables [] — sources [ADR-001, ADR-001]
+- **banzai** (entity) — entity coverage + trunk — deliverables [] — sources [ADR-036, ADR-036]
+- **banzami** (entity) — entity coverage + attribution (GOVERNANCE) — deliverables [] — sources [ADR-001, GOVERNANCE]
 - **governanca** (concept) — trunk synthesis (documented process; no deterministic terminal) — deliverables [] — sources [GOVERNANCE]
 - **endpoint** (artefact) — trunk synthesis over OpenAPI (no deterministic terminal) — deliverables [] — sources [openapi]
-- **ledger** (concept) — trunk synthesis grounded in ADR-011 (double-entry ledger + monetary precision) — deliverables [] — sources [ADR-011]
-- **wallet** (concept) — trunk synthesis grounded in ADR-012 (wallet-native identity) / account model — deliverables [] — sources [ADR-012]
-- **liquidacao** (concept) — trunk synthesis grounded in the settlement invariants (INV-SETTLE) — deliverables [] — sources [ADR-011]
-- **qr** (artefact) — trunk synthesis grounded in ADR-016 (QR payment system) / ADR-015 (payment session) — deliverables [] — sources [ADR-016]
+- **ledger** (concept) — trunk synthesis grounded in ADR-012 (double-entry ledger + monetary precision) — deliverables [] — sources [ADR-012]
+- **wallet** (concept) — trunk synthesis grounded in ADR-014 (wallet-native identity) / account model — deliverables [] — sources [ADR-014]
+- **liquidacao** (concept) — trunk synthesis grounded in the settlement invariants (INV-SETTLE) — deliverables [] — sources [ADR-012]
+- **qr** (artefact) — trunk synthesis grounded in ADR-015 (QR payment system) / ADR-015 (payment session) — deliverables [] — sources [ADR-015]
 - **webhook** (artefact) — trunk synthesis grounded in the webhook/event contracts — deliverables [] — sources [webhooks]
 
 ## Why the numbers differ (reconciliation)
-- The vocabulary has 21 SUBJECTS (concepts/entities/artefacts) — the things that can be the main subject of a question. Document instances (51 ADR/RFC) are DOCUMENT_INSTANCE, not subjects.
+- The vocabulary has 21 SUBJECTS (concepts/entities/artefacts) — the things that can be the main subject of a question. Document instances (44 ADR/RFC) are DOCUMENT_INSTANCE, not subjects.
 - 11 of the subjects carry a catalogue SubjectProfile (deterministic deliverable terminals); the rest resolve via entity coverage or trunk synthesis.
-- The 262 engine aliases map to 28 canonical targets (mostly document instances + concepts) — aliases are ALIAS, not subjects.
-- Relations: 11 RELATION_KIND (closed) + 24 RELATION_ALIAS + 56 graph edges — not "56 relation types".
+- The 248 engine aliases map to 25 canonical targets (mostly document instances + concepts) — aliases are ALIAS, not subjects.
+- Relations: 11 RELATION_KIND (closed) + 24 RELATION_ALIAS + 8 graph edges — not "8 relation types".
 
 ## Review policy
 - A subject is a concept/entity/artefact/document that can be the MAIN semantic subject of a supported question — never promoted by frequency/heading/substring alone.

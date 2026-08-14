@@ -5,11 +5,11 @@
 
 ---
 
-## Ecosystem Identity (ADR-002)
+## Ecosystem Identity (ADR-004)
 
 ```
 BANZA    = Open Financial Protocol        ← THIS REPO
-BanzAI   = Protocol Knowledge System      ← consolidated in THIS repo (services/banzai-api + engines/banzai-*, ADR-042)
+BanzAI   = Protocol Knowledge System      ← consolidated in THIS repo (services/banzai-api + engines/banzai-*, ADR-036)
 the reference operator  = Reference operator implementation            ~/banza
 ```
 
@@ -38,7 +38,7 @@ If the reference operator ceases operations, the BANZA protocol — its specific
 | `spec/federation/` | Federation protocol documentation |
 | `docs/governance/` | PKI trust model documentation |
 | `website/` | Protocol website (Next.js) and the `/banzai` public interface |
-| `services/banzai-api` | Canonical BanzAI runtime — TypeScript service/glue over the Rust engines (ADR-042) |
+| `services/banzai-api` | Canonical BanzAI runtime — TypeScript service/glue over the Rust engines (ADR-036) |
 | `engines/banzai-*` | BanzAI Rust engines (query-core, api-kb, indexers), compiled to WASM — the deterministic core |
 
 ---
@@ -70,7 +70,7 @@ No operator implementation may reference a feature that has not first been speci
 > **Regra absoluta:**
 > qualquer conceito financeiro/protocolar novo nasce primeiro no BANZA Protocol, depois é implementado pelo operador de referência, depois exposto no SDK, e só depois usado nas apps.
 
-(See ADR-001 — Protocol-first product development. This protocol repository is
+(See ADR-003 — Protocol-first origination. This protocol repository is
 operator-neutral: the rule names the operator *role*, not any operator brand —
 the reference operator's own CLAUDE.md states the same rule naming itself.)
 
@@ -86,10 +86,10 @@ The BANZA protocol does not prescribe implementation technology **for operators*
 - Wallet balances: always ledger-derived — never updated directly
 - Every financial operation: idempotent (replay-safe via idempotency key)
 
-## Official Engine Implementation (Rust-first — ADR-043)
+## Official Engine Implementation (Rust-first — ADR-038)
 
 Operator neutrality above is permanent. It is **orthogonal** to the language of the project's own
-**official** implementations. Per **ADR-043**, every official BANZA/BanzAI **engine** — conformance,
+**official** implementations. Per **ADR-038**, every official BANZA/BanzAI **engine** — conformance,
 crypto/trust/BRL, invariant checking, BanzAI retrieval/scoring/guards/evals, provider routing,
 semantic validation, evidence-bundle generation — is **Rust**. TypeScript is UI/glue only; Python is
 temporary legacy/compat; Bash orchestrates. New non-Rust engines are blocked by
@@ -103,16 +103,17 @@ temporary legacy/compat; Bash orchestrates. New non-Rust engines are blocked by
 
 | ADR | Subject |
 |---|---|
-| ADR-011 | Double-entry ledger |
-| ADR-024 | Idempotency and rate limiting |
-| ADR-016 | QR payment system |
-| ADR-017 | Payment links |
-| ADR-012 | Account/participant identity model |
-| ADR-001 | Open financial protocol — implementation independence |
-| ADR-001 | Operator separation |
-| ADR-011 | Double-entry invariant enforcement |
-| ADR-002 | Ecosystem naming inversion (canonical) |
-| ADR-043 | Rust-first policy for official BANZA/BanzAI engines |
+| ADR-001 | Open financial protocol — what BANZA is and is not |
+| ADR-002 | Protocol, implementation and operator separation |
+| ADR-003 | Protocol-first origination |
+| ADR-011 | BANZA Canonical JSON (BCJ/1) |
+| ADR-012 | Double-entry ledger and monetary precision |
+| ADR-015 | Payment initiation — one intent, several surfaces |
+| ADR-014 | Account and participant identity |
+| ADR-022 | Idempotency |
+| ADR-025 | Trust without a certificate authority |
+| ADR-026 | Root authorization — three authorities, threshold two |
+| ADR-038 | Rust-first policy for official BANZA/BanzAI engines |
 
 ---
 
@@ -199,4 +200,4 @@ BANZA is an open protocol. It must be buildable, understandable, and governable 
 - Not any operator's private implementation
 - Not a proprietary product
 - Not a wallet interface
-- Not a separate BanzAI repository — the BanzAI runtime (services/banzai-api + engines/banzai-*) is consolidated into this monorepo (ADR-042); there is no separate `~/banzai` repository
+- Not a separate BanzAI repository — the BanzAI runtime (services/banzai-api + engines/banzai-*) is consolidated into this monorepo (ADR-036); there is no separate `~/banzai` repository

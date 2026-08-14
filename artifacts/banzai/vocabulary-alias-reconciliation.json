@@ -1,8 +1,8 @@
 {
-  "engine_aliases": 262,
-  "engine_canonical_ids": 28,
+  "engine_aliases": 248,
+  "engine_canonical_ids": 25,
   "every_engine_alias_mapped": true,
   "alias_collisions": 0,
   "vocabulary_alias_without_canonical_id": [],
-  "note": "The vocabulary carries all 262 engine aliases, each mapped to a canonical id (document instance or concept). Aliases are not counted as subjects."
+  "note": "The vocabulary carries all 248 engine aliases, each mapped to a canonical id (document instance or concept). Aliases are not counted as subjects."
 }

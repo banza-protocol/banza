@@ -1,6 +1,6 @@
 # BANZA Federation Conformance Path
 
-**Authority:** ADR-027, ADR-033, ADR-031; `docs/governance/FEDERATION_TRUST_MODEL.md`
+**Authority:** ADR-025, ADR-031, ADR-025; `docs/governance/FEDERATION_TRUST_MODEL.md`
 
 ---
 
@@ -22,7 +22,7 @@ An operator implements the protocol, runs the deterministic conformance suite ov
 implementation, and publishes its Operator Manifest, signed protocol metadata and conformance
 evidence at URLs it controls. Nothing is issued to the operator, and there is no submission,
 queue, application or review anywhere on this path. Before routing to a peer, an operator runs
-the **Open Trust Evaluation** — ten conjunctive, fail-closed checks (ADR-031) — over that peer's
+the **Open Trust Evaluation** — ten conjunctive, fail-closed checks (ADR-025) — over that peer's
 published material and decides for itself.
 
 This is the same path used for L0–L2: **conformance is measured, never granted.** The federation
@@ -144,12 +144,12 @@ conformance scope without introducing any central authority:
 
 ```
 Phase 1 — ADR (governance prerequisite)
-  ADR-027: Open Protocol Trust Model Without CA
+  ADR-025: Open Protocol Trust Model Without CA
     → Establishes: trust rests on signed protocol metadata, conformance evidence,
       public protocol registry, trust root, delegated signing keys, revocation/fail-closed
-  ADR-033: Operator Self-Publication and Machine-Verifiable Conformance
+  ADR-031: Operator Self-Publication and Machine-Verifiable Conformance
     → Establishes: operators publish; conformance is measured, never granted
-  ADR-031: Federation Trust Evaluation Without Certificates
+  ADR-025: Federation Trust Evaluation Without Certificates
     → Establishes: the Open Trust Evaluation (ten checks), run locally by each routing peer
 
 Phase 2 — Contracts (protocol specification)
@@ -208,7 +208,7 @@ runner extension.
 ## Final Answer: What is the minimum to reach a federation-capable conformance scope?
 
 **Minimum protocol artifacts:**
-1. ADR-027, ADR-033, ADR-031 (open trust model, self-publication, Open Trust Evaluation)
+1. ADR-025, ADR-031, ADR-025 (open trust model, self-publication, Open Trust Evaluation)
 2. `contracts/production/signed-protocol-metadata.production.schema.json`
 3. `contracts/production/conformance-evidence.production.schema.json`
 4. `contracts/federation/federation-routing.json`
@@ -219,7 +219,7 @@ runner extension.
 9. `conformance/federation/suite.json` with FED-001 through FED-006
 10. Two operators publishing conformance evidence that passes FED-001 through FED-006
 
-**The prerequisite that makes everything else possible:** the trust model itself (ADR-027, ADR-033,
-ADR-031). Without it, manifests cannot be signed, published evidence cannot be verified, and peers
+**The prerequisite that makes everything else possible:** the trust model itself (ADR-025, ADR-031,
+ADR-025). Without it, manifests cannot be signed, published evidence cannot be verified, and peers
 cannot evaluate trust between operators. With it, trust is a computation each peer runs locally —
 not a decision anyone makes on an operator's behalf.

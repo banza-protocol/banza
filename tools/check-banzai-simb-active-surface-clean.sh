@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #
-# BanzAI SimB active-surface clean guard (M2.19G.5C, ADR-042).
+# BanzAI SimB active-surface clean guard (M2.19G.5C, ADR-036).
 #
-# ADR-042 retires SimB (banza-simb) from every ACTIVE public/agent surface. SimB survives ONLY in the
+# ADR-036 retires SimB (banza-simb) from every ACTIVE public/agent surface. SimB survives ONLY in the
 # isolated draft-validation libs, the frozen engine crate, and history (ADRs / reports / governance). This
 # guard fails on any `SimB` / `banza-simb` token in the enumerated active surfaces:
 #   website/components/banzai/banzai-agent.ts, website/lib/operadorZeroStatus.ts,
@@ -62,8 +62,8 @@ done
 
 if [ "$fail" -ne 0 ]; then
   echo
-  echo "banzai-simb-active-surface-clean: FAIL — SimB re-entered an active surface (ADR-042). Move it to the isolated draft-validation libs / history, or remove it."
+  echo "banzai-simb-active-surface-clean: FAIL — SimB re-entered an active surface (ADR-036). Move it to the isolated draft-validation libs / history, or remove it."
   exit 1
 fi
 echo
-echo "banzai-simb-active-surface-clean: ✓ SimB retired from all active surfaces; survives only in the isolated draft libs, the frozen crate and history (ADR-042)"
+echo "banzai-simb-active-surface-clean: ✓ SimB retired from all active surfaces; survives only in the isolated draft libs, the frozen crate and history (ADR-036)"

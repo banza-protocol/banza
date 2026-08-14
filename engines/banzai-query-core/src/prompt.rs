@@ -1,4 +1,4 @@
-//! Prompt builder for BanzAI language generation (ADR-043, ADR-042).
+//! Prompt builder for BanzAI language generation (ADR-038, ADR-036).
 //!
 //! Constructs the exact `{system, user}` messages sent to ANY language model — hosted
 //! (DeepSeek/Qwen API) or the local Qwen served by llama.cpp. The rigid system rules
@@ -12,7 +12,7 @@ use serde_json::Value;
 
 /// The inviolable BanzAI system rules. No user instruction and no retrieved source may
 /// revoke them. Kept in Rust (single source of truth) rather than in the JS provider.
-// ADR-042: compact form (~53% smaller than the M2.8A prompt) to cut CPU prefill latency
+// ADR-036: compact form (~53% smaller than the M2.8A prompt) to cut CPU prefill latency
 // WITHOUT weakening any boundary. Every boundary is preserved — including the key-custody
 // clause in rule 3 — and the Rust post-response validator remains the strong enforcement
 // layer (validate.rs backstops each rule deterministically).
@@ -29,7 +29,7 @@ pub const SYSTEM_PROMPT: &str = concat!(
 struct Prompt {
     system: String,
     user: String,
-    /// ADR-042: BanzAI is a grounded, non-normative agent — it answers from the sources
+    /// ADR-036: BanzAI is a grounded, non-normative agent — it answers from the sources
     /// in 3–6 sentences and must NEVER use a model "reasoning"/thinking mode (which would
     /// spend the compact completion budget on `<think>` tokens, leaving empty final
     /// content, and would risk leaking chain-of-thought — already blocked by validate.rs).
@@ -137,7 +137,7 @@ pub fn build_prompt(question: &str, context_json: &str, _mode: &str) -> String {
         })
         .unwrap_or_default();
 
-    // Compact user message (ADR-042): sources + question wrapped as data, minimal prose.
+    // Compact user message (ADR-036): sources + question wrapped as data, minimal prose.
     // M2.14C — the citable ids live inside a data-only <REF> tag (not a user-facing "Fontes:" line) so
     // the model does not PARROT a "Fontes citáveis: …" block into the answer body. The sources are
     // attached to the response OUT OF BAND (sources[] → the UI source block); the body must stay clean.
@@ -159,7 +159,7 @@ pub fn build_prompt(question: &str, context_json: &str, _mode: &str) -> String {
     let prompt = Prompt {
         system: SYSTEM_PROMPT.to_string(),
         user,
-        disable_reasoning: true, // ADR-042 — BanzAI never reasons; answers from sources only
+        disable_reasoning: true, // ADR-036 — BanzAI never reasons; answers from sources only
     };
     serde_json::to_string(&prompt).unwrap_or_else(|_| "{}".into())
 }

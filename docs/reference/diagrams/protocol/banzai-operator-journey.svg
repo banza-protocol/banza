@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   id:        SVG-P-073
-  diagram:   Jornada do operador guiada pelo BanzAI — nove passos canónicos (ADR-067)
+  diagram:   Jornada do operador guiada pelo BanzAI — nove passos canónicos (ADR-036)
   version:   2.0
-  source:    BANZA_REFERENCIA.md §9/§7 · ADR-067 D-067-02
+  source:    BANZA_REFERENCIA.md §9/§7 · ADR-036
   updated:   2026-07-29
   author:    BANZA Protocol
   style:     protocol
@@ -110,5 +110,5 @@
   <rect x="24" y="372" width="992" height="40" rx="10" fill="#EAEFF4" stroke="#CBD5E0" stroke-width="1"/>
   <text x="520" y="397" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2E4054">BanzAI guia; os motores Rust verificam; a evidência prova. A participação é demonstrada, não aprovada.</text>
 
-  <text x="520" y="450" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-073 · Jornada do operador guiada pelo BanzAI · BANZA_REFERENCIA.md §9 · ADR-067 · v2.0 · 2026-07-29</text>
+  <text x="520" y="450" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-073 · Jornada do operador guiada pelo BanzAI · BANZA_REFERENCIA.md §9 · ADR-036 · v2.0 · 2026-07-29</text>
 </svg>

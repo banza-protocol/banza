@@ -93,7 +93,7 @@ if command -v node >/dev/null 2>&1; then
       const c = normalizeBanzaiAnswer(e ? e.answer : "", e ? e.sources : []);
       emit(d.intent === "action_boundary" && !hasInBodySources(c.answer), "action boundary body clean + still refuses"); }
     // (12) a grounded/Qwen answer that PARROTED "Sources:" is cleaned by the normalizer.
-    { const body = "BanzAI answers from indexed knowledge.\nSources: GOVERNANCE.md, decisions/adr/ADR-002-*.md, CLAUDE.md";
+    { const body = "BanzAI answers from indexed knowledge.\nSources: GOVERNANCE.md, $(ls decisions/adr/ADR-001-*.md 2>/dev/null | head -1), CLAUDE.md";
       const c = normalizeBanzaiAnswer(body, [{id:"GOVERNANCE",path:"GOVERNANCE.md"}]);
       emit(!hasInBodySources(c.answer) && c.answer.length > 0, "grounded 'Sources:' block stripped from body"); }
     // (13) dedup: the same source is never duplicated.

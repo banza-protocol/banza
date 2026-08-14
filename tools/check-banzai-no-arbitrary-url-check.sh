@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# M2.19G.1 (ADR-038 §4.4/§4.7) — no arbitrary URL guard (§37, invariant 7).
+# M2.19G.1 (ADR-034 §4.4/§4.7) — no arbitrary URL guard (§37, invariant 7).
 #
 # The fetcher client + the served validate path never accept a user-supplied URL. The only thing the
 # browser sends is a CLOSED operator_id + implementation_id (+ step), re-checked against a closed id
@@ -21,7 +21,7 @@ UILIB=website/lib/banzaiValidation.ts
 FCLIENT=services/banzai-api/src/fetcherClient.js
 VALIDATE=services/banzai-api/src/validate.js
 
-echo "== banzai-no-arbitrary-url-check (M2.19G.1 / ADR-038 §4.4/§4.7) =="
+echo "== banzai-no-arbitrary-url-check (M2.19G.1 / ADR-034 §4.4/§4.7) =="
 
 # ── self-test ───────────────────────────────────────────────────────────────────────────────────────
 st=0
@@ -73,4 +73,4 @@ fi
 
 echo
 if [ "$fail" -ne 0 ]; then echo "banzai-no-arbitrary-url-check: FAIL"; exit 1; fi
-echo "banzai-no-arbitrary-url-check: ✓ no user-supplied URL; registry-resolved origin+path only (ADR-038 §4.7)"
+echo "banzai-no-arbitrary-url-check: ✓ no user-supplied URL; registry-resolved origin+path only (ADR-034 §4.7)"

@@ -41,12 +41,12 @@ test("(fix1) code, inline code, links and URLs are protected", () => {
 });
 
 test("(fix1) paths / domains / packages / doc-ids are NOT bolded", () => {
-  const a = N("Vê banza.network e o pacote banzai-api em engines/banzai-api-kb. O ficheiro BANZA.md e o ADR-011. Mas o BANZA é aberto.");
+  const a = N("Vê banza.network e o pacote banzai-api em engines/banzai-api-kb. O ficheiro BANZA.md e o ADR-012. Mas o BANZA é aberto.");
   assert.ok(a.includes("banza.network") && !a.includes("**banza.network**") && !a.includes("**banza**.network"), "domain not bolded");
   assert.ok(a.includes("banzai-api") && !a.includes("**banzai-api**") && !a.includes("**banzai**-api"), "package not bolded");
   assert.ok(a.includes("engines/banzai-api-kb") && !a.includes("**banzai"), "path not bolded");
   assert.ok(a.includes("BANZA.md") && !a.includes("**BANZA.md**") && !a.includes("**BANZA**.md"), "doc-id BANZA.md not bolded");
-  assert.ok(a.includes("ADR-011") && !a.includes("**ADR-011**") && !a.includes("**ADR**-006"), "doc-id ADR-011 not bolded");
+  assert.ok(a.includes("ADR-012") && !a.includes("**ADR-012**") && !a.includes("**ADR**-006"), "doc-id ADR-012 not bolded");
   assert.ok(a.includes("**BANZA**"), "standalone BANZA still bolded");
 });
 
@@ -63,9 +63,9 @@ test("(fix1) canonical spelling is emitted (drift fixed)", () => {
 test("(fix1) whole-word: BANZA never matches inside Banzami/BanzAI; plural ADRs/RFCs bold, doc-ids preserved", () => {
   const a = N("Só o Banzami aqui.");
   assert.ok(a.includes("**Banzami**") && !/\*\*BANZA\*\*mi/.test(a), "no mid-word bold inside Banzami");
-  const b = N("Os ADRs e os RFCs governam. O ADR-011 é um deles.");
+  const b = N("Os ADRs e os RFCs governam. O ADR-012 é um deles.");
   assert.ok(b.includes("**ADRs**") && b.includes("**RFCs**"), "plurals bolded");
-  assert.ok(b.includes("ADR-011") && !b.includes("**ADR-011**"), "ADR-011 doc-id preserved");
+  assert.ok(b.includes("ADR-012") && !b.includes("**ADR-012**"), "ADR-012 doc-id preserved");
 });
 
 test("(fix1) common words are NOT bolded (no over-bolding)", () => {
@@ -115,7 +115,7 @@ test("(fix1/adv) legitimate bold-italic (***) is preserved and never collapsed",
 
 test("(fix1) the emphasis pass keeps the M2.14C rendering contract (clean body, sources separated)", () => {
   const c = normalizeBanzaiAnswer(
-    "Banzami criou o BANZA. O BANZA é aberto.\nFontes citáveis: GOVERNANCE.md; ADR-002.",
+    "Banzami criou o BANZA. O BANZA é aberto.\nFontes citáveis: GOVERNANCE.md; ADR-001.",
     [],
   );
   assert.ok(!/\n\s*Fontes/i.test(c.answer), "in-body source block stripped");

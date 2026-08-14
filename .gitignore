@@ -68,14 +68,14 @@ infra/banza-network/postgres/data/
 infra/banza-network/backups/
 infra/banza-network/logs/
 infra/banza-network/**/*.pem
-# ADR-042: local inference model volume — GGUF files NEVER enter Git.
+# ADR-036: local inference model volume — GGUF files NEVER enter Git.
 infra/banza-network/models/
 *.gguf
 infra/banza-network/**/*.key
 infra/banza-network/**/*.age
 infra/banza-network/**/*.sql.dump
 
-# Rust engine build artifacts (ADR-043)
+# Rust engine build artifacts (ADR-038)
 engines/*/target/
 **/target/
 artifacts/banza-wp1-1/

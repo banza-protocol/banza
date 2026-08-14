@@ -46,7 +46,7 @@ The production root-key ceremony is **milestone M2** and has **not** been execut
 
 ## What IS true today
 
-- ✅ The trust architecture is frozen (ADR-027) and keys-never-on-serving-infra is documented (ADR-029).
+- ✅ The trust architecture is frozen (ADR-025) and keys-never-on-serving-infra is documented (ADR-027).
 - ✅ The ceremony **plan**, **key lifecycle**, **runbook**, and **revocation playbook** are documented.
 - ✅ Test-only material uses the `test-banza-key-*` convention and is rejected by production verification
   (INV-ROOT-001).

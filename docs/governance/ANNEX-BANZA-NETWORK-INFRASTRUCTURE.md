@@ -30,19 +30,19 @@ Protocol infrastructure and operator infrastructure **never share a host**.
 Hosting the protocol as a guest on an operator-owned host couples the protocol's availability and
 trust boundary to that operator — contradicting the neutrality invariant (*BANZA never depends on
 any operator*). A **dedicated VM** removes that coupling: the protocol's uptime, TLS, network and
-data are its own. See **ADR-008**.
+data are its own. See **ADR-002**.
 
 ## 5. Why a dedicated PostgreSQL
 The protocol must durably store and serve **public, signed artifacts** (manifests, registry,
 certificates, revocation list, conformance evidence hashes) and index its documentation for BanzAI.
 A **dedicated PostgreSQL** (with `pgvector`) gives the protocol self-contained, auditable storage
-with segregated roles, never shared with an operator. See **ADR-008**.
+with segregated roles, never shared with an operator. See **ADR-002**.
 
 ## 6. Why not Supabase/Firebase/managed backend
 A managed external backend would make the protocol **operationally dependent** on a third party and
 would blur the protocol/operator boundary. BANZA runs its **own** PostgreSQL inside the VM's
 internal network. External, encrypted backups may exist as a **recovery mechanism only** — never as
-an operational runtime dependency. See **ADR-008**.
+an operational runtime dependency. See **ADR-002**.
 
 ## 7. Architecture components
 | Component | Role |
@@ -82,8 +82,8 @@ Internet → Cloudflare (proxy, Full-strict) → nginx (:80/:443, Origin Cert)
 ## 10. Canonical machine routes
 Served on the apex as `application/json`, **never** redirected to HTML, cache-bypassed:
 `/.well-known/banza/root.json`, `/.well-known/banza/key-manifest.json`, `/operators`,
-`/federation/revocation-list.json`, `/conformance/evidence`. See **ADR-037**. (The former
-`/certificates` route was removed in M2.19B / ADR-027 — the open trust model issues nothing to
+`/federation/revocation-list.json`, `/conformance/evidence`. See **ADR-029**. (The former
+`/certificates` route was removed in M2.19B / ADR-025 — the open trust model issues nothing to
 operators; the canonical evidence route is `/conformance/evidence`.)
 
 ## 11. Pre-production state of the routes
@@ -102,14 +102,14 @@ The registry route returns an **empty list** while no operator has published con
 ## 13. Key policy
 The **root key** is offline and ceremony-controlled; **issuing keys** (M2/M3) also never reside on
 this VM. The infrastructure serves **only signed public artifacts** and holds **no private keys** and
-performs **no signing**. See **ADR-029**.
+performs **no signing**. See **ADR-027**.
 
 ## 14. BanzAI: explanatory, not normative
 BanzAI is a subordinate **knowledge system**. It explains rules, documents, criteria, gaps and
 evidence, and **always cites its sources**. It **does not** define rules, emit certificates, mark an
 operator certified, or substitute the authoritative conformance suite; it holds no production keys
 and can write only its own document index. *Tools determine the truth; the AI explains it.* See
-**ADR-042**.
+**ADR-036**.
 
 Real LLM inference is performed by an **external hosted API** — DeepSeek or Qwen, selected via the
 `LLM_PROVIDER` allowlist (`mock` | `deepseek` | `qwen`; any other value refuses to start). The VM
@@ -135,14 +135,14 @@ This infrastructure has **no** wallet, **no** operator ledger, **no** KYC/KYB, *
 end-user accounts, and **no** commercial operator names. Anything of that nature belongs to an
 operator, elsewhere.
 
-## 16. Relationship to ADR-008 … ADR-008
-- **ADR-008** dedicated, operator-independent infrastructure
-- **ADR-008** dedicated PostgreSQL + encrypted off-VM backups
-- **ADR-037** canonical verification routes + pre-production behaviour
-- **ADR-029** private keys never on serving infrastructure
-- **ADR-042** BanzAI native protocol agent, non-authoritative
-- **ADR-008** deploy model (Compose, pinned images, secrets outside Git)
-- **ADR-008** DNS/TLS (Cloudflare Full-strict + Origin Certificate)
+## 16. Relationship to ADR-002 … ADR-002
+- **ADR-002** dedicated, operator-independent infrastructure
+- **ADR-002** dedicated PostgreSQL + encrypted off-VM backups
+- **ADR-029** canonical verification routes + pre-production behaviour
+- **ADR-027** private keys never on serving infrastructure
+- **ADR-036** BanzAI native protocol agent, non-authoritative
+- **ADR-002** deploy model (Compose, pinned images, secrets outside Git)
+- **ADR-002** DNS/TLS (Cloudflare Full-strict + Origin Certificate)
 
 ## 17. Acceptance criteria (infrastructure "ready")
 - Dedicated VM, protocol-only; no operator artifacts present.
@@ -159,7 +159,7 @@ operator, elsewhere.
 | Risk | Mitigation |
 |---|---|
 | Machine route ambiguity | Explicit pre-production JSON envelope; cache-bypass |
-| Keys on serving host | Keys offline/ceremony; VM serves signed blobs only (ADR-029) |
+| Keys on serving host | Keys offline/ceremony; VM serves signed blobs only (ADR-027) |
 | BanzAI treated as authority | Demo framing, source citations, no write to trust/certs |
 | DNS cutover prolonging outage | Validate origin locally before cutover |
 | Backups as runtime dependency | Backups are recovery-only, off-VM, encrypted |

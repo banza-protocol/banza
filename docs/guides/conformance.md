@@ -1,12 +1,12 @@
 # BANZA — Conformance Suite
 
 > This document describes: **BANZA** — the Open Financial Protocol.
-> For other layers: BanzAI — the native protocol agent; its canonical runtime lives in this repo ([services/banzai-api](../../services/banzai-api)). Active BanzAI development lives entirely in this monorepo (ADR-042).
+> For other layers: BanzAI — the native protocol agent; its canonical runtime lives in this repo ([services/banzai-api](../../services/banzai-api)). Active BanzAI development lives entirely in this monorepo (ADR-036).
 
 **Version:** 1.0  
 **Date:** 2026-05-30  
 **Status:** Official  
-**Authority:** ADR-002
+**Authority:** ADR-001
 
 ---
 
@@ -33,7 +33,7 @@ The BANZA conformance system lets any operator, SDK, or integration verify that 
 
 The level **names and per-level capabilities** above are canonical and match
 [docs/governance/certification-boundary.md](../governance/certification-boundary.md) § Conformance level model and
-ADR-039. The single-operator sandbox runner awards L0–L2; L3 (federation) is run
+ADR-030. The single-operator sandbox runner awards L0–L2; L3 (federation) is run
 via `--federation`, and L4 (external) is profile-defined — neither is awarded by
 the sandbox runner.
 
@@ -155,7 +155,7 @@ The manifest schema is validated by `conformance/manifests/schema.json`.
 2. Add the vector to the appropriate file in `conformance/vectors/`
 3. Set `"stability": "experimental"` until it passes the reference operator
 4. Reference the vector from the relevant suite's `vectors` array
-5. Implement the test case in `engines/banza-conformance` (the Rust runner, ADR-043)
+5. Implement the test case in `engines/banza-conformance` (the Rust runner, ADR-038)
 
 Deprecated vectors get `"deprecated": true` rather than being removed — this preserves history.
 

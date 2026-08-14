@@ -3,16 +3,16 @@ info:
   title: BANZA Collections API
   version: "1.0"
   description: >
-    Canonical protocol surface for Payment Collections (ADR-018). A Collection is
+    Canonical protocol surface for Payment Collections (ADR-016). A Collection is
     a composite financial obligation grouping N CollectionShares; each share is
-    settled by its own PaymentIntent (ADR-014) -> Transfer -> Ledger. A Collection
+    settled by its own PaymentIntent (ADR-015) -> Transfer -> Ledger. A Collection
     NEVER holds or moves money and NEVER posts to the ledger.
 
     This is the operator-AGNOSTIC protocol surface. It defines what every BANZA
     operator MUST expose; it contains no operator-specific endpoints. Authority:
-    ADR-018. Scope v1: single-operator (cross-operator settlement is deferred to a
+    ADR-016. Scope v1: single-operator (cross-operator settlement is deferred to a
     future federation ADR).
-  x-authority: ADR-018
+  x-authority: ADR-016
   x-certification-level: 2
   x-capability: supports_collections
 
@@ -124,7 +124,7 @@ paths:
       description: >
         Idempotent on Idempotency-Key. For OPEN_CONTRIBUTION/MINIMUM_CONTRIBUTION a
         new share is created per contributor; MINIMUM_CONTRIBUTION enforces min_minor
-        (422 below floor). Each share gets its own PaymentIntent (ADR-014).
+        (422 below floor). Each share gets its own PaymentIntent (ADR-015).
       parameters:
         - { $ref: '#/components/parameters/CollectionId' }
         - { $ref: '#/components/parameters/IdempotencyKey' }
@@ -170,7 +170,7 @@ paths:
       description: >
         Cancels the collection and its unpaid shares. PAID shares are terminal and
         unaffected (already-settled money is never reversed here; refunds follow
-        ADR-020 per share).
+        ADR-018 per share).
       parameters: [ { $ref: '#/components/parameters/CollectionId' } ]
       responses:
         '200':
@@ -252,7 +252,7 @@ components:
         amount_minor: { type: integer }
         currency: { type: string }
         status: { $ref: '#/components/schemas/ShareStatus' }
-        payment_intent_id: { type: [string, "null"], description: "ADR-014 PaymentIntent backing this share." }
+        payment_intent_id: { type: [string, "null"], description: "ADR-015 PaymentIntent backing this share." }
         transfer_id: { type: [string, "null"], description: "Real settling Transfer; set only when PAID." }
         paid_at: { type: [string, "null"], format: date-time }
         expires_at: { type: [string, "null"], format: date-time }

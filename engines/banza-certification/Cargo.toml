@@ -2,7 +2,7 @@
 name = "banza-certification"
 version = "0.1.0"
 edition = "2021"
-description = "banza-certification (ADR-043, R4; ADR-034/065/066): the single deterministic Rust authority for BANZA Conformance & Interoperability Certification (Layer 2). Validates a CertifiedImplementation against an InteroperabilityCertificationProfile using a ConformanceReport + InteroperabilityReport + evidence + trust, and produces an InteroperabilityCertificationRecord with a closed certification-state machine (NOT_CERTIFIED/CERTIFIED/EXPIRED/SUSPENDED/REVOKED/SUPERSEDED). Deterministic, idempotent, fail-closed, hash-bound, offline-testable. No Qwen, no external model, no human FAIL->PASS. Certification is technical, per-implementation, and is not a licence, scheme admission or regulatory authorisation (ADR-004)."
+description = "banza-certification (ADR-038, R4; ADR-032/065/066): the single deterministic Rust authority for BANZA Conformance & Interoperability Certification (Layer 2). Validates a CertifiedImplementation against an InteroperabilityCertificationProfile using a ConformanceReport + InteroperabilityReport + evidence + trust, and produces an InteroperabilityCertificationRecord with a closed certification-state machine (NOT_CERTIFIED/CERTIFIED/EXPIRED/SUSPENDED/REVOKED/SUPERSEDED). Deterministic, idempotent, fail-closed, hash-bound, offline-testable. No Qwen, no external model, no human FAIL->PASS. Certification is technical, per-implementation, and is not a licence, scheme admission or regulatory authorisation (ADR-005)."
 license = "Apache-2.0"
 
 [lib]

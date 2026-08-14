@@ -3,7 +3,7 @@
 > The operator journey keeps state **only in the browser's memory**. It is never persisted, and only a
 > sanitized summary ever reaches the backend.
 
-- **Governing decision:** [ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md)
+- **Governing decision:** [ADR-036](../../decisions/adr/ADR-036-banzai-a-non-authoritative-interface-to-the-protocol.md)
 - **Milestones:** M2.9B (session) · M2.9C (uploaded artifacts)
 - **Status:** implemented and deployed
 

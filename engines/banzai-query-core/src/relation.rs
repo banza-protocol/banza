@@ -354,9 +354,9 @@ fn extract_fields(text: &str) -> Vec<ParsedField> {
     out
 }
 
-/// Extract canonical-shaped document id tokens ("ADR-002", "RFC-0001") from a value string. Only the
+/// Extract canonical-shaped document id tokens ("ADR-001", "RFC-0001") from a value string. Only the
 /// ADR/RFC + digits shape is recognised — a parenthetical label ("(Federation trust model)") or a file
-/// path never becomes an id. Case-insensitive; tolerates "ADR-002", "ADR 2", "adr002".
+/// path never becomes an id. Case-insensitive; tolerates "ADR-001", "ADR 2", "adr002".
 fn extract_id_tokens(value: &str) -> Vec<String> {
     let up = value.to_ascii_uppercase();
     let bytes = up.as_bytes();
@@ -413,6 +413,29 @@ pub fn graph() -> &'static RelationGraph {
     G.get_or_init(build_graph)
 }
 
+/// Every `ADR-NNN` / `RFC-NNN` token that appears in a record's own body. Deliberately narrow: the
+/// canonical written form only, so an ordinal ("o segundo ADR") or a prose paraphrase never invents an
+/// edge. Duplicates are removed here; the caller de-duplicates across forms.
+fn inline_references(text: &str) -> Vec<String> {
+    let mut out: Vec<String> = Vec::new();
+    let b = text.as_bytes();
+    for (i, _) in text.match_indices("ADR-").chain(text.match_indices("RFC-")) {
+        let digits: String = b[i + 4..]
+            .iter()
+            .take(3)
+            .take_while(|c| c.is_ascii_digit())
+            .map(|c| *c as char)
+            .collect();
+        if digits.len() == 3 {
+            let id = format!("{}-{}", &text[i..i + 3], digits);
+            if !out.contains(&id) {
+                out.push(id);
+            }
+        }
+    }
+    out
+}
+
 fn build_graph() -> RelationGraph {
     let reg = registry();
     let node_ids: Vec<String> = reg.iter().map(|d| d.id.clone()).collect();
@@ -459,6 +482,24 @@ fn build_graph() -> RelationGraph {
                         raw_target: raw,
                         reason: "unresolvable_id".into(),
                     }),
+                }
+            }
+        }
+
+        // A record that names another record in its own reasoning IS related to it. Declared "see also"
+        // lists are the explicit form; an inline citation is the honest one, because it is written where
+        // the connection is actually made and cannot fall out of step with the prose around it. Both
+        // produce the same edge kind, and provenance records which form declared it.
+        for raw in inline_references(&text) {
+            if let Some(target) = resolve(&raw) {
+                if target.id != doc.id {
+                    edges.push(RelationEdge {
+                        from: doc.id.clone(),
+                        to: target.id.clone(),
+                        kind: RelationKind::RelatedTo,
+                        declared_in: doc.id.clone(),
+                        field: "inline reference".to_string(),
+                    });
                 }
             }
         }
@@ -601,7 +642,7 @@ mod tests {
     #[test]
     fn superseded_by_field_is_parsed_as_a_reversed_supersedes_rule() {
         // A "**Superseded by: X**" field on document D is recorded REVERSED — X supersedes D — so
-        // build_graph orients the edge (X → D). M2.19A (ADR-045, current-only canonical ADR tree) removed
+        // build_graph orients the edge (X → D). M2.19A (ADR-010, current-only canonical ADR tree) removed
         // every superseded ADR from the registry, so no SURVIVING doc self-declares "Superseded by"; the
         // reversed rule is therefore verified here at the extraction level, data-independently, on a
         // self-contained input that names a current document.
@@ -626,9 +667,9 @@ mod tests {
 
     #[test]
     fn extract_ids_ignores_labels_and_paths_keeps_ids() {
-        let v = "ADR-031 (Federation trust evaluation), [BANZA-POLICY](../../docs/governance/x.md), RFC-0005";
+        let v = "ADR-025 (Federation trust evaluation), [BANZA-POLICY](../../docs/governance/x.md), RFC-0005";
         let ids = extract_id_tokens(v);
-        assert!(ids.contains(&"ADR-031".to_string()));
+        assert!(ids.contains(&"ADR-025".to_string()));
         assert!(ids.contains(&"RFC-0005".to_string()));
         // the parenthetical words and the path never become ids
         assert_eq!(ids.iter().filter(|s| s.starts_with("ADR")).count(), 1);
@@ -636,26 +677,26 @@ mod tests {
 
     #[test]
     fn extract_fields_matches_inline_labels_not_prose() {
-        let text = "**Supersedes:** None **See also:** ADR-001, ADR-013 ---";
+        let text = "**Supersedes:** None **See also:** ADR-001, ADR-002 ---";
         let fields = extract_fields(text);
         assert!(fields
             .iter()
             .any(|f| f.kind == RelationKind::Supersedes && f.value == "None"));
         let see = fields.iter().find(|f| f.field == "see also").unwrap();
-        assert!(see.value.contains("ADR-001") && see.value.contains("ADR-013"));
+        assert!(see.value.contains("ADR-001") && see.value.contains("ADR-002"));
         // "superseded by" wins its own reversed rule
-        let rev = extract_fields("**Superseded by:** ADR-027 (open protocol trust model)");
+        let rev = extract_fields("**Superseded by:** ADR-025 (open protocol trust model)");
         assert!(rev
             .iter()
             .any(|f| f.reversed && f.kind == RelationKind::Supersedes));
         // a prose mention is NOT a field
-        assert!(extract_fields("as described in ADR-011 the ledger is double-entry").is_empty());
+        assert!(extract_fields("as described in ADR-012 the ledger is double-entry").is_empty());
     }
 
     #[test]
     fn orphan_and_self_reference_are_rejected_not_kept() {
         let g = graph();
-        // ADR-002 "See also: … ADR-002 …" is a self-reference → rejected, never a self-edge.
+        // ADR-001 "See also: … ADR-001 …" is a self-reference → rejected, never a self-edge.
         assert!(
             !g.edges.iter().any(|e| e.from == e.to),
             "no self-edge may survive"
@@ -724,19 +765,32 @@ mod tests {
 
     #[test]
     fn queries_are_typed_and_direction_aware() {
-        // ADR-031 carries confirmed relations in both directions in the current registry.
-        let out = relations_for("ADR-031", "out");
-        assert!(!out.is_empty(), "expected outgoing relations for ADR-031");
+        // The subject is taken FROM the graph rather than named here: which record happens to carry a
+        // relation is data, and a test that hardcodes it fails whenever the corpus is reorganised
+        // without anything actually being wrong.
+        let g = graph();
+        let subject = g
+            .edges
+            .first()
+            .map(|e| e.from.clone())
+            .expect("the corpus must yield at least one relation");
+        let out = relations_for(&subject, "out");
+        assert!(!out.is_empty(), "expected outgoing relations for {subject}");
         assert!(
-            out.iter().all(|e| e.from == "ADR-031"),
-            "out edges must start at ADR-031"
+            out.iter().all(|e| e.from == subject),
+            "out edges must start at {subject}"
         );
-        let incoming = relations_for("ADR-031", "in");
+        let target = out[0].to.clone();
+        let incoming = relations_for(&target, "in");
         assert!(
-            incoming.iter().all(|e| e.to == "ADR-031"),
-            "in edges must end at ADR-031"
+            incoming.iter().all(|e| e.to == target),
+            "in edges must end at {target}"
+        );
+        assert!(
+            !incoming.is_empty(),
+            "the edge must be visible from its target"
         );
         assert!(!relations_of_kind(RelationKind::RelatedTo).is_empty());
-        assert!(!neighbours("ADR-031").is_empty());
+        assert!(!neighbours(&subject).is_empty());
     }
 }

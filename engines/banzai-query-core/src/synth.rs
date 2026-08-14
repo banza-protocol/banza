@@ -371,18 +371,18 @@ mod tests {
     fn pkg() -> FactualPackage {
         build_factual_package_planned(
             "t",
-            "explica a ADR-002 sobre a inversao de nomes",
-            "ADR-002",
+            "explica a ADR-001 sobre a inversao de nomes",
+            "ADR-001",
             "brief",
         )
     }
 
     #[test]
     fn prompt_lists_facts_and_allowed_sources() {
-        let p = build_output_prompt("o que decidiu a ADR-002?", &pkg(), "brief");
+        let p = build_output_prompt("o que decidiu a ADR-001?", &pkg(), "brief");
         assert!(p.user.contains("F1 ["));
         assert!(p.user.contains("FONTES PERMITIDAS"));
-        assert!(p.user.contains("ADR-002"));
+        assert!(p.user.contains("ADR-001"));
         assert!(p.system.contains("APENAS os FACTOS"));
     }
 
@@ -396,7 +396,7 @@ mod tests {
         let se = s["properties"]["cited_source_ids"]["items"]["enum"]
             .as_array()
             .unwrap();
-        assert_eq!(se, &vec![serde_json::json!("ADR-002")]);
+        assert_eq!(se, &vec![serde_json::json!("ADR-001")]);
     }
 
     #[test]
@@ -415,7 +415,7 @@ mod tests {
 
     #[test]
     fn parse_round_trips_a_grounded_output() {
-        let raw = r#"{"answer_markdown":"A ADR-002 inverte a nomenclatura.","claims":[{"claim":"inverte a nomenclatura","fact_ids":["F1"]}],"cited_source_ids":["ADR-002"],"insufficient_evidence":false}"#;
+        let raw = r#"{"answer_markdown":"A ADR-001 inverte a nomenclatura.","claims":[{"claim":"inverte a nomenclatura","fact_ids":["F1"]}],"cited_source_ids":["ADR-001"],"insufficient_evidence":false}"#;
         let o = parse_output(raw).unwrap();
         assert_eq!(o.claims[0].fact_ids, vec!["F1".to_string()]);
         assert!(!o.insufficient_evidence);
@@ -456,20 +456,20 @@ mod tests {
 
     #[test]
     fn structured_prompt_keeps_prose_guard_drops_fill_instruction() {
-        let p = build_output_prompt_structured("o que decidiu a ADR-002?", &pkg(), "brief");
+        let p = build_output_prompt_structured("o que decidiu a ADR-001?", &pkg(), "brief");
         // prose-guard half stays…
         assert!(p.system.contains("NUNCA menciones"));
         // …the "fill cited_source_ids" half is gone.
         assert!(!p.system.contains("cited_source_ids só pode conter"));
         // facts + allowed sources still listed for grounding.
         assert!(p.user.contains("F1 ["));
-        assert!(p.user.contains("ADR-002"));
+        assert!(p.user.contains("ADR-001"));
     }
 
     #[test]
     fn structured_parse_without_cited_field_defaults_empty() {
         // A structured payload has no cited_source_ids; parse_output must still accept it (serde default).
-        let raw = r#"{"answer_markdown":"A ADR-002 inverte a nomenclatura.","claims":[{"claim":"inverte","fact_ids":["F1"]}],"insufficient_evidence":false}"#;
+        let raw = r#"{"answer_markdown":"A ADR-001 inverte a nomenclatura.","claims":[{"claim":"inverte","fact_ids":["F1"]}],"insufficient_evidence":false}"#;
         let o = parse_output(raw).unwrap();
         assert!(o.cited_source_ids.is_empty());
         assert_eq!(o.claims[0].fact_ids, vec!["F1".to_string()]);
@@ -492,13 +492,13 @@ mod tests {
         let out = grounded(vec!["F1"]);
         assert_eq!(
             derive_cited_source_ids(&pkg(), &out),
-            vec!["ADR-002".to_string()]
+            vec!["ADR-001".to_string()]
         );
     }
 
     #[test]
     fn derive_cited_dedupes_and_drops_unknown_fact_ids() {
-        // F1 repeated + an unknown fact id → a single ADR-002, unknown dropped.
+        // F1 repeated + an unknown fact id → a single ADR-001, unknown dropped.
         let out = GroundedOutput {
             answer_markdown: "x".into(),
             claims: vec![
@@ -516,7 +516,7 @@ mod tests {
         };
         assert_eq!(
             derive_cited_source_ids(&pkg(), &out),
-            vec!["ADR-002".to_string()]
+            vec!["ADR-001".to_string()]
         );
     }
 

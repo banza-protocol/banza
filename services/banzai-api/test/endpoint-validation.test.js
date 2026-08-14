@@ -1,4 +1,4 @@
-// M2.19G.1 (ADR-038) — endpoint-originated operator validation. FULLY HERMETIC.
+// M2.19G.1 (ADR-034) — endpoint-originated operator validation. FULLY HERMETIC.
 //
 // Every artifact "fetch" goes through an INJECTED fetcher stub that returns the Operador Zero example
 // artifacts (examples/operators/zero) shaped as the secure fetcher's FetchResponse — a real network
@@ -20,7 +20,7 @@ import { createValidator, STEP_ORDER, RECEIPT_VERSION } from "../src/validate.js
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OZ = path.resolve(__dirname, "../../../examples/operators/zero");
 
-// path -> canonical OZ example file (the ADR-041 served subset + the four ADR-038 endpoints).
+// path -> canonical OZ example file (the ADR-035 served subset + the four ADR-034 endpoints).
 const OZ_MAP = {
   "/discovery.json": "discovery/discovery.json",
   "/.well-known/banza/operator.json": "manifest/operator-zero.manifest.valid.json",
@@ -88,7 +88,7 @@ const RECEIPT_FIELDS = [
   "qwen_calls", "external_model_calls", "protocol_fetch_count", "audit_ref",
 ];
 
-// ADR-039: Operador Zero is an L0 implementation, so the L2 (interoperability) and L3 (federation) steps
+// ADR-030: Operador Zero is an L0 implementation, so the L2 (interoperability) and L3 (federation) steps
 // are NOT_APPLICABLE — sealed as out-of-scope receipts, never fetched or engine-evaluated. Rust decides.
 const OZ_NOT_APPLICABLE_STEPS = new Set(["interoperability", "federation"]);
 
@@ -140,7 +140,7 @@ test("each fetching step binds its receipt to the real fetched origin (endpoint 
   for (const r of jr.steps) {
     if (r.step === "certification") continue; // aggregation step performs no fetch
     if (r.applicability === "NOT_APPLICABLE") {
-      // ADR-039: an out-of-scope step is never fetched — no origin binding, no engine run.
+      // ADR-030: an out-of-scope step is never fetched — no origin binding, no engine run.
       assert.ok(OZ_NOT_APPLICABLE_STEPS.has(r.step), `only L2/L3 steps are NOT_APPLICABLE for L0, not ${r.step}`);
       assert.equal(r.protocol_fetch_count, 0, `NOT_APPLICABLE step ${r.step} must not fetch`);
       assert.equal(r.result.status, "NOT_EVALUATED");
@@ -161,7 +161,7 @@ test("engine is invoked per step (correct engine mapping)", async () => {
     assert.equal(out.ok, true, `step ${step} should run`);
     assert.equal(out.receipt.engine, EXPECTED_ENGINE[step]);
     if (out.receipt.applicability === "NOT_APPLICABLE") {
-      // ADR-039: an out-of-scope step is not evaluated — its engine is named but never invoked (n/a).
+      // ADR-030: an out-of-scope step is not evaluated — its engine is named but never invoked (n/a).
       assert.ok(OZ_NOT_APPLICABLE_STEPS.has(step), `only L2/L3 are NOT_APPLICABLE for L0, not ${step}`);
       assert.equal(out.receipt.engine_version, "n/a");
       continue;
@@ -170,7 +170,7 @@ test("engine is invoked per step (correct engine mapping)", async () => {
   }
 });
 
-test("ADR-039: for the L0 Operador Zero target, L2/L3 steps are NOT_APPLICABLE (out of scope, not failed)", async () => {
+test("ADR-030: for the L0 Operador Zero target, L2/L3 steps are NOT_APPLICABLE (out of scope, not failed)", async () => {
   const v = createValidator(ENV, { fetchImpl: ozFetcher().impl });
   const jr = (await v.validateJourney(OP, IMPL)).journey_receipt;
   // Applicability map + summary are Rust-decided and surfaced on the journey receipt.
@@ -305,7 +305,7 @@ test("unknown step -> error", async () => {
 });
 
 test("Keys (step 3) and Trust (step 6) are DISTINCT steps even though they share banza-trust", async () => {
-  // ADR-042 §D-076-03: step 3 (Keys) foregrounds key material; step 6 (Trust) is the full Open Trust
+  // ADR-036: step 3 (Keys) foregrounds key material; step 6 (Trust) is the full Open Trust
   // Evaluation. banza-trust has no key-only entrypoint, so both use the same engine BY DESIGN — but the
   // steps must be distinguishable: distinct step ids, distinct receipts (input hashes), and the Keys
   // receipt must carry key-specific reason codes the Trust aggregate does not.

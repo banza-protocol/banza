@@ -2,8 +2,8 @@
 
 - **Estado:** Canónico
 - **Data:** 2026-07-19
-- **Decisão de referência:** [ADR-026](../../decisions/adr/ADR-026-postgresql-as-protocol-state-store-not-a-ledger.md)
-  (ver também [ADR-008](../../decisions/adr/ADR-008-protocol-infrastructure-independent-of-any-operator.md))
+- **Decisão de referência:** [ADR-013](../../decisions/adr/ADR-013-postgresql-as-protocol-state-store-not-a-ledger.md)
+  (ver também [ADR-002](../../decisions/adr/ADR-002-protocol-infrastructure-independent-of-any-operator.md))
 - **Auditoria:** [M2_7K_POSTGRESQL_RUNTIME_SCHEMA_AUDIT.md](M2_7K_POSTGRESQL_RUNTIME_SCHEMA_AUDIT.md)
 - **Fonte de verdade do schema:** `infra/banza-network/postgres/init/001_schema.sql`
 

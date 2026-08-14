@@ -84,7 +84,7 @@ if command -v node >/dev/null 2>&1; then
       const st = { calls: 0, externalCallsMade: 0 };
       const provider = { name: "local_qwen", inferenceLocation: "local", get externalCallsMade(){return st.externalCallsMade;}, warmupState:null,
         async answer(){ return { grounded:true, answer:"x", sources:[], provider:"local_qwen", mode:"real", inference_location:"local" }; } };
-      const rt = async () => { st.calls++; await sleep(30); return { status:"grounded", answer_markdown:"Resumo orientativo com base nas fontes (ADR-002).", cited_source_ids:["ADR-002"], package:{ facts:[{ id:"F1", source:{ document_id:"ADR-002", title:"Ecossistema", path:"decisions/adr/ADR-002-ecosystem-naming-banza-banzai-and-operators.md" } }] }, primary_intent:"explain_concept", trace:{ synthesis_called:true, output_status:"ok", model:"qf" } }; };
+      const rt = async () => { st.calls++; await sleep(30); return { status:"grounded", answer_markdown:"Resumo orientativo com base nas fontes (ADR-001).", cited_source_ids:["ADR-001"], package:{ facts:[{ id:"F1", source:{ document_id:"ADR-001", title:"Ecossistema", path:"$(ls decisions/adr/ADR-001-*.md 2>/dev/null | head -1)" } }] }, primary_intent:"explain_concept", trace:{ synthesis_called:true, output_status:"ok", model:"qf" } }; };
       return { st, provider, rt };
     }
     const DET = ["o que é ADR","o que é AML","PASS certifica?","quem criou o BANZA?","qual é a licença do software BANZA?"];

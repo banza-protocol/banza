@@ -1,4 +1,4 @@
-# A NEW Python crypto engine — must be blocked by ADR-043.
+# A NEW Python crypto engine — must be blocked by ADR-038.
 import nacl.signing
 def verify_signature(msg, sig, pk):  # ed25519
     return nacl.signing.VerifyKey(pk).verify(msg, sig)

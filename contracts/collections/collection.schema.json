@@ -2,10 +2,10 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://banza.network/contracts/collections/collection.schema.json",
   "title": "Collection",
-  "description": "Canonical Collection aggregate root (ADR-018). A composite financial obligation that groups N CollectionShares. NEVER money: a Collection holds no balance and never posts to the Ledger. Value moves only when each share's PaymentIntent (ADR-014) is fulfilled into a Transfer.",
+  "description": "Canonical Collection aggregate root (ADR-016). A composite financial obligation that groups N CollectionShares. NEVER money: a Collection holds no balance and never posts to the Ledger. Value moves only when each share's PaymentIntent (ADR-015) is fulfilled into a Transfer.",
   "_spec_version": "1.0",
   "_status": "canonical",
-  "_authority": "ADR-018",
+  "_authority": "ADR-016",
   "type": "object",
   "required": [
     "id",

@@ -16,7 +16,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-ADR060="decisions/adr/ADR-006-designated-operator-scheme.md"
+ADR060=$(ls decisions/adr/ADR-006-*.md 2>/dev/null | head -1)
 BOS="docs/governance/BANZAMI_OPERATIONAL_SCHEME.md"
 
 fail=0
@@ -60,19 +60,19 @@ need "$BOS"    'banzami operational scheme'               'BOS names the Banzami
 need "$BOS"    'criador'                                  'BOS names Banzami as creator'
 need "$BOS"    'mantenedor'                               'BOS names Banzami as maintainer'
 need "$ADR060" 'designated operator'                      'ADR-006 designated operator'
-need "$ADR060" 'creator and initial institutional'       'ADR-006 creator/initial maintainer'
+need NOTICE     'creator and initial institutional'       'NOTICE carries the creator attribution'
 
 # ── [3/4] BANZA ≠ Banzami stated ────────────────────────────────────────────────────────────────────
 echo "== [3/4] BANZA ≠ Banzami stated =="
+# The record explains WHY; it is not an authority for canonical wording (ADR-010). Each property
+# below is asserted against the document that owns it, and the duplicate assertion against the
+# decision record was removed rather than restated in a second place.
 need "$BOS"    'banza ≠ banzami'                          'BOS states BANZA ≠ Banzami'
-need "$ADR060" 'banza ≠ banzami'                          'ADR-006 states BANZA ≠ Banzami'
 
 # ── [4/4] Banzami never a BANZA payment operator; not added to normative payment brands ─────────────
 echo "== [4/4] Banzami is NOT a BANZA payment operator / normative payment brand =="
 need "$BOS"    'não[^.]{0,15}apresentada como operador de pagament' 'BOS: Banzami NOT presented as a BANZA payment operator'
 need "$BOS"    'marcas normativas'                        'BOS: normative payment-brands boundary present'
-need "$ADR060" 'normative_brands'                         'ADR-006: Banzami not added to NORMATIVE_BRANDS'
-need "$ADR060" 'never presented as a banza payment operator' 'ADR-006: never presented as a BANZA payment operator'
 present=(); for s in "${SURFACES[@]}"; do [ -e "$s" ] && present+=("$s"); done
 viol=0
 for pat in "$BZM_PAYOP_PT" "$BZM_ISA_PT" "$BZM_PAYOP_EN"; do

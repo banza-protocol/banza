@@ -1,4 +1,4 @@
-// Onboarding composition entry (M2.19G.3, ADR-040). Wires config → db → engine (Rust/WASM) → email
+// Onboarding composition entry (M2.19G.3, ADR-037). Wires config → db → engine (Rust/WASM) → email
 // provider → secure fetcher → service → router, and exposes the two things server.js needs: a
 // secret-free health view and a single `handle(req, path, clientId)` dispatcher. Everything is lazily
 // constructed so the API boots normally when onboarding is disabled or the DB is briefly unavailable.

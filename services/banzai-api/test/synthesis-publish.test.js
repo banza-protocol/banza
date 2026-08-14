@@ -19,8 +19,8 @@ function scriptedProvider(outputs) {
 
 // ── Group 1 — valid grounded outputs MUST publish ─────────────────────────────────────────────────
 test("(valid) non-empty answer + valid claims → grounded, published verbatim", async () => {
-  const out = JSON.stringify({ answer_markdown: "A ADR-002 inverte a nomenclatura do ecossistema.", claims: [{ claim: "inverte a nomenclatura", fact_ids: ["F1"] }], cited_source_ids: ["ADR-002"], insufficient_evidence: false });
-  const r = await runGroundedSynthesis("explica a ADR-002", { provider: scriptedProvider([out]), entityId: "ADR-002" });
+  const out = JSON.stringify({ answer_markdown: "A ADR-001 inverte a nomenclatura do ecossistema.", claims: [{ claim: "inverte a nomenclatura", fact_ids: ["F1"] }], cited_source_ids: ["ADR-001"], insufficient_evidence: false });
+  const r = await runGroundedSynthesis("explica a ADR-001", { provider: scriptedProvider([out]), entityId: "ADR-001" });
   assert.equal(r.status, "grounded");
   assert.match(r.answer_markdown, /nomenclatura/);
   assert.equal(r.trace.answer_composed_from_claims, false, "the model's own prose is used, not composed");
@@ -28,8 +28,8 @@ test("(valid) non-empty answer + valid claims → grounded, published verbatim",
 });
 
 test("(valid+FIX) empty answer_markdown but valid claims → composed from validated claims, grounded", async () => {
-  const out = JSON.stringify({ answer_markdown: "", claims: [{ claim: "A ADR-002 inverte a nomenclatura do ecossistema", fact_ids: ["F1"] }, { claim: "o operador de referência passou a designar o operador", fact_ids: ["F1"] }], cited_source_ids: ["ADR-002"], insufficient_evidence: false });
-  const r = await runGroundedSynthesis("explica a ADR-002", { provider: scriptedProvider([out]), entityId: "ADR-002" });
+  const out = JSON.stringify({ answer_markdown: "", claims: [{ claim: "A ADR-001 inverte a nomenclatura do ecossistema", fact_ids: ["F1"] }, { claim: "o operador de referência passou a designar o operador", fact_ids: ["F1"] }], cited_source_ids: ["ADR-001"], insufficient_evidence: false });
+  const r = await runGroundedSynthesis("explica a ADR-001", { provider: scriptedProvider([out]), entityId: "ADR-001" });
   assert.equal(r.status, "grounded", "a validated output with composable claims must publish, not fall back");
   assert.equal(r.trace.answer_composed_from_claims, true, "answer_markdown composed from the validated claims");
   assert.ok(r.answer_markdown && r.answer_markdown.trim().length > 0, "composed answer is non-empty");
@@ -42,16 +42,16 @@ test("(valid+FIX) empty answer_markdown but valid claims → composed from valid
 // (derived ⊆ allowed), so this specific defect class is structurally impossible; the structured path's own
 // rejection of a prose hallucination is covered in test/spr4-structured-synthesis.test.js.
 test("(invalid) citation outside the allowed set → rejected → fallback (never published)", async () => {
-  const out = JSON.stringify({ answer_markdown: "Na verdade a ADR-039 trata disto.", claims: [{ claim: "trata disto", fact_ids: ["F1"] }], cited_source_ids: ["ADR-039"], insufficient_evidence: false });
-  const r = await runGroundedSynthesis("explica a ADR-002", { provider: scriptedProvider([out]), entityId: "ADR-002", structured: false });
+  const out = JSON.stringify({ answer_markdown: "Na verdade a ADR-030 trata disto.", claims: [{ claim: "trata disto", fact_ids: ["F1"] }], cited_source_ids: ["ADR-030"], insufficient_evidence: false });
+  const r = await runGroundedSynthesis("explica a ADR-001", { provider: scriptedProvider([out]), entityId: "ADR-001", structured: false });
   assert.equal(r.status, "fallback");
   assert.equal(r.answer_markdown, null);
   assert.equal(r.trace.factual_ok, false);
 });
 
 test("(invalid) empty answer AND no claims → nothing to compose → not published as prose", async () => {
-  const out = JSON.stringify({ answer_markdown: "", claims: [], cited_source_ids: ["ADR-002"], insufficient_evidence: false });
-  const r = await runGroundedSynthesis("explica a ADR-002", { provider: scriptedProvider([out]), entityId: "ADR-002" });
+  const out = JSON.stringify({ answer_markdown: "", claims: [], cited_source_ids: ["ADR-001"], insufficient_evidence: false });
+  const r = await runGroundedSynthesis("explica a ADR-001", { provider: scriptedProvider([out]), entityId: "ADR-001" });
   // Either the validator rejects an empty/claimless answer (fallback), or it is grounded-but-empty which
   // the pipeline treats as non-grounded. Either way, NO empty prose is ever published.
   assert.ok(r.status === "fallback" || !String(r.answer_markdown || "").trim(), "no empty prose is published");
@@ -60,7 +60,7 @@ test("(invalid) empty answer AND no claims → nothing to compose → not publis
 
 // ── Group 3 — structurally defective outputs MUST fail safely with an internal reason ────────────────
 test("(defective) malformed JSON → fallback, output_status invalid", async () => {
-  const r = await runGroundedSynthesis("explica a ADR-002", { provider: scriptedProvider(["{ not json"]), entityId: "ADR-002" });
+  const r = await runGroundedSynthesis("explica a ADR-001", { provider: scriptedProvider(["{ not json"]), entityId: "ADR-001" });
   assert.equal(r.status, "fallback");
   assert.equal(r.trace.output_status, "invalid");
   assert.equal(r.answer_markdown, null);
@@ -68,7 +68,7 @@ test("(defective) malformed JSON → fallback, output_status invalid", async () 
 
 test("(defective) honest insufficient_evidence → insufficient, nothing invented", async () => {
   const out = JSON.stringify({ answer_markdown: "Sem base documental.", claims: [], cited_source_ids: [], insufficient_evidence: true });
-  const r = await runGroundedSynthesis("explica a ADR-002", { provider: scriptedProvider([out]), entityId: "ADR-002" });
+  const r = await runGroundedSynthesis("explica a ADR-001", { provider: scriptedProvider([out]), entityId: "ADR-001" });
   assert.equal(r.status, "insufficient");
   assert.equal(r.answer_markdown, null);
 });
@@ -76,19 +76,19 @@ test("(defective) honest insufficient_evidence → insufficient, nothing invente
 // ── M2.18B.4-R2 — a COMPARISON packages BOTH named documents so each side is citeable ────────────────
 test("(valid+compare) both named documents are citeable → grounded, neither citation rejected", async () => {
   // The compare path reads the explicit refs from the QUESTION (Rust detect_refs) and builds a
-  // multi-document package, so allowed_source_ids contains ADR-041 AND ADR-042. An answer that cites both
+  // multi-document package, so allowed_source_ids contains ADR-035 AND ADR-036. An answer that cites both
   // (as a comparison must) is then VALID — the single-document package would reject the second citation.
   const out = JSON.stringify({
-    answer_markdown: "A ADR-041 fixa a política de exemplo; a ADR-042 define a interface primária.",
+    answer_markdown: "A ADR-035 fixa a política de exemplo; a ADR-036 define a interface primária.",
     claims: [
-      { claim: "a ADR-041 fixa a política de exemplo", fact_ids: ["F1"] },
-      { claim: "a ADR-042 define a interface primária", fact_ids: ["F1"] },
+      { claim: "a ADR-035 fixa a política de exemplo", fact_ids: ["F1"] },
+      { claim: "a ADR-036 define a interface primária", fact_ids: ["F1"] },
     ],
-    cited_source_ids: ["ADR-041", "ADR-042"],
+    cited_source_ids: ["ADR-035", "ADR-036"],
     insufficient_evidence: false,
   });
-  const r = await runGroundedSynthesis("compara a ADR-041 com a ADR-042", { provider: scriptedProvider([out]), entityId: "ADR-041" });
+  const r = await runGroundedSynthesis("compara a ADR-035 com a ADR-036", { provider: scriptedProvider([out]), entityId: "ADR-035" });
   assert.equal(r.status, "grounded", "a compare citing both named docs must publish (both in allowed_source_ids)");
   assert.equal(r.trace.factual_ok, true);
-  assert.ok(Array.isArray(r.trace.compare_doc_ids) && r.trace.compare_doc_ids.includes("ADR-042"), "the second named document is packaged");
+  assert.ok(Array.isArray(r.trace.compare_doc_ids) && r.trace.compare_doc_ids.includes("ADR-036"), "the second named document is packaged");
 });

@@ -25,7 +25,7 @@ BANZA is an open financial protocol. Operator participation is demonstrated by v
 
 The level names **and per-level capabilities** above are canonical and match
 [docs/governance/certification-boundary.md](../../docs/governance/certification-boundary.md) § Conformance level model and
-ADR-039. The sandbox runner covers L0–L2; L3 (federation) and L4 (external) are
+ADR-030. The sandbox runner covers L0–L2; L3 (federation) and L4 (external) are
 not covered by it.
 
 The reference operator **targets Level 2** and can be evaluated against the
@@ -34,7 +34,7 @@ committed conformance evidence (a `report.json` with provenance), which this
 repository does not include.
 
 Passing the suite makes an operator **evaluable**, not routable. Routing is decided
-by each counterparty independently, via Open Trust Evaluation (ADR-031), of which
+by each counterparty independently, via Open Trust Evaluation (ADR-025), of which
 conformance evidence is one of ten inputs.
 
 ## Running the conformance suite
@@ -140,7 +140,7 @@ The manifest schema is validated by `conformance/manifests/schema.json`.
 2. Add the vector to the appropriate file in `conformance/vectors/`
 3. Set `"stability": "experimental"` until it passes the reference operator
 4. Reference the vector from the relevant suite's `vectors` array
-5. Implement the test case in `engines/banza-conformance` (the Rust runner, ADR-043)
+5. Implement the test case in `engines/banza-conformance` (the Rust runner, ADR-038)
 
 A vector that no longer applies is flagged in place via its `stability` marker rather than removed, so its ID is never reused.
 

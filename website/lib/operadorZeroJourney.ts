@@ -1,4 +1,4 @@
-// Operador Zero — realistic operator journey model (ADR-041, M2.14A). RUST_WRAPPER_ONLY.
+// Operador Zero — realistic operator journey model (ADR-035, M2.14A). RUST_WRAPPER_ONLY.
 //
 // The marker is required because this file names the journey step keys — including `evidence_bundle`,
 // an engine-vocabulary token the Rust-first guard scans for. It computes NO verdict: every per-step
@@ -6,7 +6,7 @@
 // the step keys here only MIRROR that engine vocabulary so the UI can order and lock the steps.
 //
 // PURE presentation/routing data + gating rules for the step-by-step Operador Zero journey inside
-// BanzAI. NO engine here (ADR-043): every verdict still comes from Rust/WASM (operator-zero-core via
+// BanzAI. NO engine here (ADR-038): every verdict still comes from Rust/WASM (operator-zero-core via
 // runOperadorZeroE2E, and the per-step protocol engines). This module only answers three questions a
 // component would otherwise answer inline, so they can be unit-tested and guarded:
 //

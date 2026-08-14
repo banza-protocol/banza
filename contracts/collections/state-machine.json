@@ -1,7 +1,7 @@
 {
   "_spec": "BANZA Collections State Machine v1.0",
   "_status": "canonical",
-  "_authority": "ADR-018",
+  "_authority": "ADR-016",
   "_description": "Valid state transitions for Collection and CollectionShare. Any transition not listed is invalid and MUST be rejected. Terminal states accept no further transitions.",
 
   "collection": {
@@ -31,7 +31,7 @@
       "LINK_CREATED": ["PAID", "EXPIRED", "CANCELLED", "FAILED"]
     },
     "rules": {
-      "LINK_CREATED": "A PaymentIntent (ADR-014) exists; its link/QR is presentable.",
+      "LINK_CREATED": "A PaymentIntent (ADR-015) exists; its link/QR is presentable.",
       "PAID": "Reached ONLY on a real confirmed Transfer; transfer_id set; Transfer.causation_id == payment_intent_id (INV-COLLECTION-005). Terminal — no double payment (INV-COLLECTION-006).",
       "EXPIRED": "Share link/expiry passed unpaid."
     }

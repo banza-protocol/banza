@@ -1,9 +1,9 @@
 # BanzAI Local Inference Runtime
 
-> Conceptual and architecture reference for BanzAI's optional **local** language layer — Qwen3-4B-GGUF executed on-host by `llama.cpp`, controlled by Rust, with nothing leaving the machine. Governed by **[ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md)**, with latency tuning under **[ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md)**.
+> Conceptual and architecture reference for BanzAI's optional **local** language layer — Qwen3-4B-GGUF executed on-host by `llama.cpp`, controlled by Rust, with nothing leaving the machine. Governed by **[ADR-036](../../decisions/adr/ADR-036-banzai-a-non-authoritative-interface-to-the-protocol.md)**, with latency tuning under **[ADR-036](../../decisions/adr/ADR-036-banzai-a-non-authoritative-interface-to-the-protocol.md)**.
 
-- **Milestone:** M2.8A (runtime) · M2.8B (latency tuning, ADR-042)
-- **Status:** Accepted (ADR-042, ADR-042); local inference is opt-in and benchmark-gated
+- **Milestone:** M2.8A (runtime) · M2.8B (latency tuning, ADR-036)
+- **Status:** Accepted (ADR-036, ADR-036); local inference is opt-in and benchmark-gated
 - **Audience:** protocol maintainers and operators of the reference deployment (`docs/banzai/` is an internal/dev surface; English is acceptable here)
 - **Sibling docs:** `docs/banzai/LOCAL_QWEN_MODEL_SETUP.md` (install the GGUF), `docs/banzai/LOCAL_INFERENCE_RUNBOOK.md` (operations), `docs/governance/M2_8A_LOCAL_QWEN_VPS_XL_BENCHMARK.md` (the mandatory benchmark record)
 
@@ -61,7 +61,7 @@ BanzAI's identity and boundary are unchanged by this runtime. BanzAI guides oper
 
 ## 4. The control layer: Rust owns safety (`engines/banzai-api-kb`)
 
-All safety-critical control logic is **Rust** (`engines/banzai-api-kb`, compiled to native + WASM), per ADR-043. The TypeScript/JS service (`services/banzai-api`) is **I/O glue** only — it moves bytes, it does not decide.
+All safety-critical control logic is **Rust** (`engines/banzai-api-kb`, compiled to native + WASM), per ADR-038. The TypeScript/JS service (`services/banzai-api`) is **I/O glue** only — it moves bytes, it does not decide.
 
 > **Rust remains responsible for retrieval, source selection, prompt construction, limits, validation, fallback and safety.**
 
@@ -104,7 +104,7 @@ Conservative defaults keep CPU inference safe on a no-GPU host. All are env-tuna
 | Limit | Default | Env knob |
 |---|---|---|
 | Context window (`n_ctx`) | 4096 (8192 only if the benchmark proves stability) | `LLAMA_CTX_SIZE` |
-| Max output tokens (local_qwen) | 384 (ADR-042; 256/512 only by explicit config; hosted providers keep 800) | `LLM_MAX_TOKENS` |
+| Max output tokens (local_qwen) | 384 (ADR-036; 256/512 only by explicit config; hosted providers keep 800) | `LLM_MAX_TOKENS` |
 | Temperature | 0.1–0.2 | `LLM_TEMPERATURE` |
 | `top_p` | ~0.8 | `LLM_TOP_P` |
 | Concurrency | 1 | `BANZAI_MAX_CONCURRENCY` |
@@ -112,14 +112,14 @@ Conservative defaults keep CPU inference safe on a no-GPU host. All are env-tuna
 | Request timeout (local_qwen) | 60000 ms / 60s (90s only as a documented extreme fallback) | `LLM_TIMEOUT_MS` |
 | Sources per answer (local) | ≤3 | (control layer) |
 | Context budget (local) | ≤2800 chars (deterministic truncation in Rust) | (control layer) |
-| Reasoning mode (local Qwen3) | **disabled** (`enable_thinking:false`) — ADR-042 | (control layer) |
+| Reasoning mode (local Qwen3) | **disabled** (`enable_thinking:false`) — ADR-036 | (control layer) |
 | Startup warm-up | on (best-effort; primes the real system-prompt prefix) | `BANZAI_WARMUP` |
 
 Concurrency 1 + queue 1 means the runtime serves one generation at a time and shallow-queues at most one more; excess load degrades rather than piling up.
 
-The **384-token** local default (ADR-042; raised from the original 256 once reasoning was disabled per ADR-042) gives BanzAI's answers professional headroom while keeping CPU decode time bounded — the VPS XL+ benchmark showed answers finish naturally at ~84–133 tokens with room to spare (~8.7s). 256/512 are available only by explicit config; hosted providers are unaffected (800). The **60s** local timeout is an operational margin for CPU prefill+decode on a no-GPU host (max observed ~20s at 384); 90s exists only as a documented extreme fallback, and timeouts still degrade safely (§6).
+The **384-token** local default (ADR-036; raised from the original 256 once reasoning was disabled per ADR-036) gives BanzAI's answers professional headroom while keeping CPU decode time bounded — the VPS XL+ benchmark showed answers finish naturally at ~84–133 tokens with room to spare (~8.7s). 256/512 are available only by explicit config; hosted providers are unaffected (800). The **60s** local timeout is an operational margin for CPU prefill+decode on a no-GPU host (max observed ~20s at 384); 90s exists only as a documented extreme fallback, and timeouts still degrade safely (§6).
 
-**Reasoning disabled (ADR-042).** Qwen3-4B is a reasoning model; left on, it spends the compact
+**Reasoning disabled (ADR-036).** Qwen3-4B is a reasoning model; left on, it spends the compact
 256-token budget inside `<think>` (`reasoning_content`) and returns empty final content on cold/complex
 prompts. BanzAI answers from sources in 3–6 sentences and must not leak chain-of-thought, so reasoning
 is **disabled** for the local runtime via `chat_template_kwargs: { enable_thinking: false }`. The Rust
@@ -198,8 +198,8 @@ The target host is a **VPS XL+**: 8 vCore, 16 GB RAM, 480 GB NVMe, **no GPU**. K
 
 Configured in `infra/banza-network/.env.example`:
 
-- **Compose / container:** `COMPOSE_PROFILES`, `LLAMA_LOCAL_IMAGE` (default digest-pinned `ghcr.io/ggml-org/llama.cpp@sha256:b832a7b7…` — ADR-042; never a rolling tag), `LLAMA_MODEL_PATH` (default `/models/model.gguf`), `LLAMA_CTX_SIZE` (default 4096), `LLAMA_THREADS` (default 4), `LLAMA_CPU_LIMIT` (default 4.0), `LLAMA_MEM_LIMIT` (default `7g`)
-- **Provider / generation:** `LLM_PROVIDER`, `LLM_MODEL`, `LLM_TIMEOUT_MS` (local_qwen default 60000), `LLM_MAX_TOKENS` (local_qwen default 384 — ADR-042; hosted 800), `LLM_TEMPERATURE`, `LLM_TOP_P`
+- **Compose / container:** `COMPOSE_PROFILES`, `LLAMA_LOCAL_IMAGE` (default digest-pinned `ghcr.io/ggml-org/llama.cpp@sha256:b832a7b7…` — ADR-036; never a rolling tag), `LLAMA_MODEL_PATH` (default `/models/model.gguf`), `LLAMA_CTX_SIZE` (default 4096), `LLAMA_THREADS` (default 4), `LLAMA_CPU_LIMIT` (default 4.0), `LLAMA_MEM_LIMIT` (default `7g`)
+- **Provider / generation:** `LLM_PROVIDER`, `LLM_MODEL`, `LLM_TIMEOUT_MS` (local_qwen default 60000), `LLM_MAX_TOKENS` (local_qwen default 384 — ADR-036; hosted 800), `LLM_TEMPERATURE`, `LLM_TOP_P`
 - **Concurrency:** `BANZAI_MAX_CONCURRENCY`, `BANZAI_QUEUE_SIZE`
 - **Warm-up:** `BANZAI_WARMUP` (default `1`; set `0` to disable the startup ping)
 - **Gating:** `BANZAI_LOCAL_INFERENCE_ENABLED`, `BANZAI_BENCHMARK_APPROVED`
@@ -275,15 +275,15 @@ Every `/ask` response carries `non_normative: true` — a structural reminder th
 
 ## 16. References
 
-- **[ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md)** — BanzAI Local Qwen Inference Runtime (this runtime's governing decision).
-- **[ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md)** — BanzAI Local Qwen latency tuning (M2.8B): compact Rust prompt, 256-token default output, ≤3 excerpts / ≤2800-char context budget, 60s timeout margin, optional warm-up, and the `curl` healthcheck fix.
-- **[ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md)** — BanzAI disables Qwen3 reasoning (`enable_thinking:false`) so the compact budget produces the answer, and warms the real system-prompt prefix on startup (M2.8C).
-- **[ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md)** — BanzAI local_qwen output default raised 256→384 for a professional answer budget (M2.8D); VPS XL+ benchmark validated (answers finish naturally, ~8.7s, 60s timeout ample).
-- **ADR-043** — Rust-first policy for official engines (control logic is Rust).
-- **ADR-042** — BanzAI as the native, non-authoritative protocol agent.
-- **ADR-026** — PostgreSQL as protocol-state store (the model never touches it).
+- **[ADR-036](../../decisions/adr/ADR-036-banzai-a-non-authoritative-interface-to-the-protocol.md)** — BanzAI Local Qwen Inference Runtime (this runtime's governing decision).
+- **[ADR-036](../../decisions/adr/ADR-036-banzai-a-non-authoritative-interface-to-the-protocol.md)** — BanzAI Local Qwen latency tuning (M2.8B): compact Rust prompt, 256-token default output, ≤3 excerpts / ≤2800-char context budget, 60s timeout margin, optional warm-up, and the `curl` healthcheck fix.
+- **[ADR-036](../../decisions/adr/ADR-036-banzai-a-non-authoritative-interface-to-the-protocol.md)** — BanzAI disables Qwen3 reasoning (`enable_thinking:false`) so the compact budget produces the answer, and warms the real system-prompt prefix on startup (M2.8C).
+- **[ADR-036](../../decisions/adr/ADR-036-banzai-a-non-authoritative-interface-to-the-protocol.md)** — BanzAI local_qwen output default raised 256→384 for a professional answer budget (M2.8D); VPS XL+ benchmark validated (answers finish naturally, ~8.7s, 60s timeout ample).
+- **ADR-038** — Rust-first policy for official engines (control logic is Rust).
+- **ADR-036** — BanzAI as the native, non-authoritative protocol agent.
+- **ADR-013** — PostgreSQL as protocol-state store (the model never touches it).
 - `engines/banzai-api-kb/src/{prompt.rs,validate.rs}` — the Rust control logic.
 - `services/banzai-api/` — the JS I/O glue.
 - `infra/banza-network/compose.yml` — the `llama-local` service.
 - `docs/banzai/LOCAL_QWEN_MODEL_SETUP.md`, `docs/banzai/LOCAL_INFERENCE_RUNBOOK.md` — setup and operations.
-- ADR-042 / ADR-042 / ADR-042 — the benchmark gate and the defaults it fixed.
+- ADR-036 / ADR-036 / ADR-036 — the benchmark gate and the defaults it fixed.

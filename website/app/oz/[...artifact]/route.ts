@@ -3,7 +3,7 @@ import { ARTIFACT_ROUTES, artifactForRoute, readArtifact } from "@/lib/operadorZ
 
 // The canonical Operador Zero demo JSON artifacts. Served at the subdomain root
 // (zero.banza.network/<artifact>.json) via the host-aware middleware, which rewrites onto this
-// internal /oz handler. There is no apex surface any more (ADR-041, M2.12G: /operador-zero is 410).
+// internal /oz handler. There is no apex surface any more (ADR-035, M2.12G: /operador-zero is 410).
 //
 // Static: every payload is a bundled constant (operadorZeroArtifacts.generated.ts, vendored from the
 // canonical tree). No runtime filesystem access — the website image is built from website/ alone, so

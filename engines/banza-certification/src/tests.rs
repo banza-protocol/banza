@@ -1,4 +1,4 @@
-//! Unit + property tests for the deterministic certification authority (ADR-034/065/066, M2.19D item 12).
+//! Unit + property tests for the deterministic certification authority (ADR-032/065/066, M2.19D item 12).
 
 use super::*;
 

@@ -375,7 +375,7 @@ fn envelope(
 
 // ── fixtures ──────────────────────────────────────────────────────────────────
 
-/// Demo fixtures for the manifest validator, ALL derived from Operador Zero (ADR-041 — Operator Zero
+/// Demo fixtures for the manifest validator, ALL derived from Operador Zero (ADR-035 — Operator Zero
 /// Only demo/example policy). The single canonical demo operator is `operator-zero` on
 /// `zero.banza.network`; there is no parallel fictional example operator. All variants stay demo-only
 /// (simulated, production_allowed=false); the negative ones are Operador Zero scenarios by design.

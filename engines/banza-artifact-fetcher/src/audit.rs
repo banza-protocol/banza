@@ -1,4 +1,4 @@
-//! Per-fetch identifiers, timestamps, hashing and the one-line audit record (ADR-038 §4.8, §20).
+//! Per-fetch identifiers, timestamps, hashing and the one-line audit record (ADR-034 §4.8, §20).
 
 use crate::types::FetchResponse;
 use sha2::{Digest, Sha256};
@@ -40,7 +40,7 @@ pub fn sha256_hex(bytes: &[u8]) -> String {
     out
 }
 
-/// Emit exactly one JSON audit line per fetch to stdout (ADR-038 §4.8: protocol fetches are counted
+/// Emit exactly one JSON audit line per fetch to stdout (ADR-034 §4.8: protocol fetches are counted
 /// as `protocol_fetch`, never as external model calls). Deterministic single line; greppable.
 pub fn audit_line(resp: &FetchResponse) {
     let reasons: Vec<&str> = resp.reason_codes.iter().map(|r| r.as_str()).collect();

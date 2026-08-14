@@ -1,10 +1,10 @@
 //! Verdict interpretation — the ONLY place a step verdict or the certification readiness is decided.
 //!
-//! ADR-038: **Rust decides every verdict; Qwen only explains; TypeScript never decides.** The decision
+//! ADR-034: **Rust decides every verdict; Qwen only explains; TypeScript never decides.** The decision
 //! engines each return their own status (`VALID`, `TRUST_VALID`, `PASS`, `L2_READY_…`, …); this module
 //! maps that engine status onto the canonical journey step status and aggregates the technical steps
 //! into a Certification **Readiness** — which is `READY` or `BLOCKED` and is **never** a Certification
-//! Record and **never** `CERTIFIED` (ADR-038 §21 step 9, §4.10).
+//! Record and **never** `CERTIFIED` (ADR-034 §21 step 9, §4.10).
 
 use serde_json::{json, Value};
 
@@ -135,7 +135,7 @@ pub fn step_status(step: &str, engine_output: &Value) -> Value {
     })
 }
 
-/// Validate a fetched discovery document against the resolved target (ADR-038 §21 step 1). Checks the
+/// Validate a fetched discovery document against the resolved target (ADR-034 §21 step 1). Checks the
 /// identity fields and that the published endpoint map is host-bound to the canonical origin.
 pub fn validate_discovery(resolved_target: &Value, discovery: &Value) -> Value {
     let mut checks: Vec<Value> = Vec::new();
@@ -235,7 +235,7 @@ pub fn validate_discovery(resolved_target: &Value, discovery: &Value) -> Value {
     })
 }
 
-/// Applicability of a step to a profile — a dimension ORTHOGONAL to the step's state (ADR-039).
+/// Applicability of a step to a profile — a dimension ORTHOGONAL to the step's state (ADR-030).
 pub const REQUIRED: &str = "REQUIRED";
 pub const OPTIONAL: &str = "OPTIONAL";
 pub const NOT_APPLICABLE: &str = "NOT_APPLICABLE";
@@ -252,7 +252,7 @@ const TECHNICAL_STEPS: &[&str] = &[
     "evidence",
 ];
 
-/// Applicability of one technical step to a declared conformance profile (ADR-039 levels, ADR-039
+/// Applicability of one technical step to a declared conformance profile (ADR-030 levels, ADR-030
 /// applicability model). L0/L1 are single-operator sandbox readiness: the L2 (payment interoperability)
 /// and L3 (inter-operator federation) steps are NOT_APPLICABLE — they are not a technical FAILURE of an
 /// L0 implementation, they simply do not apply to that profile. L2 adds interoperability; L3 adds
@@ -296,8 +296,8 @@ pub fn profile_applicability(profile: &str) -> Value {
     })
 }
 
-/// Aggregate the technical step verdicts into a Certification **Readiness** record (ADR-038 §21 step 9,
-/// ADR-039 profile applicability). `step_verdicts` is an array of `{ "step": "...", "status": "..." }`.
+/// Aggregate the technical step verdicts into a Certification **Readiness** record (ADR-034 §21 step 9,
+/// ADR-030 profile applicability). `step_verdicts` is an array of `{ "step": "...", "status": "..." }`.
 /// Readiness aggregates ONLY the steps that are REQUIRED for `profile`; NOT_APPLICABLE steps are excluded
 /// (never contribute FAILED/BLOCKED/PENDING). Output is `READY` or `BLOCKED` — never a Certification
 /// Record, never `CERTIFIED`. Empty/unknown profile ⇒ every step REQUIRED (backward compatible).

@@ -24,16 +24,16 @@ engine registries (catalogue subjects, alias truth table, covered entities). Det
 
 ## Subjects (authoritative catalogue projection — each source-linked)
 - **undefined** — deliverables [example] — sources [ADR-001, operator-manifest-schema]
-- **undefined** — deliverables [example, procedure] — sources [ADR-027, ADR-031, operator-manifest-schema]
+- **undefined** — deliverables [example, procedure] — sources [ADR-025, ADR-025, operator-manifest-schema]
 - **undefined** — deliverables [procedure, template] — sources [operator-manifest-schema]
-- **undefined** — deliverables [example, procedure] — sources [revocation-entry-schema, ADR-031]
-- **undefined** — deliverables [example, template] — sources [ADR-X026, ADR-027, ADR-031, federation-trust-evaluation-schema]
-- **undefined** — deliverables [example, template] — sources [evidence-bundle-schema, conformance-evidence-schema, ADR-033]
-- **undefined** — deliverables [example, procedure, template] — sources [ADR-039, ADR-033, conformance-evidence-schema]
-- **undefined** — deliverables [procedure] — sources [ADR-033, operator-manifest-schema, ADR-031]
+- **undefined** — deliverables [example, procedure] — sources [revocation-entry-schema, ADR-025]
+- **undefined** — deliverables [example, template] — sources [ADR-X026, ADR-025, ADR-025, federation-trust-evaluation-schema]
+- **undefined** — deliverables [example, template] — sources [evidence-bundle-schema, conformance-evidence-schema, ADR-031]
+- **undefined** — deliverables [example, procedure, template] — sources [ADR-030, ADR-031, conformance-evidence-schema]
+- **undefined** — deliverables [procedure] — sources [ADR-031, operator-manifest-schema, ADR-025]
 - **undefined** — deliverables [procedure, template] — sources [key-manifest-schema, revocation-entry-schema]
-- **undefined** — deliverables [procedure, template] — sources [trust-root-metadata-schema, root-metadata-schema, root-key-schema, ADR-029, ADR-X027]
-- **undefined** — deliverables [example, template] — sources [federation-manifest-schema, ADR-X026, ADR-031]
+- **undefined** — deliverables [procedure, template] — sources [trust-root-metadata-schema, root-metadata-schema, root-key-schema, ADR-027, ADR-X027]
+- **undefined** — deliverables [example, template] — sources [federation-manifest-schema, ADR-X026, ADR-025]
 
 ## Additional subject-classified terms discovered in the corpus
 - Conformance → canonical `conformidade` (sources: 4)

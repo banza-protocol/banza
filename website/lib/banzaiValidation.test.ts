@@ -13,7 +13,7 @@ import {
   publicationStatusLabel,
 } from "./banzaiValidation";
 
-// M2.19E/F (ADR-041) — the deep-link contract is SSRF-safe by construction: closed target registry +
+// M2.19E/F (ADR-035) — the deep-link contract is SSRF-safe by construction: closed target registry +
 // closed workflow allowlist, no caller-supplied URL is ever fetched.
 describe("banzaiValidation — closed allowlists (SSRF-safe deep links)", () => {
   it("resolves only the registered operator-zero target", () => {

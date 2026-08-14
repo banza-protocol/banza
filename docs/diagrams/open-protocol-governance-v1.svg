@@ -3,7 +3,7 @@
   id:        SVG-P-058
   diagram:   Open Protocol Governance
   version:   1.0
-  source:    ADR-001 · ADR-003 · M2.2 (Open Protocol Governance)
+  source:    ADR-001 · ADR-004 · M2.2 (Open Protocol Governance)
   updated:   2026-07-17
   author:    BANZA Protocol
   style:     protocol
@@ -177,5 +177,5 @@
   <text x="490" y="768" text-anchor="middle" font-size="14" font-weight="800" fill="white">Humans maintain the protocol; they do not approve operators.</text>
 
   <!-- Footer -->
-  <text x="490" y="806" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-058 · Open Protocol Governance · BANZA Protocol · ADR-001 · ADR-003 · M2.2 · 2026-07-17</text>
+  <text x="490" y="806" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-058 · Open Protocol Governance · BANZA Protocol · ADR-001 · ADR-004 · M2.2 · 2026-07-17</text>
 </svg>

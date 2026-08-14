@@ -1,7 +1,7 @@
 # BANZA Ceremony Records
 
 **Status:** Governance evidence directory. No ceremony has been performed; this directory holds no records yet.
-**Authority:** ADR-027 (open trust model — trust root architecture); the custody model (`docs/security/ROOT_KEY_CUSTODY_MODEL.md`); `docs/security/ROOT_KEY_CEREMONY_REQUIREMENTS.md`.
+**Authority:** ADR-025 (open trust model — trust root architecture); the custody model (`docs/security/ROOT_KEY_CUSTODY_MODEL.md`); `docs/security/ROOT_KEY_CEREMONY_REQUIREMENTS.md`.
 
 ## Purpose
 

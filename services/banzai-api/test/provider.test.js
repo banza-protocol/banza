@@ -195,7 +195,7 @@ test("empty completion is rejected as upstream error (no silent fabrication)", a
   await assert.rejects(() => p.answer(QUESTION), (err) => err.code === "LLM_UPSTREAM_ERROR");
 });
 
-// ── local_qwen (ADR-042): internal llama.cpp, keyless, on-host ────────────────
+// ── local_qwen (ADR-036): internal llama.cpp, keyless, on-host ────────────────
 
 test("local_qwen is accepted and reports inference_location=local", () => {
   const p = createProvider({ LLM_PROVIDER: "local_qwen" });
@@ -290,7 +290,7 @@ test("prototype-chain names are rejected, never misrouted as providers", () => {
 
 test("local_qwen uses professional-but-bounded defaults (max_tokens 384, timeout 60s); hosted unchanged; env overrides", () => {
   const l = readLlmConfig("local_qwen", {});
-  assert.equal(l.maxTokens, 384, "local default output is a professional 384 (ADR-042)");
+  assert.equal(l.maxTokens, 384, "local default output is a professional 384 (ADR-036)");
   assert.equal(l.timeoutMs, 60000, "local default timeout is 60s margin");
   const d = readLlmConfig("deepseek", {});
   assert.equal(d.maxTokens, 800);
@@ -298,14 +298,14 @@ test("local_qwen uses professional-but-bounded defaults (max_tokens 384, timeout
   assert.equal(readLlmConfig("local_qwen", { LLM_MAX_TOKENS: "256" }).maxTokens, 256, "env override wins");
 });
 
-// ADR-042 FIX-1/2: the SHIPPED compose injects an EMPTY string for these vars (so it does
+// ADR-036 FIX-1/2: the SHIPPED compose injects an EMPTY string for these vars (so it does
 // not force the hosted 800/30000 onto local). An empty string must be treated as unset so
 // provider.js applies the per-destination local default — this is exactly the deployed path,
 // not the artificial {} the earlier test used.
 test("local_qwen keeps its default under the shipped empty-string env (deploy path)", () => {
   const shipped = { LLM_MAX_TOKENS: "", LLM_TIMEOUT_MS: "" }; // what compose ${VAR:-} yields
   const l = readLlmConfig("local_qwen", shipped);
-  assert.equal(l.maxTokens, 384, "empty LLM_MAX_TOKENS must fall back to the local default 384 (ADR-042)");
+  assert.equal(l.maxTokens, 384, "empty LLM_MAX_TOKENS must fall back to the local default 384 (ADR-036)");
   assert.equal(l.timeoutMs, 60000, "empty LLM_TIMEOUT_MS must fall back to the local 60s margin");
   const d = readLlmConfig("deepseek", shipped);
   assert.equal(d.maxTokens, 800, "empty env keeps hosted at 800");
@@ -331,7 +331,7 @@ test("warmup() waits for /health to be ready, then primes with a 1-token request
   const p = createProvider({ LLM_PROVIDER: "local_qwen" }, { fetchImpl: impl });
   assert.equal(typeof p.warmup, "function");
   assert.equal(await p.warmup({ retries: 3, delayMs: 0 }), true);
-  // ADR-042 FIX-3: first poll /health at the server root, then prime the model.
+  // ADR-036 FIX-3: first poll /health at the server root, then prime the model.
   assert.equal(calls.length, 2);
   assert.equal(calls[0].url, "http://llama-local:8080/health");
   assert.equal(calls[0].init.method, "GET");
@@ -351,7 +351,7 @@ test("warmup() gives up (never primes) if /health never becomes ready", async ()
   assert.equal(p.warmupState, false, "warmupState reflects a failed warm-up");
 });
 
-// ── ADR-042: reasoning disabled for local (Qwen3) + prefix warm-up ────────────
+// ── ADR-036: reasoning disabled for local (Qwen3) + prefix warm-up ────────────
 
 test("local_qwen requests disable Qwen3 reasoning (chat_template_kwargs.enable_thinking=false)", () => {
   const cfg = readLlmConfig("local_qwen", {});

@@ -3,7 +3,7 @@
   id:        SVG-P-100
   diagram:   BanzAI no protocolo
   version:   1.0
-  source:    BANZA_REFERENCIA.md §12 · ADR-054 · ADR-059 · ADR-067
+  source:    BANZA_REFERENCIA.md §12 · ADR-036 · ADR-004 · ADR-036
   updated:   2026-08-03
   author:    BANZA Protocol
   style:     protocol
@@ -169,5 +169,5 @@
   <!-- Closing note -->
   <text x="660" y="710" text-anchor="middle" font-size="9.5" fill="#6B6265">O BanzAI medeia; não decide veredictos, não certifica, não admite e não autoriza — cada decisão pertence ao responsável fora da sua fronteira.</text>
 
-  <text x="660" y="792" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-100 · BanzAI no protocolo · BANZA_REFERENCIA.md §12 · ADR-054 · ADR-059 · ADR-067 · v1.0 · 2026-08-03</text>
+  <text x="660" y="792" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-100 · BanzAI no protocolo · BANZA_REFERENCIA.md §12 · ADR-036 · ADR-004 · ADR-036 · v1.0 · 2026-08-03</text>
 </svg>

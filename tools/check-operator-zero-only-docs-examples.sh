@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# operator-zero-only-docs-examples-check (ADR-041, M2.14B) — Part 18.
+# operator-zero-only-docs-examples-check (ADR-035, M2.14B) — Part 18.
 #
 # Public documentation, getting-started guides, the OpenAPI contracts and public JSON schemas must not
 # present a FILLED fictional example operator (a made-up name/domain/email standing in for "an operator").
@@ -14,7 +14,7 @@ FAILED=0
 fail() { echo "FAIL: $*"; FAILED=1; }
 ok()   { echo "  ok: $*"; }
 
-echo "== operator-zero-only-docs-examples-check (M2.14B / ADR-041) =="
+echo "== operator-zero-only-docs-examples-check (M2.14B / ADR-035) =="
 
 # Scanned public doc/spec surfaces.
 SCAN=(docs/reference docs/guides docs/getting-started contracts/openapi contracts/schemas README.md)

@@ -21,447 +21,377 @@ export const decisions: Decision[] = [
     "path": "decisions/adr/ADR-001-open-financial-protocol-what-banza-is-and-is-not.md",
     "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-001-open-financial-protocol-what-banza-is-and-is-not.md",
     "category": "Identidade e camadas",
-    "summary": "BANZA is defined as an open financial protocol: a technology-neutral specification of protocol-level models for financial interoperability, published under Apache 2.0 at github.com/banza-protocol/banza."
+    "summary": "The models beneath any payment system — a double-entry ledger, an account model, a transaction state machine, settlement semantics, a QR payload — are not commercially distinctive. Every operator needs them and every operator builds them ag"
   },
   {
     "type": "ADR",
     "id": "ADR-002",
     "slug": "adr-002",
-    "title": "Ecosystem naming: BANZA, BanzAI and operators",
-    "path": "decisions/adr/ADR-002-ecosystem-naming-banza-banzai-and-operators.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-002-ecosystem-naming-banza-banzai-and-operators.md",
+    "title": "Protocol, implementation and operator separation",
+    "path": "decisions/adr/ADR-002-protocol-implementation-and-operator-separation.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-002-protocol-implementation-and-operator-separation.md",
     "category": "Identidade e camadas",
-    "summary": "Fix the canonical ecosystem names to match the durable roles."
+    "summary": "Declaring BANZA operator-neutral (ADR-001) does not keep it neutral. Coupling arrives quietly: a function that assumes one country's rails, an enum listing the payment providers that happen to exist today, a default that is only sensible fo"
   },
   {
     "type": "ADR",
     "id": "ADR-003",
     "slug": "adr-003",
-    "title": "Three institutional layers",
-    "path": "decisions/adr/ADR-003-three-institutional-layers.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-003-three-institutional-layers.md",
+    "title": "Protocol-first origination",
+    "path": "decisions/adr/ADR-003-protocol-first-origination.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-003-protocol-first-origination.md",
     "category": "Identidade e camadas",
-    "summary": "BANZA has, until now, been described mostly as \"the open protocol\" plus a growing set of subsystems (conformance, trust, BanzAI, Operador Zero). As the project approaches its v1.0 launch it must present a single, canonical institutional arc"
+    "summary": "ADR-002 answers the spatial question — does this belong to the protocol or to an operator? It does not answer the temporal one: where is a genuinely new concept allowed to start?"
   },
   {
     "type": "ADR",
     "id": "ADR-004",
     "slug": "adr-004",
-    "title": "Technical certification is not scheme admission and not regulatory authorisation",
-    "path": "decisions/adr/ADR-004-technical-certification-is-not-scheme-admission-and-not-regu.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-004-technical-certification-is-not-scheme-admission-and-not-regu.md",
+    "title": "Three institutional layers",
+    "path": "decisions/adr/ADR-004-three-institutional-layers.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-004-three-institutional-layers.md",
     "category": "Identidade e camadas",
-    "summary": "ADR-003 fixes the three-layer institutional architecture and ADR-006 names Banzami as the designated operator of the first scheme. The single most dangerous ambiguity that remains is the collapse of three distinct determinations into one pe"
+    "summary": "BANZA is not only a specification. Around it sit a conformance system that evaluates implementations and an operational scheme that will one day move real money under a regulator. Described as one thing, they are impossible to reason about:"
   },
   {
     "type": "ADR",
     "id": "ADR-005",
     "slug": "adr-005",
-    "title": "Regulatory-state boundary and the real-money activation gate",
-    "path": "decisions/adr/ADR-005-regulatory-state-boundary-and-the-real-money-activation-gate.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-005-regulatory-state-boundary-and-the-real-money-activation-gate.md",
+    "title": "Certification, admission and authorisation do not propagate",
+    "path": "decisions/adr/ADR-005-certification-admission-and-authorisation-do-not-propagate.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-005-certification-admission-and-authorisation-do-not-propagate.md",
     "category": "Identidade e camadas",
-    "summary": "ADR-006 records that Banzami's internal state is REGULATORY_AUTHORIZATION_IN_PROGRESS and that every real-money path is fail-closed until formal evidence exists. This ADR makes that boundary precise and enforceable: it fixes exactly what th"
+    "summary": "Three determinations exist around BANZA, and they look similar enough from outside to be mistaken for stages of one process:"
   },
   {
     "type": "ADR",
     "id": "ADR-006",
     "slug": "adr-006",
-    "title": "Designated operator scheme",
-    "path": "decisions/adr/ADR-006-designated-operator-scheme.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-006-designated-operator-scheme.md",
+    "title": "The designated operator and its conflict of interest",
+    "path": "decisions/adr/ADR-006-the-designated-operator-and-its-conflict-of-interest.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-006-the-designated-operator-and-its-conflict-of-interest.md",
     "category": "Identidade e camadas",
-    "summary": "ADR-044 already names Banzami — Tecnologia e Serviços, Lda. as the creator and initial institutional maintainer/steward of the open protocol (a governance/attribution role). ADR-003 introduces a third institutional layer — the first operati"
+    "summary": "The party that designed BANZA also intends to run the first scheme built on it. That is how a protocol gets a first real implementation, and it is a structural conflict of interest: the same party writes the rules, operates the conformance "
   },
   {
     "type": "ADR",
     "id": "ADR-007",
     "slug": "adr-007",
-    "title": "Conflict of interest: infrastructure and key separation",
-    "path": "decisions/adr/ADR-007-conflict-of-interest-infrastructure-and-key-separation.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-007-conflict-of-interest-infrastructure-and-key-separation.md",
+    "title": "Regulatory state and the real-money activation gate",
+    "path": "decisions/adr/ADR-007-regulatory-state-and-the-real-money-activation-gate.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-007-regulatory-state-and-the-real-money-activation-gate.md",
     "category": "Identidade e camadas",
-    "summary": "ADR-044 names Banzami — Tecnologia e Serviços, Lda. as the creator and initial institutional maintainer of the open protocol, and ADR-006 designates the same company as the operator of the first operational scheme (Layer 3). The creator of "
+    "summary": "The operational scheme (Layer 3) will one day move real money, and until a regulator says so it must not. Between those two states lies a long preparation period, and preparation periods are where two specific failures happen: the project s"
   },
   {
     "type": "ADR",
     "id": "ADR-008",
     "slug": "adr-008",
-    "title": "Protocol infrastructure independent of any operator",
-    "path": "decisions/adr/ADR-008-protocol-infrastructure-independent-of-any-operator.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-008-protocol-infrastructure-independent-of-any-operator.md",
+    "title": "Normative authority and versioning",
+    "path": "decisions/adr/ADR-008-normative-authority-and-versioning.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-008-normative-authority-and-versioning.md",
     "category": "Identidade e camadas",
-    "summary": ""
+    "summary": "A repository that publishes specifications, contracts, schemas, vectors, decision records, governance documents and a reference implementation has a problem it rarely admits: when two of them disagree, an implementer has no way to know whic"
   },
   {
     "type": "ADR",
     "id": "ADR-009",
     "slug": "adr-009",
-    "title": "Normative authority and versioning",
-    "path": "decisions/adr/ADR-009-normative-authority-and-versioning.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-009-normative-authority-and-versioning.md",
+    "title": "Licence, trademark and open governance",
+    "path": "decisions/adr/ADR-009-licence-trademark-and-open-governance.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-009-licence-trademark-and-open-governance.md",
     "category": "Autoridade e determinismo",
-    "summary": "The normative-completeness audit established that the canonical byte form on which every BANZA signature and digest depends is not specified anywhere in the public surface. It exists only as serde_json::to_string() inside engines/banza-trus"
+    "summary": "An open protocol created by a company faces a pair of opposite misreadings, and both are damaging. If attribution is prominent, the protocol reads as one company's asset with an open-source veneer. If attribution is absent, the origin is ob"
   },
   {
     "type": "ADR",
     "id": "ADR-010",
     "slug": "adr-010",
-    "title": "BANZA Canonical JSON (BCJ/1)",
-    "path": "decisions/adr/ADR-010-banza-canonical-json-bcj-1.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-010-banza-canonical-json-bcj-1.md",
+    "title": "The decision-record tree holds current architecture only",
+    "path": "decisions/adr/ADR-010-the-decision-record-tree-holds-current-architecture-only.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-010-the-decision-record-tree-holds-current-architecture-only.md",
     "category": "Autoridade e determinismo",
-    "summary": "BANZA signs and digests JSON artifacts — the Key Manifest, the BANZA Revocation List, signed protocol metadata, evidence bundles, receipts. Verification requires that two parties derive exactly the same bytes from the same logical document."
+    "summary": "Decision records accumulate. The usual discipline — never delete, mark the old one superseded, add a record that amends it — produces an archive that is honest about the past and useless for the present. A reader asking \"how does BANZA auth"
   },
   {
     "type": "ADR",
     "id": "ADR-011",
     "slug": "adr-011",
-    "title": "Double-entry ledger and monetary precision",
-    "path": "decisions/adr/ADR-011-double-entry-ledger-and-monetary-precision.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-011-double-entry-ledger-and-monetary-precision.md",
+    "title": "BANZA Canonical JSON (BCJ/1)",
+    "path": "decisions/adr/ADR-011-banza-canonical-json-bcj-1.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-011-banza-canonical-json-bcj-1.md",
     "category": "Execução e primitivas financeiras",
-    "summary": "Implement double-entry bookkeeping with an immutable, append-only ledger. Represent all monetary amounts as integer minor units."
+    "summary": "Every signature, digest and request identity in BANZA is computed over bytes. JSON does not have unique bytes: the same document can be serialised with different key orders, different spacing, different number formats and different escaping"
   },
   {
     "type": "ADR",
     "id": "ADR-012",
     "slug": "adr-012",
-    "title": "Account and participant identity",
-    "path": "decisions/adr/ADR-012-account-and-participant-identity.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-012-account-and-participant-identity.md",
+    "title": "Double-entry ledger and monetary precision",
+    "path": "decisions/adr/ADR-012-double-entry-ledger-and-monetary-precision.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-012-double-entry-ledger-and-monetary-precision.md",
     "category": "Execução e primitivas financeiras",
-    "summary": "BANZA defines a protocol-level account and participant identity model that can be implemented by operators or applications using wallets, accounts, balances or equivalent account systems. BANZA itself is not a wallet, does not operate user "
+    "summary": "A payment system's ledger is where errors become permanent. Two failure modes account for most of them, and both are avoidable by construction rather than by care."
   },
   {
     "type": "ADR",
     "id": "ADR-013",
     "slug": "adr-013",
-    "title": "Provider abstraction",
-    "path": "decisions/adr/ADR-013-provider-abstraction.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-013-provider-abstraction.md",
+    "title": "The protocol state store is not a ledger",
+    "path": "decisions/adr/ADR-013-the-protocol-state-store-is-not-a-ledger.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-013-the-protocol-state-store-is-not-a-ledger.md",
     "category": "Execução e primitivas financeiras",
-    "summary": "Every external integration point is expressed as a provider interface defined by the protocol core. Operators implement each interface for the specific providers they use. The protocol core is generic over the interface and depends on no sp"
+    "summary": "The protocol serves public signed artifacts — key manifests, registry records, revocation entries, evidence digests — and keeps an audit trail of its own governance events. That needs durable storage, and durable storage inside a financial "
   },
   {
     "type": "ADR",
     "id": "ADR-014",
     "slug": "adr-014",
-    "title": "Payment intent",
-    "path": "decisions/adr/ADR-014-payment-intent.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-014-payment-intent.md",
+    "title": "Account and participant identity",
+    "path": "decisions/adr/ADR-014-account-and-participant-identity.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-014-account-and-participant-identity.md",
     "category": "Execução e primitivas financeiras",
-    "summary": "Introduce PaymentIntent as the canonical payment-initiation primitive. A PaymentIntent is an intent to receive value into a payee wallet. Payment Links, QR codes, and Payment Requests are surfaces (realizations) of a PaymentIntent — the con"
+    "summary": "A payment protocol has to decide what a payment fundamentally is, because everything else follows from it. The dominant model in the industry is card-first: a payment is an authorisation against an instrument issued by a scheme, and account"
   },
   {
     "type": "ADR",
     "id": "ADR-015",
     "slug": "adr-015",
-    "title": "Payment session",
-    "path": "decisions/adr/ADR-015-payment-session.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-015-payment-session.md",
+    "title": "Payment initiation: one intent, several surfaces",
+    "path": "decisions/adr/ADR-015-payment-initiation-one-intent-several-surfaces.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-015-payment-initiation-one-intent-several-surfaces.md",
     "category": "Execução e primitivas financeiras",
-    "summary": "Introduce the Payment Session standard. A Payment Session is a PaymentIntent (ADR-014) presented through one or more interfaces. It introduces no new money object — the PaymentIntent remains the financial object; the session is the rule tha"
+    "summary": "A payee asks to be paid in several ways: a link shared in a message, a printed static QR code on a counter, a dynamic QR generated for one specific amount, a deep link into an application. Each has a different presentation and a different f"
   },
   {
     "type": "ADR",
     "id": "ADR-016",
     "slug": "adr-016",
-    "title": "QR payments",
-    "path": "decisions/adr/ADR-016-qr-payments.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-016-qr-payments.md",
+    "title": "Collections: a composite obligation, never money",
+    "path": "decisions/adr/ADR-016-collections-a-composite-obligation-never-money.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-016-collections-a-composite-obligation-never-money.md",
     "category": "Execução e primitivas financeiras",
-    "summary": "Implement both QR types in a single qr_codes domain with a shared scan flow."
+    "summary": "People pay for things together: a bill split between friends, a shared gift, a group order, a fundraiser with many contributors. Every payment product eventually meets this and the tempting implementation is a container that receives the co"
   },
   {
     "type": "ADR",
     "id": "ADR-017",
     "slug": "adr-017",
-    "title": "Payment links",
-    "path": "decisions/adr/ADR-017-payment-links.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-017-payment-links.md",
+    "title": "Wallet accounts: segregation inside a wallet",
+    "path": "decisions/adr/ADR-017-wallet-accounts-segregation-inside-a-wallet.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-017-wallet-accounts-segregation-inside-a-wallet.md",
     "category": "Execução e primitivas financeiras",
-    "summary": "Implement a Payment Links domain as a first-class primitive."
+    "summary": "A wallet holding one balance per currency is enough until a participant needs to keep money apart for a reason. A merchant running a campaign wants that campaign's takings separable. An organisation collecting for a specific purpose needs t"
   },
   {
     "type": "ADR",
     "id": "ADR-018",
     "slug": "adr-018",
-    "title": "Payment collections",
-    "path": "decisions/adr/ADR-018-payment-collections.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-018-payment-collections.md",
+    "title": "Wallet payments and the refund source model",
+    "path": "decisions/adr/ADR-018-wallet-payments-and-the-refund-source-model.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-018-wallet-payments-and-the-refund-source-model.md",
     "category": "Execução e primitivas financeiras",
-    "summary": "Operators need to collect one logical amount from multiple payers — split a bill, group contributions, shared invoices, tuition, condominium dues, events, crowdfunding. A 2026-06-28 reference audit found a merchant \"split charge\" being appr"
+    "summary": "Two things a merchant does routinely turn out to depend on the same question. A merchant accepts a payment from a customer's wallet, and later needs to refund it. To refund it, something must identify what is being refunded."
   },
   {
     "type": "ADR",
     "id": "ADR-019",
     "slug": "adr-019",
-    "title": "Wallet accounts",
-    "path": "decisions/adr/ADR-019-wallet-accounts.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-019-wallet-accounts.md",
+    "title": "Fees and application settlement",
+    "path": "decisions/adr/ADR-019-fees-and-application-settlement.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-019-fees-and-application-settlement.md",
     "category": "Execução e primitivas financeiras",
-    "summary": "Introduce one reference-only protocol concept: the Wallet Account."
+    "summary": "Two commercial mechanisms must exist without the protocol acquiring commercial opinions."
   },
   {
     "type": "ADR",
     "id": "ADR-020",
     "slug": "adr-020",
-    "title": "Wallet payments and the refund source model",
-    "path": "decisions/adr/ADR-020-wallet-payments-and-the-refund-source-model.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-020-wallet-payments-and-the-refund-source-model.md",
+    "title": "Transaction proof and public verification",
+    "path": "decisions/adr/ADR-020-transaction-proof-and-public-verification.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-020-transaction-proof-and-public-verification.md",
     "category": "Execução e primitivas financeiras",
-    "summary": "### 1. Wallet/account merchant payments are first-class payment objects"
+    "summary": "A receipt is a screenshot. That is the practical situation across most payment channels: the evidence a payer gives a payee that money was sent is an image, which is trivially fabricated, and the payee's only recourse is to wait for the mon"
   },
   {
     "type": "ADR",
     "id": "ADR-021",
     "slug": "adr-021",
-    "title": "Fees and application settlement",
-    "path": "decisions/adr/ADR-021-fees-and-application-settlement.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-021-fees-and-application-settlement.md",
+    "title": "Reason codes",
+    "path": "decisions/adr/ADR-021-reason-codes.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-021-reason-codes.md",
     "category": "Execução e primitivas financeiras",
-    "summary": "Introduce three reference-only protocol concepts and two financial primitives. The protocol carries references and structure; it never carries percentages, money math, or commercial rules."
+    "summary": "Outcomes need names. A trust evaluation reaches a status, a fetch fails for a reason, a validation step ends in a state, a check identifies itself. Independent implementations have to agree on those names or they cannot compare results — an"
   },
   {
     "type": "ADR",
     "id": "ADR-022",
     "slug": "adr-022",
-    "title": "Transaction proof and public verification",
-    "path": "decisions/adr/ADR-022-transaction-proof-and-public-verification.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-022-transaction-proof-and-public-verification.md",
+    "title": "Idempotency",
+    "path": "decisions/adr/ADR-022-idempotency.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-022-idempotency.md",
     "category": "Execução e primitivas financeiras",
-    "summary": "Define a protocol-level, operator-agnostic standard: the TransactionProof. A proof is an immutable, publicly verifiable assertion that a given transaction exists in an operator's ledger, with its real amount, parties and status. Every opera"
+    "summary": "Networks fail after the request arrives and before the response returns. The caller cannot distinguish that from a request that never arrived, so it retries — and in a payment system the retry is the danger, because the first request may al"
   },
   {
     "type": "ADR",
     "id": "ADR-023",
     "slug": "adr-023",
-    "title": "Reason codes",
-    "path": "decisions/adr/ADR-023-reason-codes.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-023-reason-codes.md",
+    "title": "Test material can never be production-valid",
+    "path": "decisions/adr/ADR-023-test-material-can-never-be-production-valid.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-023-test-material-can-never-be-production-valid.md",
     "category": "Execução e primitivas financeiras",
-    "summary": "records, revocation entries, root revocation, the BRL, and the Open Trust Evaluation check ids) and that three fields remained open string arrays: failed_checks, and reason_codes on the journey receipt and the operation receipt."
+    "summary": "Every payment system runs a sandbox, and every sandbox eventually touches production. The failure modes are specific and each has happened somewhere: a simulated provider deployed to production, where payments appear to succeed and no money"
   },
   {
     "type": "ADR",
     "id": "ADR-024",
     "slug": "adr-024",
-    "title": "Idempotency",
-    "path": "decisions/adr/ADR-024-idempotency.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-024-idempotency.md",
+    "title": "Identity verification stays operator policy",
+    "path": "decisions/adr/ADR-024-identity-verification-stays-operator-policy.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-024-identity-verification-stays-operator-policy.md",
     "category": "Execução e primitivas financeiras",
-    "summary": "Idempotency is a protocol invariant. Every financial write MUST carry a caller-supplied idempotency_key. Re-submitting the same key MUST return the original result without creating a duplicate effect; the same key submitted with a different"
+    "summary": "Every operator verifies who its participants are, and the pressure to standardise it is constant. Operators ask what documents to accept, what tiers to define and what evidence to keep, and a protocol that answers looks helpful."
   },
   {
     "type": "ADR",
     "id": "ADR-025",
     "slug": "adr-025",
-    "title": "Environment isolation: sandbox and production",
-    "path": "decisions/adr/ADR-025-environment-isolation-sandbox-and-production.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-025-environment-isolation-sandbox-and-production.md",
+    "title": "Trust without a certificate authority",
+    "path": "decisions/adr/ADR-025-trust-without-a-certificate-authority.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-025-trust-without-a-certificate-authority.md",
     "category": "Execução e primitivas financeiras",
-    "summary": "Environment isolation is enforced at multiple levels:"
+    "summary": "An open protocol has to answer how one operator decides to interoperate with another. The conventional answer is a certificate: a central body inspects a participant, issues a signed artifact saying it is acceptable, and peers check for tha"
   },
   {
     "type": "ADR",
     "id": "ADR-026",
     "slug": "adr-026",
-    "title": "PostgreSQL as protocol state store, not a ledger",
-    "path": "decisions/adr/ADR-026-postgresql-as-protocol-state-store-not-a-ledger.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-026-postgresql-as-protocol-state-store-not-a-ledger.md",
+    "title": "Root authorization: three authorities, threshold two",
+    "path": "decisions/adr/ADR-026-root-authorization-three-authorities-threshold-two.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-026-root-authorization-three-authorities-threshold-two.md",
     "category": "Execução e primitivas financeiras",
-    "summary": "BANZA is an open financial protocol. It serves public, signed protocol artifacts (root manifest, key manifest, operator registry, conformance evidence hashes, revocation list), it indexes its own reference so the native protocol agent (Banz"
+    "summary": "The BANZA Trust Root is the anchor every conforming implementation pins once and uses to verify all subsequent protocol material. Whatever controls it controls the maximum authority in the protocol, so the question \"how many parties must ac"
   },
   {
     "type": "ADR",
     "id": "ADR-027",
     "slug": "adr-027",
-    "title": "Open protocol trust model without a certificate authority",
-    "path": "decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md",
+    "title": "Private keys never on serving infrastructure",
+    "path": "decisions/adr/ADR-027-signing-keys-never-on-serving-infrastructure.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-027-signing-keys-never-on-serving-infrastructure.md",
     "category": "Confiança e chaves",
-    "summary": "BANZA is an open financial protocol. Its trust model does not depend on a central authority over operators. The open governance model is recorded in docs/governance/OPEN_PROTOCOL_GOVERNANCE.md and docs/governance/OPEN_PROTOCOL_ARCHITECTURE."
+    "summary": "The protocol publishes signed artifacts, and the obvious way to publish signed artifacts is to sign them where they are served. The signing key then lives on a machine that is internet-facing, runs a web server and a database, accepts reque"
   },
   {
     "type": "ADR",
     "id": "ADR-028",
     "slug": "adr-028",
-    "title": "Root authorization: three authorities, threshold two",
-    "path": "decisions/adr/ADR-028-root-authorization-three-authorities-threshold-two.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-028-root-authorization-three-authorities-threshold-two.md",
+    "title": "Anti-rollback for versioned trust material",
+    "path": "decisions/adr/ADR-028-anti-rollback-for-versioned-trust-material.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-028-anti-rollback-for-versioned-trust-material.md",
     "category": "Confiança e chaves",
-    "summary": "The BANZA Trust Root is the anchor every conforming implementation pins once and uses to verify all subsequent protocol material. Whatever controls it controls the maximum authority in the protocol, so the question \"how many parties must ac"
+    "summary": "Trust material is republished: keys rotate, revocation lists grow, protocol metadata is reissued. Every version is correctly signed, which creates an attack that needs no cryptographic break at all. An adversary positioned between a verifie"
   },
   {
     "type": "ADR",
     "id": "ADR-029",
     "slug": "adr-029",
-    "title": "Private keys never reside on serving infrastructure",
-    "path": "decisions/adr/ADR-029-keys-never-on-serving-infrastructure.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-029-keys-never-on-serving-infrastructure.md",
+    "title": "Canonical discovery surface",
+    "path": "decisions/adr/ADR-029-canonical-discovery-surface.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-029-canonical-discovery-surface.md",
     "category": "Confiança e chaves",
-    "summary": ""
+    "summary": "Before a verifier can evaluate anything, it has to find the material. Discovery is the first step of every trust evaluation, and it is the step where an ambiguous specification does the most damage: if two implementations look in two places"
   },
   {
     "type": "ADR",
     "id": "ADR-030",
     "slug": "adr-030",
-    "title": "Anti-rollback for versioned trust material",
-    "path": "decisions/adr/ADR-030-anti-rollback-for-versioned-trust-material.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-030-anti-rollback-for-versioned-trust-material.md",
+    "title": "Conformance profiles and the capability vocabulary",
+    "path": "decisions/adr/ADR-030-conformance-profiles-and-the-capability-vocabulary.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-030-conformance-profiles-and-the-capability-vocabulary.md",
     "category": "Confiança e chaves",
-    "summary": "The trust-availability audit measured the published surface against twenty questions. Most were already answered normatively: manifests are cacheable with a stated TTL, the BRL has a six-hour staleness bound, expired material is untrusted, "
+    "summary": "\"Is this implementation conformant?\" is not answerable as asked. An implementation that correctly runs a sandbox with valid manifests and integer money is conformant to something real; so is one that federates with peers and settles across "
   },
   {
     "type": "ADR",
     "id": "ADR-031",
     "slug": "adr-031",
-    "title": "Federation trust evaluation without certificates",
-    "path": "decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md",
+    "title": "Operator self-publication and machine-verifiable conformance",
+    "path": "decisions/adr/ADR-031-operator-self-publication-and-machine-verifiable-conformance.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-031-operator-self-publication-and-machine-verifiable-conformance.md",
     "category": "Confiança e chaves",
-    "summary": "BANZA is an open financial protocol. Its trust model removes any central authority over operators: the general Open Protocol Trust Model (ADR-027) replaced CA/certificate-based operator trust with signed protocol metadata, operator manifest"
+    "summary": "Removing the certificate authority (ADR-025) leaves a practical question. If no central body inspects an implementation and pronounces it acceptable, how does an implementation become known and checkable at all?"
   },
   {
     "type": "ADR",
     "id": "ADR-032",
     "slug": "adr-032",
-    "title": "KYC stays operator policy; only trust assertions federate",
-    "path": "decisions/adr/ADR-032-kyc-stays-operator-policy-only-trust-assertions-federate.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-032-kyc-stays-operator-policy-only-trust-assertions-federate.md",
+    "title": "Certification records and their lifecycle",
+    "path": "decisions/adr/ADR-032-certification-records-and-their-lifecycle.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-032-certification-records-and-their-lifecycle.md",
     "category": "Confiança e chaves",
-    "summary": "KYC is operator policy. The BANZA protocol does not define how an operator verifies identity. Per ADR-001's litmus test, a concept belongs in the protocol only if it touches a shared surface (a wire contract, a manifest capability, a certif"
+    "summary": "Conformance evidence is a measurement at a moment. Something has to hold that measurement over time, because the useful question is not \"did these vectors pass once?\" but \"does this implementation hold a current, in-scope demonstration?\""
   },
   {
     "type": "ADR",
     "id": "ADR-033",
     "slug": "adr-033",
-    "title": "Operator self-publication and machine-verifiable conformance",
-    "path": "decisions/adr/ADR-033-operator-self-publication-and-machine-verifiable-conformance.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-033-operator-self-publication-and-machine-verifiable-conformance.md",
+    "title": "The BANZA Technical Registry",
+    "path": "decisions/adr/ADR-033-the-banza-technical-registry.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-033-the-banza-technical-registry.md",
     "category": "Conformidade, perfis e registo",
-    "summary": "BANZA is an open financial protocol. The canonical decision this ADR implements is:"
+    "summary": "Certification records and profiles are only useful if they can be found and checked by someone who did not receive them directly. That needs a published index."
   },
   {
     "type": "ADR",
     "id": "ADR-034",
     "slug": "adr-034",
-    "title": "Conformance and interoperability certification",
-    "path": "decisions/adr/ADR-034-conformance-and-interoperability-certification.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-034-conformance-and-interoperability-certification.md",
+    "title": "Endpoint-originated validation",
+    "path": "decisions/adr/ADR-034-endpoint-originated-validation.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-034-endpoint-originated-validation.md",
     "category": "Conformidade, perfis e registo",
-    "summary": "ADR-003 names Layer 2 — BANZA Conformance & Interoperability Certification and ADR-004 fixes what it is (a per-implementation, evidence-based, Rust-decided, reproducible, hash-bound, scoped, time-limited determination that is not a licence,"
+    "summary": "Validating an implementation means evaluating its artifacts. Where those artifacts come from decides what the result means."
   },
   {
     "type": "ADR",
     "id": "ADR-035",
     "slug": "adr-035",
-    "title": "Closed certification-state machine",
-    "path": "decisions/adr/ADR-035-closed-certification-state-machine.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-035-closed-certification-state-machine.md",
+    "title": "Operator Zero: the read-only reference implementation",
+    "path": "decisions/adr/ADR-035-operator-zero-the-read-only-reference-implementation.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-035-operator-zero-the-read-only-reference-implementation.md",
     "category": "Conformidade, perfis e registo",
-    "summary": "ADR-034 requires each CertificationRecord to carry a lifecycle — validity, expiration, renewal, suspension, revocation and supersession — and ADR-034 D-064-06 fixes that it must be scoped, time-limited and fail-closed. To be verifiable and "
+    "summary": "A specification with no working implementation cannot be checked end to end. Its contracts have never been served, its vectors have never run against a live system, and the first team to implement it discovers every ambiguity at their own e"
   },
   {
     "type": "ADR",
     "id": "ADR-036",
     "slug": "adr-036",
-    "title": "BANZA Technical Registry",
-    "path": "decisions/adr/ADR-036-banza-technical-registry.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-036-banza-technical-registry.md",
+    "title": "BanzAI: a non-authoritative interface to the protocol",
+    "path": "decisions/adr/ADR-036-banzai-a-non-authoritative-interface-to-the-protocol.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-036-banzai-a-non-authoritative-interface-to-the-protocol.md",
     "category": "Conformidade, perfis e registo",
-    "summary": "ADR-034 makes an L2 certification a concrete, hash-bound CertificationRecord. Those records need a public, verifiable place to live so that anyone — an operator, an auditor, a regulator, BanzAI — can answer \"is this implementation certified"
+    "summary": "BANZA is a specification. Reading a specification well takes expertise most people arriving at a financial interoperability protocol do not have, and the questions they actually need answered — does my implementation conform?, what does thi"
   },
   {
     "type": "ADR",
     "id": "ADR-037",
     "slug": "adr-037",
-    "title": "Canonical discovery surface",
-    "path": "decisions/adr/ADR-037-canonical-discovery-surface.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-037-canonical-discovery-surface.md",
+    "title": "Operator onboarding",
+    "path": "decisions/adr/ADR-037-operator-onboarding.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-037-operator-onboarding.md",
     "category": "Conformidade, perfis e registo",
-    "summary": "BANZA's public discovery surface — the machine-readable artefacts an operator publishes so a peer or validator can find and verify it — had drifted into three concurrent, mutually inconsistent naming families for the two central artefacts ("
+    "summary": "Validation runs against public endpoints and costs real resources — fetches, engine execution, stored receipts. Exposing that to anonymous callers makes it a free amplification service, and the obvious fix is an account system with password"
   },
   {
     "type": "ADR",
     "id": "ADR-038",
     "slug": "adr-038",
-    "title": "Endpoint-originated operator validation",
-    "path": "decisions/adr/ADR-038-endpoint-originated-operator-validation.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-038-endpoint-originated-operator-validation.md",
-    "category": "Conformidade, perfis e registo",
-    "summary": "BanzAI's validation mode (ADR-041) lets a human validate an implementation of the BANZA protocol through a nine-step journey decided by Rust engines. Until now that journey consumed artifacts that were provided to the interface — bundled ex"
-  },
-  {
-    "type": "ADR",
-    "id": "ADR-039",
-    "slug": "adr-039",
-    "title": "Conformance profiles and capability vocabulary",
-    "path": "decisions/adr/ADR-039-conformance-profiles-and-capability-vocabulary.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-039-conformance-profiles-and-capability-vocabulary.md",
-    "category": "Conformidade, perfis e registo",
-    "summary": "BANZA v1.0 defines five conformance levels (L0–L4). An older per-level model — using operator-type names (Sandbox / Payment / Settlement / Federation / Infrastructure Operator) and an older per-level capability mapping — had been implemente"
-  },
-  {
-    "type": "ADR",
-    "id": "ADR-040",
-    "slug": "adr-040",
-    "title": "Operator onboarding",
-    "path": "decisions/adr/ADR-040-operator-onboarding.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-040-operator-onboarding.md",
-    "category": "Conformidade, perfis e registo",
-    "summary": "ADR-038 established that BanzAI's official validation obtains every artifact from the public endpoints of a selected implementation, resolved from the closed Technical Registry, and that Rust decides every verdict. Until now the only resolv"
-  },
-  {
-    "type": "ADR",
-    "id": "ADR-041",
-    "slug": "adr-041",
-    "title": "Operator Zero: the read-only reference implementation",
-    "path": "decisions/adr/ADR-041-operator-zero-the-read-only-reference-implementation.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-041-operator-zero-the-read-only-reference-implementation.md",
-    "category": "Sistemas de referência e governação",
-    "summary": "BANZA specifies a protocol but has never exercised it end to end against a whole operator. The conformance suite validates artifacts in isolation; the BanzAI journey walks an operator through seven steps using per-step examples that do not "
-  },
-  {
-    "type": "ADR",
-    "id": "ADR-042",
-    "slug": "adr-042",
-    "title": "BanzAI: a non-authoritative interface to the protocol",
-    "path": "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
-    "category": "Sistemas de referência e governação",
-    "summary": "BANZA is a specification. Reading a specification well takes expertise most people arriving at a financial interoperability protocol do not have, and the questions they actually need answered — does my implementation conform?, what does thi"
-  },
-  {
-    "type": "ADR",
-    "id": "ADR-043",
-    "slug": "adr-043",
     "title": "Rust-first official engines",
-    "path": "decisions/adr/ADR-043-rust-first-official-engines.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-043-rust-first-official-engines.md",
-    "category": "Sistemas de referência e governação",
-    "summary": "BANZA is an operator-neutral protocol: external operators may implement their systems in any technology (ADR-001, docs/governance/certification-boundary.md). That neutrality is a permanent protocol invariant and is not in question here."
-  },
-  {
-    "type": "ADR",
-    "id": "ADR-044",
-    "slug": "adr-044",
-    "title": "Licence, notice, trademark and open governance",
-    "path": "decisions/adr/ADR-044-licence-notice-trademark-and-open-governance.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-044-licence-notice-trademark-and-open-governance.md",
-    "category": "Sistemas de referência e governação",
-    "summary": "BANZA is an open financial protocol. It was originally created by the startup BANZAMI - TECNOLOGIA E SERVIÇOS, LDA. and is maintained as an open protocol with public governance through the GitHub repository. Until now the repository stated "
-  },
-  {
-    "type": "ADR",
-    "id": "ADR-045",
-    "slug": "adr-045",
-    "title": "Current-only canonical ADR tree",
-    "path": "decisions/adr/ADR-045-current-only-canonical-adr-tree.md",
-    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-045-current-only-canonical-adr-tree.md",
-    "category": "Sistemas de referência e governação",
-    "summary": "Architecture decision records accumulate. A decision is taken, later amended, later corrected, later superseded — and the conventional practice is to keep every step, marked. After enough steps the directory answers a question nobody asked "
+    "path": "decisions/adr/ADR-038-rust-first-official-engines.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-038-rust-first-official-engines.md",
+    "category": "Conformidade, perfis e registo",
+    "summary": "The protocol prescribes no implementation technology for operators, and that neutrality is permanent (ADR-002). It says nothing about what language the project's own official components are written in, and that question needs its own answer"
   }
 ];
 
@@ -470,8 +400,7 @@ export const decisionCategories: string[] = [
   "Autoridade e determinismo",
   "Execução e primitivas financeiras",
   "Confiança e chaves",
-  "Conformidade, perfis e registo",
-  "Sistemas de referência e governação"
+  "Conformidade, perfis e registo"
 ];
 
 export function getDecision(slug: string): Decision | undefined {

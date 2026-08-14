@@ -31,7 +31,7 @@ map between them and the registry's canonical IDs.
 | INV-S01 | Explicit settlement lifecycle | Sub-invariant of `INV-SETTLE-*` (settlement FSM) |
 | INV-S02 | No partial settlement mutation | `INV-SETTLE-*` (settlement amount identity / immutability) |
 | INV-S03 | Settlement period coverage | Sub-invariant of `INV-SETTLE-*` (non-overlapping periods) |
-| INV-R01 | Environment isolation (routing) | Sub-invariant (environment isolation; see ADR-025) |
+| INV-R01 | Environment isolation (routing) | Sub-invariant (environment isolation; see ADR-023) |
 | INV-R02 | No implicit routing fallback | Sub-invariant (routing safety; no canonical financial ID) |
 | INV-A01 | Signature validation before state change | Sub-invariant (acquiring security; see `INV-RECON-*` linkage) |
 | INV-A02 | Idempotent callback processing | `INV-IDEM-001` |
@@ -41,7 +41,7 @@ map between them and the registry's canonical IDs.
 > specified in [`contracts/qr/`](../contracts/qr/); external reconcilability
 > (`INV-RECON-*`) and settlement identity (`INV-SETTLE-*`) in the registry
 > [`contracts/invariants.json`](../contracts/invariants.json); trust/PKI
-> invariants (`INV-OTE-*` / `INV-FEDEVAL-*`, `INV-ROOT-*`) in `docs/reference/en/complete.md` and ADR-027.
+> invariants (`INV-OTE-*` / `INV-FEDEVAL-*`, `INV-ROOT-*`) in `docs/reference/en/complete.md` and ADR-025.
 > The single machine-readable source of truth for every invariant is
 > [`contracts/invariants.json`](../contracts/invariants.json).
 

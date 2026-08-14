@@ -2,7 +2,7 @@
 
 **Document ID:** FEDERATION-CONFORMANCE-DESIGN-001  
 **Status:** Canonical — defines what an operator publishes as reproducible conformance evidence for L3 Federation.  
-**Authority:** ADR-027, ADR-033, ADR-031; `FEDERATION_CONFORMANCE_MODEL.md`
+**Authority:** ADR-025, ADR-031, ADR-025; `FEDERATION_CONFORMANCE_MODEL.md`
 
 ---
 
@@ -201,7 +201,7 @@ evidence-package/
 
 Some operational facts cannot be decided by a program over published bytes. They are **not part of
 conformance** and are **not reviewed, approved or certified by any party**. Each is the operator's
-own responsibility (ADR-033 §5), and where financial-services authorisation is required it is granted
+own responsibility (ADR-031 §5), and where financial-services authorisation is required it is granted
 by the competent regulator to the operator — never by BANZA.
 
 | Fact | Why it is not machine-verifiable | Who is responsible |

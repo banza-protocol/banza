@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# BANZA Conflict-of-Interest Guard (M2.19C, ADR-007 / ADR-006 D-060-05 / ADR-003 D-059-06).
+# BANZA Conflict-of-Interest Guard (M2.19C, ADR-006 / ADR-006 / ADR-004).
 #
 # Because BANZA's creator (Banzami) is also the first scheme operator, the conflict of interest is
 # controlled STRUCTURALLY, not by promise. This guard keeps the structural controls documented:
@@ -19,8 +19,7 @@ cd "$(dirname "$0")/.."
 
 COI="docs/governance/BANZA_CONFLICT_OF_INTEREST_POLICY.md"
 SEP="docs/governance/BANZA_SEPARATION_MATRIX.md"
-ADR063="decisions/adr/ADR-007-conflict-of-interest-infrastructure-and-key-separation.md"
-
+ADR063=$(ls decisions/adr/ADR-006-*.md 2>/dev/null | head -1)
 fail=0
 
 # An AFFIRMED self-privilege for Banzami, distance-bounded (PT + EN). The docs phrase these as "No …" /
@@ -112,8 +111,8 @@ done
 
 if [ "$fail" -ne 0 ]; then
   echo
-  echo "conflict-of-interest: FAIL — see ADR-007 and docs/governance/BANZA_CONFLICT_OF_INTEREST_POLICY.md."
+  echo "conflict-of-interest: FAIL — see ADR-006 and docs/governance/BANZA_CONFLICT_OF_INTEREST_POLICY.md."
   exit 1
 fi
 echo
-echo "conflict-of-interest: ✓ same suite/engine/reason-codes; seven no-self-privilege prohibitions; eight separated key domains (M2.19C / ADR-007)"
+echo "conflict-of-interest: ✓ same suite/engine/reason-codes; seven no-self-privilege prohibitions; eight separated key domains (M2.19C / ADR-006)"

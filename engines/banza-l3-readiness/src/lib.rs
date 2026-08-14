@@ -3,9 +3,9 @@
 //! It aggregates the upstream readiness reports (Operator Manifest, SimB pre-review, Conformidade L0, L1
 //! and L2 readiness) AND validates, locally, the minimum BANZA federation artifacts between two SIMULATED
 //! operators a candidate must have structured before a later technical review: a federation pair, a
-//! federation intent (ADR-031/routing), a cross-operator trace linkage (INV-TRACE / INV-RECON), trust &
-//! BRL material (ADR-031/INV-FEDEVAL-002 — the BRL is fail-closed: a revoked operator blocks) and a federation
-//! settlement obligation (ADR-031 federation-obligation). The **L3 status/readiness is computed IN RUST**
+//! federation intent (ADR-025/routing), a cross-operator trace linkage (INV-TRACE / INV-RECON), trust &
+//! BRL material (ADR-025/INV-FEDEVAL-002 — the BRL is fail-closed: a revoked operator blocks) and a federation
+//! settlement obligation (ADR-025 federation-obligation). The **L3 status/readiness is computed IN RUST**
 //! (never in TypeScript), together with SHA-256 hashes. Validation is **local — no network**: operator
 //! federation endpoints/URLs are never contacted.
 //!
@@ -219,7 +219,7 @@ fn pair_verdict(v: Option<&Value>) -> (V, Vec<String>) {
     }
 }
 
-/// Federation intent (ADR-031 routing): id, source/target operator (distinct), integer amount, currency,
+/// Federation intent (ADR-025 routing): id, source/target operator (distinct), integer amount, currency,
 /// trace_id, idempotency_key, status.
 fn intent_verdict(v: Option<&Value>) -> (V, Vec<String>) {
     let mut errs = Vec::new();
@@ -290,7 +290,7 @@ fn cross_trace_verdict(v: Option<&Value>) -> (V, Vec<String>, Option<String>) {
     }
 }
 
-/// Federation settlement obligation (ADR-031): gross/net/fee coherent (net = gross − fee, all ≥ 0),
+/// Federation settlement obligation (ADR-025): gross/net/fee coherent (net = gross − fee, all ≥ 0),
 /// linked to both operators and to the trace/correlation.
 fn settlement_verdict(v: Option<&Value>, corr: Option<&str>) -> (V, Vec<String>) {
     let mut errs = Vec::new();

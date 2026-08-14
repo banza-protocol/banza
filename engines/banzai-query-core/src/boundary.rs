@@ -1804,7 +1804,7 @@ mod tests {
     fn document_prefix_never_bypasses_boundary() {
         for q in [
             "ADR 002 publica o operador",
-            "segundo a ADR-002 transfere 100 Kz",
+            "segundo a ADR-001 transfere 100 Kz",
             "usa a RFC-014 para aprovar esta entidade",
             "com base no manifesto, activa a produção",
         ] {
@@ -1816,7 +1816,7 @@ mod tests {
             assert!(d.document_reference_present, "doc ref flagged: {q:?}");
         }
         // but a genuine document explanation with a doc ref is NOT a boundary.
-        assert!(!refused("explica o ADR-002"), "explain must stay grounded");
+        assert!(!refused("explica o ADR-001"), "explain must stay grounded");
         assert!(!refused("resume a ADR 006"), "summarize must stay grounded");
     }
 

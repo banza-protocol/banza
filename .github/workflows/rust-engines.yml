@@ -1,6 +1,6 @@
 name: Rust Engines
 
-# Builds and tests the official Rust engines under engines/ (ADR-043). Each crate must pass
+# Builds and tests the official Rust engines under engines/ (ADR-038). Each crate must pass
 # cargo fmt, clippy (-D warnings) and cargo test. No network, no provider.
 
 on:

@@ -3,7 +3,7 @@
   id:        SVG-P-090
   diagram:   Jornada de validação do Operador Zero — nove passos: descoberta → manifest → chaves → conformidade → interoperabilidade → confiança → federação → evidência → prontidão
   version:   2.1
-  source:    BANZA_REFERENCIA.md §9 (Operador Zero — jornada de validação em BanzAI, M2.19E/F)
+  source:    BANZA_REFERENCIA.md §9 (Operador Zero — jornada de validação em BanzAI, F)
   updated:   2026-08-09 (Ch09: /.well-known/banza/operator.json · banda demo/sem-fundos · «manifest» · sem vocabulário «simulador»)
   author:    BANZA Protocol
   style:     protocol-dark

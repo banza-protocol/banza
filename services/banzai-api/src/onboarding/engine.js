@@ -1,4 +1,4 @@
-// Onboarding decision engine wrapper (M2.19G.3, ADR-040). RUST_DECIDES.
+// Onboarding decision engine wrapper (M2.19G.3, ADR-037). RUST_DECIDES.
 //
 // Every OTP/session/candidate/origin/rate-limit DECISION is computed in Rust (engine
 // `engines/banzai-onboarding`, vendored WASM in ../onboardingwasm). This file is I/O glue only: it
@@ -12,7 +12,7 @@ import { createRequire } from "node:module";
 const require = createRequire(import.meta.url);
 // Flat vendored package (wasm-pack --target nodejs): one CJS entry per crate.
 const wasm = require("../onboardingwasm/banzai_onboarding.js");
-// M2.19G.3A — the CLOSED Technical Registry resolver (same vendored WASM the ADR-038 validator uses).
+// M2.19G.3A — the CLOSED Technical Registry resolver (same vendored WASM the ADR-034 validator uses).
 // Reconciliation BINDS a candidate to an ALREADY-registry-resident (operator_id, implementation_id);
 // it never creates a registry row and never name-matches — the id must resolve in the closed registry.
 const registry = require("../validatewasm/banza_target_registry/banza_target_registry.js");

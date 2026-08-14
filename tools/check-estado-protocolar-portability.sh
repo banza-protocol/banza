@@ -4,7 +4,7 @@
 #
 # The Ch05 identity audit established that PostgreSQL is the reference implementation's chosen
 # persistence, NOT a normative part of the protocol. The normative concept is "Estado Protocolar"
-# (protocol state), defined by its semantics; the ADR-026 data boundary (protocol state, not financial
+# (protocol state), defined by its semantics; the ADR-013 data boundary (protocol state, not financial
 # value) stays. This guard keeps §5 of the Reference technology-neutral:
 #
 #   1. §5 is titled "Estado Protocolar" (not "PostgreSQL — ...").
@@ -96,6 +96,6 @@ echo "Estado-Protocolar portability guard — §5 technology-neutral (PostgreSQL
 if check "$REF"; then
   echo "Result: ✓ §5 keeps PostgreSQL as implementation of reference, not a conformance requirement"
 else
-  echo "Result: ✗ §5 presents PostgreSQL as more than implementation (see docs/reference/BANZA_SVG_REGISTRY.md, ADR-026)"
+  echo "Result: ✗ §5 presents PostgreSQL as more than implementation (see docs/reference/BANZA_SVG_REGISTRY.md, ADR-013)"
   exit 1
 fi

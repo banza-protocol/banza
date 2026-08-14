@@ -3,7 +3,7 @@
 - **Status:** Normative
 - **Registry:** `banza-reason-codes/1`
 - **Protocol version:** BANZA 1.0.0
-- **Authority:** [ADR-023](../decisions/adr/ADR-023-reason-codes.md)
+- **Authority:** [ADR-021](../decisions/adr/ADR-021-reason-codes.md)
 - **Machine-readable registry:** [`contracts/production/reason-code-registry.production.json`](../contracts/production/reason-code-registry.production.json)
 - **Test vectors:** [`conformance/vectors/reason-codes.json`](../conformance/vectors/reason-codes.json)
 
@@ -109,7 +109,7 @@ code MUST NOT appear in a closed enum field (§3, §4).
 | Extension code (`x-vendor.…`) | **Preserve, never interpret.** MUST NOT change any verdict |
 | Any value outside a closed enum field | The artifact is **schema-invalid** (`trust_status`, `failed_checks`, step statuses) |
 
-The asymmetry is deliberate. Adding a core reason code is a backward-compatible change under ADR-009's
+The asymmetry is deliberate. Adding a core reason code is a backward-compatible change under ADR-008's
 versioning policy, so an implementation that rejected unknown core codes would make every future addition
 a breaking change. A *status*, by contrast, decides an outcome, so an unrecognised one cannot be tolerated:
 there is no safe way to act on a decision you cannot read.
@@ -118,7 +118,7 @@ there is no safe way to act on a decision you cannot read.
 
 - A published core code is **stable**: within protocol version 1.x it is never removed and never
   repurposed to mean something else.
-- Adding a core code is **backward compatible** and does not change `protocol_version` (ADR-009).
+- Adding a core code is **backward compatible** and does not change `protocol_version` (ADR-008).
 - A code may be marked **deprecated** in the registry. A deprecated code MUST still be accepted by
   consumers; producers SHOULD stop emitting it. Deprecation never changes a code's meaning.
 - Changing the meaning of an existing code is **not permitted**. A new meaning REQUIRES a new code.

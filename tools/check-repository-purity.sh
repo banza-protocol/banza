@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# check-repository-purity.sh — RUST_WRAPPER_ONLY (ADR-043, R10)
+# check-repository-purity.sh — RUST_WRAPPER_ONLY (ADR-038, R10)
 #
 # BANZA Repository Purity Guard. The gate LOGIC lives in Rust:
 #   engines/banza-repo-guards  (bin `banza-repo-guards`, subcommand `purity`).

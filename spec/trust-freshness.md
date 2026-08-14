@@ -2,7 +2,7 @@
 
 - **Status:** Normative
 - **Protocol version:** BANZA 1.0.0
-- **Authority:** [ADR-030](../decisions/adr/ADR-030-anti-rollback-for-versioned-trust-material.md); extends ADR-027 and ADR-027, which are unchanged
+- **Authority:** [ADR-028](../decisions/adr/ADR-028-anti-rollback-for-versioned-trust-material.md); extends ADR-025 and ADR-025, which are unchanged
 - **Test vectors:** [`conformance/vectors/trust-freshness.json`](../conformance/vectors/trust-freshness.json)
 
 > The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **SHOULD**, **SHOULD NOT**,
@@ -84,7 +84,7 @@ why §3.1 is mandatory rather than defensive.
 **Why these members and not a sequence number.** Each is already REQUIRED by its contract, already
 carries the semantics of "when this version came into force", and is already inside the signed bytes —
 so an attacker cannot alter it without invalidating the signature. Introducing a new integer sequence
-would change the wire form of artifacts under a protocol version that does not change it (ADR-009).
+would change the wire form of artifacts under a protocol version that does not change it (ADR-008).
 
 Where a future artifact declares an explicit integer sequence, **that sequence takes precedence** over
 the instant, and this table is extended rather than reinterpreted.

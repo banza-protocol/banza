@@ -1,4 +1,4 @@
-// Fase D — PG-DOWN fail-safe child (ADR-042 correction 1). Runs in its OWN process because the pg pool
+// Fase D — PG-DOWN fail-safe child (ADR-036 correction 1). Runs in its OWN process because the pg pool
 // is memoised per-process (src/onboarding/db.js): DATABASE_URL points at a closed port, so every write
 // throws at connect() and the facade must fail SAFE — never crash, never fake a receipt_reference, and
 // surface an EXPLICIT persistence status:

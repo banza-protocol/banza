@@ -98,5 +98,5 @@
   <text x="560" y="586" text-anchor="middle" font-size="10.5" fill="#6B7280">L0–L4 são âmbitos de conformidade (capacidades), não níveis de certificação: health · carteiras e QR · liquidação · federação · acquiring — evidência publicada pelo operador</text>
 
   <!-- Footer -->
-  <text x="560" y="624" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-044 · Arquitectura de Referência de um Operador BANZA · BANZA_REFERENCIA.md §12 · ADR-021 · v1.1 · 2026-07-19</text>
+  <text x="560" y="624" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-044 · Arquitectura de Referência de um Operador BANZA · BANZA_REFERENCIA.md §12 · ADR-019 · v1.1 · 2026-07-19</text>
 </svg>

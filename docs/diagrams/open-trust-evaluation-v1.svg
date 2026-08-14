@@ -5,7 +5,7 @@
     id:        SVG-P-063
     diagram:   Open Trust Evaluation
     version:   1.0
-    source:    ADR-038 Open Protocol Trust Model Without CA · ADR-039 Operator Self-Publication and Machine-Verifiable Conformance · ADR-040 Federation Trust Evaluation Without Certificates
+    source:    ADR-034 Open Protocol Trust Model Without CA · ADR-030 Operator Self-Publication and Machine-Verifiable Conformance · ADR-037 Federation Trust Evaluation Without Certificates
     updated:   2026-07-17
     author:    BANZA Protocol
     style:     protocol
@@ -215,5 +215,5 @@
   <text x="560" y="858" text-anchor="middle" font-size="10" fill="#6B7280">Operators are independent and carry their own legal, regulatory and financial responsibility. Any authorisation comes from the competent regulator — never from BANZA.</text>
 
   <!-- Footer -->
-  <text x="560" y="890" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-063 · Open Trust Evaluation · ADR-038 · ADR-039 · ADR-040 · 2026-07-17</text>
+  <text x="560" y="890" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-063 · Open Trust Evaluation · ADR-034 · ADR-030 · ADR-037 · 2026-07-17</text>
 </svg>

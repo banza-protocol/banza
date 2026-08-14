@@ -21,7 +21,7 @@ CREATE TABLE key_manifest (
 
 -- ─────────────────────────── Operator registry (public index) ────────────────────
 -- A verifiable INDEX of operator metadata + the self-published evidence each operator
--- points to. BANZA issues nothing to operators (ADR-027): no certificate, no granted
+-- points to. BANZA issues nothing to operators (ADR-025): no certificate, no granted
 -- level. Listing grants nothing; absence forbids nothing. Conformance scope is read
 -- from an operator's published evidence, never stored here as a granted status.
 CREATE TABLE operators (
@@ -34,7 +34,7 @@ CREATE TABLE operators (
 
 -- ─────────────────────────── BRL / revocation list (signed) ───────────────────────
 -- Revocation is a cryptographic security signal over KEYS and ARTIFACTS, never an
--- entity-level status (ADR-027/040). An entry names the revoked material via revoked_ref
+-- entity-level status (ADR-025/040). An entry names the revoked material via revoked_ref
 -- (a delegated key id, release/artifact id, or operator key-material id).
 CREATE TABLE brl_snapshot (
   id bigserial PRIMARY KEY, list_version int NOT NULL, issuer_key_id text NOT NULL,
@@ -91,13 +91,13 @@ CREATE INDEX banzai_answer_cache_embedding_idx
 CREATE TABLE protocol_state (k text PRIMARY KEY, v jsonb NOT NULL);
 INSERT INTO protocol_state(k,v) VALUES
   ('phase', '"pre-production"'),
-  ('note', '"Um PASS de conformance é evidência técnica verificável, não uma certificação nem um estatuto concedido. A BANZA não emite certificados a operadores (modelo de confiança aberto, ADR-027): a participação demonstra-se por evidência publicada, não é concedida por uma autoridade central. Nenhum operador publicou evidência de produção neste ambiente."');
+  ('note', '"Um PASS de conformance é evidência técnica verificável, não uma certificação nem um estatuto concedido. A BANZA não emite certificados a operadores (modelo de confiança aberto, ADR-025): a participação demonstra-se por evidência publicada, não é concedida por uma autoridade central. Nenhum operador publicou evidência de produção neste ambiente."');
 
--- ─────────────────────────── Operator onboarding (M2.19G.3, ADR-040) ──────────────
+-- ─────────────────────────── Operator onboarding (M2.19G.3, ADR-037) ──────────────
 -- BanzAI-HOSTED onboarding: private candidacies + passwordless email OTP + .well-known origin proof.
 -- HASHES / opaque ids ONLY — no plaintext OTP, no session secret, no keys, no PII beyond a contact
 -- email. A candidate is NOT a published/production operator (that is the public `operators` table +
--- the closed Technical Registry). Onboarding is a hosted service, never a protocol rule (ADR-040).
+-- the closed Technical Registry). Onboarding is a hosted service, never a protocol rule (ADR-037).
 CREATE TABLE email_challenges (
   challenge_id text PRIMARY KEY,
   purpose text NOT NULL,
@@ -172,7 +172,7 @@ CREATE TABLE onboarding_audit (
   meta jsonb NOT NULL DEFAULT '{}',          -- append-only; NO otp/session/secret/PII
   created_at timestamptz NOT NULL DEFAULT now());
 
--- ─────────── Durable validation-journey receipt store (ADR-042 §D-076-08) ────────────
+-- ─────────── Durable validation-journey receipt store (ADR-036) ────────────
 -- The durable, append-only, verifiable archive of the endpoint-originated nine-step validation
 -- journey. It PRESERVES what the Rust engines already decided; it NEVER recomputes, edits or
 -- replaces a verdict, and it is not a normative source. It stores NO funds/values, NO end-user
@@ -189,7 +189,7 @@ CREATE TABLE validation_executions (
   profile text,
   environment text,
   snapshot_observed_at timestamptz,
-  overall_status text NOT NULL DEFAULT 'NOT_EVALUATED',       -- 6-state model (ADR-042 §D-076-04)
+  overall_status text NOT NULL DEFAULT 'NOT_EVALUATED',       -- 6-state model (ADR-036)
   certification_readiness text,                               -- READY | BLOCKED | null
   certification_status text NOT NULL DEFAULT 'NOT_CERTIFIED', -- always NOT_CERTIFIED (readiness is not a certificate)
   started_at timestamptz NOT NULL DEFAULT now(),
@@ -202,7 +202,7 @@ CREATE TABLE validation_executions (
   reproduction_of text REFERENCES validation_executions(execution_id),        -- reproduction lineage
   reproduction_result text,                                   -- OBSERVED_INPUTS_CHANGED | ORIGINAL_INPUTS_UNAVAILABLE | ENGINE_VERSION_UNAVAILABLE | REPRODUCTION_BLOCKED | SEMANTICALLY_EQUIVALENT | NOT_EQUIVALENT
   journey_receipt_sha256 text,
-  -- Operational state (mutable while RUNNING; ADR-042 §D-076-08 crash-recovery/locking/idempotency).
+  -- Operational state (mutable while RUNNING; ADR-036 crash-recovery/locking/idempotency).
   execution_lifecycle text NOT NULL DEFAULT 'RUNNING',       -- RUNNING | COMPLETED | CANCELLED | INTERRUPTED | EXPIRED
   heartbeat_at timestamptz,
   lock_owner text,
@@ -211,7 +211,7 @@ CREATE TABLE validation_executions (
   attempt_number int NOT NULL DEFAULT 1,
   idempotency_key text,
   interrupted_at timestamptz,
-  -- Telemetry precision (BZO-9, ADR-042): execution-kind classification + monotonic µs duration.
+  -- Telemetry precision (BZO-9, ADR-036): execution-kind classification + monotonic µs duration.
   execution_kind text,                                        -- USER_REQUESTED | SYSTEM_E2E | BENCHMARK | null (unclassified)
   trigger_source text,                                        -- what initiated the run (ui|api|campaign|…), context only
   measurement_campaign_id text,                               -- instrumentation-campaign id when kind=SYSTEM_E2E/BENCHMARK
@@ -293,7 +293,7 @@ CREATE TABLE validation_artifact_observations (
   observed_at timestamptz NOT NULL DEFAULT now());
 CREATE INDEX validation_artifact_observations_exec_idx ON validation_artifact_observations (execution_id, step_id);
 
--- Immutability-preserving execution-kind attestation (BZO-9, ADR-042): records the kind of an ALREADY-FROZEN
+-- Immutability-preserving execution-kind attestation (BZO-9, ADR-036): records the kind of an ALREADY-FROZEN
 -- execution row without ever UPDATE-ing it (that would trip banza_execution_freeze). Append-only; one per run.
 CREATE TABLE validation_execution_kind_attestations (
   attestation_id bigserial PRIMARY KEY,
@@ -306,10 +306,10 @@ CREATE TABLE validation_execution_kind_attestations (
   UNIQUE (execution_id));
 CREATE INDEX validation_execution_kind_attestations_exec_idx ON validation_execution_kind_attestations (execution_id);
 
--- DB-enforced append-only immutability for the sealed artefacts (ADR-042 §D-076-08): no UPDATE, no DELETE.
+-- DB-enforced append-only immutability for the sealed artefacts (ADR-036): no UPDATE, no DELETE.
 CREATE OR REPLACE FUNCTION banza_forbid_receipt_mutation() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
-  RAISE EXCEPTION 'append-only table %: % forbidden (ADR-042 D-076-08 immutable receipts)', TG_TABLE_NAME, TG_OP;
+  RAISE EXCEPTION 'append-only table %: % forbidden (ADR-036 immutable receipts)', TG_TABLE_NAME, TG_OP;
 END $$;
 CREATE TRIGGER operation_receipts_immutable BEFORE UPDATE OR DELETE ON operation_receipts
   FOR EACH ROW EXECUTE FUNCTION banza_forbid_receipt_mutation();
@@ -326,15 +326,15 @@ CREATE TRIGGER validation_execution_kind_attestations_immutable BEFORE UPDATE OR
 CREATE OR REPLACE FUNCTION banza_execution_freeze() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
   IF TG_OP = 'DELETE' THEN
-    RAISE EXCEPTION 'validation_executions is not deletable (ADR-042 D-076-08)';
+    RAISE EXCEPTION 'validation_executions is not deletable (ADR-036)';
   END IF;
   IF NEW.execution_id <> OLD.execution_id OR NEW.operator_id <> OLD.operator_id
      OR NEW.implementation_id <> OLD.implementation_id OR NEW.created_at <> OLD.created_at
      OR COALESCE(NEW.snapshot_observed_at, 'epoch'::timestamptz) <> COALESCE(OLD.snapshot_observed_at, 'epoch'::timestamptz) THEN
-    RAISE EXCEPTION 'validation_executions: identity/snapshot columns are immutable (ADR-042 D-076-08)';
+    RAISE EXCEPTION 'validation_executions: identity/snapshot columns are immutable (ADR-036)';
   END IF;
   IF OLD.completed_at IS NOT NULL OR OLD.cancelled_at IS NOT NULL OR OLD.interrupted_at IS NOT NULL THEN
-    RAISE EXCEPTION 'validation_executions: a completed/cancelled/interrupted run is frozen (ADR-042 D-076-08)';
+    RAISE EXCEPTION 'validation_executions: a completed/cancelled/interrupted run is frozen (ADR-036)';
   END IF;
   RETURN NEW;
 END $$;
@@ -344,14 +344,14 @@ CREATE TRIGGER validation_executions_freeze BEFORE UPDATE OR DELETE ON validatio
 CREATE OR REPLACE FUNCTION banza_step_execution_freeze() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
   IF TG_OP = 'DELETE' THEN
-    RAISE EXCEPTION 'validation_step_executions is not deletable (ADR-042 D-076-08)';
+    RAISE EXCEPTION 'validation_step_executions is not deletable (ADR-036)';
   END IF;
   IF NEW.step_execution_id <> OLD.step_execution_id OR NEW.execution_id <> OLD.execution_id
      OR NEW.step_id <> OLD.step_id OR NEW.created_at <> OLD.created_at THEN
-    RAISE EXCEPTION 'validation_step_executions: identity columns are immutable (ADR-042 D-076-08)';
+    RAISE EXCEPTION 'validation_step_executions: identity columns are immutable (ADR-036)';
   END IF;
   IF OLD.completed_at IS NOT NULL AND OLD.status IN ('VERIFIED','PENDING','FAILED','BLOCKED') THEN
-    RAISE EXCEPTION 'validation_step_executions: a sealed step is frozen (ADR-042 D-076-08)';
+    RAISE EXCEPTION 'validation_step_executions: a sealed step is frozen (ADR-036)';
   END IF;
   RETURN NEW;
 END $$;
@@ -387,7 +387,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON email_challenges, candidate_sessions, ca
                 candidate_implementations, origin_challenges, onboarding_audit TO banzai_rw;
 GRANT USAGE, SELECT ON SEQUENCE onboarding_audit_id_seq TO banzai_rw;
 
--- BanzAI owns the validation-journey receipt store (ADR-042). Live orchestration rows advance then
+-- BanzAI owns the validation-journey receipt store (ADR-036). Live orchestration rows advance then
 -- freeze (SELECT/INSERT/UPDATE, NO DELETE); the sealed artefacts are append-only (SELECT/INSERT only —
 -- no UPDATE/DELETE grant; the DB triggers above are the belt-and-suspenders enforcement).
 GRANT SELECT, INSERT, UPDATE ON validation_executions, validation_step_executions TO banzai_rw;

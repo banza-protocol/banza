@@ -13,8 +13,8 @@
   },
   "protocol_version": "1.0.0",
   "manifest_totals": {
-    "artifacts": 150,
-    "implementation": 90,
+    "artifacts": 151,
+    "implementation": 91,
     "conformance": 55,
     "legal": 3,
     "informative": 2
@@ -22,7 +22,7 @@
   "edge_counts": {
     "profile_requires": 77,
     "schema_ref": 16,
-    "cites_normative": 277
+    "cites_normative": 280
   },
   "_closure_edges": [
     "profile_requires",
@@ -1296,6 +1296,13 @@
       "edge": "cites_normative",
       "kind": "normative",
       "reason": "contracts/production/conformance-profiles.production.json names spec/reason-codes.md in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
+      "to": "spec/refunds.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names spec/refunds.md in its own text"
     },
     {
       "from": "contracts/production/conformance-profiles.production.json",
@@ -2586,6 +2593,20 @@
       "reason": "spec/reason-codes.md names spec/canonicalization.md in its own text"
     },
     {
+      "from": "spec/refunds.md",
+      "to": "contracts/invariants.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/refunds.md names contracts/invariants.json in its own text"
+    },
+    {
+      "from": "spec/refunds.md",
+      "to": "spec/idempotency.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/refunds.md names spec/idempotency.md in its own text"
+    },
+    {
       "from": "spec/trust-freshness.md",
       "to": "conformance/vectors/trust-freshness.json",
       "edge": "cites_normative",
@@ -3264,6 +3285,7 @@
       "contracts/production/root-custody-declaration.production.schema.json",
       "contracts/production/root-recovery-test.production.schema.json",
       "contracts/production/validation-journey-state-machine.production.json",
+      "spec/refunds.md",
       "spec/validation-journey.md"
     ],
     "declared_but_absent_from_the_surface": [],
@@ -3291,6 +3313,7 @@
       "contracts/production/root-custody-declaration.production.schema.json",
       "contracts/production/root-recovery-test.production.schema.json",
       "contracts/production/validation-journey-state-machine.production.json",
+      "spec/refunds.md",
       "spec/validation-journey.md"
     ],
     "unresolved_references": []

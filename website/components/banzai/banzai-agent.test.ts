@@ -21,7 +21,7 @@ describe("BanzAI single-shell naming + navigation (M2.19EF2)", () => {
     expect(BANZAI_AGENT.heroTitle).not.toContain("Workbench");
   });
 
-  it("exposes the three modes (Modos): Perguntar · Validar operador · Onboarding (M2.19G.1/ADR-038, M2.19G.3/ADR-040)", () => {
+  it("exposes the three modes (Modos): Perguntar · Validar operador · Onboarding (M2.19G.1/ADR-034, M2.19G.3/ADR-037)", () => {
     expect(MODES.map((m) => m.mode)).toEqual(["ask", "validation", "onboarding"]);
     expect(MODES.map((m) => m.name)).toEqual(["Perguntar ao BanzAI", "Validar operador", "Onboarding de operador"]);
     // ask is the default entry mode.
@@ -30,7 +30,7 @@ describe("BanzAI single-shell naming + navigation (M2.19EF2)", () => {
     expect(MODES.map((m) => m.name)).not.toContain("Validar uma implementação");
   });
 
-  it("collapses Resultados to ONE entry and Recursos to Guia · Referência · Programadores (ADR-038 §29)", () => {
+  it("collapses Resultados to ONE entry and Recursos to Guia · Referência · Programadores (ADR-034 §29)", () => {
     // Resultados is a SINGLE sidebar entry (in-area sub-views, not separate tabs).
     expect(TABS.filter((t) => t.group === "resultados").map((t) => t.key)).toEqual(["resultados"]);
     expect(TABS.filter((t) => t.group === "recursos").map((t) => t.key)).toEqual([
@@ -114,7 +114,7 @@ describe("authority boundary copy (BX0)", () => {
     expect(publicCopy.toLowerCase()).not.toContain("corpus");
   });
 
-  it("suggests operational duration/metric demonstrators (ADR-042)", () => {
+  it("suggests operational duration/metric demonstrators (ADR-036)", () => {
     const joined = AGENT_SUGGESTIONS.join(" ");
     // Still anchored on the validation journey, but now exercising the operational telemetry answers:
     // total duration, the slowest step, and a run-over-run comparison.
@@ -124,13 +124,13 @@ describe("authority boundary copy (BX0)", () => {
   });
 });
 
-describe("developer commands are Rust-first (BX0; SimB retired from active surfaces — ADR-042)", () => {
+describe("developer commands are Rust-first (BX0; SimB retired from active surfaces — ADR-036)", () => {
   it("uses banza-conformance-rs / banza-trust, not the outdated pip install, and no longer advertises SimB", () => {
     const cmds = DEV_COMMANDS.join(" ");
     expect(cmds).not.toContain("pip install banza-conformance");
     expect(cmds).toContain("banza-conformance-rs");
     expect(cmds).toContain("banza-trust");
-    // ADR-042: SimB is retired from active surfaces. The banza-simb engine, its SIMB_PRE_REVIEW gate
+    // ADR-036: SimB is retired from active surfaces. The banza-simb engine, its SIMB_PRE_REVIEW gate
     // and the isolated draft-validation libs (BLOCKED_BY_SIMB) are kept; it is simply no longer
     // advertised as a developer command on the public /banzai surface.
     expect(cmds).not.toContain("banza-simb");

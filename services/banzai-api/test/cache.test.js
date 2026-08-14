@@ -1,4 +1,4 @@
-// Regression tests for the M2.19G.5C adversarial-review findings on cache key discipline (ADR-042).
+// Regression tests for the M2.19G.5C adversarial-review findings on cache key discipline (ADR-036).
 // (1) cacheKey binds the post-validation policy + contract version + document/entity identity, so a
 //     policy/contract bump evicts stale-policy answers and two distinct (entity, document) requests
 //     never collide. (2) SemanticCache.find never returns a different entity's validated answer, even
@@ -20,7 +20,7 @@ const base = {
   postValidationPolicy: "pv-1",
 };
 
-test("cacheKey binds the post-validation policy version (ADR-042 eviction)", () => {
+test("cacheKey binds the post-validation policy version (ADR-036 eviction)", () => {
   const a = cacheKey(base);
   const b = cacheKey({ ...base, postValidationPolicy: "pv-2" });
   assert.notEqual(a, b, "a policy bump must change the cache key so stale-policy answers are evicted");
@@ -31,8 +31,8 @@ test("cacheKey binds the contract version", () => {
 });
 
 test("cacheKey binds document + entity identity", () => {
-  const a = cacheKey({ ...base, document_id: "ADR-042", entity_id: "ADR-042" });
-  const b = cacheKey({ ...base, document_id: "ADR-038", entity_id: "ADR-038" });
+  const a = cacheKey({ ...base, document_id: "ADR-036", entity_id: "ADR-036" });
+  const b = cacheKey({ ...base, document_id: "ADR-034", entity_id: "ADR-034" });
   assert.notEqual(a, b, "distinct (entity, document) requests must not share an exact-cache key");
 });
 
@@ -45,15 +45,15 @@ test("cacheKey is insertion-order independent", () => {
 test("SemanticCache never returns a different entity's answer (cross-entity contamination)", () => {
   const sc = new SemanticCache({ threshold: 0.5 });
   // Two near-identical-vocabulary questions about DIFFERENT entities.
-  const qA = { ...base, question: "explica o estado e o impacto da adr 042 para operadores", entity_id: "ADR-042", document_id: "ADR-042" };
-  const qB = { ...base, question: "explica o estado e o impacto da adr 038 para operadores", entity_id: "ADR-038", document_id: "ADR-038" };
-  sc.add(qA, { answer: "ADR-042 answer", entity: "ADR-042" });
-  // A query about entity ADR-038 must NOT return the ADR-042 entry even at high lexical similarity.
+  const qA = { ...base, question: "explica o estado e o impacto da adr 042 para operadores", entity_id: "ADR-036", document_id: "ADR-036" };
+  const qB = { ...base, question: "explica o estado e o impacto da adr 038 para operadores", entity_id: "ADR-034", document_id: "ADR-034" };
+  sc.add(qA, { answer: "ADR-036 answer", entity: "ADR-036" });
+  // A query about entity ADR-034 must NOT return the ADR-036 entry even at high lexical similarity.
   const hit = sc.find(qB);
   assert.equal(hit, null, "a different entity_id must never match a stored entry");
   // The SAME entity paraphrase still hits.
   const same = sc.find({ ...qA, question: "explica o estado e impacto da adr 042 para os operadores" });
-  assert.ok(same && same.value.entity === "ADR-042", "same-entity paraphrase still hits");
+  assert.ok(same && same.value.entity === "ADR-036", "same-entity paraphrase still hits");
 });
 
 test("SemanticCache candidate is invalidated by a policy bump", () => {

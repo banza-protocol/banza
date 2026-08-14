@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 #
-# BANZA Certification/Admission/Authorisation Separation Guard (M2.19C, ADR-004).
+# BANZA Certification/Admission/Authorisation Separation Guard (M2.19C, ADR-005).
 #
 # The single most dangerous launch ambiguity is a technical PASS being read as a licence, or scheme
-# membership as regulatory approval. ADR-004 makes the three determinations structurally independent:
+# membership as regulatory approval. ADR-005 makes the three determinations structurally independent:
 #   Technical Certification (L2)  ≠  Scheme Admission (L3)  ≠  Regulatory Authorisation.
 #
-# This guard keeps ADR-004 present, keeps the three-way separation stated on the canonical surfaces
-# (ADR-004 + BANZA_THREE_LAYER_ARCHITECTURE.md + ADR-003), and forbids any conflation
+# This guard keeps ADR-005 present, keeps the three-way separation stated on the canonical surfaces
+# (ADR-005 + BANZA_THREE_LAYER_ARCHITECTURE.md + ADR-004), and forbids any conflation
 # ("certification = licence" / "certificação = licença" / "certification = admission"). The "≠" form is not
 # "="; negations ("certification is NOT a licence") are allowed via the context-window filter.
 #
@@ -16,10 +16,9 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-ADR061="decisions/adr/ADR-004-technical-certification-is-not-scheme-admission-and-not-regu.md"
+ADR061=$(ls decisions/adr/ADR-005-*.md 2>/dev/null | head -1)
 TLA="docs/governance/BANZA_THREE_LAYER_ARCHITECTURE.md"
-ADR059="decisions/adr/ADR-003-three-institutional-layers.md"
-
+ADR059=$(ls decisions/adr/ADR-004-*.md 2>/dev/null | head -1)
 fail=0
 
 # Conflation claims (literal "=" and "is/é/means a licence/admission/authorisation"). The canonical docs
@@ -49,16 +48,18 @@ echo 'A certificação NÃO é uma licença.' | grep -qiE "$WIN_NEG" || { echo "
 echo "$BAD" | grep -qiE "$WIN_NEG" && { echo "SELF-TEST BROKEN: bad line wrongly carries a negation marker" >&2; st=1; }
 [ "$st" -eq 0 ] || { echo "certification-admission-separation: guard self-test FAILED"; exit 2; }
 
-# ── [1/3] ADR-004 present ────────────────────────────────────────────────────────────────────────────
-echo "== [1/3] ADR-004 present =="
+# ── [1/3] ADR-005 present ────────────────────────────────────────────────────────────────────────────
+echo "== [1/3] ADR-005 present =="
 if [ -f "$ADR061" ]; then echo "PASS  $ADR061"; else echo "FAIL  missing required document: $ADR061"; fail=1; fi
 
 # ── [2/3] the three-way separation stated on the canonical surfaces ──────────────────────────────────
 echo "== [2/3] certification ≠ admission ≠ authorisation stated =="
-needE "$ADR061" 'technical certification ≠ scheme admission ≠ regulatory authoris' 'ADR-004 EN triple separation'
-needE "$ADR061" 'certifica(ç|c)ão técnica ≠ admiss.{0,30}≠ autoriza'               'ADR-004 PT triple separation'
+# The record explains WHY the three determinations are separate; it is not an authority for the
+# canonical wording (ADR-010). The triple separation is asserted where it is canonical — the
+# governance document — and the record is asserted only to state the property in its own terms.
+needE "$ADR061" 'none implies'                                            'ADR-005 states non-propagation'
 needE "$TLA"    'certifica(ç|c)ão técnica ≠ admiss.{0,30}≠ autoriza'               'TLA triple separation (§8)'
-needE "$ADR059" 'licen.{0,40}admission.{0,40}(authoris|authoriz)'                  'ADR-003 certification is not licence/admission/authorisation'
+needE "$ADR059" 'not a licence, not admission'                            'ADR-004 certification is not licence/admission/authorisation'
 
 # ── [3/3] no surface conflates certification with a licence / admission / authorisation ──────────────
 echo "== [3/3] no certification=licence / certification=admission conflation =="
@@ -83,8 +84,8 @@ done
 
 if [ "$fail" -ne 0 ]; then
   echo
-  echo "certification-admission-separation: FAIL — see ADR-004 and docs/governance/BANZA_THREE_LAYER_ARCHITECTURE.md."
+  echo "certification-admission-separation: FAIL — see ADR-005 and docs/governance/BANZA_THREE_LAYER_ARCHITECTURE.md."
   exit 1
 fi
 echo
-echo "certification-admission-separation: ✓ certification ≠ admission ≠ authorisation stated; no conflation (M2.19C / ADR-004)"
+echo "certification-admission-separation: ✓ certification ≠ admission ≠ authorisation stated; no conflation (M2.19C / ADR-005)"

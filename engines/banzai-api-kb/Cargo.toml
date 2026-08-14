@@ -2,7 +2,7 @@
 name = "banzai-api-kb"
 version = "0.1.0"
 edition = "2021"
-description = "banzai-api-kb (ADR-043, R6): the Rust retrieval engine for the live banzai-api. Faithful port of knowledge.js normalize/scoreEntry/retrieveTopK over the embedded entry keyword index. Deterministic; no LLM, no network. Compiles native (parity tests) and to Node WASM (the live service loads it)."
+description = "banzai-api-kb (ADR-038, R6): the Rust retrieval engine for the live banzai-api. Faithful port of knowledge.js normalize/scoreEntry/retrieveTopK over the embedded entry keyword index. Deterministic; no LLM, no network. Compiles native (parity tests) and to Node WASM (the live service loads it)."
 license = "Apache-2.0"
 
 [lib]

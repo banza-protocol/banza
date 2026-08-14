@@ -115,7 +115,7 @@ All tests must pass. A single failure blocks conformance at that level. See [`do
 ## Step 6 — Publish your evidence yourself
 
 There is no application to submit and no reviewer to wait for. You publish your own
-trust material at your own endpoints, and counterparties verify it (ADR-033):
+trust material at your own endpoints, and counterparties verify it (ADR-031):
 
 | Artifact | Where you publish it |
 |----------|----------------------|
@@ -132,7 +132,7 @@ from it is not a regulatory prohibition — it means your metadata is not indexe
 
 ## How counterparties evaluate you — Open Trust Evaluation
 
-Any operator deciding whether to route to you runs exactly these ten checks (ADR-031).
+Any operator deciding whether to route to you runs exactly these ten checks (ADR-025).
 None of them involves a human decision:
 
 | # | Check | What you must do |
@@ -179,7 +179,7 @@ Levels are cumulative. Start at L0 if you are new.
 | Conformance suite docs | [`docs/guides/conformance.md`](../../docs/guides/conformance.md) |
 | Conformance runner | [`engines/banza-conformance/`](../../engines/banza-conformance/) |
 | Protocol contracts | [`contracts/`](../../contracts/) |
-| Trust model (ADR-027 · ADR-033 · ADR-031) | [`decisions/adr/`](../../decisions/adr/) |
+| Trust model (ADR-025 · ADR-031 · ADR-025) | [`decisions/adr/`](../../decisions/adr/) |
 | ADRs (governance) | [`decisions/adr/`](../../decisions/adr/) |
 | RFCs (evolution) | [`decisions/rfc/`](../../decisions/rfc/) |
 | BanzAI (knowledge system) | `banza.network/banzai` |

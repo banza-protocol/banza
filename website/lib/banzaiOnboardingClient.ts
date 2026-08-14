@@ -1,4 +1,4 @@
-// Same-origin client for the BanzAI operator-onboarding backend (M2.19G.3, ADR-040).
+// Same-origin client for the BanzAI operator-onboarding backend (M2.19G.3, ADR-037).
 //
 // Mirrors lib/banzaiValidateClient.ts (POST JSON, AbortController timeout) but adds
 // `credentials: "include"` so the __Host- session cookie set by /banzai/onboarding/otp/verify is sent

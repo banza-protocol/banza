@@ -102,7 +102,7 @@ for (const q of ["o que é o BANZA", "o que é o BanzAI", "o que é a Banzami", 
 for (const q of ["qual o ano de criação do BANZA", "quando foi criado o BANZA", "qual a versão do BANZA", "qual a licença do BANZA", "qual a licença do BanzAI"])
   cover(`fact-${n}`, q, "", "exact-fact");
 // 4) DOCUMENT operations on real ids (lookup/summary/metadata).
-for (const id of ["ADR-001", "ADR-011", "ADR-031", "RFC-0006", "ADR-001", "ADR-002", "ADR-012", "ADR-027", "ADR-033", "ADR-042", "ADR-042"]) {
+for (const id of ["ADR-001", "ADR-012", "ADR-025", "RFC-0006", "ADR-001", "ADR-001", "ADR-014", "ADR-025", "ADR-031", "ADR-036", "ADR-036"]) {
   cover(`doc-lk-${id}`, `abre a ${id}`, id, "document-op");
   cover(`doc-sm-${id}`, `resume a ${id}`, id, "document-op");
   cover(`doc-md-${id}`, `qual o estado da ${id}`, id, "document-op");
@@ -125,7 +125,7 @@ for (const q of ["transfére 100 kwanzas para o joao", "TRANSFERE   100   KWANZA
 for (const q of ["explica    a    federação!!!", "o::que::é::o::banza", "define federação (por favor)", "  exemplo de operador  ", "explica\ta\tconformidade", "o que é o banza???", "EXEMPLO   DE   MANIFEST", "o.que.e.a.conformidade", "explica —— a —— revogação", "define    trust", "o que é a federação;;;", "mostra a estrutura do manifest!!!"])
   cover(`adv-rob-${n}`, q, "", "adversarial-robust");
 // 8) MIXED / FOLLOW-UP.
-for (const q of ["explica a federação e dá um exemplo", "o que é o manifest e qual a sua estrutura", "define conformidade e mostra como demonstrá-la", "compara a ADR-001 e a ADR-011 e explica o impacto", "explica a revogação e os seus requisitos", "o que é a evidência e mostra a estrutura"])
+for (const q of ["explica a federação e dá um exemplo", "o que é o manifest e qual a sua estrutura", "define conformidade e mostra como demonstrá-la", "compara a ADR-001 e a ADR-012 e explica o impacto", "explica a revogação e os seus requisitos", "o que é a evidência e mostra a estrutura"])
   cover(`mix-${n}`, q, "", "mixed");
 for (const q of ["e um exemplo?", "e a estrutura?", "e o impacto?", "e os requisitos?", "resume isso", "explica melhor", "e as consequências?", "e a motivação?"])
   cover(`fu-${n}`, q, "", "follow-up");
@@ -145,7 +145,7 @@ const NOVEL = [
   ["participacao", "quais os passos e requisitos para participar"],
   ["manifest", "como validar um manifest"],
   ["liquidacao", "explica o impacto da liquidação"],
-  ["ADR-011", "quais as consequências da ADR-011"],
+  ["ADR-012", "quais as consequências da ADR-012"],
   ["qr", "como funciona um pagamento qr entre operadores"],
   ["webhook", "qual a estrutura de um webhook"],
   ["ledger", "explica o impacto do ledger de dupla entrada"],

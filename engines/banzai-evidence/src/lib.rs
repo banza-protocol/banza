@@ -1,4 +1,4 @@
-//! BanzAI deterministic evidence engine (ADR-043, R2).
+//! BanzAI deterministic evidence engine (ADR-038, R2).
 //!
 //! This is the Rust port of the former `website/components/home/banzaiKb.ts`. It owns the
 //! algorithm: normalization, guardrails, intent routing, the decision library, citation and
@@ -110,48 +110,198 @@ pub struct Decision {
 
 pub const DECISIONS: &[Decision] = &[
     Decision {
-        id: "ADR-002", title: "Ecosystem Naming Inversion", url: "/decisoes/adr-002", cite: "ADR-002",
-        summary: "fixa a nomenclatura e a separação estrita do ecossistema: a Governação evolui as regras, o BANZA define o protocolo, a Protocol Governance mantém e evolui o protocolo (nunca autoriza operadores), o BanzAI explica (nunca certifica) e os operadores independentes implementam. A dependência corre numa única direcção — os operadores dependem do BANZA; o BANZA nunca depende de nenhum operador.",
-        keywords: &["adr-002", "adr 002", "adr002", "nomenclatura", "naming", "hierarquia", "inversao", "ecossistema"],
+        id: "ADR-001", title: "Open financial protocol: what BANZA is and is not", url: "/decisoes/adr-001", cite: "ADR-001",
+        summary: "BANZA is an open financial protocol: a technology-neutral specification of the protocol-level models for financial interoperability, published under Apache 2.0.",
+        keywords: &["adr-001", "adr 001", "adr001", "protocolo financeiro aberto", "o que e o banza", "open financial protocol"],
     },
     Decision {
-        id: "ADR-001", title: "Protocol/Operator Separation", url: "/decisoes/adr-001", cite: "ADR-001",
-        summary: "estabelece a fronteira entre o protocolo e a lógica de negócio de cada operador: o BANZA define regras e verificação; o operador implementa, opera e assume as obrigações (incluindo KYC/KYB e AML/CFT) na sua própria infraestrutura.",
-        keywords: &["adr-001", "adr 001", "adr001", "separacao de operador", "separacao operador", "fronteira operador"],
+        id: "ADR-002", title: "Protocol, implementation and operator separation", url: "/decisoes/adr-002", cite: "ADR-002",
+        summary: "The protocol defines interfaces and invariants. Operators implement them. The protocol contains no operator.",
+        keywords: &["adr-002", "adr 002", "adr002", "separacao operador", "separacao de operador", "fronteira operador", "provider interface"],
     },
     Decision {
-        id: "ADR-041", title: "Operador Zero — Reference Operator Simulator", url: "/decisoes/adr-041", cite: "ADR-041",
-        summary: "define o Operador Zero, o operador de referência/demonstração do protocolo: um simulador canónico que demonstra as capacidades do protocolo de ponta a ponta sem ser proprietário dele. Serve de exemplo e demonstração — apenas demonstração, nunca um operador real ou publicado —, não confere autoridade nem estatuto especial.",
-        keywords: &["adr-041", "adr 041", "adr041", "operador de referencia", "reference operator", "operador zero"],
+        id: "ADR-003", title: "Protocol-first origination", url: "/decisoes/adr-003", cite: "ADR-003",
+        summary: "A new structural financial concept originates in the protocol and flows downward — never upward.",
+        keywords: &["adr-003", "adr 003", "adr003"],
     },
     Decision {
-        id: "ADR-031", title: "Federation Trust Evaluation", url: "/decisoes/adr-031", cite: "ADR-031",
-        summary: "define como operadores conformes confiam uns nos outros para federar: uma Federation Trust Evaluation feita pela própria parte que faz o routing, sobre material público (signed protocol metadata, conformance evidence, public protocol registry, trust root/chaves delegadas e revocation/fail-closed), sem certificado emitido pela BANZA e sem passo humano. A federação de produção depende do marco M3.",
-        keywords: &["adr-031", "adr 031", "adr031", "modelo de confianca da federacao", "federation trust"],
+        id: "ADR-004", title: "Three institutional layers", url: "/decisoes/adr-004", cite: "ADR-004",
+        summary: "BANZA is three separated layers, and the separation is architectural — by responsibility, by infrastructure and by keys — not a presentational convenience.",
+        keywords: &["adr-004", "adr 004", "adr004", "tres camadas", "camadas institucionais", "three layers"],
     },
     Decision {
-        id: "ADR-027", title: "Open Protocol Trust Model Without CA", url: "/decisoes/adr-027", cite: "ADR-027",
-        summary: "define o modelo de trust aberto do protocolo, sem autoridade central: a Chave Raiz offline (custódia por threshold 2-de-3) assina apenas metadata, chaves delegadas e revogação, o signed key manifest distribui o trust-anchor, e as chaves delegadas são domain-separated e geridas offline, separadas da infraestrutura em linha. Depende do marco M2.",
-        keywords: &["adr-027", "adr 027", "adr027", "raiz de producao", "production root", "modelo de trust aberto"],
+        id: "ADR-005", title: "Certification, admission and authorisation do not propagate", url: "/decisoes/adr-005", cite: "ADR-005",
+        summary: "The three determinations are distinct, have distinct owners and distinct evidence, and none implies, grants, accelerates or substitutes for another — in either direction.",
+        keywords: &["adr-005", "adr 005", "adr005", "nao propaga", "autorizacao regulatoria"],
     },
     Decision {
-        id: "ADR-028", title: "Root authorization: three authorities, threshold two", url: "/decisoes/adr-028", cite: "ADR-028",
-        summary: "A Trust Root é controlada por três autoridades de assinatura independentes; qualquer acção autorizada exige duas assinaturas de duas delas. Uma assinatura isolada nunca autoriza, e duas assinaturas da mesma autoridade contam como uma.",
-        keywords: &["adr-028", "adr 028", "adr028", "limiar da raiz", "root threshold", "2-de-3", "duas de tres"],
+        id: "ADR-006", title: "The designated operator and its conflict of interest", url: "/decisoes/adr-006", cite: "ADR-006",
+        summary: "o operador designado — Tecnologia e Serviços, Lda. is the designated operator of the first operational scheme built on BANZA, and receives no privilege of any kind from that position. The conflict is controlled structurally, so that its control does not depend on o operador designado's conduct and can be verified by anyone.",
+        keywords: &["adr-006", "adr 006", "adr006"],
     },
     Decision {
-        id: "ADR-029", title: "Private keys never on serving infrastructure", url: "/decisoes/adr-029", cite: "ADR-029",
-        summary: "estabelece que as chaves privadas nunca residem na infraestrutura que serve tráfego: o material de assinatura fica isolado da superfície pública, reduzindo o risco de comprometimento em linha.",
-        keywords: &["adr-029", "adr 029", "adr029", "chaves privadas", "private keys", "serving infrastructure"],
+        id: "ADR-007", title: "Regulatory state and the real-money activation gate", url: "/decisoes/adr-007", cite: "ADR-007",
+        summary: "While no applicable formal evidence of authorisation exists, real money is off, the state grants nothing, and no language implying regulatory approval is published. A single hard, engine-decided, fail-closed gate is the only path to real-money activation.",
+        keywords: &["adr-007", "adr 007", "adr007"],
     },
     Decision {
-        id: "ADR-032", title: "KYC stays operator policy; only Trust Assertions federate", url: "/decisoes/adr-032", cite: "ADR-032",
-        summary: "mantém o KYC como política do operador: o protocolo não centraliza KYC — apenas Trust Assertions podem federar entre operadores. As obrigações de identidade ficam do lado do operador e das autoridades competentes.",
-        keywords: &["adr-032", "adr 032", "adr032", "kyc", "trust assertion", "trust assertions"],
+        id: "ADR-008", title: "Normative authority and versioning", url: "/decisoes/adr-008", cite: "ADR-008",
+        summary: "Normative authority is enumerated, not inferred. The protocol version is 1.0.0 and changes only on a wire-incompatible change to a production contract.",
+        keywords: &["adr-008", "adr 008", "adr008"],
+    },
+    Decision {
+        id: "ADR-009", title: "Licence, trademark and open governance", url: "/decisoes/adr-009", cite: "ADR-009",
+        summary: "Four concerns, four artifacts, no overlap.",
+        keywords: &["adr-009", "adr 009", "adr009"],
+    },
+    Decision {
+        id: "ADR-010", title: "The decision-record tree holds current architecture only", url: "/decisoes/adr-010", cite: "ADR-010",
+        summary: "The tree holds only current decisions, and answers one question: why is BANZA designed this way?",
+        keywords: &["adr-010", "adr 010", "adr010"],
+    },
+    Decision {
+        id: "ADR-011", title: "BANZA Canonical JSON (BCJ/1)", url: "/decisoes/adr-011", cite: "ADR-011",
+        summary: "Adopt RFC 8785 (JSON Canonicalization Scheme) as the basis, restricted by an explicit profile. The result is BCJ/1.",
+        keywords: &["adr-011", "adr 011", "adr011", "bcj", "canonicalizacao", "canonical json"],
+    },
+    Decision {
+        id: "ADR-012", title: "Double-entry ledger and monetary precision", url: "/decisoes/adr-012", cite: "ADR-012",
+        summary: "Double-entry bookkeeping over an immutable, append-only ledger, with all monetary amounts as integer minor units.",
+        keywords: &["adr-012", "adr 012", "adr012"],
+    },
+    Decision {
+        id: "ADR-013", title: "The protocol state store is not a ledger", url: "/decisoes/adr-013", cite: "ADR-013",
+        summary: "The protocol's own state store holds protocol state, never financial value.",
+        keywords: &["adr-013", "adr 013", "adr013"],
+    },
+    Decision {
+        id: "ADR-014", title: "Account and participant identity", url: "/decisoes/adr-014", cite: "ADR-014",
+        summary: "BANZA defines an account-based participant identity model. The canonical payment operation is a ledger transfer between two participant accounts — not a card transaction.",
+        keywords: &["adr-014", "adr 014", "adr014"],
+    },
+    Decision {
+        id: "ADR-015", title: "Payment initiation: one intent, several surfaces", url: "/decisoes/adr-015", cite: "ADR-015",
+        summary: "Payment initiation is one object — the payment intent — presented through several surfaces. The surfaces carry no money and have no independent financial lifecycle.",
+        keywords: &["adr-015", "adr 015", "adr015"],
+    },
+    Decision {
+        id: "ADR-016", title: "Collections: a composite obligation, never money", url: "/decisoes/adr-016", cite: "ADR-016",
+        summary: "A collection is a composite financial obligation, not a financial container. It holds no balance and never posts to the ledger.",
+        keywords: &["adr-016", "adr 016", "adr016"],
+    },
+    Decision {
+        id: "ADR-017", title: "Wallet accounts: segregation inside a wallet", url: "/decisoes/adr-017", cite: "ADR-017",
+        summary: "A wallet contains accounts. An account is a segregated ledger account inside a wallet, with its own balance and a stated purpose.",
+        keywords: &["adr-017", "adr 017", "adr017"],
+    },
+    Decision {
+        id: "ADR-018", title: "Wallet payments and the refund source model", url: "/decisoes/adr-018", cite: "ADR-018",
+        summary: "A wallet payment is a first-class payment object, and a refund references a typed source.",
+        keywords: &["adr-018", "adr 018", "adr018"],
+    },
+    Decision {
+        id: "ADR-019", title: "Fees and application settlement", url: "/decisoes/adr-019", cite: "ADR-019",
+        summary: "The protocol carries references and structure. It never carries rates, formulas or commercial rules.",
+        keywords: &["adr-019", "adr 019", "adr019"],
+    },
+    Decision {
+        id: "ADR-020", title: "Transaction proof and public verification", url: "/decisoes/adr-020", cite: "ADR-020",
+        summary: "A transaction proof is an immutable, publicly verifiable assertion that a transaction exists in an operator's ledger, with its real amount, parties and status. Verification is public and needs no account.",
+        keywords: &["adr-020", "adr 020", "adr020"],
+    },
+    Decision {
+        id: "ADR-021", title: "Reason codes", url: "/decisoes/adr-021", cite: "ADR-021",
+        summary: "Publish a core registry with a reserved extension namespace, and keep the vocabularies separate.",
+        keywords: &["adr-021", "adr 021", "adr021"],
+    },
+    Decision {
+        id: "ADR-022", title: "Idempotency", url: "/decisoes/adr-022", cite: "ADR-022",
+        summary: "Idempotency is a protocol invariant. Every financial write carries a caller-supplied idempotency key.",
+        keywords: &["adr-022", "adr 022", "adr022"],
+    },
+    Decision {
+        id: "ADR-023", title: "Test material can never be production-valid", url: "/decisoes/adr-023", cite: "ADR-023",
+        summary: "Test and demonstration material is structurally incapable of being production-valid. The property is carried by the artifact, not by its environment.",
+        keywords: &["adr-023", "adr 023", "adr023"],
+    },
+    Decision {
+        id: "ADR-024", title: "Identity verification stays operator policy", url: "/decisoes/adr-024", cite: "ADR-024",
+        summary: "The protocol does not define how an operator verifies identity. Only trust assertions federate.",
+        keywords: &["adr-024", "adr 024", "adr024", "kyc", "trust assertion", "trust assertions", "verificacao de identidade"],
+    },
+    Decision {
+        id: "ADR-025", title: "Trust without a certificate authority", url: "/decisoes/adr-025", cite: "ADR-025",
+        summary: "There is no certificate authority over operators. A verifier reaches its own conclusion from public material, offline, without contacting anyone and without asking permission.",
+        keywords: &["adr-025", "adr 025", "adr025", "sem autoridade certificadora", "modelo de trust aberto", "federation trust", "open trust evaluation"],
+    },
+    Decision {
+        id: "ADR-026", title: "Root authorization: three authorities, threshold two", url: "/decisoes/adr-026", cite: "ADR-026",
+        summary: "The BANZA Trust Root is controlled by three independent root signing authorities. A valid Root-authorised action requires signatures from any two of the three. No single root key can authorise an action alone.",
+        keywords: &["adr-026", "adr 026", "adr026", "limiar da raiz", "root threshold", "2-de-3", "duas de tres", "chave raiz"],
+    },
+    Decision {
+        id: "ADR-027", title: "Private keys never on serving infrastructure", url: "/decisoes/adr-027", cite: "ADR-027",
+        summary: "No private key resides on serving infrastructure. Signing happens offline; serving is publication of already-signed bytes.",
+        keywords: &["adr-027", "adr 027", "adr027", "chaves de assinatura", "signing keys", "serving infrastructure", "cadeia de confianca"],
+    },
+    Decision {
+        id: "ADR-028", title: "Anti-rollback for versioned trust material", url: "/decisoes/adr-028", cite: "ADR-028",
+        summary: "Adopt monotonic anti-rollback. Do not adopt certificate transparency, and do not add mirrors.",
+        keywords: &["adr-028", "adr 028", "adr028"],
+    },
+    Decision {
+        id: "ADR-029", title: "Canonical discovery surface", url: "/decisoes/adr-029", cite: "ADR-029",
+        summary: "Discovery is at fixed, well-known paths under a single prefix, on the origin the implementation controls.",
+        keywords: &["adr-029", "adr 029", "adr029"],
+    },
+    Decision {
+        id: "ADR-030", title: "Conformance profiles and the capability vocabulary", url: "/decisoes/adr-030", cite: "ADR-030",
+        summary: "Conformance is scoped by profile, and capabilities are named from one canonical registry with exact matching.",
+        keywords: &["adr-030", "adr 030", "adr030"],
+    },
+    Decision {
+        id: "ADR-031", title: "Operator self-publication and machine-verifiable conformance", url: "/decisoes/adr-031", cite: "ADR-031",
+        summary: "An implementation publishes its own material, and automation verifies it. Nothing is accepted, approved or certified by a central human decision.",
+        keywords: &["adr-031", "adr 031", "adr031"],
+    },
+    Decision {
+        id: "ADR-032", title: "Certification records and their lifecycle", url: "/decisoes/adr-032", cite: "ADR-032",
+        summary: "A certification record binds an implementation to a profile at a version with its evidence, and its standing is a value of a closed state machine.",
+        keywords: &["adr-032", "adr 032", "adr032"],
+    },
+    Decision {
+        id: "ADR-033", title: "The BANZA Technical Registry", url: "/decisoes/adr-033", cite: "ADR-033",
+        summary: "The registry is the single public, append-mostly, root-verifiable index of technical certification facts, verifiable by anyone with no account, and independent of any scheme's participant directory.",
+        keywords: &["adr-033", "adr 033", "adr033"],
+    },
+    Decision {
+        id: "ADR-034", title: "Endpoint-originated validation", url: "/decisoes/adr-034", cite: "ADR-034",
+        summary: "Every artifact in an official validation is obtained from the public endpoints of the implementation being validated. Nothing supplied by hand enters an official run.",
+        keywords: &["adr-034", "adr 034", "adr034"],
+    },
+    Decision {
+        id: "ADR-035", title: "Operator Zero: the read-only reference implementation", url: "/decisoes/adr-035", cite: "ADR-035",
+        summary: "Operator Zero is a demonstration reference implementation: real engines, real artifacts, no value, and no authority.",
+        keywords: &["adr-035", "adr 035", "adr035", "operador de referencia", "reference operator", "operador zero"],
+    },
+    Decision {
+        id: "ADR-036", title: "BanzAI: a non-authoritative interface to the protocol", url: "/decisoes/adr-036", cite: "ADR-036",
+        summary: "BanzAI is the primary human-operator interface to BANZA, and it is optional, transversal and non-authoritative. It executes protocol rules; it is not a normative source; it never defines them and never determines conformance.",
+        keywords: &["adr-036", "adr 036", "adr036", "banzai", "interface nao normativa", "nao autoritativo"],
+    },
+    Decision {
+        id: "ADR-037", title: "Operator onboarding", url: "/decisoes/adr-037", cite: "ADR-037",
+        summary: "Onboarding is a service of the human interface, not a rule of the protocol, and it closes nothing.",
+        keywords: &["adr-037", "adr 037", "adr037"],
+    },
+    Decision {
+        id: "ADR-038", title: "Rust-first official engines", url: "/decisoes/adr-038", cite: "ADR-038",
+        summary: "Every official BANZA engine is implemented in Rust.",
+        keywords: &["adr-038", "adr 038", "adr038"],
     },
 ];
 
-/// Detect an ADR reference regardless of separator ("ADR-002"/"ADR 002"/"adr002"), else keyword match.
+/// Detect an ADR reference regardless of separator ("ADR-001"/"ADR 002"/"adr002"), else keyword match.
 /// `t` must already be normalized.
 pub fn find_decision(t: &str) -> Option<&'static Decision> {
     if let Some(n) = extract_adr_number(t) {
@@ -1581,7 +1731,7 @@ pub fn answer(raw: &str) -> KbAnswer {
             Some(vec!["Agente do protocolo, não autoridade do protocolo.", "Participação é demonstrada, não aprovada."]),
             Some(vec!["Quem aprova operadores?", "BanzAI pode criar regras?"]));
     }
-    // Correct the retired "adjacent system" framing (pre-ADR-042) explicitly.
+    // Correct the retired "adjacent system" framing (pre-ADR-036) explicitly.
     if has(&[
         "sistema adjacente",
         "banzai e adjacente",
@@ -1592,7 +1742,7 @@ pub fn answer(raw: &str) -> KbAnswer {
         "banzai é um sistema separado",
     ]) {
         return mk("banzai_not_adjacent", "answer",
-            "Não. Desde o ADR-042, o BanzAI não é descrito como sistema adjacente — é o agente IA nativo do protocolo BANZA, a camada oficial de orientação e orquestração. Guia operadores do manifesto à federação, invoca os motores verificáveis e explica os resultados. Continua a não ser normativo: guia; os motores verificam; a evidência prova. O output de IA nunca é regra do protocolo.",
+            "Não. Desde o ADR-036, o BanzAI não é descrito como sistema adjacente — é o agente IA nativo do protocolo BANZA, a camada oficial de orientação e orquestração. Guia operadores do manifesto à federação, invoca os motores verificáveis e explica os resultados. Continua a não ser normativo: guia; os motores verificam; a evidência prova. O output de IA nunca é regra do protocolo.",
             vec![c("banzai"), c("ref"), c("arch"), c("decisoes")],
             Some(vec!["Agente nativo e não normativo — não é sistema adjacente.", "Agente do protocolo, não autoridade do protocolo."]),
             Some(vec!["O que é o BanzAI?", "BanzAI é fonte normativa?"]));
@@ -2025,9 +2175,9 @@ pub fn answer(raw: &str) -> KbAnswer {
         "superseded",
     ]) {
         return mk("adr_supersession", "answer",
-            "O modelo activo de federação do BANZA é definido por signed protocol metadata, operator manifests, conformance evidence, public protocol registry, trust root/chaves delegadas e revocation/fail-closed. A compatibilidade é demonstrada por evidência verificável, não por aprovação humana central ou certificado de operador. As decisões de arquitectura que fixam este modelo são a ADR-027 (open protocol trust model), a ADR-033 (operator self-publication e conformidade verificável por máquina) e a ADR-031 (federation trust evaluation). O ciclo de vida das ADRs é matéria da Protocol Governance: as ADRs em vigor descrevem o protocolo tal como ele é.",
+            "O modelo activo de federação do BANZA é definido por signed protocol metadata, operator manifests, conformance evidence, public protocol registry, trust root/chaves delegadas e revocation/fail-closed. A compatibilidade é demonstrada por evidência verificável, não por aprovação humana central ou certificado de operador. As decisões de arquitectura que fixam este modelo são a ADR-025 (open protocol trust model), a ADR-031 (operator self-publication e conformidade verificável por máquina) e a ADR-025 (federation trust evaluation). O ciclo de vida das ADRs é matéria da Protocol Governance: as ADRs em vigor descrevem o protocolo tal como ele é.",
             vec![c("decisoes"), c("trustmodel"), c("gov")],
-            Some(vec!["ADR-027, ADR-033 e ADR-031 fixam o modelo activo de trust.", "A compatibilidade demonstra-se por evidência verificável, não por aprovação humana central."]),
+            Some(vec!["ADR-025, ADR-031 e ADR-025 fixam o modelo activo de trust.", "A compatibilidade demonstra-se por evidência verificável, não por aprovação humana central."]),
             Some(vec!["O que substitui o certificado?", "Como funciona a federação?"]));
     }
     // ── M2.2 Open protocol governance ──
@@ -2328,7 +2478,7 @@ custódia e nunca define o limiar.",
     if has(&["brl", "revoga", "revogacao", "revogação", "lista de revog"]) {
         return mk("brl_revocation", "answer",
             "O BRL (Banza Revocation List) é a revocation list pública e assinada — chaves, material de trust ou implementações que deixaram de ser confiáveis. A revogação é um sinal de segurança do protocolo, não uma sanção regulatória nem uma licença. No modelo activo o trust é avaliado pela Open Trust Evaluation: signed protocol metadata, delegated signing keys, operator manifest, conformance evidence, public protocol registry e revocation/fail-closed — material ausente, inválido, expirado, revogado ou incompatível reprova (fail-closed). Ninguém emite certificados de operador. A revocation list de produção depende do marco M2.",
-            vec![c("trust"), c("fed"), adr_link("ADR-031"), cl("/federation/revocation-list.json", "/federation/revocation-list.json")],
+            vec![c("trust"), c("fed"), adr_link("ADR-025"), cl("/federation/revocation-list.json", "/federation/revocation-list.json")],
             Some(vec!["Revogação é sinal de segurança, não sanção nem licença."]), None);
     }
     if has(&[
@@ -2344,14 +2494,14 @@ custódia e nunca define o limiar.",
         "como verificar estado",
     ]) {
         return mk("trust_chain", "answer",
-            "A confiança não está num servidor — está nas assinaturas, chaves e regras públicas. A cadeia vai do Trust Root (a Chave Raiz offline, 2-de-3, que assina signed protocol metadata, delegated signing keys, releases e revocation lists — nunca operadores, pagamentos ou licenças) para as delegated signing keys, que assinam a signed protocol metadata. As chaves privadas nunca residem na infraestrutura que serve tráfego (ADR-029). O trust de um operador é avaliado pela Open Trust Evaluation sobre o material que ele publica — não há certificado de operador. O estado verifica-se nas rotas máquina; a trust metadata de produção depende do marco M2.",
-            vec![c("trust"), adr_link("ADR-027"), adr_link("ADR-029"), c("estado")],
+            "A confiança não está num servidor — está nas assinaturas, chaves e regras públicas. A cadeia vai do Trust Root (a Chave Raiz offline, 2-de-3, que assina signed protocol metadata, delegated signing keys, releases e revocation lists — nunca operadores, pagamentos ou licenças) para as delegated signing keys, que assinam a signed protocol metadata. As chaves privadas nunca residem na infraestrutura que serve tráfego (ADR-027). O trust de um operador é avaliado pela Open Trust Evaluation sobre o material que ele publica — não há certificado de operador. O estado verifica-se nas rotas máquina; a trust metadata de produção depende do marco M2.",
+            vec![c("trust"), adr_link("ADR-025"), adr_link("ADR-027"), c("estado")],
             Some(vec!["Trust metadata de produção depende de M2."]), None);
     }
     if has(&["federa"]) {
         return mk("federation_explanation", "answer",
             "A federação permite que operadores certificados encaminhem pagamentos entre si sem acordos bilaterais: confiança (verificação criptográfica do certificado do par), encaminhamento (pedido assinado com trace_id), aceitação/execução, obrigação (débito atómico + dívida irrevogável) e liquidação (compensação bilateral). A federação de produção depende do marco M3 — hoje não existe federação de produção activa.",
-            vec![c("fed"), adr_link("ADR-031"), c("estado")],
+            vec![c("fed"), adr_link("ADR-025"), c("estado")],
             Some(vec!["Sem federação de produção activa (M3 pendente)."]), None);
     }
 
@@ -2379,7 +2529,7 @@ custódia e nunca define o limiar.",
     }
     if has(&["adr", "decisao", "decisão"]) {
         return mk("adr_general", "answer",
-            "Os ADRs são as decisões de arquitectura do protocolo — imutáveis quando aceites. Pode consultar cada decisão na biblioteca pública. Diga o número (por exemplo, «Explica o ADR-002») para uma explicação específica com a fonte canónica.",
+            "Os ADRs são as decisões de arquitectura do protocolo — imutáveis quando aceites. Pode consultar cada decisão na biblioteca pública. Diga o número (por exemplo, «Explica o ADR-001») para uma explicação específica com a fonte canónica.",
             vec![c("decisoes"), c("gov"), c("arch")], None, None);
     }
     if has(&[
@@ -2474,8 +2624,8 @@ custódia e nunca define o limiar.",
         "dados sensiveis",
     ]) {
         return mk("secrets_security", "answer",
-            "Os segredos ficam fora do Git — apenas no ambiente do servidor, nunca commitados, nunca em logs ou payloads. As chaves privadas de assinatura nunca residem na infraestrutura que serve tráfego (ADR-029). Boas práticas: variáveis de ambiente no servidor, rotação e mínimo privilégio.",
-            vec![adr_link("ADR-029"), c("trust"), c("dev")],
+            "Os segredos ficam fora do Git — apenas no ambiente do servidor, nunca commitados, nunca em logs ou payloads. As chaves privadas de assinatura nunca residem na infraestrutura que serve tráfego (ADR-027). Boas práticas: variáveis de ambiente no servidor, rotação e mínimo privilégio.",
+            vec![adr_link("ADR-027"), c("trust"), c("dev")],
             Some(vec!["Nenhum segredo em Git, logs ou payloads."]), None);
     }
 
@@ -2483,7 +2633,7 @@ custódia e nunca define o limiar.",
     mk("unknown", "uncertain",
         "Não encontrei informação suficiente nas fontes locais da demonstração para responder com confiança. Posso explicar o protocolo BANZA — certificação, federação, confiança, invariantes, operadores, um ADR específico, ou o estado verificável. Para a explicação completa, veja o capítulo da referência.",
         vec![c("banzai"), c("ref"), c("decisoes")],
-        None, Some(vec!["O que é o BanzAI?", "O que significa /operators=[]?", "O que diz o ADR-002?"]))
+        None, Some(vec!["O que é o BanzAI?", "O que significa /operators=[]?", "O que diz o ADR-001?"]))
 }
 
 /// Intent answer + attached evidence bundle from the static index (for "answer" kinds with hits).

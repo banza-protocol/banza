@@ -30,7 +30,7 @@ would-be-required before production**.
 | AB-SANDBOX-04 | manifest sandbox-safety invariant; `C-…` profile validation | `banza-l4-readiness` profile tests | covered | protocol |
 | AB-REVOKED-05 | `C-BRL-FAIL-CLOSED` (INV-FEDEVAL-002) | `banza-l3`/`banza-l4` BRL tests | covered | engine + operator |
 | AB-BRL-STALE-06 | `C-BRL-FAIL-CLOSED` (expiry/staleness blocks) | `banza-l3`/`banza-l4` tests | partial | operator (fresh BRL ≤ 6h) |
-| AB-BRL-FORGE-07 | BRL issuer = BANZA; revocation-domain key (ADR-027) | `banza-trust`; ceremony docs (M2 PLANNED) | partial | protocol |
+| AB-BRL-FORGE-07 | BRL issuer = BANZA; revocation-domain key (ADR-025) | `banza-trust`; ceremony docs (M2 PLANNED) | partial | protocol |
 | AB-EVIDENCE-08 | `C-EVIDENCE-HASH` (SHA-256, INV-RECON-*) | `banza-evidence-bundle` tests | covered | engine |
 | AB-QR-09 | QR payload spec (unique/single-use/expiry, INV-QR-*) | QR payload conformance vectors | partial | operator |
 | AB-FEE-10 | `C-SETTLEMENT` (`net = gross − fee`, INV-SETTLE-*) | `banza-l2`/`banza-l3` tests | covered | protocol |

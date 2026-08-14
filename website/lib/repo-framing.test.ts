@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
-// M2.19G.6 (ADR-042) — BanzAI monorepo consolidation and PERMANENT REMOVAL of the separate repository.
+// M2.19G.6 (ADR-036) — BanzAI monorepo consolidation and PERMANENT REMOVAL of the separate repository.
 // Supersedes the M2.19G.5C "frozen archive" framing: the separate `banza-protocol/banzai` repo is being
 // permanently deleted, so active surfaces must (a) name services/banzai-api (+ engines/banzai-*) as the
 // canonical, sole active BanzAI source, (b) NOT present the old repo as an archive/frozen/historical/

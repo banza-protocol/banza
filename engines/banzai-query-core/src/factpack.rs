@@ -848,7 +848,7 @@ pub fn build_factual_package_planned(
 
 /// Increment 4 (§7/§9) — build the TRANSVERSAL FactualPackage for an operational (telemetry) question, from
 /// the SAME Rust resolution + ToolPlan the documentary trunk uses plus the deterministic tool output. Numbers
-/// come ONLY from the tool (SQL over persisted receipts, ADR-042/BZO-8/9) — never a model — so this routes
+/// come ONLY from the tool (SQL over persisted receipts, ADR-036/BZO-8/9) — never a model — so this routes
 /// the operational path through the same package + verification, uniformly. `duration_json` is the typed
 /// DurationAnswer view, `claims_json` the `[{claim,category,value_ms}]` map, `sources_json` the citeable
 /// `[{id,title,path}]` set the tool produced. Pure + total: no model, no I/O; every number is copied verbatim.
@@ -1260,13 +1260,13 @@ mod tests {
     fn planned_entity_package_cites_only_that_document() {
         let p = build_factual_package_planned(
             "t1",
-            "explica a ADR-002 sobre a inversao de nomes do ecossistema",
-            "ADR-002",
+            "explica a ADR-001 sobre a inversao de nomes do ecossistema",
+            "ADR-001",
             "brief",
         );
         assert_eq!(p.version, FACTUAL_PACKAGE_VERSION);
-        assert!(!p.facts.is_empty(), "ADR-002 must yield facts");
-        assert_eq!(p.allowed_source_ids, vec!["ADR-002".to_string()]);
+        assert!(!p.facts.is_empty(), "ADR-001 must yield facts");
+        assert_eq!(p.allowed_source_ids, vec!["ADR-001".to_string()]);
         // brief profile: at most 3 facts, each within the brief char cap.
         assert!(
             p.facts.len() <= 3,
@@ -1274,9 +1274,9 @@ mod tests {
             p.facts.len()
         );
         for f in &p.facts {
-            assert_eq!(f.source.document_id, "ADR-002");
+            assert_eq!(f.source.document_id, "ADR-001");
             assert!(f.text.chars().count() <= 260 + 1);
-            assert_eq!(f.citation_key, "ADR-002");
+            assert_eq!(f.citation_key, "ADR-001");
             assert_eq!(f.role, "primary");
         }
         // stable fact ids F1..Fn
@@ -1285,8 +1285,8 @@ mod tests {
 
     #[test]
     fn planned_content_hash_changes_with_entity() {
-        let a = build_factual_package_planned("t", "explica a ADR-011", "ADR-011", "brief");
-        let b = build_factual_package_planned("t", "explica a ADR-002", "ADR-002", "brief");
+        let a = build_factual_package_planned("t", "explica a ADR-012", "ADR-012", "brief");
+        let b = build_factual_package_planned("t", "explica a ADR-001", "ADR-001", "brief");
         assert_ne!(a.content_hash, b.content_hash);
     }
 
@@ -1315,18 +1315,18 @@ mod tests {
         // A comparison must contain BOTH named documents so the answer can cite each side without the
         // validator rejecting an out-of-package citation. The RetrievalPlan makes each a primary source.
         let p =
-            build_factual_package_planned("t", "compara a ADR-041 com a ADR-042", "", "standard");
+            build_factual_package_planned("t", "compara a ADR-035 com a ADR-036", "", "standard");
         assert!(
             !p.facts.is_empty(),
             "must yield facts from the two documents"
         );
         assert!(
-            p.allowed_source_ids.contains(&"ADR-041".to_string()),
-            "ADR-041 must be citeable"
+            p.allowed_source_ids.contains(&"ADR-035".to_string()),
+            "ADR-035 must be citeable"
         );
         assert!(
-            p.allowed_source_ids.contains(&"ADR-042".to_string()),
-            "ADR-042 must be citeable"
+            p.allowed_source_ids.contains(&"ADR-036".to_string()),
+            "ADR-036 must be citeable"
         );
         assert!(p.facts.len() <= 6 + 1, "standard depth cap respected");
     }
@@ -1345,8 +1345,8 @@ mod tests {
     fn planned_package_is_the_enriched_v2_contract() {
         let p = build_factual_package_planned(
             "tp",
-            "explica a ADR-011 sobre dupla entrada",
-            "ADR-011",
+            "explica a ADR-012 sobre dupla entrada",
+            "ADR-012",
             "",
         );
         // v2 contract with the three plans embedded.
@@ -1368,9 +1368,9 @@ mod tests {
             p.answer_plan_checksum,
             p.answer_plan.as_ref().unwrap().checksum
         );
-        // ADR-011 must ground and be citeable; every fact carries the enriched anchor.
-        assert!(!p.facts.is_empty(), "ADR-011 must yield facts");
-        assert!(p.allowed_source_ids.contains(&"ADR-011".to_string()));
+        // ADR-012 must ground and be citeable; every fact carries the enriched anchor.
+        assert!(!p.facts.is_empty(), "ADR-012 must yield facts");
+        assert!(p.allowed_source_ids.contains(&"ADR-012".to_string()));
         assert_eq!(p.claims_allowed, p.allowed_source_ids);
         assert_eq!(p.requested_format, "markdown");
         for f in &p.facts {
@@ -1430,8 +1430,8 @@ mod tests {
     fn documentary_package_carries_the_transversal_fields() {
         let p = build_factual_package_planned(
             "t4",
-            "explica a ADR-011 sobre dupla entrada",
-            "ADR-011",
+            "explica a ADR-012 sobre dupla entrada",
+            "ADR-012",
             "",
         );
         // §7 fields are populated for the documentary trunk.

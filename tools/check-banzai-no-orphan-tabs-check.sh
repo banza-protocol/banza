@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# M2.19G.1 (ADR-038 §29) — no orphan tabs guard (§37, invariant 13).
+# M2.19G.1 (ADR-034 §29) — no orphan tabs guard (§37, invariant 13).
 #
 # Every renderable panel must correspond to a tab that is present in the sidebar navigation. The shell's
 # renderPanel() switch may only render panels for tabs listed in TABS (guia · rfc · programadores ·
@@ -18,7 +18,7 @@ fl() { printf 'FAIL: %s\n' "$1"; fail=1; }
 SHELL_TSX=website/components/banzai/BanzaiAgent.tsx
 AGENT=website/components/banzai/banzai-agent.ts
 
-echo "== banzai-no-orphan-tabs-check (M2.19G.1 / ADR-038 §29) =="
+echo "== banzai-no-orphan-tabs-check (M2.19G.1 / ADR-034 §29) =="
 
 # ── self-test ───────────────────────────────────────────────────────────────────────────────────────
 st=0
@@ -53,4 +53,4 @@ orphan=$(printf '%s\n' "$panel" | grep -oE 'case "(trust|simb|manifest|conformid
 
 echo
 if [ "$fail" -ne 0 ]; then echo "banzai-no-orphan-tabs-check: FAIL"; exit 1; fi
-echo "banzai-no-orphan-tabs-check: ✓ every renderable panel is in the sidebar; no orphans (ADR-038 §29)"
+echo "banzai-no-orphan-tabs-check: ✓ every renderable panel is in the sidebar; no orphans (ADR-034 §29)"

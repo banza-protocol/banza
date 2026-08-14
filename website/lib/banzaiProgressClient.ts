@@ -1,4 +1,4 @@
-// SPR-5 — the "Safe Progressive Response" SSE client (UI_CLIENT_GLUE, ADR-042). This is I/O glue, not an
+// SPR-5 — the "Safe Progressive Response" SSE client (UI_CLIENT_GLUE, ADR-036). This is I/O glue, not an
 // engine: it POSTs a question to the same-origin SSE endpoint POST /banzai/ask/stream (added by SPR-2),
 // parses the typed Channel-A progress events off the ReadableStream, and — on the terminal event — maps the
 // EXACT same `/ask` envelope the non-stream route returns into the KbAnswer the chat already renders (via

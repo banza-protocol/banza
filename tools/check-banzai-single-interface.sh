@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# BanzAI single canonical interface guard (M2.19E/F.2, ADR-041).
+# BanzAI single canonical interface guard (M2.19E/F.2, ADR-035).
 #
 # BanzAI is ONE public route — /banzai — with TWO modes of the SAME shell:
 #   • ask         (default): the conversation, answered by the local Qwen backend via /banzai/ask
@@ -34,12 +34,12 @@ MIDDLEWARE="website/middleware.ts"
 SITEMAP="website/app/sitemap.ts"
 
 # Archival decision record that ESTABLISHED the (now-superseded) "BanzAI Web Validation Workbench".
-# Like the other archival ADRs (ADR-042/045/046 describe the earlier `mock` default), it is rendered
+# Like the other archival ADRs (ADR-036/045/046 describe the earlier `mock` default), it is rendered
 # verbatim; its supersession is expressed via status metadata, not by rewriting the record — the exact
 # convention documented in check-website-public-copy-current.sh, which excludes the decision corpus for
 # the same reason. It is therefore excluded from the CURRENT-brand scan below; every OTHER decisions/**
 # file is still scanned so a NEW record cannot reintroduce the retired brand.
-ARCHIVAL_ADR="ADR-041-operador-zero-read-only-reference-and-banzai-validation-workbench.md"
+ARCHIVAL_ADR="ADR-035-operador-zero-read-only-reference-and-banzai-validation-workbench.md"
 
 fail=0
 ok()  { echo "  ok: $1"; }
@@ -60,8 +60,8 @@ else
   ok "no $BANZAI_DIR/validar/ route folder"
 fi
 
-# ── 2. Single BanzAI interface: only the ADR-042 closed navigable-context segments ────────────────────
-# ADR-042 refines "single interface" from "one route file" to "one shell/app with one always-mounted
+# ── 2. Single BanzAI interface: only the ADR-036 closed navigable-context segments ────────────────────
+# ADR-036 refines "single interface" from "one route file" to "one shell/app with one always-mounted
 # session, exposing global/operator/implementation as CLOSED, server-resolved route segments". The
 # allowlist below is the ONLY structure permitted under app/banzai/: a second app (validar/onboarding as
 # a route, "Validation Workbench", etc.) is still forbidden. Non-breaking: passes with just page.tsx
@@ -69,7 +69,7 @@ fi
 # Allowed top-level files: page.tsx, layout.tsx. Allowed subdir: operador/ (→ [operatorId] → [implementationId]).
 BAD_TOP_DIRS="$(find "$BANZAI_DIR" -mindepth 1 -maxdepth 1 -type d ! -name 'operador' 2>/dev/null || true)"
 if [ -n "$BAD_TOP_DIRS" ]; then
-  bad "$BANZAI_DIR/ has a non-allowlisted route subfolder (ADR-042 allows only 'operador/'):"
+  bad "$BANZAI_DIR/ has a non-allowlisted route subfolder (ADR-036 allows only 'operador/'):"
   printf '%s\n' "$BAD_TOP_DIRS" | sed 's/^/         /'
 else
   ok "$BANZAI_DIR/ has only the allowlisted 'operador/' segment (or none)"
@@ -81,14 +81,14 @@ if [ -n "$BAD_TOP_FILES" ]; then
 else
   ok "$BANZAI_DIR/ top-level files are only page.tsx / layout.tsx"
 fi
-# If the operador segment exists, its nested shape must be exactly the ADR-042 closed tree.
+# If the operador segment exists, its nested shape must be exactly the ADR-036 closed tree.
 if [ -d "$BANZAI_DIR/operador" ]; then
   BAD_SEG="$(find "$BANZAI_DIR/operador" -mindepth 1 -type d ! -name '[[]operatorId[]]' ! -name '[[]implementationId[]]' 2>/dev/null || true)"
   if [ -n "$BAD_SEG" ]; then
-    bad "$BANZAI_DIR/operador/ has non-allowlisted segments (ADR-042 allows only [operatorId]/[implementationId]):"
+    bad "$BANZAI_DIR/operador/ has non-allowlisted segments (ADR-036 allows only [operatorId]/[implementationId]):"
     printf '%s\n' "$BAD_SEG" | sed 's/^/         /'
   else
-    ok "operador/ segment tree is the closed ADR-042 shape ([operatorId]/[implementationId])"
+    ok "operador/ segment tree is the closed ADR-036 shape ([operatorId]/[implementationId])"
   fi
   BAD_SEG_FILES="$(find "$BANZAI_DIR/operador" -type f ! -name 'page.tsx' ! -name 'layout.tsx' 2>/dev/null || true)"
   if [ -n "$BAD_SEG_FILES" ]; then
@@ -99,16 +99,16 @@ if [ -d "$BANZAI_DIR/operador" ]; then
   fi
 fi
 
-# ── 2b. ADR-042 D-070-05: contexts are NOT the 3 layers and NOT L0-L4 certification tiers ─────────────
+# ── 2b. ADR-036: contexts are NOT the 3 layers and NOT L0-L4 certification tiers ─────────────
 # The /banzai navigation surface must use "contexto", never "camada"/"layer" for navigation, and must
 # not present L0-L4 as "níveis/tiers de certificação". Scan the BanzAI UI surface only.
 CONFLATE="$(grep -rniE 'camada de (navega|operador|implementa)|navega[çc][aã]o.*camada|n[íi]vel de certifica|tier de certifica|certification tier' \
   website/components/banzai website/app/banzai 2>/dev/null || true)"
 if [ -n "$CONFLATE" ]; then
-  bad "ADR-042 D-070-05 conflation: navigation context described as 'camada/layer' or L0-L4 as certification tiers:"
+  bad "ADR-036 conflation: navigation context described as 'camada/layer' or L0-L4 as certification tiers:"
   printf '%s\n' "$CONFLATE" | sed 's/^/         /' | cut -c1-200
 else
-  ok "no context↔layer / L0-L4↔tier conflation on the /banzai surface (ADR-042 D-070-05)"
+  ok "no context↔layer / L0-L4↔tier conflation on the /banzai surface (ADR-036)"
 fi
 
 # ── 3. No redirect/rewrite/alias to or from /banzai/validar (comments too) ────
@@ -143,7 +143,7 @@ if [ -n "$BW_HITS" ]; then
   bad "the retired brand 'BanzAI Web' appears on an active surface (use 'BanzAI'):"
   printf '%s\n' "$BW_HITS" | sed 's/^/         /' | cut -c1-200
 else
-  ok "no 'BanzAI Web' brand in website active source, docs/**, decisions/** (excl. archival ADR-041), or SVGs"
+  ok "no 'BanzAI Web' brand in website active source, docs/**, decisions/** (excl. archival ADR-035), or SVGs"
 fi
 
 # ── 6. The product name "Validation Workbench" is gone from active website source ──

@@ -40,7 +40,7 @@ const SUBJECTS = [
   // document-instance sample (representative current / nonexistent) — document tasks only.
   { subject: "ADR-001", type: "document", noun: "a ADR-001", seed: "ADR-001", doc: true },
   { subject: "ADR-001", type: "document", noun: "a ADR-001", seed: "ADR-001", doc: true },
-  { subject: "ADR-031", type: "document", noun: "a ADR-031", seed: "ADR-031", doc: true },
+  { subject: "ADR-025", type: "document", noun: "a ADR-025", seed: "ADR-025", doc: true },
   { subject: "RFC-0006", type: "document", noun: "a RFC-0006", seed: "RFC-0006", doc: true },
   { subject: "ADR-999-nonexistent", type: "document", noun: "a ADR-999", seed: "ADR-999", doc: true, nonexistent: true },
 ];

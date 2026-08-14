@@ -4,7 +4,7 @@
 **Data:** 2026-06-07  
 **Última revisão editorial:** 2026-07-11  
 **Estado:** Referência oficial do protocolo v1.0 · pré-produção · pagamentos reais desligados · sem implementações certificadas em produção  
-**Autoridade:** ADR-001, ADR-002, ADR-027, ADR-033, ADR-031, ADR-039, ADR-042, ADR-003, ADR-034, ADR-036, ADR-035, ADR-041
+**Autoridade:** ADR-001, ADR-001, ADR-025, ADR-031, ADR-025, ADR-030, ADR-036, ADR-004, ADR-032, ADR-033, ADR-032, ADR-035
 
 ---
 
@@ -142,7 +142,7 @@ O BANZA é o protocolo — não é um operador. Estes termos não são intercamb
 
 É a **implementação**, e nunca a entidade ou a marca, que é sujeita a conformidade e a certificação técnica. Um operador pode publicar mais do que uma implementação, e um resultado técnico aplica-se a uma implementação delimitada, não à entidade em abstracto. A distinção completa — incluindo implementação certificada e participante de esquema — está em [§8 Operadores](#8-operadores).
 
-Três determinações mantêm-se distintas, com donos distintos, e nenhuma implica as outras: **certificação técnica ≠ admissão a esquema ≠ autorização regulatória** (ADR-004). Demonstrar conformidade, obter a certificação técnica de uma implementação, ser admitido a um esquema operacional e obter autorização regulatória são passos diferentes — ver [§7 Conformidade e Certificação](#7-conformidade-e-certificação).
+Três determinações mantêm-se distintas, com donos distintos, e nenhuma implica as outras: **certificação técnica ≠ admissão a esquema ≠ autorização regulatória** (ADR-005). Demonstrar conformidade, obter a certificação técnica de uma implementação, ser admitido a um esquema operacional e obter autorização regulatória são passos diferentes — ver [§7 Conformidade e Certificação](#7-conformidade-e-certificação).
 
 ### Propriedades
 
@@ -170,7 +170,7 @@ O BANZA define as regras (Camada 1); não executa a actividade financeira. A fro
 
 O que o BANZA define é verificável por qualquer parte; o que não executa pertence aos operadores e às autoridades competentes e existe integralmente fora do protocolo. Cada operador implementa o protocolo na sua própria infraestrutura — o protocolo não reside num servidor central de execução de pagamentos. As únicas superfícies comuns são as de descoberta e de ancoragem de confiança — o Registo Técnico, a metadata de confiança assinada, a Lista de Revogação e o Manifesto de Chaves — que não movimentam fundos nem executam pagamentos.
 
-O ecossistema organiza-se em três camadas, separadas por responsabilidade, infraestrutura e chaves (ADR-003): a **Camada 1**, o protocolo aberto; a **Camada 2**, a Certificação de Conformidade e Interoperabilidade, por implementação e baseada em evidência; e a **Camada 3**, os esquemas operacionais independentes — o primeiro é o Esquema Operacional Banzami, com a **Banzami — Tecnologia e Serviços, Lda.** como operadora designada do esquema, em preparação regulatória e com pagamentos reais desligados. O detalhe está em [§4 Arquitectura do Protocolo](#4-arquitectura-do-protocolo). O **BanzAI** é a interface humana primária e transversal às três camadas — não é uma quarta camada nem uma autoridade, e o protocolo funciona sem ele: a conformidade e a verificação máquina-a-máquina permanecem possíveis independentemente da sua utilização ([§12](#12-banzai-agente-do-protocolo)).
+O ecossistema organiza-se em três camadas, separadas por responsabilidade, infraestrutura e chaves (ADR-004): a **Camada 1**, o protocolo aberto; a **Camada 2**, a Certificação de Conformidade e Interoperabilidade, por implementação e baseada em evidência; e a **Camada 3**, os esquemas operacionais independentes — o primeiro é o Esquema Operacional Banzami, com a **Banzami — Tecnologia e Serviços, Lda.** como operadora designada do esquema, em preparação regulatória e com pagamentos reais desligados. O detalhe está em [§4 Arquitectura do Protocolo](#4-arquitectura-do-protocolo). O **BanzAI** é a interface humana primária e transversal às três camadas — não é uma quarta camada nem uma autoridade, e o protocolo funciona sem ele: a conformidade e a verificação máquina-a-máquina permanecem possíveis independentemente da sua utilização ([§12](#12-banzai-agente-do-protocolo)).
 
 A dependência corre numa única direcção permanente: os operadores dependem do BANZA; o BANZA e o BanzAI nunca dependem de nenhum operador. Esta direcção é um invariante arquitectónico, não uma preferência de design.
 
@@ -350,12 +350,12 @@ Duas ideias sustentam o resto do capítulo. Primeira: cada responsabilidade é s
 
 ### As três camadas
 
-O ecossistema organiza-se em três camadas institucionais, separadas por responsabilidade, infraestrutura e chaves. A separação é um invariante arquitectónico, não uma escolha de apresentação (ADR-003).
+O ecossistema organiza-se em três camadas institucionais, separadas por responsabilidade, infraestrutura e chaves. A separação é um invariante arquitectónico, não uma escolha de apresentação (ADR-004).
 
 | Camada | Responsabilidade |
 |---|---|
 | **Camada 1 — Protocolo aberto** | As regras públicas comuns: contratos, mensagens, schemas, invariantes, identidade técnica, descoberta, confiança, revogação, conformidade e evidência. Define o comportamento correcto; não é banco, PSP, carteira, esquema nem operador, e não detém nem movimenta fundos. |
-| **Camada 2 — Certificação de Conformidade e Interoperabilidade** | Avalia uma implementação delimitada face a perfis públicos e versionados, por evidência e decisão determinística. Certifica uma implementação, nunca uma entidade; não é licença, admissão a um esquema nem autorização regulatória (ADR-034). |
+| **Camada 2 — Certificação de Conformidade e Interoperabilidade** | Avalia uma implementação delimitada face a perfis públicos e versionados, por evidência e decisão determinística. Certifica uma implementação, nunca uma entidade; não é licença, admissão a um esquema nem autorização regulatória (ADR-032). |
 | **Camada 3 — Esquemas operacionais independentes** | Esquemas operacionais independentes que podem adoptar o protocolo para operar, definindo participação, operação e responsabilidades sob o enquadramento aplicável (ADR-006). O primeiro é o Esquema Operacional Banzami, promovido pela **Banzami — Tecnologia e Serviços, Lda.** como operadora designada. O BANZA ≠ esquema: a continuidade do protocolo não depende de nenhum esquema. |
 
 As três camadas são responsabilidades simultâneas, não etapas de um processo nem níveis de maturidade. Cada uma pode existir, evoluir e ser auditada sem depender das decisões internas das outras: uma implementação pode ser certificada na Camada 2 sem pertencer a nenhum esquema, e um esquema da Camada 3 pode operar sob o seu próprio enquadramento sem alterar o protocolo da Camada 1.
@@ -436,7 +436,7 @@ Nem todos os requisitos financeiros são universais: alguns aplicam-se apenas a 
 
 ### Fronteiras de autoridade
 
-A arquitectura impede que uma determinação produzida numa responsabilidade adquira automaticamente significado noutra. Demonstrar conformidade não é obter a certificação técnica de uma implementação: a evidência não é o certificado (ADR-034). E **certificação técnica ≠ admissão a um esquema ≠ autorização regulatória** (ADR-004). Cada fronteira exige a sua própria determinação, e passar uma não concede a seguinte.
+A arquitectura impede que uma determinação produzida numa responsabilidade adquira automaticamente significado noutra. Demonstrar conformidade não é obter a certificação técnica de uma implementação: a evidência não é o certificado (ADR-032). E **certificação técnica ≠ admissão a um esquema ≠ autorização regulatória** (ADR-005). Cada fronteira exige a sua própria determinação, e passar uma não concede a seguinte.
 
 A fronteira entre o ambiente do protocolo e o ambiente do operador é um limite de responsabilidade:
 
@@ -532,7 +532,7 @@ A fronteira anunciada na abertura é o invariante que mantém o protocolo neutro
 
 Nunca — nem em modelo, nem em armazenamento, nem em cópias de segurança: saldos, fundos ou carteiras; transacções de pagamento reais, liquidação, contas bancárias, IBANs ou cartões; KYC/AML nem dados pessoais de utilizadores, clientes ou comerciantes; chaves privadas, *seed phrases* ou segredos de custódia. Estes dados pertencem — quando existem — ao ambiente regulado do operador, nunca ao estado neutro do protocolo.
 
-O **BANZA não detém nem movimenta dinheiro**: não é core bancário, não executa liquidação e a sua base não é um livro-razão. Os invariantes financeiros (`INV-LEDGER-*`, `INV-WALLET-*`, `INV-STL-*`) permanecem regras que o protocolo **define e verifica** para os operadores — o protocolo mede livros-razão; não mantém um (ADR-026).
+O **BANZA não detém nem movimenta dinheiro**: não é core bancário, não executa liquidação e a sua base não é um livro-razão. Os invariantes financeiros (`INV-LEDGER-*`, `INV-WALLET-*`, `INV-STL-*`) permanecem regras que o protocolo **define e verifica** para os operadores — o protocolo mede livros-razão; não mantém um (ADR-013).
 
 ### Registo Técnico
 
@@ -575,7 +575,7 @@ A força do modelo está em manter separadas perguntas que parecem uma só. Cada
 - **Frescura** — ainda é válido, ou expirou?
 - **Revogação** — a confiança neste material foi entretanto retirada?
 
-Estas cinco perguntas são criptográficas e locais: qualquer parte as responde offline, com os artefactos públicos, e dois avaliadores independentes chegam sempre ao mesmo resultado. Reuni-las numa única decisão é o papel da **Avaliação Aberta de Confiança**, que só estabelece confiança quando todas verificam e, em qualquer outro caso, falha fechada — a ausência, a expiração ou a inconsistência de material nunca produzem confiança assumida. Ao nível do protocolo, nenhuma entidade humana decide o resultado desta avaliação: ele é determinístico e executável por qualquer parte. As dez verificações concretas e a sua aplicação ao encaminhamento estão em [§8 Operadores](#avaliação-aberta-de-confiança) (ADR-031); aqui interessa o princípio.
+Estas cinco perguntas são criptográficas e locais: qualquer parte as responde offline, com os artefactos públicos, e dois avaliadores independentes chegam sempre ao mesmo resultado. Reuni-las numa única decisão é o papel da **Avaliação Aberta de Confiança**, que só estabelece confiança quando todas verificam e, em qualquer outro caso, falha fechada — a ausência, a expiração ou a inconsistência de material nunca produzem confiança assumida. Ao nível do protocolo, nenhuma entidade humana decide o resultado desta avaliação: ele é determinístico e executável por qualquer parte. As dez verificações concretas e a sua aplicação ao encaminhamento estão em [§8 Operadores](#avaliação-aberta-de-confiança) (ADR-025); aqui interessa o princípio.
 
 Duas outras perguntas ficam deliberadamente fora deste conjunto, porque são de outra natureza:
 
@@ -588,7 +588,7 @@ Manter estas sete perguntas distintas é o que impede o erro mais comum: ler uma
 
 ### Origem e identidade técnica
 
-Cada implementação publica os seus artefactos numa **origem que o operador controla** — o seu próprio domínio, em caminhos bem conhecidos. A origem responde a uma pergunta modesta mas essencial: onde devo ir buscar a metadata, as chaves e a evidência desta implementação? Ninguém emite esse material em nome do operador; é ele que o publica e assina (ADR-033). A obtenção segura desse material é tratada como mecanismo próprio; aqui importa apenas que a relação com a origem — a proveniência técnica de um artefacto — é verificável.
+Cada implementação publica os seus artefactos numa **origem que o operador controla** — o seu próprio domínio, em caminhos bem conhecidos. A origem responde a uma pergunta modesta mas essencial: onde devo ir buscar a metadata, as chaves e a evidência desta implementação? Ninguém emite esse material em nome do operador; é ele que o publica e assina (ADR-031). A obtenção segura desse material é tratada como mecanismo próprio; aqui importa apenas que a relação com a origem — a proveniência técnica de um artefacto — é verificável.
 
 Controlar uma origem demonstra uma relação técnica com aquele domínio, e nada mais. Não significa que a implementação é conforme, nem que está certificada, nem que a entidade está autorizada. O protocolo verifica controlo técnico da origem; não verifica identidade jurídica nem faz KYB. Onde não existe mecanismo, o capítulo não insinua que existe.
 
@@ -598,7 +598,7 @@ O Registo Técnico pode ajudar a **localizar** uma implementação, a sua origem
 
 ### A Raiz de Confiança e as chaves delegadas
 
-No topo da cadeia está a **Raiz de Confiança** (*Trust Root*): a âncora que cada implementação conforme fixa uma vez e usa para verificar todo o material subsequente. A raiz é gerada offline, mantida em custódia repartida por limiar — nenhuma pessoa isolada a reconstrói — e nunca toca no caminho operacional. O seu âmbito é deliberadamente estreito: **assina apenas o Manifesto de Chaves.** Não assina metadata de operadores, revogações ou evidência, e — o ponto que governa todo o capítulo — **não autoriza operadores, não emite licença e não autoriza pagamentos.** A Raiz de Confiança não é uma autoridade certificadora sobre operadores; é a origem verificável de uma cadeia de assinaturas (ADR-027).
+No topo da cadeia está a **Raiz de Confiança** (*Trust Root*): a âncora que cada implementação conforme fixa uma vez e usa para verificar todo o material subsequente. A raiz é gerada offline, mantida em custódia repartida por limiar — nenhuma pessoa isolada a reconstrói — e nunca toca no caminho operacional. O seu âmbito é deliberadamente estreito: **assina apenas o Manifesto de Chaves.** Não assina metadata de operadores, revogações ou evidência, e — o ponto que governa todo o capítulo — **não autoriza operadores, não emite licença e não autoriza pagamentos.** A Raiz de Confiança não é uma autoridade certificadora sobre operadores; é a origem verificável de uma cadeia de assinaturas (ADR-025).
 
 A raiz não é uma chave única guardada por alguém. São **três autoridades de assinatura independentes**,
 e qualquer acção autorizada da raiz exige **duas assinaturas de duas delas**. Uma assinatura isolada
@@ -635,7 +635,7 @@ Revogar é uma mudança no estado de confiança aplicável a determinado materia
 > **Três "revogações" distintas, que partilham o nome informal mas não o mecanismo:**
 > 1. **Revogação de chave** — uma chave delegada ou de operador entra no BRL; a metadata assinada por ela deixa de verificar. Mecanismo de confiança.
 > 2. **Revogação de material de operador** — o material auto-publicado de um operador entra no BRL; a Avaliação Aberta de Confiança passa a falhar fechada para esse operador. Não é a "revogação do operador" enquanto entidade — é a retirada de aceitabilidade do seu material. Mecanismo de confiança.
-> 3. **Suspensão ou revogação de um registo de certificação** — um registo da Camada 2 transita para `SUSPENDED` ou `REVOKED` na máquina de estados fechada da certificação (ADR-035). Mecanismo de certificação, tratado em [§7](#7-conformidade-e-certificação).
+> 3. **Suspensão ou revogação de um registo de certificação** — um registo da Camada 2 transita para `SUSPENDED` ou `REVOKED` na máquina de estados fechada da certificação (ADR-032). Mecanismo de certificação, tratado em [§7](#7-conformidade-e-certificação).
 >
 > Nenhum destes é uma sanção regulatória: a autorização e as sanções pertencem às autoridades competentes, fora do protocolo.
 
@@ -656,7 +656,7 @@ Vale a pena declarar as fronteiras de forma directa, porque é onde a linguagem 
 | Que a confiança no material não foi retirada | Que a entidade está admitida a um esquema operacional |
 | Uma base técnica para uma decisão posterior | Que uma autoridade a autorizou a operar |
 
-Três planos coexistem e nenhum substitui outro: a **evidência técnica** diz o que uma implementação faz; a **confiança criptográfica** diz que essa afirmação é autêntica e actual; a **autorização legal** diz que a entidade pode exercer a actividade. O protocolo cobre os dois primeiros e nunca o terceiro. Em particular, uma assinatura válida não é uma certificação: a Certificação de Conformidade e Interoperabilidade (Camada 2) é um processo próprio, por implementação e baseado em evidência ([§7](#7-conformidade-e-certificação)). É distinta tanto da avaliação de confiança como da admissão a um esquema operacional (Camada 3), que o esquema decide segundo a sua própria política, e da autorização regulatória, que pertence às autoridades competentes. Estas fronteiras não se propagam umas para as outras (ADR-004).
+Três planos coexistem e nenhum substitui outro: a **evidência técnica** diz o que uma implementação faz; a **confiança criptográfica** diz que essa afirmação é autêntica e actual; a **autorização legal** diz que a entidade pode exercer a actividade. O protocolo cobre os dois primeiros e nunca o terceiro. Em particular, uma assinatura válida não é uma certificação: a Certificação de Conformidade e Interoperabilidade (Camada 2) é um processo próprio, por implementação e baseado em evidência ([§7](#7-conformidade-e-certificação)). É distinta tanto da avaliação de confiança como da admissão a um esquema operacional (Camada 3), que o esquema decide segundo a sua própria política, e da autorização regulatória, que pertence às autoridades competentes. Estas fronteiras não se propagam umas para as outras (ADR-005).
 
 ### Onde continuar
 
@@ -719,7 +719,7 @@ O nono passo — **prontidão para certificação** — agrega os veredictos dos
 
 ### Certificação técnica formal (Camada 2)
 
-A **Camada 2 — Certificação de Conformidade e Interoperabilidade** transforma evidência num **veredicto**. O nome da camada reúne dois factos técnicos distintos: a **conformidade** (a implementação satisfaz os requisitos do perfil) e a **interoperabilidade** (as suas trocas com implementações de outros operadores comportam-se como o protocolo exige); a certificação exige ambos, e passar num não substitui o outro. Uma certificação técnica é uma determinação *por implementação*, baseada em evidência, decidida pelos motores determinísticos, reproduzível, ligada a *hash*, com âmbito e validade próprios, e sujeita a suspensão ou revogação. Atesta um facto técnico delimitado — «esta implementação passou este perfil de certificação, nesta versão, com esta evidência, neste âmbito, até esta data» — e nada para além dele (ADR-034, ADR-004).
+A **Camada 2 — Certificação de Conformidade e Interoperabilidade** transforma evidência num **veredicto**. O nome da camada reúne dois factos técnicos distintos: a **conformidade** (a implementação satisfaz os requisitos do perfil) e a **interoperabilidade** (as suas trocas com implementações de outros operadores comportam-se como o protocolo exige); a certificação exige ambos, e passar num não substitui o outro. Uma certificação técnica é uma determinação *por implementação*, baseada em evidência, decidida pelos motores determinísticos, reproduzível, ligada a *hash*, com âmbito e validade próprios, e sujeita a suspensão ou revogação. Atesta um facto técnico delimitado — «esta implementação passou este perfil de certificação, nesta versão, com esta evidência, neste âmbito, até esta data» — e nada para além dele (ADR-032, ADR-005).
 
 ![Emissão e ciclo de vida de uma certificação da Camada 2 — a prontidão alimenta o processo de certificação, que produz um registo de certificação indexado no Registo Técnico; a máquina de estados é fechada e decidida pelos motores determinísticos, e nenhuma transição da Camada 2 se propaga para a admissão a esquema nem para o regulador](/diagrams/protocol/certification-emission-registry-v1.svg)
 
@@ -743,7 +743,7 @@ A **revogação de uma certificação** — retirar um registo da Camada 2 — �
 
 ### O que a certificação não concede
 
-Uma certificação técnica é um facto técnico — e apenas isso. **Certificação técnica ≠ admissão a esquema ≠ autorização regulatória.** São três determinações distintas, com donos distintos, e o estado **não se propaga em nenhuma direcção**: ter uma nunca é prova, causa nem substituto de outra (ADR-004).
+Uma certificação técnica é um facto técnico — e apenas isso. **Certificação técnica ≠ admissão a esquema ≠ autorização regulatória.** São três determinações distintas, com donos distintos, e o estado **não se propaga em nenhuma direcção**: ter uma nunca é prova, causa nem substituto de outra (ADR-005).
 
 ![As três determinações são distintas e não se propagam — a certificação técnica pertence à Camada 2, a admissão pertence a cada esquema e a autorização pertence ao regulador competente; nenhuma decorre automaticamente das outras, e constar do Registo Técnico não é admissão nem autorização](/diagrams/protocol/certification-admission-authorisation-v1.svg)
 
@@ -751,7 +751,7 @@ Uma certificação técnica é um facto técnico — e apenas isso. **Certifica�
 - a **admissão a um esquema** (Camada 3) é uma decisão do próprio esquema sobre a participação de uma entidade, segundo os seus critérios e contratos; pode exigir certificação como pré-requisito, mas nunca decorre automaticamente dela;
 - a **autorização regulatória** é concedida pelo regulador competente ao operador; o BANZA não é parte nessa decisão e não a concede, representa nem substitui.
 
-Nenhuma evidência ou certificação autoriza a prestação de serviços financeiros, e nenhuma dispensa as obrigações de KYC/KYB, de prevenção de branqueamento, de segurança ou de supervisão — que pertencem ao operador, sob as entidades competentes, e que o BANZA não afere. Constar do **Registo Técnico** — o índice público e verificável das implementações, dos perfis e dos registos de certificação (ADR-036) — nunca é «admitido a um esquema» nem «autorizado»: é apenas a publicação verificável de um facto técnico.
+Nenhuma evidência ou certificação autoriza a prestação de serviços financeiros, e nenhuma dispensa as obrigações de KYC/KYB, de prevenção de branqueamento, de segurança ou de supervisão — que pertencem ao operador, sob as entidades competentes, e que o BANZA não afere. Constar do **Registo Técnico** — o índice público e verificável das implementações, dos perfis e dos registos de certificação (ADR-033) — nunca é «admitido a um esquema» nem «autorizado»: é apenas a publicação verificável de um facto técnico.
 
 ### Quem decide o quê
 
@@ -797,13 +797,13 @@ Cinco termos precisam de ficar separados, porque nomeiam sujeitos e determinaç�
 | **Implementação certificada** | Uma implementação (por `implementation_hash`) | Certificação técnica (Camada 2) — `CertificationRecord` | Motor determinístico da Camada 2 (`banza-conformance`); qualquer parte reproduz o veredicto e o `record_hash` fixa o conteúdo avaliado — sem autoridade certificadora ([§7](#7-conformidade-e-certificação)) |
 | **Participante de esquema** | Entidade/implementação admitida | Admissão a esquema (Camada 3) | O próprio esquema (ex.: Esquema Operacional Banzami) |
 
-A certificação certifica uma **implementação**, nunca genericamente uma entidade; não existe «credencial de operador» nem «entidade certificada» como estatuto global. E as três determinações — certificação técnica, admissão a esquema e autorização regulatória — são distintas e não propagam entre si (ADR-004). O BANZA não é um operador, não certifica entidades, não admite participantes e não autoriza actividade.
+A certificação certifica uma **implementação**, nunca genericamente uma entidade; não existe «credencial de operador» nem «entidade certificada» como estatuto global. E as três determinações — certificação técnica, admissão a esquema e autorização regulatória — são distintas e não propagam entre si (ADR-005). O BANZA não é um operador, não certifica entidades, não admite participantes e não autoriza actividade.
 
-**O operador é a entidade responsável; a implementação é o sistema técnico avaliado** (ADR-038 §4.2/§4.3). Por isso, **validar um operador significa avaliar uma das suas implementações publicadas** — nunca a entidade em abstracto.
+**O operador é a entidade responsável; a implementação é o sistema técnico avaliado** (ADR-034 §4.2/§4.3). Por isso, **validar um operador significa avaliar uma das suas implementações publicadas** — nunca a entidade em abstracto.
 
 ### Um operador, várias implementações
 
-Um operador pode publicar várias implementações ao mesmo tempo — uma demonstração de leitura, um ambiente de *sandbox*, uma pré-produção, uma produção; com versões, perfis de conformidade e capacidades distintos. Cada uma é um sujeito de avaliação distinto, com a sua própria origem canónica, a sua própria versão e os seus próprios artefactos. A cardinalidade é deliberada: **um operador, muitas implementações** (ADR-038 §4.2).
+Um operador pode publicar várias implementações ao mesmo tempo — uma demonstração de leitura, um ambiente de *sandbox*, uma pré-produção, uma produção; com versões, perfis de conformidade e capacidades distintos. Cada uma é um sujeito de avaliação distinto, com a sua própria origem canónica, a sua própria versão e os seus próprios artefactos. A cardinalidade é deliberada: **um operador, muitas implementações** (ADR-034 §4.2).
 
 Daqui decorre a regra que atravessa o capítulo: as propriedades técnicas não sobem da implementação para a entidade, nem atravessam de uma implementação para outra do mesmo operador. Uma implementação certificada não torna «certificada» a entidade que a publicou, nem certifica as suas outras implementações. Uma nova versão de um sistema é uma nova implementação — um novo sujeito de avaliação — e não herda o veredicto da versão anterior. Falar do «nível de um operador» é, no rigor do protocolo, falar do perfil de conformidade de uma das suas implementações, num âmbito e numa janela determinados.
 
@@ -823,11 +823,11 @@ Publicar não é certificar. Um operador não se certifica a si próprio por pub
 
 ### Registo Técnico BANZA
 
-O **Registo Técnico BANZA** — cuja listagem pública de operadores reais é a rota máquina `/operators` — é o índice público, verificável de forma independente, das implementações, dos seus perfis de certificação, dos `CertificationRecord` e das respectivas revogações (ADR-036). Qualquer terceiro o verifica sem conta e sem confiar na palavra de nenhum operador. Não é uma lista de operadores licenciados, aprovados ou autorizados pela BANZA: a presença nunca significa autorização, e a ausência nunca significa proibição.
+O **Registo Técnico BANZA** — cuja listagem pública de operadores reais é a rota máquina `/operators` — é o índice público, verificável de forma independente, das implementações, dos seus perfis de certificação, dos `CertificationRecord` e das respectivas revogações (ADR-033). Qualquer terceiro o verifica sem conta e sem confiar na palavra de nenhum operador. Não é uma lista de operadores licenciados, aprovados ou autorizados pela BANZA: a presença nunca significa autorização, e a ausência nunca significa proibição.
 
 O Registo Técnico é **estritamente independente** do directório de participantes de um esquema (Camada 3, ADR-006): estar indexado no Registo Técnico nunca significa «admitido a um esquema» nem «autorizado». Responde apenas à pergunta técnica — «esta implementação está certificada, contra que perfil, em que âmbito, até quando, ainda válida?» — e indexa o que os operadores publicam nos seus próprios domínios. É um índice reproduzível: qualquer parte o reconstrói a partir das mesmas fontes públicas e obtém o mesmo resultado; nenhuma entrada é adicionada ou removida por decisão discricionária.
 
-Além de indexar certificações, o Registo Técnico é a **única fonte de alvos de validação** (ADR-038 §4.6): resolve `operator_id → implementation_id → origem canónica → descoberta` sobre um conjunto fechado de registos de operador e de implementação. Seleccionar um alvo é escolher um operador **e** uma das suas implementações publicadas; é a partir da origem canónica assim resolvida que o BanzAI obtém, por uma **camada segura de fetch em Rust** (SSRF-*hardened*, nunca o navegador), os artefactos que os motores avaliam — nunca uma URL fornecida pelo utilizador. Implementações não publicadas, revogadas, sem origem ou incompatíveis não são alvos elegíveis.
+Além de indexar certificações, o Registo Técnico é a **única fonte de alvos de validação** (ADR-034 §4.6): resolve `operator_id → implementation_id → origem canónica → descoberta` sobre um conjunto fechado de registos de operador e de implementação. Seleccionar um alvo é escolher um operador **e** uma das suas implementações publicadas; é a partir da origem canónica assim resolvida que o BanzAI obtém, por uma **camada segura de fetch em Rust** (SSRF-*hardened*, nunca o navegador), os artefactos que os motores avaliam — nunca uma URL fornecida pelo utilizador. Implementações não publicadas, revogadas, sem origem ou incompatíveis não são alvos elegíveis.
 
 ![Resolução do alvo de validação no BANZA — a partir do Registo Técnico fechado, resolve-se operador, depois uma implementação publicada, depois a sua origem canónica e a descoberta dos artefactos; nunca uma URL arbitrária](/diagrams/protocol/validation-target-resolution-v1.svg)
 
@@ -837,7 +837,7 @@ A listagem pública de operadores reais do Registo é consultável em `banza.net
 
 ### Avaliação Aberta de Confiança
 
-Antes de qualquer encaminhamento federado, cada operador avalia o seu par (ADR-031). A avaliação é executada **localmente, por máquina**, sobre os artefactos que o par publicou, e o seu resultado é uma decisão local válida para aquela interacção — **nunca um estatuto conferido ao operador avaliado**. O sujeito da avaliação são os artefactos publicados de uma implementação, não a entidade. Consiste exactamente nestas dez verificações:
+Antes de qualquer encaminhamento federado, cada operador avalia o seu par (ADR-025). A avaliação é executada **localmente, por máquina**, sobre os artefactos que o par publicou, e o seu resultado é uma decisão local válida para aquela interacção — **nunca um estatuto conferido ao operador avaliado**. O sujeito da avaliação são os artefactos publicados de uma implementação, não a entidade. Consiste exactamente nestas dez verificações:
 
 1. **Manifesto de operador válido** — presente, bem formado e conforme ao schema publicado
 2. **Versão de protocolo compatível** — a `protocol_version` declarada é interoperável com a do avaliador
@@ -864,7 +864,7 @@ Reunindo o capítulo numa só regra: as propriedades verificáveis pertencem à 
 - **Admissão a um esquema** é decidida pelo próprio esquema, sob os seus critérios (Camada 3, ADR-006). A certificação técnica pode ser um pré-requisito, mas a admissão nunca se deduz dela.
 - **Autorização regulatória** vem do regulador competente e existe fora do protocolo. Nenhum artefacto BANZA a confere nem a substitui.
 
-Nenhuma destas determinações se propaga para as outras nem sobe para a entidade como um estado global (ADR-004). O BANZA verifica o comportamento técnico de implementações; não decide relações comerciais, admissões a esquemas nem autorizações — e, porque o critério é técnico e igual para todos, não existe em nenhuma destas dimensões «operador privilegiado» nem «operador tolerado».
+Nenhuma destas determinações se propaga para as outras nem sobe para a entidade como um estado global (ADR-005). O BANZA verifica o comportamento técnico de implementações; não decide relações comerciais, admissões a esquemas nem autorizações — e, porque o critério é técnico e igual para todos, não existe em nenhuma destas dimensões «operador privilegiado» nem «operador tolerado».
 
 ### Onde continuar
 
@@ -906,7 +906,7 @@ O Operador Zero **não é banco, PSP, carteira, operador financeiro nem prestado
 
 Não corre execução ao vivo nesta superfície: não mantém estado mutável e não executa conformidade, confiança, federação, construção de evidência nem qualquer acção de certificação — um guard falha a build se aparecer um ponto de execução local. Nunca aparece em `/operators`, a rota de operadores reais.
 
-Por não ser normativo, decorrem três consequências. Nada do que faz é obrigatório por o fazer — ninguém precisa de copiar a sua tecnologia para implementar o BANZA. **É substituível:** outra implementação que sirva os mesmos artefactos observáveis é resolvida e validada pelo mesmo caminho, sem atalho (ADR-038 §4.9), e reimplementá-lo com outra tecnologia deixa o protocolo igual. E **o protocolo funciona sem ele:** é definido pelos contratos e pela suite de conformidade, e se desaparecesse os contratos continuariam suficientes para o implementar — o que se perderia seria pedagógico, não normativo. Onde a implementação e a especificação divergirem, a especificação prevalece (ADR-041). Por fim, **«Zero» é o nome desta implementação, não um perfil: L0 é um perfil de conformidade** (§7); a implementação declara o perfil L0, mas declarar um perfil não é estar certificado nele.
+Por não ser normativo, decorrem três consequências. Nada do que faz é obrigatório por o fazer — ninguém precisa de copiar a sua tecnologia para implementar o BANZA. **É substituível:** outra implementação que sirva os mesmos artefactos observáveis é resolvida e validada pelo mesmo caminho, sem atalho (ADR-034 §4.9), e reimplementá-lo com outra tecnologia deixa o protocolo igual. E **o protocolo funciona sem ele:** é definido pelos contratos e pela suite de conformidade, e se desaparecesse os contratos continuariam suficientes para o implementar — o que se perderia seria pedagógico, não normativo. Onde a implementação e a especificação divergirem, a especificação prevalece (ADR-035). Por fim, **«Zero» é o nome desta implementação, não um perfil: L0 é um perfil de conformidade** (§7); a implementação declara o perfil L0, mas declarar um perfil não é estar certificado nele.
 
 ### Identidade técnica e ambiente de demonstração
 
@@ -935,13 +935,13 @@ Cada resposta é `GET` só de leitura; uma escrita devolve `405` e um caminho de
 
 ### Como é validado e testado no BanzAI
 
-A validação não corre nesta superfície: corre no **BanzAI**, iniciada por uma pessoa em modo de validação (ADR-041). O Operador Zero é aqui um **alvo** — um sujeito seguro de exploração —, nunca uma fonte de autoridade ou de verdade.
+A validação não corre nesta superfície: corre no **BanzAI**, iniciada por uma pessoa em modo de validação (ADR-035). O Operador Zero é aqui um **alvo** — um sujeito seguro de exploração —, nunca uma fonte de autoridade ou de verdade.
 
 O mecanismo é o do [§8](#8-operadores): o BanzAI resolve o alvo no Registo Técnico (`operador → implementação → origem canónica → descoberta`) e **obtém** os artefactos da origem canónica por uma camada segura de *fetch* em Rust; os motores de decisão, sem rede, avaliam o conteúdo obtido. A jornada percorre nove etapas — descoberta, manifest, chaves, conformidade, interoperabilidade, confiança, federação, *evidence bundle* e prontidão de certificação —, cada uma avaliada pelos motores determinísticos sobre os artefactos obtidos dos endpoints públicos.
 
 ![Separação de responsabilidades: o Operador Zero é o alvo só de leitura e não se valida a si próprio; o BanzAI orquestra a sessão; os motores Rust decidem de forma determinística; a explicação é gerada localmente; o Registo publica um índice verificável.](/diagrams/protocol/operador-zero-separation-of-responsibilities-v2.svg)
 
-A regra operacional é fixa: **o operador publica · o BanzAI obtém · o Rust verifica · o *receipt* fixa o resultado · o Registo publica o estado verificável** — o modelo local apenas explica. Cada etapa produz um *OperationReceipt* ligado à origem exacta dos seus inputs, selado num *JourneyReceipt*; em modo de validação, `qwen_calls = 0` e `external_model_calls = 0` por construção — o modelo nunca executa um teste, escolhe um resultado nem emite um registo. O resultado é categórico e honesto, sem pontuação, e é específico da implementação, do perfil, da versão, do ambiente e do momento da avaliação. Carregar ou colar um artefacto é permitido apenas numa ferramenta de rascunho local, separada e não-autoritativa, que verifica só um conteúdo local e nunca constitui evidência oficial (ADR-038 §4.5).
+A regra operacional é fixa: **o operador publica · o BanzAI obtém · o Rust verifica · o *receipt* fixa o resultado · o Registo publica o estado verificável** — o modelo local apenas explica. Cada etapa produz um *OperationReceipt* ligado à origem exacta dos seus inputs, selado num *JourneyReceipt*; em modo de validação, `qwen_calls = 0` e `external_model_calls = 0` por construção — o modelo nunca executa um teste, escolhe um resultado nem emite um registo. O resultado é categórico e honesto, sem pontuação, e é específico da implementação, do perfil, da versão, do ambiente e do momento da avaliação. Carregar ou colar um artefacto é permitido apenas numa ferramenta de rascunho local, separada e não-autoritativa, que verifica só um conteúdo local e nunca constitui evidência oficial (ADR-034 §4.5).
 
 Nada disto precisa de ser aceite sob palavra: os endpoints, os *receipts* (incluindo `qwen_calls = 0`) e a ausência do Operador Zero em `/operators` são todos re-verificáveis de forma independente.
 
@@ -951,7 +951,7 @@ Nada disto precisa de ser aceite sob palavra: os endpoints, os *receipts* (inclu
 
 No Registo Técnico, o Operador Zero é um **único** registo de referência/demonstração — um operador e uma implementação, no ambiente sandbox. **A sua presença significa apenas que existe um alvo verificável; não significa autorização, admissão nem certificação** (§8): a presença no Registo nunca confere estatuto.
 
-O seu estado de certificação é **`NOT_CERTIFIED`** (e `PRE_PRODUCTION`, por ser demonstração). Isto significa a **ausência de uma certificação formal — o estado de base do protocolo — e não uma reprovação de conformidade**: a jornada de validação completa-se sem bloqueios; o Operador Zero está `NOT_CERTIFIED` porque é demonstração (`production_allowed=false`), não porque falhe. A prontidão de certificação agrega os veredictos das etapas como evidência técnica local — **a prontidão de certificação não é certificação emitida**, nunca devolve `CERTIFIED`, e certificação técnica não é admissão a esquema nem autorização regulatória ([§7](#7-conformidade-e-certificação), ADR-004).
+O seu estado de certificação é **`NOT_CERTIFIED`** (e `PRE_PRODUCTION`, por ser demonstração). Isto significa a **ausência de uma certificação formal — o estado de base do protocolo — e não uma reprovação de conformidade**: a jornada de validação completa-se sem bloqueios; o Operador Zero está `NOT_CERTIFIED` porque é demonstração (`production_allowed=false`), não porque falhe. A prontidão de certificação agrega os veredictos das etapas como evidência técnica local — **a prontidão de certificação não é certificação emitida**, nunca devolve `CERTIFIED`, e certificação técnica não é admissão a esquema nem autorização regulatória ([§7](#7-conformidade-e-certificação), ADR-005).
 
 ### Onde continuar
 
@@ -987,7 +987,7 @@ Ser tecnicamente **elegível** significa reunir as condições mínimas para pod
 
 A avaliação que decide o encaminhamento é a **Avaliação Aberta de Confiança** ([§6](#6-confiança)) aplicada ao caso de dois operadores — dez verificações conjuntivas, executadas localmente pela parte que encaminha sobre material público, e definidas em detalhe em [§8](#avaliação-aberta-de-confiança). Verifica-se que o manifesto é válido e a versão do protocolo compatível; que a metadata de protocolo está assinada e a assinatura ancora no Manifesto de Chaves; que a evidência de conformidade é válida, reproduzível e dentro da janela de frescura; que o material não consta da Lista de Revogação; e que as capacidades e os endpoints cobrem a interacção pretendida. Se qualquer verificação faltar ou não for verificável, a avaliação **fecha por omissão** — nunca há passagem por defeito.
 
-A avaliação é **bidireccional**: antes de aceitar um encaminhamento, a contraparte executa a mesma avaliação em sentido inverso. Os seus **inputs** são material técnico — metadata assinada, evidência de conformidade, estado de revogação, frescura. **Um resultado de confiança válido pode habilitar um encaminhamento; não estabelece por si só uma relação comercial, uma admissão nem uma autorização.** A **certificação técnica da Camada 2** — uma determinação institucional, distinta dos perfis de conformidade L0–L4 — **não é** um input desta avaliação: a federação corre sobre a **evidência** que a implementação publica, não sobre um certificado emitido — a certificação técnica pode existir em paralelo, mas **não cria automaticamente** uma federação entre os operadores ([§7](#7-conformidade-e-certificação), ADR-004). E constar do Registo Técnico é descoberta, não aprovação: uma réplica completa do Registo produz o mesmo resultado, o que prova que é um índice e não um portão.
+A avaliação é **bidireccional**: antes de aceitar um encaminhamento, a contraparte executa a mesma avaliação em sentido inverso. Os seus **inputs** são material técnico — metadata assinada, evidência de conformidade, estado de revogação, frescura. **Um resultado de confiança válido pode habilitar um encaminhamento; não estabelece por si só uma relação comercial, uma admissão nem uma autorização.** A **certificação técnica da Camada 2** — uma determinação institucional, distinta dos perfis de conformidade L0–L4 — **não é** um input desta avaliação: a federação corre sobre a **evidência** que a implementação publica, não sobre um certificado emitido — a certificação técnica pode existir em paralelo, mas **não cria automaticamente** uma federação entre os operadores ([§7](#7-conformidade-e-certificação), ADR-005). E constar do Registo Técnico é descoberta, não aprovação: uma réplica completa do Registo produz o mesmo resultado, o que prova que é um índice e não um portão.
 
 ![Avaliação de federação entre o Operador A e o Operador B (exemplos): antes de encaminhar, cada parte avalia localmente o material publicado da implementação da outra — manifesto e versão compatíveis, metadata assinada ancorada no Manifesto de Chaves, evidência de conformidade válida e fresca, ausência da Lista de Revogação, capacidades e endpoints compatíveis, e o perfil L3 como pré-condição — chegando a ROUTING_ALLOWED ou, por omissão, FAIL_CLOSED; a avaliação é bidireccional, não movimenta fundos e não consulta o BANZA](/diagrams/protocol/banza-controlled-federation-gate-v1.svg)
 
@@ -1375,7 +1375,7 @@ Não. O protocolo especifica comportamento observável e contratos, não tecnolo
 
 **Quem aprova ou admite os operadores?**
 
-Ninguém, ao nível do protocolo — e não há a quem pedir. Não existe autoridade certificadora, entidade de admissão nem processo de aprovação (ADR-027): um operador implementa o protocolo, publica a sua evidência e assina a sua metadata, e cada par avalia esse material com as mesmas verificações determinísticas. A admissão a um esquema (Camada 3) e a autorização regulatória são decisões de outros donos, fora do protocolo. Ver [§8 Operadores](#8-operadores) e [§11 Governança](#11-governança).
+Ninguém, ao nível do protocolo — e não há a quem pedir. Não existe autoridade certificadora, entidade de admissão nem processo de aprovação (ADR-025): um operador implementa o protocolo, publica a sua evidência e assina a sua metadata, e cada par avalia esse material com as mesmas verificações determinísticas. A admissão a um esquema (Camada 3) e a autorização regulatória são decisões de outros donos, fora do protocolo. Ver [§8 Operadores](#8-operadores) e [§11 Governança](#11-governança).
 
 ### Operadores, federação e esquemas
 
@@ -1464,18 +1464,18 @@ As regras normativas vivem nos artefactos públicos e versionados — invariante
 ## Referências
 
 **ADRs:**
-- ADR-011 — Livro-razão de partidas dobradas
-- ADR-024 — Idempotência e limitação de taxa
-- ADR-016 — Sistema de pagamento QR
-- ADR-012 — Modelo de identidade de conta/participante
+- ADR-012 — Livro-razão de partidas dobradas
+- ADR-022 — Idempotência e limitação de taxa
+- ADR-015 — Sistema de pagamento QR
+- ADR-014 — Modelo de identidade de conta/participante
 - ADR-001 — Protocolo financeiro aberto
 - ADR-001 — Separação de operadores
-- ADR-002 — Nomenclatura do ecossistema (canónico)
-- ADR-027 — Modelo de confiança de protocolo aberto sem autoridade certificadora
-- ADR-033 — Auto-publicação do operador e conformidade verificável por máquina
-- ADR-031 — Avaliação de confiança de federação sem certificados
-- ADR-026 — Estado protocolar: estado do protocolo, não valor financeiro (persistido em PostgreSQL na implementação de referência)
-- ADR-044 — Licença, atribuição, marcas e governação aberta (Apache-2.0 + NOTICE + TRADEMARKS + GOVERNANCE)
+- ADR-001 — Nomenclatura do ecossistema (canónico)
+- ADR-025 — Modelo de confiança de protocolo aberto sem autoridade certificadora
+- ADR-031 — Auto-publicação do operador e conformidade verificável por máquina
+- ADR-025 — Avaliação de confiança de federação sem certificados
+- ADR-013 — Estado protocolar: estado do protocolo, não valor financeiro (persistido em PostgreSQL na implementação de referência)
+- ADR-009 — Licença, atribuição, marcas e governação aberta (Apache-2.0 + NOTICE + TRADEMARKS + GOVERNANCE)
 
 **Documentos complementares:**
 - `docs/governance/POSTGRESQL_PROTOCOL_STATE.md` — persistência do estado protocolar na implementação de referência (fronteira de dados)

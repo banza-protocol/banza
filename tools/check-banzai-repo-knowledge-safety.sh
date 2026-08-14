@@ -76,7 +76,7 @@ const safety = JSON.parse(fs.readFileSync(path.join(dir, "banzai-repo-index-safe
 if (safety.secrets_in_index !== 0) { console.log("  FAIL: safety artifact reports secrets_in_index != 0"); bad++; }
 else console.log("  ok: safety artifact declares secrets_in_index = 0");
 const man = JSON.parse(fs.readFileSync(path.join(dir, "banzai-repo-index-manifest.json"), "utf8"));
-// M2.19G.6 (ADR-042): BanzAI was consolidated into this monorepo and the separate repo removed, so
+// M2.19G.6 (ADR-036): BanzAI was consolidated into this monorepo and the separate repo removed, so
 // the separate repo is permanently removed. It MUST still cover the in-monorepo BanzAI runtime — asserted
 // by banzai_in_monorepo AND a non-empty banzai-runtime category (services/banzai-api + engines/banzai-*).
 if (man.banzai_in_monorepo !== true) { console.log("  FAIL: manifest banzai_in_monorepo != true"); bad++; }

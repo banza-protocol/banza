@@ -3,10 +3,10 @@
 - **Status:** Canónico
 - **Data:** 2026-07
 - **Milestone:** M2.19C
-- **Relacionado:** ADR-003 (arquitectura de três camadas), ADR-006 (Banzami Operational Scheme),
-  ADR-004 (certificação ≠ admissão ≠ autorização), ADR-005 (fronteira de estado regulatório +
-  RealMoneyActivationGate), ADR-007 (conflito de interesses + separação de infraestrutura/chaves),
-  ADR-001/003 (protocolo aberto / neutralidade do operador), ADR-043 (motores em Rust), ADR-042
+- **Relacionado:** ADR-004 (arquitectura de três camadas), ADR-006 (Banzami Operational Scheme),
+  ADR-005 (certificação ≠ admissão ≠ autorização), ADR-007 (fronteira de estado regulatório +
+  RealMoneyActivationGate), ADR-006 (conflito de interesses + separação de infraestrutura/chaves),
+  ADR-001/003 (protocolo aberto / neutralidade do operador), ADR-038 (motores em Rust), ADR-036
   (BanzAI como interface humana primária)
 
 > **O BANZA é um protocolo financeiro aberto.** O BANZA não é banco, PSP, carteira, instituição de
@@ -15,7 +15,7 @@
 > regulador nem qualquer scheme. Os serviços financeiros são prestados por operadores autorizados que
 > implementam o protocolo, sob o seu próprio enquadramento regulatório.
 
-Este documento é a forma canónica e legível da **ADR-003**. Fixa, num único lugar, o que é o BANZA,
+Este documento é a forma canónica e legível da **ADR-004**. Fixa, num único lugar, o que é o BANZA,
 o que certifica e quem opera — de modo que um leitor, um operador, um auditor, um regulador e o
 próprio BanzAI cheguem sempre à mesma resposta. Complementa
 [`BANZA_REGULATORY_POSITIONING.md`](BANZA_REGULATORY_POSITIONING.md),
@@ -76,7 +76,7 @@ protocolo nem a camada de certificação.
 ## 3. Camada 1 — Protocolo BANZA
 
 **Definição canónica.** *"O BANZA é um protocolo financeiro aberto que define regras, contratos, perfis
-e mecanismos verificáveis de interoperabilidade entre implementações independentes."* (D-059-01)
+e mecanismos verificáveis de interoperabilidade entre implementações independentes."*
 
 **A camada 1 é:** um protocolo aberto, neutro e verificável — o conjunto público de regras, contratos,
 mensagens, esquemas, APIs, invariantes, reason codes, identidade técnica, manifests, assinaturas,
@@ -88,7 +88,7 @@ Não detém nem movimenta fundos, não corre contas de clientes, não liquida, n
 financeiros, não emite licenças, não substitui o regulador nem qualquer scheme, e não assume nenhuma
 das responsabilidades financeiras dos participantes.
 
-O modelo de confiança da L1 é aberto (ADR-027/040): assenta em Signed Protocol Metadata, chaves de
+O modelo de confiança da L1 é aberto (ADR-025/040): assenta em Signed Protocol Metadata, chaves de
 assinatura delegadas, manifests dos operadores, evidência verificável de conformidade, registo público
 do protocolo e revogação com semântica fechada-por-omissão. Não existe autoridade certificadora do
 BANZA e nenhuma entidade central revê, aprova, aceita ou emite certificados de operador.
@@ -97,7 +97,7 @@ BANZA e nenhuma entidade central revê, aprova, aceita ou emite certificados de 
 
 **Definição canónica.** *"O BANZA certifica tecnicamente que uma implementação demonstrou conformidade
 e interoperabilidade com um perfil público e versionado. A certificação é baseada em evidência
-verificável, limitada no tempo, vinculada ao âmbito e sujeita a suspensão ou revogação."* (D-059-02)
+verificável, limitada no tempo, vinculada ao âmbito e sujeita a suspensão ou revogação."*
 
 **A camada 2 é:** um sistema técnico que certifica, **por implementação**, que uma implementação
 independente demonstrou conformidade e interoperabilidade contra um perfil público e versionado. A
@@ -107,7 +107,7 @@ Rust sobre evidência reproduzível — não há passo de aprovação discricion
 
 **A camada 2 não é:** uma licença, uma admissão a qualquer scheme nem uma autorização regulatória. A
 certificação certifica uma **implementação** — nunca genericamente uma entidade, um operador ou uma
-marca (ADR-004). Um PASS é um resultado técnico de conformidade; não é autorização financeira e não
+marca (ADR-005). Um PASS é um resultado técnico de conformidade; não é autorização financeira e não
 substitui o regulador.
 
 ## 5. Camada 3 — Esquemas operacionais independentes
@@ -119,33 +119,33 @@ participação em nenhum deles.
 
 **Primeira instância.** O *Banzami Operational Scheme* é o primeiro esquema construído sobre o BANZA,
 promovido, desenhado e administrado pela **Banzami — Tecnologia e Serviços, Lda.** como operador
-designado, condicionado à obtenção do enquadramento regulatório aplicável (ADR-006, D-059-03). É **uma
+designado, condicionado à obtenção do enquadramento regulatório aplicável (ADR-006). É **uma
 instância da camada 3, não a camada 3** — implementar o BANZA nunca exige aderir a este ou a qualquer
 outro esquema.
 
 **A camada 3 não é:** o protocolo, nem a certificação, nem um enquadramento já obtido. O seu estado
 interno é `REGULATORY_AUTHORIZATION_IN_PROGRESS`; os fundos reais, as carteiras reais, a liquidação real
 e os participantes reais permanecem **fechados por omissão** (fail-closed) enquanto não existir evidência
-formal aplicável (ADR-005). Detalhe canónico em [`BANZAMI_OPERATIONAL_SCHEME.md`](BANZAMI_OPERATIONAL_SCHEME.md)
+formal aplicável (ADR-007). Detalhe canónico em [`BANZAMI_OPERATIONAL_SCHEME.md`](BANZAMI_OPERATIONAL_SCHEME.md)
 e política pública em [`BANZA_REGULATORY_CLAIM_POLICY.md`](BANZA_REGULATORY_CLAIM_POLICY.md).
 
 ## 6. BanzAI — interface humana transversal
 
-**O BanzAI é transversal, não uma quarta autoridade** (D-059-04). É a interface humana canónica
+**O BanzAI é transversal, não uma quarta autoridade**. É a interface humana canónica
 através da qual as pessoas correm cada fluxo humano nas três camadas — perguntar, simular, conformidade,
 interoperabilidade, confiança, evidência, certificação, registo, federação e (em sandbox) operações de
 scheme. Orienta e executa **chamando os motores Rust**; nunca decide, nunca certifica, nunca admite,
 nunca publica e nunca activa fundos.
 
 Os consumidores máquina/SDK mantêm acesso directo às APIs públicas: o BanzAI é o plano humano, não
-um portão obrigatório para as máquinas (ADR-042).
+um portão obrigatório para as máquinas (ADR-036).
 
 ## 7. Regra de autoridade (permanente)
 
 Os **motores Rust compreendem, encaminham, executam, validam e DECIDEM** cada terminal, acção,
 avaliação e transição de estado. O **Qwen local explica uma vez** e nunca decide, certifica, admite,
 publica, activa fundos, altera um estado ou um reason code, nem substitui um regulador. **O Rust valida
-antes de qualquer coisa ser publicada** (ADR-043/D-059-05).
+antes de qualquer coisa ser publicada** (ADR-038/).
 
 | Papel | Faz | Nunca faz |
 |---|---|---|
@@ -157,12 +157,12 @@ antes de qualquer coisa ser publicada** (ADR-043/D-059-05).
 
 As três camadas estão separadas em responsabilidade, infraestrutura, bases de dados, esquemas, papéis,
 chaves, segredos, registos, backups, retenção, pipelines, monitorização e permissões; as chaves nunca
-são reutilizadas entre domínios (D-059-06, ADR-007). A camada do protocolo tem de continuar construível,
+são reutilizadas entre domínios (, ADR-006). A camada do protocolo tem de continuar construível,
 governável e verificável sem qualquer conhecimento de um scheme.
 
 Três separações são canónicas e load-bearing:
 
-1. **Certificação técnica ≠ Admissão ao scheme ≠ Autorização regulatória** (ADR-004).
+1. **Certificação técnica ≠ Admissão ao scheme ≠ Autorização regulatória** (ADR-005).
    Uma implementação certificada demonstrou conformidade e interoperabilidade contra um perfil público;
    isto não a admite a nenhum scheme e não a autoriza a mover fundos reais. A admissão ao scheme
    (Scheme Admission) é uma decisão operacional posterior e separada do operador do scheme; a
@@ -221,7 +221,7 @@ regulatório, e **não** é implicada por nenhuma etapa técnica anterior.
 
 ## 11. Neutralidade e continuidade
 
-A neutralidade sobrevive ao scheme (D-059-07): BANZA ≠ Banzami e BANZA ≠ Banzami Operational Scheme. A
+A neutralidade sobrevive ao scheme: BANZA ≠ Banzami e BANZA ≠ Banzami Operational Scheme. A
 certificação do BANZA não é exclusiva do scheme da Banzami; outras entidades legalmente habilitadas
 podem adoptar o protocolo e operar schemes **independentes**; uma implementação pode ser certificada sem
 ser admitida a qualquer scheme; o registo técnico não depende do directório de participantes de nenhum
@@ -232,12 +232,12 @@ todos os operadores — o critério de sobrevivência do ADR-001 aplica-se tamb�
 
 ## 12. Referências
 
-- ADR-003 (arquitectura de três camadas) · ADR-006 (Banzami Operational Scheme) · ADR-004 (certificação
-  ≠ admissão ≠ autorização) · ADR-005 (fronteira de estado regulatório + RealMoneyActivationGate) ·
-  ADR-007 (conflito de interesses + separação de infraestrutura/chaves)
-- ADR-001/003 (protocolo aberto / neutralidade) · ADR-043 (motores em Rust) · ADR-027/040 (modelo de
-  confiança aberto) · ADR-041/053 (Operador Zero — implementação de referência) · ADR-042 (BanzAI como
-  interface humana primária) · ADR-045 (árvore de ADRs current-only)
+- ADR-004 (arquitectura de três camadas) · ADR-006 (Banzami Operational Scheme) · ADR-005 (certificação
+  ≠ admissão ≠ autorização) · ADR-007 (fronteira de estado regulatório + RealMoneyActivationGate) ·
+  ADR-006 (conflito de interesses + separação de infraestrutura/chaves)
+- ADR-001/003 (protocolo aberto / neutralidade) · ADR-038 (motores em Rust) · ADR-025/040 (modelo de
+  confiança aberto) · ADR-035/053 (Operador Zero — implementação de referência) · ADR-036 (BanzAI como
+  interface humana primária) · ADR-010 (árvore de ADRs current-only)
 - [`BANZAMI_OPERATIONAL_SCHEME.md`](BANZAMI_OPERATIONAL_SCHEME.md) ·
   [`BANZA_REGULATORY_CLAIM_POLICY.md`](BANZA_REGULATORY_CLAIM_POLICY.md) ·
   [`BANZA_REGULATORY_POSITIONING.md`](BANZA_REGULATORY_POSITIONING.md) ·

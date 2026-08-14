@@ -1,4 +1,4 @@
-// BanzAI validation mode — the endpoint-originated 9-step operator-validation journey (M2.19G.1, ADR-038).
+// BanzAI validation mode — the endpoint-originated 9-step operator-validation journey (M2.19G.1, ADR-034).
 //
 // This is the ONLY official validation journey in BanzAI. It is ENDPOINT-ORIGINATED: every evaluated
 // artifact is obtained by the Rust backend from the selected implementation's PUBLIC endpoints
@@ -7,7 +7,7 @@
 // the Rust engines decide, and the response is a receipt bound to its exact public origin.
 //
 // NO pasted content, uploaded file, drag-and-drop, user-entered URL, local fixture, bundled artifact,
-// pre-computed result or manually chosen artifact EVER enters this path (ADR-038 §4.4/§4.5 — those live
+// pre-computed result or manually chosen artifact EVER enters this path (ADR-034 §4.4/§4.5 — those live
 // only in the developer draft tool). TypeScript decides NOTHING: it shuttles JSON and renders receipts.
 // Qwen only explains. `qwen_calls`/`external_model_calls` are 0 by construction on every receipt.
 
@@ -26,7 +26,7 @@ import { validateStepRequest, validateJourneyRequest, fetchRegistry, getExecutio
 import { downloadReceipt, type StepStatus, type ServerOperationReceipt, type ServerJourneyReceipt } from "@/lib/operationReceipt";
 
 // ---------------------------------------------------------------------------------------------------
-// Step catalogue (ADR-038 §21 — the canonical nine-step spine). Each step names the Rust engine that
+// Step catalogue (ADR-034 §21 — the canonical nine-step spine). Each step names the Rust engine that
 // decides its verdict and describes what the backend fetches from the implementation's PUBLIC endpoints.
 // ---------------------------------------------------------------------------------------------------
 
@@ -113,7 +113,7 @@ export const STEPS: StepMeta[] = [
     title: "Prontidão de certificação",
     engine: "banza-target-registry",
     blurb:
-      "Agrega em Rust os veredictos das oito etapas técnicas numa Prontidão de Certificação (READY/BLOCKED). Não emite um Registo de Certificação e nunca devolve CERTIFIED (ADR-038 §4.10).",
+      "Agrega em Rust os veredictos das oito etapas técnicas numa Prontidão de Certificação (READY/BLOCKED). Não emite um Registo de Certificação e nunca devolve CERTIFIED (ADR-034 §4.10).",
   },
 ];
 
@@ -159,7 +159,7 @@ export const STATUS_LABEL_PT: Record<StepStatus, string> = {
   VERIFIED: "Verificado",
   FAILED: "Falhou",
   BLOCKED: "Bloqueado",
-  // ADR-039: a step out of scope for the declared profile — never a failure.
+  // ADR-030: a step out of scope for the declared profile — never a failure.
   NOT_APPLICABLE: "Não aplicável",
 };
 
@@ -175,7 +175,7 @@ export function shortHash(h: string): string {
 }
 
 function stepStatusOf(receipt: ServerOperationReceipt): StepStatus {
-  // ADR-039: a NOT_APPLICABLE step is sealed with result.status="NOT_EVALUATED" + applicability
+  // ADR-030: a NOT_APPLICABLE step is sealed with result.status="NOT_EVALUATED" + applicability
   // "NOT_APPLICABLE". Surface it as the distinct NOT_APPLICABLE display status (out of scope, not a
   // failure and not an omission) so it never reads as an un-run or failed step.
   if (receipt.applicability === "NOT_APPLICABLE") return "NOT_APPLICABLE";
@@ -184,7 +184,7 @@ function stepStatusOf(receipt: ServerOperationReceipt): StepStatus {
 }
 
 // ---------------------------------------------------------------------------------------------------
-// Progress language (ADR-038 §28) — "steps evaluated" is distinct from the certification outcome.
+// Progress language (ADR-034 §28) — "steps evaluated" is distinct from the certification outcome.
 // ---------------------------------------------------------------------------------------------------
 
 interface ProgressCounts {
@@ -241,7 +241,7 @@ export interface ValidationSession {
   ready: boolean;
   selectOperator: (id: string) => void;
   selectImplementation: (id: string) => void;
-  /** M2.19G.4 (ADR-042) — atomically seed operator + implementation from a route segment. Both are
+  /** M2.19G.4 (ADR-036) — atomically seed operator + implementation from a route segment. Both are
    *  resolved against the fetched registry; an off-registry operator is ignored, an off-registry (or
    *  null) implementation lands on the operator context. Used by the route binder so operator↔
    *  implementation navigation re-seeds without the two-render race of selectOperator + selectImplementation. */
@@ -253,11 +253,11 @@ export interface ValidationSession {
   activeStep: StepId;
   setActiveStep: (id: StepId) => void;
   journeyReceipt: ServerJourneyReceipt | null;
-  /** ADR-042 correction 1 — the honest durable-persistence verdict of the last full-journey run (null
+  /** ADR-036 correction 1 — the honest durable-persistence verdict of the last full-journey run (null
    *  until one runs). The engine result stands regardless; this records whether it was archived so the UI
    *  never presents a non-persisted run as durable/consultable/comparable/reproducible. */
   persistence: PersistenceInfo | null;
-  /** ADR-042 D-076-08 — re-check whether a not-yet-persisted run has since become durable. Reads the
+  /** ADR-036 — re-check whether a not-yet-persisted run has since become durable. Reads the
    *  durable store (GET /banzai/validate/execution) and NEVER re-runs the engine; on confirmation it
    *  upgrades the persistence verdict to PERSISTED. */
   recheckPersistence: () => Promise<void>;
@@ -313,7 +313,7 @@ export function useValidationSession(opts: {
   const [activeStep, setActiveStep] = useState<StepId>(initialActiveStep(workflow, opts.initialStep));
 
   // Cancellation token: bumped on cancel/reset/new selection so stale async completions are ignored,
-  // plus an AbortController for the in-flight fetch (safe cancel — ADR-038 §24 running state).
+  // plus an AbortController for the in-flight fetch (safe cancel — ADR-034 §24 running state).
   const runTokenRef = useRef(0);
   const abortRef = useRef<AbortController | null>(null);
 
@@ -358,7 +358,7 @@ export function useValidationSession(opts: {
       if (!resolveOperatorIn(operators, id)) return;
       abortInFlight();
       setOperatorId(id);
-      // Reset the implementation: it must be re-chosen for the new operator (ADR-038 §12).
+      // Reset the implementation: it must be re-chosen for the new operator (ADR-034 §12).
       setImplementationId(null);
       setActiveStep("discovery");
       clearRun();
@@ -377,7 +377,7 @@ export function useValidationSession(opts: {
     [operators, operatorId, workflow, opts.initialStep, abortInFlight, clearRun],
   );
 
-  // M2.19G.4 (ADR-042) — atomic route-seed. Sets operator + implementation in ONE update so a deep link
+  // M2.19G.4 (ADR-036) — atomic route-seed. Sets operator + implementation in ONE update so a deep link
   // or a context navigation resolves both without the selectOperator→(next render)→selectImplementation
   // race. Off-registry operator → ignored (stay put); off-registry/null implementation → operator
   // context (Fase 0 waits on the implementation choice). Never fetches a URL; ids come pre-shape-checked.
@@ -517,7 +517,7 @@ export function useValidationSession(opts: {
     setActiveStep(initialActiveStep(workflow, opts.initialStep));
   }, [workflow, opts.initialStep, abortInFlight]);
 
-  // ADR-042 D-076-08 — re-check durability of a run whose persistence was not confirmed. Reads the
+  // ADR-036 — re-check durability of a run whose persistence was not confirmed. Reads the
   // append-only store by its server-issued execution id; NEVER re-runs the engine. If the store now
   // returns the execution, the run has become durable and the verdict is upgraded to PERSISTED.
   const recheckPersistence = useCallback(async () => {
@@ -549,7 +549,7 @@ export function useValidationSession(opts: {
     const statuses = STEP_ORDER.map((id) => results[id].status);
     return {
       total: STEP_ORDER.length,
-      // ADR-039: NOT_APPLICABLE steps are out of scope — not counted as "evaluated", tracked separately.
+      // ADR-030: NOT_APPLICABLE steps are out of scope — not counted as "evaluated", tracked separately.
       evaluated: statuses.filter((s) => s !== "NOT_EVALUATED" && s !== "NOT_APPLICABLE").length,
       verified: statuses.filter((s) => s === "VERIFIED").length,
       failed: statuses.filter((s) => s === "FAILED").length,

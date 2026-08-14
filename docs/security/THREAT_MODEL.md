@@ -43,7 +43,7 @@ settlement artifacts · evidence bundles · readiness reports · Workbench UI ·
 | BRL ignored | operators MUST fetch fresh BRL ≤ 6h; engine treats missing/invalid BRL as blocking | operator |
 | Trace tampering | trace linkage + cross-operator correlation checks (INV-TRACE/INV-RECON) | protocol |
 | Ledger imbalance | double-entry + zero-sum + single-currency checks (INV-LEDGER) | operator |
-| Settlement inconsistency | `net = gross − fee` coherence, ≥ 0, linked to intent (ADR-021/ADR-031) | protocol |
+| Settlement inconsistency | `net = gross − fee` coherence, ≥ 0, linked to intent (ADR-019/ADR-025) | protocol |
 | Evidence tampering | SHA-256 canonical hashing; validate recomputes and detects tampering | engine |
 | Downgrade / version negotiation | L4 version negotiation (selected ∈ supported, requested or fallback) | protocol |
 | Endpoint contract mismatch | L4 endpoint contract map (path/method/schemas/idempotency/trace) | protocol |
@@ -113,7 +113,7 @@ not production, not certification, not a licence, and does not make BANZA a PSP.
 
 ## M2.19C — Three-layer architecture threats
 
-> **M2.19C introduces the three-layer institutional architecture** (ADR-003..063): L1 the open BANZA
+> **M2.19C introduces the three-layer institutional architecture** (ADR-004..063): L1 the open BANZA
 > protocol, L2 per-implementation conformance & interoperability certification, L3 the designated L3
 > scheme operator's operational scheme (ADR-006), conditioned on a regulatory framework. The layers are
 > separated by responsibility, infrastructure and keys. This section **appends** threats that arise
@@ -127,25 +127,25 @@ not production, not certification, not a licence, and does not make BANZA a PSP.
 
 | Threat | Mitigation (current) | Residual owner |
 |---|---|---|
-| Conflict of interest / self-certification bypass — the designated L3 scheme operator's own implementation seeks a reduced profile, a private certification, a reserved endpoint, publication without evidence, a FAIL→PASS override or a secret exception (creator == first operator) | Structural, not by promise (ADR-007): that implementation runs the **same** public versioned profile, the **same** conformance + interoperability suites, the **same** Rust engine, the **same** reason codes, validity and revocation as any other, and is independently verifiable. No reduced profile, no private certification, no bypass, no reserved endpoint, no publication without evidence, no FAIL→PASS, no secret exception. Certification is decided in Rust over reproducible, hash-bound evidence; Rust validates before publishing. Guards: `banza-protocol-scheme-separation-check` and the M2.19C scheme-role separation guard | protocol/engine |
-| False regulatory status — a public surface presents the L3 operator as already authorised, BNA-approved, licensed or regulator-recognised | Internal state is `REGULATORY_AUTHORIZATION_IN_PROGRESS` (ADR-005) = preparation, not conclusion. Only the prudent public phrasing is allowed ("A camada operacional encontra-se em preparação regulatória. Os pagamentos reais permanecem desactivados."). No BNA-approval language until every §6 gate of `BANZA_REGULATORY_CLAIM_POLICY.md` holds (evidence + founders' authorisation + reviewed wording + no confidential info + not readable as granted) — none holds today. Guard: `banza-regulatory-state-claim-check`; `make regulatory-check` | governance/frontend |
-| Real-money activation — real funds, wallets, settlement or real participants are switched on without formal applicable evidence | **RealMoneyActivationGate** (ADR-005): real funds, real wallets, real settlement, real participants and real financial clients are **fail-closed** until formal applicable evidence exists. Activation is a Rust-validated decision; no public claim, prior technical stage or local-model explanation unlocks it. Operador Zero stays a demonstration reference implementation (ADR-041/053), never a scheme participant nor a real-money path | engine (fail-closed) |
-| Protocol/scheme confusion — a reader concludes BANZA = the scheme = the operator = authorised, collapsing three distinct things into one brand | Invariant BANZA ≠ the designated L3 scheme operator and BANZA ≠ the scheme itself (ADR-003/060); layers separated in infrastructure, databases, schemas, roles, keys, secrets, logs, backups, pipelines and permissions, keys never reused across domains (ADR-007); the L1 protocol stays buildable/governable/verifiable with no knowledge of any scheme; Technical Registry ≠ Scheme Participant Directory; identity/contamination guards keep payment-operator brands off the protocol surface | protocol/governance |
-| Certification = admission confusion — a reader treats a certified implementation as admitted to the scheme or as regulator-authorised | Technical Certification ≠ Scheme Admission ≠ Regulatory Authorisation (ADR-004): certification certifies an **implementation** against a public versioned profile, never an entity; Scheme Admission is a separate, later operational determination by the scheme operator (never implied by certification); regulatory authorisation belongs to the competent regulator. A PASS is a conformance result, not a licence or an authorisation | protocol/governance |
+| Conflict of interest / self-certification bypass — the designated L3 scheme operator's own implementation seeks a reduced profile, a private certification, a reserved endpoint, publication without evidence, a FAIL→PASS override or a secret exception (creator == first operator) | Structural, not by promise (ADR-006): that implementation runs the **same** public versioned profile, the **same** conformance + interoperability suites, the **same** Rust engine, the **same** reason codes, validity and revocation as any other, and is independently verifiable. No reduced profile, no private certification, no bypass, no reserved endpoint, no publication without evidence, no FAIL→PASS, no secret exception. Certification is decided in Rust over reproducible, hash-bound evidence; Rust validates before publishing. Guards: `banza-protocol-scheme-separation-check` and the M2.19C scheme-role separation guard | protocol/engine |
+| False regulatory status — a public surface presents the L3 operator as already authorised, BNA-approved, licensed or regulator-recognised | Internal state is `REGULATORY_AUTHORIZATION_IN_PROGRESS` (ADR-007) = preparation, not conclusion. Only the prudent public phrasing is allowed ("A camada operacional encontra-se em preparação regulatória. Os pagamentos reais permanecem desactivados."). No BNA-approval language until every §6 gate of `BANZA_REGULATORY_CLAIM_POLICY.md` holds (evidence + founders' authorisation + reviewed wording + no confidential info + not readable as granted) — none holds today. Guard: `banza-regulatory-state-claim-check`; `make regulatory-check` | governance/frontend |
+| Real-money activation — real funds, wallets, settlement or real participants are switched on without formal applicable evidence | **RealMoneyActivationGate** (ADR-007): real funds, real wallets, real settlement, real participants and real financial clients are **fail-closed** until formal applicable evidence exists. Activation is a Rust-validated decision; no public claim, prior technical stage or local-model explanation unlocks it. Operador Zero stays a demonstration reference implementation (ADR-035/053), never a scheme participant nor a real-money path | engine (fail-closed) |
+| Protocol/scheme confusion — a reader concludes BANZA = the scheme = the operator = authorised, collapsing three distinct things into one brand | Invariant BANZA ≠ the designated L3 scheme operator and BANZA ≠ the scheme itself (ADR-004/060); layers separated in infrastructure, databases, schemas, roles, keys, secrets, logs, backups, pipelines and permissions, keys never reused across domains (ADR-006); the L1 protocol stays buildable/governable/verifiable with no knowledge of any scheme; Technical Registry ≠ Scheme Participant Directory; identity/contamination guards keep payment-operator brands off the protocol surface | protocol/governance |
+| Certification = admission confusion — a reader treats a certified implementation as admitted to the scheme or as regulator-authorised | Technical Certification ≠ Scheme Admission ≠ Regulatory Authorisation (ADR-005): certification certifies an **implementation** against a public versioned profile, never an entity; Scheme Admission is a separate, later operational determination by the scheme operator (never implied by certification); regulatory authorisation belongs to the competent regulator. A PASS is a conformance result, not a licence or an authorisation | protocol/governance |
 
 **M2.19C trust boundaries (append).**
 
 - **certification vs scheme admission vs regulatory authorisation** — three separate determinations
-  (ADR-004). A certified implementation is not thereby admitted to any scheme and not thereby authorised
+  (ADR-005). A certified implementation is not thereby admitted to any scheme and not thereby authorised
   to move real funds.
 - **BANZA (L1/L2) vs the designated L3 scheme operator** — the protocol and certification are
-  operator-neutral (ADR-003/060); naming the first scheme operator does not make BANZA an operator, and
-  the operator's own implementation earns no self-privilege (ADR-007).
+  operator-neutral (ADR-004/060); naming the first scheme operator does not make BANZA an operator, and
+  the operator's own implementation earns no self-privilege (ADR-006).
 - **Technical Registry vs Scheme Participant Directory** — the L2 technical registry is independent of
   the L3 scheme directory; public verification needs no scheme account.
 - **regulatory preparation vs authorisation** — `REGULATORY_AUTHORIZATION_IN_PROGRESS` is preparation;
   it is not authorisation granted, BNA approval, a completed licence, regulatory recognition or active
-  financial operation (ADR-005).
+  financial operation (ADR-007).
 
 **Out of scope for M2.19C** (unchanged from the sections above, restated for the L3 layer): real money
 movement · real wallets · real settlement · real participants · regulator approval · a completed licence.
@@ -154,13 +154,13 @@ None is asserted or activated by this milestone; every real-money path stays fai
 ## M2.19G.1 — Endpoint-originated validation threats (§36)
 
 > **M2.19G.1 makes every artifact in BanzAI's official validation journey come exclusively from the
-> public endpoints of the selected implementation** (ADR-038). The target is resolved from the closed
-> Technical Registry (`operator_id → implementation_id → canonical_origin → discovery`, ADR-036); the
+> public endpoints of the selected implementation** (ADR-034). The target is resolved from the closed
+> Technical Registry (`operator_id → implementation_id → canonical_origin → discovery`, ADR-033); the
 > fetch is performed by a secure, SSRF-hardened **Rust** artifact fetcher (`engines/banza-artifact-fetcher`,
-> ADR-043/ADR-038 §4.7), never the browser; the no-network decision engines receive already-fetched
+> ADR-038/ADR-034 §4.7), never the browser; the no-network decision engines receive already-fetched
 > content and Rust decides every verdict; each verdict is bound to the exact origin of its inputs in an
 > `OperationReceipt`/`JourneyReceipt` (§30/§31). Upload/paste is demoted to a local, non-authoritative
-> **draft** tool (`DRAFT_VALIDATION_RESULT`, ADR-038 §4.5). This section **appends** the threats this
+> **draft** tool (`DRAFT_VALIDATION_RESULT`, ADR-034 §4.5). This section **appends** the threats this
 > model introduces. The sections above are unchanged. Endpoint-originated validation activates no real
 > money, admits no operator, and asserts no regulatory status; a receipt is not a certificate.
 
@@ -173,9 +173,9 @@ the Technical Registry publishes the verifiable state.** The threats map to four
 
 | Threat | Mitigation (current) | Residual owner |
 |---|---|---|
-| Local artifact presented as official — pasted/uploaded/embedded content, a fixture or a pre-computed result is passed off as an official verdict | The official journey consumes **only** artifacts fetched from the implementation's public endpoints (ADR-038 §4.4). Upload/paste lives only in a clearly-marked local **draft** tool whose output is `DRAFT_VALIDATION_RESULT` — local, non-authoritative, never evidence (§4.5). No pasted/uploaded content ever enters the official path | engine (fetcher) / frontend |
+| Local artifact presented as official — pasted/uploaded/embedded content, a fixture or a pre-computed result is passed off as an official verdict | The official journey consumes **only** artifacts fetched from the implementation's public endpoints (ADR-034 §4.4). Upload/paste lives only in a clearly-marked local **draft** tool whose output is `DRAFT_VALIDATION_RESULT` — local, non-authoritative, never evidence (§4.5). No pasted/uploaded content ever enters the official path | engine (fetcher) / frontend |
 | Operator / implementation impersonation — an artifact claims an identity that is not the resolved target | The discovery engine checks that `operator_id`, `implementation_id`, `canonical_origin` and `protocol_version` in the fetched discovery match the resolved target, and that every announced endpoint is host-bound to the canonical origin (`DISCOVERY_MISMATCH` / `DISCOVERY_ENDPOINT_OFF_ORIGIN`) | engine (registry/discovery) |
-| Target substitution — a caller tries to point validation at a different operator/implementation or a foreign origin | The target is resolved **only** from the closed Technical Registry (ADR-036); `operator_id`/`implementation_id` are closed-set ids (never URLs), and the fetcher receives a registry-derived `canonical_origin`+`expected_host`, never a caller URL | engine (registry) |
+| Target substitution — a caller tries to point validation at a different operator/implementation or a foreign origin | The target is resolved **only** from the closed Technical Registry (ADR-033); `operator_id`/`implementation_id` are closed-set ids (never URLs), and the fetcher receives a registry-derived `canonical_origin`+`expected_host`, never a caller URL | engine (registry) |
 | Registry poisoning — an unpublished / revoked / origin-less / incompatible record is treated as a valid target | Resolution is fail-closed with typed reasons (`unknown_*`, `*_unpublished`, `*_removed`, `*_revoked`, `origin_missing`, `incompatible_protocol_version`, `unsupported_environment`, `incompatible_profile`). Only a `published` operator + `published` implementation with a valid HTTPS origin, supported protocol/environment/profile is eligible | engine (registry) |
 | SSRF — the fetch is redirected at an internal service | HTTPS-only, registry-supplied host + port allowlist (443), full IPv4/IPv6 blocklist (loopback/private/CGNAT/link-local/unique-local/unspecified/broadcast/multicast/reserved), most-specific-rule-wins; reason codes `scheme_not_https`, `host_mismatch`, `port_not_allowed`, `loopback_blocked`, `private_ip_blocked`, … (§4.7, §19) | engine (fetcher) |
 | DNS rebinding — the host resolves to a benign IP then flips to a private one | The host is resolved **once**; a set is refused if **any** member is non-global; the connection is **pinned** to the validated IPs (`resolve_to_addrs`) so no second, unvalidated lookup can occur, while Host/SNI are preserved | engine (fetcher) |
@@ -192,7 +192,7 @@ the Technical Registry publishes the verifiable state.** The threats map to four
 | Replay — an old fetch/verdict is re-presented as current | Each step carries a fresh `request_id`, `operation_id`, `fetched_at` and audit ref; freshness is part of the verdict; a receipt is not reusable as a certificate | engine (receipts) |
 | Cache poisoning — an intermediary injects a forged response | HTTPS + pinned validated IPs + zero redirects + hash binding mean a forged/injected body fails TLS or is detectable by hash; the fetcher sets no ambient cache trust | engine (fetcher) |
 | Profile / environment downgrade — a target claims a weaker profile or a production environment to dodge checks | Resolution enforces supported environments (`sandbox`/`demo` only) and profiles; a mismatch is a typed ineligibility (`unsupported_environment`, `incompatible_profile`); the profile is fixed per certification profile version, not caller-chosen | engine (registry) |
-| Operador-Zero fixture bypass — the reference implementation is given a shortcut, official fixture or pre-computed result | Operador Zero receives **no** shortcut/fixture/bypass (ADR-038 §4.9): it exists in the registry as an operator + implementation record, publishes its endpoints at `zero.banza.network`, and is validated through the **same** secure fetch + Rust engines as any implementation, producing real origin-bound receipts | engine (fetcher/registry) |
+| Operador-Zero fixture bypass — the reference implementation is given a shortcut, official fixture or pre-computed result | Operador Zero receives **no** shortcut/fixture/bypass (ADR-034 §4.9): it exists in the registry as an operator + implementation record, publishes its endpoints at `zero.banza.network`, and is validated through the **same** secure fetch + Rust engines as any implementation, producing real origin-bound receipts | engine (fetcher/registry) |
 | Frontend-verdict injection — the browser or TypeScript fabricates or alters a verdict | Rust decides every verdict (registry + no-network decision engines); TypeScript shuttles JSON, assembles engine inputs from fetched content and builds receipts, and never decides; there is no model call in validation mode (`qwen_calls = 0`, `external_model_calls = 0`) | engine (Rust authority) |
 | Receipt origin omission — a result is published without its provenance | Every `OperationReceipt`/`JourneyReceipt` binds the result to operator, implementation, endpoint, resolved host, `fetched_at`, HTTP status, content type/length, ETag, hash, signature status and engine version; protocol fetches count as `protocol_fetch_count`, never as `external_model_calls` (§4.8) | engine (receipts) |
 

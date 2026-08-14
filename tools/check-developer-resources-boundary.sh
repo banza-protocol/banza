@@ -4,8 +4,8 @@
 #
 # Chapter 13's risk is turning TOOLS, SDKs, reference code or CURRENT-IMPLEMENTATION choices into
 # PROTOCOL REQUIREMENTS. The canon (CLAUDE.md operator technology-neutrality · ADR-001 protocol-first ·
-# ADR-043 Rust-first for OFFICIAL engines only · ADR-026/Ch05 PostgreSQL = reference-implementation
-# persistence · ADR-041/Ch09 Operador Zero = reference impl ≠ spec · ADR-042/§12 BanzAI orienta/não
+# ADR-038 Rust-first for OFFICIAL engines only · ADR-013/Ch05 PostgreSQL = reference-implementation
+# persistence · ADR-035/Ch09 Operador Zero = reference impl ≠ spec · ADR-036/§12 BanzAI orienta/não
 # decide · contracts/invariants.json = single machine-readable source of truth) fixes:
 #
 #   - the ARTEFACTOS NORMATIVOS (contracts, invariants, conformance vectors) define the rules; TOOLS help
@@ -178,6 +178,6 @@ check_svg "$AUTHORITY_SVG" || svg_bad=1
 if check "$REF" && [ "$svg_bad" -eq 0 ]; then
   echo "Result: ✓ §13 keeps norm vs tool distinct: artefacts define; tools implement/verify; references exemplify; any language/DB/runtime; Rust is the reference engines' language not an operator requirement; SDK≠protocol; OpenAPI≠whole spec; Operador Zero not to copy; BanzAI does not certify; validate ≠ certify/admit/authorize; the stale mirror is not cited"
 else
-  echo "Result: ✗ §13 lets a tool or implementation choice read as a protocol requirement (see CLAUDE.md operator neutrality, ADR-043/042/052/054, and the stale-mirror rule)"
+  echo "Result: ✗ §13 lets a tool or implementation choice read as a protocol requirement (see CLAUDE.md operator neutrality, ADR-038/042/052/054, and the stale-mirror rule)"
   exit 1
 fi

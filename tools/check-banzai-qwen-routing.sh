@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# check-banzai-qwen-routing.sh — Qwen-first routing guard (ADR-042, M2.8G).
+# check-banzai-qwen-routing.sh — Qwen-first routing guard (ADR-036, M2.8G).
 #
 # Verifies the routing CONTRACT behaviourally: it loads the Rust routing engine (compiled to the
 # committed Node WASM, engines/banzai-api-kb → services/banzai-api/src/rustkb) and asserts, for a set
@@ -27,7 +27,7 @@ KNOWLEDGE="services/banzai-api/src/knowledge.js"
 [ -f "$WASM_DIR/banzai_api_kb.js" ] || { echo "FAIL: $WASM_DIR not built (run wasm-pack)"; exit 1; }
 [ -f "$PIPELINE" ] || { echo "FAIL: $PIPELINE not found"; exit 1; }
 
-echo "== banzai-qwen-routing-check (ADR-042, M2.8G) =="
+echo "== banzai-qwen-routing-check (ADR-036, M2.8G) =="
 
 # 1. Behavioural routing contract — driven through the real Rust engine (WASM).
 node - "$WASM_DIR" <<'NODE'

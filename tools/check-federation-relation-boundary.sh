@@ -4,8 +4,8 @@
 #
 # Chapter 10's risk is the sharpest in the reference: turning a bounded, verifiable TECHNICAL RELATION
 # into a "BANZA network", a membership, an institutional authority, a scheme, a settlement, or a
-# regulatory authorization. The canon (ADR-031 Federation Trust Evaluation · FEDERATION_INVARIANTS
-# INV-FEDEVAL/INV-FED · ADR-004 non-propagation · ADR-027 Model A) fixes federation as:
+# regulatory authorization. The canon (ADR-025 Federation Trust Evaluation · FEDERATION_INVARIANTS
+# INV-FEDEVAL/INV-FED · ADR-005 non-propagation · ADR-025 Model A) fixes federation as:
 #
 #   - a per-pair, per-INTERACTION relation between operators, decided LOCALLY by each party over public
 #     material, producing exactly one result: ROUTING_ALLOWED / FAIL_CLOSED — never a conferred status;
@@ -150,10 +150,10 @@ selftest() {
 
 if ! selftest; then echo "Result: ✗ Federation relation-boundary guard self-test broken"; exit 2; fi
 
-echo "Federation relation-boundary guard — §10 keeps federation a bounded, local, per-interaction technical relation (ADR-031/061/079), never a network/membership/authority/scheme/settlement/authorization"
+echo "Federation relation-boundary guard — §10 keeps federation a bounded, local, per-interaction technical relation (ADR-025/061/079), never a network/membership/authority/scheme/settlement/authorization"
 if check "$REF"; then
   echo "Result: ✓ §10 keeps federation a bounded verifiable relation: local per-interaction (ROUTING_ALLOWED/FAIL_CLOSED), L3 necessary-not-sufficient, non-symmetric, non-transitive, non-propagating; BANZA not in the trust or funds path"
 else
-  echo "Result: ✗ §10 lets federation drift into a network/membership/authority/scheme/settlement/authorization (see decisions/adr/ADR-031, ADR-004, ADR-027)"
+  echo "Result: ✗ §10 lets federation drift into a network/membership/authority/scheme/settlement/authorization (see decisions/adr/ADR-025, ADR-005, ADR-025)"
   exit 1
 fi

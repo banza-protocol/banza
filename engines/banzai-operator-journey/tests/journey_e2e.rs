@@ -1,4 +1,4 @@
-//! END-TO-END operator-guidance path, through the real engine (ADR-042 §D-076-01/02).
+//! END-TO-END operator-guidance path, through the real engine (ADR-036/02).
 //!
 //! This is the engine half of the end-to-end test. It walks the SAME seven orientation activities a
 //! person walks in the browser — land on Guia, move activity by activity, attach a typed reference to a

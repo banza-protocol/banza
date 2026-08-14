@@ -12,9 +12,9 @@ Canonical QR payment payload format specification for the BANZA protocol.
 ## QR is an interface to a Payment Session (ADR-015)
 
 **Payment Link, QR and Deep Link are interfaces; the Payment Session (a
-PaymentIntent, ADR-014) is the financial object.** A QR — static or dynamic — that
+PaymentIntent, ADR-015) is the financial object.** A QR — static or dynamic — that
 presents a Payment Session resolves, when scanned, to that session and credits the
-session's destination (which MAY be a segregated Wallet Account, ADR-019) — exactly
+session's destination (which MAY be a segregated Wallet Account, ADR-017) — exactly
 like the session's payment link. The QR carries only an opaque session reference,
 never an internal account id, and an application never generates a financial QR (the
 operator renders it). See [ADR-015](../../decisions/adr/ADR-015-payment-session.md)

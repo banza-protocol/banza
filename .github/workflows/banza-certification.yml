@@ -1,8 +1,8 @@
 name: banza-certification
 
-# Builds and tests the deterministic Rust certification authority (ADR-043 R4; ADR-034/065/066):
+# Builds and tests the deterministic Rust certification authority (ADR-038 R4; ADR-032/065/066):
 # cargo fmt/clippy/test. Offline, no network, no secrets, no external model. A PASS here is technical
-# certification evidence, never a licence, scheme admission or regulatory authorisation (ADR-004).
+# certification evidence, never a licence, scheme admission or regulatory authorisation (ADR-005).
 
 on:
   push:

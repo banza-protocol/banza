@@ -1,7 +1,7 @@
 {
   "_spec": "BANZA QR Payload Format Specification v1.0",
   "_status": "canonical",
-  "_authority": "ADR-016, ADR-002, INV-QR-001",
+  "_authority": "ADR-015, ADR-001, INV-QR-001",
   "_source_of_truth": "This contract. Normative; not derived from any implementation.",
   "overview": {
     "description": "The BANZA QR payload is the string encoded into a QR code image and scanned by a consumer device. It encodes enough information to initiate a payment without requiring the scanning device to be online, while keeping the payload compact for high-contrast QR rendering.",

@@ -1,4 +1,4 @@
-//! Rust-first policy enforcement guard (ADR-043).
+//! Rust-first policy enforcement guard (ADR-038).
 //!
 //! Scans official BANZA/BanzAI source for **new non-Rust engines** and blocks them.
 //! Allowed without question: Rust, React/`.tsx` UI, thin wrappers (no algorithm), data,
@@ -190,7 +190,7 @@ pub fn is_test_file(path: &str) -> bool {
 
 /// Policy guard scripts (`tools/check-*.sh`) enforce the Rust-first rule and other invariants;
 /// by design they NAME engines (paths, markers) to detect them. They are Bash orchestration
-/// (allowed by ADR-043), never engines themselves — so an engine marker inside a guard script
+/// (allowed by ADR-038), never engines themselves — so an engine marker inside a guard script
 /// is a reference, not a new engine. Narrow on purpose: only `tools/check-*.sh`, so a real
 /// non-Rust engine that happens to be a shell script elsewhere is still blocked.
 pub fn is_guard_file(path: &str) -> bool {

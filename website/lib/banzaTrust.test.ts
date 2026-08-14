@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { trustStatusTone, type TrustStatus } from "./banzaTrust";
 
 // BX1.2 — the trust-adapter's only pure part: the render-only status → tone mapping.
-// The ed25519 signature check, the ADR-027 canonicalization, the delegated-key / manifest /
+// The ed25519 signature check, the ADR-025 canonicalization, the delegated-key / manifest /
 // conformance-evidence / registry / revocation / fail-closed logic AND the trust-status decision
 // itself all run in Rust (`banza-trust`) — covered by that crate's `cargo test` and by the browser
 // E2E. TypeScript never decides trust; it only paints a Rust-computed status. So here we test only

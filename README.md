@@ -333,7 +333,7 @@ end to end. It is a demonstration target with no privileged path, and it is not 
 
 ## BanzAI
 
-BanzAI is the **primary human-operator interface** to BANZA (ADR-042): optional assistance for
+BanzAI is the **primary human-operator interface** to BANZA (ADR-036): optional assistance for
 navigating the documentation and understanding technical results.
 
 Primary *for humans* is not the same as required. BanzAI is **not part of the normative implementation

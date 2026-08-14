@@ -50,7 +50,7 @@ echo "== no privileged containers =="
 ! grep -q 'privileged: true' /tmp/banza-rendered.yml || fail "privileged container present"
 echo "  none ✅"
 
-echo "== llama-local is OFF by default (ADR-042: compose profile gates it) =="
+echo "== llama-local is OFF by default (ADR-036: compose profile gates it) =="
 grep -q '^  llama-local:$' /tmp/banza-rendered.yml \
   && fail "llama-local must be profile-gated — absent from the default render"
 echo "  llama-local absent by default ✅"

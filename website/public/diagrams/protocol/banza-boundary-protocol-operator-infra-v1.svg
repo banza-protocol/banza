@@ -6,7 +6,7 @@
   source:    BANZA_REFERENCIA.md §1 (O Que É) e §4 (Arquitectura)
   updated:   2026-08-08
   changes:   v1.3 — external infra generalized (no named external entity); header tagline aligned to the canonical authority phrasing ("a autoridade competente decide")
-             v1.2 — BanzAI reframed as the primary human-operator interface (ADR-054); humans/operators → BanzAI → BANZA flow inside the boundary
+             v1.2 — BanzAI reframed as the primary human-operator interface (ADR-036); humans/operators → BanzAI → BANZA flow inside the boundary
   author:    BANZA Protocol
   style:     protocol
 -->
@@ -14,7 +14,7 @@
      role="img" aria-labelledby="title-P051 desc-P051"
      font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
   <title id="title-P051">Fronteira do Protocolo BANZA</title>
-  <desc id="desc-P051">Humanos e operadores usam o BanzAI, a interface primária humano-operador (ADR-054), para interagir com o protocolo BANZA; dentro da fronteira ficam a especificação, os contratos, os invariantes, a conformidade, os motores verificáveis e a evidência. Fora da fronteira ficam os operadores independentes (app, operação, utilizadores, KYC/KYB, AML/CFT, incidentes), a infraestrutura financeira externa (contas, liquidação, vias financeiras) e as autoridades competentes (licenciamento, supervisão, regulação). O BanzAI orienta, mas não é normativo e não autoriza actividade regulada: não decide, não certifica, não aprova, não licencia nem movimenta fundos. Não há fluxo de fundos pelo BANZA — o protocolo não detém nem movimenta fundos. Integrações máquina-máquina continuam possíveis por APIs, manifests, schemas e endpoints, sem depender obrigatoriamente do BanzAI.</desc>
+  <desc id="desc-P051">Humanos e operadores usam o BanzAI, a interface primária humano-operador (ADR-036), para interagir com o protocolo BANZA; dentro da fronteira ficam a especificação, os contratos, os invariantes, a conformidade, os motores verificáveis e a evidência. Fora da fronteira ficam os operadores independentes (app, operação, utilizadores, KYC/KYB, AML/CFT, incidentes), a infraestrutura financeira externa (contas, liquidação, vias financeiras) e as autoridades competentes (licenciamento, supervisão, regulação). O BanzAI orienta, mas não é normativo e não autoriza actividade regulada: não decide, não certifica, não aprova, não licencia nem movimenta fundos. Não há fluxo de fundos pelo BANZA — o protocolo não detém nem movimenta fundos. Integrações máquina-máquina continuam possíveis por APIs, manifests, schemas e endpoints, sem depender obrigatoriamente do BanzAI.</desc>
   <defs>
     <linearGradient id="hg-P051" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%" stop-color="#6E0F1A"/><stop offset="100%" stop-color="#8E1326"/>

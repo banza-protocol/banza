@@ -1,6 +1,6 @@
 // M2.18B.3A Round A — canonical corpus truth-table audit. Discovers public docs from the filesystem and
 // checks each across the layers the grounded synthesis depends on: doc-index (chunks), docref registry (resolvable),
-// candidate generation. No model. Surfaces gaps (missing/orphan) + confirms ADR-041/054.
+// candidate generation. No model. Surfaces gaps (missing/orphan) + confirms ADR-035/054.
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { createRequire } from "node:module";
 const require = createRequire(import.meta.url);
@@ -46,8 +46,8 @@ console.log(`doc-index: ${docIndex.length} chunks covering ${indexById.size} ids
 console.log(`truth-table OK: ${rows.filter((r) => r.ok).length}/${rows.length}`);
 console.log(`GAPS (${gaps.length}):`);
 gaps.forEach((g) => console.log(`  ${g.id} chunks=${g.chunks} resolvable=${g.resolvable} | ${g.file}`));
-// explicit ADR-041/054 confirmation
-for (const id of ["ADR-041", "ADR-042"]) {
+// explicit ADR-035/054 confirmation
+for (const id of ["ADR-035", "ADR-036"]) {
   const row = rows.find((r) => r.id === id);
   console.log(`CONFIRM ${id}: ${row ? JSON.stringify(row) : "NOT DISCOVERED"}`);
 }

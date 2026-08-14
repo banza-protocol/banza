@@ -264,7 +264,7 @@
       "id": "ledger",
       "name": "ledger / dupla entrada",
       "type": "concept",
-      "resolution": "trunk synthesis grounded in ADR-011 (double-entry ledger + monetary precision)",
+      "resolution": "trunk synthesis grounded in ADR-012 (double-entry ledger + monetary precision)",
       "deliverables": [],
       "aliases": [
         "ledger",
@@ -280,7 +280,7 @@
       "id": "wallet",
       "name": "wallet / conta",
       "type": "concept",
-      "resolution": "trunk synthesis grounded in ADR-012 (wallet-native identity) / account model",
+      "resolution": "trunk synthesis grounded in ADR-014 (wallet-native identity) / account model",
       "deliverables": [],
       "aliases": [
         "wallet",
@@ -310,7 +310,7 @@
       "id": "qr",
       "name": "QR / payment session",
       "type": "artefact",
-      "resolution": "trunk synthesis grounded in ADR-016 (QR payment system) / ADR-015 (payment session)",
+      "resolution": "trunk synthesis grounded in ADR-015 (QR payment system) / ADR-015 (payment session)",
       "deliverables": [],
       "aliases": [
         "qr",
@@ -377,13 +377,6 @@
     "ADR-036",
     "ADR-037",
     "ADR-038",
-    "ADR-039",
-    "ADR-040",
-    "ADR-041",
-    "ADR-042",
-    "ADR-043",
-    "ADR-044",
-    "ADR-045",
     "RFC-0001",
     "RFC-0002",
     "RFC-0003",
@@ -394,8 +387,8 @@
   "document_instance_sample": [
     "ADR-001",
     "ADR-001",
-    "ADR-031",
+    "ADR-025",
     "RFC-0006"
   ],
-  "checksum": "aabba84e6608b1f6"
+  "checksum": "2817aee78b55fb05"
 }

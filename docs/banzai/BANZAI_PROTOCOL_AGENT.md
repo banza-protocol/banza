@@ -1,13 +1,13 @@
 # BanzAI — the Native Protocol Agent
 
-> BanzAI is the **native, non-authoritative AI agent of the BANZA protocol** (ADR-042) and the **primary
-> human-operator interface** for interacting with the protocol (ADR-042). It interprets requests,
+> BanzAI is the **native, non-authoritative AI agent of the BANZA protocol** (ADR-036) and the **primary
+> human-operator interface** for interacting with the protocol (ADR-036). It interprets requests,
 > consults the reference, guides operators, routes to the verifiable Rust/WASM engines, explains the
 > rules and helps prepare evidence. It never becomes the rules, and it is not mandatory for
 > machine-to-machine integration — APIs, manifests, schemas and endpoints stay verifiable without it.
 
-- **Governing decision:** [ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md) (identity) · [ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md) (agent core)
-- **Public interface:** a single route — `banza.network/banzai` (ADR-042) — served same-origin
+- **Governing decision:** [ADR-036](../../decisions/adr/ADR-036-banzai-a-non-authoritative-interface-to-the-protocol.md) (identity) · [ADR-036](../../decisions/adr/ADR-036-banzai-a-non-authoritative-interface-to-the-protocol.md) (agent core)
+- **Public interface:** a single route — `banza.network/banzai` (ADR-036) — served same-origin
 - **Status:** implemented and deployed on the reference deployment; **pre-production**
 - **Audience:** protocol maintainers + operators of the reference deployment (English is fine on this dev surface)
 
@@ -54,7 +54,7 @@ or a licence. Humans maintain and evolve the protocol; they do not centrally aut
 | PostgreSQL | internal only — never exposed; not used for BanzAI sessions |
 
 Local inference is **benchmark-gated in code** (ships off by default) and **activated on the reference
-deployment** via the runtime `.env` (ADR-042/045, which carry the benchmark gate). See
+deployment** via the runtime `.env` (ADR-036/045, which carry the benchmark gate). See
 [LOCAL_INFERENCE_RUNTIME.md](LOCAL_INFERENCE_RUNTIME.md) and
 [LOCAL_INFERENCE_RUNBOOK.md](LOCAL_INFERENCE_RUNBOOK.md).
 
@@ -62,7 +62,7 @@ deployment** via the runtime `.env` (ADR-042/045, which carry the benchmark gate
 
 TypeScript/JS is UI and I/O glue only. The **Rust/WASM engines** own retrieval, the compact prompt,
 Qwen-first routing, injection defence, the post-response validator, the operator-journey state machine
-and the safe upload scan (ADR-043). Qwen is only a **local language-generation layer** — it is never a
+and the safe upload scan (ADR-038). Qwen is only a **local language-generation layer** — it is never a
 source of protocol truth.
 
 ## 5. Related docs

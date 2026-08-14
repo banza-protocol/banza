@@ -28,10 +28,10 @@ and the protocol specification is versioned with [Semantic Versioning](https://s
 ## [Unreleased]
 
 ### Added
-- ADR-014 — Payment Intent: canonical payment-initiation primitive (Accepted).
+- ADR-015 — Payment Intent: canonical payment-initiation primitive (Accepted).
   Payment Links/QR/Payment Requests are surfaces of a PaymentIntent. New
   capability `supports_payment_intents` (Level 2); events `payment_intent.*`.
-- ADR-018 — Payment Collections (Accepted, was Proposed): Collection +
+- ADR-016 — Payment Collections (Accepted, was Proposed): Collection +
   CollectionShare aggregates, extensible CollectionRule, state machines,
   `collection.*` events, per-share settlement via PaymentIntent → Transfer →
   Ledger (Collection holds no money, never touches the ledger). New capability
@@ -39,7 +39,7 @@ and the protocol specification is versioned with [Semantic Versioning](https://s
   `contracts/openapi/collections.yaml`; vectors: `conformance/vectors/collections.json`;
   architecture: `spec/collections.md`. Scope v1: single-operator.
 - `VERSION` and this `CHANGELOG.md` as the single protocol-version anchor.
-- ADR-020 — Wallet-native merchant payments and refund source model (Accepted).
+- ADR-018 — Wallet-native merchant payments and refund source model (Accepted).
 - Canonical conformance-level (L0–L4) naming and a deprecated-name crosswalk
   (`docs/governance/certification-boundary.md`).
 - Invariant ID crosswalk mapping section-local IDs to canonical families
@@ -61,7 +61,7 @@ The v1.0 BANZA Open Financial Protocol specification surface: financial invarian
 double-entry ledger model, wallet-native identity, QR payments, payment links,
 settlement and routing behaviour, the open contracts in `contracts/`, the
 conformance suite in `conformance/`, the conformance framework (`docs/governance/certification-boundary.md`),
-and the open federation trust model (ADR-027, ADR-033, ADR-031). Governed by the ADRs
+and the open federation trust model (ADR-025, ADR-031, ADR-025). Governed by the ADRs
 in `decisions/adr/`.
 
 This baseline is the specification as frozen at milestone M1. It carries no

@@ -2,14 +2,14 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://banza.network/contracts/settlements/state-machine.json",
   "title": "ApplicationSettlement state machine",
-  "_authority": "ADR-021",
+  "_authority": "ADR-019",
   "_spec_version": "1.0",
   "initial": "CREATED",
   "states": ["CREATED", "PENDING", "COMPLETED", "FAILED", "CANCELLED"],
   "terminal": ["COMPLETED", "FAILED", "CANCELLED"],
   "transitions": [
     { "from": "CREATED", "to": "PENDING",   "on": "submit" },
-    { "from": "PENDING", "to": "COMPLETED", "on": "post",   "note": "produces a balanced ledger posting (ADR-011)" },
+    { "from": "PENDING", "to": "COMPLETED", "on": "post",   "note": "produces a balanced ledger posting (ADR-012)" },
     { "from": "PENDING", "to": "FAILED",    "on": "fail" },
     { "from": "CREATED", "to": "CANCELLED", "on": "cancel" },
     { "from": "PENDING", "to": "CANCELLED", "on": "cancel" }

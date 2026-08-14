@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# M2.19G.1 (ADR-038 §27) — static header vs contextual right panel guard (§37, invariant 15).
+# M2.19G.1 (ADR-034 §27) — static header vs contextual right panel guard (§37, invariant 15).
 #
 # The compact validation HEADER carries STATIC metadata (operador · implementação · ambiente · perfil ·
 # versão do protocolo · jornada). The RIGHT PANEL is CONTEXTUAL only (progresso · próxima acção ·
@@ -18,7 +18,7 @@ fl() { printf 'FAIL: %s\n' "$1"; fail=1; }
 
 MODE=website/components/banzai/BanzaiValidationMode.tsx
 
-echo "== banzai-contextual-right-panel-check (M2.19G.1 / ADR-038 §27) =="
+echo "== banzai-contextual-right-panel-check (M2.19G.1 / ADR-034 §27) =="
 
 # ── self-test ───────────────────────────────────────────────────────────────────────────────────────
 st=0
@@ -50,4 +50,4 @@ grep -qiE 'CONTEXTUAL content only|CONTEXTUAL right panel' "$MODE" && ok "right 
 
 echo
 if [ "$fail" -ne 0 ]; then echo "banzai-contextual-right-panel-check: FAIL"; exit 1; fi
-echo "banzai-contextual-right-panel-check: ✓ static header + contextual-only right panel (ADR-038 §27)"
+echo "banzai-contextual-right-panel-check: ✓ static header + contextual-only right panel (ADR-034 §27)"

@@ -75,7 +75,7 @@ add('contracts/openapi/reference-operator.yaml', 'reference-implementation-api',
     'The L0 sandbox API of the reference implementation. Its own text: "This is not a production '
     'API. All state is in-memory and resets on restart." Not a surface any operator must expose.')
 add('contracts/openapi/operator-validation.yaml', 'verification-surface-api', INFO,
-    'Self-declared "reference/documentary contract" for the BanzAI validation surface (ADR-038). '
+    'Self-declared "reference/documentary contract" for the BanzAI validation surface (ADR-034). '
     'Documents request/response shapes of the validation routes; imposes no obligation on an '
     'operator implementation.')
 add('contracts/openapi/interoperability-certification.yaml', 'certification-surface-api', CONF,
@@ -109,6 +109,9 @@ add('spec/federation/FEDERATION_PROTOCOL_SURFACES.md', 'NORMATIVE_SPECIFICATION'
     'The surfaces a federation-capable (L3+) operator implements and publishes.')
 add('spec/collections.md', 'NORMATIVE_SPECIFICATION', IMPL,
     'Self-declared canonical. The Collections capability model every operator implements at L2.')
+add('spec/refunds.md', 'NORMATIVE_SPECIFICATION', IMPL,
+    'The typed refund source: what a refund may reference, the cumulative cap, idempotency scope and '
+    'opacity. Required only of implementations that offer refunds; no v1.0.0 profile requires them.')
 add('spec/federation/FEDERATION_INVARIANTS.md', 'NORMATIVE_REGISTRY', IMPL,
     'Federation and trust-root invariants (INV-ROOT-*, INV-FEDEVAL-*, INV-FED-*).')
 add('contracts/invariants.json', 'NORMATIVE_REGISTRY', IMPL,
@@ -211,7 +214,7 @@ tier_counts = Counter(e['tier'] for e in items)
 manifest = {
     "_spec": "BANZA Protocol Normative Manifest",
     "_status": "canonical",
-    "_authority": "ADR-009 (versioning), ADR-010 (canonicalization); remediation of audit findings "
+    "_authority": "ADR-008 (versioning), ADR-011 (canonicalization); remediation of audit findings "
                   "F-02/F-04",
     "_source_of_truth": "This manifest.",
     "_boundary": (

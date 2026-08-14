@@ -5,7 +5,7 @@
   "description": "Event envelope for events that cross operator boundaries. Extends contracts/events/envelope.schema.json with federation-specific fields. Every federation event is a valid base event envelope.",
   "_spec_version": "1",
   "_status": "canonical",
-  "_authority": "ADR-031, INV-FED-001",
+  "_authority": "ADR-025, INV-FED-001",
   "_extends": "contracts/events/envelope.schema.json",
 
   "allOf": [

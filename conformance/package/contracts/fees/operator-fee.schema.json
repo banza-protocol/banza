@@ -2,10 +2,10 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://banza.network/contracts/fees/operator-fee.schema.json",
   "title": "OperatorFee",
-  "description": "The operator's per-payment infrastructure charge (ADR-021), realized as one balanced leg of the PaymentIntent fulfilment posting (ADR-011). The AMOUNT is resolved by the operator's Pricing Engine — the protocol stores only the resolved minor-unit result + the references that produced it, never a rule or a percentage. INTERNAL: never returned by a public API, never shown to a payer.",
+  "description": "The operator's per-payment infrastructure charge (ADR-019), realized as one balanced leg of the PaymentIntent fulfilment posting (ADR-012). The AMOUNT is resolved by the operator's Pricing Engine — the protocol stores only the resolved minor-unit result + the references that produced it, never a rule or a percentage. INTERNAL: never returned by a public API, never shown to a payer.",
   "_spec_version": "1.0",
   "_status": "canonical",
-  "_authority": "ADR-021",
+  "_authority": "ADR-019",
   "_visibility": "operator-internal",
   "type": "object",
   "required": [
@@ -29,7 +29,7 @@
     },
     "payment_intent_id": {
       "type": "string",
-      "description": "The fulfilled PaymentIntent (ADR-014) this fee was charged on."
+      "description": "The fulfilled PaymentIntent (ADR-015) this fee was charged on."
     },
     "transfer_id": {
       "type": [
@@ -40,7 +40,7 @@
     },
     "posting_id": {
       "type": "string",
-      "description": "The ledger posting (ADR-011) whose balanced legs include this fee. Append-only."
+      "description": "The ledger posting (ADR-012) whose balanced legs include this fee. Append-only."
     },
     "amount_minor": {
       "type": "integer",

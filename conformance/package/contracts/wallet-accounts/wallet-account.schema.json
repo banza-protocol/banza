@@ -2,10 +2,10 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://banza.network/contracts/wallet-accounts/wallet-account.schema.json",
   "title": "WalletAccount",
-  "description": "A segregated ledger account inside a wallet (ADR-019). A wallet (one per owner+currency) may hold N accounts, each with its own isolated balance and a purpose. Ledger postings reference account_id; an Application Settlement source and a payment destination MAY be an account_id. PRIMARY is mandatory and unique per wallet. A WalletAccount is financial segregation only — never a person, merchant or consumer. Applications never compute a sub-balance outside the operator.",
+  "description": "A segregated ledger account inside a wallet (ADR-017). A wallet (one per owner+currency) may hold N accounts, each with its own isolated balance and a purpose. Ledger postings reference account_id; an Application Settlement source and a payment destination MAY be an account_id. PRIMARY is mandatory and unique per wallet. A WalletAccount is financial segregation only — never a person, merchant or consumer. Applications never compute a sub-balance outside the operator.",
   "_spec_version": "1.0",
   "_status": "canonical",
-  "_authority": "ADR-019",
+  "_authority": "ADR-017",
   "type": "object",
   "required": [
     "wallet_id",
@@ -24,7 +24,7 @@
     },
     "account_id": {
       "type": "string",
-      "description": "The segregated ledger account — the unit ledger postings reference (ADR-011). Immutable."
+      "description": "The segregated ledger account — the unit ledger postings reference (ADR-012). Immutable."
     },
     "owner_ref": {
       "type": "string",

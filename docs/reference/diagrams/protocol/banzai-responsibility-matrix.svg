@@ -3,7 +3,7 @@
   id:        SVG-P-075
   diagram:   Quem faz o quê no BANZA
   version:   1.0
-  source:    BANZA_REFERENCIA.md §11 · ADR-041
+  source:    BANZA_REFERENCIA.md §11 · ADR-035
   updated:   2026-07-19
   author:    BANZA Protocol
   style:     protocol
@@ -65,5 +65,5 @@
     <text x="960" y="420" text-anchor="end" font-family="ui-monospace,'Courier New',monospace" font-size="9.5" fill="#8E1326">EVOLUI</text>
   </g>
 
-  <text x="500" y="466" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-075 · Quem faz o quê no BANZA · BANZA_REFERENCIA.md §11 · ADR-041 · v1.0 · 2026-07-19</text>
+  <text x="500" y="466" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-075 · Quem faz o quê no BANZA · BANZA_REFERENCIA.md §11 · ADR-035 · v1.0 · 2026-07-19</text>
 </svg>

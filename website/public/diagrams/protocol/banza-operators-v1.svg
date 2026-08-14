@@ -2,7 +2,7 @@
 
 <svg viewBox="0 0 900 524" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title-P040 desc-P040" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
   <title id="title-P040">Âmbitos de Conformidade de Implementações BANZA — L0 a L4</title>
-  <desc id="desc-P040">Cinco âmbitos de conformidade de uma implementação BANZA, cumulativos e definidos por capacidades técnicas: L0 Sandbox, L1 Pagamento, L2 Iniciação, L3 Interoperabilidade, L4 Externa. São o scope da conformidade, não níveis nem uma hierarquia pública de certificação — um certificado L2 cobre os âmbitos que a sua evidência sustenta (ADR-021/064).</desc>
+  <desc id="desc-P040">Cinco âmbitos de conformidade de uma implementação BANZA, cumulativos e definidos por capacidades técnicas: L0 Sandbox, L1 Pagamento, L2 Iniciação, L3 Interoperabilidade, L4 Externa. São o scope da conformidade, não níveis nem uma hierarquia pública de certificação — um certificado L2 cobre os âmbitos que a sua evidência sustenta (ADR-019/064).</desc>
   <defs>
     <linearGradient id="hG-P040" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#6E0F1A"></stop><stop offset="100%" stop-color="#8E1326"></stop>
@@ -101,8 +101,8 @@
   
   <rect x="16" y="450" width="868" height="52" rx="6" fill="#EAE0DF" stroke="#D4C9C7" stroke-width="1"></rect>
   <text x="28" y="466" fill="#1A1A1A" font-size="10" font-weight="600">Âmbitos, não níveis de certificação.</text>
-  <text x="248" y="466" fill="#6B6265" font-size="10">L0–L4 são capacidades cumulativas; um certificado L2 cobre os âmbitos que a sua evidência sustenta (ADR-021/064).</text>
+  <text x="248" y="466" fill="#6B6265" font-size="10">L0–L4 são capacidades cumulativas; um certificado L2 cobre os âmbitos que a sua evidência sustenta (ADR-019/064).</text>
   <text x="28" y="484" fill="#1A1A1A" font-size="10" font-weight="600">Acesso aberto.</text>
   <text x="116" y="484" fill="#6B6265" font-size="10">Qualquer entidade demonstra conformidade apresentando evidência verificável para o âmbito alvo.</text>
-  <text x="450" y="514" text-anchor="middle" fill="#6B6265" font-size="10">SVG-P-040 · v1.0 · BANZA_REFERENCIA.md §8 · ADR-021 · 2026-06-07</text>
+  <text x="450" y="514" text-anchor="middle" fill="#6B6265" font-size="10">SVG-P-040 · v1.0 · BANZA_REFERENCIA.md §8 · ADR-019 · 2026-06-07</text>
 </svg>

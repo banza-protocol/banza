@@ -3,8 +3,8 @@
 # BANZA Operador Zero Reference-Boundary Guard (Ch09 "Operador Zero").
 #
 # Chapter 09's risk: a reference IMPLEMENTATION drifting into looking like a privileged operator, a
-# "first"/"official" operator, an authority, or a disguised normative specification. The canon (ADR-041
-# read-only canonical reference implementation · ADR-041/053 demo policy · ADR-038 endpoint-originated
+# "first"/"official" operator, an authority, or a disguised normative specification. The canon (ADR-035
+# read-only canonical reference implementation · ADR-035/053 demo policy · ADR-034 endpoint-originated
 # validation · ADR-006/061 separation) fixes it as a non-normative, non-production, no-real-funds,
 # NOT_CERTIFIED reference implementation. This guard keeps §9 of the Reference faithful to that:
 #
@@ -116,10 +116,10 @@ selftest() {
 
 if ! selftest; then echo "Result: ✗ Operador Zero reference-boundary guard self-test broken"; exit 2; fi
 
-echo "Operador Zero reference-boundary guard — §9 keeps a reference implementation from drifting into a privileged/normative/production operator (ADR-041/052/053/068)"
+echo "Operador Zero reference-boundary guard — §9 keeps a reference implementation from drifting into a privileged/normative/production operator (ADR-035/052/053/068)"
 if check "$REF"; then
   echo "Result: ✓ §9 keeps Operador Zero as a reference implementation: non-normative, non-production, no real funds, NOT_CERTIFIED, substitutable; the norm lives in the contracts"
 else
-  echo "Result: ✗ §9 lets Operador Zero drift into a privileged/normative/production operator (see decisions/adr/ADR-041, ADR-041)"
+  echo "Result: ✗ §9 lets Operador Zero drift into a privileged/normative/production operator (see decisions/adr/ADR-035, ADR-035)"
   exit 1
 fi

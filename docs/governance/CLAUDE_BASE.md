@@ -2,8 +2,8 @@
 
 **Version:** 1.0  
 **Date:** 2026-05-30  
-**Authority:** ADR-002 (Ecosystem Naming Inversion, 2026-05-29)  
-**Applies to:** ~/banza (this monorepo — BANZA protocol + the consolidated BanzAI runtime services/banzai-api + engines/banzai-*, ADR-042) · the reference operator repository
+**Authority:** ADR-001 (Ecosystem Naming Inversion, 2026-05-29)  
+**Applies to:** ~/banza (this monorepo — BANZA protocol + the consolidated BanzAI runtime services/banzai-api + engines/banzai-*, ADR-036) · the reference operator repository
 
 This document contains rules shared across all repositories in the `banza-protocol` ecosystem. Every repository-specific CLAUDE.md must be read in conjunction with this base.
 
@@ -74,7 +74,7 @@ The following are architectural errors. Never generate content that implies them
 - ADR navigation and operator onboarding tools
 - Lives at `banza.network/banzai`
 
-### Protected names (ADR-002)
+### Protected names (ADR-001)
 - `@banza` — identity namespace, permanent
 - `banza.network` — canonical domain
 - `contact@banza.network`, `security@banza.network` — canonical emails
@@ -174,14 +174,14 @@ Floating-point arithmetic is FORBIDDEN for money. Use integer minor units.
 
 ## Audit Methodology
 
-When auditing naming, content, or code for ADR-002 compliance, classify findings as:
+When auditing naming, content, or code for ADR-001 compliance, classify findings as:
 
-- **FALSE** — factually incorrect under ADR-002 (e.g., "the reference operator is the protocol")
+- **FALSE** — factually incorrect under ADR-001 (e.g., "the reference operator is the protocol")
 - **MISLEADING** — creates wrong impression (e.g., "BANZA ecosystem")
-- **OUTDATED** — was correct pre-ADR-002, not yet updated
+- **OUTDATED** — was correct pre-ADR-001, not yet updated
 - **CONTEXTUAL** — ambiguous, depends on interpretation
 - **CORRECT** — correctly applied
-- **PROTECTED** — intentionally preserved per ADR-002 (emails, domains, crate names)
+- **PROTECTED** — intentionally preserved per ADR-001 (emails, domains, crate names)
 
 ---
 

@@ -1,7 +1,7 @@
 {
   "_spec": "BANZA QR Code Lifecycle Specification v1.0",
   "_status": "canonical",
-  "_authority": "ADR-016, INV-QR-001",
+  "_authority": "ADR-015, INV-QR-001",
   "_source_of_truth": "This contract together with contracts/qr/payload-format.json. Normative; not derived from any implementation.",
   "states": {
     "ACTIVE": "QR code is valid and accepts payment.",

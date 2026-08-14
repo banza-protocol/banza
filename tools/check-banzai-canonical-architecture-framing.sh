@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 #
-# BanzAI canonical-architecture framing guard (M2.19G.6, ADR-042 — supersedes the M2.19G.5C/ADR-042
+# BanzAI canonical-architecture framing guard (M2.19G.6, ADR-036 — supersedes the M2.19G.5C/ADR-036
 # "frozen archive" framing).
 #
-# ADR-042 makes THIS repo the single, active source of BanzAI (services/banzai-api + engines/banzai-*).
+# ADR-036 makes THIS repo the single, active source of BanzAI (services/banzai-api + engines/banzai-*).
 # The separate banza-protocol/banzai repository is being PERMANENTLY DELETED — it must NOT be presented
 # on active surfaces as an archive / frozen / historical / legacy source, and must NOT be linked (a link
 # to a repository that will be deleted is a broken promise). The runtime must never be framed as a "mock
@@ -114,7 +114,7 @@ done
 [ "$f4" -eq 0 ] && ok "no links to and no archive framing of banza-protocol/banzai on active surfaces"
 
 if [ "$fail" -ne 0 ]; then
-  echo; echo "banzai-canonical-architecture-framing: FAIL — canonical BanzAI framing drifted (ADR-042)."; exit 1
+  echo; echo "banzai-canonical-architecture-framing: FAIL — canonical BanzAI framing drifted (ADR-036)."; exit 1
 fi
 echo
-echo "banzai-canonical-architecture-framing: ✓ services/banzai-api = canonical runtime; BANZA = sole active BanzAI source; separate repo neither linked nor framed as an archive (ADR-042)"
+echo "banzai-canonical-architecture-framing: ✓ services/banzai-api = canonical runtime; BANZA = sole active BanzAI source; separate repo neither linked nor framed as an archive (ADR-036)"

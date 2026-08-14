@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# M2.19G.1 (ADR-038 §31) — JourneyReceipt origin-fields schema guard (§37, invariant 22).
+# M2.19G.1 (ADR-034 §31) — JourneyReceipt origin-fields schema guard (§37, invariant 22).
 #
 # The §31 JourneyReceipt binds the aggregate result to the inputs' origins: it carries the per-step
 # receipts (endpoints-consulted + hashes live inside steps[]), the aggregate protocol_fetch_count, the
@@ -22,7 +22,7 @@ VALIDATE=services/banzai-api/src/validate.js
 # §31 JourneyReceipt field set. steps[] carries the endpoints-consulted + per-step hashes.
 FIELDS="receipt_version journey_id request_id workflow operator_id implementation_id environment profile protocol_version canonical_origin resolved_host started_at finished_at duration_ms step_count steps overall_status certification_readiness certification_status certified reason_codes qwen_calls external_model_calls protocol_fetch_count audit_ref"
 
-echo "== banzai-journey-receipt-origin-check (M2.19G.1 / ADR-038 §31) =="
+echo "== banzai-journey-receipt-origin-check (M2.19G.1 / ADR-034 §31) =="
 
 # ── self-test ───────────────────────────────────────────────────────────────────────────────────────
 st=0
@@ -45,7 +45,7 @@ fi
 
 # 2. Server builder (the journey_receipt object literal).
 if [ -f "$VALIDATE" ]; then
-  # ADR-042: the journey receipt is built as `const journeyReceipt = { … }` (so it can be persisted via
+  # ADR-036: the journey receipt is built as `const journeyReceipt = { … }` (so it can be persisted via
   # the durable receipt store) and returned as `journey_receipt: journeyReceipt`. Extract that block;
   # fall back to the older inline `journey_receipt: { … }` literal for backward compatibility.
   body=$(awk '/const journeyReceipt = \{/{c=1} c{print} c&&/^    \};/{exit}' "$VALIDATE")

@@ -848,11 +848,11 @@
       ]
     },
     {
-      "subject": "ADR-031",
+      "subject": "ADR-025",
       "subject_type": "document",
       "has_subject_profile": false,
       "resolution": "document registry (docref) + trunk synthesis",
-      "seed": "ADR-031",
+      "seed": "ADR-025",
       "terminal_tasks": [],
       "synthesis_tasks": [
         "explanation",
@@ -954,7 +954,7 @@
       "qr": 3,
       "webhook": 3,
       "ADR-001": 10,
-      "ADR-031": 5,
+      "ADR-025": 5,
       "RFC-0006": 5,
       "ADR-999-nonexistent": 5
     },
@@ -1369,8 +1369,8 @@
         "requested_task": "comparison",
         "source_appropriate": true,
         "source_appropriateness": "exact",
-        "n_sources": 3,
-        "top_source": "ADR-031",
+        "n_sources": 1,
+        "top_source": "ADR-025",
         "top_appropriateness": "exact_task_source",
         "escalate_insufficient": true
       },
@@ -1399,8 +1399,8 @@
         "requested_task": "definition",
         "source_appropriate": true,
         "source_appropriateness": "exact",
-        "n_sources": 3,
-        "top_source": "ADR-031",
+        "n_sources": 1,
+        "top_source": "ADR-025",
         "top_appropriateness": "exact_task_source",
         "escalate_insufficient": false
       },
@@ -1429,8 +1429,8 @@
         "requested_task": "explanation",
         "source_appropriate": true,
         "source_appropriateness": "exact",
-        "n_sources": 3,
-        "top_source": "ADR-031",
+        "n_sources": 1,
+        "top_source": "ADR-025",
         "top_appropriateness": "exact_task_source",
         "escalate_insufficient": false
       },
@@ -1455,16 +1455,16 @@
       "terminal_kind": "illustrative_example",
       "terminal_completion": "COMPLETE",
       "terminal_sources": [
-        "ADR-027",
-        "ADR-031",
+        "ADR-025",
+        "ADR-025",
         "operator-manifest-schema"
       ],
       "retrieval": {
         "requested_task": "example",
         "source_appropriate": false,
         "source_appropriateness": "thematic_only",
-        "n_sources": 3,
-        "top_source": "ADR-031",
+        "n_sources": 1,
+        "top_source": "ADR-025",
         "top_appropriateness": "thematic_weak",
         "escalate_insufficient": false
       },
@@ -1489,17 +1489,17 @@
       "terminal_kind": "transparent_partial_procedure",
       "terminal_completion": "COMPLETE",
       "terminal_sources": [
-        "ADR-027",
-        "ADR-031",
+        "ADR-025",
+        "ADR-025",
         "operator-manifest-schema"
       ],
       "retrieval": {
         "requested_task": "procedure",
         "source_appropriate": true,
         "source_appropriateness": "suitable",
-        "n_sources": 3,
-        "top_source": "ADR-001",
-        "top_appropriateness": "suitable_primary",
+        "n_sources": 1,
+        "top_source": "ADR-025",
+        "top_appropriateness": "suitable_supporting",
         "escalate_insufficient": false
       },
       "attribute_declared": false,
@@ -1523,17 +1523,17 @@
       "terminal_kind": "requirements",
       "terminal_completion": "COMPLETE",
       "terminal_sources": [
-        "ADR-027",
-        "ADR-031",
+        "ADR-025",
+        "ADR-025",
         "operator-manifest-schema"
       ],
       "retrieval": {
         "requested_task": "requirements",
         "source_appropriate": true,
         "source_appropriateness": "suitable",
-        "n_sources": 3,
-        "top_source": "ADR-001",
-        "top_appropriateness": "suitable_primary",
+        "n_sources": 1,
+        "top_source": "ADR-025",
+        "top_appropriateness": "suitable_supporting",
         "escalate_insufficient": false
       },
       "attribute_declared": false,
@@ -1561,8 +1561,8 @@
         "requested_task": "template",
         "source_appropriate": false,
         "source_appropriateness": "thematic_only",
-        "n_sources": 3,
-        "top_source": "ADR-031",
+        "n_sources": 1,
+        "top_source": "ADR-025",
         "top_appropriateness": "thematic_weak",
         "escalate_insufficient": false
       },
@@ -1628,7 +1628,7 @@
         "source_appropriate": true,
         "source_appropriateness": "exact",
         "n_sources": 1,
-        "top_source": "ADR-031",
+        "top_source": "ADR-025",
         "top_appropriateness": "exact_task_source",
         "escalate_insufficient": false
       },
@@ -1657,8 +1657,8 @@
         "requested_task": "explanation",
         "source_appropriate": true,
         "source_appropriateness": "exact",
-        "n_sources": 3,
-        "top_source": "ADR-031",
+        "n_sources": 1,
+        "top_source": "ADR-025",
         "top_appropriateness": "exact_task_source",
         "escalate_insufficient": false
       },
@@ -1688,7 +1688,7 @@
         "source_appropriate": true,
         "source_appropriateness": "exact",
         "n_sources": 1,
-        "top_source": "ADR-031",
+        "top_source": "ADR-025",
         "top_appropriateness": "exact_task_source",
         "escalate_insufficient": false
       },
@@ -1717,8 +1717,8 @@
         "requested_task": "comparison",
         "source_appropriate": true,
         "source_appropriateness": "exact",
-        "n_sources": 3,
-        "top_source": "ADR-031",
+        "n_sources": 1,
+        "top_source": "ADR-025",
         "top_appropriateness": "exact_task_source",
         "escalate_insufficient": true
       },
@@ -2092,7 +2092,7 @@
         "source_appropriate": true,
         "source_appropriateness": "exact",
         "n_sources": 1,
-        "top_source": "ADR-027",
+        "top_source": "ADR-025",
         "top_appropriateness": "exact_task_source",
         "escalate_insufficient": false
       },
@@ -2122,7 +2122,7 @@
         "source_appropriate": true,
         "source_appropriateness": "exact",
         "n_sources": 1,
-        "top_source": "ADR-027",
+        "top_source": "ADR-025",
         "top_appropriateness": "exact_task_source",
         "escalate_insufficient": false
       },
@@ -2148,14 +2148,14 @@
       "terminal_completion": "COMPLETE",
       "terminal_sources": [
         "revocation-entry-schema",
-        "ADR-031"
+        "ADR-025"
       ],
       "retrieval": {
         "requested_task": "example",
         "source_appropriate": false,
         "source_appropriateness": "thematic_only",
         "n_sources": 1,
-        "top_source": "ADR-027",
+        "top_source": "ADR-025",
         "top_appropriateness": "thematic_weak",
         "escalate_insufficient": false
       },
@@ -2181,14 +2181,14 @@
       "terminal_completion": "COMPLETE",
       "terminal_sources": [
         "revocation-entry-schema",
-        "ADR-031"
+        "ADR-025"
       ],
       "retrieval": {
         "requested_task": "procedure",
         "source_appropriate": true,
         "source_appropriateness": "suitable",
         "n_sources": 1,
-        "top_source": "ADR-027",
+        "top_source": "ADR-025",
         "top_appropriateness": "suitable_supporting",
         "escalate_insufficient": false
       },
@@ -2214,14 +2214,14 @@
       "terminal_completion": "COMPLETE",
       "terminal_sources": [
         "revocation-entry-schema",
-        "ADR-031"
+        "ADR-025"
       ],
       "retrieval": {
         "requested_task": "requirements",
         "source_appropriate": true,
         "source_appropriateness": "suitable",
         "n_sources": 1,
-        "top_source": "ADR-027",
+        "top_source": "ADR-025",
         "top_appropriateness": "suitable_supporting",
         "escalate_insufficient": false
       },
@@ -2251,7 +2251,7 @@
         "source_appropriate": false,
         "source_appropriateness": "thematic_only",
         "n_sources": 1,
-        "top_source": "ADR-027",
+        "top_source": "ADR-025",
         "top_appropriateness": "thematic_weak",
         "escalate_insufficient": false
       },
@@ -2317,7 +2317,7 @@
         "source_appropriate": true,
         "source_appropriateness": "exact",
         "n_sources": 1,
-        "top_source": "ADR-027",
+        "top_source": "ADR-025",
         "top_appropriateness": "exact_task_source",
         "escalate_insufficient": false
       },
@@ -2347,7 +2347,7 @@
         "source_appropriate": true,
         "source_appropriateness": "exact",
         "n_sources": 1,
-        "top_source": "ADR-027",
+        "top_source": "ADR-025",
         "top_appropriateness": "exact_task_source",
         "escalate_insufficient": false
       },
@@ -2377,7 +2377,7 @@
         "source_appropriate": true,
         "source_appropriateness": "exact",
         "n_sources": 1,
-        "top_source": "ADR-027",
+        "top_source": "ADR-025",
         "top_appropriateness": "exact_task_source",
         "escalate_insufficient": false
       },
@@ -2407,7 +2407,7 @@
         "source_appropriate": true,
         "source_appropriateness": "exact",
         "n_sources": 1,
-        "top_source": "ADR-027",
+        "top_source": "ADR-025",
         "top_appropriateness": "exact_task_source",
         "escalate_insufficient": true
       },
@@ -2492,8 +2492,8 @@
       "terminal_kind": "illustrative_example",
       "terminal_completion": "COMPLETE",
       "terminal_sources": [
-        "ADR-027",
-        "ADR-031",
+        "ADR-025",
+        "ADR-025",
         "federation-trust-evaluation-schema"
       ],
       "retrieval": {
@@ -2586,8 +2586,8 @@
       "terminal_kind": "real_structure",
       "terminal_completion": "COMPLETE",
       "terminal_sources": [
-        "ADR-027",
-        "ADR-031",
+        "ADR-025",
+        "ADR-025",
         "federation-trust-evaluation-schema"
       ],
       "retrieval": {
@@ -2838,7 +2838,7 @@
       "terminal_sources": [
         "evidence-bundle-schema",
         "conformance-evidence-schema",
-        "ADR-033"
+        "ADR-031"
       ],
       "retrieval": {
         "requested_task": "example",
@@ -2932,7 +2932,7 @@
       "terminal_sources": [
         "evidence-bundle-schema",
         "conformance-evidence-schema",
-        "ADR-033"
+        "ADR-031"
       ],
       "retrieval": {
         "requested_task": "template",
@@ -3125,7 +3125,7 @@
         "source_appropriate": true,
         "source_appropriateness": "exact",
         "n_sources": 1,
-        "top_source": "ADR-039",
+        "top_source": "ADR-030",
         "top_appropriateness": "exact_task_source",
         "escalate_insufficient": false
       },
@@ -3155,7 +3155,7 @@
         "source_appropriate": true,
         "source_appropriateness": "exact",
         "n_sources": 1,
-        "top_source": "ADR-039",
+        "top_source": "ADR-030",
         "top_appropriateness": "exact_task_source",
         "escalate_insufficient": false
       },
@@ -3180,8 +3180,8 @@
       "terminal_kind": "illustrative_example",
       "terminal_completion": "COMPLETE",
       "terminal_sources": [
-        "ADR-039",
-        "ADR-033",
+        "ADR-030",
+        "ADR-031",
         "conformance-evidence-schema"
       ],
       "retrieval": {
@@ -3189,7 +3189,7 @@
         "source_appropriate": false,
         "source_appropriateness": "thematic_only",
         "n_sources": 1,
-        "top_source": "ADR-039",
+        "top_source": "ADR-030",
         "top_appropriateness": "thematic_weak",
         "escalate_insufficient": false
       },
@@ -3214,8 +3214,8 @@
       "terminal_kind": "transparent_partial_procedure",
       "terminal_completion": "COMPLETE",
       "terminal_sources": [
-        "ADR-039",
-        "ADR-033",
+        "ADR-030",
+        "ADR-031",
         "conformance-evidence-schema"
       ],
       "retrieval": {
@@ -3223,7 +3223,7 @@
         "source_appropriate": true,
         "source_appropriateness": "suitable",
         "n_sources": 1,
-        "top_source": "ADR-039",
+        "top_source": "ADR-030",
         "top_appropriateness": "suitable_primary",
         "escalate_insufficient": false
       },
@@ -3248,8 +3248,8 @@
       "terminal_kind": "requirements",
       "terminal_completion": "COMPLETE",
       "terminal_sources": [
-        "ADR-039",
-        "ADR-033",
+        "ADR-030",
+        "ADR-031",
         "conformance-evidence-schema"
       ],
       "retrieval": {
@@ -3257,7 +3257,7 @@
         "source_appropriate": true,
         "source_appropriateness": "suitable",
         "n_sources": 1,
-        "top_source": "ADR-039",
+        "top_source": "ADR-030",
         "top_appropriateness": "suitable_primary",
         "escalate_insufficient": false
       },
@@ -3282,8 +3282,8 @@
       "terminal_kind": "real_structure",
       "terminal_completion": "COMPLETE",
       "terminal_sources": [
-        "ADR-039",
-        "ADR-033",
+        "ADR-030",
+        "ADR-031",
         "conformance-evidence-schema"
       ],
       "retrieval": {
@@ -3291,7 +3291,7 @@
         "source_appropriate": false,
         "source_appropriateness": "thematic_only",
         "n_sources": 1,
-        "top_source": "ADR-039",
+        "top_source": "ADR-030",
         "top_appropriateness": "thematic_weak",
         "escalate_insufficient": false
       },
@@ -3357,7 +3357,7 @@
         "source_appropriate": true,
         "source_appropriateness": "exact",
         "n_sources": 1,
-        "top_source": "ADR-039",
+        "top_source": "ADR-030",
         "top_appropriateness": "exact_task_source",
         "escalate_insufficient": false
       },
@@ -3387,7 +3387,7 @@
         "source_appropriate": true,
         "source_appropriateness": "exact",
         "n_sources": 1,
-        "top_source": "ADR-039",
+        "top_source": "ADR-030",
         "top_appropriateness": "exact_task_source",
         "escalate_insufficient": false
       },
@@ -3417,7 +3417,7 @@
         "source_appropriate": true,
         "source_appropriateness": "exact",
         "n_sources": 1,
-        "top_source": "ADR-039",
+        "top_source": "ADR-030",
         "top_appropriateness": "exact_task_source",
         "escalate_insufficient": false
       },
@@ -3447,7 +3447,7 @@
         "source_appropriate": true,
         "source_appropriateness": "exact",
         "n_sources": 1,
-        "top_source": "ADR-039",
+        "top_source": "ADR-030",
         "top_appropriateness": "exact_task_source",
         "escalate_insufficient": true
       },
@@ -3562,9 +3562,9 @@
       "terminal_kind": "transparent_partial_procedure",
       "terminal_completion": "COMPLETE",
       "terminal_sources": [
-        "ADR-033",
+        "ADR-031",
         "operator-manifest-schema",
-        "ADR-031"
+        "ADR-025"
       ],
       "retrieval": {
         "requested_task": "procedure",
@@ -3596,9 +3596,9 @@
       "terminal_kind": "requirements",
       "terminal_completion": "COMPLETE",
       "terminal_sources": [
-        "ADR-033",
+        "ADR-031",
         "operator-manifest-schema",
-        "ADR-031"
+        "ADR-025"
       ],
       "retrieval": {
         "requested_task": "requirements",
@@ -4227,8 +4227,8 @@
         "trust-root-metadata-schema",
         "root-metadata-schema",
         "root-key-schema",
-        "ADR-029",
-        "ADR-027"
+        "ADR-027",
+        "ADR-025"
       ],
       "retrieval": {
         "requested_task": "example",
@@ -4263,8 +4263,8 @@
         "trust-root-metadata-schema",
         "root-metadata-schema",
         "root-key-schema",
-        "ADR-029",
-        "ADR-027"
+        "ADR-027",
+        "ADR-025"
       ],
       "retrieval": {
         "requested_task": "procedure",
@@ -4299,8 +4299,8 @@
         "trust-root-metadata-schema",
         "root-metadata-schema",
         "root-key-schema",
-        "ADR-029",
-        "ADR-027"
+        "ADR-027",
+        "ADR-025"
       ],
       "retrieval": {
         "requested_task": "requirements",
@@ -4335,8 +4335,8 @@
         "trust-root-metadata-schema",
         "root-metadata-schema",
         "root-key-schema",
-        "ADR-029",
-        "ADR-027"
+        "ADR-027",
+        "ADR-025"
       ],
       "retrieval": {
         "requested_task": "template",
@@ -4585,7 +4585,7 @@
       "terminal_completion": "COMPLETE",
       "terminal_sources": [
         "federation-manifest-schema",
-        "ADR-031"
+        "ADR-025"
       ],
       "retrieval": {
         "requested_task": "example",
@@ -4678,7 +4678,7 @@
       "terminal_completion": "COMPLETE",
       "terminal_sources": [
         "federation-manifest-schema",
-        "ADR-031"
+        "ADR-025"
       ],
       "retrieval": {
         "requested_task": "template",
@@ -8598,24 +8598,24 @@
       "expected_model_calls": 1
     },
     {
-      "case_id": "ADR-031::definition",
-      "subject": "ADR-031",
+      "case_id": "ADR-025::definition",
+      "subject": "ADR-025",
       "subject_type": "document",
       "task": "definition",
-      "base_query": "o que e a ADR-031?",
-      "seed": "ADR-031",
+      "base_query": "o que e a ADR-025?",
+      "seed": "ADR-025",
       "supported": false,
       "na_reason": "document_not_a_concept",
       "answer_class": "not_applicable",
       "expected_model_calls": 0
     },
     {
-      "case_id": "ADR-031::explanation",
-      "subject": "ADR-031",
+      "case_id": "ADR-025::explanation",
+      "subject": "ADR-025",
       "subject_type": "document",
       "task": "explanation",
-      "base_query": "explica a ADR-031",
-      "seed": "ADR-031",
+      "base_query": "explica a ADR-025",
+      "seed": "ADR-025",
       "supported": true,
       "resolved_task": "explanation",
       "terminal_applies": false,
@@ -8626,8 +8626,8 @@
         "requested_task": "explanation",
         "source_appropriate": true,
         "source_appropriateness": "exact",
-        "n_sources": 3,
-        "top_source": "ADR-031",
+        "n_sources": 1,
+        "top_source": "ADR-025",
         "top_appropriateness": "exact_task_source",
         "escalate_insufficient": false
       },
@@ -8640,60 +8640,60 @@
       "expected_model_calls": 1
     },
     {
-      "case_id": "ADR-031::example",
-      "subject": "ADR-031",
+      "case_id": "ADR-025::example",
+      "subject": "ADR-025",
       "subject_type": "document",
       "task": "example",
-      "base_query": "me da um exemplo de a ADR-031",
-      "seed": "ADR-031",
+      "base_query": "me da um exemplo de a ADR-025",
+      "seed": "ADR-025",
       "supported": false,
       "na_reason": "no_deliverable_for_subject_type",
       "answer_class": "not_applicable",
       "expected_model_calls": 0
     },
     {
-      "case_id": "ADR-031::procedure",
-      "subject": "ADR-031",
+      "case_id": "ADR-025::procedure",
+      "subject": "ADR-025",
       "subject_type": "document",
       "task": "procedure",
-      "base_query": "como implementar a ADR-031?",
-      "seed": "ADR-031",
+      "base_query": "como implementar a ADR-025?",
+      "seed": "ADR-025",
       "supported": false,
       "na_reason": "no_deliverable_for_subject_type",
       "answer_class": "not_applicable",
       "expected_model_calls": 0
     },
     {
-      "case_id": "ADR-031::requirements",
-      "subject": "ADR-031",
+      "case_id": "ADR-025::requirements",
+      "subject": "ADR-025",
       "subject_type": "document",
       "task": "requirements",
-      "base_query": "quais os requisitos para a ADR-031?",
-      "seed": "ADR-031",
+      "base_query": "quais os requisitos para a ADR-025?",
+      "seed": "ADR-025",
       "supported": false,
       "na_reason": "no_deliverable_for_subject_type",
       "answer_class": "not_applicable",
       "expected_model_calls": 0
     },
     {
-      "case_id": "ADR-031::template",
-      "subject": "ADR-031",
+      "case_id": "ADR-025::template",
+      "subject": "ADR-025",
       "subject_type": "document",
       "task": "template",
-      "base_query": "mostra a estrutura de a ADR-031",
-      "seed": "ADR-031",
+      "base_query": "mostra a estrutura de a ADR-025",
+      "seed": "ADR-025",
       "supported": false,
       "na_reason": "no_deliverable_for_subject_type",
       "answer_class": "not_applicable",
       "expected_model_calls": 0
     },
     {
-      "case_id": "ADR-031::document_lookup",
-      "subject": "ADR-031",
+      "case_id": "ADR-025::document_lookup",
+      "subject": "ADR-025",
       "subject_type": "document",
       "task": "document_lookup",
-      "base_query": "ADR-031",
-      "seed": "ADR-031",
+      "base_query": "ADR-025",
+      "seed": "ADR-025",
       "supported": true,
       "resolved_task": "document_lookup",
       "terminal_applies": false,
@@ -8704,8 +8704,8 @@
         "requested_task": "document_lookup",
         "source_appropriate": true,
         "source_appropriateness": "exact",
-        "n_sources": 3,
-        "top_source": "ADR-031",
+        "n_sources": 1,
+        "top_source": "ADR-025",
         "top_appropriateness": "exact_task_source",
         "escalate_insufficient": false
       },
@@ -8718,12 +8718,12 @@
       "expected_model_calls": 1
     },
     {
-      "case_id": "ADR-031::document_summary",
-      "subject": "ADR-031",
+      "case_id": "ADR-025::document_summary",
+      "subject": "ADR-025",
       "subject_type": "document",
       "task": "document_summary",
-      "base_query": "resume a ADR-031",
-      "seed": "ADR-031",
+      "base_query": "resume a ADR-025",
+      "seed": "ADR-025",
       "supported": true,
       "resolved_task": "document_summary",
       "terminal_applies": false,
@@ -8735,7 +8735,7 @@
         "source_appropriate": true,
         "source_appropriateness": "exact",
         "n_sources": 1,
-        "top_source": "ADR-031",
+        "top_source": "ADR-025",
         "top_appropriateness": "exact_task_source",
         "escalate_insufficient": false
       },
@@ -8748,12 +8748,12 @@
       "expected_model_calls": 1
     },
     {
-      "case_id": "ADR-031::document_metadata",
-      "subject": "ADR-031",
+      "case_id": "ADR-025::document_metadata",
+      "subject": "ADR-025",
       "subject_type": "document",
       "task": "document_metadata",
-      "base_query": "qual o estado de a ADR-031?",
-      "seed": "ADR-031",
+      "base_query": "qual o estado de a ADR-025?",
+      "seed": "ADR-025",
       "supported": true,
       "resolved_task": "document_metadata",
       "terminal_applies": false,
@@ -8764,8 +8764,8 @@
         "requested_task": "document_metadata",
         "source_appropriate": true,
         "source_appropriateness": "exact",
-        "n_sources": 3,
-        "top_source": "ADR-031",
+        "n_sources": 1,
+        "top_source": "ADR-025",
         "top_appropriateness": "exact_task_source",
         "escalate_insufficient": false
       },
@@ -8778,12 +8778,12 @@
       "expected_model_calls": 1
     },
     {
-      "case_id": "ADR-031::impact",
-      "subject": "ADR-031",
+      "case_id": "ADR-025::impact",
+      "subject": "ADR-025",
       "subject_type": "document",
       "task": "impact",
-      "base_query": "qual o impacto de a ADR-031?",
-      "seed": "ADR-031",
+      "base_query": "qual o impacto de a ADR-025?",
+      "seed": "ADR-025",
       "supported": true,
       "resolved_task": "impact",
       "terminal_applies": false,
@@ -8795,7 +8795,7 @@
         "source_appropriate": true,
         "source_appropriateness": "exact",
         "n_sources": 1,
-        "top_source": "ADR-031",
+        "top_source": "ADR-025",
         "top_appropriateness": "exact_task_source",
         "escalate_insufficient": false
       },
@@ -8808,12 +8808,12 @@
       "expected_model_calls": 1
     },
     {
-      "case_id": "ADR-031::motivation",
-      "subject": "ADR-031",
+      "case_id": "ADR-025::motivation",
+      "subject": "ADR-025",
       "subject_type": "document",
       "task": "motivation",
-      "base_query": "qual a motivacao de a ADR-031?",
-      "seed": "ADR-031",
+      "base_query": "qual a motivacao de a ADR-025?",
+      "seed": "ADR-025",
       "supported": true,
       "resolved_task": "explanation",
       "terminal_applies": false,
@@ -8824,8 +8824,8 @@
         "requested_task": "explanation",
         "source_appropriate": true,
         "source_appropriateness": "exact",
-        "n_sources": 3,
-        "top_source": "ADR-031",
+        "n_sources": 1,
+        "top_source": "ADR-025",
         "top_appropriateness": "exact_task_source",
         "escalate_insufficient": false
       },
@@ -8838,12 +8838,12 @@
       "expected_model_calls": 1
     },
     {
-      "case_id": "ADR-031::consequences",
-      "subject": "ADR-031",
+      "case_id": "ADR-025::consequences",
+      "subject": "ADR-025",
       "subject_type": "document",
       "task": "consequences",
-      "base_query": "quais as consequencias de a ADR-031?",
-      "seed": "ADR-031",
+      "base_query": "quais as consequencias de a ADR-025?",
+      "seed": "ADR-025",
       "supported": true,
       "resolved_task": "impact",
       "terminal_applies": false,
@@ -8855,7 +8855,7 @@
         "source_appropriate": true,
         "source_appropriateness": "exact",
         "n_sources": 1,
-        "top_source": "ADR-031",
+        "top_source": "ADR-025",
         "top_appropriateness": "exact_task_source",
         "escalate_insufficient": false
       },
@@ -8868,12 +8868,12 @@
       "expected_model_calls": 1
     },
     {
-      "case_id": "ADR-031::comparison",
-      "subject": "ADR-031",
+      "case_id": "ADR-025::comparison",
+      "subject": "ADR-025",
       "subject_type": "document",
       "task": "comparison",
-      "base_query": "compara a ADR-031 e o operador",
-      "seed": "ADR-031",
+      "base_query": "compara a ADR-025 e o operador",
+      "seed": "ADR-025",
       "supported": true,
       "resolved_task": "comparison",
       "terminal_applies": false,
@@ -8885,7 +8885,7 @@
         "source_appropriate": true,
         "source_appropriateness": "exact",
         "n_sources": 1,
-        "top_source": "ADR-031",
+        "top_source": "ADR-025",
         "top_appropriateness": "exact_task_source",
         "escalate_insufficient": true
       },

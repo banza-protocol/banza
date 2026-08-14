@@ -1,13 +1,13 @@
-# banza-trust (ADR-043, R5)
+# banza-trust (ADR-038, R5)
 
 The Rust BANZA **trust/crypto verifier**, and the canonical implementation of verification. It replaced
-the Python verifier that preceded it (ADR-043); that code no longer exists in this repository.
+the Python verifier that preceded it (ADR-038); that code no longer exists in this repository.
 
 > **Verification only.** This crate NEVER generates keys, NEVER signs, NEVER issues a certificate, and
 > carries no production key. It verifies fixtures. It does not activate M2/M3, does not emit
 > certificates, and does not change `/operators=[]` or `production_certificates=false`.
 
-## Scheme (ADR-027)
+## Scheme (ADR-025)
 
 - canonical form = all fields except `signature` (evidence: except `package_signature`+`evidence_hash`),
   **sorted keys, compact JSON** (`serde_json` Map is a sorted BTreeMap → matches Python
@@ -31,13 +31,13 @@ Exit 0 if verified, 1 if not; deterministic JSON `TrustResult { verified, kind, 
 
 ## Golden parity
 
-`golden/vectors.json` holds **real ed25519 signatures produced by the Python trust root's ADR-027
+`golden/vectors.json` holds **real ed25519 signatures produced by the Python trust root's ADR-025
 scheme** (test keys only). The test suite (`cargo test`) verifies every case byte-for-byte: valid
 certificate/BRL/key-manifest verify; tampered fields, wrong key, and unsigned documents all fail. This
 is the parity proof — Rust accepts exactly what the Python signer produced and rejects everything else.
 
 To regenerate the golden (test keys, off the serving path): sign a cert/BRL/manifest with this crate's
-TEST-ONLY `sign-test-certificate` / `sign-test-brl` / `sign-test-key-manifest` (ADR-027 canonical form)
+TEST-ONLY `sign-test-certificate` / `sign-test-brl` / `sign-test-key-manifest` (ADR-025 canonical form)
 and write the signed docs + the root public key (base64url) into `golden/vectors.json`.
 
 ## Make / CI

@@ -43,7 +43,7 @@ would-be-required before production**, not asserted as done.
   reverses the revocation. (3) Present it during L3/L4 readiness.
 - **What stops it.** BRL is **fail-closed** — missing/expired/invalid/forged BRL blocks routing
   (INV-FEDEVAL-002, `C-BRL-FAIL-CLOSED`); the BRL issuer MUST be BANZA and the revocation-domain key is
-  domain-separated (ADR-027). Signature verification is a trust-engine concern; the production trust
+  domain-separated (ADR-025). Signature verification is a trust-engine concern; the production trust
   anchor comes from the **root-key ceremony (M2, PLANNED)**. Maps to `AB-BRL-STALE-06`/`AB-BRL-FORGE-07`.
 - **Residual owner.** Protocol (fail-closed rule + domain separation) with operator duty to fetch fresh
   BRL ≤ 6h. Full cryptographic trust anchoring would-be-completed before production via M2.

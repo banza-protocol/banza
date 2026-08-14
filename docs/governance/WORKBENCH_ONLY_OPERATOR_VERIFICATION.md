@@ -11,7 +11,7 @@
 
 ## Decisão canónica
 
-Para operadores, o ponto único de verificação é o **BanzAI**, o agente IA nativo do protocolo (ADR-042,
+Para operadores, o ponto único de verificação é o **BanzAI**, o agente IA nativo do protocolo (ADR-036,
 `docs/governance/BANZAI_NATIVE_PROTOCOL_AGENT.md`), acedido na rota `/banzai`. BanzAI é a
 interface pública para preparar manifests, validar conformidade, verificar trust, simular federação, gerar
 evidence bundles e inspeccionar traces.

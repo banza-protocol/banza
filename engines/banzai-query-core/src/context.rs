@@ -71,7 +71,7 @@ const COMPARE_PREVIOUS_ANAPHORA: &[&str] = &[
 ];
 
 /// "porquê?" — a bare why-follow-up diagnoses the prior execution. Gated to a SHORT turn with no subject of
-/// its own (a full "porque falhou a ADR-002" is not anaphoric and the taxonomy owns it).
+/// its own (a full "porque falhou a ADR-001" is not anaphoric and the taxonomy owns it).
 const WHY_ANAPHORA: &[&str] = &[
     "porque",
     "por que",
@@ -270,7 +270,7 @@ pub struct PriorContext {
     /// concept | document | entity | metric | operational | none — how the prior subject was resolved.
     #[serde(default)]
     pub last_subject_kind: String,
-    /// The prior turn's explicit document id (e.g. "ADR-002"), or "".
+    /// The prior turn's explicit document id (e.g. "ADR-001"), or "".
     #[serde(default)]
     pub last_document_id: String,
     /// The prior turn's operational metric slug (e.g. "elapsed_time"), or "".
@@ -458,7 +458,7 @@ fn explicit_execution_id(raw: &str) -> String {
 }
 
 // ── BZCI-2/3 (§4/§5/§9) — ELLIPTICAL concept follow-ups. A bare connective turn ("e uma RFC?",
-//    "e a federação?", "e Trust?", "e sobre a ADR-011?") inherits the CONCEPT intent of the conversation and
+//    "e a federação?", "e Trust?", "e sobre a ADR-012?") inherits the CONCEPT intent of the conversation and
 //    REPLACES only the subject. The rewrite is a self-contained concept question ("o que é <subject>?") that
 //    the SAME downstream catalogues (glossary/concept/document) ground — history selects WHAT to resolve, it
 //    never asserts the answer (§19). If the subject is not a known concept, the downstream honestly declines.
@@ -1075,8 +1075,8 @@ mod tests {
 
     #[test]
     fn a_full_why_question_with_its_own_subject_is_not_anaphoric() {
-        // "porque é que a ADR-002 foi aceite" has an explicit document subject — not a bare follow-up.
-        let r = resolve_references("porque é que a ADR-002 foi aceite?", &prior_exec());
+        // "porque é que a ADR-001 foi aceite" has an explicit document subject — not a bare follow-up.
+        let r = resolve_references("porque é que a ADR-001 foi aceite?", &prior_exec());
         assert_eq!(r.resolution_state, "NO_ANAPHORA");
     }
 

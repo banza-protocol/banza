@@ -1,4 +1,4 @@
-// Host-aware routing for the Operador Zero dedicated subdomain (ADR-041, M2.12E/F/G).
+// Host-aware routing for the Operador Zero dedicated subdomain (ADR-035, M2.12E/F/G).
 //
 // zero.banza.network is the SINGLE, dedicated public surface for the Operador Zero interactive lab.
 // As of M2.12G the apex route /operador-zero is RETIRED (410 Gone) — the subdomain is the only place
@@ -21,7 +21,7 @@ export const RETIRED_APEX_ROUTE = "/operador-zero";
 // The fourteen demo artifacts, at the subdomain root, mapped onto the internal /oz handler. Kept in
 // sync with ARTIFACT_ROUTES by make zero-subdomain-routing-check (single source of truth).
 export const ZERO_ENDPOINTS = [
-  ".well-known/banza/operator",             // ADR-037: canonical discovery manifest (was /manifest.json)
+  ".well-known/banza/operator",             // ADR-029: canonical discovery manifest (was /manifest.json)
   "key-manifest",
   "revocation-list",
   "conformance/evidence",
@@ -33,7 +33,7 @@ export const ZERO_ENDPOINTS = [
   "payments/demo-refund",
   "discovery",
   "capabilities",
-  ".well-known/banza/signed-protocol-metadata", // ADR-037: canonical signed metadata (was /signed-metadata.json)
+  ".well-known/banza/signed-protocol-metadata", // ADR-029: canonical signed metadata (was /signed-metadata.json)
   "federation-metadata",
 ] as const;
 

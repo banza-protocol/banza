@@ -111,6 +111,6 @@ Logic is MOVED verbatim (never reimplemented) and re-exported, so byte-identical
 - Test relocation coupling: coverage.rs's cfg(test) uses docref::resolve, so docref must land in the same or earlier step or the coverage tests won't compile; generally tests move with their module.
 - Ordering must stay strictly topological (terminal after route, factcheck after synth, everything after the foundation) to avoid a step referencing a `crate::X` still in the other crate; route→terminal is the one near-cycle to watch (acyclic: terminal→route only).
 - JS mirror drift: answerContract.js normalizeBanzaiAnswer must remain behaviorally identical to the moved source_policy::internal_by_path (not a Rust fixup but a live-behavior regression risk).
-- Rust-first / repo guards: adding a new crate + moving generated indexes may trip ADR-043 rust-rule-check allowlists, the generated-index clean guard, or repo-guards path ranges — update guard config in the same PR.
+- Rust-first / repo guards: adding a new crate + moving generated indexes may trip ADR-038 rust-rule-check allowlists, the generated-index clean guard, or repo-guards path ranges — update guard config in the same PR.
 - Load-bearing exact strings (SYSTEM_PROMPT, PT answer strings, trace/reason labels, prompt schemas) must move byte-for-byte; any editor reflow silently breaks golden substring assertions and downstream WASM JSON parity.
 

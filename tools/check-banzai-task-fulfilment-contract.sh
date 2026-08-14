@@ -91,8 +91,8 @@ for (const q of [
   // an example answered with a definition
   const v = completion(
     "me da um exemplo de federacao",
-    "Um exemplo de federação pode ser encontrado na ADR-031, que descreve avaliação de confiança sem certificados.",
-    ["ADR-031"], 2, true,
+    "Um exemplo de federação pode ser encontrado na ADR-025, que descreve avaliação de confiança sem certificados.",
+    ["ADR-025"], 2, true,
   );
   if (v.publishable) fail("a definition must NOT satisfy an example request");
   // a manifest answered with generic architecture
@@ -105,8 +105,8 @@ for (const q of [
   // a procedure answered with a bare ADR list
   const v3 = completion(
     "como federar um operador?",
-    "Para federar um operador, deve-se seguir o ADR-027 ou o ADR-031.",
-    ["ADR-027", "ADR-031"], 2, true,
+    "Para federar um operador, deve-se seguir o ADR-025 ou o ADR-025.",
+    ["ADR-025", "ADR-025"], 2, true,
   );
   if (v3.publishable) fail("a bare ADR list must NOT satisfy a procedure request");
 }

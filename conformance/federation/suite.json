@@ -17,7 +17,7 @@
     "contracts/production/conformance-evidence.production.schema.json",
     "contracts/production/federation-trust-evaluation.production.schema.json"
   ],
-  "adr_refs": ["ADR-027", "ADR-033", "ADR-031"],
+  "adr_refs": ["ADR-025", "ADR-031", "ADR-025"],
 
   "sub_suites": [
     {
@@ -166,7 +166,7 @@
     {
       "id": "FED-TRUST",
       "name": "Open Trust Evaluation",
-      "description": "The Open Trust Evaluation (ADR-031) is ten conjunctive, fail-closed checks a routing peer runs locally over the evaluated operator's published material: signatures resolve to the trust root or a delegated signing key in the active Key Manifest, trust material is fresh, and nothing involved is revoked. Any missing, invalid, expired, revoked, or incompatible material fails the evaluation closed.",
+      "description": "The Open Trust Evaluation (ADR-025) is ten conjunctive, fail-closed checks a routing peer runs locally over the evaluated operator's published material: signatures resolve to the trust root or a delegated signing key in the active Key Manifest, trust material is fresh, and nothing involved is revoked. Any missing, invalid, expired, revoked, or incompatible material fails the evaluation closed.",
       "certification_level": 3,
       "invariants": ["INV-ROOT-007", "INV-ROOT-008", "INV-ROOT-009"],
       "cases": [

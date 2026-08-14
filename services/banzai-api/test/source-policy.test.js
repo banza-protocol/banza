@@ -30,7 +30,7 @@ test("isPublicSource — assistant-instruction and secret files are not public",
 });
 
 test("isPublicSource — canonical public docs stay public", () => {
-  assert.equal(isPublicSource({ id: "ADR-002", path: "decisions/adr/ADR-002-ecosystem-naming-banza-banzai-and-operators.md", category: "decision" }), true);
+  assert.equal(isPublicSource({ id: "ADR-001", path: "decisions/adr/ADR-001-ecosystem-naming-banza-banzai-and-operators.md", category: "decision" }), true);
   assert.equal(isPublicSource({ id: "ADR-INDEX" }), true); // no path but a known public doc id
   assert.equal(isPublicSource({ path: "spec/federation/overview.md", category: "normative" }), true);
   assert.equal(isPublicSource({ path: "website/app/page.tsx", category: "website" }), true);
@@ -51,14 +51,14 @@ test("isPublicSource — M2.13B-cited categories stay public (no category exclus
 
 test("normalizeBanzaiAnswer — drops CLAUDE.md, keeps the ADR (the incident)", () => {
   const sources = [
-    { id: "ADR-002", title: "ADR-002 — Ecosystem Naming Inversion", path: "decisions/adr/ADR-002-ecosystem-naming-banza-banzai-and-operators.md", category: "decision" },
+    { id: "ADR-001", title: "ADR-001 — Ecosystem Naming Inversion", path: "decisions/adr/ADR-001-ecosystem-naming-banza-banzai-and-operators.md", category: "decision" },
     { id: "ADR-INDEX", title: "Decisões (ADRs e RFCs)", path: "decisions/adr/README.md", category: "decision" },
     { id: "banza:implementation", title: "BANZA — Open Financial Protocol", path: "CLAUDE.md", category: "implementation" },
   ];
-  const { sources: out } = normalizeBanzaiAnswer("O ADR-002 define a inversão de nomenclatura do ecossistema.", sources);
+  const { sources: out } = normalizeBanzaiAnswer("O ADR-001 define a inversão de nomenclatura do ecossistema.", sources);
   const paths = out.map((s) => s.path);
   assert.ok(!paths.includes("CLAUDE.md"), "CLAUDE.md must be dropped from sources[]");
-  assert.ok(paths.includes("decisions/adr/ADR-002-ecosystem-naming-banza-banzai-and-operators.md"), "ADR-002 must be kept");
+  assert.ok(paths.includes("decisions/adr/ADR-001-ecosystem-naming-banza-banzai-and-operators.md"), "ADR-001 must be kept");
   assert.equal(out.length, 2);
 });
 

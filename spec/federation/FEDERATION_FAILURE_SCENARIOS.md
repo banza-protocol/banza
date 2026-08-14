@@ -2,7 +2,7 @@
 
 **Document ID:** FEDERATION-PROTOCOL-FLOW-DESIGN-001  
 **Status:** Canonical — failure taxonomy and recovery runbooks.  
-**Authority:** FEDERATION_PROTOCOL_FLOW.md, FEDERATION_INVARIANTS.md, ADR-027, ADR-033, ADR-031
+**Authority:** FEDERATION_PROTOCOL_FLOW.md, FEDERATION_INVARIANTS.md, ADR-025, ADR-031, ADR-025
 
 ---
 

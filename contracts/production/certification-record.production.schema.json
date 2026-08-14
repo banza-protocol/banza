@@ -2,10 +2,10 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://banza.network/contracts/production/certification-record.production.schema.json",
   "title": "InteroperabilityCertificationRecord",
-  "description": "The canonical Layer-2 (Conformance & Interoperability Certification) verdict (ADR-034 D-064-03). Binds a CertifiedImplementation (by implementation_hash) to an InteroperabilityCertificationProfile (by profile_id+profile_version), carries the reproducible evidence hashes, the Rust-decided status + reason_code (ADR-035), the scope (never broader than the evidence), a validity window, and a record_hash over the whole. A CERTIFIED record asserts ONLY 'this implementation passed this profile version with this evidence, in this scope, until this date' — it is NOT a licence, NOT scheme admission and NOT regulatory authorisation (ADR-004). Decided solely by the Rust engine (banza-certification); no Qwen, no external model, no human FAIL->PASS.",
+  "description": "The canonical Layer-2 (Conformance & Interoperability Certification) verdict (ADR-032). Binds a CertifiedImplementation (by implementation_hash) to an InteroperabilityCertificationProfile (by profile_id+profile_version), carries the reproducible evidence hashes, the Rust-decided status + reason_code (ADR-032), the scope (never broader than the evidence), a validity window, and a record_hash over the whole. A CERTIFIED record asserts ONLY 'this implementation passed this profile version with this evidence, in this scope, until this date' — it is NOT a licence, NOT scheme admission and NOT regulatory authorisation (ADR-005). Decided solely by the Rust engine (banza-certification); no Qwen, no external model, no human FAIL->PASS.",
   "_spec_version": "1.0",
   "_status": "production-baseline",
-  "_authority": "ADR-034 (interoperability certification), ADR-036, ADR-035 (closed certification-state machine); this schema defines the record. engines/banza-certification implements it and does not define it.",
+  "_authority": "ADR-032 (interoperability certification), ADR-033, ADR-032 (closed certification-state machine); this schema defines the record. engines/banza-certification implements it and does not define it.",
   "_boundary": "Technical certification of an implementation. Not a licence, scheme admission or regulatory authorisation. BANZA holds no funds and admits no participant.",
   "type": "object",
   "required": [
@@ -76,7 +76,7 @@
         "REVOKED",
         "SUPERSEDED"
       ],
-      "description": "Closed certification-state (ADR-035). Only CERTIFIED (within window, evidence reproduces) reads as valid; all others fail-closed."
+      "description": "Closed certification-state (ADR-032). Only CERTIFIED (within window, evidence reproduces) reads as valid; all others fail-closed."
     },
     "reason_code": {
       "type": "string",
@@ -146,7 +146,7 @@
     "record_hash": {
       "type": "string",
       "minLength": 1,
-      "description": "Canonical SHA-256 over the record excluding this field; must reproduce (ADR-034 D-064-05)."
+      "description": "Canonical SHA-256 over the record excluding this field; must reproduce (ADR-032)."
     }
   },
   "_numeric_domain": "Integers in a signed or digested BANZA artifact are bounded by the canonicalization in force (BCJ/1: |n| <= 2^53-1, spec/canonicalization.md P2). The bound is declared here so the schema and the canonicalization cannot disagree about what is representable."

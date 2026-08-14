@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# M2.19G.1 (ADR-038 §4.10/§28/§31) — Certification Readiness vs Status language guard (§37, invariant 16).
+# M2.19G.1 (ADR-034 §4.10/§28/§31) — Certification Readiness vs Status language guard (§37, invariant 16).
 #
 # Certification Readiness (READY | BLOCKED) is DISTINCT from Certification Status (always NOT_CERTIFIED).
 # The readiness aggregates verdicts; it is NEVER a Certification Record and never returns CERTIFIED. The
@@ -21,7 +21,7 @@ MODE=website/components/banzai/BanzaiValidationMode.tsx
 JOURNEY=website/components/banzai/validationJourney.tsx
 RECEIPT=website/lib/operationReceipt.ts
 
-echo "== banzai-certification-readiness-language-check (M2.19G.1 / ADR-038 §4.10) =="
+echo "== banzai-certification-readiness-language-check (M2.19G.1 / ADR-034 §4.10) =="
 
 # ── self-test ───────────────────────────────────────────────────────────────────────────────────────
 st=0
@@ -58,4 +58,4 @@ bad=$(grep -rnE '[0-9]/[0-9][[:space:]]*·[[:space:]]*Bloquead' "$MODE" "$JOURNE
 
 echo
 if [ "$fail" -ne 0 ]; then echo "banzai-certification-readiness-language-check: FAIL"; exit 1; fi
-echo "banzai-certification-readiness-language-check: ✓ readiness (BLOCKED) distinct from status (NOT_CERTIFIED) (ADR-038 §4.10)"
+echo "banzai-certification-readiness-language-check: ✓ readiness (BLOCKED) distinct from status (NOT_CERTIFIED) (ADR-034 §4.10)"

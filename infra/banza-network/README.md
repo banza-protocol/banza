@@ -88,7 +88,7 @@ individual turns safe to the deterministic grounding without a redeploy.
 
 ## PostgreSQL protocol-state operations
 
-The database is a **verifiable protocol-state store**, not a financial database (ADR-026,
+The database is a **verifiable protocol-state store**, not a financial database (ADR-013,
 `docs/governance/POSTGRESQL_PROTOCOL_STATE.md`). It holds signed public artifacts, the BanzAI
 document index, an audit log and pre-production state markers — never funds, balances, real payment
 transactions, bank accounts, cards, KYC/AML data, personal data of end users, or private keys/secrets.
@@ -115,7 +115,7 @@ docker compose exec -T postgres psql -tAX -U banza_admin -d banza_protocol \
 - **Schema changes** go through `postgres/init/*.sql` + `make postgres-data-boundary-check`, never ad-hoc
   DDL. Adding any column/table that can hold financial or personal data must fail the boundary check.
 - Role passwords are injected at deploy from `.env` (generated `002_roles.sql`) — never committed.
-- Backups are `age`-encrypted and off-VM (ADR-008); they are a recovery mechanism, never in the
+- Backups are `age`-encrypted and off-VM (ADR-002); they are a recovery mechanism, never in the
   serving path.
 
 ## Approved VM spec (Phase 1)
@@ -126,6 +126,6 @@ docker compose exec -T postgres psql -tAX -U banza_admin -d banza_protocol \
 - PostgreSQL: no `ports:` → never reachable from host/internet (only `banza-data` docker net).
 - `/operators`, conformance evidence, BRL, manifests → served as **JSON with `status: pre-production`** (M2/M3 pending; PASS = evidence, not certification). **Never** redirect machine routes to HTML.
 - BanzAI (`banzai-api`): `BANZAI_MODE=demo`, role `banzai_rw` can write **only** the doc index; reads artifacts to explain; never writes trust/certs; no production keys.
-- BanzAI LLM inference (`LLM_PROVIDER` allowlist: `mock` | `deepseek` | `qwen` | `local_qwen`; anything else refuses to start). `deepseek`/`qwen` are hosted (off-host); `local_qwen` (ADR-042) is an internal, sandboxed `llama.cpp` model on the Docker network — on-host CPU, **no GPU**, no key, nothing leaves the host, profile-gated and benchmark-gated (default stays `mock` until the VPS XL+ benchmark approves it; GGUF installed manually, never in Git). A hosted provider key, if used, lives only in `.env` on the VM. Automated tests always run `mock` and never call an external LLM.
+- BanzAI LLM inference (`LLM_PROVIDER` allowlist: `mock` | `deepseek` | `qwen` | `local_qwen`; anything else refuses to start). `deepseek`/`qwen` are hosted (off-host); `local_qwen` (ADR-036) is an internal, sandboxed `llama.cpp` model on the Docker network — on-host CPU, **no GPU**, no key, nothing leaves the host, profile-gated and benchmark-gated (default stays `mock` until the VPS XL+ benchmark approves it; GGUF installed manually, never in Git). A hosted provider key, if used, lives only in `.env` on the VM. Automated tests always run `mock` and never call an external LLM.
 - BanzAI cost control: the LLM is the **last resort** — deterministic critical answers → exact cache → semantic cache (pgvector table `banzai_answer_cache` on the VM) → daily/monthly budget gate → limited RAG. Past budget BanzAI keeps answering from deterministic entries and caches, never calling DeepSeek/Qwen. `/ask` is rate-limited per client.
 - No root/issuing private keys anywhere. The VM serves signed public artifacts only.

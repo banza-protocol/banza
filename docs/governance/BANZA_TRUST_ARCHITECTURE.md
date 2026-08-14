@@ -38,11 +38,11 @@ Humanos mantêm e evoluem o protocolo; não autorizam, aceitam, aprovam ou certi
 independentes são responsáveis pelo seu próprio enquadramento legal, regulatório, financeiro e operacional.
 
 Origem normativa:
-[ADR-027](../../decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md) — modelo de confiança do
+[ADR-025](../../decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md) — modelo de confiança do
 protocolo aberto;
-[ADR-033](../../decisions/adr/ADR-033-operator-self-publication-and-machine-verifiable-conformance.md) —
+[ADR-031](../../decisions/adr/ADR-031-operator-self-publication-and-machine-verifiable-conformance.md) —
 auto-publicação e conformidade verificável por máquina;
-[ADR-031](../../decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md) — avaliação de
+[ADR-025](../../decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md) — avaliação de
 confiança de federação. Este documento é subordinado a esta decisão. Nenhuma secção pode ser lida como
 contradizendo-a.
 
@@ -61,7 +61,7 @@ A validação de trust não é autorização de operador, não é certificação
 
 ### O agente nativo BanzAI e a avaliação de trust
 
-O BANZA é acompanhado por um agente IA nativo — **BanzAI** (agente nativo do protocolo, ADR-042). No
+O BANZA é acompanhado por um agente IA nativo — **BanzAI** (agente nativo do protocolo, ADR-036). No
 contexto desta arquitectura, o BanzAI guia o operador ao longo da verificação de trust: orquestra os
 passos, invoca as ferramentas verificáveis, explica os resultados e ajuda a preparar e corrigir a
 evidência. As **decisões de trust não são tomadas pelo BanzAI**: são computadas de forma determinística
@@ -100,7 +100,7 @@ Três propriedades justificam esta escolha, e são as três que o BANZA precisa:
 Nada mais é acrescentado para as obter: sem Shamir, sem serviço de quórum online, sem coordenação de
 HSM, sem criptossistema de assinatura por limiar. Três chaves e uma contagem.
 
-A `Trust Root` assina exclusivamente o **Manifesto de Chaves** — a root metadata que lista e endossa as `Delegated Signing Keys`. A `Signed Protocol Metadata`, as releases e a `Revocation List` são assinadas pelas `Delegated Signing Keys` endossadas pela raiz, nunca pela raiz directamente (INV-ROOT-004; ADR-027). Uma assinatura da raiz responde a
+A `Trust Root` assina exclusivamente o **Manifesto de Chaves** — a root metadata que lista e endossa as `Delegated Signing Keys`. A `Signed Protocol Metadata`, as releases e a `Revocation List` são assinadas pelas `Delegated Signing Keys` endossadas pela raiz, nunca pela raiz directamente (INV-ROOT-004; ADR-025). Uma assinatura da raiz responde a
 exactamente uma pergunta — *este artefacto do protocolo é genuíno e íntegro?* — e nunca a *pode esta
 entidade participar?*.
 
@@ -265,13 +265,13 @@ operadores.
 
 ## Referências
 
-- [ADR-027](../../decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md) — modelo de confiança do protocolo aberto
-- [ADR-033](../../decisions/adr/ADR-033-operator-self-publication-and-machine-verifiable-conformance.md) — auto-publicação e conformidade verificável por máquina
-- [ADR-031](../../decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md) — avaliação de confiança de federação
+- [ADR-025](../../decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md) — modelo de confiança do protocolo aberto
+- [ADR-031](../../decisions/adr/ADR-031-operator-self-publication-and-machine-verifiable-conformance.md) — auto-publicação e conformidade verificável por máquina
+- [ADR-025](../../decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md) — avaliação de confiança de federação
 - [FEDERATION_TRUST_MODEL.md](./FEDERATION_TRUST_MODEL.md) — a `Open Trust Evaluation` e a sua fronteira
 - [PUBLIC_PROTOCOL_REGISTRY.md](./PUBLIC_PROTOCOL_REGISTRY.md) — o índice público verificável
 - [WORKBENCH_ONLY_OPERATOR_VERIFICATION.md](./WORKBENCH_ONLY_OPERATOR_VERIFICATION.md) — verificação guiada pelo BanzAI
-- [BANZAI_NATIVE_PROTOCOL_AGENT.md](./BANZAI_NATIVE_PROTOCOL_AGENT.md) — BanzAI como agente nativo do protocolo (ADR-042)
+- [BANZAI_NATIVE_PROTOCOL_AGENT.md](./BANZAI_NATIVE_PROTOCOL_AGENT.md) — BanzAI como agente nativo do protocolo (ADR-036)
 - Contratos: `contracts/production/trust-root-metadata.production.schema.json`, `delegated-signing-key.production.schema.json`, `signed-protocol-metadata.production.schema.json`, `conformance-evidence.production.schema.json`, `public-protocol-registry.production.schema.json`, `revocation-entry.production.schema.json`
 
 ---

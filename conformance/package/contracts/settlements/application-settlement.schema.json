@@ -2,10 +2,10 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://banza.network/contracts/settlements/application-settlement.schema.json",
   "title": "ApplicationSettlement",
-  "description": "An application paying a beneficiary from net value already settled into an application-controlled wallet (ADR-021), decoupled in time from the payments that funded it. The protocol provides the mechanism + lifecycle only; WHEN and HOW MUCH are application/operator policy. Produces its own balanced ledger posting(s) (ADR-011) — never altering earlier payment postings. May carry an application fee (the app's own service charge), distinct from the OperatorFee.",
+  "description": "An application paying a beneficiary from net value already settled into an application-controlled wallet (ADR-019), decoupled in time from the payments that funded it. The protocol provides the mechanism + lifecycle only; WHEN and HOW MUCH are application/operator policy. Produces its own balanced ledger posting(s) (ADR-012) — never altering earlier payment postings. May carry an application fee (the app's own service charge), distinct from the OperatorFee.",
   "_spec_version": "1.0",
   "_status": "canonical",
-  "_authority": "ADR-021",
+  "_authority": "ADR-019",
   "type": "object",
   "required": [
     "id",
@@ -44,7 +44,7 @@
         "string",
         "null"
       ],
-      "description": "Optional segregated account (ADR-019) within source_wallet_id to draw from — isolates one aggregate's net (e.g. one campaign). Defaults to the wallet's PRIMARY account."
+      "description": "Optional segregated account (ADR-017) within source_wallet_id to draw from — isolates one aggregate's net (e.g. one campaign). Defaults to the wallet's PRIMARY account."
     },
     "beneficiary_wallet_id": {
       "type": "string",
@@ -55,7 +55,7 @@
         "string",
         "null"
       ],
-      "description": "Optional segregated account (ADR-019) within beneficiary_wallet_id to credit. Defaults to the wallet's PRIMARY account."
+      "description": "Optional segregated account (ADR-017) within beneficiary_wallet_id to credit. Defaults to the wallet's PRIMARY account."
     },
     "amount_minor": {
       "type": "integer",

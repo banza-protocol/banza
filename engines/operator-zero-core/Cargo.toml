@@ -2,7 +2,7 @@
 name = "operator-zero-core"
 version = "0.1.0"
 edition = "2021"
-description = "operator-zero-core (ADR-041, M2.12A): the Rust engine behind Operador Zero, the BANZA reference payment-operator SIMULATOR. Fictional KZ_DEMO ledger, simulated QR payments, refunds, controlled failures, reconciliation, demo trust and federation, evidence bundles and end-to-end traces. Deterministic; no network, no real money, no private keys."
+description = "operator-zero-core (ADR-035, M2.12A): the Rust engine behind Operador Zero, the BANZA reference payment-operator SIMULATOR. Fictional KZ_DEMO ledger, simulated QR payments, refunds, controlled failures, reconciliation, demo trust and federation, evidence bundles and end-to-end traces. Deterministic; no network, no real money, no private keys."
 license = "Apache-2.0"
 
 [lib]

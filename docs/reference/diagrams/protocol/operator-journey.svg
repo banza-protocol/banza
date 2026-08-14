@@ -3,7 +3,7 @@
   id:        SVG-P-068
   diagram:   Operator Journey — Active Model
   version:   1.0
-  source:    M2.5 Product Surface Simplification · active open-protocol model
+  source:    Product Surface Simplification · active open-protocol model
   updated:   2026-07-18
   author:    BANZA Protocol
   style:     protocol
@@ -118,5 +118,5 @@
   <text x="500" y="402" text-anchor="middle" font-size="10" fill="#6B6265">Humanos mantêm e evoluem o protocolo; não autorizam, aceitam, aprovam ou certificam operadores.</text>
 
   <!-- Footer -->
-  <text x="500" y="452" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-068 · Percurso do Operador · BANZA Protocol · M2.5 · 2026-07-18</text>
+  <text x="500" y="452" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-068 · Percurso do Operador · BANZA Protocol · 2026-07-18</text>
 </svg>

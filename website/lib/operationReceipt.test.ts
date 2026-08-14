@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { aggregateStatus, buildReceipt, contentHash, type StepOutcome } from "./operationReceipt";
 
-// M2.19E/F (ADR-041) — every validation step emits an OperationReceipt; Qwen never decides, so
+// M2.19E/F (ADR-035) — every validation step emits an OperationReceipt; Qwen never decides, so
 // qwen_calls/external_calls are 0 by construction, and hashes are content-addressed.
 describe("operationReceipt", () => {
   it("aggregateStatus is worst-first (FAILED > BLOCKED > PENDING > VERIFIED)", () => {

@@ -3,7 +3,7 @@
   id:        SVG-P-072
   diagram:   BanzAI como Agente do Protocolo
   version:   1.0
-  source:    BANZA_REFERENCIA.md §11 · ADR-041 · docs/governance/BANZAI_NATIVE_PROTOCOL_AGENT.md
+  source:    BANZA_REFERENCIA.md §11 · ADR-035 · docs/governance/BANZAI_NATIVE_PROTOCOL_AGENT.md
   updated:   2026-07-18
   author:    BANZA Protocol
   style:     protocol
@@ -104,5 +104,5 @@
   <!-- State line -->
   <text x="40" y="500" font-family="ui-monospace,'Courier New',monospace" font-size="9.5" fill="#8A8275">Estado: inferência local (Qwen) · motores Rust · sem chamadas externas · external_model_called = false · /operators = [] · production_certificates = false</text>
 
-  <text x="520" y="560" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-072 · BanzAI como Agente do Protocolo · BANZA_REFERENCIA.md §11 · ADR-041 · v1.0 · 2026-07-18</text>
+  <text x="520" y="560" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-072 · BanzAI como Agente do Protocolo · BANZA_REFERENCIA.md §11 · ADR-035 · v1.0 · 2026-07-18</text>
 </svg>

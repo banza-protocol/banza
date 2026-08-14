@@ -24,11 +24,14 @@ jobs:
       - name: Operator neutrality guard
         run: bash tools/check-operator-contamination.sh
 
-      # M2.19A — the clean-slate ADR tree stays clean: removed CA/operator-era ADRs
-      # (004/022/026/027/032) never reappear, ADR-045 is present, and no current surface
-      # reintroduces a reference to a deleted ADR (historical records exempt; ADR-045 D-057).
-      - name: ADR canonical clean-slate guard (M2.19A)
+      # The decision-record tree is contiguous, every reference resolves, and the index matches it.
+      - name: Decision records are contiguous, resolvable and indexed
         run: bash tools/check-adr-canonical-clean.sh
+
+      # The tree records CURRENT architecture only, states no requirements of its own, and is not
+      # load-bearing: delete-the-records holds and no CI context depends on a record number.
+      - name: Decision records are current, explanatory and not load-bearing
+        run: bash tools/check-adr-architecture.sh
 
   open-governance-check:
     name: No central human authority over operators
@@ -361,7 +364,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # ADR-042 / docs/governance/BANZAI_NATIVE_PROTOCOL_AGENT.md — BanzAI is the guidance/orchestration
+      # ADR-036 / docs/governance/BANZAI_NATIVE_PROTOCOL_AGENT.md — BanzAI is the guidance/orchestration
       # agent, never an authority/rule-source; the public product name is "BanzAI", not "BanzAI Workbench".
       # Affirmative-substring + word-boundary + question/negation filter; self-tests on every run.
       - name: BanzAI protocol-agent guard
@@ -373,7 +376,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # ADR-026 / docs/governance/POSTGRESQL_PROTOCOL_STATE.md — the protocol database stores signed public
+      # ADR-013 / docs/governance/POSTGRESQL_PROTOCOL_STATE.md — the protocol database stores signed public
       # artifacts, the BanzAI document index, an audit log and pre-production markers, never funds/balances/
       # transactions/IBAN/cards/KYC/PII/private-key/secret identifiers. Comment-stripped schema scan;
       # self-tests on every run. Same script as local `make postgres-data-boundary-check`.
@@ -386,7 +389,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # ADR-040 — the BanzAI-hosted operator onboarding: Rust decides every OTP/session/candidate/origin
+      # ADR-037 — the BanzAI-hosted operator onboarding: Rust decides every OTP/session/candidate/origin
       # verdict, the .well-known path is identical in Rust and JS, secrets are env-only (no Resend key or
       # non-empty pepper in Git), onboarding is dark by default, the schema stores only digests/opaque
       # ids (never plaintext code/token/password), the surface is same-origin under /banzai/onboarding/,
@@ -401,7 +404,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # ADR-040 (G.3A) — the origin-proof closure: the ownership challenge is published by the Operador
+      # ADR-037 (G.3A) — the origin-proof closure: the ownership challenge is published by the Operador
       # Zero ORIGIN (zero.banza.network nginx static file, read-only mount), the verifier (banzai-api)
       # never serves its own challenge, a positively-verified challenge is single-use (consumed_at) with a
       # replay short-circuit, the only egress is the SSRF-hardened Rust fetcher, and reconciliation binds
@@ -547,9 +550,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # ADR-027 / M2.19B — the retired central-authority trust-invariant series is gone everywhere
+      # ADR-025 / M2.19B — the retired central-authority trust-invariant series is gone everywhere
       # (canonical: INV-OTE-*/INV-FEDEVAL-*/INV-ROOT-*; the retired ids survive only in the
-      # ADR-027/057/058 removal records), and the operator-certificate residue is gone (no CERT-*
+      # ADR-025/057/058 removal records), and the operator-certificate residue is gone (no CERT-*
       # fixtures, no certificate_url, no /certificates route, registry has no legacy TRUST family).
       # Self-tests every run. Same script as local `make trust-invariant-realignment-check`.
       - name: Trust-invariant realignment guard
@@ -561,7 +564,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # ADR-042/042 + M2.7L — canonical chapter order (PostgreSQL=05, FAQ=14), clean public cards, stable
+      # ADR-036/042 + M2.7L — canonical chapter order (PostgreSQL=05, FAQ=14), clean public cards, stable
       # routes, and no tool-list "anti-path" narrative on active surfaces. Fragment-based detection;
       # self-tests on every run. Same script as local `make reference-information-architecture-check`.
       - name: Reference information-architecture guard
@@ -598,9 +601,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Ch06 trust audit — trust is a bounded, verifiable technical property (ADR-027 "Open Protocol Trust
-      # Model Without CA", ADR-031/058/061). §6 states the Trust Root signs only the Key Manifest and is not
-      # a CA over operators, carries the "O que a confiança não prova" boundary + ADR-004 non-propagation,
+      # Ch06 trust audit — trust is a bounded, verifiable technical property (ADR-025 "Open Protocol Trust
+      # Model Without CA", ADR-025/058/061). §6 states the Trust Root signs only the Key Manifest and is not
+      # a CA over operators, carries the "O que a confiança não prova" boundary + ADR-005 non-propagation,
       # and never uses trustless / whole-entity "trusted operator" framings. Section-scoped + self-testing;
       # same script as local `make trust-semantics-boundary-check`.
       - name: Trust-semantics boundary guard
@@ -617,7 +620,7 @@ jobs:
       # readiness never returns CERTIFIED, the subject is an implementation (no whole-entity "operador
       # certificado"), there is no certificate authority, and certificação técnica ≠ admissão a esquema ≠
       # autorização regulatória. Section-scoped + self-testing; same script as local
-      # `make conformance-certification-boundary-check` (ADR-039/061/064/066/068/077).
+      # `make conformance-certification-boundary-check` (ADR-030/061/064/066/068/077).
       - name: Conformance/certification boundary guard
         run: bash tools/check-conformance-certification-boundary.sh
 
@@ -628,12 +631,12 @@ jobs:
       - uses: actions/checkout@v4
 
       # Ch08 central invariant — the operator is the organizational entity; the implementation is the
-      # technical subject observed/evaluated/certified (ADR-038 §4.2/§4.3). §8 states the distinction with
+      # technical subject observed/evaluated/certified (ADR-034 §4.2/§4.3). §8 states the distinction with
       # consequences (no property climbs from the implementation to the entity, nor crosses between an
       # operator's implementations), keeps cardinality one→many, targets validation at an implementation,
       # states OTE yields a per-interaction local decision (never a status conferred on the operator), and
       # that registry presence ≠ authorization / absence ≠ prohibition. Section-scoped + self-testing; same
-      # script as local `make operator-implementation-boundary-check` (ADR-038, ADR-004).
+      # script as local `make operator-implementation-boundary-check` (ADR-034, ADR-005).
       - name: Operator/implementation boundary guard
         run: bash tools/check-operator-implementation-boundary.sh
 
@@ -648,7 +651,7 @@ jobs:
       # in the contracts (não define o protocolo), is substitutable and dispensable (o protocolo funciona sem
       # ele), moves no real funds, is NOT_CERTIFIED (= absence of a formal certification, not a conformance
       # failure), and that "Zero" (name) ≠ L0 (profile). Section-scoped + negation-aware + self-testing; same
-      # script as local `make operator-zero-reference-boundary-check` (ADR-041/052/053/068).
+      # script as local `make operator-zero-reference-boundary-check` (ADR-035/052/053/068).
       - name: Operador Zero reference-boundary guard
         run: bash tools/check-operator-zero-reference-boundary.sh
 
@@ -665,7 +668,7 @@ jobs:
       # profile a necessary-not-sufficient pre-condition (not Camada 3), non-symmetric, non-transitive, and
       # non-propagating (no scheme admission / settlement / regulatory authorization); BANZA is not in the
       # trust path nor the funds path and obliges no one to route. Section-scoped + negation-aware +
-      # self-testing; same script as local `make federation-relation-boundary-check` (ADR-031/061/079).
+      # self-testing; same script as local `make federation-relation-boundary-check` (ADR-025/061/079).
       - name: Federation relation-boundary guard
         run: bash tools/check-federation-relation-boundary.sh
 
@@ -683,7 +686,7 @@ jobs:
       # and commercial relationship each have another owner; no silent mutation, no retroactivity; the Trust
       # Root signs only the Key Manifest and does not govern the protocol (Model A); BanzAI does not vote/
       # approve/promulgate. Section-scoped + negation-aware + self-testing; same script as local
-      # `make governance-authority-boundary-check` (GOVERNANCE.md · ADR-045/061/066/079).
+      # `make governance-authority-boundary-check` (GOVERNANCE.md · ADR-010/061/066/079).
       - name: Governance authority-boundary guard
         run: bash tools/check-governance-authority-boundary.sh
 
@@ -744,7 +747,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # ADR-037 — an external implementer must discover an operator's protocol artefacts without guessing
+      # ADR-029 — an external implementer must discover an operator's protocol artefacts without guessing
       # filenames. The discovery (operator) manifest and the signed protocol metadata are published at their
       # canonical /.well-known/banza/ routes; the de-facto root routes /manifest.json and /signed-metadata.json
       # are retired (fix-forward, no aliases). This guard proves the contract SSOT, the Rust registry the runtime
@@ -775,7 +778,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # ADR-027 reconciliation — the whole canonical surface (registry, ADRs, arch doc, spec,
+      # ADR-025 reconciliation — the whole canonical surface (registry, ADRs, arch doc, spec,
       # federation contracts, Reference, served diagrams) tells Model A: the Trust Root signs ONLY the
       # Key Manifest; delegated keys sign metadata/revocation/evidence by domain; the BRL is signed by the
       # revocation-domain delegated key. Semantic + registry↔ADR consistency; self-testing; same script as
@@ -789,7 +792,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # ADR-044 / M2.7M — Apache-2.0 canonical + Banzami attribution (NOTICE) + open governance today
+      # ADR-009 / M2.7M — Apache-2.0 canonical + Banzami attribution (NOTICE) + open governance today
       # (GOVERNANCE.md) + trademarks separate (TRADEMARKS.md); blocks closed-control / future-promise /
       # license-grants-trademark phrasing. Self-tests every run. Same script as local
       # `make license-notice-governance-check`.
@@ -802,7 +805,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # ADR-042 / M2.8A — no GGUF in Git, no external-provider key committed, llama.cpp
+      # ADR-036 / M2.8A — no GGUF in Git, no external-provider key committed, llama.cpp
       # internal-only + profile-gated, benchmark-gated default, Rust owns prompt/validation,
       # docs keep the model non-normative. Self-tests every run. Same script as local
       # `make banzai-local-inference-check`.
@@ -827,7 +830,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # M2.8G / ADR-042 — grounded questions route to the local model by default; only explicit
+      # M2.8G / ADR-036 — grounded questions route to the local model by default; only explicit
       # critical-boundary / safety-refusal / no-source paths skip it. Drives the committed Rust WASM
       # routing engine through Node and asserts the contract; self-tests every run.
       - name: BanzAI Qwen-first routing guard
@@ -853,7 +856,7 @@ jobs:
       - name: BanzAI financial-action-boundary guard
         run: bash tools/check-banzai-financial-action-boundary.sh
 
-      # ADR-042 — a duration/metric question about the validation journey is classified operational and
+      # ADR-036 — a duration/metric question about the validation journey is classified operational and
       # answered from read-only telemetry over persisted executions (or an honest INSUFFICIENT_MEASUREMENTS
       # fallback) — never the fixed topic list and never a fabricated number; off-topic/boundary stay out.
       - name: BanzAI operational-telemetry guard
@@ -888,7 +891,7 @@ jobs:
       # SPR-2 — the Safe Progressive Response SSE endpoint (POST /ask/stream) that WIRES the SPR-1 contract
       # into a real stream WITHOUT ever emitting unvalidated model prose: the pipeline emits the Channel-A
       # progress events at the REAL stage boundaries through onProgress and NEVER a terminal/model-token/delta
-      # frame itself; the ADR-042 post-synthesis validator + the Inc.4 claim/citation verification run BEFORE
+      # frame itself; the ADR-036 post-synthesis validator + the Inc.4 claim/citation verification run BEFORE
       # any FINAL_VALIDATED that carries prose (the endpoint emits the terminal only after ask() returns); a
       # boundary/refusal streams no synthesis events (→ REFUSED); a deterministic terminal streams no
       # model-synthesis/claim-verification events (→ FINAL_VALIDATED); a post-validation failure → HONEST_FALLBACK
@@ -1233,7 +1236,7 @@ jobs:
       - name: BanzAI workbench navigation & orchestration guard
         run: bash tools/check-banzai-workbench-navigation-orchestration.sh
 
-      # M2.14I (ADR-042): BanzAI is the primary human-operator interface — not a normative source,
+      # M2.14I (ADR-036): BanzAI is the primary human-operator interface — not a normative source,
       # authority, certifier or mandatory M2M gate. Enforces the ADR, docs/UI framing, engine role
       # answers + primary-interface router, the SVG-P-071/051 flow + boundary, and that forbidden
       # requests are refused before orchestration.
@@ -1246,7 +1249,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # M2.8H / ADR-042 — a manifest-example request grounds on the illustrative example, anaphoric
+      # M2.8H / ADR-036 — a manifest-example request grounds on the illustrative example, anaphoric
       # follow-ups resolve via short conversation context (never bypassing safety), examples are
       # illustrative/non-normative, and the frontend sends history. Drives the committed WASM via Node.
       - name: BanzAI knowledge quality guard
@@ -1258,7 +1261,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # M2.9A / ADR-042 — operator onboarding + operational questions ground to Qwen with a fine
+      # M2.9A / ADR-036 — operator onboarding + operational questions ground to Qwen with a fine
       # operational intent (never insufficient), criticals stay deterministic, context never bypasses
       # safety, and the documentary index is secret-free and enriches only grounded local answers.
       # Drives the committed WASM via Node.
@@ -1271,7 +1274,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # M2.9B / ADR-042 — the /banzai area is a guided operator journey: Rust owns the step order,
+      # M2.9B / ADR-036 — the /banzai area is a guided operator journey: Rust owns the step order,
       # transitions, statuses and safe session context (dual WASM); the session is in-memory only
       # (no localStorage/sessionStorage/IndexedDB/DB); the nav is primary→secondary+Repositório; and the
       # backend re-derives the safe context server-side without trusting the browser copy.
@@ -1284,7 +1287,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # M2.9C / ADR-042 — the journey uses product copy (no test-suite "fixture" term in visible UI) and
+      # M2.9C / ADR-036 — the journey uses product copy (no test-suite "fixture" term in visible UI) and
       # a SAFE in-memory JSON upload: size-limited, gated by the Rust secret/JSON scan, never persisted
       # to storage/DB, and never claiming to certify/approve/license an operator.
       - name: BanzAI upload/copy guard
@@ -1311,8 +1314,8 @@ jobs:
 
       # M2.14J — final cross-surface consistency + regression + production-readiness aggregator. Invokes
       # the core M2.14x guards (primary interface, navigation, financial + operator-publication
-      # boundaries) and adds only-missing checks: ADR-041/053/054 published on /decisoes (registry +
-      # byte-mirror), the ADR-042 primary-interface framing on the reframed surfaces (/banzai metadata,
+      # boundaries) and adds only-missing checks: ADR-035/053/054 published on /decisoes (registry +
+      # byte-mirror), the ADR-036 primary-interface framing on the reframed surfaces (/banzai metadata,
       # def-banzai-agent answer, /estado 4-clause, /referencia ch.12 card), the route.rs hardening
       # (role questions never no_source; . / newline / agora / também compound separators; the
       # trust-root / evidence-history / credentials / verification / payment-request boundary widenings;
@@ -1328,7 +1331,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # ADR-003 / docs/governance/BANZA_THREE_LAYER_ARCHITECTURE.md — the canonical frame names the three
+      # ADR-004 / docs/governance/BANZA_THREE_LAYER_ARCHITECTURE.md — the canonical frame names the three
       # layers (L1 open protocol · L2 per-implementation certification · L3 Banzami Operational Scheme),
       # BanzAI Web as the transversal (non-authority) human interface, and the authority rule (Rust decides
       # / Qwen explains once / Rust validates before publishing); no public surface frames BANZA as a
@@ -1356,7 +1359,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # ADR-005 / docs/governance/BANZA_REGULATORY_CLAIM_POLICY.md — no surface presents Banzami as already
+      # ADR-007 / docs/governance/BANZA_REGULATORY_CLAIM_POLICY.md — no surface presents Banzami as already
       # authorised / BNA-approved / licensed; the prudent phrasing ("em preparação regulatória … pagamentos
       # reais permanecem desactivados") + REGULATORY_AUTHORIZATION_IN_PROGRESS are present. Context-window
       # negation-aware (wrapped "NÃO significa" enumerations allowed); self-tests every run. Same script as
@@ -1370,7 +1373,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # ADR-005 / contracts/production/regulatory-state.production.schema.json — the L3 regulatory-state
+      # ADR-007 / contracts/production/regulatory-state.production.schema.json — the L3 regulatory-state
       # schema pins real_money/real_wallets/real_settlement/real_participants/bna_claim = const false at
       # baseline (+ boundary consts), the baseline example is all-false + in-progress, the invalid example
       # exercises the boundary, and no config/flag/env flips real money ON outside the Rust
@@ -1385,7 +1388,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # ADR-003 D-059-07 / ADR-006 — the protocol (L1) + certification (L2) stay separate from the scheme
+      # ADR-004 / ADR-006 — the protocol (L1) + certification (L2) stay separate from the scheme
       # (L3): BANZA ≠ Banzami is stated, certification is non-exclusive to the scheme, and no surface
       # conflates "BANZA = Banzami" or "BANZA is the scheme". Context-window negation-aware ("≠" is not
       # "="); self-tests every run. Same script as local `make banza-protocol-scheme-separation-check`.
@@ -1398,7 +1401,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # ADR-007 / docs/governance/BANZA_CONFLICT_OF_INTEREST_POLICY.md + BANZA_SEPARATION_MATRIX.md — the
+      # ADR-006 / docs/governance/BANZA_CONFLICT_OF_INTEREST_POLICY.md + BANZA_SEPARATION_MATRIX.md — the
       # creator==first-operator conflict is controlled structurally: same suite / same engine / no bypass,
       # the seven no-self-privilege prohibitions, and the eight-key-domain separation table (K1..K8, never
       # reused). Negation-aware; self-tests every run. Same script as local
@@ -1412,9 +1415,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # ADR-004 — Technical Certification (L2) ≠ Scheme Admission (L3) ≠ Regulatory Authorisation: the
-      # three-way separation is stated on the canonical surfaces (ADR-004 + BANZA_THREE_LAYER_ARCHITECTURE.md
-      # + ADR-003) and no surface conflates certification with a licence or admission. Context-window
+      # ADR-005 — Technical Certification (L2) ≠ Scheme Admission (L3) ≠ Regulatory Authorisation: the
+      # three-way separation is stated on the canonical surfaces (ADR-005 + BANZA_THREE_LAYER_ARCHITECTURE.md
+      # + ADR-004) and no surface conflates certification with a licence or admission. Context-window
       # negation-aware; self-tests every run. Same script as local
       # `make banza-certification-admission-separation-check`.
       - name: Certification/admission/authorisation separation guard
@@ -1425,7 +1428,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # ADR-034/065/066 — the L2 conformance & interoperability certification model: implementation-bound
+      # ADR-032/065/066 — the L2 conformance & interoperability certification model: implementation-bound
       # record; required profile/scope/environment/validity/evidence + interoperability; closed fail-closed
       # state machine; Rust-sole-authority (no Qwen / no FAIL->PASS); not a licence/admission/authorisation;
       # Technical Registry ≠ scheme directory; no /certificates. Same script as local
@@ -1440,7 +1443,7 @@ jobs:
       - uses: actions/checkout@v4
 
       # M2.19G — /certificacao owns the L2 certification model: both canonical sentences verbatim (the "É"
-      # and the "NÃO É"), the certification ≠ admission ≠ authorisation separation, ADR-034/065/066, the
+      # and the "NÃO É"), the certification ≠ admission ≠ authorisation separation, ADR-032/065/066, the
       # closed fail-closed lifecycle states, no retired framing as a positive claim (negation-aware), and
       # footer + sitemap linkage. Self-tests every run. Same script as local `make certification-page-check`.
       - name: Certification page guard
@@ -1452,7 +1455,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # M2.19G — /registo-tecnico owns the BANZA Technical Registry (ADR-036): canonical definition, the
+      # M2.19G — /registo-tecnico owns the BANZA Technical Registry (ADR-033): canonical definition, the
       # closed certification states, the strict boundary (registry ≠ scheme-participant directory; listed ≠
       # admission ≠ authorisation), the honest empty/pre-production state, no retired framing, and footer +
       # sitemap linkage. Self-tests every run. Same script as local `make technical-registry-page-check`.
@@ -1515,17 +1518,17 @@ jobs:
       - name: G2 readiness capstone guard
         run: bash tools/check-home-readiness.sh
 
-  # ── M2.19G.5C — Canonical BanzAI architecture guard suite (ADR-042..074) ──────────────────────────
-  # The canonical BanzAI runtime is services/banzai-api (ADR-042); the runtime SSOT is /banzai/runtime
-  # (ADR-042); the post-synthesis authority validator is a mandatory publish gate (ADR-042); SimB is
-  # retired from active surfaces (ADR-042). Each guard is the SAME script as its `make …` target.
+  # ── M2.19G.5C — Canonical BanzAI architecture guard suite (ADR-036..074) ──────────────────────────
+  # The canonical BanzAI runtime is services/banzai-api (ADR-036); the runtime SSOT is /banzai/runtime
+  # (ADR-036); the post-synthesis authority validator is a mandatory publish gate (ADR-036); SimB is
+  # retired from active surfaces (ADR-036). Each guard is the SAME script as its `make …` target.
 
   banzai-post-synthesis-validation:
     name: mandatory post-synthesis authority validator
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # ADR-042 — postValidate gates the grounded publish path (after synthesis, before groundedAnswer /
+      # ADR-036 — postValidate gates the grounded publish path (after synthesis, before groundedAnswer /
       # cache writes / return), emits a stable post_validation_ fallback reason, and drives the honest
       # three-state validation_status. Self-tests every run. Same as `make banzai-post-synthesis-validation-check`.
       - name: Post-synthesis validation gate guard
@@ -1536,7 +1539,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # ADR-042 — one secret-free public /banzai/runtime route in every apex nginx conf; the projection
+      # ADR-036 — one secret-free public /banzai/runtime route in every apex nginx conf; the projection
       # carries schema_version + authoritative:false and leaks no secrets; /estado consumes the route and
       # never hardcodes the live engine. Self-tests every run. Same as `make banzai-runtime-ssot-check`.
       - name: Runtime SSOT guard
@@ -1547,7 +1550,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # ADR-042 — no SimB/banza-simb token on any active public/agent surface (isolated draft libs, frozen
+      # ADR-036 — no SimB/banza-simb token on any active public/agent surface (isolated draft libs, frozen
       # crate and history exempt). Self-tests every run. Same as `make banzai-simb-active-surface-clean-check`.
       - name: SimB active-surface clean guard
         run: bash tools/check-banzai-simb-active-surface-clean.sh
@@ -1557,7 +1560,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # ADR-042 — services/banzai-api is the canonical runtime and the separate banza-protocol/banzai repo
+      # ADR-036 — services/banzai-api is the canonical runtime and the separate banza-protocol/banzai repo
       # is being permanently removed; forbids mock-façade framing, canonical-core claims, links to the old
       # repo, and archive/frozen framing of it. Self-tests every run.
       # Same as `make banzai-canonical-architecture-framing-check`.
@@ -1590,11 +1593,11 @@ jobs:
       - name: BanzAI architecture manifest guard
         run: bash tools/check-banzai-architecture-manifest.sh
 
-      # M2.19G.6 (ADR-042) — BanzAI consolidated into this monorepo as the SOLE active source; the
+      # M2.19G.6 (ADR-036) — BanzAI consolidated into this monorepo as the SOLE active source; the
       # separate banza-protocol/banzai repo is being permanently removed. Proves no legacy/ snapshot or second BanzAI
       # workspace/API in HEAD; engines/banzai-trace + in-monorepo trace WASM; repo-indexer has no
       # sibling remote and the manifest declares banzai_in_monorepo with zero embedded banzai chunks;
-      # ADR-042 present. Pure node+bash (reads the committed manifest + files; no WASM build needed).
+      # ADR-036 present. Pure node+bash (reads the committed manifest + files; no WASM build needed).
       # Same as `make banzai-monorepo-consolidation-check`.
       - name: BanzAI monorepo consolidation guard
         run: bash tools/check-banzai-monorepo-consolidation.sh
@@ -1646,13 +1649,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # ADR-042 CD-9 — a degraded/unknown BanzAI answer states its honest cause and never falsely claims
+      # ADR-036 CD-9 — a degraded/unknown BanzAI answer states its honest cause and never falsely claims
       # "Qwen local confirmado" (BanzaiAgent engineLabel + banzaiKb telemetry). Self-tests every run.
       # Same as `make banzai-degraded-mode-render-check`.
       - name: Degraded-mode render guard
         run: bash tools/check-banzai-degraded-mode-render.sh
 
-  # ── M2.19G.1 — Endpoint-Originated Operator Validation guard suite (ADR-038 §37) ──────────────────
+  # ── M2.19G.1 — Endpoint-Originated Operator Validation guard suite (ADR-034 §37) ──────────────────
   # Every evaluated artifact is obtained from the selected implementation's public endpoints by the
   # secure Rust fetcher; Rust decides every verdict; the receipt fixes the result to its exact origin.
   # Each guard is the SAME script as its `make …` target — CI and local runs share one source of truth.

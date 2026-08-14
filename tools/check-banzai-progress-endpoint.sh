@@ -8,7 +8,7 @@
 #     NEVER emits a terminal (FINAL_VALIDATED / HONEST_FALLBACK / REFUSED) or a DONE itself — the SSE endpoint
 #     decides + emits the terminal, AFTER validation;
 #   * there is NO model-token / delta / partial-prose frame anywhere (no unvalidated model text is streamed);
-#   * the ADR-042 post-synthesis validator + the Inc.4 claim/citation verification run BEFORE any
+#   * the ADR-036 post-synthesis validator + the Inc.4 claim/citation verification run BEFORE any
 #     FINAL_VALIDATED that carries prose (CLAIM_VERIFICATION_STARTED precedes postValidate(); the server emits
 #     FINAL_VALIDATED only AFTER ask() returns);
 #   * a boundary/refusal streams no synthesis events (REQUEST_ACCEPTED [+INTENT_RESOLVED] then REFUSED);
@@ -76,14 +76,14 @@ else
   ok "no model-token/delta/partial-prose frame is ever emitted"
 fi
 
-# ── static: ADR-042 post-validate + Inc.4 verification run BEFORE any FINAL_VALIDATED with prose. ──────
+# ── static: ADR-036 post-validate + Inc.4 verification run BEFORE any FINAL_VALIDATED with prose. ──────
 # In pipeline.js, CLAIM_VERIFICATION_STARTED must be emitted BEFORE the postValidate() call, which itself is
 # BEFORE the grounded answer is built. The server emits FINAL_VALIDATED only AFTER ask() returns.
 claim_line=$(grep -n 'emit("CLAIM_VERIFICATION_STARTED"' "$PIPE" | head -1 | cut -d: -f1)
 postval_line=$(grep -n 'const verdict = postValidate(answerText)' "$PIPE" | head -1 | cut -d: -f1)
 grounded_line=$(grep -n 'const g = groundedAnswer(answerText' "$PIPE" | head -1 | cut -d: -f1)
 if [ -n "$claim_line" ] && [ -n "$postval_line" ] && [ -n "$grounded_line" ] && [ "$claim_line" -lt "$postval_line" ] && [ "$postval_line" -lt "$grounded_line" ]; then
-  ok "ADR-042 postValidate + Inc.4 verification precede building the grounded (prose) answer (claim@$claim_line < postValidate@$postval_line < groundedAnswer@$grounded_line)"
+  ok "ADR-036 postValidate + Inc.4 verification precede building the grounded (prose) answer (claim@$claim_line < postValidate@$postval_line < groundedAnswer@$grounded_line)"
 else
   fail "$PIPE must run CLAIM_VERIFICATION_STARTED → postValidate() → groundedAnswer in that order (claim=$claim_line postValidate=$postval_line grounded=$grounded_line)"
 fi
@@ -163,7 +163,7 @@ const path = require("path");
         opts.onProgress("SYNTHESIS_STARTED", { model: "qwen-test" });
         opts.onProgress("SYNTHESIS_COMPLETED", { output_status: "ok" });
       }
-      return { status: "grounded", answer_markdown: ANSWER, cited_source_ids: ["ADR-001"], package: { facts: [{ id: "F1", source: { document_id: "ADR-001", title: "ADR-001", path: "decisions/adr/ADR-001-open-financial-protocol-what-banza-is-and-is-not.md" } }] }, primary_intent: "explain_concept", clarification_candidates: [], trace: { synthesis_called: true, entry_status: "ok", output_status: "ok", model: "qwen-test" }, ...over };
+      return { status: "grounded", answer_markdown: ANSWER, cited_source_ids: ["ADR-001"], package: { facts: [{ id: "F1", source: { document_id: "ADR-001", title: "ADR-001", path: "$(ls decisions/adr/ADR-001-*.md 2>/dev/null | head -1)" } }] }, primary_intent: "explain_concept", clarification_candidates: [], trace: { synthesis_called: true, entry_status: "ok", output_status: "ok", model: "qwen-test" }, ...over };
     };
     fn.calls = calls; return fn;
   };

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg viewBox="0 0 1000 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title-P071 desc-P071" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
   <title id="title-P071">Arquitectura do Protocolo BANZA</title>
-  <desc id="desc-P071">Arquitectura do protocolo financeiro aberto BANZA como um fluxo primário humano-operador (ADR-054): Humanos e operadores começam pela interface primária BanzAI, que interpreta pedidos, consulta a referência, orienta, encaminha para os motores verificáveis e explica os resultados; os motores determinísticos Rust/WASM verificam e a evidência prova, produzindo um resultado técnico verificável. Na base, a governança, os ADR/RFC e a referência definem as regras que o BanzAI consulta e os motores verificam, e decidem a evolução do protocolo. O BanzAI não é fonte normativa: não decide, não certifica, não aprova, não licencia, não publica operadores e não movimenta fundos, e não substitui os motores. As integrações máquina-máquina continuam possíveis por APIs, manifests, schemas, endpoints e motores verificáveis, sem depender obrigatoriamente do BanzAI. Não há autoridade central nem credenciais emitidas pela BANZA.</desc>
+  <desc id="desc-P071">Arquitectura do protocolo financeiro aberto BANZA como um fluxo primário humano-operador (ADR-036): Humanos e operadores começam pela interface primária BanzAI, que interpreta pedidos, consulta a referência, orienta, encaminha para os motores verificáveis e explica os resultados; os motores determinísticos Rust/WASM verificam e a evidência prova, produzindo um resultado técnico verificável. Na base, a governança, os ADR/RFC e a referência definem as regras que o BanzAI consulta e os motores verificam, e decidem a evolução do protocolo. O BanzAI não é fonte normativa: não decide, não certifica, não aprova, não licencia, não publica operadores e não movimenta fundos, e não substitui os motores. As integrações máquina-máquina continuam possíveis por APIs, manifests, schemas, endpoints e motores verificáveis, sem depender obrigatoriamente do BanzAI. Não há autoridade central nem credenciais emitidas pela BANZA.</desc>
 
   <defs>
     <linearGradient id="bgG-P071" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F8F4EC"/><stop offset="1" stop-color="#EFE9DD"/></linearGradient>
@@ -16,7 +16,7 @@
 
   <rect x="0" y="0" width="1000" height="900" fill="url(#bgG-P071)"/>
 
-  <!-- ── Canonical header band (M2.7J visual system) ──────────────────────── -->
+  <!-- ── Canonical header band (visual system) ──────────────────────── -->
   <rect x="0" y="0" width="1000" height="72" fill="url(#headG-P071)" rx="14"/>
   <rect x="0" y="54" width="1000" height="18" fill="#8E1326"/>
   <text x="32" y="30" font-size="11" letter-spacing="2.5" fill="#FECACA" font-family="ui-monospace, 'SF Mono', Menlo, monospace">SVG-P-071 · PROTOCOLO FINANCEIRO ABERTO</text>

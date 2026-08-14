@@ -3,15 +3,15 @@
 // The Operador Zero surface NEVER computes a verdict. It publishes the LAST validation state produced
 // by the BanzAI validation mode (Rust engines) and vendored into the canonical artifact tree
 // (examples/operators/zero/status/…). This module only SELECTS + LABELS those published facts for the
-// read-only page. TypeScript computes nothing about validation (ADR-043): no scoring, no pass/fail
+// read-only page. TypeScript computes nothing about validation (ADR-038): no scoring, no pass/fail
 // arithmetic, no thresholds — every state below comes verbatim from a published artifact.
 //
 // There is deliberately NO aggregate score and NO "100/100": a score is not a certification, and the
-// canonical status vocabulary is categorical (mirrors the M2.19D certification state machine, ADR-035).
+// canonical status vocabulary is categorical (mirrors the M2.19D certification state machine, ADR-032).
 
 import { OPERADOR_ZERO_VALIDATION_STATE } from "@/lib/operadorZero";
 
-/** The categorical states a validation dimension can hold. Mirrors ADR-035 + the readiness vocabulary.
+/** The categorical states a validation dimension can hold. Mirrors ADR-032 + the readiness vocabulary.
  *  `NOT_EVALUATED` is the honest default when nothing has been published. */
 export type ZeroDimensionState =
   | "NOT_EVALUATED"
@@ -100,7 +100,7 @@ export const ZERO_DIMENSIONS: ZeroDimension[] = [
   { key: "trust", label: "Trust", state: published(evidenceComplete), state_label: STATE_LABEL_PT[published(evidenceComplete)], engine: "banza-trust", evidence_ref: "/revocation-list.json" },
   { key: "federation", label: "Federação", state: published(evidenceComplete), state_label: STATE_LABEL_PT[published(evidenceComplete)], engine: "banza-l3-readiness", evidence_ref: "/federation/metadata.json" },
   { key: "evidence", label: "Evidência", state: published(evidenceComplete), state_label: STATE_LABEL_PT[published(evidenceComplete)], engine: "banza-evidence-bundle", evidence_ref: "/evidence-bundle.json" },
-  // Certification: honest categorical state — a demo implementation is NOT_CERTIFIED (ADR-034/066).
+  // Certification: honest categorical state — a demo implementation is NOT_CERTIFIED (ADR-032/066).
   { key: "certification", label: "Prontidão de certificação", state: "NOT_CERTIFIED", state_label: STATE_LABEL_PT.NOT_CERTIFIED, engine: "banza-certification", evidence_ref: "/banzai?mode=validation&target=operator-zero&workflow=certification" },
 ];
 

@@ -3,7 +3,7 @@
   id:        SVG-P-066
   diagram:   Trust Engine — Active Model
   version:   1.0
-  source:    banza-trust (engines/banza-trust) · M2.4 Trust Engine — Signed Protocol Metadata
+  source:    banza-trust (engines/banza-trust) Trust Engine — Signed Protocol Metadata
   updated:   2026-07-17
   author:    BANZA Protocol
   style:     protocol
@@ -12,7 +12,7 @@
      role="img" aria-labelledby="title-P066 desc-P066"
      font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
   <title id="title-P066">Trust Engine — Active Model</title>
-  <desc id="desc-P066">How the BANZA trust engine establishes protocol trust from published, verifiable material. Six kinds of evidence feed the engine: signed protocol metadata and a delegated signing key that anchors to the trust root, an operator manifest and conformance evidence that the operator self-publishes, a public protocol registry entry, and a revocation list. The trust engine evaluates them in Rust: it verifies the ed25519 signature over the ADR-038 canonical form, checks the delegated key against the trust root, the freshness window, the protocol version, the manifest, conformance evidence and registry bindings, and the revocation status. Every branch is fail-closed. When all checks verify the status is TRUST_VALID and the evaluating operator may route federation traffic; when any input is missing, invalid, expired, revoked or incompatible the status is fail-closed and no trust is established. No operator certificate, no certification authority signature, no human approval and no certificate badge appear anywhere in the evaluation. The validation of trust is not authorisation, certification, a licence or a financial service.</desc>
+  <desc id="desc-P066">How the BANZA trust engine establishes protocol trust from published, verifiable material. Six kinds of evidence feed the engine: signed protocol metadata and a delegated signing key that anchors to the trust root, an operator manifest and conformance evidence that the operator self-publishes, a public protocol registry entry, and a revocation list. The trust engine evaluates them in Rust: it verifies the ed25519 signature over the ADR-034 canonical form, checks the delegated key against the trust root, the freshness window, the protocol version, the manifest, conformance evidence and registry bindings, and the revocation status. Every branch is fail-closed. When all checks verify the status is TRUST_VALID and the evaluating operator may route federation traffic; when any input is missing, invalid, expired, revoked or incompatible the status is fail-closed and no trust is established. No operator certificate, no certification authority signature, no human approval and no certificate badge appear anywhere in the evaluation. The validation of trust is not authorisation, certification, a licence or a financial service.</desc>
   <defs>
     <linearGradient id="hg-P066" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%" stop-color="#6E0F1A"/><stop offset="100%" stop-color="#8E1326"/>
@@ -53,7 +53,7 @@
   <text x="110" y="166" text-anchor="middle" font-size="9.5" font-weight="800" fill="white">Signed Protocol Metadata</text>
   <text x="110" y="196" text-anchor="middle" font-size="9.5" fill="#374151">specs · contracts · hashes</text>
   <text x="110" y="211" text-anchor="middle" font-size="9.5" fill="#6B6265">ed25519 over the</text>
-  <text x="110" y="226" text-anchor="middle" font-size="9.5" fill="#6B6265">ADR-038 canonical form</text>
+  <text x="110" y="226" text-anchor="middle" font-size="9.5" fill="#6B6265">ADR-034 canonical form</text>
   <text x="110" y="251" text-anchor="middle" font-size="9" font-style="italic" fill="#1E40AF">protocol-signed</text>
 
   <!-- Input 2 — Delegated Signing Key (protocol-signed) -->
@@ -113,7 +113,7 @@
   <rect x="40" y="300" width="920" height="132" fill="white" rx="12" stroke="#E5E7EB" stroke-width="1.5" filter="url(#sh-P066)"/>
   <rect x="40" y="300" width="920" height="32" fill="#1F2937" rx="12"/><rect x="40" y="318" width="920" height="14" fill="#1F2937"/>
   <text x="500" y="321" text-anchor="middle" font-size="13" font-weight="800" fill="white">Trust Engine · banza-trust</text>
-  <text x="500" y="352" text-anchor="middle" font-size="10.5" fill="#374151">The status is computed in Rust — ed25519 over the ADR-038 canonical JSON — and every gate is fail-closed.</text>
+  <text x="500" y="352" text-anchor="middle" font-size="10.5" fill="#374151">The status is computed in Rust — ed25519 over the ADR-034 canonical JSON — and every gate is fail-closed.</text>
 
   <!-- Gate chips -->
   <rect x="56" y="366" width="136" height="42" rx="8" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1.2"/>
@@ -169,5 +169,5 @@
   <text x="500" y="620" text-anchor="middle" font-size="9.5" fill="#6B6265">BANZA é um protocolo financeiro aberto: não autoriza, certifica, aceita ou aprova operadores, não emite licença e não movimenta fundos.</text>
 
   <!-- Footer -->
-  <text x="500" y="652" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-066 · Trust Engine — Active Model · BANZA Protocol · banza-trust · M2.4 · 2026-07-17</text>
+  <text x="500" y="652" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-066 · Trust Engine — Active Model · BANZA Protocol · banza-trust · 2026-07-17</text>
 </svg>

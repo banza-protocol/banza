@@ -28,7 +28,7 @@
 | **manifest / operator manifest** | Metadata document describing a candidate operator — identity, environment, capabilities and the endpoints the protocol expects. Validating one produces **local technical evidence**; it does not create a real operator or certify. | `contracts/production/operator-manifest.production.schema.json` |
 | **key manifest** | Document that declares an operator's signing keys for trust evaluation. | `contracts/federation/key-manifest.json` |
 | **trust** | Machine-verifiable evaluation over signed protocol metadata / key manifest / revocation, **fail-closed**. Not central approval or certification. | `spec/federation/FEDERATION_TRUST_MODEL.md` |
-| **Trust Root** | The protocol's own root of trust (established by the root ceremony), independent of any operator. The Operador Zero **Demo Operator Root** is a demo root and is *not* the protocol Trust Root. | `spec/federation/FEDERATION_TRUST_MODEL.md`, `decisions/adr/ADR-027-*.md` |
+| **Trust Root** | The protocol's own root of trust (established by the root ceremony), independent of any operator. The Operador Zero **Demo Operator Root** is a demo root and is *not* the protocol Trust Root. | `spec/federation/FEDERATION_TRUST_MODEL.md`, `decisions/adr/ADR-025-*.md` |
 | **revocation / revocation list (BRL)** | Mechanism to mark a key as no longer trusted; a revoked key blocks trust (fail-closed). | `contracts/federation/revocation-list.json` |
 | **federation / to federate** | Demonstrating **technical compatibility between independent operators** so they can interoperate under the protocol — via federation metadata, manifest, trust/key manifest, revocation and verifiable evidence. Federating is **not** central approval, certification, a financial licence, or automatic entry into production. | `spec/federation/FEDERATION_OPERATOR_QUICKSTART.md`, `spec/federation/FEDERATION_PROTOCOL_FLOW.md` |
 | **interoperability** | The ability of independent operators to work together under the same protocol rules. | `spec/overview.md` |
@@ -36,7 +36,7 @@
 | **PASS** | A passing conformance result: **local technical evidence**, not a certificate, approval or licence. | `conformance/README.md` |
 | **evidence / evidence bundle / trace / session summary** | Verifiable artefacts (a bundle of results, an end-to-end trace, a session summary) that document what actually happened. Evidence is not certification. | `spec/federation/FEDERATION_CONFORMANCE_EVIDENCE_MODEL.md` |
 | **invariant** | A non-negotiable integrity rule the protocol enforces (INV-LEDGER/WALLET/SETTLE/IDEM/RECON/QR). | `contracts/invariants.json` |
-| **KZ_DEMO / demo_only / production_allowed / monetary_value** | Markers of the Operador Zero simulator: fictitious currency, demo-only, no production, no monetary value. | `decisions/adr/ADR-041-*.md` |
+| **KZ_DEMO / demo_only / production_allowed / monetary_value** | Markers of the Operador Zero simulator: fictitious currency, demo-only, no production, no monetary value. | `decisions/adr/ADR-035-*.md` |
 
 ## Layer B — fintech / payment-domain terms (general explanation, not a BANZA rule)
 

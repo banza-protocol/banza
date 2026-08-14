@@ -5,31 +5,31 @@
     "principle": "The vocabulary is a semantic registry of real protocol terms derived from the engine's own registries + closed protocol sets; corpus terms are candidates (Phase 1), lexical noise never enters here."
   },
   "source_registry": {
-    "total": 423,
+    "total": 417,
     "by_type": {
       "root-doc": 9,
       "conformance": 80,
       "schema": 85,
       "contract": 48,
       "openapi": 11,
-      "adr": 46,
+      "adr": 39,
       "rfc": 7,
       "doc": 58,
       "example": 48,
-      "spec": 31
+      "spec": 32
     },
     "by_status": {
-      "current": 423
+      "current": 417
     },
     "by_authority_class": {
-      "current": 375,
+      "current": 369,
       "illustrative": 48
     },
     "by_language": {
-      "pt-or-neutral": 423
+      "pt-or-neutral": 417
     },
     "by_origin": {
-      "authored": 423,
+      "authored": 417,
       "generated": 0
     },
     "duplicates": [
@@ -332,7 +332,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "cb6a48f7d9be256f"
+        "checksum": "9b77aa1c86341229"
       },
       {
         "id": "governance-md",
@@ -343,7 +343,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "1f37e8699bce1a5d"
+        "checksum": "6f560a9e75af090d"
       },
       {
         "id": "license",
@@ -387,7 +387,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "8fb68ac688428af7"
+        "checksum": "2811597e23cfaf86"
       },
       {
         "id": "security-md",
@@ -431,7 +431,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "98253485b7787f13"
+        "checksum": "26a1cf5de3cc9522"
       },
       {
         "id": "conformance-capabilities-schema-json",
@@ -442,7 +442,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "a686cc4b621bdc79"
+        "checksum": "57fa770938903c88"
       },
       {
         "id": "conformance-events-suite-json",
@@ -464,7 +464,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "d19c1f39d465e9cf"
+        "checksum": "6109d4910e1c63d6"
       },
       {
         "id": "conformance-fixtures-federation-brl-emergency-json",
@@ -827,7 +827,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "698757dc8aa5b0df"
+        "checksum": "39d04a41e713eeed"
       },
       {
         "id": "conformance-operators-suite-json",
@@ -860,7 +860,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "a686cc4b621bdc79"
+        "checksum": "57fa770938903c88"
       },
       {
         "id": "conformance-package-conformance-manifests-schema-json",
@@ -871,7 +871,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "698757dc8aa5b0df"
+        "checksum": "39d04a41e713eeed"
       },
       {
         "id": "conformance-package-conformance-vectors-canonicalization-json",
@@ -882,7 +882,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "122b3d47ed4fd75f"
+        "checksum": "cd3682eba7d33237"
       },
       {
         "id": "conformance-package-conformance-vectors-capabilities-json",
@@ -904,7 +904,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "775533206a355115"
+        "checksum": "a71aac7f8781d32b"
       },
       {
         "id": "conformance-package-conformance-vectors-event-envelopes-json",
@@ -926,7 +926,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "89ba0cc15ae93b2b"
+        "checksum": "ebb0ae32ed7020d6"
       },
       {
         "id": "conformance-package-conformance-vectors-ledger-postings-json",
@@ -981,7 +981,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "f636c5a8e95a6884"
+        "checksum": "c20a009fa9d82148"
       },
       {
         "id": "conformance-package-conformance-vectors-settlement-batches-json",
@@ -1014,7 +1014,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "c6e48c7416849e68"
+        "checksum": "04f147824b6a620a"
       },
       {
         "id": "conformance-package-conformance-vectors-trust-signing-json",
@@ -1025,7 +1025,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "d69aced828859213"
+        "checksum": "6016d37f628d0a67"
       },
       {
         "id": "conformance-package-conformance-vectors-wallet-balances-json",
@@ -1047,7 +1047,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "b8d6249412f7a6f6"
+        "checksum": "1a4d6733d012c499"
       },
       {
         "id": "conformance-package-contracts-collections-collection-share-schema-json",
@@ -1058,7 +1058,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "38c14e617d69e6bd"
+        "checksum": "68caf0768b0989a1"
       },
       {
         "id": "conformance-package-contracts-collections-collection-schema-json",
@@ -1069,7 +1069,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "57eaf5c2ed46f83a"
+        "checksum": "3b6757784f184f8d"
       },
       {
         "id": "conformance-package-contracts-collections-state-machine-json",
@@ -1080,7 +1080,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "120bb462a9274190"
+        "checksum": "0ddcb7840594f237"
       },
       {
         "id": "conformance-package-contracts-events-envelope-schema-json",
@@ -1091,7 +1091,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "4a10ffa941dfc4a4"
+        "checksum": "690f4514cee87ce5"
       },
       {
         "id": "conformance-package-contracts-events-types-json",
@@ -1102,7 +1102,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "c7de15b17f4b356d"
+        "checksum": "c828a851a00ed318"
       },
       {
         "id": "conformance-package-contracts-events-webhook-types-json",
@@ -1113,7 +1113,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "54e86107e7361b5a"
+        "checksum": "7ea167666751cf32"
       },
       {
         "id": "conformance-package-contracts-federation-federation-event-json",
@@ -1124,7 +1124,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "9867b5e9a6161aa1"
+        "checksum": "e63c3f6acc4f622e"
       },
       {
         "id": "conformance-package-contracts-federation-federation-manifest-json",
@@ -1135,7 +1135,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "7630e5031e0ab532"
+        "checksum": "79efaba6e40aed5c"
       },
       {
         "id": "conformance-package-contracts-federation-federation-obligation-json",
@@ -1146,7 +1146,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "048baac8418f0d18"
+        "checksum": "528fd15bd62f19ae"
       },
       {
         "id": "conformance-package-contracts-federation-federation-routing-json",
@@ -1157,7 +1157,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "ecc97aacbf85422d"
+        "checksum": "da3d9f6deed1d86f"
       },
       {
         "id": "conformance-package-contracts-federation-federation-trust-json",
@@ -1168,7 +1168,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "41013b19d9b04700"
+        "checksum": "0fc42074110826a1"
       },
       {
         "id": "conformance-package-contracts-federation-key-manifest-json",
@@ -1179,7 +1179,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "a066f1fcd805551c"
+        "checksum": "ea34fb4ee7a36341"
       },
       {
         "id": "conformance-package-contracts-federation-revocation-list-json",
@@ -1190,7 +1190,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "40db441c8845adc7"
+        "checksum": "d2dbb118e5836dbd"
       },
       {
         "id": "conformance-package-contracts-fees-business-category-schema-json",
@@ -1201,7 +1201,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "1c10ae83fe4fc7db"
+        "checksum": "af47ec93b8a61b60"
       },
       {
         "id": "conformance-package-contracts-fees-fee-policy-ref-schema-json",
@@ -1212,7 +1212,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "31fd1e4ee6db1579"
+        "checksum": "9be2c1f399d1d4de"
       },
       {
         "id": "conformance-package-contracts-fees-operator-fee-schema-json",
@@ -1223,7 +1223,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "04a523e9bc52bfc2"
+        "checksum": "4027ab7141e4ff8e"
       },
       {
         "id": "conformance-package-contracts-fees-pricing-profile-schema-json",
@@ -1234,7 +1234,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "77503b011577862c"
+        "checksum": "63cd67588353fad9"
       },
       {
         "id": "conformance-package-contracts-invariants-json",
@@ -1245,7 +1245,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "79febffbf4fe22e1"
+        "checksum": "ed45855dc4b520e9"
       },
       {
         "id": "conformance-package-contracts-openapi-activity-yaml",
@@ -1267,7 +1267,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "b50a2c29d13a9e0c"
+        "checksum": "f601d70f04ad5f50"
       },
       {
         "id": "conformance-package-contracts-openapi-transfers-yaml",
@@ -1300,7 +1300,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "beb3ddce3bcb9163"
+        "checksum": "b981231433a820d3"
       },
       {
         "id": "conformance-package-contracts-payment-sessions-payment-session-interface-schema-json",
@@ -1322,7 +1322,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "9d3c1d704fd1da1f"
+        "checksum": "03441ffdff40a7ff"
       },
       {
         "id": "conformance-package-contracts-production-brl-production-schema-json",
@@ -1333,7 +1333,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "69e9c631cc7ab4a1"
+        "checksum": "e1ed8c3ad5b6a58f"
       },
       {
         "id": "conformance-package-contracts-production-capabilities-document-production-schema-json",
@@ -1344,7 +1344,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "d629f09f2df237b5"
+        "checksum": "7f0319fe56b2280c"
       },
       {
         "id": "conformance-package-contracts-production-capability-registry-production-json",
@@ -1388,7 +1388,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "bc56e6cca8807386"
+        "checksum": "a346c1d0cd032484"
       },
       {
         "id": "conformance-package-contracts-production-evidence-bundle-production-schema-json",
@@ -1410,7 +1410,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "c127aeefbff91f38"
+        "checksum": "59a49c2e10090cb9"
       },
       {
         "id": "conformance-package-contracts-production-key-manifest-production-schema-json",
@@ -1432,7 +1432,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "cf5ed6cda0380427"
+        "checksum": "5a82a3f902bb3ba1"
       },
       {
         "id": "conformance-package-contracts-production-operator-self-publication-production-schema-json",
@@ -1454,7 +1454,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "e0df7c3d0ea9bc03"
+        "checksum": "0fcf788dba1752e6"
       },
       {
         "id": "conformance-package-contracts-production-public-protocol-registry-production-schema-json",
@@ -1476,7 +1476,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "0de5f494552861a9"
+        "checksum": "58de1a5aa7064fc3"
       },
       {
         "id": "conformance-package-contracts-production-revocation-entry-production-schema-json",
@@ -1487,7 +1487,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "e635f65ff73d8f8a"
+        "checksum": "e9ab64b69829683f"
       },
       {
         "id": "conformance-package-contracts-production-root-delegation-production-schema-json",
@@ -1531,7 +1531,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "c5eac965be5b71f7"
+        "checksum": "a7711b71046ad020"
       },
       {
         "id": "conformance-package-contracts-production-trust-root-metadata-production-schema-json",
@@ -1542,7 +1542,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "7b990a34f25bd913"
+        "checksum": "60a2288d3945a85e"
       },
       {
         "id": "conformance-package-contracts-proofs-transaction-proof-schema-json",
@@ -1553,7 +1553,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "f75b6cff623f33d7"
+        "checksum": "97c576039fbd6046"
       },
       {
         "id": "conformance-package-contracts-proofs-verification-response-schema-json",
@@ -1564,7 +1564,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "216a0b375263174b"
+        "checksum": "b02cb74b64857f1d"
       },
       {
         "id": "conformance-package-contracts-qr-lifecycle-json",
@@ -1575,7 +1575,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "b5ce9d2698cb76c0"
+        "checksum": "0a1685d903afd370"
       },
       {
         "id": "conformance-package-contracts-qr-payload-format-json",
@@ -1586,7 +1586,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "4d73da265fd31c60"
+        "checksum": "84b79f1fb1d7c0da"
       },
       {
         "id": "conformance-package-contracts-settlements-application-settlement-schema-json",
@@ -1597,7 +1597,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "35b9d928166d4c90"
+        "checksum": "f45fdb8800f05948"
       },
       {
         "id": "conformance-package-contracts-settlements-state-machine-json",
@@ -1608,7 +1608,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "30d4d296199b9bb7"
+        "checksum": "094e4f0a972f1391"
       },
       {
         "id": "conformance-package-contracts-wallet-accounts-wallet-account-schema-json",
@@ -1619,7 +1619,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "dfa6f2fa7965f2b0"
+        "checksum": "fe66115cd0ec4490"
       },
       {
         "id": "conformance-package-contracts-webhooks-envelope-schema-json",
@@ -1630,7 +1630,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "c5cb82ace32e3ac3"
+        "checksum": "9250dca280d9f36d"
       },
       {
         "id": "conformance-package-contracts-webhooks-signature-json",
@@ -1641,7 +1641,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "b27f60daeaefc726"
+        "checksum": "e50d7881f9dd05ef"
       },
       {
         "id": "conformance-package-package-manifest-json",
@@ -1652,7 +1652,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "7434064a7f77ccf2"
+        "checksum": "325908cdd9552b13"
       },
       {
         "id": "conformance-qr-suite-json",
@@ -1718,7 +1718,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "122b3d47ed4fd75f"
+        "checksum": "cd3682eba7d33237"
       },
       {
         "id": "conformance-vectors-capabilities-json",
@@ -1740,7 +1740,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "775533206a355115"
+        "checksum": "a71aac7f8781d32b"
       },
       {
         "id": "conformance-vectors-event-envelopes-json",
@@ -1762,7 +1762,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "89ba0cc15ae93b2b"
+        "checksum": "ebb0ae32ed7020d6"
       },
       {
         "id": "conformance-vectors-ledger-postings-json",
@@ -1817,7 +1817,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "f636c5a8e95a6884"
+        "checksum": "c20a009fa9d82148"
       },
       {
         "id": "conformance-vectors-settlement-batches-json",
@@ -1850,7 +1850,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "c6e48c7416849e68"
+        "checksum": "04f147824b6a620a"
       },
       {
         "id": "conformance-vectors-trust-signing-json",
@@ -1861,7 +1861,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "d69aced828859213"
+        "checksum": "6016d37f628d0a67"
       },
       {
         "id": "conformance-vectors-wallet-balances-json",
@@ -1883,7 +1883,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "82c7ff33786fb4ad"
+        "checksum": "348a6cb35961a834"
       },
       {
         "id": "contracts-collections-collection-rule-schema-json",
@@ -1894,7 +1894,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "b8d6249412f7a6f6"
+        "checksum": "1a4d6733d012c499"
       },
       {
         "id": "contracts-collections-collection-share-schema-json",
@@ -1905,7 +1905,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "38c14e617d69e6bd"
+        "checksum": "68caf0768b0989a1"
       },
       {
         "id": "contracts-collections-collection-schema-json",
@@ -1916,7 +1916,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "57eaf5c2ed46f83a"
+        "checksum": "3b6757784f184f8d"
       },
       {
         "id": "contracts-collections-state-machine-json",
@@ -1927,7 +1927,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "120bb462a9274190"
+        "checksum": "0ddcb7840594f237"
       },
       {
         "id": "contracts-events-readme-md",
@@ -1949,7 +1949,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "4a10ffa941dfc4a4"
+        "checksum": "690f4514cee87ce5"
       },
       {
         "id": "contracts-events-types-json",
@@ -1960,7 +1960,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "c7de15b17f4b356d"
+        "checksum": "c828a851a00ed318"
       },
       {
         "id": "contracts-events-webhook-types-json",
@@ -1971,7 +1971,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "54e86107e7361b5a"
+        "checksum": "7ea167666751cf32"
       },
       {
         "id": "contracts-federation-federation-event-json",
@@ -1982,7 +1982,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "9867b5e9a6161aa1"
+        "checksum": "e63c3f6acc4f622e"
       },
       {
         "id": "contracts-federation-federation-manifest-json",
@@ -1993,7 +1993,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "7630e5031e0ab532"
+        "checksum": "79efaba6e40aed5c"
       },
       {
         "id": "contracts-federation-federation-obligation-json",
@@ -2004,7 +2004,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "048baac8418f0d18"
+        "checksum": "528fd15bd62f19ae"
       },
       {
         "id": "contracts-federation-federation-routing-json",
@@ -2015,7 +2015,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "ecc97aacbf85422d"
+        "checksum": "da3d9f6deed1d86f"
       },
       {
         "id": "contracts-federation-federation-trust-json",
@@ -2026,7 +2026,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "41013b19d9b04700"
+        "checksum": "0fc42074110826a1"
       },
       {
         "id": "contracts-federation-key-manifest-json",
@@ -2037,7 +2037,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "a066f1fcd805551c"
+        "checksum": "ea34fb4ee7a36341"
       },
       {
         "id": "contracts-federation-revocation-list-json",
@@ -2048,7 +2048,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "40db441c8845adc7"
+        "checksum": "d2dbb118e5836dbd"
       },
       {
         "id": "contracts-fees-business-category-schema-json",
@@ -2059,7 +2059,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "1c10ae83fe4fc7db"
+        "checksum": "af47ec93b8a61b60"
       },
       {
         "id": "contracts-fees-fee-policy-ref-schema-json",
@@ -2070,7 +2070,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "31fd1e4ee6db1579"
+        "checksum": "9be2c1f399d1d4de"
       },
       {
         "id": "contracts-fees-operator-fee-schema-json",
@@ -2081,7 +2081,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "04a523e9bc52bfc2"
+        "checksum": "4027ab7141e4ff8e"
       },
       {
         "id": "contracts-fees-pricing-profile-schema-json",
@@ -2092,7 +2092,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "77503b011577862c"
+        "checksum": "63cd67588353fad9"
       },
       {
         "id": "contracts-invariants-json",
@@ -2103,7 +2103,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "79febffbf4fe22e1"
+        "checksum": "ed45855dc4b520e9"
       },
       {
         "id": "contracts-openapi-activity-yaml",
@@ -2125,7 +2125,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "b50a2c29d13a9e0c"
+        "checksum": "f601d70f04ad5f50"
       },
       {
         "id": "contracts-openapi-interoperability-certification-yaml",
@@ -2136,7 +2136,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "5f0c87502df1c122"
+        "checksum": "c6be510de9f47061"
       },
       {
         "id": "contracts-openapi-operator-validation-yaml",
@@ -2147,7 +2147,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "3f33a504a984d20a"
+        "checksum": "42b51d430d393a0a"
       },
       {
         "id": "contracts-openapi-reference-operator-yaml",
@@ -2191,7 +2191,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "beb3ddce3bcb9163"
+        "checksum": "b981231433a820d3"
       },
       {
         "id": "contracts-payment-sessions-payment-session-interface-schema-json",
@@ -2213,7 +2213,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "9d3c1d704fd1da1f"
+        "checksum": "03441ffdff40a7ff"
       },
       {
         "id": "contracts-production-readme-md",
@@ -2235,7 +2235,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "69e9c631cc7ab4a1"
+        "checksum": "e1ed8c3ad5b6a58f"
       },
       {
         "id": "contracts-production-capabilities-document-production-schema-json",
@@ -2246,7 +2246,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "d629f09f2df237b5"
+        "checksum": "7f0319fe56b2280c"
       },
       {
         "id": "contracts-production-capability-registry-production-json",
@@ -2268,7 +2268,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "e0bce96799ae9cad"
+        "checksum": "57ea260f719a763f"
       },
       {
         "id": "contracts-production-certification-record-production-schema-json",
@@ -2279,7 +2279,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "c4a36b0471534b60"
+        "checksum": "e561ee571d669eb2"
       },
       {
         "id": "contracts-production-certified-implementation-production-schema-json",
@@ -2290,7 +2290,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "8cd72fceac1b4ada"
+        "checksum": "b1d4179dbc9efdd6"
       },
       {
         "id": "contracts-production-conformance-evidence-production-schema-json",
@@ -2312,7 +2312,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "67499074fc2754c1"
+        "checksum": "2de21ca28f815e75"
       },
       {
         "id": "contracts-production-conformance-profiles-production-schema-json",
@@ -2334,7 +2334,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "a4591bf02808be16"
+        "checksum": "72c6d8423b0a1a49"
       },
       {
         "id": "contracts-production-delegated-signing-key-production-schema-json",
@@ -2356,7 +2356,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "bc56e6cca8807386"
+        "checksum": "a346c1d0cd032484"
       },
       {
         "id": "contracts-production-evidence-bundle-production-schema-json",
@@ -2422,7 +2422,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "c127aeefbff91f38"
+        "checksum": "59a49c2e10090cb9"
       },
       {
         "id": "contracts-production-implementation-record-production-schema-json",
@@ -2433,7 +2433,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "862e17568842522c"
+        "checksum": "ee584ccc11a8a0b4"
       },
       {
         "id": "contracts-production-interoperability-report-production-schema-json",
@@ -2444,7 +2444,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "8146dfb64cfdb2f6"
+        "checksum": "95cfb5eb4484cc24"
       },
       {
         "id": "contracts-production-journey-receipt-production-schema-json",
@@ -2455,7 +2455,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "24005a3c8ae33102"
+        "checksum": "4e037ae1f13bc7d8"
       },
       {
         "id": "contracts-production-key-manifest-production-schema-json",
@@ -2477,7 +2477,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "6ef1dd917fb0c123"
+        "checksum": "319a8f069b3e84ca"
       },
       {
         "id": "contracts-production-operation-receipt-production-schema-json",
@@ -2488,7 +2488,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "f3cf75e85145b815"
+        "checksum": "41319c3f0fe5c44c"
       },
       {
         "id": "contracts-production-operator-manifest-production-schema-json",
@@ -2499,7 +2499,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "cf5ed6cda0380427"
+        "checksum": "5a82a3f902bb3ba1"
       },
       {
         "id": "contracts-production-operator-record-production-schema-json",
@@ -2510,7 +2510,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "3fb82f9486b5e32d"
+        "checksum": "d7589f26c6331556"
       },
       {
         "id": "contracts-production-operator-self-publication-production-schema-json",
@@ -2554,7 +2554,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "e0df7c3d0ea9bc03"
+        "checksum": "0fcf788dba1752e6"
       },
       {
         "id": "contracts-production-public-protocol-registry-production-schema-json",
@@ -2576,7 +2576,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "0de5f494552861a9"
+        "checksum": "58de1a5aa7064fc3"
       },
       {
         "id": "contracts-production-regulatory-state-production-schema-json",
@@ -2587,7 +2587,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "a0ecd75d06d38d86"
+        "checksum": "d8dfa0cf9b757b8e"
       },
       {
         "id": "contracts-production-revocation-entry-production-schema-json",
@@ -2598,7 +2598,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "e635f65ff73d8f8a"
+        "checksum": "e9ab64b69829683f"
       },
       {
         "id": "contracts-production-root-backup-declaration-production-schema-json",
@@ -2708,7 +2708,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "c5eac965be5b71f7"
+        "checksum": "a7711b71046ad020"
       },
       {
         "id": "contracts-production-trust-root-metadata-production-schema-json",
@@ -2719,7 +2719,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "7b990a34f25bd913"
+        "checksum": "60a2288d3945a85e"
       },
       {
         "id": "contracts-production-validation-journey-state-machine-production-json",
@@ -2730,7 +2730,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "4e7145027ef90735"
+        "checksum": "641ecfab76cf49fb"
       },
       {
         "id": "contracts-proofs-transaction-proof-schema-json",
@@ -2741,7 +2741,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "f75b6cff623f33d7"
+        "checksum": "97c576039fbd6046"
       },
       {
         "id": "contracts-proofs-verification-response-schema-json",
@@ -2752,7 +2752,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "216a0b375263174b"
+        "checksum": "b02cb74b64857f1d"
       },
       {
         "id": "contracts-qr-readme-md",
@@ -2763,7 +2763,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "35d9a0ef220ef60e"
+        "checksum": "a0f98c8ba5549e7b"
       },
       {
         "id": "contracts-qr-lifecycle-json",
@@ -2774,7 +2774,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "b5ce9d2698cb76c0"
+        "checksum": "0a1685d903afd370"
       },
       {
         "id": "contracts-qr-payload-format-json",
@@ -2785,7 +2785,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "4d73da265fd31c60"
+        "checksum": "84b79f1fb1d7c0da"
       },
       {
         "id": "contracts-settlements-application-settlement-schema-json",
@@ -2796,7 +2796,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "35b9d928166d4c90"
+        "checksum": "f45fdb8800f05948"
       },
       {
         "id": "contracts-settlements-state-machine-json",
@@ -2807,7 +2807,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "30d4d296199b9bb7"
+        "checksum": "094e4f0a972f1391"
       },
       {
         "id": "contracts-wallet-accounts-wallet-account-schema-json",
@@ -2818,7 +2818,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "dfa6f2fa7965f2b0"
+        "checksum": "fe66115cd0ec4490"
       },
       {
         "id": "contracts-webhooks-readme-md",
@@ -2840,7 +2840,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "c5cb82ace32e3ac3"
+        "checksum": "9250dca280d9f36d"
       },
       {
         "id": "contracts-webhooks-signature-json",
@@ -2851,7 +2851,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "b27f60daeaefc726"
+        "checksum": "e50d7881f9dd05ef"
       },
       {
         "id": "decisions-adr-adr-001-open-financial-protocol-what-banza-is-and-is-not-md",
@@ -2862,491 +2862,414 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "6d83537ae7882b5c"
+        "checksum": "04908ebfcfe2edf7"
       },
       {
-        "id": "decisions-adr-adr-002-ecosystem-naming-banza-banzai-and-operators-md",
-        "path": "decisions/adr/ADR-002-ecosystem-naming-banza-banzai-and-operators.md",
+        "id": "decisions-adr-adr-002-protocol-implementation-and-operator-separation-md",
+        "path": "decisions/adr/ADR-002-protocol-implementation-and-operator-separation.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "554995a41b4a8b5c"
+        "checksum": "e7950bb60e1b06c8"
       },
       {
-        "id": "decisions-adr-adr-003-three-institutional-layers-md",
-        "path": "decisions/adr/ADR-003-three-institutional-layers.md",
+        "id": "decisions-adr-adr-003-protocol-first-origination-md",
+        "path": "decisions/adr/ADR-003-protocol-first-origination.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "8552771c2f2e9f14"
+        "checksum": "234792540340cfbb"
       },
       {
-        "id": "decisions-adr-adr-004-technical-certification-is-not-scheme-admission-and-not-regu-md",
-        "path": "decisions/adr/ADR-004-technical-certification-is-not-scheme-admission-and-not-regu.md",
+        "id": "decisions-adr-adr-004-three-institutional-layers-md",
+        "path": "decisions/adr/ADR-004-three-institutional-layers.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "34682cc264d604a0"
+        "checksum": "e0c73547dee2eb43"
       },
       {
-        "id": "decisions-adr-adr-005-regulatory-state-boundary-and-the-real-money-activation-gate-md",
-        "path": "decisions/adr/ADR-005-regulatory-state-boundary-and-the-real-money-activation-gate.md",
+        "id": "decisions-adr-adr-005-certification-admission-and-authorisation-do-not-propagate-md",
+        "path": "decisions/adr/ADR-005-certification-admission-and-authorisation-do-not-propagate.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "7e8ced30faf69726"
+        "checksum": "922116e3b7d0280e"
       },
       {
-        "id": "decisions-adr-adr-006-designated-operator-scheme-md",
-        "path": "decisions/adr/ADR-006-designated-operator-scheme.md",
+        "id": "decisions-adr-adr-006-the-designated-operator-and-its-conflict-of-interest-md",
+        "path": "decisions/adr/ADR-006-the-designated-operator-and-its-conflict-of-interest.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "7a9e29734a61b03a"
+        "checksum": "f601e174a248788f"
       },
       {
-        "id": "decisions-adr-adr-007-conflict-of-interest-infrastructure-and-key-separation-md",
-        "path": "decisions/adr/ADR-007-conflict-of-interest-infrastructure-and-key-separation.md",
+        "id": "decisions-adr-adr-007-regulatory-state-and-the-real-money-activation-gate-md",
+        "path": "decisions/adr/ADR-007-regulatory-state-and-the-real-money-activation-gate.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "0e9102b491892056"
+        "checksum": "964c8eb07cdd40ec"
       },
       {
-        "id": "decisions-adr-adr-008-protocol-infrastructure-independent-of-any-operator-md",
-        "path": "decisions/adr/ADR-008-protocol-infrastructure-independent-of-any-operator.md",
+        "id": "decisions-adr-adr-008-normative-authority-and-versioning-md",
+        "path": "decisions/adr/ADR-008-normative-authority-and-versioning.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "ac76a70b9579ab0c"
+        "checksum": "b6fb88d7d070b52b"
       },
       {
-        "id": "decisions-adr-adr-009-normative-authority-and-versioning-md",
-        "path": "decisions/adr/ADR-009-normative-authority-and-versioning.md",
+        "id": "decisions-adr-adr-009-licence-trademark-and-open-governance-md",
+        "path": "decisions/adr/ADR-009-licence-trademark-and-open-governance.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "0ca4ea24e0423d76"
+        "checksum": "f10ecfa37857aac4"
       },
       {
-        "id": "decisions-adr-adr-010-banza-canonical-json-bcj-1-md",
-        "path": "decisions/adr/ADR-010-banza-canonical-json-bcj-1.md",
+        "id": "decisions-adr-adr-010-the-decision-record-tree-holds-current-architecture-only-md",
+        "path": "decisions/adr/ADR-010-the-decision-record-tree-holds-current-architecture-only.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "7200d44b26fcf2eb"
+        "checksum": "a78c0e289af67a0d"
       },
       {
-        "id": "decisions-adr-adr-011-double-entry-ledger-and-monetary-precision-md",
-        "path": "decisions/adr/ADR-011-double-entry-ledger-and-monetary-precision.md",
+        "id": "decisions-adr-adr-011-banza-canonical-json-bcj-1-md",
+        "path": "decisions/adr/ADR-011-banza-canonical-json-bcj-1.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "c2ea220e2ae45d9d"
+        "checksum": "9ea130fe9c1442b1"
       },
       {
-        "id": "decisions-adr-adr-012-account-and-participant-identity-md",
-        "path": "decisions/adr/ADR-012-account-and-participant-identity.md",
+        "id": "decisions-adr-adr-012-double-entry-ledger-and-monetary-precision-md",
+        "path": "decisions/adr/ADR-012-double-entry-ledger-and-monetary-precision.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "1f1c5560ee2171d1"
+        "checksum": "b9bbcfabb9a7d3d9"
       },
       {
-        "id": "decisions-adr-adr-013-provider-abstraction-md",
-        "path": "decisions/adr/ADR-013-provider-abstraction.md",
+        "id": "decisions-adr-adr-013-the-protocol-state-store-is-not-a-ledger-md",
+        "path": "decisions/adr/ADR-013-the-protocol-state-store-is-not-a-ledger.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "88ed743186fbe2e8"
+        "checksum": "91f0d2121cec376c"
       },
       {
-        "id": "decisions-adr-adr-014-payment-intent-md",
-        "path": "decisions/adr/ADR-014-payment-intent.md",
+        "id": "decisions-adr-adr-014-account-and-participant-identity-md",
+        "path": "decisions/adr/ADR-014-account-and-participant-identity.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "d7fad0213b2540ee"
+        "checksum": "424f9df0ba89cdc9"
       },
       {
-        "id": "decisions-adr-adr-015-payment-session-md",
-        "path": "decisions/adr/ADR-015-payment-session.md",
+        "id": "decisions-adr-adr-015-payment-initiation-one-intent-several-surfaces-md",
+        "path": "decisions/adr/ADR-015-payment-initiation-one-intent-several-surfaces.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "b20bbc63e34f9559"
+        "checksum": "16a51202c8794243"
       },
       {
-        "id": "decisions-adr-adr-016-qr-payments-md",
-        "path": "decisions/adr/ADR-016-qr-payments.md",
+        "id": "decisions-adr-adr-016-collections-a-composite-obligation-never-money-md",
+        "path": "decisions/adr/ADR-016-collections-a-composite-obligation-never-money.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "c174cc66090c7e05"
+        "checksum": "e7eb29a0a51d07c8"
       },
       {
-        "id": "decisions-adr-adr-017-payment-links-md",
-        "path": "decisions/adr/ADR-017-payment-links.md",
+        "id": "decisions-adr-adr-017-wallet-accounts-segregation-inside-a-wallet-md",
+        "path": "decisions/adr/ADR-017-wallet-accounts-segregation-inside-a-wallet.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "d15b5d57bdde63d5"
+        "checksum": "1ff38505810ceb84"
       },
       {
-        "id": "decisions-adr-adr-018-payment-collections-md",
-        "path": "decisions/adr/ADR-018-payment-collections.md",
+        "id": "decisions-adr-adr-018-wallet-payments-and-the-refund-source-model-md",
+        "path": "decisions/adr/ADR-018-wallet-payments-and-the-refund-source-model.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "8c00141b504fdece"
+        "checksum": "93a7dbb54a10c884"
       },
       {
-        "id": "decisions-adr-adr-019-wallet-accounts-md",
-        "path": "decisions/adr/ADR-019-wallet-accounts.md",
+        "id": "decisions-adr-adr-019-fees-and-application-settlement-md",
+        "path": "decisions/adr/ADR-019-fees-and-application-settlement.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "2aa3874f11337856"
+        "checksum": "bed1de8264e6caa1"
       },
       {
-        "id": "decisions-adr-adr-020-wallet-payments-and-the-refund-source-model-md",
-        "path": "decisions/adr/ADR-020-wallet-payments-and-the-refund-source-model.md",
+        "id": "decisions-adr-adr-020-transaction-proof-and-public-verification-md",
+        "path": "decisions/adr/ADR-020-transaction-proof-and-public-verification.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "7804fd03cfa47699"
+        "checksum": "1eef4e45ce72a022"
       },
       {
-        "id": "decisions-adr-adr-021-fees-and-application-settlement-md",
-        "path": "decisions/adr/ADR-021-fees-and-application-settlement.md",
+        "id": "decisions-adr-adr-021-reason-codes-md",
+        "path": "decisions/adr/ADR-021-reason-codes.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "012223735087194a"
+        "checksum": "f2fef4e702225a6a"
       },
       {
-        "id": "decisions-adr-adr-022-transaction-proof-and-public-verification-md",
-        "path": "decisions/adr/ADR-022-transaction-proof-and-public-verification.md",
+        "id": "decisions-adr-adr-022-idempotency-md",
+        "path": "decisions/adr/ADR-022-idempotency.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "b61afee7d256460f"
+        "checksum": "042602651e75d079"
       },
       {
-        "id": "decisions-adr-adr-023-reason-codes-md",
-        "path": "decisions/adr/ADR-023-reason-codes.md",
+        "id": "decisions-adr-adr-023-test-material-can-never-be-production-valid-md",
+        "path": "decisions/adr/ADR-023-test-material-can-never-be-production-valid.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "265d59c45c09162b"
+        "checksum": "19c3838e539c1614"
       },
       {
-        "id": "decisions-adr-adr-024-idempotency-md",
-        "path": "decisions/adr/ADR-024-idempotency.md",
+        "id": "decisions-adr-adr-024-identity-verification-stays-operator-policy-md",
+        "path": "decisions/adr/ADR-024-identity-verification-stays-operator-policy.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "658b220e890a09a7"
+        "checksum": "8928966177be9210"
       },
       {
-        "id": "decisions-adr-adr-025-environment-isolation-sandbox-and-production-md",
-        "path": "decisions/adr/ADR-025-environment-isolation-sandbox-and-production.md",
+        "id": "decisions-adr-adr-025-trust-without-a-certificate-authority-md",
+        "path": "decisions/adr/ADR-025-trust-without-a-certificate-authority.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "7bf141f35ae40fa2"
+        "checksum": "30b9228b91545089"
       },
       {
-        "id": "decisions-adr-adr-026-postgresql-as-protocol-state-store-not-a-ledger-md",
-        "path": "decisions/adr/ADR-026-postgresql-as-protocol-state-store-not-a-ledger.md",
+        "id": "decisions-adr-adr-026-root-authorization-three-authorities-threshold-two-md",
+        "path": "decisions/adr/ADR-026-root-authorization-three-authorities-threshold-two.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "0fb3a412cae8e3fa"
+        "checksum": "26da401e86d362e6"
       },
       {
-        "id": "decisions-adr-adr-027-open-protocol-trust-model-without-a-certificate-authority-md",
-        "path": "decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md",
+        "id": "decisions-adr-adr-027-signing-keys-never-on-serving-infrastructure-md",
+        "path": "decisions/adr/ADR-027-signing-keys-never-on-serving-infrastructure.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "ee37754abdc60179"
+        "checksum": "aef4754fbb772496"
       },
       {
-        "id": "decisions-adr-adr-028-root-authorization-three-authorities-threshold-two-md",
-        "path": "decisions/adr/ADR-028-root-authorization-three-authorities-threshold-two.md",
+        "id": "decisions-adr-adr-028-anti-rollback-for-versioned-trust-material-md",
+        "path": "decisions/adr/ADR-028-anti-rollback-for-versioned-trust-material.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "a6b6ff372d2023e7"
+        "checksum": "29e80b71c094139a"
       },
       {
-        "id": "decisions-adr-adr-029-keys-never-on-serving-infrastructure-md",
-        "path": "decisions/adr/ADR-029-keys-never-on-serving-infrastructure.md",
+        "id": "decisions-adr-adr-029-canonical-discovery-surface-md",
+        "path": "decisions/adr/ADR-029-canonical-discovery-surface.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "1c82f213544078ab"
+        "checksum": "3f04f455af97c947"
       },
       {
-        "id": "decisions-adr-adr-030-anti-rollback-for-versioned-trust-material-md",
-        "path": "decisions/adr/ADR-030-anti-rollback-for-versioned-trust-material.md",
+        "id": "decisions-adr-adr-030-conformance-profiles-and-the-capability-vocabulary-md",
+        "path": "decisions/adr/ADR-030-conformance-profiles-and-the-capability-vocabulary.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "82fab0ad2815238f"
+        "checksum": "89160f86735ef7f2"
       },
       {
-        "id": "decisions-adr-adr-031-federation-trust-evaluation-without-certificates-md",
-        "path": "decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md",
+        "id": "decisions-adr-adr-031-operator-self-publication-and-machine-verifiable-conformance-md",
+        "path": "decisions/adr/ADR-031-operator-self-publication-and-machine-verifiable-conformance.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "7f893469e74b51f0"
+        "checksum": "5a01aca181b18739"
       },
       {
-        "id": "decisions-adr-adr-032-kyc-stays-operator-policy-only-trust-assertions-federate-md",
-        "path": "decisions/adr/ADR-032-kyc-stays-operator-policy-only-trust-assertions-federate.md",
+        "id": "decisions-adr-adr-032-certification-records-and-their-lifecycle-md",
+        "path": "decisions/adr/ADR-032-certification-records-and-their-lifecycle.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "6dd5988d92a3ecc8"
+        "checksum": "a7f48f5b66014f50"
       },
       {
-        "id": "decisions-adr-adr-033-operator-self-publication-and-machine-verifiable-conformance-md",
-        "path": "decisions/adr/ADR-033-operator-self-publication-and-machine-verifiable-conformance.md",
+        "id": "decisions-adr-adr-033-the-banza-technical-registry-md",
+        "path": "decisions/adr/ADR-033-the-banza-technical-registry.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "6271c35d6d89646d"
+        "checksum": "c277f309245a5277"
       },
       {
-        "id": "decisions-adr-adr-034-conformance-and-interoperability-certification-md",
-        "path": "decisions/adr/ADR-034-conformance-and-interoperability-certification.md",
+        "id": "decisions-adr-adr-034-endpoint-originated-validation-md",
+        "path": "decisions/adr/ADR-034-endpoint-originated-validation.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "09fb5c9848ba622a"
+        "checksum": "2372a4462d208c49"
       },
       {
-        "id": "decisions-adr-adr-035-closed-certification-state-machine-md",
-        "path": "decisions/adr/ADR-035-closed-certification-state-machine.md",
+        "id": "decisions-adr-adr-035-operator-zero-the-read-only-reference-implementation-md",
+        "path": "decisions/adr/ADR-035-operator-zero-the-read-only-reference-implementation.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "58b345443f9ca86a"
+        "checksum": "c400ff46615611f2"
       },
       {
-        "id": "decisions-adr-adr-036-banza-technical-registry-md",
-        "path": "decisions/adr/ADR-036-banza-technical-registry.md",
+        "id": "decisions-adr-adr-036-banzai-a-non-authoritative-interface-to-the-protocol-md",
+        "path": "decisions/adr/ADR-036-banzai-a-non-authoritative-interface-to-the-protocol.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "c4b5bda88800bd08"
+        "checksum": "47ddb57ab34dc86d"
       },
       {
-        "id": "decisions-adr-adr-037-canonical-discovery-surface-md",
-        "path": "decisions/adr/ADR-037-canonical-discovery-surface.md",
+        "id": "decisions-adr-adr-037-operator-onboarding-md",
+        "path": "decisions/adr/ADR-037-operator-onboarding.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "e896994be570c995"
+        "checksum": "d7c660a64e6bb8b9"
       },
       {
-        "id": "decisions-adr-adr-038-endpoint-originated-operator-validation-md",
-        "path": "decisions/adr/ADR-038-endpoint-originated-operator-validation.md",
+        "id": "decisions-adr-adr-038-rust-first-official-engines-md",
+        "path": "decisions/adr/ADR-038-rust-first-official-engines.md",
         "type": "adr",
         "authority_class": "current",
         "status": "current",
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "d151624ebd36c952"
-      },
-      {
-        "id": "decisions-adr-adr-039-conformance-profiles-and-capability-vocabulary-md",
-        "path": "decisions/adr/ADR-039-conformance-profiles-and-capability-vocabulary.md",
-        "type": "adr",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "037b423285b69f85"
-      },
-      {
-        "id": "decisions-adr-adr-040-operator-onboarding-md",
-        "path": "decisions/adr/ADR-040-operator-onboarding.md",
-        "type": "adr",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "4c59a8f76dca6340"
-      },
-      {
-        "id": "decisions-adr-adr-041-operator-zero-the-read-only-reference-implementation-md",
-        "path": "decisions/adr/ADR-041-operator-zero-the-read-only-reference-implementation.md",
-        "type": "adr",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "1723b80a44e0f7b7"
-      },
-      {
-        "id": "decisions-adr-adr-042-banzai-a-non-authoritative-interface-to-the-protocol-md",
-        "path": "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
-        "type": "adr",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "772934c8a56e9321"
-      },
-      {
-        "id": "decisions-adr-adr-043-rust-first-official-engines-md",
-        "path": "decisions/adr/ADR-043-rust-first-official-engines.md",
-        "type": "adr",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "e5d080a93a72be78"
-      },
-      {
-        "id": "decisions-adr-adr-044-licence-notice-trademark-and-open-governance-md",
-        "path": "decisions/adr/ADR-044-licence-notice-trademark-and-open-governance.md",
-        "type": "adr",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "6a0c76c0747e2fd0"
-      },
-      {
-        "id": "decisions-adr-adr-045-current-only-canonical-adr-tree-md",
-        "path": "decisions/adr/ADR-045-current-only-canonical-adr-tree.md",
-        "type": "adr",
-        "authority_class": "current",
-        "status": "current",
-        "language": "pt-or-neutral",
-        "generated": false,
-        "public_eligible": true,
-        "checksum": "aaafe104328d445a"
+        "checksum": "b1140b92fd331046"
       },
       {
         "id": "decisions-adr-readme-md",
@@ -3357,7 +3280,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "1baf17819ac34176"
+        "checksum": "76ed3e505b910e06"
       },
       {
         "id": "decisions-rfc-readme-md",
@@ -3445,7 +3368,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "ef6d8b5e201677ba"
+        "checksum": "8def300529a1d604"
       },
       {
         "id": "docs-banzai-banzai-workbench-md",
@@ -3456,7 +3379,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "eca3073366d2f5c6"
+        "checksum": "77b0bfd2d1a6ee87"
       },
       {
         "id": "docs-banzai-banzai-workbench-threat-model-md",
@@ -3467,7 +3390,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "c6e152d3e929a2ae"
+        "checksum": "b93344a6e9575fa7"
       },
       {
         "id": "docs-banzai-knowledge-index-md",
@@ -3478,7 +3401,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "51dec4c1a72e1e77"
+        "checksum": "44b7222463ebfddd"
       },
       {
         "id": "docs-banzai-local-inference-runbook-md",
@@ -3489,7 +3412,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "c2ff23364afb6d3d"
+        "checksum": "ae9b9e5ca8430911"
       },
       {
         "id": "docs-banzai-local-inference-runtime-md",
@@ -3500,7 +3423,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "c428d9e6061ab097"
+        "checksum": "73c82c253ed2679f"
       },
       {
         "id": "docs-banzai-local-qwen-model-setup-md",
@@ -3511,7 +3434,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "340eeb1e3deebe5b"
+        "checksum": "96312c5d71dbc9c2"
       },
       {
         "id": "docs-banzai-operator-journey-md",
@@ -3522,7 +3445,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "097ba90af7d62550"
+        "checksum": "56ac9dd78b87ceed"
       },
       {
         "id": "docs-banzai-readme-md",
@@ -3533,7 +3456,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "568a57316b1aa365"
+        "checksum": "8690843684a8e12c"
       },
       {
         "id": "docs-banzai-response-paths-md",
@@ -3544,7 +3467,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "6fd89912f51555a4"
+        "checksum": "e07fb7521ec6905e"
       },
       {
         "id": "docs-banzai-session-state-md",
@@ -3555,7 +3478,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "487cac1e1665976d"
+        "checksum": "afbe7de93ce72b73"
       },
       {
         "id": "docs-banzai-spr-structured-generation-and-validated-cache-md",
@@ -3577,7 +3500,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "e0e7df0e9a33ee79"
+        "checksum": "22523dd511be5c16"
       },
       {
         "id": "docs-governance-banza-protocol-vs-operator-policy-md",
@@ -3588,7 +3511,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "52878ca72d2411e4"
+        "checksum": "c18009a568ba9b37"
       },
       {
         "id": "docs-governance-banzai-native-protocol-agent-md",
@@ -3599,7 +3522,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "9ca4388a7246e278"
+        "checksum": "1e1a3e9535f2d7bd"
       },
       {
         "id": "docs-governance-banzami-operational-scheme-md",
@@ -3610,7 +3533,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "300c9a15816d7a63"
+        "checksum": "a9c2d632a7562450"
       },
       {
         "id": "docs-governance-banza-conflict-of-interest-policy-md",
@@ -3621,7 +3544,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "4b2eaf5b2c106fac"
+        "checksum": "0a8a6ea4f93d9e16"
       },
       {
         "id": "docs-governance-banza-conformance-interop-certification-md",
@@ -3632,7 +3555,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "3cdc0236ad376a2e"
+        "checksum": "d6894b81e14bf0c6"
       },
       {
         "id": "docs-governance-banza-language-policy-md",
@@ -3643,7 +3566,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "b9b9894370e062ad"
+        "checksum": "93362591619416ee"
       },
       {
         "id": "docs-governance-banza-multilingual-architecture-md",
@@ -3676,7 +3599,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "df60c7e523ac2341"
+        "checksum": "57b6fb7ec38d19f2"
       },
       {
         "id": "docs-governance-banza-regulatory-positioning-md",
@@ -3698,7 +3621,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "d6a08e0b03eb2197"
+        "checksum": "2e1cbbe9f755e7cc"
       },
       {
         "id": "docs-governance-banza-separation-matrix-md",
@@ -3709,7 +3632,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "50b729371654b4cb"
+        "checksum": "b98c89d9308cf895"
       },
       {
         "id": "docs-governance-banza-three-layer-architecture-md",
@@ -3720,7 +3643,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "2045f672386fbc35"
+        "checksum": "1afa453af114cff7"
       },
       {
         "id": "docs-governance-banza-trust-architecture-md",
@@ -3731,7 +3654,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "ad9523e33cc35d8e"
+        "checksum": "91da39b0371d762b"
       },
       {
         "id": "docs-governance-claude-base-md",
@@ -3742,7 +3665,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "e977645fcc22acc9"
+        "checksum": "24104a4bb25b02f6"
       },
       {
         "id": "docs-governance-evidence-bundle-md",
@@ -3764,7 +3687,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "337b441032225243"
+        "checksum": "b90744fe9b93896d"
       },
       {
         "id": "docs-governance-l1-readiness-md",
@@ -3786,7 +3709,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "b250314c4cbffc8f"
+        "checksum": "2594ad545f530479"
       },
       {
         "id": "docs-governance-l3-readiness-md",
@@ -3797,7 +3720,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "848c1eddb3f5f950"
+        "checksum": "dde70df9d5a1b321"
       },
       {
         "id": "docs-governance-l4-readiness-md",
@@ -3819,7 +3742,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "4ed70194e7d7798e"
+        "checksum": "968dc823f80663e3"
       },
       {
         "id": "docs-governance-open-protocol-governance-md",
@@ -3830,7 +3753,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "a483f6ea71321180"
+        "checksum": "cdd83aee317f0656"
       },
       {
         "id": "docs-governance-operator-manifest-validation-md",
@@ -3841,7 +3764,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "fe8170f3a86c4d45"
+        "checksum": "e313bf070794c26b"
       },
       {
         "id": "docs-governance-operator-neutrality-terminology-md",
@@ -3852,7 +3775,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "949cf86477a4c4b0"
+        "checksum": "8e042012dad39608"
       },
       {
         "id": "docs-governance-operator-self-publication-and-conformance-md",
@@ -3874,7 +3797,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "9b552691be7e5f3d"
+        "checksum": "21e0bf8fa0d9dfa9"
       },
       {
         "id": "docs-governance-protocol-governance-roles-md",
@@ -3885,7 +3808,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "13220874022b52cc"
+        "checksum": "96c186f6ea22a974"
       },
       {
         "id": "docs-governance-protocol-production-state-model-md",
@@ -3907,7 +3830,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "62464e8997280100"
+        "checksum": "74243dbe60288cc2"
       },
       {
         "id": "docs-governance-protocol-succession-and-survival-md",
@@ -3918,7 +3841,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "17cf5b3d7b5d766f"
+        "checksum": "9d15694c36ff9f50"
       },
       {
         "id": "docs-governance-public-protocol-registry-md",
@@ -3929,7 +3852,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "474eb50ca8ca6eae"
+        "checksum": "1b6401368d3dcc4c"
       },
       {
         "id": "docs-governance-readme-md",
@@ -3951,7 +3874,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "84c9b4762e166e3e"
+        "checksum": "55a161e8a69e7d8b"
       },
       {
         "id": "docs-governance-rust-first-implementation-policy-md",
@@ -3962,7 +3885,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "3387d00d496c3ae7"
+        "checksum": "a0699899ae41a818"
       },
       {
         "id": "docs-governance-simb-pre-review-gate-md",
@@ -4006,7 +3929,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "5edeafb48602cde4"
+        "checksum": "d515129b901294f2"
       },
       {
         "id": "docs-governance-workbench-only-operator-verification-md",
@@ -4017,7 +3940,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "765d431b6d6e898b"
+        "checksum": "7901db01af14cd48"
       },
       {
         "id": "docs-governance-ceremony-records-readme-md",
@@ -4028,7 +3951,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "e0a815c9752cd5e7"
+        "checksum": "f219dca7e7fe408d"
       },
       {
         "id": "docs-governance-certification-boundary-md",
@@ -4039,7 +3962,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "e0e650d61d1e97a7"
+        "checksum": "8352ebbc9b241d53"
       },
       {
         "id": "docs-governance-licensing-md",
@@ -4061,7 +3984,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "59e571100934f846"
+        "checksum": "e0bda43050e8f0a4"
       },
       {
         "id": "docs-governance-rust-first-legacy-allowlist-json",
@@ -4072,7 +3995,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "2bec8f12d213c3b1"
+        "checksum": "16e9e0fd93dd1a04"
       },
       {
         "id": "examples-operators-zero-readme-md",
@@ -4083,7 +4006,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "79fa5279a433c62a"
+        "checksum": "213f9d3cba78a897"
       },
       {
         "id": "examples-operators-zero-zero-operator-boundary-md",
@@ -4094,7 +4017,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "f560e1198c1c3b30"
+        "checksum": "98a8296b14af2267"
       },
       {
         "id": "examples-operators-zero-capabilities-capabilities-json",
@@ -4160,7 +4083,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "7026b596be91fe99"
+        "checksum": "49005570b595316a"
       },
       {
         "id": "examples-operators-zero-e2e-root-operator-zero-e2e-key-manifest-json",
@@ -4358,7 +4281,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "54636f842f5ade10"
+        "checksum": "8d1b274b094927f4"
       },
       {
         "id": "examples-operators-zero-keys-demo-key-manifest-revoked-json",
@@ -4567,7 +4490,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "022629db460edbd9"
+        "checksum": "d8e0f0556d1b7f5a"
       },
       {
         "id": "examples-operators-zero-traces-failed-e2e-trace-json",
@@ -4644,7 +4567,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "417c8ccebbde3c99"
+        "checksum": "ee0208ef5aa9a9e5"
       },
       {
         "id": "spec-canonicalization-md",
@@ -4655,7 +4578,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "fd55fe1afabc629c"
+        "checksum": "5a058ed56ed03c77"
       },
       {
         "id": "spec-capabilities-md",
@@ -4688,7 +4611,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "25cb32f941aa3672"
+        "checksum": "a5a63c73c9ca9680"
       },
       {
         "id": "spec-disputes-md",
@@ -4699,7 +4622,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "68f564eb82ea782b"
+        "checksum": "099cd6070146f8c7"
       },
       {
         "id": "spec-federation-federation-conformance-evidence-model-md",
@@ -4710,7 +4633,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "1090c3654cfebe28"
+        "checksum": "e1b33857d82047d8"
       },
       {
         "id": "spec-federation-federation-conformance-model-md",
@@ -4721,7 +4644,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "3f01b19e8e129cba"
+        "checksum": "bd81fc5e3553ef69"
       },
       {
         "id": "spec-federation-federation-conformance-path-md",
@@ -4732,7 +4655,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "0688104f61e7ce43"
+        "checksum": "d5497ce7d7098e47"
       },
       {
         "id": "spec-federation-federation-contract-surface-md",
@@ -4743,7 +4666,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "41a2e1ff5a1ebc14"
+        "checksum": "a78c060d8ac9b13b"
       },
       {
         "id": "spec-federation-federation-contract-traceability-md",
@@ -4754,7 +4677,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "f6b33955eb383403"
+        "checksum": "8dc3a11b6cea6d0c"
       },
       {
         "id": "spec-federation-federation-failure-scenarios-md",
@@ -4765,7 +4688,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "caac5e43b9208b19"
+        "checksum": "7f69fda086c3d9a2"
       },
       {
         "id": "spec-federation-federation-fixture-catalog-md",
@@ -4787,7 +4710,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "ceb64dbedd347118"
+        "checksum": "64f654f6a9b78ee2"
       },
       {
         "id": "spec-federation-federation-operator-quickstart-md",
@@ -4798,7 +4721,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "5ec59ee4041a779e"
+        "checksum": "fd0497aa43e041fa"
       },
       {
         "id": "spec-federation-federation-protocol-flow-md",
@@ -4809,7 +4732,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "ab4c73f43061ebe8"
+        "checksum": "d92e62d5e9745a20"
       },
       {
         "id": "spec-federation-federation-protocol-surfaces-md",
@@ -4820,7 +4743,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "71d536b555fc1633"
+        "checksum": "4af592a179c965cf"
       },
       {
         "id": "spec-federation-federation-runner-design-md",
@@ -4831,7 +4754,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "bcbe513ba6be6f21"
+        "checksum": "7ab30b4370aee580"
       },
       {
         "id": "spec-federation-federation-sequence-diagrams-md",
@@ -4842,7 +4765,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "221f1223f2302896"
+        "checksum": "b29318cf5af5d360"
       },
       {
         "id": "spec-federation-federation-test-suite-spec-md",
@@ -4853,7 +4776,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "399a33e4456e4c92"
+        "checksum": "5d49abd8da08fb6f"
       },
       {
         "id": "spec-federation-federation-trust-model-md",
@@ -4864,7 +4787,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "84669ed2a5df5583"
+        "checksum": "2af51354e9ba8eb8"
       },
       {
         "id": "spec-idempotency-md",
@@ -4875,7 +4798,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "c701d723716663a1"
+        "checksum": "a930cdf3eb55ba68"
       },
       {
         "id": "spec-invariants-md",
@@ -4886,7 +4809,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "fb692e0ff28bc080"
+        "checksum": "179c76a06b8616c2"
       },
       {
         "id": "spec-overview-md",
@@ -4897,7 +4820,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "4652c09b7aad5cf9"
+        "checksum": "4d76b0d48c764f32"
       },
       {
         "id": "spec-payment-lifecycle-md",
@@ -4941,7 +4864,18 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "22b6268604a5094c"
+        "checksum": "08967bae816e1ac3"
+      },
+      {
+        "id": "spec-refunds-md",
+        "path": "spec/refunds.md",
+        "type": "spec",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "f6dec098c27f5088"
       },
       {
         "id": "spec-tracing-md",
@@ -4963,7 +4897,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "8a780679d36e1890"
+        "checksum": "d693e135b9b19790"
       },
       {
         "id": "spec-validation-journey-md",
@@ -4974,7 +4908,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "1abaad37cf649984"
+        "checksum": "00da130ebeedee77"
       }
     ],
     "excluded": [
@@ -4995,7 +4929,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "1536f7c8192909ca"
+    "checksum": "1660a94878a4145f"
   },
   "subjects": [
     {
@@ -5036,13 +4970,13 @@
         "federa "
       ],
       "source_ids": [
-        "ADR-027",
-        "ADR-031",
+        "ADR-025",
+        "ADR-025",
         "operator-manifest-schema"
       ],
       "source_paths": [
-        "decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md",
-        "decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md",
+        "decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md",
+        "decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md",
         "contracts/production/operator-manifest.production.schema.json"
       ]
     },
@@ -5083,11 +5017,11 @@
       ],
       "source_ids": [
         "revocation-entry-schema",
-        "ADR-031"
+        "ADR-025"
       ],
       "source_paths": [
         "contracts/production/revocation-entry.production.schema.json",
-        "decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md"
+        "decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md"
       ]
     },
     {
@@ -5105,13 +5039,13 @@
         "avaliacao de confianca"
       ],
       "source_ids": [
-        "ADR-027",
-        "ADR-031",
+        "ADR-025",
+        "ADR-025",
         "federation-trust-evaluation-schema"
       ],
       "source_paths": [
-        "decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md",
-        "decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md",
+        "decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md",
+        "decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md",
         "contracts/production/federation-trust-evaluation.production.schema.json"
       ]
     },
@@ -5133,12 +5067,12 @@
       "source_ids": [
         "evidence-bundle-schema",
         "conformance-evidence-schema",
-        "ADR-033"
+        "ADR-031"
       ],
       "source_paths": [
         "contracts/production/evidence-bundle.production.schema.json",
         "contracts/production/conformance-evidence.production.schema.json",
-        "decisions/adr/ADR-033-operator-self-publication-and-machine-verifiable-conformance.md"
+        "decisions/adr/ADR-031-operator-self-publication-and-machine-verifiable-conformance.md"
       ]
     },
     {
@@ -5157,13 +5091,13 @@
         "conforme"
       ],
       "source_ids": [
-        "ADR-039",
-        "ADR-033",
+        "ADR-030",
+        "ADR-031",
         "conformance-evidence-schema"
       ],
       "source_paths": [
-        "decisions/adr/ADR-039-conformance-profiles-and-capability-vocabulary.md",
-        "decisions/adr/ADR-033-operator-self-publication-and-machine-verifiable-conformance.md",
+        "decisions/adr/ADR-030-conformance-profiles-and-capability-vocabulary.md",
+        "decisions/adr/ADR-031-operator-self-publication-and-machine-verifiable-conformance.md",
         "contracts/production/conformance-evidence.production.schema.json"
       ]
     },
@@ -5186,14 +5120,14 @@
         "integracao de operador"
       ],
       "source_ids": [
-        "ADR-033",
+        "ADR-031",
         "operator-manifest-schema",
-        "ADR-031"
+        "ADR-025"
       ],
       "source_paths": [
-        "decisions/adr/ADR-033-operator-self-publication-and-machine-verifiable-conformance.md",
+        "decisions/adr/ADR-031-operator-self-publication-and-machine-verifiable-conformance.md",
         "contracts/production/operator-manifest.production.schema.json",
-        "decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md"
+        "decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md"
       ]
     },
     {
@@ -5249,15 +5183,15 @@
         "trust-root-metadata-schema",
         "root-metadata-schema",
         "root-key-schema",
-        "ADR-029",
-        "ADR-027"
+        "ADR-027",
+        "ADR-025"
       ],
       "source_paths": [
         "contracts/production/trust-root-metadata.production.schema.json",
         "contracts/production/root-metadata.production.schema.json",
         "contracts/production/root-key.production.schema.json",
-        "decisions/adr/ADR-029-keys-never-on-serving-infrastructure.md",
-        "decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md"
+        "decisions/adr/ADR-027-keys-never-on-serving-infrastructure.md",
+        "decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md"
       ]
     },
     {
@@ -5279,11 +5213,11 @@
       ],
       "source_ids": [
         "federation-manifest-schema",
-        "ADR-031"
+        "ADR-025"
       ],
       "source_paths": [
         "contracts/federation/federation-manifest.json",
-        "decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md"
+        "decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md"
       ]
     },
     {
@@ -5297,7 +5231,7 @@
       ],
       "source_ids": [
         "ADR-001",
-        "ADR-002"
+        "ADR-001"
       ],
       "source_paths": [
         "decisions/adr/ADR-001-open-financial-protocol-what-banza-is-and-is-not.md"
@@ -5313,11 +5247,11 @@
         "banzai"
       ],
       "source_ids": [
-        "ADR-042",
-        "ADR-042"
+        "ADR-036",
+        "ADR-036"
       ],
       "source_paths": [
-        "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md"
+        "decisions/adr/ADR-036-banzai-a-non-authoritative-interface-to-the-protocol.md"
       ]
     },
     {
@@ -5330,7 +5264,7 @@
         "banzami"
       ],
       "source_ids": [
-        "ADR-002",
+        "ADR-001",
         "GOVERNANCE"
       ],
       "source_paths": [
@@ -5379,7 +5313,7 @@
       "id": "ledger",
       "name": "ledger / dupla entrada",
       "type": "concept",
-      "resolution": "trunk synthesis grounded in ADR-011 (double-entry ledger + monetary precision)",
+      "resolution": "trunk synthesis grounded in ADR-012 (double-entry ledger + monetary precision)",
       "deliverables": [],
       "aliases": [
         "ledger",
@@ -5390,17 +5324,17 @@
         "posting"
       ],
       "source_ids": [
-        "ADR-011"
+        "ADR-012"
       ],
       "source_paths": [
-        "decisions/adr/ADR-011-double-entry-ledger-and-monetary-precision.md"
+        "decisions/adr/ADR-012-double-entry-ledger-and-monetary-precision.md"
       ]
     },
     {
       "id": "wallet",
       "name": "wallet / conta",
       "type": "concept",
-      "resolution": "trunk synthesis grounded in ADR-012 (wallet-native identity) / account model",
+      "resolution": "trunk synthesis grounded in ADR-014 (wallet-native identity) / account model",
       "deliverables": [],
       "aliases": [
         "wallet",
@@ -5411,10 +5345,10 @@
         "balance"
       ],
       "source_ids": [
-        "ADR-012"
+        "ADR-014"
       ],
       "source_paths": [
-        "decisions/adr/ADR-012-account-and-participant-identity.md"
+        "decisions/adr/ADR-014-account-and-participant-identity.md"
       ]
     },
     {
@@ -5430,17 +5364,17 @@
         "reconciliation"
       ],
       "source_ids": [
-        "ADR-011"
+        "ADR-012"
       ],
       "source_paths": [
-        "decisions/adr/ADR-011-double-entry-ledger-and-monetary-precision.md"
+        "decisions/adr/ADR-012-double-entry-ledger-and-monetary-precision.md"
       ]
     },
     {
       "id": "qr",
       "name": "QR / payment session",
       "type": "artefact",
-      "resolution": "trunk synthesis grounded in ADR-016 (QR payment system) / ADR-015 (payment session)",
+      "resolution": "trunk synthesis grounded in ADR-015 (QR payment system) / ADR-015 (payment session)",
       "deliverables": [],
       "aliases": [
         "qr",
@@ -5451,10 +5385,10 @@
         "pagamento"
       ],
       "source_ids": [
-        "ADR-016"
+        "ADR-015"
       ],
       "source_paths": [
-        "decisions/adr/ADR-016-qr-payments.md"
+        "decisions/adr/ADR-015-qr-payments.md"
       ]
     },
     {
@@ -5538,265 +5472,223 @@
     },
     {
       "id": "ADR-002",
-      "path": "decisions/adr/ADR-002-ecosystem-naming-banza-banzai-and-operators.md",
+      "path": "decisions/adr/ADR-002-protocol-implementation-and-operator-separation.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-003",
-      "path": "decisions/adr/ADR-003-three-institutional-layers.md",
+      "path": "decisions/adr/ADR-003-protocol-first-origination.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-004",
-      "path": "decisions/adr/ADR-004-technical-certification-is-not-scheme-admission-and-not-regu.md",
+      "path": "decisions/adr/ADR-004-three-institutional-layers.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-005",
-      "path": "decisions/adr/ADR-005-regulatory-state-boundary-and-the-real-money-activation-gate.md",
+      "path": "decisions/adr/ADR-005-certification-admission-and-authorisation-do-not-propagate.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-006",
-      "path": "decisions/adr/ADR-006-designated-operator-scheme.md",
+      "path": "decisions/adr/ADR-006-the-designated-operator-and-its-conflict-of-interest.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-007",
-      "path": "decisions/adr/ADR-007-conflict-of-interest-infrastructure-and-key-separation.md",
+      "path": "decisions/adr/ADR-007-regulatory-state-and-the-real-money-activation-gate.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-008",
-      "path": "decisions/adr/ADR-008-protocol-infrastructure-independent-of-any-operator.md",
+      "path": "decisions/adr/ADR-008-normative-authority-and-versioning.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-009",
-      "path": "decisions/adr/ADR-009-normative-authority-and-versioning.md",
+      "path": "decisions/adr/ADR-009-licence-trademark-and-open-governance.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-010",
-      "path": "decisions/adr/ADR-010-banza-canonical-json-bcj-1.md",
+      "path": "decisions/adr/ADR-010-the-decision-record-tree-holds-current-architecture-only.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-011",
-      "path": "decisions/adr/ADR-011-double-entry-ledger-and-monetary-precision.md",
+      "path": "decisions/adr/ADR-011-banza-canonical-json-bcj-1.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-012",
-      "path": "decisions/adr/ADR-012-account-and-participant-identity.md",
+      "path": "decisions/adr/ADR-012-double-entry-ledger-and-monetary-precision.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-013",
-      "path": "decisions/adr/ADR-013-provider-abstraction.md",
+      "path": "decisions/adr/ADR-013-the-protocol-state-store-is-not-a-ledger.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-014",
-      "path": "decisions/adr/ADR-014-payment-intent.md",
+      "path": "decisions/adr/ADR-014-account-and-participant-identity.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-015",
-      "path": "decisions/adr/ADR-015-payment-session.md",
+      "path": "decisions/adr/ADR-015-payment-initiation-one-intent-several-surfaces.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-016",
-      "path": "decisions/adr/ADR-016-qr-payments.md",
+      "path": "decisions/adr/ADR-016-collections-a-composite-obligation-never-money.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-017",
-      "path": "decisions/adr/ADR-017-payment-links.md",
+      "path": "decisions/adr/ADR-017-wallet-accounts-segregation-inside-a-wallet.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-018",
-      "path": "decisions/adr/ADR-018-payment-collections.md",
+      "path": "decisions/adr/ADR-018-wallet-payments-and-the-refund-source-model.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-019",
-      "path": "decisions/adr/ADR-019-wallet-accounts.md",
+      "path": "decisions/adr/ADR-019-fees-and-application-settlement.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-020",
-      "path": "decisions/adr/ADR-020-wallet-payments-and-the-refund-source-model.md",
+      "path": "decisions/adr/ADR-020-transaction-proof-and-public-verification.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-021",
-      "path": "decisions/adr/ADR-021-fees-and-application-settlement.md",
+      "path": "decisions/adr/ADR-021-reason-codes.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-022",
-      "path": "decisions/adr/ADR-022-transaction-proof-and-public-verification.md",
+      "path": "decisions/adr/ADR-022-idempotency.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-023",
-      "path": "decisions/adr/ADR-023-reason-codes.md",
+      "path": "decisions/adr/ADR-023-test-material-can-never-be-production-valid.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-024",
-      "path": "decisions/adr/ADR-024-idempotency.md",
+      "path": "decisions/adr/ADR-024-identity-verification-stays-operator-policy.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-025",
-      "path": "decisions/adr/ADR-025-environment-isolation-sandbox-and-production.md",
+      "path": "decisions/adr/ADR-025-trust-without-a-certificate-authority.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-026",
-      "path": "decisions/adr/ADR-026-postgresql-as-protocol-state-store-not-a-ledger.md",
+      "path": "decisions/adr/ADR-026-root-authorization-three-authorities-threshold-two.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-027",
-      "path": "decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md",
+      "path": "decisions/adr/ADR-027-signing-keys-never-on-serving-infrastructure.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-028",
-      "path": "decisions/adr/ADR-028-root-authorization-three-authorities-threshold-two.md",
+      "path": "decisions/adr/ADR-028-anti-rollback-for-versioned-trust-material.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-029",
-      "path": "decisions/adr/ADR-029-keys-never-on-serving-infrastructure.md",
+      "path": "decisions/adr/ADR-029-canonical-discovery-surface.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-030",
-      "path": "decisions/adr/ADR-030-anti-rollback-for-versioned-trust-material.md",
+      "path": "decisions/adr/ADR-030-conformance-profiles-and-the-capability-vocabulary.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-031",
-      "path": "decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md",
+      "path": "decisions/adr/ADR-031-operator-self-publication-and-machine-verifiable-conformance.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-032",
-      "path": "decisions/adr/ADR-032-kyc-stays-operator-policy-only-trust-assertions-federate.md",
+      "path": "decisions/adr/ADR-032-certification-records-and-their-lifecycle.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-033",
-      "path": "decisions/adr/ADR-033-operator-self-publication-and-machine-verifiable-conformance.md",
+      "path": "decisions/adr/ADR-033-the-banza-technical-registry.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-034",
-      "path": "decisions/adr/ADR-034-conformance-and-interoperability-certification.md",
+      "path": "decisions/adr/ADR-034-endpoint-originated-validation.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-035",
-      "path": "decisions/adr/ADR-035-closed-certification-state-machine.md",
+      "path": "decisions/adr/ADR-035-operator-zero-the-read-only-reference-implementation.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-036",
-      "path": "decisions/adr/ADR-036-banza-technical-registry.md",
+      "path": "decisions/adr/ADR-036-banzai-a-non-authoritative-interface-to-the-protocol.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-037",
-      "path": "decisions/adr/ADR-037-canonical-discovery-surface.md",
+      "path": "decisions/adr/ADR-037-operator-onboarding.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
     {
       "id": "ADR-038",
-      "path": "decisions/adr/ADR-038-endpoint-originated-operator-validation.md",
-      "status": "current",
-      "classification": "DOCUMENT_INSTANCE"
-    },
-    {
-      "id": "ADR-039",
-      "path": "decisions/adr/ADR-039-conformance-profiles-and-capability-vocabulary.md",
-      "status": "current",
-      "classification": "DOCUMENT_INSTANCE"
-    },
-    {
-      "id": "ADR-040",
-      "path": "decisions/adr/ADR-040-operator-onboarding.md",
-      "status": "current",
-      "classification": "DOCUMENT_INSTANCE"
-    },
-    {
-      "id": "ADR-041",
-      "path": "decisions/adr/ADR-041-operator-zero-the-read-only-reference-implementation.md",
-      "status": "current",
-      "classification": "DOCUMENT_INSTANCE"
-    },
-    {
-      "id": "ADR-042",
-      "path": "decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md",
-      "status": "current",
-      "classification": "DOCUMENT_INSTANCE"
-    },
-    {
-      "id": "ADR-043",
-      "path": "decisions/adr/ADR-043-rust-first-official-engines.md",
-      "status": "current",
-      "classification": "DOCUMENT_INSTANCE"
-    },
-    {
-      "id": "ADR-044",
-      "path": "decisions/adr/ADR-044-licence-notice-trademark-and-open-governance.md",
-      "status": "current",
-      "classification": "DOCUMENT_INSTANCE"
-    },
-    {
-      "id": "ADR-045",
-      "path": "decisions/adr/ADR-045-current-only-canonical-adr-tree.md",
+      "path": "decisions/adr/ADR-038-rust-first-official-engines.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
@@ -5915,343 +5807,357 @@
     {
       "alias": "dupla entrada",
       "normalized": "dupla entrada",
-      "canonical_id": "ADR-011",
+      "canonical_id": "ADR-012",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "double entry",
       "normalized": "double entry",
-      "canonical_id": "ADR-011",
+      "canonical_id": "ADR-012",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "double-entry",
       "normalized": "double entry",
-      "canonical_id": "ADR-011",
+      "canonical_id": "ADR-012",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "partida dobrada",
       "normalized": "partida dobrada",
-      "canonical_id": "ADR-011",
+      "canonical_id": "ADR-012",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "debito e credito",
       "normalized": "debito e credito",
-      "canonical_id": "ADR-011",
+      "canonical_id": "ADR-012",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "debito credito",
       "normalized": "debito credito",
-      "canonical_id": "ADR-011",
+      "canonical_id": "ADR-012",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "precisao monetaria",
       "normalized": "precisao monetaria",
-      "canonical_id": "ADR-011",
+      "canonical_id": "ADR-012",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "invariante de dupla entrada",
       "normalized": "invariante de dupla entrada",
-      "canonical_id": "ADR-011",
+      "canonical_id": "ADR-012",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "invariante financeiro",
       "normalized": "invariante financeiro",
-      "canonical_id": "ADR-011",
+      "canonical_id": "ADR-012",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "financial invariant",
       "normalized": "financial invariant",
-      "canonical_id": "ADR-011",
+      "canonical_id": "ADR-012",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "enforcement da dupla entrada",
       "normalized": "enforcement da dupla entrada",
-      "canonical_id": "ADR-011",
+      "canonical_id": "ADR-012",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "idempotencia",
       "normalized": "idempotencia",
-      "canonical_id": "ADR-024",
+      "canonical_id": "ADR-022",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "idempotency",
       "normalized": "idempotency",
-      "canonical_id": "ADR-024",
+      "canonical_id": "ADR-022",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "idempotente",
       "normalized": "idempotente",
-      "canonical_id": "ADR-024",
+      "canonical_id": "ADR-022",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "chave de idempotencia",
       "normalized": "chave de idempotencia",
-      "canonical_id": "ADR-024",
+      "canonical_id": "ADR-022",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "rate limit",
       "normalized": "rate limit",
-      "canonical_id": "ADR-024",
+      "canonical_id": "ADR-022",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "limitacao de taxa",
       "normalized": "limitacao de taxa",
-      "canonical_id": "ADR-024",
+      "canonical_id": "ADR-022",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "pagamento qr",
       "normalized": "pagamento qr",
-      "canonical_id": "ADR-016",
+      "canonical_id": "ADR-015",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "codigo qr",
       "normalized": "codigo qr",
-      "canonical_id": "ADR-016",
+      "canonical_id": "ADR-015",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "qr code",
       "normalized": "qr code",
-      "canonical_id": "ADR-016",
+      "canonical_id": "ADR-015",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "pagamento por qr",
       "normalized": "pagamento por qr",
-      "canonical_id": "ADR-016",
+      "canonical_id": "ADR-015",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "qr payment",
       "normalized": "qr payment",
-      "canonical_id": "ADR-016",
+      "canonical_id": "ADR-015",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "payment link",
       "normalized": "payment link",
-      "canonical_id": "ADR-017",
+      "canonical_id": "ADR-015",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "payment links",
       "normalized": "payment links",
-      "canonical_id": "ADR-017",
+      "canonical_id": "ADR-015",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "link de pagamento",
       "normalized": "link de pagamento",
-      "canonical_id": "ADR-017",
+      "canonical_id": "ADR-015",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "links de pagamento",
       "normalized": "links de pagamento",
-      "canonical_id": "ADR-017",
+      "canonical_id": "ADR-015",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "url de pagamento",
       "normalized": "url de pagamento",
-      "canonical_id": "ADR-017",
+      "canonical_id": "ADR-015",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "identidade da carteira",
       "normalized": "identidade da carteira",
-      "canonical_id": "ADR-012",
+      "canonical_id": "ADR-014",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "wallet native",
       "normalized": "wallet native",
-      "canonical_id": "ADR-012",
+      "canonical_id": "ADR-014",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "wallet-native",
       "normalized": "wallet native",
-      "canonical_id": "ADR-012",
+      "canonical_id": "ADR-014",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "identidade nativa",
       "normalized": "identidade nativa",
-      "canonical_id": "ADR-012",
+      "canonical_id": "ADR-014",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "modelo de conta",
       "normalized": "modelo de conta",
-      "canonical_id": "ADR-012",
+      "canonical_id": "ADR-014",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "account identity",
       "normalized": "account identity",
-      "canonical_id": "ADR-012",
+      "canonical_id": "ADR-014",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "identidade do participante",
       "normalized": "identidade do participante",
-      "canonical_id": "ADR-012",
+      "canonical_id": "ADR-014",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "operador de referencia",
       "normalized": "operador de referencia",
-      "canonical_id": "ADR-041",
+      "canonical_id": "ADR-035",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "reference operator",
       "normalized": "reference operator",
-      "canonical_id": "ADR-041",
+      "canonical_id": "ADR-035",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "separacao de operadores",
       "normalized": "separacao de operadores",
-      "canonical_id": "ADR-001",
+      "canonical_id": "ADR-002",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "separacao operador",
       "normalized": "separacao operador",
-      "canonical_id": "ADR-001",
+      "canonical_id": "ADR-002",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "separacao entre protocolo e operador",
+      "normalized": "separacao entre protocolo e operador",
+      "canonical_id": "ADR-002",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "separacao entre o protocolo e o operador",
+      "normalized": "separacao entre o protocolo e o operador",
+      "canonical_id": "ADR-002",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "protocolo operador",
       "normalized": "protocolo operador",
-      "canonical_id": "ADR-001",
+      "canonical_id": "ADR-002",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "operator separation",
       "normalized": "operator separation",
-      "canonical_id": "ADR-001",
+      "canonical_id": "ADR-002",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "protocol operator separation",
       "normalized": "protocol operator separation",
-      "canonical_id": "ADR-001",
+      "canonical_id": "ADR-002",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "que e um operador",
       "normalized": "que e um operador",
-      "canonical_id": "ADR-001",
+      "canonical_id": "ADR-002",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "um operador no protocolo",
       "normalized": "um operador no protocolo",
-      "canonical_id": "ADR-001",
+      "canonical_id": "ADR-002",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "papel do operador",
       "normalized": "papel do operador",
-      "canonical_id": "ADR-001",
+      "canonical_id": "ADR-002",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "papel de um operador",
       "normalized": "papel de um operador",
-      "canonical_id": "ADR-001",
+      "canonical_id": "ADR-002",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "funcao do operador",
       "normalized": "funcao do operador",
-      "canonical_id": "ADR-001",
+      "canonical_id": "ADR-002",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "o que faz um operador",
       "normalized": "o que faz um operador",
-      "canonical_id": "ADR-001",
+      "canonical_id": "ADR-002",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "what is an operator",
       "normalized": "what is an operator",
-      "canonical_id": "ADR-001",
+      "canonical_id": "ADR-002",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "operator role",
       "normalized": "operator role",
-      "canonical_id": "ADR-001",
+      "canonical_id": "ADR-002",
       "source": "concept",
       "classification": "ALIAS"
     },
@@ -6284,191 +6190,142 @@
       "classification": "ALIAS"
     },
     {
-      "alias": "inversao de nomes",
-      "normalized": "inversao de nomes",
-      "canonical_id": "ADR-002",
-      "source": "concept",
-      "classification": "ALIAS"
-    },
-    {
-      "alias": "inversao de nomenclatura",
-      "normalized": "inversao de nomenclatura",
-      "canonical_id": "ADR-002",
-      "source": "concept",
-      "classification": "ALIAS"
-    },
-    {
-      "alias": "nomenclatura do ecossistema",
-      "normalized": "nomenclatura do ecossistema",
-      "canonical_id": "ADR-002",
-      "source": "concept",
-      "classification": "ALIAS"
-    },
-    {
-      "alias": "nomes do ecossistema",
-      "normalized": "nomes do ecossistema",
-      "canonical_id": "ADR-002",
-      "source": "concept",
-      "classification": "ALIAS"
-    },
-    {
-      "alias": "naming inversion",
-      "normalized": "naming inversion",
-      "canonical_id": "ADR-002",
-      "source": "concept",
-      "classification": "ALIAS"
-    },
-    {
-      "alias": "ecosystem naming",
-      "normalized": "ecosystem naming",
-      "canonical_id": "ADR-002",
-      "source": "concept",
-      "classification": "ALIAS"
-    },
-    {
-      "alias": "inversao dos nomes",
-      "normalized": "inversao dos nomes",
-      "canonical_id": "ADR-002",
-      "source": "concept",
-      "classification": "ALIAS"
-    },
-    {
       "alias": "revogacao",
       "normalized": "revogacao",
-      "canonical_id": "ADR-027",
+      "canonical_id": "ADR-025",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "revocation",
       "normalized": "revocation",
-      "canonical_id": "ADR-027",
+      "canonical_id": "ADR-025",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "revoga",
       "normalized": "revoga",
-      "canonical_id": "ADR-027",
+      "canonical_id": "ADR-025",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "revogar",
       "normalized": "revogar",
-      "canonical_id": "ADR-027",
+      "canonical_id": "ADR-025",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "lista de revogacao",
       "normalized": "lista de revogacao",
-      "canonical_id": "ADR-027",
+      "canonical_id": "ADR-025",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "revocation list",
       "normalized": "revocation list",
-      "canonical_id": "ADR-027",
+      "canonical_id": "ADR-025",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "federacao",
       "normalized": "federacao",
-      "canonical_id": "ADR-031",
+      "canonical_id": "ADR-025",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "federation",
       "normalized": "federation",
-      "canonical_id": "ADR-031",
+      "canonical_id": "ADR-025",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "federar",
       "normalized": "federar",
-      "canonical_id": "ADR-031",
+      "canonical_id": "ADR-025",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "confianca federada",
       "normalized": "confianca federada",
-      "canonical_id": "ADR-031",
+      "canonical_id": "ADR-025",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "nivel de conformidade",
       "normalized": "nivel de conformidade",
-      "canonical_id": "ADR-039",
+      "canonical_id": "ADR-030",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "conformance level",
       "normalized": "conformance level",
-      "canonical_id": "ADR-039",
+      "canonical_id": "ADR-030",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "conformidade",
       "normalized": "conformidade",
-      "canonical_id": "ADR-039",
+      "canonical_id": "ADR-030",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "conformance",
       "normalized": "conformance",
-      "canonical_id": "ADR-039",
+      "canonical_id": "ADR-030",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "suite de conformidade",
       "normalized": "suite de conformidade",
-      "canonical_id": "ADR-039",
+      "canonical_id": "ADR-030",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "auto publicacao",
       "normalized": "auto publicacao",
-      "canonical_id": "ADR-033",
+      "canonical_id": "ADR-031",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "self publication",
       "normalized": "self publication",
-      "canonical_id": "ADR-033",
+      "canonical_id": "ADR-031",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "self-publication",
       "normalized": "self publication",
-      "canonical_id": "ADR-033",
+      "canonical_id": "ADR-031",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "operador publica",
       "normalized": "operador publica",
-      "canonical_id": "ADR-033",
+      "canonical_id": "ADR-031",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "operator self publication",
       "normalized": "operator self publication",
-      "canonical_id": "ADR-033",
+      "canonical_id": "ADR-031",
       "source": "concept",
       "classification": "ALIAS"
     },
@@ -6573,84 +6430,84 @@
     {
       "alias": "tres camadas",
       "normalized": "tres camadas",
-      "canonical_id": "ADR-003",
+      "canonical_id": "ADR-004",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "arquitectura institucional",
       "normalized": "arquitectura institucional",
-      "canonical_id": "ADR-003",
+      "canonical_id": "ADR-004",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "arquitetura institucional",
       "normalized": "arquitetura institucional",
-      "canonical_id": "ADR-003",
+      "canonical_id": "ADR-004",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "arquitectura de tres camadas",
       "normalized": "arquitectura de tres camadas",
-      "canonical_id": "ADR-003",
+      "canonical_id": "ADR-004",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "arquitetura de tres camadas",
       "normalized": "arquitetura de tres camadas",
-      "canonical_id": "ADR-003",
+      "canonical_id": "ADR-004",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "arquitetura em tres camadas",
       "normalized": "arquitetura em tres camadas",
-      "canonical_id": "ADR-003",
+      "canonical_id": "ADR-004",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "camadas institucionais",
       "normalized": "camadas institucionais",
-      "canonical_id": "ADR-003",
+      "canonical_id": "ADR-004",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "three layer",
       "normalized": "three layer",
-      "canonical_id": "ADR-003",
+      "canonical_id": "ADR-004",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "three-layer",
       "normalized": "three layer",
-      "canonical_id": "ADR-003",
+      "canonical_id": "ADR-004",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "trilayer",
       "normalized": "trilayer",
-      "canonical_id": "ADR-003",
+      "canonical_id": "ADR-004",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "tri layer",
       "normalized": "tri layer",
-      "canonical_id": "ADR-003",
+      "canonical_id": "ADR-004",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "l1 l2 l3",
       "normalized": "l1 l2 l3",
-      "canonical_id": "ADR-003",
+      "canonical_id": "ADR-004",
       "source": "concept",
       "classification": "ALIAS"
     },
@@ -6692,378 +6549,378 @@
     {
       "alias": "certificacao nao e autorizacao",
       "normalized": "certificacao nao e autorizacao",
-      "canonical_id": "ADR-004",
+      "canonical_id": "ADR-005",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "certificacao vs autorizacao",
       "normalized": "certificacao vs autorizacao",
-      "canonical_id": "ADR-004",
+      "canonical_id": "ADR-005",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "certificacao admissao autorizacao",
       "normalized": "certificacao admissao autorizacao",
-      "canonical_id": "ADR-004",
+      "canonical_id": "ADR-005",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "certificacao e admissao",
       "normalized": "certificacao e admissao",
-      "canonical_id": "ADR-004",
+      "canonical_id": "ADR-005",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "diferenca entre certificacao e admissao",
       "normalized": "diferenca entre certificacao e admissao",
-      "canonical_id": "ADR-004",
+      "canonical_id": "ADR-005",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "admissao a scheme",
       "normalized": "admissao a scheme",
-      "canonical_id": "ADR-004",
+      "canonical_id": "ADR-005",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "scheme admission",
       "normalized": "scheme admission",
-      "canonical_id": "ADR-004",
+      "canonical_id": "ADR-005",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "estado regulatorio",
       "normalized": "estado regulatorio",
-      "canonical_id": "ADR-005",
+      "canonical_id": "ADR-007",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "regulatory state",
       "normalized": "regulatory state",
-      "canonical_id": "ADR-005",
+      "canonical_id": "ADR-007",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "autorizacao regulatoria",
       "normalized": "autorizacao regulatoria",
-      "canonical_id": "ADR-005",
+      "canonical_id": "ADR-007",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "regulatory authorization",
       "normalized": "regulatory authorization",
-      "canonical_id": "ADR-005",
+      "canonical_id": "ADR-007",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "regulatory authorisation",
       "normalized": "regulatory authorisation",
-      "canonical_id": "ADR-005",
+      "canonical_id": "ADR-007",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "preparacao regulatoria",
       "normalized": "preparacao regulatoria",
-      "canonical_id": "ADR-005",
+      "canonical_id": "ADR-007",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "fundos reais",
       "normalized": "fundos reais",
-      "canonical_id": "ADR-005",
+      "canonical_id": "ADR-007",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "real money",
       "normalized": "real money",
-      "canonical_id": "ADR-005",
+      "canonical_id": "ADR-007",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "real funds",
       "normalized": "real funds",
-      "canonical_id": "ADR-005",
+      "canonical_id": "ADR-007",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "realmoneyactivationgate",
       "normalized": "realmoneyactivationgate",
-      "canonical_id": "ADR-005",
+      "canonical_id": "ADR-007",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "real money activation gate",
       "normalized": "real money activation gate",
-      "canonical_id": "ADR-005",
+      "canonical_id": "ADR-007",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "gate de fundos reais",
       "normalized": "gate de fundos reais",
-      "canonical_id": "ADR-005",
+      "canonical_id": "ADR-007",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "esta autorizada",
       "normalized": "esta autorizada",
-      "canonical_id": "ADR-005",
+      "canonical_id": "ADR-007",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "esta autorizado",
       "normalized": "esta autorizado",
-      "canonical_id": "ADR-005",
+      "canonical_id": "ADR-007",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "ja esta autorizada",
       "normalized": "ja esta autorizada",
-      "canonical_id": "ADR-005",
+      "canonical_id": "ADR-007",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "ja esta autorizado",
       "normalized": "ja esta autorizado",
-      "canonical_id": "ADR-005",
+      "canonical_id": "ADR-007",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "autorizada pelo regulador",
       "normalized": "autorizada pelo regulador",
-      "canonical_id": "ADR-005",
+      "canonical_id": "ADR-007",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "autorizado pelo regulador",
       "normalized": "autorizado pelo regulador",
-      "canonical_id": "ADR-005",
+      "canonical_id": "ADR-007",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "autorizacao do regulador",
       "normalized": "autorizacao do regulador",
-      "canonical_id": "ADR-005",
+      "canonical_id": "ADR-007",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "conflito de interesses",
       "normalized": "conflito de interesses",
-      "canonical_id": "ADR-007",
+      "canonical_id": "ADR-006",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "conflict of interest",
       "normalized": "conflict of interest",
-      "canonical_id": "ADR-007",
+      "canonical_id": "ADR-006",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "separacao de infraestruturas",
       "normalized": "separacao de infraestruturas",
-      "canonical_id": "ADR-007",
+      "canonical_id": "ADR-006",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "separacao de chaves",
       "normalized": "separacao de chaves",
-      "canonical_id": "ADR-007",
+      "canonical_id": "ADR-006",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "key separation",
       "normalized": "key separation",
-      "canonical_id": "ADR-007",
+      "canonical_id": "ADR-006",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "infrastructure separation",
       "normalized": "infrastructure separation",
-      "canonical_id": "ADR-007",
+      "canonical_id": "ADR-006",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "criador e operador",
       "normalized": "criador e operador",
-      "canonical_id": "ADR-007",
+      "canonical_id": "ADR-006",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "creator and operator",
       "normalized": "creator and operator",
-      "canonical_id": "ADR-007",
+      "canonical_id": "ADR-006",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "certificacao de conformidade e interoperabilidade",
       "normalized": "certificacao de conformidade e interoperabilidade",
-      "canonical_id": "ADR-034",
+      "canonical_id": "ADR-032",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "certificacao de conformidade",
       "normalized": "certificacao de conformidade",
-      "canonical_id": "ADR-034",
+      "canonical_id": "ADR-032",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "certificacao de interoperabilidade",
       "normalized": "certificacao de interoperabilidade",
-      "canonical_id": "ADR-034",
+      "canonical_id": "ADR-032",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "certificacao tecnica",
       "normalized": "certificacao tecnica",
-      "canonical_id": "ADR-034",
+      "canonical_id": "ADR-032",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "certified implementation",
       "normalized": "certified implementation",
-      "canonical_id": "ADR-034",
+      "canonical_id": "ADR-032",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "certification profile",
       "normalized": "certification profile",
-      "canonical_id": "ADR-034",
+      "canonical_id": "ADR-032",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "certification record",
       "normalized": "certification record",
-      "canonical_id": "ADR-034",
+      "canonical_id": "ADR-032",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "conformidade e interoperabilidade",
       "normalized": "conformidade e interoperabilidade",
-      "canonical_id": "ADR-034",
+      "canonical_id": "ADR-032",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "interoperabilidade verificada",
       "normalized": "interoperabilidade verificada",
-      "canonical_id": "ADR-034",
+      "canonical_id": "ADR-032",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "technical registry",
       "normalized": "technical registry",
-      "canonical_id": "ADR-036",
+      "canonical_id": "ADR-033",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "registo tecnico",
       "normalized": "registo tecnico",
-      "canonical_id": "ADR-036",
+      "canonical_id": "ADR-033",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "registry tecnico",
       "normalized": "registry tecnico",
-      "canonical_id": "ADR-036",
+      "canonical_id": "ADR-033",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "registo de certificacao",
       "normalized": "registo de certificacao",
-      "canonical_id": "ADR-036",
+      "canonical_id": "ADR-033",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "estados de certificacao",
       "normalized": "estados de certificacao",
-      "canonical_id": "ADR-035",
+      "canonical_id": "ADR-032",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "ciclo de vida da certificacao",
       "normalized": "ciclo de vida da certificacao",
-      "canonical_id": "ADR-035",
+      "canonical_id": "ADR-032",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "expiracao da certificacao",
       "normalized": "expiracao da certificacao",
-      "canonical_id": "ADR-035",
+      "canonical_id": "ADR-032",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "suspensao da certificacao",
       "normalized": "suspensao da certificacao",
-      "canonical_id": "ADR-035",
+      "canonical_id": "ADR-032",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "revogacao da certificacao",
       "normalized": "revogacao da certificacao",
-      "canonical_id": "ADR-035",
+      "canonical_id": "ADR-032",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "supersession",
       "normalized": "supersession",
-      "canonical_id": "ADR-035",
+      "canonical_id": "ADR-032",
       "source": "concept",
       "classification": "ALIAS"
     },
     {
       "alias": "renovacao da certificacao",
       "normalized": "renovacao da certificacao",
-      "canonical_id": "ADR-035",
+      "canonical_id": "ADR-032",
       "source": "concept",
       "classification": "ALIAS"
     },
@@ -7096,632 +6953,569 @@
       "classification": "ALIAS"
     },
     {
-      "alias": "decisao sobre nomes",
-      "normalized": "decisao sobre nomes",
-      "canonical_id": "ADR-002",
-      "source": "catalogue",
-      "classification": "ALIAS"
-    },
-    {
-      "alias": "decisao sobre os nomes",
-      "normalized": "decisao sobre os nomes",
-      "canonical_id": "ADR-002",
-      "source": "catalogue",
-      "classification": "ALIAS"
-    },
-    {
-      "alias": "nomes do ecossistema",
-      "normalized": "nomes do ecossistema",
-      "canonical_id": "ADR-002",
-      "source": "catalogue",
-      "classification": "ALIAS"
-    },
-    {
-      "alias": "nomenclatura do ecossistema",
-      "normalized": "nomenclatura do ecossistema",
-      "canonical_id": "ADR-002",
-      "source": "catalogue",
-      "classification": "ALIAS"
-    },
-    {
-      "alias": "inversao de nomes",
-      "normalized": "inversao de nomes",
-      "canonical_id": "ADR-002",
-      "source": "catalogue",
-      "classification": "ALIAS"
-    },
-    {
-      "alias": "inversao de nomenclatura",
-      "normalized": "inversao de nomenclatura",
-      "canonical_id": "ADR-002",
-      "source": "catalogue",
-      "classification": "ALIAS"
-    },
-    {
-      "alias": "identidade do ecossistema",
-      "normalized": "identidade do ecossistema",
-      "canonical_id": "ADR-002",
-      "source": "catalogue",
-      "classification": "ALIAS"
-    },
-    {
-      "alias": "naming inversion",
-      "normalized": "naming inversion",
-      "canonical_id": "ADR-002",
-      "source": "catalogue",
-      "classification": "ALIAS"
-    },
-    {
-      "alias": "ecosystem naming",
-      "normalized": "ecosystem naming",
-      "canonical_id": "ADR-002",
-      "source": "catalogue",
-      "classification": "ALIAS"
-    },
-    {
       "alias": "separacao de operadores",
       "normalized": "separacao de operadores",
-      "canonical_id": "ADR-001",
+      "canonical_id": "ADR-002",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "separacao protocolo operador",
       "normalized": "separacao protocolo operador",
-      "canonical_id": "ADR-001",
+      "canonical_id": "ADR-002",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "protocol operator separation",
       "normalized": "protocol operator separation",
-      "canonical_id": "ADR-001",
+      "canonical_id": "ADR-002",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "separacao entre protocolo e operador",
       "normalized": "separacao entre protocolo e operador",
-      "canonical_id": "ADR-001",
+      "canonical_id": "ADR-002",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "protocolo primeiro",
       "normalized": "protocolo primeiro",
-      "canonical_id": "ADR-001",
+      "canonical_id": "ADR-003",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "protocol first",
       "normalized": "protocol first",
-      "canonical_id": "ADR-001",
+      "canonical_id": "ADR-003",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "desenvolvimento protocol-first",
       "normalized": "desenvolvimento protocol first",
-      "canonical_id": "ADR-001",
+      "canonical_id": "ADR-003",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "protocolo antes do produto",
       "normalized": "protocolo antes do produto",
-      "canonical_id": "ADR-001",
+      "canonical_id": "ADR-003",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "dupla entrada",
       "normalized": "dupla entrada",
-      "canonical_id": "ADR-011",
+      "canonical_id": "ADR-012",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "duplo registo",
       "normalized": "duplo registo",
-      "canonical_id": "ADR-011",
+      "canonical_id": "ADR-012",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "double entry",
       "normalized": "double entry",
-      "canonical_id": "ADR-011",
+      "canonical_id": "ADR-012",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "ledger de dupla entrada",
       "normalized": "ledger de dupla entrada",
-      "canonical_id": "ADR-011",
+      "canonical_id": "ADR-012",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "registo contabilistico duplo",
       "normalized": "registo contabilistico duplo",
-      "canonical_id": "ADR-011",
+      "canonical_id": "ADR-012",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "precisao monetaria",
       "normalized": "precisao monetaria",
-      "canonical_id": "ADR-011",
+      "canonical_id": "ADR-012",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "livro-razao",
       "normalized": "livro razao",
-      "canonical_id": "ADR-011",
+      "canonical_id": "ADR-012",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "invariante de dupla entrada",
       "normalized": "invariante de dupla entrada",
-      "canonical_id": "ADR-011",
+      "canonical_id": "ADR-012",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "aplicacao do invariante",
       "normalized": "aplicacao do invariante",
-      "canonical_id": "ADR-011",
+      "canonical_id": "ADR-012",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "double-entry invariant enforcement",
       "normalized": "double entry invariant enforcement",
-      "canonical_id": "ADR-011",
+      "canonical_id": "ADR-012",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "identidade nativa em carteira",
       "normalized": "identidade nativa em carteira",
-      "canonical_id": "ADR-012",
+      "canonical_id": "ADR-014",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "modelo de conta",
       "normalized": "modelo de conta",
-      "canonical_id": "ADR-012",
+      "canonical_id": "ADR-014",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "account identity",
       "normalized": "account identity",
-      "canonical_id": "ADR-012",
+      "canonical_id": "ADR-014",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "identidade do participante",
       "normalized": "identidade do participante",
-      "canonical_id": "ADR-012",
+      "canonical_id": "ADR-014",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "conta em vez de cartao",
       "normalized": "conta em vez de cartao",
-      "canonical_id": "ADR-012",
+      "canonical_id": "ADR-014",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "idempotencia",
       "normalized": "idempotencia",
-      "canonical_id": "ADR-024",
+      "canonical_id": "ADR-022",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "limitacao de pedidos",
       "normalized": "limitacao de pedidos",
-      "canonical_id": "ADR-024",
+      "canonical_id": "ADR-022",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "rate limiting",
       "normalized": "rate limiting",
-      "canonical_id": "ADR-024",
+      "canonical_id": "ADR-022",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "idempotency",
       "normalized": "idempotency",
-      "canonical_id": "ADR-024",
+      "canonical_id": "ADR-022",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "replay",
       "normalized": "replay",
-      "canonical_id": "ADR-024",
+      "canonical_id": "ADR-022",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "pagamento por qr",
       "normalized": "pagamento por qr",
-      "canonical_id": "ADR-016",
+      "canonical_id": "ADR-015",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "qr code",
       "normalized": "qr code",
-      "canonical_id": "ADR-016",
+      "canonical_id": "ADR-015",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "sistema de pagamento qr",
       "normalized": "sistema de pagamento qr",
-      "canonical_id": "ADR-016",
+      "canonical_id": "ADR-015",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "qr payment",
       "normalized": "qr payment",
-      "canonical_id": "ADR-016",
+      "canonical_id": "ADR-015",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "links de pagamento",
       "normalized": "links de pagamento",
-      "canonical_id": "ADR-017",
+      "canonical_id": "ADR-015",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "payment links",
       "normalized": "payment links",
-      "canonical_id": "ADR-017",
+      "canonical_id": "ADR-015",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "url de pagamento",
       "normalized": "url de pagamento",
-      "canonical_id": "ADR-017",
+      "canonical_id": "ADR-015",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "link partilhavel",
       "normalized": "link partilhavel",
-      "canonical_id": "ADR-017",
+      "canonical_id": "ADR-015",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "modelo de confianca da federacao",
       "normalized": "modelo de confianca da federacao",
-      "canonical_id": "ADR-031",
+      "canonical_id": "ADR-025",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "federation trust",
       "normalized": "federation trust",
-      "canonical_id": "ADR-031",
+      "canonical_id": "ADR-025",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "confianca de federacao",
       "normalized": "confianca de federacao",
-      "canonical_id": "ADR-031",
+      "canonical_id": "ADR-025",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "confianca na federacao",
       "normalized": "confianca na federacao",
-      "canonical_id": "ADR-031",
+      "canonical_id": "ADR-025",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "regra de confianca na federacao",
       "normalized": "regra de confianca na federacao",
-      "canonical_id": "ADR-031",
+      "canonical_id": "ADR-025",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "confianca entre operadores",
       "normalized": "confianca entre operadores",
-      "canonical_id": "ADR-031",
+      "canonical_id": "ADR-025",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "rust-first",
       "normalized": "rust first",
-      "canonical_id": "ADR-043",
+      "canonical_id": "ADR-038",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "politica rust",
       "normalized": "politica rust",
-      "canonical_id": "ADR-043",
+      "canonical_id": "ADR-038",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "rust primeiro",
       "normalized": "rust primeiro",
-      "canonical_id": "ADR-043",
+      "canonical_id": "ADR-038",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "motores em rust",
       "normalized": "motores em rust",
-      "canonical_id": "ADR-043",
+      "canonical_id": "ADR-038",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "modelo de confianca aberto",
       "normalized": "modelo de confianca aberto",
-      "canonical_id": "ADR-027",
+      "canonical_id": "ADR-025",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "confianca sem ca",
       "normalized": "confianca sem ca",
-      "canonical_id": "ADR-027",
+      "canonical_id": "ADR-025",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "trust sem autoridade",
       "normalized": "trust sem autoridade",
-      "canonical_id": "ADR-027",
+      "canonical_id": "ADR-025",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "open trust model",
       "normalized": "open trust model",
-      "canonical_id": "ADR-027",
+      "canonical_id": "ADR-025",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "sem autoridade central",
       "normalized": "sem autoridade central",
-      "canonical_id": "ADR-027",
+      "canonical_id": "ADR-025",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "banzai como agente nativo",
       "normalized": "banzai como agente nativo",
-      "canonical_id": "ADR-042",
+      "canonical_id": "ADR-036",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "agente de protocolo nativo",
       "normalized": "agente de protocolo nativo",
-      "canonical_id": "ADR-042",
+      "canonical_id": "ADR-036",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "native protocol agent",
       "normalized": "native protocol agent",
-      "canonical_id": "ADR-042",
+      "canonical_id": "ADR-036",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "postgresql como estado de protocolo",
       "normalized": "postgresql como estado de protocolo",
-      "canonical_id": "ADR-026",
+      "canonical_id": "ADR-013",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "postgres nao e ledger",
       "normalized": "postgres nao e ledger",
-      "canonical_id": "ADR-026",
+      "canonical_id": "ADR-013",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "protocol state store",
       "normalized": "protocol state store",
-      "canonical_id": "ADR-026",
+      "canonical_id": "ADR-013",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "licenca e governanca",
       "normalized": "licenca e governanca",
-      "canonical_id": "ADR-044",
+      "canonical_id": "ADR-009",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "license notice trademark",
       "normalized": "license notice trademark",
-      "canonical_id": "ADR-044",
+      "canonical_id": "ADR-009",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "atribuicao de governanca aberta",
       "normalized": "atribuicao de governanca aberta",
-      "canonical_id": "ADR-044",
+      "canonical_id": "ADR-009",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "apache governance",
       "normalized": "apache governance",
-      "canonical_id": "ADR-044",
+      "canonical_id": "ADR-009",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "inferencia local",
       "normalized": "inferencia local",
-      "canonical_id": "ADR-042",
+      "canonical_id": "ADR-036",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "qwen local",
       "normalized": "qwen local",
-      "canonical_id": "ADR-042",
+      "canonical_id": "ADR-036",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "local inference",
       "normalized": "local inference",
-      "canonical_id": "ADR-042",
+      "canonical_id": "ADR-036",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "modelo local",
       "normalized": "modelo local",
-      "canonical_id": "ADR-042",
+      "canonical_id": "ADR-036",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "operador zero",
       "normalized": "operador zero",
-      "canonical_id": "ADR-041",
+      "canonical_id": "ADR-035",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "simulador de operador",
       "normalized": "simulador de operador",
-      "canonical_id": "ADR-041",
+      "canonical_id": "ADR-035",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "operator simulator",
       "normalized": "operator simulator",
-      "canonical_id": "ADR-041",
+      "canonical_id": "ADR-035",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "payment operator simulator",
       "normalized": "payment operator simulator",
-      "canonical_id": "ADR-041",
+      "canonical_id": "ADR-035",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "operador de referencia",
       "normalized": "operador de referencia",
-      "canonical_id": "ADR-041",
+      "canonical_id": "ADR-035",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "reference operator",
       "normalized": "reference operator",
-      "canonical_id": "ADR-041",
+      "canonical_id": "ADR-035",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "operador zero como unico exemplo",
       "normalized": "operador zero como unico exemplo",
-      "canonical_id": "ADR-041",
+      "canonical_id": "ADR-035",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "politica operator-zero-only",
       "normalized": "politica operator zero only",
-      "canonical_id": "ADR-041",
+      "canonical_id": "ADR-035",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "operator zero only",
       "normalized": "operator zero only",
-      "canonical_id": "ADR-041",
+      "canonical_id": "ADR-035",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "unico operador de exemplo",
       "normalized": "unico operador de exemplo",
-      "canonical_id": "ADR-041",
+      "canonical_id": "ADR-035",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "banzai como interface primaria",
       "normalized": "banzai como interface primaria",
-      "canonical_id": "ADR-042",
+      "canonical_id": "ADR-036",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "banzai interface primaria",
       "normalized": "banzai interface primaria",
-      "canonical_id": "ADR-042",
+      "canonical_id": "ADR-036",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "interface primaria do operador humano",
       "normalized": "interface primaria do operador humano",
-      "canonical_id": "ADR-042",
+      "canonical_id": "ADR-036",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "banzai primary interface",
       "normalized": "banzai primary interface",
-      "canonical_id": "ADR-042",
+      "canonical_id": "ADR-036",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "banzai como interface humana primaria",
       "normalized": "banzai como interface humana primaria",
-      "canonical_id": "ADR-042",
+      "canonical_id": "ADR-036",
       "source": "catalogue",
       "classification": "ALIAS"
     },
     {
       "alias": "interface primaria",
       "normalized": "interface primaria",
-      "canonical_id": "ADR-042",
+      "canonical_id": "ADR-036",
       "source": "catalogue",
       "classification": "ALIAS"
     },
@@ -7916,8 +7710,8 @@
     }
   ],
   "relation_edges": {
-    "count": 56,
-    "checksum": "01464c057f0a7548"
+    "count": 8,
+    "checksum": "4191833b62a0bdea"
   },
   "attributes": [
     {
@@ -8134,17 +7928,17 @@
   "counts": {
     "subjects": 21,
     "document_types": 12,
-    "document_instances": 51,
+    "document_instances": 44,
     "artifact_types": 18,
-    "aliases": 262,
+    "aliases": 248,
     "relation_kinds": 11,
     "relation_aliases": 24,
-    "relation_edges": 56,
+    "relation_edges": 8,
     "attributes": 11,
     "task_terms": 20,
     "historical_terms": 6,
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "aabba84e6608b1f6"
+  "checksum": "2817aee78b55fb05"
 }

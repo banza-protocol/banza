@@ -1,4 +1,4 @@
-// ADR-042 correction 1 — the PersistenceBadge must state the HONEST durable-archive verdict of a
+// ADR-036 correction 1 — the PersistenceBadge must state the HONEST durable-archive verdict of a
 // full-journey run. The engine result is independent of storage: the badge only claims durable/
 // consultable/comparable/reproducible when persistence is PERSISTED, and it NEVER shows an archive
 // reference for a non-persisted (pending/failed/disabled) run. Rendered with react-dom/server (no DOM).

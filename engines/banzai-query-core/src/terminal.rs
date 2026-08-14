@@ -95,7 +95,7 @@ fn exact(exact_kind: &'static str, value: String, source: SourceCard) -> Termina
 }
 
 // A canonical protocol-level fact bound to its public source. These are established, guarded facts
-// (Apache-2.0 = ADR-044; creation date = M2.13C-B; Banzami = creator/initial maintainer, M2.7M). They are
+// (Apache-2.0 = ADR-009; creation date = M2.13C-B; Banzami = creator/initial maintainer, M2.7M). They are
 // source-bound canonical values, not model output. Returned only for a CLEAN exact lookup (the classifier
 // already routed any "why/permite/o que" phrasing to the trunk).
 fn protocol_fact(exact_kind: &str, nq: &str) -> Option<Terminal> {
@@ -149,10 +149,16 @@ fn document_fact(exact_kind: &str, nq: &str) -> Option<Terminal> {
         title: doc.title.clone(),
         path: doc.path.clone(),
     };
+    // The tree is current-only: a record that is present is in force, and no record carries a status
+    // header any more (ADR-010). Declining the question would be wrong — the answer is knowable from
+    // the policy — so an absent header resolves to the policy answer rather than to "no evidence".
+    let current = "Em vigor (a árvore de decisões contém apenas decisões actuais)".to_string();
     let value = match exact_kind {
+        "status" if doc.status.trim().is_empty() => current.clone(),
         "status" => doc.status.clone(),
         "date" => doc.date.clone(),
         "identifier" => doc.id.clone(),
+        "version" if doc.status.trim().is_empty() => current.clone(),
         "version" => doc.status.clone(), // the registry tracks lifecycle status as the doc's version state
         _ => return None,
     };
@@ -219,14 +225,14 @@ mod tests {
 
     #[test]
     fn exact_document_facts_are_source_bound() {
-        let t = build_terminal("qual é o estado da ADR-041?");
+        let t = build_terminal("qual é o estado da ADR-035?");
         assert_eq!(t.kind, "exact_fact");
         assert_eq!(t.exact_kind, "status");
         assert!(!t.value.is_empty());
         assert!(t
             .source
             .as_ref()
-            .map(|s| s.id == "ADR-041")
+            .map(|s| s.id == "ADR-035")
             .unwrap_or(false));
         assert_eq!(t.trace_label, TRACE_EXACT_FACT);
         assert!(t.value.chars().count() <= MAX_EXACT_LEN && !t.value.contains('\n'));
@@ -247,9 +253,9 @@ mod tests {
     fn mixed_and_concepts_route_to_the_trunk() {
         assert!(build_terminal("qual é a licença e o que ela permite?").to_trunk);
         assert!(build_terminal("o que é federação?").to_trunk);
-        assert!(build_terminal("compara a ADR-041 com a ADR-042").to_trunk);
+        assert!(build_terminal("compara a ADR-035 com a ADR-036").to_trunk);
         // the mixed request preserved the explanatory part (escalated).
-        assert!(build_terminal("qual é o estado da ADR-041 e por que foi aceite?").escalated);
+        assert!(build_terminal("qual é o estado da ADR-035 e por que foi aceite?").escalated);
     }
 
     #[test]

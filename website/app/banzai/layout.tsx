@@ -1,18 +1,18 @@
-// /banzai layout — M2.19G.4 (ADR-042). Mounts the single, always-mounted BanzAI workspace ONCE around
+// /banzai layout — M2.19G.4 (ADR-036). Mounts the single, always-mounted BanzAI workspace ONCE around
 // every navigable-context segment (global → operator → implementation). Because a Next.js layout persists
 // across navigations within its subtree, the in-memory session (conversation, validation selection +
-// receipts, onboarding candidature) survives moving between contexts — the mechanism behind D-070-02(d):
+// receipts, onboarding candidature) survives moving between contexts — the mechanism behind(d):
 // "all segments share the same always-mounted session via app/banzai/layout.tsx". The segment pages under
 // this layout are thin binders that publish their server-resolved context to the workspace.
 //
-// /banzai remains the SINGLE human-operator interface (ADR-042, ADR-041): one shell, one session. The
+// /banzai remains the SINGLE human-operator interface (ADR-036, ADR-035): one shell, one session. The
 // contexts are addressable route segments — NOT a second application, and NOT the three architectural
-// layers or the L0–L4 certification profiles (D-070-05).
+// layers or the L0–L4 certification profiles.
 
 import { BanzaiWorkspaceProvider } from "@/components/banzai/BanzaiWorkspaceProvider";
 import { BanzaiRuntimeStrip } from "@/components/reference/BanzaiRuntimeStrip";
 
-// ADR-042 D-076-10 — the app /banzai surface derives its runtime/provider state from the runtime SSOT
+// ADR-036 — the app /banzai surface derives its runtime/provider state from the runtime SSOT
 // (GET /banzai/runtime), exactly as /referencia/banzai does. This server layout renders the same
 // <BanzaiRuntimeStrip> server component (ISR fetch, fail-safe) and passes it as a node into the
 // always-mounted client shell, so the shell shows route-derived runtime truth instead of static badges.

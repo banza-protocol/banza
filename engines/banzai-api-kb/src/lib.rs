@@ -1,4 +1,4 @@
-//! banzai-api-kb (ADR-043, R6) — the Rust retrieval engine for the live banzai-api.
+//! banzai-api-kb (ADR-038, R6) — the Rust retrieval engine for the live banzai-api.
 //!
 //! A faithful, byte-parity port of `services/banzai-api/src/knowledge.js`'s `normalize`,
 //! `scoreEntry` and `retrieveTopK`, over the embedded entry keyword index (`entries-index.json`,
@@ -45,7 +45,7 @@ pub fn scenarios_json() -> String {
     scenarios::scenarios_json()
 }
 
-/// Node WASM (ADR-042, M2.9A): top-k DOCUMENTARY chunks for a query, as a JSON array of
+/// Node WASM (ADR-036, M2.9A): top-k DOCUMENTARY chunks for a query, as a JSON array of
 /// `{path,title,section,anchor,source_type,text}`. Used ONLY to enrich the grounded Qwen context with
 /// real protocol-doc excerpts (additive citations); it never changes routing. Empty array if none
 /// score high enough. Rust owns the scoring; JS is glue.
@@ -56,7 +56,7 @@ pub fn retrieve_doc_chunks_json(query: &str, k: usize) -> String {
         .into_iter()
         // M2.18 — public-source policy: an INTERNAL document (CLAUDE.md and other governance/internal
         // files) is never fed into the grounded context nor cited. This is what stopped CLAUDE.md — a
-        // file that contains an "Ecosystem Identity (ADR-002)" heading and so scored for ADR-002
+        // file that contains an "Ecosystem Identity (ADR-001)" heading and so scored for ADR-001
         // queries — from leaking into the answer for "me fala sobre a ADR 002".
         .filter(|c| source_policy::is_public_source(&c.path, &c.source_type))
         .map(|c| {
@@ -187,7 +187,7 @@ pub fn resolve_scope_json(question: &str) -> String {
     .to_string()
 }
 
-/// Node WASM (ADR-042 — operational reasoning): the deterministic classification of a question about a
+/// Node WASM (ADR-036 — operational reasoning): the deterministic classification of a question about a
 /// MEASURED/OBSERVED operational property (duration, metric, live state) of the validation journey, plus
 /// the Rust-authored honest, request-oriented fallback to serve when telemetry has no comparable data. The
 /// pipeline calls this in the operational tier (after every safety/boundary tier). When `is_operational`
@@ -505,7 +505,7 @@ pub fn alias_truth_table_json() -> String {
 }
 
 /// Node WASM (M2.18B.4-R2): the canonical ids of EVERY explicit documentary reference in a question, in
-/// first-appearance order (["ADR-041","ADR-042"] for "compara a ADR-041 com a ADR-042"). Deterministic
+/// first-appearance order (["ADR-035","ADR-036"] for "compara a ADR-035 com a ADR-036"). Deterministic
 /// registry match — the compare path uses it to package all named documents.
 #[cfg(target_arch = "wasm32")]
 #[wasm_bindgen]
@@ -892,7 +892,7 @@ pub fn boundary_evaluate_json(question: &str) -> String {
     .to_string()
 }
 
-/// Node WASM (ADR-042, M2.8G): the Qwen-first routing decision for a question. Returns
+/// Node WASM (ADR-036, M2.8G): the Qwen-first routing decision for a question. Returns
 /// `{"action":"qwen|deterministic|refusal|insufficient","entry_id":<id|null>,"intent":"...","reason":"..."}`.
 /// The JS pipeline executes this decision — it never decides the route itself.
 #[cfg(target_arch = "wasm32")]
@@ -910,7 +910,7 @@ pub fn route_question_with_journey_json(question: &str, journey_step: &str) -> S
     route::route_with_journey_json(question, journey_step)
 }
 
-/// Node WASM (ADR-042, M2.8H): the routing decision WITH short conversation context. `context_json`
+/// Node WASM (ADR-036, M2.8H): the routing decision WITH short conversation context. `context_json`
 /// is a JSON array of previous USER questions (most-recent last). Returns the route plus
 /// `context_used`, `turns_used`, `resolved_query`. Safety is never bypassed by context.
 #[cfg(target_arch = "wasm32")]
@@ -938,7 +938,7 @@ pub fn build_terminal_json(question: &str) -> String {
 }
 
 /// Node WASM (M2.18B.4): resolve a broad concept question to its canonical source id — a registry
-/// ADR/RFC id (federation→ADR-031) OR a public Reference/spec/governance document PATH
+/// ADR/RFC id (federation→ADR-025) OR a public Reference/spec/governance document PATH
 /// (governance→docs/reference/PROTOCOL_GOVERNANCE_GLOSSARY.md). Empty string when the question names no
 /// single-canonical concept. The single router uses it to SEED the trunk's resolver and to know a concept
 /// has grounding before running the model. Pure; never invents a source.
@@ -968,7 +968,7 @@ pub fn classify_query_intent_str(question: &str) -> String {
     route::classify_query_intent(question).to_string()
 }
 
-// M2.14I (ADR-042) — the primary human-operator interface router: telemetry classification of a
+// M2.14I (ADR-036) — the primary human-operator interface router: telemetry classification of a
 // human/operator request into one of the 14 workbench intents. Label only; never changes routing.
 #[cfg(target_arch = "wasm32")]
 #[wasm_bindgen]
@@ -989,7 +989,7 @@ pub fn intent_source_ranking_json(question: &str) -> String {
     format!("{{\"intent\":\"{intent}\",\"primary\":{primary},\"penalize\":{penalize}}}")
 }
 
-/// Node WASM (ADR-042): validate a language-model completion. Returns
+/// Node WASM (ADR-036): validate a language-model completion. Returns
 /// `{"ok":bool,"reason":"..."}`. `ok=false` → the pipeline must serve the deterministic
 /// grounded fallback instead of the model text.
 #[cfg(target_arch = "wasm32")]
@@ -1000,7 +1000,7 @@ pub fn validate_response_json(text: &str) -> String {
     format!("{{\"ok\":{},\"reason\":{}}}", v.ok, reason)
 }
 
-/// Node WASM (ADR-042): strip a leading echo of the question from a completion (M2.11D, QA-3).
+/// Node WASM (ADR-036): strip a leading echo of the question from a completion (M2.11D, QA-3).
 /// Deterministic and narrow — see `validate::strip_question_echo` for the exact rule and why it is
 /// deliberately conservative.
 #[cfg(target_arch = "wasm32")]
@@ -1009,7 +1009,7 @@ pub fn strip_question_echo_text(answer: &str, question: &str) -> String {
     validate::strip_question_echo(answer, question)
 }
 
-/// Node WASM (ADR-042): build the `{system, user}` prompt for a language model from the
+/// Node WASM (ADR-036): build the `{system, user}` prompt for a language model from the
 /// approved retrieval context. Retrieved sources and the question are treated as data;
 /// the rigid system rules and injection defence are defined in Rust.
 #[cfg(target_arch = "wasm32")]

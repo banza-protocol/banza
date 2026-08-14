@@ -1,6 +1,6 @@
 # BANZA — Protocol vs Operator Policy
 
-**Status:** Determination · **Date:** 2026-06-13 · **Authority:** ADR-001, ADR-001, ADR-041, ADR-041, ADR-002
+**Status:** Determination · **Date:** 2026-06-13 · **Authority:** ADR-001, ADR-001, ADR-035, ADR-035, ADR-001
 **Purpose:** A single, citable boundary so the question *"is X a protocol rule or
 an operator policy?"* never has to be re-litigated.
 
@@ -13,15 +13,15 @@ invariants, certification criteria and the federation/trust model. It has no
 executable kernel. A conformant operator implements the rules in its own stack
 and **honours the wire contracts** (webhook signature, QR payload, events,
 federation routing/obligations, operator manifest). This is the intended model
-(ADR-001 open protocol, ADR-001 protocol/operator separation, ADR-041/ADR-041
+(ADR-001 open protocol, ADR-001 protocol/operator separation, ADR-035/ADR-035
 reference operator).
 
 What is **protocol** (lives in `~/banza`, normative):
 
 - Financial invariants (`INV-LEDGER-*`, `INV-WALLET-*`, `INV-SETTLE-*`, `INV-IDEM-*`, `INV-RECON-*`, `INV-QR-*`)
 - Wire contracts in `contracts/` (OpenAPI, webhooks, QR payload, events, federation)
-- Certification criteria and capabilities (L0–L4, ADR-039)
-- Trust/federation model (ADR-027, ADR-031)
+- Certification criteria and capabilities (L0–L4, ADR-030)
+- Trust/federation model (ADR-025, ADR-025)
 
 What is **operator policy** (lives in the operator, non-normative to the protocol):
 
@@ -47,7 +47,7 @@ A change made in an operator must be promoted to a protocol ADR/RFC in `~/banza`
 | If the change introduces… | Then… |
 |---|---|
 | a new field in a wire contract (webhook / QR / event / federation / manifest) | **ADR/RFC in `~/banza`** |
-| a new manifest capability or certification criterion | **ADR in `~/banza`** (ADR-039) |
+| a new manifest capability or certification criterion | **ADR in `~/banza`** (ADR-030) |
 | a rule another operator must respect to interoperate or federate | **ADR/RFC in `~/banza`** |
 | a change to a financial invariant | **ADR in `~/banza`** |
 | only internal authorization, product UX, pricing or compliance policy | **stays in the operator — no protocol ADR** |
@@ -99,7 +99,7 @@ BANZA Protocol  →  Operator  →  SDK  →  Apps
 
 Apps and SDKs do not define new financial/protocolar behaviour on their own. A
 concept invented app-side and retrofitted into BANZA is the inversion ADR-001
-forbids. See ADR-001 for the rule and ADR-018 (Payment Collections) for the
+forbids. See ADR-001 for the rule and ADR-016 (Payment Collections) for the
 worked example.
 
 ---

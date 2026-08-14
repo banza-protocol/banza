@@ -131,7 +131,7 @@ funds and no operator state are involved. Consumers pin to a tagged version and 
   root directly.
 - The Trust Root signs **only the Key Manifest**; the delegated keys sign protocol metadata and releases
   (protocol-metadata domain) and the Revocation List (revocation domain) — **never operators, payments or
-  licences** (INV-ROOT-004/005; ADR-027). Signing here attests **artifact integrity and provenance of the
+  licences** (INV-ROOT-004/005; ADR-025). Signing here attests **artifact integrity and provenance of the
   protocol release**. It is not a certificate for any operator and not a payment-service authorisation.
 - In M2 the signing keys and Trust Root ceremony are **planned and gated** (no real production key is generated
   in M2).

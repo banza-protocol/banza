@@ -2,16 +2,16 @@ import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
-// M2.19G.4 (ADR-042) — navigable contexts in the single BanzAI interface. These source-level assertions
+// M2.19G.4 (ADR-036) — navigable contexts in the single BanzAI interface. These source-level assertions
 // track the safety-load-bearing shape of the new route segments and the always-mounted workspace: the
 // segments are CLOSED slugs resolved server-side (never a caller-supplied URL), the single session is
 // mounted once in the shared layout, and the navigation contexts are never conflated with the three
-// architectural layers or the L0–L4 certification tiers (D-070-05). Behavioural URL-state parsing is
+// architectural layers or the L0–L4 certification tiers. Behavioural URL-state parsing is
 // covered by banzaiState.test.ts.
 const root = path.resolve(__dirname, "..");
 const read = (p: string) => readFileSync(path.join(root, p), "utf8");
 
-describe("M2.19G.4 — navigable contexts are closed, server-resolved route segments (ADR-042)", () => {
+describe("M2.19G.4 — navigable contexts are closed, server-resolved route segments (ADR-036)", () => {
   it("mounts the single always-mounted workspace ONCE in the shared /banzai layout", () => {
     const layout = read("app/banzai/layout.tsx");
     expect(layout).toContain("BanzaiWorkspaceProvider");
@@ -56,7 +56,7 @@ describe("M2.19G.4 — navigable contexts are closed, server-resolved route segm
     }
   });
 
-  it("the context trail uses 'contexto' and never conflates contexts with layers/tiers (D-070-05)", () => {
+  it("the context trail uses 'contexto' and never conflates contexts with layers/tiers", () => {
     const agent = read("components/banzai/BanzaiAgent.tsx");
     expect(agent).toContain("BanzaiContextTrail");
     expect(agent).toContain("CONTEXTO");

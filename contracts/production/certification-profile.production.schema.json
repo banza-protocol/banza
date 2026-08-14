@@ -2,10 +2,10 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://banza.network/contracts/production/certification-profile.production.schema.json",
   "title": "InteroperabilityCertificationProfile",
-  "description": "The public, versioned yardstick an implementation is certified against (ADR-034 D-064-02). Pins the conformance level, capabilities and the required schemas/contracts/invariants/endpoints, the identity/signature/trust requirements, and the validity window. Immutable once published (a change is a new profile_version). Derived only from L1 protocol contracts; introduces no operator-specific criteria (ADR-001).",
+  "description": "The public, versioned yardstick an implementation is certified against (ADR-032). Pins the conformance level, capabilities and the required schemas/contracts/invariants/endpoints, the identity/signature/trust requirements, and the validity window. Immutable once published (a change is a new profile_version). Derived only from L1 protocol contracts; introduces no operator-specific criteria (ADR-001).",
   "_spec_version": "1.0",
   "_status": "production-baseline",
-  "_authority": "ADR-034 (interoperability certification); this schema and the conformance/ suites define the profile. engines/banza-certification implements it and does not define it.",
+  "_authority": "ADR-032 (interoperability certification); this schema and the conformance/ suites define the profile. engines/banza-certification implements it and does not define it.",
   "type": "object",
   "required": [
     "profile_id",
@@ -90,7 +90,7 @@
     "validity_days": {
       "type": "integer",
       "minimum": 1,
-      "description": "Validity window of the resulting certificate; never open-ended (ADR-034 D-064-06).",
+      "description": "Validity window of the resulting certificate; never open-ended (ADR-032).",
       "maximum": 9007199254740991
     },
     "profile_hash": {

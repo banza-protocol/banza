@@ -1,20 +1,20 @@
-# banza-target-registry (ADR-043, ADR-038; M2.19G.1)
+# banza-target-registry (ADR-038, ADR-034; M2.19G.1)
 
 The **closed BANZA Technical Registry** domain model plus the resolution / eligibility / verdict logic
-for **endpoint-originated operator validation** (ADR-038). It answers, in Rust: *which
+for **endpoint-originated operator validation** (ADR-034). It answers, in Rust: *which
 operator + implementation is an eligible validation target, what is its canonical origin and its
 published endpoint map, and — after the secure fetcher retrieves and the decision engines judge each
 artifact — what is the aggregate Certification Readiness?*
 
-> Operational rule (ADR-038 §4): *the operator publishes; BanzAI obtains; Rust verifies; the receipt
+> Operational rule (ADR-034 §4): *the operator publishes; BanzAI obtains; Rust verifies; the receipt
 > fixes the result; the Technical Registry publishes the verifiable state.*
 
-Per ADR-043 this is an **official engine → it MUST be Rust**. It is a library (`rlib`) + a WASM module
+Per ADR-038 this is an **official engine → it MUST be Rust**. It is a library (`rlib`) + a WASM module
 (`cdylib`, built with `--features wasm`) consumed by `banzai-api`'s validation pipeline.
 
 ## The model
 
-- **Operator vs implementation (ADR-038 §4.2/§4.3).** The **operator** is the responsible entity; the
+- **Operator vs implementation (ADR-034 §4.2/§4.3).** The **operator** is the responsible entity; the
   **implementation** is the technical system evaluated. One operator may publish many implementations
   (demonstration, sandbox, pre-production, production; versions, profiles, capabilities, deployments).
   The validation target is always an operator **and** one of its published implementations — never the
@@ -28,10 +28,10 @@ Per ADR-043 this is an **official engine → it MUST be Rust**. It is a library 
 - **Closed production registry.** Exactly one operator (`operator-zero`) and one implementation
   (`operator-zero-ref-impl`, origin `https://zero.banza.network`) — no fictional operators. Operador
   Zero receives no shortcut, fixture or bypass; it is resolved and fetched exactly like any future
-  published implementation (ADR-038 §4.9).
+  published implementation (ADR-034 §4.9).
 - **Verdicts.** `step_status` maps a decision engine's raw output onto the canonical step status;
   `certification_readiness` aggregates the technical verdicts into `READY`/`BLOCKED`. It is **never** a
-  Certification Record and **never** `CERTIFIED` (ADR-035).
+  Certification Record and **never** `CERTIFIED` (ADR-032).
 
 ## Modules
 
@@ -46,13 +46,13 @@ Per ADR-043 this is an **official engine → it MUST be Rust**. It is a library 
 ## Boundary
 
 Resolution proves **eligibility only**. Presence in the registry **never** implies admission into any
-operational scheme, regulatory authorisation, or the ability to move funds (ADR-038 §4.10, ADR-004).
+operational scheme, regulatory authorisation, or the ability to move funds (ADR-034 §4.10, ADR-005).
 Rust decides; TypeScript never decides; there is no model call anywhere here.
 
 ## See also
 
-- ADR-038 — endpoint-originated operator validation & operator/implementation model
-- ADR-036 (technical registry) · ADR-035 (closed certification-state machine) · ADR-041 (Operador Zero)
+- ADR-034 — endpoint-originated operator validation & operator/implementation model
+- ADR-033 (technical registry) · ADR-032 (closed certification-state machine) · ADR-035 (Operador Zero)
 - `engines/banza-artifact-fetcher` — the secure Rust fetcher that retrieves the resolved endpoints
 - The public reference: BANZA Reference, chapters 7–9 & 12 (`website/content/BANZA_REFERENCIA.md`)
 - Contracts: `contracts/production/operator-record.production.schema.json`,

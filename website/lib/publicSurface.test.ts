@@ -72,7 +72,7 @@ describe("BanzAI-guided operator path (positive framing)", () => {
 
   it("keeps only the Rust developer commands (banza-conformance-rs), never the pip/docker package", () => {
     const cmds = DEV_COMMANDS.join(" ");
-    // The Programadores tab is maintainer-oriented and Rust-first (ADR-043): the Rust binary is fine,
+    // The Programadores tab is maintainer-oriented and Rust-first (ADR-038): the Rust binary is fine,
     // the Python package install / Docker runner are not.
     expect(cmds).toContain("banza-conformance-rs");
     expect(cmds).not.toContain("pip install");
@@ -157,7 +157,7 @@ describe("M2.5 — assistant suggestions are task-oriented", () => {
     expect(AGENT_SUGGESTIONS.length).toBeGreaterThan(0);
     for (const s of AGENT_SUGGESTIONS) {
       expect(s.trim().length).toBeGreaterThan(0);
-      // A task/question (or an imperative demonstrator), not a certification-as-goal claim. ADR-042
+      // A task/question (or an imperative demonstrator), not a certification-as-goal claim. ADR-036
       // added a broad operational demonstrator phrased as an instruction ("Compara …"), which ends
       // with a period; a question still ends with "?".
       expect(/[?.]$/.test(s.trim())).toBe(true);
@@ -171,10 +171,10 @@ describe("M2.5 — assistant suggestions are task-oriented", () => {
     }
   });
 
-  it("points at the real operator goals — the validation journey's operational telemetry (ADR-042)", () => {
+  it("points at the real operator goals — the validation journey's operational telemetry (ADR-036)", () => {
     const joined = AGENT_SUGGESTIONS.join("  ");
     expect(joined.toLowerCase()).toContain("valida");
-    // ADR-042 operational duration/metric demonstrators: total duration, the slowest step, and a
+    // ADR-036 operational duration/metric demonstrators: total duration, the slowest step, and a
     // run-over-run comparison.
     expect(joined.toLowerCase()).toContain("tempo");
     expect(joined.toLowerCase()).toContain("etapa");

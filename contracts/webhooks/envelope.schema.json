@@ -5,7 +5,7 @@
   "description": "Canonical envelope for all outbound webhook events delivered by the BANZA protocol to operator-configured HTTPS endpoints. Always signed with Banza-Signature header — see contracts/webhooks/signature.json.",
   "_spec_version": "1.0",
   "_status": "canonical",
-  "_authority": "ADR-002",
+  "_authority": "ADR-001",
   "_source_of_truth": "contracts/webhooks/signature.json, contracts/events/webhook-types.json",
 
   "type": "object",

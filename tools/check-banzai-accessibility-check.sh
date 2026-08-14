@@ -29,14 +29,14 @@ st=0
 printf '%s\n' '<h1 className="sr-only">BanzAI</h1>' | grep -cE '<h1' | grep -qx 1 || { echo "SELF-TEST BROKEN" >&2; st=1; }
 [ "$st" -eq 0 ] || { echo "guard self-test FAILED"; exit 2; }
 
-# 1. Exactly one h1 on the BanzAI surface. M2.19G.4 (ADR-042): the single sr-only <h1> now lives in the
+# 1. Exactly one h1 on the BanzAI surface. M2.19G.4 (ADR-036): the single sr-only <h1> now lives in the
 # shared app/banzai/layout.tsx (it heads every navigable context — global/operator/implementation);
 # page.tsx and the segment pages are thin binders and add no heading. Count across all /banzai route files
 # so the total is exactly one, wherever it is declared.
 LAYOUT=website/app/banzai/layout.tsx
 h1n=$( { grep -roE '<h1' website/app/banzai 2>/dev/null || true; } | wc -l | tr -d ' ')
 [ "$h1n" = "1" ] && ok "exactly one <h1> across the /banzai route files (in the shared layout)" || fl "the /banzai surface must have exactly one <h1> across its route files (found $h1n)"
-[ -f "$LAYOUT" ] && grep -qE '<h1' "$LAYOUT" && ok "the single <h1> lives in the shared app/banzai/layout.tsx" || fl "$LAYOUT must carry the single BanzAI <h1> (ADR-042 shared layout)"
+[ -f "$LAYOUT" ] && grep -qE '<h1' "$LAYOUT" && ok "the single <h1> lives in the shared app/banzai/layout.tsx" || fl "$LAYOUT must carry the single BanzAI <h1> (ADR-036 shared layout)"
 
 # 2. Sidebar nav is labelled.
 [ -f "$SHELL_TSX" ] && grep -qE '<nav[^>]*aria-label=' "$SHELL_TSX" && ok "sidebar <nav> has aria-label" || fl "$SHELL_TSX sidebar nav must carry aria-label"

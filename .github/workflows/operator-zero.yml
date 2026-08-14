@@ -1,6 +1,6 @@
 name: operator-zero-core
 
-# The Rust engine behind Operador Zero (ADR-041, M2.12A): the fictional KZ_DEMO ledger, the demo
+# The Rust engine behind Operador Zero (ADR-035, M2.12A): the fictional KZ_DEMO ledger, the demo
 # boundary, the simulated PSP-like flows, and the canonical artifact tree it validates.
 on:
   push:

@@ -1,4 +1,4 @@
-// Email delivery for onboarding OTPs (M2.19G.3, ADR-040). SECRET_STAYS_IN_HEADER.
+// Email delivery for onboarding OTPs (M2.19G.3, ADR-037). SECRET_STAYS_IN_HEADER.
 //
 // One narrow capability: deliver a numeric access code to a person's inbox. Two implementations behind
 // one interface:

@@ -1,8 +1,8 @@
 # M2.19H — Validation Receipt Store: Migration, Deploy & Rollback Runbook
 
-> **Change:** enable the durable append-only validation-receipt store (ADR-042) in production. Adds six append-only tables + triggers to `banza_protocol` and turns on `BANZAI_RECEIPTS_ENABLED` for `banzai-api`.
+> **Change:** enable the durable append-only validation-receipt store (ADR-036) in production. Adds six append-only tables + triggers to `banza_protocol` and turns on `BANZAI_RECEIPTS_ENABLED` for `banzai-api`.
 > **Host:** production VPS, stack at `/srv/banza-protocol/runtime` (`compose.yml` + `.env`); repo at `/srv/banza-protocol/repo` (root-owned; `sudo git`). Postgres runs as the internal-only `postgres` compose service (`POSTGRES_USER=banza_admin`, DB `banza_protocol`).
-> **Safety:** additive + idempotent migration (only `CREATE … IF NOT EXISTS` / `CREATE OR REPLACE`; no `ALTER`/`DROP`, no data loss). The store holds protocol state only — no funds, no PII, no secrets (ADR-026).
+> **Safety:** additive + idempotent migration (only `CREATE … IF NOT EXISTS` / `CREATE OR REPLACE`; no `ALTER`/`DROP`, no data loss). The store holds protocol state only — no funds, no PII, no secrets (ADR-013).
 
 ## 0. Preconditions
 
@@ -62,7 +62,7 @@ In `/srv/banza-protocol/runtime/.env` set:
 ```
 BANZAI_RECEIPTS_ENABLED=1
 # BANZAI_RECEIPTS_OUTBOX_DIR defaults to /var/lib/banzai/receipts-outbox (mounted volume) — leave unless overriding
-BANZA_COMMIT=<merge-commit>        # surfaced by GET /banzai/runtime (ADR-042)
+BANZA_COMMIT=<merge-commit>        # surfaced by GET /banzai/runtime (ADR-036)
 ```
 
 Then recreate the service (the outbox volume + env come from the updated `compose.yml`):

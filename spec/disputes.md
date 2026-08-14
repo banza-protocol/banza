@@ -3,7 +3,7 @@
 This document specifies the **minimum** protocol obligations for disputes. A dispute
 is a claim, raised after a payment, that the payment was incorrect, unauthorized, or
 not honoured. Disputes are distinct from refunds: a **refund** is a merchant-initiated
-return of value (see ADR-020); a **dispute** is a claim whose resolution *may* result
+return of value (see ADR-018); a **dispute** is a claim whose resolution *may* result
 in restitution.
 
 > **Scope note.** This is a deliberately minimal, conservative specification. The
@@ -39,19 +39,21 @@ rejected. `RESOLVED`, `CANCELLED`, and `EXPIRED` are terminal.
 ## Normative obligations
 
 1. **Bound to a typed payment source.** A dispute MUST reference a typed payment
-   source — `ACQUIRING_PAYMENT` or `WALLET_PAYMENT` — exactly as refunds do
-   (ADR-020 §2). A dispute MUST NOT reference a generic `TRANSFER`.
+   source — `ACQUIRING_PAYMENT` or `WALLET_PAYMENT` — under the same rules as a
+   refund ([`spec/refunds.md`](refunds.md) §1). A dispute MUST NOT reference a
+   generic `TRANSFER`, a payment session or a payment link.
 2. **Accounting effect only on resolution.** No ledger posting is made when a dispute
-   is `OPENED` or `UNDER_REVIEW`. A balanced double-entry posting (ADR-011, ADR-011)
+   is `OPENED` or `UNDER_REVIEW`. A balanced double-entry posting (`INV-LEDGER-*`)
    is made **only** on a resolution that grants restitution (an `ACCEPTED` dispute).
    `REJECTED`, `CANCELLED`, and `EXPIRED` produce no posting.
 3. **Source-aware restitution.** When restitution is granted, it follows the same
-   source-aware model as refunds (ADR-020 §5): a wallet/account payment credits the
-   original payer's wallet; an acquiring payment credits transit/restitution, with
-   external-rail restitution handled as a separate, provider-agnostic step (ADR-013).
+   source-aware model as a refund ([`spec/refunds.md`](refunds.md) §4): a
+   wallet/account payment credits the original payer's wallet; an acquiring payment
+   credits transit/restitution, with external-rail restitution handled as a separate,
+   provider-agnostic step.
 4. **Ceiling.** Total restitution (refunds + dispute restitutions) against a single
    payment MUST NOT exceed the original captured amount, aggregated by
-   `(source_type, source_id)` (ADR-020 §4).
+   `(source_type, source_id)` ([`spec/refunds.md`](refunds.md) §2).
 5. **Idempotency.** Dispute state transitions MUST be idempotent: re-applying a
    transition that already occurred is a no-op and MUST NOT create a duplicate
    posting (INV-IDEM-001).

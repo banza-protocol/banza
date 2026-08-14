@@ -2,7 +2,7 @@
 #
 # BANZA PostgreSQL Data-Boundary Guard (M2.7K).
 #
-# The BANZA PostgreSQL is a verifiable protocol-state store, not a financial database. Per ADR-026 it
+# The BANZA PostgreSQL is a verifiable protocol-state store, not a financial database. Per ADR-013 it
 # stores signed public artifacts, the BanzAI document index, an audit log and pre-production state
 # markers — never funds, balances, real payment transactions, bank accounts, cards, KYC/AML data,
 # personal data of end users, or private keys/secrets.
@@ -81,7 +81,7 @@ for f in $(git ls-files $SCHEMA_GLOB 2>/dev/null | grep -viE '(^|/)[^/]*test[^/]
   scanned=$((scanned + 1))
   hits="$(strip_sql_comments < "$f" | grep -inEI "$FORBIDDEN_RE" | sed "s|^|$f:|" || true)"
   if [ -n "$hits" ]; then
-    echo "NEEDS_FIX  forbidden financial/personal/secret identifier in protocol schema (ADR-026 — the BANZA database stores protocol state, not financial value):"
+    echo "NEEDS_FIX  forbidden financial/personal/secret identifier in protocol schema (ADR-013 — the BANZA database stores protocol state, not financial value):"
     echo "$hits" | sed 's/^/    /'
     fail=1
   fi

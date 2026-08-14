@@ -1,6 +1,6 @@
 name: banza-conformance-rs
 
-# Builds and tests the Rust conformance runner (ADR-043, R4): cargo fmt/clippy/test, offline
+# Builds and tests the Rust conformance runner (ADR-038, R4): cargo fmt/clippy/test, offline
 # vector-integrity check, report validation, and golden parity. No network, no operator, no secrets.
 
 on:

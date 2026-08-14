@@ -1,4 +1,4 @@
-//! The secure fetch pipeline (ADR-038 §4.7, §19). Ties the pure [`crate::policy`] to a hardened
+//! The secure fetch pipeline (ADR-034 §4.7, §19). Ties the pure [`crate::policy`] to a hardened
 //! `reqwest` client and an injectable [`crate::resolver::HostResolver`].
 //!
 //! Order of enforcement:

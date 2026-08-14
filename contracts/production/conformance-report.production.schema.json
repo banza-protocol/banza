@@ -5,7 +5,7 @@
   "description": "Production-grade conformance report. Records the outcome of running the BANZA conformance suite (levels L0–L4) and the financial invariants against a candidate operator implementation, with references to the evidence produced. A conformance report is a TECHNICAL result, NOT a certification and NOT a payment-service authorisation. The field 'ready_for_operator_external_review' means the report is ready to be submitted for the operator's own external review — it does NOT mean BANZA has certified, approved, or activated anything. BANZA does not process payments, settle value, or move funds; it is an open protocol.",
   "_spec_version": "1.0",
   "_status": "production-baseline",
-  "_authority": "conformance/ suite; ADR-011 (invariant enforcement)",
+  "_authority": "conformance/ suite; ADR-012 (invariant enforcement)",
   "_boundary": "Production of the BANZA protocol, not financial production. BANZA is an open protocol; it does not process payments, settle value, or move funds. Licence/authorisation belongs to the operator, not to BANZA.",
   "type": "object",
   "required": [

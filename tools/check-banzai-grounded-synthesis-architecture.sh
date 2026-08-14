@@ -125,13 +125,13 @@ has "$PIPELINE_JS" 'tp.status === "grounded"' || { report "E2 grounded gate" "pi
 has "$KNOWLEDGE_JS" "validateOutput" || { report "E3 validator wrapper" "validateOutput wrapper missing"; e=1; }
 has "$SYNTH_JS" "validateOutput"     || { report "E4 validator wired" "grounded-synthesis does not call validateOutput"; e=1; }
 has "$SYNTH_JS" "factual_ok"         || { report "E5 factual signal" "factual_ok not tracked"; e=1; }
-# M2.19G.5C (ADR-042) — the MANDATORY post-synthesis authority validator is a publish-gate step on the
+# M2.19G.5C (ADR-036) — the MANDATORY post-synthesis authority validator is a publish-gate step on the
 # grounded path (postValidate on the exact bytes, before groundedAnswer/cache/return; a failure degrades
 # with a post_validation_ reason). Full assertion lives in check-banzai-post-synthesis-validation.sh; here
 # we assert the gate is present in the pipeline so this architecture guard fails if it is ever removed.
-has "$PIPELINE_JS" "const verdict = postValidate(answerText)" || { report "E6 post-synthesis gate" "the mandatory ADR-042 post-synthesis validator is not wired on the grounded publish path"; e=1; }
+has "$PIPELINE_JS" "const verdict = postValidate(answerText)" || { report "E6 post-synthesis gate" "the mandatory ADR-036 post-synthesis validator is not wired on the grounded publish path"; e=1; }
 has "$PIPELINE_JS" "post_validation_" || { report "E6 post-synthesis reason" "no post_validation_ fallback reason emitted"; e=1; }
-[ "$e" -eq 0 ] && ok "fail-safe fallback + Rust factual validator + mandatory post-synthesis authority gate (ADR-042) before publish"
+[ "$e" -eq 0 ] && ok "fail-safe fallback + Rust factual validator + mandatory post-synthesis authority gate (ADR-036) before publish"
 
 # ── F. no architecture selector ───────────────────────────────────────────────────────────────────
 f=0

@@ -6,7 +6,7 @@
     id:        SVG-P-059
     diagram:   Operator Self-Publication Flow
     version:   1.0
-    source:    ADR-001 · ADR-003 · ADR-005 (M2.2 — Open Protocol Governance)
+    source:    ADR-001 · ADR-004 · ADR-007 (M2.2 — Open Protocol Governance)
     updated:   2026-07-17
     author:    BANZA Protocol
     style:     protocol
@@ -186,5 +186,5 @@
   <rect x="40" y="604" width="1100" height="42" rx="10" fill="white" stroke="#990011" stroke-width="1.5"/>
   <text x="590" y="631" text-anchor="middle" font-size="13.5" font-weight="800" fill="#990011">Humans maintain the protocol; they do not approve operators.</text>
 
-  <text x="590" y="668" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-059 · Operator Self-Publication Flow · ADR-001 · ADR-003 · ADR-005 · M2.2 Open Protocol Governance · v1.0 · 2026-07-17</text>
+  <text x="590" y="668" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-059 · Operator Self-Publication Flow · ADR-001 · ADR-004 · ADR-007 · M2.2 Open Protocol Governance · v1.0 · 2026-07-17</text>
 </svg>

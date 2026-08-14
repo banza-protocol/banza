@@ -1,4 +1,4 @@
-// M2.14J — public-surface final consistency (ADR-042). FULLY OFFLINE: drives the committed Rust/WASM
+// M2.14J — public-surface final consistency (ADR-036). FULLY OFFLINE: drives the committed Rust/WASM
 // engine through knowledge.js exactly as production (pipeline.js) does, with the RAW question so the
 // punctuation-aware compound split is exercised. Covers the Part-7 architectural questions, the Part-9
 // boundary commands, the Part-6 compound separators, and the no-over-block guarantee.

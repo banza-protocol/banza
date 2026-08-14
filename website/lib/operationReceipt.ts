@@ -9,31 +9,31 @@
 // (labelled `fnv1a32:`) for environments without `crypto.subtle` so the type stays usable everywhere.
 
 /** Per-step verdict vocabulary. The Rust engine decides which one; TypeScript only maps and renders.
- *  `NOT_APPLICABLE` is a DISPLAY status derived from a step's `applicability` (ADR-039) — a step out of
+ *  `NOT_APPLICABLE` is a DISPLAY status derived from a step's `applicability` (ADR-030) — a step out of
  *  scope for the declared profile is sealed on the wire as `result.status = "NOT_EVALUATED"` with
  *  `applicability = "NOT_APPLICABLE"`; the UI renders it as NOT_APPLICABLE, never as a failure. */
 export type StepStatus = "NOT_EVALUATED" | "PENDING" | "VERIFIED" | "FAILED" | "BLOCKED" | "NOT_APPLICABLE";
 
-/** ADR-039 profile applicability of a step, orthogonal to its result.status. */
+/** ADR-030 profile applicability of a step, orthogonal to its result.status. */
 export type Applicability = "REQUIRED" | "OPTIONAL" | "NOT_APPLICABLE";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// M2.19G.1 (ADR-038) — server-issued receipts. The endpoint-originated official journey no longer
+// M2.19G.1 (ADR-034) — server-issued receipts. The endpoint-originated official journey no longer
 // builds receipts in the browser: the Rust backend fetches each artifact from the implementation's
 // public endpoints, runs the decision engine and RETURNS the receipt. These interfaces mirror the
 // §30 OperationReceipt / §31 JourneyReceipt contract emitted by services/banzai-api/src/validate.js.
 // The browser only renders them; it never authors a verdict. `qwen_calls`/`external_model_calls` are 0
-// by construction and protocol fetches are counted as `protocol_fetch_count` (ADR-038 §4.8).
+// by construction and protocol fetches are counted as `protocol_fetch_count` (ADR-034 §4.8).
 // ─────────────────────────────────────────────────────────────────────────────
 
-/** A single endpoint-originated step receipt (ADR-038 §30) — verdict bound to its exact public origin. */
+/** A single endpoint-originated step receipt (ADR-034 §30) — verdict bound to its exact public origin. */
 export interface ServerOperationReceipt {
   receipt_version: string;
   operation_id: string;
   request_id: string;
   workflow: string;
   step: string;
-  /** ADR-039: whether this step is in scope for the declared profile. NOT_APPLICABLE steps are sealed
+  /** ADR-030: whether this step is in scope for the declared profile. NOT_APPLICABLE steps are sealed
    *  out-of-scope (never fetched/evaluated) and must never render as a failure. */
   applicability?: Applicability;
   operator_id: string;
@@ -65,7 +65,7 @@ export interface ServerOperationReceipt {
   audit_ref: string;
 }
 
-/** The aggregate endpoint-originated journey receipt (ADR-038 §31). Certification Readiness (READY |
+/** The aggregate endpoint-originated journey receipt (ADR-034 §31). Certification Readiness (READY |
  *  BLOCKED) is distinct from Certification Status (always NOT_CERTIFIED) — it never issues a record. */
 export interface ServerJourneyReceipt {
   receipt_version: string;
@@ -88,7 +88,7 @@ export interface ServerJourneyReceipt {
   certification_readiness: "READY" | "BLOCKED";
   certification_status: "NOT_CERTIFIED";
   certified: false;
-  /** ADR-039: Rust-decided step→applicability map + which steps are out of scope for this profile. */
+  /** ADR-030: Rust-decided step→applicability map + which steps are out of scope for this profile. */
   applicability?: Record<string, Applicability>;
   not_applicable_steps?: string[];
   required_steps_evaluated?: number | null;
@@ -231,7 +231,7 @@ export async function buildReceipt(args: {
 }
 
 /** Aggregate step statuses into one journey verdict (worst-first: FAILED > BLOCKED > PENDING > …).
- *  ADR-039: NOT_APPLICABLE steps are out of scope and excluded — they never contribute a verdict and
+ *  ADR-030: NOT_APPLICABLE steps are out of scope and excluded — they never contribute a verdict and
  *  never block "all VERIFIED". */
 export function aggregateStatus(statuses: StepStatus[]): StepStatus {
   const inScope = statuses.filter((s) => s !== "NOT_APPLICABLE");

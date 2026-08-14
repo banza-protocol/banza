@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://banza.network/contracts/payment-sessions/payment-session.schema.json",
   "title": "PaymentSession",
-  "description": "A PaymentIntent (ADR-014) presented through one or more interfaces (ADR-015). The PaymentIntent is the single financial object; the session is the rule binding its interfaces (Payment Link, Dynamic QR, Static QR, Deep Link) to one destination, one currency, one amount-when-fixed, one expiry, one idempotency policy, and one financial result. `session_id` is the PaymentIntent id. The destination MAY be a segregated Wallet Account (ADR-019). An interface never changes the destination or amount; payment always resolves against the session, at the operator. Applications display the interfaces; they never generate an authoritative financial payload and never compute a destination.",
+  "description": "A PaymentIntent (ADR-015) presented through one or more interfaces (ADR-015). The PaymentIntent is the single financial object; the session is the rule binding its interfaces (Payment Link, Dynamic QR, Static QR, Deep Link) to one destination, one currency, one amount-when-fixed, one expiry, one idempotency policy, and one financial result. `session_id` is the PaymentIntent id. The destination MAY be a segregated Wallet Account (ADR-017). An interface never changes the destination or amount; payment always resolves against the session, at the operator. Applications display the interfaces; they never generate an authoritative financial payload and never compute a destination.",
   "_spec_version": "1.0",
   "_status": "canonical",
   "_authority": "ADR-015",
@@ -20,7 +20,7 @@
   "properties": {
     "session_id": {
       "type": "string",
-      "description": "The PaymentIntent id (ADR-014). Non-enumerable. Every interface resolves to this."
+      "description": "The PaymentIntent id (ADR-015). Non-enumerable. Every interface resolves to this."
     },
     "operator_id": {
       "type": "string",
@@ -32,14 +32,14 @@
     },
     "payee_wallet_id": {
       "type": "string",
-      "description": "Wallet that receives value (ADR-014 payee_wallet_id)."
+      "description": "Wallet that receives value (ADR-015 payee_wallet_id)."
     },
     "destination_account_ref": {
       "type": [
         "string",
         "null"
       ],
-      "description": "Optional segregated Wallet Account (ADR-019) to credit — e.g. a campaign account. Absent ⇒ the payee wallet's default account. Resolved by the operator; never exposes an internal ledger account id to apps."
+      "description": "Optional segregated Wallet Account (ADR-017) to credit — e.g. a campaign account. Absent ⇒ the payee wallet's default account. Resolved by the operator; never exposes an internal ledger account id to apps."
     },
     "purpose": {
       "type": [

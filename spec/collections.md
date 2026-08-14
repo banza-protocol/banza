@@ -1,6 +1,6 @@
 # Payment Collections — protocol architecture
 
-**Status:** Canonical · **Authority:** ADR-018 (Collections), ADR-014 (PaymentIntent) · **Capability:** `supports_collections` (Level 2)
+**Status:** Canonical · **Authority:** ADR-016 (Collections), ADR-015 (PaymentIntent) · **Capability:** `supports_collections` (Level 2)
 
 Collections is a **BANZA protocol capability**, not an operator feature. Every
 operator implements *this* model (protocol → operator → SDK → apps; ADR-001). A
@@ -24,10 +24,10 @@ balance and never posts to the ledger.
             └───────────────┬────────────────────────────┘
                             │ 1 : 1
                             ▼
-                     PaymentIntent (ADR-014)
+                     PaymentIntent (ADR-015)
                             │ fulfilled by a real payer
                             ▼
-                        Transfer (ADR-020)
+                        Transfer (ADR-018)
                             │ atomic double-entry
                             ▼
                          Ledger  ◀── never knows Collections
@@ -75,7 +75,7 @@ Owner        Operator                         Payer
   │                       collection.opened,    │
   │                       collection.share.created ×3
   │                                             │
-  │                  per share: create PaymentIntent (ADR-014)
+  │                  per share: create PaymentIntent (ADR-015)
   │                  Share -> LINK_CREATED      │
   │                  emit collection.share.payment_requested
   │                                             │
@@ -107,12 +107,12 @@ the Collection `trace_id` (INV-TRACE-001). Full payloads in
 FORBIDDEN:  Collection ──▶ Ledger
 REQUIRED:   Collection ──▶ CollectionShare ──▶ PaymentIntent ──▶ Transfer ──▶ Ledger
 ```
-The ledger primitive (ADR-020, double-entry invariants) is untouched. Refunds are
-per settled share (source-aware, ADR-020), never at the Collection level.
+The ledger primitive (ADR-018, double-entry invariants) is untouched. Refunds are
+per settled share (source-aware, ADR-018), never at the Collection level.
 
 ## Invariants
 
-`INV-COLLECTION-001..008` (ADR-018): no money in a Collection; closed-rule sum ==
+`INV-COLLECTION-001..008` (ADR-016): no money in a Collection; closed-rule sum ==
 total; EXACT divisibility (no silent rounding); `collected == Σ PAID`; PAID only
 via a real Transfer with matching causation; PAID terminal (no double payment);
 post-OPEN immutability; idempotent create + pay.
@@ -146,7 +146,7 @@ without a fixed N.
 v1 settles shares within the creating operator. The model does not assume a
 specific operator. Cross-operator payment (a payer on operator B paying a share on
 operator A) is a later federation ADR — the share's **PaymentIntent** is the
-federation boundary, so it can be added via `contracts/federation/*` (ADR-031/ADR-027)
+federation boundary, so it can be added via `contracts/federation/*` (ADR-025/ADR-025)
 without changing the Collection model.
 
 ## Compliance
@@ -168,7 +168,7 @@ without changing the Collection model.
 |---|---|---|
 | Collection Receipt | Collection + all PAID shares + their Transfers | Official record of a completed/partly-completed collection |
 | Collection Summary | Collection + share states | Live status overview (collected/remaining, per-share) |
-| Individual Share Receipt | one PAID share + its Transfer (ADR-020 receipt) | Per-payer proof of payment |
+| Individual Share Receipt | one PAID share + its Transfer (ADR-018 receipt) | Per-payer proof of payment |
 
 No PDF rendering is specified at the protocol level — only the data contract.
 Operators render via their Document Engine using real Collection/Share/Transfer

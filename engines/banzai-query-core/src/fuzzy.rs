@@ -101,12 +101,12 @@ const DANGER_WORDS: &[&str] = &[
     "sistema",
 ];
 
-/// The three ecosystem identities (ADR-002): BANZA (the protocol), BanzAI (the agent) and Banzami (the
+/// The three ecosystem identities (ADR-001): BANZA (the protocol), BanzAI (the agent) and Banzami (the
 /// organization). They are mutually one edit apart, yet each is a REAL, distinct canonical name — so the
 /// recovery layer must treat ALL THREE as canonical (exact → passthrough) and NEVER silently rewrite one
 /// into another. Without this, the question "o que é o Banzami?" (the organization) was corrected to the
 /// one-edit-away "banzai" (the agent) and answered with the BanzAI-AGENT definition — exactly the
-/// institutional-identity confusion ADR-002 and CLAUDE.md forbid. Note that "banzami" is not in the alias
+/// institutional-identity confusion ADR-001 and CLAUDE.md forbid. Note that "banzami" is not in the alias
 /// tables (its answer is a route-level critical entry), so it is enumerated here alongside the other two to
 /// make the protection explicit and symmetric.
 const ECOSYSTEM_ENTITIES: &[&str] = &["banza", "banzai", "banzami"];
@@ -149,7 +149,7 @@ fn vocabulary() -> &'static Vec<Vocab> {
         for d in DANGER_WORDS {
             add(d, true);
         }
-        // Ecosystem identities (ADR-002) — canonical, never corrected into one another. Added before the
+        // Ecosystem identities (ADR-001) — canonical, never corrected into one another. Added before the
         // alias tables so each is an exact vocabulary member (→ passthrough), which is what stops
         // "banzami" collapsing to "banzai". Non-danger.
         for e in ECOSYSTEM_ENTITIES {
@@ -551,7 +551,7 @@ mod tests {
 
     #[test]
     fn ecosystem_identities_are_never_corrected_into_one_another() {
-        // ADR-002: Banzami (organization) ≠ BanzAI (agent) ≠ BANZA (protocol). Each is one edit from the
+        // ADR-001: Banzami (organization) ≠ BanzAI (agent) ≠ BANZA (protocol). Each is one edit from the
         // next, yet each is a REAL canonical name. The recovery layer must leave all three untouched — the
         // regression where "o que é o Banzami?" was silently corrected to "banzai" (distance 1) and
         // answered with the BanzAI-AGENT definition, an institutional-identity confusion.

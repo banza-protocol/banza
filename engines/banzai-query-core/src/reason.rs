@@ -14,7 +14,7 @@ pub enum ReasonCode {
     ExactFactConfirmed,
     CanonicalDefinitionResolved,
     ExplanationGrounded,
-    // ADR-042 — operational reasoning answered from real telemetry (read-only)
+    // ADR-036 — operational reasoning answered from real telemetry (read-only)
     OperationalMeasurementReported,
     // Under-specified — a clarification is the correct outcome
     AmbiguousEntity,
@@ -24,7 +24,7 @@ pub enum ReasonCode {
     AttributeNotDeclared,
     CanonicalSourceMissing,
     UnsupportedExternalFact,
-    /// ADR-042 — an operational (duration/metric) question was understood but there are not enough
+    /// ADR-036 — an operational (duration/metric) question was understood but there are not enough
     /// comparable, completed public executions to compute a value. An honest, request-oriented decline —
     /// NEVER the generic topic list and NEVER a fabricated number.
     InsufficientMeasurements,

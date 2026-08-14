@@ -1,6 +1,6 @@
 name: Rust Rule Guard
 
-# Enforces ADR-043 (Rust-first for official BANZA/BanzAI engines): no new non-Rust
+# Enforces ADR-038 (Rust-first for official BANZA/BanzAI engines): no new non-Rust
 # engine may be introduced. UI/glue, thin wrappers, data and R0-allowlisted legacy pass.
 
 on:

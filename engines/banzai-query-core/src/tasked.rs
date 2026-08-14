@@ -89,24 +89,24 @@ const S_ADR001: Src = Src {
     title: "ADR-001 — BANZA as Open Financial Protocol",
 };
 const S_ADR038: Src = Src {
-    id: "ADR-027",
-    path: "decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md",
-    title: "ADR-027 — Open Protocol Trust Model Without CA",
+    id: "ADR-025",
+    path: "decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md",
+    title: "ADR-025 — Open Protocol Trust Model Without CA",
 };
 const S_ADR040: Src = Src {
-    id: "ADR-031",
-    path: "decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md",
-    title: "ADR-031 — Federation Trust Evaluation Without Certificates",
+    id: "ADR-025",
+    path: "decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md",
+    title: "ADR-025 — Federation Trust Evaluation Without Certificates",
 };
 const S_ADR039: Src = Src {
-    id: "ADR-033",
-    path: "decisions/adr/ADR-033-operator-self-publication-and-machine-verifiable-conformance.md",
-    title: "ADR-033 — Operator Self-Publication & Machine-Verifiable Conformance",
+    id: "ADR-031",
+    path: "decisions/adr/ADR-031-operator-self-publication-and-machine-verifiable-conformance.md",
+    title: "ADR-031 — Operator Self-Publication & Machine-Verifiable Conformance",
 };
 const S_ADR021: Src = Src {
-    id: "ADR-039",
-    path: "decisions/adr/ADR-039-conformance-profiles-and-capability-vocabulary.md",
-    title: "ADR-039 — Conformance Suite / Level Capability Alignment",
+    id: "ADR-030",
+    path: "decisions/adr/ADR-030-conformance-profiles-and-capability-vocabulary.md",
+    title: "ADR-030 — Conformance Suite / Level Capability Alignment",
 };
 const S_MANIFEST: Src = Src {
     id: "operator-manifest-schema",
@@ -154,9 +154,9 @@ const S_ROOTKEY: Src = Src {
     title: "Root Key — production schema",
 };
 const S_ADR028: Src = Src {
-    id: "ADR-029",
-    path: "decisions/adr/ADR-029-keys-never-on-serving-infrastructure.md",
-    title: "ADR-029 — Keys Never on Serving Infrastructure",
+    id: "ADR-027",
+    path: "decisions/adr/ADR-027-keys-never-on-serving-infrastructure.md",
+    title: "ADR-027 — Keys Never on Serving Infrastructure",
 };
 const S_FEDMANIFEST: Src = Src {
     id: "federation-manifest-schema",
@@ -189,13 +189,13 @@ const CATALOGUE: &[SubjectProfile] = &[
         aliases: &["federac", "federation", "federar", "federa "],
         sources: &[S_ADR038, S_ADR040, S_MANIFEST],
         example: Some(ExampleData {
-            framing: "A federação liga operadores por avaliação de confiança, sem autoridade certificadora (ADR-027) e sem certificados (ADR-031).",
+            framing: "A federação liga operadores por avaliação de confiança, sem autoridade certificadora (ADR-025) e sem certificados (ADR-025).",
             actors: &["o operador A", "o operador B"],
             precondition: "ambos os operadores publicam os seus artefactos verificáveis",
             sequence: &[
                 "o **operador A** publica os artefactos exigidos (manifest, identidade, evidência de conformidade)",
                 "o **operador B** obtém-nos por uma fonte autorizada e verifica integridade, estado e relações",
-                "a **avaliação de confiança** aplica as regras vigentes (ADR-031), sem CA (ADR-027)",
+                "a **avaliação de confiança** aplica as regras vigentes (ADR-025), sem CA (ADR-025)",
             ],
             result: "a relação de federação só é válida quando os requisitos documentados são satisfeitos; uma revogação posterior altera o estado verificável",
         }),
@@ -203,7 +203,7 @@ const CATALOGUE: &[SubjectProfile] = &[
             complete: false,
             prerequisites: &["publicar o **manifest** de operador (identidade, capacidades, endpoints)", "disponibilizar o key manifest e a identidade verificável", "apresentar **evidência de conformidade**"],
             steps: &["preparar e publicar o manifest do operador", "tornar a identidade e os artefactos obtíveis por uma fonte autorizada", "a contraparte verifica integridade e estado", "a avaliação de confiança aplica as regras vigentes"],
-            validations: &["integridade e estado dos artefactos verificados", "avaliação de confiança sem CA e sem certificados (ADR-027, ADR-031)"],
+            validations: &["integridade e estado dos artefactos verificados", "avaliação de confiança sem CA e sem certificados (ADR-025, ADR-025)"],
             result: "uma relação de federação verificável entre operadores",
             gap_note: "as fontes públicas descrevem os requisitos e o modelo de confiança, mas **não publicam** um procedimento operacional completo, passo a passo",
         }),
@@ -239,7 +239,7 @@ const CATALOGUE: &[SubjectProfile] = &[
             sequence: &[
                 "é publicada uma entrada de revogação (schema `revocation-entry.production.schema.json`)",
                 "a lista de revogação passa a incluir o identificador afectado",
-                "a avaliação de confiança das contrapartes deixa de aceitar o artefacto revogado (ADR-031)",
+                "a avaliação de confiança das contrapartes deixa de aceitar o artefacto revogado (ADR-025)",
             ],
             result: "o estado verificável muda; artefactos assinados pela chave revogada deixam de ser confiáveis",
         }),
@@ -258,13 +258,13 @@ const CATALOGUE: &[SubjectProfile] = &[
         aliases: &["trust", "confianca", "avaliacao de confianca"],
         sources: &[S_ADR038, S_ADR040, S_TRUSTEVAL],
         example: Some(ExampleData {
-            framing: "A confiança no BANZA é avaliada abertamente, sem uma autoridade certificadora (ADR-027) e sem certificados (ADR-031).",
+            framing: "A confiança no BANZA é avaliada abertamente, sem uma autoridade certificadora (ADR-025) e sem certificados (ADR-025).",
             actors: &["um operador avaliador", "um operador avaliado"],
             precondition: "o operador avaliado publicou os seus artefactos verificáveis",
             sequence: &[
                 "o avaliador obtém o manifest, a identidade e a evidência do avaliado",
                 "verifica integridade, estado e relações",
-                "aplica as regras de avaliação de confiança (ADR-027/ADR-031) — sem CA, sem certificados",
+                "aplica as regras de avaliação de confiança (ADR-025/ADR-025) — sem CA, sem certificados",
             ],
             result: "uma decisão de confiança verificável, revogável se o estado mudar",
         }),
@@ -290,13 +290,13 @@ const CATALOGUE: &[SubjectProfile] = &[
         aliases: &["evidencia", "evidence", "evidence bundle", "pacote de evidencia"],
         sources: &[S_EVIDENCE, S_CONFEVID, S_ADR039],
         example: Some(ExampleData {
-            framing: "A evidência é um pacote verificável por máquina que demonstra a conformidade de um operador (ADR-033).",
+            framing: "A evidência é um pacote verificável por máquina que demonstra a conformidade de um operador (ADR-031).",
             actors: &["um operador que demonstra conformidade"],
             precondition: "o operador correu a verificação e recolheu os resultados",
             sequence: &[
                 "o operador gera um evidence bundle (schema `evidence-bundle.production.schema.json`)",
                 "inclui a evidência de conformidade (`conformance-evidence`)",
-                "publica-o para verificação independente (ADR-033)",
+                "publica-o para verificação independente (ADR-031)",
             ],
             result: "qualquer parte pode verificar a conformidade por máquina, sem confiar cegamente no operador",
         }),
@@ -319,20 +319,20 @@ const CATALOGUE: &[SubjectProfile] = &[
         aliases: &["conformidade", "conformance", "conforme"],
         sources: &[S_ADR021, S_ADR039, S_CONFEVID],
         example: Some(ExampleData {
-            framing: "A conformidade é demonstrada por evidência verificável alinhada com níveis/capacidades (ADR-039), publicada pelo próprio operador (ADR-033).",
+            framing: "A conformidade é demonstrada por evidência verificável alinhada com níveis/capacidades (ADR-030), publicada pelo próprio operador (ADR-031).",
             actors: &["um operador candidato"],
             precondition: "o operador implementou as capacidades de um nível",
             sequence: &[
-                "corre a suite de conformidade para o nível pretendido (ADR-039)",
+                "corre a suite de conformidade para o nível pretendido (ADR-030)",
                 "gera a evidência de conformidade (`conformance-evidence`)",
-                "publica-a de forma verificável por máquina (ADR-033)",
+                "publica-a de forma verificável por máquina (ADR-031)",
             ],
             result: "a conformidade do operador é verificável por qualquer parte, sem certificação central",
         }),
         procedure: Some(ProcedureData {
             complete: false,
             prerequisites: &["implementar as capacidades do nível pretendido", "acesso à suite de conformidade"],
-            steps: &["correr a suite de conformidade para o nível (ADR-039)", "recolher a evidência de conformidade", "publicar a evidência de forma verificável (ADR-033)"],
+            steps: &["correr a suite de conformidade para o nível (ADR-030)", "recolher a evidência de conformidade", "publicar a evidência de forma verificável (ADR-031)"],
             validations: &["a evidência valida contra `conformance-evidence.production.schema.json`", "as capacidades correspondem ao nível declarado"],
             result: "conformidade demonstrada e verificável por máquina",
             gap_note: "os níveis, a evidência e a auto-publicação estão documentados; um runbook operacional completo não é publicado",
@@ -373,7 +373,7 @@ const CATALOGUE: &[SubjectProfile] = &[
         procedure: Some(ProcedureData {
             complete: false,
             prerequisites: &["implementar o protocolo e as capacidades pretendidas", "ter identidade de operador e key manifest", "ter evidência de conformidade"],
-            steps: &["publicar o **manifest** de operador e a identidade", "publicar a **evidência de conformidade** (ADR-033)", "tornar os artefactos obtíveis por fontes autorizadas", "as contrapartes avaliam a confiança (ADR-031)"],
+            steps: &["publicar o **manifest** de operador e a identidade", "publicar a **evidência de conformidade** (ADR-031)", "tornar os artefactos obtíveis por fontes autorizadas", "as contrapartes avaliam a confiança (ADR-025)"],
             validations: &["manifest válido contra o schema", "evidência de conformidade verificável", "avaliação de confiança satisfeita"],
             result: "o operador participa como participante verificável da federação",
             gap_note: "os requisitos de participação estão documentados; um procedimento operacional completo passo-a-passo não é publicado",
@@ -430,18 +430,18 @@ const CATALOGUE: &[SubjectProfile] = &[
         procedure: Some(ProcedureData {
             complete: false,
             prerequisites: &[
-                "custódios offline distintos (chaves nunca na infraestrutura de serviço — ADR-029)",
+                "custódios offline distintos (chaves nunca na infraestrutura de serviço — ADR-027)",
                 "acesso à publicação dos metadados de raiz e da lista de revogação",
             ],
             steps: &[
-                "gerar as chaves de raiz offline, uma por custódio (ADR-029)",
+                "gerar as chaves de raiz offline, uma por custódio (ADR-027)",
                 "realizar a cerimónia de raiz e registar a evidência (`root-ceremony-evidence.production.schema.json`)",
                 "publicar os metadados de raiz de confiança (`trust-root-metadata.production.schema.json`)",
                 "delegar chaves operacionais a partir da raiz (`root-delegation.production.schema.json`)",
             ],
             validations: &[
                 "os metadados de raiz validam contra o schema canónico e o threshold é satisfeito",
-                "as chaves de raiz permanecem offline (ADR-029)",
+                "as chaves de raiz permanecem offline (ADR-027)",
             ],
             result: "uma raiz de confiança publicada e verificável, com delegações para chaves operacionais",
             gap_note: "os schemas de raiz, a arquitectura de custódia e o efeito estão documentados; um runbook operacional completo da cerimónia não é publicado no protocolo",

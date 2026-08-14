@@ -2,7 +2,7 @@
 <!--
   id:        SVG-P-095
   diagram:   Resolução do alvo de validação — Registo Técnico → Operador → Implementação → Origem Canónica → Descoberta (registo fechado, sem URL arbitrário)
-  source:    ADR-068 §4.4/4.6 · BANZA_REFERENCIA.md §35 (validação originada nos endpoints, M2.19G.1)
+  source:    ADR-034 · BANZA_REFERENCIA.md §35 (validação originada nos endpoints)
   version:   1.0
   updated:   2026-07-30
   author:    BANZA Protocol
@@ -12,7 +12,7 @@
      role="img" aria-labelledby="title-P095 desc-P095"
      font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
   <title id="title-P095">Resolução do alvo de validação no BANZA</title>
-  <desc id="desc-P095">Cadeia fechada de cinco fases que resolve um alvo de validação. O Registo Técnico é um conjunto fechado e a única fonte de alvos; a partir dele resolve-se o Operador elegível, depois uma Implementação publicada, depois a sua Origem Canónica pública e estável, e por fim a Descoberta dos endpoints. A interface nunca obtém um URL fornecido pelo utilizador — não há URL arbitrário. Só implementações publicadas, com origem canónica e compatíveis são alvos elegíveis. ADR-068.</desc>
+  <desc id="desc-P095">Cadeia fechada de cinco fases que resolve um alvo de validação. O Registo Técnico é um conjunto fechado e a única fonte de alvos; a partir dele resolve-se o Operador elegível, depois uma Implementação publicada, depois a sua Origem Canónica pública e estável, e por fim a Descoberta dos endpoints. A interface nunca obtém um URL fornecido pelo utilizador — não há URL arbitrário. Só implementações publicadas, com origem canónica e compatíveis são alvos elegíveis. ADR-034.</desc>
   <defs>
     <linearGradient id="hg-P095" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%" stop-color="#6E0F1A"/><stop offset="100%" stop-color="#8E1326"/>
@@ -93,8 +93,8 @@
   <!-- boundary band -->
   <rect x="28" y="346" width="944" height="86" rx="10" fill="#1B1113" stroke="#5A1A22" stroke-width="1.2"/>
   <text x="44" y="372" font-size="11.5" font-weight="700" fill="#E8909D">Registo fechado — sem URL arbitrário; a interface nunca obtém um URL do utilizador.</text>
-  <text x="44" y="394" font-size="10.5" fill="#B6B6BE">O Registo Técnico é a única fonte de alvos de validação (ADR-068 §4.4/4.6).</text>
+  <text x="44" y="394" font-size="10.5" fill="#B6B6BE">O Registo Técnico é a única fonte de alvos de validação (ADR-034).</text>
   <text x="44" y="414" font-size="10.5" fill="#B6B6BE">Só implementações publicadas, com origem canónica e compatíveis são elegíveis; revogadas ou sem origem, não.</text>
 
-  <text x="500" y="462" text-anchor="middle" font-size="9" fill="#7C7C85">SVG-P-095 · Resolução do alvo de validação · ADR-068 §35 · v1.0 · 2026-07-30</text>
+  <text x="500" y="462" text-anchor="middle" font-size="9" fill="#7C7C85">SVG-P-095 · Resolução do alvo de validação · ADR-034 · v1.0 · 2026-07-30</text>
 </svg>

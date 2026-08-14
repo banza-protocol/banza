@@ -2,7 +2,7 @@
 <!--
   id:        SVG-P-097
   diagram:   Validação em rascunho — JSON local → DRAFT_VALIDATION_RESULT, separado e sem ligação ao Evidence Bundle / Receipts oficiais
-  source:    ADR-068 §4.5 · BANZA_REFERENCIA.md §35 (validação originada nos endpoints, M2.19G.1)
+  source:    ADR-034 · BANZA_REFERENCIA.md §35 (validação originada nos endpoints)
   version:   1.0
   updated:   2026-07-30
   author:    BANZA Protocol
@@ -12,7 +12,7 @@
      role="img" aria-labelledby="title-P097 desc-P097"
      font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
   <title id="title-P097">Validação em rascunho, separada da jornada oficial</title>
-  <desc id="desc-P097">Duas zonas separadas. À esquerda, a ferramenta de rascunho local e não-autoritativa do programador: JSON local (colar ou carregar) alimenta uma validação em rascunho que produz um DRAFT_VALIDATION_RESULT. À direita, a jornada oficial originada nos endpoints públicos, cujos artefactos são o Evidence Bundle, os Receipts e o Registo Técnico. Uma barreira entre as duas zonas mostra que o rascunho não liga: um DRAFT_VALIDATION_RESULT é local, nunca é evidência nem receipt e nunca entra na jornada oficial. ADR-068.</desc>
+  <desc id="desc-P097">Duas zonas separadas. À esquerda, a ferramenta de rascunho local e não-autoritativa do programador: JSON local (colar ou carregar) alimenta uma validação em rascunho que produz um DRAFT_VALIDATION_RESULT. À direita, a jornada oficial originada nos endpoints públicos, cujos artefactos são o Evidence Bundle, os Receipts e o Registo Técnico. Uma barreira entre as duas zonas mostra que o rascunho não liga: um DRAFT_VALIDATION_RESULT é local, nunca é evidência nem receipt e nunca entra na jornada oficial. ADR-034.</desc>
   <defs>
     <linearGradient id="hg-P097" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%" stop-color="#6E0F1A"/><stop offset="100%" stop-color="#8E1326"/>
@@ -111,7 +111,7 @@
   <rect x="28" y="382" width="944" height="88" rx="10" fill="#1B1113" stroke="#5A1A22" stroke-width="1.2"/>
   <text x="44" y="408" font-size="11.5" font-weight="700" fill="#E8909D">O rascunho é local e não-autoritativo — nunca é evidência nem receipt.</text>
   <text x="44" y="430" font-size="10.5" fill="#B6B6BE">Colar e carregar existem só na ferramenta de rascunho do programador, separada da jornada oficial.</text>
-  <text x="44" y="450" font-size="10.5" fill="#B6B6BE">Um DRAFT_VALIDATION_RESULT não liga ao Evidence Bundle nem aos Receipts oficiais (ADR-068 §4.5).</text>
+  <text x="44" y="450" font-size="10.5" fill="#B6B6BE">Um DRAFT_VALIDATION_RESULT não liga ao Evidence Bundle nem aos Receipts oficiais (ADR-034).</text>
 
-  <text x="500" y="486" text-anchor="middle" font-size="9" fill="#7C7C85">SVG-P-097 · Validação em rascunho · ADR-068 §35 · v1.0 · 2026-07-30</text>
+  <text x="500" y="486" text-anchor="middle" font-size="9" fill="#7C7C85">SVG-P-097 · Validação em rascunho · ADR-034 · v1.0 · 2026-07-30</text>
 </svg>

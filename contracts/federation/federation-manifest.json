@@ -5,7 +5,7 @@
   "description": "Extension schema for federation-capable operator manifests. A federation manifest is a base operator manifest that also validates against this extension. Served at /.well-known/banza/operator.json alongside the base manifest fields.",
   "_spec_version": "1",
   "_status": "canonical",
-  "_authority": "ADR-031, RFC-0005, INV-FEDEVAL-007, INV-FED-003",
+  "_authority": "ADR-025, RFC-0005, INV-FEDEVAL-007, INV-FED-003",
   "_extends": "conformance/manifests/schema.json",
   "type": "object",
   "required": [

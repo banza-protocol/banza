@@ -89,7 +89,7 @@ is a false or load-bearing overclaim; both are defensible as written):
 - §6 «cada passo … recebe um de quatro estados» — all four states are real; `BLOCKED` is an orchestration
   state (fetch-failure/aggregation) rather than an engine verdict. Optional clarification.
 - §6 «todos os passos técnicos estão verificados» — readiness is correctly **profile-scoped** in the
-  engine (ADR-039 applicability); the prose could add «aplicáveis ao perfil declarado». Optional precision.
+  engine (ADR-030 applicability); the prose could add «aplicáveis ao perfil declarado». Optional precision.
 
 No website copy required a change (no website surface presents an unsupported technical claim).
 
@@ -105,7 +105,7 @@ No website copy required a change (no website surface presents an unsupported te
 
 - Load-bearing claims: 103 · PROVEN 75 · remainder implemented+tested at engine level (E2/E3/E4) with documented, deployment-time coverage gaps.
 - The four gaps behind the prior CONDITIONAL GO are closed with executed evidence (federation OTE 10/10 + authenticated BRL, 37 fixtures as vectors, A→B end-to-end + byte-identical replay). No public wording was strengthened; the classification of already-PROVEN claims is unchanged. **Zero claims are "not implemented".**
-- No public wording is overstated beyond its stated pre-production scope: the whitepaper is appropriately hedged (§10/§12 scope+defer reproducibility and performance); the Reference §8/§10 faithfully describes the ADR-031 OTE **specification** (pre-production-scoped). Two OPTIONAL Overleaf precision proposals recorded (readiness profile-scoping); no website copy required change.
+- No public wording is overstated beyond its stated pre-production scope: the whitepaper is appropriately hedged (§10/§12 scope+defer reproducibility and performance); the Reference §8/§10 faithfully describes the ADR-025 OTE **specification** (pre-production-scoped). Two OPTIONAL Overleaf precision proposals recorded (readiness profile-scoping); no website copy required change.
 
 ## Remediations — all four closed this milestone
 
@@ -129,7 +129,7 @@ No website copy required a change (no website surface presents an unsupported te
 
 Every material public technical claim is classified (100 %); no load-bearing claim is unsupported or
 NOT_IMPLEMENTED. The four completeness gaps that produced the prior CONDITIONAL GO are **closed and
-executed**: the federation OTE now performs all ten ADR-031 checks and emits `ROUTING_ALLOWED` /
+executed**: the federation OTE now performs all ten ADR-025 checks and emits `ROUTING_ALLOWED` /
 `FAIL_CLOSED` with an **authenticated** BANZA Revocation List (never a self-published flag); the 37
 committed federation fixtures run as vectors under CI with zero drift; and a consolidated A→B scenario
 between two cryptographically distinct operators executes end-to-end — mutual `ROUTING_ALLOWED`, an atomic

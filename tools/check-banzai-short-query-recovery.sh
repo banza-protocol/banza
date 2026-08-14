@@ -8,7 +8,7 @@
 #      never the model (external_model_called stays false).
 #  (B) Every fallback / no_source / deterministic body passes the global entity-emphasis contract,
 #      INCLUDING slash-separated entity lists: "Banzami/BANZA/BanzAI" → "**Banzami**/**BANZA**/**BanzAI**",
-#      while paths/domains/doc-ids/routes ("engines/banzai-api-kb", "banza.network", "ADR-011",
+#      while paths/domains/doc-ids/routes ("engines/banzai-api-kb", "banza.network", "ADR-012",
 #      "/operador-zero") stay untouched, and never "****".
 # Drives the committed Rust routing engine + the answer contract via node.
 set -uo pipefail
@@ -70,7 +70,7 @@ if command -v node >/dev/null 2>&1; then
     // no over-bold of paths / domains / doc-ids / routes; no ****
     emit(S("engines/banzai-api-kb").includes("engines/banzai-api-kb") && !S("engines/banzai-api-kb").includes("**"), "path engines/banzai-api-kb untouched");
     emit(S("banza.network").includes("banza.network") && !S("banza.network").includes("**banza"), "domain banza.network untouched");
-    emit(S("o ADR-011 explica").includes("ADR-011") && !S("o ADR-011 explica").includes("**ADR**-006"), "doc-id ADR-011 untouched");
+    emit(S("o ADR-012 explica").includes("ADR-012") && !S("o ADR-012 explica").includes("**ADR**-006"), "doc-id ADR-012 untouched");
     emit(S("/operador-zero e /operators").includes("/operador-zero") && !S("/operador-zero e /operators").includes("**"), "routes untouched");
     emit(!S("Banzami/BANZA/BanzAI").includes("****"), "slash run never yields ****");
     // all-or-nothing: a MIXED run (entity + non-entity, incl. lowercase NC) stays untouched.

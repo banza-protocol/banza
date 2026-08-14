@@ -5,7 +5,7 @@
   "description": "The BANZA Key Manifest — the production trust anchor distribution mechanism. It is signed by the BANZA Root Key and lists every active BANZA issuing key by domain. The root signature on the manifest is the SOLE basis for trusting any issuing key: an issuing key that does not appear in a valid, root-signed Key Manifest is not a BANZA key. Published at the canonical location https://banza.network/.well-known/banza/key-manifest.json.",
   "_spec_version": "1",
   "_status": "canonical",
-  "_authority": "ADR-027",
+  "_authority": "ADR-025",
   "_source_of_truth": "spec/canonicalization.md (signing/digest bytes); contracts/production/key-manifest.production.schema.json (structure). Normative; not derived from any implementation.",
   "_updated": "2026-06-19",
   "type": "object",
@@ -43,7 +43,7 @@
     "expires_at": {
       "type": "string",
       "format": "date-time",
-      "description": "UTC timestamp after which this manifest is stale and MUST be rejected (INV-ROOT-003). A new root ceremony republishes the manifest before this time. ADR-027: root validity does not exceed 24 months."
+      "description": "UTC timestamp after which this manifest is stale and MUST be rejected (INV-ROOT-003). A new root ceremony republishes the manifest before this time. ADR-025: root validity does not exceed 24 months."
     },
     "keys": {
       "type": "array",
@@ -64,7 +64,7 @@
           "key_id": {
             "type": "string",
             "pattern": "^(test-)?banza-[a-z]+-[0-9]{6}$",
-            "description": "Stable identifier for this issuing key. Format 'banza-{domain-abbrev}-YYYYMM' (e.g. banza-meta-202608, banza-brl-202608, banza-evidence-202608). The 'test-' prefix denotes sandbox keys. The domain is normative; the identifier format is a naming convention (ADR-027)."
+            "description": "Stable identifier for this issuing key. Format 'banza-{domain-abbrev}-YYYYMM' (e.g. banza-meta-202608, banza-brl-202608, banza-evidence-202608). The 'test-' prefix denotes sandbox keys. The domain is normative; the identifier format is a naming convention (ADR-025)."
           },
           "public_key": {
             "type": "string",
@@ -78,7 +78,7 @@
               "revocation",
               "conformance-evidence"
             ],
-            "description": "The single domain this key is authorised to sign for. ADR-027 domain separation: a 'protocol-metadata' key signs signed protocol metadata and releases, a 'revocation' key signs the BRL, a 'conformance-evidence' key signs evidence packages. No key signs across domains, and no key authorises, certifies or approves an operator."
+            "description": "The single domain this key is authorised to sign for. ADR-025 domain separation: a 'protocol-metadata' key signs signed protocol metadata and releases, a 'revocation' key signs the BRL, a 'conformance-evidence' key signs evidence packages. No key signs across domains, and no key authorises, certifies or approves an operator."
           },
           "active_since": {
             "type": "string",
@@ -88,7 +88,7 @@
           "expires_at": {
             "type": "string",
             "format": "date-time",
-            "description": "UTC timestamp after which this issuing key is invalid. ADR-027: issuing-key validity does not exceed 6 months. A verifier MUST reject an issuing key whose expires_at <= now() (INV-ROOT-003/005)."
+            "description": "UTC timestamp after which this issuing key is invalid. ADR-025: issuing-key validity does not exceed 6 months. A verifier MUST reject an issuing key whose expires_at <= now() (INV-ROOT-003/005)."
           },
           "status": {
             "type": "string",
@@ -96,7 +96,7 @@
               "active",
               "retiring"
             ],
-            "description": "'active' — key may sign new artifacts. 'retiring' — key signs nothing new but remains listed so artifacts it already signed verify until they expire (ADR-027). A verifier MUST require status == 'active' to trust newly produced artifacts."
+            "description": "'active' — key may sign new artifacts. 'retiring' — key signs nothing new but remains listed so artifacts it already signed verify until they expire (ADR-025). A verifier MUST require status == 'active' to trust newly produced artifacts."
           }
         }
       }
@@ -104,7 +104,7 @@
     "manifest_signature": {
       "type": "string",
       "pattern": "^[A-Za-z0-9_-]{86}$",
-      "description": "ed25519 signature by the BANZA Root Key over the canonical JSON of all other fields (keys sorted lexicographically, no whitespace, UTF-8, signature field excluded). Base64url-encoded, 86 chars for 64 bytes — the canonical ADR-027 signing form used across signed protocol material."
+      "description": "ed25519 signature by the BANZA Root Key over the canonical JSON of all other fields (keys sorted lexicographically, no whitespace, UTF-8, signature field excluded). Base64url-encoded, 86 chars for 64 bytes — the canonical ADR-025 signing form used across signed protocol material."
     }
   }
 }

@@ -3,7 +3,7 @@
   id:        SVG-P-070
   diagram:   Protocol Governance — Simple
   version:   1.0
-  source:    M2.5 Product Surface Simplification · open protocol governance
+  source:    Product Surface Simplification · open protocol governance
   updated:   2026-07-18
   author:    BANZA Protocol
   style:     protocol
@@ -71,5 +71,5 @@
   <text x="500" y="391" text-anchor="middle" font-size="10" fill="#6B6265">Não existe passo de aprovação humana entre um operador publicar evidência e participar na rede.</text>
 
   <!-- Footer -->
-  <text x="500" y="438" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-070 · Governação do Protocolo — Simples · BANZA Protocol · M2.5 · 2026-07-18</text>
+  <text x="500" y="438" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-070 · Governação do Protocolo — Simples · BANZA Protocol · 2026-07-18</text>
 </svg>

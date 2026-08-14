@@ -35,7 +35,7 @@ test("confidenceBand buckets and never leaks the number", () => {
 
 test("public trace exposes only the allowlisted keys (no prompt/raw/numeric-confidence/paths)", () => {
   const t = buildReasoningTrace(
-    { synthesis_called: true, synthesis_status: "ok", confidence: 0.82, routing_result: "resolved_document", resolved_document_id: "ADR-002", synthesis_model: "qwen2.5-7b" },
+    { synthesis_called: true, synthesis_status: "ok", confidence: 0.82, routing_result: "resolved_document", resolved_document_id: "ADR-001", synthesis_model: "qwen2.5-7b" },
     { inference_location: "local" },
     "req-1",
     false,
@@ -67,7 +67,7 @@ test("boundary_detected is true on the deterministic spine (meta.intent), not on
 test("diagnostic mode adds a safe extra block only when enabled", () => {
   const norm = buildReasoningTrace({}, {}, "r", false);
   assert.ok(!("diagnostic" in norm));
-  const diag = buildReasoningTrace({ confidence: 0.3, resolver_result: "ADR-002", fallback_reason: "x" }, {}, "r", true);
+  const diag = buildReasoningTrace({ confidence: 0.3, resolver_result: "ADR-001", fallback_reason: "x" }, {}, "r", true);
   assert.ok(diag.diagnostic && typeof diag.diagnostic === "object");
   assert.equal(diag.diagnostic.confidence_present, true);
 });
@@ -79,24 +79,24 @@ test("trace is present + correct on every routing path (via the pipeline meta)",
   const OFF = { LLM_PROVIDER: "local_qwen" };
   const groundedTrunk = async () => ({
     status: "grounded",
-    answer_markdown: "A ADR-002 inverte a nomenclatura do ecossistema (ADR-002).",
-    cited_source_ids: ["ADR-002"],
-    package: { facts: [{ id: "F1", source: { document_id: "ADR-002", title: "ADR-002", path: "decisions/adr/ADR-002-ecosystem-naming-banza-banzai-and-operators.md" } }] },
+    answer_markdown: "A ADR-001 inverte a nomenclatura do ecossistema (ADR-001).",
+    cited_source_ids: ["ADR-001"],
+    package: { facts: [{ id: "F1", source: { document_id: "ADR-001", title: "ADR-001", path: "decisions/adr/ADR-001-ecosystem-naming-banza-banzai-and-operators.md" } }] },
     primary_intent: "explain_document",
     trace: { synthesis_called: true, resolution_method: "rust_deterministic", output_status: "ok", model: "qwen2.5-7b", factual_ok: true },
   });
   // an exact document lookup → an exact-fact terminal (fast-path, no model), source-bound
   {
-    const { meta } = await createPipeline(fakeProvider([]), OFF).answer("qual é o estado da ADR-002?");
+    const { meta } = await createPipeline(fakeProvider([]), OFF).answer("qual é o estado da ADR-001?");
     const t = buildReasoningTrace(meta, {}, "r");
     assert.equal(t.synthesis_called, false);
     assert.equal(t.resolution_method, "rust_deterministic");
     assert.equal(t.fast_path_used, true);
-    assert.equal(t.resolved_canonical_id, "ADR-002");
+    assert.equal(t.resolved_canonical_id, "ADR-001");
   }
   // a genuine explanation → the single grounded synthesis (one model call)
   {
-    const { meta } = await createPipeline(fakeProvider([]), OFF, { runGroundedSynthesisFn: groundedTrunk }).answer("explica o ADR-002");
+    const { meta } = await createPipeline(fakeProvider([]), OFF, { runGroundedSynthesisFn: groundedTrunk }).answer("explica o ADR-001");
     const t = buildReasoningTrace(meta, {}, "r");
     assert.equal(t.synthesis_called, true, "the trunk runs the single grounded synthesis");
     assert.equal(t.fast_path_used, false, "the trunk is not a fast-path terminal");

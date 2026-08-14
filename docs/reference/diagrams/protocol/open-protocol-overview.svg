@@ -3,7 +3,7 @@
   id:        SVG-P-067
   diagram:   Open Protocol — Overview
   version:   1.0
-  source:    M2.5 Product Surface Simplification · active open-protocol model
+  source:    Product Surface Simplification · active open-protocol model
   updated:   2026-07-18
   author:    BANZA Protocol
   style:     protocol
@@ -90,5 +90,5 @@
   <text x="500" y="398" text-anchor="middle" font-size="10" fill="#6B6265">Um PASS técnico é evidência verificável de conformidade, não aprovação humana, licença ou certificação.</text>
 
   <!-- Footer -->
-  <text x="500" y="450" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-067 · Protocolo Aberto — Visão Geral · BANZA Protocol · M2.5 · 2026-07-18</text>
+  <text x="500" y="450" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-067 · Protocolo Aberto — Visão Geral · BANZA Protocol · 2026-07-18</text>
 </svg>

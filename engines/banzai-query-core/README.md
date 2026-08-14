@@ -1,6 +1,6 @@
 # banzai-query-core
 
-**The single Rust authority for the BanzAI Query Core** (ADR-043 Rust-first; M2.18B.7).
+**The single Rust authority for the BanzAI Query Core** (ADR-038 Rust-first; M2.18B.7).
 
 This crate owns the deterministic query logic that decides *what a question means* and *how it is
 grounded* — so there is exactly one implementation, never a duplicate in JavaScript, a script, or the

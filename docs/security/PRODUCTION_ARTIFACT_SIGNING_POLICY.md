@@ -6,8 +6,8 @@
 
 This policy defines **which protocol artifacts get signed, by which signing domain, with what evidence,
 and how they are verified** on the BANZA production trust path. It is the signing companion to
-[`PRODUCTION_TRUST_PATH.md`](PRODUCTION_TRUST_PATH.md) and is governed by ADR-027 (open trust model —
-canonical-JSON signing, domain separation), ADR-031 (federation trust evaluation) and ADR-029
+[`PRODUCTION_TRUST_PATH.md`](PRODUCTION_TRUST_PATH.md) and is governed by ADR-025 (open trust model —
+canonical-JSON signing, domain separation), ADR-025 (federation trust evaluation) and ADR-027
 (keys never on serving infrastructure). It is **prepared but gated**: no real signing happens in M2.
 
 ## Status marker
@@ -48,11 +48,11 @@ emitted, or that an operator was activated would resolve to `M2_INVALID_FORBIDDE
 | **Evidence-bundle references** | Referenced by hash (indexed, not separately root-signed) | [`AUDIT_EVIDENCE_INDEX.md`](AUDIT_EVIDENCE_INDEX.md) | External auditor |
 
 The root signature on the Key Manifest is the **only** basis for trusting any issuing key: an issuing
-key that does not appear in a valid, root-signed Key Manifest is not a BANZA key (ADR-027).
+key that does not appear in a valid, root-signed Key Manifest is not a BANZA key (ADR-025).
 
 ## 2. Signing domains (root vs issuing vs revocation)
 
-Per ADR-027 / ADR-029, keys are **domain-separated** and no key signs across domains
+Per ADR-025 / ADR-027, keys are **domain-separated** and no key signs across domains
 (INV-ROOT-004):
 
 | Domain | Key | Signs | Never signs |
@@ -63,7 +63,7 @@ Per ADR-027 / ADR-029, keys are **domain-separated** and no key signs across dom
 | **issuing / conformance** | `banza-evidence-YYYYMM` | Conformance evidence | Manifest, signed protocol metadata, BRL |
 
 The root key is **offline** and touches the Key Manifest only; issuing keys sign the actual protocol
-artifacts. Domain separation bounds the blast radius of a compromise to a single domain (ADR-027). The
+artifacts. Domain separation bounds the blast radius of a compromise to a single domain (ADR-025). The
 **revocation** domain is deliberately isolated from the **protocol-metadata** domain so that a
 protocol-metadata-signing compromise cannot forge a BRL and vice-versa.
 
@@ -72,7 +72,7 @@ protocol-metadata-signing compromise cannot forge a BRL and vice-versa.
 Every signing operation (in a real, post-M2 ceremony) records, per artifact:
 
 - `issuer_key_id` (must not begin with `test-` in production — INV-ROOT-001);
-- the canonical-JSON bytes actually signed (ADR-027);
+- the canonical-JSON bytes actually signed (ADR-025);
 - the artifact SHA-256;
 - the signature;
 - the signer (Officer) and the Witness initials;
@@ -107,7 +107,7 @@ A verifier (peer operator, conformance runner, or auditor) checks, in order:
 2. Confirm the artifact's `issuer_key_id` appears in the manifest with the matching **domain** and
    `status: "active"`.
 3. Reject any `issuer_key_id` beginning with `test-` (INV-ROOT-001).
-4. Verify the artifact signature against the endorsed issuing public key using canonical JSON (ADR-027).
+4. Verify the artifact signature against the endorsed issuing public key using canonical JSON (ADR-025).
 5. Recompute the artifact SHA-256 and match it against the hash manifest.
 6. For a BRL: enforce **fail-closed** — a missing / stale / unsigned / wrongly-signed BRL blocks routing
    (INV-FEDEVAL-002; see [`BRL_REVOCATION_PLAYBOOK.md`](BRL_REVOCATION_PLAYBOOK.md)).

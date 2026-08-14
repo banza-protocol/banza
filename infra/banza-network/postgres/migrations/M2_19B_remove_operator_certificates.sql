@@ -1,10 +1,10 @@
--- M2.19B — Trust/Security/Contracts realignment (Finding B, ADR-027).
+-- M2.19B — Trust/Security/Contracts realignment (Finding B, ADR-025).
 -- Removes the residual operator-certificate materialization from an ALREADY-INITIALISED
 -- protocol-state database. `001_schema.sql` runs only on first init, so an existing
 -- deployment needs this idempotent migration to match the current schema.
 --
 -- Safe by construction: in pre-production these objects are EMPTY (operators = [],
--- no certificates issued, no BRL entries). Under the open trust model (ADR-027) BANZA
+-- no certificates issued, no BRL entries). Under the open trust model (ADR-025) BANZA
 -- issues no operator certificates, so none of this content can exist in production either.
 --
 -- Apply on deploy:
@@ -29,7 +29,7 @@ END $$;
 ALTER TABLE operators DROP COLUMN IF EXISTS certification_level;
 ALTER TABLE operators DROP COLUMN IF EXISTS certificate_id;
 
--- 3. BANZA issues no operator certificates (ADR-027): drop the issuance table + its grants.
+-- 3. BANZA issues no operator certificates (ADR-025): drop the issuance table + its grants.
 DROP TABLE IF EXISTS certificates CASCADE;
 
 COMMIT;

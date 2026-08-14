@@ -415,7 +415,7 @@ pub fn evaluate_trust(input: &Value) -> Value {
 }
 
 /// The ten canonical Open Trust Evaluation checks (contracts/production/federation-trust-evaluation
-/// .production.schema.json, ADR-031). `evaluate_federation_ote` runs all ten fail-closed and emits the
+/// .production.schema.json, ADR-025). `evaluate_federation_ote` runs all ten fail-closed and emits the
 /// canonical outcome ROUTING_ALLOWED / FAIL_CLOSED — the trust-chain sub-evaluation (`evaluate_trust`)
 /// covers eight; this layer adds `capabilities_compatible`, `endpoint_contract_compatible`, and an
 /// AUTHENTICATED `not_revoked` (a revocation-domain-signed BRL, never a self-published flag).
@@ -432,7 +432,7 @@ pub const OTE_CHECKS: &[&str] = &[
     "fail_closed_on_missing_or_invalid",
 ];
 
-/// Full federation Open Trust Evaluation (ADR-031): the ten conjunctive, fail-closed checks producing the
+/// Full federation Open Trust Evaluation (ADR-025): the ten conjunctive, fail-closed checks producing the
 /// canonical outcome `ROUTING_ALLOWED` (iff all ten pass) or `FAIL_CLOSED` (any other case). Trust valid
 /// ≠ routing allowed: an implementation can hold valid trust and still fail capability/endpoint/revocation.
 /// The `not_revoked` check is AUTHENTICATED — it verifies a revocation-domain-signed BANZA Revocation List

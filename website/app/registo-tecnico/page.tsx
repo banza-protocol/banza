@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PageHero, Section, Container, StatusNote, MoreLink } from "@/components/ui";
 import { RegistrySearch, type RegistryEntry } from "./RegistrySearch";
 
-// /registo-tecnico is the REAL owning page for the BANZA Technical Registry (Camada 2, ADR-036): the single
+// /registo-tecnico is the REAL owning page for the BANZA Technical Registry (Camada 2, ADR-033): the single
 // public, root-verifiable, read-only INDEX of L2 artefacts — implementations, certification records,
 // conformance evidence and revocations — verifiable by any third party with no account. M2.19G+ reframes it
 // from an explanatory document into an EXPLORER: a live status band, a search affordance, four areas with
@@ -97,7 +97,7 @@ const AREAS = [
   },
 ] as const;
 
-// The canonical certification states published by the registry (ADR-035). Only CERTIFIED reads as valid.
+// The canonical certification states published by the registry (ADR-032). Only CERTIFIED reads as valid.
 const STATES = [
   { s: "NOT_CERTIFIED", d: "Por omissão (fecho por omissão). Não certificado." },
   { s: "CERTIFIED", d: "Certificado, no âmbito e na janela de validade. Único estado válido." },
@@ -126,7 +126,7 @@ export default async function RegistoTecnicoPage() {
   const dash = "—";
   const num = (n: number | null | undefined) => (typeof n === "number" ? String(n) : dash);
   const implementations = operators === null ? null : operators.length;
-  // Não existe ainda um store nem rota máquina de registos de certificação (ADR-035); o valor mantém-se 0
+  // Não existe ainda um store nem rota máquina de registos de certificação (ADR-032); o valor mantém-se 0
   // até esses registos serem indexados e expostos por rota própria — nunca derivado de linhas de evidência
   // de conformidade (evidência ≠ certificação). null apenas quando a rota de evidência não confirma.
   const certifications = evidence === null ? null : 0;
@@ -141,7 +141,7 @@ export default async function RegistoTecnicoPage() {
   const hasEntries =
     (implementations ?? 0) > 0 || (certifications ?? 0) > 0 || (evidenceCount ?? 0) > 0 || (revocations ?? 0) > 0;
 
-  // The closed set the search box filters over (client-side only; never fetches a target — ADR-038).
+  // The closed set the search box filters over (client-side only; never fetches a target — ADR-034).
   // null = /operators NOT confirmed (outage/invalid payload) — distinct from the verified-empty [].
   const entries: RegistryEntry[] | null = operators === null ? null : operators.map((o) => ({
     id: o.operator_id,
@@ -248,7 +248,7 @@ export default async function RegistoTecnicoPage() {
             ) : (
               <>{implementations} implementação(ões) indexada(s). </>
             )}
-            Estados canónicos de certificação (ADR-035):{" "}
+            Estados canónicos de certificação (ADR-032):{" "}
             {STATES.map((st, i) => (
               <span key={st.s}>
                 <span className="font-mono text-ink-4">{st.s}</span>

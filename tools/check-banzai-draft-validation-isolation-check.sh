@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# M2.19G.1 (ADR-038 §4.5/§17) — developer draft tool isolation guard (§37, invariant 5).
+# M2.19G.1 (ADR-034 §4.5/§17) — developer draft tool isolation guard (§37, invariant 5).
 #
 # DraftValidationTool is the ONLY place upload/paste live. It must be fully isolated from the official
 # journey: it emits DRAFT_VALIDATION_RESULT, carries the "Rascunho local · não publicado · não produz
@@ -20,7 +20,7 @@ fl() { printf 'FAIL: %s\n' "$1"; fail=1; }
 DRAFT=website/components/banzai/DraftValidationTool.tsx
 PROG=website/components/banzai/ProgramadoresTools.tsx
 
-echo "== banzai-draft-validation-isolation-check (M2.19G.1 / ADR-038 §4.5/§17) =="
+echo "== banzai-draft-validation-isolation-check (M2.19G.1 / ADR-034 §4.5/§17) =="
 
 # ── self-test ───────────────────────────────────────────────────────────────────────────────────────
 st=0
@@ -68,15 +68,15 @@ else
   fl "$PROG not found"
 fi
 
-# 6. M2.19G.5C (ADR-042) — complementary to the SimB retirement: SimB survives ONLY inside the isolated
+# 6. M2.19G.5C (ADR-036) — complementary to the SimB retirement: SimB survives ONLY inside the isolated
 # draft-validation lib (banzaSimb.ts) + the frozen crate + history; it must NOT leak onto the active agent
 # surface. The full active-surface sweep lives in check-banzai-simb-active-surface-clean.sh; here we assert
 # the two adjacent active surfaces stay SimB-free after the retirement.
 for f in website/components/banzai/banzai-agent.ts website/components/banzai/validationJourney.tsx; do
   [ -f "$f" ] || continue
-  if grep -qE 'SimB|banza-simb' "$f"; then fl "SimB leaked onto an active surface: $f (ADR-042)"; else ok "$f is SimB-free (ADR-042)"; fi
+  if grep -qE 'SimB|banza-simb' "$f"; then fl "SimB leaked onto an active surface: $f (ADR-036)"; else ok "$f is SimB-free (ADR-036)"; fi
 done
 
 echo
 if [ "$fail" -ne 0 ]; then echo "banzai-draft-validation-isolation-check: FAIL"; exit 1; fi
-echo "banzai-draft-validation-isolation-check: ✓ draft tool isolated, non-authoritative (ADR-038 §4.5/§17)"
+echo "banzai-draft-validation-isolation-check: ✓ draft tool isolated, non-authoritative (ADR-034 §4.5/§17)"

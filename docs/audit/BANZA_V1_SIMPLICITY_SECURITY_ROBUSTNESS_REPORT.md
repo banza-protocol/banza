@@ -14,17 +14,17 @@ implement BANZA completely.
 
 Two records were written rather than merged:
 
-- **ADR-028 — Root authorization: three authorities, threshold two.** The architecture decided in the
+- **ADR-026 — Root authorization: three authorities, threshold two.** The architecture decided in the
   previous phase had an implementation and a custody document but no decision record.
-- **ADR-042 — BanzAI: a non-authoritative interface.** Folding twenty BanzAI records together produced a
+- **ADR-036 — BanzAI: a non-authoritative interface.** Folding twenty BanzAI records together produced a
   2,117-line omnibus, which is the failure the one-decision-one-record rule exists to prevent. Rewritten
   as one decision with the four constraints that make non-authority real rather than aspirational.
 
-`ADR-045` (current-only tree) was itself rewritten: it had become a record of the *previous* ADR audit,
+`ADR-010` (current-only tree) was itself rewritten: it had become a record of the *previous* ADR audit,
 listing tombstones — exactly what its own policy forbids.
 
 The guard stopped carrying a list of removed ids. After a renumbering such a list is worse than useless:
-`ADR-004` was once removed and is now a valid current record, so the frozen list reported the present as
+`ADR-005` was once removed and is now a valid current record, so the frozen list reported the present as
 the past. Contiguity, resolvability and index coverage are now derived from the tree.
 
 ### The ADR mirror became a derivation
@@ -51,11 +51,11 @@ at the property rather than by exclusion:
 
 Aligning the tree surfaced one more real bug, of the same family as the duplicate-signature threshold.
 `banzai-evidence` held **three** hand-maintained ADR identity tables that disagreed with each other: a
-numbered lookup for `ADR-028` returned **ADR-029**. Slugs, URLs and keywords are now derived from the id
+numbered lookup for `ADR-026` returned **ADR-027**. Slugs, URLs and keywords are now derived from the id
 on the same line, and the root-authorization record — which had no entry at all, which is why the lookup
 fell through to a neighbour — was added.
 
-`ADR-029` was also renamed to drop `private-keys` from its filename: the doc-indexer's path deny-list
+`ADR-027` was also renamed to drop `private-keys` from its filename: the doc-indexer's path deny-list
 treats that substring as a secret file, so the ADR *about* the policy was silently unindexable.
 
 ### Economic numeric adequacy — PASS

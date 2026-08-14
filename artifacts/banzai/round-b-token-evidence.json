@@ -20,8 +20,8 @@
   "avg_facts_after": "2.6",
   "rows": [
     {
-      "q": "o que decidiu a ADR-002?",
-      "entity": "ADR-002",
+      "q": "o que decidiu a ADR-001?",
+      "entity": "ADR-001",
       "before_facts": 5,
       "after_facts": 3,
       "before_prompt_chars": 2855,
@@ -30,8 +30,8 @@
       "after_prompt_tok": 508
     },
     {
-      "q": "o que diz a ADR-011 sobre dupla entrada?",
-      "entity": "ADR-011",
+      "q": "o que diz a ADR-012 sobre dupla entrada?",
+      "entity": "ADR-012",
       "before_facts": 5,
       "after_facts": 3,
       "before_prompt_chars": 2641,
@@ -40,8 +40,8 @@
       "after_prompt_tok": 471
     },
     {
-      "q": "qual é a política da ADR-043?",
-      "entity": "ADR-043",
+      "q": "qual é a política da ADR-038?",
+      "entity": "ADR-038",
       "before_facts": 4,
       "after_facts": 3,
       "before_prompt_chars": 2272,
@@ -50,8 +50,8 @@
       "after_prompt_tok": 471
     },
     {
-      "q": "o que define a ADR-041?",
-      "entity": "ADR-041",
+      "q": "o que define a ADR-035?",
+      "entity": "ADR-035",
       "before_facts": 5,
       "after_facts": 3,
       "before_prompt_chars": 2815,
@@ -60,8 +60,8 @@
       "after_prompt_tok": 507
     },
     {
-      "q": "qual o papel do BanzAI segundo a ADR-042?",
-      "entity": "ADR-042",
+      "q": "qual o papel do BanzAI segundo a ADR-036?",
+      "entity": "ADR-036",
       "before_facts": 5,
       "after_facts": 3,
       "before_prompt_chars": 2799,
@@ -70,8 +70,8 @@
       "after_prompt_tok": 512
     },
     {
-      "q": "o que especifica a ADR-016?",
-      "entity": "ADR-016",
+      "q": "o que especifica a ADR-015?",
+      "entity": "ADR-015",
       "before_facts": 5,
       "after_facts": 3,
       "before_prompt_chars": 2582,
@@ -80,8 +80,8 @@
       "after_prompt_tok": 464
     },
     {
-      "q": "qual o estado da ADR-042?",
-      "entity": "ADR-042",
+      "q": "qual o estado da ADR-036?",
+      "entity": "ADR-036",
       "before_facts": 5,
       "after_facts": 3,
       "before_prompt_chars": 2810,

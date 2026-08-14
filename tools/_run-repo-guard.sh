@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# _run-repo-guard.sh — RUST_WRAPPER_ONLY (ADR-043, R10)
+# _run-repo-guard.sh — RUST_WRAPPER_ONLY (ADR-038, R10)
 #
 # Shared launcher for the Rust repository-hygiene gates. The gate LOGIC lives in Rust
 # (engines/banza-repo-guards, bin `banza-repo-guards`). This wrapper only:

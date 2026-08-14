@@ -5,7 +5,7 @@
   "description": "Canonical envelope for all events emitted on the BANZA internal event stream (GET /events, GET /events/history). Every state-changing operation emits one or more events in this format.",
   "_spec_version": "1.0",
   "_status": "canonical",
-  "_authority": "ADR-002, INV-TRACE-001",
+  "_authority": "ADR-001, INV-TRACE-001",
   "_source_of_truth": "This schema. Normative; not derived from any implementation.",
   "type": "object",
   "required": [

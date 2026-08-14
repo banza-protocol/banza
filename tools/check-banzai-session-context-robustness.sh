@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 #
-# BanzAI Session Context Robustness Guard (M2.11A; reframed by ADR-042 §D-076-01/02).
+# BanzAI Session Context Robustness Guard (M2.11A; reframed by ADR-036/02).
 #
 # The first journey model treated navigation as if it were evidence, so opening /banzai reported a
-# technical number before anything had been validated. ADR-042 removed that class of bug at the root:
+# technical number before anything had been validated. ADR-036 removed that class of bug at the root:
 # the guided layer (Model A) is now GUIDANCE ONLY — it carries navigation state, never a verdict or a
 # score — and there is exactly one authority of technical validation state (Model B).
 #
@@ -83,7 +83,7 @@ process.exit(bad);
 NODE
 
 # ── Rendered labels must be prose, never raw slugs ──────────────────────────
-# The guidance layer has no blocker/evidence verdict vocabulary (ADR-042 §D-076-02), so there is no
+# The guidance layer has no blocker/evidence verdict vocabulary (ADR-036), so there is no
 # blocker-label table to order. The navigation action labels must still name themselves (no silent
 # "Continuar" fallback), which the vocabulary-contract guard proves; here we assert the label map exists.
 grep -q 'export function nextActionLabel' "$WRAPPER" \
@@ -109,7 +109,7 @@ else
   ok "no status implies certification, approval or licensing"
 fi
 
-# M2.19G.1 (ADR-038) — the validation surface (BanzaiValidationMode.tsx) shows Progresso (n/total steps)
+# M2.19G.1 (ADR-034) — the validation surface (BanzaiValidationMode.tsx) shows Progresso (n/total steps)
 # and surfaces per-step Evidence and Receipts as DISTINCT sections — never one blended number that
 # conflates navigation with validated evidence. In the endpoint-originated model the context panel shows
 # per-step Evidence ("EVIDÊNCIA DA ETAPA", evidence_refs) while Receipts live in the single Resultados

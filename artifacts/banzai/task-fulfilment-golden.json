@@ -3975,9 +3975,9 @@
       "stratum": "document-op"
     },
     {
-      "id": "g247-doc-lk-ADR-011",
-      "q": "abre a ADR-011",
-      "seed": "ADR-011",
+      "id": "g247-doc-lk-ADR-012",
+      "q": "abre a ADR-012",
+      "seed": "ADR-012",
       "task": "document_lookup",
       "terminal": false,
       "appropriateness": "",
@@ -3991,9 +3991,9 @@
       "stratum": "document-op"
     },
     {
-      "id": "g248-doc-sm-ADR-011",
-      "q": "resume a ADR-011",
-      "seed": "ADR-011",
+      "id": "g248-doc-sm-ADR-012",
+      "q": "resume a ADR-012",
+      "seed": "ADR-012",
       "task": "document_summary",
       "terminal": false,
       "appropriateness": "",
@@ -4007,9 +4007,9 @@
       "stratum": "document-op"
     },
     {
-      "id": "g249-doc-md-ADR-011",
-      "q": "qual o estado da ADR-011",
-      "seed": "ADR-011",
+      "id": "g249-doc-md-ADR-012",
+      "q": "qual o estado da ADR-012",
+      "seed": "ADR-012",
       "task": "document_metadata",
       "terminal": false,
       "appropriateness": "",
@@ -4023,9 +4023,9 @@
       "stratum": "document-op"
     },
     {
-      "id": "g250-doc-lk-ADR-031",
-      "q": "abre a ADR-031",
-      "seed": "ADR-031",
+      "id": "g250-doc-lk-ADR-025",
+      "q": "abre a ADR-025",
+      "seed": "ADR-025",
       "task": "document_lookup",
       "terminal": false,
       "appropriateness": "",
@@ -4039,9 +4039,9 @@
       "stratum": "document-op"
     },
     {
-      "id": "g251-doc-sm-ADR-031",
-      "q": "resume a ADR-031",
-      "seed": "ADR-031",
+      "id": "g251-doc-sm-ADR-025",
+      "q": "resume a ADR-025",
+      "seed": "ADR-025",
       "task": "document_summary",
       "terminal": false,
       "appropriateness": "",
@@ -4055,9 +4055,9 @@
       "stratum": "document-op"
     },
     {
-      "id": "g252-doc-md-ADR-031",
-      "q": "qual o estado da ADR-031",
-      "seed": "ADR-031",
+      "id": "g252-doc-md-ADR-025",
+      "q": "qual o estado da ADR-025",
+      "seed": "ADR-025",
       "task": "document_metadata",
       "terminal": false,
       "appropriateness": "",
@@ -4167,9 +4167,9 @@
       "stratum": "document-op"
     },
     {
-      "id": "g259-doc-lk-ADR-002",
-      "q": "abre a ADR-002",
-      "seed": "ADR-002",
+      "id": "g259-doc-lk-ADR-001",
+      "q": "abre a ADR-001",
+      "seed": "ADR-001",
       "task": "document_lookup",
       "terminal": false,
       "appropriateness": "",
@@ -4183,9 +4183,9 @@
       "stratum": "document-op"
     },
     {
-      "id": "g260-doc-sm-ADR-002",
-      "q": "resume a ADR-002",
-      "seed": "ADR-002",
+      "id": "g260-doc-sm-ADR-001",
+      "q": "resume a ADR-001",
+      "seed": "ADR-001",
       "task": "document_summary",
       "terminal": false,
       "appropriateness": "",
@@ -4199,9 +4199,9 @@
       "stratum": "document-op"
     },
     {
-      "id": "g261-doc-md-ADR-002",
-      "q": "qual o estado da ADR-002",
-      "seed": "ADR-002",
+      "id": "g261-doc-md-ADR-001",
+      "q": "qual o estado da ADR-001",
+      "seed": "ADR-001",
       "task": "document_metadata",
       "terminal": false,
       "appropriateness": "",
@@ -4215,9 +4215,9 @@
       "stratum": "document-op"
     },
     {
-      "id": "g262-doc-lk-ADR-012",
-      "q": "abre a ADR-012",
-      "seed": "ADR-012",
+      "id": "g262-doc-lk-ADR-014",
+      "q": "abre a ADR-014",
+      "seed": "ADR-014",
       "task": "document_lookup",
       "terminal": false,
       "appropriateness": "",
@@ -4231,9 +4231,9 @@
       "stratum": "document-op"
     },
     {
-      "id": "g263-doc-sm-ADR-012",
-      "q": "resume a ADR-012",
-      "seed": "ADR-012",
+      "id": "g263-doc-sm-ADR-014",
+      "q": "resume a ADR-014",
+      "seed": "ADR-014",
       "task": "document_summary",
       "terminal": false,
       "appropriateness": "",
@@ -4247,9 +4247,9 @@
       "stratum": "document-op"
     },
     {
-      "id": "g264-doc-md-ADR-012",
-      "q": "qual o estado da ADR-012",
-      "seed": "ADR-012",
+      "id": "g264-doc-md-ADR-014",
+      "q": "qual o estado da ADR-014",
+      "seed": "ADR-014",
       "task": "document_metadata",
       "terminal": false,
       "appropriateness": "",
@@ -4263,9 +4263,9 @@
       "stratum": "document-op"
     },
     {
-      "id": "g265-doc-lk-ADR-027",
-      "q": "abre a ADR-027",
-      "seed": "ADR-027",
+      "id": "g265-doc-lk-ADR-025",
+      "q": "abre a ADR-025",
+      "seed": "ADR-025",
       "task": "document_lookup",
       "terminal": false,
       "appropriateness": "",
@@ -4279,9 +4279,9 @@
       "stratum": "document-op"
     },
     {
-      "id": "g266-doc-sm-ADR-027",
-      "q": "resume a ADR-027",
-      "seed": "ADR-027",
+      "id": "g266-doc-sm-ADR-025",
+      "q": "resume a ADR-025",
+      "seed": "ADR-025",
       "task": "document_summary",
       "terminal": false,
       "appropriateness": "",
@@ -4295,9 +4295,9 @@
       "stratum": "document-op"
     },
     {
-      "id": "g267-doc-md-ADR-027",
-      "q": "qual o estado da ADR-027",
-      "seed": "ADR-027",
+      "id": "g267-doc-md-ADR-025",
+      "q": "qual o estado da ADR-025",
+      "seed": "ADR-025",
       "task": "document_metadata",
       "terminal": false,
       "appropriateness": "",
@@ -4311,9 +4311,9 @@
       "stratum": "document-op"
     },
     {
-      "id": "g268-doc-lk-ADR-033",
-      "q": "abre a ADR-033",
-      "seed": "ADR-033",
+      "id": "g268-doc-lk-ADR-031",
+      "q": "abre a ADR-031",
+      "seed": "ADR-031",
       "task": "document_lookup",
       "terminal": false,
       "appropriateness": "",
@@ -4327,9 +4327,9 @@
       "stratum": "document-op"
     },
     {
-      "id": "g269-doc-sm-ADR-033",
-      "q": "resume a ADR-033",
-      "seed": "ADR-033",
+      "id": "g269-doc-sm-ADR-031",
+      "q": "resume a ADR-031",
+      "seed": "ADR-031",
       "task": "document_summary",
       "terminal": false,
       "appropriateness": "",
@@ -4343,9 +4343,9 @@
       "stratum": "document-op"
     },
     {
-      "id": "g270-doc-md-ADR-033",
-      "q": "qual o estado da ADR-033",
-      "seed": "ADR-033",
+      "id": "g270-doc-md-ADR-031",
+      "q": "qual o estado da ADR-031",
+      "seed": "ADR-031",
       "task": "document_metadata",
       "terminal": false,
       "appropriateness": "",
@@ -4359,9 +4359,9 @@
       "stratum": "document-op"
     },
     {
-      "id": "g271-doc-lk-ADR-042",
-      "q": "abre a ADR-042",
-      "seed": "ADR-042",
+      "id": "g271-doc-lk-ADR-036",
+      "q": "abre a ADR-036",
+      "seed": "ADR-036",
       "task": "document_lookup",
       "terminal": false,
       "appropriateness": "",
@@ -4375,9 +4375,9 @@
       "stratum": "document-op"
     },
     {
-      "id": "g272-doc-sm-ADR-042",
-      "q": "resume a ADR-042",
-      "seed": "ADR-042",
+      "id": "g272-doc-sm-ADR-036",
+      "q": "resume a ADR-036",
+      "seed": "ADR-036",
       "task": "document_summary",
       "terminal": false,
       "appropriateness": "",
@@ -4391,9 +4391,9 @@
       "stratum": "document-op"
     },
     {
-      "id": "g273-doc-md-ADR-042",
-      "q": "qual o estado da ADR-042",
-      "seed": "ADR-042",
+      "id": "g273-doc-md-ADR-036",
+      "q": "qual o estado da ADR-036",
+      "seed": "ADR-036",
       "task": "document_metadata",
       "terminal": false,
       "appropriateness": "",
@@ -4407,9 +4407,9 @@
       "stratum": "document-op"
     },
     {
-      "id": "g274-doc-lk-ADR-042",
-      "q": "abre a ADR-042",
-      "seed": "ADR-042",
+      "id": "g274-doc-lk-ADR-036",
+      "q": "abre a ADR-036",
+      "seed": "ADR-036",
       "task": "document_lookup",
       "terminal": false,
       "appropriateness": "",
@@ -4423,9 +4423,9 @@
       "stratum": "document-op"
     },
     {
-      "id": "g275-doc-sm-ADR-042",
-      "q": "resume a ADR-042",
-      "seed": "ADR-042",
+      "id": "g275-doc-sm-ADR-036",
+      "q": "resume a ADR-036",
+      "seed": "ADR-036",
       "task": "document_summary",
       "terminal": false,
       "appropriateness": "",
@@ -4439,9 +4439,9 @@
       "stratum": "document-op"
     },
     {
-      "id": "g276-doc-md-ADR-042",
-      "q": "qual o estado da ADR-042",
-      "seed": "ADR-042",
+      "id": "g276-doc-md-ADR-036",
+      "q": "qual o estado da ADR-036",
+      "seed": "ADR-036",
       "task": "document_metadata",
       "terminal": false,
       "appropriateness": "",
@@ -5510,7 +5510,7 @@
     },
     {
       "id": "g347-mix-346",
-      "q": "compara a ADR-001 e a ADR-011 e explica o impacto",
+      "q": "compara a ADR-001 e a ADR-012 e explica o impacto",
       "seed": "",
       "task": "comparison",
       "terminal": false,
@@ -6133,9 +6133,9 @@
       "stratum": "novel"
     },
     {
-      "id": "g386-novel-ADR-011",
-      "q": "quais as consequências da ADR-011",
-      "seed": "ADR-011",
+      "id": "g386-novel-ADR-012",
+      "q": "quais as consequências da ADR-012",
+      "seed": "ADR-012",
       "task": "impact",
       "terminal": false,
       "appropriateness": "",
@@ -6149,9 +6149,9 @@
       "stratum": "novel"
     },
     {
-      "id": "g387-novel2-ADR-011",
-      "q": "quais as consequências da ADR-011 por favor",
-      "seed": "ADR-011",
+      "id": "g387-novel2-ADR-012",
+      "q": "quais as consequências da ADR-012 por favor",
+      "seed": "ADR-012",
       "task": "impact",
       "terminal": false,
       "appropriateness": "",

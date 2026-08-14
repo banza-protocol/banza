@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# M2.19G.1 (ADR-038 §21) — nine-step endpoint-input spine guard (§37, invariant 10).
+# M2.19G.1 (ADR-034 §21) — nine-step endpoint-input spine guard (§37, invariant 10).
 #
 # The journey has exactly NINE steps (discovery, manifest, keys, conformance, interoperability, trust,
 # federation, evidence, certification). Each technical step maps to an endpoint fetch in the served
@@ -21,7 +21,7 @@ UILIB=website/lib/banzaiValidation.ts
 
 STEPS="discovery manifest keys conformance interoperability trust federation evidence certification"
 
-echo "== banzai-nine-step-endpoint-input-check (M2.19G.1 / ADR-038 §21) =="
+echo "== banzai-nine-step-endpoint-input-check (M2.19G.1 / ADR-034 §21) =="
 
 # ── self-test ───────────────────────────────────────────────────────────────────────────────────────
 st=0
@@ -64,4 +64,4 @@ fi
 
 echo
 if [ "$fail" -ne 0 ]; then echo "banzai-nine-step-endpoint-input-check: FAIL"; exit 1; fi
-echo "banzai-nine-step-endpoint-input-check: ✓ exactly 9 steps, each technical step endpoint-fetched (ADR-038 §21)"
+echo "banzai-nine-step-endpoint-input-check: ✓ exactly 9 steps, each technical step endpoint-fetched (ADR-034 §21)"

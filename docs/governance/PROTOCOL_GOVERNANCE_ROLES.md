@@ -72,7 +72,7 @@ Conduz o ciclo de release das Versioned Specifications: versionamento semântico
 
 Custodia o material criptográfico do **Trust Root** em condições offline, sob controlo repartido, e participa nas cerimónias em que o Trust Root assina.
 
-O Trust Root assina **apenas o Manifesto de Chaves** (o artefacto que endossa as **Delegated Signing Keys**). São as chaves delegadas que assinam os artefactos dos respectivos domínios — metadados do protocolo, releases, evidência de conformidade e a **Revocation List** — nunca a raiz directamente (INV-ROOT-004; ADR-027).
+O Trust Root assina **apenas o Manifesto de Chaves** (o artefacto que endossa as **Delegated Signing Keys**). São as chaves delegadas que assinam os artefactos dos respectivos domínios — metadados do protocolo, releases, evidência de conformidade e a **Revocation List** — nunca a raiz directamente (INV-ROOT-004; ADR-025).
 
 O Trust Root **não** autoriza pagamentos, **não** cria operadores, **não** emite licenças, **não** atesta a idoneidade de operadores e **não** movimenta fundos. Uma assinatura do Trust Root é uma afirmação sobre *artefactos do protocolo* — nunca uma afirmação sobre *participantes*.
 

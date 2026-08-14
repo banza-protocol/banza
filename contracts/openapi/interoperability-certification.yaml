@@ -29,15 +29,15 @@ info:
     - A certification record is **not** a licence, an admission to any
       operational scheme, a regulatory authorisation, a commercial approval, or
       an institutional guarantee. See
-      `docs/governance/BANZA_CONFORMANCE_INTEROP_CERTIFICATION.md` and ADR-034.
+      `docs/governance/BANZA_CONFORMANCE_INTEROP_CERTIFICATION.md` and ADR-032.
 
     ## Authority boundary
 
     Every verdict on this surface is **decided by the Rust engine**. No language
     model, no human override, and no registry write can turn a `FAIL` into a
     `PASS` or a non-`CERTIFIED` status into `CERTIFIED`. The registry reflects
-    engine decisions; it never produces them. See ADR-035 (closed state machine)
-    and ADR-036 (technical registry).
+    engine decisions; it never produces them. See ADR-032 (closed state machine)
+    and ADR-033 (technical registry).
 
 servers:
   - url: https://banza.network
@@ -242,7 +242,7 @@ components:
     CertificationStatus:
       type: string
       description: |
-        The closed L2 certification state (ADR-035). Only `CERTIFIED` is a valid,
+        The closed L2 certification state (ADR-032). Only `CERTIFIED` is a valid,
         currently-recognised certification; every other value denotes the absence
         of a valid certification.
       enum:
@@ -280,7 +280,7 @@ components:
           description: True iff `hash_ok` and `effective_status == CERTIFIED`.
         reason_code:
           type: string
-          description: Machine-readable reason for the verdict (ADR-035 reason codes).
+          description: Machine-readable reason for the verdict (ADR-032 reason codes).
 
     TechnicalRegistryEntry:
       type: object

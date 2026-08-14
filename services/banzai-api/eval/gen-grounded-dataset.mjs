@@ -22,7 +22,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT = join(__dirname, "grounded.dataset.json");
 
 // ── Real, groundable canonical entities (verified against the engine at authoring time) ────────────────
-const DOCS = ["ADR-001","ADR-002","ADR-001","ADR-001","ADR-011","ADR-011","ADR-012","ADR-024","ADR-016","ADR-017","ADR-043","ADR-042","ADR-026","ADR-044","ADR-042","ADR-041","ADR-041","ADR-042","RFC-0006"];
+const DOCS = ["ADR-001","ADR-001","ADR-001","ADR-001","ADR-012","ADR-012","ADR-014","ADR-022","ADR-015","ADR-015","ADR-038","ADR-036","ADR-013","ADR-009","ADR-036","ADR-035","ADR-035","ADR-036","RFC-0006"];
 const CONCEPTS = ["dupla entrada","idempotencia","inversao de nomes","operador de referencia","federacao","protocolo aberto","conformidade","Operador Zero"];
 
 // Phrasing templates per category — PT + EN + informal, so the dataset reads like real operator questions.

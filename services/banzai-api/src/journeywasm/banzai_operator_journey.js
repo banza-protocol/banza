@@ -30,7 +30,7 @@ exports.journey_can_advance_json = journey_can_advance_json;
 /**
  * Evaluate the guidance path from the session state (NAVIGATION vocabulary only):
  * `{current_step, steps:[{step,label,status,technical_reference}], visited_steps, navigation_progress,
- * next_recommended_action, warnings, last_error}` (ADR-042 §D-076-02). No verdict, no score.
+ * next_recommended_action, warnings, last_error}` (ADR-036). No verdict, no score.
  * @param {string} state
  * @returns {string}
  */
@@ -51,7 +51,7 @@ function journey_evaluate_json(state) {
 exports.journey_evaluate_json = journey_evaluate_json;
 
 /**
- * ADR-042 — the one-sentence answer to "o que faço agora?", from the same next orientation activity
+ * ADR-036 — the one-sentence answer to "o que faço agora?", from the same next orientation activity
  * the guidance panel renders. Non-technical: it defers every technical claim to Model B.
  * @param {string} state
  * @returns {string}
@@ -178,7 +178,7 @@ function journey_scan_upload_json(text) {
 exports.journey_scan_upload_json = journey_scan_upload_json;
 
 /**
- * ADR-042 §D-076-02 — evaluate the guidance NAVIGATION model from the browser's in-memory state.
+ * ADR-036 — evaluate the guidance NAVIGATION model from the browser's in-memory state.
  *
  * Returns `{model:"operator-guidance", authority:"model-b", overall_state,
  * navigation:{activities_visited,activities_total,current_step},
@@ -206,7 +206,7 @@ function journey_session_json(state) {
 exports.journey_session_json = journey_session_json;
 
 /**
- * ADR-042 — the SAFE one-line session summary for the local model: navigation slugs and counts only,
+ * ADR-036 — the SAFE one-line session summary for the local model: navigation slugs and counts only,
  * never a file body, a path, a key, free browser text or a score.
  * @param {string} state
  * @returns {string}
@@ -246,7 +246,7 @@ function journey_steps_json() {
 exports.journey_steps_json = journey_steps_json;
 
 /**
- * ADR-042 — the canonical slug vocabulary this guidance engine can emit: steps, navigation statuses,
+ * ADR-036 — the canonical slug vocabulary this guidance engine can emit: steps, navigation statuses,
  * actions, overall states, the referenced Model B states, and the typed reference fields. Published so
  * the UI's label maps can be PROVEN complete against it instead of kept in sync by hand.
  * @returns {string}

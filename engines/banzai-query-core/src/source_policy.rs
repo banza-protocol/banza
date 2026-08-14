@@ -140,7 +140,7 @@ mod tests {
     #[test]
     fn canonical_public_docs_stay_public() {
         assert!(is_public_source(
-            "decisions/adr/ADR-002-ecosystem-naming-banza-banzai-and-operators.md",
+            "decisions/adr/ADR-001-ecosystem-naming-banza-banzai-and-operators.md",
             "decision"
         ));
         assert!(is_public_source("spec/federation/overview.md", "normative"));

@@ -2,7 +2,7 @@
 
 **Document ID:** FEDERATION-TRUST-MODEL-DESIGN-001  
 **Status:** Canonical — behavioral specification. No code. No implementation.  
-**Authority:** ADR-027, ADR-033, ADR-031 · [`docs/governance/FEDERATION_TRUST_MODEL.md`](../../docs/governance/FEDERATION_TRUST_MODEL.md) · [`contracts/invariants.json`](../../contracts/invariants.json)
+**Authority:** ADR-025, ADR-031, ADR-025 · [`docs/governance/FEDERATION_TRUST_MODEL.md`](../../docs/governance/FEDERATION_TRUST_MODEL.md) · [`contracts/invariants.json`](../../contracts/invariants.json)
 
 ---
 
@@ -69,7 +69,7 @@ third party re-derives the same result from the same public artifacts.
 ## 3. The Open Trust Evaluation
 
 Before Operator A routes to Operator B, Operator A runs the Open Trust Evaluation **locally** over the
-material Operator B has published. The evaluation is **ten conjunctive, fail-closed checks** (ADR-031).
+material Operator B has published. The evaluation is **ten conjunctive, fail-closed checks** (ADR-025).
 All ten must pass; any check that is missing, invalid, expired, revoked or incompatible ends the
 evaluation. The normative shape is
 [`contracts/production/federation-trust-evaluation.production.schema.json`](../../contracts/production/federation-trust-evaluation.production.schema.json).
@@ -172,9 +172,9 @@ Current state, verifiable directly on the public routes: `/operators` = `[]` and
 
 ## References
 
-- [ADR-027](../../decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md) — open protocol trust model
-- [ADR-033](../../decisions/adr/ADR-033-operator-self-publication-and-machine-verifiable-conformance.md) — operator self-publication and machine-verifiable conformance
-- [ADR-031](../../decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md) — federation trust evaluation (the ten checks)
+- [ADR-025](../../decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md) — open protocol trust model
+- [ADR-031](../../decisions/adr/ADR-031-operator-self-publication-and-machine-verifiable-conformance.md) — operator self-publication and machine-verifiable conformance
+- [ADR-025](../../decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md) — federation trust evaluation (the ten checks)
 - [`docs/governance/FEDERATION_TRUST_MODEL.md`](../../docs/governance/FEDERATION_TRUST_MODEL.md) — canonical model document
 - [FEDERATION_PROTOCOL_FLOW.md](FEDERATION_PROTOCOL_FLOW.md) — end-to-end federated transaction behavior
 - [FEDERATION_SEQUENCE_DIAGRAMS.md](FEDERATION_SEQUENCE_DIAGRAMS.md) — sequence diagrams for all federation flows

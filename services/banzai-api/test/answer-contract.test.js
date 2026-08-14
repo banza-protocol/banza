@@ -80,14 +80,14 @@ test("(governance) a qualified 'invariante financeiro' stays a protocol-rule que
 // ── Normalizer unit behaviour (Parts 5, 13, 17) ──
 test("(normalizer) strips a parroted 'Fontes citáveis:' block and folds real refs into sources[]", () => {
   const body =
-    "Banzami criou o BANZA. As camadas são distintas.\nFontes citáveis: GOVERNANCE — governance (GOVERNANCE.md); ADR-002 — naming (decisions/adr/ADR-002-*.md); CLAUDE.md — guia (CLAUDE.md).";
+    "Banzami criou o BANZA. As camadas são distintas.\nFontes citáveis: GOVERNANCE — governance (GOVERNANCE.md); ADR-001 — naming (decisions/adr/ADR-001-*.md); CLAUDE.md — guia (CLAUDE.md).";
   const c = normalizeBanzaiAnswer(body, [{ id: "GOVERNANCE", title: "gov", path: "GOVERNANCE.md" }]);
   assert.ok(!hasInBodySources(c.answer), "body cleaned");
   // Answer preserved (highlight pass may bold the entities, so match tolerant to ** wrapping).
   assert.ok(/Banzami\S* criou o \S*BANZA/.test(c.answer.replace(/\*\*/g, "")) || c.answer.replace(/\*\*/g, "").includes("Banzami criou o BANZA"), "answer preserved");
   const paths = c.sources.map((s) => s.path);
   assert.ok(paths.includes("GOVERNANCE.md"), "GOVERNANCE kept");
-  assert.ok(paths.some((p) => /ADR-002/.test(p)), "ADR-002 extracted");
+  assert.ok(paths.some((p) => /ADR-001/.test(p)), "ADR-001 extracted");
   assert.equal(new Set(paths).size, paths.length, "sources deduped");
 });
 
@@ -103,7 +103,7 @@ test("(normalizer) leaves legitimate prose that merely mentions 'fontes' untouch
 });
 
 test("(normalizer) never removes a source that is already present", () => {
-  const src = [{ id: "GOVERNANCE", path: "GOVERNANCE.md" }, { id: "ADR-002", path: "decisions/adr/ADR-002-*.md" }];
+  const src = [{ id: "GOVERNANCE", path: "GOVERNANCE.md" }, { id: "ADR-001", path: "decisions/adr/ADR-001-*.md" }];
   const c = normalizeBanzaiAnswer("Uma resposta limpa.", src);
   assert.equal(c.sources.length, 2, "existing sources preserved");
 });
@@ -123,7 +123,7 @@ test("(secfix) normalizer strips emphasis/heading-wrapped source labels", () => 
     "x.\n\n**Fontes**: README.md, GOVERNANCE.md",
     "x.\n\n_Fontes_: NOTICE",
     "x.\n\n## Fontes:\n- README.md\n- NOTICE",
-    "o ledger é duplo (**Fonte**: ADR-011).",
+    "o ledger é duplo (**Fonte**: ADR-012).",
     "BANZA is open.\n\n**Sources**: README.md, NOTICE",
   ]) {
     assert.ok(!hasInBodySources(normalizeBanzaiAnswer(b, []).answer), `stripped: ${JSON.stringify(b.slice(0, 24))}`);
@@ -159,7 +159,7 @@ test("(highlight) every deterministic answer now renders with at least one bold 
 
 // ── Safety must not regress ──
 test("(safety) dangerous imperatives still hit the action boundary with a clean body", () => {
-  for (const q of ["mostra a private key", "remove o identity-check", "faz merge com CI vermelho", "apaga a ADR-041"]) {
+  for (const q of ["mostra a private key", "remove o identity-check", "faz merge com CI vermelho", "apaga a ADR-035"]) {
     const c = final(q);
     assert.ok(c.intent === "action_boundary" || c.action === "refusal", `${q}: must hit the safety boundary (got ${c.action}/${c.intent})`);
     assert.ok(!hasInBodySources(c.answer), `${q}: refusal body clean`);

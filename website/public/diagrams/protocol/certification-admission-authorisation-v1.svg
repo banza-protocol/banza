@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   id:        SVG-P-093
-  diagram:   Certificação técnica ≠ Admissão a esquema ≠ Autorização regulatória — três determinações distintas, três donos, sem propagação (ADR-061)
+  diagram:   Certificação técnica ≠ Admissão a esquema ≠ Autorização regulatória — três determinações distintas, três donos, sem propagação (ADR-005)
   version:   1.1
-  source:    BANZA_REFERENCIA.md §7 (certificação técnica, admissão a esquema, autorização regulatória) · ADR-061
+  source:    BANZA_REFERENCIA.md §7 (certificação técnica, admissão a esquema, autorização regulatória) · ADR-005
   updated:   2026-08-08
   author:    BANZA Protocol
   style:     protocol-dark
@@ -12,7 +12,7 @@
      role="img" aria-labelledby="title-P093 desc-P093"
      font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
   <title id="title-P093">Três determinações distintas — certificação técnica, admissão e autorização</title>
-  <desc id="desc-P093">Três determinações distintas, com donos distintos, e o estado não propaga em nenhuma direcção (ADR-061). A Certificação Técnica (Camada 2) responde se uma implementação demonstrou conformidade e interoperabilidade; é decidida pelos motores determinísticos sob a governança BANZA e não é licença, admissão nem autorização. A Admissão a Esquema (Camada 3) responde se uma entidade é admitida a um esquema segundo os seus critérios e contratos; é decisão do próprio esquema operacional, que pode exigir certificação técnica mas nunca decorre automaticamente dela. A Autorização Regulatória responde se uma entidade pode prestar serviços financeiros numa jurisdição; pertence ao regulador competente, fora do protocolo, e nunca é emitida pelo BANZA. A certificação técnica não implica admissão nem autorização, e estar no Registo Técnico nunca é admitido a um esquema nem autorizado.</desc>
+  <desc id="desc-P093">Três determinações distintas, com donos distintos, e o estado não propaga em nenhuma direcção (ADR-005). A Certificação Técnica (Camada 2) responde se uma implementação demonstrou conformidade e interoperabilidade; é decidida pelos motores determinísticos sob a governança BANZA e não é licença, admissão nem autorização. A Admissão a Esquema (Camada 3) responde se uma entidade é admitida a um esquema segundo os seus critérios e contratos; é decisão do próprio esquema operacional, que pode exigir certificação técnica mas nunca decorre automaticamente dela. A Autorização Regulatória responde se uma entidade pode prestar serviços financeiros numa jurisdição; pertence ao regulador competente, fora do protocolo, e nunca é emitida pelo BANZA. A certificação técnica não implica admissão nem autorização, e estar no Registo Técnico nunca é admitido a um esquema nem autorizado.</desc>
   <defs>
     <linearGradient id="hg-P093" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%" stop-color="#6E0F1A"/><stop offset="100%" stop-color="#8E1326"/>
@@ -28,7 +28,7 @@
   <text x="24" y="50" font-size="18" font-weight="800" fill="#FFFFFF">Três determinações distintas</text>
   <text x="976" y="50" text-anchor="end" font-size="11" fill="#F6D9DD">certificação técnica ≠ admissão ≠ autorização</text>
 
-  <text x="24" y="94" font-size="11.5" fill="#B6B6BE">Três determinações, três donos — nenhuma implica a outra e o estado não propaga em nenhuma direcção (ADR-061).</text>
+  <text x="24" y="94" font-size="11.5" fill="#B6B6BE">Três determinações, três donos — nenhuma implica a outra e o estado não propaga em nenhuma direcção (ADR-005).</text>
 
   <!-- ===================== columns ===================== -->
   <!-- 1 · Certificação Técnica (Camada 2) — wine -->
@@ -89,7 +89,7 @@
 
   <!-- boundary band -->
   <rect x="28" y="432" width="944" height="76" rx="10" fill="#1B1113" stroke="#5A1A22" stroke-width="1.2"/>
-  <text x="44" y="458" font-size="11" font-weight="700" fill="#E8909D">Certificação técnica, admissão a esquema e autorização regulatória são três determinações distintas — nenhuma implica a outra (ADR-061).</text>
+  <text x="44" y="458" font-size="11" font-weight="700" fill="#E8909D">Certificação técnica, admissão a esquema e autorização regulatória são três determinações distintas — nenhuma implica a outra (ADR-005).</text>
   <text x="44" y="480" font-size="10.5" fill="#B6B6BE">O estado não propaga em nenhuma direcção: uma certificação técnica da Camada 2 não admite nem autoriza; a admissão e a autorização não certificam.</text>
   <text x="44" y="499" font-size="10.5" fill="#B6B6BE">Estar no Registo Técnico nunca é «admitido a um esquema» nem «autorizado». O BANZA não emite licenças nem autoriza actividade financeira.</text>
 

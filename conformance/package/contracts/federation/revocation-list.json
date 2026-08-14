@@ -2,10 +2,10 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://banza.network/contracts/federation/revocation-list.json",
   "title": "BanzaRevocationList",
-  "description": "The BANZA Revocation List (BRL) — the live revocation mechanism for the federation. Lists the published operator trust material currently suspended or revoked, keyed by the publishing operator_id — revocation targets the operator's published cryptographic/trust material, never the entity itself (ADR-027 D-038-06; certification suspension lives in the Layer-2 state machine, ADR-035). Signed by the BANZA revocation-domain delegated key (NOT the root key and NOT the protocol-metadata or conformance-evidence keys — ADR-027 domain separation). Operators MUST fetch a fresh BRL at least every 6 hours and MUST NOT route to any operator appearing in a valid, non-expired BRL (INV-FEDEVAL-002). Published at the canonical location https://banza.network/federation/revocation-list.json.",
+  "description": "The BANZA Revocation List (BRL) — the live revocation mechanism for the federation. Lists the published operator trust material currently suspended or revoked, keyed by the publishing operator_id — revocation targets the operator's published cryptographic/trust material, never the entity itself (ADR-025; certification suspension lives in the Layer-2 state machine, ADR-032). Signed by the BANZA revocation-domain delegated key (NOT the root key and NOT the protocol-metadata or conformance-evidence keys — ADR-025 domain separation). Operators MUST fetch a fresh BRL at least every 6 hours and MUST NOT route to any operator appearing in a valid, non-expired BRL (INV-FEDEVAL-002). Published at the canonical location https://banza.network/federation/revocation-list.json.",
   "_spec_version": "1",
   "_status": "canonical",
-  "_authority": "ADR-027",
+  "_authority": "ADR-025",
   "_source_of_truth": "spec/canonicalization.md (signing/digest bytes); contracts/production/brl.production.schema.json (structure). Normative; not derived from any implementation.",
   "_updated": "2026-06-19",
   "type": "object",
@@ -43,7 +43,7 @@
     "expires_at": {
       "type": "string",
       "format": "date-time",
-      "description": "UTC timestamp by which a fresh BRL MUST be fetched. ADR-027: routine cadence is at most 6 hours after issued_at; an emergency BRL may set 1 hour. A BRL past expires_at is stale and MUST trigger a refresh before any routing decision."
+      "description": "UTC timestamp by which a fresh BRL MUST be fetched. ADR-025: routine cadence is at most 6 hours after issued_at; an emergency BRL may set 1 hour. A BRL past expires_at is stale and MUST trigger a refresh before any routing decision."
     },
     "revoked": {
       "type": "array",
@@ -71,7 +71,7 @@
               "suspended",
               "revoked"
             ],
-            "description": "'suspended' — the material is temporarily withdrawn; lifted by removing the entry from the BRL. 'revoked' — the material is withdrawn indefinitely; interoperation resumes only by publishing fresh signed protocol metadata and conformance evidence that pass the Open Trust Evaluation (ADR-031). No party re-admits anyone."
+            "description": "'suspended' — the material is temporarily withdrawn; lifted by removing the entry from the BRL. 'revoked' — the material is withdrawn indefinitely; interoperation resumes only by publishing fresh signed protocol metadata and conformance evidence that pass the Open Trust Evaluation (ADR-025). No party re-admits anyone."
           },
           "permanent": {
             "type": "boolean",

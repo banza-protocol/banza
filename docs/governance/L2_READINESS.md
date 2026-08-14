@@ -26,16 +26,16 @@ A missing artifact → `L2_INCOMPLETE`; an invalid one → a specific blocker.
 | `simb_pre_review` | SimB pre-review (PASS) | `L2_BLOCKED_BY_SIMB` |
 | `conformance_l0` | Conformidade L0 (PASS) | `L2_BLOCKED_BY_L0` |
 | `l1_readiness` | L1 Readiness (READY) | `L2_BLOCKED_BY_L1` |
-| `payment_intent` | PaymentIntent (ADR-014) | `L2_BLOCKED_BY_PAYMENT_FLOW` |
+| `payment_intent` | PaymentIntent (ADR-015) | `L2_BLOCKED_BY_PAYMENT_FLOW` |
 | `idempotency` | Idempotency handling (INV-IDEM) | `L2_BLOCKED_BY_IDEMPOTENCY` |
-| `ledger` | Double-entry postings (ADR-011 / INV-LEDGER) | `L2_BLOCKED_BY_LEDGER` |
+| `ledger` | Double-entry postings (ADR-012 / INV-LEDGER) | `L2_BLOCKED_BY_LEDGER` |
 | `trace` | Trace linkage (INV-TRACE) | `L2_BLOCKED_BY_TRACE` |
-| `settlement` | Settlement obligation (ADR-021) | `L2_BLOCKED_BY_SETTLEMENT` |
+| `settlement` | Settlement obligation (ADR-019) | `L2_BLOCKED_BY_SETTLEMENT` |
 | `evidence` | Evidence Bundle reference | (missing → INCOMPLETE) |
 
 ## The payment flow (validated in Rust, locally)
 
-- **Payment intent** — canonical PaymentIntent (ADR-014): `id`, `operator_id`, `payee_wallet_id`,
+- **Payment intent** — canonical PaymentIntent (ADR-015): `id`, `operator_id`, `payee_wallet_id`,
   `merchant_id`, `amount_minor` (integer minor units, or null for open amounts — never float), `currency`,
   `surface` (QR/LINK/REQUEST), `status`, `transfer_id`, `idempotency_key`, `trace_id`, `created_at`. A
   PaymentIntent never holds or moves money; fulfilment produces exactly one Transfer that posts to the
@@ -43,12 +43,12 @@ A missing artifact → `L2_INCOMPLETE`; an invalid one → a specific blocker.
 - **Idempotency** — the same idempotency key must return a consistent response; a replay must be flagged
   (`replay_detected`). Divergent responses for one key are rejected (INV-IDEM).
 - **Ledger postings** — double-entry (a DEBIT and a CREDIT), zero-sum (DEBIT total = CREDIT total),
-  single currency, every entry linked to the `trace_id` (ADR-011 / INV-LEDGER). Amounts are integer
+  single currency, every entry linked to the `trace_id` (ADR-012 / INV-LEDGER). Amounts are integer
   minor units.
 - **Trace linkage** — one `trace_id` ties the intent, the ledger and the settlement together, with the
   minimum lifecycle events present (INV-TRACE / INV-RECON).
 - **Settlement obligation** — gross/net/fee coherent: `net = gross − fee`, all ≥ 0, linked to the
-  payment intent (ADR-021).
+  payment intent (ADR-019).
 - **Evidence reference** — a technical reference (hash/id) to an Evidence Bundle. Technical evidence,
   not certification.
 

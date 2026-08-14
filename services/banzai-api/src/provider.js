@@ -5,7 +5,7 @@
 //
 // `mock` is deterministic and offline (default when LLM_PROVIDER is unset).
 // `deepseek` and `qwen` call the provider's HOSTED chat API (OpenAI-compatible) —
-// inference happens off-host. `local_qwen` (ADR-042) calls a LOCAL, internal-only
+// inference happens off-host. `local_qwen` (ADR-036) calls a LOCAL, internal-only
 // llama.cpp OpenAI-compatible endpoint on the Docker network: no key, no GPU assumed,
 // nothing leaves the host (external_model_called stays false). It is benchmark-gated
 // and never the effective default until the VPS XL+ benchmark approves it.
@@ -33,7 +33,7 @@ export const ALLOWED_PROVIDERS = Object.freeze(["mock", "deepseek", "qwen", "loc
 // buildPrompt). No JS copy of the rules exists — single source of truth in Rust.
 
 // Provider endpoints. LLM_API_BASE overrides. `deepseek`/`qwen` are hosted (off-host);
-// `local_qwen` (ADR-042) is an internal-only llama.cpp OpenAI-compatible endpoint on
+// `local_qwen` (ADR-036) is an internal-only llama.cpp OpenAI-compatible endpoint on
 // the Docker network — reachable by service name, never published to host/internet.
 const REAL_DEFAULTS = Object.freeze({
   deepseek: { apiBase: "https://api.deepseek.com", model: "deepseek-chat", local: false },
@@ -82,7 +82,7 @@ function num(value, fallback) {
 
 // True when the resolved endpoint is on THIS host (loopback, RFC1918 private range,
 // or a bare Docker service name like "llama-local" reachable only on an internal
-// network). ADR-042: local/external classification is driven by the resolved
+// network). ADR-036: local/external classification is driven by the resolved
 // DESTINATION, never by the provider name — so a "local" provider pointed off-host is
 // correctly seen (and refused). A malformed base is treated as off-host (deny by default).
 export function isOnHost(apiBase) {
@@ -117,9 +117,9 @@ export function readLlmConfig(name, env = process.env) {
     apiBase,
     model: clean(env.LLM_MODEL) || defaults.model,
     declaredLocal: Boolean(defaults.local),
-    onHost: isOnHost(apiBase), // resolved-destination classification (ADR-042)
-    // ADR-042/047 latency tuning: local inference defaults to a professional-but-bounded
-    // output (384; was 256 in ADR-042 — with reasoning disabled per ADR-042 the budget goes
+    onHost: isOnHost(apiBase), // resolved-destination classification (ADR-036)
+    // ADR-036/047 latency tuning: local inference defaults to a professional-but-bounded
+    // output (384; was 256 in ADR-036 — with reasoning disabled per ADR-036 the budget goes
     // to the answer, and the VPS XL+ benchmark showed answers finish naturally at ~84-133
     // tokens with headroom, ~8.7s) and a 60s operational-margin timeout; hosted keep 800/30s.
     timeoutMs: num(env.LLM_TIMEOUT_MS, defaults.local ? 60000 : 30000),
@@ -156,7 +156,7 @@ export function buildChatRequest(name, question, grounded, cfg, { maxTokens, mod
     stream: false,
   };
   if (cfg.topP != null) body.top_p = cfg.topP;
-  // ADR-042: Rust owns the policy (disable_reasoning); this glue maps it to the local
+  // ADR-036: Rust owns the policy (disable_reasoning); this glue maps it to the local
   // llama.cpp/Qwen3 transport. Scoped to the on-host local runtime (declaredLocal) so
   // hosted providers' request shape is unchanged. Disabling Qwen3 "thinking" makes the
   // completion budget produce the ANSWER (not <think>) and avoids empty content.
@@ -179,7 +179,7 @@ function safeError(code, message) {
 // Real hosted adapter (deepseek | qwen). Same guardrails as mock: grounded-only,
 // cited, non-normative. No key → explicit safe failure BEFORE any network call.
 function createRealProvider(name, env, fetchImpl) {
-  // Classify by the RESOLVED destination host, not the provider name (ADR-042): a
+  // Classify by the RESOLVED destination host, not the provider name (ADR-036): a
   // "local" provider pointed off-host is caught here so the on-host telemetry/budget
   // invariants can never be silently bypassed. Config is read once (env is fixed).
   const cfg0 = readLlmConfig(name, env);
@@ -206,13 +206,13 @@ function createRealProvider(name, env, fetchImpl) {
     get inferenceLocation() {
       return isLocal ? "local" : "external";
     },
-    // ADR-042: null until warm-up runs, then true (primed) / false (never got ready).
+    // ADR-036: null until warm-up runs, then true (primed) / false (never got ready).
     get warmupState() {
       return warmedState;
     },
-    // ADR-042: best-effort warm-up for local inference. On a cold full-stack boot the
+    // ADR-036: best-effort warm-up for local inference. On a cold full-stack boot the
     // llama.cpp model is NOT in banzai-api's depends_on and takes ~90s to load, so a
-    // one-shot ping would fire against an unready endpoint and never retry (ADR-042
+    // one-shot ping would fire against an unready endpoint and never retry (ADR-036
     // FIX-3). This first POLLS llama.cpp's /health (503 while loading → 200 ready) with
     // bounded backoff, THEN primes the prefill path with a trivial 1-token request so the
     // first real answer isn't cold. No user data, not counted as a call; failure ignored.
@@ -246,7 +246,7 @@ function createRealProvider(name, env, fetchImpl) {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), Math.min(cfg.timeoutMs, 30000));
       try {
-        // ADR-042: prime the REAL compact system-prompt prefix (from Rust) so the first
+        // ADR-036: prime the REAL compact system-prompt prefix (from Rust) so the first
         // real answer reuses the cached KV prefix and skips the cold system-prompt prefill.
         // No user data, no real documents — a trivial user turn; reasoning disabled; 1 token.
         const { system, disable_reasoning } = buildPrompt("ok", { grounded: false }, "fast");
@@ -362,7 +362,7 @@ function createRealProvider(name, env, fetchImpl) {
         mode: "real",
         model: cfg.model,
         inference_location: isLocal ? "local" : "external",
-        // Per-answer proof that this specific answer called the model (ADR-042 telemetry).
+        // Per-answer proof that this specific answer called the model (ADR-036 telemetry).
         model_called: true,
         model_name: cfg.model,
         tokens_generated: tokensGenerated,

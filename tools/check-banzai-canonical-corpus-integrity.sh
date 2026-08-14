@@ -10,7 +10,7 @@
 #                  exact-source path), so an answer about it can actually cite it.
 #
 # The guard drives the REAL committed Rust/WASM engines (no model, no network) over the whole corpus via
-# services/banzai-api/eval/corpus-integrity.mjs, asserts 100% integrity + explicit ADR-041/054 coverage,
+# services/banzai-api/eval/corpus-integrity.mjs, asserts 100% integrity + explicit ADR-035/054 coverage,
 # regenerates the truth-table manifest as evidence, and self-tests that a non-existent id is NOT citable
 # (so the check cannot silently pass on a broken engine). Complements banzai-answer-quality-eval-check.
 
@@ -51,12 +51,12 @@ if (gaps.length) {
 if (summary.ok !== summary.total) err(`integrity ${summary.ok}/${summary.total}`);
 
 // 2. explicit coverage of the newest public policy documents (regression anchor).
-for (const id of ["ADR-041", "ADR-042"]) {
+for (const id of ["ADR-035", "ADR-036"]) {
   const r = rows.find((x) => x.id === id);
   if (!r) err(`${id} not discovered on disk`);
   else if (!r.ok) err(`${id} not fully integrated (${JSON.stringify(r)})`);
 }
-if (!bad) console.log("  ok: ADR-041 + ADR-042 fully integrated");
+if (!bad) console.log("  ok: ADR-035 + ADR-036 fully integrated");
 
 // 3. self-test — the audit is a real test, not a constant: a non-existent id must NOT be citable, and
 //    discovery must actually read the filesystem (non-empty, all ids well-formed).

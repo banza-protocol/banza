@@ -2,10 +2,10 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://banza.network/contracts/production/interoperability-report.production.schema.json",
   "title": "InteroperabilityReport",
-  "description": "Behavioural interoperability result for an implementation against a profile (ADR-034). Records the happy-path and NEGATIVE scenarios (malformed, invalid signature, timeout, retry, duplicate, replay, idempotency, unsupported capability, profile/protocol mismatch, stale metadata, expired evidence, revoked, reversal, refund, reconciliation, partial failure), with a reproducible evidence_hash. Certification requires interoperability AND conformance — never schema conformance alone (ADR-034 D-064-03). A PASS is technical evidence, not a licence/admission/authorisation (ADR-004).",
+  "description": "Behavioural interoperability result for an implementation against a profile (ADR-032). Records the happy-path and NEGATIVE scenarios (malformed, invalid signature, timeout, retry, duplicate, replay, idempotency, unsupported capability, profile/protocol mismatch, stale metadata, expired evidence, revoked, reversal, refund, reconciliation, partial failure), with a reproducible evidence_hash. Certification requires interoperability AND conformance — never schema conformance alone (ADR-032). A PASS is technical evidence, not a licence/admission/authorisation (ADR-005).",
   "_spec_version": "1.0",
   "_status": "production-baseline",
-  "_authority": "ADR-034 (interoperability certification); this schema and the conformance/ interoperability vectors define the report. engines/banza-certification implements it and does not define it.",
+  "_authority": "ADR-032 (interoperability certification); this schema and the conformance/ interoperability vectors define the report. engines/banza-certification implements it and does not define it.",
   "type": "object",
   "required": [
     "report_id",
@@ -52,7 +52,7 @@
     "evidence_hash": {
       "type": "string",
       "minLength": 1,
-      "description": "Reproducible evidence hash (ADR-034 D-064-05)."
+      "description": "Reproducible evidence hash (ADR-032)."
     }
   }
 }

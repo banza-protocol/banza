@@ -2,10 +2,10 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://banza.network/contracts/production/certified-implementation.production.schema.json",
   "title": "CertifiedImplementation",
-  "description": "The subject of certification (ADR-034 D-064-01): an IMPLEMENTATION, identified by implementation_id plus the content hash of the exact artifact set tested (implementation_hash). Never an entity, brand or operator — 'declared_by' is attribution/contact only. A different build is a different subject and needs its own certification.",
+  "description": "The subject of certification (ADR-032): an IMPLEMENTATION, identified by implementation_id plus the content hash of the exact artifact set tested (implementation_hash). Never an entity, brand or operator — 'declared_by' is attribution/contact only. A different build is a different subject and needs its own certification.",
   "_spec_version": "1.0",
   "_status": "production-baseline",
-  "_authority": "ADR-034 (interoperability certification); this schema defines the record. engines/banza-certification implements it and does not define it.",
+  "_authority": "ADR-032 (interoperability certification); this schema defines the record. engines/banza-certification implements it and does not define it.",
   "type": "object",
   "required": [
     "implementation_id",

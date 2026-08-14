@@ -5,7 +5,7 @@
 //     `env.NEXT_PUBLIC_BANZA_BUILD_TIME`). It is the moment the canonical public snapshot was last built,
 //     deployed and verified by the public-edge QA — a real timestamp, not a browser-seeded counter. The
 //     hero status bar renders the elapsed time relative to THIS real value on the client.
-//   - REGISTRY_SUMMARY: derived from the closed Technical Registry (ADR-038). The single reference
+//   - REGISTRY_SUMMARY: derived from the closed Technical Registry (ADR-034). The single reference
 //     implementation is Operador Zero; there are no production operators and no active technical
 //     certifications. Operador Zero is NEVER counted as a production operator, an active participant or an
 //     active certification (§15/§16).

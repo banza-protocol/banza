@@ -94,7 +94,7 @@ Every change must preserve the protocol's truth. The site is **pre-production**:
 - Conformance is available; **PASS is evidence, not certification**.
 - **No operator is certified today.** Conformance & Interoperability Certification
   (L2) is per-implementation, evidence-based and **decided by the Rust engines**
-  against a public versioned profile (ADR-034) — BANZA is **not** a certificate
+  against a public versioned profile (ADR-032) — BANZA is **not** a certificate
   authority and issues no operator certificate. Records are published to the Technical
   Registry, which is empty in pre-production; production certification and federation
   remain gated on milestones **M2/M3**. BanzAI **explains, it does not certify or decide**.

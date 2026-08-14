@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #
-# BanzAI runtime SSOT guard (M2.19G.5C, ADR-042).
+# BanzAI runtime SSOT guard (M2.19G.5C, ADR-036).
 #
-# ADR-042 introduces ONE public runtime single-source-of-truth: GET /banzai/runtime — a secret-free,
+# ADR-036 introduces ONE public runtime single-source-of-truth: GET /banzai/runtime — a secret-free,
 # versioned projection of the runtime state every human page consumes (where a page's prose and this
 # route differ, the route wins). It is a NEW handler, never a public proxy of the internal /health.
 #
@@ -84,8 +84,8 @@ grep -qE 'a rota ganha|as rotas ganham' "$ESTADO" && ok "/estado states the mach
 
 if [ "$fail" -ne 0 ]; then
   echo
-  echo "banzai-runtime-ssot: FAIL — the runtime SSOT contract (ADR-042) drifted."
+  echo "banzai-runtime-ssot: FAIL — the runtime SSOT contract (ADR-036) drifted."
   exit 1
 fi
 echo
-echo "banzai-runtime-ssot: ✓ one secret-free /banzai/runtime SSOT (schema_version + authoritative:false); /estado consumes it and never hardcodes the live engine (ADR-042)"
+echo "banzai-runtime-ssot: ✓ one secret-free /banzai/runtime SSOT (schema_version + authoritative:false); /estado consumes it and never hardcodes the live engine (ADR-036)"

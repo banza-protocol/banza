@@ -1,8 +1,8 @@
-# Operador Zero — E2E Demo Operator Root (ADR-041, M2.13A)
+# Operador Zero — E2E Demo Operator Root (ADR-035, M2.13A)
 
 A **demo-only** Ed25519 signing root used by the Operador Zero end-to-end protocol validation. It
 exists to exercise signature, key manifest, revocation, evidence-bundle and trace verification for the
-Operador Zero reference implementation (ADR-041) — nothing more.
+Operador Zero reference implementation (ADR-035) — nothing more.
 
 > This is **NOT** the Trust Root of the BANZA protocol. It does **not** certify, authorise, license or
 > approve any operator, and it moves **no** real money. Every artifact declares `demo_only: true`,

@@ -2,7 +2,7 @@
 name = "banzai-trace"
 version = "0.1.0"
 edition = "2021"
-description = "banzai-trace (ADR-043, M2.19G.6): the deterministic BanzAI financial-trace verifier — INV-TRACE-001 / INV-LEDGER-001 / INV-STL-001 over a payment-flow trace JSON. Extracted into the monorepo from the former banza-protocol/banzai engines/banzai-core so the shipped trace WASM has buildable in-tree source. Deterministic, no network, no LLM, no provider. Technical evidence, never certification."
+description = "banzai-trace (ADR-038, M2.19G.6): the deterministic BanzAI financial-trace verifier — INV-TRACE-001 / INV-LEDGER-001 / INV-STL-001 over a payment-flow trace JSON. Extracted into the monorepo from the former banza-protocol/banzai engines/banzai-core so the shipped trace WASM has buildable in-tree source. Deterministic, no network, no LLM, no provider. Technical evidence, never certification."
 license = "Apache-2.0"
 
 [lib]

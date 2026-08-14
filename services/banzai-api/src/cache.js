@@ -19,7 +19,7 @@ export function sha256(text) {
 
 // Bind EVERY distinguishing field the pipeline provides — not just the first five. Beyond
 // question/provider/lang/mode/sourcesHash this includes repoIndexHash, safetyVersion,
-// contractVersion, postValidationPolicy (ADR-042: a policy/contract bump evicts stale-policy
+// contractVersion, postValidationPolicy (ADR-036: a policy/contract bump evicts stale-policy
 // answers, so a cache hit can only ever return an answer validated under the CURRENT policy) and
 // the resolved document/entity identity (so two distinct (entity, document) requests never collide
 // on the exact cache). Keys are sorted so insertion order is irrelevant; all values are
@@ -100,7 +100,7 @@ export class SemanticCache extends LruStore {
     this.misses = 0;
   }
   // A candidate must match on provider/lang/mode/sourcesHash (a corpus change invalidates semantic
-  // hits exactly like exact ones) AND on the post-validation policy + contract version (ADR-042) AND
+  // hits exactly like exact ones) AND on the post-validation policy + contract version (ADR-036) AND
   // on the resolved document/entity identity — otherwise a >=threshold lexical paraphrase about a
   // DIFFERENT entity could return the wrong entity's validated answer (cross-entity contamination).
   find(fields) {

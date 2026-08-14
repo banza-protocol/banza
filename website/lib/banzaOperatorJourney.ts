@@ -1,6 +1,6 @@
-// BanzAI operator-guidance adapter (ADR-042; reframed by ADR-042 §D-076-01/02). RUST_WRAPPER_ONLY.
+// BanzAI operator-guidance adapter (ADR-036; reframed by ADR-036/02). RUST_WRAPPER_ONLY.
 //
-// REGRA (ADR-042 §D-076-01): Modelo A orienta o percurso; Modelo B avalia — existe uma única
+// REGRA (ADR-036): Modelo A orienta o percurso; Modelo B avalia — existe uma única
 // autoridade de estado técnico. This adapter is the guidance layer (Model A). It marshals NAVIGATION
 // state and TYPED Model B references across the WASM boundary — never a verdict, never a score.
 //
@@ -13,7 +13,7 @@
 // sessionStorage/IndexedDB/cookies, and is cleared on reload.
 
 /** Per-activity NAVIGATION status. `completed` is orientation only — never approval, a verdict or a
- *  score (ADR-042 §D-076-02). There is no positive-technical status here by construction. */
+ *  score (ADR-036). There is no positive-technical status here by construction. */
 export type JourneyStepStatus = "not_started" | "available" | "in_progress" | "completed";
 
 /** The canonical six Model B per-step states this layer may REFERENCE (never recompute). */

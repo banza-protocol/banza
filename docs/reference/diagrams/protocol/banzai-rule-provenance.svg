@@ -3,7 +3,7 @@
   id:        SVG-P-074
   diagram:   Proveniência das regras
   version:   1.0
-  source:    BANZA_REFERENCIA.md §11 · ADR-041 · docs/governance/BANZAI_NATIVE_PROTOCOL_AGENT.md
+  source:    BANZA_REFERENCIA.md §11 · ADR-035 · docs/governance/BANZAI_NATIVE_PROTOCOL_AGENT.md
   updated:   2026-07-19
   author:    BANZA Protocol
   style:     protocol
@@ -67,5 +67,5 @@
   <text x="40" y="328" font-size="10.5" fill="#6B6265">Sem fonte, o BanzAI declara que não há regra suficiente e pode sugerir uma proposta RFC/ADR.</text>
   <text x="40" y="344" font-size="10.5" fill="#6B6265">Uma proposta não é regra activa. BanzAI não inventa regras nem cria decisões arquitecturais.</text>
 
-  <text x="500" y="400" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-074 · Proveniência das regras · BANZA_REFERENCIA.md §11 · ADR-041 · v1.0 · 2026-07-19</text>
+  <text x="500" y="400" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-074 · Proveniência das regras · BANZA_REFERENCIA.md §11 · ADR-035 · v1.0 · 2026-07-19</text>
 </svg>

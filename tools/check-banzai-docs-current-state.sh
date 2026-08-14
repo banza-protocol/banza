@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# make banzai-docs-current-state-check — M2.9D guard (ADR-042/044-051).
+# make banzai-docs-current-state-check — M2.9D guard (ADR-036/044-051).
 #
 # Keeps the CURRENT public documentation surface honest about the deployed BanzAI reality (local Qwen,
 # unified /banzai interface, Qwen-first routing, non-normative, pre-production). It fails if a current

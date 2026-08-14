@@ -1,4 +1,4 @@
-//! Native tests for the ADR-042 language-generation control logic:
+//! Native tests for the ADR-036 language-generation control logic:
 //! the post-response validator and the prompt builder (with injection defence).
 
 use banzai_api_kb::prompt::{build_prompt, SYSTEM_PROMPT};
@@ -6,7 +6,7 @@ use banzai_api_kb::validate::validate_response;
 
 #[test]
 fn system_prompt_is_compact_but_keeps_every_invariant() {
-    // ADR-042 latency tuning: the system prompt must stay well under the pre-tuning size
+    // ADR-036 latency tuning: the system prompt must stay well under the pre-tuning size
     // (was ~1948 chars) — a proxy for reduced CPU prefill — WITHOUT dropping any boundary.
     assert!(
         SYSTEM_PROMPT.chars().count() < 1400,
@@ -27,7 +27,7 @@ fn system_prompt_is_compact_but_keeps_every_invariant() {
         "prompt de sistema",                     // no system-prompt leak
         "raciocínio interno",                    // no chain-of-thought
         "camada local de linguagem",             // Qwen is only a language layer
-        "guarda chaves privadas",                // key-custody boundary (ADR-042 FIX-4)
+        "guarda chaves privadas",                // key-custody boundary (ADR-036 FIX-4)
         "só serve artefactos públicos",          // public infra serves signed artifacts only
     ] {
         assert!(
@@ -171,7 +171,7 @@ fn validator_broadened_conjugations_and_no_multibyte_panic() {
 
 #[test]
 fn validator_blocks_infra_key_custody_claims_but_allows_the_grounded_answer() {
-    // ADR-042 FIX-4: the compact prompt kept the key-custody clause; the validator now
+    // ADR-036 FIX-4: the compact prompt kept the key-custody clause; the validator now
     // backstops it deterministically. False assertions that the public infra holds keys
     // or signs must be BLOCKED.
     assert_eq!(
@@ -233,11 +233,11 @@ fn prompt_builder_wraps_untrusted_data_and_defends_injection() {
     assert!(user.contains("<FONTES>") && user.contains("</FONTES>"));
     assert!(user.contains("<PERGUNTA>") && user.contains("O que é BANZA?"));
     assert!(user.contains("[ADR-001]"));
-    // ADR-042: the prompt contract carries the reasoning policy (BanzAI never reasons).
+    // ADR-036: the prompt contract carries the reasoning policy (BanzAI never reasons).
     assert_eq!(
         v["disable_reasoning"].as_bool(),
         Some(true),
-        "prompt contract must declare disable_reasoning=true (ADR-042)"
+        "prompt contract must declare disable_reasoning=true (ADR-036)"
     );
 }
 

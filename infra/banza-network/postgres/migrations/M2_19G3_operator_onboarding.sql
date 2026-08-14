@@ -1,4 +1,4 @@
--- M2.19G.3 (ADR-040) — operator onboarding tables (private candidate registry, email-OTP challenges,
+-- M2.19G.3 (ADR-037) — operator onboarding tables (private candidate registry, email-OTP challenges,
 -- sessions, .well-known origin challenges, audit). Idempotent; safe to re-run. Mirrors the canonical
 -- init/001_schema.sql for EXISTING databases (the init file only runs on an empty volume).
 --
@@ -6,8 +6,8 @@
 --   docker compose exec -T postgres psql -U banza_admin -d banza_protocol -f /migrations/M2_19G3_operator_onboarding.sql
 --
 -- HASHES / opaque ids ONLY — no plaintext OTP, no session secret, no keys, no PII beyond a contact
--- email (ADR-026 boundary; postgres-data-boundary-check). Onboarding is a hosted service, not a
--- protocol rule (ADR-040).
+-- email (ADR-013 boundary; postgres-data-boundary-check). Onboarding is a hosted service, not a
+-- protocol rule (ADR-037).
 
 \connect banza_protocol
 

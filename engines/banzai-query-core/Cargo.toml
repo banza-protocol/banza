@@ -2,7 +2,7 @@
 name = "banzai-query-core"
 version = "0.1.0"
 edition = "2021"
-description = "banzai-query-core (ADR-043, M2.18B.7): the single Rust authority for the BanzAI Query Core — normalization, typo recovery, the query ontology / intent taxonomy, the entity / attribute / alias registries, resolution, relation graph, retrieval + answer planning, the factual package, reason codes, coverage decisions and the embedded canonical corpus. Pure Rust: deterministic, no wasm-bindgen, no HTTP service, no LLM, no network. banzai-api-kb depends on this crate for all business logic and owns only the WASM adaptation surface."
+description = "banzai-query-core (ADR-038, M2.18B.7): the single Rust authority for the BanzAI Query Core — normalization, typo recovery, the query ontology / intent taxonomy, the entity / attribute / alias registries, resolution, relation graph, retrieval + answer planning, the factual package, reason codes, coverage decisions and the embedded canonical corpus. Pure Rust: deterministic, no wasm-bindgen, no HTTP service, no LLM, no network. banzai-api-kb depends on this crate for all business logic and owns only the WASM adaptation surface."
 license = "Apache-2.0"
 
 [lib]

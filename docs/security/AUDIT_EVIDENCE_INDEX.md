@@ -29,7 +29,7 @@ certificate, no external model call, and no external audit are represented here
 
 | evidence_id | claim / control | artifact | how to verify | linked |
 |---|---|---|---|---|
-| EV-001 | Official engines are Rust; readiness decided in Rust (C-RUST-FIRST) | `engines/`, ADR-043 | `make rust-rule-check` | yes |
+| EV-001 | Official engines are Rust; readiness decided in Rust (C-RUST-FIRST) | `engines/`, ADR-038 | `make rust-rule-check` | yes |
 | EV-002 | TypeScript never decides readiness/status (C-NO-TS-READINESS) | adapters (load+marshal+render-only) | `vitest` render-only adapter tests | yes |
 | EV-003 | BanzAI uses a mock provider only; `llm_calls = 0` (C-MOCK-PROVIDER, C-LLM-ZERO) | all engine reports | inspect report flags; `cargo test -p banza-security-assurance` | yes |
 | EV-004 | No external network calls by default (C-NO-EXTERNAL-CALLS) | local validators; WASM-only | E2E network capture (localhost + WASM only) | yes |
@@ -52,7 +52,7 @@ certificate, no external model call, and no external audit are represented here
 | EV-021 | No "corpus" / no public "KB" (C-NO-CORPUS-KB) | public UI | `make regulatory-check`; `vitest` | yes |
 | EV-022 | BANZA presented as protocol, not PSP (C-PROTOCOL-NOT-PSP) | public copy; Assistente | boundary docs; `make regulatory-check` | yes |
 | EV-023 | BanzAI assistant refuses over-claiming authority (R-AI-001) | Assistente boundary intents | `cargo test -p banzai-evidence` boundary/kb tests | yes |
-| EV-024 | Domain-separated signing keys (root/cert/revocation) (R-TRUST-001, ADR-027) | trust engine; ceremony docs | `cargo test -p banza-trust`; `ROOT_KEY_CEREMONY_REQUIREMENTS.md` | yes |
+| EV-024 | Domain-separated signing keys (root/cert/revocation) (R-TRUST-001, ADR-025) | trust engine; ceremony docs | `cargo test -p banza-trust`; `ROOT_KEY_CEREMONY_REQUIREMENTS.md` | yes |
 | EV-025 | Assurance status computed in Rust (BX2.0) | security-assurance engine | `cargo test -p banza-security-assurance` | yes |
 | EV-026 | Deep-assurance status computed in Rust (BX2.4) | `validate_deep_assurance` | `cargo test -p banza-security-assurance` (deep-assurance cases) | yes |
 | EV-027 | Reproducible deploy bundle; pinned image tags (R-SUPPLY-001, R-DEPLOY-001) | `infra/banza-network/` | inspect fixed image tags; `infra/banza-network/README.md` | yes |

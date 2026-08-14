@@ -40,7 +40,7 @@ are described, they are **planned / would-be-required-before-production**, not d
 
 ## 3. Trust model (as specified)
 
-- **Domain-separated keys** (ADR-027): distinct keys for the root domain, certificate domain, and
+- **Domain-separated keys** (ADR-025): distinct keys for the root domain, certificate domain, and
   revocation domain. Using the wrong domain is a trust bypass and is guarded against by the trust engine's
   form checks. The production root ceremony is **planned** (M2), not performed.
 - **BRL fail-closed** (INV-FEDEVAL-002): a revoked operator **blocks** in L3/L4 routing. Missing or invalid

@@ -69,13 +69,13 @@ ROUTE_FLAG_EXEMPT='/certificates|production_certificates'
 # exists. A NONZERO count ("5 certificados emitidos") would still report.
 ZERO_STATE='(^|[^0-9])0 certificados( de produção| de producao)? emitidos'
 
-# M2.19 reconciliation (ADR-003/061): Layer 2 is the "BANZA Conformance & Interoperability Certification"
+# M2.19 reconciliation (ADR-004/061): Layer 2 is the "BANZA Conformance & Interoperability Certification"
 # — certification OF AN IMPLEMENTATION (evidence-based, Rust-decided, scoped, revocable). That certification
 # is ACTIVE canonical vocabulary. Only "certificação técnica / de conformidade / de interoperabilidade"
 # (of an implementation) is cleared here; ENTITY/operator certification ("certificação de operador",
 # "operador certificado", "certificado de operador", "assistente de certificação", "verificação tripla",
 # "certificado de produção") is NOT matched by this term and stays blocked by its own labels below.
-# M2.19E/F (ADR-041): the read-only Operador Zero surface + BanzAI Validation Workbench legitimately
+# M2.19E/F (ADR-035): the read-only Operador Zero surface + BanzAI Validation Workbench legitimately
 # name the L2 certification CONCEPT and its honest readiness/state (NOT_CERTIFIED for the demo): the
 # certification-readiness step, "preparação de certificação", "estado de certificação", the
 # "Certificação de produção: não" boundary field, "certificação é técnica, por implementação", and the
@@ -125,7 +125,7 @@ LABELS=(
   '(certificado de produção|certificado de producao)'
   'certificados emitidos'
   '(certificado válido|certificado valido)'
-  # M2.19G (ADR-034): bare "certificação" is now CURRENT canonical vocabulary — the per-implementation
+  # M2.19G (ADR-032): bare "certificação" is now CURRENT canonical vocabulary — the per-implementation
   # L2 Conformance & Interoperability Certification ("perfil de certificação", "certificação (L2)",
   # "certificação válida", "modelo de certificação", "sujeito da certificação"). Only ENTITY/operator
   # certification stays a removed label, so this scans the entity form specifically. "operador
@@ -172,7 +172,7 @@ must_report "accented label fires"                '(certificação de operador|c
 must_allow "negated boundary sentence"            '(certificação|certificacao)'     'docs/reference/pt/completa.md:5:Um PASS é evidência verificável, não certificação nem aprovação humana.'
 must_allow "/certificates legacy route line"      '(certificado válido|certificado valido)' 'website/components/SiteFooter.tsx:15:      { href: "/certificates", label: "Certificado válido (legacy)" },'
 must_allow "production_certificates flag = false"  '(certificado de produção|certificado de producao)' 'website/lib/site.ts:5:  production_certificates: false, // nenhum certificado de produção emitido'
-# MUST allow — M2.19 Layer-2 canonical vocabulary (ADR-003/061): certification of an IMPLEMENTATION.
+# MUST allow — M2.19 Layer-2 canonical vocabulary (ADR-004/061): certification of an IMPLEMENTATION.
 must_allow "L2: certificação de conformidade e interoperabilidade" '(certificação|certificacao)' 'website/lib/decisions.ts:33:    "summary": "... L2 certificação de conformidade e interoperabilidade (por implementação, decidida por Rust) ...",'
 must_allow "L2: Certificação técnica (of an implementation)"       '(certificação|certificacao)' 'website/lib/decisions.ts:81:    "summary": "Certificação técnica, admissão a scheme e autorização regulatória são três determinações distintas ...",'
 # MUST still report — ENTITY/operator certification is NOT the L2 term and keeps its own label.

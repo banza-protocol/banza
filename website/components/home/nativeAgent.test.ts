@@ -18,7 +18,7 @@ describe("M2.7H — reference presents BanzAI as the protocol agent", () => {
   it("has the '## 12. BanzAI — Agente do Protocolo' chapter (M2.7L canonical, §12 after the M2.12B renumbering)", () => {
     expect(ref).toContain("## 12. BanzAI — Agente do Protocolo");
   });
-  // M2.19G.5F — §12 is the canonical 7-section rewrite (ADR-042/ADR-042/ADR-042). These assertions track
+  // M2.19G.5F — §12 is the canonical 7-section rewrite (ADR-036/ADR-036/ADR-036). These assertions track
   // the CURRENT canonical §12 wording, preserving the original intent. Reconciled during the Ch04 editorial
   // pass: the earlier assertions matched an older §12/§4 (an "Autoridade e fronteiras" matrix and the §4
   // "o Rust compreende…/…explica uma vez" sentence). The 5F rewrite renamed §12's sections to "Autoridade
@@ -39,7 +39,7 @@ describe("M2.7H — reference presents BanzAI as the protocol agent", () => {
     expect(ref).toContain("Não constitui uma quarta camada do BANZA e não é fonte normativa");
     expect(ref).toContain("O protocolo permanece utilizável e verificável sem o BanzAI");
   });
-  it("states the canonical single-synthesis architecture (§12 'Como o BanzAI responde', ADR-042/ADR-042)", () => {
+  it("states the canonical single-synthesis architecture (§12 'Como o BanzAI responde', ADR-036/ADR-036)", () => {
     expect(ref).toContain("### Como o BanzAI responde");
     expect(ref).toMatch(/percurso determinístico em Rust/i);
     expect(ref).toMatch(/nunca a resposta final/i);

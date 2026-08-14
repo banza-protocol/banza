@@ -19,16 +19,16 @@
 /// router seeded the entry id or the resolver kept the bare entity name.
 pub const ENTITY_PRIMARY_SOURCES: &[(&str, &[&str])] = &[
     // BANZA — the open financial protocol. ADR-001 defines it (open protocol / implementation
-    // independence); ADR-002 fixes the ecosystem naming (BANZA / BanzAI / Banzami).
-    ("what-is-banza", &["ADR-001", "ADR-002"]),
-    ("banza", &["ADR-001", "ADR-002"]),
+    // independence); ADR-001 fixes the ecosystem naming (BANZA / BanzAI / Banzami).
+    ("what-is-banza", &["ADR-001", "ADR-001"]),
+    ("banza", &["ADR-001", "ADR-001"]),
     // BanzAI — the native protocol agent and primary human-operator interface.
-    ("def-banzai-agent", &["ADR-042", "ADR-042"]),
-    ("banzai", &["ADR-042", "ADR-042"]),
+    ("def-banzai-agent", &["ADR-036", "ADR-036"]),
+    ("banzai", &["ADR-036", "ADR-036"]),
     // Banzami — creator / initial institutional maintainer; the naming-inversion record carries the
     // BANZA/BanzAI/Banzami identity distinction (attribution, not a payment operator).
-    ("what-is-banzami", &["ADR-002"]),
-    ("banzami", &["ADR-002"]),
+    ("what-is-banzami", &["ADR-001"]),
+    ("banzami", &["ADR-001"]),
 ];
 
 /// The declared primary source document ids for a canonical entity id (empty slice if none is declared).

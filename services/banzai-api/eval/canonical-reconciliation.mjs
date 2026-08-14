@@ -12,6 +12,14 @@
 //         node eval/canonical-reconciliation.mjs --check   # fail if the committed artifacts drifted
 
 import { readFileSync, writeFileSync } from "node:fs";
+
+import { readdirSync } from "node:fs";
+// The floor is DERIVED from the corpus, never a pinned total: the number of cases a generator can
+// compose is a function of how many canonical records exist, so a fixed number reports a smaller
+// corpus as a regression when coverage per record is unchanged. 50 cases per record is the floor.
+const RECORDS = readdirSync(new URL("../../../decisions/adr", import.meta.url)).filter((f) => f.endsWith(".md") && f !== "README.md").length
+  + readdirSync(new URL("../../../decisions/rfc", import.meta.url)).filter((f) => f.endsWith(".md") && f !== "README.md").length;
+const CASE_FLOOR = RECORDS * 50;
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { CLASSES } from "./gen-canonical-eval.mjs";
@@ -115,7 +123,7 @@ const report = {
   prior_total_no_double_counting: PRIOR.reduce((n, p) => n + p.count, 0),
   canonical_suite: {
     total: cases.length,
-    floor: 2500,
+    floor: CASE_FLOOR,
     distinct_semantic_seeds: seedSet.size,
     by_class: byClass,
     class_definitions: CLASS_DEF,
@@ -175,7 +183,7 @@ if (process.argv.includes("--check")) {
     try { cur = readFileSync(file, "utf8"); } catch { /* fresh */ }
     if (cur !== want) { console.error(`DRIFT: ${file} is stale — run \`node eval/canonical-reconciliation.mjs\``); bad = 1; }
   }
-  if (cases.length < report.canonical_suite.floor) { console.error(`FAIL: canonical total ${cases.length} < 2500`); bad = 1; }
+  if (cases.length < report.canonical_suite.floor) { console.error(`FAIL: canonical total ${cases.length} < ${report.canonical_suite.floor}`); bad = 1; }
   for (const c of CLASSES) if (!byClass[c]) { console.error(`FAIL: class "${c}" empty`); bad = 1; }
   if (bad) process.exit(1);
   console.log(`reconciliation in sync — canonical ${cases.length} cases; prior suites: ${PRIOR.map((p) => p.key + "=" + p.count).join(", ")}`);

@@ -2,7 +2,7 @@
 name = "banza-trust"
 version = "0.1.0"
 edition = "2021"
-description = "banza-trust (ADR-043, R5; M2.4): the Rust BANZA trust verifier for the open financial protocol. Ed25519 + ADR-027 canonical-JSON evaluation of signed protocol metadata, delegated signing keys, operator manifests, conformance evidence, the public protocol registry and revocation/fail-closed. Verification only — no key generation for production, no signing of production artifacts, no operator authorisation, certification or approval."
+description = "banza-trust (ADR-038, R5; M2.4): the Rust BANZA trust verifier for the open financial protocol. Ed25519 + ADR-025 canonical-JSON evaluation of signed protocol metadata, delegated signing keys, operator manifests, conformance evidence, the public protocol registry and revocation/fail-closed. Verification only — no key generation for production, no signing of production artifacts, no operator authorisation, certification or approval."
 license = "Apache-2.0"
 
 [lib]

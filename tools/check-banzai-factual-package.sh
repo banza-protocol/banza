@@ -50,7 +50,7 @@ const path = require("path");
 const kb = require(path.resolve(process.argv[2], "banzai_api_kb.js"));
 let bad = 0;
 const err = (m) => { console.log("FAIL: " + m); bad = 1; };
-const docPkg = JSON.parse(kb.build_factual_package_planned_json("t", "explica a ADR-002 sobre a inversao de nomes", "ADR-002", "brief"));
+const docPkg = JSON.parse(kb.build_factual_package_planned_json("t", "explica a ADR-001 sobre a inversao de nomes", "ADR-001", "brief"));
 const verify = (pkg, out) => JSON.parse(kb.verify_claims_json(JSON.stringify(pkg), JSON.stringify(out)));
 const cat = (claim, fact_ids = []) => verify(docPkg, { answer_markdown: `x ${claim} y`, claims: [{ claim, fact_ids }], cited_source_ids: [] }).classified[0].category;
 
@@ -91,9 +91,9 @@ if (!verify(opPkg, { answer_markdown: "a mediana foi 12.8 s", claims: [{ claim: 
 if (verify(docPkg, { answer_markdown: "a mediana foi X", claims: [{ claim: "median_total", category: "DERIVED" }], cited_source_ids: [] }).ok) err("an underived DERIVED claim was not blocked");
 
 // §9 — citation verification: a real citation passes, a dead/invented one is rejected.
-if (!verify(docPkg, { answer_markdown: "A ADR-002 inverte a nomenclatura.", claims: [{ claim: "inverte a nomenclatura", fact_ids: ["F1"] }], cited_source_ids: ["ADR-002"] }).ok) err("a real citation was wrongly rejected");
-const dead = verify(docPkg, { answer_markdown: "A ADR-002 inverte a nomenclatura.", claims: [{ claim: "inverte a nomenclatura", fact_ids: ["F1"] }], cited_source_ids: ["ADR-039"] });
-if (dead.ok || !(dead.dead_citations || []).includes("ADR-039")) err("a dead citation was not rejected");
+if (!verify(docPkg, { answer_markdown: "A ADR-001 inverte a nomenclatura.", claims: [{ claim: "inverte a nomenclatura", fact_ids: ["F1"] }], cited_source_ids: ["ADR-001"] }).ok) err("a real citation was wrongly rejected");
+const dead = verify(docPkg, { answer_markdown: "A ADR-001 inverte a nomenclatura.", claims: [{ claim: "inverte a nomenclatura", fact_ids: ["F1"] }], cited_source_ids: ["ADR-030"] });
+if (dead.ok || !(dead.dead_citations || []).includes("ADR-030")) err("a dead citation was not rejected");
 
 // determinism — the same package is byte-identical across builds (no model, no state).
 const a = kb.build_factual_package_planned_json("t", "o que e a inversao de nomes", "", "");

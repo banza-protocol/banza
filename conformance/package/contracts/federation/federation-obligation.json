@@ -5,7 +5,7 @@
   "description": "Obligation created by the originating operator when a cross-operator payment is accepted. Input to the cross-operator netting and settlement process.",
   "_spec_version": "1",
   "_status": "canonical",
-  "_authority": "ADR-031, RFC-0002, INV-FED-002, INV-FED-005",
+  "_authority": "ADR-025, RFC-0002, INV-FED-002, INV-FED-005",
   "type": "object",
   "required": [
     "schema_version",

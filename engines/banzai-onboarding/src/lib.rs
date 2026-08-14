@@ -1,4 +1,4 @@
-//! banzai-onboarding (M2.19G.3, ADR-040) — the pure Rust security-decision engine for BanzAI-hosted
+//! banzai-onboarding (M2.19G.3, ADR-037) — the pure Rust security-decision engine for BanzAI-hosted
 //! operator onboarding.
 //!
 //! It answers, in Rust: *is this OTP request allowed, what is the code to email and the digest to
@@ -11,7 +11,7 @@
 //! (Postgres) and transport (Resend); this crate only *decides*. OTP codes and session tokens are never
 //! stored — only their HMAC-SHA256 digests (keyed by a server-side pepper) leave this engine for
 //! storage. Verification uses the `hmac` crate's constant-time `verify_slice`. Onboarding is a hosted
-//! BanzAI service, never a BANZA protocol rule (ADR-040): third parties need none of this to implement
+//! BanzAI service, never a BANZA protocol rule (ADR-037): third parties need none of this to implement
 //! the protocol, publish endpoints, run the engines, validate artifacts or generate receipts.
 
 use hmac::{Hmac, Mac};
@@ -28,7 +28,7 @@ pub const TOOL_VERSION: &str = "0.1.0";
 pub const OTP_DIGITS: usize = 6;
 pub const WELL_KNOWN_PATH: &str = "/.well-known/banza/ownership-challenge.json";
 
-/// The minimal candidate lifecycle (ADR-040 §17). A candidate is NEVER a published operator,
+/// The minimal candidate lifecycle (ADR-037 §17). A candidate is NEVER a published operator,
 /// participant, certified entity, scheme member or authorised entity.
 pub fn candidate_states() -> Vec<&'static str> {
     vec![

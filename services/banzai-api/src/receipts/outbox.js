@@ -1,4 +1,4 @@
-// Service-local durable OUTBOX for the validation receipt store (ADR-042 §D-076-08, correction 1).
+// Service-local durable OUTBOX for the validation receipt store (ADR-036, correction 1).
 //
 // When PostgreSQL is unavailable at persist time, a receipt is NOT lost and is NOT faked: the exact
 // canonical payload (with its hash, ids, engine version and ORIGINAL timestamps) is appended to a local

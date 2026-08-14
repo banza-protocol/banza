@@ -1,4 +1,4 @@
-// Onboarding configuration (M2.19G.3, ADR-040). SECRETS_FROM_ENV_ONLY.
+// Onboarding configuration (M2.19G.3, ADR-037). SECRETS_FROM_ENV_ONLY.
 //
 // Every secret (the OTP/session HMAC pepper, the Resend API key) is read from the process
 // environment and NEVER hard-coded, logged, returned in a response, or written to disk by this

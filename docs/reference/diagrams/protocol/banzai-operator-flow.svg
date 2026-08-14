@@ -3,7 +3,7 @@
   id:        SVG-P-069
   diagram:   BanzAI — Operator Flow
   version:   1.0
-  source:    M2.5 Product Surface Simplification · BanzAI (Rust/WASM tools)
+  source:    Product Surface Simplification · BanzAI (Rust/WASM tools)
   updated:   2026-07-18
   author:    BANZA Protocol
   style:     protocol
@@ -104,5 +104,5 @@
   <text x="500" y="408" text-anchor="middle" font-size="9.5" fill="#6B6265">O status de conformidade e de trust é calculado em Rust/WASM — nunca em TypeScript. Um PASS é evidência verificável, não certificação.</text>
 
   <!-- Footer -->
-  <text x="500" y="452" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-069 · BanzAI — Fluxo do Operador · BANZA Protocol · M2.5 · 2026-07-18</text>
+  <text x="500" y="452" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-069 · BanzAI — Fluxo do Operador · BANZA Protocol · 2026-07-18</text>
 </svg>

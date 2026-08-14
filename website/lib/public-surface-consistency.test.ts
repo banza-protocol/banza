@@ -33,7 +33,7 @@ describe("M2.14J — primary human-operator interface is the leading definition"
   it("the /banzai page metadata leads with the primary interface", () => {
     const page = read("app/banzai/page.tsx");
     expect(page).toMatch(/interface humana primária/i);
-    // M2.19G.4 (ADR-042): the single sr-only H1 moved to the shared app/banzai/layout.tsx so it heads
+    // M2.19G.4 (ADR-036): the single sr-only H1 moved to the shared app/banzai/layout.tsx so it heads
     // every navigable context (global/operator/implementation) — the primary-interface phrasing lives there.
     const layout = read("app/banzai/layout.tsx");
     expect(layout).toMatch(/interface primária humano-operador/i); // sr-only H1 (shared layout)

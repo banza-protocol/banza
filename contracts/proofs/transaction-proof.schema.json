@@ -3,7 +3,7 @@
   "$id": "https://banza.network/contracts/proofs/transaction-proof.schema.json",
   "_spec": "BANZA Transaction Proof Standard v1.0",
   "_status": "canonical",
-  "_authority": "ADR-022",
+  "_authority": "ADR-020",
   "title": "TransactionProof",
   "description": "Operator-agnostic, immutable, publicly verifiable proof that a transaction exists in an operator's ledger. The receipt is not the proof; this record is. No operator branding.",
   "type": "object",

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# M2.19G.1 (ADR-038 §4.9) — Operador Zero public E2E evidence guard (§37, invariant 19).
+# M2.19G.1 (ADR-034 §4.9) — Operador Zero public E2E evidence guard (§37, invariant 19).
 #
 # The live public run produces artifacts/banzai/operator-zero-public-e2e.json: 9 OperationReceipts + 1
 # JourneyReceipt, with REAL endpoints/hashes, ending NOT_CERTIFIED. This guard:
@@ -19,7 +19,7 @@ fl() { printf 'FAIL: %s\n' "$1"; fail=1; }
 
 ART=artifacts/banzai/operator-zero-public-e2e.json
 
-echo "== banzai-operator-zero-public-e2e-check (M2.19G.1 / ADR-038 §4.9) =="
+echo "== banzai-operator-zero-public-e2e-check (M2.19G.1 / ADR-034 §4.9) =="
 
 # ── self-test ───────────────────────────────────────────────────────────────────────────────────────
 st=0
@@ -77,4 +77,4 @@ fi
 
 echo
 if [ "$fail" -ne 0 ]; then echo "banzai-operator-zero-public-e2e-check: FAIL (present-and-invalid)"; exit 1; fi
-echo "banzai-operator-zero-public-e2e-check: ✓ OZ public E2E evidence valid (ADR-038 §4.9)"
+echo "banzai-operator-zero-public-e2e-check: ✓ OZ public E2E evidence valid (ADR-034 §4.9)"

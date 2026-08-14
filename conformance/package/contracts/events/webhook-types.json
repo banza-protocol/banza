@@ -1,7 +1,7 @@
 {
   "_spec": "BANZA Outbound Webhook Event Type Registry v1.0",
   "_status": "canonical",
-  "_authority": "ADR-002",
+  "_authority": "ADR-001",
   "_surface": "outbound-webhook",
   "_description": "Canonical registry of event types delivered to operator-configured webhook endpoints. Distinct from internal SSE event types. See contracts/webhooks/ for signature specification.",
   "_source_of_truth": "contracts/events/webhook-types.json",

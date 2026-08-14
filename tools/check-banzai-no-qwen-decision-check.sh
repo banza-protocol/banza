@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# M2.19G.1 (ADR-038 §4.8 / Consequences) — no Qwen decision guard (§37, invariant 23).
+# M2.19G.1 (ADR-034 §4.8 / Consequences) — no Qwen decision guard (§37, invariant 23).
 #
 # Rust decides every verdict; Qwen only explains; TypeScript never decides. In the served validate path
 # there is NO model call: qwen_calls and external_model_calls are 0 on every receipt, and validate.js
@@ -19,7 +19,7 @@ fl() { printf 'FAIL: %s\n' "$1"; fail=1; }
 VALIDATE=services/banzai-api/src/validate.js
 MODE=website/components/banzai/BanzaiValidationMode.tsx
 
-echo "== banzai-no-qwen-decision-check (M2.19G.1 / ADR-038 §4.8) =="
+echo "== banzai-no-qwen-decision-check (M2.19G.1 / ADR-034 §4.8) =="
 
 # ── self-test ───────────────────────────────────────────────────────────────────────────────────────
 st=0
@@ -57,4 +57,4 @@ fi
 
 echo
 if [ "$fail" -ne 0 ]; then echo "banzai-no-qwen-decision-check: FAIL"; exit 1; fi
-echo "banzai-no-qwen-decision-check: ✓ Rust decides; Qwen only explains; 0 model calls in receipts (ADR-038 §4.8)"
+echo "banzai-no-qwen-decision-check: ✓ Rust decides; Qwen only explains; 0 model calls in receipts (ADR-034 §4.8)"

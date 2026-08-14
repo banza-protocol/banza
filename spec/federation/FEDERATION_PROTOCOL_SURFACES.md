@@ -1,7 +1,7 @@
 # BANZA Federation Protocol Surfaces
 
 **Status:** Canonical — the protocol surfaces a federation-capable operator (L3+) implements and publishes.  
-**Authority:** ADR-027, ADR-033, ADR-031
+**Authority:** ADR-025, ADR-031, ADR-025
 
 ---
 
@@ -25,7 +25,7 @@ These are the protocol surfaces a federation-capable operator (L3+) relies on.
 
 ### Operator-published trust material — signed protocol metadata + conformance evidence
 
-**Purpose:** A federation-capable operator publishes, on infrastructure it controls, its **signed protocol metadata** (`contracts/production/signed-protocol-metadata.production.schema.json`) and its **conformance evidence** (`contracts/production/conformance-evidence.production.schema.json`). A routing peer fetches both from the operator's `protocol_metadata_url` and evaluates them locally, before routing, as part of the Open Trust Evaluation (ADR-031; `contracts/production/federation-trust-evaluation.production.schema.json`).
+**Purpose:** A federation-capable operator publishes, on infrastructure it controls, its **signed protocol metadata** (`contracts/production/signed-protocol-metadata.production.schema.json`) and its **conformance evidence** (`contracts/production/conformance-evidence.production.schema.json`). A routing peer fetches both from the operator's `protocol_metadata_url` and evaluates them locally, before routing, as part of the Open Trust Evaluation (ADR-025; `contracts/production/federation-trust-evaluation.production.schema.json`).
 
 **Signed protocol metadata** authenticates the *protocol material* the operator measured itself against. Its signatures chain to the trust root or a delegated signing key resolved from the Key Manifest (INV-FEDEVAL-004). It carries an explicit `expires_at`; material past that instant is treated as fail-closed (INV-FEDEVAL-006, INV-FED-006).
 
@@ -150,7 +150,7 @@ These are the protocol surfaces a federation-capable operator (L3+) relies on.
 }
 ```
 
-The normative shape is `contracts/production/federation-trust-evaluation.production.schema.json` (ADR-031). The `outcome` is a local, per-interaction decision — never a status conferred on the evaluated operator.
+The normative shape is `contracts/production/federation-trust-evaluation.production.schema.json` (ADR-025). The `outcome` is a local, per-interaction decision — never a status conferred on the evaluated operator.
 
 ---
 
@@ -197,6 +197,6 @@ These invariants must hold across operator boundaries:
 | RFC-0004 | Provider capability negotiation | Draft | No — already in use |
 | RFC-0005 | Operator discovery | Draft | Yes — before signing implementation |
 | RFC-0006 | Offline payment support | Draft | No — post-federation |
-| — | Trust model (Open Trust Evaluation) | Specified — ADR-027, ADR-033, ADR-031 | Done |
+| — | Trust model (Open Trust Evaluation) | Specified — ADR-025, ADR-031, ADR-025 | Done |
 | — | Federation event propagation | Not written | Yes |
 | — | Federation conformance | Not written | Yes |

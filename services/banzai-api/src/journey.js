@@ -1,6 +1,6 @@
-// BanzAI operator-guidance backend glue (ADR-042; reframed by ADR-042 §D-076-01/02). RUST_WRAPPER_ONLY.
+// BanzAI operator-guidance backend glue (ADR-036; reframed by ADR-036/02). RUST_WRAPPER_ONLY.
 //
-// REGRA (ADR-042 §D-076-01): Modelo A orienta o percurso; Modelo B avalia — existe uma única
+// REGRA (ADR-036): Modelo A orienta o percurso; Modelo B avalia — existe uma única
 // autoridade de estado técnico. This file belongs to Model A (the guidance layer). It surfaces ONLY
 // navigation state and TYPED REFERENCES to Model B — never a verdict, never a score.
 //
@@ -37,7 +37,7 @@ const CANON_STEPS = [
   "traces",
 ];
 
-// The legacy flat verdict fields. Under ADR-042 §D-076-02 only their PRESENCE is read (as "visited");
+// The legacy flat verdict fields. Under ADR-036 only their PRESENCE is read (as "visited");
 // the value is discarded and NEVER re-interpreted as a verdict.
 const LEGACY_STATUS_KEYS = {
   guia: "guia_status",
@@ -159,11 +159,11 @@ export function deriveJourney(journeyContext, currentStep) {
       step_statuses: stepStatuses,
       // The one-line, slug-only navigation summary the model/telemetry can safely see (Rust-derived).
       session_state_summary: summaryLine,
-      // ADR-042 — the answer to "o que faço agora?", composed in Rust from the SAME next orientation
+      // ADR-036 — the answer to "o que faço agora?", composed in Rust from the SAME next orientation
       // activity the guidance panel renders. It defers every technical claim to Model B.
       next_action_sentence: String(j.journey_next_action_sentence(stateJson) || ""),
-      // There is exactly one authority of technical validation state, and it is Model B (ADR-042
-      // §D-076-01). This layer only references it; it never originates a verdict.
+      // There is exactly one authority of technical validation state, and it is Model B (ADR-036
+      //). This layer only references it; it never originates a verdict.
       technical_state_authority: "model-b",
       safe_context: safeContext,
     };

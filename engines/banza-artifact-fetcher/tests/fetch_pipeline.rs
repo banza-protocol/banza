@@ -1,4 +1,4 @@
-//! Integration tests for the secure fetch pipeline (ADR-038 §38 fetcher section).
+//! Integration tests for the secure fetch pipeline (ADR-034 §38 fetcher section).
 //!
 //! Fully deterministic and offline: a hand-rolled loopback mock speaks minimal HTTP/1.1 (and, for the
 //! tls-invalid case, a raw fatal TLS alert) over a `127.0.0.1` `TcpListener`. No real external

@@ -37,7 +37,7 @@ import { answerQuestionFamily } from "./questionFamilies.js";
 // policy changes this token, so no stale-contract answer can ever be served from cache. Computed once.
 const CV = contractVersions();
 const CONTRACT_VERSION_KEY = `fp${CV.factual_package_version}|pr${CV.prompt_version}|vp${CV.validator_policy_version}`;
-// M2.19G.5C (ADR-042, D-073-05) — the post-synthesis authority-validator POLICY version, bound into the
+// M2.19G.5C (ADR-036) — the post-synthesis authority-validator POLICY version, bound into the
 // grounded cache key alongside CONTRACT_VERSION_KEY. Tightening the validator (validate.rs rule set 1–20 +
 // the citation/contradiction gate checks 21–22) bumps this token, so every grounded answer validated under
 // the prior policy is evicted from the cache and re-validated under the current one. Bump on any change to
@@ -53,7 +53,7 @@ import { BudgetTracker, estimateTokens } from "./limits.js";
 // SPR-2 — the typed progressive-response contract (Rust-owned via the committed WASM). The pipeline emits
 // the Channel-A progress events at the REAL stage boundaries through the injected onProgress callback; it
 // never emits a terminal FINAL_VALIDATED/HONEST_FALLBACK/REFUSED itself (the SSE endpoint decides + emits
-// the terminal AFTER the mandatory ADR-042 + Inc.4 validation, carrying the finished /ask envelope). There
+// the terminal AFTER the mandatory ADR-036 + Inc.4 validation, carrying the finished /ask envelope). There
 // is NO model-token/delta event kind. progressDisposition() maps a finished {result,meta} to the typed
 // Rust disposition + the terminal event kind, so the stream reacts to response_disposition, not `grounded`.
 import { responseDisposition, terminalEventForDisposition, makeProgressEvent } from "./progressContract.js";
@@ -234,7 +234,7 @@ export function synthesisFallbackReason(tp) {
   return `synthesis_fallback_${es}`;
 }
 
-// M2.19G.5C (ADR-042, check 22) — the deterministic contradiction backstop for the grounded publish gate.
+// M2.19G.5C (ADR-036, check 22) — the deterministic contradiction backstop for the grounded publish gate.
 // The one exact fact the pipeline can check here without a model is a RESOLVED document's declared STATUS:
 // if the published answer asserts — right next to the document id or the word "estado" — a status from a
 // DIFFERENT family than the record's real status, that is a contradiction and the model text is blocked.
@@ -295,7 +295,7 @@ export function progressDisposition(result, meta) {
     // A boundary/refusal — settled first (safety golden rule). The kind is a coarse, safe default.
     input = { intent: String(m.intent || "safety_refusal"), boundary: { is_boundary: true, boundary_kind: "safety", refused: true } };
   } else if (m.degraded === true || m.terminal_kind === "operational_failure") {
-    // A DEGRADED / emergency grounding: the model answer was NOT published (ADR-042 post-validation reject,
+    // A DEGRADED / emergency grounding: the model answer was NOT published (ADR-036 post-validation reject,
     // model timeout/unavailable, budget/breaker) and the pipeline served a safe, sourced deterministic
     // grounding instead. This is an HONEST_FALLBACK — never a grounded-model claim, and the terminal carries
     // only the true degraded answer, NEVER the rejected model text (already stripped by the pipeline).
@@ -350,7 +350,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
   const exact = new ExactCache(cacheOpts);
   const semantic = new SemanticCache({ ...cacheOpts, threshold: Number(env.BANZAI_SEMANTIC_THRESHOLD) || 0.92 });
   const budget = new BudgetTracker(env, nowFn);
-  // M2.19G.5C (ADR-042, D-073-06) — the post-synthesis authority validator is MANDATORY by default. The
+  // M2.19G.5C (ADR-036) — the post-synthesis authority validator is MANDATORY by default. The
   // env kill-switch only DISABLES enforcement (OFF ⇒ still run + record telemetry, but publish anyway);
   // it is ON for any value other than an explicit falsey token, so an unset/empty env enforces.
   const POST_VALIDATE_ENFORCE = !/^(0|false|off|no)$/i.test(String(env.BANZAI_POST_VALIDATE_ENFORCE ?? "").trim());
@@ -608,9 +608,9 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     if (cands.length >= 2) {
       a = `Encontrei mais do que um documento relacionado. Refere-se a ${cands.slice(0, -1).join(", ")} ou ${cands[cands.length - 1]}?`;
     } else if (cands.length === 1) {
-      a = `Não tenho a certeza de qual documento pretende — refere-se a ${cands[0]}? Se sim, confirme; caso contrário, indique o identificador (ex.: ADR-002).`;
+      a = `Não tenho a certeza de qual documento pretende — refere-se a ${cands[0]}? Se sim, confirme; caso contrário, indique o identificador (ex.: ADR-001).`;
     } else {
-      a = "Não consegui determinar com segurança qual documento ou regra pretende consultar. Pode indicar o identificador (ex.: ADR-002) ou reformular a pergunta?";
+      a = "Não consegui determinar com segurança qual documento ou regra pretende consultar. Pode indicar o identificador (ex.: ADR-001) ou reformular a pergunta?";
     }
     return stated(a, meta);
   }
@@ -719,7 +719,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // SPR-3 — bind the synthesis-generation contract (baseline ↔ structured) into the validated cache key so
     // switching the output contract opens a fresh validated-cache namespace and never serves a cross-contract
     // hit. It joins the existing corpus/repo/safety/contract/post-validation-policy dimensions; a change to
-    // ANY of them evicts stale entries. Caching remains downstream of the ADR-042 gate (validated-only).
+    // ANY of them evicts stale entries. Caching remains downstream of the ADR-036 gate (validated-only).
     // BZCI-5 (§21) — the validated-cache key binds the RESOLVED conversational referent so two visually-identical
     // follow-ups ("e a anterior?", "mostra essa execução") in DIFFERENT conversations can never collide on a
     // cached answer. For a concept ellipsis the referent already lives in `nq` (the rewritten "o que é X?"); for
@@ -1015,7 +1015,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
       };
     }
 
-    // Tier 0c — OPERATIONAL METRIC (ADR-042; Rust-decided, 0 model calls). A duration/metric/live-state
+    // Tier 0c — OPERATIONAL METRIC (ADR-036; Rust-decided, 0 model calls). A duration/metric/live-state
     // question about the validation journey ("quanto tempo leva uma jornada de validação?") is a real,
     // answerable question — it must NEVER fall to the fixed topic list. It is answered from REAL telemetry
     // over persisted executions (read-only, public workspace, ONE compatibility tuple — never mixed) with 0
@@ -1263,7 +1263,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     }
 
     // Tier 1d (M2.18B.7 fallback fix) — deterministic DOCUMENT-LOOKUP terminal (0 model calls). A bare
-    // documentary reference ("ADR-002", "RFC-0006", "o que diz a ADR 6") is a LOOKUP, not an explanation:
+    // documentary reference ("ADR-001", "RFC-0006", "o que diz a ADR 6") is a LOOKUP, not an explanation:
     // Rust serves the registry's structured metadata card (title · tipo · estado · data · caminho + a
     // short source-bound summary + the standing boundary), grounded and PUBLISHABLE — never the degraded
     // trunk. An "explica / porquê / impacto / resume" request is NOT a lookup (Rust returns null) and
@@ -1434,7 +1434,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // Tier 4 — the EXACT-FACT terminal (Rust-confirmed machine fact, source-bound, model-free). A clean
     // status/date/identifier/version/license/origin lookup with NO explanatory cue is answered instantly
     // and correctly — never the ~30s trunk — EVEN when the fact belongs to a resolved document ("qual é o
-    // estado da ADR-041?"). A structured document_id from the UI always means "explain the record", so the
+    // estado da ADR-035?"). A structured document_id from the UI always means "explain the record", so the
     // exact terminal is skipped there. An unsourced exact kind fails safe to insufficient ONLY when no
     // document resolved; otherwise it falls through to the trunk to explain the resolved record.
     if (!hasExplanatoryCue && !documentId) {
@@ -1512,7 +1512,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
 
     // Caches (exact then semantic) — a grounded trunk answer is cached; a cache hit reports llm_called:false
     // (no generation now) even though the stored result was a model answer.
-    // SPR-3 — a cache hit serves a FINAL_VALIDATED answer (cache writes sit downstream of the ADR-042 gate),
+    // SPR-3 — a cache hit serves a FINAL_VALIDATED answer (cache writes sit downstream of the ADR-036 gate),
     // so answer_source=validated_cache. This label makes deterministic coverage (validated_cache +
     // deterministic terminals vs fresh_synthesis) measurable from the /ask meta alone.
     const exactHit = exact.get(keyFields);
@@ -1618,14 +1618,14 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     };
 
     if (tp.status === "grounded" && tp.answer_markdown) {
-      // ── M2.19G.5C (ADR-042) — the MANDATORY post-synthesis authority validator, on the EXACT bytes that
+      // ── M2.19G.5C (ADR-036) — the MANDATORY post-synthesis authority validator, on the EXACT bytes that
       // would be published, AFTER the intrinsic factual validator and BEFORE groundedAnswer, the cache
       // writes and the return. Three gate checks in order; ANY failure degrades via emergency() with a
       // STABLE enum fallback_reason prefixed "post_validation_" — the rejected model text is never built
       // into `g`, never cached, never shown. Cache writes sit downstream of the gate, so a rejected answer
       // is structurally never cached and cache hits can only ever return answers that passed this policy.
       const answerText = tp.answer_markdown;
-      // CLAIM_VERIFICATION_STARTED — the MANDATORY ADR-042 post-synthesis authority/claim gate begins over
+      // CLAIM_VERIFICATION_STARTED — the MANDATORY ADR-036 post-synthesis authority/claim gate begins over
       // the EXACT bytes that would be published. This event carries ONLY counts (never the candidate text);
       // it is emitted BEFORE postValidate, which itself runs BEFORE any FINAL_VALIDATED terminal (the SSE
       // endpoint emits FINAL_VALIDATED only after this whole gate passes and the pipeline returns).
@@ -1738,7 +1738,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
       },
       // Safe synthesis-gate telemetry (counts/booleans only; never a question or model output).
       synthesis_gate: synthesisGate.stats(),
-      // M2.19G.5C (ADR-042) — safe post-synthesis-validator telemetry (counts/enums only, never content).
+      // M2.19G.5C (ADR-036) — safe post-synthesis-validator telemetry (counts/enums only, never content).
       // model_answers_published_total increments ONLY on a published model answer (never on a reject);
       // model_answers_unvalidated_total is a live invariant that must stay 0.
       post_validation: {

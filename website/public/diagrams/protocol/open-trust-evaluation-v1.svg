@@ -5,7 +5,7 @@
     id:        SVG-P-063
     diagram:   Avaliação Aberta de Confiança
     version:   2.0
-    source:    ADR-038 Modelo de Confiança do Protocolo Aberto sem CA · ADR-039 Auto-Publicação do Operador e Conformidade Verificável por Máquina · ADR-040 Avaliação de Confiança de Federação sem Certificados · ADR-079 Modelo de Assinatura de Confiança (congelado)
+    source:    ADR-034 Modelo de Confiança do Protocolo Aberto sem CA · ADR-030 Auto-Publicação do Operador e Conformidade Verificável por Máquina · ADR-037 Avaliação de Confiança de Federação sem Certificados · ADR-025 Modelo de Assinatura de Confiança (congelado)
     updated:   2026-08-09
     author:    BANZA Protocol
     style:     protocol
@@ -218,5 +218,5 @@
   <text x="560" y="893" text-anchor="middle" font-size="10" fill="#6B7280">Os operadores são independentes e assumem a sua própria responsabilidade legal, regulatória e financeira. Qualquer autorização vem do regulador competente — nunca do BANZA.</text>
 
   <!-- Footer -->
-  <text x="560" y="922" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-063 · Avaliação Aberta de Confiança · ADR-038 · ADR-039 · ADR-040 · ADR-079 · v2.0 · 2026-08-09</text>
+  <text x="560" y="922" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-063 · Avaliação Aberta de Confiança · ADR-034 · ADR-030 · ADR-037 · ADR-025 · v2.0 · 2026-08-09</text>
 </svg>

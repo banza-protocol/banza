@@ -3,7 +3,7 @@
   id:        SVG-P-064
   diagram:   Federation Trust Evaluation
   version:   1.0
-  source:    ADR-038 · ADR-039 · ADR-040 · M2.3 (Reference Trust Model Redesign)
+  source:    ADR-034 · ADR-030 · ADR-037 · M2.3 (Reference Trust Model Redesign)
   updated:   2026-07-17
   author:    BANZA Protocol
   style:     protocol
@@ -238,5 +238,5 @@
   <text x="490" y="984" text-anchor="middle" font-size="14" font-weight="800" fill="white">Trust is verified by evidence, not human approval.</text>
 
   <!-- Footer -->
-  <text x="490" y="1018" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-064 · Federation Trust Evaluation · BANZA Protocol · ADR-038 · ADR-039 · ADR-040 · M2.3 · 2026-07-17</text>
+  <text x="490" y="1018" text-anchor="middle" font-size="9.5" fill="#9CA3AF">SVG-P-064 · Federation Trust Evaluation · BANZA Protocol · ADR-034 · ADR-030 · ADR-037 · M2.3 · 2026-07-17</text>
 </svg>

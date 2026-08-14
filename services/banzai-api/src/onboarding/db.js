@@ -1,4 +1,4 @@
-// PostgreSQL access for onboarding (M2.19G.3, ADR-040). Mirrors verification-api/src/db.js but
+// PostgreSQL access for onboarding (M2.19G.3, ADR-037). Mirrors verification-api/src/db.js but
 // connects as the RW role `banzai_rw` (compose already wires DATABASE_URL for it). The onboarding
 // tables (email_challenges, candidate_sessions, candidates, candidate_implementations,
 // origin_challenges, onboarding_audit) are the ONLY tables this layer writes; it never touches

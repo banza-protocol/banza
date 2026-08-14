@@ -1,4 +1,4 @@
-//! `banza-conformance-rs` CLI (ADR-043, R4). Deterministic; no network by default; no crypto.
+//! `banza-conformance-rs` CLI (ADR-038, R4). Deterministic; no network by default; no crypto.
 //! Commands: run, run-fed, check-vectors, report, parity, fixture, version.
 //! PASS is technical conformance evidence, never production certification.
 

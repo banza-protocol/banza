@@ -159,9 +159,9 @@ existsSync("services/banzai-api/test/context-e2e.test.js")
   (c && c.matched && /Estado:/.test(c.answer_markdown) && /Caminho:/.test(c.answer_markdown) && c.id === "ADR-002")
     ? ok("bare 'ADR 002' → deterministic document-lookup card (title/estado/caminho)")
     : fail(`bare document lookup did not produce a structured card: ${JSON.stringify(c).slice(0, 160)}`);
-  const e = card("explica o ADR-002 em detalhe", "");
+  const e = card("explica o ADR-001 em detalhe", "");
   (!e || e.matched !== true)
-    ? ok("'explica o ADR-002' is NOT a lookup card (escalates to the grounded trunk)")
+    ? ok("'explica o ADR-001' is NOT a lookup card (escalates to the grounded trunk)")
     : fail("an explain request was wrongly served as a document-lookup card");
 }
 

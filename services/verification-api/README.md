@@ -24,7 +24,7 @@ Machine routes carry an honest envelope:
   "production_certificates": false,
   "note": "A conformance PASS is verifiable technical evidence… participation is demonstrated, not authorised by a central authority. …" }
 ```
-- `/operators` returns an empty list until an operator publishes verifiable evidence (ADR-037, annex §12).
+- `/operators` returns an empty list until an operator publishes verifiable evidence (ADR-029, annex §12).
 - No route fabricates production data or private keys.
 - If the DB is unavailable the routes **fail safe**: JSON `503` with `degraded: true`
   (and `/operators` still returns `[]`), never a crash or an HTML error page.

@@ -3,9 +3,9 @@
 - **Status:** Canónico
 - **Data:** 2026-07
 - **Milestone:** M2.19C
-- **Relacionado:** ADR-005 (fronteira de estado regulatório + RealMoneyActivationGate), ADR-006 (Banzami
-  Operational Scheme), ADR-003 (arquitectura de três camadas), ADR-004 (certificação ≠ admissão ≠
-  autorização), ADR-007 (conflito de interesses + separação)
+- **Relacionado:** ADR-007 (fronteira de estado regulatório + RealMoneyActivationGate), ADR-006 (Banzami
+  Operational Scheme), ADR-004 (arquitectura de três camadas), ADR-005 (certificação ≠ admissão ≠
+  autorização), ADR-006 (conflito de interesses + separação)
 
 > **O BANZA é um protocolo financeiro aberto e não precisa — nem pode — de licença como prestador de
 > serviços de pagamento.** Qualquer licença, autorização ou enquadramento regulatório pertence ao
@@ -13,7 +13,7 @@
 > especificamente, o que pode e o que não pode ser afirmado publicamente sobre o **estado regulatório da
 > Banzami** enquanto operadora designada da camada operacional (L3).
 
-Este documento é a política canónica sobre afirmações regulatórias. Deriva da ADR-005 e complementa
+Este documento é a política canónica sobre afirmações regulatórias. Deriva da ADR-007 e complementa
 [`BANZAMI_OPERATIONAL_SCHEME.md`](BANZAMI_OPERATIONAL_SCHEME.md),
 [`BANZA_REGULATORY_POSITIONING.md`](BANZA_REGULATORY_POSITIONING.md) e
 [`BANZA_THREE_LAYER_ARCHITECTURE.md`](BANZA_THREE_LAYER_ARCHITECTURE.md). O guard
@@ -42,11 +42,11 @@ está desactivado.
 
 ## 3. O estado interno
 
-O estado interno da Banzami é `REGULATORY_AUTHORIZATION_IN_PROGRESS` (ADR-005). Este estado descreve
+O estado interno da Banzami é `REGULATORY_AUTHORIZATION_IN_PROGRESS` (ADR-007). Este estado descreve
 preparação. **Não** significa: autorização concedida; aprovação do BNA; licença concluída;
 reconhecimento regulatório; operação financeira activa; permissão para mover fundos; liquidação real; ou
 participantes reais activos. Enquanto não existir evidência formal aplicável, todos os caminhos de
-dinheiro real permanecem fechados por omissão (RealMoneyActivationGate, ADR-005).
+dinheiro real permanecem fechados por omissão (RealMoneyActivationGate, ADR-007).
 
 ## 4. Frases proibidas
 
@@ -64,7 +64,7 @@ Estas frases são **proibidas** porque descrevem um estado que não existe:
 | Símbolo/insígnia | qualquer selo, símbolo ou marca que implique aprovação do BNA | implicaria aprovação que não existe |
 
 Também é proibido apresentar a **certificação técnica** (L2) como se fosse licença, admissão ao scheme ou
-autorização regulatória (ADR-004), e apresentar o **BANZA** como necessitando de licença ou como operador
+autorização regulatória (ADR-005), e apresentar o **BANZA** como necessitando de licença ou como operador
 (ver [`BANZA_REGULATORY_POSITIONING.md`](BANZA_REGULATORY_POSITIONING.md)).
 
 ## 5. Frase permitida (prudente)
@@ -97,20 +97,20 @@ cinco condições se verifiquem, mantém-se apenas a frase prudente da §5.
 
 Mesmo quando admissível, uma afirmação "em processo de autorização" descreve **preparação/processo** —
 nunca autorização concedida (G-5) — e não desbloqueia dinheiro real, que continua governado pelo
-RealMoneyActivationGate (ADR-005) independentemente de qualquer afirmação pública.
+RealMoneyActivationGate (ADR-007) independentemente de qualquer afirmação pública.
 
 ## 7. Desacoplamento de dinheiro real
 
 Nenhuma afirmação regulatória, admissível ou não, activa dinheiro real. A activação de fundos reais,
 carteiras reais, liquidação real e participantes reais é governada exclusivamente pelo
-RealMoneyActivationGate (ADR-005), validado em Rust e condicionado a evidência formal aplicável. Afirmação
+RealMoneyActivationGate (ADR-007), validado em Rust e condicionado a evidência formal aplicável. Afirmação
 pública e activação técnica são planos separados: uma nunca implica a outra.
 
 ## 8. Quem decide
 
 - **Rust valida antes de publicar.** O estado regulatório e as afirmações públicas são validados pelos
   motores Rust antes de qualquer publicação; um estado ou afirmação que não cumpra esta política é
-  bloqueado (ADR-043/059).
+  bloqueado (ADR-038/059).
 - **A decisão de publicar uma afirmação regulatória nova requer autorização dos fundadores** (G-2), além
   de todas as demais condições da §6.
 - **O Qwen local nunca decide nem publica.** Explica uma vez, em linguagem natural; nunca altera o estado
@@ -129,9 +129,9 @@ Esta política é sujeita a enforcement automático (M2.19C):
 
 ## 10. Referências
 
-- ADR-005 (fronteira de estado regulatório + RealMoneyActivationGate) · ADR-006 (Banzami Operational
-  Scheme) · ADR-003 (arquitectura de três camadas) · ADR-004 (certificação ≠ admissão ≠ autorização) ·
-  ADR-007 (conflito de interesses + separação)
+- ADR-007 (fronteira de estado regulatório + RealMoneyActivationGate) · ADR-006 (Banzami Operational
+  Scheme) · ADR-004 (arquitectura de três camadas) · ADR-005 (certificação ≠ admissão ≠ autorização) ·
+  ADR-006 (conflito de interesses + separação)
 - [`BANZAMI_OPERATIONAL_SCHEME.md`](BANZAMI_OPERATIONAL_SCHEME.md) ·
   [`BANZA_THREE_LAYER_ARCHITECTURE.md`](BANZA_THREE_LAYER_ARCHITECTURE.md) ·
   [`BANZA_REGULATORY_POSITIONING.md`](BANZA_REGULATORY_POSITIONING.md) ·

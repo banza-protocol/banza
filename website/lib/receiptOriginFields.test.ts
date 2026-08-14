@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import type { ServerOperationReceipt, ServerJourneyReceipt } from "./operationReceipt";
 
-// M2.19G.1 (ADR-038 §30/§31) — the server-issued receipts bind every verdict to the EXACT origin of its
+// M2.19G.1 (ADR-034 §30/§31) — the server-issued receipts bind every verdict to the EXACT origin of its
 // inputs. This test pins the origin-field contract: a value typed as ServerOperationReceipt /
 // ServerJourneyReceipt must carry the full §30 / §31 field set (tsc enforces the type at compile time;
 // this asserts the keys are present at runtime so the contract can never silently shrink).
@@ -98,7 +98,7 @@ describe("OperationReceipt — §30 origin-field contract", () => {
     }
   });
 
-  it("counts protocol fetches — never as external/qwen model calls (ADR-038 §4.8)", () => {
+  it("counts protocol fetches — never as external/qwen model calls (ADR-034 §4.8)", () => {
     expect(opReceipt.qwen_calls).toBe(0);
     expect(opReceipt.external_model_calls).toBe(0);
     expect(opReceipt.protocol_fetch_count).toBeGreaterThanOrEqual(1);

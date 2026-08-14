@@ -1324,7 +1324,7 @@ mod tests {
 
     #[test]
     fn exact_document_plan_has_one_primary_with_reason() {
-        let p = plan("explica a ADR-002", "ADR-002");
+        let p = plan("explica a ADR-001", "ADR-001");
         assert_eq!(p.primary_intent, "explain_document");
         let primaries: Vec<_> = p
             .sources
@@ -1332,7 +1332,7 @@ mod tests {
             .filter(|s| s.role == SourceRole::Primary)
             .collect();
         assert_eq!(primaries.len(), 1);
-        assert_eq!(primaries[0].source_id, "ADR-002");
+        assert_eq!(primaries[0].source_id, "ADR-001");
         assert!(!primaries[0].selection_reason.is_empty());
         assert!(validate_plan(&p).is_empty(), "{:?}", validate_plan(&p));
     }
@@ -1341,26 +1341,26 @@ mod tests {
     fn status_intent_requests_metadata_only() {
         // A status question reaches the trunk as explain_document + a check_document_status SECONDARY
         // (resolve.rs); the plan must flag needs_metadata and keep the named document as its source.
-        let p = plan("a ADR-002 continua em vigor?", "ADR-002");
+        let p = plan("a ADR-001 continua em vigor?", "ADR-001");
         assert!(p.needs_metadata, "status secondary must request metadata");
-        assert!(p.sources.iter().any(|s| s.source_id == "ADR-002"));
+        assert!(p.sources.iter().any(|s| s.source_id == "ADR-001"));
     }
 
     #[test]
     fn concept_plan_marks_definition_and_grounds_on_canonical_source() {
-        // dupla entrada → ADR-011 (a current, non-superseded canonical source; seed as the router would).
-        let p = plan("o que é a dupla entrada?", "ADR-011");
+        // dupla entrada → ADR-012 (a current, non-superseded canonical source; seed as the router would).
+        let p = plan("o que é a dupla entrada?", "ADR-012");
         assert_eq!(p.primary_intent, "explain_concept");
         assert!(p.needs_definition);
         assert!(p
             .sources
             .iter()
-            .any(|s| s.role == SourceRole::Definition && s.source_id == "ADR-011"));
+            .any(|s| s.role == SourceRole::Definition && s.source_id == "ADR-012"));
     }
 
     #[test]
     fn comparison_includes_both_sides_never_one_dominating() {
-        let p = plan("compara a ADR-041 e a ADR-042", "");
+        let p = plan("compara a ADR-035 e a ADR-036", "");
         assert!(p.comparison);
         let primaries: Vec<_> = p
             .sources
@@ -1368,37 +1368,37 @@ mod tests {
             .filter(|s| s.role == SourceRole::Primary)
             .map(|s| s.source_id.clone())
             .collect();
-        assert!(primaries.contains(&"ADR-041".to_string()), "{primaries:?}");
-        assert!(primaries.contains(&"ADR-042".to_string()), "{primaries:?}");
+        assert!(primaries.contains(&"ADR-035".to_string()), "{primaries:?}");
+        assert!(primaries.contains(&"ADR-036".to_string()), "{primaries:?}");
         assert!(!p.escalate_insufficient);
         assert!(validate_plan(&p).is_empty());
     }
 
     #[test]
     fn a_current_canonical_primary_is_selected_and_never_demoted() {
-        // M2.19A (ADR-045, current-only canonical ADR tree) removed every superseded ADR from the
+        // M2.19A (ADR-010, current-only canonical ADR tree) removed every superseded ADR from the
         // registry, so no surviving doc self-declares a historical status and the supersession-demotion
         // branch of `push_primary_resolving_conflict` has no live data. The surviving, testable invariant:
         // a current canonical document is selected as its own primary and is never demoted, forbidden or
         // conflicted. (Exercising the demotion branch itself would now require a synthetic historical
         // fixture.)
-        let p = plan("explica a ADR-027", "ADR-027");
+        let p = plan("explica a ADR-025", "ADR-025");
         let primary = p.sources.iter().find(|s| s.role == SourceRole::Primary);
-        assert_eq!(primary.map(|s| s.source_id.as_str()), Some("ADR-027"));
+        assert_eq!(primary.map(|s| s.source_id.as_str()), Some("ADR-025"));
         assert!(
             p.conflicts.is_empty(),
             "a current doc records no supersession conflict"
         );
-        assert!(!p.forbidden_terms.contains(&"ADR-027".to_string()));
+        assert!(!p.forbidden_terms.contains(&"ADR-025".to_string()));
         assert!(!p
             .sources
             .iter()
-            .any(|s| s.source_id == "ADR-027" && s.role == SourceRole::Supporting));
+            .any(|s| s.source_id == "ADR-025" && s.role == SourceRole::Supporting));
     }
 
     #[test]
     fn impact_plan_follows_only_confirmed_impact_relations() {
-        let p = plan("qual o impacto da ADR-031 para um operador?", "ADR-031");
+        let p = plan("qual o impacto da ADR-025 para um operador?", "ADR-025");
         assert_eq!(p.primary_intent, "explain_impact");
         // every relationship source carries a confirmed impact edge
         for s in p
@@ -1426,8 +1426,8 @@ mod tests {
 
     #[test]
     fn plan_is_deterministic() {
-        let a = plan("compara a ADR-041 e a ADR-042", "");
-        let b = plan("compara a ADR-041 e a ADR-042", "");
+        let a = plan("compara a ADR-035 e a ADR-036", "");
+        let b = plan("compara a ADR-035 e a ADR-036", "");
         assert_eq!(a.checksum, b.checksum);
         assert_eq!(a.sources.len(), b.sources.len());
     }
@@ -1435,11 +1435,11 @@ mod tests {
     #[test]
     fn every_source_is_registry_resolvable_or_public_path_and_has_reason() {
         for q in [
-            "explica a ADR-002",
+            "explica a ADR-001",
             "o que é a federação?",
-            "compara a ADR-041 e a ADR-042",
+            "compara a ADR-035 e a ADR-036",
         ] {
-            let p = plan(q, if q.contains("federa") { "ADR-031" } else { "" });
+            let p = plan(q, if q.contains("federa") { "ADR-025" } else { "" });
             for s in &p.sources {
                 assert!(
                     !s.selection_reason.is_empty(),
@@ -1531,7 +1531,7 @@ mod tests {
 
     #[test]
     fn plan_carries_task_and_appropriateness_verdict() {
-        let p = plan("explica a ADR-002", "ADR-002");
+        let p = plan("explica a ADR-001", "ADR-001");
         assert_eq!(p.requested_task, "explanation");
         // the named ADR is the exact task source for an explanation
         assert!(p.source_appropriate);
@@ -1556,10 +1556,10 @@ mod tests {
         // For any plan, the top-ranked source is never STRICTLY less appropriate than a lower-ranked one:
         // appropriateness is the primary sort key, so a thematic source can never outrank a suitable one.
         for (q, seed) in [
-            ("explica a ADR-002", "ADR-002"),
-            ("o que é a federação?", "ADR-031"),
-            ("compara a ADR-041 e a ADR-042", ""),
-            ("qual o impacto da ADR-031 para um operador?", "ADR-031"),
+            ("explica a ADR-001", "ADR-001"),
+            ("o que é a federação?", "ADR-025"),
+            ("compara a ADR-035 e a ADR-036", ""),
+            ("qual o impacto da ADR-025 para um operador?", "ADR-025"),
         ] {
             let p = plan(q, seed);
             for w in p.sources.windows(2) {
@@ -1577,8 +1577,8 @@ mod tests {
 
     #[test]
     fn appropriateness_is_deterministic() {
-        let a = plan("o que é a federação?", "ADR-031");
-        let b = plan("o que é a federação?", "ADR-031");
+        let a = plan("o que é a federação?", "ADR-025");
+        let b = plan("o que é a federação?", "ADR-025");
         assert_eq!(a.source_appropriateness, b.source_appropriateness);
         assert_eq!(a.requested_task, b.requested_task);
         assert_eq!(a.checksum, b.checksum);
@@ -1619,7 +1619,7 @@ mod tests {
 
     #[test]
     fn dfn5_plan_exposes_typed_appropriateness_reasons() {
-        let p = plan("explica a ADR-002", "ADR-002");
+        let p = plan("explica a ADR-001", "ADR-001");
         // the plan-level reasons explain the winning source's verdict.
         assert!(
             !p.appropriateness_reasons.is_empty(),
@@ -1650,7 +1650,7 @@ mod tests {
         let d = decide_appropriateness(
             RequestedTask::Explanation,
             SourceKind::AdrRfc,
-            "ADR-002",
+            "ADR-001",
             &[],
         );
         assert_eq!(d.class, AppropriatenessClass::ExactTaskSource);
@@ -1659,12 +1659,12 @@ mod tests {
 
     #[test]
     fn dfn5_currency_reason_is_recorded_and_the_tree_is_current_only() {
-        // M2.19A (ADR-045) made the ADR tree current-only: no registry doc self-declares a historical
+        // M2.19A (ADR-010) made the ADR tree current-only: no registry doc self-declares a historical
         // status, so the currency CAP branch of `decide_appropriateness` is dormant. The surviving,
         // testable invariant: every source records EXACTLY ONE currency reason, and for the current tree
         // that reason is always `CurrencyCurrent` (never `CurrencyHistorical`). Exercising the cap itself
         // would now require a synthetic historical fixture.
-        for id in ["ADR-027", "ADR-031", "ADR-039", "ADR-002"] {
+        for id in ["ADR-025", "ADR-025", "ADR-030", "ADR-001"] {
             let d = decide_appropriateness(RequestedTask::Explanation, SourceKind::AdrRfc, id, &[]);
             let currency = d
                 .reasons
@@ -1691,7 +1691,7 @@ mod tests {
 
     #[test]
     fn textual_similarity_never_outranks_the_primary() {
-        let p = plan("explica a ADR-002", "ADR-002");
+        let p = plan("explica a ADR-001", "ADR-001");
         if let Some(primary) = p.sources.iter().find(|s| s.role == SourceRole::Primary) {
             let max_support = p
                 .sources

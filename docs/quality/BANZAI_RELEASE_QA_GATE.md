@@ -59,7 +59,7 @@ formality.
 
 ### The surface that lags its source
 
-`banzai_trace` WASM is built from `engines/banzai-trace` in this monorepo (ADR-042 — there is no
+`banzai_trace` WASM is built from `engines/banzai-trace` in this monorepo (ADR-036 — there is no
 separate `~/banzai` repository) and committed here as `website/lib/wasm/banzai_trace_bg.wasm`. The
 committed blob *is* tracked, so re-building it does trigger this gate — but **a change to its Rust
 source is invisible here until someone re-compiles and commits the blob**. The Traces / Relatório
@@ -73,7 +73,7 @@ only the committed blob stays green.
 Run in a **fresh private window** against `https://banza.network/banzai` (or an equivalent build of
 the commit under review — see §5 on which build was observed). Devtools console open.
 
-> **Two journeys, one authority (ADR-042 §D-076-01/02).** There is exactly one authority of technical
+> **Two journeys, one authority (ADR-036/02).** There is exactly one authority of technical
 > validation state: **Model B**, the deterministic nine-step endpoint-originated validation journey
 > (`services/banzai-api/src/validate.js` + `validationJourney.tsx`). Its per-step state is
 > `NOT_EVALUATED · RUNNING · VERIFIED · PENDING · FAILED · BLOCKED` and every verdict comes from a Rust
@@ -129,8 +129,8 @@ surfaces: Model A tells you *where the operator is*; Model B tells you *what is 
 
 Ask each at `/banzai`. The mandated set:
 
-1. `Explica o ADR-002`
-2. `Resume o ADR-002`
+1. `Explica o ADR-001`
+2. `Resume o ADR-001`
 3. `Explica o ADR-999` (does not exist)
 4. `como começo com o meu operador?`
 5. `o que faço agora?` — asked while on **Manifest**
@@ -174,8 +174,8 @@ reached the model. That is what the critical paths below must show.
 
 | Question | Expected | The failure it catches |
 |---|---|---|
-| 1. Explain ADR-002 | `local_model_called: true`, `resolved_document_id: "ADR-002"`, `tool: "explain_adr"`, `document_mode: "document_explain"`, `document_not_found: false`, sources ≥ 1 | answering from the model instead of the document |
-| 2. Summarise ADR-002 | `document_mode: "document_summary"` — **different mode, fresh generation** | a cache key that lost its mode dimension |
+| 1. Explain ADR-001 | `local_model_called: true`, `resolved_document_id: "ADR-001"`, `tool: "explain_adr"`, `document_mode: "document_explain"`, `document_not_found: false`, sources ≥ 1 | answering from the model instead of the document |
+| 2. Summarise ADR-001 | `document_mode: "document_summary"` — **different mode, fresh generation** | a cache key that lost its mode dimension |
 | 1 again, verbatim | `cache_hit: true`, no new model call | the cache silently never hitting |
 | 3. ADR-999 | `document_not_found: true`, **`local_model_called: false`**, `fallback: true`, `insufficient_sources: true`, `sources_count: 0` | a hallucinated ADR — the whole reason the registry resolves first |
 | 4. Onboarding | grounded answer, `sources_count` ≥ 1, no forbidden claim (`certificado`, `aprovado`, `production-ready`) | the agent inventing a certification path |

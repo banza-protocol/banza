@@ -36,7 +36,7 @@ function pipe(trunkResult) {
 
 test("a bare document reference is a deterministic lookup terminal (0 model calls, no degraded banner)", async () => {
   const { pipeline, stub } = pipe({ status: "grounded", answer_markdown: "SHOULD NOT BE USED", trace: {} });
-  for (const q of ["ADR 002", "ADR-011", "adr002"]) {
+  for (const q of ["ADR 002", "ADR-012", "adr002"]) {
     const { result, meta } = await pipeline.answer(q);
     assert.equal(meta.terminal_kind, "document_lookup", `${q} must be a document_lookup terminal`);
     assert.equal(meta.deterministic, true, `${q} must be deterministic`);
@@ -53,13 +53,13 @@ test("a bare document reference is a deterministic lookup terminal (0 model call
 test("an explain request about a document still escalates to the grounded trunk", async () => {
   const { pipeline, stub } = pipe({
     status: "grounded",
-    answer_markdown: "O ADR-002 estabelece a inversão de nomes do ecossistema (ADR-002).",
-    cited_source_ids: ["ADR-002"],
-    package: { facts: [{ id: "F1", source: { document_id: "ADR-002", title: "ADR-002", path: "decisions/adr/ADR-002-ecosystem-naming-banza-banzai-and-operators.md" } }] },
+    answer_markdown: "O ADR-001 estabelece a inversão de nomes do ecossistema (ADR-001).",
+    cited_source_ids: ["ADR-001"],
+    package: { facts: [{ id: "F1", source: { document_id: "ADR-001", title: "ADR-001", path: "decisions/adr/ADR-001-ecosystem-naming-banza-banzai-and-operators.md" } }] },
     primary_intent: "explain_document",
     trace: { synthesis_called: true, output_status: "ok", model: "qwen2.5-7b" },
   });
-  const { meta } = await pipeline.answer("explica o ADR-002 em detalhe");
+  const { meta } = await pipeline.answer("explica o ADR-001 em detalhe");
   assert.notEqual(meta.terminal_kind, "document_lookup", "an explanation must NOT be a document_lookup terminal");
   assert.equal(stub.calls.length, 1, "an explanation must reach the grounded trunk exactly once");
 });
@@ -74,9 +74,9 @@ test("a non-publishing task_incomplete synthesis degrades with a FAITHFUL reason
     primary_intent: "explain_concept",
     trace: { synthesis_called: true, output_status: "task_incomplete", model: "qwen2.5-7b", output_latency_ms: 12000 },
   });
-  // "explica o ADR-002 em detalhe" is an EXPLANATION (reaches the trunk); the injected trunk returns the
+  // "explica o ADR-001 em detalhe" is an EXPLANATION (reaches the trunk); the injected trunk returns the
   // non-publishing task_incomplete result above.
-  const { meta } = await pipeline.answer("explica o ADR-002 em detalhe");
+  const { meta } = await pipeline.answer("explica o ADR-001 em detalhe");
   assert.equal(meta.fallback_reason, "synthesis_task_incomplete");
   assert.notEqual(meta.fallback_reason, "synthesis_fallback_unknown");
   assert.equal(meta.synthesis_called, true, "the faithful trace must record that synthesis was attempted");

@@ -97,7 +97,7 @@ function renderMd(report) {
   L.push("# BanzAI Canonical Eval — Metrics Report (Increment 7, §20)");
   L.push("");
   L.push(`- Schema version: ${report.schema_version}`);
-  L.push(`- Total cases: **${report.total_cases}** (floor 2500)`);
+  L.push(`- Total cases: **${report.total_cases}** (floor derived from the corpus: 50 per canonical record)`);
   L.push(`- Driver: committed Rust WASM (query-core) via canonical-checks.evaluate — hermetic, 0 model calls, 0 network`);
   L.push(`- Verdict: **${report.verdict}**`);
   L.push("");
@@ -135,7 +135,7 @@ function main() {
   const { byClass, byFamily } = classFamily(cases);
   const report = {
     schema_version: 1,
-    milestone: "Increment 7 — canonical eval reconciliation + ≥2500 cases + final metrics (§18-§20)",
+    milestone: "canonical eval reconciliation + a corpus-derived case floor + final metrics",
     generated_by: "eval/canonical-metrics.mjs (deterministic; committed Rust WASM; no model, no network)",
     total_cases: cases.length,
     verdict: failures.length ? "FAIL" : "PASS",

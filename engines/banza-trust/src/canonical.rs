@@ -5,7 +5,7 @@
 //! against the public vectors in `conformance/vectors/canonicalization.json`, which are derived from the
 //! specification, not from this implementation.
 //!
-//! `BCJ/1` = RFC 8785 (JCS) restricted by the BANZA profile (ADR-010):
+//! `BCJ/1` = RFC 8785 (JCS) restricted by the BANZA profile (ADR-011):
 //!   P1 integers only · P2 within ±(2^53−1) · P3 duplicate members rejected · P4 unknown members
 //!   preserved · P5 no Unicode normalisation · P6 member ordering by UTF-16 code units.
 //!

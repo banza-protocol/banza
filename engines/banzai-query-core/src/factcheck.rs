@@ -592,21 +592,21 @@ mod tests {
     fn pkg() -> FactualPackage {
         build_factual_package_planned(
             "t",
-            "explica a ADR-002 sobre a inversao de nomes",
-            "ADR-002",
+            "explica a ADR-001 sobre a inversao de nomes",
+            "ADR-001",
             "brief",
         )
     }
 
     fn good() -> GroundedOutput {
         GroundedOutput {
-            answer_markdown: "A ADR-002 inverte a nomenclatura do ecossistema de forma canónica."
+            answer_markdown: "A ADR-001 inverte a nomenclatura do ecossistema de forma canónica."
                 .into(),
             claims: vec![Claim {
                 claim: "inverte a nomenclatura".into(),
                 fact_ids: vec!["F1".into()],
             }],
-            cited_source_ids: vec!["ADR-002".into()],
+            cited_source_ids: vec!["ADR-001".into()],
             insufficient_evidence: false,
         }
     }
@@ -635,20 +635,20 @@ mod tests {
     #[test]
     fn citation_outside_allowed_is_illegal() {
         let mut o = good();
-        o.cited_source_ids = vec!["ADR-039".into()];
+        o.cited_source_ids = vec!["ADR-030".into()];
         let v = validate_output(&pkg(), &o);
         assert!(!v.ok);
-        assert_eq!(v.illegal_citations, vec!["ADR-039".to_string()]);
+        assert_eq!(v.illegal_citations, vec!["ADR-030".to_string()]);
     }
 
     #[test]
     fn wrong_doc_identity_in_prose_is_flagged() {
         let mut o = good();
         o.answer_markdown =
-            "Na verdade a ADR-039 trata da nomenclatura do ecossistema aqui.".into();
+            "Na verdade a ADR-030 trata da nomenclatura do ecossistema aqui.".into();
         let v = validate_output(&pkg(), &o);
         assert!(!v.ok);
-        assert!(v.uncited_doc_mentions.contains(&"ADR-039".to_string()));
+        assert!(v.uncited_doc_mentions.contains(&"ADR-030".to_string()));
     }
 
     #[test]
@@ -662,7 +662,7 @@ mod tests {
     #[test]
     fn authored_fontes_block_is_flagged() {
         let mut o = good();
-        o.answer_markdown = "A ADR-002 inverte a nomenclatura.\n\nFontes: ADR-002".into();
+        o.answer_markdown = "A ADR-001 inverte a nomenclatura.\n\nFontes: ADR-001".into();
         assert!(!validate_output(&pkg(), &o).ok);
     }
 
@@ -708,7 +708,7 @@ mod tests {
 
     #[test]
     fn classifier_assigns_the_five_categories() {
-        let p = pkg(); // documentary package: F1.. facts, ADR-002 allowed, no calculations
+        let p = pkg(); // documentary package: F1.. facts, ADR-001 allowed, no calculations
         let cat = |claim: &str, fact_ids: Vec<&str>| {
             let v = classify_and_verify(
                 &p,
@@ -852,23 +852,23 @@ mod tests {
     #[test]
     fn a_citation_not_in_the_package_is_rejected() {
         let mut input = VerifInput {
-            answer_markdown: "A ADR-002 inverte a nomenclatura.".into(),
+            answer_markdown: "A ADR-001 inverte a nomenclatura.".into(),
             claims: vec![VerifClaim {
                 claim: "inverte a nomenclatura".into(),
                 fact_ids: vec!["F1".into()],
                 category: None,
             }],
-            cited_source_ids: vec!["ADR-002".into()],
+            cited_source_ids: vec!["ADR-001".into()],
         };
         assert!(
             classify_and_verify(&pkg(), &input).ok,
             "the real citation passes"
         );
         // A citation that resolves to no package source → reject.
-        input.cited_source_ids = vec!["ADR-039".into()];
+        input.cited_source_ids = vec!["ADR-030".into()];
         let v = classify_and_verify(&pkg(), &input);
         assert!(!v.ok);
-        assert_eq!(v.dead_citations, vec!["ADR-039".to_string()]);
+        assert_eq!(v.dead_citations, vec!["ADR-030".to_string()]);
     }
 
     #[test]

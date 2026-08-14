@@ -6,7 +6,7 @@
     id:        SVG-P-065
     diagram:   Public Protocol Registry
     version:   1.0
-    source:    ADR-038 · ADR-039 · ADR-040 (M2.3 — Reference Trust Model Redesign)
+    source:    ADR-034 · ADR-030 · ADR-037 (M2.3 — Reference Trust Model Redesign)
     updated:   2026-07-17
     author:    BANZA Protocol
     style:     protocol
@@ -181,5 +181,5 @@
   <text x="590" y="806" text-anchor="middle" font-size="10" fill="#6B6265">The Trust Root signs only the Key Manifest; delegated keys sign protocol metadata, releases and the revocation list. It does not authorise operators, issue licences or authorise payments.</text>
   <text x="590" y="822" text-anchor="middle" font-size="10" fill="#6B6265">Operators are independent and carry their own legal, regulatory and financial responsibility. Any authorisation to operate comes from the competent regulator.</text>
 
-  <text x="590" y="858" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-065 · Public Protocol Registry · ADR-038 · ADR-039 · ADR-040 · M2.3 Reference Trust Model Redesign · v1.0 · 2026-07-17</text>
+  <text x="590" y="858" text-anchor="middle" font-size="9" fill="#9CA3AF">SVG-P-065 · Public Protocol Registry · ADR-034 · ADR-030 · ADR-037 · M2.3 Reference Trust Model Redesign · v1.0 · 2026-07-17</text>
 </svg>

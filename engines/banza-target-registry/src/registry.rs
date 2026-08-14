@@ -1,4 +1,4 @@
-//! The closed Technical Registry (ADR-038 §4.6/§14): the ONLY source of validation targets.
+//! The closed Technical Registry (ADR-034 §4.6/§14): the ONLY source of validation targets.
 //!
 //! It resolves `operator_id -> implementation_id -> canonical_origin -> discovery` over a **closed
 //! set** and decides eligibility in Rust. The production registry is seeded with exactly ONE operator
@@ -17,7 +17,7 @@ pub const SUPPORTED_ENVIRONMENTS: &[&str] = &["sandbox", "demo"];
 /// Conformance profiles the registry recognises.
 pub const SUPPORTED_PROFILES: &[&str] = &["L0", "L1", "L2", "L3", "L4"];
 
-/// The canonical reference operator's public origin (ADR-041). Not a hard protocol dependency — it is
+/// The canonical reference operator's public origin (ADR-035). Not a hard protocol dependency — it is
 /// the initial canonical *example* implementation, validated through the same secure path as any other.
 pub const REFERENCE_ORIGIN: &str = "https://zero.banza.network";
 
@@ -48,7 +48,7 @@ impl Registry {
     }
 
     /// Resolve a target: operator_id -> implementation_id -> canonical_origin -> discovery, applying
-    /// every eligibility rule (ADR-038 §14). Returns the resolved target or a typed reason.
+    /// every eligibility rule (ADR-034 §14). Returns the resolved target or a typed reason.
     pub fn resolve(
         &self,
         operator_id: &str,
@@ -165,7 +165,7 @@ impl Registry {
 }
 
 /// The CLOSED production registry: exactly one operator (`operator-zero`) and one implementation
-/// (`operator-zero-ref-impl`). No fictional operators (ADR-038 §4.9).
+/// (`operator-zero-ref-impl`). No fictional operators (ADR-034 §4.9).
 pub fn production_registry() -> Registry {
     let operator = OperatorRecord {
         operator_id: "operator-zero".into(),

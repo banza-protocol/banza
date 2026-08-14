@@ -1,4 +1,4 @@
-//! `rust-rule-guard` — enforce ADR-043 (Rust-first for official engines).
+//! `rust-rule-guard` — enforce ADR-038 (Rust-first for official engines).
 //!
 //! Usage:
 //!   rust-rule-guard check [--root DIR] [--allowlist PATH] [--files a b c] [--quiet]
@@ -75,7 +75,7 @@ fn main() {
 
     if !quiet {
         println!(
-            "rust-rule-guard (ADR-043) — scanned {} code files",
+            "rust-rule-guard (ADR-038) — scanned {} code files",
             report.scanned
         );
         println!("  allowlist entries loaded: {}", allow.len());
@@ -111,7 +111,7 @@ fn main() {
         exit(0);
     } else {
         println!(
-            "\n✗ FAIL — {} new non-Rust engine(s) blocked by ADR-043:",
+            "\n✗ FAIL — {} new non-Rust engine(s) blocked by ADR-038:",
             blocked.len()
         );
         for f in &blocked {

@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 #
-# BANZA Trust-Invariant Realignment Guard (M2.19B, ADR-027).
+# BANZA Trust-Invariant Realignment Guard (M2.19B, ADR-025).
 #
-# ADR-027 superseded the removed central-authority federation-trust invariant series
-# INV-TRUST-001..007 "in full"; ADR-031 defined INV-FEDEVAL-001..010; the root/key custody
+# ADR-025 superseded the removed central-authority federation-trust invariant series
+# INV-TRUST-001..007 "in full"; ADR-025 defined INV-FEDEVAL-001..010; the root/key custody
 # invariants survive as INV-ROOT-*. M2.19B retired the INV-TRUST-* identifier namespace from
 # the whole repository and removed the residual operator-certificate artifacts (the CERT-* fixtures,
 # the certificate_url field, the /certificates issued-certificate route, and the certificates DB table).
@@ -13,7 +13,7 @@
 #   trust_contract_adr_divergence, certificate_chain_runtime_paths.
 #
 # ALLOWED: the retired INV-TRUST-* identifiers may appear ONLY in the ADRs that explain the removal
-# (ADR-027/057/058 + their website mirrors) and in the generated grounding indexes (which index those
+# (ADR-025/057/058 + their website mirrors) and in the generated grounding indexes (which index those
 # ADRs). Everywhere else the identifier is a leak.
 #
 # Exit 1 on any violation. Exit 2 if the guard's own self-test is broken.
@@ -26,8 +26,8 @@ note() { printf '  - %s\n' "$1"; }
 
 # Paths where naming the retired series is legitimate (they document the removal) or is generated output.
 EXCLUDES=(
-  ':!decisions/adr/ADR-027*' ':!decisions/adr/ADR-045*' ':!decisions/adr/ADR-027*'
-  ':!website/content/decisions/adr/ADR-027*' ':!website/content/decisions/adr/ADR-045*' ':!website/content/decisions/adr/ADR-027*'
+  ':!decisions/adr/ADR-025*' ':!decisions/adr/ADR-010*' ':!decisions/adr/ADR-025*'
+  ':!website/content/decisions/adr/ADR-025*' ':!website/content/decisions/adr/ADR-010*' ':!website/content/decisions/adr/ADR-025*'
   ':!engines/banzai-query-core/src/doc-index.json'
   ':!engines/banzai-query-core/src/repoindex/*.json'
   ':!artifacts/**' ':!**/*.wasm'
@@ -36,7 +36,7 @@ EXCLUDES=(
 
 echo "== [1/5] legacy_trust_invariants: no retired INV-TRUST-* identifier outside the removal-record ADRs =="
 if git grep -lI 'INV-TRUST' -- "${EXCLUDES[@]}" >/tmp/_invtrust_hits 2>/dev/null; then
-  echo "FAIL: retired INV-TRUST-* identifier found (map to INV-OTE-*/INV-FEDEVAL-*/INV-ROOT-* per ADR-027):"
+  echo "FAIL: retired INV-TRUST-* identifier found (map to INV-OTE-*/INV-FEDEVAL-*/INV-ROOT-* per ADR-025):"
   while read -r f; do note "$f"; done </tmp/_invtrust_hits
   fail=1
 else
@@ -45,7 +45,7 @@ fi
 
 echo "== [2/5] removed_ca_content: no operator-certificate conformance fixtures =="
 if ls conformance/fixtures/federation/CERT-*.json >/dev/null 2>&1; then
-  echo "FAIL: operator-certificate CERT-*.json fixtures present (recast to SPM-* per ADR-027):"
+  echo "FAIL: operator-certificate CERT-*.json fixtures present (recast to SPM-* per ADR-025):"
   ls conformance/fixtures/federation/CERT-*.json | while read -r f; do note "$f"; done
   fail=1
 else
@@ -100,8 +100,8 @@ fi
 
 if [ "$fail" -ne 0 ]; then
   echo
-  echo "trust-invariant-realignment: FAIL — see ADR-027 for the authoritative mapping."
+  echo "trust-invariant-realignment: FAIL — see ADR-025 for the authoritative mapping."
   exit 1
 fi
 echo
-echo "trust-invariant-realignment: ✓ INV-TRUST retired; INV-OTE-*/INV-FEDEVAL-*/INV-ROOT-* canonical; no operator-certificate residue (M2.19B / ADR-027)"
+echo "trust-invariant-realignment: ✓ INV-TRUST retired; INV-OTE-*/INV-FEDEVAL-*/INV-ROOT-* canonical; no operator-certificate residue (M2.19B / ADR-025)"

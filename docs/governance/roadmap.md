@@ -6,7 +6,7 @@
 **Version:** 1.0  
 **Date:** 2026-05-30  
 **Status:** Official  
-**Authority:** ADR-002
+**Authority:** ADR-001
 
 ---
 

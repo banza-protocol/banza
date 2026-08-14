@@ -11,11 +11,11 @@
 
 | Tier | Artifacts |
 |---|---|
-| implementation | 90 |
+| implementation | 91 |
 | conformance | 55 |
 | legal | 3 |
 | informative | 2 |
-| **total** | **150** |
+| **total** | **151** |
 
 ## Per profile
 
@@ -193,10 +193,10 @@ Profile closure: L0, L1, L2, L3, L4
 ## Orphans and unresolved references
 
 - **declared but absent from the surface**: 0
-- **declared non profile artifacts (declared with a reason in the profile registry — not defects)**: 19
+- **declared non profile artifacts (declared with a reason in the profile registry — not defects)**: 20
 - **implementation tier without profile or consumer**: 0
 - **manifest entry whose file is missing**: 0
-- **mentioned in text but not depended on**: 21
+- **mentioned in text but not depended on**: 22
 - **schema never referenced**: 0
 - **unresolved references**: 0
 - **vector not required by any profile**: 0

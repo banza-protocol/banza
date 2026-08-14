@@ -3,7 +3,7 @@
 **Versão:** 1.0  
 **Data:** 2026-06-01  
 **Estado:** Oficial  
-**Autoridade:** ADR-002, ADR-001, ADR-001
+**Autoridade:** ADR-001, ADR-001, ADR-001
 
 ---
 
@@ -130,9 +130,9 @@ O BANZA é o **protocolo financeiro aberto de infraestrutura para Angola** — a
 | Componente | Estado |
 |------------|--------|
 | Invariantes financeiros definidos (partidas dobradas, idempotência, atomicidade) | Concluído |
-| Protocolo de federação (ADR-031 — avaliação de confiança de federação sem certificados) | Concluído — 79/79 testes |
-| Modelo de conformidade verificável L0–L4 (ADR-033 — auto-publicação e conformidade verificável por máquina) | Concluído |
-| Modelo de confiança aberto: trust root, chaves delegadas, revogação (ADR-027 — modelo de confiança de protocolo aberto sem CA) | Concluído |
+| Protocolo de federação (ADR-025 — avaliação de confiança de federação sem certificados) | Concluído — 79/79 testes |
+| Modelo de conformidade verificável L0–L4 (ADR-031 — auto-publicação e conformidade verificável por máquina) | Concluído |
+| Modelo de confiança aberto: trust root, chaves delegadas, revogação (ADR-025 — modelo de confiança de protocolo aberto sem CA) | Concluído |
 | Suite de conformidade (14/14 cenários de interoperabilidade) | Concluído |
 | Agente do Protocolo BanzAI | Concluído |
 | Contratos públicos (OpenAPI, webhooks, QR, eventos) | Concluído |
@@ -190,9 +190,9 @@ Os operadores mudam. Os produtos evoluem. O que o BANZA garante é que as regras
 - [docs/reference/en/complete.md](en/complete.md) — Tradução oficial (inglês)
 - [docs/governance/README.md](../governance/README.md) — Modelo de governação do protocolo
 - [docs/governance/certification-boundary.md](../governance/certification-boundary.md) — Enquadramento de conformidade
-- ADR-002 — Hierarquia canónica do ecossistema
+- ADR-001 — Hierarquia canónica do ecossistema
 - ADR-001 — Núcleo financeiro aberto
 - ADR-001 — Separação de operadores
-- ADR-027 — Modelo de confiança de protocolo aberto sem CA (trust root offline, chaves delegadas, manifesto de chaves assinado)
-- ADR-033 — Auto-publicação de operadores e conformidade verificável por máquina
-- ADR-031 — Avaliação de confiança de federação sem certificados
+- ADR-025 — Modelo de confiança de protocolo aberto sem CA (trust root offline, chaves delegadas, manifesto de chaves assinado)
+- ADR-031 — Auto-publicação de operadores e conformidade verificável por máquina
+- ADR-025 — Avaliação de confiança de federação sem certificados

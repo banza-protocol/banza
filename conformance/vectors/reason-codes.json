@@ -1,7 +1,7 @@
 {
   "_spec": "BANZA Reason Code Conformance Vectors",
   "_status": "canonical",
-  "_authority": "spec/reason-codes.md (ADR-023) and contracts/production/reason-code-registry.production.json",
+  "_authority": "spec/reason-codes.md (ADR-021) and contracts/production/reason-code-registry.production.json",
   "_source_of_truth": "spec/reason-codes.md",
   "protocol_version": "1.0.0",
   "registry": "banza-reason-codes/1",
@@ -61,7 +61,7 @@
       ],
       "expect": "accept",
       "required_behaviour": "preserve; MUST NOT change any verdict; MUST NOT reject the artifact",
-      "note": "Adding a core code is backward compatible (ADR-009)."
+      "note": "Adding a core code is backward compatible (ADR-008)."
     },
     {
       "id": "RC-005",

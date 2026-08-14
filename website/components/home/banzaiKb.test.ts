@@ -129,11 +129,11 @@ describe("mapAskResponse (banzai-api /ask → KbAnswer)", () => {
 
   it("a normal grounded Qwen answer is NEVER labelled degraded (regression: como federar um operador?)", () => {
     const r = mapAskResponse({
-      answer: "No BANZA, a participação é demonstrada por evidência verificável (ADR-031).",
+      answer: "No BANZA, a participação é demonstrada por evidência verificável (ADR-025).",
       grounded: true,
       local_model_called: true,
       external_model_called: false,
-      sources: [{ id: "ADR-031", title: "Federation", path: "p" }],
+      sources: [{ id: "ADR-025", title: "Federation", path: "p" }],
       engine_state: "local_qwen",
       latency_ms: 32000,
       meta: {},
@@ -191,7 +191,7 @@ describe("mapAskResponse (banzai-api /ask → KbAnswer)", () => {
     expect(safeSourceHref("engines/banzai-api-kb/pkg/banzai_api_kb_bg.wasm", "banza-protocol/banza")).toBeNull();
     // A globbed registry path links to the directory (tree), never a guessed file.
     expect(safeSourceHref("decisions/adr/ADR-001-*.md", "banza-protocol/banza")).toBe("https://github.com/banza-protocol/banza/tree/main/decisions/adr");
-    // Honors the source's declared repo. Post-consolidation (ADR-042) the monorepo is the only live
+    // Honors the source's declared repo. Post-consolidation (ADR-036) the monorepo is the only live
     // BanzAI source — there is no separate banza-protocol/banzai repo to link to.
     expect(safeSourceHref("engines/banzai-trace/", "banza-protocol/banza")).toBe("https://github.com/banza-protocol/banza/tree/main/engines/banzai-trace");
   });
@@ -365,7 +365,7 @@ describe("M2.11D — a deliberate refusal maps to kind: refusal", () => {
       ...base,
       grounded: true,
       intent: "governance_reference",
-      sources: [{ id: "ADR-002", title: "x" }],
+      sources: [{ id: "ADR-001", title: "x" }],
     } as never);
     expect(a.kind).toBe("answer");
   });
@@ -407,7 +407,7 @@ describe("buildTransparency (§24) — envelope → KbTransparency (present when
           artifact_observed_at: "2026-08-06T10:00:00Z",
         },
       },
-      [{ id: "ADR-002", title: "t", path: "p", repo: "banza-protocol/banza", category: "decision", href: null }],
+      [{ id: "ADR-001", title: "t", path: "p", repo: "banza-protocol/banza", category: "decision", href: null }],
       { degraded: false, fallbackReason: "", grounded: true, refused: false, terminalKind: "", isInsufficientMeasurements: false, contextualFallbackKind: null },
     );
     expect(t).toBeDefined();

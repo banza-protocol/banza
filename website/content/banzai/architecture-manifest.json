@@ -62,7 +62,7 @@
     "factual-package-closed: toda a resposta assenta num único FactualPackage — evidência fechada com apenas factos autorizados, citações, resultados, códigos de motivo, âmbito, fronteiras e proveniência.",
     "model-optional-subordinate: o modelo de linguagem local é opcional e subordinado; recebe apenas o FactualPackage e um contrato de saída; nunca escolhe fontes, resolve entidades nem publica.",
     "direct-path-rejected: o caminho directo utilizador → modelo → resposta é rejeitado por construção.",
-    "mandatory-rust-validation: a verificação final, obrigatória e em Rust (ADR-042), confere afirmações, autoridade, citações, consistência com os motores, limites, política e cobertura antes de publicar.",
+    "mandatory-rust-validation: a verificação final, obrigatória e em Rust (ADR-036), confere afirmações, autoridade, citações, consistência com os motores, limites, política e cobertura antes de publicar.",
     "non-authoritative: a resposta é sempre não autoritativa (authoritative:false).",
     "protocol-works-without-banzai: se o BanzAI desaparecer, o protocolo permanece integralmente verificável.",
     "model-output-not-a-source: o output do modelo não é uma fonte de verdade.",
@@ -146,7 +146,7 @@
     "route": "/banzai/runtime",
     "method": "GET",
     "schema_version": "banzai-runtime/1",
-    "adr": "ADR-042",
+    "adr": "ADR-036",
     "produced_by": "services/banzai-api/src/server.js",
     "consumed_by": "website/components/reference/BanzaiRuntimeStrip.tsx",
     "authoritative": false,
@@ -214,14 +214,14 @@
     { "value": "Technical Registry", "scope": "bare EN inside §12 (PT «Registo Técnico» is canonical there)" }
   ],
   "adrs": [
-    { "id": "ADR-042", "subject": "BanzAI as primary human-operator interface" },
-    { "id": "ADR-042", "subject": "Single-pass grounded synthesis" },
-    { "id": "ADR-003", "subject": "Three-layer architecture" },
-    { "id": "ADR-041", "subject": "Endpoint-originated operator validation / nine-step journey" },
-    { "id": "ADR-038", "subject": "Endpoint-originated validation + operator↔implementation model" },
-    { "id": "ADR-042", "subject": "BanzAI canonical runtime + reference correction" },
-    { "id": "ADR-042", "subject": "Runtime SSOT route (banzai-runtime/1)" },
-    { "id": "ADR-042", "subject": "Mandatory post-synthesis validator" },
-    { "id": "ADR-042", "subject": "SimB retirement from active surfaces" }
+    { "id": "ADR-036", "subject": "BanzAI as primary human-operator interface" },
+    { "id": "ADR-036", "subject": "Single-pass grounded synthesis" },
+    { "id": "ADR-004", "subject": "Three-layer architecture" },
+    { "id": "ADR-035", "subject": "Endpoint-originated operator validation / nine-step journey" },
+    { "id": "ADR-034", "subject": "Endpoint-originated validation + operator↔implementation model" },
+    { "id": "ADR-036", "subject": "BanzAI canonical runtime + reference correction" },
+    { "id": "ADR-036", "subject": "Runtime SSOT route (banzai-runtime/1)" },
+    { "id": "ADR-036", "subject": "Mandatory post-synthesis validator" },
+    { "id": "ADR-036", "subject": "SimB retirement from active surfaces" }
   ]
 }

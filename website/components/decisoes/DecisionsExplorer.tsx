@@ -7,7 +7,7 @@ import type { Decision } from "@/lib/decisions";
 // Client-side explorer for the ADR/RFC library. Pure local state — filters and
 // search operate over the statically-indexed `decisions` array (no network, no
 // LLM, no runtime data source). BanzAI links open /banzai pre-filled with the
-// question; the agent answers there from local on-host inference (ADR-042/048).
+// question; the agent answers there from local on-host inference (ADR-036/048).
 
 type TypeFilter = "all" | "ADR" | "RFC";
 type StateFilter = "all" | "activo" | "rascunho" | "substituido";

@@ -15,20 +15,20 @@ One canonical, deduplicated suite reconciled against every pre-existing BanzAI e
 
 ## Canonical suite — the six-way classification
 
-Total: **2569** cases (floor 2500); 46 distinct human-authored semantic seeds.
+Total: **2439** cases (floor 2200); 43 distinct human-authored semantic seeds.
 
 | class | count | definition |
 |---|---|---|
-| base | 46 | base semantic cases — one canonical human-authored phrasing per meaning |
-| variation | 643 | generated lexical variations — capitalization/punctuation/accent/whitespace + paraphrases of the base seeds (a capitalization/punctuation change is a VARIATION, never a new semantic case) |
+| base | 43 | base semantic cases — one canonical human-authored phrasing per meaning |
+| variation | 590 | generated lexical variations — capitalization/punctuation/accent/whitespace + paraphrases of the base seeds (a capitalization/punctuation change is a VARIATION, never a new semantic case) |
 | multi_turn | 61 | multi-turn conversations — anaphora resolved against the safe technical prior context |
 | negative | 199 | negative cases — off-domain declines, non-entity guards, boundary refusals, and zero-tolerance adversarial probes |
 | live | 1165 | live cases — implementation-scoped artifacts (entity×artifact) and operational metrics (metric×aggregation) that require the live tool / telemetry |
-| regression | 455 | regression cases — documentary corpus coverage + grounded claim/calculation anchors that protect the prior grounded families |
+| regression | 381 | regression cases — documentary corpus coverage + grounded claim/calculation anchors that protect the prior grounded families |
 
 ## By family
 
-concepts=736 · procedures=30 · security=14 · apis=32 · governance=41 · profiles=24 · duration=23 · metrics=76 · reason_codes=138 · diagnosis=16 · reproduction=14 · hypotheses=17 · comparison=23 · artifacts=1125 · multi_turn=61 · negative=199
+concepts=624 · procedures=30 · security=14 · apis=32 · governance=23 · profiles=24 · duration=23 · metrics=76 · reason_codes=138 · diagnosis=16 · reproduction=14 · hypotheses=17 · comparison=23 · artifacts=1125 · multi_turn=61 · negative=199
 
 ## How 709 / 1564 / the new cases relate
 

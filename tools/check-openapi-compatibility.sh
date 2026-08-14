@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# check-openapi-compatibility.sh — RUST_WRAPPER_ONLY (ADR-043, R10)
+# check-openapi-compatibility.sh — RUST_WRAPPER_ONLY (ADR-038, R10)
 #
 # Compares two OpenAPI specs and reports breaking changes. The diff LOGIC lives in Rust:
 #   engines/banza-repo-guards  (bin `banza-repo-guards`, subcommand `openapi NEW OLD`).

@@ -9,7 +9,7 @@
 **Repository VERSION:** 1.0.0  
 **Date:** 2026-06-11  
 **Status:** Official v1.0 · pre-production · no operator has published conformance evidence  
-**Authority:** ADR-002
+**Authority:** ADR-001
 
 ---
 
@@ -55,7 +55,7 @@ A camada de implementação é da responsabilidade exclusiva de cada operador. B
 
 ## BanzAI — Agente Nativo do Protocolo
 
-O BANZA é um protocolo financeiro aberto acompanhado por um **agente IA nativo: o BanzAI** (ADR-042). O BanzAI acompanha o operador ao longo de todo o percurso — do manifesto à federação: guia, simula fluxos, invoca ferramentas verificáveis, explica resultados, ajuda a corrigir falhas e prepara evidência.
+O BANZA é um protocolo financeiro aberto acompanhado por um **agente IA nativo: o BanzAI** (ADR-036). O BanzAI acompanha o operador ao longo de todo o percurso — do manifesto à federação: guia, simula fluxos, invoca ferramentas verificáveis, explica resultados, ajuda a corrigir falhas e prepara evidência.
 
 O BanzAI **não** é uma camada normativa e **não** cria regras. A separação de responsabilidades é explícita:
 
@@ -69,7 +69,7 @@ O BanzAI **não** é uma camada normativa e **não** cria regras. A separação 
 
 As regras activas provêm da Referência BANZA, dos ADRs/RFCs aceites, das specs, contratos, schemas, invariantes e releases. O BanzAI orienta e explica, mas não é fonte normativa: não aprova, não certifica, não licencia, não decide participação, não inventa regras, não adiciona decisões arquitecturais e não substitui a Referência nem os motores determinísticos Rust/WASM. As entidades reguladoras competentes situam-se fora do protocolo e tratam de licenciamento/autorização quando aplicável ao operador.
 
-Ver [ADR-042](../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md) e [docs/governance/BANZAI_NATIVE_PROTOCOL_AGENT.md](../docs/governance/BANZAI_NATIVE_PROTOCOL_AGENT.md).
+Ver [ADR-036](../decisions/adr/ADR-036-banzai-a-non-authoritative-interface-to-the-protocol.md) e [docs/governance/BANZAI_NATIVE_PROTOCOL_AGENT.md](../docs/governance/BANZAI_NATIVE_PROTOCOL_AGENT.md).
 
 ---
 
@@ -181,7 +181,7 @@ Manifestos de Operador  (assinados · públicos)
 Não existe autoridade de certificação. O trust é avaliado pela Open Trust Evaluation — signed protocol metadata → chaves delegadas → registo público → revocation/fail-closed. O BanzAI explica os critérios mas não certifica nem emite certificados. Os operadores fixam a chave raiz uma vez e usam-na para verificar todas as chaves delegadas e a signed protocol metadata subsequentes.
 
 Ver [docs/reference/en/complete.md §Trust](../docs/reference/en/complete.md) para a especificação normativa.  
-Ver [ADR-027](../decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md) para a arquitectura da chave raiz (Trust Root offline, chaves de assinatura delegadas, manifesto de chaves assinado).
+Ver [ADR-025](../decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md) para a arquitectura da chave raiz (Trust Root offline, chaves de assinatura delegadas, manifesto de chaves assinado).
 
 ---
 
@@ -202,7 +202,7 @@ Operador A  →[metadata verificada]→  Operador B
 ```
 
 Ver [docs/reference/en/complete.md §Federation](../docs/reference/en/complete.md) para a especificação normativa.  
-Ver [ADR-031](../decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md) para o modelo de avaliação de trust de federação (sem certificados).
+Ver [ADR-025](../decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md) para o modelo de avaliação de trust de federação (sem certificados).
 
 ---
 
@@ -264,12 +264,12 @@ BANZA é o protocolo. As implementações pertencem a repositórios independente
 
 **Referências:**
 
-- ADR-011 — Ledger de partidas dobradas
-- ADR-016 — Sistema de pagamento QR
-- ADR-012 — Modelo de identidade de conta/participante
+- ADR-012 — Ledger de partidas dobradas
+- ADR-015 — Sistema de pagamento QR
+- ADR-014 — Modelo de identidade de conta/participante
 - ADR-001 — Open financial protocol (implementation independence) (historial)
 - ADR-001 — Separação operador/protocolo
-- ADR-002 — Inversão de nomenclatura do ecossistema
+- ADR-001 — Inversão de nomenclatura do ecossistema
 
 Ver também:
 - [website/content/BANZA_REFERENCIA.md](../website/content/BANZA_REFERENCIA.md) — Referência canónica do protocolo (PT, servida em banza.network/referencia)

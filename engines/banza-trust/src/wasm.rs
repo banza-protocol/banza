@@ -21,7 +21,7 @@ pub fn trust_evaluate_signed_metadata_json(input: &str) -> String {
     tool::trust_evaluate_tool(&parse(input)).to_string()
 }
 
-/// Full federation Open Trust Evaluation (ADR-031): ten fail-closed checks → ROUTING_ALLOWED / FAIL_CLOSED.
+/// Full federation Open Trust Evaluation (ADR-025): ten fail-closed checks → ROUTING_ALLOWED / FAIL_CLOSED.
 #[wasm_bindgen]
 pub fn trust_federation_ote_json(input: &str) -> String {
     tool::federation_ote_tool(&parse(input)).to_string()

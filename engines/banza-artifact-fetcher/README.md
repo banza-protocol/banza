@@ -1,15 +1,15 @@
-# banza-artifact-fetcher (ADR-043, ADR-038 §4.7 / §18–§20; M2.19G.1)
+# banza-artifact-fetcher (ADR-038, ADR-034 §4.7 / §18–§20; M2.19G.1)
 
 The **secure artifact fetcher**: the **only** BANZA component that reaches operator public endpoints.
 It performs **all** official artifact retrieval for BanzAI's endpoint-originated operator-validation
-journey (ADR-038). The no-network protocol engines (`banza-operator-manifest`, `banza-trust`,
+journey (ADR-034). The no-network protocol engines (`banza-operator-manifest`, `banza-trust`,
 `banza-conformance`, `banza-l2/l3-readiness`, `banza-evidence-bundle`, …) **stay no-network** — they
 receive already-fetched content from this component and decide the verdicts.
 
-> Operational rule (ADR-038 §4): *the operator publishes; BanzAI obtains (this fetcher); Rust
+> Operational rule (ADR-034 §4): *the operator publishes; BanzAI obtains (this fetcher); Rust
 > verifies; the receipt fixes the result; the Technical Registry publishes the verifiable state.*
 
-Per ADR-043 this is an **official engine → it MUST be Rust**. It ships as **both**:
+Per ADR-038 this is an **official engine → it MUST be Rust**. It ships as **both**:
 
 - a **library** — the unit-testable SSRF policy (`policy`) and the fetch pipeline (`fetch`);
 - a **service binary** (`banza-fetcher`, axum) — `POST /fetch`, called by `banzai-api` over the
@@ -23,7 +23,7 @@ Per ADR-043 this is an **official engine → it MUST be Rust**. It ships as **bo
 | `src/policy.rs`    | Pure SSRF policy — `preflight` (scheme/userinfo/host/port), `classify_ip` (IPv4+IPv6 blocklist), `media_type_allowed`, `content_encoding_ok`, `FetchPolicy`. No I/O. |
 | `src/resolver.rs`  | `HostResolver` trait + `SystemResolver` (tokio) + `StaticResolver` (tests). Injectable DNS. |
 | `src/fetch.rs`     | The async pipeline tying policy + resolver + a hardened `reqwest` client together. |
-| `src/audit.rs`     | `request_id`, RFC3339 timestamp, SHA-256, and the one-line JSON audit record (ADR-038 §4.8). |
+| `src/audit.rs`     | `request_id`, RFC3339 timestamp, SHA-256, and the one-line JSON audit record (ADR-034 §4.8). |
 | `src/lib.rs`       | Crate root / re-exports. |
 | `src/bin/server.rs`| The `banza-fetcher` axum service (`POST /fetch`, `GET /health`, `--healthcheck`). |
 | `tests/fetch_pipeline.rs` | Integration tests: loopback mock server + injected resolver. |
@@ -46,7 +46,7 @@ Per ADR-043 this is an **official engine → it MUST be Rust**. It ships as **bo
 
 `max_bytes` (default `1048576`), `timeout_ms` (default `8000`) and `allowed_ports` (default `[443]`)
 are optional. In the official journey `banzai-api` derives `canonical_origin` / `expected_host` from
-the **closed Technical Registry** (ADR-036) — never from a user-supplied URL (ADR-038 §4.4).
+the **closed Technical Registry** (ADR-033) — never from a user-supplied URL (ADR-034 §4.4).
 
 ### `POST /fetch` — response (success or typed failure)
 
@@ -77,7 +77,7 @@ entry. The endpoint always returns HTTP 200 — the verdict is carried in the JS
 
 `GET /health` → `{ "status": "ok", "service": "banza-artifact-fetcher", "version": "…" }`.
 
-## SSRF policy (ADR-038 §19) — every rule a distinct `reason_code`
+## SSRF policy (ADR-034 §19) — every rule a distinct `reason_code`
 
 | Rule | reason_code(s) |
 |------|----------------|
@@ -156,7 +156,7 @@ Recommended: a dedicated egress-enabled bridge network `banza-fetch` shared only
 #     driver: bridge        # fetcher can reach operator public HTTPS endpoints.
 
 services:
-  banza-fetcher:            # ADR-038 §4.7 secure artifact fetcher; the ONLY egress to operator endpoints
+  banza-fetcher:            # ADR-034 §4.7 secure artifact fetcher; the ONLY egress to operator endpoints
     image: ghcr.io/banza-protocol/banza-fetcher:${FETCHER_TAG}
     build:
       context: ${BANZA_REPO:-/srv/banza-protocol/repo}/engines/banza-artifact-fetcher
@@ -194,8 +194,8 @@ egress-enabled and already shared with `banzai-api`) with no `ports:`; `banzai-a
 ## Boundaries
 
 - Verification/transport only. It NEVER decides a certification verdict, signs, issues certificates,
-  or moves funds. It obtains bytes; the Rust decision engines judge them (ADR-038 §Decision).
+  or moves funds. It obtains bytes; the Rust decision engines judge them (ADR-034 §Decision).
 - Protocol fetches are audited as `protocol_fetch`, **never** counted as external model calls
-  (ADR-038 §4.8).
+  (ADR-034 §4.8).
 - The service binary always uses `FetchPolicy::strict()`. The `allow_http` / `allow_loopback`
   relaxations exist only for deterministic loopback tests and are unreachable from the HTTP endpoint.

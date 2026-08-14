@@ -1,5 +1,5 @@
 // Increment 5 (§11/§13) — the read-only RECEIPTS tool the question-family handler uses for the comparison
-// and diagnosis families. It reuses the durable receipt store (ADR-042, receipts/index.js): resolve the
+// and diagnosis families. It reuses the durable receipt store (ADR-036, receipts/index.js): resolve the
 // comparison operands (latest / previous / penultimate / explicit exec-… ids) to concrete PUBLIC execution
 // ids, then read one execution or the field-by-field diff of two. NO new store logic — it only composes the
 // existing store reads. Fail-safe + env-gated inside the store: a disabled store / DB outage returns an
@@ -12,7 +12,7 @@
 import * as receipts from "./receipts/index.js";
 
 const PUBLIC = "public";
-// The canonical public demo implementation (ADR-041/053). Public comparison/diagnosis operands resolve
+// The canonical public demo implementation (ADR-035/053). Public comparison/diagnosis operands resolve
 // against its execution history — the same public scope the telemetry tool uses.
 const PUBLIC_IMPL = "operator-zero-ref-impl";
 

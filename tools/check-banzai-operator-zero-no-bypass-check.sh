@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# M2.19G.1 (ADR-038 §4.9) — Operador Zero no-bypass guard (§37, invariant 18).
+# M2.19G.1 (ADR-034 §4.9) — Operador Zero no-bypass guard (§37, invariant 18).
 #
 # OZ receives NO shortcut, official fixture, pre-computed result or bypass in the SERVED validate path.
 # There is no `if operator-zero` branch, no precomputed/hardcoded verdict, and no fixture substitution
@@ -21,7 +21,7 @@ FCLIENT=services/banzai-api/src/fetcherClient.js
 # Bypass smells in the served path.
 BYPASS='if[[:space:]]*\([^)]*operator[_-]zero|precomputed|hardcoded|hard-coded|bypass|shortcut|stub[Vv]erdict|fake[Vv]erdict|canned'
 
-echo "== banzai-operator-zero-no-bypass-check (M2.19G.1 / ADR-038 §4.9) =="
+echo "== banzai-operator-zero-no-bypass-check (M2.19G.1 / ADR-034 §4.9) =="
 
 # ── self-test ───────────────────────────────────────────────────────────────────────────────────────
 st=0
@@ -57,4 +57,4 @@ fi
 
 echo
 if [ "$fail" -ne 0 ]; then echo "banzai-operator-zero-no-bypass-check: FAIL"; exit 1; fi
-echo "banzai-operator-zero-no-bypass-check: ✓ no OZ shortcut/fixture/precomputed verdict in the served path (ADR-038 §4.9)"
+echo "banzai-operator-zero-no-bypass-check: ✓ no OZ shortcut/fixture/precomputed verdict in the served path (ADR-034 §4.9)"

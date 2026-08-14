@@ -901,7 +901,7 @@ refere-se às **duas últimas execuções**, ou a execuções específicas (indi
                 )
             } else {
                 "Não consegui determinar com segurança o que pretende. Pode reformular indicando o \
-identificador (ex.: ADR-002) ou o alvo concreto?"
+identificador (ex.: ADR-001) ou o alvo concreto?"
                     .to_string()
             }
         } else {

@@ -1,4 +1,4 @@
-// M2.14I (ADR-042) — BanzAI as the primary human-operator interface. FULLY OFFLINE: drives the committed
+// M2.14I (ADR-036) — BanzAI as the primary human-operator interface. FULLY OFFLINE: drives the committed
 // Rust routing engine + answer contract. Role/architecture questions answer deterministically and
 // on-message; the primary-interface router classifies human/operator requests; forbidden requests are
 // refused before orchestration.

@@ -44,7 +44,7 @@ function runSequence(turns) {
 }
 
 const SEQ_A = ["Explica a federação.", "Dá-me um exemplo.", "Agora mostra os requisitos.", "Qual é o impacto para operadores?"];
-const SEQ_B = ["Abre a ADR-001.", "Resume.", "Explica a motivação.", "Mostra as consequências.", "Compara com a ADR-011."];
+const SEQ_B = ["Abre a ADR-001.", "Resume.", "Explica a motivação.", "Mostra as consequências.", "Compara com a ADR-012."];
 const SEQ_C = ["Explica o key manifest.", "Mostra a estrutura.", "Como é validado?", "E o que acontece quando expira?"];
 
 const EXPECTED_TASK = {
@@ -55,7 +55,7 @@ const EXPECTED_TASK = {
   "Abre a ADR-001.": "document_lookup",
   "Explica a motivação.": "explanation",
   "Mostra as consequências.": "impact",
-  "Compara com a ADR-011.": "comparison",
+  "Compara com a ADR-012.": "comparison",
   "Explica o key manifest.": "explanation",
   "E o que acontece quando expira?": "consequences",
 };
@@ -90,9 +90,9 @@ for (const [name, turns] of [["A", SEQ_A], ["B", SEQ_B], ["C", SEQ_C]]) {
 test("DFN-8 explicit subject/document in the current turn overrides prior context", () => {
   // after talking about federation, an explicit ADR reference must resolve to THAT document, not federation.
   const prior = ["Explica a federação.", "Dá-me um exemplo."];
-  const r = routeCtx("Abre a ADR-011.", prior);
-  assert.ok(/ADR-011/i.test(r.resolved_query || "Abre a ADR-011."), "explicit ADR-011 preserved over prior federation context");
-  assert.equal(taskOf("Abre a ADR-011.", "ADR-011"), "document_lookup", "explicit document → lookup");
+  const r = routeCtx("Abre a ADR-012.", prior);
+  assert.ok(/ADR-012/i.test(r.resolved_query || "Abre a ADR-012."), "explicit ADR-012 preserved over prior federation context");
+  assert.equal(taskOf("Abre a ADR-012.", "ADR-012"), "document_lookup", "explicit document → lookup");
 
   // an explicit different subject overrides too.
   assert.equal(taskOf("o que é a conformidade", ""), "definition", "explicit new subject governs its own task");

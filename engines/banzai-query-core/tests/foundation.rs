@@ -12,7 +12,7 @@ use banzai_query_core::{
 fn normalize_lowercases_strips_accents_and_symbols() {
     // NFD accent stripping + lowercase + non-[a-z0-9/space] → space + whitespace collapse + trim.
     assert_eq!(normalize("  Ãção,  ÉPÍCO! "), "acao epico");
-    assert_eq!(normalize("ADR-042"), "adr 042");
+    assert_eq!(normalize("ADR-036"), "adr 036");
     assert_eq!(normalize("BANZA"), "banza");
 }
 

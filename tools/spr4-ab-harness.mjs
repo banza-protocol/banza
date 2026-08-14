@@ -33,15 +33,15 @@ const REPS = Math.max(1, parseInt(arg("--reps", "2"), 10) || 2);
 const OUT = arg("--out", "");
 
 const DEFAULT_QUESTIONS = [
-  { q: "o que decidiu a ADR-002?", entity: "ADR-002" },
-  { q: "explica a ADR-011", entity: "ADR-011" },
+  { q: "o que decidiu a ADR-001?", entity: "ADR-001" },
+  { q: "explica a ADR-012", entity: "ADR-012" },
   { q: "o que é o BanzAI?" },
   { q: "o que é a Action Boundary?" },
-  { q: "o que decidiu a ADR-043?", entity: "ADR-043" },
+  { q: "o que decidiu a ADR-038?", entity: "ADR-038" },
   { q: "o que é um operador certificado?" },
-  { q: "explica a ADR-042", entity: "ADR-042" },
+  { q: "explica a ADR-036", entity: "ADR-036" },
   { q: "o que é o Operador Zero?" },
-  { q: "compara a ADR-041 com a ADR-042", entity: "ADR-041" },
+  { q: "compara a ADR-035 com a ADR-036", entity: "ADR-035" },
   { q: "o que é a federação no protocolo BANZA?" },
 ];
 const QUESTIONS = process.env.SPR4_QUESTIONS ? JSON.parse(process.env.SPR4_QUESTIONS) : DEFAULT_QUESTIONS;

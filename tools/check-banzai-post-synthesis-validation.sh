@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #
-# BanzAI mandatory post-synthesis authority validator guard (M2.19G.5C, ADR-042).
+# BanzAI mandatory post-synthesis authority validator guard (M2.19G.5C, ADR-036).
 #
-# ADR-042 makes the post-synthesis authority validator a MANDATORY publish-gate step: after the single
+# ADR-036 makes the post-synthesis authority validator a MANDATORY publish-gate step: after the single
 # grounded synthesis produces the exact bytes that would be published, and BEFORE the answer is built,
 # cached or returned, the pipeline re-runs the Rust authority/leak validator (postValidate →
 # validate_response) plus the citation + contradiction checks. Any failure degrades to the safe grounded
@@ -79,8 +79,8 @@ echo "== [3/4] a path emits fallback_reason prefixed post_validation_ =="
 if grep -qE 'post_validation_' "$PIPE"; then
   ok "pipeline emits post_validation_* fallback reasons"
   grep -qE 'post_validation_\$\{verdict\.reason\}|post_validation_unsupported_claim|post_validation_contradicts_deterministic' "$PIPE" \
-    && ok "the three ADR-042 gate reasons are present (authority/leak, unsupported_claim, contradicts_deterministic)" \
-    || fl "expected the ADR-042 gate reasons (post_validation_<verdict>, _unsupported_claim, _contradicts_deterministic)"
+    && ok "the three ADR-036 gate reasons are present (authority/leak, unsupported_claim, contradicts_deterministic)" \
+    || fl "expected the ADR-036 gate reasons (post_validation_<verdict>, _unsupported_claim, _contradicts_deterministic)"
 else
   fl "no post_validation_ prefixed fallback_reason is emitted"
 fi
@@ -105,8 +105,8 @@ grep -qE 'validation_status:[[:space:]]*validationStatus' "$SERVER" \
 
 if [ "$fail" -ne 0 ]; then
   echo
-  echo "banzai-post-synthesis-validation: FAIL — the mandatory post-synthesis publish gate (ADR-042) drifted."
+  echo "banzai-post-synthesis-validation: FAIL — the mandatory post-synthesis publish gate (ADR-036) drifted."
   exit 1
 fi
 echo
-echo "banzai-post-synthesis-validation: ✓ postValidate gates the grounded publish path (after synthesis, before groundedAnswer/cache/return); three-state validation_status derived from the post_validation_ emitter (ADR-042)"
+echo "banzai-post-synthesis-validation: ✓ postValidate gates the grounded publish path (after synthesis, before groundedAnswer/cache/return); three-state validation_status derived from the post_validation_ emitter (ADR-036)"

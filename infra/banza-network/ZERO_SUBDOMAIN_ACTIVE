@@ -1,4 +1,4 @@
-# Controlled activation flag — zero.banza.network (ADR-041, M2.12F)
+# Controlled activation flag — zero.banza.network (ADR-035, M2.12F)
 #
 # Presence of this file declares that the maintainer has ACTIVATED the zero.banza.network subdomain:
 # the DNS record exists and is proxied, the origin certificate (CloudFlare Origin CA, SAN

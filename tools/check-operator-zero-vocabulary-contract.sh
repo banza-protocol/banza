@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 #
-# Operador Zero cross-language vocabulary contract (ADR-041, M2.12B).
+# Operador Zero cross-language vocabulary contract (ADR-035, M2.12B).
 #
 # The M2.11 series was the same defect twice: TypeScript comparing or labelling a status string the
 # Rust engine does not emit, both sides self-consistent, every test green. Operador Zero starts with
-# the contract instead of acquiring one after the third incident. Rust owns every slug (ADR-043), Rust
+# the contract instead of acquiring one after the third incident. Rust owns every slug (ADR-038), Rust
 # publishes them, and this guard proves — by EXECUTING the engine, never by grepping a comment — that:
 #
 #   1. the vocabulary has all ten groups and none is empty;
