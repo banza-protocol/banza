@@ -67,7 +67,7 @@ Maintainers, contributors, reviewers, operators, implementers, researchers and c
 
 ## 10. Relationship with BanzAI
 
-BanzAI is the **primary human-operator interface** for interacting with the BANZA protocol (ADR-054): it
+BanzAI is the **primary human-operator interface** for interacting with the BANZA protocol (ADR-042): it
 interprets requests, consults the reference, guides implementation, routes to the verifiable engines,
 explains results and helps prepare evidence. It is **not** a normative source and **not** a governance
 authority — it does not create protocol rules, does not certify, approve, license or publish operators,

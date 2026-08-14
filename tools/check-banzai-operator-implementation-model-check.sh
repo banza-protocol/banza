@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# M2.19G.1 (ADR-068 §4.2/§4.3/§13) — operator → implementation target model guard (§37, invariant 2).
+# M2.19G.1 (ADR-038 §4.2/§4.3/§13) — operator → implementation target model guard (§37, invariant 2).
 #
 # Fase 0 selects an OPERATOR first, then one of its published IMPLEMENTATIONS. The two records are
 # modelled distinctly — OperatorRecord (the responsible entity) and ImplementationRecord (the technical
@@ -21,7 +21,7 @@ UILIB=website/lib/banzaiValidation.ts
 MODE_TSX=website/components/banzai/BanzaiValidationMode.tsx
 SESSION=website/components/banzai/validationJourney.tsx
 
-echo "== banzai-operator-implementation-model-check (M2.19G.1 / ADR-068 §4.2/§4.3) =="
+echo "== banzai-operator-implementation-model-check (M2.19G.1 / ADR-038 §4.2/§4.3) =="
 
 # ── self-test ───────────────────────────────────────────────────────────────────────────────────────
 st=0
@@ -76,4 +76,4 @@ fi
 
 echo
 if [ "$fail" -ne 0 ]; then echo "banzai-operator-implementation-model-check: FAIL"; exit 1; fi
-echo "banzai-operator-implementation-model-check: ✓ operator→implementation model present (ADR-068 §4.2/§4.3)"
+echo "banzai-operator-implementation-model-check: ✓ operator→implementation model present (ADR-038 §4.2/§4.3)"

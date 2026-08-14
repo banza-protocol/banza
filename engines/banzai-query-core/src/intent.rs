@@ -24,7 +24,7 @@ pub const PRIMARY_INTENTS: &[&str] = &[
     "check_endpoint",
     "check_schema",
     "check_operator",
-    // M2.20 (ADR-078) — operational reasoning: a question about a measured/observed operational
+    // M2.20 (ADR-042) — operational reasoning: a question about a measured/observed operational
     // property (duration, metric, live state) of a protocol subject. Answered from real telemetry
     // over persisted executions (read-only) or declined honestly with INSUFFICIENT_MEASUREMENTS —
     // never a fabricated number and never the fixed topic list.
@@ -163,7 +163,7 @@ pub(crate) const STATUS_MARKERS: &[&str] = &[
     "been accepted",
 ];
 
-// ─────────────────────────── operational reasoning vocabulary (ADR-078) ─────────────────────────────
+// ─────────────────────────── operational reasoning vocabulary (ADR-042) ─────────────────────────────
 // Accent-free, whole-substring markers for the OPERATIONAL family: questions about a measured/observed
 // property of a protocol subject. `crate::operational::resolve_operational_metric` gates on
 // (a duration/metric marker) AND (a subject marker) so an off-topic "quanto tempo" (with no protocol

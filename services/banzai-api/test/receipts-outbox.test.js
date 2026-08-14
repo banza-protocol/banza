@@ -1,4 +1,4 @@
-// Unit tests for the durable receipt outbox (ADR-076 §D-076-08, correction 1). Uses a temp dir; no DB.
+// Unit tests for the durable receipt outbox (ADR-042 §D-076-08, correction 1). Uses a temp dir; no DB.
 
 import { test } from "node:test";
 import assert from "node:assert/strict";

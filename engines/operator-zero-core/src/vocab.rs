@@ -3,7 +3,7 @@
 //! M2.11B and M2.11D were both the same defect: TypeScript comparing or labelling a string the Rust
 //! engine does not emit, with both sides self-consistent so every test passed. Operador Zero starts
 //! with the contract instead of acquiring one after the second incident — Rust owns these words
-//! (ADR-037), Rust publishes them, and `make operator-zero-vocabulary-contract-check` proves every
+//! (ADR-043), Rust publishes them, and `make operator-zero-vocabulary-contract-check` proves every
 //! one has a UI representation and that the UI compares nothing else.
 //!
 //! The rule for what belongs here: **only values the engine can actually emit.** Publishing an

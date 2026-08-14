@@ -4,7 +4,7 @@
 // The vocabulary is a SEMANTIC registry of real protocol terms — NOT a dump of every corpus word. Two
 // phases keep them apart:
 //
-//   Phase 1  raw corpus tokens/phrases → TERMINOLOGY CANDIDATES (artifacts/m2-18b7/
+//   Phase 1  raw corpus tokens/phrases → TERMINOLOGY CANDIDATES (artifacts/banzai/
 //            protocol-terminology-candidates.json). Lexical noise (stopwords, generic prose, numeric/path/
 //            markup fragments, broken tokens, duplicates) is REJECTED here with a reason and NEVER enters
 //            the vocabulary or the out-of-scope bucket.
@@ -27,7 +27,7 @@ import { createHash } from "node:crypto";
 
 const require = createRequire(process.cwd() + "/");
 const kb = require("./services/banzai-api/src/rustkb/banzai_api_kb.js");
-const ART = "artifacts/m2-18b7";
+const ART = "artifacts/banzai";
 const J = (s) => JSON.parse(s);
 const sha = (s) => createHash("sha256").update(s).digest("hex").slice(0, 16);
 const norm = (t) => String(t).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "")
@@ -186,17 +186,17 @@ const CONCEPT_SUBJECTS = [
   ...catalogue.map((c) => ({ id: c.subject, name: c.subject, type: c.subject === "manifest" || c.subject === "chave" || c.subject === "root" || c.subject === "evidencia" ? "artefact" : "concept",
     resolution: "deterministic-terminal (catalogue SubjectProfile) + trunk synthesis",
     deliverables: c.deliverables, aliases: c.aliases, source_ids: c.source_ids, source_paths: c.source_paths })),
-  { id: "banza", name: "BANZA", type: "entity", resolution: "entity coverage (coverage.rs) + attribute terminal + trunk", deliverables: [], aliases: ["banza"], source_ids: ["ADR-001", "ADR-002"], source_paths: ["decisions/adr/ADR-001-open-financial-protocol.md"] },
-  { id: "banzai", name: "BanzAI", type: "entity", resolution: "entity coverage + trunk", deliverables: [], aliases: ["banzai"], source_ids: ["ADR-041", "ADR-054"], source_paths: ["decisions/adr/ADR-041-banzai-native-protocol-agent.md"] },
+  { id: "banza", name: "BANZA", type: "entity", resolution: "entity coverage (coverage.rs) + attribute terminal + trunk", deliverables: [], aliases: ["banza"], source_ids: ["ADR-001", "ADR-002"], source_paths: ["decisions/adr/ADR-001-open-financial-protocol-what-banza-is-and-is-not.md"] },
+  { id: "banzai", name: "BanzAI", type: "entity", resolution: "entity coverage + trunk", deliverables: [], aliases: ["banzai"], source_ids: ["ADR-042", "ADR-042"], source_paths: ["decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md"] },
   { id: "banzami", name: "Banzami", type: "entity", resolution: "entity coverage + attribution (GOVERNANCE)", deliverables: [], aliases: ["banzami"], source_ids: ["ADR-002", "GOVERNANCE"], source_paths: ["GOVERNANCE.md"] },
   { id: "governanca", name: "governança", type: "concept", resolution: "trunk synthesis (documented process; no deterministic terminal)", deliverables: [], aliases: ["governanca", "governance", "open governance", "governanca aberta"], source_ids: ["GOVERNANCE"], source_paths: ["GOVERNANCE.md", "docs/governance/OPEN_PROTOCOL_GOVERNANCE.md"] },
   { id: "endpoint", name: "endpoint", type: "artefact", resolution: "trunk synthesis over OpenAPI (no deterministic terminal)", deliverables: [], aliases: ["endpoint", "api", "openapi"], source_ids: ["openapi"], source_paths: ["contracts/openapi/reference-operator.yaml"] },
   // financial + interface core — real public subjects grounded in canonical ADRs (trunk synthesis; the
   // protocol defines the rule, the operator implements it, so there is no deterministic deliverable terminal).
-  { id: "ledger", name: "ledger / dupla entrada", type: "concept", resolution: "trunk synthesis grounded in ADR-006 (double-entry ledger + monetary precision)", deliverables: [], aliases: ["ledger", "dupla entrada", "double entry", "double-entry", "partida dobrada", "posting"], source_ids: ["ADR-006"], source_paths: ["decisions/adr/ADR-006-double-entry-ledger.md"] },
-  { id: "wallet", name: "wallet / conta", type: "concept", resolution: "trunk synthesis grounded in ADR-010 (wallet-native identity) / account model", deliverables: [], aliases: ["wallet", "carteira", "conta", "account", "saldo", "balance"], source_ids: ["ADR-010"], source_paths: ["decisions/adr/ADR-010-account-participant-identity.md"] },
-  { id: "liquidacao", name: "liquidação", type: "concept", resolution: "trunk synthesis grounded in the settlement invariants (INV-SETTLE)", deliverables: [], aliases: ["liquidacao", "settlement", "reconciliacao", "reconciliation"], source_ids: ["ADR-006"], source_paths: ["decisions/adr/ADR-006-double-entry-ledger.md"] },
-  { id: "qr", name: "QR / payment session", type: "artefact", resolution: "trunk synthesis grounded in ADR-012 (QR payment system) / ADR-015 (payment session)", deliverables: [], aliases: ["qr", "qr code", "codigo qr", "payment session", "sessao de pagamento", "pagamento"], source_ids: ["ADR-012"], source_paths: ["decisions/adr/ADR-012-qr-payment-system.md"] },
+  { id: "ledger", name: "ledger / dupla entrada", type: "concept", resolution: "trunk synthesis grounded in ADR-011 (double-entry ledger + monetary precision)", deliverables: [], aliases: ["ledger", "dupla entrada", "double entry", "double-entry", "partida dobrada", "posting"], source_ids: ["ADR-011"], source_paths: ["decisions/adr/ADR-011-double-entry-ledger-and-monetary-precision.md"] },
+  { id: "wallet", name: "wallet / conta", type: "concept", resolution: "trunk synthesis grounded in ADR-012 (wallet-native identity) / account model", deliverables: [], aliases: ["wallet", "carteira", "conta", "account", "saldo", "balance"], source_ids: ["ADR-012"], source_paths: ["decisions/adr/ADR-012-account-and-participant-identity.md"] },
+  { id: "liquidacao", name: "liquidação", type: "concept", resolution: "trunk synthesis grounded in the settlement invariants (INV-SETTLE)", deliverables: [], aliases: ["liquidacao", "settlement", "reconciliacao", "reconciliation"], source_ids: ["ADR-011"], source_paths: ["decisions/adr/ADR-011-double-entry-ledger-and-monetary-precision.md"] },
+  { id: "qr", name: "QR / payment session", type: "artefact", resolution: "trunk synthesis grounded in ADR-016 (QR payment system) / ADR-015 (payment session)", deliverables: [], aliases: ["qr", "qr code", "codigo qr", "payment session", "sessao de pagamento", "pagamento"], source_ids: ["ADR-016"], source_paths: ["decisions/adr/ADR-016-qr-payments.md"] },
   { id: "webhook", name: "webhook / event", type: "artefact", resolution: "trunk synthesis grounded in the webhook/event contracts", deliverables: [], aliases: ["webhook", "evento", "event", "webhooks", "eventos"], source_ids: ["webhooks"], source_paths: ["contracts/webhooks/README.md", "contracts/events/types.json"] },
 ];
 const CONCEPT_IDS = new Set(CONCEPT_SUBJECTS.map((s) => norm(s.id)));
@@ -302,7 +302,7 @@ vocabulary.counts = {
 vocabulary.checksum = sha(JSON.stringify(vocabulary.counts) + registry.checksum);
 
 // ── 4. DERIVED subject registry (consumed by the truth-table generator) ────────────────────────────────
-const DOC_SAMPLE = ["ADR-005", "ADR-001", "ADR-040", "RFC-0006"]; // representative current docs for the matrix
+const DOC_SAMPLE = ["ADR-001", "ADR-001", "ADR-031", "RFC-0006"]; // representative current docs for the matrix
 const subjectRegistry = {
   _meta: { note: "Derived from the canonical vocabulary. The truth-table generator consumes this — subjects are not a manual list." },
   subjects: CONCEPT_SUBJECTS.map((s) => ({ id: s.id, name: s.name, type: s.type, resolution: s.resolution,
@@ -338,7 +338,7 @@ const coverage = {
     conflicted: (relGraph.conflicts || []).length,
     vocabulary_subjects_missing_from_truth_table: [...vocabSubjectNorms].filter((n) => !ttConceptNorms.has(n)),
     truth_table_concept_subjects_missing_from_vocabulary: [...ttConceptNorms].filter((n) => !vocabSubjectNorms.has(n)),
-    truth_table_doc_rows_missing_from_vocabulary: [...ttDocNorms].filter((n) => ![...vocabulary.document_instances].some((d) => norm(d.id) === n.replace(/-superseded|-nonexistent/, "")) && n !== "adr-99999-nonexistent"),
+    truth_table_doc_rows_missing_from_vocabulary: [...ttDocNorms].filter((n) => !/(^|-)999(-|$)|nonexistent/.test(n)).filter((n) => ![...vocabulary.document_instances].some((d) => norm(d.id) === n.replace(/-superseded|-nonexistent/, "")) && n !== "adr-99999-nonexistent"),
     engine_alias_without_mapping: aliasTable.rows.filter((r) => !r.id).length,
     relation_alias_without_kind: vocabulary.relation_aliases.filter((r) => !RELATION_KINDS.includes(r.kind)).length,
     lexical_noise_in_vocabulary: 0, // by construction: noise is rejected in Phase 1

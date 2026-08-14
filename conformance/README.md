@@ -2,12 +2,12 @@
 
 Version: 1.0 · Status: Stable
 
-> **Runners.** The canonical runner is being migrated to Rust (ADR-037, R4):
-> [`engines/banza-conformance`](../engines/banza-conformance/README.md) (`banza-conformance-rs`) ports the
-> offline vector-integrity + invariant-consistency + report + golden-parity scope. Live-operator HTTP
-> execution and the federation runner remain in the Python
-> [`tools/banza-conformance/`](../tools/banza-conformance/README.md) runner until Rust parity + R5 crypto
-> land. **A PASS is technical conformance evidence, not production certification.**
+> **Runner.** There is one, and it is Rust (ADR-043):
+> [`engines/banza-conformance`](../engines/banza-conformance/README.md) (`banza-conformance-rs`). It covers
+> offline vector integrity, invariant consistency, reports and golden parity, and also live-operator
+> execution (`run-live`, `run-against-simb`), federation (`run-fed`) and end-to-end (`e2e`). The Python
+> runner it replaced has been removed. **A PASS is technical conformance evidence, not production
+> certification.**
 
 This directory contains the canonical conformance system for the BANZA protocol
 ecosystem. It defines how candidate operator implementations and protocol artifacts
@@ -58,7 +58,7 @@ obligations.
 These are conformance **scope levels** — they bound *what* an implementation was
 tested for, not a public certification tier. Conformance & Interoperability
 Certification (Layer 2) is a separate, per-implementation, evidence-based,
-Rust-decided determination (ADR-064) that consumes this evidence; passing a level is
+Rust-decided determination (ADR-034) that consumes this evidence; passing a level is
 verifiable evidence, never certification, authorization or approval.
 
 | Level | Name | What it evidences |
@@ -73,7 +73,7 @@ Levels are additive — every level requires all lower levels to pass.
 
 The level **names and per-level capabilities** above are canonical and match
 [docs/governance/certification-boundary.md](../docs/governance/certification-boundary.md) § Conformance level model and
-ADR-021. Traceability is verified at L1; payment initiation (payment requests,
+ADR-039. Traceability is verified at L1; payment initiation (payment requests,
 dynamic QR, instant execution) at L2. The single-operator conformance runner produces evidence at
 L0–L2; L3 (federation) and L4 (external) require multi-operator / external-rail
 evidence and are not produced by the single-operator runner. Conformance evidence at
@@ -127,10 +127,11 @@ conformance/
 Run suites against any operator:
 
 ```bash
-./tools/banza-conformance/run.sh --url http://localhost:3100
+cd engines/banza-conformance
+cargo run --release -- run-live --url http://localhost:3100
 ```
 
-See [`tools/banza-conformance/README.md`](../tools/banza-conformance/README.md) for full usage.
+See [`engines/banza-conformance/README.md`](../engines/banza-conformance/README.md) for full usage.
 
 ---
 

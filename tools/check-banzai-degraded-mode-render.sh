@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# BanzAI degraded-mode render guard (M2.19G.5C, ADR-072 CD-9 / ADR-055).
+# BanzAI degraded-mode render guard (M2.19G.5C, ADR-042 CD-9 / ADR-042).
 #
 # When the local model is unavailable for a response, BanzAI answers on the deterministic/grounded path and
 # must SAY SO honestly — a degraded (or unknown/unreported-engine) answer must state its real cause and must
@@ -80,8 +80,8 @@ fi
 
 if [ "$fail" -ne 0 ]; then
   echo
-  echo "banzai-degraded-mode-render: FAIL — degraded-mode honesty drifted (ADR-072 CD-9)."
+  echo "banzai-degraded-mode-render: FAIL — degraded-mode honesty drifted (ADR-042 CD-9)."
   exit 1
 fi
 echo
-echo "banzai-degraded-mode-render: ✓ degraded/unknown answers state the honest cause and never falsely claim 'Qwen local confirmado' (ADR-072 CD-9)"
+echo "banzai-degraded-mode-render: ✓ degraded/unknown answers state the honest cause and never falsely claim 'Qwen local confirmado' (ADR-042 CD-9)"

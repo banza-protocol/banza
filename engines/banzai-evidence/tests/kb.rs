@@ -49,13 +49,16 @@ const ALLOWED: &[&str] = &[
     "/certificates",
     "/decisoes",
     "/banzai",
+    "/decisoes/adr-001",
     "/decisoes/adr-002",
     "/decisoes/adr-003",
-    "/decisoes/adr-052",
-    "/decisoes/adr-040",
-    "/decisoes/adr-038",
+    "/decisoes/adr-027",
     "/decisoes/adr-028",
     "/decisoes/adr-029",
+    "/decisoes/adr-031",
+    "/decisoes/adr-032",
+    "/decisoes/adr-038",
+    "/decisoes/adr-041",
     "/federation/revocation-list.json",
 ];
 
@@ -559,7 +562,7 @@ const CASES: &[Case] = &[
         "operator_role",
         "answer",
         "implementa o protocolo",
-        "/decisoes/adr-003",
+        "/decisoes/adr-001",
     ),
     // trust / federation
     c(
@@ -581,7 +584,7 @@ const CASES: &[Case] = &[
         "trust_chain",
         "answer",
         "chave raiz",
-        "/decisoes/adr-038",
+        "/decisoes/adr-027",
     ),
     c(
         "Como funciona a federação?",
@@ -674,7 +677,7 @@ const CASES: &[Case] = &[
         "secrets_security",
         "answer",
         "fora do git",
-        "/decisoes/adr-028",
+        "/decisoes/adr-029",
     ),
     // fallback
     c(

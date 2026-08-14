@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 #
-# banza-certification-model-check (M2.19D / ADR-064/065/066).
+# banza-certification-model-check (M2.19D / ADR-034/065/066).
 # Asserts the Layer-2 conformance & interoperability certification model is present, bound and honest:
 #  - the three ADRs + the canonical governance doc exist;
 #  - the certification-record contract binds a certificate to an IMPLEMENTATION (implementation_hash) and
 #    requires profile/scope/environment/validity/evidence + interoperability report;
-#  - the closed certification-state machine is exactly the ADR-066 enum (fail-closed; REVOKED terminal);
+#  - the closed certification-state machine is exactly the ADR-035 enum (fail-closed; REVOKED terminal);
 #  - the Rust engine is the sole authority (no Qwen / no external model / no FAIL->PASS override);
 #  - certification is never presented as a licence / scheme admission / regulatory authorisation;
 #  - the Technical Registry is distinct from a scheme participant directory;
@@ -22,9 +22,9 @@ echo "== banza-certification-model-check (M2.19D) =="
 
 # 1. canonical decisions + governance doc
 for f in \
-  decisions/adr/ADR-064-conformance-interoperability-certification.md \
-  decisions/adr/ADR-065-banza-technical-registry.md \
-  decisions/adr/ADR-066-certification-state-machine.md \
+  decisions/adr/ADR-034-conformance-and-interoperability-certification.md \
+  decisions/adr/ADR-036-banza-technical-registry.md \
+  decisions/adr/ADR-035-closed-certification-state-machine.md \
   docs/governance/BANZA_CONFORMANCE_INTEROP_CERTIFICATION.md; do need "$f"; done
 
 # 2. contracts present + implementation-bound + required fields
@@ -39,7 +39,7 @@ if [ -f "$REC" ]; then
   done
 fi
 
-# 3. closed state machine — exactly the ADR-066 enum, in the Rust engine
+# 3. closed state machine — exactly the ADR-035 enum, in the Rust engine
 ENG=engines/banza-certification/src/lib.rs
 need "$ENG"
 if [ -f "$ENG" ]; then

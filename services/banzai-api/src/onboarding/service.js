@@ -1,11 +1,11 @@
-// Onboarding orchestration (M2.19G.3, ADR-069). The composition root that turns HTTP intents into
+// Onboarding orchestration (M2.19G.3, ADR-040). The composition root that turns HTTP intents into
 // Rust decisions + Postgres writes + one email + one secure fetch. It holds NO crypto of its own: every
 // verdict comes from the `engine` (Rust/WASM), every persisted value is a hash / opaque id / state /
 // receipt (never a plaintext code, token, key or PII beyond the contact email), the only email goes
 // through the injected `email` provider, and the only outbound fetch goes through the injected secure
 // Rust fetcher (`banza-fetcher`) — never a caller URL.
 //
-// The architecture, stated plainly (ADR-069): the email authenticates the person; the domain confirms
+// The architecture, stated plainly (ADR-040): the email authenticates the person; the domain confirms
 // the origin; the endpoints supply the artifacts; Rust verifies; the receipts fix the results; the
 // Technical Registry publishes the verifiable state — without closing the protocol.
 

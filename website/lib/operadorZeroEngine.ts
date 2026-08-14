@@ -1,10 +1,10 @@
-// Operador Zero engine adapter (ADR-052, M2.12B). RUST_WRAPPER_ONLY.
+// Operador Zero engine adapter (ADR-041, M2.12B). RUST_WRAPPER_ONLY.
 //
 // Thin I/O glue over `engines/operator-zero-core`, built to web WASM
 // (`wasm-pack build --target web -- --features wasm`) and vendored at @/lib/wasm/operator_zero_core.
 // EVERY simulator decision — the fictional ledger, the QR payment, the refund, reconciliation, the
 // demo trust verdict, the demo federation verdict, the evidence state, the next action and the slug
-// labels — is computed in Rust (ADR-037). This file shuttles JSON and nothing else: no arithmetic,
+// labels — is computed in Rust (ADR-043). This file shuttles JSON and nothing else: no arithmetic,
 // no verdict, no label map, no fallback wording.
 //
 // The engine is deterministic (no clock, no randomness, no network), so a run in the browser and a

@@ -1,10 +1,10 @@
-//! banza-trust (ADR-037, R5; M2.4) — the Rust BANZA trust verifier for the open financial protocol.
+//! banza-trust (ADR-043, R5; M2.4) — the Rust BANZA trust verifier for the open financial protocol.
 //!
 //! The protocol's trust is verified by **signed protocol metadata, delegated signing keys, operator
 //! manifests, conformance evidence, the public protocol registry, and revocation/fail-closed** — never
 //! by an operator certificate, a CA signature, or a human approval. Ed25519 signatures cover the
 //! **`BCJ/1`** canonical form defined by `spec/canonicalization.md`, base64url-no-pad. That
-//! specification is the authority; this crate implements it (ADR-082).
+//! specification is the authority; this crate implements it (ADR-010).
 //! Every check is **fail-closed**: missing, malformed, invalid, expired, revoked or incompatible trust
 //! material rejects.
 //!
@@ -55,10 +55,10 @@ impl TrustResult {
     }
 }
 
-// ── Canonicalization (BCJ/1 — spec/canonicalization.md, ADR-082) ─────────────
+// ── Canonicalization (BCJ/1 — spec/canonicalization.md, ADR-010) ─────────────
 
 /// Canonical bytes under **BANZA Canonical JSON `BCJ/1`** — the normative form defined by
-/// `spec/canonicalization.md` (ADR-082). This function implements that specification; it does not
+/// `spec/canonicalization.md` (ADR-010). This function implements that specification; it does not
 /// define it.
 ///
 /// Fail-closed per `spec/canonicalization.md` §7: a document that violates the profile is

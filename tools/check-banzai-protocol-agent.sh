@@ -2,7 +2,7 @@
 #
 # BANZA BanzAI-Protocol-Agent Guard (M2.7H).
 #
-# M2.7H formalizes BanzAI as the NATIVE PROTOCOL AGENT (ADR-041,
+# M2.7H formalizes BanzAI as the NATIVE PROTOCOL AGENT (ADR-042,
 # docs/governance/BANZAI_NATIVE_PROTOCOL_AGENT.md): BanzAI guides operators, simulates flows, invokes
 # verifiable Rust/WASM tools, explains results and prepares evidence — but it is NOT an authority, NOT a
 # normative source, and does NOT create rules or architectural decisions. Verifiable decisions are
@@ -81,7 +81,7 @@ BRAND=(
   "Protocol Knowledge System"
   "sistema adjacente"
   "adjacent knowledge system"
-  # ADR-041: BanzAI is the native protocol agent, never "adjacent" or an "auxiliary knowledge system".
+  # ADR-042: BanzAI is the native protocol agent, never "adjacent" or an "auxiliary knowledge system".
   # These PT residues slipped past "sistema adjacente" in two diagrams (SVG-P-051/052); block the framing.
   "BanzAI adjacente"
   "BanzAI · adjacente"
@@ -208,7 +208,7 @@ selftest() {
     "<loc>https://banza.network/banzai/workbench</loc>"
     "Abrir o BanzAI Workbench."
     "import { BanzaiChat } from './BanzaiChat'."
-    # ADR-041 — the retired "adjacent / auxiliary knowledge system" framing (PT residues).
+    # ADR-042 — the retired "adjacent / auxiliary knowledge system" framing (PT residues).
     "BanzAI adjacente, não normativo (§10)."
     "O BanzAI é auxiliar e não normativo."
     "Sistema de conhecimento auxiliar do protocolo."
@@ -236,6 +236,6 @@ run_checks
 if [ "$fail" -eq 0 ]; then
   printf "Result: ✓ BanzAI is presented as the native protocol AGENT — no authority/rule-source/brand leaks\n\n"
 else
-  printf "\nResult: ✗ BanzAI presented as authority/rule-source, or old brand present (see ADR-041 / BANZAI_NATIVE_PROTOCOL_AGENT.md)\n\n" >&2
+  printf "\nResult: ✗ BanzAI presented as authority/rule-source, or old brand present (see ADR-042 / BANZAI_NATIVE_PROTOCOL_AGENT.md)\n\n" >&2
   exit 1
 fi

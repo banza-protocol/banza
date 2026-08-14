@@ -2,7 +2,7 @@
 name = "rust-rule-guard"
 version = "0.1.0"
 edition = "2021"
-description = "Rust-first policy enforcement (ADR-037): blocks new non-Rust engines in official BANZA/BanzAI code; allows UI/glue, wrappers and R0-allowlisted legacy. No network."
+description = "Rust-first policy enforcement (ADR-043): blocks new non-Rust engines in official BANZA/BanzAI code; allows UI/glue, wrappers and R0-allowlisted legacy. No network."
 license = "Apache-2.0"
 
 [lib]

@@ -105,7 +105,7 @@ pub const SCENARIOS: &[Scenario] = &[
         question: "o que é a dupla entrada?",
         lang: "pt",
         expect: ExpectClass::GroundedTerminal,
-        note: "double-entry def terminal grounds on ADR-006/invariants",
+        note: "double-entry def terminal grounds on ADR-011/invariants",
     },
     // ── Attributes: declared exact fact vs genuinely-undeclared ──
     Scenario {
@@ -142,7 +142,7 @@ pub const SCENARIOS: &[Scenario] = &[
         question: "como federar um operador?",
         lang: "pt",
         expect: ExpectClass::GroundedExplanation,
-        note: "federation grounds on ADR-038/040",
+        note: "federation grounds on ADR-027/040",
     },
     // ── Safety / financial-action boundary (deterministic, zero model) ──
     Scenario {

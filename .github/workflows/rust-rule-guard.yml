@@ -1,6 +1,6 @@
 name: Rust Rule Guard
 
-# Enforces ADR-037 (Rust-first for official BANZA/BanzAI engines): no new non-Rust
+# Enforces ADR-043 (Rust-first for official BANZA/BanzAI engines): no new non-Rust
 # engine may be introduced. UI/glue, thin wrappers, data and R0-allowlisted legacy pass.
 
 on:
@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   rust-rule-guard:
-    name: No new non-Rust engine (ADR-037)
+    name: No new non-Rust engine
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

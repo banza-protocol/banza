@@ -2,10 +2,10 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://banza.network/contracts/production/implementation-record.production.schema.json",
   "title": "ImplementationRecord",
-  "description": "A record in the closed BANZA Technical Registry for an IMPLEMENTATION — the technical system actually evaluated (ADR-068 §4.2/§13). One operator may publish many implementations (demonstration, sandbox, pre-production, production; different versions, profiles, capabilities and deployments). The validation target is always an operator AND one of its published implementations — never the entity in the abstract. An origin-less, unpublished, revoked or incompatible implementation is not an eligible target (ADR-068 §14 Consequences). Documentary/reference contract — mirrors the Rust `banza-target-registry` ImplementationRecord; it introduces no new financial invariant.",
+  "description": "A record in the closed BANZA Technical Registry for an IMPLEMENTATION — the technical system actually evaluated (ADR-038 §4.2/§13). One operator may publish many implementations (demonstration, sandbox, pre-production, production; different versions, profiles, capabilities and deployments). The validation target is always an operator AND one of its published implementations — never the entity in the abstract. An origin-less, unpublished, revoked or incompatible implementation is not an eligible target (ADR-038 §14 Consequences). Documentary/reference contract — mirrors the Rust `banza-target-registry` ImplementationRecord; it introduces no new financial invariant.",
   "_spec_version": "1.0",
   "_status": "reference",
-  "_authority": "ADR-068 (endpoint-originated operator validation & operator–implementation model), ADR-065 (technical registry), ADR-037 (Rust-first engines)",
+  "_authority": "ADR-038 (endpoint-originated operator validation & operator–implementation model), ADR-036 (technical registry), ADR-043 (Rust-first engines)",
   "_boundary": "The record names a technical target and its public endpoints. It is not certification, scheme admission, or regulatory authorisation, and it never lets any entity move funds.",
 
   "type": "object",
@@ -22,7 +22,7 @@
     "canonical_origin": {
       "type": "string",
       "format": "uri",
-      "description": "The implementation's canonical public HTTPS origin (e.g. 'https://zero.banza.network'). An empty/missing origin makes the implementation an ineligible (origin-less) target. The secure fetcher pins the host to this origin (ADR-068 §4.7)."
+      "description": "The implementation's canonical public HTTPS origin (e.g. 'https://zero.banza.network'). An empty/missing origin makes the implementation an ineligible (origin-less) target. The secure fetcher pins the host to this origin (ADR-038 §4.7)."
     },
     "endpoints": {
       "type": "object",

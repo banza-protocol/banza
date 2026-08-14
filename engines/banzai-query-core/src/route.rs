@@ -1,4 +1,4 @@
-//! M2.8G routing policy (ADR-048, ADR-037) — decides, PER QUESTION, how BanzAI answers:
+//! M2.8G routing policy (ADR-042, ADR-043) — decides, PER QUESTION, how BanzAI answers:
 //!
 //!   * `refusal`       — prompt-injection / system-prompt exfiltration / chain-of-thought / jailbreak
 //!   * `deterministic` — an explicit critical-boundary intent → a vetted canned answer (never the model)
@@ -9,7 +9,7 @@
 //! over-matches ("banza" + "operador" both hit), which used to collapse a normal grounded question
 //! ("como federar um operador?") onto a critical entry and answer it deterministically. Here the
 //! critical path fires ONLY on an explicit boundary intent; every other grounded question with
-//! sources goes to Qwen by default. Rust owns this policy (ADR-037); the JS pipeline is glue.
+//! sources goes to Qwen by default. Rust owns this policy (ADR-043); the JS pipeline is glue.
 //!
 //! Hardened against a 600-probe adversarial sweep (M2.8G): the AI-authority subject is an ALLOWLIST
 //! (protocol concepts named "modelo de X" never count as the AI); authority/certify verbs are
@@ -115,7 +115,7 @@ fn capabilities_vetoed(nq: &str) -> bool {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────────────────────
-// M2.14I — BanzAI as the primary human-operator interface (ADR-054). Role/architecture questions
+// M2.14I — BanzAI as the primary human-operator interface (ADR-042). Role/architecture questions
 // ("qual é o papel do BanzAI?", "as APIs dependem do BanzAI?", "quem verifica os resultados?") are
 // answered deterministically and on-message. These are LABEL/answer helpers only — routing order and
 // every safety boundary are unchanged; they run inside critical_entry, after the capabilities arm.
@@ -275,7 +275,7 @@ fn role_arm_vetoed(nq: &str) -> bool {
         )
 }
 
-/// M2.14I — the primary human-operator interface router (ADR-054). Telemetry/label ONLY: it maps a
+/// M2.14I — the primary human-operator interface router (ADR-042). Telemetry/label ONLY: it maps a
 /// human/operator-facing request to the workbench capability it concerns. It NEVER changes routing —
 /// forbidden requests are still refused by the boundaries that run first in `route()`, and the answer
 /// itself is chosen by `route()`/`critical_entry`. Exposed via `primary_interface_intent_str` so the
@@ -1499,7 +1499,7 @@ pub(crate) fn classify_intent_nq(nq: &str) -> &'static str {
     // release, changelog, runbook, rollback, maintainer, governance, audit report, invariant) is its own
     // family, checked before the certification / protocol-rule / implementation families so it is the
     // authoritative label. Gated by the glossary so only a short definition/bare query qualifies — a long
-    // ADR-reference question ("what does ADR-006 say about the ledger") still classifies downstream.
+    // ADR-reference question ("what does ADR-011 say about the ledger") still classifies downstream.
     if crate::glossary::is_governance_vocabulary_query(nq) {
         return "governance_developer_vocabulary_query";
     }
@@ -1713,7 +1713,7 @@ fn answer_type_nq(nq: &str) -> &'static str {
     if banzai && has_capabilities_marker(nq) && !capabilities_vetoed(nq) {
         return "capabilities_and_limits";
     }
-    // M2.14I (ADR-054) — role/architecture questions classify as interface_role, in lockstep with the
+    // M2.14I (ADR-042) — role/architecture questions classify as interface_role, in lockstep with the
     // critical_entry arms above (mandatory/vs-engines/role).
     if (banzai && has_banzai_mandatory_marker(nq))
         || has_banzai_vs_engines_marker(nq)
@@ -2752,8 +2752,8 @@ fn is_financial_action(nq: &str) -> bool {
             | "withdraw"
     ) || polite;
     // A standalone numeric AMOUNT token (e.g. "100", "1.000", "50000"). `normalize` turns hyphens into
-    // spaces, so "ADR-006"→"adr 006"; a number that FOLLOWS a structural/doc-id word (adr, rfc, capítulo,
-    // versão, secção…) is NOT an amount, so "transfer the knowledge from ADR-006" is not a money action.
+    // spaces, so "ADR-011"→"adr 011"; a number that FOLLOWS a structural/doc-id word (adr, rfc, capítulo,
+    // versão, secção…) is NOT an amount, so "transfer the knowledge from ADR-011" is not a money action.
     let toks: Vec<&str> = nq.split_whitespace().collect();
     let has_amount = toks.iter().enumerate().any(|(i, t)| {
         let is_num = t.starts_with(|c: char| c.is_ascii_digit())
@@ -4757,8 +4757,8 @@ fn action_boundary(nq: &str) -> Option<&'static str> {
 /// Tier 1 — critical-boundary intent → a deterministic, vetted answer. Each arm returns the canonical
 /// entry id whose answer states the boundary precisely. These are the ONLY intents that skip the model.
 fn critical_entry(nq: &str) -> Option<&'static str> {
-    // Final transversal sweep — trust Model A (ADR-079). "Quem assina a Protocol Metadata?" must never
-    // fall through to synthesis: the pinned doc-index still carries the pre-ADR-079 ceremony-schema
+    // Final transversal sweep — trust Model A (ADR-027). "Quem assina a Protocol Metadata?" must never
+    // fall through to synthesis: the pinned doc-index still carries the pre-ADR-027 ceremony-schema
     // wording ("assinada pela Trust Root ou por Delegated Signing Keys"), so the canonical delegated-key
     // answer is served deterministically.
     if any(
@@ -4794,10 +4794,10 @@ fn critical_entry(nq: &str) -> Option<&'static str> {
     ) {
         return Some("what-is-m2-milestone");
     }
-    // M2.19C — the three-layer institutional architecture (ADR-059). A "quais são as três camadas?"
+    // M2.19C — the three-layer institutional architecture (ADR-003). A "quais são as três camadas?"
     // question is a canonical structural fact, so Rust answers it deterministically (0 model) instead of
     // letting the trunk mis-enumerate it from related ADRs. An "explica…/porquê…" variant carries an
-    // explanatory cue and still escalates to the ADR-059-grounded trunk. Brand-free aliases only.
+    // explanatory cue and still escalates to the ADR-003-grounded trunk. Brand-free aliases only.
     if any(
         nq,
         &[
@@ -4814,7 +4814,7 @@ fn critical_entry(nq: &str) -> Option<&'static str> {
     ) {
         return Some("def-three-layer-architecture");
     }
-    // M2.19C — the L3 Operational Scheme (ADR-060). Placed BEFORE the institutional-identity arm so
+    // M2.19C — the L3 Operational Scheme (ADR-006). Placed BEFORE the institutional-identity arm so
     // "…banzami operational scheme" resolves to the scheme (L3), while a bare "o que é o banzami"
     // still falls through to the entity distinction below. Brand-free aliases only.
     if any(
@@ -4827,7 +4827,7 @@ fn critical_entry(nq: &str) -> Option<&'static str> {
     ) {
         return Some("def-operational-scheme");
     }
-    // M2.19D — the L2 conformance & interoperability certification concept (ADR-064). Deterministic card
+    // M2.19D — the L2 conformance & interoperability certification concept (ADR-034). Deterministic card
     // (0 model): certification is technical + per-implementation, not a licence/admission/authorisation.
     if any(
         nq,
@@ -4871,7 +4871,7 @@ fn critical_entry(nq: &str) -> Option<&'static str> {
     ) {
         return Some("what-is-banzami");
     }
-    // Operador Zero (ADR-052, M2.13A) — three demo-boundary facts kept deterministic so the model can
+    // Operador Zero (ADR-041, M2.13A) — three demo-boundary facts kept deterministic so the model can
     // never blur them (the local model once answered "Sim" to the trust-root question).
     // (1) The DEMO Operator Root is NOT the protocol Trust Root.
     if nq.contains("trust root")
@@ -5313,7 +5313,7 @@ fn critical_entry(nq: &str) -> Option<&'static str> {
     if is_banzai && has_capabilities_marker(nq) && !capabilities_vetoed(nq) {
         return Some("banzai-capabilities");
     }
-    // M2.14I (ADR-054) — the primary human-operator interface role/architecture questions. Placed AFTER
+    // M2.14I (ADR-042) — the primary human-operator interface role/architecture questions. Placed AFTER
     // the capabilities arm so "o que o BanzAI faz?" still gets the pode/não-pode list; these catch the
     // role/mandatory/vs-engines phrasings that carry no capabilities marker and otherwise no_source.
     // VETO (M2.14I adversarial SEC-FIX): a role question must NOT serve the benign answer when it smuggles
@@ -5406,7 +5406,7 @@ fn critical_entry(nq: &str) -> Option<&'static str> {
     // "Does BANZA process payments / hold funds?" (money boundary). Fires only when BANZA (whole word,
     // never "BanzAI") is the SUBJECT of a holding/processing question — NOT a feature/mechanics query
     // (QR flow, "how does", architecture) and NOT an operator-subject question (operators DO process
-    // payments). Wallet is grounded architecture (financial-invariants / ADR-010), so "carteira"/
+    // payments). Wallet is grounded architecture (financial-invariants / ADR-012), so "carteira"/
     // "wallet" are NOT boundary nouns — only funds/payment/custody nouns are.
     let money_noun = any(
         nq,
@@ -5531,7 +5531,7 @@ fn critical_entry(nq: &str) -> Option<&'static str> {
     {
         return Some("pass-is-not-certificate");
     }
-    // M2.14B (ADR-053) — Operator Zero Only demo/example policy questions.
+    // M2.14B (ADR-041) — Operator Zero Only demo/example policy questions.
     // The manual-upload arm is evaluated FIRST so an "upload manual … exemplo oficial?" question is
     // answered as "advanced tool, not an official example" rather than the generic policy answer.
     if any(
@@ -5587,7 +5587,7 @@ fn critical_entry(nq: &str) -> Option<&'static str> {
     None
 }
 
-// ── M2.9A operational intent (ADR-049) ───────────────────────────────────────
+// ── M2.9A operational intent (ADR-042) ───────────────────────────────────────
 //
 // A fine-grained LABEL for a GROUNDED question. It never changes the action (always "qwen" here) —
 // it drives intent-based source packing (pipeline) and per-answer telemetry, and lets the agent give
@@ -7276,7 +7276,7 @@ pub fn route(question: &str) -> Route {
         // "adr 002" made "adr" the first token. Re-run the action/safety boundary on the query with
         // its doc-ref tokens + leading connectives removed, so a boundary verb the ref pushed off the
         // front is re-exposed; refuse if the remainder is a dangerous command. The re-check inherits
-        // every existing question-frame exemption, so "explica o ADR-013" / "resume o ADR-006" still
+        // every existing question-frame exemption, so "explica o ADR-017" / "resume o ADR-011" still
         // explain.
         let remainder = strip_doc_refs_for_boundary(&nq);
         if !remainder.is_empty() && remainder != nq {
@@ -7327,7 +7327,7 @@ pub fn route(question: &str) -> Route {
             reason: "operational intent grounding (retrieval fallback)",
         };
     }
-    // ADR-078 — operational reasoning. A duration/metric/live-state question about the VALIDATION
+    // ADR-042 — operational reasoning. A duration/metric/live-state question about the VALIDATION
     // JOURNEY is a real, answerable question — it must NOT fall to the fixed "no source" list. The
     // pipeline answers it from telemetry over persisted executions (read-only) or declines honestly
     // with INSUFFICIENT_MEASUREMENTS. Placed AFTER every safety/boundary/critical tier and after
@@ -7442,7 +7442,7 @@ pub fn route_json(question: &str) -> String {
     )
 }
 
-// ── M2.8H conversation context (ADR-048 §context) ────────────────────────────
+// ── M2.8H conversation context (ADR-042 §context) ────────────────────────────
 
 /// Anaphoric follow-up cues — the current question refers back to the previous turn ("dá exemplo
 /// aqui", "e em JSON?", "explica melhor", "continua", "e para operador?"). These lean on context and
@@ -7557,7 +7557,7 @@ mod m2_19c_arch_terminal_tests {
 
     #[test]
     fn three_layer_and_scheme_resolve_deterministically() {
-        // Flagship: "quais são as três camadas?" → deterministic ADR-059 card (0 model).
+        // Flagship: "quais são as três camadas?" → deterministic ADR-003 card (0 model).
         assert_eq!(
             critical_entry(&normalize(
                 "Quais são as três camadas da arquitectura institucional do BANZA?"
@@ -7568,7 +7568,7 @@ mod m2_19c_arch_terminal_tests {
             critical_entry(&normalize("explica a arquitetura de três camadas")),
             Some("def-three-layer-architecture")
         );
-        // L3 Operational Scheme → ADR-060 card, even though the query contains "banzami".
+        // L3 Operational Scheme → ADR-006 card, even though the query contains "banzami".
         assert_eq!(
             critical_entry(&normalize("O que é o Banzami Operational Scheme?")),
             Some("def-operational-scheme")

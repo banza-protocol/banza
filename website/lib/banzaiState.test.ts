@@ -10,7 +10,7 @@ describe("parseBanzaiState — validated URL-state for the single BanzAI app", (
     expect(parseBanzaiState({}).mode).toBe("ask");
   });
 
-  it("resolves mode ask | validation | onboarding (only exact literals opt in; M2.19G.3/ADR-069)", () => {
+  it("resolves mode ask | validation | onboarding (only exact literals opt in; M2.19G.3/ADR-040)", () => {
     expect(parseBanzaiState({ mode: "ask" }).mode).toBe("ask");
     expect(parseBanzaiState({ mode: "validation" }).mode).toBe("validation");
     expect(parseBanzaiState({ mode: "onboarding" }).mode).toBe("onboarding");
@@ -60,7 +60,7 @@ describe("parseBanzaiState — validated URL-state for the single BanzAI app", (
     }
   });
 
-  it("seeds the Fase 0 ids from the (closed, shape-checked) target/implementation deep link (M2.19G.3B / ADR-076 D-076-10)", () => {
+  it("seeds the Fase 0 ids from the (closed, shape-checked) target/implementation deep link (M2.19G.3B / ADR-042 D-076-10)", () => {
     // A CLEAN visit (no path seed, no explicit ?target=) seeds NO operator — nothing (not even Operador
     // Zero) is pre-selected. The dynamic Rust Technical Registry is the only selection source; a target
     // is resolved only on an explicit deep link. `target`/`targetKnown` still resolve for display.
@@ -103,7 +103,7 @@ describe("parseBanzaiState — validated URL-state for the single BanzAI app", (
     expect(s.step).toBe("keys");
   });
 
-  // M2.19G.4 (ADR-070) — the navigable-context path seed. The route segments (operador/[operatorId]/
+  // M2.19G.4 (ADR-042) — the navigable-context path seed. The route segments (operador/[operatorId]/
   // [implementationId]) are shape-validated closed slugs; parseBanzaiState derives the context from them
   // with precedence over the query, and an operator/implementation context implies validation mode.
   it("defaults to the global context with no path seed", () => {
@@ -142,7 +142,7 @@ describe("parseBanzaiState — validated URL-state for the single BanzAI app", (
       const s = parseBanzaiState({}, { operatorId: bad });
       expect(s.context).toBe("global");
       // With no valid operator segment and no explicit ?target=, a clean visit seeds NO operator id
-      // (ADR-076 D-076-10 — the registry is the only selection source).
+      // (ADR-042 D-076-10 — the registry is the only selection source).
       expect(s.initialOperatorId).toBeNull();
     }
   });

@@ -7,7 +7,7 @@
       "key": "m2-18b6-grounded",
       "label": "M2.18B.6 grounded-synthesis dataset (12 categories)",
       "count": 709,
-      "source": "services/banzai-api/eval/m2-18b6-grounded.dataset.json (total)",
+      "source": "services/banzai-api/eval/grounded.dataset.json (total)",
       "canonical_class_mapping": [
         "base",
         "variation",
@@ -31,7 +31,7 @@
       "key": "m2-18b2-boundary",
       "label": "M2.18B.2 action-boundary dataset (boundary + informational)",
       "count": 165,
-      "source": "services/banzai-api/eval/m2-18b2-boundary.dataset.json (boundary_cases + informational_cases)",
+      "source": "services/banzai-api/eval/boundary.dataset.json (boundary_cases + informational_cases)",
       "canonical_class_mapping": [
         "negative"
       ],
@@ -72,7 +72,7 @@
   ],
   "prior_total_no_double_counting": 2970,
   "canonical_suite": {
-    "total": 2791,
+    "total": 2569,
     "floor": 2500,
     "distinct_semantic_seeds": 46,
     "by_class": {
@@ -81,7 +81,7 @@
       "multi_turn": 61,
       "negative": 199,
       "live": 1165,
-      "regression": 677
+      "regression": 455
     },
     "class_definitions": {
       "base": "base semantic cases — one canonical human-authored phrasing per meaning",
@@ -92,7 +92,7 @@
       "regression": "regression cases — documentary corpus coverage + grounded claim/calculation anchors that protect the prior grounded families"
     },
     "by_family": {
-      "concepts": 958,
+      "concepts": 736,
       "procedures": 30,
       "security": 14,
       "apis": 32,
@@ -111,7 +111,7 @@
     }
   },
   "how_709_1564_map": {
-    "709": "M2.18B.6 grounded-synthesis total (m2-18b6-grounded.dataset.json). Subsumed by the canonical base + variation (grounded documentary families) and negative (boundary/adversarial/unsupported/ambiguity) classes.",
+    "709": "M2.18B.6 grounded-synthesis total (grounded.dataset.json). Subsumed by the canonical base + variation (grounded documentary families) and negative (boundary/adversarial/unsupported/ambiguity) classes.",
     "1564": "BZC-4 resolution-coverage total (bzc-coverage.mjs = 1500 positive + 49 negative-entity + 15 documental). Subsumed by the canonical live (entity×artifact) and negative classes.",
     "new_cases": "The operational families (metrics, duration, diagnosis, reason_codes, reproduction, comparison-of-executions), the multi_turn class, and the zero-tolerance adversarial probes are ADDITIVE — they cover behaviours neither 709 nor 1564 measured. The canonical suite counts every case ONCE, by class; it does not add the prior suites' totals to its own."
   }

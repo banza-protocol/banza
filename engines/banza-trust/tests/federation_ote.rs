@@ -1,4 +1,4 @@
-//! Track A+B — the federation Open Trust Evaluation (ADR-040): ten conjunctive, fail-closed checks
+//! Track A+B — the federation Open Trust Evaluation (ADR-031): ten conjunctive, fail-closed checks
 //! producing the canonical outcome `ROUTING_ALLOWED` / `FAIL_CLOSED`. Every check has a positive and a
 //! negative vector, and the authenticated-revocation check (GAP-1) is exercised for real: an
 //! authority-signed BRL is verified, a wrong-key BRL is rejected, and a listed operator fails closed.

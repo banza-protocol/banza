@@ -17,7 +17,7 @@ been performed (`external_audit_not_performed = true`;
 
 | id | open item | why it matters | owner | closing milestone | current state |
 |---|---|---|---|---|---|
-| G-M2-ROOT | M2 root-key ceremony pending | No production root of trust exists; production certificates cannot be issued | protocol governance | M2 (root-key ceremony under dual control) | **planned, not performed**; procedure in `ROOT_KEY_CEREMONY_PROCEDURE.md` |
+| G-M2-ROOT | M2 root-key ceremony pending | No production root of trust exists; production certificates cannot be issued | protocol governance | M2 (root-key ceremony under dual control) | **planned, not performed**; procedure in `ROOT_KEY_CEREMONY_REQUIREMENTS.md` |
 | G-M3-CERT | M3 production certification pending | `/operators = []`, `production_certificates = false`; no certified operator exists | protocol governance | M3 (production certification under governance) | not started |
 | G-EXT-AUDIT | Independent external audit not engaged | Required before any production claim; this pack is pre-audit only (C-EXT-AUDIT) | protocol governance | external audit engagement | **not engaged** |
 | G-LIVE-URL | Live URL / external-integration validation gated | L4 live URL and external integration disabled; only structural readiness prepared (R-INTEROP-001) | protocol governance | future gated phase | disabled by design |

@@ -2,7 +2,7 @@
 
 **Document ID:** FEDERATION-TRUST-MODEL-DESIGN-001  
 **Status:** Canonical — behavioral specification. No code. No implementation.  
-**Authority:** ADR-038, ADR-039, ADR-040 · [`docs/governance/FEDERATION_TRUST_MODEL.md`](../../docs/governance/FEDERATION_TRUST_MODEL.md) · [`contracts/invariants.json`](../../contracts/invariants.json)
+**Authority:** ADR-027, ADR-033, ADR-031 · [`docs/governance/FEDERATION_TRUST_MODEL.md`](../../docs/governance/FEDERATION_TRUST_MODEL.md) · [`contracts/invariants.json`](../../contracts/invariants.json)
 
 ---
 
@@ -31,7 +31,7 @@ step is a human decision.
 | **Signed protocol metadata** | The genuine yardstick: which specification version, schemas, conformance vectors and validator versions are authentic, plus their digests. Signed by the trust root through a delegated signing key. [`contracts/production/signed-protocol-metadata.production.schema.json`](../../contracts/production/signed-protocol-metadata.production.schema.json) | Says nothing about any operator |
 | **Conformance evidence** | The operator's published Evidence Bundle: the deterministic result of running the public conformance automation against the declared implementation, signed by the operator with its own keys, bound by hashes to its manifest. [`contracts/production/conformance-evidence.production.schema.json`](../../contracts/production/conformance-evidence.production.schema.json) | Not a conferred status, not permanent, not a judgment about the entity |
 | **Public protocol registry** | A verifiable, replicable **index** of self-published manifests and evidence. It locates; it does not vouch. [`contracts/production/public-protocol-registry.production.schema.json`](../../contracts/production/public-protocol-registry.production.schema.json) | Not an approval list, not a whitelist, not a licence list |
-| **Trust root** | An offline key under threshold custody (bootstrap quorum of record: 2-of-2; future 3-of-5 Shamir) that signs only the Key Manifest endorsing the delegated signing keys — protocol metadata, releases, the revocation list and evidence are signed by those delegated keys within their domains, never by the root directly (INV-ROOT-004). [`contracts/production/trust-root-metadata.production.schema.json`](../../contracts/production/trust-root-metadata.production.schema.json) | Does not authorise operators, does not sign operator evidence, does not issue licences, does not move funds |
+| **Trust root** | An offline key under threshold custody — three independent authorities, any two of which authorise — that signs only the Key Manifest endorsing the delegated signing keys — protocol metadata, releases, the revocation list and evidence are signed by those delegated keys within their domains, never by the root directly (INV-ROOT-004). [`contracts/production/trust-root-metadata.production.schema.json`](../../contracts/production/trust-root-metadata.production.schema.json) | Does not authorise operators, does not sign operator evidence, does not issue licences, does not move funds |
 | **Delegated signing keys** | Short-lived, scope-limited, domain-separated operational keys, endorsed by root-signed metadata. [`contracts/production/delegated-signing-key.production.schema.json`](../../contracts/production/delegated-signing-key.production.schema.json) | Confer no status on any implementation |
 | **Revocation / fail-closed** | The BANZA Revocation List (BRL), signed and dated, over compromised or withdrawn cryptographic material; and the meta-rule that missing/invalid/expired/revoked/incompatible material yields non-interoperation. [`contracts/production/revocation-entry.production.schema.json`](../../contracts/production/revocation-entry.production.schema.json) | Not a sanction, not a licence, not a verdict about anyone's conduct |
 
@@ -69,7 +69,7 @@ third party re-derives the same result from the same public artifacts.
 ## 3. The Open Trust Evaluation
 
 Before Operator A routes to Operator B, Operator A runs the Open Trust Evaluation **locally** over the
-material Operator B has published. The evaluation is **ten conjunctive, fail-closed checks** (ADR-040).
+material Operator B has published. The evaluation is **ten conjunctive, fail-closed checks** (ADR-031).
 All ten must pass; any check that is missing, invalid, expired, revoked or incompatible ends the
 evaluation. The normative shape is
 [`contracts/production/federation-trust-evaluation.production.schema.json`](../../contracts/production/federation-trust-evaluation.production.schema.json).
@@ -172,9 +172,9 @@ Current state, verifiable directly on the public routes: `/operators` = `[]` and
 
 ## References
 
-- [ADR-038](../../decisions/adr/ADR-038-open-protocol-trust-model-without-ca.md) — open protocol trust model
-- [ADR-039](../../decisions/adr/ADR-039-operator-self-publication-and-machine-verifiable-conformance.md) — operator self-publication and machine-verifiable conformance
-- [ADR-040](../../decisions/adr/ADR-040-federation-trust-evaluation-without-certificates.md) — federation trust evaluation (the ten checks)
+- [ADR-027](../../decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md) — open protocol trust model
+- [ADR-033](../../decisions/adr/ADR-033-operator-self-publication-and-machine-verifiable-conformance.md) — operator self-publication and machine-verifiable conformance
+- [ADR-031](../../decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md) — federation trust evaluation (the ten checks)
 - [`docs/governance/FEDERATION_TRUST_MODEL.md`](../../docs/governance/FEDERATION_TRUST_MODEL.md) — canonical model document
 - [FEDERATION_PROTOCOL_FLOW.md](FEDERATION_PROTOCOL_FLOW.md) — end-to-end federated transaction behavior
 - [FEDERATION_SEQUENCE_DIAGRAMS.md](FEDERATION_SEQUENCE_DIAGRAMS.md) — sequence diagrams for all federation flows

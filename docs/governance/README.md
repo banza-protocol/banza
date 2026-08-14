@@ -245,7 +245,7 @@ BANZA is an open protocol. Candidate operator implementations may build on the p
 |-------|---------|---------|
 | Local | `make identity-check` | Before every commit |
 | CI | `identity-guard` workflow | Every push and pull request |
-| Pre-commit | `scripts/check-operator-contamination.sh --staged` | Optional pre-commit hook |
+| Pre-commit | `tools/check-operator-contamination.sh --staged` | Optional pre-commit hook |
 
 **Replacement vocabulary:**
 

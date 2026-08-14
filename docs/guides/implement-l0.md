@@ -75,7 +75,7 @@ documents would then share a digest.
 
 L0 requires no discovery surface of its own. Where an implementation does publish one, the canonical
 locations are `.well-known/banza/operator.json` and `.well-known/banza/signed-protocol-metadata.json`
-(ADR-080) — but publishing those is first **required** at L3, not L0.
+(ADR-037) — but publishing those is first **required** at L3, not L0.
 
 ## 6. Identity and trust
 

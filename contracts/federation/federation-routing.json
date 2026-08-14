@@ -5,7 +5,7 @@
   "description": "Wire format for cross-operator routing requests and responses. Defines how the originating operator initiates a payment on the destination operator.",
   "_spec_version": "1",
   "_status": "canonical",
-  "_authority": "ADR-040, RFC-0001, INV-FED-001, INV-FED-004",
+  "_authority": "ADR-031, RFC-0001, INV-FED-001, INV-FED-004",
   "$defs": {
     "Amount": {
       "type": "object",
@@ -175,7 +175,7 @@
     "signed_payload": "utf8(str(unix_seconds)) + '.' + raw_request_body_bytes",
     "verification": [
       "1. Fetch the originating operator's signed protocol metadata (and conformance evidence) from protocol_metadata_url",
-      "2. Run the Open Trust Evaluation over that material (ADR-040)",
+      "2. Run the Open Trust Evaluation over that material (ADR-031)",
       "3. Extract the operator's public key from the verified signed protocol metadata",
       "4. Reconstruct signed payload",
       "5. Verify ed25519 signature against that public key"

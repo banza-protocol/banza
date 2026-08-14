@@ -45,15 +45,15 @@ const expect = [
   ["me da um exemplo de federacao", "", "example"],
   ["me da exemplo de um manifest valido", "", "example"],
   ["como federar um operador?", "", "procedure"],
-  ["ADR 005", "ADR-005", "document_lookup"],
-  ["me explica o ADR 005", "ADR-005", "explanation"],
+  ["ADR 005", "ADR-001", "document_lookup"],
+  ["me explica o ADR 005", "ADR-001", "explanation"],
 ];
 for (const [q, seed, want] of expect) {
   const got = task(q, seed);
   if (got !== want) fail(`task("${q}") = ${got}, expected ${want}`);
 }
 // lookup and explanation MUST differ (the core "ADR 005" vs "me explica" defect).
-if (task("ADR 005", "ADR-005") === task("me explica o ADR 005", "ADR-005"))
+if (task("ADR 005", "ADR-001") === task("me explica o ADR 005", "ADR-001"))
   fail("document lookup and explanation must be different tasks");
 
 // 2. the 4 structural/example/procedure cases have a tasked terminal that PASSES completion.
@@ -91,8 +91,8 @@ for (const q of [
   // an example answered with a definition
   const v = completion(
     "me da um exemplo de federacao",
-    "Um exemplo de federação pode ser encontrado na ADR-040, que descreve avaliação de confiança sem certificados.",
-    ["ADR-040"], 2, true,
+    "Um exemplo de federação pode ser encontrado na ADR-031, que descreve avaliação de confiança sem certificados.",
+    ["ADR-031"], 2, true,
   );
   if (v.publishable) fail("a definition must NOT satisfy an example request");
   // a manifest answered with generic architecture
@@ -105,8 +105,8 @@ for (const q of [
   // a procedure answered with a bare ADR list
   const v3 = completion(
     "como federar um operador?",
-    "Para federar um operador, deve-se seguir o ADR-038 ou o ADR-040.",
-    ["ADR-038", "ADR-040"], 2, true,
+    "Para federar um operador, deve-se seguir o ADR-027 ou o ADR-031.",
+    ["ADR-027", "ADR-031"], 2, true,
   );
   if (v3.publishable) fail("a bare ADR list must NOT satisfy a procedure request");
 }

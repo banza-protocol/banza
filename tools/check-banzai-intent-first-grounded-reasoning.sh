@@ -31,9 +31,8 @@ LIB_RS="engines/banzai-api-kb/src/lib.rs"
 POLICY_RS="engines/banzai-query-core/src/source_policy.rs"
 ANSWER_JS="services/banzai-api/src/answerContract.js"
 HOME_ASK="website/components/home/HomeAsk.tsx"
-ARCH_DOC="docs/governance/BANZAI_INTENT_FIRST_GROUNDED_REASONING.md"
 ROUTE_TESTS="engines/banzai-api-kb/tests/route.rs"
-POLICY_TEST="services/banzai-api/test/m2-18-source-policy.test.js"
+POLICY_TEST="services/banzai-api/test/source-policy.test.js"
 
 # Strip // and /* */ comments so a rule matches CODE, not prose/comments (Rust + JS).
 strip() { perl -0777 -pe 's{//[^\n]*}{}g; s{/\*.*?\*/}{}gs' "$1" 2>/dev/null || cat "$1"; }
@@ -44,7 +43,6 @@ echo "BanzAI Intent-First Grounded Reasoning (M2.18 Phase 1)"
 
 # ── D. contracts + doc present ─────────────────────────────────────────────────────────────────────
 need_file "$POLICY_RS"   "D1 source_policy contract"
-need_file "$ARCH_DOC"    "D2 architecture document"
 need_file "$ROUTE_TESTS" "D3 route tests"
 need_file "$POLICY_TEST" "D4 source-policy node test"
 

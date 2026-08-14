@@ -1,4 +1,4 @@
-# Operador Zero origin `.well-known` publication (M2.19G.3A, ADR-069)
+# Operador Zero origin `.well-known` publication (M2.19G.3A, ADR-040)
 
 This directory is bind-mounted **read-only** into the reverse proxy at
 `/etc/nginx/oz-well-known` and serves exactly one URL on the Operador Zero origin:

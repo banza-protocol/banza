@@ -7,7 +7,7 @@
   "_authority": "This package is a derived distribution of the BANZA v1.0.0 public normative surface. It is not an independent specification. The BANZA Normative Manifest remains authoritative.",
   "_reference_implementation": "The reference implementation is intentionally excluded.",
   "_construction": "Built by positive allowlist from the Phase D implementation set for this profile. No file is present unless the allowlist selected it; nothing is copied and then deleted.",
-  "normative_manifest_sha256": "ce63dc78f75a26b2c9130e399212ac24b3b14cbfb1562c3c60196dbdc1fdaf22",
+  "normative_manifest_sha256": "bf865aa3db2a9ea6d6b56deeb008c992b22b5d2f6d93634c618814387296eee1",
   "file_count": 21,
   "files": [
     {
@@ -30,19 +30,19 @@
     },
     {
       "path": "conformance/capabilities/schema.json",
-      "sha256": "d261ce2079207e3183f3157b1649fbcd4dd4864802ca3b2b3acc16de97b63544",
+      "sha256": "a686cc4b621bdc7908067e1164fab7db8da988b8dac9351fa5f9d75ea4fc6869",
       "bytes": 4503,
       "why": "in the L0 implementation set"
     },
     {
       "path": "conformance/manifests/schema.json",
-      "sha256": "d91b4c9c6aca8c8df8beb67e556bf435f8ce83622efcf54c652621a884566266",
+      "sha256": "698757dc8aa5b0df9ae86bbc34f616cfc88c60f86290fec414602d40f6ba4632",
       "bytes": 4245,
       "why": "in the L0 implementation set"
     },
     {
       "path": "conformance/vectors/canonicalization.json",
-      "sha256": "8887da3b6b356c4a7a990f1d2a8f5532e09b979e71c102f2e5e0d10e98cbe48c",
+      "sha256": "122b3d47ed4fd75f6d385c9de794187f769b6b233b72a1efe8a4cc072d14cba3",
       "bytes": 8683,
       "why": "in the L0 implementation set"
     },
@@ -60,14 +60,14 @@
     },
     {
       "path": "conformance/vectors/reason-codes.json",
-      "sha256": "96ac0d4382df9b1b62401474630fa7535074f6e529f0349a64eac5166a828c05",
+      "sha256": "f636c5a8e95a6884cb1217c8a4ac7f350a2c481f80a5a784a2f41a664a8b4dd3",
       "bytes": 7767,
       "why": "in the L0 implementation set"
     },
     {
       "path": "contracts/invariants.json",
-      "sha256": "bde0dbe15b5fe5e7f1ed74088213c0696179c9c6d25abdbd8af9aaa4d0fdb280",
-      "bytes": 30244,
+      "sha256": "79febffbf4fe22e1042c020a5b8fece289e9cbc90e2578e798f454a69a9b15b8",
+      "bytes": 30469,
       "why": "in the L0 implementation set"
     },
     {
@@ -78,7 +78,7 @@
     },
     {
       "path": "contracts/production/conformance-profiles.production.json",
-      "sha256": "15006dfe6909b073cc195a2bdc1c3d7c0205fd3560c5c4f146901dac7c7299bc",
+      "sha256": "67499074fc2754c12f0b35ceb58b00ef3ad9ff9b516ab21f3d3397ed409bcaff",
       "bytes": 20800,
       "why": "what each profile requires"
     },
@@ -90,38 +90,38 @@
     },
     {
       "path": "contracts/production/normative-manifest.json",
-      "sha256": "ce63dc78f75a26b2c9130e399212ac24b3b14cbfb1562c3c60196dbdc1fdaf22",
+      "sha256": "bf865aa3db2a9ea6d6b56deeb008c992b22b5d2f6d93634c618814387296eee1",
       "bytes": 60878,
       "why": "what is normative, and what is not"
     },
     {
       "path": "contracts/production/operator-manifest.production.schema.json",
-      "sha256": "46149d2ee85f02760def3ace1b4199d1ab3f64e616d17e0f286e23e838a28dae",
+      "sha256": "cf5ed6cda03804278d774bee8df7135f2a407ad08fd2492c6a49a5e0a10319c3",
       "bytes": 5283,
       "why": "in the L0 implementation set"
     },
     {
       "path": "contracts/production/protocol-version.json",
-      "sha256": "4b4f612b4a0b2717a5291fe85591b57d5a07274c83ae9be32e15483d3cf116db",
+      "sha256": "e0df7c3d0ea9bc03de9295521a9ec61115e4e212520244fd74dee3137b4c613c",
       "bytes": 2852,
       "why": "in the L0 implementation set"
     },
     {
       "path": "contracts/production/reason-code-registry.production.json",
-      "sha256": "7aba829e4136646673e679ba735eb91016873a5051ae555e6ddd03ed00f60852",
+      "sha256": "0de5f494552861a9f35515807f7a7df4f387843881ce82233694ea0c9c9082fd",
       "bytes": 15399,
       "why": "in the L0 implementation set"
     },
     {
       "path": "docs/guides/implement-l0.md",
-      "sha256": "39b9b2cfd62b08b8697e853f6741f4aa957032b67e8cd3b94d3745450b7eb8a1",
+      "sha256": "57c5ebc40c646caa1adec7a486f5876eb410980b7c43cac70a29b8451566bbeb",
       "bytes": 12923,
       "why": "a map to the L0 set; states no requirement of its own"
     },
     {
       "path": "spec/canonicalization.md",
-      "sha256": "f3cfb22401a9743b60286b2890783ef672250b9fee28f76748c91489d4caeb11",
-      "bytes": 11960,
+      "sha256": "fd55fe1afabc629c685dc951ce71e9cbc0db9bb1dbaf0de4cdae1c94e2ae0954",
+      "bytes": 11958,
       "why": "in the L0 implementation set"
     },
     {
@@ -132,8 +132,8 @@
     },
     {
       "path": "spec/reason-codes.md",
-      "sha256": "6391ca8dbca6d906c48614d768017b75dc46a8c7333d8fb94579865464931c47",
-      "bytes": 9467,
+      "sha256": "22b6268604a5094ce49288150a9567e6a60b7d1e5978049af1f06e517c655538",
+      "bytes": 9462,
       "why": "in the L0 implementation set"
     }
   ],
@@ -214,7 +214,7 @@
       ]
     },
     {
-      "target": "decisions/adr/ADR-081-normative-completeness-versioning-decision.md",
+      "target": "decisions/adr/ADR-009-normative-authority-and-versioning.md",
       "kind": "rationale",
       "why": "An ADR records why a rule was adopted. It is never the rule, and nothing here requires reading it. Excluded from the package on purpose.",
       "referenced_by": [
@@ -222,7 +222,7 @@
       ]
     },
     {
-      "target": "decisions/adr/ADR-082-banza-canonical-json.md",
+      "target": "decisions/adr/ADR-010-banza-canonical-json-bcj-1.md",
       "kind": "rationale",
       "why": "An ADR records why a rule was adopted. It is never the rule, and nothing here requires reading it. Excluded from the package on purpose.",
       "referenced_by": [
@@ -230,7 +230,7 @@
       ]
     },
     {
-      "target": "decisions/adr/ADR-083-reason-code-model.md",
+      "target": "decisions/adr/ADR-023-reason-codes.md",
       "kind": "rationale",
       "why": "An ADR records why a rule was adopted. It is never the rule, and nothing here requires reading it. Excluded from the package on purpose.",
       "referenced_by": [

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# M2.19G.1 (ADR-068 core rule / §4.4) — endpoint-originated validation guard (§37, invariant 3).
+# M2.19G.1 (ADR-038 core rule / §4.4) — endpoint-originated validation guard (§37, invariant 3).
 #
 # The official journey calls POST /banzai/validate/step | /journey (browser sends only closed ids), and
 # the served banzai-api validate path fetches EACH artifact via the secure Rust fetcher (fetcherClient
@@ -21,7 +21,7 @@ SESSION=website/components/banzai/validationJourney.tsx
 SERVER=services/banzai-api/src/server.js
 VALIDATE=services/banzai-api/src/validate.js
 
-echo "== banzai-endpoint-originated-validation-check (M2.19G.1 / ADR-068 core rule) =="
+echo "== banzai-endpoint-originated-validation-check (M2.19G.1 / ADR-038 core rule) =="
 
 # ── self-test ───────────────────────────────────────────────────────────────────────────────────────
 st=0
@@ -77,4 +77,4 @@ fi
 
 echo
 if [ "$fail" -ne 0 ]; then echo "banzai-endpoint-originated-validation-check: FAIL"; exit 1; fi
-echo "banzai-endpoint-originated-validation-check: ✓ official journey is endpoint-originated (ADR-068 core rule)"
+echo "banzai-endpoint-originated-validation-check: ✓ official journey is endpoint-originated (ADR-038 core rule)"

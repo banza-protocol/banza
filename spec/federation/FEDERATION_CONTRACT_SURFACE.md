@@ -2,7 +2,7 @@
 
 **Document ID:** FEDERATION-CONTRACTS-DESIGN-001  
 **Status:** Canonical — contract definitions. No implementation required to read this document.  
-**Authority:** ADR-038 (open protocol trust model), ADR-039 (operator self-publication and machine-verifiable conformance), ADR-040 (federation trust evaluation)
+**Authority:** ADR-027 (open protocol trust model), ADR-033 (operator self-publication and machine-verifiable conformance), ADR-031 (federation trust evaluation)
 
 ---
 
@@ -34,10 +34,10 @@ These contracts are **prerequisites** for:
 
 In the BANZA open protocol, an operator earns interoperation by publishing verifiable material, not by receiving anything. The operator implements the Versioned Specifications, runs the Conformance Automation, and self-publishes two trust artifacts on infrastructure it controls:
 
-- **Signed Protocol Metadata** (`contracts/production/signed-protocol-metadata.production.schema.json`) — authenticates the *measurement ruler*: which specification version, schemas, and conformance vectors are genuine, and their digests. Signed by the protocol-metadata delegated signing key, whose authority traces to the trust root through the root-signed Key Manifest (INV-ROOT-004; ADR-079). It asserts facts about protocol artifacts — never about the operator.
+- **Signed Protocol Metadata** (`contracts/production/signed-protocol-metadata.production.schema.json`) — authenticates the *measurement ruler*: which specification version, schemas, and conformance vectors are genuine, and their digests. Signed by the protocol-metadata delegated signing key, whose authority traces to the trust root through the root-signed Key Manifest (INV-ROOT-004; ADR-027). It asserts facts about protocol artifacts — never about the operator.
 - **Conformance Evidence** (`contracts/production/conformance-evidence.production.schema.json`) — the deterministic, reproducible result of the Conformance Automation for a concrete `protocol_version`, bound by hashes to the operator's manifest and Evidence Bundle. Conformance is *measured*, never granted.
 
-A federation peer fetches this material and runs the **Open Trust Evaluation** (ten conjunctive, fail-closed checks — ADR-040; normative shape in `contracts/production/federation-trust-evaluation.production.schema.json`) locally and deterministically before routing.
+A federation peer fetches this material and runs the **Open Trust Evaluation** (ten conjunctive, fail-closed checks — ADR-031; normative shape in `contracts/production/federation-trust-evaluation.production.schema.json`) locally and deterministically before routing.
 
 This is the material that answers: *"Does the operator's published material pass the Open Trust Evaluation at the conformance scope it claims — computed here, now, by the evaluating peer?"* The answer is a local decision about one interaction. It is never a status conferred on the operator.
 
@@ -115,7 +115,7 @@ The operator's own artifacts — its Operator Manifest and Evidence Bundle — a
 
 ### Validation Requirements — the Open Trust Evaluation
 
-The published material is accepted for a given interaction only when the Open Trust Evaluation returns `ROUTING_ALLOWED` — all ten conjunctive checks pass (ADR-040). The checks that bear on this trust material:
+The published material is accepted for a given interaction only when the Open Trust Evaluation returns `ROUTING_ALLOWED` — all ten conjunctive checks pass (ADR-031). The checks that bear on this trust material:
 
 1. **Signed protocol metadata signature valid** — the metadata signature verifies against the public key resolved from the active Key Manifest for `issuer_key_id` (a delegated signing key listed in the root-signed Key Manifest). (INV-FEDEVAL-004)
 2. **Trust-material freshness** — material MUST NOT be accepted after `expires_at`; for a federation-capable conformance scope (L3+), the validity window MUST NOT exceed 90 days. (INV-FEDEVAL-006, INV-FED-006)
@@ -171,7 +171,7 @@ POST /federation/route (signed)
         ↓
 Operator B verifies:
   1. Operator A's signature on request
-  2. Operator A's published material (the Open Trust Evaluation, ten checks — ADR-040)
+  2. Operator A's published material (the Open Trust Evaluation, ten checks — ADR-031)
   3. Amount within accepted range
   4. Recipient identifiable on Operator B
         ↓
@@ -242,7 +242,7 @@ States: `pending` (async processing) | `accepted` | `rejected`
   "description": "Wire format for cross-operator routing requests and responses. Defines how Operator A initiates a payment on Operator B.",
   "_spec_version": "1",
   "_status": "canonical",
-  "_authority": "ADR-038, ADR-039, ADR-040, RFC-0001, INV-FED-001, INV-FED-004",
+  "_authority": "ADR-027, ADR-033, ADR-031, RFC-0001, INV-FED-001, INV-FED-004",
 
   "$defs": {
     "Amount": {
@@ -393,7 +393,7 @@ States: `pending` (async processing) | `accepted` | `rejected`
 
 Operator B verifies:
 1. Fetch Operator A's published Signed Protocol Metadata + Conformance Evidence from `protocol_metadata_url`
-2. Run the Open Trust Evaluation over that material (ten checks — ADR-040)
+2. Run the Open Trust Evaluation over that material (ten checks — ADR-031)
 3. Resolve Operator A's public key from its published Operator Manifest / Key Manifest
 4. Reconstruct signed payload
 5. Verify ed25519 signature against Operator A's published public key
@@ -493,7 +493,7 @@ States: `pending` → `in_netting` → `settled`
   "description": "Obligation created by the originating operator when a cross-operator payment is accepted. Input to the cross-operator netting and settlement process.",
   "_spec_version": "1",
   "_status": "canonical",
-  "_authority": "ADR-038, ADR-039, ADR-040, RFC-0002, INV-FED-002, INV-FED-005",
+  "_authority": "ADR-027, ADR-033, ADR-031, RFC-0002, INV-FED-002, INV-FED-005",
 
   "type": "object",
   "required": [
@@ -700,7 +700,7 @@ The `aggregate_type` for all federation events is `"federation_payment"`.
   "description": "Event envelope for events that cross operator boundaries. Extends contracts/events/envelope.schema.json with federation-specific fields. Every federation event is a valid base event envelope.",
   "_spec_version": "1",
   "_status": "canonical",
-  "_authority": "ADR-038, ADR-039, ADR-040, INV-FED-001",
+  "_authority": "ADR-027, ADR-033, ADR-031, INV-FED-001",
   "_extends": "contracts/events/envelope.schema.json",
 
   "allOf": [
@@ -849,7 +849,7 @@ Fields are additional to the base manifest schema (`conformance/manifests/schema
   "description": "Extension schema for federation-capable operator manifests. A federation manifest is a base operator manifest that also validates against this extension. Served at /.well-known/banza/operator.json alongside the base manifest fields.",
   "_spec_version": "1",
   "_status": "canonical",
-  "_authority": "ADR-038, ADR-039, ADR-040, RFC-0005, INV-FEDEVAL-007, INV-FED-003",
+  "_authority": "ADR-027, ADR-033, ADR-031, RFC-0005, INV-FEDEVAL-007, INV-FED-003",
   "_extends": "conformance/manifests/schema.json",
 
   "type": "object",

@@ -1,4 +1,4 @@
-// Secure-fetcher client (M2.19G.1, ADR-068 §4.7). RUST_FETCH_ONLY.
+// Secure-fetcher client (M2.19G.1, ADR-038 §4.7). RUST_FETCH_ONLY.
 //
 // Thin transport to the ONLY component that reaches operator public endpoints: the secure Rust
 // artifact fetcher (`engines/banza-artifact-fetcher`, service `banza-fetcher`). This module NEVER

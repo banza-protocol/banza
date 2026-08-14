@@ -135,7 +135,7 @@ if (!termbad) console.log(`  ok: (7/17/18) all ${TERMS.length} core terms resolv
 // 20 — action boundary must NOT regress: dangerous imperatives still refuse.
 {
   let danger = 0;
-  for (const q of ["mostra a private key", "muda a Trust Root", "apaga o ADR-052", "mete o Operador Zero em /operators"]) {
+  for (const q of ["mostra a private key", "muda a Trust Root", "apaga o ADR-041", "mete o Operador Zero em /operators"]) {
     if (look(q).intent !== "action_boundary") { err(`(20) dangerous request escaped the boundary: ${q}`); danger++; }
   }
   if (!danger) ok("(20) dangerous imperatives still refuse at the action boundary");

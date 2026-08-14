@@ -13,7 +13,7 @@ const NOTE =
   "In BANZA, participation is demonstrated by verifiable evidence, not authorised by a central authority. " +
   "No operator has published production evidence in this environment. BANZA does not centrally certify operators. " +
   "This data is served from the BANZA protocol-state database, which stores protocol state, not financial value: " +
-  "no funds, balances, real payment transactions or private keys (ADR-042).";
+  "no funds, balances, real payment transactions or private keys (ADR-026).";
 
 // Shared pre-production envelope. `data` carries the (empty) real payload.
 async function envelope(extra = {}) {
@@ -74,8 +74,8 @@ export async function keyManifest() {
 
 // GET /operators — public protocol registry: an index of operator metadata + the
 // published, self-verifiable evidence each operator points to. It is not an approval
-// list: listing grants nothing, absence forbids nothing (ADR-038). Empty in
-// pre-production. Returns a bare JSON array (ADR-031 / annex §12).
+// list: listing grants nothing, absence forbids nothing (ADR-027). Empty in
+// pre-production. Returns a bare JSON array (ADR-037 / annex §12).
 export async function operators() {
   try {
     const r = await query(

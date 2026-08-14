@@ -122,7 +122,7 @@ export const ARTIFACT_DATA: Record<string, unknown> = {
         "qpCXwdFrfwrOu1zPASFaOak_IhOicc5geQY1vXcBpsowBYCyasg8JYeZ_QSddQOKEi8RcwMIohj2ZADWfi3IAw",
         "HEtYNCIG5TDi77YAVYhm87tskeqMT1cee9AMiTpVDlCU3VZJLpqGuzJLlx0X55v15vvP735bvuyi4gXS_2J7DA"
       ],
-      "scope": "signs only the Key Manifest that endorses the delegated signing keys (ADR-079)",
+      "scope": "signs only the Key Manifest that endorses the delegated signing keys (ADR-027)",
       "threshold_policy": {
         "min_signatures": 2,
         "total_keyholders": 3
@@ -670,7 +670,7 @@ export const ARTIFACT_DATA: Record<string, unknown> = {
       "banza-l2-readiness": null,
       "banza-l3-readiness": null,
       "banza-l4-readiness": null,
-      "banza-m2-protocol-gate": null,
+      "banza-production-gate": null,
       "banza-open-governance": null,
       "banza-operator-manifest": null,
       "banza-reference-trust-model": null,
@@ -1009,11 +1009,8 @@ export const VALIDATION_STATE: Record<string, unknown> = {
   "artifacts_ready": 6,
   "artifacts_total": 6,
   "blockers": 0,
-  "last_validation_phase": "M2.14A",
-  "last_validation_commit": "4b08582",
-  "last_validation_report": "docs/reports/M2_14A_OPERATOR_ZERO_REALISTIC_OPERATOR_JOURNEY.md",
   "evidence_bundle_url": "https://zero.banza.network/evidence-bundle.json",
   "trace_url": "https://zero.banza.network/traces/full-e2e.json",
   "boundary_pt": "Este estado é demonstração técnica. Não é certificação, não é aprovação, não é licença financeira e não representa operador de produção.",
-  "note": "Estado de validação do Operador Zero — a implementação de referência canónica, só de leitura, do protocolo BANZA (ADR-067). É evidência técnica local: não certifica, não aprova, não licencia e não representa operador real. Não corre simulação nem tem ledger mutável. A moeda KZ_DEMO é uma unidade de demonstração, sem valor real. last_validation_commit regista o último commit em que a validação foi registada; é actualizado por fase de validação."
+  "note": "Estado de validação do Operador Zero — a implementação de referência canónica, só de leitura, do protocolo BANZA (ADR-041). É evidência técnica local: não certifica, não aprova, não licencia e não representa operador real. Não corre simulação nem tem ledger mutável. A moeda KZ_DEMO é uma unidade de demonstração, sem valor real. last_validation_commit regista o último commit em que a validação foi registada; é actualizado por fase de validação."
 };

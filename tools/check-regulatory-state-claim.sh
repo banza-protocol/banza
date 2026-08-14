@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# BANZA Regulatory-State Claim Guard (M2.19C, ADR-062 / ADR-060 D-060-08).
+# BANZA Regulatory-State Claim Guard (M2.19C, ADR-005 / ADR-006 D-060-08).
 #
 # While no applicable formal evidence exists, Banzami's regulatory state is
 # REGULATORY_AUTHORIZATION_IN_PROGRESS: a PREPARATION state that grants nothing. No public/governance
@@ -21,7 +21,7 @@ cd "$(dirname "$0")/.."
 
 RCP="docs/governance/BANZA_REGULATORY_CLAIM_POLICY.md"
 BOS="docs/governance/BANZAMI_OPERATIONAL_SCHEME.md"
-ADR062="decisions/adr/ADR-062-regulatory-state-boundary-and-real-money-gate.md"
+ADR062="decisions/adr/ADR-005-regulatory-state-boundary-and-the-real-money-activation-gate.md"
 
 fail=0
 
@@ -75,8 +75,8 @@ echo "== [2/3] prudent phrasing + in-progress state present =="
 need  "$RCP"    'em preparação regulatória'            'RCP carries the prudent-phrasing (preparação regulatória)'
 needE "$RCP"    'pagamentos reais permanecem'          'RCP carries the prudent-phrasing (pagamentos reais permanecem desactivados)'
 need  "$RCP"    'REGULATORY_AUTHORIZATION_IN_PROGRESS' 'RCP names the in-progress state'
-need  "$ADR062" 'em preparação regulatória'            'ADR-062 carries the prudent-phrasing'
-need  "$ADR062" 'REGULATORY_AUTHORIZATION_IN_PROGRESS' 'ADR-062 names the in-progress state'
+need  "$ADR062" 'em preparação regulatória'            'ADR-005 carries the prudent-phrasing'
+need  "$ADR062" 'REGULATORY_AUTHORIZATION_IN_PROGRESS' 'ADR-005 names the in-progress state'
 needE "$RCP"    'não[^.]{0,20}(autorizada|concedida|aprovaç|licenç)' 'RCP negates authorisation/approval/licence'
 
 # ── [3/3] no surface claims the operator is already authorised/BNA-approved/licensed ─────────────────
@@ -102,8 +102,8 @@ done
 
 if [ "$fail" -ne 0 ]; then
   echo
-  echo "regulatory-state-claim: FAIL — see ADR-062 and docs/governance/BANZA_REGULATORY_CLAIM_POLICY.md."
+  echo "regulatory-state-claim: FAIL — see ADR-005 and docs/governance/BANZA_REGULATORY_CLAIM_POLICY.md."
   exit 1
 fi
 echo
-echo "regulatory-state-claim: ✓ prudent phrasing + REGULATORY_AUTHORIZATION_IN_PROGRESS canonical; no already-authorised/BNA-approved/licensed claim (M2.19C / ADR-062)"
+echo "regulatory-state-claim: ✓ prudent phrasing + REGULATORY_AUTHORIZATION_IN_PROGRESS canonical; no already-authorised/BNA-approved/licensed claim (M2.19C / ADR-005)"

@@ -3,16 +3,16 @@ info:
   title: BANZA Collections API
   version: "1.0"
   description: >
-    Canonical protocol surface for Payment Collections (ADR-016). A Collection is
+    Canonical protocol surface for Payment Collections (ADR-018). A Collection is
     a composite financial obligation grouping N CollectionShares; each share is
     settled by its own PaymentIntent (ADR-014) -> Transfer -> Ledger. A Collection
     NEVER holds or moves money and NEVER posts to the ledger.
 
     This is the operator-AGNOSTIC protocol surface. It defines what every BANZA
     operator MUST expose; it contains no operator-specific endpoints. Authority:
-    ADR-016. Scope v1: single-operator (cross-operator settlement is deferred to a
+    ADR-018. Scope v1: single-operator (cross-operator settlement is deferred to a
     future federation ADR).
-  x-authority: ADR-016
+  x-authority: ADR-018
   x-certification-level: 2
   x-capability: supports_collections
 
@@ -170,7 +170,7 @@ paths:
       description: >
         Cancels the collection and its unpaid shares. PAID shares are terminal and
         unaffected (already-settled money is never reversed here; refunds follow
-        ADR-017 per share).
+        ADR-020 per share).
       parameters: [ { $ref: '#/components/parameters/CollectionId' } ]
       responses:
         '200':

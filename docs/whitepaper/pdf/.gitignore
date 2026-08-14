@@ -1,5 +1,0 @@
-# Only the canonical release PDFs (banza-whitepaper-v1.0-{pt,en}.pdf), built by
-# tools/whitepaper-release.sh (LaTeX/tectonic), are committed here.
-# Legacy Typst draft outputs and the non-canonical Typst preview are never published:
-*.DRAFT.pdf
-typst-preview/

@@ -102,6 +102,6 @@ awarded by an authority, and any real financial service, real integration and it
 belong to the independent operator.
 
 See the phase report:
-[`PHASE_BX1_10_BANZAI_L4_EXTERNAL_INTEROPERABILITY_READINESS_2026_07.md`](PHASE_BX1_10_BANZAI_L4_EXTERNAL_INTEROPERABILITY_READINESS_2026_07.md).
+.
 Related: [`BANZA_PROTOCOL_BOUNDARY.md`](BANZA_PROTOCOL_BOUNDARY.md),
 [`BANZA_REGULATORY_POSITIONING.md`](BANZA_REGULATORY_POSITIONING.md).

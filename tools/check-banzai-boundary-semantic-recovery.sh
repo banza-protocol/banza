@@ -23,11 +23,10 @@ ROUTE_RS="engines/banzai-query-core/src/route.rs"
 LIB_RS="engines/banzai-api-kb/src/lib.rs"
 KNOW_JS="services/banzai-api/src/knowledge.js"
 INTERPRET_JS="services/banzai-api/src/interpret.js"
-DATASET="services/banzai-api/eval/m2-18b2-boundary.dataset.json"
-HARNESS="services/banzai-api/eval/run-m2-18b2-boundary-eval.mjs"
-T_BOUNDARY="services/banzai-api/test/m2-18b2-boundary.test.js"
-T_CAND="services/banzai-api/test/m2-18b2-candidates.test.js"
-REPORT="docs/reports/M2_18B2_BOUNDARY_HARDENING_SEMANTIC_RECOVERY.md"
+DATASET="services/banzai-api/eval/boundary.dataset.json"
+HARNESS="services/banzai-api/eval/run-boundary-eval.mjs"
+T_BOUNDARY="services/banzai-api/test/boundary.test.js"
+T_CAND="services/banzai-api/test/candidates.test.js"
 
 strip_c_rs() { perl -0777 -pe 's{//[^\n]*}{}g; s{/\*.*?\*/}{}gs' "$1" 2>/dev/null || cat "$1"; }
 strip_c() { perl -0777 -pe 's{//[^\n]*}{}g; s{/\*.*?\*/}{}gs' "$1" 2>/dev/null || cat "$1"; }
@@ -42,7 +41,6 @@ need "$DATASET"      "offline boundary dataset"
 need "$HARNESS"      "offline boundary eval harness"
 need "$T_BOUNDARY"   "boundary regression tests"
 need "$T_CAND"       "candidate generation tests"
-need "$REPORT"       "phase report"
 
 # ── DETERMINISTIC BOUNDARY (Part 1-11) ────────────────────────────────────────────────────────────
 if [ -f "$BOUNDARY_RS" ]; then

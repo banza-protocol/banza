@@ -1,4 +1,4 @@
-// Canonical-JSON serialisation + SHA-256 for the durable validation receipt store (ADR-076 §D-076-08).
+// Canonical-JSON serialisation + SHA-256 for the durable validation receipt store (ADR-042 §D-076-08).
 // A receipt's digest must be STABLE and reproducible: keys are emitted in sorted order at every level so
 // the same logical receipt always hashes to the same value, and the digest is recomputed and re-verified
 // on read. No free model text ever enters a receipt payload (enforced by the callers + a guard).

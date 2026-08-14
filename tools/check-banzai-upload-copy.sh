@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# make banzai-upload-copy-check — M2.9C guard (ADR-049), retargeted for M2.19G.1 (ADR-068).
+# make banzai-upload-copy-check — M2.9C guard (ADR-042), retargeted for M2.19G.1 (ADR-038).
 #
-# Endpoint-originated model (ADR-068 §4.4/§4.5): the OFFICIAL operator-validation journey takes NO manual
+# Endpoint-originated model (ADR-038 §4.4/§4.5): the OFFICIAL operator-validation journey takes NO manual
 # input — no upload, paste, drag-drop, URL or fixture. Uploading/pasting is permitted ONLY in the
 # isolated developer draft tool (DraftValidationTool, "Validar rascunho" under Programadores), whose
 # result is labelled DRAFT_VALIDATION_RESULT and carries the permanent banner
@@ -29,7 +29,7 @@ ok()   { echo "  ok: $*"; }
 
 AGENT=website/components/banzai/BanzaiAgent.tsx
 AGENTDATA=website/components/banzai/banzai-agent.ts
-# M2.19G.1 (ADR-068) — upload/paste live ONLY in the isolated developer draft tool.
+# M2.19G.1 (ADR-038) — upload/paste live ONLY in the isolated developer draft tool.
 DRAFT=website/components/banzai/DraftValidationTool.tsx
 # The OFFICIAL validation surface — must stay free of any manual-input affordance.
 VJOURNEY=website/components/banzai/validationJourney.tsx
@@ -62,7 +62,7 @@ selftest() {
 }
 selftest
 
-echo "== banzai-upload-copy-check (M2.9C / ADR-068) =="
+echo "== banzai-upload-copy-check (M2.9C / ADR-038) =="
 
 # 1. No "fixture" in user-visible BanzAI UI copy — across the shell, its data module, the draft tool and
 #    the OFFICIAL validation surface. (Code identifiers/comments are still fine.)
@@ -73,7 +73,7 @@ for f in "$AGENT" "$AGENTDATA" "$DRAFT" "$VJOURNEY" "$VSHELL"; do
     || fail "$(basename "$f") contains visible 'fixture' copy: $hit"
 done
 
-# 2. Upload/paste live ONLY in the isolated developer draft tool (ADR-068 §4.5), never the official path.
+# 2. Upload/paste live ONLY in the isolated developer draft tool (ADR-038 §4.5), never the official path.
 if [ -f "$DRAFT" ]; then
   # The bring-your-own-file affordance stays — but in the draft tool.
   grep -q "Carregar ficheiro JSON" "$DRAFT" && ok "draft tool offers the manual JSON upload affordance (Carregar ficheiro JSON)" \
@@ -94,7 +94,7 @@ grep -q "Rascunho local · não publicado · não produz evidência oficial" "$A
 for f in "$VJOURNEY" "$VSHELL"; do
   [ -f "$f" ] || { fail "$f not found"; continue; }
   if grep -qE 'type="file"|<textarea|scanUpload\(|DRAFT_VALIDATION_RESULT' "$f"; then
-    fail "$(basename "$f") exposes a manual-input affordance — the official journey must be endpoint-originated (ADR-068 §4.4)"
+    fail "$(basename "$f") exposes a manual-input affordance — the official journey must be endpoint-originated (ADR-038 §4.4)"
   else
     ok "$(basename "$f") has no upload/paste affordance (official journey is endpoint-originated)"
   fi
@@ -150,7 +150,7 @@ if [ -f "$DRAFT" ]; then
     || fail "$DRAFT must state validating a draft does not certify/approve/produce official evidence"
 fi
 
-# 7. Isolation (ADR-068 §4.5): the draft tool forwards the raw file body NOWHERE — it never sends it to
+# 7. Isolation (ADR-038 §4.5): the draft tool forwards the raw file body NOWHERE — it never sends it to
 #    /ask nor to any operator origin. This is stronger than the superseded "summary-only to /ask" rule.
 if [ -f "$DRAFT" ]; then
   if grep -qE 'banzaiKb|/banzai/ask|/ask|fetch\(' "$DRAFT"; then

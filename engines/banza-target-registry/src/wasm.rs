@@ -1,4 +1,4 @@
-//! WASM (nodejs) exports for the closed Technical Registry (ADR-068, M2.19G.1).
+//! WASM (nodejs) exports for the closed Technical Registry (ADR-038, M2.19G.1).
 //!
 //! JSON-in/JSON-out over the native library; every resolution, eligibility decision, discovery
 //! validation, step-status mapping and Certification Readiness aggregation is computed in Rust

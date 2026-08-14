@@ -19,11 +19,11 @@ Humanos mantêm e evoluem o protocolo; não autorizam, aceitam, aprovam ou certi
 independentes são responsáveis pelo seu próprio enquadramento legal, regulatório, financeiro e operacional.
 
 Origem normativa:
-[ADR-038](../../decisions/adr/ADR-038-open-protocol-trust-model-without-ca.md) — modelo de confiança do
+[ADR-027](../../decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md) — modelo de confiança do
 protocolo aberto;
-[ADR-039](../../decisions/adr/ADR-039-operator-self-publication-and-machine-verifiable-conformance.md) —
+[ADR-033](../../decisions/adr/ADR-033-operator-self-publication-and-machine-verifiable-conformance.md) —
 auto-publicação e conformidade verificável por máquina;
-[ADR-040](../../decisions/adr/ADR-040-federation-trust-evaluation-without-certificates.md) — avaliação de
+[ADR-031](../../decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md) — avaliação de
 confiança de federação. Este documento é subordinado a esta decisão. Nenhuma secção pode ser lida como
 contradizendo-a.
 
@@ -42,7 +42,7 @@ A validação de trust não é autorização de operador, não é certificação
 
 ### O agente nativo BanzAI e a avaliação de trust
 
-O BANZA é acompanhado por um agente IA nativo — **BanzAI** (agente nativo do protocolo, ADR-041). No
+O BANZA é acompanhado por um agente IA nativo — **BanzAI** (agente nativo do protocolo, ADR-042). No
 contexto desta arquitectura, o BanzAI guia o operador ao longo da verificação de trust: orquestra os
 passos, invoca as ferramentas verificáveis, explica os resultados e ajuda a preparar e corrigir a
 evidência. As **decisões de trust não são tomadas pelo BanzAI**: são computadas de forma determinística
@@ -60,12 +60,28 @@ singular. É um conjunto de chaves em custódia distribuída, usadas offline e d
 
 | Propriedade | Valor |
 |---|---|
-| Modelo | Custódia por limiar — nenhum custódio isolado reconstrói a raiz (INV-ROOT-007). O quórum concreto é a configuração operacional de custódia (bootstrap M2: 2-de-2; alvo futuro: 3-de-5 Shamir) |
+| Modelo | **2-de-3.** Três autoridades de assinatura independentes; qualquer acção autorizada da raiz exige duas assinaturas de duas delas. Uma assinatura isolada nunca autoriza (INV-ROOT-007) |
 | Uso | Offline, apenas para assinar material do protocolo |
 | Artefacto | Root metadata assinado, com âncora fixada (pinned anchor) nos verificadores |
 | Controlo único | Nenhum custódio isolado reconstrói a raiz nem produz uma assinatura válida |
 
-A `Trust Root` assina exclusivamente o **Manifesto de Chaves** — a root metadata que lista e endossa as `Delegated Signing Keys`. A `Signed Protocol Metadata`, as releases e a `Revocation List` são assinadas pelas `Delegated Signing Keys` endossadas pela raiz, nunca pela raiz directamente (INV-ROOT-004; ADR-079). Uma assinatura da raiz responde a
+O modelo de autorização é **criptográfico e lógico**: três autoridades, limiar dois. Não é definido pelo
+hardware. Quantos módulos de segurança existem, onde ficam guardados e como o material é transportado
+são **controlos de custódia** — descritos em [`ROOT_KEY_CUSTODY_MODEL.md`](../security/ROOT_KEY_CUSTODY_MODEL.md) —
+e podem evoluir sem redefinir a autoridade do protocolo. O número de dispositivos nunca determina o limiar.
+
+Três propriedades justificam esta escolha, e são as três que o BANZA precisa:
+
+| Propriedade | O que garante |
+|---|---|
+| **Autorização a dois** | Nenhuma autoridade age sozinha; um comprometimento isolado não basta |
+| **Tolerância a uma falha** | Perder ou isolar uma das três não bloqueia a raiz; as outras duas mantêm o quórum |
+| **Sem controlo unipessoal** | Não existe combinação em que uma só parte autorize uma acção da raiz |
+
+Nada mais é acrescentado para as obter: sem Shamir, sem serviço de quórum online, sem coordenação de
+HSM, sem criptossistema de assinatura por limiar. Três chaves e uma contagem.
+
+A `Trust Root` assina exclusivamente o **Manifesto de Chaves** — a root metadata que lista e endossa as `Delegated Signing Keys`. A `Signed Protocol Metadata`, as releases e a `Revocation List` são assinadas pelas `Delegated Signing Keys` endossadas pela raiz, nunca pela raiz directamente (INV-ROOT-004; ADR-027). Uma assinatura da raiz responde a
 exactamente uma pergunta — *este artefacto do protocolo é genuíno e íntegro?* — e nunca a *pode esta
 entidade participar?*.
 
@@ -230,13 +246,13 @@ operadores.
 
 ## Referências
 
-- [ADR-038](../../decisions/adr/ADR-038-open-protocol-trust-model-without-ca.md) — modelo de confiança do protocolo aberto
-- [ADR-039](../../decisions/adr/ADR-039-operator-self-publication-and-machine-verifiable-conformance.md) — auto-publicação e conformidade verificável por máquina
-- [ADR-040](../../decisions/adr/ADR-040-federation-trust-evaluation-without-certificates.md) — avaliação de confiança de federação
+- [ADR-027](../../decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md) — modelo de confiança do protocolo aberto
+- [ADR-033](../../decisions/adr/ADR-033-operator-self-publication-and-machine-verifiable-conformance.md) — auto-publicação e conformidade verificável por máquina
+- [ADR-031](../../decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md) — avaliação de confiança de federação
 - [FEDERATION_TRUST_MODEL.md](./FEDERATION_TRUST_MODEL.md) — a `Open Trust Evaluation` e a sua fronteira
 - [PUBLIC_PROTOCOL_REGISTRY.md](./PUBLIC_PROTOCOL_REGISTRY.md) — o índice público verificável
 - [WORKBENCH_ONLY_OPERATOR_VERIFICATION.md](./WORKBENCH_ONLY_OPERATOR_VERIFICATION.md) — verificação guiada pelo BanzAI
-- [BANZAI_NATIVE_PROTOCOL_AGENT.md](./BANZAI_NATIVE_PROTOCOL_AGENT.md) — BanzAI como agente nativo do protocolo (ADR-041)
+- [BANZAI_NATIVE_PROTOCOL_AGENT.md](./BANZAI_NATIVE_PROTOCOL_AGENT.md) — BanzAI como agente nativo do protocolo (ADR-042)
 - Contratos: `contracts/production/trust-root-metadata.production.schema.json`, `delegated-signing-key.production.schema.json`, `signed-protocol-metadata.production.schema.json`, `conformance-evidence.production.schema.json`, `public-protocol-registry.production.schema.json`, `revocation-entry.production.schema.json`
 
 ---

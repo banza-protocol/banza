@@ -3,7 +3,7 @@
 **Document ID:** FEDERATION-CONFORMANCE-DESIGN-001  
 **Date:** 2026-05-31  
 **Status:** Canonical — conformance architecture. Executable once the runner implements this spec.  
-**Authority:** ADR-038, ADR-039, ADR-040, FEDERATION_INVARIANTS.md, FEDERATION_CONTRACT_SURFACE.md, FEDERATION_PROTOCOL_FLOW.md
+**Authority:** ADR-027, ADR-033, ADR-031, FEDERATION_INVARIANTS.md, FEDERATION_CONTRACT_SURFACE.md, FEDERATION_PROTOCOL_FLOW.md
 
 ---
 
@@ -14,7 +14,7 @@ every federation requirement to at least one test, defines the nine test suites,
 semantics, and establishes what makes a routing decision unambiguous. Conformance here is **measured**:
 the runner produces reproducible, machine-verifiable evidence that any third party can re-check. Whether
 that evidence lets a peer route is a **local** decision each peer reaches by running the Open Trust
-Evaluation (ADR-040) — it is never a status conferred on the operator.
+Evaluation (ADR-031) — it is never a status conferred on the operator.
 
 After this document: implementation of the conformance runner can begin without architectural ambiguity.
 
@@ -101,7 +101,7 @@ FED-FAIL may be run in parallel with FED-SETTLE if both have independent fixture
 **Blocking:** A FAIL in a blocking suite means the operator's published material cannot yield a
 ROUTING_ALLOWED outcome for the federation-capable conformance scope, regardless of other suite results.  
 **Non-blocking:** A FAIL in a non-blocking suite is noted but does not block the core federation scope.
-Because the Open Trust Evaluation is per-capability (ADR-040 check 7), a non-blocking failure fails closed
+Because the Open Trust Evaluation is per-capability (ADR-031 check 7), a non-blocking failure fails closed
 only for the affected capability; the capabilities whose evidence is complete still reach ROUTING_ALLOWED.
 (FED-EVT, FED-SETTLE, FED-FAIL failures produce evidence with recorded remediation items.)
 
@@ -111,7 +111,7 @@ only for the affected capability; the capabilities whose evidence is complete st
 
 Every requirement from every federation artifact maps to at least one test. No requirement is untestable.
 
-### 3.1 Trust Invariants (ADR-038, ADR-039, ADR-040)
+### 3.1 Trust Invariants (ADR-027, ADR-033, ADR-031)
 
 | Invariant | Test(s) | Suite |
 |-----------|---------|-------|
@@ -232,7 +232,7 @@ Every requirement from every federation artifact maps to at least one test. No r
 ## 4. Routing decision rules (ROUTING_ALLOWED / FAIL_CLOSED)
 
 Conformance is measured here; the decision is reached **locally** by each peer running the Open Trust
-Evaluation (ADR-040) over the operator's published material. The rules below state, for the reference
+Evaluation (ADR-031) over the operator's published material. The rules below state, for the reference
 evaluation, when the ten checks resolve to ROUTING_ALLOWED and when they fail closed.
 
 ### 4.1 ROUTING_ALLOWED
@@ -264,7 +264,7 @@ operator, never an admission refused, never a licence denied.
 
 ### 4.3 Capability-scoped outcomes (non-blocking suites)
 
-Because the Open Trust Evaluation is per-capability (ADR-040 check 7, INV-FEDEVAL-007), a failure in a
+Because the Open Trust Evaluation is per-capability (ADR-031 check 7, INV-FEDEVAL-007), a failure in a
 non-blocking suite fails closed only for the capability it evidences, while the core federation routing
 capability still reaches ROUTING_ALLOWED:
 

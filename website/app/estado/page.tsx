@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 // Static, citable status panel. Values mirror the machine routes below — the machine routes are the
 // verifiable source; this page is the human explanation. The BanzAI row is NOT static: it is derived
-// server-side from the runtime SSOT route (GET /banzai/runtime, ADR-072), so the page can never
+// server-side from the runtime SSOT route (GET /banzai/runtime, ADR-042), so the page can never
 // contradict what the service actually reports. Where prose and the route differ, the route wins.
 const PANEL_STATIC = [
   { label: "Especificação", value: "v1.0 — congelada", tone: "ok" },
@@ -27,7 +27,7 @@ const PANEL_STATIC = [
   { label: "Banzami Operational Scheme (Camada 3)", value: "Em preparação regulatória — autorização não concedida", tone: "pend" },
 ] as const;
 
-// ADR-072 — the runtime SSOT. The BanzAI panel row is derived from GET /banzai/runtime (server-side).
+// ADR-042 — the runtime SSOT. The BanzAI panel row is derived from GET /banzai/runtime (server-side).
 // If the route is unreachable or reports an unrecognised schema/mode/status, we render a NEUTRAL, honest
 // fallback — NEVER a hardcoded "Qwen local activo" (that string may only appear when the route itself
 // confirms mode=local_qwen). The stable framing wraps the route-derived engine substring.
@@ -121,7 +121,7 @@ const MACHINE_ROUTES = [
   },
   {
     path: "/banzai/runtime",
-    what: "Runtime SSOT do BanzAI (ADR-072): projecção sem segredos do estado de execução — modo, localização da inferência, chamadas externas, disponibilidade do modelo e prontidão dos motores determinísticos. Telemetria não normativa (authoritative: false), distinta dos artefactos de confiança assinados em /.well-known/banza/*.",
+    what: "Runtime SSOT do BanzAI (ADR-042): projecção sem segredos do estado de execução — modo, localização da inferência, chamadas externas, disponibilidade do modelo e prontidão dos motores determinísticos. Telemetria não normativa (authoritative: false), distinta dos artefactos de confiança assinados em /.well-known/banza/*.",
     today: "Devolve JSON versionado (schema_version: banzai-runtime/1). O painel BanzAI acima é derivado desta rota — se divergirem, a rota ganha.",
   },
 ] as const;
@@ -248,7 +248,7 @@ export default async function EstadoPage() {
               validação oficial utiliza exclusivamente artefactos obtidos dos endpoints públicos da
               implementação (via uma camada segura de fetch em Rust, nunca o navegador), e o Operador
               Zero é o exemplo canónico inicial, mas utiliza exactamente o mesmo processo de validação
-              aplicado a qualquer futura implementação publicada (ADR-068).
+              aplicado a qualquer futura implementação publicada (ADR-038).
             </p>
             <p>
               <strong className="text-ink">Os manifestos existem para verificação pública.</strong>{" "}
@@ -268,7 +268,7 @@ export default async function EstadoPage() {
             </p>
             <p>
               <strong className="text-ink">BanzAI guia; os motores verificam; a evidência prova; a autoridade competente decide.</strong>{" "}
-              O BanzAI é a interface humana primária e transversal entre humanos/operadores e o protocolo (ADR-054):
+              O BanzAI é a interface humana primária e transversal entre humanos/operadores e o protocolo (ADR-042):
               guia operadores, invoca as ferramentas Rust, responde com base em fontes citadas e corre em
               pré-produção. Não decide conformidade, não confere estatuto a operadores e não substitui a
               suite de conformidade — o output de IA nunca é regra do protocolo: é não normativo.
@@ -278,7 +278,7 @@ export default async function EstadoPage() {
               <em>nesta resposta</em> não é afirmado aqui em prosa fixa: o painel{" "}
               <strong className="text-ink">BanzAI</strong> acima é derivado da rota máquina{" "}
               <span className="font-mono text-[13px]">/banzai/runtime</span> (o SSOT de runtime,
-              ADR-072), que reporta o motor, a localização da inferência e se houve chamadas
+              ADR-042), que reporta o motor, a localização da inferência e se houve chamadas
               externas — se a prosa e a rota divergirem, a rota ganha. Além disso, cada resposta
               publica o seu próprio estado — o caminho de execução, as fontes citadas e se houve
               chamada a modelo externo — de modo a que a leitura do estado por resposta seja

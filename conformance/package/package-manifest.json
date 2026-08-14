@@ -10,17 +10,17 @@
   "files": [
     {
       "path": "conformance/capabilities/schema.json",
-      "sha256": "d261ce2079207e3183f3157b1649fbcd4dd4864802ca3b2b3acc16de97b63544",
+      "sha256": "a686cc4b621bdc7908067e1164fab7db8da988b8dac9351fa5f9d75ea4fc6869",
       "bytes": 4503
     },
     {
       "path": "conformance/manifests/schema.json",
-      "sha256": "d91b4c9c6aca8c8df8beb67e556bf435f8ce83622efcf54c652621a884566266",
+      "sha256": "698757dc8aa5b0df9ae86bbc34f616cfc88c60f86290fec414602d40f6ba4632",
       "bytes": 4245
     },
     {
       "path": "conformance/vectors/canonicalization.json",
-      "sha256": "8887da3b6b356c4a7a990f1d2a8f5532e09b979e71c102f2e5e0d10e98cbe48c",
+      "sha256": "122b3d47ed4fd75f6d385c9de794187f769b6b233b72a1efe8a4cc072d14cba3",
       "bytes": 8683
     },
     {
@@ -30,7 +30,7 @@
     },
     {
       "path": "conformance/vectors/collections.json",
-      "sha256": "dbe6d266e04967e30cb7ab5a2fb5d16a16d9434f77aaef2f2472e79c2b39aa4f",
+      "sha256": "775533206a355115d2dc4ea7e9735543f91a270a0105d71892708807862a1aa4",
       "bytes": 6671
     },
     {
@@ -40,7 +40,7 @@
     },
     {
       "path": "conformance/vectors/idempotency.json",
-      "sha256": "9dcb68582a9a128053e527c7bbd80e80da5412f460ebdec90600540bfc9c376c",
+      "sha256": "89ba0cc15ae93b2b39465965a829f9677d7be3b9e19eb5e350f4bc2cf314c59c",
       "bytes": 9100
     },
     {
@@ -65,7 +65,7 @@
     },
     {
       "path": "conformance/vectors/reason-codes.json",
-      "sha256": "96ac0d4382df9b1b62401474630fa7535074f6e529f0349a64eac5166a828c05",
+      "sha256": "f636c5a8e95a6884cb1217c8a4ac7f350a2c481f80a5a784a2f41a664a8b4dd3",
       "bytes": 7767
     },
     {
@@ -80,12 +80,12 @@
     },
     {
       "path": "conformance/vectors/trust-freshness.json",
-      "sha256": "e8d90ef076cf1420f80e3c08f28399af37b9a79eefcc2bf0d26c3a718f98c82c",
+      "sha256": "c6e48c7416849e688ceb6e2d17f77d669b66204ae41816f68218a5ffc1c62816",
       "bytes": 8803
     },
     {
       "path": "conformance/vectors/trust-signing.json",
-      "sha256": "c2a981fabb018a85e675cc5843153674336ead1893313422f47ad526ae4c1619",
+      "sha256": "d69aced8288592138fab0025822e3e2084a004c3f6f4ecdd1008f0daa1c27f1e",
       "bytes": 63970
     },
     {
@@ -95,22 +95,22 @@
     },
     {
       "path": "contracts/collections/collection-rule.schema.json",
-      "sha256": "1a4d6733d012c4992f5620fc7490f68fd078a18c5dff5338321c3ec231c62bb8",
+      "sha256": "b8d6249412f7a6f6887ab1d2d41b7538a9bdd92785e0ba9c8cb16744161ae7f0",
       "bytes": 5082
     },
     {
       "path": "contracts/collections/collection-share.schema.json",
-      "sha256": "f705532bb15ce7d19b0474f8c12478d288cfdbde4b900622c847636cdff4c758",
+      "sha256": "38c14e617d69e6bd3602f81e18b558717124ffa0dbb34749a38e051dd156c296",
       "bytes": 3397
     },
     {
       "path": "contracts/collections/collection.schema.json",
-      "sha256": "382e13b5e9ddfbcc53a58309bd2ce3f3b70abc86d50cb2b21c4822117bad6ca3",
+      "sha256": "57eaf5c2ed46f83a9e08537793fd2276ee168fd197a6fa1594dac4b151a6b030",
       "bytes": 3939
     },
     {
       "path": "contracts/collections/state-machine.json",
-      "sha256": "fd90e26ebbfe626f7faf743361e08859eb2a00453b1ad82f83d87adebfab50b7",
+      "sha256": "120bb462a9274190d8590d798d82f4c178cecbff205b24d6140105583b9cfc13",
       "bytes": 1970
     },
     {
@@ -120,7 +120,7 @@
     },
     {
       "path": "contracts/events/types.json",
-      "sha256": "71c130786c52b54dec42fa2371d06c58878a24ca271504a0fb6e5f24b0d88f68",
+      "sha256": "c7de15b17f4b356d0448bf90dc2088e9fc58ebd187cfa6ccc0ca06a229c8ec41",
       "bytes": 26563
     },
     {
@@ -130,63 +130,63 @@
     },
     {
       "path": "contracts/federation/federation-event.json",
-      "sha256": "fc212371f74433a76338f7df0b39b45169805cb4098da4e1256a63d7fcc469cd",
+      "sha256": "9867b5e9a6161aa1a97ae80fada6cb59a42b467427248ded4b2b19aa8724e8c4",
       "bytes": 5363
     },
     {
       "path": "contracts/federation/federation-manifest.json",
-      "sha256": "00404ec04e0f33e690ff994602b71f2d58a4b53e5ee0ed204e4bc8686146c496",
+      "sha256": "7630e5031e0ab532dd291ef4d8f716282ccf03e198abdb246ab5ae21b9450e0d",
       "bytes": 4720
     },
     {
       "path": "contracts/federation/federation-obligation.json",
-      "sha256": "295e67b3dcb38e75aca18ecf3a8074f99619e5179b9d8f6e5373739e82ea7b04",
+      "sha256": "048baac8418f0d18a374cce824b5194c1dfa30c4b9ba901d9339caac2ee620e6",
       "bytes": 4458
     },
     {
       "path": "contracts/federation/federation-routing.json",
-      "sha256": "69ccb33d85814852dc00924168997e9dfdbf310fde300763b0c5490e6d1b2b4f",
+      "sha256": "ecc97aacbf85422d2ecd01d52dc16683c065ab4d12b8b47cfd9e6e8dc44be152",
       "bytes": 8827
     },
     {
       "path": "contracts/federation/federation-trust.json",
-      "sha256": "725538ae90f807d132bf84605306790e2382fae0bd0eeb5d10a208f99e8d07dc",
-      "bytes": 9976
+      "sha256": "41013b19d9b047002c8aa1823077d9a14209a6185cb9d159794f4c8a2e51bc2b",
+      "bytes": 9683
     },
     {
       "path": "contracts/federation/key-manifest.json",
-      "sha256": "c3f48e593608a65e9a008782af8ea17af81c67f4244afb743ff6aaabc6755b7e",
+      "sha256": "a066f1fcd805551c411ec46a0e9db080531378d19378426dbd6a639df0043d87",
       "bytes": 5514
     },
     {
       "path": "contracts/federation/revocation-list.json",
-      "sha256": "dee636c9a9759dd1631f95e7526341b978a463f6bee3888f4900b8f8d85876e2",
+      "sha256": "40db441c8845adc7c62230944521084c1c0ccb10c8602d04f737a754b77bc32d",
       "bytes": 5163
     },
     {
       "path": "contracts/fees/business-category.schema.json",
-      "sha256": "af47ec93b8a61b60ad44a010ef86c14df3b1bde8ebbd1b92217beb6ccac363a2",
+      "sha256": "1c10ae83fe4fc7dbd6c3dd1ee076d9cebea86bbe57999fdac97caf692ac6896c",
       "bytes": 882
     },
     {
       "path": "contracts/fees/fee-policy-ref.schema.json",
-      "sha256": "9be2c1f399d1d4de514f9322e1ff13c354d3b0873ce29d851c80387d43a297f9",
+      "sha256": "31fd1e4ee6db157936f15578983364fe27e9a2b23e24447d5b155988005990e5",
       "bytes": 839
     },
     {
       "path": "contracts/fees/operator-fee.schema.json",
-      "sha256": "483bb7b55c9dc77c63eec3132adb94e988c0adfd2b931f540cc6a7a57fc7b465",
+      "sha256": "04a523e9bc52bfc29e14d9761c570312a9766950401b2b2c2b4a6be67fade4b6",
       "bytes": 2870
     },
     {
       "path": "contracts/fees/pricing-profile.schema.json",
-      "sha256": "63cd67588353fad9bfd325f4887c6d5c38fa52ce7e49b68bcb71dc4d27be0fd6",
+      "sha256": "77503b011577862c680fdc7ca9540fdbb66f88c83613221d00d17a1b6e2a0a16",
       "bytes": 683
     },
     {
       "path": "contracts/invariants.json",
-      "sha256": "bde0dbe15b5fe5e7f1ed74088213c0696179c9c6d25abdbd8af9aaa4d0fdb280",
-      "bytes": 30244
+      "sha256": "79febffbf4fe22e1042c020a5b8fece289e9cbc90e2578e798f454a69a9b15b8",
+      "bytes": 30469
     },
     {
       "path": "contracts/openapi/activity.yaml",
@@ -195,7 +195,7 @@
     },
     {
       "path": "contracts/openapi/collections.yaml",
-      "sha256": "6582852abe9d2d7ebe367b150dd6eee7a5c36d108af96965d25448efd40ae272",
+      "sha256": "b50a2c29d13a9e0c173dbb167522f92f8cb78815657ea0a67f6162db632078d0",
       "bytes": 12466
     },
     {
@@ -210,7 +210,7 @@
     },
     {
       "path": "contracts/payment-intents/payment-intent.schema.json",
-      "sha256": "4593537d47f9bae11ff3299edc3452b68c4737b6765b9a67763ed357517c4a74",
+      "sha256": "beb3ddce3bcb91634e84e8724ecedac7639ddbb6766d3f8d0ae7fc0e76cc472d",
       "bytes": 3890
     },
     {
@@ -220,17 +220,17 @@
     },
     {
       "path": "contracts/payment-sessions/payment-session.schema.json",
-      "sha256": "73d70e3d7ba57d7b36f72092eccc75fc6b6d319601c40eaefbd6490059f22cc0",
+      "sha256": "9d3c1d704fd1da1fe9feb6823c39dcb927b62dbfe7e8d34491798555a77add54",
       "bytes": 4478
     },
     {
       "path": "contracts/production/brl.production.schema.json",
-      "sha256": "d68e35b0a0d8ed6361a2773f0ba62ff189277e40b3b34c6ce3e7b88e076fbb3a",
+      "sha256": "69e9c631cc7ab4a106e685cf81e5af27549a53dbecabd49922dcc8ff6c567160",
       "bytes": 3367
     },
     {
       "path": "contracts/production/capabilities-document.production.schema.json",
-      "sha256": "d5eb3c395843c9970bd06bdddcc3c68bf9bf0ba44056408f1a99084008a5fb7c",
+      "sha256": "d629f09f2df237b5e6eb34e4252fb7d1abfb47b5ee1f7c126d8421d31f16729c",
       "bytes": 3286
     },
     {
@@ -250,7 +250,7 @@
     },
     {
       "path": "contracts/production/discovery-document.production.schema.json",
-      "sha256": "22542c119bad3448952ee22212a29d5ca4ccabf50efee91d3119f754eef2d86b",
+      "sha256": "bc56e6cca88073860ba764e737fce1c3579e3d4b5f397f8ae6d72173a702f379",
       "bytes": 2781
     },
     {
@@ -260,8 +260,8 @@
     },
     {
       "path": "contracts/production/federation-trust-evaluation.production.schema.json",
-      "sha256": "f3b15e506508a7ed9160682f821d91add7deae023ca68687c09b4d26cec3893b",
-      "bytes": 10902
+      "sha256": "c127aeefbff91f386820cedf1d270d12fb3b2dbfa3413d7151cd1f7457b47932",
+      "bytes": 10923
     },
     {
       "path": "contracts/production/key-manifest.production.schema.json",
@@ -270,7 +270,7 @@
     },
     {
       "path": "contracts/production/operator-manifest.production.schema.json",
-      "sha256": "46149d2ee85f02760def3ace1b4199d1ab3f64e616d17e0f286e23e838a28dae",
+      "sha256": "cf5ed6cda03804278d774bee8df7135f2a407ad08fd2492c6a49a5e0a10319c3",
       "bytes": 5283
     },
     {
@@ -280,7 +280,7 @@
     },
     {
       "path": "contracts/production/protocol-version.json",
-      "sha256": "4b4f612b4a0b2717a5291fe85591b57d5a07274c83ae9be32e15483d3cf116db",
+      "sha256": "e0df7c3d0ea9bc03de9295521a9ec61115e4e212520244fd74dee3137b4c613c",
       "bytes": 2852
     },
     {
@@ -290,12 +290,12 @@
     },
     {
       "path": "contracts/production/reason-code-registry.production.json",
-      "sha256": "7aba829e4136646673e679ba735eb91016873a5051ae555e6ddd03ed00f60852",
+      "sha256": "0de5f494552861a9f35515807f7a7df4f387843881ce82233694ea0c9c9082fd",
       "bytes": 15399
     },
     {
       "path": "contracts/production/revocation-entry.production.schema.json",
-      "sha256": "b1dab81d46d13d0acbc78b7765b5111e77b8018d7889c616e3a875c7107687ba",
+      "sha256": "e635f65ff73d8f8a80ad118832074f0bfd7850672b916edd844de33805f610c6",
       "bytes": 7074
     },
     {
@@ -315,47 +315,47 @@
     },
     {
       "path": "contracts/production/signed-protocol-metadata.production.schema.json",
-      "sha256": "31a705a8ee08d4aefc5af7a4f9856daf68dada072c04ef97dccf9044967c0630",
+      "sha256": "c5eac965be5b71f7c534cc24b3cb7cb06ee132d269211405d621d94142cd0bd9",
       "bytes": 7332
     },
     {
       "path": "contracts/production/trust-root-metadata.production.schema.json",
-      "sha256": "a82d70be2e3c78fb10b741da7e38120cca5d44d8d17e5ee7981ddb15862ad29c",
+      "sha256": "7b990a34f25bd913d13e86adc00570f50677ae6ef0ba62835a426bc291514ade",
       "bytes": 10564
     },
     {
       "path": "contracts/proofs/transaction-proof.schema.json",
-      "sha256": "f4efed93fde92d48b96803922ab5a0adb0d3a4769785250664899cd5d6fa0e5a",
+      "sha256": "f75b6cff623f33d7dddb09ff3faaebf8ecc2ce57da664300fccf1f9dfc321b3e",
       "bytes": 3484
     },
     {
       "path": "contracts/proofs/verification-response.schema.json",
-      "sha256": "c72fe02239d8644ac855104017649d68bcf1d97664f41e5ed5a46ae1e3c8afb8",
+      "sha256": "216a0b375263174be0c30e651ec4b0cb27bd3608ce89563cc059b1960c1b2d16",
       "bytes": 3165
     },
     {
       "path": "contracts/qr/lifecycle.json",
-      "sha256": "814988eec371eb46369e3ed30e0b2be1537533bd7504865b0d9073f7bee1cb07",
+      "sha256": "b5ce9d2698cb76c09770029bf000434893855bb6775c44268f8fb0d9c7eb0826",
       "bytes": 5954
     },
     {
       "path": "contracts/qr/payload-format.json",
-      "sha256": "79fdb580308bd72a89bb5110272b3c8c2c831a8eb197daee1643ed7bed8aca53",
+      "sha256": "4d73da265fd31c60e0a3e32ae01918c1b995e68bfe8a5ace4e7c48e75eda9e48",
       "bytes": 10265
     },
     {
       "path": "contracts/settlements/application-settlement.schema.json",
-      "sha256": "4ca319905f54b21b49af5b334f2d3f30835e32c48ab7135d99b15993138fea56",
+      "sha256": "35b9d928166d4c90ef6df8201b2de41c3bbee5459dca51a9f0b5fdffaa64f31c",
       "bytes": 4309
     },
     {
       "path": "contracts/settlements/state-machine.json",
-      "sha256": "5de0b138dacd8ef8151b0d498a3ef50aca1a5c551d9129a4abbff451fc640207",
+      "sha256": "30d4d296199b9bb7781f1bc004a63d01ae796a903dd3875de55dc871b27498ab",
       "bytes": 1072
     },
     {
       "path": "contracts/wallet-accounts/wallet-account.schema.json",
-      "sha256": "609423d2e78dd1dd0d7d9b555dcf291df27b43b85dc9e2b2b3c0d5d7a5feb492",
+      "sha256": "dfa6f2fa7965f2b056a8412fa5469663c37e4475dad222b6f775d216036c6aaa",
       "bytes": 3335
     },
     {

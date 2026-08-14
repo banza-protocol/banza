@@ -58,7 +58,7 @@ for (const q of [
 
 // The resolved document must carry its OWN canonical sources — not an index, not CLAUDE.md.
 const a2 = R("Explica o ADR-002");
-check("ADR-002 resolves to its canonical path", a2.path === "decisions/adr/ADR-002-ecosystem-naming-inversion.md", a2.path);
+check("ADR-002 resolves to its canonical path", a2.path === "decisions/adr/ADR-002-ecosystem-naming-banza-banzai-and-operators.md", a2.path);
 check("ADR-002 carries its own document sources", Array.isArray(a2.sources) && a2.sources.length > 0, `sources=${(a2.sources||[]).length}`);
 check("ADR-002 sources are the ADR itself, never CLAUDE.md/ADR-INDEX",
   (a2.sources || []).every((s) => String(s.path).startsWith("decisions/adr/ADR-002")),
@@ -67,7 +67,7 @@ check("ADR-002 carries a content hash for cache binding", typeof a2.content_hash
 check("ADR-002 plans the explain_adr tool", a2.tool === "explain_adr", a2.tool);
 
 // Other documents and kinds.
-check("ADR-049 resolves", R("Explica o ADR-049").found);
+check("ADR-042 resolves", R("Explica o ADR-042").found);
 const rfc = R("O que diz RFC-001?");
 check("RFC-001 resolves padding-insensitively → RFC-0001", rfc.found && rfc.id === "RFC-0001", rfc.id);
 check("RFC plans the explain_rfc tool", rfc.tool === "explain_rfc", rfc.tool);

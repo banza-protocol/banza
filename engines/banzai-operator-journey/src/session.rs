@@ -1,6 +1,6 @@
-//! Operator-guidance navigation model (ADR-076 §D-076-01/02, Fase B).
+//! Operator-guidance navigation model (ADR-042 §D-076-01/02, Fase B).
 //!
-//! REGRA (ADR-076 §D-076-01)
+//! REGRA (ADR-042 §D-076-01)
 //! -------------------------
 //! Modelo A orienta o percurso; Modelo B avalia — existe uma única autoridade de estado técnico.
 //!
@@ -15,7 +15,7 @@
 //! — where `completed` means an orientation activity was visited/finished, and NEVER a technical
 //! approval, conformance pass, readiness, quality score or certification.
 //!
-//! WHAT IT MUST NEVER DO (ADR-076 §D-076-02)
+//! WHAT IT MUST NEVER DO (ADR-042 §D-076-02)
 //! -----------------------------------------
 //!   * emit verdict-like statuses (the retired `valid` / `evidence_ready`);
 //!   * emit any score, points or 0–100 quality/readiness/conformance number;
@@ -36,12 +36,12 @@ use serde_json::{json, Value};
 use crate::STEPS;
 
 /// Every NAVIGATION status a guidance activity may hold. There is no verdict here: `completed` means
-/// the orientation activity was visited/finished, never a technical approval (ADR-076 §D-076-02).
+/// the orientation activity was visited/finished, never a technical approval (ADR-042 §D-076-02).
 /// Deliberately absent: `valid`, `evidence_ready`, and every score/points scale — the guidance layer
 /// cannot express a technical conclusion.
 pub const STATUSES: &[&str] = &["not_started", "available", "in_progress", "completed"];
 
-/// The canonical six Model B per-step states (ADR-076 §D-076-04). Model A only ever REFERENCES these
+/// The canonical six Model B per-step states (ADR-042 §D-076-04). Model A only ever REFERENCES these
 /// (echoing what Model B decided); it never computes or alters them.
 pub const MODEL_B_STATES: &[&str] = &[
     "NOT_EVALUATED",
@@ -64,7 +64,7 @@ pub fn status_label(s: &str) -> &'static str {
     }
 }
 
-/// A typed, opaque reference to a Model B execution/step (ADR-076 §D-076-02). Ids only — never a body,
+/// A typed, opaque reference to a Model B execution/step (ADR-042 §D-076-02). Ids only — never a body,
 /// path, secret or recomputed verdict. `model_b_state` is the referenced Model B per-step state, read
 /// from Model B (the single technical authority) and echoed verbatim; Model A never derives it.
 #[derive(Clone, Default)]
@@ -138,7 +138,7 @@ fn safe_ref(v: Option<&Value>) -> String {
         .collect()
 }
 
-/// Normalise a referenced Model B state to the canonical six (ADR-076 §D-076-04) or empty. An
+/// Normalise a referenced Model B state to the canonical six (ADR-042 §D-076-04) or empty. An
 /// unrecognised value is dropped — Model A never invents a Model B state.
 fn norm_model_b_state(v: Option<&Value>) -> String {
     match v.and_then(|x| x.as_str()) {
@@ -160,7 +160,7 @@ fn read_reference(node: Option<&Value>) -> ModelBReference {
 }
 
 /// The legacy flat shape (`<step>_status`) predates the navigation model. Its VALUE was a verdict, so
-/// under ADR-076 §D-076-02 it is deliberately NOT interpreted as one: its mere PRESENCE is read as
+/// under ADR-042 §D-076-02 it is deliberately NOT interpreted as one: its mere PRESENCE is read as
 /// "the operator visited this activity" (navigation), and the value itself is discarded.
 fn legacy_key(step: &str) -> &'static str {
     match step {
@@ -204,7 +204,7 @@ fn read_step_input(state: &Value, step: &str, explicit_current: &str) -> StepInp
 
 /// Derive an activity's NAVIGATION status. It depends ONLY on whether the activity was visited, whether
 /// it is the current one, and whether it is reachable (its predecessor was visited). It reads NOTHING
-/// technical — no Model B reference, state, artifact or verdict influences it (ADR-076 §D-076-02).
+/// technical — no Model B reference, state, artifact or verdict influences it (ADR-042 §D-076-02).
 pub fn derive_status(visited: bool, is_current: bool, reachable: bool) -> &'static str {
     if visited {
         if is_current {
@@ -305,7 +305,7 @@ pub fn evaluate_session(state: &Value) -> Value {
     let overall = overall_state(&visited);
 
     json!({
-        // ADR-076 §D-076-02 markers: this is the guidance layer, and Model B is the state authority.
+        // ADR-042 §D-076-02 markers: this is the guidance layer, and Model B is the state authority.
         "model": "operator-guidance",
         "authority": "model-b",
         "authority_note": "Modelo A orienta o percurso; Modelo B avalia — existe uma única autoridade de estado técnico",
@@ -355,9 +355,9 @@ pub fn next_action_sentence(state: &Value) -> String {
 }
 
 /// The canonical vocabulary of every slug this guidance engine can emit. Rust owns these words
-/// (ADR-037), so Rust publishes them and the vocabulary contract guard proves the UI matches. There
+/// (ADR-043), so Rust publishes them and the vocabulary contract guard proves the UI matches. There
 /// are no `blocker_reasons`/`evidence_items` here: the guidance layer has no verdict to block on and
-/// no evidence to produce (ADR-076 §D-076-02).
+/// no evidence to produce (ADR-042 §D-076-02).
 pub fn vocabulary() -> Value {
     json!({
         "steps": crate::STEPS,

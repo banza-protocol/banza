@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Operador Zero full E2E protocol validation guard (ADR-052, M2.13A).
+# Operador Zero full E2E protocol validation guard (ADR-041, M2.13A).
 #
 # This guard proves the end-to-end Operador Zero protocol journey holds under Rust-backed verification:
 #   - the E2E Demo Operator Root (real Ed25519) verifies, a tampered payload fails, and a revoked key
@@ -10,7 +10,7 @@
 #     no blockers) while the negative trace is blocked (not complete, has blockers);
 #   - the subdomain endpoint list and the apex artifact list do not diverge;
 #   - Operador Zero is never in an operators[] list;
-#   - the BanzAI official validation journey is endpoint-originated (M2.19G.1, ADR-068): it obtains every
+#   - the BanzAI official validation journey is endpoint-originated (M2.19G.1, ADR-038): it obtains every
 #     evaluated artifact from the implementation's PUBLIC endpoints via the Rust backend, never from a
 #     bundled manifest, local fixture or the retired /operador-zero apex endpoint.
 #
@@ -99,8 +99,8 @@ echo "e2e: never a real operator…"
 OPS=$(grep -rniE 'operators?" *: *\[[^]]*operator-zero' website/lib contracts 2>/dev/null || true)
 [ -z "$OPS" ] && ok "Operador Zero is not in any operators[] list" || bad "Operador Zero appears in an operators list: $OPS"
 
-# ── 6. The BanzAI official validation journey is endpoint-originated (ADR-068) ────────────────────
-echo "e2e: BanzAI validation journey is endpoint-originated (ADR-068), not bundled/apex reads…"
+# ── 6. The BanzAI official validation journey is endpoint-originated (ADR-038) ────────────────────
+echo "e2e: BanzAI validation journey is endpoint-originated (ADR-038), not bundled/apex reads…"
 # A missing source must fail closed (Exit 2) — never let an absent file silently pass the fetch scan.
 for f in "$BANZAI" "$VJOURNEY" "$VSHELL"; do
   [ -f "$f" ] || { echo "FAIL: missing BanzAI surface: $f"; exit 2; }
@@ -112,7 +112,7 @@ if grep -qE 'fetch\([^)]*/operador-zero/' "$BANZAI" "$VJOURNEY" "$VSHELL"; then
 else
   ok "no BanzAI surface fetches the retired /operador-zero apex endpoint"
 fi
-# (b) M2.19G.1 (ADR-068 §4.4) — the 9-step official journey is ENDPOINT-ORIGINATED: it calls the Rust
+# (b) M2.19G.1 (ADR-038 §4.4) — the 9-step official journey is ENDPOINT-ORIGINATED: it calls the Rust
 #     backend (POST /banzai/validate/{step,journey} via validateStepRequest/validateJourneyRequest),
 #     which fetches every artifact from the implementation's PUBLIC endpoints and decides the verdict.
 if grep -q 'validateStepRequest' "$VJOURNEY" && grep -q 'validateJourneyRequest' "$VJOURNEY"; then
@@ -120,11 +120,11 @@ if grep -q 'validateStepRequest' "$VJOURNEY" && grep -q 'validateJourneyRequest'
 else
   bad "the validation journey must be endpoint-originated (validateStepRequest + validateJourneyRequest in $VJOURNEY)"
 fi
-# (c) ADR-068 §4.4/§4.5 — no bundled manifest, local fixture or readArtifact is a VERDICT SOURCE in the
+# (c) ADR-038 §4.4/§4.5 — no bundled manifest, local fixture or readArtifact is a VERDICT SOURCE in the
 #     official journey path (those moved to the isolated developer draft tool). This is the flip of the
 #     superseded "journey reads the bundled manifest" expectation: the journey reads NO bundled data.
 if grep -qE 'readArtifact|loadManifestFixtures|readFixture' "$VJOURNEY"; then
-  bad "the official journey must not read bundled/fixture artifacts as a verdict source (ADR-068 §4.4)"
+  bad "the official journey must not read bundled/fixture artifacts as a verdict source (ADR-038 §4.4)"
 else
   ok "the official journey reads no bundled/fixture artifact as a verdict source (endpoint-originated only)"
 fi

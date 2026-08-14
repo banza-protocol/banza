@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# check-banzai-monorepo-consolidation.sh — M2.19G.6 (ADR-075) consolidation invariants.
+# check-banzai-monorepo-consolidation.sh — M2.19G.6 (ADR-042) consolidation invariants.
 #
 # Proves BanzAI was consolidated into this monorepo as the SOLE active source and the separate
 # banza-protocol/banzai repo was reduced to removed history:
@@ -8,7 +8,7 @@
 #      (traceVerifier.ts imports banzai_trace; the old banzai_core WASM is gone);
 #   3. the repo-indexer indexes only this monorepo (no sibling remote / second index_repo call) and the
 #      repo-index manifest declares banzai_in_monorepo — never a resurrected banzai_repo_indexed;
-#   4. ADR-075 exists and the repo-guards ADR range admits it;
+#   4. ADR-042 exists and the repo-guards ADR range admits it;
 #   5. active-surface mentions of banza-protocol/banzai are qualified as removed/historical (delegated
 #      to banzai-canonical-architecture-framing-check).
 set -euo pipefail
@@ -18,7 +18,7 @@ FAILED=0
 fail() { echo "  FAIL: $*"; FAILED=1; }
 ok() { echo "  ok: $*"; }
 
-echo "== banzai-monorepo-consolidation-check (M2.19G.6, ADR-075) =="
+echo "== banzai-monorepo-consolidation-check (M2.19G.6, ADR-042) =="
 
 # 1. No compilable legacy snapshot / no second BanzAI implementation in HEAD.
 if git ls-files 'legacy/banzai-pre-consolidation/*' | grep -q .; then
@@ -75,23 +75,22 @@ process.exit(bad?1:0);
 NODE
 [ $? -ne 0 ] && FAILED=1 || true
 
-# 4. ADR-075 exists.
-[ -f decisions/adr/ADR-075-banzai-monorepo-consolidation-and-repository-removal.md ] \
-  && ok "ADR-075 present" || fail "ADR-075 missing"
+# 4. ADR-042 exists.
+[ -f decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md ] \
+  && ok "ADR-042 present" || fail "ADR-042 missing"
 
 # 5. FINAL MICRO-CLOSURE — no old-repository references in ACTIVE BanzAI knowledge (M2.19G.6).
 #    So BanzAI can never surface / dead-link the permanently-removed banza-protocol/banzai repo. The ONLY
-#    permitted whole-token mention in an active index is inside the removal decision records (ADR-075 and
-#    the ADR-071 it supersedes), which describe the repo as *removed* and carry no URL.
+#    permitted whole-token mention in an active index is inside the removal decision records (ADR-042 and
+#    the ADR-042 it supersedes), which describe the repo as *removed* and carry no URL.
 node - <<'NODE'
 const fs=require("fs");
 const RI="engines/banzai-query-core/src/repoindex/banzai-repo-index.json";
 const DI="engines/banzai-query-core/src/doc-index.json";
 const URL="github.com/"+"banza-protocol/banzai";  // assembled: no contiguous dead-link literal in this guard
 const TOK=/banza-protocol\/banzai(?![-\w])/;          // whole-token repo ref (not banzai-local / banzai-api)
-const ALLOW=/ADR-071|ADR-075/;                         // removal decision + what it supersedes
-const HIST=["docs/governance/PHASE_7X_BANZAI_ARCHITECTURE_ALIGNMENT_2026_07.md",
-            "docs/governance/PHASE_7Y_BANZAI_PUBLIC_PAGE_COGNITIVE_ENGINE_ALIGNMENT_2026_07.md"];
+const ALLOW=/ADR-042|ADR-042/;                         // removal decision + what it supersedes
+const HIST=[];
 let bad=0; const M=(k,v,want=0)=>{console.log(`  ${k} = ${v}`); if(v!==want) bad++;};
 const ri=JSON.parse(fs.readFileSync(RI,"utf8"));
 M("active_repo_index_old_banzai_repo_url_literals",
@@ -120,10 +119,32 @@ for w in website/lib/wasm/*.wasm services/banzai-api/src/rustkb/*.wasm; do
   if grep -aq "$URLPAT" "$w"; then fail "active_wasm_old_banzai_repo_url_literals > 0 in $w"; WASM_HITS=1; fi
 done
 [ "$WASM_HITS" -eq 0 ] && ok "active_wasm_old_banzai_repo_url_literals = 0 (ALL compiled WASM URL-free)"
-# repo-index filter is at a fixed point (idempotent)
-node tools/migrations/remove-separate-banzai-repo-chunks.mjs --check >/dev/null 2>&1 \
-  && ok "repo_index_filter_second_run_changes = 0 (migration --check clean)" \
-  || fail "repo-index filter not at fixed point (migration --check drift)"
+# The consolidation property, asserted against the index itself rather than against the one-shot
+# migration that produced it. A completed migration is history; what must remain true is that no
+# indexed chunk claims to come from any repository other than this one. Checking the artifact instead
+# of the tool means the guard keeps working after the tool is gone, and catches a foreign chunk
+# arriving by any route — not only the route the migration knew about.
+python3 - <<'PYEOF' || fail "repo-index carries chunks from a repository other than this one"
+import json, glob, sys
+OWN = "banza-protocol/banza"
+bad = {}
+for f in sorted(glob.glob("engines/banzai-query-core/src/repoindex/*.json")):
+    try:
+        d = json.load(open(f, encoding="utf-8"))
+    except Exception:
+        continue
+    if not isinstance(d, list):
+        continue
+    foreign = sorted({c.get("repo") for c in d
+                      if isinstance(c, dict) and c.get("repo") and c["repo"] != OWN})
+    if foreign:
+        bad[f] = foreign
+if bad:
+    for f, r in bad.items():
+        print("      %s -> %s" % (f, r))
+    sys.exit(1)
+PYEOF
+ok "repo_index_foreign_repo_chunks = 0 (asserted on the index, not on the migration)"
 
 if [ "$FAILED" -ne 0 ]; then
   echo "BANZAI MONOREPO CONSOLIDATION CHECK FAILED ✗"; exit 1

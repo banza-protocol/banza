@@ -89,7 +89,7 @@ When Portuguese canonical and English translation conflict:
 The following identifiers are **language-invariant** and must not be translated:
 
 - `trace_id`, `operator_id`, `issuer_key_id`, `certification_level`
-- ADR numbers (ADR-002, ADR-040, etc.)
+- ADR numbers (ADR-002, ADR-031, etc.)
 - RFC numbers (RFC-0001, etc.)
 - Invariant codes (INV-LEDGER-001, INV-FEDEVAL-004, etc.)
 - SDK package names (`@banza/sdk`, `banza-sdk`)

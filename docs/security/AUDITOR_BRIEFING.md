@@ -31,7 +31,7 @@ pre-production state, the trust model, where to find evidence, and the explicit 
 | Production certificates | `production_certificates = false` | `GET /certificates` |
 | External model / LLM calls | `llm_calls = 0`, `external_model_called = false` | inspect any engine report |
 | Provider | mock provider only | Workbench + Assistente outputs |
-| Root-key ceremony (M2) | **planned, not performed** — no production keys | `ROOT_KEY_CEREMONY_PROCEDURE.md` (procedure, not a record) |
+| Root-key ceremony (M2) | **planned, not performed** — no production keys | `ROOT_KEY_CEREMONY_REQUIREMENTS.md` (procedure, not a record) |
 | Live external integration | disabled / gated to a future phase | `AUDIT_SCOPE.md` §3 |
 | External audit | **not performed** | this pack is pre-audit only |
 
@@ -40,7 +40,7 @@ are described, they are **planned / would-be-required-before-production**, not d
 
 ## 3. Trust model (as specified)
 
-- **Domain-separated keys** (ADR-038): distinct keys for the root domain, certificate domain, and
+- **Domain-separated keys** (ADR-027): distinct keys for the root domain, certificate domain, and
   revocation domain. Using the wrong domain is a trust bypass and is guarded against by the trust engine's
   form checks. The production root ceremony is **planned** (M2), not performed.
 - **BRL fail-closed** (INV-FEDEVAL-002): a revoked operator **blocks** in L3/L4 routing. Missing or invalid

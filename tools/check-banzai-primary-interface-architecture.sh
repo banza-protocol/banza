@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# banzai-primary-interface-architecture-check (M2.14I · ADR-054).
+# banzai-primary-interface-architecture-check (M2.14I · ADR-042).
 #
 # BanzAI is the PRIMARY human-operator interface for interacting with the BANZA protocol — but not a
 # normative source, authority, certifier, approver, licenser, financial operator, or a mandatory gate for
@@ -15,20 +15,20 @@ FAILED=0
 fail() { echo "FAIL: $*"; FAILED=1; }
 ok()   { echo "  ok: $*"; }
 
-ADR="decisions/adr/ADR-054-banzai-primary-human-operator-interface.md"
+ADR="decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md"
 ROUTE="engines/banzai-query-core/src/route.rs"
 KB="services/banzai-api/src/knowledge.js"
 AGENT_TS="website/components/banzai/banzai-agent.ts"
 SVG071="website/public/diagrams/protocol/banza-protocol-architecture-v1.svg"
 SVG051="website/public/diagrams/protocol/banza-boundary-protocol-operator-infra-v1.svg"
 
-echo "== banzai-primary-interface-architecture-check (M2.14I · ADR-054) =="
+echo "== banzai-primary-interface-architecture-check (M2.14I · ADR-042) =="
 
 # ─────────────────────────────────────────────────────────────────────────────────────────────
 # A. ADR (the architecture decision).
 # ─────────────────────────────────────────────────────────────────────────────────────────────
 echo "-- A. ADR --"
-[ -f "$ADR" ] && ok "ADR-054 exists" || fail "ADR-054 must exist ($ADR)"
+[ -f "$ADR" ] && ok "ADR-042 exists" || fail "ADR-042 must exist ($ADR)"
 grep -qi "primary human-operator interface" "$ADR" && ok "ADR states 'primary human-operator interface'" || fail "ADR must state 'primary human-operator interface'"
 grep -qi "not a normative source" "$ADR" && ok "ADR states BanzAI is not a normative source" || fail "ADR must state BanzAI is not a normative source"
 grep -Eqi "does not certify|not.*certif" "$ADR" && ok "ADR states it does not certify/approve/license" || fail "ADR must state it does not certify/approve/license"

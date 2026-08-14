@@ -1,4 +1,4 @@
-# banza-artifact-fetcher (ADR-068 §4.7) — the ONLY BANZA component that reaches operator public
+# banza-artifact-fetcher (ADR-038 §4.7) — the ONLY BANZA component that reaches operator public
 # endpoints. Internal service `banza-fetcher`; NEVER published to the host or the reverse-proxy.
 #
 # TLS uses rustls with the pure-Rust `ring` provider and Mozilla roots compiled in via `webpki-roots`,

@@ -34,14 +34,14 @@ const OUT = arg("--out", "");
 
 const DEFAULT_QUESTIONS = [
   { q: "o que decidiu a ADR-002?", entity: "ADR-002" },
-  { q: "explica a ADR-006", entity: "ADR-006" },
+  { q: "explica a ADR-011", entity: "ADR-011" },
   { q: "o que é o BanzAI?" },
   { q: "o que é a Action Boundary?" },
-  { q: "o que decidiu a ADR-037?", entity: "ADR-037" },
+  { q: "o que decidiu a ADR-043?", entity: "ADR-043" },
   { q: "o que é um operador certificado?" },
-  { q: "explica a ADR-073", entity: "ADR-073" },
+  { q: "explica a ADR-042", entity: "ADR-042" },
   { q: "o que é o Operador Zero?" },
-  { q: "compara a ADR-053 com a ADR-054", entity: "ADR-053" },
+  { q: "compara a ADR-041 com a ADR-042", entity: "ADR-041" },
   { q: "o que é a federação no protocolo BANZA?" },
 ];
 const QUESTIONS = process.env.SPR4_QUESTIONS ? JSON.parse(process.env.SPR4_QUESTIONS) : DEFAULT_QUESTIONS;

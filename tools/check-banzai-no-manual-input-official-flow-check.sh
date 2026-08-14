@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# M2.19G.1 (ADR-068 core rule / §4.4/§4.5) — no manual input in the official flow (§37, invariant 4).
+# M2.19G.1 (ADR-038 core rule / §4.4/§4.5) — no manual input in the official flow (§37, invariant 4).
 #
 # The official operator-validation flow (BanzaiValidationMode.tsx + validationJourney.tsx) must contain
 # NO manual-input affordance: no <textarea>, no file picker (type="file"), no drag-and-drop, no paste
@@ -22,7 +22,7 @@ FILES="website/components/banzai/BanzaiValidationMode.tsx website/components/ban
 # Manual-input code tokens (JSX/DOM). These appear only in real input code, never in prose comments.
 TOKENS='<textarea|type="file"|type=.url.|onDrop=|onDragOver=|onDragEnter=|onPaste=|accept=|FileReader|readAsText|\.files\b|scanUpload|input ref='
 
-echo "== banzai-no-manual-input-official-flow-check (M2.19G.1 / ADR-068 §4.4/§4.5) =="
+echo "== banzai-no-manual-input-official-flow-check (M2.19G.1 / ADR-038 §4.4/§4.5) =="
 
 # ── self-test ───────────────────────────────────────────────────────────────────────────────────────
 st=0
@@ -44,4 +44,4 @@ done
 
 echo
 if [ "$fail" -ne 0 ]; then echo "banzai-no-manual-input-official-flow-check: FAIL"; exit 1; fi
-echo "banzai-no-manual-input-official-flow-check: ✓ official flow has no textarea/upload/drag-drop/URL/fixture input (ADR-068 §4.4)"
+echo "banzai-no-manual-input-official-flow-check: ✓ official flow has no textarea/upload/drag-drop/URL/fixture input (ADR-038 §4.4)"

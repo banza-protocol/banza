@@ -307,7 +307,10 @@ pub fn validate_root_ceremony(input: &Value) -> Value {
     // Fail-closed: absent metadata, or metadata BCJ/1 rejects, yields no verifiable bytes. An empty
     // message is NOT substituted — every signature over it would then compare against the same input.
     let msg: Option<Vec<u8>> = meta.and_then(|m| canonical_bytes(m, &["signatures"]).ok());
-    let mut valid_signatures = 0u64;
+    // The threshold counts DISTINCT signing authorities, not signature entries. Counting entries would
+    // let one custodian reach 2-of-3 by signing twice — the same key, presented as two approvals —
+    // which defeats the property the threshold exists for: no single root key authorises alone.
+    let mut valid_signers: std::collections::BTreeSet<String> = std::collections::BTreeSet::new();
     let mut invalid_signature_present = false;
     for s in &sigs {
         let key_id = str_at(s, "key_id").unwrap_or("");
@@ -318,11 +321,12 @@ pub fn validate_root_ceremony(input: &Value) -> Value {
             .and_then(|k| str_at(k, "public_key"));
         match pubkey {
             Some(pk) if msg.as_ref().is_some_and(|m| verify_ed25519(pk, m, sig_val)) => {
-                valid_signatures += 1
+                valid_signers.insert(key_id.to_string());
             }
             _ => invalid_signature_present = true,
         }
     }
+    let valid_signatures = valid_signers.len() as u64;
 
     // ── 4. invalid signature (a present signature that does not verify) ──
     if invalid_signature_present {

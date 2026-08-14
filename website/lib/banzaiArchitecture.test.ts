@@ -69,11 +69,11 @@ describe("BanzAI architecture manifest — parity with §12", () => {
 
 describe("BanzAI architecture manifest — runtime SSOT contract", () => {
   const rt = getBanzaiRuntimeContract();
-  it("targets GET /banzai/runtime with the banzai-runtime/1 schema (ADR-072)", () => {
+  it("targets GET /banzai/runtime with the banzai-runtime/1 schema (ADR-042)", () => {
     expect(rt.route).toBe("/banzai/runtime");
     expect(rt.method).toBe("GET");
     expect(rt.schema_version).toBe("banzai-runtime/1");
-    expect(rt.adr).toBe("ADR-072");
+    expect(rt.adr).toBe("ADR-042");
     expect(rt.authoritative).toBe(false);
   });
   it("carries the required runtime fields", () => {

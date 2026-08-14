@@ -82,7 +82,7 @@ for (const q of ["o que é o BANZA?", "me fala sobre o banza", "o que é a dupla
 // ── M2.18B.7 DFN-11 — consolidated closure acceptance gates (definitive readiness) ──────────────────
 // 7. canonical vocabulary: unresolved/orphaned/conflicted = 0, subjects bidirectional, aliases mapped.
 {
-  const cov = readJson("artifacts/m2-18b7/canonical-protocol-vocabulary-coverage.json");
+  const cov = readJson("artifacts/banzai/canonical-protocol-vocabulary-coverage.json");
   const g = (cov && cov.gates) || {};
   const clean = g.unresolved === 0 && g.orphaned === 0 && g.conflicted === 0 &&
     g.engine_alias_without_mapping === 0 && g.relation_alias_without_kind === 0 &&
@@ -94,14 +94,14 @@ for (const q of ["o que é o BANZA?", "me fala sobre o banza", "o que é a dupla
 }
 // 8. every published TEMPLATE validates against its real schema (no template fails schema).
 {
-  const reg = readJson("artifacts/m2-18b7/template-schema-registry.json");
+  const reg = readJson("artifacts/banzai/template-schema-registry.json");
   (reg && reg.all_valid === true && (reg.total_templates || 0) >= 6 && reg.templates.every((t) => t.body_validates))
     ? ok(`templates schema-validated (${reg.total_templates} templates, all_valid)`)
     : fail("a published template does not validate against its real schema (or registry missing)");
 }
 // 9. golden dataset ≥300 stratified.
 {
-  const gold = readJson("artifacts/m2-18b7/task-fulfilment-golden.json");
+  const gold = readJson("artifacts/banzai/task-fulfilment-golden.json");
   (gold && (gold.total || (gold.cases || []).length) >= 300)
     ? ok(`golden dataset present (${gold.total || gold.cases.length} cases ≥300)`)
     : fail("golden dataset < 300 cases (or missing)");
@@ -112,9 +112,9 @@ existsSync("services/banzai-api/test/context-e2e.test.js")
   : fail("context E2E test missing");
 // 11. PUBLIC-EDGE evidence present + clean: zero 5xx, zero external providers, zero gate failures, ≥190 cases.
 {
-  const qa = readJson("artifacts/m2-18b7/public-edge-qa.json");
+  const qa = readJson("artifacts/banzai/public-edge-qa.json");
   const s = (qa && qa.summary) || null;
-  if (!s) fail("public-edge QA evidence absent (artifacts/m2-18b7/public-edge-qa.json)");
+  if (!s) fail("public-edge QA evidence absent (artifacts/banzai/public-edge-qa.json)");
   else {
     const clean = s.http_5xx === 0 && s.external_calls === 0 && s.errors === 0 && s.failures === 0 && s.total >= 190;
     clean ? ok(`public-edge QA clean (${s.total} cases, 0 5xx / 0 external / 0 failures; p50=${s.latency_ms?.p50}ms p90=${s.latency_ms?.p90}ms p99=${s.latency_ms?.p99}ms)`)

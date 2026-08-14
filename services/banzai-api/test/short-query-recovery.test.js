@@ -67,7 +67,7 @@ test("(fix2) paths / domains / doc-ids / routes are NOT bolded by the slash pass
   assert.ok(!S("engines/banzai-api-kb").includes("**"), "path untouched");
   assert.ok(!S("services/banzai-api e website/components").includes("**"), "paths untouched");
   assert.ok(S("banza.network").includes("banza.network") && !S("banza.network").includes("**banza"), "domain untouched");
-  assert.ok(S("o ADR-006 explica").includes("ADR-006") && !S("o ADR-006 explica").includes("**ADR**-006"), "doc-id untouched");
+  assert.ok(S("o ADR-011 explica").includes("ADR-011") && !S("o ADR-011 explica").includes("**ADR**-006"), "doc-id untouched");
   assert.ok(!S("/operador-zero e /operators").includes("**"), "routes untouched");
 });
 

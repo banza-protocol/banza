@@ -6,7 +6,7 @@
 **Version:** 1.0  
 **Date:** 2026-05-30  
 **Status:** Official  
-**Authority:** ADR-021 (conformance level capability alignment), ADR-002 (ecosystem naming)
+**Authority:** ADR-039 (conformance level capability alignment), ADR-002 (ecosystem naming)
 
 ---
 
@@ -105,7 +105,7 @@ rewritten); everywhere else, use the canonical names above. The mapping is:
 > older per-level *capability* mapping (e.g. trace/settlement features were
 > associated with "L2 Settlement Operator"). That older mapping has been
 > **corrected**: the conformance suite and report schema now bind each capability
-> to the level defined in the sections below (ADR-021). Traceability is L1; payment
+> to the level defined in the sections below (ADR-039). Traceability is L1; payment
 > initiation (payment requests, dynamic QR, instant execution) is L2. This
 > document's capability definitions are authoritative, and the conformance suite
 > matches them.
@@ -120,7 +120,7 @@ defect.
 
 This table summarises what each level proves and how it is verified. The conformance vectors (`conformance/vectors/`), the runner
 (`tools/banza-conformance/`), and the report schema (`conformance/report-schema.json`)
-all conform to it (ADR-021).
+all conform to it (ADR-039).
 
 | Level | Capability | Verified by | Sandbox-runner award |
 |-------|-----------|-------------|----------------------|
@@ -202,7 +202,7 @@ levels denote conformance readiness only.
 
 ### Level 3 — Inter-Operator Interoperability Capability
 
-**Purpose:** Inter-operator interoperability capability — cross-operator routing, inter-operator settlement, and automated reconciliation. This is the federation eligibility threshold. No operator below L3 may participate in BANZA federation. *(Authority: ADR-021, ADR-040)*
+**Purpose:** Inter-operator interoperability capability — cross-operator routing, inter-operator settlement, and automated reconciliation. This is the federation eligibility threshold. No operator below L3 may participate in BANZA federation. *(Authority: ADR-039, ADR-031)*
 
 **Includes:** All Level 1–2 requirements.
 

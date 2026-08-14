@@ -3,7 +3,7 @@
 **Document ID:** FEDERATION-CONTRACTS-DESIGN-001  
 **Date:** 2026-05-31  
 **Status:** Canonical — read-only reference. Tracks relationships between federation contracts, ADRs, conformance requirements, conformance vectors, and invariants.  
-**Authority:** ADR-038, ADR-039, ADR-040
+**Authority:** ADR-027, ADR-033, ADR-031
 
 ---
 
@@ -11,7 +11,7 @@
 
 Every contract traces to one or more ADRs that authorized its design. No contract exists without architectural authority.
 
-| Contract | ADR-006 | ADR-011 | ADR-012 | ADR-001 | ADR-003 | ADR-002 | ADR-040 | RFC-0001 | RFC-0002 | RFC-0005 |
+| Contract | ADR-011 | ADR-024 | ADR-016 | ADR-001 | ADR-001 | ADR-002 | ADR-031 | RFC-0001 | RFC-0002 | RFC-0005 |
 |----------|---------|---------|---------|---------|---------|---------|---------|----------|----------|----------|
 | `signed-protocol-metadata` | | | | ✓ | ✓ | ✓ | ✓ (primary) | | | |
 | `conformance-evidence` | | | | ✓ | ✓ | ✓ | ✓ (primary) | | | |
@@ -24,14 +24,14 @@ Every contract traces to one or more ADRs that authorized its design. No contrac
 
 | ADR | Contribution to federation contracts |
 |-----|--------------------------------------|
-| ADR-006 | Double-entry invariant: `amount.minor` MUST be integer; obligation amounts are ledger entries |
-| ADR-011 | Idempotency: `routing_request_id` is an idempotency key; INV-FED-004 mirrors INV-IDEM-001 |
+| ADR-011 | Double-entry invariant: `amount.minor` MUST be integer; obligation amounts are ledger entries |
+| ADR-024 | Idempotency: `routing_request_id` is an idempotency key; INV-FED-004 mirrors INV-IDEM-001 |
 | ADR-001 | BANZA as open protocol core: all contracts are operator-neutral, no operator names in schemas |
-| ADR-003 | Operator separation: contracts define interfaces, not implementations |
+| ADR-001 | Operator separation: contracts define interfaces, not implementations |
 | ADR-002 | Naming: `operator_id` terminology, self-asserted and key-bound |
-| ADR-038 | Open protocol trust model: trust rests on signed protocol metadata, conformance evidence, public protocol registry, trust root, delegated signing keys, revocation/fail-closed |
-| ADR-039 | Operator self-publication: operators publish their own manifest, signed metadata and machine-verifiable conformance evidence on infrastructure they control |
-| ADR-040 | Federation Trust Evaluation: the ten conjunctive, fail-closed checks; ed25519; BRL; 90-day freshness window; issuer_key_id; ROUTING_ALLOWED / FAIL_CLOSED outcome |
+| ADR-027 | Open protocol trust model: trust rests on signed protocol metadata, conformance evidence, public protocol registry, trust root, delegated signing keys, revocation/fail-closed |
+| ADR-033 | Operator self-publication: operators publish their own manifest, signed metadata and machine-verifiable conformance evidence on infrastructure they control |
+| ADR-031 | Federation Trust Evaluation: the ten conjunctive, fail-closed checks; ed25519; BRL; 90-day freshness window; issuer_key_id; ROUTING_ALLOWED / FAIL_CLOSED outcome |
 | RFC-0001 | Routing trait → `federation-routing` wire format |
 | RFC-0002 | Settlement trait → `federation-obligation` record format |
 | RFC-0005 | Discovery → `federation-manifest` well-known endpoint |

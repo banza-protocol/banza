@@ -30,7 +30,7 @@ SURFACES=(
 
 # Explanatory / example markers — a line carrying any of these is not an affirmative claim.
 # NOTE: use the literal UTF-8 "não" (a bracket like [ãa] does not match the multibyte ã under grep -E).
-NEG='não|nao|nunca|never|\bsem\b|evitar|avoid|deny|nenhum|\btest\b|disclaimer|\?|pendente|depende|quando|fora do protocolo|not a |example'
+NEG='não|nao|nunca|never|\bsem\b|evitar|avoid|deny|nenhum|\btest\b|disclaimer|\?|pendente|depende|quando|fora do protocolo|not a |example|there is no |there are no |\bis not\b|\bare not\b|\bno \b|\bwithout\b|\bneither\b|\bnor\b|removed|retired'
 
 # Common exclusions: test files and banzai-agent.ts (whose FORBIDDEN_PHRASES lists the forbidden phrases
 # verbatim; its real UI copy is guarded by components/banzai/workbench.test.ts).
@@ -121,14 +121,28 @@ if [ -n "$special" ]; then
 fi
 
 # ── Hard block: "corpus" / public "KB" anywhere in public UI/content ──
+# website/content/decisions/ is excluded because it is not authored UI copy: it is a byte-identical
+# derivation of decisions/{adr,rfc}/, produced by tools/gen-website-decisions.mjs and pinned by
+# check-website-decisions-parity.sh. Decision records are technical documents and legitimately use
+# words this rule bans from product copy. Scanning the derivation applies product-copy rules to
+# engineering text — and nothing can be smuggled in through it, because it cannot differ from source.
 for pat in '\bcorpus\b' '\bKB\b'; do
-  hits="$(grep -rnE "${GREP_EXCL[@]}" "$pat" website/content website/app website/components 2>/dev/null | grep -viE 'CORPUS_HASH|load_corpus|toContain|//|/\*' || true)"
+  hits="$(grep -rnE "${GREP_EXCL[@]}" "$pat" website/content website/app website/components 2>/dev/null | grep -v '^website/content/decisions/' | grep -viE 'CORPUS_HASH|load_corpus|toContain|//|/\*' || true)"
   if [ -n "$hits" ]; then
     echo "NEEDS_FIX  forbidden public token /$pat/ in UI/content:"
     echo "$hits" | sed 's/^/    /'
     fail=1
   fi
 done
+
+# ── self-test: a deliberately prohibited affirmative claim must be caught, and its negation must not ──
+stdir=$(mktemp -d); trap 'rm -rf "$stdir"' EXIT
+printf 'A BANZA emite licenca de operador financeiro e autoriza pagamentos.\n' > "$stdir/bad.md"
+grep -qiE "$SPECIAL_RE|$CERTAUTH_RE|licen" "$stdir/bad.md" || { echo "SELFTEST_FAIL: a prohibited affirmative claim was not detected"; exit 2; }
+printf 'There is no CA signature and no certificate chain in BANZA.\n' > "$stdir/ok.md"
+if grep -qiE "$CERTAUTH_RE" "$stdir/ok.md" && ! grep -qiE "$NEG" "$stdir/ok.md"; then
+  echo "SELFTEST_FAIL: a negated statement was treated as a claim"; exit 2
+fi
 
 # ── WARN only: "protocolo técnico" as public phrasing ──
 soft="$(grep -rniE 'protocolo t[ée]cnico' "${SURFACES[@]}" 2>/dev/null || true)"

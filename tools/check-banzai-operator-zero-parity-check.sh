@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# M2.19G.1 (ADR-068 §4.9) — Operador Zero parity guard (§37, invariant 17).
+# M2.19G.1 (ADR-038 §4.9) — Operador Zero parity guard (§37, invariant 17).
 #
 # Operador Zero is validated through the SAME path as any future implementation: it has an operator
 # record AND an implementation record in the registry; its canonical origin is zero.banza.network; it is
@@ -20,7 +20,7 @@ REG=engines/banza-target-registry/src/registry.rs
 VALIDATE=services/banzai-api/src/validate.js
 UILIB=website/lib/banzaiValidation.ts
 
-echo "== banzai-operator-zero-parity-check (M2.19G.1 / ADR-068 §4.9) =="
+echo "== banzai-operator-zero-parity-check (M2.19G.1 / ADR-038 §4.9) =="
 
 # ── self-test ───────────────────────────────────────────────────────────────────────────────────────
 st=0
@@ -59,4 +59,4 @@ fi
 
 echo
 if [ "$fail" -ne 0 ]; then echo "banzai-operator-zero-parity-check: FAIL"; exit 1; fi
-echo "banzai-operator-zero-parity-check: ✓ OZ uses the same registry/endpoint/engine path (ADR-068 §4.9)"
+echo "banzai-operator-zero-parity-check: ✓ OZ uses the same registry/endpoint/engine path (ADR-038 §4.9)"

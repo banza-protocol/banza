@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# M2.19G.1 (ADR-068 core rule / §4.5) — no fixture as production evidence guard (§37, invariant 20).
+# M2.19G.1 (ADR-038 core rule / §4.5) — no fixture as production evidence guard (§37, invariant 20).
 #
 # No example / vendored fixture may flow into the official Evidence Bundle or a VERIFIED verdict on the
 # SERVED path. The served validate path + the official UI flow import NOTHING from examples/ or the
@@ -23,7 +23,7 @@ CLIENT=website/lib/banzaiValidateClient.ts
 # Fixture / vendored-artifact import smells that must not appear in the official path.
 FIX='examples/|operadorZeroArtifacts|operadorZero\b|\.generated|/fixtures?/|import[^;]*fixture'
 
-echo "== banzai-no-fixture-as-production-evidence-check (M2.19G.1 / ADR-068 §4.5) =="
+echo "== banzai-no-fixture-as-production-evidence-check (M2.19G.1 / ADR-038 §4.5) =="
 
 # ── self-test ───────────────────────────────────────────────────────────────────────────────────────
 st=0
@@ -52,4 +52,4 @@ fi
 
 echo
 if [ "$fail" -ne 0 ]; then echo "banzai-no-fixture-as-production-evidence-check: FAIL"; exit 1; fi
-echo "banzai-no-fixture-as-production-evidence-check: ✓ no fixture flows into official evidence/VERIFIED (ADR-068 §4.5)"
+echo "banzai-no-fixture-as-production-evidence-check: ✓ no fixture flows into official evidence/VERIFIED (ADR-038 §4.5)"

@@ -9,7 +9,7 @@
 #
 # ALLOWED (not violations): dev comments (`//`, `*`), the deliberate glossary `en:` gloss fields, and
 # website/lib/decisions.ts ADR titles (not scanned). EXEMPT: the whitepaper, contracts/invariants.json
-# (INV-FEDEVAL-008), docs/reports/** (none scanned).
+# (INV-FEDEVAL-008).
 #
 # Exit 1 on any violation. Exit 2 if the guard's own self-test is broken.
 

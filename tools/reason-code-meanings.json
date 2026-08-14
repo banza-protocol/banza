@@ -12,7 +12,7 @@
       "verdict": "FAILED"
     },
     "TRUST_INVALID_DELEGATED_KEY": {
-      "meaning": "The delegated signing key is absent, malformed, not endorsed by the Key Manifest, or used outside its declared domain (ADR-038).",
+      "meaning": "The delegated signing key is absent, malformed, not endorsed by the Key Manifest, or used outside its declared domain (ADR-027).",
       "verdict": "FAILED"
     },
     "TRUST_INVALID_ROOT_METADATA": {
@@ -140,7 +140,7 @@
     "_spec": "BANZA Reason Code Registry",
     "_registry": "banza-reason-codes/1",
     "_status": "canonical",
-    "_authority": "ADR-083 (reason-code model); spec/reason-codes.md defines the rules. This file is the machine-readable registry those rules govern. The reference implementation emits these values and does not define them.",
+    "_authority": "ADR-023 (reason-code model); spec/reason-codes.md defines the rules. This file is the machine-readable registry those rules govern. The reference implementation emits these values and does not define them.",
     "_source_of_truth": "This registry, together with spec/reason-codes.md.",
     "protocol_version": "1.0.0",
     "normative_keywords": "BCP 14 (RFC 2119 + RFC 8174)."

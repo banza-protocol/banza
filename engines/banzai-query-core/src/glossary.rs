@@ -430,7 +430,7 @@ fn term_of(nq: &str) -> Option<&'static str> {
         return Some("def-api-schema");
     }
     // ── M2.14C-FIX2: technology / stack terms — a bare "Rust" / "WASM" / "Qwen" is a known term, not
-    //    no_source. Deterministic answers, Rust-first accurate (ADR-037), operator-neutral. normalize()
+    //    no_source. Deterministic answers, Rust-first accurate (ADR-043), operator-neutral. normalize()
     //    strips accents/dots/hyphens→spaces, so "Node.js"→"nodejs", "next.js"→"nextjs", "rust-first"→
     //    "rust first". `word()` is whole-token (so "rust" never matches "trust").
     if word(nq, "rust") || has(nq, &["rust first"]) {

@@ -3,7 +3,7 @@
 **Document ID:** FEDERATION-CONFORMANCE-DESIGN-001  
 **Date:** 2026-05-31  
 **Status:** Canonical — runner architecture specification.  
-**Authority:** ADR-038, ADR-039, ADR-040, FEDERATION_CONFORMANCE_MODEL.md, FEDERATION_TEST_SUITE_SPEC.md
+**Authority:** ADR-027, ADR-033, ADR-031, FEDERATION_CONFORMANCE_MODEL.md, FEDERATION_TEST_SUITE_SPEC.md
 
 ---
 
@@ -11,7 +11,7 @@
 
 The federation conformance runner is the tool that runs L3 federation conformance tests against an operator and emits the operator's self-published signed protocol metadata + conformance evidence. It extends the existing `tools/banza-conformance/` single-operator runner with a federation mode that embeds a Simulated Operator B and a test trust root.
 
-Conformance is measured, not granted: the runner produces reproducible, machine-verifiable evidence. Whether that evidence lets a peer route is a **local** decision each peer reaches by running the Open Trust Evaluation (ADR-040) over the published material.
+Conformance is measured, not granted: the runner produces reproducible, machine-verifiable evidence. Whether that evidence lets a peer route is a **local** decision each peer reaches by running the Open Trust Evaluation (ADR-031) over the published material.
 
 This document specifies the runner's architecture, test environment, isolation model, and behavioral contracts. It does not implement the runner — it is the specification from which implementation proceeds.
 
@@ -115,7 +115,7 @@ test_root_private_key    = ed25519_generate_private_key()
 test_root_public_key     = ed25519_derive_public_key(test_root_private_key)
 test_root_key_id         = "test-root-key-" + date_stamp        // e.g. "test-root-key-2026-05"
 
-# Model A (ADR-079): the root signs only the test Key Manifest; a metadata-domain
+# Model A (ADR-027): the root signs only the test Key Manifest; a metadata-domain
 # delegated key — endorsed by that Key Manifest — signs the test protocol metadata.
 test_metadata_private_key = ed25519_generate_private_key()
 test_metadata_public_key  = ed25519_derive_public_key(test_metadata_private_key)
@@ -126,7 +126,7 @@ Both keypairs are ephemeral — new ones are generated per run. This ensures no 
 
 ### 3.2 Protocol Metadata Signing
 
-The test trust chain signs **test protocol metadata** — the yardstick each side is measured against (specification version, vector digests, validator versions, compatibility rules). Model A applies in tests exactly as in production (ADR-079): the ephemeral test root signs only the test Key Manifest, which endorses an ephemeral protocol-metadata-domain delegated key; that delegated key signs the test protocol metadata. It never signs anything about an operator: operators sign their own conformance evidence with their own keys (INV-FEDEVAL-009).
+The test trust chain signs **test protocol metadata** — the yardstick each side is measured against (specification version, vector digests, validator versions, compatibility rules). Model A applies in tests exactly as in production (ADR-027): the ephemeral test root signs only the test Key Manifest, which endorses an ephemeral protocol-metadata-domain delegated key; that delegated key signs the test protocol metadata. It never signs anything about an operator: operators sign their own conformance evidence with their own keys (INV-FEDEVAL-009).
 
 ```python
 def sign_protocol_metadata(protocol_version, content_hash, lifetime_days=89):
@@ -427,7 +427,7 @@ if any_critical_fail:
 | FED-FAIL: FAIL on 002, 003, 006, 007, 008 | Capability-scoped | |
 | Any CRITICAL severity FAIL | FAIL_CLOSED | Regardless of suite |
 
-Capability-scoped means the peer's Open Trust Evaluation fails closed only for the affected capability (ADR-040 check 7, INV-FEDEVAL-007); the core federation routing capability still reaches ROUTING_ALLOWED. Recovery needs no one's permission: the operator re-runs the public automation and re-publishes the extended evidence.
+Capability-scoped means the peer's Open Trust Evaluation fails closed only for the affected capability (ADR-031 check 7, INV-FEDEVAL-007); the core federation routing capability still reaches ROUTING_ALLOWED. Recovery needs no one's permission: the operator re-runs the public automation and re-publishes the extended evidence.
 
 ---
 
@@ -497,41 +497,24 @@ The `report.json` follows the existing `conformance/report-schema.json` format, 
 
 ## 11. Integration With Existing Runner
 
-The federation runner is implemented as an extension to `tools/banza-conformance/`:
+The federation runner is implemented as part of `engines/banza-conformance` (`run-fed`):
 
 ```
-tools/banza-conformance/
-  run.py                          # Existing entrypoint; extended to accept --federation
-  suites/
-    operators.json                # Existing L0-L2 suites (unchanged)
-    federation/                   # New federation suites
-      FED-CERT.json
-      FED-DISC.json
-      FED-TRUST.json
-      FED-ROUTE.json
-      FED-EXEC.json
-      FED-OBL.json
-      FED-EVT.json
-      FED-SETTLE.json
-      FED-FAIL.json
-  fixtures/
-    federation/                   # All 44 fixtures from FEDERATION_FIXTURE_CATALOG.md
-  sim-b/                          # Simulated Operator B HTTP server
-    server.py
-    wallets.py
-    routing.py
-    obligations.py
-    events.py
-  trust-root/                     # Test trust root
-    keygen.py
-    sign_protocol_metadata.py
-    brl_server.py
-    key_manifest_server.py
-  evidence/
-    collector.py
-    packager.py
-    signer.py
+engines/banza-conformance/          # the runner (Rust); `run-fed` executes the federation suites
+engines/banza-simb/                 # deterministic in-process Operator B simulator (no network)
+engines/banza-trust/                # trust verification + TEST-ONLY signing and root-ceremony simulator
+
+conformance/
+  federation/                       # federation suites and trust configuration
+  fixtures/                         # the committed federation fixtures
+  vectors/                          # the conformance vectors the suites draw on
 ```
+
+The layout above is the current one. Earlier drafts of this document described a Python tree under
+`tools/banza-conformance/` with per-concern modules (`sim-b/server.py`, `trust-root/keygen.py`,
+`evidence/signer.py`); that implementation was replaced by the Rust engines under ADR-043 and no longer
+exists. The design below is unchanged by that move — it describes what the runner must do, not what it
+is written in.
 
 ---
 

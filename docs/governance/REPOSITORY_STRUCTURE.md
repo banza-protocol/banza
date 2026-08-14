@@ -80,7 +80,7 @@ active production certificate**; the public state is **pre-production**.
 - Temporary/working content becomes a canonical document or is removed — never left
   as a phase report in the tree.
 - No operator/product/runtime document enters this repo.
-- ADRs stay within `ADR-001..ADR-036`; new decisions continue the series and are
+- ADRs stay within `ADR-001..ADR-008`; new decisions continue the series and are
   immutable after acceptance. RFCs stay `RFC-000N`.
 - Historical material lives in git history / release tags, not as active docs.
 - No production or certified-operator claim without a formal governance decision.

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# operator-zero-only-architecture-check (ADR-053, M2.14B).
+# operator-zero-only-architecture-check (ADR-041, M2.14B).
 #
 # The repo-wide enforcement of the Operator Zero Only demo/example policy: every PUBLIC example, demo,
 # sample, tutorial, walkthrough or demonstrative fixture derives from Operador Zero; there is no parallel
@@ -19,11 +19,11 @@ fail=0
 ok()  { echo "  ok: $1"; }
 bad() { echo "  FAIL: $1"; fail=1; }
 
-echo "== operator-zero-only-architecture-check (M2.14B / ADR-053) =="
+echo "== operator-zero-only-architecture-check (M2.14B / ADR-041) =="
 
 # 1. The architectural decision exists.
-ADR="decisions/adr/ADR-053-operator-zero-only-demo-and-example-policy.md"
-[ -f "$ADR" ] && grep -q "sole canonical demo operator" "$ADR" && ok "ADR-053 present and states the policy" || bad "ADR-053 missing or does not state the policy"
+ADR="decisions/adr/ADR-041-operator-zero-the-read-only-reference-implementation.md"
+[ -f "$ADR" ] && grep -q "sole canonical demo operator" "$ADR" && ok "ADR-041 present and states the policy" || bad "ADR-041 missing or does not state the policy"
 
 # 2. examples/operators/ contains ONLY zero (no parallel sample/demo/test/candidate/l0 operator).
 EXTRA=$(ls examples/operators 2>/dev/null | grep -vE "^zero$" || true)
@@ -38,7 +38,7 @@ LABELHIT=$(grep -rInE "Manifesto válido \(L0\)|Carregar exemplo válido" "${PUB
 [ -z "$LABELHIT" ] && ok "no 'Manifesto válido (L0)' / 'Carregar exemplo válido' on public surfaces" || { bad "forbidden example label on a public surface:"; echo "$LABELHIT" | head -3; }
 
 # 4. No forbidden FILLED fictional identity on public surfaces (internal engine tests + archival ADRs +
-#    reports excluded; RFC-2606 operator.example placeholder is allowed, see ADR-053).
+#    reports excluded; RFC-2606 operator.example placeholder is allowed, see ADR-041).
 IDHIT=$(grep -rInE "sandbox\.example\.test|ops@example\.test|sample-operator|operator-candidate|operator-demo\b" \
   website/components website/app website/lib website/content/BANZA_REFERENCIA.md docs/reference docs/guides contracts/openapi README.md services/banzai-api/src 2>/dev/null \
   | grep -vE "/wasm/|generated|\.test\.(ts|js)" || true)

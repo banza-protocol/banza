@@ -5,7 +5,7 @@
 // matrix `subject × task` and, for every cell, records the whole decided chain — resolved task, deterministic
 // terminal applicability + kind + completion, the RetrievalPlan (requested_task, source_appropriate, class,
 // per-source appropriateness), the derived answer class and the expected model-call count. It then emits the
-// exportable artefact artifacts/m2-18b7/task-fulfilment-truth-table.json (rows + published counts) so coverage
+// exportable artefact artifacts/banzai/task-fulfilment-truth-table.json (rows + published counts) so coverage
 // is QUANTIFIED and auditable, not implied. Deterministic, no model. `--check` compares against the committed
 // artefact (CI verifies it is current) instead of writing.
 //
@@ -17,7 +17,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 
 const require = createRequire(process.cwd() + "/");
 const kb = require("./services/banzai-api/src/rustkb/banzai_api_kb.js");
-const ARTEFACT = "artifacts/m2-18b7/task-fulfilment-truth-table.json";
+const ARTEFACT = "artifacts/banzai/task-fulfilment-truth-table.json";
 
 const J = (s) => { try { return JSON.parse(s); } catch { return null; } };
 const obligations = (q, s) => J(kb.answer_obligations_json(q, s || ""));
@@ -30,7 +30,7 @@ const completion = (q, s, md, cited, n, ok) =>
 // The public SUBJECT surface is DERIVED from the canonical vocabulary's subject-registry.json (the
 // authority) — NOT a manual list. Conceptual subjects get the full task matrix; a representative sample of
 // document INSTANCES gets the document tasks (lookup/summary/metadata/explanation/impact).
-const REGISTRY = JSON.parse(readFileSync("artifacts/m2-18b7/subject-registry.json", "utf8"));
+const REGISTRY = JSON.parse(readFileSync("artifacts/banzai/subject-registry.json", "utf8"));
 const NOUN = { banza: "o BANZA", banzai: "o BanzAI", banzami: "a Banzami", root: "root manifest" };
 const SUBJECTS = [
   ...REGISTRY.subjects.map((s) => ({
@@ -38,11 +38,11 @@ const SUBJECTS = [
     deliverables: s.type !== "entity", // deliverable tasks are askable of every concept/artefact subject
   })),
   // document-instance sample (representative current / nonexistent) — document tasks only.
-  { subject: "ADR-005", type: "document", noun: "a ADR-005", seed: "ADR-005", doc: true },
   { subject: "ADR-001", type: "document", noun: "a ADR-001", seed: "ADR-001", doc: true },
-  { subject: "ADR-040", type: "document", noun: "a ADR-040", seed: "ADR-040", doc: true },
+  { subject: "ADR-001", type: "document", noun: "a ADR-001", seed: "ADR-001", doc: true },
+  { subject: "ADR-031", type: "document", noun: "a ADR-031", seed: "ADR-031", doc: true },
   { subject: "RFC-0006", type: "document", noun: "a RFC-0006", seed: "RFC-0006", doc: true },
-  { subject: "ADR-99999-nonexistent", type: "document", noun: "a ADR-99999", seed: "ADR-99999", doc: true, nonexistent: true },
+  { subject: "ADR-999-nonexistent", type: "document", noun: "a ADR-999", seed: "ADR-999", doc: true, nonexistent: true },
 ];
 
 // The TASK axis. `applies` decides SUPPORTED vs NOT_APPLICABLE per subject; `q` builds the base query.
@@ -74,9 +74,9 @@ const TASKS = [
 const TAXONOMY = [
   ["exact_fact", "qual o ano de criacao do banza?", "BANZA", "attribute_terminal (Tier 1b, resolve_task returns explanation; the exact fact is served deterministically by attribute.rs)"],
   ["definition", "o que e operador?", "", "resolve_task"],
-  ["document_lookup", "ADR-005", "ADR-005", "resolve_task"],
-  ["document_metadata", "qual o estado da ADR-005?", "ADR-005", "resolve_task"],
-  ["document_summary", "resume a ADR-005", "ADR-005", "resolve_task"],
+  ["document_lookup", "ADR-001", "ADR-001", "resolve_task"],
+  ["document_metadata", "qual o estado da ADR-001?", "ADR-001", "resolve_task"],
+  ["document_summary", "resume a ADR-001", "ADR-001", "resolve_task"],
   ["explanation", "explica operador", "", "resolve_task"],
   ["motivation", "qual a motivacao de operador?", "", "resolve_task"],
   ["impact", "qual o impacto de operador?", "", "resolve_task"],

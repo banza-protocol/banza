@@ -1,6 +1,6 @@
 "use client";
 
-// BanzaiWorkspaceProvider — M2.19G.4 (ADR-070). The single, always-mounted BanzAI workspace.
+// BanzaiWorkspaceProvider — M2.19G.4 (ADR-042). The single, always-mounted BanzAI workspace.
 //
 // Mounted ONCE by app/banzai/layout.tsx so the same in-memory session (conversation, validation
 // selection + receipts, onboarding candidature) survives navigation between the navigable CONTEXTS
@@ -10,8 +10,8 @@
 // it without ever remounting. This is the mechanism behind D-070-02(d): "all segments share the same
 // always-mounted session via app/banzai/layout.tsx".
 //
-// Contexts are a NAVIGATION concept only — never the three architectural layers (ADR-059..063) and never
-// the L0–L4 certification profiles (ADR-064..066). Nothing here fetches a caller-supplied URL: the route
+// Contexts are a NAVIGATION concept only — never the three architectural layers (ADR-003..063) and never
+// the L0–L4 certification profiles (ADR-034..066). Nothing here fetches a caller-supplied URL: the route
 // state arrives already parsed by the closed, throw-free parseBanzaiState choke-point.
 
 import { createContext, useCallback, useContext, useMemo, useState } from "react";
@@ -42,7 +42,7 @@ export function BanzaiWorkspaceProvider({
   runtimeStrip,
 }: {
   children: React.ReactNode;
-  /** ADR-076 D-076-10 — the runtime-truth strip (a server component rendered by app/banzai/layout.tsx,
+  /** ADR-042 D-076-10 — the runtime-truth strip (a server component rendered by app/banzai/layout.tsx,
    *  reading GET /banzai/runtime and failing safe). Passed through as an inert node so the client shell
    *  can place it in the sidebar without importing a server component. */
   runtimeStrip?: React.ReactNode;

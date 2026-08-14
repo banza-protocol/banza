@@ -1,4 +1,4 @@
--- M2.19G.3A (ADR-069) — origin-challenge single-use. Adds origin_challenges.consumed_at so a challenge
+-- M2.19G.3A (ADR-040) — origin-challenge single-use. Adds origin_challenges.consumed_at so a challenge
 -- that was positively verified cannot verify again (replay/idempotency guard). Idempotent; safe to
 -- re-run. Mirrors the canonical init/001_schema.sql for the EXISTING production database.
 --

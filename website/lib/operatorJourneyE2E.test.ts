@@ -1,5 +1,5 @@
 /**
- * The browser HALF of the end-to-end operator-guidance path (ADR-076 §D-076-01/02).
+ * The browser HALF of the end-to-end operator-guidance path (ADR-042 §D-076-01/02).
  *
  * The path has two halves and this file owns one of them:
  *

@@ -3,7 +3,7 @@
 **Document ID:** FEDERATION-CONTRACTS-DESIGN-001  
 **Date:** 2026-05-31  
 **Status:** Canonical — authoritative source for all federation-layer invariants.  
-**Authority:** ADR-038, ADR-039, ADR-040 (Open protocol trust model without a CA)  
+**Authority:** ADR-027, ADR-033, ADR-031 (Open protocol trust model without a CA)  
 **Extends:** BANZA core invariant registry (`INV-LEDGER-*`, `INV-WALLET-*`, `INV-SETTLE-*`, `INV-IDEM-*`, `INV-RECON-*`, `INV-QR-*`)
 
 ---
@@ -14,11 +14,11 @@ The BANZA federation invariant set is organized into three groups:
 
 | Group | Prefix | Origin | Concern |
 |-------|--------|--------|---------|
-| Federation Trust Evaluation invariants | `INV-FEDEVAL-*` | ADR-040 (federation-routing application of the ADR-038 trust model) | Signed protocol metadata & conformance evidence validity, revocation, freshness at routing time |
-| Federation invariants | `INV-FED-*` | ADR-038, ADR-039, ADR-040 + this document | Cross-operator protocol correctness |
+| Federation Trust Evaluation invariants | `INV-FEDEVAL-*` | ADR-031 (federation-routing application of the ADR-027 trust model) | Signed protocol metadata & conformance evidence validity, revocation, freshness at routing time |
+| Federation invariants | `INV-FED-*` | ADR-027, ADR-033, ADR-031 + this document | Cross-operator protocol correctness |
 | Federation extensions of core invariants | `INV-FED-LEDGER-*` | This document | Core invariants extended to cross-operator scope |
 
-**General trust model vs. federation application.** The general protocol trust model is the Open Trust Evaluation, whose invariants carry the `INV-OTE-*` prefix and are defined in ADR-038. This document covers the **federation-routing application** of that model, whose invariants carry the `INV-FEDEVAL-*` prefix and are defined in ADR-040. The `INV-FEDEVAL-*` checks are the `INV-OTE-*` model made explicit for routing between two operators; they do not redefine it. Both are recorded canonically in `contracts/invariants.json`.
+**General trust model vs. federation application.** The general protocol trust model is the Open Trust Evaluation, whose invariants carry the `INV-OTE-*` prefix and are defined in ADR-027. This document covers the **federation-routing application** of that model, whose invariants carry the `INV-FEDEVAL-*` prefix and are defined in ADR-031. The `INV-FEDEVAL-*` checks are the `INV-OTE-*` model made explicit for routing between two operators; they do not redefine it. Both are recorded canonically in `contracts/invariants.json`.
 
 **Root/key invariants (`INV-ROOT-*`).** Key-management guarantees — authenticated key rotation, bounded delegation, Key Manifest signature/expiry, threshold root custody, seat continuity — are root/key invariants (`INV-ROOT-*`), not federation-trust-evaluation checks. They are defined canonically in `contracts/invariants.json` (elaborated in `docs/governance/BANZA_TRUST_ARCHITECTURE.md`) and are not redefined here. Two of them are referenced from this document where the former trust series placed them: `INV-ROOT-010` (authenticated key rotation) and `INV-ROOT-008` (delegated authority is bounded).
 
@@ -32,7 +32,7 @@ The BANZA federation invariant set is organized into three groups:
 
 ## The Trust Model in One Paragraph
 
-BANZA is an open financial protocol. An operator independently implements the protocol and **publishes**, on infrastructure it controls, its Operator Manifest, its **signed protocol metadata** (`contracts/production/signed-protocol-metadata.production.schema.json`) and its **conformance evidence** (`contracts/production/conformance-evidence.production.schema.json`). Before routing to a peer, each operator runs the **Open Trust Evaluation** — ten conjunctive, fail-closed checks defined in ADR-040 (normative shape in `contracts/production/federation-trust-evaluation.production.schema.json`) — **locally and deterministically** over the evaluated operator's published material. Conformance is **measured** from reproducible, machine-verifiable evidence, never granted. The result is a local decision about a single interaction (`ROUTING_ALLOWED` / `FAIL_CLOSED`) — never a status conferred on the operator, never an admission, never a licence.
+BANZA is an open financial protocol. An operator independently implements the protocol and **publishes**, on infrastructure it controls, its Operator Manifest, its **signed protocol metadata** (`contracts/production/signed-protocol-metadata.production.schema.json`) and its **conformance evidence** (`contracts/production/conformance-evidence.production.schema.json`). Before routing to a peer, each operator runs the **Open Trust Evaluation** — ten conjunctive, fail-closed checks defined in ADR-031 (normative shape in `contracts/production/federation-trust-evaluation.production.schema.json`) — **locally and deterministically** over the evaluated operator's published material. Conformance is **measured** from reproducible, machine-verifiable evidence, never granted. The result is a local decision about a single interaction (`ROUTING_ALLOWED` / `FAIL_CLOSED`) — never a status conferred on the operator, never an admission, never a licence.
 
 The ten checks of the Open Trust Evaluation:
 
@@ -55,7 +55,7 @@ All ten must pass for `ROUTING_ALLOWED`. Any failure yields `FAIL_CLOSED`.
 
 ## Group 1: Federation Trust Evaluation Invariants (INV-FEDEVAL-*)
 
-Defined in ADR-040 — the federation-routing application of the ADR-038 Open Trust Evaluation. Reproduced here with implementation notes and conformance vector mapping. Two guarantees the former trust series carried — authenticated key rotation and bounded delegation — are now root/key invariants (`INV-ROOT-*`) and are recorded at the end of this group as pointers into `contracts/invariants.json`, not redefined here.
+Defined in ADR-031 — the federation-routing application of the ADR-027 Open Trust Evaluation. Reproduced here with implementation notes and conformance vector mapping. Two guarantees the former trust series carried — authenticated key rotation and bounded delegation — are now root/key invariants (`INV-ROOT-*`) and are recorded at the end of this group as pointers into `contracts/invariants.json`, not redefined here.
 
 ---
 
@@ -210,7 +210,7 @@ The signature chain, delegated keys, signed Key Manifest, domain separation and 
 
 ## Group 2: Federation Protocol Invariants (INV-FED-*)
 
-Defined in ADR-038, ADR-039 and ADR-040 and extended by this document.
+Defined in ADR-027, ADR-033 and ADR-031 and extended by this document.
 
 ---
 

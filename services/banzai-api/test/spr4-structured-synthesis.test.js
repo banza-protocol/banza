@@ -69,19 +69,19 @@ test("structured path ignores a model-mis-stated citation — derives the correc
   const pollutedOut = JSON.stringify({
     answer_markdown: "A ADR-002 inverte a nomenclatura do ecossistema.",
     claims: [{ claim: "inverte a nomenclatura", fact_ids: ["F1"] }],
-    cited_source_ids: ["ADR-021", "RFC-9999"], // ignored by the structured path
+    cited_source_ids: ["ADR-039", "RFC-9999"], // ignored by the structured path
     insufficient_evidence: false,
   });
   const r = await runGroundedSynthesis("explica a ADR-002", { provider: scriptedProvider([pollutedOut]), entityId: "ADR-002", structured: true });
   assert.equal(r.status, "grounded");
   assert.deepEqual(r.cited_source_ids, ["ADR-002"], "derived from claims, not the model's bogus list");
-  assert.ok(!r.cited_source_ids.includes("ADR-021"), "illegal id never surfaces");
+  assert.ok(!r.cited_source_ids.includes("ADR-039"), "illegal id never surfaces");
 });
 
 test("structured path STILL rejects a prose hallucination (doc not in FONTES PERMITIDAS named in prose)", async () => {
-  // The prose guard is unchanged: naming ADR-021 in answer_markdown is a wrong-doc identity leak → reject.
+  // The prose guard is unchanged: naming ADR-039 in answer_markdown is a wrong-doc identity leak → reject.
   const hallucinated = JSON.stringify({
-    answer_markdown: "Na verdade a ADR-021 trata disto.",
+    answer_markdown: "Na verdade a ADR-039 trata disto.",
     claims: [{ claim: "trata disto", fact_ids: ["F1"] }],
     insufficient_evidence: false,
   });

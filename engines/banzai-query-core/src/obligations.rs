@@ -6,7 +6,7 @@
 //! models the *components* a question asks for (example_requested, procedure_requested, comparison…); this
 //! module adds the two missing pieces on top of it, additively (AnswerPlan's serialized shape is unchanged):
 //!
-//!   1. a closed [`RequestedTask`] taxonomy separating the SUBJECT (operator, manifest, ADR-005…) from the
+//!   1. a closed [`RequestedTask`] taxonomy separating the SUBJECT (operator, manifest, ADR-001…) from the
 //!      TASK the user asked for (define, explain, give-an-example, give-a-procedure, show-a-template, look
 //!      up a document, summarize, compare, impact…). Not everything is "explain".
 //!   2. a typed [`AnswerObligationSet`] — exactly what a fulfilling answer MUST deliver for that task: the
@@ -24,7 +24,7 @@ use serde::{Deserialize, Serialize};
 pub const OBLIGATIONS_VERSION: u32 = 1;
 
 /// The closed taxonomy of tasks a user can ask BanzAI to perform on a subject. This is the TASK axis; the
-/// subject (operator/manifest/ADR-005/federation…) is orthogonal and lives on the AnswerPlan entities.
+/// subject (operator/manifest/ADR-001/federation…) is orthogonal and lives on the AnswerPlan entities.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum RequestedTask {
@@ -772,9 +772,9 @@ mod tests {
             RequestedTask::Example
         );
         // a bare document reference is a lookup; an explicit "explica" is an explanation
-        assert_eq!(task("ADR 005", "ADR-005"), RequestedTask::DocumentLookup);
+        assert_eq!(task("ADR 005", "ADR-001"), RequestedTask::DocumentLookup);
         assert_eq!(
-            task("me explica o ADR 005", "ADR-005"),
+            task("me explica o ADR 005", "ADR-001"),
             RequestedTask::Explanation
         );
         // "exemplo de um manifest" (no structural cue) is an EXAMPLE task; the structure is still served

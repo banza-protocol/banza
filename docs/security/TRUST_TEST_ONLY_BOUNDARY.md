@@ -10,8 +10,8 @@
 
 This is the guardrail document for the TRUST_AND_CRYPTO_CEREMONY track (BX2.2). Its single job is to make
 it **impossible to mistake the trust track for a real ceremony**. Everything in the track —
-[`TRUST_CEREMONY_PLAN.md`](TRUST_CEREMONY_PLAN.md), [`KEY_MANAGEMENT_POLICY.md`](KEY_MANAGEMENT_POLICY.md),
-[`ROOT_KEY_CEREMONY_RUNBOOK.md`](ROOT_KEY_CEREMONY_RUNBOOK.md),
+[`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md), [`KEY_MANAGEMENT_POLICY.md`](KEY_MANAGEMENT_POLICY.md),
+[`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md),
 [`BRL_REVOCATION_PLAYBOOK.md`](BRL_REVOCATION_PLAYBOOK.md) — is **planned / test-only / pre-production**.
 
 ## Status marker
@@ -46,7 +46,7 @@ The production root-key ceremony is **milestone M2** and has **not** been execut
 
 ## What IS true today
 
-- ✅ The trust architecture is frozen (ADR-038) and keys-never-on-serving-infra is documented (ADR-028).
+- ✅ The trust architecture is frozen (ADR-027) and keys-never-on-serving-infra is documented (ADR-029).
 - ✅ The ceremony **plan**, **key lifecycle**, **runbook**, and **revocation playbook** are documented.
 - ✅ Test-only material uses the `test-banza-key-*` convention and is rejected by production verification
   (INV-ROOT-001).
@@ -78,9 +78,9 @@ is a feature, not a defect: it prevents the pack from ever reading as "trust est
 only when M2 is executed under governance and an independent external audit is commissioned — both out of
 scope for BX2.1–BX2.4.
 
-See: [`TRUST_CEREMONY_PLAN.md`](TRUST_CEREMONY_PLAN.md),
+See: [`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md),
 [`KEY_MANAGEMENT_POLICY.md`](KEY_MANAGEMENT_POLICY.md),
-[`ROOT_KEY_CEREMONY_RUNBOOK.md`](ROOT_KEY_CEREMONY_RUNBOOK.md),
+[`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md),
 [`BRL_REVOCATION_PLAYBOOK.md`](BRL_REVOCATION_PLAYBOOK.md),
-[`PRODUCTION_ROOT_READINESS_REPORT.md`](PRODUCTION_ROOT_READINESS_REPORT.md),
+[`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md),
 [`ASSURANCE_READINESS.md`](ASSURANCE_READINESS.md).

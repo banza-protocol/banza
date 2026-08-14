@@ -1,4 +1,4 @@
-//! Migration evidence for ADR-081/ADR-082: does adopting `BCJ/1` change the bytes of the artifacts
+//! Migration evidence for ADR-009/ADR-010: does adopting `BCJ/1` change the bytes of the artifacts
 //! BANZA actually produces?
 //!
 //! The prior reference behaviour was `serde_json::to_string()` over the value minus excluded keys.
@@ -10,7 +10,7 @@ use banza_trust::canonical;
 use banza_trust::sign::{build_input, federation_ote_demo_input, signed_revocation_list};
 use serde_json::Value;
 
-/// The exact behaviour the reference implementation had before ADR-082.
+/// The exact behaviour the reference implementation had before ADR-010.
 fn prior_behaviour(doc: &Value, exclude: &[&str]) -> Vec<u8> {
     let mut obj = doc.clone();
     if let Value::Object(map) = &mut obj {
@@ -69,7 +69,7 @@ fn real_trust_artifacts_are_byte_identical_under_bcj1() {
 
 #[test]
 fn existing_signatures_still_verify_under_bcj1() {
-    // The strongest migration evidence: signatures produced before ADR-082 must still verify, which
+    // The strongest migration evidence: signatures produced before ADR-010 must still verify, which
     // they can only do if the signing bytes are unchanged.
     let input = build_input("valid");
     let meta = &input["signed_protocol_metadata"];

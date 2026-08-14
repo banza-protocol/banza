@@ -1,4 +1,4 @@
-# Rust-First Implementation Policy (ADR-037)
+# Rust-First Implementation Policy (ADR-043)
 
 **Status:** Accepted (2026-07) · **Enforced by:** `engines/rust-rule-guard` + the `Rust Rule Guard`
 CI workflow + `make rust-rule-check`.
@@ -88,5 +88,5 @@ R7 TEST-ONLY signing → R8 `banza-simb` federation/live conformance → R9 Pyth
 invariant registry, OpenAPI compatibility) become the Rust crate `engines/banza-repo-guards`, their
 shell scripts are thin `RUST_WRAPPER_ONLY` wrappers, and the allowlist is emptied.
 
-Reports: `PHASE_R0_…`, `PHASE_R2_…` … `PHASE_R7_R8_R9_FINAL_RUST_CLOSURE_2026_07.md`,
-`PHASE_R10_ZERO_NON_RUST_OFFICIAL_GATES_2026_07.md`.
+Reports: `PHASE_R0_…`, `PHASE_R2_…` … ,
+.

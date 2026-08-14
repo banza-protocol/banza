@@ -1,6 +1,6 @@
 {
   "name": "banza-conformance",
-  "description": "banza-conformance-rs (ADR-037, R4): the Rust BANZA conformance runner. Offline vector-integrity + invariant-consistency + certification-level + schema-compatible report generation, with golden parity. PASS is technical conformance evidence, never production certification. No network by default, no crypto (R5), no operator activation.",
+  "description": "banza-conformance-rs (ADR-043, R4): the Rust BANZA conformance runner. Offline vector-integrity + invariant-consistency + certification-level + schema-compatible report generation, with golden parity. PASS is technical conformance evidence, never production certification. No network by default, no crypto (R5), no operator activation.",
   "version": "0.1.0",
   "license": "Apache-2.0",
   "files": [

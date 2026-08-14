@@ -9,12 +9,10 @@
 This document defines the **production trust path** for the BANZA trust anchor: the ordered set of
 prerequisites, custody requirements, signing flows, evidence, and recovery paths that would have to be
 in place before any production key exists. It is the M2-phase consolidation of the existing planning
-artifacts — [`TRUST_CEREMONY_PLAN.md`](TRUST_CEREMONY_PLAN.md),
+artifacts — [`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md),
 [`KEY_MANAGEMENT_POLICY.md`](KEY_MANAGEMENT_POLICY.md),
-[`ROOT_KEY_CEREMONY_PROCEDURE.md`](ROOT_KEY_CEREMONY_PROCEDURE.md),
-[`ROOT_KEY_CEREMONY_CHECKLIST.md`](ROOT_KEY_CEREMONY_CHECKLIST.md),
-[`ROOT_KEY_CEREMONY_RUNBOOK.md`](ROOT_KEY_CEREMONY_RUNBOOK.md),
-[`ROOT_KEY_CEREMONY_RECORD_TEMPLATE.md`](ROOT_KEY_CEREMONY_RECORD_TEMPLATE.md),
+[`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md),
+[`ROOT_CEREMONY_EVIDENCE_LOG_TEMPLATE.md`](ROOT_CEREMONY_EVIDENCE_LOG_TEMPLATE.md),
 [`BRL_REVOCATION_PLAYBOOK.md`](BRL_REVOCATION_PLAYBOOK.md) and
 [`TRUST_TEST_ONLY_BOUNDARY.md`](TRUST_TEST_ONLY_BOUNDARY.md) — into a single production-readiness map.
 
@@ -29,8 +27,8 @@ m2_generates_no_production_keys = true
 The production root-key ceremony has **not** been executed. No production root key, no production
 issuing key, and no production signed protocol metadata exist. Everything below is **prepared but gated**: a
 prerequisite list to satisfy under governance, not an action performed in M2. The trust path is
-governed by ADR-038 (open trust model — canonical-JSON signing, domain separation), ADR-040
-(federation trust evaluation) and ADR-028 (keys never on serving infrastructure).
+governed by ADR-027 (open trust model — canonical-JSON signing, domain separation), ADR-031
+(federation trust evaluation) and ADR-029 (keys never on serving infrastructure).
 
 ## Production state model
 
@@ -46,7 +44,7 @@ ceremony *could* run — it does not itself advance the network into M4.
 ## M2 protocol-gate
 
 Whether the production trust path is coherent enough to proceed is computed **in Rust** by
-`engines/banza-m2-protocol-gate :: validate_m2_protocol_gate`, never in TypeScript. A missing or
+`engines/banza-production-gate :: validate_m2_protocol_gate`, never in TypeScript. A missing or
 incomplete trust path resolves to `M2_BLOCKED_BY_TRUST_PATH_GAP`; a document that claimed the ceremony
 had run, that production keys existed, or that an operator was activated would resolve to
 `M2_INVALID_FORBIDDEN_ACTIVATION` or `M2_INVALID_REGULATORY_BOUNDARY`. The correct state for this
@@ -58,7 +56,7 @@ execution is deliberately out of scope for M2.
 Before a production root key may be generated, all of the following must hold (none are satisfied by
 publishing this document):
 
-- ADR-038 and ADR-028 frozen and referenced (root offline, keys never on serving infra) — **met at spec level**.
+- ADR-027 and ADR-029 frozen and referenced (root offline, keys never on serving infra) — **met at spec level**.
 - Governed approval of the ceremony date, participants, and dual-control roles — **planned/gated**.
 - Air-gapped ceremony machine with its network interface physically disabled/removed — **planned/gated**.
 - Verified ceremony software with recorded SHA-256 hashes — **planned/gated**.
@@ -68,19 +66,19 @@ publishing this document):
 
 ## 2. Ceremony prerequisites
 
-The ceremony itself is specified in [`TRUST_CEREMONY_PLAN.md`](TRUST_CEREMONY_PLAN.md) (phases P0–P7)
-and rehearsed test-only in [`ROOT_KEY_CEREMONY_RUNBOOK.md`](ROOT_KEY_CEREMONY_RUNBOOK.md). Prerequisites
+The ceremony itself is specified in [`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md) (phases P0–P7)
+and rehearsed test-only in [`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md). Prerequisites
 carried into the production path:
 
 - **Dual control**: Ceremony Officer executes; Ceremony Witness observes and never touches key material.
 - **Sealed room**: no network cable, WiFi disabled in hardware, mobile devices collected.
 - **Governance approver**: at least one approver authorises the date under governance.
-- **Record template**: a signed [`ROOT_KEY_CEREMONY_RECORD_TEMPLATE.md`](ROOT_KEY_CEREMONY_RECORD_TEMPLATE.md)
+- **Record template**: a signed [`ROOT_CEREMONY_EVIDENCE_LOG_TEMPLATE.md`](ROOT_CEREMONY_EVIDENCE_LOG_TEMPLATE.md)
   is produced only by an actual run — not by M2 preparation.
 
 ## 3. Key custody requirements
 
-Per [`KEY_MANAGEMENT_POLICY.md`](KEY_MANAGEMENT_POLICY.md) and ADR-028:
+Per [`KEY_MANAGEMENT_POLICY.md`](KEY_MANAGEMENT_POLICY.md) and ADR-029:
 
 | Key | Domain | Custody | On serving infra? |
 |---|---|---|---|
@@ -91,7 +89,7 @@ Per [`KEY_MANAGEMENT_POLICY.md`](KEY_MANAGEMENT_POLICY.md) and ADR-028:
 
 Private keys are encrypted (GPG / AES-256); the passphrase is stored separately from the key media. Two
 copies (`BANZA_KEYS_A`, `BANZA_KEYS_B`) plus a signed paper backup of fingerprints. The root key never
-touches the runtime verification path (ADR-038): signed protocol metadata verifies against the issuing public key
+touches the runtime verification path (ADR-027): signed protocol metadata verifies against the issuing public key
 published in the root-signed Key Manifest.
 
 ## 4. Artifact signing flow
@@ -107,7 +105,7 @@ root key ──signs──▶ Key Manifest ──endorses──▶ issuing publi
         conformance key  ──signs──▶ conformance evidence package
 ```
 
-Every signature uses canonical JSON (ADR-038). No key signs across domains (INV-ROOT-004). In M2 this
+Every signature uses canonical JSON (ADR-027). No key signs across domains (INV-ROOT-004). In M2 this
 flow is **dry-run only** against `test-banza-key-*` material; no production artifact is signed.
 
 ## 5. Signing evidence
@@ -149,7 +147,7 @@ exists to revoke.
 
 | Key | Max validity | Routine rotation | Authority |
 |---|---|---|---|
-| Root | 24 months | Every 24 months | Root ceremony (dual control) |
+| Root | 24 months | Every 24 months | Root ceremony (two of the three authorities) |
 | Protocol-metadata / BRL / Conformance (issuing) | 6 months | Every 6 months | Root re-signs a new manifest |
 
 INV-ROOT-006: issuing ≤ 6 months, root ≤ 24 months. INV-ROOT-003: a stale manifest
@@ -189,8 +187,8 @@ key is ever published, and no publication occurs in M2.
   signed protocol metadata, or make BANZA a PSP. Any licence/authorisation belongs to the authorised operator.
 
 See: [`PRODUCTION_ARTIFACT_SIGNING_POLICY.md`](PRODUCTION_ARTIFACT_SIGNING_POLICY.md),
-[`TRUST_CEREMONY_PLAN.md`](TRUST_CEREMONY_PLAN.md),
+[`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md),
 [`KEY_MANAGEMENT_POLICY.md`](KEY_MANAGEMENT_POLICY.md),
 [`BRL_REVOCATION_PLAYBOOK.md`](BRL_REVOCATION_PLAYBOOK.md),
 [`TRUST_TEST_ONLY_BOUNDARY.md`](TRUST_TEST_ONLY_BOUNDARY.md),
-[`ROOT_KEY_CEREMONY_RUNBOOK.md`](ROOT_KEY_CEREMONY_RUNBOOK.md).
+[`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md).

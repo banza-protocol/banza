@@ -1,4 +1,4 @@
-// ADR-076 D-076-08 — the Execuções (durable archive) results view. Without a selected implementation
+// ADR-042 D-076-08 — the Execuções (durable archive) results view. Without a selected implementation
 // it must guide the user to Validar operador rather than fetch anything; with no store reachable it must
 // fail honestly. Rendered with react-dom/server (no DOM, no effects run) — this proves the no-selection
 // guard state, which is reached before any network call.

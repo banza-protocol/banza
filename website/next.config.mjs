@@ -38,7 +38,7 @@ const nextConfig = {
       // 404s (registry publication depends on the public production conditions). The PT human page stays at /operadores.
       { source: "/developer-resources", destination: "/referencia/programadores", permanent: true },
       { source: "/governance", destination: "/governanca", permanent: true },
-      // The standalone /roteiro surface is retired (ADR-080-adjacent public-surface
+      // The standalone /roteiro surface is retired (ADR-037-adjacent public-surface
       // reconciliation): the single canonical explanation of protocol evolution is the
       // reference chapter §14 "Evolução do Protocolo" at /referencia/roteiro. /roteiro
       // and the older /roadmap alias both permanent-redirect straight to that canon —

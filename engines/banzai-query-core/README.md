@@ -1,6 +1,6 @@
 # banzai-query-core
 
-**The single Rust authority for the BanzAI Query Core** (ADR-037 Rust-first; M2.18B.7).
+**The single Rust authority for the BanzAI Query Core** (ADR-043 Rust-first; M2.18B.7).
 
 This crate owns the deterministic query logic that decides *what a question means* and *how it is
 grounded* — so there is exactly one implementation, never a duplicate in JavaScript, a script, or the
@@ -26,7 +26,7 @@ I/O glue on top of that WASM.
 
 ## Migration status (M2.18B.7 scope A)
 
-The extraction is topological (see `artifacts/m2-18b7/query-core-extraction-plan.md`). Step 1 (this
+The extraction is topological (see `artifacts/banzai/query-core-extraction-plan.md`). Step 1 (this
 increment) moves the **retrieval + normalization foundation** and the **canonical corpus** here; the
 higher tiers (reason/coverage/attribute/glossary/intent/fuzzy → docref/concept → catalogue/relation →
 resolve → answerplan/retrieval → factpack → synth/factcheck → route/terminal) migrate in subsequent

@@ -3,7 +3,7 @@
 **Document ID:** FEDERATION-CONFORMANCE-DESIGN-001  
 **Date:** 2026-05-31  
 **Status:** Canonical — 79 test case definitions across 9 suites.  
-**Authority:** FEDERATION_CONFORMANCE_MODEL.md, ADR-038, ADR-039, ADR-040
+**Authority:** FEDERATION_CONFORMANCE_MODEL.md, ADR-027, ADR-033, ADR-031
 
 ---
 
@@ -403,7 +403,7 @@ Tests that the operator's manifest is correctly extended for federation and that
 
 ## Suite: FED-TRUST — Trust Establishment
 
-Tests the complete ten-check Open Trust Evaluation (ADR-040) — run locally and deterministically by the routing peer over the evaluated operator's published material — and BRL handling. All ten checks are conjunctive and fail-closed: any missing, invalid, expired, revoked, or incompatible signal yields FAIL_CLOSED. The result is a local decision about one interaction (ROUTING_ALLOWED / FAIL_CLOSED), never a status conferred on the operator.
+Tests the complete ten-check Open Trust Evaluation (ADR-031) — run locally and deterministically by the routing peer over the evaluated operator's published material — and BRL handling. All ten checks are conjunctive and fail-closed: any missing, invalid, expired, revoked, or incompatible signal yields FAIL_CLOSED. The result is a local decision about one interaction (ROUTING_ALLOWED / FAIL_CLOSED), never a status conferred on the operator.
 
 ---
 

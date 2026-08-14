@@ -85,4 +85,3 @@ prontidão, não certificação** — *Ready to publish conformance evidence is 
 - [`/banzai`](/banzai) — SimB e Conformidade no BanzAI
 - [Referência §10 · BanzAI](/referencia/banzai)
 - [Referência §6 · Conformidade](/referencia/certificacao)
-- [BX1.3 — SimB + Conformance L0 WASM](PHASE_BX1_3_BANZAI_SIMB_CONFORMANCE_L0_WASM_2026_07.md)

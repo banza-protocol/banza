@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/operadores" },
 };
 
-// The distinct roles the public surface must keep separate (ADR-064/060/061). The registry certifies
+// The distinct roles the public surface must keep separate (ADR-034/060/061). The registry certifies
 // implementations, never entities — so "certified operator" is never a thing here.
 const ROLES = [
   { k: "ENTIDADE", t: "Entidade", b: "Uma pessoa colectiva independente — uma empresa. É o titular de direitos e obrigações, não o sujeito da certificação." },
@@ -116,7 +116,7 @@ export default function OperadoresPage() {
             implementações publicadas: o BanzAI resolve o alvo neste registo (operador → implementação →
             origem canónica → descoberta) e a validação oficial utiliza exclusivamente artefactos obtidos
             dos endpoints públicos dessa implementação, por uma camada segura de fetch em Rust — nunca pelo
-            navegador (ADR-068).
+            navegador (ADR-038).
           </p>
         </Container>
       </Section>

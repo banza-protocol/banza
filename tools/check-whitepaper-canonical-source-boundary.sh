@@ -44,15 +44,21 @@ check() {
   [ -f docs/whitepaper/latex/copernicus.cls ] \
     && ok "copernicus.cls ships with the dossier" || bad "copernicus.cls missing from the dossier"
 
-  # 2. retired renderer stays out of the canonical release path
-  if grep -q 'whitepaper-latex\.py' "$RELEASE"; then
-    bad "retired renderer (whitepaper-latex.py) re-entered the release path"
+  # 2. nothing in the release path composes a .tex from the derived JSON.
+  #    This is the property; the two tools that once did it (whitepaper-latex.py for PT,
+  #    whitepaper-en-dossier.py for EN) have been deleted rather than kept under guard. Asserting the
+  #    direction against the release script itself outlives any particular tool: a NEW generator that
+  #    made the same mistake would be caught, which a check on two known filenames could never do.
+  if grep -qE 'whitepaper-latex\.py|whitepaper-en-dossier\.py' "$RELEASE"; then
+    bad "a retired JSON->TEX renderer re-entered the release path"
   else
-    ok "retired renderer is out of the release path"
+    ok "no retired JSON->TEX renderer in the release path"
   fi
-  grep -q 'RETIRED FROM THE CANONICAL RELEASE PATH' tools/whitepaper-latex.py 2>/dev/null \
-    && ok "retired renderer carries its retirement header" \
-    || bad "tools/whitepaper-latex.py lost its retirement header"
+  if grep -nE '(content/(pt|en)\.json|content/\$\{?lang)' "$RELEASE" | grep -qiE '>[[:space:]]*\S+\.tex|--out[^ ]*[[:space:]]+\S+\.tex|tex[[:space:]]*=[^=]*json'; then
+    bad "the release path writes a .tex from content JSON — the source-of-truth direction is inverted"
+  else
+    ok "the release path never writes a .tex from content JSON"
+  fi
 
   # 3. derivation gates are wired into the release script (verify + write mode), one per language.
   #    Both run in the same direction: the dossier decides, the JSON follows.
@@ -162,14 +168,12 @@ echo "whitepaper-canonical-source-boundary: ✓ Overleaf PT dossier is the sourc
 # reverse composed an approved edition out of a derived representation, twice: whitepaper-latex.py
 # for PT and whitepaper-en-dossier.py for EN. Both are retired and neither may re-enter the release
 # path.
+# Neither renderer exists any more: retired code that only a guard keeps honest is code the repository
+# does not need. What must stay true is the DIRECTION, so it is asserted against the release script and
+# against the tree — if either tool ever reappears, it is a defect regardless of what header it carries.
 for retired in tools/whitepaper-latex.py tools/whitepaper-en-dossier.py; do
-  [ -f "$retired" ] || continue
-  grep -q "RETIRED FROM THE CANONICAL RELEASE PATH" "$retired" \
-    || { echo "canonical-source: ✗ $retired lost its retirement notice"; exit 1; }
-  grep -qE "sys\.exit\(2\)|DO NOT USE" "$retired" \
-    || { echo "canonical-source: ✗ $retired is retired in prose only"; exit 1; }
-  grep -q "$(basename "$retired")" tools/whitepaper-release.sh \
-    && { echo "canonical-source: ✗ $retired re-entered the release path"; exit 1; }
+  [ -f "$retired" ] \
+    && { echo "canonical-source: ✗ $retired is back; the JSON→TEX direction was retired, not parked"; exit 1; }
 done
 for lang in pt en; do
   grep -q "whitepaper-content.py $lang" tools/whitepaper-release.sh \

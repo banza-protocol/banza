@@ -1,4 +1,4 @@
-// HTTP helpers for onboarding (M2.19G.3, ADR-069): cookie parse/serialise, CSRF Origin check, and a
+// HTTP helpers for onboarding (M2.19G.3, ADR-040): cookie parse/serialise, CSRF Origin check, and a
 // bounded JSON body reader. Kept separate from server.js so the onboarding surface owns its own cookie
 // and CSRF discipline. The session cookie is __Host- prefixed (Secure + Path=/ + no Domain),
 // HttpOnly and SameSite=Strict — invisible to JS, sent only on same-site requests.

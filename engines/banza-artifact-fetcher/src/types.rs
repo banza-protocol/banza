@@ -1,4 +1,4 @@
-//! Wire types for the secure artifact fetcher (ADR-068 §4.7, §18–§20).
+//! Wire types for the secure artifact fetcher (ADR-038 §4.7, §18–§20).
 //!
 //! `FetchRequest` is exactly the POST /fetch input; `FetchResponse` is exactly the JSON output
 //! (success or typed failure). `ReasonCode` is the closed set of policy-violation / transport codes —
@@ -23,7 +23,7 @@ fn default_timeout_ms() -> u64 {
 
 /// POST /fetch input. Every field the fetcher needs comes from the caller (banzai-api), which in the
 /// official journey derives `canonical_origin`/`expected_host` from the closed Technical Registry
-/// (ADR-065) — never from a user-supplied URL (ADR-068 §4.4, §4.7).
+/// (ADR-036) — never from a user-supplied URL (ADR-038 §4.4, §4.7).
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct FetchRequest {
     /// Canonical public origin of the implementation, e.g. `https://zero.banza.network`.
@@ -119,7 +119,7 @@ impl FetchResponse {
     }
 }
 
-/// Closed set of policy-violation and transport reason codes. Each SSRF rule (ADR-068 §19) has its
+/// Closed set of policy-violation and transport reason codes. Each SSRF rule (ADR-038 §19) has its
 /// own distinct code. Serialized as snake_case strings on the wire.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Deserialize, Serialize)]
 #[serde(rename_all = "snake_case")]

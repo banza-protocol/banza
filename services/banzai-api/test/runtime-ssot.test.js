@@ -1,4 +1,4 @@
-// M2.19G.5C (ADR-072) — the public runtime SSOT projection. Boots the real server with the deterministic
+// M2.19G.5C (ADR-042) — the public runtime SSOT projection. Boots the real server with the deterministic
 // mock provider (offline; no external model, no key, no GPU) and GETs /runtime, asserting the projection
 // carries the expected PUBLIC fields + schema_version + authoritative:false and NONE of the internal-only
 // fields (pepper, resend key, system prompt, chain-of-thought, concurrency-queue stats, answer content,

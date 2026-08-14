@@ -70,4 +70,4 @@ report always carries `not_a_certificate: true`, `not_an_approval: true`,
 - **Assistente** — the `l1_readiness` knowledge intent explains all of the above.
 
 See the phase report:
-[`PHASE_BX1_7_BANZAI_L1_READINESS_WELL_KNOWN_VALIDATOR_2026_07.md`](PHASE_BX1_7_BANZAI_L1_READINESS_WELL_KNOWN_VALIDATOR_2026_07.md).
+.

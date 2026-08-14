@@ -1,4 +1,4 @@
-//! banza-trust TEST-ONLY signer + fixtures + ceremony simulator (ADR-037; M2.4).
+//! banza-trust TEST-ONLY signer + fixtures + ceremony simulator (ADR-043; M2.4).
 //!
 //! Signs and assembles the active-model trust material **for tests and fixtures only**: a TEST trust
 //! root lists a TEST delegated signing key, which signs a TEST `signed_protocol_metadata` bound to a
@@ -43,7 +43,7 @@ impl TestKeypair {
         }
     }
 
-    /// Sign a document over the ADR-038 canonical form (all fields except `sign_field`), returning the
+    /// Sign a document over the ADR-027 canonical form (all fields except `sign_field`), returning the
     /// document with a base64url signature under `sign_field`. Symmetric with the verifier.
     pub fn sign_doc(&self, doc: &Value, sign_field: &str) -> Value {
         let msg = canonical_bytes(doc, &[sign_field])
@@ -83,7 +83,7 @@ fn keys() -> Keys {
 }
 
 /// The revocation-domain delegated TEST keypair — the key the BANZA Revocation List is signed under in the
-/// active model (ADR-079). Exposed so the federation OTE battery can mint an authentically-signed BRL.
+/// active model (ADR-027). Exposed so the federation OTE battery can mint an authentically-signed BRL.
 pub fn revocation_keypair() -> TestKeypair {
     TestKeypair::from_seed(b"banza-trust-m24-revocation-seed-01")
 }
@@ -191,7 +191,7 @@ pub fn federation_ote_input_named(
         "delegated_signing_keys": [delegated_listing],
         "valid_from": "2026-07-01T00:00:00Z",
         "valid_until": "2028-07-01T00:00:00Z",
-        "scope": "signs only the Key Manifest that endorses the delegated signing keys (ADR-079)",
+        "scope": "signs only the Key Manifest that endorses the delegated signing keys (ADR-027)",
         "boundary": { "authorises_operators": false, "moves_funds": false }
     });
     let root_msg = canonical_bytes(&root_body, &["root_signatures"])
@@ -366,7 +366,7 @@ pub fn build_input(mutation: &str) -> Value {
         "delegated_signing_keys": [delegated_listing],
         "valid_from": "2026-07-01T00:00:00Z",
         "valid_until": "2028-07-01T00:00:00Z",
-        "scope": "signs only the Key Manifest that endorses the delegated signing keys (ADR-079)",
+        "scope": "signs only the Key Manifest that endorses the delegated signing keys (ADR-027)",
         "boundary": { "authorises_operators": false, "moves_funds": false }
     });
     let root_msg = canonical_bytes(&root_body, &["root_signatures"])
@@ -560,7 +560,7 @@ pub fn operator_zero_ote(operator_manifest_body: &Value, conformance_report_body
         "delegated_signing_keys": [delegated_listing],
         "valid_from": OZ_VALID_FROM,
         "valid_until": OZ_VALID_UNTIL,
-        "scope": "signs only the Key Manifest that endorses the delegated signing keys (ADR-079)",
+        "scope": "signs only the Key Manifest that endorses the delegated signing keys (ADR-027)",
         "boundary": { "authorises_operators": false, "moves_funds": false }
     });
     let root_msg = canonical_bytes(&root_body, &["root_signatures"])

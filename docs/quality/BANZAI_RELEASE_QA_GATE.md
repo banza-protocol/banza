@@ -59,7 +59,7 @@ formality.
 
 ### The surface that lags its source
 
-`banzai_trace` WASM is built from `engines/banzai-trace` in this monorepo (ADR-075 — there is no
+`banzai_trace` WASM is built from `engines/banzai-trace` in this monorepo (ADR-042 — there is no
 separate `~/banzai` repository) and committed here as `website/lib/wasm/banzai_trace_bg.wasm`. The
 committed blob *is* tracked, so re-building it does trigger this gate — but **a change to its Rust
 source is invisible here until someone re-compiles and commits the blob**. The Traces / Relatório
@@ -73,7 +73,7 @@ only the committed blob stays green.
 Run in a **fresh private window** against `https://banza.network/banzai` (or an equivalent build of
 the commit under review — see §5 on which build was observed). Devtools console open.
 
-> **Two journeys, one authority (ADR-076 §D-076-01/02).** There is exactly one authority of technical
+> **Two journeys, one authority (ADR-042 §D-076-01/02).** There is exactly one authority of technical
 > validation state: **Model B**, the deterministic nine-step endpoint-originated validation journey
 > (`services/banzai-api/src/validate.js` + `validationJourney.tsx`). Its per-step state is
 > `NOT_EVALUATED · RUNNING · VERIFIED · PENDING · FAILED · BLOCKED` and every verdict comes from a Rust

@@ -38,9 +38,10 @@ export default async function DecisionDetailPage({ params }: { params: Promise<P
   // This base is joined with relative hrefs inside the rendered body to build GitHub blob URLs, so
   // a wrong base silently 404s every sibling link (M2.9F).
   const baseDir = d.type === "ADR" ? "decisions/adr" : "decisions/rfc";
-  const related = d.related
-    .map((id) => decisions.find((x) => x.id === id))
-    .filter((x): x is NonNullable<typeof x> => Boolean(x));
+  // Neighbours in reading order: the index is a logical sequence, so the previous and next records
+  // are more useful than a hand-maintained "related" list, and they cannot go stale.
+  const idx = decisions.findIndex((x) => x.id === d.id);
+  const related = [decisions[idx - 1], decisions[idx + 1]].filter(Boolean);
 
   const banzaiPrompt =
     d.type === "ADR"
@@ -50,10 +51,7 @@ export default async function DecisionDetailPage({ params }: { params: Promise<P
 
   const META: { k: string; v: string }[] = [
     { k: "Tipo", v: d.type === "ADR" ? "ADR · Registo de Decisão de Arquitectura" : "RFC · Pedido de Comentários" },
-    { k: "Estado", v: d.status },
-    { k: "Nível normativo", v: d.normativeLevel },
-    { k: "Tema", v: d.category },
-    ...(d.date ? [{ k: "Data", v: d.date }] : []),
+    { k: "Nível normativo", v: "Não normativo — explica a arquitectura; não vincula uma implementação" },
     { k: "Caminho", v: d.path },
   ];
 
@@ -65,8 +63,7 @@ export default async function DecisionDetailPage({ params }: { params: Promise<P
         lede={<>{d.summary}</>}
         chips={[
           { label: d.type, tone: "neutral" },
-          { label: d.status.toUpperCase(), tone: d.state === "activo" ? "ok" : "pend" },
-          { label: `NÍVEL ${d.normativeLevel}`, tone: "neutral" },
+          { label: "NÃO NORMATIVO", tone: "neutral" },
         ]}
       />
 

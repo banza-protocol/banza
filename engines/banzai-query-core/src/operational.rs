@@ -1,4 +1,4 @@
-//! Operational-reasoning classifier (ADR-078) — the deterministic understanding step for questions about a
+//! Operational-reasoning classifier (ADR-042) — the deterministic understanding step for questions about a
 //! MEASURED/OBSERVED operational property of a protocol subject (how long a validation journey takes, the
 //! slowest step, the median/p95 duration, the last observed run).
 //!

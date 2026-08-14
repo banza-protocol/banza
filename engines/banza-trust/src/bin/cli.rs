@@ -1,4 +1,4 @@
-//! `banza-trust` CLI (ADR-037, R5; M2.4) — verification only. No key generation, no signing of
+//! `banza-trust` CLI (ADR-043, R5; M2.4) — verification only. No key generation, no signing of
 //! production artifacts, no issuance, no operator authorisation.
 //! Commands: evaluate, verify-key-manifest, verify-revocation-list, verify-evidence, demo-fixtures,
 //! schema, ceremony-simulate, ceremony-check, version.
@@ -37,7 +37,7 @@ fn main() {
             println!("{}", serde_json::to_string_pretty(&report).unwrap());
             exit(if ok { 0 } else { 1 });
         }
-        // Full federation Open Trust Evaluation (ADR-040): ten fail-closed checks → ROUTING_ALLOWED / FAIL_CLOSED.
+        // Full federation Open Trust Evaluation (ADR-031): ten fail-closed checks → ROUTING_ALLOWED / FAIL_CLOSED.
         "federation-ote" => {
             let report = evaluate::evaluate_federation_ote(&read(&arg(&a, 1)));
             let allowed = report["outcome"].as_str() == Some("ROUTING_ALLOWED");

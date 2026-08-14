@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# zero.banza.network — read-only reference-implementation design guard (ADR-052, M2.19E/F).
+# zero.banza.network — read-only reference-implementation design guard (ADR-041, M2.19E/F).
 #
 # M2.19E/F transformed the Operador Zero surface from an interactive lab into the PREMIUM READ-ONLY
 # canonical reference implementation. This guard keeps that design intact: it fails the build if the

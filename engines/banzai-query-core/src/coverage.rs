@@ -23,8 +23,8 @@ pub const ENTITY_PRIMARY_SOURCES: &[(&str, &[&str])] = &[
     ("what-is-banza", &["ADR-001", "ADR-002"]),
     ("banza", &["ADR-001", "ADR-002"]),
     // BanzAI — the native protocol agent and primary human-operator interface.
-    ("def-banzai-agent", &["ADR-041", "ADR-054"]),
-    ("banzai", &["ADR-041", "ADR-054"]),
+    ("def-banzai-agent", &["ADR-042", "ADR-042"]),
+    ("banzai", &["ADR-042", "ADR-042"]),
     // Banzami — creator / initial institutional maintainer; the naming-inversion record carries the
     // BANZA/BanzAI/Banzami identity distinction (attribution, not a payment operator).
     ("what-is-banzami", &["ADR-002"]),

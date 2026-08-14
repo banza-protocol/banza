@@ -2,7 +2,7 @@
 
 **Document ID:** FEDERATION-OPERATOR-QUICKSTART-001  
 **Status:** Canonical — operator-facing  
-**Authority:** `FEDERATION_CONFORMANCE_PATH.md`, `docs/governance/FEDERATION_TRUST_MODEL.md`, ADR-038, ADR-039, ADR-040
+**Authority:** `FEDERATION_CONFORMANCE_PATH.md`, `docs/governance/FEDERATION_TRUST_MODEL.md`, ADR-027, ADR-033, ADR-031
 
 ---
 
@@ -75,8 +75,8 @@ See `contracts/federation/federation-manifest.json` for the full schema.
 ### Routing endpoint requirements
 
 `POST /federation/route` must:
-1. Verify the `Banza-Federation-Signature` header (ed25519 — see ADR-040)
-2. Run the Open Trust Evaluation (ten checks, ADR-040) over the sender's published material at its `protocol_metadata_url`
+1. Verify the `Banza-Federation-Signature` header (ed25519 — see ADR-031)
+2. Run the Open Trust Evaluation (ten checks, ADR-031) over the sender's published material at its `protocol_metadata_url`
 3. Validate `to_operator_id == this operator's operator_id`
 4. Resolve the `recipient_identifier`
 5. Accept (credit payee atomically) or return a structured rejection with a `rejection_code`
@@ -231,4 +231,4 @@ re-publish your evidence.
 | `docs/governance/FEDERATION_TRUST_MODEL.md` | The Open Trust Evaluation and its boundary |
 | `contracts/production/` | Signed protocol metadata, conformance evidence and trust-evaluation schemas |
 | `contracts/federation/` | JSON Schema definitions for the federation routing/obligation/event contracts |
-| `decisions/adr/ADR-038*.md`, `ADR-039*.md`, `ADR-040*.md` | Open trust model, self-publication, and the Open Trust Evaluation |
+| `decisions/adr/ADR-027*.md`, `ADR-033*.md`, `ADR-031*.md` | Open trust model, self-publication, and the Open Trust Evaluation |

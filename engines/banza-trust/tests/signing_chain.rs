@@ -1,4 +1,4 @@
-//! ADR-079 — Canonical Trust Signing Chain (Model A), proven at the domain-primitive level.
+//! ADR-027 — Canonical Trust Signing Chain (Model A), proven at the domain-primitive level.
 //!
 //! The Trust Root signs ONLY the Key Manifest; the revocation-domain delegated key signs the BRL; a
 //! root-signed BRL — or any wrong-key signature — is rejected. These tests exercise the domain
@@ -57,7 +57,7 @@ fn revocation_domain_key_signs_the_brl() {
 
 #[test]
 fn root_signed_brl_is_rejected() {
-    // Model A (ADR-079 / INV-ROOT-004): the root never signs the BRL. A BRL bearing a root signature,
+    // Model A (ADR-027 / INV-ROOT-004): the root never signs the BRL. A BRL bearing a root signature,
     // verified under the revocation-domain key, must fail — the root cannot stand in for it.
     let root = root();
     let revk = revk();

@@ -1,7 +1,7 @@
 # BANZA — Conformance Suite
 
 > This document describes: **BANZA** — the Open Financial Protocol.
-> For other layers: BanzAI — the native protocol agent; its canonical runtime lives in this repo ([services/banzai-api](../../services/banzai-api)). Active BanzAI development lives entirely in this monorepo (ADR-075).
+> For other layers: BanzAI — the native protocol agent; its canonical runtime lives in this repo ([services/banzai-api](../../services/banzai-api)). Active BanzAI development lives entirely in this monorepo (ADR-042).
 
 **Version:** 1.0  
 **Date:** 2026-05-30  
@@ -33,7 +33,7 @@ The BANZA conformance system lets any operator, SDK, or integration verify that 
 
 The level **names and per-level capabilities** above are canonical and match
 [docs/governance/certification-boundary.md](../governance/certification-boundary.md) § Conformance level model and
-ADR-021. The single-operator sandbox runner awards L0–L2; L3 (federation) is run
+ADR-039. The single-operator sandbox runner awards L0–L2; L3 (federation) is run
 via `--federation`, and L4 (external) is profile-defined — neither is awarded by
 the sandbox runner.
 
@@ -60,7 +60,7 @@ cargo run --release -- check-vectors     # offline: vectors + invariant registry
 cargo run --release -- run-live          # live operator against the SimB simulator
 ```
 
-See `tools/banza-conformance/README.md` for full options.
+See `engines/banza-conformance/README.md` for full options.
 
 ## Conformance vectors
 
@@ -155,7 +155,7 @@ The manifest schema is validated by `conformance/manifests/schema.json`.
 2. Add the vector to the appropriate file in `conformance/vectors/`
 3. Set `"stability": "experimental"` until it passes the reference operator
 4. Reference the vector from the relevant suite's `vectors` array
-5. Implement the test case in `engines/banza-conformance` (the Rust runner, ADR-037)
+5. Implement the test case in `engines/banza-conformance` (the Rust runner, ADR-043)
 
 Deprecated vectors get `"deprecated": true` rather than being removed — this preserves history.
 

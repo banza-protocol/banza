@@ -57,7 +57,7 @@ FORBIDDEN="BANZA CA|certificado de operador|operador certificado|certificado BAN
 # Negation cues that, appearing before a forbidden term (same <text>/line), make it an allowed edge-naming.
 NEG_BEFORE='não|nao|nunca|never|\bnot\b|\bnem\b|\bsem\b|without|nenhum|nenhuma|ninguém|ninguem|jamais|there is no|there are no|não há|nao ha|removid|removed|deprecat|depreciad|obsolet|já não|ja nao|deixou de|em vez de|instead of|rather than|ao contrário|ao contrario|substitui|intentionally empty|would sit|would be|marked absent|no human'
 
-# Canonical L2 vocabulary (M2.19D / ADR-064): after the three-layer model, the word "Certificação" is
+# Canonical L2 vocabulary (M2.19D / ADR-034): after the three-layer model, the word "Certificação" is
 # active, correct language when it QUALIFIES the per-implementation technical certification —
 # "Certificação técnica" or "Certificação de Conformidade e Interoperabilidade" (the canonical L2 name,
 # used verbatim in BANZA_REFERENCIA.md §4 and asserted-present by the website surface tests). Only a BARE

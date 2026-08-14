@@ -2,7 +2,7 @@
 #
 # banzai-golden-answer-quality-check (M2.18B.7 / DFN-3+DFN-4) — a BEHAVIORAL guard: it drives the COMPILED
 # banzai-query-core WASM (the exact artifact the service runs) over the stratified golden dataset
-# (artifacts/m2-18b7/task-fulfilment-golden.json, >=300 cases) and asserts, per stratum:
+# (artifacts/banzai/task-fulfilment-golden.json, >=300 cases) and asserts, per stratum:
 #
 #   * COVERAGE cases (task != null): the engine's task classification is DETERMINISTIC (equals the recorded
 #     task) and terminal-ness matches; every deterministic TERMINAL passes its own independent
@@ -20,7 +20,7 @@ set -eu
 cd "$(dirname "$0")/.."
 
 KB="services/banzai-api/src/rustkb/banzai_api_kb.js"
-GOLD="artifacts/m2-18b7/task-fulfilment-golden.json"
+GOLD="artifacts/banzai/task-fulfilment-golden.json"
 [ -f "$KB" ] || { echo "banzai-golden-answer-quality-check: NEEDS_FIX (missing WASM $KB — run wasm-pack)" >&2; exit 1; }
 [ -f "$GOLD" ] || { echo "banzai-golden-answer-quality-check: NEEDS_FIX (missing golden dataset $GOLD)" >&2; exit 1; }
 
@@ -34,7 +34,7 @@ import { createRequire } from "node:module";
 import { readFileSync } from "node:fs";
 const require = createRequire(process.cwd() + "/");
 const kb = require("./services/banzai-api/src/rustkb/banzai_api_kb.js");
-const gold = JSON.parse(readFileSync("./artifacts/m2-18b7/task-fulfilment-golden.json", "utf8"));
+const gold = JSON.parse(readFileSync("./artifacts/banzai/task-fulfilment-golden.json", "utf8"));
 
 for (const fn of ["answer_obligations_json", "tasked_answer_json", "task_completion_json", "retrieval_plan_json", "route_question_json", "boundary_evaluate_json"]) {
   if (typeof kb[fn] !== "function") { console.error(`  FAIL: WASM missing ${fn}`); process.exit(1); }

@@ -1,7 +1,7 @@
 # BANZA Ceremony Records
 
 **Status:** Governance evidence directory. No ceremony has been performed; this directory holds no records yet.
-**Authority:** ADR-038 (open trust model — trust root architecture); Option A custody decision (`docs/governance/BANZA_ROOT_CUSTODY_DECISION_REQUIRED.md`); `docs/security/ROOT_KEY_CEREMONY_PROCEDURE.md`.
+**Authority:** ADR-027 (open trust model — trust root architecture); the custody model (`docs/security/ROOT_KEY_CUSTODY_MODEL.md`); `docs/security/ROOT_KEY_CEREMONY_REQUIREMENTS.md`.
 
 ## Purpose
 
@@ -16,11 +16,11 @@ contain the root key or any secret needed to use or recover it.
 ## What is stored here
 
 - The **pre-ceremony approval checklist**
-  [`M2_CUSTODY_APPROVAL_CHECKLIST.md`](M2_CUSTODY_APPROVAL_CHECKLIST.md) — the operational
+  [`ROOT_KEY_CUSTODY_MODEL.md`](ROOT_KEY_CUSTODY_MODEL.md) — the operational
   vehicle for the decision-note §9 approvals (keyholders, custody, witness, recovery,
   emergency revocation, allowed claims). It is approvals/metadata only — no secrets.
 - One ceremony record per root-key ceremony (production) using
-  [`CEREMONY_RECORD_TEMPLATE.md`](CEREMONY_RECORD_TEMPLATE.md) (or its JSON equivalent).
+  [`ROOT_CEREMONY_EVIDENCE_LOG_TEMPLATE.md`](ROOT_CEREMONY_EVIDENCE_LOG_TEMPLATE.md) (or its JSON equivalent).
 - Public artifact hashes (SHA-256) of the Key Manifest, initial BRL, and the record itself.
 - Keyholder / witness role attestations and custody-artifact identifiers (IDs, not secrets).
 - Storage-location identifiers (where artifacts are held — not their contents).
@@ -66,7 +66,7 @@ A ceremony record must prove dual custody, **not contain root material**. The fo
 - ❌ Any value from which the root private key could be derived by a single party
 
 If any of the above is ever found here, treat it as a key-compromise incident: follow the
-compromise-recovery procedure (`docs/security/ROOT_KEY_CEREMONY_PROCEDURE.md`) and rotate the affected key.
+compromise-recovery procedure (`docs/security/ROOT_KEY_CEREMONY_REQUIREMENTS.md`) and rotate the affected key.
 
 > **No production key material is ever stored in this directory.** Records are metadata and
 > attestations only.

@@ -1,4 +1,4 @@
-// M2.19G.1 (ADR-068) — same-origin client for the endpoint-originated official validation journey.
+// M2.19G.1 (ADR-038) — same-origin client for the endpoint-originated official validation journey.
 //
 // The browser NEVER fetches an operator origin and NEVER accepts a URL. It POSTs only a CLOSED
 // operator_id + implementation_id (+ step) to the Rust backend, which resolves the target from the
@@ -77,7 +77,7 @@ export type StepResponse =
   | { ok: true; receipt: ServerOperationReceipt }
   | { ok: false; error: string; reason?: string };
 
-/** ADR-076 correction 1 — the HONEST durable-persistence verdict the journey run reports. The engine
+/** ADR-042 correction 1 — the HONEST durable-persistence verdict the journey run reports. The engine
  *  result is independent of storage: a run is only "durably concluded" when every write PERSISTED. When
  *  it is not, the client must show `RESULT_AVAILABLE_NOT_PERSISTED` and NEVER present a receipt_reference
  *  as if the receipt were archived. `status` is the aggregate; `detail` (PENDING | FAILED) explains a
@@ -179,10 +179,10 @@ export async function validateJourneyRequest(
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// ADR-076 D-076-08 / D-076-09 — durable-store client (query · compare · reproduce · cancel).
+// ADR-042 D-076-08 / D-076-09 — durable-store client (query · compare · reproduce · cancel).
 //
 // These call the SAME-ORIGIN durable-store routes (nginx maps /banzai/validate/* → banzai-api), which
-// read/append the append-only, immutable, verifiable receipt archive in PostgreSQL (within the ADR-042
+// read/append the append-only, immutable, verifiable receipt archive in PostgreSQL (within the ADR-026
 // boundary). Like the rest of this module they are I/O glue only: each sends exactly a server-issued,
 // shape-checked id — NEVER a URL or path, so SSRF / path-traversal / injection are impossible by
 // construction — and maps the JSON. The database preserves; it never recomputes, edits or replaces a
@@ -207,7 +207,7 @@ function isSafeId(v: string | null | undefined): boolean {
   return typeof v === "string" && SAFE_ID.test(v);
 }
 
-/** A durable execution summary (one row of an implementation's append-only archive, ADR-076 §4). */
+/** A durable execution summary (one row of an implementation's append-only archive, ADR-042 §4). */
 export interface ExecutionSummary {
   execution_id: string;
   operator_id: string;
@@ -255,7 +255,7 @@ export interface ExecutionComparison {
   step_deltas: ExecutionStepDelta[];
 }
 
-/** The outcome of a reproduction run (ADR-076 D-076-08). A reproduction creates a NEW execution from the
+/** The outcome of a reproduction run (ADR-042 D-076-08). A reproduction creates a NEW execution from the
  *  original references + hashes and never overwrites the original. */
 export type ReproductionOutcome =
   | "SEMANTICALLY_EQUIVALENT"

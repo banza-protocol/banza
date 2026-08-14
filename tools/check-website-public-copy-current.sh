@@ -13,7 +13,7 @@
 #   website/content/BANZA_REFERENCIA.md
 #
 # DELIBERATELY OUT OF SCOPE — website/content/decisions/** (the ADR/RFC corpus).
-# Those are ARCHIVAL DECISION RECORDS rendered verbatim at /decisoes/[slug]. ADR-044/045/046 describe
+# Those are ARCHIVAL DECISION RECORDS rendered verbatim at /decisoes/[slug]. ADR-042/045/046 describe
 # the earlier `mock` default, precisely BECAUSE that was the decision at the time. Rewriting them would
 # falsify the governance record. Their supersession is expressed through status metadata in
 # website/lib/decisions.ts, not by edits.
@@ -59,7 +59,7 @@ current_files() {
 RETIRED_CASE='BanzAI Agent|BanzAI Web|\bAssistente\b|BANZA CA\b|Certificate Authority'
 RETIRED_ANY='mock provider|provider mock|modo demonstração|modo demonstracao|llm_calls ?= ?0|\bWorkbench\b|certification authority|default blocked|Qwen preview'
 
-# M2.19G (ADR-064): operator/entity certification is a REMOVED label AS AN ACTIVE CLAIM, but the current
+# M2.19G (ADR-034): operator/entity certification is a REMOVED label AS AN ACTIVE CLAIM, but the current
 # canonical copy legitimately NAMES it in NEGATED, guillemet-QUOTED or ABSENCE contexts — the reference
 # status line "sem operador certificado em produção", the operadores page saying what stops the registry
 # being read as a list of «operadores certificados», and the reference stating that «certificado de
@@ -77,7 +77,7 @@ OPERATOR_CERT_OK='não|nao|nunca|\bnem\b|\bsem\b|jamais|nenhum|nenhuma|ningu[ée
 # forbidden in current public copy. The earlier M2.19E/F WORKBENCH_OK whitelist that treated the
 # "Validation Workbench" phrasing as current vocabulary is dropped.
 #
-# The ONLY carve-out that remains is the archival ADR-067 FILENAME (`…-banzai-validation-workbench.md`):
+# The ONLY carve-out that remains is the archival ADR-041 FILENAME (`…-banzai-validation-workbench.md`):
 # website/lib/decisions.ts must reference the decision record by its real, immutable path/canonicalUrl
 # (its human-facing title/summary already say the current "validada no BanzAI"). That lowercase,
 # hyphenated filename fragment is not a brand mention on the screen — it is a verbatim path to an archival
@@ -220,7 +220,7 @@ done
 
 # ── 5) Positive assertions: the current model is actually stated ─────────────
 # Home v2: the home leads with the OPEN PROTOCOL framing (eyebrow + H1). The BanzAI agent framing lives on
-# /banzai + the reference (ch.12) + ADR-054; the home hands off to it via the nav, the "Começar a
+# /banzai + the reference (ch.12) + ADR-042; the home hands off to it via the nav, the "Começar a
 # implementar" CTA and the manifest tester's "NO BANZAI" link.
 if ! perl -0777 -pe 's/\s+/ /g' website/app/page.tsx \
      | grep -q 'PROTOCOLO FINANCEIRO ABERTO · v1.0'; then

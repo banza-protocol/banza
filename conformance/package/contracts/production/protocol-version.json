@@ -6,7 +6,7 @@
   "pre_production": true,
   "production_certificates": false,
   "operators": [],
-  "_authority": "Production Protocol Implementation (ADR-001, ADR-003, ADR-037)",
+  "_authority": "Production Protocol Implementation (ADR-001, ADR-001, ADR-043)",
   "_boundary": "Production of the BANZA protocol, not financial production. BANZA is an open protocol; it does not process payments, settle value, or move funds. Licence/authorisation belongs to the operator, not to BANZA.",
   "compatibility": {
     "wire_compatible_with": [
@@ -35,9 +35,9 @@
   "canonicalization": {
     "id": "BCJ/1",
     "specification": "spec/canonicalization.md",
-    "basis": "RFC 8785 (JCS) restricted by the BANZA profile (ADR-082)",
+    "basis": "RFC 8785 (JCS) restricted by the BANZA profile (ADR-010)",
     "test_vectors": "conformance/vectors/canonicalization.json",
-    "note": "The byte form used for every BANZA signature and content digest. Versioned independently of protocol_version (ADR-081): a change that alters produced bytes requires BCJ/2."
+    "note": "The byte form used for every BANZA signature and content digest. Versioned independently of protocol_version (ADR-009): a change that alters produced bytes requires BCJ/2."
   },
   "normative_manifest": "contracts/production/normative-manifest.json",
   "normative_keywords": "BCP 14 (RFC 2119 + RFC 8174)"

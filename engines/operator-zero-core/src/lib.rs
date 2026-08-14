@@ -1,4 +1,4 @@
-//! operator-zero-core (ADR-052, M2.12A) — the Rust engine behind **Operador Zero**, the BANZA
+//! operator-zero-core (ADR-041, M2.12A) — the Rust engine behind **Operador Zero**, the BANZA
 //! reference payment-operator SIMULATOR.
 //!
 //! > O Operador Zero não é banco, não é PSP, não é carteira, não é operador financeiro licenciado e
@@ -6,7 +6,7 @@
 //! > protocolo BANZA de ponta a ponta.
 //!
 //! The institutional boundary between this simulator and the future real reference operator is
-//! documented in ADR-052 — deliberately there and nowhere else, because naming a commercial operator
+//! documented in ADR-041 — deliberately there and nowhere else, because naming a commercial operator
 //! in engine output would put a brand into every artifact this crate generates.
 //!
 //! Deterministic by construction: no clock, no randomness, no network, no real money and no private
@@ -37,7 +37,7 @@ pub fn identity() -> Value {
         "boundary": "O Operador Zero não é banco, não é PSP, não é carteira, não é operador financeiro licenciado e não movimenta dinheiro real. É um simulador técnico usado para demonstrar, testar e validar o protocolo BANZA de ponta a ponta.",
         // Neutral by construction: this string reaches artifacts, traces, evidence bundles and the
         // public UI, so it may never carry a real operator's brand. The institutional comparison
-        // lives in ADR-052 alone.
+        // lives in ADR-041 alone.
         "principle": "O Operador Zero prova a arquitectura demonstrativa do protocolo BANZA com dinheiro fictício, sem representar operador real, autorização, licença ou actividade financeira.",
     })
 }
@@ -148,7 +148,7 @@ mod tests {
         assert!(principle.contains("arquitectura demonstrativa"));
         // The engine's runtime output must never carry a real operator's brand: this string reaches
         // every generated artifact, every trace and the public page. The institutional comparison
-        // belongs in ADR-052 and nowhere else.
+        // belongs in ADR-041 and nowhere else.
         // The brand is SPELLED IN PIECES on purpose: writing it literally here would put the very
         // string this assertion forbids into the engine's source, and the repository's neutrality
         // gate scans contents, not intent.

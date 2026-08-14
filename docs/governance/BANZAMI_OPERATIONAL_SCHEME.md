@@ -3,10 +3,10 @@
 - **Status:** Canónico
 - **Data:** 2026-07
 - **Milestone:** M2.19C
-- **Relacionado:** ADR-060 (Banzami Operational Scheme — operador designado), ADR-059 (arquitectura de
-  três camadas), ADR-061 (certificação ≠ admissão ≠ autorização), ADR-062 (fronteira de estado
-  regulatório + RealMoneyActivationGate), ADR-063 (conflito de interesses + separação), ADR-043 (licença
-  & governação aberta — Banzami como criador/mantenedor inicial), ADR-052/053 (Operador Zero)
+- **Relacionado:** ADR-006 (Banzami Operational Scheme — operador designado), ADR-003 (arquitectura de
+  três camadas), ADR-004 (certificação ≠ admissão ≠ autorização), ADR-005 (fronteira de estado
+  regulatório + RealMoneyActivationGate), ADR-007 (conflito de interesses + separação), ADR-044 (licença
+  & governação aberta — Banzami como criador/mantenedor inicial), ADR-041/053 (Operador Zero)
 
 > **O BANZA é um protocolo financeiro aberto — e BANZA ≠ Banzami.** O protocolo (L1) e a certificação
 > (L2) são neutros e não são propriedade, produto nem governação da Banzami. A Banzami é a **operadora
@@ -14,7 +14,7 @@
 > enquadramento regulatório aplicável. Enquanto não existir evidência formal aplicável, os fundos reais,
 > as carteiras reais, a liquidação real e os participantes reais permanecem **desactivados** (fail-closed).
 
-Este documento é a forma canónica e legível da **ADR-060**. Complementa
+Este documento é a forma canónica e legível da **ADR-006**. Complementa
 [`BANZA_THREE_LAYER_ARCHITECTURE.md`](BANZA_THREE_LAYER_ARCHITECTURE.md) (a arquitectura) e
 [`BANZA_REGULATORY_CLAIM_POLICY.md`](BANZA_REGULATORY_CLAIM_POLICY.md) (as afirmações públicas de estado
 regulatório).
@@ -23,8 +23,8 @@ regulatório).
 
 ## 1. Propósito
 
-A ADR-043 já nomeia a **Banzami — Tecnologia e Serviços, Lda.** como criadora e mantenedora
-institucional inicial do protocolo aberto (um papel de governação/atribuição). A ADR-059 introduz uma
+A ADR-044 já nomeia a **Banzami — Tecnologia e Serviços, Lda.** como criadora e mantenedora
+institucional inicial do protocolo aberto (um papel de governação/atribuição). A ADR-003 introduz uma
 terceira camada institucional — o primeiro **scheme operacional** construído sobre o BANZA. Este
 documento fixa quem opera esse scheme e, com igual importância, a fronteira que mantém o protocolo aberto
 mesmo quando o seu criador é também o primeiro operador do scheme.
@@ -60,7 +60,7 @@ BANZA e não é adicionada ao conjunto de marcas normativas do protocolo.
 Uma implementação certificada pelo BANZA é certificada contra um perfil público e versionado (L2) —
 nunca "certificada para o scheme da Banzami" (D-060-03). Uma implementação pode ser certificada sem
 alguma vez ser admitida a qualquer scheme, e a admissão ao scheme é uma determinação separada e posterior
-(ADR-061). A certificação certifica uma **implementação**, nunca uma entidade.
+(ADR-004). A certificação certifica uma **implementação**, nunca uma entidade.
 
 ## 5. Abertura a outros operadores e schemes
 
@@ -73,7 +73,7 @@ existência do Banzami Operational Scheme é um facto do ecossistema, não uma e
 
 ## 6. Estado regulatório: `REGULATORY_AUTHORIZATION_IN_PROGRESS`
 
-O estado interno da Banzami é `REGULATORY_AUTHORIZATION_IN_PROGRESS` (ADR-062). Este estado descreve
+O estado interno da Banzami é `REGULATORY_AUTHORIZATION_IN_PROGRESS` (ADR-005). Este estado descreve
 **preparação**, não conclusão.
 
 **O que este estado significa:**
@@ -95,7 +95,7 @@ O estado interno da Banzami é `REGULATORY_AUTHORIZATION_IN_PROGRESS` (ADR-062).
 ## 7. Fail-closed de dinheiro real
 
 Enquanto não existir evidência formal aplicável, todos os caminhos de dinheiro real permanecem **fechados
-por omissão** (fail-closed), aplicado pelo RealMoneyActivationGate (ADR-062):
+por omissão** (fail-closed), aplicado pelo RealMoneyActivationGate (ADR-005):
 
 - **fundos reais** — desactivados;
 - **carteiras reais** — desactivadas;
@@ -105,7 +105,7 @@ por omissão** (fail-closed), aplicado pelo RealMoneyActivationGate (ADR-062):
 
 A activação de dinheiro real é uma decisão validada em Rust, condicionada a evidência formal aplicável;
 nenhuma afirmação pública, nenhuma etapa técnica anterior e nenhuma explicação do modelo local a
-desbloqueia. O Operador Zero é uma implementação de referência de demonstração (ADR-052/053) — nunca um
+desbloqueia. O Operador Zero é uma implementação de referência de demonstração (ADR-041/053) — nunca um
 participante de scheme e nunca um caminho de dinheiro real.
 
 ## 8. Registo Técnico ≠ Directório de Participantes do Scheme
@@ -118,7 +118,7 @@ não requer conta na Banzami; e um item no registo técnico não implica partici
 ## 9. Conflito de interesses (criador == primeiro operador)
 
 Como a criadora do protocolo é também a primeira operadora de scheme, o conflito de interesses é tratado
-**estruturalmente** e não por promessa (D-060-05, ADR-063). A implementação própria da Banzami corre
+**estruturalmente** e não por promessa (D-060-05, ADR-007). A implementação própria da Banzami corre
 exactamente o mesmo perfil público, as mesmas suites de conformidade e interoperabilidade, o mesmo motor
 Rust, os mesmos reason codes, a mesma validade e a mesma revogação que qualquer outra implementação, e é
 verificável de forma independente.
@@ -134,7 +134,7 @@ A Banzami **não** obtém:
 - excepção secreta.
 
 Os controlos detalhados de conflito de interesses e a separação de infraestrutura/chaves estão em
-[`BANZA_THREE_LAYER_ARCHITECTURE.md`](BANZA_THREE_LAYER_ARCHITECTURE.md) (§8) e na ADR-063.
+[`BANZA_THREE_LAYER_ARCHITECTURE.md`](BANZA_THREE_LAYER_ARCHITECTURE.md) (§8) e na ADR-007.
 
 ## 10. Continuidade do protocolo independente do scheme
 
@@ -159,10 +159,10 @@ publicamente — incluindo o portão para uma futura afirmação de "em processo
 
 ## 12. Referências
 
-- ADR-060 (Banzami Operational Scheme) · ADR-059 (arquitectura de três camadas) · ADR-061 (certificação
-  ≠ admissão ≠ autorização) · ADR-062 (fronteira de estado regulatório + RealMoneyActivationGate) ·
-  ADR-063 (conflito de interesses + separação de infraestrutura/chaves) · ADR-043 (licença & governação
-  aberta) · ADR-052/053 (Operador Zero)
+- ADR-006 (Banzami Operational Scheme) · ADR-003 (arquitectura de três camadas) · ADR-004 (certificação
+  ≠ admissão ≠ autorização) · ADR-005 (fronteira de estado regulatório + RealMoneyActivationGate) ·
+  ADR-007 (conflito de interesses + separação de infraestrutura/chaves) · ADR-044 (licença & governação
+  aberta) · ADR-041/053 (Operador Zero)
 - [`BANZA_THREE_LAYER_ARCHITECTURE.md`](BANZA_THREE_LAYER_ARCHITECTURE.md) ·
   [`BANZA_REGULATORY_CLAIM_POLICY.md`](BANZA_REGULATORY_CLAIM_POLICY.md) ·
   [`BANZA_REGULATORY_POSITIONING.md`](BANZA_REGULATORY_POSITIONING.md)

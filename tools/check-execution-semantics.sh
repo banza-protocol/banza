@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # BANZA — execution-semantics guard (X-04 reason codes, X-05 idempotency).
 #
-# Protects the invariants established by ADR-083 and ADR-084:
+# Protects the invariants established by ADR-023 and ADR-024:
 #
 #   1. The reason-code registry and the specifications exist and are wired to the manifest.
 #   2. The published trust_status vocabulary equals what the reference engine emits — in BOTH
@@ -26,7 +26,7 @@ fail=0
 ok()  { printf '  ok: %s\n' "$1"; }
 bad() { printf '  X %s\n' "$1"; fail=1; }
 
-echo "== execution-semantics (ADR-083 reason codes, ADR-084 idempotency) =="
+echo "== execution-semantics (ADR-023 reason codes, ADR-024 idempotency) =="
 
 for f in "$REGISTRY" "$RC_SPEC" "$IDEM_SPEC" "$RC_VEC" "$IDEM_VEC"; do
   [ -f "$f" ] || bad "missing normative artifact: $f"
@@ -141,7 +141,7 @@ ex_vec = json.load(io.open('conformance/vectors/idempotency.json',
 if ex_engine != ex_vec:
     X("request-identity excluded members diverge between engine and published vectors")
 if 'signature' in ex_engine:
-    X("a signature must NOT be excluded from request identity (ADR-084 D-2, security)")
+    X("a signature must NOT be excluded from request identity (ADR-024 D-2, security)")
 if not bad:
     print("  ok: idempotency — floor %ds, %d excluded members, engine/contract/vectors agree"
           % (floor, len(ex_engine)))
@@ -158,18 +158,11 @@ if dup:
 else:
     print("  ok: no engine defines a second canonicalization for digests")
 
-# 6. The clean-room package may not re-list a closed blocker.
-cr = 'docs/audit/BANZA_V1_CLEAN_ROOM_PACKAGE_MANIFEST.md'
-try:
-    t = io.open(cr, encoding='utf-8').read()
-except OSError:
-    t = ''
-for x in ('X-04', 'X-05'):
-    for line in t.splitlines():
-        if x in line and 'CLOSED' not in line and '~~' not in line and 'OPEN' in line:
-            X("%s: %s is still listed as an open blocker" % (cr, x))
+# 6. Reason codes and idempotency are specified, not merely claimed. Checks 1-5 above read the specs
+#    and the vectors directly; the audit note that used to be re-read here recorded that the blockers
+#    were closed, and a record of closure is not what keeps them closed.
 if not bad:
-    print("  ok: the clean-room package does not list X-04 or X-05 as open blockers")
+    print("  ok: reason codes and idempotency are asserted from the specs and vectors themselves")
 
 for m in bad:
     print("  X %s" % m)

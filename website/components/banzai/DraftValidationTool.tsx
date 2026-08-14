@@ -1,6 +1,6 @@
 "use client";
 
-// Developer draft tool — "Validar rascunho" (M2.19G.1, ADR-068 §17).
+// Developer draft tool — "Validar rascunho" (M2.19G.1, ADR-038 §17).
 //
 // This is a LOCAL, non-authoritative developer utility, fully ISOLATED from the official journey. It
 // accepts pasted JSON OR an uploaded file, an artifact-type choice, and runs the matching Rust/WASM

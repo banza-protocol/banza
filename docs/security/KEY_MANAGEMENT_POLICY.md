@@ -12,10 +12,10 @@ This is the documented **key lifecycle** for the BANZA trust anchor and one of t
 TRUST_AND_CRYPTO_CEREMONY track (BX2.2) requires. It is **planned / pre-production**: no production key
 material exists yet (the root ceremony is milestone **M2**, not executed —
 `production_trust_ceremony_not_executed = true`). See
-[`TRUST_CEREMONY_PLAN.md`](TRUST_CEREMONY_PLAN.md) and
+[`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md) and
 [`TRUST_TEST_ONLY_BOUNDARY.md`](TRUST_TEST_ONLY_BOUNDARY.md).
 
-## 1. Key types (domain-separated, ADR-038)
+## 1. Key types (domain-separated, ADR-027)
 
 | Key | Algorithm | Purpose | Domain |
 |---|---|---|---|
@@ -29,17 +29,20 @@ signs operators, payments, or licences.
 
 ## 2. Generation
 
-- **All keypairs are generated offline**, on an air-gapped ceremony machine, during the planned M2
-  ceremony ([`ROOT_KEY_CEREMONY_RUNBOOK.md`](ROOT_KEY_CEREMONY_RUNBOOK.md)).
-- Generation is under **dual control** (Officer + Witness) with canonical-JSON signing per ADR-038.
+- **All keypairs are generated offline**, on an air-gapped machine, under
+  [`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md).
+- **Root key generation is distributed**: each of the three root authorities generates its own key on
+  its own machine — no participant generates more than one — with an independent witness observing and
+  BCJ/1 canonical signing per ADR-027. Delegated keys are generated once and endorsed by the Key
+  Manifest the root signs.
 - `issuer_key_id` follows the frozen convention: `banza-root-YYYY`, `banza-meta-YYYYMM`,
   `banza-brl-YYYYMM`, `banza-evidence-YYYYMM`. Test material uses `test-banza-key-YYYY-MM`.
 - **INV-ROOT-001:** any `issuer_key_id` beginning with `test-` MUST be rejected by production verification.
   Today only `test-` material exists.
 
-## 3. Storage (offline root — ADR-028)
+## 3. Storage (offline root — ADR-029)
 
-**ADR-028: keys never on serving infrastructure.**
+**ADR-029: keys never on serving infrastructure.**
 
 - The **root private key never touches serving infra** — not the website container, not the BanzAI API,
   not the reverse proxy, not any host reachable from the network. It lives only on offline / air-gapped
@@ -54,7 +57,7 @@ signs operators, payments, or licences.
 
 | Key | Max validity | Routine rotation | Rotation authority |
 |---|---|---|---|
-| Root | 24 months | Every 24 months | Root ceremony (dual control) |
+| Root | 24 months | Every 24 months | Root ceremony, two of the three authorities |
 | Metadata-signing | 6 months | Every 6 months | Root re-signs a new manifest |
 | BRL-issuing | 6 months | Every 6 months | Root re-signs a new manifest |
 | Conformance | 6 months | Every 6 months | Root re-signs a new manifest |
@@ -74,7 +77,7 @@ root ≤ 24 months. **INV-ROOT-003:** a stale manifest (`expires_at < now()`) MU
 | Operator revocation (not a BANZA-key event) | Add to BRL, sign with BRL-issuing key, publish; BRL is fail-closed | Immediate on fetch |
 
 Operator revocation is detailed in [`BRL_REVOCATION_PLAYBOOK.md`](BRL_REVOCATION_PLAYBOOK.md). Full
-compromise procedures are frozen in ADR-038.
+compromise procedures are frozen in ADR-027.
 
 ## 6. Separation of duties
 
@@ -83,9 +86,9 @@ compromise procedures are frozen in ADR-038.
 - The **root** domain is separated from all **issuing** domains; a compromise of one issuing key does not
   expose the root or the other issuing keys.
 - **Signing** authority (offline root/issuing keys) is separated from **serving** infrastructure (public
-  artifacts only, ADR-028).
+  artifacts only, ADR-029).
 - BanzAI may **verify** trust but may **never grant** it and may **never hold** a production private key
-  (ADR-001 / ADR-003).
+  (ADR-001 / ADR-001).
 
 ## 7. Key → domain → rotation → revocation map
 
@@ -108,7 +111,7 @@ trust track resolves to `DEEP_ASSURANCE_BLOCKED_BY_TRUST_GAP` until M2 — the e
 - Fixtures are not real signed protocol metadata; `test-` keys are rejected by production verification.
 - Publishing this policy does not certify, license, or activate anything, and does not make BANZA a PSP.
 
-See: [`TRUST_CEREMONY_PLAN.md`](TRUST_CEREMONY_PLAN.md),
-[`ROOT_KEY_CEREMONY_RUNBOOK.md`](ROOT_KEY_CEREMONY_RUNBOOK.md),
+See: [`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md),
+[`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md),
 [`BRL_REVOCATION_PLAYBOOK.md`](BRL_REVOCATION_PLAYBOOK.md),
-[`PRODUCTION_ROOT_READINESS_REPORT.md`](PRODUCTION_ROOT_READINESS_REPORT.md).
+[`ROOT_KEY_CEREMONY_REQUIREMENTS.md`](ROOT_KEY_CEREMONY_REQUIREMENTS.md).

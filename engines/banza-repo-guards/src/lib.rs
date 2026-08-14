@@ -1,4 +1,4 @@
-//! banza-repo-guards (ADR-037, R10) — the Rust repository-hygiene gates.
+//! banza-repo-guards (ADR-043, R10) — the Rust repository-hygiene gates.
 //!
 //! Rust owns the gate **logic**; `git` is only a data source (`git ls-files`). Ports the former
 //! shell gates: repository purity, operator-brand contamination, and invariant-registry integrity.
@@ -168,16 +168,16 @@ pub fn purity() -> GateResult {
             }
         }
     }
-    // ADR numbering 1..=85 (gaps at 004/022/026/027/032 are intentional — removed per ADR-057
-    // clean-slate policy; numbers are stable identifiers, survivors are never renumbered). ADR-075 =
-    // BanzAI Monorepo Consolidation and Separate Repository Archive (M2.19G.6); ADR-076 = BanzAI
+    // ADR numbering 1..=85 (gaps at 004/022/026/027/032 are intentional — removed per ADR-045
+    // clean-slate policy; numbers are stable identifiers, survivors are never renumbered). ADR-042 =
+    // BanzAI Monorepo Consolidation and Separate Repository Archive (M2.19G.6); ADR-042 = BanzAI
     // validation-journey consolidation, single technical-state authority, durable append-only receipts;
-    // ADR-077 = profile applicability model (REQUIRED/OPTIONAL/NOT_APPLICABLE per conformance level);
-    // ADR-078 = BanzAI operational reasoning + read-only telemetry + honest INSUFFICIENT_MEASUREMENTS fallback;
-    // ADR-079 = Canonical Trust Signing Model Reconciliation (root signs only the Key Manifest; Model A);
-    // ADR-080 = Canonical Discovery-Surface Reconciliation (.well-known/banza/operator.json + signed-protocol-metadata.json);
-    // ADR-081 = Normative-completeness versioning decision (protocol_version stays 1.0.0; canonicalization
-    // versioned separately from the protocol); ADR-082 = BANZA Canonical JSON (BCJ/1), a profile of RFC 8785.
+    // ADR-039 = profile applicability model (REQUIRED/OPTIONAL/NOT_APPLICABLE per conformance level);
+    // ADR-042 = BanzAI operational reasoning + read-only telemetry + honest INSUFFICIENT_MEASUREMENTS fallback;
+    // ADR-027 = Canonical Trust Signing Model Reconciliation (root signs only the Key Manifest; Model A);
+    // ADR-037 = Canonical Discovery-Surface Reconciliation (.well-known/banza/operator.json + signed-protocol-metadata.json);
+    // ADR-009 = Normative-completeness versioning decision (protocol_version stays 1.0.0; canonicalization
+    // versioned separately from the protocol); ADR-010 = BANZA Canonical JSON (BCJ/1), a profile of RFC 8785.
     for f in files
         .iter()
         .filter(|f| f.starts_with("decisions/adr/ADR-") && f.ends_with(".md"))
@@ -231,7 +231,7 @@ fn contam_excluded(path: &str) -> bool {
         || base == "OPERATOR_NEUTRALITY_TERMINOLOGY.md"
         || base == "check-operator-contamination.sh"
         || base == "identity-guard.yml"
-        // ADR-049 / M2.9A: the doc-indexer's brand deny-list NAMES the forbidden brands in order to
+        // ADR-042 / M2.9A: the doc-indexer's brand deny-list NAMES the forbidden brands in order to
         // FILTER them out of the generated doc-index (a scanner, like the check scripts above).
         || path == "engines/banzai-doc-indexer/src/main.rs"
         // M2.13B PR2: the repo-wide indexer's deny-list NAMES the brands+terms it filters out.
@@ -245,7 +245,7 @@ fn contam_excluded(path: &str) -> bool {
         || path.starts_with(SELF_PREFIX)
 }
 
-/// Files where BANZAMI INSTITUTIONAL ATTRIBUTION is allowed (ADR-043 / M2.7M): the creator and initial
+/// Files where BANZAMI INSTITUTIONAL ATTRIBUTION is allowed (ADR-044 / M2.7M): the creator and initial
 /// institutional maintainer is named as origin and steward. This is a governance/legal attribution role,
 /// distinct from a payment-OPERATOR brand — the NORMATIVE_BRANDS payment operators stay blocked
 /// everywhere, and the brand stem stays forbidden in filenames and on all other surfaces.
@@ -268,14 +268,14 @@ fn banzami_attribution_allowed(path: &str) -> bool {
             | "check-banzai-canonical-knowledge-coverage.sh"
             // M2.18B.7 DFN: the truth-table + canonical-vocabulary generators/guards enumerate the
             // ecosystem-identity subjects (BANZA/BanzAI/Banzami) as canonical protocol vocabulary — same
-            // ADR-002/ADR-043 institutional-attribution basis. Not a payment-OPERATOR brand.
+            // ADR-002/ADR-044 institutional-attribution basis. Not a payment-OPERATOR brand.
             | "gen-banzai-truth-table.mjs"
             | "check-banzai-truth-table-current.sh"
             | "gen-banzai-vocabulary.mjs"
             | "check-banzai-canonical-protocol-vocabulary.sh"
             // WP1.2: the whitepaper LaTeX generator carries the publisher/institution (Banzami,
             // BANZAMI – Tecnologia e Serviços, Lda.) in the generated BibTeX @techreport, the same
-            // ADR-043 creator-attribution basis as CITATION/NOTICE. Not a payment-OPERATOR brand.
+            // ADR-044 creator-attribution basis as CITATION/NOTICE. Not a payment-OPERATOR brand.
             | "whitepaper-latex.py"
             | "whitepaper-figures.py"
             | "licensing.md"
@@ -284,17 +284,17 @@ fn banzami_attribution_allowed(path: &str) -> bool {
             | "complete.md"
     )
         // Public-technical-claims evidence gate: the verification map + machine claim matrix + bundle
-        // legitimately quote the canonical Layer-3 scheme (Banzami Operational Scheme, ADR-059..063) when
-        // recording claim evidence — the same ADR-002/ADR-043 institutional-attribution basis as
+        // legitimately quote the canonical Layer-3 scheme (Banzami Operational Scheme, ADR-003..063) when
+        // recording claim evidence — the same ADR-002/ADR-044 institutional-attribution basis as
         // BANZA_REFERENCIA.md / decisions.ts. These are internal verification artifacts, not a
         // payment-OPERATOR brand and not a public protocol surface.
         || path.starts_with("docs/verification/")
         || path.starts_with("evidence/")
-        || base.starts_with("ADR-043-")
-        // ADR-049 / M2.9A: documents the banzami/banza/banzai distinction operational intent (the
-        // institutional-identity question), same attribution basis as ADR-043 / route.rs.
-        || base.starts_with("ADR-049-")
-        // ADR-052 / M2.12A: a deliberate institutional reference, to document the boundary between
+        || base.starts_with("ADR-044-")
+        // ADR-042 / M2.9A: documents the banzami/banza/banzai distinction operational intent (the
+        // institutional-identity question), same attribution basis as ADR-044 / route.rs.
+        || base.starts_with("ADR-042-")
+        // ADR-041 / M2.12A: a deliberate institutional reference, to document the boundary between
         // the protocol's canonical SIMULATOR (Operador Zero) and the future real reference operator,
         // which sits outside the protocol with its own legal framing.
         //
@@ -304,14 +304,14 @@ fn banzami_attribution_allowed(path: &str) -> bool {
         // examples/operators/zero, engines/operator-zero-core, the public page, the JSON endpoints,
         // the UI, runtime output, cloned workspaces and fixtures — `make operator-zero-check` fails
         // if it appears in any of them.
-        || base.starts_with("ADR-052-")
-        // ADR-056 / M2.18B.7: the definitive coverage layer binds each ecosystem identity
+        || base.starts_with("ADR-041-")
+        // ADR-042 / M2.18B.7: the definitive coverage layer binds each ecosystem identity
         // (BANZA/BanzAI/Banzami) to its primary sources; the ADR + its report name the creator/org for
-        // the same ADR-002/ADR-043 institutional-attribution reason. Not a payment operator.
-        || base.starts_with("ADR-056-")
+        // the same ADR-002/ADR-044 institutional-attribution reason. Not a payment operator.
+        || base.starts_with("ADR-042-")
         // M2.19C / three-layer architecture: the canonical decisions that establish Banzami as the
         // DESIGNATED OPERATOR of the first BANZA-based operational scheme (Layer 3). This is a first-class
-        // institutional role — the ADR-002/ADR-043 attribution basis extended from "creator/initial
+        // institutional role — the ADR-002/ADR-044 attribution basis extended from "creator/initial
         // maintainer" to "designated scheme operator". BANZA stays operator-neutral (BANZA != Banzami; the
         // protocol + certification remain non-exclusive to the scheme); the NORMATIVE_BRANDS payment
         // operators (Multicaixa, …) stay blocked EVERYWHERE, and Banzami is never presented as a BANZA
@@ -319,25 +319,25 @@ fn banzami_attribution_allowed(path: &str) -> bool {
         //   059 three-layer architecture · 060 Banzami Operational Scheme (designated operator) ·
         //   061 certification != admission != authorisation · 062 regulatory-state + real-money gate ·
         //   063 conflict-of-interest + infrastructure/key separation.
-        || base.starts_with("ADR-059-")
-        || base.starts_with("ADR-060-")
-        || base.starts_with("ADR-061-")
-        || base.starts_with("ADR-062-")
-        || base.starts_with("ADR-063-")
+        || base.starts_with("ADR-003-")
+        || base.starts_with("ADR-006-")
+        || base.starts_with("ADR-004-")
+        || base.starts_with("ADR-005-")
+        || base.starts_with("ADR-007-")
         // M2.19D: the L2 certification ADRs (064 conformance & interoperability certification model ·
         //   065 BANZA Technical Registry · 066 closed certification-state machine) reference the Banzami
         //   Operational Scheme as the L3 counterexample (certification != admission); institutional basis.
-        || base.starts_with("ADR-064-")
-        || base.starts_with("ADR-065-")
-        || base.starts_with("ADR-066-")
-        // M2.19G.1: ADR-068 (endpoint-originated operator validation + operator–implementation model)
+        || base.starts_with("ADR-034-")
+        || base.starts_with("ADR-036-")
+        || base.starts_with("ADR-035-")
+        // M2.19G.1: ADR-038 (endpoint-originated operator validation + operator–implementation model)
         //   names the Banzami Operational Scheme as the admission counterparty (§4.10: validation !=
         //   scheme admission != regulatory authorisation); institutional attribution, not a payment operator.
-        || base.starts_with("ADR-068-")
-        // M2.19G.3: ADR-069 (BanzAI-hosted operator onboarding) + its architecture report name the
+        || base.starts_with("ADR-038-")
+        // M2.19G.3: ADR-040 (BanzAI-hosted operator onboarding) + its architecture report name the
         //   Banzami Operational Scheme ONLY in their out-of-scope list (onboarding is not scheme
         //   admission); institutional attribution, never a payment operator.
-        || base.starts_with("ADR-069-")
+        || base.starts_with("ADR-040-")
         || base == "SIMPLE_SECURE_OPERATOR_ONBOARDING_ARCHITECTURE.md"
         // M2.19D: the L2 certification contracts/examples + canonical governance doc name the scheme as the
         // admission counterparty (certification != scheme admission); attribution, not a payment operator.
@@ -350,7 +350,7 @@ fn banzami_attribution_allowed(path: &str) -> bool {
         // M2.19C: the seven three-layer-architecture guard scripts NAME the designated scheme operator
         // (Banzami) precisely so they can assert its designated-operator/creator-maintainer framing and
         // FORBID any payment-operator / already-authorised misframing. Scanners, like the check scripts
-        // allowlisted above; same ADR-002/ADR-043 institutional-attribution basis. Not a payment operator.
+        // allowlisted above; same ADR-002/ADR-044 institutional-attribution basis. Not a payment operator.
         || base == "check-three-layer-architecture.sh"
         || base == "check-banzami-scheme-role.sh"
         || base == "check-regulatory-state-claim.sh"
@@ -358,33 +358,31 @@ fn banzami_attribution_allowed(path: &str) -> bool {
         || base == "check-protocol-scheme-separation.sh"
         || base == "check-conflict-of-interest.sh"
         || base == "check-certification-admission-separation.sh"
-        || path == "docs/reports/M2_18B7_DEFINITIVE_QUERY_CORE_AND_PRODUCTION_ASSURANCE.md"
         // M2.18B.7 DFN: the exportable truth table + canonical protocol vocabulary artefacts enumerate the
         // ecosystem-identity subjects (BANZA/BanzAI/Banzami) as vocabulary; same ADR-002/043 attribution.
-        || path == "artifacts/m2-18b7/task-fulfilment-truth-table.json"
-        || path == "artifacts/m2-18b7/canonical-protocol-vocabulary.json"
-        || path == "artifacts/m2-18b7/canonical-protocol-vocabulary-coverage.json"
-        || path == "artifacts/m2-18b7/canonical-protocol-vocabulary-review.md"
+        || path == "artifacts/banzai/task-fulfilment-truth-table.json"
+        || path == "artifacts/banzai/canonical-protocol-vocabulary.json"
+        || path == "artifacts/banzai/canonical-protocol-vocabulary-coverage.json"
+        || path == "artifacts/banzai/canonical-protocol-vocabulary-review.md"
         // M2.18B.7 semantic audit: the two-phase vocabulary pipeline emits the candidate ledger, the derived
         // subject registry, the human-review doc, and the engine-alias reconciliation. These enumerate the
         // ecosystem-identity subjects (BANZA/BanzAI/Banzami) as vocabulary; same ADR-002/043 attribution.
-        || path == "artifacts/m2-18b7/protocol-terminology-candidates.json"
-        || path == "artifacts/m2-18b7/subject-registry.json"
-        || path == "artifacts/m2-18b7/canonical-subject-review.md"
-        || path == "artifacts/m2-18b7/vocabulary-alias-reconciliation.json"
+        || path == "artifacts/banzai/protocol-terminology-candidates.json"
+        || path == "artifacts/banzai/subject-registry.json"
+        || path == "artifacts/banzai/canonical-subject-review.md"
+        || path == "artifacts/banzai/vocabulary-alias-reconciliation.json"
         // M2.18B.7 DFN-3/DFN-4: the stratified golden dataset + its generator include the ecosystem-identity
         // definition case ("o que é a Banzami") as a covered entity question; same ADR-002/043 attribution.
-        || path == "artifacts/m2-18b7/task-fulfilment-golden.json"
+        || path == "artifacts/banzai/task-fulfilment-golden.json"
         || path == "tools/gen-banzai-golden-dataset.mjs"
         // M2.18B.7 DFN-10: the public-edge QA result artifact records the served answer for the same
         // covered entity case ("o que é a Banzami") — identical ADR-002/043 institutional attribution.
-        || path == "artifacts/m2-18b7/public-edge-qa.json"
-        || base == "PHASE_M2_9A_PROTOCOL_AGENT_CORE_2026_07.md"
+        || path == "artifacts/banzai/public-edge-qa.json"
         || path == "website/app/governanca/page.tsx"
         || path == "website/app/licenca/page.tsx"
         // M2.19G: the public reconstruction surfaces the canonical three-layer architecture (L1 protocol ·
         // L2 certification · L3 Banzami Operational Scheme, designated operator) on the primary editorial
-        // pages, so they name Banzami as the L3 designated scheme operator — the same M2.19C/ADR-059/060
+        // pages, so they name Banzami as the L3 designated scheme operator — the same M2.19C/ADR-003/060
         // institutional-attribution basis as the governanca/licenca pages above. BANZA (L1) + certification
         // (L2) stay operator-neutral; Banzami is never framed as a BANZA payment operator nor regulator-
         // authorised without evidence; the NORMATIVE_BRANDS payment operators stay blocked everywhere.
@@ -393,17 +391,17 @@ fn banzami_attribution_allowed(path: &str) -> bool {
         || path == "website/app/estado/page.tsx"
         || path == "website/app/roteiro/page.tsx"
         // M2.19G: the canonical glossary names Banzami as the L3 designated scheme operator (the "operador"
-        // / "scheme" entries define the term against the L3 role); same ADR-059/060 attribution basis.
+        // / "scheme" entries define the term against the L3 role); same ADR-003/060 attribution basis.
         || path == "website/app/glossario/page.tsx"
         || path == "website/lib/reference.ts"
         // M2.19G.2: the Home-canonicalization audit artifact and the new Home vitest name the L3
         // designated scheme operator (Banzami Operational Scheme) in their three-layer records/assertions —
-        // the same ADR-059/060 institutional-attribution basis as the M2.19G editorial pages above (the
+        // the same ADR-003/060 institutional-attribution basis as the M2.19G editorial pages above (the
         // Home page.tsx itself is already allowlisted). Not a payment-OPERATOR brand; the NORMATIVE_BRANDS
         // payment operators stay blocked everywhere.
-        || path == "artifacts/m2-19g2/home-current-surface-audit.json"
-        || base == "m2_19g2-home.test.ts"
-        // ADR-043 / M2.8F: the BanzAI knowledge base carries the same institutional attribution
+        || path == "artifacts/banzai/home-current-surface-audit.json"
+        || base == "home-canonical.test.ts"
+        // ADR-044 / M2.8F: the BanzAI knowledge base carries the same institutional attribution
         // when a user asks "o que é o Banzami?" — the answer names Banzami as the creator/initial
         // maintainer (a governance role), grounded in GOVERNANCE.md. This is attribution, not a
         // payment-OPERATOR brand; payment operators stay blocked everywhere via NORMATIVE_BRANDS.
@@ -412,38 +410,38 @@ fn banzami_attribution_allowed(path: &str) -> bool {
         || path == "engines/banzai-query-core/src/entries-index.json"
         || path == "engines/banzai-api-kb/tests/kb.rs"
         // M2.8G: the routing policy + its tests classify the "what is Banzami" institutional-identity
-        // question (ADR-043 attribution), so they name the creator/maintainer. Not a payment operator.
+        // question (ADR-044 attribution), so they name the creator/maintainer. Not a payment operator.
         || path == "engines/banzai-query-core/src/route.rs"
         || path == "engines/banzai-api-kb/tests/route.rs"
         || path == "services/banzai-api/test/pipeline.test.js"
         // M2.18B.6-FIX1: the typo-recovery engine PROTECTS the ecosystem-identity distinction (ADR-002) —
         // it names Banzami / BANZA / BanzAI precisely so a spelling variant of one is never silently
-        // rewritten into another. Same ADR-002/ADR-043 institutional-attribution basis as route.rs above;
+        // rewritten into another. Same ADR-002/ADR-044 institutional-attribution basis as route.rs above;
         // not a payment operator, payment-OPERATOR brands stay blocked everywhere via NORMATIVE_BRANDS.
         || path == "engines/banzai-query-core/src/fuzzy.rs"
         // M2.18B.7: the canonical coverage + attribute registries bind each ecosystem identity
         // (BANZA/BanzAI/Banzami) to its primary sources and answer exact facts about it. They NAME the
-        // creator/organization for the same ADR-002/ADR-043 institutional-attribution reason as route.rs
+        // creator/organization for the same ADR-002/ADR-044 institutional-attribution reason as route.rs
         // above; not a payment operator, payment-OPERATOR brands stay blocked everywhere.
         || path == "engines/banzai-query-core/src/coverage.rs"
         || path == "engines/banzai-query-core/src/attribute.rs"
         || path == "engines/banzai-query-core/src/scenarios.rs"
         // M2.18B.6/7: the milestone continuity artifacts document the BANZA/BanzAI/Banzami identity work
         // (the coverage layer + the banzami↔banzai typo-confusion fix). Internal engineering records naming
-        // the ecosystem identities — same ADR-002/ADR-043 attribution basis; not a payment operator.
-        || path == "artifacts/m2-18b6/execution-state.json"
-        || path == "artifacts/m2-18b7/execution-state.json"
+        // the ecosystem identities — same ADR-002/ADR-044 attribution basis; not a payment operator.
+        || path == "artifacts/banzai/execution-state.json"
+        || path == "artifacts/banzai/execution-state.json"
         // M2.19C: the M2.19-FINAL program spine documents the three-layer architecture, incl. Layer 3
         // (Banzami Operational Scheme). Same institutional-attribution basis as the ADRs above; internal
         // engineering record, not a payment operator.
-        || path == "artifacts/m2-19-final/execution-state.json"
+        || path == "artifacts/banzai/execution-state.json"
         // M2.19G: the public-surface reconstruction audit artifacts (crawl, inventory, concept matrix,
         // semantic audit) faithfully RECORD the live/canonical public surface, which names Banzami as the L3
         // designated scheme operator (M2.19C). They are evidence records of what is published, not authored
-        // protocol content; scrubbing the captured name would corrupt the audit. Same ADR-002/ADR-043
+        // protocol content; scrubbing the captured name would corrupt the audit. Same ADR-002/ADR-044
         // attribution basis; payment-operator brands captured by a crawl are still blocked everywhere by the
         // separate normative-brand list, never allowlisted as content.
-        || path.starts_with("artifacts/m2-19g/")
+        || path.starts_with("artifacts/banzai/")
         // M2.19C: the GENERATED grounding indexes + truth-table now index the Layer-3 scheme ADRs/docs, so
         // they carry the designated-operator name (the indexers stopped dropping "Banzami" so BanzAI can
         // ground the scheme; real payment-operator brands are still filtered out of these artifacts).
@@ -451,51 +449,45 @@ fn banzami_attribution_allowed(path: &str) -> bool {
         || path.starts_with("engines/banzai-query-core/src/repoindex/")
         || (path.starts_with("artifacts/") && base.ends_with("corpus-truth-table.json"))
         // M2.18B.4: the typed-terminal engine returns the origin EXACT FACT — "Banzami — criador e
-        // mantenedor inicial do protocolo" — bound to NOTICE/MAINTAINERS. Same ADR-043 institutional-
+        // mantenedor inicial do protocolo" — bound to NOTICE/MAINTAINERS. Same ADR-044 institutional-
         // attribution basis as route.rs / knowledge.js above; not a payment operator, payment-OPERATOR
         // brands stay blocked everywhere.
         || path == "engines/banzai-query-core/src/terminal.rs"
         // M2.13C-B: the protocol-origin / creation-date phase report names the creator as institutional
-        // origin (same ADR-043 attribution basis). Not a payment operator; brand stays barred elsewhere.
-        || path == "docs/reports/M2_13C_B_PROTOCOL_ORIGIN_MAINTAINER_PROVENANCE_INTENT.md"
+        // origin (same ADR-044 attribution basis). Not a payment operator; brand stays barred elsewhere.
         // M2.19G: the public-surface reconstruction reports document the three-layer work, incl. Layer 3
         // (the Banzami Operational Scheme, designated operator) — the guard-convergence, README-sweep,
         // reference, SVG and verification-battery reports name Banzami exactly to record the L3 framing.
-        // Internal engineering reports; same ADR-059/060 + ADR-043 attribution basis; payment-operator
+        // Internal engineering reports; same ADR-003/060 + ADR-044 attribution basis; payment-operator
         // brands stay blocked everywhere.
-        || path.starts_with("docs/reports/M2_19G_")
         // M2.14C: the global rendering contract report documents the "Banzami" origin-answer before/after
         // (§10/§11), and the contract test + guard verify that same answer renders with a clean body.
-        // Same ADR-043 institutional-attribution basis as route.rs / knowledge.js above — not a payment
+        // Same ADR-044 institutional-attribution basis as route.rs / knowledge.js above — not a payment
         // operator; the payment-OPERATOR brands stay blocked everywhere.
-        || path == "docs/reports/M2_14C_BANZAI_GLOBAL_RENDERING_AND_GOVERNANCE_VOCABULARY.md"
         || path == "services/banzai-api/test/answer-contract.test.js"
         || path == "tools/check-banzai-global-answer-format-contract.sh"
         // M2.14C Part 16: the minimal-highlight pass lists the ecosystem ENTITIES it bolds (Banzami /
-        // BANZA / BanzAI) so every answer shares one look — same ADR-043 attribution basis as
+        // BANZA / BanzAI) so every answer shares one look — same ADR-044 attribution basis as
         // knowledge.js above. Not a payment operator; payment-OPERATOR brands stay blocked everywhere.
         || path == "services/banzai-api/src/answerContract.js"
         // M2.14C-FIX1: the entity-emphasis consistency test + guard drive the same canonical-entity
-        // table (Banzami / BANZA / BanzAI …) to prove every occurrence is bold. Same ADR-043
+        // table (Banzami / BANZA / BanzAI …) to prove every occurrence is bold. Same ADR-044
         // institutional-attribution basis; payment-OPERATOR brands stay blocked everywhere.
-        || path == "docs/reports/M2_14C_FIX1_BANZAI_ENTITY_FORMATTING_CONSISTENCY.md"
         || path == "services/banzai-api/test/entity-formatting-consistency.test.js"
         || path == "tools/check-banzai-entity-formatting-consistency.sh"
         // M2.14C-FIX2: the short-query/fallback test + guard + report drive the same slash-separated
-        // canonical-entity list (Banzami/BANZA/BanzAI) to prove each segment is bolded. Same ADR-043
+        // canonical-entity list (Banzami/BANZA/BanzAI) to prove each segment is bolded. Same ADR-044
         // institutional-attribution basis; payment-OPERATOR brands stay blocked everywhere.
-        || path == "docs/reports/M2_14C_FIX2_SHORT_QUERY_INTELLIGENCE_AND_FALLBACK_FORMATTING.md"
         || path == "services/banzai-api/test/short-query-recovery.test.js"
         || path == "tools/check-banzai-short-query-recovery.sh"
         // M2.14F: the semantic-answer-composition report + test + guard exercise the same
         // institutional-identity query ("o que é o banzami") and canonical entities to prove the
-        // composed answers keep the ADR-043 attribution. Same basis as knowledge.js / route.rs above;
+        // composed answers keep the ADR-044 attribution. Same basis as knowledge.js / route.rs above;
         // payment-OPERATOR brands stay blocked everywhere.
-        || path == "docs/reports/M2_14F_SEMANTIC_ANSWER_COMPOSITION_AND_DYNAMIC_LOADING.md"
         || path == "services/banzai-api/test/semantic-answer-composition.test.js"
         || path == "tools/check-banzai-semantic-answer-composition.sh"
         // M2.14F-FIX2: the SafeMarkdown render test drives the same institutional entity table
-        // (Banzami / BANZA / BanzAI) to prove every occurrence renders as bold <strong>. Same ADR-043
+        // (Banzami / BANZA / BanzAI) to prove every occurrence renders as bold <strong>. Same ADR-044
         // attribution basis as knowledge.js / route.rs; payment-OPERATOR brands stay blocked everywhere.
         || path == "website/components/banzai/SafeMarkdown.render.test.tsx"
         // WP1-FINAL: the official BANZA Whitepaper v1.0 (autonomous documental program) names Banzami as
@@ -522,9 +514,9 @@ pub fn contamination() -> GateResult {
     let mut warnings = Vec::new();
 
     for f in files.iter().filter(|f| !contam_excluded(f)) {
-        // filename — the designated-operator institutional artifacts (ADR-059..063, the L3
+        // filename — the designated-operator institutional artifacts (ADR-003..063, the L3
         // regulatory-state artifact/examples, and the allowlisted governance/tooling files) may carry the
-        // Banzami name in their PATH for the same ADR-002/ADR-043 attribution reason as their contents
+        // Banzami name in their PATH for the same ADR-002/ADR-044 attribution reason as their contents
         // (M2.19C). Commercial payment-operator brands are never "banzami" and stay blocked in filenames.
         if f.to_lowercase().contains(&brand) && !banzami_attribution_allowed(f) {
             failures.push(format!("forbidden operator brand in filename: {f}"));

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# M2.19G.1 (ADR-068 §4.7/§18–§20) — secure Rust artifact fetcher guard (§37, invariant 8).
+# M2.19G.1 (ADR-038 §4.7/§18–§20) — secure Rust artifact fetcher guard (§37, invariant 8).
 #
 # engines/banza-artifact-fetcher exists and implements the SSRF policy: HTTPS-only, private/loopback/
 # link-local/unique-local/CGNAT/cloud-metadata blocks, zero redirects (redirect::Policy::none), hard
@@ -22,7 +22,7 @@ FETCH=$DIR/src/fetch.rs
 TYPES=$DIR/src/types.rs
 BIN=$DIR/src/bin/server.rs
 
-echo "== banzai-secure-fetcher-check (M2.19G.1 / ADR-068 §4.7/§19) =="
+echo "== banzai-secure-fetcher-check (M2.19G.1 / ADR-038 §4.7/§19) =="
 
 # ── self-test ───────────────────────────────────────────────────────────────────────────────────────
 st=0
@@ -66,4 +66,4 @@ fi
 
 echo
 if [ "$fail" -ne 0 ]; then echo "banzai-secure-fetcher-check: FAIL"; exit 1; fi
-echo "banzai-secure-fetcher-check: ✓ SSRF-hardened Rust fetcher present + strict (ADR-068 §4.7/§19)"
+echo "banzai-secure-fetcher-check: ✓ SSRF-hardened Rust fetcher present + strict (ADR-038 §4.7/§19)"

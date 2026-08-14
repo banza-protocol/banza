@@ -92,8 +92,8 @@ if (verify(docPkg, { answer_markdown: "a mediana foi X", claims: [{ claim: "medi
 
 // §9 — citation verification: a real citation passes, a dead/invented one is rejected.
 if (!verify(docPkg, { answer_markdown: "A ADR-002 inverte a nomenclatura.", claims: [{ claim: "inverte a nomenclatura", fact_ids: ["F1"] }], cited_source_ids: ["ADR-002"] }).ok) err("a real citation was wrongly rejected");
-const dead = verify(docPkg, { answer_markdown: "A ADR-002 inverte a nomenclatura.", claims: [{ claim: "inverte a nomenclatura", fact_ids: ["F1"] }], cited_source_ids: ["ADR-021"] });
-if (dead.ok || !(dead.dead_citations || []).includes("ADR-021")) err("a dead citation was not rejected");
+const dead = verify(docPkg, { answer_markdown: "A ADR-002 inverte a nomenclatura.", claims: [{ claim: "inverte a nomenclatura", fact_ids: ["F1"] }], cited_source_ids: ["ADR-039"] });
+if (dead.ok || !(dead.dead_citations || []).includes("ADR-039")) err("a dead citation was not rejected");
 
 // determinism — the same package is byte-identical across builds (no model, no state).
 const a = kb.build_factual_package_planned_json("t", "o que e a inversao de nomes", "", "");

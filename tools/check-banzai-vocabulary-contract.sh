@@ -10,7 +10,7 @@
 #   M2.11D  the UI compared `nextActionSlug === "journey_complete"`; the engine emits
 #           `jornada_completa`. At 100/100 the completion styling was unreachable.
 #
-# Rust owns these words (ADR-037), so Rust publishes them — `session::vocabulary()`, exported as
+# Rust owns these words (ADR-043), so Rust publishes them — `session::vocabulary()`, exported as
 # `journey_vocabulary_json()`. This guard EXECUTES the engine to get the list (never greps Rust for
 # it) and then proves two directions against the TypeScript that renders them:
 #
@@ -130,7 +130,7 @@ check_covered() { # $1=vocab key  $2=ts file  $3=function marker  $4=label
   [ "$miss" -eq 0 ] && ok "$4 covers every published $1"
 }
 
-# ADR-076 §D-076-02 — the guided layer is navigation only, so there is no blocker/evidence verdict
+# ADR-042 §D-076-02 — the guided layer is navigation only, so there is no blocker/evidence verdict
 # vocabulary to cover. It publishes navigation actions and overall states (and, informationally, the
 # Model B states it may REFERENCE and the typed reference fields).
 check_covered actions          "$WRAPPER" "export function nextActionLabel"   "nextActionLabel"
@@ -177,7 +177,7 @@ grep -qE '(===|!==)[[:space:]]*"jornada_completa"|(===|!==)[[:space:]]*"journey_
   && bad "$AGENT still decides completion by comparing a slug" \
   || ok "the component compares no journey slug"
 
-# M2.19G.1 (ADR-068) — completion/aggregate status is DERIVED from the Rust-produced step verdicts, never
+# M2.19G.1 (ADR-038) — completion/aggregate status is DERIVED from the Rust-produced step verdicts, never
 # decided by comparing a UI slug. In the endpoint-originated model the aggregation moved SERVER-SIDE: the
 # Rust backend computes the JourneyReceipt's overall_status + certification, and the validation session
 # MIRRORS that (overall = journeyReceipt.overall_status; certification from the receipt). operationReceipt.ts

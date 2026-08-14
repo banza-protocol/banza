@@ -1,4 +1,4 @@
-//! banza-repo-guards CLI (ADR-037, R10).
+//! banza-repo-guards CLI (ADR-043, R10).
 //!
 //! Commands: `purity` | `contamination` | `invariants` | `all`.
 //! Exit 0 = gate PASS, 1 = gate FAIL, 2 = usage error. Must run from the repo root

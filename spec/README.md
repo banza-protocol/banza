@@ -24,7 +24,7 @@ The canonical protocol flow: `SCAN QR → CONFIRM → SETTLEMENT (T+0 finality i
 
 Reference models: **Pix, WeChat Pay, M-Pesa, UPI** — not Stripe checkout.
 
-See [ADR-010](../decisions/adr/ADR-010-account-participant-identity.md) and [ADR-001](../decisions/adr/ADR-001-open-financial-protocol.md) for the full architectural constraint.
+See [ADR-012](../decisions/adr/ADR-012-account-and-participant-identity.md) and [ADR-001](../decisions/adr/ADR-001-open-financial-protocol-what-banza-is-and-is-not.md) for the full architectural constraint.
 
 ---
 
@@ -50,7 +50,7 @@ BANZA is accompanied by a **native protocol agent, BanzAI**. BanzAI guides
 operators through implementation, runs the validation journey by invoking the
 verifiable deterministic Rust/WASM engines, explains their results, helps correct
 failures and prepares evidence. BanzAI is the single human-operator interface
-(ADR-054) — it is not an authority, not a normative source and not a fourth layer.
+(ADR-042) — it is not an authority, not a normative source and not a fourth layer.
 It does not approve, certify, license or decide participation, it does not invent
 rules, and it does not replace the BANZA Reference or the deterministic engines.
 

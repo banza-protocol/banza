@@ -1,4 +1,4 @@
-//! banzai-doc-indexer (ADR-049, M2.9A) — build-time Rust indexer for the BANZA protocol documentation.
+//! banzai-doc-indexer (ADR-042, M2.9A) — build-time Rust indexer for the BANZA protocol documentation.
 //!
 //! Walks a CURATED set of documentation roots in the BANZA repo, splits markdown docs into per-section
 //! chunks and JSON schemas into one summary chunk each, and emits a bounded, metadata-rich
@@ -106,7 +106,7 @@ fn chunk_has_forbidden_brand(text: &str) -> bool {
         "ekwanza",
         "emis",
         // M2.19C: "banzami" is no longer dropped — Banzami is the canonical designated operator of the
-        // Layer-3 scheme (ADR-059/060) and MUST be groundable so BanzAI can explain the three-layer
+        // Layer-3 scheme (ADR-003/060) and MUST be groundable so BanzAI can explain the three-layer
         // architecture and the scheme. Real payment-operator brands above stay filtered.
     ]
     .iter()

@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { validateStepRequest, validateJourneyRequest } from "./banzaiValidateClient";
 
-// M2.19G.1 (ADR-068 §4.7) — the client only ever sends CLOSED ids. A malformed/injected id is rejected
+// M2.19G.1 (ADR-038 §4.7) — the client only ever sends CLOSED ids. A malformed/injected id is rejected
 // BEFORE any request is made (defence in depth over the Rust re-resolution), so no fetch is attempted.
 describe("banzaiValidateClient — closed-id guard (SSRF-safe, no URL ever sent)", () => {
   it("rejects a malformed/injected operator or implementation id without a network call", async () => {

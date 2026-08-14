@@ -440,7 +440,7 @@
               "string",
               "null"
             ],
-            "description": "Segregated Wallet Account (ADR-020) credited by every interface; null ⇒ the payee wallet default account."
+            "description": "Segregated Wallet Account (ADR-019) credited by every interface; null ⇒ the payee wallet default account."
           },
           "amount_minor": {
             "type": [
@@ -532,7 +532,7 @@
               "string",
               "null"
             ],
-            "description": "The Wallet Account credited (ADR-020)."
+            "description": "The Wallet Account credited (ADR-019)."
           },
           "reference_type": {
             "type": [
@@ -615,7 +615,7 @@
     {
       "type": "collection.created",
       "aggregate_type": "collection",
-      "description": "A Collection (ADR-016) was created. A Collection is a composite financial obligation, never money — it holds no balance and never posts to the ledger.",
+      "description": "A Collection (ADR-018) was created. A Collection is a composite financial obligation, never money — it holds no balance and never posts to the ledger.",
       "certification_level": 2,
       "stability": "stable",
       "payload": {
@@ -848,7 +848,7 @@
     {
       "type": "collection.cancelled",
       "aggregate_type": "collection",
-      "description": "The owner cancelled the Collection. Unpaid shares are cancelled; PAID shares are terminal and unaffected (refunds follow ADR-017 per share).",
+      "description": "The owner cancelled the Collection. Unpaid shares are cancelled; PAID shares are terminal and unaffected (refunds follow ADR-020 per share).",
       "certification_level": 2,
       "stability": "stable",
       "payload": {

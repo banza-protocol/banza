@@ -2,11 +2,11 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://banza.network/contracts/production/journey-receipt.production.schema.json",
   "title": "JourneyReceipt",
-  "description": "The aggregate receipt of a full nine-step endpoint-originated validation journey (ADR-068 §31, §21 step 9). It seals the eight technical OperationReceipts plus the Certification Readiness step, binding the whole result to the implementation's canonical origin. `certification_readiness` is READY or BLOCKED; `certification_status` is always NOT_CERTIFIED and `certified` is always false — the journey aggregates verdicts, it NEVER issues a Certification Record and NEVER returns CERTIFIED (ADR-068 §4.10, ADR-066). Documentary/reference contract; introduces no new financial invariant.",
+  "description": "The aggregate receipt of a full nine-step endpoint-originated validation journey (ADR-038 §31, §21 step 9). It seals the eight technical OperationReceipts plus the Certification Readiness step, binding the whole result to the implementation's canonical origin. `certification_readiness` is READY or BLOCKED; `certification_status` is always NOT_CERTIFIED and `certified` is always false — the journey aggregates verdicts, it NEVER issues a Certification Record and NEVER returns CERTIFIED (ADR-038 §4.10, ADR-035). Documentary/reference contract; introduces no new financial invariant.",
   "_spec_version": "1.2",
   "_status": "reference",
-  "_authority": "ADR-068 (§31 JourneyReceipt, §21 step 9, §4.10), ADR-076 (§D-076-08 durable append-only persistence, retry/reproduction lineage), ADR-077 (profile applicability model — applicability summary + readiness over REQUIRED-only steps), ADR-066 (closed certification-state machine), ADR-061 (certification ≠ admission ≠ authorisation)",
-  "_boundary": "A journey receipt records what was fetched and what Rust decided across the journey. It never certifies, admits, authorises, or moves funds. It carries NO free BanzAI/model text (ADR-076 §D-076-08); the model never decides a verdict.",
+  "_authority": "ADR-038 (§31 JourneyReceipt, §21 step 9, §4.10), ADR-042 (§D-076-08 durable append-only persistence, retry/reproduction lineage), ADR-039 (profile applicability model — applicability summary + readiness over REQUIRED-only steps), ADR-035 (closed certification-state machine), ADR-004 (certification ≠ admission ≠ authorisation)",
+  "_boundary": "A journey receipt records what was fetched and what Rust decided across the journey. It never certifies, admits, authorises, or moves funds. It carries NO free BanzAI/model text (ADR-042 §D-076-08); the model never decides a verdict.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -107,7 +107,7 @@
         "FAILED",
         "BLOCKED"
       ],
-      "description": "Aggregate of the technical step statuses that APPLY to the profile, decided in Rust. NOT_APPLICABLE steps (ADR-077) are excluded — they never contribute FAILED/BLOCKED/PENDING."
+      "description": "Aggregate of the technical step statuses that APPLY to the profile, decided in Rust. NOT_APPLICABLE steps (ADR-039) are excluded — they never contribute FAILED/BLOCKED/PENDING."
     },
     "certification_readiness": {
       "type": "string",
@@ -115,11 +115,11 @@
         "READY",
         "BLOCKED"
       ],
-      "description": "Aggregate readiness over the steps REQUIRED for the profile. READY only when every REQUIRED step is VERIFIED (ADR-077 excludes NOT_APPLICABLE steps). Never CERTIFIED."
+      "description": "Aggregate readiness over the steps REQUIRED for the profile. READY only when every REQUIRED step is VERIFIED (ADR-039 excludes NOT_APPLICABLE steps). Never CERTIFIED."
     },
     "applicability": {
       "type": "object",
-      "description": "ADR-077: the Rust-decided step→applicability map for this profile (each of the eight technical steps → REQUIRED | OPTIONAL | NOT_APPLICABLE). Orthogonal to per-step result.status.",
+      "description": "ADR-039: the Rust-decided step→applicability map for this profile (each of the eight technical steps → REQUIRED | OPTIONAL | NOT_APPLICABLE). Orthogonal to per-step result.status.",
       "additionalProperties": {
         "type": "string",
         "enum": [
@@ -134,21 +134,21 @@
       "items": {
         "type": "string"
       },
-      "description": "ADR-077: the technical steps that are NOT_APPLICABLE for this profile (out of scope; not fetched or evaluated)."
+      "description": "ADR-039: the technical steps that are NOT_APPLICABLE for this profile (out of scope; not fetched or evaluated)."
     },
     "required_steps_evaluated": {
       "type": [
         "integer",
         "null"
       ],
-      "description": "ADR-077: count of profile-REQUIRED technical steps aggregated into readiness.",
+      "description": "ADR-039: count of profile-REQUIRED technical steps aggregated into readiness.",
       "maximum": 9007199254740991,
       "minimum": -9007199254740991
     },
     "certification_status": {
       "type": "string",
       "const": "NOT_CERTIFIED",
-      "description": "Always NOT_CERTIFIED. The journey never issues a Certification Record (ADR-066)."
+      "description": "Always NOT_CERTIFIED. The journey never issues a Certification Record (ADR-035)."
     },
     "certified": {
       "type": "boolean",
@@ -199,14 +199,14 @@
         "string",
         "null"
       ],
-      "description": "ADR-076 §D-076-08: when this run is a retry, the journey_id it supersedes. A retry creates a NEW record linked to the prior; it never rewrites it."
+      "description": "ADR-042 §D-076-08: when this run is a retry, the journey_id it supersedes. A retry creates a NEW record linked to the prior; it never rewrites it."
     },
     "reproduction_of": {
       "type": [
         "string",
         "null"
       ],
-      "description": "ADR-076 §D-076-08: when this run is a reproduction from pinned artefacts, the original journey_id it reproduces. The reproduction is a NEW execution and never overwrites the original."
+      "description": "ADR-042 §D-076-08: when this run is a reproduction from pinned artefacts, the original journey_id it reproduces. The reproduction is a NEW execution and never overwrites the original."
     },
     "reproduction_result": {
       "type": [
@@ -222,7 +222,7 @@
         "NOT_EQUIVALENT",
         null
       ],
-      "description": "ADR-076 §D-076-08: set only when reproduction_of is present. A reproduction re-runs the FULL secure pipeline (registry-resolved origin + secure fetch + DNS/IP/TLS validation), NEVER a fetch to a URL stored in the receipt, then compares the newly observed artefact hashes against the original."
+      "description": "ADR-042 §D-076-08: set only when reproduction_of is present. A reproduction re-runs the FULL secure pipeline (registry-resolved origin + secure fetch + DNS/IP/TLS validation), NEVER a fetch to a URL stored in the receipt, then compares the newly observed artefact hashes against the original."
     }
   },
   "_reason_codes": "banza-reason-codes/1 — spec/reason-codes.md; contracts/production/reason-code-registry.production.json",

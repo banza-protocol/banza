@@ -3,7 +3,7 @@
 **Document ID:** FEDERATION-PROTOCOL-FLOW-DESIGN-001  
 **Date:** 2026-05-31  
 **Status:** Canonical — behavioral specification. No code. No implementation.  
-**Authority:** ADR-038, ADR-039, ADR-040, FEDERATION_TRUST_MODEL.md, FEDERATION_CONTRACT_SURFACE.md  
+**Authority:** ADR-027, ADR-033, ADR-031, FEDERATION_TRUST_MODEL.md, FEDERATION_CONTRACT_SURFACE.md  
 **Precondition:** Each operator has published, for a federation-capable conformance scope (L3+), signed protocol metadata and conformance evidence that pass the Open Trust Evaluation
 
 ---
@@ -150,7 +150,7 @@ Manifests may be cached. Cache TTL:
 ## Phase 2 — Open Trust Evaluation
 
 Before routing, Operator A runs the **Open Trust Evaluation** locally and deterministically over the
-material Operator B has self-published. It is **ten conjunctive, fail-closed checks** (ADR-040). All ten
+material Operator B has self-published. It is **ten conjunctive, fail-closed checks** (ADR-031). All ten
 must pass; any check that is missing, invalid, expired, revoked or incompatible ends the evaluation with
 `FAIL_CLOSED` and no routing occurs. Every input is public; every step is a computation; no step is a
 request to BANZA. The normative shape of the result is

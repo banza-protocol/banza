@@ -86,7 +86,7 @@ describe("§9 SAFE facts-available projection", () => {
       evt("SOURCE_RESOLVED", { source_kind: "live_artifact", implementation_id: "oz-impl-1", canonical_origin: "https://zero.example", artifact_sha256: "abc123", artifact_version: "1.0.0" }),
       evt("TOOL_STARTED", { tool_kind: "METRICS_QUERY", operational_metric: "duration" }),
       evt("TOOL_COMPLETED", { tool_kind: "METRICS_QUERY", outcome: "ok", comparable_n: 3 }),
-      evt("FACTUAL_PACKAGE_READY", { source: "operational_telemetry", primary_intent: "operational_metric", facts_count: 4, documentary_sources: ["ADR-078"], tools_called: ["METRICS_QUERY"], sample_size: 3, aggregation_method: "median", package_checksum: "deadbeef" }),
+      evt("FACTUAL_PACKAGE_READY", { source: "operational_telemetry", primary_intent: "operational_metric", facts_count: 4, documentary_sources: ["ADR-042"], tools_called: ["METRICS_QUERY"], sample_size: 3, aggregation_method: "median", package_checksum: "deadbeef" }),
     ];
     const f = factsFromEvents(events);
     expect(hasAnyFact(f)).toBe(true);
@@ -97,7 +97,7 @@ describe("§9 SAFE facts-available projection", () => {
     expect(f.tools[0].outcome).toBe("ok");
     expect(f.tools[0].comparable_n).toBe(3);
     expect(f.package?.facts_count).toBe(4);
-    expect(f.package?.documentary_sources).toEqual(["ADR-078"]);
+    expect(f.package?.documentary_sources).toEqual(["ADR-042"]);
   });
 
   it("NEVER surfaces a prose/secret field even when a (malicious/regressed) event carries one", () => {

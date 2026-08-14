@@ -9,16 +9,16 @@ networks:
   banza-data:      # apps <-> postgres (isolated; no external routes)
     driver: bridge
     internal: true
-  banza-inference: # banzai-api <-> llama-local ONLY (ADR-044; isolated; no postgres, no external routes)
+  banza-inference: # banzai-api <-> llama-local ONLY (ADR-042; isolated; no postgres, no external routes)
     driver: bridge
     internal: true
-  banza-fetch:     # banzai-api <-> banza-fetcher ONLY (ADR-068 §4.7); egress-enabled (NOT internal) so
+  banza-fetch:     # banzai-api <-> banza-fetcher ONLY (ADR-038 §4.7); egress-enabled (NOT internal) so
     driver: bridge #                the fetcher can reach operator public HTTPS endpoints; never on banza-edge,
     #                               so the reverse-proxy cannot route to it and /fetch is never public.
 
 volumes:
   pgdata:
-  banzai-receipts-outbox:   # M2.19H/ADR-076 durable receipt outbox (survives banzai-api restarts)
+  banzai-receipts-outbox:   # M2.19H/ADR-042 durable receipt outbox (survives banzai-api restarts)
 
 services:
   reverse-proxy:
@@ -31,7 +31,7 @@ services:
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
       - ./nginx/certs:/etc/nginx/certs:ro
       - ./logs/nginx:/var/log/nginx
-      # M2.19G.3A (ADR-069): the Operador Zero ORIGIN publishes its own .well-known ownership challenge
+      # M2.19G.3A (ADR-040): the Operador Zero ORIGIN publishes its own .well-known ownership challenge
       # from this read-only dir, served by nginx at zero.banza.network — INDEPENDENT of the verifier
       # (banzai-api) and of the onboarding DB. The dir holds only a published challenge file (a nonce the
       # backend generated and the operator chose to publish); it is created empty at deploy and is never
@@ -74,11 +74,11 @@ services:
     environment:
       PORT: "8091"
       DATABASE_URL: "postgres://banzai_rw:${PG_BANZAI_PASSWORD}@postgres:5432/banza_protocol?sslmode=disable"
-      LLM_PROVIDER: "${LLM_PROVIDER:-mock}"     # allowlist: mock | deepseek | qwen (hosted) | local_qwen (internal llama.cpp; ADR-044, benchmark-gated)
+      LLM_PROVIDER: "${LLM_PROVIDER:-mock}"     # allowlist: mock | deepseek | qwen (hosted) | local_qwen (internal llama.cpp; ADR-042, benchmark-gated)
       LLM_API_BASE: "${LLM_API_BASE:-}"
       LLM_API_KEY: "${LLM_API_KEY:-}"
       LLM_MODEL: "${LLM_MODEL:-}"
-      # ADR-045: leave these UNSET by default so provider.js applies the per-destination
+      # ADR-042: leave these UNSET by default so provider.js applies the per-destination
       # default (local_qwen → 256 tokens / 60s margin; hosted → 800 / 30s). Hardcoding a
       # value here would defeat the local default (the empty string is treated as unset).
       # An explicit LLM_TIMEOUT_MS / LLM_MAX_TOKENS in .env still flows through and wins.
@@ -91,7 +91,7 @@ services:
       # deterministically, ⊆ allowed). Activation-gated — set BANZAI_STRUCTURED_SYNTHESIS=1 in .env only
       # after the A/B harness passes (unset ⇒ byte-identical baseline). Activated on prod 2026-08-07.
       BANZAI_STRUCTURED_SYNTHESIS: "${BANZAI_STRUCTURED_SYNTHESIS:-}"
-      # ADR-072: surfaced (non-secret) by GET /banzai/runtime → release/commit. Set BANZA_RELEASE in .env
+      # ADR-042: surfaced (non-secret) by GET /banzai/runtime → release/commit. Set BANZA_RELEASE in .env
       # (e.g. "v1.0") so the runtime SSOT reports the deployed protocol release instead of null.
       BANZA_RELEASE: "${BANZA_RELEASE:-}"
       BANZA_COMMIT: "${BANZA_COMMIT:-}"
@@ -108,7 +108,7 @@ services:
       RATE_LIMIT_MAX: "${RATE_LIMIT_MAX:-60}"
       RATE_LIMIT_WINDOW_MS: "${RATE_LIMIT_WINDOW_MS:-60000}"
       BANZAI_TRUST_PROXY: "1"                    # rate-limit by X-Forwarded-For (behind nginx)
-      # ADR-044 local inference (llama.cpp). Reaches llama-local by service name on the
+      # ADR-042 local inference (llama.cpp). Reaches llama-local by service name on the
       # internal net when the "llama-local" profile is active; benchmark-gated default.
       LLM_TOP_P: "${LLM_TOP_P:-}"                # conservative sampling for local_qwen (e.g. 0.8)
       BANZAI_MAX_CONCURRENCY: "${BANZAI_MAX_CONCURRENCY:-1}"  # local CPU inference: one at a time
@@ -125,14 +125,14 @@ services:
       BANZAI_SYNTHESIS_AUTO_ROLLBACK: "${BANZAI_SYNTHESIS_AUTO_ROLLBACK:-0}"
       BANZAI_SYNTHESIS_ROLLBACK_WINDOW: "${BANZAI_SYNTHESIS_ROLLBACK_WINDOW:-30}"
       BANZAI_SYNTHESIS_ROLLBACK_MAX_ERROR_RATE: "${BANZAI_SYNTHESIS_ROLLBACK_MAX_ERROR_RATE:-0.2}"
-      # M2.19G.1 / ADR-068 §4.7: the official validation journey fetches operator artifacts ONLY through
+      # M2.19G.1 / ADR-038 §4.7: the official validation journey fetches operator artifacts ONLY through
       # the secure Rust fetcher (banza-fetcher), reached by service name on the isolated banza-fetch net.
       FETCHER_URL: "${FETCHER_URL:-http://banza-fetcher:8092}"
-      # M2.19G.3 / ADR-069 — BanzAI-hosted operator onboarding (email-OTP login, private Candidate
+      # M2.19G.3 / ADR-040 — BanzAI-hosted operator onboarding (email-OTP login, private Candidate
       # Registry, .well-known origin proof). OFF by default; enable only after the migration + secrets
       # are installed. Secrets (pepper, Resend key) follow the LLM_API_KEY pattern: empty default here,
       # injected from .env at deploy — NEVER committed, NEVER in the image, NEVER logged. Persistence
-      # uses the banzai_rw DATABASE_URL above; onboarding writes only its own six tables (ADR-042).
+      # uses the banzai_rw DATABASE_URL above; onboarding writes only its own six tables (ADR-026).
       BANZAI_ONBOARDING_ENABLED: "${BANZAI_ONBOARDING_ENABLED:-0}"
       BANZAI_OTP_PEPPER: "${BANZAI_OTP_PEPPER:-}"                    # server-side HMAC pepper; secret
       ONBOARDING_EMAIL_PROVIDER: "${ONBOARDING_EMAIL_PROVIDER:-mock}"  # mock (offline) | resend
@@ -140,11 +140,11 @@ services:
       ONBOARDING_EMAIL_FROM: "${ONBOARDING_EMAIL_FROM:-BanzAI <acesso@auth.banza.network>}"
       ONBOARDING_EMAIL_REPLY_TO: "${ONBOARDING_EMAIL_REPLY_TO:-contact@banza.network}"
       ONBOARDING_ALLOWED_ORIGINS: "${ONBOARDING_ALLOWED_ORIGINS:-https://banza.network,https://www.banza.network,https://zero.banza.network}"
-      # M2.19H / ADR-076 — durable validation-journey receipt store (BanzAI Workbench). OFF by default;
-      # enable only AFTER the M2_19H migration is applied (see docs/guides/M2_19H_VALIDATION_RECEIPTS_RUNBOOK.md).
+      # M2.19H / ADR-042 — durable validation-journey receipt store (BanzAI Workbench). OFF by default;
+      # enable only AFTER the M2_19H migration is applied (see docs/guides/VALIDATION_RECEIPTS_RUNBOOK.md).
       # Persistence is a fail-safe side-effect: a DB outage never breaks a validation — the receipt is
       # queued to the durable outbox volume below and retried. Uses the banzai_rw DATABASE_URL above;
-      # writes only its six append-only receipt tables (ADR-042). No secrets, no funds, no model text.
+      # writes only its six append-only receipt tables (ADR-026). No secrets, no funds, no model text.
       BANZAI_RECEIPTS_ENABLED: "${BANZAI_RECEIPTS_ENABLED:-0}"
       BANZAI_RECEIPTS_OUTBOX_DIR: "${BANZAI_RECEIPTS_OUTBOX_DIR:-/var/lib/banzai/receipts-outbox}"
     volumes:
@@ -154,7 +154,7 @@ services:
     networks: [banza-edge, banza-data, banza-inference, banza-fetch]
     depends_on: [postgres]
 
-  banza-fetcher:         # M2.19G.1 (ADR-068 §4.7) — SSRF-hardened Rust artifact fetcher. The ONLY BANZA
+  banza-fetcher:         # M2.19G.1 (ADR-038 §4.7) — SSRF-hardened Rust artifact fetcher. The ONLY BANZA
     # component that reaches operator public endpoints; banzai-api calls it by service name. NO published
     # ports (never routed by the reverse-proxy); egress-enabled via banza-fetch so it can reach operator
     # HTTPS. The no-network protocol engines stay no-network and receive already-fetched content.
@@ -172,13 +172,13 @@ services:
       start_period: 5s
       retries: 5
 
-  # ADR-044 — OPT-IN local inference (llama.cpp, CPU). OFF by default (compose profile);
+  # ADR-042 — OPT-IN local inference (llama.cpp, CPU). OFF by default (compose profile);
   # internal-only (no published ports), no GPU, no keys, model mounted read-only from a
   # gitignored volume that is NEVER downloaded during build. banzai-api reaches it by
   # service name at http://llama-local:8080/v1 only when LLM_PROVIDER=local_qwen. It is
   # NOT in banzai-api's depends_on (that would auto-enable the profile and defeat the gate).
   llama-local:
-    # Pinned by digest (ADR-045 FIX-6) — the exact image the VPS XL+ benchmark validated,
+    # Pinned by digest (ADR-042 FIX-6) — the exact image the VPS XL+ benchmark validated,
     # honouring the stack's "fixed tags, no :latest" rule (line 3). The rolling `:server`
     # tag could silently swap the runtime base (e.g. drop curl, breaking the healthcheck).
     # Override LLAMA_LOCAL_IMAGE only with another digest-pinned reference.
@@ -205,7 +205,7 @@ services:
           cpus: "${LLAMA_CPU_LIMIT:-4.0}"
           memory: ${LLAMA_MEM_LIMIT:-7g}         # bounded so the model can never OOM the host
     healthcheck:
-      # curl is present in the llama.cpp image — ADR-045 fix (the prior check used a binary
+      # curl is present in the llama.cpp image — ADR-042 fix (the prior check used a binary
       # absent from the image). /health returns 503 while the model loads and 200 once ready,
       # so this reflects real model readiness.
       test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:8080/health || exit 1"]

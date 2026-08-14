@@ -8,7 +8,7 @@
 //
 // RUST_WRAPPER_ONLY. The engine's boundary checker (operator-zero-core) is what proves the marking;
 // this module only reads files and exports constants. TypeScript computes nothing about the
-// simulator (ADR-037) — no ledger arithmetic, no validation, no scoring, no signatures.
+// simulator (ADR-043) — no ledger arithmetic, no validation, no scoring, no signatures.
 //
 // The marker is needed because the `kind` values below mirror the Rust engine's own `ARTIFACT_TYPE`
 // vocabulary, one of which is literally `evidence_bundle` — an engine marker the Rust-first guard
@@ -73,9 +73,6 @@ export interface OperadorZeroValidationState {
   artifacts_ready: number;
   artifacts_total: number;
   blockers: number;
-  last_validation_phase: string;
-  last_validation_commit: string;
-  last_validation_report: string;
   evidence_bundle_url: string;
   trace_url: string;
   boundary_pt: string;

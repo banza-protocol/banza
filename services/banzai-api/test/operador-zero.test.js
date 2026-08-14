@@ -1,7 +1,7 @@
-// M2.12B (ADR-052) — BanzAI knows the Operador Zero simulator.
+// M2.12B (ADR-041) — BanzAI knows the Operador Zero simulator.
 //
 // The gap this closes: before M2.12B, "O que é o Operador Zero?" returned a `no_source` refusal and
-// "Explica o ADR-052" returned `document_not_found`, because neither the curated entry nor ADR-052
+// "Explica o ADR-041" returned `document_not_found`, because neither the curated entry nor ADR-041
 // was in the knowledge base. These tests pin the fix AND the demo boundary of the curated answer —
 // the one place a wrong word (bank / PSP / certified) would be most damaging.
 
@@ -62,15 +62,15 @@ test("the curated Operador Zero answer keeps the demo boundary and never claims 
   assert.ok(!a.includes("banz" + "ami"), "the Operador Zero answer must not name a commercial operator");
 });
 
-test("the curated entry cites ADR-052 as its source", () => {
+test("the curated entry cites ADR-041 as its source", () => {
   const e = getEntry("what-is-operador-zero");
-  assert.ok(e.sources.some((s) => s.id === "ADR-052"), "must cite ADR-052");
+  assert.ok(e.sources.some((s) => s.id === "ADR-041"), "must cite ADR-041");
 });
 
-test("ADR-052 resolves as a real document (not document_not_found)", () => {
-  const r = resolveDocument("Explica o ADR-052");
-  assert.equal(r.detected, true, "ADR-052 must be detected");
-  assert.equal(r.found, true, "ADR-052 must resolve to a real record now that it is indexed");
+test("ADR-041 resolves as a real document (not document_not_found)", () => {
+  const r = resolveDocument("Explica o ADR-041");
+  assert.equal(r.detected, true, "ADR-041 must be detected");
+  assert.equal(r.found, true, "ADR-041 must resolve to a real record now that it is indexed");
 });
 
 test("the Operador Zero entry is marked critical so it is the deterministic fallback", () => {

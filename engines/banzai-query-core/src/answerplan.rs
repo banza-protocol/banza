@@ -2,7 +2,7 @@
 //!
 //! Translates a [`crate::resolve::ResolvedIntent`] into the SHAPE the answer must take — which parts to
 //! cover, in what order, with what citation requirement and length — entirely in Rust. A mixed request
-//! ("qual o estado da ADR-053, por que foi aceite e qual o impacto para operadores?") preserves EVERY
+//! ("qual o estado da ADR-041, por que foi aceite e qual o impacto para operadores?") preserves EVERY
 //! part; it is never silently collapsed to one intent. Pure + total + reproducible: same ResolvedIntent ⇒
 //! same plan (same checksum). No model. The Qwen only fills the shape this plan defines, once.
 
@@ -370,15 +370,15 @@ mod tests {
     fn mixed_request_preserves_every_part() {
         // status + motivation + impact + operator focus, one entity, one grounded synthesis.
         let p = plan(
-            "qual é o estado da ADR-053, por que foi aceite e qual o impacto para operadores?",
-            "ADR-053",
+            "qual é o estado da ADR-041, por que foi aceite e qual o impacto para operadores?",
+            "ADR-041",
         );
         assert_eq!(p.answer_type, AnswerType::GroundedSynthesis);
         assert!(p.exact_facts_requested, "status part");
         assert!(p.motivation_requested, "motivation part");
         assert!(p.impact_requested, "impact part");
         assert!(p.operator_focus, "operator focus");
-        assert!(p.entities.contains(&"ADR-053".to_string()));
+        assert!(p.entities.contains(&"ADR-041".to_string()));
         assert_eq!(p.expected_model_calls, 1);
         assert_eq!(p.citation_requirements, "mandatory");
         assert!(p.secondary_operations.iter().any(|s| s == "mixed_request"));
@@ -390,7 +390,7 @@ mod tests {
 
     #[test]
     fn example_request_becomes_explain_with_example() {
-        let p = plan("explica a revogação com um exemplo", "ADR-038");
+        let p = plan("explica a revogação com um exemplo", "ADR-027");
         assert!(p.example_requested);
         assert_eq!(p.primary_operation, "explain_with_example");
         assert!(p.section_order.contains(&"example".to_string()));
@@ -398,7 +398,7 @@ mod tests {
 
     #[test]
     fn comparison_has_dimensions_and_two_source_minimum() {
-        let p = plan("compara a ADR-053 e a ADR-054", "");
+        let p = plan("compara a ADR-041 e a ADR-042", "");
         assert!(p.comparison_requested);
         assert_eq!(p.primary_operation, "compare");
         assert!(!p.comparison_dimensions.is_empty());
@@ -416,7 +416,7 @@ mod tests {
 
     #[test]
     fn plain_explanation_is_one_call_with_mandatory_citations() {
-        let p = plan("o que é a federação?", "ADR-040");
+        let p = plan("o que é a federação?", "ADR-031");
         assert_eq!(p.answer_type, AnswerType::GroundedSynthesis);
         assert_eq!(p.expected_model_calls, 1);
         assert_eq!(p.citation_requirements, "mandatory");
@@ -425,8 +425,8 @@ mod tests {
 
     #[test]
     fn plan_is_deterministic() {
-        let a = plan("qual o impacto da ADR-053 para operadores?", "ADR-053");
-        let b = plan("qual o impacto da ADR-053 para operadores?", "ADR-053");
+        let a = plan("qual o impacto da ADR-041 para operadores?", "ADR-041");
+        let b = plan("qual o impacto da ADR-041 para operadores?", "ADR-041");
         assert_eq!(a.checksum, b.checksum);
     }
 }

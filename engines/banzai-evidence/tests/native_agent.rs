@@ -41,7 +41,7 @@ fn banzai_is_the_native_protocol_agent() {
 
 #[test]
 fn banzai_is_not_an_adjacent_system() {
-    // The retired pre-ADR-041 framing must be corrected, not affirmed.
+    // The retired pre-ADR-042 framing must be corrected, not affirmed.
     let (t, a) = full("BanzAI é um sistema adjacente?");
     assert_deterministic(&a);
     assert_eq!(

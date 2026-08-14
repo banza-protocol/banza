@@ -9,7 +9,7 @@
 // `null` (the shell then shows a safe "target desconhecido" state and offers the default operator-zero
 // target).
 //
-// ENDPOINT-ORIGINATED (ADR-068): the official journey does NOT read artifacts bundled in the image or
+// ENDPOINT-ORIGINATED (ADR-038): the official journey does NOT read artifacts bundled in the image or
 // pasted/uploaded by the caller. The target is resolved from the closed Technical Registry
 // (operator_id -> implementation_id -> canonical_origin -> discovery) and every artifact is fetched from
 // the implementation's PUBLIC ENDPOINTS by a secure Rust fetcher (never the browser). Upload/paste is a
@@ -21,7 +21,7 @@
 export interface ValidationTarget {
   id: string;
   display_name: string;
-  /** The implementation's canonical public ORIGIN (ADR-068). The secure Rust fetcher resolves and
+  /** The implementation's canonical public ORIGIN (ADR-038). The secure Rust fetcher resolves and
    *  fetches every artifact from this origin's public endpoints. Never a caller-supplied URL; a
    *  constant mirrored from the closed Technical Registry. */
   artifacts_base: string;
@@ -29,7 +29,7 @@ export interface ValidationTarget {
   demo_only: true;
 }
 
-/** The closed target registry. Operador Zero is the only public target (ADR-053: Operator-Zero-only
+/** The closed target registry. Operador Zero is the only public target (ADR-041: Operator-Zero-only
  *  demo/example policy). No caller can introduce a new target. */
 export const VALIDATION_TARGETS: Readonly<Record<string, ValidationTarget>> = {
   "operator-zero": {
@@ -44,9 +44,9 @@ export const VALIDATION_TARGETS: Readonly<Record<string, ValidationTarget>> = {
 export const DEFAULT_TARGET_ID = "operator-zero";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// M2.19G.1 (ADR-068) — Operator → Implementation target model.
+// M2.19G.1 (ADR-038) — Operator → Implementation target model.
 //
-// ADR-068 §4.1/§4.2/§4.3: the human-facing feature is "Validar operador", but the technical object
+// ADR-038 §4.1/§4.2/§4.3: the human-facing feature is "Validar operador", but the technical object
 // evaluated is always a SPECIFIC IMPLEMENTATION published by that operator — never the entity in the
 // abstract. One operator may publish many implementations (demo/sandbox/pre-prod/prod; versions,
 // profiles, capabilities, deployments). This closed, in-repo registry MIRRORS the backend Technical
@@ -56,7 +56,7 @@ export const DEFAULT_TARGET_ID = "operator-zero";
 // new operator/implementation — ids are matched against this closed map and re-resolved in Rust.
 // ─────────────────────────────────────────────────────────────────────────────
 
-/** A published implementation — the technical object the journey evaluates (ADR-068 §4.2). CLOSED set. */
+/** A published implementation — the technical object the journey evaluates (ADR-038 §4.2). CLOSED set. */
 export interface ValidationImplementation {
   implementation_id: string;
   operator_id: string;
@@ -75,7 +75,7 @@ export interface ValidationImplementation {
   eligible: boolean;
 }
 
-/** A responsible operator (ADR-068 §4.10 — the entity, distinct from the technical system). CLOSED set. */
+/** A responsible operator (ADR-038 §4.10 — the entity, distinct from the technical system). CLOSED set. */
 export interface ValidationOperator {
   operator_id: string;
   display_name: string;
@@ -144,7 +144,7 @@ export function mapCatalogueToOperators(raw: unknown): ValidationOperator[] {
   return out;
 }
 
-/** Closed id shape (ADR-068 §4.7 security): a lowercase slug only — NEVER a URL, path or scheme. The
+/** Closed id shape (ADR-038 §4.7 security): a lowercase slug only — NEVER a URL, path or scheme. The
  *  only ids that ever reach the backend are these registry ids, re-checked here before any request. */
 const CLOSED_ID = /^[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?$/;
 export function isClosedId(v: string | null | undefined): boolean {

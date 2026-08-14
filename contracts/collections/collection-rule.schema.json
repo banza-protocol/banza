@@ -2,10 +2,10 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://banza.network/contracts/collections/collection-rule.schema.json",
   "title": "CollectionRule",
-  "description": "Extensible split/contribution strategy for a Collection (ADR-016). A tagged strategy object (not a flat enum) so new rules are added without breaking compatibility. EQUAL_SPLIT with divisibility=EXACT forbids silent rounding.",
+  "description": "Extensible split/contribution strategy for a Collection (ADR-018). A tagged strategy object (not a flat enum) so new rules are added without breaking compatibility. EQUAL_SPLIT with divisibility=EXACT forbids silent rounding.",
   "_spec_version": "1.0",
   "_status": "canonical",
-  "_authority": "ADR-016",
+  "_authority": "ADR-018",
   "type": "object",
   "required": [
     "type"

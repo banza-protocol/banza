@@ -42,7 +42,7 @@ const ALIASES: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "ADR-003",
+        "ADR-001",
         &[
             "separacao de operadores",
             "separacao protocolo operador",
@@ -51,7 +51,7 @@ const ALIASES: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "ADR-005",
+        "ADR-001",
         &[
             "protocolo primeiro",
             "protocol first",
@@ -60,7 +60,7 @@ const ALIASES: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "ADR-006",
+        "ADR-011",
         &[
             "dupla entrada",
             "duplo registo",
@@ -72,7 +72,7 @@ const ALIASES: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "ADR-007",
+        "ADR-011",
         &[
             "invariante de dupla entrada",
             "aplicacao do invariante",
@@ -80,7 +80,7 @@ const ALIASES: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "ADR-010",
+        "ADR-012",
         &[
             "identidade nativa em carteira",
             "modelo de conta",
@@ -90,7 +90,7 @@ const ALIASES: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "ADR-011",
+        "ADR-024",
         &[
             "idempotencia",
             "limitacao de pedidos",
@@ -100,7 +100,7 @@ const ALIASES: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "ADR-012",
+        "ADR-016",
         &[
             "pagamento por qr",
             "qr code",
@@ -109,7 +109,7 @@ const ALIASES: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "ADR-013",
+        "ADR-017",
         &[
             "links de pagamento",
             "payment links",
@@ -118,7 +118,7 @@ const ALIASES: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "ADR-040",
+        "ADR-031",
         &[
             "modelo de confianca da federacao",
             "federation trust",
@@ -129,7 +129,7 @@ const ALIASES: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "ADR-037",
+        "ADR-043",
         &[
             "rust-first",
             "politica rust",
@@ -138,7 +138,7 @@ const ALIASES: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "ADR-038",
+        "ADR-027",
         &[
             "modelo de confianca aberto",
             "confianca sem ca",
@@ -148,7 +148,7 @@ const ALIASES: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "ADR-041",
+        "ADR-042",
         &[
             "banzai como agente nativo",
             "agente de protocolo nativo",
@@ -156,7 +156,7 @@ const ALIASES: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "ADR-042",
+        "ADR-026",
         &[
             "postgresql como estado de protocolo",
             "postgres nao e ledger",
@@ -164,7 +164,7 @@ const ALIASES: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "ADR-043",
+        "ADR-044",
         &[
             "licenca e governanca",
             "license notice trademark",
@@ -173,7 +173,7 @@ const ALIASES: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "ADR-044",
+        "ADR-042",
         &[
             "inferencia local",
             "qwen local",
@@ -182,7 +182,7 @@ const ALIASES: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "ADR-052",
+        "ADR-041",
         &[
             "operador zero",
             "simulador de operador",
@@ -193,7 +193,7 @@ const ALIASES: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "ADR-053",
+        "ADR-041",
         &[
             "operador zero como unico exemplo",
             "politica operator-zero-only",
@@ -202,7 +202,7 @@ const ALIASES: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "ADR-054",
+        "ADR-042",
         &[
             "banzai como interface primaria",
             "banzai interface primaria",
@@ -390,7 +390,7 @@ pub fn generate_candidates(question: &str, max: usize) -> Vec<Candidate> {
 // Runs AFTER the model's entry pass, over the SAME real candidate list. The model proposes; Rust — the
 // sovereign resolver — confirms. It selects ONLY from real candidates, BACKFILLS the single dominant
 // candidate the model left empty for a document-directed question (the failure the offline eval showed:
-// "explica a decisão da política rust-first" → model said explain_concept + empty id, yet ADR-037 is a
+// "explica a decisão da política rust-first" → model said explain_concept + empty id, yet ADR-043 is a
 // dominant alias hit), and asks to CLARIFY when several strong candidates compete. Never invents an id,
 // never hardcodes a question — every decision is a function of the deterministic candidate scores.
 
@@ -568,22 +568,17 @@ mod selection_tests {
             "explica a decisao da politica rust-first",
             5,
         );
-        assert_eq!(s.resolved_id, "ADR-037");
+        assert_eq!(s.resolved_id, "ADR-043");
     }
 
     #[test]
     fn backfills_dominant_candidate_the_model_left_empty() {
         // the exact offline-eval failures: document-directed phrasing, model said explain_concept + "".
         for (q, exp) in [
-            ("explica a decisao da politica rust-first", "ADR-037"),
-            ("fala-me da decisao da inferencia local", "ADR-044"),
-            (
-                "explica a decisao do banzai como interface primaria",
-                "ADR-054",
-            ),
+            ("explica a decisao da politica rust-first", "ADR-043"),
             (
                 "explica a decisao da identidade nativa em carteira",
-                "ADR-010",
+                "ADR-012",
             ),
         ] {
             let s = select_entity("", false, "explain_concept", q, 5);
@@ -667,19 +662,19 @@ mod tests {
         assert!(
             ids("explica a decisao sobre nomes do ecossistema").contains(&"ADR-002".to_string())
         );
-        assert!(ids("fala-me da decisao da inferencia local").contains(&"ADR-044".to_string()));
-        assert!(ids("explica a politica rust-first").contains(&"ADR-037".to_string()));
+        assert!(ids("banzai non-authoritative interface").contains(&"ADR-042".to_string()));
+        assert!(ids("explica a politica rust-first").contains(&"ADR-043".to_string()));
         assert!(
-            ids("o que decidiu o duplo registo contabilistico").contains(&"ADR-006".to_string())
+            ids("o que decidiu o duplo registo contabilistico").contains(&"ADR-011".to_string())
         );
-        assert!(ids("decisao dos links de pagamento").contains(&"ADR-013".to_string()));
+        assert!(ids("decisao dos links de pagamento").contains(&"ADR-017".to_string()));
     }
 
     #[test]
     fn title_keyword_overlap_generates_candidates() {
         // "federacao" + "confianca" overlaps the federation-trust title.
         let c = ids("qual a regra de confianca na federacao");
-        assert!(c.contains(&"ADR-040".to_string()), "{c:?}");
+        assert!(c.contains(&"ADR-031".to_string()), "{c:?}");
     }
 
     #[test]

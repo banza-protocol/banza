@@ -28,9 +28,9 @@ A missing artifact → `L2_INCOMPLETE`; an invalid one → a specific blocker.
 | `l1_readiness` | L1 Readiness (READY) | `L2_BLOCKED_BY_L1` |
 | `payment_intent` | PaymentIntent (ADR-014) | `L2_BLOCKED_BY_PAYMENT_FLOW` |
 | `idempotency` | Idempotency handling (INV-IDEM) | `L2_BLOCKED_BY_IDEMPOTENCY` |
-| `ledger` | Double-entry postings (ADR-006 / INV-LEDGER) | `L2_BLOCKED_BY_LEDGER` |
+| `ledger` | Double-entry postings (ADR-011 / INV-LEDGER) | `L2_BLOCKED_BY_LEDGER` |
 | `trace` | Trace linkage (INV-TRACE) | `L2_BLOCKED_BY_TRACE` |
-| `settlement` | Settlement obligation (ADR-019) | `L2_BLOCKED_BY_SETTLEMENT` |
+| `settlement` | Settlement obligation (ADR-021) | `L2_BLOCKED_BY_SETTLEMENT` |
 | `evidence` | Evidence Bundle reference | (missing → INCOMPLETE) |
 
 ## The payment flow (validated in Rust, locally)
@@ -43,12 +43,12 @@ A missing artifact → `L2_INCOMPLETE`; an invalid one → a specific blocker.
 - **Idempotency** — the same idempotency key must return a consistent response; a replay must be flagged
   (`replay_detected`). Divergent responses for one key are rejected (INV-IDEM).
 - **Ledger postings** — double-entry (a DEBIT and a CREDIT), zero-sum (DEBIT total = CREDIT total),
-  single currency, every entry linked to the `trace_id` (ADR-006 / INV-LEDGER). Amounts are integer
+  single currency, every entry linked to the `trace_id` (ADR-011 / INV-LEDGER). Amounts are integer
   minor units.
 - **Trace linkage** — one `trace_id` ties the intent, the ledger and the settlement together, with the
   minimum lifecycle events present (INV-TRACE / INV-RECON).
 - **Settlement obligation** — gross/net/fee coherent: `net = gross − fee`, all ≥ 0, linked to the
-  payment intent (ADR-019).
+  payment intent (ADR-021).
 - **Evidence reference** — a technical reference (hash/id) to an Evidence Bundle. Technical evidence,
   not certification.
 
@@ -97,4 +97,4 @@ surface, L2 prepares the payment flow. None of them is certification; conformanc
 verifiable conformance evidence that any party can independently reproduce, never awarded by an authority.
 
 See the phase report:
-[`PHASE_BX1_8_BANZAI_L2_READINESS_PAYMENT_FLOW_2026_07.md`](PHASE_BX1_8_BANZAI_L2_READINESS_PAYMENT_FLOW_2026_07.md).
+.

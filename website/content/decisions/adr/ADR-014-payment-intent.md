@@ -1,28 +1,16 @@
-# ADR-014 — Payment Intent: the canonical payment-initiation primitive
-
-**Status:** Accepted  
-**Date:** 2026-06-28  
-**Author:** BANZA Protocol  
-**Deciders:** Fidel Monteiro (Founder)  
-**Supersedes:** None  
-**Extends:** ADR-012 (QR payment system), ADR-013 (Payment Links), ADR-017 (Wallet/account payments & refund source)  
-**See also:** ADR-005 (Protocol-first), ADR-016 (Payment Collections), [BANZA-PROTOCOL-VS-OPERATOR-POLICY](../../docs/governance/BANZA-PROTOCOL-VS-OPERATOR-POLICY.md)
-
----
-
-## Context
+# ADR-014 — Payment intent
 
 BANZA already specifies three ways a payee asks to be paid: **Payment Links**
-(ADR-013), **QR codes** (ADR-012), and **Payment Requests** (`payment_request`
+(ADR-017), **QR codes** (ADR-016), and **Payment Requests** (`payment_request`
 aggregate). Each is a distinct surface, but they share one underlying meaning: *an
 intent to receive a specific (or open) amount, which — when fulfilled by a real
 payer — produces a Transfer that posts to the Ledger.*
 
-Until now there was no **named** concept for that shared meaning. ADR-016
+Until now there was no **named** concept for that shared meaning. ADR-018
 (Collections) needs to reference "the payment-initiation artifact a share points
 to" without re-inventing one per surface, and without binding Collections to a
 single concrete surface. Introducing that named concept *before* Collections is
-the protocol-first sequencing the founder selected (ADR-005): the primitive is
+the protocol-first sequencing the founder selected (ADR-001): the primitive is
 ratified first, then Collections consumes it.
 
 ## Decision
@@ -41,7 +29,7 @@ PaymentIntent  →  Transfer  →  Ledger
 ```
 
 The Ledger has no knowledge of PaymentIntent (or of any surface). This keeps the
-ledger primitive untouched (ADR-017, double-entry invariants).
+ledger primitive untouched (ADR-020, double-entry invariants).
 
 ### Model
 
@@ -94,14 +82,14 @@ surfaces and underpins Collections). Not required for L0/L1.
 
 ## Consequences
 
-- Collections (ADR-016) references a share's settlement via `payment_intent_id`,
+- Collections (ADR-018) references a share's settlement via `payment_intent_id`,
   with no new per-surface invention and no coupling to one concrete surface.
 - Future initiation surfaces (e.g. NFC, recurring) realize PaymentIntent without a
   new top-level concept.
 - The ledger and Transfer primitives are untouched; PaymentIntent lives entirely
   in the initiation domain.
 
-### Forbidden / Permitted (per ADR-005)
+### Forbidden / Permitted (per ADR-001)
 
 - **Forbidden:** an operator/SDK/app inventing initiation objects/fields/events
   outside this contract; a PaymentIntent that holds a balance or posts to the
@@ -113,3 +101,11 @@ surfaces and underpins Collections). Not required for L0/L1.
 
 - Recurring / mandate intents (out of scope for v1).
 - Multi-currency intents (out of scope; one currency per intent).
+
+---
+
+## Normative authority
+
+The decision above is explanatory. What binds an implementation is:
+
+- [`contracts/events/types.json`](../../contracts/events/types.json)

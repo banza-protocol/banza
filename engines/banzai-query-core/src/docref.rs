@@ -76,7 +76,7 @@ impl RegistryDoc {
     }
 }
 
-/// Parse "ADR-002 — Ecosystem Naming Inversion" → ("ADR", 2, "ADR-002", "ecosystem naming inversion").
+/// Parse "ADR-002 — Ecosystem naming: BANZA, BanzAI and operators" → ("ADR", 2, "ADR-002", the alias).
 fn parse_title(title: &str) -> Option<(&'static str, u32, String, String)> {
     let t = title.trim();
     let (kind, rest) = if let Some(r) = t.strip_prefix("ADR-") {
@@ -575,7 +575,7 @@ pub fn document_lookup_card(question: &str, document_id: &str) -> Option<Documen
     })?;
 
     // Only a BARE document LOOKUP gets the deterministic card. A DocumentMetadata question ("qual é o
-    // estado da ADR-053?") is served MORE precisely by the exact-fact terminal (status/date/… , also
+    // estado da ADR-041?") is served MORE precisely by the exact-fact terminal (status/date/… , also
     // deterministic and never degraded), so it is deliberately NOT intercepted here; and an explain/impact/
     // summary request is an EXPLANATION for the grounded trunk.
     let plan = plan_answer(question, &doc.id);
@@ -585,8 +585,16 @@ pub fn document_lookup_card(question: &str, document_id: &str) -> Option<Documen
     }
 
     let kind_label = if doc.kind == "RFC" { "RFC" } else { "ADR" };
+    // The ADR tree is current-only by policy: a record that is present is in force, and records that
+    // stop being true are rewritten or removed rather than marked superseded. So an absent status line
+    // is not missing information — it is the policy. Saying "não declarado" would invite the reader to
+    // wonder whether the decision still stands.
     let status = if doc.status.is_empty() {
-        "não declarado".to_string()
+        if doc.kind == "RFC" {
+            "publicada".to_string()
+        } else {
+            "em vigor".to_string()
+        }
     } else {
         doc.status.clone()
     };
@@ -642,15 +650,12 @@ mod tests {
         assert_eq!(d.id, "ADR-002");
         assert_eq!(
             d.path,
-            "decisions/adr/ADR-002-ecosystem-naming-inversion.md"
+            "decisions/adr/ADR-002-ecosystem-naming-banza-banzai-and-operators.md"
         );
-        assert!(d.title.contains("Ecosystem Naming Inversion"));
+        assert!(d.title.contains("Ecosystem naming"));
         assert!(!d.chunk_idx.is_empty(), "must carry its indexed chunks");
-        assert!(
-            d.status.to_lowercase().contains("accepted"),
-            "status parsed: {:?}",
-            d.status
-        );
+        // No status assertion: the current-only tree carries no status header, and a present record
+        // is in force by policy (see the ADR on the current-only canonical tree).
     }
 
     #[test]
@@ -695,7 +700,7 @@ mod tests {
 
     #[test]
     fn a_title_alias_resolves_without_a_number() {
-        let refs = detect_refs("o que é a ecosystem naming inversion?");
+        let refs = detect_refs("o que é o ecosystem naming: banza, banzai and operators?");
         assert_eq!(refs.first().map(|r| r.id.as_str()), Some("ADR-002"));
         assert_eq!(refs[0].via, "alias");
     }
@@ -710,7 +715,7 @@ mod tests {
 
     #[test]
     fn other_documents_resolve_too() {
-        assert!(resolve("ADR-049").is_some(), "ADR-049 must resolve");
+        assert!(resolve("ADR-042").is_some(), "ADR-042 must resolve");
         assert!(resolve("ADR-1").is_some(), "padding-insensitive");
     }
 
@@ -794,7 +799,7 @@ mod tests {
         let j = resolve_question_json("Explica o ADR-002");
         assert!(j.contains("\"found\":true"));
         assert!(j.contains("ADR-002"));
-        assert!(j.contains("decisions/adr/ADR-002-ecosystem-naming-inversion.md"));
+        assert!(j.contains("decisions/adr/ADR-002-ecosystem-naming-banza-banzai-and-operators.md"));
         assert!(j.contains("\"sources\":[{"), "must carry canonical sources");
         assert!(j.contains("\"content_hash\""));
     }
@@ -803,7 +808,7 @@ mod tests {
     fn content_hash_is_stable_and_document_specific() {
         let a = resolve("ADR-002").unwrap().content_hash();
         let b = resolve("ADR-002").unwrap().content_hash();
-        let c = resolve("ADR-003").unwrap().content_hash();
+        let c = resolve("ADR-001").unwrap().content_hash();
         assert_eq!(a, b, "stable across calls");
         assert_ne!(a, c, "distinct documents hash differently");
     }
@@ -816,9 +821,9 @@ mod tests {
         // validator requires (título/estado/data/caminho) so it is a clean, structured lookup — 0 model
         // calls. Every written form the resolver produces: "ADR 002" / "ADR-002" / "adr002" / "ADR-6".
         for (q, id, frag) in [
-            ("ADR 002", "ADR-002", "Ecosystem Naming Inversion"),
-            ("ADR-002", "ADR-002", "Ecosystem Naming Inversion"),
-            ("adr002", "ADR-002", "Ecosystem Naming Inversion"),
+            ("ADR 002", "ADR-002", "Ecosystem naming"),
+            ("ADR-002", "ADR-002", "Ecosystem naming"),
+            ("adr002", "ADR-002", "Ecosystem naming"),
             ("ADR 006", "ADR-006", "ADR-006"),
             ("ADR-6", "ADR-006", "ADR-006"),
         ] {
@@ -834,8 +839,8 @@ mod tests {
             );
         }
         // A structured document_id (the "Explicar com BanzAI" button flow) resolves too.
-        let c = document_lookup_card("", "ADR-006").expect("card from a structured id");
-        assert_eq!(c.id, "ADR-006");
+        let c = document_lookup_card("", "ADR-011").expect("card from a structured id");
+        assert_eq!(c.id, "ADR-011");
     }
 
     #[test]

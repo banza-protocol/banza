@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Fase D — durable validation-receipt E2E runner (ADR-076).
+# Fase D — durable validation-receipt E2E runner (ADR-042).
 #
 # Spins up a THROWAWAY pgvector container, applies the canonical schema (postgres/init/001_schema.sql),
 # grants the banzai_rw role, then runs the deterministic receipt E2E driver against it (store + fail-safe

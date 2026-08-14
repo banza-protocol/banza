@@ -6,7 +6,7 @@ import {
   resolveImplementationIn,
 } from "./banzaiValidation";
 
-// M2.19G.3B (ADR-068 §4.6/§4.7/§4.9) — the UI operator list is fetched from the Rust-sourced closed
+// M2.19G.3B (ADR-038 §4.6/§4.7/§4.9) — the UI operator list is fetched from the Rust-sourced closed
 // Technical Registry and mapped by mapCatalogueToOperators; no operator is hardcoded on the client. The
 // closed id shape rejects any URL/path/scheme before it can reach the backend, and the operator↔
 // implementation binding is enforced by the list resolvers. A synthetic multi-operator catalogue proves

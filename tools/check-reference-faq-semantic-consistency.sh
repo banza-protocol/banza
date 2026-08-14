@@ -39,7 +39,7 @@ POSITIVE=(
   "não obriga a encaminhar"                                     # ROUTING_ALLOWED ≠ order (echoes §10)
   "assina apenas o Manifesto de Chaves"                         # Trust Root ≠ governance (§6/§11)
   "O BanzAI orienta"                                            # BanzAI ≠ authority (§12)
-  "nenhuma decorre automaticamente da outra"                    # non-propagation (§7/ADR-061)
+  "nenhuma decorre automaticamente da outra"                    # non-propagation (§7/ADR-004)
   "não é o primeiro operador"                                   # Operador Zero premise corrected (§9)
   "adoptada, versionada e publicada"                            # evolution ≠ availability (§14)
   "a FAQ não duplica esses valores"                             # current state → §5, not duplicated

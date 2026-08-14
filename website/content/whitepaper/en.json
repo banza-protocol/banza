@@ -53,15 +53,13 @@
               "n": "1a",
               "label": "eq:bilateral",
               "latex": "R_{\\text{bilateral}}(n) = \\frac{n(n-1)}{2}",
-              "html": "R<sub>bilateral</sub>(n) = n(n−1)/2",
-              "typst": "R_\"bilateral\"(n) = (n(n - 1))/2"
+              "html": "R<sub>bilateral</sub>(n) = n(n−1)/2"
             },
             {
               "n": "1b",
               "label": "eq:common",
               "latex": "I_{\\text{comum}}(n) = n",
-              "html": "I<sub>comum</sub>(n) = n",
-              "typst": "I_\"comum\"(n) = n"
+              "html": "I<sub>comum</sub>(n) = n"
             }
           ]
         },
@@ -112,8 +110,7 @@
               "n": "2",
               "label": "eq:tuple",
               "latex": "\\mathcal{I} = (o,\\, i,\\, v,\\, p,\\, e,\\, u)",
-              "html": "𝓘 = (o, i, v, p, e, u)",
-              "typst": "cal(I) = (o, i, v, p, e, u)"
+              "html": "𝓘 = (o, i, v, p, e, u)"
             }
           ]
         },
@@ -132,8 +129,7 @@
               "n": "3",
               "label": "eq:artifacts",
               "latex": "A_t(\\mathcal{I}) = \\{\\, a_1,\\, a_2,\\, \\dots,\\, a_n \\,\\}",
-              "html": "A<sub>t</sub>(𝓘) = { a<sub>1</sub>, a<sub>2</sub>, …, a<sub>n</sub> }",
-              "typst": "A_t (cal(I)) = { a_1, a_2, dots.h, a_n }"
+              "html": "A<sub>t</sub>(𝓘) = { a<sub>1</sub>, a<sub>2</sub>, …, a<sub>n</sub> }"
             }
           ]
         },
@@ -152,8 +148,7 @@
               "n": "4",
               "label": "eq:validation",
               "latex": "V_m\\!\\left(A_t(\\mathcal{I}),\\, S_{v,p}\\right) \\rightarrow (R,\\, E,\\, P)",
-              "html": "V<sub>m</sub>(A<sub>t</sub>(𝓘), S<sub>v,p</sub>) → (R, E, P)",
-              "typst": "V_m (A_t (cal(I)), S_(v,p)) arrow.r (R, E, P)"
+              "html": "V<sub>m</sub>(A<sub>t</sub>(𝓘), S<sub>v,p</sub>) → (R, E, P)"
             }
           ]
         },

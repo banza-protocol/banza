@@ -88,4 +88,3 @@ assembly, e fora de `banza-conformance` para manter a responsabilidade única.
 
 - [SimB Pre-Review Gate](SIMB_PRE_REVIEW_GATE.md)
 - [`/banzai`](/banzai)
-- [BX1.5 report](PHASE_BX1_5_BANZAI_EVIDENCE_BUNDLE_EXPORT_2026_07.md)

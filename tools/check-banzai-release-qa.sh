@@ -12,7 +12,7 @@
 # says so. What it does is bind the QA document to the code, so the checklist cannot rot into fiction:
 #
 #   1. The guided layer (Model A) is guidance only — it emits no score/verdict, and the gate records
-#      the single technical-state authority (Model B). ADR-076 §D-076-01/02 retired the 0–100 evidence
+#      the single technical-state authority (Model B). ADR-042 §D-076-01/02 retired the 0–100 evidence
 #      score this guard once recomputed from `session::weight`.
 #   2. Every response field the checklist names must be a real key of the /ask response body —
 #      extracted from server.js, not grepped for anywhere in the tree.
@@ -36,8 +36,6 @@ elif grep -qiE '^en_US\.UTF-?8$' <<<"$LOCALES"; then export LC_ALL=en_US.UTF-8
 fi
 
 GATE="docs/quality/BANZAI_RELEASE_QA_GATE.md"
-TEMPLATE="docs/quality/PHASE_REPORT_TEMPLATE.md"
-EXEMPT="docs/quality/qa-gate-legacy-exempt.txt"
 SESSION_RS="engines/banzai-operator-journey/src/session.rs"
 SERVER_JS="services/banzai-api/src/server.js"
 
@@ -49,7 +47,7 @@ note(){ echo "  note: $1"; }
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 
-for f in "$GATE" "$TEMPLATE" "$EXEMPT" "$SESSION_RS" "$SERVER_JS"; do
+for f in "$GATE" "$SESSION_RS" "$SERVER_JS"; do
   [ -f "$f" ] || { echo "FAIL: missing required input $f"; exit 2; }
 done
 
@@ -94,9 +92,9 @@ grep -q "standing invariant" "$GATE" \
   && ok "the gate carries the panel-versus-chip standing invariant" \
   || bad "$GATE must keep the standing invariant (a tool panel's success beside a contradicting chip)"
 
-# ── 2. Model A is guidance only — no scoring couples to this gate (ADR-076 §D-076-02) ──
+# ── 2. Model A is guidance only — no scoring couples to this gate (ADR-042 §D-076-02) ──
 # The guided layer used to carry a 0–100 weighted evidence score, and this gate bound its checkpoint
-# table to `session::weight`. Under ADR-076 §D-076-01/02 Model A is guidance only: there is exactly one
+# table to `session::weight`. Under ADR-042 §D-076-01/02 Model A is guidance only: there is exactly one
 # authority of technical validation state (Model B). So there is no score to bind — instead the gate
 # proves the guided layer emits no score/verdict, and that it records the single-authority rule.
 echo "banzai-release-qa: Model A is guidance only (no score to bind)…"
@@ -106,7 +104,7 @@ echo "banzai-release-qa: Model A is guidance only (no score to bind)…"
 # emission. Write to a file — `grep -q` in a pipe would SIGPIPE its producer under pipefail.
 awk '/#\[cfg\(test\)\]/{exit} {print}' "$SESSION_RS" | sed -e 's://.*::' -e '/^[[:space:]]*\*/d' > "$TMP/session_prod.rs"
 if grep -qE 'fn weight|"points"|technical_evidence|evidence_ready|progress_pct' "$TMP/session_prod.rs"; then
-  bad "$SESSION_RS still emits a score/verdict — Model A must be guidance only (ADR-076 §D-076-02)"
+  bad "$SESSION_RS still emits a score/verdict — Model A must be guidance only (ADR-042 §D-076-02)"
 else
   ok "the guided layer carries no score/verdict (guidance only)"
 fi
@@ -161,14 +159,8 @@ ok "the safety-critical fields are still on the checklist"
 # ── 4. The phase-report template carries the mandatory sections ─────────────
 echo "banzai-release-qa: phase report template…"
 
-for section in "Manual Browser Validation" "Known QA gaps" "CI status and merge policy"; do
-  grep -q "$section" "$TEMPLATE" \
-    && ok "template requires: $section" \
-    || bad "$TEMPLATE must contain the mandatory section: $section"
-done
-grep -q "Build observed" "$TEMPLATE" \
-  && ok "template makes the observed build explicit" \
-  || bad "$TEMPLATE must ask which build was observed — deploy happens after merge"
+# Phase reports were a milestone-era artefact and are retired: the release gate now proves the
+# runtime properties directly rather than proving that a report template asks about them.
 
 # ── 5. Reports claiming BanzAI completeness must show their QA ──────────────
 # FAIL-CLOSED: every BanzAI phase report is bound unless explicitly listed in the exemption file. An
@@ -179,7 +171,6 @@ checked=0
 for report in docs/governance/PHASE_*.md docs/security/PHASE_*.md; do
   [ -f "$report" ] || continue
   grep -qi "banzai" "$report" || continue
-  grep -qxF "$(basename "$report")" "$EXEMPT" && continue
   checked=$((checked + 1))
 
   if grep -qE '^#{1,4} .*Manual Browser Validation' "$report"; then

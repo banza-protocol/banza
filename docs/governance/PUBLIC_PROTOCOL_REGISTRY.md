@@ -13,9 +13,9 @@
 Este documento é subordinado a esta decisão. Nada aqui escrito — nem a existência do índice, nem qualquer
 campo que uma entrada contenha — pode ser lido como contradizendo-a.
 
-Origem normativa: [ADR-038](../../decisions/adr/ADR-038-open-protocol-trust-model-without-ca.md) (D-038-05),
-[ADR-039](../../decisions/adr/ADR-039-operator-self-publication-and-machine-verifiable-conformance.md) §3–§4,
-[ADR-040](../../decisions/adr/ADR-040-federation-trust-evaluation-without-certificates.md).
+Origem normativa: [ADR-027](../../decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md) (D-038-05),
+[ADR-033](../../decisions/adr/ADR-033-operator-self-publication-and-machine-verifiable-conformance.md) §3–§4,
+[ADR-031](../../decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md).
 Contrato normativo: `contracts/production/public-protocol-registry.production.schema.json`.
 
 ---
@@ -154,9 +154,9 @@ dependesse seria um portão com outro nome.
 
 ## Referências
 
-- [ADR-038](../../decisions/adr/ADR-038-open-protocol-trust-model-without-ca.md) — modelo de confiança do protocolo aberto (D-038-05)
-- [ADR-039](../../decisions/adr/ADR-039-operator-self-publication-and-machine-verifiable-conformance.md) — auto-publicação e conformidade verificável por máquina
-- [ADR-040](../../decisions/adr/ADR-040-federation-trust-evaluation-without-certificates.md) — avaliação de confiança de federação
+- [ADR-027](../../decisions/adr/ADR-027-open-protocol-trust-model-without-a-certificate-authority.md) — modelo de confiança do protocolo aberto (D-038-05)
+- [ADR-033](../../decisions/adr/ADR-033-operator-self-publication-and-machine-verifiable-conformance.md) — auto-publicação e conformidade verificável por máquina
+- [ADR-031](../../decisions/adr/ADR-031-federation-trust-evaluation-without-certificates.md) — avaliação de confiança de federação
 - [FEDERATION_TRUST_MODEL.md](./FEDERATION_TRUST_MODEL.md) — a `Open Trust Evaluation` e o passo 6
 - [OPEN_PROTOCOL_GOVERNANCE.md](./OPEN_PROTOCOL_GOVERNANCE.md) — governação do protocolo aberto (canónico)
 - [OPERATOR_SELF_PUBLICATION_AND_CONFORMANCE.md](./OPERATOR_SELF_PUBLICATION_AND_CONFORMANCE.md) — auto-publicação do operador

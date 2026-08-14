@@ -13,14 +13,12 @@ nothing more.
 
 - **Milestone:** M2.8A — BanzAI Local Qwen Inference Runtime; latency tuning in
   M2.8B — BanzAI Local Qwen Latency Tuning.
-- **Governing decisions:** [ADR-044](../../decisions/adr/ADR-044-banzai-local-qwen-inference-runtime.md)
-  (the runtime) and [ADR-045](../../decisions/adr/ADR-045-banzai-local-qwen-latency-tuning-default-readiness.md)
+- **Governing decisions:** [ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md)
+  (the runtime) and [ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md)
   (the tuned defaults recorded throughout this document).
 - **Sibling docs:** `docs/banzai/LOCAL_INFERENCE_RUNTIME.md` (runtime behaviour, modes,
-  endpoints), `docs/banzai/LOCAL_INFERENCE_RUNBOOK.md` (operations), and
-  `docs/governance/M2_8A_LOCAL_QWEN_VPS_XL_BENCHMARK.md` (the initial benchmark record) and
-  `docs/governance/M2_8B_LOCAL_QWEN_VPS_XL_REBENCHMARK.md` (the ADR-045 post-tuning
-  re-benchmark record that gates the default).
+  endpoints) and `docs/banzai/LOCAL_INFERENCE_RUNBOOK.md` (operations). The benchmarks that chose the
+  default are not kept; ADR-042, ADR-042 and ADR-042 carry the decisions they produced.
 
 The install, checksum-verification and provenance-recording process is **unchanged** from
 M2.8A: the same manual, keep-it-out-of-Git flow in Sections 2–5 and 9 still applies. M2.8B
@@ -65,12 +63,12 @@ never OOM the host.
 > **Which model, and why this one.** The selected model is **Qwen2.5-7B-Instruct, Q4_K_M**. It was
 > chosen by benchmark against Qwen2.5-14B under unchanged thresholds: after the R1 remediation it
 > cleared every input, output, safety, factuality, latency and operational gate, at roughly half the
-> 14B latency and a higher clean-serve rate. The verdict and its raw artifacts are in
-> [`docs/reports/M2_18B3_UNIFIED_TWO_PASS_BENCHMARK_VERDICT.md`](../reports/M2_18B3_UNIFIED_TWO_PASS_BENCHMARK_VERDICT.md).
+> 14B latency and a higher clean-serve rate. That comparison decided the default model; the benchmark
+> that produced it was a one-off and is not kept — the decision it informed is the durable part.
 >
 > This document previously described Qwen3-4B, which predates that selection. The model is a local
 > language layer only: it is non-normative, it decides nothing, and BanzAI serves deterministic answers
-> without it (ADR-055, ADR-073).
+> without it (ADR-042, ADR-042).
 
 ## 2. Where to obtain the weights
 
@@ -89,7 +87,7 @@ How to choose the exact file:
   typically looks like `qwen2.5-7b-instruct-q4_k_m.gguf` (exact spelling varies by publisher — do not
   assume it).
 - Confirm the **architecture is Qwen3** and the **parameter count is 4B**. Do not
-  substitute a different size or generation without a new benchmark (ADR-044 §8 rejects an
+  substitute a different size or generation without a new benchmark (ADR-042 §8 rejects an
   8B model as the initial default for the 16 GB no-GPU envelope).
 - Prefer a **single-file** GGUF. If the publisher ships a split/sharded GGUF, either
   download the merged file or merge the shards with `llama.cpp`'s tooling before use;
@@ -157,7 +155,7 @@ Downloaded:   2026-07-19
 sha256:       <the verified hash>
 Licence:      <licence name from the model card, e.g. Apache-2.0>
 Licence URL:  <link to the licence text on the model card>
-Notes:        Installed manually per docs/banzai/LOCAL_QWEN_MODEL_SETUP.md (ADR-044).
+Notes:        Installed manually per docs/banzai/LOCAL_QWEN_MODEL_SETUP.md (ADR-042).
 ```
 
 This note is the auditable record of what is running and under what licence. Keep it
@@ -201,7 +199,7 @@ cannot starve the rest. Practical guidance:
   `8192` if the VPS XL+ benchmark proves it stable within the memory envelope.
 
 **No GPU.** Inference is CPU-only via `llama.cpp`, which means it is comparatively slow and
-latency-sensitive. The runtime is deliberately conservative to match, and M2.8B (ADR-045)
+latency-sensitive. The runtime is deliberately conservative to match, and M2.8B (ADR-042)
 tunes these defaults to keep CPU prefill and generation bounded:
 
 - `BANZAI_MAX_CONCURRENCY=1` — one request at a time.
@@ -210,8 +208,8 @@ tunes these defaults to keep CPU prefill and generation bounded:
 - `LLM_TIMEOUT_MS=60000` — for `local_qwen` the default timeout is **60s**, the operational
   margin for CPU generation. 90s is documented only as an extreme fallback. Timeouts still
   degrade safely to the deterministic answer.
-- `LLM_MAX_TOKENS=384` — for `local_qwen` the default output is **384 tokens** (ADR-047: a
-  professional answer budget, benchmark-validated once reasoning was disabled per ADR-046).
+- `LLM_MAX_TOKENS=384` — for `local_qwen` the default output is **384 tokens** (ADR-042: a
+  professional answer budget, benchmark-validated once reasoning was disabled per ADR-042).
   Lower to `256` or raise to `512` only by explicit config. Hosted providers keep `800`.
 - `LLM_TEMPERATURE` 0.1–0.2, `LLM_TOP_P` ~0.8 — bounded, low-variance output.
 - `LLAMA_THREADS=4`, `LLAMA_CPU_LIMIT=4.0` — bounded CPU so inference does not crowd out the
@@ -250,16 +248,16 @@ LLM_MODEL=qwen3-4b               # logical model name reported by /health and /a
 # LLM_API_BASE defaults to http://llama-local:8080/v1 for local_qwen (override only if needed)
 
 # llama.cpp container knobs
-LLAMA_LOCAL_IMAGE=ghcr.io/ggml-org/llama.cpp@sha256:b832a7b7252a90a79a1e8d23d9be3ac5261a33224f60682dff0cade412fa55d3   # digest-pinned (ADR-045); override only with another @sha256 pin, never a rolling tag
+LLAMA_LOCAL_IMAGE=ghcr.io/ggml-org/llama.cpp@sha256:b832a7b7252a90a79a1e8d23d9be3ac5261a33224f60682dff0cade412fa55d3   # digest-pinned (ADR-042); override only with another @sha256 pin, never a rolling tag
 LLAMA_MODEL_PATH=/models/model.gguf   # path INSIDE the container; ./models is bind-mounted :ro
 LLAMA_CTX_SIZE=4096
 LLAMA_THREADS=4
 LLAMA_CPU_LIMIT=4.0
 LLAMA_MEM_LIMIT=7g
 
-# Conservative CPU-inference limits (M2.8B tuned defaults, ADR-045)
+# Conservative CPU-inference limits (M2.8B tuned defaults, ADR-042)
 LLM_TIMEOUT_MS=60000             # local_qwen default 60s; 90s only as an extreme fallback
-LLM_MAX_TOKENS=384               # local_qwen default (ADR-047); 256/512 only by explicit config (hosted: 800)
+LLM_MAX_TOKENS=384               # local_qwen default (ADR-042); 256/512 only by explicit config (hosted: 800)
 LLM_TEMPERATURE=0.2
 LLM_TOP_P=0.8
 BANZAI_MAX_CONCURRENCY=1
@@ -317,7 +315,7 @@ docker compose exec banzai-api \
   curl -fsS http://llama-local:8080/health
 ```
 
-> **M2.8B healthcheck note (ADR-045):** the `llama-local` container healthcheck uses
+> **M2.8B healthcheck note (ADR-042):** the `llama-local` container healthcheck uses
 > `curl`, which is present in `ghcr.io/ggml-org/llama.cpp:server`; `wget` is **not** in that
 > image, so the earlier `wget`-based probe never passed. The `/health` endpoint returns
 > **503** while the model is still loading and **200** once it is ready — that is why the
@@ -417,5 +415,5 @@ model on disk at all.
 
 *For runtime behaviour and the endpoint contract see `docs/banzai/LOCAL_INFERENCE_RUNTIME.md`;
 for day-to-day operations see `docs/banzai/LOCAL_INFERENCE_RUNBOOK.md`; for the decision and
-its rationale see [ADR-044](../../decisions/adr/ADR-044-banzai-local-qwen-inference-runtime.md)
-and [ADR-045](../../decisions/adr/ADR-045-banzai-local-qwen-latency-tuning-default-readiness.md).*
+its rationale see [ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md)
+and [ADR-042](../../decisions/adr/ADR-042-banzai-a-non-authoritative-interface-to-the-protocol.md).*

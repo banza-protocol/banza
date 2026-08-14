@@ -33,7 +33,7 @@ describe("mapAskResponse (banzai-api /ask → KbAnswer)", () => {
       answer: "Não. BANZA é o protocolo, não um operador.",
       grounded: true,
       local_model_called: false,
-      sources: [{ id: "ADR-003", title: "Operator separation", path: "p" }, { id: "ANNEX", title: "annex", path: "p" }],
+      sources: [{ id: "ADR-001", title: "Operator separation", path: "p" }, { id: "ANNEX", title: "annex", path: "p" }],
       sources_count: 2,
       engine_state: "local_qwen",
       meta: { deterministic: true },
@@ -129,11 +129,11 @@ describe("mapAskResponse (banzai-api /ask → KbAnswer)", () => {
 
   it("a normal grounded Qwen answer is NEVER labelled degraded (regression: como federar um operador?)", () => {
     const r = mapAskResponse({
-      answer: "No BANZA, a participação é demonstrada por evidência verificável (ADR-040).",
+      answer: "No BANZA, a participação é demonstrada por evidência verificável (ADR-031).",
       grounded: true,
       local_model_called: true,
       external_model_called: false,
-      sources: [{ id: "ADR-040", title: "Federation", path: "p" }],
+      sources: [{ id: "ADR-031", title: "Federation", path: "p" }],
       engine_state: "local_qwen",
       latency_ms: 32000,
       meta: {},
@@ -191,7 +191,7 @@ describe("mapAskResponse (banzai-api /ask → KbAnswer)", () => {
     expect(safeSourceHref("engines/banzai-api-kb/pkg/banzai_api_kb_bg.wasm", "banza-protocol/banza")).toBeNull();
     // A globbed registry path links to the directory (tree), never a guessed file.
     expect(safeSourceHref("decisions/adr/ADR-001-*.md", "banza-protocol/banza")).toBe("https://github.com/banza-protocol/banza/tree/main/decisions/adr");
-    // Honors the source's declared repo. Post-consolidation (ADR-075) the monorepo is the only live
+    // Honors the source's declared repo. Post-consolidation (ADR-042) the monorepo is the only live
     // BanzAI source — there is no separate banza-protocol/banzai repo to link to.
     expect(safeSourceHref("engines/banzai-trace/", "banza-protocol/banza")).toBe("https://github.com/banza-protocol/banza/tree/main/engines/banzai-trace");
   });

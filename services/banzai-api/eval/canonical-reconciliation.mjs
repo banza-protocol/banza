@@ -21,8 +21,8 @@ const OUT_JSON = join(__dirname, "canonical-reconciliation.json");
 const OUT_MD = join(__dirname, "canonical-reconciliation.md");
 
 // ── prior suites — computed from their own sources (reproducible) ─────────────────────────────────────
-const m2 = JSON.parse(readFileSync(join(__dirname, "m2-18b6-grounded.dataset.json"), "utf8"));
-const boundary = JSON.parse(readFileSync(join(__dirname, "m2-18b2-boundary.dataset.json"), "utf8"));
+const m2 = JSON.parse(readFileSync(join(__dirname, "grounded.dataset.json"), "utf8"));
+const boundary = JSON.parse(readFileSync(join(__dirname, "boundary.dataset.json"), "utf8"));
 
 // import the JS-defined datasets without their import-time console noise.
 const origLog = console.log;
@@ -37,7 +37,7 @@ const PRIOR = [
     key: "m2-18b6-grounded",
     label: "M2.18B.6 grounded-synthesis dataset (12 categories)",
     count: m2.total,
-    source: "services/banzai-api/eval/m2-18b6-grounded.dataset.json (total)",
+    source: "services/banzai-api/eval/grounded.dataset.json (total)",
     canonical_class_mapping: ["base", "variation", "negative", "comparison→regression"],
     note: "This is the 709. Its explanation/exact/impact/mixed/follow_up/example/concept categories map to the canonical base+variation classes; its boundary/adversarial/unsupported/ambiguity categories map to negative; compare maps to regression.",
   },
@@ -53,7 +53,7 @@ const PRIOR = [
     key: "m2-18b2-boundary",
     label: "M2.18B.2 action-boundary dataset (boundary + informational)",
     count: (boundary.boundary_cases || []).length + (boundary.informational_cases || []).length,
-    source: "services/banzai-api/eval/m2-18b2-boundary.dataset.json (boundary_cases + informational_cases)",
+    source: "services/banzai-api/eval/boundary.dataset.json (boundary_cases + informational_cases)",
     canonical_class_mapping: ["negative"],
     note: "115 boundary + 50 informational = 165. Maps to the canonical negative class (boundary refusals) + intent cases.",
   },
@@ -122,7 +122,7 @@ const report = {
     by_family: byFamily,
   },
   how_709_1564_map: {
-    "709": "M2.18B.6 grounded-synthesis total (m2-18b6-grounded.dataset.json). Subsumed by the canonical base + variation (grounded documentary families) and negative (boundary/adversarial/unsupported/ambiguity) classes.",
+    "709": "M2.18B.6 grounded-synthesis total (grounded.dataset.json). Subsumed by the canonical base + variation (grounded documentary families) and negative (boundary/adversarial/unsupported/ambiguity) classes.",
     "1564": "BZC-4 resolution-coverage total (bzc-coverage.mjs = 1500 positive + 49 negative-entity + 15 documental). Subsumed by the canonical live (entity×artifact) and negative classes.",
     new_cases: "The operational families (metrics, duration, diagnosis, reason_codes, reproduction, comparison-of-executions), the multi_turn class, and the zero-tolerance adversarial probes are ADDITIVE — they cover behaviours neither 709 nor 1564 measured. The canonical suite counts every case ONCE, by class; it does not add the prior suites' totals to its own.",
   },

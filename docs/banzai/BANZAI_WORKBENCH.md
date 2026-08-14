@@ -1,8 +1,8 @@
 # BanzAI — Durable Validation & Evidence
 
-> **Scope:** the BanzAI interface for the nine-step technical validation journey, its durable append-only receipt store, and the compare/reproduce/evidence surfaces. **Normative source:** [spec/validation-journey.md](../../spec/validation-journey.md). **Decisions:** ADR-068 (endpoint-originated validation), ADR-076 (journey consolidation + durable receipts), ADR-042 (PostgreSQL protocol-state boundary), ADR-052/053 (Operator Zero).
+> **Scope:** the BanzAI interface for the nine-step technical validation journey, its durable append-only receipt store, and the compare/reproduce/evidence surfaces. **Normative source:** [spec/validation-journey.md](../../spec/validation-journey.md). **Decisions:** ADR-038 (endpoint-originated validation), ADR-042 (journey consolidation + durable receipts), ADR-026 (PostgreSQL protocol-state boundary), ADR-041/053 (Operator Zero).
 
-BanzAI is the primary human-operator interface (ADR-054). It is where a human runs a validation against an operator implementation and consults the durable record afterwards. It never redefines protocol rules — it executes the Rust engines and records what they decide.
+BanzAI is the primary human-operator interface (ADR-042). It is where a human runs a validation against an operator implementation and consults the durable record afterwards. It never redefines protocol rules — it executes the Rust engines and records what they decide.
 
 ## Two journeys
 
@@ -11,7 +11,7 @@ BanzAI is the primary human-operator interface (ADR-054). It is where a human ru
 
 Rule: *Model A orients the path; Model B evaluates — and is the single authority on technical state.*
 
-## Durable receipts (ADR-076)
+## Durable receipts (ADR-042)
 
 Each step returns a canonical OperationReceipt; the journey returns a JourneyReceipt. Both are canonical-JSON SHA-256 hashed and, when the store is enabled, persisted append-only to PostgreSQL:
 
@@ -47,7 +47,7 @@ On boot the service recovers stale `RUNNING` executions (→ `INTERRUPTED`), dra
 
 ## Configuration
 
-The store is env-gated OFF by default. Enable in production with `BANZAI_RECEIPTS_ENABLED=1`, `DATABASE_URL` (the `banzai_rw` role), and `BANZAI_RECEIPTS_OUTBOX_DIR` (a writable volume for the durable outbox). See the [migration runbook](../guides/M2_19H_VALIDATION_RECEIPTS_RUNBOOK.md).
+The store is env-gated OFF by default. Enable in production with `BANZAI_RECEIPTS_ENABLED=1`, `DATABASE_URL` (the `banzai_rw` role), and `BANZAI_RECEIPTS_OUTBOX_DIR` (a writable volume for the durable outbox). See the [migration runbook](../guides/VALIDATION_RECEIPTS_RUNBOOK.md).
 
 ## Operator Zero
 

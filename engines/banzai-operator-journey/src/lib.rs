@@ -1,11 +1,11 @@
-//! banzai-operator-journey (ADR-049; reframed by ADR-076 §D-076-01/02) — the Rust state machine for the
+//! banzai-operator-journey (ADR-042; reframed by ADR-042 §D-076-01/02) — the Rust state machine for the
 //! BanzAI GUIDED OPERATOR-ORIENTATION path (historically "Model A"). It owns the STEP ORDER, the NEXT
 //! ORIENTATION ACTIVITY, per-activity NAVIGATION status, navigation progress, and a SAFE session-context
 //! summary for the local Qwen. The browser keeps only visual React state (in memory, cleared on reload);
 //! ALL guidance logic — navigation statuses, transitions, next action, the sanitized context sent to
-//! `/ask` — is computed here (ADR-037; rules 15/16). Deterministic; no LLM, no network, no persistence.
+//! `/ask` — is computed here (ADR-043; rules 15/16). Deterministic; no LLM, no network, no persistence.
 //!
-//! GUIDANCE ONLY (ADR-076 §D-076-01/02): this layer orients the percurso; it does NOT evaluate. Its
+//! GUIDANCE ONLY (ADR-042 §D-076-01/02): this layer orients the percurso; it does NOT evaluate. Its
 //! per-activity status is navigation only — not_started | available | in_progress | completed — where
 //! `completed` means an orientation activity was visited/finished and is navigation only, never approval,
 //! certification, a conformance pass or a score. There is exactly one authority of technical validation
@@ -52,7 +52,7 @@ fn step_index(step: &str) -> Option<usize> {
     STEPS.iter().position(|s| *s == step)
 }
 
-// The allowed per-activity NAVIGATION status values (ADR-076 §D-076-02) are owned by
+// The allowed per-activity NAVIGATION status values (ADR-042 §D-076-02) are owned by
 // `session::STATUSES` — `completed` is orientation only, never approval, certification, a conformance
 // pass or a score. The retired verdict statuses (`valid`, `evidence_ready`, …) and every points scale
 // are gone: this layer cannot express a technical conclusion; that is Model B's sole authority.
@@ -101,7 +101,7 @@ fn safe_slug(v: Option<&Value>, max: usize) -> String {
     out
 }
 
-/// The legacy flat verdict field name for a step. Under ADR-076 §D-076-02 only its PRESENCE is read
+/// The legacy flat verdict field name for a step. Under ADR-042 §D-076-02 only its PRESENCE is read
 /// (as "visited"); its value is discarded — the flat field never re-enters as a verdict.
 fn legacy_status_key(step: &str) -> &'static str {
     match step {
@@ -173,7 +173,7 @@ fn visited_of(st: &NavState, step: &str) -> bool {
 }
 
 // The pre-M2.11A status/blocking/next-action logic, and the M2.11A evidence-scoring model that
-// replaced it, are both gone (ADR-076 §D-076-02): this layer no longer computes any verdict or score.
+// replaced it, are both gone (ADR-042 §D-076-02): this layer no longer computes any verdict or score.
 // `session::legacy_evaluation` derives the `/ask` compatibility view from the single navigation model.
 
 /// Evaluate the guidance path — a COMPATIBILITY VIEW over the navigation model, in navigation
@@ -277,7 +277,7 @@ pub fn steps_json() -> Value {
         .collect::<Vec<_>>())
 }
 
-// ── Upload JSON scan (M2.9C, ADR-049) ────────────────────────────────────────
+// ── Upload JSON scan (M2.9C, ADR-042) ────────────────────────────────────────
 // When an operator uploads a real protocol JSON artifact in the guided journey, the SAFE gate runs
 // HERE in Rust (rules 15/16/26): parse the JSON, enforce a size backstop, and REJECT anything that
 // carries private keys / secrets / credentials. BanzAI never processes key material — public keys are

@@ -11,7 +11,7 @@ state in this model activates payments, funds movement, or a real operator.
 
 The current state is **`PRE_PRODUCTION`**. The final state, **`M4_PRODUCTION_NETWORK`**, is **future-only** —
 declared here for completeness, not activated. M2 status itself is computed in Rust by
-`engines/banza-m2-protocol-gate` (`validate_m2_protocol_gate`); this document is the governance model that the
+`engines/banza-production-gate` (`validate_m2_protocol_gate`); this document is the governance model that the
 gate serves.
 
 ## 1. The six states
@@ -135,4 +135,3 @@ If any of these would change, the transition is forbidden in M2 and requires the
 - [`M2_PRODUCTION_PROTOCOL_IMPLEMENTATION.md`](M2_PRODUCTION_PROTOCOL_IMPLEMENTATION.md)
 - [`PROTOCOL_RELEASE_GOVERNANCE.md`](PROTOCOL_RELEASE_GOVERNANCE.md)
 - [`OPERATOR_MANIFEST_VALIDATION.md`](OPERATOR_MANIFEST_VALIDATION.md)
-- [`M2_READINESS_HANDOFF_2026_07.md`](M2_READINESS_HANDOFF_2026_07.md)

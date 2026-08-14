@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// M2.18B.5 §25 — regenerate artifacts/m2-18b5/alias-truth-table.md from the Rust-derived truth table
+// M2.18B.5 §25 — regenerate artifacts/banzai/alias-truth-table.md from the Rust-derived truth table
 // (fuzzy::alias_truth_table via aliasTruthTable()). Run: node tools/gen-alias-truth-table.mjs
 import { aliasTruthTable } from "../services/banzai-api/src/knowledge.js";
 import { writeFileSync, mkdirSync } from "node:fs";
@@ -19,6 +19,6 @@ if ((t.collisions || []).length > 0) {
   md += "\n## Collisions (MUST be empty)\n\n";
   for (const [a, ids] of t.collisions) md += `- \`${a}\` → ${ids.join(", ")}\n`;
 }
-mkdirSync("artifacts/m2-18b5", { recursive: true });
-writeFileSync("artifacts/m2-18b5/alias-truth-table.md", md);
-console.log(`wrote artifacts/m2-18b5/alias-truth-table.md — rows=${rows.length} ids=${Object.keys(byId).length} collisions=${(t.collisions || []).length}`);
+mkdirSync("artifacts/banzai", { recursive: true });
+writeFileSync("artifacts/banzai/alias-truth-table.md", md);
+console.log(`wrote artifacts/banzai/alias-truth-table.md — rows=${rows.length} ids=${Object.keys(byId).length} collisions=${(t.collisions || []).length}`);
