@@ -2108,6 +2108,45 @@ pub fn answer(raw: &str) -> KbAnswer {
             Some(vec!["Humanos mantêm o protocolo; não autorizam, certificam, aceitam nem aprovam operadores.", "Conformance é medição reproduzível, não aprovação.", "Revogação é mecanismo de segurança, não licença nem sanção regulatória."]),
             Some(vec!["Qual é o papel da Trust Root?", "Como o protocolo sobrevive sem a equipa fundadora?"]));
     }
+    // What the trust rules DO and DO NOT guarantee — a security boundary, answered deterministically.
+    // Live QA found the model answering "o BANZA fornece transparência global" — claiming a property the
+    // specification explicitly does not provide. A guarantee is a fact; asserting one BANZA does not
+    // have is worse than refusing, because a reader plans around it.
+    if has(&[
+        "transparencia global",
+        "transparência global",
+        "global transparency",
+        "split-view",
+        "split view",
+        "consistencia de conjunto",
+        "consistência de conjunto",
+        "set consistency",
+        "mix-and-match",
+        "mix and match",
+        "vista coerente",
+        "estado de publicacao",
+    ]) {
+        return mk("trust_guarantee_boundary", "answer",
+            "Não. É preciso separar quatro garantias, e o BANZA fornece duas.\n\n\
+**Fornece — frescura do artefacto:** um artefacto expirado não é aceite.\n\
+**Fornece — monotonicidade local:** dentro de um âmbito observado, um verificador não regride abaixo do \
+marcador mais alto que já aceitou.\n\
+**Não fornece — consistência de conjunto:** o BANZA não garante actualmente que vários artefactos \
+individualmente válidos e frescos pertençam a um único estado de publicação coerente. A expiração limita \
+a antiguidade de cada artefacto, não a coerência entre eles.\n\
+**Não fornece — consistência entre observadores:** não há transparência global nem detecção de \
+split-view. Dois observadores sem estado partilhado podem receber material diferente e individualmente \
+válido.\n\n\
+Estas duas ausências são limites declarados, não omissões: fechá-las exigiria infra-estrutura que o \
+BANZA não adopta.",
+            vec![c("trust"), c("gov")],
+            Some(vec![
+                "Fornece frescura de artefacto e monotonicidade local.",
+                "Não fornece consistência de conjunto nem transparência global.",
+                "Expiração limita a antiguidade de cada artefacto, não a coerência entre artefactos.",
+            ]),
+            Some(vec!["Qual é o limiar da raiz?", "O que é o BCJ/1?"]));
+    }
     // Root authorization cardinality and threshold — a security fact, answered deterministically.
     // It sits BEFORE the role terminal because "quantas autoridades…" would otherwise fall through to
     // the role answer, and before any model path because a paraphrase of "three authorities, two

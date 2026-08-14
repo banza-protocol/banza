@@ -82,3 +82,54 @@ fn the_threshold_is_not_derived_from_hardware() {
         "must separate authorization from custody hardware: {t}"
     );
 }
+
+// ── the guarantee boundary ────────────────────────────────────────────────────────────────────────
+//
+// Live QA found the model answering "o BANZA fornece transparência global" — a property the
+// specification explicitly does not provide. Claiming a guarantee that does not exist is worse than
+// refusing to answer, because a reader plans around it.
+
+#[test]
+fn global_transparency_is_denied_not_claimed() {
+    for q in [
+        "o banza fornece transparencia global",
+        "does banza provide global transparency",
+        "o banza detecta split-view",
+    ] {
+        let r = a(q);
+        assert_eq!(r.intent, "trust_guarantee_boundary", "q={q}");
+        let t = r.text.to_lowercase();
+        assert!(t.starts_with("não"), "must open with a denial: {q}");
+        assert!(
+            t.contains("não fornece — consistência entre observadores")
+                || t.contains("nao fornece"),
+            "must name cross-observer consistency as absent: {q}"
+        );
+    }
+}
+
+#[test]
+fn set_consistency_is_named_as_absent_and_not_confused_with_expiry() {
+    let t = a("o banza garante consistencia de conjunto").text;
+    assert!(
+        t.contains("Não fornece — consistência de conjunto"),
+        "set consistency must be stated as absent: {t}"
+    );
+    assert!(
+        t.contains("não a coerência entre eles"),
+        "expiry must not be presented as bounding set consistency: {t}"
+    );
+}
+
+#[test]
+fn the_two_guarantees_that_do_exist_are_still_stated() {
+    let t = a("o banza fornece transparencia global").text;
+    assert!(
+        t.contains("frescura do artefacto"),
+        "must keep artifact freshness: {t}"
+    );
+    assert!(
+        t.contains("monotonicidade local"),
+        "must keep local monotonicity: {t}"
+    );
+}
