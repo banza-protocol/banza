@@ -62,9 +62,14 @@ const GOVERNANCE_ALLOW: &[&str] = &[
     "certification-boundary",
     "CLAUDE_BASE",
     "THREAT_MODEL",
-    "COMPONENT_BOUNDARY",
     "RUST_FIRST_IMPLEMENTATION_POLICY",
     "BANZAI_NATIVE_PROTOCOL_AGENT",
+    // The trust architecture is the public, canonical account of the Trust Root, the Key Manifest,
+    // delegated keys and revocation — and it states the concrete authorization model. Without it
+    // indexed, a question about the root retrieved only the key-manifest CONTRACTS and the answer had
+    // to be inferred from schemas; live QA caught the model inferring "two authorities" from
+    // "two signatures". A protocol's most consequential number must be retrievable, not deducible.
+    "BANZA_TRUST_ARCHITECTURE",
 ];
 
 /// Defensive path deny-list: never index anything whose path contains these (secrets/infra/build/vcs).

@@ -1,5 +1,5 @@
 {
-  "total": 3859,
+  "total": 3864,
   "rows": [
     {
       "raw_text": "Contributing to BANZA",
@@ -24997,6 +24997,18 @@
       "classification": "SUBJECT"
     },
     {
+      "raw_text": "Modelo de autorização da raiz — 2-de-3",
+      "normalized": "modelo de autorizacao da raiz 2-de-3",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
       "raw_text": "Decisão arquitectural canónica",
       "normalized": "decisao arquitectural canonica",
       "sources": [
@@ -25132,19 +25144,75 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "criptográfico e lógico",
-      "normalized": "criptografico e logico",
+      "raw_text": "mesma",
+      "normalized": "mesma",
       "sources": [
         "docs-governance-banza-trust-architecture-md"
       ],
       "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "três",
+      "normalized": "tres",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "duas",
+      "normalized": "duas",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "nunca autoriza",
+      "normalized": "nunca autoriza",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "uma",
+      "normalized": "uma",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md",
+        "docs-governance-public-protocol-registry-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "STOPWORD"
+    },
+    {
+      "raw_text": "controlos de custódia",
+      "normalized": "controlos de custodia",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md"
+      ],
+      "frequency": 2,
       "phrase_length": 3,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "controlos de custódia",
-      "normalized": "controlos de custodia",
+      "raw_text": "criptográfico e lógico",
+      "normalized": "criptografico e logico",
       "sources": [
         "docs-governance-banza-trust-architecture-md"
       ],
@@ -30397,17 +30465,6 @@
       "phrase_length": 5,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "uma",
-      "normalized": "uma",
-      "sources": [
-        "docs-governance-public-protocol-registry-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "STOPWORD"
     },
     {
       "raw_text": "os contratos prevalecem",

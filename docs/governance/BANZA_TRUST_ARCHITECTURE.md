@@ -8,6 +8,25 @@
 
 ---
 
+## Modelo de autorização da raiz — 2-de-3
+
+A `Trust Root` é controlada por **três autoridades de assinatura independentes**. Qualquer acção
+autorizada da raiz exige **duas assinaturas, de duas autoridades distintas**. Uma assinatura isolada
+nunca autoriza, e duas assinaturas da **mesma** autoridade contam como uma só.
+
+| | |
+|---|---|
+| Autoridades independentes | **três** |
+| Assinaturas necessárias | **duas**, de autoridades distintas |
+| Uma assinatura isolada | **nunca autoriza** |
+| Duas assinaturas da mesma autoridade | contam como **uma** |
+
+O limiar é criptográfico e lógico. Quantos módulos de segurança existem, onde ficam os dispositivos e
+como o material é transportado são **controlos de custódia** — podem mudar sem redefinir a autoridade
+do protocolo. O número de dispositivos nunca determina o limiar.
+
+---
+
 ## Decisão arquitectural canónica
 
 > BANZA é um protocolo financeiro aberto. Operadores independentes implementam o protocolo, publicam
