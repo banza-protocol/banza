@@ -161,14 +161,19 @@ fn is_trust_guarantee_phrase(nq: &str) -> bool {
 /// Trust Root do BANZA?" is seven tokens with no definition lead, and production answered it with "uma
 /// autoridade". The most consequential fact in the protocol, stated wrongly.
 ///
+/// The phrases are matched by STEM ("quantas autoridad", not "quantas autoridades"). The typo-tolerance
+/// layer runs before routing and rewrites the correctly spelled plural to the singular with high
+/// confidence; the first fix here matched the plural, passed every routing test, and still lost in
+/// production because the question that reached the router was no longer the question that was asked.
+///
 /// The protocol version is deliberately NOT here: it is owned by the attribute registry
 /// (`attribute::resolve_attribute_query`), which decides it earlier and from one place.
 fn is_protocol_fact_phrase(nq: &str) -> bool {
     has(
         nq,
         &[
-            "quantas autoridades",
-            "how many authorities",
+            "quantas autoridad",
+            "how many authorit",
             "threshold da raiz",
             "threshold da trust root",
             "root threshold",
@@ -479,11 +484,12 @@ fn term_of(nq: &str) -> Option<&'static str> {
     if has(
         nq,
         &[
-            "quantas autoridades",
-            "how many authorities",
+            "quantas autoridad",
+            "how many authorit",
             "how many root",
             "quantas chaves de raiz",
             "quantas chaves da raiz",
+            "quantas chave de raiz",
             "threshold da raiz",
             "threshold da trust root",
             "threshold do root",
@@ -498,6 +504,7 @@ fn term_of(nq: &str) -> Option<&'static str> {
             "autoridades da raiz",
             "autoridades de raiz",
             "root authorities",
+            "root authoritie",
         ],
     ) {
         return Some("def-root-authorization");

@@ -12,8 +12,42 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import * as kb from "../src/rustkb/banzai_api_kb.js";
+import { createPipeline } from "../src/pipeline.js";
+import { createProvider } from "../src/provider.js";
+import { ExactCache, SemanticCache } from "../src/cache.js";
+import { BudgetTracker, RateLimiter } from "../src/limits.js";
 
 const routed = (q) => JSON.parse(kb.route_question_json(q)).entry_id;
+
+// Routing is not the whole answer path. The typo-tolerance layer runs BEFORE the router and rewrites
+// the question — it "corrected" the correctly spelled "autoridades" to "autoridade", after which the
+// router no longer recognised the question and production served a model composition. Asserting the
+// router alone passed throughout. So the pipeline is what these tests drive, with the model stubbed to
+// a marker string: if the marker ever appears in an answer, a fact was composed instead of decided.
+const MODEL = "MODEL-COMPOSED-THIS";
+function pipe() {
+  const provider = createProvider(
+    { LLM_PROVIDER: "local_qwen", LLM_BASE_URL: "http://127.0.0.1:1" },
+    { fetchImpl: async () => { throw new Error("no model in tests"); } },
+  );
+  return createPipeline({
+    provider,
+    env: {},
+    exactCache: new ExactCache(),
+    semanticCache: new SemanticCache(),
+    budget: new BudgetTracker({}),
+    rateLimiter: new RateLimiter({}),
+    runGroundedSynthesisFn: async () => ({
+      status: "grounded",
+      answer_markdown: MODEL,
+      cited_source_ids: [],
+      package: { facts: [] },
+      primary_intent: "explain_concept",
+      clarification_candidates: [],
+      trace: {},
+    }),
+  });
+}
 
 const entry = async (id) => {
   const mod = await import("../src/knowledge.js");
@@ -24,15 +58,27 @@ const entry = async (id) => {
   return e.answer;
 };
 
+const ROOT_QUESTIONS = [
+  "Quantas autoridades controlam a Trust Root do BANZA?",
+  "How many authorities control the BANZA Trust Root?",
+  "Qual é o threshold da Trust Root do BANZA?",
+  "What is the BANZA root threshold?",
+  "qual é o quorum da raiz?",
+];
+
 test("root cardinality and threshold route to the canonical answer", () => {
-  for (const q of [
-    "Quantas autoridades controlam a Trust Root do BANZA?",
-    "How many authorities control the BANZA Trust Root?",
-    "Qual é o threshold da Trust Root do BANZA?",
-    "What is the BANZA root threshold?",
-    "qual é o quorum da raiz?",
-  ]) {
+  for (const q of ROOT_QUESTIONS) {
     assert.equal(routed(q), "def-root-authorization", `composed instead of decided: ${q}`);
+  }
+});
+
+test("the pipeline serves the canonical root answer, not a composition", async () => {
+  for (const q of ROOT_QUESTIONS) {
+    const { result, meta } = await pipe().answer(q);
+    assert.equal(meta.llm_called, false, `${q}: a fixed fact must cost 0 model calls`);
+    assert.doesNotMatch(result.answer, new RegExp(MODEL), `${q}: composed by the model`);
+    assert.match(result.answer, /três autoridades/, `${q}: must state the cardinality`);
+    assert.match(result.answer, /quaisquer duas das três/, `${q}: must state the threshold`);
   }
 });
 

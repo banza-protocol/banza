@@ -13,6 +13,28 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import * as kb from "../src/rustkb/banzai_api_kb.js";
+import { createPipeline } from "../src/pipeline.js";
+import { createProvider } from "../src/provider.js";
+import { ExactCache, SemanticCache } from "../src/cache.js";
+import { BudgetTracker, RateLimiter } from "../src/limits.js";
+
+// The router is not the answer path: a layer above it rewrites the question before routing. Drive the
+// pipeline, with the model stubbed to a marker — if the marker reaches an answer, prose replaced a fact.
+const MODEL = "MODEL-COMPOSED-THIS";
+function pipe() {
+  const provider = createProvider(
+    { LLM_PROVIDER: "local_qwen", LLM_BASE_URL: "http://127.0.0.1:1" },
+    { fetchImpl: async () => { throw new Error("no model in tests"); } },
+  );
+  return createPipeline({
+    provider, env: {}, exactCache: new ExactCache(), semanticCache: new SemanticCache(),
+    budget: new BudgetTracker({}), rateLimiter: new RateLimiter({}),
+    runGroundedSynthesisFn: async () => ({
+      status: "grounded", answer_markdown: MODEL, cited_source_ids: [], package: { facts: [] },
+      primary_intent: "explain_concept", clarification_candidates: [], trace: {},
+    }),
+  });
+}
 
 // The route is what the live endpoint acts on. An earlier version of this test asserted only that the
 // question was not refused — which passed while production kept answering from the generic "what is
@@ -38,6 +60,15 @@ test("a question about the trust guarantees routes to the guarantee answer", () 
       `answered from the wrong entry — the generic BANZA description claims what this denies: ${q}`,
     );
     assert.notEqual(intent(q), "unsupported", `refused as out of scope: ${q}`);
+  }
+});
+
+test("the pipeline serves the denial, not a composition", async () => {
+  for (const q of BOUNDARY) {
+    const { result, meta } = await pipe().answer(q);
+    assert.equal(meta.llm_called, false, `${q}: a guarantee must cost 0 model calls`);
+    assert.doesNotMatch(result.answer, new RegExp(MODEL), `${q}: composed by the model`);
+    assert.match(result.answer, /^\*\*Não\.\*\*/, `${q}: must open with the denial`);
   }
 });
 

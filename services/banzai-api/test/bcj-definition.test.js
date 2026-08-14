@@ -12,6 +12,27 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import * as kb from "../src/rustkb/banzai_api_kb.js";
+import { createPipeline } from "../src/pipeline.js";
+import { createProvider } from "../src/provider.js";
+import { ExactCache, SemanticCache } from "../src/cache.js";
+import { BudgetTracker, RateLimiter } from "../src/limits.js";
+
+// Routing is not the answer path — a rewrite layer sits above it. Drive the pipeline, model stubbed.
+const MODEL = "MODEL-COMPOSED-THIS";
+function pipe() {
+  const provider = createProvider(
+    { LLM_PROVIDER: "local_qwen", LLM_BASE_URL: "http://127.0.0.1:1" },
+    { fetchImpl: async () => { throw new Error("no model in tests"); } },
+  );
+  return createPipeline({
+    provider, env: {}, exactCache: new ExactCache(), semanticCache: new SemanticCache(),
+    budget: new BudgetTracker({}), rateLimiter: new RateLimiter({}),
+    runGroundedSynthesisFn: async () => ({
+      status: "grounded", answer_markdown: MODEL, cited_source_ids: [], package: { facts: [] },
+      primary_intent: "explain_concept", clarification_candidates: [], trace: {},
+    }),
+  });
+}
 
 const intent = (q) => JSON.parse(kb.resolve_query_json(q)).primary_intent;
 
@@ -61,4 +82,13 @@ test("the definition carries the semantics an implementer needs", async () => {
   assert.match(a, /2\^53|2\^53−1|9007199254740991/, "must state the integer domain");
   assert.match(a, /duplicad|duplicate/i, "must state that duplicate members are rejected");
   assert.match(a, /normaliza(ç|c)(ã|a)o Unicode|Unicode normali/i, "must state the Unicode boundary");
+});
+
+test("the pipeline serves the BCJ/1 definition itself, not a composition", async () => {
+  for (const q of ["O que é o BCJ/1?", "What is BCJ/1?"]) {
+    const { result, meta } = await pipe().answer(q);
+    assert.equal(meta.llm_called, false, `${q}: a definition must cost 0 model calls`);
+    assert.doesNotMatch(result.answer, new RegExp(MODEL), `${q}: composed by the model`);
+    assert.match(result.answer, /8785/, `${q}: must state the profile it restricts`);
+  }
 });
