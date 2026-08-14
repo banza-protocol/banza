@@ -688,7 +688,7 @@ jobs:
         run: bash tools/check-developer-resources-boundary.sh
 
   reference-roadmap-durability:
-    name: Reference roadmap stays durable — §14 "Evolução do Protocolo" carries no milestone/date/commitment (Ch14)
+    name: "Reference roadmap stays durable — §14 \"Evolução do Protocolo\" carries no milestone/date/commitment (Ch14)"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -1639,7 +1639,7 @@ jobs:
   # Each guard is the SAME script as its `make …` target — CI and local runs share one source of truth.
 
   banzai-operator-validation-mode:
-    name: "Validar operador" sidebar mode
+    name: "\"Validar operador\" sidebar mode"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -1831,7 +1831,7 @@ jobs:
         run: bash tools/check-banzai-rust-fetch-authority-check.sh
 
   banzai-m2-19g-semantic-regression:
-    name: M2.19G.1 semantic non-regression
+    name: semantic non-regression
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
