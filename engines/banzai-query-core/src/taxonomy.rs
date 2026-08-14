@@ -712,12 +712,23 @@ pub fn resolve_query(question: &str) -> QueryResolution {
 
     // 8) grounding signal + off-topic (UNSUPPORTED) detection.
     let has_marker_signal = !whole_fine.is_empty();
+    // A term BANZA itself defines is grounding. Without this, "o que é o BCJ/1?" resolved to
+    // UNSUPPORTED and was refused as an out-of-scope OPERATION — the canonical byte form of the
+    // protocol, unanswerable by the protocol's own interface, because retrieval happened not to
+    // surface it and no other signal fired.
+    //
+    // This distinguishes a DEFINITION from an OPERATION at the right level rather than by weakening
+    // the boundary: asking what BCJ/1 is reaches the glossary; asking BanzAI to canonicalize a payload
+    // as an authoritative decision, to certify an artifact or to determine conformance does not — those
+    // resolve to no glossary term and remain refused, as they must.
+    let names_a_defined_term = crate::glossary::glossary_entry(&nq).is_some();
     let has_grounding = has_marker_signal
         || op.is_operational
         || scope.requires_live_tool
         || !scope.entity_id.is_empty()
         || !ri.concept_source.is_empty()
         || !ri.explicit_refs.is_empty()
+        || names_a_defined_term
         || !crate::retrieve_topk_ids(question, 1).is_empty();
 
     // 9) ambiguity (§2 — a single concrete clarifying question is the right outcome).

@@ -1,5 +1,5 @@
 {
-  "total": 3864,
+  "total": 3871,
   "rows": [
     {
       "raw_text": "Contributing to BANZA",
@@ -28831,6 +28831,17 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
+      "raw_text": "Merge method",
+      "normalized": "merge method",
+      "sources": [
+        "docs-governance-protocol-release-governance-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
       "raw_text": "Forbidden release states",
       "normalized": "forbidden release states",
       "sources": [
@@ -28959,6 +28970,17 @@
       ],
       "frequency": 1,
       "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "PR #10 was squash merged in error",
+      "normalized": "pr 10 was squash merged in error",
+      "sources": [
+        "docs-governance-protocol-release-governance-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 7,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
@@ -43921,8 +43943,8 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "Cross-artifact coherence (mix-and-match)",
-      "normalized": "cross-artifact coherence mix-and-match",
+      "raw_text": "Set consistency (mix-and-match)",
+      "normalized": "set consistency mix-and-match",
       "sources": [
         "spec-trust-freshness-md"
       ],
@@ -43932,15 +43954,70 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "bounded by the BRL's `expires_at`",
-      "normalized": "bounded by the brl s expires at",
+      "raw_text": "within its own key, independently",
+      "normalized": "within its own key independently",
       "sources": [
         "spec-trust-freshness-md"
       ],
       "frequency": 1,
-      "phrase_length": 7,
+      "phrase_length": 5,
       "accepted": false,
-      "rejection_reason": "MARKUP_FRAGMENT"
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Expiry does not close this",
+      "normalized": "expiry does not close this",
+      "sources": [
+        "spec-trust-freshness-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Artifact freshness",
+      "normalized": "artifact freshness",
+      "sources": [
+        "spec-trust-freshness-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Local monotonicity",
+      "normalized": "local monotonicity",
+      "sources": [
+        "spec-trust-freshness-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Set consistency",
+      "normalized": "set consistency",
+      "sources": [
+        "spec-trust-freshness-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Cross-observer consistency",
+      "normalized": "cross-observer consistency",
+      "sources": [
+        "spec-trust-freshness-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
       "raw_text": "acceptance for use in an evaluation",

@@ -154,3 +154,19 @@ licensing obligations.
 - [`BANZA_TRUST_ARCHITECTURE.md`](BANZA_TRUST_ARCHITECTURE.md)
 - [`OPEN_PROTOCOL_GOVERNANCE.md`](OPEN_PROTOCOL_GOVERNANCE.md)
 - [`certification-boundary.md`](certification-boundary.md)
+
+---
+
+## Merge method
+
+**Pull requests are integrated with a merge commit.** Squash and rebase are disabled at the repository
+level, so the method is not a choice made per merge.
+
+The reason is `main`'s readability as a record: a merge commit preserves the branch's commits and their
+messages, which is where the reasoning for a change lives. A squash replaces them with one message, and
+the reasoning has to be reconstructed from a diff.
+
+This was established by practice — PRs #5 to #9 were all merge commits — and is written down because it
+was broken once: **PR #10 was squash merged in error**. The history is not rewritten; the deviation is
+recorded here, and the repository setting now prevents a repeat rather than relying on the person
+running the merge to remember.

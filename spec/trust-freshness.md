@@ -36,13 +36,21 @@ inside its validity window.
 | **Global equivocation** | Two verifiers with no shared state can be served different-but-individually-valid artifacts and both accept. Local monotonicity constrains one observer's history, not consistency across observers |
 | **Suppression** | A publication origin that withholds a newer artifact — a revocation not yet observed, for instance — is not detected by this rule. It prevents replacing a known newer version, not withholding an unknown one |
 | **Availability** | This rule says nothing about what happens when material cannot be fetched. That is §6 |
-| **Cross-artifact coherence (mix-and-match)** | Each artifact is monotonic within its own key, independently. A verifier can therefore be served a fresh Key Manifest together with an older-but-unexpired BRL that has not yet revoked a key the manifest endorses, with every artifact individually valid, fresh and monotonic. The window is **bounded by the BRL's `expires_at`**, which its contract already requires and by which a fresh BRL MUST be fetched; it is not unbounded, and it is not detected by this rule |
+| **Set consistency (mix-and-match)** | Each artifact is fresh and monotonic **within its own key, independently**. A verifier can therefore be served a fresh Key Manifest together with a fresh, unexpired BRL that has not yet revoked a key the manifest endorses — every artifact individually valid, and no two of them necessarily from one coherent publication state. **Expiry does not close this**: it constrains how old any single artifact may be, not whether several current artifacts belong together |
 
-Cross-artifact coherence is the one entry above that is bounded by a mechanism BANZA already carries
-rather than by an absent one, and it is stated here rather than solved because solving it in general
-means a signed statement about the *set* of current artifacts — a snapshot role. BANZA does not adopt
-one: the residual is bounded, the bound is enforced by an existing required field, and adding a whole
-document type to shrink an already-bounded window would buy less than it costs.
+Four guarantees have to be kept apart, because they are easy to confuse and only two of them are
+provided:
+
+| | Provided? | What it means |
+|---|---|---|
+| **Artifact freshness** | yes | An expired artifact is not accepted |
+| **Local monotonicity** | yes | Within an observed scope, a verifier does not go back below the highest marker it has accepted |
+| **Set consistency** | **no** | BANZA does not currently guarantee that several individually valid, fresh artifacts belong to a single coherent publication state |
+| **Cross-observer consistency** | **no** | BANZA does not provide global transparency or split-view detection |
+
+Set consistency is stated here rather than solved. Solving it in general means a signed statement about
+the *set* of current artifacts — a snapshot role, with its own key, its own expiry and its own stale
+state to handle. BANZA does not adopt one, and does not claim the property in the meantime.
 
 Detecting the first three would require an append-only public history with inclusion and consistency
 proofs, audited across observers. BANZA 1.0.0 does not define one. See

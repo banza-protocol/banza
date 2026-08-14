@@ -155,12 +155,20 @@ fn term_of(nq: &str) -> Option<&'static str> {
     // produced by it, and it is the first gate an external implementation must pass. Live QA found it
     // unanswerable — the spec was indexed but the acronym reached no concept, so the router classified
     // the question as unsupported.
-    if word(nq, "bcj")
-        || has(
-            nq,
-            &["bcj 1", "bcj/1", "banza canonical json", "canonical json"],
-        )
-    {
+    // "bcj" is matched as a SUBSTRING, not a whole token, and the folded form is listed too. The query
+    // normalizer applies confusable folding — it turns the digit 1 into the letter i — so "BCJ/1"
+    // arrives as "bcj/i", and the slash keeps it one token. Folding is right for prose and wrong for a
+    // versioned identifier; rather than weaken it for every query, the term that suffers is matched in
+    // both forms. The acronym is distinctive enough that a substring match cannot collide.
+    if has(
+        nq,
+        &[
+            "bcj",
+            "banza canonical json",
+            "canonical json",
+            "json canonico",
+        ],
+    ) {
         return Some("def-bcj");
     }
     if word(nq, "spec") || word(nq, "specification") || has(nq, &["especificac"]) {

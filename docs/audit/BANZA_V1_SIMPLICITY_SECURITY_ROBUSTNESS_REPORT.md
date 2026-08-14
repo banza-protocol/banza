@@ -78,12 +78,20 @@ NOT publish two distinct artifacts of the same type at the same marker. This con
 what verification already required — no wire form, verifier rule or state transition changes, and no
 conforming implementation becomes non-conforming.
 
-**Mix-and-match.** A verifier can be served a fresh Key Manifest with an older-but-unexpired BRL that has
-not yet revoked a key the manifest endorses — each artifact individually valid, fresh and monotonic. The
-window is **bounded by the BRL's `expires_at`**, which its contract already requires. Closing it in
-general means a signed statement about the *set* of current artifacts: a snapshot role, a new key, a new
-expiry, a new stale-state failure mode — to shrink a window an existing required field already bounds.
-Recorded in the specification's "not provided" table with its bound.
+**Set consistency (mix-and-match).** A verifier can be served a fresh Key Manifest together with a
+fresh, unexpired BRL that has not yet revoked a key the manifest endorses — each artifact individually
+valid, and no two of them necessarily from one coherent publication state.
+
+An earlier draft of this report said the window was "bounded by `expires_at`". That was wrong, and the
+distinction matters: **expiry constrains how old any single artifact may be; it says nothing about
+whether several current artifacts belong together.** An attacker who can choose what to serve can
+present A and B both fresh, both valid, both signed, and from states that never coexisted.
+
+Four guarantees have to be kept apart, and only two are provided: artifact freshness (yes), local
+monotonicity within an observed scope (yes), **set consistency (no)**, cross-observer consistency (no).
+Closing set consistency in general means a signed statement about the *set* of current artifacts — a
+snapshot role, its own key, its own expiry, its own stale state. BANZA does not adopt one, and does not
+claim the property in the meantime.
 
 **Split-view** remains explicitly out of scope, as it was: local monotonicity is not global transparency,
 and the specification says so in its first section rather than in a footnote.
@@ -193,13 +201,28 @@ attempted with the sweep already merged.
 
 ---
 
+## Process deviation: PR #10 was squash merged
+
+The repository's established practice is a merge commit — PRs #5 through #9 all have two parents. PR #10
+has one: it was squash merged, because the merge command was issued with `--squash` without checking
+the practice. That is a process error, not a protocol one, and it is recorded rather than corrected:
+rewriting the history of a merged 288-file change to fix a merge method would be a far worse trade.
+
+Two things changed so it cannot recur. The convention is now written down in
+`docs/governance/PROTOCOL_RELEASE_GOVERNANCE.md`, and squash and rebase merging are **disabled at the
+repository level** — the method is no longer a per-merge choice that someone can get wrong.
+
+---
+
 ## Remaining limitations
 
 Real, current, and stated as limits rather than resolved:
 
 - **Split-view detection** is out of scope. Two observers with no shared state can be served different,
   individually valid material. BANZA claims local monotonicity, not global transparency.
-- **Mix-and-match** is bounded, not eliminated — see above.
+- **Set consistency is not provided.** Artifact expiration constrains freshness, and local monotonic
+  observation protects against rollback within an observed scope. BANZA does not currently guarantee
+  that multiple independently valid artifacts belong to a single publication state.
 - **First-observation staleness**: a verifier with no prior state cannot know it is being shown an old
   version.
 - **No external third-party implementation has been demonstrated.** The clean-room package exists and is

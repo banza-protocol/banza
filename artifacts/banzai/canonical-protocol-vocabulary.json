@@ -2477,7 +2477,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "bf865aa3db2a9ea6"
+        "checksum": "6ef1dd917fb0c123"
       },
       {
         "id": "contracts-production-operation-receipt-production-schema-json",
@@ -3907,7 +3907,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "da18ca516746bbe9"
+        "checksum": "62464e8997280100"
       },
       {
         "id": "docs-governance-protocol-succession-and-survival-md",
@@ -4963,7 +4963,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "fb1e2456cdbb989a"
+        "checksum": "8a780679d36e1890"
       },
       {
         "id": "spec-validation-journey-md",
@@ -4995,7 +4995,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "d9e7b75c1aed31ea"
+    "checksum": "1536f7c8192909ca"
   },
   "subjects": [
     {
@@ -8146,5 +8146,5 @@
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "40d09cc8edf3e065"
+  "checksum": "aabba84e6608b1f6"
 }

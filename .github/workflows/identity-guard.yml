@@ -500,10 +500,29 @@ jobs:
       # reproduce the PDFs, and assert the pinned bundle content digest. `make whitepaper-verify` makes no writes.
       - name: Install poppler-utils (pdfinfo/pdftotext for compressed-metadata assertions)
         run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+      # The bundle is an IMMUTABLE versioned artifact, so its cache is safe to keep across runs and is
+      # keyed by the pinned content digest: a different bundle is a different key, never a stale hit.
+      # Without this the job fetched an external host on every run, and an outage there failed a build
+      # that had not changed — a job named "hermetic" that could be broken by someone else's downtime.
+      - name: Restore pinned TeX bundle cache
+        uses: actions/cache@v4
+        with:
+          path: /tmp/tct-cache
+          key: tectonic-0.17.0-bundle-6ffe055852f8faf66c0acbe1a7fb27f87b869a90bad1204f3bf4d9683f597c7c
       - name: Warm pinned bundle slice + verify byte-identity + assert bundle digest
         run: |
+          set -euo pipefail
           mkdir -p "$TECTONIC_CACHE_DIR"
-          make whitepaper-verify
+          # On a cache hit this needs no network at all. On a miss it fetches the pinned slice, and a
+          # transient failure there is retried rather than failing the run: the content is pinned by
+          # digest, so retrying can only ever produce the same bytes.
+          for attempt in 1 2 3; do
+            if make whitepaper-verify; then exit 0; fi
+            echo "warm/verify attempt $attempt failed"
+            [ "$attempt" -lt 3 ] && sleep $((attempt * 20))
+          done
+          echo "whitepaper hermetic verify failed after 3 attempts — not a transient fetch"
+          exit 1
 
       # Phase 2 (NO network): rebuild with tectonic --only-cached inside a network namespace with no
       # interfaces. Proves the build needs zero network access once the toolchain + bundle are prepared.
