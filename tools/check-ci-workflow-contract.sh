@@ -68,7 +68,7 @@ try:
     print("SELFTEST_FAIL: an unparseable workflow parsed"); sys.exit(1)
 except Exception:
     pass
-if not re.search(r'\bADR-\d{3}\b', "name: something (ADR-059)"):
+if not re.search(r'\bADR-\d{3}\b', "name: something (ADR-999)"):
     print("SELFTEST_FAIL: the label detector missed an ADR number"); sys.exit(1)
 PY
 
