@@ -2108,6 +2108,40 @@ pub fn answer(raw: &str) -> KbAnswer {
             Some(vec!["Humanos mantêm o protocolo; não autorizam, certificam, aceitam nem aprovam operadores.", "Conformance é medição reproduzível, não aprovação.", "Revogação é mecanismo de segurança, não licença nem sanção regulatória."]),
             Some(vec!["Qual é o papel da Trust Root?", "Como o protocolo sobrevive sem a equipa fundadora?"]));
     }
+    // Root authorization cardinality and threshold — a security fact, answered deterministically.
+    // It sits BEFORE the role terminal because "quantas autoridades…" would otherwise fall through to
+    // the role answer, and before any model path because a paraphrase of "three authorities, two
+    // signatures" that says "two authorities" is wrong about the most consequential number in the
+    // protocol. Observed in live QA: the model produced exactly that.
+    if has(&[
+        "quantas autoridades",
+        "quantas chaves raiz",
+        "quantas assinaturas",
+        "limiar da raiz",
+        "root threshold",
+        "2-de-3",
+        "2 de 3",
+        "duas de tres",
+        "autorizar sozinha",
+        "autorizar sozinho",
+        "uma unica chave raiz",
+        "uma so assinatura",
+        "assinatura isolada",
+    ]) {
+        return mk("root_threshold", "answer",
+            "A Trust Root do BANZA é controlada por **três autoridades de assinatura independentes**. \
+Qualquer acção autorizada da raiz exige **duas assinaturas, de duas autoridades distintas** — 2-de-3. \
+Uma assinatura isolada nunca autoriza, e duas assinaturas da mesma autoridade contam como uma só. \
+O limiar é criptográfico e lógico: o número de dispositivos ou módulos de segurança é um controlo de \
+custódia e nunca define o limiar.",
+            vec![c("trust"), c("ceremony"), c("gov")],
+            Some(vec![
+                "Três autoridades independentes; duas assinam.",
+                "Uma sozinha nunca autoriza; duas da mesma autoridade contam como uma.",
+                "O número de dispositivos não define o limiar.",
+            ]),
+            Some(vec!["Qual é o papel da Trust Root?", "O que acontece se uma autoridade ficar indisponível?"]));
+    }
     // Role of the Trust Root under open governance (distinct from the M2.1 ceremony mechanics).
     if has(&[
         "papel da trust root",
