@@ -28,8 +28,14 @@ fn cardinality_and_threshold_are_a_deterministic_terminal() {
 #[test]
 fn the_answer_says_three_authorities_and_two_signatures() {
     let t = a("quantas autoridades independentes controlam a trust root").text;
-    assert!(t.contains("três autoridades"), "must state three authorities: {t}");
-    assert!(t.contains("duas assinaturas"), "must state two signatures: {t}");
+    assert!(
+        t.contains("três autoridades"),
+        "must state three authorities: {t}"
+    );
+    assert!(
+        t.contains("duas assinaturas"),
+        "must state two signatures: {t}"
+    );
     assert!(t.contains("2-de-3"), "must name the model: {t}");
 }
 
@@ -58,7 +64,10 @@ fn it_never_says_two_authorities() {
 #[test]
 fn a_lone_signature_is_stated_never_to_authorise() {
     let t = a("uma unica chave raiz pode autorizar sozinha").text;
-    assert!(t.contains("nunca autoriza"), "must refuse the lone signature: {t}");
+    assert!(
+        t.contains("nunca autoriza"),
+        "must refuse the lone signature: {t}"
+    );
     assert!(
         t.contains("mesma autoridade contam como uma"),
         "must state that a duplicated signer counts once: {t}"
