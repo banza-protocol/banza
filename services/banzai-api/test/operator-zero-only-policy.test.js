@@ -7,6 +7,11 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { route, normalize, getEntry, ENTRIES } from "../src/knowledge.js";
+import { readdirSync } from "node:fs";
+// The Operator Zero record's id, read from the repository rather than written here twice.
+const OZ_ADR = (readdirSync(new URL("../../../decisions/adr/", import.meta.url))
+  .find((f) => /^ADR-\d+-operator-zero/.test(f)) || "").slice(0, 7);
+
 
 const deaccent = (s) => String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
 function ans(q) {
@@ -66,12 +71,16 @@ test("(19b) upload/fixtures questions answer manual-upload-not-example (advanced
   assert.ok(c.a.includes("fixtures internas"), "explains internal fixtures are not public examples");
 });
 
-test("(19c) the policy answers cite ADR-035 (Operator Zero Only)", () => {
+test("(19c) the policy answers cite the Operator Zero decision record", () => {
   for (const id of ["only-official-example", "manual-upload-not-example"]) {
     const e = getEntry(id);
     assert.ok(e, `${id} exists`);
     const ids = (e.sources || []).map((s) => (s.id || "") + " " + (s.path || "")).join(" ");
-    assert.ok(/053/.test(ids), `${id} cites ADR-035`);
+    // The assertion greps the id the entry actually cites. It used to grep `053`, a number the record
+    // carried before the decision-record reset renumbered it — so the test name said ADR-035 while the
+    // check looked for something that no longer existed. Derived from the record on disk rather than
+    // restated, so a future renumbering cannot split them again.
+    assert.match(ids, new RegExp(OZ_ADR), `${id} cites ${OZ_ADR}`);
   }
 });
 

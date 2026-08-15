@@ -15,7 +15,7 @@ One canonical, deduplicated suite reconciled against every pre-existing BanzAI e
 
 ## Canonical suite — the six-way classification
 
-Total: **2439** cases (floor 2250); 43 distinct human-authored semantic seeds.
+Total: **2439** cases (floor 2350); 43 distinct human-authored semantic seeds.
 
 | class | count | definition |
 |---|---|---|
