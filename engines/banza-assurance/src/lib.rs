@@ -18,6 +18,10 @@ use std::path::Path;
 pub const TOOL: &str = "banza-assurance";
 pub const TOOL_VERSION: &str = "0.1.0";
 
+/// How many distinct public surfaces AG-9 must enumerate. Declared as a floor so that dropping one
+/// cannot quietly shrink the world the gate inspects.
+pub const CANONICAL_PUBLIC_SURFACES: usize = 11;
+
 /// The eleven gates. Ordered by what each can falsify about the one before it — which is why a higher
 /// gate can never compensate for a lower one.
 pub const GATES: &[(&str, &str)] = &[
@@ -839,6 +843,14 @@ pub fn evaluate_with_execution(
         None => {
             findings.push(Finding { property_id: "-".into(), gate: "AG-9".into(),
                 detail: "no mandatory public surfaces declared; consistency cannot be established by not looking".into() });
+            Status::NotRun
+        }
+        // The canonical inventory is fixed at eight surfaces. AG-9 shrank to three once because website
+        // and BanzAI were mandatory and simply never enumerated — closed-world for what was listed,
+        // open-world for everything else. A shorter inventory is now itself the failure.
+        Some(req) if req.mandatory_surfaces.len() < CANONICAL_PUBLIC_SURFACES => {
+            findings.push(Finding { property_id: "-".into(), gate: "AG-9".into(),
+                detail: format!("the mandatory public-surface inventory has {} entries; the canonical surface set has {CANONICAL_PUBLIC_SURFACES}. A gate that looks at less does not become greener.", req.mandatory_surfaces.len()) });
             Status::NotRun
         }
         Some(req) if req.mandatory_surfaces.is_empty() || req.must_state_principles.is_empty() => {

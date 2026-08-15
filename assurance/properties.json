@@ -447,6 +447,10 @@
       "mandatory_surfaces": [
         "README.md",
         "website/content/BANZA_REFERENCIA.md",
+        "docs/governance/BANZA_TRUST_ARCHITECTURE.md",
+        "GOVERNANCE.md",
+        "website/app/page.tsx",
+        "services/banzai-api/src/knowledge.js",
         "docs/whitepaper/latex/whitepaper.pt.tex",
         "docs/whitepaper/latex/whitepaper.en.tex",
         "assurance/README.md",
@@ -456,9 +460,14 @@
       "must_state_principles": [
         "README.md",
         "website/content/BANZA_REFERENCIA.md",
+        "services/banzai-api/src/knowledge.js",
         "docs/whitepaper/latex/whitepaper.pt.tex",
         "docs/whitepaper/latex/whitepaper.en.tex"
-      ]
+      ],
+      "_why": "Public claim consistency cannot be established without reading the surfaces that carry the claims. This inventory shrank to three once — README and the two whitepaper editions — while the website and BanzAI were equally mandatory and simply never enumerated: closed-world for what was listed, open-world for everything else. The set is canonical and a shorter one is itself a failure.",
+      "not_applicable": {
+        "website/app/*.tsx beyond the home page": "the R²S² statement belongs on the surfaces that carry protocol claims; per-route copy inherits it rather than restating it, and requiring every route to enumerate four principles would be prose padding rather than consistency"
+      }
     },
     "AG-10": {
       "_what": "Freeze readiness is a conjunction of externally observed conditions. The engine cannot infer any of them, so each must be REPORTED by an actual run; a missing report is NOT_RUN, never PASS.",

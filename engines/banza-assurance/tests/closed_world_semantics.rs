@@ -15,7 +15,7 @@ use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicU64, Ordering::SeqCst};
 
 /// A synthetic tree with one CRITICAL property whose every required stage is present and resolvable.
-fn fixture() -> (PathBuf, serde_json::Value) {
+fn fixture() -> (PathBuf, serde_json::Value, serde_json::Value) {
     // Node tests run in parallel, so the fixture directory must be unique per CALL, not per process.
     // A timestamp-derived suffix collided between concurrent tests and made this suite intermittently
     // red — and an intermittently red meta-test is not a passing one.
@@ -42,7 +42,7 @@ fn fixture() -> (PathBuf, serde_json::Value) {
     )
     .unwrap();
     // The AG-9 surfaces, each stating all four principles.
-    for f in ["README.md", "docs/reference.md"] {
+    for f in SURFACES {
         fs::write(
             root.join(f),
             "BANZA R²S² — Robust · Resilient · Secure · Simple\n",
@@ -84,7 +84,7 @@ fn fixture() -> (PathBuf, serde_json::Value) {
         }],
         "gate_requirements": {
             "AG-9": {
-                "mandatory_surfaces": ["README.md", "docs/reference.md"],
+                "mandatory_surfaces": SURFACES,
                 "must_state_principles": ["README.md"]
             },
             "AG-10": {
@@ -98,12 +98,44 @@ fn fixture() -> (PathBuf, serde_json::Value) {
             }
         }
     });
-    (root, registry)
+    // The synthetic evidence, executed against the synthetic source. Without it the baseline is not
+    // green — which is itself the property under test: a located implementation is not a demonstrated one.
+    let execution = serde_json::json!({
+        "source_commit": SOURCE,
+        "tree_dirty": false,
+        "records": [
+            {"property_id": "SYNTHETIC_CRITICAL", "evidence": "tests/t.rs::holds", "result": "PASS", "source_commit": SOURCE},
+            {"property_id": "SYNTHETIC_CRITICAL", "evidence": "tests/t.rs::rejects", "result": "PASS", "source_commit": SOURCE},
+            {"property_id": "SYNTHETIC_CRITICAL", "evidence": "tests/t.rs::attacked", "result": "PASS", "source_commit": SOURCE}
+        ]
+    });
+    (root, registry, execution)
 }
 
-fn run(root: &Path, registry: &serde_json::Value) -> Report {
+/// The synthetic source identity these fixtures are assessed against.
+const SOURCE: &str = "0000000000000000000000000000000000000001";
+
+/// The synthetic inventory must meet the same floor the real one does, or the fixture would be proving
+/// semantics the engine does not actually apply.
+const SURFACES: [&str; banza_assurance::CANONICAL_PUBLIC_SURFACES] = [
+    "README.md",
+    "docs/s1.md",
+    "docs/s2.md",
+    "docs/s3.md",
+    "docs/s4.md",
+    "docs/s5.md",
+    "docs/s6.md",
+    "docs/s7.md",
+    "docs/s8.md",
+    "docs/s9.md",
+    "docs/s10.md",
+];
+
+fn run(root: &Path, registry: &serde_json::Value, execution: &serde_json::Value) -> Report {
     let reg: Registry = serde_json::from_value(registry.clone()).expect("registry parses");
-    evaluate(root, &reg)
+    let exec: ExecutionEvidence =
+        serde_json::from_value(execution.clone()).expect("execution evidence parses");
+    evaluate_with_execution(root, &reg, &exec, SOURCE)
 }
 
 fn gate<'a>(r: &'a Report, g: &str) -> &'a str {
@@ -113,8 +145,8 @@ fn gate<'a>(r: &'a Report, g: &str) -> &'a str {
 /// The baseline must be genuinely green, or nothing below proves anything.
 #[test]
 fn the_synthetic_baseline_is_green() {
-    let (root, reg) = fixture();
-    let r = run(&root, &reg);
+    let (root, reg, exe) = fixture();
+    let r = run(&root, &reg, &exe);
     assert!(r.findings.is_empty(), "baseline findings: {:?}", r.findings);
     assert!(
         r.properties[0].property_complete,
@@ -142,9 +174,9 @@ fn a_missing_required_stage_never_passes() {
         ("property_guard", "AG-7"),
         ("normative_authority", "AG-0"),
     ] {
-        let (root, mut reg) = fixture();
+        let (root, mut reg, exe) = fixture();
         reg["properties"][0][stage] = serde_json::Value::Null;
-        let r = run(&root, &reg);
+        let r = run(&root, &reg, &exe);
         assert!(
             !r.properties[0].property_complete,
             "{stage} removed: the property must be INCOMPLETE"
@@ -166,10 +198,10 @@ fn a_missing_required_stage_never_passes() {
 /// An evidence pointer that names something which does not exist is not evidence.
 #[test]
 fn a_pointer_to_a_nonexistent_artifact_never_passes() {
-    let (root, mut reg) = fixture();
+    let (root, mut reg, exe) = fixture();
     reg["properties"][0]["negative_evidence"] =
         serde_json::json!(["tests/does-not-exist.rs::rejects"]);
-    let r = run(&root, &reg);
+    let r = run(&root, &reg, &exe);
     assert_ne!(
         gate(&r, "AG-2"),
         "PASS",
@@ -179,9 +211,9 @@ fn a_pointer_to_a_nonexistent_artifact_never_passes() {
     let _ = fs::remove_dir_all(&root);
 
     // And a pointer to a real file naming a test that is not in it.
-    let (root, mut reg) = fixture();
+    let (root, mut reg, exe) = fixture();
     reg["properties"][0]["negative_evidence"] = serde_json::json!(["tests/t.rs::renamed_away"]);
-    let r = run(&root, &reg);
+    let r = run(&root, &reg, &exe);
     assert_ne!(
         gate(&r, "AG-2"),
         "PASS",
@@ -194,9 +226,9 @@ fn a_pointer_to_a_nonexistent_artifact_never_passes() {
 #[test]
 fn ag9_never_passes_by_requiring_nothing() {
     // A mandatory surface removed from disk.
-    let (root, reg) = fixture();
-    fs::remove_file(root.join("docs/reference.md")).unwrap();
-    let r = run(&root, &reg);
+    let (root, reg, exe) = fixture();
+    fs::remove_file(root.join(SURFACES[1])).unwrap();
+    let r = run(&root, &reg, &exe);
     assert_ne!(
         gate(&r, "AG-9"),
         "PASS",
@@ -205,9 +237,9 @@ fn ag9_never_passes_by_requiring_nothing() {
     let _ = fs::remove_dir_all(&root);
 
     // A surface that exists but does not state the principles.
-    let (root, reg) = fixture();
+    let (root, reg, exe) = fixture();
     fs::write(root.join("README.md"), "nothing about principles here\n").unwrap();
-    let r = run(&root, &reg);
+    let r = run(&root, &reg, &exe);
     assert_ne!(
         gate(&r, "AG-9"),
         "PASS",
@@ -216,10 +248,10 @@ fn ag9_never_passes_by_requiring_nothing() {
     let _ = fs::remove_dir_all(&root);
 
     // The requirement list emptied — the easiest way to make a gate green.
-    let (root, mut reg) = fixture();
+    let (root, mut reg, exe) = fixture();
     reg["gate_requirements"]["AG-9"]["mandatory_surfaces"] = serde_json::json!([]);
     reg["gate_requirements"]["AG-9"]["must_state_principles"] = serde_json::json!([]);
-    let r = run(&root, &reg);
+    let r = run(&root, &reg, &exe);
     assert_ne!(
         gate(&r, "AG-9"),
         "PASS",
@@ -232,9 +264,9 @@ fn ag9_never_passes_by_requiring_nothing() {
 #[test]
 fn ag10_never_passes_without_reported_conditions() {
     // The report absent entirely.
-    let (root, reg) = fixture();
+    let (root, reg, exe) = fixture();
     fs::remove_file(root.join("assurance/release-readiness.json")).unwrap();
-    let r = run(&root, &reg);
+    let r = run(&root, &reg, &exe);
     assert_eq!(
         gate(&r, "AG-10"),
         "NOT_RUN",
@@ -243,7 +275,7 @@ fn ag10_never_passes_without_reported_conditions() {
     let _ = fs::remove_dir_all(&root);
 
     // A condition reported false.
-    let (root, reg) = fixture();
+    let (root, reg, exe) = fixture();
     fs::write(
         root.join("assurance/release-readiness.json"),
         serde_json::json!({
@@ -254,7 +286,7 @@ fn ag10_never_passes_without_reported_conditions() {
         .to_string(),
     )
     .unwrap();
-    let r = run(&root, &reg);
+    let r = run(&root, &reg, &exe);
     assert_eq!(
         gate(&r, "AG-10"),
         "BLOCKED",
@@ -263,13 +295,13 @@ fn ag10_never_passes_without_reported_conditions() {
     let _ = fs::remove_dir_all(&root);
 
     // A condition never reported at all — the silent-omission case.
-    let (root, reg) = fixture();
+    let (root, reg, exe) = fixture();
     fs::write(
         root.join("assurance/release-readiness.json"),
         serde_json::json!({ "all_applicable_gates_pass": true }).to_string(),
     )
     .unwrap();
-    let r = run(&root, &reg);
+    let r = run(&root, &reg, &exe);
     assert_ne!(
         gate(&r, "AG-10"),
         "PASS",
@@ -281,9 +313,9 @@ fn ag10_never_passes_without_reported_conditions() {
 /// An empty world is not a clean one: a gate with no property evaluated at it has verified nothing.
 #[test]
 fn a_gate_with_nothing_measured_never_passes() {
-    let (root, mut reg) = fixture();
+    let (root, mut reg, exe) = fixture();
     reg["properties"] = serde_json::json!([]);
-    let r = run(&root, &reg);
+    let r = run(&root, &reg, &exe);
     for g in ["AG-0", "AG-2", "AG-3"] {
         assert_eq!(
             gate(&r, g),
@@ -298,10 +330,10 @@ fn a_gate_with_nothing_measured_never_passes() {
 /// A higher gate never compensates for a lower one, and a downgrade never becomes an upgrade.
 #[test]
 fn a_gate_cannot_pass_while_a_gate_it_depends_on_has_not() {
-    let (root, mut reg) = fixture();
+    let (root, mut reg, exe) = fixture();
     // Break AG-0 only. AG-3's own evidence stays intact.
     reg["properties"][0]["normative_authority"] = serde_json::json!(["spec/absent.md"]);
-    let r = run(&root, &reg);
+    let r = run(&root, &reg, &exe);
     assert_eq!(
         gate(&r, "AG-0"),
         "FAIL",
@@ -316,6 +348,109 @@ fn a_gate_cannot_pass_while_a_gate_it_depends_on_has_not() {
         gate(&r, "AG-10"),
         "PASS",
         "AG-10 depends on everything applicable"
+    );
+    let _ = fs::remove_dir_all(&root);
+}
+
+// ── existence is not execution ───────────────────────────────────────────────────────────────────────
+//
+// The most sophisticated false green available: every file exists, every test name resolves, and nobody
+// has run any of it against the commit being assessed.
+
+/// Declared and resolved, but never executed.
+#[test]
+fn evidence_never_executed_never_passes() {
+    let (root, reg, mut exe) = fixture();
+    exe["records"] = serde_json::json!([]);
+    let r = run(&root, &reg, &exe);
+    for g in ["AG-3", "AG-6"] {
+        assert_ne!(
+            gate(&r, g),
+            "PASS",
+            "{g} must not pass on unexecuted evidence"
+        );
+    }
+    assert!(!r.ok);
+    let _ = fs::remove_dir_all(&root);
+}
+
+/// Executed, passing — but against a different source. A green result from another commit proves
+/// something about that commit and nothing about this one.
+#[test]
+fn evidence_executed_on_another_source_never_passes() {
+    let (root, reg, mut exe) = fixture();
+    for rec in exe["records"].as_array_mut().unwrap() {
+        rec["source_commit"] = serde_json::json!("ffffffffffffffffffffffffffffffffffffffff");
+    }
+    let r = run(&root, &reg, &exe);
+    assert_ne!(
+        gate(&r, "AG-3"),
+        "PASS",
+        "stale-source evidence must not pass AG-3"
+    );
+    assert!(!r.ok);
+    let _ = fs::remove_dir_all(&root);
+}
+
+/// An execution record naming a target that no longer exists is stale, not evidence.
+#[test]
+fn an_execution_record_for_a_renamed_target_never_passes() {
+    let (root, mut reg, exe) = fixture();
+    // The registry now points at a renamed test; the execution record still names the old one.
+    reg["properties"][0]["positive_evidence"] = serde_json::json!(["tests/t.rs::renamed_holds"]);
+    let r = run(&root, &reg, &exe);
+    assert_ne!(
+        gate(&r, "AG-3"),
+        "PASS",
+        "a record for an obsolete target must not pass"
+    );
+    let _ = fs::remove_dir_all(&root);
+}
+
+/// Executed and failed.
+#[test]
+fn evidence_that_ran_and_failed_never_passes() {
+    let (root, reg, mut exe) = fixture();
+    exe["records"][1]["result"] = serde_json::json!("FAIL");
+    let r = run(&root, &reg, &exe);
+    assert_ne!(
+        gate(&r, "AG-3"),
+        "PASS",
+        "a failing execution must not pass AG-3"
+    );
+    assert!(!r.ok);
+    let _ = fs::remove_dir_all(&root);
+}
+
+/// And the positive control: executed, at this source, passing — the only combination that contributes.
+#[test]
+fn only_evidence_executed_at_this_source_and_passing_contributes() {
+    let (root, reg, exe) = fixture();
+    let r = run(&root, &reg, &exe);
+    assert_eq!(gate(&r, "AG-3"), "PASS");
+    assert_eq!(gate(&r, "AG-6"), "PASS");
+    assert!(r.ok);
+    let _ = fs::remove_dir_all(&root);
+}
+
+/// Forgetting an entire public surface must not create a green AG-9. This is the gap that let website
+/// and BanzAI be mandatory and unenumerated at the same time.
+#[test]
+fn removing_a_whole_surface_from_the_inventory_never_passes() {
+    let (root, mut reg, exe) = fixture();
+    let full = reg["gate_requirements"]["AG-9"]["mandatory_surfaces"]
+        .as_array()
+        .unwrap()
+        .len();
+    assert!(full >= 2, "the fixture must have a multi-surface inventory");
+    // Silently drop one surface from the mandatory set — the gate must not become greener for looking
+    // at less.
+    reg["gate_requirements"]["AG-9"]["mandatory_surfaces"] = serde_json::json!(["README.md"]);
+    let r = run(&root, &reg, &exe);
+    assert_ne!(
+        gate(&r, "AG-9"),
+        "PASS",
+        "shrinking the mandatory inventory must not produce a pass"
     );
     let _ = fs::remove_dir_all(&root);
 }
