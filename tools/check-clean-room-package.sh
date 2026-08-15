@@ -251,10 +251,10 @@ PY
   CAND=$(mktemp -d)
   find "$pkg" -type f ! -name provenance.json -exec shasum -a 256 {} \; | sed "s#$pkg##" | sort > "$SNAP/before"
   BANZA_CLEANROOM_OUT="$CAND" python3 tools/gen-clean-room-package.py "$(echo "$level" | tr '[:lower:]' '[:upper:]')" > /dev/null
-  find "$CAND/$level" -type f ! -name provenance.json -exec shasum -a 256 {} \; | sed "s#$CAND/$level##" | sort > "$SNAP/a1"
+  find "$CAND/$level" -type f ! -name provenance.json -exec shasum -a 256 {} \; | sed "s#$CAND/$level/##" | sort > "$SNAP/a1"
   rm -rf "${CAND:?}/$level"
   BANZA_CLEANROOM_OUT="$CAND" python3 tools/gen-clean-room-package.py "$(echo "$level" | tr '[:lower:]' '[:upper:]')" > /dev/null
-  find "$CAND/$level" -type f ! -name provenance.json -exec shasum -a 256 {} \; | sed "s#$CAND/$level##" | sort > "$SNAP/a2"
+  find "$CAND/$level" -type f ! -name provenance.json -exec shasum -a 256 {} \; | sed "s#$CAND/$level/##" | sort > "$SNAP/a2"
   rm -rf "$CAND"
   if ! cmp -s "$SNAP/a1" "$SNAP/a2"; then
     diff "$SNAP/a1" "$SNAP/a2" | head -5; rm -rf "$SNAP"
