@@ -1,5 +1,5 @@
 {
-  "total": 3115,
+  "total": 3120,
   "rows": [
     {
       "raw_text": "Contributing to BANZA",
@@ -34700,6 +34700,17 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
+      "raw_text": "Applying an observation to trusted state",
+      "normalized": "applying an observation to trusted state",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
       "raw_text": "Contract:",
       "normalized": "contract",
       "sources": [
@@ -34810,6 +34821,51 @@
       "phrase_length": 3,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Eligible",
+      "normalized": "eligible",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Replay",
+      "normalized": "replay",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "ALIAS"
+    },
+    {
+      "raw_text": "Equivocation",
+      "normalized": "equivocation",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Rollback",
+      "normalized": "rollback",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
     },
     {
       "raw_text": "Financial Tracing",

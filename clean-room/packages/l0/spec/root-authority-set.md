@@ -142,3 +142,26 @@ Accepting a set proves it descends from the pinned genesis set by threshold auth
 It does **not** provide cross-observer consistency: two verifiers with no shared state may be shown
 different, individually valid lineages, and BANZA does not detect that. Split-view detection and global
 transparency remain outside the protocol (`spec/trust-freshness.md`).
+
+## Applying an observation to trusted state
+
+A verifier retains exactly two values for a lineage: the highest `set_sequence` it has accepted, and the
+digest it accepted at that sequence. Restoring those two values after a restart restores the trust state
+completely.
+
+Classifying where a candidate sits is not the whole rule. A verifier MUST also define what accepting
+does, because every unsafe resolution of a conflict lives in that step and not in the classification:
+
+| Classification | Effect on trusted state |
+|---|---|
+| **Eligible** and authorised by the trusted set | advances to the candidate's sequence and digest |
+| **Eligible** but not authorised | unchanged |
+| **Replay** | unchanged |
+| **Equivocation** | unchanged, and it stays unchanged however many times the conflicting set is presented |
+| **Rollback** | unchanged |
+
+A verifier MUST NOT resolve an equivocation by arrival order, timestamp, source, URL priority, digest
+ordering, or a majority of sources. The outcome MUST be identical whichever of the two conflicting sets
+was observed first. Ordering is decided from the retained state alone; the active set document is
+consulted only to authorise an Eligible candidate, and it MUST be the set the retained state was
+established at.

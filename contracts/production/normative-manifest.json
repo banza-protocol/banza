@@ -455,7 +455,7 @@
       "class": "NORMATIVE_REGISTRY",
       "tier": "implementation",
       "role": "Declares the protocol version, compatibility policy, profile list and the canonicalization in force. The entry point of the normative surface.",
-      "sha256": "ba712d7d36ae73b61305838bb10cf815af40491e3c19cda27d6e127727ab44e1"
+      "sha256": "68ac7cceef0118ee8c95d4d2d31ab03e927a03acc088f71566bb69f8d72e11ef"
     },
     {
       "path": "contracts/production/public-protocol-registry.production.schema.json",
@@ -746,7 +746,7 @@
       "class": "NORMATIVE_SPECIFICATION",
       "tier": "implementation",
       "role": "Who may exercise Root authority, and how a successor set is authorised by the threshold of the set it succeeds. The genesis set is pinned; a self-signed set authorises nothing.",
-      "sha256": "fecf0c2c7c618259ec437995639644fa89be89a8de0737fd5b161ea6e2437a78"
+      "sha256": "ce008ea6a6b27f17a6afa9505c0651d021d3cd94b0232579c32a75ad3091e6d8"
     },
     {
       "path": "spec/trust-freshness.md",

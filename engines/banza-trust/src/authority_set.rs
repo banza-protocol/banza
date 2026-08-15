@@ -345,3 +345,110 @@ pub fn classify_ordering(
 pub fn continuity_available(surviving_authorities: usize) -> bool {
     surviving_authorities >= THRESHOLD
 }
+
+/// What a verifier retains about one Root lineage between observations.
+///
+/// Exactly two values: the highest sequence accepted, and the digest accepted at that sequence. Nothing
+/// else is kept, which is what lets a verifier persist its trust state in two fields and restore it
+/// after a restart without ambiguity.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct TrustedSet {
+    pub sequence: u64,
+    pub digest: String,
+}
+
+impl TrustedSet {
+    /// The state established by pinning the genesis set. Callers reach this only through
+    /// `verify_genesis_set`; there is no constructor that accepts a set nobody verified.
+    pub fn at_genesis(genesis: &Value) -> Result<Self, String> {
+        let sequence = genesis
+            .get("set_sequence")
+            .and_then(|x| x.as_u64())
+            .ok_or("set_sequence missing")?;
+        Ok(TrustedSet {
+            sequence,
+            digest: set_digest(genesis)?,
+        })
+    }
+}
+
+/// The result of showing a candidate set to a verifier holding `TrustedSet`.
+///
+/// `state` is the state AFTER the observation, and for everything except `Advanced` it is the state
+/// from before, unchanged.
+#[derive(Debug, PartialEq, Eq)]
+pub enum Observation {
+    /// Verified successor at the next position. The only outcome that moves trusted state.
+    Advanced,
+    /// The same set at the same position: nothing to do.
+    Replay,
+    /// A different set at the same position. One lineage published two, and the verifier refuses to
+    /// choose. Trusted state is unchanged and stays that way.
+    Equivocation,
+    /// A superseded set presented again.
+    Rollback,
+    /// Eligible by position but not authorised by the trusted set.
+    Rejected(String),
+}
+
+/// Apply a candidate set to a verifier's trusted state.
+///
+/// This is the half that decides what *accepting* means, and it is deliberately shipped rather than left
+/// for each implementer to write. `classify_ordering` reports where a candidate sits; on its own it
+/// cannot stop a caller from writing the new digest anyway. Everything that could quietly replace
+/// trusted state — taking the first arrival, taking the last, preferring a lower digest, preferring a
+/// source — lives in the step this function replaces.
+///
+/// Trusted state advances only when the candidate is BOTH at the next position AND authorised by the
+/// currently trusted set. The returned state is the caller's new state; on any other outcome it is the
+/// old one, returned unchanged so that ignoring the outcome still cannot corrupt it.
+pub fn observe(
+    state: &TrustedSet,
+    active_set: &Value,
+    candidate: &Value,
+) -> (TrustedSet, Observation) {
+    // Ordering is decided from the carried state ALONE — sequence and digest. A rollback, a replay and
+    // an equivocation are all answerable without knowing which document the active set is, and answering
+    // them first is what keeps a conflict a conflict: consulting the active set earlier would let a
+    // caller turn "two sets at one position" into an argument about which set to consult.
+    match classify_ordering(candidate, state.sequence, &state.digest) {
+        Err(e) => (state.clone(), Observation::Rejected(e)),
+        Ok(Ordering::Rollback) => (state.clone(), Observation::Rollback),
+        Ok(Ordering::Replay) => (state.clone(), Observation::Replay),
+        Ok(Ordering::Equivocation) => (state.clone(), Observation::Equivocation),
+        Ok(Ordering::Eligible) => {
+            // Only now does the active set matter, and it must be the one this state was established
+            // at — otherwise a caller could authorise a successor against a set it merely happens to
+            // hold rather than the set it actually trusts.
+            match set_digest(active_set) {
+                Ok(d) if d == state.digest => {}
+                Ok(_) => {
+                    return (
+                        state.clone(),
+                        Observation::Rejected(
+                            "the active set is not the one this trusted state was established at"
+                                .into(),
+                        ),
+                    )
+                }
+                Err(e) => return (state.clone(), Observation::Rejected(e)),
+            }
+            let verdict = verify_successor_set(candidate, active_set);
+            if !verdict.verified {
+                return (state.clone(), Observation::Rejected(verdict.detail));
+            }
+            match (
+                candidate.get("set_sequence").and_then(|x| x.as_u64()),
+                set_digest(candidate),
+            ) {
+                (Some(sequence), Ok(digest)) => {
+                    (TrustedSet { sequence, digest }, Observation::Advanced)
+                }
+                _ => (
+                    state.clone(),
+                    Observation::Rejected("candidate has no usable sequence or digest".into()),
+                ),
+            }
+        }
+    }
+}

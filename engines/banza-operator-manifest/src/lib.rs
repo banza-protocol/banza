@@ -118,17 +118,12 @@ fn current_major() -> &'static str {
 }
 
 fn protocol_compatible(pv: &str) -> bool {
-    // Accept the exact protocol version or any release of the SAME major. The major was written as a
-    // literal "1." here, so bumping the constant alone would have left the validator accepting v1
-    // manifests under a v2 protocol; it is derived now.
-    let major = current_major();
-    pv == PROTOCOL_VERSION
-        || pv
-            .strip_prefix(major)
-            .map(|r| r.starts_with('.'))
-            .unwrap_or(false)
-        || pv == major
-        || pv == format!("{major}.x")
+    // One rule, defined once, in `banza-trust`: same major AND not ahead of this validator.
+    //
+    // This used to accept any string beginning with the major, which meant a manifest declaring 1.0.1,
+    // 1.5.0, "1" or "1.x" validated against a 1.0.0 protocol — future versions trusted for starting with
+    // the right digit, and non-versions trusted for containing one.
+    banza_trust::protocol_version_compatible(pv, PROTOCOL_VERSION)
 }
 
 /// Validate a manifest JSON string (the main, native-testable entry). Handles MALFORMED here.

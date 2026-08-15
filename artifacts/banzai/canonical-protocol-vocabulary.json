@@ -1454,7 +1454,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "ba712d7d36ae73b6"
+        "checksum": "68ac7cceef0118ee"
       },
       {
         "id": "conformance-package-contracts-production-public-protocol-registry-production-schema-json",
@@ -1652,7 +1652,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "dc070c76f91da8e9"
+        "checksum": "be6a8a8f575826be"
       },
       {
         "id": "conformance-qr-suite-json",
@@ -2488,7 +2488,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "27c444d3518ba20c"
+        "checksum": "66ed4e2a5840dc4c"
       },
       {
         "id": "contracts-production-operation-receipt-production-schema-json",
@@ -2565,7 +2565,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "ba712d7d36ae73b6"
+        "checksum": "68ac7cceef0118ee"
       },
       {
         "id": "contracts-production-public-protocol-registry-production-schema-json",
@@ -4919,7 +4919,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "fecf0c2c7c618259"
+        "checksum": "ce008ea6a6b27f17"
       },
       {
         "id": "spec-tracing-md",
@@ -4973,7 +4973,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "4bb41c763844f517"
+    "checksum": "bee43aef1389b238"
   },
   "subjects": [
     {
@@ -7990,5 +7990,5 @@
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "3326a28d3700be35"
+  "checksum": "fbbcc7b88003ed1c"
 }

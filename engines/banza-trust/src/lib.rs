@@ -35,6 +35,48 @@ use sha2::{Digest, Sha256};
 /// would drift apart.
 pub const PROTOCOL_VERSION: &str = "1.0.0";
 
+/// Parse a protocol version into `(major, minor, patch)`.
+///
+/// Exactly three dot-separated non-negative integers. `"1"`, `"1.x"`, `"1.0"`, `"1.0.0-rc1"` and
+/// anything with a leading `+`/`-` are not versions and parse to `None` — a verifier that accepted them
+/// would be deciding compatibility against a string it does not understand.
+pub fn parse_protocol_version(v: &str) -> Option<(u64, u64, u64)> {
+    let mut it = v.split('.');
+    let (a, b, c) = (it.next()?, it.next()?, it.next()?);
+    if it.next().is_some() {
+        return None;
+    }
+    let num = |p: &str| -> Option<u64> {
+        if p.is_empty() || !p.bytes().all(|x| x.is_ascii_digit()) {
+            return None;
+        }
+        p.parse().ok()
+    };
+    Some((num(a)?, num(b)?, num(c)?))
+}
+
+/// Is a document declaring `declared` compatible with a verifier implementing `verifier`?
+///
+/// **Same major, and not ahead of the verifier.**
+///
+/// The same-major half is ordinary SemVer. The second half is the part that is easy to get wrong, and
+/// this implementation did get it wrong: it compared only the major, so a verifier at 1.0.0 accepted a
+/// document declaring 1.0.1, 1.5.0 or 1.999.0 — versions that did not exist and whose contents it could
+/// not possibly know. A future release must not become trusted merely by starting with the right number.
+/// Compatibility with a later version is a statement only that later version can make.
+///
+/// The reverse direction stays open, which is the direction SemVer actually promises: a verifier at
+/// 1.5.0 accepts documents declaring 1.0.0, because the additions were backward compatible.
+pub fn protocol_version_compatible(declared: &str, verifier: &str) -> bool {
+    match (
+        parse_protocol_version(declared),
+        parse_protocol_version(verifier),
+    ) {
+        (Some(d), Some(v)) => d.0 == v.0 && d <= v,
+        _ => false,
+    }
+}
+
 pub const VERIFIER: &str = "banza-trust";
 pub const VERIFIER_VERSION: &str = "0.2.0";
 

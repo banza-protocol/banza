@@ -280,8 +280,8 @@
     },
     {
       "path": "contracts/production/protocol-version.json",
-      "sha256": "ba712d7d36ae73b61305838bb10cf815af40491e3c19cda27d6e127727ab44e1",
-      "bytes": 3346
+      "sha256": "68ac7cceef0118ee8c95d4d2d31ab03e927a03acc088f71566bb69f8d72e11ef",
+      "bytes": 3763
     },
     {
       "path": "contracts/production/public-protocol-registry.production.schema.json",

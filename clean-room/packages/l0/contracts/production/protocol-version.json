@@ -10,7 +10,7 @@
   "_boundary": "Production of the BANZA protocol, not financial production. BANZA is an open protocol; it does not process payments, settle value, or move funds. Licence/authorisation belongs to the operator, not to BANZA.",
   "compatibility": {
     "wire_compatible_with": [
-      "1.0.x"
+      "1.0.0"
     ],
     "contracts_baseline": "contracts/production",
     "conformance_levels": [
@@ -29,7 +29,8 @@
       "M3_OPERATOR_CANDIDATE",
       "M4_PRODUCTION_NETWORK"
     ],
-    "m4_status": "future-only; not activated"
+    "m4_status": "future-only; not activated",
+    "_wire_compatible_with_meaning": "DECLARATIVE. This field states which published versions this one is wire-compatible with; no verifier reads it to make a decision. A verifier accepts a declared version only when it shares this major AND is not ahead of the verifier's own version — an unpublished future release is never compatible merely by matching a prefix, and a range written here could not make it so."
   },
   "notes": "Concrete production protocol version descriptor for the BANZA open protocol at the M2_PROTOCOL_IMPLEMENTATION state. 'Production' here means production OF THE PROTOCOL as an open specification (governance, contracts, trust path, release process, operator self-publication) — NOT financial operation. This descriptor is prepared-but-gated: while it declares the production contract baseline is in place, no real operator is created (operators stays []), no production certificate is emitted (production_certificates stays false), and no funds are ever held, moved or settled by BANZA. Financial services are provided by authorised operators that implement the protocol; regulatory authorisation belongs to those operators, not to BANZA. Advancing beyond M2_PROTOCOL_IMPLEMENTATION requires the M2 protocol gate, evaluated against the criteria this descriptor and the artifacts it names define, to report M2_PROTOCOL_IMPLEMENTATION_READY, plus explicit recorded protocol-governance sign-off on advancing the protocol milestone.",
   "canonicalization": {

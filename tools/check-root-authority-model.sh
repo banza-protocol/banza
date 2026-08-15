@@ -98,6 +98,23 @@ else
   bad "the published vectors and the engine disagree"
 fi
 
+# The state-update path: classifying a conflict is not enough if the caller may still write the digest.
+# Everything dangerous — first arrival wins, last arrival wins, lower digest wins, this source wins —
+# lives in the apply step, so the apply step must be the thing that is tested.
+if cargo test -q --manifest-path engines/banza-trust/Cargo.toml --test trusted_state_transitions \
+     >/dev/null 2>&1; then
+  ok "an equivocating successor never replaces trusted state, and arrival order decides nothing (engine-verified)"
+else
+  bad "trusted state can be replaced by a conflicting successor"
+fi
+# A future protocol version must not become trusted for starting with the right number.
+if cargo test -q --manifest-path engines/banza-trust/Cargo.toml --test protocol_version_compatibility \
+     >/dev/null 2>&1; then
+  ok "an unknown future protocol version is not compatible (engine-verified)"
+else
+  bad "an unpublished future version is accepted by prefix"
+fi
+
 # 4. no single-signer bypass. Named escapes, searched as identifiers rather than prose so that a
 #    document DESCRIBING the prohibition is not mistaken for an implementation of one.
 leak=0
