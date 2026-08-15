@@ -134,8 +134,8 @@
       "id": "forged_readiness",
       "property": "AG10_AGGREGATES_INDEPENDENT_EVIDENCE",
       "violation": "the readiness report claims every gate passed while a gate actually failed — a final self-attestation loophole",
-      "apply": "python3 -c \"import json;p='assurance/properties.json';d=json.load(open(p));[q.__setitem__('normative_authority',['spec/does-not-exist.md']) for q in d['properties'] if q['property_id']=='TRUST_ROOT_NO_SINGLE_CONTROL'];json.dump(d,open(p,'w'));r='assurance/release-readiness.json';import os;json.dump({'all_applicable_gates_pass':True,'all_mandatory_guards_green':True,'all_supported_tests_green':True,'zero_unexplained_failures':True,'clean_source_tree':True,'assurance_registry_complete':True,'semantic_closure_pass':True,'normative_manifest_valid':True,'r2s2_public_consistency_pass':True,'ci_enforcement_active':True,'clean_state_reproducibility':True}, open(r,'w'))\"",
-      "guard": "cargo run -q --manifest-path engines/banza-assurance/Cargo.toml --bin banza-assurance -- report"
+      "apply": "bash tools/collect-release-readiness.sh >/dev/null 2>&1; python3 -c \"import json;p='assurance/properties.json';d=json.load(open(p));[q.__setitem__('normative_authority',['spec/does-not-exist.md']) for q in d['properties'] if q['property_id']=='TRUST_ROOT_NO_SINGLE_CONTROL'];json.dump(d,open(p,'w'));r='assurance/release-readiness.json';import os;json.dump({'all_applicable_gates_pass':True,'all_mandatory_guards_green':True,'all_supported_tests_green':True,'zero_unexplained_failures':True,'clean_source_tree':True,'assurance_registry_complete':True,'semantic_closure_pass':True,'normative_manifest_valid':True,'r2s2_public_consistency_pass':True,'ci_enforcement_active':True,'clean_state_reproducibility':True}, open(r,'w'))\"",
+      "guard": "bash tools/collect-execution-evidence.sh >/dev/null 2>&1; cargo run -q --manifest-path engines/banza-assurance/Cargo.toml --bin banza-assurance -- report"
     }
   ]
 }
