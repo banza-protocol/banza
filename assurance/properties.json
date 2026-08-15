@@ -326,7 +326,7 @@
         "tools/check-semantic-closure.sh selftest: a missing global artifact is rejected"
       ],
       "adversarial_evidence": [
-        "assurance/mutations.json#global_artifact_omitted"
+        "tools/check-semantic-closure.sh selftest: a missing global artifact is rejected"
       ],
       "state_test": null,
       "resilience_test": null,
@@ -334,7 +334,10 @@
       "mutation_proof": "assurance/mutations.json#global_artifact_omitted",
       "clean_room_requirement": true,
       "public_claims": [],
-      "gate_status": "PASS"
+      "gate_status": "PASS",
+      "falsification_proof": [
+        "assurance/mutations.json#global_artifact_omitted"
+      ]
     },
     {
       "property_id": "BANZAI_NON_AUTHORITATIVE_AND_OPTIONAL",
@@ -468,7 +471,7 @@
         "assurance/mutations.json#impure_check"
       ],
       "adversarial_evidence": [
-        "assurance/mutations.json#impure_check"
+        "tools/check-assurance-purity.sh"
       ],
       "state_test": null,
       "resilience_test": null,
@@ -478,7 +481,10 @@
       "public_claims": [
         "assurance/README.md"
       ],
-      "gate_status": "PASS"
+      "gate_status": "PASS",
+      "falsification_proof": [
+        "assurance/mutations.json#impure_check"
+      ]
     },
     {
       "property_id": "ASSURANCE_EXECUTION_GRAPH_IS_ACYCLIC",
@@ -583,5 +589,6 @@
     "STATE_TEST": "the property is decided by a pure function over supplied inputs and retains nothing between calls, so there is no state a restart could lose",
     "RESILIENCE_TEST": "the property is a property of a document or a comparison, not of a running component, so no dependency can fail underneath it",
     "WIRE_REPRESENTATION": "the property constrains the project's own surfaces rather than an artifact an implementation exchanges"
-  }
+  },
+  "_ag6_boundary": "AG-6 is ADVERSARIAL ASSURANCE OF THE PROTOCOL: hostile input, invalid signatures, rollback, replay, equivocation, self-bootstrap, boundary values — executed directly against the current source in M2. M4 is FALSIFICATION OF THE PROTECTIONS THEMSELVES: deliberately removing a required artifact, weakening a guard, forging readiness. Requiring M4 inside AG-6 is what made evidence collection invoke the mutation runner that invokes evidence collection. `falsification_proof` records the M4 obligation; AG-10 consumes it, AG-6 does not."
 }
