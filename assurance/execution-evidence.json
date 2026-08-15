@@ -1,8 +1,8 @@
 {
   "_spec": "BANZA assurance execution evidence",
   "_status": "NON-NORMATIVE. Produced by tools/collect-execution-evidence.sh. Each record binds one executed piece of evidence to the source state it was executed against.",
-  "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5",
-  "tree_dirty": true,
+  "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a",
+  "tree_dirty": false,
   "tool": "collect-execution-evidence",
   "tool_version": "0.1.0",
   "records": [
@@ -12,7 +12,7 @@
       "category": "positive_evidence",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "TRUST_ROOT_NO_SINGLE_CONTROL",
@@ -20,7 +20,7 @@
       "category": "negative_evidence",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "TRUST_ROOT_NO_SINGLE_CONTROL",
@@ -28,7 +28,7 @@
       "category": "negative_evidence",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "TRUST_ROOT_NO_SINGLE_CONTROL",
@@ -36,7 +36,7 @@
       "category": "adversarial_evidence",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "TRUST_ROOT_NO_SINGLE_CONTROL",
@@ -44,7 +44,7 @@
       "category": "adversarial_evidence",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "TRUST_ROOT_NO_SINGLE_CONTROL",
@@ -52,7 +52,7 @@
       "category": "resilience_test",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "TRUST_ROOT_SUCCESSION_PREDECESSOR_AUTHORIZED",
@@ -60,7 +60,7 @@
       "category": "positive_evidence",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "TRUST_ROOT_SUCCESSION_PREDECESSOR_AUTHORIZED",
@@ -68,7 +68,7 @@
       "category": "negative_evidence",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "TRUST_ROOT_SUCCESSION_PREDECESSOR_AUTHORIZED",
@@ -76,7 +76,7 @@
       "category": "negative_evidence",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "TRUST_ROOT_SUCCESSION_PREDECESSOR_AUTHORIZED",
@@ -84,7 +84,7 @@
       "category": "adversarial_evidence",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "TRUST_ROOT_SUCCESSION_PREDECESSOR_AUTHORIZED",
@@ -92,7 +92,7 @@
       "category": "adversarial_evidence",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "TRUST_ROOT_SUCCESSION_PREDECESSOR_AUTHORIZED",
@@ -100,7 +100,7 @@
       "category": "state_test",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "TRUST_ROOT_SUCCESSION_PREDECESSOR_AUTHORIZED",
@@ -108,7 +108,7 @@
       "category": "resilience_test",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "TRUST_ROOT_GENESIS_EXPLICITLY_PINNED",
@@ -116,7 +116,7 @@
       "category": "positive_evidence",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "TRUST_ROOT_GENESIS_EXPLICITLY_PINNED",
@@ -124,7 +124,7 @@
       "category": "adversarial_evidence",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "STATE_EQUIVOCATION_NEVER_REPLACES_TRUSTED_STATE",
@@ -132,7 +132,7 @@
       "category": "positive_evidence",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "STATE_EQUIVOCATION_NEVER_REPLACES_TRUSTED_STATE",
@@ -140,7 +140,7 @@
       "category": "adversarial_evidence",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "STATE_EQUIVOCATION_NEVER_REPLACES_TRUSTED_STATE",
@@ -148,7 +148,7 @@
       "category": "adversarial_evidence",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "STATE_EQUIVOCATION_NEVER_REPLACES_TRUSTED_STATE",
@@ -156,7 +156,7 @@
       "category": "state_test",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "STATE_EQUIVOCATION_NEVER_REPLACES_TRUSTED_STATE",
@@ -164,7 +164,7 @@
       "category": "state_test",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "STATE_EQUIVOCATION_NEVER_REPLACES_TRUSTED_STATE",
@@ -172,7 +172,7 @@
       "category": "resilience_test",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "KEY_MANIFEST_AUTHORIZED_BY_CURRENT_SET",
@@ -180,7 +180,7 @@
       "category": "positive_evidence",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "KEY_MANIFEST_AUTHORIZED_BY_CURRENT_SET",
@@ -188,7 +188,7 @@
       "category": "negative_evidence",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "KEY_MANIFEST_AUTHORIZED_BY_CURRENT_SET",
@@ -196,7 +196,7 @@
       "category": "adversarial_evidence",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "VERSION_SINGLE_AUTHORITY",
@@ -204,7 +204,7 @@
       "category": "positive_evidence",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "VERSION_SINGLE_AUTHORITY",
@@ -212,7 +212,7 @@
       "category": "positive_evidence",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "VERSION_SINGLE_AUTHORITY",
@@ -220,7 +220,7 @@
       "category": "positive_evidence",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "VERSION_SINGLE_AUTHORITY",
@@ -228,7 +228,7 @@
       "category": "negative_evidence",
       "runner": "shell-guard",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "VERSION_UNKNOWN_FUTURE_NOT_TRUSTED",
@@ -236,7 +236,7 @@
       "category": "positive_evidence",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "VERSION_UNKNOWN_FUTURE_NOT_TRUSTED",
@@ -244,7 +244,7 @@
       "category": "negative_evidence",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "VERSION_UNKNOWN_FUTURE_NOT_TRUSTED",
@@ -252,7 +252,7 @@
       "category": "negative_evidence",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "VERSION_UNKNOWN_FUTURE_NOT_TRUSTED",
@@ -260,7 +260,7 @@
       "category": "adversarial_evidence",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "VERSION_UNKNOWN_FUTURE_NOT_TRUSTED",
@@ -268,7 +268,7 @@
       "category": "adversarial_evidence",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "HOSTILE_INPUT_REJECTED_WITHOUT_PANIC",
@@ -276,7 +276,7 @@
       "category": "negative_evidence",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "HOSTILE_INPUT_REJECTED_WITHOUT_PANIC",
@@ -284,7 +284,7 @@
       "category": "adversarial_evidence",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "CLEANROOM_SEMANTIC_CLOSURE",
@@ -292,7 +292,7 @@
       "category": "positive_evidence",
       "runner": "shell-guard",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "CLEANROOM_SEMANTIC_CLOSURE",
@@ -300,7 +300,7 @@
       "category": "negative_evidence",
       "runner": "shell-guard",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "BANZAI_NON_AUTHORITATIVE_AND_OPTIONAL",
@@ -308,7 +308,7 @@
       "category": "positive_evidence",
       "runner": "shell-guard",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "BANZAI_NON_AUTHORITATIVE_AND_OPTIONAL",
@@ -316,7 +316,7 @@
       "category": "negative_evidence",
       "runner": "shell-guard",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "BANZAI_NON_AUTHORITATIVE_AND_OPTIONAL",
@@ -324,7 +324,7 @@
       "category": "adversarial_evidence",
       "runner": "shell-guard",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "NO_AVAILABILITY_BYPASS_OF_TRUST",
@@ -332,7 +332,7 @@
       "category": "negative_evidence",
       "runner": "shell-guard",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "NO_AVAILABILITY_BYPASS_OF_TRUST",
@@ -340,7 +340,7 @@
       "category": "adversarial_evidence",
       "runner": "cargo-test",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "R2S2_PRINCIPLE_SET_IS_EXACTLY_FOUR",
@@ -348,7 +348,7 @@
       "category": "positive_evidence",
       "runner": "shell-guard",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "R2S2_PRINCIPLE_SET_IS_EXACTLY_FOUR",
@@ -356,7 +356,7 @@
       "category": "negative_evidence",
       "runner": "shell-guard",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     },
     {
       "property_id": "R2S2_PRINCIPLE_SET_IS_EXACTLY_FOUR",
@@ -364,7 +364,7 @@
       "category": "adversarial_evidence",
       "runner": "shell-guard",
       "result": "PASS",
-      "source_commit": "a28411a727354f90a10fc7ec96fa0fa5629a96d5"
+      "source_commit": "080a3795ccf5bcee693ec8e8e5debfe3b1075f6a"
     }
   ],
   "not_executed": [
