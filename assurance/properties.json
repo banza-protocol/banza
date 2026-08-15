@@ -288,7 +288,9 @@
       ],
       "wire_representation": "BCJ/1 integer domain; malformed documents are not versions of valid ones",
       "implementation": "engines/banza-trust/src/authority_set.rs",
-      "positive_evidence": [],
+      "positive_evidence": [
+        "engines/banza-trust/tests/root_authority_final_gates.rs::the_verifier_survives_a_hostile_corpus_and_still_decides_correctly"
+      ],
       "negative_evidence": [
         "engines/banza-trust/tests/root_authority_final_gates.rs::out_of_domain_sequences_are_rejected_without_panicking"
       ],
@@ -323,7 +325,9 @@
       "negative_evidence": [
         "tools/check-semantic-closure.sh selftest: a missing global artifact is rejected"
       ],
-      "adversarial_evidence": null,
+      "adversarial_evidence": [
+        "assurance/mutations.json#global_artifact_omitted"
+      ],
       "state_test": null,
       "resilience_test": null,
       "property_guard": "tools/check-semantic-closure.sh",
@@ -385,7 +389,9 @@
       ],
       "wire_representation": "expiry and revocation are evaluated fail-closed; there is no permissive mode on the wire",
       "implementation": "engines/banza-trust/src/evaluate.rs, engines/banza-trust/src/authority_set.rs",
-      "positive_evidence": [],
+      "positive_evidence": [
+        "engines/banza-trust/tests/root_authority_final_gates.rs::an_unavailable_refresh_neither_weakens_nor_destroys_established_trust"
+      ],
       "negative_evidence": [
         "tools/check-no-availability-bypass.sh selftest: an outage fallback is rejected"
       ],
