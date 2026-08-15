@@ -213,6 +213,10 @@ trust-signing-chain-check:
 adr-canonical-clean-check:
 	@bash tools/check-adr-canonical-clean.sh
 
+## root-authority-model-check: The Root authority model stays real at every layer — three authorities and threshold two fixed in the contract, the Key Manifest authorised by a SET rather than a single root key, a self-signed set rejected and a removed authority never required (both engine-verified), no emergency/override/break-glass path in the trust engines, and no organisation name in Root validity.
+root-authority-model-check:
+	bash tools/check-root-authority-model.sh
+
 ## adr-architecture-check: The decision-record tree records CURRENT architecture only — six canonical sections per record, no status/lifecycle headers, no normative keywords (a record explains, it never requires), no process records, delete-the-records holds (no normative artifact defers to a record section), and no CI status context depends on a record number. Everything derived from the tree; no pinned list, no pinned wording.
 adr-architecture-check:
 	bash tools/check-adr-architecture.sh

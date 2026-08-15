@@ -71,6 +71,11 @@ fn main() {
                 &set, &pinned,
             ));
         }
+        // Regenerate `conformance/vectors/trust-signing.json` from the same scenarios the engine tests
+        // drive, so the published vectors can never describe material the engine does not produce.
+        "signing-vectors" => {
+            println!("{}", banza_trust::sign::signing_vectors());
+        }
         "authority-set-vectors" => {
             println!("{}", banza_trust::sign::authority_set_vectors());
         }

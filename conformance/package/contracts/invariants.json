@@ -27,220 +27,612 @@
     "COLLECTION": "Payment collections (splits) — no value holding, amount identity, terminal shares, idempotent creation."
   },
   "invariants": [
-    { "id": "INV-LEDGER-001", "family": "LEDGER", "title": "Debits equal credits", "severity": "critical",
+    {
+      "id": "INV-LEDGER-001",
+      "family": "LEDGER",
+      "title": "Debits equal credits",
+      "severity": "critical",
       "statement": "Every ledger posting MUST be perfectly balanced: for each currency present, sum(debits) == sum(credits) in integer minor units. A posting with non-zero net MUST be rejected before it is written to storage.",
-      "source": "docs/reference/en/complete.md:1188; spec/invariants.md:46" },
-    { "id": "INV-LEDGER-002", "family": "LEDGER", "title": "Ledger immutability", "severity": "critical",
+      "source": "docs/reference/en/complete.md:1188; spec/invariants.md:46"
+    },
+    {
+      "id": "INV-LEDGER-002",
+      "family": "LEDGER",
+      "title": "Ledger immutability",
+      "severity": "critical",
       "statement": "Ledger entries are append-only. Once posted, a posting and its entries MUST never be modified or deleted. Corrections are made only by posting reversing entries.",
-      "source": "docs/reference/en/complete.md:1189; spec/invariants.md:52" },
-    { "id": "INV-LEDGER-003", "family": "LEDGER", "title": "Integer amounts", "severity": "critical",
+      "source": "docs/reference/en/complete.md:1189; spec/invariants.md:52"
+    },
+    {
+      "id": "INV-LEDGER-003",
+      "family": "LEDGER",
+      "title": "Integer amounts",
+      "severity": "critical",
       "statement": "All ledger amounts are integers in minor units (i64) — never floating point.",
-      "source": "docs/reference/en/complete.md:1190" },
-    { "id": "INV-LEDGER-004", "family": "LEDGER", "title": "Atomic postings", "severity": "critical",
+      "source": "docs/reference/en/complete.md:1190"
+    },
+    {
+      "id": "INV-LEDGER-004",
+      "family": "LEDGER",
+      "title": "Atomic postings",
+      "severity": "critical",
       "statement": "A posting is atomic: partial postings never persist. Either all entries of a posting are committed or none are.",
-      "source": "docs/reference/en/complete.md:1191" },
-    { "id": "INV-LEDGER-005", "family": "LEDGER", "title": "No double settlement", "severity": "critical",
+      "source": "docs/reference/en/complete.md:1191"
+    },
+    {
+      "id": "INV-LEDGER-005",
+      "family": "LEDGER",
+      "title": "No double settlement",
+      "severity": "critical",
       "statement": "Each transfer appears in exactly one settlement batch. A transfer MUST NOT appear in multiple settlement batches; operators MUST track settled transfers and reject re-settlement.",
-      "source": "conformance/ledger/suite.json:34-38; conformance/federation/suite.json:540-543" },
-    { "id": "INV-WALLET-001", "family": "WALLET", "title": "Balance identity", "severity": "critical",
+      "source": "conformance/ledger/suite.json:34-38; conformance/federation/suite.json:540-543"
+    },
+    {
+      "id": "INV-WALLET-001",
+      "family": "WALLET",
+      "title": "Balance identity",
+      "severity": "critical",
       "statement": "For every wallet at all times: balance_minor = available_minor + reserved_minor. Wallet balances are derived from the ledger — there is no separate balance column that can diverge — and available balance MUST never go below zero.",
-      "source": "docs/reference/en/complete.md:1141; spec/invariants.md:68" },
-    { "id": "INV-STL-001", "family": "SETTLE", "title": "Settlement amount identity (no money creation)", "severity": "critical",
-      "aliases": ["INV-SETTLE-001"],
+      "source": "docs/reference/en/complete.md:1141; spec/invariants.md:68"
+    },
+    {
+      "id": "INV-STL-001",
+      "family": "SETTLE",
+      "title": "Settlement amount identity (no money creation)",
+      "severity": "critical",
+      "aliases": [
+        "INV-SETTLE-001"
+      ],
       "statement": "For every settlement: gross_minor = net_minor + fee_minor, exact in integer minor units. No money may be created or destroyed by settlement.",
-      "source": "docs/reference/en/complete.md:1134,1192" },
-    { "id": "INV-STL-002", "family": "SETTLE", "title": "No negative balances", "severity": "critical",
-      "aliases": ["INV-SETTLE-002"],
+      "source": "docs/reference/en/complete.md:1134,1192"
+    },
+    {
+      "id": "INV-STL-002",
+      "family": "SETTLE",
+      "title": "No negative balances",
+      "severity": "critical",
+      "aliases": [
+        "INV-SETTLE-002"
+      ],
       "statement": "No settlement operation may drive any wallet or ledger account to a negative balance.",
-      "source": "docs/reference/en/complete.md:1193" },
-    { "id": "INV-STL-003", "family": "SETTLE", "title": "Settlement batch immutability", "severity": "high",
-      "aliases": ["INV-SETTLE-003"],
+      "source": "docs/reference/en/complete.md:1193"
+    },
+    {
+      "id": "INV-STL-003",
+      "family": "SETTLE",
+      "title": "Settlement batch immutability",
+      "severity": "high",
+      "aliases": [
+        "INV-SETTLE-003"
+      ],
       "statement": "Settlement batch amounts (gross, fee, net) are computed at creation time and are immutable thereafter; each batch covers a specific, non-overlapping period and follows the lifecycle PENDING -> PROCESSING -> COMPLETED/FAILED.",
-      "source": "spec/invariants.md:120-134" },
-    { "id": "INV-IDEM-001", "family": "IDEM", "title": "Idempotency key replay safety", "severity": "critical",
+      "source": "spec/invariants.md:120-134"
+    },
+    {
+      "id": "INV-IDEM-001",
+      "family": "IDEM",
+      "title": "Idempotency key replay safety",
+      "severity": "critical",
       "statement": "Every financial write carries a caller-supplied idempotency_key. If the same key is submitted twice, the implementation MUST return the existing result without creating a duplicate. Same key with a different request body MUST be rejected (409 Conflict), never silently served the first response.",
-      "source": "spec/invariants.md:56; decisions/adr/ADR-022-idempotency.md" },
-    { "id": "INV-TRACE-001", "family": "TRACE", "title": "Trace propagation", "severity": "critical",
+      "source": "spec/invariants.md:56; decisions/adr/ADR-022-idempotency.md"
+    },
+    {
+      "id": "INV-TRACE-001",
+      "family": "TRACE",
+      "title": "Trace propagation",
+      "severity": "critical",
       "statement": "Every event MUST carry a trace_id and correlation_id. All artefacts in the same causal payment flow MUST share the same trace_id.",
-      "source": "contracts/events/types.json:431; spec/overview.md:140" },
-    { "id": "INV-IDENT-001", "family": "IDENT", "title": "Handle uniqueness", "severity": "high",
+      "source": "contracts/events/types.json:431; spec/overview.md:140"
+    },
+    {
+      "id": "INV-IDENT-001",
+      "family": "IDENT",
+      "title": "Handle uniqueness",
+      "severity": "high",
       "statement": "@handle uniqueness is global within an operator's identity namespace; a handle resolves to exactly one wallet identity.",
-      "source": "docs/reference/en/complete.md:1195" },
-    { "id": "INV-EVENT-001", "family": "EVENT", "title": "Event id uniqueness", "severity": "high",
+      "source": "docs/reference/en/complete.md:1195"
+    },
+    {
+      "id": "INV-EVENT-001",
+      "family": "EVENT",
+      "title": "Event id uniqueness",
+      "severity": "high",
       "statement": "Event IDs are globally unique. No id value appears twice in the event stream.",
-      "source": "contracts/events/types.json:432" },
-    { "id": "INV-EVENT-002", "family": "EVENT", "title": "Event timestamp immutability", "severity": "medium",
+      "source": "contracts/events/types.json:432"
+    },
+    {
+      "id": "INV-EVENT-002",
+      "family": "EVENT",
+      "title": "Event timestamp immutability",
+      "severity": "medium",
       "statement": "created_at is set at emission time and is immutable after emission.",
-      "source": "contracts/events/types.json:433" },
-    { "id": "MON-001", "family": "MON", "title": "Integer-only monetary representation", "severity": "critical",
-      "aliases": ["INV-MON-001"],
+      "source": "contracts/events/types.json:433"
+    },
+    {
+      "id": "MON-001",
+      "family": "MON",
+      "title": "Integer-only monetary representation",
+      "severity": "critical",
+      "aliases": [
+        "INV-MON-001"
+      ],
       "statement": "All monetary values MUST be integers in minor units. Floating-point monetary values are prohibited across the entire protocol surface: APIs, traces and logs, operator manifests, wallet balances, ledger entries, settlement batches, and SDK contracts. Every monetary field carries the _minor suffix.",
-      "source": "docs/reference/en/complete.md:1110-1120" },
-    { "id": "INV-QR-001", "family": "QR", "title": "Dynamic QR single-use", "severity": "critical",
+      "source": "docs/reference/en/complete.md:1110-1120"
+    },
+    {
+      "id": "INV-QR-001",
+      "family": "QR",
+      "title": "Dynamic QR single-use",
+      "severity": "critical",
       "statement": "A dynamic QR code MUST be paid at most once. A second payment attempt against a USED QR MUST return HTTP 422.",
-      "source": "contracts/qr/lifecycle.json:93" },
-    { "id": "INV-QR-002", "family": "QR", "title": "QR expiry rules", "severity": "critical",
+      "source": "contracts/qr/lifecycle.json:93"
+    },
+    {
+      "id": "INV-QR-002",
+      "family": "QR",
+      "title": "QR expiry rules",
+      "severity": "critical",
       "statement": "A static QR MUST have expires_at = null. A dynamic QR MUST have expires_at set and in the future at creation time.",
-      "source": "contracts/qr/lifecycle.json:94; contracts/qr/payload-format.json:132" },
-    { "id": "INV-QR-003", "family": "QR", "title": "Terminal-state rejection", "severity": "critical",
+      "source": "contracts/qr/lifecycle.json:94; contracts/qr/payload-format.json:132"
+    },
+    {
+      "id": "INV-QR-003",
+      "family": "QR",
+      "title": "Terminal-state rejection",
+      "severity": "critical",
       "statement": "A QR code in status EXPIRED or USED MUST reject payment.",
-      "source": "contracts/qr/lifecycle.json:95" },
-    { "id": "INV-QR-004", "family": "QR", "title": "QR payment atomicity", "severity": "critical",
+      "source": "contracts/qr/lifecycle.json:95"
+    },
+    {
+      "id": "INV-QR-004",
+      "family": "QR",
+      "title": "QR payment atomicity",
+      "severity": "critical",
       "statement": "The ledger posting and the QR status transition to USED MUST be atomic. Partial state (ledger without status update, or status update without ledger) is a financial-invariant violation.",
-      "source": "contracts/qr/lifecycle.json:96" },
-    { "id": "INV-QR-SIGN-001", "family": "QR", "title": "Dynamic QR signature verification", "severity": "critical",
+      "source": "contracts/qr/lifecycle.json:96"
+    },
+    {
+      "id": "INV-QR-SIGN-001",
+      "family": "QR",
+      "title": "Dynamic QR signature verification",
+      "severity": "critical",
       "statement": "A dynamic QR's HMAC signature MUST be verified against the server-side database record before payment. Verifying the payload alone is insufficient.",
-      "source": "contracts/qr/lifecycle.json:97; contracts/qr/payload-format.json:135" },
-    { "id": "INV-QR-ENV-001", "family": "QR", "title": "QR environment prefix binding", "severity": "high",
+      "source": "contracts/qr/lifecycle.json:97; contracts/qr/payload-format.json:135"
+    },
+    {
+      "id": "INV-QR-ENV-001",
+      "family": "QR",
+      "title": "QR environment prefix binding",
+      "severity": "high",
       "statement": "An operator with simulated=true MUST emit BANZA-SBX: prefixed payloads. Emitting the production BANZA: prefix from a sandbox is a conformance FAIL.",
-      "source": "contracts/qr/payload-format.json:26,134" },
-    { "id": "INV-OTE-001", "family": "OTE", "title": "Protocol metadata signature validity", "severity": "critical",
+      "source": "contracts/qr/payload-format.json:26,134"
+    },
+    {
+      "id": "INV-OTE-001",
+      "family": "OTE",
+      "title": "Protocol metadata signature validity",
+      "severity": "critical",
       "statement": "Protocol metadata MUST verify against a delegated signing key endorsed by valid root-signed root metadata, within that key's scope and validity. Unverifiable protocol metadata MUST be treated as absent.",
-      "source": "decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md" },
-    { "id": "INV-OTE-002", "family": "OTE", "title": "Evidence binds to its manifest", "severity": "critical",
+      "source": "decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md"
+    },
+    {
+      "id": "INV-OTE-002",
+      "family": "OTE",
+      "title": "Evidence binds to its manifest",
+      "severity": "critical",
       "statement": "An Evidence Bundle MUST verify against the public key material bound in the manifest it names, and its manifest_hash MUST bind to that same manifest. Evidence that does not bind to a manifest is not evidence.",
-      "source": "decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md" },
-    { "id": "INV-OTE-003", "family": "OTE", "title": "Evidence is version- and vector-anchored", "severity": "critical",
+      "source": "decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md"
+    },
+    {
+      "id": "INV-OTE-003",
+      "family": "OTE",
+      "title": "Evidence is version- and vector-anchored",
+      "severity": "critical",
       "statement": "Conformance evidence MUST name a spec version and vector set whose digests match protocol metadata verified under the root-anchored trust chain (signed by a delegated key endorsed by root-signed root metadata). Evidence produced against unknown, unpinned or non-genuine vectors MUST NOT be accepted.",
-      "source": "decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md" },
-    { "id": "INV-OTE-004", "family": "OTE", "title": "Evidence is reproducible", "severity": "critical",
+      "source": "decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md"
+    },
+    {
+      "id": "INV-OTE-004",
+      "family": "OTE",
+      "title": "Evidence is reproducible",
+      "severity": "critical",
       "statement": "Re-executing the named public vectors against the same artifacts MUST reproduce conformance_report_hash. A bundle that does not reproduce is invalid.",
-      "source": "decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md" },
-    { "id": "INV-OTE-005", "family": "OTE", "title": "Fail-closed on missing or invalid trust material", "severity": "critical",
+      "source": "decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md"
+    },
+    {
+      "id": "INV-OTE-005",
+      "family": "OTE",
+      "title": "Fail-closed on missing or invalid trust material",
+      "severity": "critical",
       "statement": "Missing, invalid, expired, revoked or incompatible trust material MUST result in non-interoperation. No grace period, no default-allow, no override.",
-      "source": "decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md" },
-    { "id": "INV-OTE-006", "family": "OTE", "title": "Revocation-list validity", "severity": "high",
+      "source": "decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md"
+    },
+    {
+      "id": "INV-OTE-006",
+      "family": "OTE",
+      "title": "Revocation-list validity",
+      "severity": "high",
       "statement": "A Revocation List MUST be signed and unexpired to be relied upon. An unsigned, unverifiable or expired list MUST be treated as unavailable, which is itself fail-closed (INV-OTE-005).",
-      "source": "decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md" },
-    { "id": "INV-OTE-007", "family": "OTE", "title": "No BANZA-issued artifact is an input", "severity": "critical",
+      "source": "decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md"
+    },
+    {
+      "id": "INV-OTE-007",
+      "family": "OTE",
+      "title": "No BANZA-issued artifact is an input",
+      "severity": "critical",
       "statement": "No artifact issued by BANZA about an operator may be an input to the Open Trust Evaluation. A verifier that requires one is not implementing this protocol.",
-      "source": "decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md" },
-    { "id": "INV-OTE-008", "family": "OTE", "title": "No human decision is an input", "severity": "critical",
+      "source": "decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md"
+    },
+    {
+      "id": "INV-OTE-008",
+      "family": "OTE",
+      "title": "No human decision is an input",
+      "severity": "critical",
       "statement": "No human decision may be an input to the Open Trust Evaluation, and no human decision may convert a negative conformance result into a positive one.",
-      "source": "decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md" },
-    { "id": "INV-OTE-009", "family": "OTE", "title": "Trust root signs nothing about operators", "severity": "critical",
+      "source": "decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md"
+    },
+    {
+      "id": "INV-OTE-009",
+      "family": "OTE",
+      "title": "Trust root signs nothing about operators",
+      "severity": "critical",
       "statement": "The Trust Root MUST NOT sign any statement about an operator's identity, status, eligibility or right to participate. The Trust Root signs only the Key Manifest that endorses the delegated signing keys; protocol metadata, releases, the revocation list and conformance evidence are signed by delegated keys within their domains, never by the root directly (INV-ROOT-004; ADR-025).",
-      "source": "decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md" },
-    { "id": "INV-OTE-010", "family": "OTE", "title": "Fail-closed is not a judgment", "severity": "high",
+      "source": "decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md"
+    },
+    {
+      "id": "INV-OTE-010",
+      "family": "OTE",
+      "title": "Fail-closed is not a judgment",
+      "severity": "high",
       "statement": "Fail-closed is a decision by the evaluating party about an interaction. It MUST NOT be recorded, published or communicated as a rejection, sanction or judgment about the entity.",
-      "source": "decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md" },
-    { "id": "INV-FEDEVAL-001", "family": "FEDEVAL", "title": "Routing requires all checks to pass", "severity": "critical",
+      "source": "decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md"
+    },
+    {
+      "id": "INV-FEDEVAL-001",
+      "family": "FEDEVAL",
+      "title": "Routing requires all checks to pass",
+      "severity": "critical",
       "statement": "A routing decision MUST NOT be made unless checks 1-9 all pass, evaluated by the deciding party itself over material it verified itself.",
-      "source": "decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md" },
-    { "id": "INV-FEDEVAL-002", "family": "FEDEVAL", "title": "Fail-closed on missing, invalid or revoked material", "severity": "critical",
+      "source": "decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md"
+    },
+    {
+      "id": "INV-FEDEVAL-002",
+      "family": "FEDEVAL",
+      "title": "Fail-closed on missing, invalid or revoked material",
+      "severity": "critical",
       "statement": "Missing, invalid, expired, revoked, incompatible or indeterminate trust material MUST fail closed. Absence of an answer MUST NOT be treated as a passing answer.",
-      "source": "decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md" },
-    { "id": "INV-FEDEVAL-003", "family": "FEDEVAL", "title": "Conformance evidence is reproducible", "severity": "critical",
+      "source": "decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md"
+    },
+    {
+      "id": "INV-FEDEVAL-003",
+      "family": "FEDEVAL",
+      "title": "Conformance evidence is reproducible",
+      "severity": "critical",
       "statement": "Conformance evidence MUST be reproducible: hashes recomputed from the published artifacts, and the automation re-executed by an independent third party, MUST yield the same state. Evidence that cannot be reproduced is not evidence.",
-      "source": "decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md" },
-    { "id": "INV-FEDEVAL-004", "family": "FEDEVAL", "title": "Signed protocol metadata verifies to the trust root", "severity": "critical",
+      "source": "decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md"
+    },
+    {
+      "id": "INV-FEDEVAL-004",
+      "family": "FEDEVAL",
+      "title": "Signed protocol metadata verifies to the trust root",
+      "severity": "critical",
       "statement": "Signed protocol metadata MUST verify to the trust root through in-scope, unexpired, unrevoked delegated keys. Unsigned or unverifiable protocol material MUST NOT be used as the basis of an evaluation.",
-      "source": "decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md" },
-    { "id": "INV-FEDEVAL-005", "family": "FEDEVAL", "title": "Revocation list signed and fresh", "severity": "high",
+      "source": "decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md"
+    },
+    {
+      "id": "INV-FEDEVAL-005",
+      "family": "FEDEVAL",
+      "title": "Revocation list signed and fresh",
+      "severity": "high",
       "statement": "The revocation list MUST be signed and within its freshness window. An unavailable, unsigned, unverifiable or stale list MUST be treated as untrusted material — never as an empty list.",
-      "source": "decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md" },
-    { "id": "INV-FEDEVAL-006", "family": "FEDEVAL", "title": "Freshness window, no grace period", "severity": "critical",
+      "source": "decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md"
+    },
+    {
+      "id": "INV-FEDEVAL-006",
+      "family": "FEDEVAL",
+      "title": "Freshness window, no grace period",
+      "severity": "critical",
       "statement": "Trust material outside its declared freshness window MUST be rejected. No grace period is permitted. The effective trust lifetime is the minimum of the windows in play (≤ 90 days for L3+).",
-      "source": "decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md" },
-    { "id": "INV-FEDEVAL-007", "family": "FEDEVAL", "title": "Capability compatibility requires covering evidence", "severity": "high",
+      "source": "decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md"
+    },
+    {
+      "id": "INV-FEDEVAL-007",
+      "family": "FEDEVAL",
+      "title": "Capability compatibility requires covering evidence",
+      "severity": "high",
       "statement": "Capability compatibility MUST be evaluated per capability and per protocol version. A capability declared without covering evidence MUST NOT be routed to. An operator MUST NOT declare supports_federation without published, valid, fresh, non-revoked L3+ conformance evidence.",
-      "source": "decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md" },
-    { "id": "INV-FEDEVAL-008", "family": "FEDEVAL", "title": "No human, issued-artifact or registry-listing step", "severity": "critical",
+      "source": "decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md"
+    },
+    {
+      "id": "INV-FEDEVAL-008",
+      "family": "FEDEVAL",
+      "title": "No human, issued-artifact or registry-listing step",
+      "severity": "critical",
       "statement": "No evaluation step may be satisfied by a human decision, by an artifact issued to an operator by BANZA, or by the presence of an entry in the Public Protocol Registry. Registry listing is not a check.",
-      "source": "decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md" },
-    { "id": "INV-FEDEVAL-009", "family": "FEDEVAL", "title": "Trust root does not sign operator evidence", "severity": "high",
+      "source": "decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md"
+    },
+    {
+      "id": "INV-FEDEVAL-009",
+      "family": "FEDEVAL",
+      "title": "Trust root does not sign operator evidence",
+      "severity": "high",
       "statement": "The trust root MUST NOT sign operator conformance evidence. Operators sign their own evidence with their own keys.",
-      "source": "decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md" },
-    { "id": "INV-FEDEVAL-010", "family": "FEDEVAL", "title": "Revocation is a security signal only", "severity": "high",
+      "source": "decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md"
+    },
+    {
+      "id": "INV-FEDEVAL-010",
+      "family": "FEDEVAL",
+      "title": "Revocation is a security signal only",
+      "severity": "high",
       "statement": "Revocation MUST be applied as a cryptographic security signal only. It MUST NOT be represented or used as a regulatory sanction, a licence withdrawal, or a judgment about an entity.",
-      "source": "decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md" },
-    { "id": "INV-ROOT-001", "family": "ROOT", "title": "No test key IDs in production", "severity": "critical",
+      "source": "decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md"
+    },
+    {
+      "id": "INV-ROOT-001",
+      "family": "ROOT",
+      "title": "No test key IDs in production",
+      "severity": "critical",
       "statement": "Production key IDs MUST NOT start with 'test-'. Test keys are rejected in production.",
-      "source": "docs/reference/en/complete.md:822" },
-    { "id": "INV-ROOT-002", "family": "ROOT", "title": "Key Manifest is root-signed", "severity": "critical",
-      "statement": "The Key Manifest MUST be signed by the root key. An unsigned or unverifiable manifest is invalid and MUST be rejected. The root signature on the manifest is the sole basis for trusting any issuing key.",
-      "source": "docs/reference/en/complete.md:823; contracts/federation/key-manifest.json" },
-    { "id": "INV-ROOT-003", "family": "ROOT", "title": "Key Manifest expiry", "severity": "critical",
+      "source": "docs/reference/en/complete.md:822"
+    },
+    {
+      "id": "INV-ROOT-002",
+      "family": "ROOT",
+      "title": "Key Manifest is authorised by the active Root Authority Set",
+      "severity": "critical",
+      "statement": "The Key Manifest MUST be authorised by the ACTIVE Root Authority Set: at least `threshold` DISTINCT authorities of that set MUST have valid signatures in `root_signatures` over the manifest's signing input, and the manifest MUST name that set by sequence and digest. An unsigned manifest, one below threshold, or one naming a set that is not active, is invalid and MUST be rejected.",
+      "source": "spec/root-authority-set.md; contracts/production/root-authority-set.production.schema.json"
+    },
+    {
+      "id": "INV-ROOT-003",
+      "family": "ROOT",
+      "title": "Key Manifest expiry",
+      "severity": "critical",
       "statement": "An expired Key Manifest is invalid. Verifiers MUST detect and reject a stale manifest.",
-      "source": "docs/reference/en/complete.md:824" },
-    { "id": "INV-ROOT-004", "family": "ROOT", "title": "Root signs only manifests", "severity": "critical",
+      "source": "docs/reference/en/complete.md:824"
+    },
+    {
+      "id": "INV-ROOT-004",
+      "family": "ROOT",
+      "title": "Root signs only manifests",
+      "severity": "critical",
       "statement": "The root key signs only Key Manifests. It never signs protocol metadata, conformance evidence, or revocation lists directly.",
-      "source": "docs/reference/en/complete.md:825" },
-    { "id": "INV-ROOT-005", "family": "ROOT", "title": "BRL signing authority", "severity": "critical",
+      "source": "docs/reference/en/complete.md:825"
+    },
+    {
+      "id": "INV-ROOT-005",
+      "family": "ROOT",
+      "title": "BRL signing authority",
+      "severity": "critical",
       "statement": "The BRL MUST be signed by the designated BRL-issuing (revocation-domain) key.",
-      "source": "docs/reference/en/complete.md:826" },
-    { "id": "INV-ROOT-006", "family": "ROOT", "title": "Key validity maxima", "severity": "critical",
+      "source": "docs/reference/en/complete.md:826"
+    },
+    {
+      "id": "INV-ROOT-006",
+      "family": "ROOT",
+      "title": "Key validity maxima",
+      "severity": "critical",
       "statement": "Issuing keys have a maximum validity of 184 days; the root key has a maximum validity of 24 months.",
-      "source": "docs/reference/en/complete.md:827" },
-    { "id": "INV-ROOT-007", "family": "ROOT", "title": "No single-entity root control", "severity": "critical",
+      "source": "docs/reference/en/complete.md:827"
+    },
+    {
+      "id": "INV-ROOT-007",
+      "family": "ROOT",
+      "title": "No single-entity root control",
+      "severity": "critical",
       "statement": "No operator, server, domain, participant, or individual entity may solely control the maximum authority of the BANZA protocol. Root custody requires threshold control: three independent root signing authorities, any two of which authorise a root action.",
-      "source": "docs/governance/BANZA_TRUST_ARCHITECTURE.md" },
-    { "id": "INV-ROOT-008", "family": "ROOT", "title": "Delegated authority is bounded", "severity": "high",
+      "source": "docs/governance/BANZA_TRUST_ARCHITECTURE.md"
+    },
+    {
+      "id": "INV-ROOT-008",
+      "family": "ROOT",
+      "title": "Delegated authority is bounded",
+      "severity": "high",
       "statement": "No delegated signing key may exercise authority beyond the scope the active Trust Root explicitly delegates to it. Verification MUST check both that the signature is valid and that the signed artifact falls within the key's delegated scope, resolved from the active Trust Root / Key Manifest and never self-asserted.",
-      "source": "docs/governance/BANZA_TRUST_ARCHITECTURE.md" },
-    { "id": "INV-ROOT-009", "family": "ROOT", "title": "Institutional seat continuity", "severity": "high",
-      "statement": "The loss or replacement of an institutional seat occupant cannot compromise the continuity of the protocol's maximum authority.",
-      "source": "docs/governance/BANZA_TRUST_ARCHITECTURE.md" },
-    { "id": "INV-ROOT-010", "family": "ROOT", "title": "Authenticated key rotation", "severity": "high",
-      "statement": "A key rotation MUST be authenticated by signing the rotation request with the currently-bound private key. Key rotation authenticated by any other means is invalid.",
-      "source": "docs/governance/BANZA_TRUST_ARCHITECTURE.md" },
-    { "id": "INV-FED-001", "family": "FED", "title": "Trace identity across boundaries", "severity": "critical",
+      "source": "docs/governance/BANZA_TRUST_ARCHITECTURE.md"
+    },
+    {
+      "id": "INV-ROOT-009",
+      "family": "ROOT",
+      "title": "Institutional seat continuity",
+      "severity": "high",
+      "statement": "The loss or replacement of an institutional seat occupant cannot compromise the continuity of the protocol's maximum authority: the surviving threshold MUST be able to authorise a successor set without any signature from the authority being removed (INV-ROOT-011).",
+      "source": "spec/root-authority-set.md; contracts/production/root-authority-set.production.schema.json"
+    },
+    {
+      "id": "INV-ROOT-010",
+      "family": "ROOT",
+      "title": "Key rotation is authorised by the current threshold",
+      "severity": "high",
+      "statement": "A key rotation MUST be authorised by the threshold of the currently trusted authority set — for delegated keys, by the active Root Authority Set signing a new Key Manifest; for the Root itself, by the predecessor set authorising the successor (INV-ROOT-011). Rotation authenticated by any single key, or by the set being replaced, is invalid.",
+      "source": "spec/root-authority-set.md; contracts/production/root-authority-set.production.schema.json"
+    },
+    {
+      "id": "INV-ROOT-011",
+      "family": "ROOT",
+      "title": "Successor sets are authorised by their predecessor",
+      "severity": "critical",
+      "statement": "A Root Authority Set with `set_sequence` greater than 0 MUST be authorised by the set it succeeds: its `predecessor_digest` MUST equal the SHA-256 of the predecessor's signing input, its `set_sequence` MUST be exactly one greater, and at least `threshold` DISTINCT authorities OF THE PREDECESSOR SET MUST have valid signatures over its signing input. A set that only carries signatures by its own authorities authorises nothing and MUST be rejected.",
+      "source": "spec/root-authority-set.md; contracts/production/root-authority-set.production.schema.json"
+    },
+    {
+      "id": "INV-ROOT-012",
+      "family": "ROOT",
+      "title": "The genesis set is pinned, never trusted on first use",
+      "severity": "critical",
+      "statement": "A Root Authority Set with `set_sequence` 0 has no predecessor and MUST be accepted only when its signing-input digest equals a digest the verifier was explicitly configured with. A verifier MUST NOT trust an unpinned genesis set on first use.",
+      "source": "spec/root-authority-set.md; contracts/production/root-authority-set.production.schema.json"
+    },
+    {
+      "id": "INV-ROOT-013",
+      "family": "ROOT",
+      "title": "A removed authority is never required to authorise its own removal",
+      "severity": "critical",
+      "statement": "Authorisation of a successor set MUST NOT require a signature from an authority the transition removes. Requiring one would make the recovery path 3-of-3 and grant an obstructive or compromised authority a veto over its own replacement.",
+      "source": "spec/root-authority-set.md; contracts/production/root-authority-set.production.schema.json"
+    },
+    {
+      "id": "INV-ROOT-014",
+      "family": "ROOT",
+      "title": "Loss of the threshold blocks continuity and MUST NOT be bypassed",
+      "severity": "critical",
+      "statement": "When fewer authorities remain than `threshold`, no successor set can be authorised and canonical Root continuity is blocked. An implementation MUST NOT provide an emergency master key, recovery key, administrator override or any single-signer path that authorises a Root action below threshold.",
+      "source": "spec/root-authority-set.md; contracts/production/root-authority-set.production.schema.json"
+    },
+    {
+      "id": "INV-FED-001",
+      "family": "FED",
+      "title": "Trace identity across boundaries",
+      "severity": "critical",
       "statement": "A federation transaction MUST carry the same trace_id in every artefact it produces on both the originating and receiving operator.",
-      "source": "spec/federation/FEDERATION_INVARIANTS.md:221-230" },
-    { "id": "INV-FED-002", "family": "FED", "title": "Obligation per routing request", "severity": "critical",
+      "source": "spec/federation/FEDERATION_INVARIANTS.md:221-230"
+    },
+    {
+      "id": "INV-FED-002",
+      "family": "FED",
+      "title": "Obligation per routing request",
+      "severity": "critical",
       "statement": "Every accepted cross-operator routing request MUST produce exactly one InteropObligation in the originating operator. No accepted routing request may exist without a corresponding obligation.",
-      "source": "spec/federation/FEDERATION_INVARIANTS.md:249-259" },
-    { "id": "INV-FED-003", "family": "FED", "title": "Federation capability integrity", "severity": "high",
+      "source": "spec/federation/FEDERATION_INVARIANTS.md:249-259"
+    },
+    {
+      "id": "INV-FED-003",
+      "family": "FED",
+      "title": "Federation capability integrity",
+      "severity": "high",
       "statement": "A federation member MUST NOT declare supports_federation: true unless it can actually service federation routing requests at the declared interop_endpoint.",
-      "source": "spec/federation/FEDERATION_INVARIANTS.md:274-284" },
-    { "id": "INV-FED-004", "family": "FED", "title": "Cross-operator routing idempotency", "severity": "critical",
+      "source": "spec/federation/FEDERATION_INVARIANTS.md:274-284"
+    },
+    {
+      "id": "INV-FED-004",
+      "family": "FED",
+      "title": "Cross-operator routing idempotency",
+      "severity": "critical",
       "statement": "Cross-operator routing MUST be idempotent. The same routing_request_id MUST produce the same result regardless of how many times it is submitted.",
-      "source": "spec/federation/FEDERATION_INVARIANTS.md:298-311" },
-    { "id": "INV-FED-005", "family": "FED", "title": "Value conservation", "severity": "critical",
+      "source": "spec/federation/FEDERATION_INVARIANTS.md:298-311"
+    },
+    {
+      "id": "INV-FED-005",
+      "family": "FED",
+      "title": "Value conservation",
+      "severity": "critical",
       "statement": "No money may be created or destroyed in a federation transaction. The total value deducted from the payer's wallet on Operator A MUST equal the total value credited to the payee's wallet on Operator B.",
-      "source": "spec/federation/FEDERATION_INVARIANTS.md:329-340" },
-    { "id": "INV-FED-006", "family": "FED", "title": "Trust-material freshness is mandatory", "severity": "high",
+      "source": "spec/federation/FEDERATION_INVARIANTS.md:329-340"
+    },
+    {
+      "id": "INV-FED-006",
+      "family": "FED",
+      "title": "Trust-material freshness is mandatory",
+      "severity": "high",
       "statement": "Trust material MUST expire. Perpetual trust is forbidden. Signed protocol metadata and conformance evidence without an expiry are structurally invalid.",
-      "source": "spec/federation/FEDERATION_INVARIANTS.md:357-368" },
-    { "id": "INV-FED-007", "family": "FED", "title": "Revoked operator excluded", "severity": "critical",
+      "source": "spec/federation/FEDERATION_INVARIANTS.md:357-368"
+    },
+    {
+      "id": "INV-FED-007",
+      "family": "FED",
+      "title": "Revoked operator excluded",
+      "severity": "critical",
       "statement": "A revoked operator MUST be rejected from all routing decisions immediately upon BRL propagation (within 6 hours).",
-      "source": "spec/federation/FEDERATION_INVARIANTS.md:385-393" },
-    { "id": "INV-FED-LEDGER-001", "family": "FED", "title": "Cross-operator double-entry", "severity": "critical",
+      "source": "spec/federation/FEDERATION_INVARIANTS.md:385-393"
+    },
+    {
+      "id": "INV-FED-LEDGER-001",
+      "family": "FED",
+      "title": "Cross-operator double-entry",
+      "severity": "critical",
       "statement": "For every cross-operator payment, the combined ledger entries across both operators MUST sum to zero: the DEBIT on Operator A's settlement account and the CREDIT on Operator B's settlement account are the cross-operator counterparts.",
-      "source": "spec/federation/FEDERATION_INVARIANTS.md:414-425" },
-    { "id": "INV-FED-LEDGER-002", "family": "FED", "title": "Cross-operator integer arithmetic", "severity": "critical",
+      "source": "spec/federation/FEDERATION_INVARIANTS.md:414-425"
+    },
+    {
+      "id": "INV-FED-LEDGER-002",
+      "family": "FED",
+      "title": "Cross-operator integer arithmetic",
+      "severity": "critical",
       "statement": "All monetary values in federation artefacts MUST use integer minor units. No floating-point representation at any stage of cross-operator communication.",
-      "source": "spec/federation/FEDERATION_INVARIANTS.md:438-449" },
-    { "id": "INV-FED-IDEM-001", "family": "FED", "title": "Federation idempotency scope", "severity": "critical",
+      "source": "spec/federation/FEDERATION_INVARIANTS.md:438-449"
+    },
+    {
+      "id": "INV-FED-IDEM-001",
+      "family": "FED",
+      "title": "Federation idempotency scope",
+      "severity": "critical",
       "statement": "Federation idempotency keys (routing_request_id) are globally unique across all operators and all time. No two routing requests from any operator may share a routing_request_id.",
-      "source": "spec/federation/FEDERATION_INVARIANTS.md:465-475" },
-    { "id": "INV-FED-RECON-001", "family": "RECON", "title": "Cross-operator reconcilability", "severity": "high",
-      "aliases": ["INV-RECON-001"],
+      "source": "spec/federation/FEDERATION_INVARIANTS.md:465-475"
+    },
+    {
+      "id": "INV-FED-RECON-001",
+      "family": "RECON",
+      "title": "Cross-operator reconcilability",
+      "severity": "high",
+      "aliases": [
+        "INV-RECON-001"
+      ],
       "statement": "Every cross-operator payment MUST be traceable from Operator A's ledger entry through the obligation to Operator B's ledger entry via the shared trace_id, and MUST be independently auditable without cooperation from either operator.",
-      "source": "spec/federation/FEDERATION_INVARIANTS.md:489-504" },
-    { "id": "INV-COLLECTION-001", "family": "COLLECTION", "title": "Collections never hold value", "severity": "critical",
+      "source": "spec/federation/FEDERATION_INVARIANTS.md:489-504"
+    },
+    {
+      "id": "INV-COLLECTION-001",
+      "family": "COLLECTION",
+      "title": "Collections never hold value",
+      "severity": "critical",
       "statement": "A Collection never holds or moves value; it has no balance and produces no ledger posting.",
-      "source": "contracts/events/types.json:435; decisions/adr/ADR-016-payment-collections.md:166" },
-    { "id": "INV-COLLECTION-002", "family": "COLLECTION", "title": "Closed-rule amount identity", "severity": "critical",
+      "source": "contracts/events/types.json:435; decisions/adr/ADR-016-payment-collections.md:166"
+    },
+    {
+      "id": "INV-COLLECTION-002",
+      "family": "COLLECTION",
+      "title": "Closed-rule amount identity",
+      "severity": "critical",
       "statement": "For closed rules (EQUAL_SPLIT, FIXED_AMOUNTS, PERCENTAGE), the sum of share amount_minor MUST equal total_amount_minor exactly in integer minor units.",
-      "source": "decisions/adr/ADR-016-payment-collections.md:167" },
-    { "id": "INV-COLLECTION-003", "family": "COLLECTION", "title": "Exact divisibility", "severity": "critical",
+      "source": "decisions/adr/ADR-016-payment-collections.md:167"
+    },
+    {
+      "id": "INV-COLLECTION-003",
+      "family": "COLLECTION",
+      "title": "Exact divisibility",
+      "severity": "critical",
       "statement": "EQUAL_SPLIT with divisibility=EXACT rejects a non-divisible total; there is no silent rounding.",
-      "source": "decisions/adr/ADR-016-payment-collections.md:168" },
-    { "id": "INV-COLLECTION-004", "family": "COLLECTION", "title": "Collected-amount identity", "severity": "critical",
+      "source": "decisions/adr/ADR-016-payment-collections.md:168"
+    },
+    {
+      "id": "INV-COLLECTION-004",
+      "family": "COLLECTION",
+      "title": "Collected-amount identity",
+      "severity": "critical",
       "statement": "collected_amount_minor MUST equal the sum of shares whose status is PAID.",
-      "source": "contracts/events/types.json:436; decisions/adr/ADR-016-payment-collections.md:169" },
-    { "id": "INV-COLLECTION-005", "family": "COLLECTION", "title": "Share payment via real transfer", "severity": "critical",
+      "source": "contracts/events/types.json:436; decisions/adr/ADR-016-payment-collections.md:169"
+    },
+    {
+      "id": "INV-COLLECTION-005",
+      "family": "COLLECTION",
+      "title": "Share payment via real transfer",
+      "severity": "critical",
       "statement": "A share reaches PAID only via a real confirmed Transfer; transfer_id is set and the Transfer's causation_id equals the share's payment_intent_id (per INV-TRACE-001).",
-      "source": "decisions/adr/ADR-016-payment-collections.md:170" },
-    { "id": "INV-COLLECTION-006", "family": "COLLECTION", "title": "Terminal PAID share", "severity": "critical",
+      "source": "decisions/adr/ADR-016-payment-collections.md:170"
+    },
+    {
+      "id": "INV-COLLECTION-006",
+      "family": "COLLECTION",
+      "title": "Terminal PAID share",
+      "severity": "critical",
       "statement": "A PAID share is terminal; it MUST NOT accept further payment (no double payment).",
-      "source": "contracts/events/types.json:438; decisions/adr/ADR-016-payment-collections.md:171" },
-    { "id": "INV-COLLECTION-007", "family": "COLLECTION", "title": "Post-OPEN immutability", "severity": "high",
+      "source": "contracts/events/types.json:438; decisions/adr/ADR-016-payment-collections.md:171"
+    },
+    {
+      "id": "INV-COLLECTION-007",
+      "family": "COLLECTION",
+      "title": "Post-OPEN immutability",
+      "severity": "high",
       "statement": "After a Collection is OPEN, its currency, rule, and (for closed rules) total_amount_minor are immutable.",
-      "source": "contracts/events/types.json:439; decisions/adr/ADR-016-payment-collections.md:172" },
-    { "id": "INV-COLLECTION-008", "family": "COLLECTION", "title": "Idempotent creation and payment", "severity": "high",
+      "source": "contracts/events/types.json:439; decisions/adr/ADR-016-payment-collections.md:172"
+    },
+    {
+      "id": "INV-COLLECTION-008",
+      "family": "COLLECTION",
+      "title": "Idempotent creation and payment",
+      "severity": "high",
       "statement": "Collection creation and share-payment are idempotent on the supplied idempotency key.",
-      "source": "decisions/adr/ADR-016-payment-collections.md:173" }
+      "source": "decisions/adr/ADR-016-payment-collections.md:173"
+    }
   ]
 }

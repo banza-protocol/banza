@@ -1,6 +1,6 @@
 {
   "capability_profile_hash": "sha256:capability-profile",
-  "conformance_evidence_hash": "7625e9f9822e76c450827e0add1cc1512256a3e3bda59f971f2d9fab9ab99927",
+  "conformance_evidence_hash": "35608ae233ad7424a2acd7c1bee84b35a85cf326c3a7ebd44dea3aeae20fb9ef",
   "conformance_tool_version": "banza-conformance-rs 0.1.0",
   "demo_only": true,
   "evidence_bundle_hash": "sha256:evidence-bundle",
@@ -8,17 +8,17 @@
   "monetary_value": false,
   "operator_display_name": "Operador Zero",
   "operator_id": "operator-zero",
-  "operator_manifest_hash": "4e015bbf5fbcd92aa9a8452c2ab4d88de928df0ed41ecd22f7c6dc81c7a96966",
+  "operator_manifest_hash": "9d76f9c01a9a7397f4ec9bbdefa2c298237d00672179eed350094ef957829755",
   "production_allowed": false,
-  "protocol_version": "1.0.0",
+  "protocol_version": "2.0.0",
   "registry_snapshot_hash": "sha256:registry-snapshot",
-  "release_id": "banza-protocol-1.0.0",
+  "release_id": "banza-protocol-2.0.0",
   "revocation_list_hash": "sha256:revocation-list",
   "schema_versions": {
     "conformance_evidence": "1.0",
     "operator_manifest": "1.0"
   },
-  "signature": "wUj6fRKHeni0RGsmyjI_rkjJnKWz-QBX8p4-lmrBm9jNB3M7c9r1tIyC7KqjDEaX5jgC2i7-nergJuRI1baIBw",
+  "signature": "tbz4DzMOAJmuCwjoKMsGBDewKOmbzqGsX_G6Rw4biTw38A0Pj--b8TMO_d91GrQt9vG01odBiPGeqhDBBDiLAw",
   "valid_from": "2026-01-01T00:00:00Z",
   "valid_until": "2030-01-01T00:00:00Z"
 }

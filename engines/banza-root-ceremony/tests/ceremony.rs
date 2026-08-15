@@ -30,7 +30,7 @@ fn valid_2of3_is_valid() {
     assert_eq!(r["total_root_keys"], 3);
     assert_eq!(r["custodian_count"], 3);
     assert_eq!(r["valid_signature_count"], 2);
-    assert_eq!(r["protocol_root_established"], true);
+    assert_eq!(r["ceremony_evidence_complete"], true);
     assert_eq!(r["forbidden_private_key_material_detected"], false);
     for f in [
         "operator_activation_allowed",
@@ -62,7 +62,7 @@ fn threshold_1of3_blocks() {
     let r = validate_root_ceremony(&fixture_input("threshold_1of3"));
     assert_eq!(r["status"], "M2_ROOT_CEREMONY_BLOCKED_BY_THRESHOLD");
     assert_eq!(r["valid_signature_count"], 1);
-    assert_eq!(r["protocol_root_established"], false);
+    assert_eq!(r["ceremony_evidence_complete"], false);
 }
 
 #[test]
@@ -179,7 +179,7 @@ fn malformed_input_fails_closed() {
             "malformed must fail closed to an INVALID state, got {}",
             r["status"]
         );
-        assert_eq!(r["protocol_root_established"], false);
+        assert_eq!(r["ceremony_evidence_complete"], false);
         assert_eq!(r["not_a_psp"], true);
         assert_eq!(r["does_not_move_funds"], true);
         assert_eq!(r["llm_calls"], 0);
@@ -211,4 +211,24 @@ fn every_fixture_matches_its_expected_status() {
         let expected = f["expected"].as_str().unwrap();
         assert_eq!(status(key), expected, "fixture {key}");
     }
+}
+
+/// ADR-039. A ceremony that validates completely must still not claim to have established root authority.
+/// The v1.0.0 report said `protocol_root_established: true` on a document its own custodians signed — a
+/// self-authorising statement. The report now separates what the ceremony proves (evidence) from what it
+/// cannot prove (authority), and names where authority actually comes from.
+#[test]
+fn a_valid_ceremony_reports_evidence_not_authority() {
+    let r = validate_root_ceremony(&fixture_input("valid_2of3"));
+    assert_eq!(r["status"], "M2_ROOT_CEREMONY_VALID");
+    assert_eq!(r["ceremony_evidence_complete"], true);
+    assert_eq!(
+        r["establishes_root_authority"], false,
+        "a ceremony document must never report that it established root authority"
+    );
+    let from = r["root_authority_established_by"].as_str().unwrap_or("");
+    assert!(
+        from.contains("Root Authority Set"),
+        "the report must name the lineage that does establish authority, got: {from}"
+    );
 }

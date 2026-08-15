@@ -151,7 +151,7 @@
     "INV-SETTLE-IDENTITY-FIELDS"
   ],
   "ok": true,
-  "protocol_version": "1.0.0",
+  "protocol_version": "2.0.0",
   "runner": "banza-conformance-rs",
   "total_vectors": 61
 }

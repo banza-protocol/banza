@@ -7,7 +7,7 @@
 
 use banza_trust::sign::TestKeypair;
 use banza_trust::{verify_key_manifest, verify_revocation_list};
-use serde_json::json;
+use serde_json::{json, Value};
 
 fn root() -> TestKeypair {
     TestKeypair::from_seed(b"adr079-root-seed-00000000000000001")
@@ -19,27 +19,86 @@ fn meta() -> TestKeypair {
     TestKeypair::from_seed(b"adr079-metadata-seed-000000000001")
 }
 
-// ── Root ↔ Key Manifest ───────────────────────────────────────────────────────────────────────
+// ── Root Authority Set ↔ Key Manifest ─────────────────────────────────────────────────────────
+//
+// The manifest is authorised by the ACTIVE SET, not by a single root key. In v1.0.0 these two tests
+// passed against one key, which is exactly why the declared 2-of-3 threshold had no runtime meaning.
+
+/// A TEST-ONLY active set over three authorities.
+fn active_set() -> (Value, TestKeypair, TestKeypair, TestKeypair) {
+    let (a, b, c) = (
+        TestKeypair::from_seed(b"ras-alpha"),
+        TestKeypair::from_seed(b"ras-beta"),
+        TestKeypair::from_seed(b"ras-gamma"),
+    );
+    let set = json!({
+        "schema_version": "1",
+        "set_sequence": 0,
+        "predecessor_digest": Value::Null,
+        "threshold": 2,
+        "authorities": [
+            { "authority_id": "alpha", "public_key": format!("ed25519:{}", a.public_b64url), "active_since": "2026-01-01T00:00:00Z" },
+            { "authority_id": "beta",  "public_key": format!("ed25519:{}", b.public_b64url), "active_since": "2026-01-01T00:00:00Z" },
+            { "authority_id": "gamma", "public_key": format!("ed25519:{}", c.public_b64url), "active_since": "2026-01-01T00:00:00Z" }
+        ],
+        "issued_at": "2026-01-01T00:00:00Z",
+        "expires_at": "2028-01-01T00:00:00Z",
+        "predecessor_signatures": []
+    });
+    (set, a, b, c)
+}
+
+fn manifest_signed_by(set: &Value, signers: &[(&str, &TestKeypair)]) -> Value {
+    let mut m = json!({
+        "manifest_version": "2",
+        "protocol_version": "2.0.0",
+        "root_authority_set": {
+            "set_sequence": set["set_sequence"].clone(),
+            "digest": banza_trust::authority_set::set_digest(set).unwrap()
+        },
+        "keys": [],
+        "marker": "TEST ONLY",
+        "root_signatures": []
+    });
+    let msg = banza_trust::canonical_bytes(&m, &["root_signatures"]).unwrap();
+    m["root_signatures"] = Value::Array(
+        signers
+            .iter()
+            .map(|(id, k)| json!({ "authority_id": id, "signature": k.sign_bytes(&msg) }))
+            .collect(),
+    );
+    m
+}
+
 #[test]
-fn root_signs_the_key_manifest() {
-    let root = root();
-    let manifest = json!({ "manifest_version": "1", "keys": [], "marker": "TEST ONLY" });
-    let signed = root.sign_doc(&manifest, "signature");
+fn two_distinct_root_authorities_sign_the_key_manifest() {
+    let (set, a, b, _c) = active_set();
+    let signed = manifest_signed_by(&set, &[("alpha", &a), ("beta", &b)]);
     assert!(
-        verify_key_manifest(&signed, &root.public_b64url).verified,
-        "a root-signed Key Manifest must verify under the root key"
+        verify_key_manifest(&signed, &set).verified,
+        "a manifest authorised by two distinct active authorities must verify"
     );
 }
 
 #[test]
-fn a_non_root_key_cannot_sign_the_key_manifest() {
-    let root = root();
-    let other = meta();
-    let manifest = json!({ "manifest_version": "1", "keys": [] });
-    let signed = other.sign_doc(&manifest, "signature");
+fn a_key_outside_the_active_set_cannot_authorise_the_key_manifest() {
+    let (set, a, _b, _c) = active_set();
+    let stranger = meta();
+    // One genuine authority plus an outsider: the outsider contributes nothing, leaving one.
+    let signed = manifest_signed_by(&set, &[("alpha", &a), ("beta", &stranger)]);
     assert!(
-        !verify_key_manifest(&signed, &root.public_b64url).verified,
-        "a Key Manifest not signed by the root MUST be rejected"
+        !verify_key_manifest(&signed, &set).verified,
+        "a key outside the active set MUST NOT count toward the threshold"
+    );
+}
+
+#[test]
+fn one_root_authority_cannot_authorise_the_key_manifest_alone() {
+    let (set, a, _b, _c) = active_set();
+    let signed = manifest_signed_by(&set, &[("alpha", &a)]);
+    assert!(
+        !verify_key_manifest(&signed, &set).verified,
+        "a single authority MUST NOT authorise a delegation"
     );
 }
 

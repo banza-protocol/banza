@@ -22,7 +22,9 @@ use sha2::{Digest, Sha256};
 mod wasm;
 
 pub const TOOL_VERSION: &str = "0.1.0";
-pub const PROTOCOL_VERSION: &str = "1.0.0";
+/// The protocol version this validator accepts. Bound to `contracts/production/protocol-version.json`
+/// by `protocol_version_matches_the_normative_contract`.
+pub const PROTOCOL_VERSION: &str = "2.0.0";
 pub const WELL_KNOWN_PATH: &str = "/.well-known/banza/operator.json";
 pub const BOUNDARY: &str =
     "Operator Manifest Validation é evidência técnica. Não é certificação, não é aprovação e não cria operador real.";
@@ -107,9 +109,26 @@ fn truthy(v: Option<&Value>) -> bool {
         _ => false,
     }
 }
+/// The major component of the current protocol version ("2" for 2.0.0).
+fn current_major() -> &'static str {
+    PROTOCOL_VERSION
+        .split('.')
+        .next()
+        .unwrap_or(PROTOCOL_VERSION)
+}
+
 fn protocol_compatible(pv: &str) -> bool {
-    // Accept the exact protocol version or any 1.x.
-    pv == PROTOCOL_VERSION || pv.starts_with("1.") || pv == "1" || pv == "1.x"
+    // Accept the exact protocol version or any release of the SAME major. The major was written as a
+    // literal "1." here, so bumping the constant alone would have left the validator accepting v1
+    // manifests under a v2 protocol; it is derived now.
+    let major = current_major();
+    pv == PROTOCOL_VERSION
+        || pv
+            .strip_prefix(major)
+            .map(|r| r.starts_with('.'))
+            .unwrap_or(false)
+        || pv == major
+        || pv == format!("{major}.x")
 }
 
 /// Validate a manifest JSON string (the main, native-testable entry). Handles MALFORMED here.
@@ -198,7 +217,8 @@ pub fn validate_manifest(m: &Value) -> Value {
     if let Some(pv) = str_at(m, "protocol_version") {
         if !protocol_compatible(pv) {
             errors.push(format!(
-                "protocol_version incompatível: '{pv}' (esperado {PROTOCOL_VERSION} / 1.x)"
+                "protocol_version incompatível: '{pv}' (esperado {PROTOCOL_VERSION} / {}.x)",
+                current_major()
             ));
         }
     }
@@ -387,7 +407,7 @@ pub fn demo_fixtures() -> Value {
     let valid = json!({
         "operator_id": "operator-zero", "name": "Operador Zero (simulador demo)",
         "environment": "sandbox", "simulated": true, "production_allowed": false,
-        "protocol_version": "1.0.0", "base_url": "https://zero.banza.network",
+        "protocol_version": "2.0.0", "base_url": "https://zero.banza.network",
         "key_manifest_url": "https://zero.banza.network/key-manifest.json",
         "brl_url": "https://zero.banza.network/revocation-list.json",
         "conformance_url": "https://zero.banza.network/conformance/evidence.json",

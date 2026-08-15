@@ -59,8 +59,13 @@ scan() {
 while IFS= read -r f; do
   [ -f "$f" ] || continue
   while IFS= read -r line; do
+    # The property is that no surface presents a superseded or future custody model as CURRENT. A line
+    # that names one in order to REJECT it is the opposite of that, and an alternatives-considered
+    # section is where a rejected option is supposed to appear. `rejected`/`rejeitad` are recognised for
+    # the same reason `not` and `never` already are: they negate the claim rather than make it.
     case "$(printf '%s' "$line" | tr '[:upper:]' '[:lower:]')" in
       *" no "*|*" not "*|*never*|*sem\ shamir*|*"não"*|*nenhum*|*future*|*futuro*) continue ;;
+      *rejected*|*rejeitad*|*"alternatives considered"*|*supersed*) continue ;;
     esac
     fail "$f presents a superseded or future custody model as current: $line"
   done < <(grep -nE '2-of-2|2-de-2|dual control|controlo duplo|3-of-5|3-de-5|Shamir' "$f" || true)

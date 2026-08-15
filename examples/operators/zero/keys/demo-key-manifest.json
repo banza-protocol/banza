@@ -27,13 +27,13 @@
   "operator_id": "operator-zero",
   "production_allowed": false,
   "public_registry_entry": {
-    "conformance_evidence_hash": "7625e9f9822e76c450827e0add1cc1512256a3e3bda59f971f2d9fab9ab99927",
+    "conformance_evidence_hash": "35608ae233ad7424a2acd7c1bee84b35a85cf326c3a7ebd44dea3aeae20fb9ef",
     "delegated_key_id": "banza-oz-protocol-metadata-2026-08",
     "last_verified_at": "2026-08-05T00:00:00Z",
-    "manifest_hash": "4e015bbf5fbcd92aa9a8452c2ab4d88de928df0ed41ecd22f7c6dc81c7a96966",
+    "manifest_hash": "9d76f9c01a9a7397f4ec9bbdefa2c298237d00672179eed350094ef957829755",
     "operator_id": "operator-zero",
     "revocation_status": "active",
-    "signed_protocol_metadata_hash": "b2b2b6d782b1bcd3a2d041ba466894e72ad8958dc5c3fe8d5d2e574b2aa92467",
+    "signed_protocol_metadata_hash": "6cd3e8ffa4c2a30efaf5ad6793793bcbac85e6cc8fb18ff90ada469888ef494d",
     "trust_root_version": "2026.08",
     "verified_by_tool_version": "banza-trust 0.2.0"
   },
@@ -64,8 +64,8 @@
     ],
     "root_id": "banza-oz-root-2026",
     "root_signatures": [
-      "qpCXwdFrfwrOu1zPASFaOak_IhOicc5geQY1vXcBpsowBYCyasg8JYeZ_QSddQOKEi8RcwMIohj2ZADWfi3IAw",
-      "HEtYNCIG5TDi77YAVYhm87tskeqMT1cee9AMiTpVDlCU3VZJLpqGuzJLlx0X55v15vvP735bvuyi4gXS_2J7DA"
+      "Y-zksPRcMTZzonh22NYXs5SSyiMuPy-ACZbG6St6LatnWwATzCbCTqyHA1rM8U0rKYTKSJXsferjdfOB_J29Aw",
+      "k1f7NIHuWMJwtlwhW0qjSsX7Muguhz27QHGo0xfyIxHEv4YGF6tegD6UPioxMkKIUNqdOp9WJ4DHVz2Y_jpeCA"
     ],
     "scope": "signs only the Key Manifest that endorses the delegated signing keys (ADR-025)",
     "threshold_policy": {

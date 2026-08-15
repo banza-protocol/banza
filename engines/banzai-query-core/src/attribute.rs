@@ -9,8 +9,8 @@
 //!
 //! Scope (M2.18B.7): the BANZA protocol's creation year/date is DECLARED (NOTICE + MAINTAINERS:
 //! 01/08/2025) — answered as an exact fact, consistent with the `protocol-origin` provenance entry. The
-//! protocol version is NOT declared as a single value (the protocol is defined by its ADRs/RFCs/specs) —
-//! answered as a precise NOT_DECLARED message. Pure, total, deterministic; no model, no I/O.
+//! protocol version is DECLARED in the normative manifest and answered as an exact fact. Pure, total,
+//! deterministic; no model, no I/O.
 
 use crate::normalize;
 use crate::reason::ReasonCode;
@@ -161,7 +161,7 @@ protocolo, não uma data de produção, certificação ou autorização."
                 attribute_id: "version".to_string(),
                 status: AttributeStatus::Declared.as_str().to_string(),
                 answer:
-                    "A versão do protocolo **BANZA** é **1.0.0** — o valor de `protocol_version` \
+                    "A versão do protocolo **BANZA** é **2.0.0** — o valor de `protocol_version` \
 declarado no manifesto normativo (`contracts/production/normative-manifest.json`), que indexa toda a \
 superfície normativa. É a versão do **protocolo**, distinta de qualquer versão de release de uma \
 implementação ou serviço."
@@ -174,7 +174,7 @@ implementação ou serviço."
         // strings carry their own article ("o BanzAI" / "a Banzami").
         let answer = format!(
             "A documentação pública canónica não declara uma versão única para {display}. \
-A versão **1.0.0** é do **protocolo BANZA**, não desta camada.",
+A versão **2.0.0** é do **protocolo BANZA**, não desta camada.",
             display = display
         );
         return Some(AttributeAnswer {
@@ -225,7 +225,7 @@ mod tests {
     }
 
     #[test]
-    fn protocol_version_is_declared_as_one_point_zero() {
+    fn protocol_version_is_declared_and_stated_exactly() {
         for q in [
             "qual a versão do BANZA?",
             "qual é a versão do protocolo BANZA?",
@@ -236,7 +236,7 @@ mod tests {
             assert_eq!(a.status, "DECLARED", "{q}");
             assert_eq!(a.reason_code, "EXACT_FACT_CONFIRMED", "{q}");
             assert!(
-                a.answer.contains("1.0.0"),
+                a.answer.contains("2.0.0"),
                 "{q}: states the declared version"
             );
             assert!(
@@ -252,14 +252,14 @@ mod tests {
 
     #[test]
     fn only_the_protocol_has_a_declared_version() {
-        // BanzAI and Banzami declare none, and the answer must not let 1.0.0 leak onto them.
+        // BanzAI and Banzami declare none, and the answer must not let the protocol version leak onto them.
         for q in ["qual a versão do BanzAI?", "qual a versão da Banzami?"] {
             let a = resolve_attribute_query(q).unwrap();
             assert_eq!(a.status, "NOT_DECLARED", "{q}");
             assert!(a.answer.contains("não declara"), "{q}");
             assert!(
                 !a.answer
-                    .contains("A versão do protocolo **BANZA** é **1.0.0**"),
+                    .contains("A versão do protocolo **BANZA** é **2.0.0**"),
                 "{q}: must not assert a version for this layer"
             );
         }

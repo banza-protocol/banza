@@ -5,31 +5,31 @@
     "principle": "The vocabulary is a semantic registry of real protocol terms derived from the engine's own registries + closed protocol sets; corpus terms are candidates (Phase 1), lexical noise never enters here."
   },
   "source_registry": {
-    "total": 417,
+    "total": 421,
     "by_type": {
       "root-doc": 9,
-      "conformance": 80,
-      "schema": 85,
+      "conformance": 81,
+      "schema": 86,
       "contract": 48,
       "openapi": 11,
-      "adr": 39,
+      "adr": 40,
       "rfc": 7,
       "doc": 58,
       "example": 48,
-      "spec": 32
+      "spec": 33
     },
     "by_status": {
-      "current": 417
+      "current": 421
     },
     "by_authority_class": {
-      "current": 369,
+      "current": 373,
       "illustrative": 48
     },
     "by_language": {
-      "pt-or-neutral": 417
+      "pt-or-neutral": 421
     },
     "by_origin": {
-      "authored": 417,
+      "authored": 421,
       "generated": 0
     },
     "duplicates": [
@@ -1245,7 +1245,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "ed45855dc4b520e9"
+        "checksum": "44b8fba2360effdf"
       },
       {
         "id": "conformance-package-contracts-openapi-activity-yaml",
@@ -1421,7 +1421,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "b5bbc4d2f8c0aacc"
+        "checksum": "abacac787addfd4e"
       },
       {
         "id": "conformance-package-contracts-production-operator-manifest-production-schema-json",
@@ -1454,7 +1454,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "0fcf788dba1752e6"
+        "checksum": "a84ac9b7d6186b48"
       },
       {
         "id": "conformance-package-contracts-production-public-protocol-registry-production-schema-json",
@@ -1652,7 +1652,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "325908cdd9552b13"
+        "checksum": "dc295aa13bca7949"
       },
       {
         "id": "conformance-qr-suite-json",
@@ -1818,6 +1818,17 @@
         "generated": false,
         "public_eligible": true,
         "checksum": "c20a009fa9d82148"
+      },
+      {
+        "id": "conformance-vectors-root-authority-set-json",
+        "path": "conformance/vectors/root-authority-set.json",
+        "type": "conformance",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "7c9465d286e8da54"
       },
       {
         "id": "conformance-vectors-settlement-batches-json",
@@ -2103,7 +2114,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "ed45855dc4b520e9"
+        "checksum": "44b8fba2360effdf"
       },
       {
         "id": "contracts-openapi-activity-yaml",
@@ -2312,7 +2323,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "2de21ca28f815e75"
+        "checksum": "5c4df3c90cab6430"
       },
       {
         "id": "contracts-production-conformance-profiles-production-schema-json",
@@ -2466,7 +2477,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "b5bbc4d2f8c0aacc"
+        "checksum": "abacac787addfd4e"
       },
       {
         "id": "contracts-production-normative-manifest-json",
@@ -2477,7 +2488,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "319a8f069b3e84ca"
+        "checksum": "b6e8a07ce2a56264"
       },
       {
         "id": "contracts-production-operation-receipt-production-schema-json",
@@ -2554,7 +2565,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "0fcf788dba1752e6"
+        "checksum": "a84ac9b7d6186b48"
       },
       {
         "id": "contracts-production-public-protocol-registry-production-schema-json",
@@ -2599,6 +2610,17 @@
         "generated": false,
         "public_eligible": true,
         "checksum": "e9ab64b69829683f"
+      },
+      {
+        "id": "contracts-production-root-authority-set-production-schema-json",
+        "path": "contracts/production/root-authority-set.production.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "d8cacdaabab6e1cf"
       },
       {
         "id": "contracts-production-root-backup-declaration-production-schema-json",
@@ -3272,6 +3294,17 @@
         "checksum": "b1140b92fd331046"
       },
       {
+        "id": "decisions-adr-adr-039-root-authority-set-and-succession-md",
+        "path": "decisions/adr/ADR-039-root-authority-set-and-succession.md",
+        "type": "adr",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "e272d9908b93a23d"
+      },
+      {
         "id": "decisions-adr-readme-md",
         "path": "decisions/adr/README.md",
         "type": "adr",
@@ -3280,7 +3313,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "76ed3e505b910e06"
+        "checksum": "712e4bdd6014533b"
       },
       {
         "id": "decisions-rfc-readme-md",
@@ -4878,6 +4911,17 @@
         "checksum": "f6dec098c27f5088"
       },
       {
+        "id": "spec-root-authority-set-md",
+        "path": "spec/root-authority-set.md",
+        "type": "spec",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "26bd20b5bc1009fe"
+      },
+      {
         "id": "spec-tracing-md",
         "path": "spec/tracing.md",
         "type": "spec",
@@ -4897,7 +4941,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "d693e135b9b19790"
+        "checksum": "162cd8c2b1d1bf24"
       },
       {
         "id": "spec-validation-journey-md",
@@ -4929,7 +4973,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "0400879d298253ae"
+    "checksum": "278006d39dc98e61"
   },
   "subjects": [
     {
@@ -5689,6 +5733,12 @@
     {
       "id": "ADR-038",
       "path": "decisions/adr/ADR-038-rust-first-official-engines.md",
+      "status": "current",
+      "classification": "DOCUMENT_INSTANCE"
+    },
+    {
+      "id": "ADR-039",
+      "path": "decisions/adr/ADR-039-root-authority-set-and-succession.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
@@ -7928,7 +7978,7 @@
   "counts": {
     "subjects": 21,
     "document_types": 12,
-    "document_instances": 44,
+    "document_instances": 45,
     "artifact_types": 18,
     "aliases": 248,
     "relation_kinds": 11,
@@ -7940,5 +7990,5 @@
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "7d59c3e7c968fdce"
+  "checksum": "55ddcf254c7173e7"
 }

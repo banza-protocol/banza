@@ -227,7 +227,8 @@ pub fn evaluate_trust(input: &Value) -> Value {
     }
 
     let evaluated_at = s(input, "evaluated_at").unwrap_or("");
-    let evaluator_version = s(input, "evaluator_protocol_version").unwrap_or("1.0.0");
+    let evaluator_version =
+        s(input, "evaluator_protocol_version").unwrap_or(crate::PROTOCOL_VERSION);
     let root = obj(input, "trust_root_metadata");
     let dkey = obj(input, "delegated_signing_key");
     let meta = obj(input, "signed_protocol_metadata");

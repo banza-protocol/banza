@@ -319,7 +319,7 @@
       "class": "NORMATIVE_CONTRACT",
       "tier": "implementation",
       "role": "Production contract baseline.",
-      "sha256": "2de21ca28f815e759df7efa8f619cd8d7d456267e1e39e4c5cd7d91bd1d3b743",
+      "sha256": "5c4df3c90cab6430600719cbf8f090e7f9ea870e4f8af772bf81a0a46cda931d",
       "self_declared_status": "canonical"
     },
     {
@@ -753,7 +753,7 @@
       "class": "NORMATIVE_SPECIFICATION",
       "tier": "implementation",
       "role": "Trust-material freshness and anti-rollback: monotonic acceptance per object and authority, with an explicit statement of what the rule does NOT provide (first-observation staleness, global equivocation, suppression, availability).",
-      "sha256": "d693e135b9b19790c54783c84ec88ed23a1b73865a3cb0c89aecf2b577aa405f"
+      "sha256": "162cd8c2b1d1bf24b20c2722c32c949aa01ed86e75bb98e797cf6a9d3b5e6d4b"
     },
     {
       "path": "spec/validation-journey.md",

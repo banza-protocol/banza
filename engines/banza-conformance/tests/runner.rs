@@ -152,6 +152,16 @@ fn security_no_env_no_network_no_cert_claim() {
     assert!(!r.contains("production certificate active"));
     assert!(!r.contains("operator certified"));
     assert!(r.contains("not production certification"));
-    // PROTOCOL_VERSION is fixed (no VERSION mutation)
-    assert_eq!(PROTOCOL_VERSION, "1.0.0");
+    // The runner's protocol version is fixed at build time and never taken from the environment: a
+    // caller must not be able to make a report claim a different protocol by setting a variable.
+    // Which version it is belongs to `protocol_version_binding.rs`, which ties it to the contract —
+    // restating the literal here is what left this assertion pinning 1.0.0 after the protocol moved.
+    for var in ["BANZA_PROTOCOL_VERSION", "PROTOCOL_VERSION", "VERSION"] {
+        assert!(
+            std::env::var(var).is_err()
+                || offline_report().unwrap().protocol_version == PROTOCOL_VERSION,
+            "{var} must not be able to change the reported protocol version"
+        );
+    }
+    assert_eq!(offline_report().unwrap().protocol_version, PROTOCOL_VERSION);
 }

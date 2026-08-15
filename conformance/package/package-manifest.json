@@ -185,8 +185,8 @@
     },
     {
       "path": "contracts/invariants.json",
-      "sha256": "ed45855dc4b520e98f06b9a48935bb05f6d2d913384703e7b08f471babcb5db0",
-      "bytes": 30469
+      "sha256": "44b8fba2360effdf237dfc2829cd5915622414adb6c4755696b3cd618c9becf7",
+      "bytes": 35613
     },
     {
       "path": "contracts/openapi/activity.yaml",
@@ -265,8 +265,8 @@
     },
     {
       "path": "contracts/production/key-manifest.production.schema.json",
-      "sha256": "b5bbc4d2f8c0aacc13b8b93b431cf372d8f61fa76b3cee2860f4431af0ab5aa6",
-      "bytes": 3748
+      "sha256": "abacac787addfd4e9184b6e63053e03d3a7275b598752b70037128649bcfbbdf",
+      "bytes": 5175
     },
     {
       "path": "contracts/production/operator-manifest.production.schema.json",
@@ -280,8 +280,8 @@
     },
     {
       "path": "contracts/production/protocol-version.json",
-      "sha256": "0fcf788dba1752e6eac5c117c3187da556c2b7f72134ec705647f67a4e8f02a9",
-      "bytes": 2852
+      "sha256": "a84ac9b7d6186b4826453029341616198cc9ec0409f19a9d8d56308531d77a83",
+      "bytes": 3524
     },
     {
       "path": "contracts/production/public-protocol-registry.production.schema.json",

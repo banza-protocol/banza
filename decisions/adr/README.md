@@ -90,3 +90,4 @@ decision changes, its record is rewritten or removed, and version control keeps 
 | [036](ADR-036-banzai-a-non-authoritative-interface-to-the-protocol.md) | A human interface where engines decide and the model only explains; removable without affecting the protocol |
 | [037](ADR-037-operator-onboarding.md) | Passwordless onboarding protects shared resources and closes nothing; no conformance path routes through it |
 | [038](ADR-038-rust-first-official-engines.md) | Every official engine is Rust — one implementation per decision; operators remain free to use any technology |
+| [039](ADR-039-root-authority-set-and-succession.md) | Root authority is a lineage: each set authorised by the threshold of its predecessor, genesis pinned, self-signed sets rejected |

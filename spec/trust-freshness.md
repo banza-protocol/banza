@@ -133,6 +133,7 @@ type rather than assumed:
 | BANZA Revocation List | `signature_ref` | It references the detached signature over the list's canonical bytes. A reference to a signature cannot lie inside the bytes that signature covers |
 | Key Manifest | `root_signatures` | The threshold signatures are attached to the document they sign |
 | Signed protocol metadata | `signatures` | Same: the signatures are attached to the document they sign |
+| Root Authority Set | `predecessor_signatures` | Same: the predecessor's signatures are attached to the set they authorise ([`spec/root-authority-set.md`](root-authority-set.md)) |
 
 Exactly one BCJ/1 rule applies to all three; only the excluded member differs, and it differs because the
 contracts differ. An implementation MUST NOT substitute its own digest rule here: a digest taken over
@@ -141,6 +142,13 @@ different bytes than the signature covers would compare something other than the
 Where an artifact is later defined whose signature covers a different member, this table is extended.
 An artifact type absent from it has no defined digest for this purpose, and MUST NOT be admitted to the
 rule by guessing one.
+
+The **Root Authority Set** takes `set_sequence` as its ordering marker rather than an instant. The rule
+below is unchanged by that: a lower sequence is a rollback, an equal sequence with an equal set digest is
+an idempotent re-observation, and an equal sequence with a different digest is equivocation — one lineage
+publishing two different sets at one position. Because the marker is an integer that advances by exactly
+one, the second-granularity concern that motivates the digest comparison for timestamped artifacts does
+not arise there; the digest comparison is kept anyway, because equivocation is the case it detects.
 
 On receiving an artifact whose marker equals the mark for key `k`:
 

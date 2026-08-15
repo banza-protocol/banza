@@ -1,13 +1,13 @@
 {
   "milestone": "M2.18B.3A canonical corpus integrity",
   "summary": {
-    "total": 44,
-    "ok": 44,
-    "discoverable": 44,
-    "resolvable": 44,
-    "citable": 44,
-    "index_chunks": 584,
-    "adr": 38,
+    "total": 45,
+    "ok": 45,
+    "discoverable": 45,
+    "resolvable": 45,
+    "citable": 45,
+    "index_chunks": 594,
+    "adr": 39,
     "rfc": 6
   },
   "rows": [
@@ -385,6 +385,16 @@
       "id": "ADR-038",
       "kind": "adr",
       "file": "decisions/adr/ADR-038-rust-first-official-engines.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-039",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-039-root-authority-set-and-succession.md",
       "chunks": 5,
       "discoverable": true,
       "resolvable": true,

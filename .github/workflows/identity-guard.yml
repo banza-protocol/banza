@@ -33,6 +33,10 @@ jobs:
       - name: Decision records are current, explanatory and not load-bearing
         run: bash tools/check-adr-architecture.sh
 
+      # The Root authority model is a property of the chain, not a sentence in a document.
+      - name: Root authority model is three authorities, threshold two, predecessor-authorised
+        run: bash tools/check-root-authority-model.sh
+
   open-governance-check:
     name: No central human authority over operators
     runs-on: ubuntu-latest

@@ -3,20 +3,20 @@
   "_status": "canonical",
   "_authority": "ADR-008 (versioning), ADR-011 (canonicalization); remediation of audit findings F-02/F-04",
   "_source_of_truth": "This manifest.",
-  "_boundary": "This manifest identifies the published surface of BANZA 1.0.0 and states, for each artifact, whether an independent implementation must satisfy it. Being listed here does NOT by itself make an artifact a requirement: only tier=implementation does. Artifacts not listed at all are outside the published surface entirely — see not_normative.",
+  "_boundary": "This manifest identifies the published surface of BANZA 2.0.0 and states, for each artifact, whether an independent implementation must satisfy it. Being listed here does NOT by itself make an artifact a requirement: only tier=implementation does. Artifacts not listed at all are outside the published surface entirely — see not_normative.",
   "protocol": "BANZA",
-  "protocol_version": "1.0.0",
+  "protocol_version": "2.0.0",
   "canonicalization": "BCJ/1",
   "normative_keywords": "BCP 14 (RFC 2119 + RFC 8174). In every artifact listed here, MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, MAY and OPTIONAL carry their BCP 14 meaning when, and only when, they appear in all capitals.",
   "tiers": {
-    "implementation": "An independent implementation MUST satisfy this artifact to be BANZA 1.0.0. This is the clean-room reading list.",
+    "implementation": "An independent implementation MUST satisfy this artifact to be BANZA 2.0.0. This is the clean-room reading list.",
     "conformance": "Material for demonstrating conformance. It expresses requirements defined elsewhere; where a vector and a contract disagree, the contract governs and the vector is a defect.",
     "legal": "The legal basis for implementing and for describing the implementation. Not a behavioural requirement.",
     "informative": "Published and stable, but imposes no conformance obligation. Listed so that the question 'is this normative?' has a published answer."
   },
   "tier_counts": {
-    "implementation": 91,
-    "conformance": 55,
+    "implementation": 93,
+    "conformance": 56,
     "legal": 3,
     "informative": 2
   },
@@ -40,7 +40,7 @@
     "evidence/**, artifacts/** - evidence about the reference implementation",
     "tools/** - build, guard and derivation tooling"
   ],
-  "artifact_count": 151,
+  "artifact_count": 154,
   "artifacts": [
     {
       "path": "conformance/capabilities/schema.json",
@@ -204,7 +204,7 @@
       "class": "NORMATIVE_REGISTRY",
       "tier": "implementation",
       "role": "The machine-readable registry of protocol invariants. spec/invariants.md is its human-readable restatement and is deliberately not listed: it declares this file the single source of truth.",
-      "sha256": "ed45855dc4b520e98f06b9a48935bb05f6d2d913384703e7b08f471babcb5db0"
+      "sha256": "44b8fba2360effdf237dfc2829cd5915622414adb6c4755696b3cd618c9becf7"
     },
     {
       "path": "contracts/openapi/activity.yaml",
@@ -399,7 +399,7 @@
       "class": "NORMATIVE_TRUST_RULE",
       "tier": "implementation",
       "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
-      "sha256": "b5bbc4d2f8c0aacc13b8b93b431cf372d8f61fa76b3cee2860f4431af0ab5aa6",
+      "sha256": "abacac787addfd4e9184b6e63053e03d3a7275b598752b70037128649bcfbbdf",
       "self_declared_status": "production-baseline"
     },
     {
@@ -455,7 +455,7 @@
       "class": "NORMATIVE_REGISTRY",
       "tier": "implementation",
       "role": "Declares the protocol version, compatibility policy, profile list and the canonicalization in force. The entry point of the normative surface.",
-      "sha256": "0fcf788dba1752e6eac5c117c3187da556c2b7f72134ec705647f67a4e8f02a9"
+      "sha256": "a84ac9b7d6186b4826453029341616198cc9ec0409f19a9d8d56308531d77a83"
     },
     {
       "path": "contracts/production/public-protocol-registry.production.schema.json",
@@ -487,6 +487,14 @@
       "tier": "implementation",
       "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
       "sha256": "e9ab64b69829683fd9431380b824ecc88dc94f938167e109db711fbcbd4cb45b",
+      "self_declared_status": "production-baseline"
+    },
+    {
+      "path": "contracts/production/root-authority-set.production.schema.json",
+      "class": "NORMATIVE_CONTRACT",
+      "tier": "implementation",
+      "role": "The Root Authority Set wire shape: three authorities, threshold two, predecessor digest and predecessor signatures.",
+      "sha256": "d8cacdaabab6e1cf0a3bca61d1c8915ddb8449e4f0543008fe2319fd6999eeef",
       "self_declared_status": "production-baseline"
     },
     {
@@ -734,11 +742,18 @@
       "sha256": "f6dec098c27f5088f97ef5d502bf62c68a621fd8644deeecf12e735f25e49c18"
     },
     {
+      "path": "spec/root-authority-set.md",
+      "class": "NORMATIVE_SPECIFICATION",
+      "tier": "implementation",
+      "role": "Who may exercise Root authority, and how a successor set is authorised by the threshold of the set it succeeds. The genesis set is pinned; a self-signed set authorises nothing.",
+      "sha256": "26bd20b5bc1009fe67c55c99eedb87029fc3c0182eeac3cfbd63e94547f7eba2"
+    },
+    {
       "path": "spec/trust-freshness.md",
       "class": "NORMATIVE_SPECIFICATION",
       "tier": "implementation",
       "role": "Trust-material freshness and anti-rollback: monotonic acceptance per object and authority, with an explicit statement of what the rule does NOT provide (first-observation staleness, global equivocation, suppression, availability).",
-      "sha256": "d693e135b9b19790c54783c84ec88ed23a1b73865a3cb0c89aecf2b577aa405f"
+      "sha256": "162cd8c2b1d1bf24b20c2722c32c949aa01ed86e75bb98e797cf6a9d3b5e6d4b"
     },
     {
       "path": "spec/validation-journey.md",
@@ -1093,6 +1108,14 @@
       "role": "Vectors for the reason-code rules, derived from the specification.",
       "sha256": "c20a009fa9d821483a2f9d2628ed04eb3cb62236846b2fb23044ccbb020ab50d",
       "self_declared_status": "canonical"
+    },
+    {
+      "path": "conformance/vectors/root-authority-set.json",
+      "class": "NORMATIVE_VECTORS",
+      "tier": "conformance",
+      "role": "Genesis pinning, predecessor authorisation, threshold arithmetic and the self-signed rejection.",
+      "sha256": "7c9465d286e8da542faba3ce4bbe43ce88038c3c8c7b2ff9922b89f7ebf99f46",
+      "self_declared_status": "NORMATIVE"
     },
     {
       "path": "conformance/vectors/settlement-batches.json",

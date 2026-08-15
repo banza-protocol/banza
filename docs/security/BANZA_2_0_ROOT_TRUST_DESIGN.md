@@ -206,8 +206,9 @@ Trial`.
 
 ## 13. Explicitly not adopted
 
-3-of-5 · 5-of-9 · Shamir · MPC · threshold signature schemes · consensus · certificate transparency ·
-gossip · blockchain · DID/VC · TUF's Snapshot/Targets/Timestamp roles · mirror voting.
+None of the following is adopted, now or as a future target: 3-of-5 · 5-of-9 · Shamir · MPC ·
+threshold signature schemes · consensus · certificate transparency · gossip · blockchain · DID/VC ·
+TUF's Snapshot/Targets/Timestamp roles · mirror voting.
 
 2-of-3 remains the smallest mechanism providing two-party authorisation, one-authority failure tolerance
 and no single-party control. Nothing above was required to obtain the missing property; predecessor

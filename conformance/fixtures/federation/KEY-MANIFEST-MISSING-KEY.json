@@ -1,6 +1,10 @@
 {
   "schema_version": "1",
   "published_at": "<ISSUED_NOW>",
+  "root_authority_set": {
+    "set_sequence": 0,
+    "digest": "<root-authority-set-digest-bcj1-sha256>"
+  },
   "keys": [
     {
       "key_id": "test-banza-key-2026-05",
@@ -9,5 +13,14 @@
       "status": "active"
     }
   ],
-  "signature": "<ed25519-base64url-signed-by-pinned-root-key>"
+  "root_signatures": [
+    {
+      "authority_id": "authority-a",
+      "signature": "<ed25519-base64url-by-authority-a>"
+    },
+    {
+      "authority_id": "authority-c",
+      "signature": "<ed25519-base64url-by-authority-c>"
+    }
+  ]
 }

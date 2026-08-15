@@ -4,7 +4,7 @@
   "_authority": "spec/trust-freshness.md (ADR-028)",
   "_source_of_truth": "spec/trust-freshness.md",
   "_boundary": "These vectors exercise a STATEFUL LOCAL defence. They do not, and cannot, demonstrate transparency, cross-observer consistency, or detection of first-observation staleness — see spec/trust-freshness.md §1. The conflict vectors (TF-011..TF-013) detect equivocation only within one verifier that observed both artifacts; they establish nothing across observers.",
-  "protocol_version": "1.0.0",
+  "protocol_version": "2.0.0",
   "ordering_members": {
     "brl": "issued_at",
     "key_manifest": "not_before",

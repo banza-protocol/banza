@@ -52,7 +52,7 @@ fn main() {
         "name": "Operador Zero (simulador demo)",
         "environment": "sandbox",
         "simulated": true,
-        "protocol_version": "1.0.0",
+        "protocol_version": "2.0.0",
         "origin": "https://zero.banza.network",
         "base_url": "https://zero.banza.network",
         "key_manifest_url": "https://zero.banza.network/key-manifest.json",
@@ -132,7 +132,7 @@ fn main() {
     let km = &ote["key_manifest"];
     let eval_input = json!({
         "evaluated_at": EVALUATED_AT,
-        "evaluator_protocol_version": "1.0.0",
+        "evaluator_protocol_version": "2.0.0",
         "trusted_root_public_keys": km["trusted_root_public_keys"].clone(),
         "trust_root_metadata": km["trust_root_metadata"].clone(),
         "delegated_signing_key": km["delegated_signing_key"].clone(),
@@ -163,7 +163,10 @@ fn main() {
             .as_object_mut()
             .expect("hashes object")
             .remove("bundle_hash");
-        let h = canonical_sha256(&b, &[]);
+        // `canonical_sha256` returns a Result. Assigning it unwrapped serialised the hash as
+        // `{"Ok": "<digest>"}`, so `validate_bundle` reported the field missing and this generator
+        // could not complete — the reason the committed Operador Zero bundle went stale.
+        let h = canonical_sha256(&b, &[]).expect("BCJ/1: the bundle must be canonicalizable");
         bundle["hashes"]["bundle_hash"] = json!(h);
     }
     let vb = validate_bundle(&bundle.to_string());

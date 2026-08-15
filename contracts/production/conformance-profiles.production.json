@@ -5,7 +5,7 @@
   "_boundary": "A profile states what an implementation must satisfy to claim that level. It confers nothing: no certification, no admission, no authorisation, and no permission to operate. Levels denote conformance readiness only (ADR-030, ADR-006, ADR-005).",
   "_derivation": "The capability, invariant and asset lists are the corrected per-level model of ADR-030. Every invariant id here exists in contracts/invariants.json; every vector and suite path here exists in conformance/. A guard enforces both, so this registry cannot drift from the material it references.",
   "schema": "contracts/production/conformance-profiles.production.schema.json",
-  "protocol_version": "1.0.0",
+  "protocol_version": "2.0.0",
   "registry_version": "1.0.0",
   "cumulative": true,
   "_cumulative_note": "Each profile INCLUDES every requirement of the profiles it lists in `includes`. The `required_*` members of a profile are its INCREMENT — what that level adds. An implementation's full obligation at level N is the transitive closure over `includes`. Cumulative does not mean 'concatenate directories': the closure is computed over these declared members only.",
@@ -399,6 +399,13 @@
       "reason": "These define the semantics of a CAPABILITY NO v1.0.0 PROFILE REQUIRES. An implementation that does not offer the capability is unaffected; one that does offer it is bound by these rules. Placing them in a profile would make an optional capability mandatory, which is a change to what conformance means — not a documentation fix.",
       "artifacts": [
         "spec/refunds.md"
+      ]
+    },
+    "root_trust_plane": {
+      "reason": "These define the ROOT TRUST PLANE — who may exercise Root authority and how a successor set is authorised. A verifier anchors the lineage before any profile applies, and no profile requires an implementation to PRODUCE a Root Authority Set: the Root is the protocol's, not an implementation's. Placing them in a profile would tell an implementer to mint their own root.",
+      "artifacts": [
+        "contracts/production/root-authority-set.production.schema.json",
+        "spec/root-authority-set.md"
       ]
     }
   },

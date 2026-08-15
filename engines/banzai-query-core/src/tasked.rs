@@ -395,15 +395,16 @@ const CATALOGUE: &[SubjectProfile] = &[
         }),
         template: Some(TemplateData {
             schema_note: "baseada no schema canónico `key-manifest.production.schema.json`. Valores ilustrativos; campos reais do schema.",
-            body_json: "{\n  \"manifest_version\": \"1.0\",\n  \"protocol_version\": \"1.0\",\n  \"root\": {\n    \"kid\": \"kid-exemplo-1\",\n    \"fingerprint\": \"sha-256:0000000000000000\"\n  },\n  \"keys\": [\n    {\n      \"kid\": \"kid-exemplo-1\",\n      \"domain\": \"root\",\n      \"algorithm\": \"ed25519\",\n      \"public_key\": \"sha-256:0000000000000000\",\n      \"not_before\": \"2025-08-01T00:00:00Z\",\n      \"not_after\": \"2025-08-01T00:00:00Z\"\n    }\n  ],\n  \"hash\": {\n    \"algorithm\": \"sha-256\",\n    \"value\": \"sha-256:0000000000000000\"\n  },\n  \"not_before\": \"2025-08-01T00:00:00Z\",\n  \"not_after\": \"2025-08-01T00:00:00Z\"\n}",
+            body_json: "{\n  \"manifest_version\": \"2.0\",\n  \"protocol_version\": \"2.0.0\",\n  \"root_authority_set\": {\n    \"set_sequence\": 0,\n    \"digest\": \"0000000000000000000000000000000000000000000000000000000000000000\"\n  },\n  \"keys\": [\n    {\n      \"kid\": \"kid-exemplo-1\",\n      \"domain\": \"root\",\n      \"algorithm\": \"ed25519\",\n      \"public_key\": \"sha-256:0000000000000000\",\n      \"not_before\": \"2025-08-01T00:00:00Z\",\n      \"not_after\": \"2025-08-01T00:00:00Z\"\n    }\n  ],\n  \"hash\": {\n    \"algorithm\": \"sha-256\",\n    \"value\": \"sha-256:0000000000000000\"\n  },\n  \"not_before\": \"2025-08-01T00:00:00Z\",\n  \"not_after\": \"2025-08-01T00:00:00Z\",\n  \"root_signatures\": [\n    {\n      \"authority_id\": \"authority-alpha\",\n      \"signature\": \"exemplo-assinatura-alpha\"\n    },\n    {\n      \"authority_id\": \"authority-beta\",\n      \"signature\": \"exemplo-assinatura-beta\"\n    }\n  ]\n}",
             required_fields: &[
                 "manifest_version",
                 "protocol_version",
-                "root",
+                "root_authority_set",
                 "keys",
                 "hash",
                 "not_before",
                 "not_after",
+                "root_signatures",
             ],
         }),
     },
