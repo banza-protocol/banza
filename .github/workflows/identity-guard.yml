@@ -41,6 +41,17 @@ jobs:
       - name: One protocol version, declared in one place
         run: bash tools/check-protocol-version-consistency.sh
 
+      # The assurance system establishes its own semantics and graph integrity BEFORE it has standing to
+      # judge the repository: M0 meta semantics + graph validation, then M1 purity, then the gates.
+      - name: Assurance meta-semantics and execution graph (M0)
+        run: make assurance-meta-check
+
+      - name: Assurance checks observe and do not mutate (M1)
+        run: make assurance-purity-check
+
+      - name: R²S² layered assurance gates (M2 → M3)
+        run: make assurance-check
+
   open-governance-check:
     name: No central human authority over operators
     runs-on: ubuntu-latest

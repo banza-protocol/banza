@@ -12,7 +12,7 @@ rejected before the vocabulary). Deterministic, no model.
 - aliases: 248
 - relation_kinds: 11
 - relation_aliases: 24
-- relation_edges: 8
+- relation_edges: 10
 - attributes: 11
 - task_terms: 20
 - historical_terms: 6
@@ -69,7 +69,7 @@ rejected before the vocabulary). Deterministic, no model.
 - The vocabulary has 21 SUBJECTS (concepts/entities/artefacts) — the things that can be the main subject of a question. Document instances (47 ADR/RFC) are DOCUMENT_INSTANCE, not subjects.
 - 11 of the subjects carry a catalogue SubjectProfile (deterministic deliverable terminals); the rest resolve via entity coverage or trunk synthesis.
 - The 248 engine aliases map to 25 canonical targets (mostly document instances + concepts) — aliases are ALIAS, not subjects.
-- Relations: 11 RELATION_KIND (closed) + 24 RELATION_ALIAS + 8 graph edges — not "8 relation types".
+- Relations: 11 RELATION_KIND (closed) + 24 RELATION_ALIAS + 10 graph edges — not "10 relation types".
 
 ## Review policy
 - A subject is a concept/entity/artefact/document that can be the MAIN semantic subject of a supported question — never promoted by frequency/heading/substring alone.

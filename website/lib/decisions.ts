@@ -404,6 +404,7 @@ export const decisions: Decision[] = [
     "summary": "BANZA v1.0.0 declared a three-authority Root with a threshold of two (INV-ROOT-007) and asserted that losing a seat could not compromise continuity (INV-ROOT-009). Neither was true of the protocol."
   },
   {
+    "id": "ADR-040",
     "slug": "adr-040",
     "title": "BANZA R²S²: the four fundamental principles",
     "path": "decisions/adr/ADR-040-r2s2-fundamental-principles.md",
@@ -412,6 +413,7 @@ export const decisions: Decision[] = [
     "summary": "BANZA has exactly four fundamental principles — Robust, Resilient, Secure and Simple. Resilience was the question nothing forced anyone to answer, and naming it is what makes it checkable."
   },
   {
+    "id": "ADR-041",
     "slug": "adr-041",
     "title": "Layered assurance gates",
     "path": "decisions/adr/ADR-041-layered-assurance-gates.md",
