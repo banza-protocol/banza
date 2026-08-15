@@ -967,7 +967,12 @@ pub fn evaluate_bound(
                     .iter()
                     .filter(|(g, _)| g.as_str() != "AG-10")
                     .all(|(_, v)| v == "PASS" || v == "NOT_APPLICABLE");
-                if !observed_gates_pass && doc.get("all_applicable_gates_pass").and_then(|v| v.as_bool()) == Some(true) {
+                if !observed_gates_pass
+                    && doc
+                        .get("all_applicable_gates_pass")
+                        .and_then(|v| v.as_bool())
+                        == Some(true)
+                {
                     findings.push(Finding { property_id: "-".into(), gate: "AG-10".into(),
                         detail: "the readiness report claims all gates pass, but this run observed otherwise — the report is an aggregator, not an authority".into() });
                     st = Status::Blocked;
@@ -975,8 +980,11 @@ pub fn evaluate_bound(
                 for c in &req.required_conditions {
                     if c == "all_applicable_gates_pass" {
                         if !observed_gates_pass {
-                            findings.push(Finding { property_id: "-".into(), gate: "AG-10".into(),
-                                detail: "observed gate verdicts are not all PASS".into() });
+                            findings.push(Finding {
+                                property_id: "-".into(),
+                                gate: "AG-10".into(),
+                                detail: "observed gate verdicts are not all PASS".into(),
+                            });
                             st = Status::Blocked;
                         }
                         continue;

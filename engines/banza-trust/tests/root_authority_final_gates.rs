@@ -506,8 +506,15 @@ fn the_verifier_survives_a_hostile_corpus_and_still_decides_correctly() {
 
     // A hostile corpus, spanning shape, type, domain and encoding.
     let mut hostile: Vec<Value> = vec![
-        json!(null), json!(0), json!(-1), json!(1e308), json!("¯\\_(ツ)_/¯"),
-        json!([]), json!({}), json!({"set_sequence": {}}), json!({"authorities": "three"}),
+        json!(null),
+        json!(0),
+        json!(-1),
+        json!(1e308),
+        json!("¯\\_(ツ)_/¯"),
+        json!([]),
+        json!({}),
+        json!({"set_sequence": {}}),
+        json!({"authorities": "three"}),
         json!({"set_sequence": 1, "threshold": "two", "authorities": []}),
         json!({"set_sequence": u64::MAX, "threshold": 2, "authorities": []}),
         json!({"predecessor_signatures": [{"authority_id": "\u{0}", "signature": "\u{feff}"}]}),
@@ -542,7 +549,12 @@ fn the_verifier_survives_a_hostile_corpus_and_still_decides_correctly() {
         verify_successor_set(&good, &genesis).verified,
         "the verifier must still accept a valid successor after the hostile corpus"
     );
-    let rogue = build_set(1, &[("a", &a), ("b", &b), ("d", &d)], Some(&genesis), &[("a", &a)]);
+    let rogue = build_set(
+        1,
+        &[("a", &a), ("b", &b), ("d", &d)],
+        Some(&genesis),
+        &[("a", &a)],
+    );
     assert!(
         !verify_successor_set(&rogue, &genesis).verified,
         "and must still refuse an unauthorised one"
