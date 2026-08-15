@@ -279,7 +279,7 @@
       "class": "NORMATIVE_REGISTRY",
       "tier": "implementation",
       "role": "banza-capabilities/1 — the core capability identifiers those rules govern, with the audited relation of every supports_* flag and the evidence for every alias.",
-      "sha256": "8d307443c2d99e4158eb6972fcc8b28ddbb50c23743e474bff56bab3cdb12e6a",
+      "sha256": "911bcd2fc9fbdf9fb2eb3b0ba2dc96f3784cdac93d5dffff37c24237b1775d05",
       "self_declared_status": "canonical"
     },
     {
@@ -319,7 +319,7 @@
       "class": "NORMATIVE_CONTRACT",
       "tier": "implementation",
       "role": "Production contract baseline.",
-      "sha256": "5c4df3c90cab6430600719cbf8f090e7f9ea870e4f8af772bf81a0a46cda931d",
+      "sha256": "8e4fbd87735f020d2cacecd8e4ded07748f69de52ea0075eca160b3398846be8",
       "self_declared_status": "canonical"
     },
     {
@@ -470,7 +470,7 @@
       "class": "NORMATIVE_REGISTRY",
       "tier": "implementation",
       "role": "banza-reason-codes/1 — the machine-readable vocabularies those rules govern.",
-      "sha256": "58de1a5aa7064fc38617229e3baf95a786d16b7fd6dfb4cc0c41301094fb1d5b",
+      "sha256": "7ca46856c8577f8d2e992196118418ce2b25057204c0d8c3125111e7ff8d8406",
       "self_declared_status": "canonical"
     },
     {
@@ -809,14 +809,14 @@
       "class": "CONFORMANCE_SUPPORT",
       "tier": "conformance",
       "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
-      "sha256": "779a5864df66d71ea10ac5c77338aebe509cd8f79c440b34dae0208ac4edfc60"
+      "sha256": "c3c692beb9298535a3f7aec80a691db65999645d9637495fdec551136c713fe6"
     },
     {
       "path": "conformance/fixtures/federation/KEY-MANIFEST-VALID.json",
       "class": "CONFORMANCE_SUPPORT",
       "tier": "conformance",
       "role": "Federation fixtures. Structural vectors: they carry placeholder signatures and do not exercise cryptography. An implementation validates its signature code against trust-signing.json, not against these.",
-      "sha256": "b7ae0cbe7a1bc9b39975eb1943b20267c736d4a9676854dbdac3adcf6f8fd524"
+      "sha256": "1cafa95b375bd10ab4dc48ff78fb345431d6f7432302c774ad1bad9d776657e4"
     },
     {
       "path": "conformance/fixtures/federation/MANIFEST-B-NO-FEDERATION.json",
@@ -1048,7 +1048,7 @@
       "class": "CONFORMANCE_VECTOR",
       "tier": "conformance",
       "role": "Vectors for capability satisfaction, including that near-spellings never satisfy implicitly.",
-      "sha256": "019fed8c10d56660da026c542dc5ff35269c288e74aaf699969e5f9ed08377a1",
+      "sha256": "f3a799a1e0cd888fdceaa3a86f74973f7ed4f4fa152b928797e5a4f1ae86380f",
       "self_declared_status": "canonical"
     },
     {
@@ -1070,7 +1070,7 @@
       "class": "CONFORMANCE_VECTOR",
       "tier": "conformance",
       "role": "Vectors for the idempotency rules. The request-identity digests were computed by an implementation written from the specification text.",
-      "sha256": "ebb0ae32ed7020d6a128807899027d33345b0635d871b2645f49a9d470d1f16c",
+      "sha256": "ed41f91b644d0fcdfe9e7cb10b97ecacc39daba355a3705a5cf942670dd666aa",
       "self_declared_status": "canonical"
     },
     {
@@ -1106,7 +1106,7 @@
       "class": "CONFORMANCE_VECTOR",
       "tier": "conformance",
       "role": "Vectors for the reason-code rules, derived from the specification.",
-      "sha256": "c20a009fa9d821483a2f9d2628ed04eb3cb62236846b2fb23044ccbb020ab50d",
+      "sha256": "cf1351fdf8ddadf31c68f8fe540ce9185277e5b3536f9bc9f18f5b3c95456b6d",
       "self_declared_status": "canonical"
     },
     {
@@ -1136,7 +1136,7 @@
       "class": "CONFORMANCE_VECTOR",
       "tier": "conformance",
       "role": "Vectors for the anti-rollback rule, including restart and concurrency.",
-      "sha256": "04f147824b6a620acfd56165238e9c254ea0801a37a47bce4c28674f596eb95b",
+      "sha256": "5433b9640f3937bd927fb178b86dcaec6b1604b1cf508429360b32397c1f6312",
       "self_declared_status": "canonical"
     },
     {
@@ -1144,7 +1144,7 @@
       "class": "CONFORMANCE_VECTOR",
       "tier": "conformance",
       "role": "Public cryptographic trust vectors: real signatures over BCJ/1 bytes, each with its expected trust status. See the file's own `scheme` member for the algorithms. Test-only material; public key material only.",
-      "sha256": "6016d37f628d0a6706a46229f60ae48c71b3441f8cfa0510c4f282074b7d5655"
+      "sha256": "359cd000fc5c5c76d88e4a0b066fa839f3aee9fff3b90272bf24fd2aebffe785"
     },
     {
       "path": "conformance/vectors/wallet-balances.json",

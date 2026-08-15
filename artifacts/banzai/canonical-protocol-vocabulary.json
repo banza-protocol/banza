@@ -519,7 +519,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "779a5864df66d71e"
+        "checksum": "c3c692beb9298535"
       },
       {
         "id": "conformance-fixtures-federation-key-manifest-valid-json",
@@ -530,7 +530,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "b7ae0cbe7a1bc9b3"
+        "checksum": "1cafa95b375bd10a"
       },
       {
         "id": "conformance-fixtures-federation-manifest-b-no-federation-json",
@@ -849,7 +849,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "7c351b56cc12f0aa"
+        "checksum": "a4e62ba9f9a8fded"
       },
       {
         "id": "conformance-package-conformance-capabilities-schema-json",
@@ -893,7 +893,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "019fed8c10d56660"
+        "checksum": "f3a799a1e0cd888f"
       },
       {
         "id": "conformance-package-conformance-vectors-collections-json",
@@ -926,7 +926,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "ebb0ae32ed7020d6"
+        "checksum": "ed41f91b644d0fcd"
       },
       {
         "id": "conformance-package-conformance-vectors-ledger-postings-json",
@@ -981,7 +981,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "c20a009fa9d82148"
+        "checksum": "cf1351fdf8ddadf3"
       },
       {
         "id": "conformance-package-conformance-vectors-settlement-batches-json",
@@ -1014,7 +1014,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "04f147824b6a620a"
+        "checksum": "5433b9640f3937bd"
       },
       {
         "id": "conformance-package-conformance-vectors-trust-signing-json",
@@ -1025,7 +1025,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "6016d37f628d0a67"
+        "checksum": "359cd000fc5c5c76"
       },
       {
         "id": "conformance-package-conformance-vectors-wallet-balances-json",
@@ -1355,7 +1355,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "8d307443c2d99e41"
+        "checksum": "911bcd2fc9fbdf9f"
       },
       {
         "id": "conformance-package-contracts-production-conformance-evidence-production-schema-json",
@@ -1476,7 +1476,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "58de1a5aa7064fc3"
+        "checksum": "7ca46856c8577f8d"
       },
       {
         "id": "conformance-package-contracts-production-revocation-entry-production-schema-json",
@@ -1652,7 +1652,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "dc295aa13bca7949"
+        "checksum": "7a3f36b57161046a"
       },
       {
         "id": "conformance-qr-suite-json",
@@ -1729,7 +1729,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "019fed8c10d56660"
+        "checksum": "f3a799a1e0cd888f"
       },
       {
         "id": "conformance-vectors-collections-json",
@@ -1762,7 +1762,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "ebb0ae32ed7020d6"
+        "checksum": "ed41f91b644d0fcd"
       },
       {
         "id": "conformance-vectors-ledger-postings-json",
@@ -1817,7 +1817,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "c20a009fa9d82148"
+        "checksum": "cf1351fdf8ddadf3"
       },
       {
         "id": "conformance-vectors-root-authority-set-json",
@@ -1861,7 +1861,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "04f147824b6a620a"
+        "checksum": "5433b9640f3937bd"
       },
       {
         "id": "conformance-vectors-trust-signing-json",
@@ -1872,7 +1872,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "6016d37f628d0a67"
+        "checksum": "359cd000fc5c5c76"
       },
       {
         "id": "conformance-vectors-wallet-balances-json",
@@ -2268,7 +2268,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "8d307443c2d99e41"
+        "checksum": "911bcd2fc9fbdf9f"
       },
       {
         "id": "contracts-production-certification-profile-production-schema-json",
@@ -2323,7 +2323,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "5c4df3c90cab6430"
+        "checksum": "8e4fbd87735f020d"
       },
       {
         "id": "contracts-production-conformance-profiles-production-schema-json",
@@ -2488,7 +2488,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "b6e8a07ce2a56264"
+        "checksum": "6b1a86c7bd2505b1"
       },
       {
         "id": "contracts-production-operation-receipt-production-schema-json",
@@ -2587,7 +2587,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "58de1a5aa7064fc3"
+        "checksum": "7ca46856c8577f8d"
       },
       {
         "id": "contracts-production-regulatory-state-production-schema-json",
@@ -4083,7 +4083,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "7f7fe075b1d64e82"
+        "checksum": "77cb9621019455e7"
       },
       {
         "id": "examples-operators-zero-conformance-conformance-warn-json",
@@ -4204,7 +4204,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "cdc2eec6a02d9d6e"
+        "checksum": "c169be9da4668fc8"
       },
       {
         "id": "examples-operators-zero-evidence-bundle-evidence-bundle-invalid-json",
@@ -4314,7 +4314,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "8d1b274b094927f4"
+        "checksum": "1b8bf225fa8bd51d"
       },
       {
         "id": "examples-operators-zero-keys-demo-key-manifest-revoked-json",
@@ -4446,7 +4446,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "90859307d0770708"
+        "checksum": "42c4d9d4e353e20c"
       },
       {
         "id": "examples-operators-zero-metadata-signed-metadata-json",
@@ -4457,7 +4457,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "39fef6f9071d75b6"
+        "checksum": "d55d4cf8c6cedd8a"
       },
       {
         "id": "examples-operators-zero-payments-demo-failed-payment-json",
@@ -4973,7 +4973,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "278006d39dc98e61"
+    "checksum": "27c8961204e38f2a"
   },
   "subjects": [
     {
@@ -7990,5 +7990,5 @@
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "55ddcf254c7173e7"
+  "checksum": "ce3e40a6793c4d49"
 }

@@ -1,13 +1,13 @@
 {
   "_spec": "BANZA Clean-Room Export Package",
   "package_schema_version": "1",
-  "protocol_version": "1.0.0",
+  "protocol_version": "2.0.0",
   "target_profile": "L0",
   "target_profile_name": "Protocol Sandbox",
   "_authority": "This package is a derived distribution of the BANZA v1.0.0 public normative surface. It is not an independent specification. The BANZA Normative Manifest remains authoritative.",
   "_reference_implementation": "The reference implementation is intentionally excluded.",
   "_construction": "Built by positive allowlist from the Phase D implementation set for this profile. No file is present unless the allowlist selected it; nothing is copied and then deleted.",
-  "normative_manifest_sha256": "735bd3124e84db99786f1103cf693c8bb589d760a26ad1925067689dde36a563",
+  "normative_manifest_sha256": "6b1a86c7bd2505b1b9530e6e1b4d8006b252455f2344db7317cad4b2eff1fd5f",
   "file_count": 21,
   "files": [
     {
@@ -48,7 +48,7 @@
     },
     {
       "path": "conformance/vectors/capabilities.json",
-      "sha256": "019fed8c10d56660da026c542dc5ff35269c288e74aaf699969e5f9ed08377a1",
+      "sha256": "f3a799a1e0cd888fdceaa3a86f74973f7ed4f4fa152b928797e5a4f1ae86380f",
       "bytes": 3893,
       "why": "in the L0 implementation set"
     },
@@ -60,7 +60,7 @@
     },
     {
       "path": "conformance/vectors/reason-codes.json",
-      "sha256": "c20a009fa9d821483a2f9d2628ed04eb3cb62236846b2fb23044ccbb020ab50d",
+      "sha256": "cf1351fdf8ddadf31c68f8fe540ce9185277e5b3536f9bc9f18f5b3c95456b6d",
       "bytes": 7767,
       "why": "in the L0 implementation set"
     },
@@ -72,14 +72,14 @@
     },
     {
       "path": "contracts/production/capability-registry.production.json",
-      "sha256": "8d307443c2d99e4158eb6972fcc8b28ddbb50c23743e474bff56bab3cdb12e6a",
+      "sha256": "911bcd2fc9fbdf9fb2eb3b0ba2dc96f3784cdac93d5dffff37c24237b1775d05",
       "bytes": 10763,
       "why": "in the L0 implementation set"
     },
     {
       "path": "contracts/production/conformance-profiles.production.json",
-      "sha256": "2de21ca28f815e759df7efa8f619cd8d7d456267e1e39e4c5cd7d91bd1d3b743",
-      "bytes": 21251,
+      "sha256": "8e4fbd87735f020d2cacecd8e4ded07748f69de52ea0075eca160b3398846be8",
+      "bytes": 21815,
       "why": "what each profile requires"
     },
     {
@@ -90,7 +90,7 @@
     },
     {
       "path": "contracts/production/normative-manifest.json",
-      "sha256": "735bd3124e84db99786f1103cf693c8bb589d760a26ad1925067689dde36a563",
+      "sha256": "6b1a86c7bd2505b1b9530e6e1b4d8006b252455f2344db7317cad4b2eff1fd5f",
       "bytes": 62506,
       "why": "what is normative, and what is not"
     },
@@ -108,7 +108,7 @@
     },
     {
       "path": "contracts/production/reason-code-registry.production.json",
-      "sha256": "58de1a5aa7064fc38617229e3baf95a786d16b7fd6dfb4cc0c41301094fb1d5b",
+      "sha256": "7ca46856c8577f8d2e992196118418ce2b25057204c0d8c3125111e7ff8d8406",
       "bytes": 15399,
       "why": "in the L0 implementation set"
     },

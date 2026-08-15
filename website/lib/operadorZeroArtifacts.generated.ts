@@ -31,7 +31,7 @@ export const ARTIFACT_DATA: Record<string, unknown> = {
     },
     "environment": "sandbox",
     "key_manifest_url": "https://zero.banza.network/key-manifest.json",
-    "manifest_hash": "4e015bbf5fbcd92aa9a8452c2ab4d88de928df0ed41ecd22f7c6dc81c7a96966",
+    "manifest_hash": "9d76f9c01a9a7397f4ec9bbdefa2c298237d00672179eed350094ef957829755",
     "manifest_version": 1,
     "monetary_value": false,
     "name": "Operador Zero (simulador demo)",
@@ -39,7 +39,7 @@ export const ARTIFACT_DATA: Record<string, unknown> = {
     "operator_id": "operator-zero",
     "origin": "https://zero.banza.network",
     "production_allowed": false,
-    "protocol_version": "1.0.0",
+    "protocol_version": "2.0.0",
     "public_keys": [
       {
         "algorithm": "ed25519",
@@ -82,13 +82,13 @@ export const ARTIFACT_DATA: Record<string, unknown> = {
     "operator_id": "operator-zero",
     "production_allowed": false,
     "public_registry_entry": {
-      "conformance_evidence_hash": "7625e9f9822e76c450827e0add1cc1512256a3e3bda59f971f2d9fab9ab99927",
+      "conformance_evidence_hash": "35608ae233ad7424a2acd7c1bee84b35a85cf326c3a7ebd44dea3aeae20fb9ef",
       "delegated_key_id": "banza-oz-protocol-metadata-2026-08",
       "last_verified_at": "2026-08-05T00:00:00Z",
-      "manifest_hash": "4e015bbf5fbcd92aa9a8452c2ab4d88de928df0ed41ecd22f7c6dc81c7a96966",
+      "manifest_hash": "9d76f9c01a9a7397f4ec9bbdefa2c298237d00672179eed350094ef957829755",
       "operator_id": "operator-zero",
       "revocation_status": "active",
-      "signed_protocol_metadata_hash": "b2b2b6d782b1bcd3a2d041ba466894e72ad8958dc5c3fe8d5d2e574b2aa92467",
+      "signed_protocol_metadata_hash": "6cd3e8ffa4c2a30efaf5ad6793793bcbac85e6cc8fb18ff90ada469888ef494d",
       "trust_root_version": "2026.08",
       "verified_by_tool_version": "banza-trust 0.2.0"
     },
@@ -119,8 +119,8 @@ export const ARTIFACT_DATA: Record<string, unknown> = {
       ],
       "root_id": "banza-oz-root-2026",
       "root_signatures": [
-        "qpCXwdFrfwrOu1zPASFaOak_IhOicc5geQY1vXcBpsowBYCyasg8JYeZ_QSddQOKEi8RcwMIohj2ZADWfi3IAw",
-        "HEtYNCIG5TDi77YAVYhm87tskeqMT1cee9AMiTpVDlCU3VZJLpqGuzJLlx0X55v15vvP735bvuyi4gXS_2J7DA"
+        "Y-zksPRcMTZzonh22NYXs5SSyiMuPy-ACZbG6St6LatnWwATzCbCTqyHA1rM8U0rKYTKSJXsferjdfOB_J29Aw",
+        "k1f7NIHuWMJwtlwhW0qjSsX7Muguhz27QHGo0xfyIxHEv4YGF6tegD6UPioxMkKIUNqdOp9WJ4DHVz2Y_jpeCA"
       ],
       "scope": "signs only the Key Manifest that endorses the delegated signing keys (ADR-025)",
       "threshold_policy": {
@@ -185,7 +185,7 @@ export const ARTIFACT_DATA: Record<string, unknown> = {
       "operator:SIM-A (test-only)",
       "ledger_entries:4"
     ],
-    "evidence_hash": "7625e9f9822e76c450827e0add1cc1512256a3e3bda59f971f2d9fab9ab99927",
+    "evidence_hash": "35608ae233ad7424a2acd7c1bee84b35a85cf326c3a7ebd44dea3aeae20fb9ef",
     "external_model_called": false,
     "failures": [],
     "injected_fault": null,
@@ -223,7 +223,7 @@ export const ARTIFACT_DATA: Record<string, unknown> = {
     "operator_id": "operator-zero",
     "pre_review_gate": true,
     "production_allowed": false,
-    "protocol_version": "1.0.0",
+    "protocol_version": "2.0.0",
     "ready_disclaimer": "Readiness is verifiable conformance evidence, not an approval.",
     "ready_for_conformance_evidence_review": true,
     "report_id": "l0-valid_l0-PASS",
@@ -257,7 +257,7 @@ export const ARTIFACT_DATA: Record<string, unknown> = {
   },
   "evidence-bundle": {
     "boundary": "Evidence Bundle é evidência técnica verificável. Não é certificado. Não é aprovação. A conformidade demonstra-se por evidência verificável; não há aprovação humana central.",
-    "bundle_id": "bundle-e8fb84c565e5",
+    "bundle_id": "bundle-4b515c6ee90f",
     "citations": [
       "docs/governance/EVIDENCE_BUNDLE.md",
       "docs/governance/SIMB_PRE_REVIEW_GATE.md",
@@ -298,7 +298,7 @@ export const ARTIFACT_DATA: Record<string, unknown> = {
         "operator:SIM-A (test-only)",
         "ledger_entries:4"
       ],
-      "evidence_hash": "7625e9f9822e76c450827e0add1cc1512256a3e3bda59f971f2d9fab9ab99927",
+      "evidence_hash": "35608ae233ad7424a2acd7c1bee84b35a85cf326c3a7ebd44dea3aeae20fb9ef",
       "external_model_called": false,
       "failures": [],
       "injected_fault": null,
@@ -336,7 +336,7 @@ export const ARTIFACT_DATA: Record<string, unknown> = {
       "operator_id": "operator-zero",
       "pre_review_gate": true,
       "production_allowed": false,
-      "protocol_version": "1.0.0",
+      "protocol_version": "2.0.0",
       "ready_disclaimer": "Readiness is verifiable conformance evidence, not an approval.",
       "ready_for_conformance_evidence_review": true,
       "report_id": "l0-valid_l0-PASS",
@@ -359,8 +359,8 @@ export const ARTIFACT_DATA: Record<string, unknown> = {
     "environment": "pre-production",
     "external_model_called": false,
     "hashes": {
-      "bundle_hash": "f015547af6538e7ca1a3c673fdaf9be818f5ffd65fc3d369e2e7d0c70244acfa",
-      "conformance_report_hash": "2c516ba6a2ddff6671faf3ec7a888a2702247216da0ca3c02127afea8df91a0f",
+      "bundle_hash": "57bd15ffb3e4bd8f60370fcf13ff1dc076a61b3fa1ed606bb64eecc96a0e319d",
+      "conformance_report_hash": "160ea8b546866ede9bdc25f29a6d23f5d5c78de021e88232222a8c25c571046e",
       "l1_readiness_hash": null,
       "l2_readiness_hash": null,
       "l3_readiness_hash": null,
@@ -670,9 +670,9 @@ export const ARTIFACT_DATA: Record<string, unknown> = {
       "banza-l2-readiness": null,
       "banza-l3-readiness": null,
       "banza-l4-readiness": null,
-      "banza-production-gate": null,
       "banza-open-governance": null,
       "banza-operator-manifest": null,
+      "banza-production-gate": null,
       "banza-reference-trust-model": null,
       "banza-root-ceremony": null,
       "banza-security-assurance": null,
@@ -921,7 +921,7 @@ export const ARTIFACT_DATA: Record<string, unknown> = {
   },
   ".well-known/banza/signed-protocol-metadata": {
     "capability_profile_hash": "sha256:capability-profile",
-    "conformance_evidence_hash": "7625e9f9822e76c450827e0add1cc1512256a3e3bda59f971f2d9fab9ab99927",
+    "conformance_evidence_hash": "35608ae233ad7424a2acd7c1bee84b35a85cf326c3a7ebd44dea3aeae20fb9ef",
     "conformance_tool_version": "banza-conformance-rs 0.1.0",
     "demo_only": true,
     "evidence_bundle_hash": "sha256:evidence-bundle",
@@ -929,17 +929,17 @@ export const ARTIFACT_DATA: Record<string, unknown> = {
     "monetary_value": false,
     "operator_display_name": "Operador Zero",
     "operator_id": "operator-zero",
-    "operator_manifest_hash": "4e015bbf5fbcd92aa9a8452c2ab4d88de928df0ed41ecd22f7c6dc81c7a96966",
+    "operator_manifest_hash": "9d76f9c01a9a7397f4ec9bbdefa2c298237d00672179eed350094ef957829755",
     "production_allowed": false,
-    "protocol_version": "1.0.0",
+    "protocol_version": "2.0.0",
     "registry_snapshot_hash": "sha256:registry-snapshot",
-    "release_id": "banza-protocol-1.0.0",
+    "release_id": "banza-protocol-2.0.0",
     "revocation_list_hash": "sha256:revocation-list",
     "schema_versions": {
       "conformance_evidence": "1.0",
       "operator_manifest": "1.0"
     },
-    "signature": "wUj6fRKHeni0RGsmyjI_rkjJnKWz-QBX8p4-lmrBm9jNB3M7c9r1tIyC7KqjDEaX5jgC2i7-nergJuRI1baIBw",
+    "signature": "tbz4DzMOAJmuCwjoKMsGBDewKOmbzqGsX_G6Rw4biTw38A0Pj--b8TMO_d91GrQt9vG01odBiPGeqhDBBDiLAw",
     "valid_from": "2026-01-01T00:00:00Z",
     "valid_until": "2030-01-01T00:00:00Z"
   },

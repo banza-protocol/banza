@@ -4,7 +4,7 @@
   "_authority": "This registry defines the BANZA core capability identifiers and their meaning. spec/capabilities.md states the rules that govern them. No other surface may introduce a core capability identifier, and no implementation defines one.",
   "_why_this_exists": "Before this registry, three vocabularies described capabilities with no published mapping between them: the conformance-profile registry's required_capabilities, the supports_* flags of conformance/capabilities/schema.json, and the free-form strings of an operator manifest's capabilities member. An implementation could not determine which value to declare in order to satisfy a profile requirement. This registry supplies the missing semantics; it changes no wire form.",
   "registry": "banza-capabilities/1",
-  "protocol_version": "1.0.0",
+  "protocol_version": "2.0.0",
   "registry_version": "1.0.0",
   "_canonical_namespace": "The canonical identifiers are the ones below. They were adopted because contracts/production/conformance-profiles.production.json already uses them to answer the normative question 'what does this profile require?' — not because they read better than the alternatives.",
   "capabilities": [
