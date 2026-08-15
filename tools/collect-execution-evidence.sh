@@ -70,6 +70,36 @@ for p in reg['properties']:
             elif path.endswith('.sh') and os.path.exists(path):
                 kind = 'shell-guard'
                 ok = run_shell(path)
+            elif path == 'assurance/mutations.json' and '#' in ref:
+                # A mutation entry is executed by the mutation runner, in an isolated worktree. It is
+                # not "structural evidence that happens to exist" — it is a proof that runs.
+                mid = ref.split('#')[1].strip()
+                kind = 'mutation-proof'
+                r = subprocess.run(["bash", "tools/run-mutation-proofs.sh", mid],
+                                   capture_output=True, text=True)
+                ok = r.returncode == 0
+            elif path == 'assurance/resilience-matrix.json' and '#' in ref:
+                # A resilience row is executed by the test the row itself cites. The row is the claim;
+                # the test is the evidence, and the row is only as good as the test it names.
+                rid = ref.split('#')[1].strip()
+                matrix = json.load(open(path, encoding='utf8'))
+                row = next((x for x in matrix.get('rows', []) if x.get('id') == rid), None)
+                tests = (row or {}).get('test') or []
+                if not tests:
+                    skipped.append({"evidence": ref, "why": "resilience row cites no test"})
+                    continue
+                kind = 'resilience-row'
+                ok = True
+                for t in tests:
+                    tp = t.split('::')[0]
+                    tn = t.split('::')[1] if '::' in t else None
+                    m2 = re.match(r'^(engines/[^/]+)/tests/([^/.]+)\.rs$', tp)
+                    if m2:
+                        ok = ok and run_rust(f"{m2.group(1)}/Cargo.toml", m2.group(2), tn)
+                    elif tp.endswith('.sh') and os.path.exists(tp):
+                        ok = ok and run_shell(tp)
+                    else:
+                        ok = ok and os.path.exists(tp)
             elif path.endswith('.json') and path in VECTOR_RUNNERS:
                 # A vector IS executed — by the suite that consumes it. Recording it as "not executable"
                 # would turn a real execution into an untested existence claim, which is the same escape
