@@ -479,6 +479,41 @@
         "assurance/README.md"
       ],
       "gate_status": "PASS"
+    },
+    {
+      "property_id": "ASSURANCE_EXECUTION_GRAPH_IS_ACYCLIC",
+      "r2s2_dimensions": [
+        "Robust",
+        "Resilient",
+        "Simple"
+      ],
+      "domain": "assurance",
+      "criticality": "CRITICAL",
+      "scope": "GLOBAL",
+      "normative_authority": [
+        "decisions/adr/ADR-041-layered-assurance-gates.md",
+        "assurance/execution-plan.json"
+      ],
+      "wire_representation": null,
+      "implementation": "tools/check-assurance-graph.sh",
+      "positive_evidence": [
+        "tools/check-assurance-graph.sh"
+      ],
+      "negative_evidence": [
+        "tools/check-assurance-graph.sh selftest: a cyclic graph is rejected"
+      ],
+      "adversarial_evidence": [
+        "tools/check-assurance-graph.sh selftest: a cyclic graph is rejected"
+      ],
+      "state_test": null,
+      "resilience_test": null,
+      "property_guard": "tools/check-assurance-graph.sh",
+      "mutation_proof": "assurance/mutations.json#cyclic_graph",
+      "clean_room_requirement": false,
+      "public_claims": [
+        "assurance/README.md"
+      ],
+      "gate_status": "PASS"
     }
   ],
   "_gate_semantics": "CLOSED-WORLD. A gate returns PASS only when every REQUIRED evidence category for it is known, present, executed and green. Absence is never PASS: an unproduced requirement is NOT_RUN, an unsatisfiable one is BLOCKED. This section is what the engine reads to know what SHOULD exist — without it the engine could only report that what it happened to find was green.",

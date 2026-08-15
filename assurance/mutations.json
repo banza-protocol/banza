@@ -122,6 +122,13 @@
       "violation": "a check in the active assurance graph regenerates a tracked artifact while verifying it — the defect that made source-bound assurance refuse its own evidence",
       "apply": "python3 -c \"p='tools/check-r2s2-principles.sh';s=open(p).read();a='echo \\\"== r2s2-principles ==\\\"';assert a in s;s=s.replace(a, a + chr(10) + 'python3 tools/gen-clean-room-package.py >/dev/null 2>&1', 1);open(p,'w').write(s)\"",
       "guard": "make assurance-purity-check"
+    },
+    {
+      "id": "cyclic_graph",
+      "property": "ASSURANCE_EXECUTION_GRAPH_IS_ACYCLIC",
+      "violation": "a meta check is moved into a later stratum, so an earlier stratum would invoke a later one — the shape that produced the ten-minute timeout",
+      "apply": "python3 -c \"import json;p='assurance/execution-plan.json';d=json.load(open(p));[c.__setitem__('stratum','M4') for c in d['commands'] if c['target']=='assurance-purity-check'];json.dump(d,open(p,'w'),indent=2)\"",
+      "guard": "make assurance-graph-check"
     }
   ]
 }
