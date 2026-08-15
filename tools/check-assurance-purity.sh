@@ -32,17 +32,19 @@ print(' '.join(c['target'] for c in plan['commands'] if c['role'] == 'READ_ONLY_
 ")"
 [ -n "$DEPS" ] || { echo "  FAIL: the execution plan declares no observational subjects"; exit 1; }
 
-if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
-  echo "  SKIP: tracked tree is already dirty; purity can only be measured from a clean tree"
-  exit 0
-fi
+# The property is that a check changes NOTHING, so it is measured as a delta from the state at entry —
+# not as a demand for a clean tree. Requiring cleanliness made this guard skip green whenever the tree
+# was dirty, and since every mutation dirties the tree, the guard could never be falsified: it was
+# unfalsifiable by construction, which is the failure it exists to detect in others.
+BASE="$(mktemp)"
+git status --porcelain --untracked-files=no | sort > "$BASE"
 
 impure=0
 checked=0
 for t in $DEPS; do
   make "$t" >/dev/null 2>&1 || true
   checked=$((checked + 1))
-  changed="$(git status --porcelain --untracked-files=no)"
+  changed="$(git status --porcelain --untracked-files=no | sort | comm -13 "$BASE" -)"
   if [ -n "$changed" ]; then
     echo "  FAIL: $t mutated tracked state while verifying it:"
     printf '%s\n' "$changed" | sed 's/^/         /'
@@ -54,6 +56,7 @@ for t in $DEPS; do
   fi
 done
 
+rm -f "$BASE"
 [ "$impure" -eq 0 ] || { echo "assurance-purity: FAIL — a check altered the state it observes"; exit 1; }
 echo "  ok: $checked observational checks in the active graph; tracked state unchanged by all of them"
 echo "assurance-purity: OK — checks observe, generators write"
