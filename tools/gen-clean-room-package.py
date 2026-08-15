@@ -25,7 +25,11 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SETS = os.path.join(ROOT, 'docs/derived/implementation-sets.json')
 MANIFEST = os.path.join(ROOT, 'contracts/production/normative-manifest.json')
 PROFILES = os.path.join(ROOT, 'contracts/production/conformance-profiles.production.json')
-OUT = os.path.join(ROOT, 'clean-room/packages')
+# The canonical output, overridable so a VERIFIER can generate a candidate elsewhere and compare.
+# A check that regenerates in place mutates the state it is verifying: the export rewrites
+# provenance.json with the current commit, so verifying dirties the tree and the next source-bound
+# assurance run then refuses its own evidence. Checks observe; generators write.
+OUT = os.environ.get('BANZA_CLEANROOM_OUT') or os.path.join(ROOT, 'clean-room/packages')
 
 TOOL_VERSION = '1'
 

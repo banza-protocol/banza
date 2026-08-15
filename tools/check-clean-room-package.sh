@@ -244,12 +244,18 @@ PY
   # two exports taken NOW, at one commit. provenance.json is excluded from it: it records the source
   # commit by design, so it changes whenever HEAD moves — comparing a committed package against a
   # later HEAD would report drift on every commit and teach everyone to ignore this check.
+  # Both regenerations go to a TEMPORARY tree. Regenerating in place rewrote provenance.json with the
+  # current commit, so the act of verifying dirtied the tracked tree — and source-bound assurance then
+  # refused its own evidence. A check must leave a clean tree clean.
   SNAP=$(mktemp -d)
+  CAND=$(mktemp -d)
   find "$pkg" -type f ! -name provenance.json -exec shasum -a 256 {} \; | sed "s#$pkg##" | sort > "$SNAP/before"
-  python3 tools/gen-clean-room-package.py "$(echo "$level" | tr '[:lower:]' '[:upper:]')" > /dev/null
-  find "$pkg" -type f ! -name provenance.json -exec shasum -a 256 {} \; | sed "s#$pkg##" | sort > "$SNAP/a1"
-  python3 tools/gen-clean-room-package.py "$(echo "$level" | tr '[:lower:]' '[:upper:]')" > /dev/null
-  find "$pkg" -type f ! -name provenance.json -exec shasum -a 256 {} \; | sed "s#$pkg##" | sort > "$SNAP/a2"
+  BANZA_CLEANROOM_OUT="$CAND" python3 tools/gen-clean-room-package.py "$(echo "$level" | tr '[:lower:]' '[:upper:]')" > /dev/null
+  find "$CAND/$level" -type f ! -name provenance.json -exec shasum -a 256 {} \; | sed "s#$CAND/$level##" | sort > "$SNAP/a1"
+  rm -rf "${CAND:?}/$level"
+  BANZA_CLEANROOM_OUT="$CAND" python3 tools/gen-clean-room-package.py "$(echo "$level" | tr '[:lower:]' '[:upper:]')" > /dev/null
+  find "$CAND/$level" -type f ! -name provenance.json -exec shasum -a 256 {} \; | sed "s#$CAND/$level##" | sort > "$SNAP/a2"
+  rm -rf "$CAND"
   if ! cmp -s "$SNAP/a1" "$SNAP/a2"; then
     diff "$SNAP/a1" "$SNAP/a2" | head -5; rm -rf "$SNAP"
     fail "$level is not reproducible: two exports from the same commit differ"
