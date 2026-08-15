@@ -21,10 +21,16 @@ cd "$(dirname "$0")/.."
 
 echo "== assurance-purity =="
 
-# The active graph: whatever `assurance-check` actually depends on, read from the Makefile rather than
-# restated here.
-DEPS="$(awk -F':' '/^assurance-check:/ {print $2; exit}' Makefile)"
-[ -n "$DEPS" ] || { echo "  FAIL: cannot resolve the assurance check graph"; exit 1; }
+# Subjects come from the execution plan BY ROLE, never from the aggregate target. Reading them off
+# `assurance-check` made this checker execute the pipeline that contains it — a cycle whose only symptom
+# was a ten-minute timeout. Role, not name and not membership: a generator called `foo-check` is not a
+# subject, and this checker is not a subject of itself.
+DEPS="$(python3 -c "
+import json
+plan = json.load(open('assurance/execution-plan.json'))
+print(' '.join(c['target'] for c in plan['commands'] if c['role'] == 'READ_ONLY_CHECK'))
+")"
+[ -n "$DEPS" ] || { echo "  FAIL: the execution plan declares no observational subjects"; exit 1; }
 
 if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
   echo "  SKIP: tracked tree is already dirty; purity can only be measured from a clean tree"
@@ -34,7 +40,6 @@ fi
 impure=0
 checked=0
 for t in $DEPS; do
-  case "$t" in *-check) ;; *) continue ;; esac
   make "$t" >/dev/null 2>&1 || true
   checked=$((checked + 1))
   changed="$(git status --porcelain --untracked-files=no)"

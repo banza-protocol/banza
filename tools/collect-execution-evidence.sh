@@ -71,6 +71,12 @@ for p in reg['properties']:
                 kind = 'shell-guard'
                 ok = run_shell(path)
             elif path == 'assurance/mutations.json' and '#' in ref:
+                # M2 must not invoke M4. Running the mutation battery during evidence collection made
+                # collection depend on the falsification phase that depends on collection — the cycle.
+                # A mutation proof is M4 evidence, recorded by the mutation runner itself.
+                skipped.append({"evidence": ref, "why": "repository mutation proof — M4, executed by the falsification phase, not by evidence collection"})
+                continue
+            elif False:
                 # A mutation entry is executed by the mutation runner, in an isolated worktree. It is
                 # not "structural evidence that happens to exist" — it is a proof that runs.
                 mid = ref.split('#')[1].strip()
