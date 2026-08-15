@@ -11,8 +11,11 @@ run() { if make "$1" >/dev/null 2>&1; then echo true; else echo false; fi; }
 
 CLEAN=false; [ -z "$(git status --porcelain --untracked-files=no)" ] && CLEAN=true
 GUARDS=true
-for t in $(grep -oE '^[a-z0-9-]+-check:' Makefile | sed 's/:$//' | sort -u); do
-  make "$t" >/dev/null 2>&1 || { GUARDS=false; break; }
+# The aggregate is excluded: `assurance-check` is the command that CONSUMES this report, so including
+# it would make readiness depend on the evaluation that depends on readiness. AG-10 re-observes the gate
+# verdicts itself, so nothing is lost by leaving it out here — the aggregate cannot vouch for its own input.
+for t in $(grep -oE '^[a-z0-9-]+-check:' Makefile | sed 's/:$//' | sort -u | grep -v '^assurance-check$'); do
+  make "$t" >/dev/null 2>&1 || { GUARDS=false; echo "  red: $t" >&2; break; }
 done
 
 cat > "$OUT" <<EOF
