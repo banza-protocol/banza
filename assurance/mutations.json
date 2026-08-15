@@ -98,8 +98,8 @@
     {
       "id": "hostile_input_panics",
       "property": "HOSTILE_INPUT_REJECTED_WITHOUT_PANIC",
-      "violation": "the verifier unwraps untrusted input instead of rejecting it, so a malformed document panics the process",
-      "apply": "python3 -c \"p='engines/banza-trust/src/authority_set.rs';s=open(p).read();a='.ok_or(\\\"set_sequence missing\\\")?';assert a in s;s=s.replace(a,'.expect(\\\"set_sequence missing\\\")',1);open(p,'w').write(s)\"",
+      "violation": "the successor verifier unwraps the candidate's sequence instead of rejecting a malformed one, so out-of-domain input panics the process",
+      "apply": "python3 -c \"p='engines/banza-trust/src/authority_set.rs';s=open(p).read();a='candidate.get(\\\"set_sequence\\\").and_then(|x| x.as_u64()),';b='Some(candidate.get(\\\"set_sequence\\\").unwrap().as_u64().unwrap()),';assert a in s;s=s.replace(a,b,1);open(p,'w').write(s)\"",
       "guard": "make root-authority-model-check"
     }
   ]
