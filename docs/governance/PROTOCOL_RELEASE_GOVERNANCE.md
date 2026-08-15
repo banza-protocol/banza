@@ -157,6 +157,28 @@ licensing obligations.
 
 ---
 
+## How `main` changes
+
+`main` changes **only through a pull request**. A direct push is rejected — including for repository
+administrators — and the seven required status checks must pass before a merge is possible.
+
+| Control | Setting |
+|---|---|
+| Pull request | required (zero approvals: a single-maintainer repository would otherwise be unmergeable, not governed) |
+| Direct push | rejected, administrators included |
+| Required status checks | seven, strict (the branch must be up to date) |
+| Force push, branch deletion | disabled |
+
+Enforcing the rule against administrators is the part that matters. Until it was enabled, a protected
+push reported *"Bypassed rule violations"* and succeeded: the process existed and could be stepped over
+by the person most able to change the repository, which is the opposite of a frozen target. An external
+implementation trial depends on being able to say that a published digest corresponds to a state nobody
+can quietly move.
+
+Zero required approvals is a deliberate limit of this configuration rather than a claim about review:
+the pull request is mandatory and the checks are mandatory, but nothing forces a second pair of eyes
+while the project has one maintainer.
+
 ## Merge method
 
 **Pull requests are integrated with a merge commit.** Squash and rebase are disabled at the repository

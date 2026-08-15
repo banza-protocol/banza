@@ -3830,7 +3830,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "74243dbe60288cc2"
+        "checksum": "224a4fd4703f8ef5"
       },
       {
         "id": "docs-governance-protocol-succession-and-survival-md",
@@ -4929,7 +4929,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "1660a94878a4145f"
+    "checksum": "0400879d298253ae"
   },
   "subjects": [
     {
@@ -7940,5 +7940,5 @@
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "2817aee78b55fb05"
+  "checksum": "7d59c3e7c968fdce"
 }

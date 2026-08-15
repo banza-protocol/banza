@@ -1,5 +1,5 @@
 {
-  "total": 3068,
+  "total": 3070,
   "rows": [
     {
       "raw_text": "Contributing to BANZA",
@@ -19091,6 +19091,17 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
+      "raw_text": "How main changes",
+      "normalized": "how main changes",
+      "sources": [
+        "docs-governance-protocol-release-governance-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
       "raw_text": "Merge method",
       "normalized": "merge method",
       "sources": [
@@ -19230,6 +19241,17 @@
       ],
       "frequency": 1,
       "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "only through a pull request",
+      "normalized": "only through a pull request",
+      "sources": [
+        "docs-governance-protocol-release-governance-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
