@@ -59,6 +59,9 @@ print(m['property'])")"
   # mutation proof — a test passing for a reason other than the property, which is the failure this
   # whole milestone exists to catch. So the baseline is established first, inside the same tree.
   set +e
+  # Tell nested checkers they are already in a disposable tree, so they measure the mutation instead of
+  # creating a fresh worktree from HEAD and looking straight past it.
+  export BANZA_ALREADY_ISOLATED=1
   ( cd "$wt" && eval "$guard" ) >/dev/null 2>&1
   baseline_rc=$?
   ( cd "$wt" && eval "$apply" ) >/dev/null 2>&1
