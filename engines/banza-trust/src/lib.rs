@@ -12,6 +12,7 @@
 //! certifies or approves an operator, and carries no real key. It verifies TEST-ONLY fixtures. The full
 //! evaluation lives in [`evaluate`]; the deterministic TEST-ONLY signer lives in [`sign`].
 
+pub mod authority_set;
 pub mod canonical;
 pub mod evaluate;
 pub mod execution;
@@ -162,9 +163,15 @@ pub fn verify_revocation_list(list: &Value, revocation_key_public_b64url: &str) 
     verify_signed_doc("revocation_list", list, revocation_key_public_b64url)
 }
 
-/// Verify a Key Manifest signature under the trust root's public key.
-pub fn verify_key_manifest(manifest: &Value, root_public_key_b64url: &str) -> TrustResult {
-    verify_signed_doc("key_manifest", manifest, root_public_key_b64url)
+/// Verify a Key Manifest under the **active Root Authority Set**.
+///
+/// v1.0.0 verified the manifest under a single root public key, which left the 2-of-3 model with no
+/// runtime expression at all: the threshold existed in ceremony documents and nowhere in the chain a
+/// verifier actually walks. The manifest is now authorised by at least `THRESHOLD` distinct authorities
+/// of the active set (`INV-ROOT-002`), which is what makes "no single authority controls the Root" true
+/// of the protocol rather than of a procedure.
+pub fn verify_key_manifest(manifest: &Value, active_set: &Value) -> TrustResult {
+    authority_set::verify_key_manifest_under_set(manifest, active_set)
 }
 
 /// Verify a conformance-evidence package: signature nested at `package_signature.signature`; the signed

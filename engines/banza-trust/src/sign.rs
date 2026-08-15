@@ -898,3 +898,114 @@ mod oz_tests {
         }
     }
 }
+
+/// Deterministic TEST-ONLY vectors for the Root Authority Set lineage.
+///
+/// Emitted from the same signer and the same BCJ/1 path a verifier uses, so an independent
+/// implementation reproduces the digests and signatures rather than trusting a hand-written table.
+/// TEST material only — these keys are derived from fixed seeds and are never production keys.
+pub fn authority_set_vectors() -> String {
+    use banza_trust_authority_helpers::*;
+    serde_json::to_string_pretty(&build_authority_set_vectors()).unwrap()
+}
+
+#[doc(hidden)]
+mod banza_trust_authority_helpers {
+    use super::TestKeypair;
+    use crate::authority_set::set_digest;
+    use crate::canonical_bytes;
+    use serde_json::{json, Value};
+
+    fn kp(n: &str) -> TestKeypair {
+        TestKeypair::from_seed(n.as_bytes())
+    }
+
+    fn set(
+        seq: u64,
+        members: &[(&str, &TestKeypair)],
+        pred: Option<&Value>,
+        signers: &[(&str, &TestKeypair)],
+    ) -> Value {
+        let mut v = json!({
+            "schema_version": "1",
+            "set_sequence": seq,
+            "predecessor_digest": match pred { Some(p) => Value::String(set_digest(p).unwrap()), None => Value::Null },
+            "threshold": 2,
+            "authorities": members.iter().map(|(id, k)| json!({
+                "authority_id": id,
+                "public_key": format!("ed25519:{}", k.public_b64url),
+                "active_since": "2026-01-01T00:00:00Z"
+            })).collect::<Vec<_>>(),
+            "issued_at": "2026-01-01T00:00:00Z",
+            "expires_at": "2028-01-01T00:00:00Z",
+            "predecessor_signatures": []
+        });
+        let msg = canonical_bytes(&v, &["predecessor_signatures"]).unwrap();
+        v["predecessor_signatures"] = Value::Array(
+            signers
+                .iter()
+                .map(|(id, k)| json!({ "authority_id": id, "signature": k.sign_bytes(&msg) }))
+                .collect(),
+        );
+        v
+    }
+
+    pub fn build_authority_set_vectors() -> Value {
+        let (a, b, c, d) = (kp("alpha"), kp("beta"), kp("gamma"), kp("delta"));
+        let (x, y, z) = (kp("x"), kp("y"), kp("z"));
+        let g = set(0, &[("alpha", &a), ("beta", &b), ("gamma", &c)], None, &[]);
+        let g_digest = set_digest(&g).unwrap();
+
+        let ok_replace_c = set(
+            1,
+            &[("alpha", &a), ("beta", &b), ("delta", &d)],
+            Some(&g),
+            &[("alpha", &a), ("beta", &b)],
+        );
+        let one_signer = set(
+            1,
+            &[("alpha", &a), ("beta", &b), ("delta", &d)],
+            Some(&g),
+            &[("alpha", &a)],
+        );
+        let dup_signer = set(
+            1,
+            &[("alpha", &a), ("beta", &b), ("delta", &d)],
+            Some(&g),
+            &[("alpha", &a), ("alpha", &a)],
+        );
+        let mut self_signed = set(1, &[("x", &x), ("y", &y), ("z", &z)], Some(&g), &[]);
+        let msg = canonical_bytes(&self_signed, &["predecessor_signatures"]).unwrap();
+        self_signed["predecessor_signatures"] = json!([
+            { "authority_id": "x", "signature": x.sign_bytes(&msg) },
+            { "authority_id": "y", "signature": y.sign_bytes(&msg) }
+        ]);
+
+        json!({
+            "_spec": "BANZA Root Authority Set — conformance vectors",
+            "_status": "NORMATIVE",
+            "_authority": "spec/root-authority-set.md",
+            "_note": "TEST-ONLY keys from fixed seeds. Never production material.",
+            "protocol_version": "2.0.0",
+            "pinned_genesis_digest": g_digest,
+            "genesis": g,
+            "vectors": [
+                { "id": "RAS-001", "title": "genesis accepted against the pinned digest",
+                  "kind": "genesis", "expect": "accept", "set": "genesis", "pinned_digest": g_digest },
+                { "id": "RAS-002", "title": "genesis rejected when the digest is not the pinned one",
+                  "kind": "genesis", "expect": "reject", "set": "genesis",
+                  "pinned_digest": "0000000000000000000000000000000000000000000000000000000000000000" },
+                { "id": "RAS-003", "title": "trust on first use is refused",
+                  "kind": "genesis", "expect": "reject", "set": "genesis", "pinned_digest": "" },
+                { "id": "RAS-004", "title": "A+B replace C", "kind": "successor", "expect": "accept",
+                  "active": "genesis", "candidate": ok_replace_c },
+                { "id": "RAS-005", "title": "one signature does not authorise a successor",
+                  "kind": "successor", "expect": "reject", "active": "genesis", "candidate": one_signer },
+                { "id": "RAS-006", "title": "one authority signing twice is one approval",
+                  "kind": "successor", "expect": "reject", "active": "genesis", "candidate": dup_signer },
+                { "id": "RAS-007", "title": "a set signed only by its own authorities authorises nothing",
+                  "kind": "successor", "expect": "reject", "active": "genesis", "candidate": self_signed }
+            ]
+        })
+    }
+}

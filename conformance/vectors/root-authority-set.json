@@ -1,0 +1,224 @@
+{
+  "_authority": "spec/root-authority-set.md",
+  "_note": "TEST-ONLY keys from fixed seeds. Never production material.",
+  "_spec": "BANZA Root Authority Set — conformance vectors",
+  "_status": "NORMATIVE",
+  "genesis": {
+    "authorities": [
+      {
+        "active_since": "2026-01-01T00:00:00Z",
+        "authority_id": "alpha",
+        "public_key": "ed25519:hTmWBWx3V7guZfU22RHtZ2z0M5sjMcFITR2IZQn4lqw"
+      },
+      {
+        "active_since": "2026-01-01T00:00:00Z",
+        "authority_id": "beta",
+        "public_key": "ed25519:LJjNXyVp93YgPA8bJfSlI6WWOHmDssOwzxeb0MSywFc"
+      },
+      {
+        "active_since": "2026-01-01T00:00:00Z",
+        "authority_id": "gamma",
+        "public_key": "ed25519:vqOZXvgzL1doPHmxYd2UyVkV_ha34smB7Qgm6e6Twzw"
+      }
+    ],
+    "expires_at": "2028-01-01T00:00:00Z",
+    "issued_at": "2026-01-01T00:00:00Z",
+    "predecessor_digest": null,
+    "predecessor_signatures": [],
+    "schema_version": "1",
+    "set_sequence": 0,
+    "threshold": 2
+  },
+  "pinned_genesis_digest": "7a44393697cba6eb68ee39a23ed2d56065b75be6f0b7c52583d55477e5ab0330",
+  "protocol_version": "2.0.0",
+  "vectors": [
+    {
+      "expect": "accept",
+      "id": "RAS-001",
+      "kind": "genesis",
+      "pinned_digest": "7a44393697cba6eb68ee39a23ed2d56065b75be6f0b7c52583d55477e5ab0330",
+      "set": "genesis",
+      "title": "genesis accepted against the pinned digest"
+    },
+    {
+      "expect": "reject",
+      "id": "RAS-002",
+      "kind": "genesis",
+      "pinned_digest": "0000000000000000000000000000000000000000000000000000000000000000",
+      "set": "genesis",
+      "title": "genesis rejected when the digest is not the pinned one"
+    },
+    {
+      "expect": "reject",
+      "id": "RAS-003",
+      "kind": "genesis",
+      "pinned_digest": "",
+      "set": "genesis",
+      "title": "trust on first use is refused"
+    },
+    {
+      "active": "genesis",
+      "candidate": {
+        "authorities": [
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "alpha",
+            "public_key": "ed25519:hTmWBWx3V7guZfU22RHtZ2z0M5sjMcFITR2IZQn4lqw"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "beta",
+            "public_key": "ed25519:LJjNXyVp93YgPA8bJfSlI6WWOHmDssOwzxeb0MSywFc"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "delta",
+            "public_key": "ed25519:N8RpRda_LdHoWFctFOfObSzs4YfDd14u-PEmsQ1Rru8"
+          }
+        ],
+        "expires_at": "2028-01-01T00:00:00Z",
+        "issued_at": "2026-01-01T00:00:00Z",
+        "predecessor_digest": "7a44393697cba6eb68ee39a23ed2d56065b75be6f0b7c52583d55477e5ab0330",
+        "predecessor_signatures": [
+          {
+            "authority_id": "alpha",
+            "signature": "ylVXk_Lc3yzp5oTTHoBGi9yRqdU-Px3I6rZA5zCbsR-KzeUjkjuhl-_kVKGceWpLoOhAMdNj1w6TdOcuFTymBg"
+          },
+          {
+            "authority_id": "beta",
+            "signature": "uZ79UQHUicOtOZCATsIRfjL_OE6COceFPnxctQvbLO4CuHESDeCFmLkOUXY9uhsqU-ZfipGLxGDY1ncO9Zb4Bg"
+          }
+        ],
+        "schema_version": "1",
+        "set_sequence": 1,
+        "threshold": 2
+      },
+      "expect": "accept",
+      "id": "RAS-004",
+      "kind": "successor",
+      "title": "A+B replace C"
+    },
+    {
+      "active": "genesis",
+      "candidate": {
+        "authorities": [
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "alpha",
+            "public_key": "ed25519:hTmWBWx3V7guZfU22RHtZ2z0M5sjMcFITR2IZQn4lqw"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "beta",
+            "public_key": "ed25519:LJjNXyVp93YgPA8bJfSlI6WWOHmDssOwzxeb0MSywFc"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "delta",
+            "public_key": "ed25519:N8RpRda_LdHoWFctFOfObSzs4YfDd14u-PEmsQ1Rru8"
+          }
+        ],
+        "expires_at": "2028-01-01T00:00:00Z",
+        "issued_at": "2026-01-01T00:00:00Z",
+        "predecessor_digest": "7a44393697cba6eb68ee39a23ed2d56065b75be6f0b7c52583d55477e5ab0330",
+        "predecessor_signatures": [
+          {
+            "authority_id": "alpha",
+            "signature": "ylVXk_Lc3yzp5oTTHoBGi9yRqdU-Px3I6rZA5zCbsR-KzeUjkjuhl-_kVKGceWpLoOhAMdNj1w6TdOcuFTymBg"
+          }
+        ],
+        "schema_version": "1",
+        "set_sequence": 1,
+        "threshold": 2
+      },
+      "expect": "reject",
+      "id": "RAS-005",
+      "kind": "successor",
+      "title": "one signature does not authorise a successor"
+    },
+    {
+      "active": "genesis",
+      "candidate": {
+        "authorities": [
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "alpha",
+            "public_key": "ed25519:hTmWBWx3V7guZfU22RHtZ2z0M5sjMcFITR2IZQn4lqw"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "beta",
+            "public_key": "ed25519:LJjNXyVp93YgPA8bJfSlI6WWOHmDssOwzxeb0MSywFc"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "delta",
+            "public_key": "ed25519:N8RpRda_LdHoWFctFOfObSzs4YfDd14u-PEmsQ1Rru8"
+          }
+        ],
+        "expires_at": "2028-01-01T00:00:00Z",
+        "issued_at": "2026-01-01T00:00:00Z",
+        "predecessor_digest": "7a44393697cba6eb68ee39a23ed2d56065b75be6f0b7c52583d55477e5ab0330",
+        "predecessor_signatures": [
+          {
+            "authority_id": "alpha",
+            "signature": "ylVXk_Lc3yzp5oTTHoBGi9yRqdU-Px3I6rZA5zCbsR-KzeUjkjuhl-_kVKGceWpLoOhAMdNj1w6TdOcuFTymBg"
+          },
+          {
+            "authority_id": "alpha",
+            "signature": "ylVXk_Lc3yzp5oTTHoBGi9yRqdU-Px3I6rZA5zCbsR-KzeUjkjuhl-_kVKGceWpLoOhAMdNj1w6TdOcuFTymBg"
+          }
+        ],
+        "schema_version": "1",
+        "set_sequence": 1,
+        "threshold": 2
+      },
+      "expect": "reject",
+      "id": "RAS-006",
+      "kind": "successor",
+      "title": "one authority signing twice is one approval"
+    },
+    {
+      "active": "genesis",
+      "candidate": {
+        "authorities": [
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "x",
+            "public_key": "ed25519:b5yVo_tIwNkwxbpAy-ueFrCCGoqdCo7fMBZFk7qPz8M"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "y",
+            "public_key": "ed25519:Vjhe0TdjkLl3ggs9vb0Er0Qkz4xVBnqHOAGUp19I1bQ"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "z",
+            "public_key": "ed25519:vLWB-3cJJbB89AMSmVHEXRkNKlCWMUHgZyplRhyT9Lg"
+          }
+        ],
+        "expires_at": "2028-01-01T00:00:00Z",
+        "issued_at": "2026-01-01T00:00:00Z",
+        "predecessor_digest": "7a44393697cba6eb68ee39a23ed2d56065b75be6f0b7c52583d55477e5ab0330",
+        "predecessor_signatures": [
+          {
+            "authority_id": "x",
+            "signature": "3eecWgDvZeyLqcbiH4zPF8jxTTVMKNfRO77FknTmIZ6I9msfw14pcAQgQlmQvtRJctJCyF7qfSpvopJaL0nvAw"
+          },
+          {
+            "authority_id": "y",
+            "signature": "XX06VnXlqaA6QNiDXl5AavPYMlQZq1DzAriZCbMoc6ei-NGFZ5w34Z1935sNzYepXPslR9C_OrOhW1QjSQWMCw"
+          }
+        ],
+        "schema_version": "1",
+        "set_sequence": 1,
+        "threshold": 2
+      },
+      "expect": "reject",
+      "id": "RAS-007",
+      "kind": "successor",
+      "title": "a set signed only by its own authorities authorises nothing"
+    }
+  ]
+}

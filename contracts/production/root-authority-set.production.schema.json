@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/root-authority-set/1",
+  "title": "BANZA Root Authority Set",
+  "description": "Who may exercise BANZA Root authority. A set is trusted only when the threshold of the PREVIOUSLY trusted set authorised it; the genesis set is trusted only by explicit pinning. A set that merely signs itself authorises nothing — that is the defect this artifact exists to remove.",
+  "_spec_version": "1",
+  "_status": "production-baseline",
+  "_authority": "spec/root-authority-set.md; invariants INV-ROOT-002, INV-ROOT-007, INV-ROOT-009, INV-ROOT-011..014",
+  "_boundary": "The Root signs the Key Manifest and root-level delegation, rotation, revocation and trust policy. It does not authorise operators, does not authorise payments, does not issue licences, does not confer status and does not move funds.",
+  "_separation": "This artifact answers WHO may exercise Root authority. The Key Manifest answers WHAT the Root currently delegates. They change on different schedules and are separate documents so that a routine delegation does not require a Root-threshold ceremony.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "set_sequence",
+    "predecessor_digest",
+    "threshold",
+    "authorities",
+    "issued_at",
+    "expires_at",
+    "predecessor_signatures"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1",
+      "description": "Shape of this artifact."
+    },
+    "set_sequence": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Position in the lineage. Genesis is 0; each successor is exactly one greater. This is also the artifact's ordering marker for the monotonic anti-rollback rule (spec/trust-freshness.md): a lower value than the highest accepted is a rollback and is rejected fail-closed."
+    },
+    "predecessor_digest": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "SHA-256 over the predecessor set's signing input — the same canonical bytes its own signatures covered. Null if and only if set_sequence is 0. This is what binds a successor to one specific predecessor rather than to any set that happens to share a sequence number."
+    },
+    "threshold": {
+      "const": 2,
+      "description": "Distinct authorities required to authorise a Root action. Two of three: no authority acts alone, and one may be unavailable without blocking the Root. The threshold counts DISTINCT authorities — two signatures from one authority are one approval."
+    },
+    "authorities": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "uniqueItems": true,
+      "description": "Exactly three. Fewer would remove the failure tolerance; more would change the security model without a stated risk requiring it.",
+      "items": {
+        "type": "object",
+        "required": [
+          "authority_id",
+          "public_key",
+          "active_since"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "authority_id": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[a-z0-9][a-z0-9-]*$",
+            "description": "A cryptographic label, NOT an organisation. No organisation name takes part in validity: replacing one institutional holder with another is a ceremony, never a protocol change. That the holders occupy independent control domains is a production governance gate, evidenced separately."
+          },
+          "public_key": {
+            "type": "string",
+            "pattern": "^ed25519:[A-Za-z0-9_-]+$",
+            "description": "Ed25519 public key, base64url, no padding. Public material only — no private key, seed, mnemonic or passphrase ever appears in this artifact."
+          },
+          "active_since": {
+            "type": "string",
+            "format": "date-time",
+            "description": "RFC 3339 instant from which this authority is part of the set."
+          }
+        }
+      }
+    },
+    "issued_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "RFC 3339 instant this set was issued."
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "RFC 3339 instant after which this set MUST NOT be accepted. An expired set is invalid, exactly as an expired Key Manifest is."
+    },
+    "predecessor_signatures": {
+      "type": "array",
+      "minItems": 0,
+      "description": "Signatures by authorities OF THE PREDECESSOR SET over this document's signing input. Excluded from that signing input, because a signature cannot lie inside the bytes it covers. Empty if and only if this is the genesis set, which is trusted by explicit pinning instead. An authority being REMOVED by this transition is never required to sign it — otherwise the recovery path would be 3-of-3 and an obstructive authority would hold a veto.",
+      "items": {
+        "type": "object",
+        "required": [
+          "authority_id",
+          "signature"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "authority_id": {
+            "type": "string",
+            "description": "The signing authority, which MUST be an authority of the predecessor set. An id absent from the predecessor set contributes nothing to the threshold."
+          },
+          "signature": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "description": "Ed25519 signature, base64url without padding, over the BCJ/1 canonical bytes of this document excluding predecessor_signatures."
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "description": "Genesis has no predecessor and carries no predecessor signatures; every successor has both.",
+      "if": {
+        "properties": {
+          "set_sequence": {
+            "const": 0
+          }
+        },
+        "required": [
+          "set_sequence"
+        ]
+      },
+      "then": {
+        "properties": {
+          "predecessor_digest": {
+            "type": "null"
+          },
+          "predecessor_signatures": {
+            "maxItems": 0
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "predecessor_digest": {
+            "type": "string"
+          },
+          "predecessor_signatures": {
+            "minItems": 2
+          }
+        }
+      }
+    }
+  ]
+}
