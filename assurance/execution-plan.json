@@ -4,37 +4,126 @@
   "_authority": "decisions/adr/ADR-041-layered-assurance-gates.md",
   "_why": "The assurance system became reflexive: a purity checker executed the aggregate assurance target, whose evidence collection reached the mutation runner, which invoked the purity proof again. That is a cycle, and it announced itself as a ten-minute timeout rather than as an error. Cycles are now rejected structurally, before anything runs.",
   "strata": {
-    "M0": {"name": "meta-engine semantics", "what": "synthetic tests proving the engine's own semantics on fixtures it builds; never executes repository-wide assurance"},
-    "M1": {"name": "graph and purity", "what": "validates the execution graph is acyclic and that observational checks leave tracked state unchanged"},
-    "M2": {"name": "evidence collection", "what": "executes registered property evidence and binds results to source and registry"},
-    "M3": {"name": "property and gate evaluation", "what": "consumes registry, evidence and meta status; decides AG-0…AG-10"},
-    "M4": {"name": "repository falsification", "what": "isolated-worktree mutation proofs; runs only after a green normal baseline"}
+    "M0": {
+      "name": "meta-engine semantics",
+      "what": "synthetic tests proving the engine semantics on fixtures it builds, and structural validation of the execution graph itself; neither executes repository-wide assurance"
+    },
+    "M1": {
+      "name": "graph and purity",
+      "what": "validates the execution graph is acyclic and that observational checks leave tracked state unchanged"
+    },
+    "M2": {
+      "name": "evidence collection",
+      "what": "executes registered property evidence and binds results to source and registry"
+    },
+    "M3": {
+      "name": "property and gate evaluation",
+      "what": "consumes registry, evidence and meta status; decides AG-0…AG-10"
+    },
+    "M4": {
+      "name": "repository falsification",
+      "what": "isolated-worktree mutation proofs; runs only after a green normal baseline"
+    }
   },
   "dependency_direction": "M0 → M1 → M2 → M3 → M4. A later stratum may depend on an earlier one. An earlier stratum must never invoke a later one.",
   "commands": [
-    {"target": "assurance-meta-check", "role": "META_CHECK", "stratum": "M0"},
-    {"target": "assurance-graph-check", "role": "META_CHECK", "stratum": "M1"},
-    {"target": "assurance-purity-check", "role": "META_CHECK", "stratum": "M1"},
-
-    {"target": "r2s2-principles-check", "role": "READ_ONLY_CHECK", "stratum": "M1"},
-    {"target": "semantic-closure-check", "role": "READ_ONLY_CHECK", "stratum": "M1"},
-    {"target": "no-availability-bypass-check", "role": "READ_ONLY_CHECK", "stratum": "M1"},
-    {"target": "banzai-outside-critical-path-check", "role": "READ_ONLY_CHECK", "stratum": "M1"},
-    {"target": "protocol-version-consistency-check", "role": "READ_ONLY_CHECK", "stratum": "M1"},
-    {"target": "root-authority-model-check", "role": "READ_ONLY_CHECK", "stratum": "M1"},
-    {"target": "clean-room-package-check", "role": "READ_ONLY_CHECK", "stratum": "M1"},
-
-    {"target": "tools/collect-execution-evidence.sh", "role": "EVIDENCE_PRODUCER", "stratum": "M2"},
-    {"target": "assurance-check", "role": "AGGREGATE", "stratum": "M3"},
-    {"target": "tools/run-mutation-proofs.sh", "role": "MUTATION_RUNNER", "stratum": "M4"},
-
-    {"target": "clean-room-package", "role": "GENERATOR", "stratum": "M2"},
-    {"target": "implementation-sets", "role": "GENERATOR", "stratum": "M2"}
+    {
+      "target": "assurance-meta-check",
+      "role": "META_CHECK",
+      "stratum": "M0"
+    },
+    {
+      "target": "assurance-graph-check",
+      "role": "META_CHECK",
+      "stratum": "M0",
+      "_why": "structural validation over declarations only — it reads the plan and the Makefile, executes no repository evidence, and must run before anything else can be trusted to terminate"
+    },
+    {
+      "target": "assurance-purity-check",
+      "role": "META_CHECK",
+      "stratum": "M1"
+    },
+    {
+      "target": "r2s2-principles-check",
+      "role": "READ_ONLY_CHECK",
+      "stratum": "M1"
+    },
+    {
+      "target": "semantic-closure-check",
+      "role": "READ_ONLY_CHECK",
+      "stratum": "M1"
+    },
+    {
+      "target": "no-availability-bypass-check",
+      "role": "READ_ONLY_CHECK",
+      "stratum": "M1"
+    },
+    {
+      "target": "banzai-outside-critical-path-check",
+      "role": "READ_ONLY_CHECK",
+      "stratum": "M1"
+    },
+    {
+      "target": "protocol-version-consistency-check",
+      "role": "READ_ONLY_CHECK",
+      "stratum": "M1"
+    },
+    {
+      "target": "root-authority-model-check",
+      "role": "READ_ONLY_CHECK",
+      "stratum": "M1"
+    },
+    {
+      "target": "clean-room-package-check",
+      "role": "READ_ONLY_CHECK",
+      "stratum": "M1"
+    },
+    {
+      "target": "tools/collect-execution-evidence.sh",
+      "role": "EVIDENCE_PRODUCER",
+      "stratum": "M2"
+    },
+    {
+      "target": "assurance-check",
+      "role": "AGGREGATE",
+      "stratum": "M3"
+    },
+    {
+      "target": "tools/run-mutation-proofs.sh",
+      "role": "MUTATION_RUNNER",
+      "stratum": "M4"
+    },
+    {
+      "target": "clean-room-package",
+      "role": "GENERATOR",
+      "stratum": "M2"
+    },
+    {
+      "target": "implementation-sets",
+      "role": "GENERATOR",
+      "stratum": "M2"
+    }
   ],
   "forbidden_edges": [
-    {"from": "M1", "to": "M4", "why": "a purity or graph check that invokes the mutation runner is the cycle that produced the timeout"},
-    {"from": "M2", "to": "M4", "why": "evidence collection must not launch the falsification phase it is evidence for"},
-    {"from": "M1", "to": "M3", "why": "a meta check must not execute the aggregate whose members it inspects"},
-    {"from": "M0", "to": "M2", "why": "synthetic semantics must not depend on repository evidence"}
+    {
+      "from": "M1",
+      "to": "M4",
+      "why": "a purity or graph check that invokes the mutation runner is the cycle that produced the timeout"
+    },
+    {
+      "from": "M2",
+      "to": "M4",
+      "why": "evidence collection must not launch the falsification phase it is evidence for"
+    },
+    {
+      "from": "M1",
+      "to": "M3",
+      "why": "a meta check must not execute the aggregate whose members it inspects"
+    },
+    {
+      "from": "M0",
+      "to": "M2",
+      "why": "synthetic semantics must not depend on repository evidence"
+    }
   ]
 }
