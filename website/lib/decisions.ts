@@ -392,6 +392,16 @@ export const decisions: Decision[] = [
     "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-038-rust-first-official-engines.md",
     "category": "Conformidade, perfis e registo",
     "summary": "The protocol prescribes no implementation technology for operators, and that neutrality is permanent (ADR-002). It says nothing about what language the project's own official components are written in, and that question needs its own answer"
+  },
+  {
+    "type": "ADR",
+    "id": "ADR-039",
+    "slug": "adr-039",
+    "title": "Root Authority Set and succession",
+    "path": "decisions/adr/ADR-039-root-authority-set-and-succession.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/adr/ADR-039-root-authority-set-and-succession.md",
+    "category": "Conformidade, perfis e registo",
+    "summary": "BANZA v1.0.0 declared a three-authority Root with a threshold of two (INV-ROOT-007) and asserted that losing a seat could not compromise continuity (INV-ROOT-009). Neither was true of the protocol."
   }
 ];
 

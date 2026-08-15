@@ -7,8 +7,8 @@
   "_authority": "This package is a derived distribution of the BANZA v1.0.0 public normative surface. It is not an independent specification. The BANZA Normative Manifest remains authoritative.",
   "_reference_implementation": "The reference implementation is intentionally excluded.",
   "_construction": "Built by positive allowlist from the Phase D implementation set for this profile. No file is present unless the allowlist selected it; nothing is copied and then deleted.",
-  "normative_manifest_sha256": "319a8f069b3e84ca3f9a0b26893178b714049a66907d8cf22a02a94fd677701f",
-  "file_count": 21,
+  "normative_manifest_sha256": "66ed4e2a5840dc4c182f4bde214489b4796ab890b95d479d558df821c0ec88bd",
+  "file_count": 26,
   "files": [
     {
       "path": "LICENSE",
@@ -65,9 +65,15 @@
       "why": "in the L0 implementation set"
     },
     {
+      "path": "conformance/vectors/root-authority-set.json",
+      "sha256": "ee5607111700e1c6a76cedeb1b008bfcf3c0e817a412208581b8fe51973be9d7",
+      "bytes": 27291,
+      "why": "the succession vectors, with real signatures"
+    },
+    {
       "path": "contracts/invariants.json",
-      "sha256": "ed45855dc4b520e98f06b9a48935bb05f6d2d913384703e7b08f471babcb5db0",
-      "bytes": 30469,
+      "sha256": "7f6bc402ab405e879ec60c65a64e6327151ae68f585c8994a68e6bff1ae48d13",
+      "bytes": 35922,
       "why": "in the L0 implementation set"
     },
     {
@@ -78,8 +84,8 @@
     },
     {
       "path": "contracts/production/conformance-profiles.production.json",
-      "sha256": "2de21ca28f815e759df7efa8f619cd8d7d456267e1e39e4c5cd7d91bd1d3b743",
-      "bytes": 21251,
+      "sha256": "5c4df3c90cab6430600719cbf8f090e7f9ea870e4f8af772bf81a0a46cda931d",
+      "bytes": 21815,
       "why": "what each profile requires"
     },
     {
@@ -89,9 +95,15 @@
       "why": "its shape"
     },
     {
+      "path": "contracts/production/key-manifest.production.schema.json",
+      "sha256": "26cf45b99649eab1f36435e6e3aee14810d5271c1bffd69b02b5ec0901bcfc72",
+      "bytes": 5175,
+      "why": "what the active set authorises"
+    },
+    {
       "path": "contracts/production/normative-manifest.json",
-      "sha256": "319a8f069b3e84ca3f9a0b26893178b714049a66907d8cf22a02a94fd677701f",
-      "bytes": 61289,
+      "sha256": "66ed4e2a5840dc4c182f4bde214489b4796ab890b95d479d558df821c0ec88bd",
+      "bytes": 62506,
       "why": "what is normative, and what is not"
     },
     {
@@ -102,8 +114,8 @@
     },
     {
       "path": "contracts/production/protocol-version.json",
-      "sha256": "0fcf788dba1752e6eac5c117c3187da556c2b7f72134ec705647f67a4e8f02a9",
-      "bytes": 2852,
+      "sha256": "68ac7cceef0118ee8c95d4d2d31ab03e927a03acc088f71566bb69f8d72e11ef",
+      "bytes": 3763,
       "why": "in the L0 implementation set"
     },
     {
@@ -111,6 +123,12 @@
       "sha256": "58de1a5aa7064fc38617229e3baf95a786d16b7fd6dfb4cc0c41301094fb1d5b",
       "bytes": 15399,
       "why": "in the L0 implementation set"
+    },
+    {
+      "path": "contracts/production/root-authority-set.production.schema.json",
+      "sha256": "d8cacdaabab6e1cf0a3bca61d1c8915ddb8449e4f0543008fe2319fd6999eeef",
+      "bytes": 6481,
+      "why": "the shape of an authority set"
     },
     {
       "path": "docs/guides/implement-l0.md",
@@ -135,6 +153,18 @@
       "sha256": "08967bae816e1ac39ce59c110707fa04d8047219be2f0cecb8d54263a87af3a1",
       "bytes": 9462,
       "why": "in the L0 implementation set"
+    },
+    {
+      "path": "spec/root-authority-set.md",
+      "sha256": "ce008ea6a6b27f17a6afa9505c0651d021d3cd94b0232579c32a75ad3091e6d8",
+      "bytes": 8301,
+      "why": "who may exercise Root authority, and how that changes"
+    },
+    {
+      "path": "spec/trust-freshness.md",
+      "sha256": "8e00bded5be0d0b0617f4dded2f8db81e8882294408673a464adeddca78e03b0",
+      "bytes": 16953,
+      "why": "ordering, rollback and equivocation across trust artifacts"
     }
   ],
   "excluded": [
@@ -206,6 +236,14 @@
       ]
     },
     {
+      "target": "conformance/vectors/trust-freshness.json",
+      "kind": "higher profile",
+      "why": "On the normative surface, but not part of the L0 implementation set. Required at a higher profile.",
+      "referenced_by": [
+        "spec/trust-freshness.md"
+      ]
+    },
+    {
       "target": "contracts/federation/federation-trust.json",
       "kind": "higher profile",
       "why": "On the normative surface, but not part of the L0 implementation set. Required at a higher profile.",
@@ -238,6 +276,14 @@
       ]
     },
     {
+      "target": "decisions/adr/ADR-028-anti-rollback-for-versioned-trust-material.md",
+      "kind": "rationale",
+      "why": "An ADR records why a rule was adopted. It is never the rule, and nothing here requires reading it. Excluded from the package on purpose.",
+      "referenced_by": [
+        "spec/trust-freshness.md"
+      ]
+    },
+    {
       "target": "docs/derived/implementation-sets.json",
       "kind": "derived view",
       "why": "A generated view of this same material. Informative; the Normative Manifest remains authoritative.",
@@ -251,6 +297,14 @@
       "why": "A generated view of this same material. Informative; the Normative Manifest remains authoritative.",
       "referenced_by": [
         "docs/guides/implement-l0.md"
+      ]
+    },
+    {
+      "target": "spec/federation/FEDERATION_PROTOCOL_FLOW.md",
+      "kind": "higher profile",
+      "why": "On the normative surface, but not part of the L0 implementation set. Required at a higher profile.",
+      "referenced_by": [
+        "spec/trust-freshness.md"
       ]
     }
   ],

@@ -51,9 +51,42 @@ fn main() {
             println!("{}", serde_json::to_string_pretty(&report).unwrap());
             exit(if allowed { 0 } else { 1 });
         }
+        // The manifest is now authorised by the ACTIVE Root Authority Set, so the second argument is
+        // that set rather than a single root public key.
         "verify-key-manifest" | "verify-manifest" | "verify-root" => {
-            let (doc, key) = (read(&arg(&a, 1)), arg(&a, 2));
-            emit(verify_key_manifest(&doc, &key));
+            let (doc, set) = (read(&arg(&a, 1)), read(&arg(&a, 2)));
+            emit(verify_key_manifest(&doc, &set));
+        }
+        // Root Authority Set lineage: a successor is authorised by the threshold of its predecessor,
+        // and the genesis set is accepted only against an explicitly pinned digest.
+        "verify-authority-successor" => {
+            let (candidate, active) = (read(&arg(&a, 1)), read(&arg(&a, 2)));
+            emit(banza_trust::authority_set::verify_successor_set(
+                &candidate, &active,
+            ));
+        }
+        "verify-authority-genesis" => {
+            let (set, pinned) = (read(&arg(&a, 1)), arg(&a, 2));
+            emit(banza_trust::authority_set::verify_genesis_set(
+                &set, &pinned,
+            ));
+        }
+        // Regenerate `conformance/vectors/trust-signing.json` from the same scenarios the engine tests
+        // drive, so the published vectors can never describe material the engine does not produce.
+        "signing-vectors" => {
+            println!("{}", banza_trust::sign::signing_vectors());
+        }
+        "authority-set-vectors" => {
+            println!("{}", banza_trust::sign::authority_set_vectors());
+        }
+        "authority-set-digest" => {
+            match banza_trust::authority_set::set_digest(&read(&arg(&a, 1))) {
+                Ok(d) => println!("{d}"),
+                Err(e) => {
+                    eprintln!("{e}");
+                    exit(1);
+                }
+            }
         }
         "verify-revocation-list" => {
             let (doc, key) = (read(&arg(&a, 1)), arg(&a, 2));

@@ -2,11 +2,11 @@
   "_spec": "BANZA Clean-Room Export Provenance",
   "protocol_version": "1.0.0",
   "target_profile": "L0",
-  "source_commit": "bc3a0e1efa2e2dbf083245ce7a84a10eaa8c7c68",
-  "normative_manifest_sha256": "319a8f069b3e84ca3f9a0b26893178b714049a66907d8cf22a02a94fd677701f",
-  "package_manifest_sha256": "566bae9d53c7c6a8c05b866decdeb3f01f8c557d42f531c27b901af628441f40",
+  "source_commit": "346f8896b06055396e587ff4ddf5bd7ed41d666b",
+  "normative_manifest_sha256": "66ed4e2a5840dc4c182f4bde214489b4796ab890b95d479d558df821c0ec88bd",
+  "package_manifest_sha256": "a4279024c78d24ddd13f57ef955faac65ff2eaaa451bd34e83fa1260577bb76a",
   "generation_tool": "tools/gen-clean-room-package.py",
   "generation_tool_version": "1",
-  "file_count": 21,
+  "file_count": 26,
   "_no_timestamp": "Deliberately absent. Two exports from the same commit are byte-identical, which is what makes the package verifiable; a generation timestamp would destroy that for no gain."
 }

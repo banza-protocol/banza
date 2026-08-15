@@ -11,6 +11,7 @@ import { ExactCache, SemanticCache, lexicalVector, cosine } from "../src/cache.j
 import { BudgetTracker, RateLimiter, estimateTokens } from "../src/limits.js";
 import { retrieveTopK, buildContext, CORPUS_HASH } from "../src/knowledge.js";
 import { buildReasoningTrace } from "../src/reasoningTrace.js";
+import { readFileSync } from "node:fs";
 
 // A scripted trunk: returns a grounded/clarify/insufficient/fallback result and records every call (rq +
 // opts, so tests can assert the SEEDED entity). Default = a grounded answer citing ADR-001.
@@ -166,7 +167,12 @@ test("the declared protocol version is a deterministic exact fact, precise, neve
   assert.equal(meta.llm_called, false, "0 model calls");
   assert.equal(meta.terminal_kind, "exact_fact", `→ ${meta.terminal_kind}`);
   assert.equal(meta.reason_code, "EXACT_FACT_CONFIRMED");
-  assert.match(result.answer, /1\.0\.0/, "states the declared version");
+  // The version comes from the normative contract, not from this file: pinning a literal here is how a
+  // test keeps asserting a version the protocol has moved past.
+  const declared = JSON.parse(
+    readFileSync(new URL("../../../contracts/production/protocol-version.json", import.meta.url), "utf8"),
+  ).protocol_version;
+  assert.ok(result.answer.includes(declared), `states the declared version (${declared})`);
   assert.doesNotMatch(result.answer, /não declara/i, "the old NOT_DECLARED message must not survive");
   assert.doesNotMatch(result.answer, /manifest \(e exemplos\)/, "never the generic topic list");
   assert.ok(!["critical_boundary", "safety_refusal"].includes(meta.intent), `intent=${meta.intent}`);
@@ -700,4 +706,87 @@ test("a journey step never rescues an off-topic or unsafe question", async () =>
     const { meta } = await pipeline.answer(q, { journeyStep: "manifest", journeyNextActionSentence: sentence });
     assert.notEqual(meta.intent, "journey_next_step", `"${q}" must not become a journey answer`);
   }
+});
+
+// ── Root succession (ADR-039) ─────────────────────────────────────────────────────────────────────
+//
+// Whether the surviving two authorities can replace a lost, compromised or obstructive third is the
+// protocol's continuity property. It must be decided by the chain and answered deterministically —
+// never composed by the model, which is free to be plausible and wrong about it.
+//
+// These questions arrive in shapes the glossary's gates reject: the Portuguese noun phrase is eight
+// tokens (one past the definition-lead gate, so the English form resolved and the canonical language
+// did not), and "como se substitui…" / "o que acontece se…" carry no definition lead at all and read
+// as operational. Driving the PIPELINE rather than the router is the point: an earlier fix of this
+// exact shape passed every routing test and still lost in production.
+const SUCCESSION_QUESTIONS = [
+  "o que é o conjunto de autoridades da raiz?",
+  "como se substitui uma autoridade da raiz do BANZA?",
+  "o que acontece se uma autoridade da raiz for perdida?",
+  "what is the root authority set?",
+];
+
+test("root-succession questions are deterministic — the chain answers, not the model", async () => {
+  for (const q of SUCCESSION_QUESTIONS) {
+    const { pipeline, stub } = pipe();
+    const { result, meta } = await pipeline.answer(q);
+    assert.equal(meta.llm_called, false, `${q}: 0 model calls`);
+    assert.equal(stub.calls.length, 0, `${q}: no trunk call`);
+    assert.doesNotMatch(result.answer, /MODEL-COMPOSED-THIS/, `${q}: never model prose`);
+    assert.match(result.answer, /Conjunto de Autoridades da Raiz/, `${q}: names the artifact`);
+    // The two properties that make the model's version dangerous if it guessed them.
+    assert.match(result.answer, /duas autoridades distintas do conjunto predecessor/i, `${q}: predecessor authorises`);
+    assert.match(result.answer, /bloqueada/i, `${q}: below threshold, continuity blocks`);
+    // Asserted as an explicit DENIAL, not as an absence: the negation precedes the phrase in the
+    // canonical wording ("não existe chave-mestra de emergência"), so a lookahead after it sees nothing.
+    assert.match(result.answer, /não existe chave-mestra de emergência/i, `${q}: the bypass is denied outright`);
+  }
+});
+
+test("a self-signed authority set is never described as authorising anything", async () => {
+  const { pipeline } = pipe();
+  const { result } = await pipeline.answer("o que é o conjunto de autoridades da raiz?");
+  assert.match(result.answer, /não autoriza nada/i, "the self-signed set authorises nothing");
+  assert.match(result.answer, /recusada/i, "trust on first use is refused");
+});
+
+// ── The Root facts an operator must never get a guessed answer to (v1.0.0 §80) ────────────────────────
+//
+// Each of these has one correct answer that the chain decides. The failure mode is not a refusal — it is
+// a plausible, fluent, wrong answer about who controls the protocol's maximum authority. Several of these
+// shapes reached the model or fell to no_source before this milestone, and the Portuguese forms failed
+// while the English ones passed, on the canonical language of the protocol.
+const ROOT_FACTS = [
+  ["qual a versão actual do BANZA?", /1\.0\.0/],
+  ["what is the current BANZA protocol version?", /1\.0\.0/],
+  ["quantas autoridades tem a raiz do BANZA?", /três/i],
+  ["how many root authorities does BANZA have?", /três|three/i],
+  ["qual é o limiar da raiz?", /duas|2-de-3/i],
+  ["what is the root threshold?", /duas|two|2-de-3/i],
+  ["uma autoridade da raiz pode agir sozinha?", /nunca autoriza|sozinha/i],
+  ["como se substitui uma autoridade da raiz?", /predecessor|sobreviventes/i],
+  ["a autoridade removida tem de assinar?", /sem a sua participação|predecessor/i],
+  ["can a root authority set self-authorize?", /não autoriza nada|predecessor/i],
+  ["o que acontece se duas autoridades da raiz forem perdidas?", /bloquead/i],
+  ["o BANZA fornece transparência global?", /não/i],
+];
+
+test("every Root fact is decided by the chain, in both languages, with zero model calls", async () => {
+  for (const [q, expected] of ROOT_FACTS) {
+    const { pipeline, stub } = pipe();
+    const { result, meta } = await pipeline.answer(q);
+    assert.equal(meta.llm_called, false, `${q}: must be deterministic`);
+    assert.equal(stub.calls.length, 0, `${q}: no trunk call`);
+    assert.doesNotMatch(result.answer, /MODEL-COMPOSED-THIS/, `${q}: never model prose`);
+    assert.match(result.answer, expected, `${q}: states the fact`);
+  }
+});
+
+// The quorum-loss answer is the one a truncating path can silently drop: it arrives through the
+// hypothesis family, whose facts are capped, so the consequence must sit early enough to survive.
+test("the quorum-loss consequence survives the hypothesis path's truncation", async () => {
+  const { pipeline } = pipe();
+  const { result } = await pipeline.answer("o que acontece se duas autoridades da raiz forem perdidas?");
+  assert.match(result.answer, /bloquead/i, "below threshold, continuity blocks");
+  assert.match(result.answer, /chave-mestra/i, "and the absence of a master key is stated, not implied");
 });

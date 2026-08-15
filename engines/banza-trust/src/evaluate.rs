@@ -50,10 +50,6 @@ fn present_nonempty(v: &Value, k: &str) -> bool {
         _ => false,
     }
 }
-fn major(version: &str) -> &str {
-    version.split('.').next().unwrap_or("")
-}
-
 /// A boundary violation: any input asserts an operator certificate, certification, licence, PSP status
 /// or human approval. Boolean claim flags OR affirmative phrasing (guarded against negation).
 fn boundary_violated(input: &Value) -> Option<String> {
@@ -227,7 +223,8 @@ pub fn evaluate_trust(input: &Value) -> Value {
     }
 
     let evaluated_at = s(input, "evaluated_at").unwrap_or("");
-    let evaluator_version = s(input, "evaluator_protocol_version").unwrap_or("1.0.0");
+    let evaluator_version =
+        s(input, "evaluator_protocol_version").unwrap_or(crate::PROTOCOL_VERSION);
     let root = obj(input, "trust_root_metadata");
     let dkey = obj(input, "delegated_signing_key");
     let meta = obj(input, "signed_protocol_metadata");
@@ -303,11 +300,12 @@ pub fn evaluate_trust(input: &Value) -> Value {
         .unwrap_or(false);
     let metadata_freshness_status = if freshness_ok { "VALID" } else { "EXPIRED" };
 
-    // Protocol version compatibility (same major).
+    // Protocol version compatibility: same major AND not ahead of this verifier. Comparing only the
+    // major accepted every unknown future release of the same line — see `protocol_version_compatible`.
     let compat_ok = meta
         .as_ref()
         .and_then(|m| s(m, "protocol_version"))
-        .map(|pv| major(pv) == major(evaluator_version))
+        .map(|pv| crate::protocol_version_compatible(pv, evaluator_version))
         .unwrap_or(false);
     let protocol_compatibility_status = if compat_ok { "VALID" } else { "INCOMPATIBLE" };
 

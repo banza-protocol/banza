@@ -2321,12 +2321,16 @@ BANZA não adopta.",
             "A Trust Root do BANZA é controlada por **três autoridades de assinatura independentes**. \
 Qualquer acção autorizada da raiz exige **duas assinaturas, de duas autoridades distintas** — 2-de-3. \
 Uma assinatura isolada nunca autoriza, e duas assinaturas da mesma autoridade contam como uma só. \
+Perdida, comprometida ou obstrutiva **uma** autoridade, as **duas sobreviventes** substituem-na sem a \
+sua participação; perdidas **duas**, a continuidade canónica fica **bloqueada** — uma só sobrevivente \
+não restaura a raiz, e não existe chave-mestra de emergência nem via de uma só parte (ADR-039). \
 O limiar é criptográfico e lógico: o número de dispositivos ou módulos de segurança é um controlo de \
 custódia e nunca define o limiar.",
             vec![c("trust"), c("ceremony"), c("gov")],
             Some(vec![
                 "Três autoridades independentes; duas assinam.",
                 "Uma sozinha nunca autoriza; duas da mesma autoridade contam como uma.",
+                "Perdida uma, as duas restantes substituem-na; perdidas duas, a raiz fica bloqueada.",
                 "O número de dispositivos não define o limiar.",
             ]),
             Some(vec!["Qual é o papel da Trust Root?", "O que acontece se uma autoridade ficar indisponível?"]));

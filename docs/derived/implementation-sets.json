@@ -13,16 +13,16 @@
   },
   "protocol_version": "1.0.0",
   "manifest_totals": {
-    "artifacts": 151,
-    "implementation": 91,
-    "conformance": 55,
+    "artifacts": 154,
+    "implementation": 93,
+    "conformance": 56,
     "legal": 3,
     "informative": 2
   },
   "edge_counts": {
     "profile_requires": 77,
     "schema_ref": 16,
-    "cites_normative": 280
+    "cites_normative": 291
   },
   "_closure_edges": [
     "profile_requires",
@@ -176,6 +176,13 @@
       "edge": "cites_normative",
       "kind": "normative",
       "reason": "conformance/vectors/reason-codes.json names spec/reason-codes.md in its own text"
+    },
+    {
+      "from": "conformance/vectors/root-authority-set.json",
+      "to": "spec/root-authority-set.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "conformance/vectors/root-authority-set.json names spec/root-authority-set.md in its own text"
     },
     {
       "from": "conformance/vectors/trust-freshness.json",
@@ -424,10 +431,10 @@
     },
     {
       "from": "contracts/invariants.json",
-      "to": "contracts/federation/key-manifest.json",
+      "to": "contracts/production/root-authority-set.production.schema.json",
       "edge": "cites_normative",
       "kind": "normative",
-      "reason": "contracts/invariants.json names contracts/federation/key-manifest.json in its own text"
+      "reason": "contracts/invariants.json names contracts/production/root-authority-set.production.schema.json in its own text"
     },
     {
       "from": "contracts/invariants.json",
@@ -449,6 +456,13 @@
       "edge": "cites_normative",
       "kind": "normative",
       "reason": "contracts/invariants.json names spec/federation/FEDERATION_INVARIANTS.md in its own text"
+    },
+    {
+      "from": "contracts/invariants.json",
+      "to": "spec/root-authority-set.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/invariants.json names spec/root-authority-set.md in its own text"
     },
     {
       "from": "contracts/openapi/collections.yaml",
@@ -1103,6 +1117,13 @@
     },
     {
       "from": "contracts/production/conformance-profiles.production.json",
+      "to": "contracts/production/root-authority-set.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names contracts/production/root-authority-set.production.schema.json in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
       "to": "contracts/production/root-backup-declaration.production.schema.json",
       "edge": "cites_normative",
       "kind": "normative",
@@ -1306,6 +1327,13 @@
     },
     {
       "from": "contracts/production/conformance-profiles.production.json",
+      "to": "spec/root-authority-set.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/conformance-profiles.production.json names spec/root-authority-set.md in its own text"
+    },
+    {
+      "from": "contracts/production/conformance-profiles.production.json",
       "to": "spec/trust-freshness.md",
       "edge": "cites_normative",
       "kind": "normative",
@@ -1401,6 +1429,13 @@
       "edge": "cites_normative",
       "kind": "normative",
       "reason": "contracts/production/journey-receipt.production.schema.json names spec/reason-codes.md in its own text"
+    },
+    {
+      "from": "contracts/production/key-manifest.production.schema.json",
+      "to": "spec/root-authority-set.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/key-manifest.production.schema.json names spec/root-authority-set.md in its own text"
     },
     {
       "from": "contracts/production/operation-receipt.production.schema.json",
@@ -1506,6 +1541,20 @@
       "edge": "cites_normative",
       "kind": "normative",
       "reason": "contracts/production/reason-code-registry.production.json names spec/validation-journey.md in its own text"
+    },
+    {
+      "from": "contracts/production/root-authority-set.production.schema.json",
+      "to": "spec/root-authority-set.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/root-authority-set.production.schema.json names spec/root-authority-set.md in its own text"
+    },
+    {
+      "from": "contracts/production/root-authority-set.production.schema.json",
+      "to": "spec/trust-freshness.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "contracts/production/root-authority-set.production.schema.json names spec/trust-freshness.md in its own text"
     },
     {
       "from": "contracts/production/root-ceremony-evidence.production.schema.json",
@@ -2607,6 +2656,27 @@
       "reason": "spec/refunds.md names spec/idempotency.md in its own text"
     },
     {
+      "from": "spec/root-authority-set.md",
+      "to": "contracts/production/root-authority-set.production.schema.json",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/root-authority-set.md names contracts/production/root-authority-set.production.schema.json in its own text"
+    },
+    {
+      "from": "spec/root-authority-set.md",
+      "to": "spec/canonicalization.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/root-authority-set.md names spec/canonicalization.md in its own text"
+    },
+    {
+      "from": "spec/root-authority-set.md",
+      "to": "spec/trust-freshness.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/root-authority-set.md names spec/trust-freshness.md in its own text"
+    },
+    {
       "from": "spec/trust-freshness.md",
       "to": "conformance/vectors/trust-freshness.json",
       "edge": "cites_normative",
@@ -2640,6 +2710,13 @@
       "edge": "cites_normative",
       "kind": "normative",
       "reason": "spec/trust-freshness.md names spec/reason-codes.md in its own text"
+    },
+    {
+      "from": "spec/trust-freshness.md",
+      "to": "spec/root-authority-set.md",
+      "edge": "cites_normative",
+      "kind": "normative",
+      "reason": "spec/trust-freshness.md names spec/root-authority-set.md in its own text"
     }
   ],
   "implementation_sets": [
@@ -3280,12 +3357,14 @@
       "contracts/production/protocol-governance-event.production.schema.json",
       "contracts/production/protocol-release.production.schema.json",
       "contracts/production/regulatory-state.production.schema.json",
+      "contracts/production/root-authority-set.production.schema.json",
       "contracts/production/root-backup-declaration.production.schema.json",
       "contracts/production/root-ceremony-evidence.production.schema.json",
       "contracts/production/root-custody-declaration.production.schema.json",
       "contracts/production/root-recovery-test.production.schema.json",
       "contracts/production/validation-journey-state-machine.production.json",
       "spec/refunds.md",
+      "spec/root-authority-set.md",
       "spec/validation-journey.md"
     ],
     "declared_but_absent_from_the_surface": [],
@@ -3308,12 +3387,14 @@
       "contracts/production/protocol-governance-event.production.schema.json",
       "contracts/production/protocol-release.production.schema.json",
       "contracts/production/regulatory-state.production.schema.json",
+      "contracts/production/root-authority-set.production.schema.json",
       "contracts/production/root-backup-declaration.production.schema.json",
       "contracts/production/root-ceremony-evidence.production.schema.json",
       "contracts/production/root-custody-declaration.production.schema.json",
       "contracts/production/root-recovery-test.production.schema.json",
       "contracts/production/validation-journey-state-machine.production.json",
       "spec/refunds.md",
+      "spec/root-authority-set.md",
       "spec/validation-journey.md"
     ],
     "unresolved_references": []

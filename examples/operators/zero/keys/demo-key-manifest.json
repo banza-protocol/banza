@@ -64,8 +64,8 @@
     ],
     "root_id": "banza-oz-root-2026",
     "root_signatures": [
-      "qpCXwdFrfwrOu1zPASFaOak_IhOicc5geQY1vXcBpsowBYCyasg8JYeZ_QSddQOKEi8RcwMIohj2ZADWfi3IAw",
-      "HEtYNCIG5TDi77YAVYhm87tskeqMT1cee9AMiTpVDlCU3VZJLpqGuzJLlx0X55v15vvP735bvuyi4gXS_2J7DA"
+      "Y-zksPRcMTZzonh22NYXs5SSyiMuPy-ACZbG6St6LatnWwATzCbCTqyHA1rM8U0rKYTKSJXsferjdfOB_J29Aw",
+      "k1f7NIHuWMJwtlwhW0qjSsX7Muguhz27QHGo0xfyIxHEv4YGF6tegD6UPioxMkKIUNqdOp9WJ4DHVz2Y_jpeCA"
     ],
     "scope": "signs only the Key Manifest that endorses the delegated signing keys (ADR-025)",
     "threshold_policy": {

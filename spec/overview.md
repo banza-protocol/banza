@@ -166,22 +166,26 @@ O invariante `INV-TRACE-001` impõe que todos os artefactos numa cadeia causal p
 
 ## Arquitectura de Confiança
 
-O BANZA define uma hierarquia de assinatura de 4 camadas:
+O BANZA define uma hierarquia de assinatura de 4 camadas, ancorada numa linhagem e não numa chave:
 
 ```
-Chave Raiz  (offline · cerimónia · INV-ROOT-001)
+Conjunto de Autoridades da Raiz  (três autoridades · limiar dois · offline)
+    │   génese fixado no verificador; cada conjunto seguinte é
+    ▼   autorizado pelo limiar do conjunto que sucede
+Manifesto de Chaves  (assinado por duas autoridades distintas do conjunto activo)
     ↓
-Chaves de Assinatura Delegadas  (por domínio · listadas pela raiz)
+Chaves de Assinatura Delegadas  (por domínio · listadas pelo manifesto)
     ↓
 Signed Protocol Metadata  (ed25519 · máximo 90 dias · ligada ao operador)
     ↓
 Manifestos de Operador  (assinados · públicos)
 ```
 
-Não existe autoridade de certificação. O trust é avaliado pela Open Trust Evaluation — signed protocol metadata → chaves delegadas → registo público → revocation/fail-closed. O BanzAI explica os critérios mas não certifica nem emite certificados. Os operadores fixam a chave raiz uma vez e usam-na para verificar todas as chaves delegadas e a signed protocol metadata subsequentes.
+Não existe autoridade de certificação. O trust é avaliado pela Open Trust Evaluation — signed protocol metadata → chaves delegadas → registo público → revocation/fail-closed. O BanzAI explica os critérios mas não certifica nem emite certificados. Os operadores fixam o **conjunto génese** uma vez; a partir daí a linhagem transporta a confiança, porque cada conjunto é autorizado pelo limiar do anterior. Uma autoridade pode assim ser substituída pelas duas sobreviventes sem que qualquer verificador tenha de voltar a fixar nada à mão.
 
 Ver [docs/reference/en/complete.md §Trust](../docs/reference/en/complete.md) para a especificação normativa.  
-Ver [ADR-025](../decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md) para a arquitectura da chave raiz (Trust Root offline, chaves de assinatura delegadas, manifesto de chaves assinado).
+Ver [ADR-025](../decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md) para a arquitectura da raiz (Trust Root offline, chaves de assinatura delegadas, manifesto de chaves assinado)
+e [`root-authority-set.md`](./root-authority-set.md) para a linhagem de conjuntos e a sucessão (ADR-039).
 
 ---
 

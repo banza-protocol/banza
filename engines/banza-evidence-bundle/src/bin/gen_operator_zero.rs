@@ -163,7 +163,10 @@ fn main() {
             .as_object_mut()
             .expect("hashes object")
             .remove("bundle_hash");
-        let h = canonical_sha256(&b, &[]);
+        // `canonical_sha256` returns a Result. Assigning it unwrapped serialised the hash as
+        // `{"Ok": "<digest>"}`, so `validate_bundle` reported the field missing and this generator
+        // could not complete — the reason the committed Operador Zero bundle went stale.
+        let h = canonical_sha256(&b, &[]).expect("BCJ/1: the bundle must be canonicalizable");
         bundle["hashes"]["bundle_hash"] = json!(h);
     }
     let vb = validate_bundle(&bundle.to_string());

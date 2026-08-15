@@ -898,3 +898,235 @@ mod oz_tests {
         }
     }
 }
+
+/// Deterministic TEST-ONLY vectors for the Root Authority Set lineage.
+///
+/// Emitted from the same signer and the same BCJ/1 path a verifier uses, so an independent
+/// implementation reproduces the digests and signatures rather than trusting a hand-written table.
+/// TEST material only — these keys are derived from fixed seeds and are never production keys.
+pub fn authority_set_vectors() -> String {
+    use banza_trust_authority_helpers::*;
+    serde_json::to_string_pretty(&build_authority_set_vectors()).unwrap()
+}
+
+#[doc(hidden)]
+mod banza_trust_authority_helpers {
+    use super::TestKeypair;
+    use crate::authority_set::set_digest;
+    use crate::canonical_bytes;
+    use serde_json::{json, Value};
+
+    fn kp(n: &str) -> TestKeypair {
+        TestKeypair::from_seed(n.as_bytes())
+    }
+
+    fn set(
+        seq: u64,
+        members: &[(&str, &TestKeypair)],
+        pred: Option<&Value>,
+        signers: &[(&str, &TestKeypair)],
+    ) -> Value {
+        let mut v = json!({
+            "schema_version": "1",
+            "set_sequence": seq,
+            "predecessor_digest": match pred { Some(p) => Value::String(set_digest(p).unwrap()), None => Value::Null },
+            "threshold": 2,
+            "authorities": members.iter().map(|(id, k)| json!({
+                "authority_id": id,
+                "public_key": format!("ed25519:{}", k.public_b64url),
+                "active_since": "2026-01-01T00:00:00Z"
+            })).collect::<Vec<_>>(),
+            "issued_at": "2026-01-01T00:00:00Z",
+            "expires_at": "2028-01-01T00:00:00Z",
+            "predecessor_signatures": []
+        });
+        let msg = canonical_bytes(&v, &["predecessor_signatures"]).unwrap();
+        v["predecessor_signatures"] = Value::Array(
+            signers
+                .iter()
+                .map(|(id, k)| json!({ "authority_id": id, "signature": k.sign_bytes(&msg) }))
+                .collect(),
+        );
+        v
+    }
+
+    pub fn build_authority_set_vectors() -> Value {
+        let (a, b, c, d) = (kp("alpha"), kp("beta"), kp("gamma"), kp("delta"));
+        let (x, y, z) = (kp("x"), kp("y"), kp("z"));
+        let g = set(0, &[("alpha", &a), ("beta", &b), ("gamma", &c)], None, &[]);
+        let g_digest = set_digest(&g).unwrap();
+
+        let ok_replace_c = set(
+            1,
+            &[("alpha", &a), ("beta", &b), ("delta", &d)],
+            Some(&g),
+            &[("alpha", &a), ("beta", &b)],
+        );
+        let one_signer = set(
+            1,
+            &[("alpha", &a), ("beta", &b), ("delta", &d)],
+            Some(&g),
+            &[("alpha", &a)],
+        );
+        let dup_signer = set(
+            1,
+            &[("alpha", &a), ("beta", &b), ("delta", &d)],
+            Some(&g),
+            &[("alpha", &a), ("alpha", &a)],
+        );
+        let mut self_signed = set(1, &[("x", &x), ("y", &y), ("z", &z)], Some(&g), &[]);
+        let msg = canonical_bytes(&self_signed, &["predecessor_signatures"]).unwrap();
+        self_signed["predecessor_signatures"] = json!([
+            { "authority_id": "x", "signature": x.sign_bytes(&msg) },
+            { "authority_id": "y", "signature": y.sign_bytes(&msg) }
+        ]);
+
+        // ── the cases an implementation passes by accident unless it is tested for them ──
+        //
+        // A verifier that checks "two valid signatures from the predecessor" and stops accepts every
+        // one of these. Each is a distinct way to break the lineage while looking correct.
+
+        // Names a predecessor that is not the active set.
+        let mut wrong_predecessor = ok_replace_c.clone();
+        wrong_predecessor["predecessor_digest"] =
+            json!("1111111111111111111111111111111111111111111111111111111111111111");
+        let msg = canonical_bytes(&wrong_predecessor, &["predecessor_signatures"]).unwrap();
+        wrong_predecessor["predecessor_signatures"] = json!([
+            { "authority_id": "alpha", "signature": a.sign_bytes(&msg) },
+            { "authority_id": "beta",  "signature": b.sign_bytes(&msg) }
+        ]);
+
+        // Jumps a position: a verifier that only checks "greater than" lets the lineage skip a link.
+        let skipped_sequence = set(
+            2,
+            &[("alpha", &a), ("beta", &b), ("delta", &d)],
+            Some(&g),
+            &[("alpha", &a), ("beta", &b)],
+        );
+
+        // Signed by a key that belongs to no authority of the predecessor.
+        let unknown_signer = set(
+            1,
+            &[("alpha", &a), ("beta", &b), ("delta", &d)],
+            Some(&g),
+            &[("alpha", &a), ("x", &x)],
+        );
+
+        // The active set after a real succession, and the authority it removed.
+        let active_after = ok_replace_c.clone();
+        let removed_authority_signs = set(
+            2,
+            &[("alpha", &a), ("beta", &b), ("x", &x)],
+            Some(&active_after),
+            &[("gamma", &c), ("alpha", &a)],
+        );
+
+        // Two different successors at the SAME position, each individually authorised.
+        let conflicting_successor = set(
+            1,
+            &[("alpha", &a), ("gamma", &c), ("x", &x)],
+            Some(&g),
+            &[("alpha", &a), ("gamma", &c)],
+        );
+
+        // Key Manifest under the active set, and under authorities that are no longer current.
+        let manifest = |signers: &[(&str, &TestKeypair)], under: &Value| -> Value {
+            let mut m = json!({
+                "manifest_version": "1",
+                "protocol_version": "1.0.0",
+                "root_authority_set": {
+                    "set_sequence": under["set_sequence"].clone(),
+                    "digest": set_digest(under).unwrap()
+                },
+                "keys": [],
+                "marker": super::TEST_ONLY_MARKER,
+                "root_signatures": []
+            });
+            let msg = canonical_bytes(&m, &["root_signatures"]).unwrap();
+            m["root_signatures"] = Value::Array(
+                signers
+                    .iter()
+                    .map(|(id, k)| json!({ "authority_id": id, "signature": k.sign_bytes(&msg) }))
+                    .collect(),
+            );
+            m
+        };
+        let manifest_ok = manifest(&[("alpha", &a), ("delta", &d)], &active_after);
+        let manifest_stale_authority = manifest(&[("alpha", &a), ("gamma", &c)], &active_after);
+
+        json!({
+            "_spec": "BANZA Root Authority Set — conformance vectors",
+            "_status": "NORMATIVE",
+            "_authority": "spec/root-authority-set.md",
+            "_note": "TEST-ONLY keys from fixed seeds. Never production material.",
+            "protocol_version": "1.0.0",
+            "pinned_genesis_digest": g_digest,
+            "genesis": g,
+            "vectors": [
+                { "id": "RAS-001", "title": "genesis accepted against the pinned digest",
+                  "kind": "genesis", "expect": "accept", "set": "genesis", "pinned_digest": g_digest },
+                { "id": "RAS-002", "title": "genesis rejected when the digest is not the pinned one",
+                  "kind": "genesis", "expect": "reject", "set": "genesis",
+                  "pinned_digest": "0000000000000000000000000000000000000000000000000000000000000000" },
+                { "id": "RAS-003", "title": "trust on first use is refused",
+                  "kind": "genesis", "expect": "reject", "set": "genesis", "pinned_digest": "" },
+                { "id": "RAS-004", "title": "A+B replace C", "kind": "successor", "expect": "accept",
+                  "active": "genesis", "candidate": ok_replace_c },
+                { "id": "RAS-005", "title": "one signature does not authorise a successor",
+                  "kind": "successor", "expect": "reject", "active": "genesis", "candidate": one_signer },
+                { "id": "RAS-006", "title": "one authority signing twice is one approval",
+                  "kind": "successor", "expect": "reject", "active": "genesis", "candidate": dup_signer },
+                { "id": "RAS-007", "title": "a set signed only by its own authorities authorises nothing",
+                  "kind": "successor", "expect": "reject", "active": "genesis", "candidate": self_signed },
+                { "id": "RAS-008", "title": "a successor naming the wrong predecessor is rejected",
+                  "kind": "successor", "expect": "reject", "active": "genesis", "candidate": wrong_predecessor },
+                { "id": "RAS-009", "title": "a skipped sequence is rejected",
+                  "kind": "successor", "expect": "reject", "active": "genesis", "candidate": skipped_sequence },
+                { "id": "RAS-010", "title": "an unknown signer contributes nothing to the threshold",
+                  "kind": "successor", "expect": "reject", "active": "genesis", "candidate": unknown_signer },
+                { "id": "RAS-011", "title": "an authority removed by an earlier succession no longer authorises",
+                  "kind": "successor", "expect": "reject", "active": ok_replace_c.clone(),
+                  "candidate": removed_authority_signs },
+                { "id": "RAS-012", "title": "the same set at the same position is an idempotent replay",
+                  "kind": "ordering", "expect": "replay", "observed": ok_replace_c.clone(),
+                  "candidate": ok_replace_c.clone() },
+                { "id": "RAS-013", "title": "a different set at the same position is equivocation, not a race",
+                  "kind": "ordering", "expect": "equivocation", "observed": ok_replace_c.clone(),
+                  "candidate": conflicting_successor },
+                { "id": "RAS-014", "title": "a superseded set presented again is a rollback",
+                  "kind": "ordering", "expect": "rollback", "observed": ok_replace_c.clone(),
+                  "candidate": g.clone() },
+                { "id": "RAS-015", "title": "the Key Manifest is authorised by two distinct current authorities",
+                  "kind": "key_manifest", "expect": "accept", "active": ok_replace_c.clone(),
+                  "candidate": manifest_ok },
+                { "id": "RAS-016", "title": "a Key Manifest signed by a no-longer-current authority is rejected",
+                  "kind": "key_manifest", "expect": "reject", "active": ok_replace_c.clone(),
+                  "candidate": manifest_stale_authority }
+            ]
+        })
+    }
+}
+
+/// Regenerate the public signing vectors (`conformance/vectors/trust-signing.json`) from the same
+/// `scenarios()` the engine tests drive.
+///
+/// The vectors carry REAL signatures over real content, so any change to the signed body — the protocol
+/// version among it — invalidates every signature in the file. Deriving the published file from the
+/// engine rather than editing it by hand is what keeps "what implementers validate against" and "what
+/// the engine produces" the same thing.
+pub fn signing_vectors() -> String {
+    let cases: Vec<Value> = scenarios()
+        .into_iter()
+        .map(|(key, label, expected, input)| {
+            json!({ "expected": expected, "input": input, "key": key, "label": label })
+        })
+        .collect();
+    let out = json!({
+        "_note": "Public cryptographic trust vectors for BANZA 1.0. Deterministic TEST-ONLY trust material (trust root metadata with a 2-of-3 threshold signature, delegated signing keys, signed protocol metadata, operator manifest, conformance evidence, public registry entry, revocation status) with fixed derivation inputs. Each case carries the expected trust status. These are the vectors an independent implementation uses to validate its Ed25519 signature verification against known-good material; unlike the federation fixtures, they carry real signatures, not placeholders. Public key material only; no confidential key material of any kind is present.",
+        "scheme": "spec/canonicalization.md (BCJ/1) for the signed bytes + Ed25519 (RFC 8032) + base64url without padding; domain-separated delegated keys per ADR-025; root anchored by a threshold of pinned root signatures (ADR-025, ADR-039). Trust status is computed fail-closed.",
+        "model": "signed protocol metadata + delegated signing keys + operator manifest + conformance evidence + public protocol registry + revocation/fail-closed",
+        "cases": cases,
+        "canonicalization": "BCJ/1",
+    });
+    serde_json::to_string_pretty(&out).expect("vectors serialise") + "\n"
+}

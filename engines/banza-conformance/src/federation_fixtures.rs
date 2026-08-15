@@ -41,6 +41,8 @@ const SUPPORTED_FEDERATION_VERSION: &str = "1";
 const REQUIRED_CONFORMANCE_SCOPE: i64 = 3;
 /// The full set of issuer key ids the active Key Manifest is expected to carry.
 const EXPECTED_KEY_IDS: &[&str] = &["test-banza-key-2026-05", "test-banza-key-2027-01"];
+/// Root threshold: two distinct authorities of three (ADR-039).
+const ROOT_THRESHOLD: usize = 2;
 /// Recipient wallets that exist on the peer and are active.
 const ACTIVE_WALLETS: &[&str] = &["wallet-payee-test-001"];
 /// Recipient wallets that exist on the peer but are suspended.
@@ -311,7 +313,41 @@ fn eval_key_manifest(km: &Value) -> Eval {
             );
         }
     }
-    Eval::accepted("Key Manifest carries the full expected active issuer key set")
+    // The manifest must name the Root Authority Set that authorised it and carry approvals from at
+    // least the threshold of DISTINCT authorities. This is the structural half of the check: whether
+    // those signatures verify is decided by the trust engine, and the succession properties are
+    // exercised as vectors in `conformance/vectors/root-authority-set.json`. What is caught here is
+    // drift of the fixture back to the v1.0.0 shape — a single `signature` from "the root key".
+    if km
+        .get("root_authority_set")
+        .and_then(|s| s.get("digest"))
+        .is_none()
+    {
+        return Eval::rejected(
+            "manifest_not_set_anchored",
+            "Key Manifest does not name the Root Authority Set that authorised it",
+        );
+    }
+    let distinct: BTreeSet<String> = km
+        .get("root_signatures")
+        .and_then(|s| s.as_array())
+        .map(|a| {
+            a.iter()
+                .map(|s| as_str(s, "authority_id").to_string())
+                .filter(|s| !s.is_empty())
+                .collect()
+        })
+        .unwrap_or_default();
+    if distinct.len() < ROOT_THRESHOLD {
+        return Eval::rejected(
+            "below_root_threshold",
+            "Key Manifest is not approved by the threshold of distinct Root authorities",
+        );
+    }
+    Eval::accepted(
+        "Key Manifest carries the full expected active issuer key set, \
+         approved by the threshold of distinct Root authorities",
+    )
 }
 
 /// Evaluate a BRL for the property the case queries. Different FED-TRUST cases probe the SAME kind of

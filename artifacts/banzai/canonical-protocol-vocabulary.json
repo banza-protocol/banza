@@ -5,31 +5,31 @@
     "principle": "The vocabulary is a semantic registry of real protocol terms derived from the engine's own registries + closed protocol sets; corpus terms are candidates (Phase 1), lexical noise never enters here."
   },
   "source_registry": {
-    "total": 417,
+    "total": 421,
     "by_type": {
       "root-doc": 9,
-      "conformance": 80,
-      "schema": 85,
+      "conformance": 81,
+      "schema": 86,
       "contract": 48,
       "openapi": 11,
-      "adr": 39,
+      "adr": 40,
       "rfc": 7,
       "doc": 58,
       "example": 48,
-      "spec": 32
+      "spec": 33
     },
     "by_status": {
-      "current": 417
+      "current": 421
     },
     "by_authority_class": {
-      "current": 369,
+      "current": 373,
       "illustrative": 48
     },
     "by_language": {
-      "pt-or-neutral": 417
+      "pt-or-neutral": 421
     },
     "by_origin": {
-      "authored": 417,
+      "authored": 421,
       "generated": 0
     },
     "duplicates": [
@@ -387,7 +387,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "2811597e23cfaf86"
+        "checksum": "64dcf1d06fccc0a3"
       },
       {
         "id": "security-md",
@@ -519,7 +519,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "779a5864df66d71e"
+        "checksum": "c3c692beb9298535"
       },
       {
         "id": "conformance-fixtures-federation-key-manifest-valid-json",
@@ -530,7 +530,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "b7ae0cbe7a1bc9b3"
+        "checksum": "1cafa95b375bd10a"
       },
       {
         "id": "conformance-fixtures-federation-manifest-b-no-federation-json",
@@ -1025,7 +1025,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "6016d37f628d0a67"
+        "checksum": "1e3510b306da1840"
       },
       {
         "id": "conformance-package-conformance-vectors-wallet-balances-json",
@@ -1245,7 +1245,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "ed45855dc4b520e9"
+        "checksum": "7f6bc402ab405e87"
       },
       {
         "id": "conformance-package-contracts-openapi-activity-yaml",
@@ -1421,7 +1421,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "b5bbc4d2f8c0aacc"
+        "checksum": "26cf45b99649eab1"
       },
       {
         "id": "conformance-package-contracts-production-operator-manifest-production-schema-json",
@@ -1454,7 +1454,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "0fcf788dba1752e6"
+        "checksum": "68ac7cceef0118ee"
       },
       {
         "id": "conformance-package-contracts-production-public-protocol-registry-production-schema-json",
@@ -1652,7 +1652,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "325908cdd9552b13"
+        "checksum": "be6a8a8f575826be"
       },
       {
         "id": "conformance-qr-suite-json",
@@ -1820,6 +1820,17 @@
         "checksum": "c20a009fa9d82148"
       },
       {
+        "id": "conformance-vectors-root-authority-set-json",
+        "path": "conformance/vectors/root-authority-set.json",
+        "type": "conformance",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "ee5607111700e1c6"
+      },
+      {
         "id": "conformance-vectors-settlement-batches-json",
         "path": "conformance/vectors/settlement-batches.json",
         "type": "conformance",
@@ -1861,7 +1872,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "6016d37f628d0a67"
+        "checksum": "1e3510b306da1840"
       },
       {
         "id": "conformance-vectors-wallet-balances-json",
@@ -2103,7 +2114,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "ed45855dc4b520e9"
+        "checksum": "7f6bc402ab405e87"
       },
       {
         "id": "contracts-openapi-activity-yaml",
@@ -2312,7 +2323,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "2de21ca28f815e75"
+        "checksum": "5c4df3c90cab6430"
       },
       {
         "id": "contracts-production-conformance-profiles-production-schema-json",
@@ -2466,7 +2477,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "b5bbc4d2f8c0aacc"
+        "checksum": "26cf45b99649eab1"
       },
       {
         "id": "contracts-production-normative-manifest-json",
@@ -2477,7 +2488,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "319a8f069b3e84ca"
+        "checksum": "66ed4e2a5840dc4c"
       },
       {
         "id": "contracts-production-operation-receipt-production-schema-json",
@@ -2554,7 +2565,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "0fcf788dba1752e6"
+        "checksum": "68ac7cceef0118ee"
       },
       {
         "id": "contracts-production-public-protocol-registry-production-schema-json",
@@ -2599,6 +2610,17 @@
         "generated": false,
         "public_eligible": true,
         "checksum": "e9ab64b69829683f"
+      },
+      {
+        "id": "contracts-production-root-authority-set-production-schema-json",
+        "path": "contracts/production/root-authority-set.production.schema.json",
+        "type": "schema",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "d8cacdaabab6e1cf"
       },
       {
         "id": "contracts-production-root-backup-declaration-production-schema-json",
@@ -2939,7 +2961,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "b6fb88d7d070b52b"
+        "checksum": "a30eaa53022e9a7e"
       },
       {
         "id": "decisions-adr-adr-009-licence-trademark-and-open-governance-md",
@@ -3137,7 +3159,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "26da401e86d362e6"
+        "checksum": "d7455c726f1e95d8"
       },
       {
         "id": "decisions-adr-adr-027-signing-keys-never-on-serving-infrastructure-md",
@@ -3272,6 +3294,17 @@
         "checksum": "b1140b92fd331046"
       },
       {
+        "id": "decisions-adr-adr-039-root-authority-set-and-succession-md",
+        "path": "decisions/adr/ADR-039-root-authority-set-and-succession.md",
+        "type": "adr",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "a744c12652f27e5d"
+      },
+      {
         "id": "decisions-adr-readme-md",
         "path": "decisions/adr/README.md",
         "type": "adr",
@@ -3280,7 +3313,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "76ed3e505b910e06"
+        "checksum": "712e4bdd6014533b"
       },
       {
         "id": "decisions-rfc-readme-md",
@@ -3654,7 +3687,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "91da39b0371d762b"
+        "checksum": "0e0976c0535d485f"
       },
       {
         "id": "docs-governance-claude-base-md",
@@ -4171,7 +4204,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "cdc2eec6a02d9d6e"
+        "checksum": "715ac519dad37270"
       },
       {
         "id": "examples-operators-zero-evidence-bundle-evidence-bundle-invalid-json",
@@ -4281,7 +4314,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "8d1b274b094927f4"
+        "checksum": "eebaaa3a9a15b953"
       },
       {
         "id": "examples-operators-zero-keys-demo-key-manifest-revoked-json",
@@ -4820,7 +4853,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "4d76b0d48c764f32"
+        "checksum": "398c8c5a55bfb394"
       },
       {
         "id": "spec-payment-lifecycle-md",
@@ -4878,6 +4911,17 @@
         "checksum": "f6dec098c27f5088"
       },
       {
+        "id": "spec-root-authority-set-md",
+        "path": "spec/root-authority-set.md",
+        "type": "spec",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "ce008ea6a6b27f17"
+      },
+      {
         "id": "spec-tracing-md",
         "path": "spec/tracing.md",
         "type": "spec",
@@ -4897,7 +4941,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "d693e135b9b19790"
+        "checksum": "8e00bded5be0d0b0"
       },
       {
         "id": "spec-validation-journey-md",
@@ -4929,7 +4973,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "0400879d298253ae"
+    "checksum": "bee43aef1389b238"
   },
   "subjects": [
     {
@@ -5689,6 +5733,12 @@
     {
       "id": "ADR-038",
       "path": "decisions/adr/ADR-038-rust-first-official-engines.md",
+      "status": "current",
+      "classification": "DOCUMENT_INSTANCE"
+    },
+    {
+      "id": "ADR-039",
+      "path": "decisions/adr/ADR-039-root-authority-set-and-succession.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
@@ -7928,7 +7978,7 @@
   "counts": {
     "subjects": 21,
     "document_types": 12,
-    "document_instances": 44,
+    "document_instances": 45,
     "artifact_types": 18,
     "aliases": 248,
     "relation_kinds": 11,
@@ -7940,5 +7990,5 @@
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "7d59c3e7c968fdce"
+  "checksum": "fbbcc7b88003ed1c"
 }

@@ -22,6 +22,8 @@ use serde_json::Value;
 
 pub const RUNNER: &str = "banza-conformance-rs";
 pub const RUNNER_VERSION: &str = "0.1.0";
+/// The protocol version this runner reports. Bound to `contracts/production/protocol-version.json`
+/// by `protocol_version_matches_the_normative_contract`.
 pub const PROTOCOL_VERSION: &str = "1.0.0";
 
 /// The public meaning of PASS — repeated in every report. Do not weaken.

@@ -400,6 +400,13 @@
       "artifacts": [
         "spec/refunds.md"
       ]
+    },
+    "root_trust_plane": {
+      "reason": "These define the ROOT TRUST PLANE — who may exercise Root authority and how a successor set is authorised. A verifier anchors the lineage before any profile applies, and no profile requires an implementation to PRODUCE a Root Authority Set: the Root is the protocol's, not an implementation's. Placing them in a profile would tell an implementer to mint their own root.",
+      "artifacts": [
+        "contracts/production/root-authority-set.production.schema.json",
+        "spec/root-authority-set.md"
+      ]
     }
   },
   "_vector_applicability_note": "`required_vector_cases` states WHICH cases of a required vector file a profile must satisfy. It exists because listing a file was not the same as requiring all of it: conformance/vectors/reason-codes.json carries both the reason-code grammar, which every profile needs, and cases about failed_checks, trust_status, receipt equivalence and per-step engine statuses, which only arise in trust evaluation. \"ALL\" means every case in the file. A list means those case ids and no others. This declares applicability only: no vector file is split, renamed or rewritten, and the case grammars are untouched.",

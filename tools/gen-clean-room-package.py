@@ -40,6 +40,15 @@ ALWAYS = [
     ('contracts/production/conformance-profiles.production.json', 'what each profile requires'),
     ('contracts/production/conformance-profiles.production.schema.json', 'its shape'),
     ('docs/guides/implement-l0.md', 'a map to the L0 set; states no requirement of its own'),
+    # The root trust plane is not scoped to a profile — it is the anchor every profile's trust
+    # evaluation starts from, so it belongs in every package regardless of level. Classifying it as
+    # non-profile (which it is, for applicability) had silently dropped it from the closure, leaving a
+    # package from which succession could not be determined at all.
+    ('spec/root-authority-set.md', 'who may exercise Root authority, and how that changes'),
+    ('contracts/production/root-authority-set.production.schema.json', 'the shape of an authority set'),
+    ('contracts/production/key-manifest.production.schema.json', 'what the active set authorises'),
+    ('conformance/vectors/root-authority-set.json', 'the succession vectors, with real signatures'),
+    ('spec/trust-freshness.md', 'ordering, rollback and equivocation across trust artifacts'),
 ]
 
 # Explicitly excluded, and asserted by the guard rather than trusted. Listed so the exclusion is a

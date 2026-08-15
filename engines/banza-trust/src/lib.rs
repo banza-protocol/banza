@@ -12,6 +12,7 @@
 //! certifies or approves an operator, and carries no real key. It verifies TEST-ONLY fixtures. The full
 //! evaluation lives in [`evaluate`]; the deterministic TEST-ONLY signer lives in [`sign`].
 
+pub mod authority_set;
 pub mod canonical;
 pub mod evaluate;
 pub mod execution;
@@ -27,6 +28,54 @@ use ed25519_dalek::{Signature, VerifyingKey};
 use serde::Serialize;
 use serde_json::Value;
 use sha2::{Digest, Sha256};
+
+/// The protocol version this verifier evaluates against. Bound to
+/// `contracts/production/protocol-version.json` by `protocol_version_matches_the_normative_contract`
+/// — the version must never be restated independently in an engine, which is how 1.0.0 and 2.0.0
+/// would drift apart.
+pub const PROTOCOL_VERSION: &str = "1.0.0";
+
+/// Parse a protocol version into `(major, minor, patch)`.
+///
+/// Exactly three dot-separated non-negative integers. `"1"`, `"1.x"`, `"1.0"`, `"1.0.0-rc1"` and
+/// anything with a leading `+`/`-` are not versions and parse to `None` — a verifier that accepted them
+/// would be deciding compatibility against a string it does not understand.
+pub fn parse_protocol_version(v: &str) -> Option<(u64, u64, u64)> {
+    let mut it = v.split('.');
+    let (a, b, c) = (it.next()?, it.next()?, it.next()?);
+    if it.next().is_some() {
+        return None;
+    }
+    let num = |p: &str| -> Option<u64> {
+        if p.is_empty() || !p.bytes().all(|x| x.is_ascii_digit()) {
+            return None;
+        }
+        p.parse().ok()
+    };
+    Some((num(a)?, num(b)?, num(c)?))
+}
+
+/// Is a document declaring `declared` compatible with a verifier implementing `verifier`?
+///
+/// **Same major, and not ahead of the verifier.**
+///
+/// The same-major half is ordinary SemVer. The second half is the part that is easy to get wrong, and
+/// this implementation did get it wrong: it compared only the major, so a verifier at 1.0.0 accepted a
+/// document declaring 1.0.1, 1.5.0 or 1.999.0 — versions that did not exist and whose contents it could
+/// not possibly know. A future release must not become trusted merely by starting with the right number.
+/// Compatibility with a later version is a statement only that later version can make.
+///
+/// The reverse direction stays open, which is the direction SemVer actually promises: a verifier at
+/// 1.5.0 accepts documents declaring 1.0.0, because the additions were backward compatible.
+pub fn protocol_version_compatible(declared: &str, verifier: &str) -> bool {
+    match (
+        parse_protocol_version(declared),
+        parse_protocol_version(verifier),
+    ) {
+        (Some(d), Some(v)) => d.0 == v.0 && d <= v,
+        _ => false,
+    }
+}
 
 pub const VERIFIER: &str = "banza-trust";
 pub const VERIFIER_VERSION: &str = "0.2.0";
@@ -162,9 +211,15 @@ pub fn verify_revocation_list(list: &Value, revocation_key_public_b64url: &str) 
     verify_signed_doc("revocation_list", list, revocation_key_public_b64url)
 }
 
-/// Verify a Key Manifest signature under the trust root's public key.
-pub fn verify_key_manifest(manifest: &Value, root_public_key_b64url: &str) -> TrustResult {
-    verify_signed_doc("key_manifest", manifest, root_public_key_b64url)
+/// Verify a Key Manifest under the **active Root Authority Set**.
+///
+/// v1.0.0 verified the manifest under a single root public key, which left the 2-of-3 model with no
+/// runtime expression at all: the threshold existed in ceremony documents and nowhere in the chain a
+/// verifier actually walks. The manifest is now authorised by at least `THRESHOLD` distinct authorities
+/// of the active set (`INV-ROOT-002`), which is what makes "no single authority controls the Root" true
+/// of the protocol rather than of a procedure.
+pub fn verify_key_manifest(manifest: &Value, active_set: &Value) -> TrustResult {
+    authority_set::verify_key_manifest_under_set(manifest, active_set)
 }
 
 /// Verify a conformance-evidence package: signature nested at `package_signature.signature`; the signed

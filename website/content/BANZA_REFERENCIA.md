@@ -598,7 +598,7 @@ O Registo Técnico pode ajudar a **localizar** uma implementação, a sua origem
 
 ### A Raiz de Confiança e as chaves delegadas
 
-No topo da cadeia está a **Raiz de Confiança** (*Trust Root*): a âncora que cada implementação conforme fixa uma vez e usa para verificar todo o material subsequente. A raiz é gerada offline, mantida em custódia repartida por limiar — nenhuma pessoa isolada a reconstrói — e nunca toca no caminho operacional. O seu âmbito é deliberadamente estreito: **assina apenas o Manifesto de Chaves.** Não assina metadata de operadores, revogações ou evidência, e — o ponto que governa todo o capítulo — **não autoriza operadores, não emite licença e não autoriza pagamentos.** A Raiz de Confiança não é uma autoridade certificadora sobre operadores; é a origem verificável de uma cadeia de assinaturas (ADR-025).
+No topo da cadeia está a **Raiz de Confiança** (*Trust Root*): a âncora que cada implementação conforme fixa e usa para verificar todo o material subsequente. A raiz é gerada offline, mantida em custódia repartida por limiar — nenhuma pessoa isolada a reconstrói — e nunca toca no caminho operacional. O seu âmbito é deliberadamente estreito: **assina apenas o Manifesto de Chaves e o conjunto de autoridades que a sucede.** Não assina metadata de operadores, revogações ou evidência, e — o ponto que governa todo o capítulo — **não autoriza operadores, não emite licença e não autoriza pagamentos.** A Raiz de Confiança não é uma autoridade certificadora sobre operadores; é a origem verificável de uma cadeia de assinaturas (ADR-025).
 
 A raiz não é uma chave única guardada por alguém. São **três autoridades de assinatura independentes**,
 e qualquer acção autorizada da raiz exige **duas assinaturas de duas delas**. Uma assinatura isolada
@@ -607,6 +607,20 @@ comprometimento de uma chave não basta, e a indisponibilidade de uma das três 
 
 O limiar é criptográfico e lógico. Quantos dispositivos existem, onde estão guardados e como o material
 é transportado são controlos de custódia, que podem mudar sem redefinir a autoridade do protocolo.
+
+O que é fixado nos verificadores não é uma chave: é o **conjunto génese** de autoridades. A partir dele,
+a raiz avança como uma linhagem — cada conjunto de autoridades é autorizado pelo limiar do conjunto que
+sucede, nomeando-o por digest. A distinção não é formal. Um conjunto assinado pelas suas próprias chaves
+prova apenas que duas chaves nele nomeadas concordam entre si, coisa que qualquer pessoa produz sobre
+chaves que gerou há um instante; o que tem de ser provado é que o conjunto **já confiado** autorizou este.
+
+Daqui decorre a continuidade. Se uma autoridade for perdida, comprometida ou se recusar a colaborar, as
+duas restantes autorizam um conjunto sucessor que a substitui — sem a sua participação, porque exigi-la
+tornaria o caminho 3-de-3 e daria-lhe um direito de veto. Se restar menos do que o limiar, a continuidade
+canónica fica bloqueada e assim permanece: não existe chave-mestra de emergência nem via de recuperação
+por uma só parte. Uma porta dessas seria um caminho unipessoal para a autoridade máxima do protocolo —
+exactamente o que o limiar existe para impedir — e seria mais perigosa do que a perda contra a qual
+protegeria.
 
 Dessa raiz derivam **chaves delegadas de assinatura**, de validade curta e âmbito limitado, cada uma restrita a um único domínio:
 
@@ -622,7 +636,7 @@ Todo este material assenta num mecanismo de assinatura único, documentado e aud
 
 ### O Manifesto de Chaves
 
-O **Manifesto de Chaves** é o documento público que a Raiz de Confiança assina para declarar quais as chaves delegadas activas, cada uma com o seu domínio, a sua validade e o seu estado. É o único elo que a raiz assina directamente, e é a partir dele que qualquer parte decide se uma chave delegada é reconhecida. A sua localização canónica é um caminho bem conhecido em `banza.network`; a fonte de verdade é o próprio manifesto assinado, não qualquer biblioteca que o copie.
+O **Manifesto de Chaves** é o documento público que a Raiz de Confiança assina para declarar quais as chaves delegadas activas, cada uma com o seu domínio, a sua validade e o seu estado. É assinado por duas autoridades distintas do conjunto activo, e é a partir dele que qualquer parte decide se uma chave delegada é reconhecida. Está deliberadamente separado do conjunto de autoridades: as chaves delegadas rodam com frequência e as autoridades raramente, e juntar os dois num só documento obrigaria a convocar o limiar da raiz para cada delegação de rotina. Um limiar que tem de ser convocado constantemente acaba por ser contornado, e a propriedade de segurança erodir-se-ia por pressão operacional, não por ataque. A sua localização canónica é um caminho bem conhecido em `banza.network`; a fonte de verdade é o próprio manifesto assinado, não qualquer biblioteca que o copie.
 
 Uma implementação fixa o manifesto no momento do lançamento e pode mantê-lo em cache para verificação offline. Mas a cache é conveniência, não autoridade: um manifesto expirado deixa de ser aceitável, e a implementação passa a rejeitar o material de confiança que dele dependia até o manifesto ser renovado. Confiar num manifesto é confiar na assinatura da raiz sobre ele — nunca na sua mera presença num servidor.
 

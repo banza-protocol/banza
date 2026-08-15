@@ -9,8 +9,8 @@
 //!
 //! Scope (M2.18B.7): the BANZA protocol's creation year/date is DECLARED (NOTICE + MAINTAINERS:
 //! 01/08/2025) — answered as an exact fact, consistent with the `protocol-origin` provenance entry. The
-//! protocol version is NOT declared as a single value (the protocol is defined by its ADRs/RFCs/specs) —
-//! answered as a precise NOT_DECLARED message. Pure, total, deterministic; no model, no I/O.
+//! protocol version is DECLARED in the normative manifest and answered as an exact fact. Pure, total,
+//! deterministic; no model, no I/O.
 
 use crate::normalize;
 use crate::reason::ReasonCode;
@@ -225,7 +225,7 @@ mod tests {
     }
 
     #[test]
-    fn protocol_version_is_declared_as_one_point_zero() {
+    fn protocol_version_is_declared_and_stated_exactly() {
         for q in [
             "qual a versão do BANZA?",
             "qual é a versão do protocolo BANZA?",
@@ -252,7 +252,7 @@ mod tests {
 
     #[test]
     fn only_the_protocol_has_a_declared_version() {
-        // BanzAI and Banzami declare none, and the answer must not let 1.0.0 leak onto them.
+        // BanzAI and Banzami declare none, and the answer must not let the protocol version leak onto them.
         for q in ["qual a versão do BanzAI?", "qual a versão da Banzami?"] {
             let a = resolve_attribute_query(q).unwrap();
             assert_eq!(a.status, "NOT_DECLARED", "{q}");

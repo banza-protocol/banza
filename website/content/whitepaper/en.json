@@ -242,7 +242,7 @@
         },
         {
           "t": "p",
-          "text": "Identity and integrity rest on published keys and signed metadata. A trust root, kept offline, signs only the Key Manifest with Ed25519 [6]; that manifest authorises delegated keys separated by domain, which sign the corresponding artifacts. Revocation and validity control reject revoked or expired material."
+          "text": "Identity and integrity rest on published keys and signed metadata. The trust root is not a key: it is a set of three independent authorities, kept offline, where any authorised action requires two of them. The set advances as a lineage — the genesis set is accepted only against a digest the verifier was explicitly given, and every later set is authorised by the threshold of the set it succeeds, naming it by digest. A set signed by its own keys authorises nothing. Continuity follows: if an authority is lost, compromised or obstructive, the remaining two replace it without its participation; below the threshold, canonical continuity is blocked, with no single-party recovery key. The active set signs the Key Manifest with Ed25519 [6]; that manifest authorises delegated keys separated by domain, which sign the corresponding artifacts. Revocation and validity control reject revoked or expired material."
         },
         {
           "t": "p",

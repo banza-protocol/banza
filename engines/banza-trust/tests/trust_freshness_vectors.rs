@@ -197,12 +197,16 @@ fn the_signing_input_exclusion_is_a_real_member_of_each_contract() {
         "../../../contracts/production/signed-protocol-metadata.production.schema.json"
     );
 
-    // The Key Manifest carries its threshold signatures on the root metadata it is anchored to, not
-    // at its own top level, so it is checked for absence rather than presence: naming a member the
-    // manifest itself declares would be the drift this test is here to catch.
+    // Every artifact declares its own signature member at its own top level, and the freshness rule
+    // excludes exactly that member from the signing input.
+    //
+    // This assertion used to expect the Key Manifest NOT to declare `root_signatures` — an expectation
+    // that encoded the v1.0.0 defect rather than catching it: the specification named the member, the
+    // contract did not define it, and the implementation used a different one. The manifest now carries
+    // its threshold signatures itself, so all three artifacts are checked the same way.
     for (artifact_type, schema_src, expect_declared) in [
         ("brl", BRL, true),
-        ("key_manifest", KM, false),
+        ("key_manifest", KM, true),
         ("signed_protocol_metadata", SPM, true),
     ] {
         let member = excl[artifact_type].as_str().expect("exclusion is a string");

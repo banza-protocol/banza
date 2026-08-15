@@ -81,7 +81,7 @@ singular. É um conjunto de chaves em custódia distribuída, usadas offline e d
 |---|---|
 | Modelo | **2-de-3.** Três autoridades de assinatura independentes; qualquer acção autorizada da raiz exige duas assinaturas de duas delas. Uma assinatura isolada nunca autoriza (INV-ROOT-007) |
 | Uso | Offline, apenas para assinar material do protocolo |
-| Artefacto | Root metadata assinado, com âncora fixada (pinned anchor) nos verificadores |
+| Artefacto | **Conjunto de Autoridades da Raiz** assinado — o conjunto génese é fixado (pinned) nos verificadores; cada conjunto seguinte é autorizado pelo limiar do conjunto que sucede |
 | Controlo único | Nenhum custódio isolado reconstrói a raiz nem produz uma assinatura válida |
 
 O modelo de autorização é **criptográfico e lógico**: três autoridades, limiar dois. Não é definido pelo
@@ -100,9 +100,45 @@ Três propriedades justificam esta escolha, e são as três que o BANZA precisa:
 Nada mais é acrescentado para as obter: sem Shamir, sem serviço de quórum online, sem coordenação de
 HSM, sem criptossistema de assinatura por limiar. Três chaves e uma contagem.
 
-A `Trust Root` assina exclusivamente o **Manifesto de Chaves** — a root metadata que lista e endossa as `Delegated Signing Keys`. A `Signed Protocol Metadata`, as releases e a `Revocation List` são assinadas pelas `Delegated Signing Keys` endossadas pela raiz, nunca pela raiz directamente (INV-ROOT-004; ADR-025). Uma assinatura da raiz responde a
-exactamente uma pergunta — *este artefacto do protocolo é genuíno e íntegro?* — e nunca a *pode esta
-entidade participar?*.
+As autoridades da raiz assinam exclusivamente os dois artefactos do **plano da raiz**: o **Manifesto de
+Chaves** — a root metadata que lista e endossa as `Delegated Signing Keys` — e um **Conjunto de
+Autoridades da Raiz sucessor**. A `Signed Protocol Metadata`, as releases e a `Revocation List` são
+assinadas pelas `Delegated Signing Keys` endossadas pela raiz, nunca pela raiz directamente
+(INV-ROOT-004; ADR-025, ADR-039). Uma assinatura da raiz responde a exactamente uma pergunta — *este
+artefacto do protocolo é genuíno e íntegro?* — e nunca a *pode esta entidade participar?*.
+
+### 1.1 A linhagem: quem pode exercer a autoridade da raiz
+
+Os dois artefactos do plano da raiz respondem a perguntas diferentes e mudam a ritmos diferentes:
+
+| Artefacto | Responde | Muda quando |
+|---|---|---|
+| **Conjunto de Autoridades da Raiz** | quem pode exercer a autoridade da raiz | uma autoridade é substituída |
+| **Manifesto de Chaves** | o que a raiz delega neste momento | as chaves delegadas rodam |
+
+Um conjunto sucessor nomeia o seu predecessor por digest, avança a sequência exactamente uma unidade e
+transporta assinaturas de pelo menos duas autoridades **distintas do conjunto predecessor**. É esta a
+propriedade que distingue uma linhagem de uma auto-afirmação: um conjunto assinado por duas das suas
+próprias chaves prova apenas que duas chaves nele nomeadas concordam entre si — algo que qualquer pessoa
+produz sobre chaves que gerou há um instante. O que tem de ser provado é que *o conjunto já confiado
+autorizou este*.
+
+O conjunto génese não tem predecessor e é aceite apenas quando o seu digest é igual a um que o
+verificador recebeu explicitamente; confiança no primeiro uso é recusada. Uma raiz não fixada não é uma
+raiz — é o documento que chegou primeiro, que é exactamente a propriedade que um atacante fornece.
+
+Contar autoridades **distintas**, e não entradas de assinatura, é o que impede um custódio que assina
+duas vezes de atingir o limiar sozinho. Contar as assinaturas do **predecessor**, e não as do próprio
+sucessor, é o que mantém a recuperação em 2-de-3: se as autoridades do sucessor contassem, a autoridade
+que está a ser removida teria de consentir na sua própria remoção, o que tornaria o caminho 3-de-3 e
+daria a uma autoridade obstrutiva ou comprometida um direito de veto (INV-ROOT-013).
+
+Quando restam menos autoridades do que o limiar, nenhum sucessor pode ser autorizado e a continuidade
+canónica fica bloqueada, sem porta traseira criptográfica (INV-ROOT-014). Uma chave-mestra de emergência
+seria uma via de uma só parte para a autoridade máxima do protocolo — exactamente a condição que o limiar
+existe para impedir — e seria mais perigosa do que a perda contra a qual protege.
+
+A definição normativa está em [`spec/root-authority-set.md`](../../spec/root-authority-set.md).
 
 A raiz **não** assina operadores. **Não** autoriza pagamentos. **Não** emite licenças. **Não** cria,
 confere ou retira estatuto a implementações, e **não** movimenta fundos. Está completamente ausente do

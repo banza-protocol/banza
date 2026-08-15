@@ -1,5 +1,5 @@
 {
-  "total": 3070,
+  "total": 3120,
   "rows": [
     {
       "raw_text": "Contributing to BANZA",
@@ -357,9 +357,10 @@
         "spec-disputes-md",
         "spec-federation-federation-trust-model-md",
         "spec-idempotency-md",
+        "spec-root-authority-set-md",
         "spec-trust-freshness-md"
       ],
-      "frequency": 54,
+      "frequency": 56,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -1279,9 +1280,10 @@
         "readme-md",
         "contracts-events-readme-md",
         "spec-collections-md",
-        "spec-idempotency-md"
+        "spec-idempotency-md",
+        "spec-root-authority-set-md"
       ],
-      "frequency": 4,
+      "frequency": 5,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -1345,6 +1347,39 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
+      "raw_text": "three independent authorities",
+      "normalized": "three independent authorities",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "two\ndistinct",
+      "normalized": "two distinct",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "genesis set",
+      "normalized": "genesis set",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
       "raw_text": "fail-closed",
       "normalized": "fail-closed",
       "sources": [
@@ -1358,6 +1393,17 @@
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "production gate",
+      "normalized": "production gate",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
       "raw_text": "Transaction / data plane",
@@ -1471,9 +1517,10 @@
       "raw_text": "Canonicalization",
       "normalized": "canonicalization",
       "sources": [
-        "readme-md"
+        "readme-md",
+        "spec-root-authority-set-md"
       ],
-      "frequency": 1,
+      "frequency": 2,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -1700,11 +1747,12 @@
       "normalized": "scope",
       "sources": [
         "security-md",
+        "decisions-adr-adr-026-root-authorization-three-authorities-threshold-two-md",
         "docs-banzai-banzai-workbench-md",
         "docs-banzai-banzai-workbench-threat-model-md",
         "docs-governance-annex-banza-network-infrastructure-md"
       ],
-      "frequency": 4,
+      "frequency": 5,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -3395,6 +3443,18 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
+      "raw_text": "BANZA Root Authority Set",
+      "normalized": "banza root authority set",
+      "sources": [
+        "contracts-production-root-authority-set-production-schema-json"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
       "raw_text": "RootBackupDeclarationProduction",
       "normalized": "rootbackupdeclarationproduction",
       "sources": [
@@ -3604,9 +3664,10 @@
         "decisions-adr-adr-036-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "decisions-adr-adr-037-operator-onboarding-md",
         "decisions-adr-adr-038-rust-first-official-engines-md",
+        "decisions-adr-adr-039-root-authority-set-and-succession-md",
         "docs-governance-readme-md"
       ],
-      "frequency": 39,
+      "frequency": 40,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -3653,11 +3714,12 @@
         "decisions-adr-adr-036-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "decisions-adr-adr-037-operator-onboarding-md",
         "decisions-adr-adr-038-rust-first-official-engines-md",
+        "decisions-adr-adr-039-root-authority-set-and-succession-md",
         "docs-governance-banzai-native-protocol-agent-md",
         "docs-governance-readme-md",
         "docs-governance-workbench-only-operator-verification-md"
       ],
-      "frequency": 41,
+      "frequency": 42,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -3704,10 +3766,11 @@
         "decisions-adr-adr-036-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "decisions-adr-adr-037-operator-onboarding-md",
         "decisions-adr-adr-038-rust-first-official-engines-md",
+        "decisions-adr-adr-039-root-authority-set-and-succession-md",
         "docs-governance-banza-language-policy-md",
         "docs-governance-readme-md"
       ],
-      "frequency": 40,
+      "frequency": 41,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -3754,6 +3817,7 @@
         "decisions-adr-adr-036-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "decisions-adr-adr-037-operator-onboarding-md",
         "decisions-adr-adr-038-rust-first-official-engines-md",
+        "decisions-adr-adr-039-root-authority-set-and-succession-md",
         "decisions-rfc-readme-md",
         "decisions-rfc-rfc-0001-multi-operator-routing-md",
         "decisions-rfc-rfc-0002-cross-operator-settlement-md",
@@ -3763,7 +3827,7 @@
         "decisions-rfc-rfc-0006-offline-payment-support-md",
         "docs-governance-readme-md"
       ],
-      "frequency": 46,
+      "frequency": 47,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -3810,9 +3874,10 @@
         "decisions-adr-adr-036-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "decisions-adr-adr-037-operator-onboarding-md",
         "decisions-adr-adr-038-rust-first-official-engines-md",
+        "decisions-adr-adr-039-root-authority-set-and-succession-md",
         "docs-governance-readme-md"
       ],
-      "frequency": 39,
+      "frequency": 40,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -3858,9 +3923,10 @@
         "decisions-adr-adr-035-operator-zero-the-read-only-reference-implementation-md",
         "decisions-adr-adr-036-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "decisions-adr-adr-037-operator-onboarding-md",
-        "decisions-adr-adr-038-rust-first-official-engines-md"
+        "decisions-adr-adr-038-rust-first-official-engines-md",
+        "decisions-adr-adr-039-root-authority-set-and-succession-md"
       ],
-      "frequency": 38,
+      "frequency": 39,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -4139,6 +4205,28 @@
       ],
       "frequency": 1,
       "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Before the first external freeze",
+      "normalized": "before the first external freeze",
+      "sources": [
+        "decisions-adr-adr-008-normative-authority-and-versioning-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "After release",
+      "normalized": "after release",
+      "sources": [
+        "decisions-adr-adr-008-normative-authority-and-versioning-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
@@ -4911,6 +4999,17 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
+      "raw_text": "how many parties must act",
+      "normalized": "how many parties must act",
+      "sources": [
+        "decisions-adr-adr-026-root-authorization-three-authorities-threshold-two-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
       "raw_text": "ADR-027 — Private keys never on serving infrastructure",
       "normalized": "adr-027 private keys never on serving infrastructure",
       "sources": [
@@ -5528,6 +5627,125 @@
       "phrase_length": 4,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "ADR-039 — Root Authority Set and succession",
+      "normalized": "adr-039 root authority set and succession",
+      "sources": [
+        "decisions-adr-adr-039-root-authority-set-and-succession-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "one",
+      "normalized": "one",
+      "sources": [
+        "decisions-adr-adr-039-root-authority-set-and-succession-md",
+        "spec-capabilities-md"
+      ],
+      "frequency": 3,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "self-authorising",
+      "normalized": "self-authorising",
+      "sources": [
+        "decisions-adr-adr-039-root-authority-set-and-succession-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Root Authority Set",
+      "normalized": "root authority set",
+      "sources": [
+        "decisions-adr-adr-039-root-authority-set-and-succession-md",
+        "spec-root-authority-set-md",
+        "spec-trust-freshness-md"
+      ],
+      "frequency": 3,
+      "phrase_length": 3,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "Key Manifest",
+      "normalized": "key manifest",
+      "sources": [
+        "decisions-adr-adr-039-root-authority-set-and-succession-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "distinct",
+      "normalized": "distinct",
+      "sources": [
+        "decisions-adr-adr-039-root-authority-set-and-succession-md",
+        "docs-governance-l3-readiness-md",
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 5,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "of the predecessor set",
+      "normalized": "of the predecessor set",
+      "sources": [
+        "decisions-adr-adr-039-root-authority-set-and-succession-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "three authorities, threshold two",
+      "normalized": "three authorities threshold two",
+      "sources": [
+        "decisions-adr-adr-039-root-authority-set-and-succession-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "predecessor's",
+      "normalized": "predecessor s",
+      "sources": [
+        "decisions-adr-adr-039-root-authority-set-and-succession-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "production governance gate",
+      "normalized": "production governance gate",
+      "sources": [
+        "decisions-adr-adr-039-root-authority-set-and-succession-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
     },
     {
       "raw_text": "Architecture decision records",
@@ -6499,10 +6717,11 @@
         "spec-overview-md",
         "spec-reason-codes-md",
         "spec-refunds-md",
+        "spec-root-authority-set-md",
         "spec-trust-freshness-md",
         "spec-validation-journey-md"
       ],
-      "frequency": 45,
+      "frequency": 46,
       "phrase_length": 1,
       "accepted": true,
       "rejection_reason": "",
@@ -15117,6 +15336,18 @@
       "classification": "SUBJECT"
     },
     {
+      "raw_text": "1.1 A linhagem: quem pode exercer a autoridade da raiz",
+      "normalized": "1 1 a linhagem quem pode exercer a autoridade da raiz",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 11,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
       "raw_text": "2. Delegated Signing Keys",
       "normalized": "2 delegated signing keys",
       "sources": [
@@ -15281,6 +15512,18 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
+      "raw_text": "Conjunto de Autoridades da Raiz",
+      "normalized": "conjunto de autoridades da raiz",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 5,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
       "raw_text": "criptográfico e lógico",
       "normalized": "criptografico e logico",
       "sources": [
@@ -15325,15 +15568,72 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "Manifesto de Chaves",
-      "normalized": "manifesto de chaves",
+      "raw_text": "plano da raiz",
+      "normalized": "plano da raiz",
       "sources": [
         "docs-governance-banza-trust-architecture-md"
       ],
       "frequency": 1,
       "phrase_length": 3,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "Manifesto de\nChaves",
+      "normalized": "manifesto de chaves",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 3,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Conjunto de\nAutoridades da Raiz sucessor",
+      "normalized": "conjunto de autoridades da raiz sucessor",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "distintas do conjunto predecessor",
+      "normalized": "distintas do conjunto predecessor",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "distintas",
+      "normalized": "distintas",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "predecessor",
+      "normalized": "predecessor",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
     },
     {
       "raw_text": "dentro do âmbito",
@@ -16622,17 +16922,6 @@
       "accepted": true,
       "rejection_reason": "",
       "classification": "SUBJECT"
-    },
-    {
-      "raw_text": "distinct",
-      "normalized": "distinct",
-      "sources": [
-        "docs-governance-l3-readiness-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
     },
     {
       "raw_text": "Federation intent",
@@ -21625,9 +21914,10 @@
       "raw_text": "BLOCKED",
       "normalized": "blocked",
       "sources": [
-        "docs-governance-rust-first-implementation-policy-md"
+        "docs-governance-rust-first-implementation-policy-md",
+        "spec-root-authority-set-md"
       ],
-      "frequency": 1,
+      "frequency": 2,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -22084,9 +22374,10 @@
       "raw_text": "active",
       "normalized": "active",
       "sources": [
-        "docs-governance-svg-quality-policy-md"
+        "docs-governance-svg-quality-policy-md",
+        "spec-root-authority-set-md"
       ],
-      "frequency": 1,
+      "frequency": 2,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -24722,9 +25013,10 @@
         "spec-idempotency-md",
         "spec-reason-codes-md",
         "spec-refunds-md",
+        "spec-root-authority-set-md",
         "spec-trust-freshness-md"
       ],
-      "frequency": 6,
+      "frequency": 7,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -25102,17 +25394,6 @@
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "one",
-      "normalized": "one",
-      "sources": [
-        "spec-capabilities-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
     },
     {
       "raw_text": "accepted on input",
@@ -33562,6 +33843,17 @@
       "classification": "SUBJECT"
     },
     {
+      "raw_text": "conjunto génese",
+      "normalized": "conjunto genese",
+      "sources": [
+        "spec-overview-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
       "raw_text": "Regra crítica do protocolo:",
       "normalized": "regra critica do protocolo",
       "sources": [
@@ -34279,6 +34571,296 @@
       "normalized": "does",
       "sources": [
         "spec-refunds-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "1. Two questions, two artifacts",
+      "normalized": "1 two questions two artifacts",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "2. The set",
+      "normalized": "2 the set",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "3. The lineage",
+      "normalized": "3 the lineage",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "4. Signing input",
+      "normalized": "4 signing input",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "5. Accepting a successor",
+      "normalized": "5 accepting a successor",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "6. The genesis set",
+      "normalized": "6 the genesis set",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "7. Accepting a Key Manifest",
+      "normalized": "7 accepting a key manifest",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "ARTIFACT_TYPE"
+    },
+    {
+      "raw_text": "8. Ordering, rollback and equivocation",
+      "normalized": "8 ordering rollback and equivocation",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "9. Atomicity",
+      "normalized": "9 atomicity",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "10. Loss of the threshold",
+      "normalized": "10 loss of the threshold",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "11. What this does not provide",
+      "normalized": "11 what this does not provide",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Applying an observation to trusted state",
+      "normalized": "applying an observation to trusted state",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Contract:",
+      "normalized": "contract",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "DOCUMENT_TYPE"
+    },
+    {
+      "raw_text": "who may exercise BANZA Root authority",
+      "normalized": "who may exercise banza root authority",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "three",
+      "normalized": "three",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "threshold of two",
+      "normalized": "threshold of two",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "excluding\n`predecessor_signatures`",
+      "normalized": "excluding predecessor signatures",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "MARKUP_FRAGMENT"
+    },
+    {
+      "raw_text": "set digest",
+      "normalized": "set digest",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "of `P`",
+      "normalized": "of p",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "MARKUP_FRAGMENT"
+    },
+    {
+      "raw_text": "as recorded in `P`",
+      "normalized": "as recorded in p",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "MARKUP_FRAGMENT"
+    },
+    {
+      "raw_text": "A removed authority is never required.",
+      "normalized": "a removed authority is never required",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "explicitly configured with",
+      "normalized": "explicitly configured with",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Eligible",
+      "normalized": "eligible",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Replay",
+      "normalized": "replay",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "ALIAS"
+    },
+    {
+      "raw_text": "Equivocation",
+      "normalized": "equivocation",
+      "sources": [
+        "spec-root-authority-set-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Rollback",
+      "normalized": "rollback",
+      "sources": [
+        "spec-root-authority-set-md"
       ],
       "frequency": 1,
       "phrase_length": 1,

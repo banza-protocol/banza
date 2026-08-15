@@ -173,15 +173,103 @@ fn is_protocol_fact_phrase(nq: &str) -> bool {
         nq,
         &[
             "quantas autoridad",
-            "how many authorit",
             "threshold da raiz",
             "threshold da trust root",
             "root threshold",
             "trust root threshold",
             "quorum da raiz",
             "root quorum",
+            // The threshold asked in Portuguese words rather than the English term.
+            "limiar da raiz",
+            "limiar da trust root",
+            "limiar de assinatura",
+            // "pode agir sozinha?" — the single most consequential yes/no about the Root.
+            "agir sozinh",
+            "assinar sozinh",
+            "act alone",
+            "acting alone",
+            "unilateral",
         ],
-    )
+    ) || asks_how_many_authorities(nq)
+}
+
+/// "how many root authorities does BANZA have?" — the words sit between the two that matter, so a
+/// contiguous phrase never matches it. Asking for both parts independently is what makes the English
+/// and Portuguese forms behave the same, which is the whole point: the fact is the same fact.
+fn asks_how_many_authorities(nq: &str) -> bool {
+    let counting = has(
+        nq,
+        &["quantas", "quantos", "how many", "number of", "numero de"],
+    );
+    counting && has(nq, &["autoridad", "authorit"])
+}
+
+/// Root SUCCESSION asked in shapes the gates reject (ADR-039). "o que é o conjunto de autoridades da
+/// raiz?" is eight tokens — one past the definition-lead gate — so the English form resolved and the
+/// Portuguese one fell to no_source, on the canonical language of the protocol. "como se substitui uma
+/// autoridade da raiz?" and "o que acontece se uma autoridade for perdida?" carry no definition lead at
+/// all and reached the model, which is the wrong decider for a continuity fact: whether the surviving
+/// two can replace a lost authority is answered by the chain, not composed as prose.
+///
+/// Like the phrases above, these name a property and are therefore unambiguous wherever they appear.
+fn is_root_succession_phrase(nq: &str) -> bool {
+    // Stems, not whole words: the typo-tolerance layer runs before routing and rewrites plurals
+    // ("autoridades" → "autoridade"), so a phrase matched in full loses in production.
+    let names_the_set = has(
+        nq,
+        &[
+            "conjunto de autoridad",
+            "root authority set",
+            "conjunto genese",
+            "genesis set",
+            "authority set",
+        ],
+    );
+    let asks_about_succession = has(
+        nq,
+        &[
+            "sucessao da raiz",
+            "sucessao de autoridad",
+            "root succession",
+            "continuidade da raiz",
+            "root continuity",
+        ],
+    );
+    // "substituir/perder/comprometer uma autoridade" — the continuity question in its natural shapes.
+    // "a autoridade removida tem de assinar?" — the question that decides whether recovery is really
+    // 2-of-3 or silently 3-of-3.
+    let asks_about_the_removed_one = has(nq, &["autoridad", "authorit"])
+        && has(
+            nq,
+            &[
+                "removid",
+                "removed",
+                "substituid",
+                "replaced",
+                "saiu",
+                "sai",
+            ],
+        );
+    let acts_on_an_authority = has(nq, &["autoridad", "authorit"])
+        && has(
+            nq,
+            &[
+                "substitui",
+                "substituir",
+                "replace",
+                "perdida",
+                "perder",
+                "perde",
+                "lost",
+                "lose",
+                "comprometid",
+                "compromised",
+                "recusa",
+                "obstrutiv",
+                "obstruct",
+            ],
+        );
+    names_the_set || asks_about_succession || acts_on_an_authority || asks_about_the_removed_one
 }
 
 /// The term → entry mapping, most-specific first. Returns the deterministic entry id for `nq`.
@@ -249,6 +337,12 @@ fn term_of(nq: &str) -> Option<&'static str> {
         ],
     ) {
         return Some("def-trust-guarantees");
+    }
+    // Root succession (ADR-039), by the same predicate that opens the gate — one definition of what
+    // counts as a succession question, so the gate and the term table can never disagree. Placed before
+    // the generic `spec` term so "especificação do conjunto de autoridades" resolves to the concept.
+    if is_root_succession_phrase(nq) {
+        return Some("def-root-authority-set");
     }
     if word(nq, "spec") || word(nq, "specification") || has(nq, &["especificac"]) {
         return Some("def-spec");
@@ -505,8 +599,20 @@ fn term_of(nq: &str) -> Option<&'static str> {
             "autoridades de raiz",
             "root authorities",
             "root authoritie",
+            // The threshold in Portuguese words, and the yes/no that matters most about the Root.
+            // The gate above already admits these shapes; without the same phrases HERE the gate opens
+            // and the term table returns nothing, which is how the English form answered and the
+            // Portuguese one fell to no_source.
+            "limiar da raiz",
+            "limiar da trust root",
+            "limiar de assinatura",
+            "agir sozinh",
+            "assinar sozinh",
+            "act alone",
+            "acting alone",
         ],
-    ) {
+    ) || asks_how_many_authorities(nq)
+    {
         return Some("def-root-authorization");
     }
     if has(
@@ -635,7 +741,8 @@ pub fn glossary_entry(nq: &str) -> Option<&'static str> {
     let definition = (starts_definition_lead(nq) && toks <= 6)
         || gov_phrase
         || guarantee_phrase
-        || is_protocol_fact_phrase(nq);
+        || is_protocol_fact_phrase(nq)
+        || is_root_succession_phrase(nq);
     // A bare/very short term ("federar", "trust", "saldo reservado", "payment link") — ≤ 2 tokens so an
     // off-topic short phrase that merely contains a term mid-sentence ("Russian Federation history",
     // "setup de operador") is NOT captured and still grounds.
@@ -643,7 +750,11 @@ pub fn glossary_entry(nq: &str) -> Option<&'static str> {
     if !(definition || bare_term || boundary) {
         return None;
     }
-    if (is_operational(nq) || is_onboarding(nq)) && !boundary {
+    // "como se substitui uma autoridade da raiz?" reads as operational, and the operational arm would
+    // send it to the model. But whether the surviving two can replace a lost authority is decided by the
+    // chain, not composed as prose — so a succession question keeps its deterministic answer, exactly as
+    // a boundary question does.
+    if (is_operational(nq) || is_onboarding(nq)) && !boundary && !is_root_succession_phrase(nq) {
         return None;
     }
     term_of(nq)

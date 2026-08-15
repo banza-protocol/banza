@@ -1,0 +1,767 @@
+{
+  "_authority": "spec/root-authority-set.md",
+  "_note": "TEST-ONLY keys from fixed seeds. Never production material.",
+  "_spec": "BANZA Root Authority Set — conformance vectors",
+  "_status": "NORMATIVE",
+  "genesis": {
+    "authorities": [
+      {
+        "active_since": "2026-01-01T00:00:00Z",
+        "authority_id": "alpha",
+        "public_key": "ed25519:hTmWBWx3V7guZfU22RHtZ2z0M5sjMcFITR2IZQn4lqw"
+      },
+      {
+        "active_since": "2026-01-01T00:00:00Z",
+        "authority_id": "beta",
+        "public_key": "ed25519:LJjNXyVp93YgPA8bJfSlI6WWOHmDssOwzxeb0MSywFc"
+      },
+      {
+        "active_since": "2026-01-01T00:00:00Z",
+        "authority_id": "gamma",
+        "public_key": "ed25519:vqOZXvgzL1doPHmxYd2UyVkV_ha34smB7Qgm6e6Twzw"
+      }
+    ],
+    "expires_at": "2028-01-01T00:00:00Z",
+    "issued_at": "2026-01-01T00:00:00Z",
+    "predecessor_digest": null,
+    "predecessor_signatures": [],
+    "schema_version": "1",
+    "set_sequence": 0,
+    "threshold": 2
+  },
+  "pinned_genesis_digest": "7a44393697cba6eb68ee39a23ed2d56065b75be6f0b7c52583d55477e5ab0330",
+  "protocol_version": "1.0.0",
+  "vectors": [
+    {
+      "expect": "accept",
+      "id": "RAS-001",
+      "kind": "genesis",
+      "pinned_digest": "7a44393697cba6eb68ee39a23ed2d56065b75be6f0b7c52583d55477e5ab0330",
+      "set": "genesis",
+      "title": "genesis accepted against the pinned digest"
+    },
+    {
+      "expect": "reject",
+      "id": "RAS-002",
+      "kind": "genesis",
+      "pinned_digest": "0000000000000000000000000000000000000000000000000000000000000000",
+      "set": "genesis",
+      "title": "genesis rejected when the digest is not the pinned one"
+    },
+    {
+      "expect": "reject",
+      "id": "RAS-003",
+      "kind": "genesis",
+      "pinned_digest": "",
+      "set": "genesis",
+      "title": "trust on first use is refused"
+    },
+    {
+      "active": "genesis",
+      "candidate": {
+        "authorities": [
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "alpha",
+            "public_key": "ed25519:hTmWBWx3V7guZfU22RHtZ2z0M5sjMcFITR2IZQn4lqw"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "beta",
+            "public_key": "ed25519:LJjNXyVp93YgPA8bJfSlI6WWOHmDssOwzxeb0MSywFc"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "delta",
+            "public_key": "ed25519:N8RpRda_LdHoWFctFOfObSzs4YfDd14u-PEmsQ1Rru8"
+          }
+        ],
+        "expires_at": "2028-01-01T00:00:00Z",
+        "issued_at": "2026-01-01T00:00:00Z",
+        "predecessor_digest": "7a44393697cba6eb68ee39a23ed2d56065b75be6f0b7c52583d55477e5ab0330",
+        "predecessor_signatures": [
+          {
+            "authority_id": "alpha",
+            "signature": "ylVXk_Lc3yzp5oTTHoBGi9yRqdU-Px3I6rZA5zCbsR-KzeUjkjuhl-_kVKGceWpLoOhAMdNj1w6TdOcuFTymBg"
+          },
+          {
+            "authority_id": "beta",
+            "signature": "uZ79UQHUicOtOZCATsIRfjL_OE6COceFPnxctQvbLO4CuHESDeCFmLkOUXY9uhsqU-ZfipGLxGDY1ncO9Zb4Bg"
+          }
+        ],
+        "schema_version": "1",
+        "set_sequence": 1,
+        "threshold": 2
+      },
+      "expect": "accept",
+      "id": "RAS-004",
+      "kind": "successor",
+      "title": "A+B replace C"
+    },
+    {
+      "active": "genesis",
+      "candidate": {
+        "authorities": [
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "alpha",
+            "public_key": "ed25519:hTmWBWx3V7guZfU22RHtZ2z0M5sjMcFITR2IZQn4lqw"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "beta",
+            "public_key": "ed25519:LJjNXyVp93YgPA8bJfSlI6WWOHmDssOwzxeb0MSywFc"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "delta",
+            "public_key": "ed25519:N8RpRda_LdHoWFctFOfObSzs4YfDd14u-PEmsQ1Rru8"
+          }
+        ],
+        "expires_at": "2028-01-01T00:00:00Z",
+        "issued_at": "2026-01-01T00:00:00Z",
+        "predecessor_digest": "7a44393697cba6eb68ee39a23ed2d56065b75be6f0b7c52583d55477e5ab0330",
+        "predecessor_signatures": [
+          {
+            "authority_id": "alpha",
+            "signature": "ylVXk_Lc3yzp5oTTHoBGi9yRqdU-Px3I6rZA5zCbsR-KzeUjkjuhl-_kVKGceWpLoOhAMdNj1w6TdOcuFTymBg"
+          }
+        ],
+        "schema_version": "1",
+        "set_sequence": 1,
+        "threshold": 2
+      },
+      "expect": "reject",
+      "id": "RAS-005",
+      "kind": "successor",
+      "title": "one signature does not authorise a successor"
+    },
+    {
+      "active": "genesis",
+      "candidate": {
+        "authorities": [
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "alpha",
+            "public_key": "ed25519:hTmWBWx3V7guZfU22RHtZ2z0M5sjMcFITR2IZQn4lqw"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "beta",
+            "public_key": "ed25519:LJjNXyVp93YgPA8bJfSlI6WWOHmDssOwzxeb0MSywFc"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "delta",
+            "public_key": "ed25519:N8RpRda_LdHoWFctFOfObSzs4YfDd14u-PEmsQ1Rru8"
+          }
+        ],
+        "expires_at": "2028-01-01T00:00:00Z",
+        "issued_at": "2026-01-01T00:00:00Z",
+        "predecessor_digest": "7a44393697cba6eb68ee39a23ed2d56065b75be6f0b7c52583d55477e5ab0330",
+        "predecessor_signatures": [
+          {
+            "authority_id": "alpha",
+            "signature": "ylVXk_Lc3yzp5oTTHoBGi9yRqdU-Px3I6rZA5zCbsR-KzeUjkjuhl-_kVKGceWpLoOhAMdNj1w6TdOcuFTymBg"
+          },
+          {
+            "authority_id": "alpha",
+            "signature": "ylVXk_Lc3yzp5oTTHoBGi9yRqdU-Px3I6rZA5zCbsR-KzeUjkjuhl-_kVKGceWpLoOhAMdNj1w6TdOcuFTymBg"
+          }
+        ],
+        "schema_version": "1",
+        "set_sequence": 1,
+        "threshold": 2
+      },
+      "expect": "reject",
+      "id": "RAS-006",
+      "kind": "successor",
+      "title": "one authority signing twice is one approval"
+    },
+    {
+      "active": "genesis",
+      "candidate": {
+        "authorities": [
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "x",
+            "public_key": "ed25519:b5yVo_tIwNkwxbpAy-ueFrCCGoqdCo7fMBZFk7qPz8M"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "y",
+            "public_key": "ed25519:Vjhe0TdjkLl3ggs9vb0Er0Qkz4xVBnqHOAGUp19I1bQ"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "z",
+            "public_key": "ed25519:vLWB-3cJJbB89AMSmVHEXRkNKlCWMUHgZyplRhyT9Lg"
+          }
+        ],
+        "expires_at": "2028-01-01T00:00:00Z",
+        "issued_at": "2026-01-01T00:00:00Z",
+        "predecessor_digest": "7a44393697cba6eb68ee39a23ed2d56065b75be6f0b7c52583d55477e5ab0330",
+        "predecessor_signatures": [
+          {
+            "authority_id": "x",
+            "signature": "3eecWgDvZeyLqcbiH4zPF8jxTTVMKNfRO77FknTmIZ6I9msfw14pcAQgQlmQvtRJctJCyF7qfSpvopJaL0nvAw"
+          },
+          {
+            "authority_id": "y",
+            "signature": "XX06VnXlqaA6QNiDXl5AavPYMlQZq1DzAriZCbMoc6ei-NGFZ5w34Z1935sNzYepXPslR9C_OrOhW1QjSQWMCw"
+          }
+        ],
+        "schema_version": "1",
+        "set_sequence": 1,
+        "threshold": 2
+      },
+      "expect": "reject",
+      "id": "RAS-007",
+      "kind": "successor",
+      "title": "a set signed only by its own authorities authorises nothing"
+    },
+    {
+      "active": "genesis",
+      "candidate": {
+        "authorities": [
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "alpha",
+            "public_key": "ed25519:hTmWBWx3V7guZfU22RHtZ2z0M5sjMcFITR2IZQn4lqw"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "beta",
+            "public_key": "ed25519:LJjNXyVp93YgPA8bJfSlI6WWOHmDssOwzxeb0MSywFc"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "delta",
+            "public_key": "ed25519:N8RpRda_LdHoWFctFOfObSzs4YfDd14u-PEmsQ1Rru8"
+          }
+        ],
+        "expires_at": "2028-01-01T00:00:00Z",
+        "issued_at": "2026-01-01T00:00:00Z",
+        "predecessor_digest": "1111111111111111111111111111111111111111111111111111111111111111",
+        "predecessor_signatures": [
+          {
+            "authority_id": "alpha",
+            "signature": "4w-nYOJ6nxXF_r5YB9wvxodraqtv8eEYtaa2DrEUiJOECk5jS2EjTs_Y9qNCt2rfut_uOAGWtHsZXdqUE_dVDw"
+          },
+          {
+            "authority_id": "beta",
+            "signature": "LXH8jgwMOC3JOXBR7peoZGxYuCIvKOvcBprxKdUJXMm7gG_Soo_WypTu8AxbrNu7RvYDbzL2EegLo-eH-AdjBg"
+          }
+        ],
+        "schema_version": "1",
+        "set_sequence": 1,
+        "threshold": 2
+      },
+      "expect": "reject",
+      "id": "RAS-008",
+      "kind": "successor",
+      "title": "a successor naming the wrong predecessor is rejected"
+    },
+    {
+      "active": "genesis",
+      "candidate": {
+        "authorities": [
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "alpha",
+            "public_key": "ed25519:hTmWBWx3V7guZfU22RHtZ2z0M5sjMcFITR2IZQn4lqw"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "beta",
+            "public_key": "ed25519:LJjNXyVp93YgPA8bJfSlI6WWOHmDssOwzxeb0MSywFc"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "delta",
+            "public_key": "ed25519:N8RpRda_LdHoWFctFOfObSzs4YfDd14u-PEmsQ1Rru8"
+          }
+        ],
+        "expires_at": "2028-01-01T00:00:00Z",
+        "issued_at": "2026-01-01T00:00:00Z",
+        "predecessor_digest": "7a44393697cba6eb68ee39a23ed2d56065b75be6f0b7c52583d55477e5ab0330",
+        "predecessor_signatures": [
+          {
+            "authority_id": "alpha",
+            "signature": "CfdXrPmZhMGySJMr5G0Xi-W_wUg-M-cveQtryzy02RRqfGSjfJwwHpnXIw_fIR_V_ArfPfKvEMpQewjUBKQaBA"
+          },
+          {
+            "authority_id": "beta",
+            "signature": "QPjAPVix-hEV6OeQNrYyjXHbDR-Sq7IjH9mD3dsTSpajdpVUbrAlX-YqChkQ-gdoBWz114UiQu3K5o5sE2OIAQ"
+          }
+        ],
+        "schema_version": "1",
+        "set_sequence": 2,
+        "threshold": 2
+      },
+      "expect": "reject",
+      "id": "RAS-009",
+      "kind": "successor",
+      "title": "a skipped sequence is rejected"
+    },
+    {
+      "active": "genesis",
+      "candidate": {
+        "authorities": [
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "alpha",
+            "public_key": "ed25519:hTmWBWx3V7guZfU22RHtZ2z0M5sjMcFITR2IZQn4lqw"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "beta",
+            "public_key": "ed25519:LJjNXyVp93YgPA8bJfSlI6WWOHmDssOwzxeb0MSywFc"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "delta",
+            "public_key": "ed25519:N8RpRda_LdHoWFctFOfObSzs4YfDd14u-PEmsQ1Rru8"
+          }
+        ],
+        "expires_at": "2028-01-01T00:00:00Z",
+        "issued_at": "2026-01-01T00:00:00Z",
+        "predecessor_digest": "7a44393697cba6eb68ee39a23ed2d56065b75be6f0b7c52583d55477e5ab0330",
+        "predecessor_signatures": [
+          {
+            "authority_id": "alpha",
+            "signature": "ylVXk_Lc3yzp5oTTHoBGi9yRqdU-Px3I6rZA5zCbsR-KzeUjkjuhl-_kVKGceWpLoOhAMdNj1w6TdOcuFTymBg"
+          },
+          {
+            "authority_id": "x",
+            "signature": "oVPZtcFt-xLPgzbzJBiOc2fD4IbI_yAvYg-abki84QGqP-HuEGhRckrvZUpJCpS8j1rM2aX2_bbXLB2nFjX-Dg"
+          }
+        ],
+        "schema_version": "1",
+        "set_sequence": 1,
+        "threshold": 2
+      },
+      "expect": "reject",
+      "id": "RAS-010",
+      "kind": "successor",
+      "title": "an unknown signer contributes nothing to the threshold"
+    },
+    {
+      "active": {
+        "authorities": [
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "alpha",
+            "public_key": "ed25519:hTmWBWx3V7guZfU22RHtZ2z0M5sjMcFITR2IZQn4lqw"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "beta",
+            "public_key": "ed25519:LJjNXyVp93YgPA8bJfSlI6WWOHmDssOwzxeb0MSywFc"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "delta",
+            "public_key": "ed25519:N8RpRda_LdHoWFctFOfObSzs4YfDd14u-PEmsQ1Rru8"
+          }
+        ],
+        "expires_at": "2028-01-01T00:00:00Z",
+        "issued_at": "2026-01-01T00:00:00Z",
+        "predecessor_digest": "7a44393697cba6eb68ee39a23ed2d56065b75be6f0b7c52583d55477e5ab0330",
+        "predecessor_signatures": [
+          {
+            "authority_id": "alpha",
+            "signature": "ylVXk_Lc3yzp5oTTHoBGi9yRqdU-Px3I6rZA5zCbsR-KzeUjkjuhl-_kVKGceWpLoOhAMdNj1w6TdOcuFTymBg"
+          },
+          {
+            "authority_id": "beta",
+            "signature": "uZ79UQHUicOtOZCATsIRfjL_OE6COceFPnxctQvbLO4CuHESDeCFmLkOUXY9uhsqU-ZfipGLxGDY1ncO9Zb4Bg"
+          }
+        ],
+        "schema_version": "1",
+        "set_sequence": 1,
+        "threshold": 2
+      },
+      "candidate": {
+        "authorities": [
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "alpha",
+            "public_key": "ed25519:hTmWBWx3V7guZfU22RHtZ2z0M5sjMcFITR2IZQn4lqw"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "beta",
+            "public_key": "ed25519:LJjNXyVp93YgPA8bJfSlI6WWOHmDssOwzxeb0MSywFc"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "x",
+            "public_key": "ed25519:b5yVo_tIwNkwxbpAy-ueFrCCGoqdCo7fMBZFk7qPz8M"
+          }
+        ],
+        "expires_at": "2028-01-01T00:00:00Z",
+        "issued_at": "2026-01-01T00:00:00Z",
+        "predecessor_digest": "78540d5c6de9cfdbfdc53ade27378615e08c149960480216b40530b0959cff77",
+        "predecessor_signatures": [
+          {
+            "authority_id": "gamma",
+            "signature": "5mniIhbbew0fQ5xeQ2imx4lptUmzB-sItzP_5RmJUXwDJmP0lPRWBkmwyvnxkBQk63am6vlToyoUrFCOtGVyDg"
+          },
+          {
+            "authority_id": "alpha",
+            "signature": "GfEaQP3ZqXYJw1wbXmnD8vdZaM2MsSf0J0BPkGkvN7bmUX-gPC-iDpjqkqUPNEMfeGDnomTG6Nxa7kSBuJbTAQ"
+          }
+        ],
+        "schema_version": "1",
+        "set_sequence": 2,
+        "threshold": 2
+      },
+      "expect": "reject",
+      "id": "RAS-011",
+      "kind": "successor",
+      "title": "an authority removed by an earlier succession no longer authorises"
+    },
+    {
+      "candidate": {
+        "authorities": [
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "alpha",
+            "public_key": "ed25519:hTmWBWx3V7guZfU22RHtZ2z0M5sjMcFITR2IZQn4lqw"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "beta",
+            "public_key": "ed25519:LJjNXyVp93YgPA8bJfSlI6WWOHmDssOwzxeb0MSywFc"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "delta",
+            "public_key": "ed25519:N8RpRda_LdHoWFctFOfObSzs4YfDd14u-PEmsQ1Rru8"
+          }
+        ],
+        "expires_at": "2028-01-01T00:00:00Z",
+        "issued_at": "2026-01-01T00:00:00Z",
+        "predecessor_digest": "7a44393697cba6eb68ee39a23ed2d56065b75be6f0b7c52583d55477e5ab0330",
+        "predecessor_signatures": [
+          {
+            "authority_id": "alpha",
+            "signature": "ylVXk_Lc3yzp5oTTHoBGi9yRqdU-Px3I6rZA5zCbsR-KzeUjkjuhl-_kVKGceWpLoOhAMdNj1w6TdOcuFTymBg"
+          },
+          {
+            "authority_id": "beta",
+            "signature": "uZ79UQHUicOtOZCATsIRfjL_OE6COceFPnxctQvbLO4CuHESDeCFmLkOUXY9uhsqU-ZfipGLxGDY1ncO9Zb4Bg"
+          }
+        ],
+        "schema_version": "1",
+        "set_sequence": 1,
+        "threshold": 2
+      },
+      "expect": "replay",
+      "id": "RAS-012",
+      "kind": "ordering",
+      "observed": {
+        "authorities": [
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "alpha",
+            "public_key": "ed25519:hTmWBWx3V7guZfU22RHtZ2z0M5sjMcFITR2IZQn4lqw"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "beta",
+            "public_key": "ed25519:LJjNXyVp93YgPA8bJfSlI6WWOHmDssOwzxeb0MSywFc"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "delta",
+            "public_key": "ed25519:N8RpRda_LdHoWFctFOfObSzs4YfDd14u-PEmsQ1Rru8"
+          }
+        ],
+        "expires_at": "2028-01-01T00:00:00Z",
+        "issued_at": "2026-01-01T00:00:00Z",
+        "predecessor_digest": "7a44393697cba6eb68ee39a23ed2d56065b75be6f0b7c52583d55477e5ab0330",
+        "predecessor_signatures": [
+          {
+            "authority_id": "alpha",
+            "signature": "ylVXk_Lc3yzp5oTTHoBGi9yRqdU-Px3I6rZA5zCbsR-KzeUjkjuhl-_kVKGceWpLoOhAMdNj1w6TdOcuFTymBg"
+          },
+          {
+            "authority_id": "beta",
+            "signature": "uZ79UQHUicOtOZCATsIRfjL_OE6COceFPnxctQvbLO4CuHESDeCFmLkOUXY9uhsqU-ZfipGLxGDY1ncO9Zb4Bg"
+          }
+        ],
+        "schema_version": "1",
+        "set_sequence": 1,
+        "threshold": 2
+      },
+      "title": "the same set at the same position is an idempotent replay"
+    },
+    {
+      "candidate": {
+        "authorities": [
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "alpha",
+            "public_key": "ed25519:hTmWBWx3V7guZfU22RHtZ2z0M5sjMcFITR2IZQn4lqw"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "gamma",
+            "public_key": "ed25519:vqOZXvgzL1doPHmxYd2UyVkV_ha34smB7Qgm6e6Twzw"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "x",
+            "public_key": "ed25519:b5yVo_tIwNkwxbpAy-ueFrCCGoqdCo7fMBZFk7qPz8M"
+          }
+        ],
+        "expires_at": "2028-01-01T00:00:00Z",
+        "issued_at": "2026-01-01T00:00:00Z",
+        "predecessor_digest": "7a44393697cba6eb68ee39a23ed2d56065b75be6f0b7c52583d55477e5ab0330",
+        "predecessor_signatures": [
+          {
+            "authority_id": "alpha",
+            "signature": "rhJiNuKyRmzbqLuTlf3Vf2WmxS3WMxYWNQpPiZWKMhNkvp-eXpI0q4y5Vx4ezihjRetZeRD_qqsqdVb_eVUAAw"
+          },
+          {
+            "authority_id": "gamma",
+            "signature": "mBIpYyJvLNLKG0RzyxkWQ58_SfHCfnh0eq1DL3mWPF9cNBstBjIIWZ2CJ9wTilnAqGCoC13xyZl891yQT9J-Bw"
+          }
+        ],
+        "schema_version": "1",
+        "set_sequence": 1,
+        "threshold": 2
+      },
+      "expect": "equivocation",
+      "id": "RAS-013",
+      "kind": "ordering",
+      "observed": {
+        "authorities": [
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "alpha",
+            "public_key": "ed25519:hTmWBWx3V7guZfU22RHtZ2z0M5sjMcFITR2IZQn4lqw"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "beta",
+            "public_key": "ed25519:LJjNXyVp93YgPA8bJfSlI6WWOHmDssOwzxeb0MSywFc"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "delta",
+            "public_key": "ed25519:N8RpRda_LdHoWFctFOfObSzs4YfDd14u-PEmsQ1Rru8"
+          }
+        ],
+        "expires_at": "2028-01-01T00:00:00Z",
+        "issued_at": "2026-01-01T00:00:00Z",
+        "predecessor_digest": "7a44393697cba6eb68ee39a23ed2d56065b75be6f0b7c52583d55477e5ab0330",
+        "predecessor_signatures": [
+          {
+            "authority_id": "alpha",
+            "signature": "ylVXk_Lc3yzp5oTTHoBGi9yRqdU-Px3I6rZA5zCbsR-KzeUjkjuhl-_kVKGceWpLoOhAMdNj1w6TdOcuFTymBg"
+          },
+          {
+            "authority_id": "beta",
+            "signature": "uZ79UQHUicOtOZCATsIRfjL_OE6COceFPnxctQvbLO4CuHESDeCFmLkOUXY9uhsqU-ZfipGLxGDY1ncO9Zb4Bg"
+          }
+        ],
+        "schema_version": "1",
+        "set_sequence": 1,
+        "threshold": 2
+      },
+      "title": "a different set at the same position is equivocation, not a race"
+    },
+    {
+      "candidate": {
+        "authorities": [
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "alpha",
+            "public_key": "ed25519:hTmWBWx3V7guZfU22RHtZ2z0M5sjMcFITR2IZQn4lqw"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "beta",
+            "public_key": "ed25519:LJjNXyVp93YgPA8bJfSlI6WWOHmDssOwzxeb0MSywFc"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "gamma",
+            "public_key": "ed25519:vqOZXvgzL1doPHmxYd2UyVkV_ha34smB7Qgm6e6Twzw"
+          }
+        ],
+        "expires_at": "2028-01-01T00:00:00Z",
+        "issued_at": "2026-01-01T00:00:00Z",
+        "predecessor_digest": null,
+        "predecessor_signatures": [],
+        "schema_version": "1",
+        "set_sequence": 0,
+        "threshold": 2
+      },
+      "expect": "rollback",
+      "id": "RAS-014",
+      "kind": "ordering",
+      "observed": {
+        "authorities": [
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "alpha",
+            "public_key": "ed25519:hTmWBWx3V7guZfU22RHtZ2z0M5sjMcFITR2IZQn4lqw"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "beta",
+            "public_key": "ed25519:LJjNXyVp93YgPA8bJfSlI6WWOHmDssOwzxeb0MSywFc"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "delta",
+            "public_key": "ed25519:N8RpRda_LdHoWFctFOfObSzs4YfDd14u-PEmsQ1Rru8"
+          }
+        ],
+        "expires_at": "2028-01-01T00:00:00Z",
+        "issued_at": "2026-01-01T00:00:00Z",
+        "predecessor_digest": "7a44393697cba6eb68ee39a23ed2d56065b75be6f0b7c52583d55477e5ab0330",
+        "predecessor_signatures": [
+          {
+            "authority_id": "alpha",
+            "signature": "ylVXk_Lc3yzp5oTTHoBGi9yRqdU-Px3I6rZA5zCbsR-KzeUjkjuhl-_kVKGceWpLoOhAMdNj1w6TdOcuFTymBg"
+          },
+          {
+            "authority_id": "beta",
+            "signature": "uZ79UQHUicOtOZCATsIRfjL_OE6COceFPnxctQvbLO4CuHESDeCFmLkOUXY9uhsqU-ZfipGLxGDY1ncO9Zb4Bg"
+          }
+        ],
+        "schema_version": "1",
+        "set_sequence": 1,
+        "threshold": 2
+      },
+      "title": "a superseded set presented again is a rollback"
+    },
+    {
+      "active": {
+        "authorities": [
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "alpha",
+            "public_key": "ed25519:hTmWBWx3V7guZfU22RHtZ2z0M5sjMcFITR2IZQn4lqw"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "beta",
+            "public_key": "ed25519:LJjNXyVp93YgPA8bJfSlI6WWOHmDssOwzxeb0MSywFc"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "delta",
+            "public_key": "ed25519:N8RpRda_LdHoWFctFOfObSzs4YfDd14u-PEmsQ1Rru8"
+          }
+        ],
+        "expires_at": "2028-01-01T00:00:00Z",
+        "issued_at": "2026-01-01T00:00:00Z",
+        "predecessor_digest": "7a44393697cba6eb68ee39a23ed2d56065b75be6f0b7c52583d55477e5ab0330",
+        "predecessor_signatures": [
+          {
+            "authority_id": "alpha",
+            "signature": "ylVXk_Lc3yzp5oTTHoBGi9yRqdU-Px3I6rZA5zCbsR-KzeUjkjuhl-_kVKGceWpLoOhAMdNj1w6TdOcuFTymBg"
+          },
+          {
+            "authority_id": "beta",
+            "signature": "uZ79UQHUicOtOZCATsIRfjL_OE6COceFPnxctQvbLO4CuHESDeCFmLkOUXY9uhsqU-ZfipGLxGDY1ncO9Zb4Bg"
+          }
+        ],
+        "schema_version": "1",
+        "set_sequence": 1,
+        "threshold": 2
+      },
+      "candidate": {
+        "keys": [],
+        "manifest_version": "1",
+        "marker": "TEST ONLY — NOT PRODUCTION — NO REAL PRIVATE KEYS",
+        "protocol_version": "1.0.0",
+        "root_authority_set": {
+          "digest": "78540d5c6de9cfdbfdc53ade27378615e08c149960480216b40530b0959cff77",
+          "set_sequence": 1
+        },
+        "root_signatures": [
+          {
+            "authority_id": "alpha",
+            "signature": "F8x7n_lWob6aZtstOOgWBO8m5Deq9p-p2wwYSy6MpOWCH8l-Y9bSJaPvw73sqITdtR2o7yX7Wu6vegAXGnC-CQ"
+          },
+          {
+            "authority_id": "delta",
+            "signature": "1YYcVfnVsOO4mfjT74Rlz2GQRs0t5n_pEE1IR7LO1MkQ_sSnbSRFDK1-JoR9np0JXKpz2UXi7dVMfAPgSxGaBw"
+          }
+        ]
+      },
+      "expect": "accept",
+      "id": "RAS-015",
+      "kind": "key_manifest",
+      "title": "the Key Manifest is authorised by two distinct current authorities"
+    },
+    {
+      "active": {
+        "authorities": [
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "alpha",
+            "public_key": "ed25519:hTmWBWx3V7guZfU22RHtZ2z0M5sjMcFITR2IZQn4lqw"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "beta",
+            "public_key": "ed25519:LJjNXyVp93YgPA8bJfSlI6WWOHmDssOwzxeb0MSywFc"
+          },
+          {
+            "active_since": "2026-01-01T00:00:00Z",
+            "authority_id": "delta",
+            "public_key": "ed25519:N8RpRda_LdHoWFctFOfObSzs4YfDd14u-PEmsQ1Rru8"
+          }
+        ],
+        "expires_at": "2028-01-01T00:00:00Z",
+        "issued_at": "2026-01-01T00:00:00Z",
+        "predecessor_digest": "7a44393697cba6eb68ee39a23ed2d56065b75be6f0b7c52583d55477e5ab0330",
+        "predecessor_signatures": [
+          {
+            "authority_id": "alpha",
+            "signature": "ylVXk_Lc3yzp5oTTHoBGi9yRqdU-Px3I6rZA5zCbsR-KzeUjkjuhl-_kVKGceWpLoOhAMdNj1w6TdOcuFTymBg"
+          },
+          {
+            "authority_id": "beta",
+            "signature": "uZ79UQHUicOtOZCATsIRfjL_OE6COceFPnxctQvbLO4CuHESDeCFmLkOUXY9uhsqU-ZfipGLxGDY1ncO9Zb4Bg"
+          }
+        ],
+        "schema_version": "1",
+        "set_sequence": 1,
+        "threshold": 2
+      },
+      "candidate": {
+        "keys": [],
+        "manifest_version": "1",
+        "marker": "TEST ONLY — NOT PRODUCTION — NO REAL PRIVATE KEYS",
+        "protocol_version": "1.0.0",
+        "root_authority_set": {
+          "digest": "78540d5c6de9cfdbfdc53ade27378615e08c149960480216b40530b0959cff77",
+          "set_sequence": 1
+        },
+        "root_signatures": [
+          {
+            "authority_id": "alpha",
+            "signature": "F8x7n_lWob6aZtstOOgWBO8m5Deq9p-p2wwYSy6MpOWCH8l-Y9bSJaPvw73sqITdtR2o7yX7Wu6vegAXGnC-CQ"
+          },
+          {
+            "authority_id": "gamma",
+            "signature": "4-KVx28SQXNsR924W4Iv_wCUOQPO1EKyjKC1GPwrp-LYeHYlIyY1pNSke5DF7GFs2XcNPh8FBj6x7tTVufJiAA"
+          }
+        ]
+      },
+      "expect": "reject",
+      "id": "RAS-016",
+      "kind": "key_manifest",
+      "title": "a Key Manifest signed by a no-longer-current authority is rejected"
+    }
+  ]
+}

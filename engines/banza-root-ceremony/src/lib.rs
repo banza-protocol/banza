@@ -7,6 +7,13 @@
 //! computes the ceremony **status IN RUST** (never in TypeScript) plus SHA-256 hashes. Verification only —
 //! **no key generation, no signing, no real private keys** (fixtures use deterministic TEST-ONLY keys).
 //!
+//! **Scope boundary (ADR-039).** This engine validates ceremony EVIDENCE. It does not establish root
+//! authority and never reports that it has. A ceremony document signed by two of its own custodians is
+//! self-authorising: it shows that two keys named in the document agree with each other, not that the
+//! already-trusted root authorised anything. Root authority is a lineage of signed Root Authority Sets,
+//! decided by `banza-trust` (`authority_set.rs`) — the genesis set is accepted only against an explicitly
+//! pinned digest, and every later set is authorised by the threshold of the set it succeeds.
+//!
 //! **Central rule:** the M2 root establishes trust for the BANZA **open financial protocol**. It does NOT
 //! authorise payment services, does NOT create operators, does NOT issue licences, does NOT process
 //! transactions, does NOT settle values, does NOT move or hold funds, and does NOT replace the regulatory
@@ -535,7 +542,16 @@ fn report(status: &str, src: &Value, next_steps: &[&str], _material: bool) -> Va
             .map(|a| a.len())
             .unwrap_or(0)
     };
-    let established = status == "M2_ROOT_CEREMONY_VALID";
+    // A ceremony that validates proves its OPERATIONAL evidence is complete: three distinct custodians,
+    // two verifying signatures, custody/backup/offline/recovery declared, no private-key material, scope
+    // and regulatory boundary intact.
+    //
+    // It does NOT establish root authority. A ceremony document signed by two of its own custodians is
+    // self-authorising — it proves that two keys named in the document agree with each other, which anyone
+    // can produce about keys they generated a moment earlier. Root authority is established by pinning the
+    // genesis Root Authority Set into verifiers and, thereafter, by the threshold of the predecessor set
+    // (ADR-039, `spec/root-authority-set.md`). This engine reports evidence; it does not confer authority.
+    let evidence_complete = status == "M2_ROOT_CEREMONY_VALID";
 
     let root_metadata_hash = meta.map(|m| sha256_hex(&canon(m))).unwrap_or_default();
     let ceremony_evidence_hash = present(src, "ceremony_evidence")
@@ -567,7 +583,9 @@ fn report(status: &str, src: &Value, next_steps: &[&str], _material: bool) -> Va
         "root_metadata_hash": root_metadata_hash,
         "ceremony_evidence_hash": ceremony_evidence_hash,
         "next_steps": next_steps,
-        "protocol_root_established": established,
+        "ceremony_evidence_complete": evidence_complete,
+        "establishes_root_authority": false,
+        "root_authority_established_by": "the pinned genesis Root Authority Set, then the threshold of the predecessor set (spec/root-authority-set.md)",
         "operator_activation_allowed": false,
         "production_certificates_allowed": false,
         "payment_service_operation_allowed": false,

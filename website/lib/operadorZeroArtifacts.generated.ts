@@ -119,8 +119,8 @@ export const ARTIFACT_DATA: Record<string, unknown> = {
       ],
       "root_id": "banza-oz-root-2026",
       "root_signatures": [
-        "qpCXwdFrfwrOu1zPASFaOak_IhOicc5geQY1vXcBpsowBYCyasg8JYeZ_QSddQOKEi8RcwMIohj2ZADWfi3IAw",
-        "HEtYNCIG5TDi77YAVYhm87tskeqMT1cee9AMiTpVDlCU3VZJLpqGuzJLlx0X55v15vvP735bvuyi4gXS_2J7DA"
+        "Y-zksPRcMTZzonh22NYXs5SSyiMuPy-ACZbG6St6LatnWwATzCbCTqyHA1rM8U0rKYTKSJXsferjdfOB_J29Aw",
+        "k1f7NIHuWMJwtlwhW0qjSsX7Muguhz27QHGo0xfyIxHEv4YGF6tegD6UPioxMkKIUNqdOp9WJ4DHVz2Y_jpeCA"
       ],
       "scope": "signs only the Key Manifest that endorses the delegated signing keys (ADR-025)",
       "threshold_policy": {
@@ -359,7 +359,7 @@ export const ARTIFACT_DATA: Record<string, unknown> = {
     "environment": "pre-production",
     "external_model_called": false,
     "hashes": {
-      "bundle_hash": "f015547af6538e7ca1a3c673fdaf9be818f5ffd65fc3d369e2e7d0c70244acfa",
+      "bundle_hash": "8504f3fb70bad64817716338db24d625ad6c55052d64f66105865e27cac97cfa",
       "conformance_report_hash": "2c516ba6a2ddff6671faf3ec7a888a2702247216da0ca3c02127afea8df91a0f",
       "l1_readiness_hash": null,
       "l2_readiness_hash": null,
@@ -670,9 +670,9 @@ export const ARTIFACT_DATA: Record<string, unknown> = {
       "banza-l2-readiness": null,
       "banza-l3-readiness": null,
       "banza-l4-readiness": null,
-      "banza-production-gate": null,
       "banza-open-governance": null,
       "banza-operator-manifest": null,
+      "banza-production-gate": null,
       "banza-reference-trust-model": null,
       "banza-root-ceremony": null,
       "banza-security-assurance": null,
