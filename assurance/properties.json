@@ -468,7 +468,7 @@
         "tools/check-assurance-purity.sh"
       ],
       "negative_evidence": [
-        "assurance/mutations.json#impure_check"
+        "tools/check-assurance-purity.sh"
       ],
       "adversarial_evidence": [
         "tools/check-assurance-purity.sh"
