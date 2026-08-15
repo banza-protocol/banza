@@ -107,6 +107,17 @@ if cargo test -q --manifest-path engines/banza-trust/Cargo.toml --test trusted_s
 else
   bad "trusted state can be replaced by a conflicting successor"
 fi
+# Genesis is trusted because it was PINNED, never because it arrived first. This check was absent until
+# a mutation proof showed the guard stayed green while trust-on-first-use was reintroduced — the guard
+# protected succession and left the anchor the whole lineage hangs from unprotected.
+if cargo test -q --manifest-path engines/banza-trust/Cargo.toml --test authority_succession \
+     trust_on_first_use_is_refused >/dev/null 2>&1 && \
+   cargo test -q --manifest-path engines/banza-trust/Cargo.toml --test authority_succession \
+     genesis_is_accepted_only_against_the_pinned_digest >/dev/null 2>&1; then
+  ok "genesis is accepted only against a pinned digest; trust on first use is refused (engine-verified)"
+else
+  bad "the genesis pinning property does not hold"
+fi
 # A future protocol version must not become trusted for starting with the right number.
 if cargo test -q --manifest-path engines/banza-trust/Cargo.toml --test protocol_version_compatibility \
      >/dev/null 2>&1; then
