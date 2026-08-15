@@ -88,3 +88,4 @@ docs/whitepaper/latex/*.pdf
 # Assurance execution evidence is produced per assessment run: committing it would make it attest
 # to the commit BEFORE itself, and a snapshot cannot prove the tree that contains it.
 assurance/execution-evidence.json
+assurance/release-readiness.json

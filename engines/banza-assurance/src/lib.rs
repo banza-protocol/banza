@@ -959,7 +959,28 @@ pub fn evaluate_bound(
                 let doc: serde_json::Value =
                     serde_json::from_str(&raw).unwrap_or(serde_json::Value::Null);
                 let mut st = Status::Pass;
+                // Conditions the engine can OBSERVE are taken from observation, not from the report.
+                // A readiness artifact that claims every gate passed cannot override the gate verdicts
+                // this run just computed — otherwise AG-10 would be attesting to itself, which is the
+                // one thing an aggregator must never do.
+                let observed_gates_pass = gate_verdicts
+                    .iter()
+                    .filter(|(g, _)| g.as_str() != "AG-10")
+                    .all(|(_, v)| v == "PASS" || v == "NOT_APPLICABLE");
+                if !observed_gates_pass && doc.get("all_applicable_gates_pass").and_then(|v| v.as_bool()) == Some(true) {
+                    findings.push(Finding { property_id: "-".into(), gate: "AG-10".into(),
+                        detail: "the readiness report claims all gates pass, but this run observed otherwise — the report is an aggregator, not an authority".into() });
+                    st = Status::Blocked;
+                }
                 for c in &req.required_conditions {
+                    if c == "all_applicable_gates_pass" {
+                        if !observed_gates_pass {
+                            findings.push(Finding { property_id: "-".into(), gate: "AG-10".into(),
+                                detail: "observed gate verdicts are not all PASS".into() });
+                            st = Status::Blocked;
+                        }
+                        continue;
+                    }
                     match doc.get(c).and_then(|v| v.as_bool()) {
                         Some(true) => {}
                         Some(false) => {
