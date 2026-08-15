@@ -52,7 +52,32 @@ fn main() {
             if source.is_empty() { "<unknown>" } else { &source }
         );
     }
-    let report = evaluate_with_execution(&root, &registry, &exec, &source);
+    // Bind the run to the registry DEFINITION as well as to the source.
+    let registry_digest = {
+        use std::fmt::Write;
+        let bytes = std::fs::read(root.join("assurance/properties.json")).unwrap_or_default();
+        let mut h = [0u8; 32];
+        // A small, dependency-free digest is enough here: it only needs to change when the file does.
+        let mut acc: u64 = 0xcbf29ce484222325;
+        for b in &bytes {
+            acc ^= *b as u64;
+            acc = acc.wrapping_mul(0x100000001b3);
+        }
+        for (i, slot) in h.iter_mut().enumerate() {
+            *slot = ((acc >> ((i % 8) * 8)) & 0xff) as u8;
+        }
+        let mut out = String::new();
+        for b in h {
+            let _ = write!(out, "{b:02x}");
+        }
+        out
+    };
+    if !exec.registry_digest.is_empty() && exec.registry_digest != registry_digest {
+        eprintln!(
+            "  note: execution evidence was collected against a different registry definition"
+        );
+    }
+    let report = evaluate_bound(&root, &registry, &exec, &source, &registry_digest);
 
     if cmd == "json" {
         println!("{}", serde_json::to_string_pretty(&report).unwrap());

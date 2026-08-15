@@ -135,6 +135,11 @@ pub struct Ag9 {
 #[derive(Debug, Default, Deserialize)]
 pub struct ExecutionEvidence {
     pub source_commit: String,
+    /// The digest of the registry the run was collected against. A registry change redefines what the
+    /// evidence was supposed to demonstrate, so results collected under the old definition stop
+    /// applying — whatever commit they carry.
+    #[serde(default)]
+    pub registry_digest: String,
     #[serde(default)]
     pub tree_dirty: bool,
     #[serde(default)]
@@ -152,6 +157,12 @@ pub struct ExecutionRecord {
 impl ExecutionEvidence {
     /// Was this exact reference executed, against THIS source, with a passing result?
     pub fn passed_at(&self, source: &str, property: &str, reference: &str) -> Option<bool> {
+        // A result produced from a materially dirty tree describes bytes that are not in the commit it
+        // names. Attributing it to that commit is a false attribution, so it cannot ground a
+        // source-bound PASS at all.
+        if self.tree_dirty {
+            return Some(false);
+        }
         self.records
             .iter()
             .find(|r| r.property_id == property && r.evidence == reference)
@@ -346,8 +357,35 @@ pub fn evaluate_with_execution(
     exec: &ExecutionEvidence,
     source: &str,
 ) -> Report {
+    evaluate_bound(root, registry, exec, source, "")
+}
+
+/// `registry_digest` is the digest of the registry definition the caller is evaluating. When the
+/// execution evidence was collected against a different one, the results describe a different question.
+pub fn evaluate_bound(
+    root: &Path,
+    registry: &Registry,
+    exec: &ExecutionEvidence,
+    source: &str,
+    registry_digest: &str,
+) -> Report {
     let mut results = vec![];
     let mut findings = vec![];
+    // If the registry has changed since the evidence was collected, the evidence answers a question
+    // that is no longer the one being asked. Rather than silently reusing it, drop it — the run then
+    // reports NOT_RUN, and re-collection is one command away.
+    let stale_registry = !registry_digest.is_empty()
+        && !exec.registry_digest.is_empty()
+        && exec.registry_digest != registry_digest;
+    let empty_exec = ExecutionEvidence::default();
+    let exec: &ExecutionEvidence = if stale_registry { &empty_exec } else { exec };
+    if stale_registry {
+        findings.push(Finding {
+            property_id: "-".into(),
+            gate: "AG-3".into(),
+            detail: "execution evidence was collected against a different assurance registry; its results describe a different question".into(),
+        });
+    }
     let mut totals: BTreeMap<String, usize> = BTreeMap::new();
     let mut r2s2: BTreeMap<String, usize> = BTreeMap::new();
 

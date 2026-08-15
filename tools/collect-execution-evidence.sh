@@ -13,8 +13,11 @@ cd "$(dirname "$0")/.."
 
 OUT=assurance/execution-evidence.json
 COMMIT="$(git rev-parse HEAD)"
+# Only TRACKED modifications matter. An untracked scratch file changes nothing about the bytes under
+# test; a modified tracked file means the tests ran on code that is not in this commit, and attributing
+# that result to the commit is a false attribution.
 DIRTY=false
-[ -n "$(git status --porcelain)" ] && DIRTY=true
+[ -n "$(git status --porcelain --untracked-files=no)" ] && DIRTY=true
 
 echo "== collecting execution evidence =="
 echo "   source: $COMMIT (dirty=$DIRTY)"
@@ -75,8 +78,19 @@ for p in reg['properties']:
             })
             print(f"  {'ok  ' if ok else 'FAIL'} {p['property_id']:<44} {ref[:70]}")
 
+# The registry digest binds this run to the DEFINITION of the evidence. Change a property's required
+# stages or its test targets and the old results stop applying, whatever commit they carry.
+def fnv_digest(path):
+    acc = 0xcbf29ce484222325
+    for b in open(path, 'rb').read():
+        acc ^= b
+        acc = (acc * 0x100000001b3) & 0xFFFFFFFFFFFFFFFF
+    return ''.join('%02x' % ((acc >> ((i % 8) * 8)) & 0xff) for i in range(32))
+registry_digest = fnv_digest('assurance/properties.json')
+
 doc = {
     "_spec": "BANZA assurance execution evidence",
+    "registry_digest": registry_digest,
     "_status": "NON-NORMATIVE. Produced by tools/collect-execution-evidence.sh. Each record binds one executed piece of evidence to the source state it was executed against.",
     "source_commit": commit,
     "tree_dirty": dirty,
