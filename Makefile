@@ -131,6 +131,7 @@ assurance-meta-check:
 
 ## assurance-check: the R²S² layered assurance gates — every claimed property must have a falsifiable evidence chain (AG-0…AG-10)
 assurance-check: assurance-meta-check r2s2-principles-check semantic-closure-check no-availability-bypass-check banzai-outside-critical-path-check
+	@bash tools/collect-execution-evidence.sh >/dev/null
 	@cargo run -q --manifest-path engines/banza-assurance/Cargo.toml --bin banza-assurance -- report
 
 ## mutation-proofs: prove every critical property guard can go red, in isolated worktrees only
