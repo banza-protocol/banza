@@ -93,7 +93,7 @@ The L0–L4 profiles are distinct from these layers.
 
 ## What BANZA defines
 
-The normative surface identified by the manifest contains **143 artifacts**, of which **85 must be
+The normative surface identified by the manifest contains **154 artifacts**, of which **93 must be
 satisfied by an implementation**. Concretely, BANZA defines:
 
 | | |
@@ -114,7 +114,7 @@ satisfied by an implementation**. Concretely, BANZA defines:
 | **Federation and routing conditions** | What must hold before one implementation routes to another, and the contract surface it routes over — [`spec/federation/`](spec/federation/) |
 | **Evidence and receipts** | Evidence bundles, journey and operation receipts, content digests binding a result to its inputs |
 | **Semantic equivalence** | When two results from different implementations count as the same result, and what may differ between them |
-| **Invariants** | 70 published financial and federation invariants — [`contracts/invariants.json`](contracts/invariants.json) |
+| **Invariants** | 74 published financial and federation invariants — [`contracts/invariants.json`](contracts/invariants.json) |
 | **Conformance vectors** | Public vectors for canonicalization, trust signing, reason codes, idempotency and every payment domain — [`conformance/vectors/`](conformance/vectors/) |
 
 ## What BANZA does not define
@@ -218,7 +218,9 @@ manifest and signed protocol metadata.
 Trust is evaluated from that published material:
 
 ```
-Trust Root            signs only the Key Manifest
+Root Authority Set    three authorities, threshold two — a lineage, not a key
+    ↓                 genesis pinned; each later set authorised by the one it succeeds
+Key Manifest          signed by two distinct authorities of the active set
     ↓
 Delegated signing keys      domain-separated, each valid for one purpose
     ↓
@@ -227,12 +229,31 @@ Signed protocol metadata · Revocation List
 Operator-published manifests and conformance evidence
 ```
 
-A verifier pins the trust root once and uses it to check everything downstream. Evaluation is
-**fail-closed**: missing, malformed, expired, revoked or incompatible material produces a refusal, never
-a default acceptance.
+The Root is a set of **three independent authorities**, and any authorised Root action requires **two
+distinct** ones. A single authority never acts alone.
 
-The Trust Root is not an operational hub. It signs key material; it does not authorise operators, issue
+A verifier pins the **genesis set**, and the lineage carries trust from there: each successor names its
+predecessor by digest and is authorised by the threshold of that predecessor. A set signed only by its
+own keys authorises nothing — it proves that two keys named in the document agree with each other, which
+anyone can produce about keys they generated a moment earlier. Trust on first use is refused.
+
+This is what makes continuity real rather than declared: if one authority is lost, compromised or
+obstructive, the surviving two replace it without its participation. Below the threshold, canonical
+continuity blocks — there is no emergency master key, no hidden recovery key and no single-signer break
+glass, because any of those would be a one-party route to the maximum authority in the protocol.
+
+Evaluation is **fail-closed**: missing, malformed, expired, revoked or incompatible material produces a
+refusal, never a default acceptance. A superseded set presented again is a rollback; two different sets
+at the same position are a conflict, not a race — the outcome never depends on which arrived first.
+
+The Root is not an operational hub. It signs key material; it does not authorise operators, issue
 licences, admit participants or take part in any payment.
+
+Cryptographic distinctness is not institutional independence. Three key identities do not by themselves
+prove three independent control domains — that is a **production gate**, evidenced before the first
+production ceremony, and it is not a claim this protocol makes today.
+
+Normative definition: [`spec/root-authority-set.md`](spec/root-authority-set.md).
 
 ## Operational independence
 
@@ -374,7 +395,7 @@ No external security audit has been performed. Report vulnerabilities to
 | [`spec/`](spec/) | Normative specifications — canonicalization, execution semantics, federation, invariants |
 | [`contracts/`](contracts/) | Machine-readable contracts, schemas, registries and API surfaces |
 | [`conformance/`](conformance/) | Public conformance vectors, suites and fixtures |
-| [`decisions/`](decisions/) | Governance record — 79 ADRs and 6 RFCs |
+| [`decisions/`](decisions/) | Governance record — 39 ADRs and 7 RFCs |
 | [`engines/`](engines/) | Reference implementation (Rust) — non-normative |
 | [`docs/`](docs/) | Whitepaper, reference material, governance, security and guides |
 | [`website/`](website/) | The public protocol website |

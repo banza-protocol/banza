@@ -4,7 +4,7 @@
   "_authority": "spec/capabilities.md",
   "_source_of_truth": "spec/capabilities.md and contracts/production/capability-registry.production.json",
   "_boundary": "These vectors decide whether a DECLARATION satisfies a REQUIREMENT. They say nothing about whether the declaration is true: that is established by conformance evidence, never by declaring.",
-  "protocol_version": "2.0.0",
+  "protocol_version": "1.0.0",
   "registry": "banza-capabilities/1",
   "vector_count": 12,
   "vectors": [

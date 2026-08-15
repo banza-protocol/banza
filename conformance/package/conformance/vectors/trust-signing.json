@@ -1,5 +1,5 @@
 {
-  "_note": "Public cryptographic trust vectors for BANZA 2.0. Deterministic TEST-ONLY trust material (trust root metadata with a 2-of-3 threshold signature, delegated signing keys, signed protocol metadata, operator manifest, conformance evidence, public registry entry, revocation status) with fixed derivation inputs. Each case carries the expected trust status. These are the vectors an independent implementation uses to validate its Ed25519 signature verification against known-good material; unlike the federation fixtures, they carry real signatures, not placeholders. Public key material only; no confidential key material of any kind is present.",
+  "_note": "Public cryptographic trust vectors for BANZA 1.0. Deterministic TEST-ONLY trust material (trust root metadata with a 2-of-3 threshold signature, delegated signing keys, signed protocol metadata, operator manifest, conformance evidence, public registry entry, revocation status) with fixed derivation inputs. Each case carries the expected trust status. These are the vectors an independent implementation uses to validate its Ed25519 signature verification against known-good material; unlike the federation fixtures, they carry real signatures, not placeholders. Public key material only; no confidential key material of any kind is present.",
   "canonicalization": "BCJ/1",
   "cases": [
     {
@@ -32,7 +32,7 @@
           "valid_until": "2028-07-01T00:00:00Z"
         },
         "evaluated_at": "2026-07-17T00:00:00Z",
-        "evaluator_protocol_version": "2.0.0",
+        "evaluator_protocol_version": "1.0.0",
         "operator_manifest": {
           "capabilities": [
             "cross_operator_routing",
@@ -44,10 +44,10 @@
             "interop_endpoint": "https://operator-a.example/federation"
           },
           "interop_endpoint": "https://operator-a.example/federation",
-          "manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
+          "manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
           "manifest_url": "https://operator-a.example/.well-known/banza/operator-manifest.json",
           "operator_id": "operator-A",
-          "protocol_version": "2.0.0",
+          "protocol_version": "1.0.0",
           "public_keys": [
             {
               "algorithm": "ed25519",
@@ -62,10 +62,10 @@
           "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
           "delegated_key_id": "banza-protocol-metadata-2026-07",
           "last_verified_at": "2026-07-16T00:00:00Z",
-          "manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
+          "manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
           "operator_id": "operator-A",
           "revocation_status": "active",
-          "signed_protocol_metadata_hash": "bb90e8216ccd238ece0154bfec7d926ac1ade80984bb01ad5263a3c92320b867",
+          "signed_protocol_metadata_hash": "4d1a1d6c31a282e3059085d2af2955b850d23448c9cf34e0f6f4c63f543b3854",
           "trust_root_version": "2026.07",
           "verified_by_tool_version": "banza-trust 0.2.0"
         },
@@ -88,16 +88,16 @@
           "evidence_bundle_hash": "sha256:evidence-bundle",
           "metadata_id": "spm-operator-A-2026-07",
           "operator_id": "operator-A",
-          "operator_manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
-          "protocol_version": "2.0.0",
+          "operator_manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
+          "protocol_version": "1.0.0",
           "registry_snapshot_hash": "sha256:registry-snapshot",
-          "release_id": "banza-protocol-2.0.0",
+          "release_id": "banza-protocol-1.0.0",
           "revocation_list_hash": "sha256:revocation-list",
           "schema_versions": {
             "conformance_evidence": "1.0",
             "operator_manifest": "1.0"
           },
-          "signature": "NkwVTK2MLusFce5xd1MSpS8wEKcdqcT_Xi0znWc0mrpS7Yi3k4zbyGE7aBcxqJyxzJcr5m5f1fejqsKev7eVDg",
+          "signature": "GxAB1Fhckgrmk0MqLMHtcip3uBoDWdgt3R9K_nAWzmQyhxo4BcSK5V1Gc77ffss_7m8LgDoxLFNKoGCUv8soAw",
           "valid_from": "2026-07-01T00:00:00Z",
           "valid_until": "2027-07-17T00:00:00Z"
         },
@@ -177,7 +177,7 @@
           "valid_until": "2028-07-01T00:00:00Z"
         },
         "evaluated_at": "2026-07-17T00:00:00Z",
-        "evaluator_protocol_version": "2.0.0",
+        "evaluator_protocol_version": "1.0.0",
         "operator_manifest": {
           "capabilities": [
             "cross_operator_routing",
@@ -189,10 +189,10 @@
             "interop_endpoint": "https://operator-a.example/federation"
           },
           "interop_endpoint": "https://operator-a.example/federation",
-          "manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
+          "manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
           "manifest_url": "https://operator-a.example/.well-known/banza/operator-manifest.json",
           "operator_id": "operator-A",
-          "protocol_version": "2.0.0",
+          "protocol_version": "1.0.0",
           "public_keys": [
             {
               "algorithm": "ed25519",
@@ -207,10 +207,10 @@
           "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
           "delegated_key_id": "banza-protocol-metadata-2026-07",
           "last_verified_at": "2026-07-16T00:00:00Z",
-          "manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
+          "manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
           "operator_id": "operator-A",
           "revocation_status": "active",
-          "signed_protocol_metadata_hash": "6a7a3cdcc6887f754a93890adb4321f05ce15eb0e5499b7a2a0d23bea405c1c7",
+          "signed_protocol_metadata_hash": "f41ac120cec7be81ef698c1c89197b6abb4f7c6ae5db355a9ecb0ea28822d5c5",
           "trust_root_version": "2026.07",
           "verified_by_tool_version": "banza-trust 0.2.0"
         },
@@ -233,16 +233,16 @@
           "evidence_bundle_hash": "sha256:evidence-bundle",
           "metadata_id": "spm-operator-A-TAMPERED",
           "operator_id": "operator-A",
-          "operator_manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
-          "protocol_version": "2.0.0",
+          "operator_manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
+          "protocol_version": "1.0.0",
           "registry_snapshot_hash": "sha256:registry-snapshot",
-          "release_id": "banza-protocol-2.0.0",
+          "release_id": "banza-protocol-1.0.0",
           "revocation_list_hash": "sha256:revocation-list",
           "schema_versions": {
             "conformance_evidence": "1.0",
             "operator_manifest": "1.0"
           },
-          "signature": "NkwVTK2MLusFce5xd1MSpS8wEKcdqcT_Xi0znWc0mrpS7Yi3k4zbyGE7aBcxqJyxzJcr5m5f1fejqsKev7eVDg",
+          "signature": "GxAB1Fhckgrmk0MqLMHtcip3uBoDWdgt3R9K_nAWzmQyhxo4BcSK5V1Gc77ffss_7m8LgDoxLFNKoGCUv8soAw",
           "valid_from": "2026-07-01T00:00:00Z",
           "valid_until": "2027-07-17T00:00:00Z"
         },
@@ -322,7 +322,7 @@
           "valid_until": "2028-07-01T00:00:00Z"
         },
         "evaluated_at": "2026-07-17T00:00:00Z",
-        "evaluator_protocol_version": "2.0.0",
+        "evaluator_protocol_version": "1.0.0",
         "operator_manifest": {
           "capabilities": [
             "cross_operator_routing",
@@ -334,10 +334,10 @@
             "interop_endpoint": "https://operator-a.example/federation"
           },
           "interop_endpoint": "https://operator-a.example/federation",
-          "manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
+          "manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
           "manifest_url": "https://operator-a.example/.well-known/banza/operator-manifest.json",
           "operator_id": "operator-A",
-          "protocol_version": "2.0.0",
+          "protocol_version": "1.0.0",
           "public_keys": [
             {
               "algorithm": "ed25519",
@@ -352,10 +352,10 @@
           "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
           "delegated_key_id": "banza-protocol-metadata-2026-07",
           "last_verified_at": "2026-07-16T00:00:00Z",
-          "manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
+          "manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
           "operator_id": "operator-A",
           "revocation_status": "active",
-          "signed_protocol_metadata_hash": "bb90e8216ccd238ece0154bfec7d926ac1ade80984bb01ad5263a3c92320b867",
+          "signed_protocol_metadata_hash": "4d1a1d6c31a282e3059085d2af2955b850d23448c9cf34e0f6f4c63f543b3854",
           "trust_root_version": "2026.07",
           "verified_by_tool_version": "banza-trust 0.2.0"
         },
@@ -378,16 +378,16 @@
           "evidence_bundle_hash": "sha256:evidence-bundle",
           "metadata_id": "spm-operator-A-2026-07",
           "operator_id": "operator-A",
-          "operator_manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
-          "protocol_version": "2.0.0",
+          "operator_manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
+          "protocol_version": "1.0.0",
           "registry_snapshot_hash": "sha256:registry-snapshot",
-          "release_id": "banza-protocol-2.0.0",
+          "release_id": "banza-protocol-1.0.0",
           "revocation_list_hash": "sha256:revocation-list",
           "schema_versions": {
             "conformance_evidence": "1.0",
             "operator_manifest": "1.0"
           },
-          "signature": "NkwVTK2MLusFce5xd1MSpS8wEKcdqcT_Xi0znWc0mrpS7Yi3k4zbyGE7aBcxqJyxzJcr5m5f1fejqsKev7eVDg",
+          "signature": "GxAB1Fhckgrmk0MqLMHtcip3uBoDWdgt3R9K_nAWzmQyhxo4BcSK5V1Gc77ffss_7m8LgDoxLFNKoGCUv8soAw",
           "valid_from": "2026-07-01T00:00:00Z",
           "valid_until": "2027-07-17T00:00:00Z"
         },
@@ -467,7 +467,7 @@
           "valid_until": "2028-07-01T00:00:00Z"
         },
         "evaluated_at": "2026-07-17T00:00:00Z",
-        "evaluator_protocol_version": "2.0.0",
+        "evaluator_protocol_version": "1.0.0",
         "operator_manifest": {
           "capabilities": [
             "cross_operator_routing",
@@ -479,10 +479,10 @@
             "interop_endpoint": "https://operator-a.example/federation"
           },
           "interop_endpoint": "https://operator-a.example/federation",
-          "manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
+          "manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
           "manifest_url": "https://operator-a.example/.well-known/banza/operator-manifest.json",
           "operator_id": "operator-A",
-          "protocol_version": "2.0.0",
+          "protocol_version": "1.0.0",
           "public_keys": [
             {
               "algorithm": "ed25519",
@@ -497,10 +497,10 @@
           "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
           "delegated_key_id": "banza-protocol-metadata-2026-07",
           "last_verified_at": "2026-07-16T00:00:00Z",
-          "manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
+          "manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
           "operator_id": "operator-A",
           "revocation_status": "active",
-          "signed_protocol_metadata_hash": "bb90e8216ccd238ece0154bfec7d926ac1ade80984bb01ad5263a3c92320b867",
+          "signed_protocol_metadata_hash": "4d1a1d6c31a282e3059085d2af2955b850d23448c9cf34e0f6f4c63f543b3854",
           "trust_root_version": "2026.07",
           "verified_by_tool_version": "banza-trust 0.2.0"
         },
@@ -523,16 +523,16 @@
           "evidence_bundle_hash": "sha256:evidence-bundle",
           "metadata_id": "spm-operator-A-2026-07",
           "operator_id": "operator-A",
-          "operator_manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
-          "protocol_version": "2.0.0",
+          "operator_manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
+          "protocol_version": "1.0.0",
           "registry_snapshot_hash": "sha256:registry-snapshot",
-          "release_id": "banza-protocol-2.0.0",
+          "release_id": "banza-protocol-1.0.0",
           "revocation_list_hash": "sha256:revocation-list",
           "schema_versions": {
             "conformance_evidence": "1.0",
             "operator_manifest": "1.0"
           },
-          "signature": "NkwVTK2MLusFce5xd1MSpS8wEKcdqcT_Xi0znWc0mrpS7Yi3k4zbyGE7aBcxqJyxzJcr5m5f1fejqsKev7eVDg",
+          "signature": "GxAB1Fhckgrmk0MqLMHtcip3uBoDWdgt3R9K_nAWzmQyhxo4BcSK5V1Gc77ffss_7m8LgDoxLFNKoGCUv8soAw",
           "valid_from": "2026-07-01T00:00:00Z",
           "valid_until": "2027-07-17T00:00:00Z"
         },
@@ -599,7 +599,7 @@
           "valid_until": "2028-07-01T00:00:00Z"
         },
         "evaluated_at": "2026-07-17T00:00:00Z",
-        "evaluator_protocol_version": "2.0.0",
+        "evaluator_protocol_version": "1.0.0",
         "operator_manifest": {
           "capabilities": [
             "cross_operator_routing",
@@ -611,10 +611,10 @@
             "interop_endpoint": "https://operator-a.example/federation"
           },
           "interop_endpoint": "https://operator-a.example/federation",
-          "manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
+          "manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
           "manifest_url": "https://operator-a.example/.well-known/banza/operator-manifest.json",
           "operator_id": "operator-A",
-          "protocol_version": "2.0.0",
+          "protocol_version": "1.0.0",
           "public_keys": [
             {
               "algorithm": "ed25519",
@@ -629,10 +629,10 @@
           "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
           "delegated_key_id": "banza-protocol-metadata-2026-07",
           "last_verified_at": "2026-07-16T00:00:00Z",
-          "manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
+          "manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
           "operator_id": "operator-A",
           "revocation_status": "active",
-          "signed_protocol_metadata_hash": "bb90e8216ccd238ece0154bfec7d926ac1ade80984bb01ad5263a3c92320b867",
+          "signed_protocol_metadata_hash": "4d1a1d6c31a282e3059085d2af2955b850d23448c9cf34e0f6f4c63f543b3854",
           "trust_root_version": "2026.07",
           "verified_by_tool_version": "banza-trust 0.2.0"
         },
@@ -655,16 +655,16 @@
           "evidence_bundle_hash": "sha256:evidence-bundle",
           "metadata_id": "spm-operator-A-2026-07",
           "operator_id": "operator-A",
-          "operator_manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
-          "protocol_version": "2.0.0",
+          "operator_manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
+          "protocol_version": "1.0.0",
           "registry_snapshot_hash": "sha256:registry-snapshot",
-          "release_id": "banza-protocol-2.0.0",
+          "release_id": "banza-protocol-1.0.0",
           "revocation_list_hash": "sha256:revocation-list",
           "schema_versions": {
             "conformance_evidence": "1.0",
             "operator_manifest": "1.0"
           },
-          "signature": "NkwVTK2MLusFce5xd1MSpS8wEKcdqcT_Xi0znWc0mrpS7Yi3k4zbyGE7aBcxqJyxzJcr5m5f1fejqsKev7eVDg",
+          "signature": "GxAB1Fhckgrmk0MqLMHtcip3uBoDWdgt3R9K_nAWzmQyhxo4BcSK5V1Gc77ffss_7m8LgDoxLFNKoGCUv8soAw",
           "valid_from": "2026-07-01T00:00:00Z",
           "valid_until": "2027-07-17T00:00:00Z"
         },
@@ -744,15 +744,15 @@
           "valid_until": "2028-07-01T00:00:00Z"
         },
         "evaluated_at": "2026-07-17T00:00:00Z",
-        "evaluator_protocol_version": "2.0.0",
+        "evaluator_protocol_version": "1.0.0",
         "public_registry_entry": {
           "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
           "delegated_key_id": "banza-protocol-metadata-2026-07",
           "last_verified_at": "2026-07-16T00:00:00Z",
-          "manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
+          "manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
           "operator_id": "operator-A",
           "revocation_status": "active",
-          "signed_protocol_metadata_hash": "bb90e8216ccd238ece0154bfec7d926ac1ade80984bb01ad5263a3c92320b867",
+          "signed_protocol_metadata_hash": "4d1a1d6c31a282e3059085d2af2955b850d23448c9cf34e0f6f4c63f543b3854",
           "trust_root_version": "2026.07",
           "verified_by_tool_version": "banza-trust 0.2.0"
         },
@@ -775,16 +775,16 @@
           "evidence_bundle_hash": "sha256:evidence-bundle",
           "metadata_id": "spm-operator-A-2026-07",
           "operator_id": "operator-A",
-          "operator_manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
-          "protocol_version": "2.0.0",
+          "operator_manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
+          "protocol_version": "1.0.0",
           "registry_snapshot_hash": "sha256:registry-snapshot",
-          "release_id": "banza-protocol-2.0.0",
+          "release_id": "banza-protocol-1.0.0",
           "revocation_list_hash": "sha256:revocation-list",
           "schema_versions": {
             "conformance_evidence": "1.0",
             "operator_manifest": "1.0"
           },
-          "signature": "NkwVTK2MLusFce5xd1MSpS8wEKcdqcT_Xi0znWc0mrpS7Yi3k4zbyGE7aBcxqJyxzJcr5m5f1fejqsKev7eVDg",
+          "signature": "GxAB1Fhckgrmk0MqLMHtcip3uBoDWdgt3R9K_nAWzmQyhxo4BcSK5V1Gc77ffss_7m8LgDoxLFNKoGCUv8soAw",
           "valid_from": "2026-07-01T00:00:00Z",
           "valid_until": "2027-07-17T00:00:00Z"
         },
@@ -864,7 +864,7 @@
           "valid_until": "2028-07-01T00:00:00Z"
         },
         "evaluated_at": "2026-07-17T00:00:00Z",
-        "evaluator_protocol_version": "2.0.0",
+        "evaluator_protocol_version": "1.0.0",
         "operator_manifest": {
           "capabilities": [
             "cross_operator_routing",
@@ -876,10 +876,10 @@
             "interop_endpoint": "https://operator-a.example/federation"
           },
           "interop_endpoint": "https://operator-a.example/federation",
-          "manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
+          "manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
           "manifest_url": "https://operator-a.example/.well-known/banza/operator-manifest.json",
           "operator_id": "operator-A",
-          "protocol_version": "2.0.0",
+          "protocol_version": "1.0.0",
           "public_keys": [
             {
               "algorithm": "ed25519",
@@ -909,16 +909,16 @@
           "evidence_bundle_hash": "sha256:evidence-bundle",
           "metadata_id": "spm-operator-A-2026-07",
           "operator_id": "operator-A",
-          "operator_manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
-          "protocol_version": "2.0.0",
+          "operator_manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
+          "protocol_version": "1.0.0",
           "registry_snapshot_hash": "sha256:registry-snapshot",
-          "release_id": "banza-protocol-2.0.0",
+          "release_id": "banza-protocol-1.0.0",
           "revocation_list_hash": "sha256:revocation-list",
           "schema_versions": {
             "conformance_evidence": "1.0",
             "operator_manifest": "1.0"
           },
-          "signature": "NkwVTK2MLusFce5xd1MSpS8wEKcdqcT_Xi0znWc0mrpS7Yi3k4zbyGE7aBcxqJyxzJcr5m5f1fejqsKev7eVDg",
+          "signature": "GxAB1Fhckgrmk0MqLMHtcip3uBoDWdgt3R9K_nAWzmQyhxo4BcSK5V1Gc77ffss_7m8LgDoxLFNKoGCUv8soAw",
           "valid_from": "2026-07-01T00:00:00Z",
           "valid_until": "2027-07-17T00:00:00Z"
         },
@@ -998,7 +998,7 @@
           "valid_until": "2028-07-01T00:00:00Z"
         },
         "evaluated_at": "2026-07-17T00:00:00Z",
-        "evaluator_protocol_version": "2.0.0",
+        "evaluator_protocol_version": "1.0.0",
         "operator_manifest": {
           "capabilities": [
             "cross_operator_routing",
@@ -1010,10 +1010,10 @@
             "interop_endpoint": "https://operator-a.example/federation"
           },
           "interop_endpoint": "https://operator-a.example/federation",
-          "manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
+          "manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
           "manifest_url": "https://operator-a.example/.well-known/banza/operator-manifest.json",
           "operator_id": "operator-A",
-          "protocol_version": "2.0.0",
+          "protocol_version": "1.0.0",
           "public_keys": [
             {
               "algorithm": "ed25519",
@@ -1028,10 +1028,10 @@
           "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
           "delegated_key_id": "banza-protocol-metadata-2026-07",
           "last_verified_at": "2026-07-16T00:00:00Z",
-          "manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
+          "manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
           "operator_id": "operator-A",
           "revocation_status": "active",
-          "signed_protocol_metadata_hash": "bb90e8216ccd238ece0154bfec7d926ac1ade80984bb01ad5263a3c92320b867",
+          "signed_protocol_metadata_hash": "4d1a1d6c31a282e3059085d2af2955b850d23448c9cf34e0f6f4c63f543b3854",
           "trust_root_version": "2026.07",
           "verified_by_tool_version": "banza-trust 0.2.0"
         },
@@ -1054,16 +1054,16 @@
           "evidence_bundle_hash": "sha256:evidence-bundle",
           "metadata_id": "spm-operator-A-2026-07",
           "operator_id": "operator-A",
-          "operator_manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
-          "protocol_version": "2.0.0",
+          "operator_manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
+          "protocol_version": "1.0.0",
           "registry_snapshot_hash": "sha256:registry-snapshot",
-          "release_id": "banza-protocol-2.0.0",
+          "release_id": "banza-protocol-1.0.0",
           "revocation_list_hash": "sha256:revocation-list",
           "schema_versions": {
             "conformance_evidence": "1.0",
             "operator_manifest": "1.0"
           },
-          "signature": "NkwVTK2MLusFce5xd1MSpS8wEKcdqcT_Xi0znWc0mrpS7Yi3k4zbyGE7aBcxqJyxzJcr5m5f1fejqsKev7eVDg",
+          "signature": "GxAB1Fhckgrmk0MqLMHtcip3uBoDWdgt3R9K_nAWzmQyhxo4BcSK5V1Gc77ffss_7m8LgDoxLFNKoGCUv8soAw",
           "valid_from": "2026-07-01T00:00:00Z",
           "valid_until": "2027-07-17T00:00:00Z"
         },
@@ -1143,7 +1143,7 @@
           "valid_until": "2028-07-01T00:00:00Z"
         },
         "evaluated_at": "2026-07-17T00:00:00Z",
-        "evaluator_protocol_version": "2.0.0",
+        "evaluator_protocol_version": "1.0.0",
         "operator_manifest": {
           "capabilities": [
             "cross_operator_routing",
@@ -1155,10 +1155,10 @@
             "interop_endpoint": "https://operator-a.example/federation"
           },
           "interop_endpoint": "https://operator-a.example/federation",
-          "manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
+          "manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
           "manifest_url": "https://operator-a.example/.well-known/banza/operator-manifest.json",
           "operator_id": "operator-A",
-          "protocol_version": "2.0.0",
+          "protocol_version": "1.0.0",
           "public_keys": [
             {
               "algorithm": "ed25519",
@@ -1173,10 +1173,10 @@
           "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
           "delegated_key_id": "banza-protocol-metadata-2026-07",
           "last_verified_at": "2026-07-16T00:00:00Z",
-          "manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
+          "manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
           "operator_id": "operator-A",
           "revocation_status": "active",
-          "signed_protocol_metadata_hash": "8711c1688dc3aa7fc6f4fae497b887da0802ab72de46a8bd9b6b1084cfa48af0",
+          "signed_protocol_metadata_hash": "23c379cb8b79cee44326a5b50b6895ce3b446909529702c989e9c63aa1aec54b",
           "trust_root_version": "2026.07",
           "verified_by_tool_version": "banza-trust 0.2.0"
         },
@@ -1199,16 +1199,16 @@
           "evidence_bundle_hash": "sha256:evidence-bundle",
           "metadata_id": "spm-operator-A-2026-07",
           "operator_id": "operator-A",
-          "operator_manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
-          "protocol_version": "2.0.0",
+          "operator_manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
+          "protocol_version": "1.0.0",
           "registry_snapshot_hash": "sha256:registry-snapshot",
-          "release_id": "banza-protocol-2.0.0",
+          "release_id": "banza-protocol-1.0.0",
           "revocation_list_hash": "sha256:revocation-list",
           "schema_versions": {
             "conformance_evidence": "1.0",
             "operator_manifest": "1.0"
           },
-          "signature": "DUKz8OqigsidkbLIAX6cOqlYUpxH_ydlxYckiWMHtlC8sD_QLLTRVEtgwFgBvLImdpbgLnhW10TUa0sGtNhqBg",
+          "signature": "_gOlv3e7BXhxP7NIDJEAvaeieZMSZ523LZS8EuKA7oik5uyA-b6RBMI8eF3ZOXyFyi3lK3k_hDAXLqWzJca2BA",
           "valid_from": "2026-05-01T00:00:00Z",
           "valid_until": "2026-06-01T00:00:00Z"
         },
@@ -1288,7 +1288,7 @@
           "valid_until": "2028-07-01T00:00:00Z"
         },
         "evaluated_at": "2026-07-17T00:00:00Z",
-        "evaluator_protocol_version": "2.0.0",
+        "evaluator_protocol_version": "1.0.0",
         "operator_manifest": {
           "capabilities": [
             "cross_operator_routing",
@@ -1300,10 +1300,10 @@
             "interop_endpoint": "https://operator-a.example/federation"
           },
           "interop_endpoint": "https://operator-a.example/federation",
-          "manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
+          "manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
           "manifest_url": "https://operator-a.example/.well-known/banza/operator-manifest.json",
           "operator_id": "operator-A",
-          "protocol_version": "2.0.0",
+          "protocol_version": "1.0.0",
           "public_keys": [
             {
               "algorithm": "ed25519",
@@ -1318,10 +1318,10 @@
           "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
           "delegated_key_id": "banza-protocol-metadata-2026-07",
           "last_verified_at": "2026-07-16T00:00:00Z",
-          "manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
+          "manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
           "operator_id": "operator-A",
           "revocation_status": "active",
-          "signed_protocol_metadata_hash": "8993338422949f6325500921568dab44331639100dc0d6cb495ad773c674e28e",
+          "signed_protocol_metadata_hash": "7a4ab21ed9d5025ac0245ca3f5423f38b739b1c2c73e6b6428ccfe2cde219257",
           "trust_root_version": "2026.07",
           "verified_by_tool_version": "banza-trust 0.2.0"
         },
@@ -1344,16 +1344,16 @@
           "evidence_bundle_hash": "sha256:evidence-bundle",
           "metadata_id": "spm-operator-A-2026-07",
           "operator_id": "operator-A",
-          "operator_manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
-          "protocol_version": "1.0.0",
+          "operator_manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
+          "protocol_version": "2.0.0",
           "registry_snapshot_hash": "sha256:registry-snapshot",
-          "release_id": "banza-protocol-2.0.0",
+          "release_id": "banza-protocol-1.0.0",
           "revocation_list_hash": "sha256:revocation-list",
           "schema_versions": {
             "conformance_evidence": "1.0",
             "operator_manifest": "1.0"
           },
-          "signature": "AP2wgOOuaSPunaOKl2ywHR-kLHS0EfbCi3P0xxuz2caZeR1ZcmjPBKdRYhew4-vuqx69cBGp5AWTOmONnT4_BA",
+          "signature": "Ri6VDaktBPWUKp9syn827xAdpMIlDouN1Ey4p7FNXMmKMxCpM2iJWtBwHXU64RFN6kYh95lSCYYvh0rWa1T_Bg",
           "valid_from": "2026-07-01T00:00:00Z",
           "valid_until": "2027-07-17T00:00:00Z"
         },
@@ -1433,7 +1433,7 @@
           "valid_until": "2028-07-01T00:00:00Z"
         },
         "evaluated_at": "2026-07-17T00:00:00Z",
-        "evaluator_protocol_version": "2.0.0",
+        "evaluator_protocol_version": "1.0.0",
         "operator_manifest": {
           "capabilities": [
             "cross_operator_routing",
@@ -1445,10 +1445,10 @@
             "interop_endpoint": "https://operator-a.example/federation"
           },
           "interop_endpoint": "https://operator-a.example/federation",
-          "manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
+          "manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
           "manifest_url": "https://operator-a.example/.well-known/banza/operator-manifest.json",
           "operator_id": "operator-A",
-          "protocol_version": "2.0.0",
+          "protocol_version": "1.0.0",
           "public_keys": [
             {
               "algorithm": "ed25519",
@@ -1463,10 +1463,10 @@
           "conformance_evidence_hash": "5d7240cb8db174c834865ff3f08b21121a11dc0893f67c57330630f75ecb85f7",
           "delegated_key_id": "banza-protocol-metadata-2026-07",
           "last_verified_at": "2026-07-16T00:00:00Z",
-          "manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
+          "manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
           "operator_id": "operator-A",
           "revocation_status": "active",
-          "signed_protocol_metadata_hash": "ac3b60f62ba1e1517f517b98faa09aa0050d9f59667d60671346d160e1aff894",
+          "signed_protocol_metadata_hash": "7655a4054f8bc1d1ba2f233f2ea578229927b041e16a9e79a7b40fc539db3922",
           "trust_root_version": "2026.07",
           "verified_by_tool_version": "banza-trust 0.2.0"
         },
@@ -1490,16 +1490,16 @@
           "is_operator_certificate": true,
           "metadata_id": "spm-operator-A-2026-07",
           "operator_id": "operator-A",
-          "operator_manifest_hash": "f12d4d1e00704939f680f75051cc75ac55a0bcea34973f0edd3ae4962a5ab43d",
-          "protocol_version": "2.0.0",
+          "operator_manifest_hash": "262d2c2f82fa56531ac635a13b3998b1a0b86cd194562b214ceae644fd29c236",
+          "protocol_version": "1.0.0",
           "registry_snapshot_hash": "sha256:registry-snapshot",
-          "release_id": "banza-protocol-2.0.0",
+          "release_id": "banza-protocol-1.0.0",
           "revocation_list_hash": "sha256:revocation-list",
           "schema_versions": {
             "conformance_evidence": "1.0",
             "operator_manifest": "1.0"
           },
-          "signature": "-4XPyMcifnPKEJTPCYEvgF0yE_ewc1mmmqa25FAaSILa1NkzFCsU5zLs88z4pbCJr6yBG3NUar6KtBKMeYmDCQ",
+          "signature": "pX5VdLJZWzlCaoC3C0ZHO05oQJUQIhsg7RsWM_FX67uATT7HhgLuNmSpYi4C-6FcVbKR3bCb8HcxfJkOrXs7AA",
           "valid_from": "2026-07-01T00:00:00Z",
           "valid_until": "2027-07-17T00:00:00Z"
         },

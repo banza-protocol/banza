@@ -1,5 +1,5 @@
 {
-  "total": 3108,
+  "total": 3114,
   "rows": [
     {
       "raw_text": "Contributing to BANZA",
@@ -1347,6 +1347,39 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
+      "raw_text": "three independent authorities",
+      "normalized": "three independent authorities",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "two\ndistinct",
+      "normalized": "two distinct",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "genesis set",
+      "normalized": "genesis set",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
       "raw_text": "fail-closed",
       "normalized": "fail-closed",
       "sources": [
@@ -1360,6 +1393,17 @@
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "production gate",
+      "normalized": "production gate",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
       "raw_text": "Transaction / data plane",
@@ -4160,6 +4204,28 @@
       ],
       "frequency": 1,
       "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Before the first external freeze",
+      "normalized": "before the first external freeze",
+      "sources": [
+        "decisions-adr-adr-008-normative-authority-and-versioning-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "After release",
+      "normalized": "after release",
+      "sources": [
+        "decisions-adr-adr-008-normative-authority-and-versioning-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
     },

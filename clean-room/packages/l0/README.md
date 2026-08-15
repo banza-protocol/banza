@@ -5,7 +5,7 @@ independent specification. The BANZA Normative Manifest remains authoritative.**
 
 **The reference implementation is intentionally excluded.**
 
-Protocol version **2.0.0** · target profile **L0 — Protocol Sandbox** · 23 files
+Protocol version **1.0.0** · target profile **L0 — Protocol Sandbox** · 23 files
 
 ---
 

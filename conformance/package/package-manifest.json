@@ -1,7 +1,7 @@
 {
   "_spec": "BANZA Public Conformance Package",
   "package_schema_version": "1",
-  "protocol_version": "2.0.0",
+  "protocol_version": "1.0.0",
   "_authority": "A copy, not an edition. The BANZA Normative Manifest remains authoritative; every file here carries the digest of its published original so a consumer can verify the copy rather than trust it.",
   "_outcome_grammar": "Cases do not share one member name for the expected outcome. Each vector file lists the members its cases actually use in `outcome_members`. Every case is determinable; the variety is a known ergonomics limitation, not a hidden one.",
   "_self_contained": "No file here references anything outside this package. No engine, runner or reference implementation is present or needed: the vectors are data, and the expected outcome of each is stated in the vector itself.",
@@ -25,7 +25,7 @@
     },
     {
       "path": "conformance/vectors/capabilities.json",
-      "sha256": "f3a799a1e0cd888fdceaa3a86f74973f7ed4f4fa152b928797e5a4f1ae86380f",
+      "sha256": "019fed8c10d56660da026c542dc5ff35269c288e74aaf699969e5f9ed08377a1",
       "bytes": 3893
     },
     {
@@ -40,7 +40,7 @@
     },
     {
       "path": "conformance/vectors/idempotency.json",
-      "sha256": "ed41f91b644d0fcdfe9e7cb10b97ecacc39daba355a3705a5cf942670dd666aa",
+      "sha256": "ebb0ae32ed7020d6a128807899027d33345b0635d871b2645f49a9d470d1f16c",
       "bytes": 9100
     },
     {
@@ -65,7 +65,7 @@
     },
     {
       "path": "conformance/vectors/reason-codes.json",
-      "sha256": "cf1351fdf8ddadf31c68f8fe540ce9185277e5b3536f9bc9f18f5b3c95456b6d",
+      "sha256": "c20a009fa9d821483a2f9d2628ed04eb3cb62236846b2fb23044ccbb020ab50d",
       "bytes": 7767
     },
     {
@@ -80,12 +80,12 @@
     },
     {
       "path": "conformance/vectors/trust-freshness.json",
-      "sha256": "5433b9640f3937bd927fb178b86dcaec6b1604b1cf508429360b32397c1f6312",
+      "sha256": "04f147824b6a620acfd56165238e9c254ea0801a37a47bce4c28674f596eb95b",
       "bytes": 8803
     },
     {
       "path": "conformance/vectors/trust-signing.json",
-      "sha256": "359cd000fc5c5c76d88e4a0b066fa839f3aee9fff3b90272bf24fd2aebffe785",
+      "sha256": "1e3510b306da1840b940c6a239ede3640113719490df87a1f3b8efe6588abc06",
       "bytes": 68122
     },
     {
@@ -235,7 +235,7 @@
     },
     {
       "path": "contracts/production/capability-registry.production.json",
-      "sha256": "911bcd2fc9fbdf9fb2eb3b0ba2dc96f3784cdac93d5dffff37c24237b1775d05",
+      "sha256": "8d307443c2d99e4158eb6972fcc8b28ddbb50c23743e474bff56bab3cdb12e6a",
       "bytes": 10763
     },
     {
@@ -265,7 +265,7 @@
     },
     {
       "path": "contracts/production/key-manifest.production.schema.json",
-      "sha256": "abacac787addfd4e9184b6e63053e03d3a7275b598752b70037128649bcfbbdf",
+      "sha256": "26cf45b99649eab1f36435e6e3aee14810d5271c1bffd69b02b5ec0901bcfc72",
       "bytes": 5175
     },
     {
@@ -280,8 +280,8 @@
     },
     {
       "path": "contracts/production/protocol-version.json",
-      "sha256": "a84ac9b7d6186b4826453029341616198cc9ec0409f19a9d8d56308531d77a83",
-      "bytes": 3524
+      "sha256": "ba712d7d36ae73b61305838bb10cf815af40491e3c19cda27d6e127727ab44e1",
+      "bytes": 3346
     },
     {
       "path": "contracts/production/public-protocol-registry.production.schema.json",
@@ -290,7 +290,7 @@
     },
     {
       "path": "contracts/production/reason-code-registry.production.json",
-      "sha256": "7ca46856c8577f8d2e992196118418ce2b25057204c0d8c3125111e7ff8d8406",
+      "sha256": "58de1a5aa7064fc38617229e3baf95a786d16b7fd6dfb4cc0c41301094fb1d5b",
       "bytes": 15399
     },
     {

@@ -173,15 +173,35 @@ fn is_protocol_fact_phrase(nq: &str) -> bool {
         nq,
         &[
             "quantas autoridad",
-            "how many authorit",
             "threshold da raiz",
             "threshold da trust root",
             "root threshold",
             "trust root threshold",
             "quorum da raiz",
             "root quorum",
+            // The threshold asked in Portuguese words rather than the English term.
+            "limiar da raiz",
+            "limiar da trust root",
+            "limiar de assinatura",
+            // "pode agir sozinha?" — the single most consequential yes/no about the Root.
+            "agir sozinh",
+            "assinar sozinh",
+            "act alone",
+            "acting alone",
+            "unilateral",
         ],
-    )
+    ) || asks_how_many_authorities(nq)
+}
+
+/// "how many root authorities does BANZA have?" — the words sit between the two that matter, so a
+/// contiguous phrase never matches it. Asking for both parts independently is what makes the English
+/// and Portuguese forms behave the same, which is the whole point: the fact is the same fact.
+fn asks_how_many_authorities(nq: &str) -> bool {
+    let counting = has(
+        nq,
+        &["quantas", "quantos", "how many", "number of", "numero de"],
+    );
+    counting && has(nq, &["autoridad", "authorit"])
 }
 
 /// Root SUCCESSION asked in shapes the gates reject (ADR-039). "o que é o conjunto de autoridades da
@@ -216,6 +236,20 @@ fn is_root_succession_phrase(nq: &str) -> bool {
         ],
     );
     // "substituir/perder/comprometer uma autoridade" — the continuity question in its natural shapes.
+    // "a autoridade removida tem de assinar?" — the question that decides whether recovery is really
+    // 2-of-3 or silently 3-of-3.
+    let asks_about_the_removed_one = has(nq, &["autoridad", "authorit"])
+        && has(
+            nq,
+            &[
+                "removid",
+                "removed",
+                "substituid",
+                "replaced",
+                "saiu",
+                "sai",
+            ],
+        );
     let acts_on_an_authority = has(nq, &["autoridad", "authorit"])
         && has(
             nq,
@@ -235,7 +269,7 @@ fn is_root_succession_phrase(nq: &str) -> bool {
                 "obstruct",
             ],
         );
-    names_the_set || asks_about_succession || acts_on_an_authority
+    names_the_set || asks_about_succession || acts_on_an_authority || asks_about_the_removed_one
 }
 
 /// The term → entry mapping, most-specific first. Returns the deterministic entry id for `nq`.
@@ -565,8 +599,20 @@ fn term_of(nq: &str) -> Option<&'static str> {
             "autoridades de raiz",
             "root authorities",
             "root authoritie",
+            // The threshold in Portuguese words, and the yes/no that matters most about the Root.
+            // The gate above already admits these shapes; without the same phrases HERE the gate opens
+            // and the term table returns nothing, which is how the English form answered and the
+            // Portuguese one fell to no_source.
+            "limiar da raiz",
+            "limiar da trust root",
+            "limiar de assinatura",
+            "agir sozinh",
+            "assinar sozinh",
+            "act alone",
+            "acting alone",
         ],
-    ) {
+    ) || asks_how_many_authorities(nq)
+    {
         return Some("def-root-authorization");
     }
     if has(

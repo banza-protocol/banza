@@ -3,7 +3,7 @@
   "$id": "https://banza.network/contracts/production/key-manifest.production.schema.json",
   "title": "KeyManifestProduction",
   "description": "The keys the Root currently delegates, and the scope of each. Authorised by the ACTIVE Root Authority Set: at least `threshold` DISTINCT authorities of that set must sign it. It answers WHAT the Root delegates; who may exercise Root authority is the Root Authority Set, a separate artifact.",
-  "_spec_version": "2.0",
+  "_spec_version": "1.0",
   "_status": "production-baseline",
   "_authority": "spec/root-authority-set.md; invariants INV-ROOT-002, INV-ROOT-004, INV-ROOT-007",
   "_boundary": "Production of the BANZA protocol, not financial production. BANZA is an open protocol; it does not process payments, settle value, or move funds. Licence/authorisation belongs to the operator, not to BANZA.",

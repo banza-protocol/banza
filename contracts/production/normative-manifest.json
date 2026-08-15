@@ -399,7 +399,7 @@
       "class": "NORMATIVE_TRUST_RULE",
       "tier": "implementation",
       "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
-      "sha256": "abacac787addfd4e9184b6e63053e03d3a7275b598752b70037128649bcfbbdf",
+      "sha256": "26cf45b99649eab1f36435e6e3aee14810d5271c1bffd69b02b5ec0901bcfc72",
       "self_declared_status": "production-baseline"
     },
     {
@@ -1114,7 +1114,7 @@
       "class": "NORMATIVE_VECTORS",
       "tier": "conformance",
       "role": "Genesis pinning, predecessor authorisation, threshold arithmetic and the self-signed rejection.",
-      "sha256": "8eb2d3c058d9767b7d4c97cafcd9cc6d87a70cf14fa948dea683a3ee0e4e5762",
+      "sha256": "ee5607111700e1c6a76cedeb1b008bfcf3c0e817a412208581b8fe51973be9d7",
       "self_declared_status": "NORMATIVE"
     },
     {

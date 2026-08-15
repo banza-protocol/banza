@@ -4,7 +4,7 @@
   "_status": "canonical",
   "_authority": "ADR-021 (reason-code model); spec/reason-codes.md defines the rules. This file is the machine-readable registry those rules govern. The reference implementation emits these values and does not define them.",
   "_source_of_truth": "This registry, together with spec/reason-codes.md.",
-  "protocol_version": "2.0.0",
+  "protocol_version": "1.0.0",
   "normative_keywords": "BCP 14 (RFC 2119 + RFC 8174).",
   "_boundary": "Reason codes EXPLAIN an outcome. They never decide one: the decision is carried by the status field of the artifact (trust_status, step status, outcome). A consumer that changes a verdict because of a reason code is not conformant.",
   "extension_namespace": {

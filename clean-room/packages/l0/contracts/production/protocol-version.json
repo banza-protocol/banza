@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "protocol": "BANZA",
-  "protocol_version": "2.0.0",
+  "protocol_version": "1.0.0",
   "state": "M2_PROTOCOL_IMPLEMENTATION",
   "pre_production": true,
   "production_certificates": false,
@@ -10,7 +10,7 @@
   "_boundary": "Production of the BANZA protocol, not financial production. BANZA is an open protocol; it does not process payments, settle value, or move funds. Licence/authorisation belongs to the operator, not to BANZA.",
   "compatibility": {
     "wire_compatible_with": [
-      "2.0.x"
+      "1.0.x"
     ],
     "contracts_baseline": "contracts/production",
     "conformance_levels": [
@@ -20,7 +20,7 @@
       "L3",
       "L4"
     ],
-    "breaking_change_policy": "A new major protocol_version is required for any wire-incompatible change to a production contract. Minor versions are additive and backward compatible. Patch versions are documentation/clarification only.",
+    "breaking_change_policy": "After 1.0.0 is frozen for external implementation, a new major protocol_version is required for any wire-incompatible change to a production contract. Minor versions are additive and backward compatible. Patch versions are documentation/clarification only. Before that freeze the version being prepared is not yet a compatibility commitment — see _release_state.",
     "state_model": [
       "PRE_PRODUCTION",
       "M2_PROTOCOL_IMPLEMENTATION",
@@ -29,8 +29,7 @@
       "M3_OPERATOR_CANDIDATE",
       "M4_PRODUCTION_NETWORK"
     ],
-    "m4_status": "future-only; not activated",
-    "_major_version_reason": "2.0.0 corrects an incompatibility between the declared trust model and the wire. 1.0.0 stated a three-authority Root with a threshold of two (INV-ROOT-007) and seat continuity (INV-ROOT-009), while the Key Manifest carried a single `signature` verified under a single root public key — so the threshold had no runtime expression and continuity had no mechanism. 2.0.0 introduces the Root Authority Set and moves the Key Manifest to `root_signatures`. A 1.0.0 Key Manifest does not verify under 2.0.0, which is a wire-incompatible change to a production contract and therefore a major version under this file's own breaking_change_policy."
+    "m4_status": "future-only; not activated"
   },
   "notes": "Concrete production protocol version descriptor for the BANZA open protocol at the M2_PROTOCOL_IMPLEMENTATION state. 'Production' here means production OF THE PROTOCOL as an open specification (governance, contracts, trust path, release process, operator self-publication) — NOT financial operation. This descriptor is prepared-but-gated: while it declares the production contract baseline is in place, no real operator is created (operators stays []), no production certificate is emitted (production_certificates stays false), and no funds are ever held, moved or settled by BANZA. Financial services are provided by authorised operators that implement the protocol; regulatory authorisation belongs to those operators, not to BANZA. Advancing beyond M2_PROTOCOL_IMPLEMENTATION requires the M2 protocol gate, evaluated against the criteria this descriptor and the artifacts it names define, to report M2_PROTOCOL_IMPLEMENTATION_READY, plus explicit recorded protocol-governance sign-off on advancing the protocol milestone.",
   "canonicalization": {
@@ -41,5 +40,6 @@
     "note": "The byte form used for every BANZA signature and content digest. Versioned independently of protocol_version (ADR-008): a change that alters produced bytes requires BCJ/2."
   },
   "normative_manifest": "contracts/production/normative-manifest.json",
-  "normative_keywords": "BCP 14 (RFC 2119 + RFC 8174)"
+  "normative_keywords": "BCP 14 (RFC 2119 + RFC 8174)",
+  "_release_state": "Pre-release. No externally frozen BANZA target has been published and no independent implementation trial has been conducted, so the architecture of 1.0.0 is still being completed. Once 1.0.0 is frozen for external implementation, the breaking-change policy above governs every further wire-incompatible change."
 }

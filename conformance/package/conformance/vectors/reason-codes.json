@@ -3,7 +3,7 @@
   "_status": "canonical",
   "_authority": "spec/reason-codes.md (ADR-021) and contracts/production/reason-code-registry.production.json",
   "_source_of_truth": "spec/reason-codes.md",
-  "protocol_version": "2.0.0",
+  "protocol_version": "1.0.0",
   "registry": "banza-reason-codes/1",
   "published_check_ids": [
     "capabilities_compatible",

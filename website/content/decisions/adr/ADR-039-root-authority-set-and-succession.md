@@ -110,8 +110,11 @@ the pinned genesis set; it does not prove that two verifiers were shown the same
 - Losing two authorities blocks canonical continuity with no cryptographic backdoor. Recovery is a
   governance matter and may end in credible exit under a different pinned anchor, which does not inherit
   canonical lineage.
-- A v1.0.0 Key Manifest does not verify under this model. This is a wire-incompatible change to a
-  production contract, so the protocol version becomes **2.0.0** under ADR-008's own rule.
+- Key Manifests produced against the earlier single-key path do not verify under this model. That path
+  was never externally frozen: no BANZA target has been published for independent implementation, no
+  production Root ceremony has taken place, and no implementation has been certified against it. The
+  correction therefore completes the architecture of **1.0.0** rather than succeeding a released
+  version, and the protocol version is unchanged (ADR-008, release lifecycle).
 - Independent control domains remain a **production governance gate**, evidenced before the first
   production ceremony — not something a verifier can check, and not a claim the protocol makes today.
 

@@ -1,6 +1,6 @@
 # BANZA Public Conformance Package
 
-Protocol version **2.0.0** · package schema **1** · 73 files
+Protocol version **1.0.0** · package schema **1** · 73 files
 
 This directory is self-contained. It carries the BANZA conformance vectors together with the schemas
 and registries they are evaluated against, and nothing else. There is no engine here, no runner, and

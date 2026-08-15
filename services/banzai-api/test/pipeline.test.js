@@ -749,3 +749,44 @@ test("a self-signed authority set is never described as authorising anything", a
   assert.match(result.answer, /não autoriza nada/i, "the self-signed set authorises nothing");
   assert.match(result.answer, /recusada/i, "trust on first use is refused");
 });
+
+// ── The Root facts an operator must never get a guessed answer to (v1.0.0 §80) ────────────────────────
+//
+// Each of these has one correct answer that the chain decides. The failure mode is not a refusal — it is
+// a plausible, fluent, wrong answer about who controls the protocol's maximum authority. Several of these
+// shapes reached the model or fell to no_source before this milestone, and the Portuguese forms failed
+// while the English ones passed, on the canonical language of the protocol.
+const ROOT_FACTS = [
+  ["qual a versão actual do BANZA?", /1\.0\.0/],
+  ["what is the current BANZA protocol version?", /1\.0\.0/],
+  ["quantas autoridades tem a raiz do BANZA?", /três/i],
+  ["how many root authorities does BANZA have?", /três|three/i],
+  ["qual é o limiar da raiz?", /duas|2-de-3/i],
+  ["what is the root threshold?", /duas|two|2-de-3/i],
+  ["uma autoridade da raiz pode agir sozinha?", /nunca autoriza|sozinha/i],
+  ["como se substitui uma autoridade da raiz?", /predecessor|sobreviventes/i],
+  ["a autoridade removida tem de assinar?", /sem a sua participação|predecessor/i],
+  ["can a root authority set self-authorize?", /não autoriza nada|predecessor/i],
+  ["o que acontece se duas autoridades da raiz forem perdidas?", /bloquead/i],
+  ["o BANZA fornece transparência global?", /não/i],
+];
+
+test("every Root fact is decided by the chain, in both languages, with zero model calls", async () => {
+  for (const [q, expected] of ROOT_FACTS) {
+    const { pipeline, stub } = pipe();
+    const { result, meta } = await pipeline.answer(q);
+    assert.equal(meta.llm_called, false, `${q}: must be deterministic`);
+    assert.equal(stub.calls.length, 0, `${q}: no trunk call`);
+    assert.doesNotMatch(result.answer, /MODEL-COMPOSED-THIS/, `${q}: never model prose`);
+    assert.match(result.answer, expected, `${q}: states the fact`);
+  }
+});
+
+// The quorum-loss answer is the one a truncating path can silently drop: it arrives through the
+// hypothesis family, whose facts are capped, so the consequence must sit early enough to survive.
+test("the quorum-loss consequence survives the hypothesis path's truncation", async () => {
+  const { pipeline } = pipe();
+  const { result } = await pipeline.answer("o que acontece se duas autoridades da raiz forem perdidas?");
+  assert.match(result.answer, /bloquead/i, "below threshold, continuity blocks");
+  assert.match(result.answer, /chave-mestra/i, "and the absence of a master key is stated, not implied");
+});
