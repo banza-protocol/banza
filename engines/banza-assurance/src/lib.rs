@@ -123,6 +123,38 @@ pub struct Ag9 {
     pub must_state_principles: Vec<String>,
 }
 
+/// What actually ran, and against which source.
+///
+/// A resolving path proves a file exists. It does not prove anybody executed it, and it certainly does
+/// not prove they executed it against the commit under assessment. Without this, a suite of paths that
+/// all resolve — none of them run since three commits ago — reads as fully demonstrated.
+#[derive(Debug, Default, Deserialize)]
+pub struct ExecutionEvidence {
+    pub source_commit: String,
+    #[serde(default)]
+    pub tree_dirty: bool,
+    #[serde(default)]
+    pub records: Vec<ExecutionRecord>,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct ExecutionRecord {
+    pub property_id: String,
+    pub evidence: String,
+    pub result: String,
+    pub source_commit: String,
+}
+
+impl ExecutionEvidence {
+    /// Was this exact reference executed, against THIS source, with a passing result?
+    pub fn passed_at(&self, source: &str, property: &str, reference: &str) -> Option<bool> {
+        self.records
+            .iter()
+            .find(|r| r.property_id == property && r.evidence == reference)
+            .map(|r| r.result == "PASS" && r.source_commit == source)
+    }
+}
+
 #[derive(Debug, Deserialize)]
 pub struct Ag10 {
     pub required_conditions: Vec<String>,
@@ -238,6 +270,49 @@ pub fn reference_resolves(root: &Path, reference: &str) -> Result<(), String> {
     Ok(())
 }
 
+/// The four states an executable piece of evidence passes through, and the three ways it stops short.
+///
+///   DECLARED  it is in the registry
+///   RESOLVED  the file, and the named test inside it, actually exist
+///   EXECUTED  it ran during the assessment of THIS source
+///   PASSED    it ran and produced the expected result
+///
+/// Only the last contributes to a gate. A resolving path proves that somebody once wrote a test; it says
+/// nothing about whether anyone has run it since, and nothing at all about this commit.
+fn executed_and_passed(
+    root: &Path,
+    exec: &ExecutionEvidence,
+    source: &str,
+    property: &str,
+    refs: &Option<Vec<String>>,
+) -> Vec<String> {
+    let mut problems = vec![];
+    let Some(list) = refs else {
+        return problems;
+    };
+    for r in list {
+        if let Err(e) = reference_resolves(root, r) {
+            problems.push(format!("declared but not resolved: {e}"));
+            continue;
+        }
+        // With no execution record collected at all, the engine reports resolution only — and the gates
+        // that depend on execution say NOT_RUN rather than quietly accepting resolution as proof.
+        if source.is_empty() {
+            continue;
+        }
+        match exec.passed_at(source, property, r) {
+            Some(true) => {}
+            Some(false) => problems.push(format!(
+                "resolved and executed, but not passing at this source: {r}"
+            )),
+            None => problems.push(format!(
+                "resolved but never executed against this source: {r}"
+            )),
+        }
+    }
+    problems
+}
+
 fn all_resolve(root: &Path, refs: &Option<Vec<String>>) -> Vec<String> {
     let mut bad = vec![];
     if let Some(list) = refs {
@@ -256,6 +331,17 @@ fn all_resolve(root: &Path, refs: &Option<Vec<String>>) -> Vec<String> {
 /// so once a gate FAILs, the gates above it are reported BLOCKED rather than evaluated. Reporting AG-3
 /// PASS while AG-0 FAILs would say the implementation enforces something the protocol never required.
 pub fn evaluate(root: &Path, registry: &Registry) -> Report {
+    evaluate_with_execution(root, registry, &ExecutionEvidence::default(), "")
+}
+
+/// `source` is the identity of the tree being assessed. Evidence executed against a different source is
+/// not evidence about this one.
+pub fn evaluate_with_execution(
+    root: &Path,
+    registry: &Registry,
+    exec: &ExecutionEvidence,
+    source: &str,
+) -> Report {
     let mut results = vec![];
     let mut findings = vec![];
     let mut totals: BTreeMap<String, usize> = BTreeMap::new();
@@ -357,18 +443,46 @@ pub fn evaluate(root: &Path, registry: &Registry) -> Report {
             set("AG-2", Status::Pass, &mut gates);
         }
 
-        // AG-3 — an implementation enforces it.
+        // AG-3 — the implementation ENFORCES it. Naming a location is not enforcement: this gate passes
+        // only when the property's positive and negative evidence actually ran against this source and
+        // passed. "implementation named for every property" was the wording of a gate that had not yet
+        // asked the question it exists for.
+        let named = p
+            .implementation
+            .as_ref()
+            .map(|i| !i.trim().is_empty())
+            .unwrap_or(false);
+        let mut exec_problems =
+            executed_and_passed(root, exec, source, &p.property_id, &p.positive_evidence);
+        exec_problems.extend(executed_and_passed(
+            root,
+            exec,
+            source,
+            &p.property_id,
+            &p.negative_evidence,
+        ));
         set(
             "AG-3",
-            match &p.implementation {
-                Some(i) if !i.trim().is_empty() => Status::Pass,
-                _ => {
-                    if critical {
-                        Status::NotApplicable
-                    } else {
-                        Status::NotApplicable
-                    }
+            if !named {
+                Status::NotApplicable
+            } else if source.is_empty() {
+                findings.push(Finding {
+                    property_id: p.property_id.clone(),
+                    gate: "AG-3".into(),
+                    detail: "no execution evidence was collected; a located implementation is not a demonstrated one".into(),
+                });
+                Status::NotRun
+            } else if exec_problems.is_empty() {
+                Status::Pass
+            } else {
+                for e in &exec_problems {
+                    findings.push(Finding {
+                        property_id: p.property_id.clone(),
+                        gate: "AG-3".into(),
+                        detail: e.clone(),
+                    });
                 }
+                Status::NotRun
             },
             &mut gates,
         );
@@ -379,86 +493,110 @@ pub fn evaluate(root: &Path, registry: &Registry) -> Report {
             match &p.state_test {
                 None => Status::NotApplicable,
                 Some(v) if v.is_empty() => {
-                    missing.push("state_test".into());
-                    Status::Fail
+                    if critical || "AG-4" != "AG-6" {
+                        missing.push("state_test".into());
+                        Status::Fail
+                    } else {
+                        Status::NotRun
+                    }
                 }
-                Some(v) => {
-                    let bad = all_resolve(root, &Some(v.clone()));
-                    if bad.is_empty() {
+                Some(_) => {
+                    // Resolution is not execution. The state evidence must have RUN against this
+                    // source and passed; a path that resolves says only that somebody once wrote it.
+                    let problems =
+                        executed_and_passed(root, exec, source, &p.property_id, &p.state_test);
+                    if source.is_empty() {
+                        Status::NotRun
+                    } else if problems.is_empty() {
                         Status::Pass
                     } else {
-                        for e in bad {
+                        for e in problems {
                             findings.push(Finding {
                                 property_id: p.property_id.clone(),
                                 gate: "AG-4".into(),
                                 detail: e,
                             });
                         }
-                        Status::Fail
+                        Status::NotRun
                     }
                 }
             },
             &mut gates,
         );
 
-        // AG-5 — failure behaviour.
         set(
             "AG-5",
             match &p.resilience_test {
                 None => Status::NotApplicable,
                 Some(v) if v.is_empty() => {
-                    missing.push("resilience_test".into());
-                    Status::Fail
+                    if critical || "AG-5" != "AG-6" {
+                        missing.push("resilience_test".into());
+                        Status::Fail
+                    } else {
+                        Status::NotRun
+                    }
                 }
-                Some(v) => {
-                    let bad = all_resolve(root, &Some(v.clone()));
-                    if bad.is_empty() {
+                Some(_) => {
+                    // Resolution is not execution. The failure evidence must have RUN against this
+                    // source and passed; a path that resolves says only that somebody once wrote it.
+                    let problems =
+                        executed_and_passed(root, exec, source, &p.property_id, &p.resilience_test);
+                    if source.is_empty() {
+                        Status::NotRun
+                    } else if problems.is_empty() {
                         Status::Pass
                     } else {
-                        for e in bad {
+                        for e in problems {
                             findings.push(Finding {
                                 property_id: p.property_id.clone(),
                                 gate: "AG-5".into(),
                                 detail: e,
                             });
                         }
-                        Status::Fail
+                        Status::NotRun
                     }
                 }
             },
             &mut gates,
         );
 
-        // AG-6 — adversarial. Mandatory for a CRITICAL property.
-        let adv_bad = all_resolve(root, &p.adversarial_evidence);
         set(
             "AG-6",
             match &p.adversarial_evidence {
                 None => Status::NotApplicable,
                 Some(v) if v.is_empty() => {
-                    if critical {
+                    if critical || "AG-6" != "AG-6" {
                         missing.push("adversarial_evidence".into());
-                        findings.push(Finding {
-                            property_id: p.property_id.clone(),
-                            gate: "AG-6".into(),
-                            detail: "critical property is never attacked".into(),
-                        });
                         Status::Fail
                     } else {
                         Status::NotRun
                     }
                 }
-                Some(_) if !adv_bad.is_empty() => {
-                    for e in &adv_bad {
-                        findings.push(Finding {
-                            property_id: p.property_id.clone(),
-                            gate: "AG-6".into(),
-                            detail: e.clone(),
-                        });
+                Some(_) => {
+                    // Resolution is not execution. The adversarial evidence must have RUN against this
+                    // source and passed; a path that resolves says only that somebody once wrote it.
+                    let problems = executed_and_passed(
+                        root,
+                        exec,
+                        source,
+                        &p.property_id,
+                        &p.adversarial_evidence,
+                    );
+                    if source.is_empty() {
+                        Status::NotRun
+                    } else if problems.is_empty() {
+                        Status::Pass
+                    } else {
+                        for e in problems {
+                            findings.push(Finding {
+                                property_id: p.property_id.clone(),
+                                gate: "AG-6".into(),
+                                detail: e,
+                            });
+                        }
+                        Status::NotRun
                     }
-                    Status::Fail
                 }
-                Some(_) => Status::Pass,
             },
             &mut gates,
         );

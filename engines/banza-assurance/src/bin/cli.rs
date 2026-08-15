@@ -30,7 +30,29 @@ fn main() {
         exit(2);
     });
 
-    let report = evaluate(&root, &registry);
+    // Execution evidence, and the identity of the tree it must belong to. Evidence executed against a
+    // different source is not evidence about this one.
+    let source = std::process::Command::new("git")
+        .args(["rev-parse", "HEAD"])
+        .current_dir(&root)
+        .output()
+        .ok()
+        .filter(|o| o.status.success())
+        .map(|o| String::from_utf8_lossy(&o.stdout).trim().to_string())
+        .unwrap_or_default();
+    let exec: ExecutionEvidence =
+        std::fs::read_to_string(root.join("assurance/execution-evidence.json"))
+            .ok()
+            .and_then(|raw| serde_json::from_str(&raw).ok())
+            .unwrap_or_default();
+    if exec.source_commit != source {
+        eprintln!(
+            "  note: execution evidence is for {} but the tree is {} — stale results cannot prove this source",
+            if exec.source_commit.is_empty() { "<none>" } else { &exec.source_commit },
+            if source.is_empty() { "<unknown>" } else { &source }
+        );
+    }
+    let report = evaluate_with_execution(&root, &registry, &exec, &source);
 
     if cmd == "json" {
         println!("{}", serde_json::to_string_pretty(&report).unwrap());
