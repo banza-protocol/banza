@@ -174,10 +174,6 @@
         "same_as": "conformance/package/contracts/fees/pricing-profile.schema.json"
       },
       {
-        "path": "contracts/invariants.json",
-        "same_as": "conformance/package/contracts/invariants.json"
-      },
-      {
         "path": "contracts/openapi/activity.yaml",
         "same_as": "conformance/package/contracts/openapi/activity.yaml"
       },
@@ -2114,7 +2110,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "44b8fba2360effdf"
+        "checksum": "7f6bc402ab405e87"
       },
       {
         "id": "contracts-openapi-activity-yaml",
@@ -3687,7 +3683,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "91da39b0371d762b"
+        "checksum": "0e0976c0535d485f"
       },
       {
         "id": "docs-governance-claude-base-md",
@@ -4853,7 +4849,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "4d76b0d48c764f32"
+        "checksum": "398c8c5a55bfb394"
       },
       {
         "id": "spec-payment-lifecycle-md",
@@ -4973,7 +4969,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "27c8961204e38f2a"
+    "checksum": "910fd749c4ad11cf"
   },
   "subjects": [
     {
@@ -7990,5 +7986,5 @@
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "ce3e40a6793c4d49"
+  "checksum": "d8e645e17d7b003d"
 }

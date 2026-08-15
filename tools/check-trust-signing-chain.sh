@@ -65,9 +65,29 @@ check() {
   local root="$1" bad=0 f phrase inv adr
 
   # 1. Model-A anchors present in the registry (SSOT).
+  #
+  # INV-ROOT-004 is checked as a PROPERTY, not as a sentence. This check used to pin the literal
+  # "The root key signs only Key Manifests", which made the guard fail the moment the invariant was
+  # corrected to name the Root Authority Set instead of a single root key (ADR-039) — a guard firing
+  # on an improvement to the very thing it protects. What must hold is that the registry confines root
+  # signing to the root plane and keeps the three delegated artifacts out of it.
   inv="$root/contracts/invariants.json"
-  grep -qF "The root key signs only Key Manifests" "$inv" \
-    || { echo "  ✗ INV-ROOT-004 (root signs only Key Manifests) missing from the registry"; bad=1; }
+  python3 - "$inv" <<'PY' || bad=1
+import json, sys
+inv = {i["id"]: i for i in json.load(open(sys.argv[1], encoding="utf8"))["invariants"]}
+st = inv.get("INV-ROOT-004", {}).get("statement", "").lower()
+if not st:
+    print("  ✗ INV-ROOT-004 missing from the registry"); sys.exit(1)
+bad = 0
+if "key manifest" not in st:
+    print("  ✗ INV-ROOT-004 does not confine root signing to the Key Manifest"); bad = 1
+for artifact in ("protocol metadata", "conformance evidence", "revocation list"):
+    if artifact not in st:
+        print(f"  ✗ INV-ROOT-004 no longer excludes {artifact} from direct root signing"); bad = 1
+if "never signs" not in st and "not sign" not in st:
+    print("  ✗ INV-ROOT-004 states no exclusion at all"); bad = 1
+sys.exit(bad)
+PY
   grep -qF "The Trust Root signs only the Key Manifest that endorses the delegated signing keys" "$inv" \
     || { echo "  ✗ INV-OTE-009 not reconciled to Model A in the registry"; bad=1; }
   grep -qF "revocation-domain" "$inv" \
@@ -103,9 +123,14 @@ selftest() {
   for base in "$g" "$b"; do
     mkdir -p "$base/contracts" "$base/decisions/adr"
     cat > "$base/contracts/invariants.json" <<'EOF'
-The root key signs only Key Manifests. It never signs revocation lists directly.
-The Trust Root signs only the Key Manifest that endorses the delegated signing keys.
-BRL is signed by the revocation-domain delegated key.
+{"invariants": [
+  {"id": "INV-ROOT-004",
+   "statement": "A Root authority signs only the Key Manifest and a successor Root Authority Set. It never signs protocol metadata, conformance evidence, or revocation lists directly."},
+  {"id": "INV-OTE-009",
+   "statement": "The Trust Root signs only the Key Manifest that endorses the delegated signing keys."},
+  {"id": "INV-ROOT-005",
+   "statement": "The BRL is signed by the revocation-domain delegated key."}
+]}
 EOF
     cat > "$base/$(ls decisions/adr/ADR-025-*.md 2>/dev/null | head -1)" <<'EOF'
 The Trust Root signs only the Key Manifest that endorses the delegated signing keys.

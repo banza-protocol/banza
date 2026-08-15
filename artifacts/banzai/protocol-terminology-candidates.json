@@ -1,5 +1,5 @@
 {
-  "total": 3100,
+  "total": 3108,
   "rows": [
     {
       "raw_text": "Contributing to BANZA",
@@ -15258,6 +15258,18 @@
       "classification": "SUBJECT"
     },
     {
+      "raw_text": "1.1 A linhagem: quem pode exercer a autoridade da raiz",
+      "normalized": "1 1 a linhagem quem pode exercer a autoridade da raiz",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 11,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
       "raw_text": "2. Delegated Signing Keys",
       "normalized": "2 delegated signing keys",
       "sources": [
@@ -15422,6 +15434,18 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
+      "raw_text": "Conjunto de Autoridades da Raiz",
+      "normalized": "conjunto de autoridades da raiz",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 5,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
       "raw_text": "criptográfico e lógico",
       "normalized": "criptografico e logico",
       "sources": [
@@ -15466,15 +15490,72 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
-      "raw_text": "Manifesto de Chaves",
-      "normalized": "manifesto de chaves",
+      "raw_text": "plano da raiz",
+      "normalized": "plano da raiz",
       "sources": [
         "docs-governance-banza-trust-architecture-md"
       ],
       "frequency": 1,
       "phrase_length": 3,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "Manifesto de\nChaves",
+      "normalized": "manifesto de chaves",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 3,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Conjunto de\nAutoridades da Raiz sucessor",
+      "normalized": "conjunto de autoridades da raiz sucessor",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "distintas do conjunto predecessor",
+      "normalized": "distintas do conjunto predecessor",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "distintas",
+      "normalized": "distintas",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "predecessor",
+      "normalized": "predecessor",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
     },
     {
       "raw_text": "dentro do âmbito",
@@ -33682,6 +33763,17 @@
       "accepted": true,
       "rejection_reason": "",
       "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "conjunto génese",
+      "normalized": "conjunto genese",
+      "sources": [
+        "spec-overview-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
       "raw_text": "Regra crítica do protocolo:",

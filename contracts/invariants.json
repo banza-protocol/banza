@@ -394,10 +394,10 @@
     {
       "id": "INV-ROOT-004",
       "family": "ROOT",
-      "title": "Root signs only manifests",
+      "title": "Root authorities sign only the root plane",
       "severity": "critical",
-      "statement": "The root key signs only Key Manifests. It never signs protocol metadata, conformance evidence, or revocation lists directly.",
-      "source": "docs/reference/en/complete.md:825"
+      "statement": "A Root authority signs only the two artifacts of the root plane: the Key Manifest, and a successor Root Authority Set. It never signs protocol metadata, conformance evidence, or revocation lists directly — those are reached through delegated keys, within the scope the active Trust Root delegates.",
+      "source": "spec/root-authority-set.md"
     },
     {
       "id": "INV-ROOT-005",
@@ -412,8 +412,8 @@
       "family": "ROOT",
       "title": "Key validity maxima",
       "severity": "critical",
-      "statement": "Issuing keys have a maximum validity of 184 days; the root key has a maximum validity of 24 months.",
-      "source": "docs/reference/en/complete.md:827"
+      "statement": "Issuing keys have a maximum validity of 184 days; a Root authority key has a maximum validity of 24 months. Expiry of one authority key does not end Root authority: the surviving threshold authorises a successor set (INV-ROOT-009).",
+      "source": "spec/root-authority-set.md"
     },
     {
       "id": "INV-ROOT-007",
