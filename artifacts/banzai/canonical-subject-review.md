@@ -7,7 +7,7 @@ rejected before the vocabulary). Deterministic, no model.
 ## Counts
 - subjects: 21
 - document_types: 12
-- document_instances: 45
+- document_instances: 47
 - artifact_types: 18
 - aliases: 248
 - relation_kinds: 11
@@ -20,11 +20,11 @@ rejected before the vocabulary). Deterministic, no model.
 - unresolved: 0
 
 ## Candidate pipeline (Phase 1 — noise separated from vocabulary)
-- total candidates: 3120
-- accepted (terminology): 675
-- rejected (lexical noise / non-terminological): 2445
-  - NON_TERMINOLOGICAL: 1705
-  - GENERIC_PROSE: 545
+- total candidates: 3146
+- accepted (terminology): 676
+- rejected (lexical noise / non-terminological): 2470
+  - NON_TERMINOLOGICAL: 1714
+  - GENERIC_PROSE: 561
   - PATH_FRAGMENT: 89
   - BROKEN_TOKEN: 80
   - STOPWORD: 7
@@ -66,7 +66,7 @@ rejected before the vocabulary). Deterministic, no model.
 - **webhook** (artefact) — trunk synthesis grounded in the webhook/event contracts — deliverables [] — sources [webhooks]
 
 ## Why the numbers differ (reconciliation)
-- The vocabulary has 21 SUBJECTS (concepts/entities/artefacts) — the things that can be the main subject of a question. Document instances (45 ADR/RFC) are DOCUMENT_INSTANCE, not subjects.
+- The vocabulary has 21 SUBJECTS (concepts/entities/artefacts) — the things that can be the main subject of a question. Document instances (47 ADR/RFC) are DOCUMENT_INSTANCE, not subjects.
 - 11 of the subjects carry a catalogue SubjectProfile (deterministic deliverable terminals); the rest resolve via entity coverage or trunk synthesis.
 - The 248 engine aliases map to 25 canonical targets (mostly document instances + concepts) — aliases are ALIAS, not subjects.
 - Relations: 11 RELATION_KIND (closed) + 24 RELATION_ALIAS + 8 graph edges — not "8 relation types".

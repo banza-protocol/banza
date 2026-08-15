@@ -91,3 +91,5 @@ decision changes, its record is rewritten or removed, and version control keeps 
 | [037](ADR-037-operator-onboarding.md) | Passwordless onboarding protects shared resources and closes nothing; no conformance path routes through it |
 | [038](ADR-038-rust-first-official-engines.md) | Every official engine is Rust — one implementation per decision; operators remain free to use any technology |
 | [039](ADR-039-root-authority-set-and-succession.md) | Root authority is a lineage: each set authorised by the threshold of its predecessor, genesis pinned, self-signed sets rejected |
+| [ADR-040](ADR-040-r2s2-fundamental-principles.md) | BANZA R²S²: the four fundamental principles |
+| [ADR-041](ADR-041-layered-assurance-gates.md) | Layered assurance gates |
