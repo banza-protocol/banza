@@ -298,7 +298,7 @@
       "state_test": null,
       "resilience_test": null,
       "property_guard": "tools/check-root-authority-model.sh",
-      "mutation_proof": null,
+      "mutation_proof": "assurance/mutations.json#hostile_input_panics",
       "clean_room_requirement": true,
       "public_claims": [],
       "gate_status": "PASS"

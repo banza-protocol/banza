@@ -118,6 +118,14 @@ if cargo test -q --manifest-path engines/banza-trust/Cargo.toml --test authority
 else
   bad "the genesis pinning property does not hold"
 fi
+# Untrusted input must be rejected, never unwrapped. A panic on hostile input is an availability defect
+# reached through a correctness one.
+if cargo test -q --manifest-path engines/banza-trust/Cargo.toml --test root_authority_final_gates \
+     >/dev/null 2>&1; then
+  ok "hostile and out-of-domain input is rejected deterministically, without panicking (engine-verified)"
+else
+  bad "hostile input is not handled deterministically"
+fi
 # A future protocol version must not become trusted for starting with the right number.
 if cargo test -q --manifest-path engines/banza-trust/Cargo.toml --test protocol_version_compatibility \
      >/dev/null 2>&1; then
