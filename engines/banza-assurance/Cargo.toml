@@ -1,0 +1,21 @@
+[package]
+name = "banza-assurance"
+version = "0.1.0"
+edition = "2021"
+description = "banza-assurance (ADR-041): the layered assurance gates. Evaluates whether a claimed property has a falsifiable evidence chain — AG-0..AG-10, property coverage and R²S² mapping. Rust owns parsing, scoring and semantic evaluation; Make only orchestrates."
+license = "Apache-2.0"
+
+[lib]
+name = "banza_assurance"
+path = "src/lib.rs"
+
+[[bin]]
+name = "banza-assurance"
+path = "src/bin/cli.rs"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[profile.release]
+opt-level = 2

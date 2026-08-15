@@ -1,0 +1,126 @@
+{
+  "_spec": "BANZA resilience matrix — failure modes, blast radius and recovery, per component",
+  "_status": "NON-NORMATIVE. This matrix records what has been examined and what was found. It points at normative authorities and at executed tests; it defines nothing. Absence of a row is not a claim of resilience — it is an unexamined component.",
+  "_authority": "decisions/adr/ADR-040-r2s2-fundamental-principles.md",
+  "_boundary": "Protocol resilience (what the normative architecture supports), reference-implementation resilience (what the current software demonstrates) and deployment resilience (replicas, failover, backups, geographic redundancy) are different things. This matrix covers the first two. It makes NO deployment availability claim, and no SLA, RTO or RPO is defined anywhere in BANZA.",
+  "failure_modes": {
+    "F1": "process crash / restart",
+    "F2": "persistent state failure",
+    "F3": "external dependency unavailable",
+    "F4": "remote peer / operator unavailable",
+    "F5": "network timeout, partition or reordering",
+    "F6": "duplicate or replay after uncertain delivery",
+    "F7": "trust publication unavailable, stale or invalid",
+    "F8": "Root authority unavailable or obstructive",
+    "F9": "auxiliary service unavailable",
+    "F10": "concurrent conflicting operations",
+    "F11": "clock or time uncertainty",
+    "F12": "resource exhaustion or abusive input"
+  },
+  "fault_containment_domains": [
+    {"domain": "protocol verification core", "if_it_fails": "verification stops locally; nothing is accepted on weaker evidence", "does_not_fail": "other verifiers, other operators, already-issued evidence"},
+    {"domain": "trust plane", "if_it_fails": "material that cannot be established is refused", "does_not_fail": "the historical validity of material already validly authenticated and unexpired"},
+    {"domain": "discovery", "if_it_fails": "the target cannot be resolved; nothing is assumed about it", "does_not_fail": "trust decisions over material already held"},
+    {"domain": "federation", "if_it_fails": "routing to the affected peer stops", "does_not_fail": "unrelated peers, local operation"},
+    {"domain": "conformance", "if_it_fails": "no new verdict is produced", "does_not_fail": "previously issued evidence, protocol operation"},
+    {"domain": "reference implementation", "if_it_fails": "this implementation stops", "does_not_fail": "the protocol, other implementations"},
+    {"domain": "BanzAI", "if_it_fails": "explanation is unavailable", "does_not_fail": "anything on a verification path — BanzAI decides nothing"},
+    {"domain": "website / documentation hosting", "if_it_fails": "documents cannot be fetched", "does_not_fail": "the cryptographic validity of artifacts already held"}
+  ],
+  "rows": [
+    {
+      "id": "root_authority_loss_one",
+      "component": "Root Authority Set", "failure": "F8",
+      "safe_behaviour": "the surviving two authorities authorise a successor set that replaces the third, without its participation",
+      "forbidden_behaviour": "requiring the removed authority to consent to its own removal, which would make recovery 3-of-3",
+      "blast_radius": "none beyond the Root plane; delegated keys and issued evidence are unaffected",
+      "recovery": "deterministic — a successor set at sequence N+1 authorised by the predecessor threshold",
+      "test": ["engines/banza-trust/tests/authority_succession.rs::removed_authority_is_never_required"],
+      "gate": "AG-5"
+    },
+    {
+      "id": "root_authority_loss_two",
+      "component": "Root Authority Set", "failure": "F8",
+      "safe_behaviour": "canonical continuity blocks; the single survivor cannot restore the Root",
+      "forbidden_behaviour": "an emergency master key, a hidden recovery key, an administrator override or any single-signer break glass",
+      "blast_radius": "Root succession only; already-valid delegated material remains valid until it expires",
+      "recovery": "governance, not cryptography; may end in credible exit under a different pinned anchor, which does not inherit canonical lineage",
+      "test": ["engines/banza-trust/tests/authority_succession.rs::losing_two_authorities_blocks_continuity_with_no_bypass"],
+      "gate": "AG-5"
+    },
+    {
+      "id": "process_restart",
+      "component": "trust state", "failure": "F1",
+      "safe_behaviour": "trusted state is two values (sequence, digest); restoring them reproduces every decision",
+      "forbidden_behaviour": "losing anti-rollback state across a restart, so a superseded set becomes acceptable again",
+      "blast_radius": "one verifier",
+      "recovery": "deterministic — state is rebuilt from the persisted pair",
+      "test": ["engines/banza-trust/tests/trusted_state_transitions.rs::the_state_survives_a_restart"],
+      "gate": "AG-4"
+    },
+    {
+      "id": "concurrent_conflicting_successors",
+      "component": "trust state", "failure": "F10",
+      "safe_behaviour": "two different sets at one position are a conflict; trusted state is unchanged and stays unchanged",
+      "forbidden_behaviour": "first arrival wins, last arrival wins, digest ordering, source preference, or any silent second write",
+      "blast_radius": "one verifier; the conflict is local and does not propagate",
+      "recovery": "governance resolves which lineage is canonical; the verifier does not guess",
+      "test": ["engines/banza-trust/tests/trusted_state_transitions.rs::neither_first_nor_last_arrival_wins"],
+      "gate": "AG-4"
+    },
+    {
+      "id": "trust_publication_outage",
+      "component": "trust publication", "failure": "F7",
+      "safe_behaviour": "material already validly authenticated and unexpired keeps the validity it had; a failed refresh does not rewrite history",
+      "forbidden_behaviour": "extending an expiry because publication is unavailable; replacing good state with malformed, unsigned, rolled-back or transport-error content; trusting the first root observed when the anchor is missing",
+      "blast_radius": "new material cannot be obtained; existing evaluation is unaffected",
+      "recovery": "refresh succeeds and the ordinary rules resume",
+      "test": ["engines/banza-trust/tests/authority_succession.rs::trust_on_first_use_is_refused"],
+      "gate": "AG-5"
+    },
+    {
+      "id": "banzai_outage",
+      "component": "BanzAI", "failure": "F9",
+      "safe_behaviour": "the protocol core is unaffected; verification, trust evaluation and conformance continue with no BanzAI involvement",
+      "forbidden_behaviour": "any verification path falling back to a language model, or BanzAI becoming required for a protocol decision",
+      "blast_radius": "explanation only",
+      "recovery": "none required — BanzAI is not on any critical path",
+      "test": ["tools/check-banzai-outside-critical-path.sh"],
+      "gate": "AG-5"
+    },
+    {
+      "id": "website_outage",
+      "component": "website / docs hosting", "failure": "F9",
+      "safe_behaviour": "artifacts already held remain cryptographically valid; validity was never a property of the host",
+      "forbidden_behaviour": "treating a reachable origin as evidence of validity, or an unreachable one as evidence of invalidity",
+      "blast_radius": "document retrieval",
+      "recovery": "none required for already-held material",
+      "test": ["engines/banza-trust/tests/trust.rs::golden_vectors_evaluate_to_their_expected_status"],
+      "gate": "AG-5"
+    },
+    {
+      "id": "peer_operator_unavailable",
+      "component": "federation", "failure": "F4",
+      "safe_behaviour": "operations that genuinely depend on the peer fail explicitly; unrelated activity continues",
+      "forbidden_behaviour": "marking a peer-dependent operation successful when the peer never confirmed it",
+      "blast_radius": "operations involving that peer",
+      "recovery": "retry under idempotency semantics once the peer returns",
+      "test": ["conformance/federation/suite.json"],
+      "gate": "AG-5"
+    },
+    {
+      "id": "hostile_or_oversized_input",
+      "component": "verification core", "failure": "F12",
+      "safe_behaviour": "deterministic rejection with a reason; the process survives",
+      "forbidden_behaviour": "panic on untrusted input, unbounded allocation, or silent repair of malformed material",
+      "blast_radius": "the single request",
+      "recovery": "none required",
+      "test": ["engines/banza-trust/tests/root_authority_final_gates.rs::hostile_input_is_rejected_deterministically"],
+      "gate": "AG-6"
+    }
+  ],
+  "not_examined": [
+    {"failure": "F11", "why": "clock skew: BANZA validity fields are absolute instants compared against the verifier's clock. No distributed clock is defined and none is planned. The assumption is stated rather than tested, and is recorded here so it is not mistaken for an examined property."},
+    {"failure": "F2", "why": "persistent state failure at the storage layer is a deployment concern; the protocol's requirement is only that a state advance not be reported durable when persistence failed. The reference verifier holds trusted state in the caller's hands (two values), so it has no storage layer of its own to fail."}
+  ]
+}

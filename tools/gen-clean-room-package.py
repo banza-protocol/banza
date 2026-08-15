@@ -49,6 +49,7 @@ ALWAYS = [
     ('contracts/production/key-manifest.production.schema.json', 'what the active set authorises'),
     ('conformance/vectors/root-authority-set.json', 'the succession vectors, with real signatures'),
     ('spec/trust-freshness.md', 'ordering, rollback and equivocation across trust artifacts'),
+    ('conformance/vectors/trust-freshness.json', 'the vectors that validate an implementation of those rules'),
 ]
 
 # Explicitly excluded, and asserted by the guard rather than trusted. Listed so the exclusion is a
