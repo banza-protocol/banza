@@ -93,8 +93,22 @@ fn trust_on_first_use_is_refused() {
     let (a, b, c) = (kp("alpha"), kp("beta"), kp("gamma"));
     let g = genesis(&[("alpha", &a), ("beta", &b), ("gamma", &c)]);
     // No pinned digest at all: an unpinned root is not a root, it is whatever arrived first.
-    assert!(!verify_genesis_set(&g, "").verified, "TOFU must be refused");
-    assert!(!verify_genesis_set(&g, "   ").verified);
+    //
+    // The REASON is asserted, not merely the rejection. Without the explicit refusal, an empty pinned
+    // digest still fails the digest comparison further down — the same verdict reached by a different
+    // check. A mutation proof caught exactly that: disabling the trust-on-first-use refusal left this
+    // test green, because it was demonstrating "a mismatched digest is rejected" and calling it "trust
+    // on first use is refused". Two different properties, one outcome.
+    for empty in ["", "   ", "\t"] {
+        let r = verify_genesis_set(&g, empty);
+        assert!(!r.verified, "TOFU must be refused for {empty:?}");
+        assert!(
+            r.detail.to_lowercase().contains("tofu")
+                || r.detail.to_lowercase().contains("no pinned"),
+            "the refusal must be the ABSENCE of a pin, not an incidental digest mismatch — got: {}",
+            r.detail
+        );
+    }
 }
 
 // ── the defect this design exists to remove ──────────────────────────────────────────────────────────
