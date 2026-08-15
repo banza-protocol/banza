@@ -33,7 +33,7 @@
     "operator:SIM-A (test-only)",
     "ledger_entries:4"
   ],
-  "evidence_hash": "35608ae233ad7424a2acd7c1bee84b35a85cf326c3a7ebd44dea3aeae20fb9ef",
+  "evidence_hash": "7625e9f9822e76c450827e0add1cc1512256a3e3bda59f971f2d9fab9ab99927",
   "external_model_called": false,
   "failures": [],
   "injected_fault": null,
@@ -71,7 +71,7 @@
   "operator_id": "operator-zero",
   "pre_review_gate": true,
   "production_allowed": false,
-  "protocol_version": "2.0.0",
+  "protocol_version": "1.0.0",
   "ready_disclaimer": "Readiness is verifiable conformance evidence, not an approval.",
   "ready_for_conformance_evidence_review": true,
   "report_id": "l0-valid_l0-PASS",

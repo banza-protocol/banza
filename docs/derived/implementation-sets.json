@@ -11,7 +11,7 @@
     "conformance": "needed to test or demonstrate conformance",
     "guidance": "helps an engineer; defines no requirement"
   },
-  "protocol_version": "2.0.0",
+  "protocol_version": "1.0.0",
   "manifest_totals": {
     "artifacts": 154,
     "implementation": 93,

@@ -1,7 +1,7 @@
 # Root Authority Set
 
 - **Status:** Normative
-- **Protocol version:** 2.0.0
+- **Protocol version:** 1.0.0
 - **Canonicalization:** BCJ/1 ([`spec/canonicalization.md`](canonicalization.md))
 - **Contract:** [`contracts/production/root-authority-set.production.schema.json`](../contracts/production/root-authority-set.production.schema.json)
 - **Invariants:** `INV-ROOT-002`, `INV-ROOT-007`, `INV-ROOT-009`, `INV-ROOT-011` … `INV-ROOT-014`

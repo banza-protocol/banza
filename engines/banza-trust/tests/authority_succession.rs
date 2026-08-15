@@ -429,7 +429,7 @@ fn same_marker_same_content_is_a_replay_and_different_content_is_equivocation() 
 fn manifest_signed_by(active: &Value, signers: &[(&str, &TestKeypair)]) -> Value {
     let mut m = json!({
         "manifest_version": "2",
-        "protocol_version": "2.0.0",
+        "protocol_version": "1.0.0",
         "root_authority_set": {
             "set_sequence": active["set_sequence"].clone(),
             "digest": set_digest(active).unwrap(),

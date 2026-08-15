@@ -346,7 +346,7 @@
         },
         {
           "t": "p",
-          "text": "Alterações incompatíveis são anunciadas com caminho de migração, permitindo coexistência temporária; a depreciação é explícita e faseada. A versão actual do protocolo é a 2.0.0."
+          "text": "Alterações incompatíveis são anunciadas com caminho de migração, permitindo coexistência temporária; a depreciação é explícita e faseada. A versão actual do protocolo é a 1.0.0."
         }
       ]
     },

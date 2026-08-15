@@ -1,6 +1,6 @@
 {
   "boundary": "Evidence Bundle é evidência técnica verificável. Não é certificado. Não é aprovação. A conformidade demonstra-se por evidência verificável; não há aprovação humana central.",
-  "bundle_id": "bundle-4b515c6ee90f",
+  "bundle_id": "bundle-e8fb84c565e5",
   "citations": [
     "docs/governance/EVIDENCE_BUNDLE.md",
     "docs/governance/SIMB_PRE_REVIEW_GATE.md",
@@ -41,7 +41,7 @@
       "operator:SIM-A (test-only)",
       "ledger_entries:4"
     ],
-    "evidence_hash": "35608ae233ad7424a2acd7c1bee84b35a85cf326c3a7ebd44dea3aeae20fb9ef",
+    "evidence_hash": "7625e9f9822e76c450827e0add1cc1512256a3e3bda59f971f2d9fab9ab99927",
     "external_model_called": false,
     "failures": [],
     "injected_fault": null,
@@ -79,7 +79,7 @@
     "operator_id": "operator-zero",
     "pre_review_gate": true,
     "production_allowed": false,
-    "protocol_version": "2.0.0",
+    "protocol_version": "1.0.0",
     "ready_disclaimer": "Readiness is verifiable conformance evidence, not an approval.",
     "ready_for_conformance_evidence_review": true,
     "report_id": "l0-valid_l0-PASS",
@@ -102,8 +102,8 @@
   "environment": "pre-production",
   "external_model_called": false,
   "hashes": {
-    "bundle_hash": "57bd15ffb3e4bd8f60370fcf13ff1dc076a61b3fa1ed606bb64eecc96a0e319d",
-    "conformance_report_hash": "160ea8b546866ede9bdc25f29a6d23f5d5c78de021e88232222a8c25c571046e",
+    "bundle_hash": "8504f3fb70bad64817716338db24d625ad6c55052d64f66105865e27cac97cfa",
+    "conformance_report_hash": "2c516ba6a2ddff6671faf3ec7a888a2702247216da0ca3c02127afea8df91a0f",
     "l1_readiness_hash": null,
     "l2_readiness_hash": null,
     "l3_readiness_hash": null,

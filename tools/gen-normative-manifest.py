@@ -10,7 +10,7 @@ carries two independent fields:
   class — what kind of artifact it is
   tier  — what an implementer must DO with it, which is the question that actually matters:
 
-    implementation : an independent implementation must satisfy this to be BANZA 2.0.0
+    implementation : an independent implementation must satisfy this to be BANZA <protocol_version>
     conformance    : material for DEMONSTRATING that it did; not itself a requirement
     legal          : the legal basis for implementing at all
     informative    : helps a reader; changes no conformance obligation
@@ -22,6 +22,11 @@ import json, hashlib, io, os, glob
 from collections import Counter
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# The protocol version is READ from its contract, never restated here. A generator that carries its own
+# copy is one more place for the version to drift — the defect this milestone found in four engines.
+with open(os.path.join(ROOT, 'contracts/production/protocol-version.json'), encoding='utf8') as _pv:
+    PROTOCOL_VERSION = json.load(_pv)['protocol_version']
 NL = chr(10)
 
 IMPL, CONF, LEGAL, INFO = 'implementation', 'conformance', 'legal', 'informative'
@@ -226,20 +231,20 @@ manifest = {
                   "F-02/F-04",
     "_source_of_truth": "This manifest.",
     "_boundary": (
-        "This manifest identifies the published surface of BANZA 2.0.0 and states, for each artifact, "
+        f"This manifest identifies the published surface of BANZA {PROTOCOL_VERSION} and states, for each artifact, "
         "whether an independent implementation must satisfy it. Being listed here does NOT by itself "
         "make an artifact a requirement: only tier=implementation does. Artifacts not listed at all "
         "are outside the published surface entirely — see not_normative."),
     "protocol": "BANZA",
-    "protocol_version": "2.0.0",
+    "protocol_version": PROTOCOL_VERSION,
     "canonicalization": "BCJ/1",
     "normative_keywords": (
         "BCP 14 (RFC 2119 + RFC 8174). In every artifact listed here, MUST, MUST NOT, REQUIRED, "
         "SHALL, SHALL NOT, SHOULD, SHOULD NOT, MAY and OPTIONAL carry their BCP 14 meaning when, "
         "and only when, they appear in all capitals."),
     "tiers": {
-        "implementation": "An independent implementation MUST satisfy this artifact to be BANZA "
-                          "2.0.0. This is the clean-room reading list.",
+        "implementation": f"An independent implementation MUST satisfy this artifact to be BANZA "
+                          f"{PROTOCOL_VERSION}. This is the clean-room reading list.",
         "conformance": "Material for demonstrating conformance. It expresses requirements defined "
                        "elsewhere; where a vector and a contract disagree, the contract governs and "
                        "the vector is a defect.",

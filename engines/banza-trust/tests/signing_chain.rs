@@ -51,7 +51,7 @@ fn active_set() -> (Value, TestKeypair, TestKeypair, TestKeypair) {
 fn manifest_signed_by(set: &Value, signers: &[(&str, &TestKeypair)]) -> Value {
     let mut m = json!({
         "manifest_version": "2",
-        "protocol_version": "2.0.0",
+        "protocol_version": "1.0.0",
         "root_authority_set": {
             "set_sequence": set["set_sequence"].clone(),
             "digest": banza_trust::authority_set::set_digest(set).unwrap()

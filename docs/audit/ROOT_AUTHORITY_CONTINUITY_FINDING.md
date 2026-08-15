@@ -144,3 +144,24 @@ same registry contradicts it.
 An external team implementing the trust plane would have hit this on their first attempt to verify a Key
 Manifest — reading `root_signatures` in the specification and finding `signature` in the vectors. Better
 to answer it deliberately than to discover it as a `CONFLICT` in someone else's question ledger.
+
+---
+
+## Resolution
+
+**Option 2 was adopted: the architecture, not the version bump.**
+
+The version reasoning recorded above assumed the single-key path had been released. It had not. No BANZA
+target has been frozen for external implementation, no production Root ceremony has taken place, no
+production Root has been activated, and no independent implementation has been certified against the
+earlier shape. There is no published version to be incompatible with.
+
+The correction therefore completes the architecture of **1.0.0** before its first external freeze, rather
+than succeeding a released version. The protocol version is unchanged. What was implemented is the
+predecessor-authorised Root Authority Set lineage described in
+[`spec/root-authority-set.md`](../../spec/root-authority-set.md) and decided in
+[ADR-039](../../decisions/adr/ADR-039-root-authority-set-and-succession.md); the release-lifecycle rule
+that distinguishes a pre-freeze correction from a post-release breaking change is in ADR-008.
+
+Options 1 and 3 were not taken. Option 1 would have discarded the property the architecture exists to
+provide; Option 3 would have shipped a self-contradictory invariant registry into the first frozen target.

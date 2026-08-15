@@ -161,7 +161,7 @@ protocolo, não uma data de produção, certificação ou autorização."
                 attribute_id: "version".to_string(),
                 status: AttributeStatus::Declared.as_str().to_string(),
                 answer:
-                    "A versão do protocolo **BANZA** é **2.0.0** — o valor de `protocol_version` \
+                    "A versão do protocolo **BANZA** é **1.0.0** — o valor de `protocol_version` \
 declarado no manifesto normativo (`contracts/production/normative-manifest.json`), que indexa toda a \
 superfície normativa. É a versão do **protocolo**, distinta de qualquer versão de release de uma \
 implementação ou serviço."
@@ -174,7 +174,7 @@ implementação ou serviço."
         // strings carry their own article ("o BanzAI" / "a Banzami").
         let answer = format!(
             "A documentação pública canónica não declara uma versão única para {display}. \
-A versão **2.0.0** é do **protocolo BANZA**, não desta camada.",
+A versão **1.0.0** é do **protocolo BANZA**, não desta camada.",
             display = display
         );
         return Some(AttributeAnswer {
@@ -236,7 +236,7 @@ mod tests {
             assert_eq!(a.status, "DECLARED", "{q}");
             assert_eq!(a.reason_code, "EXACT_FACT_CONFIRMED", "{q}");
             assert!(
-                a.answer.contains("2.0.0"),
+                a.answer.contains("1.0.0"),
                 "{q}: states the declared version"
             );
             assert!(
@@ -259,7 +259,7 @@ mod tests {
             assert!(a.answer.contains("não declara"), "{q}");
             assert!(
                 !a.answer
-                    .contains("A versão do protocolo **BANZA** é **2.0.0**"),
+                    .contains("A versão do protocolo **BANZA** é **1.0.0**"),
                 "{q}: must not assert a version for this layer"
             );
         }

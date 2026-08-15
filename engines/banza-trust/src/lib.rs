@@ -33,7 +33,7 @@ use sha2::{Digest, Sha256};
 /// `contracts/production/protocol-version.json` by `protocol_version_matches_the_normative_contract`
 /// — the version must never be restated independently in an engine, which is how 1.0.0 and 2.0.0
 /// would drift apart.
-pub const PROTOCOL_VERSION: &str = "2.0.0";
+pub const PROTOCOL_VERSION: &str = "1.0.0";
 
 pub const VERIFIER: &str = "banza-trust";
 pub const VERIFIER_VERSION: &str = "0.2.0";

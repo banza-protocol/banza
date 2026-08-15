@@ -19,7 +19,7 @@
   },
   "environment": "sandbox",
   "key_manifest_url": "https://zero.banza.network/key-manifest.json",
-  "manifest_hash": "9d76f9c01a9a7397f4ec9bbdefa2c298237d00672179eed350094ef957829755",
+  "manifest_hash": "4e015bbf5fbcd92aa9a8452c2ab4d88de928df0ed41ecd22f7c6dc81c7a96966",
   "manifest_version": 1,
   "monetary_value": false,
   "name": "Operador Zero (simulador demo)",
@@ -27,7 +27,7 @@
   "operator_id": "operator-zero",
   "origin": "https://zero.banza.network",
   "production_allowed": false,
-  "protocol_version": "2.0.0",
+  "protocol_version": "1.0.0",
   "public_keys": [
     {
       "algorithm": "ed25519",

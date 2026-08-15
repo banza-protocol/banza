@@ -129,7 +129,7 @@ pub fn federation_ote_input_named(
     let manifest_body = json!({
         "operator_id": operator_id,
         "manifest_url": format!("https://{operator_id}.example/.well-known/banza/operator-manifest.json"),
-        "protocol_version": "2.0.0",
+        "protocol_version": "1.0.0",
         "capabilities": caps,
         "supports_federation": true,
         "cross_operator_routing": capabilities.contains(&"cross_operator_routing"),
@@ -159,8 +159,8 @@ pub fn federation_ote_input_named(
         "metadata_id": format!("spm-{operator_id}-2026-07"),
         "operator_id": operator_id,
         "capabilities": caps,
-        "protocol_version": "2.0.0",
-        "release_id": "banza-protocol-2.0.0",
+        "protocol_version": "1.0.0",
+        "release_id": "banza-protocol-1.0.0",
         "schema_versions": { "operator_manifest": "1.0", "conformance_evidence": "1.0" },
         "conformance_tool_version": "banza-conformance-rs 0.2.0",
         "registry_snapshot_hash": "sha256:registry-snapshot",
@@ -234,7 +234,7 @@ pub fn federation_ote_input_named(
 
     json!({
         "evaluated_at": EVAL_AT,
-        "evaluator_protocol_version": "2.0.0",
+        "evaluator_protocol_version": "1.0.0",
         "trusted_root_public_keys": [root_a.public_b64url, root_b.public_b64url, root_c.public_b64url],
         "trust_root_metadata": trust_root_metadata,
         "delegated_signing_key": delegated_signing_key,
@@ -279,7 +279,7 @@ pub fn build_input(mutation: &str) -> Value {
     let manifest_body = json!({
         "operator_id": "operator-A",
         "manifest_url": "https://operator-a.example/.well-known/banza/operator-manifest.json",
-        "protocol_version": "2.0.0",
+        "protocol_version": "1.0.0",
         "capabilities": ["cross_operator_routing", "cross_operator_settlement"],
         "public_keys": [{ "key_id": "operator-A-key-1", "public_key": "ed25519:AAAA", "algorithm": "ed25519" }],
         "endpoints": { "interop_endpoint": "https://operator-a.example/federation" },
@@ -309,13 +309,10 @@ pub fn build_input(mutation: &str) -> Value {
     conformance_evidence["evidence_hash"] = json!(evidence_hash);
 
     // Signed protocol metadata content (pre-sign).
-    // The current protocol is 2.0.0 (ADR-039 made the Root Authority Set a wire-incompatible change).
-    // The incompatibility fixture therefore carries 1.0.0: a v1 operator's metadata evaluated by a v2
-    // verifier, which is the real incompatibility this vector now describes.
     let proto = if mutation == "incompatible_protocol_version" {
-        "1.0.0"
-    } else {
         "2.0.0"
+    } else {
+        "1.0.0"
     };
     let (m_from, m_until) = if mutation == "expired_metadata" {
         ("2026-05-01T00:00:00Z", "2026-06-01T00:00:00Z")
@@ -327,7 +324,7 @@ pub fn build_input(mutation: &str) -> Value {
         "operator_id": "operator-A",
         "capabilities": ["cross_operator_routing", "cross_operator_settlement"],
         "protocol_version": proto,
-        "release_id": "banza-protocol-2.0.0",
+        "release_id": "banza-protocol-1.0.0",
         "schema_versions": { "operator_manifest": "1.0", "conformance_evidence": "1.0" },
         "conformance_tool_version": "banza-conformance-rs 0.2.0",
         "registry_snapshot_hash": "sha256:registry-snapshot",
@@ -426,7 +423,7 @@ pub fn build_input(mutation: &str) -> Value {
 
     let mut input = json!({
         "evaluated_at": EVAL_AT,
-        "evaluator_protocol_version": "2.0.0",
+        "evaluator_protocol_version": "1.0.0",
         "trusted_root_public_keys": [root_a.public_b64url, root_b.public_b64url, root_c.public_b64url],
         "trust_root_metadata": trust_root_metadata,
         "delegated_signing_key": delegated_signing_key,
@@ -530,8 +527,8 @@ pub fn operator_zero_ote(operator_manifest_body: &Value, conformance_report_body
     // covers them; the placeholder hash fields mirror `build_input`.
     let meta_body = with_oz_markers(json!({
         "metadata_id": "spm-operator-zero-2026-08",
-        "protocol_version": "2.0.0",
-        "release_id": "banza-protocol-2.0.0",
+        "protocol_version": "1.0.0",
+        "release_id": "banza-protocol-1.0.0",
         "schema_versions": { "operator_manifest": "1.0", "conformance_evidence": "1.0" },
         "conformance_tool_version": "banza-conformance-rs 0.1.0",
         "registry_snapshot_hash": "sha256:registry-snapshot",
@@ -812,7 +809,7 @@ mod oz_tests {
             "name": "Operador Zero (simulador demo)",
             "environment": "sandbox",
             "simulated": true,
-            "protocol_version": "2.0.0",
+            "protocol_version": "1.0.0",
             "origin": "https://zero.banza.network",
             "base_url": "https://zero.banza.network",
             "key_manifest_url": "https://zero.banza.network/key-manifest.json",
@@ -828,7 +825,7 @@ mod oz_tests {
         with_oz_markers(json!({
             "runner": "banza-conformance-rs",
             "runner_version": "0.1.0",
-            "protocol_version": "2.0.0",
+            "protocol_version": "1.0.0",
             "level": "L0",
             "status": "PASS",
             "totals": { "total": 4, "pass": 4, "fail": 0 },
@@ -850,7 +847,7 @@ mod oz_tests {
         let km = &ote["key_manifest"];
         let mut input = json!({
             "evaluated_at": "2026-08-05T00:00:00Z",
-            "evaluator_protocol_version": "2.0.0",
+            "evaluator_protocol_version": "1.0.0",
             "trust_root_metadata": km["trust_root_metadata"].clone(),
             "delegated_signing_key": km["delegated_signing_key"].clone(),
             "signed_protocol_metadata": ote["signed_metadata"].clone(),
@@ -984,12 +981,85 @@ mod banza_trust_authority_helpers {
             { "authority_id": "y", "signature": y.sign_bytes(&msg) }
         ]);
 
+        // ── the cases an implementation passes by accident unless it is tested for them ──
+        //
+        // A verifier that checks "two valid signatures from the predecessor" and stops accepts every
+        // one of these. Each is a distinct way to break the lineage while looking correct.
+
+        // Names a predecessor that is not the active set.
+        let mut wrong_predecessor = ok_replace_c.clone();
+        wrong_predecessor["predecessor_digest"] =
+            json!("1111111111111111111111111111111111111111111111111111111111111111");
+        let msg = canonical_bytes(&wrong_predecessor, &["predecessor_signatures"]).unwrap();
+        wrong_predecessor["predecessor_signatures"] = json!([
+            { "authority_id": "alpha", "signature": a.sign_bytes(&msg) },
+            { "authority_id": "beta",  "signature": b.sign_bytes(&msg) }
+        ]);
+
+        // Jumps a position: a verifier that only checks "greater than" lets the lineage skip a link.
+        let skipped_sequence = set(
+            2,
+            &[("alpha", &a), ("beta", &b), ("delta", &d)],
+            Some(&g),
+            &[("alpha", &a), ("beta", &b)],
+        );
+
+        // Signed by a key that belongs to no authority of the predecessor.
+        let unknown_signer = set(
+            1,
+            &[("alpha", &a), ("beta", &b), ("delta", &d)],
+            Some(&g),
+            &[("alpha", &a), ("x", &x)],
+        );
+
+        // The active set after a real succession, and the authority it removed.
+        let active_after = ok_replace_c.clone();
+        let removed_authority_signs = set(
+            2,
+            &[("alpha", &a), ("beta", &b), ("x", &x)],
+            Some(&active_after),
+            &[("gamma", &c), ("alpha", &a)],
+        );
+
+        // Two different successors at the SAME position, each individually authorised.
+        let conflicting_successor = set(
+            1,
+            &[("alpha", &a), ("gamma", &c), ("x", &x)],
+            Some(&g),
+            &[("alpha", &a), ("gamma", &c)],
+        );
+
+        // Key Manifest under the active set, and under authorities that are no longer current.
+        let manifest = |signers: &[(&str, &TestKeypair)], under: &Value| -> Value {
+            let mut m = json!({
+                "manifest_version": "1",
+                "protocol_version": "1.0.0",
+                "root_authority_set": {
+                    "set_sequence": under["set_sequence"].clone(),
+                    "digest": set_digest(under).unwrap()
+                },
+                "keys": [],
+                "marker": super::TEST_ONLY_MARKER,
+                "root_signatures": []
+            });
+            let msg = canonical_bytes(&m, &["root_signatures"]).unwrap();
+            m["root_signatures"] = Value::Array(
+                signers
+                    .iter()
+                    .map(|(id, k)| json!({ "authority_id": id, "signature": k.sign_bytes(&msg) }))
+                    .collect(),
+            );
+            m
+        };
+        let manifest_ok = manifest(&[("alpha", &a), ("delta", &d)], &active_after);
+        let manifest_stale_authority = manifest(&[("alpha", &a), ("gamma", &c)], &active_after);
+
         json!({
             "_spec": "BANZA Root Authority Set — conformance vectors",
             "_status": "NORMATIVE",
             "_authority": "spec/root-authority-set.md",
             "_note": "TEST-ONLY keys from fixed seeds. Never production material.",
-            "protocol_version": "2.0.0",
+            "protocol_version": "1.0.0",
             "pinned_genesis_digest": g_digest,
             "genesis": g,
             "vectors": [
@@ -1007,7 +1077,31 @@ mod banza_trust_authority_helpers {
                 { "id": "RAS-006", "title": "one authority signing twice is one approval",
                   "kind": "successor", "expect": "reject", "active": "genesis", "candidate": dup_signer },
                 { "id": "RAS-007", "title": "a set signed only by its own authorities authorises nothing",
-                  "kind": "successor", "expect": "reject", "active": "genesis", "candidate": self_signed }
+                  "kind": "successor", "expect": "reject", "active": "genesis", "candidate": self_signed },
+                { "id": "RAS-008", "title": "a successor naming the wrong predecessor is rejected",
+                  "kind": "successor", "expect": "reject", "active": "genesis", "candidate": wrong_predecessor },
+                { "id": "RAS-009", "title": "a skipped sequence is rejected",
+                  "kind": "successor", "expect": "reject", "active": "genesis", "candidate": skipped_sequence },
+                { "id": "RAS-010", "title": "an unknown signer contributes nothing to the threshold",
+                  "kind": "successor", "expect": "reject", "active": "genesis", "candidate": unknown_signer },
+                { "id": "RAS-011", "title": "an authority removed by an earlier succession no longer authorises",
+                  "kind": "successor", "expect": "reject", "active": ok_replace_c.clone(),
+                  "candidate": removed_authority_signs },
+                { "id": "RAS-012", "title": "the same set at the same position is an idempotent replay",
+                  "kind": "ordering", "expect": "replay", "observed": ok_replace_c.clone(),
+                  "candidate": ok_replace_c.clone() },
+                { "id": "RAS-013", "title": "a different set at the same position is equivocation, not a race",
+                  "kind": "ordering", "expect": "equivocation", "observed": ok_replace_c.clone(),
+                  "candidate": conflicting_successor },
+                { "id": "RAS-014", "title": "a superseded set presented again is a rollback",
+                  "kind": "ordering", "expect": "rollback", "observed": ok_replace_c.clone(),
+                  "candidate": g.clone() },
+                { "id": "RAS-015", "title": "the Key Manifest is authorised by two distinct current authorities",
+                  "kind": "key_manifest", "expect": "accept", "active": ok_replace_c.clone(),
+                  "candidate": manifest_ok },
+                { "id": "RAS-016", "title": "a Key Manifest signed by a no-longer-current authority is rejected",
+                  "kind": "key_manifest", "expect": "reject", "active": ok_replace_c.clone(),
+                  "candidate": manifest_stale_authority }
             ]
         })
     }
@@ -1028,7 +1122,7 @@ pub fn signing_vectors() -> String {
         })
         .collect();
     let out = json!({
-        "_note": "Public cryptographic trust vectors for BANZA 2.0. Deterministic TEST-ONLY trust material (trust root metadata with a 2-of-3 threshold signature, delegated signing keys, signed protocol metadata, operator manifest, conformance evidence, public registry entry, revocation status) with fixed derivation inputs. Each case carries the expected trust status. These are the vectors an independent implementation uses to validate its Ed25519 signature verification against known-good material; unlike the federation fixtures, they carry real signatures, not placeholders. Public key material only; no confidential key material of any kind is present.",
+        "_note": "Public cryptographic trust vectors for BANZA 1.0. Deterministic TEST-ONLY trust material (trust root metadata with a 2-of-3 threshold signature, delegated signing keys, signed protocol metadata, operator manifest, conformance evidence, public registry entry, revocation status) with fixed derivation inputs. Each case carries the expected trust status. These are the vectors an independent implementation uses to validate its Ed25519 signature verification against known-good material; unlike the federation fixtures, they carry real signatures, not placeholders. Public key material only; no confidential key material of any kind is present.",
         "scheme": "spec/canonicalization.md (BCJ/1) for the signed bytes + Ed25519 (RFC 8032) + base64url without padding; domain-separated delegated keys per ADR-025; root anchored by a threshold of pinned root signatures (ADR-025, ADR-039). Trust status is computed fail-closed.",
         "model": "signed protocol metadata + delegated signing keys + operator manifest + conformance evidence + public protocol registry + revocation/fail-closed",
         "cases": cases,

@@ -24,7 +24,7 @@ mod wasm;
 pub const TOOL_VERSION: &str = "0.1.0";
 /// The protocol version this validator accepts. Bound to `contracts/production/protocol-version.json`
 /// by `protocol_version_matches_the_normative_contract`.
-pub const PROTOCOL_VERSION: &str = "2.0.0";
+pub const PROTOCOL_VERSION: &str = "1.0.0";
 pub const WELL_KNOWN_PATH: &str = "/.well-known/banza/operator.json";
 pub const BOUNDARY: &str =
     "Operator Manifest Validation é evidência técnica. Não é certificação, não é aprovação e não cria operador real.";
@@ -407,7 +407,7 @@ pub fn demo_fixtures() -> Value {
     let valid = json!({
         "operator_id": "operator-zero", "name": "Operador Zero (simulador demo)",
         "environment": "sandbox", "simulated": true, "production_allowed": false,
-        "protocol_version": "2.0.0", "base_url": "https://zero.banza.network",
+        "protocol_version": "1.0.0", "base_url": "https://zero.banza.network",
         "key_manifest_url": "https://zero.banza.network/key-manifest.json",
         "brl_url": "https://zero.banza.network/revocation-list.json",
         "conformance_url": "https://zero.banza.network/conformance/evidence.json",

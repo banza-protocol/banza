@@ -109,7 +109,7 @@ fn c_declared_vs_not_declared_attribute_is_exact() {
         .expect("version is an attribute query");
     assert_eq!(version.status, "DECLARED", "protocol version is declared");
     assert!(
-        version.answer.contains("2.0.0"),
+        version.answer.contains("1.0.0"),
         "version answer states the declared value"
     );
 

@@ -37,6 +37,10 @@ jobs:
       - name: Root authority model is three authorities, threshold two, predecessor-authorised
         run: bash tools/check-root-authority-model.sh
 
+      # One protocol version, declared once. Four engines each carried their own literal before this.
+      - name: One protocol version, declared in one place
+        run: bash tools/check-protocol-version-consistency.sh
+
   open-governance-check:
     name: No central human authority over operators
     runs-on: ubuntu-latest

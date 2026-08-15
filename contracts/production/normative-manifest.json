@@ -3,13 +3,13 @@
   "_status": "canonical",
   "_authority": "ADR-008 (versioning), ADR-011 (canonicalization); remediation of audit findings F-02/F-04",
   "_source_of_truth": "This manifest.",
-  "_boundary": "This manifest identifies the published surface of BANZA 2.0.0 and states, for each artifact, whether an independent implementation must satisfy it. Being listed here does NOT by itself make an artifact a requirement: only tier=implementation does. Artifacts not listed at all are outside the published surface entirely — see not_normative.",
+  "_boundary": "This manifest identifies the published surface of BANZA 1.0.0 and states, for each artifact, whether an independent implementation must satisfy it. Being listed here does NOT by itself make an artifact a requirement: only tier=implementation does. Artifacts not listed at all are outside the published surface entirely — see not_normative.",
   "protocol": "BANZA",
-  "protocol_version": "2.0.0",
+  "protocol_version": "1.0.0",
   "canonicalization": "BCJ/1",
   "normative_keywords": "BCP 14 (RFC 2119 + RFC 8174). In every artifact listed here, MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, MAY and OPTIONAL carry their BCP 14 meaning when, and only when, they appear in all capitals.",
   "tiers": {
-    "implementation": "An independent implementation MUST satisfy this artifact to be BANZA 2.0.0. This is the clean-room reading list.",
+    "implementation": "An independent implementation MUST satisfy this artifact to be BANZA 1.0.0. This is the clean-room reading list.",
     "conformance": "Material for demonstrating conformance. It expresses requirements defined elsewhere; where a vector and a contract disagree, the contract governs and the vector is a defect.",
     "legal": "The legal basis for implementing and for describing the implementation. Not a behavioural requirement.",
     "informative": "Published and stable, but imposes no conformance obligation. Listed so that the question 'is this normative?' has a published answer."
@@ -279,7 +279,7 @@
       "class": "NORMATIVE_REGISTRY",
       "tier": "implementation",
       "role": "banza-capabilities/1 — the core capability identifiers those rules govern, with the audited relation of every supports_* flag and the evidence for every alias.",
-      "sha256": "911bcd2fc9fbdf9fb2eb3b0ba2dc96f3784cdac93d5dffff37c24237b1775d05",
+      "sha256": "8d307443c2d99e4158eb6972fcc8b28ddbb50c23743e474bff56bab3cdb12e6a",
       "self_declared_status": "canonical"
     },
     {
@@ -319,7 +319,7 @@
       "class": "NORMATIVE_CONTRACT",
       "tier": "implementation",
       "role": "Production contract baseline.",
-      "sha256": "8e4fbd87735f020d2cacecd8e4ded07748f69de52ea0075eca160b3398846be8",
+      "sha256": "5c4df3c90cab6430600719cbf8f090e7f9ea870e4f8af772bf81a0a46cda931d",
       "self_declared_status": "canonical"
     },
     {
@@ -455,7 +455,7 @@
       "class": "NORMATIVE_REGISTRY",
       "tier": "implementation",
       "role": "Declares the protocol version, compatibility policy, profile list and the canonicalization in force. The entry point of the normative surface.",
-      "sha256": "a84ac9b7d6186b4826453029341616198cc9ec0409f19a9d8d56308531d77a83"
+      "sha256": "ba712d7d36ae73b61305838bb10cf815af40491e3c19cda27d6e127727ab44e1"
     },
     {
       "path": "contracts/production/public-protocol-registry.production.schema.json",
@@ -470,7 +470,7 @@
       "class": "NORMATIVE_REGISTRY",
       "tier": "implementation",
       "role": "banza-reason-codes/1 — the machine-readable vocabularies those rules govern.",
-      "sha256": "7ca46856c8577f8d2e992196118418ce2b25057204c0d8c3125111e7ff8d8406",
+      "sha256": "58de1a5aa7064fc38617229e3baf95a786d16b7fd6dfb4cc0c41301094fb1d5b",
       "self_declared_status": "canonical"
     },
     {
@@ -746,7 +746,7 @@
       "class": "NORMATIVE_SPECIFICATION",
       "tier": "implementation",
       "role": "Who may exercise Root authority, and how a successor set is authorised by the threshold of the set it succeeds. The genesis set is pinned; a self-signed set authorises nothing.",
-      "sha256": "26bd20b5bc1009fe67c55c99eedb87029fc3c0182eeac3cfbd63e94547f7eba2"
+      "sha256": "fecf0c2c7c618259ec437995639644fa89be89a8de0737fd5b161ea6e2437a78"
     },
     {
       "path": "spec/trust-freshness.md",
@@ -1048,7 +1048,7 @@
       "class": "CONFORMANCE_VECTOR",
       "tier": "conformance",
       "role": "Vectors for capability satisfaction, including that near-spellings never satisfy implicitly.",
-      "sha256": "f3a799a1e0cd888fdceaa3a86f74973f7ed4f4fa152b928797e5a4f1ae86380f",
+      "sha256": "019fed8c10d56660da026c542dc5ff35269c288e74aaf699969e5f9ed08377a1",
       "self_declared_status": "canonical"
     },
     {
@@ -1070,7 +1070,7 @@
       "class": "CONFORMANCE_VECTOR",
       "tier": "conformance",
       "role": "Vectors for the idempotency rules. The request-identity digests were computed by an implementation written from the specification text.",
-      "sha256": "ed41f91b644d0fcdfe9e7cb10b97ecacc39daba355a3705a5cf942670dd666aa",
+      "sha256": "ebb0ae32ed7020d6a128807899027d33345b0635d871b2645f49a9d470d1f16c",
       "self_declared_status": "canonical"
     },
     {
@@ -1106,7 +1106,7 @@
       "class": "CONFORMANCE_VECTOR",
       "tier": "conformance",
       "role": "Vectors for the reason-code rules, derived from the specification.",
-      "sha256": "cf1351fdf8ddadf31c68f8fe540ce9185277e5b3536f9bc9f18f5b3c95456b6d",
+      "sha256": "c20a009fa9d821483a2f9d2628ed04eb3cb62236846b2fb23044ccbb020ab50d",
       "self_declared_status": "canonical"
     },
     {
@@ -1114,7 +1114,7 @@
       "class": "NORMATIVE_VECTORS",
       "tier": "conformance",
       "role": "Genesis pinning, predecessor authorisation, threshold arithmetic and the self-signed rejection.",
-      "sha256": "7c9465d286e8da542faba3ce4bbe43ce88038c3c8c7b2ff9922b89f7ebf99f46",
+      "sha256": "8eb2d3c058d9767b7d4c97cafcd9cc6d87a70cf14fa948dea683a3ee0e4e5762",
       "self_declared_status": "NORMATIVE"
     },
     {
@@ -1136,7 +1136,7 @@
       "class": "CONFORMANCE_VECTOR",
       "tier": "conformance",
       "role": "Vectors for the anti-rollback rule, including restart and concurrency.",
-      "sha256": "5433b9640f3937bd927fb178b86dcaec6b1604b1cf508429360b32397c1f6312",
+      "sha256": "04f147824b6a620acfd56165238e9c254ea0801a37a47bce4c28674f596eb95b",
       "self_declared_status": "canonical"
     },
     {
@@ -1144,7 +1144,7 @@
       "class": "CONFORMANCE_VECTOR",
       "tier": "conformance",
       "role": "Public cryptographic trust vectors: real signatures over BCJ/1 bytes, each with its expected trust status. See the file's own `scheme` member for the algorithms. Test-only material; public key material only.",
-      "sha256": "359cd000fc5c5c76d88e4a0b066fa839f3aee9fff3b90272bf24fd2aebffe785"
+      "sha256": "1e3510b306da1840b940c6a239ede3640113719490df87a1f3b8efe6588abc06"
     },
     {
       "path": "conformance/vectors/wallet-balances.json",

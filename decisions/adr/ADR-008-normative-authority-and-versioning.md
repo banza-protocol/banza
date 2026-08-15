@@ -27,6 +27,23 @@ existing surface rather than changing it: the documents on the wire are byte-for
 so consumers that were conformant remain conformant. A version change is reserved for a change that
 would break them.
 
+**Compatibility is owed to a released version, and a version is released when it is frozen for external
+implementation.** Two lifecycle states follow, and they are not the same:
+
+| State | What the version number means | What an incompatible correction does |
+|---|---|---|
+| **Before the first external freeze** | the version being prepared | corrects the version being prepared; the number does not move |
+| **After release** | a compatibility commitment | requires the version change compatibility demands |
+
+A version is released once a target is frozen and published for independent implementation — a pinned
+source identity, a Normative Manifest digest, and a package an external team can build against. Until
+then nothing outside the project depends on the shape, so an incompatible correction breaks no consumer:
+there is no consumer. Correcting the architecture before the freeze is cheaper than shipping a defect and
+then owing everyone a migration.
+
+The rule is deliberately not "the maintainers may renumber while it feels early". The freeze is an
+observable event with artifacts, and after it the ordinary compatibility rule governs without exception.
+
 **Canonicalization is versioned separately** as `BCJ/1` (ADR-011), because it has its own lifecycle and
 a future change to it should not move the protocol version. Signed artifacts declare which
 canonicalization produced them, so an artifact produced under the published rule is distinguishable
@@ -58,6 +75,15 @@ and it grows silently.
 **Every document declares its own status.** Rejected — and it was tried. Self-declaration produces
 documents that call themselves canonical because their author believed it, and nothing reconciles two
 that both do.
+
+**Bump the version for any incompatible change, released or not.** Rejected. It sounds stricter and
+buys nothing: a number that moves before anyone can depend on it communicates a break to no one, while
+spending a major version on a defect that was never delivered. Worse, it invites the reading that a
+previous version existed and was superseded, when what happened is that the first version was finished.
+
+**Let the pre-freeze exemption be a judgement call.** Rejected: an exemption with no observable trigger
+becomes permanent. The freeze is the trigger precisely because it produces artifacts — a source
+identity, a manifest digest, a package — that either exist or do not.
 
 **Version the protocol on every published change.** Rejected. It would signal incompatibility that does
 not exist and train consumers to ignore the version.

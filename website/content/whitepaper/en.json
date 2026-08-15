@@ -346,7 +346,7 @@
         },
         {
           "t": "p",
-          "text": "Incompatible changes are announced with a migration path, allowing temporary coexistence; deprecation is explicit and phased. The current version of the protocol is 2.0.0."
+          "text": "Incompatible changes are announced with a migration path, allowing temporary coexistence; deprecation is explicit and phased. The current version of the protocol is 1.0.0."
         }
       ]
     },

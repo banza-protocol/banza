@@ -80,6 +80,23 @@ if cargo test -q --manifest-path engines/banza-trust/Cargo.toml --test authority
 else
   bad "the removed-authority property does not hold"
 fi
+# Counting signature ENTRIES rather than distinct authorities is the quiet way back to a one-party root:
+# a single custodian signing twice reaches the threshold alone. A mutation that switches the signer set
+# to a list must fail here.
+if cargo test -q --manifest-path engines/banza-trust/Cargo.toml --test authority_succession \
+     a_duplicate_signer_counts_once >/dev/null 2>&1; then
+  ok "one custodian signing twice is one approval, not two (engine-verified)"
+else
+  bad "duplicate signature entries can reach the threshold"
+fi
+# The published vectors are the external implementation's definition of correct. If they stop matching
+# the engine, an implementer validates against something the reference implementation does not do.
+if cargo test -q --manifest-path engines/banza-trust/Cargo.toml --test authority_set_vectors \
+     >/dev/null 2>&1; then
+  ok "every published Root Authority Set vector matches the engine (engine-verified)"
+else
+  bad "the published vectors and the engine disagree"
+fi
 
 # 4. no single-signer bypass. Named escapes, searched as identifiers rather than prose so that a
 #    document DESCRIBING the prohibition is not mistaken for an implementation of one.
