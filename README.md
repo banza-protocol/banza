@@ -15,6 +15,47 @@ operated by the protocol maintainer.
 
 ---
 
+## Design principles — BANZA R²S²
+
+BANZA has exactly four fundamental principles, named **BANZA R²S²** — *Robust · Resilient · Secure · Simple*.
+They are the criteria by which decisions are made, not a description of what the protocol does.
+
+| | Meaning |
+|---|---|
+| **Robust** | correct and deterministic under independent implementation, adversarial input and boundary conditions |
+| **Resilient** | contains failures, preserves safe operation where possible and recovers deterministically without weakening protocol guarantees |
+| **Secure** | critical properties are enforced by construction and fail closed when they cannot be established |
+| **Simple** | uses the smallest mechanism sufficient to provide the required property |
+
+The order is canonical. Where a superscript is not technically appropriate, the ASCII form is `R2S2`.
+
+**Resilience does not override security.** It preserves safe operation and deterministic recovery under
+failure; it never permits bypassing trust, authorization, integrity or any other protocol invariant
+merely to remain available. It is also not a claim of continuous availability: a failure is contained,
+made explicit and recovered where possible, and it does not become a protocol violation.
+
+Every architectural decision answers four questions — will independently built implementations still
+behave correctly? what happens when this fails? can failure, attack or fallback violate an invariant? is
+there a smaller mechanism that provides the same property? A decision that cannot answer them is
+reconsidered. The record is [ADR-040](decisions/adr/ADR-040-r2s2-fundamental-principles.md).
+
+These principles are distinct from two other things, and the distinction is deliberate: the **structural
+properties** the protocol must possess (the public Reference, §3) and the **architectural invariants**
+the architecture may not violate (the Whitepaper). Principles decide; properties characterise;
+invariants constrain.
+
+## Layered assurance
+
+A property is not demonstrated because a test is green. Every critical property must carry a falsifiable
+chain — a rule on the normative surface, a representation on the wire, positive and negative cases, an
+adversarial case, failure behaviour, a guard, and a mutation proving that guard can go red. No layer
+validates itself, and a higher gate never compensates for a lower one.
+
+The gates, the property registry and what each records are in [`assurance/`](assurance/README.md);
+the decision is [ADR-041](decisions/adr/ADR-041-layered-assurance-gates.md). Run `make assurance-check`.
+
+---
+
 ## Current status
 
 | | |
