@@ -12,24 +12,42 @@
 use banza_assurance::*;
 use std::fs;
 use std::path::{Path, PathBuf};
+use std::sync::atomic::{AtomicU64, Ordering::SeqCst};
 
 /// A synthetic tree with one CRITICAL property whose every required stage is present and resolvable.
 fn fixture() -> (PathBuf, serde_json::Value) {
+    // Node tests run in parallel, so the fixture directory must be unique per CALL, not per process.
+    // A timestamp-derived suffix collided between concurrent tests and made this suite intermittently
+    // red — and an intermittently red meta-test is not a passing one.
+    static N: AtomicU64 = AtomicU64::new(0);
     let root = std::env::temp_dir().join(format!(
-        "banza-assurance-fixture-{}",
-        std::process::id() as u64 + rand_suffix()
+        "banza-assurance-fixture-{}-{}",
+        std::process::id(),
+        N.fetch_add(1, SeqCst)
     ));
     let _ = fs::remove_dir_all(&root);
     for d in ["spec", "tests", "tools", "assurance", "docs"] {
         fs::create_dir_all(root.join(d)).unwrap();
     }
     fs::write(root.join("spec/rule.md"), "# The rule\nA MUST hold.\n").unwrap();
-    fs::write(root.join("tests/t.rs"), "fn holds() {}\nfn rejects() {}\nfn attacked() {}\n").unwrap();
+    fs::write(
+        root.join("tests/t.rs"),
+        "fn holds() {}\nfn rejects() {}\nfn attacked() {}\n",
+    )
+    .unwrap();
     fs::write(root.join("tools/guard.sh"), "#!/bin/sh\nexit 0\n").unwrap();
-    fs::write(root.join("assurance/mutations.json"), "{\"mutations\":[{\"id\":\"m\"}]}").unwrap();
+    fs::write(
+        root.join("assurance/mutations.json"),
+        "{\"mutations\":[{\"id\":\"m\"}]}",
+    )
+    .unwrap();
     // The AG-9 surfaces, each stating all four principles.
     for f in ["README.md", "docs/reference.md"] {
-        fs::write(root.join(f), "BANZA R²S² — Robust · Resilient · Secure · Simple\n").unwrap();
+        fs::write(
+            root.join(f),
+            "BANZA R²S² — Robust · Resilient · Secure · Simple\n",
+        )
+        .unwrap();
     }
     // AG-10's conditions, all met.
     fs::write(
@@ -83,14 +101,6 @@ fn fixture() -> (PathBuf, serde_json::Value) {
     (root, registry)
 }
 
-fn rand_suffix() -> u64 {
-    // Deterministic per test binary invocation is enough; the directory is removed either way.
-    std::time::SystemTime::now()
-        .duration_since(std::time::UNIX_EPOCH)
-        .map(|d| d.subsec_nanos() as u64)
-        .unwrap_or(0)
-}
-
 fn run(root: &Path, registry: &serde_json::Value) -> Report {
     let reg: Registry = serde_json::from_value(registry.clone()).expect("registry parses");
     evaluate(root, &reg)
@@ -106,8 +116,14 @@ fn the_synthetic_baseline_is_green() {
     let (root, reg) = fixture();
     let r = run(&root, &reg);
     assert!(r.findings.is_empty(), "baseline findings: {:?}", r.findings);
-    assert!(r.properties[0].property_complete, "baseline property must be complete");
-    assert!(r.properties[0].property_passed, "baseline property must pass");
+    assert!(
+        r.properties[0].property_complete,
+        "baseline property must be complete"
+    );
+    assert!(
+        r.properties[0].property_passed,
+        "baseline property must pass"
+    );
     for g in ["AG-0", "AG-2", "AG-6", "AG-7", "AG-9", "AG-10"] {
         assert_eq!(gate(&r, g), "PASS", "baseline {g}");
     }
@@ -151,9 +167,14 @@ fn a_missing_required_stage_never_passes() {
 #[test]
 fn a_pointer_to_a_nonexistent_artifact_never_passes() {
     let (root, mut reg) = fixture();
-    reg["properties"][0]["negative_evidence"] = serde_json::json!(["tests/does-not-exist.rs::rejects"]);
+    reg["properties"][0]["negative_evidence"] =
+        serde_json::json!(["tests/does-not-exist.rs::rejects"]);
     let r = run(&root, &reg);
-    assert_ne!(gate(&r, "AG-2"), "PASS", "a dangling pointer must not pass AG-2");
+    assert_ne!(
+        gate(&r, "AG-2"),
+        "PASS",
+        "a dangling pointer must not pass AG-2"
+    );
     assert!(!r.ok);
     let _ = fs::remove_dir_all(&root);
 
@@ -161,7 +182,11 @@ fn a_pointer_to_a_nonexistent_artifact_never_passes() {
     let (root, mut reg) = fixture();
     reg["properties"][0]["negative_evidence"] = serde_json::json!(["tests/t.rs::renamed_away"]);
     let r = run(&root, &reg);
-    assert_ne!(gate(&r, "AG-2"), "PASS", "a renamed test must not pass AG-2");
+    assert_ne!(
+        gate(&r, "AG-2"),
+        "PASS",
+        "a renamed test must not pass AG-2"
+    );
     let _ = fs::remove_dir_all(&root);
 }
 
@@ -172,14 +197,22 @@ fn ag9_never_passes_by_requiring_nothing() {
     let (root, reg) = fixture();
     fs::remove_file(root.join("docs/reference.md")).unwrap();
     let r = run(&root, &reg);
-    assert_ne!(gate(&r, "AG-9"), "PASS", "a missing mandatory surface must not pass");
+    assert_ne!(
+        gate(&r, "AG-9"),
+        "PASS",
+        "a missing mandatory surface must not pass"
+    );
     let _ = fs::remove_dir_all(&root);
 
     // A surface that exists but does not state the principles.
     let (root, reg) = fixture();
     fs::write(root.join("README.md"), "nothing about principles here\n").unwrap();
     let r = run(&root, &reg);
-    assert_ne!(gate(&r, "AG-9"), "PASS", "an unreconciled surface must not pass");
+    assert_ne!(
+        gate(&r, "AG-9"),
+        "PASS",
+        "an unreconciled surface must not pass"
+    );
     let _ = fs::remove_dir_all(&root);
 
     // The requirement list emptied — the easiest way to make a gate green.
@@ -187,7 +220,11 @@ fn ag9_never_passes_by_requiring_nothing() {
     reg["gate_requirements"]["AG-9"]["mandatory_surfaces"] = serde_json::json!([]);
     reg["gate_requirements"]["AG-9"]["must_state_principles"] = serde_json::json!([]);
     let r = run(&root, &reg);
-    assert_ne!(gate(&r, "AG-9"), "PASS", "a gate requiring nothing verifies nothing");
+    assert_ne!(
+        gate(&r, "AG-9"),
+        "PASS",
+        "a gate requiring nothing verifies nothing"
+    );
     let _ = fs::remove_dir_all(&root);
 }
 
@@ -198,7 +235,11 @@ fn ag10_never_passes_without_reported_conditions() {
     let (root, reg) = fixture();
     fs::remove_file(root.join("assurance/release-readiness.json")).unwrap();
     let r = run(&root, &reg);
-    assert_eq!(gate(&r, "AG-10"), "NOT_RUN", "an absent report is NOT_RUN, never PASS");
+    assert_eq!(
+        gate(&r, "AG-10"),
+        "NOT_RUN",
+        "an absent report is NOT_RUN, never PASS"
+    );
     let _ = fs::remove_dir_all(&root);
 
     // A condition reported false.
@@ -214,7 +255,11 @@ fn ag10_never_passes_without_reported_conditions() {
     )
     .unwrap();
     let r = run(&root, &reg);
-    assert_eq!(gate(&r, "AG-10"), "BLOCKED", "an unmet condition blocks the freeze");
+    assert_eq!(
+        gate(&r, "AG-10"),
+        "BLOCKED",
+        "an unmet condition blocks the freeze"
+    );
     let _ = fs::remove_dir_all(&root);
 
     // A condition never reported at all — the silent-omission case.
@@ -225,7 +270,11 @@ fn ag10_never_passes_without_reported_conditions() {
     )
     .unwrap();
     let r = run(&root, &reg);
-    assert_ne!(gate(&r, "AG-10"), "PASS", "an unreported condition must not pass");
+    assert_ne!(
+        gate(&r, "AG-10"),
+        "PASS",
+        "an unreported condition must not pass"
+    );
     let _ = fs::remove_dir_all(&root);
 }
 
@@ -236,7 +285,11 @@ fn a_gate_with_nothing_measured_never_passes() {
     reg["properties"] = serde_json::json!([]);
     let r = run(&root, &reg);
     for g in ["AG-0", "AG-2", "AG-3"] {
-        assert_eq!(gate(&r, g), "NOT_RUN", "{g} with no properties must be NOT_RUN");
+        assert_eq!(
+            gate(&r, g),
+            "NOT_RUN",
+            "{g} with no properties must be NOT_RUN"
+        );
     }
     assert!(!r.ok, "a run measuring nothing must not be OK");
     let _ = fs::remove_dir_all(&root);
@@ -249,8 +302,20 @@ fn a_gate_cannot_pass_while_a_gate_it_depends_on_has_not() {
     // Break AG-0 only. AG-3's own evidence stays intact.
     reg["properties"][0]["normative_authority"] = serde_json::json!(["spec/absent.md"]);
     let r = run(&root, &reg);
-    assert_eq!(gate(&r, "AG-0"), "FAIL", "AG-0 fails on an unresolvable authority");
-    assert_ne!(gate(&r, "AG-3"), "PASS", "AG-3 depends on AG-0 and must not pass");
-    assert_ne!(gate(&r, "AG-10"), "PASS", "AG-10 depends on everything applicable");
+    assert_eq!(
+        gate(&r, "AG-0"),
+        "FAIL",
+        "AG-0 fails on an unresolvable authority"
+    );
+    assert_ne!(
+        gate(&r, "AG-3"),
+        "PASS",
+        "AG-3 depends on AG-0 and must not pass"
+    );
+    assert_ne!(
+        gate(&r, "AG-10"),
+        "PASS",
+        "AG-10 depends on everything applicable"
+    );
     let _ = fs::remove_dir_all(&root);
 }

@@ -11,9 +11,7 @@ use std::process::exit;
 fn main() {
     let args: Vec<String> = std::env::args().skip(1).collect();
     let cmd = args.first().map(|s| s.as_str()).unwrap_or("report");
-    let root = PathBuf::from(
-        std::env::var("BANZA_ROOT").unwrap_or_else(|_| ".".into()),
-    );
+    let root = PathBuf::from(std::env::var("BANZA_ROOT").unwrap_or_else(|_| ".".into()));
 
     if cmd == "gates" {
         for (id, q) in GATES {
@@ -79,7 +77,11 @@ fn main() {
     println!();
     println!("  ── gates (closed-world: absence is never PASS) ──");
     for (g, _) in GATES {
-        let v = report.gates.get(*g).map(|s| s.as_str()).unwrap_or("NOT_RUN");
+        let v = report
+            .gates
+            .get(*g)
+            .map(|s| s.as_str())
+            .unwrap_or("NOT_RUN");
         println!("  {:<6} {}", g, v);
     }
     println!();

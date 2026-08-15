@@ -21,15 +21,33 @@ pub const TOOL_VERSION: &str = "0.1.0";
 /// The eleven gates. Ordered by what each can falsify about the one before it — which is why a higher
 /// gate can never compensate for a lower one.
 pub const GATES: &[(&str, &str)] = &[
-    ("AG-0", "Is the required behaviour defined by the normative public surface?"),
-    ("AG-1", "Can the protocol represent — and reject — the property on the wire?"),
-    ("AG-2", "Does a conforming independent implementation know exactly what result is required?"),
+    (
+        "AG-0",
+        "Is the required behaviour defined by the normative public surface?",
+    ),
+    (
+        "AG-1",
+        "Can the protocol represent — and reject — the property on the wire?",
+    ),
+    (
+        "AG-2",
+        "Does a conforming independent implementation know exactly what result is required?",
+    ),
     ("AG-3", "Does the implementation enforce it?"),
-    ("AG-4", "Does it hold across state, persistence, restart and concurrency?"),
-    ("AG-5", "What happens when a dependency or participant fails?"),
+    (
+        "AG-4",
+        "Does it hold across state, persistence, restart and concurrency?",
+    ),
+    (
+        "AG-5",
+        "What happens when a dependency or participant fails?",
+    ),
     ("AG-6", "Does it survive deliberate attempts to break it?"),
     ("AG-7", "Do all surfaces agree, with zero contradiction?"),
-    ("AG-8", "Could a clean-room team derive it without the engines, records or authors?"),
+    (
+        "AG-8",
+        "Could a clean-room team derive it without the engines, records or authors?",
+    ),
     ("AG-9", "Does every public claim match its evidence class?"),
     ("AG-10", "Is it ready to freeze?"),
 ];
@@ -51,7 +69,12 @@ pub const GATE_DEPENDENCIES: &[(&str, &[&str])] = &[
     ("AG-7", &["AG-0", "AG-1", "AG-2", "AG-3"]),
     ("AG-8", &["AG-0", "AG-1", "AG-2"]),
     ("AG-9", &["AG-0"]),
-    ("AG-10", &["AG-0", "AG-1", "AG-2", "AG-3", "AG-4", "AG-5", "AG-6", "AG-7", "AG-8", "AG-9"]),
+    (
+        "AG-10",
+        &[
+            "AG-0", "AG-1", "AG-2", "AG-3", "AG-4", "AG-5", "AG-6", "AG-7", "AG-8", "AG-9",
+        ],
+    ),
 ];
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
@@ -251,42 +274,77 @@ pub fn evaluate(root: &Path, registry: &Registry) -> Report {
         };
 
         // AG-0 — the rule exists on the normative surface.
-        let auth_missing = p.normative_authority.as_ref().map(|a| a.is_empty()).unwrap_or(true);
+        let auth_missing = p
+            .normative_authority
+            .as_ref()
+            .map(|a| a.is_empty())
+            .unwrap_or(true);
         let auth_bad = all_resolve(root, &p.normative_authority);
         if auth_missing {
             set("AG-0", Status::Fail, &mut gates);
             missing.push("normative_authority".into());
-            findings.push(Finding { property_id: p.property_id.clone(), gate: "AG-0".into(),
-                detail: "no normative authority: the rule is not on the public surface".into() });
+            findings.push(Finding {
+                property_id: p.property_id.clone(),
+                gate: "AG-0".into(),
+                detail: "no normative authority: the rule is not on the public surface".into(),
+            });
         } else if !auth_bad.is_empty() {
             set("AG-0", Status::Fail, &mut gates);
             for e in &auth_bad {
-                findings.push(Finding { property_id: p.property_id.clone(), gate: "AG-0".into(),
-                    detail: format!("authority does not resolve: {e}") });
+                findings.push(Finding {
+                    property_id: p.property_id.clone(),
+                    gate: "AG-0".into(),
+                    detail: format!("authority does not resolve: {e}"),
+                });
             }
         } else {
             set("AG-0", Status::Pass, &mut gates);
         }
 
         // AG-1 — the wire can represent and reject it.
-        set("AG-1", match &p.wire_representation {
-            Some(w) if !w.trim().is_empty() => Status::Pass,
-            _ => Status::NotApplicable,
-        }, &mut gates);
+        set(
+            "AG-1",
+            match &p.wire_representation {
+                Some(w) if !w.trim().is_empty() => Status::Pass,
+                _ => Status::NotApplicable,
+            },
+            &mut gates,
+        );
 
         // AG-2 — a conforming implementation knows the required result: positive AND negative.
         let pos_bad = all_resolve(root, &p.positive_evidence);
         let neg_bad = all_resolve(root, &p.negative_evidence);
-        let has_pos = p.positive_evidence.as_ref().map(|v| !v.is_empty()).unwrap_or(false);
-        let has_neg = p.negative_evidence.as_ref().map(|v| !v.is_empty()).unwrap_or(false);
+        let has_pos = p
+            .positive_evidence
+            .as_ref()
+            .map(|v| !v.is_empty())
+            .unwrap_or(false);
+        let has_neg = p
+            .negative_evidence
+            .as_ref()
+            .map(|v| !v.is_empty())
+            .unwrap_or(false);
         if !has_pos && !has_neg {
-            set("AG-2", if critical { Status::Fail } else { Status::NotRun }, &mut gates);
-            if critical { missing.push("positive_evidence + negative_evidence".into()); }
+            set(
+                "AG-2",
+                if critical {
+                    Status::Fail
+                } else {
+                    Status::NotRun
+                },
+                &mut gates,
+            );
+            if critical {
+                missing.push("positive_evidence + negative_evidence".into());
+            }
         } else if !pos_bad.is_empty() || !neg_bad.is_empty() {
             set("AG-2", Status::Fail, &mut gates);
             for e in pos_bad.iter().chain(neg_bad.iter()) {
-                findings.push(Finding { property_id: p.property_id.clone(), gate: "AG-2".into(),
-                    detail: format!("evidence does not resolve: {e}") });
+                findings.push(Finding {
+                    property_id: p.property_id.clone(),
+                    gate: "AG-2".into(),
+                    detail: format!("evidence does not resolve: {e}"),
+                });
             }
         } else if critical && !has_neg {
             // A property demonstrated only by cases that succeed has not been demonstrated: nothing
@@ -300,84 +358,177 @@ pub fn evaluate(root: &Path, registry: &Registry) -> Report {
         }
 
         // AG-3 — an implementation enforces it.
-        set("AG-3", match &p.implementation {
-            Some(i) if !i.trim().is_empty() => Status::Pass,
-            _ => if critical { Status::NotApplicable } else { Status::NotApplicable },
-        }, &mut gates);
+        set(
+            "AG-3",
+            match &p.implementation {
+                Some(i) if !i.trim().is_empty() => Status::Pass,
+                _ => {
+                    if critical {
+                        Status::NotApplicable
+                    } else {
+                        Status::NotApplicable
+                    }
+                }
+            },
+            &mut gates,
+        );
 
         // AG-4 — state, persistence, restart, concurrency.
-        set("AG-4", match &p.state_test {
-            None => Status::NotApplicable,
-            Some(v) if v.is_empty() => { missing.push("state_test".into()); Status::Fail }
-            Some(v) => {
-                let bad = all_resolve(root, &Some(v.clone()));
-                if bad.is_empty() { Status::Pass } else {
-                    for e in bad { findings.push(Finding { property_id: p.property_id.clone(), gate: "AG-4".into(), detail: e }); }
+        set(
+            "AG-4",
+            match &p.state_test {
+                None => Status::NotApplicable,
+                Some(v) if v.is_empty() => {
+                    missing.push("state_test".into());
                     Status::Fail
                 }
-            }
-        }, &mut gates);
+                Some(v) => {
+                    let bad = all_resolve(root, &Some(v.clone()));
+                    if bad.is_empty() {
+                        Status::Pass
+                    } else {
+                        for e in bad {
+                            findings.push(Finding {
+                                property_id: p.property_id.clone(),
+                                gate: "AG-4".into(),
+                                detail: e,
+                            });
+                        }
+                        Status::Fail
+                    }
+                }
+            },
+            &mut gates,
+        );
 
         // AG-5 — failure behaviour.
-        set("AG-5", match &p.resilience_test {
-            None => Status::NotApplicable,
-            Some(v) if v.is_empty() => { missing.push("resilience_test".into()); Status::Fail }
-            Some(v) => {
-                let bad = all_resolve(root, &Some(v.clone()));
-                if bad.is_empty() { Status::Pass } else {
-                    for e in bad { findings.push(Finding { property_id: p.property_id.clone(), gate: "AG-5".into(), detail: e }); }
+        set(
+            "AG-5",
+            match &p.resilience_test {
+                None => Status::NotApplicable,
+                Some(v) if v.is_empty() => {
+                    missing.push("resilience_test".into());
                     Status::Fail
                 }
-            }
-        }, &mut gates);
+                Some(v) => {
+                    let bad = all_resolve(root, &Some(v.clone()));
+                    if bad.is_empty() {
+                        Status::Pass
+                    } else {
+                        for e in bad {
+                            findings.push(Finding {
+                                property_id: p.property_id.clone(),
+                                gate: "AG-5".into(),
+                                detail: e,
+                            });
+                        }
+                        Status::Fail
+                    }
+                }
+            },
+            &mut gates,
+        );
 
         // AG-6 — adversarial. Mandatory for a CRITICAL property.
         let adv_bad = all_resolve(root, &p.adversarial_evidence);
-        set("AG-6", match &p.adversarial_evidence {
-            None => Status::NotApplicable,
-            Some(v) if v.is_empty() => {
-                if critical {
-                    missing.push("adversarial_evidence".into());
-                    findings.push(Finding { property_id: p.property_id.clone(), gate: "AG-6".into(),
-                        detail: "critical property is never attacked".into() });
+        set(
+            "AG-6",
+            match &p.adversarial_evidence {
+                None => Status::NotApplicable,
+                Some(v) if v.is_empty() => {
+                    if critical {
+                        missing.push("adversarial_evidence".into());
+                        findings.push(Finding {
+                            property_id: p.property_id.clone(),
+                            gate: "AG-6".into(),
+                            detail: "critical property is never attacked".into(),
+                        });
+                        Status::Fail
+                    } else {
+                        Status::NotRun
+                    }
+                }
+                Some(_) if !adv_bad.is_empty() => {
+                    for e in &adv_bad {
+                        findings.push(Finding {
+                            property_id: p.property_id.clone(),
+                            gate: "AG-6".into(),
+                            detail: e.clone(),
+                        });
+                    }
                     Status::Fail
-                } else { Status::NotRun }
-            }
-            Some(_) if !adv_bad.is_empty() => {
-                for e in &adv_bad { findings.push(Finding { property_id: p.property_id.clone(), gate: "AG-6".into(), detail: e.clone() }); }
-                Status::Fail
-            }
-            Some(_) => Status::Pass,
-        }, &mut gates);
+                }
+                Some(_) => Status::Pass,
+            },
+            &mut gates,
+        );
 
         // AG-7 — a guard holds the surfaces together, and it has been proven able to fail.
-        let guard_ok = p.property_guard.as_ref()
-            .map(|g| reference_resolves(root, g).is_ok()).unwrap_or(false);
+        let guard_ok = p
+            .property_guard
+            .as_ref()
+            .map(|g| reference_resolves(root, g).is_ok())
+            .unwrap_or(false);
         if !guard_ok {
-            set("AG-7", if critical { Status::Fail } else { Status::NotRun }, &mut gates);
+            set(
+                "AG-7",
+                if critical {
+                    Status::Fail
+                } else {
+                    Status::NotRun
+                },
+                &mut gates,
+            );
             if critical {
                 missing.push("property_guard".into());
-                findings.push(Finding { property_id: p.property_id.clone(), gate: "AG-7".into(),
-                    detail: "critical property has no guard: a regression would land unnoticed".into() });
+                findings.push(Finding {
+                    property_id: p.property_id.clone(),
+                    gate: "AG-7".into(),
+                    detail: "critical property has no guard: a regression would land unnoticed"
+                        .into(),
+                });
             }
         } else if critical && p.mutation_proof.is_none() {
             set("AG-7", Status::Fail, &mut gates);
             missing.push("mutation_proof".into());
-            findings.push(Finding { property_id: p.property_id.clone(), gate: "AG-7".into(),
-                detail: "guard has never been proven able to fail".into() });
+            findings.push(Finding {
+                property_id: p.property_id.clone(),
+                gate: "AG-7".into(),
+                detail: "guard has never been proven able to fail".into(),
+            });
         } else {
             set("AG-7", Status::Pass, &mut gates);
         }
 
         // AG-8 — clean-room derivability.
-        set("AG-8", if p.clean_room_requirement { Status::Pass } else { Status::NotApplicable }, &mut gates);
+        set(
+            "AG-8",
+            if p.clean_room_requirement {
+                Status::Pass
+            } else {
+                Status::NotApplicable
+            },
+            &mut gates,
+        );
 
         // AG-9 — public claims exist where the property is claimed.
         let claims_bad = all_resolve(root, &p.public_claims);
-        set("AG-9", if claims_bad.is_empty() { Status::Pass } else {
-            for e in &claims_bad { findings.push(Finding { property_id: p.property_id.clone(), gate: "AG-9".into(), detail: e.clone() }); }
-            Status::Fail
-        }, &mut gates);
+        set(
+            "AG-9",
+            if claims_bad.is_empty() {
+                Status::Pass
+            } else {
+                for e in &claims_bad {
+                    findings.push(Finding {
+                        property_id: p.property_id.clone(),
+                        gate: "AG-9".into(),
+                        detail: e.clone(),
+                    });
+                }
+                Status::Fail
+            },
+            &mut gates,
+        );
 
         // AG-10 — freeze readiness is the conjunction of everything applicable below it.
         // AG-10 is decided for the WHOLE run, not per property: freeze readiness is a conjunction of
@@ -398,12 +549,36 @@ pub fn evaluate(root: &Path, registry: &Registry) -> Report {
         let mut missing_required: Vec<String> = vec![];
         for stage in &required_stages {
             let present = match stage.as_str() {
-                "normative_authority" => p.normative_authority.as_ref().map(|v| !v.is_empty()).unwrap_or(false),
-                "positive_evidence" => p.positive_evidence.as_ref().map(|v| !v.is_empty()).unwrap_or(false),
-                "negative_evidence" => p.negative_evidence.as_ref().map(|v| !v.is_empty()).unwrap_or(false),
-                "adversarial_evidence" => p.adversarial_evidence.as_ref().map(|v| !v.is_empty()).unwrap_or(false),
-                "property_guard" => p.property_guard.as_ref().map(|g| !g.trim().is_empty()).unwrap_or(false),
-                "mutation_proof" => p.mutation_proof.as_ref().map(|g| !g.trim().is_empty()).unwrap_or(false),
+                "normative_authority" => p
+                    .normative_authority
+                    .as_ref()
+                    .map(|v| !v.is_empty())
+                    .unwrap_or(false),
+                "positive_evidence" => p
+                    .positive_evidence
+                    .as_ref()
+                    .map(|v| !v.is_empty())
+                    .unwrap_or(false),
+                "negative_evidence" => p
+                    .negative_evidence
+                    .as_ref()
+                    .map(|v| !v.is_empty())
+                    .unwrap_or(false),
+                "adversarial_evidence" => p
+                    .adversarial_evidence
+                    .as_ref()
+                    .map(|v| !v.is_empty())
+                    .unwrap_or(false),
+                "property_guard" => p
+                    .property_guard
+                    .as_ref()
+                    .map(|g| !g.trim().is_empty())
+                    .unwrap_or(false),
+                "mutation_proof" => p
+                    .mutation_proof
+                    .as_ref()
+                    .map(|g| !g.trim().is_empty())
+                    .unwrap_or(false),
                 _ => true,
             };
             if !present {
@@ -427,7 +602,9 @@ pub fn evaluate(root: &Path, registry: &Registry) -> Report {
                 findings.push(Finding {
                     property_id: p.property_id.clone(),
                     gate: gate.into(),
-                    detail: format!("required stage never registered: {stage} — INCOMPLETE, not passing"),
+                    detail: format!(
+                        "required stage never registered: {stage} — INCOMPLETE, not passing"
+                    ),
                 });
             }
         }
@@ -447,7 +624,10 @@ pub fn evaluate(root: &Path, registry: &Registry) -> Report {
             property_id: p.property_id.clone(),
             r2s2_dimensions: p.r2s2_dimensions.clone(),
             criticality: p.criticality.clone(),
-            gates: gates.iter().map(|(k, v)| (k.clone(), v.as_str().to_string())).collect(),
+            gates: gates
+                .iter()
+                .map(|(k, v)| (k.clone(), v.as_str().to_string()))
+                .collect(),
             property_passed: passed,
             property_complete: complete,
             status: status.as_str().to_string(),
@@ -513,7 +693,10 @@ pub fn evaluate(root: &Path, registry: &Registry) -> Report {
     }
 
     // AG-9 — public claim consistency requires reading the surfaces that carry the claims.
-    let ag9 = registry.gate_requirements.as_ref().and_then(|g| g.ag9.as_ref());
+    let ag9 = registry
+        .gate_requirements
+        .as_ref()
+        .and_then(|g| g.ag9.as_ref());
     let ag9_status = match ag9 {
         None => {
             findings.push(Finding { property_id: "-".into(), gate: "AG-9".into(),
@@ -531,8 +714,11 @@ pub fn evaluate(root: &Path, registry: &Registry) -> Report {
             let mut st = Status::Pass;
             for rel in &req.mandatory_surfaces {
                 if !root.join(rel).exists() {
-                    findings.push(Finding { property_id: "-".into(), gate: "AG-9".into(),
-                        detail: format!("mandatory public surface missing: {rel}") });
+                    findings.push(Finding {
+                        property_id: "-".into(),
+                        gate: "AG-9".into(),
+                        detail: format!("mandatory public surface missing: {rel}"),
+                    });
                     st = Status::Fail;
                 }
             }
@@ -563,7 +749,10 @@ pub fn evaluate(root: &Path, registry: &Registry) -> Report {
 
     // AG-10 — freeze readiness is a conjunction of externally observed conditions. The engine cannot
     // infer any of them, so each must be REPORTED by an actual run. A missing report is NOT_RUN.
-    let ag10 = registry.gate_requirements.as_ref().and_then(|g| g.ag10.as_ref());
+    let ag10 = registry
+        .gate_requirements
+        .as_ref()
+        .and_then(|g| g.ag10.as_ref());
     let ag10_status = match ag10 {
         None => Status::NotRun,
         Some(req) => {
@@ -574,25 +763,36 @@ pub fn evaluate(root: &Path, registry: &Registry) -> Report {
                 Status::NotRun
             } else {
                 let raw = std::fs::read_to_string(&report_path).unwrap_or_default();
-                let doc: serde_json::Value = serde_json::from_str(&raw).unwrap_or(serde_json::Value::Null);
+                let doc: serde_json::Value =
+                    serde_json::from_str(&raw).unwrap_or(serde_json::Value::Null);
                 let mut st = Status::Pass;
                 for c in &req.required_conditions {
                     match doc.get(c).and_then(|v| v.as_bool()) {
                         Some(true) => {}
                         Some(false) => {
-                            findings.push(Finding { property_id: "-".into(), gate: "AG-10".into(),
-                                detail: format!("release condition not met: {c}") });
+                            findings.push(Finding {
+                                property_id: "-".into(),
+                                gate: "AG-10".into(),
+                                detail: format!("release condition not met: {c}"),
+                            });
                             st = Status::Blocked;
                         }
                         None => {
-                            findings.push(Finding { property_id: "-".into(), gate: "AG-10".into(),
-                                detail: format!("release condition never reported: {c}") });
-                            if st != Status::Blocked { st = Status::NotRun; }
+                            findings.push(Finding {
+                                property_id: "-".into(),
+                                gate: "AG-10".into(),
+                                detail: format!("release condition never reported: {c}"),
+                            });
+                            if st != Status::Blocked {
+                                st = Status::NotRun;
+                            }
                         }
                     }
                 }
                 // A lower gate failing blocks AG-10 outright.
-                if gate_verdicts.values().any(|v| v == "FAIL") { st = Status::Blocked; }
+                if gate_verdicts.values().any(|v| v == "FAIL") {
+                    st = Status::Blocked;
+                }
                 st
             }
         }
