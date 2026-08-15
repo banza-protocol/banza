@@ -115,6 +115,13 @@
       "violation": "a mandatory AG-9 public surface is removed from the declared set — AG-9 must not pass by no longer looking",
       "apply": "python3 -c \"import json;p='assurance/properties.json';d=json.load(open(p));d['gate_requirements']['AG-9']['mandatory_surfaces']=[];d['gate_requirements']['AG-9']['must_state_principles']=[];json.dump(d,open(p,'w'))\"",
       "guard": "make assurance-check"
+    },
+    {
+      "id": "impure_check",
+      "property": "ASSURANCE_CHECKS_DO_NOT_MUTATE_TRACKED_STATE",
+      "violation": "a check in the active assurance graph regenerates a tracked artifact while verifying it — the defect that made source-bound assurance refuse its own evidence",
+      "apply": "python3 -c \"p='tools/check-r2s2-principles.sh';s=open(p).read();a='echo \\\"== r2s2-principles ==\\\"';assert a in s;s=s.replace(a, a + chr(10) + 'python3 tools/gen-clean-room-package.py >/dev/null 2>&1', 1);open(p,'w').write(s)\"",
+      "guard": "make assurance-purity-check"
     }
   ]
 }
