@@ -63,6 +63,11 @@ print(m['property'])")"
   baseline_rc=$?
   ( cd "$wt" && eval "$apply" ) >/dev/null 2>&1
   applied=$?
+  # A mutation that changed nothing is not a mutation. A string replacement whose pattern no longer
+  # matches exits 0 and leaves the tree untouched, so the guard stays green and the proof reads as a
+  # pass — the framework quietly certifying itself. The tree must actually differ.
+  changed=1
+  if [ -z "$(git -C "$wt" status --porcelain)" ]; then changed=0; fi
   ( cd "$wt" && eval "$guard" ) >/dev/null 2>&1
   guard_rc=$?
   set -e
@@ -75,6 +80,9 @@ print(m['property'])")"
     fail=1
   elif [ "$applied" -ne 0 ]; then
     echo "  ERROR $id — the mutation could not be applied (the violation may no longer be expressible)"
+    fail=1
+  elif [ "$changed" -eq 0 ]; then
+    echo "  ERROR $id — the mutation changed nothing; its pattern no longer matches the code it targets"
     fail=1
   elif [ "$guard_rc" -eq 0 ]; then
     echo "  FAIL  $id — $guard stayed GREEN while $prop was violated"

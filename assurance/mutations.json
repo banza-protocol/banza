@@ -92,7 +92,7 @@
       "id": "tofu_accepted",
       "property": "TRUST_ROOT_GENESIS_EXPLICITLY_PINNED",
       "violation": "genesis is accepted without a pinned digest — trust on first use",
-      "apply": "python3 -c \"p='engines/banza-trust/src/authority_set.rs';s=open(p).read();s=s.replace('if pinned_digest.is_empty()','if false',1);open(p,'w').write(s)\"",
+      "apply": "python3 -c \"p='engines/banza-trust/src/authority_set.rs';s=open(p).read();a='if pinned_digest.trim().is_empty()';assert a in s;s=s.replace(a,'if false',1);open(p,'w').write(s)\"",
       "guard": "make root-authority-model-check"
     }
   ]
