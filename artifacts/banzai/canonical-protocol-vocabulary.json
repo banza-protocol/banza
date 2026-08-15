@@ -174,6 +174,10 @@
         "same_as": "conformance/package/contracts/fees/pricing-profile.schema.json"
       },
       {
+        "path": "contracts/invariants.json",
+        "same_as": "conformance/package/contracts/invariants.json"
+      },
+      {
         "path": "contracts/openapi/activity.yaml",
         "same_as": "conformance/package/contracts/openapi/activity.yaml"
       },
@@ -1241,7 +1245,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "44b8fba2360effdf"
+        "checksum": "7f6bc402ab405e87"
       },
       {
         "id": "conformance-package-contracts-openapi-activity-yaml",
@@ -1648,7 +1652,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "7a3f36b57161046a"
+        "checksum": "2add1c9c7303d37c"
       },
       {
         "id": "conformance-qr-suite-json",
@@ -2484,7 +2488,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "6b1a86c7bd2505b1"
+        "checksum": "ca9303f8e9c2c49b"
       },
       {
         "id": "contracts-production-operation-receipt-production-schema-json",
@@ -4969,7 +4973,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "910fd749c4ad11cf"
+    "checksum": "08cf7e6cfb8c8fe0"
   },
   "subjects": [
     {
@@ -7986,5 +7990,5 @@
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "d8e645e17d7b003d"
+  "checksum": "31c5d8a06ed57c49"
 }
