@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/contracts/production/key-manifest.production.schema.json",
+  "title": "KeyManifestProduction",
+  "description": "The keys the Root currently delegates, and the scope of each. Authorised by the ACTIVE Root Authority Set: at least `threshold` DISTINCT authorities of that set must sign it. It answers WHAT the Root delegates; who may exercise Root authority is the Root Authority Set, a separate artifact.",
+  "_spec_version": "1.0",
+  "_status": "production-baseline",
+  "_authority": "spec/root-authority-set.md; invariants INV-ROOT-002, INV-ROOT-004, INV-ROOT-007",
+  "_boundary": "Production of the BANZA protocol, not financial production. BANZA is an open protocol; it does not process payments, settle value, or move funds. Licence/authorisation belongs to the operator, not to BANZA.",
+  "type": "object",
+  "required": [
+    "manifest_version",
+    "protocol_version",
+    "keys",
+    "hash",
+    "not_before",
+    "not_after",
+    "root_authority_set",
+    "root_signatures"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "manifest_version": {
+      "type": "string",
+      "description": "Version of this key manifest document."
+    },
+    "protocol_version": {
+      "type": "string",
+      "description": "BANZA protocol version the manifest applies to (e.g. '1.0.0')."
+    },
+    "keys": {
+      "type": "array",
+      "description": "Published public keys. Private keys never appear.",
+      "items": {
+        "type": "object",
+        "required": [
+          "kid",
+          "domain",
+          "algorithm",
+          "public_key",
+          "not_before",
+          "not_after"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "kid": {
+            "type": "string",
+            "description": "Unique key id."
+          },
+          "domain": {
+            "type": "string",
+            "enum": [
+              "root",
+              "issuing",
+              "revocation"
+            ],
+            "description": "Trust domain of the key."
+          },
+          "algorithm": {
+            "type": "string",
+            "enum": [
+              "ed25519"
+            ],
+            "description": "Signature algorithm."
+          },
+          "public_key": {
+            "type": "string",
+            "description": "Public key material only (base64url). Private keys are NEVER included."
+          },
+          "not_before": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "not_after": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "hash": {
+      "type": "object",
+      "description": "Content hash of the manifest for tamper-evidence.",
+      "required": [
+        "algorithm",
+        "value"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "enum": [
+            "sha-256"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "description": "Hex or base64url digest over the canonical manifest bytes (excluding this field)."
+        }
+      }
+    },
+    "not_before": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "not_after": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "root_authority_set": {
+      "type": "object",
+      "description": "The Root Authority Set that authorised this manifest. Binds the manifest to one specific set rather than to whichever set a verifier happens to hold.",
+      "required": [
+        "set_sequence",
+        "digest"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "set_sequence": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Sequence of the authorising set. A verifier MUST reject a manifest whose set is not the active one."
+        },
+        "digest": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "SHA-256 over that set's signing input. Identity, not just position."
+        }
+      }
+    },
+    "root_signatures": {
+      "type": "array",
+      "minItems": 2,
+      "description": "Signatures by authorities of the active Root Authority Set over this document's signing input — the BCJ/1 canonical bytes excluding `root_signatures` itself. At least `threshold` DISTINCT authority_ids must verify; two signatures from one authority are one approval, so a single custodian cannot authorise a delegation alone.",
+      "items": {
+        "type": "object",
+        "required": [
+          "authority_id",
+          "signature"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "authority_id": {
+            "type": "string",
+            "description": "An authority of the active set. An id outside that set contributes nothing to the threshold."
+          },
+          "signature": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "description": "Ed25519 signature, base64url without padding."
+          }
+        }
+      }
+    }
+  }
+}

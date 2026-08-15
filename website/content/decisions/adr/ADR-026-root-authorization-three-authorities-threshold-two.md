@@ -2,7 +2,7 @@
 
 ## Context
 
-The BANZA Trust Root is the anchor every conforming implementation pins once and uses to verify all
+The BANZA Trust Root is the anchor every conforming implementation pins and uses to verify all
 subsequent protocol material. Whatever controls it controls the maximum authority in the protocol, so
 the question "how many parties must act for the root to act?" is the most consequential architectural
 question BANZA answers.
@@ -81,3 +81,14 @@ The decision above is explanatory. What binds an implementation is:
 - [`docs/security/ROOT_KEY_CUSTODY_MODEL.md`](../../docs/security/ROOT_KEY_CUSTODY_MODEL.md) — the model, its invariants and the custody controls
 - [`docs/security/ROOT_KEY_CEREMONY_REQUIREMENTS.md`](../../docs/security/ROOT_KEY_CEREMONY_REQUIREMENTS.md) — how a root operation is conducted
 - `engines/banza-root-ceremony` — the validator, with the threshold accept/reject matrix.
+
+---
+
+## Scope
+
+This record decides **how many parties must act** for the Root to act: three authorities, threshold two.
+It does not decide **how the set of authorities changes over time** — that is
+[ADR-039](ADR-039-root-authority-set-and-succession.md), which makes the set a signed artifact and each
+successor authorised by the threshold of the set it succeeds. The two are complementary: without the
+threshold there is nothing to authorise a successor, and without the lineage the threshold exists only
+inside a document that signs itself.

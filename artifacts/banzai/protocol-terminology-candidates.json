@@ -1,5 +1,5 @@
 {
-  "total": 3114,
+  "total": 3115,
   "rows": [
     {
       "raw_text": "Contributing to BANZA",
@@ -1747,11 +1747,12 @@
       "normalized": "scope",
       "sources": [
         "security-md",
+        "decisions-adr-adr-026-root-authorization-three-authorities-threshold-two-md",
         "docs-banzai-banzai-workbench-md",
         "docs-banzai-banzai-workbench-threat-model-md",
         "docs-governance-annex-banza-network-infrastructure-md"
       ],
-      "frequency": 4,
+      "frequency": 5,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -4994,6 +4995,17 @@
       ],
       "frequency": 1,
       "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "how many parties must act",
+      "normalized": "how many parties must act",
+      "sources": [
+        "decisions-adr-adr-026-root-authorization-three-authorities-threshold-two-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
     },

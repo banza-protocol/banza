@@ -2488,7 +2488,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "cd270296325b912b"
+        "checksum": "27c444d3518ba20c"
       },
       {
         "id": "contracts-production-operation-receipt-production-schema-json",
@@ -3159,7 +3159,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "26da401e86d362e6"
+        "checksum": "d7455c726f1e95d8"
       },
       {
         "id": "decisions-adr-adr-027-signing-keys-never-on-serving-infrastructure-md",
@@ -4941,7 +4941,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "162cd8c2b1d1bf24"
+        "checksum": "8e00bded5be0d0b0"
       },
       {
         "id": "spec-validation-journey-md",
@@ -4973,7 +4973,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "78a715c82a89ea7c"
+    "checksum": "4bb41c763844f517"
   },
   "subjects": [
     {
@@ -7990,5 +7990,5 @@
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "82d8e68c4333c7f1"
+  "checksum": "3326a28d3700be35"
 }
