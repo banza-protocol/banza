@@ -242,7 +242,7 @@
         },
         {
           "t": "p",
-          "text": "A identidade e a integridade assentam em chaves publicadas e metadados assinados. Uma raiz de confiança, mantida fora de linha, assina apenas o Manifesto de Chaves com Ed25519 [6]; esse manifesto autoriza chaves delegadas por domínio, que assinam os artefactos correspondentes. A revogação e o controlo de validade rejeitam material revogado ou expirado."
+          "text": "A identidade e a integridade assentam em chaves publicadas e metadados assinados. A raiz de confiança não é uma chave: é um conjunto de três autoridades independentes, mantidas fora de linha, em que qualquer acção autorizada exige duas delas. O conjunto avança como uma linhagem — o conjunto génese é aceite apenas contra um digest que o verificador recebeu explicitamente, e cada conjunto seguinte é autorizado pelo limiar do conjunto que sucede, nomeando-o por digest. Um conjunto assinado pelas suas próprias chaves não autoriza nada. Daqui decorre a continuidade: perdida, comprometida ou obstrutiva uma autoridade, as duas restantes substituem-na sem a sua participação; abaixo do limiar a continuidade canónica fica bloqueada, sem chave de recuperação de uma só parte. O conjunto activo assina o Manifesto de Chaves com Ed25519 [6]; esse manifesto autoriza chaves delegadas por domínio, que assinam os artefactos correspondentes. A revogação e o controlo de validade rejeitam material revogado ou expirado."
         },
         {
           "t": "p",
@@ -346,7 +346,7 @@
         },
         {
           "t": "p",
-          "text": "Alterações incompatíveis são anunciadas com caminho de migração, permitindo coexistência temporária; a depreciação é explícita e faseada. A versão actual do protocolo é a 1.0.0."
+          "text": "Alterações incompatíveis são anunciadas com caminho de migração, permitindo coexistência temporária; a depreciação é explícita e faseada. A versão actual do protocolo é a 2.0.0."
         }
       ]
     },

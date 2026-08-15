@@ -1,3 +1,3 @@
 # BANZA Whitepaper v1.0 — SHA-256 of the released PDFs (edição de lançamento 2026-08-01; re-freeze 2026-08-04 após consolidação editorial)
-b19f2b98da1d5aa3ab1f1de1281fe88566276b7e716f1f3d7589fb70d638af50  banza-whitepaper-v1.0-pt.pdf  (357488 bytes)
-275c95d384e6f8bc551160bd8a22fb8e58b9da34ff61e6d9a4ea5f28720c4fce  banza-whitepaper-v1.0-en.pdf  (351315 bytes)
+33ed77074fd3c78bda1b85cc5566e54d94707fe9b3b4f137b3bc7361a59c0528  banza-whitepaper-v1.0-pt.pdf  (357948 bytes)
+10e67c216695b8208a0d570c56748941f154372ebd0fbf1329cd8afc939e2409  banza-whitepaper-v1.0-en.pdf  (351695 bytes)

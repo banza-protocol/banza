@@ -219,7 +219,7 @@ Cada implementação publica os seus artefactos numa origem canónica controlada
   \caption{A implementação publica na sua origem canónica; o avaliador obtém os artefactos por um módulo de obtenção segura. A descoberta não depende de nenhuma decisão privada.}\label{fig:discovery}
 \end{figure}
 
-A identidade e a integridade assentam em chaves publicadas e metadados assinados. Uma raiz de confiança, mantida fora de linha, assina apenas o Manifesto de Chaves com Ed25519 [6]; esse manifesto autoriza chaves delegadas por domínio, que assinam os artefactos correspondentes. A revogação e o controlo de validade rejeitam material revogado ou expirado.
+A identidade e a integridade assentam em chaves publicadas e metadados assinados. A raiz de confiança não é uma chave: é um conjunto de três autoridades independentes, mantidas fora de linha, em que qualquer acção autorizada exige duas delas. O conjunto avança como uma linhagem — o conjunto génese é aceite apenas contra um digest que o verificador recebeu explicitamente, e cada conjunto seguinte é autorizado pelo limiar do conjunto que sucede, nomeando-o por digest. Um conjunto assinado pelas suas próprias chaves não autoriza nada. Daqui decorre a continuidade: perdida, comprometida ou obstrutiva uma autoridade, as duas restantes substituem-na sem a sua participação; abaixo do limiar a continuidade canónica fica bloqueada, sem chave de recuperação de uma só parte. O conjunto activo assina o Manifesto de Chaves com Ed25519 [6]; esse manifesto autoriza chaves delegadas por domínio, que assinam os artefactos correspondentes. A revogação e o controlo de validade rejeitam material revogado ou expirado.
 
 O material de confiança é versionado, e a validade não distingue por si só a versão corrente de uma anterior ainda dentro do seu período. O verificador conserva, por isso, estado sobre o que já observou: aceite material num ponto de ordenação, uma regressão posterior é rejeitada; a reapresentação do mesmo ponto com o mesmo input de assinatura é uma observação idempotente; conteúdo distinto no mesmo ponto é conflito local e é igualmente rejeitado, para que o resultado não dependa da ordem de obtenção. A propriedade é local ao estado de cada verificador: não constitui transparência global nem consistência entre observadores.
 
@@ -287,7 +287,7 @@ A abertura do protocolo não elimina a governação, mas esta determina como as 
   \label{fig:governance}
 \end{figure}
 
-Alterações incompatíveis são anunciadas com caminho de migração, permitindo coexistência temporária; a depreciação é explícita e faseada. A versão actual do protocolo é a 1.0.0.
+Alterações incompatíveis são anunciadas com caminho de migração, permitindo coexistência temporária; a depreciação é explícita e faseada. A versão actual do protocolo é a 2.0.0.
 
 \section{Limitações}\label{sec:limitations}
 
