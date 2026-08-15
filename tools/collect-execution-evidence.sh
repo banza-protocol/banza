@@ -33,6 +33,17 @@ reg = json.load(open('assurance/properties.json', encoding='utf8'))
 EXECUTABLE = ("positive_evidence", "negative_evidence", "adversarial_evidence",
               "state_test", "resilience_test")
 
+# Which suite executes which vector file. A vector is not self-executing, and pretending it is would let
+# a file that nobody runs count as a demonstration.
+VECTOR_RUNNERS = {
+    "conformance/vectors/root-authority-set.json":
+        ("engines/banza-trust/Cargo.toml", "authority_set_vectors"),
+    "conformance/vectors/trust-signing.json":
+        ("engines/banza-trust/Cargo.toml", "trust"),
+    "conformance/federation/suite.json":
+        ("engines/banza-conformance/Cargo.toml", "federation_fixtures"),
+}
+
 def run_rust(manifest, test_file, test_name):
     cmd = ["cargo", "test", "-q", "--manifest-path", manifest, "--test", test_file]
     if test_name:
@@ -59,10 +70,15 @@ for p in reg['properties']:
             elif path.endswith('.sh') and os.path.exists(path):
                 kind = 'shell-guard'
                 ok = run_shell(path)
+            elif path.endswith('.json') and path in VECTOR_RUNNERS:
+                # A vector IS executed — by the suite that consumes it. Recording it as "not executable"
+                # would turn a real execution into an untested existence claim, which is the same escape
+                # hatch as calling something not-applicable to avoid proving it.
+                manifest, test_file = VECTOR_RUNNERS[path]
+                kind = 'cargo-test(vector-suite)'
+                ok = run_rust(manifest, test_file, None)
             elif path.endswith('.json') and os.path.exists(path):
-                # A vector file is executed by the suite that consumes it; its execution is recorded
-                # through that suite, not by re-reading the file here.
-                skipped.append({"evidence": ref, "why": "vector executed via its consuming suite"})
+                skipped.append({"evidence": ref, "why": "no consuming suite registered for this vector"})
                 continue
             else:
                 skipped.append({"evidence": ref, "why": "no executable runner for this reference"})
