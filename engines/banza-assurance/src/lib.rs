@@ -58,6 +58,32 @@ impl Status {
 #[derive(Debug, Deserialize)]
 pub struct Registry {
     pub properties: Vec<Property>,
+    /// What each gate REQUIRES to exist. Without this the engine can only report that whatever it
+    /// happened to find was green — an open world, in which a gate passes because nothing contradicted
+    /// it. This is the difference between "everything I measured passed" and "I measured everything
+    /// that had to be measured".
+    pub gate_requirements: Option<GateRequirements>,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct GateRequirements {
+    #[serde(rename = "AG-9")]
+    pub ag9: Option<Ag9>,
+    #[serde(rename = "AG-10")]
+    pub ag10: Option<Ag10>,
+    pub per_property_required_stages: Option<BTreeMap<String, Vec<String>>>,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct Ag9 {
+    pub mandatory_surfaces: Vec<String>,
+    pub must_state_principles: Vec<String>,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct Ag10 {
+    pub required_conditions: Vec<String>,
+    pub conditions_report: String,
 }
 
 /// One claimed property and the chain behind it.
@@ -100,8 +126,14 @@ pub struct PropertyResult {
     pub r2s2_dimensions: Vec<String>,
     pub criticality: String,
     pub gates: BTreeMap<String, String>,
+    /// The evidence that EXISTS is green.
+    pub property_passed: bool,
+    /// Every REQUIRED evidence stage exists. A property can be passed and incomplete at once — green
+    /// on what was registered, silent on what was never registered.
+    pub property_complete: bool,
     pub status: String,
     pub missing_links: Vec<String>,
+    pub missing_required_stages: Vec<String>,
 }
 
 #[derive(Debug, Serialize)]
@@ -109,6 +141,9 @@ pub struct Report {
     pub tool: &'static str,
     pub tool_version: &'static str,
     pub properties: Vec<PropertyResult>,
+    /// Gate-level verdicts, computed closed-world: a gate is PASS only when every applicable required
+    /// property is complete AND green, and every requirement declared for the gate was satisfied.
+    pub gates: BTreeMap<String, String>,
     pub findings: Vec<Finding>,
     pub totals: BTreeMap<String, usize>,
     pub r2s2_coverage: BTreeMap<String, usize>,
@@ -191,7 +226,7 @@ pub fn evaluate(root: &Path, registry: &Registry) -> Report {
         let mut gates: BTreeMap<String, Status> = BTreeMap::new();
         let mut missing: Vec<String> = vec![];
 
-        let mut set = |g: &str, s: Status, gates: &mut BTreeMap<String, Status>| {
+        let set = |g: &str, s: Status, gates: &mut BTreeMap<String, Status>| {
             gates.insert(g.to_string(), s);
         };
 
@@ -325,10 +360,56 @@ pub fn evaluate(root: &Path, registry: &Registry) -> Report {
         }, &mut gates);
 
         // AG-10 — freeze readiness is the conjunction of everything applicable below it.
+        // AG-10 is decided for the WHOLE run, not per property: freeze readiness is a conjunction of
+        // externally observed conditions no property can establish about itself.
         let any_fail = gates.values().any(|s| *s == Status::Fail);
-        set("AG-10", if any_fail { Status::Blocked } else { Status::Pass }, &mut gates);
 
-        let status = if any_fail { Status::Fail } else { Status::Pass };
+        // COMPLETENESS is separate from success. A property whose registered evidence is green but
+        // whose required stages were never registered is INCOMPLETE — and reporting it as PASS is
+        // exactly the open-world hole this engine had: "everything I measured passed" reads identically
+        // to "I measured everything that had to be measured".
+        let required_stages: Vec<String> = registry
+            .gate_requirements
+            .as_ref()
+            .and_then(|g| g.per_property_required_stages.as_ref())
+            .and_then(|m| m.get(&p.criticality))
+            .cloned()
+            .unwrap_or_default();
+        let mut missing_required: Vec<String> = vec![];
+        for stage in &required_stages {
+            let present = match stage.as_str() {
+                "normative_authority" => p.normative_authority.as_ref().map(|v| !v.is_empty()).unwrap_or(false),
+                "positive_evidence" => p.positive_evidence.as_ref().map(|v| !v.is_empty()).unwrap_or(false),
+                "negative_evidence" => p.negative_evidence.as_ref().map(|v| !v.is_empty()).unwrap_or(false),
+                "adversarial_evidence" => p.adversarial_evidence.as_ref().map(|v| !v.is_empty()).unwrap_or(false),
+                "property_guard" => p.property_guard.as_ref().map(|g| !g.trim().is_empty()).unwrap_or(false),
+                "mutation_proof" => p.mutation_proof.as_ref().map(|g| !g.trim().is_empty()).unwrap_or(false),
+                _ => true,
+            };
+            if !present {
+                missing_required.push(stage.clone());
+            }
+        }
+        let complete = missing_required.is_empty();
+        if !complete {
+            findings.push(Finding {
+                property_id: p.property_id.clone(),
+                gate: "COMPLETENESS".into(),
+                detail: format!(
+                    "required stage(s) never registered: {} — the property is INCOMPLETE, not passing",
+                    missing_required.join(", ")
+                ),
+            });
+        }
+
+        let passed = !any_fail;
+        let status = if !passed {
+            Status::Fail
+        } else if !complete {
+            Status::NotRun
+        } else {
+            Status::Pass
+        };
         *totals.entry(status.as_str().to_string()).or_insert(0) += 1;
         *totals.entry(p.criticality.clone()).or_insert(0) += 1;
 
@@ -337,20 +418,143 @@ pub fn evaluate(root: &Path, registry: &Registry) -> Report {
             r2s2_dimensions: p.r2s2_dimensions.clone(),
             criticality: p.criticality.clone(),
             gates: gates.iter().map(|(k, v)| (k.clone(), v.as_str().to_string())).collect(),
+            property_passed: passed,
+            property_complete: complete,
             status: status.as_str().to_string(),
             missing_links: missing,
+            missing_required_stages: missing_required,
         });
     }
 
-    // Every R²S² dimension must be represented, or the registry is not exercising a principle at all.
     for d in ["Robust", "Resilient", "Secure", "Simple"] {
         r2s2.entry(d.to_string()).or_insert(0);
     }
-    let ok = findings.is_empty();
+
+    // ── gate rollup, closed-world ───────────────────────────────────────────────────────────────────
+    //
+    // A gate is PASS only when every applicable property is COMPLETE and green at it, AND every
+    // requirement the gate declares was satisfied. The previous rollup did neither: it reported a gate
+    // as passing because no property had failed it, so a gate could pass on an empty world.
+    let mut gate_verdicts: BTreeMap<String, String> = BTreeMap::new();
+    for (gate, _) in GATES.iter().take(9) {
+        let mut verdict = Status::Pass;
+        let mut seen = 0usize;
+        for r in &results {
+            match r.gates.get(*gate).map(|s| s.as_str()) {
+                Some("FAIL") => verdict = Status::Fail,
+                Some("PASS") => seen += 1,
+                _ => {}
+            }
+            if !r.property_complete && verdict != Status::Fail {
+                verdict = Status::NotRun;
+            }
+        }
+        if verdict == Status::Pass && seen == 0 {
+            // Nothing was measured at this gate. That is not success.
+            verdict = Status::NotRun;
+            findings.push(Finding {
+                property_id: "-".into(),
+                gate: (*gate).into(),
+                detail: "no property was evaluated at this gate; an empty world is NOT_RUN, never PASS".into(),
+            });
+        }
+        gate_verdicts.insert((*gate).to_string(), verdict.as_str().to_string());
+    }
+
+    // AG-9 — public claim consistency requires reading the surfaces that carry the claims.
+    let ag9 = registry.gate_requirements.as_ref().and_then(|g| g.ag9.as_ref());
+    let ag9_status = match ag9 {
+        None => {
+            findings.push(Finding { property_id: "-".into(), gate: "AG-9".into(),
+                detail: "no mandatory public surfaces declared; consistency cannot be established by not looking".into() });
+            Status::NotRun
+        }
+        Some(req) if req.mandatory_surfaces.is_empty() || req.must_state_principles.is_empty() => {
+            // Emptying the requirement list is the easiest way to make a gate green, and it is the one
+            // a closed-world engine must refuse: a gate that requires nothing has verified nothing.
+            findings.push(Finding { property_id: "-".into(), gate: "AG-9".into(),
+                detail: "the mandatory public-surface set is empty; a gate that requires nothing verifies nothing".into() });
+            Status::NotRun
+        }
+        Some(req) => {
+            let mut st = Status::Pass;
+            for rel in &req.mandatory_surfaces {
+                if !root.join(rel).exists() {
+                    findings.push(Finding { property_id: "-".into(), gate: "AG-9".into(),
+                        detail: format!("mandatory public surface missing: {rel}") });
+                    st = Status::Fail;
+                }
+            }
+            // The surfaces that must STATE the principles must actually state all four.
+            for rel in &req.must_state_principles {
+                let path = root.join(rel);
+                if !path.exists() {
+                    st = Status::Fail;
+                    continue;
+                }
+                let body = std::fs::read_to_string(&path).unwrap_or_default();
+                let states_all = ["Robust", "Resilient", "Secure", "Simple"]
+                    .iter()
+                    .all(|w| body.contains(w))
+                    || ["Robusto", "Resiliente", "Seguro", "Simples"]
+                        .iter()
+                        .all(|w| body.contains(w));
+                if !states_all {
+                    findings.push(Finding { property_id: "-".into(), gate: "AG-9".into(),
+                        detail: format!("{rel} does not state the four principles; the public surface is not yet reconciled") });
+                    st = Status::NotRun;
+                }
+            }
+            st
+        }
+    };
+    gate_verdicts.insert("AG-9".into(), ag9_status.as_str().to_string());
+
+    // AG-10 — freeze readiness is a conjunction of externally observed conditions. The engine cannot
+    // infer any of them, so each must be REPORTED by an actual run. A missing report is NOT_RUN.
+    let ag10 = registry.gate_requirements.as_ref().and_then(|g| g.ag10.as_ref());
+    let ag10_status = match ag10 {
+        None => Status::NotRun,
+        Some(req) => {
+            let report_path = root.join(&req.conditions_report);
+            if !report_path.exists() {
+                findings.push(Finding { property_id: "-".into(), gate: "AG-10".into(),
+                    detail: format!("{} has not been produced; freeze readiness is NOT_RUN, never PASS by absence", req.conditions_report) });
+                Status::NotRun
+            } else {
+                let raw = std::fs::read_to_string(&report_path).unwrap_or_default();
+                let doc: serde_json::Value = serde_json::from_str(&raw).unwrap_or(serde_json::Value::Null);
+                let mut st = Status::Pass;
+                for c in &req.required_conditions {
+                    match doc.get(c).and_then(|v| v.as_bool()) {
+                        Some(true) => {}
+                        Some(false) => {
+                            findings.push(Finding { property_id: "-".into(), gate: "AG-10".into(),
+                                detail: format!("release condition not met: {c}") });
+                            st = Status::Blocked;
+                        }
+                        None => {
+                            findings.push(Finding { property_id: "-".into(), gate: "AG-10".into(),
+                                detail: format!("release condition never reported: {c}") });
+                            if st != Status::Blocked { st = Status::NotRun; }
+                        }
+                    }
+                }
+                // A lower gate failing blocks AG-10 outright.
+                if gate_verdicts.values().any(|v| v == "FAIL") { st = Status::Blocked; }
+                st
+            }
+        }
+    };
+    gate_verdicts.insert("AG-10".into(), ag10_status.as_str().to_string());
+
+    // The run is OK only when nothing failed AND every gate reached PASS. NOT_RUN is not success.
+    let ok = findings.is_empty() && gate_verdicts.values().all(|v| v == "PASS");
     Report {
         tool: TOOL,
         tool_version: TOOL_VERSION,
         properties: results,
+        gates: gate_verdicts,
         findings,
         totals,
         r2s2_coverage: r2s2,

@@ -77,12 +77,26 @@ fn main() {
         );
     }
     println!();
+    println!("  ── gates (closed-world: absence is never PASS) ──");
+    for (g, _) in GATES {
+        let v = report.gates.get(*g).map(|s| s.as_str()).unwrap_or("NOT_RUN");
+        println!("  {:<6} {}", g, v);
+    }
+    println!();
     println!("  properties: {:?}", report.totals);
     println!("  R²S² coverage: {:?}", report.r2s2_coverage);
     if report.ok && unexercised.is_empty() {
-        println!("assurance: OK — every claimed property has a falsifiable chain");
+        println!("assurance: OK — every gate reached PASS with its required evidence present");
         exit(0);
     }
-    println!("assurance: FAIL — a claimed property is not demonstrated");
+    let not_run: Vec<&String> = report
+        .gates
+        .iter()
+        .filter(|(_, v)| v.as_str() != "PASS")
+        .map(|(k, _)| k)
+        .collect();
+    println!(
+        "assurance: NOT COMPLETE — gates not at PASS: {not_run:?}. A gate without its required evidence is NOT_RUN, never PASS."
+    );
     exit(1);
 }

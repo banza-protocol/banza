@@ -439,5 +439,64 @@
       ],
       "gate_status": "PASS"
     }
-  ]
+  ],
+  "_gate_semantics": "CLOSED-WORLD. A gate returns PASS only when every REQUIRED evidence category for it is known, present, executed and green. Absence is never PASS: an unproduced requirement is NOT_RUN, an unsatisfiable one is BLOCKED. This section is what the engine reads to know what SHOULD exist — without it the engine could only report that what it happened to find was green.",
+  "gate_requirements": {
+    "AG-9": {
+      "_what": "Public claim consistency cannot be established without reading the surfaces that carry the claims.",
+      "mandatory_surfaces": [
+        "README.md",
+        "website/content/BANZA_REFERENCIA.md",
+        "docs/whitepaper/latex/whitepaper.pt.tex",
+        "docs/whitepaper/latex/whitepaper.en.tex",
+        "assurance/README.md",
+        "decisions/adr/ADR-040-r2s2-fundamental-principles.md",
+        "decisions/adr/ADR-041-layered-assurance-gates.md"
+      ],
+      "must_state_principles": [
+        "README.md",
+        "website/content/BANZA_REFERENCIA.md",
+        "docs/whitepaper/latex/whitepaper.pt.tex",
+        "docs/whitepaper/latex/whitepaper.en.tex"
+      ]
+    },
+    "AG-10": {
+      "_what": "Freeze readiness is a conjunction of externally observed conditions. The engine cannot infer any of them, so each must be REPORTED by an actual run; a missing report is NOT_RUN, never PASS.",
+      "required_conditions": [
+        "all_applicable_gates_pass",
+        "all_mandatory_guards_green",
+        "all_supported_tests_green",
+        "zero_unexplained_failures",
+        "clean_source_tree",
+        "assurance_registry_complete",
+        "semantic_closure_pass",
+        "normative_manifest_valid",
+        "r2s2_public_consistency_pass",
+        "ci_enforcement_active",
+        "clean_state_reproducibility"
+      ],
+      "conditions_report": "assurance/release-readiness.json"
+    },
+    "per_property_required_stages": {
+      "CRITICAL": [
+        "normative_authority",
+        "positive_evidence",
+        "negative_evidence",
+        "adversarial_evidence",
+        "property_guard",
+        "mutation_proof"
+      ],
+      "REQUIRED": [
+        "normative_authority",
+        "positive_evidence",
+        "property_guard"
+      ]
+    },
+    "_per_property_required_stages_note": "For a CRITICAL property these stages are REQUIRED unless explicitly declared not applicable with a rationale. A property whose registered evidence is green but whose required stages are absent is INCOMPLETE, not PASS."
+  },
+  "not_applicable_rationales": {
+    "STATE_TEST": "the property is decided by a pure function over supplied inputs and retains nothing between calls, so there is no state a restart could lose",
+    "RESILIENCE_TEST": "the property is a property of a document or a comparison, not of a running component, so no dependency can fail underneath it",
+    "WIRE_REPRESENTATION": "the property constrains the project's own surfaces rather than an artifact an implementation exchanges"
+  }
 }

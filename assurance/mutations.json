@@ -101,6 +101,20 @@
       "violation": "the successor verifier unwraps the candidate's sequence instead of rejecting a malformed one, so out-of-domain input panics the process",
       "apply": "python3 -c \"p='engines/banza-trust/src/authority_set.rs';s=open(p).read();a='candidate.get(\\\"set_sequence\\\").and_then(|x| x.as_u64()),';b='Some(candidate.get(\\\"set_sequence\\\").unwrap().as_u64().unwrap()),';assert a in s;s=s.replace(a,b,1);open(p,'w').write(s)\"",
       "guard": "make root-authority-model-check"
+    },
+    {
+      "id": "meta_missing_required_evidence",
+      "property": "ASSURANCE_DETECTS_ITS_OWN_INCOMPLETENESS",
+      "violation": "a required evidence stage is removed from a CRITICAL property — the assurance system must notice that IT is incomplete, not report the property as passing",
+      "apply": "python3 -c \"import json;p='assurance/properties.json';d=json.load(open(p));x=[q for q in d['properties'] if q['property_id']=='TRUST_ROOT_NO_SINGLE_CONTROL'][0];x['mutation_proof']=None;json.dump(d,open(p,'w'))\"",
+      "guard": "make assurance-check"
+    },
+    {
+      "id": "meta_missing_public_surface",
+      "property": "ASSURANCE_DETECTS_ITS_OWN_INCOMPLETENESS",
+      "violation": "a mandatory AG-9 public surface is removed from the declared set — AG-9 must not pass by no longer looking",
+      "apply": "python3 -c \"import json;p='assurance/properties.json';d=json.load(open(p));d['gate_requirements']['AG-9']['mandatory_surfaces']=[];d['gate_requirements']['AG-9']['must_state_principles']=[];json.dump(d,open(p,'w'))\"",
+      "guard": "make assurance-check"
     }
   ]
 }
