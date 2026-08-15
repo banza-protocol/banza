@@ -34,6 +34,26 @@ pub const GATES: &[(&str, &str)] = &[
     ("AG-10", "Is it ready to freeze?"),
 ];
 
+/// Which gates a gate genuinely depends on.
+///
+/// Encoded because it is logically required, never because the numbers run in sequence. AG-4, AG-5 and
+/// AG-6 all ask questions about a running implementation, so they depend on AG-3; AG-8 asks whether an
+/// outsider could derive the rule, which needs the rule (AG-0), its representation (AG-1) and its
+/// expected results (AG-2), but nothing about attacks or failure. AG-9 needs the properties to exist
+/// before their public claims can be checked against them.
+pub const GATE_DEPENDENCIES: &[(&str, &[&str])] = &[
+    ("AG-1", &["AG-0"]),
+    ("AG-2", &["AG-0"]),
+    ("AG-3", &["AG-0", "AG-1"]),
+    ("AG-4", &["AG-3"]),
+    ("AG-5", &["AG-3"]),
+    ("AG-6", &["AG-3"]),
+    ("AG-7", &["AG-0", "AG-1", "AG-2", "AG-3"]),
+    ("AG-8", &["AG-0", "AG-1", "AG-2"]),
+    ("AG-9", &["AG-0"]),
+    ("AG-10", &["AG-0", "AG-1", "AG-2", "AG-3", "AG-4", "AG-5", "AG-6", "AG-7", "AG-8", "AG-9"]),
+];
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
 pub enum Status {
     Pass,
@@ -392,14 +412,24 @@ pub fn evaluate(root: &Path, registry: &Registry) -> Report {
         }
         let complete = missing_required.is_empty();
         if !complete {
-            findings.push(Finding {
-                property_id: p.property_id.clone(),
-                gate: "COMPLETENESS".into(),
-                detail: format!(
-                    "required stage(s) never registered: {} — the property is INCOMPLETE, not passing",
-                    missing_required.join(", ")
-                ),
-            });
+            // A missing stage degrades the gate that stage SERVES. Marking every gate NOT_RUN because
+            // one stage is absent trades a false green for a false grey: it erases evidence that really
+            // was produced, and tells a reader nothing about where the gap is.
+            for stage in &missing_required {
+                let gate = match stage.as_str() {
+                    "normative_authority" => "AG-0",
+                    "positive_evidence" | "negative_evidence" => "AG-2",
+                    "adversarial_evidence" => "AG-6",
+                    "property_guard" | "mutation_proof" => "AG-7",
+                    _ => "AG-10",
+                };
+                gates.insert(gate.to_string(), Status::NotRun);
+                findings.push(Finding {
+                    property_id: p.property_id.clone(),
+                    gate: gate.into(),
+                    detail: format!("required stage never registered: {stage} — INCOMPLETE, not passing"),
+                });
+            }
         }
 
         let passed = !any_fail;
@@ -437,26 +467,47 @@ pub fn evaluate(root: &Path, registry: &Registry) -> Report {
     // as passing because no property had failed it, so a gate could pass on an empty world.
     let mut gate_verdicts: BTreeMap<String, String> = BTreeMap::new();
     for (gate, _) in GATES.iter().take(9) {
+        // Only properties for which this gate is APPLICABLE count. A gate is not made uncertain by a
+        // property that legitimately has nothing to say to it.
         let mut verdict = Status::Pass;
-        let mut seen = 0usize;
+        let mut evaluated = 0usize;
         for r in &results {
             match r.gates.get(*gate).map(|s| s.as_str()) {
-                Some("FAIL") => verdict = Status::Fail,
-                Some("PASS") => seen += 1,
-                _ => {}
-            }
-            if !r.property_complete && verdict != Status::Fail {
-                verdict = Status::NotRun;
+                Some("FAIL") => {
+                    verdict = Status::Fail;
+                    evaluated += 1;
+                }
+                Some("NOT_RUN") => {
+                    if verdict != Status::Fail {
+                        verdict = Status::NotRun;
+                    }
+                    evaluated += 1;
+                }
+                Some("PASS") => evaluated += 1,
+                _ => {} // NOT_APPLICABLE — this gate has no question for this property
             }
         }
-        if verdict == Status::Pass && seen == 0 {
-            // Nothing was measured at this gate. That is not success.
-            verdict = Status::NotRun;
-            findings.push(Finding {
-                property_id: "-".into(),
-                gate: (*gate).into(),
-                detail: "no property was evaluated at this gate; an empty world is NOT_RUN, never PASS".into(),
-            });
+        if evaluated == 0 {
+            // Two different situations reach zero, and conflating them is its own false grey:
+            //
+            //   * every property declared this gate NOT_APPLICABLE — they each had something to say and
+            //     said "this question does not arise for me". The gate is genuinely not applicable.
+            //   * there were no properties at all, or none reached it. Nothing was measured, and an
+            //     empty world is not a clean one.
+            let declared_na = !results.is_empty()
+                && results
+                    .iter()
+                    .all(|r| r.gates.get(*gate).map(|s| s.as_str()) == Some("NOT_APPLICABLE"));
+            if declared_na {
+                verdict = Status::NotApplicable;
+            } else {
+                verdict = Status::NotRun;
+                findings.push(Finding {
+                    property_id: "-".into(),
+                    gate: (*gate).into(),
+                    detail: "no property was evaluated at this gate; an empty world is NOT_RUN, never PASS".into(),
+                });
+            }
         }
         gate_verdicts.insert((*gate).to_string(), verdict.as_str().to_string());
     }
@@ -548,8 +599,41 @@ pub fn evaluate(root: &Path, registry: &Registry) -> Report {
     };
     gate_verdicts.insert("AG-10".into(), ag10_status.as_str().to_string());
 
+    // A gate cannot PASS while a gate it depends on has not. This is the "a higher gate never
+    // compensates for a lower one" rule, applied to the rollup rather than asserted in prose. It
+    // DOWNGRADES only — it never turns a failure into a pass, and never touches a gate whose own
+    // evidence already failed.
+    for (gate, deps) in GATE_DEPENDENCIES {
+        let unmet: Vec<&str> = deps
+            .iter()
+            .filter(|d| {
+                !matches!(
+                    gate_verdicts.get(**d).map(|v| v.as_str()),
+                    Some("PASS") | Some("NOT_APPLICABLE")
+                )
+            })
+            .copied()
+            .collect();
+        if unmet.is_empty() {
+            continue;
+        }
+        if let Some(v) = gate_verdicts.get_mut(*gate) {
+            if v == "PASS" {
+                *v = "BLOCKED".to_string();
+                findings.push(Finding {
+                    property_id: "-".into(),
+                    gate: (*gate).into(),
+                    detail: format!("its own evidence is complete, but it depends on {unmet:?}, which have not passed"),
+                });
+            }
+        }
+    }
+
     // The run is OK only when nothing failed AND every gate reached PASS. NOT_RUN is not success.
-    let ok = findings.is_empty() && gate_verdicts.values().all(|v| v == "PASS");
+    let ok = findings.is_empty()
+        && gate_verdicts
+            .values()
+            .all(|v| v == "PASS" || v == "NOT_APPLICABLE");
     Report {
         tool: TOOL,
         tool_version: TOOL_VERSION,
