@@ -918,12 +918,17 @@ pub fn evaluate_bound(
                     continue;
                 }
                 let body = std::fs::read_to_string(&path).unwrap_or_default();
-                let states_all = ["Robust", "Resilient", "Secure", "Simple"]
+                // Case-insensitive: a surface that names the principles as adjectives inside a
+                // sentence — "robusto, correcto e determinístico" — states them just as surely as a
+                // capitalised list does, and demanding capitals would be a guard enforcing typography
+                // rather than the property.
+                let lower = body.to_lowercase();
+                let states_all = ["robust", "resilient", "secure", "simple"]
                     .iter()
-                    .all(|w| body.contains(w))
-                    || ["Robusto", "Resiliente", "Seguro", "Simples"]
+                    .all(|w| lower.contains(w))
+                    || ["robusto", "resiliente", "seguro", "simples"]
                         .iter()
-                        .all(|w| body.contains(w));
+                        .all(|w| lower.contains(w));
                 if !states_all {
                     findings.push(Finding { property_id: "-".into(), gate: "AG-9".into(),
                         detail: format!("{rel} does not state the four principles; the public surface is not yet reconciled") });

@@ -1,5 +1,5 @@
 {
-  "total": 3146,
+  "total": 3151,
   "rows": [
     {
       "raw_text": "Contributing to BANZA",
@@ -725,6 +725,29 @@
       "classification": "SUBJECT"
     },
     {
+      "raw_text": "Design principles — BANZA R²S²",
+      "normalized": "design principles banza r s",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "Layered assurance",
+      "normalized": "layered assurance",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
       "raw_text": "Current status",
       "normalized": "current status",
       "sources": [
@@ -1032,6 +1055,100 @@
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "BANZA R²S²",
+      "normalized": "banza r s",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "Robust",
+      "normalized": "robust",
+      "sources": [
+        "readme-md",
+        "decisions-adr-adr-040-r2s2-fundamental-principles-md"
+      ],
+      "frequency": 3,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Resilient",
+      "normalized": "resilient",
+      "sources": [
+        "readme-md",
+        "decisions-adr-adr-040-r2s2-fundamental-principles-md"
+      ],
+      "frequency": 3,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Secure",
+      "normalized": "secure",
+      "sources": [
+        "readme-md",
+        "decisions-adr-adr-040-r2s2-fundamental-principles-md"
+      ],
+      "frequency": 3,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Simple",
+      "normalized": "simple",
+      "sources": [
+        "readme-md",
+        "decisions-adr-adr-040-r2s2-fundamental-principles-md"
+      ],
+      "frequency": 3,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Resilience does not override security.",
+      "normalized": "resilience does not override security",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "structural\nproperties",
+      "normalized": "structural properties",
+      "sources": [
+        "readme-md",
+        "decisions-adr-adr-040-r2s2-fundamental-principles-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "architectural invariants",
+      "normalized": "architectural invariants",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
       "raw_text": "Pre-production",
@@ -5783,63 +5900,8 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "Robust",
-      "normalized": "robust",
-      "sources": [
-        "decisions-adr-adr-040-r2s2-fundamental-principles-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Resilient",
-      "normalized": "resilient",
-      "sources": [
-        "decisions-adr-adr-040-r2s2-fundamental-principles-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Secure",
-      "normalized": "secure",
-      "sources": [
-        "decisions-adr-adr-040-r2s2-fundamental-principles-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Simple",
-      "normalized": "simple",
-      "sources": [
-        "decisions-adr-adr-040-r2s2-fundamental-principles-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
       "raw_text": "R²S²",
       "normalized": "r s",
-      "sources": [
-        "decisions-adr-adr-040-r2s2-fundamental-principles-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 2,
-      "accepted": false,
-      "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "structural properties",
-      "normalized": "structural properties",
       "sources": [
         "decisions-adr-adr-040-r2s2-fundamental-principles-md"
       ],
