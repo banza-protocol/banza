@@ -33,6 +33,10 @@ jobs:
       - name: Decision records are current, explanatory and not load-bearing
         run: bash tools/check-adr-architecture.sh
 
+      # The frozen external-trial target cannot move without the manifest saying so.
+      - name: Trial target is deterministic, self-contained and cannot move silently
+        run: bash tools/check-trial-target-integrity.sh
+
   open-governance-check:
     name: No central human authority over operators
     runs-on: ubuntu-latest

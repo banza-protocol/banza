@@ -1,0 +1,40 @@
+{
+  "_spec": "BANZA v1.0.0 L0 independent-implementation trial - question ledger",
+  "_rule": "Every question is recorded BEFORE it is answered, in the implementer's own words. The original question is never rewritten afterwards. Resolved questions are not deleted. This ledger is primary evidence, not an appendix.",
+  "trial_id": "banza-v1.0.0-l0-independent-trial-001",
+  "_categories": {
+    "CLARIFICATION": "The rule already exists and the answer only points at it. No new semantics. If new information is needed, this is the wrong category.",
+    "DISCOVERABILITY": "The rule exists and was hard to find. A navigation finding, not a specification gap.",
+    "AMBIGUITY": "Two readings of the same text are both defensible.",
+    "MISSING_RULE": "The public surface does not determine the answer.",
+    "CONFLICT": "Two authorities in the package disagree.",
+    "VECTOR_GAP": "A rule exists with no vector covering it.",
+    "TOOLING": "About the harness, the package format or the process - not about the protocol."
+  },
+  "_answer_basis_allowed": [
+    "EXISTING_RULE: the answer is in artifact X, section Y",
+    "GAP: the public specification does not currently determine this"
+  ],
+  "_answer_basis_forbidden": [
+    "the reference implementation does X",
+    "the intended behaviour is ... (where that intent is not in the frozen surface)"
+  ],
+  "questions": [],
+  "_example_entry_do_not_treat_as_real": {
+    "question_id": "Q-000",
+    "timestamp_utc": "",
+    "stage": "1 (BCJ/1)",
+    "question_verbatim": "",
+    "referenced_artifact": "",
+    "section_or_path": "",
+    "category": "one of the closed categories above",
+    "blocking": false,
+    "answer_basis": "EXISTING_RULE | GAP",
+    "answer_verbatim": "",
+    "protocol_change_required": false,
+    "resolution": "",
+    "resolved_by": "",
+    "resolved_timestamp_utc": "",
+    "trial_impact": "none | delayed stage N | blocked stage N | changed the result"
+  }
+}

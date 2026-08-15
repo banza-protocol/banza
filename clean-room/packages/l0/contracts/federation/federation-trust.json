@@ -1,0 +1,133 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://banza.network/contracts/federation/federation-trust.json",
+  "_spec": "BANZA Federation Trust Model Contract v1.0",
+  "_source": "ADR-025Trust Model, ADR-025Trust Evaluation",
+  "_updated": "2026-07-17",
+
+  "description": "Defines the trust model for BANZA federation. BANZA is an open financial protocol: an operator independently implements the protocol, publishes its manifest, signed protocol metadata and conformance evidence, and each peer runs the Open Trust Evaluation locally and deterministically before routing. Trust rests on signed protocol metadata, conformance evidence, the public protocol registry, the trust root, delegated signing keys, and revocation/fail-closed. No participation depends on a central human authority; nothing is issued to, or approved for, an operator.",
+
+  "trust_root": {
+    "description": "The apex of the trust hierarchy. It authenticates PROTOCOL material — it never authorises operators, never approves participation and never signs payments. Its published metadata and delegations are the sole basis for trusting any delegated signing key.",
+    "layers": [
+      {
+        "layer": 1,
+        "id": "trust_root",
+        "name": "Trust Root",
+        "description": "Offline ed25519 key material. Never used directly in protocol operations — it signs only the Key Manifest (the root-signed metadata that lists and authorises the delegated signing keys). Protocol metadata, releases, the revocation list and conformance evidence are signed by delegated keys within their domains, never by the root directly (INV-ROOT-004; ADR-025). Root custody is threshold custody: three independent root signing authorities, any two of which authorise a root action. No single party can reconstruct or activate the root.",
+        "algorithm": "ed25519",
+        "custody": "multi_keyholder_threshold",
+        "quorum": "2_of_3",
+        "usage": "signs_key_manifest_only",
+        "adr_ref": "ADR-025",
+        "invariants": ["INV-ROOT-007"]
+      },
+      {
+        "layer": 2,
+        "id": "delegated_signing_keys",
+        "name": "Delegated Signing Keys",
+        "description": "Keys the Trust Root delegates, by domain, to sign protocol material: protocol metadata/releases, revocation lists, and conformance-evidence attestations. Each delegated key is listed in the Key Manifest and acts only within the scope the Trust Root grants it. No delegated key authorises, certifies, accepts or approves an operator.",
+        "algorithm": "ed25519",
+        "published_at": "banza.network/.well-known/banza/key-manifest.json",
+        "domains": ["protocol-metadata", "revocation", "conformance-evidence"],
+        "schema_ref": "contracts/production/delegated-signing-key.production.schema.json",
+        "invariants": ["INV-ROOT-008"]
+      },
+      {
+        "layer": 3,
+        "id": "operator_self_publication",
+        "name": "Operator Self-Publication",
+        "description": "Each operator publishes, on infrastructure under its own control, its Operator Manifest, its signed protocol metadata, and its reproducible conformance evidence. This material is authored and served by the operator — it is not issued, granted or approved by BANZA. Peers fetch it and evaluate it locally.",
+        "published_paths": [
+          "/.well-known/banza/operator.json",
+          "/.well-known/banza/signed-protocol-metadata.json",
+          "/conformance/evidence"
+        ],
+        "schema_refs": [
+          "conformance/manifests/schema.json",
+          "contracts/federation/federation-manifest.json",
+          "contracts/production/signed-protocol-metadata.production.schema.json",
+          "contracts/production/conformance-evidence.production.schema.json"
+        ]
+      }
+    ]
+  },
+
+  "revocation": {
+    "description": "Revocation is managed through the BANZA Revocation List (BRL), published at banza.network/federation/revocation-list.json. The BRL is signed by the dedicated revocation-domain delegated key (ADR-025 — distinct from other delegated keys) and must be re-fetched before each routing decision. Revocation is a protocol security signal — never a sanction, licence or authorisation.",
+    "brl_endpoint": "banza.network/federation/revocation-list.json",
+    "brl_schema_ref": "contracts/federation/revocation-list.json",
+    "brl_max_staleness_seconds": 21600,
+    "emergency_propagation_max_minutes": 60,
+    "invariants": ["INV-ROOT-007"]
+  },
+
+  "verification_algorithm": {
+    "description": "The Open Trust Evaluation. A peer decides whether to route to an operator by running ten conjunctive, fail-closed checks LOCALLY over the material that operator publishes. All ten must pass; any one missing, invalid, expired, revoked or incompatible fails the evaluation. The result is a local decision about ONE interaction — never a status conferred on the operator, never an admission, never a licence. The normative shape is contracts/production/federation-trust-evaluation.production.schema.json (ADR-025).",
+    "schema_ref": "contracts/production/federation-trust-evaluation.production.schema.json",
+    "checks": [
+      { "id": "valid_operator_manifest", "check": "the published Operator Manifest (the RFC-0005 discovery manifest at /.well-known/banza/operator.json) resolves and validates against conformance/manifests/schema.json, and — for a federation-capable operator — against the extension contracts/federation/federation-manifest.json (which defines supports_federation / cross_operator_routing). It is NOT validated against the candidate-submission schema operator-manifest.production.schema.json (ADR-029)" },
+      { "id": "compatible_protocol_version", "check": "the declared protocol_version is compatible with the evaluator's under the published compatibility rules" },
+      { "id": "signed_protocol_metadata", "check": "the operator's signed protocol metadata verifies under the trust root / delegated key resolved from the Key Manifest" },
+      { "id": "conformance_evidence_valid", "check": "conformance_report_hash and evidence_bundle_hash match and the evidence is re-executable with verified_by_tool_version" },
+      { "id": "trust_root_or_delegated_signature_valid", "check": "the signature chain resolves to the active trust root" },
+      { "id": "not_revoked", "check": "no key, artifact or implementation involved appears in a fresh Revocation List" },
+      { "id": "capabilities_compatible", "check": "the declared capabilities cover the intended interaction" },
+      { "id": "endpoint_contract_compatible", "check": "the published endpoints satisfy the contract for the capabilities in use" },
+      { "id": "evidence_freshness_within_policy", "check": "the age of the evidence is within the published validity window" },
+      { "id": "fail_closed_on_missing_or_invalid", "check": "the evaluation fails by default when trust material is missing, invalid, expired, revoked or incompatible" }
+    ],
+    "conjunction": "AND",
+    "overrides": "none",
+    "outcome": "ROUTING_ALLOWED only when all ten checks pass; FAIL_CLOSED otherwise",
+    "svg_ref": "SVG-P-064",
+    "section_ref": "docs/reference/pt/completa.md §Open Trust Evaluation"
+  },
+
+  "key_manifest": {
+    "description": "The Key Manifest lists all currently listed BANZA signing keys by domain. It is signed by the Trust Root and published at banza.network/.well-known/banza/key-manifest.json. The normative structure is defined by the JSON Schema in schema_ref (mirrors the root-ceremony output); the field summary below is informational only.",
+    "endpoint": "banza.network/.well-known/banza/key-manifest.json",
+    "schema_ref": "contracts/federation/key-manifest.json",
+    "fields": {
+      "schema_version": "string — '1'",
+      "published_at": "ISO 8601 datetime",
+      "root_key_id": "string — 'banza-root-YYYY'",
+      "root_public_key": "string — 'ed25519:<base64url>'",
+      "expires_at": "ISO 8601 datetime — manifest staleness bound (INV-ROOT-003)",
+      "keys": {
+        "type": "array",
+        "description": "Listed delegated signing keys",
+        "items": {
+          "key_id": "string — 'banza-{domain}-YYYYMM'",
+          "public_key": "string — 'ed25519:<base64url>'",
+          "domain": "protocol-metadata | revocation | conformance-evidence",
+          "active_since": "ISO 8601 datetime",
+          "expires_at": "ISO 8601 datetime",
+          "status": "active | retiring"
+        }
+      },
+      "manifest_signature": "base64url ed25519 signature by the Trust Root over canonical JSON of all other fields"
+    }
+  },
+
+  "federation_eligibility": {
+    "description": "An operator's material is eligible to be routed to for federation (L3) only when the Open Trust Evaluation passes over it. Eligibility is decided per interaction by the evaluating peer; it is not a status BANZA confers.",
+    "requirements": [
+      "conformance evidence covers a federation-capable scope (L3+)",
+      "manifest.supports_federation == true",
+      "manifest.cross_operator_routing == true",
+      "declared capabilities include cross_operator_routing",
+      "no involved key/artifact/implementation appears in the current BRL",
+      "signed protocol metadata and conformance evidence are fresh (within policy)",
+      "signature chain resolves to the active trust root or a delegated key"
+    ],
+    "adr_ref": "ADR-025",
+    "section_ref": "docs/reference/pt/completa.md §14"
+  },
+
+  "conformance_ref": {
+    "suite": "conformance/federation/suite.json",
+    "relevant_groups": ["FED-CERT", "FED-TRUST"],
+    "fixture_base": "conformance/fixtures/federation"
+  }
+}

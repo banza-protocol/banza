@@ -1,0 +1,145 @@
+{
+  "_spec": "BANZA v1.0.0 L0 independent-implementation trial - adversarial input set",
+  "_frozen_before": "any external implementation exists",
+  "_derivation": "Every case is derived from a rule the frozen package states. Where the specification determines a verdict the case carries must_reject:true and cites the rule; where it does not, the case asserts only that the implementation is well-behaved and repeatable. Inventing a verdict the specification does not require would test this harness's opinion rather than BANZA.",
+  "_bar": "no crash, no hang, deterministic across repeated runs, no silent repair. A rejection is a valid, well-behaved outcome everywhere in this set.",
+  "_note_on_vector_gap": "ADV-001 to ADV-004, ADV-008 and ADV-009 exercise P8 (input form), which the specification states but the committed conformance vectors do not cover. They are trial artifacts and do not alter the normative surface; the gap is recorded as a pre-trial finding.",
+  "case_count": 12,
+  "cases": [
+    {
+      "id": "ADV-001",
+      "title": "unpaired high surrogate in a member value",
+      "basis": "spec/canonicalization.md P8 — text containing an unpaired surrogate MUST be rejected before canonicalization begins",
+      "input_bytes": [
+        123,
+        34,
+        97,
+        34,
+        58,
+        34,
+        237,
+        160,
+        128,
+        34,
+        125
+      ],
+      "must_reject": true
+    },
+    {
+      "id": "ADV-002",
+      "title": "invalid UTF-8 byte sequence",
+      "basis": "spec/canonicalization.md P8 — text that is not valid UTF-8 MUST be rejected; it is not repaired, replaced or substituted",
+      "input_bytes": [
+        123,
+        34,
+        97,
+        34,
+        58,
+        34,
+        255,
+        254,
+        34,
+        125
+      ],
+      "must_reject": true
+    },
+    {
+      "id": "ADV-003",
+      "title": "top level is an array, not an object",
+      "basis": "spec/canonicalization.md P8 — a canonicalizable artifact MUST be a JSON object at the top level",
+      "input_raw": "[{\"a\":1}]",
+      "must_reject": true
+    },
+    {
+      "id": "ADV-004",
+      "title": "truncated JSON text",
+      "basis": "spec/canonicalization.md P8 — text that is not well-formed JSON MUST be rejected",
+      "input_raw": "{\"a\":1",
+      "must_reject": true
+    },
+    {
+      "id": "ADV-005",
+      "title": "duplicate member appearing far apart in a large object",
+      "basis": "spec/canonicalization.md P3 — the same member name more than once, at any nesting level, MUST cause rejection. The two occurrences are separated so a last-wins parser cannot mask the defect by proximity.",
+      "input_raw": "{\"a\":1,\"b\":2,\"c\":3,\"d\":4,\"e\":5,\"f\":6,\"g\":7,\"h\":8,\"i\":9,\"j\":10,\"k\":11,\"l\":12,\"m\":13,\"n\":14,\"o\":15,\"p\":16,\"q\":17,\"r\":18,\"s\":19,\"t\":20,\"a\":21}",
+      "must_reject": true
+    },
+    {
+      "id": "ADV-006",
+      "title": "integer one above the safe upper bound",
+      "basis": "spec/canonicalization.md P2 — integers MUST be within +/-(2^53-1); out-of-range values MUST be rejected, fail-closed",
+      "input_raw": "{\"amount_minor\":9007199254740992}",
+      "must_reject": true
+    },
+    {
+      "id": "ADV-007",
+      "title": "deeply nested object",
+      "basis": "no depth limit is stated in the frozen package, so no verdict is determined. The bar is that the implementation neither crashes nor hangs, and answers the same way twice.",
+      "input_raw": "{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":1}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}",
+      "must_reject": false
+    },
+    {
+      "id": "ADV-008",
+      "title": "empty input",
+      "basis": "spec/canonicalization.md P8 — empty text is not well-formed JSON",
+      "input_raw": "",
+      "must_reject": true
+    },
+    {
+      "id": "ADV-009",
+      "title": "byte-order mark before the object",
+      "basis": "spec/canonicalization.md P8 — a BOM is not part of well-formed JSON text. An implementation that strips it silently is repairing input, which P8 forbids.",
+      "input_bytes": [
+        239,
+        187,
+        191,
+        123,
+        34,
+        97,
+        34,
+        58,
+        49,
+        125
+      ],
+      "must_reject": true
+    },
+    {
+      "id": "ADV-010",
+      "title": "NUL character inside a member value",
+      "basis": "no rule in the frozen package forbids U+0000 in a string, and RFC 8785 escaping determines its output form. No verdict is determined, so the bar is well-behavedness.",
+      "input_raw": "{\"a\":\"x\\u0000y\"}",
+      "must_reject": false
+    },
+    {
+      "id": "ADV-011",
+      "title": "very long member name",
+      "basis": "no length limit is stated in the frozen package. The bar is that a long name is handled deterministically rather than truncated or rejected inconsistently.",
+      "input_raw": "{\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\":1}",
+      "must_reject": false
+    },
+    {
+      "id": "ADV-012",
+      "title": "member names differing only by Unicode normalisation form",
+      "basis": "spec/canonicalization.md P5 — no Unicode normalisation is performed and verifiers MUST NOT normalise. The two names are distinct members, so this is not a duplicate and MUST NOT be rejected as one.",
+      "input_bytes": [
+        123,
+        34,
+        195,
+        169,
+        34,
+        58,
+        49,
+        44,
+        34,
+        101,
+        204,
+        129,
+        34,
+        58,
+        50,
+        125
+      ],
+      "must_reject": false
+    }
+  ]
+}

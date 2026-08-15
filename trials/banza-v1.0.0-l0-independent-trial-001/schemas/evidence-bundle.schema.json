@@ -1,0 +1,261 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://banza.network/schemas/trial/evidence-bundle/1",
+  "title": "BANZA independent-implementation trial — evidence bundle",
+  "description": "The complete record of one trial run. Written after the run, against a structure fixed before it. A bundle that validates does not make the result PASS; it makes the result auditable.",
+  "type": "object",
+  "required": [
+    "bundle_schema_version",
+    "trial",
+    "implementer_declaration",
+    "frozen_target",
+    "environment",
+    "implementation_freeze",
+    "results",
+    "question_ledger",
+    "verdict"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "bundle_schema_version": { "const": "1" },
+
+    "trial": {
+      "type": "object",
+      "required": ["trial_id", "protocol_version", "target_profile"],
+      "additionalProperties": false,
+      "properties": {
+        "trial_id": { "type": "string" },
+        "protocol_version": { "const": "1.0.0" },
+        "target_profile": { "const": "L0" },
+        "started_utc": { "type": "string" },
+        "ended_utc": { "type": "string" }
+      }
+    },
+
+    "implementer_declaration": {
+      "type": "object",
+      "description": "Transcribed from the qualification form completed before the package was handed over.",
+      "required": ["team", "language", "toolchain", "prior_exposure", "independence_accepted"],
+      "additionalProperties": false,
+      "properties": {
+        "team": { "type": "string" },
+        "organization": { "type": "string" },
+        "language": { "type": "string" },
+        "toolchain": { "type": "string" },
+        "prior_exposure": {
+          "type": "object",
+          "description": "Each answer as given. A true value does not invalidate the technical result; it removes the independence claim.",
+          "required": [
+            "participated_in_design",
+            "accessed_reference_implementation",
+            "accessed_operator_zero_source",
+            "accessed_internal_documents",
+            "accessed_private_branches",
+            "received_author_assistance"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "participated_in_design": { "type": "boolean" },
+            "accessed_reference_implementation": { "type": "boolean" },
+            "accessed_operator_zero_source": { "type": "boolean" },
+            "accessed_internal_documents": { "type": "boolean" },
+            "accessed_private_branches": { "type": "boolean" },
+            "received_author_assistance": { "type": "boolean" },
+            "notes": { "type": "string" }
+          }
+        },
+        "accidental_exposure": {
+          "type": "array",
+          "description": "Recorded rather than concealed. Concealment is the one response that makes every other result unverifiable.",
+          "items": {
+            "type": "object",
+            "required": ["what", "when_utc", "scope"],
+            "properties": {
+              "what": { "type": "string" },
+              "when_utc": { "type": "string" },
+              "scope": { "type": "string" }
+            }
+          }
+        },
+        "independence_accepted": {
+          "type": "boolean",
+          "description": "Whether the coordinator accepts the run as supporting an 'independent' claim."
+        }
+      }
+    },
+
+    "frozen_target": {
+      "type": "object",
+      "required": [
+        "source_commit",
+        "normative_manifest_sha256",
+        "package_content_tree_sha256",
+        "package_manifest_sha256",
+        "digest_confirmed_by_team_before_start"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "source_commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "normative_manifest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "package_content_tree_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "package_manifest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "digest_confirmed_by_team_before_start": { "type": "boolean" }
+      }
+    },
+
+    "environment": {
+      "type": "object",
+      "required": ["os", "language_version", "build_command"],
+      "additionalProperties": false,
+      "properties": {
+        "os": { "type": "string" },
+        "language_version": { "type": "string" },
+        "toolchain_versions": { "type": "object" },
+        "dependency_lock_sha256": { "type": "string" },
+        "build_command": { "type": "string" }
+      }
+    },
+
+    "implementation_freeze": {
+      "type": "object",
+      "description": "Recorded before any comparison with the reference implementation. Edits after this point do not count toward this run.",
+      "required": ["frozen_utc", "implementation_content_sha256", "frozen_before_reference_comparison"],
+      "additionalProperties": false,
+      "properties": {
+        "frozen_utc": { "type": "string" },
+        "implementation_commit": { "type": "string" },
+        "implementation_content_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "frozen_before_reference_comparison": { "const": true },
+        "source_published": {
+          "type": "boolean",
+          "description": "The trial does not require publishing the external source. Hash and provenance are sufficient evidence."
+        }
+      }
+    },
+
+    "results": {
+      "type": "object",
+      "required": ["bcj1_gate", "gates", "adversarial", "determinism"],
+      "additionalProperties": false,
+      "properties": {
+        "bcj1_gate": { "enum": ["PASS", "FAIL", "NOT_RUN"] },
+        "bcj1_stop_classification": {
+          "enum": ["IMPLEMENTATION_BUG", "SPECIFICATION_AMBIGUITY", "VECTOR_DEFECT", "PACKAGE_DEFECT"],
+          "description": "Present only when the BCJ/1 gate failed and the trial stopped."
+        },
+        "gates": {
+          "type": "object",
+          "description": "Per-gate totals as produced by the harness result file.",
+          "additionalProperties": {
+            "type": "object",
+            "required": ["total", "passed"],
+            "properties": { "total": { "type": "integer" }, "passed": { "type": "integer" } }
+          }
+        },
+        "harness_result_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "adversarial": {
+          "type": "object",
+          "required": ["total", "passed", "crashes", "nondeterministic"],
+          "properties": {
+            "total": { "type": "integer" },
+            "passed": { "type": "integer" },
+            "crashes": { "type": "integer" },
+            "nondeterministic": { "type": "integer" }
+          }
+        },
+        "determinism": {
+          "type": "object",
+          "required": ["repeated_runs", "identical"],
+          "properties": {
+            "repeated_runs": { "type": "integer", "minimum": 2 },
+            "identical": { "type": "boolean" }
+          }
+        }
+      }
+    },
+
+    "question_ledger": {
+      "type": "object",
+      "description": "The full ledger, unedited. Primary evidence.",
+      "required": ["total", "by_category", "unresolved", "entries"],
+      "properties": {
+        "total": { "type": "integer" },
+        "by_category": { "type": "object" },
+        "blocking": { "type": "integer" },
+        "unresolved": {
+          "type": "object",
+          "required": ["MISSING_RULE", "CONFLICT", "AMBIGUITY"],
+          "properties": {
+            "MISSING_RULE": { "type": "integer" },
+            "CONFLICT": { "type": "integer" },
+            "AMBIGUITY": { "type": "integer" }
+          }
+        },
+        "entries": { "type": "array", "items": { "type": "object" } }
+      }
+    },
+
+    "black_box_comparison": {
+      "type": "object",
+      "description": "Run only after the implementation freeze. A difference is not evidence that the external implementation is wrong.",
+      "required": ["performed", "discrepancies"],
+      "properties": {
+        "performed": { "type": "boolean" },
+        "discrepancies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["case_id", "external", "reference", "adjudication", "authority"],
+            "properties": {
+              "case_id": { "type": "string" },
+              "external": { "type": "string" },
+              "reference": { "type": "string" },
+              "adjudication": {
+                "enum": ["EXTERNAL_WRONG", "REFERENCE_WRONG", "SPECIFICATION_INSUFFICIENT"]
+              },
+              "authority": {
+                "type": "string",
+                "description": "The normative artifact and section that decided it. Never 'the reference implementation'."
+              },
+              "action": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+
+    "metrics": {
+      "type": "object",
+      "description": "Observations, deliberately not combined into a score.",
+      "additionalProperties": true
+    },
+
+    "verdict": {
+      "type": "object",
+      "required": ["result", "criteria_met", "rationale"],
+      "additionalProperties": false,
+      "properties": {
+        "result": {
+          "enum": ["PASS", "FAIL", "SPECIFICATION_BLOCKED", "INVALID_TRIAL", "INTERRUPTED"]
+        },
+        "criteria_met": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "met"],
+            "properties": {
+              "id": { "type": "integer" },
+              "met": { "type": "boolean" },
+              "evidence": { "type": "string" }
+            }
+          }
+        },
+        "rationale": { "type": "string" },
+        "claim_made": {
+          "type": "string",
+          "description": "Present only on PASS, and only the exact sentence permitted by pass-fail-criteria.json."
+        }
+      }
+    }
+  }
+}

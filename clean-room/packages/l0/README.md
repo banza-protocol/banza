@@ -5,7 +5,7 @@ independent specification. The BANZA Normative Manifest remains authoritative.**
 
 **The reference implementation is intentionally excluded.**
 
-Protocol version **1.0.0** · target profile **L0 — Protocol Sandbox** · 23 files
+Protocol version **1.0.0** · target profile **L0 — Protocol Sandbox** · 24 files
 
 ---
 
@@ -39,7 +39,7 @@ reason.
 
 None of that is missing by oversight. If you cannot determine required behaviour from what is here,
 that is a **defect in the specification**, not something for you to work around — and recording it is
-the point of the exercise. See `clean-room/README.md` in the BANZA repository for the question ledger.
+the point of the exercise. Record it: a question you surface is a result, and a gap you work around silently is not.
 
 ## Licence
 

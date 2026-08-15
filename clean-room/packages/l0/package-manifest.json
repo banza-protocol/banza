@@ -8,7 +8,7 @@
   "_reference_implementation": "The reference implementation is intentionally excluded.",
   "_construction": "Built by positive allowlist from the Phase D implementation set for this profile. No file is present unless the allowlist selected it; nothing is copied and then deleted.",
   "normative_manifest_sha256": "319a8f069b3e84ca3f9a0b26893178b714049a66907d8cf22a02a94fd677701f",
-  "file_count": 21,
+  "file_count": 22,
   "files": [
     {
       "path": "LICENSE",
@@ -65,6 +65,12 @@
       "why": "in the L0 implementation set"
     },
     {
+      "path": "contracts/federation/federation-trust.json",
+      "sha256": "0fc42074110826a1c0e9276af7a707a63481416877d4d185130b9cbf42e66f9e",
+      "bytes": 9661,
+      "why": "the published check ids that `failed_checks` may carry; a required L0 vector case is decided against them"
+    },
+    {
       "path": "contracts/invariants.json",
       "sha256": "ed45855dc4b520e98f06b9a48935bb05f6d2d913384703e7b08f471babcb5db0",
       "bytes": 30469,
@@ -114,8 +120,8 @@
     },
     {
       "path": "docs/guides/implement-l0.md",
-      "sha256": "21e56c3a0e4638e20fa3aad7d74625e26ca44ffcd93329056bc4daa5a630aa0f",
-      "bytes": 12923,
+      "sha256": "1f68373e8e6b13ff24845c512d2930979329dda6638b83afd1550b90947e0bb3",
+      "bytes": 13042,
       "why": "a map to the L0 set; states no requirement of its own"
     },
     {
@@ -206,14 +212,6 @@
       ]
     },
     {
-      "target": "contracts/federation/federation-trust.json",
-      "kind": "higher profile",
-      "why": "On the normative surface, but not part of the L0 implementation set. Required at a higher profile.",
-      "referenced_by": [
-        "spec/reason-codes.md"
-      ]
-    },
-    {
       "target": "decisions/adr/ADR-008-normative-authority-and-versioning.md",
       "kind": "rationale",
       "why": "An ADR records why a rule was adopted. It is never the rule, and nothing here requires reading it. Excluded from the package on purpose.",
@@ -235,22 +233,6 @@
       "why": "An ADR records why a rule was adopted. It is never the rule, and nothing here requires reading it. Excluded from the package on purpose.",
       "referenced_by": [
         "spec/reason-codes.md"
-      ]
-    },
-    {
-      "target": "docs/derived/implementation-sets.json",
-      "kind": "derived view",
-      "why": "A generated view of this same material. Informative; the Normative Manifest remains authoritative.",
-      "referenced_by": [
-        "docs/guides/implement-l0.md"
-      ]
-    },
-    {
-      "target": "docs/derived/implementation-sets.md",
-      "kind": "derived view",
-      "why": "A generated view of this same material. Informative; the Normative Manifest remains authoritative.",
-      "referenced_by": [
-        "docs/guides/implement-l0.md"
       ]
     }
   ],

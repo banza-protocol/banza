@@ -1,0 +1,98 @@
+{
+  "_spec": "BANZA v1.0.0 L0 independent-implementation trial - PASS/FAIL criteria, frozen before the trial",
+  "trial_id": "banza-v1.0.0-l0-independent-trial-001",
+  "_frozen": "These criteria were fixed before any external implementation existed. They are not adjusted after seeing a result.",
+  "result_enum": [
+    "PASS",
+    "FAIL",
+    "SPECIFICATION_BLOCKED",
+    "INVALID_TRIAL",
+    "INTERRUPTED"
+  ],
+  "_forbidden_results": [
+    "mostly pass",
+    "provisional pass",
+    "partial success",
+    "effectively pass",
+    "close enough"
+  ],
+  "pass_requires_all": [
+    {
+      "id": 1,
+      "criterion": "independence qualification satisfied and recorded",
+      "machine_checkable": false
+    },
+    {
+      "id": 2,
+      "criterion": "frozen package content digest confirmed by the team before work began",
+      "machine_checkable": true
+    },
+    {
+      "id": 3,
+      "criterion": "BCJ/1 gate PASS - byte equality on every applicable vector",
+      "machine_checkable": true
+    },
+    {
+      "id": 4,
+      "criterion": "every required L0 positive case passes",
+      "machine_checkable": true
+    },
+    {
+      "id": 5,
+      "criterion": "every required L0 negative case passes",
+      "machine_checkable": true
+    },
+    {
+      "id": 6,
+      "criterion": "no unresolved MISSING_RULE in the ledger",
+      "machine_checkable": true
+    },
+    {
+      "id": 7,
+      "criterion": "no unresolved CONFLICT in the ledger",
+      "machine_checkable": true
+    },
+    {
+      "id": 8,
+      "criterion": "no unresolved material AMBIGUITY in the ledger",
+      "machine_checkable": false
+    },
+    {
+      "id": 9,
+      "criterion": "repeated execution is deterministic",
+      "machine_checkable": true
+    },
+    {
+      "id": 10,
+      "criterion": "hostile inputs cause no crash, hang or panic",
+      "machine_checkable": true
+    },
+    {
+      "id": 11,
+      "criterion": "the external implementation was frozen before any reference comparison",
+      "machine_checkable": false
+    },
+    {
+      "id": 12,
+      "criterion": "every discrepancy adjudicated against the normative surface, never against the reference",
+      "machine_checkable": false
+    },
+    {
+      "id": 13,
+      "criterion": "evidence bundle complete per schemas/evidence-bundle.schema.json",
+      "machine_checkable": true
+    }
+  ],
+  "specification_blocked_when": "the team cannot proceed because the public surface does not determine something L0 requires, and no EXISTING_RULE answer is available",
+  "invalid_trial_when": "isolation or independence was breached, or the target moved without being detected",
+  "interrupted_when": "a spec, contract, schema, registry, required vector, profile semantic or capability semantic changed during the run",
+  "claim_if_pass": "An independent external implementation of the BANZA v1.0.0 L0 profile was demonstrated against a pre-registered public implementation package and test procedure.",
+  "claims_not_available": [
+    "BANZA fully independently implemented",
+    "production ready",
+    "L1-L4 independently demonstrated",
+    "end-to-end financial network demonstrated",
+    "scalability demonstrated",
+    "operational scheme demonstrated"
+  ]
+}

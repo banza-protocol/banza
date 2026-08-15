@@ -213,6 +213,10 @@ trust-signing-chain-check:
 adr-canonical-clean-check:
 	@bash tools/check-adr-canonical-clean.sh
 
+## trial-target-integrity-check: The independent-implementation trial target cannot move silently — the trial manifest still describes the package on disk, package generation is deterministic, self-containment holds (UNRESOLVED = 0), no engines/decision records/audits/tooling reached the package, and the required vector set is the profile registry's rather than a second hand-kept list.
+trial-target-integrity-check:
+	bash tools/check-trial-target-integrity.sh
+
 ## adr-architecture-check: The decision-record tree records CURRENT architecture only — six canonical sections per record, no status/lifecycle headers, no normative keywords (a record explains, it never requires), no process records, delete-the-records holds (no normative artifact defers to a record section), and no CI status context depends on a record number. Everything derived from the tree; no pinned list, no pinned wording.
 adr-architecture-check:
 	bash tools/check-adr-architecture.sh

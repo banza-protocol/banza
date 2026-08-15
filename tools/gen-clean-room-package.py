@@ -40,6 +40,13 @@ ALWAYS = [
     ('contracts/production/conformance-profiles.production.json', 'what each profile requires'),
     ('contracts/production/conformance-profiles.production.schema.json', 'its shape'),
     ('docs/guides/implement-l0.md', 'a map to the L0 set; states no requirement of its own'),
+    # The L0 required vector set tests `failed_checks`, and spec/reason-codes.md section 4 states
+    # that the only permitted values are the check ids published here. The dependency graph records
+    # the citation as `cites_normative` — a mention — which is right in general and wrong for a
+    # vocabulary a required case is decided against. Without this file an implementer cannot decide
+    # RC-003 or RC-011 except by guessing, so the package would be insufficient for a case it ships.
+    ('contracts/federation/federation-trust.json',
+     'the published check ids that `failed_checks` may carry; a required L0 vector case is decided against them'),
 ]
 
 # Explicitly excluded, and asserted by the guard rather than trusted. Listed so the exclusion is a
@@ -267,7 +274,7 @@ reason.
 
 None of that is missing by oversight. If you cannot determine required behaviour from what is here,
 that is a **defect in the specification**, not something for you to work around — and recording it is
-the point of the exercise. See `clean-room/README.md` in the BANZA repository for the question ledger.
+the point of the exercise. Record it: a question you surface is a result, and a gap you work around silently is not.
 
 ## Licence
 

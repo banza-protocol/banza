@@ -1,0 +1,491 @@
+{
+  "_spec": "BANZA independent-implementation trial manifest",
+  "manifest_schema_version": "1",
+  "_authority": "This manifest freezes the identity of one trial target. It is not a specification and adds no requirement. The BANZA Normative Manifest inside the package remains the authority for what an implementation must do.",
+  "trial": {
+    "trial_id": "banza-v1.0.0-l0-independent-trial-001",
+    "protocol_version": "1.0.0",
+    "target_profile": "L0",
+    "target_profile_name": "Protocol Sandbox",
+    "run": "001"
+  },
+  "content_identity": {
+    "_note": "Everything under this key determines the target. Two exports from the same source commit produce identical values here; if they do not, the package is not verifiable and the trial is not ready.",
+    "source_commit": "2e6b469a27690bad75ab30ee71d51fd4fe20290a",
+    "normative_manifest_sha256": "319a8f069b3e84ca3f9a0b26893178b714049a66907d8cf22a02a94fd677701f",
+    "package_manifest_sha256": "2e715a959e96ef173704e0bbc31bc5f5059f2305bf10859d0e68ff6a544b2c68",
+    "package_content_tree_sha256": "4470dc5069381c47248e08ff51fbbab7e998ddba9fa4a534bff939409d999d06",
+    "package_file_count": 25,
+    "package_files": [
+      {
+        "path": "LICENSE",
+        "sha256": "acf95043c76dce943103f075e7b8675b98781dece9617f7544928d9cc89af08a"
+      },
+      {
+        "path": "NOTICE",
+        "sha256": "76525272afa25dd13e64f703740828b771d2d3c8c3bccb68e2892060f0aef1d9"
+      },
+      {
+        "path": "README.md",
+        "sha256": "2dc54733de3e975657c6eea79a0ad3ced24d3bde5b18684040418216e2eb38ed"
+      },
+      {
+        "path": "TRADEMARKS.md",
+        "sha256": "d0143f5f370eccbbfdd1096a8f14fbd2f82d80290dd60e804d2421d8a7899da9"
+      },
+      {
+        "path": "conformance/capabilities/schema.json",
+        "sha256": "57fa770938903c88d5be8757dcb20f483386036a877f70735fc7b00cdebe91bd"
+      },
+      {
+        "path": "conformance/manifests/schema.json",
+        "sha256": "39d04a41e713eeedc9a2a39d80eacd104fbb0bb7522e37dafdc193a3fa2b8e6b"
+      },
+      {
+        "path": "conformance/vectors/canonicalization.json",
+        "sha256": "cd3682eba7d3323772b2a8cbdd06a447c692efdb78835e436edbf0855415d64e"
+      },
+      {
+        "path": "conformance/vectors/capabilities.json",
+        "sha256": "019fed8c10d56660da026c542dc5ff35269c288e74aaf699969e5f9ed08377a1"
+      },
+      {
+        "path": "conformance/vectors/operator-manifests.json",
+        "sha256": "1ad6b9cbba47f315c07009c866c011b128b647273fa646d776dc27946f0354c7"
+      },
+      {
+        "path": "conformance/vectors/reason-codes.json",
+        "sha256": "c20a009fa9d821483a2f9d2628ed04eb3cb62236846b2fb23044ccbb020ab50d"
+      },
+      {
+        "path": "contracts/federation/federation-trust.json",
+        "sha256": "0fc42074110826a1c0e9276af7a707a63481416877d4d185130b9cbf42e66f9e"
+      },
+      {
+        "path": "contracts/invariants.json",
+        "sha256": "ed45855dc4b520e98f06b9a48935bb05f6d2d913384703e7b08f471babcb5db0"
+      },
+      {
+        "path": "contracts/production/capability-registry.production.json",
+        "sha256": "8d307443c2d99e4158eb6972fcc8b28ddbb50c23743e474bff56bab3cdb12e6a"
+      },
+      {
+        "path": "contracts/production/conformance-profiles.production.json",
+        "sha256": "2de21ca28f815e759df7efa8f619cd8d7d456267e1e39e4c5cd7d91bd1d3b743"
+      },
+      {
+        "path": "contracts/production/conformance-profiles.production.schema.json",
+        "sha256": "15a388491a640a38636cd14aab55d1b053d5b8b8d16c56254eca7fa8bdd0124d"
+      },
+      {
+        "path": "contracts/production/normative-manifest.json",
+        "sha256": "319a8f069b3e84ca3f9a0b26893178b714049a66907d8cf22a02a94fd677701f"
+      },
+      {
+        "path": "contracts/production/operator-manifest.production.schema.json",
+        "sha256": "5a82a3f902bb3ba1c9dcb270fbcf33dacc9b741667639facb249a0ff0f3b707d"
+      },
+      {
+        "path": "contracts/production/protocol-version.json",
+        "sha256": "0fcf788dba1752e6eac5c117c3187da556c2b7f72134ec705647f67a4e8f02a9"
+      },
+      {
+        "path": "contracts/production/reason-code-registry.production.json",
+        "sha256": "58de1a5aa7064fc38617229e3baf95a786d16b7fd6dfb4cc0c41301094fb1d5b"
+      },
+      {
+        "path": "docs/guides/implement-l0.md",
+        "sha256": "1f68373e8e6b13ff24845c512d2930979329dda6638b83afd1550b90947e0bb3"
+      },
+      {
+        "path": "package-manifest.json",
+        "sha256": "2e715a959e96ef173704e0bbc31bc5f5059f2305bf10859d0e68ff6a544b2c68"
+      },
+      {
+        "path": "provenance.json",
+        "sha256": "3955366882b83b571cf03988afbd1304192e2ae513514a5b3d89a1cd6a793db8"
+      },
+      {
+        "path": "spec/canonicalization.md",
+        "sha256": "5a058ed56ed03c7713927345187ae87ca484a0c5fcfbe046a43c3954f38ea433"
+      },
+      {
+        "path": "spec/capabilities.md",
+        "sha256": "d6ffc3c620e7280a64917b8bb018b739964bcddbec4cbc9ccbc9d1902e8844d9"
+      },
+      {
+        "path": "spec/reason-codes.md",
+        "sha256": "08967bae816e1ac39ce59c110707fa04d8047219be2f0cecb8d54263a87af3a1"
+      }
+    ],
+    "trial_kit_tree_sha256": "72e0d0d2a2408d481f1c39926659ee1f88f52649ab1ca249bd5f294f17bbaab3",
+    "trial_kit_file_count": 10,
+    "trial_kit_files": [
+      {
+        "path": "INDEPENDENT_IMPLEMENTATION_TRIAL_PROTOCOL.md",
+        "sha256": "08e920e5a65688ff2b3a232914d3d84bbffde86bf196a565f7e8c5e9caf7b29c"
+      },
+      {
+        "path": "IMPLEMENT_BANZA_L0_FROM_THIS_PACKAGE.md",
+        "sha256": "ae18f1b57b28e0700d053ae33e000bcdb753193f14cd22e15ae00fe05c0c1862"
+      },
+      {
+        "path": "IMPLEMENTER_QUALIFICATION_FORM.md",
+        "sha256": "0481e7899814b11b7b85f63321f2fa26ea9fc2169509646c46f7ddc3bdbd30ff"
+      },
+      {
+        "path": "ISOLATION_AND_PROHIBITED_SOURCES.md",
+        "sha256": "a3ffac6cdcbd94401669fd01e5c8df55853e11099227103512c48de86730837d"
+      },
+      {
+        "path": "QUESTION_LEDGER.json",
+        "sha256": "b074a4f0c6b634d9354283c67e1d2d4306cbfb7099559f9cceb74ac05fa1b93e"
+      },
+      {
+        "path": "pass-fail-criteria.json",
+        "sha256": "be160448a07d73f2755ce42c2f785fbcbc8c50605ee01a2849f94029f687857a"
+      },
+      {
+        "path": "harness/run_trial.py",
+        "sha256": "63c17a908612d489d42377f6c6f8d3f1ac106d4f1011ade5a3cb28bcc1485b38"
+      },
+      {
+        "path": "harness/rehearsal_adapter.py",
+        "sha256": "d1b0a240e7405b5af5d00938ed39f09df301e2103fb595362b38a4fe4b36ac61"
+      },
+      {
+        "path": "adversarial/cases.json",
+        "sha256": "b57275a43fa2ed3271372f34a43761addb8b9a34912c4227b6002e34467ade2b"
+      },
+      {
+        "path": "schemas/evidence-bundle.schema.json",
+        "sha256": "40f801010c47c11b181ea8125d4044acf3b39d785d92da6a879611bf9151ef7c"
+      }
+    ]
+  },
+  "volatile_provenance": {
+    "_note": "Recorded for traceability and deliberately excluded from every digest above. Nothing here may change the identity of the target.",
+    "generator": "tools/gen-trial-manifest.py",
+    "generator_version": "1",
+    "package_generator": "tools/gen-clean-room-package.py",
+    "_no_timestamp": "Deliberately absent. A generation time would make two exports of the same content differ, which is exactly the property the external team needs to check."
+  },
+  "l0_requirements": {
+    "_derivation": "Read from contracts/production/conformance-profiles.production.json. Not restated by hand.",
+    "required_capabilities": [],
+    "required_invariants": [
+      "MON-001"
+    ],
+    "required_schemas": [
+      "conformance/capabilities/schema.json",
+      "conformance/manifests/schema.json",
+      "contracts/production/operator-manifest.production.schema.json"
+    ],
+    "required_contracts": [
+      "contracts/production/protocol-version.json"
+    ],
+    "required_specifications": [
+      "spec/canonicalization.md",
+      "spec/capabilities.md",
+      "spec/reason-codes.md"
+    ],
+    "required_registries": [
+      "contracts/invariants.json",
+      "contracts/production/capability-registry.production.json",
+      "contracts/production/reason-code-registry.production.json"
+    ],
+    "required_endpoints": [],
+    "not_required": [
+      "Live payment rails of any kind",
+      "Wallets, transfers or a ledger — those are L1",
+      "Payment requests, QR or instant execution — those are L2",
+      "Federation, cross-operator routing or settlement — those are L3",
+      "External payment-network integration — that is L4",
+      "Trust material of your own: no signing key, no key manifest, no published metadata. L0 needs no identity and no signature",
+      "Any registration, submission, approval or credential from any party"
+    ]
+  },
+  "required_vector_set": {
+    "_derivation": "Derived from the L0 profile's required_vectors. The case ids are frozen here so that a later change to a vector file is visible as a change to this manifest.",
+    "vectors": [
+      {
+        "vector": "conformance/vectors/canonicalization.json",
+        "in_package": true,
+        "case_count": 24,
+        "case_ids": [
+          "BCJ-001",
+          "BCJ-002",
+          "BCJ-003",
+          "BCJ-004",
+          "BCJ-005",
+          "BCJ-006",
+          "BCJ-007",
+          "BCJ-008",
+          "BCJ-009",
+          "BCJ-010",
+          "BCJ-011",
+          "BCJ-012",
+          "BCJ-013",
+          "BCJ-014",
+          "BCJ-015",
+          "BCJ-R01",
+          "BCJ-R02",
+          "BCJ-R03",
+          "BCJ-R04",
+          "BCJ-R05",
+          "BCJ-R06",
+          "BCJ-R07",
+          "BCJ-R08",
+          "BCJ-R09"
+        ]
+      },
+      {
+        "vector": "conformance/vectors/capabilities.json",
+        "in_package": true,
+        "case_count": 12,
+        "case_ids": [
+          "CAP-001",
+          "CAP-002",
+          "CAP-003",
+          "CAP-004",
+          "CAP-005",
+          "CAP-006",
+          "CAP-007",
+          "CAP-008",
+          "CAP-009",
+          "CAP-010",
+          "CAP-011",
+          "CAP-012"
+        ]
+      },
+      {
+        "vector": "conformance/vectors/operator-manifests.json",
+        "in_package": true,
+        "case_count": 4,
+        "case_ids": [
+          "MAN-001",
+          "MAN-002",
+          "MAN-003",
+          "MAN-004"
+        ]
+      },
+      {
+        "vector": "conformance/vectors/reason-codes.json",
+        "in_package": true,
+        "case_count": 21,
+        "case_ids": [
+          "RC-001",
+          "RC-002",
+          "RC-003",
+          "RC-004",
+          "RC-005",
+          "RC-006",
+          "RC-007",
+          "RC-008",
+          "RC-009",
+          "RC-010",
+          "RC-011",
+          "RC-012",
+          "RC-013",
+          "RC-014",
+          "RC-015",
+          "RC-016",
+          "RC-017",
+          "RC-018",
+          "RC-019",
+          "RC-020",
+          "RC-021"
+        ]
+      }
+    ],
+    "total_cases": 61
+  },
+  "first_stop_gate": {
+    "gate": "BCJ/1",
+    "vector": "conformance/vectors/canonicalization.json",
+    "rule": "Byte equality, not semantic equivalence. If this gate fails the trial stops and the failure is classified before any downstream work."
+  },
+  "adversarial_set": {
+    "_derivation": "Derived from rules the package states. Cases carry must_reject only where the specification determines a verdict.",
+    "file": "adversarial/cases.json",
+    "case_count": 12,
+    "must_reject": 8,
+    "well_behaved_only": 4
+  },
+  "self_containment": {
+    "_rule": "UNRESOLVED must be zero. An L0 implementation may not depend on a decision record, an engine, an internal document or this repository.",
+    "included_count": 19,
+    "external_public_reference_count": 19,
+    "unresolved_count": 0,
+    "unresolved": [],
+    "external_public_references": [
+      {
+        "target": "conformance/federation/suite.json",
+        "kind": "higher profile",
+        "why": "on the public normative surface; not required at L0",
+        "referenced_by": [
+          "contracts/federation/federation-trust.json"
+        ]
+      },
+      {
+        "target": "conformance/fixtures/federation/SPM-A-VALID.json",
+        "kind": "higher profile",
+        "why": "on the public normative surface; not required at L0",
+        "referenced_by": [
+          "contracts/production/capability-registry.production.json"
+        ]
+      },
+      {
+        "target": "conformance/package/README.md",
+        "kind": "sibling package",
+        "why": "The public conformance package: the same vectors, packaged separately.",
+        "referenced_by": [
+          "package-manifest.json"
+        ]
+      },
+      {
+        "target": "contracts/federation/federation-manifest.json",
+        "kind": "higher profile",
+        "why": "on the public normative surface; not required at L0",
+        "referenced_by": [
+          "conformance/manifests/schema.json",
+          "contracts/federation/federation-trust.json",
+          "contracts/production/capability-registry.production.json"
+        ]
+      },
+      {
+        "target": "contracts/federation/key-manifest.json",
+        "kind": "higher profile",
+        "why": "on the public normative surface; not required at L0",
+        "referenced_by": [
+          "contracts/federation/federation-trust.json"
+        ]
+      },
+      {
+        "target": "contracts/federation/revocation-list.json",
+        "kind": "higher profile",
+        "why": "on the public normative surface; not required at L0",
+        "referenced_by": [
+          "contracts/federation/federation-trust.json"
+        ]
+      },
+      {
+        "target": "contracts/production/conformance-evidence.production.schema.json",
+        "kind": "higher profile",
+        "why": "on the public normative surface; not required at L0",
+        "referenced_by": [
+          "contracts/federation/federation-trust.json"
+        ]
+      },
+      {
+        "target": "contracts/production/conformance-report.production.schema.json",
+        "kind": "higher profile",
+        "why": "on the public normative surface; not required at L0",
+        "referenced_by": [
+          "contracts/production/conformance-profiles.production.schema.json"
+        ]
+      },
+      {
+        "target": "contracts/production/delegated-signing-key.production.schema.json",
+        "kind": "higher profile",
+        "why": "on the public normative surface; not required at L0",
+        "referenced_by": [
+          "contracts/federation/federation-trust.json"
+        ]
+      },
+      {
+        "target": "contracts/production/federation-trust-evaluation.production.schema.json",
+        "kind": "higher profile",
+        "why": "on the public normative surface; not required at L0",
+        "referenced_by": [
+          "contracts/federation/federation-trust.json"
+        ]
+      },
+      {
+        "target": "contracts/production/signed-protocol-metadata.production.schema.json",
+        "kind": "higher profile",
+        "why": "on the public normative surface; not required at L0",
+        "referenced_by": [
+          "contracts/federation/federation-trust.json"
+        ]
+      },
+      {
+        "target": "contracts/webhooks/signature.json",
+        "kind": "higher profile",
+        "why": "on the public normative surface; not required at L0",
+        "referenced_by": [
+          "spec/canonicalization.md"
+        ]
+      },
+      {
+        "target": "decisions/adr/ADR-008-normative-authority-and-versioning.md",
+        "kind": "rationale",
+        "why": "An ADR records why a rule was adopted. It is never the rule, and nothing here requires reading it. Excluded from the package on purpose.",
+        "referenced_by": [
+          "package-manifest.json"
+        ]
+      },
+      {
+        "target": "decisions/adr/ADR-011-banza-canonical-json-bcj-1.md",
+        "kind": "rationale",
+        "why": "An ADR records why a rule was adopted. It is never the rule, and nothing here requires reading it. Excluded from the package on purpose.",
+        "referenced_by": [
+          "package-manifest.json"
+        ]
+      },
+      {
+        "target": "decisions/adr/ADR-021-reason-codes.md",
+        "kind": "rationale",
+        "why": "An ADR records why a rule was adopted. It is never the rule, and nothing here requires reading it. Excluded from the package on purpose.",
+        "referenced_by": [
+          "package-manifest.json"
+        ]
+      },
+      {
+        "target": "docs/reference/pt/completa.md",
+        "kind": "non-normative material",
+        "why": "outside the normative surface; carries no rule, so nothing can depend on it",
+        "referenced_by": [
+          "contracts/federation/federation-trust.json"
+        ]
+      },
+      {
+        "target": "spec/capability-negotiation.md",
+        "kind": "non-normative material",
+        "why": "outside the normative surface; carries no rule, so nothing can depend on it",
+        "referenced_by": [
+          "contracts/production/capability-registry.production.json"
+        ]
+      },
+      {
+        "target": "spec/trust-freshness.md",
+        "kind": "higher profile",
+        "why": "on the public normative surface; not required at L0",
+        "referenced_by": [
+          "contracts/production/reason-code-registry.production.json"
+        ]
+      },
+      {
+        "target": "spec/validation-journey.md",
+        "kind": "higher profile",
+        "why": "on the public normative surface; not required at L0",
+        "referenced_by": [
+          "contracts/production/reason-code-registry.production.json"
+        ]
+      }
+    ],
+    "referenced_public_standards": [
+      "RFC 2119",
+      "RFC 8032",
+      "RFC 8174",
+      "RFC 8785"
+    ]
+  },
+  "result_model": [
+    "PASS",
+    "FAIL",
+    "SPECIFICATION_BLOCKED",
+    "INVALID_TRIAL",
+    "INTERRUPTED"
+  ]
+}
