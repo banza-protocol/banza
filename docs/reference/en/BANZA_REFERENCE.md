@@ -1154,3 +1154,179 @@ The runtime state is verifiable, not asserted: each answer publishes its own exe
 BanzAI is part of BANZA's open implementation. The canonical runtime — a TypeScript service layer over Rust engines compiled to WASM, which take the decisions — lives in the canonical repository [`banza-protocol/banza`](https://github.com/banza-protocol/banza) (`services/banzai-api` and `engines/banzai-*`); there is no separate BanzAI repository. All the code is auditable and open, and the public interfaces remain usable independently of BanzAI: the [website](https://banza.network), the [Reference](/referencia), the BanzAI interface ([`banza.network/banzai`](/banzai)), the [Technical Registry](/registo-tecnico) and the public contracts (`contracts/`). From any of these, the protocol is auditable without contacting any entity — and without depending on BanzAI.
 
 ---
+
+## 13. Developer Resources
+
+BANZA is an open protocol: it defines public rules of financial interoperability, and is not a product, a platform or a specific implementation. This chapter is the **map of the resources** a developer uses in order to implement or integrate a compatible implementation — and, above all, the distinction between those that **define** behaviour and those that merely **help** to implement, test or understand it.
+
+One distinction governs the whole chapter: **the normative artifacts — contracts, invariants and conformance vectors — define the applicable rules; the development tools help to implement, test and understand those rules, without replacing them.** A tool does not become normative by being maintained by the project. Whenever a sentence appears to say "the developer must use X", the right question is whether X is required by the protocol or is merely the tool the reference implementation uses today.
+
+![Authority of developer resources — three layers of function: the normative artifacts (contracts, invariants, schemas and conformance vectors) DEFINE the rules; the tools (the deterministic engines verify, BanzAI guides and explains) help to apply those rules without defining them; the references (Operator Zero, examples) EXEMPLIFY them; tools and references are never above the contracts and no language, database or stack is imposed on the operator](../../../website/public/diagrams/protocol/banza-developer-resource-authority-v1.svg)
+
+### Where to begin
+
+An implementer works through the resources by authority, not by the site's historical order: first what defines, then what verifies, finally what exemplifies.
+
+1. **Identify the applicable conformance profile** (L0–L4, [§7](#7-conformance-and-certification)) — the scope decides what has to be implemented.
+2. **Read the normative sources** — invariants, contracts and conformance vectors.
+3. **Implement** the profile's interfaces, in any technology.
+4. **Validate** against the schemas and the conformance vectors.
+5. **Generate and publish evidence** — certification, scheme admission and regulatory authorisation are later and distinct steps.
+
+The protocol works without any specific tool: a developer may implement it by reading the contracts and verify it with a runner of their own.
+
+### Normative sources and machine-readable artifacts
+
+The protocol's behaviour is defined by public, versioned artifacts, not by a single prose document. In the event of divergence between an implementation and the protocol, the following prevail, in this order:
+
+1. **Invariants** — `contracts/invariants.json`, the single machine-readable source of the financial, trust and structural guarantees; where prose and the registry diverge, the registry (and the source it cites) prevails.
+2. **Architecture decisions (ADRs)** — `decisions/adr/`, decisions in force and immutable.
+3. **Applicable RFCs** — `decisions/rfc/`, operational specifications, once accepted.
+4. **Contracts and schemas** — `contracts/`: the OpenAPI specifications of the HTTP APIs (`contracts/openapi/`) and the JSON Schemas for events, webhooks, QR and federation (`contracts/events/`, `contracts/webhooks/`, `contracts/qr/`, `contracts/federation/`).
+5. **Conformance vectors** — `conformance/`, the deterministic proof of behaviour.
+
+This Reference and the prose specifications (`spec/`) describe and organise these rules for human reading; where they diverge from the artifacts above, the artifacts prevail. **No protocol feature exists in prose alone: everything implementable has a corresponding artifact in `contracts/` and a vector in `conformance/`.**
+
+Two limits are easy to confuse. The **OpenAPI specifications describe specific HTTP interfaces** — transfers, wallets, charges, activity — **they do not replace the invariants, the trust model, the profiles and the remaining protocol semantics**: the semantics of federation, QR and events live in their own schemas, and the invariants are in no OpenAPI. And a payload that is **valid against a schema may nevertheless violate** an invariant, a trust rule or a profile requirement — the schema fixes the form, not the whole semantics.
+
+### Interfaces per conformance profile
+
+The interfaces an operator's implementation exposes depend on the target profile. The exact HTTP form of the wallet, transfer, QR and payment interfaces is in the OpenAPI contracts (`contracts/openapi/`); the federation interfaces are in `contracts/federation/`; the semantics of the profiles is in [§7](#7-conformance-and-certification). The table below is an orienting index, not the specification:
+
+| Profile | Interface | Method | Purpose |
+|---|---|---|---|
+| L1+ | `/wallets` · `/wallets/{id}` | `POST` · `GET` | Create wallet; query balance and status |
+| L1+ | `/transfers` | `POST` | Transfer between wallets |
+| L1+ | `/qr` · `/qr/{id}` | `POST` · `GET` | Generate and resolve QR (static or dynamic is an attribute of the payload, not a distinct route) |
+| L2+ | `/qr/{id}/pay` | `POST` | Pay against a dynamic QR (single use, INV-QR-001) |
+| L2+ | `/payment-requests` · `/payment-requests/{id}/pay` | `POST` · `POST` | Create and pay a payment link |
+| L3+ | `/federation/route` · `/federation/obligations` | `POST` · `GET` | Accept routing from another operator; expose obligations |
+
+All calls propagate `trace_id` (INV-TRACE-*) and represent values in integer units (`*_minor`); finality latency (e.g. T+0) is a characteristic of the operator, not a protocol invariant. These are endpoints that **each operator exposes on its own domain** — not central BANZA surfaces; the surfaces maintained by the protocol (Technical Registry, Key Manifest, Revocation List) are indexed in [§6](#6-trust) and [§8](#8-operators).
+
+### Validation and conformance tooling
+
+Conformance is defined by the vectors and is **reproducible by any party** from the public artifacts. **BanzAI** is the **primary** route by which an operator runs, in the browser, the protocol's deterministic engines that prepare the manifest, validate the target scope and produce the evidence bundle — without cloning repositories. It is not, however, the only route: an implementation is validated by verifiable artifacts, not by a specific tool, and an auditor runs exactly the same verifications independently.
+
+The result is binary — the implementation satisfies the scope's vectors or it does not — and deterministic: no subjective code review and no preference for language or framework. A **PASS is technical evidence, not legal authorisation**; in order to sustain federation, that evidence has to be published, signed in the protocol metadata and kept within the freshness policy. The reference conformance engine (`banza-conformance`, in Rust) **executes** the vectors; the vectors and the report schema (`conformance/report-schema.json`) are normative, the runner is a replaceable implementation — any independent runner reproduces the same result.
+
+### Reference implementation and examples
+
+**Operator Zero** ([§9](#9-operator-zero)) is the protocol's read-only reference implementation. It serves as a **reference implementation and observable test target**; **it is neither a specification nor an implementation to copy** — none of its technology is mandatory, and where the reference implementation diverges from the contracts, the contracts prevail. The `examples/` are conceptual and illustrative, without normative status.
+
+The protocol repository **contains no SDKs and no product code** — only specifications, contracts, vectors and conceptual examples. **BANZA does not currently present a public SDK as an integration resource; external implementations are based on the normative artifacts and the applicable interfaces.** No specific library is necessary in order to implement the protocol: conformance depends on observable behaviour and on the contracts, not on a tool distributed by the project.
+
+### From implementation to validation
+
+The technical path is a sequence of distinct steps — implementing is not validating, validating is not certifying, certifying is not being admitted to a scheme, and none of that is regulatory authorisation:
+
+![From implementation to validation — the developer's technical path in five steps: explore and choose the profile, integrate in any technology, verify conformance in a sandbox, publish signed evidence and, once the conditions are met, enter production; a PASS is technical evidence and not a certificate, the sandbox moves no real money, and validating is not certifying, admitting to a scheme or authorising](../../../website/public/diagrams/protocol/banza-developer-flow-v1.svg)
+
+1. **Explore** — choose the target scope (L0–L3) against the verifiable state ([§5](#5-protocol-state)), not against assumptions; clarify requirements in BanzAI.
+2. **Integrate** — implement the capabilities by level (L1 → L2 → L3) in any technology, optionally starting from the conceptual examples.
+3. **Verify** — validate conformance against a sandbox endpoint and correct failures until the target scope passes, keeping the evidence bundle.
+4. **Publish** — publish the evidence at a stable URL and sign the protocol metadata, referencing it by hash.
+5. **Production** — once the production conditions are met, re-sign with material anchored in the Key Manifest and keep the evidence fresh; peers evaluate by public rules.
+
+At the publication step, an operator publishes, on its domain, a fixed set of artifacts, each specified in its canonical section:
+
+| Artifact | URL on the operator's domain | Profile | Canonical section |
+|---|---|---|---|
+| Operator Manifest | `/.well-known/banza/operator.json` | L1+ | [§8 Operators](#8-operators) |
+| Signed protocol metadata | `/.well-known/banza/signed-protocol-metadata.json` | L3+ | [§6 Trust](#6-trust) |
+| Evidence report | Stable public URL, referenced by the metadata | L3+ | [§7 Conformance and Certification](#7-conformance-and-certification) |
+
+Participation is granted by nobody: it is **demonstrated by verifiable conformance**. Completing this technical path **does not automatically mean** certification ([§7](#7-conformance-and-certification)), admission to a scheme (Layer 3) or regulatory authorisation — each is a decision of another owner.
+
+### Good practice and security
+
+Implementing financial protocols repeats the same accidents. No resource in this Reference should contain private keys, credentials, real certificates or internal addresses:
+
+- **Secrets never in Git.** Keys, tokens and credentials live in secrets management, outside the repository and its history. The keys belong to the operator; the protocol never holds or generates them.
+- **Observability by `trace_id` from the start.** A payment that cannot be reconstructed by its `trace_id` will fail audit and conformance.
+- **Idempotency is not optional.** The same idempotency key returns the same result, including under repetition, timeouts and restarts.
+- **Continuous reconciliation.** Ledger, obligations and positions reconcile continuously; a divergence detected late is a financial incident, not a bug.
+- **The sandbox moves no real money** (`simulated: true`); no test endpoint moves real funds — and `production_allowed` is a declaration by the operator's own regulator, a distinct and later step, not a protocol switch.
+- **Freshness expires silently.** Outside the freshness policy, federation begins to fail closed — automate republication before the deadline, not after.
+
+### What is not a protocol requirement
+
+The protocol specifies observable behaviour and contracts; it does not prescribe the internal technology of whoever implements it. **A BANZA implementation may be built in any language, with any database and any runtime environment, provided it satisfies the applicable contracts, invariants and conformance vectors.**
+
+- **Language** — **Rust is the language of the official reference engines; it is not a requirement for operators.** Two implementations, one in Rust and another in a different language, are evaluated by contractual behaviour, not by technology.
+- **Persistence** — **an implementation's database (PostgreSQL, or another) is not part of the protocol** ([§5](#5-protocol-state)); it is an implementation decision.
+- **Packaging and operation** — containers, servers and network topology are choices of the reference implementation, not protocol requirements.
+- **Tools** — BanzAI and the reference implementation help to implement and verify; neither is required in order to be conformant.
+- **External providers** — the protocol is neutral as to external providers: it defines how an external integration is declared, verified and audited, without imposing any provider (EMIS is a possible provider/rail, not the only one), and the competent regulatory authority is treated as such, not as an operational provider.
+
+**BanzAI guides, locates rules and explains; it does not decide conformance and does not issue certification, admission or authorisation — the deterministic engines verify.**
+
+### Where to continue
+
+- [§4 Protocol Architecture](#4-protocol-architecture): the layers, the planes and the local execution model that an implementation materialises — the protocol imposes no internal architecture.
+- [§7 Conformance and Certification](#7-conformance-and-certification): the L0–L4 profiles, evidence and technical certification.
+- [§9 Operator Zero](#9-operator-zero): the reference implementation and the test environment.
+- [§12 BanzAI](#12-banzai-protocol-agent): the interface that guides and explains, without deciding or verifying.
+
+---
+
+## 14. Protocol Evolution
+
+BANZA evolves through rules and artifacts versioned and published by the applicable process, not through a feature calendar. This chapter describes the **directions of evolution** that preserve the protocol's architecture and the boundary between what is already a rule and what is merely a possibility. **It is not a calendar, a delivery promise or a product plan**; it was written to remain correct even if the project's internal priorities, schedule or implementation change.
+
+The protocol's **current state** — which versions, profiles and artifacts are active, and what is still disabled — is documented in [§5 Protocol State](#5-protocol-state), verifiable from the public surfaces; this chapter does not repeat it. The **process** by which a rule changes — proposal, review and maintainers' decision, versioning, with no silent mutation and no retroactivity — is that of [§11 Governance](#11-governance); this chapter does not re-teach it.
+
+### What may evolve
+
+Certain areas of the protocol are designed to grow without breaking what already exists. Each is a **possible direction**, not a commitment, and takes effect only through the §11 process:
+
+- **New capabilities within the L0–L4 profiles** — the existing profiles may gain additional scopes or capabilities, without creating a new level.
+- **New versions of contracts and schemas** — the contracts, invariants and vectors may be extended or revised in explicit versions.
+- **New kinds of interoperability** — the federation and resolution model may accommodate new forms of technical interaction between implementations.
+- **Versioned extensions** — declared extension mechanisms allow behaviour to be added without altering the core.
+- **Strengthening of security and trust** — the trust model may be hardened, keeping its verifiable properties.
+- **Formalisation of governance** — governance may come to be conducted by a formal, independent entity ([§11](#11-governance)).
+
+None of these points grants, by itself, availability, authority or status: a possibility mentioned here is not part of the protocol before being adopted, versioned and published.
+
+### How a direction becomes a rule
+
+A direction passes through distinct stages, and each has a different status:
+
+- A **proposal** (for example, an RFC in draft) is under evaluation and may be rejected — it is not a rule.
+- An **accepted architecture decision** (ADR) fixes a decision, but accepting a decision is not the same as having the feature available.
+- Only when the change is **adopted and published** through the applicable process ([§11](#11-governance)) does it become part of the protocol.
+
+An internal development milestone is not a protocol version; the intention to build something is not its availability.
+
+### What remains invariant
+
+Evolution happens within an architecture that does not change for convenience. A future direction **does not presuppose** altering it:
+
+- the **three layers** — Open protocol (Layer 1), Conformance and Interoperability Certification (Layer 2) and independent operational schemes (Layer 3) — with BanzAI transversal; **no Layer 4 is presupposed** ([§4](#4-protocol-architecture));
+- the **L0–L4 profiles**; **no L5 is presupposed** ([§7](#7-conformance-and-certification));
+- the **trust model without a certificate authority**; evolution **does not introduce a central CA** ([§6](#6-trust));
+- **federation as a technical, local, per-interaction evaluation**, with BANZA outside the trust path and the funds path ([§10](#10-federation)).
+
+Evolution does **not** create a fourth layer, a certificate authority, a central settlement or a centralised federation; any direction that did so would contradict the architecture and would, for that reason, be suspect.
+
+### What the protocol does not commit to
+
+So that an intention is not read as a guarantee, the following are **not** promised by this Reference:
+
+- **dates** — there is no calendar, deadline or delivery schedule;
+- **tools** — SDKs, CLIs or other tools that do not yet exist are not presented as future deliverables ([§13](#13-developer-resources));
+- **operators and certifications** — no promise is made as to how many operators there will be, who will be certified or when;
+- **schemes** — the protocol's evolution does not determine the roadmap of independent operational schemes (Layer 3), which are decided by their owners;
+- **regulatory authorisation** — no BANZA direction constitutes a promise of approval or authorisation by any competent authority;
+- **BanzAI capabilities** — plans for BanzAI's models, infrastructure or capabilities are operational, not a protocol rule.
+
+### Where to continue
+
+Where this chapter's text diverges from the verifiable state, the verifiable state prevails.
+
+- [§5 Protocol State](#5-protocol-state): what is active, certified or still disabled — verifiable on the public surfaces.
+- [§11 Governance](#11-governance): who decides a change and by what process.
+- [§7 Conformance and Certification](#7-conformance-and-certification): the profiles and the evidence an implementation demonstrates.
+
+---
