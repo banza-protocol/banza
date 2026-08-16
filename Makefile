@@ -93,9 +93,13 @@ operator-zero-origin-closure-check:
 banzai-operator-experience-check:
 	@bash tools/check-banzai-operator-experience.sh
 
-## public-claims-evidence: Executable evidence gate for the public technical claims — Rust engine battery + conformance vectors + federation runner + negative rosters + hashed commit-pinned bundle manifest
+## public-claims-evidence: VERIFY the public technical claims evidence — runs the battery into a temporary tree and compares it against the tracked bundle. Observational: writes nothing tracked, and fails on stale evidence instead of repairing it.
 public-claims-evidence:
-	@bash tools/public-claims-evidence.sh
+	@bash tools/public-claims-evidence.sh --check
+
+## public-claims-evidence-generate: GENERATOR — run the battery and rewrite the tracked evidence bundle. Deliberate act, after the evidence sources legitimately change.
+public-claims-evidence-generate:
+	@bash tools/public-claims-evidence.sh --generate
 
 ## whitepaper-canonical-source-boundary-check: Overleaf PT dossier is the editorial source; derivations fresh; retired renderer out of the release path; verify non-destructive; frozen edition wording intact
 whitepaper-canonical-source-boundary-check:
