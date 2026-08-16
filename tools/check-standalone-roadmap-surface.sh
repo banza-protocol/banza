@@ -27,7 +27,7 @@ run_checks() {
   local root="$1"
   local nextcfg="$root/website/next.config.mjs"
   local sitemap="$root/website/app/sitemap.ts"
-  local corpus="$root/website/content/BANZA_REFERENCIA.md"
+  local corpus="$root/docs/reference/pt/BANZA_REFERENCIA.md"
   local refts="$root/website/lib/reference.ts"
 
   # 1. No standalone /roteiro page.
@@ -106,14 +106,14 @@ run_checks() {
 selftest() {
   local tmp; tmp="$(mktemp -d)"
   trap 'rm -rf "$tmp"' RETURN
-  mkdir -p "$tmp/website/app/roteiro" "$tmp/website/app" "$tmp/website/lib" "$tmp/website/content" "$tmp/website/components"
+  mkdir -p "$tmp/website/app/roteiro" "$tmp/website/app" "$tmp/website/lib" "$tmp/website/content" "$tmp/website/components" "$tmp/docs/reference/pt"
   # green skeleton
   cat > "$tmp/website/next.config.mjs" <<EOF
 { source: "/roteiro", destination: "$CANON_ROUTE", permanent: true },
 { source: "/roadmap", destination: "$CANON_ROUTE", permanent: true },
 EOF
   echo 'const ROUTES = ["/estado","/referencia"];' > "$tmp/website/app/sitemap.ts"
-  echo '## 14. Evolução do Protocolo' > "$tmp/website/content/BANZA_REFERENCIA.md"
+  echo '## 14. Evolução do Protocolo' > "$tmp/docs/reference/pt/BANZA_REFERENCIA.md"
   echo '{ num: 14, slug: "roteiro" },' > "$tmp/website/lib/reference.ts"
   echo 'export default function P(){return null}' > "$tmp/website/lib/site.ts"
   echo 'export default function H(){return null}' > "$tmp/website/app/page.tsx"

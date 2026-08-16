@@ -18,7 +18,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 export LC_ALL="${LC_ALL:-en_US.UTF-8}" LANG="${LANG:-en_US.UTF-8}"
 
-REF="website/content/BANZA_REFERENCIA.md"
+REF="docs/reference/pt/BANZA_REFERENCIA.md"
 
 # Extract §14 (from "## 14. " up to the next "## 15. ").
 section() { awk '/^## 14\. /{f=1} /^## 15\. /{f=0} f' "$1"; }

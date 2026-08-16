@@ -17,7 +17,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 export LC_ALL="${LC_ALL:-en_US.UTF-8}" LANG="${LANG:-en_US.UTF-8}"
 
-REF="website/content/BANZA_REFERENCIA.md"
+REF="docs/reference/pt/BANZA_REFERENCIA.md"
 DEFS="website/lib/reference.ts"
 
 # Canonical order: position -> slug (public route, stable) and the markdown heading title.

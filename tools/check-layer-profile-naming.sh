@@ -8,7 +8,7 @@
 # meaning. It is intentionally context-aware: it does NOT do a blind repo-wide "\bL1\b" ban.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-REF="$ROOT/website/content/BANZA_REFERENCIA.md"
+REF="$ROOT/docs/reference/pt/BANZA_REFERENCIA.md"
 fail=0
 say() { printf '  %s %s\n' "$1" "$2"; }
 
@@ -94,7 +94,7 @@ printf '════════════════════════
 printf 'BANZA Layer/Profile Naming Guard — Camada 1/2/3 (arquitectura) vs L0–L4 (perfis)\n'
 printf '══════════════════════════════════════════════════════════════════════\n'
 if ! selftest; then echo "layer-profile-naming: guard self-test FAILED"; exit 2; fi
-REF="$ROOT/website/content/BANZA_REFERENCIA.md" fail=0; check_ref
+REF="$ROOT/docs/reference/pt/BANZA_REFERENCIA.md" fail=0; check_ref
 if [ "$fail" -eq 0 ]; then
   printf 'Result: ✓ the layer(Camada N)/profile(L0–L4) naming split holds in the canonical corpus\n\n'
 else

@@ -21,7 +21,7 @@ if grep -qiE '^C\.UTF-?8$' <<<"$LOCALES"; then export LC_ALL=C.UTF-8
 elif grep -qiE '^en_US\.UTF-?8$' <<<"$LOCALES"; then export LC_ALL=en_US.UTF-8
 fi
 
-SRC="website/content/BANZA_REFERENCIA.md"
+SRC="docs/reference/pt/BANZA_REFERENCIA.md"
 DEFS="website/lib/reference.ts"
 
 fail=0

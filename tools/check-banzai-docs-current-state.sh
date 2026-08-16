@@ -7,11 +7,13 @@
 # reports are DELIBERATELY out of scope — the past is not rewritten.
 #
 # Scope (current public docs): README.md, docs/banzai/*.md, docs/reference/{pt,en}/*.md,
-# website/content/BANZA_REFERENCIA.md. NOT scanned: website/content/decisions/** (ADR/RFC snapshots),
+# docs/reference/pt/BANZA_REFERENCIA.md. NOT scanned: website/content/decisions/** (ADR/RFC snapshots),
 # docs/governance/** (reports), tests/fixtures/guards, code comments.
 #
 # Self-testing: exits 2 if its own detectors regress; 1 on a real finding; 0 clean.
 set -uo pipefail
+# Pinned so character classes and case folding behave identically on a developer machine and in CI.
+export LC_ALL=C.UTF-8 2>/dev/null || export LC_ALL=en_US.UTF-8
 ROOT="$(git rev-parse --show-toplevel 2>/dev/null || echo .)"
 cd "$ROOT"
 FAILED=0
@@ -20,7 +22,7 @@ ok()   { echo "  ok: $*"; }
 
 # The current-public documentation files (existing ones only).
 FILES=()
-for f in README.md website/content/BANZA_REFERENCIA.md; do [ -f "$f" ] && FILES+=("$f"); done
+for f in README.md docs/reference/pt/BANZA_REFERENCIA.md; do [ -f "$f" ] && FILES+=("$f"); done
 for d in docs/banzai docs/reference/pt docs/reference/en; do
   while IFS= read -r f; do FILES+=("$f"); done < <(find "$d" -maxdepth 1 -name '*.md' 2>/dev/null)
 done
@@ -31,21 +33,50 @@ done
 #     affirmative "BanzAI certifica/aprova/licencia" without a "não/nunca/never" immediately before.
 # Always-stale terms — never legitimate in a current public doc.
 stale_claim() {   # reads text on stdin
+  # Terms that are stale in any context: they describe a runtime that no longer exists, so there is no
+  # correct sentence containing them.
   grep -inE \
-    'mock provider|provider mock|modo demonstra(ç|c)[aã]o|llm_calls ?= ?0|Qwen preview|local_qwen[^.]*not activated|default blocked|\bBANZA CA\b|certificate authority|operador certificado|certificado de operador' \
-  ;
+    'mock provider|provider mock|modo demonstra(ç|c)[aã]o|llm_calls ?= ?0|Qwen preview|local_qwen[^.]*not activated|default blocked|\bBANZA CA\b' \
+    | grep -viE '(não|nao) |nunca |never |\?'
+}
+
+# "certificate authority" and "operador certificado" name things BANZA deliberately is NOT. The
+# boundary copy therefore contains those words constantly, in denials — "is not a certificate
+# authority", "there is no certificate authority", "does not create ... a certificate authority".
+# Listing the bare noun as always-stale made the guard fight the sentences that state the boundary it
+# exists to protect, and every new phrasing needed another exception. The noun is not the violation;
+# asserting it is. So this matches an affirmative assertion and nothing else.
+#
+# Two simple stages, deliberately not one clever pattern: nested bounded quantifiers around an
+# alternation backtrack catastrophically on long documentation lines, and a guard that hangs is worse
+# than one that is wrong.
+false_authority_claim() {   # reads text on stdin
+  grep -inE 'certificate authority|autoridade certificadora|certificado de operador|operador certificado' \
+    | grep -viE '(não|nao) |nunca |never |\bnot\b|\bno certificate authority\b|without|sem |\?' \
+    | grep -inE '(^|[^[:alnum:]])(is|are|operates|runs|acts as|issues|é|opera|emite|funciona como)([^[:alnum:]]|$)'
 }
 # Affirmative claims that BANZA is a financial actor, or that BanzAI has authority — real violations.
 # Negations (não/nunca/never) and FAQ questions (…?) are legitimate boundary copy and are filtered out.
 affirmative_violation() {   # reads text on stdin
   grep -inE 'BanzAI (certifica|aprova|licencia|autoriza|aceita) |BANZA (processa|movimenta|guarda|detém|liquida) [^.?]*(pagamento|fundo|saldo|dinheiro)' \
-    | grep -viE 'n[aã]o |nunca |never |\?'
+    | grep -viE '(não|nao) |nunca |never |\?'
 }
 
 selftest() {
   printf 'the mock provider runs by default\n' | stale_claim >/dev/null || { echo "SELFTEST FAIL: missed 'mock provider'"; exit 2; }
   printf 'a BANZA CA authorizes operators\n' | stale_claim >/dev/null || { echo "SELFTEST FAIL: missed 'BANZA CA'"; exit 2; }
   printf 'inferência local Qwen, sem chamadas externas\n' | stale_claim >/dev/null && { echo "SELFTEST FAIL: false positive on accurate copy"; exit 2; }
+  # The boundary document says these words constantly, in denials. Every one must pass; the assertion must fail.
+  for denial in \
+    'The Trust Root is not a certificate authority over operators.' \
+    'There is no certificate authority.' \
+    'Evolution does not create a fourth layer, a certificate authority, a central settlement.' \
+    'trust model without a certificate authority' \
+    'A Raiz de Confiança não é uma autoridade certificadora.'; do
+    printf '%s\n' "$denial" | false_authority_claim >/dev/null && { echo "SELFTEST FAIL: false positive on a boundary denial: $denial"; exit 2; }
+  done
+  printf 'BANZA operates a certificate authority for operators.\n' | false_authority_claim >/dev/null || { echo "SELFTEST FAIL: missed an affirmative certificate-authority claim"; exit 2; }
+  printf 'o BANZA é uma autoridade certificadora\n' | false_authority_claim >/dev/null || { echo "SELFTEST FAIL: missed the PT affirmative claim"; exit 2; }
   printf 'BanzAI não certifica nem aprova operadores\n' | affirmative_violation >/dev/null && { echo "SELFTEST FAIL: false positive on negated boundary copy"; exit 2; }
   printf '**O BANZA detém fundos?** Não.\n' | affirmative_violation >/dev/null && { echo "SELFTEST FAIL: false positive on FAQ question"; exit 2; }
   printf 'o BanzAI certifica operadores\n' | affirmative_violation >/dev/null || { echo "SELFTEST FAIL: missed affirmative authority claim"; exit 2; }
@@ -62,10 +93,12 @@ for f in "${FILES[@]}"; do
   [ -n "$hit" ] && fail "$f contains a stale/false current-state term: $(echo "$hit" | head -1)"
   hit2="$(affirmative_violation < "$f" || true)"
   [ -n "$hit2" ] && fail "$f asserts BanzAI authority or BANZA-as-financial-actor: $(echo "$hit2" | head -1)"
+  hit3="$(false_authority_claim < "$f" || true)"
+  [ -n "$hit3" ] && fail "$f asserts BANZA is a certificate authority: $(echo "$hit3" | head -1)"
 done
 
 # Positive assertion: the reference chapter 11 states the current deployed reality.
-REF=website/content/BANZA_REFERENCIA.md
+REF=docs/reference/pt/BANZA_REFERENCIA.md
 if [ -f "$REF" ]; then
   grep -qiE 'infer(ê|e)ncia local' "$REF" && grep -qiE 'chamadas externas' "$REF" \
     && ok "reference states local inference + no external calls" \

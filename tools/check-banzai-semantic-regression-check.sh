@@ -16,7 +16,7 @@ fail=0
 ok() { printf '  ok: %s\n' "$1"; }
 fl() { printf 'FAIL: %s\n' "$1"; fail=1; }
 
-OQUEE=website/content/BANZA_REFERENCIA.md  # the canonical "o que é" intro — reference chapter 1 (/referencia/o-que-e); the standalone /o-que-e route was removed in M2.19G.2
+OQUEE=docs/reference/pt/BANZA_REFERENCIA.md  # the canonical "o que é" intro — reference chapter 1 (/referencia/o-que-e); the standalone /o-que-e route was removed in M2.19G.2
 BANZAI=website/app/banzai/page.tsx     # the BanzAI page
 OZ=website/app/oz/page.tsx             # the Operador Zero page
 

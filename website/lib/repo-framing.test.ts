@@ -16,12 +16,11 @@ const raw = (p: string) => readFileSync(join(repoRoot, p), "utf8");
 const FILES = [
   "services/banzai-api/README.md",
   "services/banzai-api/src/knowledge.js",
-  "website/content/BANZA_REFERENCIA.md",
+  "docs/reference/pt/BANZA_REFERENCIA.md",
   "website/lib/site.ts",
   "CLAUDE.md",
   "README.md",
-  "docs/reference/pt/completa.md",
-  "docs/reference/en/complete.md",
+  "docs/reference/en/BANZA_REFERENCE.md",
   "docs/guides/conformance.md",
 ];
 

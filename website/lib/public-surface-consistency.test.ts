@@ -67,7 +67,7 @@ describe("M2.14J — primary human-operator interface is the leading definition"
 
 describe("M2.14J — operador-zero copy matches the live (active) subdomain", () => {
   it("the reference no longer says the zero subdomain is 'não activo'", () => {
-    const ref = read("content/BANZA_REFERENCIA.md");
+    const ref = read("../docs/reference/pt/BANZA_REFERENCIA.md");
     expect(ref).not.toContain("preparado, mas não activo");
   });
 });

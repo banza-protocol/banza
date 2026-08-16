@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
 // Build-time loader for the canonical BanzAI architecture manifest — the structured consistency
-// contract that backs Referência §12 (website/content/BANZA_REFERENCIA.md, «12. BanzAI — Agente do
+// contract that backs Referência §12 (docs/reference/pt/BANZA_REFERENCIA.md, «12. BanzAI — Agente do
 // Protocolo», published at /referencia/banzai). The Docker build context is `website/` only, so the
 // manifest lives under website/content/banzai/. The markdown chapter stays the human-canonical source;
 // this manifest makes its facts machine-checkable, and guards assert the two agree. Pattern mirrors

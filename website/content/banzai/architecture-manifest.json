@@ -3,12 +3,12 @@
   "architecture_version": "1.0",
   "last_reviewed": "2026-08-03",
   "status": "frozen",
-  "purpose": "Structured consistency contract for the canonical BanzAI architecture. The human-canonical source is Referência §12 (website/content/BANZA_REFERENCIA.md, chapter «12. BanzAI — Agente do Protocolo», published at /referencia/banzai). This manifest MUST agree with §12; where prose and manifest could drift, guards assert the manifest against §12. It never replaces the chapter — it makes the chapter's facts machine-checkable.",
+  "purpose": "Structured consistency contract for the canonical BanzAI architecture. The human-canonical source is Referência §12 (docs/reference/pt/BANZA_REFERENCIA.md, chapter «12. BanzAI — Agente do Protocolo», published at /referencia/banzai). This manifest MUST agree with §12; where prose and manifest could drift, guards assert the manifest against §12. It never replaces the chapter — it makes the chapter's facts machine-checkable.",
   "reference_chapter": {
     "number": 12,
     "title": "BanzAI — Agente do Protocolo",
     "route": "/referencia/banzai",
-    "source": "website/content/BANZA_REFERENCIA.md",
+    "source": "docs/reference/pt/BANZA_REFERENCIA.md",
     "anchor": "12-banzai-agente-do-protocolo"
   },
   "canonical_phrase": {

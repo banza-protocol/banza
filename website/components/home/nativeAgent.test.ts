@@ -9,7 +9,7 @@ import { BANZAI_AGENT } from "../banzai/banzai-agent";
 // from the public product name.
 
 const root = join(__dirname, "..", "..");
-const ref = readFileSync(join(root, "content", "BANZA_REFERENCIA.md"), "utf8");
+const ref = readFileSync(join(root, "..", "docs", "reference", "pt", "BANZA_REFERENCIA.md"), "utf8");
 // M2.15A: the home architecture section (OperatorArchitectureSection) was removed from the homepage;
 // the canonical protocol architecture + BanzAI framing now live in the reference (asserted above) and
 // the BanzAI UI constants (below). The old source-level assertions over that component are retired.

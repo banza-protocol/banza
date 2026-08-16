@@ -1,10 +1,18 @@
 # BANZA — Referência do Protocolo
 
-**Versão:** 1.0  
-**Data:** 2026-06-07  
-**Última revisão editorial:** 2026-07-11  
-**Estado:** Referência oficial do protocolo v1.0 · pré-produção · pagamentos reais desligados · sem implementações certificadas em produção  
-**Autoridade:** ADR-001, ADR-001, ADR-025, ADR-031, ADR-025, ADR-030, ADR-036, ADR-004, ADR-032, ADR-033, ADR-032, ADR-035
+**Versão:** 1.0 · **Estado:** pré-produção · pagamentos reais desligados · sem implementações certificadas em produção
+
+> **Edição canónica (português).** Este ficheiro é a única Referência canónica do BANZA. A
+> [edição inglesa](../en/BANZA_REFERENCE.md) é uma tradução oficial; em caso de divergência não
+> intencional, prevalece esta edição.
+>
+> **A Referência é descritiva, não normativa.** Ela organiza e explica a superfície normativa; não a
+> define. A autoridade normativa é o [Manifesto Normativo](../../../contracts/production/normative-manifest.json)
+> e os artefactos que ele indexa — especificações, contratos e registos. Onde esta Referência e um
+> artefacto normativo divirjam, prevalece o artefacto normativo.
+>
+> As superfícies públicas — sítio e BanzAI — consomem ou derivam deste ficheiro. Não o editam, e não
+> mantêm uma cópia editorial concorrente. Ver [`docs/reference/README.md`](../README.md).
 
 ---
 
@@ -98,7 +106,7 @@ O BANZA é um protocolo aberto de interoperabilidade financeira. Define as regra
 
 O BANZA não é banco, PSP, carteira, esquema, operador financeiro ou prestador de serviços financeiros. Não detém fundos, não mantém contas de clientes, não executa liquidação e não concede autorização regulatória. É a camada comum de regras — contratos, mensagens, invariantes, evidência e confiança — que torna a interoperabilidade verificável e reproduzível, sem que cada par de participantes tenha de reconstruir separadamente as mesmas integrações técnicas.
 
-![Fronteira do Protocolo BANZA — humanos e operadores usam o BanzAI (interface primária humano-operador) para interagir com o BANZA (regras públicas, motores verificáveis, evidência) dentro da fronteira; fora da fronteira ficam os operadores independentes, a infraestrutura financeira externa e as autoridades competentes; sem fluxo de fundos pelo BANZA e o BanzAI não autoriza actividade regulada](/diagrams/protocol/banza-boundary-protocol-operator-infra-v1.svg)
+![Fronteira do Protocolo BANZA — humanos e operadores usam o BanzAI (interface primária humano-operador) para interagir com o BANZA (regras públicas, motores verificáveis, evidência) dentro da fronteira; fora da fronteira ficam os operadores independentes, a infraestrutura financeira externa e as autoridades competentes; sem fluxo de fundos pelo BANZA e o BanzAI não autoriza actividade regulada](../../../website/public/diagrams/protocol/banza-boundary-protocol-operator-infra-v1.svg)
 
 ### Um protocolo comum, aberto e verificável
 
@@ -193,7 +201,7 @@ O ecossistema organiza-se em três camadas, separadas por responsabilidade, infr
 
 A dependência corre numa única direcção permanente: os operadores dependem do BANZA; o BANZA e o BanzAI nunca dependem de nenhum operador. Esta direcção é um invariante arquitectónico, não uma preferência de design.
 
-A especificação v1.0 está congelada e o ambiente é de pré-produção: o Registo Técnico devolve uma lista vazia, não há certificações de produção e os pagamentos reais estão desligados. Este estado é verificável nas rotas públicas do protocolo e documentado em [§5 Estado Protocolar](#5-estado-protocolar).
+A especificação v1.0 está publicada e o ambiente é de pré-produção: o Registo Técnico devolve uma lista vazia, não há certificações de produção e os pagamentos reais estão desligados. Publicada não é congelada — o congelamento é uma decisão deliberada sobre um candidato exacto, e não foi tomada. Este estado é verificável nas rotas públicas do protocolo e documentado em [§5 Estado Protocolar](#5-estado-protocolar).
 
 ### Onde Continuar
 
@@ -253,7 +261,7 @@ A diferença prática é entre *confiar* e *verificar*. Num modelo verificável,
 
 ### O que o BANZA acrescenta
 
-![Integração bilateral e protocolo comum — à esquerda, cinco operadores independentes (A a E) ligados par a par, dez relações técnicas distintas (n operadores dão n(n−1)/2 relações); à direita, os mesmos cinco operadores a implementar de forma independente o mesmo conjunto de regras públicas, cinco implementações (n operadores dão n implementações); as duas grandezas — relações e implementações — são diferentes, e o protocolo comum não é uma plataforma única nem um operador central](/diagrams/protocol/banza-bilateral-mesh-vs-common-protocol-v1.svg)
+![Integração bilateral e protocolo comum — à esquerda, cinco operadores independentes (A a E) ligados par a par, dez relações técnicas distintas (n operadores dão n(n−1)/2 relações); à direita, os mesmos cinco operadores a implementar de forma independente o mesmo conjunto de regras públicas, cinco implementações (n operadores dão n implementações); as duas grandezas — relações e implementações — são diferentes, e o protocolo comum não é uma plataforma única nem um operador central](../../../website/public/diagrams/protocol/banza-bilateral-mesh-vs-common-protocol-v1.svg)
 
 Um conjunto comum de regras públicas muda o ponto de partida. Passam a existir regras públicas, contratos versionados, perfis comparáveis, invariantes explícitos, critérios comuns, evidência ligada às entradas e avaliação reproduzível. Deixa de ser necessário redefinir as mesmas regras técnicas entre cada par de participantes: quem implementa a especificação uma vez fica apto a interoperar tecnicamente com qualquer outra implementação conforme.
 
@@ -293,7 +301,7 @@ Onde o protocolo define comportamento financeiro, a correcção não é opcional
 
 A consequência é que uma implementação não pode trocar correcção por conveniência: as garantias financeiras aplicáveis são impostas pela verificação de conformidade, não deixadas ao critério de cada operador. O detalhe formal — que invariantes se aplicam, e em que perfil ou capacidade — pertence a [§4 Arquitectura do Protocolo](#4-arquitectura-do-protocolo) e a [§7 Conformidade e Certificação](#7-conformidade-e-certificação).
 
-A fronteira é dupla. Primeiro, correcção financeira não significa que o protocolo detém ou movimenta dinheiro — a não-custódia é uma fronteira definida em [§1 O Que É o BANZA](#1-o-que-é-o-banza); o que dela decorre para este princípio é apenas que o protocolo define como os lançamentos devem comportar-se, mas não os executa: o valor move-se nos sistemas dos operadores e nas vias de liquidação competentes. Segundo, nem todos os requisitos financeiros são universais: alguns aplicam-se apenas a partir de um perfil ou de uma capacidade específica e não devem ser lidos como exigências de todo o protocolo.
+A fronteira é dupla. Primeiro, correcção financeira não significa que o protocolo detém ou movimenta dinheiro — a não-custódia é uma fronteira definida em [§1 O Que É o BANZA](#1-o-que-é-o-banza); o que dela decorre para esta propriedade é apenas que o protocolo define como os lançamentos devem comportar-se, mas não os executa: o valor move-se nos sistemas dos operadores e nas vias de liquidação competentes. Segundo, nem todos os requisitos financeiros são universais: alguns aplicam-se apenas a partir de um perfil ou de uma capacidade específica e não devem ser lidos como exigências de todo o protocolo.
 
 ### Neutralidade
 
@@ -309,7 +317,7 @@ Nenhuma regra normativa existe apenas em prosa. Quando a implementação começa
 
 A consequência é uma ordem fixa: a regra nasce na especificação, depois é implementada, depois produz evidência, depois é avaliada. O que não tem contrato público não pode ser testado; o que não pode ser testado não pode gerar evidência nem ser comparado. E a versão aplicável a um resultado é sempre explícita, para que se possa saber que regras estavam em vigor quando o resultado foi produzido.
 
-A fronteira é que este princípio fixa apenas que as regras são públicas e versionadas — não como evoluem. O processo de alteração, depreciação e compatibilidade pertence a [§11 Governança](#11-governança).
+A fronteira é que esta propriedade fixa apenas que as regras são públicas e versionadas — não como evoluem. O processo de alteração, depreciação e compatibilidade pertence a [§11 Governança](#11-governança).
 
 ### Decisão determinística
 
@@ -317,7 +325,7 @@ Os estados técnicos são determinados por regras e por motores determinísticos
 
 A consequência é que os resultados são reproduzíveis e acompanhados de razões legíveis por máquina, o que permite compará-los e automatizá-los sem depender de linguagem natural.
 
-A fronteira é que determinismo não significa ausência de explicação. Uma interface pode orientar, encaminhar e explicar um resultado, mas explicar não é decidir: os motores verificam, a evidência prova e a autoridade competente decide — a interface humana do protocolo é tratada em [§12 BanzAI — Agente do Protocolo](#12-banzai-agente-do-protocolo). O princípio é que a decisão normativa seja determinística e controlada, não uma tecnologia de implementação específica.
+A fronteira é que determinismo não significa ausência de explicação. Uma interface pode orientar, encaminhar e explicar um resultado, mas explicar não é decidir: os motores verificam, a evidência prova e a autoridade competente decide — a interface humana do protocolo é tratada em [§12 BanzAI — Agente do Protocolo](#12-banzai-agente-do-protocolo). A propriedade é que a decisão normativa seja determinística e controlada, não uma tecnologia de implementação específica.
 
 ### Evidência e reprodutibilidade
 
@@ -351,11 +359,11 @@ A consequência é que responsabilidades diferentes não colapsam numa única au
 
 A fronteira é que a separação é de responsabilidades, não de cooperação: as camadas continuam a articular-se. E não elimina a governação — distribui-a, para que a captura de um participante não capture o protocolo.
 
-![Princípios e a sua consequência estrutural — cada princípio fundamental do BANZA (correcção financeira, neutralidade, regras públicas versionadas, decisão determinística, evidência, âmbito explícito, fecho por omissão, separação de responsabilidades) produz uma consequência de desenho verificável, e o conjunto condiciona a arquitectura, a validação e a evolução do protocolo](/diagrams/protocol/banza-principios-consequencia-estrutural-v1.svg)
+![Propriedades estruturais e a sua consequência — cada propriedade estrutural do BANZA (correcção financeira, neutralidade, regras públicas versionadas, decisão determinística, evidência, âmbito explícito, fecho por omissão, separação de responsabilidades) produz uma consequência de desenho verificável, e o conjunto condiciona a arquitectura, a validação e a evolução do protocolo](../../../website/public/diagrams/protocol/banza-principios-consequencia-estrutural-v1.svg)
 
 ### Onde Continuar
 
-Estes princípios condicionam tudo o que se segue. Como se materializam em componentes, camadas e chaves é o tema de [§4 Arquitectura do Protocolo](#4-arquitectura-do-protocolo); como uma implementação demonstra conformidade com eles está em [§7 Conformidade e Certificação](#7-conformidade-e-certificação); e como as regras evoluem sem quebrar estas propriedades está em [§11 Governança](#11-governança).
+Estas propriedades condicionam tudo o que se segue. Como se materializam em componentes, camadas e chaves é o tema de [§4 Arquitectura do Protocolo](#4-arquitectura-do-protocolo); como uma implementação demonstra conformidade com eles está em [§7 Conformidade e Certificação](#7-conformidade-e-certificação); e como as regras evoluem sem quebrar estas propriedades está em [§11 Governança](#11-governança).
 
 ## 4. Arquitectura do Protocolo
 
@@ -383,7 +391,7 @@ As três camadas são responsabilidades simultâneas, não etapas de um processo
 
 **As camadas não são os perfis de conformidade.** As Camadas 1, 2 e 3 repartem *responsabilidades entre instituições* — quem define, quem avalia, quem opera. Os perfis de conformidade L0–L4 medem outra coisa: as *capacidades técnicas* que uma única implementação demonstrou e o âmbito da sua avaliação. Um eixo divide competências entre instituições; o outro descreve o alcance de uma implementação. Não se substituem nem se sobrepõem — o detalhe dos perfis está em [§7 Conformidade e Certificação](#7-conformidade-e-certificação).
 
-![Arquitectura institucional do BANZA em três camadas separadas por responsabilidade, infraestrutura e chaves — Camada 1 Protocolo aberto (regras públicas, neutras e verificáveis; não movimenta fundos), Camada 2 Certificação de Conformidade e Interoperabilidade (certifica uma implementação, nunca uma entidade, por evidência e decisão determinística; não é licença, admissão nem autorização) e Camada 3 Esquemas operacionais independentes que podem adoptar o protocolo — com o BanzAI transversal às três, a interface humana primária, não uma quarta camada nem uma autoridade; certificação técnica ≠ admissão a esquema ≠ autorização regulatória, nenhuma determinação se propaga automaticamente, e o BANZA não movimenta fundos](/diagrams/protocol/banza-protocol-architecture-overview-v1.svg)
+![Arquitectura institucional do BANZA em três camadas separadas por responsabilidade, infraestrutura e chaves — Camada 1 Protocolo aberto (regras públicas, neutras e verificáveis; não movimenta fundos), Camada 2 Certificação de Conformidade e Interoperabilidade (certifica uma implementação, nunca uma entidade, por evidência e decisão determinística; não é licença, admissão nem autorização) e Camada 3 Esquemas operacionais independentes que podem adoptar o protocolo — com o BanzAI transversal às três, a interface humana primária, não uma quarta camada nem uma autoridade; certificação técnica ≠ admissão a esquema ≠ autorização regulatória, nenhuma determinação se propaga automaticamente, e o BANZA não movimenta fundos](../../../website/public/diagrams/protocol/banza-protocol-architecture-overview-v1.svg)
 
 ### O BanzAI é transversal, não uma camada
 
@@ -412,7 +420,7 @@ As superfícies comuns — Registo Técnico, metadata assinada, Lista de Revoga�
 
 O protocolo não reside num servidor central. Cada operador implementa-o na sua própria infraestrutura, e dois operadores interoperam por respeitarem as mesmas regras públicas — não por se ligarem a uma infraestrutura comum do BANZA. A interoperabilidade nasce de regras comuns e conformidade verificável, não de um ponto central partilhado.
 
-![Modelo de execução local — dois operadores independentes (Operador A e Operador B) implementam o protocolo na sua própria infraestrutura e interoperam por respeitarem as mesmas regras públicas do BANZA, não por se ligarem a um servidor central; o protocolo é o conjunto de regras comuns, não uma infraestrutura partilhada, e cada operador produz a sua própria evidência de conformidade](/diagrams/protocol/banza-local-execution-model-v1.svg)
+![Modelo de execução local — dois operadores independentes (Operador A e Operador B) implementam o protocolo na sua própria infraestrutura e interoperam por respeitarem as mesmas regras públicas do BANZA, não por se ligarem a um servidor central; o protocolo é o conjunto de regras comuns, não uma infraestrutura partilhada, e cada operador produz a sua própria evidência de conformidade](../../../website/public/diagrams/protocol/banza-local-execution-model-v1.svg)
 
 O caminho de uma implementação até à interoperação é uma sequência de artefactos verificáveis, sem aprovação humana em nenhum passo:
 
@@ -427,7 +435,7 @@ Em nenhum passo existe uma entidade que decida quem entra: o que muda de passo p
 
 A figura seguinte segue este percurso de ponta a ponta — da pessoa ou do consumidor automático até à interoperação — e mostra onde cada responsabilidade começa e termina. É um fluxo de arquitectura, validação e evidência; não é um fluxo de dinheiro, que nunca atravessa o protocolo.
 
-![Fluxo arquitectural do BANZA de ponta a ponta — uma pessoa trabalha através do BanzAI, a interface humana primária e opcional, que orienta e explica mas não decide, enquanto um consumidor automático acede directamente às mesmas interfaces públicas sem passar pelo BanzAI; o operador implementa o protocolo na sua própria infraestrutura e auto-publica os artefactos públicos (descoberta, manifesto, manifesto de chaves, endpoints); os motores determinísticos verificam esses artefactos e produzem evidência e recibos reproduzíveis; a Camada 2 certifica a implementação a partir dessa evidência e o registo entra no Registo Técnico; os esquemas operacionais independentes da Camada 3 podem depois adoptar implementações conformes. A regra de autoridade percorre todo o fluxo: o BanzAI orienta, os motores verificam, a evidência prova e a autoridade competente decide. O BANZA não movimenta fundos — este é um fluxo de validação e evidência, não de dinheiro](/diagrams/protocol/banza-architectural-flow-v1.svg)
+![Fluxo arquitectural do BANZA de ponta a ponta — uma pessoa trabalha através do BanzAI, a interface humana primária e opcional, que orienta e explica mas não decide, enquanto um consumidor automático acede directamente às mesmas interfaces públicas sem passar pelo BanzAI; o operador implementa o protocolo na sua própria infraestrutura e auto-publica os artefactos públicos (descoberta, manifesto, manifesto de chaves, endpoints); os motores determinísticos verificam esses artefactos e produzem evidência e recibos reproduzíveis; a Camada 2 certifica a implementação a partir dessa evidência e o registo entra no Registo Técnico; os esquemas operacionais independentes da Camada 3 podem depois adoptar implementações conformes. A regra de autoridade percorre todo o fluxo: o BanzAI orienta, os motores verificam, a evidência prova e a autoridade competente decide. O BANZA não movimenta fundos — este é um fluxo de validação e evidência, não de dinheiro](../../../website/public/diagrams/protocol/banza-architectural-flow-v1.svg)
 
 ### Núcleo normativo: correcção financeira
 
@@ -509,7 +517,7 @@ Daí três naturezas de estado:
 
 A figura seguinte segue este percurso: de uma fonte canónica, por observação e avaliação determinística, a um resultado com evidência, depois materializado e publicado numa superfície. Distingue o que é fonte, o que é derivado, o que é apenas persistido e o que é publicado.
 
-![Modelo do estado protocolar do BANZA — de uma fonte canónica (artefactos públicos assinados, contratos) por observação e avaliação determinística até um resultado com evidência reproduzível, depois materializado (persistência) e publicado numa superfície pública; a legenda distingue três naturezas — fonte (autoridade), estado derivado (recalculável) e estado persistido (materialização, sem autoridade) — e a superfície pública onde o estado é publicado; a persistência não cria autoridade e o protocolo não guarda valor financeiro](/diagrams/protocol/banza-estado-protocolar-modelo-v1.svg)
+![Modelo do estado protocolar do BANZA — de uma fonte canónica (artefactos públicos assinados, contratos) por observação e avaliação determinística até um resultado com evidência reproduzível, depois materializado (persistência) e publicado numa superfície pública; a legenda distingue três naturezas — fonte (autoridade), estado derivado (recalculável) e estado persistido (materialização, sem autoridade) — e a superfície pública onde o estado é publicado; a persistência não cria autoridade e o protocolo não guarda valor financeiro](../../../website/public/diagrams/protocol/banza-estado-protocolar-modelo-v1.svg)
 
 ### Identidade, âmbito e versão do estado
 
@@ -545,7 +553,7 @@ Daí que **a persistência não seja actualidade**. Um estado guardado pode fica
 
 Quando as fontes mudam, é necessária uma **nova avaliação**. A figura seguinte mostra esse ciclo: os artefactos mudam, produz-se uma nova observação e uma reavaliação, daí um novo resultado — e o resultado anterior é preservado, não apagado.
 
-![Ciclo temporal do estado protocolar — um resultado é estado observado no instante em que as fontes foram verificadas; quando os artefactos mudam (novo hash, nova metadata, expiração de chave ou revogação), uma nova observação e uma reavaliação produzem um novo resultado, enquanto o resultado anterior é preservado, não apagado; estado observado não é o mesmo que estado actual, e a validade depende da frescura das fontes canónicas](/diagrams/protocol/banza-estado-protocolar-temporalidade-v1.svg)
+![Ciclo temporal do estado protocolar — um resultado é estado observado no instante em que as fontes foram verificadas; quando os artefactos mudam (novo hash, nova metadata, expiração de chave ou revogação), uma nova observação e uma reavaliação produzem um novo resultado, enquanto o resultado anterior é preservado, não apagado; estado observado não é o mesmo que estado actual, e a validade depende da frescura das fontes canónicas](../../../website/public/diagrams/protocol/banza-estado-protocolar-temporalidade-v1.svg)
 
 ### A fronteira: estado, não valor
 
@@ -603,7 +611,7 @@ Duas outras perguntas ficam deliberadamente fora deste conjunto, porque são de 
 - **Conformidade** — esta implementação satisfaz as regras aplicáveis? É uma medição reproduzível, tratada em [§7](#7-conformidade-e-certificação).
 - **Autorização** — esta entidade pode prestar serviços financeiros? É uma decisão das autoridades competentes, inteiramente fora do protocolo.
 
-![Cada mecanismo de confiança responde a uma pergunta distinta — origem, assinatura, integridade, frescura e revogação são verificáveis dentro do protocolo; conformidade e autorização pertencem a outros domínios e não decorrem de uma assinatura válida](/diagrams/protocol/banza-trust-questions-v1.svg)
+![Cada mecanismo de confiança responde a uma pergunta distinta — origem, assinatura, integridade, frescura e revogação são verificáveis dentro do protocolo; conformidade e autorização pertencem a outros domínios e não decorrem de uma assinatura válida](../../../website/public/diagrams/protocol/banza-trust-questions-v1.svg)
 
 Manter estas sete perguntas distintas é o que impede o erro mais comum: ler uma assinatura válida como se fosse uma licença.
 
@@ -630,8 +638,8 @@ O limiar é criptográfico e lógico. Quantos dispositivos existem, onde estão 
 é transportado são controlos de custódia, que podem mudar sem redefinir a autoridade do protocolo.
 
 O que é fixado nos verificadores não é uma chave: é o **conjunto génese** de autoridades. A partir dele,
-a raiz avança como uma linhagem — cada conjunto de autoridades é autorizado pelo limiar do conjunto que
-sucede, nomeando-o por digest. A distinção não é formal. Um conjunto assinado pelas suas próprias chaves
+a raiz avança como uma linhagem — cada conjunto de autoridades é autorizado pelo limiar do conjunto
+predecessor, que o nomeia por digest. A distinção não é formal. Um conjunto assinado pelas suas próprias chaves
 prova apenas que duas chaves nele nomeadas concordam entre si, coisa que qualquer pessoa produz sobre
 chaves que gerou há um instante; o que tem de ser provado é que o conjunto **já confiado** autorizou este.
 
@@ -651,7 +659,7 @@ Dessa raiz derivam **chaves delegadas de assinatura**, de validade curta e âmbi
 
 A separação por domínios é um princípio de confiança, não um pormenor: uma chave autorizada para um domínio **não ganha autoridade noutro** — o âmbito de cada chave é apenas o que o protocolo lhe delega explicitamente. Assim, o comprometimento de uma chave fica contido: afecta um domínio, não a cadeia inteira, e a raiz, offline, permanece íntegra para emitir um novo manifesto com chaves renovadas. Os identificadores concretos das chaves seguem uma convenção de nomenclatura da implementação; o que é normativo é a separação de domínios e a validade limitada, não o formato do nome.
 
-![A cadeia de confiança do BANZA — a Raiz de Confiança offline assina apenas o Manifesto de Chaves; este autoriza chaves delegadas por domínio; as chaves delegadas assinam metadata, revogação e evidência; os operadores verificam tudo offline. A raiz nunca autoriza operadores.](/diagrams/protocol/banza-trust-v1.svg)
+![A cadeia de confiança do BANZA — a Raiz de Confiança offline assina apenas o Manifesto de Chaves; este autoriza chaves delegadas por domínio; as chaves delegadas assinam metadata, revogação e evidência; os operadores verificam tudo offline. A raiz nunca autoriza operadores.](../../../website/public/diagrams/protocol/banza-trust-v1.svg)
 
 Todo este material assenta num mecanismo de assinatura único, documentado e auditável, escolhido para ser substituível. O protocolo é concebido para poder migrar de algoritmo por via da governação — nova cerimónia da raiz, novo manifesto, período de coexistência — e não para depender indefinidamente de uma única escolha criptográfica.
 
@@ -718,7 +726,7 @@ Nenhum dos dois é uma **camada** da arquitectura. As camadas — Camada 1 (prot
 
 Os perfis de conformidade descrevem, de forma cumulativa, o que uma implementação demonstrou. Cada perfil é uma afirmação sobre comportamento verificável, sempre acompanhada da evidência que a sustenta — não um estatuto que alguém concede.
 
-![Os perfis de conformidade L0–L4 como âmbito técnico cumulativo — cada perfil acrescenta capacidades verificáveis às dos perfis inferiores; a escada mede alcance técnico, não autoridade nem maturidade regulatória, e os perfis não são camadas da arquitectura](/diagrams/protocol/banza-conformance-levels-v1.svg)
+![Os perfis de conformidade L0–L4 como âmbito técnico cumulativo — cada perfil acrescenta capacidades verificáveis às dos perfis inferiores; a escada mede alcance técnico, não autoridade nem maturidade regulatória, e os perfis não são camadas da arquitectura](../../../website/public/diagrams/protocol/banza-conformance-levels-v1.svg)
 
 | Perfil | Nome | O que acrescenta |
 |---|---|---|
@@ -756,7 +764,7 @@ O nono passo — **prontidão para certificação** — agrega os veredictos dos
 
 A **Camada 2 — Certificação de Conformidade e Interoperabilidade** transforma evidência num **veredicto**. O nome da camada reúne dois factos técnicos distintos: a **conformidade** (a implementação satisfaz os requisitos do perfil) e a **interoperabilidade** (as suas trocas com implementações de outros operadores comportam-se como o protocolo exige); a certificação exige ambos, e passar num não substitui o outro. Uma certificação técnica é uma determinação *por implementação*, baseada em evidência, decidida pelos motores determinísticos, reproduzível, ligada a *hash*, com âmbito e validade próprios, e sujeita a suspensão ou revogação. Atesta um facto técnico delimitado — «esta implementação passou este perfil de certificação, nesta versão, com esta evidência, neste âmbito, até esta data» — e nada para além dele (ADR-032, ADR-005).
 
-![Emissão e ciclo de vida de uma certificação da Camada 2 — a prontidão alimenta o processo de certificação, que produz um registo de certificação indexado no Registo Técnico; a máquina de estados é fechada e decidida pelos motores determinísticos, e nenhuma transição da Camada 2 se propaga para a admissão a esquema nem para o regulador](/diagrams/protocol/certification-emission-registry-v1.svg)
+![Emissão e ciclo de vida de uma certificação da Camada 2 — a prontidão alimenta o processo de certificação, que produz um registo de certificação indexado no Registo Técnico; a máquina de estados é fechada e decidida pelos motores determinísticos, e nenhuma transição da Camada 2 se propaga para a admissão a esquema nem para o regulador](../../../website/public/diagrams/protocol/certification-emission-registry-v1.svg)
 
 O modelo assenta em três objectos, todos decididos pelo motor `banza-conformance`:
 
@@ -780,7 +788,7 @@ A **revogação de uma certificação** — retirar um registo da Camada 2 — �
 
 Uma certificação técnica é um facto técnico — e apenas isso. **Certificação técnica ≠ admissão a esquema ≠ autorização regulatória.** São três determinações distintas, com donos distintos, e o estado **não se propaga em nenhuma direcção**: ter uma nunca é prova, causa nem substituto de outra (ADR-005).
 
-![As três determinações são distintas e não se propagam — a certificação técnica pertence à Camada 2, a admissão pertence a cada esquema e a autorização pertence ao regulador competente; nenhuma decorre automaticamente das outras, e constar do Registo Técnico não é admissão nem autorização](/diagrams/protocol/certification-admission-authorisation-v1.svg)
+![As três determinações são distintas e não se propagam — a certificação técnica pertence à Camada 2, a admissão pertence a cada esquema e a autorização pertence ao regulador competente; nenhuma decorre automaticamente das outras, e constar do Registo Técnico não é admissão nem autorização](../../../website/public/diagrams/protocol/certification-admission-authorisation-v1.svg)
 
 - a **certificação técnica** é uma determinação da Camada 2, decidida pelos motores do protocolo a partir de evidência;
 - a **admissão a um esquema** (Camada 3) é uma decisão do próprio esquema sobre a participação de uma entidade, segundo os seus critérios e contratos; pode exigir certificação como pré-requisito, mas nunca decorre automaticamente dela;
@@ -842,7 +850,7 @@ Um operador pode publicar várias implementações ao mesmo tempo — uma demons
 
 Daqui decorre a regra que atravessa o capítulo: as propriedades técnicas não sobem da implementação para a entidade, nem atravessam de uma implementação para outra do mesmo operador. Uma implementação certificada não torna «certificada» a entidade que a publicou, nem certifica as suas outras implementações. Uma nova versão de um sistema é uma nova implementação — um novo sujeito de avaliação — e não herda o veredicto da versão anterior. Falar do «nível de um operador» é, no rigor do protocolo, falar do perfil de conformidade de uma das suas implementações, num âmbito e numa janela determinados.
 
-![Modelo operador–implementação no BANZA — um operador é uma entidade organizacional que pode publicar muitas implementações; cada implementação é o sujeito técnico observado e avaliado, com a sua própria origem canónica, versão, perfil e artefactos](/diagrams/protocol/operator-implementation-model-v1.svg)
+![Modelo operador–implementação no BANZA — um operador é uma entidade organizacional que pode publicar muitas implementações; cada implementação é o sujeito técnico observado e avaliado, com a sua própria origem canónica, versão, perfil e artefactos](../../../website/public/diagrams/protocol/operator-implementation-model-v1.svg)
 
 ### Identidade, origem e responsabilidade
 
@@ -864,7 +872,7 @@ O Registo Técnico é **estritamente independente** do directório de participan
 
 Além de indexar certificações, o Registo Técnico é a **única fonte de alvos de validação** (ADR-034 §4.6): resolve `operator_id → implementation_id → origem canónica → descoberta` sobre um conjunto fechado de registos de operador e de implementação. Seleccionar um alvo é escolher um operador **e** uma das suas implementações publicadas; é a partir da origem canónica assim resolvida que o BanzAI obtém, por uma **camada segura de fetch em Rust** (SSRF-*hardened*, nunca o navegador), os artefactos que os motores avaliam — nunca uma URL fornecida pelo utilizador. Implementações não publicadas, revogadas, sem origem ou incompatíveis não são alvos elegíveis.
 
-![Resolução do alvo de validação no BANZA — a partir do Registo Técnico fechado, resolve-se operador, depois uma implementação publicada, depois a sua origem canónica e a descoberta dos artefactos; nunca uma URL arbitrária](/diagrams/protocol/validation-target-resolution-v1.svg)
+![Resolução do alvo de validação no BANZA — a partir do Registo Técnico fechado, resolve-se operador, depois uma implementação publicada, depois a sua origem canónica e a descoberta dos artefactos; nunca uma URL arbitrária](../../../website/public/diagrams/protocol/validation-target-resolution-v1.svg)
 
 Cada entrada carrega um estado **derivado**, não atribuído: `indexed` (a metadata verifica e a evidência está dentro da política de frescura), `stale` (a evidência perdeu frescura sem republicação) ou `revoked` (o material de confiança consta da Lista de Revogação). Os estados são função dos artefactos publicados e do BRL, recalculáveis por qualquer parte a qualquer momento; o formato de entrada e o cálculo de frescura estão em [§13](#13-recursos-para-programadores). Uma entrada existe porque o operador publicou metadata assinada que verifica contra o Manifesto de Chaves, e deixa de estar `indexed` porque a evidência perdeu frescura ou porque o material consta do BRL.
 
@@ -885,7 +893,7 @@ Antes de qualquer encaminhamento federado, cada operador avalia o seu par (ADR-0
 9. **Frescura da evidência dentro da política** — a evidência satisfaz a política de frescura aplicável ao âmbito (≤ 90 dias para o perfil L3 e superiores)
 10. **Falha fechada** — material de confiança em falta, inválido, expirado, revogado ou incompatível impõe a recusa do encaminhamento
 
-![Avaliação Aberta de Confiança BANZA — dez verificações determinísticas sobre metadata assinada e evidência verificável, com falha fechada; sem autoridade central, sem aprovação humana](/diagrams/protocol/open-trust-evaluation-v1.svg)
+![Avaliação Aberta de Confiança BANZA — dez verificações determinísticas sobre metadata assinada e evidência verificável, com falha fechada; sem autoridade central, sem aprovação humana](../../../website/public/diagrams/protocol/open-trust-evaluation-v1.svg)
 
 As dez verificações são conjuntivas: qualquer falha recusa o encaminhamento. A avaliação é determinística — dois pares independentes, perante os mesmos artefactos, produzem sempre o mesmo veredicto — e nenhuma consulta uma autoridade, um estatuto concedido ou o juízo de uma pessoa. Material de confiança em falta, inválido, expirado, revogado ou incompatível impõe a recusa: a avaliação **falha fechada**. Quando o material de um par é revogado ou perde frescura, é essa implementação que os pares deixam de aceitar em federação — não a empresa que a publicou, cujas outras implementações e cuja actividade permanecem o que forem por direito próprio.
 
@@ -915,7 +923,7 @@ Nenhuma destas determinações se propaga para as outras nem sobe para a entidad
 
 O **Operador Zero** é a implementação de referência do protocolo BANZA, **só de leitura**, criada para tornar observáveis e testáveis as superfícies públicas do protocolo. **Não é um operador de produção, não é uma implementação certificada, não é uma autoridade e não é uma especificação; não movimenta dinheiro real.** As regras normativas do BANZA vivem nos contratos e nas especificações públicas; o Operador Zero apenas as materializa numa implementação concreta, sem as substituir. A referência vive em [zero.banza.network](https://zero.banza.network/).
 
-![O sentido normativo do Operador Zero: os contratos e as especificações públicas do BANZA (normativos) são materializados por uma implementação de referência, que expõe superfícies observáveis para descoberta e teste; a seta vai dos contratos para a implementação — nunca o contrário. Banda: referência executável, não especificação normativa.](/diagrams/protocol/operador-zero-reference-vs-specification-v1.svg)
+![O sentido normativo do Operador Zero: os contratos e as especificações públicas do BANZA (normativos) são materializados por uma implementação de referência, que expõe superfícies observáveis para descoberta e teste; a seta vai dos contratos para a implementação — nunca o contrário. Banda: referência executável, não especificação normativa.](../../../website/public/diagrams/protocol/operador-zero-reference-vs-specification-v1.svg)
 
 ### O que demonstra
 
@@ -974,13 +982,13 @@ A validação não corre nesta superfície: corre no **BanzAI**, iniciada por um
 
 O mecanismo é o do [§8](#8-operadores): o BanzAI resolve o alvo no Registo Técnico (`operador → implementação → origem canónica → descoberta`) e **obtém** os artefactos da origem canónica por uma camada segura de *fetch* em Rust; os motores de decisão, sem rede, avaliam o conteúdo obtido. A jornada percorre nove etapas — descoberta, manifest, chaves, conformidade, interoperabilidade, confiança, federação, *evidence bundle* e prontidão de certificação —, cada uma avaliada pelos motores determinísticos sobre os artefactos obtidos dos endpoints públicos.
 
-![Separação de responsabilidades: o Operador Zero é o alvo só de leitura e não se valida a si próprio; o BanzAI orquestra a sessão; os motores Rust decidem de forma determinística; a explicação é gerada localmente; o Registo publica um índice verificável.](/diagrams/protocol/operador-zero-separation-of-responsibilities-v2.svg)
+![Separação de responsabilidades: o Operador Zero é o alvo só de leitura e não se valida a si próprio; o BanzAI orquestra a sessão; os motores Rust decidem de forma determinística; a explicação é gerada localmente; o Registo publica um índice verificável.](../../../website/public/diagrams/protocol/operador-zero-separation-of-responsibilities-v2.svg)
 
 A regra operacional é fixa: **o operador publica · o BanzAI obtém · o Rust verifica · o *receipt* fixa o resultado · o Registo publica o estado verificável** — o modelo local apenas explica. Cada etapa produz um *OperationReceipt* ligado à origem exacta dos seus inputs, selado num *JourneyReceipt*; em modo de validação, `qwen_calls = 0` e `external_model_calls = 0` por construção — o modelo nunca executa um teste, escolhe um resultado nem emite um registo. O resultado é categórico e honesto, sem pontuação, e é específico da implementação, do perfil, da versão, do ambiente e do momento da avaliação. Carregar ou colar um artefacto é permitido apenas numa ferramenta de rascunho local, separada e não-autoritativa, que verifica só um conteúdo local e nunca constitui evidência oficial (ADR-034 §4.5).
 
 Nada disto precisa de ser aceite sob palavra: os endpoints, os *receipts* (incluindo `qwen_calls = 0`) e a ausência do Operador Zero em `/operators` são todos re-verificáveis de forma independente.
 
-![Jornada de validação em nove etapas, conduzida pelo BanzAI e avaliada em cada etapa pelos motores Rust; a prontidão de certificação é evidência técnica local, não uma credencial concedida.](/diagrams/protocol/operador-zero-validation-journey-v2.svg)
+![Jornada de validação em nove etapas, conduzida pelo BanzAI e avaliada em cada etapa pelos motores Rust; a prontidão de certificação é evidência técnica local, não uma credencial concedida.](../../../website/public/diagrams/protocol/operador-zero-validation-journey-v2.svg)
 
 ### Relação com o Registo Técnico e a certificação
 
@@ -1024,7 +1032,7 @@ A avaliação que decide o encaminhamento é a **Avaliação Aberta de Confianç
 
 A avaliação é **bidireccional**: antes de aceitar um encaminhamento, a contraparte executa a mesma avaliação em sentido inverso. Os seus **inputs** são material técnico — metadata assinada, evidência de conformidade, estado de revogação, frescura. **Um resultado de confiança válido pode habilitar um encaminhamento; não estabelece por si só uma relação comercial, uma admissão nem uma autorização.** A **certificação técnica da Camada 2** — uma determinação institucional, distinta dos perfis de conformidade L0–L4 — **não é** um input desta avaliação: a federação corre sobre a **evidência** que a implementação publica, não sobre um certificado emitido — a certificação técnica pode existir em paralelo, mas **não cria automaticamente** uma federação entre os operadores ([§7](#7-conformidade-e-certificação), ADR-005). E constar do Registo Técnico é descoberta, não aprovação: uma réplica completa do Registo produz o mesmo resultado, o que prova que é um índice e não um portão.
 
-![Avaliação de federação entre o Operador A e o Operador B (exemplos): antes de encaminhar, cada parte avalia localmente o material publicado da implementação da outra — manifesto e versão compatíveis, metadata assinada ancorada no Manifesto de Chaves, evidência de conformidade válida e fresca, ausência da Lista de Revogação, capacidades e endpoints compatíveis, e o perfil L3 como pré-condição — chegando a ROUTING_ALLOWED ou, por omissão, FAIL_CLOSED; a avaliação é bidireccional, não movimenta fundos e não consulta o BANZA](/diagrams/protocol/banza-controlled-federation-gate-v1.svg)
+![Avaliação de federação entre o Operador A e o Operador B (exemplos): antes de encaminhar, cada parte avalia localmente o material publicado da implementação da outra — manifesto e versão compatíveis, metadata assinada ancorada no Manifesto de Chaves, evidência de conformidade válida e fresca, ausência da Lista de Revogação, capacidades e endpoints compatíveis, e o perfil L3 como pré-condição — chegando a ROUTING_ALLOWED ou, por omissão, FAIL_CLOSED; a avaliação é bidireccional, não movimenta fundos e não consulta o BANZA](../../../website/public/diagrams/protocol/banza-controlled-federation-gate-v1.svg)
 
 ### Relações independentes, não simétricas e não transitivas
 
@@ -1032,7 +1040,7 @@ Cada relação de federação é avaliada por si. **A federação não é automa
 
 E nenhuma relação é permanente. O material de confiança **expira** — a evidência de conformidade tem uma janela máxima de validade; a avaliação é **repetida** a cada encaminhamento; e a revogação, uma mudança de versão ou a perda de frescura fazem a avaliação voltar a fechar por omissão, até a implementação republicar material válido. Um `ROUTING_ALLOWED` de ontem não é uma garantia de hoje.
 
-![Relações de federação independentes entre o Operador A, o Operador B e o Operador C (exemplos): entre A e B, e entre B e C, existem duas avaliações separadas; de A↔B e B↔C não decorre A↔C, porque a federação não é transitiva, e o A aceitar o B não implica o B aceitar o A, porque não é simétrica; uma banda inferior mostra que uma determinação técnica de federação não se propaga para admissão a esquema, liquidação de fundos nem autorização regulatória](/diagrams/protocol/banza-federation-non-propagation-v1.svg)
+![Relações de federação independentes entre o Operador A, o Operador B e o Operador C (exemplos): entre A e B, e entre B e C, existem duas avaliações separadas; de A↔B e B↔C não decorre A↔C, porque a federação não é transitiva, e o A aceitar o B não implica o B aceitar o A, porque não é simétrica; uma banda inferior mostra que uma determinação técnica de federação não se propaga para admissão a esquema, liquidação de fundos nem autorização regulatória](../../../website/public/diagrams/protocol/banza-federation-non-propagation-v1.svg)
 
 ### O que o protocolo especifica e o que os operadores executam
 
@@ -1068,7 +1076,7 @@ A governança actua sobre a **especificação** do protocolo. As regras normativ
 
 As regras estão ordenadas por autoridade, e cada nível vincula os que lhe estão abaixo: os **Princípios Fundamentais** — BANZA R²S² ([§1](#1-o-que-é-o-banza)) — prevalecem sobre tudo, e as **propriedades estruturais** ([§3](#3-propriedades-estruturais-do-protocolo)) exprimem o que deles decorre; os **Invariantes** ([§4](#4-arquitectura-do-protocolo)) são garantias que nenhuma decisão pode violar; as **decisões de arquitectura** e as **especificações** concretizam-nos; os **guias de implementação** apenas orientam, sem criar regra. Uma proposta que contradiga um invariante só é admissível através de uma alteração que reveja o próprio invariante — e essa alteração é, ela mesma, inadmissível se contrariar os Princípios. É esta ordem que torna cada mudança verificável contra o que lhe é superior.
 
-![Hierarquia normativa do Protocolo BANZA — quatro níveis, cada um vinculativo para os de baixo: Princípios Fundamentais (autoridade máxima), Invariantes, Decisões de arquitectura e especificações, Guias de implementação; nenhuma decisão pode violar um invariante, a implementação local não redefine o protocolo, o BanzAI explica mas não decide, e o BANZA não é uma autoridade regulatória](/diagrams/protocol/banza-normative-hierarchy-n1-n5-v1.svg)
+![Hierarquia normativa do Protocolo BANZA — quatro níveis, cada um vinculativo para os de baixo: Princípios Fundamentais (autoridade máxima), Invariantes, Decisões de arquitectura e especificações, Guias de implementação; nenhuma decisão pode violar um invariante, a implementação local não redefine o protocolo, o BanzAI explica mas não decide, e o BANZA não é uma autoridade regulatória](../../../website/public/diagrams/protocol/banza-normative-hierarchy-n1-n5-v1.svg)
 
 ### O que permanece fora da sua autoridade
 
@@ -1076,7 +1084,7 @@ A autoridade da governança termina nas regras do protocolo. Ela **não produz o
 
 Nenhuma destas fronteiras se propaga: definir uma regra técnica não confere à governança autoridade sobre quem a implementa. O Registo Técnico reflecte o que é publicamente verificável — é um espelho, não um portão; ninguém decide quem lá consta.
 
-![Fronteiras de autoridade da governança do BANZA — a governança do protocolo decide regras: versões, contratos, invariantes, perfis e critérios de conformidade; fora da sua autoridade ficam, cada um com o seu dono, o veredicto de conformidade de uma implementação (motor determinístico da Camada 2), a admissão a um esquema (Camada 3), a autorização regulatória (autoridades competentes) e a relação comercial e a participação de um operador; a Raiz de Confiança não está no topo desta cadeia — é uma âncora criptográfica, não um órgão de governo](/diagrams/protocol/banza-governance-authority-boundaries-v1.svg)
+![Fronteiras de autoridade da governança do BANZA — a governança do protocolo decide regras: versões, contratos, invariantes, perfis e critérios de conformidade; fora da sua autoridade ficam, cada um com o seu dono, o veredicto de conformidade de uma implementação (motor determinístico da Camada 2), a admissão a um esquema (Camada 3), a autorização regulatória (autoridades competentes) e a relação comercial e a participação de um operador; a Raiz de Confiança não está no topo desta cadeia — é uma âncora criptográfica, não um órgão de governo](../../../website/public/diagrams/protocol/banza-governance-authority-boundaries-v1.svg)
 
 ### Quem governa e como uma mudança é decidida
 
@@ -1086,7 +1094,7 @@ Uma mudança percorre um caminho observável: **proposta → revisão → decis�
 
 **Uma alteração normativa torna-se observável através de um artefacto público — uma decisão de arquitectura, uma especificação ou um release — e de uma nova versão quando muda uma regra.** As ferramentas do repositório (um *merge*, um *pull request*, a integração contínua) executam e verificam essa decisão; não são, elas próprias, a decisão de governança nem a regra. Uma alteração que não siga o processo não é uma alteração ao protocolo — é uma alteração privada de um operador: a verificação de conformidade não a reconhece e nenhum outro operador é obrigado a segui-la. É esta propriedade que impede a captura do protocolo pelo operador mais influente.
 
-![Como uma regra se torna oficial no BANZA — fluxo aberto: qualquer pessoa propõe (RFC) → revisão e avaliação pública de impacto nos invariantes e na neutralidade → decisão dos maintainers registada em decisão de arquitectura → especificação/release e nova versão quando muda uma regra; nenhum operador singular governa, e uma alteração fora do processo não é uma alteração ao protocolo](/diagrams/protocol/banza-governance-v1.svg)
+![Como uma regra se torna oficial no BANZA — fluxo aberto: qualquer pessoa propõe (RFC) → revisão e avaliação pública de impacto nos invariantes e na neutralidade → decisão dos maintainers registada em decisão de arquitectura → especificação/release e nova versão quando muda uma regra; nenhum operador singular governa, e uma alteração fora do processo não é uma alteração ao protocolo](../../../website/public/diagrams/protocol/banza-governance-v1.svg)
 
 ### Versionamento e publicação
 
@@ -1130,7 +1138,7 @@ Sempre que uma operação depende de um motor do protocolo, o BanzAI chama esse 
 
 O ecossistema tem três camadas institucionais — o protocolo aberto (Camada 1), a Certificação de Conformidade e Interoperabilidade (Camada 2) e os esquemas operacionais independentes (Camada 3). O BanzAI atravessa estas superfícies como interface transversal — consultar, implementar e validar num só lugar — mas não pertence a nenhuma como autoridade própria e não cria uma quarta camada (ver [§4](#4-arquitectura-do-protocolo)). A sua autoridade começa e termina na mediação: a interface humana, o motor cognitivo, o modelo de linguagem local opcional e a verificação da resposta. Lê, cita, orquestra e explica; a validade das regras vem do protocolo e os veredictos e a evidência vêm dos motores.
 
-![BanzAI no protocolo — os utilizadores humanos falam com o BanzAI, a interface humana e o motor cognitivo não autoritativo, cuja mediação está delimitada por uma fronteira (dentro: interface, motor cognitivo, modelo local opcional, verificação da resposta); o BanzAI lê e cita as fontes do protocolo, invoca por contrato tipado as ferramentas e motores do protocolo — que executam, decidem e devolvem resultados e códigos — e apresenta a evidência formal que esses motores produzem e selam; fora da sua autoridade ficam os destinos externos: publicação opcional no Registo Técnico pelo operador, pares, federação, esquemas operacionais e reguladores; em paralelo, um consumidor automático acede directamente às interfaces públicas, aos motores e à evidência, sem passar pelo BanzAI](/diagrams/protocol/banzai-no-protocolo.svg)
+![BanzAI no protocolo — os utilizadores humanos falam com o BanzAI, a interface humana e o motor cognitivo não autoritativo, cuja mediação está delimitada por uma fronteira (dentro: interface, motor cognitivo, modelo local opcional, verificação da resposta); o BanzAI lê e cita as fontes do protocolo, invoca por contrato tipado as ferramentas e motores do protocolo — que executam, decidem e devolvem resultados e códigos — e apresenta a evidência formal que esses motores produzem e selam; fora da sua autoridade ficam os destinos externos: publicação opcional no Registo Técnico pelo operador, pares, federação, esquemas operacionais e reguladores; em paralelo, um consumidor automático acede directamente às interfaces públicas, aos motores e à evidência, sem passar pelo BanzAI](../../../website/public/diagrams/protocol/banzai-no-protocolo.svg)
 
 ### Como o BanzAI responde
 
@@ -1140,7 +1148,7 @@ O contexto conversacional permite resolver referências, elipses e continuidade 
 
 As fontes devolvem factos e citações; as ferramentas e motores, invocados por contrato tipado, devolvem resultados a partir de um snapshot que um módulo de obtenção segura recolhe da origem — os motores não obtêm directamente. Tudo converge num **FactualPackage**: a evidência fechada — factos autorizados, citações, resultados, códigos de motivo, âmbito e fronteiras — que é a única base da resposta.
 
-![Processamento cognitivo de uma solicitação — fluxo determinístico em Rust: pedido, normalização, contexto, âmbito, guardas, planeamento, fontes e ferramentas, FactualPackage, modo de resposta, verificação final e resposta citada; as fontes devolvem factos e citações e as ferramentas e motores devolvem resultados técnicos; o FactualPackage é a evidência fechada; no modo de resposta, um template determinístico ou, opcionalmente, o modelo de linguagem local produz um rascunho explicativo, nunca a resposta final; a verificação final, obrigatória e em Rust, confere afirmações, autoridade, citações, consistência com os motores, limites, política e cobertura antes de publicar a resposta citada e não autoritativa; o caminho directo utilizador → modelo → resposta é rejeitado](/diagrams/protocol/banzai-motor-cognitivo.svg)
+![Processamento cognitivo de uma solicitação — fluxo determinístico em Rust: pedido, normalização, contexto, âmbito, guardas, planeamento, fontes e ferramentas, FactualPackage, modo de resposta, verificação final e resposta citada; as fontes devolvem factos e citações e as ferramentas e motores devolvem resultados técnicos; o FactualPackage é a evidência fechada; no modo de resposta, um template determinístico ou, opcionalmente, o modelo de linguagem local produz um rascunho explicativo, nunca a resposta final; a verificação final, obrigatória e em Rust, confere afirmações, autoridade, citações, consistência com os motores, limites, política e cobertura antes de publicar a resposta citada e não autoritativa; o caminho directo utilizador → modelo → resposta é rejeitado](../../../website/public/diagrams/protocol/banzai-motor-cognitivo.svg)
 
 Muitas respostas não precisam de modelo: um facto canónico, uma definição, um contrato, um recibo, um código de motivo, uma métrica ou o resultado de um motor resolvem-se por um caminho determinístico. Quando uma síntese linguística é útil, recorre a inferência local, sem chamadas externas, e é subordinada: o modelo recebe apenas o FactualPackage e um contrato de saída e redige um rascunho, nunca a resposta final. Segue-se sempre a verificação final, obrigatória e em Rust: as afirmações, a autoridade reclamada e as citações são verificadas contra a evidência, e uma afirmação sem suporte é removida. Só então a resposta é publicada — fundamentada, citada e não autoritativa (`authoritative:false`). O BanzAI distingue informação suportada, resultado derivado, hipótese e informação insuficiente, e não preenche lacunas por plausibilidade. Em operações mais longas, a interface pode mostrar progresso e factos já verificados antes da resposta final; a prosa do modelo só aparece depois da verificação aplicável.
 
@@ -1172,7 +1180,7 @@ O BANZA é um protocolo aberto: define regras públicas de interoperabilidade fi
 
 Uma distinção governa o capítulo inteiro: **os artefactos normativos — contratos, invariantes e vectores de conformidade — definem as regras aplicáveis; as ferramentas de desenvolvimento ajudam a implementar, testar e compreender essas regras, sem as substituir.** Uma ferramenta não se torna normativa por ser mantida pelo projecto. Sempre que uma frase parecer dizer «o programador deve usar X», a pergunta certa é se X é exigido pelo protocolo ou é apenas a ferramenta que a implementação de referência usa hoje.
 
-![Autoridade dos recursos para programadores — três camadas de função: os artefactos normativos (contratos, invariantes, esquemas e vectores de conformidade) DEFINEM as regras; as ferramentas (os motores determinísticos verificam, o BanzAI orienta e explica) ajudam a aplicar essas regras sem as definir; as referências (Operador Zero, exemplos) EXEMPLIFICAM-nas; as ferramentas e as referências nunca estão acima dos contratos e nenhuma linguagem, base de dados ou stack é imposta ao operador](/diagrams/protocol/banza-developer-resource-authority-v1.svg)
+![Autoridade dos recursos para programadores — três camadas de função: os artefactos normativos (contratos, invariantes, esquemas e vectores de conformidade) DEFINEM as regras; as ferramentas (os motores determinísticos verificam, o BanzAI orienta e explica) ajudam a aplicar essas regras sem as definir; as referências (Operador Zero, exemplos) EXEMPLIFICAM-nas; as ferramentas e as referências nunca estão acima dos contratos e nenhuma linguagem, base de dados ou stack é imposta ao operador](../../../website/public/diagrams/protocol/banza-developer-resource-authority-v1.svg)
 
 ### Por onde começar
 
@@ -1231,7 +1239,7 @@ O repositório do protocolo **não contém SDKs nem código de produto** — ape
 
 O percurso técnico é uma sequência de etapas distintas — implementar não é validar, validar não é certificar, certificar não é ser admitido a um esquema, e nada disso é autorização regulatória:
 
-![Da implementação à validação — o percurso técnico do programador em cinco etapas: explorar e escolher o perfil, integrar em qualquer tecnologia, verificar a conformidade em sandbox, publicar evidência assinada e, reunidas as condições, entrar em produção; um PASS é evidência técnica e não um certificado, a sandbox não movimenta dinheiro real, e validar não é certificar, admitir a um esquema ou autorizar](/diagrams/protocol/banza-developer-flow-v1.svg)
+![Da implementação à validação — o percurso técnico do programador em cinco etapas: explorar e escolher o perfil, integrar em qualquer tecnologia, verificar a conformidade em sandbox, publicar evidência assinada e, reunidas as condições, entrar em produção; um PASS é evidência técnica e não um certificado, a sandbox não movimenta dinheiro real, e validar não é certificar, admitir a um esquema ou autorizar](../../../website/public/diagrams/protocol/banza-developer-flow-v1.svg)
 
 1. **Explorar** — escolher o âmbito alvo (L0–L3) contra o estado verificável ([§5](#5-estado-protocolar)), não contra suposições; esclarecer requisitos no BanzAI.
 2. **Integrar** — implementar as capacidades por nível (L1 → L2 → L3) em qualquer tecnologia, partindo opcionalmente dos exemplos conceptuais.

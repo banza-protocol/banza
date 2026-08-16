@@ -10653,7 +10653,7 @@
   "extension": "md",
   "file_name": "BANZA_REFERENCIA.md",
   "file_type": "markdown",
-  "path": "website/content/BANZA_REFERENCIA.md",
+  "path": "docs/reference/pt/BANZA_REFERENCIA.md",
   "public_safe": true,
   "repo": "banza-protocol/banza",
   "secrets_scan": "clean",

@@ -9,7 +9,7 @@
 # to a repository that will be deleted is a broken promise). The runtime must never be framed as a "mock
 # façade", and the old repo must never be framed as the canonical/authoritative BanzAI core.
 #
-# Over services/banzai-api/README.md, services/banzai-api/src/knowledge.js, website/content/BANZA_REFERENCIA.md, website/lib/site.ts,
+# Over services/banzai-api/README.md, services/banzai-api/src/knowledge.js, docs/reference/pt/BANZA_REFERENCIA.md, website/lib/site.ts,
 # CLAUDE.md, README.md, the PT/EN reference mirrors and the conformance guide:
 #   1. FAILS on "mock façade" / "demonstration facade" framing.
 #   2. FAILS on any claim (negation-aware) that banza-protocol/banzai is the canonical/authoritative core.
@@ -27,12 +27,12 @@ cd "$(dirname "$0")/.."
 README="services/banzai-api/README.md"
 MANIFEST="website/content/banzai/architecture-manifest.json"
 KNOWLEDGE="services/banzai-api/src/knowledge.js"
-REFERENCIA="website/content/BANZA_REFERENCIA.md"
+REFERENCIA="docs/reference/pt/BANZA_REFERENCIA.md"
 SITE="website/lib/site.ts"
 CLAUDEMD="CLAUDE.md"
 ROOT_README="README.md"
-REF_PT="docs/reference/pt/completa.md"
-REF_EN="docs/reference/en/complete.md"
+REF_PT="docs/reference/pt/BANZA_REFERENCIA.md"
+REF_EN="docs/reference/en/BANZA_REFERENCE.md"
 CONFORMANCE="docs/guides/conformance.md"
 FILES=("$README" "$KNOWLEDGE" "$REFERENCIA" "$SITE" "$CLAUDEMD" "$ROOT_README" "$REF_PT" "$REF_EN" "$CONFORMANCE")
 

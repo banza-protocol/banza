@@ -159,6 +159,10 @@ filter_hits() {
     | grep -viE "($NEG_BEFORE)[^.!?]{0,90}($pat)" \
     | grep -viE "$NEG_SUBJECT" \
     | grep -viE "($NEG_EXIST)[^.!?]{0,220}($pat)" \
+    `# A negator can CONTAIN the pattern rather than precede it: "with no human approval at any step"
+     # is one phrase, so the span rules above look for a second occurrence that never comes. The
+     # boundary is stated by denying the thing, so the denial has to be readable as one unit.` \
+    | grep -viE "(^|[^[:alnum:]])(no|without|never|sem|não|nao|nenhum|nenhuma) +($pat)" \
     | grep -viE "($REJECT_MARK)[^.!?]{0,90}($pat)" \
     | grep -viE "($pat)[^.!?]{0,40}($REJECT_MARK)" \
     | grep -viE "$AUTHCHAIN_ALT" \

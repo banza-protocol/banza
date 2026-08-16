@@ -21,7 +21,7 @@ if grep -qiE '^C\.UTF-?8$' <<<"$LOCALES"; then export LC_ALL=C.UTF-8
 elif grep -qiE '^en_US\.UTF-?8$' <<<"$LOCALES"; then export LC_ALL=en_US.UTF-8
 fi
 
-REF="website/content/BANZA_REFERENCIA.md"
+REF="docs/reference/pt/BANZA_REFERENCIA.md"
 PAGE="website/app/oz/page.tsx"
 SVGDIR="website/public/diagrams/protocol"
 

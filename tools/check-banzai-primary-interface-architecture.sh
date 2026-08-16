@@ -42,9 +42,9 @@ grep -Eqi "machine-to-machine|máquina-máquina|maquina-maquina" "$ADR" && grep 
 echo "-- B. docs --"
 grep -qi "primary human-operator interface" README.md && ok "README frames the primary human-operator interface" || fail "README must frame the primary human-operator interface"
 grep -qi "primary human-operator interface" GOVERNANCE.md && ok "GOVERNANCE frames the primary human-operator interface" || fail "GOVERNANCE must frame the primary human-operator interface"
-grep -qi "interface primária" website/content/BANZA_REFERENCIA.md && ok "reference ch.12 frames the primary interface" || fail "reference must frame the primary interface"
+grep -qi "interface primária" docs/reference/pt/BANZA_REFERENCIA.md && ok "reference ch.12 frames the primary interface" || fail "reference must frame the primary interface"
 # No doc may claim technical APIs / machine-to-machine depend MANDATORILY on BanzAI.
-if grep -rniE "apis? (depend|dependem) (mandator|obrigat).*banzai|machine-to-machine (depends|requires) banzai|máquina-máquina depende obrigatoriamente do banzai" README.md GOVERNANCE.md website/content/BANZA_REFERENCIA.md docs/banzai 2>/dev/null | grep -qv "não depend\|nao depend\|not depend\|does not"; then
+if grep -rniE "apis? (depend|dependem) (mandator|obrigat).*banzai|machine-to-machine (depends|requires) banzai|máquina-máquina depende obrigatoriamente do banzai" README.md GOVERNANCE.md docs/reference/pt/BANZA_REFERENCIA.md docs/banzai 2>/dev/null | grep -qv "não depend\|nao depend\|not depend\|does not"; then
   fail "a doc claims APIs / M2M depend mandatorily on BanzAI"
 else
   ok "no doc claims APIs / M2M depend mandatorily on BanzAI"

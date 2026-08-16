@@ -267,7 +267,7 @@ manifest = {
         "engines/** - reference implementation",
         "services/**, website/** - reference services and public surface",
         "docs/whitepaper/** - descriptive, explicitly non-normative",
-        "docs/reference/**, website/content/BANZA_REFERENCIA.md - explanatory",
+        "docs/reference/**, docs/reference/pt/BANZA_REFERENCIA.md - explanatory",
         "decisions/adr/** - decisions taken; rationale for requirements, never the requirement. No "
         "ADR is required reading to implement BANZA 1.0.0",
         "decisions/rfc/** - proposals; every BANZA RFC is Draft and none is a requirement of 1.0.0",

@@ -70,7 +70,7 @@ def enumerations(text, canon):
 
 surfaces = [
     'README.md',
-    'website/content/BANZA_REFERENCIA.md',
+    'docs/reference/pt/BANZA_REFERENCIA.md',
     'docs/whitepaper/latex/whitepaper.pt.tex',
     'docs/whitepaper/latex/whitepaper.en.tex',
     'assurance/README.md',
@@ -98,7 +98,7 @@ for rel in surfaces:
 #     The Reference chapter that once carried that title now classifies its content as structural
 #     properties; if that title returns to a chapter heading holding anything other than the four, the
 #     public surface has two answers to one question again.
-ref = os.path.join(root, 'website/content/BANZA_REFERENCIA.md')
+ref = os.path.join(root, 'docs/reference/pt/BANZA_REFERENCIA.md')
 if os.path.exists(ref):
     text = open(ref, encoding='utf8', errors='replace').read()
     for m in re.finditer(r'^##\s+\d+\.\s*(.+)$', text, re.M):
@@ -144,7 +144,7 @@ selftest() {
   d="$(mktemp -d)"; trap 'rm -rf "$d"' RETURN
   g="$d/good"; b="$d/bad"
   for base in "$g" "$b"; do
-    mkdir -p "$base/assurance" "$base/website/content"
+    mkdir -p "$base/assurance" "$base/docs/reference/pt"
     cat > "$base/assurance/principles.json" <<'EOF'
 {"short_form":"R²S²","ascii_form":"R2S2","principles":[
  {"name_en":"Robust","name_pt":"Robusto","meaning_en":"m","meaning_pt":"m"},
@@ -199,7 +199,7 @@ PY
 
   # a competing set published under the fundamental-principles name
   cp "$g/assurance/principles.json" "$b/assurance/principles.json"
-  cat > "$b/website/content/BANZA_REFERENCIA.md" <<'EOF'
+  cat > "$b/docs/reference/pt/BANZA_REFERENCIA.md" <<'EOF'
 ## 3. Princípios Fundamentais
 
 ### Correcção financeira
@@ -208,7 +208,7 @@ EOF
   check "$b" >/dev/null 2>&1 && { echo "SELFTEST_FAIL: a competing principle set was accepted" >&2; st=1; }
 
   # resilience introduced without its boundary
-  rm -f "$b/website/content/BANZA_REFERENCIA.md"
+  rm -f "$b/docs/reference/pt/BANZA_REFERENCIA.md"
   cat > "$b/assurance/README.md" <<'EOF'
 BANZA R²S² — Robust · Resilient · Secure · Simple. Resilience keeps the protocol available.
 EOF
