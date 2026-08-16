@@ -67,7 +67,7 @@ The following rules apply at **all conformance readiness levels** (0–4). Viola
 | `gross_minor ≠ net_minor + fee_minor` | Conformance FAIL |
 | `balance_minor ≠ available_minor + reserved_minor` | Conformance FAIL |
 
-See [docs/reference/en/complete.md §9 — Normative: Monetary Representation](../reference/en/complete.md) for the full monetary representation specification.
+See [docs/reference/en/BANZA_REFERENCE.md §9 — Normative: Monetary Representation](../reference/en/BANZA_REFERENCE.md) for the full monetary representation specification.
 
 ---
 
@@ -390,7 +390,7 @@ No one. There is no BANZA CA and no approval step. Humans maintain and evolve th
 **Referências:**
 
 - [docs/guides/conformance.md](../guides/conformance.md) — Conformance suite specification
-- [contracts/invariants.json](../../contracts/invariants.json) — Invariant registry (authoritative) · [docs/reference/en/complete.md §9](../reference/en/complete.md) — Financial invariants (prose)
-- [docs/reference/en/complete.md §4](../reference/en/complete.md) — Certification model overview
+- [contracts/invariants.json](../../contracts/invariants.json) — Invariant registry (authoritative) · [docs/reference/en/BANZA_REFERENCE.md §9](../reference/en/BANZA_REFERENCE.md) — Financial invariants (prose)
+- [docs/reference/en/BANZA_REFERENCE.md §4](../reference/en/BANZA_REFERENCE.md) — Certification model overview
 - BanzAI capabilities documentation — BanzAI Certification Copilot
 - [`contracts/invariants.json`](../../contracts/invariants.json) — Invariant registry

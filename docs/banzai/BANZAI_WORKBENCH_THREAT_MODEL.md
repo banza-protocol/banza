@@ -1,6 +1,6 @@
 # BanzAI Validation Journey — Threat Model
 
-> **Scope:** the endpoint-originated validation journey and its durable receipt store (ADR-034, ADR-036, ADR-013). Complements [docs/governance/THREAT_MODEL.md](../governance/THREAT_MODEL.md). **Assets protected:** the integrity of a recorded validation result, its inputs' provenance, and the honesty of what the interface claims.
+> **Scope:** the endpoint-originated validation journey and its durable receipt store (ADR-034, ADR-036, ADR-013). Complements [docs/governance/THREAT_MODEL.md](../security/THREAT_MODEL.md). **Assets protected:** the integrity of a recorded validation result, its inputs' provenance, and the honesty of what the interface claims.
 
 ## Trust boundaries
 

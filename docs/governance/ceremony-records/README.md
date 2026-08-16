@@ -16,11 +16,11 @@ contain the root key or any secret needed to use or recover it.
 ## What is stored here
 
 - The **pre-ceremony approval checklist**
-  [`ROOT_KEY_CUSTODY_MODEL.md`](ROOT_KEY_CUSTODY_MODEL.md) — the operational
+  [`ROOT_KEY_CUSTODY_MODEL.md`](../../security/ROOT_KEY_CUSTODY_MODEL.md) — the operational
   vehicle for the decision-note §9 approvals (keyholders, custody, witness, recovery,
   emergency revocation, allowed claims). It is approvals/metadata only — no secrets.
 - One ceremony record per root-key ceremony (production) using
-  [`ROOT_CEREMONY_EVIDENCE_LOG_TEMPLATE.md`](ROOT_CEREMONY_EVIDENCE_LOG_TEMPLATE.md) (or its JSON equivalent).
+  [`ROOT_CEREMONY_EVIDENCE_LOG_TEMPLATE.md`](../../security/ROOT_CEREMONY_EVIDENCE_LOG_TEMPLATE.md) (or its JSON equivalent).
 - Public artifact hashes (SHA-256) of the Key Manifest, initial BRL, and the record itself.
 - Keyholder / witness role attestations and custody-artifact identifiers (IDs, not secrets).
 - Storage-location identifiers (where artifacts are held — not their contents).

@@ -12,9 +12,9 @@
 
 Este documento é subordinado a esta decisão. Nenhuma secção pode ser lida como contradizendo-a.
 
-Origem normativa: [ADR-025](../../decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md),
+Origem normativa: [ADR-025](../../decisions/adr/ADR-025-trust-without-a-certificate-authority.md),
 [ADR-031](../../decisions/adr/ADR-031-operator-self-publication-and-machine-verifiable-conformance.md),
-[ADR-025](../../decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md).
+[ADR-025](../../decisions/adr/ADR-025-trust-without-a-certificate-authority.md).
 Por [ADR-001](../../decisions/adr/ADR-001-open-financial-protocol-what-banza-is-and-is-not.md) (protocol-first), o
 modelo nasce num ADR antes de qualquer especificação, prosa ou página pública.
 
@@ -173,9 +173,9 @@ Estado actual, verificável directamente nas rotas públicas: `/operators` = `[]
 
 ## Referências
 
-- [ADR-025](../../decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md) — modelo de confiança do protocolo aberto
+- [ADR-025](../../decisions/adr/ADR-025-trust-without-a-certificate-authority.md) — modelo de confiança do protocolo aberto
 - [ADR-031](../../decisions/adr/ADR-031-operator-self-publication-and-machine-verifiable-conformance.md) — auto-publicação e conformidade verificável por máquina
-- [ADR-025](../../decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md) — avaliação de confiança de federação
+- [ADR-025](../../decisions/adr/ADR-025-trust-without-a-certificate-authority.md) — avaliação de confiança de federação
 - [PUBLIC_PROTOCOL_REGISTRY.md](./PUBLIC_PROTOCOL_REGISTRY.md) — o índice público verificável
 - [OPEN_PROTOCOL_GOVERNANCE.md](./OPEN_PROTOCOL_GOVERNANCE.md) — governação do protocolo aberto (canónico)
 - [OPEN_PROTOCOL_ARCHITECTURE.md](./OPEN_PROTOCOL_ARCHITECTURE.md) — versões e regras de compatibilidade

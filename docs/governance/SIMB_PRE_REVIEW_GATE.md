@@ -82,6 +82,6 @@ prontidão, não certificação** — *Ready to publish conformance evidence is 
 
 ## Ver também
 
-- [`/banzai`](/banzai) — SimB e Conformidade no BanzAI
-- [Referência §10 · BanzAI](/referencia/banzai)
-- [Referência §6 · Conformidade](/referencia/certificacao)
+- [`/banzai`](https://banza.network/banzai) — SimB e Conformidade no BanzAI
+- [Referência §10 · BanzAI](https://banza.network/referencia/banzai)
+- [Referência §6 · Conformidade](https://banza.network/referencia/certificacao)

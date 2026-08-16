@@ -57,6 +57,32 @@ Root and issuing private keys never appear in this repository or on any public
 service, and the trust model is fail-closed. See
 [`docs/security/README.md`](docs/security/README.md).
 
+## The trust root, in brief
+
+The normative definition is [`spec/root-authority-set.md`](spec/root-authority-set.md); this is the
+shape a reporter needs in order to judge whether a finding matters.
+
+The root is an **authority set, not a key**: three active authorities, threshold two, distinct signers,
+with signing keys held outside the serving infrastructure. Cryptographic identity is distinct from
+institutional identity, and no institution holds a reserved slot. A single signature never authorises.
+
+**Genesis** is pinned: sequence zero, no predecessor, accepted only against an explicitly configured
+digest. There is no trust on first use — an unrecognised set is refused rather than learned.
+
+**Succession** is authorised by the predecessor set, not by the candidate: a successor names its
+predecessor, and two distinct authorities of the already-trusted set must authorise it. A candidate
+cannot authorise itself, because a set signed by its own keys proves only that keys generated a moment
+ago agree with one another. Two surviving authorities can replace a third that is lost, compromised or
+obstructive — requiring its participation would make the path three-of-three and hand it a veto.
+
+Below the threshold, **canonical continuity blocks and stays blocked**. There is no emergency master
+key, no breakglass and no override by any party. Such a door would be a single-person path to the
+protocol's highest authority — the thing the threshold exists to prevent — and more dangerous than the
+loss it would mitigate.
+
+A finding that defeats any of these, or that makes a lower ordering marker accepted, an equivocation
+accepted, or trust granted where evidence is missing, is high value.
+
 ## No bug bounty
 
 There is **no paid bug-bounty programme** at this stage. We gratefully

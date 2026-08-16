@@ -28,7 +28,7 @@ Stable surfaces:
 - Event type names — `wallet.created`, `payment.sent`, etc.
 - Webhook signature scheme — HMAC-SHA256 + timestamp window
 - Provider trait interfaces — `AcquirerProvider`, `SettlementProvider`, `NotificationProvider`, `RoutingProvider`
-- SDK conformance contract — webhook signature and payload-parsing vectors in `conformance/sdk/` that any third-party SDK verifies against (BANZA ships no official SDK; see `docs/reference/en/complete.md` § SDKs)
+- SDK conformance contract — webhook signature and payload-parsing vectors in `conformance/sdk/` that any third-party SDK verifies against (BANZA ships no official SDK; see `docs/reference/en/BANZA_REFERENCE.md` § SDKs)
 - OpenAPI contract — all `contracts/openapi/` schemas marked `x-stability: stable`
 
 ### Experimental

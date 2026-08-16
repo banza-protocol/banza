@@ -94,10 +94,10 @@ Mais simples. Sem biblioteca de internacionalização. Duplicação de código m
 
 | Língua | Fonte | Estado |
 |--------|-------|--------|
-| Português (canónico) | `docs/reference/pt/completa.md` | v1.0 — Oficial |
-| Inglês (tradução) | `docs/reference/en/complete.md` | v1.0 — Tradução oficial |
+| Português (canónico) | `docs/reference/pt/BANZA_REFERENCIA.md` | v1.0 — Oficial |
+| Inglês (tradução) | `docs/reference/en/BANZA_REFERENCE.md` | v1.0 — Tradução oficial |
 
-As secções do website em português são sempre derivadas de `docs/reference/pt/completa.md`. As secções em inglês são derivadas de `docs/reference/en/complete.md`. Nunca o contrário.
+As secções do website em português são sempre derivadas de `docs/reference/pt/BANZA_REFERENCIA.md`. As secções em inglês são derivadas de `docs/reference/en/BANZA_REFERENCE.md`. Nunca o contrário.
 
 ---
 
@@ -148,7 +148,7 @@ O `x-default` aponta sempre para a versão portuguesa canónica.
 
 ## Pré-Requisitos para Implementação
 
-1. `docs/reference/en/complete.md` deve estar sincronizado com `docs/reference/pt/completa.md` em conteúdo e estrutura
+1. `docs/reference/en/BANZA_REFERENCE.md` deve estar sincronizado com `docs/reference/pt/BANZA_REFERENCIA.md` em conteúdo e estrutura
 2. O sistema de ficheiros `reference.ts` precisa de suportar selecção por língua
 3. As strings de UI devem ser extraídas de todos os componentes para `messages/pt.json`
 4. Decisão sobre biblioteca: `next-intl` (Opção A) vs. rotas paralelas (Opção B)
@@ -158,7 +158,7 @@ O `x-default` aponta sempre para a versão portuguesa canónica.
 ## O Que Não Mudar
 
 - Slugs de URL portugueses nunca são renomeados para inglês
-- `docs/reference/pt/completa.md` mantém-se como fonte canónica
+- `docs/reference/pt/BANZA_REFERENCIA.md` mantém-se como fonte canónica
 - `lang="pt"` mantém-se como atributo HTML raiz para URLs sem prefixo
 - A metadata SEO primária permanece em português
 

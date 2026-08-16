@@ -150,8 +150,8 @@
     },
     {
       "path": "contracts/federation/federation-trust.json",
-      "sha256": "0fc42074110826a1c0e9276af7a707a63481416877d4d185130b9cbf42e66f9e",
-      "bytes": 9661
+      "sha256": "4c7a09cb832692e8a71dc8a88311f477da64761ada79fb6dda7126ff36aaba81",
+      "bytes": 9677
     },
     {
       "path": "contracts/federation/key-manifest.json",
@@ -185,8 +185,8 @@
     },
     {
       "path": "contracts/invariants.json",
-      "sha256": "7f6bc402ab405e879ec60c65a64e6327151ae68f585c8994a68e6bff1ae48d13",
-      "bytes": 35922
+      "sha256": "cd064d9a10d581548eaaf00bf373543999df498ce632bb0a31c9dcf55ca6ced4",
+      "bytes": 35959
     },
     {
       "path": "contracts/openapi/activity.yaml",

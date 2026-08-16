@@ -1,6 +1,6 @@
 # BANZA — Documento Estratégico (Whitepaper)
 
-> **Documento estratégico. Não constitui prova de produção, autorização regulatória ou integração bancária.** Descreve o racional, o contexto de mercado e os objectivos estratégicos do protocolo BANZA. BANZA é um protocolo financeiro aberto. A participação de operadores é demonstrada por conformidade protocolar verificável, não por aprovação humana central. Para a especificação canónica e o estado de produção, ver [`docs/reference/pt/completa.md`](../../docs/reference/pt/completa.md).
+> **Documento estratégico. Não constitui prova de produção, autorização regulatória ou integração bancária.** Descreve o racional, o contexto de mercado e os objectivos estratégicos do protocolo BANZA. BANZA é um protocolo financeiro aberto. A participação de operadores é demonstrada por conformidade protocolar verificável, não por aprovação humana central. Para a especificação canónica e o estado de produção, ver [`docs/reference/pt/BANZA_REFERENCIA.md`](../../docs/reference/pt/BANZA_REFERENCIA.md).
 
 ---
 

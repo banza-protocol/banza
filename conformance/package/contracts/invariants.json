@@ -3,7 +3,7 @@
   "spec_version": "1.0",
   "title": "BANZA Protocol — Canonical Invariant Registry",
   "description": "The single machine-readable source of truth for every financial, trust, and structural invariant of the BANZA protocol. Each invariant is defined once here with a canonical ID, its normative statement, and the authoritative source of that statement. Contracts (contracts/**) and the conformance suite (conformance/**) may only cite invariant IDs that appear here — as a canonical `id` or as a registered `alias`. A repository guard enforces this: any cited ID absent from this registry fails the build. Canonical IDs are the IDs used by the authoritative definition of each invariant; `aliases` capture family shorthands that appear elsewhere in the protocol (e.g. the `INV-SETTLE-*` / `INV-RECON-*` family names advertised in README and CLAUDE.md map to the settlement `INV-STL-*` and federation-reconciliation `INV-FED-RECON-001` invariants that actually carry the normative text).",
-  "canonical_source": "This registry. Prose definitions in docs/reference/en/complete.md, spec/invariants.md, spec/federation/FEDERATION_INVARIANTS.md, docs/governance/BANZA_TRUST_ARCHITECTURE.md, and the referenced ADRs remain the human-readable elaboration; where a statement here and a prose doc disagree, this registry's `statement` plus its cited `source` govern.",
+  "canonical_source": "This registry. Prose definitions in docs/reference/pt/BANZA_REFERENCIA.md, spec/invariants.md, spec/federation/FEDERATION_INVARIANTS.md, docs/governance/BANZA_TRUST_ARCHITECTURE.md, and the referenced ADRs remain the human-readable elaboration; where a statement here and a prose doc disagree, this registry's `statement` plus its cited `source` govern.",
   "severity_levels": {
     "critical": "A violation creates, destroys, or misattributes value, or breaks the trust anchor. Blocks conformance unconditionally.",
     "high": "A violation breaks an integrity or safety guarantee without necessarily creating value directly. Blocks conformance at the level where the capability is declared.",
@@ -33,7 +33,7 @@
       "title": "Debits equal credits",
       "severity": "critical",
       "statement": "Every ledger posting MUST be perfectly balanced: for each currency present, sum(debits) == sum(credits) in integer minor units. A posting with non-zero net MUST be rejected before it is written to storage.",
-      "source": "docs/reference/en/complete.md:1188; spec/invariants.md:46"
+      "source": "docs/reference/pt/BANZA_REFERENCIA.md; spec/invariants.md:46"
     },
     {
       "id": "INV-LEDGER-002",
@@ -41,7 +41,7 @@
       "title": "Ledger immutability",
       "severity": "critical",
       "statement": "Ledger entries are append-only. Once posted, a posting and its entries MUST never be modified or deleted. Corrections are made only by posting reversing entries.",
-      "source": "docs/reference/en/complete.md:1189; spec/invariants.md:52"
+      "source": "docs/reference/pt/BANZA_REFERENCIA.md; spec/invariants.md:52"
     },
     {
       "id": "INV-LEDGER-003",
@@ -49,7 +49,7 @@
       "title": "Integer amounts",
       "severity": "critical",
       "statement": "All ledger amounts are integers in minor units (i64) — never floating point.",
-      "source": "docs/reference/en/complete.md:1190"
+      "source": "docs/reference/pt/BANZA_REFERENCIA.md"
     },
     {
       "id": "INV-LEDGER-004",
@@ -57,7 +57,7 @@
       "title": "Atomic postings",
       "severity": "critical",
       "statement": "A posting is atomic: partial postings never persist. Either all entries of a posting are committed or none are.",
-      "source": "docs/reference/en/complete.md:1191"
+      "source": "docs/reference/pt/BANZA_REFERENCIA.md"
     },
     {
       "id": "INV-LEDGER-005",
@@ -73,7 +73,7 @@
       "title": "Balance identity",
       "severity": "critical",
       "statement": "For every wallet at all times: balance_minor = available_minor + reserved_minor. Wallet balances are derived from the ledger — there is no separate balance column that can diverge — and available balance MUST never go below zero.",
-      "source": "docs/reference/en/complete.md:1141; spec/invariants.md:68"
+      "source": "docs/reference/pt/BANZA_REFERENCIA.md; spec/invariants.md:68"
     },
     {
       "id": "INV-STL-001",
@@ -84,7 +84,7 @@
         "INV-SETTLE-001"
       ],
       "statement": "For every settlement: gross_minor = net_minor + fee_minor, exact in integer minor units. No money may be created or destroyed by settlement.",
-      "source": "docs/reference/en/complete.md:1134,1192"
+      "source": "docs/reference/pt/BANZA_REFERENCIA.md"
     },
     {
       "id": "INV-STL-002",
@@ -95,7 +95,7 @@
         "INV-SETTLE-002"
       ],
       "statement": "No settlement operation may drive any wallet or ledger account to a negative balance.",
-      "source": "docs/reference/en/complete.md:1193"
+      "source": "docs/reference/pt/BANZA_REFERENCIA.md"
     },
     {
       "id": "INV-STL-003",
@@ -130,7 +130,7 @@
       "title": "Handle uniqueness",
       "severity": "high",
       "statement": "@handle uniqueness is global within an operator's identity namespace; a handle resolves to exactly one wallet identity.",
-      "source": "docs/reference/en/complete.md:1195"
+      "source": "docs/reference/pt/BANZA_REFERENCIA.md"
     },
     {
       "id": "INV-EVENT-001",
@@ -157,7 +157,7 @@
         "INV-MON-001"
       ],
       "statement": "All monetary values MUST be integers in minor units. Floating-point monetary values are prohibited across the entire protocol surface: APIs, traces and logs, operator manifests, wallet balances, ledger entries, settlement batches, and SDK contracts. Every monetary field carries the _minor suffix.",
-      "source": "docs/reference/en/complete.md:1110-1120"
+      "source": "docs/reference/pt/BANZA_REFERENCIA.md"
     },
     {
       "id": "INV-QR-001",
@@ -373,7 +373,7 @@
       "title": "No test key IDs in production",
       "severity": "critical",
       "statement": "Production key IDs MUST NOT start with 'test-'. Test keys are rejected in production.",
-      "source": "docs/reference/en/complete.md:822"
+      "source": "docs/reference/pt/BANZA_REFERENCIA.md"
     },
     {
       "id": "INV-ROOT-002",
@@ -389,7 +389,7 @@
       "title": "Key Manifest expiry",
       "severity": "critical",
       "statement": "An expired Key Manifest is invalid. Verifiers MUST detect and reject a stale manifest.",
-      "source": "docs/reference/en/complete.md:824"
+      "source": "docs/reference/pt/BANZA_REFERENCIA.md"
     },
     {
       "id": "INV-ROOT-004",
@@ -405,7 +405,7 @@
       "title": "BRL signing authority",
       "severity": "critical",
       "statement": "The BRL MUST be signed by the designated BRL-issuing (revocation-domain) key.",
-      "source": "docs/reference/en/complete.md:826"
+      "source": "docs/reference/pt/BANZA_REFERENCIA.md"
     },
     {
       "id": "INV-ROOT-006",

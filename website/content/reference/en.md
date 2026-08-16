@@ -5,7 +5,7 @@
      Verify:          make website-reference-source-boundary-check
      Editing this file instead of the source is a source-boundary violation and the guard
      fails on it. The website publishes the Reference; it does not own it.
-     source-sha256: 6f21ddee4d68757237f11a03444d921675f3f709b812d2deb089466f9b30b6f8
+     source-sha256: 9dc0f077ce157d13107ad42a3fd29f47df4e2ed171886b4749ffdd1a94d88a3c
 -->
 
 # BANZA — Protocol Reference
@@ -1161,7 +1161,7 @@ The runtime state is verifiable, not asserted: each answer publishes its own exe
 
 ### Implementation
 
-BanzAI is part of BANZA's open implementation. The canonical runtime — a TypeScript service layer over Rust engines compiled to WASM, which take the decisions — lives in the canonical repository [`banza-protocol/banza`](https://github.com/banza-protocol/banza) (`services/banzai-api` and `engines/banzai-*`); there is no separate BanzAI repository. All the code is auditable and open, and the public interfaces remain usable independently of BanzAI: the [website](https://banza.network), the [Reference](/referencia), the BanzAI interface ([`banza.network/banzai`](/banzai)), the [Technical Registry](/registo-tecnico) and the public contracts (`contracts/`). From any of these, the protocol is auditable without contacting any entity — and without depending on BanzAI.
+BanzAI is part of BANZA's open implementation. The canonical runtime — a TypeScript service layer over Rust engines compiled to WASM, which take the decisions — lives in the canonical repository [`banza-protocol/banza`](https://github.com/banza-protocol/banza) (`services/banzai-api` and `engines/banzai-*`); there is no separate BanzAI repository. All the code is auditable and open, and the public interfaces remain usable independently of BanzAI: the [website](https://banza.network), the [Reference](https://banza.network/referencia), the BanzAI interface ([`banza.network/banzai`](https://banza.network/banzai)), the [Technical Registry](https://banza.network/registo-tecnico) and the public contracts (`contracts/`). From any of these, the protocol is auditable without contacting any entity — and without depending on BanzAI.
 
 ---
 

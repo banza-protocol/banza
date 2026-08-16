@@ -236,4 +236,4 @@ Applying this checklist during M2.11C found four live code defects that the full
 suite does not detect. They are recorded in the M2.11C phase report under **Known QA gaps**. The gate found
 an instance of its own motivating bug class on its first run, before it was even finished.
 
-See [`PHASE_REPORT_TEMPLATE.md`](PHASE_REPORT_TEMPLATE.md) for the required report sections.
+The required report sections are those the gate itself enumerates above.

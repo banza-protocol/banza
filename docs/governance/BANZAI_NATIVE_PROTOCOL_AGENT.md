@@ -3,7 +3,7 @@
 **Status:** Canonical · **Since:** M2.7H (2026-07) · **Decision:** [ADR-036](../../decisions/adr/ADR-036-banzai-a-non-authoritative-interface-to-the-protocol.md)
 
 ## 1. Definição
-**BanzAI é a interface primária de trabalho entre humanos/operadores e o protocolo BANZA (ADR-036); em concreto, o agente IA nativo do protocolo.**
+**O BanzAI é a interface primária de trabalho entre humanos/operadores e o protocolo BANZA — e é opcional, transversal e não autoritativo (ADR-036).** As duas metades são a decisão: interface humana primária não é dependência obrigatória do protocolo. A conformidade e a verificação máquina-a-máquina prosseguem sem ele, e a sua indisponibilidade não bloqueia a operação do protocolo. Em concreto, é o agente nativo do protocolo.
 
 ## 2. Missão
 Guiar operadores do primeiro contacto com a referência até à publicação de evidência verificável e

@@ -107,7 +107,7 @@ Any conformance change that touches financial invariants must preserve:
 - **Non-negative balances**: wallet available balance never goes below zero
 - **Atomicity**: balance changes are transactional
 
-Invariants are defined in `docs/reference/pt/completa.md §3` and `conformance/vectors/`.
+Invariants are defined in `docs/reference/pt/BANZA_REFERENCIA.md §3` and `conformance/vectors/`.
 
 ---
 

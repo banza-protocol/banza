@@ -5,7 +5,7 @@
      Verify:          make website-reference-source-boundary-check
      Editing this file instead of the source is a source-boundary violation and the guard
      fails on it. The website publishes the Reference; it does not own it.
-     source-sha256: 03fc4beb562b48be0183223abcc8955a3a4106cb77d7d9e51c0c663a061e329a
+     source-sha256: 0abb2bc1e54f0812b57557fe69086498d5f26e8f1e05cb215a78a6d0406d6cc0
 -->
 
 # BANZA — Referência do Protocolo
@@ -1180,7 +1180,7 @@ O estado do runtime é verificável, não afirmado: cada resposta publica o seu 
 
 ### Implementação
 
-O BanzAI faz parte da implementação aberta do BANZA. O runtime canónico — uma camada de serviço em TypeScript sobre motores em Rust compilados para WASM, que tomam as decisões — vive no repositório canónico [`banza-protocol/banza`](https://github.com/banza-protocol/banza) (`services/banzai-api` e `engines/banzai-*`); não existe um repositório BanzAI separado. Todo o código é auditável e aberto, e as interfaces públicas permanecem utilizáveis independentemente do BanzAI: o [website](https://banza.network), a [Referência](/referencia), a interface do BanzAI ([`banza.network/banzai`](/banzai)), o [Registo Técnico](/registo-tecnico) e os contratos públicos (`contracts/`). A partir de qualquer um destes, o protocolo é auditável sem contactar nenhuma entidade — e sem depender do BanzAI.
+O BanzAI faz parte da implementação aberta do BANZA. O runtime canónico — uma camada de serviço em TypeScript sobre motores em Rust compilados para WASM, que tomam as decisões — vive no repositório canónico [`banza-protocol/banza`](https://github.com/banza-protocol/banza) (`services/banzai-api` e `engines/banzai-*`); não existe um repositório BanzAI separado. Todo o código é auditável e aberto, e as interfaces públicas permanecem utilizáveis independentemente do BanzAI: o [website](https://banza.network), a [Referência](https://banza.network/referencia), a interface do BanzAI ([`banza.network/banzai`](https://banza.network/banzai)), o [Registo Técnico](https://banza.network/registo-tecnico) e os contratos públicos (`contracts/`). A partir de qualquer um destes, o protocolo é auditável sem contactar nenhuma entidade — e sem depender do BanzAI.
 
 ---
 

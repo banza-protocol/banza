@@ -880,7 +880,7 @@ The root private key leaves secure storage only for this signing operation. It m
 
 | Document | Purpose |
 |----------|---------|
-| `decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md` | Trust architecture governing this ceremony |
+| `decisions/adr/ADR-025-trust-without-a-certificate-authority.md` | Trust architecture governing this ceremony |
 | `docs/security/ROOT_KEY_CEREMONY_REQUIREMENTS.md` | Day-of checklist |
 | `docs/security/ROOT_CEREMONY_EVIDENCE_LOG_TEMPLATE.md` | Record template to fill in during ceremony |
 | `docs/security/ROOT_KEY_CEREMONY_REQUIREMENTS.md` | Pre-production readiness assessment |

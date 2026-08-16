@@ -149,7 +149,7 @@
       "class": "NORMATIVE_TRUST_RULE",
       "tier": "implementation",
       "role": "Trust-plane rules: key publication and delegation, revocation and freshness, custody and the offline root ceremony, and signed-artifact envelopes.",
-      "sha256": "0fc42074110826a1c0e9276af7a707a63481416877d4d185130b9cbf42e66f9e"
+      "sha256": "4c7a09cb832692e8a71dc8a88311f477da64761ada79fb6dda7126ff36aaba81"
     },
     {
       "path": "contracts/federation/key-manifest.json",
@@ -204,7 +204,7 @@
       "class": "NORMATIVE_REGISTRY",
       "tier": "implementation",
       "role": "The machine-readable registry of protocol invariants. spec/invariants.md is its human-readable restatement and is deliberately not listed: it declares this file the single source of truth.",
-      "sha256": "7f6bc402ab405e879ec60c65a64e6327151ae68f585c8994a68e6bff1ae48d13"
+      "sha256": "cd064d9a10d581548eaaf00bf373543999df498ce632bb0a31c9dcf55ca6ced4"
     },
     {
       "path": "contracts/openapi/activity.yaml",
@@ -718,7 +718,7 @@
       "class": "NORMATIVE_SPECIFICATION",
       "tier": "implementation",
       "role": "The trust chain a verifier walks, and what it must refuse.",
-      "sha256": "2af51354e9ba8eb8771d92e25fa0c67e8d35d7e993ee05dfbbd81d48e5c00b20"
+      "sha256": "b0cd735bb7152f1f47cfc9990efe9be2d3023f6cc263864f1d9d82b1ed8fdb09"
     },
     {
       "path": "spec/idempotency.md",
