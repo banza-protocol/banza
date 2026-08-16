@@ -163,6 +163,26 @@ root-threshold-model-check:
 banza-whitepaper-check:
 	@bash tools/check-banza-whitepaper.sh
 
+.PHONY: website-reference-mirror website-reference-source-boundary-check reference-source-authority-check reference-structural-parity-check reference-check
+## website-reference-mirror: GENERATOR — mirror the two canonical Reference editions into website/content/reference/{pt,en}.md. The website builds with website/ as its Docker context and cannot read docs/ at build time; the mirror exists for that boundary and is never hand-edited.
+website-reference-mirror:
+	@python3 tools/gen-website-reference-mirror.py
+
+## website-reference-source-boundary-check: the tracked website mirror is exactly what the canonical sources generate — regenerates in memory and compares, writing nothing
+website-reference-source-boundary-check:
+	@python3 tools/gen-website-reference-mirror.py --check
+
+## reference-source-authority-check: exactly one canonical PT Reference and one official EN translation, both under docs/reference/, with no competing editorial copy and no current doc treating the retired website path as canonical
+reference-source-authority-check:
+	@bash tools/check-reference-source-authority.sh
+
+## reference-structural-parity-check: PT and EN cannot drift structurally — same chapters in the same order, four R²S² principles, exactly 8 Structural Properties, and the high-risk claims present in both
+reference-structural-parity-check:
+	@bash tools/check-reference-structural-parity.sh
+
+## reference-check: the whole Reference source-of-truth contract — authority, structural parity and website source boundary
+reference-check: reference-source-authority-check reference-structural-parity-check website-reference-source-boundary-check
+
 .PHONY: whitepaper-release whitepaper-verify whitepaper-figures
 ## whitepaper-release: CANONICAL Whitepaper v1.0 build — the single source of truth for the published PDFs (LaTeX/tectonic → xdvipdfmx, 12 pp, deterministic z-0 + SOURCE_DATE_EPOCH; tectonic version enforced). Regenerates .tex, compiles PT+EN, publishes PDFs, syncs the web mirror, updates manifest + CHECKSUMS, and runs banza-whitepaper-check. Idempotent (zero git diff on an unchanged tree).
 whitepaper-release:

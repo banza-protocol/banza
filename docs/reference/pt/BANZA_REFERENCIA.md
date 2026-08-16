@@ -1,10 +1,18 @@
 # BANZA — Referência do Protocolo
 
-**Versão:** 1.0  
-**Data:** 2026-06-07  
-**Última revisão editorial:** 2026-07-11  
-**Estado:** Referência oficial do protocolo v1.0 · pré-produção · pagamentos reais desligados · sem implementações certificadas em produção  
-**Autoridade:** ADR-001, ADR-001, ADR-025, ADR-031, ADR-025, ADR-030, ADR-036, ADR-004, ADR-032, ADR-033, ADR-032, ADR-035
+**Versão:** 1.0 · **Estado:** pré-produção · pagamentos reais desligados · sem implementações certificadas em produção
+
+> **Edição canónica (português).** Este ficheiro é a única Referência canónica do BANZA. A
+> [edição inglesa](../en/BANZA_REFERENCE.md) é uma tradução oficial; em caso de divergência não
+> intencional, prevalece esta edição.
+>
+> **A Referência é descritiva, não normativa.** Ela organiza e explica a superfície normativa; não a
+> define. A autoridade normativa é o [Manifesto Normativo](../../../contracts/production/normative-manifest.json)
+> e os artefactos que ele indexa — especificações, contratos e registos. Onde esta Referência e um
+> artefacto normativo divirjam, prevalece o artefacto normativo.
+>
+> As superfícies públicas — sítio e BanzAI — consomem ou derivam deste ficheiro. Não o editam, e não
+> mantêm uma cópia editorial concorrente. Ver [`docs/reference/README.md`](../README.md).
 
 ---
 
