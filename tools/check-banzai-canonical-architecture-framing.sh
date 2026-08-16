@@ -31,8 +31,8 @@ REFERENCIA="docs/reference/pt/BANZA_REFERENCIA.md"
 SITE="website/lib/site.ts"
 CLAUDEMD="CLAUDE.md"
 ROOT_README="README.md"
-REF_PT="docs/reference/pt/completa.md"
-REF_EN="docs/reference/en/complete.md"
+REF_PT="docs/reference/pt/BANZA_REFERENCIA.md"
+REF_EN="docs/reference/en/BANZA_REFERENCE.md"
 CONFORMANCE="docs/guides/conformance.md"
 FILES=("$README" "$KNOWLEDGE" "$REFERENCIA" "$SITE" "$CLAUDEMD" "$ROOT_README" "$REF_PT" "$REF_EN" "$CONFORMANCE")
 

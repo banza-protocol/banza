@@ -106,7 +106,7 @@ run_checks() {
 selftest() {
   local tmp; tmp="$(mktemp -d)"
   trap 'rm -rf "$tmp"' RETURN
-  mkdir -p "$tmp/website/app/roteiro" "$tmp/website/app" "$tmp/website/lib" "$tmp/website/content" "$tmp/website/components"
+  mkdir -p "$tmp/website/app/roteiro" "$tmp/website/app" "$tmp/website/lib" "$tmp/website/content" "$tmp/website/components" "$tmp/docs/reference/pt"
   # green skeleton
   cat > "$tmp/website/next.config.mjs" <<EOF
 { source: "/roteiro", destination: "$CANON_ROUTE", permanent: true },
