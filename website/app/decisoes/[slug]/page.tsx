@@ -49,8 +49,17 @@ export default async function DecisionDetailPage({ params }: { params: Promise<P
       : `Explica o ${d.id} em linguagem simples, destacando que é o registo canónico da proposta ou discussão técnica que documenta, mas que não altera por si só as regras actuais do protocolo enquanto não for aceite e reflectida nos documentos normativos aplicáveis. Este documento não confere certificação.`;
   const isADR = d.type === "ADR";
 
+  // The declared state, read from the record. A draft RFC opened directly must say so on its own page:
+  // arriving by link is exactly the path that skips the library's state chip.
+  const STATE_TEXT: Record<string, string> = {
+    activo: "Activo",
+    rascunho: "Rascunho — proposta em discussão, não aceite",
+    substituido: "Substituído",
+  };
+
   const META: { k: string; v: string }[] = [
     { k: "Tipo", v: d.type === "ADR" ? "ADR · Registo de Decisão de Arquitectura" : "RFC · Pedido de Comentários" },
+    { k: "Estado", v: STATE_TEXT[d.status] ?? d.status },
     { k: "Nível normativo", v: "Não normativo — explica a arquitectura; não vincula uma implementação" },
     { k: "Caminho", v: d.path },
   ];

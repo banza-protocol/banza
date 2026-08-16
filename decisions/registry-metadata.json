@@ -1,0 +1,45 @@
+{
+  "$comment": [
+    "Curated editorial metadata for the website's decision registry (website/lib/decisions.ts).",
+    "",
+    "The registry is GENERATED. Identity — id, type, slug, title, path, canonical URL, status — is read",
+    "from the record itself and is never written here: the tree decides what exists and what it is",
+    "called. What cannot be read from a record is its EDITORIAL framing, and that is what this file",
+    "holds: the one-line summary shown on a card, and the theme a record is filed under.",
+    "",
+    "This file exists because the registry used to claim it was generated while three records carried",
+    "hand-written summaries and categories the generator could not reproduce. Running the generator",
+    "would silently have replaced them. Ownership is now explicit: whatever is here is curated, and",
+    "everything else is derived. A record needs an entry ONLY when the derived value is wrong for it.",
+    "",
+    "The derived summary is the record's first substantive paragraph, which describes the CONTEXT — the",
+    "problem that prompted the decision. For most records that reads well. For a few it buries the",
+    "decision itself, and those are the ones curated below.",
+    "",
+    "category_order is the canonical order of the theme filter. A category that appears on a record but",
+    "not in this list is a generation ERROR, not a silent append: which themes exist is an editorial",
+    "decision, and the generator must not make it."
+  ],
+  "category_order": [
+    "Identidade e camadas",
+    "Autoridade e determinismo",
+    "Execução e primitivas financeiras",
+    "Confiança e chaves",
+    "Conformidade, perfis e registo",
+    "Sistemas de referência e governação",
+    "Governação e evolução",
+    "Propostas técnicas"
+  ],
+  "records": {
+    "ADR-040": {
+      "category": "Governação e evolução",
+      "summary": "BANZA has exactly four fundamental principles — Robust, Resilient, Secure and Simple. Resilience was the question nothing forced anyone to answer, and naming it is what makes it checkable.",
+      "why_curated": "The record opens on the absence of a named criterion; the decision is the four principles themselves."
+    },
+    "ADR-041": {
+      "category": "Governação e evolução",
+      "summary": "No layer may validate itself. Every critical property must be demonstrated through a falsifiable chain of evidence, and a higher gate never compensates for a lower one.",
+      "why_curated": "The record opens on an observation about accumulated green; the decision is the rule that no layer validates itself."
+    }
+  }
+}

@@ -486,11 +486,10 @@ jobs:
       # gained three entries without the `type` field its own interface requires, every check went green,
       # and the regression was found by a deployment — the website build was not a CI job at all.
       #
-      # The fast, precise half first: the registry declares the full shape and covers exactly the records
-      # that exist. Then the REAL production build, not a type-only approximation — `next build` runs the
-      # type checker AND the page generation, and a schema error that only surfaces while prerendering a
-      # route would walk straight past `tsc --noEmit`.
-      - name: Website decision-registry shape guard
+      # The fast, precise half first: the registry reproduces from its canonical inputs, covers exactly
+      # the records that exist, and declares the full shape. It generates a candidate into a temporary
+      # directory and compares — it never rewrites the tracked file.
+      - name: Website decision-registry reproduction and coverage guard
         run: bash tools/check-website-decisions-parity.sh
       - uses: actions/setup-node@v4
         with:
@@ -500,9 +499,18 @@ jobs:
       - name: Install website dependencies (locked)
         working-directory: website
         run: npm ci --no-audit --no-fund
+
+      # Build and tests are DIFFERENT properties, and each has already failed while the other was green.
+      # A passing suite does not prove the production build compiles: the `Decision.type` regression was
+      # a type error `next build` catches and vitest never runs. A passing build does not prove the
+      # behaviour is right: the site built perfectly with an ADR-id list the renumbering had made stale
+      # and with six RFCs missing from the library. Both run, in this required context.
       - name: Website production build
         working-directory: website
         run: npm run build
+      - name: Website test suite
+        working-directory: website
+        run: npm test
 
   whitepaper-canonical-source-boundary:
     name: Whitepaper canonical-source boundary (Overleaf PT dossier is the source)
