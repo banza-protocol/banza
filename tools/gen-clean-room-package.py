@@ -186,6 +186,16 @@ def main():
                                        'separately.')
         if target in closure:
             return ('in package', 'present in this package')
+        # Governance prose says what a conformance result MEANS — that a profile confers no
+        # authorisation, admission or permission to operate. An implementer needs to be able to
+        # follow that link, and it imposes no requirement, so it is a declared non-dependency
+        # rather than a hidden one. Existence is required: without it, a deleted governance file
+        # would be reclassified from `unresolved` to fine, which is the failure this whole
+        # classifier exists to prevent.
+        if target.startswith('docs/governance/') and os.path.isfile(os.path.join(ROOT, target)):
+            return ('governance', 'States what a conformance result does and does not mean. It '
+                                  'imposes no implementation requirement and is excluded from the '
+                                  'implementation set on purpose.')
         if target in {a['path'] for a in load(MANIFEST)['artifacts']}:
             return ('higher profile', 'On the normative surface, but not part of the %s '
                                       'implementation set. Required at a higher profile.' % level)

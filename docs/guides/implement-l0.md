@@ -177,6 +177,34 @@ Directly from the profile registry, `not_required`:
 This list is normative in the registry, not in this guide. It exists because an implementer who cannot
 tell where a level *stops* will implement more than the level asks.
 
+## 11b. What an L0 pass does not confer
+
+The same registry that states what L0 requires is equally explicit about what it does not confer:
+*"It confers nothing: no certification, no admission, no authorisation, and no permission to operate."*
+That sentence is the one implementers most often read past, so it is repeated here in the form it will
+be needed in.
+
+L0 is a **Protocol Sandbox**: an environment in which you implement, test and demonstrate BANZA
+technical interoperability using test material and test values. Passing it is a technical result about
+your implementation. It does not grant, replace or imply regulatory authorisation, admission to any
+operational scheme, permission to handle real customer funds, or approval to run in production.
+
+- Technical conformance ≠ regulatory authorisation
+- BANZA certification ≠ operational admission
+- L0 pass ≠ production approval
+
+A protocol sandbox is not a regulatory sandbox. BANZA operates no supervisory programme and is
+institutionally separate from any regulator's initiative; whether a regulated activity requires
+authorisation is decided by the competent authority under the applicable legal framework, not by this
+profile and not by a conformance verdict.
+
+None of this places L0 outside the law. Whatever obligations already apply to you continue to apply
+while you implement — the point is that a technical environment settles technical questions only.
+
+Test material stays test material: an artifact produced for L0 is never valid production material, and
+no L0 key, manifest or vector may be carried into a production trust path. See
+[`docs/governance/certification-boundary.md`](../governance/certification-boundary.md).
+
 ## 12. The next profile, and how the levels are shaped
 
 **L1 — Core Payment Capability** adds 17 artifacts: wallets, transfers, the ledger, events,

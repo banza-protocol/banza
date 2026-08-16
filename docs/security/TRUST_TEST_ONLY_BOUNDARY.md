@@ -52,6 +52,25 @@ The production root-key ceremony is **milestone M2** and has **not** been execut
   (INV-ROOT-001).
 - ✅ The fail-closed BRL behaviour is documented (`fail_closed_documented = true`).
 
+## L0 conformance material is not trust material
+
+The L0 profile — the **Protocol Sandbox** — is where an implementation demonstrates BANZA technical
+interoperability in a controlled environment. It is a separate track from the one described here, and
+the separation is the point: a conformance run produces *test* artifacts, and a production trust path
+accepts only material established through the root ceremony and the authority set.
+
+- An L0 artifact — key, manifest, vector or receipt — is never valid production trust material, and
+  carrying one into a production trust path is a defect, not a shortcut (ADR-023, INV-ROOT-001).
+- An L0 pass says an implementation represents the protocol correctly. It is not a certificate, not
+  admission to a scheme, not permission to move real funds, and not regulatory authorisation.
+- A protocol sandbox is not a regulatory sandbox. BANZA runs no supervisory programme and is
+  institutionally separate from any regulator's initiative; authorisation to conduct a regulated
+  activity is decided by the competent authority, never by a conformance verdict.
+
+This does not place L0 outside the law — obligations that already apply to an implementer continue to
+apply. The boundary is explained in
+[`docs/governance/certification-boundary.md`](../governance/certification-boundary.md).
+
 ## Enforcement flags carried by the trust track
 
 Every trust-track document carries, in spirit, the same negation set as the assurance baseline:

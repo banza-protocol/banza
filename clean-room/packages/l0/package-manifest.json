@@ -138,8 +138,8 @@
     },
     {
       "path": "docs/guides/implement-l0.md",
-      "sha256": "21e56c3a0e4638e20fa3aad7d74625e26ca44ffcd93329056bc4daa5a630aa0f",
-      "bytes": 12923,
+      "sha256": "4f8f1a36ead58cf5bcc8b3ac49043ae6601de689b01016442c4e5c49a0f5b512",
+      "bytes": 14624,
       "why": "a map to the L0 set; states no requirement of its own"
     },
     {
@@ -293,6 +293,14 @@
       "target": "docs/derived/implementation-sets.md",
       "kind": "derived view",
       "why": "A generated view of this same material. Informative; the Normative Manifest remains authoritative.",
+      "referenced_by": [
+        "docs/guides/implement-l0.md"
+      ]
+    },
+    {
+      "target": "docs/governance/certification-boundary.md",
+      "kind": "governance",
+      "why": "States what a conformance result does and does not mean. It imposes no implementation requirement and is excluded from the implementation set on purpose.",
       "referenced_by": [
         "docs/guides/implement-l0.md"
       ]

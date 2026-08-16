@@ -167,7 +167,7 @@ root-threshold-model-check:
 banza-whitepaper-check:
 	@bash tools/check-banza-whitepaper.sh
 
-.PHONY: current-doc-links-check website-reference-mirror website-reference-source-boundary-check reference-source-authority-check reference-structural-parity-check reference-check
+.PHONY: l0-regulatory-boundary-check current-doc-links-check website-reference-mirror website-reference-source-boundary-check reference-source-authority-check reference-structural-parity-check reference-check
 ## website-reference-mirror: GENERATOR — mirror the two canonical Reference editions into website/content/reference/{pt,en}.md. The website builds with website/ as its Docker context and cannot read docs/ at build time; the mirror exists for that boundary and is never hand-edited.
 website-reference-mirror:
 	@python3 tools/gen-website-reference-mirror.py
@@ -183,6 +183,10 @@ reference-source-authority-check:
 ## reference-structural-parity-check: PT and EN cannot drift structurally — same chapters in the same order, four R²S² principles, exactly 8 Structural Properties, and the high-risk claims present in both
 reference-structural-parity-check:
 	@bash tools/check-reference-structural-parity.sh
+
+## l0-regulatory-boundary-check: L0 is a technical Protocol Sandbox — the positive property (it enables genuine interoperability testing) and the boundary property (it confers no regulatory authorisation, operational admission, real-money permission or production approval) are both asserted, and no current surface claims otherwise
+l0-regulatory-boundary-check:
+	@bash tools/check-l0-regulatory-boundary.sh
 
 ## current-doc-links-check: every relative link in a current public document resolves; historical and evidence artifacts keep the paths they truthfully recorded
 current-doc-links-check:

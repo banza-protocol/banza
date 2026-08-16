@@ -1,5 +1,5 @@
 {
-  "total": 3122,
+  "total": 3129,
   "rows": [
     {
       "raw_text": "Contributing to BANZA",
@@ -23343,6 +23343,61 @@
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
+      "raw_text": "L0 — Protocol Sandbox: what it is, and what it is not",
+      "normalized": "l0 protocol sandbox what it is and what it is not",
+      "sources": [
+        "docs-governance-certification-boundary-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 11,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Four questions that are not the same question",
+      "normalized": "four questions that are not the same question",
+      "sources": [
+        "docs-governance-certification-boundary-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 8,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Protocol sandbox, not regulatory sandbox",
+      "normalized": "protocol sandbox not regulatory sandbox",
+      "sources": [
+        "docs-governance-certification-boundary-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "What this does not say",
+      "normalized": "what this does not say",
+      "sources": [
+        "docs-governance-certification-boundary-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Test material stays test material",
+      "normalized": "test material stays test material",
+      "sources": [
+        "docs-governance-certification-boundary-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
       "raw_text": "Conformance Readiness Levels",
       "normalized": "conformance readiness levels",
       "sources": [
@@ -23675,6 +23730,28 @@
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "material and the values",
+      "normalized": "material and the values",
+      "sources": [
+        "docs-governance-certification-boundary-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "L0 PASS ≠ production approval",
+      "normalized": "l0 pass production approval",
+      "sources": [
+        "docs-governance-certification-boundary-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
       "raw_text": "canonical, authoritative",

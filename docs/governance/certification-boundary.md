@@ -71,6 +71,74 @@ See [docs/reference/en/BANZA_REFERENCE.md §9 — Normative: Monetary Representa
 
 ---
 
+## L0 — Protocol Sandbox: what it is, and what it is not
+
+This is the primary explanation of the L0 boundary. Other surfaces state it briefly and link here.
+
+**L0 — Protocol Sandbox lets an implementation implement, test and demonstrate BANZA technical
+interoperability in a controlled, non-production environment, using test material, credentials, data
+and values as applicable, without presupposing authorisation to provide real financial services.**
+
+**L0 does not grant, replace or imply regulatory authorisation, operational admission, participation in
+a payment arrangement, or permission to move real funds.** Moving from a test implementation to
+real-world financial operation depends separately on the legal, regulatory, operational and governance
+framework applicable to the operator, the scheme and the jurisdiction.
+
+The interoperability L0 exercises is genuine: canonical representation, identifiers, signatures and
+digests, protocol states, reason semantics, idempotency, deterministic vectors and evidence. What is
+test-only is the **material and the values**, not the protocol behaviour. L0 is not a mock, a demo page
+or a visual prototype.
+
+### Four questions that are not the same question
+
+| Question | Who answers it |
+|---|---|
+| Can an implementation implement the protocol correctly? | The conformance vectors |
+| Can two implementations interoperate technically? | Their exchanged, verifiable evidence |
+| Has this implementation satisfied BANZA conformance and certification requirements? | Layer 2, per implementation |
+| Is the responsible entity authorised to provide real financial services here? | The competent regulator, and the applicable scheme |
+
+No answer propagates to another (ADR-005). In particular:
+
+- **technical conformance ≠ regulatory authorisation**;
+- **BANZA certification ≠ operational admission**;
+- **L0 PASS ≠ production approval**.
+
+There is no automatic legal progression from L0 to L4. Profiles are technical capability profiles, not
+licence levels: a profile states what an implementation must satisfy to claim that level, and
+[confers nothing](../../contracts/production/conformance-profiles.production.json).
+
+### Protocol sandbox, not regulatory sandbox
+
+**L0 is a protocol sandbox, not a regulatory sandbox.** It is technical infrastructure defined by this
+protocol. A regulator may separately operate innovation laboratories, regulatory sandboxes, supervised
+pilots or authorisation programmes; those remain institutionally separate, and BANZA neither runs nor
+participates in them by defining L0.
+
+In Angola — the protocol's context of origin, though BANZA itself is jurisdiction-neutral — this means
+**BANZA L0 is not a Banco Nacional de Angola authorisation, approval, supervision or programme, and it
+is distinct from [LISPA](https://lispa.ao/), the Laboratório de Inovação do Sistema de Pagamentos,
+which the BNA operates and which runs its own regulatory sandbox.** Taking part in BANZA L0 is not
+taking part in LISPA. Real payment services and participation in regulated payment-system activity
+remain subject to the applicable Angolan legal and regulatory framework, which L0 does not replace.
+
+### What this does not say
+
+L0 is not outside the law. The claim here is narrower and precise: **L0 technical testing does not
+presuppose the authorisation required for real financial operation.** Generally applicable law still
+applies to participants and their activities — data protection, cybersecurity, intellectual property,
+contractual and corporate obligations among others, depending on context. BANZA defines technical
+profile semantics; it does not determine who needs which licence, and nothing here is an
+individualised legal conclusion.
+
+### Test material stays test material
+
+Test credentials, keys, identifiers, endpoints and values are non-production by construction. Changing
+the environment does not promote them: test material can never become production-valid (ADR-023), and
+production trust requires its own governance, ceremony and state (ADR-007).
+
+---
+
 ## Conformance Readiness Levels
 
 Conformance readiness levels are cumulative and capability-oriented. Each level represents a set of demonstrated protocol capabilities — not a technology stack or product type. Operators implement capabilities in any language, database, or runtime they choose.
