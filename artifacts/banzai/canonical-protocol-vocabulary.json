@@ -332,7 +332,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "9b77aa1c86341229"
+        "checksum": "55270238b3fc0a74"
       },
       {
         "id": "governance-md",
@@ -343,7 +343,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "6f560a9e75af090d"
+        "checksum": "22aa36b2cb8e6bed"
       },
       {
         "id": "license",
@@ -387,7 +387,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "d3b5d22e39357ac4"
+        "checksum": "362ebd79596d6aa2"
       },
       {
         "id": "security-md",
@@ -398,7 +398,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "fd3a8d9261ee451e"
+        "checksum": "9e682d65605f22b4"
       },
       {
         "id": "trademarks-md",
@@ -1894,7 +1894,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "348a6cb35961a834"
+        "checksum": "9b5eb5c943776f81"
       },
       {
         "id": "contracts-collections-collection-rule-schema-json",
@@ -2488,7 +2488,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "ca3b6e21238dfb82"
+        "checksum": "be5c6ee905486f58"
       },
       {
         "id": "contracts-production-operation-receipt-production-schema-json",
@@ -2785,7 +2785,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "a0f98c8ba5549e7b"
+        "checksum": "0f61e623c754ccbb"
       },
       {
         "id": "contracts-qr-lifecycle-json",
@@ -3434,7 +3434,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "77b0bfd2d1a6ee87"
+        "checksum": "82e58f9649d23dc3"
       },
       {
         "id": "docs-banzai-banzai-workbench-threat-model-md",
@@ -3445,7 +3445,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "b93344a6e9575fa7"
+        "checksum": "39b5425cc64b60a0"
       },
       {
         "id": "docs-banzai-knowledge-index-md",
@@ -3500,7 +3500,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "ffee5eb55da71ea4"
+        "checksum": "cc79b63ff0f97f12"
       },
       {
         "id": "docs-banzai-readme-md",
@@ -3566,7 +3566,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "c18009a568ba9b37"
+        "checksum": "2ac5daa94c2126b0"
       },
       {
         "id": "docs-governance-banzai-native-protocol-agent-md",
@@ -3577,7 +3577,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "1e1a3e9535f2d7bd"
+        "checksum": "3289d2e39c4d5bb6"
       },
       {
         "id": "docs-governance-banzami-operational-scheme-md",
@@ -3621,7 +3621,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "93362591619416ee"
+        "checksum": "39c706f005d1fa26"
       },
       {
         "id": "docs-governance-banza-multilingual-architecture-md",
@@ -3632,7 +3632,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "6f0b02b3610487ac"
+        "checksum": "05e9636c77fc4e90"
       },
       {
         "id": "docs-governance-banza-protocol-boundary-md",
@@ -3676,7 +3676,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "2e1cbbe9f755e7cc"
+        "checksum": "20e15c99a343971f"
       },
       {
         "id": "docs-governance-banza-separation-matrix-md",
@@ -3698,7 +3698,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "1afa453af114cff7"
+        "checksum": "4680ef01f95b522b"
       },
       {
         "id": "docs-governance-banza-trust-architecture-md",
@@ -3709,7 +3709,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "0e0976c0535d485f"
+        "checksum": "819bbd363b1772c0"
       },
       {
         "id": "docs-governance-claude-base-md",
@@ -3731,7 +3731,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "e9420b3960ffd4a7"
+        "checksum": "25312d6afbb14188"
       },
       {
         "id": "docs-governance-federation-trust-model-md",
@@ -3742,7 +3742,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "b90744fe9b93896d"
+        "checksum": "91b6e71ab90e662e"
       },
       {
         "id": "docs-governance-l1-readiness-md",
@@ -3852,7 +3852,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "21e0bf8fa0d9dfa9"
+        "checksum": "d4bffe88cb3334f4"
       },
       {
         "id": "docs-governance-protocol-governance-roles-md",
@@ -3874,7 +3874,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "9bcf0ba82140ee20"
+        "checksum": "bf3bda9250ab7292"
       },
       {
         "id": "docs-governance-protocol-release-governance-md",
@@ -3885,7 +3885,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "224a4fd4703f8ef5"
+        "checksum": "792ae4ffeaf07d74"
       },
       {
         "id": "docs-governance-protocol-succession-and-survival-md",
@@ -3907,7 +3907,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "1b6401368d3dcc4c"
+        "checksum": "71c005b5ac485614"
       },
       {
         "id": "docs-governance-readme-md",
@@ -3918,7 +3918,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "a6cd139ff3efcadf"
+        "checksum": "c29cea97f514d436"
       },
       {
         "id": "docs-governance-repository-structure-md",
@@ -3951,7 +3951,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "ddb4371f06390260"
+        "checksum": "b35b9d71e11f208b"
       },
       {
         "id": "docs-governance-svg-quality-policy-md",
@@ -4006,7 +4006,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "f219dca7e7fe408d"
+        "checksum": "999e47405736cca2"
       },
       {
         "id": "docs-governance-certification-boundary-md",
@@ -4017,7 +4017,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "8352ebbc9b241d53"
+        "checksum": "1e6473e40b1489c2"
       },
       {
         "id": "docs-governance-licensing-md",
@@ -4039,7 +4039,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "e0bda43050e8f0a4"
+        "checksum": "405665b63fbe0973"
       },
       {
         "id": "docs-governance-rust-first-legacy-allowlist-json",
@@ -4842,7 +4842,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "2af51354e9ba8eb8"
+        "checksum": "b0cd735bb7152f1f"
       },
       {
         "id": "spec-idempotency-md",
@@ -4864,7 +4864,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "179c76a06b8616c2"
+        "checksum": "44dcb420ed801f6c"
       },
       {
         "id": "spec-overview-md",
@@ -4875,7 +4875,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "c0bd011f1ff4047a"
+        "checksum": "222401ccf45d1f4e"
       },
       {
         "id": "spec-payment-lifecycle-md",
@@ -4995,7 +4995,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "b34e5120db0de5d4"
+    "checksum": "97f41324e9554b46"
   },
   "subjects": [
     {
@@ -8024,5 +8024,5 @@
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "e1d24eedae02b88e"
+  "checksum": "6f94ad959fbc9a4f"
 }

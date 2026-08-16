@@ -718,7 +718,7 @@
       "class": "NORMATIVE_SPECIFICATION",
       "tier": "implementation",
       "role": "The trust chain a verifier walks, and what it must refuse.",
-      "sha256": "2af51354e9ba8eb8771d92e25fa0c67e8d35d7e993ee05dfbbd81d48e5c00b20"
+      "sha256": "b0cd735bb7152f1f47cfc9990efe9be2d3023f6cc263864f1d9d82b1ed8fdb09"
     },
     {
       "path": "spec/idempotency.md",
