@@ -338,6 +338,48 @@ fn term_of(nq: &str) -> Option<&'static str> {
     ) {
         return Some("def-trust-guarantees");
     }
+    // The four Fundamental Principles. The knowledge entry existed and nothing routed to it, so the
+    // deployed pipeline answered "quais são os princípios fundamentais?" from an unrelated entry — a
+    // WRONG answer, which is worse than no answer. Placed before the succession arm because "princípios"
+    // is the more specific signal.
+    if has(
+        nq,
+        &[
+            "r2s2",
+            "r²s²",
+            "principios fundamentais",
+            "princípios fundamentais",
+            "fundamental principles",
+            "quatro principios",
+            "four principles",
+            "principios do banza",
+            "principios de banza",
+            "design principles",
+            "quais sao os principios",
+            "quais são os princípios",
+        ],
+    ) {
+        return Some("def-r2s2");
+    }
+    // "o que é Robusto/Resiliente no BANZA?" — the individual principles resolve to the same entry
+    // rather than to unrelated prose that happens to use the adjective.
+    if has(
+        nq,
+        &[
+            "o que e robusto",
+            "o que e resiliente",
+            "o que significa robusto",
+            "o que significa resiliente",
+            "what does robust mean",
+            "what does resilient mean",
+            "what does simple mean",
+            "principio simples",
+            "principio seguro",
+        ],
+    ) {
+        return Some("def-r2s2");
+    }
+
     // Root succession (ADR-039), by the same predicate that opens the gate — one definition of what
     // counts as a succession question, so the gate and the term table can never disagree. Placed before
     // the generic `spec` term so "especificação do conjunto de autoridades" resolves to the concept.
@@ -742,7 +784,31 @@ pub fn glossary_entry(nq: &str) -> Option<&'static str> {
         || gov_phrase
         || guarantee_phrase
         || is_protocol_fact_phrase(nq)
-        || is_root_succession_phrase(nq);
+        || is_root_succession_phrase(nq)
+        || has(
+            nq,
+            &[
+                "principios fundamentais",
+                "princípios fundamentais",
+                "fundamental principles",
+                "r2s2",
+                "r²s²",
+                "quatro principios",
+                "four principles",
+            ],
+        )
+        || (has(nq, &["resiliencia", "resiliência", "resilience"])
+            && has(
+                nq,
+                &[
+                    "seguranca",
+                    "segurança",
+                    "security",
+                    "sobrepoe",
+                    "sobrepõe",
+                    "override",
+                ],
+            ));
     // A bare/very short term ("federar", "trust", "saldo reservado", "payment link") — ≤ 2 tokens so an
     // off-topic short phrase that merely contains a term mid-sentence ("Russian Federation history",
     // "setup de operador") is NOT captured and still grounds.
