@@ -83,8 +83,8 @@ contra a verdade normativa corrente do repositório; ver a nota de sincronizaç�
 
 | Edição | PDF | Páginas | SHA-256 |
 |---|---|---|---|
-| PT (canónica) | `banza-whitepaper-v1.0-pt.pdf` | 12 | `03abcfe45ffe9a7ce2ba46d6d03007ee59076349e515d48ab85dbd5397f3f090` |
-| EN (tradução oficial) | `banza-whitepaper-v1.0-en.pdf` | 12 | `92ab1d7ccb35b724e76192324bef4167ac58e25f6f4cc6797fa4727aa28cdbfd` |
+| PT (canónica) | `banza-whitepaper-v1.0-pt.pdf` | 12 | `8e606d83dec4a535812d9a3b5e60f03499949a980f4c909281827a9967cb2ae4` |
+| EN (tradução oficial) | `banza-whitepaper-v1.0-en.pdf` | 12 | `629c9233c857d4e3ebfa7518620cf51db88d94285ebf7f068bea862e1d381077` |
 
 Wording congelado da edição activa: PT contém «configuração segura do protocolo»; zero
 «instanciação segura» e zero «instantâneo de observação» (âmbito: Whitepaper activo — não repo-wide).
