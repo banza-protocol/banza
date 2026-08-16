@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { getReferenceChapters, getReferenceChapter } from "./reference";
-import { decisions, getDecision } from "./decisions";
+import { decisions, decisionCategories, getDecision } from "./decisions";
 
 // M2.7L — public information architecture: canonical chapter order, PostgreSQL=05, FAQ last,
 // Racional merged into ch.02, stable slugs, clean public cards, and ADR-038..042 in the index.
@@ -435,6 +435,32 @@ describe("the decisions index carries usable metadata for every record", () => {
   it("the index is unique by id", () => {
     const ids = decisions.map((d) => d.id);
     expect(new Set(ids).size).toBe(ids.length);
+  });
+
+  // Both record classes must actually be present. The library offers an "RFCs" tab and its own header
+  // counts them, and for as long as the registry understood only the ADR heading format that tab was a
+  // filter over nothing and the count read zero — while six RFCs sat on disk, mirrored into the site.
+  it("both record classes are represented", () => {
+    expect(decisions.filter((d) => d.type === "ADR").length).toBeGreaterThan(0);
+    expect(decisions.filter((d) => d.type === "RFC").length).toBeGreaterThan(0);
+  });
+
+  // The state chip used to be a literal "Activo" on every card. Harmless while every record really was
+  // active; the moment draft RFCs became visible it would have published a false status for six
+  // governance documents.
+  it("every record declares a state the filter can select", () => {
+    for (const d of decisions) {
+      expect(["activo", "rascunho", "substituido"]).toContain(d.status);
+    }
+  });
+
+  // A record whose theme is absent from the filter is reachable only by knowing its URL.
+  it("every category in use is offered by the theme filter, and every offered theme has records", () => {
+    const used = new Set(decisions.map((d) => d.category));
+    for (const c of used) expect(decisionCategories, `theme ${c} is unfilterable`).toContain(c);
+    for (const c of decisionCategories) {
+      expect([...used], `theme ${c} selects an empty library`).toContain(c);
+    }
   });
 });
 

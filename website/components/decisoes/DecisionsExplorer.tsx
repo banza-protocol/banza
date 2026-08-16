@@ -12,6 +12,16 @@ import type { Decision } from "@/lib/decisions";
 type TypeFilter = "all" | "ADR" | "RFC";
 type StateFilter = "all" | "activo" | "rascunho" | "substituido";
 
+// The state a record declares. An RFC carries its own in frontmatter; an ADR in this tree is current
+// by construction. Before the registry could read either, every card was labelled "Activo" from a
+// literal — which was harmless only for as long as the six draft RFCs were invisible.
+const STATE_LABEL: Record<StateFilter, string> = {
+  all: "Todos",
+  activo: "Activo",
+  rascunho: "Rascunho",
+  substituido: "Substituído",
+};
+
 const TYPE_TABS: { key: TypeFilter; label: string }[] = [
   { key: "all", label: "Todos" },
   { key: "ADR", label: "ADRs" },
@@ -47,7 +57,7 @@ export function DecisionsExplorer({
     const q = query.trim().toLowerCase();
     return decisions.filter((d) => {
       if (type !== "all" && d.type !== type) return false;
-      if (state !== "all" && "activo" !== state) return false;
+      if (state !== "all" && d.status !== state) return false;
       if (category !== "all" && d.category !== category) return false;
       if (q) {
         const hay = `${d.id} ${d.title} ${d.summary} ${d.category}`.toLowerCase();
@@ -160,8 +170,8 @@ export function DecisionsExplorer({
                   {d.type}
                 </span>
                 <span className="font-mono text-[12px] text-ink-3">{d.id}</span>
-                <span className={`ml-auto rounded-[2px] border px-[8px] py-[3px] font-mono text-[10px] ${stateChipClass("activo")}`}>
-                  {"Activo"}
+                <span className={`ml-auto rounded-[2px] border px-[8px] py-[3px] font-mono text-[10px] ${stateChipClass(d.status)}`}>
+                  {STATE_LABEL[d.status]}
                 </span>
               </div>
               <h3 className="m-0 mb-2 text-[15px] font-semibold leading-[1.35] text-ink">
