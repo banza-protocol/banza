@@ -166,7 +166,7 @@
         },
         {
           "t": "p",
-          "text": "As decisões de concepção obedecem a quatro princípios fundamentais, designados \\textbf{BANZA R\\textsuperscript{2}S\\textsuperscript{2}} — Robusto, Resiliente, Seguro e Simples —, em que R\\textsuperscript{2} representa os dois princípios iniciados por R e S\\textsuperscript{2} os dois iniciados por S. Robusto é manter comportamento correcto e determinístico perante implementações independentes, entrada adversarial e condições-limite. Resiliente é conter falhas, preservar operação segura onde é possível e recuperar deterministicamente sem enfraquecer garantias — uma recusa segura pode ser o comportamento resiliente. Seguro é impor por construção as propriedades críticas e fechar por omissão quando não podem ser estabelecidas. Simples é adoptar o menor mecanismo suficiente para a propriedade exigida. São critérios de decisão, não qualidades desejáveis: a resiliência não se sobrepõe à segurança nem promete disponibilidade contínua."
+          "text": "As decisões de concepção obedecem a quatro princípios fundamentais, designados BANZA R²S² — Robusto, Resiliente, Seguro e Simples —, em que R² representa os dois princípios iniciados por R e S² os dois iniciados por S. Robusto é manter comportamento correcto e determinístico perante implementações independentes, entrada adversarial e condições-limite. Resiliente é conter falhas, preservar operação segura onde é possível e recuperar deterministicamente sem enfraquecer garantias — uma recusa segura pode ser o comportamento resiliente. Seguro é impor por construção as propriedades críticas e fechar por omissão quando não podem ser estabelecidas. Simples é adoptar o menor mecanismo suficiente para a propriedade exigida. São critérios de decisão, não qualidades desejáveis: a resiliência não se sobrepõe à segurança nem promete disponibilidade contínua."
         },
         {
           "t": "p",
@@ -407,7 +407,7 @@
             "um modelo de conformidade determinística e reproduzível, baseado em representação canónica, estados, códigos de motivo, idempotência, vectores, recibos e evidência ligada às entradas avaliadas;",
             "a separação entre protocolo, implementação, conformidade técnica, certificação, operação de esquemas e autorização regulatória, impedindo que uma decisão num plano se propague aos restantes;",
             "uma arquitectura de confiança com três autoridades e limiar 2-de-3, génese fixado, sucessão autorizada pelo predecessor, protecção contra regressão e ausência de recuperação unilateral;",
-            "uma adopção progressiva através dos perfis L0–L4, orientada pelos princípios \\textbf{BANZA R\\textsuperscript{2}S\\textsuperscript{2}} — Robusto, Resiliente, Seguro e Simples — e pelos cinco invariantes arquitecturais."
+            "uma adopção progressiva através dos perfis L0–L4, orientada pelos princípios BANZA R²S² — Robusto, Resiliente, Seguro e Simples — e pelos cinco invariantes arquitecturais."
           ]
         },
         {
