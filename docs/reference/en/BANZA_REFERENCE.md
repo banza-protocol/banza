@@ -899,3 +899,148 @@ Gathering the chapter into a single rule: verifiable properties belong to the im
 None of these determinations propagates to the others, and none rises to the entity as a global status (ADR-005). BANZA verifies the technical behaviour of implementations; it does not decide commercial relationships, scheme admissions or authorisations — and, because the criterion is technical and the same for everyone, in none of these dimensions is there a "privileged operator" or a "tolerated operator".
 
 ---
+
+## 9. Operator Zero
+
+**Operator Zero** is the BANZA protocol's **read-only** reference implementation, created in order to make the protocol's public surfaces observable and testable. **It is not a production operator, not a certified implementation, not an authority and not a specification; it moves no real money.** BANZA's normative rules live in the public contracts and specifications; Operator Zero merely materialises them in a concrete implementation, without replacing them. The reference lives at [zero.banza.network](https://zero.banza.network/).
+
+![The normative meaning of Operator Zero: BANZA's public contracts and specifications (normative) are materialised by a reference implementation, which exposes observable surfaces for discovery and testing; the arrow runs from the contracts to the implementation — never the other way. Banner: executable reference, not normative specification.](../../../website/public/diagrams/protocol/operador-zero-reference-vs-specification-v1.svg)
+
+### What it demonstrates
+
+It demonstrates, concretely and verifiably, **how an implementation presents itself to the protocol**: an operator manifest, declared capabilities and endpoints, signed protocol metadata, public keys, a revocation list, conformance evidence and an honest certification status. It provides valid examples and deliberately invalid examples, so that correct rejection can also be exercised. It makes these surfaces observable so that any party may discover, fetch and verify them.
+
+What it demonstrates has precise limits. A functional demonstration is **not** production readiness: Operator Zero does not represent production and does not automatically demonstrate security at scale, scalability, operational capacity or regulatory adequacy. It proves that certain interfaces and the validation journey **can be implemented** — nothing more than that.
+
+### What it does not represent
+
+Operator Zero **is not a bank, a PSP, a wallet, a financial operator or a financial service provider**, and it moves no real money.
+
+**It is:**
+- a read-only reference implementation;
+- a safe demonstration and testing target;
+- a surface of observable artifacts.
+
+**It is not:**
+- a production operator — it has no customers, no custody and no risk;
+- a certified implementation — it holds no formal certification, its status is `NOT_CERTIFIED`;
+- a scheme participant (Layer 3), a licence or an authorisation;
+- an authority — it neither validates nor certifies itself, and its Demo Operator Root is not the protocol's Trust Root;
+- a specification — it does not define the protocol.
+
+It runs no live execution on this surface: it holds no mutable state and executes no conformance, trust, federation, evidence construction or any certification action — a guard fails the build if a local execution point appears. It never appears in `/operators`, the route of real operators.
+
+Because it is not normative, three consequences follow. Nothing it does is mandatory by virtue of its doing it — nobody needs to copy its technology in order to implement BANZA. **It is replaceable:** another implementation serving the same observable artifacts is resolved and validated by the same path, with no shortcut (ADR-034 §4.9), and reimplementing it with another technology leaves the protocol unchanged. And **the protocol works without it:** the protocol is defined by the contracts and the conformance suite, and if it disappeared the contracts would remain sufficient to implement it — what would be lost is pedagogical, not normative. Where the implementation and the specification diverge, the specification prevails (ADR-035). Finally, **"Zero" is the name of this implementation, not a profile: L0 is a conformance profile** (§7); the implementation declares the L0 profile, but declaring a profile is not being certified in it.
+
+### Technical identity and demonstration environment
+
+In the model of [§8](#8-operators), the operator is the entity and the implementation is the technical subject evaluated. Operator Zero occupies both places in the Technical Registry: the operator `operator-zero` publishes the implementation `operator-zero-ref-impl` at the canonical origin `zero.banza.network`. But the "operator" place is here a demonstration marker, not a real entity: `operator_real` is `false`. Whenever this chapter says "Operator Zero demonstrates…", the strict subject is the reference implementation, evaluated on its artifacts.
+
+The environment is a **demonstration** (sandbox): values are the invented currency `KZ_DEMO`, in integer minor units, impossible to confuse with real value, and each artifact is marked `demo_only`, `monetary_value: false` and `production_allowed: false` (a guard fails the build if that marking is lost). A demonstration state must never be read as real custody — in the spirit of [§5](#5-protocol-state), protocol state is not financial value, and here there is not even value to refer to.
+
+The **Demo Operator Root** is Operator Zero's demonstrative signing root, **separate from the protocol's Trust Root**: it signs demo material and nothing else, it is not a protocol trust anchor and it cannot be mistaken for one. Only public material is published — public key, key manifest, revocation list, signatures and evidence; no private key, seed or token exists in the repository. The reference's trust vocabulary is prefixed `demo_` so that a demonstration verdict cannot pass for a protocol trust result.
+
+### Artifacts and observable surfaces
+
+The artifacts live in [`examples/operators/zero/`](https://github.com/banza-protocol/banza/tree/main/examples/operators/zero) and are **exposed** as JSON endpoints under `zero.banza.network` — pre-built canonical artifacts, not state computed live:
+
+| Artifact | Endpoint |
+|---|---|
+| Operator manifest | [`/.well-known/banza/operator.json`](https://zero.banza.network/.well-known/banza/operator.json) |
+| Demo Operator Root key manifest | [`/key-manifest.json`](https://zero.banza.network/key-manifest.json) |
+| Demo revocation list | [`/revocation-list.json`](https://zero.banza.network/revocation-list.json) |
+| Conformance evidence | [`/conformance/evidence.json`](https://zero.banza.network/conformance/evidence.json) |
+| Demo federation metadata | [`/federation/metadata.json`](https://zero.banza.network/federation/metadata.json) |
+| Evidence bundle | [`/evidence-bundle.json`](https://zero.banza.network/evidence-bundle.json) |
+| Ledger example (read) | [`/ledger/demo.json`](https://zero.banza.network/ledger/demo.json) |
+| Full E2E trace | [`/traces/full-e2e.json`](https://zero.banza.network/traces/full-e2e.json) |
+
+Each response is a read-only `GET`; a write returns `405` and an unknown path returns `404`. The ledger example is example state exposed for reading, not a running ledger.
+
+### How it is validated and tested in BanzAI
+
+Validation does not run on this surface: it runs in **BanzAI**, initiated by a person in validation mode (ADR-035). Operator Zero is here a **target** — a safe subject of exploration — never a source of authority or of truth.
+
+The mechanism is that of [§8](#8-operators): BanzAI resolves the target in the Technical Registry (`operator → implementation → canonical origin → discovery`) and **fetches** the artifacts from the canonical origin through a secure Rust fetch layer; the decision engines, with no network, evaluate the fetched content. The journey runs through nine stages — discovery, manifest, keys, conformance, interoperability, trust, federation, evidence bundle and certification readiness — each evaluated by the deterministic engines over the artifacts fetched from the public endpoints.
+
+![Separation of responsibilities: Operator Zero is the read-only target and does not validate itself; BanzAI orchestrates the session; the Rust engines decide deterministically; the explanation is generated locally; the Registry publishes a verifiable index.](../../../website/public/diagrams/protocol/operador-zero-separation-of-responsibilities-v2.svg)
+
+The operational rule is fixed: **the operator publishes · BanzAI fetches · Rust verifies · the receipt fixes the result · the Registry publishes the verifiable status** — the local model only explains. Each stage produces an *OperationReceipt* bound to the exact origin of its inputs, sealed in a *JourneyReceipt*; in validation mode, `qwen_calls = 0` and `external_model_calls = 0` by construction — the model never runs a test, chooses a result or issues a record. The result is categorical and honest, without a score, and it is specific to the implementation, the profile, the version, the environment and the moment of evaluation. Uploading or pasting an artifact is permitted only in a local, separate and non-authoritative draft tool, which verifies only local content and never constitutes official evidence (ADR-034 §4.5).
+
+None of this has to be taken on trust: the endpoints, the receipts (including `qwen_calls = 0`) and Operator Zero's absence from `/operators` are all independently re-verifiable.
+
+![Nine-stage validation journey, conducted by BanzAI and evaluated at each stage by the Rust engines; certification readiness is local technical evidence, not a granted credential.](../../../website/public/diagrams/protocol/operador-zero-validation-journey-v2.svg)
+
+### Relationship with the Technical Registry and certification
+
+In the Technical Registry, Operator Zero is a **single** reference/demonstration record — one operator and one implementation, in the sandbox environment. **Its presence means only that a verifiable target exists; it does not mean authorisation, admission or certification** (§8): presence in the Registry never confers status.
+
+Its certification status is **`NOT_CERTIFIED`** (and `PRE_PRODUCTION`, being a demonstration). This means the **absence of a formal certification — the protocol's baseline status — and not a conformance failure**: the validation journey completes without blockages; Operator Zero is `NOT_CERTIFIED` because it is a demonstration (`production_allowed=false`), not because it fails. Certification readiness aggregates the stage verdicts as local technical evidence — **certification readiness is not an issued certification**, it never returns `CERTIFIED`, and technical certification is neither scheme admission nor regulatory authorisation ([§7](#7-conformance-and-certification), ADR-005).
+
+### Where to continue
+
+- [§8 Operators](#8-operators) defines the operator/implementation distinction and the Technical Registry that this chapter exemplifies.
+- [§7 Conformance and Certification](#7-conformance-and-certification) defines the profiles, validation and technical certification.
+- [§10 Federation](#10-federation) describes the peer evaluation that Operator Zero's journey demonstrates locally.
+- [§13 Developer Resources](#13-developer-resources) gathers the contracts, schemas and endpoints; the artifacts live in [`examples/operators/zero/`](https://github.com/banza-protocol/banza/tree/main/examples/operators/zero).
+- [§5 Protocol State](#5-protocol-state) and [§14 Protocol Evolution](#14-protocol-evolution) record the current state of certification and of the production conditions.
+
+---
+
+## 10. Federation
+
+In BANZA, **federation** is the **technical, local, per-interaction evaluation** of the conditions necessary for interoperability between two operators, through the concrete implementations involved: before routing a payment, each party evaluates, by itself, the material the other's implementation publishes, under the protocol's public rules. Each evaluation produces **a single result, about a single interaction** — routing is permitted (`ROUTING_ALLOWED`) or it fails closed (`FAIL_CLOSED`); a `ROUTING_ALLOWED` means only that the necessary technical conditions were satisfied in that interaction and **does not oblige anyone to route**. Federation **is not** an operator status, an organisation, a central network, a registration, a membership list or an authority: it is conferred by nobody, and by itself it creates neither an operational scheme, a commercial agreement, a settlement executed by BANZA, nor a regulatory authorisation. BANZA publishes the rules and signs the protocol material, but **it is neither in the trust path nor in the funds path**: it does not choose partners and does not oblige anyone to route.
+
+The term has a second, independent use: *infrastructure federation* — the publication of the Technical Registry and the Revocation List by multiple replicas, in which any replica with a valid signature is as authoritative as the canonical one. It depends neither on conformance scope nor on payment routing. Without qualification, "federation" in this chapter is always payment federation between operators.
+
+### A local decision, not a status
+
+A federation is not something an operator *has*; it is something two operators *do*, evaluation by evaluation. Before routing a payment, the routing party runs the evaluation over the counterparty's published material and reaches, by itself, `ROUTING_ALLOWED` or `FAIL_CLOSED`. The result is **local** — computed by the party itself, without consulting BANZA — **per interaction** — it holds for that routing, not forever — and **reproducible** — any third party that collects the same public material reaches the same result. It is not a badge: the evaluation result is not even signed; it is a re-derivable computation, not an issued credential. There is no registration, membership or register of "federated" parties — there is published material that verifies, or does not verify, at the moment it is evaluated.
+
+### Subject and scope of the relation
+
+The federation relation is **between operators** — each is the other's counterparty in the routing and in the obligation that results from it. But what each party **evaluates** is the **published material of a bounded implementation** of the counterparty: its manifest, its signed protocol metadata and its conformance evidence, within a concrete scope and version ([§8](#8-operators)). **A federation relation applies to a pair of operators through the concrete implementations involved, and does not automatically assign a global status to the entity.** In the spirit of [§8](#8-operators), a technical property of an implementation never rises to the company as a status, nor does it cross to another implementation of the same operator. The relation is **peer to peer**: ten interoperable operators are ten independent bilateral relations, not a common membership.
+
+### Technical eligibility: the L3 profile
+
+Routing between operators is a capability that the implementation has to **demonstrate** before being able to exercise it. That capability is the **L3 conformance profile**. **L3 means that an implementation demonstrated, by reproducible evidence, conformance with the inter-operator payments protocol; it does not mean that this implementation is federated, admitted to a scheme or authorised to operate.** L3 is a **profile** — a technical property of the implementation ([§7](#7-conformance-and-certification)) — and never **Layer 3**, which is the plane of the operational schemes ([§4](#4-protocol-architecture)); the letter "L" belongs to the profiles.
+
+Being technically **eligible** means meeting the minimum conditions for being evaluable: declaring the federation capability and publishing valid, fresh and unrevoked L3 evidence. **Eligibility means being able to be evaluated; it does not mean that a relation already exists.** The L3 profile is **necessary but never sufficient**: each routing remains subject to the full evaluation, and a declared capability without evidence covering it proves nothing.
+
+### How federation is evaluated
+
+The evaluation that decides the routing is **Open Trust Evaluation** ([§6](#6-trust)) applied to the case of two operators — ten conjunctive verifications, executed locally by the routing party over public material, and defined in detail in [§8](#open-trust-evaluation). It is verified that the manifest is valid and the protocol version compatible; that the protocol metadata is signed and the signature anchors in the Key Manifest; that the conformance evidence is valid, reproducible and within the freshness window; that the material does not appear on the Revocation List; and that the capabilities and endpoints cover the intended interaction. If any verification is missing or not verifiable, the evaluation **fails closed** — there is never a pass by default.
+
+The evaluation is **bidirectional**: before accepting a routing, the counterparty runs the same evaluation in the opposite direction. Its **inputs** are technical material — signed metadata, conformance evidence, revocation status, freshness. **A valid trust result may enable a routing; by itself it establishes neither a commercial relation, an admission, nor an authorisation.** The **Layer 2 technical certification** — an institutional determination, distinct from the L0–L4 conformance profiles — **is not** an input of this evaluation: federation runs over the **evidence** the implementation publishes, not over an issued certificate — technical certification may exist in parallel, but it **does not automatically create** a federation between the operators ([§7](#7-conformance-and-certification), ADR-005). And appearing in the Technical Registry is discovery, not approval: a full replica of the Registry produces the same result, which proves that it is an index and not a gate.
+
+![Federation evaluation between Operator A and Operator B (examples): before routing, each party locally evaluates the published material of the other's implementation — compatible manifest and version, signed metadata anchored in the Key Manifest, valid and fresh conformance evidence, absence from the Revocation List, compatible capabilities and endpoints, and the L3 profile as a precondition — reaching ROUTING_ALLOWED or, by default, FAIL_CLOSED; the evaluation is bidirectional, moves no funds and does not consult BANZA](../../../website/public/diagrams/protocol/banza-controlled-federation-gate-v1.svg)
+
+### Independent relations, neither symmetric nor transitive
+
+Each federation relation is evaluated on its own. **Federation is not automatically symmetric:** one party considering the other routable, under its own evaluation, does not imply that the inverse relation exists — each side evaluates and decides independently, and even an evaluation that passes obliges nobody to route. **Federation is not transitive:** from Operator A interoperating with Operator B, and B with C, it does not follow that A interoperates with C — each pair evaluates directly, and no result propagates through a third party.
+
+And no relation is permanent. Trust material **expires** — conformance evidence has a maximum validity window; the evaluation is **repeated** at each routing; and revocation, a version change or the loss of freshness make the evaluation fail closed again, until the implementation republishes valid material. Yesterday's `ROUTING_ALLOWED` is not today's guarantee.
+
+![Independent federation relations between Operator A, Operator B and Operator C (examples): between A and B, and between B and C, there are two separate evaluations; from A↔B and B↔C it does not follow that A↔C, because federation is not transitive, and A accepting B does not imply B accepting A, because it is not symmetric; a lower band shows that a technical federation determination does not propagate to scheme admission, funds settlement or regulatory authorisation](../../../website/public/diagrams/protocol/banza-federation-non-propagation-v1.svg)
+
+### What the protocol specifies and what the operators execute
+
+When two parties route a payment, the protocol specifies the **routing contract**, the **format of the obligation** that the routing party records, and the **reconciliation invariants** — the same transaction identifier across all artifacts on both sides, the obligation amount equal to the routing amount, and the conservation of value across the boundary between operators. This makes any inter-operator payment independently auditable, from each operator's immutable postings.
+
+What the protocol **does not** do is move the money. **Federation moves no funds and executes no settlement:** crediting the beneficiary, netting positions between peers and the bank transfer that settles them are executed by the **operators**, on the competent rails and outside the protocol — each party computes the position autonomously and both have to agree before any transfer. BANZA defines the calculation rules and the reconciliation invariants; it holds no balances, does no clearing and guarantees no party's solvency.
+
+### What federation does not create
+
+A technical federation determination is deliberately narrow. **Technical federation ≠ admission to an operational scheme:** a scheme (Layer 3) may consider technical results as an input to its own policies, but admission is a decision of the scheme, not a consequence of the evaluation ([§4](#4-protocol-architecture)). **Federation does not replace** commercial contracts, service-level agreements, counterparty risk management, compliance duties or regulatory obligations — which remain, in full, with the operators and the competent authorities. And it is not a licence: a `ROUTING_ALLOWED` does not authorise financial activity.
+
+**BANZA does not decide whom an operator relates to; that decision belongs to each operator**, which applies its own policy on top of the protocol's technical floor and may refuse even a counterparty that passes the evaluation — the protocol defines when a routing **cannot** happen, never when it has to. **A technical federation determination does not propagate automatically to scheme admission, to funds settlement or to regulatory authorisation:** each of those is a determination of another owner, evaluated within its own scope.
+
+### Where to continue
+
+- [§6 Trust](#6-trust): the trust model — Root, Key Manifest, delegated keys and revocation — on which the federation evaluation depends.
+- [§7 Conformance and Certification](#7-conformance-and-certification): the L0–L4 profiles, including the L3 that federation presupposes, and Layer 2 technical certification.
+- [§8 Operators](#8-operators): the operator/implementation distinction and Open Trust Evaluation in detail.
+- [§11 Governance](#11-governance): the public process that defines the rules and the profiles.
+- [§5 Protocol State](#5-protocol-state) and [§14 Protocol Evolution](#14-protocol-evolution): the current state of federation and of the production conditions — which is not described here.
+
+---
