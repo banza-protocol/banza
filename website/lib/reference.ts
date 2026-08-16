@@ -1,10 +1,13 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
-// Build-time snapshot of the canonical protocol reference. The Docker build
-// context is website only, so the markdown lives inside the app. Keep this
-// in sync with the repo-root BANZA_REFERENCIA.md when the reference changes.
-const REFERENCE_PATH = join(process.cwd(), "content", "BANZA_REFERENCIA.md");
+// Generated mirror of the canonical Reference. The editorial source is
+// docs/reference/pt/BANZA_REFERENCIA.md; the Docker build context is website
+// only, so the build cannot read it directly and reads this mirror instead.
+// The mirror is produced by `make website-reference-mirror` and is never edited
+// by hand — `make website-reference-source-boundary-check` fails if it drifts
+// from its source.
+const REFERENCE_PATH = join(process.cwd(), "content", "reference", "pt.md");
 
 export type TocEntry = { id: string; title: string; number?: string };
 

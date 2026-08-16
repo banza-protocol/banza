@@ -20,8 +20,7 @@ const FILES = [
   "website/lib/site.ts",
   "CLAUDE.md",
   "README.md",
-  "docs/reference/pt/completa.md",
-  "docs/reference/en/complete.md",
+  "docs/reference/en/BANZA_REFERENCE.md",
   "docs/guides/conformance.md",
 ];
 
