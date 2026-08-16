@@ -1044,3 +1044,113 @@ A technical federation determination is deliberately narrow. **Technical federat
 - [§5 Protocol State](#5-protocol-state) and [§14 Protocol Evolution](#14-protocol-evolution): the current state of federation and of the production conditions — which is not described here.
 
 ---
+
+## 11. Governance
+
+BANZA's governance is the **public process by which the protocol's rules evolve** — how a proposal goes from idea to official rule, who may propose, who decides and how each decision is recorded. It is neither a company nor a central body: it is an open process, conducted by the protocol's **active maintainers** under public rules. **Governance defines how the protocol's public rules evolve; it does not decide who implements the protocol, who is certified, who is admitted to a scheme or who is authorised to operate.** It maintains and evolves the protocol — it does not administer the operators that use it.
+
+One distinction governs the whole chapter: **humans govern the rules; the deterministic engines apply them to concrete cases.** No human stands between an operator and the protocol. Whenever this chapter says "governance decides", the decision is about a **rule**, never about an individual case — the certification of an implementation, admission to a scheme, authorisation of an activity and the relation between two parties belong to other owners.
+
+### What governance governs
+
+Governance acts on the protocol's **specification**. The normative rules — what an implementation has to satisfy — live in the **public, versioned invariants, contracts and conformance vectors**; the code, the explanatory documentation and the reference implementation do not redefine the protocol. Over that core, governance may alter the contracts and schemas, the profiles and conformance criteria, the version catalogue and the set of invariants itself — always through the public process.
+
+The rules are ordered by authority, and each level binds those below it: the **Fundamental Principles** — BANZA R²S² ([§1](#1-what-banza-is)) — prevail over everything, and the **structural properties** ([§3](#3-protocol-structural-properties)) express what follows from them; the **Invariants** ([§4](#4-protocol-architecture)) are guarantees that no decision may violate; the **architecture decisions** and the **specifications** give them concrete form; the **implementation guides** only guide, without creating rules. A proposal that contradicts an invariant is admissible only through a change that revises the invariant itself — and that change is, in turn, inadmissible if it contradicts the Principles. It is this order that makes every change verifiable against what stands above it.
+
+![BANZA Protocol normative hierarchy — four levels, each binding on those below: Fundamental Principles (highest authority), Invariants, Architecture decisions and specifications, Implementation guides; no decision may violate an invariant, local implementation does not redefine the protocol, BanzAI explains but does not decide, and BANZA is not a regulatory authority](../../../website/public/diagrams/protocol/banza-normative-hierarchy-n1-n5-v1.svg)
+
+### What remains outside its authority
+
+Governance's authority ends at the protocol's rules. It **does not produce the conformance verdict of a concrete implementation**: governance defines the profile and the criteria; the determination is produced by the **Layer 2 deterministic engine**, reproducible by any party — not by a human decision. It does not admit operators, does not certify or approve them (that function does not exist in the protocol); it does not decide **admission to an operational scheme** — that is the scheme's decision, at **Layer 3, which remains institutionally independent** of the protocol's governance; it does not replace **regulatory authorisation**, which belongs to the competent authorities; and it does not interfere in commercial relations between participants, which belong to the operators themselves. **The protocol's governance is not a licence, a supervision or a financial authorisation.**
+
+None of these boundaries propagates: defining a technical rule confers on governance no authority over whoever implements it. The Technical Registry reflects what is publicly verifiable — it is a mirror, not a gate; nobody decides who appears in it.
+
+![BANZA governance authority boundaries — the protocol's governance decides rules: versions, contracts, invariants, profiles and conformance criteria; outside its authority lie, each with its own owner, the conformance verdict of an implementation (Layer 2 deterministic engine), admission to a scheme (Layer 3), regulatory authorisation (competent authorities) and an operator's commercial relations and participation; the Trust Root is not at the top of this chain — it is a cryptographic anchor, not a governing body](../../../website/public/diagrams/protocol/banza-governance-authority-boundaries-v1.svg)
+
+### Who governs and how a change is decided
+
+Governance is conducted by the protocol's **active maintainers**, under the public process. Anyone — operator, developer or ecosystem participant — may **propose** a change; no single operator decides unilaterally. Public review informs the decision, but it neither confers nor withdraws participation; the decision to integrate rests with the maintainers, through the process.
+
+A change follows an observable path: **proposal → review → decision → publication**. It is explicitly assessed for its impact on the financial invariants and for its neutrality — a proposal that disproportionately benefits a single operator is refused, even if technically correct. A documented rejection is worth as much as an acceptance: the record keeps not only what was accepted, but the alternatives considered and the reasons for refusal.
+
+**A normative change becomes observable through a public artifact — an architecture decision, a specification or a release — and through a new version when a rule changes.** The repository's tooling (a merge, a pull request, continuous integration) executes and verifies that decision; it is not itself the governance decision or the rule. A change that does not follow the process is not a change to the protocol — it is an operator's private change: conformance verification does not recognise it and no other operator is obliged to follow it. It is this property that prevents capture of the protocol by the most influential operator.
+
+![How a rule becomes official in BANZA — open flow: anyone proposes (RFC) → public review and assessment of impact on the invariants and on neutrality → maintainers' decision recorded in an architecture decision → specification/release and a new version when a rule changes; no single operator governs, and a change outside the process is not a change to the protocol](../../../website/public/diagrams/protocol/banza-governance-v1.svg)
+
+### Versioning and publication
+
+The protocol follows **semantic versioning** (major.minor.patch). The protocol version represents changes to rules, invariants or contracts — **editorial corrections, diagrams or textual clarifications do not constitute a new version of the protocol** (a clarification that alters a contract is a patch — the third number; one that merely improves the explanation does not change the version). The versions of the various artifacts are distinct axes: the protocol version, that of a conformance profile, of a schema, of an engine and of the Key Manifest each evolve at their own pace. The protocol remains at the same version even if many diagrams or documentary editions are published; its version advances only when the rules change — **minor** for a compatible extension, **major** for an incompatible change.
+
+### Change without silent mutation or retroactivity
+
+Two properties protect those who build on the protocol. First: **a published version is not silently altered; a subsequent normative change requires a new version.** An architecture decision, a conformance profile or a conformance vector, once published, is not rewritten in place — a rule that changes enters through a new artifact, with its own identifier and an explicit reference to what it replaces. Nothing changes without a trace.
+
+Second: **a new version of the protocol does not rewrite the evidence or the determinations produced under an earlier version.** Each fact — an evaluation, an evidence bundle, a certification record — is bound to the version, the profile and the environment that produced it ([§5](#5-protocol-state), [§7](#7-conformance-and-certification)); a later version creates a **new subject of evaluation**, it does not reinterpret the earlier one. Governance evolves the rules for the future; it does not rewrite the past.
+
+### Trust, keys and governance are distinct domains
+
+Deciding a rule is different from signing it. The **Trust Root signs only the Key Manifest** ([§6](#6-trust)); it does not govern the protocol. Key custody and the signing operation are an **operational function, not a governance function**: whoever operates the keys cannot alter the rules that define what those keys may sign. **Key custody executes cryptographic authority within the delegated scope; it does not replace the governance decision about the rules.** The delegated scope is public and not modifiable by the operation, so any independent party can verify that the keys signed only what they were permitted to sign — the keys sign protocol artifacts, never participant statuses. Custody is **threshold-split**, so that no single person controls it; the concrete number of holders is operational configuration, not a protocol rule. Rotating a key, updating the Key Manifest or publishing the Revocation List changes the trust state — not the protocol version.
+
+### Origin, neutrality and open governance
+
+No operator — and no entity — governs BANZA alone. The protocol is the property of no operator, neither of the first to enter production nor of any reference implementation; the direction of dependency is permanent: operators depend on BANZA, BANZA never depends on operators. BANZA was **created by Banzami — Tecnologia e Serviços, Lda.**, which acts as original creator and initial institutional maintainer: this is attribution of origin, not private control, and it confers no authority over operators. The constitution of a formal, independent governance entity is a **future** step of the protocol — not an authority that already exists; while it does not exist, its functions are performed by the active maintainers, and the protocol's state and evolution are tracked in Protocol State ([§5](#5-protocol-state)) and Protocol Evolution ([§14](#14-protocol-evolution)).
+
+**Open governance** means public proposal, public process, public rules and artifacts, and public auditable history — not that anyone may alter the protocol directly. Proposing is open to all; a change enters only through public artifacts, integrated by the maintainers under the process. BanzAI may explain governance, locate documents and summarise proposals; **it does not vote, does not approve, does not promulgate and does not take part in governance authority** ([§12](#12-banzai-protocol-agent)). And the trademark is separate from the licence: the open licence covers the code and the documentation, but grants no rights over the names or logos.
+
+### Where to continue
+
+- [§3 Protocol Structural Properties](#3-protocol-structural-properties) and [§4 Protocol Architecture](#4-protocol-architecture): the higher levels that governance may never contradict.
+- [§6 Trust](#6-trust): the Trust Root, the Key Manifest and the custody that governance defines but does not operate.
+- [§7 Conformance and Certification](#7-conformance-and-certification): the profiles that governance versions and the verdict that the deterministic engine produces.
+- [§5 Protocol State](#5-protocol-state) and [§14 Protocol Evolution](#14-protocol-evolution): the protocol's state and its evolution.
+- [§13 Developer Resources](#13-developer-resources): where the contracts, invariants and conformance vectors live.
+
+---
+
+## 12. BanzAI — Protocol Agent
+
+**BanzAI is the primary and transversal human interface and BANZA's non-authoritative cognitive engine.** It allows the protocol to be consulted, rules and artifacts to be understood, an implementation to be guided, technical operations to be initiated and the results produced by the deterministic engines to be interpreted. It does not constitute a fourth BANZA layer and it is not a normative source.
+
+Whenever an operation depends on a protocol engine, BanzAI calls that engine and presents the result; it does not replace it. The protocol remains usable and verifiable without BanzAI: contracts, Manifests, schemas, public endpoints and engines remain directly accessible for machine-to-machine integrations.
+
+> BanzAI guides; the engines verify; the evidence proves; the competent authority decides.
+
+### Role within BANZA
+
+The ecosystem has three institutional layers — the open protocol (Layer 1), Conformance and Interoperability Certification (Layer 2) and the independent operational schemes (Layer 3). BanzAI crosses these surfaces as a transversal interface — consulting, implementing and validating in one place — but it belongs to none of them as an authority of its own and it does not create a fourth layer (see [§4](#4-protocol-architecture)). Its authority begins and ends at mediation: the human interface, the cognitive engine, the optional local language model and the verification of the answer. It reads, cites, orchestrates and explains; the validity of the rules comes from the protocol and the verdicts and evidence come from the engines.
+
+![BanzAI within the protocol — human users speak to BanzAI, the human interface and non-authoritative cognitive engine, whose mediation is delimited by a boundary (inside: interface, cognitive engine, optional local model, answer verification); BanzAI reads and cites the protocol's sources, invokes the protocol's tools and engines through typed contracts — which execute, decide and return results and codes — and presents the formal evidence those engines produce and seal; outside its authority lie the external destinations: optional publication in the Technical Registry by the operator, peers, federation, operational schemes and regulators; in parallel, an automated consumer reaches the public interfaces, the engines and the evidence directly, without going through BanzAI](../../../website/public/diagrams/protocol/banzai-no-protocolo.svg)
+
+### How BanzAI answers
+
+An answer does not arise from the path `user → model → answer`, but from a deterministic path in Rust. The request is normalised, situated in its context and scope and subjected to the safety, authority and policy guards; planning then decides which sources and tools are needed and whether a natural-language explanation adds value.
+
+Conversational context allows references, ellipses and continuity between questions to be resolved — "and an RFC?" may inherit the intent of the previous question. That context determines the intended request, but it does not constitute evidence: the facts continue to be obtained from the protocol's sources and tools, and the observed state is consulted afresh whenever it may have changed.
+
+The sources return facts and citations; the tools and engines, invoked through typed contracts, return results from a snapshot that a secure fetching module collects from the origin — the engines do not fetch directly. Everything converges into a **FactualPackage**: the closed evidence — authorised facts, citations, results, reason codes, scope and boundaries — which is the answer's only basis.
+
+![Cognitive processing of a request — deterministic flow in Rust: request, normalisation, context, scope, guards, planning, sources and tools, FactualPackage, answer mode, final verification and cited answer; the sources return facts and citations and the tools and engines return technical results; the FactualPackage is the closed evidence; in answer mode, a deterministic template or, optionally, the local language model produces an explanatory draft, never the final answer; the final verification, mandatory and in Rust, checks claims, authority, citations, consistency with the engines, limits, policy and coverage before publishing the cited, non-authoritative answer; the direct path user → model → answer is rejected](../../../website/public/diagrams/protocol/banzai-motor-cognitivo.svg)
+
+Many answers need no model: a canonical fact, a definition, a contract, a receipt, a reason code, a metric or an engine's result resolve through a deterministic path. When a linguistic synthesis is useful, it uses local inference, without external calls, and it is subordinate: the model receives only the FactualPackage and an output contract and drafts a text, never the final answer. There always follows the final verification, mandatory and in Rust: the claims, the authority asserted and the citations are checked against the evidence, and an unsupported claim is removed. Only then is the answer published — grounded, cited and non-authoritative (`authoritative:false`). BanzAI distinguishes supported information, derived result, hypothesis and insufficient information, and does not fill gaps by plausibility. In longer operations, the interface may show progress and already-verified facts before the final answer; the model's prose appears only after the applicable verification.
+
+### Sources and tools
+
+BanzAI distinguishes two natures of information. **Documentary knowledge** — the Reference, the specs, the contracts, the ADRs and the RFCs — describes what the protocol is and what it requires. **Observed state** — the Technical Registry, the live artifacts at their canonical origins, the receipts, the Evidence Bundles, the executions and the metrics — describes what exists at a given moment. When a question depends on the current state, BanzAI consults the appropriate surface rather than trusting the conversation's memory or an old observation.
+
+### Provenance
+
+Every claim about the protocol must be traceable to its source. The **Normative** sources — the Reference, the specs, the contracts, the schemas, the invariants and the releases, plus the ADRs and RFCs where they define rules in force — are the only basis for a factual claim. **Governance and rationale** records decisions and their reasons; the **Informative** sources — guides, examples, reports — provide context, but by themselves do not sustain a rule.
+
+An RFC not yet accepted is not treated as an active rule; a superseded document does not prevail over the version in force; and a claim about the current state requires a current observation when that state may have changed. A model's output is never a source. When the question finds insufficient support in the authorised sources or tools, BanzAI declares the limitation rather than completing it by plausibility.
+
+### Authority and limits
+
+BanzAI does not define the protocol, does not alter the engines, does not certify, does not admit operators, does not grant authorisations, does not process payments, does not move funds, does not settle, does not revoke and does not publish decisions by itself. The ability to orchestrate tools does not transfer to BanzAI the authority of the components it invokes, and an answer from BanzAI does not replace a technical result, a receipt, a governance decision or a legal or regulatory determination.
+
+The runtime state is verifiable, not asserted: each answer publishes its own execution path — the sources cited, the effective engine and whether a model was called. Today no implementation runs in production; the only published implementation is **Operator Zero**, in demonstration and read-only, with no real money (see [§9](#9-operator-zero)).
+
+### Implementation
+
+BanzAI is part of BANZA's open implementation. The canonical runtime — a TypeScript service layer over Rust engines compiled to WASM, which take the decisions — lives in the canonical repository [`banza-protocol/banza`](https://github.com/banza-protocol/banza) (`services/banzai-api` and `engines/banzai-*`); there is no separate BanzAI repository. All the code is auditable and open, and the public interfaces remain usable independently of BanzAI: the [website](https://banza.network), the [Reference](/referencia), the BanzAI interface ([`banza.network/banzai`](/banzai)), the [Technical Registry](/registo-tecnico) and the public contracts (`contracts/`). From any of these, the protocol is auditable without contacting any entity — and without depending on BanzAI.
+
+---
