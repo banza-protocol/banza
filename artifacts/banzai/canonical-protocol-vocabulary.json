@@ -1168,7 +1168,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "0fc42074110826a1"
+        "checksum": "4c7a09cb832692e8"
       },
       {
         "id": "conformance-package-contracts-federation-key-manifest-json",
@@ -1245,7 +1245,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "7f6bc402ab405e87"
+        "checksum": "cd064d9a10d58154"
       },
       {
         "id": "conformance-package-contracts-openapi-activity-yaml",
@@ -1652,7 +1652,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "be6a8a8f575826be"
+        "checksum": "c66764559ea9d216"
       },
       {
         "id": "conformance-qr-suite-json",
@@ -2037,7 +2037,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "0fc42074110826a1"
+        "checksum": "4c7a09cb832692e8"
       },
       {
         "id": "contracts-federation-key-manifest-json",
@@ -2114,7 +2114,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "7f6bc402ab405e87"
+        "checksum": "cd064d9a10d58154"
       },
       {
         "id": "contracts-openapi-activity-yaml",
@@ -2488,7 +2488,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "be5c6ee905486f58"
+        "checksum": "62e0e20ffe4534f7"
       },
       {
         "id": "contracts-production-operation-receipt-production-schema-json",
@@ -4875,7 +4875,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "222401ccf45d1f4e"
+        "checksum": "ea41636a285d98a2"
       },
       {
         "id": "spec-payment-lifecycle-md",
@@ -4995,7 +4995,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "19817a3df450a44a"
+    "checksum": "ed82f10a281a5b1c"
   },
   "subjects": [
     {
@@ -8024,5 +8024,5 @@
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "4d7116e3f2024125"
+  "checksum": "d94a2ed6271d41d3"
 }

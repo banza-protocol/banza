@@ -81,7 +81,7 @@
     "overrides": "none",
     "outcome": "ROUTING_ALLOWED only when all ten checks pass; FAIL_CLOSED otherwise",
     "svg_ref": "SVG-P-064",
-    "section_ref": "docs/reference/pt/completa.md §Open Trust Evaluation"
+    "section_ref": "docs/reference/pt/BANZA_REFERENCIA.md §Open Trust Evaluation"
   },
 
   "key_manifest": {
@@ -122,7 +122,7 @@
       "signature chain resolves to the active trust root or a delegated key"
     ],
     "adr_ref": "ADR-025",
-    "section_ref": "docs/reference/pt/completa.md §14"
+    "section_ref": "docs/reference/pt/BANZA_REFERENCIA.md §14"
   },
 
   "conformance_ref": {

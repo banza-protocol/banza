@@ -119,7 +119,11 @@ O protocolo proíbe aritmética de vírgula flutuante para valores monetários. 
 
 Convenção canónica: 250000 = 2.500,00 Kz (Kwanza e cêntimos).
 
-Ver [docs/reference/en/BANZA_REFERENCE.md §Monetary Representation](../docs/reference/en/BANZA_REFERENCE.md) para a especificação normativa.
+A representação monetária é normativamente fixada pelo registo de invariantes
+[`contracts/invariants.json`](../contracts/invariants.json) — famílias `INV-LEDGER-*`, `INV-WALLET-*` e
+`INV-STL-*` — e pela canonicalização em [`spec/canonicalization.md`](canonicalization.md), ambos
+indexados pelo Manifesto Normativo. *Explicação (não normativa):*
+[Referência §4](../docs/reference/pt/BANZA_REFERENCIA.md).
 
 ---
 
@@ -183,7 +187,11 @@ Manifestos de Operador  (assinados · públicos)
 
 Não existe autoridade de certificação. O trust é avaliado pela Open Trust Evaluation — signed protocol metadata → chaves delegadas → registo público → revocation/fail-closed. O BanzAI explica os critérios mas não certifica nem emite certificados. Os operadores fixam o **conjunto génese** uma vez; a partir daí a linhagem transporta a confiança, porque cada conjunto é autorizado pelo limiar do anterior. Uma autoridade pode assim ser substituída pelas duas sobreviventes sem que qualquer verificador tenha de voltar a fixar nada à mão.
 
-Ver [docs/reference/en/BANZA_REFERENCE.md §Trust](../docs/reference/en/BANZA_REFERENCE.md) para a especificação normativa.  
+O modelo de confiança é normativamente fixado por
+[`spec/root-authority-set.md`](root-authority-set.md) e [`spec/trust-freshness.md`](trust-freshness.md),
+com os esquemas de produção correspondentes em [`contracts/production/`](../contracts/production/), todos
+indexados pelo Manifesto Normativo. *Explicação (não normativa):*
+[Referência §6](../docs/reference/pt/BANZA_REFERENCIA.md).  
 Ver [ADR-025](../decisions/adr/ADR-025-trust-without-a-certificate-authority.md) para a arquitectura da raiz (Trust Root offline, chaves de assinatura delegadas, manifesto de chaves assinado)
 e [`root-authority-set.md`](./root-authority-set.md) para a linhagem de conjuntos e a sucessão (ADR-039).
 
@@ -205,7 +213,10 @@ Operador A  →[metadata verificada]→  Operador B
             [protocolo de liquidação]
 ```
 
-Ver [docs/reference/en/BANZA_REFERENCE.md §Federation](../docs/reference/en/BANZA_REFERENCE.md) para a especificação normativa.  
+A federação é normativamente fixada pela superfície em [`spec/federation/`](federation/) — fluxo de
+protocolo, modelo de confiança, invariantes e superfície de contrato — e pelos contratos em
+[`contracts/federation/`](../contracts/federation/), todos indexados pelo Manifesto Normativo.
+*Explicação (não normativa):* [Referência §10](../docs/reference/pt/BANZA_REFERENCIA.md).  
 Ver [ADR-025](../decisions/adr/ADR-025-trust-without-a-certificate-authority.md) para o modelo de avaliação de trust de federação (sem certificados).
 
 ---
