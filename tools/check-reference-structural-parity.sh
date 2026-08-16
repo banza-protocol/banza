@@ -56,8 +56,11 @@ for label, t in (("PT", pt), ("EN", en)):
         fail.append("%s appears to introduce a fifth principle" % label)
 
 def structural_properties(t):
-    m = re.search(r'(?m)^## \d+\.[^\n]*(?:Propriedades Estruturais|Structural Properties)[^\n]*$(.*?)(?=^## \d+\.)',
-                  t, re.S | re.M)
+    # The chapter runs to the next numbered chapter or to the end of the document. Anchoring only on a
+    # following chapter would make the last chapter of any edition invisible to this check, which is a
+    # silent pass exactly where a missing chapter should fail.
+    m = re.search(r'(?m)^## \d+\.[^\n]*(?:Propriedades Estruturais|Structural Properties)[^\n]*$'
+                  r'(.*?)(?=^## \d+\.|\Z)', t, re.S | re.M)
     if not m:
         return None
     return re.findall(r'(?m)^### (.+)$', m.group(1))

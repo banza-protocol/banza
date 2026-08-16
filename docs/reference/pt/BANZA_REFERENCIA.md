@@ -301,7 +301,7 @@ Onde o protocolo define comportamento financeiro, a correcção não é opcional
 
 A consequência é que uma implementação não pode trocar correcção por conveniência: as garantias financeiras aplicáveis são impostas pela verificação de conformidade, não deixadas ao critério de cada operador. O detalhe formal — que invariantes se aplicam, e em que perfil ou capacidade — pertence a [§4 Arquitectura do Protocolo](#4-arquitectura-do-protocolo) e a [§7 Conformidade e Certificação](#7-conformidade-e-certificação).
 
-A fronteira é dupla. Primeiro, correcção financeira não significa que o protocolo detém ou movimenta dinheiro — a não-custódia é uma fronteira definida em [§1 O Que É o BANZA](#1-o-que-é-o-banza); o que dela decorre para este princípio é apenas que o protocolo define como os lançamentos devem comportar-se, mas não os executa: o valor move-se nos sistemas dos operadores e nas vias de liquidação competentes. Segundo, nem todos os requisitos financeiros são universais: alguns aplicam-se apenas a partir de um perfil ou de uma capacidade específica e não devem ser lidos como exigências de todo o protocolo.
+A fronteira é dupla. Primeiro, correcção financeira não significa que o protocolo detém ou movimenta dinheiro — a não-custódia é uma fronteira definida em [§1 O Que É o BANZA](#1-o-que-é-o-banza); o que dela decorre para esta propriedade é apenas que o protocolo define como os lançamentos devem comportar-se, mas não os executa: o valor move-se nos sistemas dos operadores e nas vias de liquidação competentes. Segundo, nem todos os requisitos financeiros são universais: alguns aplicam-se apenas a partir de um perfil ou de uma capacidade específica e não devem ser lidos como exigências de todo o protocolo.
 
 ### Neutralidade
 
@@ -317,7 +317,7 @@ Nenhuma regra normativa existe apenas em prosa. Quando a implementação começa
 
 A consequência é uma ordem fixa: a regra nasce na especificação, depois é implementada, depois produz evidência, depois é avaliada. O que não tem contrato público não pode ser testado; o que não pode ser testado não pode gerar evidência nem ser comparado. E a versão aplicável a um resultado é sempre explícita, para que se possa saber que regras estavam em vigor quando o resultado foi produzido.
 
-A fronteira é que este princípio fixa apenas que as regras são públicas e versionadas — não como evoluem. O processo de alteração, depreciação e compatibilidade pertence a [§11 Governança](#11-governança).
+A fronteira é que esta propriedade fixa apenas que as regras são públicas e versionadas — não como evoluem. O processo de alteração, depreciação e compatibilidade pertence a [§11 Governança](#11-governança).
 
 ### Decisão determinística
 
@@ -325,7 +325,7 @@ Os estados técnicos são determinados por regras e por motores determinísticos
 
 A consequência é que os resultados são reproduzíveis e acompanhados de razões legíveis por máquina, o que permite compará-los e automatizá-los sem depender de linguagem natural.
 
-A fronteira é que determinismo não significa ausência de explicação. Uma interface pode orientar, encaminhar e explicar um resultado, mas explicar não é decidir: os motores verificam, a evidência prova e a autoridade competente decide — a interface humana do protocolo é tratada em [§12 BanzAI — Agente do Protocolo](#12-banzai-agente-do-protocolo). O princípio é que a decisão normativa seja determinística e controlada, não uma tecnologia de implementação específica.
+A fronteira é que determinismo não significa ausência de explicação. Uma interface pode orientar, encaminhar e explicar um resultado, mas explicar não é decidir: os motores verificam, a evidência prova e a autoridade competente decide — a interface humana do protocolo é tratada em [§12 BanzAI — Agente do Protocolo](#12-banzai-agente-do-protocolo). A propriedade é que a decisão normativa seja determinística e controlada, não uma tecnologia de implementação específica.
 
 ### Evidência e reprodutibilidade
 
@@ -359,11 +359,11 @@ A consequência é que responsabilidades diferentes não colapsam numa única au
 
 A fronteira é que a separação é de responsabilidades, não de cooperação: as camadas continuam a articular-se. E não elimina a governação — distribui-a, para que a captura de um participante não capture o protocolo.
 
-![Princípios e a sua consequência estrutural — cada princípio fundamental do BANZA (correcção financeira, neutralidade, regras públicas versionadas, decisão determinística, evidência, âmbito explícito, fecho por omissão, separação de responsabilidades) produz uma consequência de desenho verificável, e o conjunto condiciona a arquitectura, a validação e a evolução do protocolo](../../../website/public/diagrams/protocol/banza-principios-consequencia-estrutural-v1.svg)
+![Propriedades estruturais e a sua consequência — cada propriedade estrutural do BANZA (correcção financeira, neutralidade, regras públicas versionadas, decisão determinística, evidência, âmbito explícito, fecho por omissão, separação de responsabilidades) produz uma consequência de desenho verificável, e o conjunto condiciona a arquitectura, a validação e a evolução do protocolo](../../../website/public/diagrams/protocol/banza-principios-consequencia-estrutural-v1.svg)
 
 ### Onde Continuar
 
-Estes princípios condicionam tudo o que se segue. Como se materializam em componentes, camadas e chaves é o tema de [§4 Arquitectura do Protocolo](#4-arquitectura-do-protocolo); como uma implementação demonstra conformidade com eles está em [§7 Conformidade e Certificação](#7-conformidade-e-certificação); e como as regras evoluem sem quebrar estas propriedades está em [§11 Governança](#11-governança).
+Estas propriedades condicionam tudo o que se segue. Como se materializam em componentes, camadas e chaves é o tema de [§4 Arquitectura do Protocolo](#4-arquitectura-do-protocolo); como uma implementação demonstra conformidade com eles está em [§7 Conformidade e Certificação](#7-conformidade-e-certificação); e como as regras evoluem sem quebrar estas propriedades está em [§11 Governança](#11-governança).
 
 ## 4. Arquitectura do Protocolo
 
@@ -638,8 +638,8 @@ O limiar é criptográfico e lógico. Quantos dispositivos existem, onde estão 
 é transportado são controlos de custódia, que podem mudar sem redefinir a autoridade do protocolo.
 
 O que é fixado nos verificadores não é uma chave: é o **conjunto génese** de autoridades. A partir dele,
-a raiz avança como uma linhagem — cada conjunto de autoridades é autorizado pelo limiar do conjunto que
-sucede, nomeando-o por digest. A distinção não é formal. Um conjunto assinado pelas suas próprias chaves
+a raiz avança como uma linhagem — cada conjunto de autoridades é autorizado pelo limiar do conjunto
+predecessor, que o nomeia por digest. A distinção não é formal. Um conjunto assinado pelas suas próprias chaves
 prova apenas que duas chaves nele nomeadas concordam entre si, coisa que qualquer pessoa produz sobre
 chaves que gerou há um instante; o que tem de ser provado é que o conjunto **já confiado** autorizou este.
 
