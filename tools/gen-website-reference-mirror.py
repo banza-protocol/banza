@@ -10,10 +10,24 @@
 # The mirror is generated, never edited. --check regenerates into memory and compares, so verification
 # never writes to tracked state.
 import hashlib
+import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+
+# The diagrams have exactly one copy, under website/public/diagrams/. The Reference sources cite it by
+# a repository-relative path so the editions render on GitHub; the website serves the same single copy
+# by URL. Rewriting the path is what lets one source satisfy both readers without a second copy of any
+# SVG. The transformation is total — a path left unrewritten would 404 on the published page.
+ASSET_SOURCE_PREFIX = "../../../website/public/diagrams/"
+ASSET_SERVED_PREFIX = "/diagrams/"
+
+# Links between the two editions, and out to repository files, are relative in the source because a
+# reader browsing the repository follows them there. The published page has no such tree, so they
+# resolve to GitHub instead of dangling.
+REPO_DOC_BASE = "https://github.com/banza-protocol/banza/blob/main/docs/reference/"
+REPO_BLOB_BASE = "https://github.com/banza-protocol/banza/blob/main/"
 
 EDITIONS = {
     "pt": {
@@ -47,9 +61,23 @@ def render(lang):
     if not src.exists():
         sys.exit("gen-website-reference-mirror: missing source %s" % spec["source"])
     body = src.read_text(encoding="utf8")
+    # Digest the source as written, so the banner identifies the editorial bytes rather than the
+    # transformed ones.
     digest = hashlib.sha256(body.encode("utf8")).hexdigest()
+
+    served = body.replace(ASSET_SOURCE_PREFIX, ASSET_SERVED_PREFIX)
+    # Sibling document links are written for a reader browsing the repository. On the published page
+    # they have no route, so they resolve to the file on GitHub rather than dangling.
+    served = re.sub(r'\]\(\.\./([^)]+\.md)\)', r'](%s\1)' % REPO_DOC_BASE, served)
+    served = re.sub(r'\]\(\.\./\.\./\.\./([^)]+)\)', r'](%s\1)' % REPO_BLOB_BASE, served)
+
+    leftover = re.findall(r'\]\((\.\.?/[^)]+)\)', served)
+    if leftover:
+        sys.exit("gen-website-reference-mirror: %s leaves paths the published page cannot resolve: %s"
+                 % (spec["source"], ", ".join(sorted(set(leftover))[:4])))
+
     banner = BANNER.format(status=spec["status"], source=spec["source"], digest=digest)
-    return banner + "\n" + body
+    return banner + "\n" + served
 
 
 def main():

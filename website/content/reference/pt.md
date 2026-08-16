@@ -5,7 +5,7 @@
      Verify:          make website-reference-source-boundary-check
      Editing this file instead of the source is a source-boundary violation and the guard
      fails on it. The website publishes the Reference; it does not own it.
-     source-sha256: 25ba293b32d573e3db8531f99390844eb81cb36f83ed14911602c3c29b91ba95
+     source-sha256: 87d4eca3efcfc11da104db7b5b619c5e46c76692cacfddf84f47882a1b297a3f
 -->
 
 # BANZA — Referência do Protocolo
@@ -13,16 +13,16 @@
 **Versão:** 1.0 · **Estado:** pré-produção · pagamentos reais desligados · sem implementações certificadas em produção
 
 > **Edição canónica (português).** Este ficheiro é a única Referência canónica do BANZA. A
-> [edição inglesa](../en/BANZA_REFERENCE.md) é uma tradução oficial; em caso de divergência não
+> [edição inglesa](https://github.com/banza-protocol/banza/blob/main/docs/reference/en/BANZA_REFERENCE.md) é uma tradução oficial; em caso de divergência não
 > intencional, prevalece esta edição.
 >
 > **A Referência é descritiva, não normativa.** Ela organiza e explica a superfície normativa; não a
-> define. A autoridade normativa é o [Manifesto Normativo](../../../contracts/production/normative-manifest.json)
+> define. A autoridade normativa é o [Manifesto Normativo](https://github.com/banza-protocol/banza/blob/main/contracts/production/normative-manifest.json)
 > e os artefactos que ele indexa — especificações, contratos e registos. Onde esta Referência e um
 > artefacto normativo divirjam, prevalece o artefacto normativo.
 >
 > As superfícies públicas — sítio e BanzAI — consomem ou derivam deste ficheiro. Não o editam, e não
-> mantêm uma cópia editorial concorrente. Ver [`docs/reference/README.md`](../README.md).
+> mantêm uma cópia editorial concorrente. Ver [`docs/reference/README.md`](https://github.com/banza-protocol/banza/blob/main/docs/reference/README.md).
 
 ---
 
@@ -211,7 +211,7 @@ O ecossistema organiza-se em três camadas, separadas por responsabilidade, infr
 
 A dependência corre numa única direcção permanente: os operadores dependem do BANZA; o BANZA e o BanzAI nunca dependem de nenhum operador. Esta direcção é um invariante arquitectónico, não uma preferência de design.
 
-A especificação v1.0 está congelada e o ambiente é de pré-produção: o Registo Técnico devolve uma lista vazia, não há certificações de produção e os pagamentos reais estão desligados. Este estado é verificável nas rotas públicas do protocolo e documentado em [§5 Estado Protocolar](#5-estado-protocolar).
+A especificação v1.0 está publicada e o ambiente é de pré-produção: o Registo Técnico devolve uma lista vazia, não há certificações de produção e os pagamentos reais estão desligados. Publicada não é congelada — o congelamento é uma decisão deliberada sobre um candidato exacto, e não foi tomada. Este estado é verificável nas rotas públicas do protocolo e documentado em [§5 Estado Protocolar](#5-estado-protocolar).
 
 ### Onde Continuar
 

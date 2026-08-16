@@ -1,19 +1,29 @@
+<!-- GENERATED FILE — DO NOT EDIT.
+     Official English translation. The Portuguese edition is canonical.
+     Source of truth: docs/reference/en/BANZA_REFERENCE.md
+     Regenerate:      make website-reference-mirror
+     Verify:          make website-reference-source-boundary-check
+     Editing this file instead of the source is a source-boundary violation and the guard
+     fails on it. The website publishes the Reference; it does not own it.
+     source-sha256: e31393435ef5f1ec6cfd352475e31edee993430c53fcca746dac746f2ff144ca
+-->
+
 # BANZA — Protocol Reference
 
 **Version:** 1.0 · **Status:** pre-production · real payments disabled · no certified implementations in production
 
 > **Official English translation.** This file is the official English translation of the
-> [canonical Portuguese Reference](../pt/BANZA_REFERENCIA.md). It is not independently canonical: in
+> [canonical Portuguese Reference](https://github.com/banza-protocol/banza/blob/main/docs/reference/pt/BANZA_REFERENCIA.md). It is not independently canonical: in
 > the event of an unintended divergence, the Portuguese edition prevails.
 >
 > **The Reference is descriptive, not normative.** It organises and explains the normative surface; it
 > does not define it. Normative authority lies with the
-> [Normative Manifest](../../../contracts/production/normative-manifest.json) and the artifacts it
+> [Normative Manifest](https://github.com/banza-protocol/banza/blob/main/contracts/production/normative-manifest.json) and the artifacts it
 > indexes — specifications, contracts and registries. Where this Reference and a normative artifact
 > diverge, the normative artifact prevails.
 >
 > The public surfaces — website and BanzAI — consume or derive from this file. They do not edit it, and
-> they do not keep a competing editorial copy. See [`docs/reference/README.md`](../README.md).
+> they do not keep a competing editorial copy. See [`docs/reference/README.md`](https://github.com/banza-protocol/banza/blob/main/docs/reference/README.md).
 
 ---
 
@@ -107,7 +117,7 @@ BANZA is an open financial interoperability protocol. It defines the rules — c
 
 BANZA is not a bank, a PSP, a wallet, a scheme, a financial operator or a financial service provider. It does not hold funds, does not maintain customer accounts, does not perform settlement and does not grant regulatory authorisation. It is the common layer of rules — contracts, messages, invariants, evidence and trust — that makes interoperability verifiable and reproducible, without each pair of participants having to rebuild the same technical integrations separately.
 
-![BANZA Protocol boundary — humans and operators use BanzAI (the primary human-operator interface) to interact with BANZA (public rules, verifiable engines, evidence) inside the boundary; outside the boundary sit the independent operators, the external financial infrastructure and the competent authorities; no funds flow through BANZA and BanzAI does not authorise regulated activity](../../../website/public/diagrams/protocol/banza-boundary-protocol-operator-infra-v1.svg)
+![BANZA Protocol boundary — humans and operators use BanzAI (the primary human-operator interface) to interact with BANZA (public rules, verifiable engines, evidence) inside the boundary; outside the boundary sit the independent operators, the external financial infrastructure and the competent authorities; no funds flow through BANZA and BanzAI does not authorise regulated activity](/diagrams/protocol/banza-boundary-protocol-operator-infra-v1.svg)
 
 ### A common, open and verifiable protocol
 
@@ -252,7 +262,7 @@ The practical difference is between *trusting* and *verifying*. In a verifiable 
 
 ### What BANZA adds
 
-![Bilateral integration and common protocol — on the left, five independent operators (A to E) connected pairwise, ten distinct technical relationships (n operators give n(n−1)/2 relationships); on the right, the same five operators independently implementing the same set of public rules, five implementations (n operators give n implementations); the two quantities — relationships and implementations — are different, and the common protocol is neither a single platform nor a central operator](../../../website/public/diagrams/protocol/banza-bilateral-mesh-vs-common-protocol-v1.svg)
+![Bilateral integration and common protocol — on the left, five independent operators (A to E) connected pairwise, ten distinct technical relationships (n operators give n(n−1)/2 relationships); on the right, the same five operators independently implementing the same set of public rules, five implementations (n operators give n implementations); the two quantities — relationships and implementations — are different, and the common protocol is neither a single platform nor a central operator](/diagrams/protocol/banza-bilateral-mesh-vs-common-protocol-v1.svg)
 
 A common set of public rules changes the starting point. There now exist public rules, versioned contracts, comparable profiles, explicit invariants, common criteria, evidence bound to the inputs and reproducible evaluation. It is no longer necessary to redefine the same technical rules between every pair of participants: whoever implements the specification once is able to interoperate technically with any other conformant implementation.
 
