@@ -694,3 +694,208 @@ Three planes coexist and none replaces another: **technical evidence** says what
 - [§11 Governance](#11-governance) — the institutional architecture that governs the Trust Root: its split custody, recovery and continuity, detailed in [`docs/governance/BANZA_TRUST_ARCHITECTURE.md`](https://github.com/banza-protocol/banza/blob/main/docs/governance/BANZA_TRUST_ARCHITECTURE.md).
 
 ---
+
+## 7. Conformance and Certification
+
+Conformance and certification answer different questions. **Conformance** determines whether an implementation satisfies public technical requirements within a declared scope; **technical certification** is a formal Layer 2 determination, produced by a process of its own and based on bounded evidence. Between the two there is also **certification readiness**, which aggregates technical results but never certifies by itself. This chapter separates these objects — and distinguishes them, at the end, from what belongs to other domains: scheme admission and regulatory authorisation.
+
+One idea runs through the whole chapter: BANZA evaluates **implementations** against public and bounded requirements; it does not assign global statuses to entities. Everything that follows — scopes, validation, evidence, readiness, certification — is always a claim about a concrete implementation, within a concrete scope, supported by evidence that any party reproduces.
+
+### Two different objects: conformance profile and certification profile
+
+Two things in this chapter use the word "profile" and are not the same. A **conformance profile** — **L0–L4** — describes *what an implementation has demonstrated it can do*: it is a position on a ladder of technical capabilities. A **certification profile** is a *document*: the public, versioned criterion against which an implementation is measured. The first is an attribute of the implementation; the second is the ruler.
+
+A certification record binds the two in different ways: it names the **certification profile** by which the implementation was measured — the document that fixes, among other things, a target conformance profile — and records the **scope** that the evidence actually supports (the L0–L4 profiles and the capabilities demonstrated, never broader than the evidence). The L0–L4 profile is therefore a *field* of the certification profile (the target) and a *result* confirmed by the evidence (the scope attained) — never an object of the same type as the document that is the certification profile. A certification profile is therefore not an "L5", a rung above the ladder: many of its versions may fix the same L0–L4 profile.
+
+Neither of the two is a **layer** of the architecture. The layers — Layer 1 (protocol), Layer 2 (certification), Layer 3 (schemes) — divide responsibilities between institutions ([§4](#4-protocol-architecture)); the **L0–L4 conformance profiles** describe the technical reach of an implementation. **The letter "L" belongs to the profiles; never to a layer.** Layers and profiles are different axes: one divides competences between institutions, the other measures the capabilities of an implementation.
+
+### Conformance profiles L0–L4
+
+The conformance profiles describe, cumulatively, what an implementation has demonstrated. Each profile is a claim about verifiable behaviour, always accompanied by the evidence that supports it — not a status that someone grants.
+
+![The L0–L4 conformance profiles as cumulative technical scope — each profile adds verifiable capabilities to those of the lower profiles; the ladder measures technical reach, not authority or regulatory maturity, and the profiles are not layers of the architecture](../../../website/public/diagrams/protocol/banza-conformance-levels-v1.svg)
+
+| Profile | Name | What it adds |
+|---|---|---|
+| **L0** | Protocol Sandbox | Instantiate the protocol safely: reachable, valid manifest (`simulated=true`), monetary values in integer units |
+| **L1** | Core Payment Capability | Wallets, transfers, double-entry ledger, idempotency and traceability |
+| **L2** | Payment Initiation Capability | Payment requests, dynamic QR, instant execution |
+| **L3** | Inter-Operator Interoperability | Routing and settlement between operators, reconciliation, signed and verifiable protocol metadata |
+| **L4** | External Interoperability | Verifiable integration with infrastructures external to the protocol, defined by profile |
+
+The profiles are **cumulative**: L(n) includes the requirements of all lower profiles. Demonstrating L2 implies having demonstrated L1 and L0. The cumulativeness is of technical capability, not of authority — L3 is not "more authorised" than L1; it merely covers more evaluated behaviour.
+
+Evaluating an isolated **implementation** in a sandbox demonstrates L0 to L2; **L3** requires evidence of interoperability between implementations of distinct operators, and **L4** is defined by profile and never assigned automatically. L4 — interoperability with infrastructures external to the protocol, in a technology-neutral way — is defined; its demonstration depends on capabilities introduced in later versions of the protocol (see [§14](#14-protocol-evolution)).
+
+### How an implementation is validated
+
+To **validate** an implementation is to execute, over a bounded implementation and the artifacts it publishes, the deterministic verifications applicable to the declared profile. The evaluation runs on the protocol's deterministic engines; the result does not depend on who runs it, and two independent evaluators reach the same verdict because they evaluate the same artifacts under the same rules.
+
+The validation journey runs through nine steps, each decided by an engine of its own: **discovery, manifest, keys, conformance, interoperability, trust, federation, evidence bundle and certification readiness.** The artifacts are fetched from the implementation's public endpoints — resolved in the Technical Registry — through a secure fetching layer, never from a user-supplied location ([§13](#13-developer-resources)).
+
+Each step ends in one of a few states — *verified*, *pending*, *failed* or *blocked* — or remains *not evaluated* when it does not apply to the declared profile. A step outside a profile's scope (for example, federation for an L0 profile) is not a failure: it is simply inapplicable, and does not count against the implementation.
+
+The evaluation **fails closed**: absent, incomplete, inconsistent or non-reproducible evidence never produces an approval — it resolves to *pending* or *blocked*. Each refusal carries a reason code from a closed set, verifiable from the public artifacts; the local model never invents or alters one.
+
+**Validating is not certifying.** Running the journey produces evidence and a readiness — it never issues a certification and never writes a certification record.
+
+### Result, evidence and readiness
+
+The technical result of a validation is **evidence**: a hash-bound report, which any party reproduces from the same public origin to obtain the same hashes. The evidence demonstrates behaviour; **it is not a certificate** and it asserts no legal or regulatory readiness.
+
+The ninth step — **certification readiness** — aggregates the verdicts of the technical steps *applicable* to the declared profile and returns one of two values: *ready* or *blocked*. It is ready when all applicable steps are verified; otherwise, blocked. Readiness is a technical condition for being able to enter a certification process — **it is not a certification.** The certification status remains **`NOT_CERTIFIED`** while no certification record of its own exists: readiness never returns `CERTIFIED` and never creates a record.
+
+**Publishing evidence is not being certified.** An operator publishes its evidence and signs its protocol metadata so that peers may evaluate it; that makes the conformance claim verifiable, it does not convert it into a certification verdict.
+
+### Formal technical certification (Layer 2)
+
+**Layer 2 — Conformance and Interoperability Certification** turns evidence into a **verdict**. The layer's name brings together two distinct technical facts: **conformance** (the implementation satisfies the profile's requirements) and **interoperability** (its exchanges with implementations of other operators behave as the protocol requires); certification requires both, and passing one does not substitute for the other. A technical certification is a determination *per implementation*, evidence-based, decided by the deterministic engines, reproducible, hash-bound, with its own scope and validity, and subject to suspension or revocation. It attests a bounded technical fact — "this implementation passed this certification profile, at this version, with this evidence, within this scope, until this date" — and nothing beyond it (ADR-032, ADR-005).
+
+![Issuance and lifecycle of a Layer 2 certification — readiness feeds the certification process, which produces a certification record indexed in the Technical Registry; the state machine is closed and decided by the deterministic engines, and no Layer 2 transition propagates to scheme admission or to the regulator](../../../website/public/diagrams/protocol/certification-emission-registry-v1.svg)
+
+The model rests on three objects, all decided by the `banza-conformance` engine:
+
+- the **certification profile** — the public, versioned criterion, immutable per version and fixed by hash, derived only from Layer 1 contracts, with no operator-specific criteria;
+- the **certified implementation** — the subject, identified by the hash of the exact set of artifacts evaluated; a different build is a different subject, and the party that declares it is attribution, never the subject;
+- the **certification record** — the verdict, which binds the subject to the profile, carries the evidence (by hash, reproducible), the scope (never broader than the evidence), the validity window and the status.
+
+The subject is always an **implementation**, never an entity. There is no "certified entity" as a global status: there is an implementation that satisfied a profile, within a scope and for a determined period.
+
+**There is no certificate authority.** No certificate chain attests the verdict, and there is no authority signature over the certification record: its `record_hash` **fixes the exact content evaluated and makes any alteration detectable**, and any party **reproduces** the verdict deterministically from the public vectors of the pinned profile — reaching the same result without asking anyone for anything. Conformance evidence, for its part, is **signed** by the delegated key of the evidence domain, and the Trust Root signs only the Key Manifest ([§6](#6-trust)); it does not sign certifications or operator statuses.
+
+### Certification lifecycle and scope
+
+The status of a certification is a value from a closed set, decided only by the deterministic engines: **`NOT_CERTIFIED`** (the baseline and the fail-closed default), **`CERTIFIED`** (valid, within scope and within the window, with evidence that reproduces), **`EXPIRED`**, **`SUSPENDED`**, **`REVOKED`** (terminal) and **`SUPERSEDED`**. Only `CERTIFIED`, within scope and window, reads as valid; all the others read as not certified. No human, model or configuration effects, widens or reverses a transition, and a renewal is always an entirely new record — never the reactivation of an earlier one.
+
+A certification is bound to what was evaluated: the **implementation** and the hash of its artifacts, the **profile version**, the **protocol version**, the **environment** and the **evidence**, within a **validity window**. From this follows a simple rule: a new build, a new protocol version, a new certification profile or a new environment constitutes a new subject of evaluation — the previous certification is not silently inherited. A sandbox certification is also not operational production readiness.
+
+The **revocation of a certification** — withdrawing a Layer 2 record — is distinct from the **revocation of trust material**, which withdraws acceptability from keys or metadata through the revocation list and is treated in the trust model ([§6](#6-trust)). They are different objects, with different mechanisms; the chapter therefore always uses the qualified term. Whatever the status, the underlying evidence remains reproducible: a certification adds a determination, it does not erase the technical material that grounds it.
+
+### What certification does not grant
+
+A technical certification is a technical fact — and only that. **Technical certification ≠ scheme admission ≠ regulatory authorisation.** These are three distinct determinations, with distinct owners, and status **does not propagate in any direction**: having one is never proof, cause or substitute for another (ADR-005).
+
+![The three determinations are distinct and do not propagate — technical certification belongs to Layer 2, admission belongs to each scheme and authorisation belongs to the competent regulator; none follows automatically from the others, and appearing in the Technical Registry is neither admission nor authorisation](../../../website/public/diagrams/protocol/certification-admission-authorisation-v1.svg)
+
+- **technical certification** is a Layer 2 determination, decided by the protocol's engines from evidence;
+- **scheme admission** (Layer 3) is a decision of the scheme itself about an entity's participation, under its own criteria and contracts; it may require certification as a prerequisite, but never follows automatically from it;
+- **regulatory authorisation** is granted by the competent regulator to the operator; BANZA is not a party to that decision and does not grant, represent or replace it.
+
+No evidence or certification authorises the provision of financial services, and none dispenses with the obligations of KYC/KYB, anti-money-laundering, security or supervision — which belong to the operator, under the competent entities, and which BANZA does not assess. Appearing in the **Technical Registry** — the public, verifiable index of implementations, profiles and certification records (ADR-033) — is never "admitted to a scheme" or "authorised": it is only the verifiable publication of a technical fact.
+
+### Who decides what
+
+Each determination has its owner, and none invades another's:
+
+- the protocol's **governance** defines the rules and the profiles;
+- the **deterministic engines** evaluate and produce the technical result;
+- the Layer 2 **certification process** produces the formal determination;
+- a **scheme** decides the admission of its participants;
+- the **competent regulator** decides authorisation;
+- **BanzAI** guides and explains, without creating rules or deciding verdicts ([§12](#12-banzai-protocol-agent)).
+
+The rule that runs through the protocol holds here too: **BanzAI guides; the engines verify; the evidence proves; the competent authority decides.** "The competent authority decides" does not mean that someone alters the deterministic result — it means that each domain keeps its own determination, within its own scope.
+
+### Where to continue
+
+- [§8 — Operators](#8-operators): the distinction between entity, operator, implementation and certified implementation.
+- [§10 — Federation](#10-federation): how peers evaluate published evidence and verify trust locally.
+- [§11 — Governance](#11-governance): the public process that defines the profiles and the rules.
+- [§13 — Developer Resources](#13-developer-resources): the contracts, schemas, endpoints and the validation journey in BanzAI.
+- [§14 — Protocol Evolution](#14-protocol-evolution): the current state of certification and of the production conditions.
+- [§5 — Protocol State](#5-protocol-state) and [§6 — Trust](#6-trust): the verifiable state and the trust model on which the evidence rests.
+
+---
+
+## 8. Operators
+
+### What an Operator is
+
+An operator is an independent legal entity that implements the BANZA protocol in order to process payments on its own systems, under its own authorisations. At the protocol level it is subject to no prior approval, no minimum volumes and no rebuilding of bilateral agreements between each pair: its participation follows from the conformance verification of its implementations — the same deterministic, public tests that apply to any participant. Outside the protocol it remains subject to all the legal and regulatory obligations of its activity and its jurisdiction, which are entirely its own. The operator is independent and answers for its activity before its customers and the competent authorities; BANZA is not an operator, but the layer of rules that operators implement.
+
+The first operator to enter production and any future operator are subject to exactly the same rules and the same obligations. No entity grants access, because no entity can deny it: participation is a structural property of the trust model, not a promise that depends on anyone's will.
+
+This chapter keeps rigorously apart two subjects that ordinary language tends to conflate: **the operator is the organisational entity; the implementation is the technical system observed, evaluated and possibly certified.** The distinction has consequences. A property demonstrated by a technical system — conformance, certification, conformance profile, trust verdict — belongs to that system, within the scope and window in which it was demonstrated; it does not turn into a global status of the company that publishes it. Whenever a sentence appears to say "the operator is conformant" or "the operator is L3", what is strictly true is that *one of its implementations* demonstrated it.
+
+### Operator and implementation
+
+Five terms need to be kept apart, because they name different subjects and determinations:
+
+| Term | Subject | Associated determination | Owner of the determination |
+|---|---|---|---|
+| **Entity** | Legal person | Regulatory authorisation (where the activity requires it) | Competent regulator |
+| **Operator** | Entity that implements BANZA | — (a role, not a granted status) | — |
+| **Implementation** | The build (set of artifacts, by `hash`) | Conformance — reproducible evidence | Public tests; any peer reproduces |
+| **Certified implementation** | An implementation (by `implementation_hash`) | Technical certification (Layer 2) — `CertificationRecord` | Layer 2 deterministic engine (`banza-conformance`); any party reproduces the verdict and the `record_hash` fixes the content evaluated — with no certificate authority ([§7](#7-conformance-and-certification)) |
+| **Scheme participant** | Admitted entity/implementation | Scheme admission (Layer 3) | The scheme itself (e.g. the Banzami Operational Scheme) |
+
+Certification certifies an **implementation**, never an entity generically; there is no "operator credential" and no "certified entity" as a global status. And the three determinations — technical certification, scheme admission and regulatory authorisation — are distinct and do not propagate between one another (ADR-005). BANZA is not an operator, does not certify entities, does not admit participants and does not authorise activity.
+
+**The operator is the responsible entity; the implementation is the technical system evaluated** (ADR-034 §4.2/§4.3). Therefore, **validating an operator means evaluating one of its published implementations** — never the entity in the abstract.
+
+### One operator, several implementations
+
+An operator may publish several implementations at the same time — a read-only demonstration, a sandbox environment, a pre-production, a production; with distinct versions, conformance profiles and capabilities. Each is a distinct subject of evaluation, with its own canonical origin, its own version and its own artifacts. The cardinality is deliberate: **one operator, many implementations** (ADR-034 §4.2).
+
+From this follows the rule that runs through the chapter: technical properties do not rise from the implementation to the entity, and do not cross from one implementation to another of the same operator. A certified implementation does not make "certified" the entity that published it, and does not certify its other implementations. A new version of a system is a new implementation — a new subject of evaluation — and does not inherit the previous version's verdict. Speaking of "an operator's level" is, in the protocol's strict sense, speaking of the conformance profile of one of its implementations, within a determined scope and window.
+
+![BANZA operator–implementation model — an operator is an organisational entity that may publish many implementations; each implementation is the technical subject observed and evaluated, with its own canonical origin, version, profile and artifacts](../../../website/public/diagrams/protocol/operator-implementation-model-v1.svg)
+
+### Identity, origin and responsibility
+
+In the Technical Registry, `operator_id` identifies the entity and `implementation_id` identifies the technical system; the relationship between them is one-to-many. The **canonical origin** — the domain from which the artifacts are fetched and verified — is a property of the implementation, not of the entity: two systems of the same operator may publish at distinct origins, and it is the origin resolved for the chosen system that fixes where the evaluation fetches the artifacts.
+
+Proof of origin demonstrates control of a domain; it is neither, nor does it replace, the legal identity of the entity or any authorisation of its activity. The operator answers for the artifacts it publishes at the origin it controls and, outside the protocol, for all the legal and regulatory obligations of its activity — customer identification, anti-money-laundering, licensing and disclosure duties — which exist independently of any BANZA artifact and are never dispensed with by it. The financial invariants each implementation has to respect, and the endpoints it has to expose, are in [§13 Developer Resources](#13-developer-resources).
+
+### Publication and technical visibility
+
+An implementation becomes visible to peers when the operator **publishes**, on the domain it controls, the signed protocol metadata and the conformance evidence to which it refers. Publication is a unilateral act: there is no application, no queue, no entity to contact and no response deadline to wait for, because there is no central authority that admits or refuses. Passing conformance verification generates evidence; signing and publishing it is what makes it usable by peers.
+
+Publishing is not certifying. An operator does not certify itself by publishing: publication makes the artifacts discoverable and verifiable, but the conformance verdict follows from the public tests and is reproducible by any third party, and technical certification is a separate determination, within its scope and its window ([§7](#7-conformance-and-certification)). Publishing is also not being admitted to a scheme or being authorised to operate — those are determinations of other owners (below). The concrete path from implementation to validation is in [§7](#7-conformance-and-certification) and [§13](#13-developer-resources); BanzAI may be consulted at any stage for guidance and analysis, but it does not evaluate trust and does not decide.
+
+### BANZA Technical Registry
+
+The **BANZA Technical Registry** — whose public listing of real operators is the machine route `/operators` — is the public, independently verifiable index of implementations, their certification profiles, the `CertificationRecord`s and their revocations (ADR-033). Any third party verifies it without an account and without trusting any operator's word. It is not a list of operators licensed, approved or authorised by BANZA: presence never means authorisation, and absence never means prohibition.
+
+The Technical Registry is **strictly independent** of a scheme's participant directory (Layer 3, ADR-006): being indexed in the Technical Registry never means "admitted to a scheme" or "authorised". It answers only the technical question — "is this implementation certified, against which profile, within which scope, until when, still valid?" — and indexes what operators publish on their own domains. It is a reproducible index: any party reconstructs it from the same public sources and obtains the same result; no entry is added or removed by discretionary decision.
+
+Besides indexing certifications, the Technical Registry is the **sole source of validation targets** (ADR-034 §4.6): it resolves `operator_id → implementation_id → canonical origin → discovery` over a closed set of operator and implementation records. Selecting a target is choosing an operator **and** one of its published implementations; it is from the canonical origin so resolved that BanzAI fetches, through a **secure Rust fetch layer** (SSRF-hardened, never the browser), the artifacts that the engines evaluate — never a user-supplied URL. Implementations that are unpublished, revoked, without an origin or incompatible are not eligible targets.
+
+![Validation target resolution in BANZA — from the closed Technical Registry, an operator is resolved, then a published implementation, then its canonical origin and the discovery of the artifacts; never an arbitrary URL](../../../website/public/diagrams/protocol/validation-target-resolution-v1.svg)
+
+Each entry carries a **derived** status, not an assigned one: `indexed` (the metadata verifies and the evidence is within the freshness policy), `stale` (the evidence lost freshness without republication) or `revoked` (the trust material appears on the Revocation List). The statuses are a function of the published artifacts and of the BRL, recomputable by any party at any moment; the entry format and the freshness computation are in [§13](#13-developer-resources). An entry exists because the operator published signed metadata that verifies against the Key Manifest, and it ceases to be `indexed` because the evidence lost freshness or because the material appears on the BRL.
+
+The Registry's public listing of real operators is consultable at `banza.network/operators` without authentication. This is the canonical reference publication; the protocol allows federated replicas verifiable by signature, and a replica that diverges from the canonical one is demonstrably wrong — the canonical one has no special authority, it merely has the convenience of being at a known location. The Registry's current state in production is recorded in [§5 Protocol State](#5-protocol-state) and [§14 Protocol Evolution](#14-protocol-evolution), not here.
+
+### Open Trust Evaluation
+
+Before any federated routing, each operator evaluates its peer (ADR-025). The evaluation is executed **locally, by machine**, over the artifacts the peer published, and its result is a local decision valid for that interaction — **never a status conferred on the evaluated operator**. The subject of the evaluation is an implementation's published artifacts, not the entity. It consists of exactly these ten verifications:
+
+1. **Valid operator manifest** — present, well formed and conformant to the published schema
+2. **Compatible protocol version** — the declared `protocol_version` is interoperable with the evaluator's
+3. **Signed protocol metadata** — present, canonical and with an intact signature
+4. **Conformance evidence present and valid** — obtainable, reproducible and with a hash matching the declared one
+5. **Valid signature anchored in the Key Manifest** — the `issuer_key_id` of the evidence signature anchors to a delegated key of the active Key Manifest, and the signature verifies ([§6](#6-trust))
+6. **Absence from the BRL** — the evaluated peer's trust material does not appear on the current Revocation List
+7. **Compatible capabilities** — the declared capabilities cover the requested operation
+8. **Compatible endpoint contract** — the endpoints required by the scope exist and respect the contract
+9. **Evidence freshness within policy** — the evidence satisfies the freshness policy applicable to the scope (≤ 90 days for the L3 profile and above)
+10. **Fail closed** — trust material that is missing, invalid, expired, revoked or incompatible forces the routing to be refused
+
+![BANZA Open Trust Evaluation — ten deterministic verifications over signed metadata and verifiable evidence, failing closed; no central authority, no human approval](../../../website/public/diagrams/protocol/open-trust-evaluation-v1.svg)
+
+The ten verifications are conjunctive: any failure refuses the routing. The evaluation is deterministic — two independent peers, faced with the same artifacts, always produce the same verdict — and none of them consults an authority, a granted status or a person's judgement. Trust material that is missing, invalid, expired, revoked or incompatible forces refusal: the evaluation **fails closed**. When a peer's material is revoked or loses freshness, it is that implementation that peers stop accepting in federation — not the company that published it, whose other implementations and whose activity remain whatever they are in their own right.
+
+> For the cryptographic detail of each verification — including confirmation that the Trust Root does not take part in the normal operational path — see the institutional trust architecture in [`docs/governance/BANZA_TRUST_ARCHITECTURE.md`](https://github.com/banza-protocol/banza/blob/main/docs/governance/BANZA_TRUST_ARCHITECTURE.md).
+
+### What belongs to the implementation — and what remains separate
+
+Gathering the chapter into a single rule: verifiable properties belong to the implementation; the statuses that do not propagate belong to distinct owners.
+
+- **Conformance and technical certification** are properties of an implementation, within a scope and a window (Layer 2, [§7](#7-conformance-and-certification)). Federation between operators becomes possible from the L3 profile onwards; the profiles, defined in §7, are always properties of an implementation, never degrees of authority of a company.
+- **Scheme admission** is decided by the scheme itself, under its own criteria (Layer 3, ADR-006). Technical certification may be a prerequisite, but admission is never deduced from it.
+- **Regulatory authorisation** comes from the competent regulator and exists outside the protocol. No BANZA artifact confers or replaces it.
+
+None of these determinations propagates to the others, and none rises to the entity as a global status (ADR-005). BANZA verifies the technical behaviour of implementations; it does not decide commercial relationships, scheme admissions or authorisations — and, because the criterion is technical and the same for everyone, in none of these dimensions is there a "privileged operator" or a "tolerated operator".
+
+---
