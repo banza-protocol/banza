@@ -7,6 +7,18 @@ Protocol version **1.0.0**.
 
 ---
 
+## What implementing L0 does and does not make you
+
+An independent implementer may implement and test L0 as a technical protocol implementation. Doing so
+does not thereby make anyone a payment institution, a production BANZA operator, an operational scheme,
+or a regulator-authorised financial service provider.
+
+This package demonstrates technical implementation. It grants no operational rights, and it is not a
+legal exemption: **technical conformance is not regulatory authorisation.** Before an implementation is
+used for real financial operation, the responsible operator and operational scheme must separately
+satisfy the applicable legal, regulatory, governance and operational requirements. See
+[the L0 boundary](governance/certification-boundary.md).
+
 ## Start with the index
 
 [`contracts/production/normative-manifest.json`](../contracts/production/normative-manifest.json) lists

@@ -99,6 +99,12 @@ Cumulative technical capability demonstrated by one implementation — never a s
 
 L4 is profile-parameterized; no concrete external profile is published, so L4 remains unevaluated.
 
+**L0 tests technical interoperability using test material and values; it does not confer authorization
+for real financial services.** A profile is a technical capability, not a licence level: technical
+conformance is not regulatory authorization, BANZA certification is not operational admission, and an
+L0 pass is not production approval. L0 is a protocol sandbox, not a regulatory sandbox — see
+[the L0 boundary](docs/governance/certification-boundary.md).
+
 ## Normative surface
 
 The [Normative Manifest](contracts/production/normative-manifest.json) indexes every normative
