@@ -81,7 +81,7 @@
         },
         {
           "t": "p",
-          "text": "This document is descriptive and non-normative: the requirements are defined by the versioned artifacts that the BANZA Normative Manifest identifies. What follows is the model and the architecture, the profiles, discovery and trust, validation and evidence, security and governance, the limitations and the current state, and the conclusions."
+          "text": "This document is descriptive and non-normative."
         }
       ]
     },
@@ -93,11 +93,7 @@
       "blocks": [
         {
           "t": "p",
-          "text": "BANZA distinguishes an operator — the responsible entity — from an implementation, the technical system being evaluated. One operator may publish several, and any result applies to a determinate implementation, version, profile, environment, scope, evidence set and validity period, never to an entity in the abstract."
-        },
-        {
-          "t": "p",
-          "text": "Each implementation has a stable identifier, and the exact set of artifacts evaluated is fixed by a content digest: a different build is a distinct subject and requires its own evaluation."
+          "text": "BANZA distinguishes an operator — the responsible entity — from an implementation, the technical system being evaluated. One operator may publish several, and any result applies to a determinate implementation, version, profile, environment, scope, evidence set and validity period, never to an entity in the abstract. Each implementation has a stable identifier, and the exact set of artifacts evaluated is fixed by a content digest: a different build is a distinct subject and requires its own evaluation."
         },
         {
           "t": "p",
@@ -135,7 +131,7 @@
         },
         {
           "t": "p",
-          "text": "The normative surface of each version is not implicit: it is identified by the BANZA Normative Manifest, a versioned index declaring which artifacts define requirements. Determining what must be implemented is a lookup in published material, not an inference from the code."
+          "text": "The normative surface of each version is not implicit: it is identified by the BANZA Normative Manifest, a versioned index declaring which artifacts define requirements — determining what must be implemented is a lookup in published material, not an inference from the code."
         },
         {
           "t": "p",
@@ -162,7 +158,7 @@
         },
         {
           "t": "p",
-          "text": "Content digests, computed with SHA-256 [5], identify and compare exactly the inputs observed: together with the availability of those inputs, they turn a validation claim into a technical basis third parties can re-evaluate. Comparing them requires equivalent representations to produce the same bytes. For JSON artifacts that are signed or digested, BANZA defines BANZA Canonical JSON (BCJ/1), a restricted profile of the JSON Canonicalization Scheme [10]: a deterministic UTF-8 representation, members ordered by UTF-16 code units, integers within the safe domain \\(\\pm(2^{53}-1)\\), rejection of duplicate members rather than their resolution, and no verifier-side Unicode normalization. Duplicate rejection precedes semantic interpretation, because a parser that applies the first or the last occurrence has already lost the distinction the signature was meant to cover. Members not described by the schema are preserved and canonicalized like any other, and are therefore covered by the signature. The numeric domains of this version were audited and no field requires integers above the profile's domain."
+          "text": "Content digests, computed with SHA-256 [5], identify and compare exactly the inputs observed, making a validation claim re-evaluable by third parties. Comparing them requires equivalent representations to produce the same bytes. For JSON artifacts that are signed or digested, BANZA defines BANZA Canonical JSON (BCJ/1), a restricted profile of the JSON Canonicalization Scheme [10]: a deterministic UTF-8 representation, members ordered by UTF-16 code units, integers within the safe domain \\(\\pm(2^{53}-1)\\), rejection of duplicate members rather than their resolution, and no verifier-side Unicode normalization. Duplicate rejection precedes semantic interpretation, because a parser that applies the first or the last occurrence has already lost the distinction the signature was meant to cover. Members not described by the schema are preserved and canonicalized like any other, and are therefore covered by the signature."
         }
       ]
     },
@@ -182,7 +178,7 @@
         },
         {
           "t": "p",
-          "text": "The principles decide; the eight Protocol Structural Properties developed in the Reference characterise what the protocol possesses — among them failing closed, associated with secure and resilient and not a fifth principle; the normative requirements define what an implementation satisfies; the evidence decides what may be claimed. Between them sit five Architectural Invariants, constraints the architecture may not violate: open specification — the applicable rules, contracts and profiles are public and versioned; implementation independence — no particular implementation constitutes the protocol, and the reference implementation realises it without defining it; independent verification — the published artifacts suffice for a third party to assess the applicable conditions without depending on a private decision; operational independence — no central infrastructure is required to carry messages or funds; and separation of decisions — conformance, technical certification, admission to a scheme, operational agreements and regulatory authorisation are distinct processes."
+          "text": "The principles guide; the eight Protocol Structural Properties of the Reference characterise the protocol — among them failing closed, associated with secure and resilient, and not a fifth principle; the normative requirements define conformance; the evidence supports what may be claimed. Between them, five Architectural Invariants constrain the admissible architecture: open specification — the applicable rules, contracts and profiles are public and versioned; implementation independence — no particular implementation constitutes the protocol, and the reference implementation realises it without defining it; independent verification — the published artifacts suffice for a third party to assess the applicable conditions without depending on a private decision; operational independence — no central infrastructure is required to carry messages or funds; and separation of decisions — conformance, technical certification, admission to a scheme, operational agreements and regulatory authorisation are distinct processes."
         },
         {
           "t": "fig",
@@ -190,7 +186,7 @@
         },
         {
           "t": "p",
-          "text": "Technical adoption consists of implementing the public specification and satisfying the applicable contracts: it requires neither the reference implementation's code, nor a connection to a central service, nor prior authorisation. The BanzAI is a human-facing interface for consultation and explanation, without taking part in the technical determination, and its unavailability blocks no protocol operation. The L0–L4 profiles of Section {{sec:profiles}} are conformance levels, distinct from the three institutional layers."
+          "text": "Technical adoption consists of implementing the public specification and satisfying the applicable contracts. The BanzAI is a human-facing interface for consultation and explanation, without taking part in the technical determination, and its unavailability blocks no protocol operation. The L0–L4 profiles of Section {{sec:profiles}} are conformance levels, distinct from the three institutional layers."
         }
       ]
     },
@@ -202,7 +198,7 @@
       "blocks": [
         {
           "t": "p",
-          "text": "BANZA defines five cumulative levels, from L0 to L4. Adoption proceeds through the choice of a profile, the publication of artifacts at the canonical origin and the validation journey. A positive result is evidence that the technical conditions of the level are satisfied; it is not certification, authorisation or admission."
+          "text": "BANZA defines five cumulative levels, from L0 to L4. Adoption proceeds through the choice of a profile, the publication of artifacts at the canonical origin and the validation journey; a positive result evidences the technical conditions of the level, without being certification, authorisation or admission."
         },
         {
           "t": "p",
@@ -214,7 +210,7 @@
         },
         {
           "t": "p",
-          "text": "L4 — External Interoperability inherits L3 in full and adds no universal normative artifacts of its own: its requirements and evidence come from an external-interoperability profile identified by identifier and version, and the demonstration is confined to that profile. Satisfying L3 therefore does not satisfy L4 — with no profile selected the level remains unevaluated, not approved — and no concrete external profile is published."
+          "text": "L4 — External Interoperability inherits L3 and adds no universal normative artifacts of its own: its requirements and evidence come from an external-interoperability profile identified by identifier and version. Satisfying L3 does not satisfy L4 — with no profile selected the level remains unevaluated, not approved — and no external profile is published."
         },
         {
           "t": "p",
@@ -242,11 +238,11 @@
         },
         {
           "t": "p",
-          "text": "Identity and integrity rest on published keys and signed metadata. The trust root is not a key: it is a set of three independent authorities, kept offline, where any authorised action requires two of them, distinct. The set advances as a lineage. The genesis set has sequence zero and no predecessor, and is accepted only when its digest equals one the verifier was explicitly configured with — trust on first use is refused. Every later set advances the sequence by one, names its predecessor by digest, and is authorised by signatures from two distinct authorities of the predecessor set, verified under the public keys as the predecessor records them: the candidate does not authorise itself. Continuity follows — if an authority is lost, compromised or obstructive, the remaining two authorise a successor that replaces it without its participation, since requiring it would make the path three-of-three and grant it a veto over its own replacement. Below the threshold, canonical continuity is blocked: there is no emergency master key and no single-party path. The active set signs the Key Manifest with Ed25519 [6], which authorises delegated keys separated by domain; revocation and validity control reject revoked or expired material."
+          "text": "Identity and integrity rest on published keys and signed metadata. The trust root is not a key: it is a set of three distinct authorities whose root signing keys are held outside the serving infrastructure. Any authorisation exercised by the set requires two distinct authorities — a threshold that applies to what the root authorises, not to every protocol operation. An authority's identity is cryptographic and no organisation name takes part in validity: that the holders occupy independent control domains is a production governance requirement, to be evidenced before the first ceremony. The set advances as a lineage. The genesis set has sequence zero and no predecessor, and is accepted only when its digest equals one the verifier was explicitly configured with — trust on first use is refused. Every later set advances the sequence by one, names its predecessor by digest, and is authorised by signatures from two distinct authorities of the predecessor set, verified under the public keys as the predecessor records them: the candidate does not authorise itself. Continuity follows — if an authority is lost, compromised or obstructive, the remaining two authorise a successor that replaces it without its participation, since requiring it would make the path three-of-three and grant it a veto over its own replacement. Below the threshold, canonical continuity is blocked: there is no emergency master key and no single-party path. The active set signs the Key Manifest with Ed25519 [6], which authorises delegated keys separated by domain; revocation and validity reject revoked or expired material."
         },
         {
           "t": "p",
-          "text": "Trust material is versioned, and validity alone does not distinguish the current version from an earlier one still inside its period. The verifier therefore retains state about what it has already observed. Once material is accepted at an ordering point: a lower point is rejected; a higher, valid one becomes the accepted state; the same point with the same signing input is an idempotent observation; different content at the same point is equivocation, fails closed and leaves the state unchanged, so that the outcome does not depend on the order of retrieval. The property is local: it gives rollback protection and same-point conflict detection, and establishes neither a verifiable public history, nor global transparency, nor consistency across observers. Transport does not define trust — authority comes from the signed material and the lineage that authorises it, not from the origin that delivered it nor the order of arrival."
+          "text": "Trust material is versioned, and validity alone does not distinguish the current version from an earlier one still inside its period. Each artifact declares, inside the bytes its signature covers, an ordering marker — the instant at which that version comes into force — and the verifier keeps the highest value it has accepted per (artifact type, authority) pair. A lower value is rejected; a higher, valid one becomes the accepted state; and since the markers are instants rather than counters, two legitimate publications may share a value — there the content decides, by the digest of the signed bytes: an equal digest is an idempotent observation, a different one is equivocation, which fails closed and leaves the state unchanged. None of it depends on the order of retrieval: transport does not define trust, which comes from the signed material and the lineage that authorises it. The property is local — it protects against rollback and detects conflict at the same marker, without establishing a verifiable public history, global transparency or consistency across observers, and without detecting a divergent presentation (split view)."
         }
       ]
     },
@@ -262,11 +258,11 @@
         },
         {
           "t": "p",
-          "text": "The separation between determination and explanation also exists within the result: the status determines the technical outcome, the reason code explains it. A conformant consumer derives its behaviour from the status, never changes a verdict because of a code and does not reject an artifact for failing to recognise one; extension codes are preserved in a namespace of their own and never interpreted. The explanatory vocabulary can thus be extended without changing decisions, and because statuses and codes are public, independent implementations reach semantically equivalent results over the same inputs."
+          "text": "The separation between determination and explanation also exists within the result: the status determines the technical outcome, the reason code explains it. A conformant consumer derives its behaviour from the status; a code it does not recognise is preserved and recorded, never changes a verdict and is not by itself grounds for rejection, and extension codes, in a namespace of their own, are never interpreted. The explanatory vocabulary can thus be extended without changing decisions, and because statuses and codes are public, independent implementations reach semantically equivalent results over the same inputs."
         },
         {
           "t": "p",
-          "text": "The required behaviour is verifiable from published material: the contracts define inputs, outputs and observable statuses, and the public vectors fix cases with an expected outcome. For operations to which idempotency applies, the specification defines the key scope — receiving implementation, authenticated caller and operation —, what makes two requests the same request, conflicting reuse and the minimum retention."
+          "text": "The required behaviour is verifiable from published material: the contracts define inputs, outputs and observable statuses, and the public vectors fix cases with an expected outcome. For operations to which idempotency applies, the specification defines the key scope — receiving implementation, authenticated caller, operation — and the request identity, the digest of its BCJ/1 canonical representation: within one scope, an equal identity is a replay and a different one a conflict."
         },
         {
           "t": "fig",
@@ -290,7 +286,7 @@
       "blocks": [
         {
           "t": "p",
-          "text": "Each validation produces results, receipts and verifiable evidence. The receipts record the steps and bind each result to the version, the profile, the artifacts consumed, their digests and the reason codes, allowing the technical basis of the evaluation to be reproduced."
+          "text": "Each validation produces results, receipts and verifiable evidence: the receipts bind each result to the version, the profile, the artifacts consumed, their digests and the reason codes, allowing the technical basis of the evaluation to be reproduced."
         },
         {
           "t": "fig",
@@ -302,7 +298,7 @@
         },
         {
           "t": "p",
-          "text": "The same criterion applies to the development of the protocol. A test is evidence only when it demonstrates the claimed property for the intended reason. Each critical property is therefore evaluated across independent layers, from normative authority to representation on the wire, to enforcement by the implementation, to behaviour under state, failure and attack, and to derivability by a team without access to the engines: no layer validates itself, and a higher layer does not compensate for the failure of a lower one. Categories follow that do not imply one another: specified, implemented, internally assured, independently implemented and operationally demonstrated."
+          "text": "The same criterion applies to the development of the protocol. A test is evidence only when it demonstrates the claimed property for the intended reason. Each critical property is evaluated across layers distinct by function — from normative authority to representation on the wire, to enforcement by the implementation, to behaviour under state, failure and attack, and to the completeness of the material needed to implement it without the reference engines. No layer validates itself, and a higher one does not compensate for the failure of a lower one. Categories follow that do not imply one another: specified, implemented, internally assured, independently implemented and operationally demonstrated."
         }
       ]
     },
@@ -334,11 +330,11 @@
       "blocks": [
         {
           "t": "p",
-          "text": "BANZA evolves through public and versioned instruments: RFCs structure proposals, ADRs record architecture decisions. Versioning is explicit — incompatible changes require a new major version, compatible ones enter minor or patch versions — and each implementation declares the version and profile it adopts."
+          "text": "BANZA evolves through public and versioned instruments: RFCs structure proposals, ADRs record architecture decisions. Versioning is explicit — incompatible changes require a new major version, compatible ones enter minor or patch versions — and each implementation declares the version and profile it adopts. Compatibility is owed from the first freeze for external implementation: before it, a correction corrects the version being prepared without moving the number; after it, a change requires whatever version move compatibility demands."
         },
         {
           "t": "p",
-          "text": "The openness of the protocol does not eliminate governance, but governance determines how the rules evolve without making the maintainer a technical intermediary between implementations: implementing a published version is distinct from having authority to change it."
+          "text": "Governance determines how the rules evolve without making the maintainer a technical intermediary between implementations: implementing a published version is distinct from having authority to change it."
         },
         {
           "t": "fig",
@@ -370,7 +366,7 @@
         },
         {
           "t": "p",
-          "text": "Fourth, some boundaries follow from the design of this version. Redundant distribution of already-signed artifacts would address availability and is not defined in 1.0.0: trust material is published at a single canonical point, and fail-closed evaluation preserves the correctness of the decision, but unavailable fresh material may prevent a new evaluation. The monotonic state of Section {{sec:discovery}} is local, does not establish consistency across observers, and on a first observation staleness is not detectable. With no external profile published, L4 remains unevaluated. Finally, the evidence presented here is architectural: it demonstrates mechanisms in the reference implementation and does not measure performance, scale, availability in production or adoption."
+          "text": "Fourth, some boundaries follow from the design of this version. Version 1.0.0 does not define redundant distribution of already-signed trust artifacts: published at a single canonical point, the unavailability of that point may prevent a new evaluation. Redundancy would address that failure mode, not availability in general — trust authority and distribution availability are distinct properties. The monotonic state of Section {{sec:discovery}} is local, and on a first observation staleness is not detectable. With no external profile published, L4 remains unevaluated. Finally, the evidence presented here is architectural: it demonstrates mechanisms in the reference implementation and does not measure performance, scale, availability in production or adoption."
         }
       ]
     },
@@ -382,7 +378,7 @@
       "blocks": [
         {
           "t": "p",
-          "text": "BANZA remains in pre-production: the Technical Registry contains zero production operators and zero active technical certifications, payments with real money are disabled and the empty registry is the expected state. The reference implementation, Operator Zero, runs in an isolated test environment with demonstration currency, moves no real funds, remains uncertified and is evaluated by the same contracts and the same journey as any other implementation."
+          "text": "As of this edition BANZA remains in pre-production: the Technical Registry contains zero production operators and zero active technical certifications, payments with real money are disabled and the empty registry is the expected state. The reference implementation, Operator Zero, runs in an isolated test environment with demonstration currency, moves no real funds, remains uncertified and is evaluated by the same contracts as any other."
         },
         {
           "t": "p",
@@ -390,7 +386,7 @@
         },
         {
           "t": "p",
-          "text": "The completeness of a package and the capability for independent implementation are distinct properties: the first was verified internally, the second was not. Demonstrating it requires an implementation built by a genuinely independent team, from the public specifications and contracts, able to satisfy the applicable vectors and to take part in a directional evaluation with another implementation. That trial has not begun, no internal verification substitutes for it, and its success would still not amount to regulatory authorisation, admission to a scheme or use in production."
+          "text": "The completeness of a package and the capability for independent implementation are distinct properties: the first was verified internally, the second was not. It requires an implementation built by a genuinely independent team, able to satisfy the applicable vectors and to take part in a directional evaluation. That trial has not begun, no internal verification substitutes for it, and its success would still not amount to regulatory authorisation, admission to a scheme or use in production."
         }
       ]
     },
@@ -402,25 +398,11 @@
       "blocks": [
         {
           "t": "p",
-          "text": "This work presented BANZA as an open financial interoperability protocol whose definition depends on no particular implementation. The main contributions are:"
-        },
-        {
-          "t": "list",
-          "items": [
-            "evaluation of implementations against public versions and profiles rather than of entities in the abstract, with conformance depending on observable behaviour and not on the origin of the code;",
-            "separation between protocol, certification and operational schemes, keeping technical conformance, admission, operational agreements and regulatory authorisation distinct, and distinguishing technical determination, operational decision and explanation assisted by the BanzAI;",
-            "a public, versioned and explicitly indexed normative surface, with a deterministic canonical representation and public execution semantics — statuses, reason codes, idempotency — and vectors with a scope declared per profile;",
-            "deterministic validation bound to the inputs through digests, receipts and verifiable evidence, with cumulative profiles and fail-closed evaluation;",
-            "a trust root that is a set of authorities with a threshold and predecessor-authorised succession, rather than a single key, whose continuity never depends on a single party."
-          ]
+          "text": "This work presented BANZA as an open financial interoperability protocol whose definition depends on no particular implementation. The contributions are the evaluation of implementations against public versions and profiles — rather than of entities —, keeping technical conformance, admission, operational agreements and regulatory authorisation distinct; a public, versioned and indexed normative surface, with a deterministic canonical representation, public execution semantics and validation bound to the inputs through digests, receipts and verifiable evidence; and a trust root that is a set of authorities with a threshold and predecessor-authorised succession, whose continuity never depends on a single party."
         },
         {
           "t": "p",
-          "text": "They rest on the five Architectural Invariants of Section {{sec:architecture}} — open specification, implementation independence, independent verification, operational independence and separation of decisions —, which remain the criteria by which the architecture should be assessed, and articulate with the other planes without being confused with them: the \\textbf{R\\textsuperscript{2}S\\textsuperscript{2}} principles guide design, the Structural Properties characterise the protocol, the Invariants bound the admissible architecture, the normative requirements define conformance, and layered evidence determines what may be claimed."
-        },
-        {
-          "t": "p",
-          "text": "They define an architectural direction, not a maturity already attained: the boundaries of Section {{sec:limitations}} remain to be lifted, and it is on them that future work bears — an independent implementation built by an external team, the interoperability between implementations so obtained, and the measurement of reproducibility, performance, scale and external profiles. In summary, BANZA makes the technical basis of interoperability public and verifiable without becoming a mandatory operational intermediary: different implementations adopt the same specification, demonstrate that they satisfy the applicable requirements and produce evidence that third parties can reproduce."
+          "text": "They rest on the five Architectural Invariants of Section {{sec:architecture}}, the criteria by which the architecture should be assessed and distinct from the other planes: \\textbf{R\\textsuperscript{2}S\\textsuperscript{2}} guides, the Structural Properties characterise, the Invariants constrain, the normative requirements define conformance, and layered evidence supports what may be claimed. They define an architectural direction, not a maturity already attained: future work is to lift the boundaries of Section {{sec:limitations}} — beginning with an independent implementation by an external team and the interoperability between implementations so obtained. In summary, BANZA makes the technical basis of interoperability public and verifiable without becoming a mandatory operational intermediary: different implementations adopt the same specification, demonstrate that they satisfy the applicable requirements and produce evidence that third parties can reproduce."
         }
       ]
     }
@@ -493,7 +475,7 @@
       "file_en": "fig7-example.en.svg",
       "label": "fig:example",
       "title": "Example — Operator A evaluates Operator B",
-      "caption": "A\\(\\rightarrow\\)B evaluation: B publishes verifiable material, A evaluates locally and can reproduce the result. No central intermediary between A and B.",
+      "caption": "A\\(\\rightarrow\\)B evaluation: B publishes verifiable material, A evaluates locally and can reproduce the result. The evaluation requires no BANZA central intermediary.",
       "alt": "Operator B publishes artifacts; Operator A starts validation; a secure component retrieves the artifacts; the engines produce results and receipts; Operator A verifies and makes its own decision."
     },
     {

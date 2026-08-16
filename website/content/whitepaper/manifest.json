@@ -18,15 +18,15 @@
     {
       "file": "banza-whitepaper-v1.0-pt.pdf",
       "lang": "pt",
-      "sha256": "dc50d1f532c1260fba8b482a36d4c2a4a721e2b3016b5cbfd556c43da8bd02e8",
-      "bytes": 359412,
+      "sha256": "03abcfe45ffe9a7ce2ba46d6d03007ee59076349e515d48ab85dbd5397f3f090",
+      "bytes": 358606,
       "pages": 12
     },
     {
       "file": "banza-whitepaper-v1.0-en.pdf",
       "lang": "en",
-      "sha256": "19af71d81c4b0f4c69a5107dd33e697983c79a29fe1469c809ef673c3b7e70ce",
-      "bytes": 353728,
+      "sha256": "92ab1d7ccb35b724e76192324bef4167ac58e25f6f4cc6797fa4727aa28cdbfd",
+      "bytes": 353457,
       "pages": 12
     }
   ],
