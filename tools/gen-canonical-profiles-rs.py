@@ -43,6 +43,11 @@ pub struct CanonicalProfile {{
 }}
 
 /// Every profile the protocol defines, in registry order.
+///
+/// `rustfmt::skip` keeps this table one row per profile. Without it, formatting rewrites the
+/// generated file and it stops matching a fresh generation — two truths again, which is the whole
+/// thing this file exists to prevent.
+#[rustfmt::skip]
 pub const CANONICAL_PROFILES: [CanonicalProfile; {count}] = [
 '''
 

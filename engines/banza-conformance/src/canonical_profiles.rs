@@ -18,27 +18,17 @@ pub struct CanonicalProfile {
 }
 
 /// Every profile the protocol defines, in registry order.
+///
+/// `rustfmt::skip` keeps this table one row per profile. Without it, formatting rewrites the
+/// generated file and it stops matching a fresh generation — two truths again, which is the whole
+/// thing this file exists to prevent.
+#[rustfmt::skip]
 pub const CANONICAL_PROFILES: [CanonicalProfile; 5] = [
-    CanonicalProfile {
-        level: "L0",
-        name: "Protocol Sandbox",
-    },
-    CanonicalProfile {
-        level: "L1",
-        name: "Core Payment Capability",
-    },
-    CanonicalProfile {
-        level: "L2",
-        name: "Payment Initiation Capability",
-    },
-    CanonicalProfile {
-        level: "L3",
-        name: "Inter-Operator Interoperability",
-    },
-    CanonicalProfile {
-        level: "L4",
-        name: "External Interoperability",
-    },
+    CanonicalProfile { level: "L0", name: "Protocol Sandbox" },
+    CanonicalProfile { level: "L1", name: "Core Payment Capability" },
+    CanonicalProfile { level: "L2", name: "Payment Initiation Capability" },
+    CanonicalProfile { level: "L3", name: "Inter-Operator Interoperability" },
+    CanonicalProfile { level: "L4", name: "External Interoperability" },
 ];
 
 /// The canonical name for a profile identifier, or `None` if it is not a profile.
