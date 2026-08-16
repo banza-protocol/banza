@@ -147,7 +147,9 @@ fn main() {
         && report
             .findings
             .iter()
-            .all(|f| release_mode || f.gate != "AG-10");
+            .filter(|f| release_mode || f.gate != "AG-10")
+            .count()
+            == 0;
     if !release_mode {
         println!("  note: AG-10 is a release/freeze gate — run `make release-readiness-check` to evaluate it");
     }
