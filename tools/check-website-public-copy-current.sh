@@ -10,7 +10,7 @@
 #
 # SCOPE — current public copy only:
 #   website/app/**, website/components/**, website/lib/**   (excluding *.test.ts/tsx and lib/wasm)
-#   website/content/BANZA_REFERENCIA.md
+#   docs/reference/pt/BANZA_REFERENCIA.md
 #
 # DELIBERATELY OUT OF SCOPE — website/content/decisions/** (the ADR/RFC corpus).
 # Those are ARCHIVAL DECISION RECORDS rendered verbatim at /decisoes/[slug]. ADR-036/045/046 describe
@@ -28,7 +28,7 @@ if locale -a 2>/dev/null | grep -qiE '^C\.UTF-?8$'; then export LC_ALL=C.UTF-8
 elif locale -a 2>/dev/null | grep -qiE '^en_US\.UTF-?8$'; then export LC_ALL=en_US.UTF-8
 fi
 
-REFERENCIA="website/content/BANZA_REFERENCIA.md"
+REFERENCIA="docs/reference/pt/BANZA_REFERENCIA.md"
 FOOTER="website/components/SiteFooter.tsx"
 # M2.16: the homepage is the dossier BanzAI-first hero (page.tsx + HomeHeroDiagram + HomeAsk), rendered
 # above the global SiteFooter.

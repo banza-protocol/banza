@@ -32,9 +32,11 @@ if [ -f "$EN" ]; then
   grep -qi "official English translation" "$EN" || bad "EN Reference does not declare itself the official translation"
   grep -qiE "Portuguese edition is canonical|Portuguese .{0,30}prevails" "$EN" || bad "EN Reference does not defer to the Portuguese edition"
   grep -qiE "^> \*\*Official English translation" "$EN" || note "note: EN status notice is not the leading block quote"
-  # The translation must not promote itself.
-  if grep -qiE "this is the canonical (BANZA )?[Rr]eference|canonical edition \(English\)" "$EN"; then
-    bad "EN Reference claims canonical status"
+  # A document declares its own status in its opening notice, so that is where the promotion check
+  # looks. Scanning the whole file matched prose about other canonical things — the Registry's
+  # canonical publication, for one — and reported a translation that never claimed anything.
+  if head -30 "$EN" | grep -qiE "this (file|document|edition) is the canonical|canonical edition \(English\)|is the canonical (BANZA )?Reference"; then
+    bad "EN Reference claims canonical status in its status notice"
   fi
 fi
 

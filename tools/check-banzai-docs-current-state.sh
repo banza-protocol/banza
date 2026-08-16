@@ -7,7 +7,7 @@
 # reports are DELIBERATELY out of scope — the past is not rewritten.
 #
 # Scope (current public docs): README.md, docs/banzai/*.md, docs/reference/{pt,en}/*.md,
-# website/content/BANZA_REFERENCIA.md. NOT scanned: website/content/decisions/** (ADR/RFC snapshots),
+# docs/reference/pt/BANZA_REFERENCIA.md. NOT scanned: website/content/decisions/** (ADR/RFC snapshots),
 # docs/governance/** (reports), tests/fixtures/guards, code comments.
 #
 # Self-testing: exits 2 if its own detectors regress; 1 on a real finding; 0 clean.
@@ -20,7 +20,7 @@ ok()   { echo "  ok: $*"; }
 
 # The current-public documentation files (existing ones only).
 FILES=()
-for f in README.md website/content/BANZA_REFERENCIA.md; do [ -f "$f" ] && FILES+=("$f"); done
+for f in README.md docs/reference/pt/BANZA_REFERENCIA.md; do [ -f "$f" ] && FILES+=("$f"); done
 for d in docs/banzai docs/reference/pt docs/reference/en; do
   while IFS= read -r f; do FILES+=("$f"); done < <(find "$d" -maxdepth 1 -name '*.md' 2>/dev/null)
 done
@@ -65,7 +65,7 @@ for f in "${FILES[@]}"; do
 done
 
 # Positive assertion: the reference chapter 11 states the current deployed reality.
-REF=website/content/BANZA_REFERENCIA.md
+REF=docs/reference/pt/BANZA_REFERENCIA.md
 if [ -f "$REF" ]; then
   grep -qiE 'infer(ê|e)ncia local' "$REF" && grep -qiE 'chamadas externas' "$REF" \
     && ok "reference states local inference + no external calls" \

@@ -22,7 +22,7 @@ set -u
 cd "$(dirname "$0")/.." || exit 2
 
 MANIFEST="website/content/banzai/architecture-manifest.json"
-REF="website/content/BANZA_REFERENCIA.md"
+REF="docs/reference/pt/BANZA_REFERENCIA.md"
 REFLIB="website/lib/reference.ts"
 
 st=0

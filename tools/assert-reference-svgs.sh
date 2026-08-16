@@ -11,11 +11,11 @@
 # unreferenced). No network access — pure filesystem check against the build input.
 #
 # Usage: assert-reference-svgs.sh [reference-markdown] [website-public-dir]
-#   defaults: website/content/BANZA_REFERENCIA.md  website/public
+#   defaults: docs/reference/pt/BANZA_REFERENCIA.md  website/public
 
 set -euo pipefail
 
-REF="${1:-website/content/BANZA_REFERENCIA.md}"
+REF="${1:-docs/reference/pt/BANZA_REFERENCIA.md}"
 PUBLIC="${2:-website/public}"
 
 if [ ! -f "$REF" ]; then

@@ -9,7 +9,7 @@
 #   website/components/banzai/validationJourney.tsx, website/app/** (public pages), spec/overview.md,
 #   the served SVGs under website/public/diagrams/ and docs/reference/diagrams/protocol/,
 #   docs/reference/BANZA_SVG_REGISTRY.md, docs/reference/pt/completa.md,
-#   website/content/BANZA_REFERENCIA.md.
+#   docs/reference/pt/BANZA_REFERENCIA.md.
 #
 # EXPLICIT allowlist (exempt — never scanned): website/lib/banzaEvidenceBundle.ts,
 # website/lib/banzaSimb.ts and its generated WASM, the engines/banza-simb crate, decisions/adr/**, and
@@ -43,7 +43,7 @@ add website/components/banzai/validationJourney.tsx
 add spec/overview.md
 add docs/reference/BANZA_SVG_REGISTRY.md
 add docs/reference/pt/completa.md
-add website/content/BANZA_REFERENCIA.md
+add docs/reference/pt/BANZA_REFERENCIA.md
 # website/app public pages (ts/tsx)
 while IFS= read -r f; do add "$f"; done < <(find website/app -type f \( -name '*.tsx' -o -name '*.ts' \) 2>/dev/null)
 # served SVGs

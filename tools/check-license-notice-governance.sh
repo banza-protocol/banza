@@ -45,7 +45,7 @@ check_wording() {
   grep -qi "does not grant.*trademark\|does not.*grant any right to use the BANZA" TRADEMARKS.md \
     || err "TRADEMARKS.md must state the open-source license does not grant trademark rights"
   # FAQ must carry the Banzami / license / trademark questions
-  local ref="website/content/BANZA_REFERENCIA.md"
+  local ref="docs/reference/pt/BANZA_REFERENCIA.md"
   grep -qi "A Banzami controla o protocolo" "$ref" || err "reference FAQ missing the Banzami-origin question"
   grep -qi "o nome e o logótipo BANZA" "$ref" || err "reference FAQ missing the trademark question"
   grep -qi "Posso usar o código" "$ref" || err "reference FAQ missing the license question"

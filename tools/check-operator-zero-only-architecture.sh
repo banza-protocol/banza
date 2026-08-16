@@ -33,14 +33,14 @@ for forbidden in examples/operators/sample examples/operators/demo examples/oper
 done
 
 # 3. The forbidden UI/example labels appear NOWHERE on public/product surfaces.
-PUB_GLOBS=(website/components website/app website/lib website/content/BANZA_REFERENCIA.md docs/reference docs/guides README.md services/banzai-api/src)
+PUB_GLOBS=(website/components website/app website/lib docs/reference/pt/BANZA_REFERENCIA.md docs/reference docs/guides README.md services/banzai-api/src)
 LABELHIT=$(grep -rInE "Manifesto válido \(L0\)|Carregar exemplo válido" "${PUB_GLOBS[@]}" 2>/dev/null | grep -vE "/wasm/|generated|\.test\.(ts|js)" || true)
 [ -z "$LABELHIT" ] && ok "no 'Manifesto válido (L0)' / 'Carregar exemplo válido' on public surfaces" || { bad "forbidden example label on a public surface:"; echo "$LABELHIT" | head -3; }
 
 # 4. No forbidden FILLED fictional identity on public surfaces (internal engine tests + archival ADRs +
 #    reports excluded; RFC-2606 operator.example placeholder is allowed, see ADR-035).
 IDHIT=$(grep -rInE "sandbox\.example\.test|ops@example\.test|sample-operator|operator-candidate|operator-demo\b" \
-  website/components website/app website/lib website/content/BANZA_REFERENCIA.md docs/reference docs/guides contracts/openapi README.md services/banzai-api/src 2>/dev/null \
+  website/components website/app website/lib docs/reference/pt/BANZA_REFERENCIA.md docs/reference docs/guides contracts/openapi README.md services/banzai-api/src 2>/dev/null \
   | grep -vE "/wasm/|generated|\.test\.(ts|js)" || true)
 [ -z "$IDHIT" ] && ok "no fictional non-zero identity (sandbox.example.test/ops@example.test/sample-operator/operator-candidate) on public surfaces" || { bad "fictional non-zero identity on a public surface:"; echo "$IDHIT" | head -5; }
 

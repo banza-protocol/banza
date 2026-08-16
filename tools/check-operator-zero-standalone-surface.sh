@@ -29,7 +29,7 @@ NAV="website/components/SiteNav.tsx"
 FOOTER_GATE="website/components/SiteFooterGate.tsx"
 MOD="website/lib/zeroSubdomain.ts"
 SITE="website/lib/site.ts"
-REF="website/content/BANZA_REFERENCIA.md"
+REF="docs/reference/pt/BANZA_REFERENCIA.md"
 OLD_APEX_DIR="website/app/operador-zero"
 
 fail=0

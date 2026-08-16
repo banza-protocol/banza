@@ -1330,3 +1330,182 @@ Where this chapter's text diverges from the verifiable state, the verifiable sta
 - [§7 Conformance and Certification](#7-conformance-and-certification): the profiles and the evidence an implementation demonstrates.
 
 ---
+
+## 15. Frequently Asked Questions
+
+This section answers the most common questions about BANZA and points, in each answer, to the chapter where the subject is treated in detail. **The FAQ exists to orient and to compress faithfully what the Reference already establishes; it is neither a second specification nor a normative source.** The answers summarise the Reference and the applicable normative artifacts; they do not replace them — where a short answer and a chapter diverge, the chapter prevails, and where a chapter and a contract diverge, the contract prevails.
+
+Some questions start from a common but imprecise mental model; the first sentence of the answer corrects the premise before explaining it.
+
+### About the protocol
+
+**What is BANZA?**
+
+BANZA is an open financial interoperability protocol: it defines public rules — contracts, messages, invariants, profiles, evidence and trust — that independent implementations may adopt in order to interoperate verifiably. It is not a product, a platform or a specific implementation. See [§1 What BANZA Is](#1-what-banza-is).
+
+**Is BANZA a bank, a PSP, a wallet or a payment scheme?**
+
+No. BANZA is the common layer of rules, not a financial participant: it is not a bank, a PSP, a wallet, a scheme or an operator, it holds no banking licence and it provides no financial services. Those who process payments and provide services are the operators, which implement the protocol under their own authorisations. See [§1 What BANZA Is](#1-what-banza-is).
+
+**Does BANZA hold funds or process payments?**
+
+No. The protocol holds no funds, keeps no balances, maintains no customer accounts and is at no point on the money's path; it defines how postings must behave, but does not execute them. Funds live in the operators' systems and on the competent settlement rails, under the authorisations of whoever operates. See [§1 What BANZA Is](#1-what-banza-is) and [§5 Protocol State](#5-protocol-state).
+
+**Is there a central BANZA server through which payments pass?**
+
+No. There is no central server that executes payments: each operator implements the protocol on its own infrastructure, and two operators interoperate because they respect the same public rules, not because they connect to a central point. The common surfaces — Technical Registry, signed metadata, Revocation List, manifests and conformance evidence — publish verifiable metadata and trust; none of them moves funds. See [§4 Protocol Architecture](#4-protocol-architecture).
+
+**Does BANZA replace banks, EMIS or the existing infrastructure?**
+
+No — it adds, it does not replace. Operational interoperability already exists through banks, shared settlement and exchange infrastructures and digital channels, which continue to play their role; what BANZA adds is a common public basis on which to demonstrate, compare and reproduce it independently. The protocol is neutral as to external providers: EMIS may be one possible provider/rail, but it is neither imposed nor unique. See [§2 Why BANZA Exists](#2-why-banza-exists) and [§13 Developer Resources](#13-developer-resources).
+
+**Who owns BANZA? Is it a company or does it belong to the State?**
+
+No operator — and no entity — owns the protocol. BANZA is an open protocol made up of public specifications, invariants, contracts and governance processes; operators implement it, they do not own it. It was created by **Banzami — Tecnologia e Serviços, Lda.**, which acts as original creator and initial institutional maintainer — attribution of origin, not private control. Public authorities may use it, supervise it or take part, but the rules remain public and verifiable for everyone. See [§11 Governance](#11-governance).
+
+**Is the protocol open? Do I need permission, a licence or an NDA in order to implement it?**
+
+The protocol is open and requires no private permission, confidentiality agreement or prior arrangement in order to be read, implemented or verified. All the necessary documentation — Reference, ADRs, RFCs, contracts, schemas and conformance vectors — is public. This is a technical property of implementation; it does not dispense with the legal and regulatory authorisations that financial activity may require, which live outside the protocol. See [§1 What BANZA Is](#1-what-banza-is).
+
+### Implementation, conformance and certification
+
+**Who may implement BANZA? Does one have to be a member?**
+
+There is no registration and no membership condition in the protocol. Any entity may implement BANZA: technical participation follows from the verifiable conformance of its implementations, not from an admission — no entity grants access, because none can deny it. Outside the protocol, the operator remains subject to all the legal and regulatory obligations of its activity. See [§8 Operators](#8-operators).
+
+**What is the difference between an operator and an implementation?**
+
+The **operator** is the organisational entity that implements the protocol, under its own authorisations; the **implementation** is the concrete technical system (the build, identified by its hash) that is observed, evaluated and possibly certified. An operator may publish several implementations, and a technical property of an implementation — conformance, profile, certification — belongs to that system, within the scope and window in which it was demonstrated; it does not rise to the entity as a global status. See [§8 Operators](#8-operators).
+
+**What is evaluated and certified — the entity or the implementation?**
+
+A bounded implementation, within a determined scope — never the entity in the abstract. **BANZA does not certify an operator in the abstract; it certifies a concrete implementation, identified by the hash of its artifacts, against a public profile and by reproducible evidence.** There is no "certified entity" as a global status. See [§7 Conformance and Certification](#7-conformance-and-certification) and [§8 Operators](#8-operators).
+
+**Are validation, readiness and technical certification the same thing?**
+
+No. **Validating** is executing the deterministic verifications over an implementation and producing **evidence**; **certification readiness** aggregates the applicable steps and says whether the implementation may enter a certification process; **technical certification** (Layer 2) is the formal verdict, per implementation and evidence-based. Publishing evidence or being ready is not being certified — the baseline status is `NOT_CERTIFIED`. See [§7 Conformance and Certification](#7-conformance-and-certification).
+
+**Does a technical certification authorise operation?**
+
+No, and it does not propagate. **Validation, readiness, technical certification, scheme admission and regulatory authorisation are distinct determinations, with distinct owners, and none follows automatically from another.** Technical certification attests a bounded technical fact; **BANZA conformance or technical certification does not replace regulatory authorisation, a licence, KYC/KYB or AML/CFT obligations, or admission to an operational scheme** — authorisation, where required, comes from the competent regulator. See [§7 Conformance and Certification](#7-conformance-and-certification).
+
+**What are the L0–L4 profiles? Are they layers?**
+
+They are **conformance profiles** — cumulative rungs of technical capability that an implementation demonstrates (from L0, sandbox, to L4, external interoperability). They are not layers of the architecture: Layers 1, 2 and 3 divide responsibilities between institutions, while the profiles measure the technical reach of an implementation. The letter "L" always belongs to the profiles, never to a layer, and a profile applies to an implementation, it is not a status of the entity. See [§7 Conformance and Certification](#7-conformance-and-certification) and [§4 Protocol Architecture](#4-protocol-architecture).
+
+**Do I have to use Rust, PostgreSQL, an SDK or official software?**
+
+No. The protocol specifies observable behaviour and contracts, not internal technology: an implementation may be built in any language, with any database and any environment, provided it satisfies the contracts, invariants and conformance vectors. Rust is the language of the official reference engines, not a requirement for operators; the database is an implementation decision. **BANZA does not currently present a public integration SDK; an external implementation is based on the normative artifacts and the applicable interfaces.** See [§13 Developer Resources](#13-developer-resources).
+
+**Who approves or admits operators?**
+
+Nobody, at the protocol level — and there is nobody to ask. There is no certificate authority, no admitting entity and no approval process (ADR-025): an operator implements the protocol, publishes its evidence and signs its metadata, and each peer evaluates that material with the same deterministic verifications. Admission to a scheme (Layer 3) and regulatory authorisation are decisions of other owners, outside the protocol. See [§8 Operators](#8-operators) and [§11 Governance](#11-governance).
+
+### Operators, federation and schemes
+
+**What is federation in BANZA?**
+
+**Federation is the technical, local, per-interaction evaluation of the conditions necessary for two operators to interoperate, through the concrete implementations involved; it is not a network, a registration, a membership list, a status or an authority.** Before routing a payment, each party evaluates the other's published material by itself and reaches, alone, `ROUTING_ALLOWED` or, by default, `FAIL_CLOSED`. BANZA publishes the rules, but it is neither in the trust path nor in the funds path: settlement is executed by the operators, outside the protocol. See [§10 Federation](#10-federation).
+
+**Does the L3 profile mean that an operator is federated?**
+
+No. **The L3 profile means that an implementation demonstrated, by reproducible evidence, conformance with the inter-operator payments protocol; by itself it creates neither a federated state, a scheme admission, nor an authorisation to operate.** L3 is a necessary technical precondition, never a sufficient one: each routing remains subject to the full evaluation, and a declared capability without evidence covering it proves nothing. See [§10 Federation](#10-federation).
+
+**Does `ROUTING_ALLOWED` oblige a payment to be routed?**
+
+No. **A `ROUTING_ALLOWED` means only that the necessary technical conditions were satisfied in that interaction; it does not oblige anyone to route.** The protocol defines when a routing **cannot** happen, never when it has to — each operator applies its own policy on top of the technical floor and may refuse even a counterparty that passes the evaluation. And the result is local and per interaction: it holds for that routing, not forever. See [§10 Federation](#10-federation).
+
+**Does appearing in the Technical Registry mean being approved or authorised?**
+
+No. The Technical Registry is a public, reproducible index of implementations, profiles and certification records: any party reconstructs it from the same public sources and obtains the same result. **Appearing in it is never a licence, a scheme admission or an authorisation, and absence is never a prohibition** — it is a mirror of what has been published and verified, not a gate that someone controls. See [§8 Operators](#8-operators) and [§5 Protocol State](#5-protocol-state).
+
+**What happens if an operator stops complying with the rules?**
+
+Trust in the affected material is withdrawn and routing fails closed. When an implementation's evidence loses freshness, or its trust material is revoked in the BRL on objective grounds, Open Trust Evaluation begins to fail closed and peers stop accepting that implementation in federation. It is a protocol safety mechanism, applied by machine at each peer — not a sanction: it withdraws the acceptability of the affected material, not the entity's authorisations or its remaining activity. See [§6 Trust](#6-trust) and [§10 Federation](#10-federation).
+
+**Does BANZA administer payment schemes?**
+
+No. The operational schemes (Layer 3) are independent: they define participation, operation and responsibilities under their own framework, and BANZA neither administers them nor decides their admissions. The protocol's continuity depends on no scheme, and technical certification may be a prerequisite for admission, but never determines it. See [§4 Protocol Architecture](#4-protocol-architecture).
+
+### Trust and governance
+
+**What is the Trust Root for? Does it govern the protocol?**
+
+**The Trust Root is the cryptographic anchor of the chain of signatures and signs only the Key Manifest; it does not govern the protocol, does not authorise operators, does not issue a licence and does not authorise payments.** It is generated offline and held in threshold-split custody, outside the operational path. It is not a certificate authority over operators — it is the verifiable origin of a chain, and metadata, revocations and evidence are signed by delegated keys, not by the root. See [§6 Trust](#6-trust) and [§11 Governance](#11-governance).
+
+**What is the Revocation List (BRL) and how does a revocation work?**
+
+The **BANZA Revocation List** (BRL) is the public, signed list of trust material that has ceased to be acceptable — signed by the delegated key of the revocation domain, not by the root, and published in short cycles so that the withdrawal of trust propagates without notifying each peer. A revocation is not a discretionary judgement: **it always requires an objective ground, published with the entry.** Revoking withdraws the future cryptographic acceptability of the affected material; it does not erase past evidence and it is not a regulatory sanction — authorisation and sanctions belong to the competent authorities, outside the protocol. See [§6 Trust](#6-trust).
+
+**Who governs BANZA and how does a rule change?**
+
+Governance is the **public process** by which the protocol's rules evolve, conducted by the **active maintainers** under public rules. **Governance defines and evolves the rules — invariants, contracts, profiles and versions; it does not decide who implements, who is certified, who is admitted to a scheme or who is authorised to operate.** Anyone may propose a change (RFC/ADR); a change enters only through public artifacts, and an implementation's conformance verdict is produced by a deterministic engine, not by a human decision. See [§11 Governance](#11-governance).
+
+**Does Banzami control the protocol?**
+
+No. Banzami is the original creator and initial institutional maintainer — attribution of origin, not private control — and has no authority over the operators. Governance takes place publicly in the canonical repository, through proposals, review and a recorded decision; no single operator, nor the creator, decides the rules unilaterally. The direction of dependency is permanent: operators depend on BANZA, BANZA never depends on operators. See [§11 Governance](#11-governance).
+
+**May I use the BANZA code, name and logo?**
+
+The code and the documentation are under an open licence (Apache License 2.0) and may be used on its terms. The open licence does not, however, grant rights over the trademark: use of the names BANZA, BanzAI and Banzami and of the logos follows the trademark policy (`TRADEMARKS.md`), and contributing to governance does not automatically confer trademark rights. See [§11 Governance](#11-governance).
+
+### Operator Zero and BanzAI
+
+**What is Operator Zero? Is it the first operator?**
+
+**Operator Zero is the protocol's read-only reference implementation, created in order to make the public surfaces observable and testable; it is not the first operator, a production operator, a specification or an authority, and it moves no real money.** Its status is `NOT_CERTIFIED` because it is a demonstration, not because it fails, and it never appears on the route of real operators. Copying it is not mandatory: any implementation serving the same observable artifacts is evaluated by the same path, and "Zero" is the name of this implementation, not the L0 profile. See [§9 Operator Zero](#9-operator-zero).
+
+**Does BanzAI decide, evaluate or certify anything?**
+
+No. **BanzAI guides, consults the sources, invokes the engines and explains the results with their sources cited; the deterministic engines verify, the evidence proves and the competent authority decides.** It does not define rules, does not decide conformance, does not evaluate trust, does not certify, does not admit operators, does not grant authorisations and does not move funds — orchestrating tools does not transfer their authority to it, and each answer is non-authoritative and publishes its own execution path. See [§12 BanzAI](#12-banzai-protocol-agent).
+
+**May I implement BANZA without BanzAI?**
+
+Yes. The protocol works without BanzAI: the contracts, the manifests, the schemas, the public endpoints and the engines remain directly accessible, and machine-to-machine conformance and interoperability are verifiable without going through the human interface. BanzAI is the primary route for a person to work with the protocol, not a dependency of it. See [§12 BanzAI](#12-banzai-protocol-agent).
+
+### State, evolution and sources
+
+**How do I know the protocol's current state?**
+
+Through the public surfaces, not through this FAQ. **The current state — which versions and profiles are active, how many implementations and certifications exist, what is still disabled — is published verifiably and described in [§5 Protocol State](#5-protocol-state); the FAQ does not duplicate those values because they change over time.** The `/estado` page and the protocol's machine routes mirror that state in a readable and verifiable format.
+
+**How does the protocol evolve? Is there a roadmap?**
+
+BANZA evolves through rules and artifacts versioned and published by the applicable process, not through a feature calendar. The Reference establishes neither a product calendar nor delivery promises: it describes possible directions that preserve the architecture. **A future possibility becomes part of the protocol only when it is adopted, versioned and published through the governance process** — an intention or an internal milestone is not availability. See [§14 Protocol Evolution](#14-protocol-evolution) and [§11 Governance](#11-governance).
+
+**Is BANZA only for Angola?**
+
+The context of origin and first application is Angola — the Angolan payments landscape motivates the work and the Kwanza (AOA) is the primary currency in the specification. But the problem the protocol addresses is technical and general, and the protocol is open: any entity, in any context, may implement it, without depending on any specific settlement rail. See [§2 Why BANZA Exists](#2-why-banza-exists).
+
+**Does the protocol survive if the canonical domain or an operator disappears?**
+
+Yes — it is a fundamental property of the model. The protocol's trust resides in the keys, the signed metadata and the verifiable artifacts, not in a domain: the canonical domain is merely a known point of publication, and replicas with a valid signature are as authoritative as it is. Likewise, the specification, conformance and the contracts exist independently of any operator — if one disappears, the others continue. See [§6 Trust](#6-trust) and [§11 Governance](#11-governance).
+
+**Where are the normative rules and how do I report a vulnerability?**
+
+The normative rules live in the public, versioned artifacts — invariants (`contracts/invariants.json`), applicable ADRs and RFCs, contracts and schemas (`contracts/`) and conformance vectors (`conformance/`); in the event of divergence, the artifacts prevail over prose. Security vulnerabilities should be reported privately to `security@banza.network` (not in public issues), with the security model described in [`docs/security/README.md`](https://github.com/banza-protocol/banza/blob/main/docs/security/README.md). See [§13 Developer Resources](#13-developer-resources).
+
+## References
+
+**ADRs:**
+- ADR-012 — Double-entry ledger
+- ADR-022 — Idempotency and rate limiting
+- ADR-015 — QR payment system
+- ADR-014 — Account/participant identity model
+- ADR-001 — Open financial protocol
+- ADR-001 — Separation of operators
+- ADR-001 — Ecosystem naming (canonical)
+- ADR-025 — Open protocol trust model without a certificate authority
+- ADR-031 — Operator self-publication and machine-verifiable conformance
+- ADR-025 — Federation trust evaluation without certificates
+- ADR-013 — Protocol state: state of the protocol, not financial value (persisted in PostgreSQL in the reference implementation)
+- ADR-009 — Licence, attribution, trademarks and open governance (Apache-2.0 + NOTICE + TRADEMARKS + GOVERNANCE)
+
+**Complementary documents:**
+- `docs/governance/POSTGRESQL_PROTOCOL_STATE.md` — persistence of protocol state in the reference implementation (data boundary)
+- `docs/governance/certification-boundary.md` — Conformance scopes, evidence, maintenance (authoritative)
+- `docs/guides/conformance.md` — Overview of conformance verification
+- `docs/governance/README.md` — Governance framework
+- `decisions/adr/` — All Architecture Decision Records
+- `decisions/rfc/` — All Requests for Comments
+- `spec/federation/` — Federation documentation

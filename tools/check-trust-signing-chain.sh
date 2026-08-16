@@ -44,7 +44,7 @@ SURFACES=(
   docs/governance/FEDERATION_TRUST_MODEL.md
   docs/governance/PROTOCOL_GOVERNANCE_ROLES.md
   spec/federation/FEDERATION_TRUST_MODEL.md
-  website/content/BANZA_REFERENCIA.md
+  docs/reference/pt/BANZA_REFERENCIA.md
   website/public/diagrams/protocol/open-trust-evaluation-v1.svg
   website/public/diagrams/protocol/banza-trust-v1.svg
 )

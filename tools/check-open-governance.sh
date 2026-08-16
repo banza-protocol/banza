@@ -55,7 +55,7 @@ cd "$(dirname "$0")/.."
 SURFACES=(
   website/app
   website/components/banzai
-  website/content/BANZA_REFERENCIA.md
+  docs/reference/pt/BANZA_REFERENCIA.md
   docs/reference/pt/completa.md
   docs/reference/en/complete.md
   docs/reference/manifesto.md

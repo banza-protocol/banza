@@ -21,7 +21,7 @@
 # It is intentionally structural/semantic, not coordinate-based. Runs offline. Self-tests its detectors.
 
 set -uo pipefail
-REF="website/content/BANZA_REFERENCIA.md"
+REF="docs/reference/pt/BANZA_REFERENCIA.md"
 st=0
 ok(){ echo "  ok: $1"; }
 fl(){ echo "  NEEDS_FIX: $1" >&2; st=1; }

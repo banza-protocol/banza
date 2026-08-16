@@ -11,7 +11,7 @@ use serde::Serialize;
 use std::sync::OnceLock;
 
 /// The canonical PT reference, embedded so retrieval works with no filesystem (native + WASM).
-pub const REFERENCE_MD: &str = include_str!("../../../website/content/BANZA_REFERENCIA.md");
+pub const REFERENCE_MD: &str = include_str!("../../../docs/reference/pt/BANZA_REFERENCIA.md");
 
 /// Internal routes the engine may cite. Nothing else may appear as a citation.
 pub const ALLOWED_URLS: &[&str] = &[

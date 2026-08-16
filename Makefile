@@ -451,7 +451,7 @@ crypto-check:
 
 ## reference-svg-check: Assert every SVG referenced by the Reference is served by the website
 reference-svg-check:
-	@tools/assert-reference-svgs.sh website/content/BANZA_REFERENCIA.md website/public
+	@tools/assert-reference-svgs.sh docs/reference/pt/BANZA_REFERENCIA.md website/public
 
 ## svg-visual-quality-check: Hold official diagram SVGs to the SVG quality policy — structure (<title>/<desc>/viewBox), pure-vector, legibility floor (8px), and active-model semantics (M2.7E)
 svg-visual-quality-check:

@@ -8,7 +8,7 @@
 
 This directory is an internal/dev documentation surface (English is fine here). The public,
 operator-facing reference lives in the BANZA Reference, chapter 12 —
-[`/referencia/banzai`](../../website/content/BANZA_REFERENCIA.md).
+[`/referencia/banzai`](../../docs/reference/pt/BANZA_REFERENCIA.md).
 
 ## Current deployed state (reference deployment)
 

@@ -54,6 +54,6 @@ Rust decides; TypeScript never decides; there is no model call anywhere here.
 - ADR-034 — endpoint-originated operator validation & operator/implementation model
 - ADR-033 (technical registry) · ADR-032 (closed certification-state machine) · ADR-035 (Operador Zero)
 - `engines/banza-artifact-fetcher` — the secure Rust fetcher that retrieves the resolved endpoints
-- The public reference: BANZA Reference, chapters 7–9 & 12 (`website/content/BANZA_REFERENCIA.md`)
+- The public reference: BANZA Reference, chapters 7–9 & 12 (`docs/reference/pt/BANZA_REFERENCIA.md`)
 - Contracts: `contracts/production/operator-record.production.schema.json`,
   `implementation-record.production.schema.json`, `contracts/openapi/operator-validation.yaml`

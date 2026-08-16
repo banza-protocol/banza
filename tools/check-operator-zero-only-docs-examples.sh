@@ -33,7 +33,7 @@ else
 fi
 
 # The reference documentation names Operador Zero as the demo/example.
-REF=website/content/BANZA_REFERENCIA.md
+REF=docs/reference/pt/BANZA_REFERENCIA.md
 if [ -f "$REF" ]; then
   grep -qi "Operador Zero" "$REF" && ok "reference doc names Operador Zero" \
     || fail "$REF should name Operador Zero as the demo example"

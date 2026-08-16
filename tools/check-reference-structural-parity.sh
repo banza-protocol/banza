@@ -80,8 +80,13 @@ for label, t in (("PT", pt), ("EN", en)):
 # High-risk claims: present in both, or present in neither. A translation that quietly drops a
 # limitation is the failure this catches.
 CLAIMS = [
-    ("three Root authorities",      r'tr[eê]s autoridades',            r'three authorities'),
-    ("threshold of two",            r'limiar de duas|duas autoridades',     r'threshold of two|two authorities'),
+    # Each language names the same fact with its own modifiers ("três autoridades de assinatura
+    # independentes" / "three independent signing authorities"), so the patterns allow words between
+    # the number and the noun. Matching the exact phrase would fail on a faithful translation, which
+    # is the opposite of what this check is for.
+    ("three Root authorities",      r'tr[eê]s autoridades',            r'three(?:\s+\w+){0,3}\s+authorities'),
+    ("threshold of two",            r'limiar de duas|duas assinaturas|duas autoridades',
+                                    r'threshold of two|two signatures|two(?:\s+\w+){0,2}\s+authorities'),
     ("no trust on first use",       r'primeiro uso',                        r'first use'),
     ("predecessor-authorized",      r'conjunto predecessor|predecessor',    r'predecessor set|predecessor'),
     ("pre-production",              r'pr[eé]-produ[cç][aã]o', r'pre-production'),

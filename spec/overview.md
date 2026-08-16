@@ -276,6 +276,6 @@ BANZA é o protocolo. As implementações pertencem a repositórios independente
 - ADR-001 — Inversão de nomenclatura do ecossistema
 
 Ver também:
-- [website/content/BANZA_REFERENCIA.md](../website/content/BANZA_REFERENCIA.md) — Referência canónica do protocolo (PT, servida em banza.network/referencia)
+- [docs/reference/pt/BANZA_REFERENCIA.md](../docs/reference/pt/BANZA_REFERENCIA.md) — Referência canónica do protocolo (PT, servida em banza.network/referencia)
 - [docs/governance/certification-boundary.md](../docs/governance/certification-boundary.md) — Perfis de conformidade L0–L4
 - [docs/guides/conformance.md](../docs/guides/conformance.md) — Suite de conformidade

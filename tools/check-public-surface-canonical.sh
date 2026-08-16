@@ -3,7 +3,7 @@
 # M2.19G capstone — public-surface canonicalization guard.
 #
 # An AGGREGATE sweep over the whole rendered public surface:
-#   website/app/**/page.tsx · website/components/** · website/content/BANZA_REFERENCIA.md ·
+#   website/app/**/page.tsx · website/components/** · docs/reference/pt/BANZA_REFERENCIA.md ·
 #   website/lib/{site,reference,decisions}.ts
 # (banzai-agent.ts — which lists the forbidden phrases verbatim as agent config — and *.test.*/*.spec.*
 #  are excluded, exactly like check-three-layer-architecture.sh.)
@@ -33,7 +33,7 @@ while IFS= read -r f; do [ -n "$f" ] && FILES+=("$f"); done < <(
     find website/app -type f -name 'page.tsx'
     find website/components -type f \( -name '*.tsx' -o -name '*.ts' -o -name '*.md' \)
     printf '%s\n' \
-      website/content/BANZA_REFERENCIA.md \
+      docs/reference/pt/BANZA_REFERENCIA.md \
       website/lib/site.ts \
       website/lib/reference.ts \
       website/lib/decisions.ts
