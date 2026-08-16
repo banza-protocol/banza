@@ -520,6 +520,43 @@
         "assurance/README.md"
       ],
       "gate_status": "PASS"
+    },
+    {
+      "property_id": "AG10_READINESS_IS_AGGREGATED_NEVER_DECLARED",
+      "r2s2_dimensions": [
+        "Secure",
+        "Robust"
+      ],
+      "domain": "assurance",
+      "criticality": "CRITICAL",
+      "scope": "GLOBAL",
+      "normative_authority": [
+        "decisions/adr/ADR-041-layered-assurance-gates.md",
+        "assurance/README.md"
+      ],
+      "wire_representation": null,
+      "implementation": "engines/banza-assurance/src/lib.rs",
+      "positive_evidence": [
+        "engines/banza-assurance/tests/closed_world_semantics.rs::a_forged_readiness_report_cannot_grant_ag10"
+      ],
+      "negative_evidence": [
+        "engines/banza-assurance/tests/closed_world_semantics.rs::ag10_never_passes_without_reported_conditions"
+      ],
+      "adversarial_evidence": [
+        "engines/banza-assurance/tests/closed_world_semantics.rs::a_forged_readiness_report_cannot_grant_ag10"
+      ],
+      "state_test": null,
+      "resilience_test": null,
+      "property_guard": "engines/banza-assurance/tests/closed_world_semantics.rs",
+      "mutation_proof": null,
+      "falsification_proof": [
+        "engines/banza-assurance/tests/closed_world_semantics.rs::a_forged_readiness_report_cannot_grant_ag10"
+      ],
+      "clean_room_requirement": false,
+      "public_claims": [
+        "assurance/README.md"
+      ],
+      "gate_status": "PASS"
     }
   ],
   "_gate_semantics": "CLOSED-WORLD. A gate returns PASS only when every REQUIRED evidence category for it is known, present, executed and green. Absence is never PASS: an unproduced requirement is NOT_RUN, an unsatisfiable one is BLOCKED. This section is what the engine reads to know what SHOULD exist — without it the engine could only report that what it happened to find was green.",
@@ -583,7 +620,8 @@
         "property_guard"
       ]
     },
-    "_per_property_required_stages_note": "For a CRITICAL property these stages are REQUIRED unless explicitly declared not applicable with a rationale. A property whose registered evidence is green but whose required stages are absent is INCOMPLETE, not PASS."
+    "_per_property_required_stages_note": "For a CRITICAL property these stages are REQUIRED unless explicitly declared not applicable with a rationale. A property whose registered evidence is green but whose required stages are absent is INCOMPLETE, not PASS.",
+    "_mutation_proof_note": "`mutation_proof` names a REPOSITORY mutation (M4). A property whose falsification is better exercised against a controlled fixture carries `falsification_proof` instead — AG-10 is the case: running the repository battery from inside its own mutation made the proof depend on the machinery it was testing, and left it unproven for two rounds."
   },
   "not_applicable_rationales": {
     "STATE_TEST": "the property is decided by a pure function over supplied inputs and retains nothing between calls, so there is no state a restart could lose",

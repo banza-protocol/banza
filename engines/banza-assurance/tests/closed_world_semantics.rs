@@ -454,3 +454,56 @@ fn removing_a_whole_surface_from_the_inventory_never_passes() {
     );
     let _ = fs::remove_dir_all(&root);
 }
+
+/// A readiness report is an aggregator, never an authority.
+///
+/// This is the last loophole in the chain: everything upstream can be honest and a final artifact
+/// simply declares `ready: true`. It is proven here against a controlled fixture rather than by running
+/// the repository battery from inside a mutation — that route made the proof depend on the very
+/// machinery it was testing, and left it unproven.
+#[test]
+fn a_forged_readiness_report_cannot_grant_ag10() {
+    // Baseline: real prerequisites, honest report → AG-10 may pass.
+    let (root, reg, exe) = fixture();
+    let r = run(&root, &reg, &exe);
+    assert_eq!(gate(&r, "AG-10"), "PASS", "the honest baseline must pass");
+    let _ = fs::remove_dir_all(&root);
+
+    // Now break a real prerequisite — the property's authority no longer resolves, so AG-0 fails —
+    // while the readiness report still claims every condition is met.
+    let (root, mut reg, exe) = fixture();
+    reg["properties"][0]["normative_authority"] = serde_json::json!(["spec/absent.md"]);
+    fs::write(
+        root.join("assurance/release-readiness.json"),
+        serde_json::json!({
+            "all_applicable_gates_pass": true,
+            "all_mandatory_guards_green": true,
+            "clean_source_tree": true
+        })
+        .to_string(),
+    )
+    .unwrap();
+    let r = run(&root, &reg, &exe);
+
+    assert_eq!(
+        gate(&r, "AG-0"),
+        "FAIL",
+        "the underlying prerequisite must fail"
+    );
+    assert_ne!(
+        gate(&r, "AG-10"),
+        "PASS",
+        "a forged readiness claim must not grant the freeze gate"
+    );
+    // And it must fail for the RIGHT reason: the observed gates, not some unrelated fixture error.
+    assert!(
+        r.findings.iter().any(|f| f.gate == "AG-10"
+            && (f.detail.contains("observed") || f.detail.contains("aggregator"))),
+        "AG-10 must reject on observed gate verdicts, not incidentally: {:?}",
+        r.findings
+            .iter()
+            .filter(|f| f.gate == "AG-10")
+            .collect::<Vec<_>>()
+    );
+    let _ = fs::remove_dir_all(&root);
+}

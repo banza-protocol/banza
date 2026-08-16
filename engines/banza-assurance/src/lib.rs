@@ -198,6 +198,8 @@ pub struct Property {
     pub resilience_test: Option<Vec<String>>,
     pub property_guard: Option<String>,
     pub mutation_proof: Option<String>,
+    #[serde(default)]
+    pub falsification_proof: Option<Vec<String>>,
     pub clean_room_requirement: bool,
     pub public_claims: Option<Vec<String>>,
     pub gate_status: Option<String>,
@@ -668,7 +670,13 @@ pub fn evaluate_bound(
                         .into(),
                 });
             }
-        } else if critical && p.mutation_proof.is_none() {
+        } else if critical
+            && p.mutation_proof.is_none()
+            && p.falsification_proof
+                .as_ref()
+                .map(|v| v.is_empty())
+                .unwrap_or(true)
+        {
             set("AG-7", Status::Fail, &mut gates);
             missing.push("mutation_proof".into());
             findings.push(Finding {
@@ -754,11 +762,19 @@ pub fn evaluate_bound(
                     .as_ref()
                     .map(|g| !g.trim().is_empty())
                     .unwrap_or(false),
-                "mutation_proof" => p
-                    .mutation_proof
-                    .as_ref()
-                    .map(|g| !g.trim().is_empty())
-                    .unwrap_or(false),
+                // A repository mutation OR a synthetic falsification both satisfy the obligation; what
+                // is unacceptable is neither. Running the repository battery from inside AG-10's own
+                // mutation made that proof depend on the machinery it was testing.
+                "mutation_proof" => {
+                    p.mutation_proof
+                        .as_ref()
+                        .map(|g| !g.trim().is_empty())
+                        .unwrap_or(false)
+                        || p.falsification_proof
+                            .as_ref()
+                            .map(|v| !v.is_empty())
+                            .unwrap_or(false)
+                }
                 _ => true,
             };
             if !present {
