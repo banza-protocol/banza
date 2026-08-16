@@ -9,6 +9,7 @@
 //! PASS is **technical conformance evidence, not production certification**. This runner never emits a
 //! certificate, never adds an operator, never activates M2/M3. No network by default; no crypto.
 
+pub mod canonical_profiles;
 pub mod federation_ab;
 pub mod federation_fixtures;
 pub mod live;

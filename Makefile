@@ -167,7 +167,7 @@ root-threshold-model-check:
 banza-whitepaper-check:
 	@bash tools/check-banza-whitepaper.sh
 
-.PHONY: l0-regulatory-boundary-check current-doc-links-check website-reference-mirror website-reference-source-boundary-check reference-source-authority-check reference-structural-parity-check reference-check
+.PHONY: l0-regulatory-boundary-check canonical-profiles-rs profile-vocabulary-check current-doc-links-check website-reference-mirror website-reference-source-boundary-check reference-source-authority-check reference-structural-parity-check reference-check
 ## website-reference-mirror: GENERATOR — mirror the two canonical Reference editions into website/content/reference/{pt,en}.md. The website builds with website/ as its Docker context and cannot read docs/ at build time; the mirror exists for that boundary and is never hand-edited.
 website-reference-mirror:
 	@python3 tools/gen-website-reference-mirror.py
@@ -183,6 +183,14 @@ reference-source-authority-check:
 ## reference-structural-parity-check: PT and EN cannot drift structurally — same chapters in the same order, four R²S² principles, exactly 8 Structural Properties, and the high-risk claims present in both
 reference-structural-parity-check:
 	@bash tools/check-reference-structural-parity.sh
+
+## canonical-profiles-rs: regenerate the derived L0-L4 profile vocabulary consumed by the conformance engine
+canonical-profiles-rs:
+	@python3 tools/gen-canonical-profiles-rs.py
+
+## profile-vocabulary-check: One canonical L0-L4 profile vocabulary — the registry defines exactly the profiles, the derived Rust constant reproduces them, the engine reports them at runtime, and no profile name encodes certification, operational status or regulatory permission
+profile-vocabulary-check:
+	@bash tools/check-profile-vocabulary.sh
 
 ## l0-regulatory-boundary-check: L0 is a technical Protocol Sandbox — the positive property (it enables genuine interoperability testing) and the boundary property (it confers no regulatory authorisation, operational admission, real-money permission or production approval) are both asserted, and no current surface claims otherwise
 l0-regulatory-boundary-check:

@@ -57,16 +57,28 @@ export interface ConformanceFixtureSet {
   level: string;
   fixtures: { key: string; label: string; expected: "PASS" | "FAIL"; note: string }[];
 }
+/** One conformance profile as the engine reports it.
+ *
+ * `name` is the canonical profile name, derived in Rust from
+ * contracts/production/conformance-profiles.production.json. TypeScript consumes it and never
+ * authors it: a second table here would drift from the registry, which is exactly how the engine
+ * came to call L4 "Produção certificada" while the registry called it External Interoperability.
+ *
+ * `name`, `runnable` and `status` are separate on purpose. A profile is a technical capability;
+ * whether the demo runner can execute it is an engine fact; neither is a certification state, an
+ * operational status or a regulatory permission. */
 export interface LevelInfo {
   level: string;
   runnable: boolean;
-  title: string;
+  name: string;
   status: string;
   requirements: string[];
 }
 export interface LevelsInfo {
   levels: LevelInfo[];
   note: string;
+  /** Where the canonical profile names come from — TypeScript is not their authority. */
+  profile_vocabulary_source: string;
   tool: string;
   tool_version: string;
 }

@@ -71,6 +71,15 @@ verifiable evidence, never certification, authorization or approval.
 
 Levels are additive — every level requires all lower levels to pass.
 
+The identifiers and names above come from
+[`contracts/production/conformance-profiles.production.json`](../contracts/production/conformance-profiles.production.json),
+which is their single normative source. Runtime and interface metadata derives from it or is checked
+against it (`make profile-vocabulary-check`) — nothing maintains a second profile table by hand.
+
+A profile is a **technical capability** an implementation demonstrates. It is never a certification
+state, an operational status or a regulatory permission, and a profile name never encodes one — see
+[`docs/governance/certification-boundary.md`](../docs/governance/certification-boundary.md).
+
 The level **names and per-level capabilities** above are canonical and match
 [docs/governance/certification-boundary.md](../docs/governance/certification-boundary.md) § Conformance level model and
 ADR-030. Traceability is verified at L1; payment initiation (payment requests,
