@@ -30,8 +30,11 @@
 - root
 - revk
 - meta
-- root_signs_the_key_manifest
-- a_non_root_key_cannot_sign_the_key_manifest
+- active_set
+- manifest_signed_by
+- two_distinct_root_authorities_sign_the_key_manifest
+- a_key_outside_the_active_set_cannot_authorise_the_key_manifest
+- one_root_authority_cannot_authorise_the_key_manifest_alone
 - revocation_domain_key_signs_the_brl
 - root_signed_brl_is_rejected
 - cross_domain_brl_signature_is_rejected

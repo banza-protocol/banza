@@ -171,7 +171,7 @@
         "error_code": null,
         "evidence": [],
         "invariant_results": [],
-        "reason": "accepted → Key Manifest carries the full expected active issuer key set",
+        "reason": "accepted → Key Manifest carries the full expected active issuer key set, approved by the threshold of distinct Root authorities",
         "status": "pass"
       },
       {
