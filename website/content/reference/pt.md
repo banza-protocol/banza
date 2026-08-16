@@ -5,7 +5,7 @@
      Verify:          make website-reference-source-boundary-check
      Editing this file instead of the source is a source-boundary violation and the guard
      fails on it. The website publishes the Reference; it does not own it.
-     source-sha256: 0abb2bc1e54f0812b57557fe69086498d5f26e8f1e05cb215a78a6d0406d6cc0
+     source-sha256: 453793a4d921fbf8635b46befe7f3301151dc61f4f56061df6f66dd8b2467d89
 -->
 
 # BANZA — Referência do Protocolo
@@ -747,6 +747,10 @@ Os perfis de conformidade descrevem, de forma cumulativa, o que uma implementaç
 | **L4** | Interoperabilidade Externa | Integração verificável com infraestruturas externas ao protocolo, definida por perfil |
 
 Os perfis são **cumulativos**: L(n) inclui os requisitos de todos os perfis inferiores. Demonstrar L2 implica ter demonstrado L1 e L0. A cumulatividade é de capacidade técnica, não de autoridade — L3 não é «mais autorizado» do que L1; abrange apenas mais comportamento avaliado.
+
+**L0 — Sandbox de Protocolo** permite implementar, testar e demonstrar a interoperabilidade técnica do BANZA num ambiente controlado e não produtivo, utilizando material, credenciais, dados e valores de teste conforme aplicável, sem pressupor autorização para a prestação de serviços financeiros reais. **L0 não confere, substitui nem implica autorização regulatória, admissão operacional, participação num arranjo de pagamentos ou permissão para movimentar fundos reais.** A passagem de uma implementação de teste para uma operação financeira real depende, separadamente, do enquadramento jurídico, regulatório, operacional e de governação aplicável ao operador, ao esquema e à jurisdição.
+
+O que é de teste é o **material e os valores**, não o comportamento do protocolo: em L0 exercitam-se representação canónica, identificadores, assinaturas e resumos, estados, códigos de motivo, idempotência, vectores determinísticos e evidência. **L0 é um sandbox de protocolo, não um sandbox regulatório** — os laboratórios, sandboxes e programas de autorização operados por um regulador são institucionalmente distintos, e definir o L0 não faz do BANZA parte deles. **Conformidade técnica não é autorização regulatória**, e passar em L0 não é aprovação para produção. O tratamento completo desta fronteira está em [`docs/governance/certification-boundary.md`](https://github.com/banza-protocol/banza/blob/main/docs/governance/certification-boundary.md).
 
 A avaliação de uma **implementação** isolada em sandbox demonstra L0 a L2; **L3** requer evidência de interoperabilidade entre implementações de operadores distintos, e **L4** é definido por perfil e nunca atribuído automaticamente. O L4 — interoperabilidade com infraestruturas externas ao protocolo, de forma tecnologicamente neutra — está definido; a sua demonstração depende de capacidades introduzidas em versões posteriores do protocolo (ver [§14](#14-evolução-do-protocolo)).
 
