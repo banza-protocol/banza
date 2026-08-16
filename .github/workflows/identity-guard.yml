@@ -481,6 +481,29 @@ jobs:
       - name: Public claims evidence battery
         run: bash tools/public-claims-evidence.sh
 
+      # The website is where those claims are PUBLISHED, so a site that cannot build publishes nothing.
+      # This lives here, in a required context, because of a specific failure: `website/lib/decisions.ts`
+      # gained three entries without the `type` field its own interface requires, every check went green,
+      # and the regression was found by a deployment — the website build was not a CI job at all.
+      #
+      # The fast, precise half first: the registry declares the full shape and covers exactly the records
+      # that exist. Then the REAL production build, not a type-only approximation — `next build` runs the
+      # type checker AND the page generation, and a schema error that only surfaces while prerendering a
+      # route would walk straight past `tsc --noEmit`.
+      - name: Website decision-registry shape guard
+        run: bash tools/check-website-decisions-parity.sh
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: website/package-lock.json
+      - name: Install website dependencies (locked)
+        working-directory: website
+        run: npm ci --no-audit --no-fund
+      - name: Website production build
+        working-directory: website
+        run: npm run build
+
   whitepaper-canonical-source-boundary:
     name: Whitepaper canonical-source boundary (Overleaf PT dossier is the source)
     runs-on: ubuntu-latest

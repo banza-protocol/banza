@@ -60,6 +60,7 @@ export const validate_against_schema_json: (a: number, b: number, c: number, d: 
 export const context_used_for_json: (a: number, b: number, c: number, d: number, e: number) => [number, number];
 export const boundary_evaluate_json: (a: number, b: number) => [number, number];
 export const route_question_json: (a: number, b: number) => [number, number];
+export const is_verbatim_entry: (a: number, b: number) => number;
 export const route_question_with_journey_json: (a: number, b: number, c: number, d: number) => [number, number];
 export const route_with_context_json: (a: number, b: number, c: number, d: number) => [number, number];
 export const answer_class_json: (a: number, b: number) => [number, number];

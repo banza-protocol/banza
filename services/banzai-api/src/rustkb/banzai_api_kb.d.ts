@@ -230,6 +230,13 @@ export function generate_candidates_json(question: string, max: number): string;
 export function intent_source_ranking_json(question: string): string;
 
 /**
+ * Node WASM: is this entry a NORMATIVE DENIAL that must be served verbatim, even when the question
+ * carries an explanatory cue that would otherwise escalate a definition into the explanatory trunk?
+ * Rust owns the list; the pipeline asks and executes. See `route::is_verbatim_entry`.
+ */
+export function is_verbatim_entry(entry_id: string): boolean;
+
+/**
  * Node WASM: normalization (exposed so JS keeps zero matching logic).
  */
 export function normalize_query(q: string): string;

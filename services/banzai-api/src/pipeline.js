@@ -25,7 +25,7 @@
 // hit/miss, synthesis trace, fallback reason — never keys, secrets or full payloads.
 
 import { GUARDRAILS } from "./provider.js";
-import { normalize, retrieve, CORPUS_HASH, REPO_INDEX_HASH, SAFETY_POLICY_VERSION, contractVersions, validateResponse, route, routeWithJourney, getEntry, resolveDocument, resolveConcept, resolveScope, resolveOperationalMetric, resolveQuery, resolveReferences, contextualFallback, answerClass, buildTerminal, queuePriority, queueShouldDedup, recoverQuery, coveredEntities, attributeAnswer, taskedAnswer, documentLookup, contextUsedFor, buildOperationalPackage, verifyClaims } from "./knowledge.js";
+import { normalize, retrieve, CORPUS_HASH, REPO_INDEX_HASH, SAFETY_POLICY_VERSION, contractVersions, validateResponse, route, routeWithJourney, getEntry, resolveDocument, resolveConcept, resolveScope, resolveOperationalMetric, resolveQuery, resolveReferences, contextualFallback, answerClass, buildTerminal, queuePriority, queueShouldDedup, recoverQuery, coveredEntities, isVerbatimEntry, attributeAnswer, taskedAnswer, documentLookup, contextUsedFor, buildOperationalPackage, verifyClaims } from "./knowledge.js";
 import { honestLiveFailureAnswer } from "./liveArtifact.js";
 // Increment 5 (§10–§15) — the question-family handler (pg-free; the ONE persisted-read step is the injected
 // receiptsTool). It routes a resolved §10–§15 family through its ToolPlanner plan → tool execution → the
@@ -1167,7 +1167,11 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // a REAL explanatory cue ("por que…", "como funciona…", "compara…") is NOT served flat — it enters the
     // explanatory trunk (grounded on the concept's canonical source), so an explanation is a real
     // explanation, never a canned definition.
-    if (decisionEffective.action === "deterministic" && !hasExplanatoryCue) {
+    // A NORMATIVE DENIAL is exempt from that escalation: "does resilience mean zero downtime?" carries an
+    // explanatory cue, and the answer is *no*. Sending it to the trunk would have a model recompose a
+    // bounded guarantee, which is how the bound goes soft. Rust owns which entries these are.
+    const verbatimEntry = decision.entry_id ? isVerbatimEntry(decision.entry_id) : false;
+    if (decisionEffective.action === "deterministic" && (!hasExplanatoryCue || verbatimEntry)) {
       const entry = decision.entry_id ? getEntry(decision.entry_id) : null;
       if (entry) {
         // M2.18B.5 — a `def-*` entry is a canonical DEFINITION, never a security boundary: label it

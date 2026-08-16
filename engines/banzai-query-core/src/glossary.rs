@@ -272,6 +272,150 @@ fn is_root_succession_phrase(nq: &str) -> bool {
     names_the_set || asks_about_succession || acts_on_an_authority || asks_about_the_removed_one
 }
 
+/// The R²S² resilience BOUNDARY — "a resiliência sobrepõe-se à segurança?", "does resilience mean zero
+/// downtime?".
+///
+/// Post-deploy QA found the first of these reaching the hypothesis family and being refused, and the
+/// second answered from the generic "what is BANZA" entry. A refusal is safe; answering a boundary
+/// question from an unrelated entry is not, and neither is what a reader supplies in the silence. The
+/// two shapes are one fact — resilience is bounded by safety — so one predicate decides both, and the
+/// gate and the term table read it, which is what stops them disagreeing.
+fn is_resilience_boundary_phrase(nq: &str) -> bool {
+    let names_resilience = has(nq, &["resilienc", "resilient", "resiliente"]);
+    if !names_resilience {
+        return false;
+    }
+    // Ordered against safety: does availability win?
+    let against_safety = has(
+        nq,
+        &[
+            "seguranca",
+            "security",
+            "seguro",
+            "secure",
+            "sobrepoe",
+            "sobrepor",
+            "override",
+            "overrides",
+            "prevalece",
+            "acima da",
+            "acima de",
+            "mais important",
+            "trumps",
+            "beats",
+            "vs seguranca",
+            "versus seguranca",
+        ],
+    );
+    // Read as a promise of uptime: does resilience mean nothing ever fails?
+    let as_uptime = has(
+        nq,
+        &[
+            "downtime",
+            "indisponibilidade",
+            "sempre disponivel",
+            "always available",
+            "always up",
+            "nunca falha",
+            "never fails",
+            "zero falhas",
+            "uptime",
+            "disponibilidade total",
+        ],
+    );
+    against_safety || as_uptime
+}
+
+/// The local execution model — "o BANZA usa consenso global?", "does BANZA require a central
+/// transaction processor?", "a execução do BANZA é federada?".
+///
+/// Every one of these reached the generic protocol description, which says nothing about any of them.
+/// That is a wrong answer rather than a missing one: a reader asking whether they must join a shared
+/// processor gets a paragraph that neither confirms nor denies it, and infers whichever they arrived
+/// with. Reference §4 answers it directly — execution is local, there is no central server.
+fn is_local_execution_phrase(nq: &str) -> bool {
+    let about_banza = has(nq, &["banza", "protocolo", "protocol"]);
+    if !about_banza {
+        return false;
+    }
+    // Phrases that name the mechanism outright — unambiguous wherever they appear.
+    let names_the_mechanism = has(
+        nq,
+        &[
+            "consenso global",
+            "global consensus",
+            "consenso distribuido",
+            "distributed consensus",
+            "processador central",
+            "central processor",
+            "central transaction",
+            "processamento central",
+            "servidor central",
+            "central server",
+            "infraestrutura central",
+            "central infrastructure",
+            "ponto central",
+            "blockchain",
+            "cadeia de blocos",
+        ],
+    );
+    // "a execução do BANZA é federada?" puts the words that matter either side of the ones that do not,
+    // so no contiguous phrase reaches it. Asking for the two parts independently is what makes the
+    // Portuguese and English forms behave the same — the fact is the same fact.
+    let asks_where_execution_runs = has(nq, &["execucao", "execution", "executa", "corre"])
+        && has(
+            nq,
+            &[
+                "local",
+                "federad",
+                "federated",
+                "central",
+                "distribuid",
+                "distributed",
+            ],
+        );
+    names_the_mechanism || asks_where_execution_runs
+}
+
+/// One of the four principles asked BY NAME — "o que significa Seguro no BANZA?", "what does simple
+/// mean?", "o princípio Robusto".
+///
+/// Two of the four names are ordinary Portuguese adjectives ("seguro", "simples"), so a bare mention
+/// cannot be the trigger — "é seguro publicar isto?" is not a question about the principle. The
+/// principle name must therefore arrive under a definition lead or under the word "princípio", which is
+/// what separates naming the principle from using the adjective.
+fn is_named_principle_query(nq: &str) -> bool {
+    const NAMES: &[&str] = &[
+        "robusto",
+        "resiliente",
+        "seguro",
+        "simples",
+        "robust",
+        "resilient",
+        "secure",
+        "simple",
+    ];
+    let names_one = NAMES.iter().any(|n| word(nq, n));
+    if !names_one {
+        return false;
+    }
+    has(
+        nq,
+        &[
+            "o que e ",
+            "o que significa",
+            "o que quer dizer",
+            "significa o principio",
+            "principio",
+            "principios",
+            "what does",
+            "what is the",
+            "meaning of",
+            "principle",
+        ],
+    )
+}
+
 /// The term → entry mapping, most-specific first. Returns the deterministic entry id for `nq`.
 fn term_of(nq: &str) -> Option<&'static str> {
     // ── Operador Zero boundary (defer to the existing OZ entries) ──
@@ -338,6 +482,16 @@ fn term_of(nq: &str) -> Option<&'static str> {
     ) {
         return Some("def-trust-guarantees");
     }
+    // The resilience BOUNDARY, before the principles arm: "o que significa resiliente?" wants the four
+    // principles, but "a resiliência sobrepõe-se à segurança?" wants the boundary, and the boundary
+    // predicate is the narrower of the two (it needs a safety or uptime marker as well).
+    if is_resilience_boundary_phrase(nq) {
+        return Some("def-resilience-boundary");
+    }
+    // Local execution — no central processor, no global consensus, no shared BANZA infrastructure.
+    if is_local_execution_phrase(nq) {
+        return Some("def-local-execution");
+    }
     // The four Fundamental Principles. The knowledge entry existed and nothing routed to it, so the
     // deployed pipeline answered "quais são os princípios fundamentais?" from an unrelated entry — a
     // WRONG answer, which is worse than no answer. Placed before the succession arm because "princípios"
@@ -363,20 +517,13 @@ fn term_of(nq: &str) -> Option<&'static str> {
     }
     // "o que é Robusto/Resiliente no BANZA?" — the individual principles resolve to the same entry
     // rather than to unrelated prose that happens to use the adjective.
-    if has(
-        nq,
-        &[
-            "o que e robusto",
-            "o que e resiliente",
-            "o que significa robusto",
-            "o que significa resiliente",
-            "what does robust mean",
-            "what does resilient mean",
-            "what does simple mean",
-            "principio simples",
-            "principio seguro",
-        ],
-    ) {
+    //
+    // Written as a lead × principle product rather than a hand-listed set. The hand-listed version had
+    // "o que significa robusto" and "o que significa resiliente" and not the Portuguese forms for the
+    // other two, so half the set resolved and half fell to the generic protocol description — a gap
+    // invisible to anyone reading the list, because a list of near-identical strings is exactly the kind
+    // of thing the eye completes on its own.
+    if is_named_principle_query(nq) {
         return Some("def-r2s2");
     }
 
@@ -797,18 +944,14 @@ pub fn glossary_entry(nq: &str) -> Option<&'static str> {
                 "four principles",
             ],
         )
-        || (has(nq, &["resiliencia", "resiliência", "resilience"])
-            && has(
-                nq,
-                &[
-                    "seguranca",
-                    "segurança",
-                    "security",
-                    "sobrepoe",
-                    "sobrepõe",
-                    "override",
-                ],
-            ));
+        // Read from the SAME predicates the term table reads. The earlier version of this clause was
+        // written inline here and had no counterpart in `term_of`, so the gate opened, the term table
+        // returned nothing, and the question fell through to the hypothesis family and was refused.
+        // An opened gate with no arm behind it is how a question becomes unanswerable while looking
+        // handled.
+        || is_resilience_boundary_phrase(nq)
+        || is_local_execution_phrase(nq)
+        || is_named_principle_query(nq);
     // A bare/very short term ("federar", "trust", "saldo reservado", "payment link") — ≤ 2 tokens so an
     // off-topic short phrase that merely contains a term mid-sentence ("Russian Federation history",
     // "setup de operador") is NOT captured and still grounds.

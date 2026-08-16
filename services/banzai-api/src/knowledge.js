@@ -1233,6 +1233,20 @@ export const ENTRIES = [
     sources: s("govGlossary", "specDir"),
   },
   {
+    id: "def-resilience-boundary",
+    critical: true, keywords: ["resiliencia sobrepoe seguranca", "resiliência sobrepõe-se à segurança", "resilience override security", "resilience overrides security", "resiliencia acima da seguranca", "resilience vs security", "resiliencia zero downtime", "resilience zero downtime", "resiliencia significa zero downtime", "resilience mean zero downtime", "resiliencia indisponibilidade", "seguranca antes de disponibilidade", "safety before availability"],
+    answer:
+      "**Não.** A **resiliência nunca se sobrepõe à segurança**, nem a qualquer garantia de correcção do protocolo. O **BANZA** segue **segurança antes de disponibilidade**: onde a **confiança**, a **autorização**, a **integridade** ou a **correcção** não podem ser estabelecidas, o protocolo **falha ou degrada em segurança** em vez de continuar por um caminho alternativo inseguro. Em concreto, ser resiliente **não** autoriza contornar a confiança, aceitar um artefacto **não assinado** ou de origem não verificada, **estender** uma validade expirada, baixar o limiar de assinaturas nem prosseguir com verificações mais fracas para permanecer disponível — **recusar é um resultado correcto**. Resiliência também **não significa ausência de indisponibilidade**: significa que uma falha é **contida, explícita e recuperável de forma determinística**, e que **nunca se transforma numa violação do protocolo**. **Resiliente** e **Seguro** são dois dos quatro Princípios Fundamentais (**BANZA R²S²**); decisão: **ADR-040**.",
+    sources: s("govGlossary", "specDir"),
+  },
+  {
+    id: "def-local-execution",
+    critical: true, keywords: ["execucao local", "execução local", "servidor central", "central server", "processador central", "central processor", "central transaction processor", "consenso global", "global consensus", "execucao federada", "federated execution", "infraestrutura central", "ponto central", "banza e uma blockchain", "is banza a blockchain"],
+    answer:
+      "**Não.** O **BANZA** **não** exige um **processador central de transacções**, **não** usa **consenso global** e **não** reside num **servidor central** — não é uma blockchain nem uma infraestrutura partilhada de execução. A execução é **local a cada operador**: cada implementação corre na infraestrutura do próprio operador, e dois operadores interoperam por **respeitarem as mesmas regras públicas**, não por se ligarem a um ponto central comum. A execução **não é** um plano do protocolo — processar pagamentos, guardar saldos e cumprir obrigações legais pertence aos operadores, **sob** as regras do protocolo mas **fora** dele; o protocolo **não detém nem movimenta fundos** e não mantém um livro-razão global sobre o qual houvesse que chegar a acordo. As únicas superfícies comuns são de **descoberta e ancoragem de confiança** — o **Registo Técnico**, a **metadata de protocolo assinada**, a **Lista de Revogação** e o **Manifesto de Chaves** —, e **nenhuma delas movimenta fundos nem executa pagamentos**. Referência **§4 Arquitectura do Protocolo** (execução local, sem servidor central).",
+    sources: s("specOverview", "readme", "claudeMd"),
+  },
+  {
     id: "def-root-authority-set",
     critical: true, keywords: ["conjunto de autoridades", "conjunto de autoridades da raiz", "root authority set", "sucessao da raiz", "sucessao de autoridades", "root succession", "substituir uma autoridade", "replace an authority", "continuidade da raiz", "root continuity", "autoridade perdida", "lost authority", "autoridade comprometida", "conjunto genese", "genesis set", "predecessor"],
     answer:
@@ -1747,6 +1761,18 @@ export function answerClass(question) {
     return JSON.parse(kb.answer_class_json(String(question || "")));
   } catch {
     return null;
+  }
+}
+
+// A NORMATIVE DENIAL is served verbatim — the explanatory-cue escalation that turns a definition into a
+// real explanation must not turn a denial into a paraphrase of one. Rust owns the list (route.rs); this
+// only asks. Absent export → false, i.e. the pre-existing behaviour.
+export function isVerbatimEntry(entryId) {
+  if (typeof kb.is_verbatim_entry !== "function") return false;
+  try {
+    return Boolean(kb.is_verbatim_entry(String(entryId || "")));
+  } catch {
+    return false;
   }
 }
 

@@ -430,7 +430,8 @@ export const decisionCategories: string[] = [
   "Autoridade e determinismo",
   "Execução e primitivas financeiras",
   "Confiança e chaves",
-  "Conformidade, perfis e registo"
+  "Conformidade, perfis e registo",
+  "Governação e evolução"
 ];
 
 export function getDecision(slug: string): Decision | undefined {
