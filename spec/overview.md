@@ -119,7 +119,7 @@ O protocolo proíbe aritmética de vírgula flutuante para valores monetários. 
 
 Convenção canónica: 250000 = 2.500,00 Kz (Kwanza e cêntimos).
 
-Ver [docs/reference/en/complete.md §Monetary Representation](../docs/reference/en/complete.md) para a especificação normativa.
+Ver [docs/reference/en/BANZA_REFERENCE.md §Monetary Representation](../docs/reference/en/BANZA_REFERENCE.md) para a especificação normativa.
 
 ---
 
@@ -183,8 +183,8 @@ Manifestos de Operador  (assinados · públicos)
 
 Não existe autoridade de certificação. O trust é avaliado pela Open Trust Evaluation — signed protocol metadata → chaves delegadas → registo público → revocation/fail-closed. O BanzAI explica os critérios mas não certifica nem emite certificados. Os operadores fixam o **conjunto génese** uma vez; a partir daí a linhagem transporta a confiança, porque cada conjunto é autorizado pelo limiar do anterior. Uma autoridade pode assim ser substituída pelas duas sobreviventes sem que qualquer verificador tenha de voltar a fixar nada à mão.
 
-Ver [docs/reference/en/complete.md §Trust](../docs/reference/en/complete.md) para a especificação normativa.  
-Ver [ADR-025](../decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md) para a arquitectura da raiz (Trust Root offline, chaves de assinatura delegadas, manifesto de chaves assinado)
+Ver [docs/reference/en/BANZA_REFERENCE.md §Trust](../docs/reference/en/BANZA_REFERENCE.md) para a especificação normativa.  
+Ver [ADR-025](../decisions/adr/ADR-025-trust-without-a-certificate-authority.md) para a arquitectura da raiz (Trust Root offline, chaves de assinatura delegadas, manifesto de chaves assinado)
 e [`root-authority-set.md`](./root-authority-set.md) para a linhagem de conjuntos e a sucessão (ADR-039).
 
 ---
@@ -205,8 +205,8 @@ Operador A  →[metadata verificada]→  Operador B
             [protocolo de liquidação]
 ```
 
-Ver [docs/reference/en/complete.md §Federation](../docs/reference/en/complete.md) para a especificação normativa.  
-Ver [ADR-025](../decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md) para o modelo de avaliação de trust de federação (sem certificados).
+Ver [docs/reference/en/BANZA_REFERENCE.md §Federation](../docs/reference/en/BANZA_REFERENCE.md) para a especificação normativa.  
+Ver [ADR-025](../decisions/adr/ADR-025-trust-without-a-certificate-authority.md) para o modelo de avaliação de trust de federação (sem certificados).
 
 ---
 

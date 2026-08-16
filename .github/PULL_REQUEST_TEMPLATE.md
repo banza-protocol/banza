@@ -19,7 +19,7 @@
 
 - [ ] Tests pass locally (`cargo test`, `npm test` as applicable)
 - [ ] Financial invariants preserved (if touching payment flows)
-- [ ] Documentation updated (`docs/domains/<domain>/` and `docs/reference/en/complete.md` if public-facing)
+- [ ] Documentation updated (`docs/domains/<domain>/` and `docs/reference/en/BANZA_REFERENCE.md` if public-facing)
 - [ ] Commit messages follow `type(scope): description` convention
 - [ ] If API contracts changed, conformance vectors updated in `conformance/`
 - [ ] Database migrations are reversible (if applicable)

@@ -7,7 +7,7 @@
   ADR-005 (certificação ≠ admissão ≠ autorização), ADR-007 (fronteira de estado regulatório +
   RealMoneyActivationGate), ADR-006 (conflito de interesses + separação de infraestrutura/chaves),
   ADR-001/003 (protocolo aberto / neutralidade do operador), ADR-038 (motores em Rust), ADR-036
-  (BanzAI como interface humana primária)
+  (BanzAI como interface humana primária — opcional, transversal e não autoritativa, ADR-036)
 
 > **O BANZA é um protocolo financeiro aberto.** O BANZA não é banco, PSP, carteira, instituição de
 > moeda electrónica nem operador financeiro; não detém nem movimenta fundos, não corre contas de

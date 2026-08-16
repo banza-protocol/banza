@@ -3,7 +3,7 @@
 > The guided path that walks an operator from first orientation to verifiable evidence, with a
 > Rust/WASM state machine deciding step order, statuses and the next action.
 
-- **Governing decision:** [ADR-036](../../decisions/adr/ADR-036-banzai-a-non-authoritative-interface-to-the-protocol.md) (agent core / journey), [ADR-035](../../decisions/adr/ADR-035-operator-zero-the-read-only-reference-implementation.md) (nine-step validation journey), [ADR-034](../../decisions/adr/ADR-034-endpoint-originated-operator-validation.md) (endpoint-originated validation + operator/implementation model)
+- **Governing decision:** [ADR-036](../../decisions/adr/ADR-036-banzai-a-non-authoritative-interface-to-the-protocol.md) (agent core / journey), [ADR-035](../../decisions/adr/ADR-035-operator-zero-the-read-only-reference-implementation.md) (nine-step validation journey), [ADR-034](../../decisions/adr/ADR-034-endpoint-originated-validation.md) (endpoint-originated validation + operator/implementation model)
 - **Engine:** `engines/banzai-operator-journey` (Rust → dual WASM: web for the UI, node for `/ask`)
 - **Milestones:** M2.9B (journey + session) · M2.9C (product copy + safe JSON upload) · M2.19G.1 (endpoint-originated official journey)
 - **Status:** implemented and deployed

@@ -172,9 +172,9 @@ Current state, verifiable directly on the public routes: `/operators` = `[]` and
 
 ## References
 
-- [ADR-025](../../decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md) — open protocol trust model
+- [ADR-025](../../decisions/adr/ADR-025-trust-without-a-certificate-authority.md) — open protocol trust model
 - [ADR-031](../../decisions/adr/ADR-031-operator-self-publication-and-machine-verifiable-conformance.md) — operator self-publication and machine-verifiable conformance
-- [ADR-025](../../decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md) — federation trust evaluation (the ten checks)
+- [ADR-025](../../decisions/adr/ADR-025-trust-without-a-certificate-authority.md) — federation trust evaluation (the ten checks)
 - [`docs/governance/FEDERATION_TRUST_MODEL.md`](../../docs/governance/FEDERATION_TRUST_MODEL.md) — canonical model document
 - [FEDERATION_PROTOCOL_FLOW.md](FEDERATION_PROTOCOL_FLOW.md) — end-to-end federated transaction behavior
 - [FEDERATION_SEQUENCE_DIAGRAMS.md](FEDERATION_SEQUENCE_DIAGRAMS.md) — sequence diagrams for all federation flows

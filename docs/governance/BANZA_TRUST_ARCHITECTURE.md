@@ -38,15 +38,15 @@ Humanos mantêm e evoluem o protocolo; não autorizam, aceitam, aprovam ou certi
 independentes são responsáveis pelo seu próprio enquadramento legal, regulatório, financeiro e operacional.
 
 Origem normativa:
-[ADR-025](../../decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md) — modelo de confiança do
+[ADR-025](../../decisions/adr/ADR-025-trust-without-a-certificate-authority.md) — modelo de confiança do
 protocolo aberto;
 [ADR-031](../../decisions/adr/ADR-031-operator-self-publication-and-machine-verifiable-conformance.md) —
 auto-publicação e conformidade verificável por máquina;
-[ADR-025](../../decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md) — avaliação de
+[ADR-025](../../decisions/adr/ADR-025-trust-without-a-certificate-authority.md) — avaliação de
 confiança de federação. Este documento é subordinado a esta decisão. Nenhuma secção pode ser lida como
 contradizendo-a.
 
-![Trust Engine — modelo activo: signed protocol metadata, delegated signing keys, operator manifests, conformance evidence, public protocol registry e revocation/fail-closed](/diagrams/protocol/open-trust-evaluation-v1.svg)
+![Trust Engine — modelo activo: signed protocol metadata, delegated signing keys, operator manifests, conformance evidence, public protocol registry e revocation/fail-closed](../../website/public/diagrams/protocol/open-trust-evaluation-v1.svg)
 
 ---
 
@@ -301,9 +301,9 @@ operadores.
 
 ## Referências
 
-- [ADR-025](../../decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md) — modelo de confiança do protocolo aberto
+- [ADR-025](../../decisions/adr/ADR-025-trust-without-a-certificate-authority.md) — modelo de confiança do protocolo aberto
 - [ADR-031](../../decisions/adr/ADR-031-operator-self-publication-and-machine-verifiable-conformance.md) — auto-publicação e conformidade verificável por máquina
-- [ADR-025](../../decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md) — avaliação de confiança de federação
+- [ADR-025](../../decisions/adr/ADR-025-trust-without-a-certificate-authority.md) — avaliação de confiança de federação
 - [FEDERATION_TRUST_MODEL.md](./FEDERATION_TRUST_MODEL.md) — a `Open Trust Evaluation` e a sua fronteira
 - [PUBLIC_PROTOCOL_REGISTRY.md](./PUBLIC_PROTOCOL_REGISTRY.md) — o índice público verificável
 - [WORKBENCH_ONLY_OPERATOR_VERIFICATION.md](./WORKBENCH_ONLY_OPERATOR_VERIFICATION.md) — verificação guiada pelo BanzAI

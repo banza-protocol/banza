@@ -163,7 +163,7 @@ root-threshold-model-check:
 banza-whitepaper-check:
 	@bash tools/check-banza-whitepaper.sh
 
-.PHONY: website-reference-mirror website-reference-source-boundary-check reference-source-authority-check reference-structural-parity-check reference-check
+.PHONY: current-doc-links-check website-reference-mirror website-reference-source-boundary-check reference-source-authority-check reference-structural-parity-check reference-check
 ## website-reference-mirror: GENERATOR — mirror the two canonical Reference editions into website/content/reference/{pt,en}.md. The website builds with website/ as its Docker context and cannot read docs/ at build time; the mirror exists for that boundary and is never hand-edited.
 website-reference-mirror:
 	@python3 tools/gen-website-reference-mirror.py
@@ -179,6 +179,10 @@ reference-source-authority-check:
 ## reference-structural-parity-check: PT and EN cannot drift structurally — same chapters in the same order, four R²S² principles, exactly 8 Structural Properties, and the high-risk claims present in both
 reference-structural-parity-check:
 	@bash tools/check-reference-structural-parity.sh
+
+## current-doc-links-check: every relative link in a current public document resolves; historical and evidence artifacts keep the paths they truthfully recorded
+current-doc-links-check:
+	@bash tools/check-current-doc-links.sh
 
 ## reference-check: the whole Reference source-of-truth contract — authority, structural parity and website source boundary
 reference-check: reference-source-authority-check reference-structural-parity-check website-reference-source-boundary-check

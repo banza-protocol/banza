@@ -13,9 +13,9 @@
 Este documento é subordinado a esta decisão. Nada aqui escrito — nem a existência do índice, nem qualquer
 campo que uma entrada contenha — pode ser lido como contradizendo-a.
 
-Origem normativa: [ADR-025](../../decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md),
+Origem normativa: [ADR-025](../../decisions/adr/ADR-025-trust-without-a-certificate-authority.md),
 [ADR-031](../../decisions/adr/ADR-031-operator-self-publication-and-machine-verifiable-conformance.md) §3–§4,
-[ADR-025](../../decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md).
+[ADR-025](../../decisions/adr/ADR-025-trust-without-a-certificate-authority.md).
 Contrato normativo: `contracts/production/public-protocol-registry.production.schema.json`.
 
 ---
@@ -154,9 +154,9 @@ dependesse seria um portão com outro nome.
 
 ## Referências
 
-- [ADR-025](../../decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md) — modelo de confiança do protocolo aberto
+- [ADR-025](../../decisions/adr/ADR-025-trust-without-a-certificate-authority.md) — modelo de confiança do protocolo aberto
 - [ADR-031](../../decisions/adr/ADR-031-operator-self-publication-and-machine-verifiable-conformance.md) — auto-publicação e conformidade verificável por máquina
-- [ADR-025](../../decisions/adr/ADR-025-federation-trust-evaluation-without-certificates.md) — avaliação de confiança de federação
+- [ADR-025](../../decisions/adr/ADR-025-trust-without-a-certificate-authority.md) — avaliação de confiança de federação
 - [FEDERATION_TRUST_MODEL.md](./FEDERATION_TRUST_MODEL.md) — a `Open Trust Evaluation` e o passo 6
 - [OPEN_PROTOCOL_GOVERNANCE.md](./OPEN_PROTOCOL_GOVERNANCE.md) — governação do protocolo aberto (canónico)
 - [OPERATOR_SELF_PUBLICATION_AND_CONFORMANCE.md](./OPERATOR_SELF_PUBLICATION_AND_CONFORMANCE.md) — auto-publicação do operador

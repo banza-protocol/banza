@@ -94,7 +94,7 @@ Every operator must satisfy these invariants at all times:
 | `settlement_no_money_creation` | `net_minor + fee_minor` must equal `gross_minor` exactly |
 | `settlement_idempotency` | A transfer appears in exactly one settlement batch |
 
-For the authoritative invariant definitions, see the machine-readable [invariant registry](../../contracts/invariants.json) and [docs/reference/en/complete.md §9 — Financial Invariants](../reference/en/complete.md).
+For the authoritative invariant definitions, see the machine-readable [invariant registry](../../contracts/invariants.json) and [docs/reference/en/BANZA_REFERENCE.md §9 — Financial Invariants](../reference/en/BANZA_REFERENCE.md).
 
 ## Conformance report format
 
@@ -180,6 +180,6 @@ Any invariant, schema, QR, trace, or manifest contract violation fails the build
 **Referências:**
 
 - [docs/governance/certification-boundary.md](../governance/certification-boundary.md) — Conformance level model (L0–L4)
-- [contracts/invariants.json](../../contracts/invariants.json) — Invariant registry (authoritative) · [docs/reference/en/complete.md §9](../reference/en/complete.md) — Financial invariants (prose)
+- [contracts/invariants.json](../../contracts/invariants.json) — Invariant registry (authoritative) · [docs/reference/en/BANZA_REFERENCE.md §9](../reference/en/BANZA_REFERENCE.md) — Financial invariants (prose)
 - `docs/reference/conformance.md` — Detailed conformance documentation
 - `conformance/vectors/` — Test vector files

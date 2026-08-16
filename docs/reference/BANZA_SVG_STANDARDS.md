@@ -38,7 +38,7 @@ rsync -av "${BANZA_REPO}/docs/reference/diagrams/" \
       "${DEPLOY_HOST}:/srv/banza/src/website/public/diagrams/protocol/"
 ```
 
-This runs inside `deploy_website()` after the `docs/reference/en/complete.md` rsync. The website `<img>` and `<Image>` components reference `/images/protocol/` paths.
+This runs inside `deploy_website()` after the `docs/reference/en/BANZA_REFERENCE.md` rsync. The website `<img>` and `<Image>` components reference `/images/protocol/` paths.
 
 ### Ownership chain
 
@@ -47,7 +47,7 @@ Every SVG must have:
 | Field | Rule |
 |-------|------|
 | Single source file | One `.svg` in `docs/reference/diagrams/` |
-| Single owning document | One docs/reference/en/complete.md section, ADR, or RFC |
+| Single owning document | One docs/reference/en/BANZA_REFERENCE.md section, ADR, or RFC |
 | Single authority source | The specific document that defines the content |
 | No duplicates | No edited copies, no manual exports, no website variants |
 
@@ -96,7 +96,7 @@ Every SVG must contain this comment block immediately after the `<svg>` opening 
   id:        SVG-P-NNN
   diagram:   <human-readable diagram name>
   version:   1.0
-  source:    <docs/reference/en/complete.md §N | ADR-NNN | RFC-NNNN>
+  source:    <docs/reference/en/BANZA_REFERENCE.md §N | ADR-NNN | RFC-NNNN>
   updated:   YYYY-MM-DD
   author:    BANZA Protocol
   style:     protocol | protocol core | badge

@@ -87,4 +87,4 @@ assembly, e fora de `banza-conformance` para manter a responsabilidade única.
 ## Ver também
 
 - [SimB Pre-Review Gate](SIMB_PRE_REVIEW_GATE.md)
-- [`/banzai`](/banzai)
+- [`/banzai`](https://banza.network/banzai)

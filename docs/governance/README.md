@@ -18,7 +18,7 @@ BANZA is governed as an **open protocol** — its rules, contracts, and conforma
 - Any operator may contribute to BANZA via the ADR process, on equal footing with any other operator
 - The BANZA protocol continues to exist if any operator ceases operations
 
-**No single operator governs the protocol.** See [docs/reference/en/complete.md](../reference/en/complete.md) for the canonical ecosystem hierarchy.
+**No single operator governs the protocol.** See [docs/reference/en/BANZA_REFERENCE.md](../reference/en/BANZA_REFERENCE.md) for the canonical ecosystem hierarchy.
 
 ---
 

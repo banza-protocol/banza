@@ -71,27 +71,27 @@ The 25 mandatory diagrams required before frontend reconstruction may begin. Map
 
 | ID | Diagram Name | Canonical File | Source SVG | Status | Priority | Owning Document | Used By |
 |----|-------------|----------------|-----------|:------:|:--------:|----------------|---------|
-| SVG-P-001 | Protocol Overview | `protocol-overview-v1.svg` | `(legacy)` | **CANONICAL** `docs/reference/diagrams/protocol/` | HIGH | docs/reference/en/complete.md §1, ADR-001 | /, /introduction |
+| SVG-P-001 | Protocol Overview | `protocol-overview-v1.svg` | `(legacy)` | **CANONICAL** `docs/reference/diagrams/protocol/` | HIGH | docs/reference/en/BANZA_REFERENCE.md §1, ADR-001 | /, /introduction |
 | SVG-P-002 | Protocol Hierarchy | `protocol-hierarchy-v1.svg` | `brand-architecture.svg` | **CANONICAL** `docs/reference/diagrams/protocol/` | HIGH | ADR-001 (dependency graph) | /, /governance, /architecture |
-| SVG-P-003 | Architecture Overview | `protocol-architecture-overview-v1.svg` | — | **NEW** | HIGH | docs/reference/en/complete.md §9, ADR-001 | /architecture |
-| SVG-P-004 | Service Topology | `service-topology-v1.svg` | `service-topology.svg` | **UPDATE** (rename + metadata) | MEDIUM | docs/reference/en/complete.md §9 | /architecture, /developer-resources |
-| SVG-P-005 | Operator Architecture | `operator-architecture-v1.svg` | `(legacy)` | **UPDATE** (brand + language) | MEDIUM | docs/reference/en/complete.md §8, ADR-001 | /operators, /banzai |
-| SVG-P-008 | Federation Overview | `federation-overview-v1.svg` | `federation.svg` | **CANONICAL** `docs/reference/diagrams/protocol/` | HIGH | docs/reference/en/complete.md §5, ADR-025 | /federation, / |
-| SVG-P-010 | Inter-Operator Payment Flow | `inter-operator-payment-flow-v1.svg` | — | **CANONICAL** `docs/reference/diagrams/protocol/` | HIGH | docs/reference/en/complete.md §5 (Ana→Bento) | /federation |
-| SVG-P-011 | Settlement Flow | `settlement-flow-v1.svg` | `settlement-lifecycle.svg` | **UPDATE** (rename + metadata) | MEDIUM | docs/reference/en/complete.md §5 | /federation, /architecture |
-| SVG-P-012 | Netting Flow | `netting-flow-v1.svg` | — | **NEW** | MEDIUM | docs/reference/en/complete.md §5 (compensation) | /federation |
-| SVG-P-013 | Trust Hierarchy | `trust-hierarchy-v1.svg` | — | **CANONICAL** `docs/reference/diagrams/protocol/` | HIGH | docs/reference/en/complete.md §6, ADR-025 | /trust, / |
+| SVG-P-003 | Architecture Overview | `protocol-architecture-overview-v1.svg` | — | **NEW** | HIGH | docs/reference/en/BANZA_REFERENCE.md §9, ADR-001 | /architecture |
+| SVG-P-004 | Service Topology | `service-topology-v1.svg` | `service-topology.svg` | **UPDATE** (rename + metadata) | MEDIUM | docs/reference/en/BANZA_REFERENCE.md §9 | /architecture, /developer-resources |
+| SVG-P-005 | Operator Architecture | `operator-architecture-v1.svg` | `(legacy)` | **UPDATE** (brand + language) | MEDIUM | docs/reference/en/BANZA_REFERENCE.md §8, ADR-001 | /operators, /banzai |
+| SVG-P-008 | Federation Overview | `federation-overview-v1.svg` | `federation.svg` | **CANONICAL** `docs/reference/diagrams/protocol/` | HIGH | docs/reference/en/BANZA_REFERENCE.md §5, ADR-025 | /federation, / |
+| SVG-P-010 | Inter-Operator Payment Flow | `inter-operator-payment-flow-v1.svg` | — | **CANONICAL** `docs/reference/diagrams/protocol/` | HIGH | docs/reference/en/BANZA_REFERENCE.md §5 (Ana→Bento) | /federation |
+| SVG-P-011 | Settlement Flow | `settlement-flow-v1.svg` | `settlement-lifecycle.svg` | **UPDATE** (rename + metadata) | MEDIUM | docs/reference/en/BANZA_REFERENCE.md §5 | /federation, /architecture |
+| SVG-P-012 | Netting Flow | `netting-flow-v1.svg` | — | **NEW** | MEDIUM | docs/reference/en/BANZA_REFERENCE.md §5 (compensation) | /federation |
+| SVG-P-013 | Trust Hierarchy | `trust-hierarchy-v1.svg` | — | **CANONICAL** `docs/reference/diagrams/protocol/` | HIGH | docs/reference/en/BANZA_REFERENCE.md §6, ADR-025 | /trust, / |
 | SVG-P-014 | Root Key Hierarchy | `root-key-hierarchy-v1.svg` | — | **CANONICAL** `docs/reference/diagrams/protocol/` | HIGH | ADR-025 (four-layer hierarchy) | /trust |
-| SVG-P-015 | Key Manifest Lifecycle | `key-manifest-lifecycle-v1.svg` | — | **NEW** | MEDIUM | docs/reference/en/complete.md §6, ADR-025 | /trust |
-| SVG-P-017 | BRL Lifecycle | `brl-lifecycle-v1.svg` | — | **NEW** | MEDIUM | ADR-025, docs/reference/en/complete.md §6 | /trust, /federation |
-| SVG-P-018 | Operator Lifecycle | `operator-lifecycle-v1.svg` | — | **NEW** | MEDIUM | docs/reference/en/complete.md §8, ADR-030 | /operators |
-| SVG-P-019 | Governance Structure | `governance-structure-v1.svg` | — | **NEW** | LOW | docs/reference/en/complete.md §10, ADR-001 | /governance |
+| SVG-P-015 | Key Manifest Lifecycle | `key-manifest-lifecycle-v1.svg` | — | **NEW** | MEDIUM | docs/reference/en/BANZA_REFERENCE.md §6, ADR-025 | /trust |
+| SVG-P-017 | BRL Lifecycle | `brl-lifecycle-v1.svg` | — | **NEW** | MEDIUM | ADR-025, docs/reference/en/BANZA_REFERENCE.md §6 | /trust, /federation |
+| SVG-P-018 | Operator Lifecycle | `operator-lifecycle-v1.svg` | — | **NEW** | MEDIUM | docs/reference/en/BANZA_REFERENCE.md §8, ADR-030 | /operators |
+| SVG-P-019 | Governance Structure | `governance-structure-v1.svg` | — | **NEW** | LOW | docs/reference/en/BANZA_REFERENCE.md §10, ADR-001 | /governance |
 | SVG-P-020 | Validation Studio Positioning | `validation-studio-v1.svg` | — | **NEW** | MEDIUM | BANZA_VALIDATION_STUDIO_DECOUPLING_REPORT.md | /governance, /architecture |
-| SVG-P-021 | BanzAI Positioning (asset retired; the "authority chain" framing is superseded by ADR-036 — no central authority) | `banzai-authority-chain-v1.svg` | `banzai-positioning-v1.svg` | **RETIRED** (asset absent; not served) | LOW | docs/reference/pt/completa.md §8 | — |
-| SVG-P-022 | Developer Integration Flow | `developer-integration-flow-v1.svg` | — | **NEW** | MEDIUM | docs/reference/en/complete.md §9 | /developer-resources |
-| SVG-P-023 | SDK Architecture | `sdk-architecture-v1.svg` | `(legacy)` | **UPDATE** (brand + language) | MEDIUM | docs/reference/en/complete.md §9 | /developer-resources |
-| SVG-P-024 | Security Pipeline | `security-pipeline-v1.svg` | `security-layers.svg` | **UPDATE** (brand + language) | HIGH | docs/reference/en/complete.md §6 | /trust, /architecture |
-| SVG-P-025 | Audit Pipeline | `audit-pipeline-v1.svg` | — | **NEW** | LOW | docs/reference/en/complete.md §9 (financial invariants) | /developer-resources |
+| SVG-P-021 | BanzAI Positioning (asset retired; the "authority chain" framing is superseded by ADR-036 — no central authority) | `banzai-authority-chain-v1.svg` | `banzai-positioning-v1.svg` | **RETIRED** (asset absent; not served) | LOW | docs/reference/pt/BANZA_REFERENCIA.md §8 | — |
+| SVG-P-022 | Developer Integration Flow | `developer-integration-flow-v1.svg` | — | **NEW** | MEDIUM | docs/reference/en/BANZA_REFERENCE.md §9 | /developer-resources |
+| SVG-P-023 | SDK Architecture | `sdk-architecture-v1.svg` | `(legacy)` | **UPDATE** (brand + language) | MEDIUM | docs/reference/en/BANZA_REFERENCE.md §9 | /developer-resources |
+| SVG-P-024 | Security Pipeline | `security-pipeline-v1.svg` | `security-layers.svg` | **UPDATE** (brand + language) | HIGH | docs/reference/en/BANZA_REFERENCE.md §6 | /trust, /architecture |
+| SVG-P-025 | Audit Pipeline | `audit-pipeline-v1.svg` | — | **NEW** | LOW | docs/reference/en/BANZA_REFERENCE.md §9 (financial invariants) | /developer-resources |
 
 **Mandatory set status:**
 - CANONICAL (created, in `docs/reference/diagrams/protocol/`): 8 (SVG-P-001, SVG-P-002, SVG-P-006, SVG-P-008, SVG-P-009, SVG-P-010, SVG-P-013, SVG-P-014) — SVG-P-021 RETIRED (asset absent; "authority chain" superseded by ADR-036)
@@ -106,14 +106,14 @@ Source: `~/banza/docs/images/architecture/` (dark terminal style)
 
 | ID | Diagram Name | Canonical File | Current File | Status | Owning Document | Used By |
 |----|-------------|----------------|-------------|:------:|----------------|---------|
-| SVG-K-001 | Event Flow | `event-flow-v1.svg` | `event-flow.svg` | **UPDATE** (metadata + name only) | docs/reference/en/complete.md §9 | /architecture, /developer-resources |
-| SVG-K-002 | Financial Trace Model | `financial-trace-model-v1.svg` | `financial-trace-model.svg` | **UPDATE** (metadata) | docs/reference/en/complete.md §9 | /developer-resources, /trust |
-| SVG-K-003 | Ledger Posting | `ledger-posting-v1.svg` | `ledger-posting.svg` | **UPDATE** (metadata) | docs/reference/en/complete.md §9 (double-entry) | /developer-resources, /architecture |
-| SVG-K-004 | Payment Lifecycle | `payment-lifecycle-v1.svg` | `payment-lifecycle.svg` | **UPDATE** (metadata) | docs/reference/en/complete.md §9 | /architecture |
-| SVG-K-005 | Payment Request Lifecycle | `payment-request-lifecycle-v1.svg` | `payment-request-lifecycle.svg` | **UPDATE** (metadata) | docs/reference/en/complete.md §9 | /architecture |
-| SVG-K-006 | Operator Model | `operator-model-v1.svg` | `provider-model.svg` | **UPDATE** ("Provider" → "Operator"; "Banza" → "BANZA"; metadata) | docs/reference/en/complete.md §8, ADR-001 | /architecture |
-| SVG-K-007 | QR Payment Lifecycle | `qr-payment-lifecycle-v1.svg` | `qr-payment-lifecycle.svg` | **UPDATE** (metadata) | docs/reference/en/complete.md §4 (L1 capabilities) | /architecture |
-| SVG-K-008 | Settlement Lifecycle (protocol core) | `settlement-lifecycle-v1.svg` | `settlement-lifecycle.svg` | **UPDATE** (metadata) | docs/reference/en/complete.md §5 | /architecture |
+| SVG-K-001 | Event Flow | `event-flow-v1.svg` | `event-flow.svg` | **UPDATE** (metadata + name only) | docs/reference/en/BANZA_REFERENCE.md §9 | /architecture, /developer-resources |
+| SVG-K-002 | Financial Trace Model | `financial-trace-model-v1.svg` | `financial-trace-model.svg` | **UPDATE** (metadata) | docs/reference/en/BANZA_REFERENCE.md §9 | /developer-resources, /trust |
+| SVG-K-003 | Ledger Posting | `ledger-posting-v1.svg` | `ledger-posting.svg` | **UPDATE** (metadata) | docs/reference/en/BANZA_REFERENCE.md §9 (double-entry) | /developer-resources, /architecture |
+| SVG-K-004 | Payment Lifecycle | `payment-lifecycle-v1.svg` | `payment-lifecycle.svg` | **UPDATE** (metadata) | docs/reference/en/BANZA_REFERENCE.md §9 | /architecture |
+| SVG-K-005 | Payment Request Lifecycle | `payment-request-lifecycle-v1.svg` | `payment-request-lifecycle.svg` | **UPDATE** (metadata) | docs/reference/en/BANZA_REFERENCE.md §9 | /architecture |
+| SVG-K-006 | Operator Model | `operator-model-v1.svg` | `provider-model.svg` | **UPDATE** ("Provider" → "Operator"; "Banza" → "BANZA"; metadata) | docs/reference/en/BANZA_REFERENCE.md §8, ADR-001 | /architecture |
+| SVG-K-007 | QR Payment Lifecycle | `qr-payment-lifecycle-v1.svg` | `qr-payment-lifecycle.svg` | **UPDATE** (metadata) | docs/reference/en/BANZA_REFERENCE.md §4 (L1 capabilities) | /architecture |
+| SVG-K-008 | Settlement Lifecycle (protocol core) | `settlement-lifecycle-v1.svg` | `settlement-lifecycle.svg` | **UPDATE** (metadata) | docs/reference/en/BANZA_REFERENCE.md §5 | /architecture |
 
 Source: `~/banza/docs/images/reference/`
 
@@ -183,7 +183,7 @@ All require removal of Portuguese text and operator brand contamination where pr
 |----|-------------|-------------|--------|--------|
 | SVG-L-001 | Legacy Ecosystem (operator brand) | `(legacy)` | Operator brand as primary node; inverted hierarchy | **REBUILD** → SVG-P-001 `protocol-overview-v1.svg` |
 | SVG-L-002 | Legacy Brand Architecture | `brand-architecture.svg` | Brand-organized hierarchy; inverted dependency model | **REBUILD** → SVG-P-002 `protocol-hierarchy-v1.svg` |
-| SVG-L-003 | Legacy Federation (Portuguese, PLANEADO) | `federation.svg` | Portuguese text; federation labeled "PLANEADO" (incorrect — federation is COMPLETE per docs/reference/en/complete.md §5) | **REBUILD** → SVG-P-008 `federation-overview-v1.svg` |
+| SVG-L-003 | Legacy Federation (Portuguese, PLANEADO) | `federation.svg` | Portuguese text; federation labeled "PLANEADO" (incorrect — federation is COMPLETE per docs/reference/en/BANZA_REFERENCE.md §5) | **REBUILD** → SVG-P-008 `federation-overview-v1.svg` |
 
 ---
 
@@ -263,8 +263,8 @@ location: `docs/reference/diagrams/en/`. Consumed by `README.md`.
 | SVG-PE-001 | What BANZA Defines | `banza-protocol-overview-v1.svg` |
 | SVG-PE-002 | The Four Roles | `banza-ecosystem-roles-v1.svg` |
 | SVG-PE-004 | Trust Hierarchy | `banza-trust-chain-v1.svg` |
-| SVG-P-026 | Arquitectura do Protocolo | `protocol-core-architecture-v1.svg` | — (novo) | **CANONICAL** `docs/reference/diagrams/protocol/` | HIGH | docs/reference/pt/completa.md §4 | /arquitectura-do-protocolo |
-| SVG-P-027 | Lançamento de Partidas Dobradas | `banza-ledger-posting-v1.svg` | bloco ASCII (§4) | **CANONICAL** `docs/reference/diagrams/protocol/` | HIGH | docs/reference/pt/completa.md §4 | /arquitectura-do-protocolo |
+| SVG-P-026 | Arquitectura do Protocolo | `protocol-core-architecture-v1.svg` | — (novo) | **CANONICAL** `docs/reference/diagrams/protocol/` | HIGH | docs/reference/pt/BANZA_REFERENCIA.md §4 | /arquitectura-do-protocolo |
+| SVG-P-027 | Lançamento de Partidas Dobradas | `banza-ledger-posting-v1.svg` | bloco ASCII (§4) | **CANONICAL** `docs/reference/diagrams/protocol/` | HIGH | docs/reference/pt/BANZA_REFERENCIA.md §4 | /arquitectura-do-protocolo |
 
 ## Correcção semântica v1.0 (SVG-SEMANTIC-CORRECTION-001)
 
@@ -428,12 +428,12 @@ não por referência). Efeito sobre as referências:
   mantém-se; o diagrama passa a ilustrá-la. Ficheiro agora em ambas as árvores canónicas
   (`docs/reference/diagrams/protocol/` + servido em `website/public/diagrams/protocol/`).
 - **`banzai-cognitive-engine-v1.svg` (`/diagrams/banzai/`)** — embed removido de
-  `docs/reference/en/complete.md` §7 (a reescrita EN condensada retira o enquadramento antigo do
+  `docs/reference/en/BANZA_REFERENCE.md` §7 (a reescrita EN condensada retira o enquadramento antigo do
   "cognitive engine"/"candidate draft"). Deixa de estar referenciado em superfícies vivas → **não
   referenciado**. Ficheiro mantido (histórico preservado).
 - **`banzai-native-protocol-agent.svg` (SVG-P-072)**, **`banzai-rule-provenance.svg` (SVG-P-074)** e
   **`banzai-responsibility-matrix.svg` (SVG-P-075)** — embeds removidos de `BANZA_REFERENCIA.md` §12, mas
-  **continuam em uso**: os três permanecem referenciados por `docs/reference/pt/completa.md`, e o
+  **continuam em uso**: os três permanecem referenciados por `docs/reference/pt/BANZA_REFERENCIA.md`, e o
   SVG-P-072 é ainda usado na superfície da homepage. **Não são órfãos** e os ficheiros e as suas restantes
   referências ficam intactos.
 

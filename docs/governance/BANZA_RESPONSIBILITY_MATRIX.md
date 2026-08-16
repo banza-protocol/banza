@@ -83,6 +83,6 @@ informed · **—** = no role. Read each row as "who does this".
 - ADR-004 (three-layer architecture; authority rule; separation), ADR-006 (Banzami
   Operational Scheme), ADR-005 (certification ≠ admission ≠ authorisation), ADR-007 (regulatory-state +
   real-money gate), ADR-006 (conflict of interest + separation)
-- ADR-038 (Rust-first engines), ADR-025 (open trust model without CA), ADR-036 (BanzAI as primary human
+- ADR-038 (Rust-first engines), ADR-025 (open trust model without CA), ADR-036 (BanzAI as primary — and optional, transversal, non-authoritative — human
   interface)
 - `docs/governance/BANZA_SEPARATION_MATRIX.md`, `docs/governance/BANZA_CONFLICT_OF_INTEREST_POLICY.md`

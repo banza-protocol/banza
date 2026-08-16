@@ -2,9 +2,8 @@
 
 - **Estado:** Canónico
 - **Data:** 2026-07-19
-- **Decisão de referência:** [ADR-013](../../decisions/adr/ADR-013-postgresql-as-protocol-state-store-not-a-ledger.md)
-  (ver também [ADR-002](../../decisions/adr/ADR-002-protocol-infrastructure-independent-of-any-operator.md))
-- **Auditoria:** [M2_7K_POSTGRESQL_RUNTIME_SCHEMA_AUDIT.md](M2_7K_POSTGRESQL_RUNTIME_SCHEMA_AUDIT.md)
+- **Decisão de referência:** [ADR-013](../../decisions/adr/ADR-013-the-protocol-state-store-is-not-a-ledger.md)
+  (ver também [ADR-002](../../decisions/adr/ADR-002-protocol-implementation-and-operator-separation.md))
 - **Fonte de verdade do schema:** `infra/banza-network/postgres/init/001_schema.sql`
 
 ---
@@ -96,4 +95,4 @@ um livro-razão. **O protocolo mede livros-razão; não mantém um.**
 Em auditoria (2026-07-19, só leitura): `operators` vazia (`/operators = []`), `certificates` vazia
 (`production_certificates = false`), índice do BanzAI vazio, `protocol_state` com os marcadores de
 pré-produção. Detalhe completo em
-[M2_7K_POSTGRESQL_RUNTIME_SCHEMA_AUDIT.md](M2_7K_POSTGRESQL_RUNTIME_SCHEMA_AUDIT.md).
+o esquema em vigor, verificável por `make postgres-data-boundary-check`.

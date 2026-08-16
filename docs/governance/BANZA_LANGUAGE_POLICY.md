@@ -31,7 +31,7 @@ The following are **canonical in Portuguese**:
 
 | Document | Canonical | Location |
 |----------|-----------|---------|
-| Protocol Reference | `docs/reference/pt/completa.md` | `/` (banza repo root) |
+| Protocol Reference | `docs/reference/pt/BANZA_REFERENCIA.md` | `/` (banza repo root) |
 | BanzAI Reference | `BANZAI_REFERENCIA.md` | `/` (banzai repo root) |
 | Protocol website | `https://banza.network` | Portuguese content |
 | Terminology | `docs/reference/BANZA_TERMINOLOGY_PT.md` | Authoritative |
@@ -42,7 +42,7 @@ The following are **canonical in Portuguese**:
 
 | Document | Translation | Location |
 |----------|-------------|---------|
-| Protocol Reference | `docs/reference/en/complete.md` | `/` (banza repo root) |
+| Protocol Reference | `docs/reference/en/BANZA_REFERENCE.md` | `/` (banza repo root) |
 | BanzAI Reference | `BANZAI_REFERENCE.md` | `/` (banzai repo root) |
 | Protocol website | `https://banza.network/en/*` | Future — Phase 7 |
 
@@ -122,7 +122,7 @@ Some terms have no Portuguese equivalent and are retained in their original form
 ## Future Languages
 
 Additional languages may be added via the RFC process. Each new language requires:
-1. A complete translation of `docs/reference/pt/completa.md`
+1. A complete translation of `docs/reference/pt/BANZA_REFERENCIA.md`
 2. A terminology freeze document for the new language
 3. An RFC documenting the translation governance
 4. A designated language maintainer

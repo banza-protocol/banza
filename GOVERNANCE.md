@@ -41,9 +41,25 @@ Governance is open today and takes place through the public GitHub repository.
 
 ## 6. How changes enter the protocol
 
+Two paths, deliberately separate. Merging is not releasing, and the repository moving forward does not
+move the protocol's lifecycle.
+
+**Normal evolution** — every change takes this path:
+
 ```
-proposal → issue/RFC/ADR → review → implementation → tests → merge → release → reference update
+proposal → issue/RFC/ADR → review → implementation → tests + normal assurance (AG-0…AG-9)
+  → merge → current main, still PRE-PRODUCTION
 ```
+
+**Release or freeze** — a deliberate decision about one exact candidate, never a consequence of a merge:
+
+```
+candidate selected → release-readiness → AG-10 → explicit release/freeze decision
+```
+
+`AG-10` is a freeze gate. It is not a pull-request requirement, it is not run on every change, and a
+green pipeline is not a release. A protocol version advances when the rules change and the decision is
+taken — not when a branch lands.
 
 ## 7. Who can participate
 
@@ -67,7 +83,7 @@ Maintainers, contributors, reviewers, operators, implementers, researchers and c
 
 ## 10. Relationship with BanzAI
 
-BanzAI is the **primary human-operator interface** for interacting with the BANZA protocol (ADR-036): it
+BanzAI is the **primary human-operator interface** to BANZA — and it is **optional, transversal and non-authoritative** (ADR-036). Both halves are the decision: a primary human-facing interface is not a mandatory protocol dependency. Machine-to-machine conformance and verification proceed without it, and its unavailability does not block protocol operation. It
 interprets requests, consults the reference, guides implementation, routes to the verifiable engines,
 explains results and helps prepare evidence. It is **not** a normative source and **not** a governance
 authority — it does not create protocol rules, does not certify, approve, license or publish operators,

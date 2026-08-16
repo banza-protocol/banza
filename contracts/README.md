@@ -43,7 +43,7 @@ by the same ADR process.
 
 Reference/documentary contracts for BanzAI's endpoint-originated validation surface (ADR-034). These
 describe the operator/implementation model, the registry-resolved artifacts and the receipts; they add
-**no** new financial invariant. See [ADR-034](../decisions/adr/ADR-034-endpoint-originated-operator-validation.md)
+**no** new financial invariant. See [ADR-034](../decisions/adr/ADR-034-endpoint-originated-validation.md)
 and the BANZA Reference (chapters 7–9 & 12).
 
 | Artifact | File |

@@ -5,13 +5,19 @@
 
 ---
 
-## Ecosystem Identity (ADR-004)
+## Ecosystem Identity (ADR-001, ADR-002, ADR-036)
 
 ```
 BANZA    = Open Financial Protocol        ← THIS REPO
-BanzAI   = Protocol Knowledge System      ← consolidated in THIS repo (services/banzai-api + engines/banzai-*, ADR-036)
+BanzAI   = Primary human-operator interface to BANZA — optional, transversal and
+           non-authoritative (ADR-036); consolidated in THIS repo
+           (services/banzai-api + engines/banzai-*)
 the reference operator  = Reference operator implementation            ~/banza
 ```
+
+ADR-004 is **Three institutional layers** — Layer 1 open protocol, Layer 2 conformance and
+interoperability certification, Layer 3 independent operational schemes. It is not the ecosystem
+naming record; do not cite it as one.
 
 Read the shared operating rules first: [docs/governance/CLAUDE_BASE.md](docs/governance/CLAUDE_BASE.md)
 
@@ -37,7 +43,8 @@ If the reference operator ceases operations, the BANZA protocol — its specific
 | `docs/governance/` | Shared operating rules (CLAUDE_BASE.md) |
 | `spec/federation/` | Federation protocol documentation |
 | `docs/governance/` | PKI trust model documentation |
-| `website/` | Protocol website (Next.js) and the `/banzai` public interface |
+| `docs/reference/` | The descriptive Reference — `pt/BANZA_REFERENCIA.md` is canonical, `en/BANZA_REFERENCE.md` is its official translation. Descriptive, never normative: normative authority is the Normative Manifest and the artifacts it indexes |
+| `website/` | Protocol website (Next.js) and the `/banzai` public interface. It **consumes** the Reference through a generated mirror (`make website-reference-mirror`) and never owns editorial copy |
 | `services/banzai-api` | Canonical BanzAI runtime — TypeScript service/glue over the Rust engines (ADR-036) |
 | `engines/banzai-*` | BanzAI Rust engines (query-core, api-kb, indexers), compiled to WASM — the deterministic core |
 
@@ -66,6 +73,15 @@ The financial invariants are the protocol's integrity guarantees:
 **Protocol specs ship before operator implementations.**
 
 No operator implementation may reference a feature that has not first been specified in `contracts/`. No feature may exist only in prose documentation (`docs/`) once implementation begins — it must have a corresponding artifact in `contracts/`.
+
+**Generated artifacts are regenerated, never hand-edited.** A derived file that is patched by hand
+stops being derived. When a source changes, run its generator and commit the result; the checks that
+observe those artifacts write nothing themselves.
+
+**A self-test must be able to fail.** When a guard's fixture is built at a path the guard no longer
+reads, its mutation lands nowhere and the case passes vacuously — which reads as coverage and is worse
+than no test. On changing a guard, confirm the baseline is green, the mutation lands on the surface
+under test, and the guard goes red for the intended reason.
 
 > **Regra absoluta:**
 > qualquer conceito financeiro/protocolar novo nasce primeiro no BANZA Protocol, depois é implementado pelo operador de referência, depois exposto no SDK, e só depois usado nas apps.

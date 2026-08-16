@@ -30,7 +30,7 @@ What is **operator policy** (lives in the operator, non-normative to the protoco
 - Onboarding UX, product surfaces, internal authorization gates
 - Choice of language, database, runtime and internal architecture
 
-The protocol already states this explicitly. `docs/reference/pt/completa.md` §3:
+The protocol already states this explicitly. `docs/reference/pt/BANZA_REFERENCIA.md` §3:
 
 > *"Um operador pode ter as suas próprias regras de KYC — mas a imutabilidade
 > dos lançamentos no livro-razão é imposta pelo núcleo, não por uma política do
@@ -72,7 +72,7 @@ Evidence (reference operator implementation, 2026-06-13):
   federation), **no** invariant change.
 
 Per the litmus test, Progressive KYC touches no shared surface. It is precisely
-the "operator's own KYC rules" that `docs/reference/pt/completa.md` §3 reserves to the
+the "operator's own KYC rules" that `docs/reference/pt/BANZA_REFERENCIA.md` §3 reserves to the
 operator. It stays in the operator and needs no ADR in `~/banza`.
 
 ## Contracts: consumption model

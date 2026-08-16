@@ -41,7 +41,7 @@ map between them and the registry's canonical IDs.
 > specified in [`contracts/qr/`](../contracts/qr/); external reconcilability
 > (`INV-RECON-*`) and settlement identity (`INV-SETTLE-*`) in the registry
 > [`contracts/invariants.json`](../contracts/invariants.json); trust/PKI
-> invariants (`INV-OTE-*` / `INV-FEDEVAL-*`, `INV-ROOT-*`) in `docs/reference/en/complete.md` and ADR-025.
+> invariants (`INV-OTE-*` / `INV-FEDEVAL-*`, `INV-ROOT-*`) in `docs/reference/en/BANZA_REFERENCE.md` and ADR-025.
 > The single machine-readable source of truth for every invariant is
 > [`contracts/invariants.json`](../contracts/invariants.json).
 

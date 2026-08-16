@@ -67,7 +67,7 @@ Este documento descreve apenas o roadmap do **protocolo** — regras, certifica�
 
 **Referências:**
 
-- [docs/reference/en/complete.md §11](../reference/en/complete.md) — Roadmap do Protocolo (fonte canónica)
+- [docs/reference/en/BANZA_REFERENCE.md §11](../reference/en/BANZA_REFERENCE.md) — Roadmap do Protocolo (fonte canónica)
 - [docs/governance/certification-boundary.md](certification-boundary.md) — Conformance profiles L0–L4
 - [docs/guides/conformance.md](../guides/conformance.md) — Conformance suite
 - [docs/governance/README.md](README.md) — Protocol governance and ADR process

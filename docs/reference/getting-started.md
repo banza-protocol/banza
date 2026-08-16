@@ -24,12 +24,12 @@ Your implementation can be in any language, use any database, and run on any inf
 
 | Document | Language | Purpose |
 |----------|----------|---------|
-| [`docs/reference/pt/completa.md`](../../docs/reference/pt/completa.md) | Portuguese | Canonical reference |
-| [`docs/reference/en/complete.md`](../../docs/reference/en/complete.md) | English | Reference |
+| [`docs/reference/pt/BANZA_REFERENCIA.md`](../../docs/reference/pt/BANZA_REFERENCIA.md) | Portuguese | Canonical reference |
+| [`docs/reference/en/BANZA_REFERENCE.md`](../../docs/reference/en/BANZA_REFERENCE.md) | English | Reference |
 | [`spec/overview.md`](../../spec/overview.md) | English | Protocol layers |
 | [`docs/governance/certification-boundary.md`](../../docs/governance/certification-boundary.md) | English | Conformance levels L0–L4 |
 
-Start with [docs/reference/en/complete.md §1](../../docs/reference/en/complete.md) for the introduction, then [§3](../../docs/reference/en/complete.md) for the core principles and financial invariants.
+Start with [docs/reference/en/BANZA_REFERENCE.md §1](../../docs/reference/en/BANZA_REFERENCE.md) for the introduction, then [§3](../../docs/reference/en/BANZA_REFERENCE.md) for the core principles and financial invariants.
 
 ---
 
@@ -62,7 +62,7 @@ These rules must hold in all states, regardless of implementation:
 | `INV-STL-001` | No money creation: gross = net + fee |
 | `INV-IDEM-001` | Idempotency: same idempotency key → same result, no side effects |
 
-A violation of any invariant is a conformance blocker. See [docs/reference/en/complete.md §6](../../docs/reference/en/complete.md) for the full invariant specification.
+A violation of any invariant is a conformance blocker. See [docs/reference/en/BANZA_REFERENCE.md §6](../../docs/reference/en/BANZA_REFERENCE.md) for the full invariant specification.
 
 ---
 
@@ -173,8 +173,8 @@ Levels are cumulative. Start at L0 if you are new.
 
 | Resource | Link |
 |----------|------|
-| Protocol specification (PT) | [`docs/reference/pt/completa.md`](../../docs/reference/pt/completa.md) |
-| Protocol specification (EN) | [`docs/reference/en/complete.md`](../../docs/reference/en/complete.md) |
+| Protocol specification (PT) | [`docs/reference/pt/BANZA_REFERENCIA.md`](../../docs/reference/pt/BANZA_REFERENCIA.md) |
+| Protocol specification (EN) | [`docs/reference/en/BANZA_REFERENCE.md`](../../docs/reference/en/BANZA_REFERENCE.md) |
 | Conformance levels and evidence | [`docs/governance/certification-boundary.md`](../../docs/governance/certification-boundary.md) |
 | Conformance suite docs | [`docs/guides/conformance.md`](../../docs/guides/conformance.md) |
 | Conformance runner | [`engines/banza-conformance/`](../../engines/banza-conformance/) |

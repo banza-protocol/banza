@@ -2,7 +2,7 @@
 
 > **Scope:** the BanzAI interface for the nine-step technical validation journey, its durable append-only receipt store, and the compare/reproduce/evidence surfaces. **Normative source:** [spec/validation-journey.md](../../spec/validation-journey.md). **Decisions:** ADR-034 (endpoint-originated validation), ADR-036 (journey consolidation + durable receipts), ADR-013 (PostgreSQL protocol-state boundary), ADR-035/053 (Operator Zero).
 
-BanzAI is the primary human-operator interface (ADR-036). It is where a human runs a validation against an operator implementation and consults the durable record afterwards. It never redefines protocol rules — it executes the Rust engines and records what they decide.
+BanzAI is the **primary human-operator interface** to BANZA — and it is **optional, transversal and non-authoritative** (ADR-036). Both halves are the decision: a primary human-facing interface is not a mandatory protocol dependency. Machine-to-machine conformance and verification proceed without it, and its unavailability does not block protocol operation. It is where a human runs a validation against an operator implementation and consults the durable record afterwards. It never redefines protocol rules — it executes the Rust engines and records what they decide.
 
 ## Two journeys
 

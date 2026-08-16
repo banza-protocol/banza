@@ -186,8 +186,8 @@ Os operadores mudam. Os produtos evoluem. O que o BANZA garante é que as regras
 
 **Referências:**
 
-- [docs/reference/pt/completa.md](pt/completa.md) — Referência canónica do protocolo (português)
-- [docs/reference/en/complete.md](en/complete.md) — Tradução oficial (inglês)
+- [docs/reference/pt/BANZA_REFERENCIA.md](pt/BANZA_REFERENCIA.md) — Referência canónica do protocolo (português)
+- [docs/reference/en/BANZA_REFERENCE.md](en/BANZA_REFERENCE.md) — Tradução oficial (inglês)
 - [docs/governance/README.md](../governance/README.md) — Modelo de governação do protocolo
 - [docs/governance/certification-boundary.md](../governance/certification-boundary.md) — Enquadramento de conformidade
 - ADR-001 — Hierarquia canónica do ecossistema
