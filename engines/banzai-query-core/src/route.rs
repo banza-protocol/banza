@@ -173,6 +173,16 @@ fn has_banzai_role_marker(nq: &str) -> bool {
             "movimenta dinheiro",
             "move funds",
             "moves funds",
+            // Post-deploy reachability sweep — "is BanzAI authoritative?" / "o BanzAI é autoritativo?"
+            // fell to no_source, on the single question the role answer exists to settle. The affirmative
+            // ("tem autoridade") already resolved; the adjective did not.
+            "autoritativ",
+            "authoritative",
+            "fonte normativa",
+            "normative source",
+            "e normativo",
+            "é normativo",
+            "is normative",
         ],
     )
 }
@@ -223,6 +233,11 @@ fn has_banzai_mandatory_marker(nq: &str) -> bool {
             "maquina maquina",
             "machine to machine",
             "machine-to-machine",
+            // Post-deploy reachability sweep — the OPTIONAL phrasing of the same question. "is BanzAI
+            // mandatory?" resolved and "is BanzAI optional?" did not, which is the same fact asked from
+            // the other side.
+            "opcional",
+            "optional",
         ],
     )
 }
@@ -7427,6 +7442,28 @@ pub fn route_with_journey_json(question: &str, journey_step: &str) -> String {
     format!(
         "{{\"action\":\"{}\",\"entry_id\":{},\"intent\":\"{}\",\"reason\":\"{}\"}}",
         r.action, entry, r.intent, r.reason
+    )
+}
+
+/// A NORMATIVE DENIAL — an entry whose value IS the exact denial it states.
+///
+/// Most definition entries are deliberately escalated into the explanatory trunk when the question
+/// carries a real explanatory cue ("o que significa…", "does X mean…"), so an explanation is a real
+/// explanation rather than a canned definition. That rule is right for a definition and wrong for a
+/// denial: "does resilience mean zero downtime?" carries the cue, and the honest answer is *no* —
+/// letting a model recompose it is how a bounded guarantee acquires a softer edge than the one the
+/// protocol actually offers. These entries are served verbatim, cue or no cue, and cost no model call.
+///
+/// Rust decides this, like every other routing question; the pipeline asks and executes.
+/// `def-r2s2` is here for the same reason in a different shape: its value is a CLOSED enumeration —
+/// exactly four principles, in canonical order, each with its formal meaning. "o que significa Robusto
+/// no BANZA?" carries the cue, and before this it escalated and was answered from the generic protocol
+/// description, which names no principle at all. A guard exists to stop a fifth principle appearing on
+/// the public surface; letting a model restate the set at answer time reopens the same door.
+pub fn is_verbatim_entry(entry_id: &str) -> bool {
+    matches!(
+        entry_id,
+        "def-resilience-boundary" | "def-local-execution" | "def-r2s2"
     )
 }
 

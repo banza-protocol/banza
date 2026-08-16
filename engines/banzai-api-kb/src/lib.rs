@@ -901,6 +901,15 @@ pub fn route_question_json(question: &str) -> String {
     route::route_json(question)
 }
 
+/// Node WASM: is this entry a NORMATIVE DENIAL that must be served verbatim, even when the question
+/// carries an explanatory cue that would otherwise escalate a definition into the explanatory trunk?
+/// Rust owns the list; the pipeline asks and executes. See `route::is_verbatim_entry`.
+#[cfg(target_arch = "wasm32")]
+#[wasm_bindgen]
+pub fn is_verbatim_entry(entry_id: &str) -> bool {
+    route::is_verbatim_entry(entry_id)
+}
+
 /// Node WASM (M2.11D, QA-2): the routing decision WITH the operator's current journey step.
 /// Layered on top of `route_question_json` — safety and the critical boundary are decided first and
 /// unchanged; this only rescues a next-step question that the base router already gave up on.

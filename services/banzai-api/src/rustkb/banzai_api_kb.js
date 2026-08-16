@@ -770,6 +770,21 @@ function intent_source_ranking_json(question) {
 exports.intent_source_ranking_json = intent_source_ranking_json;
 
 /**
+ * Node WASM: is this entry a NORMATIVE DENIAL that must be served verbatim, even when the question
+ * carries an explanatory cue that would otherwise escalate a definition into the explanatory trunk?
+ * Rust owns the list; the pipeline asks and executes. See `route::is_verbatim_entry`.
+ * @param {string} entry_id
+ * @returns {boolean}
+ */
+function is_verbatim_entry(entry_id) {
+    const ptr0 = passStringToWasm0(entry_id, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ret = wasm.is_verbatim_entry(ptr0, len0);
+    return ret !== 0;
+}
+exports.is_verbatim_entry = is_verbatim_entry;
+
+/**
  * Node WASM: normalization (exposed so JS keeps zero matching logic).
  * @param {string} q
  * @returns {string}

@@ -411,14 +411,25 @@ describe("Public reference cards are clean (M2.7L)", () => {
   });
 });
 
-describe("ADR decisions index backfill (M2.7L)", () => {
-  for (const id of ["adr-037", "adr-038", "adr-039", "adr-040", "adr-041", "adr-042"]) {
-    it(`${id} is present with metadata`, () => {
-      const d = getDecision(id);
-      expect(d, `${id} must be in the decisions index`).toBeDefined();
-      expect(d!.title.length).toBeGreaterThan(3);
-      expect(d!.summary.length).toBeGreaterThan(3);
-      expect(d!.path).toMatch(/decisions\/adr\//);
+describe("the decisions index carries usable metadata for every record", () => {
+  // This used to name the ids it expected — "adr-037" … "adr-042" — and the list went stale the moment
+  // the record tree was renumbered: adr-042 no longer exists, so the suite was red for a property that
+  // was never broken. A test that hard-codes which records exist re-declares the tree, and a second
+  // declaration of the tree is a second thing to keep in sync.
+  //
+  // WHICH records must be listed is decided against the filesystem by
+  // tools/check-website-decisions-parity.sh, which cannot go stale because it reads the tree. What is
+  // left here is the part the index itself owns: whatever it lists must be usable.
+  it("the index is not empty", () => {
+    expect(decisions.length).toBeGreaterThan(0);
+  });
+  for (const d of decisions) {
+    it(`${d.slug} carries usable metadata`, () => {
+      expect(getDecision(d.slug), `${d.slug} must be resolvable by slug`).toBeDefined();
+      expect(d.title.length).toBeGreaterThan(3);
+      expect(d.summary.length).toBeGreaterThan(3);
+      expect(d.path).toMatch(/decisions\/(adr|rfc)\//);
+      expect(["ADR", "RFC"]).toContain(d.type);
     });
   }
   it("the index is unique by id", () => {
