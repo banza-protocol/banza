@@ -144,7 +144,7 @@ selftest() {
   d="$(mktemp -d)"; trap 'rm -rf "$d"' RETURN
   g="$d/good"; b="$d/bad"
   for base in "$g" "$b"; do
-    mkdir -p "$base/assurance" "$base/website/content"
+    mkdir -p "$base/assurance" "$base/docs/reference/pt"
     cat > "$base/assurance/principles.json" <<'EOF'
 {"short_form":"R²S²","ascii_form":"R2S2","principles":[
  {"name_en":"Robust","name_pt":"Robusto","meaning_en":"m","meaning_pt":"m"},

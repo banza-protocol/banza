@@ -279,10 +279,16 @@ fn banzami_attribution_allowed(path: &str) -> bool {
             | "whitepaper-latex.py"
             | "whitepaper-figures.py"
             | "licensing.md"
+            // The two Reference editions name the Layer-3 designated scheme operator on the same
+            // ADR-001/ADR-009 institutional-attribution basis. Portuguese is canonical, English is
+            // its official translation; both carry the same passages, so both are allowed.
             | "BANZA_REFERENCIA.md"
-            | "completa.md"
-            | "complete.md"
+            | "BANZA_REFERENCE.md"
     )
+        // The generated website mirrors of those two editions. They are derived byte-for-byte from
+        // the allowlisted sources and cannot carry anything the source does not — the source-boundary
+        // check proves it — so they inherit the source's basis rather than earning their own.
+        || path.starts_with("website/content/reference/")
         // Public-technical-claims evidence gate: the verification map + machine claim matrix + bundle
         // legitimately quote the canonical Layer-3 scheme (Banzami Operational Scheme, ADR-004..063) when
         // recording claim evidence — the same ADR-001/ADR-009 institutional-attribution basis as
