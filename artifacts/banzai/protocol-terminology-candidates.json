@@ -1,5 +1,5 @@
 {
-  "total": 3121,
+  "total": 3122,
   "rows": [
     {
       "raw_text": "Contributing to BANZA",
@@ -911,6 +911,17 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
+      "raw_text": "Origin",
+      "normalized": "origin",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
       "raw_text": "Licence and trademarks",
       "normalized": "licence and trademarks",
       "sources": [
@@ -1311,6 +1322,21 @@
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "BANZAMI — Tecnologia e Serviços, Lda.",
+      "normalized": "banzami tecnologia e servicos lda",
+      "sources": [
+        "readme-md",
+        "docs-governance-banzami-operational-scheme-md",
+        "docs-governance-banza-conflict-of-interest-policy-md",
+        "docs-governance-banza-three-layer-architecture-md"
+      ],
+      "frequency": 4,
+      "phrase_length": 5,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
     },
     {
       "raw_text": "Apache License 2.0",
@@ -11776,20 +11802,6 @@
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Banzami — Tecnologia e Serviços, Lda.",
-      "normalized": "banzami tecnologia e servicos lda",
-      "sources": [
-        "docs-governance-banzami-operational-scheme-md",
-        "docs-governance-banza-conflict-of-interest-policy-md",
-        "docs-governance-banza-three-layer-architecture-md"
-      ],
-      "frequency": 3,
-      "phrase_length": 5,
-      "accepted": true,
-      "rejection_reason": "",
-      "classification": "SUBJECT"
     },
     {
       "raw_text": "scheme operacional",
