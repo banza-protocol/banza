@@ -197,6 +197,16 @@ make whitepaper-verify
 
 `make help` lists every target with its purpose.
 
+## Origin
+
+BANZA was created on **01/08/2025** (1 de agosto de 2025) by **BANZAMI — Tecnologia e Serviços, Lda.**,
+which acts as original creator and initial institutional maintainer.
+
+That is attribution of origin, not control. The creator holds no authority over operators: it does not
+approve, certify or licence them, and the protocol's rules change only through the public process in
+[GOVERNANCE.md](GOVERNANCE.md). The date records when the protocol was created — it is not a production
+launch, a certification, or the start of any financial activity.
+
 ## Licence and trademarks
 
 Code, contracts and specifications are licensed under the **Apache License 2.0**
