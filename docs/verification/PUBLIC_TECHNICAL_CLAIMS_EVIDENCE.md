@@ -24,14 +24,33 @@ The evidence demonstrates only the technical scope actually tested, in the **ref
 pre-production** state. It is **not** generalised to production, performance, scale, regulation or
 adoption. This matches the whitepaper's own Limitations and State chapters.
 
-## How to regenerate
+## Verifying and regenerating
+
+Two separate operations. Generators write; checks observe.
 
 ```bash
-make public-claims-evidence     # runs the executable evidence battery + rebuilds the bundle manifest
+make public-claims-evidence
 ```
 
-The bundle is only valid from a **clean working tree** at the pinned commit. The manifest records the
-commit, engine versions, protocol version, the executed commands, and a SHA-256 of every evidence file.
+**Verifies.** Runs the battery into a temporary tree, builds the manifest the sources imply, and
+compares it against the tracked bundle. It writes nothing tracked, and stale evidence makes it fail —
+it does not repair it. This is what the required CI context runs.
+
+```bash
+make public-claims-evidence-generate
+```
+
+**Regenerates.** Runs the battery and rewrites the tracked bundle. Run it deliberately, after the
+evidence sources legitimately change, and commit the result.
+
+If verification fails it names what differs and prints the regeneration command; running that command
+is your decision, not the check's. The two were once the same command, so the check rewrote the bundle
+it was meant to inspect and reported success over evidence nobody had verified.
+
+The bundle is only valid from a **clean working tree**. The manifest records the generating commit,
+engine versions, protocol version, the executed commands, and a SHA-256 of every evidence file. The
+commit is provenance: verification requires it to be a real commit, not to equal `HEAD`, because the
+binding that detects drift is the file digests.
 
 ## Executed evidence (this commit)
 
