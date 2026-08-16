@@ -40,7 +40,7 @@
       "blocks": [
         {
           "t": "p",
-          "text": "Os operadores financeiros raramente funcionam de forma isolada. Para transferir valor ou trocar mensagens, as respectivas implementações precisam de acordar formatos, identidade, chaves, semântica de erros e procedimentos de teste. Em integrações bilaterais, estes elementos são definidos entre cada par de operadores; quando especificações, testes e resultados permanecem privados, o trabalho repete-se e a validação técnica torna-se difícil de reproduzir por terceiros."
+          "text": "Os operadores financeiros raramente funcionam de forma isolada. Para transferir valor ou trocar mensagens, as respectivas implementações precisam de acordar formatos, identidade, chaves, semântica de erros e procedimentos de teste. Em integrações bilaterais, estes elementos são definidos entre cada par; quando especificações, testes e resultados permanecem privados, o trabalho repete-se e a validação torna-se difícil de reproduzir por terceiros."
         },
         {
           "t": "p",
@@ -65,7 +65,7 @@
         },
         {
           "t": "p",
-          "text": "A Equação {{eq:bilateral}} conta relações entre pares numa malha bilateral completa — um caso ilustrativo, não um modelo universal — e a Equação {{eq:common}} conta implementações quando cada operador adopta a mesma especificação: a entrada de mais um operador exige \\(n\\) novas integrações no primeiro regime e uma implementação no segundo. A Figura {{fig:bilateral}} distingue uma especificação comum de uma infraestrutura central."
+          "text": "A Equação {{eq:bilateral}} conta relações entre pares numa malha bilateral completa — um caso ilustrativo, não um modelo universal — e a Equação {{eq:common}} conta implementações quando cada operador adopta a mesma especificação: mais um operador exige \\(n\\) novas integrações no primeiro regime e uma implementação no segundo. A Figura {{fig:bilateral}} distingue especificação comum de infraestrutura central."
         },
         {
           "t": "fig",
@@ -73,15 +73,15 @@
         },
         {
           "t": "p",
-          "text": "Um protocolo comum não implica uma infraestrutura comum. No modelo do BANZA, cada operador mantém a sua própria implementação, infraestrutura e relações operacionais, desde que observe o comportamento especificado e publique os artefactos exigidos pela versão e pelo perfil adoptados: nenhuma infraestrutura central do BANZA é atravessada por mensagens, fundos ou decisões. A interoperabilidade também pode ser assegurada por infraestruturas partilhadas e centralizadas, que continuam a executar encaminhamento, compensação, liquidação ou outras funções operacionais. O BANZA não procura substituí-las: acrescenta uma camada aberta de especificações, perfis, contratos públicos e versionados, conformidade determinística e evidência verificável, com a qual uma implementação pode coexistir com diferentes infraestruturas, sistemas de comutação, esquemas ou redes."
+          "text": "Um protocolo comum não implica uma infraestrutura comum. No modelo do BANZA, cada operador mantém a sua própria implementação, infraestrutura e relações operacionais, desde que observe o comportamento especificado e publique os artefactos exigidos pela versão e pelo perfil adoptados. A interoperabilidade também pode ser assegurada por infraestruturas partilhadas, que continuam a executar encaminhamento, compensação ou liquidação; o BANZA não procura substituí-las, mas acrescentar uma camada aberta de especificações, perfis, contratos versionados, conformidade determinística e evidência verificável, com a qual uma implementação pode coexistir com diferentes infraestruturas, esquemas ou redes."
         },
         {
           "t": "p",
-          "text": "Normas como a ISO 20022 [1], a ISO 8583 [2], as especificações EMV para QR [3] e a ISO/IEC 9646 [4] tratam de componentes de mensagens, pagamentos e testes de conformidade. O Mojaloop [9] situa-se mais perto do BANZA: reúne uma especificação de interoperabilidade entre prestadores — que admite ligação directa entre eles ou mediada por um comutador — e uma plataforma de código aberto com arquitectura operacional de serviços centrais para operar esquemas, com instrumentação própria de teste. Ambos especificam aspectos do mesmo espaço de interoperabilidade de pagamentos e diferem sobretudo na forma como organizam a autoridade da especificação, a implementação, a evidência de conformidade e o esquema operacional. O BANZA complementa estes trabalhos definindo um protocolo aberto no qual cada implementação publica artefactos na sua origem canónica, é avaliada segundo uma versão e um perfil públicos e produz resultados associados às entradas observadas — sobre implementações, não sobre entidades."
+          "text": "Normas como a ISO 20022 [1], a ISO 8583 [2], as especificações EMV para QR [3] e a ISO/IEC 9646 [4] tratam de componentes de mensagens, pagamentos e testes de conformidade. O Mojaloop [9] situa-se mais perto do BANZA: reúne uma especificação de interoperabilidade entre prestadores — que admite ligação directa entre eles ou mediada por um comutador — e uma plataforma de código aberto com serviços centrais para operar esquemas. Ambos especificam aspectos do mesmo espaço e diferem sobretudo na forma como organizam a autoridade da especificação, a implementação, a evidência de conformidade e o esquema operacional. O BANZA complementa-os definindo um protocolo aberto no qual cada implementação publica artefactos na sua origem canónica, é avaliada segundo uma versão e um perfil públicos e produz resultados associados às entradas observadas — sobre implementações, não sobre entidades."
         },
         {
           "t": "p",
-          "text": "Este documento é descritivo e não normativo: os requisitos são definidos pelos artefactos versionados que o Manifesto Normativo do BANZA identifica. A implementação de referência concretiza o protocolo sem o definir; os registos de decisão documentam fundamentos e não são autoridade de implementação; e o BanzAI explica e permite navegar a superfície pública sem determinar conformidade. Seguem-se o modelo e a arquitectura (Secções {{sec:model}} e {{sec:architecture}}), os perfis ({{sec:profiles}}), descoberta, identidade e confiança ({{sec:discovery}}), validação e evidência ({{sec:validation}}, {{sec:evidence}}), segurança e governação ({{sec:security}}, {{sec:governance}}), limitações e estado ({{sec:limitations}}, {{sec:state}}) e as conclusões ({{sec:conclusion}})."
+          "text": "Este documento é descritivo e não normativo: os requisitos são definidos pelos artefactos versionados que o Manifesto Normativo do BANZA identifica. Seguem-se o modelo e a arquitectura, os perfis, a descoberta e a confiança, a validação e a evidência, a segurança e a governação, as limitações e o estado actual, e as conclusões."
         }
       ]
     },
@@ -93,11 +93,11 @@
       "blocks": [
         {
           "t": "p",
-          "text": "O BANZA distingue um operador — a entidade responsável — de uma implementação, o sistema técnico avaliado. Um operador pode publicar várias, e qualquer resultado aplica-se sempre a uma implementação, versão, perfil, ambiente, âmbito, evidência e validade determinados, nunca a uma entidade em abstracto."
+          "text": "O BANZA distingue um operador — a entidade responsável — de uma implementação, o sistema técnico avaliado. Um operador pode publicar várias, e qualquer resultado aplica-se a uma implementação, versão, perfil, ambiente, âmbito, evidência e validade determinados, nunca a uma entidade em abstracto."
         },
         {
           "t": "p",
-          "text": "Cada implementação tem um identificador estável, e o conjunto exacto de artefactos avaliados é fixado por um resumo criptográfico de conteúdo: uma versão construída diferente é um sujeito de avaliação distinto e exige a sua própria avaliação."
+          "text": "Cada implementação tem um identificador estável, e o conjunto exacto de artefactos avaliados é fixado por um resumo criptográfico: uma versão construída diferente é um sujeito distinto e exige a sua própria avaliação."
         },
         {
           "t": "p",
@@ -116,7 +116,7 @@
         },
         {
           "t": "p",
-          "text": "A linguagem, a base de dados, o fornecedor de infraestrutura e a origem do código não fazem parte deste tuplo: a conformidade depende dos contratos e do comportamento observável, e não da tecnologia interna nem da utilização da implementação de referência."
+          "text": "A linguagem, a base de dados, o fornecedor de infraestrutura e a origem do código não fazem parte deste tuplo: a conformidade depende dos contratos e do comportamento observável."
         },
         {
           "t": "p",
@@ -135,7 +135,7 @@
         },
         {
           "t": "p",
-          "text": "A superfície normativa de cada versão não é implícita: é identificada pelo Manifesto Normativo do BANZA, índice versionado que declara quais artefactos definem requisitos e quais não. Determinar o que implementar é, por isso, uma consulta a material publicado e não uma inferência a partir do código."
+          "text": "A superfície normativa de cada versão não é implícita: é identificada pelo Manifesto Normativo do BANZA, índice versionado que declara quais artefactos definem requisitos. Determinar o que implementar é uma consulta a material publicado, não uma inferência a partir do código."
         },
         {
           "t": "p",
@@ -154,7 +154,7 @@
         },
         {
           "t": "p",
-          "text": "O âmbito é explícito: um resultado declara o perfil, a versão, o ambiente e a evidência consumida, vale apenas para essa combinação e não se extrapola do artefacto avaliado para a entidade que o publicou. A reprodutibilidade é uma propriedade central do modelo: dadas entradas canónicas equivalentes, a mesma especificação, o mesmo perfil e a mesma versão do motor, execuções independentes produzem veredictos e códigos de motivo semanticamente equivalentes. A motivação científica é a da investigação reproduzível [8], mas a equivalência invocada aqui não é uma analogia: o protocolo define-a normativamente, exigindo igualdade dos estados decisórios, das ligações às entradas observadas e do conjunto de códigos de motivo essenciais. Metadados não determinísticos — marcas temporais, durações, identificadores de execução e texto explicativo — são excluídos por definição, e a igualdade byte a byte não é exigida nem serve como critério."
+          "text": "O âmbito é explícito: um resultado declara o perfil, a versão, o ambiente e a evidência consumida, vale apenas para essa combinação e não se extrapola do artefacto avaliado para a entidade que o publicou. A reprodutibilidade é central ao modelo: dadas entradas canónicas equivalentes, a mesma especificação, o mesmo perfil e a mesma versão do motor, execuções independentes produzem veredictos e códigos de motivo semanticamente equivalentes. A motivação é a da investigação reproduzível [8], mas a equivalência não é analogia: o protocolo define-a normativamente, exigindo igualdade dos estados decisórios, das ligações às entradas e dos códigos de motivo essenciais. Metadados não determinísticos — marcas temporais, durações, identificadores de execução e texto explicativo — são excluídos por definição, e a igualdade byte a byte não é exigida nem serve como critério."
         },
         {
           "t": "fig",
@@ -162,11 +162,7 @@
         },
         {
           "t": "p",
-          "text": "Os resumos criptográficos de conteúdo, calculados com SHA-256 [5], permitem identificar e comparar exactamente as entradas observadas. Em conjunto com a disponibilidade dessas entradas, transformam uma afirmação de validação numa base técnica que pode ser reavaliada por terceiros."
-        },
-        {
-          "t": "p",
-          "text": "Comparar resumos exige que representações equivalentes produzam os mesmos bytes. Para os artefactos JSON assinados ou resumidos, o BANZA define o BANZA Canonical JSON (BCJ/1), um perfil restrito do JSON Canonicalization Scheme [10]: representação determinística em UTF-8, rejeição de membros duplicados em vez da sua resolução, inteiros restritos ao domínio seguro interoperável e ausência de normalização Unicode na verificação. A rejeição de duplicados precede a interpretação semântica, porque um analisador que aplique a primeira ou a última ocorrência já perdeu a distinção que a assinatura deveria cobrir. Os domínios numéricos desta versão foram auditados e nenhum campo exige representação inteira acima do domínio do perfil."
+          "text": "Os resumos criptográficos de conteúdo, calculados com SHA-256 [5], identificam e comparam exactamente as entradas observadas: com a disponibilidade dessas entradas, transformam uma afirmação de validação numa base técnica reavaliável por terceiros. Compará-los exige que representações equivalentes produzam os mesmos bytes. Para os artefactos JSON assinados ou resumidos, o BANZA define o BANZA Canonical JSON (BCJ/1), perfil restrito do JSON Canonicalization Scheme [10]: representação determinística em UTF-8, membros ordenados por unidades de código UTF-16, inteiros no domínio seguro \\(\\pm(2^{53}-1)\\), rejeição de membros duplicados em vez da sua resolução, e ausência de normalização Unicode na verificação. A rejeição de duplicados precede a interpretação semântica, porque um analisador que aplique a primeira ou a última ocorrência já perdeu a distinção que a assinatura deveria cobrir. Membros não descritos pelo esquema são preservados e canonicalizados como os restantes, ficando cobertos pela assinatura em vez de silenciosamente descartados. Os domínios numéricos desta versão foram auditados e nenhum campo exige representação inteira acima do domínio do perfil."
         }
       ]
     },
@@ -178,11 +174,15 @@
       "blocks": [
         {
           "t": "p",
-          "text": "O BANZA organiza-se em três camadas institucionais, separadas por responsabilidade, infraestrutura e chaves. A Camada 1 — Protocolo aberto reúne especificações, contratos, perfis e mecanismos comuns de descoberta, identidade, confiança, revogação e federação. A Camada 2 — Certificação de Conformidade e Interoperabilidade avalia implementações face a perfis e versões públicas, com motores determinísticos e evidência verificável. A Camada 3 — Esquemas operacionais independentes compreende infraestruturas, redes e esquemas que podem adoptar o BANZA e permanecem sujeitos às respectivas regras jurídicas, comerciais e regulamentares."
+          "text": "O BANZA organiza-se em três camadas institucionais, separadas por responsabilidade, infraestrutura e chaves. A Camada 1 — Protocolo aberto reúne especificações, contratos, perfis e mecanismos comuns de descoberta, identidade, confiança, revogação e federação. A Camada 2 — Certificação de Conformidade e Interoperabilidade avalia implementações face a perfis e versões públicas, com motores determinísticos e evidência verificável. A Camada 3 — Esquemas operacionais independentes compreende infraestruturas e redes que podem adoptar o BANZA, sujeitas às respectivas regras jurídicas, comerciais e regulamentares."
         },
         {
           "t": "p",
-          "text": "As decisões de concepção obedecem a quatro princípios — \\textbf{BANZA R\\textsuperscript{2}S\\textsuperscript{2}}: robusto, correcto e determinístico perante implementações independentes e entrada adversarial; resiliente, falhas contidas e recuperação determinística sem enfraquecer garantias; seguro, propriedades críticas impostas por construção, fechando por omissão; simples, o menor mecanismo suficiente. A resiliência não se sobrepõe à segurança nem promete disponibilidade contínua. A arquitectura assenta, por sua vez, em cinco invariantes arquitecturais: especificação aberta — regras, contratos e perfis públicos e versionados; independência de implementação — nenhuma implementação particular constitui o protocolo, e a de referência concretiza-o sem o definir; verificação independente — os artefactos publicados devem bastar a um terceiro para avaliar as condições aplicáveis sem depender de uma decisão privada; independência operacional — não é exigida infraestrutura central para transportar mensagens ou fundos; e separação de decisões — avaliação de conformidade, certificação técnica, admissão num esquema, acordos operacionais e autorização regulatória são processos distintos."
+          "text": "As decisões de concepção obedecem a quatro princípios fundamentais — \\textbf{BANZA R\\textsuperscript{2}S\\textsuperscript{2}}: robusto, correcto e determinístico perante implementações independentes, entrada adversarial e condições-limite; resiliente, falhas contidas, operação segura preservada onde é possível e recuperação determinística sem enfraquecer garantias; seguro, propriedades críticas impostas por construção, fechando por omissão quando não podem ser estabelecidas; simples, o menor mecanismo suficiente para a propriedade exigida. São critérios de decisão e não uma lista de qualidades desejáveis: a resiliência não se sobrepõe à segurança nem promete disponibilidade contínua."
+        },
+        {
+          "t": "p",
+          "text": "Os princípios decidem; as oito propriedades estruturais desenvolvidas na Referência caracterizam o que o protocolo possui — entre elas o fecho por omissão, associado a seguro e a resiliente e não um quinto princípio; os requisitos normativos definem o que uma implementação satisfaz; a evidência decide o que pode ser afirmado. Entre uns e outros situam-se cinco invariantes arquitecturais, restrições que a arquitectura não pode violar: especificação aberta — regras, contratos e perfis públicos e versionados; independência de implementação — nenhuma implementação particular constitui o protocolo, e a de referência concretiza-o sem o definir; verificação independente — os artefactos publicados bastam a um terceiro para avaliar as condições aplicáveis sem depender de uma decisão privada; independência operacional — não é exigida infraestrutura central para transportar mensagens ou fundos; e separação de decisões — conformidade, certificação técnica, admissão num esquema, acordos operacionais e autorização regulatória são processos distintos."
         },
         {
           "t": "fig",
@@ -190,7 +190,7 @@
         },
         {
           "t": "p",
-          "text": "A adopção técnica consiste em implementar a especificação pública e satisfazer os contratos aplicáveis: não exige o código da referência, ligação a um serviço central, nem autorização prévia. Demonstrar conformidade, certificar, aderir a um esquema e operar num mercado são actos distintos. O BanzAI é interface humana de consulta e explicação, sem participar na determinação técnica. Os perfis L0–L4 da Secção {{sec:profiles}} são distintos das três camadas."
+          "text": "A adopção técnica consiste em implementar a especificação pública e satisfazer os contratos aplicáveis: não exige o código da referência, ligação a um serviço central nem autorização prévia. O BanzAI é interface humana de consulta e explicação, sem participar na determinação técnica, e a sua indisponibilidade não impede nenhuma operação do protocolo. Os perfis L0–L4 da Secção {{sec:profiles}} são níveis de conformidade, distintos das três camadas institucionais."
         }
       ]
     },
@@ -206,19 +206,19 @@
         },
         {
           "t": "p",
-          "text": "O L0 — Protocol Sandbox valida a configuração segura em ambiente de testes, com manifesto válido e representação monetária correcta. O L1 — Core Payment Capability acrescenta capacidades essenciais de pagamento e rastreabilidade. O L2 — Payment Initiation Capability acrescenta iniciação por pedido ou código QR dinâmico. O L3 — Inter-Operator Interoperability acrescenta requisitos e evidência de interoperabilidade entre operadores, incluindo condições técnicas de encaminhamento, liquidação e reconciliação — funções que continuam a ser executadas pelos operadores ou esquemas aplicáveis — e constitui o limiar de federação, exigindo evidência de mais de um operador."
+          "text": "O L0 — Protocol Sandbox valida a configuração segura em ambiente de testes, com manifesto válido e representação monetária correcta. O L1 — Core Payment Capability acrescenta capacidades essenciais de pagamento e rastreabilidade. O L2 — Payment Initiation Capability acrescenta iniciação por pedido ou código QR dinâmico. O L3 — Inter-Operator Interoperability acrescenta requisitos e evidência de interoperabilidade entre operadores — encaminhamento, liquidação e reconciliação, funções executadas pelos operadores ou esquemas aplicáveis — e constitui o limiar de federação."
         },
         {
           "t": "p",
-          "text": "As capacidades exigidas por cada perfil são identificadas por um vocabulário normativo comum, e a satisfação decide-se por comparação exacta dos identificadores publicados, sem normalização implícita. Os vectores públicos têm igualmente âmbito determinado pelo perfil: a associação entre caso e nível é declarada, não inferida."
+          "text": "As capacidades exigidas por cada perfil são identificadas por um vocabulário normativo comum, e a satisfação decide-se por comparação exacta dos identificadores publicados, sem normalização implícita; apenas os sinónimos normativamente definidos são aceites. Os vectores públicos têm âmbito determinado pelo perfil: a associação entre caso e nível é declarada, não inferida."
         },
         {
           "t": "p",
-          "text": "O L4 — External Interoperability herda integralmente o L3 e não acrescenta artefactos normativos universais próprios: os seus requisitos e evidência vêm de um perfil de interoperabilidade externa identificado por identificador e versão, e a demonstração limita-se a esse perfil. Satisfazer o L3 não satisfaz o L4 — sem perfil seleccionado o nível permanece por avaliar, e não aprovado — e à data desta edição nenhum perfil externo concreto está publicado."
+          "text": "O L4 — External Interoperability herda integralmente o L3 e não acrescenta artefactos normativos universais próprios: os seus requisitos e evidência vêm de um perfil de interoperabilidade externa identificado por identificador e versão, e a demonstração limita-se a esse perfil. Satisfazer o L3 não satisfaz o L4 — sem perfil seleccionado o nível permanece por avaliar, não aprovado — e nenhum perfil externo concreto está publicado."
         },
         {
           "t": "p",
-          "text": "Os níveis L0 a L2 podem ser aferidos num único operador. Um perfil de certificação é distinto: fixa um nível e as capacidades, contratos e pontos de acesso exigidos."
+          "text": "Os níveis L0 a L2 podem ser aferidos num único operador. Um perfil de certificação é distinto de um nível: fixa um nível e as capacidades, contratos e pontos de acesso exigidos, e é imutável depois de publicado."
         },
         {
           "t": "fig",
@@ -234,7 +234,7 @@
       "blocks": [
         {
           "t": "p",
-          "text": "Cada implementação publica os seus artefactos numa origem canónica controlada pelo operador [7]. A descoberta começa num caminho fixo sob essa origem e devolve o necessário para identificar a implementação, a versão, o perfil, os pontos de acesso, os metadados assinados e as chaves públicas. O Registo Técnico pode indexá-los, mas a sua presença não é aprovação nem substitui a avaliação."
+          "text": "Cada implementação publica os seus artefactos numa origem canónica controlada pelo operador [7]. A descoberta começa num caminho fixo sob essa origem e devolve o necessário para identificar a implementação, a versão, o perfil, os pontos de acesso, os metadados assinados e as chaves públicas. O Registo Técnico pode indexá-los, sem que a presença seja aprovação."
         },
         {
           "t": "fig",
@@ -242,15 +242,11 @@
         },
         {
           "t": "p",
-          "text": "A identidade e a integridade assentam em chaves publicadas e metadados assinados. A raiz de confiança não é uma chave: é um conjunto de três autoridades independentes, mantidas fora de linha, em que qualquer acção autorizada exige duas delas. O conjunto avança como uma linhagem — o conjunto génese é aceite apenas contra um digest que o verificador recebeu explicitamente, e cada conjunto seguinte é autorizado pelo limiar do conjunto que sucede, nomeando-o por digest. Um conjunto assinado pelas suas próprias chaves não autoriza nada. Daqui decorre a continuidade: perdida, comprometida ou obstrutiva uma autoridade, as duas restantes substituem-na sem a sua participação; abaixo do limiar a continuidade canónica fica bloqueada, sem chave de recuperação de uma só parte. O conjunto activo assina o Manifesto de Chaves com Ed25519 [6]; esse manifesto autoriza chaves delegadas por domínio, que assinam os artefactos correspondentes. A revogação e o controlo de validade rejeitam material revogado ou expirado."
+          "text": "A identidade e a integridade assentam em chaves publicadas e metadados assinados. A raiz de confiança não é uma chave: é um conjunto de três autoridades independentes, mantidas fora de linha, em que qualquer acção autorizada exige duas delas, distintas. O conjunto avança como uma linhagem. O génese tem sequência zero e nenhum predecessor, e é aceite apenas quando o seu digest é igual a um que o verificador recebeu explicitamente por configuração — confiança no primeiro uso é recusada. Cada conjunto seguinte avança a sequência uma unidade, nomeia o predecessor por digest e é autorizado por assinaturas de duas autoridades distintas do conjunto predecessor, verificadas com as chaves que este regista: o candidato não se autoriza a si mesmo. Daqui decorre a continuidade — perdida, comprometida ou obstrutiva uma autoridade, as duas restantes autorizam um sucessor que a substitui sem a sua participação, pois exigi-la tornaria o caminho três-de-três e dar-lhe-ia um veto sobre a própria substituição. Abaixo do limiar a continuidade canónica fica bloqueada: não existe chave-mestra de emergência nem via de uma só parte. O conjunto activo assina o Manifesto de Chaves com Ed25519 [6], que autoriza chaves delegadas por domínio; a revogação e o controlo de validade rejeitam material revogado ou expirado."
         },
         {
           "t": "p",
-          "text": "O material de confiança é versionado, e a validade não distingue por si só a versão corrente de uma anterior ainda dentro do seu período. O verificador conserva, por isso, estado sobre o que já observou: aceite material num ponto de ordenação, uma regressão posterior é rejeitada; a reapresentação do mesmo ponto com o mesmo input de assinatura é uma observação idempotente; conteúdo distinto no mesmo ponto é conflito local e é igualmente rejeitado, para que o resultado não dependa da ordem de obtenção. A propriedade é local ao estado de cada verificador: não constitui transparência global nem consistência entre observadores."
-        },
-        {
-          "t": "p",
-          "text": "O módulo de obtenção segura resolve o alvo a partir da origem canónica e aplica as restrições de segurança definidas pelo protocolo."
+          "text": "O material de confiança é versionado, e a validade não distingue por si só a versão corrente de uma anterior ainda dentro do seu período. O verificador conserva, por isso, estado sobre o que já observou. Aceite material num ponto de ordenação: um ponto inferior é rejeitado; um superior e válido passa a ser o estado aceite; o mesmo ponto com o mesmo input de assinatura é observação idempotente; conteúdo distinto no mesmo ponto é equivocação, fecha por omissão e deixa o estado inalterado, para que o resultado não dependa da ordem de obtenção. A propriedade é local: dá protecção contra regressão e detecção de conflito no mesmo ponto, e não estabelece história pública verificável, transparência global nem consistência entre observadores. O transporte não define confiança — a autoridade vem do material assinado e da linhagem que o autoriza, não da origem que o entregou nem da ordem de chegada."
         }
       ]
     },
@@ -262,15 +258,15 @@
       "blocks": [
         {
           "t": "p",
-          "text": "A validação segue uma jornada fixa de oito passos técnicos e um de agregação, executados por motores determinísticos, cada um com um de quatro estados: verificado, pendente, falhado ou bloqueado. A avaliação adopta fecho por omissão — evidência ausente, expirada ou inconsistente nunca produz aprovação — e a prontidão para certificação exige todos os passos do perfil verificados, sem constituir certificação."
+          "text": "A validação segue uma jornada fixa de oito passos técnicos e um de agregação, executados por motores determinísticos. Cada passo termina num de quatro estados terminais — verificado, pendente, falhado ou bloqueado —, e nenhum estado transitório é selado num recibo. A avaliação adopta fecho por omissão — evidência ausente, expirada ou inconsistente nunca produz aprovação — e a prontidão para certificação exige todos os passos do perfil verificados, sem constituir certificação."
         },
         {
           "t": "p",
-          "text": "A separação entre determinação e explicação existe também dentro do resultado: o estado determina o desfecho técnico, o código de motivo explica-o. Um consumidor conforme deriva o comportamento do estado e nunca altera um veredicto por causa de um código, o que permite alargar o vocabulário explicativo sem alterar decisões; e porque estados e códigos são públicos, implementações independentes alcançam resultados semanticamente equivalentes sobre as mesmas entradas. O BanzAI apresenta e explica, sem alterar. A certificação técnica é um processo distinto, que associa uma implementação a um perfil público versionado."
+          "text": "A separação entre determinação e explicação existe também dentro do resultado: o estado determina o desfecho técnico, o código de motivo explica-o. Um consumidor conforme deriva o comportamento do estado, nunca altera um veredicto por causa de um código e não rejeita um artefacto por não reconhecer um; códigos de extensão são preservados num espaço de nomes próprio e nunca interpretados. O vocabulário explicativo pode assim alargar-se sem alterar decisões, e porque estados e códigos são públicos, implementações independentes alcançam resultados semanticamente equivalentes sobre as mesmas entradas."
         },
         {
           "t": "p",
-          "text": "O comportamento exigido é verificável a partir de material publicado: os contratos definem entradas, saídas e estados observáveis, e os vectores públicos fixam casos com resultado esperado. Para as operações idempotentes, a especificação define o âmbito da chave, o que faz de dois pedidos o mesmo pedido, a reutilização conflituosa e a retenção mínima — comportamento operacional observável, e não apenas critérios de avaliação."
+          "text": "O comportamento exigido é verificável a partir de material publicado: os contratos definem entradas, saídas e estados observáveis, e os vectores públicos fixam casos com resultado esperado. Para as operações idempotentes, a especificação define o âmbito da chave — implementação receptora, chamador autenticado e operação —, o que faz de dois pedidos o mesmo pedido, a reutilização conflituosa e a retenção mínima."
         },
         {
           "t": "fig",
@@ -278,7 +274,7 @@
         },
         {
           "t": "p",
-          "text": "A Figura {{fig:example}} mostra a avaliação direccional de uma implementação B por um avaliador A: B publica o seu material, A obtém os artefactos pela origem canónica e avalia localmente. O BANZA fornece a base técnica verificável; a utilização operacional do resultado continua sob a política de A."
+          "text": "A Figura {{fig:example}} mostra a avaliação direccional de uma implementação B por um avaliador A: B publica o seu material, A obtém os artefactos pela origem canónica e avalia localmente. A utilização operacional do resultado continua sob a política de A."
         },
         {
           "t": "fig",
@@ -294,7 +290,7 @@
       "blocks": [
         {
           "t": "p",
-          "text": "Cada validação produz resultados, recibos e evidência verificável. Os recibos registam os passos e associam cada resultado à versão, ao perfil, aos artefactos consumidos, aos seus resumos criptográficos e aos códigos de motivo, permitindo confirmar ou reproduzir a base técnica da avaliação."
+          "text": "Cada validação produz resultados, recibos e evidência verificável. Os recibos registam os passos e associam cada resultado à versão, ao perfil, aos artefactos consumidos, aos seus resumos e aos códigos de motivo, permitindo reproduzir a base técnica da avaliação."
         },
         {
           "t": "fig",
@@ -302,7 +298,11 @@
         },
         {
           "t": "p",
-          "text": "Um recibo representa o estado observado no instante da avaliação; alterações posteriores exigem nova avaliação. O Pacote de Evidências reúne os artefactos e referências que sustentam o resultado, sem constituir certificação nem atribuir estatuto operacional. A ausência de uma entrada no Registo Técnico não é proibição e a presença não é autorização. A verificação independente exige que a evidência baste para um terceiro repetir os passos aplicáveis sem depender de nenhuma decisão privada."
+          "text": "Um recibo representa o estado observado no instante da avaliação; alterações posteriores exigem nova avaliação. O Pacote de Evidências reúne o material que sustenta o resultado, sem constituir certificação nem atribuir estatuto operacional: no Registo Técnico, a ausência não é proibição e a presença não é autorização. A verificação independente exige que a evidência baste para um terceiro repetir os passos aplicáveis sem depender de nenhuma decisão privada."
+        },
+        {
+          "t": "p",
+          "text": "O mesmo critério aplica-se ao desenvolvimento do protocolo. Um teste é evidência apenas quando demonstra a propriedade reivindicada pela razão pretendida. Cada propriedade crítica é por isso avaliada em camadas independentes, da autoridade normativa à representação na comunicação, à imposição pela implementação, ao comportamento sob estado, falha e ataque, e à derivabilidade por uma equipa sem acesso aos motores: nenhuma camada valida a si própria e uma superior não compensa a falha de uma inferior. Daqui decorrem categorias que não se implicam: especificado, implementado, internamente assegurado, independentemente implementado e operacionalmente demonstrado."
         }
       ]
     },
@@ -314,15 +314,15 @@
       "blocks": [
         {
           "t": "p",
-          "text": "O modelo de ameaças associa a cada ameaça um mecanismo determinado: a adulteração de artefactos é detectada por assinaturas e resumos criptográficos; uma origem inválida é excluída pela resolução a partir da origem canónica e pela validação da obtenção segura; material revogado ou expirado é rejeitado; a repetição de desafios é impedida por desafios de uso único; a SSRF e a reassociação de DNS são bloqueadas pelo endurecimento da obtenção remota; evidência ausente ou inconsistente conduz a fecho por omissão; e a observação monotónica protege contra regressão e contra conteúdo conflituoso no mesmo ponto de ordenação, dentro dos limites já enunciados. Nenhum destes mecanismos depende de confiança implícita na origem ou no operador avaliado."
+          "text": "O modelo de ameaças associa a cada ameaça um mecanismo: a adulteração é detectada por assinaturas e resumos; uma origem inválida é excluída pela resolução a partir da origem canónica; material revogado ou expirado é rejeitado; a repetição de desafios é impedida por desafios de uso único; a SSRF e a reassociação de DNS são bloqueadas pelo endurecimento da obtenção remota; evidência ausente ou inconsistente conduz a fecho por omissão; e a observação monotónica protege contra regressão e conflito no mesmo ponto de ordenação. Nenhum depende de confiança implícita na origem, e nenhum substitui os restantes: a assinatura estabelece autenticidade, a validade e a revogação dizem se o material é utilizável agora, e o estado monotónico impede que material antigo, ainda válido, substitua material mais recente já observado."
         },
         {
           "t": "p",
-          "text": "Estas propriedades distinguem-se e não se substituem: a assinatura estabelece autenticidade; a validade e a revogação, se o material é utilizável agora; o estado monotónico impede que material antigo, correctamente assinado e ainda válido, substitua material mais recente já observado, e detecta conteúdos distintos no mesmo ponto de ordenação. Nenhuma fornece história pública verificável ou consistência entre observadores, e numa primeira observação a antiguidade não é detectável."
+          "text": "O módulo de obtenção segura é o único componente que acede aos pontos de acesso do operador. O alvo é resolvido a partir da origem canónica, nunca de uma URL arbitrária fornecida pelo chamador; o módulo aceita apenas HTTPS, bloqueia endereços privados, locais ou de metadados de nuvem, liga-se apenas a endereços previamente validados, não segue redireccionamentos, valida TLS e limita as respostas — requisitos observáveis, independentes da tecnologia interna."
         },
         {
           "t": "p",
-          "text": "O módulo de obtenção segura é o único componente que acede aos pontos de acesso do operador. O alvo é resolvido a partir da origem canónica, nunca de uma URL arbitrária fornecida pelo chamador; o módulo aceita apenas HTTPS, bloqueia endereços privados, locais ou de metadados de plataformas de nuvem, liga-se apenas a endereços previamente validados, não segue redireccionamentos, valida TLS e limita as respostas. São requisitos observáveis, independentes de qualquer tecnologia interna."
+          "text": "A resiliência é tratada com o mesmo rigor e subordinada à segurança. As classes de falha consideradas vão da falha de um processo, do estado persistido ou de uma dependência externa à indisponibilidade de um par, à incerteza da rede e à entrega duplicada que dela decorre, à falha de publicação do material de confiança e à perda de uma autoridade da raiz. O comportamento pretendido é uma progressão — operação normal, operação degradada mas segura, fecho por omissão localizado e recuperação determinística —, contida onde as dependências o permitam. Mas falhar localmente não é continuar de forma insegura: quando a confiança, a autorização, a integridade ou a correcção não podem ser estabelecidas, a resposta correcta é recusar. Segurança antes de disponibilidade — nenhuma indisponibilidade autoriza aceitar material não assinado, estender uma validade expirada ou baixar um limiar, e uma falha nunca deve converter-se numa violação do protocolo."
         }
       ]
     },
@@ -334,11 +334,11 @@
       "blocks": [
         {
           "t": "p",
-          "text": "O BANZA evolui através de instrumentos públicos e versionados: os RFC estruturam propostas, os ADR registam decisões de arquitectura. O versionamento é explícito — alterações incompatíveis exigem nova versão maior, compatíveis entram em versões menores ou de correcção. Cada implementação declara a versão e o perfil que adopta, e um perfil de certificação é imutável depois de publicado."
+          "text": "O BANZA evolui através de instrumentos públicos e versionados: os RFC estruturam propostas, os ADR registam decisões de arquitectura. O versionamento é explícito — alterações incompatíveis exigem nova versão maior, compatíveis entram em versões menores ou de correcção — e cada implementação declara a versão e o perfil que adopta."
         },
         {
           "t": "p",
-          "text": "A abertura do protocolo não elimina a governação, mas esta determina como as regras evoluem sem tornar o responsável pela manutenção do protocolo um intermediário técnico entre implementações. Implementar uma versão publicada é distinto de ter autoridade para a alterar: a conformidade exige satisfazer os contratos aplicáveis, enquanto alterar as regras segue o processo público de decisão e versionamento."
+          "text": "A abertura do protocolo não elimina a governação, mas esta determina como as regras evoluem sem tornar o responsável pela manutenção um intermediário técnico entre implementações: implementar uma versão publicada é distinto de ter autoridade para a alterar."
         },
         {
           "t": "fig",
@@ -362,7 +362,7 @@
         },
         {
           "t": "p",
-          "text": "Em segundo lugar, aplicam-se ao que é observado: a reprodutibilidade cobre avaliações determinísticas sobre as entradas declaradas, não controlos internos do operador nem comportamento fora do protocolo, e uma origem ou chave comprometida só é detectável quando o comprometimento se manifesta em sinais observáveis ou em revogação."
+          "text": "Em segundo lugar, aplicam-se ao que é observado: a reprodutibilidade cobre avaliações determinísticas sobre as entradas declaradas, não controlos internos do operador nem comportamento fora do protocolo, e uma origem ou chave comprometida só é detectável quando se manifesta em sinais observáveis ou em revogação."
         },
         {
           "t": "p",
@@ -370,7 +370,7 @@
         },
         {
           "t": "p",
-          "text": "Em quarto lugar, algumas fronteiras decorrem do desenho actual: o material de confiança é publicado num único ponto canónico, sem réplicas, e o fecho por omissão preserva a correcção da decisão mas a indisponibilidade de material fresco pode impedir uma nova avaliação; o estado monotónico da Secção {{sec:discovery}} é local a cada verificador e não estabelece consistência entre observadores; e sem perfil externo concreto publicado o L4 não foi ainda demonstrado. Por fim, a evidência aqui apresentada é arquitectural: demonstra mecanismos na implementação de referência e não mede desempenho, escala ou adopção. Um ensaio de completude verificou que o pacote público do perfil L0 é suficiente e fechado sobre si mesmo, o que não demonstra que uma equipa externa consiga implementar a partir dele, e não é demonstrada interoperabilidade em produção entre organizações não relacionadas."
+          "text": "Em quarto lugar, algumas fronteiras decorrem do desenho desta versão. A distribuição redundante de artefactos já assinados resolveria disponibilidade e não está definida na 1.0.0: o material de confiança é publicado num único ponto canónico, e o fecho por omissão preserva a correcção da decisão, mas a indisponibilidade de material fresco pode impedir uma nova avaliação. O estado monotónico da Secção {{sec:discovery}} é local, não estabelece consistência entre observadores, e numa primeira observação a antiguidade não é detectável. Sem perfil externo publicado, o L4 permanece por avaliar. Por fim, a evidência aqui apresentada é arquitectural: demonstra mecanismos na implementação de referência e não mede desempenho, escala, disponibilidade em produção nem adopção."
         }
       ]
     },
@@ -386,15 +386,11 @@
         },
         {
           "t": "p",
-          "text": "A superfície normativa está explicitamente indexada, e o conjunto exigido por cada perfil deriva dessa indexação. A partir dela preparou-se uma distribuição pública para o perfil L0, sem código da referência; um ensaio de completude verificou que o material é fechado sobre si mesmo, resolvendo todas as referências internamente, sem requisitos dependentes do repositório de origem, dos registos de decisão ou do BanzAI, e identificou questões reais, entretanto corrigidas."
+          "text": "A superfície normativa está explicitamente indexada, e o conjunto exigido por cada perfil deriva dessa indexação. A partir dela derivou-se material de sala limpa para o perfil L0, sem código da referência, e uma verificação interna — que identificou questões reais, entretanto corrigidas — concluiu que é fechado sobre si mesmo, resolvendo todas as referências sem depender do repositório de origem, dos registos de decisão ou do BanzAI. É material derivado e internamente validado: à data desta edição, o estado exacto a fixar como alvo do ensaio externo não foi ainda seleccionado nem congelado, e nenhum pacote de ensaio foi publicado como artefacto final."
         },
         {
           "t": "p",
-          "text": "A completude de uma distribuição e a capacidade de implementação independente são propriedades distintas: a primeira foi verificada, a segunda não, e permanece por demonstrar através de uma implementação de terceiros construída sem recurso ao código da referência. A interoperabilidade entre implementações independentes, a integração efectiva com infraestruturas externas e a utilização em ambientes operacionais reais permanecem, por isso, objectivos de validação experimental e não resultados já estabelecidos."
-        },
-        {
-          "t": "p",
-          "text": "Para demonstrar de forma convincente a independência de implementação, será necessária uma implementação externa construída a partir das especificações e dos contratos públicos, sem recorrer ao código da referência, capaz de satisfazer os vectores de conformidade aplicáveis e de participar numa avaliação direccional com outra implementação, produzindo resultados semanticamente equivalentes e evidência verificável. O sucesso desse ensaio demonstrará capacidade de implementação independente, mas continuará a não equivaler a autorização regulatória, adesão a um esquema ou utilização em produção."
+          "text": "Completude de um pacote e capacidade de implementação independente são propriedades distintas: a primeira foi verificada internamente, a segunda não. Demonstrá-la exige uma implementação construída por uma equipa genuinamente independente, a partir das especificações e dos contratos públicos, capaz de satisfazer os vectores aplicáveis e de participar numa avaliação direccional com outra implementação. Esse ensaio ainda não começou, nenhuma verificação interna o substitui, e o seu sucesso continuará a não equivaler a autorização regulatória, adesão a um esquema ou utilização em produção."
         }
       ]
     },
@@ -406,34 +402,25 @@
       "blocks": [
         {
           "t": "p",
-          "text": "Este trabalho apresentou o BANZA como um protocolo aberto de interoperabilidade financeira cuja definição não depende de qualquer implementação particular e cuja conformidade se avalia por mecanismos determinísticos e evidência verificável, sem infraestrutura central obrigatória para mensagens ou fundos."
-        },
-        {
-          "t": "p",
-          "text": "As principais contribuições são:"
+          "text": "Este trabalho apresentou o BANZA como um protocolo aberto de interoperabilidade financeira cuja definição não depende de nenhuma implementação particular. As contribuições principais são:"
         },
         {
           "t": "list",
           "items": [
             "avaliação de implementações segundo versões e perfis públicos, e não de entidades em abstracto, com a conformidade a depender do comportamento observável e não da origem do código;",
-            "separação entre protocolo, certificação e esquemas operacionais, mantendo distintas conformidade técnica, admissão, acordos operacionais e autorização regulatória;",
-            "uma superfície normativa pública, versionada e explicitamente indexada, com representação canónica determinística para os artefactos assinados ou resumidos;",
-            "semântica de execução pública — estados, códigos de motivo, idempotência — e vectores de conformidade com âmbito declarado por perfil;",
+            "separação entre protocolo, certificação e esquemas operacionais, mantendo distintas conformidade técnica, admissão, acordos operacionais e autorização regulatória, e distinguindo determinação técnica, decisão operacional e explicação assistida pelo BanzAI;",
+            "uma superfície normativa pública, versionada e explicitamente indexada, com representação canónica determinística e semântica de execução pública — estados, códigos de motivo, idempotência — e vectores com âmbito declarado por perfil;",
             "validação determinística ligada às entradas por resumos criptográficos, recibos e evidência verificável, com perfis cumulativos e fecho por omissão;",
-            "separação entre determinação técnica, decisão operacional e explicação assistida pelo BanzAI."
+            "uma raiz de confiança que é um conjunto de autoridades com limiar e sucessão autorizada pelo predecessor, e não uma chave única, cuja continuidade nunca depende de uma só parte."
           ]
         },
         {
           "t": "p",
-          "text": "Estas contribuições assentam nos cinco invariantes arquitecturais enunciados na Secção {{sec:architecture}} — especificação aberta, independência de implementação, verificação independente, independência operacional e separação de decisões — que permanecem os critérios pelos quais o protocolo deve ser avaliado."
+          "text": "Assentam nos cinco invariantes arquitecturais da Secção {{sec:architecture}} — especificação aberta, independência de implementação, verificação independente, independência operacional e separação de decisões —, que permanecem os critérios pelos quais a arquitectura deve ser avaliada, e articulam-se com os restantes planos sem se confundirem: os princípios \\textbf{R\\textsuperscript{2}S\\textsuperscript{2}} orientam a concepção, as propriedades estruturais caracterizam o protocolo, os invariantes delimitam a arquitectura admissível, os requisitos definem a conformidade e a evidência em camadas determina o que pode ser afirmado."
         },
         {
           "t": "p",
-          "text": "Estas propriedades definem uma direcção arquitectural, e não uma maturidade já atingida: as fronteiras enunciadas na Secção {{sec:limitations}} continuam por levantar. O trabalho futuro deverá testar directamente a independência de implementação através de equipas distintas, avaliar a interoperabilidade resultante e medir a reprodutibilidade entre avaliadores, o desempenho, a escalabilidade, os custos de integração e a aplicação de perfis de interoperabilidade externa."
-        },
-        {
-          "t": "p",
-          "text": "Em síntese, o BANZA torna pública e verificável a base técnica da interoperabilidade sem se tornar um intermediário operacional obrigatório: diferentes implementações adoptam a mesma especificação, demonstram que satisfazem os requisitos aplicáveis e produzem evidência que terceiros podem reproduzir."
+          "text": "Definem uma direcção arquitectural e não uma maturidade atingida: as fronteiras da Secção {{sec:limitations}} continuam por levantar, e é sobre elas que incide o trabalho futuro — uma implementação independente construída por uma equipa externa, a interoperabilidade entre implementações assim obtidas, e a medição da reprodutibilidade, do desempenho, da escala e dos perfis externos."
         }
       ]
     }
@@ -476,7 +463,7 @@
       "file_en": "fig4-profiles.en.svg",
       "label": "fig:profiles",
       "title": "Os níveis de conformidade cumulativos L0–L4",
-      "caption": "Os perfis são cumulativos. L3 acrescenta evidência entre operadores e o limiar técnico de federação. O L4 herda o L3 e não acrescenta artefactos universais próprios: os seus requisitos e evidência provêm do perfil de interoperabilidade externa seleccionado, pelo que satisfazer o L3 não satisfaz o L4.",
+      "caption": "Os perfis são cumulativos. L3 acrescenta evidência entre operadores e o limiar técnico de federação; L4 herda-o e depende do perfil externo seleccionado.",
       "alt": "Uma escada de cinco degraus, de L0 na base a L4 no topo, cada degrau anotado com as capacidades que acrescenta; L3 marcado como limiar de federação e L4 como definido por perfil."
     },
     {
