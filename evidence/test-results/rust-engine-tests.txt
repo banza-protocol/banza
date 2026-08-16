@@ -7,15 +7,21 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 35 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 21 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
-test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 21 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 --- banza-conformance
@@ -23,6 +29,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
@@ -38,6 +45,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 --- banza-operator-manifest
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 --- banza-l1-readiness
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
@@ -66,7 +74,8 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 --- banza-root-ceremony
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
-test result: ok. 17 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 18 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 --- operator-zero-core
 test result: ok. 33 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
@@ -94,12 +103,13 @@ test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
-test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out

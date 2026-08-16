@@ -78,12 +78,13 @@ outputs, hashes e baseline **conscientemente** (regra stale-guard: actualiza-se 
 nunca se deforma o documento para satisfazer um guard antigo — e nunca se muda o baseline só porque
 um renderer produziu inesperadamente outro número).
 
-Baseline congelado actual (v1.0, edição Overleaf fiel):
+Baseline congelado actual (v1.0, **reconciliação técnica integral** — a edição foi reconciliada
+contra a verdade normativa corrente do repositório; ver a nota de sincronização Overleaf abaixo):
 
 | Edição | PDF | Páginas | SHA-256 |
 |---|---|---|---|
-| PT (canónica) | `banza-whitepaper-v1.0-pt.pdf` | 12 | `a39d5be6aaf48c192683c3dcfc2ab147a64b21bcc9d2afbd6a1f5bd14494e25b` |
-| EN (tradução oficial) | `banza-whitepaper-v1.0-en.pdf` | 12 | `311e6a9f3ec6a55d3f26355a2dd3beae5b5d2d520e15939927037c062582a44a` |
+| PT (canónica) | `banza-whitepaper-v1.0-pt.pdf` | 12 | `8e606d83dec4a535812d9a3b5e60f03499949a980f4c909281827a9967cb2ae4` |
+| EN (tradução oficial) | `banza-whitepaper-v1.0-en.pdf` | 12 | `629c9233c857d4e3ebfa7518620cf51db88d94285ebf7f068bea862e1d381077` |
 
 Wording congelado da edição activa: PT contém «configuração segura do protocolo»; zero
 «instanciação segura» e zero «instantâneo de observação» (âmbito: Whitepaper activo — não repo-wide).
@@ -120,6 +121,20 @@ Cada publicação futura reporta e exige `candidate = origin = edge`:
 correctos; só depois investigar CDN/cache/browser. Filenames públicos preservados
 (`banza-whitepaper-v1.0-{pt,en}.pdf`) salvo decisão explícita; cache-busting só por mecanismo
 controlado.
+
+### Sincronização Overleaf da reconciliação técnica
+
+A reconciliação técnica integral desta edição foi preparada **no dossier do repositório** e verificada
+(12 pp PT + 12 pp EN, paridade estrutural, rebuild byte-idêntico). O dossier em
+`docs/whitepaper/latex/` **é** o projecto Overleaf: `whitepaper.pt.tex`, `whitepaper.en.tex`,
+`references.bib`, `copernicus.{cls,cfg}`, `copernicus.bst` e `figures/`.
+
+Para manter **uma única fonte editorial** e fechar o ciclo de governação, o dossier verificado deve ser
+carregado para o projecto Overleaf canónico, ficando Overleaf e repositório byte-idênticos por
+construção. Esta é a única etapa do fluxo que não é executável a partir do repositório — o Overleaf é
+um serviço externo autenticado, sem sincronização automatizada configurada aqui. Enquanto não for
+feita, a fonte canónica de facto é o dossier do repositório, e **não deve ser criada uma segunda
+edição PT mantida independentemente no Overleaf**.
 
 ### Checklist para uma futura revisão editorial
 
