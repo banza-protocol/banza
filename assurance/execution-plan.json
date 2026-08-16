@@ -79,11 +79,6 @@
       "stratum": "M1"
     },
     {
-      "target": "public-claims-evidence",
-      "role": "READ_ONLY_CHECK",
-      "stratum": "M1"
-    },
-    {
       "target": "tools/collect-execution-evidence.sh",
       "role": "EVIDENCE_PRODUCER",
       "stratum": "M2"

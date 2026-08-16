@@ -40,6 +40,10 @@ else
 fi
 mkdir -p "$EV"/{claims,test-results,security,federation,determinism}
 
+# Snapshot of tracked evidence before anything runs, so the purity assertion at the end can tell
+# "the tree was already dirty" from "this command dirtied it".
+DIRTY_BEFORE="$(git status --porcelain -- "$TRACKED" 2>/dev/null | grep -v '^??' || true)"
+
 fail=0
 note() { printf '  %s\n' "$1"; }
 
@@ -189,6 +193,18 @@ PY
 
 echo
 if [ "$fail" -ne 0 ]; then echo "public-claims-evidence: ✗ FAIL"; exit 1; fi
+
+# Purity is asserted here rather than by the assurance purity guard. That guard runs each subject in an
+# isolated worktree, where cargo has no cache, so this battery would rebuild eighteen crates from cold
+# on every assurance run — a check painful enough to get worked around is worse than one that is cheap
+# and honest. This costs nothing and runs everywhere the check runs, including CI.
+if [ "$MODE" = check ]; then
+  if [ -n "$(git status --porcelain -- "$TRACKED" 2>/dev/null | grep -v '^??' || true)" ] \
+     && [ -z "$DIRTY_BEFORE" ]; then
+    echo "public-claims-evidence: ✗ PURITY VIOLATION — verification modified $TRACKED/" >&2
+    exit 1
+  fi
+fi
 if [ "$MODE" = generate ]; then
   echo "public-claims-evidence: ✓ battery green; tracked bundle regenerated"
 else
