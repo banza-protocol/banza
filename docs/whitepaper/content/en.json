@@ -166,7 +166,7 @@
         },
         {
           "t": "p",
-          "text": "Design decisions follow four Fundamental Principles, named \\textbf{BANZA R\\textsuperscript{2}S\\textsuperscript{2}} — Robust, Resilient, Secure and Simple —, where R\\textsuperscript{2} stands for the two principles beginning with R and S\\textsuperscript{2} for the two beginning with S. Robust is to remain correct and deterministic under independent implementation, adversarial input and boundary conditions. Resilient is to contain failures, preserve safe operation where possible and recover deterministically without weakening guarantees — a safe refusal may be the resilient behaviour. Secure is to enforce critical properties by construction and fail closed when they cannot be established. Simple is to use the smallest mechanism sufficient for the required property. They are decision criteria, not desirable qualities: resilience does not override security, nor promise continuous availability."
+          "text": "Design decisions follow four Fundamental Principles, named BANZA R²S² — Robust, Resilient, Secure and Simple —, where R² stands for the two principles beginning with R and S² for the two beginning with S. Robust is to remain correct and deterministic under independent implementation, adversarial input and boundary conditions. Resilient is to contain failures, preserve safe operation where possible and recover deterministically without weakening guarantees — a safe refusal may be the resilient behaviour. Secure is to enforce critical properties by construction and fail closed when they cannot be established. Simple is to use the smallest mechanism sufficient for the required property. They are decision criteria, not desirable qualities: resilience does not override security, nor promise continuous availability."
         },
         {
           "t": "p",
@@ -407,7 +407,7 @@
             "a model of deterministic and reproducible conformance, based on canonical representation, statuses, reason codes, idempotency, vectors, receipts and evidence bound to the inputs evaluated;",
             "the separation between protocol, implementation, technical conformance, certification, scheme operation and regulatory authorisation, preventing a decision in one plane from propagating to the others;",
             "a trust architecture with three authorities and a 2-of-3 threshold, pinned genesis, predecessor-authorised succession, rollback protection and no unilateral recovery;",
-            "a progressive adoption through the L0–L4 profiles, guided by the \\textbf{BANZA R\\textsuperscript{2}S\\textsuperscript{2}} principles — Robust, Resilient, Secure and Simple — and by the five Architectural Invariants."
+            "a progressive adoption through the L0–L4 profiles, guided by the BANZA R²S² principles — Robust, Resilient, Secure and Simple — and by the five Architectural Invariants."
           ]
         },
         {

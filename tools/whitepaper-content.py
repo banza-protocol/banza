@@ -19,6 +19,9 @@ import json, re, sys
 LANG = next((a for a in sys.argv[1:] if not a.startswith('-')), 'pt')
 assert LANG in ('pt', 'en'), 'usage: whitepaper-content.py pt|en [--check]'
 
+SUPERSCRIPT = str.maketrans('0123456789', '⁰¹²³⁴⁵⁶⁷⁸⁹')
+MAX_MARKUP_NESTING = 8
+
 SRC = 'docs/whitepaper/latex/whitepaper.%s.tex' % LANG
 OLD = 'docs/whitepaper/content/%s.json' % LANG
 OUT = OLD
@@ -42,8 +45,16 @@ def conv(t):
     t = t.replace('~', '\u00a0')
     t = t.replace('---', '\u2014').replace('--', '\u2013')
     t = re.sub(r'\\enquote\{([^{}]*)\}', '\u00ab\\1\u00bb', t)
-    for cmd in ('emph', 'textit', 'textbf'):
-        t = re.sub(r'\\%s\{([^{}]*)\}' % cmd, r'\1', t)
+    # Superscripts resolve to their character before any font command is stripped: the web edition has
+    # no typographic layer, and R\textsuperscript{2} left as a macro reaches the reader verbatim.
+    t = re.sub(r'\\textsuperscript\{([0-9]+)\}',
+               lambda m: m.group(1).translate(SUPERSCRIPT), t)
+    # Innermost-first, repeated to a fixed point: \textbf{R\textsuperscript{2}} is one command nested in
+    # another, and a single pass over brace-free arguments cannot see the outer one.
+    for _ in range(MAX_MARKUP_NESTING):
+        t, n = re.subn(r'\\(?:emph|textit|textbf)\{([^{}]*)\}', r'\1', t)
+        if not n:
+            break
     t = re.sub(r'\\url\{([^}]*)\}', r'\1', t)
     t = t.replace(r'\&', '&').replace(r'\%', '%').replace(r'\#', '#')
     t = re.sub(r'[ \t\r\n]+', ' ', t).strip()
@@ -133,12 +144,34 @@ for f in new['figures']:
     if f['id'] in caption_updates:
         f['caption'] = caption_updates[f['id']]
 
-# sanity: no residual latex markers in any text
+# No residual LaTeX outside maths. The web edition has no typographic layer, so a text-formatting
+# command that survives conversion is printed to the reader verbatim, braces and all. Maths is the one
+# exception: \(...\) spans are passed through deliberately and rendered downstream.
+# Maths spans and {{eq:…}}/{{sec:…}}/{{fig:…}} cross-reference placeholders are deliberate output,
+# resolved downstream; everything else with a backslash or a brace is leftover markup.
+MATH_SPAN = re.compile(r'\\\(.*?\\\)|\{\{(?:eq|sec|fig):[a-z0-9-]+\}\}', re.S)
+RESIDUAL_MACRO = re.compile(r'\\[A-Za-z]+|[{}]')
+residual = []
 for sec in new_secs:
     for b in sec['blocks']:
-        for txt in ([b.get('text')] if b['t'] == 'p' else b.get('items', []) if b['t'] == 'list' else []):
-            if txt:
-                assert '\\' not in txt.replace('\\(', '').replace('\\)', '').replace('\\,', '') or True
+        texts = ([b.get('text')] if b['t'] == 'p'
+                 else b.get('items', []) if b['t'] == 'list' else [])
+        for txt in texts:
+            if not txt:
+                continue
+            hit = RESIDUAL_MACRO.search(MATH_SPAN.sub('', txt))
+            if hit:
+                residual.append((sec['id'], hit.group(0), txt[max(0, hit.start() - 40):hit.start() + 40]))
+for f in new['figures']:
+    hit = RESIDUAL_MACRO.search(MATH_SPAN.sub('', f.get('caption') or ''))
+    if hit:
+        residual.append((f['id'], hit.group(0), f['caption'][:80]))
+if residual:
+    print('whitepaper-content: residual LaTeX would reach the reader in %s.json:' % LANG, file=sys.stderr)
+    for where, tok, ctx in residual:
+        print('  %-28s %-20s …%s…' % (where, tok, ctx.strip()), file=sys.stderr)
+    print('  Add a conversion rule in conv(); do not hand-edit the derived JSON.', file=sys.stderr)
+    sys.exit(1)
 if '--check' in sys.argv:
     import io
     cur = open(OUT).read()
