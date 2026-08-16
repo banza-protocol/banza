@@ -201,7 +201,7 @@ O ecossistema organiza-se em três camadas, separadas por responsabilidade, infr
 
 A dependência corre numa única direcção permanente: os operadores dependem do BANZA; o BANZA e o BanzAI nunca dependem de nenhum operador. Esta direcção é um invariante arquitectónico, não uma preferência de design.
 
-A especificação v1.0 está congelada e o ambiente é de pré-produção: o Registo Técnico devolve uma lista vazia, não há certificações de produção e os pagamentos reais estão desligados. Este estado é verificável nas rotas públicas do protocolo e documentado em [§5 Estado Protocolar](#5-estado-protocolar).
+A especificação v1.0 está publicada e o ambiente é de pré-produção: o Registo Técnico devolve uma lista vazia, não há certificações de produção e os pagamentos reais estão desligados. Publicada não é congelada — o congelamento é uma decisão deliberada sobre um candidato exacto, e não foi tomada. Este estado é verificável nas rotas públicas do protocolo e documentado em [§5 Estado Protocolar](#5-estado-protocolar).
 
 ### Onde Continuar
 
