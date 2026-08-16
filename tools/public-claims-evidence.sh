@@ -128,7 +128,7 @@ echo "== [4/4] Bundle manifest =="
 if grep -rqE "BEGIN [A-Z ]*PRIVATE KEY|-----BEGIN (RSA|EC|OPENSSH)" "$EV" 2>/dev/null; then
   echo "  ✗ SECRET MATERIAL in the evidence bundle — refusing to write manifest"; exit 1; fi
 MODE="$MODE" EV="$EV" TRACKED="$TRACKED" python3 - <<'PY' || fail=1
-import json, subprocess, hashlib, os, sys
+import json, subprocess, hashlib, os, re, sys
 mode, ev, tracked = os.environ['MODE'], os.environ['EV'], os.environ['TRACKED']
 commit=subprocess.run(['git','rev-parse','HEAD'],capture_output=True,text=True).stdout.strip()
 claims=json.load(open(os.path.join(ev,'claims','claims-matrix.json')))
@@ -175,9 +175,17 @@ for path in sorted(set(hf) | set(ff)):
 for k in ('claim_totals','load_bearing'):
     if have.get(k)!=fresh[k]:
         problems.append("%s differs: declared %r, actual %r" % (k, have.get(k), fresh[k]))
+# Provenance. The shape is always checkable; whether the object is present locally is an
+# environment fact, not an integrity one — CI checks out shallow, so a perfectly valid commit is
+    # simply absent there. Asserting presence unconditionally failed CI for a bundle whose digests all
+# matched, which is a false negative in exactly the place the gate is supposed to be trusted.
 gc=have.get('git_commit','')
-if not gc or subprocess.run(['git','cat-file','-e','%s^{commit}'%gc],capture_output=True).returncode!=0:
-    problems.append("git_commit is missing or not a commit in this repository: %r" % gc)
+if not re.fullmatch(r'[0-9a-f]{40}', gc or ''):
+    problems.append("git_commit is missing or not a commit id: %r" % gc)
+elif subprocess.run(['git','rev-parse','--is-shallow-repository'],
+                    capture_output=True,text=True).stdout.strip()=='false' \
+     and subprocess.run(['git','cat-file','-e','%s^{commit}'%gc],capture_output=True).returncode!=0:
+    problems.append("git_commit is not a commit in this repository: %r" % gc)
 
 if problems:
     print("  FAIL: the tracked evidence bundle is not what the sources produce.")
