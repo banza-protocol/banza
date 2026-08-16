@@ -40,7 +40,7 @@
       "clean_room_requirement": true,
       "public_claims": [
         "README.md",
-        "website/content/BANZA_REFERENCIA.md",
+        "docs/reference/pt/BANZA_REFERENCIA.md",
         "docs/whitepaper/latex/whitepaper.pt.tex"
       ],
       "gate_status": "PASS"
@@ -87,7 +87,7 @@
       "mutation_proof": "assurance/mutations.json#self_authorized_set",
       "clean_room_requirement": true,
       "public_claims": [
-        "website/content/BANZA_REFERENCIA.md",
+        "docs/reference/pt/BANZA_REFERENCIA.md",
         "README.md"
       ],
       "gate_status": "PASS"
@@ -123,7 +123,7 @@
       "mutation_proof": "assurance/mutations.json#tofu_accepted",
       "clean_room_requirement": true,
       "public_claims": [
-        "website/content/BANZA_REFERENCIA.md"
+        "docs/reference/pt/BANZA_REFERENCIA.md"
       ],
       "gate_status": "PASS"
     },
@@ -351,7 +351,7 @@
       "scope": "GLOBAL",
       "normative_authority": [
         "decisions/adr/ADR-036-banzai-a-non-authoritative-interface-to-the-protocol.md",
-        "website/content/BANZA_REFERENCIA.md"
+        "docs/reference/pt/BANZA_REFERENCIA.md"
       ],
       "wire_representation": "no normative artifact requires BanzAI on any verification path",
       "implementation": "services/banzai-api (auxiliary)",
@@ -373,7 +373,7 @@
       "clean_room_requirement": false,
       "public_claims": [
         "README.md",
-        "website/content/BANZA_REFERENCIA.md"
+        "docs/reference/pt/BANZA_REFERENCIA.md"
       ],
       "gate_status": "PASS"
     },
@@ -409,7 +409,7 @@
       "mutation_proof": "assurance/mutations.json#unsafe_fallback",
       "clean_room_requirement": true,
       "public_claims": [
-        "website/content/BANZA_REFERENCIA.md"
+        "docs/reference/pt/BANZA_REFERENCIA.md"
       ],
       "gate_status": "PASS"
     },
@@ -443,7 +443,7 @@
       "clean_room_requirement": false,
       "public_claims": [
         "README.md",
-        "website/content/BANZA_REFERENCIA.md",
+        "docs/reference/pt/BANZA_REFERENCIA.md",
         "docs/whitepaper/latex/whitepaper.pt.tex"
       ],
       "gate_status": "PASS"
@@ -565,7 +565,7 @@
       "_what": "Public claim consistency cannot be established without reading the surfaces that carry the claims.",
       "mandatory_surfaces": [
         "README.md",
-        "website/content/BANZA_REFERENCIA.md",
+        "docs/reference/pt/BANZA_REFERENCIA.md",
         "docs/governance/BANZA_TRUST_ARCHITECTURE.md",
         "GOVERNANCE.md",
         "website/app/page.tsx",
@@ -578,7 +578,7 @@
       ],
       "must_state_principles": [
         "README.md",
-        "website/content/BANZA_REFERENCIA.md",
+        "docs/reference/pt/BANZA_REFERENCIA.md",
         "services/banzai-api/src/knowledge.js",
         "docs/whitepaper/latex/whitepaper.pt.tex",
         "docs/whitepaper/latex/whitepaper.en.tex"
