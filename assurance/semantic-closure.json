@@ -1,0 +1,75 @@
+{
+  "_spec": "BANZA clean-room semantic closure — what every package must contain regardless of profile",
+  "_status": "NON-NORMATIVE. This file records a CLASSIFICATION: which normative artifacts are required globally rather than by a profile. It points at the manifest; it defines no rule.",
+  "_authority": "decisions/adr/ADR-041-layered-assurance-gates.md",
+  "_why_this_exists": "The L0 package was self-contained — every reference it included resolved — and contained no root trust plane at all, because the package is built from profile closures and those artifacts are correctly non-profile. 'Not scoped to a profile' had become 'not in any package'. Self-containment describes what is present; it says nothing about what is absent.",
+  "requirement_classes": {
+    "GLOBAL": "required by every implementation at every profile — an implementation cannot verify anything without it",
+    "PROFILE": "required by a specific conformance profile, and derived from the implementation sets",
+    "CONFORMANCE": "material for demonstrating conformance; expresses requirements defined elsewhere",
+    "LEGAL": "the legal basis for implementing at all",
+    "INFORMATIVE": "published and stable; imposes no obligation"
+  },
+  "global_required": [
+    {
+      "path": "spec/root-authority-set.md",
+      "why": "who may exercise Root authority and how that changes — every trust evaluation starts here"
+    },
+    {
+      "path": "contracts/production/root-authority-set.production.schema.json",
+      "why": "the shape of an authority set"
+    },
+    {
+      "path": "contracts/production/key-manifest.production.schema.json",
+      "why": "what the active set authorises"
+    },
+    {
+      "path": "conformance/vectors/root-authority-set.json",
+      "why": "the succession vectors, carrying real signatures"
+    },
+    {
+      "path": "spec/trust-freshness.md",
+      "why": "ordering, rollback and equivocation across trust artifacts"
+    },
+    {
+      "path": "spec/canonicalization.md",
+      "why": "BCJ/1 — the exact bytes that are signed and hashed; nothing in the trust plane works until this is exact"
+    },
+    {
+      "path": "contracts/invariants.json",
+      "why": "the invariants an implementation must not violate"
+    },
+    {
+      "path": "contracts/production/normative-manifest.json",
+      "why": "what is normative, and what is not"
+    },
+    {
+      "path": "contracts/production/protocol-version.json",
+      "why": "the version in force and the compatibility rule"
+    },
+    {
+      "path": "conformance/vectors/trust-freshness.json",
+      "why": "the vectors for the freshness, rollback and equivocation rules — the spec that defines them is globally required, so the material that validates an implementation of them is too"
+    }
+  ],
+  "out_of_profile_pointers": {
+    "_why": "A normative document may point at material that a given profile does not require. Silently tolerating those links is how the L0 gap happened, so each is declared here with the reason it is not included. A pointer NOT listed here is a closure failure, not a judgement call.",
+    "pointers": [
+      {
+        "path": "contracts/federation/federation-trust.json",
+        "referenced_from": "spec/reason-codes.md",
+        "why": "federation trust evaluation is an L3 concern; an L0 implementation does not route to a peer"
+      },
+      {
+        "path": "spec/federation/FEDERATION_PROTOCOL_FLOW.md",
+        "referenced_from": "spec/trust-freshness.md",
+        "why": "the federation flow is out of scope below L3; the freshness rule itself is stated in full where it is defined"
+      },
+      {
+        "path": "conformance/package/README.md",
+        "referenced_from": "docs/guides/implement-l0.md",
+        "why": "a pointer to the separately distributed conformance package, not a rule"
+      }
+    ]
+  }
+}

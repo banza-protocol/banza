@@ -5,31 +5,31 @@
     "principle": "The vocabulary is a semantic registry of real protocol terms derived from the engine's own registries + closed protocol sets; corpus terms are candidates (Phase 1), lexical noise never enters here."
   },
   "source_registry": {
-    "total": 421,
+    "total": 423,
     "by_type": {
       "root-doc": 9,
       "conformance": 81,
       "schema": 86,
       "contract": 48,
       "openapi": 11,
-      "adr": 40,
+      "adr": 42,
       "rfc": 7,
       "doc": 58,
       "example": 48,
       "spec": 33
     },
     "by_status": {
-      "current": 421
+      "current": 423
     },
     "by_authority_class": {
-      "current": 373,
+      "current": 375,
       "illustrative": 48
     },
     "by_language": {
-      "pt-or-neutral": 421
+      "pt-or-neutral": 423
     },
     "by_origin": {
-      "authored": 421,
+      "authored": 423,
       "generated": 0
     },
     "duplicates": [
@@ -387,7 +387,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "64dcf1d06fccc0a3"
+        "checksum": "d3b5d22e39357ac4"
       },
       {
         "id": "security-md",
@@ -3305,6 +3305,28 @@
         "checksum": "a744c12652f27e5d"
       },
       {
+        "id": "decisions-adr-adr-040-r2s2-fundamental-principles-md",
+        "path": "decisions/adr/ADR-040-r2s2-fundamental-principles.md",
+        "type": "adr",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "1338f5f5a5856b09"
+      },
+      {
+        "id": "decisions-adr-adr-041-layered-assurance-gates-md",
+        "path": "decisions/adr/ADR-041-layered-assurance-gates.md",
+        "type": "adr",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "9d59e5f11b18dfa9"
+      },
+      {
         "id": "decisions-adr-readme-md",
         "path": "decisions/adr/README.md",
         "type": "adr",
@@ -3313,7 +3335,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "712e4bdd6014533b"
+        "checksum": "ef6e344706ff144e"
       },
       {
         "id": "decisions-rfc-readme-md",
@@ -4973,7 +4995,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "bee43aef1389b238"
+    "checksum": "90468af4ba8cc6b0"
   },
   "subjects": [
     {
@@ -5739,6 +5761,18 @@
     {
       "id": "ADR-039",
       "path": "decisions/adr/ADR-039-root-authority-set-and-succession.md",
+      "status": "current",
+      "classification": "DOCUMENT_INSTANCE"
+    },
+    {
+      "id": "ADR-040",
+      "path": "decisions/adr/ADR-040-r2s2-fundamental-principles.md",
+      "status": "current",
+      "classification": "DOCUMENT_INSTANCE"
+    },
+    {
+      "id": "ADR-041",
+      "path": "decisions/adr/ADR-041-layered-assurance-gates.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     },
@@ -7760,8 +7794,8 @@
     }
   ],
   "relation_edges": {
-    "count": 8,
-    "checksum": "4191833b62a0bdea"
+    "count": 10,
+    "checksum": "ff0a61f8d413af26"
   },
   "attributes": [
     {
@@ -7978,17 +8012,17 @@
   "counts": {
     "subjects": 21,
     "document_types": 12,
-    "document_instances": 45,
+    "document_instances": 47,
     "artifact_types": 18,
     "aliases": 248,
     "relation_kinds": 11,
     "relation_aliases": 24,
-    "relation_edges": 8,
+    "relation_edges": 10,
     "attributes": 11,
     "task_terms": 20,
     "historical_terms": 6,
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "fbbcc7b88003ed1c"
+  "checksum": "df7009e24bd63f91"
 }

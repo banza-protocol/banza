@@ -486,3 +486,140 @@ fn hostile_input_is_rejected_deterministically() {
         );
     }
 }
+
+// ── positive demonstration of survival under hostile input ───────────────────────────────────────────
+//
+// The registry recorded rejection cases for hostile input but no POSITIVE demonstration of the property
+// itself, which is not "a valid document is accepted" — it is that the verifier is still alive, still
+// answering, and still correct after a hostile corpus has been thrown at it. Rejecting once proves the
+// branch exists; surviving the corpus and then behaving normally proves the property.
+#[test]
+fn the_verifier_survives_a_hostile_corpus_and_still_decides_correctly() {
+    let (a, b, c, d) = (kp("a"), kp("b"), kp("c"), kp("d"));
+    let genesis = build_set(0, &[("a", &a), ("b", &b), ("c", &c)], None, &[]);
+    let good = build_set(
+        1,
+        &[("a", &a), ("b", &b), ("d", &d)],
+        Some(&genesis),
+        &[("a", &a), ("b", &b)],
+    );
+
+    // A hostile corpus, spanning shape, type, domain and encoding.
+    let mut hostile: Vec<Value> = vec![
+        json!(null),
+        json!(0),
+        json!(-1),
+        json!(1e308),
+        json!("¯\\_(ツ)_/¯"),
+        json!([]),
+        json!({}),
+        json!({"set_sequence": {}}),
+        json!({"authorities": "three"}),
+        json!({"set_sequence": 1, "threshold": "two", "authorities": []}),
+        json!({"set_sequence": u64::MAX, "threshold": 2, "authorities": []}),
+        json!({"predecessor_signatures": [{"authority_id": "\u{0}", "signature": "\u{feff}"}]}),
+        json!({"authorities": [{"public_key": "ed25519:%%%%"}, {"public_key": ""}, {"public_key": "\u{202e}"}]}),
+    ];
+    // Deeply nested input, presented the way hostile input actually ARRIVES: as bytes. Building a
+    // 2000-deep value in the test instead overflows the stack while constructing it, which measures the
+    // test harness rather than the verifier. Parsing is where the depth limit belongs and where an
+    // attacker's bytes meet the process.
+    let deep_bytes = format!(
+        "{}{}{}",
+        "{\"nested\":".repeat(2_000),
+        "{\"authorities\":[]}",
+        "}".repeat(2_000)
+    );
+    match serde_json::from_str::<Value>(&deep_bytes) {
+        Err(_) => {} // refused at the parser, before any protocol logic sees it — correct
+        Ok(v) => hostile.push(v),
+    }
+
+    for h in &hostile {
+        let r = verify_successor_set(h, &genesis);
+        assert!(!r.verified, "hostile input must never verify: {h}");
+        assert!(!r.detail.is_empty(), "every rejection carries a reason");
+        // Twice, to show no hidden state was left behind by the first pass.
+        assert_eq!(verify_successor_set(h, &genesis).verified, r.verified);
+    }
+
+    // THE POSITIVE HALF: after the whole corpus, the verifier still accepts what it should and still
+    // refuses what it should. A verifier that survives by refusing everything has not survived.
+    assert!(
+        verify_successor_set(&good, &genesis).verified,
+        "the verifier must still accept a valid successor after the hostile corpus"
+    );
+    let rogue = build_set(
+        1,
+        &[("a", &a), ("b", &b), ("d", &d)],
+        Some(&genesis),
+        &[("a", &a)],
+    );
+    assert!(
+        !verify_successor_set(&rogue, &genesis).verified,
+        "and must still refuse an unauthorised one"
+    );
+}
+
+// ── positive demonstration that unavailability does not bypass trust ─────────────────────────────────
+//
+// The registry checked for forbidden identifiers, which shows nobody WROTE a bypass. It did not show
+// the safe behaviour actually happening. These two cases are the behaviour: material already validly
+// authenticated keeps the standing it had when a refresh fails, and an operation whose trust cannot be
+// established fails rather than proceeding.
+#[test]
+fn an_unavailable_refresh_neither_weakens_nor_destroys_established_trust() {
+    let (a, b, c, d, e) = (kp("a"), kp("b"), kp("c"), kp("d"), kp("e"));
+    let genesis = build_set(0, &[("a", &a), ("b", &b), ("c", &c)], None, &[]);
+    let pinned = set_digest(&genesis).unwrap();
+    assert!(banza_trust::authority_set::verify_genesis_set(&genesis, &pinned).verified);
+
+    let state = banza_trust::authority_set::TrustedSet::at_genesis(&genesis).unwrap();
+    let good = build_set(
+        1,
+        &[("a", &a), ("b", &b), ("d", &d)],
+        Some(&genesis),
+        &[("a", &a), ("b", &b)],
+    );
+    let (state, outcome) = banza_trust::authority_set::observe(&state, &genesis, &good);
+    assert_eq!(outcome, banza_trust::authority_set::Observation::Advanced);
+    let established = state.clone();
+
+    // A refresh that returns nothing usable — the transport-failure shapes a fetcher produces.
+    for failed_refresh in [
+        json!(null),
+        json!(""),
+        json!({}),
+        json!({"error": "connection reset"}),
+        json!({"set_sequence": 1}),
+    ] {
+        let (after, outcome) =
+            banza_trust::authority_set::observe(&state, &genesis, &failed_refresh);
+        assert_ne!(
+            outcome,
+            banza_trust::authority_set::Observation::Advanced,
+            "a failed refresh must never advance trust"
+        );
+        assert_eq!(
+            after, established,
+            "a failed refresh must not destroy the state that was validly established"
+        );
+    }
+
+    // And an operation whose trust cannot be established fails, rather than proceeding on what is left.
+    let unauthorised = build_set(
+        2,
+        &[("a", &a), ("b", &b), ("e", &e)],
+        Some(&good),
+        &[("e", &e)],
+    );
+    let (after, outcome) = banza_trust::authority_set::observe(&state, &good, &unauthorised);
+    assert!(matches!(
+        outcome,
+        banza_trust::authority_set::Observation::Rejected(_)
+    ));
+    assert_eq!(after, established, "and the established state is untouched");
+
+    // Below the threshold there is no fallback at all: continuity blocks rather than degrading.
+    assert!(!banza_trust::authority_set::continuity_available(1));
+}

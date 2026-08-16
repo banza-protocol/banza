@@ -1,0 +1,134 @@
+{
+  "_spec": "BANZA property-guard mutation proofs",
+  "_status": "NON-NORMATIVE. Each entry names a property violation and the guard that must go red when it is introduced. A guard that has never been observed to fail is an untested assertion with a Makefile target.",
+  "_authority": "decisions/adr/ADR-041-layered-assurance-gates.md",
+  "_isolation": "Every mutation runs in a throwaway git worktree created from HEAD and removed afterwards. The primary worktree is never mutated: the thing being proven is that a guard goes red, and the cost of proving it must not be the working tree.",
+  "mutations": [
+    {
+      "id": "single_root_key",
+      "property": "TRUST_ROOT_NO_SINGLE_CONTROL",
+      "violation": "the Key Manifest contract stops requiring threshold signatures, returning the model to a single root key",
+      "apply": "python3 -c \"import json,collections;p='contracts/production/key-manifest.production.schema.json';d=json.load(open(p),object_pairs_hook=collections.OrderedDict);d['properties'].pop('root_signatures',None);open(p,'w').write(json.dumps(d,indent=2))\"",
+      "guard": "make root-authority-model-check"
+    },
+    {
+      "id": "threshold_lowered",
+      "property": "TRUST_ROOT_NO_SINGLE_CONTROL",
+      "violation": "the threshold stops being two",
+      "apply": "python3 -c \"import json,collections;p='contracts/production/root-authority-set.production.schema.json';d=json.load(open(p),object_pairs_hook=collections.OrderedDict);d['properties']['threshold']['const']=1;open(p,'w').write(json.dumps(d,indent=2))\"",
+      "guard": "make root-authority-model-check"
+    },
+    {
+      "id": "duplicate_signer_counted_twice",
+      "property": "TRUST_ROOT_NO_SINGLE_CONTROL",
+      "violation": "signature entries are counted instead of distinct authorities, so one custodian signing twice reaches the threshold alone",
+      "apply": "python3 - <<'PY'\nimport re\np='engines/banza-trust/src/authority_set.rs';s=open(p).read()\ns=s.replace('fn distinct_valid_signers(sigs: &Value, signing_set: &Value, msg: &[u8]) -> BTreeSet<String>','fn distinct_valid_signers(sigs: &Value, signing_set: &Value, msg: &[u8]) -> Vec<String>',1)\ns=s.replace('let mut ok: BTreeSet<String> = BTreeSet::new();','let mut ok: Vec<String> = Vec::new();',1)\ns=s.replace('ok.insert(id.to_string());','ok.push(id.to_string());',1)\nopen(p,'w').write(s)\nPY",
+      "guard": "make root-authority-model-check"
+    },
+    {
+      "id": "self_authorized_set",
+      "property": "TRUST_ROOT_SUCCESSION_PREDECESSOR_AUTHORIZED",
+      "violation": "a candidate set is verified against its own authorities instead of the predecessor's",
+      "apply": "python3 -c \"p='engines/banza-trust/src/authority_set.rs';s=open(p).read();s=s.replace('distinct_valid_signers(sigs, active, &msg)','distinct_valid_signers(sigs, candidate, &msg)',1);open(p,'w').write(s)\"",
+      "guard": "make root-authority-model-check"
+    },
+    {
+      "id": "conflict_overwrites_state",
+      "property": "STATE_EQUIVOCATION_NEVER_REPLACES_TRUSTED_STATE",
+      "violation": "an equivocating successor replaces trusted state instead of leaving it unchanged",
+      "apply": "python3 -c \"p='engines/banza-trust/src/authority_set.rs';s=open(p).read();s=s.replace('Ok(Ordering::Equivocation) => (state.clone(), Observation::Equivocation),','Ok(Ordering::Equivocation) => (TrustedSet{sequence: state.sequence, digest: set_digest(candidate).unwrap_or_default()}, Observation::Equivocation),',1);open(p,'w').write(s)\"",
+      "guard": "make root-authority-model-check"
+    },
+    {
+      "id": "future_version_trusted",
+      "property": "VERSION_UNKNOWN_FUTURE_NOT_TRUSTED",
+      "violation": "compatibility compares only the major again, so an unpublished future version is accepted",
+      "apply": "python3 -c \"p='engines/banza-trust/src/lib.rs';s=open(p).read();s=s.replace('(Some(d), Some(v)) => d.0 == v.0 && d <= v,','(Some(d), Some(v)) => d.0 == v.0,',1);open(p,'w').write(s)\"",
+      "guard": "make root-authority-model-check"
+    },
+    {
+      "id": "version_drift",
+      "property": "VERSION_SINGLE_AUTHORITY",
+      "violation": "an engine states a protocol version the contract does not declare",
+      "apply": "python3 -c \"p='engines/banza-trust/src/lib.rs';s=open(p).read();s=s.replace('pub const PROTOCOL_VERSION: &str = \\\"1.0.0\\\";','pub const PROTOCOL_VERSION: &str = \\\"9.9.9\\\";',1);open(p,'w').write(s)\"",
+      "guard": "make protocol-version-consistency-check"
+    },
+    {
+      "id": "fifth_principle",
+      "property": "R2S2_PRINCIPLE_SET_IS_EXACTLY_FOUR",
+      "violation": "a fifth fundamental principle is added",
+      "apply": "python3 -c \"import json;p='assurance/principles.json';d=json.load(open(p));d['principles'].append({'id':'DECENTRALIZED','name_en':'Decentralized','name_pt':'Descentralizado','meaning_en':'x','meaning_pt':'x'});json.dump(d,open(p,'w'))\"",
+      "guard": "make r2s2-principles-check"
+    },
+    {
+      "id": "resilient_removed",
+      "property": "R2S2_PRINCIPLE_SET_IS_EXACTLY_FOUR",
+      "violation": "Resilient is removed from the principle set",
+      "apply": "python3 -c \"import json;p='assurance/principles.json';d=json.load(open(p));d['principles']=[m for m in d['principles'] if m['name_en']!='Resilient'];json.dump(d,open(p,'w'))\"",
+      "guard": "make r2s2-principles-check"
+    },
+    {
+      "id": "global_artifact_omitted",
+      "property": "CLEANROOM_SEMANTIC_CLOSURE",
+      "violation": "a globally required artifact is dropped from the clean-room package — the original L0 defect",
+      "apply": "rm -f clean-room/packages/l0/spec/root-authority-set.md",
+      "guard": "make semantic-closure-check"
+    },
+    {
+      "id": "unsafe_fallback",
+      "property": "NO_AVAILABILITY_BYPASS_OF_TRUST",
+      "violation": "a trust engine gains a path that assumes validity when a fetch failed",
+      "apply": "printf '\\npub fn assume_valid_on_outage() -> bool { true }\\n' >> engines/banza-trust/src/lib.rs",
+      "guard": "make no-availability-bypass-check"
+    },
+    {
+      "id": "banzai_promoted_to_normative",
+      "property": "BANZAI_NON_AUTHORITATIVE_AND_OPTIONAL",
+      "violation": "a protocol engine acquires a dependency on BanzAI, putting the assistant on a verification path",
+      "apply": "printf 'banzai-query-core = { path = \"../banzai-query-core\" }\\n' >> engines/banza-trust/Cargo.toml",
+      "guard": "make banzai-outside-critical-path-check"
+    },
+    {
+      "id": "tofu_accepted",
+      "property": "TRUST_ROOT_GENESIS_EXPLICITLY_PINNED",
+      "violation": "genesis is accepted without a pinned digest — trust on first use",
+      "apply": "python3 -c \"p='engines/banza-trust/src/authority_set.rs';s=open(p).read();a='if pinned_digest.trim().is_empty()';assert a in s;s=s.replace(a,'if false',1);open(p,'w').write(s)\"",
+      "guard": "make root-authority-model-check"
+    },
+    {
+      "id": "hostile_input_panics",
+      "property": "HOSTILE_INPUT_REJECTED_WITHOUT_PANIC",
+      "violation": "the successor verifier unwraps the candidate's sequence instead of rejecting a malformed one, so out-of-domain input panics the process",
+      "apply": "python3 -c \"p='engines/banza-trust/src/authority_set.rs';s=open(p).read();a='candidate.get(\\\"set_sequence\\\").and_then(|x| x.as_u64()),';b='Some(candidate.get(\\\"set_sequence\\\").unwrap().as_u64().unwrap()),';assert a in s;s=s.replace(a,b,1);open(p,'w').write(s)\"",
+      "guard": "make root-authority-model-check"
+    },
+    {
+      "id": "meta_missing_required_evidence",
+      "property": "ASSURANCE_DETECTS_ITS_OWN_INCOMPLETENESS",
+      "violation": "a required evidence stage is removed from a CRITICAL property — the assurance system must notice that IT is incomplete, not report the property as passing",
+      "apply": "python3 -c \"import json;p='assurance/properties.json';d=json.load(open(p));x=[q for q in d['properties'] if q['property_id']=='TRUST_ROOT_NO_SINGLE_CONTROL'][0];x['mutation_proof']=None;json.dump(d,open(p,'w'))\"",
+      "guard": "make assurance-check"
+    },
+    {
+      "id": "meta_missing_public_surface",
+      "property": "ASSURANCE_DETECTS_ITS_OWN_INCOMPLETENESS",
+      "violation": "a mandatory AG-9 public surface is removed from the declared set — AG-9 must not pass by no longer looking",
+      "apply": "python3 -c \"import json;p='assurance/properties.json';d=json.load(open(p));d['gate_requirements']['AG-9']['mandatory_surfaces']=[];d['gate_requirements']['AG-9']['must_state_principles']=[];json.dump(d,open(p,'w'))\"",
+      "guard": "make assurance-check"
+    },
+    {
+      "id": "impure_check",
+      "property": "ASSURANCE_CHECKS_DO_NOT_MUTATE_TRACKED_STATE",
+      "violation": "a READ_ONLY_CHECK writes to a tracked file while verifying — the defect that made source-bound assurance refuse its own evidence",
+      "apply": "python3 -c \"p='tools/check-r2s2-principles.sh';s=open(p).read();a='echo \\\"== r2s2-principles ==\\\"';assert a in s;s=s.replace(a, a + chr(10) + 'printf \\\"\\\\n\\\" >> contracts/invariants.json', 1);open(p,'w').write(s)\"",
+      "guard": "make assurance-purity-check"
+    },
+    {
+      "id": "cyclic_graph",
+      "property": "ASSURANCE_EXECUTION_GRAPH_IS_ACYCLIC",
+      "violation": "a meta check is moved into a later stratum, so an earlier stratum would invoke a later one — the shape that produced the ten-minute timeout",
+      "apply": "python3 -c \"import json;p='assurance/execution-plan.json';d=json.load(open(p));[c.__setitem__('stratum','M4') for c in d['commands'] if c['target']=='assurance-purity-check'];json.dump(d,open(p,'w'),indent=2)\"",
+      "guard": "make assurance-graph-check"
+    }
+  ]
+}

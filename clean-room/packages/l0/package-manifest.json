@@ -8,7 +8,7 @@
   "_reference_implementation": "The reference implementation is intentionally excluded.",
   "_construction": "Built by positive allowlist from the Phase D implementation set for this profile. No file is present unless the allowlist selected it; nothing is copied and then deleted.",
   "normative_manifest_sha256": "66ed4e2a5840dc4c182f4bde214489b4796ab890b95d479d558df821c0ec88bd",
-  "file_count": 26,
+  "file_count": 27,
   "files": [
     {
       "path": "LICENSE",
@@ -69,6 +69,12 @@
       "sha256": "ee5607111700e1c6a76cedeb1b008bfcf3c0e817a412208581b8fe51973be9d7",
       "bytes": 27291,
       "why": "the succession vectors, with real signatures"
+    },
+    {
+      "path": "conformance/vectors/trust-freshness.json",
+      "sha256": "04f147824b6a620acfd56165238e9c254ea0801a37a47bce4c28674f596eb95b",
+      "bytes": 8803,
+      "why": "the vectors that validate an implementation of those rules"
     },
     {
       "path": "contracts/invariants.json",
@@ -233,14 +239,6 @@
       "why": "The public conformance package: the same vectors, packaged separately.",
       "referenced_by": [
         "docs/guides/implement-l0.md"
-      ]
-    },
-    {
-      "target": "conformance/vectors/trust-freshness.json",
-      "kind": "higher profile",
-      "why": "On the normative surface, but not part of the L0 implementation set. Required at a higher profile.",
-      "referenced_by": [
-        "spec/trust-freshness.md"
       ]
     },
     {

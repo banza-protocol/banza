@@ -84,3 +84,8 @@ artifacts/banza-wp1-1/
 # Any PDF compiled next to the .tex source (docs/whitepaper/latex/*.pdf) is a local convenience build,
 # never canonical — ignore it so a stale copy can't be committed. (Vector figures in latex/figures/ stay tracked.)
 docs/whitepaper/latex/*.pdf
+
+# Assurance execution evidence is produced per assessment run: committing it would make it attest
+# to the commit BEFORE itself, and a snapshot cannot prove the tree that contains it.
+assurance/execution-evidence.json
+assurance/release-readiness.json

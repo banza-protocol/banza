@@ -36,7 +36,7 @@ O BANZA é um protocolo aberto de interoperabilidade financeira. Define as regra
 
 1. [O Que É o BANZA](#1-o-que-é-o-banza)
 2. [Por Que o BANZA Existe](#2-por-que-o-banza-existe)
-3. [Princípios Fundamentais](#3-princípios-fundamentais)
+3. [Propriedades Estruturais do Protocolo](#3-propriedades-estruturais-do-protocolo)
 4. [Arquitectura do Protocolo](#4-arquitectura-do-protocolo)
 5. [Estado Protocolar](#5-estado-protocolar)
 6. [Confiança](#6-confiança)
@@ -153,7 +153,26 @@ Quatro escolhas estruturais fazem do BANZA este tipo de protocolo:
 - **Resultados ligados à evidência.** Cada resultado técnico liga-se aos inputs observados e é acompanhado de evidência verificável e reproduzível: dados os mesmos inputs canónicos e a mesma versão de especificação e de perfil, execuções independentes produzem veredictos equivalentes.
 - **Decisão determinística, explicação subordinada.** As decisões são determinísticas e tomadas por motores em Rust; um modelo de linguagem local pode explicar um resultado, mas nunca o decide.
 
-Estas propriedades são a identidade do protocolo; os princípios que delas decorrem — neutralidade, correcção financeira, abertura e separação de responsabilidades — são desenvolvidos em [§3 Princípios Fundamentais](#3-princípios-fundamentais). **Neutralidade**, em particular, significa que as regras do protocolo não concedem privilégio técnico a nenhuma implementação; não significa ausência de governação, de responsabilidade ou de políticas externas.
+Estas propriedades são a identidade do protocolo; as propriedades estruturais que delas decorrem — neutralidade, correcção financeira, abertura e separação de responsabilidades — são desenvolvidas em [§3 Propriedades Estruturais do Protocolo](#3-propriedades-estruturais-do-protocolo). **Neutralidade**, em particular, significa que as regras do protocolo não concedem privilégio técnico a nenhuma implementação; não significa ausência de governação, de responsabilidade ou de políticas externas.
+
+### Princípios Fundamentais — BANZA R²S²
+
+O BANZA tem **quatro** princípios fundamentais, e apenas quatro. Em conjunto chamam-se **BANZA R²S²** — *Robusto · Resiliente · Seguro · Simples*.
+
+| Princípio | Significado |
+|---|---|
+| **Robusto** | comportamento determinístico e correcto perante implementações independentes, entrada adversarial e condições-limite |
+| **Resiliente** | contém falhas, preserva operação segura onde é possível e recupera de forma determinística sem enfraquecer as garantias do protocolo |
+| **Seguro** | as propriedades críticas são impostas por construção e fecham por omissão quando não podem ser estabelecidas |
+| **Simples** | usa o menor mecanismo suficiente para fornecer a propriedade exigida |
+
+A ordem é canónica. A forma curta é **R²S²**; onde o expoente não for tecnicamente adequado, escreve-se `R2S2`.
+
+Os princípios são o **critério pelo qual as decisões são tomadas** — não uma descrição do que o protocolo faz. Cada decisão de arquitectura responde a quatro perguntas: um implementador independente continua a obter o mesmo comportamento? o que acontece quando isto falha? uma falha, um ataque ou um recurso alternativo conseguem violar a confiança ou um invariante? existe um mecanismo mais pequeno que forneça a mesma propriedade? Uma decisão que não sobreviva às quatro é reconsiderada.
+
+**A resiliência não se sobrepõe à segurança.** Preserva operação segura e recuperação determinística perante falhas; nunca permite contornar confiança, autorização, integridade ou qualquer invariante do protocolo apenas para continuar disponível. Resiliência também não significa ausência de indisponibilidade: significa que uma falha é contida, explícita e recuperável, e que não se transforma numa violação do protocolo.
+
+Estes princípios são distintos de outros dois eixos, e a distinção é deliberada: as **propriedades estruturais** ([§3](#3-propriedades-estruturais-do-protocolo)) são o que o protocolo tem de possuir, e os **invariantes** ([§4](#4-arquitectura-do-protocolo)) são restrições que a arquitectura não pode violar. Princípios decidem; propriedades caracterizam; invariantes restringem.
 
 ### Âmbito e Fronteiras
 
@@ -181,7 +200,7 @@ A especificação v1.0 está congelada e o ambiente é de pré-produção: o Reg
 Este capítulo define o que o BANZA é. Os capítulos seguintes explicam como funciona:
 
 - [§2 Por Que o BANZA Existe](#2-por-que-o-banza-existe) — o problema de fragmentação técnica que o protocolo resolve.
-- [§3 Princípios Fundamentais](#3-princípios-fundamentais) — os princípios que decorrem destas propriedades.
+- [§3 Propriedades Estruturais do Protocolo](#3-propriedades-estruturais-do-protocolo) — os princípios que decorrem destas propriedades.
 - [§4 Arquitectura do Protocolo](#4-arquitectura-do-protocolo) — as três camadas, os componentes e os invariantes.
 - [§7 Conformidade e Certificação](#7-conformidade-e-certificação) e [§8 Operadores](#8-operadores) — como uma implementação demonstra conformidade e o que um operador assume.
 - [§11 Governança](#11-governança) — como as regras do protocolo evoluem.
@@ -256,15 +275,17 @@ Estas determinações mantêm-se distintas, e com donos distintos: **demonstrar 
 
 ### Onde Continuar
 
-Este capítulo explicou por que existe um protocolo aberto e comum: a interoperabilidade financeira já existe, mas falta, em certos contextos, uma base pública, comum e reproduzível sobre a qual ela possa ser demonstrada e verificada de forma independente. O que o BANZA é foi definido em [§1 O Que É o BANZA](#1-o-que-é-o-banza); segundo que princípios foi concebido é o tema de [§3 Princípios Fundamentais](#3-princípios-fundamentais).
+Este capítulo explicou por que existe um protocolo aberto e comum: a interoperabilidade financeira já existe, mas falta, em certos contextos, uma base pública, comum e reproduzível sobre a qual ela possa ser demonstrada e verificada de forma independente. O que o BANZA é foi definido em [§1 O Que É o BANZA](#1-o-que-é-o-banza); segundo que princípios foi concebido é o tema de [§3 Propriedades Estruturais do Protocolo](#3-propriedades-estruturais-do-protocolo).
 
-## 3. Princípios Fundamentais
+## 3. Propriedades Estruturais do Protocolo
 
-O BANZA foi concebido para que a interoperabilidade técnica possa ser demonstrada sem depender de regras implícitas nem de uma implementação privilegiada. Dessa escolha decorre um conjunto de princípios que condicionam a arquitectura, a validação e a evolução do protocolo.
+O BANZA foi concebido para que a interoperabilidade técnica possa ser demonstrada sem depender de regras implícitas nem de uma implementação privilegiada. Dessa escolha decorre um conjunto de propriedades que condicionam a arquitectura, a validação e a evolução do protocolo.
 
-Estes princípios não descrevem componentes nem tecnologias. Descrevem propriedades que devem permanecer verdadeiras independentemente da implementação, das versões e das ferramentas usadas para realizar o protocolo. É essa a diferença entre um princípio fundamental e uma decisão de implementação: a implementação pode mudar; o princípio tem de sobreviver à mudança.
+Estas propriedades não descrevem componentes nem tecnologias. Descrevem qualidades que devem permanecer verdadeiras independentemente da implementação, das versões e das ferramentas usadas para realizar o protocolo. É essa a diferença entre uma propriedade estrutural e uma decisão de implementação: a implementação pode mudar; a propriedade tem de sobreviver à mudança.
 
-Cada princípio é apresentado pelo seu **significado**, pela **consequência** estrutural que produz e pela **fronteira** que o delimita.
+**Propriedades não são princípios.** Os **Princípios Fundamentais** do BANZA são quatro — **Robusto · Resiliente · Seguro · Simples**, o conjunto **R²S²** — e são o critério pelo qual as decisões são tomadas ([§1 O Que É o BANZA](#1-o-que-é-o-banza)). As propriedades deste capítulo são o que o protocolo tem de possuir; os princípios são como se decide construí-lo para que as possua. A distinção existe porque um documento que chame *princípio* a ambas as coisas não consegue proteger nenhuma das duas.
+
+Cada propriedade é apresentada pelo seu **significado**, pela **consequência** estrutural que produz e pela **fronteira** que a delimita.
 
 ### Correcção financeira
 
@@ -410,7 +431,7 @@ A figura seguinte segue este percurso de ponta a ponta — da pessoa ou do consu
 
 ### Núcleo normativo: correcção financeira
 
-O plano Normativo da Camada 1 é onde a *correcção financeira* ([§3 Princípios Fundamentais](#3-princípios-fundamentais)) deixa de ser um princípio e passa a ser estrutura. Fixa o comportamento financeiro correcto como invariantes que qualquer implementação conforme tem de satisfazer:
+O plano Normativo da Camada 1 é onde a *correcção financeira* ([§3 Propriedades Estruturais do Protocolo](#3-propriedades-estruturais-do-protocolo)) deixa de ser um princípio e passa a ser estrutura. Fixa o comportamento financeiro correcto como invariantes que qualquer implementação conforme tem de satisfazer:
 
 - valores monetários em unidades inteiras, sem vírgula flutuante;
 - um livro-razão de partidas dobradas, imutável e atómico;
@@ -1045,7 +1066,7 @@ Uma distinção governa todo o capítulo: **os humanos governam as regras; os mo
 
 A governança actua sobre a **especificação** do protocolo. As regras normativas — aquilo que uma implementação tem de satisfazer — vivem nos **invariantes, contratos e vectores de conformidade públicos e versionados**; o código, a documentação explicativa e a implementação de referência não redefinem o protocolo. Sobre esse núcleo, a governança pode alterar os contratos e os schemas, os perfis e os critérios de conformidade, o catálogo de versões e o próprio conjunto de invariantes — sempre pelo processo público.
 
-As regras estão ordenadas por autoridade, e cada nível vincula os que lhe estão abaixo: os **Princípios Fundamentais** ([§3](#3-princípios-fundamentais)) prevalecem sobre tudo; os **Invariantes** ([§4](#4-arquitectura-do-protocolo)) são garantias que nenhuma decisão pode violar; as **decisões de arquitectura** e as **especificações** concretizam-nos; os **guias de implementação** apenas orientam, sem criar regra. Uma proposta que contradiga um invariante só é admissível através de uma alteração que reveja o próprio invariante — e essa alteração é, ela mesma, inadmissível se contrariar os Princípios. É esta ordem que torna cada mudança verificável contra o que lhe é superior.
+As regras estão ordenadas por autoridade, e cada nível vincula os que lhe estão abaixo: os **Princípios Fundamentais** — BANZA R²S² ([§1](#1-o-que-é-o-banza)) — prevalecem sobre tudo, e as **propriedades estruturais** ([§3](#3-propriedades-estruturais-do-protocolo)) exprimem o que deles decorre; os **Invariantes** ([§4](#4-arquitectura-do-protocolo)) são garantias que nenhuma decisão pode violar; as **decisões de arquitectura** e as **especificações** concretizam-nos; os **guias de implementação** apenas orientam, sem criar regra. Uma proposta que contradiga um invariante só é admissível através de uma alteração que reveja o próprio invariante — e essa alteração é, ela mesma, inadmissível se contrariar os Princípios. É esta ordem que torna cada mudança verificável contra o que lhe é superior.
 
 ![Hierarquia normativa do Protocolo BANZA — quatro níveis, cada um vinculativo para os de baixo: Princípios Fundamentais (autoridade máxima), Invariantes, Decisões de arquitectura e especificações, Guias de implementação; nenhuma decisão pode violar um invariante, a implementação local não redefine o protocolo, o BanzAI explica mas não decide, e o BANZA não é uma autoridade regulatória](/diagrams/protocol/banza-normative-hierarchy-n1-n5-v1.svg)
 
@@ -1089,7 +1110,7 @@ Nenhum operador — e nenhuma entidade — governa sozinho o BANZA. O protocolo 
 
 ### Onde continuar
 
-- [§3 Princípios Fundamentais](#3-princípios-fundamentais) e [§4 Arquitectura do Protocolo](#4-arquitectura-do-protocolo): os níveis superiores que a governança nunca pode contradizer.
+- [§3 Propriedades Estruturais do Protocolo](#3-propriedades-estruturais-do-protocolo) e [§4 Arquitectura do Protocolo](#4-arquitectura-do-protocolo): os níveis superiores que a governança nunca pode contradizer.
 - [§6 Confiança](#6-confiança): a Raiz de Confiança, o Manifesto de Chaves e a custódia que a governança define mas não opera.
 - [§7 Conformidade e Certificação](#7-conformidade-e-certificação): os perfis que a governança versiona e o veredicto que o motor determinístico produz.
 - [§5 Estado Protocolar](#5-estado-protocolar) e [§14 Evolução do Protocolo](#14-evolução-do-protocolo): o estado do protocolo e a sua evolução.

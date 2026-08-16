@@ -73,7 +73,7 @@
   "prior_total_no_double_counting": 2962,
   "canonical_suite": {
     "total": 2439,
-    "floor": 2250,
+    "floor": 2350,
     "distinct_semantic_seeds": 43,
     "by_class": {
       "base": 43,

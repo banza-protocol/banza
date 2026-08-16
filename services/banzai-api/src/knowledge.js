@@ -1226,6 +1226,13 @@ export const ENTRIES = [
     sources: s("fedTrustModel", "specDir"),
   },
   {
+    id: "def-r2s2",
+    critical: true, keywords: ["r2s2", "r²s²", "principios fundamentais", "princípios fundamentais", "fundamental principles", "quais sao os principios", "quatro principios", "four principles", "robusto", "resiliente", "seguro", "simples", "robust", "resilient", "secure", "simple", "principios do banza", "design principles"],
+    answer:
+      "Os **Princípios Fundamentais** do **BANZA** são **quatro**, e apenas quatro — em conjunto chamam-se **BANZA R²S²** (ASCII `R2S2`): **Robusto** — comportamento correcto e determinístico perante implementações independentes, entrada adversarial e condições-limite; **Resiliente** — contém falhas, preserva operação segura onde é possível e recupera de forma determinística **sem enfraquecer as garantias do protocolo**; **Seguro** — as propriedades críticas são impostas **por construção** e **fecham por omissão** quando não podem ser estabelecidas; **Simples** — usa o **menor mecanismo suficiente** para fornecer a propriedade exigida. A ordem é canónica. **A resiliência não se sobrepõe à segurança**: nunca permite contornar confiança, autorização ou integridade apenas para continuar disponível, e **não significa ausência de indisponibilidade** — significa que uma falha é contida, explícita e recuperável, e não se transforma numa violação do protocolo. Os princípios são o **critério de decisão**, distintos das **propriedades estruturais** que o protocolo tem de possuir (Referência §3, oito) e dos **invariantes arquitecturais** que a arquitectura não pode violar (Whitepaper, cinco). **`Fecho por omissão` é uma propriedade estrutural** associada a Seguro e Resiliente — **não** é um quinto princípio. Decisão: **ADR-040**; evidência: `assurance/`.",
+    sources: s("govGlossary", "specDir"),
+  },
+  {
     id: "def-root-authority-set",
     critical: true, keywords: ["conjunto de autoridades", "conjunto de autoridades da raiz", "root authority set", "sucessao da raiz", "sucessao de autoridades", "root succession", "substituir uma autoridade", "replace an authority", "continuidade da raiz", "root continuity", "autoridade perdida", "lost authority", "autoridade comprometida", "conjunto genese", "genesis set", "predecessor"],
     answer:

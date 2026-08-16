@@ -25,7 +25,7 @@ DEFS="website/lib/reference.ts"
 # former 09..14 to 10..15. The POSITION is enforced separately and in detail by
 # `make reference-chapter-order-check`; this list keeps M2.7L's whole-order check honest.
 EXPECT_SLUG=(o-que-e porque-existe principios arquitectura estado-protocolar confianca certificacao operadores operador-zero federacao governacao banzai programadores roteiro faq)
-EXPECT_TITLE=("O Que É o BANZA" "Por Que o BANZA Existe" "Princípios Fundamentais" "Arquitectura do Protocolo" "Estado Protocolar" "Confiança" "Conformidade e Certificação" "Operadores" "Operador Zero" "Federação" "Governança" "BanzAI — Agente do Protocolo" "Recursos para Programadores" "Evolução do Protocolo" "Perguntas Frequentes")
+EXPECT_TITLE=("O Que É o BANZA" "Por Que o BANZA Existe" "Propriedades Estruturais do Protocolo" "Arquitectura do Protocolo" "Estado Protocolar" "Confiança" "Conformidade e Certificação" "Operadores" "Operador Zero" "Federação" "Governança" "BanzAI — Agente do Protocolo" "Recursos para Programadores" "Evolução do Protocolo" "Perguntas Frequentes")
 
 fail=0
 err() { echo "  ✗ $*"; fail=1; }

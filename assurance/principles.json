@@ -1,0 +1,64 @@
+{
+  "_spec": "BANZA R²S² — the four fundamental principles",
+  "_status": "NON-NORMATIVE. This file is the single declaration of the canonical set. It records the principles by which BANZA is designed; it does not impose a requirement on an implementation. What binds an implementation is identified by contracts/production/normative-manifest.json.",
+  "_authority": "decisions/adr/ADR-040-r2s2-fundamental-principles.md",
+  "short_form": "R²S²",
+  "ascii_form": "R2S2",
+  "canonical_order_is_fixed": true,
+  "principles": [
+    {
+      "id": "ROBUST",
+      "name_en": "Robust",
+      "name_pt": "Robusto",
+      "meaning_en": "Deterministic and correct under independent implementation, adversarial input and boundary conditions.",
+      "meaning_pt": "Comportamento determinístico e correcto perante implementações independentes, entrada adversarial e condições-limite.",
+      "decision_question_en": "Will independently built implementations still behave correctly and deterministically?",
+      "decision_question_pt": "Implementações construídas de forma independente continuam a comportar-se correcta e deterministicamente?"
+    },
+    {
+      "id": "RESILIENT",
+      "name_en": "Resilient",
+      "name_pt": "Resiliente",
+      "meaning_en": "Contains failures, preserves safe operation where possible and recovers deterministically without weakening protocol guarantees.",
+      "meaning_pt": "Contém falhas, preserva operação segura onde é possível e recupera de forma determinística sem enfraquecer as garantias do protocolo.",
+      "decision_question_en": "What happens when this component or dependency fails?",
+      "decision_question_pt": "O que acontece quando este componente ou dependência falha?",
+      "boundary_en": "Resilience preserves safe operation and deterministic recovery under failure; it never permits bypassing trust, authorization, integrity or other protocol invariants merely to remain available.",
+      "boundary_pt": "A resiliência preserva operação segura e recuperação determinística perante falhas; nunca permite contornar confiança, autorização, integridade ou outros invariantes do protocolo apenas para continuar disponível."
+    },
+    {
+      "id": "SECURE",
+      "name_en": "Secure",
+      "name_pt": "Seguro",
+      "meaning_en": "Critical properties are enforced by construction and fail closed when they cannot be established.",
+      "meaning_pt": "As propriedades críticas são impostas por construção e fecham por omissão quando não podem ser estabelecidas.",
+      "decision_question_en": "Can failure, attack or fallback violate trust or protocol invariants?",
+      "decision_question_pt": "Uma falha, um ataque ou um recurso alternativo conseguem violar a confiança ou um invariante do protocolo?"
+    },
+    {
+      "id": "SIMPLE",
+      "name_en": "Simple",
+      "name_pt": "Simples",
+      "meaning_en": "Uses the smallest mechanism sufficient to provide the required property.",
+      "meaning_pt": "Usa o menor mecanismo suficiente para fornecer a propriedade exigida.",
+      "decision_question_en": "Is this the smallest mechanism that provides the required properties?",
+      "decision_question_pt": "Este é o menor mecanismo que fornece as propriedades exigidas?"
+    }
+  ],
+  "not_principles": {
+    "_why": "Each of these is a conclusion reached by applying the principles to a concrete risk, or a property the protocol possesses. Promoting one to a fifth principle would turn a set of criteria into a list of slogans.",
+    "trust_minimization": "derived from Secure + Resilient",
+    "critical_authority_separation": "derived from Secure + Resilient",
+    "decentralization_where_concentration_creates_systemic_risk": "a derived decision, never a principle",
+    "independent_implementability": "the central expression of Robust",
+    "protocol_structural_properties": "what the protocol must possess — website/content/BANZA_REFERENCIA.md §3",
+    "architectural_invariants": "structural constraints the architecture may not violate — the Whitepaper's five"
+  },
+  "hierarchy": [
+    "R²S² fundamental principles — the criteria by which decisions are made",
+    "protocol structural properties — what the protocol must possess",
+    "architectural invariants — constraints the architecture may not violate",
+    "normative requirements — what an implementation must do",
+    "layered assurance gates — whether any of it is actually demonstrated"
+  ]
+}

@@ -1,13 +1,13 @@
 {
   "milestone": "M2.18B.3A canonical corpus integrity",
   "summary": {
-    "total": 45,
-    "ok": 45,
-    "discoverable": 45,
-    "resolvable": 45,
-    "citable": 45,
-    "index_chunks": 594,
-    "adr": 39,
+    "total": 47,
+    "ok": 47,
+    "discoverable": 47,
+    "resolvable": 47,
+    "citable": 47,
+    "index_chunks": 608,
+    "adr": 41,
     "rfc": 6
   },
   "rows": [
@@ -396,6 +396,26 @@
       "kind": "adr",
       "file": "decisions/adr/ADR-039-root-authority-set-and-succession.md",
       "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-040",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-040-r2s2-fundamental-principles.md",
+      "chunks": 7,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "ADR-041",
+      "kind": "adr",
+      "file": "decisions/adr/ADR-041-layered-assurance-gates.md",
+      "chunks": 7,
       "discoverable": true,
       "resolvable": true,
       "citable": true,

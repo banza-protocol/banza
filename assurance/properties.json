@@ -1,0 +1,632 @@
+{
+  "_spec": "BANZA R²S² property registry",
+  "_status": "NON-NORMATIVE. This registry POINTS AT authorities; it never restates a rule. A second place where a rule is written is a second place for it to be wrong.",
+  "_authority": "decisions/adr/ADR-041-layered-assurance-gates.md",
+  "_reading": "A CRITICAL property passes only when every APPLICABLE link exists. A null link means not applicable and must be justified in assurance/README.md; it does not mean absent.",
+  "properties": [
+    {
+      "property_id": "TRUST_ROOT_NO_SINGLE_CONTROL",
+      "r2s2_dimensions": [
+        "Secure",
+        "Resilient"
+      ],
+      "domain": "trust",
+      "criticality": "CRITICAL",
+      "scope": "GLOBAL",
+      "normative_authority": [
+        "contracts/invariants.json#INV-ROOT-007",
+        "spec/root-authority-set.md",
+        "contracts/production/root-authority-set.production.schema.json"
+      ],
+      "wire_representation": "root-authority-set.production.schema.json: authorities minItems/maxItems 3, threshold const 2",
+      "implementation": "engines/banza-trust/src/authority_set.rs::well_formed,distinct_valid_signers",
+      "positive_evidence": [
+        "engines/banza-trust/tests/authority_succession.rs::any_authority_is_replaced_by_the_surviving_two"
+      ],
+      "negative_evidence": [
+        "engines/banza-trust/tests/authority_succession.rs::one_authority_is_never_enough",
+        "engines/banza-trust/tests/authority_succession.rs::a_duplicate_signer_counts_once"
+      ],
+      "adversarial_evidence": [
+        "engines/banza-trust/tests/authority_succession.rs::an_unknown_signer_contributes_nothing",
+        "engines/banza-trust/tests/authority_succession.rs::two_authorities_may_not_share_a_key"
+      ],
+      "state_test": null,
+      "resilience_test": [
+        "engines/banza-trust/tests/root_authority_final_gates.rs::quorum_loss_is_recoverable_at_two_survivors_and_never_at_one"
+      ],
+      "property_guard": "tools/check-root-authority-model.sh",
+      "mutation_proof": "assurance/mutations.json#single_root_key",
+      "clean_room_requirement": true,
+      "public_claims": [
+        "README.md",
+        "website/content/BANZA_REFERENCIA.md",
+        "docs/whitepaper/latex/whitepaper.pt.tex"
+      ],
+      "gate_status": "PASS"
+    },
+    {
+      "property_id": "TRUST_ROOT_SUCCESSION_PREDECESSOR_AUTHORIZED",
+      "r2s2_dimensions": [
+        "Secure",
+        "Resilient"
+      ],
+      "domain": "trust",
+      "criticality": "CRITICAL",
+      "scope": "GLOBAL",
+      "normative_authority": [
+        "spec/root-authority-set.md",
+        "contracts/invariants.json#INV-ROOT-011",
+        "contracts/invariants.json#INV-ROOT-013"
+      ],
+      "wire_representation": "root-authority-set schema: predecessor_digest + predecessor_signatures minItems 2",
+      "implementation": "engines/banza-trust/src/authority_set.rs::verify_successor_set",
+      "positive_evidence": [
+        "engines/banza-trust/tests/authority_succession.rs::the_chain_extends_across_several_successions",
+        "conformance/vectors/root-authority-set.json#RAS-004"
+      ],
+      "negative_evidence": [
+        "engines/banza-trust/tests/authority_succession.rs::a_successor_must_name_its_actual_predecessor",
+        "engines/banza-trust/tests/authority_succession.rs::sequence_must_advance_by_exactly_one",
+        "conformance/vectors/root-authority-set.json#RAS-008",
+        "conformance/vectors/root-authority-set.json#RAS-009"
+      ],
+      "adversarial_evidence": [
+        "engines/banza-trust/tests/authority_succession.rs::a_self_signed_set_authorises_nothing",
+        "engines/banza-trust/tests/root_authority_final_gates.rs::a_removed_authority_cannot_reinstate_itself",
+        "conformance/vectors/root-authority-set.json#RAS-007",
+        "conformance/vectors/root-authority-set.json#RAS-011"
+      ],
+      "state_test": [
+        "engines/banza-trust/tests/root_authority_final_gates.rs::a_removed_authority_stops_counting_and_the_new_one_starts"
+      ],
+      "resilience_test": [
+        "engines/banza-trust/tests/authority_succession.rs::removed_authority_is_never_required"
+      ],
+      "property_guard": "tools/check-root-authority-model.sh",
+      "mutation_proof": "assurance/mutations.json#self_authorized_set",
+      "clean_room_requirement": true,
+      "public_claims": [
+        "website/content/BANZA_REFERENCIA.md",
+        "README.md"
+      ],
+      "gate_status": "PASS"
+    },
+    {
+      "property_id": "TRUST_ROOT_GENESIS_EXPLICITLY_PINNED",
+      "r2s2_dimensions": [
+        "Secure"
+      ],
+      "domain": "trust",
+      "criticality": "CRITICAL",
+      "scope": "GLOBAL",
+      "normative_authority": [
+        "spec/root-authority-set.md",
+        "contracts/invariants.json#INV-ROOT-012"
+      ],
+      "wire_representation": "root-authority-set schema: sequence 0 requires null predecessor_digest and zero signatures",
+      "implementation": "engines/banza-trust/src/authority_set.rs::verify_genesis_set",
+      "positive_evidence": [
+        "engines/banza-trust/tests/authority_succession.rs::genesis_is_accepted_only_against_the_pinned_digest",
+        "conformance/vectors/root-authority-set.json#RAS-001"
+      ],
+      "negative_evidence": [
+        "conformance/vectors/root-authority-set.json#RAS-002"
+      ],
+      "adversarial_evidence": [
+        "engines/banza-trust/tests/authority_succession.rs::trust_on_first_use_is_refused",
+        "conformance/vectors/root-authority-set.json#RAS-003"
+      ],
+      "state_test": null,
+      "resilience_test": null,
+      "property_guard": "tools/check-root-authority-model.sh",
+      "mutation_proof": "assurance/mutations.json#tofu_accepted",
+      "clean_room_requirement": true,
+      "public_claims": [
+        "website/content/BANZA_REFERENCIA.md"
+      ],
+      "gate_status": "PASS"
+    },
+    {
+      "property_id": "STATE_EQUIVOCATION_NEVER_REPLACES_TRUSTED_STATE",
+      "r2s2_dimensions": [
+        "Secure",
+        "Resilient",
+        "Robust"
+      ],
+      "domain": "trust-state",
+      "criticality": "CRITICAL",
+      "scope": "GLOBAL",
+      "normative_authority": [
+        "spec/root-authority-set.md#applying-an-observation-to-trusted-state",
+        "spec/trust-freshness.md"
+      ],
+      "wire_representation": "set_sequence as ordering marker + set digest as content digest",
+      "implementation": "engines/banza-trust/src/authority_set.rs::observe,classify_ordering",
+      "positive_evidence": [
+        "engines/banza-trust/tests/trusted_state_transitions.rs::an_equivocating_successor_never_replaces_trusted_state",
+        "conformance/vectors/root-authority-set.json#RAS-012"
+      ],
+      "negative_evidence": [
+        "conformance/vectors/root-authority-set.json#RAS-013",
+        "conformance/vectors/root-authority-set.json#RAS-014"
+      ],
+      "adversarial_evidence": [
+        "engines/banza-trust/tests/trusted_state_transitions.rs::neither_first_nor_last_arrival_wins",
+        "engines/banza-trust/tests/root_authority_final_gates.rs::two_valid_successors_at_the_same_position_are_a_conflict_not_a_race"
+      ],
+      "state_test": [
+        "engines/banza-trust/tests/trusted_state_transitions.rs::the_state_survives_a_restart",
+        "engines/banza-trust/tests/root_authority_final_gates.rs::a_restart_preserves_rollback_and_conflict_detection"
+      ],
+      "resilience_test": [
+        "engines/banza-trust/tests/trusted_state_transitions.rs::an_unauthorised_successor_at_the_right_position_does_not_advance"
+      ],
+      "property_guard": "tools/check-root-authority-model.sh",
+      "mutation_proof": "assurance/mutations.json#conflict_overwrites_state",
+      "clean_room_requirement": true,
+      "public_claims": [
+        "spec/root-authority-set.md"
+      ],
+      "gate_status": "PASS"
+    },
+    {
+      "property_id": "KEY_MANIFEST_AUTHORIZED_BY_CURRENT_SET",
+      "r2s2_dimensions": [
+        "Secure"
+      ],
+      "domain": "trust",
+      "criticality": "CRITICAL",
+      "scope": "GLOBAL",
+      "normative_authority": [
+        "contracts/invariants.json#INV-ROOT-002",
+        "contracts/production/key-manifest.production.schema.json"
+      ],
+      "wire_representation": "key-manifest schema: root_authority_set + root_signatures minItems 2",
+      "implementation": "engines/banza-trust/src/authority_set.rs::verify_key_manifest_under_set",
+      "positive_evidence": [
+        "engines/banza-trust/tests/root_authority_final_gates.rs::the_key_manifest_matrix_follows_the_current_set",
+        "conformance/vectors/root-authority-set.json#RAS-015"
+      ],
+      "negative_evidence": [
+        "engines/banza-trust/tests/authority_succession.rs::a_manifest_naming_a_stale_set_is_rejected",
+        "conformance/vectors/root-authority-set.json#RAS-016"
+      ],
+      "adversarial_evidence": [
+        "engines/banza-trust/tests/root_authority_final_gates.rs::a_key_manifest_cannot_supply_its_own_trust_anchor"
+      ],
+      "state_test": null,
+      "resilience_test": null,
+      "property_guard": "tools/check-root-authority-model.sh",
+      "mutation_proof": "assurance/mutations.json#single_root_key",
+      "clean_room_requirement": true,
+      "public_claims": [
+        "README.md"
+      ],
+      "gate_status": "PASS"
+    },
+    {
+      "property_id": "VERSION_SINGLE_AUTHORITY",
+      "r2s2_dimensions": [
+        "Robust",
+        "Simple"
+      ],
+      "domain": "versioning",
+      "criticality": "REQUIRED",
+      "scope": "GLOBAL",
+      "normative_authority": [
+        "contracts/production/protocol-version.json",
+        "decisions/adr/ADR-008-normative-authority-and-versioning.md"
+      ],
+      "wire_representation": "protocol-version.json is the single declaration",
+      "implementation": "banza-trust, banza-conformance, banza-operator-manifest PROTOCOL_VERSION",
+      "positive_evidence": [
+        "engines/banza-trust/tests/protocol_version_binding.rs::protocol_version_matches_the_normative_contract",
+        "engines/banza-conformance/tests/protocol_version_binding.rs::protocol_version_matches_the_normative_contract",
+        "engines/banza-operator-manifest/tests/protocol_version_binding.rs::protocol_version_matches_the_normative_contract"
+      ],
+      "negative_evidence": [
+        "tools/check-protocol-version-consistency.sh selftest: engine drift rejected"
+      ],
+      "adversarial_evidence": null,
+      "state_test": null,
+      "resilience_test": null,
+      "property_guard": "tools/check-protocol-version-consistency.sh",
+      "mutation_proof": "assurance/mutations.json#version_drift",
+      "clean_room_requirement": false,
+      "public_claims": [
+        "README.md"
+      ],
+      "gate_status": "PASS"
+    },
+    {
+      "property_id": "VERSION_UNKNOWN_FUTURE_NOT_TRUSTED",
+      "r2s2_dimensions": [
+        "Secure",
+        "Robust"
+      ],
+      "domain": "versioning",
+      "criticality": "CRITICAL",
+      "scope": "GLOBAL",
+      "normative_authority": [
+        "contracts/production/protocol-version.json#compatibility",
+        "decisions/adr/ADR-008-normative-authority-and-versioning.md"
+      ],
+      "wire_representation": "protocol_version as MAJOR.MINOR.PATCH; wire_compatible_with is declarative and read by nothing",
+      "implementation": "engines/banza-trust/src/lib.rs::protocol_version_compatible",
+      "positive_evidence": [
+        "engines/banza-trust/tests/protocol_version_compatibility.rs::the_backward_direction_stays_open"
+      ],
+      "negative_evidence": [
+        "engines/banza-trust/tests/protocol_version_compatibility.rs::an_unknown_future_version_is_not_compatible",
+        "engines/banza-trust/tests/protocol_version_compatibility.rs::a_different_major_is_never_compatible"
+      ],
+      "adversarial_evidence": [
+        "engines/banza-trust/tests/protocol_version_compatibility.rs::a_string_that_is_not_a_version_is_not_a_version",
+        "engines/banza-trust/tests/protocol_version_compatibility.rs::wire_compatible_with_is_declarative_and_not_a_runtime_wildcard"
+      ],
+      "state_test": null,
+      "resilience_test": null,
+      "property_guard": "tools/check-root-authority-model.sh",
+      "mutation_proof": "assurance/mutations.json#future_version_trusted",
+      "clean_room_requirement": true,
+      "public_claims": [],
+      "gate_status": "PASS"
+    },
+    {
+      "property_id": "HOSTILE_INPUT_REJECTED_WITHOUT_PANIC",
+      "r2s2_dimensions": [
+        "Robust",
+        "Resilient"
+      ],
+      "domain": "trust",
+      "criticality": "CRITICAL",
+      "scope": "GLOBAL",
+      "normative_authority": [
+        "spec/canonicalization.md",
+        "spec/root-authority-set.md"
+      ],
+      "wire_representation": "BCJ/1 integer domain; malformed documents are not versions of valid ones",
+      "implementation": "engines/banza-trust/src/authority_set.rs",
+      "positive_evidence": [
+        "engines/banza-trust/tests/root_authority_final_gates.rs::the_verifier_survives_a_hostile_corpus_and_still_decides_correctly"
+      ],
+      "negative_evidence": [
+        "engines/banza-trust/tests/root_authority_final_gates.rs::out_of_domain_sequences_are_rejected_without_panicking"
+      ],
+      "adversarial_evidence": [
+        "engines/banza-trust/tests/root_authority_final_gates.rs::hostile_input_is_rejected_deterministically"
+      ],
+      "state_test": null,
+      "resilience_test": null,
+      "property_guard": "tools/check-root-authority-model.sh",
+      "mutation_proof": "assurance/mutations.json#hostile_input_panics",
+      "clean_room_requirement": true,
+      "public_claims": [],
+      "gate_status": "PASS"
+    },
+    {
+      "property_id": "CLEANROOM_SEMANTIC_CLOSURE",
+      "r2s2_dimensions": [
+        "Robust"
+      ],
+      "domain": "clean-room",
+      "criticality": "CRITICAL",
+      "scope": "GLOBAL",
+      "normative_authority": [
+        "contracts/production/normative-manifest.json",
+        "docs/derived/implementation-sets.json"
+      ],
+      "wire_representation": "global-required ∪ profile-required ∪ transitive dependencies",
+      "implementation": "tools/gen-clean-room-package.py",
+      "positive_evidence": [
+        "tools/check-clean-room-package.sh"
+      ],
+      "negative_evidence": [
+        "tools/check-semantic-closure.sh selftest: a missing global artifact is rejected"
+      ],
+      "adversarial_evidence": [
+        "tools/check-semantic-closure.sh selftest: a missing global artifact is rejected"
+      ],
+      "state_test": null,
+      "resilience_test": null,
+      "property_guard": "tools/check-semantic-closure.sh",
+      "mutation_proof": "assurance/mutations.json#global_artifact_omitted",
+      "clean_room_requirement": true,
+      "public_claims": [],
+      "gate_status": "PASS",
+      "falsification_proof": [
+        "assurance/mutations.json#global_artifact_omitted"
+      ]
+    },
+    {
+      "property_id": "BANZAI_NON_AUTHORITATIVE_AND_OPTIONAL",
+      "r2s2_dimensions": [
+        "Secure",
+        "Resilient",
+        "Simple"
+      ],
+      "domain": "banzai",
+      "criticality": "CRITICAL",
+      "scope": "GLOBAL",
+      "normative_authority": [
+        "decisions/adr/ADR-036-banzai-a-non-authoritative-interface-to-the-protocol.md",
+        "website/content/BANZA_REFERENCIA.md"
+      ],
+      "wire_representation": "no normative artifact requires BanzAI on any verification path",
+      "implementation": "services/banzai-api (auxiliary)",
+      "positive_evidence": [
+        "tools/check-banzai-action-boundary.sh"
+      ],
+      "negative_evidence": [
+        "tools/check-banzai-financial-action-boundary.sh"
+      ],
+      "adversarial_evidence": [
+        "tools/check-banzai-outside-critical-path.sh"
+      ],
+      "state_test": null,
+      "resilience_test": [
+        "assurance/resilience-matrix.json#banzai_outage"
+      ],
+      "property_guard": "tools/check-banzai-outside-critical-path.sh",
+      "mutation_proof": "assurance/mutations.json#banzai_promoted_to_normative",
+      "clean_room_requirement": false,
+      "public_claims": [
+        "README.md",
+        "website/content/BANZA_REFERENCIA.md"
+      ],
+      "gate_status": "PASS"
+    },
+    {
+      "property_id": "NO_AVAILABILITY_BYPASS_OF_TRUST",
+      "r2s2_dimensions": [
+        "Secure",
+        "Resilient"
+      ],
+      "domain": "trust",
+      "criticality": "CRITICAL",
+      "scope": "GLOBAL",
+      "normative_authority": [
+        "spec/trust-freshness.md",
+        "contracts/invariants.json#INV-ROOT-014"
+      ],
+      "wire_representation": "expiry and revocation are evaluated fail-closed; there is no permissive mode on the wire",
+      "implementation": "engines/banza-trust/src/evaluate.rs, engines/banza-trust/src/authority_set.rs",
+      "positive_evidence": [
+        "engines/banza-trust/tests/root_authority_final_gates.rs::an_unavailable_refresh_neither_weakens_nor_destroys_established_trust"
+      ],
+      "negative_evidence": [
+        "tools/check-no-availability-bypass.sh selftest: an outage fallback is rejected"
+      ],
+      "adversarial_evidence": [
+        "engines/banza-trust/tests/authority_succession.rs::losing_two_authorities_blocks_continuity_with_no_bypass"
+      ],
+      "state_test": null,
+      "resilience_test": [
+        "assurance/resilience-matrix.json#trust_publication_outage"
+      ],
+      "property_guard": "tools/check-no-availability-bypass.sh",
+      "mutation_proof": "assurance/mutations.json#unsafe_fallback",
+      "clean_room_requirement": true,
+      "public_claims": [
+        "website/content/BANZA_REFERENCIA.md"
+      ],
+      "gate_status": "PASS"
+    },
+    {
+      "property_id": "R2S2_PRINCIPLE_SET_IS_EXACTLY_FOUR",
+      "r2s2_dimensions": [
+        "Simple"
+      ],
+      "domain": "governance",
+      "criticality": "REQUIRED",
+      "scope": "GLOBAL",
+      "normative_authority": [
+        "decisions/adr/ADR-040-r2s2-fundamental-principles.md",
+        "assurance/principles.json"
+      ],
+      "wire_representation": null,
+      "implementation": null,
+      "positive_evidence": [
+        "tools/check-r2s2-principles.sh"
+      ],
+      "negative_evidence": [
+        "tools/check-r2s2-principles.sh selftest: a fifth principle is rejected"
+      ],
+      "adversarial_evidence": [
+        "tools/check-r2s2-principles.sh selftest: descriptive and negating prose is NOT flagged"
+      ],
+      "state_test": null,
+      "resilience_test": null,
+      "property_guard": "tools/check-r2s2-principles.sh",
+      "mutation_proof": "assurance/mutations.json#fifth_principle",
+      "clean_room_requirement": false,
+      "public_claims": [
+        "README.md",
+        "website/content/BANZA_REFERENCIA.md",
+        "docs/whitepaper/latex/whitepaper.pt.tex"
+      ],
+      "gate_status": "PASS"
+    },
+    {
+      "property_id": "ASSURANCE_CHECKS_DO_NOT_MUTATE_TRACKED_STATE",
+      "r2s2_dimensions": [
+        "Robust",
+        "Secure",
+        "Simple"
+      ],
+      "domain": "assurance",
+      "criticality": "CRITICAL",
+      "scope": "GLOBAL",
+      "normative_authority": [
+        "decisions/adr/ADR-041-layered-assurance-gates.md",
+        "assurance/README.md"
+      ],
+      "wire_representation": null,
+      "implementation": "tools/check-assurance-purity.sh",
+      "positive_evidence": [
+        "tools/check-assurance-purity.sh"
+      ],
+      "negative_evidence": [
+        "tools/check-assurance-purity.sh"
+      ],
+      "adversarial_evidence": [
+        "tools/check-assurance-purity.sh"
+      ],
+      "state_test": null,
+      "resilience_test": null,
+      "property_guard": "tools/check-assurance-purity.sh",
+      "mutation_proof": "assurance/mutations.json#impure_check",
+      "clean_room_requirement": false,
+      "public_claims": [
+        "assurance/README.md"
+      ],
+      "gate_status": "PASS",
+      "falsification_proof": [
+        "assurance/mutations.json#impure_check"
+      ]
+    },
+    {
+      "property_id": "ASSURANCE_EXECUTION_GRAPH_IS_ACYCLIC",
+      "r2s2_dimensions": [
+        "Robust",
+        "Resilient",
+        "Simple"
+      ],
+      "domain": "assurance",
+      "criticality": "CRITICAL",
+      "scope": "GLOBAL",
+      "normative_authority": [
+        "decisions/adr/ADR-041-layered-assurance-gates.md",
+        "assurance/execution-plan.json"
+      ],
+      "wire_representation": null,
+      "implementation": "tools/check-assurance-graph.sh",
+      "positive_evidence": [
+        "tools/check-assurance-graph.sh"
+      ],
+      "negative_evidence": [
+        "tools/check-assurance-graph.sh selftest: a cyclic graph is rejected"
+      ],
+      "adversarial_evidence": [
+        "tools/check-assurance-graph.sh selftest: a cyclic graph is rejected"
+      ],
+      "state_test": null,
+      "resilience_test": null,
+      "property_guard": "tools/check-assurance-graph.sh",
+      "mutation_proof": "assurance/mutations.json#cyclic_graph",
+      "clean_room_requirement": false,
+      "public_claims": [
+        "assurance/README.md"
+      ],
+      "gate_status": "PASS"
+    },
+    {
+      "property_id": "AG10_READINESS_IS_AGGREGATED_NEVER_DECLARED",
+      "r2s2_dimensions": [
+        "Secure",
+        "Robust"
+      ],
+      "domain": "assurance",
+      "criticality": "CRITICAL",
+      "scope": "GLOBAL",
+      "normative_authority": [
+        "decisions/adr/ADR-041-layered-assurance-gates.md",
+        "assurance/README.md"
+      ],
+      "wire_representation": null,
+      "implementation": "engines/banza-assurance/src/lib.rs",
+      "positive_evidence": [
+        "engines/banza-assurance/tests/closed_world_semantics.rs::a_forged_readiness_report_cannot_grant_ag10"
+      ],
+      "negative_evidence": [
+        "engines/banza-assurance/tests/closed_world_semantics.rs::ag10_never_passes_without_reported_conditions"
+      ],
+      "adversarial_evidence": [
+        "engines/banza-assurance/tests/closed_world_semantics.rs::a_forged_readiness_report_cannot_grant_ag10"
+      ],
+      "state_test": null,
+      "resilience_test": null,
+      "property_guard": "engines/banza-assurance/tests/closed_world_semantics.rs",
+      "mutation_proof": null,
+      "falsification_proof": [
+        "engines/banza-assurance/tests/closed_world_semantics.rs::a_forged_readiness_report_cannot_grant_ag10"
+      ],
+      "clean_room_requirement": false,
+      "public_claims": [
+        "assurance/README.md"
+      ],
+      "gate_status": "PASS"
+    }
+  ],
+  "_gate_semantics": "CLOSED-WORLD. A gate returns PASS only when every REQUIRED evidence category for it is known, present, executed and green. Absence is never PASS: an unproduced requirement is NOT_RUN, an unsatisfiable one is BLOCKED. This section is what the engine reads to know what SHOULD exist — without it the engine could only report that what it happened to find was green.",
+  "gate_requirements": {
+    "AG-9": {
+      "_what": "Public claim consistency cannot be established without reading the surfaces that carry the claims.",
+      "mandatory_surfaces": [
+        "README.md",
+        "website/content/BANZA_REFERENCIA.md",
+        "docs/governance/BANZA_TRUST_ARCHITECTURE.md",
+        "GOVERNANCE.md",
+        "website/app/page.tsx",
+        "services/banzai-api/src/knowledge.js",
+        "docs/whitepaper/latex/whitepaper.pt.tex",
+        "docs/whitepaper/latex/whitepaper.en.tex",
+        "assurance/README.md",
+        "decisions/adr/ADR-040-r2s2-fundamental-principles.md",
+        "decisions/adr/ADR-041-layered-assurance-gates.md"
+      ],
+      "must_state_principles": [
+        "README.md",
+        "website/content/BANZA_REFERENCIA.md",
+        "services/banzai-api/src/knowledge.js",
+        "docs/whitepaper/latex/whitepaper.pt.tex",
+        "docs/whitepaper/latex/whitepaper.en.tex"
+      ],
+      "_why": "Public claim consistency cannot be established without reading the surfaces that carry the claims. This inventory shrank to three once — README and the two whitepaper editions — while the website and BanzAI were equally mandatory and simply never enumerated: closed-world for what was listed, open-world for everything else. The set is canonical and a shorter one is itself a failure.",
+      "not_applicable": {
+        "website/app/*.tsx beyond the home page": "the R²S² statement belongs on the surfaces that carry protocol claims; per-route copy inherits it rather than restating it, and requiring every route to enumerate four principles would be prose padding rather than consistency"
+      }
+    },
+    "AG-10": {
+      "_what": "Freeze readiness is a conjunction of externally observed conditions. The engine cannot infer any of them, so each must be REPORTED by an actual run; a missing report is NOT_RUN, never PASS.",
+      "required_conditions": [
+        "all_applicable_gates_pass",
+        "all_mandatory_guards_green",
+        "all_supported_tests_green",
+        "zero_unexplained_failures",
+        "clean_source_tree",
+        "assurance_registry_complete",
+        "semantic_closure_pass",
+        "normative_manifest_valid",
+        "r2s2_public_consistency_pass",
+        "ci_enforcement_active",
+        "clean_state_reproducibility"
+      ],
+      "conditions_report": "assurance/release-readiness.json"
+    },
+    "per_property_required_stages": {
+      "CRITICAL": [
+        "normative_authority",
+        "positive_evidence",
+        "negative_evidence",
+        "adversarial_evidence",
+        "property_guard",
+        "mutation_proof"
+      ],
+      "REQUIRED": [
+        "normative_authority",
+        "positive_evidence",
+        "property_guard"
+      ]
+    },
+    "_per_property_required_stages_note": "For a CRITICAL property these stages are REQUIRED unless explicitly declared not applicable with a rationale. A property whose registered evidence is green but whose required stages are absent is INCOMPLETE, not PASS.",
+    "_mutation_proof_note": "`mutation_proof` names a REPOSITORY mutation (M4). A property whose falsification is better exercised against a controlled fixture carries `falsification_proof` instead — AG-10 is the case: running the repository battery from inside its own mutation made the proof depend on the machinery it was testing, and left it unproven for two rounds."
+  },
+  "not_applicable_rationales": {
+    "STATE_TEST": "the property is decided by a pure function over supplied inputs and retains nothing between calls, so there is no state a restart could lose",
+    "RESILIENCE_TEST": "the property is a property of a document or a comparison, not of a running component, so no dependency can fail underneath it",
+    "WIRE_REPRESENTATION": "the property constrains the project's own surfaces rather than an artifact an implementation exchanges"
+  },
+  "_ag6_boundary": "AG-6 is ADVERSARIAL ASSURANCE OF THE PROTOCOL: hostile input, invalid signatures, rollback, replay, equivocation, self-bootstrap, boundary values — executed directly against the current source in M2. M4 is FALSIFICATION OF THE PROTECTIONS THEMSELVES: deliberately removing a required artifact, weakening a guard, forging readiness. Requiring M4 inside AG-6 is what made evidence collection invoke the mutation runner that invokes evidence collection. `falsification_proof` records the M4 obligation; AG-10 consumes it, AG-6 does not."
+}

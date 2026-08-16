@@ -1,5 +1,5 @@
 {
-  "total": 3120,
+  "total": 3151,
   "rows": [
     {
       "raw_text": "Contributing to BANZA",
@@ -725,6 +725,29 @@
       "classification": "SUBJECT"
     },
     {
+      "raw_text": "Design principles — BANZA R²S²",
+      "normalized": "design principles banza r s",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "Layered assurance",
+      "normalized": "layered assurance",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
       "raw_text": "Current status",
       "normalized": "current status",
       "sources": [
@@ -1032,6 +1055,100 @@
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "BANZA R²S²",
+      "normalized": "banza r s",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "Robust",
+      "normalized": "robust",
+      "sources": [
+        "readme-md",
+        "decisions-adr-adr-040-r2s2-fundamental-principles-md"
+      ],
+      "frequency": 3,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Resilient",
+      "normalized": "resilient",
+      "sources": [
+        "readme-md",
+        "decisions-adr-adr-040-r2s2-fundamental-principles-md"
+      ],
+      "frequency": 3,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Secure",
+      "normalized": "secure",
+      "sources": [
+        "readme-md",
+        "decisions-adr-adr-040-r2s2-fundamental-principles-md"
+      ],
+      "frequency": 3,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Simple",
+      "normalized": "simple",
+      "sources": [
+        "readme-md",
+        "decisions-adr-adr-040-r2s2-fundamental-principles-md"
+      ],
+      "frequency": 3,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Resilience does not override security.",
+      "normalized": "resilience does not override security",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "structural\nproperties",
+      "normalized": "structural properties",
+      "sources": [
+        "readme-md",
+        "decisions-adr-adr-040-r2s2-fundamental-principles-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "architectural invariants",
+      "normalized": "architectural invariants",
+      "sources": [
+        "readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
     },
     {
       "raw_text": "Pre-production",
@@ -3665,9 +3782,11 @@
         "decisions-adr-adr-037-operator-onboarding-md",
         "decisions-adr-adr-038-rust-first-official-engines-md",
         "decisions-adr-adr-039-root-authority-set-and-succession-md",
+        "decisions-adr-adr-040-r2s2-fundamental-principles-md",
+        "decisions-adr-adr-041-layered-assurance-gates-md",
         "docs-governance-readme-md"
       ],
-      "frequency": 40,
+      "frequency": 42,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -3715,11 +3834,13 @@
         "decisions-adr-adr-037-operator-onboarding-md",
         "decisions-adr-adr-038-rust-first-official-engines-md",
         "decisions-adr-adr-039-root-authority-set-and-succession-md",
+        "decisions-adr-adr-040-r2s2-fundamental-principles-md",
+        "decisions-adr-adr-041-layered-assurance-gates-md",
         "docs-governance-banzai-native-protocol-agent-md",
         "docs-governance-readme-md",
         "docs-governance-workbench-only-operator-verification-md"
       ],
-      "frequency": 42,
+      "frequency": 44,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -3767,10 +3888,12 @@
         "decisions-adr-adr-037-operator-onboarding-md",
         "decisions-adr-adr-038-rust-first-official-engines-md",
         "decisions-adr-adr-039-root-authority-set-and-succession-md",
+        "decisions-adr-adr-040-r2s2-fundamental-principles-md",
+        "decisions-adr-adr-041-layered-assurance-gates-md",
         "docs-governance-banza-language-policy-md",
         "docs-governance-readme-md"
       ],
-      "frequency": 41,
+      "frequency": 43,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -3818,6 +3941,8 @@
         "decisions-adr-adr-037-operator-onboarding-md",
         "decisions-adr-adr-038-rust-first-official-engines-md",
         "decisions-adr-adr-039-root-authority-set-and-succession-md",
+        "decisions-adr-adr-040-r2s2-fundamental-principles-md",
+        "decisions-adr-adr-041-layered-assurance-gates-md",
         "decisions-rfc-readme-md",
         "decisions-rfc-rfc-0001-multi-operator-routing-md",
         "decisions-rfc-rfc-0002-cross-operator-settlement-md",
@@ -3827,7 +3952,7 @@
         "decisions-rfc-rfc-0006-offline-payment-support-md",
         "docs-governance-readme-md"
       ],
-      "frequency": 47,
+      "frequency": 49,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -3875,9 +4000,11 @@
         "decisions-adr-adr-037-operator-onboarding-md",
         "decisions-adr-adr-038-rust-first-official-engines-md",
         "decisions-adr-adr-039-root-authority-set-and-succession-md",
+        "decisions-adr-adr-040-r2s2-fundamental-principles-md",
+        "decisions-adr-adr-041-layered-assurance-gates-md",
         "docs-governance-readme-md"
       ],
-      "frequency": 40,
+      "frequency": 42,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -3924,9 +4051,11 @@
         "decisions-adr-adr-036-banzai-a-non-authoritative-interface-to-the-protocol-md",
         "decisions-adr-adr-037-operator-onboarding-md",
         "decisions-adr-adr-038-rust-first-official-engines-md",
-        "decisions-adr-adr-039-root-authority-set-and-succession-md"
+        "decisions-adr-adr-039-root-authority-set-and-succession-md",
+        "decisions-adr-adr-040-r2s2-fundamental-principles-md",
+        "decisions-adr-adr-041-layered-assurance-gates-md"
       ],
-      "frequency": 39,
+      "frequency": 41,
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
@@ -5748,6 +5877,251 @@
       "classification": "SUBJECT"
     },
     {
+      "raw_text": "ADR-040 — BANZA R²S²: the four fundamental principles",
+      "normalized": "adr-040 banza r s the four fundamental principles",
+      "sources": [
+        "decisions-adr-adr-040-r2s2-fundamental-principles-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 8,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "resilience",
+      "normalized": "resilience",
+      "sources": [
+        "decisions-adr-adr-040-r2s2-fundamental-principles-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "R²S²",
+      "normalized": "r s",
+      "sources": [
+        "decisions-adr-adr-040-r2s2-fundamental-principles-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Simple is last, and it is not decoration.",
+      "normalized": "simple is last and it is not decoration",
+      "sources": [
+        "decisions-adr-adr-040-r2s2-fundamental-principles-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 8,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "ADR-041 — Layered assurance gates",
+      "normalized": "adr-041 layered assurance gates",
+      "sources": [
+        "decisions-adr-adr-041-layered-assurance-gates-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "A test that passed for the wrong reason.",
+      "normalized": "a test that passed for the wrong reason",
+      "sources": [
+        "decisions-adr-adr-041-layered-assurance-gates-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 8,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "AG-0",
+      "normalized": "ag-0",
+      "sources": [
+        "decisions-adr-adr-041-layered-assurance-gates-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "AG-1",
+      "normalized": "ag-1",
+      "sources": [
+        "decisions-adr-adr-041-layered-assurance-gates-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "AG-2",
+      "normalized": "ag-2",
+      "sources": [
+        "decisions-adr-adr-041-layered-assurance-gates-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "AG-3",
+      "normalized": "ag-3",
+      "sources": [
+        "decisions-adr-adr-041-layered-assurance-gates-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "AG-4",
+      "normalized": "ag-4",
+      "sources": [
+        "decisions-adr-adr-041-layered-assurance-gates-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "AG-5",
+      "normalized": "ag-5",
+      "sources": [
+        "decisions-adr-adr-041-layered-assurance-gates-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "AG-6",
+      "normalized": "ag-6",
+      "sources": [
+        "decisions-adr-adr-041-layered-assurance-gates-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "AG-7",
+      "normalized": "ag-7",
+      "sources": [
+        "decisions-adr-adr-041-layered-assurance-gates-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "AG-8",
+      "normalized": "ag-8",
+      "sources": [
+        "decisions-adr-adr-041-layered-assurance-gates-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "AG-9",
+      "normalized": "ag-9",
+      "sources": [
+        "decisions-adr-adr-041-layered-assurance-gates-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "AG-10",
+      "normalized": "ag-10",
+      "sources": [
+        "decisions-adr-adr-041-layered-assurance-gates-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Three rules give them force.",
+      "normalized": "three rules give them force",
+      "sources": [
+        "decisions-adr-adr-041-layered-assurance-gates-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Guards protect properties, not wording.",
+      "normalized": "guards protect properties not wording",
+      "sources": [
+        "decisions-adr-adr-041-layered-assurance-gates-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "non-normative",
+      "normalized": "non-normative",
+      "sources": [
+        "decisions-adr-adr-041-layered-assurance-gates-md",
+        "docs-banzai-banzai-protocol-agent-md",
+        "docs-banzai-readme-md"
+      ],
+      "frequency": 3,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "Rely on coverage and test counts.",
+      "normalized": "rely on coverage and test counts",
+      "sources": [
+        "decisions-adr-adr-041-layered-assurance-gates-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Make the assurance registry normative.",
+      "normalized": "make the assurance registry normative",
+      "sources": [
+        "decisions-adr-adr-041-layered-assurance-gates-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 5,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
       "raw_text": "Architecture decision records",
       "normalized": "architecture decision records",
       "sources": [
@@ -6760,18 +7134,6 @@
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "PATH_FRAGMENT"
-    },
-    {
-      "raw_text": "non-normative",
-      "normalized": "non-normative",
-      "sources": [
-        "docs-banzai-banzai-protocol-agent-md",
-        "docs-banzai-readme-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
     },
     {
       "raw_text": "verifiable technical evidence",
