@@ -7,7 +7,7 @@
   "_authority": "This package is a derived distribution of the BANZA v1.0.0 public normative surface. It is not an independent specification. The BANZA Normative Manifest remains authoritative.",
   "_reference_implementation": "The reference implementation is intentionally excluded.",
   "_construction": "Built by positive allowlist from the Phase D implementation set for this profile. No file is present unless the allowlist selected it; nothing is copied and then deleted.",
-  "normative_manifest_sha256": "62e0e20ffe4534f7a83a70d3f42eff738b2e912fee95a7317d621204c7168da9",
+  "normative_manifest_sha256": "386f9c6d6ba46a9caadb4cc4d5d67e033631a8a0b9abad13754d7af63219424c",
   "file_count": 27,
   "files": [
     {
@@ -108,7 +108,7 @@
     },
     {
       "path": "contracts/production/normative-manifest.json",
-      "sha256": "62e0e20ffe4534f7a83a70d3f42eff738b2e912fee95a7317d621204c7168da9",
+      "sha256": "386f9c6d6ba46a9caadb4cc4d5d67e033631a8a0b9abad13754d7af63219424c",
       "bytes": 62508,
       "why": "what is normative, and what is not"
     },
@@ -120,8 +120,8 @@
     },
     {
       "path": "contracts/production/protocol-version.json",
-      "sha256": "68ac7cceef0118ee8c95d4d2d31ab03e927a03acc088f71566bb69f8d72e11ef",
-      "bytes": 3763,
+      "sha256": "d50d9389693bcf507de6cf4522ae25f1eb2d87f8860413360aa0586df5665ace",
+      "bytes": 5240,
       "why": "in the L0 implementation set"
     },
     {
