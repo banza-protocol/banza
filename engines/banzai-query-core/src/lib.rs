@@ -26,6 +26,10 @@ pub mod answerplan;
 pub mod artifact;
 pub mod attribute;
 pub mod boundary;
+// The generated file keeps `.generated.` in its name so nobody hand-edits it by mistake; the module is
+// named for what it is.
+#[path = "canonical_profiles.generated.rs"]
+pub mod canonical_profiles;
 pub mod catalogue;
 pub mod concept;
 pub mod context;
@@ -725,6 +729,12 @@ const SEMANTIC_SOURCES: &[(&str, &str)] = &[
     // Conversational semantics: which slot of a turn is inherited from the turn before it. A stale form of
     // this file resolves a follow-up against the previous SENTENCE instead of the previous SUBJECT.
     ("frame.rs", include_str!("frame.rs")),
+    // The CLOSED profile set. A stale copy would let an identifier the registry no longer publishes keep
+    // resolving, or a newly published one keep being refused — both change how a query resolves.
+    (
+        "canonical_profiles.generated.rs",
+        include_str!("canonical_profiles.generated.rs"),
+    ),
     // The lexical scorer and its stopword lexicon. Added when a missing PT interrogative was found to
     // change which entry a question selects: `is_stopword` and `score_entry` decide resolution just as
     // directly as `route.rs` does, and their absence here was a real hole in the rule above — a stale

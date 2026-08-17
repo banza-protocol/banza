@@ -4772,6 +4772,18 @@ fn action_boundary(nq: &str) -> Option<&'static str> {
 /// Tier 1 — critical-boundary intent → a deterministic, vetted answer. Each arm returns the canonical
 /// entry id whose answer states the boundary precisely. These are the ONLY intents that skip the model.
 fn critical_entry(nq: &str) -> Option<&'static str> {
+    // An identifier shaped like a profile that the normative registry does not register resolves NOTHING,
+    // and it must be decided here — before any keyword, glossary or retrieval arm can find something that
+    // merely shares its words. Measured before this existed: "What is the L7 conformance profile?" returned
+    // a confident definition of conformance, so a level the protocol never published became a real one by
+    // lexical similarity. The set is generated from the registry, so publishing L5 one day makes this stop
+    // refusing L5 without anyone editing a list here.
+    //
+    // Returning None (not a refusal) is deliberate: nothing supports the question, which is exactly
+    // `insufficient`. A safety refusal would be a different and untrue statement about why.
+    if crate::canonical_profiles::unregistered_profile_token(nq).is_some() {
+        return None;
+    }
     // Final transversal sweep — trust Model A (ADR-025). "Quem assina a Protocol Metadata?" must never
     // fall through to synthesis: the pinned doc-index still carries the pre-ADR-025 ceremony-schema
     // wording ("assinada pela Trust Root ou por Delegated Signing Keys"), so the canonical delegated-key
@@ -7248,6 +7260,24 @@ pub fn route(question: &str) -> Route {
     let numbered_ref = crate::docref::detect_refs(question)
         .iter()
         .any(|r| r.via == "numbered");
+    // An identifier shaped like a profile that the normative registry does not register is answered by
+    // NOTHING — and the decision belongs here, where the route is returned, not only inside
+    // `critical_entry`. Placing it there alone was measured to be insufficient: "Existe um perfil L5 no
+    // BANZA?" skipped the critical arm and was then picked up by a later arm as `what-is-banza`, so the
+    // question about a level the protocol never published still reached the model. Everything above this
+    // line — every safety, action and compound boundary — still runs first, so refusing an unpublished
+    // profile can never buy a way past a refusal.
+    //
+    // `insufficient` is the honest verdict: nothing supports the question. The set comes from the
+    // registry, so publishing a new level stops this refusing it without anyone editing a list here.
+    if crate::canonical_profiles::unregistered_profile_token(&nq).is_some() {
+        return Route {
+            action: "insufficient",
+            entry_id: None,
+            intent: "no_source",
+            reason: "profile identifier is not in the canonical registry",
+        };
+    }
     if let Some(id) = critical_entry(&nq) {
         // A real critical boundary (institutional identity, an Operador-Zero demo fact, or a boundary
         // question that merely CITES a document) still wins. ONLY a generic glossary definition

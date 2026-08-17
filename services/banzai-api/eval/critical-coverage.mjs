@@ -17,7 +17,16 @@ import { route } from "../src/knowledge.js";
 
 const BENCH = new URL("../../../assurance/banzai-critical-benchmark.json", import.meta.url);
 const bench = JSON.parse(readFileSync(BENCH, "utf8"));
-const SETTLED = new Set(bench.terminals_settled);
+
+// Terminal -> outcome CLASS. The acceptance question is never "did it answer" but "did it produce the
+// outcome this case is supposed to have": a refusal is right for a wrong premise and wrong for a published
+// fact, and one aggregate percentage cannot tell those apart.
+const CLASS_OF = new Map();
+for (const [cls, terminals] of Object.entries(bench.terminal_classes)) {
+  for (const t of terminals) CLASS_OF.set(t, cls);
+}
+const outcomeClass = (terminal) => CLASS_OF.get(terminal) || `unmapped:${terminal}`;
+const SETTLED = new Set(bench.terminal_classes.settled);
 
 // §30/§31 — a comparison against nothing must never read as agreement. The previous session printed
 // "0 drift" from a baseline file that had been deleted; the lesson is cheap to encode and expensive to
@@ -52,7 +61,8 @@ async function run(c) {
     id: c.id,
     locale: c.locale,
     domain: c.domain,
-    class: c.class,
+    policy: c.policy,
+    expected_class: c.expected_terminal_class,
     query: c.query,
     entry: res.entry_id ?? null,
     expected_entry: c.entry ?? null,
@@ -61,61 +71,77 @@ async function run(c) {
     model_called: r.meta.llm_called === true,
     sources: (res.sources || []).map((s) => s.id || s.path).filter(Boolean),
     stage: stage(c, r, res),
+    actual_class: outcomeClass(r.meta.terminal_kind),
   };
 }
 
 const rows = [];
 for (const c of bench.cases) rows.push(await run(c));
 
-const critical = rows.filter((x) => x.class === "deterministic_critical");
-const negative = rows.filter((x) => x.class === "negative_control");
-const settled = critical.filter((x) => x.stage === "settled");
-const failing = critical.filter((x) => x.stage !== "settled");
-// A negative control must NOT be settled — closing coverage must never turn an unknown into a fact.
-const leaked = negative.filter((x) => SETTLED.has(x.terminal));
-// Paired cases must reach the same record: one canonical fact, localized surfaces.
+// PASS is "the outcome this case is supposed to have", per case. Nothing else.
+for (const x of rows) x.pass = x.actual_class === x.expected_class;
+
+const byPolicy = (p) => rows.filter((x) => x.policy === p);
+const critical = byPolicy("deterministic_critical");
+const synthesis = byPolicy("supported_synthesis");
+const negative = byPolicy("negative_control");
+const failing = rows.filter((x) => !x.pass);
+
+// The two asymmetric degradations the aggregate would hide.
+const refusedFacts = critical.filter((x) => x.actual_class === "refused_safe" && x.expected_class !== "refused_safe");
+const falseSupport = negative.filter((x) => x.actual_class === "settled");
+const modelDependent = critical.filter((x) => x.model_called);
+const sourceless = critical.filter((x) => x.pass && x.actual_class === "settled" && x.sources.length === 0);
+const wrongEntry = critical.filter((x) => x.expected_entry && x.entry !== x.expected_entry);
+
+// Paired cases must share the record AND the policy.
 const byId = new Map(rows.map((x) => [x.id, x]));
-const divergences = [];
+const pairs = [];
 for (const c of bench.cases) {
-  if (!c.pair) continue;
+  if (!c.pair || c.id > c.pair) continue;
   const a = byId.get(c.id);
   const b = byId.get(c.pair);
-  if (!a || !b || c.id > c.pair) continue;
-  if (a.entry !== b.entry || SETTLED.has(a.terminal) !== SETTLED.has(b.terminal)) {
-    divergences.push({ pt: a.locale === "pt" ? a : b, en: a.locale === "en" ? a : b });
-  }
+  if (!a || !b) continue;
+  const ok = a.entry === b.entry && a.actual_class === b.actual_class;
+  pairs.push({ ok, a, b });
 }
-const wrongEntry = critical.filter((x) => x.expected_entry && x.entry !== x.expected_entry);
-const modelDependent = critical.filter((x) => x.model_called);
-const sourceless = settled.filter((x) => x.sources.length === 0);
+const divergences = pairs.filter((p) => !p.ok);
 
 const mode = process.argv.includes("--check") ? "check" : "matrix";
+
+const report = () => {
+  const n = (g) => `${g.filter((x) => x.pass).length}/${g.length}`;
+  console.log(`  DETERMINISTIC_CRITICAL : ${n(critical)}`);
+  console.log(`  SUPPORTED_SYNTHESIS    : ${n(synthesis)}`);
+  console.log(`  NEGATIVE_CONTROLS      : ${n(negative)}`);
+  console.log(`  PT/EN paired cases     : ${pairs.filter((p) => p.ok).length}/${pairs.length}`);
+  console.log(`  model dependency among critical      : ${modelDependent.length}`);
+  console.log(`  published facts refused or unanswered: ${refusedFacts.length + critical.filter((x) => x.actual_class === "insufficient" && x.expected_class !== "insufficient").length}`);
+  console.log(`  false support among negative controls : ${falseSupport.length}`);
+  console.log(`  settled with no establishing source   : ${sourceless.length}`);
+  console.log(`  reached an unregistered entry         : ${wrongEntry.length}`);
+};
 
 if (mode === "matrix") {
   for (const x of rows) {
     console.log(
       [
-        x.class === "negative_control" ? "neg " : x.stage === "settled" ? "OK  " : "FAIL",
+        x.pass ? "PASS" : "FAIL",
+        x.policy === "negative_control" ? "neg " : "crit",
         x.locale,
         x.domain.padEnd(28),
-        x.stage.padEnd(34),
+        `${x.expected_class}->${x.actual_class}`.padEnd(30),
         (x.entry ?? "-").padEnd(34),
-        x.terminal,
         x.query,
       ].join(" "),
     );
   }
   console.log("");
-  console.log(`deterministic-critical settled : ${settled.length}/${critical.length}`);
-  console.log(`model-dependent                : ${modelDependent.length}`);
-  console.log(`settled with NO sources        : ${sourceless.length}`);
-  console.log(`PT/EN divergences              : ${divergences.length}`);
-  console.log(`wrong entry vs expected        : ${wrongEntry.length}`);
-  console.log(`negative controls leaked       : ${leaked.length}/${negative.length}`);
+  report();
   if (failing.length) {
     console.log("\nby stage:");
     const g = {};
-    for (const x of failing) (g[x.stage] ||= []).push(x);
+    for (const x of failing) (g[x.policy === "negative_control" ? `negative:${x.actual_class}` : x.stage] ||= []).push(x);
     for (const [s, xs] of Object.entries(g)) {
       console.log(`  ${s}  (${xs.length})`);
       for (const x of xs) console.log(`      [${x.locale}] ${x.domain} — ${x.query}`);
@@ -125,23 +151,25 @@ if (mode === "matrix") {
 }
 
 const problems = [];
-if (failing.length) problems.push(`${failing.length} deterministic-critical case(s) do not settle without a model`);
-if (modelDependent.length) problems.push(`${modelDependent.length} critical case(s) called a model`);
+if (failing.length) problems.push(`${failing.length} case(s) did not produce their expected semantic outcome`);
+if (modelDependent.length) problems.push(`${modelDependent.length} deterministic-critical case(s) called a model`);
+if (refusedFacts.length) problems.push(`${refusedFacts.length} published fact(s) were REFUSED — declining to state a published fact is not safety`);
+if (falseSupport.length) problems.push(`${falseSupport.length} negative control(s) were answered as settled facts`);
 if (sourceless.length) problems.push(`${sourceless.length} settled case(s) cite no source — a critical answer must have establishing evidence`);
 if (divergences.length) problems.push(`${divergences.length} PT/EN pair(s) diverge`);
 if (wrongEntry.length) problems.push(`${wrongEntry.length} case(s) reached an entry other than the registered one`);
-if (leaked.length) problems.push(`${leaked.length} negative control(s) were answered as settled facts`);
 
 console.log(`== banzai-critical-coverage ==`);
-console.log(`  cases: ${rows.length} (${critical.length} deterministic-critical, ${negative.length} negative control)`);
+console.log(`  cases: ${rows.length}`);
+report();
 if (!problems.length) {
-  console.log(`  ok: ${settled.length}/${critical.length} settled model-free, ${divergences.length} PT/EN divergences, negative controls hold`);
+  console.log(`  ok: every case produced its expected semantic outcome`);
   console.log("banzai-critical-coverage: OK");
   process.exit(0);
 }
 for (const p of problems) console.log(`  FAIL: ${p}`);
-for (const x of failing) console.log(`        [${x.locale}] ${x.stage} — ${x.query}`);
+for (const x of failing) console.log(`        [${x.locale}] ${x.policy} expected ${x.expected_class}, got ${x.actual_class} (${x.stage}) — ${x.query}`);
 for (const d of divergences) console.log(`        PT/EN: ${d.pt?.query} (${d.pt?.entry}) vs ${d.en?.query} (${d.en?.entry})`);
-for (const x of leaked) console.log(`        LEAK: ${x.query} answered as ${x.terminal}`);
+for (const x of falseSupport) console.log(`        FALSE SUPPORT: ${x.query} answered as ${x.entry}`);
 console.log("banzai-critical-coverage: FAILED");
 process.exit(1);
