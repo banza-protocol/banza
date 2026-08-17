@@ -48,10 +48,19 @@ for (const e of eligible) {
   }
 }
 
-// Only id + keywords: the Rust `Entry` struct deserializes exactly these two fields, and shipping the
+// id + keywords + the ANSWER POLICY. The policy travels with the entry because the router used to infer
+// it from the id prefix: a `def-` name silently meant "answer this deterministically". A naming convention
+// carrying semantics is a rule nobody can see, and it cannot express a def-* entry that should NOT be
+// settled model-free, nor a settled fact whose id is not a definition. The declaration is now data on the
+// canonical entry, derived into here, and read by Rust — generators write, checks observe.
+// Only id + keywords + deterministic: the Rust `Entry` struct deserializes exactly these fields, and shipping the
 // answers into the engine index would duplicate prose that already lives in the canonical source.
 const out = JSON.stringify(
-  eligible.map((e) => ({ id: e.id, keywords: e.keywords })),
+  eligible.map((e) => ({
+    id: e.id,
+    keywords: e.keywords,
+    deterministic: e.deterministic === true,
+  })),
   null,
   2,
 ) + "\n";

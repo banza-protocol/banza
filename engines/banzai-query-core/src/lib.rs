@@ -79,6 +79,23 @@ const ENTRIES_JSON: &str = include_str!("entries-index.json");
 struct Entry {
     id: String,
     keywords: Vec<String>,
+    /// Whether this entry is STABLE KNOWLEDGE the engine may state without a model.
+    ///
+    /// Declared on the canonical entry and derived into the index. It replaces an inference from the id
+    /// prefix — a `def-` name used to mean "settle this model-free", which put semantics in a naming
+    /// convention where nobody could see it and where the two cases that matter are inexpressible: a
+    /// definition that should NOT be settled, and a settled fact whose id is not a definition.
+    ///
+    /// Defaults to false so an index generated before this field existed cannot silently promote anything.
+    #[serde(default)]
+    deterministic: bool,
+}
+
+/// Whether the entry with this id is declared stable knowledge answerable without a model.
+pub fn entry_is_deterministic(entry_id: &str) -> bool {
+    entries()
+        .iter()
+        .any(|e| e.id == entry_id && e.deterministic)
 }
 
 fn entries() -> &'static [Entry] {

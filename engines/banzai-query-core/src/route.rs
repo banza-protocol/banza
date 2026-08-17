@@ -7367,7 +7367,11 @@ pub fn route(question: &str) -> Route {
         // contains the same authority words inside a different question, and answering that with a canned
         // boundary is the false-positive the routing fuzz tests already forbid. The measure is coverage:
         // a matched keyword must account for most of the query, not appear as a fragment of it.
-        if top.starts_with("def-") && keyword_is_the_question(&nq, top) {
+        // The ANSWER POLICY is declared by the entry, not inferred from its id. This read used to be
+        // `top.starts_with("def-")`: the naming convention decided whether a settled fact was served or
+        // handed to the model. Migrated behaviour-preservingly — every entry the prefix made deterministic
+        // was marked, the two sets proven identical, and only then did the read change.
+        if crate::entry_is_deterministic(top) && keyword_is_the_question(&nq, top) {
             return Route {
                 action: "deterministic",
                 entry_id: Some(top.clone()),

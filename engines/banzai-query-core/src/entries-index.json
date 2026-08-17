@@ -15,7 +15,8 @@
       "three-layer",
       "protocolo financeiro aberto",
       "open financial protocol"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "what-is-banzami",
@@ -29,7 +30,8 @@
       "what is banzami",
       "who is banzami",
       "banzami"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "is-banza-an-operator",
@@ -38,7 +40,8 @@
       "banza is an operator",
       "banza e operador",
       "banza opera"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "certified-operators",
@@ -47,7 +50,8 @@
       "certified operators",
       "quem sao os operadores",
       "que operadores"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "pass-is-not-certificate",
@@ -57,7 +61,8 @@
       "conformance suite e certificado",
       "pass conformance certificado",
       "pass is a certificate"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "banzai-cannot-certify",
@@ -66,7 +71,8 @@
       "banzai emite certificado",
       "banzai can certify",
       "banzai certifica"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "who-signs-protocol-metadata",
@@ -79,7 +85,8 @@
       "who signs protocol metadata",
       "assinatura da protocol metadata",
       "signed protocol metadata quem assina"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "what-is-m2-milestone",
@@ -93,7 +100,8 @@
       "what is m2",
       "milestone m2",
       "marco m2"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "root-keys",
@@ -103,7 +111,8 @@
       "chaves raiz",
       "issuing keys",
       "onde estao as chaves"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "how-to-query-brl",
@@ -124,7 +133,8 @@
       "operador revogado",
       "operador suspenso",
       "revoked operator"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "empty-operators-meaning",
@@ -139,7 +149,8 @@
       "o que e /operators",
       "what does /operators mean",
       "/operators list"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "banza-processes-payments",
@@ -150,7 +161,8 @@
       "banza executa pagamentos",
       "banza paga",
       "processa pagamentos"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "banza-limits",
@@ -171,7 +183,8 @@
       "reference operator ceases",
       "independencia do protocolo",
       "protocol independence"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "financial-invariants",
@@ -207,7 +220,8 @@
       "sem saldo negativo",
       "saldo da carteira",
       "saldos das carteiras"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "protocol-decisions-adrs",
@@ -229,7 +243,8 @@
       "which adrs",
       "which adrs govern",
       "adrs govern"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "how-to-federate",
@@ -255,7 +270,8 @@
       "manifest de operador",
       "operator manifest",
       "manifesto de operador"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "how-to-demonstrate-conformance",
@@ -299,7 +315,8 @@
       "testes preciso passar",
       "demonstro que sou conforme",
       "sou conforme"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "how-trust-works",
@@ -334,7 +351,8 @@
       "get evaluated for trust",
       "como sou avaliado",
       "avaliado quanto a confianca"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "operator-onboarding",
@@ -377,7 +395,8 @@
       "como participar",
       "como entro na rede",
       "quais os passos para operador"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "implementation-steps",
@@ -403,7 +422,8 @@
       "payment lifecycle",
       "ciclo de vida do qr",
       "qr lifecycle"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "example-operator-manifest",
@@ -439,7 +459,8 @@
       "manifest de operador exemplo",
       "exemplo de manifest de operador",
       "exemplo de manifesto de operador"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "example-federation-manifest",
@@ -451,7 +472,8 @@
       "federation metadata example",
       "manifesto de federacao exemplo",
       "exemplo federacao json"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "example-revocation-list",
@@ -463,7 +485,8 @@
       "brl example",
       "exemplo brl json",
       "como e a revocation list"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "example-key-manifest",
@@ -475,7 +498,8 @@
       "como e o key manifest",
       "o que e key manifest",
       "key manifest"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "example-evidence-bundle",
@@ -487,7 +511,8 @@
       "conformance evidence example",
       "exemplo evidence json",
       "como e o evidence bundle"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "example-invalid-manifest",
@@ -498,7 +523,8 @@
       "invalid manifest example",
       "porque e invalido",
       "manifest invalido exemplo"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "what-is-operador-zero",
@@ -523,7 +549,8 @@
       "adr-052",
       "adr052",
       "zero.banza.network"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "def-operator-governance-authority",
@@ -572,6 +599,7 @@
       "does the banza maintainer control operators",
       "who controls banza",
       "who controls the protocol"
-    ]
+    ],
+    "deterministic": true
   }
 ]
