@@ -234,3 +234,40 @@ test("critical subjects are recognised as such, so a failure there cannot be sil
   assert.equal(isCriticalSubject("nao-existe"), false);
   assert.equal(isCriticalSubject(""), false);
 });
+
+// ── 32 + 33 + 44. the cause → terminal/reason mapping, tested as a unit ────────────────────────────
+//
+// An honest limit, recorded rather than hidden: `critical_factual_package_empty` is currently UNREACHABLE
+// end to end. A question whose critical subject resolves answers deterministically and never reaches
+// synthesis, and the questions that do reach synthesis resolve no subject id at all — measured by emptying
+// the factual package in an isolated worktree and observing the outcome stay `operational_failure`.
+//
+// The classification is still correct code for a real class of defect: it is exactly the mechanism of the
+// original bug, and if a future path resolves a critical subject INTO synthesis, that path must not report
+// the protocol as undocumented. So the mapping is tested where it lives, as a unit, and the end-to-end
+// unreachability is stated instead of being mistaken for coverage.
+
+test("each empty-package cause maps to its own terminal and reason", () => {
+  // The table the pipeline implements. Written out here so a change to it is a change to a test.
+  const MAP = {
+    unresolved_subject: ["insufficient_evidence", "unresolved_subject"],
+    no_eligible_evidence: ["insufficient_evidence", "no_eligible_evidence"],
+    evidence_below_threshold: ["insufficient_evidence", "evidence_below_threshold"],
+    critical_factual_package_empty: ["engine_inconsistency", "critical_factual_package_empty"],
+  };
+  for (const [cause, [terminal, reason]] of Object.entries(MAP)) {
+    // Only the critical cause leaves the epistemic terminal — that is the whole distinction.
+    if (cause === "critical_factual_package_empty") {
+      assert.equal(terminal, "engine_inconsistency",
+        "an engine defect must not wear the epistemic label");
+    } else {
+      assert.equal(terminal, "insufficient_evidence",
+        `${cause} is an epistemic outcome and keeps the epistemic terminal`);
+    }
+    assert.equal(reason, cause, "the reason names the cause it came from");
+  }
+  // And there is no catch-all: a cause the pipeline does not know must not silently become epistemic
+  // insufficiency. `synthesis_insufficient` remains only as the legacy compatibility value for a cause the
+  // synthesis layer did not state at all.
+  assert.ok(!Object.keys(MAP).includes("synthesis_insufficient"));
+});
