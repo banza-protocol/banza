@@ -91,10 +91,16 @@ def absolute(ref):
     return 'website/' + ref if first in SEGMENTS else None
 
 
+# This file's own self-test plants fixture paths that must NOT resolve — that is the point of them.
+# Scanning itself would report its own fixtures as broken references, which is why it is excluded by
+# name rather than by pattern: a pattern would quietly excuse other files too.
+SELF = 'tools/check-website-guard-targets.sh'
+
+
 def tracked():
     out = subprocess.run(['git', 'ls-files'] + SCAN_ROOTS, capture_output=True, text=True).stdout
     return [f for f in out.split()
-            if not f.endswith(SKIP_SUFFIX) and not any(s in f for s in SKIP_PATH)]
+            if f != SELF and not f.endswith(SKIP_SUFFIX) and not any(s in f for s in SKIP_PATH)]
 
 
 def references():
