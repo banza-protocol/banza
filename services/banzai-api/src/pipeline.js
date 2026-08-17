@@ -28,6 +28,18 @@ import { GUARDRAILS } from "./provider.js";
 import { normalize, retrieve, CORPUS_HASH, REPO_INDEX_HASH, SAFETY_POLICY_VERSION, contractVersions, validateResponse, route, routeWithJourney, getEntry, resolveDocument, resolveConcept, resolveScope, resolveOperationalMetric, resolveQuery, resolveReferences, contextualFallback, answerClass, buildTerminal, queuePriority, queueShouldDedup, recoverQuery, coveredEntities, isVerbatimEntry, attributeAnswer, taskedAnswer, documentLookup, contextUsedFor, buildOperationalPackage, verifyClaims } from "./knowledge.js";
 import { honestLiveFailureAnswer } from "./liveArtifact.js";
 import { isPublicSource } from "./answerContract.js";
+
+/**
+ * The sources a PUBLIC answer may rest on.
+ *
+ * Eligibility is a property of the source, carried in its own metadata — not of its filename. The rule
+ * exists because a source that reaches the answer object has already counted as evidence for it; a filter
+ * further downstream hides that fact rather than preventing it.
+ */
+export function publicSourcesOnly(list) {
+  return (Array.isArray(list) ? list : []).filter((s) => isPublicSource(s));
+}
+
 // Increment 5 (§10–§15) — the question-family handler (pg-free; the ONE persisted-read step is the injected
 // receiptsTool). It routes a resolved §10–§15 family through its ToolPlanner plan → tool execution → the
 // transversal FactualPackage → a deterministic PT renderer → the Inc.4 claim/citation verifier.
@@ -370,16 +382,6 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
   }
 
 
-/**
- * The sources a PUBLIC answer may rest on.
- *
- * Eligibility is a property of the source, carried in its own metadata — not of its filename. The rule
- * exists because a source that reaches the answer object has already counted as evidence for it; a filter
- * further downstream hides that fact rather than preventing it.
- */
-function publicSourcesOnly(list) {
-  return (Array.isArray(list) ? list : []).filter((s) => isPublicSource(s));
-}
 
   function deterministic(hit, meta) {
     return {

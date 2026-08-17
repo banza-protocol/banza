@@ -9,6 +9,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { harness } from "./_pipeline-harness.mjs";
+import { asserts, assertsEquality } from "./_relation.mjs";
 
 async function answer(q) {
   const h = harness({});
@@ -23,14 +24,18 @@ async function answer(q) {
   };
 }
 
-/** Affirmative match that a leading negation defuses — "não confere admissão" must not read as granting it. */
-function affirms(text, subject, object) {
-  const t = text.toLowerCase().replace(/\s+/g, " ");
-  const re = new RegExp(`${subject}[^.]{0,80}?${object}`, "i");
-  const m = re.exec(t);
-  if (!m) return false;
-  const before = t.slice(Math.max(0, m.index - 60), m.index + m[0].length);
-  return !/\b(n[ãa]o|never|not|nem|sem)\b/.test(before);
+// Read through the relation matcher, which is tested as a component in relation-matcher.test.js. The
+// previous helper lived here, untested, and scanned a fixed sixty characters backwards for a negator: in
+// "O protocolo não é um certificador. O BanzAI certifica implementações." it found the previous sentence's
+// denial and reported the prohibited claim as absent. Six mutations survived behind it.
+const affirms = (text, subject, predicate) => asserts(text, subject, predicate);
+
+// These answers are bilingual: one string, a `---` rule, then the same fact in the other language. A
+// property asserted over the concatenation is satisfied by whichever half still happens to carry the words
+// — so a claim can be broken in Portuguese and pass on the strength of the English. Read them apart.
+function halves(text) {
+  const parts = String(text).split(/\n-{3,}\n/).map((p) => p.trim()).filter(Boolean);
+  return parts.length === 2 ? [["pt", parts[0]], ["en", parts[1]]] : [["all", String(text)]];
 }
 
 // ── C1 — operator is not an implementation ───────────────────────────────────────────────────────
@@ -48,10 +53,12 @@ test("an operator and an implementation are distinct, and the answer says why", 
       /entidade|entity|organiza/i.test(a.text) && /artefacto|artifact|t[ée]cnico|technical/i.test(a.text),
       `${q}: must contrast the organizational entity with the technical system: ${a.text.slice(0, 200)}`,
     );
-    // And it must not assert equivalence.
+    // And it must not assert equivalence. Equality is symmetric and has no fixed direction — the claim can
+    // be made as "são a mesma coisa", as "um operador é uma implementação", or the other way round — so it
+    // is read with equality semantics rather than as a verb with a subject and an object.
     assert.ok(
-      !affirms(a.text, "(um operador|an operator)", "(é a mesma coisa|are the same|is the same)"),
-      `${q}: must not claim equivalence`,
+      !assertsEquality(a.text, /operador|operator/i, /implementa[çc][ãa]o|implementation/i),
+      `${q}: must not claim equivalence: ${a.text.slice(0, 200)}`,
     );
   }
 });
@@ -98,11 +105,21 @@ test("certification grants neither operational admission nor regulatory authoriz
       `${q}: certification must not be said to grant regulatory authorization`,
     );
     // C7 — the two decisions must be told apart, not merged into one denial.
-    assert.ok(
-      /ADR-006|esquema operacional|operational scheme/i.test(a.text) &&
-        /ADR-007|regulat|jur[íi]dic|legal/i.test(a.text),
-      `${q}: admission and regulatory authorization are different decisions and must be named apart`,
-    );
+    //
+    // Per language half, and that is the whole point. These answers are bilingual in one string, so a
+    // test that searches the WHOLE text is satisfied by either half: deleting both ADR references and the
+    // word "regulatory" from the Portuguese left the English copy to satisfy the regex, and the mutation
+    // survived. A reader receives one language, not the concatenation.
+    for (const [lang, half] of halves(a.text)) {
+      assert.ok(
+        /ADR-006|esquema operacional|operational scheme/i.test(half),
+        `${q} [${lang}]: operational admission is a decision of a scheme (ADR-006) and must be named: ${half.slice(0, 200)}`,
+      );
+      assert.ok(
+        /ADR-007|regulat|jur[íi]dic|legal/i.test(half),
+        `${q} [${lang}]: regulatory authorization is a separate decision (ADR-007) and must be named apart: ${half.slice(0, 200)}`,
+      );
+    }
   }
 });
 
@@ -149,12 +166,13 @@ test("PT and EN reach the same institutional fact for each new subject", async (
   }
 });
 
-// ── Public evidence — the property, not the rendering ────────────────────────────────────────────
+// ── Public evidence ──────────────────────────────────────────────────────────────────────────────
+//
+// The property is enforced at two independent layers, so asserting it once end-to-end could not fail: each
+// filter masked the other. It is proven per layer in public-evidence-layers.test.js. What remains here is
+// the end-to-end statement — true of the whole path, and no longer the only thing standing behind the rule.
 
 test("a public answer never rests on an internal-only source", async () => {
-  // `implementar o protocolo` is verified to select implementation-steps, whose canonical entry attaches
-  // CLAUDE.md. The source must not reach the answer's evidence — and this asserts the evidence object,
-  // not the HTTP response, because a filter downstream hides a source rather than preventing it.
   for (const q of ["implementar o protocolo", "O que é o BANZA?", "Quem certifica uma implementação?"]) {
     const a = await answer(q);
     assert.ok(
