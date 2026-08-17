@@ -100,9 +100,58 @@ fn is_onboarding(nq: &str) -> bool {
 /// "Operador Zero é operador real?") — answered by the vocabulary/boundary entries even when it is not
 /// phrased as a definition.
 fn is_boundary_query(nq: &str) -> bool {
-    has(nq, &["banza e ", "banza substitui", "kz_demo", "kz demo"])
-        || (has(nq, &["operador zero", "operator zero"])
-            && has(nq, &["operador real", "operator real", "real operator"]))
+    // "O BANZA é um banco?" opens this gate through the Portuguese copula. The English copula was
+    // missing, so "Is BANZA a bank?" — the same question about the same boundary — never opened it and
+    // fell through to the model, while its Portuguese twin was settled deterministically from
+    // `def-bank`. Measured, not supposed: identity, wallet and bank all diverged this way. An identity
+    // boundary must not depend on which language asks.
+    has(
+        nq,
+        &[
+            "banza e ",
+            "banza substitui",
+            "banza is ",
+            "is banza ",
+            "banza a ",
+            "banza replaces",
+            "does banza replace",
+            "kz_demo",
+            "kz demo",
+        ],
+    ) || (has(nq, &["operador zero", "operator zero"])
+        && has(nq, &["operador real", "operator real", "real operator"]))
+}
+
+/// The four Fundamental Principles, asked by their name.
+///
+/// `normalize` drops the superscript digits of "R²S²" — measured, it yields `"r s"` — so the canonical
+/// acronym can never match the spelled form. This is the same collision `def-bcj` documents for "BCJ/1"
+/// arriving as "bcj/i": folding is right for prose and wrong for a versioned identifier, so the term that
+/// suffers is matched in both forms rather than the normalizer being weakened for every query.
+///
+/// The folded form is short enough to collide, so it is required to be the WHOLE subject of a short
+/// question rather than merely present. "what is r s" resolves; a long sentence that happens to contain
+/// those two letters does not.
+fn is_r2s2_acronym(nq: &str) -> bool {
+    if has(nq, &["r2s2", "r²s²"]) {
+        return true;
+    }
+    let subject = [
+        "o que e ",
+        "o que sao ",
+        "what is ",
+        "what are ",
+        "define ",
+        "explica ",
+        "explain ",
+    ]
+    .iter()
+    .find_map(|lead| nq.strip_prefix(*lead))
+    .unwrap_or(nq)
+    .trim()
+    .trim_end_matches('?')
+    .trim();
+    subject == "r s" || subject == "o r s" || subject == "the r s"
 }
 
 /// M2.14C SEC-FIX — a MULTI-WORD governance/documentation phrase (e.g. PT "relatório de auditoria",
@@ -181,6 +230,11 @@ fn is_protocol_fact_phrase(nq: &str) -> bool {
             "root quorum",
             // The threshold asked in Portuguese words rather than the English term.
             "limiar da raiz",
+            // Portuguese uses the proper noun untranslated ("o limiar da Root"), which the raiz-only
+            // form missed while the English "root threshold" resolved — the asymmetry ran the other way
+            // for this fact.
+            "limiar da root",
+            "quorum da root",
             "limiar da trust root",
             "limiar de assinatura",
             // "pode agir sozinha?" — the single most consequential yes/no about the Root.
@@ -512,7 +566,8 @@ fn term_of(nq: &str) -> Option<&'static str> {
             "quais sao os principios",
             "quais são os princípios",
         ],
-    ) {
+    ) || is_r2s2_acronym(nq)
+    {
         return Some("def-r2s2");
     }
     // "o que é Robusto/Resiliente no BANZA?" — the individual principles resolve to the same entry
@@ -778,6 +833,14 @@ fn term_of(nq: &str) -> Option<&'static str> {
             "threshold do root",
             "root threshold",
             "trust root threshold",
+            // Portuguese uses the proper noun untranslated — "o limiar da Root". The raiz-only forms
+            // above meant the English "root threshold" resolved while its Portuguese twin did not, the
+            // same asymmetry as the identity boundary but running the other way. The gate predicate
+            // carries these too; a gate that opens with no arm behind it here is how a question becomes
+            // unanswerable while looking handled.
+            "limiar da root",
+            "limiar da raiz",
+            "quorum da root",
             "quorum da raiz",
             "root quorum",
             "2 de 3",
@@ -944,6 +1007,7 @@ pub fn glossary_entry(nq: &str) -> Option<&'static str> {
                 "four principles",
             ],
         )
+        || is_r2s2_acronym(nq)
         // Read from the SAME predicates the term table reads. The earlier version of this clause was
         // written inline here and had no counterpart in `term_of`, so the gate opened, the term table
         // returned nothing, and the question fell through to the hypothesis family and was refused.

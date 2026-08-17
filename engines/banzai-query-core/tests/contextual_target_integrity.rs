@@ -182,7 +182,10 @@ fn an_explicit_new_subject_overrides_the_inherited_one() {
     // deleted the explicit-subject priority left the OUTCOME correct — the merge it produced was then
     // discarded by an unrelated gate — so an outcome-only assertion passed while the rule was gone.
     assert_eq!(
-        merge("E quem controla a Root?", Some("Quem controla os operadores?")),
+        merge(
+            "E quem controla a Root?",
+            Some("Quem controla os operadores?")
+        ),
         Merge::Standalone,
         "a turn that names its own subject must be decided standalone, by the priority rule itself"
     );
