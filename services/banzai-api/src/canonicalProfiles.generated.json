@@ -1,0 +1,59 @@
+{
+  "_generated_by": "tools/gen-canonical-profiles-rs.py",
+  "_source": "contracts/production/conformance-profiles.production.json",
+  "_note": "Derived. Never hand-edited: BanzAI states profile identifiers, names, purposes and inheritance from the normative registry so a change there cannot leave a stale answer behind. Localized prose may wrap these facts; the facts themselves are not translated and not re-authored.",
+  "protocol_version": "1.0.0",
+  "profiles": [
+    {
+      "level": "L0",
+      "name": "Protocol Sandbox",
+      "purpose": "Prove the protocol can be instantiated in a controlled test environment and that the core monetary representation is correct.",
+      "includes": [],
+      "awarded_by_sandbox_runner": true
+    },
+    {
+      "level": "L1",
+      "name": "Core Payment Capability",
+      "purpose": "Consumer payment, merchant acceptance, transfer and traceability capability.",
+      "includes": [
+        "L0"
+      ],
+      "awarded_by_sandbox_runner": true
+    },
+    {
+      "level": "L2",
+      "name": "Payment Initiation Capability",
+      "purpose": "Payment request, payment initiation and instant execution capability.",
+      "includes": [
+        "L0",
+        "L1"
+      ],
+      "awarded_by_sandbox_runner": true
+    },
+    {
+      "level": "L3",
+      "name": "Inter-Operator Interoperability",
+      "purpose": "Cross-operator routing, inter-operator settlement and automated reconciliation. This is the federation eligibility threshold.",
+      "includes": [
+        "L0",
+        "L1",
+        "L2"
+      ],
+      "awarded_by_sandbox_runner": false
+    },
+    {
+      "level": "L4",
+      "name": "External Interoperability",
+      "purpose": "Integration with external payment networks and acquiring infrastructure.",
+      "includes": [
+        "L0",
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "awarded_by_sandbox_runner": false,
+      "external_profile_required": true,
+      "published_external_profiles": []
+    }
+  ]
+}

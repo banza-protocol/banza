@@ -547,62 +547,79 @@ const CRITICAL_SUBJECTS: &[(&str, &[&str])] = &[
     ),
 ];
 
-/// L0 as the SUBJECT of a definitional or boundary question.
+/// A registered profile named as the SUBJECT of a question — and WHICH of the two profile facts is being
+/// asked for.
 ///
-/// A bare `l0` alias was tried first and measured too broad: it hijacked "compara a execução L0 com a
-/// execução L2 da jornada de validação" (a comparison of two journey runs) and "l0 a l4" / "níveis l0"
-/// (the profile ladder), answering all three from the regulatory-boundary record. The token names the
-/// profile wherever it appears, so presence is not enough — L0 has to be what the question is ABOUT.
+/// The two are deliberately separate records, because they answer different questions and each is wrong as
+/// an answer to the other: what a level IS (identity, from the registry) versus what passing it does NOT
+/// confer (the regulatory boundary). Collapsing them would make "o que é L0?" answer with a denial and
+/// "passar L0 permite dinheiro real?" answer with a name.
 ///
-/// So it is required to carry a definitional lead or an authorisation/permission/sandbox word, and to
-/// carry none of the markers of a comparison, an execution or a range across the other profiles.
-fn is_l0_subject_query(nq: &str) -> bool {
-    if !word(nq, "l0") {
-        return false;
-    }
-    // A range or a comparison is about the ladder or about two runs, not about what L0 permits.
+/// A bare token match was tried first and measured too broad: it hijacked "compara a execução L0 com a
+/// execução L2 da jornada de validação" (two journey runs) and "l0 a l4" (the ladder). The identifier names
+/// the profile wherever it appears, so presence is not enough — the level has to be what the question is
+/// ABOUT, and a range or a comparison is about neither fact.
+fn profile_subject(nq: &str) -> Option<&'static str> {
+    let level = nq
+        .split(|c: char| !c.is_alphanumeric())
+        .find(|t| {
+            let t = t.to_ascii_lowercase();
+            t.len() >= 2
+                && t.starts_with('l')
+                && t[1..].chars().all(|c| c.is_ascii_digit())
+                && crate::canonical_profiles::is_registered(&t)
+        })?
+        .to_ascii_lowercase();
+
+    // A comparison, an execution or a range spans levels; it asks about neither profile fact.
     if has(
         nq,
         &[
-            "compara",
-            "compare",
-            "execucao",
-            "execution",
-            "jornada",
-            "journey",
-            "l1",
-            "l2",
-            "l3",
-            "l4",
-            "niveis",
-            "levels",
+            "compara", "compare", "execucao", "execution", "jornada", "journey", "niveis", "levels",
         ],
     ) {
-        return false;
+        return None;
     }
-    starts_definition_lead(nq)
-        || has(
-            nq,
-            &[
-                "autoriza",
-                "autorizacao",
-                "permite",
-                "authorize",
-                "authorise",
-                "authorization",
-                "authorisation",
-                "allow",
-                "sandbox",
-                "producao",
-                "production",
-                "dinheiro real",
-                "real money",
-                "real funds",
-                "fundos reais",
-                "significa",
-                "means",
-            ],
-        )
+
+    // BOUNDARY first: what passing does not confer. These words make the question about permission,
+    // and permission is never answered by a profile name.
+    if has(
+        nq,
+        &[
+            "autoriza",
+            "autorizacao",
+            "permite",
+            "authorize",
+            "authorise",
+            "authorization",
+            "authorisation",
+            "allow",
+            "sandbox regulator",
+            "regulatory sandbox",
+            "producao",
+            "production",
+            "dinheiro real",
+            "real money",
+            "real funds",
+            "fundos reais",
+            "licenc",
+            "licen",
+        ],
+    ) {
+        return Some("def-l0-regulatory-boundary");
+    }
+
+    // IDENTITY: what the level is. Derived per level, so an unregistered one has no entry to reach.
+    match level.as_str() {
+        "l0" if starts_definition_lead(nq) || has(nq, &["perfil l0", "l0 profile"]) => {
+            Some("def-profile-l0")
+        }
+        "l1" => Some("def-profile-l1"),
+        "l2" => Some("def-profile-l2"),
+        "l3" => Some("def-profile-l3"),
+        "l4" => Some("def-profile-l4"),
+        _ => None,
+    }
 }
 
 /// The critical subject named by a MULTI-WORD alias. Precise enough to run BEFORE the broad arms:
@@ -634,8 +651,10 @@ fn critical_subject(nq: &str) -> Option<&'static str> {
             }
         }
     }
-    if best.is_none() && is_l0_subject_query(nq) {
-        return Some("def-l0-regulatory-boundary");
+    if best.is_none() {
+        if let Some(id) = profile_subject(nq) {
+            return Some(id);
+        }
     }
     best.map(|(_, id)| id)
 }

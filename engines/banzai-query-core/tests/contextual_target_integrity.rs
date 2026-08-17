@@ -147,7 +147,10 @@ fn every_subject_keeps_its_own_target_across_a_referential_followup() {
         ("Quem controla a Root?", Some("def-root-authorization")),
         ("Who controls the Root?", Some("def-root-authorization")),
         ("Quem governa o protocolo?", Some("def-governance")),
-        ("O que é L0?", Some("def-l0-regulatory-boundary")),
+        // Profile IDENTITY, not the regulatory boundary. These are two records on purpose: what a level
+        // IS versus what passing it does not confer. "O que é L0?" asks the first — it previously reached
+        // the boundary record only because identity had nowhere to go.
+        ("O que é L0?", Some("def-profile-l0")),
     ];
     for (prev, expected) in cases {
         for f in SOURCE_FOLLOWUPS {

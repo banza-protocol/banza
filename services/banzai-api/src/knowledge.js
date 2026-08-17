@@ -28,6 +28,13 @@ import { createRequire } from "node:module";
 // the Rust engine returns; it performs NO matching, scoring, ranking or normalization of its own.
 const kb = createRequire(import.meta.url)("./rustkb/banzai_api_kb.js");
 
+// The profile facts BanzAI states, DERIVED from the normative registry by
+// tools/gen-canonical-profiles-rs.py. Identifiers, canonical names, purposes and inheritance are read
+// from here and never written here: a second hand-maintained L0-L4 table is a drift path, and the one
+// that goes stale is always the one a reader sees. The prose around them is localized presentation; the
+// facts inside are not translated and not re-authored.
+const PROFILE_FACTS = createRequire(import.meta.url)("./canonicalProfiles.generated.json");
+
 // Canonical source references (path + title). These are the citations BanzAI returns.
 export const SOURCES = {
   claudeMd: { id: "CLAUDE.md", title: "BANZA — Open Financial Protocol (repo guide)", path: "CLAUDE.md" },
@@ -122,12 +129,89 @@ export const SOURCES = {
   runbookDoc: { id: "RUNBOOK", title: "Operational runbook (activation, smoke tests, rollback)", path: "docs/guides/OPERADOR_ZERO_SUBDOMAIN_ACTIVATION.md" },
   reportsDir: { id: "REPORTS", title: "Milestone & audit reports", path: "docs/quality/" },
   specDir: { id: "SPEC", title: "Protocol specifications", path: "spec/" },
+  profilesRegistry: { id: "CONFORMANCE-PROFILES", title: "Conformance profile registry (normative)", path: "contracts/production/conformance-profiles.production.json" },
   contractsDir: { id: "CONTRACTS", title: "Protocol contracts (OpenAPI, JSON schemas)", path: "contracts/" },
 };
 
 const s = (...keys) => keys.map((k) => SOURCES[k]);
 
 // Knowledge entries. `keywords` drive matching; `answer` is the deterministic body.
+
+/** The profile levels, in registry order, as a compact PT/EN line each. */
+function profileLines(lang) {
+  return PROFILE_FACTS.profiles
+    .map((p) => {
+      const builds =
+        p.includes && p.includes.length
+          ? lang === "pt"
+            ? ` Inclui ${p.includes.join(", ")}.`
+            : ` Includes ${p.includes.join(", ")}.`
+          : "";
+      return `- **${p.level} — ${p.name}**: ${p.purpose}${builds}`;
+    })
+    .join("\n");
+}
+
+/** The L4 state, which readers ask about directly and which the registry states plainly. */
+function l4Note(lang) {
+  const l4 = PROFILE_FACTS.profiles.find((p) => p.external_profile_required);
+  if (!l4) return "";
+  const none = !(l4.published_external_profiles || []).length;
+  if (!none) return "";
+  return lang === "pt"
+    ? ` O **${l4.level}** é parametrizado por um **perfil externo**: a sua reivindicação nomeia um perfil de interoperabilidade externa concreto. **Nenhum perfil externo está publicado**, pelo que o **${l4.level}** define o mecanismo e não existe hoje demonstração executável dele.`
+    : ` **${l4.level}** is parameterized by an **external profile**: a claim names a concrete external-interoperability profile. **No external profile is published**, so ${l4.level} defines the mechanism and no executable demonstration of it exists today.`;
+}
+
+/**
+ * One entry per registered profile, plus the list. Generated from the derived facts rather than written
+ * out, so the set cannot drift from the registry and an unregistered level has no entry to reach.
+ */
+function profileEntries() {
+  const list = {
+    id: "def-profiles",
+    deterministic: true,
+    critical: true,
+    keywords: [
+      "perfis do banza", "quais sao os perfis", "quais sao os perfis do banza", "perfis de conformidade",
+      "lista de perfis", "niveis de conformidade", "perfis l0 a l4", "l0 a l4",
+      "banza profiles", "what are banza profiles", "conformance profiles", "profile levels",
+      "list of profiles", "l0 to l4",
+    ],
+    answer:
+      `Os **perfis de conformidade** do **BANZA** são **${PROFILE_FACTS.profiles.length}**, do **${PROFILE_FACTS.profiles[0].level}** ao **${PROFILE_FACTS.profiles[PROFILE_FACTS.profiles.length - 1].level}**:\n\n${profileLines("pt")}\n\nUm perfil mede **capacidade técnica demonstrada**, e não é um estado de certificação, uma admissão operacional, uma permissão regulatória nem uma aprovação para produção.${l4Note("pt")}\n\n---\n\nBANZA defines **${PROFILE_FACTS.profiles.length}** conformance profiles, **${PROFILE_FACTS.profiles[0].level}** through **${PROFILE_FACTS.profiles[PROFILE_FACTS.profiles.length - 1].level}**:\n\n${profileLines("en")}\n\nA profile measures **demonstrated technical capability**. It is never a certification state, an operational admission, a regulatory permission or a production approval.${l4Note("en")}`,
+    sources: s("profilesRegistry", "govGlossary"),
+  };
+
+  const perLevel = PROFILE_FACTS.profiles.map((p) => ({
+    id: `def-profile-${p.level.toLowerCase()}`,
+    deterministic: true,
+    critical: true,
+    keywords: [
+      `o que e ${p.level.toLowerCase()}`, `o que e o ${p.level.toLowerCase()}`, `perfil ${p.level.toLowerCase()}`,
+      `what is ${p.level.toLowerCase()}`, `${p.level.toLowerCase()} profile`, `profile ${p.level.toLowerCase()}`,
+    ],
+    answer:
+      `O **${p.level}** é o perfil **${p.name}**. ${p.purpose}` +
+      (p.includes && p.includes.length ? ` Inclui ${p.includes.join(", ")}.` : "") +
+      (p.awarded_by_sandbox_runner
+        ? ` É demonstrável por um executor de sandbox.`
+        : ` **Não** é atribuído por um executor de sandbox — a sua evidência não pode ser produzida por uma única implementação em ambiente simulado.`) +
+      ` Um perfil mede **capacidade técnica**, não é certificação, admissão operacional nem autorização regulatória.` +
+      (p.external_profile_required ? l4Note("pt") : "") +
+      `\n\n---\n\n**${p.level}** is the **${p.name}** profile. ${p.purpose}` +
+      (p.includes && p.includes.length ? ` Includes ${p.includes.join(", ")}.` : "") +
+      (p.awarded_by_sandbox_runner
+        ? ` It is demonstrable by a sandbox runner.`
+        : ` It is **not** awarded by a sandbox runner — its evidence cannot be produced by a single implementation in a simulated environment.`) +
+      ` A profile measures **technical capability**; it is not certification, operational admission or regulatory authorization.` +
+      (p.external_profile_required ? l4Note("en") : ""),
+    sources: s("profilesRegistry", "govGlossary"),
+  }));
+
+  return [list, ...perLevel];
+}
+
 export const ENTRIES = [
   {
     id: "what-is-banza",
@@ -1330,6 +1414,15 @@ export const ENTRIES = [
       "Os **Princípios Fundamentais** do **BANZA** são **quatro**, e apenas quatro — em conjunto chamam-se **BANZA R²S²** (ASCII `R2S2`): **Robusto** — comportamento correcto e determinístico perante implementações independentes, entrada adversarial e condições-limite; **Resiliente** — contém falhas, preserva operação segura onde é possível e recupera de forma determinística **sem enfraquecer as garantias do protocolo**; **Seguro** — as propriedades críticas são impostas **por construção** e **fecham por omissão** quando não podem ser estabelecidas; **Simples** — usa o **menor mecanismo suficiente** para fornecer a propriedade exigida. A ordem é canónica. **A resiliência não se sobrepõe à segurança**: nunca permite contornar confiança, autorização ou integridade apenas para continuar disponível, e **não significa ausência de indisponibilidade** — significa que uma falha é contida, explícita e recuperável, e não se transforma numa violação do protocolo. Os princípios são o **critério de decisão**, distintos das **propriedades estruturais** que o protocolo tem de possuir (Referência §3, oito) e dos **invariantes arquitecturais** que a arquitectura não pode violar (Whitepaper, cinco). **`Fecho por omissão` é uma propriedade estrutural** associada a Seguro e Resiliente — **não** é um quinto princípio. Decisão: **ADR-040**; evidência: `assurance/`.",
     sources: s("govGlossary", "specDir"),
   },
+  // ── Conformance profiles — DERIVED. Every identifier, canonical name, purpose and inheritance below
+  //    comes from PROFILE_FACTS, generated from contracts/production/conformance-profiles.production.json.
+  //    Nothing here restates them, so a registry change cannot leave a stale answer behind, and the
+  //    freshness check fails until the artifact is regenerated.
+  //
+  //    Profile IDENTITY is kept SEPARATE from the L0 regulatory boundary above. They answer different
+  //    questions: what a level IS, versus what passing it does not confer. Collapsing them would make
+  //    "o que é L0?" answer with a denial, and "passar L0 permite dinheiro real?" answer with a name.
+  ...profileEntries(),
   {
     id: "def-resilience-boundary",
     deterministic: true,
