@@ -15,9 +15,12 @@
 # what the artifact EMBEDS (`include_str!` of route.rs and the entries index), and this check recomputes
 # the same hash from the files on disk:
 #
-#   IDENTITY   embedded fingerprint == fingerprint of the current source. Exact, and it holds for every
-#              question, not just the ones a sample happens to cover. A behavioural sample can only say
-#              "these N observations agree"; a stale binary could still diverge on question N+1.
+#   IDENTITY   embedded fingerprint == fingerprint of the current source, across every input the engine
+#              declares as semantically relevant. Exact, and it holds for every question rather than the
+#              ones a sample happens to cover: a behavioural sample can only say "these N observations
+#              agree", while a stale binary could still diverge on question N+1. The first version of this
+#              covered route.rs and the index alone, and a change to fuzzy.rs then altered how queries
+#              resolve while the guard still called the artifact fresh.
 #   BEHAVIOUR  both routers decide identically over a corpus. Kept as a second, independent signal: it
 #              catches a toolchain or dependency change that identity alone would not explain.
 #
@@ -72,26 +75,43 @@ const fnv1a64 = (buf) => {
   return h.toString(16).padStart(16, "0");
 };
 
-const routeRs = readFileSync("engines/banzai-query-core/src/route.rs");
-const indexJson = readFileSync("engines/banzai-query-core/src/entries-index.json");
-const onDisk = {
-  route_rs: fnv1a64(routeRs),
-  entries_index: fnv1a64(indexJson),
-  entries_count: JSON.parse(indexJson.toString("utf8")).length,
-};
+// The input NAMES travel with the hashes, so this needs no second copy of the list: an input added to
+// the engine manifest extends this check automatically.
 const embedded = JSON.parse(kb.engine_source_fingerprint_json());
+if (!Array.isArray(embedded.inputs) || embedded.inputs.length === 0) {
+  console.log("  FAIL: the vendored WASM reports no semantic source inputs — it cannot state its origin.");
+  process.exit(1);
+}
 
-const diffs = Object.keys(onDisk).filter((k) => String(onDisk[k]) !== String(embedded[k]));
+const SRC = "engines/banzai-query-core/src";
+const diffs = [];
+for (const { name, hash } of embedded.inputs) {
+  let onDisk;
+  try {
+    onDisk = fnv1a64(readFileSync(`${SRC}/${name}`));
+  } catch {
+    diffs.push([name, hash, "missing on disk"]);
+    continue;
+  }
+  if (onDisk !== hash) diffs.push([name, hash, onDisk]);
+}
+const indexCount = JSON.parse(readFileSync(`${SRC}/entries-index.json`, "utf8")).length;
+if (indexCount !== embedded.entries_count) {
+  diffs.push(["entries_count", String(embedded.entries_count), String(indexCount)]);
+}
+
 if (diffs.length) {
-  console.log("  FAIL: the shipped router was built from a different source state than the one on disk.");
-  for (const k of diffs) console.log(`        ${k}: embedded ${embedded[k]}, on disk ${onDisk[k]}`);
+  console.log("  FAIL: the shipped engine was built from a different source state than the one on disk.");
+  for (const [name, was, now] of diffs) console.log(`        ${name}: embedded ${was}, on disk ${now}`);
   console.log();
-  console.log("  Production would run an older router than the tests exercise. Rebuild and install it:");
+  console.log("  Production would resolve queries differently from the source the tests exercise.");
+  console.log("  Rebuild and install it:");
   console.log("      cd engines/banzai-api-kb && wasm-pack build --target nodejs --out-dir /tmp/pkg");
   console.log("      cp /tmp/pkg/banzai_api_kb* services/banzai-api/src/rustkb/");
   process.exit(1);
 }
-console.log(`  ok: embedded fingerprint matches the source on disk (${embedded.entries_count} indexed entries)`);
+console.log(`  ok: all ${embedded.inputs.length} semantic source inputs match the files on disk`
+  + ` (combined ${embedded.combined}, ${embedded.entries_count} indexed entries)`);
 ' || { echo "banzai-wasm-source-bound: FAILED"; exit 1; }
 
 # The generated JS wrapper IS reproducible, and it declares the export surface. A wrapper mismatch means

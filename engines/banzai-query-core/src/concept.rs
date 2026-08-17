@@ -189,6 +189,10 @@ const CONCEPTS: &[(&str, &[&str])] = &[
         "docs/reference/PROTOCOL_GOVERNANCE_GLOSSARY.md",
         &[
             "governanca",
+            // The other legitimate Portuguese spelling of the same term. Registered on the SAME
+            // concept so the shared stem has one meaning: with the two spellings on different
+            // concepts, the typo "governaca" was a genuine two-concept tie and stayed ambiguous.
+            "governacao",
             "governance",
             "como e governado",
             "quem governa",
@@ -216,6 +220,7 @@ const CONCEPTS: &[(&str, &[&str])] = &[
         "ADR-004",
         &[
             "governanca do protocolo",
+            "governacao do protocolo",
             "protocol governance",
             "quem governa o protocolo",
             "who governs the protocol",
@@ -233,6 +238,7 @@ const CONCEPTS: &[(&str, &[&str])] = &[
             "quem governa os operadores",
             "who governs operators",
             "governanca dos operadores",
+            "governacao dos operadores",
             "tres camadas",
             "arquitectura institucional",
             "arquitetura institucional",

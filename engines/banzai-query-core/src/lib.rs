@@ -653,22 +653,45 @@ fn score_entry(nq: &str, keywords: &[String]) -> i64 {
     score
 }
 
-/// A fingerprint of the bytes that decide routing, computed over what this binary EMBEDS.
+/// A fingerprint of the bytes that decide how a query resolves, computed over what this binary EMBEDS.
 ///
 /// The vendored WASM is what production runs; the Rust source is what the tests exercise. When they
-/// disagree, every test can be green while the deployed router behaves like an older revision — and that
+/// disagree, every test can be green while the deployed engine behaves like an older revision — and that
 /// happened twice while this was being built. Byte-comparing the binary cannot detect it, because
 /// `wasm-pack` does not emit a reproducible `.wasm` for the same source: measured, the generated JS
 /// wrappers matched a fresh build exactly while the binary differed.
 ///
-/// So the binary carries its own origin instead. `include_str!` embeds `route.rs` and the entries index
-/// at compile time, so hashing them here hashes what THIS artifact was built from. A checker hashes the
-/// same two files on disk and compares: equal means this binary came from this source state, unequal
-/// means it did not — exact identity, with no reproducible-build requirement.
+/// So the binary carries its own origin. `include_str!` embeds each declared input at compile time, so
+/// hashing them here hashes what THIS artifact was built from. A checker reads the input NAMES out of the
+/// fingerprint and hashes the same files on disk: equal means this binary came from this source state.
+///
+/// The manifest below is the point of the design. The first version hashed `route.rs` and the entries
+/// index only — and then a change to `fuzzy.rs` altered how queries resolve while the guard still called
+/// the artifact fresh. The rule is therefore stated rather than assumed:
+///
+///   AN INPUT BELONGS HERE WHEN ITS STALE VENDORED FORM CAN CHANGE HOW A QUERY RESOLVES.
+///
+/// It is deliberately not "every file in the crate": hashing unrelated code would make the guard fire on
+/// changes that cannot affect resolution, and a guard that cries wolf gets disabled. It is also not a
+/// behavioural sample — this is source-freshness IDENTITY. A comment-only edit invalidates freshness, and
+/// that is correct: the artifact genuinely was not built from these bytes.
 ///
 /// FNV-1a, not SHA-256: this detects accidental staleness, not a forged artifact, and the alternative was
 /// pulling a crypto dependency into a WASM crate that has three. A checker reimplements it in six lines.
-const ROUTE_RS: &str = include_str!("route.rs");
+const SEMANTIC_SOURCES: &[(&str, &str)] = &[
+    // Routing decision and the candidate set it scores.
+    ("route.rs", include_str!("route.rs")),
+    ("entries-index.json", include_str!("entries-index.json")),
+    // Query understanding: typo recovery, concept and alias resolution, intent, evidence planning. Each of
+    // these can change which concept a question resolves to, and therefore which evidence answers it.
+    ("fuzzy.rs", include_str!("fuzzy.rs")),
+    ("concept.rs", include_str!("concept.rs")),
+    ("catalogue.rs", include_str!("catalogue.rs")),
+    ("resolve.rs", include_str!("resolve.rs")),
+    ("retrieval.rs", include_str!("retrieval.rs")),
+    ("intent.rs", include_str!("intent.rs")),
+    ("glossary.rs", include_str!("glossary.rs")),
+];
 
 fn fnv1a64(bytes: &[u8]) -> u64 {
     let mut h: u64 = 0xcbf2_9ce4_8422_2325;
@@ -679,12 +702,24 @@ fn fnv1a64(bytes: &[u8]) -> u64 {
     h
 }
 
-/// `{ route_rs, entries_index, entries_count }` — the routing source state this binary embeds.
+/// `{ inputs: [{name, hash}], combined, entries_count }` — the semantic source state this binary embeds.
+///
+/// The names travel with the hashes so a checker needs no second copy of the list: adding an input here
+/// extends the check automatically, which is the whole reason the first version's two hardcoded fields
+/// were the wrong shape.
 pub fn engine_source_fingerprint() -> String {
+    let mut inputs = String::new();
+    let mut combined: u64 = 0xcbf2_9ce4_8422_2325;
+    for (name, body) in SEMANTIC_SOURCES {
+        let h = fnv1a64(body.as_bytes());
+        if !inputs.is_empty() {
+            inputs.push(',');
+        }
+        inputs.push_str(&format!("{{\"name\":\"{name}\",\"hash\":\"{h:016x}\"}}"));
+        combined = fnv1a64(format!("{combined:016x}{name}{h:016x}").as_bytes());
+    }
     format!(
-        "{{\"route_rs\":\"{:016x}\",\"entries_index\":\"{:016x}\",\"entries_count\":{}}}",
-        fnv1a64(ROUTE_RS.as_bytes()),
-        fnv1a64(ENTRIES_JSON.as_bytes()),
+        "{{\"inputs\":[{inputs}],\"combined\":\"{combined:016x}\",\"entries_count\":{}}}",
         entries().len()
     )
 }
