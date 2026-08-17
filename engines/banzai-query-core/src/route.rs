@@ -7617,6 +7617,12 @@ pub fn route_with_context(question: &str, prev_questions: &[String]) -> ContextR
                     context_used = true;
                     turns_used = 1;
                     merge_kind = "SUBJECT_CARRY";
+                } else {
+                    // Reported distinctly from STANDALONE. A mutation that removed the explicit-subject
+                    // priority was found to land here and be discarded by this gate — the behaviour stayed
+                    // correct, so the integration test passed and said nothing, while the RULE it claimed to
+                    // pin was gone. Two different decisions must not share one label.
+                    merge_kind = "SUBJECT_CARRY_DECLINED";
                 }
             }
             crate::frame::Merge::ContextTargetMissing => {
