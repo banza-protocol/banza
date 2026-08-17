@@ -5,6 +5,19 @@
   "state": "M2_PROTOCOL_IMPLEMENTATION",
   "pre_production": true,
   "production_certificates": false,
+  "_lifecycle_state_boundary": "The lifecycle_state fields below are AUTHORITATIVE CURRENT-STATE METADATA about this version of BANZA. They are NOT normative conformance requirements: no implementation satisfies or fails them, no profile requires them, and a conformance run never evaluates them. They record what is true of the protocol today so that consumers — documentation, the website, BanzAI — derive current state from one place instead of restating it. Reading them as requirements would invert the authority: they describe the protocol, they do not constrain implementers.",
+  "lifecycle_state": {
+    "protocol_frozen": false,
+    "l0_frozen": false,
+    "independent_implementation_demonstrated": false,
+    "independent_trial_started": false,
+    "_provenance": {
+      "protocol_frozen": "_release_state, this file: no externally frozen BANZA target has been published.",
+      "l0_frozen": "docs/whitepaper/content/{pt,en}.json: the target of the external trial has not been selected or frozen, and no final trial package has been published.",
+      "independent_implementation_demonstrated": "_release_state, this file: no independent implementation trial has been conducted. Distinct from the reference implementation, from clean-room derivation and from internal assurance, none of which is an independent implementation.",
+      "independent_trial_started": "_release_state, this file: no independent implementation trial has been conducted."
+    }
+  },
   "operators": [],
   "_authority": "Production Protocol Implementation (ADR-001, ADR-001, ADR-038)",
   "_boundary": "Production of the BANZA protocol, not financial production. BANZA is an open protocol; it does not process payments, settle value, or move funds. Licence/authorisation belongs to the operator, not to BANZA.",
