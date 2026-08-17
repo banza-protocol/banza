@@ -1,0 +1,25 @@
+{
+  "_generated_by": "tools/gen-banzai-lifecycle-facts.py",
+  "_source": "contracts/production/protocol-version.json",
+  "_role": "DERIVED CONSUMER. BanzAI reads current lifecycle state from here so it states one truth rather than a copy of it. This file is never an authority: the descriptor named in _source owns these facts, and every value carries its upstream field in _provenance.",
+  "_not_included": "AG-10 run state. No tracked artifact records it: what exists is the rule that readiness is aggregated and never declared, plus a live evaluation reporting NOT_RUN because the gate was not evaluated. A field here would assert something no upstream source establishes.",
+  "_boundary": "Current-state metadata, not conformance requirements. No implementation satisfies or fails these, no profile requires them, and no conformance verdict reads them.",
+  "facts": {
+    "protocol_version": "1.0.0",
+    "pre_production": true,
+    "production_certificates": false,
+    "protocol_frozen": false,
+    "l0_frozen": false,
+    "independent_implementation_demonstrated": false,
+    "independent_trial_started": false
+  },
+  "_provenance": {
+    "protocol_version": "contracts/production/protocol-version.json#protocol_version",
+    "pre_production": "contracts/production/protocol-version.json#pre_production",
+    "production_certificates": "contracts/production/protocol-version.json#production_certificates",
+    "protocol_frozen": "contracts/production/protocol-version.json#lifecycle_state.protocol_frozen",
+    "l0_frozen": "contracts/production/protocol-version.json#lifecycle_state.l0_frozen",
+    "independent_implementation_demonstrated": "contracts/production/protocol-version.json#lifecycle_state.independent_implementation_demonstrated",
+    "independent_trial_started": "contracts/production/protocol-version.json#lifecycle_state.independent_trial_started"
+  }
+}

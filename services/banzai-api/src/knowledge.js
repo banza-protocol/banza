@@ -35,6 +35,13 @@ const kb = createRequire(import.meta.url)("./rustkb/banzai_api_kb.js");
 // facts inside are not translated and not re-authored.
 const PROFILE_FACTS = createRequire(import.meta.url)("./canonicalProfiles.generated.json");
 
+// Current lifecycle state, DERIVED from contracts/production/protocol-version.json by
+// tools/gen-banzai-lifecycle-facts.py. Read here, never written here: version, pre-production and the
+// freeze / independent-implementation / trial booleans have one owner, and a copy that can be edited
+// separately is a copy that will one day disagree. AG-10 is deliberately absent — no tracked artifact
+// records its run state, so there is nothing to derive.
+const LIFECYCLE = createRequire(import.meta.url)("./lifecycleFacts.generated.json").facts;
+
 // Canonical source references (path + title). These are the citations BanzAI returns.
 export const SOURCES = {
   claudeMd: { id: "CLAUDE.md", title: "BANZA — Open Financial Protocol (repo guide)", path: "CLAUDE.md" },
@@ -129,6 +136,7 @@ export const SOURCES = {
   runbookDoc: { id: "RUNBOOK", title: "Operational runbook (activation, smoke tests, rollback)", path: "docs/guides/OPERADOR_ZERO_SUBDOMAIN_ACTIVATION.md" },
   reportsDir: { id: "REPORTS", title: "Milestone & audit reports", path: "docs/quality/" },
   specDir: { id: "SPEC", title: "Protocol specifications", path: "spec/" },
+  protocolVersionContract: { id: "PROTOCOL-VERSION", title: "Protocol version and current lifecycle state (normative descriptor)", path: "contracts/production/protocol-version.json" },
   profilesRegistry: { id: "CONFORMANCE-PROFILES", title: "Conformance profile registry (normative)", path: "contracts/production/conformance-profiles.production.json" },
   contractsDir: { id: "CONTRACTS", title: "Protocol contracts (OpenAPI, JSON schemas)", path: "contracts/" },
 };
@@ -210,6 +218,100 @@ function profileEntries() {
   }));
 
   return [list, ...perLevel];
+}
+
+
+/**
+ * The lifecycle fact family. One generated fact object, several question dimensions — version, lifecycle
+ * state, protocol freeze, L0 freeze, independent implementation, trial — rather than a hand-written
+ * sentence per phrasing. PT and EN are two presentations of the SAME fact: neither is separately editable.
+ */
+function lifecycleEntries() {
+  const V = LIFECYCLE.protocol_version;
+  const state = LIFECYCLE.pre_production ? "PRE-PRODUCTION" : "PRODUCTION";
+  const yn = (b, pt) => (b ? (pt ? "Sim" : "Yes") : pt ? "Não" : "No");
+  const src = s("protocolVersionContract", "govGlossary");
+
+  return [
+    {
+      id: "def-lifecycle-version",
+      deterministic: true,
+      critical: true,
+      keywords: [
+        "versao actual do banza", "versao atual do banza", "qual e a versao do banza", "versao do banza",
+        "current banza version", "what is the current banza version", "banza version", "protocol version",
+        "versao do protocolo",
+      ],
+      answer:
+        `A versão actual do **BANZA** é **${V}**, no estado **${state}**. A versão identifica o protocolo e a sua compatibilidade — **não** é um estado de release, **não** significa que o protocolo esteja congelado, e **não** é uma aprovação para produção.\n\n---\n\nThe current **BANZA** version is **${V}**, in the **${state}** state. A version identifies the protocol and its compatibility — it is **not** a release state, it does **not** mean the protocol is frozen, and it is **not** a production approval.`,
+      sources: src,
+    },
+    {
+      id: "def-lifecycle-status",
+      deterministic: true,
+      critical: true,
+      keywords: [
+        "banza esta em producao", "o banza esta em producao", "banza em producao", "estado do banza",
+        "pre-producao", "pre producao", "is banza in production", "banza in production",
+        "banza production status", "lifecycle status",
+      ],
+      answer:
+        `O **BANZA** está em **${state}**. ${LIFECYCLE.pre_production ? "Isto significa que o protocolo, os contratos e a conformidade estão publicados e verificáveis, mas **nenhum operador real foi criado**, **nenhum certificado de produção é emitido**, e o **BANZA não movimenta fundos** — a operação financeira real pertence a operadores autorizados, sob o enquadramento legal aplicável." : ""}\n\n---\n\n**BANZA** is in **${state}**. ${LIFECYCLE.pre_production ? "The protocol, contracts and conformance material are published and verifiable, but **no real operator has been created**, **no production certificate is issued**, and **BANZA moves no funds** — real financial operation belongs to authorised operators under the applicable legal framework." : ""}`,
+      sources: src,
+    },
+    {
+      id: "def-lifecycle-protocol-freeze",
+      deterministic: true,
+      critical: true,
+      keywords: [
+        "protocolo foi congelado", "o protocolo ja foi congelado", "protocolo congelado",
+        "congelamento do protocolo", "has the protocol been frozen", "protocol frozen",
+        "is the protocol frozen", "protocol freeze",
+      ],
+      answer:
+        `**${yn(LIFECYCLE.protocol_frozen, true)}.** ${LIFECYCLE.protocol_frozen ? "" : "Nenhum alvo **BANZA** externamente congelado foi publicado. Congelamento é um facto **distinto** da versão: o protocolo tem versão **" + V + "** e continua **não congelado**. Enquanto não for congelado para implementação externa, a arquitectura ainda está a ser completada."}\n\n---\n\n**${yn(LIFECYCLE.protocol_frozen, false)}.** ${LIFECYCLE.protocol_frozen ? "" : "No externally frozen **BANZA** target has been published. Freezing is a fact **separate** from the version: the protocol is at version **" + V + "** and remains **unfrozen**. Until it is frozen for external implementation, the architecture is still being completed."}`,
+      sources: src,
+    },
+    {
+      id: "def-lifecycle-l0-freeze",
+      deterministic: true,
+      critical: true,
+      keywords: [
+        "l0 foi congelado", "o l0 ja foi congelado", "l0 congelado", "congelamento do l0",
+        "has l0 been frozen", "is l0 frozen", "l0 freeze", "l0 frozen",
+      ],
+      answer:
+        `**${yn(LIFECYCLE.l0_frozen, true)}.** ${LIFECYCLE.l0_frozen ? "" : "O alvo do ensaio externo **não foi seleccionado nem congelado**, e nenhum pacote final de ensaio foi publicado. Que o **L0** **exista** como perfil é um facto **diferente** de o L0 estar **congelado**."}\n\n---\n\n**${yn(LIFECYCLE.l0_frozen, false)}.** ${LIFECYCLE.l0_frozen ? "" : "The external trial target has **not been selected or frozen**, and no final trial package has been published. That **L0** **exists** as a profile is a **different** fact from L0 being **frozen**."}`,
+      sources: src,
+    },
+    {
+      id: "def-lifecycle-independent-implementation",
+      deterministic: true,
+      critical: true,
+      keywords: [
+        "implementacao independente demonstrada", "ja existe uma implementacao independente",
+        "existe implementacao independente", "implementacao independente",
+        "independent implementation demonstrated", "has banza been independently implemented",
+        "independent implementation", "independently implemented",
+      ],
+      answer:
+        `**${LIFECYCLE.independent_implementation_demonstrated ? "Sim" : "Não — ainda não demonstrada"}.** ${LIFECYCLE.independent_implementation_demonstrated ? "" : "Nenhum ensaio de implementação independente foi conduzido. Isto é **distinto** de: a implementação de referência, o material derivado em sala limpa, e a garantia interna — **nenhum** desses é uma implementação independente. O que ainda não existe é uma implementação **externa e independente** demonstrada."}\n\n---\n\n**${LIFECYCLE.independent_implementation_demonstrated ? "Yes" : "No — not yet demonstrated"}.** ${LIFECYCLE.independent_implementation_demonstrated ? "" : "No independent implementation trial has been conducted. This is **distinct** from the reference implementation, from clean-room derived material, and from internal assurance — **none** of those is an independent implementation. What does not yet exist is a demonstrated **external, independent** implementation."}`,
+      sources: src,
+    },
+    {
+      id: "def-lifecycle-trial",
+      deterministic: true,
+      critical: true,
+      keywords: [
+        "ensaio independente ja comecou", "o ensaio independente comecou", "ensaio independente",
+        "trial independente", "has the independent trial started", "independent trial started",
+        "independent trial", "trial status",
+      ],
+      answer:
+        `**${LIFECYCLE.independent_trial_started ? "Sim" : "Não — ainda não começou"}.** ${LIFECYCLE.independent_trial_started ? "" : "Nenhum ensaio de implementação independente foi conduzido. Não há participante, data, alvo congelado nem resultado a reportar — nada disso existe ainda."}\n\n---\n\n**${LIFECYCLE.independent_trial_started ? "Yes" : "No — not started"}.** ${LIFECYCLE.independent_trial_started ? "" : "No independent implementation trial has been conducted. There is no participant, date, frozen target or outcome to report — none of those exists yet."}`,
+      sources: src,
+    },
+  ];
 }
 
 export const ENTRIES = [
@@ -1423,6 +1525,7 @@ export const ENTRIES = [
   //    questions: what a level IS, versus what passing it does not confer. Collapsing them would make
   //    "o que é L0?" answer with a denial, and "passar L0 permite dinheiro real?" answer with a name.
   ...profileEntries(),
+  ...lifecycleEntries(),
   {
     id: "def-resilience-boundary",
     deterministic: true,

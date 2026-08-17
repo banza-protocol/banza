@@ -480,6 +480,71 @@ fn is_named_principle_query(nq: &str) -> bool {
 /// it appears. Longest alias wins, and this table is consulted AFTER the specific arms below, so no
 /// existing resolution changes — measured over the drift corpus, not assumed.
 const CRITICAL_SUBJECTS: &[(&str, &[&str])] = &[
+    // ── Lifecycle dimensions. Deliberately SEPARATE arms, because the questions are separate facts and
+    //    the collapses are the failure mode: a version is not a release, a release is not a freeze, and
+    //    pre-production does not imply unfrozen by inference. Each arm names only its own dimension.
+    // NO version arm here, deliberately. The version question already has a MORE precise home: the
+    // attribute path answers it as an exact fact, and "BanzAI has no version of its own" is a boundary
+    // that path protects. Routing version through the lifecycle family was measured to break both — it
+    // turned an exact fact into a definition and answered a question whose correct answer is that the
+    // attribute is not declared. A coarser arm must not capture a subject a finer one already owns.
+    (
+        "def-lifecycle-status",
+        &[
+            "esta em producao",
+            "em producao",
+            "in production",
+            "pre-producao",
+            "pre producao",
+            "pre-production",
+            // `normalize` turns "PRE-PRODUCTION" into "pre production": the hyphen goes and the words
+            // stay. Measured — without this the question reached the generic BANZA description.
+            "pre production",
+        ],
+    ),
+    (
+        "def-lifecycle-protocol-freeze",
+        &[
+            "protocolo foi congelado",
+            "protocolo ja foi congelado",
+            "protocolo congelado",
+            "congelamento do protocolo",
+            "protocol been frozen",
+            "protocol is frozen",
+            "protocol frozen",
+            "protocol freeze",
+        ],
+    ),
+    (
+        "def-lifecycle-l0-freeze",
+        &[
+            "l0 foi congelado",
+            "l0 ja foi congelado",
+            "l0 congelado",
+            "congelamento do l0",
+            "l0 been frozen",
+            "l0 is frozen",
+            "l0 frozen",
+            "l0 freeze",
+        ],
+    ),
+    (
+        "def-lifecycle-independent-implementation",
+        &[
+            "implementacao independente",
+            "independent implementation",
+            "independently implemented",
+        ],
+    ),
+    (
+        "def-lifecycle-trial",
+        &[
+            "ensaio independente",
+            "trial independente",
+            "independent trial",
+            "trial started",
+        ],
+    ),
     // The profile LIST — "quais são os perfis do BANZA?". Distinct from an individual level: the reader
     // is asking what the set is, and the answer is composed from the registry rather than from any one
     // level. Measured before this arm existed: both languages reached the generic BANZA description,
@@ -1273,7 +1338,16 @@ pub fn glossary_entry(nq: &str) -> Option<&'static str> {
     // send it to the model. But whether the surviving two can replace a lost authority is decided by the
     // chain, not composed as prose — so a succession question keeps its deterministic answer, exactly as
     // a boundary question does.
-    if (is_operational(nq) || is_onboarding(nq)) && !boundary && !is_root_succession_phrase(nq) {
+    // A named critical subject outranks the operational heuristic. "já existe uma implementação
+    // independente demonstrada?" is a question about CURRENT STATE, but "demonstrada" contains the
+    // "demonstr" marker the deferral reads as a how-to, so the gate closed on a question that has a
+    // settled answer. The heuristic still governs everything it was written for; it no longer overrides
+    // a subject the resolver has explicitly registered.
+    if (is_operational(nq) || is_onboarding(nq))
+        && !boundary
+        && !is_root_succession_phrase(nq)
+        && critical_subject(nq).is_none()
+    {
         return None;
     }
     term_of(nq)

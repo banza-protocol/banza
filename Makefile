@@ -167,7 +167,7 @@ root-threshold-model-check:
 banza-whitepaper-check:
 	@bash tools/check-banza-whitepaper.sh
 
-.PHONY: l0-regulatory-boundary-check canonical-profiles-rs profile-vocabulary-check website-hermetic-build-check website-guard-targets-check website-locale-roots-check banzai-entries-index banzai-entries-index-check banzai-source-paths-check banzai-answer-policy-check banzai-wasm-source-bound-check current-doc-links-check website-reference-mirror website-reference-source-boundary-check reference-source-authority-check reference-structural-parity-check reference-check
+.PHONY: l0-regulatory-boundary-check canonical-profiles-rs profile-vocabulary-check website-hermetic-build-check website-guard-targets-check website-locale-roots-check banzai-entries-index banzai-entries-index-check banzai-source-paths-check banzai-answer-policy-check banzai-lifecycle-facts-check banzai-wasm-source-bound-check current-doc-links-check website-reference-mirror website-reference-source-boundary-check reference-source-authority-check reference-structural-parity-check reference-check
 ## website-reference-mirror: GENERATOR — mirror the two canonical Reference editions into website/content/reference/{pt,en}.md. The website builds with website/ as its Docker context and cannot read docs/ at build time; the mirror exists for that boundary and is never hand-edited.
 website-reference-mirror:
 	@python3 tools/gen-website-reference-mirror.py
@@ -187,6 +187,14 @@ reference-structural-parity-check:
 ## banzai-source-paths-check: Every source a BanzAI answer can cite resolves to a real file, and no path field carries a display label
 banzai-source-paths-check:
 	@bash tools/check-banzai-source-paths.sh
+
+## banzai-lifecycle-facts: Regenerate the BanzAI lifecycle facts from the protocol-version descriptor
+banzai-lifecycle-facts:
+	@python3 tools/gen-banzai-lifecycle-facts.py
+
+## banzai-lifecycle-facts-check: BanzAI states current lifecycle state from the descriptor that owns it — the derived copy cannot invent a value upstream does not establish
+banzai-lifecycle-facts-check:
+	@bash tools/check-banzai-lifecycle-facts.sh
 
 ## banzai-answer-policy-check: The answer policy is declared on the canonical entry and derived into the index — never inferred from an id prefix, and never granted to an entry with no establishing evidence
 banzai-answer-policy-check:
