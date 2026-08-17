@@ -82,16 +82,11 @@ fn collapse_is_driven_by_concept_identity_not_by_counting_aliases() {
     // concepts, this cross-concept tie would become a confident single answer. Asserting the ambiguous
     // band above already fails in that case — this states the reason so the intent survives a refactor.
     let tied = banzai_query_core::fuzzy::vocabulary_debug();
-    let a = tied
-        .iter()
-        .find(|(t, _)| t == "authorizes")
-        .map(|(_, c)| *c)
-        .flatten();
-    let b = tied
-        .iter()
-        .find(|(t, _)| t == "authorises")
-        .map(|(_, c)| *c)
-        .flatten();
+    let concept_of_token = |tok: &str| -> Option<&'static str> {
+        tied.iter().find(|(t, _)| t == tok).and_then(|(_, c)| *c)
+    };
+    let a = concept_of_token("authorizes");
+    let b = concept_of_token("authorises");
     assert!(
         a.is_some() && b.is_some(),
         "the fixture pair must exist in the vocabulary"
