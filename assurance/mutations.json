@@ -129,6 +129,23 @@
       "violation": "a meta check is moved into a later stratum, so an earlier stratum would invoke a later one — the shape that produced the ten-minute timeout",
       "apply": "python3 -c \"import json;p='assurance/execution-plan.json';d=json.load(open(p));[c.__setitem__('stratum','M4') for c in d['commands'] if c['target']=='assurance-purity-check'];json.dump(d,open(p,'w'),indent=2)\"",
       "guard": "make assurance-graph-check"
+    },
+    {
+      "id": "banzai_settlement_downgrade",
+      "property": "BANZAI_EPISTEMIC_MONOTONICITY",
+      "violation": "the presentation fallback re-derives evidence with a weaker retrieval instead of using the entry the route already settled, so a supported critical claim is reported as insufficient evidence when the model is unavailable",
+      "apply": "python3 -c \"p='services/banzai-api/src/pipeline.js';s=open(p).read();open(p,'w').write(s.replace('      : settledCritical || retrieve(rq);','      : retrieve(rq);',1))\"",
+      "guard": "node --test services/banzai-api/test/settlement-integrity.test.js",
+      "result": "KILLED"
+    },
+    {
+      "id": "banzai_settlement_monotonicity_overbroad",
+      "property": "BANZAI_EPISTEMIC_MONOTONICITY",
+      "violation": "any resolved entry is treated as settled, whether or not it carries establishing sources",
+      "apply": "replace the settledCritical source-count condition with `settledEntry || retrieve(rq)`",
+      "guard": "node --test services/banzai-api/test/settlement-integrity.test.js",
+      "result": "UNREACHABLE",
+      "_unreachable_reason": "Behaviourally indistinguishable on every valid current state: NO entry in the canonical registry lacks establishing sources, so the condition this mutation weakens is universally satisfied and the mutated code computes the same value. The state it would exploit is made unreachable one layer down by `make banzai-answer-policy-check`, which fails when an entry declared deterministic has no answer or no registered source. Recorded as unreachable rather than killed: manufacturing an impossible fixture to produce a RED would prove the fixture, not the property."
     }
   ]
 }
