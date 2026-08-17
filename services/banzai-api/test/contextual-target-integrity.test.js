@@ -137,6 +137,33 @@ test("a referential follow-up with no prior turn stays insufficient", async () =
   assert.equal(r.meta.terminal_kind, "insufficient_evidence");
 });
 
+test("a reference whose prior turn named no subject says so, rather than inventing one", async () => {
+  // A real conversational shape: the previous turn was itself underspecified ("Quem controla?", "porquê?"),
+  // so there is a reference but nothing to bind it to. "No sources" and "nothing to refer back to" are
+  // different facts, and the reason must not collapse them — that is the bucket Block 3 separated.
+  for (const prior of ["Quem controla?", "porquê?"]) {
+    const h = harness({});
+    const r = await h.pipeline.answer(SOURCE_FOLLOWUP_PT, { contextQuestions: [prior] });
+    assert.equal(r.meta.terminal_kind, "insufficient_evidence", `prior=${prior}`);
+    assert.equal(
+      r.meta.fallback_reason,
+      "context_target_missing",
+      `after a subject-less prior turn the reason must name the missing context, not the missing sources (prior=${prior})`,
+    );
+    assert.equal(r.meta.context_merge, "CONTEXT_TARGET_MISSING", `prior=${prior}`);
+  }
+});
+
+test("the trace names which merge rule decided the turn", async () => {
+  // §40 — the original drift must be readable in ONE field.
+  const inherit = await conversation(["Quem controla os operadores?", SOURCE_FOLLOWUP_PT]);
+  assert.equal(inherit.turns[1].meta.context_merge, "INHERIT_TARGET");
+  const standalone = await conversation(["Quem controla os operadores?", "E quem controla a Root?"]);
+  assert.equal(standalone.turns[1].meta.context_merge, "STANDALONE");
+  const merged = await conversation(["Quem governa os operadores?", "E quem os autoriza?"]);
+  assert.equal(merged.turns[1].meta.context_merge, "MERGED_FRAME");
+});
+
 test("a follow-up after an unsupported question does not become a second, weaker route", async () => {
   // If the previous turn could not be answered, the follow-up must not find an answer by re-searching the
   // conversation's words. It stays on the same unsupported target.

@@ -836,6 +836,12 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // adapters keep reading the trace; the trunk block overwrites them when it runs.
     const routerTrace = {
       router: "m2.18b4-single",
+      // Block 4B — WHICH merge rule decided this turn: STANDALONE (the turn names its own subject) /
+      // INHERIT_TARGET (a pure backward reference reuses the previous target) / MERGED_FRAME (a new action
+      // over the inherited subject) / SUBJECT_CARRY / SUBJECT_CARRY_DECLINED / CONTEXT_TARGET_MISSING.
+      // One field, so the Root→operator drift is readable in a single trace instead of inferred from a
+      // composed query string. Decided in Rust; carried, not recomputed, here.
+      context_merge: decision.merge_kind || "STANDALONE",
       answer_class: cls.class,
       answer_class_reason: cls.reason || "",
       escalated: Boolean(cls.escalated),
@@ -1509,7 +1515,10 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
           { answer_mode: mode, fallback_reason: "typo_clarification", intent: "clarification_required", terminal_kind: "clarification", trace_label: "É necessário esclarecer a referência", ...ctxMeta, ...docMeta },
         );
       }
-      return contextualInsufficient(rq, "", { answer_mode: mode, fallback_reason: "insufficient_sources", intent, terminal_kind: "insufficient_evidence", ...ctxMeta, ...docMeta });
+      // Block 4B — this is the terminal a subject-less route actually reaches, so the context-missing reason
+      // belongs HERE. Measured, not assumed: the first attempt put it on the unknown-entry safety net above,
+      // which this path never touches, and the test that asked for the reason was what said so.
+      return contextualInsufficient(rq, "", { answer_mode: mode, fallback_reason: decision.merge_kind === "CONTEXT_TARGET_MISSING" ? "context_target_missing" : "insufficient_sources", intent, terminal_kind: "insufficient_evidence", ...ctxMeta, ...docMeta });
     }
 
     // The seed for the trunk's Rust resolver: the exact record, else the concept's canonical source, else
