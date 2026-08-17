@@ -91,6 +91,48 @@ struct Entry {
     deterministic: bool,
 }
 
+/// Surface forms the RESOLVER recognises: keywords of indexed entries, words of critical-subject
+/// aliases, and canonical profile identifiers.
+///
+/// Typo recovery consults this so it cannot "repair" a word that is already valid vocabulary. Measured
+/// before it existed: "What are the BANZA profiles?" had `profiles` rewritten to `profile` as a
+/// high-confidence correction, because the fuzzy vocabulary happened to carry the singular and not the
+/// plural — and the router only ever sees the corrected form, so a legitimate English plural was
+/// normalised out of its own alias while the Portuguese twin matched.
+///
+/// Deliberately NOT "every word in the documentation": that would freeze the corpus and disable recovery
+/// wherever a misspelling coincides with prose. Only vocabulary a resolver actually matches on.
+fn registered_surface_forms() -> &'static std::collections::HashSet<String> {
+    static V: OnceLock<std::collections::HashSet<String>> = OnceLock::new();
+    V.get_or_init(|| {
+        let mut set = std::collections::HashSet::new();
+        for e in entries() {
+            for k in &e.keywords {
+                for w in normalize(k).split(' ') {
+                    if w.chars().count() > 2 {
+                        set.insert(w.to_string());
+                    }
+                }
+            }
+        }
+        for w in crate::glossary::critical_subject_words() {
+            let n = normalize(w);
+            if n.chars().count() > 2 {
+                set.insert(n);
+            }
+        }
+        for p in crate::canonical_profiles::CANONICAL_PROFILES.iter() {
+            set.insert(normalize(p.level));
+        }
+        set
+    })
+}
+
+/// True when `tok` is a surface form the resolver already recognises, so recovery must leave it alone.
+pub fn is_registered_surface_form(tok: &str) -> bool {
+    registered_surface_forms().contains(tok)
+}
+
 /// Whether the entry with this id is declared stable knowledge answerable without a model.
 pub fn entry_is_deterministic(entry_id: &str) -> bool {
     entries()

@@ -367,7 +367,12 @@ pub fn recover(question: &str) -> Recovery {
         .map(|t| t.to_string())
         .collect();
     let vocab = vocabulary();
-    let is_exact = |t: &str| vocab.iter().any(|v| v.norm == t);
+    // A token is EXACT when the fuzzy vocabulary carries it OR the resolver recognises it as a surface
+    // form of its own. The second half is the fix: recovery repairs unknown words, and a word the
+    // resolver matches on is not unknown. Without it, whichever of a pair the fuzzy list happened to
+    // carry silently rewrote the other.
+    let is_exact =
+        |t: &str| vocab.iter().any(|v| v.norm == t) || crate::is_registered_surface_form(t);
 
     let mut out_toks: Vec<String> = Vec::with_capacity(toks.len());
     for (i, tok) in toks.iter().enumerate() {

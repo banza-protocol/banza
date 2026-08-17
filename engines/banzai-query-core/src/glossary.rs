@@ -501,10 +501,6 @@ const CRITICAL_SUBJECTS: &[(&str, &[&str])] = &[
             // Portuguese twin matched — a legitimate plural silently normalised out of its own alias.
             // The underlying question, whether recovery should rewrite a token that IS canonical
             // vocabulary, is a separate defect and is recorded rather than patched here.
-            "banza profile",
-            "conformance profile",
-            "profile level",
-            "list of profile",
         ],
     ),
     // L0 — the Protocol Sandbox and its regulatory boundary. An already-protected BANZA property
@@ -654,6 +650,19 @@ fn profile_subject(nq: &str) -> Option<&'static str> {
         "l4" => Some("def-profile-l4"),
         _ => None,
     }
+}
+
+/// Every single word appearing in a critical-subject alias — the surface forms this resolver recognises.
+///
+/// Read by typo recovery, which must not "repair" a word the resolver already knows. Aliases are the
+/// resolver's own vocabulary; a token drawn from one is by definition not an unknown surface form.
+pub fn critical_subject_words() -> Vec<&'static str> {
+    CRITICAL_SUBJECTS
+        .iter()
+        .flat_map(|(_, aliases)| aliases.iter())
+        .flat_map(|a| a.split(' '))
+        .filter(|w| w.len() > 2)
+        .collect()
 }
 
 /// The critical subject named by a MULTI-WORD alias. Precise enough to run BEFORE the broad arms:
