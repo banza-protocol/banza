@@ -7562,6 +7562,10 @@ pub struct ContextRoute {
     pub context_used: bool,
     pub turns_used: usize,
     pub resolved_query: String,
+    /// STANDALONE | INHERIT_TARGET | MERGED_FRAME | SUBJECT_CARRY | CONTEXT_TARGET_MISSING — which merge
+    /// rule decided this turn. Makes the Root→operator drift visible in one field instead of inferable
+    /// from a composed string.
+    pub merge_kind: &'static str,
 }
 
 /// Route a question WITH short conversation context. `prev_questions` are the previous USER questions,
@@ -7573,15 +7577,53 @@ pub fn route_with_context(question: &str, prev_questions: &[String]) -> ContextR
     let mut resolved = question.to_string();
     let mut context_used = false;
     let mut turns_used = 0;
-    if !is_safety_refusal(&nq) && is_followup(&nq) {
-        if let Some(prev) = prev_questions
+    let mut merge_kind = "STANDALONE";
+    if !is_safety_refusal(&nq) {
+        let prev = prev_questions
             .iter()
             .rev()
             .find(|p| !normalize(p).is_empty())
-        {
-            resolved = format!("{} {}", prev, question);
-            context_used = true;
-            turns_used = 1;
+            .map(String::as_str);
+        // The frame merge decides what — if anything — is inherited. It replaces `format!("{prev} {q}")`,
+        // which carried the previous SENTENCE forward: the previous verb survived into the composed text
+        // and chose a new subject ("Quem controla a Root?" → the operator-authority definition), while a
+        // question the previous turn had answered deterministically ("O que é o BanzAI?") came back diluted
+        // and resolved nothing. The frame carries the previous SUBJECT and never the previous action.
+        match crate::frame::merge(question, prev) {
+            crate::frame::Merge::Standalone => {}
+            crate::frame::Merge::InheritTarget => {
+                // A pure backward reference is a request about the PREVIOUS semantic target ("which sources
+                // answer this?"). Its canonical form is the previous question itself, so the target — and
+                // with it the evidence the previous answer rested on — is reused rather than searched for
+                // again over the words of the conversation.
+                if let Some(p) = prev {
+                    resolved = p.to_string();
+                    context_used = true;
+                    turns_used = 1;
+                    merge_kind = "INHERIT_TARGET";
+                }
+            }
+            crate::frame::Merge::MergedFrame(q) => {
+                resolved = q;
+                context_used = true;
+                turns_used = 1;
+                merge_kind = "MERGED_FRAME";
+            }
+            crate::frame::Merge::SubjectCarry(q) => {
+                // The M2.8H format/elaboration follow-ups ("e em JSON?", "explica melhor", "dá exemplo
+                // aqui") still lean on the previous topic — but only its subject travels.
+                if is_followup(&nq) {
+                    resolved = q;
+                    context_used = true;
+                    turns_used = 1;
+                    merge_kind = "SUBJECT_CARRY";
+                }
+            }
+            crate::frame::Merge::ContextTargetMissing => {
+                // A reference with nothing to bind. Resolve the question as it stands: with no subject it
+                // reaches `insufficient` honestly, instead of borrowing a subject from stale tokens.
+                merge_kind = "CONTEXT_TARGET_MISSING";
+            }
         }
     }
     let route = route(&resolved);
@@ -7590,6 +7632,7 @@ pub fn route_with_context(question: &str, prev_questions: &[String]) -> ContextR
         context_used,
         turns_used,
         resolved_query: resolved,
+        merge_kind,
     }
 }
 
@@ -7604,8 +7647,8 @@ pub fn route_with_context_json(question: &str, prev_questions_json: &str) -> Str
     };
     let resolved = cr.resolved_query.replace('\\', "\\\\").replace('"', "\\\"");
     format!(
-        "{{\"action\":\"{}\",\"entry_id\":{},\"intent\":\"{}\",\"reason\":\"{}\",\"context_used\":{},\"turns_used\":{},\"resolved_query\":\"{}\"}}",
-        cr.route.action, entry, cr.route.intent, cr.route.reason, cr.context_used, cr.turns_used, resolved
+        "{{\"action\":\"{}\",\"entry_id\":{},\"intent\":\"{}\",\"reason\":\"{}\",\"context_used\":{},\"turns_used\":{},\"resolved_query\":\"{}\",\"merge_kind\":\"{}\"}}",
+        cr.route.action, entry, cr.route.intent, cr.route.reason, cr.context_used, cr.turns_used, resolved, cr.merge_kind
     )
 }
 

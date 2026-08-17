@@ -35,6 +35,7 @@ pub mod disposition;
 pub mod docref;
 pub mod factcheck;
 pub mod factpack;
+pub mod frame;
 pub mod fuzzy;
 pub mod glossary;
 pub mod intent;
@@ -559,10 +560,40 @@ fn contains_word(nq: &str, w: &str) -> bool {
     nq.split(' ').any(|t| t == w)
 }
 
+/// Interrogative words, paired across the two languages the engine answers in.
+///
+/// An interrogative asks *about* a subject; it never *is* one. That makes it worthless as evidence of a
+/// topic match, and worse than worthless when a keyword phrase is long enough that the interrogative plus
+/// one shared verb reaches the match threshold on its own.
+///
+/// This is kept as an explicit PT↔EN table rather than a flat list because the flat list is what failed:
+/// `who` was excluded and `quem` was not, so "quem controla a Root?" scored `quem` + `controla` = 2 against
+/// the keyword "quem controla o banza" and selected the operator-authority definition — a settled claim
+/// about operators, chosen for a question about the Root — while the English "who controls the Root?"
+/// correctly resolved nothing. One missing word produced both a wrong answer and a PT/EN divergence.
+///
+/// Parity is asserted by a test, so half of a pair can no longer be added alone.
+pub(crate) const INTERROGATIVES: &[(&str, &str)] = &[
+    ("quem", "who"),
+    ("qual", "which"),
+    ("quais", "what"),
+    ("onde", "where"),
+    ("quando", "when"),
+    ("porque", "why"),
+    ("quantos", "how"),
+    ("quantas", "how"),
+    ("quanto", "how"),
+    ("como", "how"),
+    ("que", "what"),
+];
+
 /// Grammatical / interrogative stopwords excluded from the per-word content count — they are not
 /// evidence of a topic match. Two of them in a long keyword phrase used to reach the threshold and
 /// ground off-topic questions ("how does a jet engine work?", "what does HTTP mean?"). PT + EN.
 fn is_stopword(w: &str) -> bool {
+    if INTERROGATIVES.iter().any(|(pt, en)| *pt == w || *en == w) {
+        return true;
+    }
     matches!(
         w,
         "como"
@@ -691,6 +722,14 @@ const SEMANTIC_SOURCES: &[(&str, &str)] = &[
     ("retrieval.rs", include_str!("retrieval.rs")),
     ("intent.rs", include_str!("intent.rs")),
     ("glossary.rs", include_str!("glossary.rs")),
+    // Conversational semantics: which slot of a turn is inherited from the turn before it. A stale form of
+    // this file resolves a follow-up against the previous SENTENCE instead of the previous SUBJECT.
+    ("frame.rs", include_str!("frame.rs")),
+    // The lexical scorer and its stopword lexicon. Added when a missing PT interrogative was found to
+    // change which entry a question selects: `is_stopword` and `score_entry` decide resolution just as
+    // directly as `route.rs` does, and their absence here was a real hole in the rule above — a stale
+    // vendored artifact carrying the old lexicon would have been reported fresh.
+    ("lib.rs", include_str!("lib.rs")),
 ];
 
 fn fnv1a64(bytes: &[u8]) -> u64 {

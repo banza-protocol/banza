@@ -384,7 +384,14 @@ export const ENTRIES = [
     lexicalCandidate: true,
     keywords: [
       "onde comeco", "por onde comeco", "por onde comecar", "onde comecar", "como comeco",
-      "como comeco como operador", "comeco com o meu operador", "onde comeco com o meu operador",
+      // Third person, the phrasing a reader actually uses when asking about someone else ("por onde
+      // começa um operador?"). It was missing, and the question only matched at all because the
+      // interrogative "onde" was being counted as topic evidence — so demoting interrogatives to the
+      // function words they are exposed the real gap. Completing the conjugation is the fix; keeping a
+      // question word as a content signal would have been the crutch.
+      "por onde comeca", "onde comeca", "por onde comeca um operador", "onde comeca um operador",
+      "como comeca um operador", "como comeco como operador", "comeco com o meu operador",
+      "onde comeco com o meu operador",
       "como comecar", "quero comecar", "primeiros passos", "primeiros passos como operador",
       "getting started", "how do i start", "where do i start", "where to start",
       "quero implementar um operador", "quero criar um operador", "quero ser operador",
@@ -1310,7 +1317,17 @@ export const ENTRIES = [
     // 136 critical entries are deliberately outside it — but because authority questions arrive
     // as free prose ("quem controla os operadores") that no subject or glossary path resolves.
     lexicalCandidate: true,
-    critical: true, keywords: ["quem controla os operadores", "quem controla o operador", "quem controla os operadores banza", "o banza controla os operadores", "banza controla operadores", "quem manda nos operadores", "quem governa os operadores", "quem governa um operador", "quem admite um operador", "quem admite operadores", "quem autoriza um operador", "quem autoriza operadores", "quem aprova um operador", "existe uma autoridade central que controla os operadores", "autoridade central operadores", "a banzami controla os operadores", "banzami controla operadores", "o mantenedor do banza controla os operadores", "mantenedor controla operadores", "quem controla o banza", "quem controla o protocolo", "who controls operators", "who controls the operators", "does banza control operators", "who governs operators", "who governs an operator", "who admits an operator", "who admits operators", "who authorizes an operator", "who authorises an operator", "who approves an operator", "is there a central banza authority controlling operators", "central authority operators", "does banzami control operators", "does the banza maintainer control operators", "who controls banza", "who controls the protocol"],
+    critical: true, keywords: ["quem controla os operadores", "quem controla o operador", "quem controla os operadores banza", "o banza controla os operadores", "banza controla operadores",
+      // The FALSE-PREMISE phrasings. "porque é que o BANZA controla todos os operadores?" asserts something
+      // untrue and must reach the record that corrects it — measured, the interpolated quantifier stopped
+      // the contiguous-phrase match and the bare token "banza" tied on score, so the question was answered
+      // with the definition of BANZA instead of with the authority separation that refutes it. A follow-up
+      // then inherits this corrected target, which is why the phrasing belongs here and not in a rule that
+      // treats the reader's premise as the subject.
+      "banza controla todos os operadores", "o banza controla todos os operadores",
+      "porque e que o banza controla todos os operadores", "banza controla qualquer operador",
+      "does banza control all operators", "why does banza control all operators",
+      "banza controls all operators","quem manda nos operadores", "quem governa os operadores", "quem governa um operador", "quem admite um operador", "quem admite operadores", "quem autoriza um operador", "quem autoriza operadores", "quem aprova um operador", "existe uma autoridade central que controla os operadores", "autoridade central operadores", "a banzami controla os operadores", "banzami controla operadores", "o mantenedor do banza controla os operadores", "mantenedor controla operadores", "quem controla o banza", "quem controla o protocolo", "who controls operators", "who controls the operators", "does banza control operators", "who governs operators", "who governs an operator", "who admits an operator", "who admits operators", "who authorizes an operator", "who authorises an operator", "who approves an operator", "is there a central banza authority controlling operators", "central authority operators", "does banzami control operators", "does the banza maintainer control operators", "who controls banza", "who controls the protocol"],
     answer:
       "**O BANZA não estabelece uma autoridade central que controle os operadores.** Um **operador** é uma entidade organizacional independente, responsável por correr uma implementação; uma **implementação** é o sistema técnico que segue as regras (ADR-002). São coisas distintas, e uma pergunta organizacional não se responde como se um operador fosse apenas software.\n\nSe por **controlo** se entende **requisitos técnicos**: o protocolo define, em contratos e especificações públicas, os requisitos que uma implementação tem de satisfazer para ser conforme. Isso é **constrangimento técnico, não controlo organizacional** — um contrato define interfaces, representações e comportamento exigido; não se torna o controlador institucional de uma entidade.\n\nAs decisões estão separadas e nenhuma implica a outra (ADR-004, ADR-005):\n\n- **Protocolo** — especifica as regras técnicas.\n- **Implementação** — implementa essas regras.\n- **Conformidade ou certificação** — avalia uma implementação num âmbito determinado (versão do protocolo, perfil, ambiente, evidência). Avalia implementações, **não** confere admissão nem licença.\n- **Admissão e governação operacional** — pertencem, separadamente, ao esquema operacional aplicável, segundo as suas próprias regras (ADR-006).\n- **Autorização ou supervisão regulatória** — pertence, separadamente, ao enquadramento jurídico e às autoridades competentes da jurisdição aplicável (ADR-007).\n\n**Nenhuma dessas decisões é automaticamente conferida pelo BANZA.** Não há um controlador central de operadores, nem uma admissão do BANZA, nem uma autoridade regulatória do BANZA. Os mantenedores governam a evolução do protocolo no processo público, não os operadores; as autoridades de raiz desempenham o seu papel criptográfico de confiança, que não é governação operacional; e o registo técnico público indexa manifestos, versões e evidência auto-publicada — **não é uma lista de admitidos nem uma porta de entrada**.",
     sources: s("adr002", "adr059", "adr005sep", "adr060", "adr062", "govGlossary"),

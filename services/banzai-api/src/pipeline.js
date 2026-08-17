@@ -723,7 +723,16 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // past the gate). Increment 6 adds the context-enriched `decision` as a THIRD boundary check; enrichment
     // is already disabled on any raw/corrected refusal signal, so it only ever tightens the gate.
     const decisionCorrected = correctedQuestion !== question ? route(correctedQuestion, contextQuestions || []) : decisionRaw;
-    const decision = effectiveQuestion !== question ? route(effectiveQuestion, contextQuestions || []) : decisionCorrected;
+    // Block 4B — PRIORITY, not accumulation. When the structured resolver (Increment 6) has already bound
+    // the referent, `effectiveQuestion` IS the resolved, self-contained query; feeding the raw prior
+    // questions to the router on top of it let the conversation's words re-resolve a target that structured
+    // context had already decided. The ladder is: explicit current subject > valid prior structured target >
+    // safe contextual interpretation > generic retrieval — so the two channels are ordered, never summed.
+    // Rust still owns both resolutions; this only stops the second one from running over the first.
+    const decision =
+      effectiveQuestion !== question
+        ? route(effectiveQuestion, contextResolved ? [] : contextQuestions || [])
+        : decisionCorrected;
     const boundaryRefusal =
       decisionRaw.action === "refusal" || decisionCorrected.action === "refusal" || decision.action === "refusal";
     // M2.11D (QA-2) — a next-step question asked while ON a journey step is answered from the journey
