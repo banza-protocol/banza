@@ -50,12 +50,17 @@ MUST_NOT_EXIST = {
     'website/app/operador-zero': 'Never a route here — Operador Zero is served at its own host.',
     'website/app/bad.ts': 'A guard self-test fixture name, planted in a temporary tree only.',
     'website/app/x': 'A guard self-test fixture name, planted in a temporary tree only.',
+    'website/app/layout.tsx': 'Must not exist: a root layout above both editions would make English '
+                              'nest under it and inherit lang="pt-PT". Each edition has its own root.',
 }
 
 # Tools are the subject, and so is the website's own test suite: a test that reads a page by path is a
 # guard, and it goes just as quiet when the path rots. Generated indexes and compiled artifacts are not
 # authored references.
-SCAN_ROOTS = ['tools', 'engines', 'services', 'website/lib', 'website/components']
+# `assurance/` is included because the assurance property registry names mandatory public surfaces by
+# path. It named website/app/page.tsx and went unnoticed by an earlier version of this check that only
+# looked at tools and engines — AG-9 failed at the end of the migration instead of at the start of it.
+SCAN_ROOTS = ['tools', 'engines', 'services', 'website/lib', 'website/components', 'assurance']
 SKIP_SUFFIX = ('.wasm', '.woff2', '.png', '.jpg', '.pdf')
 # Generated corpora quote documentation that happens to contain paths; they are not guards.
 SKIP_PATH = ('/repoindex/', '/rustkb/', '/validatewasm/', 'doc-index.json', 'node_modules/',
