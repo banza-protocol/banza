@@ -2,6 +2,7 @@
 //! exactly its invariant; a run with no invariants fails closed; the report round-trips validate_report;
 //! L1–L4 are non-runnable; every output is test-only with llm_calls=0.
 
+use banza_conformance::canonical_profiles::{canonical_name, CANONICAL_PROFILES};
 use banza_conformance::tool::{
     demo_fixtures, levels_info, run_l0_demo, tool_version, validate_report_tool,
 };
@@ -86,6 +87,65 @@ fn levels_l1_l4_are_not_runnable() {
             "{} must not be runnable",
             lvl["level"]
         );
+    }
+}
+
+/// The names the engine reports are the registry's names, not a second table's.
+///
+/// This is the regression that motivated deriving them: the engine used to call L4 "Produção
+/// certificada" while the registry called it "External Interoperability" — a technical capability
+/// presented as a production certification.
+#[test]
+fn level_names_are_the_canonical_profile_vocabulary() {
+    let li = levels_info();
+    let levels = li["levels"].as_array().unwrap();
+    assert_eq!(
+        levels.len(),
+        CANONICAL_PROFILES.len(),
+        "exactly the profiles the registry defines"
+    );
+    for (lvl, canonical) in levels.iter().zip(CANONICAL_PROFILES.iter()) {
+        assert_eq!(lvl["level"], canonical.level);
+        assert_eq!(
+            lvl["name"], canonical.name,
+            "{} must carry its canonical name",
+            canonical.level
+        );
+    }
+    assert_eq!(canonical_name("L4"), Some("External Interoperability"));
+    assert_eq!(canonical_name("L0"), Some("Protocol Sandbox"));
+    // An identifier the registry does not define is not a profile, and does not resolve to a guess.
+    assert_eq!(canonical_name("L5"), None);
+    assert_eq!(canonical_name("Production"), None);
+}
+
+/// A profile name states a technical capability. It never states a certification, an operational
+/// status or a regulatory permission — those are separate axes, and collapsing them into a label is
+/// how "L4" once came to read as production approval.
+#[test]
+fn no_profile_name_encodes_certification_or_production_status() {
+    for p in CANONICAL_PROFILES.iter() {
+        let n = p.name.to_lowercase();
+        for banned in [
+            "certif",
+            "production",
+            "produção",
+            "approved",
+            "authorised",
+            "authorized",
+            "licence",
+            "license",
+            "regulatory",
+            "live",
+            "real-money",
+        ] {
+            assert!(
+                !n.contains(banned),
+                "{} name must not encode {banned}: {}",
+                p.level,
+                p.name
+            );
+        }
     }
 }
 

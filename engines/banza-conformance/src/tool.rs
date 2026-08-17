@@ -8,6 +8,7 @@
 //!
 //! PASS is technical conformance evidence, not production certification.
 
+use crate::canonical_profiles;
 use crate::{CERTIFICATION_DISCLAIMER, PROTOCOL_VERSION, RUNNER, RUNNER_VERSION};
 use serde_json::{json, Value};
 
@@ -217,26 +218,87 @@ pub fn demo_fixtures() -> Value {
 
 /// Level information: L0 is runnable (demo against SimB); L1–L4 are requirements/future phases.
 /// The UI shows L1–L4 requirements WITHOUT a run button — this never fakes their execution.
+///
+/// The profile NAME is never written here. It comes from `canonical_profiles`, which is derived
+/// from the normative registry, because a second hand-maintained table drifts: this function once
+/// carried L4 as "Produção certificada" while the registry said "External Interoperability" —
+/// a technical capability presented as a production certification.
+///
+/// Name, runnability and status are three separate fields on purpose. A profile is a technical
+/// capability; whether the demo runner can execute it is an engine fact; and neither is a
+/// certification state, an operational status or a regulatory permission
+/// (docs/governance/certification-boundary.md).
 pub fn levels_info() -> Value {
+    // Per level: runnable by the sandbox runner, current status, and what it asks for. Names are
+    // resolved from the canonical vocabulary below — never spelled out here.
+    let rows: [(&str, bool, &str, &[&str]); 5] = [
+        (
+            "L0",
+            true,
+            "executável (demo contra SimB)",
+            &[
+                "double-entry (INV-LEDGER-001)",
+                "idempotência (INV-IDEM-001)",
+                "identidade de settlement (INV-SETTLE-001)",
+                "sem saldo negativo (INV-WALLET-001)",
+            ],
+        ),
+        (
+            "L1",
+            false,
+            "requer operador live — fase futura",
+            &[
+                "endpoints live do operador",
+                "health + transferência + idempotência reais",
+            ],
+        ),
+        (
+            "L2",
+            false,
+            "fase futura",
+            &[
+                "settlement batches reais",
+                "reconciliação externa (INV-RECON)",
+            ],
+        ),
+        (
+            "L3",
+            false,
+            "fase futura",
+            &[
+                "peer certificado + BRL (banza-trust)",
+                "routing federado real",
+            ],
+        ),
+        (
+            "L4",
+            false,
+            "definido por perfil externo — nenhum perfil externo publicado",
+            &[
+                "perfil de interoperabilidade externa publicado",
+                "evidência verificável de conformidade",
+            ],
+        ),
+    ];
+    let levels: Vec<Value> = rows
+        .iter()
+        .map(|(level, runnable, status, requirements)| {
+            json!({
+                "level": level,
+                // Fails loudly rather than inventing a label: an identifier the registry does not
+                // define is not a profile, and guessing one would recreate the drift.
+                "name": canonical_profiles::canonical_name(level)
+                    .unwrap_or_else(|| panic!("{level} is not a profile in the canonical registry")),
+                "runnable": runnable,
+                "status": status,
+                "requirements": requirements,
+            })
+        })
+        .collect();
     json!({
-        "levels": [
-            {"level": "L0", "runnable": true, "title": "Integridade financeira base",
-             "status": "executável (demo contra SimB)",
-             "requirements": ["double-entry (INV-LEDGER-001)", "idempotência (INV-IDEM-001)", "identidade de settlement (INV-SETTLE-001)", "sem saldo negativo (INV-WALLET-001)"]},
-            {"level": "L1", "runnable": false, "title": "Operador live",
-             "status": "requer operador live — fase futura",
-             "requirements": ["endpoints live do operador", "health + transferência + idempotência reais"]},
-            {"level": "L2", "runnable": false, "title": "Settlement & reconciliação",
-             "status": "fase futura",
-             "requirements": ["settlement batches reais", "reconciliação externa (INV-RECON)"]},
-            {"level": "L3", "runnable": false, "title": "Federação",
-             "status": "fase futura",
-             "requirements": ["peer certificado + BRL (banza-trust)", "routing federado real"]},
-            {"level": "L4", "runnable": false, "title": "Produção certificada",
-             "status": "requer as condições públicas de produção — não disponível",
-             "requirements": ["cerimónia offline da chave raiz + primeira evidência de conformidade de produção publicada", "evidência verificável de conformidade"]}
-        ],
-        "note": "Nesta fase apenas L0 corre como demo contra SimB. L1–L4 são requisitos/fases futuras — não executam e não certificam.",
+        "levels": levels,
+        "note": "Nesta fase apenas L0 corre como demo contra SimB. L1–L4 são requisitos/fases futuras — não executam e não certificam. Um perfil é capacidade técnica: não é certificação, admissão operacional, autorização regulatória nem aprovação para produção.",
+        "profile_vocabulary_source": "contracts/production/conformance-profiles.production.json",
         "tool": RUNNER, "tool_version": RUNNER_VERSION,
     })
 }

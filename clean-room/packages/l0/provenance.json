@@ -2,7 +2,7 @@
   "_spec": "BANZA Clean-Room Export Provenance",
   "protocol_version": "1.0.0",
   "target_profile": "L0",
-  "source_commit": "524399a9019760bd6c6bb32372002dd76eb2f376",
+  "source_commit": "7dddb36faf81b8e5c7358676120bcc7d7b9c2948",
   "normative_manifest_sha256": "62e0e20ffe4534f7a83a70d3f42eff738b2e912fee95a7317d621204c7168da9",
   "package_manifest_sha256": "786e14b4afde43d1c4bcc7a8dd5f3dfe4863d5648d046b32d47deccfe3c0ccb0",
   "generation_tool": "tools/gen-clean-room-package.py",

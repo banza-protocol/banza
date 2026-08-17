@@ -1,5 +1,5 @@
 {
-  "total": 3129,
+  "total": 3130,
   "rows": [
     {
       "raw_text": "Contributing to BANZA",
@@ -1881,6 +1881,17 @@
     {
       "raw_text": "scope levels",
       "normalized": "scope levels",
+      "sources": [
+        "conformance-readme-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "technical capability",
+      "normalized": "technical capability",
       "sources": [
         "conformance-readme-md"
       ],
