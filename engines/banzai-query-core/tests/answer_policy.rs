@@ -46,10 +46,15 @@ fn the_declaration_decides_and_the_prefix_decides_nothing() {
         "the def- prefix must not confer an answer policy on an entry this path does not carry"
     );
 
-    // A non-def-* entry that does not declare the policy is not deterministic either — the default is
-    // false, so an index generated before the field existed cannot silently promote anything.
+    // An entry that does not declare the policy is not deterministic either — the default is false, so an
+    // index generated before the field existed cannot silently promote anything.
+    //
+    // The fixture was `what-is-banza` until it was legitimately declared deterministic, which turned this
+    // control into an assertion about a fact that had changed underneath it. A negative control has to name
+    // something that genuinely declares nothing, so it names a procedure: `implementation-steps` is
+    // lexically eligible and deliberately model-backed, because a how-to is not a settled fact.
     assert!(
-        !entry_is_deterministic("what-is-banza"),
+        !entry_is_deterministic("implementation-steps"),
         "an entry that declares nothing must not be treated as declared"
     );
 
@@ -82,15 +87,13 @@ fn a_declared_fact_is_still_settled_end_to_end() {
 
 #[test]
 fn declaring_nothing_leaves_a_question_on_the_model_path() {
-    // The negative control for the migration itself. `what-is-banza` is lexically eligible and reached by
-    // this exact path, so if the policy read ever went back to the prefix — or to "critical" — this would
-    // change. It is deliberately still model-backed: seven unrelated queries currently fall to this entry
-    // because their own subject is unresolved, and declaring it settled would turn vague answers into
-    // confident wrong ones. Subject first, policy second.
-    let r = route("o que é o banza?");
-    assert_eq!(r.entry_id.as_deref(), Some("what-is-banza"));
+    // The negative control for the migration itself. Its fixture was `what-is-banza` until BANZA identity
+    // was legitimately settled, so the control moved to a genuine procedure. "Como
+    // implementar o BANZA?" is a how-to — it must reach the model path, and if a future change quietly
+    // settles procedures the way it settled definitions, this goes red.
+    let r = route("quais sao os passos para implementar o banza?");
     assert_ne!(
         r.action, "deterministic",
-        "this entry is not declared deterministic yet, and nothing may promote it implicitly"
+        "a procedural how-to is not a settled fact and nothing may promote it implicitly"
     );
 }

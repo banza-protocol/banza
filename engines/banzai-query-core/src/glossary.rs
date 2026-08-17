@@ -480,6 +480,44 @@ fn is_named_principle_query(nq: &str) -> bool {
 /// it appears. Longest alias wins, and this table is consulted AFTER the specific arms below, so no
 /// existing resolution changes — measured over the drift corpus, not assumed.
 const CRITICAL_SUBJECTS: &[(&str, &[&str])] = &[
+    // ── Semantic facts that share a noun with a PROCEDURE. The failure class these close: a definition,
+    //    relationship or actor question was captured by a how-to entry because both contain the same
+    //    domain noun. "O que é uma implementação?" reached implementation-steps; "Quem certifica uma
+    //    implementação?" reached how-to-demonstrate-conformance. A noun names the SUBJECT; it does not
+    //    establish procedural intent, and these aliases carry the intent cue with them — "o que é",
+    //    "what is", "diferença", "same thing", "quem certifica", "who certifies" — so a genuine how-to
+    //    ("como implementar", "how do I demonstrate conformance") still reaches its procedure.
+    (
+        "def-implementation",
+        &[
+            "o que e uma implementacao",
+            "what is an implementation",
+            "what is a banza implementation",
+            "definicao de implementacao",
+            "definition of implementation",
+        ],
+    ),
+    (
+        "def-operator-vs-implementation",
+        &[
+            "operador e uma implementacao sao a mesma coisa",
+            "operador e implementacao sao a mesma coisa",
+            "diferenca entre operador e implementacao",
+            "operator and an implementation the same",
+            "difference between an operator and an implementation",
+            "operator vs implementacao",
+            "operator vs implementation",
+        ],
+    ),
+    (
+        "def-certification-actor",
+        &[
+            "quem certifica",
+            "who certifies",
+            "quem emite a certificacao",
+            "who issues certification",
+        ],
+    ),
     // ── Lifecycle dimensions. Deliberately SEPARATE arms, because the questions are separate facts and
     //    the collapses are the failure mode: a version is not a release, a release is not a freeze, and
     //    pre-production does not imply unfrozen by inference. Each arm names only its own dimension.

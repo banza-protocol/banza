@@ -1544,6 +1544,59 @@ export const ENTRIES = [
   //    "o que é L0?" answer with a denial, and "passar L0 permite dinheiro real?" answer with a name.
   ...profileEntries(),
   ...lifecycleEntries(),
+  // ── Implementation as an ENTITY, and its relationship to an operator. ADR-002 states both in one
+  //    sentence: "A certificate is bound to an implementation — a specific artifact set — not to an
+  //    entity, because entities do not pass vectors, builds do." That is the authority for what an
+  //    implementation IS and for why it is not the operator.
+  //
+  //    These are new REPRESENTATIONS of existing repository truth, not new BANZA semantics. The
+  //    component facts remain the owners: def-operator owns the operator, and the comparison below cites
+  //    the relationship authority rather than restating either definition as its own.
+  //
+  //    Deliberately NOT claimed: that one operator may publish several implementations. It is
+  //    architecturally natural and ADR-002 does not state it, so it is not asserted here.
+  {
+    id: "def-implementation",
+    deterministic: true,
+    critical: true,
+    keywords: [
+      "o que e uma implementacao", "o que e uma implementacao banza", "definicao de implementacao",
+      "what is an implementation", "what is a banza implementation", "definition of implementation",
+    ],
+    answer:
+      "Uma **implementação** do **BANZA** é o **sistema técnico** que implementa o protocolo — um **conjunto concreto de artefactos** (uma build identificada), não uma organização. A conformidade e a certificação avaliam **essa** implementação num âmbito determinado: um certificado liga-se a uma implementação, **não** a uma entidade, porque **entidades não passam vectores — builds passam** (ADR-002).\n\n---\n\nA **BANZA implementation** is the **technical system** that implements the protocol — a **specific artifact set** (an identified build), not an organization. Conformance and certification evaluate **that** implementation within a defined scope: a certificate binds to an implementation, **not** to an entity, because **entities do not pass vectors, builds do** (ADR-002).",
+    sources: s("adr002", "specOverview"),
+  },
+  {
+    id: "def-operator-vs-implementation",
+    deterministic: true,
+    critical: true,
+    keywords: [
+      "operador e implementacao sao a mesma coisa", "operador e uma implementacao sao a mesma coisa",
+      "diferenca entre operador e implementacao", "operador vs implementacao",
+      "operator and an implementation the same", "difference between an operator and an implementation",
+      "operator vs implementation", "are an operator and an implementation the same thing",
+    ],
+    answer:
+      "**Não — são coisas distintas.** Um **operador** é uma **entidade organizacional** independente que corre uma implementação; uma **implementação** é o **sistema técnico**, um conjunto concreto de artefactos. A distinção é o que torna a certificação precisa: um certificado liga-se a uma **implementação**, não a uma entidade, porque **entidades não passam vectores — builds passam** (ADR-002). Sem essa separação, o modelo de conformidade colapsaria em avalizar empresas.\n\n---\n\n**No — they are distinct.** An **operator** is an independent **organizational entity** that runs an implementation; an **implementation** is the **technical system**, a specific artifact set. The distinction is what makes certification precise: a certificate binds to an **implementation**, not to an entity, because **entities do not pass vectors, builds do** (ADR-002). Without that separation the conformance model would collapse into vouching for companies.",
+    sources: s("adr002", "specOverview"),
+  },
+  {
+    // "Quem certifica?" is grammatically an ACTOR question, and the honest answer is that BANZA defines
+    // the FUNCTION and designates no universal certifying organization. Answering "Layer 2 certifies"
+    // would turn an architectural layer into a legal entity; naming any body would invent one.
+    id: "def-certification-actor",
+    deterministic: true,
+    critical: true,
+    keywords: [
+      "quem certifica uma implementacao", "quem certifica implementacoes", "quem certifica",
+      "who certifies an implementation", "who certifies implementations", "who certifies",
+      "quem emite a certificacao", "who issues certification",
+    ],
+    answer:
+      "O **BANZA** define a **função** de certificação — a **Camada 2**, certificação de conformidade e interoperabilidade — e **não designa uma organização certificadora universal**. Certificar é avaliar **uma implementação determinada** (identificada pelo artefacto) contra um perfil público e versionado, e o resultado é **evidência técnica decidida por verificações determinísticas**, não uma aprovação institucional. O **protocolo não é, ele próprio, um certificador**; o **BanzAI não certifica**; as **autoridades de raiz não certificam** — o seu papel é criptográfico. E certificar **não** confere admissão operacional (ADR-006) nem autorização regulatória (ADR-007): são decisões separadas que não se propagam (ADR-005).\n\n---\n\n**BANZA** defines the certification **function** — **Layer 2**, conformance and interoperability certification — and **designates no universal certifying organization**. Certifying means evaluating **a defined implementation** (identified by its artifact) against a public, versioned profile, and the result is **technical evidence decided by deterministic checks**, not an institutional approval. The **protocol is not itself a certifier**; **BanzAI does not certify**; the **root authorities do not certify** — their role is cryptographic. And certification confers **neither** operational admission (ADR-006) **nor** regulatory authorization (ADR-007): those are separate decisions that do not propagate (ADR-005).",
+    sources: s("adr002", "adr005sep", "govGlossary"),
+  },
   {
     id: "def-resilience-boundary",
     deterministic: true,
