@@ -623,6 +623,39 @@ fn contains_word(nq: &str, w: &str) -> bool {
     nq.split(' ').any(|t| t == w)
 }
 
+/// Does `nq` contain this keyword as a run of WHOLE tokens?
+///
+/// The single-word path has always required a whole-word match, for a reason it states: a keyword word must
+/// never merely be a prefix of a longer one. The phrase path did not, and the asymmetry was a live defect.
+/// Adding the Portuguese surface form "o que e o banza" to the BANZA identity entry made it a substring of
+/// "o que e o banzami", which scored as a five-word phrase hit and took the Banzami question away from the
+/// Banzami entry — the exact collision `banzami_question_retrieves_the_banzami_entry_not_banza` exists to
+/// forbid, arriving through the one path that was not checking.
+/// The boundary is ALPHABETIC — not whitespace, and not alphanumeric either. Both stricter rules were tried
+/// and both moved 313 probes, because the index deliberately carries `"adr 0"` as a numeric-prefix keyword
+/// so that "explain ADR-001" reaches the decision index. A digit continuing the match is intended; a LETTER
+/// continuing it is the defect. "banza" followed by "m" is a different word; "adr 0" followed by "01" is the
+/// same reference.
+fn contains_phrase(nq: &str, phrase: &str) -> bool {
+    if phrase.is_empty() {
+        return false;
+    }
+    let bytes = nq.as_bytes();
+    let alnum = |i: usize| bytes[i].is_ascii_alphabetic();
+    let mut from = 0;
+    while let Some(rel) = nq[from..].find(phrase) {
+        let start = from + rel;
+        let end = start + phrase.len();
+        let before_ok = start == 0 || !alnum(start - 1);
+        let after_ok = end == bytes.len() || !alnum(end);
+        if before_ok && after_ok {
+            return true;
+        }
+        from = start + 1;
+    }
+    false
+}
+
 /// Interrogative words, paired across the two languages the engine answers in.
 ///
 /// An interrogative asks *about* a subject; it never *is* one. That makes it worthless as evidence of a
@@ -728,7 +761,7 @@ fn score_entry(nq: &str, keywords: &[String]) -> i64 {
             }
             continue;
         }
-        if nq.contains(&nk) {
+        if contains_phrase(nq, &nk) {
             score = score.max(words.len() as i64 + 2); // phrase hit
             continue;
         }
