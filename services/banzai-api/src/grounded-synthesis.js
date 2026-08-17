@@ -19,6 +19,7 @@ import {
   outputSchemaStructured,
   buildOutputPromptObligedStructured,
   deriveCitedSourceIds,
+  isCriticalSubject,
 } from "./knowledge.js";
 import { extractJson } from "./json-extract.js";
 
@@ -386,9 +387,29 @@ export async function runGroundedSynthesis(
   const pkg = buildFactualPackagePlanned(traceId, question, sel.resolved_id || "", effectiveDepth);
   builtPackage = pkg || null;
   if (!pkg || !Array.isArray(pkg.facts) || pkg.facts.length === 0) {
-    // A document-directed intent with no evidence must decline; a concept with no facts also declines.
+    // An empty package is where the original bug hid. `facts.length === 0` was reported to the caller as
+    // one undifferentiated "insufficient", and the caller published it as "not enough public evidence" —
+    // even when the real cause was that no subject had resolved, so no package could be built at all.
+    //
+    // Three genuinely different situations, so the cause travels with the result:
+    //
+    //   unresolved_subject — nothing resolved, so nothing could be assembled. For an open-ended question
+    //     that is ordinary; general retrieval is a legitimate next step and this is NOT a claim about what
+    //     BANZA documents.
+    //   critical_factual_package_empty — a REGISTERED CRITICAL subject resolved and still produced no
+    //     facts. That is the engine contradicting its own registry: it knows this subject and says it has
+    //     nothing to say about it. An internal inconsistency, never presented as absent evidence.
+    //   no_eligible_evidence — a subject resolved and the corpus genuinely holds nothing admissible for
+    //     it. This one is real epistemic insufficiency.
     trace.facts_count = 0;
-    return done("insufficient", { primary_intent: primaryIntent });
+    const resolved = sel.resolved_id || "";
+    const cause = !resolved
+      ? "unresolved_subject"
+      : isCriticalSubject(resolved)
+        ? "critical_factual_package_empty"
+        : "no_eligible_evidence";
+    trace.empty_package_cause = cause;
+    return done("insufficient", { primary_intent: primaryIntent, insufficient_cause: cause });
   }
   if (primaryIntent === "compare_documents") trace.compare_doc_ids = pkg.allowed_source_ids || [];
   trace.facts_count = pkg.facts.length;
@@ -430,7 +451,14 @@ export async function runGroundedSynthesis(
     return done("fallback", { primary_intent: primaryIntent, verdict });
   }
   if (output.insufficient_evidence) {
-    return done("insufficient", { primary_intent: primaryIntent, verdict });
+    // The package had facts and the model still declined. That is a judgement about the evidence, not a
+    // failure to assemble it — and it is not the same event as an empty package.
+    trace.empty_package_cause = "evidence_below_threshold";
+    return done("insufficient", {
+      primary_intent: primaryIntent,
+      verdict,
+      insufficient_cause: "evidence_below_threshold",
+    });
   }
 
   return done("grounded", {

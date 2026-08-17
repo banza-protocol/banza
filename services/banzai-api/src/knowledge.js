@@ -1630,6 +1630,20 @@ export function retrieve(question) {
 // Look up a single entry (data) by id — used by the pipeline to serve the deterministic answer the
 // routing policy selected for a critical-boundary intent.
 const ENTRIES_BY_ID = new Map(ENTRIES.map((e) => [e.id, e]));
+/// Whether an id names a REGISTERED CRITICAL subject — one the engine claims to have a settled, sourced
+/// answer for. Used to tell an internal inconsistency (we know this subject and produced no facts) from
+/// ordinary absence of evidence (we know nothing about this).
+export function isCriticalSubject(id) {
+  if (!id) return false;
+  const e = ENTRIES_BY_ID.get(id);
+  if (e) return e.critical === true;
+  // A concept/document id (ADR-004, a spec path) is critical when a critical entry cites it as one of its
+  // establishing sources: the engine has committed to answering from that record.
+  return ENTRIES.some(
+    (x) => x.critical === true && (x.sources || []).some((sc) => (sc && (sc.id || sc.key)) === id),
+  );
+}
+
 export function getEntry(id) {
   return ENTRIES_BY_ID.get(id) || null;
 }

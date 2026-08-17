@@ -452,6 +452,38 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     };
   }
 
+  // An INTERNAL inconsistency, not a statement about what BANZA documents. The engine resolved a subject
+  // it claims to answer and then produced no facts for it — the registry and the assembled package
+  // disagree. The reader is told plainly that BanzAI could not complete the answer, which is true, instead
+  // of being told the protocol lacks evidence, which is not. Deterministic and model-free: falling through
+  // to synthesis here would route the most sensitive questions to the least constrained path precisely
+  // when the constrained one is known to be broken.
+  function engineInconsistent(question, meta) {
+    return {
+      result: {
+        grounded: false,
+        answer:
+          "Não consegui completar esta resposta. Isto não é falta de evidência pública do BANZA — é uma " +
+          "inconsistência interna do BanzAI ao montar a resposta a partir das suas fontes. A informação " +
+          "existe no repositório; consulte a fonte canónica ou reformule enquanto isto é corrigido.",
+        sources: [],
+        entry_id: null,
+        provider: provider.name,
+        mode: isReal ? "real" : "mock",
+        guardrails: GUARDRAILS,
+      },
+      meta: {
+        deterministic: true,
+        cache: null,
+        llm_called: false,
+        // Visible to maintainers: a critical subject failing on the engine's own registry must not degrade
+        // quietly (§16).
+        engine_inconsistency: true,
+        ...meta,
+      },
+    };
+  }
+
   // M2.18B — a grounded=false result carrying a specific answer body (clarification / out-of-scope /
   // interpreted-boundary). No source, no model answer. Deterministic; safe by construction.
   function stated(answerText, meta) {
@@ -1713,7 +1745,38 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
       );
     }
     if (tp.status === "insufficient") {
-      return contextualInsufficient(rq, "insufficient_source", { ...tpMeta, terminal_kind: "insufficient_evidence", fallback_reason: "synthesis_insufficient" });
+      // `synthesis_insufficient` used to be every one of these, and the public state was always
+      // "insufficient evidence". That was the original bug's second half: the engine failed to BUILD the
+      // package and told the reader BANZA had nothing to say. The cause now travels from the synthesis
+      // layer, and only genuine epistemic insufficiency keeps the epistemic label.
+      //
+      // One state decides, the reason explains — so the terminal changes only where the state genuinely
+      // is not an epistemic one.
+      const cause = tp.insufficient_cause || "synthesis_insufficient";
+      if (cause === "critical_factual_package_empty") {
+        // The engine resolved a subject it claims to answer, and produced no facts for it. Telling the
+        // reader that BANZA lacks documentation would be false — the registry says otherwise. And it must
+        // NOT fall through to the model: a broken critical registry would then hand the most sensitive
+        // questions to the least constrained path.
+        return engineInconsistent(rq, {
+          ...tpMeta,
+          terminal_kind: "engine_inconsistency",
+          fallback_reason: "critical_factual_package_empty",
+        });
+      }
+      const reason =
+        cause === "unresolved_subject"
+          ? "unresolved_subject"
+          : cause === "no_eligible_evidence"
+            ? "no_eligible_evidence"
+            : cause === "evidence_below_threshold"
+              ? "evidence_below_threshold"
+              : "synthesis_insufficient";
+      return contextualInsufficient(rq, "insufficient_source", {
+        ...tpMeta,
+        terminal_kind: "insufficient_evidence",
+        fallback_reason: reason,
+      });
     }
     // status "fallback" — the trunk could not publish a validated model answer. Derive a FAITHFUL,
     // specific reason from the trace (M2.18B.6): a validator rejection is not "model unavailable", and a
