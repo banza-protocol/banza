@@ -19,7 +19,7 @@
 //! object-independent jailbreak check ensures a groundable keyword cannot smuggle a payload past the
 //! safety gate.
 
-use crate::{normalize, retrieve_topk_ids};
+use crate::{keyword_is_the_question, normalize, retrieve_topk_ids};
 
 /// A routing decision. `action` and `intent` are stable machine labels; `entry_id` (when present)
 /// is the canonical knowledge entry whose vetted answer the deterministic path must serve.
@@ -7325,6 +7325,27 @@ pub fn route(question: &str) -> Route {
     }
     let ids = retrieve_topk_ids(&nq, 3);
     if let Some(top) = ids.first() {
+        // A `def-*` hit is a CANONICAL DEFINITION, and the keyword path selecting it does not make it
+        // any less canonical than the glossary path selecting it — the same rule already applies above.
+        // Sending a settled definition to the model is what let an authority boundary be re-worded into
+        // "public contracts control operators": the model was asked to compose prose for a fact that was
+        // already written and sourced. A stable protocol boundary must not depend on inference, and must
+        // still answer when no model is reachable at all.
+        //
+        // But ONLY when the question IS the definition, not when it merely mentions it. "quem controla os
+        // operadores" is the definition; "o que faz o BanzAI quando um operador autoriza um pagamento?"
+        // contains the same authority words inside a different question, and answering that with a canned
+        // boundary is the false-positive the routing fuzz tests already forbid. The measure is coverage:
+        // a matched keyword must account for most of the query, not appear as a fragment of it.
+        if top.starts_with("def-") && keyword_is_the_question(&nq, top) {
+            return Route {
+                action: "deterministic",
+                entry_id: Some(top.clone()),
+                intent: "grounded",
+                reason:
+                    "canonical definition reached by keyword retrieval — deterministic, model-free",
+            };
+        }
         return Route {
             action: "qwen",
             // M2.9A: label the grounded question with its fine operational intent (packing + telemetry).

@@ -519,5 +519,47 @@
       "adr052",
       "zero.banza.network"
     ]
+  },
+  {
+    "id": "def-operator-governance-authority",
+    "keywords": [
+      "quem controla os operadores",
+      "quem controla o operador",
+      "quem controla os operadores banza",
+      "o banza controla os operadores",
+      "banza controla operadores",
+      "quem manda nos operadores",
+      "quem governa os operadores",
+      "quem governa um operador",
+      "quem admite um operador",
+      "quem admite operadores",
+      "quem autoriza um operador",
+      "quem autoriza operadores",
+      "quem aprova um operador",
+      "existe uma autoridade central que controla os operadores",
+      "autoridade central operadores",
+      "a banzami controla os operadores",
+      "banzami controla operadores",
+      "o mantenedor do banza controla os operadores",
+      "mantenedor controla operadores",
+      "quem controla o banza",
+      "quem controla o protocolo",
+      "who controls operators",
+      "who controls the operators",
+      "does banza control operators",
+      "who governs operators",
+      "who governs an operator",
+      "who admits an operator",
+      "who admits operators",
+      "who authorizes an operator",
+      "who authorises an operator",
+      "who approves an operator",
+      "is there a central banza authority controlling operators",
+      "central authority operators",
+      "does banzami control operators",
+      "does the banza maintainer control operators",
+      "who controls banza",
+      "who controls the protocol"
+    ]
   }
 ]

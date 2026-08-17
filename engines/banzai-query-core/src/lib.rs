@@ -653,6 +653,34 @@ fn score_entry(nq: &str, keywords: &[String]) -> i64 {
     score
 }
 
+/// Whether a matched entry's keyword accounts for most of the query — i.e. the question IS that
+/// definition rather than merely containing its words.
+///
+/// Coverage, not score: a keyword hit tells us the words are present, which is exactly the signal that
+/// misleads. "quem controla os operadores" is covered ~fully by its keyword; "o que faz o banzai quando
+/// um operador autoriza um pagamento" is not, because the keyword is a fragment of a longer, different
+/// question. Measured on normalized character length so it needs no tokenizer and cannot disagree with
+/// `normalize`.
+pub fn keyword_is_the_question(nq: &str, entry_id: &str) -> bool {
+    // Two thirds: enough to admit a natural leading/trailing word ("afinal, quem controla os
+    // operadores?") while rejecting a keyword embedded in a question about something else.
+    const MIN_COVERAGE: f64 = 0.66;
+    let q_len = nq.chars().count() as f64;
+    if q_len == 0.0 {
+        return false;
+    }
+    entries()
+        .iter()
+        .filter(|e| e.id == entry_id)
+        .flat_map(|e| e.keywords.iter())
+        .any(|k| {
+            let nk = normalize(k);
+            !nk.is_empty()
+                && nq.contains(&nk)
+                && (nk.chars().count() as f64) / q_len >= MIN_COVERAGE
+        })
+}
+
 /// Byte-faithful port of the JS `retrieveTopK`: returns the ids of the best entries (score >= 2),
 /// best first, stable for ties (preserving `ENTRIES` order), at most `max(1, k)`.
 pub fn retrieve_topk_ids(question: &str, k: usize) -> Vec<String> {
