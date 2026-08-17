@@ -175,8 +175,24 @@ impl Frame {
     }
 
     /// The turn names its own subject, so nothing may be inherited over it (§ explicit override).
+    /// Does this turn name a subject the engine can actually RESOLVE?
+    ///
+    /// "An explicit new subject always wins" is the right rule; the defect was what counted as one. Every
+    /// non-filler token landed in the subject slot, so "me da um exemplo aqui" claimed the subject
+    /// "exemplo" and "são a mesma coisa?" claimed "coisa" — and both then short-circuited inheritance as
+    /// though the speaker had changed topic. A turn that leans entirely on the previous one was read as
+    /// standing alone, which is the opposite of what it does.
+    ///
+    /// Eligibility is registered vocabulary: keywords of indexed entries, critical-subject words, canonical
+    /// profile identifiers. That is deliberately the SAME vocabulary the resolver matches on, so the frame
+    /// cannot disagree with retrieval about what is nameable. A word nobody can resolve is not a topic
+    /// change; it is filler with a noun's shape.
     pub fn has_own_subject(&self) -> bool {
-        !self.subject.is_empty()
+        self.subject.iter().any(|t| {
+            crate::glossary::critical_subject_words()
+                .iter()
+                .any(|w| w == t)
+        })
     }
 }
 
