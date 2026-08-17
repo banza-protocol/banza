@@ -42,15 +42,17 @@ export const SOURCES = {
   governance: { id: "GOVERNANCE", title: "BANZA governance & maintainers (Banzami = original creator / initial maintainer)", path: "GOVERNANCE.md" },
   fedQuickstart: { id: "SPEC-FED", title: "Federation operator quickstart (spec/federation)", path: "spec/federation/FEDERATION_OPERATOR_QUICKSTART.md" },
   adr038: { id: "ADR-025", title: "Open protocol trust model without a central CA", path: "decisions/adr/ADR-025-*.md" },
-  adr079: { id: "ADR-025", title: "Canonical trust signing model reconciliation (Model A)", path: "decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md" },
+  adr079: { id: "ADR-025", title: "Canonical trust signing model reconciliation (Model A)", path: "decisions/adr/ADR-025-trust-without-a-certificate-authority.md" },
   adr039: { id: "ADR-031", title: "Operator self-publication and machine-verifiable conformance", path: "decisions/adr/ADR-031-*.md" },
   adr040: { id: "ADR-025", title: "Federation trust evaluation without certificates", path: "decisions/adr/ADR-025-*.md" },
+  adr002: { id: "ADR-002", title: "Protocol, implementation and operator separation", path: "decisions/adr/ADR-002-protocol-implementation-and-operator-separation.md" },
+  adr005sep: { id: "ADR-005", title: "Certification, admission and authorisation do not propagate", path: "decisions/adr/ADR-005-certification-admission-and-authorisation-do-not-propagate.md" },
   adr059: { id: "ADR-004", title: "BANZA three-layer institutional architecture", path: "decisions/adr/ADR-004-three-institutional-layers.md" },
-  adr060: { id: "ADR-006", title: "Banzami Operational Scheme (designated operator; BANZA ≠ Banzami)", path: "decisions/adr/ADR-006-designated-operator-scheme.md" },
-  adr062: { id: "ADR-007", title: "Regulatory-state boundary and the RealMoneyActivationGate", path: "decisions/adr/ADR-007-regulatory-state-boundary-and-the-real-money-activation-gate.md" },
-  adr064: { id: "ADR-032", title: "BANZA Conformance & Interoperability Certification (Layer 2)", path: "decisions/adr/ADR-032-conformance-and-interoperability-certification.md" },
-  adr065: { id: "ADR-033", title: "BANZA Technical Registry", path: "decisions/adr/ADR-033-banza-technical-registry.md" },
-  adr066: { id: "ADR-032", title: "Closed certification-state machine", path: "decisions/adr/ADR-032-closed-certification-state-machine.md" },
+  adr060: { id: "ADR-006", title: "Banzami Operational Scheme (designated operator; BANZA ≠ Banzami)", path: "decisions/adr/ADR-006-the-designated-operator-and-its-conflict-of-interest.md" },
+  adr062: { id: "ADR-007", title: "Regulatory-state boundary and the RealMoneyActivationGate", path: "decisions/adr/ADR-007-regulatory-state-and-the-real-money-activation-gate.md" },
+  adr064: { id: "ADR-032", title: "BANZA Conformance & Interoperability Certification (Layer 2)", path: "decisions/adr/ADR-032-certification-records-and-their-lifecycle.md" },
+  adr065: { id: "ADR-033", title: "BANZA Technical Registry", path: "decisions/adr/ADR-033-the-banza-technical-registry.md" },
+  adr066: { id: "ADR-032", title: "Closed certification-state machine", path: "decisions/adr/ADR-032-certification-records-and-their-lifecycle.md" },
   conformanceSuite: { id: "CONFORMANCE", title: "BANZA conformance suite", path: "conformance/README.md" },
   adrIndex: { id: "ADR-INDEX", title: "Architecture Decision Records (index)", path: "decisions/adr/README.md" },
   adr006: { id: "ADR-012", title: "Double-entry ledger", path: "decisions/adr/ADR-012-double-entry-ledger-and-monetary-precision.md" },
@@ -94,12 +96,12 @@ export const SOURCES = {
   repoKnowledgeGuard: { id: "check-banzai-repository-wide-knowledge.sh", title: "Repository-wide knowledge guard", path: "tools/check-banzai-repository-wide-knowledge.sh" },
   zeroSub: { id: "zeroSubdomain.ts", title: "zero.banza.network routing (host-aware)", path: "website/lib/zeroSubdomain.ts" },
   ozApp: { id: "app/(pt)/oz", title: "Operador Zero standalone surface", path: "website/app/(pt)/oz/" },
-  banzaiCore: { id: "banzai-core", title: "BanzAI Rust core (deterministic; no LLM/network)", path: "engines/banzai-query-core/ + engines/banzai-api-kb/ (banza-protocol/banza)" },
+  banzaiCore: { id: "banzai-core", title: "BanzAI Rust core (deterministic; no LLM/network)", path: "engines/banzai-query-core/" },
   banzaiRepo: { id: "banzai-source", title: "BanzAI active source — this monorepo (services/banzai-api + engines/banzai-*)", path: "services/banzai-api" },
   // M2.13C — sources for the answer-quality gap fixes (crates, guards, CI, index state).
   enginesDir: { id: "engines/", title: "Motores Rust oficiais (ADR-038)", path: "engines/" },
   leakGuard: { id: "check-private-key-leak.sh", title: "Guard anti-fuga de chave privada", path: "tools/check-private-key-leak.sh" },
-  identityGuard: { id: "check-operator-contamination.sh", title: "Guard de neutralidade / anti-contaminação de marca", path: "tools/check-operator-contamination.sh (make identity-check)" },
+  identityGuard: { id: "check-operator-contamination.sh", title: "Guard de neutralidade / anti-contaminação de marca", path: "tools/check-operator-contamination.sh" },
   ciWorkflows: { id: ".github/workflows", title: "CI (identity-guard.yml, rust-engines.yml, …)", path: ".github/workflows/" },
   indexManifest: { id: "banzai-repo-index-manifest.json", title: "Manifesto do índice repo-wide (contagens/commits/hash)", path: "engines/banzai-query-core/src/repoindex/banzai-repo-index-manifest.json" },
   adr005: { id: "ADR-001", title: "Protocol-first product development (norma antes do produto)", path: "decisions/adr/ADR-001-*.md" },
@@ -118,7 +120,7 @@ export const SOURCES = {
   ciWorkflows: { id: "CI-WORKFLOWS", title: "Continuous integration workflows", path: ".github/workflows/" },
   guardsDir: { id: "GUARDS", title: "Repository guards (automated checks)", path: "tools/" },
   runbookDoc: { id: "RUNBOOK", title: "Operational runbook (activation, smoke tests, rollback)", path: "docs/guides/OPERADOR_ZERO_SUBDOMAIN_ACTIVATION.md" },
-  reportsDir: { id: "REPORTS", title: "Milestone & audit reports", path: "docs/reports/" },
+  reportsDir: { id: "REPORTS", title: "Milestone & audit reports", path: "docs/quality/" },
   specDir: { id: "SPEC", title: "Protocol specifications", path: "spec/" },
   contractsDir: { id: "CONTRACTS", title: "Protocol contracts (OpenAPI, JSON schemas)", path: "contracts/" },
 };
@@ -733,7 +735,7 @@ export const ENTRIES = [
     critical: true,
     keywords: ["que ficheiros implementam o operador zero", "ficheiros do operador zero", "onde esta implementado o operador zero", "files implement operator zero", "codigo do operador zero", "que ficheiros fazem o operador zero"],
     answer:
-      "O Operador Zero é implementado por: **motor Rust** `engines/operator-zero-core` (ledger/trust/federação/evidence/traces) e `engines/operator-zero-e2e-root` (raiz de assinatura Ed25519 demo); **artefactos** em `examples/operators/zero/` (manifest, key-manifest, revocation-list, evidence-bundle, traces, ledger, payments) e `examples/operators/zero/e2e-root/`; **website** `website/components/operador-zero/OperadorZeroReference.tsx` (superfície só de leitura) + `website/app/(pt)/oz/` (rota interna) + `website/lib/operadorZero*.ts`; a validação corre no **modo de validação do BanzAI** (`/banzai?mode=validation`), integrado em `website/components/banzai/BanzaiValidationMode.tsx`, executada pelos motores Rust; **routing** `website/middleware.ts` + `website/lib/zeroSubdomain.ts` (zero.banza.network); **guards** `tools/check-operator-zero*.sh` + `tools/check-zero-subdomain*.sh`; **decisões** ADR-035 e ADR-035; **relatórios** em `docs/reports/M2_12*`, `M2_13A*` e `M2_19EF*`.",
+      "O Operador Zero é implementado por: **motor Rust** `engines/operator-zero-core` (ledger/trust/federação/evidence/traces) e `engines/operator-zero-e2e-root` (raiz de assinatura Ed25519 demo); **artefactos** em `examples/operators/zero/` (manifest, key-manifest, revocation-list, evidence-bundle, traces, ledger, payments) e `examples/operators/zero/e2e-root/`; **website** `website/components/operador-zero/OperadorZeroReference.tsx` (superfície só de leitura) + `website/app/(pt)/oz/` (rota interna) + `website/lib/operadorZero*.ts`; a validação corre no **modo de validação do BanzAI** (`/banzai?mode=validation`), integrado em `website/components/banzai/BanzaiValidationMode.tsx`, executada pelos motores Rust; **routing** `website/middleware.ts` + `website/lib/zeroSubdomain.ts` (zero.banza.network); **guards** `tools/check-operator-zero*.sh` + `tools/check-zero-subdomain*.sh`; **decisões** ADR-035 e ADR-035; **relatórios** em `docs/quality/M2_12*`, `M2_13A*` e `M2_19EF*`.",
     sources: s("ozEngine", "ozLab", "ozMiddleware", "adr052"),
   },
   {
@@ -1239,6 +1241,22 @@ export const ENTRIES = [
       "**Não.** A **resiliência nunca se sobrepõe à segurança**, nem a qualquer garantia de correcção do protocolo. O **BANZA** segue **segurança antes de disponibilidade**: onde a **confiança**, a **autorização**, a **integridade** ou a **correcção** não podem ser estabelecidas, o protocolo **falha ou degrada em segurança** em vez de continuar por um caminho alternativo inseguro. Em concreto, ser resiliente **não** autoriza contornar a confiança, aceitar um artefacto **não assinado** ou de origem não verificada, **estender** uma validade expirada, baixar o limiar de assinaturas nem prosseguir com verificações mais fracas para permanecer disponível — **recusar é um resultado correcto**. Resiliência também **não significa ausência de indisponibilidade**: significa que uma falha é **contida, explícita e recuperável de forma determinística**, e que **nunca se transforma numa violação do protocolo**. **Resiliente** e **Seguro** são dois dos quatro Princípios Fundamentais (**BANZA R²S²**); decisão: **ADR-040**.",
     sources: s("govGlossary", "specDir"),
   },
+  // Authority-boundary question. It was answered "insufficient evidence" on the direct route while an
+  // immediate contextual follow-up produced a substantive — and wrong — answer saying public contracts
+  // "control" operators. The verbs of authority (controlar, governar, admitir, autorizar, mandar)
+  // resolved to no subject at all, so the factual package was built empty and declined; the contextual
+  // route reached sources by another path. A stable governance boundary should not need a model to be
+  // decided, and it must not be decided differently depending on which route the reader arrives by.
+  //
+  // TECHNICAL CONSTRAINT ≠ ORGANIZATIONAL CONTROL. Contracts define interfaces and required behaviour
+  // for a conformant implementation; they do not become an institutional controller of an entity.
+  {
+    id: "def-operator-governance-authority",
+    critical: true, keywords: ["quem controla os operadores", "quem controla o operador", "quem controla os operadores banza", "o banza controla os operadores", "banza controla operadores", "quem manda nos operadores", "quem governa os operadores", "quem governa um operador", "quem admite um operador", "quem admite operadores", "quem autoriza um operador", "quem autoriza operadores", "quem aprova um operador", "existe uma autoridade central que controla os operadores", "autoridade central operadores", "a banzami controla os operadores", "banzami controla operadores", "o mantenedor do banza controla os operadores", "mantenedor controla operadores", "quem controla o banza", "quem controla o protocolo", "who controls operators", "who controls the operators", "does banza control operators", "who governs operators", "who governs an operator", "who admits an operator", "who admits operators", "who authorizes an operator", "who authorises an operator", "who approves an operator", "is there a central banza authority controlling operators", "central authority operators", "does banzami control operators", "does the banza maintainer control operators", "who controls banza", "who controls the protocol"],
+    answer:
+      "**O BANZA não estabelece uma autoridade central que controle os operadores.** Um **operador** é uma entidade organizacional independente, responsável por correr uma implementação; uma **implementação** é o sistema técnico que segue as regras (ADR-002). São coisas distintas, e uma pergunta organizacional não se responde como se um operador fosse apenas software.\n\nSe por **controlo** se entende **requisitos técnicos**: o protocolo define, em contratos e especificações públicas, os requisitos que uma implementação tem de satisfazer para ser conforme. Isso é **constrangimento técnico, não controlo organizacional** — um contrato define interfaces, representações e comportamento exigido; não se torna o controlador institucional de uma entidade.\n\nAs decisões estão separadas e nenhuma implica a outra (ADR-004, ADR-005):\n\n- **Protocolo** — especifica as regras técnicas.\n- **Implementação** — implementa essas regras.\n- **Conformidade ou certificação** — avalia uma implementação num âmbito determinado (versão do protocolo, perfil, ambiente, evidência). Avalia implementações, **não** confere admissão nem licença.\n- **Admissão e governação operacional** — pertencem, separadamente, ao esquema operacional aplicável, segundo as suas próprias regras (ADR-006).\n- **Autorização ou supervisão regulatória** — pertence, separadamente, ao enquadramento jurídico e às autoridades competentes da jurisdição aplicável (ADR-007).\n\n**Nenhuma dessas decisões é automaticamente conferida pelo BANZA.** Não há um controlador central de operadores, nem uma admissão do BANZA, nem uma autoridade regulatória do BANZA. Os mantenedores governam a evolução do protocolo no processo público, não os operadores; as autoridades de raiz desempenham o seu papel criptográfico de confiança, que não é governação operacional; e o registo técnico público indexa manifestos, versões e evidência auto-publicada — **não é uma lista de admitidos nem uma porta de entrada**.",
+    sources: s("adr002", "adr059", "adr005sep", "adr060", "adr062", "govGlossary"),
+  },
   {
     id: "def-l0-regulatory-boundary",
     critical: true, keywords: ["l0 sandbox regulatorio", "l0 sandbox regulatório", "l0 regulatory sandbox", "l0 sandbox do bna", "l0 bna sandbox", "l0 lispa", "l0 e lispa", "l0 dinheiro real", "l0 movimentar dinheiro real", "l0 real money", "l0 move real funds", "l0 fundos reais", "implementar l0 sem ser operador", "testar l0 sem ser operador", "implement l0 without being an operator", "test l0 without being a financial operator", "conformidade da licenca", "certificacao da licenca", "conformidade banza da licenca para operar", "does banza conformance authorize", "does certification authorize me to operate", "passar l0 significa producao", "passar l0 producao", "passing l0 production", "l0 significa que posso entrar em producao", "l0 autoriza", "l0 confere autorizacao"],
@@ -1348,7 +1366,7 @@ export const ENTRIES = [
     id: "def-audit-report",
     critical: true, keywords: ["audit", "o que e audit", "audit report", "o que e um audit report", "relatorio de auditoria", "o que e auditoria", "evidence report", "what is an audit report", "what is an audit"],
     answer:
-      "Um **audit report** (relatório de auditoria) documenta uma **revisão** do repositório ou de um marco — o que foi verificado, achados e conclusões. No **BANZA** vivem em `docs/reports/`. É **evidência/registo** de revisão — **não** é certificação nem aprovação de operador.",
+      "Um **audit report** (relatório de auditoria) documenta uma **revisão** do repositório ou de um marco — o que foi verificado, achados e conclusões. No **BANZA** vivem em `docs/quality/`. É **evidência/registo** de revisão — **não** é certificação nem aprovação de operador.",
     sources: s("reportsDir", "govGlossary"),
   },
   {
