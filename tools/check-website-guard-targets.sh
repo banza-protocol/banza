@@ -43,15 +43,19 @@ PT_GROUP = 'website/app/(pt)'
 #
 # Absence is checked in both the app root and the route group — a retired route recreated inside the
 # group would satisfy the original guard while being perfectly reachable to the public.
+# `also_in_group` is True for anything that would be a ROUTE: a retired page recreated inside `(pt)/`
+# is just as reachable to the public, so its absence is checked in both spellings. It is False for an
+# app-root special file, where the group form is a DIFFERENT thing that must exist — `(pt)/layout.tsx`
+# is the Portuguese root layout, while `app/layout.tsx` is the shared root that must never come back.
 MUST_NOT_EXIST = {
-    'website/app/roteiro': 'Retired: the roadmap surface was folded into the Reference (308 to §14).',
-    'website/app/evolucao': 'Retired alongside /roteiro; never a separate public surface.',
-    'website/app/o-que-e': 'Retired: the introductory definition is Reference chapter 1.',
-    'website/app/operador-zero': 'Never a route here — Operador Zero is served at its own host.',
-    'website/app/bad.ts': 'A guard self-test fixture name, planted in a temporary tree only.',
-    'website/app/x': 'A guard self-test fixture name, planted in a temporary tree only.',
-    'website/app/layout.tsx': 'Must not exist: a root layout above both editions would make English '
-                              'nest under it and inherit lang="pt-PT". Each edition has its own root.',
+    'website/app/roteiro': ('Retired: the roadmap surface was folded into the Reference (308 to §14).', True),
+    'website/app/evolucao': ('Retired alongside /roteiro; never a separate public surface.', True),
+    'website/app/o-que-e': ('Retired: the introductory definition is Reference chapter 1.', True),
+    'website/app/operador-zero': ('Never a route here — Operador Zero is served at its own host.', True),
+    'website/app/bad.ts': ('A guard self-test fixture name, planted in a temporary tree only.', True),
+    'website/app/x': ('A guard self-test fixture name, planted in a temporary tree only.', True),
+    'website/app/layout.tsx': ('A root layout above both editions would make English nest under it '
+                               'and inherit lang="pt-PT". Each edition has its own root.', False),
 }
 
 # Tools are the subject, and so is the website's own test suite: a test that reads a page by path is a
@@ -187,12 +191,22 @@ for ref, where in sorted(refs.items()):
     in_app = os.path.exists(n)
     in_group = os.path.exists(os.path.join(PT_GROUP, rel))
 
-    forbidden = next((k for k in MUST_NOT_EXIST if n == k or n.startswith(k + '/')), None)
+    # Matched on the literal reference for a non-route entry, and on the group-free form for a route:
+    # `(pt)/layout.tsx` is the Portuguese root, not a resurrection of the shared one.
+    forbidden = None
+    for k, (_reason, also_group) in MUST_NOT_EXIST.items():
+        probe = n if also_group else ref
+        if probe == k or probe.startswith(k + '/'):
+            forbidden = k
+            break
     if forbidden:
-        if in_app or in_group:
-            at = n if in_app else os.path.join(PT_GROUP, rel)
+        reason, also_group = MUST_NOT_EXIST[forbidden]
+        present = [p for p in ([n] if in_app else []) + ([os.path.join(PT_GROUP, rel)]
+                                                         if (also_group and in_group) else [])
+                   if os.path.exists(p)]
+        for at in present:
             problems.append('%s exists but is declared absent (%s) — named by %s'
-                            % (at, MUST_NOT_EXIST[forbidden], ', '.join(sorted(where))))
+                            % (at, reason, ', '.join(sorted(where))))
         continue
 
     state = classify(ref)
