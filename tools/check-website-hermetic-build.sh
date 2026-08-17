@@ -32,6 +32,16 @@ CDN = [r'fonts\.gstatic\.com', r'fonts\.googleapis\.com', r'use\.typekit\.net', 
 problems = []
 
 
+def strip_comments(text):
+    """Remove comments without removing URLs.
+
+    `//` is only a line comment when it does not follow `:` or `/`, so `https://` survives. Used by
+    both the self-test and the scan, so the two cannot diverge.
+    """
+    text = re.sub(r'/\*.*?\*/', '', text, flags=re.S)
+    return re.sub(r'(?<![:/])//[^\n]*', '', text)
+
+
 def tracked(prefix):
     out = subprocess.run(['git', 'ls-files', prefix], capture_output=True, text=True).stdout.split()
     return out
@@ -51,11 +61,19 @@ def selftest():
             sys.exit(2)
     # And a comment explaining why the loader is NOT used must not be read as using it.
     ok = '// Self-hosted from ./fonts, NOT next/font/google. next/font/google fetches ...'
-    stripped = re.sub(r'//[^\n]*', '', ok)
+    stripped = strip_comments(ok)
     if any(re.search(p, stripped) for p in NETWORK_LOADERS):
         print('SELFTEST FAIL: a comment was read as an import', file=sys.stderr)
         sys.exit(2)
-    print('  selftest ok — 3 network font sources caught by their own rule, comments not read as code')
+    # And stripping comments must not destroy a URL: `//` inside `https://` is not a comment. An
+    # earlier version of this rule truncated every URL to `https:`, which silently blinded the whole
+    # boundary check — the CSS mutation passed because the host had been eaten.
+    live = strip_comments('@import url("https://fonts.googleapis.com/css2?family=Inter");')
+    if not any(re.search(p, live) for p in CDN):
+        print('SELFTEST FAIL: comment stripping destroyed a live URL: %r' % live, file=sys.stderr)
+        sys.exit(2)
+    print('  selftest ok — 3 network font sources caught by their own rule; comments are not code,')
+    print('  and comment stripping does not eat the // in https://')
 
 
 selftest()
@@ -89,8 +107,7 @@ for f in tracked('website'):
         raw = open(f, encoding='utf-8', errors='replace').read()
     except OSError:
         continue
-    src = re.sub(r'/\*.*?\*/', '', raw, flags=re.S)
-    src = re.sub(r'//[^\n]*', '', src)
+    src = strip_comments(raw)
     for pat in NETWORK_LOADERS + CDN:
         for m in re.finditer(pat, src):
             line = src[:m.start()].count('\n') + 1
