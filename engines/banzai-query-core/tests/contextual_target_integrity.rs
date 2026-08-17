@@ -138,12 +138,16 @@ fn every_subject_keeps_its_own_target_across_a_referential_followup() {
             Some("def-operator-governance-authority"),
         ),
         ("O que é o BanzAI?", Some("def-banzai-agent")),
-        // Root, protocol governance and L0 resolve no entry of their own; inheriting faithfully means
-        // inheriting that too. What must never happen is borrowing another subject's record.
-        ("Quem controla a Root?", None),
-        ("Who controls the Root?", None),
-        ("Quem governa o protocolo?", None),
-        ("O que é L0?", None),
+        // Block 5A closed the coverage these three used to lack. When this test was written they resolved
+        // NO entry, and the property was stated as "inheriting faithfully means inheriting that too" — the
+        // absence was the observation available at the time, not the goal. Each now has a record of its
+        // own, so the assertion gets stronger: a POSITIVE target per subject, which is what "keeps its own
+        // target" was always about. What must never happen — borrowing another subject's record — is
+        // unchanged, and `no_subject_leaks_into_another_subjects_followup` below still states it directly.
+        ("Quem controla a Root?", Some("def-root-authorization")),
+        ("Who controls the Root?", Some("def-root-authorization")),
+        ("Quem governa o protocolo?", Some("def-governance")),
+        ("O que é L0?", Some("def-l0-regulatory-boundary")),
     ];
     for (prev, expected) in cases {
         for f in SOURCE_FOLLOWUPS {

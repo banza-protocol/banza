@@ -470,8 +470,187 @@ fn is_named_principle_query(nq: &str) -> bool {
     )
 }
 
+/// Critical subjects whose aliases open the gate AND resolve the term — ONE table, read by both.
+///
+/// The Root threshold defect is the reason this exists. Its phrase was added to the gate predicate and
+/// not to the term resolver, so the gate opened, `term_of` returned nothing, and the question fell through
+/// as unsupported while looking handled. Two lists that must agree eventually disagree; one list cannot.
+///
+/// Every alias here is multi-word or a distinctive protocol identifier, so it names its subject wherever
+/// it appears. Longest alias wins, and this table is consulted AFTER the specific arms below, so no
+/// existing resolution changes — measured over the drift corpus, not assumed.
+const CRITICAL_SUBJECTS: &[(&str, &[&str])] = &[
+    // L0 — the Protocol Sandbox and its regulatory boundary. An already-protected BANZA property
+    // (`tools/check-l0-regulatory-boundary.sh`) that BanzAI could not reach at all: measured, all eight
+    // L0 probes returned "no source", so the boundary the repository guards was unanswerable.
+    (
+        "def-l0-regulatory-boundary",
+        &[
+            "perfil l0",
+            "profile l0",
+            "protocol sandbox",
+            "sandbox de protocolo",
+            "sandbox do protocolo",
+            "passar l0",
+            "passing l0",
+            "passar o l0",
+        ],
+    ),
+    // The three institutional layers. The Portuguese form resolved and the English did not.
+    (
+        "def-three-layer-architecture",
+        &[
+            "three institutional layers",
+            "institutional layers",
+            "three layers",
+            "camadas institucionais",
+            "tres camadas institucionais",
+        ],
+    ),
+    // Protocol/repository governance — kept distinct from operator/scheme governance. Maintaining the
+    // protocol is not authority over the organizations that run it.
+    (
+        "def-governance",
+        &[
+            "governa o protocolo",
+            "governs the protocol",
+            "governanca do protocolo",
+            "governacao do protocolo",
+            "protocol governance",
+        ],
+    ),
+    // Regulatory authorisation and supervision. The record that ESTABLISHES the separation answers who
+    // holds it — and, decisively, that BANZA does not. A generic question must never name a specific
+    // regulator: jurisdiction is introduced only when the reader introduces it.
+    (
+        "def-operator-governance-authority",
+        &[
+            "supervisiona legalmente",
+            "supervisao legal",
+            "legally supervises",
+            "legal supervision",
+            "supervises an operator",
+            "supervisiona um operador",
+        ],
+    ),
+    // "Quem controla a Root?" — the question that started this milestone. It must reach the Root
+    // authorisation model, and never the record about operator authority.
+    (
+        "def-root-authorization",
+        &[
+            "controla a root",
+            "controla a raiz",
+            "controls the root",
+            "quem controla a trust root",
+            "who controls the trust root",
+        ],
+    ),
+];
+
+/// L0 as the SUBJECT of a definitional or boundary question.
+///
+/// A bare `l0` alias was tried first and measured too broad: it hijacked "compara a execução L0 com a
+/// execução L2 da jornada de validação" (a comparison of two journey runs) and "l0 a l4" / "níveis l0"
+/// (the profile ladder), answering all three from the regulatory-boundary record. The token names the
+/// profile wherever it appears, so presence is not enough — L0 has to be what the question is ABOUT.
+///
+/// So it is required to carry a definitional lead or an authorisation/permission/sandbox word, and to
+/// carry none of the markers of a comparison, an execution or a range across the other profiles.
+fn is_l0_subject_query(nq: &str) -> bool {
+    if !word(nq, "l0") {
+        return false;
+    }
+    // A range or a comparison is about the ladder or about two runs, not about what L0 permits.
+    if has(
+        nq,
+        &[
+            "compara",
+            "compare",
+            "execucao",
+            "execution",
+            "jornada",
+            "journey",
+            "l1",
+            "l2",
+            "l3",
+            "l4",
+            "niveis",
+            "levels",
+        ],
+    ) {
+        return false;
+    }
+    starts_definition_lead(nq)
+        || has(
+            nq,
+            &[
+                "autoriza",
+                "autorizacao",
+                "permite",
+                "authorize",
+                "authorise",
+                "authorization",
+                "authorisation",
+                "allow",
+                "sandbox",
+                "producao",
+                "production",
+                "dinheiro real",
+                "real money",
+                "real funds",
+                "fundos reais",
+                "significa",
+                "means",
+            ],
+        )
+}
+
+/// The critical subject named by a MULTI-WORD alias. Precise enough to run BEFORE the broad arms:
+/// longest alias wins, so a specific subject beats a general one.
+fn critical_subject_phrase(nq: &str) -> Option<&'static str> {
+    let mut best: Option<(usize, &'static str)> = None;
+    for (id, aliases) in CRITICAL_SUBJECTS {
+        for a in *aliases {
+            if a.contains(' ') && nq.contains(a) && best.map(|(n, _)| a.len() > n).unwrap_or(true) {
+                best = Some((a.len(), id));
+            }
+        }
+    }
+    best.map(|(_, id)| id)
+}
+
+/// The critical subject named by `nq` — phrases first, then single tokens, then the L0 subject predicate.
+/// This is the ONE function the gate and the term resolver both read, so a gate signal cannot exist
+/// without an arm behind it.
+fn critical_subject(nq: &str) -> Option<&'static str> {
+    if let Some(id) = critical_subject_phrase(nq) {
+        return Some(id);
+    }
+    let mut best: Option<(usize, &'static str)> = None;
+    for (id, aliases) in CRITICAL_SUBJECTS {
+        for a in *aliases {
+            if !a.contains(' ') && word(nq, a) && best.map(|(n, _)| a.len() > n).unwrap_or(true) {
+                best = Some((a.len(), id));
+            }
+        }
+    }
+    if best.is_none() && is_l0_subject_query(nq) {
+        return Some("def-l0-regulatory-boundary");
+    }
+    best.map(|(_, id)| id)
+}
+
 /// The term → entry mapping, most-specific first. Returns the deterministic entry id for `nq`.
 fn term_of(nq: &str) -> Option<&'static str> {
+    // The shared critical-subject table's MULTI-WORD aliases run first. Measured: with the table last,
+    // "quem supervisiona legalmente um operador?" was answered by the broad `word(nq, "operador")` arm
+    // with the DEFINITION of an operator, instead of by the record that establishes who holds legal
+    // supervision — a precise phrase losing to a single generic token. A multi-word alias names its
+    // subject; a bare token merely appears in it. The single-token and predicate cases stay at the end,
+    // where they cannot outrank anything.
+    if let Some(id) = critical_subject_phrase(nq) {
+        return Some(id);
+    }
     // ── Operador Zero boundary (defer to the existing OZ entries) ──
     if has(nq, &["operador zero", "operator zero"])
         && has(nq, &["operador real", "operator real", "real operator"])
@@ -972,7 +1151,9 @@ fn term_of(nq: &str) -> Option<&'static str> {
     {
         return Some("def-operator");
     }
-    None
+    // The shared critical-subject table, LAST: every specific arm above wins first, so adding a subject
+    // here cannot change an existing resolution. The same table opens the gate in `glossary_entry`.
+    critical_subject(nq)
 }
 
 /// The deterministic vocabulary entry for `nq`, or None. Fires ONLY for:
@@ -1015,7 +1196,10 @@ pub fn glossary_entry(nq: &str) -> Option<&'static str> {
         // handled.
         || is_resilience_boundary_phrase(nq)
         || is_local_execution_phrase(nq)
-        || is_named_principle_query(nq);
+        || is_named_principle_query(nq)
+        // Read from the SAME table the term resolver reads — the structural fix for "the gate opens and
+        // nothing is behind it", which is how the Root threshold became unanswerable while looking handled.
+        || critical_subject(nq).is_some();
     // A bare/very short term ("federar", "trust", "saldo reservado", "payment link") — ≤ 2 tokens so an
     // off-topic short phrase that merely contains a term mid-sentence ("Russian Federation history",
     // "setup de operador") is NOT captured and still grounds.

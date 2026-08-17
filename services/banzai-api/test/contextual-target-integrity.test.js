@@ -167,8 +167,19 @@ test("the trace names which merge rule decided the turn", async () => {
 test("a follow-up after an unsupported question does not become a second, weaker route", async () => {
   // If the previous turn could not be answered, the follow-up must not find an answer by re-searching the
   // conversation's words. It stays on the same unsupported target.
-  const { turns } = await conversation(["Quem controla a Root?", SOURCE_FOLLOWUP_PT]);
+  //
+  // The prior turn used to be "Quem controla a Root?" — a question that WAS unsupported when this was
+  // written and is not any more, because Block 5A gave the Root its own record. A fixture that quietly
+  // stops being unsupported turns this into a test of nothing, so the premise is now asserted first and a
+  // genuinely off-domain question carries it.
+  const UNSUPPORTED = "Como funciona um motor a jacto?";
+  const { turns } = await conversation([UNSUPPORTED, SOURCE_FOLLOWUP_PT]);
   const [first, second] = turns;
+  assert.equal(
+    first.meta.terminal_kind,
+    "insufficient_evidence",
+    `the fixture must actually be unsupported, else this test proves nothing (got ${first.meta.terminal_kind})`,
+  );
   assert.notEqual(
     second.meta.terminal_kind,
     "canonical_definition",
