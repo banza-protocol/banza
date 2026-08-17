@@ -19,7 +19,9 @@ stack under [`infra/banza-network/`](../infra/banza-network/README.md)
 ## Stack
 
 - Next.js 15 (App Router) · React 19 · TypeScript · Tailwind CSS 3
-- Fonts via `next/font/google`: Source Serif 4, Public Sans, IBM Plex Mono, Spectral
+- Fonts self-hosted via `next/font/local` from [`app/fonts/`](app/fonts/README.md): Source Serif 4,
+  Public Sans, IBM Plex Mono, Spectral (all SIL OFL 1.1). The production build makes no font network
+  request — `next/font/google` would fetch from `fonts.gstatic.com` at build time.
 - No backend — fully static (SSG). No product dependencies or SDKs.
 
 ## Run locally
