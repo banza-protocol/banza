@@ -177,6 +177,15 @@ fn no_subject_leaks_into_another_subjects_followup() {
 #[test]
 fn an_explicit_new_subject_overrides_the_inherited_one() {
     // Context must not become sticky. The reader moved to the Root; the answer must move with them.
+    //
+    // The rule is asserted at the level where it lives, not only through its effect. A mutation that
+    // deleted the explicit-subject priority left the OUTCOME correct — the merge it produced was then
+    // discarded by an unrelated gate — so an outcome-only assertion passed while the rule was gone.
+    assert_eq!(
+        merge("E quem controla a Root?", Some("Quem controla os operadores?")),
+        Merge::Standalone,
+        "a turn that names its own subject must be decided standalone, by the priority rule itself"
+    );
     let d = follow("Quem controla os operadores?", "E quem controla a Root?");
     assert_eq!(d.merge_kind, "STANDALONE");
     assert_ne!(
