@@ -7515,10 +7515,21 @@ pub fn route_with_journey_json(question: &str, journey_step: &str) -> String {
 /// no BANZA?" carries the cue, and before this it escalated and was answered from the generic protocol
 /// description, which names no principle at all. A guard exists to stop a fifth principle appearing on
 /// the public surface; letting a model restate the set at answer time reopens the same door.
+/// `def-l0-regulatory-boundary` joins them from a measured PT/EN divergence, and it is the same shape
+/// again: the entry's value is the denial that passing L0 confers no regulatory authorisation, no
+/// operational admission and no permission to move real funds. "Passar L0 permite operar com dinheiro
+/// real?" carries an explanatory cue and escalated; its English twin carried none and was served. So the
+/// same boundary was stated in one language and, with no model reachable, reported as *insufficient
+/// evidence* in the other — the engine claiming to have nothing to say about a record it holds. The
+/// language a reader asks in is not a reason to lose a protocol boundary, and a model is not the right
+/// author of one.
 pub fn is_verbatim_entry(entry_id: &str) -> bool {
     matches!(
         entry_id,
-        "def-resilience-boundary" | "def-local-execution" | "def-r2s2"
+        "def-resilience-boundary"
+            | "def-local-execution"
+            | "def-r2s2"
+            | "def-l0-regulatory-boundary"
     )
 }
 

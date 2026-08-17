@@ -480,6 +480,33 @@ fn is_named_principle_query(nq: &str) -> bool {
 /// it appears. Longest alias wins, and this table is consulted AFTER the specific arms below, so no
 /// existing resolution changes — measured over the drift corpus, not assumed.
 const CRITICAL_SUBJECTS: &[(&str, &[&str])] = &[
+    // The profile LIST — "quais são os perfis do BANZA?". Distinct from an individual level: the reader
+    // is asking what the set is, and the answer is composed from the registry rather than from any one
+    // level. Measured before this arm existed: both languages reached the generic BANZA description,
+    // which names no profile at all.
+    (
+        "def-profiles",
+        &[
+            "perfis do banza",
+            "perfis de conformidade",
+            "quais sao os perfis",
+            "lista de perfis",
+            "banza profiles",
+            "conformance profiles",
+            "profile levels",
+            "list of profiles",
+            // Singular forms too, and not for elegance: typo recovery rewrites the English plural
+            // "profiles" to "profile" as a HIGH-CONFIDENCE correction, and the corrected query is what
+            // the router sees. Measured, that alone made "What are the BANZA profiles?" miss while its
+            // Portuguese twin matched — a legitimate plural silently normalised out of its own alias.
+            // The underlying question, whether recovery should rewrite a token that IS canonical
+            // vocabulary, is a separate defect and is recorded rather than patched here.
+            "banza profile",
+            "conformance profile",
+            "profile level",
+            "list of profile",
+        ],
+    ),
     // L0 — the Protocol Sandbox and its regulatory boundary. An already-protected BANZA property
     // (`tools/check-l0-regulatory-boundary.sh`) that BanzAI could not reach at all: measured, all eight
     // L0 probes returned "no source", so the boundary the repository guards was unanswerable.
@@ -575,7 +602,14 @@ fn profile_subject(nq: &str) -> Option<&'static str> {
     if has(
         nq,
         &[
-            "compara", "compare", "execucao", "execution", "jornada", "journey", "niveis", "levels",
+            "compara",
+            "compare",
+            "execucao",
+            "execution",
+            "jornada",
+            "journey",
+            "niveis",
+            "levels",
         ],
     ) {
         return None;
