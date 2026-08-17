@@ -1553,7 +1553,28 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // The emergency Phase-1 grounding (model-free, degraded, sourced) — used ONLY when the trunk cannot
     // publish (model unavailable / entry invalid / output rejected / breaker tripped). A resolved document
     // grounds on its own record; otherwise the top retrieved entry. Never a normal path.
-    const emergencyHit = docRes.found ? documentFallback(docRes) : retrieve(rq);
+    // Block 5A.1 — SETTLEMENT INTEGRITY. The epistemic verdict is owned by ONE layer: if the route already
+    // settled a deterministic critical entry with establishing sources, the claim IS supported, and this
+    // presentation fallback may not reopen that question with a weaker heuristic.
+    //
+    // It used to call `retrieve(rq)` and nothing else. Measured: "Explica porquê o limiar da Root é 2 de 3."
+    // routed deterministically to def-root-authorization with valid sources, the explanatory cue sent it to
+    // the trunk, the model was unavailable, this retrieval missed — and the reader was told there was
+    // INSUFFICIENT EVIDENCE, while the reason field on the very same answer said the real cause was that
+    // the model could not be reached. The engine held the record and reported having nothing.
+    //
+    // Requesting an explanation is presentation intent. It cannot decide whether evidence exists.
+    const settledEntry =
+      decisionEffective.action === "deterministic" && decisionEffective.entry_id
+        ? getEntry(decisionEffective.entry_id)
+        : null;
+    const settledCritical =
+      settledEntry && Array.isArray(settledEntry.sources) && settledEntry.sources.length > 0
+        ? settledEntry
+        : null;
+    const emergencyHit = docRes.found
+      ? documentFallback(docRes)
+      : settledCritical || retrieve(rq);
     // `extra` carries a FAITHFUL trace for a degraded turn (M2.18B.7): when the synthesis WAS attempted
     // but did not publish, the caller passes the real synthesis-trace fields so the public trace never
     // falsely reads routing_result=null / synthesis_called=false. Pre-synthesis emergencies pass nothing.
