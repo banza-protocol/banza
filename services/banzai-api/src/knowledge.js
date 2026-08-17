@@ -131,6 +131,8 @@ const s = (...keys) => keys.map((k) => SOURCES[k]);
 export const ENTRIES = [
   {
     id: "what-is-banza",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: ["banza", "o que e banza", "que e banza", "what is banza", "define banza", "banza e o que", "arquitetura de tres camadas", "tres camadas", "arquitetura do banza", "three layer architecture", "three-layer", "protocolo financeiro aberto", "open financial protocol"],
     answer:
       "BANZA é um protocolo financeiro aberto e neutro em relação a operadores. Define regras, invariantes, contratos e critérios de conformidade que qualquer operador pode implementar. Não é um operador, uma carteira, um processador de pagamentos nem um produto comercial.",
@@ -138,6 +140,8 @@ export const ENTRIES = [
   },
   {
     id: "what-is-banzami",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     critical: true,
     keywords: ["o que e o banzami", "o que e banzami", "que e banzami", "banzami e o que", "quem e o banzami", "quem e banzami", "what is banzami", "who is banzami", "banzami"],
     answer:
@@ -146,6 +150,8 @@ export const ENTRIES = [
   },
   {
     id: "is-banza-an-operator",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     critical: true,
     keywords: ["banza e um operador", "banza is an operator", "banza e operador", "banza opera"],
     answer:
@@ -154,6 +160,8 @@ export const ENTRIES = [
   },
   {
     id: "certified-operators",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     critical: true,
     keywords: ["operadores certificados", "certified operators", "quem sao os operadores", "que operadores"],
     answer:
@@ -162,6 +170,8 @@ export const ENTRIES = [
   },
   {
     id: "pass-is-not-certificate",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     critical: true,
     keywords: ["pass da conformance", "pass e certificado", "conformance suite e certificado", "pass conformance certificado", "pass is a certificate"],
     answer:
@@ -170,6 +180,8 @@ export const ENTRIES = [
   },
   {
     id: "banzai-cannot-certify",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     critical: true,
     keywords: ["banzai pode emitir certificado", "banzai emite certificado", "banzai can certify", "banzai certifica"],
     answer:
@@ -222,6 +234,8 @@ export const ENTRIES = [
   },
   {
     id: "who-signs-protocol-metadata",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     critical: true,
     keywords: ["quem assina a protocol metadata", "quem assina protocol metadata", "quem assina a metadata", "quem assina os metadados", "quem assina metadados do protocolo", "who signs protocol metadata", "assinatura da protocol metadata", "signed protocol metadata quem assina"],
     answer:
@@ -230,6 +244,8 @@ export const ENTRIES = [
   },
   {
     id: "what-is-m2-milestone",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: ["o que e m2", "o que e o m2", "o que e m3", "o que sao m2 e m3", "m2 no banza", "m3 no banza", "what is m2", "milestone m2", "marco m2"],
     answer:
       "«M2» e «M3» eram códigos internos de milestone do projecto — não são conceitos do protocolo e deixaram de ser usados nas superfícies públicas. As condições técnicas reais que representavam permanecem por extenso: a publicação de produção depende da **cerimónia offline da chave raiz** e da **primeira evidência de conformidade de produção publicada**. Nos contratos máquina sobrevivem apenas identificadores técnicos congelados (por exemplo, o estado `M2_PROTOCOL_IMPLEMENTATION` e o `m2_gate_status` calculado pelo motor Rust do protocol gate) — nomes de estados de contrato, não fases públicas do protocolo.",
@@ -237,6 +253,8 @@ export const ENTRIES = [
   },
   {
     id: "root-keys",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: ["onde vivem as root keys", "root keys", "chaves raiz", "issuing keys", "onde estao as chaves"],
     answer:
       "As root keys são offline e controladas por cerimónia; as chaves de emissão de produção também nunca residem na VM de serviço. A infraestrutura serve apenas artefactos públicos assinados e não guarda chaves privadas nem realiza assinatura.",
@@ -244,6 +262,8 @@ export const ENTRIES = [
   },
   {
     id: "how-to-query-brl",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: ["como consultar a brl", "consultar brl", "revocation list", "lista de revogacao", "query brl", "revogar chave", "revogacao de chave", "chave de assinatura delegada", "delegated signing key revocation", "revogacao", "revocation", "banza revocation list", "como funciona a revogacao", "operador revogado", "operador suspenso", "revoked operator"],
     answer:
       "A BRL (lista de revogação) é consultada na rota máquina GET /federation/revocation-list.json, servida como JSON pela verification-api. Em pré-produção devolve um envelope honesto (versão, entradas vazias, next_update) sem fingir dados de produção.",
@@ -251,6 +271,8 @@ export const ENTRIES = [
   },
   {
     id: "empty-operators-meaning",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: ["operators vazio", "operators vazia", "empty operators", "/operators vazio", "significa operators vazio", "operators mean", "significa /operators", "o que e /operators", "what does /operators mean", "/operators list"],
     answer:
       "Uma /operators vazia significa que nenhum operador publicou evidência verificável. É o estado correto de pré-produção: no BANZA a participação demonstra-se por evidência, não é concedida por autoridade central; a publicação de produção depende da cerimónia offline da chave raiz e da primeira evidência de conformidade de produção publicada.",
@@ -258,6 +280,8 @@ export const ENTRIES = [
   },
   {
     id: "banza-processes-payments",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     critical: true,
     keywords: ["banza processa pagamentos", "banza processes payments", "banza faz pagamentos", "banza executa pagamentos", "banza paga", "processa pagamentos"],
     answer:
@@ -266,6 +290,8 @@ export const ENTRIES = [
   },
   {
     id: "banza-limits",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: ["limites do banza", "limits of banza", "o que banza nao faz", "banza nao tem", "limites banza", "limites do protocolo", "limite do protocolo", "limite de estado", "protocol limits", "postgresql", "postgres", "saldos financeiros", "operador de referencia deixar de operar", "reference operator ceases", "independencia do protocolo", "protocol independence"],
     answer:
       "BANZA não tem carteira, ledger de operador, KYC/KYB, pagamentos, contas de utilizador final nem nomes comerciais de operadores. Qualquer coisa dessa natureza pertence a um operador, noutro lugar. BANZA define apenas as regras do protocolo, conformidade, certificação e federação. O PostgreSQL guarda estado de protocolo (marcador de pré-produção, Registo Técnico), não valor financeiro nem saldos. O protocolo é independente de qualquer operador: se o operador de referência deixar de operar, as especificações, contratos e conformidade do BANZA permanecem disponíveis.",
@@ -273,6 +299,8 @@ export const ENTRIES = [
   },
   {
     id: "financial-invariants",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: ["invariantes financeiros", "financial invariants", "invariantes do protocolo", "invariantes", "protocol invariants", "inv-ledger", "inv-wallet", "inv-settle", "inv-idem", "inv-recon", "inv-qr", "dupla entrada", "double-entry", "double entry ledger", "ledger de dupla entrada", "razao de dupla entrada", "how does the double-entry ledger work", "codigo qr", "qr code", "pagamento por qr", "resolucao de qr", "resolucao unica", "qr unico", "uso unico", "saldos derivados", "saldo derivado", "derivados do ledger", "ledger-derived", "sem saldo negativo", "saldo da carteira", "saldos das carteiras"],
     answer:
       "As invariantes financeiras são as garantias de integridade do protocolo: INV-LEDGER (dupla entrada, imutabilidade, precisão, atomicidade), INV-WALLET (sem saldo negativo, saldos derivados do ledger), INV-SETTLE (identidade do montante de liquidação), INV-IDEM (segurança de replay/idempotência), INV-RECON (ligação de lançamentos, reconciliação externa) e INV-QR (resolução única, uso único dinâmico, expiração). O ledger de dupla entrada (ADR-012) exige que cada débito tenha um crédito correspondente. Estas invariantes são obrigatórias para qualquer operador; o BanzAI cita as fontes e não as redefine.",
@@ -280,6 +308,8 @@ export const ENTRIES = [
   },
   {
     id: "protocol-decisions-adrs",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: ["adr 0", "que diz a adr", "o que diz a adr", "decisao arquitetural", "decisoes arquiteturais", "architecture decision", "architecture decision record", "onde estao as decisoes", "lista de adrs", "adrs do banza", "registro de decisoes", "list of adrs", "adr list", "list the adrs", "which adrs", "which adrs govern", "adrs govern"],
     answer:
       "As decisões de arquitetura do BANZA são registadas como ADRs (Architecture Decision Records) em decisions/adr/ e listadas em /decisoes. Cada ADR documenta o contexto, a decisão e as consequências de uma escolha do protocolo. Para o conteúdo de uma ADR específica (por exemplo o ledger de dupla entrada na ADR-012), consulta o documento correspondente em decisions/adr/ — o BanzAI orienta e cita fontes, não reproduz nem reinterpreta o texto normativo.",
@@ -290,6 +320,8 @@ export const ENTRIES = [
   // fallback used only if the model fails, times out or is rejected by the validator. ──
   {
     id: "how-to-federate",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: [
       "como federar", "como federar um operador", "federar um operador", "federar operador",
       "federacao entre operadores", "como funciona a federacao", "federacao de operadores",
@@ -304,6 +336,8 @@ export const ENTRIES = [
   },
   {
     id: "how-to-demonstrate-conformance",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: [
       "como demonstrar conformidade", "demonstrar conformidade", "como provar conformidade",
       "provar conformidade", "conformidade como operador", "evidencia de conformidade",
@@ -323,6 +357,8 @@ export const ENTRIES = [
   },
   {
     id: "how-trust-works",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: [
       "como funciona trust", "como funciona o trust", "trust no protocolo", "modelo de confianca",
       "como funciona a confianca", "confianca no banza", "trust model", "avaliacao de confianca",
@@ -344,6 +380,8 @@ export const ENTRIES = [
   // guides — it never certifies, approves, licenses or decides federation. ──
   {
     id: "operator-onboarding",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: [
       "onde comeco", "por onde comeco", "por onde comecar", "onde comecar", "como comeco",
       "como comeco como operador", "comeco com o meu operador", "onde comeco com o meu operador",
@@ -368,6 +406,8 @@ export const ENTRIES = [
   },
   {
     id: "implementation-steps",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: [
       "o que preciso implementar", "o que tenho de implementar", "o que o operador implementa",
       "como implemento o protocolo", "como implementar o protocolo banza", "implementar o protocolo",
@@ -387,6 +427,8 @@ export const ENTRIES = [
   // conformance suite. `answer` doubles as the model's grounding excerpt and the deterministic fallback. ──
   {
     id: "example-operator-manifest",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: [
       "exemplo de manifesto", "exemplo de manifest", "exemplo de ficheiro manifesto",
       "exemplo de um manifesto", "exemplo de um ficheiro manifesto", "manifest example",
@@ -405,6 +447,8 @@ export const ENTRIES = [
   },
   {
     id: "example-federation-manifest",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: [
       "exemplo de federation manifest", "exemplo de manifesto de federacao", "federation manifest example",
       "exemplo de metadata de federacao", "federation metadata example", "manifesto de federacao exemplo",
@@ -416,6 +460,8 @@ export const ENTRIES = [
   },
   {
     id: "example-revocation-list",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: [
       "exemplo de revocation list", "exemplo de brl", "exemplo de lista de revogacao",
       "revocation list example", "brl example", "exemplo brl json", "como e a revocation list",
@@ -426,6 +472,8 @@ export const ENTRIES = [
   },
   {
     id: "example-key-manifest",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: [
       "exemplo de key manifest", "exemplo de manifesto de chaves", "key manifest example",
       "exemplo key manifest json", "como e o key manifest", "o que e key manifest", "key manifest",
@@ -436,6 +484,8 @@ export const ENTRIES = [
   },
   {
     id: "example-evidence-bundle",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: [
       "exemplo de evidence bundle", "exemplo de pacote de evidencias", "evidence bundle example",
       "exemplo de evidencia de conformidade", "conformance evidence example", "exemplo evidence json",
@@ -447,6 +497,8 @@ export const ENTRIES = [
   },
   {
     id: "example-invalid-manifest",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: [
       "exemplo de manifesto invalido", "manifesto invalido", "exemplo invalido", "invalid manifest example",
       "porque e invalido", "manifest invalido exemplo",
@@ -460,6 +512,8 @@ export const ENTRIES = [
   // operator), so the safe, brand-free wording is fixed here rather than left to the local model.
   {
     id: "what-is-operador-zero",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     critical: true,
     keywords: [
       "operador zero", "o que e o operador zero", "o que e operador zero", "que e operador zero",

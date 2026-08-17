@@ -69,6 +69,33 @@
     ]
   },
   {
+    "id": "who-signs-protocol-metadata",
+    "keywords": [
+      "quem assina a protocol metadata",
+      "quem assina protocol metadata",
+      "quem assina a metadata",
+      "quem assina os metadados",
+      "quem assina metadados do protocolo",
+      "who signs protocol metadata",
+      "assinatura da protocol metadata",
+      "signed protocol metadata quem assina"
+    ]
+  },
+  {
+    "id": "what-is-m2-milestone",
+    "keywords": [
+      "o que e m2",
+      "o que e o m2",
+      "o que e m3",
+      "o que sao m2 e m3",
+      "m2 no banza",
+      "m3 no banza",
+      "what is m2",
+      "milestone m2",
+      "marco m2"
+    ]
+  },
+  {
     "id": "root-keys",
     "keywords": [
       "onde vivem as root keys",
@@ -491,33 +518,6 @@
       "adr-052",
       "adr052",
       "zero.banza.network"
-    ]
-  },
-  {
-    "id": "who-signs-protocol-metadata",
-    "keywords": [
-      "quem assina a protocol metadata",
-      "quem assina protocol metadata",
-      "quem assina a metadata",
-      "quem assina os metadados",
-      "quem assina metadados do protocolo",
-      "who signs protocol metadata",
-      "assinatura da protocol metadata",
-      "signed protocol metadata quem assina"
-    ]
-  },
-  {
-    "id": "what-is-m2-milestone",
-    "keywords": [
-      "o que e m2",
-      "o que e o m2",
-      "o que e m3",
-      "o que sao m2 e m3",
-      "m2 no banza",
-      "m3 no banza",
-      "what is m2",
-      "milestone m2",
-      "marco m2"
     ]
   }
 ]

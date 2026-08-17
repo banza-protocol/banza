@@ -167,7 +167,7 @@ root-threshold-model-check:
 banza-whitepaper-check:
 	@bash tools/check-banza-whitepaper.sh
 
-.PHONY: l0-regulatory-boundary-check canonical-profiles-rs profile-vocabulary-check website-hermetic-build-check website-guard-targets-check website-locale-roots-check current-doc-links-check website-reference-mirror website-reference-source-boundary-check reference-source-authority-check reference-structural-parity-check reference-check
+.PHONY: l0-regulatory-boundary-check canonical-profiles-rs profile-vocabulary-check website-hermetic-build-check website-guard-targets-check website-locale-roots-check banzai-entries-index banzai-entries-index-check current-doc-links-check website-reference-mirror website-reference-source-boundary-check reference-source-authority-check reference-structural-parity-check reference-check
 ## website-reference-mirror: GENERATOR — mirror the two canonical Reference editions into website/content/reference/{pt,en}.md. The website builds with website/ as its Docker context and cannot read docs/ at build time; the mirror exists for that boundary and is never hand-edited.
 website-reference-mirror:
 	@python3 tools/gen-website-reference-mirror.py
@@ -183,6 +183,14 @@ reference-source-authority-check:
 ## reference-structural-parity-check: PT and EN cannot drift structurally — same chapters in the same order, four R²S² principles, exactly 8 Structural Properties, and the high-risk claims present in both
 reference-structural-parity-check:
 	@bash tools/check-reference-structural-parity.sh
+
+## banzai-entries-index: regenerate the lexical keyword index from the entries explicitly marked lexicalCandidate
+banzai-entries-index:
+	@node tools/gen-banzai-entries-index.mjs
+
+## banzai-entries-index-check: The lexical keyword index is derived from the canonical entries, in ENTRIES order (ties break by index position), and its membership is a curated routing-eligibility decision rather than `critical`
+banzai-entries-index-check:
+	@bash tools/check-banzai-entries-index.sh
 
 ## website-locale-roots-check: Each edition declares its own language — the Portuguese root declares Portuguese, the English root declares English, nothing sits above them, every Portuguese public route survived the route-group move, and the route map promises no unwritten English page
 website-locale-roots-check:
