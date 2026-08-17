@@ -7,6 +7,7 @@ export const scenarios_json: () => [number, number];
 export const retrieve_doc_chunks_json: (a: number, b: number, c: number) => [number, number];
 export const retrieve_repo_chunks_json: (a: number, b: number, c: number, d: number, e: number) => [number, number];
 export const repo_index_manifest_json: () => [number, number];
+export const engine_source_fingerprint_json: () => [number, number];
 export const repo_index_hash_str: () => [number, number];
 export const source_is_public: (a: number, b: number, c: number, d: number) => number;
 export const generate_candidates_json: (a: number, b: number, c: number) => [number, number];

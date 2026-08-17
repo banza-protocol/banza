@@ -7,14 +7,19 @@
 # work the entries index was regenerated and the router still selected the old entry until the WASM was
 # rebuilt. Twice.
 #
-# The property is BEHAVIOURAL, not byte equality. `wasm-pack` does not emit a byte-reproducible `.wasm`
-# for the same source — measured here: the JS wrappers matched a fresh build exactly while the binary
-# differed. A byte comparison would therefore be a guard that is permanently red and gets disabled, which
-# is worse than no guard.
+# Byte equality cannot be the property: `wasm-pack` does not emit a reproducible `.wasm` for the same
+# source — measured here, the generated JS wrappers matched a fresh build exactly while the binary
+# differed. A byte comparison would be permanently red and would get disabled.
 #
-# So: rebuild from source into a temporary directory, then run BOTH routers over a fixed corpus of
-# questions and require identical decisions. That is the property that matters — production must route
-# like the source the tests exercise — and it is stable under a non-reproducible compiler.
+# So the binary carries its own origin. `engine_source_fingerprint_json` is computed inside the engine over
+# what the artifact EMBEDS (`include_str!` of route.rs and the entries index), and this check recomputes
+# the same hash from the files on disk:
+#
+#   IDENTITY   embedded fingerprint == fingerprint of the current source. Exact, and it holds for every
+#              question, not just the ones a sample happens to cover. A behavioural sample can only say
+#              "these N observations agree"; a stale binary could still diverge on question N+1.
+#   BEHAVIOUR  both routers decide identically over a corpus. Kept as a second, independent signal: it
+#              catches a toolchain or dependency change that identity alone would not explain.
 #
 # Observational (PR C): it never installs the rebuilt artifact.
 set -uo pipefail
@@ -46,6 +51,48 @@ trap 'rm -rf "$tmp"' EXIT
   echo "banzai-wasm-source-bound: FAILED"
   exit 1
 }
+
+# IDENTITY — the shipped binary reports the source state it was built from.
+VENDORED="$VENDORED" node --input-type=module -e '
+const { pathToFileURL } = await import("node:url");
+const { readFileSync } = await import("node:fs");
+const { resolve } = await import("node:path");
+const kb = await import(pathToFileURL(resolve(process.env.VENDORED, "banzai_api_kb.js")).href);
+
+if (typeof kb.engine_source_fingerprint_json !== "function") {
+  console.log("  FAIL: the vendored WASM predates the source fingerprint — it cannot state its origin.");
+  console.log("        Rebuild it: cd engines/banzai-api-kb && wasm-pack build --target nodejs --out-dir /tmp/pkg");
+  process.exit(1);
+}
+
+// The same FNV-1a the engine uses, six lines, so the two cannot drift apart in definition.
+const fnv1a64 = (buf) => {
+  let h = 0xcbf29ce484222325n;
+  for (const b of buf) { h ^= BigInt(b); h = (h * 0x100000001b3n) & 0xFFFFFFFFFFFFFFFFn; }
+  return h.toString(16).padStart(16, "0");
+};
+
+const routeRs = readFileSync("engines/banzai-query-core/src/route.rs");
+const indexJson = readFileSync("engines/banzai-query-core/src/entries-index.json");
+const onDisk = {
+  route_rs: fnv1a64(routeRs),
+  entries_index: fnv1a64(indexJson),
+  entries_count: JSON.parse(indexJson.toString("utf8")).length,
+};
+const embedded = JSON.parse(kb.engine_source_fingerprint_json());
+
+const diffs = Object.keys(onDisk).filter((k) => String(onDisk[k]) !== String(embedded[k]));
+if (diffs.length) {
+  console.log("  FAIL: the shipped router was built from a different source state than the one on disk.");
+  for (const k of diffs) console.log(`        ${k}: embedded ${embedded[k]}, on disk ${onDisk[k]}`);
+  console.log();
+  console.log("  Production would run an older router than the tests exercise. Rebuild and install it:");
+  console.log("      cd engines/banzai-api-kb && wasm-pack build --target nodejs --out-dir /tmp/pkg");
+  console.log("      cp /tmp/pkg/banzai_api_kb* services/banzai-api/src/rustkb/");
+  process.exit(1);
+}
+console.log(`  ok: embedded fingerprint matches the source on disk (${embedded.entries_count} indexed entries)`);
+' || { echo "banzai-wasm-source-bound: FAILED"; exit 1; }
 
 # The generated JS wrapper IS reproducible, and it declares the export surface. A wrapper mismatch means
 # the API changed without the vendored copy following.

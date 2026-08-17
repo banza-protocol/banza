@@ -653,6 +653,42 @@ fn score_entry(nq: &str, keywords: &[String]) -> i64 {
     score
 }
 
+/// A fingerprint of the bytes that decide routing, computed over what this binary EMBEDS.
+///
+/// The vendored WASM is what production runs; the Rust source is what the tests exercise. When they
+/// disagree, every test can be green while the deployed router behaves like an older revision — and that
+/// happened twice while this was being built. Byte-comparing the binary cannot detect it, because
+/// `wasm-pack` does not emit a reproducible `.wasm` for the same source: measured, the generated JS
+/// wrappers matched a fresh build exactly while the binary differed.
+///
+/// So the binary carries its own origin instead. `include_str!` embeds `route.rs` and the entries index
+/// at compile time, so hashing them here hashes what THIS artifact was built from. A checker hashes the
+/// same two files on disk and compares: equal means this binary came from this source state, unequal
+/// means it did not — exact identity, with no reproducible-build requirement.
+///
+/// FNV-1a, not SHA-256: this detects accidental staleness, not a forged artifact, and the alternative was
+/// pulling a crypto dependency into a WASM crate that has three. A checker reimplements it in six lines.
+const ROUTE_RS: &str = include_str!("route.rs");
+
+fn fnv1a64(bytes: &[u8]) -> u64 {
+    let mut h: u64 = 0xcbf2_9ce4_8422_2325;
+    for b in bytes {
+        h ^= *b as u64;
+        h = h.wrapping_mul(0x0000_0100_0000_01b3);
+    }
+    h
+}
+
+/// `{ route_rs, entries_index, entries_count }` — the routing source state this binary embeds.
+pub fn engine_source_fingerprint() -> String {
+    format!(
+        "{{\"route_rs\":\"{:016x}\",\"entries_index\":\"{:016x}\",\"entries_count\":{}}}",
+        fnv1a64(ROUTE_RS.as_bytes()),
+        fnv1a64(ENTRIES_JSON.as_bytes()),
+        entries().len()
+    )
+}
+
 /// Whether a matched entry's keyword accounts for most of the query — i.e. the question IS that
 /// definition rather than merely containing its words.
 ///

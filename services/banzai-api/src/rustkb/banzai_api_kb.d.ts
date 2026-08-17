@@ -208,6 +208,12 @@ export function detect_doc_refs_json(question: string): string;
 export function document_lookup_card_json(question: string, document_id: string): string;
 
 /**
+ * Node WASM: the routing source state this binary was built from, so a checker can prove the shipped
+ * router IS the current source rather than merely behaving like it on a sample of questions.
+ */
+export function engine_source_fingerprint_json(): string;
+
+/**
  * Node WASM (Increment 5 §10): resolve + explain the reason code a question NAMES. Returns
  * `{found, code, explanation, answer_class, is_internal_coverage_failure}` — the canonical definition from
  * the reason-code registry (reason.rs), not a per-question canned string. `found:false` when the question

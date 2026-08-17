@@ -699,6 +699,25 @@ function document_lookup_card_json(question, document_id) {
 exports.document_lookup_card_json = document_lookup_card_json;
 
 /**
+ * Node WASM: the routing source state this binary was built from, so a checker can prove the shipped
+ * router IS the current source rather than merely behaving like it on a sample of questions.
+ * @returns {string}
+ */
+function engine_source_fingerprint_json() {
+    let deferred1_0;
+    let deferred1_1;
+    try {
+        const ret = wasm.engine_source_fingerprint_json();
+        deferred1_0 = ret[0];
+        deferred1_1 = ret[1];
+        return getStringFromWasm0(ret[0], ret[1]);
+    } finally {
+        wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+    }
+}
+exports.engine_source_fingerprint_json = engine_source_fingerprint_json;
+
+/**
  * Node WASM (Increment 5 §10): resolve + explain the reason code a question NAMES. Returns
  * `{found, code, explanation, answer_class, is_internal_coverage_failure}` — the canonical definition from
  * the reason-code registry (reason.rs), not a per-question canned string. `found:false` when the question
