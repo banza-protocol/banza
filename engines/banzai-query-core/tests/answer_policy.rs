@@ -8,6 +8,24 @@
 //! These tests pin the property that replaced it. They are written against fixtures that exist in the
 //! shipped index rather than invented ones, because a test whose fixture is imaginary proves nothing about
 //! what production runs.
+//!
+//! # The two directions, proven by mutation
+//!
+//! Both were executed in an isolated worktree; neither ships, because either would be a behaviour change.
+//! Measured at this level — no vendored WASM in between, since a first attempt probed through the stale
+//! artifact and reported that nothing had changed when the source said otherwise:
+//!
+//! ```text
+//! declaration REMOVED from def-operator-governance-authority (id still starts with def-)
+//!     "quem controla os operadores?"   deterministic -> qwen        the prefix confers nothing
+//!
+//! declaration ADDED to is-banza-an-operator (not a def-* id; has an answer and two sources)
+//!     "banza opera"                    qwen -> deterministic        the declaration is what drives it
+//! ```
+//!
+//! Control: "o banza e um operador" stayed deterministic under both, because it is settled by the glossary
+//! path rather than by the lexical policy site — which is how we know the mutation landed where it was
+//! aimed and not somewhere broader.
 
 use banzai_query_core::{entry_is_deterministic, route::route};
 
