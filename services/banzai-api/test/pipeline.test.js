@@ -7,6 +7,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { createProvider } from "../src/provider.js";
 import { createPipeline, postValidate } from "../src/pipeline.js";
+import { SUPPORTED_SYNTHESIS_QUERY } from "./_pipeline-harness.mjs";
 import { ExactCache, SemanticCache, lexicalVector, cosine } from "../src/cache.js";
 import { BudgetTracker, RateLimiter, estimateTokens } from "../src/limits.js";
 import { retrieveTopK, buildContext, CORPUS_HASH } from "../src/knowledge.js";
@@ -106,8 +107,11 @@ test("concept definitions are deterministic terminals labelled grounded, never a
 // entity's primary sources, never degrades to a generic answer. The router resolves the canonical entity
 // entry ("what-is-banza"); the pipeline seeds the trunk with it (coverage-gated), so the FactualPackage
 // builder draws the entity's primary sources instead of an empty package. ───────────────────────────────
+// "o que é o BANZA?" is deliberately NOT here any more: it is now settled deterministically from the
+// entity's own sources, which is a better outcome than seeding the trunk with them. The property this
+// test owns — a known-entity explanation that DOES reach the trunk draws the entity's primary sources
+// rather than an empty package — still holds for the explanatory phrasings below.
 const ENTITY_COVERAGE_QUESTIONS = [
-  "o que é o BANZA?",
   "fala-me sobre o BANZA",
   "me fala sobre o banza",
   "para que serve o BANZA?",
@@ -370,7 +374,7 @@ test("a rejected trunk output is never published — it degrades to the grounded
   // safe grounded fallback, never the (null) model text.
   const stub = trunkStub({ status: "fallback", answer_markdown: null, trace: { synthesis_called: true, entry_status: "ok", output_status: "rejected" } });
   const { pipeline } = pipe({}, stub);
-  const { result, meta } = await pipeline.answer("O que é BANZA?");
+  const { result, meta } = await pipeline.answer(SUPPORTED_SYNTHESIS_QUERY);
   assert.equal(result.grounded, true);
   assert.equal(meta.terminal_kind, "operational_failure");
   // M2.18B.6 — a validator rejection is labelled FAITHFULLY (the model was reachable; its synthesis was
@@ -464,8 +468,8 @@ test("an ungrounded question → insufficient, no trunk call", async () => {
 
 test("exact cache: an identical grounded question calls the trunk once", async () => {
   const { pipeline, stub } = pipe();
-  const a1 = await pipeline.answer("O que é BANZA?");
-  const a2 = await pipeline.answer("O que é BANZA?");
+  const a1 = await pipeline.answer(SUPPORTED_SYNTHESIS_QUERY);
+  const a2 = await pipeline.answer(SUPPORTED_SYNTHESIS_QUERY);
   assert.equal(a1.meta.llm_called, true);
   assert.equal(a2.meta.llm_called, false);
   assert.equal(a2.meta.cache, "exact");
@@ -475,8 +479,8 @@ test("exact cache: an identical grounded question calls the trunk once", async (
 
 test("semantic cache: a near-duplicate question is served without a new trunk call", async () => {
   const { pipeline, stub } = pipe();
-  await pipeline.answer("O que é BANZA?");
-  const a2 = await pipeline.answer("o que é o BANZA");
+  await pipeline.answer(SUPPORTED_SYNTHESIS_QUERY);
+  const a2 = await pipeline.answer("explica a relação entre a conformidade e a federação no BANZA");
   assert.equal(a2.meta.cache, "semantic");
   assert.ok(a2.meta.similarity >= 0.92);
   assert.equal(stub.calls.length, 1, "paraphrase must hit the semantic cache");
@@ -484,8 +488,8 @@ test("semantic cache: a near-duplicate question is served without a new trunk ca
 
 test("cache is invalidated by key fields: a mode change misses the exact cache", async () => {
   const { pipeline, stub } = pipe();
-  await pipeline.answer("O que é BANZA?", { mode: "fast" });
-  const deep = await pipeline.answer("O que é BANZA?", { mode: "deep" });
+  await pipeline.answer(SUPPORTED_SYNTHESIS_QUERY, { mode: "fast" });
+  const deep = await pipeline.answer(SUPPORTED_SYNTHESIS_QUERY, { mode: "deep" });
   assert.equal(deep.meta.cache, null, "different mode must not reuse the fast-mode answer");
   assert.equal(stub.calls.length, 2);
 });
@@ -502,7 +506,7 @@ test("semantic vectors: paraphrase similarity is deterministic (fixture)", () =>
 
 test("an exhausted hosted budget blocks the trunk and degrades to the grounded answer", async () => {
   const { pipeline } = pipe({ LLM_DAILY_BUDGET_USD: "0" }, trunkStub(), realProvider({ LLM_DAILY_BUDGET_USD: "0" }));
-  const { result, meta } = await pipeline.answer("O que é BANZA?");
+  const { result, meta } = await pipeline.answer(SUPPORTED_SYNTHESIS_QUERY);
   assert.equal(meta.llm_called, false);
   assert.equal(meta.fallback_reason, "daily_budget_exhausted");
   assert.equal(result.grounded, true, "fallback still grounded and cited");
@@ -511,7 +515,7 @@ test("an exhausted hosted budget blocks the trunk and degrades to the grounded a
 
 test("local inference is free — it never touches the USD budget and never gates on it", async () => {
   const { pipeline } = pipe({ LLM_DAILY_BUDGET_USD: "0" });
-  const { meta } = await pipeline.answer("O que é BANZA?");
+  const { meta } = await pipeline.answer(SUPPORTED_SYNTHESIS_QUERY);
   assert.equal(meta.llm_called, true, "local inference is not gated by the USD budget");
 });
 
@@ -542,7 +546,7 @@ test("postValidate rejects normative/leaky completions", () => {
 test("ADR-036 — an authority-claiming grounded answer is BLOCKED and degrades (never published)", async () => {
   const stub = trunkStub({ answer_markdown: "Eu certifico o Operador A. (ADR-001)" });
   const { pipeline } = pipe({}, stub);
-  const { result, meta } = await pipeline.answer("O que é BANZA?");
+  const { result, meta } = await pipeline.answer(SUPPORTED_SYNTHESIS_QUERY);
   assert.equal(meta.fallback_reason, "post_validation_claims_to_certify", "stable enum reason");
   assert.equal(meta.terminal_kind, "operational_failure");
   assert.equal(meta.degraded, true);
@@ -556,20 +560,20 @@ test("ADR-036 — an authority-claiming grounded answer is BLOCKED and degrades 
 test("ADR-036 — a cited id with no package fact is an unsupported claim → BLOCKED", async () => {
   const stub = trunkStub({ cited_source_ids: ["ADR-999"] }); // package only has ADR-001
   const { pipeline } = pipe({}, stub);
-  const { meta } = await pipeline.answer("O que é BANZA?");
+  const { meta } = await pipeline.answer(SUPPORTED_SYNTHESIS_QUERY);
   assert.equal(meta.fallback_reason, "post_validation_unsupported_claim");
   assert.equal(meta.terminal_kind, "operational_failure");
 });
 
 test("ADR-036 — a clean grounded answer PASSES the gate and is published + cached", async () => {
   const { pipeline, stub } = pipe();
-  const a1 = await pipeline.answer("O que é BANZA?");
+  const a1 = await pipeline.answer(SUPPORTED_SYNTHESIS_QUERY);
   assert.equal(a1.meta.llm_called, true);
   assert.equal(a1.meta.terminal_kind, "explanatory_trunk");
   assert.equal(a1.meta.post_validate_ran, true);
   assert.equal(a1.meta.post_validate_ok, true);
   assert.equal(a1.result.grounded, true);
-  const a2 = await pipeline.answer("O que é BANZA?");
+  const a2 = await pipeline.answer(SUPPORTED_SYNTHESIS_QUERY);
   assert.equal(a2.meta.cache, "exact", "a validated answer is cached downstream of the gate");
   assert.equal(stub.calls.length, 1);
 });
@@ -577,7 +581,7 @@ test("ADR-036 — a clean grounded answer PASSES the gate and is published + cac
 test("ADR-036 — the env kill-switch OFF publishes anyway but still records the rejection telemetry", async () => {
   const stub = trunkStub({ answer_markdown: "Eu certifico o Operador A. (ADR-001)" });
   const { pipeline } = pipe({ BANZAI_POST_VALIDATE_ENFORCE: "0" }, stub);
-  const { result, meta } = await pipeline.answer("O que é BANZA?");
+  const { result, meta } = await pipeline.answer(SUPPORTED_SYNTHESIS_QUERY);
   assert.equal(meta.terminal_kind, "explanatory_trunk", "enforcement OFF → published, not degraded");
   assert.equal(meta.llm_called, true);
   assert.equal(meta.post_validate_ran, true);
@@ -590,7 +594,7 @@ test("ADR-036 — the env kill-switch OFF publishes anyway but still records the
 
 test("ADR-036 — usage() surfaces safe post-validation counters (counts/enums only)", async () => {
   const { pipeline } = pipe();
-  await pipeline.answer("O que é BANZA?"); // published model answer
+  await pipeline.answer(SUPPORTED_SYNTHESIS_QUERY); // published model answer
   const u = pipeline.usage();
   assert.equal(u.post_validation.post_validate_runs_total.ok, 1);
   assert.equal(u.post_validation.model_answers_published_total, 1);
@@ -662,8 +666,8 @@ test("mock provider through the pipeline: deterministic, no budget, no trunk", a
 
 test("usage snapshot reports cache + synthesis gate counters without secrets", async () => {
   const { pipeline } = pipe();
-  await pipeline.answer("O que é BANZA?");
-  await pipeline.answer("O que é BANZA?");
+  await pipeline.answer(SUPPORTED_SYNTHESIS_QUERY);
+  await pipeline.answer(SUPPORTED_SYNTHESIS_QUERY);
   const u = pipeline.usage();
   assert.equal(u.cache.exact_hits, 1);
   assert.ok(u.synthesis_gate);

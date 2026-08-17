@@ -324,16 +324,14 @@ export const ENTRIES = [
       // keyword being CONTAINED in the query, so a keyword longer than the phrasing it should match never
       // fires — English settled and Portuguese did not, on the most basic question the engine answers.
       "o que e o banza", "que e o banza", "what is the banza", "arquitetura de tres camadas", "tres camadas", "arquitetura do banza", "three layer architecture", "three-layer", "protocolo financeiro aberto", "open financial protocol"],
-    // NOT yet declared deterministic, and the reason is worth recording. The declaration is correct in
-    // principle — what BANZA is, is stable knowledge — and it worked: 59/66 -> 60/66 with PT/EN parity
-    // held. But sixteen tests use a "what is BANZA" question as their FIXTURE to reach the grounded
-    // trunk, because it was the reliable way in: caching, budget, post-validation and the SSE contract
-    // are all exercised through it. Settling the answer removes the path they depend on.
+    // Declared DETERMINISTIC. What BANZA is, is stable knowledge and must not depend on a model.
     //
-    // Those tests are not wrong; their fixture is incidental to what they assert. Re-pointing them at a
-    // genuinely trunk-bound question is the correct fix and is deliberate work, not a rename. Doing it
-    // half-way would leave the trunk's own contract untested while the benchmark counter looked better,
-    // which is the worse of the two states.
+    // This was attempted once and reverted: seventeen call sites across twelve tests used a
+    // "what is BANZA" question as their FIXTURE to reach the grounded trunk, so settling the answer
+    // removed the path they exercised and they failed for reasons unrelated to what they assert. Those
+    // fixtures now request a synthesis query by ROLE (SUPPORTED_SYNTHESIS_QUERY), which is what they
+    // always meant, so the two concerns are finally independent.
+    deterministic: true,
     answer:
       "BANZA é um protocolo financeiro aberto e neutro em relação a operadores. Define regras, invariantes, contratos e critérios de conformidade que qualquer operador pode implementar. Não é um operador, uma carteira, um processador de pagamentos nem um produto comercial.",
     // `claudeMd` was in this set and is NOT eligible public establishing evidence. The presentation filter

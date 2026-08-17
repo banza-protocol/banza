@@ -15,6 +15,23 @@ import { createProvider } from "../src/provider.js";
 import { ExactCache, SemanticCache } from "../src/cache.js";
 import { BudgetTracker, RateLimiter } from "../src/limits.js";
 
+/**
+ * A supported, open-ended question that legitimately requires grounded synthesis.
+ *
+ * Tests of the synthesis MECHANISM — cache, budget, post-validation, usage counters, emergency
+ * degradation — need a query that reaches the trunk. Seventeen call sites used "O que é BANZA?" for that,
+ * which worked only because the most basic question the engine answers happened to be model-backed. That
+ * is an accident, not a precondition: the moment BANZA identity becomes stable deterministic knowledge —
+ * which is what it should be — every one of those tests loses the path it was written to exercise, and
+ * they fail for a reason that has nothing to do with what they assert.
+ *
+ * So the fixture is requested by ROLE. It has admissible evidence, is not registered deterministic-critical,
+ * is not a negative control, and states no institutional authority fact — it explains a relationship, which
+ * is what grounded synthesis is for.
+ */
+export const SUPPORTED_SYNTHESIS_QUERY =
+  "explica a relação entre conformidade e federação no BANZA";
+
 /** A provider whose model is unreachable: deterministic answers must still work. */
 export function unreachableProvider() {
   return createProvider(

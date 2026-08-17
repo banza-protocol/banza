@@ -12,6 +12,7 @@
 // / progressDisposition). The static wiring of server.js /ask/stream is covered by the guard.
 
 import { test } from "node:test";
+import { SUPPORTED_SYNTHESIS_QUERY } from "./_pipeline-harness.mjs";
 import assert from "node:assert/strict";
 import { createProvider } from "../src/provider.js";
 import { createPipeline, progressDisposition } from "../src/pipeline.js";
@@ -86,7 +87,7 @@ function capturing() {
 test("a model answer emits the ordered Channel-A events; NO event carries the prose; terminal is FINAL_VALIDATED", async () => {
   const { pipeline } = pipe();
   const cap = capturing();
-  const { result, meta } = await pipeline.answer("O que é o BANZA?", { onProgress: cap.onProgress });
+  const { result, meta } = await pipeline.answer(SUPPORTED_SYNTHESIS_QUERY, { onProgress: cap.onProgress });
 
   const kinds = cap.events.map((e) => e.kind);
   // The full grounded flow, in canonical order.
@@ -197,7 +198,7 @@ test("an ADR-036 post-validation reject → HONEST_FALLBACK; the rejected model 
   const stub = emittingTrunkStub({ answer_markdown: REJECTED });
   const { pipeline } = pipe({}, stub);
   const cap = capturing();
-  const { result, meta } = await pipeline.answer("O que é o BANZA?", { onProgress: cap.onProgress });
+  const { result, meta } = await pipeline.answer(SUPPORTED_SYNTHESIS_QUERY, { onProgress: cap.onProgress });
 
   // Verification events DID run (claim + citation started) before any terminal.
   const kinds = cap.events.map((e) => e.kind);
@@ -236,7 +237,7 @@ test("a client-abort before synthesis rejects with QUEUE_CANCELLED; no generatio
   ac.abort(); // client already gone
 
   await assert.rejects(
-    () => pipeline.answer("O que é o BANZA?", { signal: ac.signal, onProgress: cap.onProgress }),
+    () => pipeline.answer(SUPPORTED_SYNTHESIS_QUERY, { signal: ac.signal, onProgress: cap.onProgress }),
     (e) => e && e.code === "QUEUE_CANCELLED",
   );
   // The model was never called → nothing generated, nothing persisted, nothing cached.
