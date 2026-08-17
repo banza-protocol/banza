@@ -167,7 +167,7 @@ root-threshold-model-check:
 banza-whitepaper-check:
 	@bash tools/check-banza-whitepaper.sh
 
-.PHONY: l0-regulatory-boundary-check canonical-profiles-rs profile-vocabulary-check website-hermetic-build-check website-guard-targets-check current-doc-links-check website-reference-mirror website-reference-source-boundary-check reference-source-authority-check reference-structural-parity-check reference-check
+.PHONY: l0-regulatory-boundary-check canonical-profiles-rs profile-vocabulary-check website-hermetic-build-check website-guard-targets-check website-locale-roots-check current-doc-links-check website-reference-mirror website-reference-source-boundary-check reference-source-authority-check reference-structural-parity-check reference-check
 ## website-reference-mirror: GENERATOR — mirror the two canonical Reference editions into website/content/reference/{pt,en}.md. The website builds with website/ as its Docker context and cannot read docs/ at build time; the mirror exists for that boundary and is never hand-edited.
 website-reference-mirror:
 	@python3 tools/gen-website-reference-mirror.py
@@ -183,6 +183,10 @@ reference-source-authority-check:
 ## reference-structural-parity-check: PT and EN cannot drift structurally — same chapters in the same order, four R²S² principles, exactly 8 Structural Properties, and the high-risk claims present in both
 reference-structural-parity-check:
 	@bash tools/check-reference-structural-parity.sh
+
+## website-locale-roots-check: Each edition declares its own language — the Portuguese root declares Portuguese, the English root declares English, nothing sits above them, every Portuguese public route survived the route-group move, and the route map promises no unwritten English page
+website-locale-roots-check:
+	@bash tools/check-website-locale-roots.sh
 
 ## website-guard-targets-check: Every website source path a guard or website test names resolves exactly as written — a page that moved into the (pt) route group must not leave a checker grepping a path that is not there, because finding nothing looks like finding nothing wrong
 website-guard-targets-check:
