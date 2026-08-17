@@ -319,10 +319,30 @@ export const ENTRIES = [
     id: "what-is-banza",
     // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
     lexicalCandidate: true,
-    keywords: ["banza", "o que e banza", "que e banza", "what is banza", "define banza", "banza e o que", "arquitetura de tres camadas", "tres camadas", "arquitetura do banza", "three layer architecture", "three-layer", "protocolo financeiro aberto", "open financial protocol"],
+    keywords: ["banza", "o que e banza", "que e banza", "what is banza", "define banza", "banza e o que",
+      // "O que é o BANZA?" carries the article the shorter keyword lacks. Coverage is measured by the
+      // keyword being CONTAINED in the query, so a keyword longer than the phrasing it should match never
+      // fires — English settled and Portuguese did not, on the most basic question the engine answers.
+      "o que e o banza", "que e o banza", "what is the banza", "arquitetura de tres camadas", "tres camadas", "arquitetura do banza", "three layer architecture", "three-layer", "protocolo financeiro aberto", "open financial protocol"],
+    // NOT yet declared deterministic, and the reason is worth recording. The declaration is correct in
+    // principle — what BANZA is, is stable knowledge — and it worked: 59/66 -> 60/66 with PT/EN parity
+    // held. But sixteen tests use a "what is BANZA" question as their FIXTURE to reach the grounded
+    // trunk, because it was the reliable way in: caching, budget, post-validation and the SSE contract
+    // are all exercised through it. Settling the answer removes the path they depend on.
+    //
+    // Those tests are not wrong; their fixture is incidental to what they assert. Re-pointing them at a
+    // genuinely trunk-bound question is the correct fix and is deliberate work, not a rename. Doing it
+    // half-way would leave the trunk's own contract untested while the benchmark counter looked better,
+    // which is the worse of the two states.
     answer:
       "BANZA é um protocolo financeiro aberto e neutro em relação a operadores. Define regras, invariantes, contratos e critérios de conformidade que qualquer operador pode implementar. Não é um operador, uma carteira, um processador de pagamentos nem um produto comercial.",
-    sources: s("claudeMd", "adr018", "annex"),
+    // `claudeMd` was in this set and is NOT eligible public establishing evidence. The presentation filter
+    // dropped it from the card, so nothing ever looked wrong — but the evidence GRAPH declared an
+    // internal repository guide as part of what establishes the protocol's identity, and that is the
+    // claim, not the rendering. Replaced by the public README, which is the repository's own entry point
+    // for what BANZA is. Corrected BEFORE the deterministic declaration, not after: promoting an entry
+    // whose establishing set is partly internal would have shipped the defect with more authority.
+    sources: s("readme", "adr018", "specOverview"),
   },
   {
     id: "what-is-banzami",
@@ -1579,7 +1599,10 @@ export const ENTRIES = [
     critical: true, keywords: ["execucao local", "execução local", "servidor central", "central server", "processador central", "central processor", "central transaction processor", "consenso global", "global consensus", "execucao federada", "federated execution", "infraestrutura central", "ponto central", "banza e uma blockchain", "is banza a blockchain"],
     answer:
       "**Não.** O **BANZA** **não** exige um **processador central de transacções**, **não** usa **consenso global** e **não** reside num **servidor central** — não é uma blockchain nem uma infraestrutura partilhada de execução. A execução é **local a cada operador**: cada implementação corre na infraestrutura do próprio operador, e dois operadores interoperam por **respeitarem as mesmas regras públicas**, não por se ligarem a um ponto central comum. A execução **não é** um plano do protocolo — processar pagamentos, guardar saldos e cumprir obrigações legais pertence aos operadores, **sob** as regras do protocolo mas **fora** dele; o protocolo **não detém nem movimenta fundos** e não mantém um livro-razão global sobre o qual houvesse que chegar a acordo. As únicas superfícies comuns são de **descoberta e ancoragem de confiança** — o **Registo Técnico**, a **metadata de protocolo assinada**, a **Lista de Revogação** e o **Manifesto de Chaves** —, e **nenhuma delas movimenta fundos nem executa pagamentos**. Referência **§4 Arquitectura do Protocolo** (execução local, sem servidor central).",
-    sources: s("specOverview", "readme", "claudeMd"),
+    // `claudeMd` removed for the same reason as what-is-banza: an internal repository guide is not public
+    // establishing evidence, and a presentation filter hiding it does not make the declaration true. Found
+    // by auditing every deterministic entry rather than only the one that prompted the audit.
+    sources: s("specOverview", "readme", "adr018"),
   },
   {
     id: "def-root-authority-set",

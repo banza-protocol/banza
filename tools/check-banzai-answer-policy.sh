@@ -55,6 +55,17 @@ for (const e of declared) {
   if (!srcs.length) {
     console.log(`  FAIL: ${e.id} is declared deterministic with no establishing source`); bad++;
   }
+  // The evidence GRAPH must be clean, not merely the rendering. `what-is-banza` declared CLAUDE.md — an
+  // internal repository guide — as part of what establishes protocol identity, and nothing ever
+  // looked wrong because the presentation filter dropped it from the card. A filter hides a claim; it does
+  // not make the claim true. Auditing for it found a second entry with the same defect.
+  for (const s of srcs) {
+    const p = String((s && (s.path || s.id)) || "").toLowerCase();
+    if (/(^|\/)claude(_base)?\.md$|(^|\/)memory\/|\.env|rust-first-legacy-allowlist/.test(p)) {
+      console.log(`  FAIL: ${e.id} declares a NON-PUBLIC source as establishing evidence: ${s.path || s.id}`);
+      bad++;
+    }
+  }
   for (const s of srcs) {
     const id = s && (s.id || s.key);
     if (!id || !known.has(id)) {
