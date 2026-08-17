@@ -316,6 +316,15 @@ fn best_matches(tok: &str) -> Option<(&'static Vocab, usize, usize)> {
     best.map(|(v, d)| (v, d, runner))
 }
 
+/// Test-only view of the vocabulary: `(normalized token, owning concept)`. Exposed so a test can find a
+/// REAL cross-concept tie instead of assuming one exists.
+pub fn vocabulary_debug() -> Vec<(String, Option<&'static str>)> {
+    vocabulary()
+        .iter()
+        .map(|v| (v.norm.clone(), v.concept))
+        .collect()
+}
+
 /// Whether every vocabulary entry tied at `dist` for this token belongs to one canonical concept.
 ///
 /// Conservative by construction: a tie is collapsed only when EVERY tied entry names a concept and all of

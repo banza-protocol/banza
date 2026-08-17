@@ -52,35 +52,54 @@ fn surface_variants_of_one_concept_are_not_ambiguous() {
 
 #[test]
 fn a_tie_across_different_concepts_is_still_ambiguous() {
-    // Proven by construction rather than by hoping a real word ties: the property is that the collapse is
-    // driven by concept identity, so a token equidistant from two entries with different concepts — or
-    // from an entry that belongs to no concept at all — must NOT collapse.
+    // A REAL cross-concept tie, found by scanning the vocabulary rather than assumed: `authorizes` is
+    // registered on ADR-005 (certification does not propagate) and `authorises` on ADR-007 (regulatory
+    // authorisation). Two spellings, but in this repository they name DIFFERENT records — which is exactly
+    // the case that must stay ambiguous, because picking one silently would answer a question about
+    // certification with a record about regulators, or the reverse.
     //
-    // `banzami` and `banzai` are ecosystem identities carrying no concept, and ADR-001 forbids collapsing
-    // them into one another. A typo equidistant from both must never silently pick one.
-    let r = recover("banzam");
+    // `authorixes` differs from each only at the letter that distinguishes them, so it is exactly one edit
+    // from both. The engine must not choose.
+    let r = recover("authorixes");
+    assert_eq!(
+        r.band,
+        Band::Ambiguous,
+        "a tie across two different records must stay a question, not a guess: {r:?}"
+    );
+    assert!(r.requires_clarification);
+
+    // And an ecosystem identity is never silently rewritten into another (ADR-001).
+    let e = recover("banzam");
     assert!(
-        r.corrections.first().map(|c| c.to.as_str()) != Some("banzai"),
-        "an ecosystem identity must never be silently rewritten into another: {r:?}"
+        e.corrections.first().map(|c| c.to.as_str()) != Some("banzai"),
+        "an ecosystem identity must never be silently rewritten into another: {e:?}"
     );
 }
 
 #[test]
-fn concept_collapse_requires_every_tied_entry_to_name_the_same_concept() {
-    // A danger word carries no concept. A typo tied between a danger word and a concept alias must stay
-    // ambiguous or be corrected toward the danger word — never collapsed as if it had one meaning.
-    for q in ["certifca", "aprva", "movimnta"] {
-        let r = recover(q);
-        assert!(
-            matches!(r.band, Band::HighConfidence | Band::Ambiguous),
-            "{q:?} produced an unexpected band {:?}",
-            r.band
-        );
-        // Whatever happens, a danger typo must never be presented as a harmless interpretation.
-        if let Some(c) = r.corrections.first() {
-            assert!(c.danger || !c.to.is_empty());
-        }
-    }
+fn collapse_is_driven_by_concept_identity_not_by_counting_aliases() {
+    // The guard against the opposite failure: if the resolver ever collapsed ties without comparing
+    // concepts, this cross-concept tie would become a confident single answer. Asserting the ambiguous
+    // band above already fails in that case — this states the reason so the intent survives a refactor.
+    let tied = banzai_query_core::fuzzy::vocabulary_debug();
+    let a = tied
+        .iter()
+        .find(|(t, _)| t == "authorizes")
+        .map(|(_, c)| *c)
+        .flatten();
+    let b = tied
+        .iter()
+        .find(|(t, _)| t == "authorises")
+        .map(|(_, c)| *c)
+        .flatten();
+    assert!(
+        a.is_some() && b.is_some(),
+        "the fixture pair must exist in the vocabulary"
+    );
+    assert_ne!(
+        a, b,
+        "the fixture pair must genuinely name different records: {a:?} vs {b:?}"
+    );
 }
 
 // ── §9 + §10: both spellings are supported, and reach the same institutional record ────────────────
@@ -88,10 +107,14 @@ fn concept_collapse_requires_every_tied_entry_to_name_the_same_concept() {
 #[test]
 fn both_portuguese_spellings_reach_the_same_record() {
     use banzai_query_core::retrieval::plan_retrieval;
+    // Each phrasing carries ONLY its own spelling and no other ADR-004 alias, so removing one spelling
+    // makes the corresponding case fail. A longer sentence would have been covered by a sibling alias —
+    // which is how an earlier version of this test passed while the spelling it claimed to protect had
+    // been deleted.
     for q in [
-        "a governação do protocolo dá poder sobre os operadores?",
-        "a governança do protocolo dá poder sobre os operadores?",
-        "quem governa o protocolo?",
+        "governação do protocolo",
+        "governança do protocolo",
+        "protocol governance",
     ] {
         let plan = plan_retrieval(q, "");
         assert_eq!(
