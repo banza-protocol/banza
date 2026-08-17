@@ -3,6 +3,7 @@ import Link from "next/link";
 import { HeroStatusBar } from "@/components/home/HeroStatusBar";
 import { OperatorRegistry } from "@/components/home/OperatorRegistry";
 import { LAST_VERIFIED_AT } from "@/lib/protocolStatus";
+import { alternatesFor } from "@/lib/i18n";
 
 // Home SEO (§32): absolute title (overrides the layout template) + description. No claim of real
 // payments, an operational financial network, active operators, integrated banks or regulatory
@@ -11,7 +12,10 @@ export const metadata: Metadata = {
   title: { absolute: "BANZA — Protocolo financeiro aberto para interoperabilidade verificável" },
   description:
     "O BANZA define regras públicas, perfis versionados e mecanismos verificáveis para operadores publicarem implementações e demonstrarem conformidade e interoperabilidade.",
-  alternates: { canonical: "/" },
+  // Reciprocal alternates: an hreflang pair that only one side declares is ignored, so the Portuguese
+  // home must name the English edition just as /en names this one. alternatesFor emits a pair only when
+  // both pages exist, so this stays correct as English pages are published one at a time.
+  alternates: alternatesFor("/"),
 };
 
 // Home — M2.19G.2 canonical public narrative. Exactly five bands (PROMPT §6): Hero · institutional
