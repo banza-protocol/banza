@@ -146,6 +146,15 @@
       "guard": "node --test services/banzai-api/test/settlement-integrity.test.js",
       "result": "UNREACHABLE",
       "_unreachable_reason": "Behaviourally indistinguishable on every valid current state: NO entry in the canonical registry lacks establishing sources, so the condition this mutation weakens is universally satisfied and the mutated code computes the same value. The state it would exploit is made unreachable one layer down by `make banzai-answer-policy-check`, which fails when an entry declared deterministic has no answer or no registered source. Recorded as unreachable rather than killed: manufacturing an impossible fixture to produce a RED would prove the fixture, not the property."
+    },
+    {
+      "id": "banzai_version_is_a_release",
+      "property": "BANZAI_VERSION_IS_NOT_A_RELEASE",
+      "violation": "the glossary claims a protocol-version question as a deterministic release definition, so the pipeline's attribute tier — the precise owner — is never consulted and the answer becomes the generic definition of a release",
+      "apply": "python3 -c \"p='engines/banzai-query-core/src/glossary.rs';s=open(p).read();open(p,'w').write(s.replace('if asks_version && names_subject','if false && asks_version && names_subject',1))\"",
+      "guard": "node services/banzai-api/eval/critical-coverage.mjs --matrix  (PT/EN paired count)",
+      "result": "KILLED",
+      "_kill_signal": "PT/EN paired 30/30 -> 29/30. The aggregate --check gate is NOT the guard here: it is already red at baseline because 8 critical cases remain uncovered, so it would have reported RED whether or not the mutation landed. The pair count is the property this mutation actually attacks, and it moves."
     }
   ]
 }
