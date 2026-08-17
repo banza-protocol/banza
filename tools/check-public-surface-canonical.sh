@@ -102,11 +102,11 @@ present 'BanzAI primary human interface' 'interface humana primária|interface h
 # "interoperabilidade financeira verificável" ("verificável" is a separate H1 span, so the contiguous
 # fragment is "interoperabilidade financeira"). The ABSOLUTE over-claim "sem acordos bilaterais" must
 # still never be made. This is a property of the hero, so it is scoped to the home/hero surface
-# (app/page.tsx + components/home/**), not the whole reference corpus.
+# (app/(pt)/page.tsx + components/home/**), not the whole reference corpus.
 echo "== [C] G2 hero positioning present + no absolute 'sem acordos bilaterais' (hero surface) =="
 HERO_FILES=()
 while IFS= read -r f; do [ -n "$f" ] && HERO_FILES+=("$f"); done < <(
-  { printf '%s\n' website/app/page.tsx
+  { printf '%s\n' "website/app/(pt)/page.tsx"
     find website/components/home -type f \( -name '*.tsx' -o -name '*.ts' \) 2>/dev/null
   } | grep -vE '\.test\.|\.spec\.' | sort -u
 )

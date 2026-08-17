@@ -4,7 +4,7 @@
 // "validation" (the 9-step implementation-validation journey). This module parses the request's query
 // params against CLOSED allowlists (see banzaiValidation.ts) and returns a typed, always-valid state.
 // It NEVER throws and NEVER trusts a caller-supplied URL: unknown values fall back to safe defaults, so
-// SSRF / path-traversal / injection are impossible by construction. Reused server-side (app/banzai/
+// SSRF / path-traversal / injection are impossible by construction. Reused server-side (app/(pt)/banzai/
 // page.tsx reads the params on first paint) and safe to reuse client-side.
 
 import {

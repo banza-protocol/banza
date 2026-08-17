@@ -13,7 +13,7 @@ const read = (p: string) => readFileSync(path.join(root, p), "utf8");
 
 describe("M2.19G.4 — navigable contexts are closed, server-resolved route segments (ADR-036)", () => {
   it("mounts the single always-mounted workspace ONCE in the shared /banzai layout", () => {
-    const layout = read("app/banzai/layout.tsx");
+    const layout = read("app/(pt)/banzai/layout.tsx");
     expect(layout).toContain("BanzaiWorkspaceProvider");
     // The persistent shell + session live in the provider, not per-page (survives context navigation).
     const provider = read("components/banzai/BanzaiWorkspaceProvider.tsx");
@@ -23,9 +23,9 @@ describe("M2.19G.4 — navigable contexts are closed, server-resolved route segm
 
   it("the global page and both segment pages resolve state via parseBanzaiState + render the binder", () => {
     for (const p of [
-      "app/banzai/page.tsx",
-      "app/banzai/operador/[operatorId]/page.tsx",
-      "app/banzai/operador/[operatorId]/[implementationId]/page.tsx",
+      "app/(pt)/banzai/page.tsx",
+      "app/(pt)/banzai/operador/[operatorId]/page.tsx",
+      "app/(pt)/banzai/operador/[operatorId]/[implementationId]/page.tsx",
     ]) {
       const src = read(p);
       expect(src).toContain("parseBanzaiState");
@@ -34,12 +34,12 @@ describe("M2.19G.4 — navigable contexts are closed, server-resolved route segm
   });
 
   it("both segment pages shape-validate the closed slug SERVER-SIDE and notFound() on a bad shape (no URL)", () => {
-    const op = read("app/banzai/operador/[operatorId]/page.tsx");
+    const op = read("app/(pt)/banzai/operador/[operatorId]/page.tsx");
     expect(op).toContain("isClosedId");
     expect(op).toContain("notFound");
     expect(op).toMatch(/if \(!isClosedId\(operatorId\)\)\s*notFound\(\)/);
 
-    const impl = read("app/banzai/operador/[operatorId]/[implementationId]/page.tsx");
+    const impl = read("app/(pt)/banzai/operador/[operatorId]/[implementationId]/page.tsx");
     expect(impl).toContain("isClosedId(operatorId)");
     expect(impl).toContain("isClosedId(implementationId)");
     expect(impl).toContain("notFound");
@@ -47,8 +47,8 @@ describe("M2.19G.4 — navigable contexts are closed, server-resolved route segm
 
   it("the segment pages are noindex (app contexts, not content) and canonicalise to /banzai", () => {
     for (const p of [
-      "app/banzai/operador/[operatorId]/page.tsx",
-      "app/banzai/operador/[operatorId]/[implementationId]/page.tsx",
+      "app/(pt)/banzai/operador/[operatorId]/page.tsx",
+      "app/(pt)/banzai/operador/[operatorId]/[implementationId]/page.tsx",
     ]) {
       const src = read(p);
       expect(src).toContain('canonical: "/banzai"');

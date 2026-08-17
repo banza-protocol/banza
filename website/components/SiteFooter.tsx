@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { footerColumns } from "@/lib/site";
+import { LocaleSwitch } from "@/components/LocaleSwitch";
+import type { Locale } from "@/lib/i18n";
 
 // M2.16 — Global footer, ported to the dossier design (SiteFooter.dc.html): brand (large mark + wordmark
 // + description) · vertical divider · four columns (BanzAI · Protocolo · Implementação · Contacto)
@@ -59,7 +61,10 @@ function ExternalTabHint() {
   );
 }
 
-export function SiteFooter() {
+// `locale` is accepted so the footer can carry the language switch (§68) and, in the content phase,
+// localised column titles. The link set itself is deliberately shared: both editions point at the same
+// public artifacts, and the Portuguese pages are the ones that exist today.
+export function SiteFooter({ locale = "pt" }: { locale?: Locale }) {
   return (
     <footer style={{ background: "#FBF6EE", fontFamily: F_SANS, color: "#6B6358" }}>
       <div style={{ background: "#FBF6EE", borderTop: "1px solid #EADFCD", overflow: "hidden" }}>
@@ -119,11 +124,12 @@ export function SiteFooter() {
                 <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#8B1428" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 11v5" /><circle cx="12" cy="7.8" r="0.5" fill="#8B1428" stroke="none" /></svg>
               </span>
               <span style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 0 }}>
-                <span style={{ fontSize: 13, lineHeight: 1.45, color: "#6B6358" }}>O BANZA não é banco, PSP, carteira ou operador financeiro.</span>
-                <span style={{ fontSize: 12.5, lineHeight: 1.45, color: "#8A8275" }}>O BanzAI não certifica, não aprova operadores e não movimenta fundos.</span>
+                <span style={{ fontSize: 13, lineHeight: 1.45, color: "#6B6358" }}>{locale === "en" ? "BANZA is not a bank, a PSP, a wallet or a financial operator." : "O BANZA não é banco, PSP, carteira ou operador financeiro."}</span>
+                <span style={{ fontSize: 12.5, lineHeight: 1.45, color: "#8A8275" }}>{locale === "en" ? "BanzAI does not certify, does not approve operators and does not move funds." : "O BanzAI não certifica, não aprova operadores e não movimenta fundos."}</span>
               </span>
             </div>
             <div className="footer-bottom-right" style={{ display: "flex", alignItems: "center", gap: "clamp(14px,1.6vw,26px)", flexWrap: "nowrap" }}>
+              <LocaleSwitch compact />
               <a href="https://banza.network" target="_blank" rel="noopener" style={{ display: "flex", alignItems: "center", gap: 11, textDecoration: "none", fontFamily: F_MONO, fontSize: 13, color: "#3A2E20" }}>
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#8B1428" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18" /></svg>banza.network
               </a>

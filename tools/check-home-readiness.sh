@@ -15,7 +15,7 @@ if locale -a 2>/dev/null | grep -qiE '^C\.UTF-?8$'; then export LC_ALL=C.UTF-8
 elif locale -a 2>/dev/null | grep -qiE '^en_US\.UTF-?8$'; then export LC_ALL=en_US.UTF-8
 fi
 
-PAGE="website/app/page.tsx"
+PAGE="website/app/(pt)/page.tsx"
 REGISTRY="website/components/home/OperatorRegistry.tsx"
 STATUSBAR="website/components/home/HeroStatusBar.tsx"
 STATUS_LIB="website/lib/protocolStatus.ts"

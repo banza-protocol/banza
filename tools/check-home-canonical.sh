@@ -19,8 +19,8 @@
 #   - the three-layer copy (L1/L2/L3 + BanzAI transversal) is present;
 #   - the institutional phrase "Aberto. Auditável. Verificável." is present.
 #
-# Scope: website/app/page.tsx · components/home/{OperatorRegistry,HeroStatusBar}.tsx ·
-# lib/protocolStatus.ts · app/layout.tsx · components/SiteFooterGate.tsx.
+# Scope: "website/app/(pt)/page.tsx" · components/home/{OperatorRegistry,HeroStatusBar}.tsx ·
+# lib/protocolStatus.ts · app/(pt)/layout.tsx · components/{SiteShell,SiteFooterGate}.tsx.
 # Exit 1 on NEEDS_FIX, 2 on self-test failure.
 
 set -euo pipefail
@@ -29,11 +29,14 @@ if locale -a 2>/dev/null | grep -qiE '^C\.UTF-?8$'; then export LC_ALL=C.UTF-8
 elif locale -a 2>/dev/null | grep -qiE '^en_US\.UTF-?8$'; then export LC_ALL=en_US.UTF-8
 fi
 
-PAGE="website/app/page.tsx"
+PAGE="website/app/(pt)/page.tsx"
 REGISTRY="website/components/home/OperatorRegistry.tsx"
 STATUSBAR="website/components/home/HeroStatusBar.tsx"
 STATUS_LIB="website/lib/protocolStatus.ts"
-LAYOUT="website/app/layout.tsx"
+LAYOUT="website/app/(pt)/layout.tsx"
+# Both root layouts compose <body> through one shared shell, so the document order the reader gets is
+# asserted once, where it is actually written, instead of twice in two layouts that could drift.
+SHELL="website/components/SiteShell.tsx"
 GATE="website/components/SiteFooterGate.tsx"
 
 # The canonical L3 scheme title, built at runtime (its stem trips the contamination gate literally).
@@ -151,9 +154,12 @@ grep -qF "Certificação de Conformidade e Interoperabilidade" "$PAGE" || flag "
 grep -qF "interface transversal" "$PAGE" || flag "the BanzAI transversal band is missing — $PAGE"
 
 # ── 11. Footer follows the three-layer section: layout renders the footer gate after <main>. ──
-lm="$(grep -nF '<main' "$LAYOUT" | head -1 | cut -d: -f1 || true)"
-lf="$(grep -nF '<SiteFooterGate' "$LAYOUT" | head -1 | cut -d: -f1 || true)"
-{ [ -n "$lm" ] && [ -n "$lf" ] && [ "$lm" -lt "$lf" ]; } || flag "the layout must render <SiteFooterGate/> after <main> — $LAYOUT"
+lm="$(grep -nF '<main' "$SHELL" | head -1 | cut -d: -f1 || true)"
+lf="$(grep -nF '<SiteFooterGate' "$SHELL" | head -1 | cut -d: -f1 || true)"
+{ [ -n "$lm" ] && [ -n "$lf" ] && [ "$lm" -lt "$lf" ]; } || flag "the shared shell must render <SiteFooterGate/> after <main> — $SHELL"
+# And the Portuguese root layout must actually use that shell, or the order above proves nothing about
+# what the reader receives.
+grep -qF "<SiteShell" "$LAYOUT" || flag "the root layout must compose <body> through <SiteShell/> — $LAYOUT"
 grep -qF "<SiteFooter" "$GATE" || flag "SiteFooterGate must render <SiteFooter/> — $GATE"
 
 # ── 12. The institutional phrase. ──

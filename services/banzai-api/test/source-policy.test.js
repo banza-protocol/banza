@@ -33,7 +33,7 @@ test("isPublicSource — canonical public docs stay public", () => {
   assert.equal(isPublicSource({ id: "ADR-001", path: "decisions/adr/ADR-001-ecosystem-naming-banza-banzai-and-operators.md", category: "decision" }), true);
   assert.equal(isPublicSource({ id: "ADR-INDEX" }), true); // no path but a known public doc id
   assert.equal(isPublicSource({ path: "spec/federation/overview.md", category: "normative" }), true);
-  assert.equal(isPublicSource({ path: "website/app/page.tsx", category: "website" }), true);
+  assert.equal(isPublicSource({ path: "website/app/(pt)/page.tsx", category: "website" }), true);
   assert.equal(isPublicSource({ path: "LICENSE", category: "legal-license" }), true);
   // M2.13B: real engine source stays citable for "how is X implemented".
   assert.equal(isPublicSource({ path: "engines/banzai-query-core/src/route.rs", category: "implementation" }), true);

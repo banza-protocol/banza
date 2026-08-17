@@ -73,12 +73,12 @@ check_card_copy() {
 
 # ── 4. Routes / files exist ──
 check_routes() {
-  [ -d website/app/referencia ] || err "missing website/app/referencia"
-  [ -e "website/app/referencia/[capitulo]/page.tsx" ] || err "missing chapter route [capitulo]"
-  [ -e website/app/referencia/completa/page.tsx ] || err "missing /referencia/completa"
-  [ -e website/app/referencia/racional/page.tsx ] || err "missing /referencia/racional redirect"
+  [ -d "website/app/(pt)/referencia" ] || err "missing website/app/(pt)/referencia"
+  [ -e "website/app/(pt)/referencia/[capitulo]/page.tsx" ] || err "missing chapter route [capitulo]"
+  [ -e "website/app/(pt)/referencia/completa/page.tsx" ] || err "missing /referencia/completa"
+  [ -e "website/app/(pt)/referencia/racional/page.tsx" ] || err "missing /referencia/racional redirect"
   grep -q 'slug: "estado-protocolar"' "$DEFS" || err "estado-protocolar slug not stable in CHAPTER_DEFS"
-  [ -d website/app/decisoes ] || err "missing /decisoes"
+  [ -d "website/app/(pt)/decisoes" ] || err "missing /decisoes"
   # Derived from the tree, never a frozen list: after a reorganisation a hardcoded set reports the
   # past as the present. EVERY current record must be indexed and mirrored — a stronger property than
   # the six numbers this used to name.

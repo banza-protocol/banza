@@ -14,9 +14,9 @@ const strip = (s: string) => s.replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:]
 const raw = (p: string) => readFileSync(join(root, p), "utf8");
 const flat = (p: string) => strip(raw(p)).replace(/\s+/g, " ");
 
-const CERT = "app/certificacao/page.tsx";
-const REG = "app/registo-tecnico/page.tsx";
-const GLO = "app/glossario/page.tsx";
+const CERT = "app/(pt)/certificacao/page.tsx";
+const REG = "app/(pt)/registo-tecnico/page.tsx";
+const GLO = "app/(pt)/glossario/page.tsx";
 
 const cert = flat(CERT);
 const reg = flat(REG);

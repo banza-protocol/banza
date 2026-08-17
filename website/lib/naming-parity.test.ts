@@ -21,13 +21,13 @@ const renderedLines = (src: string) =>
     .join("\n");
 
 const PAGES = [
-  "app/estado/page.tsx",
-  "app/registo-tecnico/page.tsx",
+  "app/(pt)/estado/page.tsx",
+  "app/(pt)/registo-tecnico/page.tsx",
   // app/roteiro/page.tsx retired — the standalone roadmap surface now permanent-redirects to
   // §14 "Evolução do Protocolo" at /referencia/roteiro (no standalone page to scan).
-  "app/operadores/page.tsx",
-  "app/page.tsx",
-  "app/glossario/page.tsx",
+  "app/(pt)/operadores/page.tsx",
+  "app/(pt)/page.tsx",
+  "app/(pt)/glossario/page.tsx",
 ];
 
 const EN_RX = /Technical Registry|Public Protocol Registry/;
@@ -41,18 +41,18 @@ describe("M2.19G.5C — Technical Registry naming parity", () => {
   }
 
   it("layout meta description carries no 'public protocol registry'", () => {
-    const rendered = renderedLines(raw("app/layout.tsx"));
+    const rendered = renderedLines(raw("app/(pt)/layout.tsx"));
     expect(rendered.toLowerCase()).not.toContain("public protocol registry");
   });
 
   it("PT surfaces use the term 'Registo Técnico'", () => {
-    for (const p of ["app/registo-tecnico/page.tsx", "app/glossario/page.tsx", "app/estado/page.tsx", "app/operadores/page.tsx"]) {
+    for (const p of ["app/(pt)/registo-tecnico/page.tsx", "app/(pt)/glossario/page.tsx", "app/(pt)/estado/page.tsx", "app/(pt)/operadores/page.tsx"]) {
       expect(raw(p)).toContain("Registo Técnico");
     }
   });
 
   it("the glossary defines the canonical mapping (Registo Técnico → BANZA Technical Registry)", () => {
-    const glo = raw("app/glossario/page.tsx");
+    const glo = raw("app/(pt)/glossario/page.tsx");
     expect(glo).toMatch(/name:\s*"Registo Técnico"/);
     expect(glo).toMatch(/en:\s*"BANZA Technical Registry"/);
   });

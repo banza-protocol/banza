@@ -93,7 +93,7 @@ export const SOURCES = {
   repoSafetyGuard: { id: "check-banzai-repo-knowledge-safety.sh", title: "Repo knowledge-safety guard", path: "tools/check-banzai-repo-knowledge-safety.sh" },
   repoKnowledgeGuard: { id: "check-banzai-repository-wide-knowledge.sh", title: "Repository-wide knowledge guard", path: "tools/check-banzai-repository-wide-knowledge.sh" },
   zeroSub: { id: "zeroSubdomain.ts", title: "zero.banza.network routing (host-aware)", path: "website/lib/zeroSubdomain.ts" },
-  ozApp: { id: "app/oz", title: "Operador Zero standalone surface", path: "website/app/oz/" },
+  ozApp: { id: "app/(pt)/oz", title: "Operador Zero standalone surface", path: "website/app/(pt)/oz/" },
   banzaiCore: { id: "banzai-core", title: "BanzAI Rust core (deterministic; no LLM/network)", path: "engines/banzai-query-core/ + engines/banzai-api-kb/ (banza-protocol/banza)" },
   banzaiRepo: { id: "banzai-source", title: "BanzAI active source — this monorepo (services/banzai-api + engines/banzai-*)", path: "services/banzai-api" },
   // M2.13C — sources for the answer-quality gap fixes (crates, guards, CI, index state).
@@ -733,7 +733,7 @@ export const ENTRIES = [
     critical: true,
     keywords: ["que ficheiros implementam o operador zero", "ficheiros do operador zero", "onde esta implementado o operador zero", "files implement operator zero", "codigo do operador zero", "que ficheiros fazem o operador zero"],
     answer:
-      "O Operador Zero é implementado por: **motor Rust** `engines/operator-zero-core` (ledger/trust/federação/evidence/traces) e `engines/operator-zero-e2e-root` (raiz de assinatura Ed25519 demo); **artefactos** em `examples/operators/zero/` (manifest, key-manifest, revocation-list, evidence-bundle, traces, ledger, payments) e `examples/operators/zero/e2e-root/`; **website** `website/components/operador-zero/OperadorZeroReference.tsx` (superfície só de leitura) + `website/app/oz/` (rota interna) + `website/lib/operadorZero*.ts`; a validação corre no **modo de validação do BanzAI** (`/banzai?mode=validation`), integrado em `website/components/banzai/BanzaiValidationMode.tsx`, executada pelos motores Rust; **routing** `website/middleware.ts` + `website/lib/zeroSubdomain.ts` (zero.banza.network); **guards** `tools/check-operator-zero*.sh` + `tools/check-zero-subdomain*.sh`; **decisões** ADR-035 e ADR-035; **relatórios** em `docs/reports/M2_12*`, `M2_13A*` e `M2_19EF*`.",
+      "O Operador Zero é implementado por: **motor Rust** `engines/operator-zero-core` (ledger/trust/federação/evidence/traces) e `engines/operator-zero-e2e-root` (raiz de assinatura Ed25519 demo); **artefactos** em `examples/operators/zero/` (manifest, key-manifest, revocation-list, evidence-bundle, traces, ledger, payments) e `examples/operators/zero/e2e-root/`; **website** `website/components/operador-zero/OperadorZeroReference.tsx` (superfície só de leitura) + `website/app/(pt)/oz/` (rota interna) + `website/lib/operadorZero*.ts`; a validação corre no **modo de validação do BanzAI** (`/banzai?mode=validation`), integrado em `website/components/banzai/BanzaiValidationMode.tsx`, executada pelos motores Rust; **routing** `website/middleware.ts` + `website/lib/zeroSubdomain.ts` (zero.banza.network); **guards** `tools/check-operator-zero*.sh` + `tools/check-zero-subdomain*.sh`; **decisões** ADR-035 e ADR-035; **relatórios** em `docs/reports/M2_12*`, `M2_13A*` e `M2_19EF*`.",
     sources: s("ozEngine", "ozLab", "ozMiddleware", "adr052"),
   },
   {
@@ -851,7 +851,7 @@ export const ENTRIES = [
     critical: true,
     keywords: ["que ficheiros implementam o middleware do zero.banza.network", "ficheiros do middleware zero", "middleware do zero banza network", "que ficheiros fazem o routing do zero", "middleware files zero banza network"],
     answer:
-      "O routing/middleware do `zero.banza.network` é implementado por: **`website/middleware.ts`** (intercepta por `Host`, reescreve `/`→`/oz` e `/<art>.json`→`/oz/<art>.json`, e redirecciona `/banzai*` para o apex); **`website/lib/zeroSubdomain.ts`** (a lógica pura `resolveZeroRoute`, incluindo os tipos `gone` para o apex `/operador-zero` a 410 e `notfound`); e a superfície própria em **`website/app/oz/`** (`page.tsx` + `[...artifact]/route.ts`). É verificado por `make zero-subdomain-routing-check`.",
+      "O routing/middleware do `zero.banza.network` é implementado por: **`website/middleware.ts`** (intercepta por `Host`, reescreve `/`→`/oz` e `/<art>.json`→`/oz/<art>.json`, e redirecciona `/banzai*` para o apex); **`website/lib/zeroSubdomain.ts`** (a lógica pura `resolveZeroRoute`, incluindo os tipos `gone` para o apex `/operador-zero` a 410 e `notfound`); e a superfície própria em **`website/app/(pt)/oz/`** (`page.tsx` + `[...artifact]/route.ts`). É verificado por `make zero-subdomain-routing-check`.",
     sources: s("ozMiddleware", "zeroSub", "ozApp"),
   },
 

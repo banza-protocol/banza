@@ -381,21 +381,21 @@ fn banzami_attribution_allowed(path: &str) -> bool {
         // M2.18B.7 DFN-10: the public-edge QA result artifact records the served answer for the same
         // covered entity case ("o que é a Banzami") — identical ADR-001/043 institutional attribution.
         || path == "artifacts/banzai/public-edge-qa.json"
-        || path == "website/app/governanca/page.tsx"
-        || path == "website/app/licenca/page.tsx"
+        || path == "website/app/(pt)/governanca/page.tsx"
+        || path == "website/app/(pt)/licenca/page.tsx"
         // M2.19G: the public reconstruction surfaces the canonical three-layer architecture (L1 protocol ·
         // L2 certification · L3 Banzami Operational Scheme, designated operator) on the primary editorial
         // pages, so they name Banzami as the L3 designated scheme operator — the same M2.19C/ADR-004/060
         // institutional-attribution basis as the governanca/licenca pages above. BANZA (L1) + certification
         // (L2) stay operator-neutral; Banzami is never framed as a BANZA payment operator nor regulator-
         // authorised without evidence; the NORMATIVE_BRANDS payment operators stay blocked everywhere.
-        || path == "website/app/page.tsx"
-        || path == "website/app/arquitectura/page.tsx"
-        || path == "website/app/estado/page.tsx"
+        || path == "website/app/(pt)/page.tsx"
+        || path == "website/app/(pt)/arquitectura/page.tsx"
+        || path == "website/app/(pt)/estado/page.tsx"
         || path == "website/app/roteiro/page.tsx"
         // M2.19G: the canonical glossary names Banzami as the L3 designated scheme operator (the "operador"
         // / "scheme" entries define the term against the L3 role); same ADR-004/060 attribution basis.
-        || path == "website/app/glossario/page.tsx"
+        || path == "website/app/(pt)/glossario/page.tsx"
         || path == "website/lib/reference.ts"
         // M2.19G.2: the Home-canonicalization audit artifact and the new Home vitest name the L3
         // designated scheme operator (Banzami Operational Scheme) in their three-layer records/assertions —
@@ -497,12 +497,12 @@ fn banzami_attribution_allowed(path: &str) -> bool {
         // the authors' affiliation + institutional PUBLISHER, and once as the L3 designated scheme operator
         // — the same ADR-001/043/059/060 institutional-attribution basis as the ADRs and editorial pages
         // above. Scoped STRICTLY to the Whitepaper surfaces (content/routes/components/loader/build/report);
-        // the Home hero change lives in website/app/page.tsx, already allowlisted. BANZA (L1) + certification
+        // the Home hero change lives in website/app/(pt)/page.tsx, already allowlisted. BANZA (L1) + certification
         // (L2) stay operator-neutral; the NORMATIVE_BRANDS payment operators stay blocked everywhere.
         || path.starts_with("docs/whitepaper/")
         || path.starts_with("artifacts/whitepaper-v1/")
         || path.starts_with("website/content/whitepaper/")
-        || path.starts_with("website/app/whitepaper/")
+        || path.starts_with("website/app/(pt)/whitepaper/")
         || path.starts_with("website/components/whitepaper/")
         || path == "website/lib/whitepaper.ts"
         || path == "tools/whitepaper-build.sh"

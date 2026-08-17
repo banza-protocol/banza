@@ -126,8 +126,11 @@ fi
 # check-website-decisions-parity.sh. Decision records are technical documents and legitimately use
 # words this rule bans from product copy. Scanning the derivation applies product-copy rules to
 # engineering text — and nothing can be smuggled in through it, because it cannot differ from source.
+# `-I` skips binary files. The self-hosted web fonts under website/app/fonts are compressed binaries
+# whose bytes happen to contain these letter sequences; a font file is not product copy, and matching
+# inside one reports a phantom while saying nothing about what a reader sees.
 for pat in '\bcorpus\b' '\bKB\b'; do
-  hits="$(grep -rnE "${GREP_EXCL[@]}" "$pat" website/content website/app website/components 2>/dev/null | grep -v '^website/content/decisions/' | grep -viE 'CORPUS_HASH|load_corpus|toContain|//|/\*' || true)"
+  hits="$(grep -rnIE "${GREP_EXCL[@]}" "$pat" website/content website/app website/components 2>/dev/null | grep -v '^website/content/decisions/' | grep -viE 'CORPUS_HASH|load_corpus|toContain|//|/\*' || true)"
   if [ -n "$hits" ]; then
     echo "NEEDS_FIX  forbidden public token /$pat/ in UI/content:"
     echo "$hits" | sed 's/^/    /'

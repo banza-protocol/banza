@@ -8,7 +8,7 @@
 # (negative boundary statements stay allowed). Deep contract enforcement lives in
 # check-homepage-final-public-release.sh.
 #
-# Scope: website/app/page.tsx + the home components. Exit 1 on NEEDS_FIX, 2 on self-test.
+# Scope: "website/app/(pt)/page.tsx" + the home components. Exit 1 on NEEDS_FIX, 2 on self-test.
 
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -17,7 +17,7 @@ if locale -a 2>/dev/null | grep -qiE '^C\.UTF-?8$'; then export LC_ALL=C.UTF-8
 elif locale -a 2>/dev/null | grep -qiE '^en_US\.UTF-?8$'; then export LC_ALL=en_US.UTF-8
 fi
 
-HOME_PAGE="website/app/page.tsx"
+HOME_PAGE="website/app/(pt)/page.tsx"
 HOMEDIR="website/components/home"
 # M2.19G.2 — the manifest tester was DELETED; the home renders OperatorRegistry + HeroStatusBar.
 HOME_SRC=("$HOME_PAGE" "$HOMEDIR/OperatorRegistry.tsx" "$HOMEDIR/HeroStatusBar.tsx")

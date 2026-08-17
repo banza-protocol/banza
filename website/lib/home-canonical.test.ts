@@ -16,10 +16,13 @@ const strip = (s: string) => s.replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:]
 const raw = (p: string) => readFileSync(join(root, p), "utf8");
 const flat = (p: string) => strip(raw(p)).replace(/\s+/g, " ");
 
-const page = flat("app/page.tsx");
+const page = flat("app/(pt)/page.tsx");
 const registry = flat("components/home/OperatorRegistry.tsx");
 const statusbar = flat("components/home/HeroStatusBar.tsx");
-const layout = flat("app/layout.tsx");
+const layout = flat("app/(pt)/layout.tsx");
+// Both root layouts compose <body> through one shared shell, so document order is asserted where it
+// is actually written instead of twice in two layouts that could drift.
+const shell = flat("components/SiteShell.tsx");
 const siteSrc = strip(raw("lib/site.ts"));
 const sitemapSrc = strip(raw("app/sitemap.ts"));
 
@@ -109,7 +112,10 @@ describe("M2.19G.2 §6 — home band order (registo before três-camadas, journe
     expect(page.lastIndexOf('id="layers-title"')).toBeGreaterThan(page.lastIndexOf('aria-label="Registo técnico"'));
     // The global footer is rendered by the layout AFTER <main>{children}</main> (match the JSX tag, not
     // the import statement at the top of the file).
-    expect(layout.indexOf("<main")).toBeLessThan(layout.indexOf("<SiteFooterGate"));
+    expect(shell.indexOf("<main")).toBeLessThan(shell.indexOf("<SiteFooterGate"));
+    // …and the Portuguese root actually uses that shell, or the order above proves nothing about what
+    // the reader receives.
+    expect(layout).toContain("<SiteShell");
   });
 });
 

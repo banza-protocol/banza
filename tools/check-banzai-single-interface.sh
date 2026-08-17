@@ -26,8 +26,8 @@ elif locale -a 2>/dev/null | grep -qiE '^en_US\.UTF-?8$'; then export LC_ALL=en_
 fi
 
 APP="website/app"
-BANZAI_DIR="website/app/banzai"
-PAGE="website/app/banzai/page.tsx"
+BANZAI_DIR="website/app/(pt)/banzai"
+PAGE="website/app/(pt)/banzai/page.tsx"
 VAL="website/lib/banzaiValidation.ts"
 STATE="website/lib/banzaiState.ts"
 MIDDLEWARE="website/middleware.ts"
@@ -63,7 +63,7 @@ fi
 # ── 2. Single BanzAI interface: only the ADR-036 closed navigable-context segments ────────────────────
 # ADR-036 refines "single interface" from "one route file" to "one shell/app with one always-mounted
 # session, exposing global/operator/implementation as CLOSED, server-resolved route segments". The
-# allowlist below is the ONLY structure permitted under app/banzai/: a second app (validar/onboarding as
+# allowlist below is the ONLY structure permitted under app/(pt)/banzai/: a second app (validar/onboarding as
 # a route, "Validation Workbench", etc.) is still forbidden. Non-breaking: passes with just page.tsx
 # (pre-routes) AND with the operador/[operatorId]/[implementationId] segments (post-routes).
 # Allowed top-level files: page.tsx, layout.tsx. Allowed subdir: operador/ (→ [operatorId] → [implementationId]).
@@ -103,7 +103,7 @@ fi
 # The /banzai navigation surface must use "contexto", never "camada"/"layer" for navigation, and must
 # not present L0-L4 as "níveis/tiers de certificação". Scan the BanzAI UI surface only.
 CONFLATE="$(grep -rniE 'camada de (navega|operador|implementa)|navega[çc][aã]o.*camada|n[íi]vel de certifica|tier de certifica|certification tier' \
-  website/components/banzai website/app/banzai 2>/dev/null || true)"
+  website/components/banzai "website/app/(pt)/banzai" 2>/dev/null || true)"
 if [ -n "$CONFLATE" ]; then
   bad "ADR-036 conflation: navigation context described as 'camada/layer' or L0-L4 as certification tiers:"
   printf '%s\n' "$CONFLATE" | sed 's/^/         /' | cut -c1-200

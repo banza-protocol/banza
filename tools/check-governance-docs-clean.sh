@@ -63,7 +63,7 @@ SURFACES=(
   docs/reference
   docs/guides
   spec
-  website/app/governacao
+  "website/app/(pt)/governacao"
   engines/banzai-evidence/src
 )
 
@@ -73,7 +73,7 @@ SURFACES=(
 OPERATOR_SURFACES=(
   docs/governance
   docs/reference
-  website/app/governacao
+  "website/app/(pt)/governacao"
   engines/banzai-evidence/src
 )
 
@@ -305,7 +305,7 @@ must_report "Trust Root signs operators (active)" "$TRUSTROOT" 'docs/security/x.
 must_allow "Trust Root signs metadata, not operators" "$TRUSTROOT" 'docs/security/x.md:6:A Trust Root assina metadados do protocolo, não operadores.'
 must_allow "operators use the BanzAI Workbench" '(operador|operator)[^.]{0,70}(pip install|docker pull|docker run|github action)' 'docs/reference/x.md:7:Os operadores usam o BanzAI Workbench para validar compatibilidade protocolar.'
 must_allow "clearly negated: não é certificado"      "$CERT_OP"  'docs/governance/x.md:8:Um operador não é certificado; publica evidência verificável de conformidade.'
-must_allow "/certificates legacy route line"         '(certificado válido|certificado valido)' 'website/app/governacao/page.tsx:9:      { href: "/certificates", label: "Certificado válido (legacy)" },'
+must_allow "/certificates legacy route line"         '(certificado válido|certificado valido)' 'website/app/(pt)/governacao/page.tsx:9:      { href: "/certificates", label: "Certificado válido (legacy)" },'
 # MUST allow — extra teeth: subject-side negation, deprecation line, markdown mapping-row mention, and the
 # router's deny-list / offered-question literals.
 must_allow "subject-side: Trust Root não assina operadores" "$TRUSTROOT" 'docs/security/x.md:10:A Trust Root não assina operadores; assina apenas metadados e chaves delegadas.'
@@ -314,7 +314,7 @@ must_allow "markdown mapping-row mention"            "$CERT_OP"  'docs/reference
 must_allow "router deny-list literal"                "$CERT_OP"  'engines/banzai-evidence/src/index.rs:52:    "operador certificado hoje",'
 must_allow "router offered-question literal"         "$CERT_OP"  'engines/banzai-evidence/src/lib.rs:1202:            Some(vec!["Manifesto válido significa operador certificado?", "Que campos são obrigatórios?"]));'
 # MUST report — a quoted string in CODE is copy, not a mention (the markdown mention rule must not leak).
-must_report "quoted string in CODE is copy"         "$CERT_OP"  'website/app/governacao/page.tsx:13:      title: "Assistente de operador certificado",'
+must_report "quoted string in CODE is copy"         "$CERT_OP"  'website/app/(pt)/governacao/page.tsx:13:      title: "Assistente de operador certificado",'
 # MUST report / allow — the removed cert-issuing key domain and its production-issuance vocabulary.
 CERT_ISSUE='cert-issuing'
 must_report "cert-issuing key (active)"             "$CERT_ISSUE" 'docs/security/x.md:20:Generate the cert-issuing key and keep it offline.'

@@ -20,7 +20,7 @@ ok() { echo "banza-whitepaper: ✓ $*"; }
 EN=docs/whitepaper/content/en.json
 PT=docs/whitepaper/content/pt.json
 MAN=docs/whitepaper/manifest.json
-HOME=website/app/page.tsx
+HOME="website/app/(pt)/page.tsx"
 EDN=website/components/whitepaper/WhitepaperEdition.tsx
 LATEX=docs/whitepaper/latex
 PDFDIR=website/public/whitepaper
@@ -289,14 +289,14 @@ ok "LaTeX dossier — whitepaper.{pt,en}.tex + references.bib + 24 vector figure
 grep -q "wp.sections" "$EDN" || fail "web edition must render wp.sections from content"
 grep -q "s.blocks" "$EDN" || fail "web edition must render the block model (s.blocks)"
 grep -q "web_block" "$EDN" || fail "web edition must render the BANZA na Web block"
-grep -q "getWhitepaper" website/app/whitepaper/page.tsx || fail "landing must derive from getWhitepaper()"
+grep -q "getWhitepaper" "website/app/(pt)/whitepaper/page.tsx" || fail "landing must derive from getWhitepaper()"
 for r in "" /en /pt /versions; do
-  [ -f "website/app/whitepaper$r/page.tsx" ] || fail "missing route website/app/whitepaper$r/page.tsx"
+  [ -f "website/app/(pt)/whitepaper$r/page.tsx" ] || fail "missing route website/app/(pt)/whitepaper$r/page.tsx"
 done
 grep -q '"/whitepaper"' website/app/sitemap.ts || fail "/whitepaper must be in sitemap"
 # stale page-count strings must not survive on public surfaces
 for s in "10 páginas" "10 pages" "10 pág" "Dez páginas"; do
-  if grep -rIqF "$s" website/app/whitepaper website/components/whitepaper 2>/dev/null; then fail "stale page-count string on a whitepaper surface: '$s'"; fi
+  if grep -rIqF "$s" "website/app/(pt)/whitepaper" website/components/whitepaper 2>/dev/null; then fail "stale page-count string on a whitepaper surface: '$s'"; fi
 done
 ok "web edition — single-source block renderer + BANZA na Web + routes /whitepaper /en /pt /versions; no stale page-count strings"
 

@@ -26,8 +26,8 @@ ok()   { echo "  ok: $*"; }
 ROUTE="engines/banzai-query-core/src/route.rs"
 KB="services/banzai-api/src/knowledge.js"
 DECISIONS="website/lib/decisions.ts"
-BANZAI_PAGE="website/app/banzai/page.tsx"
-ESTADO="website/app/estado/page.tsx"
+BANZAI_PAGE="website/app/(pt)/banzai/page.tsx"
+ESTADO="website/app/(pt)/estado/page.tsx"
 REFLIB="website/lib/reference.ts"
 
 echo "== banzai-public-surface-final-consistency-check (M2.14J · ADR-036) =="

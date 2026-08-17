@@ -13,8 +13,8 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 COMP="website/components/operador-zero/OperadorZeroReference.tsx"
-PAGE="website/app/oz/page.tsx"
-ROUTE="website/app/oz/[...artifact]/route.ts"
+PAGE="website/app/(pt)/oz/page.tsx"
+ROUTE="website/app/(pt)/oz/[...artifact]/route.ts"
 
 fail=0
 ok()  { echo "  ok: $1"; }

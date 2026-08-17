@@ -394,13 +394,13 @@ export function BanzaiAgent({
   runtimeStrip,
 }: {
   routeState: BanzaiState;
-  // ADR-036 — the runtime-truth strip (server component from app/banzai/layout.tsx reading
+  // ADR-036 — the runtime-truth strip (server component from app/(pt)/banzai/layout.tsx reading
   // GET /banzai/runtime, fail-safe). Rendered as an inert node in the sidebar ESTADO slot; it replaces
   // the former static green badges + hardcoded "Pré-produção…" literal so displayed runtime/provider
   // state derives from the SSOT, exactly as /referencia/banzai does.
   runtimeStrip?: React.ReactNode;
 }) {
-  // ONE shell, always mounted by app/banzai/layout.tsx (ADR-036). `routeState` is the server-resolved
+  // ONE shell, always mounted by app/(pt)/banzai/layout.tsx (ADR-036). `routeState` is the server-resolved
   // state of the CURRENT route segment (global → operator → implementation), pushed here by the segment's
   // <BanzaiRouteBinder>. `mode` selects "ask" / "validation" / "onboarding"; the operator/implementation
   // CONTEXTS are real route segments that seed the validation session below. The shell reflects route

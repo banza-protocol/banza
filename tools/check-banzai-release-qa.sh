@@ -226,7 +226,7 @@ elif git rev-parse --verify origin/main >/dev/null 2>&1; then BASE="origin/main"
 elif git rev-parse --verify main >/dev/null 2>&1; then BASE="main"
 fi
 
-TIER12='^(website/app/banzai/|website/components/banzai/|website/components/home/banzaiKb\.ts|website/lib/banzaOperatorJourney\.ts|website/lib/banza(OperatorManifest|Conformance|Trust|Simb|EvidenceBundle)\.ts|website/lib/wasm/|engines/banzai-|services/banzai-api/)'
+TIER12='^(website/app/(pt)/banzai/|website/components/banzai/|website/components/home/banzaiKb\.ts|website/lib/banzaOperatorJourney\.ts|website/lib/banza(OperatorManifest|Conformance|Trust|Simb|EvidenceBundle)\.ts|website/lib/wasm/|engines/banzai-|services/banzai-api/)'
 
 if [ -z "$BASE" ] || ! git merge-base "$BASE" HEAD >/dev/null 2>&1; then
   note "no usable base ref — change detection skipped, NOT passed"

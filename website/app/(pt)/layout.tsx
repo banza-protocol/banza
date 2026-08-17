@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { serif, sans, mono, display } from "./fonts";
-import { SiteNav } from "@/components/SiteNav";
-import { SiteFooterGate } from "@/components/SiteFooterGate";
-import { ScrollReveal } from "@/components/ScrollReveal";
-import "./globals.css";
+import { serif, sans, mono, display } from "../fonts";
+import { SiteShell } from "@/components/SiteShell";
+import { HTML_LANG } from "@/lib/i18n";
+import "../globals.css";
 
 const SITE_URL = "https://banza.network";
 
@@ -82,39 +81,26 @@ const JSON_LD = {
   ],
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function PortugueseRootLayout({ children }: { children: React.ReactNode }) {
   return (
-    // The progressive-enhancement script below adds a `js` class to <html> before React hydrates,
-    // so the server (no `js`) and client (`js`) className differ by design. suppressHydrationWarning
-    // is React's sanctioned handling for a script-mutated attribute; it is scoped to this one element
-    // (one level deep) and does not affect children.
+    // One of two root layouts. This one owns the Portuguese document: `app/(pt)/` is a route group, so
+    // it contributes nothing to the URL — `app/(pt)/estado` is still served at `/estado` — but it does
+    // let this layout be a real root and declare `lang` for its own edition. English has its own root
+    // at `app/en/`. Navigating between the two performs a full document load, which is correct: they
+    // are different documents in different languages.
+    //
+    // The progressive-enhancement script inside SiteShell adds a `js` class to <html> before React
+    // hydrates, so the server (no `js`) and client (`js`) className differ by design.
+    // suppressHydrationWarning is React's sanctioned handling for a script-mutated attribute; it is
+    // scoped to this one element and does not affect children.
     <html
-      lang="pt-PT"
+      lang={HTML_LANG.pt}
       className={`${serif.variable} ${sans.variable} ${mono.variable} ${display.variable}`}
       suppressHydrationWarning
     >
-      <body>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
-        />
-        {/* Enables JS-only reveal animations; absent => content visible by default. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: "document.documentElement.classList.add('js');",
-          }}
-        />
-        <a
-          href="#conteudo"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-[100] focus:rounded focus:bg-bordo focus:px-4 focus:py-2 focus:text-white"
-        >
-          Saltar para o conteúdo
-        </a>
-        <SiteNav />
-        <main id="conteudo">{children}</main>
-        <SiteFooterGate />
-        <ScrollReveal />
-      </body>
+      <SiteShell locale="pt" jsonLd={JSON_LD}>
+        {children}
+      </SiteShell>
     </html>
   );
 }

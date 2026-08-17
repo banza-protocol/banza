@@ -1458,7 +1458,7 @@ mod tests {
         assert_eq!(classify(b, "decisions/adr/ADR-012.md"), "decision");
         assert_eq!(classify(b, "docs/reference/01-overview.md"), "normative");
         assert_eq!(classify(b, "decisions/rfc/RFC-0006.md"), "normative");
-        assert_eq!(classify(b, "website/app/page.tsx"), "website");
+        assert_eq!(classify(b, "website/app/(pt)/page.tsx"), "website");
         assert_eq!(
             classify(ai, "engines/banzai-core/src/router.rs"),
             "banzai-runtime"

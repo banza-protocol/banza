@@ -23,7 +23,7 @@ if grep -qiE '^C\.UTF-?8$' <<<"$LOCALES"; then export LC_ALL=C.UTF-8
 elif grep -qiE '^en_US\.UTF-?8$' <<<"$LOCALES"; then export LC_ALL=en_US.UTF-8
 fi
 
-PAGE="website/app/oz/page.tsx"
+PAGE="website/app/(pt)/oz/page.tsx"
 LAB="website/components/operador-zero/OperadorZeroReference.tsx"
 NAV="website/components/SiteNav.tsx"
 FOOTER_GATE="website/components/SiteFooterGate.tsx"
