@@ -25,16 +25,22 @@ import { BudgetTracker, RateLimiter } from "../src/limits.js";
 import { isCriticalSubject } from "../src/knowledge.js";
 
 /** No model is reachable. Deterministic answers must still work; synthesis-dependent ones must say so. */
-function pipe(extra = {}) {
-  return createPipeline({
-    provider: createProvider(
-      { LLM_PROVIDER: "local_qwen", LLM_BASE_URL: "http://127.0.0.1:1" },
-      { fetchImpl: async () => { throw new Error("no model in tests"); } },
-    ),
-    env: {}, exactCache: new ExactCache(), semanticCache: new SemanticCache(),
-    budget: new BudgetTracker({}), rateLimiter: new RateLimiter({}),
-    ...extra,
-  });
+// `runGroundedSynthesisFn` is the THIRD positional argument of createPipeline, not a key of the first
+// object — passing it inside the object silently does nothing, which is how the first version of the
+// synthesis-rejection test below ended up measuring a model outage instead of a validator rejection.
+function pipe(opts = {}) {
+  return createPipeline(
+    {
+      provider: createProvider(
+        { LLM_PROVIDER: "local_qwen", LLM_BASE_URL: "http://127.0.0.1:1" },
+        { fetchImpl: async () => { throw new Error("no model in tests"); } },
+      ),
+      env: {}, exactCache: new ExactCache(), semanticCache: new SemanticCache(),
+      budget: new BudgetTracker({}), rateLimiter: new RateLimiter({}),
+    },
+    {},
+    opts,
+  );
 }
 
 const ask = (q, opts = {}) => pipe().answer(q, opts);
@@ -83,25 +89,44 @@ test("a contextual follow-up with no prior turn is a context problem, not an evi
 });
 
 // ── 18. model outage must not erase sufficient evidence ───────────────────────────────────────────
+//
+// These two questions are the ones that actually REACH grounded synthesis with no model available —
+// measured, not assumed. The first version of this file guarded the assertion with
+// `if (terminal_kind === "operational_failure")`, and the critical questions it used answer
+// deterministically and never reach synthesis at all, so the guard never fired and the test proved
+// nothing. Every assertion below is unconditional for that reason.
+
+const REACHES_SYNTHESIS = [
+  "como é que a autoridade sobre operadores está separada no BANZA?",
+  "explica a relação entre conformidade e federação no BANZA",
+];
 
 test("an unavailable model is an availability failure, never absent evidence", async () => {
-  // A question that grounds but needs synthesis to phrase. With no model reachable, the evidence is still
-  // there — the sentence is what could not be produced.
-  const { meta } = await ask("como é que a autoridade sobre operadores está separada no BANZA?");
-  if (meta.terminal_kind === "operational_failure") {
+  for (const q of REACHES_SYNTHESIS) {
+    const { meta } = await ask(q);
+    assert.equal(meta.terminal_kind, "operational_failure",
+      `${q}: expected to reach synthesis and fail on the model`);
     assert.ok(
       ["local_inference_unavailable", "local_inference_timeout"].includes(meta.fallback_reason),
-      `an outage must name itself: ${meta.fallback_reason}`,
+      `${q}: an outage must name itself, got ${meta.fallback_reason}`,
     );
-    assert.notEqual(meta.terminal_kind, "insufficient_evidence",
-      "a missing model is not missing evidence");
+    // The whole point: the evidence was fine. Saying "insufficient evidence" here would be a lie about
+    // the protocol's documentation caused by a process that was not running.
+    assert.notEqual(meta.terminal_kind, "insufficient_evidence");
+    assert.ok(
+      !["no_eligible_evidence", "evidence_below_threshold", "insufficient_sources"]
+        .includes(meta.fallback_reason),
+      `${q}: a missing model must never be reported as missing evidence`,
+    );
   }
 });
 
 // ── 9. the critical invariant: a registered critical subject cannot produce nothing ────────────────
 
 test("a resolved critical subject never yields an empty factual package", async () => {
-  // This is the property that would have caught the original bug on the day it was written.
+  // The property that would have caught the original bug on the day it was written. Asserted on BOTH the
+  // deterministic path (these answer without synthesis) and the synthesis path (REACHES_SYNTHESIS below),
+  // because an empty critical package can arise on either.
   for (const q of [
     "quem controla os operadores ?",
     "Who controls operators?",
@@ -116,6 +141,40 @@ test("a resolved critical subject never yields an empty factual package", async 
     assert.notEqual(meta.engine_inconsistency, true, `${q}: engine inconsistency`);
     assert.equal(result.grounded, true, `${q}: a registered critical subject must answer`);
   }
+  for (const q of REACHES_SYNTHESIS) {
+    const { meta } = await ask(q);
+    assert.notEqual(meta.terminal_kind, "engine_inconsistency",
+      `${q}: synthesis reached a critical subject and assembled nothing`);
+    assert.notEqual(meta.fallback_reason, "critical_factual_package_empty");
+  }
+});
+
+// ── 19 + 27. a rejected synthesis is not absent evidence ──────────────────────────────────────────
+
+test("a validator rejection keeps its own reason and does not erase the evidence", async () => {
+  // The real evidence and sufficiency path runs first; only token generation is replaced, and it returns
+  // an unsupported institutional relation — the exact overclaim the original bug published.
+  const p = pipe({
+    runGroundedSynthesisFn: async (args) => ({
+      status: "fallback",
+      answer_markdown: "Os contratos públicos controlam os operadores.",
+      cited_source_ids: [],
+      package: args?.package || { facts: [] },
+      primary_intent: "explain_concept",
+      clarification_candidates: [],
+      trace: { synthesis_called: true, entry_status: "ok", output_status: "rejected" },
+    }),
+  });
+  const { meta } = await p.answer(REACHES_SYNTHESIS[0], {});
+  assert.equal(meta.fallback_reason, "synthesis_output_unvalidated",
+    `a rejected answer must say so, got ${meta.fallback_reason}`);
+  assert.notEqual(meta.terminal_kind, "insufficient_evidence",
+    "the evidence was fine; the prose was not published");
+  assert.ok(
+    !["no_eligible_evidence", "evidence_below_threshold", "insufficient_sources"]
+      .includes(meta.fallback_reason),
+    "a rejection must never be rewritten as missing evidence",
+  );
 });
 
 // ── 13. "no sources" and "no facts" are different measurements ─────────────────────────────────────
