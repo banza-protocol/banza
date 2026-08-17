@@ -27,11 +27,13 @@ function pipe() {
   return createPipeline({
     provider, env: {}, exactCache: new ExactCache(), semanticCache: new SemanticCache(),
     budget: new BudgetTracker({}), rateLimiter: new RateLimiter({}),
-    runGroundedSynthesisFn: async () => ({
+  },
+    {},
+    { runGroundedSynthesisFn: async () => ({
       status: "grounded", answer_markdown: MODEL, cited_source_ids: [], package: { facts: [] },
       primary_intent: "explain_concept", clarification_candidates: [], trace: {},
-    }),
-  });
+    }) },
+  );
 }
 
 const intent = (q) => JSON.parse(kb.resolve_query_json(q)).primary_intent;

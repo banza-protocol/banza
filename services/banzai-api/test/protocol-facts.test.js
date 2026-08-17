@@ -37,7 +37,9 @@ function pipe() {
     semanticCache: new SemanticCache(),
     budget: new BudgetTracker({}),
     rateLimiter: new RateLimiter({}),
-    runGroundedSynthesisFn: async () => ({
+  },
+    {},
+    { runGroundedSynthesisFn: async () => ({
       status: "grounded",
       answer_markdown: MODEL,
       cited_source_ids: [],
@@ -45,8 +47,8 @@ function pipe() {
       primary_intent: "explain_concept",
       clarification_candidates: [],
       trace: {},
-    }),
-  });
+    }) },
+  );
 }
 
 const entry = async (id) => {
