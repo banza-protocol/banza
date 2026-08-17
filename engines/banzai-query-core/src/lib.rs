@@ -627,10 +627,10 @@ fn contains_word(nq: &str, w: &str) -> bool {
 ///
 /// The single-word path has always required a whole-word match, for a reason it states: a keyword word must
 /// never merely be a prefix of a longer one. The phrase path did not, and the asymmetry was a live defect.
-/// Adding the Portuguese surface form "o que e o banza" to the BANZA identity entry made it a substring of
-/// "o que e o banzami", which scored as a five-word phrase hit and took the Banzami question away from the
-/// Banzami entry — the exact collision `banzami_question_retrieves_the_banzami_entry_not_banza` exists to
-/// forbid, arriving through the one path that was not checking.
+/// Adding the Portuguese surface form "o que e o banza" to the BANZA identity entry made that phrase a
+/// substring of the same question about a DIFFERENT ecosystem identity whose name extends the same stem. It
+/// scored as a five-word phrase hit and took that question away from its own entry — the ecosystem-identity
+/// collision the kb tests exist to forbid, arriving through the one path that was not checking.
 /// The boundary is ALPHABETIC — not whitespace, and not alphanumeric either. Both stricter rules were tried
 /// and both moved 313 probes, because the index deliberately carries `"adr 0"` as a numeric-prefix keyword
 /// so that "explain ADR-001" reaches the decision index. A digit continuing the match is intended; a LETTER

@@ -412,6 +412,14 @@ fn banzami_attribution_allowed(path: &str) -> bool {
         || path == "services/banzai-api/src/pipeline.js"
         || path == "engines/banzai-query-core/src/entries-index.json"
         || path == "engines/banzai-api-kb/tests/kb.rs"
+        // Block 5A: the same ecosystem-identity distinction, asserted from two more angles. The phrase
+        // boundary test proves a keyword for one identity cannot win a question about the other, and the
+        // institutional tests forbid any ecosystem actor — including the creator/maintainer — from being
+        // presented as a certifier. Naming the identity is the point of the assertion; removing it would
+        // leave a test that cannot state what it forbids. Same ADR-001/ADR-009 attribution basis as kb.rs.
+        || path == "engines/banzai-query-core/tests/phrase_boundary.rs"
+        || path == "services/banzai-api/test/institutional-semantics.test.js"
+        || path == "services/banzai-api/test/prohibited-claims-sweep.test.js"
         // M2.8G: the routing policy + its tests classify the "what is Banzami" institutional-identity
         // question (ADR-009 attribution), so they name the creator/maintainer. Not a payment operator.
         || path == "engines/banzai-query-core/src/route.rs"
