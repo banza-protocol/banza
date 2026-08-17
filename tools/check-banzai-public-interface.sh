@@ -94,7 +94,7 @@ fi
 # 6. No stale mock/demo/provider/llm_calls label on ANY public BanzAI surface — including the
 # served reference CONTENT and the public protocol DIAGRAMS (SVG), where such labels also render.
 labels="$(git grep -hInE 'modo demonstra|mock provider|provider mock|provider: ?mock|llm_calls ?= ?0|· mock ·' -- \
-  'website/components/banzai/**' 'website/components/home/**' 'website/app/banzai/**' 'website/app/estado/**' \
+  'website/components/banzai/**' 'website/components/home/**' 'website/app/(pt)/banzai/**' 'website/app/(pt)/estado/**' \
   'website/content/**' 'website/public/diagrams/**' 2>/dev/null | mock_demo_label || true)"
 [ -z "$labels" ] && ok "no stale mock/demo/provider/llm_calls label on public BanzAI/home/content/diagram surfaces" \
   || fail "stale mock/demo label on a public surface: $labels"

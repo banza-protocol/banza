@@ -54,7 +54,7 @@ check_wording() {
 # ── forbidden phrasings (closed control / future-promise governance / license-grants-trademark) ──
 # Scanned across the legal/governance surfaces + README + the two public pages. Composed as fragments.
 CLOSED='governance may evolve to include open|may become open|future open governance|Banzami controls the protocol forever|permission from Banzami is required to use the protocol|Apache License grants trademark rights|Apache-2.0 grants trademark'
-SURFACES=(LICENSE NOTICE GOVERNANCE.md TRADEMARKS.md MAINTAINERS.md CONTRIBUTING.md README.md website/app/governanca website/app/licenca)
+SURFACES=(LICENSE NOTICE GOVERNANCE.md TRADEMARKS.md MAINTAINERS.md CONTRIBUTING.md README.md "website/app/(pt)/governanca" "website/app/(pt)/licenca")
 check_forbidden() {
   local hits
   hits="$(grep -rniE "$CLOSED" "${SURFACES[@]}" 2>/dev/null || true)"
@@ -63,7 +63,7 @@ check_forbidden() {
   # enumerates these as PROHIBITED phrases (naming them to ban them).
   local cert
   cert="$(grep -rniE 'certified (banza )?operator|approved by BANZA|licensed by BANZA|BANZA CA\b|Certificate Authority' \
-        LICENSE NOTICE GOVERNANCE.md MAINTAINERS.md CONTRIBUTING.md README.md website/app/governanca website/app/licenca 2>/dev/null || true)"
+        LICENSE NOTICE GOVERNANCE.md MAINTAINERS.md CONTRIBUTING.md README.md "website/app/(pt)/governanca" "website/app/(pt)/licenca" 2>/dev/null || true)"
   [ -z "$cert" ] || { err "certified-operator / central-CA language on a legal/governance surface:"; echo "$cert" | sed 's/^/      /'; }
 }
 

@@ -19,7 +19,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-PAGE="website/app/certificacao/page.tsx"
+PAGE="website/app/(pt)/certificacao/page.tsx"
 SITE="website/lib/site.ts"
 SITEMAP="website/app/sitemap.ts"
 

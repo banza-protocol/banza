@@ -160,11 +160,11 @@ must_allow() { # <label> <pattern> <line>
 }
 
 # MUST report — removed labels as active copy.
-must_report "home: Operadores certificados"       'operador[es]* certificad[oa]s?'  'website/app/page.tsx:10:      <h2>Operadores certificados</h2>'
+must_report "home: Operadores certificados"       'operador[es]* certificad[oa]s?'  'website/app/(pt)/page.tsx:10:      <h2>Operadores certificados</h2>'
 must_report "Workbench: Validar M2 protocol gate" 'm2 protocol gate'                'website/components/banzai/BanzaiChat.tsx:88:      label: "Validar M2 protocol gate",'
 must_report "Chat: Assistente de Certificação"    '(certificação|certificacao)'     'website/components/banzai/BanzaiChat.tsx:12:      title: "Assistente de Certificação",'
 must_report "footer badge: SEM OPERADOR CERTIFICADO" 'operador[es]* certificad[oa]s?' 'website/components/SiteFooter.tsx:20:        SEM OPERADOR CERTIFICADO'
-must_report "M2/M3 Pendentes as UI copy"          '(m2 pronto|m2/m3 pendentes)'     'website/app/estado/page.tsx:33:        <li>M2/M3 Pendentes</li>'
+must_report "M2/M3 Pendentes as UI copy"          '(m2 pronto|m2/m3 pendentes)'     'website/app/(pt)/estado/page.tsx:33:        <li>M2/M3 Pendentes</li>'
 # Accented pattern parity (BSD/GNU): spelled as full alternations, pinned here.
 must_report "accented label fires"                '(certificação de operador|certificacao de operador)' 'docs/reference/pt/completa.md:41:Pressupõe certificação de operador activa.'
 
@@ -178,17 +178,17 @@ must_allow "L2: Certificação técnica (of an implementation)"       '(certific
 # MUST still report — ENTITY/operator certification is NOT the L2 term and keeps its own label.
 must_report "entity certification (certificação de operador) still blocked" 'certifica(ção|cao) de (operador|operadores|entidade|entidades)' 'website/app/x/page.tsx:9:      <h2>certificação de operador</h2>'
 # MUST allow — M2.19G: bare / per-implementation "certificação (L2)" is CURRENT copy, not the entity form.
-must_allow "per-implementation certificação accepted (not entity)" 'certifica(ção|cao) de (operador|operadores|entidade|entidades)' 'website/app/estado/page.tsx:150:      <strong>A certificação (L2) é por implementação.</strong>'
+must_allow "per-implementation certificação accepted (not entity)" 'certifica(ção|cao) de (operador|operadores|entidade|entidades)' 'website/app/(pt)/estado/page.tsx:150:      <strong>A certificação (L2) é por implementação.</strong>'
 # MUST allow — a guillemet-quoted mention in a .tsx JSX sentence stating the registry is NOT such a list.
-must_allow "guillemet mention: «operadores certificados» in .tsx (registry is NOT this)" 'operador[es]* certificad[oa]s?' 'website/app/operadores/page.tsx:98:            que impede o registo de ser lido como uma lista de «operadores certificados».'
+must_allow "guillemet mention: «operadores certificados» in .tsx (registry is NOT this)" 'operador[es]* certificad[oa]s?' 'website/app/(pt)/operadores/page.tsx:98:            que impede o registo de ser lido como uma lista de «operadores certificados».'
 
 # MUST allow — registry ABSENCE lines (M2.5 rule 3): the registry stating what a diagram does NOT show.
 must_allow "registry absence: Sem certificado … operador certificado" 'operador[es]* certificad[oa]s?' 'docs/reference/BANZA_SVG_REGISTRY.md:9:Banda de fronteira: "…". Sem certificado, CA, aprovação, badge de certificado ou operador certificado.'
 must_allow "registry absence: Nenhum … mostra … certificado de operador" '(certificado|certificados) de operador' 'docs/reference/BANZA_SVG_REGISTRY.md:9:Nenhum destes diagramas mostra autoridade central, certificado de operador ou aprovação humana.'
 must_allow "registry absence: Nenhum … mostra … badge de certificação" '(certificação|certificacao)' 'docs/reference/BANZA_SVG_REGISTRY.md:9:Nenhum destes diagramas mostra autoridade central, certificado, badge de certificação, aprovação humana ou operador certificado.'
 # MUST allow — code identifiers (M2.5 rule 4): a slug prop, a component name, a route literal, an anchor example.
-must_allow "code: slug=\"certificacao\" prop"          '(certificação|certificacao)' 'website/app/conformidade/page.tsx:9:      <ReferenceCTA slug="certificacao" />'
-must_allow "code: CertificacaoRedirect component"     '(certificação|certificacao)' 'website/app/certificacao/page.tsx:9:export default function CertificacaoRedirect() {'
+must_allow "code: slug=\"certificacao\" prop"          '(certificação|certificacao)' 'website/app/(pt)/conformidade/page.tsx:9:      <ReferenceCTA slug="certificacao" />'
+must_allow "code: CertificacaoRedirect component"     '(certificação|certificacao)' 'website/app/(pt)/certificacao/page.tsx:9:export default function CertificacaoRedirect() {'
 must_allow "code: /certificacao route literal"        '(certificação|certificacao)' 'website/app/x/page.tsx:9:  redirect("/certificacao");'
 must_allow "code: anchor-slug example in a comment"   '(certificação|certificacao)' 'website/lib/reference.ts:9: * links (e.g. "## 6. Certificação" → "6-certificação", "## Resumo" →'
 # MUST still report — the registry naming a removed label as ACTIVE copy (no absence marker), and a real

@@ -43,6 +43,10 @@ def current_files():
 # property.
 NEG = re.compile(r'\b(n[aã]o|nunca|never|not|no|without|sem|neither|nor|distinct from|institutionally separate)\b|≠|!=|\bis not\b', re.I)
 
+# Both spellings of the -ise/-ize family are matched. The English edition of the website writes
+# "regulatory authorization"; a guard that knew only "authorisation" was blind to exactly the surface it
+# exists to protect, and a mutation reversing the boundary on the English page survived it.
+#
 # Each pattern is an ASSERTION that L0 or BANZA conformance confers something it cannot.
 FORBIDDEN = [
     ("L0 presented as a regulatory sandbox",
@@ -50,7 +54,7 @@ FORBIDDEN = [
     ("L0 presented as a regulator programme",
      r'L0[^.\n]{0,70}\b(BNA|Banco Nacional de Angola|LISPA)\b'),
     ("L0 presented as granting authorisation",
-     r'L0[^.\n]{0,70}\b(grants?|confers?|concede|confere|autoriza|authoris\w+|licen[cs]\w+)\b'),
+     r'L0[^.\n]{0,70}\b(grants?|confers?|concede|confere|autoriza|authoris\w+|authoriz\w+|licen[cs]\w+)\b'),
     ("L0 presented as permitting real money",
      r'L0[^.\n]{0,70}\b(real (funds|money|customer funds)|fundos reais|dinheiro real)\b'),
     # Both word orders: "L0 pass … production" and "passing L0 … production". The self-test caught the
@@ -60,7 +64,7 @@ FORBIDDEN = [
      r'L0[^.\n]{0,50}\b(pass\w*|passar|aprovad\w+)\b[^.\n]{0,40}\b(production|produ[cç][aã]o)\b'
      r'|\b(pass\w*|passar|aprovad\w+|complet\w+)\b[^.\n]{0,20}\bL0\b[^.\n]{0,60}\b(production|produ[cç][aã]o)\b'),
     ("conformance or certification presented as a licence",
-     r'\b(conformance|conformidade|certifica\w+)\b[^.\n]{0,60}\b(grants?|confere|concede)\b[^.\n]{0,30}\b(licen[cs]\w+|authoris\w+|autoriza\w+)\b'),
+     r'\b(conformance|conformidade|certifica\w+)\b[^.\n]{0,60}\b(grants?|confere|concede)\b[^.\n]{0,30}\b(licen[cs]\w+|authoris\w+|authoriz\w+|autoriza\w+)\b'),
     ("claimed exemption from regulation",
      r'licen[cs]e[- ]free|sem licen[çc]a necess|unregulated (environment|sandbox)|regulatory exemption|isen[çc][aã]o regulat\w+'),
 ]
@@ -115,7 +119,9 @@ def missing_properties(root='.'):
 
 def selftest():
     # Denials must pass. These are the exact shapes the real documents use.
+    n_ok = 0
     for ok in ["L0 does not grant regulatory authorisation.",
+               "L0 does not grant regulatory authorization.",
                "L0 não confere autorização regulatória.",
                "L0 is a protocol sandbox, not a regulatory sandbox.",
                "L0 é um sandbox de protocolo, não um sandbox regulatório.",
@@ -137,12 +143,16 @@ def selftest():
             if hits:
                 print("SELFTEST FAIL: legitimate denial rejected (%s): %s" % (hits[0], ok), file=sys.stderr)
                 sys.exit(2)
+            n_ok += 1
     # Assertions must fail, and each must be caught by the rule that exists for it.
+    n_bad = 0
     for bad, expect in [("L0 grants regulatory authorisation to the operator.", "granting authorisation"),
                         ("BANZA L0 is a BNA regulatory sandbox.", "regulator programme"),
                         ("In L0 an implementation may move real customer funds.", "permitting real money"),
                         ("Passing L0 means the implementation is approved for production.", "production approval"),
                         ("BANZA certification grants a licence to operate.", "licence"),
+                        ("Technical conformance grants regulatory authorization.", "licence"),
+                        ("L0 grants regulatory authorization to the operator.", "granting authorisation"),
                         ("L0 is licence-free and unregulated.", "exemption")]:
         caught = [label for label, pat in FORBIDDEN
                   if re.search(pat, bad, re.I) and not NEG.search(bad)]
@@ -153,7 +163,9 @@ def selftest():
             print("SELFTEST FAIL: %r caught by the wrong rule (%s), expected one about %s"
                   % (bad, caught, expect), file=sys.stderr)
             sys.exit(2)
-    print("  selftest ok — 10 denials accepted, 6 assertions caught by their own rule")
+        n_bad += 1
+    print("  selftest ok — %d denials accepted, %d assertions caught by their own rule"
+          % (n_ok, n_bad))
 
 
 selftest()

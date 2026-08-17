@@ -11,7 +11,7 @@
 # retired-model vocabulary (BANZA CA, operadores certificados, payment processing) or commercial operator
 # brand. Comment-aware; negation-aware; self-tests on every run.
 #
-# Scope: website/app/page.tsx, website/components/home/{OperatorRegistry,HeroStatusBar}.tsx.
+# Scope: website/app/(pt)/page.tsx, website/components/home/{OperatorRegistry,HeroStatusBar}.tsx.
 # Exit 1 on NEEDS_FIX, 2 on self-test.
 
 # NOTE: no `pipefail` — a no-match grep inside `x="$(… | grep … | wc -l)"` is EXPECTED, not an error.
@@ -22,7 +22,7 @@ if locale -a 2>/dev/null | grep -qiE '^C\.UTF-?8$'; then export LC_ALL=C.UTF-8
 elif locale -a 2>/dev/null | grep -qiE '^en_US\.UTF-?8$'; then export LC_ALL=en_US.UTF-8
 fi
 
-PAGE="website/app/page.tsx"
+PAGE="website/app/(pt)/page.tsx"
 REGISTRY="website/components/home/OperatorRegistry.tsx"
 STATUSBAR="website/components/home/HeroStatusBar.tsx"
 
@@ -122,8 +122,12 @@ for f in "$PAGE" "$STATUSBAR" "$REGISTRY"; do
 done
 
 # ── 10. Critical CTA routes exist as real app directories. ──
+# The Portuguese tree lives in the `(pt)` route group, which contributes nothing to the URL: the
+# public route is /banzai and the source is website/app/(pt)/banzai. This loop builds its paths, so a
+# literal search-and-replace could not reach it — the group is named here explicitly.
+PT_APP="website/app/(pt)"
 for r in banzai registo-tecnico referencia; do
-  [ -d "website/app/$r" ] || flag "critical route /$r has no app directory — website/app/$r"
+  [ -d "$PT_APP/$r" ] || flag "critical route /$r has no app directory — $PT_APP/$r"
 done
 
 if [ "$fail" -eq 0 ]; then

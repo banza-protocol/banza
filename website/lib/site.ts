@@ -12,6 +12,28 @@ export const SITE_DOMAIN = "banza.network";
 
 export type NavItem = { href: string; label: string; key: string; external?: boolean; github?: boolean; feature?: boolean; email?: boolean; cta?: boolean };
 
+// ── Locale-aware navigation ───────────────────────────────────────────────────────────────────────
+// The header is the same three destinations in both editions. What differs is the label and the URL,
+// so the two are kept apart from the item's identity: `key` is the stable semantic id, and a
+// translated label never becomes a route. Cloning the nav component per language would let the two
+// editions drift in structure, which is exactly what a shared component prevents.
+//
+// English entries point at the Portuguese page while the English edition of that page is unwritten,
+// and carry `foreign: true` so the link can be marked `hreflang` honestly rather than pretending the
+// destination is in English.
+
+export type LocaleNavItem = NavItem & { foreign?: boolean };
+
+const NAV_EN: LocaleNavItem[] = [
+  { href: "/registo-tecnico", label: "Technical registry", key: "registo", foreign: true },
+  { href: "/banzai", label: "BanzAI", key: "banzai", feature: true, foreign: true },
+  { href: "https://github.com/banza-protocol/banza/blob/main/docs/reference/en/BANZA_REFERENCE.md", label: "Read the Reference", key: "referencia", cta: true, external: true },
+];
+
+export function navFor(locale: "pt" | "en"): LocaleNavItem[] {
+  return locale === "en" ? NAV_EN : navPrimary;
+}
+
 // Global navigation: exactly THREE distinct public destinations, no dropdowns/submenus.
 //   Registo técnico   → the closed public Technical Registry (/registo-tecnico) — operators,
 //                        implementations, profiles, results, evidence and certification states.

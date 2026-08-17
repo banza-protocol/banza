@@ -13,7 +13,7 @@ const root = join(__dirname, "..");
 const strip = (s: string) => s.replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:])\/\/.*$/gm, "$1");
 const flat = (p: string) => strip(readFileSync(join(root, p), "utf8")).replace(/\s+/g, " ");
 
-const page = flat("app/page.tsx");
+const page = flat("app/(pt)/page.tsx");
 const registry = flat("components/home/OperatorRegistry.tsx");
 const statusbar = flat("components/home/HeroStatusBar.tsx");
 const footer = flat("components/SiteFooter.tsx");

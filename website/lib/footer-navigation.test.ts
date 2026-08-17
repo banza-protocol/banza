@@ -62,7 +62,7 @@ describe("M2.17A — deep-link mechanism (server-side view + hydration-stable + 
   // segments (operador/[operatorId]/[implementationId]). Behaviour is preserved — these source-level
   // assertions track the relocated deep-link mechanism.
   it("the /banzai page reads searchParams server-side and resolves state via parseBanzaiState", () => {
-    const page = read("app/banzai/page.tsx");
+    const page = read("app/(pt)/banzai/page.tsx");
     expect(page).toContain("searchParams");
     expect(page).toContain("parseBanzaiState");
     expect(page).toContain("BanzaiRouteBinder");

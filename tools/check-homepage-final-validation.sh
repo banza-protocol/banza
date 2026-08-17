@@ -20,7 +20,7 @@ if locale -a 2>/dev/null | grep -qiE '^C\.UTF-?8$'; then export LC_ALL=C.UTF-8
 elif locale -a 2>/dev/null | grep -qiE '^en_US\.UTF-?8$'; then export LC_ALL=en_US.UTF-8
 fi
 
-PAGE="website/app/page.tsx"
+PAGE="website/app/(pt)/page.tsx"
 REGISTRY="website/components/home/OperatorRegistry.tsx"
 STATUSBAR="website/components/home/HeroStatusBar.tsx"
 NAV="website/components/SiteNav.tsx"
@@ -100,7 +100,9 @@ grep -qF "não certifica, não aprova operadores e não movimenta fundos" "$FOOT
 perl -0777 -pe 's/&nbsp;/ /g' "$FOOTER" | grep -qF "Banza · v1.0 · 2026" || flag "footer missing the institutional line 'Banza · v1.0 · 2026' — $FOOTER"
 
 # 9. Directly-linked public surfaces carry NO retired vocabulary as an ACTIVE claim.
-LINKED="website/app/registo-tecnico/page.tsx website/app/banzai/page.tsx website/app/estado/page.tsx website/app/licenca/page.tsx website/app/referencia/page.tsx"
+# One space-separated list, word-split at use. The paths contain parentheses because `(pt)` is a
+# route group; `(` is literal in a glob, so splitting stays safe.
+LINKED="website/app/(pt)/registo-tecnico/page.tsx website/app/(pt)/banzai/page.tsx website/app/(pt)/estado/page.tsx website/app/(pt)/licenca/page.tsx website/app/(pt)/referencia/page.tsx"
 for f in $LINKED; do
   [ -f "$f" ] || continue
   v="$(vis "$f")"

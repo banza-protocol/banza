@@ -17,14 +17,14 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 PAGES=(
-  website/app/estado/page.tsx
-  website/app/registo-tecnico/page.tsx
+  "website/app/(pt)/estado/page.tsx"
+  "website/app/(pt)/registo-tecnico/page.tsx"
   # website/app/roteiro/page.tsx retired — permanent redirect to §14 /referencia/roteiro (no page to scan)
-  website/app/operadores/page.tsx
-  website/app/page.tsx
-  website/app/glossario/page.tsx
+  "website/app/(pt)/operadores/page.tsx"
+  "website/app/(pt)/page.tsx"
+  "website/app/(pt)/glossario/page.tsx"
 )
-LAYOUT="website/app/layout.tsx"
+LAYOUT="website/app/(pt)/layout.tsx"
 
 EN_RX='Technical Registry|Public Protocol Registry'
 
@@ -59,11 +59,11 @@ else
 fi
 
 echo "== [3/3] PT surfaces use 'Registo Técnico' (glossary is the source of truth) =="
-for f in website/app/registo-tecnico/page.tsx website/app/glossario/page.tsx website/app/estado/page.tsx website/app/operadores/page.tsx; do
+for f in "website/app/(pt)/registo-tecnico/page.tsx" "website/app/(pt)/glossario/page.tsx" "website/app/(pt)/estado/page.tsx" "website/app/(pt)/operadores/page.tsx"; do
   if grep -qF 'Registo Técnico' "$f"; then ok "$f uses 'Registo Técnico'"; else fl "$f must use the PT term 'Registo Técnico'"; fi
 done
 # The glossary mapping is the canonical pt→en source of truth.
-if grep -qE 'name:[[:space:]]*"Registo Técnico"' website/app/glossario/page.tsx && grep -qE 'en:[[:space:]]*"BANZA Technical Registry"' website/app/glossario/page.tsx; then
+if grep -qE 'name:[[:space:]]*"Registo Técnico"' "website/app/(pt)/glossario/page.tsx" && grep -qE 'en:[[:space:]]*"BANZA Technical Registry"' "website/app/(pt)/glossario/page.tsx"; then
   ok "glossary defines the canonical mapping (Registo Técnico → BANZA Technical Registry)"
 else
   fl "glossary must define the canonical mapping (name: Registo Técnico, en: BANZA Technical Registry)"

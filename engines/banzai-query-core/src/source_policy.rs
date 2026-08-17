@@ -144,7 +144,7 @@ mod tests {
             "decision"
         ));
         assert!(is_public_source("spec/federation/overview.md", "normative"));
-        assert!(is_public_source("website/app/page.tsx", "website"));
+        assert!(is_public_source("website/app/(pt)/page.tsx", "website"));
         assert!(is_public_source("LICENSE", "legal-license"));
         assert!(is_public_source("SECURITY.md", "security-boundary"));
     }

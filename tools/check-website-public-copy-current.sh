@@ -32,7 +32,7 @@ REFERENCIA="docs/reference/pt/BANZA_REFERENCIA.md"
 FOOTER="website/components/SiteFooter.tsx"
 # M2.16: the homepage is the dossier BanzAI-first hero (page.tsx + HomeHeroDiagram + HomeAsk), rendered
 # above the global SiteFooter.
-HOME_SET=("website/app/page.tsx"
+HOME_SET=("website/app/(pt)/page.tsx"
           "website/components/home/HomeAsk.tsx" "website/components/home/HomeHeroDiagram.tsx" "$FOOTER")
 
 # Current-copy source files (never tests, never the archival decision corpus, never wasm bundles).
@@ -222,14 +222,14 @@ done
 # Home v2: the home leads with the OPEN PROTOCOL framing (eyebrow + H1). The BanzAI agent framing lives on
 # /banzai + the reference (ch.12) + ADR-036; the home hands off to it via the nav, the "Começar a
 # implementar" CTA and the manifest tester's "NO BANZAI" link.
-if ! perl -0777 -pe 's/\s+/ /g' website/app/page.tsx \
+if ! perl -0777 -pe 's/\s+/ /g' "website/app/(pt)/page.tsx" \
      | grep -q 'PROTOCOLO FINANCEIRO ABERTO · v1.0'; then
   flag "The homepage lost the open-protocol framing ('PROTOCOLO FINANCEIRO ABERTO · v1.0')."
 fi
 for phrase in 'Qwen local activo' 'inferência local on-host' 'sem chamadas externas' \
               'estado por resposta' 'não normativo' 'pré-produção'; do
-  if ! grep -qi "$phrase" website/app/estado/page.tsx; then
-    flag "website/app/estado/page.tsx no longer states the current BanzAI posture: '$phrase'."
+  if ! grep -qi "$phrase" "website/app/(pt)/estado/page.tsx"; then
+    flag "website/app/(pt)/estado/page.tsx no longer states the current BanzAI posture: '$phrase'."
   fi
 done
 

@@ -56,7 +56,7 @@ run_checks() {
   #    (/referencia/roteiro — the canonical chapter — is allowed and expected.)
   local navhits
   navhits=$(grep -rInE '["'"'"'(]/roteiro(["'"'"'#? )]|$)' \
-      "$root/website/lib/site.ts" "$root/website/app/page.tsx" "$root/website/components" 2>/dev/null \
+      "$root/website/lib/site.ts" "$root/website/app/(pt)/page.tsx" "$root/website/components" 2>/dev/null \
       | grep -vE '/referencia/roteiro' || true)
   if [ -n "$navhits" ]; then
     echo "$navhits" >&2
@@ -94,7 +94,7 @@ run_checks() {
   #    reference chapters (§14 is corpus-driven, with its own durability guard) are excluded.
   local pagehits
   pagehits=$(grep -rilE 'ROTEIRO DO PROTOCOLO|ROADMAP DO PROTOCOLO' \
-      "$root/website/app" --include='page.tsx' 2>/dev/null | grep -vE '/website/app/referencia/' || true)
+      "$root/website/app" --include='page.tsx' 2>/dev/null | grep -vE '/website/app/(pt)/referencia/' || true)
   if [ -n "$pagehits" ]; then
     echo "$pagehits" >&2
     fail "a standalone protocol-roadmap page survives at a non-reference route — evolution has a single canonical surface (§14 /referencia/roteiro)"
@@ -106,7 +106,7 @@ run_checks() {
 selftest() {
   local tmp; tmp="$(mktemp -d)"
   trap 'rm -rf "$tmp"' RETURN
-  mkdir -p "$tmp/website/app/roteiro" "$tmp/website/app" "$tmp/website/lib" "$tmp/website/content" "$tmp/website/components" "$tmp/docs/reference/pt"
+  mkdir -p "$tmp/website/app/roteiro" "$tmp/website/app" "$tmp/website/app/(pt)" "$tmp/website/lib" "$tmp/website/content" "$tmp/website/components" "$tmp/docs/reference/pt"
   # green skeleton
   cat > "$tmp/website/next.config.mjs" <<EOF
 { source: "/roteiro", destination: "$CANON_ROUTE", permanent: true },
@@ -116,7 +116,7 @@ EOF
   echo '## 14. Evolução do Protocolo' > "$tmp/docs/reference/pt/BANZA_REFERENCIA.md"
   echo '{ num: 14, slug: "roteiro" },' > "$tmp/website/lib/reference.ts"
   echo 'export default function P(){return null}' > "$tmp/website/lib/site.ts"
-  echo 'export default function H(){return null}' > "$tmp/website/app/page.tsx"
+  echo 'export default function H(){return null}' > "$tmp/website/app/(pt)/page.tsx"
   mkdir -p "$tmp/website/public/diagrams/protocol"
   # scenario A — a standalone /roteiro page still exists → must fail
   echo 'export default function R(){return null}' > "$tmp/website/app/roteiro/page.tsx"

@@ -12,10 +12,10 @@ const root = join(__dirname, "..");
 const strip = (s: string) => s.replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:])\/\/.*$/gm, "$1");
 const flat = (p: string) => strip(readFileSync(join(root, p), "utf8")).replace(/\s+/g, " ");
 
-const page = flat("app/page.tsx");
+const page = flat("app/(pt)/page.tsx");
 const nav = flat("components/SiteNav.tsx");
 const footer = flat("components/SiteFooter.tsx");
-const layout = flat("app/layout.tsx");
+const layout = flat("app/(pt)/layout.tsx");
 
 describe("M2.17 — header (three tiers, one family; labels per M2.19G.2 §7)", () => {
   it("has exactly three destinations in order", () => {

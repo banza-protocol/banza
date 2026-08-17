@@ -10,7 +10,7 @@
 # Scope: the header component + the nav config ONLY — it never rejects reference chapters, the footer,
 # or contextual page links. Comment-aware; self-tests on every run.
 #
-# Scope: website/components/SiteNav.tsx, website/lib/site.ts, website/app/registo-tecnico/page.tsx.
+# Scope: website/components/SiteNav.tsx, website/lib/site.ts, "website/app/(pt)/registo-tecnico/page.tsx."
 # Exit 1 on NEEDS_FIX, 2 on self-test failure.
 
 # NOTE: no `pipefail` — a no-match grep inside `x="$(… | grep … | wc -l)"` is EXPECTED, not an error.
@@ -23,7 +23,7 @@ fi
 
 NAV="website/components/SiteNav.tsx"
 SITE="website/lib/site.ts"
-REG="website/app/registo-tecnico/page.tsx"
+REG="website/app/(pt)/registo-tecnico/page.tsx"
 
 fail=0
 flag() { echo "  NEEDS_FIX: $1"; fail=1; }

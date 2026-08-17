@@ -14,7 +14,7 @@ const strip = (s: string) => s.replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:]
 const flat = (p: string) => strip(readFileSync(join(root, p), "utf8")).replace(/\s+/g, " ");
 
 const nav = flat("components/SiteNav.tsx");
-const ops = flat("app/operadores/page.tsx");
+const ops = flat("app/(pt)/operadores/page.tsx");
 const site = readFileSync(join(root, "lib/site.ts"), "utf8");
 
 describe("M2.15B — three destinations, exact order (PART 3/4; M2.19G.2 §7)", () => {
@@ -69,7 +69,10 @@ describe("M2.15B — SiteNav header has no dropdowns (PART 5/12)", () => {
   });
   it("uses a single active-state helper and a named nav landmark", () => {
     expect(nav).toContain("sectionActive");
-    expect(nav).toContain('aria-label="Navegação principal"');
+    // The landmark is named in both editions, so the assertion is that a name is chosen per locale
+    // rather than that one literal string is present — the accessibility property is "named
+    // landmark", and hard-coding the Portuguese string would forbid naming the English one.
+    expect(nav).toContain('aria-label={locale === "en" ? "Main navigation" : "Navegação principal"}');
     expect(nav).toContain('aria-current={active ? "page"');
   });
 });

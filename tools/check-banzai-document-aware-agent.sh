@@ -26,7 +26,7 @@ SERVER="services/banzai-api/src/server.js"
 KB_TS="website/components/home/banzaiKb.ts"
 AGENT_TSX="website/components/banzai/BanzaiAgent.tsx"
 EXPLORER="website/components/decisoes/DecisionsExplorer.tsx"
-DETAIL="website/app/decisoes/[slug]/page.tsx"
+DETAIL="website/app/(pt)/decisoes/[slug]/page.tsx"
 
 fail=0
 ok()   { echo "  ok: $1"; }

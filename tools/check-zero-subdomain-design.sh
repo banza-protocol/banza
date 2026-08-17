@@ -23,8 +23,8 @@ elif grep -qiE '^en_US\.UTF-?8$' <<<"$LOCALES"; then export LC_ALL=en_US.UTF-8
 fi
 
 COMP="website/components/operador-zero/OperadorZeroReference.tsx"
-PAGE="website/app/oz/page.tsx"
-APPDIR="website/app/oz"
+PAGE="website/app/(pt)/oz/page.tsx"
+APPDIR="website/app/(pt)/oz"
 
 fail=0
 ok()  { echo "  ok: $1"; }

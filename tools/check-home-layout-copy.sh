@@ -7,7 +7,7 @@
 # line ("O BANZA não é banco, PSP, carteira ou operador financeiro."). Deep contract enforcement is in
 # check-homepage-final-public-release.sh; this is the copy backstop over the home + nav + footer.
 #
-# Scope: website/app/page.tsx · website/components/home/*.tsx · SiteNav.tsx · SiteFooter.tsx.
+# Scope: "website/app/(pt)/page.tsx" · website/components/home/*.tsx · SiteNav.tsx · SiteFooter.tsx.
 # Exit 1 on NEEDS_FIX. Exit 2 if the guard's own self-test fails.
 
 set -euo pipefail
@@ -17,7 +17,7 @@ if locale -a 2>/dev/null | grep -qiE '^C\.UTF-?8$'; then export LC_ALL=C.UTF-8
 elif locale -a 2>/dev/null | grep -qiE '^en_US\.UTF-?8$'; then export LC_ALL=en_US.UTF-8
 fi
 
-HOME_PAGE="website/app/page.tsx"
+HOME_PAGE="website/app/(pt)/page.tsx"
 HOMEDIR="website/components/home"
 FOOTER="website/components/SiteFooter.tsx"
 NAV="website/components/SiteNav.tsx"

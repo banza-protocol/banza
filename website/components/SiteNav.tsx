@@ -4,7 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { navPrimary } from "@/lib/site";
+import { navFor } from "@/lib/site";
+import { LocaleSwitch } from "@/components/LocaleSwitch";
+import type { Locale } from "@/lib/i18n";
 import { BanzaiMark } from "@/components/BanzaiMark";
 
 // M2.19G.2 — 74px sticky bar, blurred creme background, logo (banza-mark-bordo-hd + wordmark) left; three
@@ -30,9 +32,11 @@ function NavIcon({ k, color }: { k: string; color: string }) {
   );
 }
 
-export function SiteNav() {
+export function SiteNav({ locale = "pt" }: { locale?: Locale }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const navPrimary = navFor(locale);
+  const home = locale === "en" ? "/en" : "/";
 
   const path = (pathname || "/").replace(/\/+$/, "") || "/";
   // Single, unambiguous active state: destination prefixes are mutually exclusive; the homepage matches none.
@@ -82,19 +86,20 @@ export function SiteNav() {
   return (
     <header style={{ position: "sticky", top: 0, zIndex: 50, background: "rgba(246,241,231,0.82)", backdropFilter: "blur(14px) saturate(1.1)", WebkitBackdropFilter: "blur(14px) saturate(1.1)", borderBottom: "1px solid rgba(94,12,24,0.08)", boxShadow: "0 1px 0 rgba(255,255,255,0.5) inset,0 8px 24px -18px rgba(94,12,24,0.4)", fontFamily: F_SANS }}>
       <div style={{ maxWidth: 1240, margin: "0 auto", padding: "0 clamp(18px,4vw,52px)", height: 74, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24 }}>
-        <Link href="/" style={{ display: "flex", alignItems: "center", gap: 11, textDecoration: "none", flex: "none" }}>
+        <Link href={home} style={{ display: "flex", alignItems: "center", gap: 11, textDecoration: "none", flex: "none" }}>
           <Image src="/banza-mark-bordo-hd.png" alt="BANZA" width={32} height={32} style={{ height: 32, width: "auto", display: "block", flex: "none" }} priority />
           <span style={{ display: "flex", flexDirection: "column", lineHeight: 1 }}>
             <span style={{ fontFamily: F_SERIF, fontWeight: 600, fontSize: 19, letterSpacing: "0.06em", color: "#1A1512" }}>BANZA</span>
-            <span style={{ fontFamily: F_MONO, fontSize: 8.5, letterSpacing: "0.28em", color: "#6E6357", marginTop: 3 }}>PROTOCOLO · v1.0</span>
+            <span style={{ fontFamily: F_MONO, fontSize: 8.5, letterSpacing: "0.28em", color: "#6E6357", marginTop: 3 }}>{locale === "en" ? "PROTOCOL · v1.0" : "PROTOCOLO · v1.0"}</span>
           </span>
         </Link>
 
-        {/* Desktop nav — three distinct destinations, no dropdowns */}
-        <nav aria-label="Navegação principal" style={{ alignItems: "center", gap: 10, justifyContent: "flex-end" }} className="site-nav-desktop">
+        {/* Desktop nav — three distinct destinations, no dropdowns, then the language switch */}
+        <nav aria-label={locale === "en" ? "Main navigation" : "Navegação principal"} style={{ alignItems: "center", gap: 10, justifyContent: "flex-end" }} className="site-nav-desktop">
           {navPrimary.map((item) => (
             <DesktopItem key={item.key} item={item} />
           ))}
+          <LocaleSwitch />
         </nav>
 
         {/* Mobile toggle */}
@@ -117,7 +122,7 @@ export function SiteNav() {
       {/* Mobile menu — the same three destinations, same order */}
       {mobileOpen && (
         <div id="mobile-menu" className="site-nav-mobile" style={{ borderTop: "1px solid rgba(94,12,24,0.08)", background: "#F6F1E7", padding: "12px clamp(18px,4vw,52px) 16px" }}>
-          <nav aria-label="Navegação principal" style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <nav aria-label={locale === "en" ? "Main navigation" : "Navegação principal"} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             {navPrimary.map((item) => {
               const active = sectionActive(item.href);
               const cta = !!item.cta;
@@ -129,6 +134,9 @@ export function SiteNav() {
                 </Link>
               );
             })}
+            <div style={{ marginTop: 4, paddingTop: 10, borderTop: "1px solid rgba(94,12,24,0.08)" }}>
+              <LocaleSwitch />
+            </div>
           </nav>
         </div>
       )}
