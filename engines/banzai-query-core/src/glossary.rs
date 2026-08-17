@@ -909,6 +909,24 @@ fn term_of(nq: &str) -> Option<&'static str> {
     if word(nq, "issue") || word(nq, "issues") {
         return Some("def-issue");
     }
+    // A VERSION is not a RELEASE. Asking what version something IS names a subject and a dimension; the
+    // release record defines a publication event and answers neither.
+    //
+    // Measured: "What is the current BANZA version?" was claimed here as a DETERMINISTIC def-release, and
+    // because the verdict was deterministic the pipeline honoured it and the attribute tier — the precise
+    // owner, which answers the protocol version as an exact fact from the normative manifest — was never
+    // consulted. Portuguese escaped only by spelling: "versão" normalises to "versao", which reaches the
+    // arm too, but its route was not deterministic, so the attribute tier still got its turn. The same
+    // question, two languages, opposite answers, decided by an accident of ordering.
+    //
+    // So this arm DECLINES rather than redirects: returning None lets the attribute tier resolve subject
+    // and dimension together, which is what keeps "qual é a versão do BanzAI?" from inheriting the
+    // protocol's version merely because BanzAI interfaces with it. A bare noun must not be a super-route.
+    let asks_version = word(nq, "version") || word(nq, "versao") || nq.contains("versão");
+    let names_subject = has(nq, &["banza", "banzai"]);
+    if asks_version && names_subject && !word(nq, "release") && !word(nq, "changelog") {
+        return None;
+    }
     if word(nq, "release")
         || word(nq, "changelog")
         || word(nq, "version")
