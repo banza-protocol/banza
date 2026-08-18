@@ -1454,7 +1454,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "68ac7cceef0118ee"
+        "checksum": "d50d9389693bcf50"
       },
       {
         "id": "conformance-package-contracts-production-public-protocol-registry-production-schema-json",
@@ -1652,7 +1652,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "c66764559ea9d216"
+        "checksum": "b18717e674e48b59"
       },
       {
         "id": "conformance-qr-suite-json",
@@ -2488,7 +2488,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "62e0e20ffe4534f7"
+        "checksum": "386f9c6d6ba46a9c"
       },
       {
         "id": "contracts-production-operation-receipt-production-schema-json",
@@ -2565,7 +2565,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "68ac7cceef0118ee"
+        "checksum": "d50d9389693bcf50"
       },
       {
         "id": "contracts-production-public-protocol-registry-production-schema-json",
@@ -4050,7 +4050,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "16e9e0fd93dd1a04"
+        "checksum": "08ce5e89d4a209ed"
       },
       {
         "id": "examples-operators-zero-readme-md",
@@ -4995,7 +4995,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "231df5d99927bc5f"
+    "checksum": "d6b1dd5b3756c5e2"
   },
   "subjects": [
     {
@@ -6141,6 +6141,90 @@
       "classification": "ALIAS"
     },
     {
+      "alias": "autoridade sobre operadores",
+      "normalized": "autoridade sobre operadores",
+      "canonical_id": "ADR-002",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "autoridade sobre os operadores",
+      "normalized": "autoridade sobre os operadores",
+      "canonical_id": "ADR-002",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "authority over operators",
+      "normalized": "authority over operators",
+      "canonical_id": "ADR-002",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "quem controla os operadores",
+      "normalized": "quem controla os operadores",
+      "canonical_id": "ADR-002",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "quem controla o operador",
+      "normalized": "quem controla o operador",
+      "canonical_id": "ADR-002",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "who controls operators",
+      "normalized": "who controls operators",
+      "canonical_id": "ADR-002",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "controla os operadores",
+      "normalized": "controla os operadores",
+      "canonical_id": "ADR-002",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "control operators",
+      "normalized": "control operators",
+      "canonical_id": "ADR-002",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "controlo dos operadores",
+      "normalized": "controlo dos operadores",
+      "canonical_id": "ADR-002",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "operador e implementacao",
+      "normalized": "operador e implementacao",
+      "canonical_id": "ADR-002",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "operator and implementation",
+      "normalized": "operator and implementation",
+      "canonical_id": "ADR-002",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "operador vs implementacao",
+      "normalized": "operador vs implementacao",
+      "canonical_id": "ADR-002",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
       "alias": "separacao de operadores",
       "normalized": "separacao de operadores",
       "canonical_id": "ADR-002",
@@ -6449,6 +6533,13 @@
       "classification": "ALIAS"
     },
     {
+      "alias": "governacao",
+      "normalized": "governacao",
+      "canonical_id": "docs/reference/PROTOCOL_GOVERNANCE_GLOSSARY.md",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
       "alias": "governance",
       "normalized": "governance",
       "canonical_id": "docs/reference/PROTOCOL_GOVERNANCE_GLOSSARY.md",
@@ -6508,6 +6599,146 @@
       "alias": "modelo de evidencia",
       "normalized": "modelo de evidencia",
       "canonical_id": "spec/federation/FEDERATION_CONFORMANCE_EVIDENCE_MODEL.md",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "governanca do protocolo",
+      "normalized": "governanca do protocolo",
+      "canonical_id": "ADR-004",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "governacao do protocolo",
+      "normalized": "governacao do protocolo",
+      "canonical_id": "ADR-004",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "protocol governance",
+      "normalized": "protocol governance",
+      "canonical_id": "ADR-004",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "quem governa o protocolo",
+      "normalized": "quem governa o protocolo",
+      "canonical_id": "ADR-004",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "who governs the protocol",
+      "normalized": "who governs the protocol",
+      "canonical_id": "ADR-004",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "poder sobre os operadores",
+      "normalized": "poder sobre os operadores",
+      "canonical_id": "ADR-004",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "power over operators",
+      "normalized": "power over operators",
+      "canonical_id": "ADR-004",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "poder sobre operadores",
+      "normalized": "poder sobre operadores",
+      "canonical_id": "ADR-004",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "governanca do protocolo da poder",
+      "normalized": "governanca do protocolo da poder",
+      "canonical_id": "ADR-004",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "protocol governance grants power",
+      "normalized": "protocol governance grants power",
+      "canonical_id": "ADR-004",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "autoridade separada",
+      "normalized": "autoridade separada",
+      "canonical_id": "ADR-004",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "separacao de autoridade",
+      "normalized": "separacao de autoridade",
+      "canonical_id": "ADR-004",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "separation of authority",
+      "normalized": "separation of authority",
+      "canonical_id": "ADR-004",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "autoridade esta separada",
+      "normalized": "autoridade esta separada",
+      "canonical_id": "ADR-004",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "authority is separated",
+      "normalized": "authority is separated",
+      "canonical_id": "ADR-004",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "como esta separada a autoridade",
+      "normalized": "como esta separada a autoridade",
+      "canonical_id": "ADR-004",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "quem governa os operadores",
+      "normalized": "quem governa os operadores",
+      "canonical_id": "ADR-004",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "who governs operators",
+      "normalized": "who governs operators",
+      "canonical_id": "ADR-004",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "governanca dos operadores",
+      "normalized": "governanca dos operadores",
+      "canonical_id": "ADR-004",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "governacao dos operadores",
+      "normalized": "governacao dos operadores",
+      "canonical_id": "ADR-004",
       "source": "concept",
       "classification": "ALIAS"
     },
@@ -6596,6 +6827,69 @@
       "classification": "ALIAS"
     },
     {
+      "alias": "quem admite um operador",
+      "normalized": "quem admite um operador",
+      "canonical_id": "ADR-006",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "quem admite operadores",
+      "normalized": "quem admite operadores",
+      "canonical_id": "ADR-006",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "who admits an operator",
+      "normalized": "who admits an operator",
+      "canonical_id": "ADR-006",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "who admits operators",
+      "normalized": "who admits operators",
+      "canonical_id": "ADR-006",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "admissao de um participante",
+      "normalized": "admissao de um participante",
+      "canonical_id": "ADR-006",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "admissao a um esquema",
+      "normalized": "admissao a um esquema",
+      "canonical_id": "ADR-006",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "admission to a scheme",
+      "normalized": "admission to a scheme",
+      "canonical_id": "ADR-006",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "quem decide quem pode operar",
+      "normalized": "quem decide quem pode operar",
+      "canonical_id": "ADR-006",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "who decides who may operate",
+      "normalized": "who decides who may operate",
+      "canonical_id": "ADR-006",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
       "alias": "operational scheme",
       "normalized": "operational scheme",
       "canonical_id": "ADR-006",
@@ -6627,6 +6921,55 @@
       "alias": "designated operator",
       "normalized": "designated operator",
       "canonical_id": "ADR-006",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "quem certifica uma implementacao",
+      "normalized": "quem certifica uma implementacao",
+      "canonical_id": "ADR-005",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "who certifies an implementation",
+      "normalized": "who certifies an implementation",
+      "canonical_id": "ADR-005",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "certificacao permite operar",
+      "normalized": "certificacao permite operar",
+      "canonical_id": "ADR-005",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "certification grants permission",
+      "normalized": "certification grants permission",
+      "canonical_id": "ADR-005",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "certificacao autoriza",
+      "normalized": "certificacao autoriza",
+      "canonical_id": "ADR-005",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "certification authorizes",
+      "normalized": "certification authorizes",
+      "canonical_id": "ADR-005",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "depois da certificacao",
+      "normalized": "depois da certificacao",
+      "canonical_id": "ADR-005",
       "source": "concept",
       "classification": "ALIAS"
     },
@@ -6676,6 +7019,97 @@
       "alias": "scheme admission",
       "normalized": "scheme admission",
       "canonical_id": "ADR-005",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "quem autoriza um operador",
+      "normalized": "quem autoriza um operador",
+      "canonical_id": "ADR-007",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "quem autoriza operadores",
+      "normalized": "quem autoriza operadores",
+      "canonical_id": "ADR-007",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "who authorizes an operator",
+      "normalized": "who authorizes an operator",
+      "canonical_id": "ADR-007",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "who authorises an operator",
+      "normalized": "who authorises an operator",
+      "canonical_id": "ADR-007",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "quem supervisiona um operador",
+      "normalized": "quem supervisiona um operador",
+      "canonical_id": "ADR-007",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "who supervises an operator",
+      "normalized": "who supervises an operator",
+      "canonical_id": "ADR-007",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "supervisiona legalmente",
+      "normalized": "supervisiona legalmente",
+      "canonical_id": "ADR-007",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "legally supervises",
+      "normalized": "legally supervises",
+      "canonical_id": "ADR-007",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "operar com dinheiro real",
+      "normalized": "operar com dinheiro real",
+      "canonical_id": "ADR-007",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "operate with real money",
+      "normalized": "operate with real money",
+      "canonical_id": "ADR-007",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "pode operar com dinheiro real",
+      "normalized": "pode operar com dinheiro real",
+      "canonical_id": "ADR-007",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "quem decide se um operador pode operar",
+      "normalized": "quem decide se um operador pode operar",
+      "canonical_id": "ADR-007",
+      "source": "concept",
+      "classification": "ALIAS"
+    },
+    {
+      "alias": "autoriza operar com dinheiro real",
+      "normalized": "autoriza operar com dinheiro real",
+      "canonical_id": "ADR-007",
       "source": "concept",
       "classification": "ALIAS"
     },
@@ -8014,7 +8448,7 @@
     "document_types": 12,
     "document_instances": 47,
     "artifact_types": 18,
-    "aliases": 248,
+    "aliases": 310,
     "relation_kinds": 11,
     "relation_aliases": 24,
     "relation_edges": 10,
@@ -8024,5 +8458,5 @@
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "058d1868c5c2bcc3"
+  "checksum": "2350241dfba42e8a"
 }
