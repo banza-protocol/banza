@@ -97,6 +97,26 @@ const CORE_PAGES = [
       /without intermediaries\b(?!.{0,40}not)/i,
     ],
   },
+  {
+    id: "TRUST",
+    pt: "/confianca",
+    en: "/en/trust",
+    enSource: "../app/en/trust/page.tsx",
+    ptSource: "../app/(pt)/confianca/page.tsx",
+    implemented: true,
+    enHeading: /Trust without asking anyone for permission/i,
+    mustSay: [
+      /no certificate authority/i,
+      /assertion about artifacts, never about a participant/i,
+      /Private keys never appear/i,
+      /closed by default/i,
+      /does not certify any operator/i,
+    ],
+    // "Permissionless" and a named threshold are both absent from the Portuguese page. The first is a term
+    // of art this page must not acquire; the second is accurate elsewhere but is not this page's claim, and
+    // translation preserves the scope of what is left unsaid as much as what is said.
+    mustNotSay: [/permissionless/i, /trustless/i, /fully decentrali[sz]ed/i, /global consensus/i, /2-of-3/i],
+  },
 ] as const;
 
 const IMPLEMENTED = CORE_PAGES.filter((p) => p.implemented);

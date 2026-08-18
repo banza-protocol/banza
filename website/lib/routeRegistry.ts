@@ -179,7 +179,14 @@ export const ROUTES: readonly RouteRecord[] = Object.freeze([
     aliasTarget: "/referencia/porque-existe",
   },
   { id: "TECHNICAL_REGISTRY", pt: "/registo-tecnico", kind: "STATIC_PAGE", policy: "BILINGUAL" },
-  { id: "TRUST", pt: "/confianca", kind: "STATIC_PAGE", policy: "BILINGUAL" },
+  {
+    id: "TRUST",
+    pt: "/confianca",
+    en: "/en/trust",
+    kind: "STATIC_PAGE",
+    policy: "BILINGUAL",
+    note: "English URL in English — never /en/confianca.",
+  },
   { id: "WHITEPAPER", pt: "/whitepaper", kind: "STATIC_PAGE", policy: "BILINGUAL" },
   {
     id: "WHITEPAPER_DOC_EN",
