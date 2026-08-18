@@ -26,7 +26,11 @@ const APP = join(ROOT, "website", "app");
 // fragment of the site, these numbers stop matching and the guard fails before it can report consistency.
 // Zero routes and zero errors is the shape of a guard that inspected nothing.
 const EXPECTED_PT = 31;
-const EXPECTED_EN = 1;
+// EN grows as Phase 2 lands translations, so a fixed count would have to be edited on every batch and
+// would eventually be edited to whatever discovery happened to return — self-validation by attrition.
+// A floor is independent of the registry and still kills the failures that matter: zero discovery, a
+// walker pointed at the wrong subtree, or the EN tree vanishing. The registry is compared separately.
+const MIN_EN = 1;
 
 function pageFiles(dir) {
   const out = [];
@@ -79,7 +83,7 @@ function main() {
 
   // ── Non-vacuity, before anything else can claim consistency ────────────────────────────────────
   if (pt.length !== EXPECTED_PT) problems.push(`VACUOUS_DISCOVERY: found ${pt.length} PT routes, expected ${EXPECTED_PT}`);
-  if (en.length !== EXPECTED_EN) problems.push(`VACUOUS_DISCOVERY: found ${en.length} EN routes, expected ${EXPECTED_EN}`);
+  if (en.length < MIN_EN) problems.push(`VACUOUS_DISCOVERY: found ${en.length} EN routes, expected at least ${MIN_EN}`);
 
   const byPt = new Map(reg.map((r) => [r.pt, r]));
   const byEn = new Map(reg.filter((r) => r.en).map((r) => [r.en, r]));
