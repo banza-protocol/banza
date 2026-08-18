@@ -841,12 +841,35 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
      * False when context was not used at all, when it resolved no record, and — the case that separates
      * this from the boolean it replaces — when the record it resolved carries no citable evidence.
      */
-    const priorEvidenceAvailable = () => {
-      const contextCarried = structuredContextUsed || Boolean(decision.context_used);
-      if (!contextCarried || !decision.entry_id) return false;
-      const target = getEntry(decision.entry_id);
-      return Boolean(target) && publicSourcesOnly(target.sources).length > 0;
+    /**
+     * The PRIOR evidence this conversation actually established — revalidated, never trusted.
+     *
+     * Deriving it from `decision.entry_id` was falsified: on a context-carrying turn that is the CURRENT
+     * turn's resolved target. After "Quem certifica uma implementação?", "mostra em JSON" resolves to
+     * `implementation-steps`, so availability reported THAT record's sources under a "previous" name.
+     *
+     * The identities now travel in the client-carried context, because the conversation is stateless across
+     * turns and nothing else can carry them. That makes them a HINT and not authority:
+     *
+     *   client supplies  prior target + prior source ids
+     *   server resolves  the canonical record for that target
+     *   server keeps     only ids that are genuinely that record's PUBLIC evidence
+     *
+     * Both halves matter. Checking that an id merely exists and is public would let a caller replay valid
+     * identities from one target into a follow-up about another; binding them to the prior target is what
+     * makes the pair coherent. Nothing here reads a client-supplied title, path, class or role — the
+     * registry owns those, so a browser cannot promote a file into a source card by naming it.
+     */
+    const validatedPriorEvidence = () => {
+      const targetId = String(priorContext.previous_semantic_target || "").trim();
+      const claimed = Array.isArray(priorContext.previous_source_ids) ? priorContext.previous_source_ids : [];
+      if (!targetId || claimed.length === 0) return [];
+      const target = getEntry(targetId);
+      if (!target) return [];
+      const legitimate = new Set(publicSourcesOnly(target.sources).map((x) => String(x.id)));
+      return claimed.map(String).filter((id) => legitimate.has(id));
     };
+    const priorEvidence = validatedPriorEvidence();
     const ctxMeta = {
       conversation_context_used: structuredContextUsed || Boolean(decision.context_used),
       context_turns_used: Math.max(Number(decision.turns_used) || 0, structuredContextUsed ? 1 : 0),
@@ -860,7 +883,9 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
       // leads to anything citable. So it is answered by resolving the prior target and asking whether its
       // record actually carries eligible public sources. A conversation whose previous turn established
       // nothing has no evidence available, however much history it has.
-      previous_sources_available: priorEvidenceAvailable(),
+      previous_sources_available: priorEvidence.length > 0,
+      // Internal: consumed and removed at the exit point, where the answer's own sources are known.
+      __prior_evidence_ids: priorEvidence,
       // The strict claim, stamped downstream once the answer's evidence is known: true only when prior
       // source identities actually participate in THIS answer. Declared false here so every path that
       // forgets to establish it reports the weaker, honest value.
@@ -2003,5 +2028,34 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     };
   }
 
-  return { answer, usage, defaultMode };
+  /**
+   * Stamp THIS turn's evidence identity into the context the client carries to the next turn.
+   *
+   * One place, after every path has produced its answer, because the forward context is built before the
+   * answer exists and there are too many exits to trust each of them to remember. `previous_sources_reused`
+   * is settled here too: it is an observation about the answer's own source set, so it cannot honestly be
+   * decided before that set exists. A path that claimed it earlier keeps its claim only if the identities
+   * are really there.
+   */
+  async function answerWithEvidenceContinuity(question, opts = {}) {
+    const out = await answer(question, opts);
+    const meta = out && out.meta ? out.meta : null;
+    if (!meta) return out;
+    const served = ((out.result || {}).sources || []).map((x) => String(x.id)).filter(Boolean);
+    const targetId = (out.result || {}).entry_id || "";
+    if (meta.conversation_context && typeof meta.conversation_context === "object") {
+      if (targetId) meta.conversation_context.previous_semantic_target = String(targetId);
+      meta.conversation_context.previous_source_ids = [...new Set(served)].slice(0, 24);
+    }
+    // Strict, and measured against what was actually served rather than asserted upstream.
+    const priorIds = new Set(
+      Array.isArray(meta.__prior_evidence_ids) ? meta.__prior_evidence_ids.map(String) : [],
+    );
+    if (priorIds.size === 0) meta.previous_sources_reused = false;
+    else meta.previous_sources_reused = served.some((id) => priorIds.has(id));
+    delete meta.__prior_evidence_ids;
+    return out;
+  }
+
+  return { answer: answerWithEvidenceContinuity, usage, defaultMode };
 }
