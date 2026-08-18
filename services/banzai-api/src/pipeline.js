@@ -830,17 +830,37 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // A SOURCE FOLLOW-UP: this turn asks for the evidence behind the previous answer. Rust decided it
     // (`frame::Merge::SourceFollowup`); the target is the previous turn's, and the operation is this turn's.
     const isSourceFollowup = decision.merge_kind === "SOURCE_FOLLOWUP";
+    /**
+     * Does the structured conversation context lead to a NON-EMPTY set of eligible public sources?
+     *
+     * The forwarded context carries technical ids, not a source list, so availability cannot be read off
+     * it directly. It is derived the same way the source-followup terminal derives what it serves: the
+     * prior target that context resolved, and that record's own public evidence. One derivation, so the
+     * flag and the answer can never disagree about what was available.
+     *
+     * False when context was not used at all, when it resolved no record, and — the case that separates
+     * this from the boolean it replaces — when the record it resolved carries no citable evidence.
+     */
+    const priorEvidenceAvailable = () => {
+      const contextCarried = structuredContextUsed || Boolean(decision.context_used);
+      if (!contextCarried || !decision.entry_id) return false;
+      const target = getEntry(decision.entry_id);
+      return Boolean(target) && publicSourcesOnly(target.sources).length > 0;
+    };
     const ctxMeta = {
       conversation_context_used: structuredContextUsed || Boolean(decision.context_used),
       context_turns_used: Math.max(Number(decision.turns_used) || 0, structuredContextUsed ? 1 : 0),
-      // `previous_sources_reused` USED TO MEAN THIS, and it was misleading: "context was used somewhere"
-      // is not reuse of evidence. It read `true` for a turn whose previous answer carried no sources at
-      // all, and for "mostra em JSON" whose own answer cites none — so a test could never assert WHICH
-      // sources were reused, because the field did not claim that. It is renamed to what it measured.
+      // `previous_sources_reused` used to mean "context was used somewhere", which is not reuse of
+      // evidence: it read `true` for a turn whose previous answer carried no sources at all. Nothing
+      // outside this service consumed it (audited: only server.js echoed it), so the pair is corrected
+      // rather than preserved with a wrong meaning.
       //
-      // Nothing outside this service consumed the old field (audited: only server.js echoed it), so the
-      // name is corrected rather than preserved with a wrong meaning.
-      previous_sources_available: structuredContextUsed || Boolean(decision.context_used),
+      // AVAILABLE is about EVIDENCE, not about context. Renaming the loose boolean would have been the
+      // same defect with a better name — "there is prior context" says nothing about whether that context
+      // leads to anything citable. So it is answered by resolving the prior target and asking whether its
+      // record actually carries eligible public sources. A conversation whose previous turn established
+      // nothing has no evidence available, however much history it has.
+      previous_sources_available: priorEvidenceAvailable(),
       // The strict claim, stamped downstream once the answer's evidence is known: true only when prior
       // source identities actually participate in THIS answer. Declared false here so every path that
       // forgets to establish it reports the weaker, honest value.

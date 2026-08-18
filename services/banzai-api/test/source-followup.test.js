@@ -162,6 +162,74 @@ test("a settled record stripped of its public evidence declines instead of inven
 
 // ── available vs reused: two different claims ─────────────────────────────────────────────────────
 
+// ── The four-state truth table for the two flags ──────────────────────────────────────────────────
+//
+//   A  no prior source set                      available=false  reused=false
+//   B  prior set exists, this turn does not use it   available=true   reused=false
+//   C  source follow-up uses prior evidence      available=true   reused=true
+//   D  context exists, prior turn had zero sources   available=false  reused=false
+//
+// D is the one that matters. `available` was computed from context presence, so it reported `true`
+// whenever a conversation had history — which is what the old single boolean already did, under a better
+// name. Renaming a loose measurement is not tightening it.
+
+test("state A — no prior source set at all", async () => {
+  const { turns } = await conversation([SOURCES_PT]);
+  assert.equal(turns[0].previousSourcesAvailable, false, "no prior turn, no prior evidence");
+  assert.equal(turns[0].previousSourcesReused, false);
+});
+
+test("state B — prior evidence exists and this turn does not reuse it", async () => {
+  const { turns } = await conversation(["Quem certifica uma implementação?", "mostra em JSON"]);
+  assert.ok(turns[0].sources.length > 0, "the prior turn really did carry evidence");
+  assert.equal(turns[1].previousSourcesAvailable, true, "it is available to this turn");
+  assert.equal(turns[1].previousSourcesReused, false, "but a re-render does not reuse those identities");
+});
+
+test("state C — a source follow-up uses prior evidence", async () => {
+  const { turns } = await conversation(["quem controla os operadores ?", SOURCES_PT]);
+  assert.equal(turns[1].previousSourcesAvailable, true);
+  assert.equal(turns[1].previousSourcesReused, true);
+  // reused ⇒ available. The converse does not hold, which is what state B shows.
+  assert.ok(
+    !turns[1].previousSourcesReused || turns[1].previousSourcesAvailable,
+    "reused must imply available",
+  );
+});
+
+test("state D — the general case is NOT yet sound, and this records why", async () => {
+  // §6 asked for: context present, prior turn had zero sources ⇒ available=false. It is NOT closed for the
+  // general case, and the honest thing is to say so rather than ship a test that passes vacuously.
+  //
+  // Measured: `previous_sources_available` is derived from `decision.entry_id`, which on a context-carrying
+  // turn is the CURRENT turn's resolved target — not the previous one. After "Quem certifica uma
+  // implementação?", "mostra em JSON" resolves to `implementation-steps`, a different record with its own
+  // sources. So availability reports THAT record's evidence under a "previous" name. Tightening from
+  // "context exists" to "the resolved target has evidence" removed one wrong meaning and introduced
+  // another on paths where the two targets differ.
+  //
+  // On the SOURCE_FOLLOWUP path they coincide by construction — the resolved query IS the prior question —
+  // so the flag is sound exactly where it is load-bearing, and that is what states B and C assert.
+  //
+  // Closing the general case needs the prior source ids carried in the forwarded conversation_context, so
+  // availability is measured from actual prior evidence instead of re-resolved from a query. That is a
+  // change to the client-carried context contract and is deliberately not made here.
+  //
+  // This test pins the sound half so the unsound half cannot be mistaken for working.
+  const live = ENTRIES.find((e) => e.id === "def-certification-actor");
+  const saved = live.sources;
+  try {
+    live.sources = [];
+    const { turns } = await conversation(["Quem certifica uma implementação?", "Que fontes suportam isto?"]);
+    assert.equal(turns[0].sources.length, 0, "the prior turn carries no evidence");
+    assert.equal(turns[1].previousSourcesAvailable, false, "on the follow-up path this IS correct");
+    assert.equal(turns[1].previousSourcesReused, false);
+    assert.notEqual(turns[1].terminal, "source_evidence", "and nothing is served");
+  } finally {
+    live.sources = saved;
+  }
+});
+
 test("available and reused mean different things, and both are earned", async () => {
   // The old single field said "context was used somewhere", which is not reuse. This is the pair that
   // permanently separates them: a format request has prior evidence AVAILABLE and reuses none of it.

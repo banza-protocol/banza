@@ -54,6 +54,7 @@ export async function conversation(questions, { provider = null, prose = "As fon
       contextUsed: meta.conversation_context_used === true,
       contextTurns: meta.context_turns_used ?? 0,
       contextUsedFor: meta.context_used_for ?? null,
+      previousSourcesAvailable: meta.previous_sources_available === true,
       previousSourcesReused: meta.previous_sources_reused === true,
       referenceState: meta.reference_resolution_state ?? null,
       referenceTurnType: meta.reference_turn_type ?? null,
