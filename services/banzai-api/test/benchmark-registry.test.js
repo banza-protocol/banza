@@ -104,27 +104,39 @@ test("a critical case expects support; a negative control expects none", () => {
   }
 });
 
-test("record-level precision is measured, not assumed", () => {
-  // Not every critical case pins the record it must reach; most pin only the policy and the terminal
-  // class. That is a real precision limit, so it is a number this suite reports rather than something a
-  // reader has to discover. The floor stops it eroding silently: cases may gain records, never lose them
-  // wholesale.
+test("every critical case names the semantic target it must reach", () => {
+  // Policy plus terminal class is NOT enough for a critical case: "deterministic + settled" is equally true
+  // of the right fact and of a confidently wrong one, so a case protected only by those two cannot detect
+  // the failure that matters most. 39 of 66 were in that state; each was measured against the real
+  // pipeline, found to resolve to one determinate and semantically correct record, and pinned to it.
+  //
+  // They were classified before being pinned. None turned out to be entry-agnostic by design and none
+  // needed a multi-record equivalence class — every case maps to exactly one record, and the several
+  // records per domain belong to different questions rather than to alternatives for one.
   const critical = cases.filter((c) => c.policy === "deterministic_critical");
-  const pinned = critical.filter((c) => String(c.entry || "").trim());
-  assert.ok(
-    pinned.length >= 27,
-    `record-level precision fell to ${pinned.length}/${critical.length} critical cases`,
+  const unprotected = critical.filter((c) => !String(c.entry || "").trim());
+  assert.deepEqual(
+    unprotected.map((c) => c.id),
+    [],
+    "a critical case with no semantic expectation cannot fail for the right reason",
   );
 });
 
 test("every expected record exists in the corpus", () => {
   // A case pointing at a record that no longer exists cannot fail for the right reason — it fails for a
   // missing fixture, which reads like a real regression and is not one.
+  // Two records are answered by the ATTRIBUTE path rather than from the entry corpus — the current
+  // protocol version is an exact fact, not a definition — so they are `attr-` ids and legitimately absent
+  // from ENTRIES. Recognising that here keeps the closed-world check honest instead of forcing those two
+  // cases to carry no expectation at all.
   const ids = new Set(ENTRIES.map((e) => e.id));
   for (const c of cases) {
     if (!c.entry) continue;
+    if (c.entry.startsWith("attr-")) continue;
     assert.ok(ids.has(c.entry), `${c.id}: expected record ${c.entry} is not in the corpus`);
   }
+  const attrBacked = cases.filter((c) => String(c.entry || "").startsWith("attr-"));
+  assert.equal(attrBacked.length, 2, "the attribute-backed exception must stay small and known");
 });
 
 // ── Declared → executed ───────────────────────────────────────────────────────────────────────────

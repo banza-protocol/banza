@@ -107,7 +107,15 @@ for (const c of bench.cases) {
 }
 const divergences = pairs.filter((p) => !p.ok);
 
-const mode = process.argv.includes("--check") ? "check" : "matrix";
+// The DEFAULT gates. It used to be the other way round: `matrix` was the default and its reporting path
+// ended in an unconditional process.exit(0), so every plain invocation printed real measurements — 66/66,
+// zero model dependency — and then exited 0 whatever those measurements said. The whole milestone quoted
+// that as a passing benchmark. It was a true measurement and a broken gate.
+//
+// Fixing the one caller was not enough: a checker that only enforces when the caller remembers a flag will
+// be called without it again. Enforcement is now what you get by default, and looking at the matrix without
+// judging it is the thing you have to ask for.
+const mode = process.argv.includes("--matrix") || process.argv.includes("--report") ? "matrix" : "check";
 
 const report = () => {
   const n = (g) => `${g.filter((x) => x.pass).length}/${g.length}`;
@@ -150,7 +158,19 @@ if (mode === "matrix") {
   process.exit(0);
 }
 
+// CLOSED WORLD, in both directions. Everything registered must have executed, and everything executed must
+// be registered. Measured: silently dropping one case from the execution loop left this evaluator green and
+// the registry validation green — the denominator shrank from 66 to 65 and the run still reported success,
+// because the count was printed and never asserted. A benchmark that cannot notice a missing case can be
+// emptied one case at a time without ever going red.
+const registeredIds = bench.cases.map((c) => c.id);
+const executedIds = rows.map((x) => x.id);
+const notExecuted = registeredIds.filter((id) => !executedIds.includes(id));
+const notRegistered = executedIds.filter((id) => !registeredIds.includes(id));
+
 const problems = [];
+if (notExecuted.length) problems.push(`${notExecuted.length} registered case(s) never executed: ${notExecuted.join(", ")}`);
+if (notRegistered.length) problems.push(`${notRegistered.length} executed result(s) map to no registered case: ${notRegistered.join(", ")}`);
 if (failing.length) problems.push(`${failing.length} case(s) did not produce their expected semantic outcome`);
 if (modelDependent.length) problems.push(`${modelDependent.length} deterministic-critical case(s) called a model`);
 if (refusedFacts.length) problems.push(`${refusedFacts.length} published fact(s) were REFUSED — declining to state a published fact is not safety`);
@@ -160,7 +180,7 @@ if (divergences.length) problems.push(`${divergences.length} PT/EN pair(s) diver
 if (wrongEntry.length) problems.push(`${wrongEntry.length} case(s) reached an entry other than the registered one`);
 
 console.log(`== banzai-critical-coverage ==`);
-console.log(`  cases: ${rows.length}`);
+console.log(`  cases: ${rows.length} executed / ${registeredIds.length} registered`);
 report();
 if (!problems.length) {
   console.log(`  ok: every case produced its expected semantic outcome`);

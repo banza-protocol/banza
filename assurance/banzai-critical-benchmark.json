@@ -78,7 +78,8 @@
       "pair": "identity.blockchain.en",
       "query": "O BANZA é uma blockchain?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-local-execution"
     },
     {
       "id": "identity.blockchain.en",
@@ -87,7 +88,8 @@
       "pair": "identity.blockchain.pt",
       "query": "Is BANZA a blockchain?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-local-execution"
     },
     {
       "id": "opimpl.operator.pt",
@@ -116,7 +118,8 @@
       "pair": "opimpl.implementation.en",
       "query": "O que é uma implementação?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-implementation"
     },
     {
       "id": "opimpl.implementation.en",
@@ -125,7 +128,8 @@
       "pair": "opimpl.implementation.pt",
       "query": "What is an implementation?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-implementation"
     },
     {
       "id": "opimpl.same.pt",
@@ -134,7 +138,8 @@
       "pair": "opimpl.same.en",
       "query": "Um operador e uma implementação são a mesma coisa?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-operator-vs-implementation"
     },
     {
       "id": "opimpl.same.en",
@@ -143,7 +148,8 @@
       "pair": "opimpl.same.pt",
       "query": "Are an operator and an implementation the same thing?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-operator-vs-implementation"
     },
     {
       "id": "layers.three.pt",
@@ -201,7 +207,8 @@
       "pair": "profiles.list.en",
       "query": "Quais são os perfis do BANZA?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-profiles"
     },
     {
       "id": "profiles.list.en",
@@ -210,7 +217,8 @@
       "pair": "profiles.list.pt",
       "query": "What are the BANZA profiles?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-profiles"
     },
     {
       "id": "profiles.l4.pt",
@@ -219,7 +227,8 @@
       "pair": "profiles.l4.en",
       "query": "O que é o L4?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-profile-l4"
     },
     {
       "id": "profiles.l4.en",
@@ -228,7 +237,8 @@
       "pair": "profiles.l4.pt",
       "query": "What is L4?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-profile-l4"
     },
     {
       "id": "l0.what.pt",
@@ -237,7 +247,8 @@
       "pair": "l0.what.en",
       "query": "O que é L0?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-profile-l0"
     },
     {
       "id": "l0.what.en",
@@ -246,7 +257,8 @@
       "pair": "l0.what.pt",
       "query": "What is L0?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-profile-l0"
     },
     {
       "id": "l0.production.pt",
@@ -255,7 +267,8 @@
       "pair": "l0.production.en",
       "query": "O L0 autoriza produção?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-l0-regulatory-boundary"
     },
     {
       "id": "l0.production.en",
@@ -264,7 +277,8 @@
       "pair": "l0.production.pt",
       "query": "Does L0 authorize production?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-l0-regulatory-boundary"
     },
     {
       "id": "l0.realmoney.pt",
@@ -273,7 +287,8 @@
       "pair": "l0.realmoney.en",
       "query": "Passar L0 permite operar com dinheiro real?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-l0-regulatory-boundary"
     },
     {
       "id": "l0.realmoney.en",
@@ -282,7 +297,8 @@
       "pair": "l0.realmoney.pt",
       "query": "Does passing L0 authorize real-money operation?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-l0-regulatory-boundary"
     },
     {
       "id": "l0.regsandbox.pt",
@@ -291,7 +307,8 @@
       "pair": "l0.regsandbox.en",
       "query": "O L0 é uma sandbox regulatória?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-sandbox"
     },
     {
       "id": "l0.regsandbox.en",
@@ -300,7 +317,8 @@
       "pair": "l0.regsandbox.pt",
       "query": "Is L0 a regulatory sandbox?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-sandbox"
     },
     {
       "id": "authority.controls.pt",
@@ -389,7 +407,8 @@
       "pair": "authority.certifies.en",
       "query": "Quem certifica uma implementação?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-certification-actor"
     },
     {
       "id": "authority.certifies.en",
@@ -398,7 +417,8 @@
       "pair": "authority.certifies.pt",
       "query": "Who certifies an implementation?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-certification-actor"
     },
     {
       "id": "authority.supervises.pt",
@@ -407,7 +427,8 @@
       "pair": "authority.supervises.en",
       "query": "Quem supervisiona legalmente um operador?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-operator-governance-authority"
     },
     {
       "id": "authority.supervises.en",
@@ -416,7 +437,8 @@
       "pair": "authority.supervises.pt",
       "query": "Who legally supervises an operator?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-operator-governance-authority"
     },
     {
       "id": "root.controls.pt",
@@ -425,7 +447,8 @@
       "pair": "root.controls.en",
       "query": "Quem controla a Root?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-root-authorization"
     },
     {
       "id": "root.controls.en",
@@ -434,7 +457,8 @@
       "pair": "root.controls.pt",
       "query": "Who controls the Root?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-root-authorization"
     },
     {
       "id": "root.count.pt",
@@ -481,7 +505,8 @@
       "pair": "protogov.who.en",
       "query": "Quem governa o protocolo?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-governance"
     },
     {
       "id": "protogov.who.en",
@@ -490,7 +515,8 @@
       "pair": "protogov.who.pt",
       "query": "Who governs the protocol?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-governance"
     },
     {
       "id": "protogov.authorizes.pt",
@@ -499,7 +525,8 @@
       "pair": "protogov.authorizes.en",
       "query": "A governança do protocolo autoriza operadores?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-governance"
     },
     {
       "id": "protogov.authorizes.en",
@@ -508,7 +535,8 @@
       "pair": "protogov.authorizes.pt",
       "query": "Does protocol governance authorize operators?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-governance"
     },
     {
       "id": "banzai.what.pt",
@@ -536,7 +564,8 @@
       "domain": "banzai_role",
       "query": "O BanzAI decide conformidade?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "refused_safe"
+      "expected_terminal_class": "refused_safe",
+      "entry": "banzai-cannot-certify"
     },
     {
       "id": "banzai.authorizes.pt",
@@ -544,7 +573,8 @@
       "domain": "banzai_role",
       "query": "O BanzAI pode autorizar operadores?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "refused_safe"
+      "expected_terminal_class": "refused_safe",
+      "entry": "banzai-cannot-certify"
     },
     {
       "id": "banzai.mandatory.en",
@@ -552,7 +582,8 @@
       "domain": "banzai_role",
       "query": "Is BanzAI mandatory for machine-to-machine BANZA operation?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "refused_safe"
+      "expected_terminal_class": "refused_safe",
+      "entry": "banzai-not-mandatory"
     },
     {
       "id": "lifecycle.version.pt",
@@ -561,7 +592,8 @@
       "pair": "lifecycle.version.en",
       "query": "Qual é a versão actual do BANZA?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "attr-banza-version"
     },
     {
       "id": "lifecycle.version.en",
@@ -570,7 +602,8 @@
       "pair": "lifecycle.version.pt",
       "query": "What is the current BANZA version?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "attr-banza-version"
     },
     {
       "id": "lifecycle.production.pt",
@@ -579,7 +612,8 @@
       "pair": "lifecycle.production.en",
       "query": "O BANZA está em produção?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-lifecycle-status"
     },
     {
       "id": "lifecycle.production.en",
@@ -588,7 +622,8 @@
       "pair": "lifecycle.production.pt",
       "query": "Is BANZA in production?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-lifecycle-status"
     },
     {
       "id": "lifecycle.frozen.pt",
@@ -597,7 +632,8 @@
       "pair": "lifecycle.frozen.en",
       "query": "O protocolo já foi congelado?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-lifecycle-protocol-freeze"
     },
     {
       "id": "lifecycle.frozen.en",
@@ -606,7 +642,8 @@
       "pair": "lifecycle.frozen.pt",
       "query": "Has the protocol been frozen?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-lifecycle-protocol-freeze"
     },
     {
       "id": "lifecycle.independent.pt",
@@ -615,7 +652,8 @@
       "pair": "lifecycle.independent.en",
       "query": "Já existe uma implementação independente demonstrada?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-lifecycle-independent-implementation"
     },
     {
       "id": "lifecycle.independent.en",
@@ -624,7 +662,8 @@
       "pair": "lifecycle.independent.pt",
       "query": "Has BANZA been independently implemented?",
       "policy": "deterministic_critical",
-      "expected_terminal_class": "settled"
+      "expected_terminal_class": "settled",
+      "entry": "def-lifecycle-independent-implementation"
     },
     {
       "id": "negative.jet-engine.pt",
