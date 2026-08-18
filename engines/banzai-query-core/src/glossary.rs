@@ -854,6 +854,21 @@ pub fn definitional_record_of(subject: &str) -> Option<&'static str> {
         .map(|(id, _)| *id)
 }
 
+/// Does `token` name the same concept as `concept`, allowing for the forms a sentence actually uses?
+///
+/// The frame hands over whatever the speaker wrote — "implementacoes", "empresas", "root" — and a rule
+/// keyed on a canonical concept has to recognise the plural and the article-stripped forms without
+/// becoming a fuzzy matcher. Equality first, then a plural/singular fold, and nothing else: this decides
+/// whether a prohibited relation fires, so it errs toward not firing.
+pub fn names_the_same_concept(token: &str, concept: &str) -> bool {
+    let t = crate::normalize(token);
+    if t == concept {
+        return true;
+    }
+    let stem = t.strip_suffix('s').unwrap_or(&t);
+    stem == concept
+}
+
 /// Is this record about CERTIFICATION — the thing a follow-up can ask further decisions about?
 ///
 /// The referent test for the certification sequence. It is deliberately a question about the RECORD the

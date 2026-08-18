@@ -4771,6 +4771,73 @@ fn action_boundary(nq: &str) -> Option<&'static str> {
 
 /// Tier 1 — critical-boundary intent → a deterministic, vetted answer. Each arm returns the canonical
 /// entry id whose answer states the boundary precisely. These are the ONLY intents that skip the model.
+/// Relations the protocol forbids, and the record that corrects each.
+///
+/// Keyed on the STRUCTURED FRAME — a subject the engine resolves plus the action dimension the turn states
+/// — rather than on sentences. That is what makes it generalise: "Porque é que BANZA certifica empresas?",
+/// "A BANZA certifica operadores?" and "BANZA certifies companies" are one relation asked three ways, and
+/// a table of sentences would have to grow for each.
+///
+/// Every correction is an EXISTING record. Nothing here invents a certifier, and nothing here is a refusal:
+/// the answer states the boundary the premise gets wrong, which is a different and more useful thing than
+/// declining to answer.
+const PROHIBITED_RELATIONS: &[(&[&str], &str, &str)] = &[
+    // BANZA defines the certification function and designates no universal certifying organization; and
+    // certifying evaluates a determined implementation identified by its artifact, never a company.
+    (&["banza"], "certifica", "def-certification-actor"),
+    // The Root's role is cryptographic. It is not the certification actor.
+    (&["root", "raiz"], "certifica", "def-certification-actor"),
+    // Certification confers neither operational admission (ADR-006) nor regulatory authorization
+    // (ADR-007). The record names both, separately, which is why one record answers the generic
+    // "authorises operation" premise without collapsing the two decisions.
+    (
+        &["certificacao", "certification"],
+        "autoriza",
+        "def-certification-actor",
+    ),
+];
+
+/// The record that corrects a prohibited relation this turn states, if it states one.
+///
+/// This runs before generic synthesis can accept the premise. It is deliberately NOT a general
+/// presupposition engine: the scope is relations BANZA already owns a corrective fact for, and a relation
+/// with no such fact is left exactly as it was.
+fn prohibited_relation_entry(nq: &str) -> Option<&'static str> {
+    let f = crate::frame::frame_of(nq);
+    if f.action.is_empty() {
+        return None;
+    }
+    // The action is stated in either language; the table is keyed on one of them.
+    let action = crate::frame::action_pt(&f.action)?;
+    // WHO is said to perform it? An interrogative directly before the verb means the turn ASKS for the
+    // actor and asserts nothing — "quem certifica operadores?" is a question, and answering it as a
+    // corrected premise would be answering something nobody said. Measured: without this,
+    // "quem criou o BANZA e quem certifica operadores?" stopped reaching the protocol-origin record,
+    // because BANZA appeared in the sentence as the object of "criou" and the rule took it for the actor.
+    let tokens: Vec<&str> = nq.split_whitespace().collect();
+    let at = tokens.iter().position(|t| {
+        crate::frame::action_pt(t.trim_matches(|c: char| !c.is_alphanumeric())).as_deref()
+            == Some(&action)
+    })?;
+    if at > 0 && crate::frame::is_interrogative_token(tokens[at - 1]) {
+        return None;
+    }
+    let before = &tokens[..at];
+    PROHIBITED_RELATIONS
+        .iter()
+        .find(|(subjects, act, _)| {
+            *act == action
+                // ...and the subject must stand BEFORE the verb, where an actor stands.
+                && before.iter().any(|tok| {
+                    let t = tok.trim_matches(|c: char| !c.is_alphanumeric());
+                    subjects
+                        .iter()
+                        .any(|s| crate::glossary::names_the_same_concept(t, s))
+                })
+        })
+        .map(|(_, _, record)| *record)
+}
+
 fn critical_entry(nq: &str) -> Option<&'static str> {
     // An identifier shaped like a profile that the normative registry does not register resolves NOTHING,
     // and it must be decided here — before any keyword, glossary or retrieval arm can find something that
@@ -4783,6 +4850,11 @@ fn critical_entry(nq: &str) -> Option<&'static str> {
     // `insufficient`. A safety refusal would be a different and untrue statement about why.
     if crate::canonical_profiles::unregistered_profile_token(nq).is_some() {
         return None;
+    }
+    // A premise that asserts a relation the protocol forbids is corrected by the record that owns the
+    // boundary, before anything downstream can find sources that appear to support it.
+    if let Some(record) = prohibited_relation_entry(nq) {
+        return Some(record);
     }
     // Final transversal sweep — trust Model A (ADR-025). "Quem assina a Protocol Metadata?" must never
     // fall through to synthesis: the pinned doc-index still carries the pre-ADR-025 ceremony-schema

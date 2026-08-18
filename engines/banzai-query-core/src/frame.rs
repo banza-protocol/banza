@@ -112,11 +112,37 @@ const ACTION: &[(&str, &str)] = &[
     ("admissao", "admission"),
     ("autorizacao", "authorization"),
     ("autorizacao", "authorisation"),
+    // "authorize" was missing beside "authorizes" and "authorise", so the English half of the
+    // certification/authorization premise carried no action at all while the Portuguese did. Half a pair
+    // is exactly the failure the interrogative table has a parity test for.
+    ("autoriza", "authorize"),
     // Deliberately NOT "certificacao"/"certification". It was added here speculatively and nothing needed
     // it: certification is the REFERENT of this sequence, not a decision asked about it, and classifying it
     // as an action moved "O que é a certification?" out of the subject slot and changed an unrelated
     // fixture. A dimension earns a place here by being asked as a question, not by being nearby.
 ];
+
+/// Is this token an interrogative? Exposed because "who does X" and "X does" differ by exactly this.
+pub fn is_interrogative_token(tok: &str) -> bool {
+    is_interrogative(tok.trim_matches(|c: char| !c.is_alphanumeric()))
+}
+
+/// The Portuguese key of an action stated in either language.
+///
+/// ACTION is already a PT↔EN paired table, so canonicalising through it means a rule written once holds
+/// for both languages — and a pair that is only half-present shows up as a missing action rather than as a
+/// silently English-only behaviour.
+pub fn action_pt(action: &str) -> Option<String> {
+    let pt = ACTION
+        .iter()
+        .find(|(pt, en)| *pt == action || *en == action)
+        .map(|(pt, _)| *pt)?;
+    // The table pairs each dimension twice — ("certifica", "certifies") and ("certificam", "certify") —
+    // so the English singular maps to the Portuguese PLURAL. A rule keyed on one spelling would hold in one
+    // language and silently not in the other, which is exactly what happened. Folding the third-person
+    // plural marker makes both halves land on one key.
+    Some(pt.strip_suffix('m').unwrap_or(pt).to_string())
+}
 
 fn is_referential(tok: &str) -> bool {
     REFERENTIAL.contains(&tok)
