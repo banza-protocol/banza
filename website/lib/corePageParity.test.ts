@@ -240,6 +240,13 @@ const CORE_PAGES = [
       /independent implementation .{0,20}(demonstrated|proven)(?!.{0,20}not)/i,
       /regulatory (approval|authorisation) (granted|obtained)/i,
       /certified operators?\b/i,
+      // The reference implementation implements BANZA; it does not define it. Found by mutation D3:
+      // the page named Operator Zero as the canonical reference and nothing stopped that being
+      // rewritten into authorship of the protocol.
+      /Operator Zero defines/i,
+      /normative definition of BANZA/i,
+      /reference implementation is the (normative|canonical) (definition|specification)/i,
+      /Operator Zero .{0,40}(certification authority|root authority|defines the protocol)/i,
     ],
   },
   {
@@ -327,7 +334,10 @@ const CORE_PAGES = [
       /leaderless/i,
       /no authority/i,
       /without governance/i,
-      /BANZA governance (controls|operates|runs) (operators|participants|schemes)/i,
+      // Deliberately tolerant of words between the verb and its object. Mutation D5 wrote "controls
+      // participating operators" and the tighter form missed it entirely.
+      /governance\s+(controls|operates|runs|directs)\b[^.]{0,60}(operators|participants|schemes)/i,
+      /BANZA\s+(controls|operates|runs|directs)\b[^.]{0,60}(operators|participants)/i,
       /governance grants (admission|authorisation)/i,
       /BANZA CA\b/i,
       /certificate authority/i,
