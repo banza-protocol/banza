@@ -21,6 +21,7 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { conversation } from "./_two-turn.mjs";
 import { harness } from "./_pipeline-harness.mjs";
 import { canaryProvider } from "./_production-canary.mjs";
@@ -377,4 +378,68 @@ test("history alone cannot prove prior evidence — the intentional negative", a
   assert.equal(r.meta.previous_sources_reused, false);
   assert.equal(((r.result || {}).sources || []).length, 0, "no fabricated source list");
   assert.equal(c.calls(), 0, "and no model is asked to supply one");
+});
+
+// ── The client carries identities; the server decides authority ───────────────────────────────────
+//
+// The prior-evidence context crosses a client-controlled boundary, so every id arriving on it is a HINT.
+// The server resolves the prior record and keeps only ids that are genuinely that record's public evidence,
+// bound to that target — otherwise valid identities could be replayed from one target into a follow-up
+// about another. Both columns are asserted: a matrix that only checked `reused` would pass while
+// `available` lied, which is exactly what happened before the terminal stopped writing it.
+
+async function withPriorContext(patch) {
+  const c = canaryProvider("x");
+  const h = harness({ provider: c.provider });
+  const q1 = "Quem certifica uma implementação?";
+  const t1 = await h.pipeline.answer(q1, {});
+  const ctx = { ...t1.meta.conversation_context, ...patch };
+  const r = await h.pipeline.answer("Que fontes suportam isto?", { contextQuestions: [q1], conversationContext: ctx });
+  return {
+    available: r.meta.previous_sources_available === true,
+    reused: r.meta.previous_sources_reused === true,
+    terminal: r.meta.terminal_kind,
+    sources: ((r.result || {}).sources || []).map((s) => s.id),
+    calls: c.calls(),
+  };
+}
+
+test("tamper matrix — honest context is the only one that reuses evidence", async () => {
+  const honest = await withPriorContext({});
+  assert.equal(honest.available, true, "honest: available");
+  assert.equal(honest.reused, true, "honest: reused");
+  assert.equal(honest.terminal, "source_evidence");
+  assert.equal(honest.calls, 0);
+
+  const TAMPERS = [
+    ["foreign but legitimate public source", { previous_source_ids: ["ADR-036"] }],
+    ["unknown source id", { previous_source_ids: ["NO-SUCH-SOURCE-9"] }],
+    ["internal-only source id", { previous_source_ids: ["CLAUDE.md"] }],
+    ["mismatched prior target", { previous_semantic_target: "def-root-authorization" }],
+  ];
+  for (const [label, patch] of TAMPERS) {
+    const r = await withPriorContext(patch);
+    assert.equal(r.available, false, `${label}: must not be reported available`);
+    assert.equal(r.reused, false, `${label}: must not be reported reused`);
+    assert.notEqual(r.terminal, "source_evidence", `${label}: must not serve a source list`);
+    assert.equal(r.sources.length, 0, `${label}: no sources may be served`);
+    assert.equal(r.calls, 0, `${label}: and no model is asked to supply any`);
+  }
+});
+
+test("no terminal writes the prior-evidence flags", async () => {
+  // Mutation H — forcing `previous_sources_available: true` inside the source_evidence terminal — cannot be
+  // killed behaviourally any more, and that is a property of the fix rather than a gap: the terminal is only
+  // reachable when the validated prior evidence set is non-empty, which is exactly when availability is
+  // already true. The override has become unobservable.
+  //
+  // Unobservable is not harmless, though: reinstating it restores the trap that produced two false-green
+  // tests in this milestone, and any change to the terminal's reachability would make it observable again.
+  // So the class is closed structurally — each flag may be written in exactly one place, and a terminal
+  // asserting either of them fails here.
+  const src = readFileSync(new URL("../src/pipeline.js", import.meta.url), "utf8");
+  const writes = (re) => (src.match(re) || []).length;
+  assert.equal(writes(/previous_sources_available:/g), 1, "available has exactly one owner");
+  assert.equal(writes(/previous_sources_reused:/g), 1, "reused is declared once, settled at the exit point");
+  assert.match(src, /previous_sources_available: incomingPriorEvidence\.length > 0,/, "and its owner is revalidation");
 });
