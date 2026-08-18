@@ -4795,7 +4795,25 @@ const PROHIBITED_RELATIONS: &[(&[&str], &str, &str)] = &[
         "autoriza",
         "def-certification-actor",
     ),
+    // BanzAI is the human-operator interface to BANZA: non-authoritative, and never a certifier. The
+    // registry held this claim's correction as a routable entry but not as a REGISTERED RELATION, and the
+    // two are not the same thing — a relation is what makes the correction derivable, and derivability is
+    // what makes it settle. It is listed in the prohibited-claims sweep, so the omission here was an
+    // incompleteness in the registry rather than a decision.
+    (&["banzai"], "certifica", "banzai-cannot-certify"),
 ];
+
+/// Does this record exist to CORRECT a relation the protocol prohibits?
+///
+/// Derived from `PROHIBITED_RELATIONS` rather than listed, so a relation added there settles by
+/// construction. A hand-kept second list would be a place for the two to disagree, and the disagreement
+/// would be silent: the relation would still be detected, the correction would still be found, and the
+/// model would still be asked to restate it.
+fn corrects_a_prohibited_relation(entry_id: &str) -> bool {
+    PROHIBITED_RELATIONS
+        .iter()
+        .any(|(_, _, record)| *record == entry_id)
+}
 
 /// The record that corrects a prohibited relation this turn states, if it states one.
 ///
@@ -7595,6 +7613,23 @@ pub fn route_with_journey_json(question: &str, journey_step: &str) -> String {
 /// evidence* in the other — the engine claiming to have nothing to say about a record it holds. The
 /// language a reader asks in is not a reason to lose a protocol boundary, and a model is not the right
 /// author of one.
+/// A CRITICAL FALSE-PREMISE CORRECTION belongs here for the same reason, and its absence was measured in
+/// production rather than reasoned about. "Porque é que BANZA certifica empresas?" routes deterministically
+/// to `def-certification-actor` — the router gets the semantics right — but the question carries an
+/// explanatory cue, so it escalated into the trunk. The model then wrote fluent prose affirming the false
+/// premise, cited `conformance/README.md` for it, and the citation was VALID: the source really does discuss
+/// conformance. Post-validation checks that claims are supported by the package, and by that standard the
+/// answer passed. It went out over the wire.
+///
+/// The local suite did not catch this, and the reason is worth stating precisely: with no model reachable in
+/// tests, the trunk failed, the pipeline degraded to the emergency grounding, and the emergency grounding
+/// for a settled critical entry IS the correct record. Every assertion saw the right answer arrive. None
+/// could see that it arrived as a consolation prize.
+///
+/// So the deterministic correction was never a precedence — it was a fallback, reached only when the model
+/// happened to fail. The defect is not retrieval scoring and not the validator: post-validation was asked to
+/// adjudicate a critical institutional fact it is not the right layer to decide. A false premise is a
+/// DENIAL, exactly like the cases above, and a denial recomposed by a model is a denial with a softer edge.
 pub fn is_verbatim_entry(entry_id: &str) -> bool {
     matches!(
         entry_id,
@@ -7602,7 +7637,7 @@ pub fn is_verbatim_entry(entry_id: &str) -> bool {
             | "def-local-execution"
             | "def-r2s2"
             | "def-l0-regulatory-boundary"
-    )
+    ) || corrects_a_prohibited_relation(entry_id)
 }
 
 pub fn route_json(question: &str) -> String {

@@ -12,8 +12,6 @@
 
 import { createPipeline } from "../src/pipeline.js";
 import { createProvider } from "../src/provider.js";
-import { ExactCache, SemanticCache } from "../src/cache.js";
-import { BudgetTracker, RateLimiter } from "../src/limits.js";
 
 /**
  * A supported, open-ended question that legitimately requires grounded synthesis.
@@ -32,10 +30,21 @@ import { BudgetTracker, RateLimiter } from "../src/limits.js";
 export const SUPPORTED_SYNTHESIS_QUERY =
   "explica a relação entre conformidade e federação no BANZA";
 
-/** A provider whose model is unreachable: deterministic answers must still work. */
+/**
+ * A provider whose model is unreachable: deterministic answers must still work.
+ *
+ * `LLM_API_BASE` is the variable the configuration reads; this said `LLM_BASE_URL`, which is not a name
+ * anything consults, so the address was silently the `local_qwen` default. It was unreachable regardless —
+ * `fetchImpl` throws — so the behaviour was right for a reason the code did not state.
+ *
+ * Unreachability proves one thing only: that a deterministic answer survives an outage. It cannot prove
+ * settlement, because a pipeline that wrongly calls the model looks identical to one that never calls it
+ * when the call fails either way. For that, use `canaryProvider()` in `_production-canary.mjs`, which
+ * answers.
+ */
 export function unreachableProvider() {
   return createProvider(
-    { LLM_PROVIDER: "local_qwen", LLM_BASE_URL: "http://127.0.0.1:1" },
+    { LLM_PROVIDER: "local_qwen", LLM_API_BASE: "http://127.0.0.1:1/v1" },
     { fetchImpl: async () => { throw new Error("no model in tests"); } },
   );
 }
@@ -47,15 +56,8 @@ export function unreachableProvider() {
  * The stub may only replace TOKEN GENERATION. It must never decide whether the answer grounds: a stub
  * that grounds unconditionally hides exactly the class of bug this engine has been hardened against.
  */
-export function harness({ synthesis = null, caches = null, provider = null } = {}) {
-  const first = {
-    provider: provider || unreachableProvider(),
-    env: {},
-    exactCache: (caches && caches.exact) || new ExactCache(),
-    semanticCache: (caches && caches.semantic) || new SemanticCache(),
-    budget: new BudgetTracker({}),
-    rateLimiter: new RateLimiter({}),
-  };
+export function harness({ synthesis = null, env = {}, provider = null } = {}) {
+  const theProvider = provider || unreachableProvider();
 
   const synthesisRuns = [];
   const options = {};
@@ -67,8 +69,27 @@ export function harness({ synthesis = null, caches = null, provider = null } = {
   }
 
   return {
-    pipeline: createPipeline(first, {}, options),
-    caches: { exact: first.exactCache, semantic: first.semanticCache },
+    // `createPipeline(provider, env, options)` — the FIRST argument is the provider ITSELF.
+    //
+    // This used to pass a bundle: `{provider, env, exactCache, semanticCache, budget, rateLimiter}`. The
+    // pipeline reads none of those. It reads `provider.name`, `provider.answer` and `provider.synthesize`
+    // directly, and builds its own caches and budget from `env`. So the bundle was a provider with no
+    // `synthesize` method — and `provider.name` was `undefined`, which is not `"mock"`, so the pipeline
+    // classified it as a REAL provider and entered the model path with an object that could not answer.
+    //
+    // The result was not a broken test. It was a suite that always took the model-unavailable branch:
+    // grounded synthesis returned `unavailable` before any request was built, the pipeline degraded to the
+    // emergency grounding, and the emergency grounding for a settled critical entry is the correct record.
+    // Every settlement assertion passed on a fallback. That is the same defect class as an inert stub, one
+    // layer lower: not "the stub never ran" but "the provider was never a provider", and it is why the
+    // engine could be measured green locally while production affirmed a false premise.
+    //
+    // The four ignored fields are gone rather than rewired. `exactCache`/`semanticCache`/`budget`/
+    // `rateLimiter` cannot be injected here at all — the pipeline constructs them from `env` — so keeping
+    // them as accepted-and-discarded options would preserve the illusion this comment exists to remove. A
+    // test that needs different cache behaviour passes `env`, which the pipeline does read.
+    pipeline: createPipeline(theProvider, env, options),
+    provider: theProvider,
     synthesisRuns,
     /** Fails when an injected stub was never reached — the inert-stub failure, made loud. */
     assertSynthesisRan(assert, why = "the injected synthesis stub was never invoked") {
