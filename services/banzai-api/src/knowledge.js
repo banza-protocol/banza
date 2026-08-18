@@ -43,6 +43,44 @@ const PROFILE_FACTS = createRequire(import.meta.url)("./canonicalProfiles.genera
 const LIFECYCLE = createRequire(import.meta.url)("./lifecycleFacts.generated.json").facts;
 
 // Canonical source references (path + title). These are the citations BanzAI returns.
+/// The DOCUMENT CLASS of a source — what kind of document it is, which is a different question from what
+/// evidence role it played in an answer. An ADR can be establishing evidence; a specification can be
+/// establishing or supporting. The card needs both, and one field cannot carry two dimensions.
+///
+/// This is declared HERE, at the registry that owns source metadata, and never inferred downstream. The
+/// public card used to show `REFERÊNCIA` for every curated source — an ADR, a specification and a glossary
+/// alike — because no class existed on this path at all and the frontend defaulted the missing value to
+/// "reference". Nothing was dropped in transit; the class was never there.
+///
+/// The vocabulary reconciles with `SourceAnchor.kind` in engines/banzai-query-core/src/factpack.rs
+/// ("adr" | "rfc" | "reference" | "spec" | "contract" | "conformance" | "governance" | "doc") and extends
+/// it with "code", because that registry classifies documents and this one also cites engine and service
+/// source files, which are not documents.
+///
+/// `reference` means the canonical descriptive Reference and nothing else. It is deliberately NOT the
+/// fallback: a source whose class is unknown returns null and the card says FONTE/SOURCE, because an
+/// absent classification is not evidence of canonical authority.
+export function sourceKind(source) {
+  const path = String((source && source.path) || "");
+  if (!path) return null;
+  if (path.startsWith("decisions/adr/")) return "adr";
+  if (path.startsWith("decisions/rfc/")) return "rfc";
+  // Only the canonical descriptive Reference, in either language edition.
+  if (/^docs\/reference\/(pt\/BANZA_REFERENCIA|en\/BANZA_REFERENCE)\.md$/.test(path)) return "reference";
+  if (path.startsWith("spec/")) return "spec";
+  if (path.startsWith("contracts/")) return "contract";
+  if (path.startsWith("conformance/")) return "conformance";
+  if (
+    path.startsWith("docs/governance/") ||
+    ["GOVERNANCE.md", "MAINTAINERS.md", "CONTRIBUTING.md", "LICENSE", "NOTICE"].includes(path)
+  ) {
+    return "governance";
+  }
+  if (/^(engines|services|website|tools)\//.test(path) || path === "Makefile") return "code";
+  if (path.startsWith("docs/") || ["README.md", "CHANGELOG.md"].includes(path)) return "doc";
+  return null;
+}
+
 export const SOURCES = {
   claudeMd: { id: "CLAUDE.md", title: "BANZA — Open Financial Protocol (repo guide)", path: "CLAUDE.md" },
   adr018: { id: "ADR-001", title: "Open financial protocol — implementation independence", path: "decisions/adr/ADR-001-*.md" },
@@ -140,6 +178,14 @@ export const SOURCES = {
   profilesRegistry: { id: "CONFORMANCE-PROFILES", title: "Conformance profile registry (normative)", path: "contracts/production/conformance-profiles.production.json" },
   contractsDir: { id: "CONTRACTS", title: "Protocol contracts (OpenAPI, JSON schemas)", path: "contracts/" },
 };
+
+// The class is stamped onto the registry entries themselves, once, at the owner. Every consumer — the
+// evidence layer, the presentation contract, the API, the card — then carries it without any plumbing that
+// could quietly drop it, which is exactly how it went missing before: nothing dropped it, nobody set it.
+for (const s of Object.values(SOURCES)) {
+  const kind = sourceKind(s);
+  if (kind) s.kind = kind;
+}
 
 const s = (...keys) => keys.map((k) => SOURCES[k]);
 

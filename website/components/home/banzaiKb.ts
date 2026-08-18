@@ -20,7 +20,9 @@ export type Source = {
   title: string;
   path: string;
   repo: string; // "banza-protocol/banza" | "banza-protocol/banzai"
-  category: string; // repo-index category, or "reference" for a curated source
+  category: string; // repo-index category, or "" when the backend classified no document class
+  /** Document CLASS as declared by the source registry ("adr" | "spec" | "reference" | …), or "". */
+  kind: string;
   href: string | null; // safe link, or null when the path must not be linked
 };
 
@@ -621,8 +623,12 @@ export function mapAskResponse(d: unknown): KbAnswer {
       const title = String(s.title ?? "");
       const path = String(s.path ?? "");
       const repo = String(s.repo ?? "banza-protocol/banza");
-      const category = String(s.category ?? "reference");
-      return { id, title, path, repo, category, href: path ? safeSourceHref(path, repo) : null };
+      // NOT `?? "reference"`. That default was the whole defect: with no class on this path, every curated
+      // source — an ADR, a specification, a glossary — rendered as REFERÊNCIA, and the label that belongs
+      // to the canonical Reference was quietly attached to everything else. An unknown class stays unknown.
+      const category = String(s.category ?? "");
+      const kind = String(s.kind ?? "");
+      return { id, title, path, repo, category, kind, href: path ? safeSourceHref(path, repo) : null };
     })
     .filter((s) => s.id);
 
