@@ -7670,6 +7670,22 @@ pub fn route_with_context(question: &str, prev_questions: &[String]) -> ContextR
                     merge_kind = "SUBJECT_CARRY_DECLINED";
                 }
             }
+            crate::frame::Merge::FrameCarry(q) => {
+                // The previous turn must have ESTABLISHED the question form, not merely contained one. A
+                // prior that resolved nothing has no frame to lend, so an unanswered turn cannot manufacture
+                // one for the subject that follows it.
+                let prior_established = prev
+                    .map(|p| route(&normalize(p)).action != "insufficient")
+                    .unwrap_or(false);
+                if prior_established {
+                    resolved = q;
+                    context_used = true;
+                    turns_used = 1;
+                    merge_kind = "FRAME_CARRY";
+                } else {
+                    merge_kind = "FRAME_CARRY_DECLINED";
+                }
+            }
             crate::frame::Merge::ContextTargetMissing => {
                 // A reference with nothing to bind. Resolve the question as it stands: with no subject it
                 // reaches `insufficient` honestly, instead of borrowing a subject from stale tokens.

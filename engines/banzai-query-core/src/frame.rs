@@ -257,6 +257,9 @@ pub enum Merge {
     /// A follow-up that leans on the previous topic but states no slot of its own ("e em JSON?",
     /// "explica melhor"): the previous SUBJECT is carried forward, never the previous action.
     SubjectCarry(String),
+    /// An explicit NEW subject asked under the previous turn's question ("O que é uma implementação?" →
+    /// "E um operador?"): the question form travels, the previous subject does not.
+    FrameCarry(String),
     /// A backward reference with no prior turn to bind it — fail closed rather than invent a subject.
     ContextTargetMissing,
 }
@@ -271,6 +274,59 @@ pub enum Merge {
 ///   4. context-target-missing                       — a reference with nothing to bind
 ///
 /// The previous turn's ACTION appears at no priority at all. That is the rule the concatenation broke.
+/// An explicit new subject under the PREVIOUS turn's question — the only thing an ellipsis inherits.
+///
+/// Rendered from structured fields, never from prose: the prior frame's `interrogative` ("que", "what")
+/// and the current frame's `subject`. Concatenating the two questions is what this replaces, and it is why
+/// the previous subject cannot leak — it is never in the string.
+///
+/// Every condition is structural, and none of them is length. A short question can be complete, and a long
+/// one can be elliptical; what marks the ellipsis is that the turn names something while asking nothing:
+///
+///   * the current turn has a nameable subject (checked by the caller),
+///   * it carries no interrogative and no action of its own — it is not asking anything,
+///   * it opens with a continuation ("E …?", "And …?"), so it is explicitly a second half,
+///   * the prior turn ASKED FOR A DEFINITION, judged by the classifier the obligations taxonomy already
+///     uses, so a procedure or a lifecycle question cannot lend its shape to a new subject,
+///   * and the prior turn named a subject of its own, so there was a real question to continue.
+fn definition_frame_carry(
+    current: &str,
+    cur: &Frame,
+    prior: Option<&Frame>,
+    prior_question: Option<&str>,
+) -> Option<String> {
+    let prior_frame = prior?;
+    let prior_q = normalize(prior_question?);
+    if !cur.interrogative.is_empty() || !cur.action.is_empty() {
+        return None;
+    }
+    // Explicitly a second half. NOT a length test: "E um operador?" continues, while "L0?" is short and
+    // complete, and a rule counting tokens cannot tell them apart.
+    if !matches!(
+        normalize(current).split(' ').next(),
+        Some("e") | Some("and")
+    ) {
+        return None;
+    }
+    if prior_frame.interrogative.is_empty() || !prior_frame.has_own_subject() {
+        return None;
+    }
+    if !crate::obligations::asks_for_a_definition(&prior_q) {
+        return None;
+    }
+    let subject = cur
+        .subject
+        .iter()
+        .filter(|t| crate::glossary::is_nameable_subject(t))
+        .cloned()
+        .collect::<Vec<_>>()
+        .join(" ");
+    if subject.is_empty() {
+        return None;
+    }
+    Some(format!("{} {}", prior_frame.interrogative, subject))
+}
+
 pub fn merge(current: &str, prior_question: Option<&str>) -> Merge {
     let cur = frame_of(current);
     let prior = prior_question.map(frame_of);
@@ -278,6 +334,13 @@ pub fn merge(current: &str, prior_question: Option<&str>) -> Merge {
     // 1. An explicit new subject always wins — even when the turn also refers backward
     //    ("e quem controla a Root?" states Root and must move there).
     if cur.has_own_subject() {
+        // The turn names a NEW subject, so the previous subject is gone — that part is Block 4B and does
+        // not change. What can still travel is the QUESTION the previous turn was asking: "O que é uma
+        // implementação?" followed by "E um operador?" is one question asked twice, and only the second
+        // half is spoken aloud.
+        if let Some(q) = definition_frame_carry(current, &cur, prior.as_ref(), prior_question) {
+            return Merge::FrameCarry(q);
+        }
         return Merge::Standalone;
     }
 
