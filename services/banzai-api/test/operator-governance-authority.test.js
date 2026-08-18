@@ -84,16 +84,14 @@ test("the answer states the separation and refuses the control framings", async 
   assert.doesNotMatch(a, /o BANZA controla os operadores/i);
 });
 
-test("the contextual follow-up keeps the same evidence — no epistemic contradiction", async () => {
-  const p = pipe();
-  const first = await p.answer(PT, {});
-  const follow = await p.answer("Que fontes é que respondem a isto?", { contextQuestions: [PT] });
-  assert.equal(follow.result.grounded, true, "the follow-up must not contradict a supported answer");
-  assert.notEqual(follow.meta.terminal_kind, "insufficient_evidence");
-  const a = new Set(first.result.sources.map((s) => s.path));
-  const b = follow.result.sources.map((s) => s.path);
-  assert.ok(b.some((p2) => a.has(p2)), "the follow-up must share establishing evidence with turn 1");
-});
+// MOVED — "the contextual follow-up keeps the same evidence — no epistemic contradiction" now lives in
+// source-followup.test.js as "evidence continuity survives the conversation boundary".
+//
+// It asserted that turn 2 shares establishing evidence with turn 1, using a helper that sends only the
+// prior QUESTION. Serving verified evidence now requires the round-tripped prior-evidence context: history
+// carries the words of a conversation, not the relationship "these sources supported that answer", so the
+// engine declines rather than implying a provenance it cannot check. The property is not weakened — it is
+// asserted harder there, on exact source identities through the real client round trip.
 
 test("an unsupported question still fails closed", async () => {
   const { result, meta } = await pipe().answer(

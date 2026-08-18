@@ -214,7 +214,10 @@ fn the_switch_survives_the_next_referential_followup() {
         "E quem controla a Root?".to_string(),
     ];
     let d = route_with_context("Que fontes respondem a isto?", &hist);
-    assert_eq!(d.merge_kind, "INHERIT_TARGET");
+    // The merge is SOURCE_FOLLOWUP, not INHERIT_TARGET: an evidence request now keeps the request as well
+    // as the target. What this test is actually about is untouched — the target must be the MOST RECENT
+    // subject, never the one two turns back — and that assertion follows unchanged.
+    assert_eq!(d.merge_kind, "SOURCE_FOLLOWUP");
     assert!(
         d.resolved_query.to_lowercase().contains("root"),
         "the inherited target must be the most recent subject, got {:?}",

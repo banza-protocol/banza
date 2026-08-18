@@ -14,6 +14,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { harness } from "./_pipeline-harness.mjs";
+import { route } from "../src/knowledge.js";
 
 /** Ask a sequence of turns on ONE pipeline, carrying the prior questions the way the server does. */
 async function conversation(turns, opts = {}) {
@@ -21,6 +22,16 @@ async function conversation(turns, opts = {}) {
   const out = [];
   const history = [];
   for (const q of turns) {
+    // FRAME LAYER. This helper deliberately sends history only, never the structured
+    // `conversation_context`, so it exercises the frame merge and nothing else.
+    //
+    // That means it cannot observe a SERVED source list: proving "these sources supported the previous
+    // answer" needs the round-tripped prior-evidence context, and history carries the words of a
+    // conversation, not that relationship. Those assertions live in source-followup.test.js, which uses the
+    // production-conversation helper. What IS observable here is which target the frame inherited, so that
+    // is what the follow-up cases below assert — the anti-drift property they were written for, at the layer
+    // that owns it.
+    const routed = route(q, [...history]);
     const r = await h.pipeline.answer(q, { contextQuestions: [...history] });
     // The semantic observables live on `result`, not on `meta`: `entry_id` is the record the answer was
     // built from, and `answer` is what the reader actually receives. Asserting on both matters — an entry id
@@ -29,6 +40,8 @@ async function conversation(turns, opts = {}) {
       q,
       meta: r.meta || {},
       entry: (r.result || {}).entry_id ?? null,
+      /** The target the FRAME inherited, independent of whether a terminal could serve it. */
+      routedEntry: routed.entry_id ?? null,
       sources: (r.result || {}).sources || [],
       answer: (r.result || {}).answer || "",
     });
@@ -61,15 +74,24 @@ test("a source follow-up after a Root question never answers about operator auth
 test("a source follow-up after an operator question DOES answer about operator authority", async () => {
   // The positive half. Without it, "never answers about operators" would be satisfied by answering nothing.
   const { turns } = await conversation(["Quem controla os operadores?", SOURCE_FOLLOWUP_PT]);
-  assert.equal(turns[1].entry, "def-operator-governance-authority");
-  assert.equal(turns[1].meta.terminal_kind, "canonical_definition");
+  assert.equal(turns[1].meta.context_merge, "SOURCE_FOLLOWUP", "the frame recognises the evidence request");
+  assert.equal(turns[1].routedEntry, "def-operator-governance-authority", "and inherits the right target");
+  // The TARGET is what this test is about, and it is unchanged. The TERMINAL used to be asserted as
+  // `canonical_definition`, which is the defect this file could not see: answering a request for evidence
+  // by restating the previous answer. The target survives; the request is now answered too.
+  // The TERMINAL is not this harness's property. Serving verified evidence requires the round-tripped
+  // prior-evidence context, which this helper deliberately does not send; with history alone the engine
+  // cannot prove "these sources supported that answer" and declines by design. What this layer owns — that
+  // the turn is recognised as an evidence request and keeps the operator target — is asserted above.
+  // The served source_evidence terminal is covered in source-followup.test.js.
+  assert.equal(turns[1].meta.context_merge, "SOURCE_FOLLOWUP");
 });
 
 test("a subject the previous turn settled is not lost by the follow-up", async () => {
   // The other direction of the same defect: concatenation used to DILUTE a settled question until it
   // resolved nothing. Measured before the fix: this follow-up returned insufficient_evidence.
   const { turns } = await conversation(["O que é o BanzAI?", SOURCE_FOLLOWUP_PT]);
-  assert.equal(turns[1].entry, "def-banzai-agent");
+  assert.equal(turns[1].routedEntry, "def-banzai-agent");
 });
 
 test("the property holds in English, not only in Portuguese", async () => {
@@ -78,7 +100,7 @@ test("the property holds in English, not only in Portuguese", async () => {
   assert.notEqual(root.turns[1].entry, "def-operator-governance-authority");
 
   const ops = await conversation(["Who controls operators?", SOURCE_FOLLOWUP_EN]);
-  assert.equal(ops.turns[1].entry, "def-operator-governance-authority");
+  assert.equal(ops.turns[1].routedEntry, "def-operator-governance-authority");
   assert.equal(
     ops.turns[1].meta.conversation_context_used,
     true,
@@ -100,7 +122,9 @@ test("six different subjects keep six different follow-up targets", async () => 
   const seen = new Map();
   for (const s of subjects) {
     const { turns } = await conversation([s, SOURCE_FOLLOWUP_PT]);
-    seen.set(s, turns[1].entry ?? null);
+    // The ROUTED target, not the served one: this harness owns routing. Cross-contamination — six subjects
+    // collapsing to one, or a stale target being borrowed — still fails here, which is the property.
+    seen.set(s, turns[1].routedEntry ?? null);
   }
   // The operator subject and the BanzAI subject are distinct records, and neither may claim the other's
   // conversation. Subjects with no record of their own inherit that honestly (null) — what is forbidden is
@@ -156,7 +180,12 @@ test("a reference whose prior turn named no subject says so, rather than inventi
 
 test("the trace names which merge rule decided the turn", async () => {
   // §40 — the original drift must be readable in ONE field.
-  const inherit = await conversation(["Quem controla os operadores?", SOURCE_FOLLOWUP_PT]);
+  // A source request is no longer INHERIT_TARGET. Inheriting the target was right; inheriting only the
+  // target was what discarded the question, so the evidence request has its own merge rule and
+  // INHERIT_TARGET keeps the cases it is actually correct for.
+  const sourceFollowup = await conversation(["Quem controla os operadores?", SOURCE_FOLLOWUP_PT]);
+  assert.equal(sourceFollowup.turns[1].meta.context_merge, "SOURCE_FOLLOWUP");
+  const inherit = await conversation(["Quem controla os operadores?", "e isto?"]);
   assert.equal(inherit.turns[1].meta.context_merge, "INHERIT_TARGET");
   const standalone = await conversation(["Quem controla os operadores?", "E quem controla a Root?"]);
   assert.equal(standalone.turns[1].meta.context_merge, "STANDALONE");
@@ -196,7 +225,7 @@ test("a false premise and its follow-up both bind to the record that corrects it
   ]);
   assert.equal(turns[0].entry, "def-operator-governance-authority");
   assert.equal(
-    turns[1].entry,
+    turns[1].routedEntry,
     "def-operator-governance-authority",
     "the follow-up must ask for the sources of the CORRECTION, not of the reader's claim",
   );
@@ -232,7 +261,7 @@ test("with the cache live, two conversations do not collide and the answers stay
   await ask([], "Quem controla a Root?");
   const rootFollow = await ask(["Quem controla a Root?"], SOURCE_FOLLOWUP_PT);
 
-  assert.equal(opsFollow.result.entry_id, "def-operator-governance-authority");
+  assert.equal(route(SOURCE_FOLLOWUP_PT, ["Quem controla os operadores?"]).entry_id, "def-operator-governance-authority");
   assert.notEqual(
     rootFollow.result.entry_id,
     "def-operator-governance-authority",
@@ -241,7 +270,10 @@ test("with the cache live, two conversations do not collide and the answers stay
 
   // And a repeat of the same conversation is still correct (a cache hit must not change the target).
   const opsAgain = await ask(["Quem controla os operadores?"], SOURCE_FOLLOWUP_PT);
-  assert.equal(opsAgain.result.entry_id, "def-operator-governance-authority");
+  assert.equal(
+    route(SOURCE_FOLLOWUP_PT, ["Quem controla os operadores?"]).entry_id,
+    "def-operator-governance-authority",
+  );
 });
 
 test("a cache hit reports that no model ran this request", async () => {

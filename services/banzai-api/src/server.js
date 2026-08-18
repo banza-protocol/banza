@@ -82,6 +82,22 @@ function sanitizeConversationContext(raw) {
   if (kind) out.last_subject_kind = kind;
   const observedAt = safeCtxTimestamp(raw.observed_at);
   if (observedAt) out.observed_at = observedAt;
+  // The PRIOR-EVIDENCE continuity pair. The conversation is client-carried and stateless across turns, so
+  // the identities have to travel; what must NOT travel is authority. These are hints: the server resolves
+  // the prior record itself and keeps only identities that are genuinely that record's public evidence.
+  //
+  // Identity only — no title, no path, no class, no evidence role. Those stay registry-owned, which is what
+  // keeps a browser from promoting an arbitrary file into a source card by naming it.
+  const priorTarget = safeCtxToken(raw.previous_semantic_target, 64);
+  if (priorTarget) out.previous_semantic_target = priorTarget;
+  if (Array.isArray(raw.previous_source_ids)) {
+    const seen = new Set();
+    for (const raw_id of raw.previous_source_ids.slice(0, 24)) {
+      const id = safeCtxToken(raw_id, 64);
+      if (id) seen.add(id);
+    }
+    if (seen.size) out.previous_source_ids = [...seen];
+  }
   return out;
 }
 const LOCAL_INFERENCE_ENABLED = bool(process.env.BANZAI_LOCAL_INFERENCE_ENABLED);
@@ -610,6 +626,7 @@ async function ask(req, signal, onProgress) {
         // M2.8H conversation-context telemetry (safe booleans/counts only — never conversation content).
         conversation_context_used: Boolean(meta.conversation_context_used),
         context_turns_used: meta.context_turns_used ?? 0,
+        previous_sources_available: Boolean(meta.previous_sources_available),
         previous_sources_reused: Boolean(meta.previous_sources_reused),
         // Increment 6 (§16-§17) — the NEW, SAFE, technical-only conversation_context the CLIENT carries to the
         // next turn (client-carried; no server-side PII store). ONLY the whitelisted technical fields (ids/

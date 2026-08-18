@@ -67,6 +67,14 @@ step_measured "critical settlement is model-free (canary)" bash -c '
   printf "%s\n" "$out" | grep -E " (tests|pass|fail) [0-9]+$" | sed "s/^[^a-z]*//" | tr "\n" " "
   echo
   exit $code'
+# The multi-turn property. It is NOT folded into the critical benchmark: that benchmark is 75 single-query
+# cases and its denominators mean something, so a two-turn interaction does not belong among them.
+step_measured "source follow-up binds to prior structured evidence" bash -c '
+  cd services/banzai-api
+  out="$(node --test test/source-followup.test.js 2>&1)"; code=$?
+  printf "%s\n" "$out" | grep -E " (tests|pass|fail) [0-9]+$" | sed "s/^[^a-z]*//" | tr "\n" " "
+  echo
+  exit $code'
 # --check is NOT optional decoration. The evaluator has two modes and the DEFAULT one, `matrix`, ends its
 # reporting path in an unconditional process.exit(0): it prints real measurements — 66/66, zero model
 # dependency, zero false support — and then exits 0 whatever those measurements say. Every invocation of

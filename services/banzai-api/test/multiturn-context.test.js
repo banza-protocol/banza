@@ -191,9 +191,26 @@ function assertSafeContext(ctx) {
     "environment", "protocol_version", "last_intent", "last_family",
     // BZCI-2 documentary/conceptual dimension.
     "last_subject", "last_subject_kind", "last_document_id", "last_metric", "observed_at",
+    // Prior-evidence continuity: the target this turn settled, and the identities it cited. Identities ONLY
+    // — no title, path, class or evidence role, so the registry keeps sole authority over what a source is
+    // and a client cannot promote a file into a source card by naming it. Revalidated server-side on
+    // arrival: these are hints, never evidence authority.
+    "previous_semantic_target", "previous_source_ids",
   ]);
   for (const [k, v] of Object.entries(ctx)) {
     assert.ok(allowed.has(k), `forward context field ${k} is whitelisted`);
+    if (k === "previous_source_ids") {
+      // The one array in the contract. Bounded, deduplicated, and every element a strict id token.
+      assert.ok(Array.isArray(v), "previous_source_ids is an array");
+      assert.ok(v.length <= 24, "previous_source_ids is bounded");
+      assert.equal(new Set(v).size, v.length, "previous_source_ids is deduplicated");
+      for (const id of v) {
+        assert.equal(typeof id, "string", "each prior source id is a string token");
+        assert.ok(SAFE_TOKEN.test(id), `prior source id '${id}' is a safe technical value`);
+        assert.ok(id.length <= 80, "each prior source id is bounded");
+      }
+      continue;
+    }
     assert.equal(typeof v, "string", `forward context ${k} is a string token`);
     const re = k === "last_subject" ? SAFE_SUBJECT : k === "observed_at" ? SAFE_TIMESTAMP : SAFE_TOKEN;
     assert.ok(re.test(v), `forward context ${k}='${v}' is a safe technical value (no prose markup/PII/secrets)`);

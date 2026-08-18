@@ -723,7 +723,28 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // Tier-0 gate below, so "agora transfere 100 kz para essa execução" is refused; naming a referent never
     // unlocks a prohibited action.
     const priorContext = conversationContext && typeof conversationContext === "object" ? conversationContext : {};
-    const references = resolveReferences(correctedQuestion, priorContext) || {};
+    // ── DOMAIN SEPARATION ─────────────────────────────────────────────────────────────────────────
+    //
+    // The forwarded context serves two mechanisms that are deliberately NOT unified:
+    //
+    //   A  REFERENCE RESOLUTION (Increment 6)  execution / artifact / operator / implementation referents
+    //   B  PRIOR-EVIDENCE CONTINUITY           previous_semantic_target + previous_source_ids
+    //
+    // Increment 6 activates on `has_prior_context`, derived from the context object it is handed. Adding the
+    // B fields made it activate on conversations it owns nothing in — and when it activates, `route()` below
+    // is called with an EMPTY history, so the frame merge cannot run at all. Measured:
+    // "Quem governa os operadores?" → "E quem os autoriza?" fell from MERGED_FRAME to STANDALONE, and an
+    // operator follow-up lost its entry entirely. Evidence metadata silently changed routing.
+    //
+    // So B is withheld from A. Not a resolver change and not a reconciliation of the two systems: the
+    // resolver decides exactly as before, on exactly the fields it owns. The property is that provenance
+    // context alone can never alter reference resolution.
+    const PRIOR_EVIDENCE_FIELDS = ["previous_semantic_target", "previous_source_ids"];
+    const referenceContext = {};
+    for (const [k, v] of Object.entries(priorContext)) {
+      if (!PRIOR_EVIDENCE_FIELDS.includes(k)) referenceContext[k] = v;
+    }
+    const references = resolveReferences(correctedQuestion, referenceContext) || {};
     const decisionRaw = route(question, contextQuestions || []);
     // Defense in depth: the RAW question's own refusal signal (safety refusal / financial-or-action boundary /
     // any refuse-* entry) DISABLES context enrichment — a prohibited action must never be rewritten into a
@@ -827,11 +848,71 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // the structured engine actually ran. context_turns_used counts at least one turn when the structured
     // resolver bound a referent.
     const structuredContextUsed = Boolean(contextResolved);
+    // A SOURCE FOLLOW-UP: this turn asks for the evidence behind the previous answer. Rust decided it
+    // (`frame::Merge::SourceFollowup`); the target is the previous turn's, and the operation is this turn's.
+    const isSourceFollowup = decision.merge_kind === "SOURCE_FOLLOWUP";
+    /**
+     * Does the structured conversation context lead to a NON-EMPTY set of eligible public sources?
+     *
+     * The forwarded context carries technical ids, not a source list, so availability cannot be read off
+     * it directly. It is derived the same way the source-followup terminal derives what it serves: the
+     * prior target that context resolved, and that record's own public evidence. One derivation, so the
+     * flag and the answer can never disagree about what was available.
+     *
+     * False when context was not used at all, when it resolved no record, and — the case that separates
+     * this from the boolean it replaces — when the record it resolved carries no citable evidence.
+     */
+    /**
+     * The PRIOR evidence this conversation actually established — revalidated, never trusted.
+     *
+     * Deriving it from `decision.entry_id` was falsified: on a context-carrying turn that is the CURRENT
+     * turn's resolved target. After "Quem certifica uma implementação?", "mostra em JSON" resolves to
+     * `implementation-steps`, so availability reported THAT record's sources under a "previous" name.
+     *
+     * The identities now travel in the client-carried context, because the conversation is stateless across
+     * turns and nothing else can carry them. That makes them a HINT and not authority:
+     *
+     *   client supplies  prior target + prior source ids
+     *   server resolves  the canonical record for that target
+     *   server keeps     only ids that are genuinely that record's PUBLIC evidence
+     *
+     * Both halves matter. Checking that an id merely exists and is public would let a caller replay valid
+     * identities from one target into a follow-up about another; binding them to the prior target is what
+     * makes the pair coherent. Nothing here reads a client-supplied title, path, class or role — the
+     * registry owns those, so a browser cannot promote a file into a source card by naming it.
+     */
+    const validateIncomingPriorEvidence = () => {
+      const targetId = String(priorContext.previous_semantic_target || "").trim();
+      const claimed = Array.isArray(priorContext.previous_source_ids) ? priorContext.previous_source_ids : [];
+      if (!targetId || claimed.length === 0) return [];
+      const target = getEntry(targetId);
+      if (!target) return [];
+      const legitimate = new Set(publicSourcesOnly(target.sources).map((x) => String(x.id)));
+      return claimed.map(String).filter((id) => legitimate.has(id));
+    };
+    /** INCOMING: what the PREVIOUS turn established, revalidated. Never the current turn's routing. */
+    const incomingPriorEvidence = validateIncomingPriorEvidence();
     const ctxMeta = {
       conversation_context_used: structuredContextUsed || Boolean(decision.context_used),
       context_turns_used: Math.max(Number(decision.turns_used) || 0, structuredContextUsed ? 1 : 0),
-      previous_sources_reused: structuredContextUsed || Boolean(decision.context_used),
-      context_used_for: ctxDecision.context_used_for || "none",
+      // `previous_sources_reused` used to mean "context was used somewhere", which is not reuse of
+      // evidence: it read `true` for a turn whose previous answer carried no sources at all. Nothing
+      // outside this service consumed it (audited: only server.js echoed it), so the pair is corrected
+      // rather than preserved with a wrong meaning.
+      //
+      // AVAILABLE is about EVIDENCE, not about context. Renaming the loose boolean would have been the
+      // same defect with a better name — "there is prior context" says nothing about whether that context
+      // leads to anything citable. So it is answered by resolving the prior target and asking whether its
+      // record actually carries eligible public sources. A conversation whose previous turn established
+      // nothing has no evidence available, however much history it has.
+      previous_sources_available: incomingPriorEvidence.length > 0,
+      // Internal: consumed and removed at the exit point, where the answer's own sources are known.
+      __incoming_prior_evidence: incomingPriorEvidence,
+      // The strict claim, stamped downstream once the answer's evidence is known: true only when prior
+      // source identities actually participate in THIS answer. Declared false here so every path that
+      // forgets to establish it reports the weaker, honest value.
+      previous_sources_reused: false,
+      context_used_for: isSourceFollowup ? "source_evidence" : ctxDecision.context_used_for || "none",
       // Increment 6 — the multi-turn reference-resolution trace (safe labels/ids only) + the forward context.
       conversation_context: conversationContextForward,
       reference_resolution_state: references.resolution_state || "NO_ANAPHORA",
@@ -1228,6 +1309,66 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         ...routerTrace,
         ...opMeta,
         resolution_method: "rust_operational_telemetry",
+      });
+    }
+
+    // Tier 0b — SOURCE EVIDENCE. The reader asked what supported the previous answer.
+    //
+    // This runs BEFORE the substantive terminals, because those would answer the previous question again —
+    // which is precisely the production failure. The previous turn stays the semantic owner: this turn does
+    // not re-adjudicate the proposition, it reports the evidence the proposition rested on. So the entry is
+    // unchanged and no verdict is recomputed.
+    //
+    // The target comes from structured conversation state (Rust resolved it from the prior QUESTION, which
+    // is what the server forwards), never from the assistant's prose. The evidence comes from the record
+    // itself, never from a fresh repo-wide search: "nearest document" must not get to decide what the
+    // reader meant, and the sources shown must be the ones that actually established the claim.
+    if (isSourceFollowup) {
+      // A CONSUMER of validated context, never the owner of its truth. This terminal used to assert
+      // `available: true` for itself, which made every test of that flag on this path vacuous — it hid a
+      // broken state-D test once and the availability half of the tamper matrix once.
+      //
+      // A verified source list REQUIRES the round-tripped evidence context. History alone carries the words
+      // of the conversation, not the relationship "these sources supported that answer", so it cannot prove
+      // provenance and must not be made to look as if it had.
+      const targetEntry = decision.entry_id ? getEntry(decision.entry_id) : null;
+      const validated = new Set(incomingPriorEvidence);
+      const evidence = targetEntry
+        ? publicSourcesOnly(targetEntry.sources).filter((x) => validated.has(String(x.id)))
+        : [];
+      if (!targetEntry || evidence.length === 0) {
+        // A record with no eligible public evidence has nothing to show, and saying so is the honest
+        // answer. Inventing sources by retrieval would be worse than declining, and claiming reuse of an
+        // empty set would make the field a lie.
+        return contextualInsufficient(rq, "", {
+          answer_mode: mode,
+          fallback_reason: "no_previous_evidence",
+          intent,
+          terminal_kind: "insufficient_evidence",
+          ...ctxMeta,
+          ...routerTrace,
+        });
+      }
+      // Bilingual and deterministic, in the same shape the corpus uses, so the frontend renders it with no
+      // new component and the source cards are the EXISTING objects — Block 5B stays the owner of what an
+      // ADR, a spec or an unclassified source is called.
+      const record = {
+        id: targetEntry.id,
+        answer:
+          "Estas são as fontes que sustentam a resposta anterior:\n\n---\n\n" +
+          "These are the sources supporting the previous answer:",
+        // The validated identities only. A tampered id never reaches a card because it never survived
+        // revalidation — the same set `previous_sources_available` is computed from.
+        sources: evidence,
+      };
+      return deterministic(record, {
+        answer_mode: mode,
+        fallback_reason: null,
+        intent,
+        terminal_kind: "source_evidence",
+        trace_label: "Fontes da resposta anterior, confirmadas por Rust",
+        ...ctxMeta,
+        ...routerTrace,
       });
     }
 
@@ -1915,5 +2056,34 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     };
   }
 
-  return { answer, usage, defaultMode };
+  /**
+   * Stamp THIS turn's evidence identity into the context the client carries to the next turn.
+   *
+   * One place, after every path has produced its answer, because the forward context is built before the
+   * answer exists and there are too many exits to trust each of them to remember. `previous_sources_reused`
+   * is settled here too: it is an observation about the answer's own source set, so it cannot honestly be
+   * decided before that set exists. A path that claimed it earlier keeps its claim only if the identities
+   * are really there.
+   */
+  async function answerWithEvidenceContinuity(question, opts = {}) {
+    const out = await answer(question, opts);
+    const meta = out && out.meta ? out.meta : null;
+    if (!meta) return out;
+    const served = ((out.result || {}).sources || []).map((x) => String(x.id)).filter(Boolean);
+    const targetId = (out.result || {}).entry_id || "";
+    if (meta.conversation_context && typeof meta.conversation_context === "object") {
+      if (targetId) meta.conversation_context.previous_semantic_target = String(targetId);
+      meta.conversation_context.previous_source_ids = [...new Set(served)].slice(0, 24);
+    }
+    // Strict, and measured against what was actually served rather than asserted upstream.
+    const priorIds = new Set(
+      Array.isArray(meta.__incoming_prior_evidence) ? meta.__incoming_prior_evidence.map(String) : [],
+    );
+    if (priorIds.size === 0) meta.previous_sources_reused = false;
+    else meta.previous_sources_reused = served.some((id) => priorIds.has(id));
+    delete meta.__incoming_prior_evidence;
+    return out;
+  }
+
+  return { answer: answerWithEvidenceContinuity, usage, defaultMode };
 }
