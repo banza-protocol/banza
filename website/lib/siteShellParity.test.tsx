@@ -173,13 +173,20 @@ describe("full shell — English chrome resolves implemented English counterpart
 
   it("routes with NO English edition keep their canonical Portuguese path — no invented /en URLs", () => {
     const chrome = chromeOnly(renderShell("/en"));
-    // BanzAI and the Technical Registry are not translated yet; the registry says so, and the chrome obeys.
+    // BanzAI, the decisions record and the licence are not translated yet; the registry says so, and the
+    // chrome obeys. The Technical Registry used to be listed here and no longer is — it gained an English
+    // edition, and the chrome followed without this assertion needing to know, which is the property.
     expect(pathFor("BANZAI", "en")).toBeNull();
-    expect(pathFor("TECHNICAL_REGISTRY", "en")).toBeNull();
+    expect(pathFor("DECISIONS", "en")).toBeNull();
+    expect(pathFor("LICENSE", "en")).toBeNull();
     expect(chrome).toContain('href="/banzai"');
-    expect(chrome).toContain('href="/registo-tecnico"');
+    expect(chrome).toContain('href="/decisoes"');
+    expect(chrome).toContain('href="/licenca"');
     expect(chrome).not.toContain('href="/en/banzai"');
-    expect(chrome).not.toContain('href="/en/registo-tecnico"');
+    expect(chrome).not.toContain('href="/en/decisoes"');
+    // The Technical Registry now resolves to its English edition in the English chrome.
+    expect(pathFor("TECHNICAL_REGISTRY", "en")).toBe("/en/technical-registry");
+    expect(chrome).toContain('href="/en/technical-registry"');
   });
 
   // §17 — the defect was in shared chrome, so one page proves nothing about the other four.

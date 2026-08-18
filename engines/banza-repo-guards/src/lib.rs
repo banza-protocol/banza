@@ -403,6 +403,17 @@ fn banzami_attribution_allowed(path: &str) -> bool {
         // (L2) stay operator-neutral and the NORMATIVE_BRANDS payment operators stay blocked everywhere.
         || path == "website/app/en/architecture/page.tsx"
         || path == "website/lib/corePageParity.test.ts"
+        // Website Phase 2 / Block D: the ENGLISH editions of the protocol-status and open-governance
+        // pages. Both Portuguese originals are already listed above and below on the same ADR-004/060
+        // basis, and each English edition makes the identical attribution its source makes — status names
+        // Banzami as the Layer 3 designated scheme operator with its qualifications (regulatory
+        // preparation in progress, real payments switched off), governance names it as original creator
+        // and initial institutional maintainer, immediately alongside the sentence saying the protocol is
+        // nonetheless governed by the repository's public processes. A translation forced to drop the
+        // attribution would say LESS about who maintains BANZA than the Portuguese page a reader can open
+        // in the next tab.
+        || path == "website/app/en/status/page.tsx"
+        || path == "website/app/en/open-governance/page.tsx"
         || path == "website/app/roteiro/page.tsx"
         // M2.19G: the canonical glossary names Banzami as the L3 designated scheme operator (the "operador"
         // / "scheme" entries define the term against the L3 role); same ADR-004/060 attribution basis.

@@ -15,13 +15,41 @@
 // remaining four pages. A harness that has never caught anything is not a harness.
 
 import type { ReactElement } from "react";
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { readFileSync } from "node:fs";
 import { renderToStaticMarkup } from "react-dom/server";
 import { chapterSlugMap } from "./reference";
 import { ROUTES, counterpartOf } from "./routeRegistry";
 
 const source = (p: string) => readFileSync(new URL(p, import.meta.url), "utf8");
+
+// Two Block-D pages read their state from the public machine routes at render time. Tests must not depend
+// on that network — and the branch worth rendering is the honest one anyway: an unreachable route is the
+// "state unconfirmed" path, which the page must never present as an empty registry. Failing every fetch
+// pins exactly that branch, deterministically and instantly.
+vi.stubGlobal("fetch", () => Promise.reject(new Error("offline in tests")));
+
+/** The text a reader receives: markup removed, entities resolved, whitespace collapsed. */
+function readerText(html: string): string {
+  return html
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#x27;|&rsquo;|&#39;/g, "'")
+    .replace(/&ldquo;|&rdquo;|&quot;/g, '"')
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/** Render a page component. Server components may be async, and awaiting is the only way to see them. */
+async function renderPage(mod: { default: unknown }): Promise<string> {
+  const out = (mod.default as () => ReactElement | Promise<ReactElement>)();
+  const el = out instanceof Promise ? await out : out;
+  return renderToStaticMarkup(el);
+}
 
 /** Source with comments stripped — a file may legitimately NAME a forbidden path in order to forbid it. */
 const code = (p: string) =>
@@ -179,6 +207,132 @@ const CORE_PAGES = [
       /BanzAI certifies/i,
     ],
   },
+  // ── Block D — institutional and status surfaces ────────────────────────────────────────────────
+  {
+    id: "PROTOCOL_STATUS",
+    pt: "/estado",
+    en: "/en/status",
+    enSource: "../app/en/status/page.tsx",
+    ptSource: "../app/(pt)/estado/page.tsx",
+    implemented: true,
+    enHeading: /What is true today — and how to check it/i,
+    // Lifecycle facts, stated exactly as the canonical artifact states them. The specification is
+    // published and versioned; it is NOT frozen (contracts/production/protocol-version.json:
+    // lifecycle_state.protocol_frozen = false), and the page keeps the machine routes as the authority
+    // over its own prose.
+    mustSay: [
+      /not yet frozen for external implementation/i,
+      /Pre-production/i,
+      /production_certificates/i,
+      /\/operators returns \[\]/i,
+      /certifies an implementation, never an entity/i,
+      /REVOKED|closed by default/i,
+      /if they diverge, the route wins/i,
+      /Nothing on this page constitutes regulatory approval/i,
+    ],
+    // A status page is where an overclaim does the most damage, so the forbidden set is the lifecycle
+    // itself: frozen, released, production-ready, independently demonstrated.
+    mustNotSay: [
+      /specification .{0,30}is frozen/i,
+      /v1\.0\.0 — frozen/i,
+      /production[- ]ready/i,
+      /ready for production/i,
+      /independent implementation .{0,20}(demonstrated|proven)(?!.{0,20}not)/i,
+      /regulatory (approval|authorisation) (granted|obtained)/i,
+      /certified operators?\b/i,
+    ],
+  },
+  {
+    id: "OPERATORS",
+    pt: "/operadores",
+    en: "/en/operators",
+    enSource: "../app/en/operators/page.tsx",
+    ptSource: "../app/(pt)/operadores/page.tsx",
+    implemented: true,
+    enHeading: /Who takes part in the protocol/i,
+    // The page is a set of role distinctions; all six roles and the entity/implementation boundary must
+    // survive, because English collapses "operator" into "approved participant" without them.
+    mustSay: [
+      /Entity, operator, implementation — these are not the same thing/i,
+      /it is not the subject of certification/i,
+      /identified by content hash — never an entity and never a brand/i,
+      /One operator may publish several/i,
+      /Appearing in the technical registry is not being admitted to a scheme/i,
+      /The operator is the responsible entity; the implementation is the technical system\s+evaluated/i,
+      /it is not granted by a central authority/i,
+      /Absence from the registry is not a regulatory prohibition/i,
+    ],
+    mustNotSay: [
+      /certified operators?\b/i,
+      /BANZA certifies (operators|entities|companies)/i,
+      /approved operators?\b/i,
+      /licen[cs]ed operators?\b/i,
+      /BANZA (controls|governs|operates) (operators|participants)/i,
+      /list of (approved|licen[cs]ed) /i,
+    ],
+  },
+  {
+    id: "TECHNICAL_REGISTRY",
+    pt: "/registo-tecnico",
+    en: "/en/technical-registry",
+    enSource: "../app/en/technical-registry/page.tsx",
+    ptSource: "../app/(pt)/registo-tecnico/page.tsx",
+    implemented: true,
+    enHeading: /Consult, search and verify — technical information, not a seal/i,
+    // The registry's boundary, plus the four honest live states. An outage must never read as an empty
+    // registry, which is the distinction a translation is most likely to flatten.
+    mustSay: [
+      /Appearing in the registry is not being admitted, and not being authorised/i,
+      /strictly\s+independent of an operational scheme/i,
+      /Operator ≠ implementation/i,
+      /Certification ≠ admission/i,
+      /Certification ≠ authorisation/i,
+      /does not list licensed, approved or admitted operators/i,
+      /Only CERTIFIED reads as valid/i,
+      /state unconfirmed|STATE UNCONFIRMED/i,
+      /never appears as a published operator/i,
+    ],
+    mustNotSay: [
+      /registry entry grants/i,
+      /grants admission/i,
+      /grants (regulatory )?authorisation/i,
+      /certified entity\b(?!.{0,30}(here|no))/i,
+      /approved by BANZA/i,
+      /membership/i,
+    ],
+  },
+  {
+    id: "GOVERNANCE_OPEN",
+    pt: "/governanca",
+    en: "/en/open-governance",
+    enSource: "../app/en/open-governance/page.tsx",
+    ptSource: "../app/(pt)/governanca/page.tsx",
+    implemented: true,
+    enHeading: /Public governance, today/i,
+    // Open governance is a model WITH roles and a procedure. Both halves are asserted: the process
+    // exists, and its authority stops well short of operating anything.
+    mustSay: [
+      /the active maintainers review and integrate through the public process/i,
+      /original creator and initial institutional maintainer/i,
+      /governed by the repository/i,
+      /does not license, does not approve and does not certify\s+operators/i,
+      /does not issue financial licences and does not replace regulators/i,
+      /it does not create rules/i,
+      /Operators implement the protocol\s+independently/i,
+      /does not automatically grant trademark rights/i,
+    ],
+    // "Open" must not become "absent", and governing the rules must not become operating a scheme.
+    mustNotSay: [
+      /permissionless/i,
+      /leaderless/i,
+      /no authority/i,
+      /without governance/i,
+      /BANZA governance (controls|operates|runs) (operators|participants|schemes)/i,
+      /governance grants (admission|authorisation)/i,
+      /BANZA CA\b/i,
+      /certificate authority/i,
+    ],
+  },
 ] as const;
 
 const IMPLEMENTED = CORE_PAGES.filter((p) => p.implemented);
@@ -196,10 +350,17 @@ describe("core page pairs — source level", () => {
       expect(src).toContain(`en: "${page.en}"`);
     });
 
-    it(`${page.id}: the EN source contains no Portuguese reader-facing route`, () => {
+    it(`${page.id}: the EN source contains no Portuguese route that HAS an English edition`, () => {
+      // Registry-aware, not a fixed list: a Portuguese path is only wrong here when an English edition of
+      // that route exists. Linking /glossario from an English page is correct while the glossary has no
+      // English edition — and becomes wrong the moment it gains one, without this test being edited.
       const src = code(page.enSource);
       for (const pt of PT_READER_PATHS) {
-        expect(src, `${page.id} links to ${pt}`).not.toContain(`href="${pt}`);
+        const en = counterpartOf(pt);
+        if (!en) continue;
+        expect(src, `${page.id} links to ${pt}, which HAS an English counterpart (${en})`).not.toContain(
+          `href="${pt}"`,
+        );
       }
     });
 
@@ -216,7 +377,7 @@ describe("core page pairs — rendered output", () => {
   for (const page of IMPLEMENTED) {
     it(`${page.id}: renders English, with no Portuguese href or label`, async () => {
       const mod = await import(/* @vite-ignore */ page.enSource.replace("../", "../"));
-      const html = renderToStaticMarkup((mod.default as () => ReactElement)());
+      const html = await renderPage(mod);
 
       // The page actually rendered something recognisable — otherwise every assertion below is vacuous.
       expect(html.length).toBeGreaterThan(500);
@@ -246,18 +407,21 @@ describe("core page pairs — rendered output", () => {
 
     it(`${page.id}: keeps the claims the Portuguese page makes`, async () => {
       const mod = await import(/* @vite-ignore */ page.enSource);
-      const html = renderToStaticMarkup((mod.default as () => ReactElement)());
+      const html = await renderPage(mod);
+      // Match the reader's TEXT, not the markup: a claim split by <strong> is still the same sentence to
+      // a reader, and a regex that fails on emphasis is testing the styling rather than the statement.
+      const text = readerText(html);
       for (const claim of page.mustSay) {
-        expect(html, `${page.id} lost a claim: ${claim}`).toMatch(claim);
+        expect(text, `${page.id} lost a claim: ${claim}`).toMatch(claim);
       }
       for (const forbidden of page.mustNotSay) {
-        expect(html, `${page.id} made a forbidden claim: ${forbidden}`).not.toMatch(forbidden);
+        expect(text, `${page.id} made a forbidden claim: ${forbidden}`).not.toMatch(forbidden);
       }
     });
 
     it(`${page.id}: every rendered Reference link is a real EN chapter`, async () => {
       const mod = await import(/* @vite-ignore */ page.enSource);
-      const html = renderToStaticMarkup((mod.default as () => ReactElement)());
+      const html = await renderPage(mod);
       const known = new Set(chapterSlugMap().map((m) => `/en/reference/${m.en}`));
       known.add("/en/reference");
       known.add("/en/reference/full");

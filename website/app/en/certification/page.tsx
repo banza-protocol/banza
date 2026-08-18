@@ -282,7 +282,7 @@ export default function EnCertificationPage() {
             regulatory authorisation.
           </p>
           <div className="flex flex-wrap gap-x-8 gap-y-3">
-            <MoreLink href="/registo-tecnico">Technical Registry — where certifications are published</MoreLink>
+            <MoreLink href="/en/technical-registry">Technical Registry — where certifications are published</MoreLink>
             <MoreLink href="/en/reference/conformance-certification">Reference — Conformance and Certification</MoreLink>
           </div>
         </Container>

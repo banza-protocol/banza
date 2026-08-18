@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero, Section, Container, StatusNote, MoreLink } from "@/components/ui";
 import { GITHUB_URL, BANZAI_GITHUB_URL } from "@/lib/site";
+import { fetchBanzaiRuntimeRow } from "@/lib/runtimeStatusRow";
 
 export const metadata: Metadata = {
   title: "Estado do Protocolo",
@@ -15,7 +16,12 @@ export const metadata: Metadata = {
 // server-side from the runtime SSOT route (GET /banzai/runtime, ADR-036), so the page can never
 // contradict what the service actually reports. Where prose and the route differ, the route wins.
 const PANEL_STATIC = [
-  { label: "Especificação", value: "v1.0 — congelada", tone: "ok" },
+  // NOT "congelada": contracts/production/protocol-version.json is the authority and says
+  // lifecycle_state.protocol_frozen = false, with _release_state "Pre-release. No externally frozen
+  // BANZA target has been published". Versioned and frozen are different states (the Reference already
+  // forbids "especificação congelada" for the same reason), and this panel must not contradict the
+  // artifact it exists to summarise.
+  { label: "Especificação", value: "v1.0.0 — publicada e versionada; ainda não congelada para implementação externa", tone: "pend" },
   { label: "Arquitectura", value: "Três camadas — Camada 1 protocolo aberto · Camada 2 certificação de conformidade e interoperabilidade · Camada 3 esquemas operacionais independentes", tone: "ok" },
   { label: "Ambiente", value: "Pré-produção", tone: "pend" },
   { label: "Registo Técnico BANZA (Camada 2)", value: "0 entradas — /operators devolve []", tone: "pend" },
@@ -27,71 +33,10 @@ const PANEL_STATIC = [
   { label: "Banzami Operational Scheme (Camada 3)", value: "Em preparação regulatória — autorização não concedida", tone: "pend" },
 ] as const;
 
-// ADR-036 — the runtime SSOT. The BanzAI panel row is derived from GET /banzai/runtime (server-side).
-// If the route is unreachable or reports an unrecognised schema/mode/status, we render a NEUTRAL, honest
-// fallback — NEVER a hardcoded "Qwen local activo" (that string may only appear when the route itself
-// confirms mode=local_qwen). The stable framing wraps the route-derived engine substring.
-const RUNTIME_ORIGIN = process.env.BANZA_RUNTIME_ORIGIN || "https://banza.network";
-const BANZAI_PREFIX = "Interface humana primária do protocolo";
-const BANZAI_SUFFIX = "estado por resposta · não normativo · pré-produção";
-const BANZAI_FALLBACK = `${BANZAI_PREFIX} · ${BANZAI_SUFFIX}`;
-const KNOWN_MODES = ["local_qwen", "external_hosted", "mock", "degraded"];
-const KNOWN_STATUS = ["ok", "degraded", "unknown"];
-
-type BanzaiRow = { value: string; tone: "ok" | "pend" };
-
-// Compose the engine substring from the route payload only (mode / status / inference_location /
-// external_calls). "Qwen local activo" is emitted ONLY when the route confirms an ok local_qwen mode.
-function engineLineFromRuntime(rt: Record<string, unknown>): BanzaiRow {
-  const status = String(rt.status);
-  const mode = String(rt.mode);
-  const inference = String(rt.inference_location);
-  const external = Boolean(rt.external_calls);
-  const parts: string[] = [];
-  if (status === "degraded") {
-    parts.push("motor de modelo degradado — modelo indisponível");
-  } else if (status === "unknown") {
-    parts.push("estado do motor por confirmar");
-  } else if (mode === "local_qwen") {
-    parts.push("Qwen local activo");
-  } else if (mode === "external_hosted") {
-    parts.push("modelo externo alojado");
-  } else if (mode === "mock") {
-    parts.push("motor determinístico (mock)");
-  } else {
-    parts.push("motor activo");
-  }
-  if (inference === "local") parts.push("inferência local on-host");
-  else if (inference === "external") parts.push("inferência externa");
-  else if (inference === "none") parts.push("sem inferência de modelo");
-  parts.push(external ? "com chamadas externas" : "sem chamadas externas");
-  const tone: "ok" | "pend" = status === "ok" ? "ok" : "pend";
-  return { value: `${BANZAI_PREFIX} · ${parts.join(" · ")} · ${BANZAI_SUFFIX}`, tone };
-}
-
-// Server-side read of the runtime SSOT. Short revalidate mirrors the route's max-age=15; any failure or
-// an unrecognised schema/mode/status → the neutral honest fallback (never a hardcoded engine claim).
-async function fetchBanzaiRow(): Promise<BanzaiRow> {
-  try {
-    const res = await fetch(`${RUNTIME_ORIGIN}/banzai/runtime`, {
-      headers: { Accept: "application/json" },
-      next: { revalidate: 15 },
-      signal: AbortSignal.timeout(4000),
-    });
-    if (!res.ok) return { value: BANZAI_FALLBACK, tone: "pend" };
-    const rt = (await res.json()) as Record<string, unknown>;
-    if (
-      rt.schema_version !== "banzai-runtime/1" ||
-      !KNOWN_MODES.includes(String(rt.mode)) ||
-      !KNOWN_STATUS.includes(String(rt.status))
-    ) {
-      return { value: BANZAI_FALLBACK, tone: "pend" };
-    }
-    return engineLineFromRuntime(rt);
-  } catch {
-    return { value: BANZAI_FALLBACK, tone: "pend" };
-  }
-}
+// ADR-036 — the runtime SSOT. The BanzAI panel row is derived from GET /banzai/runtime (server-side) by
+// lib/runtimeStatusRow.ts, which both editions of this page share. The derivation is deliberately NOT
+// duplicated per language: two copies of "what is the runtime doing" could disagree, and this row exists
+// precisely so the page cannot contradict the service. The locale selects words, never the verdict.
 
 const MACHINE_ROUTES = [
   {
@@ -127,7 +72,7 @@ const MACHINE_ROUTES = [
 ] as const;
 
 export default async function EstadoPage() {
-  const banzaiRow = await fetchBanzaiRow();
+  const banzaiRow = await fetchBanzaiRuntimeRow("pt");
   const PANEL = [...PANEL_STATIC, { label: "BanzAI", value: banzaiRow.value, tone: banzaiRow.tone }];
   return (
     <>
@@ -143,7 +88,7 @@ export default async function EstadoPage() {
         }
         chips={[
           { label: "PRÉ-PRODUÇÃO" },
-          { label: "ESPECIFICAÇÃO v1.0 CONGELADA" },
+          { label: "ESPECIFICAÇÃO v1.0.0 PUBLICADA" },
           { label: "REGISTO PÚBLICO SEM EVIDÊNCIA INDEXADA" },
           { label: "ESTADO VERIFICÁVEL" },
         ]}
@@ -162,7 +107,10 @@ export default async function EstadoPage() {
             ))}
           </div>
           <p className="mt-6 max-w-[78ch] text-[14.5px] leading-[1.7] text-ink-4">
-            A especificação BANZA v1.0 está congelada e é publicamente verificável. A arquitectura
+            A especificação BANZA v1.0.0 está publicada e é publicamente verificável, mas ainda não está
+            congelada para implementação externa: nenhum alvo BANZA externamente congelado foi publicado e
+            nenhum ensaio de implementação independente foi conduzido, pelo que a arquitectura de 1.0.0
+            continua a ser completada. A arquitectura
             organiza-se em três camadas — o protocolo (Camada 1), a certificação de conformidade e
             interoperabilidade (Camada 2, por implementação e decidida por Rust) e os esquemas operacionais
             independentes (Camada 3) — com o BanzAI como interface humana transversal, não uma camada. A produção —
