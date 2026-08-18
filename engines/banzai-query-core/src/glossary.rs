@@ -768,6 +768,104 @@ pub fn critical_subject_words() -> Vec<&'static str> {
         .collect()
 }
 
+/// Is `candidate` a subject this engine can actually name, on its own?
+///
+/// The distinction this draws is the whole point, and three broader rules failed on it first. A subject
+/// slot filled with any non-filler token accepted "exemplo" and "coisa". Registered surface forms accepted
+/// them too, because that vocabulary is every word of every keyword. `critical_subject_words()` accepted
+/// them as well, because it splits multi-word aliases: "operador e uma implementacao sao a mesma coisa"
+/// contributes "coisa", "mesma" and "sao" to a word list, and none of those names anything.
+///
+/// The rule is COMPLETE SURFACE, not membership: the candidate must EQUAL a registered alias, keyword or
+/// identifier, never merely occur inside one. That keeps atomic subjects working — "operador", "root",
+/// "banzai", "l0" are registered surfaces in their own right — while a word that only ever appears inside a
+/// longer phrase is not a subject, which is precisely the difference between "operator" and "thing".
+///
+/// It reads the existing tables (critical subjects, concepts, the entry keyword index, canonical profiles)
+/// rather than introducing a fourth list, so the frame cannot disagree with the resolvers about what is
+/// nameable.
+pub fn is_nameable_subject(candidate: &str) -> bool {
+    let n = crate::normalize(candidate);
+    if n.is_empty() {
+        return false;
+    }
+    // Ask the resolvers, in their own terms: given ONLY this candidate, does anything name a fact?
+    // `glossary_entry` is the same term resolver production uses, so the frame cannot disagree with it
+    // about what is nameable — and it is where atomic subjects like "operador" actually live, since the
+    // alias tables carry only phrases. A word that exists solely inside a longer alias resolves to
+    // nothing on its own, which is exactly the line this draws.
+    glossary_entry(&n).is_some()
+        || is_head_of_a_definitional_surface(&n)
+        || is_the_canonical_name_of_its_concept(&n)
+        || CRITICAL_SUBJECTS
+            .iter()
+            .any(|(_, aliases)| aliases.iter().any(|a| *a == n))
+        || crate::concept::concept_entries()
+            .iter()
+            .any(|(_, aliases)| aliases.iter().any(|a| *a == n))
+        || crate::entry_keyword_surfaces().iter().any(|k| *k == n)
+        || crate::canonical_profiles::CANONICAL_PROFILES
+            .iter()
+            .any(|p| crate::normalize(p.level) == n)
+}
+
+/// A word is a subject when it is the CANONICAL NAME the corpus gave the concept.
+///
+/// Not `id.contains(word)`. That is the permissive version and it hands out subjects by accident:
+/// `def-operator-governance-authority` contains "governance" and "authority", and neither is what that
+/// record is about — it is about the operator. Substring containment over an id turns every compound noun
+/// in every id into vocabulary.
+///
+/// The narrow rule is POSITIONAL: the concept's canonical name is the first segment after the `def-`
+/// prefix, which is the one place these ids encode ownership unambiguously. `def-root-authorization` is
+/// about the Root; `def-operator-vs-implementation` is about the operator; `def-certification-actor` is
+/// about certification. Later segments qualify the record — authorization, actor, authority, governance —
+/// and never rename it.
+///
+/// The word must ALSO appear as a whole token in one of that subject's own aliases, so an id fragment
+/// nobody ever says is not promoted into a surface form. Ids that do not carry the `def-` prefix are
+/// skipped entirely rather than guessed at: where the structure does not encode ownership, this rule
+/// declines, and the turn simply keeps its previous topic.
+fn is_the_canonical_name_of_its_concept(n: &str) -> bool {
+    if n.len() <= 2 {
+        return false;
+    }
+    CRITICAL_SUBJECTS.iter().any(|(id, aliases)| {
+        id.strip_prefix("def-")
+            .and_then(|rest| rest.split('-').next())
+            .map(|canonical| canonical == n)
+            .unwrap_or(false)
+            && aliases.iter().any(|a| a.split(' ').any(|w| w == n))
+    })
+}
+
+/// The head noun of a DEFINITIONAL surface is nameable on its own.
+///
+/// The registries carry no atomic alias for "implementacao" or "root" — they exist only inside phrases —
+/// so a rule that demanded whole-surface equality would refuse subjects the conversation plainly names, and
+/// a follow-up like "E a Root?" would inherit the previous topic instead of moving. Adding bare aliases to
+/// the tables would change what those tokens resolve to for everyone; deriving them here does not.
+///
+/// The restriction to DEFINITIONAL aliases is what keeps this honest. "o que e uma implementacao" asks what
+/// a thing IS, so its last token names that thing. "operador e uma implementacao sao a mesma coisa" is a
+/// comparison, and its last token is "coisa" — which names nothing, and is excluded structurally rather
+/// than by a stopword list that would have to guess.
+fn is_head_of_a_definitional_surface(n: &str) -> bool {
+    const DEFINITIONAL: &[&str] = &[
+        "o que e",
+        "o que sao",
+        "what is",
+        "what are",
+        "definicao de",
+        "definition of",
+    ];
+    CRITICAL_SUBJECTS
+        .iter()
+        .flat_map(|(_, aliases)| aliases.iter())
+        .filter(|a| DEFINITIONAL.iter().any(|d| a.starts_with(d)))
+        .any(|a| a.rsplit(' ').next() == Some(n))
+}
+
 /// The critical subject named by a MULTI-WORD alias. Precise enough to run BEFORE the broad arms:
 /// longest alias wins, so a specific subject beats a general one.
 fn critical_subject_phrase(nq: &str) -> Option<&'static str> {

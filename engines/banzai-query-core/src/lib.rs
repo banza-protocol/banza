@@ -128,6 +128,21 @@ fn registered_surface_forms() -> &'static std::collections::HashSet<String> {
     })
 }
 
+/// Whole keywords of indexed entries — COMPLETE surfaces, not the words they are made of.
+///
+/// `registered_surface_forms()` below splits keywords into words, which is right for typo recovery and
+/// wrong for deciding whether a turn names a subject. The two are kept apart deliberately.
+pub(crate) fn entry_keyword_surfaces() -> &'static std::collections::HashSet<String> {
+    static K: OnceLock<std::collections::HashSet<String>> = OnceLock::new();
+    K.get_or_init(|| {
+        entries()
+            .iter()
+            .flat_map(|e| e.keywords.iter())
+            .map(|k| normalize(k))
+            .collect()
+    })
+}
+
 /// True when `tok` is a surface form the resolver already recognises, so recovery must leave it alone.
 pub fn is_registered_surface_form(tok: &str) -> bool {
     registered_surface_forms().contains(tok)

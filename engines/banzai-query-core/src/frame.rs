@@ -158,6 +158,10 @@ pub struct Frame {
     pub referential: bool,
     /// The turn asks what supports the previous answer.
     pub task: bool,
+    /// How the answer should be rendered ("em JSON"), rather than what it is about. Kept apart from
+    /// `subject` because a format that happens to be resolvable vocabulary would otherwise be read as a
+    /// change of topic.
+    pub modifier: Vec<String>,
 }
 
 impl Frame {
@@ -183,16 +187,16 @@ impl Frame {
     /// though the speaker had changed topic. A turn that leans entirely on the previous one was read as
     /// standing alone, which is the opposite of what it does.
     ///
-    /// Eligibility is registered vocabulary: keywords of indexed entries, critical-subject words, canonical
-    /// profile identifiers. That is deliberately the SAME vocabulary the resolver matches on, so the frame
-    /// cannot disagree with retrieval about what is nameable. A word nobody can resolve is not a topic
-    /// change; it is filler with a noun's shape.
+    /// Eligibility is decided by `glossary::is_nameable_subject`, which asks the resolvers rather than a
+    /// word list. A word nobody can resolve is not a topic change; it is filler with a noun's shape.
+    ///
+    /// A token that only names a FORMAT does not count either, and that is a separate slot rather than a
+    /// special case: "mostra em JSON" asks for the previous answer rendered differently, so treating JSON
+    /// as the new topic loses the topic entirely.
     pub fn has_own_subject(&self) -> bool {
-        self.subject.iter().any(|t| {
-            crate::glossary::critical_subject_words()
-                .iter()
-                .any(|w| w == t)
-        })
+        self.subject
+            .iter()
+            .any(|t| crate::glossary::is_nameable_subject(t))
     }
 }
 
@@ -207,9 +211,19 @@ pub fn frame_of(question: &str) -> Frame {
             f.referential = true;
         }
     }
+    // A token introduced by "em"/"in" states HOW the answer should look, not WHAT it is about. Without
+    // this, "mostra em JSON" claimed JSON as its subject the moment JSON became resolvable vocabulary, and
+    // a request to re-render the previous answer read as a change of topic.
+    let mut prev = "";
     for tok in nq.split_whitespace() {
         let t = tok.trim_matches(|c: char| !c.is_alphanumeric());
         if t.is_empty() {
+            continue;
+        }
+        let is_modifier = matches!(prev, "em" | "in");
+        prev = t;
+        if is_modifier {
+            f.modifier.push(t.to_string());
             continue;
         }
         if is_referential(t) {
