@@ -504,9 +504,13 @@ jobs:
       # installed. Found by running the battery in a clean worktree, where every test that needed the
       # server failed with "server did not answer /runtime" — a green local run can hide this entirely,
       # because the developer's node_modules is already there.
-      - name: Install BanzAI runtime dependencies (locked)
+      # `npm ci` is wrong here and CI said so: services/banzai-api/.gitignore deliberately excludes
+      # package-lock.json, so there is no lockfile to install from. The service has exactly one runtime
+      # dependency, pinned to an exact version in package.json, so a plain install is deterministic —
+      # the lockfile decision is the repository's and is not overridden to suit this step.
+      - name: Install BanzAI runtime dependencies
         working-directory: services/banzai-api
-        run: npm ci --no-audit --no-fund
+        run: npm install --no-audit --no-fund
       - name: BanzAI critical battery (benchmark, evidence boundary, artifact binding)
         run: bash tools/banzai-critical-battery.sh
       - uses: actions/setup-node@v4

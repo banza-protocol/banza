@@ -14,7 +14,10 @@ use banzai_api_kb::route::{route, route_with_context};
 /// evidence together.
 fn settles_on(q: &str, entry: &str) {
     let r = banzai_api_kb::route::route(q);
-    assert_eq!(r.action, "deterministic", "q={q:?} must be settled without a model");
+    assert_eq!(
+        r.action, "deterministic",
+        "q={q:?} must be settled without a model"
+    );
     assert_eq!(
         r.entry_id.as_deref(),
         Some(entry),
@@ -562,7 +565,10 @@ fn questions_whose_answer_is_a_settled_fact_are_not_handed_to_a_model() {
     // establishing evidence, and two of them carry a correction the model would otherwise be free to get
     // wrong — the open financial protocol IS BANZA, and federation is not conferred by certification.
     settles_on("O que é o protocolo financeiro aberto?", "what-is-banza");
-    settles_on("Como um operador certificado L2 participa na federação?", "def-federation");
+    settles_on(
+        "Como um operador certificado L2 participa na federação?",
+        "def-federation",
+    );
 }
 
 #[test]
