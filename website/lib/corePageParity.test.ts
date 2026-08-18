@@ -117,6 +117,34 @@ const CORE_PAGES = [
     // translation preserves the scope of what is left unsaid as much as what is said.
     mustNotSay: [/permissionless/i, /trustless/i, /fully decentrali[sz]ed/i, /global consensus/i, /2-of-3/i],
   },
+  {
+    id: "ARCHITECTURE",
+    pt: "/arquitectura",
+    en: "/en/architecture",
+    enSource: "../app/en/architecture/page.tsx",
+    ptSource: "../app/(pt)/arquitectura/page.tsx",
+    implemented: true,
+    enHeading: /Three layers\. One interface\./i,
+    mustSay: [
+      /Layer 1/i,
+      /Layer 2/i,
+      /Layer 3/i,
+      /certifies an implementation .*never an entity/i,
+      /is not a layer and not an authority/i,
+      /Certifying is not admitting; admitting is not authorising/i,
+      /there is no\s+propagation between layers/i,
+      /BANZA is not Banzami/i,
+      /real payments switched off/i,
+    ],
+    // The page names Banzami as designated scheme operator WITH its qualifications. Dropping them, or
+    // promoting certification into admission or authorisation, are the failures that matter here.
+    mustNotSay: [
+      /certification grants (operational )?admission/i,
+      /certification grants regulatory/i,
+      /BANZA certifies (operators|companies|entities)/i,
+      /BANZA operates the scheme/i,
+    ],
+  },
 ] as const;
 
 const IMPLEMENTED = CORE_PAGES.filter((p) => p.implemented);

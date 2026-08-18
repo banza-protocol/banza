@@ -71,7 +71,14 @@ export interface RouteRecord {
  * make this file a mirror of runtime data and stale the moment either changed.
  */
 export const ROUTES: readonly RouteRecord[] = Object.freeze([
-  { id: "ARCHITECTURE", pt: "/arquitectura", kind: "STATIC_PAGE", policy: "BILINGUAL" },
+  {
+    id: "ARCHITECTURE",
+    pt: "/arquitectura",
+    en: "/en/architecture",
+    kind: "STATIC_PAGE",
+    policy: "BILINGUAL",
+    note: "English URL in English — never /en/arquitectura.",
+  },
   { id: "BANZAI", pt: "/banzai", kind: "STATIC_PAGE", policy: "BILINGUAL" },
   {
     id: "BANZAI_OPERATOR",
