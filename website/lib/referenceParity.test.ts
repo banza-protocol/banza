@@ -11,7 +11,7 @@
 // chapter 11. A test that matched slugs would be testing the URL scheme; this one tests the document.
 
 import { describe, it, expect } from "vitest";
-import { getReferenceChapters, getReferenceChapter, chapterSlugMap, chapterCounterpart } from "./reference";
+import { getReferenceChapters, getReferenceChapter, getReferenceOutline, chapterSlugMap, chapterCounterpart } from "./reference";
 
 const EXPECTED_CHAPTERS = 15;
 
@@ -218,6 +218,20 @@ describe("Reference route parity", () => {
       EN_CHAPTER_ROUTE,
     ]) {
       expect(pageCode(p), p).not.toContain("/en/referencia");
+    }
+  });
+});
+
+describe("Reference outline slugs follow the locale", () => {
+  it("the EN outline emits English slugs, the PT outline Portuguese ones", () => {
+    // The defect the container found and the source-scanning tests could not: the outline drives the
+    // sidebar, so a Portuguese slug here becomes /en/reference/<pt-slug> — a 404 that renders fine.
+    const map = new Map(chapterSlugMap().map((m) => [m.num, m]));
+    for (const c of getReferenceOutline("en")) {
+      expect(c.slug, `EN outline chapter ${c.num}`).toBe(map.get(c.num)!.en);
+    }
+    for (const c of getReferenceOutline("pt")) {
+      expect(c.slug, `PT outline chapter ${c.num}`).toBe(map.get(c.num)!.pt);
     }
   });
 });

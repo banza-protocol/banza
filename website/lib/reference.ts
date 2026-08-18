@@ -228,9 +228,14 @@ export function getReferenceOutline(locale: ReferenceLocale = "pt"): OutlineChap
       const num = title.match(/^(\d+)\.\s/)?.[1];
       if (num) {
         const def = CHAPTER_DEFS.find((d) => d.num === Number(num));
+        // The slug of THIS locale. Reading `def.slug` unconditionally emitted Portuguese slugs into the
+        // English outline, and the sidebar prefixed them with the English base — producing
+        // /en/reference/arquitectura, a 404. Caught by probing the running container, not by the tests,
+        // which scanned route source rather than rendered output.
+        const localeSlug = locale === "en" ? def?.enSlug : def?.slug;
         current = {
           num: Number(num),
-          slug: def?.slug ?? slugifyHeading(title),
+          slug: localeSlug ?? slugifyHeading(title),
           anchorId: slugifyHeading(title),
           title,
           shortTitle: title.replace(/^\d+\.\s*/, ""),
