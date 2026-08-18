@@ -392,6 +392,17 @@ fn banzami_attribution_allowed(path: &str) -> bool {
         || path == "website/app/(pt)/page.tsx"
         || path == "website/app/(pt)/arquitectura/page.tsx"
         || path == "website/app/(pt)/estado/page.tsx"
+        // Website Phase 2 / Block C: the ENGLISH edition of the architecture page, and the parity harness
+        // that holds it to its source. Same ADR-004/060 institutional attribution as the Portuguese page
+        // two lines above — Banzami named as the L3 designated scheme operator, with its qualifications
+        // (regulatory preparation in progress, real payments switched off) carried into the translation
+        // rather than dropped. A translation that had to omit the qualified attribution in order to pass
+        // this guard would say something WEAKER than its source, which is the failure mode the parity
+        // harness exists to prevent; the harness asserts the attribution, so it names the subject too
+        // (the same basis on which home-canonical.test.ts is listed below). BANZA (L1) and certification
+        // (L2) stay operator-neutral and the NORMATIVE_BRANDS payment operators stay blocked everywhere.
+        || path == "website/app/en/architecture/page.tsx"
+        || path == "website/lib/corePageParity.test.ts"
         || path == "website/app/roteiro/page.tsx"
         // M2.19G: the canonical glossary names Banzami as the L3 designated scheme operator (the "operador"
         // / "scheme" entries define the term against the L3 role); same ADR-004/060 attribution basis.
