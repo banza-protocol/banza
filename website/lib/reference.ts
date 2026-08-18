@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import { REFERENCE_CHAPTER_SLUGS, referenceChapterCounterpart } from "./referenceSlugs";
 
 // Generated mirror of the canonical Reference. The editorial source is
 // docs/reference/pt/BANZA_REFERENCIA.md; the Docker build context is website
@@ -94,33 +95,44 @@ export type Chapter = {
 // nomenclature. Guard-pinned tokens are preserved verbatim: the PostgreSQL summary keeps "não guarda
 // valor financeiro"; the BanzAI summary keeps "interface humana primária" + "transversal".
 /**
- * The 15 semantic chapters. `num` is the identity that survives translation: PT and EN are two
- * representations of the same chapter, so a locale slug is an address and never an id. Slugs are frozen
- * public route identifiers — an editorial heading change must not move a published URL, which is why they
- * are declared here rather than derived from titles.
+ * What each chapter is about, keyed by the semantic chapter number.
+ *
+ * The SLUGS are not here: they are public route identifiers that the site chrome also has to resolve, and
+ * they live in `lib/referenceSlugs.ts` — pure data with no filesystem access, so a client component can
+ * import them without dragging this loader into the browser bundle. `num` is the identity that survives
+ * translation; a locale slug is an address and never an id.
+ *
+ * Chapter 9 sits BETWEEN Operadores and Federação on purpose: chapter 8 says who implements the protocol,
+ * 9 shows the canonical read-only reference implementation (how an implementation presents itself,
+ * validated in BanzAI), and 10 federates the operators and artifacts that 8 and 9 established. Putting the
+ * reference at the end would make it read as an appendix rather than as the protocol's own reference point.
  */
-const CHAPTER_DEFS: { num: number; slug: string; enSlug: string; summary: string }[] = [
-  { num: 1, slug: "o-que-e", enSlug: "what-banza-is", summary: "A definição do protocolo, as suas propriedades essenciais e a fronteira do que o BANZA não é." },
-  { num: 2, slug: "porque-existe", enSlug: "why-banza-exists", summary: "A interoperabilidade financeira já existe; o que o BANZA acrescenta é uma base pública e verificável para a demonstrar, comparar e reproduzir de forma independente." },
-  { num: 3, slug: "principios", enSlug: "structural-properties", summary: "As propriedades de desenho que o protocolo preserva mesmo quando a implementação evolui — correcção financeira, neutralidade, decisão determinística, evidência, âmbito explícito, fecho por omissão e separação de responsabilidades." },
-  { num: 4, slug: "arquitectura", enSlug: "protocol-architecture", summary: "As três camadas institucionais — Camada 1 Protocolo aberto, Camada 2 Certificação de Conformidade e Interoperabilidade, Camada 3 Esquemas operacionais independentes — com o BanzAI transversal (não uma quarta camada), os planos de artefactos e as fronteiras de autoridade que não se propagam." },
-  { num: 5, slug: "estado-protocolar", enSlug: "protocol-state", summary: "O estado protocolar verificável — categorias, autoridade, estado observado e derivado; a base de dados é implementação, e não guarda valor financeiro." },
-  { num: 6, slug: "confianca", enSlug: "trust", summary: "A confiança como propriedade técnica delimitada: origem, chaves delegadas por domínio, assinatura, frescura e revogação, verificáveis offline; uma assinatura válida não é conformidade, certificação nem autorização." },
-  { num: 7, slug: "certificacao", enSlug: "conformance-certification", summary: "A conformidade verificável por motores determinísticos e a Certificação de Conformidade e Interoperabilidade (Camada 2), por implementação e baseada em evidência." },
-  { num: 8, slug: "operadores", enSlug: "operators", summary: "O operador (entidade) distinto da implementação (o sujeito técnico avaliado): um operador publica várias implementações; identidade, publicação, o Registo Técnico e a avaliação aberta de confiança entre pares." },
-  // Operador Zero sits BETWEEN Operadores and Federação on purpose: chapter 8 says who implements
-  // the protocol, 9 shows the canonical read-only reference implementation (how an implementation
-  // presents itself, validated in BanzAI), and 10 federates the operators and artifacts that 8 and 9
-  // established. Putting the reference at the end would make it read as an appendix rather than as
-  // the protocol's own reference point.
-  { num: 9, slug: "operador-zero", enSlug: "operator-zero", summary: "A implementação canónica de referência, apenas de leitura, que expõe manifest, endpoints e evidência para descoberta e verificação no BanzAI." },
-  { num: 10, slug: "federacao", enSlug: "federation", summary: "A avaliação técnica, local e por interacção, das condições para dois operadores interoperarem — que permite ou, por omissão, recusa o encaminhamento — e não uma rede, uma inscrição, um estatuto nem uma autoridade." },
-  { num: 11, slug: "governacao", enSlug: "governance", summary: "O processo público pelo qual as regras do protocolo evoluem — proposta, revisão e decisão dos maintainers activos sobre invariantes, contratos, perfis e versões — e onde a sua autoridade termina: mantém as regras, mas não certifica, não admite, não autoriza nem regula operadores." },
-  { num: 12, slug: "banzai", enSlug: "banzai", summary: "O BanzAI como interface humana primária e transversal às três camadas: lê e cita as fontes, sem criar regras nem decidir veredictos." },
-  { num: 13, slug: "programadores", enSlug: "developer-resources", summary: "O mapa dos recursos de programador: os artefactos normativos (contratos, invariantes, esquemas, vectores) que definem o comportamento e as ferramentas (motores, BanzAI, implementação de referência) que ajudam a implementá-lo e verificá-lo — sem o definir; nenhuma linguagem, base de dados ou stack é imposta." },
-  { num: 14, slug: "roteiro", enSlug: "protocol-evolution", summary: "Como o protocolo evolui: direcções possíveis, o que permanece invariante e o que não é compromisso — sem calendário, promessas de entrega nem plano de produto; o estado actual está no §5 e o processo de mudança no §11." },
-  { num: 15, slug: "faq", enSlug: "faq", summary: "Respostas curtas às dúvidas mais comuns sobre o protocolo, implementação, conformidade, operadores, federação, confiança, governança e evolução — cada uma a resumir e a apontar para o capítulo canónico; não substituem os contratos nem os artefactos normativos." },
-];
+const CHAPTER_SUMMARIES: Record<number, string> = {
+  1: "A definição do protocolo, as suas propriedades essenciais e a fronteira do que o BANZA não é.",
+  2: "A interoperabilidade financeira já existe; o que o BANZA acrescenta é uma base pública e verificável para a demonstrar, comparar e reproduzir de forma independente.",
+  3: "As propriedades de desenho que o protocolo preserva mesmo quando a implementação evolui — correcção financeira, neutralidade, decisão determinística, evidência, âmbito explícito, fecho por omissão e separação de responsabilidades.",
+  4: "As três camadas institucionais — Camada 1 Protocolo aberto, Camada 2 Certificação de Conformidade e Interoperabilidade, Camada 3 Esquemas operacionais independentes — com o BanzAI transversal (não uma quarta camada), os planos de artefactos e as fronteiras de autoridade que não se propagam.",
+  5: "O estado protocolar verificável — categorias, autoridade, estado observado e derivado; a base de dados é implementação, e não guarda valor financeiro.",
+  6: "A confiança como propriedade técnica delimitada: origem, chaves delegadas por domínio, assinatura, frescura e revogação, verificáveis offline; uma assinatura válida não é conformidade, certificação nem autorização.",
+  7: "A conformidade verificável por motores determinísticos e a Certificação de Conformidade e Interoperabilidade (Camada 2), por implementação e baseada em evidência.",
+  8: "O operador (entidade) distinto da implementação (o sujeito técnico avaliado): um operador publica várias implementações; identidade, publicação, o Registo Técnico e a avaliação aberta de confiança entre pares.",
+  9: "A implementação canónica de referência, apenas de leitura, que expõe manifest, endpoints e evidência para descoberta e verificação no BanzAI.",
+  10: "A avaliação técnica, local e por interacção, das condições para dois operadores interoperarem — que permite ou, por omissão, recusa o encaminhamento — e não uma rede, uma inscrição, um estatuto nem uma autoridade.",
+  11: "O processo público pelo qual as regras do protocolo evoluem — proposta, revisão e decisão dos maintainers activos sobre invariantes, contratos, perfis e versões — e onde a sua autoridade termina: mantém as regras, mas não certifica, não admite, não autoriza nem regula operadores.",
+  12: "O BanzAI como interface humana primária e transversal às três camadas: lê e cita as fontes, sem criar regras nem decidir veredictos.",
+  13: "O mapa dos recursos de programador: os artefactos normativos (contratos, invariantes, esquemas, vectores) que definem o comportamento e as ferramentas (motores, BanzAI, implementação de referência) que ajudam a implementá-lo e verificá-lo — sem o definir; nenhuma linguagem, base de dados ou stack é imposta.",
+  14: "Como o protocolo evolui: direcções possíveis, o que permanece invariante e o que não é compromisso — sem calendário, promessas de entrega nem plano de produto; o estado actual está no §5 e o processo de mudança no §11.",
+  15: "Respostas curtas às dúvidas mais comuns sobre o protocolo, implementação, conformidade, operadores, federação, confiança, governança e evolução — cada uma a resumir e a apontar para o capítulo canónico; não substituem os contratos nem os artefactos normativos.",
+};
+
+/** The 15 semantic chapters, composed from the shared slug pairing and the summaries above. */
+const CHAPTER_DEFS: { num: number; slug: string; enSlug: string; summary: string }[] =
+  REFERENCE_CHAPTER_SLUGS.map((s) => ({
+    num: s.num,
+    slug: s.pt,
+    enSlug: s.en,
+    summary: CHAPTER_SUMMARIES[s.num],
+  }));
 
 /** Split the canonical markdown into numbered chapters (fence-aware). */
 export function getReferenceChapters(locale: ReferenceLocale = "pt"): Chapter[] {
@@ -181,9 +193,9 @@ export function chapterSlugMap(): { num: number; pt: string; en: string }[] {
  * an architecture that was considered and rejected. The id is the bridge; the slugs are the two ends.
  */
 export function chapterCounterpart(slug: string, from: ReferenceLocale): string | undefined {
-  const d = CHAPTER_DEFS.find((x) => (from === "en" ? x.enSlug : x.slug) === slug);
-  if (!d) return undefined;
-  return from === "en" ? `/referencia/${d.slug}` : `/en/reference/${d.enSlug}`;
+  // Delegated, not reimplemented: the site chrome resolves the same relation from the same table, and two
+  // implementations of "the English URL of this chapter" is precisely the drift this milestone is closing.
+  return referenceChapterCounterpart(slug, from);
 }
 
 /** The "Resumo Executivo" section body, for the reference index page. */

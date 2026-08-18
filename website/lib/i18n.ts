@@ -16,6 +16,14 @@
  * path and the public route are different things and must not be used for one another.
  */
 
+import {
+  ROUTES,
+  owesEnglish,
+  pathFor,
+  counterpartOf as registryCounterpartOf,
+} from "./routeRegistry";
+import { REFERENCE_BASE, referenceChapterCounterpart } from "./referenceSlugs";
+
 export const LOCALES = ["pt", "en"] as const;
 export type Locale = (typeof LOCALES)[number];
 
@@ -29,49 +37,37 @@ export const LOCALE_NAME: Record<Locale, string> = { pt: "Português", en: "Engl
 
 /** One public page, in both editions.
  *
- * `key` is stable and language-neutral. The switcher, the navigation and the parity checks address
- * pages by key, so renaming a slug in one language can never silently unpair a page — and a translated
+ * `key` is the registry's stable semantic id. The switcher, the navigation and the parity checks address
+ * pages by that id, so renaming a slug in one language can never silently unpair a page — and a translated
  * label never becomes a page's identity.
  *
- * `en: null` marks a page that has no English counterpart *yet*, or legitimately never will. `enReason`
- * says which. An unpublished counterpart is not a 404 to link to: `counterpartOf` returns null and the
- * caller decides what to show.
+ * `en: null` marks a page that has no English counterpart *yet*. An unpublished counterpart is not a 404
+ * to link to: `counterpartOf` returns null and the caller decides what to show.
  */
 export type RoutePair = {
   key: string;
   pt: string;
   en: string | null;
-  enReason?: string;
 };
 
-/** Every public page, paired. English entries are filled in as each edition page is genuinely
- * published — a route listed here with an `en` path is a promise that the page exists and is complete.
+/**
+ * Every public page, paired — DERIVED from the canonical route registry, never hand-maintained.
+ *
+ * This used to be a second, hand-written list, and it went stale exactly as the registry's own header
+ * predicted it would: it still described `/arquitectura`, `/confianca`, `/federacao`, `/porque-existe`,
+ * `/certificacao` and `/referencia` as having no English edition after all six had been published. The
+ * language switcher therefore sent readers of every English core page to the front page and told them, in
+ * the accessible name, that the page they were on was not published in Portuguese — and the English home
+ * advertised six translated pages as Portuguese-only. Both statements were false, and both were produced
+ * by this list rather than by the site.
+ *
+ * Only STATIC pages that owe an English edition appear here. Dynamic and generated patterns carry
+ * `[param]` segments and are not linkable addresses; aliases and the document-locale whitepaper surfaces
+ * do not owe a counterpart at all.
  */
-export const ROUTE_PAIRS: readonly RoutePair[] = [
-  { key: "home", pt: "/", en: "/en" },
-  { key: "why", pt: "/porque-existe", en: null, enReason: "Awaiting the full content phase." },
-  { key: "architecture", pt: "/arquitectura", en: null, enReason: "Awaiting the full content phase." },
-  { key: "certification", pt: "/certificacao", en: null, enReason: "Awaiting the full content phase." },
-  { key: "trust", pt: "/confianca", en: null, enReason: "Awaiting the full content phase." },
-  { key: "federation", pt: "/federacao", en: null, enReason: "Awaiting the full content phase." },
-  { key: "registry", pt: "/registo-tecnico", en: null, enReason: "Awaiting the full content phase." },
-  { key: "operators", pt: "/operadores", en: null, enReason: "Awaiting the full content phase." },
-  { key: "governance", pt: "/governanca", en: null, enReason: "Awaiting the full content phase." },
-  { key: "decisions", pt: "/decisoes", en: null, enReason: "Awaiting the full content phase." },
-  { key: "glossary", pt: "/glossario", en: null, enReason: "Awaiting the full content phase." },
-  { key: "status", pt: "/estado", en: null, enReason: "Awaiting the full content phase." },
-  { key: "licence", pt: "/licenca", en: null, enReason: "Awaiting the full content phase." },
-  { key: "reference", pt: "/referencia", en: null, enReason: "Awaiting the full content phase." },
-  { key: "whitepaper", pt: "/whitepaper", en: null, enReason: "Awaiting the full content phase." },
-  { key: "banzai", pt: "/banzai", en: null, enReason: "Awaiting the full content phase." },
-  {
-    key: "operator-zero",
-    pt: "/oz",
-    en: null,
-    enReason:
-      "The standalone demonstration lab, served at its own host — not part of the public protocol site.",
-  },
-];
+export const ROUTE_PAIRS: readonly RoutePair[] = ROUTES.filter(
+  (r) => r.kind === "STATIC_PAGE" && owesEnglish(r),
+).map((r) => ({ key: r.id, pt: r.pt, en: r.en ?? null }));
 
 /** The edition a pathname belongs to. */
 export function localeOfPath(pathname: string): Locale {
@@ -82,15 +78,24 @@ export function localeOfPath(pathname: string): Locale {
  *
  * Returning `null` rather than the home page is deliberate. A switcher that quietly sends the reader to
  * the front page loses their place and hides the gap; the caller can then say plainly that this page is
- * not available in that language yet.
+ * not available in that language yet. What it must never do is say that when a counterpart DOES exist.
+ *
+ * Reference chapters resolve through the chapter number, because their slugs are genuinely different words
+ * in the two editions: `/referencia/governacao` pairs with `/en/reference/governance`. Substituting the
+ * path segment would invent `/en/reference/governacao`, a 404 — the registry registers the chapter route as
+ * a pattern for that reason, and patterns are never resolved by textual prefixing.
  */
 export function counterpartOf(pathname: string, target: Locale): string | null {
   const from = localeOfPath(pathname);
   const normalised = pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
   if (from === target) return normalised;
 
-  const pair = ROUTE_PAIRS.find((p) => p[from] === normalised);
-  return pair ? pair[target] : null;
+  const chapter = normalised.startsWith(`${REFERENCE_BASE[from]}/`)
+    ? referenceChapterCounterpart(normalised.slice(REFERENCE_BASE[from].length + 1), from)
+    : undefined;
+  if (chapter) return chapter;
+
+  return registryCounterpartOf(normalised);
 }
 
 /** Canonical URL and `hreflang` alternates for a pathname.
@@ -116,8 +121,7 @@ export function alternatesFor(pathname: string): {
   };
 }
 
-/** The route for a page key in an edition, or `null` if that edition does not publish the page. */
+/** The route for a semantic id in an edition, or `null` if that edition does not publish the page. */
 export function routeFor(key: string, locale: Locale): string | null {
-  const pair = ROUTE_PAIRS.find((p) => p.key === key);
-  return pair ? pair[locale] : null;
+  return pathFor(key, locale);
 }

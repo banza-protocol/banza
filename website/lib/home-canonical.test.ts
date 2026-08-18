@@ -192,10 +192,12 @@ describe("M2.19G.2 §27/§28/§32 — the standalone /o-que-e route is removed",
   it("neither the home nor the site config links the standalone /o-que-e route", () => {
     expect(page).not.toMatch(/href="\/o-que-e"/);
     expect(page).not.toContain('"/o-que-e"');
-    expect(siteSrc).not.toMatch(/href="\/o-que-e"/);
-    expect(siteSrc).not.toContain('"/o-que-e"'); // distinct from the canonical "/referencia/o-que-e"
-    // the canonical introductory definition IS wired, as the reference chapter
-    expect(siteSrc).toContain('"/referencia/o-que-e"');
+    // Asserted against the RESOLVED chrome, which is what a reader actually receives: the footer
+    // names its destinations by semantic id now, so the removed standalone route cannot be searched
+    // for as a literal in the source and the reference chapter must be checked as a resolved href.
+    const chromeHrefs = [...navPrimary, ...footerColumns.flatMap((c) => c.items)].map((i) => i.href);
+    expect(chromeHrefs).not.toContain("/o-que-e");
+    expect(chromeHrefs).toContain("/referencia/o-que-e");
   });
   it("the sitemap does not list the standalone /o-que-e route", () => {
     expect(sitemapSrc).not.toContain('"/o-que-e"');

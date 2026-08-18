@@ -1,4 +1,5 @@
 import { describe, it, expect } from "vitest";
+import { getReferenceChapters } from "./reference";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import {
@@ -92,10 +93,14 @@ describe("BanzAI architecture manifest — runtime SSOT contract", () => {
 });
 
 describe("BanzAI architecture manifest — chapter-12 card echoes the canonical form", () => {
-  it("reference.ts ch.12 card carries 'interface humana primária' + 'transversal'", () => {
-    const refLib = readFileSync(join(process.cwd(), "lib", "reference.ts"), "utf8");
-    const line = refLib.split("\n").find((l) => l.includes('slug: "banzai"'))!;
-    expect(line).toMatch(/interface humana primária/);
-    expect(line).toMatch(/transversal/);
+  it("the chapter-12 card carries 'interface humana primária' + 'transversal'", () => {
+    // Asserted against the RESOLVED chapter, not against a source line: the summaries are keyed by
+    // chapter number and the slugs are owned by lib/referenceSlugs.ts, so grepping reference.ts for
+    // `slug: "banzai"` proved only that one file happened to spell the card on one line.
+    const ch = getReferenceChapters("pt").find((c) => c.slug === "banzai")!;
+    expect(ch, "chapter-12 card must exist").toBeTruthy();
+    expect(ch.num).toBe(12);
+    expect(ch.summary).toMatch(/interface humana primária/);
+    expect(ch.summary).toMatch(/transversal/);
   });
 });

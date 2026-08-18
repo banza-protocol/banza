@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { footerColumns } from "@/lib/site";
+import { footerColumnsFor, CHROME_TEXT } from "@/lib/site";
 import { LocaleSwitch } from "@/components/LocaleSwitch";
 import type { Locale } from "@/lib/i18n";
 
@@ -49,22 +49,32 @@ function FooterIcon({ k }: { k: string }) {
 const linkStyle: React.CSSProperties = { display: "flex", alignItems: "center", gap: 13, textDecoration: "none", fontWeight: 500, color: "#2A2521" };
 const srOnly: React.CSSProperties = { position: "absolute", width: 1, height: 1, padding: 0, margin: -1, overflow: "hidden", clip: "rect(0 0 0 0)", whiteSpace: "nowrap", border: 0 };
 
-// Small "opens in a new tab" indicator for external (non-email) footer links (M2.17A).
-function ExternalTabHint() {
+// Small "opens in a new tab" indicator for external (non-email) footer links (M2.17A). The visible mark
+// is an icon, so the whole announcement is the screen-reader text — which therefore has to be in the
+// reader's language like any other sentence the footer speaks.
+function ExternalTabHint({ locale }: { locale: Locale }) {
   return (
     <>
       <svg aria-hidden="true" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#8A8275" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" style={{ flex: "none", marginLeft: 1 }}>
         <path d="M7 17L17 7M9 7h8v8" />
       </svg>
-      <span style={srOnly}>(abre numa nova aba)</span>
+      <span style={srOnly}>{CHROME_TEXT[locale].newTabHint}</span>
     </>
   );
 }
 
-// `locale` is accepted so the footer can carry the language switch (§68) and, in the content phase,
-// localised column titles. The link set itself is deliberately shared: both editions point at the same
-// public artifacts, and the Portuguese pages are the ones that exist today.
+// The footer is part of the reader-visible shell and carries the same locale guarantee as the page it
+// sits under. Destinations are resolved per edition from the route registry (lib/site.ts), so publishing
+// an English page moves the footer with it; the column titles, the item labels, the brand sentence and
+// the screen-reader-only strings are localised alongside them.
+//
+// It used to be shared verbatim on the grounds that "both editions point at the same public artifacts".
+// That was true when only Portuguese pages existed and stopped being true the moment /en/architecture and
+// /en/trust were published — at which point the English pages were still sending readers to Portuguese
+// ones, the English architecture and trust pages included.
 export function SiteFooter({ locale = "pt" }: { locale?: Locale }) {
+  const footerColumns = footerColumnsFor(locale);
+  const text = CHROME_TEXT[locale];
   return (
     <footer style={{ background: "#FBF6EE", fontFamily: F_SANS, color: "#6B6358" }}>
       <div style={{ background: "#FBF6EE", borderTop: "1px solid #EADFCD", overflow: "hidden" }}>
@@ -78,10 +88,10 @@ export function SiteFooter({ locale = "pt" }: { locale?: Locale }) {
               <Image src="/banza-mark-bordo-hd.png" alt="BANZA" width={56} height={56} style={{ height: 56, width: "auto", display: "block", flex: "none" }} />
               <span style={{ display: "flex", flexDirection: "column", lineHeight: 1 }}>
                 <span style={{ fontFamily: F_SERIF, fontWeight: 600, fontSize: 36, letterSpacing: "0.06em", color: "#1A1512" }}>BANZA</span>
-                <span style={{ fontFamily: F_MONO, fontSize: 12, letterSpacing: "0.34em", color: "#8A8275", marginTop: 8 }}>PROTOCOLO&nbsp;·&nbsp;v1.0</span>
+                <span style={{ fontFamily: F_MONO, fontSize: 12, letterSpacing: "0.34em", color: "#8A8275", marginTop: 8 }}>{text.protocolLine.replace(" · ", "\u00a0·\u00a0")}</span>
               </span>
             </div>
-            <p style={{ fontSize: 15, lineHeight: 1.65, color: "#6B6358", maxWidth: "36ch", margin: 0 }}>Regras públicas, motores verificáveis e evidência verificável para a interoperabilidade entre operadores independentes em Angola.</p>
+            <p style={{ fontSize: 15, lineHeight: 1.65, color: "#6B6358", maxWidth: "36ch", margin: 0 }}>{text.brand}</p>
           </div>
 
           <div className="footer-divider" style={{ background: "#EADFCD", alignSelf: "stretch", width: 1 }} />
@@ -102,7 +112,7 @@ export function SiteFooter({ locale = "pt" }: { locale?: Locale }) {
                         style={linkStyle}
                       >
                         <FooterIcon k={item.key} /><span>{item.label}</span>
-                        {!item.email && <ExternalTabHint />}
+                        {!item.email && <ExternalTabHint locale={locale} />}
                       </a>
                     ) : (
                       <Link key={`${col.title}-${i}`} href={item.href} style={linkStyle}>
