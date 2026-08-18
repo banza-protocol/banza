@@ -13,7 +13,7 @@
       "schema_path": "contracts/production/key-manifest.production.schema.json",
       "schema_declared_id": "https://banza.network/contracts/production/key-manifest.production.schema.json",
       "schema_version": "1.0",
-      "schema_checksum": "031ec2c39e2e0d66",
+      "schema_checksum": "117164aed253d4b9",
       "additional_properties_closed": true,
       "schema_required": [
         "hash",
@@ -22,7 +22,8 @@
         "not_after",
         "not_before",
         "protocol_version",
-        "root"
+        "root_authority_set",
+        "root_signatures"
       ],
       "claimed_required": [
         "hash",
@@ -31,7 +32,8 @@
         "not_after",
         "not_before",
         "protocol_version",
-        "root"
+        "root_authority_set",
+        "root_signatures"
       ],
       "body_validates": true,
       "validation_errors": []
@@ -75,7 +77,7 @@
       "schema_path": "contracts/production/evidence-bundle.production.schema.json",
       "schema_declared_id": "https://banza.network/contracts/production/evidence-bundle.production.schema.json",
       "schema_version": "1.0",
-      "schema_checksum": "2705b35e4d7c4786",
+      "schema_checksum": "5b9a6c57d61587b0",
       "additional_properties_closed": true,
       "schema_required": [
         "artifacts",
@@ -102,7 +104,7 @@
       "schema_path": "contracts/federation/federation-manifest.json",
       "schema_declared_id": "https://banza.network/contracts/federation/federation-manifest.json",
       "schema_version": "1",
-      "schema_checksum": "344a197e2da8bdce",
+      "schema_checksum": "5197c1afa4d8ed8e",
       "additional_properties_closed": false,
       "schema_required": [
         "cross_operator_routing",
@@ -131,7 +133,7 @@
       "schema_path": "contracts/production/operator-manifest.production.schema.json",
       "schema_declared_id": "https://banza.network/contracts/production/operator-manifest.production.schema.json",
       "schema_version": "1.0",
-      "schema_checksum": "50f4a61f3099b82d",
+      "schema_checksum": "73614b0ae0a1c258",
       "additional_properties_closed": true,
       "schema_required": [
         "base_url",
@@ -166,7 +168,7 @@
       "schema_path": "contracts/production/trust-root-metadata.production.schema.json",
       "schema_declared_id": "https://banza.network/contracts/production/trust-root-metadata.production.schema.json",
       "schema_version": "1.0",
-      "schema_checksum": "abe78ea82ec08cc3",
+      "schema_checksum": "e0a00d227e8dc10f",
       "additional_properties_closed": true,
       "schema_required": [
         "boundary",
@@ -202,7 +204,7 @@
       "schema_path": "contracts/production/federation-trust-evaluation.production.schema.json",
       "schema_declared_id": "https://banza.network/contracts/production/federation-trust-evaluation.production.schema.json",
       "schema_version": "1.0",
-      "schema_checksum": "f50bf7433b445d36",
+      "schema_checksum": "4ba1832ba28becb8",
       "additional_properties_closed": true,
       "schema_required": [
         "boundary",
@@ -230,5 +232,5 @@
       "validation_errors": []
     }
   ],
-  "checksum": "e91c1ed1af2a7cdf"
+  "checksum": "ce30c812ae9396b0"
 }

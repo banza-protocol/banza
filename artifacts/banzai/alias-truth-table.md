@@ -1,6 +1,6 @@
 # BANZAI Canonical Alias Truth Table (M2.18B.5)
 
-Derived deterministically from `engines/banzai-query-core/src/concept.rs` + `catalogue.rs` via `fuzzy::alias_truth_table`. Regenerate: `node tools/gen-alias-truth-table.mjs`. **Silent collisions (one alias → two ids): 0** (must be 0). Rows: 248; canonical ids: 25.
+Derived deterministically from `engines/banzai-query-core/src/concept.rs` + `catalogue.rs` via `fuzzy::alias_truth_table`. Regenerate: `node tools/gen-alias-truth-table.mjs`. **Silent collisions (one alias → two ids): 0** (must be 0). Rows: 310; canonical ids: 25.
 
 | Canonical ID | Alias | Normalized | Source |
 |---|---|---|---|
@@ -12,6 +12,18 @@ Derived deterministically from `engines/banzai-query-core/src/concept.rs` + `cat
 | ADR-001 | open financial protocol | open financial protocol | catalogue |
 | ADR-001 | o que e o banza como protocolo | o que e o banza como protocolo | catalogue |
 | ADR-001 | protocolo aberto | protocolo aberto | catalogue |
+| ADR-002 | autoridade sobre operadores | autoridade sobre operadores | concept |
+| ADR-002 | autoridade sobre os operadores | autoridade sobre os operadores | concept |
+| ADR-002 | authority over operators | authority over operators | concept |
+| ADR-002 | quem controla os operadores | quem controla os operadores | concept |
+| ADR-002 | quem controla o operador | quem controla o operador | concept |
+| ADR-002 | who controls operators | who controls operators | concept |
+| ADR-002 | controla os operadores | controla os operadores | concept |
+| ADR-002 | control operators | control operators | concept |
+| ADR-002 | controlo dos operadores | controlo dos operadores | concept |
+| ADR-002 | operador e implementacao | operador e implementacao | concept |
+| ADR-002 | operator and implementation | operator and implementation | concept |
+| ADR-002 | operador vs implementacao | operador vs implementacao | concept |
 | ADR-002 | separacao de operadores | separacao de operadores | concept |
 | ADR-002 | separacao operador | separacao operador | concept |
 | ADR-002 | separacao entre protocolo e operador | separacao entre protocolo e operador | concept |
@@ -35,6 +47,26 @@ Derived deterministically from `engines/banzai-query-core/src/concept.rs` + `cat
 | ADR-003 | protocol first | protocol first | catalogue |
 | ADR-003 | desenvolvimento protocol-first | desenvolvimento protocol first | catalogue |
 | ADR-003 | protocolo antes do produto | protocolo antes do produto | catalogue |
+| ADR-004 | governanca do protocolo | governanca do protocolo | concept |
+| ADR-004 | governacao do protocolo | governacao do protocolo | concept |
+| ADR-004 | protocol governance | protocol governance | concept |
+| ADR-004 | quem governa o protocolo | quem governa o protocolo | concept |
+| ADR-004 | who governs the protocol | who governs the protocol | concept |
+| ADR-004 | poder sobre os operadores | poder sobre os operadores | concept |
+| ADR-004 | power over operators | power over operators | concept |
+| ADR-004 | poder sobre operadores | poder sobre operadores | concept |
+| ADR-004 | governanca do protocolo da poder | governanca do protocolo da poder | concept |
+| ADR-004 | protocol governance grants power | protocol governance grants power | concept |
+| ADR-004 | autoridade separada | autoridade separada | concept |
+| ADR-004 | separacao de autoridade | separacao de autoridade | concept |
+| ADR-004 | separation of authority | separation of authority | concept |
+| ADR-004 | autoridade esta separada | autoridade esta separada | concept |
+| ADR-004 | authority is separated | authority is separated | concept |
+| ADR-004 | como esta separada a autoridade | como esta separada a autoridade | concept |
+| ADR-004 | quem governa os operadores | quem governa os operadores | concept |
+| ADR-004 | who governs operators | who governs operators | concept |
+| ADR-004 | governanca dos operadores | governanca dos operadores | concept |
+| ADR-004 | governacao dos operadores | governacao dos operadores | concept |
 | ADR-004 | tres camadas | tres camadas | concept |
 | ADR-004 | arquitectura institucional | arquitectura institucional | concept |
 | ADR-004 | arquitetura institucional | arquitetura institucional | concept |
@@ -47,6 +79,13 @@ Derived deterministically from `engines/banzai-query-core/src/concept.rs` + `cat
 | ADR-004 | trilayer | trilayer | concept |
 | ADR-004 | tri layer | tri layer | concept |
 | ADR-004 | l1 l2 l3 | l1 l2 l3 | concept |
+| ADR-005 | quem certifica uma implementacao | quem certifica uma implementacao | concept |
+| ADR-005 | who certifies an implementation | who certifies an implementation | concept |
+| ADR-005 | certificacao permite operar | certificacao permite operar | concept |
+| ADR-005 | certification grants permission | certification grants permission | concept |
+| ADR-005 | certificacao autoriza | certificacao autoriza | concept |
+| ADR-005 | certification authorizes | certification authorizes | concept |
+| ADR-005 | depois da certificacao | depois da certificacao | concept |
 | ADR-005 | certificacao nao e autorizacao | certificacao nao e autorizacao | concept |
 | ADR-005 | certificacao vs autorizacao | certificacao vs autorizacao | concept |
 | ADR-005 | certificacao admissao autorizacao | certificacao admissao autorizacao | concept |
@@ -54,6 +93,15 @@ Derived deterministically from `engines/banzai-query-core/src/concept.rs` + `cat
 | ADR-005 | diferenca entre certificacao e admissao | diferenca entre certificacao e admissao | concept |
 | ADR-005 | admissao a scheme | admissao a scheme | concept |
 | ADR-005 | scheme admission | scheme admission | concept |
+| ADR-006 | quem admite um operador | quem admite um operador | concept |
+| ADR-006 | quem admite operadores | quem admite operadores | concept |
+| ADR-006 | who admits an operator | who admits an operator | concept |
+| ADR-006 | who admits operators | who admits operators | concept |
+| ADR-006 | admissao de um participante | admissao de um participante | concept |
+| ADR-006 | admissao a um esquema | admissao a um esquema | concept |
+| ADR-006 | admission to a scheme | admission to a scheme | concept |
+| ADR-006 | quem decide quem pode operar | quem decide quem pode operar | concept |
+| ADR-006 | who decides who may operate | who decides who may operate | concept |
 | ADR-006 | operational scheme | operational scheme | concept |
 | ADR-006 | scheme operacional | scheme operacional | concept |
 | ADR-006 | esquema operacional | esquema operacional | concept |
@@ -67,6 +115,19 @@ Derived deterministically from `engines/banzai-query-core/src/concept.rs` + `cat
 | ADR-006 | infrastructure separation | infrastructure separation | concept |
 | ADR-006 | criador e operador | criador e operador | concept |
 | ADR-006 | creator and operator | creator and operator | concept |
+| ADR-007 | quem autoriza um operador | quem autoriza um operador | concept |
+| ADR-007 | quem autoriza operadores | quem autoriza operadores | concept |
+| ADR-007 | who authorizes an operator | who authorizes an operator | concept |
+| ADR-007 | who authorises an operator | who authorises an operator | concept |
+| ADR-007 | quem supervisiona um operador | quem supervisiona um operador | concept |
+| ADR-007 | who supervises an operator | who supervises an operator | concept |
+| ADR-007 | supervisiona legalmente | supervisiona legalmente | concept |
+| ADR-007 | legally supervises | legally supervises | concept |
+| ADR-007 | operar com dinheiro real | operar com dinheiro real | concept |
+| ADR-007 | operate with real money | operate with real money | concept |
+| ADR-007 | pode operar com dinheiro real | pode operar com dinheiro real | concept |
+| ADR-007 | quem decide se um operador pode operar | quem decide se um operador pode operar | concept |
+| ADR-007 | autoriza operar com dinheiro real | autoriza operar com dinheiro real | concept |
 | ADR-007 | estado regulatorio | estado regulatorio | concept |
 | ADR-007 | regulatory state | regulatory state | concept |
 | ADR-007 | autorizacao regulatoria | autorizacao regulatoria | concept |
@@ -239,6 +300,7 @@ Derived deterministically from `engines/banzai-query-core/src/concept.rs` + `cat
 | RFC-0006 | offline payment | offline payment | catalogue |
 | RFC-0006 | suporte offline | suporte offline | catalogue |
 | docs/reference/PROTOCOL_GOVERNANCE_GLOSSARY.md | governanca | governanca | concept |
+| docs/reference/PROTOCOL_GOVERNANCE_GLOSSARY.md | governacao | governacao | concept |
 | docs/reference/PROTOCOL_GOVERNANCE_GLOSSARY.md | governance | governance | concept |
 | docs/reference/PROTOCOL_GOVERNANCE_GLOSSARY.md | como e governado | como e governado | concept |
 | docs/reference/PROTOCOL_GOVERNANCE_GLOSSARY.md | quem governa | quem governa | concept |
