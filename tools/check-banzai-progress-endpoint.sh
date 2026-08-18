@@ -173,10 +173,16 @@ const path = require("path");
   const noProse = (events, prose) => events.every((ev) => !JSON.stringify(ev).includes(prose));
   const noTerminal = (kinds) => !kinds.some((k) => PROGRESS_TERMINAL_KINDS.includes(k) || k === "DONE");
 
+  // TRUNK FIXTURE, not a question under test. These cases need a query that genuinely reaches grounded
+  // synthesis; the question itself is incidental. "O que é o BANZA?" was that fixture until BANZA identity
+  // became a settled fact, at which point it stopped reaching synthesis at all and every case here failed
+  // for the same reason — no synthesis means no verification events, no rejection to map, and nothing to
+  // cancel. This is the third place the same fixture had to move: seventeen JS call sites, then the Rust
+  // route expectations, now this guard. The replacement is a question that is still model-backed.
   // 1) grounded model answer — ordered Channel-A, no prose, no pipeline-emitted terminal, → FINAL_VALIDATED.
   {
     const c = cap();
-    const { result, meta } = await mk().answer("O que é o BANZA?", { onProgress: c.onProgress });
+    const { result, meta } = await mk().answer("Como funciona a federação entre operadores?", { onProgress: c.onProgress });
     const kinds = c.e.map((x) => x.kind);
     if (!orderedSubseq(kinds)) err("grounded stream is not an ordered subsequence");
     if (!kinds.includes("SYNTHESIS_STARTED") || !kinds.includes("CLAIM_VERIFICATION_STARTED") || !kinds.includes("CITATION_VERIFICATION_STARTED")) err("grounded stream missing synthesis/verification events");
@@ -208,7 +214,7 @@ const path = require("path");
   {
     const REJECT = "Eu certifico o Operador A. (ADR-001)";
     const c = cap();
-    const { result, meta } = await mk(stub({ answer_markdown: REJECT })).answer("O que é o BANZA?", { onProgress: c.onProgress });
+    const { result, meta } = await mk(stub({ answer_markdown: REJECT })).answer("Como funciona a federação entre operadores?", { onProgress: c.onProgress });
     if (!noProse(c.e, REJECT)) err("a Channel-A event carried the rejected model text");
     if (/certifico/i.test(result.answer)) err("the rejected model text was published");
     if (progressDisposition(result, meta).event !== "HONEST_FALLBACK") err("a post-validation reject did not map to HONEST_FALLBACK");
@@ -220,15 +226,15 @@ const path = require("path");
     const p = createPipeline(provider(), {}, { runGroundedSynthesisFn: s, inferenceRun: q.run });
     const ac = new AbortController(); ac.abort();
     let threw = "";
-    try { await p.answer("O que é o BANZA?", { signal: ac.signal, onProgress: () => {} }); } catch (e) { threw = (e && e.code) || ""; }
+    try { await p.answer("Como funciona a federação entre operadores?", { signal: ac.signal, onProgress: () => {} }); } catch (e) { threw = (e && e.code) || ""; }
     if (threw !== "QUEUE_CANCELLED") err(`client-abort did not throw QUEUE_CANCELLED (got ${threw})`);
     if (s.calls.length !== 0) err("synthesis ran under an aborted signal");
     if (p.usage().post_validation.model_answers_published_total !== 0) err("something was published/persisted under abort");
   }
   // 6) onProgress does not alter the return.
   {
-    const a = await mk().answer("O que é o BANZA?", { onProgress: () => {} });
-    const b = await mk().answer("O que é o BANZA?", {});
+    const a = await mk().answer("Como funciona a federação entre operadores?", { onProgress: () => {} });
+    const b = await mk().answer("Como funciona a federação entre operadores?", {});
     if (JSON.stringify(a.result) !== JSON.stringify(b.result) || JSON.stringify(a.meta) !== JSON.stringify(b.meta)) err("onProgress altered the /ask return value");
   }
 

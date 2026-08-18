@@ -177,7 +177,10 @@ describe("mapAskResponse (banzai-api /ask → KbAnswer)", () => {
       meta: {},
     });
     expect(r.sources).toHaveLength(2);
-    expect(r.sources[0]).toMatchObject({ id: "LICENSE", category: "reference", repo: "banza-protocol/banza" });
+    // This asserted `category: "reference"` — the defect, written down as an expectation. A source the
+    // backend did not classify must stay unclassified here; the card then says FONTE/SOURCE. Attaching the
+    // canonical Reference's label to whatever arrived without metadata is what Block 5B removed.
+    expect(r.sources[0]).toMatchObject({ id: "LICENSE", category: "", kind: "", repo: "banza-protocol/banza" });
     expect(r.sources[0].href).toBe("https://github.com/banza-protocol/banza/blob/main/LICENSE");
     expect(r.sources[1]).toMatchObject({ category: "operator-zero" });
     expect(r.sources[1].href).toBe("https://github.com/banza-protocol/banza/blob/main/engines/operator-zero-core/Cargo.toml");
@@ -407,7 +410,7 @@ describe("buildTransparency (§24) — envelope → KbTransparency (present when
           artifact_observed_at: "2026-08-06T10:00:00Z",
         },
       },
-      [{ id: "ADR-001", title: "t", path: "p", repo: "banza-protocol/banza", category: "decision", href: null }],
+      [{ id: "ADR-001", title: "t", path: "p", repo: "banza-protocol/banza", category: "decision", kind: "adr", href: null }],
       { degraded: false, fallbackReason: "", grounded: true, refused: false, terminalKind: "", isInsufficientMeasurements: false, contextualFallbackKind: null },
     );
     expect(t).toBeDefined();
@@ -536,5 +539,48 @@ describe("mapAskResponse (§25) — contextual, per-answer follow-up suggestions
     for (const f of r.followUps || []) {
       expect(f).not.toMatch(/transfer|transfe|movimenta|chave privada|private key|apaga|elimina|delete/i);
     }
+  });
+});
+
+// ── Block 5B — the card says what the document IS ────────────────────────────────────────────────
+//
+// Every curated source used to render as REFERÊNCIA: the backend sent no document class and this parser
+// turned the missing value into "reference". The label that belongs to the canonical descriptive Reference
+// was therefore attached to ADRs, specifications and glossaries alike.
+//
+// The class now comes from the source registry. This file asserts the two halves the frontend owns: it
+// carries the backend's class through untouched, and it never invents one — not from a default, and not
+// from a path.
+
+import { sourceKindLabel } from "@/components/banzai/SourceBlock";
+
+describe("source document class", () => {
+  it("labels each class in both editions", () => {
+    expect(sourceKindLabel("adr")).toBe("ADR");
+    expect(sourceKindLabel("adr", "en")).toBe("ADR");
+    expect(sourceKindLabel("spec")).toBe("ESPECIFICAÇÃO");
+    expect(sourceKindLabel("spec", "en")).toBe("SPECIFICATION");
+    expect(sourceKindLabel("contract")).toBe("CONTRATO");
+    expect(sourceKindLabel("contract", "en")).toBe("CONTRACT");
+  });
+
+  it("keeps REFERÊNCIA for the document that owns it", () => {
+    expect(sourceKindLabel("reference")).toBe("REFERÊNCIA");
+    expect(sourceKindLabel("reference", "en")).toBe("REFERENCE");
+  });
+
+  it("says FONTE/SOURCE when the class is unknown, never REFERÊNCIA", () => {
+    // The defect, stated as the thing that must not happen again.
+    for (const unknown of ["", "not-a-class", "banzai-runtime"]) {
+      expect(sourceKindLabel(unknown)).toBe("FONTE");
+      expect(sourceKindLabel(unknown, "en")).toBe("SOURCE");
+    }
+  });
+
+  it("does not classify from the path", () => {
+    // Metadata wins. A source whose path looks like an ADR but carries no class is unknown, and one whose
+    // path looks like nothing but carries a class is that class. The frontend must not guess either way.
+    expect(sourceKindLabel("")).toBe("FONTE");
+    expect(sourceKindLabel("adr")).toBe("ADR");
   });
 });

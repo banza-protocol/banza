@@ -8,6 +8,9 @@
       "what is banza",
       "define banza",
       "banza e o que",
+      "o que e o banza",
+      "que e o banza",
+      "what is the banza",
       "arquitetura de tres camadas",
       "tres camadas",
       "arquitetura do banza",
@@ -15,7 +18,8 @@
       "three-layer",
       "protocolo financeiro aberto",
       "open financial protocol"
-    ]
+    ],
+    "deterministic": true
   },
   {
     "id": "what-is-banzami",
@@ -29,7 +33,8 @@
       "what is banzami",
       "who is banzami",
       "banzami"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "is-banza-an-operator",
@@ -38,7 +43,8 @@
       "banza is an operator",
       "banza e operador",
       "banza opera"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "certified-operators",
@@ -47,7 +53,8 @@
       "certified operators",
       "quem sao os operadores",
       "que operadores"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "pass-is-not-certificate",
@@ -57,7 +64,8 @@
       "conformance suite e certificado",
       "pass conformance certificado",
       "pass is a certificate"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "banzai-cannot-certify",
@@ -66,7 +74,37 @@
       "banzai emite certificado",
       "banzai can certify",
       "banzai certifica"
-    ]
+    ],
+    "deterministic": false
+  },
+  {
+    "id": "who-signs-protocol-metadata",
+    "keywords": [
+      "quem assina a protocol metadata",
+      "quem assina protocol metadata",
+      "quem assina a metadata",
+      "quem assina os metadados",
+      "quem assina metadados do protocolo",
+      "who signs protocol metadata",
+      "assinatura da protocol metadata",
+      "signed protocol metadata quem assina"
+    ],
+    "deterministic": false
+  },
+  {
+    "id": "what-is-m2-milestone",
+    "keywords": [
+      "o que e m2",
+      "o que e o m2",
+      "o que e m3",
+      "o que sao m2 e m3",
+      "m2 no banza",
+      "m3 no banza",
+      "what is m2",
+      "milestone m2",
+      "marco m2"
+    ],
+    "deterministic": false
   },
   {
     "id": "root-keys",
@@ -76,7 +114,8 @@
       "chaves raiz",
       "issuing keys",
       "onde estao as chaves"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "how-to-query-brl",
@@ -97,7 +136,8 @@
       "operador revogado",
       "operador suspenso",
       "revoked operator"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "empty-operators-meaning",
@@ -112,7 +152,8 @@
       "o que e /operators",
       "what does /operators mean",
       "/operators list"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "banza-processes-payments",
@@ -123,7 +164,8 @@
       "banza executa pagamentos",
       "banza paga",
       "processa pagamentos"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "banza-limits",
@@ -144,7 +186,8 @@
       "reference operator ceases",
       "independencia do protocolo",
       "protocol independence"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "financial-invariants",
@@ -180,7 +223,8 @@
       "sem saldo negativo",
       "saldo da carteira",
       "saldos das carteiras"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "protocol-decisions-adrs",
@@ -202,7 +246,8 @@
       "which adrs",
       "which adrs govern",
       "adrs govern"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "how-to-federate",
@@ -228,7 +273,8 @@
       "manifest de operador",
       "operator manifest",
       "manifesto de operador"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "how-to-demonstrate-conformance",
@@ -272,7 +318,8 @@
       "testes preciso passar",
       "demonstro que sou conforme",
       "sou conforme"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "how-trust-works",
@@ -307,7 +354,8 @@
       "get evaluated for trust",
       "como sou avaliado",
       "avaliado quanto a confianca"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "operator-onboarding",
@@ -317,6 +365,11 @@
       "por onde comecar",
       "onde comecar",
       "como comeco",
+      "por onde comeca",
+      "onde comeca",
+      "por onde comeca um operador",
+      "onde comeca um operador",
+      "como comeca um operador",
       "como comeco como operador",
       "comeco com o meu operador",
       "onde comeco com o meu operador",
@@ -345,7 +398,8 @@
       "como participar",
       "como entro na rede",
       "quais os passos para operador"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "implementation-steps",
@@ -371,7 +425,8 @@
       "payment lifecycle",
       "ciclo de vida do qr",
       "qr lifecycle"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "example-operator-manifest",
@@ -407,7 +462,8 @@
       "manifest de operador exemplo",
       "exemplo de manifest de operador",
       "exemplo de manifesto de operador"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "example-federation-manifest",
@@ -419,7 +475,8 @@
       "federation metadata example",
       "manifesto de federacao exemplo",
       "exemplo federacao json"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "example-revocation-list",
@@ -431,7 +488,8 @@
       "brl example",
       "exemplo brl json",
       "como e a revocation list"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "example-key-manifest",
@@ -443,7 +501,8 @@
       "como e o key manifest",
       "o que e key manifest",
       "key manifest"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "example-evidence-bundle",
@@ -455,7 +514,8 @@
       "conformance evidence example",
       "exemplo evidence json",
       "como e o evidence bundle"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "example-invalid-manifest",
@@ -466,7 +526,8 @@
       "invalid manifest example",
       "porque e invalido",
       "manifest invalido exemplo"
-    ]
+    ],
+    "deterministic": false
   },
   {
     "id": "what-is-operador-zero",
@@ -491,33 +552,57 @@
       "adr-052",
       "adr052",
       "zero.banza.network"
-    ]
+    ],
+    "deterministic": false
   },
   {
-    "id": "who-signs-protocol-metadata",
+    "id": "def-operator-governance-authority",
     "keywords": [
-      "quem assina a protocol metadata",
-      "quem assina protocol metadata",
-      "quem assina a metadata",
-      "quem assina os metadados",
-      "quem assina metadados do protocolo",
-      "who signs protocol metadata",
-      "assinatura da protocol metadata",
-      "signed protocol metadata quem assina"
-    ]
-  },
-  {
-    "id": "what-is-m2-milestone",
-    "keywords": [
-      "o que e m2",
-      "o que e o m2",
-      "o que e m3",
-      "o que sao m2 e m3",
-      "m2 no banza",
-      "m3 no banza",
-      "what is m2",
-      "milestone m2",
-      "marco m2"
-    ]
+      "quem controla os operadores",
+      "quem controla o operador",
+      "quem controla os operadores banza",
+      "o banza controla os operadores",
+      "banza controla operadores",
+      "banza controla todos os operadores",
+      "o banza controla todos os operadores",
+      "porque e que o banza controla todos os operadores",
+      "banza controla qualquer operador",
+      "does banza control all operators",
+      "why does banza control all operators",
+      "banza controls all operators",
+      "quem manda nos operadores",
+      "quem governa os operadores",
+      "quem governa um operador",
+      "quem admite um operador",
+      "quem admite operadores",
+      "quem autoriza um operador",
+      "quem autoriza operadores",
+      "quem aprova um operador",
+      "existe uma autoridade central que controla os operadores",
+      "autoridade central operadores",
+      "a banzami controla os operadores",
+      "banzami controla operadores",
+      "o mantenedor do banza controla os operadores",
+      "mantenedor controla operadores",
+      "quem controla o banza",
+      "quem controla o protocolo",
+      "who controls operators",
+      "who controls the operators",
+      "does banza control operators",
+      "who governs operators",
+      "who governs an operator",
+      "who admits an operator",
+      "who admits operators",
+      "who authorizes an operator",
+      "who authorises an operator",
+      "who approves an operator",
+      "is there a central banza authority controlling operators",
+      "central authority operators",
+      "does banzami control operators",
+      "does the banza maintainer control operators",
+      "who controls banza",
+      "who controls the protocol"
+    ],
+    "deterministic": true
   }
 ]

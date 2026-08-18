@@ -27,6 +27,19 @@
 import { GUARDRAILS } from "./provider.js";
 import { normalize, retrieve, CORPUS_HASH, REPO_INDEX_HASH, SAFETY_POLICY_VERSION, contractVersions, validateResponse, route, routeWithJourney, getEntry, resolveDocument, resolveConcept, resolveScope, resolveOperationalMetric, resolveQuery, resolveReferences, contextualFallback, answerClass, buildTerminal, queuePriority, queueShouldDedup, recoverQuery, coveredEntities, isVerbatimEntry, attributeAnswer, taskedAnswer, documentLookup, contextUsedFor, buildOperationalPackage, verifyClaims } from "./knowledge.js";
 import { honestLiveFailureAnswer } from "./liveArtifact.js";
+import { isPublicSource } from "./answerContract.js";
+
+/**
+ * The sources a PUBLIC answer may rest on.
+ *
+ * Eligibility is a property of the source, carried in its own metadata — not of its filename. The rule
+ * exists because a source that reaches the answer object has already counted as evidence for it; a filter
+ * further downstream hides that fact rather than preventing it.
+ */
+export function publicSourcesOnly(list) {
+  return (Array.isArray(list) ? list : []).filter((s) => isPublicSource(s));
+}
+
 // Increment 5 (§10–§15) — the question-family handler (pg-free; the ONE persisted-read step is the injected
 // receiptsTool). It routes a resolved §10–§15 family through its ToolPlanner plan → tool execution → the
 // transversal FactualPackage → a deterministic PT renderer → the Inc.4 claim/citation verifier.
@@ -368,12 +381,21 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     return { maxTokens: Math.min(maxTokensCfg, 400), chunks: Math.min(maxChunks, 2) };
   }
 
+
+
   function deterministic(hit, meta) {
     return {
       result: {
         grounded: true,
         answer: hit.answer,
-        sources: hit.sources,
+        // Public eligibility is decided HERE, at the evidence layer, not later at the contract boundary.
+        // Measured: "implementar o protocolo" reaches implementation-steps and served CLAUDE.md — an
+        // internal repository guide — in result.sources. `normalizeBanzaiAnswer` would have dropped it
+        // before the HTTP response, so nothing was ever visibly wrong; but a source that reaches the
+        // answer object has already counted as evidence for it, and a later filter hides that rather than
+        // preventing it. The rule is the source's own eligibility metadata, not its filename: any
+        // internal-only source is excluded the same way, whatever it is called.
+        sources: publicSourcesOnly(hit.sources),
         entry_id: hit.id,
         provider: provider.name,
         mode: isReal ? "real" : "mock",
@@ -447,6 +469,38 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         contextual_fallback_kind: fb.kind || null,
         interpreted_intent: fb.interpreted_intent || null,
         interpreted_sub_intents: Array.isArray(fb.sub_intents) ? fb.sub_intents : [],
+        ...meta,
+      },
+    };
+  }
+
+  // An INTERNAL inconsistency, not a statement about what BANZA documents. The engine resolved a subject
+  // it claims to answer and then produced no facts for it — the registry and the assembled package
+  // disagree. The reader is told plainly that BanzAI could not complete the answer, which is true, instead
+  // of being told the protocol lacks evidence, which is not. Deterministic and model-free: falling through
+  // to synthesis here would route the most sensitive questions to the least constrained path precisely
+  // when the constrained one is known to be broken.
+  function engineInconsistent(question, meta) {
+    return {
+      result: {
+        grounded: false,
+        answer:
+          "Não consegui completar esta resposta. Isto não é falta de evidência pública do BANZA — é uma " +
+          "inconsistência interna do BanzAI ao montar a resposta a partir das suas fontes. A informação " +
+          "existe no repositório; consulte a fonte canónica ou reformule enquanto isto é corrigido.",
+        sources: [],
+        entry_id: null,
+        provider: provider.name,
+        mode: isReal ? "real" : "mock",
+        guardrails: GUARDRAILS,
+      },
+      meta: {
+        deterministic: true,
+        cache: null,
+        llm_called: false,
+        // Visible to maintainers: a critical subject failing on the engine's own registry must not degrade
+        // quietly (§16).
+        engine_inconsistency: true,
         ...meta,
       },
     };
@@ -691,7 +745,16 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // past the gate). Increment 6 adds the context-enriched `decision` as a THIRD boundary check; enrichment
     // is already disabled on any raw/corrected refusal signal, so it only ever tightens the gate.
     const decisionCorrected = correctedQuestion !== question ? route(correctedQuestion, contextQuestions || []) : decisionRaw;
-    const decision = effectiveQuestion !== question ? route(effectiveQuestion, contextQuestions || []) : decisionCorrected;
+    // Block 4B — PRIORITY, not accumulation. When the structured resolver (Increment 6) has already bound
+    // the referent, `effectiveQuestion` IS the resolved, self-contained query; feeding the raw prior
+    // questions to the router on top of it let the conversation's words re-resolve a target that structured
+    // context had already decided. The ladder is: explicit current subject > valid prior structured target >
+    // safe contextual interpretation > generic retrieval — so the two channels are ordered, never summed.
+    // Rust still owns both resolutions; this only stops the second one from running over the first.
+    const decision =
+      effectiveQuestion !== question
+        ? route(effectiveQuestion, contextResolved ? [] : contextQuestions || [])
+        : decisionCorrected;
     const boundaryRefusal =
       decisionRaw.action === "refusal" || decisionCorrected.action === "refusal" || decision.action === "refusal";
     // M2.11D (QA-2) — a next-step question asked while ON a journey step is answered from the journey
@@ -795,6 +858,12 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // adapters keep reading the trace; the trunk block overwrites them when it runs.
     const routerTrace = {
       router: "m2.18b4-single",
+      // Block 4B — WHICH merge rule decided this turn: STANDALONE (the turn names its own subject) /
+      // INHERIT_TARGET (a pure backward reference reuses the previous target) / MERGED_FRAME (a new action
+      // over the inherited subject) / SUBJECT_CARRY / SUBJECT_CARRY_DECLINED / CONTEXT_TARGET_MISSING.
+      // One field, so the Root→operator drift is readable in a single trace instead of inferred from a
+      // composed query string. Decided in Rust; carried, not recomputed, here.
+      context_merge: decision.merge_kind || "STANDALONE",
       answer_class: cls.class,
       answer_class_reason: cls.reason || "",
       escalated: Boolean(cls.escalated),
@@ -1468,7 +1537,10 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
           { answer_mode: mode, fallback_reason: "typo_clarification", intent: "clarification_required", terminal_kind: "clarification", trace_label: "É necessário esclarecer a referência", ...ctxMeta, ...docMeta },
         );
       }
-      return contextualInsufficient(rq, "", { answer_mode: mode, fallback_reason: "insufficient_sources", intent, terminal_kind: "insufficient_evidence", ...ctxMeta, ...docMeta });
+      // Block 4B — this is the terminal a subject-less route actually reaches, so the context-missing reason
+      // belongs HERE. Measured, not assumed: the first attempt put it on the unknown-entry safety net above,
+      // which this path never touches, and the test that asked for the reason was what said so.
+      return contextualInsufficient(rq, "", { answer_mode: mode, fallback_reason: decision.merge_kind === "CONTEXT_TARGET_MISSING" ? "context_target_missing" : "insufficient_sources", intent, terminal_kind: "insufficient_evidence", ...ctxMeta, ...docMeta });
     }
 
     // The seed for the trunk's Rust resolver: the exact record, else the concept's canonical source, else
@@ -1503,7 +1575,28 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // The emergency Phase-1 grounding (model-free, degraded, sourced) — used ONLY when the trunk cannot
     // publish (model unavailable / entry invalid / output rejected / breaker tripped). A resolved document
     // grounds on its own record; otherwise the top retrieved entry. Never a normal path.
-    const emergencyHit = docRes.found ? documentFallback(docRes) : retrieve(rq);
+    // Block 5A.1 — SETTLEMENT INTEGRITY. The epistemic verdict is owned by ONE layer: if the route already
+    // settled a deterministic critical entry with establishing sources, the claim IS supported, and this
+    // presentation fallback may not reopen that question with a weaker heuristic.
+    //
+    // It used to call `retrieve(rq)` and nothing else. Measured: "Explica porquê o limiar da Root é 2 de 3."
+    // routed deterministically to def-root-authorization with valid sources, the explanatory cue sent it to
+    // the trunk, the model was unavailable, this retrieval missed — and the reader was told there was
+    // INSUFFICIENT EVIDENCE, while the reason field on the very same answer said the real cause was that
+    // the model could not be reached. The engine held the record and reported having nothing.
+    //
+    // Requesting an explanation is presentation intent. It cannot decide whether evidence exists.
+    const settledEntry =
+      decisionEffective.action === "deterministic" && decisionEffective.entry_id
+        ? getEntry(decisionEffective.entry_id)
+        : null;
+    const settledCritical =
+      settledEntry && Array.isArray(settledEntry.sources) && settledEntry.sources.length > 0
+        ? settledEntry
+        : null;
+    const emergencyHit = docRes.found
+      ? documentFallback(docRes)
+      : settledCritical || retrieve(rq);
     // `extra` carries a FAITHFUL trace for a degraded turn (M2.18B.7): when the synthesis WAS attempted
     // but did not publish, the caller passes the real synthesis-trace fields so the public trace never
     // falsely reads routing_result=null / synthesis_called=false. Pre-synthesis emergencies pass nothing.
@@ -1713,7 +1806,38 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
       );
     }
     if (tp.status === "insufficient") {
-      return contextualInsufficient(rq, "insufficient_source", { ...tpMeta, terminal_kind: "insufficient_evidence", fallback_reason: "synthesis_insufficient" });
+      // `synthesis_insufficient` used to be every one of these, and the public state was always
+      // "insufficient evidence". That was the original bug's second half: the engine failed to BUILD the
+      // package and told the reader BANZA had nothing to say. The cause now travels from the synthesis
+      // layer, and only genuine epistemic insufficiency keeps the epistemic label.
+      //
+      // One state decides, the reason explains — so the terminal changes only where the state genuinely
+      // is not an epistemic one.
+      const cause = tp.insufficient_cause || "synthesis_insufficient";
+      if (cause === "critical_factual_package_empty") {
+        // The engine resolved a subject it claims to answer, and produced no facts for it. Telling the
+        // reader that BANZA lacks documentation would be false — the registry says otherwise. And it must
+        // NOT fall through to the model: a broken critical registry would then hand the most sensitive
+        // questions to the least constrained path.
+        return engineInconsistent(rq, {
+          ...tpMeta,
+          terminal_kind: "engine_inconsistency",
+          fallback_reason: "critical_factual_package_empty",
+        });
+      }
+      const reason =
+        cause === "unresolved_subject"
+          ? "unresolved_subject"
+          : cause === "no_eligible_evidence"
+            ? "no_eligible_evidence"
+            : cause === "evidence_below_threshold"
+              ? "evidence_below_threshold"
+              : "synthesis_insufficient";
+      return contextualInsufficient(rq, "insufficient_source", {
+        ...tpMeta,
+        terminal_kind: "insufficient_evidence",
+        fallback_reason: reason,
+      });
     }
     // status "fallback" — the trunk could not publish a validated model answer. Derive a FAITHFUL,
     // specific reason from the trace (M2.18B.6): a validator rejection is not "model unavailable", and a

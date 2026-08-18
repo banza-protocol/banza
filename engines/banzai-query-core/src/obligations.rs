@@ -225,6 +225,19 @@ const DEFINITION_MARKERS: &[&str] = &[
     "significado de",
     "what is",
 ];
+/// Does this question ask what something IS?
+///
+/// The markers below already existed for the obligation taxonomy; this exposes the same judgement rather
+/// than starting a second definition classifier that could drift away from it. The frame reads it to decide
+/// whether a question form is reusable by an elliptical follow-up: "o que e uma implementacao" is, and
+/// "como demonstrar conformidade" is not, because a procedure does not transfer to a new subject just
+/// because the subject is nameable.
+pub fn asks_for_a_definition(nq: &str) -> bool {
+    DEFINITION_MARKERS
+        .iter()
+        .any(|m| nq.starts_with(m) || nq.contains(m))
+}
+
 const METADATA_MARKERS: &[&str] = &[
     "estado da",
     "estado do",

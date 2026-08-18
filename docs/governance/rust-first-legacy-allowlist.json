@@ -69,6 +69,12 @@
       "classification": "DOC_GENERATOR",
       "migration_phase": "WP1.2",
       "reason": "Build-time WHITEPAPER FIGURE GENERATOR — draws the 24 monochrome SVG figures (12 sections x PT/EN) for the docs/whitepaper LaTeX/web editions from the single content source. Not a runtime engine: no protocol/financial/decision logic, no runtime path, produces static SVG art only (like its sibling tools/whitepaper-latex.py, which carries no marker). It trips the strong-marker scan solely because it embeds the legitimate English figure LABELS 'fail-closed' (security diagram, fig9) and 'disabled (fail-closed)' (state diagram, fig12), which are the correct EN terms rendered in the English whitepaper figures — not engine markers."
+    },
+    {
+      "path": "tools/gen-banzai-entries-index.mjs",
+      "classification": "DOC_GENERATOR",
+      "migration_phase": "M2.19H (BanzAI hardening, Block 4B)",
+      "reason": "Build-time PROJECTION of the lexical routing index: reads services/banzai-api/src/knowledge.js and writes engines/banzai-query-core/src/entries-index.json, emitting the entries whose canonical source declares lexicalCandidate: true, in registry order. It DECIDES nothing — membership is declared in the canonical source and the generator only copies the declared subset, refusing to write an empty, duplicated or keyword-less result. The scoring, coverage and routing that consume the index are Rust (banzai-query-core). It trips the strong-marker scan solely because a comment NAMES the Rust consumer of the artifact it writes, which is documentation of the boundary rather than a crossing of it."
     }
   ]
 }

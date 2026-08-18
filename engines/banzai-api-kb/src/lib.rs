@@ -117,6 +117,14 @@ pub fn repo_index_manifest_json() -> String {
     repo_index_manifest().to_string()
 }
 
+/// Node WASM: the routing source state this binary was built from, so a checker can prove the shipped
+/// router IS the current source rather than merely behaving like it on a sample of questions.
+#[cfg(target_arch = "wasm32")]
+#[wasm_bindgen]
+pub fn engine_source_fingerprint_json() -> String {
+    engine_source_fingerprint()
+}
+
 /// Node WASM (M2.13B PR2): the stable repo-index hash (for the JS cache key / staleness).
 #[cfg(target_arch = "wasm32")]
 #[wasm_bindgen]

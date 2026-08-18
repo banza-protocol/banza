@@ -13,16 +13,16 @@
   },
   "candidate_summary": {
     "total_candidates": 3130,
-    "accepted": 667,
-    "rejected": 2463,
+    "accepted": 668,
+    "rejected": 2462,
     "rejected_by_reason": {
       "NON_TERMINOLOGICAL": 1709,
-      "GENERIC_PROSE": 562,
+      "GENERIC_PROSE": 561,
       "PATH_FRAGMENT": 86,
       "BROKEN_TOKEN": 80,
       "STOPWORD": 7,
       "MARKUP_FRAGMENT": 19
     }
   },
-  "checksum": "274296096913b908"
+  "checksum": "81fa3b7757e5e371"
 }

@@ -19,7 +19,7 @@
 //! object-independent jailbreak check ensures a groundable keyword cannot smuggle a payload past the
 //! safety gate.
 
-use crate::{normalize, retrieve_topk_ids};
+use crate::{keyword_is_the_question, normalize, retrieve_topk_ids};
 
 /// A routing decision. `action` and `intent` are stable machine labels; `entry_id` (when present)
 /// is the canonical knowledge entry whose vetted answer the deterministic path must serve.
@@ -4771,7 +4771,91 @@ fn action_boundary(nq: &str) -> Option<&'static str> {
 
 /// Tier 1 — critical-boundary intent → a deterministic, vetted answer. Each arm returns the canonical
 /// entry id whose answer states the boundary precisely. These are the ONLY intents that skip the model.
+/// Relations the protocol forbids, and the record that corrects each.
+///
+/// Keyed on the STRUCTURED FRAME — a subject the engine resolves plus the action dimension the turn states
+/// — rather than on sentences. That is what makes it generalise: "Porque é que BANZA certifica empresas?",
+/// "A BANZA certifica operadores?" and "BANZA certifies companies" are one relation asked three ways, and
+/// a table of sentences would have to grow for each.
+///
+/// Every correction is an EXISTING record. Nothing here invents a certifier, and nothing here is a refusal:
+/// the answer states the boundary the premise gets wrong, which is a different and more useful thing than
+/// declining to answer.
+const PROHIBITED_RELATIONS: &[(&[&str], &str, &str)] = &[
+    // BANZA defines the certification function and designates no universal certifying organization; and
+    // certifying evaluates a determined implementation identified by its artifact, never a company.
+    (&["banza"], "certifica", "def-certification-actor"),
+    // The Root's role is cryptographic. It is not the certification actor.
+    (&["root", "raiz"], "certifica", "def-certification-actor"),
+    // Certification confers neither operational admission (ADR-006) nor regulatory authorization
+    // (ADR-007). The record names both, separately, which is why one record answers the generic
+    // "authorises operation" premise without collapsing the two decisions.
+    (
+        &["certificacao", "certification"],
+        "autoriza",
+        "def-certification-actor",
+    ),
+];
+
+/// The record that corrects a prohibited relation this turn states, if it states one.
+///
+/// This runs before generic synthesis can accept the premise. It is deliberately NOT a general
+/// presupposition engine: the scope is relations BANZA already owns a corrective fact for, and a relation
+/// with no such fact is left exactly as it was.
+fn prohibited_relation_entry(nq: &str) -> Option<&'static str> {
+    let f = crate::frame::frame_of(nq);
+    if f.action.is_empty() {
+        return None;
+    }
+    // The action is stated in either language; the table is keyed on one of them.
+    let action = crate::frame::action_pt(&f.action)?;
+    // WHO is said to perform it? An interrogative directly before the verb means the turn ASKS for the
+    // actor and asserts nothing — "quem certifica operadores?" is a question, and answering it as a
+    // corrected premise would be answering something nobody said. Measured: without this,
+    // "quem criou o BANZA e quem certifica operadores?" stopped reaching the protocol-origin record,
+    // because BANZA appeared in the sentence as the object of "criou" and the rule took it for the actor.
+    let tokens: Vec<&str> = nq.split_whitespace().collect();
+    let at = tokens.iter().position(|t| {
+        crate::frame::action_pt(t.trim_matches(|c: char| !c.is_alphanumeric())).as_deref()
+            == Some(&action)
+    })?;
+    if at > 0 && crate::frame::is_interrogative_token(tokens[at - 1]) {
+        return None;
+    }
+    let before = &tokens[..at];
+    PROHIBITED_RELATIONS
+        .iter()
+        .find(|(subjects, act, _)| {
+            *act == action
+                // ...and the subject must stand BEFORE the verb, where an actor stands.
+                && before.iter().any(|tok| {
+                    let t = tok.trim_matches(|c: char| !c.is_alphanumeric());
+                    subjects
+                        .iter()
+                        .any(|s| crate::glossary::names_the_same_concept(t, s))
+                })
+        })
+        .map(|(_, _, record)| *record)
+}
+
 fn critical_entry(nq: &str) -> Option<&'static str> {
+    // An identifier shaped like a profile that the normative registry does not register resolves NOTHING,
+    // and it must be decided here — before any keyword, glossary or retrieval arm can find something that
+    // merely shares its words. Measured before this existed: "What is the L7 conformance profile?" returned
+    // a confident definition of conformance, so a level the protocol never published became a real one by
+    // lexical similarity. The set is generated from the registry, so publishing L5 one day makes this stop
+    // refusing L5 without anyone editing a list here.
+    //
+    // Returning None (not a refusal) is deliberate: nothing supports the question, which is exactly
+    // `insufficient`. A safety refusal would be a different and untrue statement about why.
+    if crate::canonical_profiles::unregistered_profile_token(nq).is_some() {
+        return None;
+    }
+    // A premise that asserts a relation the protocol forbids is corrected by the record that owns the
+    // boundary, before anything downstream can find sources that appear to support it.
+    if let Some(record) = prohibited_relation_entry(nq) {
+        return Some(record);
+    }
     // Final transversal sweep — trust Model A (ADR-025). "Quem assina a Protocol Metadata?" must never
     // fall through to synthesis: the pinned doc-index still carries the pre-ADR-025 ceremony-schema
     // wording ("assinada pela Trust Root ou por Delegated Signing Keys"), so the canonical delegated-key
@@ -7248,6 +7332,24 @@ pub fn route(question: &str) -> Route {
     let numbered_ref = crate::docref::detect_refs(question)
         .iter()
         .any(|r| r.via == "numbered");
+    // An identifier shaped like a profile that the normative registry does not register is answered by
+    // NOTHING — and the decision belongs here, where the route is returned, not only inside
+    // `critical_entry`. Placing it there alone was measured to be insufficient: "Existe um perfil L5 no
+    // BANZA?" skipped the critical arm and was then picked up by a later arm as `what-is-banza`, so the
+    // question about a level the protocol never published still reached the model. Everything above this
+    // line — every safety, action and compound boundary — still runs first, so refusing an unpublished
+    // profile can never buy a way past a refusal.
+    //
+    // `insufficient` is the honest verdict: nothing supports the question. The set comes from the
+    // registry, so publishing a new level stops this refusing it without anyone editing a list here.
+    if crate::canonical_profiles::unregistered_profile_token(&nq).is_some() {
+        return Route {
+            action: "insufficient",
+            entry_id: None,
+            intent: "no_source",
+            reason: "profile identifier is not in the canonical registry",
+        };
+    }
     if let Some(id) = critical_entry(&nq) {
         // A real critical boundary (institutional identity, an Operador-Zero demo fact, or a boundary
         // question that merely CITES a document) still wins. ONLY a generic glossary definition
@@ -7325,6 +7427,31 @@ pub fn route(question: &str) -> Route {
     }
     let ids = retrieve_topk_ids(&nq, 3);
     if let Some(top) = ids.first() {
+        // A `def-*` hit is a CANONICAL DEFINITION, and the keyword path selecting it does not make it
+        // any less canonical than the glossary path selecting it — the same rule already applies above.
+        // Sending a settled definition to the model is what let an authority boundary be re-worded into
+        // "public contracts control operators": the model was asked to compose prose for a fact that was
+        // already written and sourced. A stable protocol boundary must not depend on inference, and must
+        // still answer when no model is reachable at all.
+        //
+        // But ONLY when the question IS the definition, not when it merely mentions it. "quem controla os
+        // operadores" is the definition; "o que faz o BanzAI quando um operador autoriza um pagamento?"
+        // contains the same authority words inside a different question, and answering that with a canned
+        // boundary is the false-positive the routing fuzz tests already forbid. The measure is coverage:
+        // a matched keyword must account for most of the query, not appear as a fragment of it.
+        // The ANSWER POLICY is declared by the entry, not inferred from its id. This read used to be
+        // `top.starts_with("def-")`: the naming convention decided whether a settled fact was served or
+        // handed to the model. Migrated behaviour-preservingly — every entry the prefix made deterministic
+        // was marked, the two sets proven identical, and only then did the read change.
+        if crate::entry_is_deterministic(top) && keyword_is_the_question(&nq, top) {
+            return Route {
+                action: "deterministic",
+                entry_id: Some(top.clone()),
+                intent: "grounded",
+                reason:
+                    "canonical definition reached by keyword retrieval — deterministic, model-free",
+            };
+        }
         return Route {
             action: "qwen",
             // M2.9A: label the grounded question with its fine operational intent (packing + telemetry).
@@ -7460,10 +7587,21 @@ pub fn route_with_journey_json(question: &str, journey_step: &str) -> String {
 /// no BANZA?" carries the cue, and before this it escalated and was answered from the generic protocol
 /// description, which names no principle at all. A guard exists to stop a fifth principle appearing on
 /// the public surface; letting a model restate the set at answer time reopens the same door.
+/// `def-l0-regulatory-boundary` joins them from a measured PT/EN divergence, and it is the same shape
+/// again: the entry's value is the denial that passing L0 confers no regulatory authorisation, no
+/// operational admission and no permission to move real funds. "Passar L0 permite operar com dinheiro
+/// real?" carries an explanatory cue and escalated; its English twin carried none and was served. So the
+/// same boundary was stated in one language and, with no model reachable, reported as *insufficient
+/// evidence* in the other — the engine claiming to have nothing to say about a record it holds. The
+/// language a reader asks in is not a reason to lose a protocol boundary, and a model is not the right
+/// author of one.
 pub fn is_verbatim_entry(entry_id: &str) -> bool {
     matches!(
         entry_id,
-        "def-resilience-boundary" | "def-local-execution" | "def-r2s2"
+        "def-resilience-boundary"
+            | "def-local-execution"
+            | "def-r2s2"
+            | "def-l0-regulatory-boundary"
     )
 }
 
@@ -7541,6 +7679,10 @@ pub struct ContextRoute {
     pub context_used: bool,
     pub turns_used: usize,
     pub resolved_query: String,
+    /// STANDALONE | INHERIT_TARGET | MERGED_FRAME | SUBJECT_CARRY | CONTEXT_TARGET_MISSING — which merge
+    /// rule decided this turn. Makes the Root→operator drift visible in one field instead of inferable
+    /// from a composed string.
+    pub merge_kind: &'static str,
 }
 
 /// Route a question WITH short conversation context. `prev_questions` are the previous USER questions,
@@ -7552,15 +7694,188 @@ pub fn route_with_context(question: &str, prev_questions: &[String]) -> ContextR
     let mut resolved = question.to_string();
     let mut context_used = false;
     let mut turns_used = 0;
-    if !is_safety_refusal(&nq) && is_followup(&nq) {
-        if let Some(prev) = prev_questions
+    /// The two concepts a conversation has just put side by side, and the record that relates them.
+    ///
+    /// This is NOT subject carry. "São a mesma coisa?" names nothing — `sao`, `mesma` and `coisa` are all
+    /// correctly refused as subjects — and it does not mean "the same as the operator". It asks about a PAIR,
+    /// and the pair has to have been established.
+    ///
+    /// Establishment is structural and deliberately narrow. Only the two immediately preceding turns are read,
+    /// and they count as a contrast only when the second CONTINUED the first: a definition, then a new subject
+    /// asked under that same definition frame. That is what makes A and B comparable rather than merely
+    /// adjacent, and it is why an unrelated turn in between destroys the pair instead of ageing it — there is
+    /// no pair memory to go stale, because the pair is recomputed from the last two turns every time.
+    ///
+    /// The operands are RESOLVED RECORDS, not words: `def-implementation` and `def-operator`, obtained by
+    /// routing each turn through the same path production uses. The relationship is then looked up by the id
+    /// the corpus already assigned it, so an unknown pair has no record and the caller fails closed rather
+    /// than reaching for the one comparison this engine happens to know.
+    /// A further DECISION asked about the certification the conversation is already discussing.
+    ///
+    /// ```text
+    /// O que significa certificar uma implementação?   certification
+    /// Isso dá admissão automática?                    + operational admission
+    /// E autorização legal?                            + regulatory authorization
+    /// ```
+    ///
+    /// The referent does not move; the DECISION does. That is the opposite of Turn 2, where the subject
+    /// changed under a fixed question, and it is deliberately a separate mechanism from the relational
+    /// pair, which joins two entities. Here there is one subject and a succession of different questions
+    /// about it.
+    ///
+    /// Three things make it safe. The turn must state a decision dimension and name no subject of its own,
+    /// so an explicit new topic still wins. The previous turn must have resolved to a record that is
+    /// actually ABOUT certification — a lifecycle answer is not a certification result however adjacent it
+    /// is. And the dimension is read from the CURRENT turn every time, so the previous decision never
+    /// carries: asking about authorization after admission moves to authorization, which is the whole
+    /// point of a sequence in which the answers must not collapse into one another.
+    ///
+    /// Returns the query AND the dimension, so the two turns are distinguishable in the trace rather than
+    /// both reporting "context was used".
+    fn certification_decision_query(
+        nq: &str,
+        prev_questions: &[String],
+    ) -> Option<(String, &'static str)> {
+        let f = crate::frame::frame_of(nq);
+        // An explicit new subject outranks the referent (Block 4B), so this only applies to a turn that
+        // names none.
+        if f.has_own_subject() {
+            return None;
+        }
+        let dimension = match f.action.as_str() {
+            "admissao" | "admission" => "ADMISSION",
+            "autorizacao" | "authorization" | "authorisation" => "AUTHORIZATION",
+            _ => return None,
+        };
+        let prev = prev_questions
+            .iter()
+            .rev()
+            .find(|p| !normalize(p).is_empty())?;
+        // Resolve the previous turn the way the conversation did, so a turn that itself leaned on context
+        // still counts as having established the referent.
+        let prior_entry = route_with_context(prev, &prev_questions[..prev_questions.len() - 1])
+            .route
+            .entry_id?;
+        if !crate::glossary::is_certification_record(&prior_entry) {
+            return None;
+        }
+        // The record that states what certification does NOT confer, in both dimensions and by ADR.
+        let alias = crate::glossary::canonical_alias_of("def-certification-actor")?;
+        Some((alias.to_string(), dimension))
+    }
+
+    fn relational_pair_query(nq: &str, prev_questions: &[String]) -> Option<String> {
+        if !crate::intent::asks_whether_the_same(nq) {
+            return None;
+        }
+        // The turn must name nothing of its own; otherwise it is a question about that subject, not a pair.
+        if crate::frame::frame_of(nq).has_own_subject() {
+            return None;
+        }
+        let mut recent = prev_questions
+            .iter()
+            .rev()
+            .filter(|p| !normalize(p).is_empty());
+        let second = recent.next()?;
+        let first = recent.next()?;
+
+        // The contrast: the second turn continued the first under its question frame.
+        let carried = match crate::frame::merge(second, Some(first)) {
+            crate::frame::Merge::FrameCarry(q) => q,
+            _ => return None,
+        };
+        let a = route(&normalize(first)).entry_id?;
+        let b = route(&carried).entry_id?;
+        let record = crate::glossary::relationship_record(&a, &b)?;
+        crate::glossary::canonical_alias_of(record).map(str::to_string)
+    }
+
+    let mut merge_kind = "STANDALONE";
+    if !is_safety_refusal(&nq) {
+        let prev = prev_questions
             .iter()
             .rev()
             .find(|p| !normalize(p).is_empty())
-        {
-            resolved = format!("{} {}", prev, question);
+            .map(String::as_str);
+        // The frame merge decides what — if anything — is inherited. It replaces `format!("{prev} {q}")`,
+        // which carried the previous SENTENCE forward: the previous verb survived into the composed text
+        // and chose a new subject ("Quem controla a Root?" → the operator-authority definition), while a
+        // question the previous turn had answered deterministically ("O que é o BanzAI?") came back diluted
+        // and resolved nothing. The frame carries the previous SUBJECT and never the previous action.
+        // A relational ellipsis reads TWO turns, so it is decided here rather than in the frame merge,
+        // which sees only the previous one.
+        if let Some((q, dimension)) = certification_decision_query(&nq, prev_questions) {
+            resolved = q;
             context_used = true;
             turns_used = 1;
+            merge_kind = match dimension {
+                "ADMISSION" => "CERT_DECISION_ADMISSION",
+                _ => "CERT_DECISION_AUTHORIZATION",
+            };
+        } else if let Some(q) = relational_pair_query(&nq, prev_questions) {
+            resolved = q;
+            context_used = true;
+            turns_used = 2;
+            merge_kind = "RELATIONAL_PAIR";
+        } else {
+            match crate::frame::merge(question, prev) {
+                crate::frame::Merge::Standalone => {}
+                crate::frame::Merge::InheritTarget => {
+                    // A pure backward reference is a request about the PREVIOUS semantic target ("which sources
+                    // answer this?"). Its canonical form is the previous question itself, so the target — and
+                    // with it the evidence the previous answer rested on — is reused rather than searched for
+                    // again over the words of the conversation.
+                    if let Some(p) = prev {
+                        resolved = p.to_string();
+                        context_used = true;
+                        turns_used = 1;
+                        merge_kind = "INHERIT_TARGET";
+                    }
+                }
+                crate::frame::Merge::MergedFrame(q) => {
+                    resolved = q;
+                    context_used = true;
+                    turns_used = 1;
+                    merge_kind = "MERGED_FRAME";
+                }
+                crate::frame::Merge::SubjectCarry(q) => {
+                    // The M2.8H format/elaboration follow-ups ("e em JSON?", "explica melhor", "dá exemplo
+                    // aqui") still lean on the previous topic — but only its subject travels.
+                    if is_followup(&nq) {
+                        resolved = q;
+                        context_used = true;
+                        turns_used = 1;
+                        merge_kind = "SUBJECT_CARRY";
+                    } else {
+                        // Reported distinctly from STANDALONE. A mutation that removed the explicit-subject
+                        // priority was found to land here and be discarded by this gate — the behaviour stayed
+                        // correct, so the integration test passed and said nothing, while the RULE it claimed to
+                        // pin was gone. Two different decisions must not share one label.
+                        merge_kind = "SUBJECT_CARRY_DECLINED";
+                    }
+                }
+                crate::frame::Merge::FrameCarry(q) => {
+                    // The previous turn must have ESTABLISHED the question form, not merely contained one. A
+                    // prior that resolved nothing has no frame to lend, so an unanswered turn cannot manufacture
+                    // one for the subject that follows it.
+                    let prior_established = prev
+                        .map(|p| route(&normalize(p)).action != "insufficient")
+                        .unwrap_or(false);
+                    if prior_established {
+                        resolved = q;
+                        context_used = true;
+                        turns_used = 1;
+                        merge_kind = "FRAME_CARRY";
+                    } else {
+                        merge_kind = "FRAME_CARRY_DECLINED";
+                    }
+                }
+                crate::frame::Merge::ContextTargetMissing => {
+                    // A reference with nothing to bind. Resolve the question as it stands: with no subject it
+                    // reaches `insufficient` honestly, instead of borrowing a subject from stale tokens.
+                    merge_kind = "CONTEXT_TARGET_MISSING";
+                }
+            }
         }
     }
     let route = route(&resolved);
@@ -7569,6 +7884,7 @@ pub fn route_with_context(question: &str, prev_questions: &[String]) -> ContextR
         context_used,
         turns_used,
         resolved_query: resolved,
+        merge_kind,
     }
 }
 
@@ -7583,8 +7899,8 @@ pub fn route_with_context_json(question: &str, prev_questions_json: &str) -> Str
     };
     let resolved = cr.resolved_query.replace('\\', "\\\\").replace('"', "\\\"");
     format!(
-        "{{\"action\":\"{}\",\"entry_id\":{},\"intent\":\"{}\",\"reason\":\"{}\",\"context_used\":{},\"turns_used\":{},\"resolved_query\":\"{}\"}}",
-        cr.route.action, entry, cr.route.intent, cr.route.reason, cr.context_used, cr.turns_used, resolved
+        "{{\"action\":\"{}\",\"entry_id\":{},\"intent\":\"{}\",\"reason\":\"{}\",\"context_used\":{},\"turns_used\":{},\"resolved_query\":\"{}\",\"merge_kind\":\"{}\"}}",
+        cr.route.action, entry, cr.route.intent, cr.route.reason, cr.context_used, cr.turns_used, resolved, cr.merge_kind
     )
 }
 

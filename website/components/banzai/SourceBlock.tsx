@@ -26,8 +26,37 @@ const CAT: Record<string, { label: string; cls: string }> = {
   infra: { label: "INFRA", cls: "border-line-2 bg-paper-2 text-ink-3" },
 };
 
-function catMeta(category: string) {
-  return CAT[category] || { label: (category || "FONTE").toUpperCase(), cls: "border-line-2 bg-paper-2 text-ink-3" };
+// Document CLASS → label, in both editions. One authoritative map, so a class cannot be spelled one way
+// here and another way somewhere else. `reference` names the canonical descriptive Reference and nothing
+// else — it is not, and must never again become, the label for a source whose class is unknown.
+const KIND_LABEL: Record<string, { pt: string; en: string }> = {
+  adr: { pt: "ADR", en: "ADR" },
+  rfc: { pt: "RFC", en: "RFC" },
+  spec: { pt: "ESPECIFICAÇÃO", en: "SPECIFICATION" },
+  contract: { pt: "CONTRATO", en: "CONTRACT" },
+  conformance: { pt: "CONFORMIDADE", en: "CONFORMANCE" },
+  governance: { pt: "GOVERNAÇÃO", en: "GOVERNANCE" },
+  reference: { pt: "REFERÊNCIA", en: "REFERENCE" },
+  code: { pt: "CÓDIGO", en: "CODE" },
+  doc: { pt: "DOCUMENTO", en: "DOCUMENT" },
+};
+
+/** The honest label when the registry classified nothing. Never "REFERÊNCIA". */
+const UNKNOWN_LABEL = { pt: "FONTE", en: "SOURCE" };
+
+export function sourceKindLabel(kind: string, lang: "pt" | "en" = "pt"): string {
+  const entry = KIND_LABEL[kind];
+  return entry ? entry[lang] : UNKNOWN_LABEL[lang];
+}
+
+function catMeta(source: { kind?: string; category?: string }) {
+  const kind = String(source.kind || "");
+  const label = sourceKindLabel(kind);
+  const cls =
+    (kind && CAT[kind]?.cls) ||
+    CAT[String(source.category || "")]?.cls ||
+    "border-line-2 bg-paper-2 text-ink-3";
+  return { label, cls };
 }
 
 function DocIcon() {
@@ -48,7 +77,7 @@ export function SourceBlock({ sources }: { sources: Source[] }) {
       </div>
       <ul className="m-0 flex list-none flex-col gap-[6px] p-0">
         {sources.map((s, i) => {
-          const meta = catMeta(s.category);
+          const meta = catMeta(s);
           const repoShort = String(s.repo || "").split("/").pop() || s.repo;
           const inner = (
             <div className="flex items-start gap-[9px] rounded-[9px] border border-black/[0.06] bg-paper-2/70 px-[11px] py-[8px]">

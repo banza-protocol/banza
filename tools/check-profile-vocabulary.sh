@@ -27,6 +27,8 @@ import json, os, re, subprocess, sys, tempfile
 
 REGISTRY = 'contracts/production/conformance-profiles.production.json'
 DERIVED = 'engines/banza-conformance/src/canonical_profiles.rs'
+KB_DERIVED = 'engines/banzai-query-core/src/canonical_profiles.generated.rs'
+KB_FACTS = 'services/banzai-api/src/canonicalProfiles.generated.json'
 GENERATOR = 'tools/gen-canonical-profiles-rs.py'
 
 # A profile is a technical capability. These words belong to certification, operational status and
@@ -137,6 +139,22 @@ with tempfile.TemporaryDirectory() as tmp:
             if derived != canonical:
                 problems.append('%s disagrees with the registry: %s vs %s' % (DERIVED, derived, canonical))
             check_names(derived, DERIVED)
+
+    # EVERY derived artifact, not just the first one. A mutation that added L7 to the BanzAI closed set
+    # while the registry still held L0-L4 SURVIVED this check, because only the conformance engine's file
+    # was compared: the two artifacts BanzAI reads had been generated and then never observed. A freshness
+    # check that covers some of what a generator writes reports success for the parts it never looked at.
+    for flag, target in (('--stdout-kb', KB_DERIVED), ('--stdout-kb-facts', KB_FACTS)):
+        g = subprocess.run([sys.executable, GENERATOR, flag], capture_output=True, text=True)
+        if g.returncode != 0:
+            problems.append('%s %s failed: %s' % (GENERATOR, flag, g.stderr.strip()[:200]))
+            continue
+        if not os.path.exists(target):
+            problems.append('%s is missing — a derived profile artifact does not exist' % target)
+        elif open(target, encoding='utf-8').read() != g.stdout:
+            problems.append('%s is stale: it does not match a fresh generation from %s. '
+                            'Run `make canonical-profiles-rs` — do not hand-edit a derived file.'
+                            % (target, REGISTRY))
 
 if problems:
     print()

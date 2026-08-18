@@ -18309,7 +18309,7 @@
       "phrase_length": 2,
       "accepted": true,
       "rejection_reason": "",
-      "classification": "SUBJECT"
+      "classification": "ALIAS"
     },
     {
       "raw_text": "Protocol Maintainers",
@@ -33902,8 +33902,9 @@
       ],
       "frequency": 1,
       "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "ALIAS"
     },
     {
       "raw_text": "Especificação",

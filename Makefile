@@ -143,12 +143,12 @@ assurance-purity-check:
 
 ## assurance-check: the R²S² layered assurance gates — every claimed property must have a falsifiable evidence chain (AG-0…AG-10)
 assurance-check: assurance-meta-check assurance-purity-check r2s2-principles-check semantic-closure-check no-availability-bypass-check banzai-outside-critical-path-check
-	@bash tools/collect-execution-evidence.sh >/dev/null
+	@bash tools/collect-execution-evidence.sh
 	@cargo run -q --manifest-path engines/banza-assurance/Cargo.toml --bin banza-assurance -- report
 
 ## release-readiness-check: the AG-10 freeze gate — evaluated deliberately when preparing a release target, never on every push
 release-readiness-check: assurance-check
-	@bash tools/collect-release-readiness.sh >/dev/null
+	@bash tools/collect-release-readiness.sh
 	@BANZA_RELEASE_GATE=1 cargo run -q --manifest-path engines/banza-assurance/Cargo.toml --bin banza-assurance -- report
 
 ## mutation-proofs: prove every critical property guard can go red, in isolated worktrees only
@@ -167,7 +167,7 @@ root-threshold-model-check:
 banza-whitepaper-check:
 	@bash tools/check-banza-whitepaper.sh
 
-.PHONY: l0-regulatory-boundary-check canonical-profiles-rs profile-vocabulary-check website-hermetic-build-check website-guard-targets-check website-locale-roots-check current-doc-links-check website-reference-mirror website-reference-source-boundary-check reference-source-authority-check reference-structural-parity-check reference-check
+.PHONY: l0-regulatory-boundary-check canonical-profiles-rs profile-vocabulary-check website-hermetic-build-check website-guard-targets-check website-locale-roots-check banzai-entries-index banzai-entries-index-check banzai-source-paths-check banzai-answer-policy-check banzai-lifecycle-facts-check banzai-wasm-source-bound-check current-doc-links-check website-reference-mirror website-reference-source-boundary-check reference-source-authority-check reference-structural-parity-check reference-check
 ## website-reference-mirror: GENERATOR — mirror the two canonical Reference editions into website/content/reference/{pt,en}.md. The website builds with website/ as its Docker context and cannot read docs/ at build time; the mirror exists for that boundary and is never hand-edited.
 website-reference-mirror:
 	@python3 tools/gen-website-reference-mirror.py
@@ -183,6 +183,34 @@ reference-source-authority-check:
 ## reference-structural-parity-check: PT and EN cannot drift structurally — same chapters in the same order, four R²S² principles, exactly 8 Structural Properties, and the high-risk claims present in both
 reference-structural-parity-check:
 	@bash tools/check-reference-structural-parity.sh
+
+## banzai-source-paths-check: Every source a BanzAI answer can cite resolves to a real file, and no path field carries a display label
+banzai-source-paths-check:
+	@bash tools/check-banzai-source-paths.sh
+
+## banzai-lifecycle-facts: Regenerate the BanzAI lifecycle facts from the protocol-version descriptor
+banzai-lifecycle-facts:
+	@python3 tools/gen-banzai-lifecycle-facts.py
+
+## banzai-lifecycle-facts-check: BanzAI states current lifecycle state from the descriptor that owns it — the derived copy cannot invent a value upstream does not establish
+banzai-lifecycle-facts-check:
+	@bash tools/check-banzai-lifecycle-facts.sh
+
+## banzai-answer-policy-check: The answer policy is declared on the canonical entry and derived into the index — never inferred from an id prefix, and never granted to an entry with no establishing evidence
+banzai-answer-policy-check:
+	@bash tools/check-banzai-answer-policy.sh
+
+## banzai-wasm-source-bound-check: The vendored query WASM is the artifact built from the current Rust source and index — a stale binary means production runs an older router than the tests exercise
+banzai-wasm-source-bound-check:
+	@bash tools/check-banzai-wasm-source-bound.sh
+
+## banzai-entries-index: regenerate the lexical keyword index from the entries explicitly marked lexicalCandidate
+banzai-entries-index:
+	@node tools/gen-banzai-entries-index.mjs
+
+## banzai-entries-index-check: The lexical keyword index is derived from the canonical entries, in ENTRIES order (ties break by index position), and its membership is a curated routing-eligibility decision rather than `critical`
+banzai-entries-index-check:
+	@bash tools/check-banzai-entries-index.sh
 
 ## website-locale-roots-check: Each edition declares its own language — the Portuguese root declares Portuguese, the English root declares English, nothing sits above them, every Portuguese public route survived the route-group move, and the route map promises no unwritten English page
 website-locale-roots-check:

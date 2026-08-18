@@ -29,6 +29,18 @@ use std::sync::OnceLock;
 struct Vocab {
     /// normalized (accent-free, lowercase) token — the fuzzy-match target.
     norm: String,
+    /// The canonical concept/document this token was contributed by, when it came from an alias table.
+    ///
+    /// Ambiguity is a question about MEANING, and it was being decided on surface strings. Portuguese has
+    /// two legitimate spellings for the same BANZA concept — governança and governação — and both are real
+    /// user vocabulary. With both registered, the typo "governaca" sat one edit from each and the resolver
+    /// called it ambiguous, offering the reader a choice between two names for one thing. Carrying the
+    /// concept here lets the tie be judged where it means something: two forms of one concept are one
+    /// candidate, while two genuinely different concepts still are two.
+    ///
+    /// `None` for the danger lexicon, the ecosystem identities and the curated display forms — those are
+    /// words, not concept aliases, and a tie among them stays ambiguous as before.
+    concept: Option<&'static str>,
     /// human display form (accented where applicable) — shown discreetly in the UI.
     display: String,
     /// concept words are correctable and shown as "Interpretado como …"; danger words are corrected only
@@ -127,7 +139,7 @@ fn vocabulary() -> &'static Vec<Vocab> {
     V.get_or_init(|| {
         let mut seen: std::collections::BTreeSet<String> = std::collections::BTreeSet::new();
         let mut out: Vec<Vocab> = Vec::new();
-        let mut add = |tok: &str, danger: bool| {
+        let mut add = |tok: &str, danger: bool, concept: Option<&'static str>| {
             let n = normalize(tok);
             for t in n.split(' ') {
                 if t.chars().count() >= 5
@@ -138,6 +150,7 @@ fn vocabulary() -> &'static Vec<Vocab> {
                         norm: t.to_string(),
                         display: display_for(t),
                         danger,
+                        concept,
                     });
                 }
             }
@@ -147,23 +160,23 @@ fn vocabulary() -> &'static Vec<Vocab> {
         // "chave" in "chave de idempotencia") keeps its danger flag via first-seen dedup — a danger
         // correction must never surface as a helpful "Interpretado como …" note (§14).
         for d in DANGER_WORDS {
-            add(d, true);
+            add(d, true, None);
         }
         // Ecosystem identities (ADR-001) — canonical, never corrected into one another. Added before the
         // alias tables so each is an exact vocabulary member (→ passthrough), which is what stops
         // "banzami" collapsing to "banzai". Non-danger.
         for e in ECOSYSTEM_ENTITIES {
-            add(e, false);
+            add(e, false, None);
         }
         // Concept + catalogue aliases are the source of truth for concept vocabulary (single source, §16).
-        for (_, aliases) in crate::concept::concept_entries() {
+        for (id, aliases) in crate::concept::concept_entries() {
             for a in *aliases {
-                add(a, false);
+                add(a, false, Some(id));
             }
         }
-        for (_, aliases) in crate::catalogue::alias_entries() {
+        for (id, aliases) in crate::catalogue::alias_entries() {
             for a in *aliases {
-                add(a, false);
+                add(a, false, Some(id));
             }
         }
         // Curated high-traffic concept display forms (accent-free keys) — first-class fuzzy targets so a
@@ -171,7 +184,7 @@ fn vocabulary() -> &'static Vec<Vocab> {
         // longer aliases did not contribute the bare token. Added AFTER the danger lexicon so a shared token
         // (e.g. "certificacao") keeps its danger flag (first-seen wins via `seen`).
         for (k, _) in ACCENT_DISPLAY {
-            add(k, false);
+            add(k, false, None);
         }
         out
     })
@@ -253,6 +266,24 @@ pub struct Recovery {
 
 /// Find the best and runner-up vocabulary matches for a single non-exact token, within its length
 /// threshold. Returns (best, best_dist, runner_up_dist). Only alphabetic tokens are considered.
+/// Every vocabulary entry tied at the best distance for this token.
+///
+/// Used to decide ambiguity by MEANING rather than by surface form: if every tied entry belongs to the
+/// same canonical concept, the reader is not being offered a choice at all.
+fn tied_at(tok: &str, dist: usize) -> Vec<&'static Vocab> {
+    let cap = threshold_for(tok.chars().count());
+    if cap == 0 {
+        return vec![];
+    }
+    vocabulary()
+        .iter()
+        .filter(|v| {
+            v.norm.chars().count().abs_diff(tok.chars().count()) <= cap
+                && edit_distance(tok, &v.norm, cap) == dist
+        })
+        .collect()
+}
+
 fn best_matches(tok: &str) -> Option<(&'static Vocab, usize, usize)> {
     let len = tok.chars().count();
     let cap = threshold_for(len);
@@ -285,6 +316,39 @@ fn best_matches(tok: &str) -> Option<(&'static Vocab, usize, usize)> {
     best.map(|(v, d)| (v, d, runner))
 }
 
+/// Test-only view of the vocabulary: `(normalized token, owning concept)`. Exposed so a test can find a
+/// REAL cross-concept tie instead of assuming one exists.
+pub fn vocabulary_debug() -> Vec<(String, Option<&'static str>)> {
+    vocabulary()
+        .iter()
+        .map(|v| (v.norm.clone(), v.concept))
+        .collect()
+}
+
+/// Whether every vocabulary entry tied at `dist` for this token belongs to one canonical concept.
+///
+/// Conservative by construction: a tie is collapsed only when EVERY tied entry names a concept and all of
+/// them name the SAME one. A single tied entry without a concept — a danger word, an ecosystem identity, a
+/// curated display form — leaves the tie ambiguous, because there is then no shared meaning to collapse to.
+fn tie_is_one_concept(tok: &str, dist: usize) -> bool {
+    let tied = tied_at(tok, dist);
+    if tied.len() < 2 {
+        return false;
+    }
+    let mut concept: Option<&'static str> = None;
+    for v in &tied {
+        match v.concept {
+            None => return false,
+            Some(c) => match concept {
+                None => concept = Some(c),
+                Some(prev) if prev == c => {}
+                Some(_) => return false,
+            },
+        }
+    }
+    true
+}
+
 /// M2.18B.5 — recover a probable canonical form from a raw question. Conservative by construction: a token
 /// is corrected only when it is not already a vocabulary member, has a single dominant match within its
 /// length threshold, AND that match beats the runner-up by a clear margin. If two matches tie the token is
@@ -303,7 +367,12 @@ pub fn recover(question: &str) -> Recovery {
         .map(|t| t.to_string())
         .collect();
     let vocab = vocabulary();
-    let is_exact = |t: &str| vocab.iter().any(|v| v.norm == t);
+    // A token is EXACT when the fuzzy vocabulary carries it OR the resolver recognises it as a surface
+    // form of its own. The second half is the fix: recovery repairs unknown words, and a word the
+    // resolver matches on is not unknown. Without it, whichever of a pair the fuzzy list happened to
+    // carry silently rewrote the other.
+    let is_exact =
+        |t: &str| vocab.iter().any(|v| v.norm == t) || crate::is_registered_surface_form(t);
 
     let mut out_toks: Vec<String> = Vec::with_capacity(toks.len());
     for (i, tok) in toks.iter().enumerate() {
@@ -360,7 +429,12 @@ pub fn recover(question: &str) -> Recovery {
             // when the best match is a DANGER word: a misspelling equidistant among danger words
             // ("aprovaa" ~ aprova/aprovar) is still a prohibited action either way, so we apply the
             // correction so the boundary fires (§19). Correcting toward a danger word never weakens safety.
-            else if runner <= dist && !v.danger {
+            // A tie between two spellings of ONE concept is not a choice. governança and governação are
+            // both real user vocabulary for the same record, so a typo compatible with both has exactly one
+            // meaning — offering the reader "did you mean governança or governação?" is asking them to pick
+            // between two names for the same thing. A tie across DIFFERENT concepts, or involving a word
+            // that belongs to no concept at all, stays ambiguous exactly as before.
+            else if runner <= dist && !v.danger && !tie_is_one_concept(tok, dist) {
                 ambiguous = true;
                 let mut opts: Vec<String> = vocabulary()
                     .iter()

@@ -28,7 +28,59 @@ import { createRequire } from "node:module";
 // the Rust engine returns; it performs NO matching, scoring, ranking or normalization of its own.
 const kb = createRequire(import.meta.url)("./rustkb/banzai_api_kb.js");
 
+// The profile facts BanzAI states, DERIVED from the normative registry by
+// tools/gen-canonical-profiles-rs.py. Identifiers, canonical names, purposes and inheritance are read
+// from here and never written here: a second hand-maintained L0-L4 table is a drift path, and the one
+// that goes stale is always the one a reader sees. The prose around them is localized presentation; the
+// facts inside are not translated and not re-authored.
+const PROFILE_FACTS = createRequire(import.meta.url)("./canonicalProfiles.generated.json");
+
+// Current lifecycle state, DERIVED from contracts/production/protocol-version.json by
+// tools/gen-banzai-lifecycle-facts.py. Read here, never written here: version, pre-production and the
+// freeze / independent-implementation / trial booleans have one owner, and a copy that can be edited
+// separately is a copy that will one day disagree. AG-10 is deliberately absent — no tracked artifact
+// records its run state, so there is nothing to derive.
+const LIFECYCLE = createRequire(import.meta.url)("./lifecycleFacts.generated.json").facts;
+
 // Canonical source references (path + title). These are the citations BanzAI returns.
+/// The DOCUMENT CLASS of a source — what kind of document it is, which is a different question from what
+/// evidence role it played in an answer. An ADR can be establishing evidence; a specification can be
+/// establishing or supporting. The card needs both, and one field cannot carry two dimensions.
+///
+/// This is declared HERE, at the registry that owns source metadata, and never inferred downstream. The
+/// public card used to show `REFERÊNCIA` for every curated source — an ADR, a specification and a glossary
+/// alike — because no class existed on this path at all and the frontend defaulted the missing value to
+/// "reference". Nothing was dropped in transit; the class was never there.
+///
+/// The vocabulary reconciles with `SourceAnchor.kind` in engines/banzai-query-core/src/factpack.rs
+/// ("adr" | "rfc" | "reference" | "spec" | "contract" | "conformance" | "governance" | "doc") and extends
+/// it with "code", because that registry classifies documents and this one also cites engine and service
+/// source files, which are not documents.
+///
+/// `reference` means the canonical descriptive Reference and nothing else. It is deliberately NOT the
+/// fallback: a source whose class is unknown returns null and the card says FONTE/SOURCE, because an
+/// absent classification is not evidence of canonical authority.
+export function sourceKind(source) {
+  const path = String((source && source.path) || "");
+  if (!path) return null;
+  if (path.startsWith("decisions/adr/")) return "adr";
+  if (path.startsWith("decisions/rfc/")) return "rfc";
+  // Only the canonical descriptive Reference, in either language edition.
+  if (/^docs\/reference\/(pt\/BANZA_REFERENCIA|en\/BANZA_REFERENCE)\.md$/.test(path)) return "reference";
+  if (path.startsWith("spec/")) return "spec";
+  if (path.startsWith("contracts/")) return "contract";
+  if (path.startsWith("conformance/")) return "conformance";
+  if (
+    path.startsWith("docs/governance/") ||
+    ["GOVERNANCE.md", "MAINTAINERS.md", "CONTRIBUTING.md", "LICENSE", "NOTICE"].includes(path)
+  ) {
+    return "governance";
+  }
+  if (/^(engines|services|website|tools)\//.test(path) || path === "Makefile") return "code";
+  if (path.startsWith("docs/") || ["README.md", "CHANGELOG.md"].includes(path)) return "doc";
+  return null;
+}
+
 export const SOURCES = {
   claudeMd: { id: "CLAUDE.md", title: "BANZA — Open Financial Protocol (repo guide)", path: "CLAUDE.md" },
   adr018: { id: "ADR-001", title: "Open financial protocol — implementation independence", path: "decisions/adr/ADR-001-*.md" },
@@ -42,15 +94,17 @@ export const SOURCES = {
   governance: { id: "GOVERNANCE", title: "BANZA governance & maintainers (Banzami = original creator / initial maintainer)", path: "GOVERNANCE.md" },
   fedQuickstart: { id: "SPEC-FED", title: "Federation operator quickstart (spec/federation)", path: "spec/federation/FEDERATION_OPERATOR_QUICKSTART.md" },
   adr038: { id: "ADR-025", title: "Open protocol trust model without a central CA", path: "decisions/adr/ADR-025-*.md" },
-  adr079: { id: "ADR-025", title: "Canonical trust signing model reconciliation (Model A)", path: "decisions/adr/ADR-025-open-protocol-trust-model-without-a-certificate-authority.md" },
+  adr079: { id: "ADR-025", title: "Canonical trust signing model reconciliation (Model A)", path: "decisions/adr/ADR-025-trust-without-a-certificate-authority.md" },
   adr039: { id: "ADR-031", title: "Operator self-publication and machine-verifiable conformance", path: "decisions/adr/ADR-031-*.md" },
   adr040: { id: "ADR-025", title: "Federation trust evaluation without certificates", path: "decisions/adr/ADR-025-*.md" },
+  adr002: { id: "ADR-002", title: "Protocol, implementation and operator separation", path: "decisions/adr/ADR-002-protocol-implementation-and-operator-separation.md" },
+  adr005sep: { id: "ADR-005", title: "Certification, admission and authorisation do not propagate", path: "decisions/adr/ADR-005-certification-admission-and-authorisation-do-not-propagate.md" },
   adr059: { id: "ADR-004", title: "BANZA three-layer institutional architecture", path: "decisions/adr/ADR-004-three-institutional-layers.md" },
-  adr060: { id: "ADR-006", title: "Banzami Operational Scheme (designated operator; BANZA ≠ Banzami)", path: "decisions/adr/ADR-006-designated-operator-scheme.md" },
-  adr062: { id: "ADR-007", title: "Regulatory-state boundary and the RealMoneyActivationGate", path: "decisions/adr/ADR-007-regulatory-state-boundary-and-the-real-money-activation-gate.md" },
-  adr064: { id: "ADR-032", title: "BANZA Conformance & Interoperability Certification (Layer 2)", path: "decisions/adr/ADR-032-conformance-and-interoperability-certification.md" },
-  adr065: { id: "ADR-033", title: "BANZA Technical Registry", path: "decisions/adr/ADR-033-banza-technical-registry.md" },
-  adr066: { id: "ADR-032", title: "Closed certification-state machine", path: "decisions/adr/ADR-032-closed-certification-state-machine.md" },
+  adr060: { id: "ADR-006", title: "Banzami Operational Scheme (designated operator; BANZA ≠ Banzami)", path: "decisions/adr/ADR-006-the-designated-operator-and-its-conflict-of-interest.md" },
+  adr062: { id: "ADR-007", title: "Regulatory-state boundary and the RealMoneyActivationGate", path: "decisions/adr/ADR-007-regulatory-state-and-the-real-money-activation-gate.md" },
+  adr064: { id: "ADR-032", title: "BANZA Conformance & Interoperability Certification (Layer 2)", path: "decisions/adr/ADR-032-certification-records-and-their-lifecycle.md" },
+  adr065: { id: "ADR-033", title: "BANZA Technical Registry", path: "decisions/adr/ADR-033-the-banza-technical-registry.md" },
+  adr066: { id: "ADR-032", title: "Closed certification-state machine", path: "decisions/adr/ADR-032-certification-records-and-their-lifecycle.md" },
   conformanceSuite: { id: "CONFORMANCE", title: "BANZA conformance suite", path: "conformance/README.md" },
   adrIndex: { id: "ADR-INDEX", title: "Architecture Decision Records (index)", path: "decisions/adr/README.md" },
   adr006: { id: "ADR-012", title: "Double-entry ledger", path: "decisions/adr/ADR-012-double-entry-ledger-and-monetary-precision.md" },
@@ -94,12 +148,12 @@ export const SOURCES = {
   repoKnowledgeGuard: { id: "check-banzai-repository-wide-knowledge.sh", title: "Repository-wide knowledge guard", path: "tools/check-banzai-repository-wide-knowledge.sh" },
   zeroSub: { id: "zeroSubdomain.ts", title: "zero.banza.network routing (host-aware)", path: "website/lib/zeroSubdomain.ts" },
   ozApp: { id: "app/(pt)/oz", title: "Operador Zero standalone surface", path: "website/app/(pt)/oz/" },
-  banzaiCore: { id: "banzai-core", title: "BanzAI Rust core (deterministic; no LLM/network)", path: "engines/banzai-query-core/ + engines/banzai-api-kb/ (banza-protocol/banza)" },
+  banzaiCore: { id: "banzai-core", title: "BanzAI Rust core (deterministic; no LLM/network)", path: "engines/banzai-query-core/" },
   banzaiRepo: { id: "banzai-source", title: "BanzAI active source — this monorepo (services/banzai-api + engines/banzai-*)", path: "services/banzai-api" },
   // M2.13C — sources for the answer-quality gap fixes (crates, guards, CI, index state).
   enginesDir: { id: "engines/", title: "Motores Rust oficiais (ADR-038)", path: "engines/" },
   leakGuard: { id: "check-private-key-leak.sh", title: "Guard anti-fuga de chave privada", path: "tools/check-private-key-leak.sh" },
-  identityGuard: { id: "check-operator-contamination.sh", title: "Guard de neutralidade / anti-contaminação de marca", path: "tools/check-operator-contamination.sh (make identity-check)" },
+  identityGuard: { id: "check-operator-contamination.sh", title: "Guard de neutralidade / anti-contaminação de marca", path: "tools/check-operator-contamination.sh" },
   ciWorkflows: { id: ".github/workflows", title: "CI (identity-guard.yml, rust-engines.yml, …)", path: ".github/workflows/" },
   indexManifest: { id: "banzai-repo-index-manifest.json", title: "Manifesto do índice repo-wide (contagens/commits/hash)", path: "engines/banzai-query-core/src/repoindex/banzai-repo-index-manifest.json" },
   adr005: { id: "ADR-001", title: "Protocol-first product development (norma antes do produto)", path: "decisions/adr/ADR-001-*.md" },
@@ -118,24 +172,226 @@ export const SOURCES = {
   ciWorkflows: { id: "CI-WORKFLOWS", title: "Continuous integration workflows", path: ".github/workflows/" },
   guardsDir: { id: "GUARDS", title: "Repository guards (automated checks)", path: "tools/" },
   runbookDoc: { id: "RUNBOOK", title: "Operational runbook (activation, smoke tests, rollback)", path: "docs/guides/OPERADOR_ZERO_SUBDOMAIN_ACTIVATION.md" },
-  reportsDir: { id: "REPORTS", title: "Milestone & audit reports", path: "docs/reports/" },
+  reportsDir: { id: "REPORTS", title: "Milestone & audit reports", path: "docs/quality/" },
   specDir: { id: "SPEC", title: "Protocol specifications", path: "spec/" },
+  protocolVersionContract: { id: "PROTOCOL-VERSION", title: "Protocol version and current lifecycle state (normative descriptor)", path: "contracts/production/protocol-version.json" },
+  profilesRegistry: { id: "CONFORMANCE-PROFILES", title: "Conformance profile registry (normative)", path: "contracts/production/conformance-profiles.production.json" },
   contractsDir: { id: "CONTRACTS", title: "Protocol contracts (OpenAPI, JSON schemas)", path: "contracts/" },
 };
+
+// The class is stamped onto the registry entries themselves, once, at the owner. Every consumer — the
+// evidence layer, the presentation contract, the API, the card — then carries it without any plumbing that
+// could quietly drop it, which is exactly how it went missing before: nothing dropped it, nobody set it.
+for (const s of Object.values(SOURCES)) {
+  const kind = sourceKind(s);
+  if (kind) s.kind = kind;
+}
 
 const s = (...keys) => keys.map((k) => SOURCES[k]);
 
 // Knowledge entries. `keywords` drive matching; `answer` is the deterministic body.
+
+/** The profile levels, in registry order, as a compact PT/EN line each. */
+function profileLines(lang) {
+  return PROFILE_FACTS.profiles
+    .map((p) => {
+      const builds =
+        p.includes && p.includes.length
+          ? lang === "pt"
+            ? ` Inclui ${p.includes.join(", ")}.`
+            : ` Includes ${p.includes.join(", ")}.`
+          : "";
+      return `- **${p.level} — ${p.name}**: ${p.purpose}${builds}`;
+    })
+    .join("\n");
+}
+
+/** The L4 state, which readers ask about directly and which the registry states plainly. */
+function l4Note(lang) {
+  const l4 = PROFILE_FACTS.profiles.find((p) => p.external_profile_required);
+  if (!l4) return "";
+  const none = !(l4.published_external_profiles || []).length;
+  if (!none) return "";
+  return lang === "pt"
+    ? ` O **${l4.level}** é parametrizado por um **perfil externo**: a sua reivindicação nomeia um perfil de interoperabilidade externa concreto. **Nenhum perfil externo está publicado**, pelo que o **${l4.level}** define o mecanismo e não existe hoje demonstração executável dele.`
+    : ` **${l4.level}** is parameterized by an **external profile**: a claim names a concrete external-interoperability profile. **No external profile is published**, so ${l4.level} defines the mechanism and no executable demonstration of it exists today.`;
+}
+
+/**
+ * One entry per registered profile, plus the list. Generated from the derived facts rather than written
+ * out, so the set cannot drift from the registry and an unregistered level has no entry to reach.
+ */
+function profileEntries() {
+  const list = {
+    id: "def-profiles",
+    deterministic: true,
+    critical: true,
+    keywords: [
+      "perfis do banza", "quais sao os perfis", "quais sao os perfis do banza", "perfis de conformidade",
+      "lista de perfis", "niveis de conformidade", "perfis l0 a l4", "l0 a l4",
+      "banza profiles", "what are banza profiles", "conformance profiles", "profile levels",
+      "list of profiles", "l0 to l4",
+    ],
+    answer:
+      `Os **perfis de conformidade** do **BANZA** são **${PROFILE_FACTS.profiles.length}**, do **${PROFILE_FACTS.profiles[0].level}** ao **${PROFILE_FACTS.profiles[PROFILE_FACTS.profiles.length - 1].level}**:\n\n${profileLines("pt")}\n\nUm perfil mede **capacidade técnica demonstrada**, e não é um estado de certificação, uma admissão operacional, uma permissão regulatória nem uma aprovação para produção.${l4Note("pt")}\n\n---\n\nBANZA defines **${PROFILE_FACTS.profiles.length}** conformance profiles, **${PROFILE_FACTS.profiles[0].level}** through **${PROFILE_FACTS.profiles[PROFILE_FACTS.profiles.length - 1].level}**:\n\n${profileLines("en")}\n\nA profile measures **demonstrated technical capability**. It is never a certification state, an operational admission, a regulatory permission or a production approval.${l4Note("en")}`,
+    sources: s("profilesRegistry", "govGlossary"),
+  };
+
+  const perLevel = PROFILE_FACTS.profiles.map((p) => ({
+    id: `def-profile-${p.level.toLowerCase()}`,
+    deterministic: true,
+    critical: true,
+    keywords: [
+      `o que e ${p.level.toLowerCase()}`, `o que e o ${p.level.toLowerCase()}`, `perfil ${p.level.toLowerCase()}`,
+      `what is ${p.level.toLowerCase()}`, `${p.level.toLowerCase()} profile`, `profile ${p.level.toLowerCase()}`,
+    ],
+    answer:
+      `O **${p.level}** é o perfil **${p.name}**. ${p.purpose}` +
+      (p.includes && p.includes.length ? ` Inclui ${p.includes.join(", ")}.` : "") +
+      (p.awarded_by_sandbox_runner
+        ? ` É demonstrável por um executor de sandbox.`
+        : ` **Não** é atribuído por um executor de sandbox — a sua evidência não pode ser produzida por uma única implementação em ambiente simulado.`) +
+      ` Um perfil mede **capacidade técnica**, não é certificação, admissão operacional nem autorização regulatória.` +
+      (p.external_profile_required ? l4Note("pt") : "") +
+      `\n\n---\n\n**${p.level}** is the **${p.name}** profile. ${p.purpose}` +
+      (p.includes && p.includes.length ? ` Includes ${p.includes.join(", ")}.` : "") +
+      (p.awarded_by_sandbox_runner
+        ? ` It is demonstrable by a sandbox runner.`
+        : ` It is **not** awarded by a sandbox runner — its evidence cannot be produced by a single implementation in a simulated environment.`) +
+      ` A profile measures **technical capability**; it is not certification, operational admission or regulatory authorization.` +
+      (p.external_profile_required ? l4Note("en") : ""),
+    sources: s("profilesRegistry", "govGlossary"),
+  }));
+
+  return [list, ...perLevel];
+}
+
+
+/**
+ * The lifecycle fact family. One generated fact object, several question dimensions — version, lifecycle
+ * state, protocol freeze, L0 freeze, independent implementation, trial — rather than a hand-written
+ * sentence per phrasing. PT and EN are two presentations of the SAME fact: neither is separately editable.
+ */
+function lifecycleEntries() {
+  const V = LIFECYCLE.protocol_version;
+  const state = LIFECYCLE.pre_production ? "PRE-PRODUCTION" : "PRODUCTION";
+  const yn = (b, pt) => (b ? (pt ? "Sim" : "Yes") : pt ? "Não" : "No");
+  const src = s("protocolVersionContract", "govGlossary");
+
+  return [
+    {
+      id: "def-lifecycle-version",
+      deterministic: true,
+      critical: true,
+      keywords: [
+        "versao actual do banza", "versao atual do banza", "qual e a versao do banza", "versao do banza",
+        "current banza version", "what is the current banza version", "banza version", "protocol version",
+        "versao do protocolo",
+      ],
+      answer:
+        `A versão actual do **BANZA** é **${V}**, no estado **${state}**. A versão identifica o protocolo e a sua compatibilidade — **não** é um estado de release, **não** significa que o protocolo esteja congelado, e **não** é uma aprovação para produção.\n\n---\n\nThe current **BANZA** version is **${V}**, in the **${state}** state. A version identifies the protocol and its compatibility — it is **not** a release state, it does **not** mean the protocol is frozen, and it is **not** a production approval.`,
+      sources: src,
+    },
+    {
+      id: "def-lifecycle-status",
+      deterministic: true,
+      critical: true,
+      keywords: [
+        "banza esta em producao", "o banza esta em producao", "banza em producao", "estado do banza",
+        "pre-producao", "pre producao", "is banza in production", "banza in production",
+        "banza production status", "lifecycle status",
+      ],
+      answer:
+        `O **BANZA** está em **${state}**. ${LIFECYCLE.pre_production ? "Isto significa que o protocolo, os contratos e a conformidade estão publicados e verificáveis, mas **nenhum operador real foi criado**, **nenhum certificado de produção é emitido**, e o **BANZA não movimenta fundos** — a operação financeira real pertence a operadores autorizados, sob o enquadramento legal aplicável." : ""}\n\n---\n\n**BANZA** is in **${state}**. ${LIFECYCLE.pre_production ? "The protocol, contracts and conformance material are published and verifiable, but **no real operator has been created**, **no production certificate is issued**, and **BANZA moves no funds** — real financial operation belongs to authorised operators under the applicable legal framework." : ""}`,
+      sources: src,
+    },
+    {
+      id: "def-lifecycle-protocol-freeze",
+      deterministic: true,
+      critical: true,
+      keywords: [
+        "protocolo foi congelado", "o protocolo ja foi congelado", "protocolo congelado",
+        "congelamento do protocolo", "has the protocol been frozen", "protocol frozen",
+        "is the protocol frozen", "protocol freeze",
+      ],
+      answer:
+        `**${yn(LIFECYCLE.protocol_frozen, true)}.** ${LIFECYCLE.protocol_frozen ? "" : "Nenhum alvo **BANZA** externamente congelado foi publicado. Congelamento é um facto **distinto** da versão: o protocolo tem versão **" + V + "** e continua **não congelado**. Enquanto não for congelado para implementação externa, a arquitectura ainda está a ser completada."}\n\n---\n\n**${yn(LIFECYCLE.protocol_frozen, false)}.** ${LIFECYCLE.protocol_frozen ? "" : "No externally frozen **BANZA** target has been published. Freezing is a fact **separate** from the version: the protocol is at version **" + V + "** and remains **unfrozen**. Until it is frozen for external implementation, the architecture is still being completed."}`,
+      sources: src,
+    },
+    {
+      id: "def-lifecycle-l0-freeze",
+      deterministic: true,
+      critical: true,
+      keywords: [
+        "l0 foi congelado", "o l0 ja foi congelado", "l0 congelado", "congelamento do l0",
+        "has l0 been frozen", "is l0 frozen", "l0 freeze", "l0 frozen",
+      ],
+      answer:
+        `**${yn(LIFECYCLE.l0_frozen, true)}.** ${LIFECYCLE.l0_frozen ? "" : "O alvo do ensaio externo **não foi seleccionado nem congelado**, e nenhum pacote final de ensaio foi publicado. Que o **L0** **exista** como perfil é um facto **diferente** de o L0 estar **congelado**."}\n\n---\n\n**${yn(LIFECYCLE.l0_frozen, false)}.** ${LIFECYCLE.l0_frozen ? "" : "The external trial target has **not been selected or frozen**, and no final trial package has been published. That **L0** **exists** as a profile is a **different** fact from L0 being **frozen**."}`,
+      sources: src,
+    },
+    {
+      id: "def-lifecycle-independent-implementation",
+      deterministic: true,
+      critical: true,
+      keywords: [
+        "implementacao independente demonstrada", "ja existe uma implementacao independente",
+        "existe implementacao independente", "implementacao independente",
+        "independent implementation demonstrated", "has banza been independently implemented",
+        "independent implementation", "independently implemented",
+      ],
+      answer:
+        `**${LIFECYCLE.independent_implementation_demonstrated ? "Sim" : "Não — ainda não demonstrada"}.** ${LIFECYCLE.independent_implementation_demonstrated ? "" : "Nenhum ensaio de implementação independente foi conduzido. Isto é **distinto** de: a implementação de referência, o material derivado em sala limpa, e a garantia interna — **nenhum** desses é uma implementação independente. O que ainda não existe é uma implementação **externa e independente** demonstrada."}\n\n---\n\n**${LIFECYCLE.independent_implementation_demonstrated ? "Yes" : "No — not yet demonstrated"}.** ${LIFECYCLE.independent_implementation_demonstrated ? "" : "No independent implementation trial has been conducted. This is **distinct** from the reference implementation, from clean-room derived material, and from internal assurance — **none** of those is an independent implementation. What does not yet exist is a demonstrated **external, independent** implementation."}`,
+      sources: src,
+    },
+    {
+      id: "def-lifecycle-trial",
+      deterministic: true,
+      critical: true,
+      keywords: [
+        "ensaio independente ja comecou", "o ensaio independente comecou", "ensaio independente",
+        "trial independente", "has the independent trial started", "independent trial started",
+        "independent trial", "trial status",
+      ],
+      answer:
+        `**${LIFECYCLE.independent_trial_started ? "Sim" : "Não — ainda não começou"}.** ${LIFECYCLE.independent_trial_started ? "" : "Nenhum ensaio de implementação independente foi conduzido. Não há participante, data, alvo congelado nem resultado a reportar — nada disso existe ainda."}\n\n---\n\n**${LIFECYCLE.independent_trial_started ? "Yes" : "No — not started"}.** ${LIFECYCLE.independent_trial_started ? "" : "No independent implementation trial has been conducted. There is no participant, date, frozen target or outcome to report — none of those exists yet."}`,
+      sources: src,
+    },
+  ];
+}
+
 export const ENTRIES = [
   {
     id: "what-is-banza",
-    keywords: ["banza", "o que e banza", "que e banza", "what is banza", "define banza", "banza e o que", "arquitetura de tres camadas", "tres camadas", "arquitetura do banza", "three layer architecture", "three-layer", "protocolo financeiro aberto", "open financial protocol"],
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
+    keywords: ["banza", "o que e banza", "que e banza", "what is banza", "define banza", "banza e o que",
+      // "O que é o BANZA?" carries the article the shorter keyword lacks. Coverage is measured by the
+      // keyword being CONTAINED in the query, so a keyword longer than the phrasing it should match never
+      // fires — English settled and Portuguese did not, on the most basic question the engine answers.
+      "o que e o banza", "que e o banza", "what is the banza", "arquitetura de tres camadas", "tres camadas", "arquitetura do banza", "three layer architecture", "three-layer", "protocolo financeiro aberto", "open financial protocol"],
+    // Declared DETERMINISTIC. What BANZA is, is stable knowledge and must not depend on a model.
+    //
+    // This was attempted once and reverted: seventeen call sites across twelve tests used a
+    // "what is BANZA" question as their FIXTURE to reach the grounded trunk, so settling the answer
+    // removed the path they exercised and they failed for reasons unrelated to what they assert. Those
+    // fixtures now request a synthesis query by ROLE (SUPPORTED_SYNTHESIS_QUERY), which is what they
+    // always meant, so the two concerns are finally independent.
+    deterministic: true,
     answer:
       "BANZA é um protocolo financeiro aberto e neutro em relação a operadores. Define regras, invariantes, contratos e critérios de conformidade que qualquer operador pode implementar. Não é um operador, uma carteira, um processador de pagamentos nem um produto comercial.",
-    sources: s("claudeMd", "adr018", "annex"),
+    // `claudeMd` was in this set and is NOT eligible public establishing evidence. The presentation filter
+    // dropped it from the card, so nothing ever looked wrong — but the evidence GRAPH declared an
+    // internal repository guide as part of what establishes the protocol's identity, and that is the
+    // claim, not the rendering. Replaced by the public README, which is the repository's own entry point
+    // for what BANZA is. Corrected BEFORE the deterministic declaration, not after: promoting an entry
+    // whose establishing set is partly internal would have shipped the defect with more authority.
+    sources: s("readme", "adr018", "specOverview"),
   },
   {
     id: "what-is-banzami",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     critical: true,
     keywords: ["o que e o banzami", "o que e banzami", "que e banzami", "banzami e o que", "quem e o banzami", "quem e banzami", "what is banzami", "who is banzami", "banzami"],
     answer:
@@ -144,6 +400,8 @@ export const ENTRIES = [
   },
   {
     id: "is-banza-an-operator",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     critical: true,
     keywords: ["banza e um operador", "banza is an operator", "banza e operador", "banza opera"],
     answer:
@@ -152,6 +410,8 @@ export const ENTRIES = [
   },
   {
     id: "certified-operators",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     critical: true,
     keywords: ["operadores certificados", "certified operators", "quem sao os operadores", "que operadores"],
     answer:
@@ -160,6 +420,8 @@ export const ENTRIES = [
   },
   {
     id: "pass-is-not-certificate",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     critical: true,
     keywords: ["pass da conformance", "pass e certificado", "conformance suite e certificado", "pass conformance certificado", "pass is a certificate"],
     answer:
@@ -168,6 +430,8 @@ export const ENTRIES = [
   },
   {
     id: "banzai-cannot-certify",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     critical: true,
     keywords: ["banzai pode emitir certificado", "banzai emite certificado", "banzai can certify", "banzai certifica"],
     answer:
@@ -220,6 +484,8 @@ export const ENTRIES = [
   },
   {
     id: "who-signs-protocol-metadata",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     critical: true,
     keywords: ["quem assina a protocol metadata", "quem assina protocol metadata", "quem assina a metadata", "quem assina os metadados", "quem assina metadados do protocolo", "who signs protocol metadata", "assinatura da protocol metadata", "signed protocol metadata quem assina"],
     answer:
@@ -228,6 +494,8 @@ export const ENTRIES = [
   },
   {
     id: "what-is-m2-milestone",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: ["o que e m2", "o que e o m2", "o que e m3", "o que sao m2 e m3", "m2 no banza", "m3 no banza", "what is m2", "milestone m2", "marco m2"],
     answer:
       "«M2» e «M3» eram códigos internos de milestone do projecto — não são conceitos do protocolo e deixaram de ser usados nas superfícies públicas. As condições técnicas reais que representavam permanecem por extenso: a publicação de produção depende da **cerimónia offline da chave raiz** e da **primeira evidência de conformidade de produção publicada**. Nos contratos máquina sobrevivem apenas identificadores técnicos congelados (por exemplo, o estado `M2_PROTOCOL_IMPLEMENTATION` e o `m2_gate_status` calculado pelo motor Rust do protocol gate) — nomes de estados de contrato, não fases públicas do protocolo.",
@@ -235,6 +503,8 @@ export const ENTRIES = [
   },
   {
     id: "root-keys",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: ["onde vivem as root keys", "root keys", "chaves raiz", "issuing keys", "onde estao as chaves"],
     answer:
       "As root keys são offline e controladas por cerimónia; as chaves de emissão de produção também nunca residem na VM de serviço. A infraestrutura serve apenas artefactos públicos assinados e não guarda chaves privadas nem realiza assinatura.",
@@ -242,6 +512,8 @@ export const ENTRIES = [
   },
   {
     id: "how-to-query-brl",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: ["como consultar a brl", "consultar brl", "revocation list", "lista de revogacao", "query brl", "revogar chave", "revogacao de chave", "chave de assinatura delegada", "delegated signing key revocation", "revogacao", "revocation", "banza revocation list", "como funciona a revogacao", "operador revogado", "operador suspenso", "revoked operator"],
     answer:
       "A BRL (lista de revogação) é consultada na rota máquina GET /federation/revocation-list.json, servida como JSON pela verification-api. Em pré-produção devolve um envelope honesto (versão, entradas vazias, next_update) sem fingir dados de produção.",
@@ -249,6 +521,8 @@ export const ENTRIES = [
   },
   {
     id: "empty-operators-meaning",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: ["operators vazio", "operators vazia", "empty operators", "/operators vazio", "significa operators vazio", "operators mean", "significa /operators", "o que e /operators", "what does /operators mean", "/operators list"],
     answer:
       "Uma /operators vazia significa que nenhum operador publicou evidência verificável. É o estado correto de pré-produção: no BANZA a participação demonstra-se por evidência, não é concedida por autoridade central; a publicação de produção depende da cerimónia offline da chave raiz e da primeira evidência de conformidade de produção publicada.",
@@ -256,6 +530,8 @@ export const ENTRIES = [
   },
   {
     id: "banza-processes-payments",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     critical: true,
     keywords: ["banza processa pagamentos", "banza processes payments", "banza faz pagamentos", "banza executa pagamentos", "banza paga", "processa pagamentos"],
     answer:
@@ -264,6 +540,8 @@ export const ENTRIES = [
   },
   {
     id: "banza-limits",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: ["limites do banza", "limits of banza", "o que banza nao faz", "banza nao tem", "limites banza", "limites do protocolo", "limite do protocolo", "limite de estado", "protocol limits", "postgresql", "postgres", "saldos financeiros", "operador de referencia deixar de operar", "reference operator ceases", "independencia do protocolo", "protocol independence"],
     answer:
       "BANZA não tem carteira, ledger de operador, KYC/KYB, pagamentos, contas de utilizador final nem nomes comerciais de operadores. Qualquer coisa dessa natureza pertence a um operador, noutro lugar. BANZA define apenas as regras do protocolo, conformidade, certificação e federação. O PostgreSQL guarda estado de protocolo (marcador de pré-produção, Registo Técnico), não valor financeiro nem saldos. O protocolo é independente de qualquer operador: se o operador de referência deixar de operar, as especificações, contratos e conformidade do BANZA permanecem disponíveis.",
@@ -271,6 +549,8 @@ export const ENTRIES = [
   },
   {
     id: "financial-invariants",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: ["invariantes financeiros", "financial invariants", "invariantes do protocolo", "invariantes", "protocol invariants", "inv-ledger", "inv-wallet", "inv-settle", "inv-idem", "inv-recon", "inv-qr", "dupla entrada", "double-entry", "double entry ledger", "ledger de dupla entrada", "razao de dupla entrada", "how does the double-entry ledger work", "codigo qr", "qr code", "pagamento por qr", "resolucao de qr", "resolucao unica", "qr unico", "uso unico", "saldos derivados", "saldo derivado", "derivados do ledger", "ledger-derived", "sem saldo negativo", "saldo da carteira", "saldos das carteiras"],
     answer:
       "As invariantes financeiras são as garantias de integridade do protocolo: INV-LEDGER (dupla entrada, imutabilidade, precisão, atomicidade), INV-WALLET (sem saldo negativo, saldos derivados do ledger), INV-SETTLE (identidade do montante de liquidação), INV-IDEM (segurança de replay/idempotência), INV-RECON (ligação de lançamentos, reconciliação externa) e INV-QR (resolução única, uso único dinâmico, expiração). O ledger de dupla entrada (ADR-012) exige que cada débito tenha um crédito correspondente. Estas invariantes são obrigatórias para qualquer operador; o BanzAI cita as fontes e não as redefine.",
@@ -278,6 +558,8 @@ export const ENTRIES = [
   },
   {
     id: "protocol-decisions-adrs",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: ["adr 0", "que diz a adr", "o que diz a adr", "decisao arquitetural", "decisoes arquiteturais", "architecture decision", "architecture decision record", "onde estao as decisoes", "lista de adrs", "adrs do banza", "registro de decisoes", "list of adrs", "adr list", "list the adrs", "which adrs", "which adrs govern", "adrs govern"],
     answer:
       "As decisões de arquitetura do BANZA são registadas como ADRs (Architecture Decision Records) em decisions/adr/ e listadas em /decisoes. Cada ADR documenta o contexto, a decisão e as consequências de uma escolha do protocolo. Para o conteúdo de uma ADR específica (por exemplo o ledger de dupla entrada na ADR-012), consulta o documento correspondente em decisions/adr/ — o BanzAI orienta e cita fontes, não reproduz nem reinterpreta o texto normativo.",
@@ -288,6 +570,8 @@ export const ENTRIES = [
   // fallback used only if the model fails, times out or is rejected by the validator. ──
   {
     id: "how-to-federate",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: [
       "como federar", "como federar um operador", "federar um operador", "federar operador",
       "federacao entre operadores", "como funciona a federacao", "federacao de operadores",
@@ -302,6 +586,8 @@ export const ENTRIES = [
   },
   {
     id: "how-to-demonstrate-conformance",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: [
       "como demonstrar conformidade", "demonstrar conformidade", "como provar conformidade",
       "provar conformidade", "conformidade como operador", "evidencia de conformidade",
@@ -321,6 +607,8 @@ export const ENTRIES = [
   },
   {
     id: "how-trust-works",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: [
       "como funciona trust", "como funciona o trust", "trust no protocolo", "modelo de confianca",
       "como funciona a confianca", "confianca no banza", "trust model", "avaliacao de confianca",
@@ -342,9 +630,18 @@ export const ENTRIES = [
   // guides — it never certifies, approves, licenses or decides federation. ──
   {
     id: "operator-onboarding",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: [
       "onde comeco", "por onde comeco", "por onde comecar", "onde comecar", "como comeco",
-      "como comeco como operador", "comeco com o meu operador", "onde comeco com o meu operador",
+      // Third person, the phrasing a reader actually uses when asking about someone else ("por onde
+      // começa um operador?"). It was missing, and the question only matched at all because the
+      // interrogative "onde" was being counted as topic evidence — so demoting interrogatives to the
+      // function words they are exposed the real gap. Completing the conjugation is the fix; keeping a
+      // question word as a content signal would have been the crutch.
+      "por onde comeca", "onde comeca", "por onde comeca um operador", "onde comeca um operador",
+      "como comeca um operador", "como comeco como operador", "comeco com o meu operador",
+      "onde comeco com o meu operador",
       "como comecar", "quero comecar", "primeiros passos", "primeiros passos como operador",
       "getting started", "how do i start", "where do i start", "where to start",
       "quero implementar um operador", "quero criar um operador", "quero ser operador",
@@ -366,6 +663,8 @@ export const ENTRIES = [
   },
   {
     id: "implementation-steps",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: [
       "o que preciso implementar", "o que tenho de implementar", "o que o operador implementa",
       "como implemento o protocolo", "como implementar o protocolo banza", "implementar o protocolo",
@@ -385,6 +684,8 @@ export const ENTRIES = [
   // conformance suite. `answer` doubles as the model's grounding excerpt and the deterministic fallback. ──
   {
     id: "example-operator-manifest",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: [
       "exemplo de manifesto", "exemplo de manifest", "exemplo de ficheiro manifesto",
       "exemplo de um manifesto", "exemplo de um ficheiro manifesto", "manifest example",
@@ -403,6 +704,8 @@ export const ENTRIES = [
   },
   {
     id: "example-federation-manifest",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: [
       "exemplo de federation manifest", "exemplo de manifesto de federacao", "federation manifest example",
       "exemplo de metadata de federacao", "federation metadata example", "manifesto de federacao exemplo",
@@ -414,6 +717,8 @@ export const ENTRIES = [
   },
   {
     id: "example-revocation-list",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: [
       "exemplo de revocation list", "exemplo de brl", "exemplo de lista de revogacao",
       "revocation list example", "brl example", "exemplo brl json", "como e a revocation list",
@@ -424,6 +729,8 @@ export const ENTRIES = [
   },
   {
     id: "example-key-manifest",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: [
       "exemplo de key manifest", "exemplo de manifesto de chaves", "key manifest example",
       "exemplo key manifest json", "como e o key manifest", "o que e key manifest", "key manifest",
@@ -434,6 +741,8 @@ export const ENTRIES = [
   },
   {
     id: "example-evidence-bundle",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: [
       "exemplo de evidence bundle", "exemplo de pacote de evidencias", "evidence bundle example",
       "exemplo de evidencia de conformidade", "conformance evidence example", "exemplo evidence json",
@@ -445,6 +754,8 @@ export const ENTRIES = [
   },
   {
     id: "example-invalid-manifest",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     keywords: [
       "exemplo de manifesto invalido", "manifesto invalido", "exemplo invalido", "invalid manifest example",
       "porque e invalido", "manifest invalido exemplo",
@@ -458,6 +769,8 @@ export const ENTRIES = [
   // operator), so the safe, brand-free wording is fixed here rather than left to the local model.
   {
     id: "what-is-operador-zero",
+    // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
+    lexicalCandidate: true,
     critical: true,
     keywords: [
       "operador zero", "o que e o operador zero", "o que e operador zero", "que e operador zero",
@@ -606,6 +919,7 @@ export const ENTRIES = [
   //    inline code so they are never re-formatted.
   {
     id: "def-rust", critical: true,
+    deterministic: true,
     keywords: ["rust", "linguagem rust", "rust no banza", "rust language"],
     answer:
       "Rust é a linguagem principal dos motores oficiais do BANZA — a regra do projecto é Rust-first (ADR-038): conformidade, trust/crypto, invariantes, validação, a implementação de referência Operador Zero e o motor de conhecimento do BanzAI. Quando precisam de correr no browser ou no Node.js, esses motores compilam para WASM. TypeScript/React/Next.js ficam sobretudo em website, UI e glue — não como motor crítico.",
@@ -613,6 +927,7 @@ export const ENTRIES = [
   },
   {
     id: "def-wasm", critical: true,
+    deterministic: true,
     keywords: ["wasm", "webassembly", "web assembly", "compilado para wasm"],
     answer:
       "WASM (WebAssembly) é o alvo de compilação dos motores Rust do BANZA para correrem no browser e no Node.js. O mesmo código Rust-first (ADR-038) — por exemplo o motor de conhecimento do BanzAI e a implementação de referência Operador Zero — serve o servidor e o cliente sem reescrever a lógica crítica.",
@@ -620,6 +935,7 @@ export const ENTRIES = [
   },
   {
     id: "def-typescript", critical: true,
+    deterministic: true,
     keywords: ["typescript", "javascript", "ts", "js"],
     answer:
       "TypeScript (e JavaScript) é usado sobretudo na camada de website, UI e glue do BANZA (React/Next.js). A regra do projecto é Rust-first (ADR-038): a lógica crítica fica em Rust; TypeScript/JS é UI/glue, nunca motor crítico.",
@@ -627,6 +943,7 @@ export const ENTRIES = [
   },
   {
     id: "def-web-frontend", critical: true,
+    deterministic: true,
     keywords: ["react", "next.js", "nextjs", "next js", "frontend", "framework do website"],
     answer:
       "React e Next.js formam a framework do website do BANZA (em TypeScript) — a camada de UI/glue, incluindo o laboratório do Operador Zero e o routing. Não são motores críticos: esses são Rust-first (ADR-038).",
@@ -634,6 +951,7 @@ export const ENTRIES = [
   },
   {
     id: "def-json-format", critical: true,
+    deterministic: true,
     keywords: ["json", "formato json", "artefactos json"],
     answer:
       "JSON é o formato dos artefactos do BANZA: manifests de operador, evidence bundles, fixtures do Operador Zero e payloads de contrato. É dados, não lógica — a lógica crítica é Rust-first (ADR-038).",
@@ -641,6 +959,7 @@ export const ENTRIES = [
   },
   {
     id: "def-bash-shell", critical: true,
+    deterministic: true,
     keywords: ["bash", "shell", "shell script", "scripts"],
     answer:
       "Bash orquestra os scripts e os guards do BANZA (por `make` e no CI). A lógica dos gates de higiene do repositório vive em Rust (o binário `banza-repo-guards`); o shell é apenas o invólucro fino (ADR-038).",
@@ -648,6 +967,7 @@ export const ENTRIES = [
   },
   {
     id: "def-node", critical: true,
+    deterministic: true,
     keywords: ["node", "node.js", "nodejs"],
     answer:
       "Node.js corre o serviço `banzai-api` e carrega os motores Rust compilados para WASM. A lógica crítica continua Rust-first (ADR-038); Node/TypeScript é runtime e glue, não motor.",
@@ -657,6 +977,7 @@ export const ENTRIES = [
   // route.rs::critical_entry → def-three-layer-architecture). Canonical wording tracks ADR-004.
   {
     id: "def-three-layer-architecture", critical: true,
+    deterministic: true,
     keywords: ["tres camadas", "arquitectura institucional", "arquitetura institucional", "three-layer", "camadas do banza"],
     answer:
       "A arquitectura institucional do BANZA tem três camadas, separadas por responsabilidade, infraestrutura e chaves:\n\n1. **Camada 1 — Protocolo BANZA**: o protocolo financeiro aberto e neutro (regras, contratos, invariantes, perfis, identidade técnica, metadados assinados, trust, revogação, registo técnico, federação e verificação pública). Não é banco, PSP, carteira, EMI nem operador; não detém nem move fundos.\n2. **Camada 2 — Certificação de Conformidade e Interoperabilidade**: certifica, por implementação, que uma implementação demonstrou conformidade e interoperabilidade com um perfil público e versionado — baseada em evidência, decidida por Rust, com âmbito e validade limitados e sujeita a revogação. Não é licença, não é admissão a scheme e não é autorização regulatória.\n3. **Camada 3 — Esquemas operacionais independentes**: esquemas construídos sobre o protocolo segundo as suas próprias regras e autorizações. O primeiro é o Esquema Operacional Banzami, com a Banzami como operadora designada do esquema, condicionado ao enquadramento regulatório aplicável; os fundos reais permanecem desactivados até existir evidência formal.\n\nO BanzAI é a interface humana transversal às três camadas — não uma quarta autoridade. O Rust compreende, encaminha, executa, valida e decide; o Qwen local explica.",
@@ -665,6 +986,7 @@ export const ENTRIES = [
   // M2.19C — the L3 Operational Scheme (ADR-006), deterministic; distinct from the entity Banzami.
   {
     id: "def-operational-scheme", critical: true,
+    deterministic: true,
     keywords: ["banzami operational scheme", "operational scheme", "scheme operacional", "operador designado"],
     answer:
       "O Banzami Operational Scheme é a primeira concretização da Camada 3 (esquemas operacionais independentes) da arquitectura do BANZA: um scheme operacional construído sobre o protocolo, com a Banzami — Tecnologia e Serviços, Lda. como operadora designada. Está condicionado à obtenção do enquadramento regulatório aplicável — o estado é `REGULATORY_AUTHORIZATION_IN_PROGRESS` e os fundos reais, carteiras, liquidação e participantes reais permanecem desactivados (fail-closed) até existir evidência formal. É distinto do protocolo: BANZA ≠ Banzami. A certificação BANZA não é exclusiva deste scheme, e a continuidade do protocolo não depende da continuidade comercial do scheme.",
@@ -673,6 +995,7 @@ export const ENTRIES = [
   // M2.19D — the L2 conformance & interoperability certification concept (ADR-032/065/066), deterministic.
   {
     id: "def-l2-certification", critical: true,
+    deterministic: true,
     keywords: ["certificacao de conformidade e interoperabilidade", "certificacao tecnica", "certification record", "certified implementation", "certification profile", "technical registry"],
     answer:
       "A **Certificação de Conformidade e Interoperabilidade** é a Camada 2 do BANZA: certifica **tecnicamente** que uma *implementação* (identificada pelo hash do artefacto) demonstrou conformidade e interoperabilidade contra um perfil público e versionado. O resultado é um registo decidido por Rust, vinculado a evidência e hash, com âmbito e validade limitados, e sujeito a expiração, suspensão, revogação e supersession (a renovação é sempre um registo novo). Certifica uma **implementação**, nunca uma entidade. **Não** é licença, **não** é autorização regulatória e **não** é admissão a scheme — a certificação nunca implica admissão e a admissão nunca implica autorização. Os registos são publicados no **Registo Técnico** do BANZA, verificável por qualquer terceiro sem conta e independente do directório de participantes de um scheme.",
@@ -680,6 +1003,7 @@ export const ENTRIES = [
   },
   {
     id: "def-qwen", critical: true,
+    deterministic: true,
     keywords: ["qwen", "modelo local", "inferencia local", "local model"],
     answer:
       "Qwen é o modelo de linguagem local do BanzAI (ADR-036): corre on-host, sem chamadas externas — external_model_called permanece false. As respostas determinísticas nem sequer usam o modelo; o Qwen só é invocado para perguntas fundamentadas que precisam de geração.",
@@ -687,6 +1011,7 @@ export const ENTRIES = [
   },
   {
     id: "def-postgresql", critical: true,
+    deterministic: true,
     keywords: ["postgresql", "postgres", "base de dados"],
     answer:
       "PostgreSQL é o armazenamento de estado do protocolo no BANZA (ADR-013), não uma base de dados financeira: não guarda saldos reais nem movimenta fundos. É um detalhe de infraestrutura interno, não exposto publicamente.",
@@ -694,6 +1019,7 @@ export const ENTRIES = [
   },
   {
     id: "def-pgvector", critical: true,
+    deterministic: true,
     keywords: ["pgvector", "indice vectorial", "vector index"],
     answer:
       "pgvector é a extensão de índice vectorial usada pelo indexador do BANZA para pesquisa semântica sobre a documentação do protocolo. É um detalhe de infraestrutura interno (ADR-013).",
@@ -701,6 +1027,7 @@ export const ENTRIES = [
   },
   {
     id: "def-nginx", critical: true,
+    deterministic: true,
     keywords: ["nginx", "reverse proxy", "proxy"],
     answer:
       "nginx é o reverse-proxy que serve o BANZA na mesma origem (website mais `banzai-api`). É um detalhe de infraestrutura; não altera nenhuma regra do protocolo.",
@@ -708,6 +1035,7 @@ export const ENTRIES = [
   },
   {
     id: "def-docker", critical: true,
+    deterministic: true,
     keywords: ["docker", "compose", "containers", "implantacao"],
     answer:
       "O BANZA é implantado com Docker (compose) a partir de um bundle reprodutível com tags de imagem fixas. É um detalhe de infraestrutura de implantação, não uma regra do protocolo.",
@@ -715,6 +1043,7 @@ export const ENTRIES = [
   },
   {
     id: "def-banzai-agent", critical: true,
+    deterministic: true,
     keywords: ["banzai", "o que e banzai", "what is banzai", "agente banzai"],
     answer:
       "BanzAI é a interface humana primária e transversal entre humanos/operadores e o protocolo BANZA (ADR-036): interpreta pedidos, consulta a referência, orienta a implementação, encaminha para os motores verificáveis e explica os resultados. Guia, invoca os motores e cita fontes; não decide, não certifica, não aprova operadores, não licencia, não publica operadores e não movimenta fundos. Corre um modelo local (Qwen) on-host, sem chamadas externas. É distinto do BANZA (o protocolo) e do Banzami (a organização). BanzAI guia; os motores verificam; a evidência prova; a autoridade competente decide.",
@@ -733,7 +1062,7 @@ export const ENTRIES = [
     critical: true,
     keywords: ["que ficheiros implementam o operador zero", "ficheiros do operador zero", "onde esta implementado o operador zero", "files implement operator zero", "codigo do operador zero", "que ficheiros fazem o operador zero"],
     answer:
-      "O Operador Zero é implementado por: **motor Rust** `engines/operator-zero-core` (ledger/trust/federação/evidence/traces) e `engines/operator-zero-e2e-root` (raiz de assinatura Ed25519 demo); **artefactos** em `examples/operators/zero/` (manifest, key-manifest, revocation-list, evidence-bundle, traces, ledger, payments) e `examples/operators/zero/e2e-root/`; **website** `website/components/operador-zero/OperadorZeroReference.tsx` (superfície só de leitura) + `website/app/(pt)/oz/` (rota interna) + `website/lib/operadorZero*.ts`; a validação corre no **modo de validação do BanzAI** (`/banzai?mode=validation`), integrado em `website/components/banzai/BanzaiValidationMode.tsx`, executada pelos motores Rust; **routing** `website/middleware.ts` + `website/lib/zeroSubdomain.ts` (zero.banza.network); **guards** `tools/check-operator-zero*.sh` + `tools/check-zero-subdomain*.sh`; **decisões** ADR-035 e ADR-035; **relatórios** em `docs/reports/M2_12*`, `M2_13A*` e `M2_19EF*`.",
+      "O Operador Zero é implementado por: **motor Rust** `engines/operator-zero-core` (ledger/trust/federação/evidence/traces) e `engines/operator-zero-e2e-root` (raiz de assinatura Ed25519 demo); **artefactos** em `examples/operators/zero/` (manifest, key-manifest, revocation-list, evidence-bundle, traces, ledger, payments) e `examples/operators/zero/e2e-root/`; **website** `website/components/operador-zero/OperadorZeroReference.tsx` (superfície só de leitura) + `website/app/(pt)/oz/` (rota interna) + `website/lib/operadorZero*.ts`; a validação corre no **modo de validação do BanzAI** (`/banzai?mode=validation`), integrado em `website/components/banzai/BanzaiValidationMode.tsx`, executada pelos motores Rust; **routing** `website/middleware.ts` + `website/lib/zeroSubdomain.ts` (zero.banza.network); **guards** `tools/check-operator-zero*.sh` + `tools/check-zero-subdomain*.sh`; **decisões** ADR-035 e ADR-035; **relatórios** em `docs/quality/M2_12*`, `M2_13A*` e `M2_19EF*`.",
     sources: s("ozEngine", "ozLab", "ozMiddleware", "adr052"),
   },
   {
@@ -1096,6 +1425,7 @@ export const ENTRIES = [
   // Layer A — protocol-normative
   {
     id: "def-federation",
+    deterministic: true,
     critical: true, keywords: ["federar", "o que e federar", "federacao", "o que e federacao", "o que significa federacao", "como federar", "federation", "what is federation", "what does federate mean", "federate", "peer"],
     answer:
       "No **BANZA**, a **federação** é a avaliação técnica, **local e por interacção**, das condições para o encaminhamento de pagamentos entre operadores independentes — sobre metadados de federação, manifest, trust/key manifest, revogação e **evidência verificável** publicada. Publicar evidência demonstra elegibilidade; cada encaminhamento continua sujeito à avaliação completa. Federar **não** é aprovação central, certificação, licença financeira nem entrada automática em produção.",
@@ -1103,6 +1433,7 @@ export const ENTRIES = [
   },
   {
     id: "def-interoperability",
+    deterministic: true,
     critical: true, keywords: ["interoperabilidade", "o que e interoperabilidade", "interoperability", "what is interoperability", "interoperar"],
     answer:
       "**Interoperabilidade** é a capacidade de operadores independentes trabalharem em conjunto sob as mesmas regras do protocolo. No **BANZA**, é demonstrada por federação e evidência verificável — não implica aprovação central nem produção automática.",
@@ -1110,6 +1441,7 @@ export const ENTRIES = [
   },
   {
     id: "def-manifest",
+    deterministic: true,
     critical: true, keywords: ["manifest", "o que e manifest", "operator manifest", "manifesto do operador", "what is a manifest", "what is manifest"],
     answer:
       "**Manifest** (operator manifest) é o documento de metadados que descreve um operador candidato — identidade, ambiente, capacidades e os endpoints que o protocolo espera. No **BANZA**, validar um manifest gera **evidência técnica local**; **não cria operador real nem certifica**.",
@@ -1117,6 +1449,7 @@ export const ENTRIES = [
   },
   {
     id: "def-key-manifest",
+    deterministic: true,
     critical: true, keywords: ["key manifest", "o que e key manifest", "keymanifest", "what is a key manifest"],
     answer:
       "**Key manifest** é o documento que declara as chaves de assinatura de um operador, usado na avaliação de trust. Só a **chave pública** é necessária para verificar; chaves privadas nunca residem na infraestrutura de serviço.",
@@ -1124,6 +1457,7 @@ export const ENTRIES = [
   },
   {
     id: "def-trust",
+    deterministic: true,
     critical: true, keywords: ["trust", "o que e trust", "confianca", "o que e confianca", "what is trust"],
     answer:
       "**Trust**, no **BANZA**, é a **avaliação verificável por máquina** sobre metadados assinados, key manifest e revogação, com **fecho por omissão (fail-closed)** — material inválido ou revogado bloqueia. Não é aprovação central nem certificação.",
@@ -1131,6 +1465,7 @@ export const ENTRIES = [
   },
   {
     id: "def-trust-root",
+    deterministic: true,
     critical: true, keywords: ["trust root", "o que e trust root", "raiz de confianca", "o que e a trust root", "what is the trust root", "root do protocolo"],
     answer:
       "A **Trust Root** é a raiz de confiança do **próprio protocolo** (estabelecida pela cerimónia de raiz), **independente de qualquer operador**. É distinta da **Demo Operator Root** do Operador Zero, que é apenas uma raiz demonstrativa e **não** é a Trust Root do protocolo.",
@@ -1138,6 +1473,7 @@ export const ENTRIES = [
   },
   {
     id: "def-revocation",
+    deterministic: true,
     critical: true, keywords: ["revogacao", "o que e revogacao", "revogar", "revocation", "revocation list", "o que e revocation list", "brl", "what is revocation"],
     answer:
       "**Revogação** marca uma chave como já não confiável. No **BANZA** publica-se na **BANZA Revocation List (BRL)**; uma chave revogada **bloqueia o trust (fail-closed)** e a jornada não progride. É verificação técnica, não uma decisão de aprovação.",
@@ -1145,6 +1481,7 @@ export const ENTRIES = [
   },
   {
     id: "def-conformance",
+    deterministic: true,
     critical: true, keywords: ["conformidade", "o que e conformidade", "conformance", "o que e conformance", "what is conformance"],
     answer:
       "**Conformidade** é demonstrar compatibilidade com o protocolo por **evidência verificável** — verificações determinísticas que produzem PASS/WARN/FAIL. Um resultado é **evidência técnica**, não aprovação humana, licença ou certificação.",
@@ -1152,6 +1489,7 @@ export const ENTRIES = [
   },
   {
     id: "def-pass",
+    deterministic: true,
     critical: true, keywords: ["pass", "o que e pass", "o que e o pass", "what is pass", "passou"],
     answer:
       "**PASS** é um resultado de validação de conformidade que passou: **evidência técnica local verificável**. **Não** é um certificado, aprovação ou licença, e não confere estatuto a nenhum operador.",
@@ -1159,6 +1497,7 @@ export const ENTRIES = [
   },
   {
     id: "def-evidence-bundle",
+    deterministic: true,
     critical: true, keywords: ["evidence bundle", "o que e evidence bundle", "bundle", "pacote de evidencia", "what is an evidence bundle"],
     answer:
       "**Evidence bundle** é o pacote de artefactos verificáveis montado a partir dos resultados realmente produzidos (conformidade, trust, federação, traces). Documenta o que aconteceu — é **evidência**, não certificação.",
@@ -1166,6 +1505,7 @@ export const ENTRIES = [
   },
   {
     id: "def-evidence",
+    deterministic: true,
     critical: true, keywords: ["evidencia tecnica", "o que e evidencia tecnica", "evidencia", "o que e evidencia", "trace", "o que e trace", "session summary", "o que e session summary", "sumario da sessao", "what is a trace", "evidencia e certificacao"],
     answer:
       "**Evidência técnica** no **BANZA** são artefactos verificáveis — resultados de conformidade, um **trace** de ponta a ponta, um **session summary** — que documentam o que ocorreu localmente. Evidência **não é certificação**: prova o comportamento, não confere estatuto.",
@@ -1173,6 +1513,7 @@ export const ENTRIES = [
   },
   {
     id: "def-operator",
+    deterministic: true,
     critical: true, keywords: ["operador", "o que e um operador", "o que e operador", "operator", "what is an operator", "what is a payment operator", "o que e um operador de pagamentos"],
     answer:
       "Um **operador** é uma parte independente que **implementa** o protocolo. Os operadores são **separados** do protocolo — o BANZA define as regras; o operador implementa o produto. Validar artefactos gera evidência; não cria operador real nem o certifica.",
@@ -1180,6 +1521,7 @@ export const ENTRIES = [
   },
   {
     id: "def-invariant",
+    deterministic: true,
     critical: true, keywords: ["invariante", "o que e um invariante", "o que e invariante", "invariant", "what is an invariant"],
     answer:
       "Um **invariante** é uma regra de integridade não-negociável que o protocolo garante — famílias INV-LEDGER, INV-WALLET, INV-SETTLE, INV-IDEM, INV-RECON e INV-QR (dupla-entrada, sem saldo negativo, precisão inteira, idempotência, reconciliabilidade, unicidade de QR).",
@@ -1187,6 +1529,7 @@ export const ENTRIES = [
   },
   {
     id: "def-api-schema",
+    deterministic: true,
     critical: true, keywords: ["schema", "o que e schema", "openapi", "o que e openapi", "contract", "o que e um contrato", "api", "o que e a api", "what is a schema", "what is openapi"],
     answer:
       "No **BANZA**, os **contratos** (OpenAPI, schemas JSON) definem a forma canónica de manifests, federação, key manifest e revogação. Um **schema** valida a estrutura de um artefacto; os contratos são a fonte de verdade que operadores implementam.",
@@ -1199,6 +1542,7 @@ export const ENTRIES = [
   // decision, CI is not a merge with red checks, documentation does not approve an operator.
   {
     id: "def-adr",
+    deterministic: true,
     critical: true, keywords: ["adr", "o que e adr", "o que e uma adr", "o que e um adr", "architecture decision record", "o que e architecture decision record", "what is an adr", "what is adr", "o que sao adrs", "para que serve uma adr"],
     answer:
       "Uma **ADR** é um **Architecture Decision Record**: um documento que regista uma decisão arquitectural importante. No **BANZA**, uma ADR documenta contexto, decisão, consequências e fronteiras de uma escolha de arquitectura ou governança (ficam em `decisions/adr/`, listadas em `/decisoes`). Uma ADR **não é código**, **não certifica** operadores e **não substitui** CI, revisão nem evidência técnica.",
@@ -1206,6 +1550,7 @@ export const ENTRIES = [
   },
   {
     id: "def-rfc",
+    deterministic: true,
     critical: true, keywords: ["rfc", "o que e rfc", "o que e uma rfc", "o que e um rfc", "request for comments", "what is an rfc", "what is rfc", "o que sao rfcs"],
     answer:
       "Uma **RFC** (**Request for Comments**) é uma proposta/discussão estruturada para evoluir o protocolo. No **BANZA**, uma RFC serve para discutir uma mudança **antes** de entrar como especificação, contrato, schema ou decisão (ADR), e vive em `decisions/rfc/`. Uma RFC **não é** norma final nem aprovação — é o passo de discussão do processo aberto.",
@@ -1213,6 +1558,7 @@ export const ENTRIES = [
   },
   {
     id: "def-bcj",
+    deterministic: true,
     critical: true, keywords: ["bcj", "bcj 1", "bcj/1", "o que e bcj", "o que e o bcj", "banza canonical json", "canonical json", "what is bcj", "json canonico", "canonicalizacao"],
     answer:
       "O **BCJ/1** (*BANZA Canonical JSON*) é a **forma canónica de bytes** do protocolo: um perfil restrito do RFC 8785 (JCS). Fixa como um documento JSON se converte numa sequência de bytes única e determinística — UTF-8, membros duplicados rejeitados antes de qualquer interpretação semântica, inteiros no domínio ±(2^53−1), e **sem normalização Unicode do lado do verificador**. Assinatura, digest e identidade de pedido comparam bytes produzidos por esta regra, pelo que duas implementações que discordem aqui discordam em tudo o resto. É a primeira coisa a ler e a primeira a testar. Especificação: `spec/canonicalization.md`.",
@@ -1220,6 +1566,7 @@ export const ENTRIES = [
   },
   {
     id: "def-root-authorization",
+    deterministic: true,
     critical: true, keywords: ["quantas autoridades", "how many authorities", "threshold da raiz", "threshold da trust root", "root threshold", "trust root threshold", "quorum da raiz", "root quorum", "autoridades da raiz", "root authorities", "2 de 3", "2-de-3", "2 of 3", "2-of-3"],
     answer:
       "A **Trust Root** do **BANZA** é controlada por **três autoridades de assinatura independentes**. Uma acção autorizada pela raiz requer assinaturas de **quaisquer duas das três** (**2-de-3**); **nenhuma chave de raiz autoriza sozinha**. Perdida, comprometida ou obstrutiva **uma** autoridade, as **duas sobreviventes** substituem-na sem a sua participação; perdidas **duas**, a continuidade canónica fica **bloqueada** — uma só sobrevivente **não** restaura a raiz e **não existe chave-mestra de emergência nem via de uma só parte** (ADR-039). O limiar conta **autoridades distintas**, não entradas de assinatura: duas assinaturas da mesma autoridade valem uma aprovação. A autorização é **criptográfica e lógica** — quantos módulos seguros existem e onde vivem os dispositivos são **controlos de custódia**, e o número de dispositivos nunca determina o limiar. **Nenhuma cerimónia de produção foi realizada, não existe chave de raiz de produção e não há raiz de produção publicada.** Modelo: `docs/security/ROOT_KEY_CUSTODY_MODEL.md`; validador: `engines/banza-root-ceremony`; sucessão: `spec/root-authority-set.md`.",
@@ -1227,20 +1574,117 @@ export const ENTRIES = [
   },
   {
     id: "def-r2s2",
+    deterministic: true,
     critical: true, keywords: ["r2s2", "r²s²", "principios fundamentais", "princípios fundamentais", "fundamental principles", "quais sao os principios", "quatro principios", "four principles", "robusto", "resiliente", "seguro", "simples", "robust", "resilient", "secure", "simple", "principios do banza", "design principles"],
     answer:
       "Os **Princípios Fundamentais** do **BANZA** são **quatro**, e apenas quatro — em conjunto chamam-se **BANZA R²S²** (ASCII `R2S2`): **Robusto** — comportamento correcto e determinístico perante implementações independentes, entrada adversarial e condições-limite; **Resiliente** — contém falhas, preserva operação segura onde é possível e recupera de forma determinística **sem enfraquecer as garantias do protocolo**; **Seguro** — as propriedades críticas são impostas **por construção** e **fecham por omissão** quando não podem ser estabelecidas; **Simples** — usa o **menor mecanismo suficiente** para fornecer a propriedade exigida. A ordem é canónica. **A resiliência não se sobrepõe à segurança**: nunca permite contornar confiança, autorização ou integridade apenas para continuar disponível, e **não significa ausência de indisponibilidade** — significa que uma falha é contida, explícita e recuperável, e não se transforma numa violação do protocolo. Os princípios são o **critério de decisão**, distintos das **propriedades estruturais** que o protocolo tem de possuir (Referência §3, oito) e dos **invariantes arquitecturais** que a arquitectura não pode violar (Whitepaper, cinco). **`Fecho por omissão` é uma propriedade estrutural** associada a Seguro e Resiliente — **não** é um quinto princípio. Decisão: **ADR-040**; evidência: `assurance/`.",
     sources: s("govGlossary", "specDir"),
   },
+  // ── Conformance profiles — DERIVED. Every identifier, canonical name, purpose and inheritance below
+  //    comes from PROFILE_FACTS, generated from contracts/production/conformance-profiles.production.json.
+  //    Nothing here restates them, so a registry change cannot leave a stale answer behind, and the
+  //    freshness check fails until the artifact is regenerated.
+  //
+  //    Profile IDENTITY is kept SEPARATE from the L0 regulatory boundary above. They answer different
+  //    questions: what a level IS, versus what passing it does not confer. Collapsing them would make
+  //    "o que é L0?" answer with a denial, and "passar L0 permite dinheiro real?" answer with a name.
+  ...profileEntries(),
+  ...lifecycleEntries(),
+  // ── Implementation as an ENTITY, and its relationship to an operator. ADR-002 states both in one
+  //    sentence: "A certificate is bound to an implementation — a specific artifact set — not to an
+  //    entity, because entities do not pass vectors, builds do." That is the authority for what an
+  //    implementation IS and for why it is not the operator.
+  //
+  //    These are new REPRESENTATIONS of existing repository truth, not new BANZA semantics. The
+  //    component facts remain the owners: def-operator owns the operator, and the comparison below cites
+  //    the relationship authority rather than restating either definition as its own.
+  //
+  //    Deliberately NOT claimed: that one operator may publish several implementations. It is
+  //    architecturally natural and ADR-002 does not state it, so it is not asserted here.
+  {
+    id: "def-implementation",
+    deterministic: true,
+    critical: true,
+    keywords: [
+      "o que e uma implementacao", "o que e uma implementacao banza", "definicao de implementacao",
+      "what is an implementation", "what is a banza implementation", "definition of implementation",
+    ],
+    answer:
+      "Uma **implementação** do **BANZA** é o **sistema técnico** que implementa o protocolo — um **conjunto concreto de artefactos** (uma build identificada), não uma organização. A conformidade e a certificação avaliam **essa** implementação num âmbito determinado: um certificado liga-se a uma implementação, **não** a uma entidade, porque **entidades não passam vectores — builds passam** (ADR-002).\n\n---\n\nA **BANZA implementation** is the **technical system** that implements the protocol — a **specific artifact set** (an identified build), not an organization. Conformance and certification evaluate **that** implementation within a defined scope: a certificate binds to an implementation, **not** to an entity, because **entities do not pass vectors, builds do** (ADR-002).",
+    sources: s("adr002", "specOverview"),
+  },
+  {
+    id: "def-operator-vs-implementation",
+    deterministic: true,
+    critical: true,
+    keywords: [
+      "operador e implementacao sao a mesma coisa", "operador e uma implementacao sao a mesma coisa",
+      "diferenca entre operador e implementacao", "operador vs implementacao",
+      "operator and an implementation the same", "difference between an operator and an implementation",
+      "operator vs implementation", "are an operator and an implementation the same thing",
+    ],
+    answer:
+      "**Não — são coisas distintas.** Um **operador** é uma **entidade organizacional** independente que corre uma implementação; uma **implementação** é o **sistema técnico**, um conjunto concreto de artefactos. A distinção é o que torna a certificação precisa: um certificado liga-se a uma **implementação**, não a uma entidade, porque **entidades não passam vectores — builds passam** (ADR-002). Sem essa separação, o modelo de conformidade colapsaria em avalizar empresas.\n\n---\n\n**No — they are distinct.** An **operator** is an independent **organizational entity** that runs an implementation; an **implementation** is the **technical system**, a specific artifact set. The distinction is what makes certification precise: a certificate binds to an **implementation**, not to an entity, because **entities do not pass vectors, builds do** (ADR-002). Without that separation the conformance model would collapse into vouching for companies.",
+    sources: s("adr002", "specOverview"),
+  },
+  {
+    // "Quem certifica?" is grammatically an ACTOR question, and the honest answer is that BANZA defines
+    // the FUNCTION and designates no universal certifying organization. Answering "Layer 2 certifies"
+    // would turn an architectural layer into a legal entity; naming any body would invent one.
+    id: "def-certification-actor",
+    deterministic: true,
+    critical: true,
+    keywords: [
+      "quem certifica uma implementacao", "quem certifica implementacoes", "quem certifica",
+      "who certifies an implementation", "who certifies implementations", "who certifies",
+      "quem emite a certificacao", "who issues certification",
+    ],
+    answer:
+      "O **BANZA** define a **função** de certificação — a **Camada 2**, certificação de conformidade e interoperabilidade — e **não designa uma organização certificadora universal**. Certificar é avaliar **uma implementação determinada** (identificada pelo artefacto) contra um perfil público e versionado, e o resultado é **evidência técnica decidida por verificações determinísticas**, não uma aprovação institucional. O **protocolo não é, ele próprio, um certificador**; o **BanzAI não certifica**; as **autoridades de raiz não certificam** — o seu papel é criptográfico. E certificar **não** confere admissão operacional (ADR-006) nem autorização regulatória (ADR-007): são decisões separadas que não se propagam (ADR-005).\n\n---\n\n**BANZA** defines the certification **function** — **Layer 2**, conformance and interoperability certification — and **designates no universal certifying organization**. Certifying means evaluating **a defined implementation** (identified by its artifact) against a public, versioned profile, and the result is **technical evidence decided by deterministic checks**, not an institutional approval. The **protocol is not itself a certifier**; **BanzAI does not certify**; the **root authorities do not certify** — their role is cryptographic. And certification confers **neither** operational admission (ADR-006) **nor** regulatory authorization (ADR-007): those are separate decisions that do not propagate (ADR-005).",
+    sources: s("adr002", "adr005sep", "govGlossary"),
+  },
   {
     id: "def-resilience-boundary",
+    deterministic: true,
     critical: true, keywords: ["resiliencia sobrepoe seguranca", "resiliência sobrepõe-se à segurança", "resilience override security", "resilience overrides security", "resiliencia acima da seguranca", "resilience vs security", "resiliencia zero downtime", "resilience zero downtime", "resiliencia significa zero downtime", "resilience mean zero downtime", "resiliencia indisponibilidade", "seguranca antes de disponibilidade", "safety before availability"],
     answer:
       "**Não.** A **resiliência nunca se sobrepõe à segurança**, nem a qualquer garantia de correcção do protocolo. O **BANZA** segue **segurança antes de disponibilidade**: onde a **confiança**, a **autorização**, a **integridade** ou a **correcção** não podem ser estabelecidas, o protocolo **falha ou degrada em segurança** em vez de continuar por um caminho alternativo inseguro. Em concreto, ser resiliente **não** autoriza contornar a confiança, aceitar um artefacto **não assinado** ou de origem não verificada, **estender** uma validade expirada, baixar o limiar de assinaturas nem prosseguir com verificações mais fracas para permanecer disponível — **recusar é um resultado correcto**. Resiliência também **não significa ausência de indisponibilidade**: significa que uma falha é **contida, explícita e recuperável de forma determinística**, e que **nunca se transforma numa violação do protocolo**. **Resiliente** e **Seguro** são dois dos quatro Princípios Fundamentais (**BANZA R²S²**); decisão: **ADR-040**.",
     sources: s("govGlossary", "specDir"),
   },
+  // Authority-boundary question. It was answered "insufficient evidence" on the direct route while an
+  // immediate contextual follow-up produced a substantive — and wrong — answer saying public contracts
+  // "control" operators. The verbs of authority (controlar, governar, admitir, autorizar, mandar)
+  // resolved to no subject at all, so the factual package was built empty and declined; the contextual
+  // route reached sources by another path. A stable governance boundary should not need a model to be
+  // decided, and it must not be decided differently depending on which route the reader arrives by.
+  //
+  // TECHNICAL CONSTRAINT ≠ ORGANIZATIONAL CONTROL. Contracts define interfaces and required behaviour
+  // for a conformant implementation; they do not become an institutional controller of an entity.
+  {
+    id: "def-operator-governance-authority",
+    deterministic: true,
+    // Explicitly eligible for the lexical keyword index. Not because the entry is critical —
+    // 136 critical entries are deliberately outside it — but because authority questions arrive
+    // as free prose ("quem controla os operadores") that no subject or glossary path resolves.
+    lexicalCandidate: true,
+    critical: true, keywords: ["quem controla os operadores", "quem controla o operador", "quem controla os operadores banza", "o banza controla os operadores", "banza controla operadores",
+      // The FALSE-PREMISE phrasings. "porque é que o BANZA controla todos os operadores?" asserts something
+      // untrue and must reach the record that corrects it — measured, the interpolated quantifier stopped
+      // the contiguous-phrase match and the bare token "banza" tied on score, so the question was answered
+      // with the definition of BANZA instead of with the authority separation that refutes it. A follow-up
+      // then inherits this corrected target, which is why the phrasing belongs here and not in a rule that
+      // treats the reader's premise as the subject.
+      "banza controla todos os operadores", "o banza controla todos os operadores",
+      "porque e que o banza controla todos os operadores", "banza controla qualquer operador",
+      "does banza control all operators", "why does banza control all operators",
+      "banza controls all operators","quem manda nos operadores", "quem governa os operadores", "quem governa um operador", "quem admite um operador", "quem admite operadores", "quem autoriza um operador", "quem autoriza operadores", "quem aprova um operador", "existe uma autoridade central que controla os operadores", "autoridade central operadores", "a banzami controla os operadores", "banzami controla operadores", "o mantenedor do banza controla os operadores", "mantenedor controla operadores", "quem controla o banza", "quem controla o protocolo", "who controls operators", "who controls the operators", "does banza control operators", "who governs operators", "who governs an operator", "who admits an operator", "who admits operators", "who authorizes an operator", "who authorises an operator", "who approves an operator", "is there a central banza authority controlling operators", "central authority operators", "does banzami control operators", "does the banza maintainer control operators", "who controls banza", "who controls the protocol"],
+    answer:
+      "**O BANZA não estabelece uma autoridade central que controle os operadores.** Um **operador** é uma entidade organizacional independente, responsável por correr uma implementação; uma **implementação** é o sistema técnico que segue as regras (ADR-002). São coisas distintas, e uma pergunta organizacional não se responde como se um operador fosse apenas software.\n\nSe por **controlo** se entende **requisitos técnicos**: o protocolo define, em contratos e especificações públicas, os requisitos que uma implementação tem de satisfazer para ser conforme. Isso é **constrangimento técnico, não controlo organizacional** — um contrato define interfaces, representações e comportamento exigido; não se torna o controlador institucional de uma entidade.\n\nAs decisões estão separadas e nenhuma implica a outra (ADR-004, ADR-005):\n\n- **Protocolo** — especifica as regras técnicas.\n- **Implementação** — implementa essas regras.\n- **Conformidade ou certificação** — avalia uma implementação num âmbito determinado (versão do protocolo, perfil, ambiente, evidência). Avalia implementações, **não** confere admissão nem licença.\n- **Admissão e governação operacional** — pertencem, separadamente, ao esquema operacional aplicável, segundo as suas próprias regras (ADR-006).\n- **Autorização ou supervisão regulatória** — pertence, separadamente, ao enquadramento jurídico e às autoridades competentes da jurisdição aplicável (ADR-007).\n\n**Nenhuma dessas decisões é automaticamente conferida pelo BANZA.** Não há um controlador central de operadores, nem uma admissão do BANZA, nem uma autoridade regulatória do BANZA. Os mantenedores governam a evolução do protocolo no processo público, não os operadores; as autoridades de raiz desempenham o seu papel criptográfico de confiança, que não é governação operacional; e o registo técnico público indexa manifestos, versões e evidência auto-publicada — **não é uma lista de admitidos nem uma porta de entrada**.",
+    sources: s("adr002", "adr059", "adr005sep", "adr060", "adr062", "govGlossary"),
+  },
   {
     id: "def-l0-regulatory-boundary",
+    deterministic: true,
     critical: true, keywords: ["l0 sandbox regulatorio", "l0 sandbox regulatório", "l0 regulatory sandbox", "l0 sandbox do bna", "l0 bna sandbox", "l0 lispa", "l0 e lispa", "l0 dinheiro real", "l0 movimentar dinheiro real", "l0 real money", "l0 move real funds", "l0 fundos reais", "implementar l0 sem ser operador", "testar l0 sem ser operador", "implement l0 without being an operator", "test l0 without being a financial operator", "conformidade da licenca", "certificacao da licenca", "conformidade banza da licenca para operar", "does banza conformance authorize", "does certification authorize me to operate", "passar l0 significa producao", "passar l0 producao", "passing l0 production", "l0 significa que posso entrar em producao", "l0 autoriza", "l0 confere autorizacao"],
     answer:
       "**Não.** O **L0 — Sandbox de Protocolo** permite **implementar, testar e demonstrar a interoperabilidade técnica** do **BANZA** num ambiente **controlado e não produtivo**, com material, credenciais, dados e valores **de teste** — e **não confere, substitui nem implica autorização regulatória, admissão operacional, participação num arranjo de pagamentos ou permissão para movimentar fundos reais**. Em concreto: **conformidade técnica não é autorização regulatória**, **certificação BANZA não é admissão operacional**, e **passar em L0 não é aprovação para produção** — não há progressão automática de L0 para produção, porque perfis medem **capacidade técnica** e não são níveis de licença (ADR-005). O **L0 é um sandbox de protocolo, não um sandbox regulatório**: os laboratórios e programas de autorização operados por um regulador são **institucionalmente distintos** — o **BANZA L0 não é** uma autorização, aprovação, supervisão ou programa do **Banco Nacional de Angola**, e é **distinto do LISPA**, o Laboratório de Inovação do Sistema de Pagamentos que o BNA opera; participar no L0 não é participar no LISPA. Isto **não** significa que o L0 esteja fora da lei: significa apenas que **o teste técnico não pressupõe a autorização exigida para a operação financeira real**. A lei geralmente aplicável continua a aplicar-se, e a passagem para operação real depende, **separadamente**, do enquadramento jurídico, regulatório, operacional e de governação aplicável ao operador, ao esquema e à jurisdição. O que é de teste é o **material e os valores**, não o comportamento do protocolo — e **material de teste nunca se torna válido em produção** por mudar de ambiente (ADR-023). O **BANZA** descreve esta fronteira; **não determina** se uma entidade concreta precisa de uma licença específica nem se um modelo de negócio é lícito — isso pertence ao quadro legal e à autoridade competente. Fronteira completa: `docs/governance/certification-boundary.md`.",
@@ -1248,13 +1692,18 @@ export const ENTRIES = [
   },
   {
     id: "def-local-execution",
+    deterministic: true,
     critical: true, keywords: ["execucao local", "execução local", "servidor central", "central server", "processador central", "central processor", "central transaction processor", "consenso global", "global consensus", "execucao federada", "federated execution", "infraestrutura central", "ponto central", "banza e uma blockchain", "is banza a blockchain"],
     answer:
       "**Não.** O **BANZA** **não** exige um **processador central de transacções**, **não** usa **consenso global** e **não** reside num **servidor central** — não é uma blockchain nem uma infraestrutura partilhada de execução. A execução é **local a cada operador**: cada implementação corre na infraestrutura do próprio operador, e dois operadores interoperam por **respeitarem as mesmas regras públicas**, não por se ligarem a um ponto central comum. A execução **não é** um plano do protocolo — processar pagamentos, guardar saldos e cumprir obrigações legais pertence aos operadores, **sob** as regras do protocolo mas **fora** dele; o protocolo **não detém nem movimenta fundos** e não mantém um livro-razão global sobre o qual houvesse que chegar a acordo. As únicas superfícies comuns são de **descoberta e ancoragem de confiança** — o **Registo Técnico**, a **metadata de protocolo assinada**, a **Lista de Revogação** e o **Manifesto de Chaves** —, e **nenhuma delas movimenta fundos nem executa pagamentos**. Referência **§4 Arquitectura do Protocolo** (execução local, sem servidor central).",
-    sources: s("specOverview", "readme", "claudeMd"),
+    // `claudeMd` removed for the same reason as what-is-banza: an internal repository guide is not public
+    // establishing evidence, and a presentation filter hiding it does not make the declaration true. Found
+    // by auditing every deterministic entry rather than only the one that prompted the audit.
+    sources: s("specOverview", "readme", "adr018"),
   },
   {
     id: "def-root-authority-set",
+    deterministic: true,
     critical: true, keywords: ["conjunto de autoridades", "conjunto de autoridades da raiz", "root authority set", "sucessao da raiz", "sucessao de autoridades", "root succession", "substituir uma autoridade", "replace an authority", "continuidade da raiz", "root continuity", "autoridade perdida", "lost authority", "autoridade comprometida", "conjunto genese", "genesis set", "predecessor"],
     answer:
       "O **Conjunto de Autoridades da Raiz** é o artefacto que responde a **quem pode exercer a autoridade da raiz** — distinto do **Manifesto de Chaves**, que responde a **o que a raiz delega neste momento**. A raiz avança como uma **linhagem**: o **conjunto génese** (sequência 0) é aceite apenas quando o seu digest é igual a um que o verificador recebeu **explicitamente** — confiança no primeiro uso é recusada; cada conjunto seguinte nomeia o predecessor por digest, avança a sequência exactamente uma unidade e transporta assinaturas de **duas autoridades distintas do conjunto predecessor**. Um conjunto assinado pelas suas próprias chaves **não autoriza nada**. Daqui decorre a continuidade: se uma autoridade for perdida, comprometida ou obstrutiva, as **duas sobreviventes** autorizam um sucessor que a substitui, **sem a sua participação** — exigi-la tornaria o caminho 3-de-3 e dar-lhe-ia um veto. Se restar menos do que o limiar, a continuidade canónica fica **bloqueada**: não existe chave-mestra de emergência, chave de recuperação oculta nem via de uma só parte. Especificação: `spec/root-authority-set.md`; decisão: **ADR-039**; invariantes `INV-ROOT-011` a `INV-ROOT-014`.",
@@ -1262,6 +1711,7 @@ export const ENTRIES = [
   },
   {
     id: "def-trust-guarantees",
+    deterministic: true,
     critical: true, keywords: ["transparencia global", "global transparency", "split-view", "split view", "consistencia de conjunto", "set consistency", "mix-and-match", "mix and match", "consistencia entre observadores", "cross-observer", "garantias de confianca", "trust guarantees", "o banza fornece transparencia global"],
     answer:
       "**Não.** O **BANZA** **não** fornece transparência global nem detecção de *split-view*. Quatro garantias distintas precisam de ser separadas: **fornece — frescura do artefacto**: um artefacto expirado não é aceite (`expires_at`); **fornece — monotonicidade local**: dentro do âmbito observado, um marcador de ordem inferior é rejeitado (`trust_version_rollback`) e o mesmo marcador com conteúdo diferente falha fechado (`trust_version_equivocation`); **não fornece — consistência de conjunto**: vários artefactos individualmente válidos e frescos não são garantidamente do mesmo estado de publicação — a expiração limita a idade de cada artefacto, **não a coerência entre eles**; **não fornece — consistência entre observadores**: dois verificadores podem observar estados diferentes sem que o protocolo o detecte. Especificação: `spec/trust-freshness.md`.",
@@ -1269,6 +1719,7 @@ export const ENTRIES = [
   },
   {
     id: "def-spec",
+    deterministic: true,
     critical: true, keywords: ["spec", "o que e spec", "o que e uma spec", "specification", "especificacao", "o que e especificacao", "what is a spec", "what is a specification"],
     answer:
       "Uma **spec** (especificação) descreve as **regras, formatos, comportamento esperado e interfaces** do protocolo. No **BANZA** vive em `spec/` e deve ser distinguida da **implementação**: a spec diz o que é correcto; um operador implementa-a. Uma spec **não é** código nem certificação.",
@@ -1276,6 +1727,7 @@ export const ENTRIES = [
   },
   {
     id: "def-guard",
+    deterministic: true,
     critical: true, keywords: ["guard", "o que e guard", "o que e um guard", "guards", "o que sao guards", "what is a guard", "what are guards", "verificacao automatizada"],
     answer:
       "Um **guard** é uma **verificação automatizada** que impede regressões, violações de fronteira, contaminação de marca, fuga de segredos ou quebra de regras do projecto. No **BANZA** correm por `make <nome>-check` (em `tools/`) e no CI. Um guard **não é** uma decisão normativa nem deve ser contornado — remover ou ignorar um guard é uma acção recusada.",
@@ -1283,6 +1735,7 @@ export const ENTRIES = [
   },
   {
     id: "def-ci",
+    deterministic: true,
     critical: true, keywords: ["ci", "o que e ci", "o que e o ci", "continuous integration", "integracao continua", "what is ci", "what is continuous integration"],
     answer:
       "**CI** significa **Continuous Integration**: o conjunto de **checks automatizados** que corre em cada PR para validar testes, guards, build e regras do projecto. No **BANZA** vive em `.github/workflows/`. CI **não** deve ser passado à força: fazer merge com checks vermelhos é uma acção recusada.",
@@ -1290,6 +1743,7 @@ export const ENTRIES = [
   },
   {
     id: "def-pr",
+    deterministic: true,
     critical: true, keywords: ["pr", "o que e pr", "o que e um pr", "pull request", "o que e um pull request", "what is a pr", "what is a pull request"],
     answer:
       "Um **PR** (**Pull Request**) é uma **proposta de alteração** ao repositório, revista e validada por **CI** antes do merge. No **BANZA**, um PR não deve ser fundido com checks vermelhos nem com `--admin` a contornar CI falhado — isso é uma acção recusada.",
@@ -1297,6 +1751,7 @@ export const ENTRIES = [
   },
   {
     id: "def-issue",
+    deterministic: true,
     critical: true, keywords: ["issue", "o que e issue", "o que e uma issue", "o que e um issue", "what is an issue", "what is a github issue"],
     answer:
       "Uma **issue** é um registo de **problema, proposta ou tarefa** no repositório. No **BANZA** faz parte do processo aberto (issues → discussão/RFC → PR → CI → merge). Uma issue **não é** decisão nem aprovação — é o ponto de partida da discussão.",
@@ -1304,6 +1759,7 @@ export const ENTRIES = [
   },
   {
     id: "def-release",
+    deterministic: true,
     critical: true, keywords: ["release", "o que e release", "o que e uma release", "o que e um release", "version", "versao", "o que e uma versao", "tag", "o que e uma tag", "what is a release"],
     answer:
       "Uma **release** é uma **versão publicada** do projecto, normalmente ligada a uma **tag** e ao **changelog**. No **BANZA** identifica um estado reproduzível do repositório. Uma release **não** confere estatuto a operadores nem é certificação.",
@@ -1311,6 +1767,7 @@ export const ENTRIES = [
   },
   {
     id: "def-changelog",
+    deterministic: true,
     critical: true, keywords: ["changelog", "o que e changelog", "o que e o changelog", "what is a changelog", "historico de alteracoes"],
     answer:
       "O **changelog** é o **histórico de alterações relevantes** entre versões do projecto. No **BANZA** vive em `CHANGELOG.md`. É um registo — **não** é norma nem certificação.",
@@ -1318,6 +1775,7 @@ export const ENTRIES = [
   },
   {
     id: "def-runbook",
+    deterministic: true,
     critical: true, keywords: ["runbook", "o que e runbook", "o que e um runbook", "what is a runbook"],
     answer:
       "Um **runbook** é um **guia operacional** para executar, diagnosticar, recuperar ou manter um sistema (passos, smoke tests, rollback). No **BANZA** vivem em `docs/guides/`. Um runbook orienta a operação — **não** altera as regras do protocolo.",
@@ -1325,6 +1783,7 @@ export const ENTRIES = [
   },
   {
     id: "def-rollback",
+    deterministic: true,
     critical: true, keywords: ["rollback", "o que e rollback", "o que e um rollback", "what is a rollback", "reverter para estado anterior"],
     answer:
       "**Rollback** é o processo de **voltar a um estado anterior seguro** após uma falha ou regressão (por exemplo, repor uma configuração ou uma versão anterior). No **BANZA** os runbooks documentam o rollback de cada mudança operacional. Não afecta invariantes do protocolo.",
@@ -1332,6 +1791,7 @@ export const ENTRIES = [
   },
   {
     id: "def-maintainer",
+    deterministic: true,
     critical: true, keywords: ["maintainer", "o que e maintainer", "o que e um maintainer", "who is a maintainer", "what is a maintainer", "mantenedor", "o que e um mantenedor", "contributor", "o que e um contributor", "contribuidor"],
     answer:
       "Um **maintainer** é uma pessoa ou entidade responsável por **manter o projecto**, rever mudanças e preservar a integridade do repositório. No **BANZA** a governança é **aberta** (qualquer um contribui via issue/RFC/PR); o **Banzami** é o criador original e mantenedor institucional inicial. Ser maintainer **não** dá autoridade para certificar, aprovar ou licenciar operadores.",
@@ -1339,6 +1799,7 @@ export const ENTRIES = [
   },
   {
     id: "def-governance",
+    deterministic: true,
     critical: true, keywords: ["governance", "o que e governance", "o que e governanca", "governanca", "o que e a governanca", "what is governance", "modelo de governanca", "governanca aberta"],
     answer:
       "**Governança** é o **processo aberto** pelo qual o BANZA evolui: issues, RFCs, ADRs, pull requests, revisão e CI. No **BANZA** a governança é **aberta** e a conformidade demonstra-se por **evidência verificável**, não por uma autoridade central. A governança **não** certifica, aprova nem licencia operadores.",
@@ -1346,13 +1807,15 @@ export const ENTRIES = [
   },
   {
     id: "def-audit-report",
+    deterministic: true,
     critical: true, keywords: ["audit", "o que e audit", "audit report", "o que e um audit report", "relatorio de auditoria", "o que e auditoria", "evidence report", "what is an audit report", "what is an audit"],
     answer:
-      "Um **audit report** (relatório de auditoria) documenta uma **revisão** do repositório ou de um marco — o que foi verificado, achados e conclusões. No **BANZA** vivem em `docs/reports/`. É **evidência/registo** de revisão — **não** é certificação nem aprovação de operador.",
+      "Um **audit report** (relatório de auditoria) documenta uma **revisão** do repositório ou de um marco — o que foi verificado, achados e conclusões. No **BANZA** vivem em `docs/quality/`. É **evidência/registo** de revisão — **não** é certificação nem aprovação de operador.",
     sources: s("reportsDir", "govGlossary"),
   },
   {
     id: "def-kz-demo",
+    deterministic: true,
     critical: true, keywords: ["kz_demo", "o que e kz_demo", "kz demo", "kz_demo e dinheiro real", "kz demo dinheiro real"],
     answer:
       "**KZ_DEMO** é a unidade de demonstração (moeda fictícia) do Operador Zero, a implementação de referência só de leitura — `monetary_value: false`, `demo_only: true`. **Não é dinheiro real**, não tem valor monetário e não move fundos. Serve apenas para demonstrar e validar o protocolo de ponta a ponta.",
@@ -1362,6 +1825,7 @@ export const ENTRIES = [
   // Layer B — fintech/payment domain (general explanation ≠ BANZA rule)
   {
     id: "def-ledger",
+    deterministic: true,
     critical: true, keywords: ["ledger", "o que e ledger", "o que e o ledger", "livro razao", "what is a ledger"],
     answer:
       "**Ledger** é o registo de movimentos financeiros. No **BANZA**, o protocolo define **invariantes** de ledger de **dupla-entrada** (cada débito tem o crédito correspondente, aritmética inteira, sem floats); o BANZA **não mantém contas reais** — os saldos são sempre derivados do ledger.",
@@ -1369,6 +1833,7 @@ export const ENTRIES = [
   },
   {
     id: "def-double-entry",
+    deterministic: true,
     critical: true, keywords: ["double entry", "double-entry", "o que e double entry", "partida dobrada", "dupla entrada", "what is double entry"],
     answer:
       "**Dupla-entrada (double-entry)** significa que cada débito tem um crédito correspondente e o valor é conservado. No **BANZA** é um **invariante** obrigatório do ledger — nenhum valor é criado ou destruído.",
@@ -1376,6 +1841,7 @@ export const ENTRIES = [
   },
   {
     id: "def-balance",
+    deterministic: true,
     critical: true, keywords: ["saldo", "o que e saldo", "balance", "what is balance", "what is a balance"],
     answer:
       "**Saldo (balance)** é o valor de uma conta. No **BANZA**, os saldos são sempre **derivados do ledger** (nunca actualizados directamente) e nunca podem ficar negativos — é um invariante de comportamento. O protocolo não mantém contas reais.",
@@ -1383,6 +1849,7 @@ export const ENTRIES = [
   },
   {
     id: "def-available-balance",
+    deterministic: true,
     critical: true, keywords: ["saldo disponivel", "o que e saldo disponivel", "available balance", "what is available balance"],
     answer:
       "**Saldo disponível** é a parte do saldo que pode ser usada numa operação. No **BANZA** aparece como invariante de comportamento (derivado do ledger); o protocolo não mantém contas reais nem move fundos.",
@@ -1390,6 +1857,7 @@ export const ENTRIES = [
   },
   {
     id: "def-reserved-balance",
+    deterministic: true,
     critical: true, keywords: ["saldo reservado", "o que e saldo reservado", "reserved balance", "what is reserved balance"],
     answer:
       "**Saldo reservado** é a parte do saldo temporariamente bloqueada para uma operação pendente. No **BANZA** é um invariante de comportamento derivado do ledger; não corresponde a fundos reais retidos pelo protocolo.",
@@ -1397,6 +1865,7 @@ export const ENTRIES = [
   },
   {
     id: "def-wallet",
+    deterministic: true,
     critical: true, keywords: ["wallet", "o que e wallet", "carteira", "carteira digital", "o que e carteira digital", "o que e uma carteira", "what is a wallet"],
     answer:
       "**Carteira (wallet)** é uma conta digital que detém um saldo. É um conceito que um **operador** implementa; o **BANZA não é uma carteira** — define invariantes (saldos derivados do ledger, sem saldo negativo), não guarda fundos reais.",
@@ -1404,6 +1873,7 @@ export const ENTRIES = [
   },
   {
     id: "def-payment",
+    deterministic: true,
     critical: true, keywords: ["pagamento", "o que e pagamento", "payment", "what is a payment", "pagamento instantaneo"],
     answer:
       "**Pagamento** é a transferência de valor de um ordenante (payer) para um beneficiário (payee), tipicamente via um comerciante. No **BANZA** os fluxos de pagamento são modelados por contratos e invariantes (ledger, idempotência, QR); o protocolo **não move dinheiro real**.",
@@ -1411,6 +1881,7 @@ export const ENTRIES = [
   },
   {
     id: "def-qr",
+    deterministic: true,
     critical: true, keywords: ["qr", "pagamento qr", "o que e pagamento qr", "payment request", "o que e qr", "what is a qr payment"],
     answer:
       "Um **pagamento QR** é um pedido de pagamento representado num código QR que o pagador confirma. No **BANZA** o QR tem invariantes (resolução única, uso único de QR dinâmico, expiração — INV-QR); é uma simulação/contrato, não movimento de dinheiro real.",
@@ -1418,6 +1889,7 @@ export const ENTRIES = [
   },
   {
     id: "def-payment-link",
+    deterministic: true,
     critical: true, keywords: ["payment link", "o que e payment link", "link de pagamento", "o que e link de pagamento", "what is a payment link"],
     answer:
       "Um **payment link** (link de pagamento) é uma ligação partilhável que inicia um pedido de pagamento. É um conceito de produto que um operador implementa; o **BANZA** define contratos/invariantes, não processa pagamentos reais.",
@@ -1425,6 +1897,7 @@ export const ENTRIES = [
   },
   {
     id: "def-idempotency",
+    deterministic: true,
     critical: true, keywords: ["idempotencia", "o que e idempotencia", "idempotency", "idempotent", "what is idempotency", "chave de idempotencia"],
     answer:
       "**Idempotência** significa que repetir o mesmo pedido (com a mesma **chave de idempotência**) produz o mesmo resultado, sem duplicar efeitos. No **BANZA** é um **invariante** (INV-IDEM) — toda operação financeira é replay-safe.",
@@ -1432,6 +1905,7 @@ export const ENTRIES = [
   },
   {
     id: "def-webhook",
+    deterministic: true,
     critical: true, keywords: ["webhook", "o que e webhook", "what is a webhook"],
     answer:
       "Um **webhook** é uma entrega de eventos de um sistema para outro (com reentrega/assinatura, quando aplicável). É um mecanismo de integração que um operador implementa; explicação geral, não uma regra normativa específica do BANZA.",
@@ -1439,6 +1913,7 @@ export const ENTRIES = [
   },
   {
     id: "def-refund",
+    deterministic: true,
     critical: true, keywords: ["reembolso", "o que e reembolso", "refund", "estorno", "o que e estorno", "reversal", "reversao", "what is a refund"],
     answer:
       "**Reembolso/estorno (refund/reversal)** é a devolução de valor ligada a uma transacção original. No **BANZA** ajusta o ledger fictício sem criar nem destruir valor (dupla-entrada); um estorno é uma reversão referenciada à operação de origem. O protocolo não move fundos reais.",
@@ -1446,6 +1921,7 @@ export const ENTRIES = [
   },
   {
     id: "def-reconciliation",
+    deterministic: true,
     critical: true, keywords: ["reconciliacao", "o que e reconciliacao", "reconciliation", "what is reconciliation"],
     answer:
       "**Reconciliação** é re-derivar os saldos a partir dos movimentos (não confiar nos saldos) para confirmar que não há discrepâncias e que o total é conservado. No **BANZA** é um **invariante** (INV-RECON), externamente reconciliável.",
@@ -1453,6 +1929,7 @@ export const ENTRIES = [
   },
   {
     id: "def-settlement",
+    deterministic: true,
     critical: true, keywords: ["liquidacao", "o que e liquidacao", "settlement", "what is settlement"],
     answer:
       "Em finanças, **liquidação (settlement)** é o processo pelo qual uma obrigação de pagamento é **finalizada** entre as partes. No **BANZA**, o protocolo pode definir evidência, invariantes e interoperabilidade, mas **não liquida dinheiro real nem movimenta fundos** — a liquidação real pertence aos operadores/infra-estruturas financeiras aplicáveis.",
@@ -1460,6 +1937,7 @@ export const ENTRIES = [
   },
   {
     id: "def-clearing",
+    deterministic: true,
     critical: true, keywords: ["compensacao", "o que e compensacao", "clearing", "what is clearing"],
     answer:
       "**Compensação (clearing)** é a fase de apuramento e troca de instruções de pagamento antes da liquidação. É um conceito do domínio de pagamentos; o **BANZA não compensa nem liquida fundos reais** — é uma camada de protocolo/interoperabilidade.",
@@ -1467,6 +1945,7 @@ export const ENTRIES = [
   },
   {
     id: "def-fee",
+    deterministic: true,
     critical: true, keywords: ["comissao", "o que e comissao", "fee", "taxa", "o que e taxa", "what is a fee"],
     answer:
       "**Comissão/taxa (fee)** é um encargo sobre uma operação. No **BANZA** os montantes seguem a aritmética do ledger (bruto/líquido, sem criação de dinheiro); a cobrança real pertence ao operador — explicação geral, não uma regra específica do protocolo.",
@@ -1476,6 +1955,7 @@ export const ENTRIES = [
   // Layer C — risk / regulatory boundary (explained with caution; never a legal opinion)
   {
     id: "def-psp",
+    deterministic: true,
     critical: true, keywords: ["psp", "o que e psp", "o que e um psp", "prestador de servicos de pagamento", "payment service provider", "what is a psp", "banza e psp", "banza e um psp", "is banza a psp"],
     answer:
       "**PSP** significa **prestador de serviços de pagamento** — um operador (licenciado) que presta serviços de pagamento. O **BANZA não é um PSP**; é um **protocolo**. Qualquer prestação de serviço financeiro pertence a operadores independentes e ao seu enquadramento legal/regulatório.",
@@ -1483,6 +1963,7 @@ export const ENTRIES = [
   },
   {
     id: "def-bank",
+    deterministic: true,
     critical: true, keywords: ["banco", "o que e um banco", "bank", "banza e banco", "banza e um banco", "is banza a bank", "instituicao financeira"],
     answer:
       "Um **banco** é uma instituição financeira licenciada. O **BANZA não é um banco** nem uma instituição financeira — é um protocolo aberto e neutro em relação a operadores; não detém fundos nem presta serviços financeiros.",
@@ -1490,6 +1971,7 @@ export const ENTRIES = [
   },
   {
     id: "def-fintech",
+    deterministic: true,
     critical: true, keywords: ["fintech", "o que e fintech", "o que e uma fintech", "what is fintech"],
     answer:
       "**Fintech** é uma empresa/solução tecnológica no domínio financeiro. O **BANZA é um protocolo**, não uma empresa fintech operacional; operadores (que podem ser fintechs) implementam o protocolo, cada um no seu enquadramento.",
@@ -1497,6 +1979,7 @@ export const ENTRIES = [
   },
   {
     id: "def-kyc",
+    deterministic: true,
     critical: true, keywords: ["kyc", "o que e kyc", "know your customer", "what is kyc"],
     answer:
       "**KYC** (Know Your Customer) é a identificação e verificação do cliente. É um requisito **regulatório/de compliance** que pertence aos operadores e às autoridades competentes; o **BANZA não define uma regra normativa de KYC** e o BanzAI não dá parecer legal.",
@@ -1504,6 +1987,7 @@ export const ENTRIES = [
   },
   {
     id: "def-kyb",
+    deterministic: true,
     critical: true, keywords: ["kyb", "o que e kyb", "know your business", "what is kyb"],
     answer:
       "**KYB** (Know Your Business) é a identificação e verificação de uma empresa/comerciante. Tal como o KYC, é um requisito regulatório dos operadores e das autoridades competentes; o **BANZA não o define** e o BanzAI não dá parecer legal.",
@@ -1511,6 +1995,7 @@ export const ENTRIES = [
   },
   {
     id: "def-aml-cft",
+    deterministic: true,
     critical: true, keywords: ["aml", "cft", "o que e aml", "aml/cft", "o que e aml/cft", "branqueamento de capitais", "lavagem de dinheiro", "what is aml", "what is aml/cft"],
     answer:
       "**AML/CFT** é a prevenção de **branqueamento de capitais** e de **financiamento do terrorismo**. É um domínio **regulatório** fora do protocolo — pertence aos operadores e às autoridades competentes. O **BANZA não define regras de AML/CFT** e o BanzAI não dá parecer legal.",
@@ -1518,6 +2003,7 @@ export const ENTRIES = [
   },
   {
     id: "def-bna",
+    deterministic: true,
     critical: true, keywords: ["bna", "o que e o bna", "o que e bna", "banco nacional de angola", "what is the bna", "banza substitui o bna", "banza substitui bna"],
     answer:
       "**BNA** é o **Banco Nacional de Angola** — o banco central / supervisor financeiro (um regulador). O **BANZA não substitui o regulador** nem qualquer sistema nacional de pagamentos; é uma camada de protocolo/interoperabilidade e não afirma integração nem decisões em nome de terceiros sem fonte.",
@@ -1525,6 +2011,7 @@ export const ENTRIES = [
   },
   {
     id: "def-sandbox",
+    deterministic: true,
     critical: true, keywords: ["sandbox", "o que e sandbox", "sandbox regulatoria", "o que e sandbox regulatoria", "what is a sandbox"],
     answer:
       "**Sandbox** é um ambiente de **teste/piloto**, não de produção. Uma sandbox regulatória é um regime supervisionado para testar soluções; no **BANZA**, ambientes demo/sandbox produzem evidência técnica e **não** representam produção nem autorização.",
@@ -1532,6 +2019,7 @@ export const ENTRIES = [
   },
   {
     id: "def-payment-systems",
+    deterministic: true,
     critical: true, keywords: ["rail de pagamento", "o que e um rail de pagamento", "sistema de pagamentos", "o que e sistema de pagamentos", "national payment system", "payment rail", "banza substitui emis", "banza substitui os bancos", "banza substitui o sistema nacional"],
     answer:
       "**Sistemas/rails de pagamento** são a infra-estrutura partilhada que move pagamentos entre instituições (comutadores interbancários, sistemas nacionais, sistemas em tempo real). O **BANZA é uma camada de protocolo/interoperabilidade** — **não substitui nem integra** sistemas nacionais, reguladores ou bancos, e não nomeia sistemas comerciais específicos.",
@@ -1554,6 +2042,20 @@ export function retrieve(question) {
 // Look up a single entry (data) by id — used by the pipeline to serve the deterministic answer the
 // routing policy selected for a critical-boundary intent.
 const ENTRIES_BY_ID = new Map(ENTRIES.map((e) => [e.id, e]));
+/// Whether an id names a REGISTERED CRITICAL subject — one the engine claims to have a settled, sourced
+/// answer for. Used to tell an internal inconsistency (we know this subject and produced no facts) from
+/// ordinary absence of evidence (we know nothing about this).
+export function isCriticalSubject(id) {
+  if (!id) return false;
+  const e = ENTRIES_BY_ID.get(id);
+  if (e) return e.critical === true;
+  // A concept/document id (ADR-004, a spec path) is critical when a critical entry cites it as one of its
+  // establishing sources: the engine has committed to answering from that record.
+  return ENTRIES.some(
+    (x) => x.critical === true && (x.sources || []).some((sc) => (sc && (sc.id || sc.key)) === id),
+  );
+}
+
 export function getEntry(id) {
   return ENTRIES_BY_ID.get(id) || null;
 }

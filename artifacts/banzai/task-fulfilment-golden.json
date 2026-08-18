@@ -27,15 +27,14 @@
     "template": 19,
     "explanation": 79,
     "document_lookup": 19,
-    "definition": 59,
+    "definition": 61,
     "impact": 45,
     "motivation": 17,
     "comparison": 27,
     "requirements": 28,
     "document_summary": 11,
     "document_metadata": 11,
-    "null": 22,
-    "clarification": 2
+    "null": 22
   },
   "cases": [
     {
@@ -4682,7 +4681,7 @@
       "id": "g294-adv-typo-federacao",
       "q": "o que é federaca",
       "seed": "",
-      "task": "clarification",
+      "task": "definition",
       "terminal": false,
       "appropriateness": "",
       "prohibited": [
@@ -4970,7 +4969,7 @@
       "id": "g312-adv-typo-evidencia",
       "q": "o que é evidenci",
       "seed": "",
-      "task": "clarification",
+      "task": "definition",
       "terminal": false,
       "appropriateness": "",
       "prohibited": [

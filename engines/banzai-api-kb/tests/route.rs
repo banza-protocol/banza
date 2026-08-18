@@ -3,6 +3,40 @@
 
 use banzai_api_kb::route::{route, route_with_context};
 
+/// A question that is SETTLED: it reaches a specific canonical record, model-free, and that record
+/// declares the policy that lets it be answered without a model.
+///
+/// Four assertions in this file used to read `action(q) == "qwen"` for questions that are now settled.
+/// Flipping the string to "deterministic" would have produced a test that passes for the wrong reason —
+/// exactly the staleness that put them here, since "deterministic" alone is also what a WRONG canned
+/// answer looks like. What the original assertions protected was "this question must not fall into a
+/// generic or empty result"; that property is stronger when stated as the record, the policy and the
+/// evidence together.
+fn settles_on(q: &str, entry: &str) {
+    let r = banzai_api_kb::route::route(q);
+    assert_eq!(
+        r.action, "deterministic",
+        "q={q:?} must be settled without a model"
+    );
+    assert_eq!(
+        r.entry_id.as_deref(),
+        Some(entry),
+        "q={q:?} must reach its canonical record"
+    );
+    // The declared policy is asserted only for entries this path can see. `entry_is_deterministic` reads
+    // the lexical index, which is a curated allowlist — most settled facts are reached by the subject,
+    // concept and glossary paths and are deliberately absent from it, so requiring the declaration here
+    // would assert something about the wrong mechanism. For those, the declaration is held by
+    // check-banzai-answer-policy.sh over the canonical entries. Where the index DOES carry the entry, the
+    // two must agree.
+    if banzai_api_kb::route::route(q).entry_id.is_some() && entry.starts_with("what-is-") {
+        assert!(
+            banzai_api_kb::entry_is_deterministic(entry),
+            "q={q:?}: {entry} is lexically indexed and must DECLARE the policy it is served under"
+        );
+    }
+}
+
 fn action(q: &str) -> &'static str {
     route(q).action
 }
@@ -214,8 +248,8 @@ fn round6_offtopic_no_longer_grounds() {
             "q={q:?} off-topic must be insufficient"
         );
     }
-    // Regression guard: the real protocol questions still ground / hold.
-    assert_eq!(action("o que é o BANZA?"), "qwen");
+    // Regression guard: the real protocol questions still hold — settled now, not grounded.
+    settles_on("o que é o BANZA?", "what-is-banza");
     assert_eq!(
         route("o que é o Banzami?").entry_id.as_deref(),
         Some("what-is-banzami")
@@ -419,7 +453,9 @@ fn grounded_questions_route_to_qwen() {
     assert_eq!(action("onde vivem as root keys?"), "qwen");
     assert_eq!(action("o que significa /operators vazio?"), "qwen");
     assert_eq!(action("quais são os limites do BANZA?"), "qwen");
-    assert_eq!(action("o que é o BANZA?"), "qwen");
+    // BANZA identity is no longer one of them: it is a declared, evidenced, settled fact, so the
+    // question that names it must not be handed to a model at all.
+    settles_on("o que é o BANZA?", "what-is-banza");
 }
 
 #[test]
@@ -507,7 +543,10 @@ fn fuzz_grounded_questions_with_sources_reach_qwen() {
         "Como funciona a federação entre operadores na BANZA?", // used to over-match is-banza-an-operator
         "O modelo de confiança define regras de revogação?", // "modelo de confiança" concept → trust
         "posso federar com qualquer operador certificado?", // federation intent; "certificado" incidental
-        "Como um operador certificado L2 participa na federação?",
+        // NB: "Como um operador certificado L2 participa na federação?" moved to the assertion below.
+        // It is settled now, and settling it is the point: the answer corrects the premise the question
+        // carries — federation is evaluated per interaction, and federar is not central approval or
+        // certification — which a model must not be free to affirm.
         "qual é o raciocínio por trás da sua arquitetura de federação?", // protocol design, not model CoT
         "o que diz a ADR-012 sobre o ledger de dupla entrada?",
         // NB: "arquitetura de três camadas" moved to the M2.19C deterministic test below (it is now a
@@ -517,6 +556,19 @@ fn fuzz_grounded_questions_with_sources_reach_qwen() {
     ] {
         assert_eq!(action(q), "qwen", "q={q:?} must ground to the model");
     }
+}
+
+#[test]
+fn questions_whose_answer_is_a_settled_fact_are_not_handed_to_a_model() {
+    // These three sat in "must ground to the model" lists written before the facts were settled. The
+    // expectation was historical, not architectural: each now reaches a declared record with public
+    // establishing evidence, and two of them carry a correction the model would otherwise be free to get
+    // wrong — the open financial protocol IS BANZA, and federation is not conferred by certification.
+    settles_on("O que é o protocolo financeiro aberto?", "what-is-banza");
+    settles_on(
+        "Como um operador certificado L2 participa na federação?",
+        "def-federation",
+    );
 }
 
 #[test]
@@ -700,7 +752,6 @@ fn round3_grounded_and_kb_coverage_reach_qwen() {
         "How does the double-entry ledger work?",
         "O que é o manifest de um operador?",
         "O que é um pacote de evidências (evidence bundle)?",
-        "O que é o protocolo financeiro aberto?",
         "O PostgreSQL guarda saldos financeiros?",
         "O que acontece ao protocolo se o operador de referência deixar de operar?",
         "Como é revogada uma chave delegada de assinatura?",

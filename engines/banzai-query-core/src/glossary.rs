@@ -100,9 +100,58 @@ fn is_onboarding(nq: &str) -> bool {
 /// "Operador Zero é operador real?") — answered by the vocabulary/boundary entries even when it is not
 /// phrased as a definition.
 fn is_boundary_query(nq: &str) -> bool {
-    has(nq, &["banza e ", "banza substitui", "kz_demo", "kz demo"])
-        || (has(nq, &["operador zero", "operator zero"])
-            && has(nq, &["operador real", "operator real", "real operator"]))
+    // "O BANZA é um banco?" opens this gate through the Portuguese copula. The English copula was
+    // missing, so "Is BANZA a bank?" — the same question about the same boundary — never opened it and
+    // fell through to the model, while its Portuguese twin was settled deterministically from
+    // `def-bank`. Measured, not supposed: identity, wallet and bank all diverged this way. An identity
+    // boundary must not depend on which language asks.
+    has(
+        nq,
+        &[
+            "banza e ",
+            "banza substitui",
+            "banza is ",
+            "is banza ",
+            "banza a ",
+            "banza replaces",
+            "does banza replace",
+            "kz_demo",
+            "kz demo",
+        ],
+    ) || (has(nq, &["operador zero", "operator zero"])
+        && has(nq, &["operador real", "operator real", "real operator"]))
+}
+
+/// The four Fundamental Principles, asked by their name.
+///
+/// `normalize` drops the superscript digits of "R²S²" — measured, it yields `"r s"` — so the canonical
+/// acronym can never match the spelled form. This is the same collision `def-bcj` documents for "BCJ/1"
+/// arriving as "bcj/i": folding is right for prose and wrong for a versioned identifier, so the term that
+/// suffers is matched in both forms rather than the normalizer being weakened for every query.
+///
+/// The folded form is short enough to collide, so it is required to be the WHOLE subject of a short
+/// question rather than merely present. "what is r s" resolves; a long sentence that happens to contain
+/// those two letters does not.
+fn is_r2s2_acronym(nq: &str) -> bool {
+    if has(nq, &["r2s2", "r²s²"]) {
+        return true;
+    }
+    let subject = [
+        "o que e ",
+        "o que sao ",
+        "what is ",
+        "what are ",
+        "define ",
+        "explica ",
+        "explain ",
+    ]
+    .iter()
+    .find_map(|lead| nq.strip_prefix(*lead))
+    .unwrap_or(nq)
+    .trim()
+    .trim_end_matches('?')
+    .trim();
+    subject == "r s" || subject == "o r s" || subject == "the r s"
 }
 
 /// M2.14C SEC-FIX — a MULTI-WORD governance/documentation phrase (e.g. PT "relatório de auditoria",
@@ -181,6 +230,11 @@ fn is_protocol_fact_phrase(nq: &str) -> bool {
             "root quorum",
             // The threshold asked in Portuguese words rather than the English term.
             "limiar da raiz",
+            // Portuguese uses the proper noun untranslated ("o limiar da Root"), which the raiz-only
+            // form missed while the English "root threshold" resolved — the asymmetry ran the other way
+            // for this fact.
+            "limiar da root",
+            "quorum da root",
             "limiar da trust root",
             "limiar de assinatura",
             // "pode agir sozinha?" — the single most consequential yes/no about the Root.
@@ -416,8 +470,548 @@ fn is_named_principle_query(nq: &str) -> bool {
     )
 }
 
+/// Critical subjects whose aliases open the gate AND resolve the term — ONE table, read by both.
+///
+/// The Root threshold defect is the reason this exists. Its phrase was added to the gate predicate and
+/// not to the term resolver, so the gate opened, `term_of` returned nothing, and the question fell through
+/// as unsupported while looking handled. Two lists that must agree eventually disagree; one list cannot.
+///
+/// Every alias here is multi-word or a distinctive protocol identifier, so it names its subject wherever
+/// it appears. Longest alias wins, and this table is consulted AFTER the specific arms below, so no
+/// existing resolution changes — measured over the drift corpus, not assumed.
+const CRITICAL_SUBJECTS: &[(&str, &[&str])] = &[
+    // ── Semantic facts that share a noun with a PROCEDURE. The failure class these close: a definition,
+    //    relationship or actor question was captured by a how-to entry because both contain the same
+    //    domain noun. "O que é uma implementação?" reached implementation-steps; "Quem certifica uma
+    //    implementação?" reached how-to-demonstrate-conformance. A noun names the SUBJECT; it does not
+    //    establish procedural intent, and these aliases carry the intent cue with them — "o que é",
+    //    "what is", "diferença", "same thing", "quem certifica", "who certifies" — so a genuine how-to
+    //    ("como implementar", "how do I demonstrate conformance") still reaches its procedure.
+    (
+        "def-implementation",
+        &[
+            "o que e uma implementacao",
+            "what is an implementation",
+            "what is a banza implementation",
+            "definicao de implementacao",
+            "definition of implementation",
+        ],
+    ),
+    (
+        "def-operator-vs-implementation",
+        &[
+            "operador e uma implementacao sao a mesma coisa",
+            "operador e implementacao sao a mesma coisa",
+            "diferenca entre operador e implementacao",
+            "operator and an implementation the same",
+            "difference between an operator and an implementation",
+            "operator vs implementacao",
+            "operator vs implementation",
+        ],
+    ),
+    // "O que significa certificar uma implementação?" asks what certifying IS. Without a registered
+    // surface it reached how-to-demonstrate-conformance — the PROCEDURE — because the two share the
+    // domain noun, which is the collision this table exists to settle.
+    (
+        "def-l2-certification",
+        &[
+            "o que significa certificar",
+            "significa certificar",
+            "o que e certificar",
+            "what does certifying",
+            "what is certifying",
+            "what certifying an implementation means",
+        ],
+    ),
+    (
+        "def-certification-actor",
+        &[
+            "quem certifica",
+            "who certifies",
+            "quem emite a certificacao",
+            "who issues certification",
+        ],
+    ),
+    // ── Lifecycle dimensions. Deliberately SEPARATE arms, because the questions are separate facts and
+    //    the collapses are the failure mode: a version is not a release, a release is not a freeze, and
+    //    pre-production does not imply unfrozen by inference. Each arm names only its own dimension.
+    // NO version arm here, deliberately. The version question already has a MORE precise home: the
+    // attribute path answers it as an exact fact, and "BanzAI has no version of its own" is a boundary
+    // that path protects. Routing version through the lifecycle family was measured to break both — it
+    // turned an exact fact into a definition and answered a question whose correct answer is that the
+    // attribute is not declared. A coarser arm must not capture a subject a finer one already owns.
+    (
+        "def-lifecycle-status",
+        &[
+            "esta em producao",
+            "em producao",
+            "in production",
+            "pre-producao",
+            "pre producao",
+            "pre-production",
+            // `normalize` turns "PRE-PRODUCTION" into "pre production": the hyphen goes and the words
+            // stay. Measured — without this the question reached the generic BANZA description.
+            "pre production",
+        ],
+    ),
+    (
+        "def-lifecycle-protocol-freeze",
+        &[
+            "protocolo foi congelado",
+            "protocolo ja foi congelado",
+            "protocolo congelado",
+            "congelamento do protocolo",
+            "protocol been frozen",
+            "protocol is frozen",
+            "protocol frozen",
+            "protocol freeze",
+        ],
+    ),
+    (
+        "def-lifecycle-l0-freeze",
+        &[
+            "l0 foi congelado",
+            "l0 ja foi congelado",
+            "l0 congelado",
+            "congelamento do l0",
+            "l0 been frozen",
+            "l0 is frozen",
+            "l0 frozen",
+            "l0 freeze",
+        ],
+    ),
+    (
+        "def-lifecycle-independent-implementation",
+        &[
+            "implementacao independente",
+            "independent implementation",
+            "independently implemented",
+        ],
+    ),
+    (
+        "def-lifecycle-trial",
+        &[
+            "ensaio independente",
+            "trial independente",
+            "independent trial",
+            "trial started",
+        ],
+    ),
+    // The profile LIST — "quais são os perfis do BANZA?". Distinct from an individual level: the reader
+    // is asking what the set is, and the answer is composed from the registry rather than from any one
+    // level. Measured before this arm existed: both languages reached the generic BANZA description,
+    // which names no profile at all.
+    (
+        "def-profiles",
+        &[
+            "perfis do banza",
+            "perfis de conformidade",
+            "quais sao os perfis",
+            "lista de perfis",
+            "banza profiles",
+            "conformance profiles",
+            "profile levels",
+            "list of profiles",
+            // Singular forms too, and not for elegance: typo recovery rewrites the English plural
+            // "profiles" to "profile" as a HIGH-CONFIDENCE correction, and the corrected query is what
+            // the router sees. Measured, that alone made "What are the BANZA profiles?" miss while its
+            // Portuguese twin matched — a legitimate plural silently normalised out of its own alias.
+            // The underlying question, whether recovery should rewrite a token that IS canonical
+            // vocabulary, is a separate defect and is recorded rather than patched here.
+        ],
+    ),
+    // L0 — the Protocol Sandbox and its regulatory boundary. An already-protected BANZA property
+    // (`tools/check-l0-regulatory-boundary.sh`) that BanzAI could not reach at all: measured, all eight
+    // L0 probes returned "no source", so the boundary the repository guards was unanswerable.
+    (
+        "def-l0-regulatory-boundary",
+        &[
+            "perfil l0",
+            "profile l0",
+            "protocol sandbox",
+            "sandbox de protocolo",
+            "sandbox do protocolo",
+            "passar l0",
+            "passing l0",
+            "passar o l0",
+        ],
+    ),
+    // The three institutional layers. The Portuguese form resolved and the English did not.
+    (
+        "def-three-layer-architecture",
+        &[
+            "three institutional layers",
+            "institutional layers",
+            "three layers",
+            "camadas institucionais",
+            "tres camadas institucionais",
+        ],
+    ),
+    // Protocol/repository governance — kept distinct from operator/scheme governance. Maintaining the
+    // protocol is not authority over the organizations that run it.
+    (
+        "def-governance",
+        &[
+            "governa o protocolo",
+            "governs the protocol",
+            "governanca do protocolo",
+            "governacao do protocolo",
+            "protocol governance",
+        ],
+    ),
+    // Regulatory authorisation and supervision. The record that ESTABLISHES the separation answers who
+    // holds it — and, decisively, that BANZA does not. A generic question must never name a specific
+    // regulator: jurisdiction is introduced only when the reader introduces it.
+    (
+        "def-operator-governance-authority",
+        &[
+            "supervisiona legalmente",
+            "supervisao legal",
+            "legally supervises",
+            "legal supervision",
+            "supervises an operator",
+            "supervisiona um operador",
+        ],
+    ),
+    // "Quem controla a Root?" — the question that started this milestone. It must reach the Root
+    // authorisation model, and never the record about operator authority.
+    (
+        "def-root-authorization",
+        &[
+            "controla a root",
+            "controla a raiz",
+            "controls the root",
+            "quem controla a trust root",
+            "who controls the trust root",
+        ],
+    ),
+];
+
+/// A registered profile named as the SUBJECT of a question — and WHICH of the two profile facts is being
+/// asked for.
+///
+/// The two are deliberately separate records, because they answer different questions and each is wrong as
+/// an answer to the other: what a level IS (identity, from the registry) versus what passing it does NOT
+/// confer (the regulatory boundary). Collapsing them would make "o que é L0?" answer with a denial and
+/// "passar L0 permite dinheiro real?" answer with a name.
+///
+/// A bare token match was tried first and measured too broad: it hijacked "compara a execução L0 com a
+/// execução L2 da jornada de validação" (two journey runs) and "l0 a l4" (the ladder). The identifier names
+/// the profile wherever it appears, so presence is not enough — the level has to be what the question is
+/// ABOUT, and a range or a comparison is about neither fact.
+fn profile_subject(nq: &str) -> Option<&'static str> {
+    let level = nq
+        .split(|c: char| !c.is_alphanumeric())
+        .find(|t| {
+            let t = t.to_ascii_lowercase();
+            t.len() >= 2
+                && t.starts_with('l')
+                && t[1..].chars().all(|c| c.is_ascii_digit())
+                && crate::canonical_profiles::is_registered(&t)
+        })?
+        .to_ascii_lowercase();
+
+    // A comparison, an execution or a range spans levels; it asks about neither profile fact.
+    if has(
+        nq,
+        &[
+            "compara",
+            "compare",
+            "execucao",
+            "execution",
+            "jornada",
+            "journey",
+            "niveis",
+            "levels",
+        ],
+    ) {
+        return None;
+    }
+
+    // BOUNDARY first: what passing does not confer. These words make the question about permission,
+    // and permission is never answered by a profile name.
+    if has(
+        nq,
+        &[
+            "autoriza",
+            "autorizacao",
+            "permite",
+            "authorize",
+            "authorise",
+            "authorization",
+            "authorisation",
+            "allow",
+            "sandbox regulator",
+            "regulatory sandbox",
+            "producao",
+            "production",
+            "dinheiro real",
+            "real money",
+            "real funds",
+            "fundos reais",
+            "licenc",
+            "licen",
+        ],
+    ) {
+        return Some("def-l0-regulatory-boundary");
+    }
+
+    // IDENTITY: what the level is. Derived per level, so an unregistered one has no entry to reach.
+    match level.as_str() {
+        "l0" if starts_definition_lead(nq) || has(nq, &["perfil l0", "l0 profile"]) => {
+            Some("def-profile-l0")
+        }
+        "l1" => Some("def-profile-l1"),
+        "l2" => Some("def-profile-l2"),
+        "l3" => Some("def-profile-l3"),
+        "l4" => Some("def-profile-l4"),
+        _ => None,
+    }
+}
+
+/// Every single word appearing in a critical-subject alias — the surface forms this resolver recognises.
+///
+/// Read by typo recovery, which must not "repair" a word the resolver already knows. Aliases are the
+/// resolver's own vocabulary; a token drawn from one is by definition not an unknown surface form.
+pub fn critical_subject_words() -> Vec<&'static str> {
+    CRITICAL_SUBJECTS
+        .iter()
+        .flat_map(|(_, aliases)| aliases.iter())
+        .flat_map(|a| a.split(' '))
+        .filter(|w| w.len() > 2)
+        .collect()
+}
+
+/// Is `candidate` a subject this engine can actually name, on its own?
+///
+/// The distinction this draws is the whole point, and three broader rules failed on it first. A subject
+/// slot filled with any non-filler token accepted "exemplo" and "coisa". Registered surface forms accepted
+/// them too, because that vocabulary is every word of every keyword. `critical_subject_words()` accepted
+/// them as well, because it splits multi-word aliases: "operador e uma implementacao sao a mesma coisa"
+/// contributes "coisa", "mesma" and "sao" to a word list, and none of those names anything.
+///
+/// The rule is COMPLETE SURFACE, not membership: the candidate must EQUAL a registered alias, keyword or
+/// identifier, never merely occur inside one. That keeps atomic subjects working — "operador", "root",
+/// "banzai", "l0" are registered surfaces in their own right — while a word that only ever appears inside a
+/// longer phrase is not a subject, which is precisely the difference between "operator" and "thing".
+///
+/// It reads the existing tables (critical subjects, concepts, the entry keyword index, canonical profiles)
+/// rather than introducing a fourth list, so the frame cannot disagree with the resolvers about what is
+/// nameable.
+pub fn is_nameable_subject(candidate: &str) -> bool {
+    let n = crate::normalize(candidate);
+    if n.is_empty() {
+        return false;
+    }
+    // Ask the resolvers, in their own terms: given ONLY this candidate, does anything name a fact?
+    // `glossary_entry` is the same term resolver production uses, so the frame cannot disagree with it
+    // about what is nameable — and it is where atomic subjects like "operador" actually live, since the
+    // alias tables carry only phrases. A word that exists solely inside a longer alias resolves to
+    // nothing on its own, which is exactly the line this draws.
+    glossary_entry(&n).is_some()
+        || is_head_of_a_definitional_surface(&n)
+        || is_the_canonical_name_of_its_concept(&n)
+        || CRITICAL_SUBJECTS
+            .iter()
+            .any(|(_, aliases)| aliases.iter().any(|a| *a == n))
+        || crate::concept::concept_entries()
+            .iter()
+            .any(|(_, aliases)| aliases.iter().any(|a| *a == n))
+        || crate::entry_keyword_surfaces().iter().any(|k| *k == n)
+        || crate::canonical_profiles::CANONICAL_PROFILES
+            .iter()
+            .any(|p| crate::normalize(p.level) == n)
+}
+
+/// What a DEFINITIONAL surface opens with. One owner, read by both the head-noun derivation and the
+/// record lookup, so the two cannot disagree about which aliases ask what something IS.
+const DEFINITIONAL_PREFIXES: &[&str] = &[
+    "o que e",
+    "o que sao",
+    "what is",
+    "what are",
+    "definicao de",
+    "definition of",
+];
+
+/// The record that DEFINES this subject, if the corpus registers a definitional surface for it.
+///
+/// Used to resolve an elliptical follow-up by the record the corpus already owns instead of by a phrase
+/// assembled on the fly. Measured, and the reason this exists: rendering "{interrogative} {subject}" gave
+/// "que implementacao", which reached `implementation-steps` — the PROCEDURE — because `def-implementation`
+/// is registered only as full phrases and a bare noun collides with the how-to that shares it. That is the
+/// exact failure CRITICAL_SUBJECTS was built to fix, reintroduced by generating text nobody registered.
+pub fn definitional_record_of(subject: &str) -> Option<&'static str> {
+    let n = crate::normalize(subject);
+    CRITICAL_SUBJECTS
+        .iter()
+        .find(|(_, aliases)| {
+            aliases.iter().any(|a| {
+                DEFINITIONAL_PREFIXES.iter().any(|d| a.starts_with(d))
+                    && a.rsplit(' ').next() == Some(n.as_str())
+            })
+        })
+        .map(|(id, _)| *id)
+}
+
+/// Does `token` name the same concept as `concept`, allowing for the forms a sentence actually uses?
+///
+/// The frame hands over whatever the speaker wrote — "implementacoes", "empresas", "root" — and a rule
+/// keyed on a canonical concept has to recognise the plural and the article-stripped forms without
+/// becoming a fuzzy matcher. Equality first, then a plural/singular fold, and nothing else: this decides
+/// whether a prohibited relation fires, so it errs toward not firing.
+pub fn names_the_same_concept(token: &str, concept: &str) -> bool {
+    let t = crate::normalize(token);
+    if t == concept {
+        return true;
+    }
+    let stem = t.strip_suffix('s').unwrap_or(&t);
+    stem == concept
+}
+
+/// Is this record about CERTIFICATION — the thing a follow-up can ask further decisions about?
+///
+/// The referent test for the certification sequence. It is deliberately a question about the RECORD the
+/// previous turn resolved to, not about the words the user typed: a lifecycle answer is not a certification
+/// result however much the conversation surrounds it.
+pub fn is_certification_record(entry: &str) -> bool {
+    entry
+        .strip_prefix("def-")
+        .map(|rest| rest.split('-').any(|seg| seg == "certification"))
+        .unwrap_or(false)
+}
+
+/// The record that states how two concepts relate, if the corpus has one.
+///
+/// No new table: the relationship is already encoded in the id the corpus assigned it. A record named
+/// `def-operator-vs-implementation` IS the statement of how those two relate, so the pair is looked up by
+/// reconstructing that name from the two resolved records and asking whether it exists.
+///
+/// Order does not matter, because "are they the same?" is symmetric and the corpus should not have to
+/// carry two records to say so. Both orderings are tried against the ONE record.
+///
+/// A pair with no such record returns None, and the caller fails closed. That is the whole safeguard
+/// against answering every "are they the same?" with the one comparison this engine happens to know.
+pub fn relationship_record(a_entry: &str, b_entry: &str) -> Option<&'static str> {
+    let a = a_entry.strip_prefix("def-")?;
+    let b = b_entry.strip_prefix("def-")?;
+    if a == b {
+        return None;
+    }
+    let forward = format!("def-{a}-vs-{b}");
+    let reverse = format!("def-{b}-vs-{a}");
+    CRITICAL_SUBJECTS
+        .iter()
+        .map(|(id, _)| *id)
+        .find(|id| *id == forward || *id == reverse)
+}
+
+/// A registered way of ASKING for this record — used to resolve it through the normal path rather than
+/// short-circuiting the router with an id.
+pub fn canonical_alias_of(entry: &str) -> Option<&'static str> {
+    CRITICAL_SUBJECTS
+        .iter()
+        .find(|(id, _)| *id == entry)
+        .and_then(|(_, aliases)| aliases.first().copied())
+}
+
+/// A word is a subject when it is the CANONICAL NAME the corpus gave the concept.
+///
+/// Not `id.contains(word)`. That is the permissive version and it hands out subjects by accident:
+/// `def-operator-governance-authority` contains "governance" and "authority", and neither is what that
+/// record is about — it is about the operator. Substring containment over an id turns every compound noun
+/// in every id into vocabulary.
+///
+/// The narrow rule is POSITIONAL: the concept's canonical name is the first segment after the `def-`
+/// prefix, which is the one place these ids encode ownership unambiguously. `def-root-authorization` is
+/// about the Root; `def-operator-vs-implementation` is about the operator; `def-certification-actor` is
+/// about certification. Later segments qualify the record — authorization, actor, authority, governance —
+/// and never rename it.
+///
+/// The word must ALSO appear as a whole token in one of that subject's own aliases, so an id fragment
+/// nobody ever says is not promoted into a surface form. Ids that do not carry the `def-` prefix are
+/// skipped entirely rather than guessed at: where the structure does not encode ownership, this rule
+/// declines, and the turn simply keeps its previous topic.
+fn is_the_canonical_name_of_its_concept(n: &str) -> bool {
+    if n.len() <= 2 {
+        return false;
+    }
+    CRITICAL_SUBJECTS.iter().any(|(id, aliases)| {
+        id.strip_prefix("def-")
+            .and_then(|rest| rest.split('-').next())
+            .map(|canonical| canonical == n)
+            .unwrap_or(false)
+            && aliases.iter().any(|a| a.split(' ').any(|w| w == n))
+    })
+}
+
+/// The head noun of a DEFINITIONAL surface is nameable on its own.
+///
+/// The registries carry no atomic alias for "implementacao" or "root" — they exist only inside phrases —
+/// so a rule that demanded whole-surface equality would refuse subjects the conversation plainly names, and
+/// a follow-up like "E a Root?" would inherit the previous topic instead of moving. Adding bare aliases to
+/// the tables would change what those tokens resolve to for everyone; deriving them here does not.
+///
+/// The restriction to DEFINITIONAL aliases is what keeps this honest. "o que e uma implementacao" asks what
+/// a thing IS, so its last token names that thing. "operador e uma implementacao sao a mesma coisa" is a
+/// comparison, and its last token is "coisa" — which names nothing, and is excluded structurally rather
+/// than by a stopword list that would have to guess.
+fn is_head_of_a_definitional_surface(n: &str) -> bool {
+    CRITICAL_SUBJECTS
+        .iter()
+        .flat_map(|(_, aliases)| aliases.iter())
+        .filter(|a| DEFINITIONAL_PREFIXES.iter().any(|d| a.starts_with(d)))
+        .any(|a| a.rsplit(' ').next() == Some(n))
+}
+
+/// The critical subject named by a MULTI-WORD alias. Precise enough to run BEFORE the broad arms:
+/// longest alias wins, so a specific subject beats a general one.
+fn critical_subject_phrase(nq: &str) -> Option<&'static str> {
+    let mut best: Option<(usize, &'static str)> = None;
+    for (id, aliases) in CRITICAL_SUBJECTS {
+        for a in *aliases {
+            if a.contains(' ') && nq.contains(a) && best.map(|(n, _)| a.len() > n).unwrap_or(true) {
+                best = Some((a.len(), id));
+            }
+        }
+    }
+    best.map(|(_, id)| id)
+}
+
+/// The critical subject named by `nq` — phrases first, then single tokens, then the L0 subject predicate.
+/// This is the ONE function the gate and the term resolver both read, so a gate signal cannot exist
+/// without an arm behind it.
+fn critical_subject(nq: &str) -> Option<&'static str> {
+    if let Some(id) = critical_subject_phrase(nq) {
+        return Some(id);
+    }
+    let mut best: Option<(usize, &'static str)> = None;
+    for (id, aliases) in CRITICAL_SUBJECTS {
+        for a in *aliases {
+            if !a.contains(' ') && word(nq, a) && best.map(|(n, _)| a.len() > n).unwrap_or(true) {
+                best = Some((a.len(), id));
+            }
+        }
+    }
+    if best.is_none() {
+        if let Some(id) = profile_subject(nq) {
+            return Some(id);
+        }
+    }
+    best.map(|(_, id)| id)
+}
+
 /// The term → entry mapping, most-specific first. Returns the deterministic entry id for `nq`.
 fn term_of(nq: &str) -> Option<&'static str> {
+    // The shared critical-subject table's MULTI-WORD aliases run first. Measured: with the table last,
+    // "quem supervisiona legalmente um operador?" was answered by the broad `word(nq, "operador")` arm
+    // with the DEFINITION of an operator, instead of by the record that establishes who holds legal
+    // supervision — a precise phrase losing to a single generic token. A multi-word alias names its
+    // subject; a bare token merely appears in it. The single-token and predicate cases stay at the end,
+    // where they cannot outrank anything.
+    if let Some(id) = critical_subject_phrase(nq) {
+        return Some(id);
+    }
     // ── Operador Zero boundary (defer to the existing OZ entries) ──
     if has(nq, &["operador zero", "operator zero"])
         && has(nq, &["operador real", "operator real", "real operator"])
@@ -512,7 +1106,8 @@ fn term_of(nq: &str) -> Option<&'static str> {
             "quais sao os principios",
             "quais são os princípios",
         ],
-    ) {
+    ) || is_r2s2_acronym(nq)
+    {
         return Some("def-r2s2");
     }
     // "o que é Robusto/Resiliente no BANZA?" — the individual principles resolve to the same entry
@@ -547,6 +1142,24 @@ fn term_of(nq: &str) -> Option<&'static str> {
     }
     if word(nq, "issue") || word(nq, "issues") {
         return Some("def-issue");
+    }
+    // A VERSION is not a RELEASE. Asking what version something IS names a subject and a dimension; the
+    // release record defines a publication event and answers neither.
+    //
+    // Measured: "What is the current BANZA version?" was claimed here as a DETERMINISTIC def-release, and
+    // because the verdict was deterministic the pipeline honoured it and the attribute tier — the precise
+    // owner, which answers the protocol version as an exact fact from the normative manifest — was never
+    // consulted. Portuguese escaped only by spelling: "versão" normalises to "versao", which reaches the
+    // arm too, but its route was not deterministic, so the attribute tier still got its turn. The same
+    // question, two languages, opposite answers, decided by an accident of ordering.
+    //
+    // So this arm DECLINES rather than redirects: returning None lets the attribute tier resolve subject
+    // and dimension together, which is what keeps "qual é a versão do BanzAI?" from inheriting the
+    // protocol's version merely because BanzAI interfaces with it. A bare noun must not be a super-route.
+    let asks_version = word(nq, "version") || word(nq, "versao") || nq.contains("versão");
+    let names_subject = has(nq, &["banza", "banzai"]);
+    if asks_version && names_subject && !word(nq, "release") && !word(nq, "changelog") {
+        return None;
     }
     if word(nq, "release")
         || word(nq, "changelog")
@@ -778,6 +1391,14 @@ fn term_of(nq: &str) -> Option<&'static str> {
             "threshold do root",
             "root threshold",
             "trust root threshold",
+            // Portuguese uses the proper noun untranslated — "o limiar da Root". The raiz-only forms
+            // above meant the English "root threshold" resolved while its Portuguese twin did not, the
+            // same asymmetry as the identity boundary but running the other way. The gate predicate
+            // carries these too; a gate that opens with no arm behind it here is how a question becomes
+            // unanswerable while looking handled.
+            "limiar da root",
+            "limiar da raiz",
+            "quorum da root",
             "quorum da raiz",
             "root quorum",
             "2 de 3",
@@ -909,7 +1530,9 @@ fn term_of(nq: &str) -> Option<&'static str> {
     {
         return Some("def-operator");
     }
-    None
+    // The shared critical-subject table, LAST: every specific arm above wins first, so adding a subject
+    // here cannot change an existing resolution. The same table opens the gate in `glossary_entry`.
+    critical_subject(nq)
 }
 
 /// The deterministic vocabulary entry for `nq`, or None. Fires ONLY for:
@@ -944,6 +1567,7 @@ pub fn glossary_entry(nq: &str) -> Option<&'static str> {
                 "four principles",
             ],
         )
+        || is_r2s2_acronym(nq)
         // Read from the SAME predicates the term table reads. The earlier version of this clause was
         // written inline here and had no counterpart in `term_of`, so the gate opened, the term table
         // returned nothing, and the question fell through to the hypothesis family and was refused.
@@ -951,7 +1575,10 @@ pub fn glossary_entry(nq: &str) -> Option<&'static str> {
         // handled.
         || is_resilience_boundary_phrase(nq)
         || is_local_execution_phrase(nq)
-        || is_named_principle_query(nq);
+        || is_named_principle_query(nq)
+        // Read from the SAME table the term resolver reads — the structural fix for "the gate opens and
+        // nothing is behind it", which is how the Root threshold became unanswerable while looking handled.
+        || critical_subject(nq).is_some();
     // A bare/very short term ("federar", "trust", "saldo reservado", "payment link") — ≤ 2 tokens so an
     // off-topic short phrase that merely contains a term mid-sentence ("Russian Federation history",
     // "setup de operador") is NOT captured and still grounds.
@@ -963,7 +1590,16 @@ pub fn glossary_entry(nq: &str) -> Option<&'static str> {
     // send it to the model. But whether the surviving two can replace a lost authority is decided by the
     // chain, not composed as prose — so a succession question keeps its deterministic answer, exactly as
     // a boundary question does.
-    if (is_operational(nq) || is_onboarding(nq)) && !boundary && !is_root_succession_phrase(nq) {
+    // A named critical subject outranks the operational heuristic. "já existe uma implementação
+    // independente demonstrada?" is a question about CURRENT STATE, but "demonstrada" contains the
+    // "demonstr" marker the deferral reads as a how-to, so the gate closed on a question that has a
+    // settled answer. The heuristic still governs everything it was written for; it no longer overrides
+    // a subject the resolver has explicitly registered.
+    if (is_operational(nq) || is_onboarding(nq))
+        && !boundary
+        && !is_root_succession_phrase(nq)
+        && critical_subject(nq).is_none()
+    {
         return None;
     }
     term_of(nq)

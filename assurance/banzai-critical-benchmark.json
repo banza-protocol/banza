@@ -1,0 +1,762 @@
+{
+  "schema_version": 1,
+  "milestone": "M2.19H — BanzAI Engine Hardening, Block 5/5A",
+  "description": "The CLOSED registered critical BANZA semantic surface BanzAI must resolve without a model. Assurance material for BanzAI — NOT normative protocol material: every fact here is established elsewhere (the Normative Manifest and the artifacts it indexes, the ADRs, the canonical Reference) and this file only records which questions must reach that truth deterministically, in both languages.",
+  "policy": {
+    "deterministic_critical": "A stable BANZA architecture fact. Must be SETTLED by the engine with NO model call — a model outage must not remove the answer. Degrading to insufficient, or to a safety refusal, is a FAILURE: refusing to state a published fact is not safety.",
+    "supported_synthesis": "Genuinely open-ended: the evidence must be established first, and prose composed from it. Model-backed BY DESIGN. Asserted on evidence and policy, never on wording.",
+    "negative_control": "Not a BANZA fact. Must fail closed. Two outcomes are correct and each case declares which: `insufficient` (nothing supports it) or `refused_safe` (the premise is wrong and the engine says so). A confident definition is the failure — and the reason this class exists is that closing coverage must never be able to buy an invented answer.",
+    "acceptance": "100% EXPECTED SEMANTIC OUTCOME — not 100% deterministic answers. A correct refusal for a negative control PASSES. An invented definition for an unregistered profile FAILS. The aggregate percentage is not the target and must never be optimised on its own.",
+    "pairing": "`pair` links the PT and EN forms of ONE question. Paired cases must reach the same record and the same policy: one canonical fact, localized surfaces — never two independently editable truths.",
+    "prose": "Answer strings are NOT asserted. Localized prose may evolve; the subject, the policy, the establishing evidence and the prohibited relations may not."
+  },
+  "cases": [
+    {
+      "id": "identity.what-is.pt",
+      "locale": "pt",
+      "domain": "identity",
+      "pair": "identity.what-is.en",
+      "query": "O que é o BANZA?",
+      "entry": "what-is-banza",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled"
+    },
+    {
+      "id": "identity.what-is.en",
+      "locale": "en",
+      "domain": "identity",
+      "pair": "identity.what-is.pt",
+      "query": "What is BANZA?",
+      "entry": "what-is-banza",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled"
+    },
+    {
+      "id": "identity.bank.pt",
+      "locale": "pt",
+      "domain": "identity",
+      "pair": "identity.bank.en",
+      "query": "O BANZA é um banco?",
+      "entry": "def-bank",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled"
+    },
+    {
+      "id": "identity.bank.en",
+      "locale": "en",
+      "domain": "identity",
+      "pair": "identity.bank.pt",
+      "query": "Is BANZA a bank?",
+      "entry": "def-bank",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled"
+    },
+    {
+      "id": "identity.wallet.pt",
+      "locale": "pt",
+      "domain": "identity",
+      "pair": "identity.wallet.en",
+      "query": "O BANZA é uma carteira?",
+      "entry": "def-wallet",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled"
+    },
+    {
+      "id": "identity.wallet.en",
+      "locale": "en",
+      "domain": "identity",
+      "pair": "identity.wallet.pt",
+      "query": "Is BANZA a wallet?",
+      "entry": "def-wallet",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled"
+    },
+    {
+      "id": "identity.blockchain.pt",
+      "locale": "pt",
+      "domain": "identity",
+      "pair": "identity.blockchain.en",
+      "query": "O BANZA é uma blockchain?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-local-execution"
+    },
+    {
+      "id": "identity.blockchain.en",
+      "locale": "en",
+      "domain": "identity",
+      "pair": "identity.blockchain.pt",
+      "query": "Is BANZA a blockchain?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-local-execution"
+    },
+    {
+      "id": "opimpl.operator.pt",
+      "locale": "pt",
+      "domain": "operator_vs_implementation",
+      "pair": "opimpl.operator.en",
+      "query": "O que é um operador?",
+      "entry": "def-operator",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled"
+    },
+    {
+      "id": "opimpl.operator.en",
+      "locale": "en",
+      "domain": "operator_vs_implementation",
+      "pair": "opimpl.operator.pt",
+      "query": "What is an operator?",
+      "entry": "def-operator",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled"
+    },
+    {
+      "id": "opimpl.implementation.pt",
+      "locale": "pt",
+      "domain": "operator_vs_implementation",
+      "pair": "opimpl.implementation.en",
+      "query": "O que é uma implementação?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-implementation"
+    },
+    {
+      "id": "opimpl.implementation.en",
+      "locale": "en",
+      "domain": "operator_vs_implementation",
+      "pair": "opimpl.implementation.pt",
+      "query": "What is an implementation?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-implementation"
+    },
+    {
+      "id": "opimpl.same.pt",
+      "locale": "pt",
+      "domain": "operator_vs_implementation",
+      "pair": "opimpl.same.en",
+      "query": "Um operador e uma implementação são a mesma coisa?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-operator-vs-implementation"
+    },
+    {
+      "id": "opimpl.same.en",
+      "locale": "en",
+      "domain": "operator_vs_implementation",
+      "pair": "opimpl.same.pt",
+      "query": "Are an operator and an implementation the same thing?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-operator-vs-implementation"
+    },
+    {
+      "id": "layers.three.pt",
+      "locale": "pt",
+      "domain": "three_layers",
+      "pair": "layers.three.en",
+      "query": "Quais são as três camadas institucionais do BANZA?",
+      "entry": "def-three-layer-architecture",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled"
+    },
+    {
+      "id": "layers.three.en",
+      "locale": "en",
+      "domain": "three_layers",
+      "pair": "layers.three.pt",
+      "query": "What are the three institutional layers?",
+      "entry": "def-three-layer-architecture",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled"
+    },
+    {
+      "id": "r2s2.principles.pt",
+      "locale": "pt",
+      "domain": "r2s2",
+      "pair": "r2s2.principles.en",
+      "query": "Quais são os princípios fundamentais do BANZA?",
+      "entry": "def-r2s2",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled"
+    },
+    {
+      "id": "r2s2.principles.en",
+      "locale": "en",
+      "domain": "r2s2",
+      "pair": "r2s2.principles.pt",
+      "query": "What are BANZA's fundamental principles?",
+      "entry": "def-r2s2",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled"
+    },
+    {
+      "id": "r2s2.acronym.en",
+      "locale": "en",
+      "domain": "r2s2",
+      "query": "What is R²S²?",
+      "entry": "def-r2s2",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled"
+    },
+    {
+      "id": "profiles.list.pt",
+      "locale": "pt",
+      "domain": "profiles",
+      "pair": "profiles.list.en",
+      "query": "Quais são os perfis do BANZA?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-profiles"
+    },
+    {
+      "id": "profiles.list.en",
+      "locale": "en",
+      "domain": "profiles",
+      "pair": "profiles.list.pt",
+      "query": "What are the BANZA profiles?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-profiles"
+    },
+    {
+      "id": "profiles.l4.pt",
+      "locale": "pt",
+      "domain": "profiles",
+      "pair": "profiles.l4.en",
+      "query": "O que é o L4?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-profile-l4"
+    },
+    {
+      "id": "profiles.l4.en",
+      "locale": "en",
+      "domain": "profiles",
+      "pair": "profiles.l4.pt",
+      "query": "What is L4?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-profile-l4"
+    },
+    {
+      "id": "l0.what.pt",
+      "locale": "pt",
+      "domain": "l0_boundary",
+      "pair": "l0.what.en",
+      "query": "O que é L0?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-profile-l0"
+    },
+    {
+      "id": "l0.what.en",
+      "locale": "en",
+      "domain": "l0_boundary",
+      "pair": "l0.what.pt",
+      "query": "What is L0?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-profile-l0"
+    },
+    {
+      "id": "l0.production.pt",
+      "locale": "pt",
+      "domain": "l0_boundary",
+      "pair": "l0.production.en",
+      "query": "O L0 autoriza produção?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-l0-regulatory-boundary"
+    },
+    {
+      "id": "l0.production.en",
+      "locale": "en",
+      "domain": "l0_boundary",
+      "pair": "l0.production.pt",
+      "query": "Does L0 authorize production?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-l0-regulatory-boundary"
+    },
+    {
+      "id": "l0.realmoney.pt",
+      "locale": "pt",
+      "domain": "l0_boundary",
+      "pair": "l0.realmoney.en",
+      "query": "Passar L0 permite operar com dinheiro real?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-l0-regulatory-boundary"
+    },
+    {
+      "id": "l0.realmoney.en",
+      "locale": "en",
+      "domain": "l0_boundary",
+      "pair": "l0.realmoney.pt",
+      "query": "Does passing L0 authorize real-money operation?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-l0-regulatory-boundary"
+    },
+    {
+      "id": "l0.regsandbox.pt",
+      "locale": "pt",
+      "domain": "l0_boundary",
+      "pair": "l0.regsandbox.en",
+      "query": "O L0 é uma sandbox regulatória?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-sandbox"
+    },
+    {
+      "id": "l0.regsandbox.en",
+      "locale": "en",
+      "domain": "l0_boundary",
+      "pair": "l0.regsandbox.pt",
+      "query": "Is L0 a regulatory sandbox?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-sandbox"
+    },
+    {
+      "id": "authority.controls.pt",
+      "locale": "pt",
+      "domain": "operator_authority",
+      "pair": "authority.controls.en",
+      "query": "Quem controla os operadores?",
+      "entry": "def-operator-governance-authority",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled"
+    },
+    {
+      "id": "authority.controls.en",
+      "locale": "en",
+      "domain": "operator_authority",
+      "pair": "authority.controls.pt",
+      "query": "Who controls operators?",
+      "entry": "def-operator-governance-authority",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled"
+    },
+    {
+      "id": "authority.governs.pt",
+      "locale": "pt",
+      "domain": "operator_authority",
+      "pair": "authority.governs.en",
+      "query": "Quem governa os operadores?",
+      "entry": "def-operator-governance-authority",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled"
+    },
+    {
+      "id": "authority.governs.en",
+      "locale": "en",
+      "domain": "operator_authority",
+      "pair": "authority.governs.pt",
+      "query": "Who governs operators?",
+      "entry": "def-operator-governance-authority",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled"
+    },
+    {
+      "id": "authority.admits.pt",
+      "locale": "pt",
+      "domain": "operator_authority",
+      "pair": "authority.admits.en",
+      "query": "Quem admite um operador?",
+      "entry": "def-operator-governance-authority",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled"
+    },
+    {
+      "id": "authority.admits.en",
+      "locale": "en",
+      "domain": "operator_authority",
+      "pair": "authority.admits.pt",
+      "query": "Who admits an operator?",
+      "entry": "def-operator-governance-authority",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled"
+    },
+    {
+      "id": "authority.authorizes.pt",
+      "locale": "pt",
+      "domain": "operator_authority",
+      "pair": "authority.authorizes.en",
+      "query": "Quem autoriza um operador?",
+      "entry": "def-operator-governance-authority",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled"
+    },
+    {
+      "id": "authority.authorizes.en",
+      "locale": "en",
+      "domain": "operator_authority",
+      "pair": "authority.authorizes.pt",
+      "query": "Who authorizes an operator?",
+      "entry": "def-operator-governance-authority",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled"
+    },
+    {
+      "id": "authority.certifies.pt",
+      "locale": "pt",
+      "domain": "certification",
+      "pair": "authority.certifies.en",
+      "query": "Quem certifica uma implementação?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-certification-actor"
+    },
+    {
+      "id": "authority.certifies.en",
+      "locale": "en",
+      "domain": "certification",
+      "pair": "authority.certifies.pt",
+      "query": "Who certifies an implementation?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-certification-actor"
+    },
+    {
+      "id": "authority.supervises.pt",
+      "locale": "pt",
+      "domain": "regulatory_supervision",
+      "pair": "authority.supervises.en",
+      "query": "Quem supervisiona legalmente um operador?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-operator-governance-authority"
+    },
+    {
+      "id": "authority.supervises.en",
+      "locale": "en",
+      "domain": "regulatory_supervision",
+      "pair": "authority.supervises.pt",
+      "query": "Who legally supervises an operator?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-operator-governance-authority"
+    },
+    {
+      "id": "root.controls.pt",
+      "locale": "pt",
+      "domain": "root",
+      "pair": "root.controls.en",
+      "query": "Quem controla a Root?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-root-authorization"
+    },
+    {
+      "id": "root.controls.en",
+      "locale": "en",
+      "domain": "root",
+      "pair": "root.controls.pt",
+      "query": "Who controls the Root?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-root-authorization"
+    },
+    {
+      "id": "root.count.pt",
+      "locale": "pt",
+      "domain": "root",
+      "query": "Quantas autoridades Root activas existem?",
+      "entry": "def-root-authorization",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled"
+    },
+    {
+      "id": "root.threshold.pt",
+      "locale": "pt",
+      "domain": "root",
+      "pair": "root.threshold.en",
+      "query": "Qual é o limiar da Root?",
+      "entry": "def-root-authorization",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled"
+    },
+    {
+      "id": "root.threshold.en",
+      "locale": "en",
+      "domain": "root",
+      "pair": "root.threshold.pt",
+      "query": "What is the Root threshold?",
+      "entry": "def-root-authorization",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled"
+    },
+    {
+      "id": "root.replace.pt",
+      "locale": "pt",
+      "domain": "root",
+      "query": "Uma autoridade pode substituir as outras?",
+      "entry": "def-root-authority-set",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled"
+    },
+    {
+      "id": "protogov.who.pt",
+      "locale": "pt",
+      "domain": "protocol_governance",
+      "pair": "protogov.who.en",
+      "query": "Quem governa o protocolo?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-governance"
+    },
+    {
+      "id": "protogov.who.en",
+      "locale": "en",
+      "domain": "protocol_governance",
+      "pair": "protogov.who.pt",
+      "query": "Who governs the protocol?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-governance"
+    },
+    {
+      "id": "protogov.authorizes.pt",
+      "locale": "pt",
+      "domain": "protocol_governance",
+      "pair": "protogov.authorizes.en",
+      "query": "A governança do protocolo autoriza operadores?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-governance"
+    },
+    {
+      "id": "protogov.authorizes.en",
+      "locale": "en",
+      "domain": "protocol_governance",
+      "pair": "protogov.authorizes.pt",
+      "query": "Does protocol governance authorize operators?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-governance"
+    },
+    {
+      "id": "banzai.what.pt",
+      "locale": "pt",
+      "domain": "banzai_role",
+      "pair": "banzai.what.en",
+      "query": "O que é o BanzAI?",
+      "entry": "def-banzai-agent",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled"
+    },
+    {
+      "id": "banzai.what.en",
+      "locale": "en",
+      "domain": "banzai_role",
+      "pair": "banzai.what.pt",
+      "query": "What is BanzAI?",
+      "entry": "def-banzai-agent",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled"
+    },
+    {
+      "id": "banzai.decides.pt",
+      "locale": "pt",
+      "domain": "banzai_role",
+      "query": "O BanzAI decide conformidade?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "refused_safe",
+      "entry": "banzai-cannot-certify"
+    },
+    {
+      "id": "banzai.authorizes.pt",
+      "locale": "pt",
+      "domain": "banzai_role",
+      "query": "O BanzAI pode autorizar operadores?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "refused_safe",
+      "entry": "banzai-cannot-certify"
+    },
+    {
+      "id": "banzai.mandatory.en",
+      "locale": "en",
+      "domain": "banzai_role",
+      "query": "Is BanzAI mandatory for machine-to-machine BANZA operation?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "refused_safe",
+      "entry": "banzai-not-mandatory"
+    },
+    {
+      "id": "lifecycle.version.pt",
+      "locale": "pt",
+      "domain": "lifecycle",
+      "pair": "lifecycle.version.en",
+      "query": "Qual é a versão actual do BANZA?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "attr-banza-version"
+    },
+    {
+      "id": "lifecycle.version.en",
+      "locale": "en",
+      "domain": "lifecycle",
+      "pair": "lifecycle.version.pt",
+      "query": "What is the current BANZA version?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "attr-banza-version"
+    },
+    {
+      "id": "lifecycle.production.pt",
+      "locale": "pt",
+      "domain": "lifecycle",
+      "pair": "lifecycle.production.en",
+      "query": "O BANZA está em produção?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-lifecycle-status"
+    },
+    {
+      "id": "lifecycle.production.en",
+      "locale": "en",
+      "domain": "lifecycle",
+      "pair": "lifecycle.production.pt",
+      "query": "Is BANZA in production?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-lifecycle-status"
+    },
+    {
+      "id": "lifecycle.frozen.pt",
+      "locale": "pt",
+      "domain": "lifecycle",
+      "pair": "lifecycle.frozen.en",
+      "query": "O protocolo já foi congelado?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-lifecycle-protocol-freeze"
+    },
+    {
+      "id": "lifecycle.frozen.en",
+      "locale": "en",
+      "domain": "lifecycle",
+      "pair": "lifecycle.frozen.pt",
+      "query": "Has the protocol been frozen?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-lifecycle-protocol-freeze"
+    },
+    {
+      "id": "lifecycle.independent.pt",
+      "locale": "pt",
+      "domain": "independent_implementation",
+      "pair": "lifecycle.independent.en",
+      "query": "Já existe uma implementação independente demonstrada?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-lifecycle-independent-implementation"
+    },
+    {
+      "id": "lifecycle.independent.en",
+      "locale": "en",
+      "domain": "independent_implementation",
+      "pair": "lifecycle.independent.pt",
+      "query": "Has BANZA been independently implemented?",
+      "policy": "deterministic_critical",
+      "expected_terminal_class": "settled",
+      "entry": "def-lifecycle-independent-implementation"
+    },
+    {
+      "id": "negative.jet-engine.pt",
+      "locale": "pt",
+      "domain": "negative_control",
+      "query": "Como funciona um motor a jacto?",
+      "policy": "negative_control",
+      "expected_terminal_class": "insufficient"
+    },
+    {
+      "id": "negative.stock-price.en",
+      "locale": "en",
+      "domain": "negative_control",
+      "query": "What will the EUR/AOA rate be next year?",
+      "policy": "negative_control",
+      "expected_terminal_class": "insufficient"
+    },
+    {
+      "id": "negative.unrelated.pt",
+      "locale": "pt",
+      "domain": "negative_control",
+      "query": "Qual é a capital da Mongólia?",
+      "policy": "negative_control",
+      "expected_terminal_class": "insufficient"
+    },
+    {
+      "id": "negative.invented-profile.en",
+      "locale": "en",
+      "domain": "negative_control",
+      "query": "What is the L7 conformance profile?",
+      "policy": "negative_control",
+      "expected_terminal_class": "insufficient",
+      "note": "L7 is not a BANZA profile. Measured, it resolved def-conformance as a confident definition — an unregistered identifier becoming a real one by lexical similarity. Must be unsupported."
+    },
+    {
+      "id": "negative.invented-operator.pt",
+      "locale": "pt",
+      "domain": "negative_control",
+      "query": "Quantos operadores certificados existem em produção?",
+      "policy": "negative_control",
+      "expected_terminal_class": "refused_safe",
+      "note": "There are no certified operators in production. Correcting that premise is the right answer, not a gap — so refused_safe is the expected outcome, and an `insufficient` here would be a regression in candour."
+    },
+    {
+      "id": "negative.profile-l5.pt",
+      "locale": "pt",
+      "domain": "negative_control",
+      "policy": "negative_control",
+      "query": "Existe um perfil L5 no BANZA?",
+      "expected_terminal_class": "insufficient",
+      "note": "BANZA publishes exactly L0-L4. A profile-shaped identifier outside that set must not become an existing profile through lexical similarity."
+    },
+    {
+      "id": "negative.profile-l6.en",
+      "locale": "en",
+      "domain": "negative_control",
+      "policy": "negative_control",
+      "query": "What is the L6 conformance profile?",
+      "expected_terminal_class": "insufficient",
+      "note": "BANZA publishes exactly L0-L4. A profile-shaped identifier outside that set must not become an existing profile through lexical similarity."
+    },
+    {
+      "id": "negative.profile-l99.pt",
+      "locale": "pt",
+      "domain": "negative_control",
+      "policy": "negative_control",
+      "query": "O que exige o perfil L99?",
+      "expected_terminal_class": "insufficient",
+      "note": "BANZA publishes exactly L0-L4. A profile-shaped identifier outside that set must not become an existing profile through lexical similarity."
+    },
+    {
+      "id": "negative.profile-l5.en",
+      "locale": "en",
+      "domain": "negative_control",
+      "policy": "negative_control",
+      "query": "Is there an L5 profile?",
+      "expected_terminal_class": "insufficient",
+      "note": "BANZA publishes exactly L0-L4. A profile-shaped identifier outside that set must not become an existing profile through lexical similarity."
+    }
+  ],
+  "terminal_classes": {
+    "settled": [
+      "canonical_definition",
+      "exact_fact"
+    ],
+    "refused_safe": [
+      "safety_refusal"
+    ],
+    "insufficient": [
+      "insufficient_evidence"
+    ],
+    "generation_unavailable": [
+      "operational_failure"
+    ]
+  }
+}

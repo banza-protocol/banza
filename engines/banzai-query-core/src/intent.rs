@@ -98,6 +98,29 @@ pub(crate) const COMPARE_MARKERS: &[&str] = &[
     "distinguir",
     "em que diferem",
 ];
+/// The EQUALITY half of the comparison family: "são a mesma coisa?", "are they the same thing?".
+///
+/// Kept beside COMPARE_MARKERS rather than folded into it, and deliberately not merged: COMPARE_MARKERS
+/// feeds the `compare_documents` intent, and an equality question about two concepts is not a request to
+/// compare two documents. Same module, same shape, same owner — one comparison vocabulary, two families.
+pub(crate) const EQUALITY_MARKERS: &[&str] = &[
+    "mesma coisa",
+    "a mesma",
+    "o mesmo",
+    "sao iguais",
+    "sao equivalentes",
+    "same thing",
+    "the same",
+    "are equal",
+    "are equivalent",
+];
+
+/// Does this turn ask whether two things are THE SAME? Exposed so the contextual layer reads the same
+/// judgement the intent taxonomy does, instead of starting a second comparison classifier beside it.
+pub fn asks_whether_the_same(nq: &str) -> bool {
+    any_hit(nq, EQUALITY_MARKERS)
+}
+
 pub(crate) const DOC_MARKERS: &[&str] = &[
     "decisao",
     "adr",
