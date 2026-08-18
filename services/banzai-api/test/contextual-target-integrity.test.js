@@ -62,7 +62,10 @@ test("a source follow-up after an operator question DOES answer about operator a
   // The positive half. Without it, "never answers about operators" would be satisfied by answering nothing.
   const { turns } = await conversation(["Quem controla os operadores?", SOURCE_FOLLOWUP_PT]);
   assert.equal(turns[1].entry, "def-operator-governance-authority");
-  assert.equal(turns[1].meta.terminal_kind, "canonical_definition");
+  // The TARGET is what this test is about, and it is unchanged. The TERMINAL used to be asserted as
+  // `canonical_definition`, which is the defect this file could not see: answering a request for evidence
+  // by restating the previous answer. The target survives; the request is now answered too.
+  assert.equal(turns[1].meta.terminal_kind, "source_evidence");
 });
 
 test("a subject the previous turn settled is not lost by the follow-up", async () => {
@@ -156,7 +159,12 @@ test("a reference whose prior turn named no subject says so, rather than inventi
 
 test("the trace names which merge rule decided the turn", async () => {
   // §40 — the original drift must be readable in ONE field.
-  const inherit = await conversation(["Quem controla os operadores?", SOURCE_FOLLOWUP_PT]);
+  // A source request is no longer INHERIT_TARGET. Inheriting the target was right; inheriting only the
+  // target was what discarded the question, so the evidence request has its own merge rule and
+  // INHERIT_TARGET keeps the cases it is actually correct for.
+  const sourceFollowup = await conversation(["Quem controla os operadores?", SOURCE_FOLLOWUP_PT]);
+  assert.equal(sourceFollowup.turns[1].meta.context_merge, "SOURCE_FOLLOWUP");
+  const inherit = await conversation(["Quem controla os operadores?", "e isto?"]);
   assert.equal(inherit.turns[1].meta.context_merge, "INHERIT_TARGET");
   const standalone = await conversation(["Quem controla os operadores?", "E quem controla a Root?"]);
   assert.equal(standalone.turns[1].meta.context_merge, "STANDALONE");

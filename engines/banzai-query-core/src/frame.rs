@@ -85,6 +85,51 @@ const TASK: &[&str] = &[
     "support",
     "supports",
     "defines",
+    // "onde está isto documentado?" / "where is this documented?" is the same request in the shape of a
+    // location question. It asks for the evidence, not for a document the reader already has in mind.
+    "documentado",
+    "documentada",
+    "documented",
+    "documento",
+    "documentos",
+    "document",
+    "documents",
+];
+
+/// The subset of TASK that specifically asks for EVIDENCE, as opposed to anything else a reader might want
+/// done with the previous answer.
+///
+/// `task` was always documented as "the turn asks what supports the previous answer", and for detection
+/// that was enough: it only had to establish that the turn pointed backwards. It was never read as an
+/// OPERATION, so the request itself was discarded — the turn inherited the previous target and the previous
+/// target's answer came back unchanged. Naming the dimension is what makes it possible to act on it.
+///
+/// Deliberately a subset rather than a second list. `TASK` also carries "answer", "define" and "defines",
+/// which describe what the previous turn DID and do not ask for provenance: "o que isto define?" is a
+/// question about content. Reading those as evidence requests would turn ordinary follow-ups into source
+/// listings, which is the mirror image of the defect being fixed.
+const EVIDENCE: &[&str] = &[
+    "fonte",
+    "fontes",
+    "source",
+    "sources",
+    "documentado",
+    "documentada",
+    "documented",
+    "documento",
+    "documentos",
+    "document",
+    "documents",
+    "suporta",
+    "suportam",
+    "sustenta",
+    "sustentam",
+    "prova",
+    "provam",
+    "support",
+    "supports",
+    "prove",
+    "proves",
 ];
 
 /// The authority verbs. Each one is a dimension the concept registry already binds to the record that
@@ -152,6 +197,10 @@ fn is_task(tok: &str) -> bool {
     TASK.contains(&tok)
 }
 
+fn is_evidence(tok: &str) -> bool {
+    EVIDENCE.contains(&tok)
+}
+
 fn is_action(tok: &str) -> bool {
     ACTION.iter().any(|(pt, en)| *pt == tok || *en == tok)
 }
@@ -195,6 +244,13 @@ pub struct Frame {
     pub referential: bool,
     /// The turn asks what supports the previous answer.
     pub task: bool,
+    /// The turn asks for the EVIDENCE behind the previous answer — the operation, not just the direction.
+    ///
+    /// Separate from `task` and from `referential` on purpose. An operation and a referent fail
+    /// independently: "que fontes?" with nothing to point at is an underspecified first turn, and "isto?"
+    /// with no evidence word is an ordinary contextual follow-up. Folding them into one boolean is how the
+    /// request came to be detected and then thrown away.
+    pub source_evidence: bool,
     /// How the answer should be rendered ("em JSON"), rather than what it is about. Kept apart from
     /// `subject` because a format that happens to be resolvable vocabulary would otherwise be read as a
     /// change of topic.
@@ -267,6 +323,9 @@ pub fn frame_of(question: &str) -> Frame {
             f.referential = true;
         } else if is_task(t) {
             f.task = true;
+            if is_evidence(t) {
+                f.source_evidence = true;
+            }
         } else if is_action(t) {
             if f.action.is_empty() {
                 f.action = t.to_string();
@@ -289,6 +348,13 @@ pub enum Merge {
     Standalone,
     /// A pure backward reference: inherit the previous turn's semantic target unchanged.
     InheritTarget,
+    /// An EVIDENCE request about the previous turn's target: inherit the target, and keep the request.
+    ///
+    /// Distinct from `InheritTarget`, which is lossy here. `InheritTarget` rewrites the turn into the
+    /// previous question, so "que fontes sustentam isto?" was answered by restating the previous answer —
+    /// measured in production, and the reason this variant exists. The target and the operation are both
+    /// part of the meaning; carrying only the target discards the question that was actually asked.
+    SourceFollowup,
     /// A new action over the inherited subject: resolve the rendered `{interrogative} {action} {subject}`.
     MergedFrame(String),
     /// A follow-up that leans on the previous topic but states no slot of its own ("e em JSON?",
@@ -411,7 +477,15 @@ pub fn merge(current: &str, prior_question: Option<&str>) -> Merge {
         return Merge::MergedFrame(q);
     }
 
-    // 3. A pure backward reference (including "which sources answer this?") inherits the target itself.
+    // 3a. An EVIDENCE request about the previous target. Checked BEFORE the general pure-reference rule,
+    //     because it is a strictly more specific reading of the same shape: the referent is the previous
+    //     target and the operation is "show me what supported it". Both halves survive.
+    if cur.source_evidence && cur.referential {
+        return Merge::SourceFollowup;
+    }
+
+    // 3b. Any other pure backward reference inherits the target itself, unchanged. This is still correct
+    //     for a turn that points back without asking for anything in particular.
     if cur.is_pure_reference() || (cur.task && cur.referential) {
         return Merge::InheritTarget;
     }
@@ -426,20 +500,66 @@ mod tests {
     use super::*;
 
     #[test]
-    fn a_pure_source_reference_inherits_in_both_languages() {
+    fn a_source_request_keeps_both_the_target_and_the_request() {
+        // This test used to expect `InheritTarget`, and that expectation was the defect written down.
+        // `InheritTarget` rewrites the turn into the previous question, so in production
+        // "Que fontes é que respondem a isto?" was answered by restating the previous answer verbatim —
+        // the reader asked for evidence and received the same paragraph again. Inheriting the target was
+        // never wrong; inheriting ONLY the target was.
         for (prev, follow) in [
             (
                 "Quem controla a Root?",
                 "Que fontes é que respondem a isto?",
             ),
             ("Who controls the Root?", "Which sources answer this?"),
+            ("Quem controla os operadores ?", "Que fontes suportam isto?"),
+            ("Who controls the operators?", "Which sources support that?"),
         ] {
             assert_eq!(
                 merge(follow, Some(prev)),
-                Merge::InheritTarget,
+                Merge::SourceFollowup,
                 "{follow:?} after {prev:?}"
             );
         }
+    }
+
+    #[test]
+    fn a_backward_reference_that_asks_for_nothing_still_inherits_the_target() {
+        // `InheritTarget` is kept for what it is actually right for: a turn that points back without asking
+        // for anything in particular. Replacing it wholesale would have traded one lossy reading for
+        // another.
+        assert_eq!(
+            merge("e isto?", Some("Quem controla a Root?")),
+            Merge::InheritTarget
+        );
+    }
+
+    #[test]
+    fn the_operation_and_the_referent_fail_independently() {
+        // Four states, because one boolean covering both is how the request came to be detected and then
+        // discarded. An evidence word with nothing to point at is an underspecified first turn, not a
+        // follow-up; a referent with no evidence word is an ordinary contextual follow-up.
+        let prev = Some("Quem controla os operadores ?");
+        assert_eq!(
+            merge("Que fontes suportam isto?", prev),
+            Merge::SourceFollowup
+        );
+        assert_eq!(
+            merge("Que fontes suportam isto?", None),
+            Merge::ContextTargetMissing
+        );
+        assert_ne!(merge("e em JSON?", prev), Merge::SourceFollowup);
+        assert_eq!(merge("O que é uma implementação?", None), Merge::Standalone);
+    }
+
+    #[test]
+    fn describing_what_the_previous_turn_did_is_not_an_evidence_request() {
+        // `TASK` carries "answer" and "define" because they mark a backward reference. They do not ask for
+        // provenance, and reading them as evidence requests would turn ordinary follow-ups into source
+        // listings — the mirror image of the defect this fixes.
+        let f = frame_of("o que isto define?");
+        assert!(f.referential, "still a backward reference");
+        assert!(!f.source_evidence, "but not a request for evidence");
     }
 
     #[test]
@@ -485,7 +605,7 @@ mod tests {
             "Que fontes é que respondem a isto?",
             Some("Quem controla a Root?"),
         );
-        assert_eq!(m, Merge::InheritTarget);
+        assert_eq!(m, Merge::SourceFollowup);
         let p = frame_of("Quem controla a Root?");
         assert_eq!(p.subject, vec!["root"], "the subject is Root, not the verb");
         assert_eq!(p.action, "controla");

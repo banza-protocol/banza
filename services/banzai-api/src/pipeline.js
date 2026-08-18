@@ -827,11 +827,25 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // the structured engine actually ran. context_turns_used counts at least one turn when the structured
     // resolver bound a referent.
     const structuredContextUsed = Boolean(contextResolved);
+    // A SOURCE FOLLOW-UP: this turn asks for the evidence behind the previous answer. Rust decided it
+    // (`frame::Merge::SourceFollowup`); the target is the previous turn's, and the operation is this turn's.
+    const isSourceFollowup = decision.merge_kind === "SOURCE_FOLLOWUP";
     const ctxMeta = {
       conversation_context_used: structuredContextUsed || Boolean(decision.context_used),
       context_turns_used: Math.max(Number(decision.turns_used) || 0, structuredContextUsed ? 1 : 0),
-      previous_sources_reused: structuredContextUsed || Boolean(decision.context_used),
-      context_used_for: ctxDecision.context_used_for || "none",
+      // `previous_sources_reused` USED TO MEAN THIS, and it was misleading: "context was used somewhere"
+      // is not reuse of evidence. It read `true` for a turn whose previous answer carried no sources at
+      // all, and for "mostra em JSON" whose own answer cites none — so a test could never assert WHICH
+      // sources were reused, because the field did not claim that. It is renamed to what it measured.
+      //
+      // Nothing outside this service consumed the old field (audited: only server.js echoed it), so the
+      // name is corrected rather than preserved with a wrong meaning.
+      previous_sources_available: structuredContextUsed || Boolean(decision.context_used),
+      // The strict claim, stamped downstream once the answer's evidence is known: true only when prior
+      // source identities actually participate in THIS answer. Declared false here so every path that
+      // forgets to establish it reports the weaker, honest value.
+      previous_sources_reused: false,
+      context_used_for: isSourceFollowup ? "source_evidence" : ctxDecision.context_used_for || "none",
       // Increment 6 — the multi-turn reference-resolution trace (safe labels/ids only) + the forward context.
       conversation_context: conversationContextForward,
       reference_resolution_state: references.resolution_state || "NO_ANAPHORA",
@@ -1228,6 +1242,60 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         ...routerTrace,
         ...opMeta,
         resolution_method: "rust_operational_telemetry",
+      });
+    }
+
+    // Tier 0b — SOURCE EVIDENCE. The reader asked what supported the previous answer.
+    //
+    // This runs BEFORE the substantive terminals, because those would answer the previous question again —
+    // which is precisely the production failure. The previous turn stays the semantic owner: this turn does
+    // not re-adjudicate the proposition, it reports the evidence the proposition rested on. So the entry is
+    // unchanged and no verdict is recomputed.
+    //
+    // The target comes from structured conversation state (Rust resolved it from the prior QUESTION, which
+    // is what the server forwards), never from the assistant's prose. The evidence comes from the record
+    // itself, never from a fresh repo-wide search: "nearest document" must not get to decide what the
+    // reader meant, and the sources shown must be the ones that actually established the claim.
+    if (isSourceFollowup) {
+      const targetEntry = decision.entry_id ? getEntry(decision.entry_id) : null;
+      const evidence = targetEntry ? publicSourcesOnly(targetEntry.sources) : [];
+      if (!targetEntry || evidence.length === 0) {
+        // A record with no eligible public evidence has nothing to show, and saying so is the honest
+        // answer. Inventing sources by retrieval would be worse than declining, and claiming reuse of an
+        // empty set would make the field a lie.
+        return contextualInsufficient(rq, "", {
+          answer_mode: mode,
+          fallback_reason: "no_previous_evidence",
+          intent,
+          terminal_kind: "insufficient_evidence",
+          ...ctxMeta,
+          ...routerTrace,
+          previous_sources_available: false,
+          previous_sources_reused: false,
+        });
+      }
+      // Bilingual and deterministic, in the same shape the corpus uses, so the frontend renders it with no
+      // new component and the source cards are the EXISTING objects — Block 5B stays the owner of what an
+      // ADR, a spec or an unclassified source is called.
+      const record = {
+        id: targetEntry.id,
+        answer:
+          "Estas são as fontes que sustentam a resposta anterior:\n\n---\n\n" +
+          "These are the sources supporting the previous answer:",
+        sources: targetEntry.sources,
+      };
+      return deterministic(record, {
+        answer_mode: mode,
+        fallback_reason: null,
+        intent,
+        terminal_kind: "source_evidence",
+        trace_label: "Fontes da resposta anterior, confirmadas por Rust",
+        ...ctxMeta,
+        ...routerTrace,
+        // Both claims are now earned: the context did carry an eligible evidence set, and those exact
+        // identities are the ones this answer presents.
+        previous_sources_available: true,
+        previous_sources_reused: true,
       });
     }
 

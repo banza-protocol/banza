@@ -7867,6 +7867,22 @@ pub fn route_with_context(question: &str, prev_questions: &[String]) -> ContextR
                         merge_kind = "INHERIT_TARGET";
                     }
                 }
+                crate::frame::Merge::SourceFollowup => {
+                    // The TARGET is resolved exactly as for a pure reference — from the previous QUESTION,
+                    // which is structured conversation state the server forwards, never from the model's
+                    // prose. What differs is that the OPERATION survives: the caller learns from
+                    // `merge_kind` that this turn asks for the evidence behind that target, and answers
+                    // with the evidence rather than by restating the target's answer.
+                    //
+                    // Resolving the target this way keeps the semantic verdict where it already was. This
+                    // turn does not re-adjudicate the previous proposition; it reports what supported it.
+                    if let Some(p) = prev {
+                        resolved = p.to_string();
+                        context_used = true;
+                        turns_used = 1;
+                        merge_kind = "SOURCE_FOLLOWUP";
+                    }
+                }
                 crate::frame::Merge::MergedFrame(q) => {
                     resolved = q;
                     context_used = true;
