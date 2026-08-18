@@ -105,6 +105,17 @@ const ACTION: &[(&str, &str)] = &[
     ("supervisionam", "supervise"),
     ("aprova", "approves"),
     ("aprovam", "approve"),
+    // The same dimensions as NOUNS. A follow-up states the decision it asks about as a noun far more often
+    // than as a verb — "Isso dá admissão automática?", "E autorização legal?" — and with only the verb
+    // forms listed, `admissao` and `autorizacao` fell into the SUBJECT slot. That made the turn look like a
+    // new topic instead of a new question about the current one, which is the opposite of what it is.
+    ("admissao", "admission"),
+    ("autorizacao", "authorization"),
+    ("autorizacao", "authorisation"),
+    // Deliberately NOT "certificacao"/"certification". It was added here speculatively and nothing needed
+    // it: certification is the REFERENT of this sequence, not a decision asked about it, and classifying it
+    // as an action moved "O que é a certification?" out of the subject slot and changed an unrelated
+    // fixture. A dimension earns a place here by being asked as a question, not by being nearby.
 ];
 
 fn is_referential(tok: &str) -> bool {

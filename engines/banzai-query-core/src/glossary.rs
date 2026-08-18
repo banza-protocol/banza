@@ -509,6 +509,20 @@ const CRITICAL_SUBJECTS: &[(&str, &[&str])] = &[
             "operator vs implementation",
         ],
     ),
+    // "O que significa certificar uma implementação?" asks what certifying IS. Without a registered
+    // surface it reached how-to-demonstrate-conformance — the PROCEDURE — because the two share the
+    // domain noun, which is the collision this table exists to settle.
+    (
+        "def-l2-certification",
+        &[
+            "o que significa certificar",
+            "significa certificar",
+            "o que e certificar",
+            "what does certifying",
+            "what is certifying",
+            "what certifying an implementation means",
+        ],
+    ),
     (
         "def-certification-actor",
         &[
@@ -838,6 +852,18 @@ pub fn definitional_record_of(subject: &str) -> Option<&'static str> {
             })
         })
         .map(|(id, _)| *id)
+}
+
+/// Is this record about CERTIFICATION — the thing a follow-up can ask further decisions about?
+///
+/// The referent test for the certification sequence. It is deliberately a question about the RECORD the
+/// previous turn resolved to, not about the words the user typed: a lifecycle answer is not a certification
+/// result however much the conversation surrounds it.
+pub fn is_certification_record(entry: &str) -> bool {
+    entry
+        .strip_prefix("def-")
+        .map(|rest| rest.split('-').any(|seg| seg == "certification"))
+        .unwrap_or(false)
 }
 
 /// The record that states how two concepts relate, if the corpus has one.

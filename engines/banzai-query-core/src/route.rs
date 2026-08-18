@@ -7638,6 +7638,60 @@ pub fn route_with_context(question: &str, prev_questions: &[String]) -> ContextR
     /// routing each turn through the same path production uses. The relationship is then looked up by the id
     /// the corpus already assigned it, so an unknown pair has no record and the caller fails closed rather
     /// than reaching for the one comparison this engine happens to know.
+    /// A further DECISION asked about the certification the conversation is already discussing.
+    ///
+    /// ```text
+    /// O que significa certificar uma implementação?   certification
+    /// Isso dá admissão automática?                    + operational admission
+    /// E autorização legal?                            + regulatory authorization
+    /// ```
+    ///
+    /// The referent does not move; the DECISION does. That is the opposite of Turn 2, where the subject
+    /// changed under a fixed question, and it is deliberately a separate mechanism from the relational
+    /// pair, which joins two entities. Here there is one subject and a succession of different questions
+    /// about it.
+    ///
+    /// Three things make it safe. The turn must state a decision dimension and name no subject of its own,
+    /// so an explicit new topic still wins. The previous turn must have resolved to a record that is
+    /// actually ABOUT certification — a lifecycle answer is not a certification result however adjacent it
+    /// is. And the dimension is read from the CURRENT turn every time, so the previous decision never
+    /// carries: asking about authorization after admission moves to authorization, which is the whole
+    /// point of a sequence in which the answers must not collapse into one another.
+    ///
+    /// Returns the query AND the dimension, so the two turns are distinguishable in the trace rather than
+    /// both reporting "context was used".
+    fn certification_decision_query(
+        nq: &str,
+        prev_questions: &[String],
+    ) -> Option<(String, &'static str)> {
+        let f = crate::frame::frame_of(nq);
+        // An explicit new subject outranks the referent (Block 4B), so this only applies to a turn that
+        // names none.
+        if f.has_own_subject() {
+            return None;
+        }
+        let dimension = match f.action.as_str() {
+            "admissao" | "admission" => "ADMISSION",
+            "autorizacao" | "authorization" | "authorisation" => "AUTHORIZATION",
+            _ => return None,
+        };
+        let prev = prev_questions
+            .iter()
+            .rev()
+            .find(|p| !normalize(p).is_empty())?;
+        // Resolve the previous turn the way the conversation did, so a turn that itself leaned on context
+        // still counts as having established the referent.
+        let prior_entry = route_with_context(prev, &prev_questions[..prev_questions.len() - 1])
+            .route
+            .entry_id?;
+        if !crate::glossary::is_certification_record(&prior_entry) {
+            return None;
+        }
+        // The record that states what certification does NOT confer, in both dimensions and by ADR.
+        let alias = crate::glossary::canonical_alias_of("def-certification-actor")?;
+        Some((alias.to_string(), dimension))
+    }
+
     fn relational_pair_query(nq: &str, prev_questions: &[String]) -> Option<String> {
         if !crate::intent::asks_whether_the_same(nq) {
             return None;
@@ -7678,7 +7732,15 @@ pub fn route_with_context(question: &str, prev_questions: &[String]) -> ContextR
         // and resolved nothing. The frame carries the previous SUBJECT and never the previous action.
         // A relational ellipsis reads TWO turns, so it is decided here rather than in the frame merge,
         // which sees only the previous one.
-        if let Some(q) = relational_pair_query(&nq, prev_questions) {
+        if let Some((q, dimension)) = certification_decision_query(&nq, prev_questions) {
+            resolved = q;
+            context_used = true;
+            turns_used = 1;
+            merge_kind = match dimension {
+                "ADMISSION" => "CERT_DECISION_ADMISSION",
+                _ => "CERT_DECISION_AUTHORIZATION",
+            };
+        } else if let Some(q) = relational_pair_query(&nq, prev_questions) {
             resolved = q;
             context_used = true;
             turns_used = 2;
