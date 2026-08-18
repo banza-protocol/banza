@@ -143,12 +143,12 @@ assurance-purity-check:
 
 ## assurance-check: the R²S² layered assurance gates — every claimed property must have a falsifiable evidence chain (AG-0…AG-10)
 assurance-check: assurance-meta-check assurance-purity-check r2s2-principles-check semantic-closure-check no-availability-bypass-check banzai-outside-critical-path-check
-	@bash tools/collect-execution-evidence.sh >/dev/null
+	@bash tools/collect-execution-evidence.sh
 	@cargo run -q --manifest-path engines/banza-assurance/Cargo.toml --bin banza-assurance -- report
 
 ## release-readiness-check: the AG-10 freeze gate — evaluated deliberately when preparing a release target, never on every push
 release-readiness-check: assurance-check
-	@bash tools/collect-release-readiness.sh >/dev/null
+	@bash tools/collect-release-readiness.sh
 	@BANZA_RELEASE_GATE=1 cargo run -q --manifest-path engines/banza-assurance/Cargo.toml --bin banza-assurance -- report
 
 ## mutation-proofs: prove every critical property guard can go red, in isolated worktrees only

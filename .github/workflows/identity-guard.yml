@@ -491,6 +491,24 @@ jobs:
       # directory and compares — it never rewrites the tracked file.
       - name: Website decision-registry reproduction and coverage guard
         run: bash tools/check-website-decisions-parity.sh
+
+      # The BanzAI properties that decide what the protocol is allowed to SAY, wired into this required
+      # context because none of the seven was able to fail for them. Audited at 21bb77c: every required
+      # context ran document guards, a whitepaper build or the website, so the critical benchmark, the
+      # answer-policy declaration, the internal-source boundary and the WASM/source binding could all
+      # regress with every merge-blocking check green. They existed; they were not merge-blocking.
+      #
+      # Added here rather than as a new required status: branch protection is unchanged, and the same
+      # command reproduces locally.
+      # The suite starts the real service to assert its runtime projection, so its ONE dependency has to be
+      # installed. Found by running the battery in a clean worktree, where every test that needed the
+      # server failed with "server did not answer /runtime" — a green local run can hide this entirely,
+      # because the developer's node_modules is already there.
+      - name: Install BanzAI runtime dependencies (locked)
+        working-directory: services/banzai-api
+        run: npm ci --no-audit --no-fund
+      - name: BanzAI critical battery (benchmark, evidence boundary, artifact binding)
+        run: bash tools/banzai-critical-battery.sh
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
