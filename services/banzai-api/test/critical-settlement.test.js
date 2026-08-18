@@ -219,6 +219,26 @@ test("a settled critical fact does not need the model to be unavailable to stay 
   assert.equal(withModel.calls, 0);
 });
 
+// ── A cache cannot resurrect the answer this fix removed ──────────────────────────────────────────
+
+test("repeating a settled question serves the same record, never a cached explanation", async () => {
+  // Settlement resolves ABOVE the cache lookup, so a settled question never consults the cache at all —
+  // which is what makes the fix safe to deploy over a running instance holding explanatory answers from
+  // before it. Asserted rather than assumed: if settlement is ever moved below the cache, a stored
+  // pre-fix trunk answer would be served again and this goes red.
+  const c = canaryProvider(FALSE_PREMISE_PROSE.pt);
+  const h = harness({ provider: c.provider });
+  const q = "Porque é que BANZA certifica empresas?";
+
+  const first = await h.pipeline.answer(q, {});
+  const second = await h.pipeline.answer(q, {});
+  assert.equal(c.calls(), 0, "neither turn may reach the model");
+  assert.equal((first.result || {}).entry_id, "def-certification-actor");
+  assert.equal((second.result || {}).entry_id, (first.result || {}).entry_id, "same record on repeat");
+  assert.equal(second.meta.terminal_kind, first.meta.terminal_kind, "same terminal on repeat");
+  assert.equal(second.meta.cache ?? null, null, "a settled answer is not served from cache");
+});
+
 // ── The original live fix must not regress ────────────────────────────────────────────────────────
 
 test("the operator-control answer stays deterministic and model-free", async () => {
