@@ -31,8 +31,42 @@ step() {
   fi
 }
 
+# `step` prints "ok" and swallows the rest, which is right for a guard whose only interesting state is
+# pass/fail. It is wrong for the one property this battery exists to prove. The required job's log showed
+# seven lines of "ok" — from which a reader cannot tell whether the model-call canary ran at all, how many
+# cases it covered, or whether the file was even picked up. "It is executed" and "it is observable" are
+# different claims, and after a milestone spent on tests that passed for reasons nobody could see, the
+# second one has to be met explicitly.
+step_measured() {
+  local label="$1"; shift
+  printf '  %-46s ' "$label"
+  local out; out="$("$@" 2>&1)"; local code=$?
+  if [ $code -eq 0 ]; then
+    echo "ok"
+    printf '%s\n' "$out" | sed 's/^/      /'
+  else
+    echo "FAILED (exit $code)"
+    printf '%s\n' "$out" | tail -25 | sed 's/^/      /'
+    fail=1
+  fi
+}
+
 # ── The semantic contract: what BanzAI may state, and on whose authority ──────────────────────────
-step "BanzAI test suite" bash -c 'cd services/banzai-api && node --test'
+step_measured "BanzAI test suite" bash -c '
+  cd services/banzai-api
+  out="$(node --test 2>&1)"; code=$?
+  printf "%s\n" "$out" | grep -E " (tests|pass|fail) [0-9]+$" | sed "s/^[^a-z]*//" | tr "\n" " "
+  echo
+  exit $code'
+# The production-equivalent canary, named and counted in the log. It runs inside the suite above as well;
+# a second sub-second run is cheap, and what it buys is a reader of the required job being able to see
+# that the model-call property was measured rather than having to trust that a file was collected.
+step_measured "critical settlement is model-free (canary)" bash -c '
+  cd services/banzai-api
+  out="$(node --test test/critical-settlement.test.js 2>&1)"; code=$?
+  printf "%s\n" "$out" | grep -E " (tests|pass|fail) [0-9]+$" | sed "s/^[^a-z]*//" | tr "\n" " "
+  echo
+  exit $code'
 # --check is NOT optional decoration. The evaluator has two modes and the DEFAULT one, `matrix`, ends its
 # reporting path in an unconditional process.exit(0): it prints real measurements — 66/66, zero model
 # dependency, zero false support — and then exits 0 whatever those measurements say. Every invocation of

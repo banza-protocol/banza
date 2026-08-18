@@ -1239,9 +1239,22 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // A NORMATIVE DENIAL is exempt from that escalation: "does resilience mean zero downtime?" carries an
     // explanatory cue, and the answer is *no*. Sending it to the trunk would have a model recompose a
     // bounded guarantee, which is how the bound goes soft. Rust owns which entries these are.
+    // A SETTLED record is served whatever the cue: normative denials, and the corrections for the relations
+    // BANZA prohibits. Rust decides which; see `is_verbatim_entry`, where the production incident that
+    // established the second class is recorded.
+    //
+    // Settlement is not the route id alone. A record settles only if it still carries eligible establishing
+    // evidence, because "the router said deterministic" is a claim about the QUESTION and evidence is a
+    // claim about the ANSWER — and a critical correction served without a public source it rests on would be
+    // a canned truth, which is the failure mode on the other side of this one. With the evidence gone the
+    // honest outcome is to say so: no canned answer, and no model either. The check runs only on the
+    // cue-escalation exemption, so the settled path for a question with no cue is byte-for-byte unchanged.
     const verbatimEntry = decision.entry_id ? isVerbatimEntry(decision.entry_id) : false;
     if (decisionEffective.action === "deterministic" && (!hasExplanatoryCue || verbatimEntry)) {
       const entry = decision.entry_id ? getEntry(decision.entry_id) : null;
+      if (entry && hasExplanatoryCue && publicSourcesOnly(entry.sources).length === 0) {
+        return contextualInsufficient(rq, "", { answer_mode: mode, fallback_reason: "insufficient_sources", intent, terminal_kind: "insufficient_evidence", ...ctxMeta, ...routerTrace });
+      }
       if (entry) {
         // M2.18B.5 — a `def-*` entry is a canonical DEFINITION, never a security boundary: label it
         // accordingly even when route carries the historical `critical_boundary` intent for a sensitive
@@ -1833,6 +1846,29 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
             : cause === "evidence_below_threshold"
               ? "evidence_below_threshold"
               : "synthesis_insufficient";
+      // Block 5A.1's property has a SECOND exit, and it was missed. That fix taught the `emergency()` path
+      // to prefer a settled critical record over a fresh retrieval — but synthesis can also finish with a
+      // verdict of *insufficient*, and this branch reported it to the reader without ever asking whether the
+      // route had already settled the question. "Explica porquê o limiar da Root é 2 de 3." routes
+      // deterministically to `def-root-authorization`, which carries establishing sources; the explanatory
+      // cue escalates it; resolution inside synthesis then fails to fix a subject and returns
+      // `unresolved_subject` — and the engine tells the reader there is no public source for a record it is
+      // holding, with the sources attached to it.
+      //
+      // Synthesis failing to resolve a subject is a statement about SYNTHESIS, not about the corpus. The
+      // epistemic verdict belongs to one layer, and the route already gave it. Serving the settled record
+      // degraded is the honest outcome; `insufficient_evidence` is not.
+      //
+      // Only when nothing was settled does the insufficient verdict stand — otherwise this would hand a
+      // genuinely unanswerable question to whatever retrieval happened to return.
+      if (settledCritical) {
+        return emergency(reason, {
+          ...tpMeta,
+          routing_result: "synthesis_insufficient",
+          synthesis_called: Boolean(tp.trace.synthesis_called),
+          synthesis_status: tp.trace.output_status || "n/a",
+        });
+      }
       return contextualInsufficient(rq, "insufficient_source", {
         ...tpMeta,
         terminal_kind: "insufficient_evidence",
