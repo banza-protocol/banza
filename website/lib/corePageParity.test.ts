@@ -71,6 +71,31 @@ const CORE_PAGES = [
     enHeading: /open layer over the interoperability/i,
     // Claims the Portuguese page makes, which the translation must not quietly drop or strengthen.
     mustSay: [/complements the infrastructures in use/i, /operator-neutral/i, /reproduce that validation/i],
+    mustNotSay: [],
+  },
+  {
+    id: "FEDERATION",
+    pt: "/federacao",
+    en: "/en/federation",
+    enSource: "../app/en/federation/page.tsx",
+    ptSource: "../app/(pt)/federacao/page.tsx",
+    implemented: true,
+    enHeading: /Interoperate by evidence/i,
+    // The qualifications the Portuguese page is careful to make. "Federation" pulls towards consensus
+    // networks in English, so the restraint is what must survive translation.
+    mustSay: [
+      /not an automatic real-payments network/i,
+      /Production federation is not active/i,
+      /do not constitute regulatory approval/i,
+      /technical, local, per-interaction/i,
+    ],
+    // Claims the page must never make. Federation is not consensus and admission does not propagate.
+    mustNotSay: [
+      /global consensus/i,
+      /single global network/i,
+      /shared global state/i,
+      /without intermediaries\b(?!.{0,40}not)/i,
+    ],
   },
 ] as const;
 
@@ -120,10 +145,15 @@ describe("core page pairs — rendered output", () => {
       expect(hrefs.length, "the page must actually link somewhere").toBeGreaterThan(0);
       for (const href of hrefs) {
         if (!href.startsWith("/")) continue; // external / anchors are locale-neutral
+        // English links stay English WHEN a counterpart exists. A page not yet translated has no English
+        // address, and inventing one would render a dead link — worse than an honest cross-locale one. The
+        // registry decides, so this relaxes automatically as Block C lands pages, and tightens by itself.
+        const enCounterpart = counterpartOf(href);
+        if (href.startsWith("/en/")) continue;
         expect(
-          href.startsWith("/en/"),
-          `${page.id} renders a non-English reader link: ${href}`,
-        ).toBe(true);
+          enCounterpart,
+          `${page.id} links to ${href}, which HAS an English counterpart (${enCounterpart}) and must use it`,
+        ).toBeNull();
       }
 
       // Portuguese UI words leaking in from a shared component.
@@ -137,6 +167,9 @@ describe("core page pairs — rendered output", () => {
       const html = renderToStaticMarkup((mod.default as () => ReactElement)());
       for (const claim of page.mustSay) {
         expect(html, `${page.id} lost a claim: ${claim}`).toMatch(claim);
+      }
+      for (const forbidden of page.mustNotSay) {
+        expect(html, `${page.id} made a forbidden claim: ${forbidden}`).not.toMatch(forbidden);
       }
     });
 

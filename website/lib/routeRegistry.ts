@@ -104,7 +104,14 @@ export const ROUTES: readonly RouteRecord[] = Object.freeze([
     policy: "LEGACY_ALIAS",
     aliasTarget: "/referencia/faq",
   },
-  { id: "FEDERATION", pt: "/federacao", kind: "STATIC_PAGE", policy: "BILINGUAL" },
+  {
+    id: "FEDERATION",
+    pt: "/federacao",
+    en: "/en/federation",
+    kind: "STATIC_PAGE",
+    policy: "BILINGUAL",
+    note: "English URL in English — never /en/federacao.",
+  },
   { id: "GLOSSARY", pt: "/glossario", kind: "STATIC_PAGE", policy: "BILINGUAL" },
   {
     id: "GOVERNANCE_ALIAS",
