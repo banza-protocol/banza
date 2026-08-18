@@ -7622,6 +7622,48 @@ pub fn route_with_context(question: &str, prev_questions: &[String]) -> ContextR
     let mut resolved = question.to_string();
     let mut context_used = false;
     let mut turns_used = 0;
+    /// The two concepts a conversation has just put side by side, and the record that relates them.
+    ///
+    /// This is NOT subject carry. "São a mesma coisa?" names nothing — `sao`, `mesma` and `coisa` are all
+    /// correctly refused as subjects — and it does not mean "the same as the operator". It asks about a PAIR,
+    /// and the pair has to have been established.
+    ///
+    /// Establishment is structural and deliberately narrow. Only the two immediately preceding turns are read,
+    /// and they count as a contrast only when the second CONTINUED the first: a definition, then a new subject
+    /// asked under that same definition frame. That is what makes A and B comparable rather than merely
+    /// adjacent, and it is why an unrelated turn in between destroys the pair instead of ageing it — there is
+    /// no pair memory to go stale, because the pair is recomputed from the last two turns every time.
+    ///
+    /// The operands are RESOLVED RECORDS, not words: `def-implementation` and `def-operator`, obtained by
+    /// routing each turn through the same path production uses. The relationship is then looked up by the id
+    /// the corpus already assigned it, so an unknown pair has no record and the caller fails closed rather
+    /// than reaching for the one comparison this engine happens to know.
+    fn relational_pair_query(nq: &str, prev_questions: &[String]) -> Option<String> {
+        if !crate::intent::asks_whether_the_same(nq) {
+            return None;
+        }
+        // The turn must name nothing of its own; otherwise it is a question about that subject, not a pair.
+        if crate::frame::frame_of(nq).has_own_subject() {
+            return None;
+        }
+        let mut recent = prev_questions
+            .iter()
+            .rev()
+            .filter(|p| !normalize(p).is_empty());
+        let second = recent.next()?;
+        let first = recent.next()?;
+
+        // The contrast: the second turn continued the first under its question frame.
+        let carried = match crate::frame::merge(second, Some(first)) {
+            crate::frame::Merge::FrameCarry(q) => q,
+            _ => return None,
+        };
+        let a = route(&normalize(first)).entry_id?;
+        let b = route(&carried).entry_id?;
+        let record = crate::glossary::relationship_record(&a, &b)?;
+        crate::glossary::canonical_alias_of(record).map(str::to_string)
+    }
+
     let mut merge_kind = "STANDALONE";
     if !is_safety_refusal(&nq) {
         let prev = prev_questions
@@ -7634,62 +7676,71 @@ pub fn route_with_context(question: &str, prev_questions: &[String]) -> ContextR
         // and chose a new subject ("Quem controla a Root?" → the operator-authority definition), while a
         // question the previous turn had answered deterministically ("O que é o BanzAI?") came back diluted
         // and resolved nothing. The frame carries the previous SUBJECT and never the previous action.
-        match crate::frame::merge(question, prev) {
-            crate::frame::Merge::Standalone => {}
-            crate::frame::Merge::InheritTarget => {
-                // A pure backward reference is a request about the PREVIOUS semantic target ("which sources
-                // answer this?"). Its canonical form is the previous question itself, so the target — and
-                // with it the evidence the previous answer rested on — is reused rather than searched for
-                // again over the words of the conversation.
-                if let Some(p) = prev {
-                    resolved = p.to_string();
-                    context_used = true;
-                    turns_used = 1;
-                    merge_kind = "INHERIT_TARGET";
+        // A relational ellipsis reads TWO turns, so it is decided here rather than in the frame merge,
+        // which sees only the previous one.
+        if let Some(q) = relational_pair_query(&nq, prev_questions) {
+            resolved = q;
+            context_used = true;
+            turns_used = 2;
+            merge_kind = "RELATIONAL_PAIR";
+        } else {
+            match crate::frame::merge(question, prev) {
+                crate::frame::Merge::Standalone => {}
+                crate::frame::Merge::InheritTarget => {
+                    // A pure backward reference is a request about the PREVIOUS semantic target ("which sources
+                    // answer this?"). Its canonical form is the previous question itself, so the target — and
+                    // with it the evidence the previous answer rested on — is reused rather than searched for
+                    // again over the words of the conversation.
+                    if let Some(p) = prev {
+                        resolved = p.to_string();
+                        context_used = true;
+                        turns_used = 1;
+                        merge_kind = "INHERIT_TARGET";
+                    }
                 }
-            }
-            crate::frame::Merge::MergedFrame(q) => {
-                resolved = q;
-                context_used = true;
-                turns_used = 1;
-                merge_kind = "MERGED_FRAME";
-            }
-            crate::frame::Merge::SubjectCarry(q) => {
-                // The M2.8H format/elaboration follow-ups ("e em JSON?", "explica melhor", "dá exemplo
-                // aqui") still lean on the previous topic — but only its subject travels.
-                if is_followup(&nq) {
+                crate::frame::Merge::MergedFrame(q) => {
                     resolved = q;
                     context_used = true;
                     turns_used = 1;
-                    merge_kind = "SUBJECT_CARRY";
-                } else {
-                    // Reported distinctly from STANDALONE. A mutation that removed the explicit-subject
-                    // priority was found to land here and be discarded by this gate — the behaviour stayed
-                    // correct, so the integration test passed and said nothing, while the RULE it claimed to
-                    // pin was gone. Two different decisions must not share one label.
-                    merge_kind = "SUBJECT_CARRY_DECLINED";
+                    merge_kind = "MERGED_FRAME";
                 }
-            }
-            crate::frame::Merge::FrameCarry(q) => {
-                // The previous turn must have ESTABLISHED the question form, not merely contained one. A
-                // prior that resolved nothing has no frame to lend, so an unanswered turn cannot manufacture
-                // one for the subject that follows it.
-                let prior_established = prev
-                    .map(|p| route(&normalize(p)).action != "insufficient")
-                    .unwrap_or(false);
-                if prior_established {
-                    resolved = q;
-                    context_used = true;
-                    turns_used = 1;
-                    merge_kind = "FRAME_CARRY";
-                } else {
-                    merge_kind = "FRAME_CARRY_DECLINED";
+                crate::frame::Merge::SubjectCarry(q) => {
+                    // The M2.8H format/elaboration follow-ups ("e em JSON?", "explica melhor", "dá exemplo
+                    // aqui") still lean on the previous topic — but only its subject travels.
+                    if is_followup(&nq) {
+                        resolved = q;
+                        context_used = true;
+                        turns_used = 1;
+                        merge_kind = "SUBJECT_CARRY";
+                    } else {
+                        // Reported distinctly from STANDALONE. A mutation that removed the explicit-subject
+                        // priority was found to land here and be discarded by this gate — the behaviour stayed
+                        // correct, so the integration test passed and said nothing, while the RULE it claimed to
+                        // pin was gone. Two different decisions must not share one label.
+                        merge_kind = "SUBJECT_CARRY_DECLINED";
+                    }
                 }
-            }
-            crate::frame::Merge::ContextTargetMissing => {
-                // A reference with nothing to bind. Resolve the question as it stands: with no subject it
-                // reaches `insufficient` honestly, instead of borrowing a subject from stale tokens.
-                merge_kind = "CONTEXT_TARGET_MISSING";
+                crate::frame::Merge::FrameCarry(q) => {
+                    // The previous turn must have ESTABLISHED the question form, not merely contained one. A
+                    // prior that resolved nothing has no frame to lend, so an unanswered turn cannot manufacture
+                    // one for the subject that follows it.
+                    let prior_established = prev
+                        .map(|p| route(&normalize(p)).action != "insufficient")
+                        .unwrap_or(false);
+                    if prior_established {
+                        resolved = q;
+                        context_used = true;
+                        turns_used = 1;
+                        merge_kind = "FRAME_CARRY";
+                    } else {
+                        merge_kind = "FRAME_CARRY_DECLINED";
+                    }
+                }
+                crate::frame::Merge::ContextTargetMissing => {
+                    // A reference with nothing to bind. Resolve the question as it stands: with no subject it
+                    // reaches `insufficient` honestly, instead of borrowing a subject from stale tokens.
+                    merge_kind = "CONTEXT_TARGET_MISSING";
+                }
             }
         }
     }

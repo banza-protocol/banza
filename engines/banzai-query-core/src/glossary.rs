@@ -809,6 +809,71 @@ pub fn is_nameable_subject(candidate: &str) -> bool {
             .any(|p| crate::normalize(p.level) == n)
 }
 
+/// What a DEFINITIONAL surface opens with. One owner, read by both the head-noun derivation and the
+/// record lookup, so the two cannot disagree about which aliases ask what something IS.
+const DEFINITIONAL_PREFIXES: &[&str] = &[
+    "o que e",
+    "o que sao",
+    "what is",
+    "what are",
+    "definicao de",
+    "definition of",
+];
+
+/// The record that DEFINES this subject, if the corpus registers a definitional surface for it.
+///
+/// Used to resolve an elliptical follow-up by the record the corpus already owns instead of by a phrase
+/// assembled on the fly. Measured, and the reason this exists: rendering "{interrogative} {subject}" gave
+/// "que implementacao", which reached `implementation-steps` — the PROCEDURE — because `def-implementation`
+/// is registered only as full phrases and a bare noun collides with the how-to that shares it. That is the
+/// exact failure CRITICAL_SUBJECTS was built to fix, reintroduced by generating text nobody registered.
+pub fn definitional_record_of(subject: &str) -> Option<&'static str> {
+    let n = crate::normalize(subject);
+    CRITICAL_SUBJECTS
+        .iter()
+        .find(|(_, aliases)| {
+            aliases.iter().any(|a| {
+                DEFINITIONAL_PREFIXES.iter().any(|d| a.starts_with(d))
+                    && a.rsplit(' ').next() == Some(n.as_str())
+            })
+        })
+        .map(|(id, _)| *id)
+}
+
+/// The record that states how two concepts relate, if the corpus has one.
+///
+/// No new table: the relationship is already encoded in the id the corpus assigned it. A record named
+/// `def-operator-vs-implementation` IS the statement of how those two relate, so the pair is looked up by
+/// reconstructing that name from the two resolved records and asking whether it exists.
+///
+/// Order does not matter, because "are they the same?" is symmetric and the corpus should not have to
+/// carry two records to say so. Both orderings are tried against the ONE record.
+///
+/// A pair with no such record returns None, and the caller fails closed. That is the whole safeguard
+/// against answering every "are they the same?" with the one comparison this engine happens to know.
+pub fn relationship_record(a_entry: &str, b_entry: &str) -> Option<&'static str> {
+    let a = a_entry.strip_prefix("def-")?;
+    let b = b_entry.strip_prefix("def-")?;
+    if a == b {
+        return None;
+    }
+    let forward = format!("def-{a}-vs-{b}");
+    let reverse = format!("def-{b}-vs-{a}");
+    CRITICAL_SUBJECTS
+        .iter()
+        .map(|(id, _)| *id)
+        .find(|id| *id == forward || *id == reverse)
+}
+
+/// A registered way of ASKING for this record — used to resolve it through the normal path rather than
+/// short-circuiting the router with an id.
+pub fn canonical_alias_of(entry: &str) -> Option<&'static str> {
+    CRITICAL_SUBJECTS
+        .iter()
+        .find(|(id, _)| *id == entry)
+        .and_then(|(_, aliases)| aliases.first().copied())
+}
+
 /// A word is a subject when it is the CANONICAL NAME the corpus gave the concept.
 ///
 /// Not `id.contains(word)`. That is the permissive version and it hands out subjects by accident:
@@ -851,18 +916,10 @@ fn is_the_canonical_name_of_its_concept(n: &str) -> bool {
 /// comparison, and its last token is "coisa" — which names nothing, and is excluded structurally rather
 /// than by a stopword list that would have to guess.
 fn is_head_of_a_definitional_surface(n: &str) -> bool {
-    const DEFINITIONAL: &[&str] = &[
-        "o que e",
-        "o que sao",
-        "what is",
-        "what are",
-        "definicao de",
-        "definition of",
-    ];
     CRITICAL_SUBJECTS
         .iter()
         .flat_map(|(_, aliases)| aliases.iter())
-        .filter(|a| DEFINITIONAL.iter().any(|d| a.starts_with(d)))
+        .filter(|a| DEFINITIONAL_PREFIXES.iter().any(|d| a.starts_with(d)))
         .any(|a| a.rsplit(' ').next() == Some(n))
 }
 

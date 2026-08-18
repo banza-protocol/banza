@@ -324,6 +324,16 @@ fn definition_frame_carry(
     if subject.is_empty() {
         return None;
     }
+    // Ask for the record the corpus registers for this subject, by a phrase it registers for it. Composing
+    // "{interrogative} {subject}" instead produced "que implementacao", which resolved to the PROCEDURE
+    // that shares the noun — a generated phrase can name something nobody registered, and then the router
+    // is guessing. Where no definitional record exists the composed form still applies, because some
+    // subjects are reached by the glossary rather than by a definitional alias.
+    if let Some(record) = crate::glossary::definitional_record_of(&subject) {
+        if let Some(alias) = crate::glossary::canonical_alias_of(record) {
+            return Some(alias.to_string());
+        }
+    }
     Some(format!("{} {}", prior_frame.interrogative, subject))
 }
 
