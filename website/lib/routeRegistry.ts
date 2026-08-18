@@ -188,7 +188,14 @@ export const ROUTES: readonly RouteRecord[] = Object.freeze([
     policy: "DOCUMENT_LOCALE_SPECIAL",
   },
   { id: "WHITEPAPER_VERSIONS", pt: "/whitepaper/versions", kind: "STATIC_PAGE", policy: "BILINGUAL" },
-  { id: "WHY_BANZA", pt: "/porque-existe", kind: "STATIC_PAGE", policy: "BILINGUAL" },
+  {
+    id: "WHY_BANZA",
+    pt: "/porque-existe",
+    en: "/en/why-banza",
+    kind: "STATIC_PAGE",
+    policy: "BILINGUAL",
+    note: "English URL in English — never /en/porque-existe.",
+  },
 ]);
 
 /** Policies that OWE an English implementation. The final parity gate counts exactly these. */
