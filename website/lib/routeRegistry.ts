@@ -93,7 +93,14 @@ export const ROUTES: readonly RouteRecord[] = Object.freeze([
     kind: "DYNAMIC_PAGE",
     policy: "DYNAMIC_BILINGUAL",
   },
-  { id: "CERTIFICATION", pt: "/certificacao", kind: "STATIC_PAGE", policy: "BILINGUAL" },
+  {
+    id: "CERTIFICATION",
+    pt: "/certificacao",
+    en: "/en/certification",
+    kind: "STATIC_PAGE",
+    policy: "BILINGUAL",
+    note: "The canonical certification PAGE. Distinct from the /conformidade legacy alias, which redirects into the Reference chapter. Never /en/certificacao, never /en/conformidade.",
+  },
   {
     id: "CONFORMANCE_ALIAS",
     pt: "/conformidade",

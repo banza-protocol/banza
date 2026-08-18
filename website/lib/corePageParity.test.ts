@@ -145,6 +145,40 @@ const CORE_PAGES = [
       /BANZA operates the scheme/i,
     ],
   },
+  {
+    id: "CERTIFICATION",
+    pt: "/certificacao",
+    en: "/en/certification",
+    enSource: "../app/en/certification/page.tsx",
+    ptSource: "../app/(pt)/certificacao/page.tsx",
+    implemented: true,
+    enHeading: /An implementation is certified/i,
+    // Every claim here is narrow, and narrowness is what translation erodes. These are the page's own
+    // sentences, not imported protocol truths.
+    mustSay: [
+      /An implementation is certified, never an entity and never a brand/i,
+      /attribution and contact only, never the subject/i,
+      /never broader than the evidence/i,
+      /Outside them, it asserts nothing/i,
+      /does not constitute a financial licence, regulatory authorisation/i,
+      /None implies another/i,
+      /may be a prerequisite for an admission — but never produces it/i,
+      /no Layer 2 transition propagates to scheme admission/i,
+      /REVOKED is terminal/i,
+      /never decides, certifies or changes a state or reason code/i,
+    ],
+    // The broader readings the page exists to prevent. "X is BANZA-certified" without scope is the exact
+    // sentence that would undo it.
+    mustNotSay: [
+      /certification grants (operational )?admission/i,
+      /certification grants regulatory/i,
+      /BANZA certifies (operators|companies|entities|organisations|organizations)/i,
+      /certifies an entity/i,
+      /certifying authority (issues|grants)/i,
+      /BANZA (controls|operates) (operators|participants|the scheme)/i,
+      /BanzAI certifies/i,
+    ],
+  },
 ] as const;
 
 const IMPLEMENTED = CORE_PAGES.filter((p) => p.implemented);
