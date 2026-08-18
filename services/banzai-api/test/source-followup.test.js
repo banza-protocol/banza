@@ -22,6 +22,8 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { conversation } from "./_two-turn.mjs";
+import { harness } from "./_pipeline-harness.mjs";
+import { canaryProvider } from "./_production-canary.mjs";
 import { getEntry, ENTRIES } from "../src/knowledge.js";
 
 const SOURCES_PT = "Que fontes é que respondem a isto?";
@@ -340,4 +342,39 @@ test("provenance context alone does not cost an operator follow-up its target", 
   });
   assert.equal(withProvenance.turns[1].entry, bare.turns[1].entry, "same target with and without provenance");
   assert.equal(withProvenance.turns[1].mergeKind, bare.turns[1].mergeKind, "same merge owner");
+});
+
+// ── Evidence continuity across the conversation boundary ──────────────────────────────────────────
+
+test("evidence continuity survives the conversation boundary", async () => {
+  // Moved here from operator-governance-authority.test.js, which could only assert it with history alone.
+  // The full round trip is the point: turn 1's public source identities go out in the conversation context,
+  // come back on turn 2, are revalidated against the record, and are what turn 2 serves. Nothing is
+  // re-retrieved and no prose is parsed.
+  const { turns, calls } = await conversation(["quem controla os operadores ?", SOURCES_PT]);
+  const [first, second] = turns;
+  assert.ok(first.sources.length > 0, "turn 1 must establish evidence");
+  assert.equal(second.terminal, "source_evidence");
+  assert.notEqual(second.terminal, "insufficient_evidence", "a supported answer must not be contradicted");
+  assert.deepEqual([...second.sources].sort(), [...first.sources].sort(), "exact identity continuity");
+  assert.equal(second.previousSourcesAvailable, true);
+  assert.equal(second.previousSourcesReused, true);
+  assert.equal(calls(), 0);
+});
+
+test("history alone cannot prove prior evidence — the intentional negative", async () => {
+  // F1 as a contract, not a regression. The same two questions through the real pipeline, with the prior
+  // QUESTION carried but no structured context: the frame may still recognise the evidence request, and the
+  // engine must decline rather than imply a provenance it cannot verify.
+  const c = canaryProvider("x");
+  const h = harness({ provider: c.provider });
+  const q1 = "quem controla os operadores ?";
+  await h.pipeline.answer(q1, {});
+  const r = await h.pipeline.answer(SOURCES_PT, { contextQuestions: [q1] });
+  assert.equal(r.meta.context_merge, "SOURCE_FOLLOWUP", "the frame still recognises the request");
+  assert.notEqual(r.meta.terminal_kind, "source_evidence", "but nothing verified can be served");
+  assert.equal(r.meta.previous_sources_available, false);
+  assert.equal(r.meta.previous_sources_reused, false);
+  assert.equal(((r.result || {}).sources || []).length, 0, "no fabricated source list");
+  assert.equal(c.calls(), 0, "and no model is asked to supply one");
 });

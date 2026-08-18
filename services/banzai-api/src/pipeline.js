@@ -881,7 +881,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
      * makes the pair coherent. Nothing here reads a client-supplied title, path, class or role — the
      * registry owns those, so a browser cannot promote a file into a source card by naming it.
      */
-    const validatedPriorEvidence = () => {
+    const validateIncomingPriorEvidence = () => {
       const targetId = String(priorContext.previous_semantic_target || "").trim();
       const claimed = Array.isArray(priorContext.previous_source_ids) ? priorContext.previous_source_ids : [];
       if (!targetId || claimed.length === 0) return [];
@@ -890,7 +890,8 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
       const legitimate = new Set(publicSourcesOnly(target.sources).map((x) => String(x.id)));
       return claimed.map(String).filter((id) => legitimate.has(id));
     };
-    const priorEvidence = validatedPriorEvidence();
+    /** INCOMING: what the PREVIOUS turn established, revalidated. Never the current turn's routing. */
+    const incomingPriorEvidence = validateIncomingPriorEvidence();
     const ctxMeta = {
       conversation_context_used: structuredContextUsed || Boolean(decision.context_used),
       context_turns_used: Math.max(Number(decision.turns_used) || 0, structuredContextUsed ? 1 : 0),
@@ -904,9 +905,9 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
       // leads to anything citable. So it is answered by resolving the prior target and asking whether its
       // record actually carries eligible public sources. A conversation whose previous turn established
       // nothing has no evidence available, however much history it has.
-      previous_sources_available: priorEvidence.length > 0,
+      previous_sources_available: incomingPriorEvidence.length > 0,
       // Internal: consumed and removed at the exit point, where the answer's own sources are known.
-      __prior_evidence_ids: priorEvidence,
+      __incoming_prior_evidence: incomingPriorEvidence,
       // The strict claim, stamped downstream once the answer's evidence is known: true only when prior
       // source identities actually participate in THIS answer. Declared false here so every path that
       // forgets to establish it reports the weaker, honest value.
@@ -1323,8 +1324,18 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // itself, never from a fresh repo-wide search: "nearest document" must not get to decide what the
     // reader meant, and the sources shown must be the ones that actually established the claim.
     if (isSourceFollowup) {
+      // A CONSUMER of validated context, never the owner of its truth. This terminal used to assert
+      // `available: true` for itself, which made every test of that flag on this path vacuous — it hid a
+      // broken state-D test once and the availability half of the tamper matrix once.
+      //
+      // A verified source list REQUIRES the round-tripped evidence context. History alone carries the words
+      // of the conversation, not the relationship "these sources supported that answer", so it cannot prove
+      // provenance and must not be made to look as if it had.
       const targetEntry = decision.entry_id ? getEntry(decision.entry_id) : null;
-      const evidence = targetEntry ? publicSourcesOnly(targetEntry.sources) : [];
+      const validated = new Set(incomingPriorEvidence);
+      const evidence = targetEntry
+        ? publicSourcesOnly(targetEntry.sources).filter((x) => validated.has(String(x.id)))
+        : [];
       if (!targetEntry || evidence.length === 0) {
         // A record with no eligible public evidence has nothing to show, and saying so is the honest
         // answer. Inventing sources by retrieval would be worse than declining, and claiming reuse of an
@@ -1336,8 +1347,6 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
           terminal_kind: "insufficient_evidence",
           ...ctxMeta,
           ...routerTrace,
-          previous_sources_available: false,
-          previous_sources_reused: false,
         });
       }
       // Bilingual and deterministic, in the same shape the corpus uses, so the frontend renders it with no
@@ -1348,7 +1357,9 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         answer:
           "Estas são as fontes que sustentam a resposta anterior:\n\n---\n\n" +
           "These are the sources supporting the previous answer:",
-        sources: targetEntry.sources,
+        // The validated identities only. A tampered id never reaches a card because it never survived
+        // revalidation — the same set `previous_sources_available` is computed from.
+        sources: evidence,
       };
       return deterministic(record, {
         answer_mode: mode,
@@ -1358,10 +1369,6 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         trace_label: "Fontes da resposta anterior, confirmadas por Rust",
         ...ctxMeta,
         ...routerTrace,
-        // Both claims are now earned: the context did carry an eligible evidence set, and those exact
-        // identities are the ones this answer presents.
-        previous_sources_available: true,
-        previous_sources_reused: true,
       });
     }
 
@@ -2070,11 +2077,11 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     }
     // Strict, and measured against what was actually served rather than asserted upstream.
     const priorIds = new Set(
-      Array.isArray(meta.__prior_evidence_ids) ? meta.__prior_evidence_ids.map(String) : [],
+      Array.isArray(meta.__incoming_prior_evidence) ? meta.__incoming_prior_evidence.map(String) : [],
     );
     if (priorIds.size === 0) meta.previous_sources_reused = false;
     else meta.previous_sources_reused = served.some((id) => priorIds.has(id));
-    delete meta.__prior_evidence_ids;
+    delete meta.__incoming_prior_evidence;
     return out;
   }
 
