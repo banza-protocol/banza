@@ -100,7 +100,24 @@ function useReadingProgress() {
   return progress;
 }
 
-export function ReferenceNav({ outline, variant, chapterSlug }: Props) {
+/**
+ * Locale-supplied strings and paths.
+ *
+ * This component used to build `/referencia/<slug>` itself and label the list "CAPÍTULOS". Rendered inside
+ * an English page that produced a Portuguese sidebar linking into the Portuguese Reference — a locale leak
+ * in shared structure, which is the hardest kind to notice because the page around it is correct.
+ *
+ * The structure is genuinely shared; only the words and the addresses differ, so those are passed in. A
+ * base STRING rather than an href function: this is a Client Component, and a function prop cannot cross
+ * that boundary — the production build rejects it. The defaults keep every Portuguese call site unchanged.
+ */
+export function ReferenceNav({
+  outline,
+  variant,
+  chapterSlug,
+  chapterBase = "/referencia",
+  chaptersLabel = "CAPÍTULOS",
+}: Props & { chapterBase?: string; chaptersLabel?: string }) {
   const [q, setQ] = useState("");
   const query = q.trim().toLowerCase();
   const detailsRef = useRef<HTMLDetailsElement>(null);
@@ -254,7 +271,7 @@ export function ReferenceNav({ outline, variant, chapterSlug }: Props) {
           </ul>
         </>
       )}
-      <div className="mb-2 font-mono text-[10px] tracking-eyebrow text-ink-5">CAPÍTULOS</div>
+      <div className="mb-2 font-mono text-[10px] tracking-eyebrow text-ink-5">{chaptersLabel}</div>
       <ul className="m-0 flex list-none flex-col gap-0.5 p-0">
         {outline
           .filter((c) => (query ? c.shortTitle.toLowerCase().includes(query) : true))
@@ -263,7 +280,7 @@ export function ReferenceNav({ outline, variant, chapterSlug }: Props) {
             return (
               <li key={c.slug}>
                 <a
-                  href={`/referencia/${c.slug}`}
+                  href={`${chapterBase}/${c.slug}`}
                   aria-current={isCurrent ? "page" : undefined}
                   onClick={closeMobile}
                   className={`flex items-baseline gap-1.5 rounded-protocol border-l-2 py-1.5 pl-2.5 pr-2 text-[13px] leading-snug no-underline transition-colors ${
