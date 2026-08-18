@@ -723,7 +723,28 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // Tier-0 gate below, so "agora transfere 100 kz para essa execução" is refused; naming a referent never
     // unlocks a prohibited action.
     const priorContext = conversationContext && typeof conversationContext === "object" ? conversationContext : {};
-    const references = resolveReferences(correctedQuestion, priorContext) || {};
+    // ── DOMAIN SEPARATION ─────────────────────────────────────────────────────────────────────────
+    //
+    // The forwarded context serves two mechanisms that are deliberately NOT unified:
+    //
+    //   A  REFERENCE RESOLUTION (Increment 6)  execution / artifact / operator / implementation referents
+    //   B  PRIOR-EVIDENCE CONTINUITY           previous_semantic_target + previous_source_ids
+    //
+    // Increment 6 activates on `has_prior_context`, derived from the context object it is handed. Adding the
+    // B fields made it activate on conversations it owns nothing in — and when it activates, `route()` below
+    // is called with an EMPTY history, so the frame merge cannot run at all. Measured:
+    // "Quem governa os operadores?" → "E quem os autoriza?" fell from MERGED_FRAME to STANDALONE, and an
+    // operator follow-up lost its entry entirely. Evidence metadata silently changed routing.
+    //
+    // So B is withheld from A. Not a resolver change and not a reconciliation of the two systems: the
+    // resolver decides exactly as before, on exactly the fields it owns. The property is that provenance
+    // context alone can never alter reference resolution.
+    const PRIOR_EVIDENCE_FIELDS = ["previous_semantic_target", "previous_source_ids"];
+    const referenceContext = {};
+    for (const [k, v] of Object.entries(priorContext)) {
+      if (!PRIOR_EVIDENCE_FIELDS.includes(k)) referenceContext[k] = v;
+    }
+    const references = resolveReferences(correctedQuestion, referenceContext) || {};
     const decisionRaw = route(question, contextQuestions || []);
     // Defense in depth: the RAW question's own refusal signal (safety refusal / financial-or-action boundary /
     // any refuse-* entry) DISABLES context enrichment — a prohibited action must never be rewritten into a

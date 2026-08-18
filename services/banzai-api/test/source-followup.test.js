@@ -290,3 +290,54 @@ test("the evidence shown is the record's own, read from the registry", async () 
   const registered = (entry.sources || []).map((s) => s.id);
   for (const id of turns[1].sources) assert.ok(registered.includes(id), `${id} is not this record's evidence`);
 });
+
+// ── Provenance context is INERT to reference resolution ───────────────────────────────────────────
+//
+// Two reference mechanisms coexist and are deliberately not unified: the frame merge (which owns
+// SOURCE_FOLLOWUP) and the Increment-6 resolver (which owns execution/artifact/operator referents). They are
+// coupled by one line — when Increment-6 resolves, `route()` is called with an EMPTY history, so the frame
+// merge cannot run.
+//
+// That coupling turned prior-evidence metadata into a routing input. Increment-6 activates on
+// `has_prior_context`, derived from whatever context object it is handed, so simply CARRYING
+// `previous_semantic_target` + `previous_source_ids` made it activate on conversations it owns nothing in.
+// Measured: MERGED_FRAME became STANDALONE, and an operator follow-up lost its entry.
+//
+// These tests pin the separation. They do not reconcile the two systems and must not be rewritten to.
+
+/** A syntactically valid provenance context that names nothing Increment-6 owns. */
+const PROVENANCE_ONLY = {
+  previous_semantic_target: "def-certification-actor",
+  previous_source_ids: ["ADR-002", "ADR-005"],
+};
+
+test("provenance context alone does not change a frame merge", async () => {
+  const bare = await conversation(["Quem governa os operadores?", "E quem os autoriza?"]);
+  const withProvenance = await conversation(["Quem governa os operadores?", "E quem os autoriza?"], {
+    seedContext: PROVENANCE_ONLY,
+  });
+  // The property is A == B, not a particular label. Asserting MERGED_FRAME here was an assumption and it
+  // was wrong: the production client also forwards `last_subject`/`last_intent`, which Increment-6
+  // legitimately owns, so the resolver activates on this sequence with or without provenance. That is
+  // pre-existing coupling between the two mechanisms and is NOT what this test governs — recorded rather
+  // than papered over, because it means the frame-only fixtures and the production client already disagree
+  // about who decides some multi-turn sequences.
+  assert.equal(
+    withProvenance.turns[1].mergeKind,
+    bare.turns[1].mergeKind,
+    "carrying evidence metadata must not change which mechanism decided the turn",
+  );
+  assert.equal(withProvenance.turns[1].entry, bare.turns[1].entry, "nor the target");
+  assert.equal(withProvenance.turns[1].terminal, bare.turns[1].terminal, "nor the terminal");
+});
+
+test("provenance context alone does not cost an operator follow-up its target", async () => {
+  // The second measured symptom, pinned separately: this follow-up lost its entry when provenance fields
+  // reached the resolver.
+  const bare = await conversation(["quem controla os operadores ?", "e a Root?"]);
+  const withProvenance = await conversation(["quem controla os operadores ?", "e a Root?"], {
+    seedContext: PROVENANCE_ONLY,
+  });
+  assert.equal(withProvenance.turns[1].entry, bare.turns[1].entry, "same target with and without provenance");
+  assert.equal(withProvenance.turns[1].mergeKind, bare.turns[1].mergeKind, "same merge owner");
+});

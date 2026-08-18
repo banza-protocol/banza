@@ -27,12 +27,17 @@ import { canaryProvider } from "./_production-canary.mjs";
  *
  * Returns `{ turns: [...], calls() }` where each turn carries the fields a diagnosis actually needs.
  */
-export async function conversation(questions, { provider = null, prose = "As fontes são estas." } = {}) {
+export async function conversation(
+  questions,
+  { provider = null, prose = "As fontes são estas.", seedContext = null } = {},
+) {
   const c = provider ? { provider, calls: () => 0, requests: [] } : canaryProvider(prose);
   const h = harness({ provider: c.provider });
 
   const turns = [];
-  let priorContext = undefined;
+  // `seedContext` starts the conversation with a context the client would already be carrying. Used to prove
+  // that provenance-only fields are inert to reference resolution.
+  let priorContext = seedContext || undefined;
   const priorQuestions = [];
 
   for (const q of questions) {
