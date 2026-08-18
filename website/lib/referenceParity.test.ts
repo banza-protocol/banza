@@ -99,3 +99,125 @@ describe("chapter identity and public slugs", () => {
     expect(chapterCounterpart("does-not-exist", "en")).toBeUndefined();
   });
 });
+
+// ── The Reference is descriptive, and the website must say so ─────────────────────────────────────
+//
+// The Portuguese index called itself "a referência normativa oficial" — in its metadata and in its body.
+// That inverts the institutional hierarchy: normative authority is the Normative Manifest and the artifacts
+// it indexes, and the Reference describes them. A public surface that claims otherwise is not a wording
+// slip, it is a false statement about who decides what BANZA requires.
+//
+// Asserted against the page-owned strings rather than by scanning arbitrary Markdown: the Reference
+// documents themselves legitimately discuss normative artifacts, so a keyword sweep would fire on correct
+// prose and teach everyone to ignore it.
+
+import { readFileSync } from "node:fs";
+
+const pageSource = (p: string) => readFileSync(new URL(p, import.meta.url), "utf8");
+
+/**
+ * Page source with comments removed.
+ *
+ * The forbidden-path assertions below scan for `/referencia` inside English route files — and the first
+ * version of them failed on the files' own explanatory comments, which name the rejected architecture in
+ * order to explain why it is rejected. That is a false positive with a bad incentive: it would push a future
+ * author to delete the explanation rather than keep the property. The property is about what the code
+ * links to, so the comments are stripped before scanning.
+ */
+const pageCode = (p: string) =>
+  pageSource(p)
+    .replace(/\/\*[\s\S]*?\*\//g, "")
+    .replace(/^\s*\/\/.*$/gm, "");
+
+describe("Reference authority boundary", () => {
+  const PT_INDEX = "../app/(pt)/referencia/page.tsx";
+  const EN_INDEX = "../app/en/reference/page.tsx";
+
+  it("the PT index presents the Reference as descriptive, never normative", () => {
+    const src = pageSource(PT_INDEX);
+    expect(src).toContain("referência descritiva oficial");
+    // The exact historical defect, pinned so it cannot return.
+    expect(src).not.toContain("referência normativa oficial");
+  });
+
+  it("the EN index presents the Reference as descriptive, never normative", () => {
+    const src = pageSource(EN_INDEX);
+    expect(src).toContain("official descriptive Reference");
+    expect(src.toLowerCase()).not.toContain("official normative reference");
+    expect(src.toLowerCase()).not.toContain("normative reference for");
+  });
+
+  it("both editions say the canonical sources define the requirements", () => {
+    // The positive half: it is not enough to avoid the wrong word, the hierarchy must be stated.
+    expect(pageSource(PT_INDEX)).toContain("definem os requisitos aplicáveis");
+    expect(pageSource(EN_INDEX)).toContain("define the applicable");
+  });
+});
+
+// ── Route-level parity, distinct from the data-level suite above ──────────────────────────────────
+
+describe("Reference route parity", () => {
+  const EN_CHAPTER_ROUTE = "../app/en/reference/[chapter]/page.tsx";
+  const PT_CHAPTER_ROUTE = "../app/(pt)/referencia/[capitulo]/page.tsx";
+
+  it("every semantic chapter resolves from both locale slugs", () => {
+    for (const { num, pt, en } of chapterSlugMap()) {
+      expect(getReferenceChapter(pt, "pt")?.num, `PT ${pt}`).toBe(num);
+      expect(getReferenceChapter(en, "en")?.num, `EN ${en}`).toBe(num);
+    }
+  });
+
+  it("the previous/next graph is a 15-node chain in both editions", () => {
+    for (const locale of ["pt", "en"] as const) {
+      const chapters = getReferenceChapters(locale);
+      expect(chapters.length).toBe(15);
+      chapters.forEach((c, i) => {
+        const prev = i > 0 ? chapters[i - 1] : null;
+        const next = i + 1 < chapters.length ? chapters[i + 1] : null;
+        if (i === 0) expect(prev).toBeNull();
+        if (i === chapters.length - 1) expect(next).toBeNull();
+        if (prev) expect(prev.num).toBe(c.num - 1);
+        if (next) expect(next.num).toBe(c.num + 1);
+      });
+    }
+  });
+
+  it("the EN chapter route never links into the PT Reference", () => {
+    // A cross-locale next/previous is the failure this pins: the reader is reading English and one click
+    // lands them in Portuguese.
+    const src = pageCode(EN_CHAPTER_ROUTE);
+    expect(src).not.toMatch(/href=\{?["'`]\/referencia/);
+    expect(src).not.toContain("/referencia/");
+    // And its navigation labels are English.
+    for (const pt of ["Anterior", "Seguinte", "Capítulo anterior", "Voltar ao índice"]) {
+      expect(src, `PT label ${pt} in EN route`).not.toContain(pt);
+    }
+  });
+
+  it("the PT chapter route never links into the EN Reference", () => {
+    expect(pageCode(PT_CHAPTER_ROUTE)).not.toContain("/en/reference");
+  });
+
+  it("the EN routes declare their own canonical and reciprocal alternates", () => {
+    for (const [p, canonical] of [
+      ["../app/en/reference/page.tsx", "/en/reference"],
+      ["../app/en/reference/full/page.tsx", "/en/reference/full"],
+    ] as const) {
+      const src = pageSource(p);
+      expect(src).toContain(`canonical: "${canonical}"`);
+      expect(src).toContain('"pt-PT"');
+    }
+    // The chapter route derives both from the semantic id rather than hard-coding them.
+    expect(pageSource(EN_CHAPTER_ROUTE)).toContain("chapterCounterpart(slug, \"en\")");
+  });
+
+  it("no EN route file contains the rejected /en/referencia architecture", () => {
+    for (const p of [
+      "../app/en/reference/page.tsx",
+      "../app/en/reference/full/page.tsx",
+      EN_CHAPTER_ROUTE,
+    ]) {
+      expect(pageCode(p), p).not.toContain("/en/referencia");
+    }
+  });
+});
