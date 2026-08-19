@@ -138,6 +138,27 @@ export function answerBadgeVerdict(kind: string | undefined, terminalKind: strin
   return "insufficientEvidence";
 }
 
+/**
+ * The badge itself. Block E2/Q5 — a mutation that made the ENGLISH render site reach a different verdict
+ * survived a property that only checked `answerBadgeVerdict`, because the divergence lived at the call
+ * site rather than in the function. There is now no call site to diverge: the verdict is computed once,
+ * inside this component, and the words, the styling and the data witness all read that one value. The
+ * component takes the answer's state and NOT a locale — it reads its edition from the boundary itself.
+ */
+export function AnswerBadge({ kind, terminalKind }: { kind?: string; terminalKind?: string }) {
+  const locale = useBanzaiLocale();
+  const verdict = answerBadgeVerdict(kind, terminalKind);
+  return (
+    <span
+      data-answer-badge={verdict}
+      className={`inline-flex items-center gap-1.5 rounded-full px-[10px] py-[3px] font-mono text-[10px] tracking-[0.06em] ${ANSWER_BADGE_STYLE[verdict]}`}
+    >
+      <span className="h-[5px] w-[5px] rounded-full bg-current" />
+      {agentCopy(`answerBadge.${verdict}` as AgentCopyId, locale)}
+    </span>
+  );
+}
+
 const ANSWER_BADGE_STYLE: Record<AnswerBadgeVerdict, string> = {
   operationalMeasurement: "border border-black/15 bg-paper-2 text-ink-3",
   insufficientMeasurements: "border border-pend/35 bg-pend/[0.08] text-pend",
@@ -1056,17 +1077,7 @@ export function BanzaiAgent({
                             {/* ADR-036 — an operational answer keys the badge on terminalKind FIRST so a
                                 measurement reads t("answerBadge.operationalMeasurement") and a no-data outcome reads "SEM
                                 MEDIÇÕES SUFICIENTES" — never the generic t("answerBadge.insufficientEvidence"). */}
-                            {/* One decision, three consumers: the words, the styling and the data witness all
-                                read the SAME verdict, so no edition can reach a different one. */}
-                            <span
-                              data-answer-badge={answerBadgeVerdict(m.kind, m.terminalKind)}
-                              className={`inline-flex items-center gap-1.5 rounded-full px-[10px] py-[3px] font-mono text-[10px] tracking-[0.06em] ${
-                                ANSWER_BADGE_STYLE[answerBadgeVerdict(m.kind, m.terminalKind)]
-                              }`}
-                            >
-                              <span className="h-[5px] w-[5px] rounded-full bg-current" />
-                              {agentCopy(`answerBadge.${answerBadgeVerdict(m.kind, m.terminalKind)}` as AgentCopyId, locale)}
-                            </span>
+                            <AnswerBadge kind={m.kind} terminalKind={m.terminalKind} />
                           </div>
                         )}
                         <div className={`rounded-[12px] px-[18px] py-[14px] ${ai ? CARD : "border border-pend/25 bg-tint-gold"}`}>

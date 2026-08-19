@@ -280,7 +280,7 @@ describe("Q5 — the progress block frames engine data in the reader's language"
 // expression that produced the Portuguese words — and the badge decided itself a second time for its
 // styling. Comparing the two editions' wording could never have caught a disagreement between them.
 
-import { RfcPanel, answerBadgeVerdict } from "./BanzaiAgent";
+import { AnswerBadge, RfcPanel, answerBadgeVerdict } from "./BanzaiAgent";
 import { agentCopyIds } from "./agentPresentation";
 
 describe("Q5 — the agent shell decides its verdicts once", () => {
@@ -305,6 +305,41 @@ describe("Q5 — the agent shell decides its verdicts once", () => {
       expect(agentCopy(id, "en")).not.toBe(agentCopy(id, "pt"));
       expect(agentCopy(id, "en").trim().length).toBeGreaterThan(0);
     }
+  });
+
+  it("renders the same badge verdict in both editions, for every answer state", () => {
+    // The mapping property above is not enough: a mutation that made the ENGLISH RENDER SITE reach a
+    // different verdict left `answerBadgeVerdict` untouched and survived. This reads the witness out of
+    // the actual rendered badge, in both editions, so a divergence anywhere between the state and the
+    // DOM fails here.
+    const badge = (l: Locale, kind?: string, terminalKind?: string) =>
+      renderToStaticMarkup(
+        <BanzaiLocaleBoundary locale={l}>
+          <AnswerBadge kind={kind} terminalKind={terminalKind} />
+        </BanzaiLocaleBoundary>,
+      );
+    const witness = (html: string) => html.match(/data-answer-badge="([^"]*)"/)?.[1];
+    const states: Array<[string | undefined, string | undefined]> = [
+      ["answer", "operational_duration"],
+      ["answer", "insufficient_measurements"],
+      ["refusal", undefined],
+      ["unavailable", undefined],
+      ["uncertain", undefined],
+    ];
+    const seen = new Set<string>();
+    for (const [kind, terminalKind] of states) {
+      const en = badge("en", kind, terminalKind);
+      const pt = badge("pt", kind, terminalKind);
+      const v = witness(en);
+      expect(v, `${kind}/${terminalKind}: no verdict rendered`).toBeTruthy();
+      expect(v, `${kind}/${terminalKind}: the English badge reached a different verdict`).toBe(witness(pt));
+      // …and the two editions really do say it differently.
+      expect(text(en)).not.toBe(text(pt));
+      seen.add(v!);
+    }
+    // Five states, five distinct verdicts: collapsing two of them would satisfy the equality above while
+    // telling every reader the same thing about different answers.
+    expect(seen.size).toBe(5);
   });
 
   it("never lets a degraded or unreported engine read as a confirmed local run", () => {
