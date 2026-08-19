@@ -335,7 +335,10 @@ function sloSurface() {
   return { code: 200, body: slo.snapshot() };
 }
 
-// POST /ask  { "question": "...", "mode": "fast"|"deep" (optional) }
+// POST /ask  { "question": "...", "mode": "fast"|"deep" (optional), "locale": "pt-PT"|"en" (optional) }
+// `locale` is the caller's reader language. It is OPTIONAL so every existing client stays valid: a
+// request without it falls back to deterministic inference and then to the documented default. A site
+// that knows its own edition should always send it — "L0?" has no language, but the page does.
 // `signal` (M2.14E) aborts a QUEUED inference when the client disconnects before we answer.
 const INTENT_TRACE_DIAGNOSTIC = String(process.env.BANZAI_INTENT_TRACE_MODE || "normal").toLowerCase() === "diagnostic";
 
@@ -358,6 +361,9 @@ async function ask(req, signal, onProgress) {
   let documentId = "";
   let mode;
   let contextQuestions = [];
+  // Optional and validated against the closed locale set; anything else is treated as absent so a
+  // malformed value degrades to inference rather than answering in a language nobody asked for.
+  let requestLocale;
   let conversationContext = {};
   let journey = null;
   let uploadedArtifacts = [];
@@ -366,6 +372,7 @@ async function ask(req, signal, onProgress) {
     const parsed = raw ? JSON.parse(raw) : {};
     question = parsed.question || "";
     mode = parsed.mode;
+    requestLocale = ["pt-PT", "en"].includes(parsed.locale) ? parsed.locale : undefined;
     // M2.9C: a SAFE summary of uploaded artifacts — step + file name + size ONLY (never the raw file
     // body, which the frontend never sends). Sanitized here: known step, safe basename, numeric size.
     // The presence of artifacts frames guidance; it never bypasses safety and is never trusted as data.
@@ -427,6 +434,7 @@ async function ask(req, signal, onProgress) {
     const { result, meta } = await toolRuntime.withRequest(obsRecord, () =>
       pipeline.answer(question, {
         mode,
+        locale: requestLocale,
         contextQuestions,
         // Increment 6 — the SAFE, technical-only prior context the client carried forward (client-carried; no
         // server-side PII store). Rust `resolve_references` resolves the anaphora deterministically.

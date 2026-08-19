@@ -25,7 +25,7 @@
 // hit/miss, synthesis trace, fallback reason — never keys, secrets or full payloads.
 
 import { GUARDRAILS } from "./provider.js";
-import { normalize, retrieve, CORPUS_HASH, REPO_INDEX_HASH, SAFETY_POLICY_VERSION, contractVersions, validateResponse, route, routeWithJourney, getEntry, resolveDocument, resolveConcept, resolveScope, resolveOperationalMetric, resolveQuery, resolveReferences, contextualFallback, answerClass, buildTerminal, queuePriority, queueShouldDedup, recoverQuery, coveredEntities, isVerbatimEntry, attributeAnswer, taskedAnswer, documentLookup, contextUsedFor, buildOperationalPackage, verifyClaims } from "./knowledge.js";
+import { normalize, retrieve, CORPUS_HASH, REPO_INDEX_HASH, SAFETY_POLICY_VERSION, contractVersions, validateResponse, route, routeWithJourney, getEntry, resolveDocument, resolveConcept, resolveScope, resolveOperationalMetric, resolveQuery, resolveReferences, contextualFallback, answerClass, buildTerminal, queuePriority, queueShouldDedup, recoverQuery, coveredEntities, isVerbatimEntry, attributeAnswer, taskedAnswer, documentLookup, contextUsedFor, buildOperationalPackage, verifyClaims, answerFor, LOCALES, DEFAULT_LOCALE } from "./knowledge.js";
 import { honestLiveFailureAnswer } from "./liveArtifact.js";
 import { isPublicSource } from "./answerContract.js";
 
@@ -383,11 +383,45 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
 
 
 
-  function deterministic(hit, meta) {
+  /**
+   * Which language to answer in — decided by the CALLER, not by the question's spelling.
+   *
+   * Explicit locale always wins. "L0?" carries no language at all, and a site that knows its own edition
+   * must not have that overridden by a lexical guess; inference exists only for legacy callers that send
+   * no locale, and it is allowed to answer "undetermined" rather than pretend.
+   */
+  function resolveLocale(requested, question) {
+    if (LOCALES.includes(requested)) return { locale: requested, source: "explicit" };
+    // NO INFERENCE for legacy callers, and this is a measured decision rather than a simplification.
+    //
+    // The corpus is Portuguese: 163 of 178 deterministic entries have only a pt-PT realization. Guessing
+    // "en" from an English-worded question and then failing closed would take every such question from
+    // "answered in Portuguese" to "not available in English" for clients that have no way to ask for
+    // Portuguese yet — a regression for callers that did nothing wrong. Lexical inference also cannot
+    // read "L0?" or "BCJ/1?" at all, which is the case the explicit signal exists for.
+    //
+    // So: the caller states its locale, or it gets the canonical one. The website sends it explicitly,
+    // which is where English correctness is actually enforced.
+    return { locale: DEFAULT_LOCALE, source: "legacy-default" };
+  }
+
+  function deterministic(hit, meta, locale) {
+    // Locale chooses the realization; it never changes which entry was selected or which sources
+    // establish it. A missing realization fails closed in the REQUESTED locale (knowledge.answerFor).
+    // Two kinds of thing reach this function. A KNOWLEDGE ENTRY carries `realizations` and the locale
+    // selects one. A PRE-COMPOSED terminal (source-evidence follow-ups, operational failures) is built by
+    // the pipeline itself in the already-resolved locale and carries a plain `answer`; asking answerFor
+    // for a realization it never had would report "unavailable" for text that is right there and correct.
+    // This is not a locale fallback: the composer produced that string for THIS locale.
+    const realization = hit && hit.realizations
+      ? answerFor(hit, locale)
+      : { text: (hit && hit.answer) || "", available: true, locale };
     return {
       result: {
         grounded: true,
-        answer: hit.answer,
+        answer: realization.text,
+        answer_locale: realization.locale,
+        answer_locale_available: realization.available,
         // Public eligibility is decided HERE, at the evidence layer, not later at the contract boundary.
         // Measured: "implementar o protocolo" reaches implementation-steps and served CLAUDE.md — an
         // internal repository guide — in result.sources. `normalizeBanzaiAnswer` would have dropped it
@@ -669,7 +703,10 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     return stated(a, meta);
   }
 
-  async function answer(question, { mode: requestedMode, contextQuestions, conversationContext, journeyStep, documentId, journeyNextActionSentence, signal, requestId, onProgress } = {}) {
+  async function answer(question, { mode: requestedMode, contextQuestions, conversationContext, journeyStep, documentId, journeyNextActionSentence, signal, requestId, onProgress, locale: requestedLocale } = {}) {
+    // The reader's language is decided ONCE, here, and never inferred from the answer's content.
+    const localeDecision = resolveLocale(requestedLocale, question);
+    const locale = localeDecision.locale;
     const mode = requestedMode === "deep" || requestedMode === "fast" ? requestedMode : defaultMode;
     // SPR-2 — the Channel-A progress emitter. When the caller (the SSE endpoint) supplies onProgress, the
     // pipeline emits typed, PUBLIC-SAFE progress events at the REAL stage boundaries; when it is absent (the
@@ -1369,7 +1406,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         trace_label: "Fontes da resposta anterior, confirmadas por Rust",
         ...ctxMeta,
         ...routerTrace,
-      });
+      }, locale);
     }
 
     // Tier 1 — a deterministic critical-boundary / canonical-definition entry (source-bound, model-free).
@@ -1406,7 +1443,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         const isBoundary = !isDefinition && (intent === "critical_boundary" || intent === "action_boundary");
         const kind = isBoundary ? "safety_refusal" : "canonical_definition";
         const trace_label = isBoundary ? "Limite de segurança aplicado por Rust" : "Definição canónica confirmada por Rust";
-        return deterministic(entry, { answer_mode: mode, fallback_reason: null, intent, terminal_kind: kind, trace_label, ...ctxMeta, ...routerTrace });
+        return deterministic(entry, { answer_mode: mode, fallback_reason: null, intent, terminal_kind: kind, trace_label, ...ctxMeta, ...routerTrace }, locale);
       }
       // Safety net: routing selected an unknown entry id → a contextual decline rather than a wrong answer.
       return contextualInsufficient(rq, "", { answer_mode: mode, fallback_reason: "insufficient_sources", intent, terminal_kind: "insufficient_evidence", ...ctxMeta, ...routerTrace });
@@ -1756,7 +1793,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // falsely reads routing_result=null / synthesis_called=false. Pre-synthesis emergencies pass nothing.
     const emergency = (reason, extra = {}) => {
       if (emergencyHit) {
-        return deterministic(emergencyHit, { answer_mode: mode, fallback_reason: reason, degraded: true, intent, terminal_kind: "operational_failure", ...ctxMeta, ...docMeta, ...extra });
+        return deterministic(emergencyHit, { answer_mode: mode, fallback_reason: reason, degraded: true, intent, terminal_kind: "operational_failure", ...ctxMeta, ...docMeta, ...extra }, locale);
       }
       return contextualInsufficient(rq, "tool_unavailable", { answer_mode: mode, fallback_reason: reason, intent, terminal_kind: "insufficient_evidence", ...ctxMeta, ...docMeta, ...extra });
     };
