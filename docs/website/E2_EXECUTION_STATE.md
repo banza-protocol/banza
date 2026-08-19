@@ -63,7 +63,7 @@ and stays out of the localization catalogue.
 | Q3 | `traceVerifier.ts` + locale into `BanzaiRouteBinder → BanzaiWorkspaceProvider`, controlled EN harness, E2-C1 | **MUTATION_PROVEN** | `5623052` | `BanzaiLocaleBoundary` + `useBanzaiLocale` (no default, throws) · 7 trace copy ids · `SURFACE_LOCALE` retired · `localePropagation.test.tsx` (8 assertions) |
 | Q4 | DECISIONS + DECISION — one semantic decision model, PT+EN, E2-F | **MUTATION_PROVEN** | `c155ae4` | 28 copy ids · `DecisionsExplorer` bilingual · cards expose id/type/status/slug as data · `decisionsLocale.test.tsx` (9 assertions) |
 | Q5 | remaining React reader owners, by descending weight | **COMPLETE — every owner migrated or classified** | see the owner table | 11 owners · 12 mutations executed, 12 killed · 3 required a missing owner to be built first |
-| Q6 | five public EN routes + dynamic identity, E2-D, E2-E | NOT_STARTED | — | only after Q5 |
+| Q6 | five public EN routes + dynamic identity, E2-D, E2-E | **COMPLETE — mutation-proven** | `7e32384`, `8cef643` | registry **17/5/1 → 22/0/1** |
 | Q7 | EN backlink closure + full mutation campaign A–G | NOT_STARTED | — | |
 | Q8 | final closure: registry 22/0/1, rendered matrix, all regressions, assurance | NOT_STARTED | — | only Q8 may declare Block E complete |
 
@@ -104,8 +104,9 @@ the next owner, follow what it CALLS, not only what it renders.
 | E2-B | remove one EN realization in use | **KILLED** — emptied the English `entity.keys_and_trust`; 10 RED. Fails CLOSED: a missing realization breaks both editions rather than quietly degrading one |
 | E2-C1 | React locale propagation broken at a nested boundary | **KILLED** — `GuiaPanel` forced to `getAgentPresentation("pt")` while the boundary above it stayed `en` (hook still called, tree still valid, state unchanged); RED on "the nested guide panel is not in English"; exact restore (`0d4d7e1`), green |
 | E2-C2 | non-React owner ignores explicit locale | **KILLED** — forced `getAgentPresentation` to `"pt"`; RED on "returns the requested locale, never the other one"; exact restore, green |
-| E2-D | operator locale switch changes `operatorId` | NOT_STARTED |
-| E2-E | implementation locale switch changes `implementationId` | NOT_STARTED |
+| E2-D | operator locale switch changes `operatorId` | **KILLED** — the EN side resolved to `operator-a` while PT stayed `operator-zero`; RED on the identity assertion in both directions and on the language control's own switch; exact restore (`6a3e53f`), green |
+| E2-E | implementation locale switch changes `implementationId` | **KILLED** — operator preserved, EN implementation changed to `oz-impl-2`; RED for the implementation alone, which is the point: a mutation that also moved the operator would not have proven the second parameter is owned |
+| E2-DECISION-ROUTE | EN decision route resolves to a different valid record | **KILLED** — PT `adr-001` paired with EN `adr-002`; RED on the per-record walk. Distinct from E2-F, which changed the payload INSIDE one route; this changes which route the reader lands on |
 | E2-F | EN decision carries a different semantic payload | **KILLED** — the English edition promoted `rascunho` to `activo`; exactly ONE assertion went red ("the English library claims something different about the records") while every string on the page stayed correct English; exact restore (`05340fc`), green |
 | E2-Q2b | a branch condition is dropped so the editions diverge in WHAT they offer | **KILLED** — removed the profile narrowing in `entitySuggestions`; 4 RED incl. the PT fixture and "branch conditions are the same in both editions" |
 | E2-G | EN reader link points back at the PT route | NOT_STARTED |
@@ -318,6 +319,45 @@ identifiers, and every literal inside the demo trace payloads.
 
 `FORBIDDEN_PHRASES` classified **machine-only** — guard input, not reader copy, stays out of the
 catalogue.
+
+## Q6 — the five English routes
+
+| route | PT | EN | evidence |
+|---|---|---|---|
+| BANZAI | `/banzai` | `/en/banzai` | same workspace provider, `locale="en"` |
+| BANZAI_OPERATOR | `/banzai/operador/[operatorId]` | `/en/banzai/operator/[operatorId]` | same binder; `operatorId` unchanged |
+| BANZAI_OPERATOR_IMPLEMENTATION | `/banzai/operador/[operatorId]/[implementationId]` | `/en/banzai/operator/[operatorId]/[implementationId]` | both ids unchanged |
+| DECISIONS | `/decisoes` | `/en/decisions` | same `DecisionsIndexView` |
+| DECISION | `/decisoes/[slug]` | `/en/decisions/[slug]` | same `DecisionDetailView`; slug is the record |
+
+The routes are thin — they declare their edition and render the Q1–Q5 components. There is no English
+application tree, because a second tree is the thing that drifts.
+
+**What made dynamic pairing possible.** A counterpart used to be an exact pathname match, so
+`/banzai/operador/operator-zero` had none. `matchRoute` now resolves patterns, extracts parameters BY NAME
+and places them into the counterpart's own pattern — but only when the route is `DYNAMIC_BILINGUAL` AND
+both patterns declare the same parameter names. The reference chapter declares `[capitulo]` against
+`[chapter]` because its slug is a translated word; carrying a Portuguese slug into an English URL would
+invent a 404, so that pairing stays owned by `chapterCounterpart()`. Literal routes also win over patterns
+now, so `/referencia/completa` is its own page rather than a chapter named "completa".
+
+**What registering the EN paths exposed.** Three English pages and the shared decision views linked to
+Portuguese routes that now have English editions — caught by a property that already existed. Fixed at the
+source: the shared views resolve hrefs through `routeHref(id, locale, params)`, so a component cannot be
+right in one edition and wrong in the other. The two "no English edition" example assertions moved to
+`OPERATOR_ZERO`, whose Portuguese-only status is a decision rather than a backlog.
+
+**Decision parity properties updated, not weakened.** They compared literal hrefs, which was correct while
+English had no route. They now compare the record's SLUG across editions and additionally assert each
+edition addresses its own path — a strictly stronger claim.
+
+Evidence: Website 834/834 across 57 files · tsc 0 · production build exit 0 (188 pages, all five EN routes
+emitted) · registry checker exit 0 at **22 / 0 / 1**.
+
+**A verification correction.** The production build had been failing since `5abab9c` on an eslint rule that
+a test file of mine disabled but which is not configured in this repository. Reports of a green build in
+that range were wrong: the check was grepping the log for "Compiled successfully" — which `next build`
+prints before linting — instead of reading the exit code. Builds are now verified by exit code.
 
 ## Final gates (Q8)
 
