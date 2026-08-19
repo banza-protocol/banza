@@ -376,7 +376,13 @@ pub struct QueryResolution {
     /// The answer needs FORMAL EVIDENCE (an evidence bundle / a reproducible execution).
     pub requires_formal_evidence: bool,
     /// Named ambiguities the classifier could not settle deterministically (empty when confident).
+    ///
+    /// MIXED NAMESPACE, deliberately preserved for the existing prose path: machine-named semantic ids
+    /// (`aggregation_unspecified`) sit beside the recovery layer's Portuguese spellings (`operador`).
+    /// Do not treat this as a semantic-identifier collection — `ambiguity_candidates` is the typed one.
     pub ambiguities: Vec<String>,
+    /// The same ambiguities as a typed, source-bound contract, built where each one is detected.
+    pub ambiguity_candidates: Vec<AmbiguityCandidate>,
     /// 0.0..=1.0 — deterministic confidence in `primary_intent`.
     pub confidence: f32,
     /// RESOLVED | AMBIGUOUS | BOUNDARY | UNSUPPORTED — explicit, never silent.
@@ -583,6 +589,7 @@ pub fn resolve_query(question: &str) -> QueryResolution {
             requires_documentation: false,
             requires_formal_evidence: false,
             ambiguities: Vec::new(),
+            ambiguity_candidates: Vec::new(),
             confidence: 1.0,
             resolution_state: "BOUNDARY".into(),
             boundary_detected: true,
@@ -733,13 +740,26 @@ pub fn resolve_query(question: &str) -> QueryResolution {
 
     // 9) ambiguity (§2 — a single concrete clarifying question is the right outcome).
     let mut ambiguities: Vec<String> = Vec::new();
+    // Candidates are built HERE, beside each push, not re-derived from the flattened list afterwards.
+    // `ambiguities` mixes two namespaces — machine-named semantic ids and the recovery layer's Portuguese
+    // spellings — and once flattened, the only way to tell them apart is the punctuation heuristic the
+    // prose path uses (`!contains('_')`). Deriving the typed contract from that would promote a naming
+    // accident into a wire contract. Provenance is free at the point of production, so it is taken here.
+    let mut candidates: Vec<AmbiguityCandidate> = Vec::new();
     if ri.requires_clarification {
         for c in &ri.clarification_candidates {
             ambiguities.push(c.clone());
+            push_candidate(
+                &mut candidates,
+                AmbiguityCandidate::TermSpelling { term: c.clone() },
+            );
         }
     }
     if primary_intent == "compare_executions" && comparison_targets.len() < 2 {
         ambiguities.push("comparison_targets_unspecified".into());
+        for c in ambiguity_expansion("comparison_targets_unspecified") {
+            push_candidate(&mut candidates, c);
+        }
     }
     // an operational duration/metric ask with no explicit aggregation nor time framing is genuinely
     // ambiguous between the latest observation, the median and the timeout limit.
@@ -749,6 +769,9 @@ pub fn resolve_query(question: &str) -> QueryResolution {
         && metric_type != "slowest_step";
     if op_ambiguous {
         ambiguities.push("aggregation_unspecified".into());
+        for c in ambiguity_expansion("aggregation_unspecified") {
+            push_candidate(&mut candidates, c);
+        }
     }
 
     // 10) resolution state + confidence.
@@ -794,6 +817,7 @@ pub fn resolve_query(question: &str) -> QueryResolution {
         requires_documentation,
         requires_formal_evidence,
         ambiguities,
+        ambiguity_candidates: candidates,
         confidence,
         resolution_state,
         boundary_detected: false,
@@ -812,8 +836,21 @@ pub fn resolve_query(question: &str) -> QueryResolution {
 /// Deliberately NOT `Vec<String>` of reader fragments. The prose path builds exactly such a list (`opts`,
 /// filtered to the entries a human can read) and it is unusable as a contract: it is Portuguese, and it
 /// silently excludes every machine-named ambiguity.
+///
+/// TWO KINDS LIVE HERE, and conflating them was a real defect. A SEMANTIC ambiguity is a choice between
+/// meanings the engine understood but could not rank (`LastExecution` vs the median). A TERM SPELLING is
+/// something else entirely: the typo-recovery layer found one token equidistant from two vocabulary
+/// words, and the "candidates" it produces are `fuzzy::recover`'s `display` spellings — Portuguese reader
+/// vocabulary, e.g. `operador` / `operar`. An earlier version of this enum carried those through a generic
+/// `Ambiguity(String)` documented as "a semantic id — never reader prose", which was measurably false:
+/// `"o que e operadr?"` serialized `{"ambiguity":"operador"}` over the wire. A payload variant does not
+/// become language-neutral by being described as such, so the spelling case now DECLARES what it carries.
+///
+/// The tag makes every variant serialize as an object. A `String | Object` union in one array is a
+/// contract a consumer has to branch on before it can read anything, and the heterogeneity would have
+/// been load-bearing for exactly the variant that was already wrong.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
+#[serde(tag = "candidate", rename_all = "snake_case")]
 pub enum AmbiguityCandidate {
     /// The most recent validation execution.
     LastExecution,
@@ -825,15 +862,16 @@ pub enum AmbiguityCandidate {
     LastTwoExecutions,
     /// Executions the reader names explicitly by identifier.
     SpecificExecutionIds,
-    /// A candidate carried by its own ambiguity identifier, for conditions with no declared expansion.
-    /// The payload is a semantic id from the resolution — never reader prose.
-    Ambiguity(String),
+    /// A vocabulary spelling the recovery layer could not choose between. The payload IS Portuguese
+    /// reader vocabulary — that is why the variant says so instead of posing as a semantic identifier.
+    TermSpelling { term: String },
 }
 
-/// The declared expansion of an ambiguity identifier into the choices a reader is offered.
+/// The declared expansion of a SEMANTIC ambiguity identifier into the choices a reader is offered.
 ///
-/// Closed-world by construction: a known identifier returns its expansion and anything else carries
-/// itself, so a future ambiguity that offers choices still yields a candidate rather than an empty set.
+/// Closed-world: only declared identifiers expand. An undeclared one yields NOTHING rather than wrapping
+/// itself, because the wrapper variant no longer exists to hide it — an ambiguity that reaches serving
+/// with no declared choices is a gap to close at the producer, not a value to pass through untyped.
 pub fn ambiguity_expansion(id: &str) -> Vec<AmbiguityCandidate> {
     match id {
         "aggregation_unspecified" => vec![
@@ -845,24 +883,18 @@ pub fn ambiguity_expansion(id: &str) -> Vec<AmbiguityCandidate> {
             AmbiguityCandidate::LastTwoExecutions,
             AmbiguityCandidate::SpecificExecutionIds,
         ],
-        other => vec![AmbiguityCandidate::Ambiguity(other.to_string())],
+        _ => Vec::new(),
     }
 }
 
-/// Every candidate the ambiguous decision offers, in detection order, deduplicated.
+/// Append `c` unless an equal candidate is already present, preserving detection order.
 ///
 /// Order follows the resolution's ambiguity order and is deterministic, but it is DETECTION order, not
 /// precedence: nothing here says the first candidate is likelier or preferred.
-pub fn ambiguity_candidates(ambiguities: &[String]) -> Vec<AmbiguityCandidate> {
-    let mut out: Vec<AmbiguityCandidate> = Vec::new();
-    for id in ambiguities {
-        for c in ambiguity_expansion(id) {
-            if !out.contains(&c) {
-                out.push(c);
-            }
-        }
+fn push_candidate(out: &mut Vec<AmbiguityCandidate>, c: AmbiguityCandidate) {
+    if !out.contains(&c) {
+        out.push(c);
     }
-    out
 }
 
 /// The `message` is engine-decided PT copy derived from the resolution — NEVER a generic topic list.
@@ -983,7 +1015,7 @@ concreto (por exemplo, o identificador do documento ou da execução)?"
             interpreted_intent: r.primary_intent.clone(),
             sub_intents: r.sub_intents.clone(),
             message: format!("{msg}{note}"),
-            ambiguity_candidates: ambiguity_candidates(&r.ambiguities),
+            ambiguity_candidates: r.ambiguity_candidates.clone(),
         };
     }
 
