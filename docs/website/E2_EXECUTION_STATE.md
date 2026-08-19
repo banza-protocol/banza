@@ -80,7 +80,7 @@ session picks the next NOT_STARTED row by descending weight and does not re-deri
 | `components/banzai/BanzaiValidationMode.tsx` | 151 | **DONE — mutation-owned** | `5abab9c`, `1b7c6c9` |
 | `components/banzai/BanzaiAgent.tsx` (beyond the Q1/Q3 wiring) | 89 | **DONE — mutation-owned** | `62ac3df`, `4536358`, `6b776fc` |
 | `components/banzai/BanzaiOnboardingMode.tsx` + `ONBOARDING_COPY` (migrated out of `banzai-agent.ts`) | 69 | **DONE** | `0e25d27` |
-| `components/banzai/validationJourney.tsx` | 29 | NOT_STARTED — **scouted, see below** | — |
+| `components/banzai/validationJourney.tsx` | 29 | **DONE — mutation-owned** | `12e3058`, `44aeea0`, `cc39923` |
 | `components/banzai/DraftValidationTool.tsx` (beyond the Q3 `traceStatus` thread) | 26 | NOT_STARTED | — |
 | `components/banzai/SourceBlock.tsx` | 19 | NOT_STARTED | — |
 | `components/banzai/banzaiUi.tsx` | 19 | NOT_STARTED | — |
@@ -113,6 +113,8 @@ the next owner, follow what it CALLS, not only what it renders.
 | Q5-B | the EN edition reports a different durability verdict | **SURVIVED FIRST, THEN KILLED** — see below |
 | Q5-C | a nested agent panel ignores the boundary | **KILLED** — `RfcPanel` forced to `"pt"` under an `en` boundary; RED on the rendered reference panel; exact restore (`b2bcf14`), green |
 | Q5-D | the EN edition reaches a different answer-badge verdict | **SURVIVED FIRST, THEN KILLED** — see below |
+| Q5-E | step titles ignore the reader's edition | **KILLED** — `stepTitle` forced to `"pt"`; RED on "conformance title is untranslated"; exact restore (`c040674`), green |
+| Q5-F | the EN edition reports a different journey outcome | **SURVIVED FIRST, THEN KILLED** — the third instance of the same shape; see below |
 
 **Q5-B is the most important result in this block so far.** Making the English edition present a PENDING
 run as durably archived passed every property the surface had: it was correct English, the raw
@@ -166,6 +168,17 @@ was meant to retire survived an earlier excision and has now been removed.
 witness out of the render.** A pure function plus a render site is two places a locale can enter; one
 component is one.
 
+**Q5-F proved the rule holds and showed one more way to get it wrong.** Substituting a different progress
+result at the English render site — a journey that finished with a blocker reported as having finished
+clean — survived a property that checked `realizeProgress`. The `data-journey-progress` witness was
+already present, but it read the ORIGINAL value while the words came from the substituted one, so the two
+could disagree and nothing noticed. **A witness that is not asserted against the words it accompanies is
+decorative.** The property now requires both: the witness equals the result's kind in each edition, AND
+the rendered text is exactly that result's realization.
+
+Three owners have now needed the same fix (`AnswerBadge`, `JourneyProgress`, the persistence verdict).
+When a remaining owner renders a state-dependent sentence, build the component first.
+
 A mutation that survives is a finding, not a failure of the campaign: build the missing owner, commit it
 green, rerun. Both surviving mutations in E1 (glossary semantic swap, EN glossary rendering PT) forced
 owners that did not exist and would not otherwise have been written.
@@ -174,10 +187,18 @@ owners that did not exist and would not otherwise have been written.
 
 | | count |
 |---|---|
-| semantic presentation ids assigned | 542 (Q1 catalogue now 126 · Q2 67 · Q3 7 · Q4 77 · Q5 265) |
-| PT realizations complete | 542 / 542 |
-| EN realizations complete | 542 / 542 |
-| unclassified reader occurrences | ~105 (the NOT_STARTED rows above) |
+| semantic presentation ids assigned | 582 (Q1 catalogue 126 · Q2 67 · Q3 7 · Q4 77 · Q5 305) |
+| PT realizations complete | 582 / 582 |
+| EN realizations complete | 582 / 582 |
+| unclassified reader occurrences | ~76 (the NOT_STARTED rows above) |
+
+`validationJourney` is closed-world verified: a sweep for Portuguese literals over the whole file returns
+**0**. The journey is ONE definition — `id`, `num` and `engine` on the step; title and blurb looked up by
+step id, never by position — and `progressResultFor` decides what the counters MEAN with no locale in
+scope, returning `running` / `notStarted` / `partial` / `doneOneBlocker` / `doneAllVerified` /
+`doneWithCounts`. Each edition realizes that result and decides its own singular/plural from the same
+numbers. `Discovery`, `Manifest`, `Keys` and `Evidence Bundle` are protocol terms declared identical
+across editions; the other five titles and all nine blurbs are translated and asserted to differ.
 
 `BanzaiAgent` reuses the Q1 catalogue rather than starting a second one: 66 new ids were added to
 `agentPresentation.ts` and the existing `mode.*`, `tab.*`, `validation.*`, `authority.*` and `badge.*`
