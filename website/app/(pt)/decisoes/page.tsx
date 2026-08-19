@@ -76,7 +76,7 @@ export default function DecisoesPage() {
       {/* EXPLORADOR */}
       <Section tone="paper2">
         <Container width="site" data-reveal>
-          <DecisionsExplorer decisions={decisions} categories={decisionCategories} />
+          <DecisionsExplorer decisions={decisions} categories={decisionCategories} locale="pt" />
         </Container>
       </Section>
     </>
