@@ -4,6 +4,9 @@
 import { describe, it, expect } from "vitest";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
+// Block E2/Q5 — the panel reads its edition from the workspace boundary and has no default, so the
+// harness declares one. These assertions keep pinning the PORTUGUESE surface.
+import { BanzaiLocaleBoundary } from "@/components/banzai/BanzaiWorkspaceProvider";
 import { TransparencyPanel } from "@/components/banzai/TransparencyPanel";
 import type { KbTransparency } from "@/components/home/banzaiKb";
 
@@ -69,7 +72,7 @@ const full: KbTransparency = {
 
 describe("TransparencyPanel (§24) — renders each field only when present", () => {
   it("renders every populated field of a full transparency projection", () => {
-    const out = renderToStaticMarkup(createElement(TransparencyPanel, { t: full }));
+    const out = renderToStaticMarkup(createElement(BanzaiLocaleBoundary, { locale: "pt" as const }, createElement(TransparencyPanel, { t: full })));
     expect(out).toContain('data-transparency="1"');
     expect(out).toContain("TRANSPARÊNCIA DA RESPOSTA");
     for (const tp of ["interpretation", "entity", "scope", "tools", "sources", "freshness", "calculation", "runtime", "verification"]) {
@@ -90,7 +93,7 @@ describe("TransparencyPanel (§24) — renders each field only when present", ()
 
   it("OMITS every absent field (no placeholders) for a minimal projection", () => {
     const minimal: KbTransparency = { ...empty, intent: "grounded", engine: "local_qwen" };
-    const out = renderToStaticMarkup(createElement(TransparencyPanel, { t: minimal }));
+    const out = renderToStaticMarkup(createElement(BanzaiLocaleBoundary, { locale: "pt" as const }, createElement(TransparencyPanel, { t: minimal })));
     expect(out).toContain('data-transparency="1"');
     // Present signals render.
     expect(out).toContain('data-tp="interpretation"');
@@ -103,20 +106,20 @@ describe("TransparencyPanel (§24) — renders each field only when present", ()
 
   it("shows the honest limitations line for a degraded / insufficient / boundary answer", () => {
     const degraded: KbTransparency = { ...empty, engine: "degraded", limitations: ["Modo degradado — resposta determinística a partir das fontes do protocolo."] };
-    const dout = renderToStaticMarkup(createElement(TransparencyPanel, { t: degraded }));
+    const dout = renderToStaticMarkup(createElement(BanzaiLocaleBoundary, { locale: "pt" as const }, createElement(TransparencyPanel, { t: degraded })));
     expect(dout).toContain('data-tp="limitations"');
     expect(dout).toContain("LIMITAÇÕES");
     expect(dout).toContain("Modo degradado");
 
     const boundary: KbTransparency = { ...empty, limitations: ["Pedido fora das fronteiras do BanzAI — recusa segura."] };
-    const bout = renderToStaticMarkup(createElement(TransparencyPanel, { t: boundary }));
+    const bout = renderToStaticMarkup(createElement(BanzaiLocaleBoundary, { locale: "pt" as const }, createElement(TransparencyPanel, { t: boundary })));
     expect(bout).toContain('data-tp="limitations"');
     expect(bout).toContain("recusa segura");
   });
 
   it("renders 'sem chamada' when the engine did NOT call a model (false is meaningful, not absent)", () => {
     const noModel: KbTransparency = { ...empty, engine: "local_qwen", modelCalled: false };
-    const out = renderToStaticMarkup(createElement(TransparencyPanel, { t: noModel }));
+    const out = renderToStaticMarkup(createElement(BanzaiLocaleBoundary, { locale: "pt" as const }, createElement(TransparencyPanel, { t: noModel })));
     expect(out).toContain('data-tp="runtime"');
     expect(out).toContain("sem chamada");
   });
