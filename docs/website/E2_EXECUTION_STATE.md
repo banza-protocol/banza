@@ -84,7 +84,7 @@ session picks the next NOT_STARTED row by descending weight and does not re-deri
 | `components/banzai/DraftValidationTool.tsx` (beyond the Q3 `traceStatus` thread) | 26 | **DONE — mutation-owned** | `e896aa9`, `02623f3` |
 | `components/banzai/SourceBlock.tsx` | 19 | **DONE — mutation-owned** | `4ca8d0b` |
 | `components/banzai/banzaiUi.tsx` | 19 | **MACHINE + STYLING — classified, falsifiably** | `e104c4d` |
-| `components/banzai/TransparencyPanel.tsx` | 10 | NOT_STARTED | — |
+| `components/banzai/TransparencyPanel.tsx` | 10 | **DONE — mutation-owned** | `e02ec33`, `1f6a3b2` |
 | `components/banzai/ProgramadoresTools.tsx` | 2 | NOT_STARTED | — |
 
 Every one of these is rendered inside the BanzAI workspace, so each reads `useBanzaiLocale()` rather than
@@ -121,6 +121,8 @@ the next owner, follow what it CALLS, not only what it renders.
 | Q5-J | the EN edition resolves a source to a different chip | **KILLED FIRST TIME** — a `spec` source resolved to `reference` in English only; RED on "spec/normative: chips diverged"; exact restore, green |
 | Q5-K | `banzaiUi` acquires Portuguese accessibility copy | **KILLED** — replaced the decorative `aria-hidden` with a Portuguese `aria-label`; RED; exact restore (`e1870af`), green |
 | Q5-L | an icon-only control appears with no accessible name | **KILLED** — added an icon-only button in `BanzaiAgent`; RED on the consumer-side invariant; exact restore, green |
+| Q5-M | the validator verdict ignores the boundary | **KILLED FIRST TIME** — forced to `"pt"` under an `en` boundary; exact restore (`4a3ecea`), green |
+| Q5-N | the EN edition reports a rejected answer as passed | **KILLED FIRST TIME** — render owner built before localizing; RED on "rejected: wrong verdict"; exact restore, green |
 
 **Q5-B is the most important result in this block so far.** Making the English edition present a PENDING
 run as durably archived passed every property the surface had: it was correct English, the raw
@@ -198,10 +200,17 @@ owners that did not exist and would not otherwise have been written.
 | semantic presentation ids assigned | 609 + the 10-kind source table (Q1 128 · Q2 67 · Q3 7 · Q4 77 · Q5 330) |
 | PT realizations complete | all |
 | EN realizations complete | all |
-| unclassified reader occurrences | ~31 (the NOT_STARTED rows above) |
+| unclassified reader occurrences | ~2 (`ProgramadoresTools.tsx`, the last NOT_STARTED row) |
 
 `SourceBlock`'s remaining Portuguese literals are the PT column of its own `{pt, en}` kind table —
 classified as owned bilingual copy, not unowned presentation.
+
+`TransparencyPanel` is the surface where BanzAI states what it actually did — which sources, which engine,
+whether the model was called, whether the validator accepted the answer. Its 31 field names and two model
+states were Portuguese-only, so an English reader would have received that account in Portuguese. 36 new
+ids in the Q1 catalogue. The validator verdict is the **sixth** enum→label map found in Q5; it is now
+normalized once with no locale in scope and rendered by `AnswerValidationValue`, which exposes the verdict
+as data. Both its mutations died first time — the render owner was built before localizing.
 
 **`banzaiUi` is not a reader owner at all.** Its 19 inventory occurrences are icon keys and SVG path
 geometry, not copy: the module holds an icon-key enum (machine identity), the geometry each key maps to
