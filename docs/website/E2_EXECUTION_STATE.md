@@ -62,10 +62,39 @@ and stays out of the localization catalogue.
 | Q2 | `suggestions.ts` — one selection algorithm, `contextualSuggestions(ctx, locale)`, PT+EN, selection parity | **MUTATION_PROVEN** | `a7ef509` | 67 semantic ids · `selectSuggestions` locale-free · 47-context PT fixture reproduced byte for byte · `suggestionsLocale.test.ts` (15 assertions) |
 | Q3 | `traceVerifier.ts` + locale into `BanzaiRouteBinder → BanzaiWorkspaceProvider`, controlled EN harness, E2-C1 | **MUTATION_PROVEN** | `5623052` | `BanzaiLocaleBoundary` + `useBanzaiLocale` (no default, throws) · 7 trace copy ids · `SURFACE_LOCALE` retired · `localePropagation.test.tsx` (8 assertions) |
 | Q4 | DECISIONS + DECISION — one semantic decision model, PT+EN, E2-F | **MUTATION_PROVEN** | `c155ae4` | 28 copy ids · `DecisionsExplorer` bilingual · cards expose id/type/status/slug as data · `decisionsLocale.test.tsx` (9 assertions) |
-| Q5 | remaining React reader owners, by descending weight — **including the two decision ROUTE pages** (`app/(pt)/decisoes/page.tsx` hero + prudential note, `app/(pt)/decisoes/[slug]/page.tsx` metadata rows, breadcrumb, aside and footer notes), which Q4 did not touch | NOT_STARTED | — | complete when missing PT = missing EN = unclassified = 0 |
+| Q5 | remaining React reader owners, by descending weight | **IN_PROGRESS** | `a0a17db`, `ea785fc` | see the Q5 owner table below — complete when every row is DONE |
 | Q6 | five public EN routes + dynamic identity, E2-D, E2-E | NOT_STARTED | — | only after Q5 |
 | Q7 | EN backlink closure + full mutation campaign A–G | NOT_STARTED | — | |
 | Q8 | final closure: registry 22/0/1, rendered matrix, all regressions, assurance | NOT_STARTED | — | only Q8 may declare Block E complete |
+
+## Q5 — owner by owner
+
+Q5 is executed one owner at a time, each committed green on its own. The table is the resume point: a
+session picks the next NOT_STARTED row by descending weight and does not re-derive anything.
+
+| owner | items | state | commit |
+|---|---|---|---|
+| `app/(pt)/decisoes/page.tsx` + `[slug]/page.tsx` (route surfaces) | — | **DONE** | `a0a17db` |
+| `components/banzai/BanzaiProgress.tsx` + `lib/banzaiProgress.ts` line ids | 6 | **DONE** | `ea785fc` |
+| `components/banzai/SafeMarkdown.tsx` | 3 | **TRANSPARENT** — a markdown renderer with no reader copy of its own; nothing to localize | — |
+| `components/banzai/BanzaiValidationMode.tsx` | 151 | NOT_STARTED | — |
+| `components/banzai/BanzaiAgent.tsx` (beyond the Q1/Q3 wiring) | 89 | NOT_STARTED | — |
+| `components/banzai/BanzaiOnboardingMode.tsx` | 69 | NOT_STARTED | — |
+| `components/banzai/validationJourney.tsx` | 29 | NOT_STARTED | — |
+| `components/banzai/DraftValidationTool.tsx` (beyond the Q3 `traceStatus` thread) | 26 | NOT_STARTED | — |
+| `components/banzai/SourceBlock.tsx` | 19 | NOT_STARTED | — |
+| `components/banzai/banzaiUi.tsx` | 19 | NOT_STARTED | — |
+| `components/banzai/TransparencyPanel.tsx` | 10 | NOT_STARTED | — |
+| `components/banzai/ProgramadoresTools.tsx` | 2 | NOT_STARTED | — |
+
+Every one of these is rendered inside the BanzAI workspace, so each reads `useBanzaiLocale()` rather than
+taking a locale prop. The boundary has no default: a component that reads it outside a boundary throws,
+which is how the Q5 progress work surfaced three render tests that had never declared an edition.
+
+**A durable lesson from the progress owner.** `progressLineFor` assembled a Portuguese SENTENCE inside
+`lib/banzaiProgress` — a presentation decision hiding in a lib module — and the metrics readout hard-coded
+a Portuguese decimal comma for every reader. Both were invisible to a component-level sweep. When taking
+the next owner, follow what it CALLS, not only what it renders.
 
 ## Mutations
 
@@ -89,10 +118,10 @@ owners that did not exist and would not otherwise have been written.
 
 | | count |
 |---|---|
-| semantic presentation ids assigned | 162 (Q1 60 · Q2 67 · Q3 7 · Q4 28) |
-| PT realizations complete | 162 / 162 |
-| EN realizations complete | 162 / 162 |
-| unclassified reader occurrences | ~429 (Q5 remains) |
+| semantic presentation ids assigned | 250 (Q1 60 · Q2 67 · Q3 7 · Q4 77 · Q5 39) |
+| PT realizations complete | 250 / 250 |
+| EN realizations complete | 250 / 250 |
+| unclassified reader occurrences | ~414 (the NOT_STARTED rows above) |
 
 Q1 evidence: Website 746/746 across 51 files · tsc 0 · production build 0 · registry unchanged 17/5/1.
 
@@ -109,6 +138,10 @@ The locale boundary lives in `BanzaiWorkspaceProvider` and is exported as `Banza
 provider and the harness exercise the SAME code path — a test that declared its own context would prove
 nothing about production. It holds no default: `useBanzaiLocale` throws outside a boundary rather than
 answering `pt`. Every remaining queue item consumes it; none may re-derive a locale of its own.
+
+Q5 evidence so far: Website 787/787 across 54 files · tsc 0 · production build 0 (139 pages) · registry
+unchanged 17/5/1. The decision routes now hold only their edition declaration; the surfaces live in
+`DecisionsIndexView` / `DecisionDetailView`, one tree for both editions, ready for Q6 to add the EN route.
 
 Q4 evidence: Website 778/778 across 54 files · tsc 0 · production build 0 · registry unchanged 17/5/1.
 Q4 delivered the semantic decision model and the explorer; the two decision ROUTE pages still carry
