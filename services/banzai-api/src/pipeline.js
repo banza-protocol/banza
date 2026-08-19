@@ -25,6 +25,7 @@
 // hit/miss, synthesis trace, fallback reason — never keys, secrets or full payloads.
 
 import { GUARDRAILS } from "./provider.js";
+import { operationalDomain } from "./operationalDomain.js";
 import { normalize, retrieve, CORPUS_HASH, REPO_INDEX_HASH, SAFETY_POLICY_VERSION, contractVersions, validateResponse, route, routeWithJourney, getEntry, resolveDocument, resolveConcept, resolveScope, resolveOperationalMetric, resolveQuery, resolveReferences, contextualFallback, answerClass, buildTerminal, queuePriority, queueShouldDedup, recoverQuery, coveredEntities, isVerbatimEntry, attributeAnswer, taskedAnswer, documentLookup, contextUsedFor, buildOperationalPackage, verifyClaims, answerFor, unavailableRealization, LOCALES, DEFAULT_LOCALE } from "./knowledge.js";
 import { honestLiveFailureAnswer } from "./liveArtifact.js";
 import { isPublicSource } from "./answerContract.js";
@@ -884,6 +885,84 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     },
   };
 
+  /**
+   * Reader vocabulary for the operational-measurement decline, per locale.
+   *
+   * Two input kinds, kept apart on purpose. `subject`/`metric`/`statistic` name values that came from
+   * the REQUEST DECISION; `frame` writes the sentences around the STATIC domain description. Neither
+   * table restates a fact — the nine steps and the receipt name arrive from `operationalDomain()`, so
+   * a translation cannot quietly drop one or let the two locales disagree about what the journey is.
+   */
+  const MEASUREMENT_TEXT = {
+    "pt-PT": {
+      subject: {
+        validation_journey: "uma jornada de validação",
+        certification: "a certificação",
+        federation: "a federação",
+      },
+      subjectFallback: "uma operação do protocolo",
+      metric: {
+        elapsed_time: "a duração",
+        slowest_step: "o passo mais lento",
+      },
+      metricFallback: "a medição pedida",
+      statistic: { median_total: "a **mediana**", p95_total: "o **percentil 95**" },
+      numeral: { 7: "sete", 8: "oito", 9: "nove", 10: "dez", 11: "onze", 12: "doze" },
+      frame: ({ subject, metric, steps, stepCount, receipt, stats }) =>
+        `Interpretei o teu pedido como uma pergunta sobre **${metric} de ${subject} (uma medição operacional, não um conceito do protocolo)**.\n\n` +
+        `Para responder com um valor fiável preciso de **execuções concluídas** no mesmo perfil, ambiente e versão do protocolo — a medição depende da disponibilidade dos artefactos, da latência da origem canónica, dos *timeouts* e dos passos aplicáveis ao perfil.\n\n` +
+        `Consultei a **telemetria de execuções persistidas** (apenas leitura, execuções públicas). Ainda **não existem execuções públicas comparáveis suficientes** para calcular um valor representativo, por isso **não invento um número**.\n\n` +
+        `O que posso afirmar sem medição: a jornada tem **${stepCount} etapas** (${steps.join(", ")}) e a duração observada de cada execução fica registada no respectivo **${receipt}**.\n\n` +
+        `Assim que existir uma execução pública concluída, mostro a **duração observada** dessa execução e, com várias execuções comparáveis, ${stats.join(" e ")} — distinguindo sempre uma observação individual de uma média.`,
+    },
+    en: {
+      subject: {
+        validation_journey: "a validation journey",
+        certification: "certification",
+        federation: "federation",
+      },
+      subjectFallback: "a protocol operation",
+      metric: {
+        elapsed_time: "the duration",
+        slowest_step: "the slowest step",
+      },
+      metricFallback: "the requested measurement",
+      statistic: { median_total: "the **median**", p95_total: "the **95th percentile**" },
+      numeral: { 7: "seven", 8: "eight", 9: "nine", 10: "ten", 11: "eleven", 12: "twelve" },
+      frame: ({ subject, metric, steps, stepCount, receipt, stats }) =>
+        `I read your request as a question about **${metric} of ${subject} (an operational measurement, not a protocol concept)**.\n\n` +
+        `To answer with a reliable value I need **completed executions** on the same profile, environment and protocol version — the measurement depends on artifact availability, canonical-origin latency, *timeouts* and the steps that apply to the profile.\n\n` +
+        `I consulted the **persisted execution telemetry** (read-only, public executions). There are still **not enough comparable public executions** to compute a representative value, so **I will not invent a number**.\n\n` +
+        `What I can state without measuring: the journey has **${stepCount} steps** (${steps.join(", ")}) and each execution's observed duration is recorded in its **${receipt}**.\n\n` +
+        `Once a public execution has completed I will report that execution's **observed duration**, and with several comparable executions ${stats.join(" and ")} — always distinguishing a single observation from an average.`,
+    },
+  };
+
+  /**
+   * The measurement decline, composed in `locale` from the decision plus the static domain description.
+   *
+   * The Rust layer still authors `honest_fallback`; it is diagnostics now. Reader text is built here so
+   * both locales carry the SAME facts — which is why the steps and the receipt name are read from the
+   * domain descriptor rather than written into either sentence.
+   */
+  function measurementProse(decision, locale) {
+    const t = MEASUREMENT_TEXT[locale] || MEASUREMENT_TEXT[DEFAULT_LOCALE];
+    const domain = operationalDomain();
+    const steps = domain.journey_steps;
+    return t.frame({
+      subject: t.subject[decision.subject] || t.subjectFallback,
+      metric: t.metric[decision.metric] || t.metricFallback,
+      steps,
+      // The count is DERIVED, so it cannot disagree with the list beside it — but it still reads as a
+      // written numeral, because "a jornada tem 9 etapas" is not how the sentence is spoken. The map
+      // covers the counts a step spine plausibly has and falls back to the digit rather than guessing,
+      // so adding a tenth step changes the sentence instead of leaving a stale word behind.
+      stepCount: (t.numeral && t.numeral[steps.length]) || String(steps.length),
+      receipt: domain.receipt_artifact,
+      stats: domain.supported_statistics.map((s) => t.statistic[s]).filter(Boolean),
+    });
+  }
+
   // Ask for clarification instead of silently choosing. The question is composed deterministically from
   // the Rust resolver's real candidates in the RESOLVED locale; no model is called here.
   function clarify(envelope, meta, locale, candidateClass = "document") {
@@ -1534,8 +1613,9 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
       // Understood, but not enough comparable measurements (or telemetry disabled/unavailable) → the
       // Rust-authored honest, request-oriented fallback. NEVER the fixed list; NEVER a fabricated number.
       const failCode = t && t.error && t.error.code ? String(t.error.code) : "INSUFFICIENT_MEASUREMENTS";
-      return stated(opMetric.honest_fallback, {
+      return stated(measurementProse(opMetric, locale), {
         answer_mode: mode,
+        answer_locale: locale,
         fallback_reason: "insufficient_measurements",
         reason_code: "INSUFFICIENT_MEASUREMENTS",
         terminal_kind: "insufficient_measurements",
