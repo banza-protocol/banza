@@ -266,3 +266,126 @@ describe("Q5 — onboarding names backend state without changing it", () => {
     expect(en.origin.verified).not.toBe(pt.origin.verified);
   });
 });
+
+// ── Q5 — the validation journey ──────────────────────────────────────────────────────────────────────
+//
+// The journey is a sequence of nine steps whose ids, order, engines and verdicts are the application, and
+// whose names, descriptions and progress sentence are the reader's. The properties below compare the
+// STRUCTURE both editions receive, not the sentences: a journey that reported a different current step, a
+// different completed count or a different outcome in English would read perfectly well.
+
+import { STEPS, STEP_META, stepLabel } from "./validationJourney";
+import {
+  realizeProgress,
+  stepBlurb,
+  stepStatusLabel,
+  stepTitle,
+  type ProgressResult,
+} from "./validationPresentation";
+
+describe("Q5 — one journey definition, two editions", () => {
+  it("gives both editions the same nine steps, in the same order, with the same engines", () => {
+    expect(STEPS.length).toBe(9);
+    expect(STEPS.map((s) => s.id)).toEqual([...STEP_ORDER]);
+    // Identity, position and engine are the journey; nothing about them can vary by edition, and they are
+    // stored once rather than duplicated into a second ordered array per language.
+    for (const s of STEPS) {
+      expect(STEP_META[s.id]).toBe(s);
+      expect(s.num).toBe(STEPS.indexOf(s) + 1);
+      expect(s.engine.length).toBeGreaterThan(0);
+    }
+  });
+
+  it("binds every step's name and description by id, and authors both editions", () => {
+    for (const s of STEPS) {
+      for (const l of LOCALES) {
+        expect(stepTitle(s.id, l).trim().length, `${s.id} title/${l}`).toBeGreaterThan(0);
+        expect(stepBlurb(s.id, l).trim().length, `${s.id} blurb/${l}`).toBeGreaterThan(0);
+      }
+      // The step's NUMBER survives into the label; only the name is the reader's.
+      expect(stepLabel(s.id, "en")).toBe(`${s.num} ${stepTitle(s.id, "en")}`);
+      expect(stepLabel(s.id, "pt")).toBe(`${s.num} ${stepTitle(s.id, "pt")}`);
+    }
+    // Protocol terms stay put; the rest is translated. Both directions are asserted so making English pass
+    // by sharing Portuguese copy fails here.
+    for (const id of ["discovery", "manifest", "keys", "evidence"]) {
+      expect(stepTitle(id, "en")).toBe(stepTitle(id, "pt"));
+    }
+    for (const id of ["conformance", "interoperability", "trust", "federation", "certification"]) {
+      expect(stepTitle(id, "en"), `${id} title is untranslated`).not.toBe(stepTitle(id, "pt"));
+    }
+    for (const s of STEPS) expect(stepBlurb(s.id, "en"), `${s.id} blurb`).not.toBe(stepBlurb(s.id, "pt"));
+  });
+
+  it("names the engine's verdict without changing it", () => {
+    const STATUSES = ["NOT_EVALUATED", "PENDING", "VERIFIED", "FAILED", "BLOCKED", "NOT_APPLICABLE"];
+    for (const st of STATUSES) {
+      expect(stepStatusLabel(st, "en"), `${st} is untranslated`).not.toBe(stepStatusLabel(st, "pt"));
+      expect(stepStatusLabel(st, "en").trim().length).toBeGreaterThan(0);
+    }
+    // ADR-030 — a step out of scope for the declared profile is not a failure, in either edition.
+    expect(stepStatusLabel("NOT_APPLICABLE", "en").toLowerCase()).not.toMatch(/fail/);
+    expect(stepStatusLabel("NOT_APPLICABLE", "pt").toLowerCase()).not.toMatch(/falh/);
+    // A status the engine starts emitting tomorrow is shown as it arrived, in both.
+    for (const l of LOCALES) expect(stepStatusLabel("NEW_STATUS", l)).toBe("NEW_STATUS");
+  });
+});
+
+describe("Q5 — progress means the same thing in both editions", () => {
+  // Every branch of the progress decision, with the counters that reach it.
+  const RESULTS: ProgressResult[] = [
+    { kind: "running" },
+    { kind: "notStarted" },
+    { kind: "partial", evaluated: 4, total: 9 },
+    { kind: "doneOneBlocker" },
+    { kind: "doneAllVerified" },
+    { kind: "doneWithCounts", verified: 7, pending: 0, failed: 1, blocked: 1 },
+    { kind: "doneWithCounts", verified: 8, pending: 1, failed: 0, blocked: 0 },
+  ];
+
+  it("realizes every outcome in both editions, from the same result", () => {
+    for (const r of RESULTS) {
+      const en = realizeProgress(r, "en");
+      const pt = realizeProgress(r, "pt");
+      expect(en.trim().length, `${r.kind} en`).toBeGreaterThan(0);
+      expect(en, `${r.kind} is untranslated`).not.toBe(pt);
+      // The NUMBERS are facts and survive verbatim into both.
+      if (r.kind === "partial") {
+        for (const out of [en, pt]) expect(out).toContain("4");
+        for (const out of [en, pt]) expect(out).toContain("9");
+      }
+      if (r.kind === "doneWithCounts") {
+        for (const k of ["verified", "pending", "failed", "blocked"] as const) {
+          if (r[k] > 0) for (const out of [en, pt]) expect(out).toContain(String(r[k]));
+        }
+      }
+    }
+  });
+
+  it("keeps a complete-with-one-blocker journey distinct from an all-verified one", () => {
+    // The most consequential pair on this surface: one says the journey finished clean, the other says it
+    // finished with a blocker. Collapsing them would read fluently in both languages.
+    for (const l of LOCALES) {
+      expect(realizeProgress({ kind: "doneOneBlocker" }, l)).not.toBe(
+        realizeProgress({ kind: "doneAllVerified" }, l),
+      );
+    }
+    // …and every outcome is distinguishable from every other, in each edition.
+    for (const l of LOCALES) {
+      const rendered = RESULTS.map((r) => realizeProgress(r, l));
+      expect(new Set(rendered).size, `${l}: two outcomes read identically`).toBe(RESULTS.length);
+    }
+  });
+
+  it("decides singular and plural per edition, from the same counts", () => {
+    const one: ProgressResult = { kind: "doneWithCounts", verified: 1, pending: 0, failed: 0, blocked: 1 };
+    const many: ProgressResult = { kind: "doneWithCounts", verified: 3, pending: 0, failed: 0, blocked: 2 };
+    expect(realizeProgress(one, "pt")).toContain("1 verificada");
+    expect(realizeProgress(many, "pt")).toContain("3 verificadas");
+    expect(realizeProgress(one, "en")).toContain("1 verified");
+    expect(realizeProgress(many, "en")).toContain("3 verified");
+    // The counters appear in the same order in both — the order is the result's, not the language's.
+    expect(realizeProgress(many, "en").indexOf("3")).toBeLessThan(realizeProgress(many, "en").indexOf("2"));
+    expect(realizeProgress(many, "pt").indexOf("3")).toBeLessThan(realizeProgress(many, "pt").indexOf("2"));
+  });
+});
