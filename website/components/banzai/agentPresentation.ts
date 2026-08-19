@@ -415,6 +415,8 @@ export const AGENT_COPY = {
   "duration.median": L("mediana", "median"),
   "duration.perStep": L("POR ETAPA", "PER STEP"),
   "duration.aria": L("Medição operacional", "Operational measurement"),
+  "sources.heading": L("FONTES USADAS", "SOURCES USED"),
+  "sources.aria": L("Fontes usadas", "Sources used"),
 } as const;
 
 export type AgentCopyId = keyof typeof AGENT_COPY;

@@ -7,23 +7,30 @@
 // as a non-clickable row. Presentation only — a citation is never a normative rule.
 
 import type { Source } from "@/components/home/banzaiKb";
+import { useBanzaiLocale } from "@/components/banzai/BanzaiWorkspaceProvider";
+import { agentCopy } from "@/components/banzai/agentPresentation";
+import type { Locale } from "@/lib/i18n";
 
 // Category → { label, chip classes }. Labels distinguish the classes even without colour; the palette
 // reuses the existing tokens (gold=licença, green=relatório, wine=segurança, gray=código/norma).
-const CAT: Record<string, { label: string; cls: string }> = {
-  "legal-license": { label: "LICENÇA", cls: "border-pend/30 bg-tint-gold text-pend" },
-  reference: { label: "REFERÊNCIA", cls: "border-pend/25 bg-tint-gold text-pend" },
-  decision: { label: "DECISÃO", cls: "border-line-2 bg-paper-2 text-ink-3" },
-  normative: { label: "NORMA", cls: "border-line-2 bg-paper-2 text-ink-3" },
-  implementation: { label: "CÓDIGO", cls: "border-ink/15 bg-ink/[0.03] text-ink-3" },
-  banzai: { label: "CÓDIGO", cls: "border-ink/15 bg-ink/[0.03] text-ink-3" },
-  "banzai-runtime": { label: "CÓDIGO", cls: "border-ink/15 bg-ink/[0.03] text-ink-3" },
-  website: { label: "WEBSITE", cls: "border-ink/15 bg-ink/[0.03] text-ink-3" },
-  "guard-ci": { label: "GUARD/CI", cls: "border-ink/15 bg-ink/[0.03] text-ink-3" },
-  "operator-zero": { label: "OPERADOR ZERO", cls: "border-line-2 bg-paper-2 text-ink-3" },
-  report: { label: "RELATÓRIO", cls: "border-ok/25 bg-tint-green text-ok" },
-  "security-boundary": { label: "SEGURANÇA", cls: "border-bordo/30 bg-tint-bordo text-bordo" },
-  infra: { label: "INFRA", cls: "border-line-2 bg-paper-2 text-ink-3" },
+// Category → chip classes. Block E2/Q5 — this map used to carry Portuguese LABELS beside the classes,
+// but nothing read them: the label has come from `sourceKindLabel` for some time, so they were dead
+// Portuguese sitting in a styling table. The palette reuses the existing tokens (gold=licence,
+// green=report, wine=security, gray=code/norm); the LABEL, not colour alone, distinguishes the classes.
+const CAT_CLASS: Readonly<Record<string, string>> = {
+  "legal-license": "border-pend/30 bg-tint-gold text-pend",
+  reference: "border-pend/25 bg-tint-gold text-pend",
+  decision: "border-line-2 bg-paper-2 text-ink-3",
+  normative: "border-line-2 bg-paper-2 text-ink-3",
+  implementation: "border-ink/15 bg-ink/[0.03] text-ink-3",
+  banzai: "border-ink/15 bg-ink/[0.03] text-ink-3",
+  "banzai-runtime": "border-ink/15 bg-ink/[0.03] text-ink-3",
+  website: "border-ink/15 bg-ink/[0.03] text-ink-3",
+  "guard-ci": "border-ink/15 bg-ink/[0.03] text-ink-3",
+  "operator-zero": "border-line-2 bg-paper-2 text-ink-3",
+  report: "border-ok/25 bg-tint-green text-ok",
+  "security-boundary": "border-bordo/30 bg-tint-bordo text-bordo",
+  infra: "border-line-2 bg-paper-2 text-ink-3",
 };
 
 // Document CLASS → label, in both editions. One authoritative map, so a class cannot be spelled one way
@@ -44,19 +51,41 @@ const KIND_LABEL: Record<string, { pt: string; en: string }> = {
 /** The honest label when the registry classified nothing. Never "REFERÊNCIA". */
 const UNKNOWN_LABEL = { pt: "FONTE", en: "SOURCE" };
 
-export function sourceKindLabel(kind: string, lang: "pt" | "en" = "pt"): string {
+/**
+ * Name a source's KIND for a reader. Block E2/Q5 — `locale` is required. It used to default to "pt" in
+ * the signature AND be called with no argument at all, so every reader received Portuguese while the
+ * English column sat unused: a bilingual table is not a bilingual surface.
+ */
+export function sourceKindLabel(kind: string, locale: Locale): string {
   const entry = KIND_LABEL[kind];
-  return entry ? entry[lang] : UNKNOWN_LABEL[lang];
+  return entry ? entry[locale] : UNKNOWN_LABEL[locale];
 }
 
-function catMeta(source: { kind?: string; category?: string }) {
+/**
+ * Which chip a source earns. Decided once from the source's own kind/category, with no locale in scope —
+ * the label, the styling and the witness all read this one resolution.
+ */
+export function sourceChipKind(source: { kind?: string; category?: string }): string {
   const kind = String(source.kind || "");
-  const label = sourceKindLabel(kind);
-  const cls =
-    (kind && CAT[kind]?.cls) ||
-    CAT[String(source.category || "")]?.cls ||
-    "border-line-2 bg-paper-2 text-ink-3";
-  return { label, cls };
+  if (kind && CAT_CLASS[kind]) return kind;
+  const category = String(source.category || "");
+  return CAT_CLASS[category] ? category : kind;
+}
+
+/** The category chip. It reads its own edition, so no call site can hand it a different one. */
+export function SourceKindChip({ source }: { source: { kind?: string; category?: string } }) {
+  const locale = useBanzaiLocale();
+  const resolved = sourceChipKind(source);
+  const cls = CAT_CLASS[resolved] ?? "border-line-2 bg-paper-2 text-ink-3";
+  return (
+    <span
+      data-source-kind={String(source.kind || "")}
+      data-source-chip={resolved}
+      className={`mt-[1px] inline-flex flex-none items-center rounded-[5px] border px-[6px] py-[2px] font-mono text-[9px] tracking-[0.04em] ${cls}`}
+    >
+      {sourceKindLabel(String(source.kind || ""), locale)}
+    </span>
+  );
 }
 
 function DocIcon() {
@@ -69,21 +98,19 @@ function DocIcon() {
 }
 
 export function SourceBlock({ sources }: { sources: Source[] }) {
+  const locale = useBanzaiLocale();
   if (!sources || sources.length === 0) return null;
   return (
-    <section aria-label="Fontes usadas" data-sources-block="1" className="mt-[11px]">
+    <section aria-label={agentCopy("sources.aria", locale)} data-sources-block="1" className="mt-[11px]">
       <div className="mb-[6px] flex items-center gap-[6px] font-mono text-[10px] tracking-[0.14em] text-ink-4">
-        <DocIcon /> FONTES USADAS · {sources.length}
+        <DocIcon /> {agentCopy("sources.heading", locale)} · {sources.length}
       </div>
       <ul className="m-0 flex list-none flex-col gap-[6px] p-0">
         {sources.map((s, i) => {
-          const meta = catMeta(s);
           const repoShort = String(s.repo || "").split("/").pop() || s.repo;
           const inner = (
             <div className="flex items-start gap-[9px] rounded-[9px] border border-black/[0.06] bg-paper-2/70 px-[11px] py-[8px]">
-              <span className={`mt-[1px] inline-flex flex-none items-center rounded-[5px] border px-[6px] py-[2px] font-mono text-[9px] tracking-[0.04em] ${meta.cls}`}>
-                {meta.label}
-              </span>
+              <SourceKindChip source={s} />
               <span className="min-w-0 flex-1">
                 <span className="block truncate text-[12.5px] leading-[1.4] text-ink-2">{s.title || s.id}</span>
                 {s.path && (

@@ -561,23 +561,23 @@ import { sourceKindLabel } from "@/components/banzai/SourceBlock";
 
 describe("source document class", () => {
   it("labels each class in both editions", () => {
-    expect(sourceKindLabel("adr")).toBe("ADR");
+    expect(sourceKindLabel("adr", "pt")).toBe("ADR");
     expect(sourceKindLabel("adr", "en")).toBe("ADR");
-    expect(sourceKindLabel("spec")).toBe("ESPECIFICAÇÃO");
+    expect(sourceKindLabel("spec", "pt")).toBe("ESPECIFICAÇÃO");
     expect(sourceKindLabel("spec", "en")).toBe("SPECIFICATION");
-    expect(sourceKindLabel("contract")).toBe("CONTRATO");
+    expect(sourceKindLabel("contract", "pt")).toBe("CONTRATO");
     expect(sourceKindLabel("contract", "en")).toBe("CONTRACT");
   });
 
   it("keeps REFERÊNCIA for the document that owns it", () => {
-    expect(sourceKindLabel("reference")).toBe("REFERÊNCIA");
+    expect(sourceKindLabel("reference", "pt")).toBe("REFERÊNCIA");
     expect(sourceKindLabel("reference", "en")).toBe("REFERENCE");
   });
 
   it("says FONTE/SOURCE when the class is unknown, never REFERÊNCIA", () => {
     // The defect, stated as the thing that must not happen again.
     for (const unknown of ["", "not-a-class", "banzai-runtime"]) {
-      expect(sourceKindLabel(unknown)).toBe("FONTE");
+      expect(sourceKindLabel(unknown, "pt")).toBe("FONTE");
       expect(sourceKindLabel(unknown, "en")).toBe("SOURCE");
     }
   });
@@ -585,7 +585,7 @@ describe("source document class", () => {
   it("does not classify from the path", () => {
     // Metadata wins. A source whose path looks like an ADR but carries no class is unknown, and one whose
     // path looks like nothing but carries a class is that class. The frontend must not guess either way.
-    expect(sourceKindLabel("")).toBe("FONTE");
-    expect(sourceKindLabel("adr")).toBe("ADR");
+    expect(sourceKindLabel("", "pt")).toBe("FONTE");
+    expect(sourceKindLabel("adr", "pt")).toBe("ADR");
   });
 });
