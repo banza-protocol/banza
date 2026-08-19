@@ -350,7 +350,7 @@ export function GuiaPanel({ onAsk, onValidate }: { onAsk: (t: string) => void; o
 }
 
 /* ── Recursos → Referência (ADR/RFC ask-cards + protocol map) ────────────────── */
-function RfcPanel({ onAsk }: { onAsk: (t: string) => void }) {
+export function RfcPanel({ onAsk }: { onAsk: (t: string) => void }) {
   const locale = useBanzaiLocale();
   const t = (id: AgentCopyId) => agentCopy(id, locale);
   return (

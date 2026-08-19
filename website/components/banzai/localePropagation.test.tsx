@@ -272,3 +272,74 @@ describe("Q5 — the progress block frames engine data in the reader's language"
     for (const l of LOCALES) expect(progressView(l)).not.toMatch(/\{n\}/);
   });
 });
+
+// ── Q5 — the agent shell's own stateful presentations ────────────────────────────────────────────────
+//
+// Two things this shell decides for itself are judgements about the answer, not copy: which engine
+// verdict the last response earned, and which badge an answer carries. Both used to be decided inside the
+// expression that produced the Portuguese words — and the badge decided itself a second time for its
+// styling. Comparing the two editions' wording could never have caught a disagreement between them.
+
+import { RfcPanel, answerBadgeVerdict } from "./BanzaiAgent";
+import { agentCopyIds } from "./agentPresentation";
+
+describe("Q5 — the agent shell decides its verdicts once", () => {
+  it("keys every answer badge on the same verdict, whatever the reader's language", () => {
+    // terminalKind wins over kind (ADR-036): an operational answer with no data must read "not enough
+    // measurements", never the generic "insufficient evidence".
+    const cases: Array<[string | undefined, string | undefined, string]> = [
+      ["answer", "operational_duration", "operationalMeasurement"],
+      ["answer", "insufficient_measurements", "insufficientMeasurements"],
+      ["refusal", undefined, "safeRefusal"],
+      ["unavailable", undefined, "serviceUnavailable"],
+      ["uncertain", undefined, "insufficientEvidence"],
+      // A refusal that ALSO carries a measurement stays a measurement badge — the precedence is a fact.
+      ["refusal", "operational_duration", "operationalMeasurement"],
+    ];
+    for (const [kind, terminalKind, expected] of cases) {
+      expect(answerBadgeVerdict(kind, terminalKind), `${kind}/${terminalKind}`).toBe(expected);
+    }
+    // The verdict carries no locale: it is the same value, and each edition only names it differently.
+    for (const [, , verdict] of cases) {
+      const id = `answerBadge.${verdict}` as Parameters<typeof agentCopy>[0];
+      expect(agentCopy(id, "en")).not.toBe(agentCopy(id, "pt"));
+      expect(agentCopy(id, "en").trim().length).toBeGreaterThan(0);
+    }
+  });
+
+  it("never lets a degraded or unreported engine read as a confirmed local run", () => {
+    // The honest-engine invariant, asserted in BOTH editions rather than in the one that happened to be
+    // written first. "unconfirmed" contains "confirmed", so the check is word-bounded.
+    const claims = /\bconfirmado\b|\bconfirmed\b/;
+    for (const l of LOCALES) {
+      expect(agentCopy("engine.confirmed", l).toLowerCase()).toMatch(claims);
+      expect(agentCopy("engine.degraded", l).toLowerCase()).not.toMatch(claims);
+      expect(agentCopy("engine.unreported", l).toLowerCase()).not.toMatch(claims);
+      expect(agentCopy("engine.default", l).toLowerCase()).not.toMatch(claims);
+      // The external-model verdict must say so plainly in both.
+      expect(agentCopy("engine.external", l).toLowerCase()).toMatch(/extern/);
+    }
+  });
+
+  it("renders the nested reference panel in each edition", () => {
+    const render = (l: Locale) =>
+      text(renderToStaticMarkup(
+        <BanzaiLocaleBoundary locale={l}>
+          <RfcPanel onAsk={() => {}} />
+        </BanzaiLocaleBoundary>,
+      ));
+    const en = render("en");
+    expect(en).toContain(agentCopy("rfc.intro", "en"));
+    expect(en).toContain(agentCopy("section.decisionsAndRfcs", "en"));
+    expect(en).not.toContain(agentCopy("rfc.intro", "pt"));
+    expect(render("pt")).toContain(agentCopy("rfc.intro", "pt"));
+  });
+
+  it("realizes every agent id in both editions", () => {
+    const ids = agentCopyIds();
+    expect(ids.length).toBeGreaterThanOrEqual(110);
+    for (const id of ids) {
+      for (const l of LOCALES) expect(agentCopy(id, l).trim().length, `${id}/${l}`).toBeGreaterThan(0);
+    }
+  });
+});
