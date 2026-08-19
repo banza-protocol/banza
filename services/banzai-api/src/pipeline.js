@@ -841,22 +841,67 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     };
   }
 
+  /**
+   * Reader prose for the clarification terminal, per locale and per CANDIDATE CLASS.
+   *
+   * Two classes reach this terminal and they are not the same question. `document` candidates are
+   * canonical artifact identifiers — "did you mean ADR-001 or ADR-012?". `term` candidates come from the
+   * typo-recovery layer and are Portuguese catalogue SPELLINGS — "operador / operar". Asking an English
+   * reader "which document do you mean: operador or operar?" is wrong twice: they are not documents, and
+   * they are not English. So the frame follows the class, and the spellings themselves are never
+   * translated — translating the vocabulary being matched would destroy the thing being asked about.
+   */
+  const CLARIFY_TEXT = {
+    "pt-PT": {
+      document: {
+        many: (list) => `Encontrei mais do que um documento relacionado. Refere-se a ${list}?`,
+        one: (only) =>
+          `Não tenho a certeza de qual documento pretende — refere-se a ${only}? Se sim, confirme; caso contrário, indique o identificador (ex.: ADR-001).`,
+        none: "Não consegui determinar com segurança qual documento ou regra pretende consultar. Pode indicar o identificador (ex.: ADR-001) ou reformular a pergunta?",
+      },
+      term: {
+        many: (list) => `Não tenho a certeza de qual termo pretende — refere-se a ${list}?`,
+        one: (only) => `Não tenho a certeza do termo — refere-se a ${only}?`,
+        none: "Não consegui determinar com segurança o termo pretendido. Pode reformular a pergunta?",
+      },
+      join: " ou ",
+    },
+    en: {
+      document: {
+        many: (list) => `I found more than one related document. Do you mean ${list}?`,
+        one: (only) =>
+          `I am not sure which document you mean — do you mean ${only}? If so, confirm; otherwise give the identifier (e.g. ADR-001).`,
+        none: "I could not determine which document or rule you want to consult. Give the identifier (e.g. ADR-001) or rephrase the question.",
+      },
+      term: {
+        // The terms stay in their catalogue spelling; the framing says so rather than presenting
+        // Portuguese vocabulary as though it were English.
+        many: (list) => `I am not sure which term you mean. These catalogue terms match: ${list}.`,
+        one: (only) => `I am not sure about the term. The closest catalogue term is: ${only}.`,
+        none: "I could not determine which term you mean. Please rephrase the question.",
+      },
+      join: " or ",
+    },
+  };
+
   // Ask for clarification instead of silently choosing. The question is composed deterministically from
-  // the Rust resolver's real candidates; no model is called here.
-  function clarify(envelope, meta) {
+  // the Rust resolver's real candidates in the RESOLVED locale; no model is called here.
+  function clarify(envelope, meta, locale, candidateClass = "document") {
     const cands = (envelope && Array.isArray(envelope.entity_candidates) ? envelope.entity_candidates : [])
       .map((c) => String((c && (c.proposed_canonical_id || c.label)) || "").trim())
       .filter(Boolean)
       .slice(0, 4);
+    const table = CLARIFY_TEXT[locale] || CLARIFY_TEXT[DEFAULT_LOCALE];
+    const frame = table[candidateClass] || table.document;
     let a;
     if (cands.length >= 2) {
-      a = `Encontrei mais do que um documento relacionado. Refere-se a ${cands.slice(0, -1).join(", ")} ou ${cands[cands.length - 1]}?`;
+      a = frame.many(cands.slice(0, -1).join(", ") + table.join + cands[cands.length - 1]);
     } else if (cands.length === 1) {
-      a = `Não tenho a certeza de qual documento pretende — refere-se a ${cands[0]}? Se sim, confirme; caso contrário, indique o identificador (ex.: ADR-001).`;
+      a = frame.one(cands[0]);
     } else {
-      a = "Não consegui determinar com segurança qual documento ou regra pretende consultar. Pode indicar o identificador (ex.: ADR-001) ou reformular a pergunta?";
+      a = frame.none;
     }
-    return stated(a, meta);
+    return stated(a, { ...meta, answer_locale: locale });
   }
 
   async function answer(question, { mode: requestedMode, contextQuestions, conversationContext, journeyStep, documentId, journeyNextActionSentence, signal, requestId, onProgress, locale: requestedLocale } = {}) {
@@ -1888,6 +1933,8 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         return clarify(
           { entity_candidates: recovery.clarification.map((label) => ({ label: String(label || "") })) },
           { answer_mode: mode, fallback_reason: "typo_clarification", intent: "clarification_required", terminal_kind: "clarification", trace_label: "É necessário esclarecer a referência", ...ctxMeta, ...docMeta },
+          locale,
+          "term",
         );
       }
       // Block 4B — this is the terminal a subject-less route actually reaches, so the context-missing reason
@@ -2156,6 +2203,8 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
       return clarify(
         { entity_candidates: (tp.clarification_candidates || []).map((id) => ({ proposed_canonical_id: id })) },
         { ...tpMeta, intent: "clarification_required", terminal_kind: "clarification", fallback_reason: "synthesis_clarify" },
+        locale,
+        "document",
       );
     }
     if (tp.status === "insufficient") {
