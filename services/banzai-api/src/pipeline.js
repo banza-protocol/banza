@@ -390,6 +390,20 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
    * must not have that overridden by a lexical guess; inference exists only for legacy callers that send
    * no locale, and it is allowed to answer "undetermined" rather than pretend.
    */
+  /**
+   * Reader prose owned by pre-composed terminals, per locale.
+   *
+   * A terminal is text the pipeline writes itself, so it has no knowledge-entry realization to select.
+   * That is exactly why it needs its own locale table: the alternative is what was here before, which was
+   * to emit every language at once and let the reader sort it out.
+   */
+  const TERMINAL_TEXT = {
+    source_evidence: {
+      "pt-PT": "Estas são as fontes que sustentam a resposta anterior:",
+      en: "These are the sources supporting the previous answer:",
+    },
+  };
+
   function resolveLocale(requested, question) {
     if (LOCALES.includes(requested)) return { locale: requested, source: "explicit" };
     // NO INFERENCE for legacy callers, and this is a measured decision rather than a simplification.
@@ -413,9 +427,24 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // the pipeline itself in the already-resolved locale and carries a plain `answer`; asking answerFor
     // for a realization it never had would report "unavailable" for text that is right there and correct.
     // This is not a locale fallback: the composer produced that string for THIS locale.
-    const realization = hit && hit.realizations
-      ? answerFor(hit, locale)
-      : { text: (hit && hit.answer) || "", available: true, locale };
+    // WHICH KIND OF THING IS THIS? Asked by declaration, not by shape.
+    //
+    // A knowledge entry carries `realizations` and the locale selects one. A PRE-COMPOSED TERMINAL says so
+    // — `precomposed_terminal` names its class — and carries prose the pipeline already wrote for the
+    // resolved locale, so asking answerFor for a realization it never had would report "unavailable" for
+    // correct text. Recognising terminals by the ABSENCE of `realizations` was too weak: any malformed or
+    // legacy object satisfies that shape and would have been served as though it were deliberate.
+    const isPrecomposedTerminal = Boolean(hit && hit.precomposed_terminal);
+    if (isPrecomposedTerminal && hit.answer_locale && hit.answer_locale !== locale) {
+      // A terminal must be composed FOR the resolved locale. Metadata cannot relabel prose after the fact.
+      throw new Error(
+        `pipeline: ${hit.precomposed_terminal} terminal composed for ${hit.answer_locale} but the request ` +
+          `resolved to ${locale} — terminal prose must be written for the locale that was resolved`,
+      );
+    }
+    const realization = isPrecomposedTerminal
+      ? { text: hit.answer || "", available: true, locale }
+      : answerFor(hit, locale);
     return {
       result: {
         grounded: true,
@@ -1386,14 +1415,20 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
           ...routerTrace,
         });
       }
-      // Bilingual and deterministic, in the same shape the corpus uses, so the frontend renders it with no
-      // new component and the source cards are the EXISTING objects — Block 5B stays the owner of what an
-      // ADR, a spec or an unclassified source is called.
+      // Composed FOR THE RESOLVED LOCALE, in the same shape the corpus uses, so the frontend renders it
+      // with no new component and the source cards are the EXISTING objects — Block 5B stays the owner of
+      // what an ADR, a spec or an unclassified source is called.
+      //
+      // This line used to emit the Portuguese sentence, a separator and the English sentence together,
+      // regardless of who was asking — the same concatenation the knowledge entries were migrated out of,
+      // surviving in a terminal composer because terminals were never part of that migration.
       const record = {
         id: targetEntry.id,
-        answer:
-          "Estas são as fontes que sustentam a resposta anterior:\n\n---\n\n" +
-          "These are the sources supporting the previous answer:",
+        // Declared identity, not inferred shape: a terminal says what it is rather than being recognised
+        // by the absence of `realizations`, which any malformed object also satisfies.
+        precomposed_terminal: "source_evidence",
+        answer_locale: locale,
+        answer: TERMINAL_TEXT.source_evidence[locale] || TERMINAL_TEXT.source_evidence[DEFAULT_LOCALE],
         // The validated identities only. A tampered id never reaches a card because it never survived
         // revalidation — the same set `previous_sources_available` is computed from.
         sources: evidence,
