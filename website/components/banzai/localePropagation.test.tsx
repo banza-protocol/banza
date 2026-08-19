@@ -431,3 +431,87 @@ describe("Q5 — a source's chip is resolved once and named per edition", () => 
     expect(sourceKindLabel("nope", "en")).toBe("SOURCE");
   });
 });
+
+// ── Q5 — the answer-transparency panel ───────────────────────────────────────────────────────────────
+//
+// This is where BanzAI states what it actually did. An English reader receiving that account in
+// Portuguese is the worst version of the defect this block exists to prevent, and the validator's verdict
+// is the sharpest claim on the panel: it says whether the answer was accepted.
+
+import { AnswerValidationValue, answerValidationVerdict, TransparencyPanel } from "./TransparencyPanel";
+import type { KbTransparency } from "@/components/home/banzaiKb";
+
+describe("Q5 — the transparency panel accounts for itself in the reader's language", () => {
+  const validation = (l: Locale, status: string) =>
+    renderToStaticMarkup(
+      <BanzaiLocaleBoundary locale={l}>
+        <AnswerValidationValue status={status} />
+      </BanzaiLocaleBoundary>,
+    );
+  const witness = (html: string) => html.match(/data-answer-validation="([^"]*)"/)?.[1];
+
+  it("reaches the same validator verdict in both editions, and the words match the witness", () => {
+    const CASES: Array<[string, string]> = [
+      ["rejected", "rejected"],
+      ["passed", "passed"],
+      ["n/a", "notApplicable"],
+      ["n_a", "notApplicable"],
+    ];
+    for (const [status, expected] of CASES) {
+      const en = validation("en", status);
+      const pt = validation("pt", status);
+      expect(witness(en), `${status}: wrong verdict`).toBe(expected);
+      expect(witness(en), `${status}: the English panel reached a different verdict`).toBe(witness(pt));
+      expect(text(en)).toBe(agentCopy(`tp.validation.${expected}` as never, "en"));
+      expect(text(en)).not.toBe(text(pt));
+    }
+    // Rejected and passed must never read the same — that is the whole point of the row.
+    for (const l of LOCALES) expect(text(validation(l, "rejected"))).not.toBe(text(validation(l, "passed")));
+    // A verdict the backend invents tomorrow is shown as it arrived, in both editions.
+    for (const l of LOCALES) expect(text(validation(l, "SOMETHING_NEW"))).toBe("SOMETHING_NEW");
+    expect(answerValidationVerdict("SOMETHING_NEW")).toBeNull();
+  });
+
+  it("renders the panel's field names in the reader's edition", () => {
+    // The shape the mapper really produces — arrays present and empty rather than absent, which is what
+    // the panel's own render harness uses.
+    const projection = {
+      correctionDisplay: [],
+      intent: "grounded",
+      answerType: "how_it_works",
+      questionFamily: null,
+      subIntents: [],
+      entity: null,
+      scope: null,
+      tools: [],
+      sources: [{ id: "ADR-012", title: "t", path: "p" }],
+      engine: "local_qwen",
+      modelCalled: false,
+      validationStatus: "passed",
+      limitations: [],
+    } as unknown as KbTransparency;
+    const render = (l: Locale) =>
+      text(
+        renderToStaticMarkup(
+          <BanzaiLocaleBoundary locale={l}>
+            <TransparencyPanel t={projection} />
+          </BanzaiLocaleBoundary>,
+        ),
+      );
+    const en = render("en");
+    const pt = render("pt");
+    expect(en).toContain(agentCopy("tp.heading", "en"));
+    expect(en).not.toContain(agentCopy("tp.heading", "pt"));
+    expect(pt).toContain(agentCopy("tp.heading", "pt"));
+    // "The model was not called" is a factual claim about this answer and must survive translation.
+    expect(en).toContain(agentCopy("tp.model.notCalled", "en"));
+    expect(en).not.toContain(agentCopy("tp.model.notCalled", "pt"));
+    // The engine name and the resolved intent are DATA and are byte-identical in both editions — the
+    // panel reports what ran, and what ran does not change with the reader's language.
+    for (const out of [en, pt]) {
+      expect(out).toContain("local_qwen");
+      expect(out).toContain("grounded");
+      expect(out).toContain("how_it_works");
+    }
+  });
+});
