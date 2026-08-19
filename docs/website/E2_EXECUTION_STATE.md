@@ -62,7 +62,7 @@ and stays out of the localization catalogue.
 | Q2 | `suggestions.ts` — one selection algorithm, `contextualSuggestions(ctx, locale)`, PT+EN, selection parity | **MUTATION_PROVEN** | `a7ef509` | 67 semantic ids · `selectSuggestions` locale-free · 47-context PT fixture reproduced byte for byte · `suggestionsLocale.test.ts` (15 assertions) |
 | Q3 | `traceVerifier.ts` + locale into `BanzaiRouteBinder → BanzaiWorkspaceProvider`, controlled EN harness, E2-C1 | **MUTATION_PROVEN** | `5623052` | `BanzaiLocaleBoundary` + `useBanzaiLocale` (no default, throws) · 7 trace copy ids · `SURFACE_LOCALE` retired · `localePropagation.test.tsx` (8 assertions) |
 | Q4 | DECISIONS + DECISION — one semantic decision model, PT+EN, E2-F | **MUTATION_PROVEN** | `c155ae4` | 28 copy ids · `DecisionsExplorer` bilingual · cards expose id/type/status/slug as data · `decisionsLocale.test.tsx` (9 assertions) |
-| Q5 | remaining React reader owners, by descending weight | **IN_PROGRESS** | `a0a17db`, `ea785fc` | see the Q5 owner table below — complete when every row is DONE |
+| Q5 | remaining React reader owners, by descending weight | **COMPLETE — every owner migrated or classified** | see the owner table | 11 owners · 12 mutations executed, 12 killed · 3 required a missing owner to be built first |
 | Q6 | five public EN routes + dynamic identity, E2-D, E2-E | NOT_STARTED | — | only after Q5 |
 | Q7 | EN backlink closure + full mutation campaign A–G | NOT_STARTED | — | |
 | Q8 | final closure: registry 22/0/1, rendered matrix, all regressions, assurance | NOT_STARTED | — | only Q8 may declare Block E complete |
@@ -85,7 +85,7 @@ session picks the next NOT_STARTED row by descending weight and does not re-deri
 | `components/banzai/SourceBlock.tsx` | 19 | **DONE — mutation-owned** | `4ca8d0b` |
 | `components/banzai/banzaiUi.tsx` | 19 | **MACHINE + STYLING — classified, falsifiably** | `e104c4d` |
 | `components/banzai/TransparencyPanel.tsx` | 10 | **DONE — mutation-owned** | `e02ec33`, `129f7d8` |
-| `components/banzai/ProgramadoresTools.tsx` | 2 | NOT_STARTED | — |
+| `components/banzai/ProgramadoresTools.tsx` | 2 | **DONE — mutation-owned** | `c1dfb2f` |
 
 Every one of these is rendered inside the BanzAI workspace, so each reads `useBanzaiLocale()` rather than
 taking a locale prop. The boundary has no default: a component that reads it outside a boundary throws,
@@ -123,6 +123,7 @@ the next owner, follow what it CALLS, not only what it renders.
 | Q5-L | an icon-only control appears with no accessible name | **KILLED** — added an icon-only button in `BanzaiAgent`; RED on the consumer-side invariant; exact restore, green |
 | Q5-M | the validator verdict ignores the boundary | **KILLED FIRST TIME** — forced to `"pt"` under an `en` boundary; exact restore (`4a3ecea`), green |
 | Q5-N | the EN edition reports a rejected answer as passed | **KILLED FIRST TIME** — render owner built before localizing; RED on "rejected: wrong verdict"; exact restore, green |
+| Q5-O | default absorption in the last owner | **KILLED FIRST TIME** — `agentCopy(id, "pt")` inside the panel while the boundary said `en`; RED on "dev.title is not in English"; exact restore (`75663e1`), green |
 
 **Q5-B is the most important result in this block so far.** Making the English edition present a PENDING
 run as durably archived passed every property the surface had: it was correct English, the raw
@@ -200,7 +201,20 @@ owners that did not exist and would not otherwise have been written.
 | semantic presentation ids assigned | 609 + the 10-kind source table (Q1 128 · Q2 67 · Q3 7 · Q4 77 · Q5 330) |
 | PT realizations complete | all |
 | EN realizations complete | all |
-| unclassified reader occurrences | ~2 (`ProgramadoresTools.tsx`, the last NOT_STARTED row) |
+| unclassified reader occurrences | **0** |
+
+**Q5 IS COMPLETE.** Every React reader owner in the committed inventory is migrated or explicitly
+classified, and every owner was verified closed-world: a sweep for Portuguese literals over each file
+returns 0, or returns only literals proven to be an engine enum, source-language content, a bilingual
+catalogue's PT column, or a code comment.
+
+Twelve mutations were executed across Q5 and all twelve were killed. Three needed a missing owner built
+first (`AnswerBadge`, `JourneyProgress`, the persistence verdict); after the component-first rule was
+adopted, the remaining six died on the first attempt.
+
+Six enum→label maps were found and retired: publication status, reproduction outcome, three onboarding
+state maps, the step verdict, and the answer validator. Every one of them named backend state in
+Portuguese only, and none was visible to a sweep of what a component renders.
 
 `SourceBlock`'s remaining Portuguese literals are the PT column of its own `{pt, en}` kind table —
 classified as owned bilingual copy, not unowned presentation.
