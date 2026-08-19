@@ -1,0 +1,1040 @@
+{
+ "generated_from": "engines/banzai-query-core/src/tasked.rs",
+ "generator": "tools/gen-tasked-item-inventory.py",
+ "note": "Reader-visible tasked content items. `required_fields` and `body_json` are canonical schema identifiers, not prose, and are excluded.",
+ "count": 129,
+ "items": [
+  {
+   "subject": "operador",
+   "task": "example",
+   "section": "framing",
+   "index": 0,
+   "pt": "Um operador é uma organização (por exemplo, uma empresa de pagamentos independente) que implementa o protocolo aberto BANZA.",
+   "item_id": "operador.example.framing"
+  },
+  {
+   "subject": "operador",
+   "task": "example",
+   "section": "precondition",
+   "index": 0,
+   "pt": "a organização decide implementar o protocolo aberto",
+   "item_id": "operador.example.precondition"
+  },
+  {
+   "subject": "operador",
+   "task": "example",
+   "section": "result",
+   "index": 0,
+   "pt": "torna-se um participante verificável; o BANZA define as regras, não opera nem certifica a organização (operator-neutral)",
+   "item_id": "operador.example.result"
+  },
+  {
+   "subject": "operador",
+   "task": "example",
+   "section": "actors",
+   "index": 0,
+   "pt": "um operador candidato (uma organização de pagamentos)",
+   "item_id": "operador.example.actors.0"
+  },
+  {
+   "subject": "operador",
+   "task": "example",
+   "section": "sequence",
+   "index": 0,
+   "pt": "implementa as superfícies do protocolo (carteiras/contas, QR, liquidação)",
+   "item_id": "operador.example.sequence.0"
+  },
+  {
+   "subject": "operador",
+   "task": "example",
+   "section": "sequence",
+   "index": 1,
+   "pt": "publica a sua identidade e o seu **manifest** de operador (mais o key manifest)",
+   "item_id": "operador.example.sequence.1"
+  },
+  {
+   "subject": "operador",
+   "task": "example",
+   "section": "sequence",
+   "index": 2,
+   "pt": "apresenta **evidência de conformidade** verificável",
+   "item_id": "operador.example.sequence.2"
+  },
+  {
+   "subject": "operador",
+   "task": "example",
+   "section": "sequence",
+   "index": 3,
+   "pt": "participa na **federação** segundo as regras de confiança vigentes",
+   "item_id": "operador.example.sequence.3"
+  },
+  {
+   "subject": "federacao",
+   "task": "example",
+   "section": "framing",
+   "index": 0,
+   "pt": "A federação liga operadores por avaliação de confiança, sem autoridade certificadora (ADR-025) e sem certificados (ADR-025).",
+   "item_id": "federacao.example.framing"
+  },
+  {
+   "subject": "federacao",
+   "task": "example",
+   "section": "precondition",
+   "index": 0,
+   "pt": "ambos os operadores publicam os seus artefactos verificáveis",
+   "item_id": "federacao.example.precondition"
+  },
+  {
+   "subject": "federacao",
+   "task": "example",
+   "section": "result",
+   "index": 0,
+   "pt": "a relação de federação só é válida quando os requisitos documentados são satisfeitos; uma revogação posterior altera o estado verificável",
+   "item_id": "federacao.example.result"
+  },
+  {
+   "subject": "federacao",
+   "task": "example",
+   "section": "actors",
+   "index": 0,
+   "pt": "o operador A",
+   "item_id": "federacao.example.actors.0"
+  },
+  {
+   "subject": "federacao",
+   "task": "example",
+   "section": "actors",
+   "index": 1,
+   "pt": "o operador B",
+   "item_id": "federacao.example.actors.1"
+  },
+  {
+   "subject": "federacao",
+   "task": "example",
+   "section": "sequence",
+   "index": 0,
+   "pt": "o **operador A** publica os artefactos exigidos (manifest, identidade, evidência de conformidade)",
+   "item_id": "federacao.example.sequence.0"
+  },
+  {
+   "subject": "federacao",
+   "task": "example",
+   "section": "sequence",
+   "index": 1,
+   "pt": "o **operador B** obtém-nos por uma fonte autorizada e verifica integridade, estado e relações",
+   "item_id": "federacao.example.sequence.1"
+  },
+  {
+   "subject": "federacao",
+   "task": "example",
+   "section": "sequence",
+   "index": 2,
+   "pt": "a **avaliação de confiança** aplica as regras vigentes (ADR-025), sem CA (ADR-025)",
+   "item_id": "federacao.example.sequence.2"
+  },
+  {
+   "subject": "federacao",
+   "task": "procedure",
+   "section": "result",
+   "index": 0,
+   "pt": "uma relação de federação verificável entre operadores",
+   "item_id": "federacao.procedure.result"
+  },
+  {
+   "subject": "federacao",
+   "task": "procedure",
+   "section": "gap_note",
+   "index": 0,
+   "pt": "as fontes públicas descrevem os requisitos e o modelo de confiança, mas **não publicam** um procedimento operacional completo, passo a passo",
+   "item_id": "federacao.procedure.gap_note"
+  },
+  {
+   "subject": "federacao",
+   "task": "procedure",
+   "section": "prerequisites",
+   "index": 0,
+   "pt": "publicar o **manifest** de operador (identidade, capacidades, endpoints)",
+   "item_id": "federacao.procedure.prerequisites.0"
+  },
+  {
+   "subject": "federacao",
+   "task": "procedure",
+   "section": "prerequisites",
+   "index": 1,
+   "pt": "disponibilizar o key manifest e a identidade verificável",
+   "item_id": "federacao.procedure.prerequisites.1"
+  },
+  {
+   "subject": "federacao",
+   "task": "procedure",
+   "section": "prerequisites",
+   "index": 2,
+   "pt": "apresentar **evidência de conformidade**",
+   "item_id": "federacao.procedure.prerequisites.2"
+  },
+  {
+   "subject": "federacao",
+   "task": "procedure",
+   "section": "steps",
+   "index": 0,
+   "pt": "preparar e publicar o manifest do operador",
+   "item_id": "federacao.procedure.steps.0"
+  },
+  {
+   "subject": "federacao",
+   "task": "procedure",
+   "section": "steps",
+   "index": 1,
+   "pt": "tornar a identidade e os artefactos obtíveis por uma fonte autorizada",
+   "item_id": "federacao.procedure.steps.1"
+  },
+  {
+   "subject": "federacao",
+   "task": "procedure",
+   "section": "steps",
+   "index": 2,
+   "pt": "a contraparte verifica integridade e estado",
+   "item_id": "federacao.procedure.steps.2"
+  },
+  {
+   "subject": "federacao",
+   "task": "procedure",
+   "section": "steps",
+   "index": 3,
+   "pt": "a avaliação de confiança aplica as regras vigentes",
+   "item_id": "federacao.procedure.steps.3"
+  },
+  {
+   "subject": "federacao",
+   "task": "procedure",
+   "section": "validations",
+   "index": 0,
+   "pt": "integridade e estado dos artefactos verificados",
+   "item_id": "federacao.procedure.validations.0"
+  },
+  {
+   "subject": "federacao",
+   "task": "procedure",
+   "section": "validations",
+   "index": 1,
+   "pt": "avaliação de confiança sem CA e sem certificados (ADR-025, ADR-025)",
+   "item_id": "federacao.procedure.validations.1"
+  },
+  {
+   "subject": "manifest",
+   "task": "procedure",
+   "section": "result",
+   "index": 0,
+   "pt": "um manifest de operador publicado e verificável",
+   "item_id": "manifest.procedure.result"
+  },
+  {
+   "subject": "manifest",
+   "task": "procedure",
+   "section": "gap_note",
+   "index": 0,
+   "pt": "as fontes publicam o schema e os requisitos; um runbook operacional completo de publicação não é publicado",
+   "item_id": "manifest.procedure.gap_note"
+  },
+  {
+   "subject": "manifest",
+   "task": "procedure",
+   "section": "prerequisites",
+   "index": 0,
+   "pt": "ter uma identidade de operador e endpoints",
+   "item_id": "manifest.procedure.prerequisites.0"
+  },
+  {
+   "subject": "manifest",
+   "task": "procedure",
+   "section": "prerequisites",
+   "index": 1,
+   "pt": "preparar o key manifest",
+   "item_id": "manifest.procedure.prerequisites.1"
+  },
+  {
+   "subject": "manifest",
+   "task": "procedure",
+   "section": "steps",
+   "index": 0,
+   "pt": "preencher os campos obrigatórios do schema `operator-manifest.production.schema.json`",
+   "item_id": "manifest.procedure.steps.0"
+  },
+  {
+   "subject": "manifest",
+   "task": "procedure",
+   "section": "steps",
+   "index": 1,
+   "pt": "publicar o manifest numa fonte autorizada (`base_url`/well-known)",
+   "item_id": "manifest.procedure.steps.1"
+  },
+  {
+   "subject": "manifest",
+   "task": "procedure",
+   "section": "steps",
+   "index": 2,
+   "pt": "referenciar o `key_manifest_url`",
+   "item_id": "manifest.procedure.steps.2"
+  },
+  {
+   "subject": "manifest",
+   "task": "procedure",
+   "section": "validations",
+   "index": 0,
+   "pt": "o manifest valida contra o schema canónico",
+   "item_id": "manifest.procedure.validations.0"
+  },
+  {
+   "subject": "manifest",
+   "task": "procedure",
+   "section": "validations",
+   "index": 1,
+   "pt": "`simulated` = true e `production_allowed` é uma declaração do próprio operador no baseline actual",
+   "item_id": "manifest.procedure.validations.1"
+  },
+  {
+   "subject": "manifest",
+   "task": "template",
+   "section": "schema_note",
+   "index": 0,
+   "pt": "baseada no schema canónico `operator-manifest.production.schema.json`. Os valores são ilustrativos; os **campos** são os reais do schema.",
+   "item_id": "manifest.template.schema_note"
+  },
+  {
+   "subject": "revogacao",
+   "task": "example",
+   "section": "framing",
+   "index": 0,
+   "pt": "A revogação retira a validade a uma chave ou artefacto previamente confiável, alterando o estado verificável.",
+   "item_id": "revogacao.example.framing"
+  },
+  {
+   "subject": "revogacao",
+   "task": "example",
+   "section": "precondition",
+   "index": 0,
+   "pt": "uma chave/artefacto precisa de deixar de ser confiável (comprometimento ou rotação)",
+   "item_id": "revogacao.example.precondition"
+  },
+  {
+   "subject": "revogacao",
+   "task": "example",
+   "section": "result",
+   "index": 0,
+   "pt": "o estado verificável muda; artefactos assinados pela chave revogada deixam de ser confiáveis",
+   "item_id": "revogacao.example.result"
+  },
+  {
+   "subject": "revogacao",
+   "task": "example",
+   "section": "actors",
+   "index": 0,
+   "pt": "o detentor de uma chave de assinatura",
+   "item_id": "revogacao.example.actors.0"
+  },
+  {
+   "subject": "revogacao",
+   "task": "example",
+   "section": "sequence",
+   "index": 0,
+   "pt": "é publicada uma entrada de revogação (schema `revocation-entry.production.schema.json`)",
+   "item_id": "revogacao.example.sequence.0"
+  },
+  {
+   "subject": "revogacao",
+   "task": "example",
+   "section": "sequence",
+   "index": 1,
+   "pt": "a lista de revogação passa a incluir o identificador afectado",
+   "item_id": "revogacao.example.sequence.1"
+  },
+  {
+   "subject": "revogacao",
+   "task": "example",
+   "section": "sequence",
+   "index": 2,
+   "pt": "a avaliação de confiança das contrapartes deixa de aceitar o artefacto revogado (ADR-025)",
+   "item_id": "revogacao.example.sequence.2"
+  },
+  {
+   "subject": "revogacao",
+   "task": "procedure",
+   "section": "result",
+   "index": 0,
+   "pt": "o artefacto revogado deixa de ter estatuto verificável",
+   "item_id": "revogacao.procedure.result"
+  },
+  {
+   "subject": "revogacao",
+   "task": "procedure",
+   "section": "gap_note",
+   "index": 0,
+   "pt": "o schema e o efeito estão documentados; um runbook operacional completo passo-a-passo não é publicado",
+   "item_id": "revogacao.procedure.gap_note"
+  },
+  {
+   "subject": "revogacao",
+   "task": "procedure",
+   "section": "prerequisites",
+   "index": 0,
+   "pt": "identificar a chave/artefacto a revogar",
+   "item_id": "revogacao.procedure.prerequisites.0"
+  },
+  {
+   "subject": "revogacao",
+   "task": "procedure",
+   "section": "prerequisites",
+   "index": 1,
+   "pt": "acesso à publicação da lista de revogação",
+   "item_id": "revogacao.procedure.prerequisites.1"
+  },
+  {
+   "subject": "revogacao",
+   "task": "procedure",
+   "section": "steps",
+   "index": 0,
+   "pt": "criar a entrada de revogação segundo o schema",
+   "item_id": "revogacao.procedure.steps.0"
+  },
+  {
+   "subject": "revogacao",
+   "task": "procedure",
+   "section": "steps",
+   "index": 1,
+   "pt": "publicar a entrada na lista de revogação",
+   "item_id": "revogacao.procedure.steps.1"
+  },
+  {
+   "subject": "revogacao",
+   "task": "procedure",
+   "section": "steps",
+   "index": 2,
+   "pt": "a contraparte reavalia a confiança e rejeita o artefacto revogado",
+   "item_id": "revogacao.procedure.steps.2"
+  },
+  {
+   "subject": "revogacao",
+   "task": "procedure",
+   "section": "validations",
+   "index": 0,
+   "pt": "a entrada valida contra `revocation-entry.production.schema.json`",
+   "item_id": "revogacao.procedure.validations.0"
+  },
+  {
+   "subject": "revogacao",
+   "task": "procedure",
+   "section": "validations",
+   "index": 1,
+   "pt": "a reavaliação de confiança reflecte a revogação",
+   "item_id": "revogacao.procedure.validations.1"
+  },
+  {
+   "subject": "trust",
+   "task": "example",
+   "section": "framing",
+   "index": 0,
+   "pt": "A confiança no BANZA é avaliada abertamente, sem uma autoridade certificadora (ADR-025) e sem certificados (ADR-025).",
+   "item_id": "trust.example.framing"
+  },
+  {
+   "subject": "trust",
+   "task": "example",
+   "section": "precondition",
+   "index": 0,
+   "pt": "o operador avaliado publicou os seus artefactos verificáveis",
+   "item_id": "trust.example.precondition"
+  },
+  {
+   "subject": "trust",
+   "task": "example",
+   "section": "result",
+   "index": 0,
+   "pt": "uma decisão de confiança verificável, revogável se o estado mudar",
+   "item_id": "trust.example.result"
+  },
+  {
+   "subject": "trust",
+   "task": "example",
+   "section": "actors",
+   "index": 0,
+   "pt": "um operador avaliador",
+   "item_id": "trust.example.actors.0"
+  },
+  {
+   "subject": "trust",
+   "task": "example",
+   "section": "actors",
+   "index": 1,
+   "pt": "um operador avaliado",
+   "item_id": "trust.example.actors.1"
+  },
+  {
+   "subject": "trust",
+   "task": "example",
+   "section": "sequence",
+   "index": 0,
+   "pt": "o avaliador obtém o manifest, a identidade e a evidência do avaliado",
+   "item_id": "trust.example.sequence.0"
+  },
+  {
+   "subject": "trust",
+   "task": "example",
+   "section": "sequence",
+   "index": 1,
+   "pt": "verifica integridade, estado e relações",
+   "item_id": "trust.example.sequence.1"
+  },
+  {
+   "subject": "trust",
+   "task": "example",
+   "section": "sequence",
+   "index": 2,
+   "pt": "aplica as regras de avaliação de confiança (ADR-025/ADR-025) — sem CA, sem certificados",
+   "item_id": "trust.example.sequence.2"
+  },
+  {
+   "subject": "trust",
+   "task": "template",
+   "section": "schema_note",
+   "index": 0,
+   "pt": "baseada no schema canónico `federation-trust-evaluation.production.schema.json`. Valores ilustrativos; campos reais do schema.",
+   "item_id": "trust.template.schema_note"
+  },
+  {
+   "subject": "evidencia",
+   "task": "example",
+   "section": "framing",
+   "index": 0,
+   "pt": "A evidência é um pacote verificável por máquina que demonstra a conformidade de um operador (ADR-031).",
+   "item_id": "evidencia.example.framing"
+  },
+  {
+   "subject": "evidencia",
+   "task": "example",
+   "section": "precondition",
+   "index": 0,
+   "pt": "o operador correu a verificação e recolheu os resultados",
+   "item_id": "evidencia.example.precondition"
+  },
+  {
+   "subject": "evidencia",
+   "task": "example",
+   "section": "result",
+   "index": 0,
+   "pt": "qualquer parte pode verificar a conformidade por máquina, sem confiar cegamente no operador",
+   "item_id": "evidencia.example.result"
+  },
+  {
+   "subject": "evidencia",
+   "task": "example",
+   "section": "actors",
+   "index": 0,
+   "pt": "um operador que demonstra conformidade",
+   "item_id": "evidencia.example.actors.0"
+  },
+  {
+   "subject": "evidencia",
+   "task": "example",
+   "section": "sequence",
+   "index": 0,
+   "pt": "o operador gera um evidence bundle (schema `evidence-bundle.production.schema.json`)",
+   "item_id": "evidencia.example.sequence.0"
+  },
+  {
+   "subject": "evidencia",
+   "task": "example",
+   "section": "sequence",
+   "index": 1,
+   "pt": "inclui a evidência de conformidade (`conformance-evidence`)",
+   "item_id": "evidencia.example.sequence.1"
+  },
+  {
+   "subject": "evidencia",
+   "task": "example",
+   "section": "sequence",
+   "index": 2,
+   "pt": "publica-o para verificação independente (ADR-031)",
+   "item_id": "evidencia.example.sequence.2"
+  },
+  {
+   "subject": "evidencia",
+   "task": "template",
+   "section": "schema_note",
+   "index": 0,
+   "pt": "baseada no schema canónico `evidence-bundle.production.schema.json`. Valores ilustrativos; campos reais do schema.",
+   "item_id": "evidencia.template.schema_note"
+  },
+  {
+   "subject": "conformidade",
+   "task": "example",
+   "section": "framing",
+   "index": 0,
+   "pt": "A conformidade é demonstrada por evidência verificável alinhada com níveis/capacidades (ADR-030), publicada pelo próprio operador (ADR-031).",
+   "item_id": "conformidade.example.framing"
+  },
+  {
+   "subject": "conformidade",
+   "task": "example",
+   "section": "precondition",
+   "index": 0,
+   "pt": "o operador implementou as capacidades de um nível",
+   "item_id": "conformidade.example.precondition"
+  },
+  {
+   "subject": "conformidade",
+   "task": "example",
+   "section": "result",
+   "index": 0,
+   "pt": "a conformidade do operador é verificável por qualquer parte, sem certificação central",
+   "item_id": "conformidade.example.result"
+  },
+  {
+   "subject": "conformidade",
+   "task": "example",
+   "section": "actors",
+   "index": 0,
+   "pt": "um operador candidato",
+   "item_id": "conformidade.example.actors.0"
+  },
+  {
+   "subject": "conformidade",
+   "task": "example",
+   "section": "sequence",
+   "index": 0,
+   "pt": "corre a suite de conformidade para o nível pretendido (ADR-030)",
+   "item_id": "conformidade.example.sequence.0"
+  },
+  {
+   "subject": "conformidade",
+   "task": "example",
+   "section": "sequence",
+   "index": 1,
+   "pt": "gera a evidência de conformidade (`conformance-evidence`)",
+   "item_id": "conformidade.example.sequence.1"
+  },
+  {
+   "subject": "conformidade",
+   "task": "example",
+   "section": "sequence",
+   "index": 2,
+   "pt": "publica-a de forma verificável por máquina (ADR-031)",
+   "item_id": "conformidade.example.sequence.2"
+  },
+  {
+   "subject": "conformidade",
+   "task": "procedure",
+   "section": "result",
+   "index": 0,
+   "pt": "conformidade demonstrada e verificável por máquina",
+   "item_id": "conformidade.procedure.result"
+  },
+  {
+   "subject": "conformidade",
+   "task": "procedure",
+   "section": "gap_note",
+   "index": 0,
+   "pt": "os níveis, a evidência e a auto-publicação estão documentados; um runbook operacional completo não é publicado",
+   "item_id": "conformidade.procedure.gap_note"
+  },
+  {
+   "subject": "conformidade",
+   "task": "procedure",
+   "section": "prerequisites",
+   "index": 0,
+   "pt": "implementar as capacidades do nível pretendido",
+   "item_id": "conformidade.procedure.prerequisites.0"
+  },
+  {
+   "subject": "conformidade",
+   "task": "procedure",
+   "section": "prerequisites",
+   "index": 1,
+   "pt": "acesso à suite de conformidade",
+   "item_id": "conformidade.procedure.prerequisites.1"
+  },
+  {
+   "subject": "conformidade",
+   "task": "procedure",
+   "section": "steps",
+   "index": 0,
+   "pt": "correr a suite de conformidade para o nível (ADR-030)",
+   "item_id": "conformidade.procedure.steps.0"
+  },
+  {
+   "subject": "conformidade",
+   "task": "procedure",
+   "section": "steps",
+   "index": 1,
+   "pt": "recolher a evidência de conformidade",
+   "item_id": "conformidade.procedure.steps.1"
+  },
+  {
+   "subject": "conformidade",
+   "task": "procedure",
+   "section": "steps",
+   "index": 2,
+   "pt": "publicar a evidência de forma verificável (ADR-031)",
+   "item_id": "conformidade.procedure.steps.2"
+  },
+  {
+   "subject": "conformidade",
+   "task": "procedure",
+   "section": "validations",
+   "index": 0,
+   "pt": "a evidência valida contra `conformance-evidence.production.schema.json`",
+   "item_id": "conformidade.procedure.validations.0"
+  },
+  {
+   "subject": "conformidade",
+   "task": "procedure",
+   "section": "validations",
+   "index": 1,
+   "pt": "as capacidades correspondem ao nível declarado",
+   "item_id": "conformidade.procedure.validations.1"
+  },
+  {
+   "subject": "conformidade",
+   "task": "template",
+   "section": "schema_note",
+   "index": 0,
+   "pt": "baseada no schema canónico `conformance-evidence.production.schema.json`. Valores ilustrativos; campos reais do schema.",
+   "item_id": "conformidade.template.schema_note"
+  },
+  {
+   "subject": "participacao",
+   "task": "procedure",
+   "section": "result",
+   "index": 0,
+   "pt": "o operador participa como participante verificável da federação",
+   "item_id": "participacao.procedure.result"
+  },
+  {
+   "subject": "participacao",
+   "task": "procedure",
+   "section": "gap_note",
+   "index": 0,
+   "pt": "os requisitos de participação estão documentados; um procedimento operacional completo passo-a-passo não é publicado",
+   "item_id": "participacao.procedure.gap_note"
+  },
+  {
+   "subject": "participacao",
+   "task": "procedure",
+   "section": "prerequisites",
+   "index": 0,
+   "pt": "implementar o protocolo e as capacidades pretendidas",
+   "item_id": "participacao.procedure.prerequisites.0"
+  },
+  {
+   "subject": "participacao",
+   "task": "procedure",
+   "section": "prerequisites",
+   "index": 1,
+   "pt": "ter identidade de operador e key manifest",
+   "item_id": "participacao.procedure.prerequisites.1"
+  },
+  {
+   "subject": "participacao",
+   "task": "procedure",
+   "section": "prerequisites",
+   "index": 2,
+   "pt": "ter evidência de conformidade",
+   "item_id": "participacao.procedure.prerequisites.2"
+  },
+  {
+   "subject": "participacao",
+   "task": "procedure",
+   "section": "steps",
+   "index": 0,
+   "pt": "publicar o **manifest** de operador e a identidade",
+   "item_id": "participacao.procedure.steps.0"
+  },
+  {
+   "subject": "participacao",
+   "task": "procedure",
+   "section": "steps",
+   "index": 1,
+   "pt": "publicar a **evidência de conformidade** (ADR-031)",
+   "item_id": "participacao.procedure.steps.1"
+  },
+  {
+   "subject": "participacao",
+   "task": "procedure",
+   "section": "steps",
+   "index": 2,
+   "pt": "tornar os artefactos obtíveis por fontes autorizadas",
+   "item_id": "participacao.procedure.steps.2"
+  },
+  {
+   "subject": "participacao",
+   "task": "procedure",
+   "section": "steps",
+   "index": 3,
+   "pt": "as contrapartes avaliam a confiança (ADR-025)",
+   "item_id": "participacao.procedure.steps.3"
+  },
+  {
+   "subject": "participacao",
+   "task": "procedure",
+   "section": "validations",
+   "index": 0,
+   "pt": "manifest válido contra o schema",
+   "item_id": "participacao.procedure.validations.0"
+  },
+  {
+   "subject": "participacao",
+   "task": "procedure",
+   "section": "validations",
+   "index": 1,
+   "pt": "evidência de conformidade verificável",
+   "item_id": "participacao.procedure.validations.1"
+  },
+  {
+   "subject": "participacao",
+   "task": "procedure",
+   "section": "validations",
+   "index": 2,
+   "pt": "avaliação de confiança satisfeita",
+   "item_id": "participacao.procedure.validations.2"
+  },
+  {
+   "subject": "chave",
+   "task": "procedure",
+   "section": "result",
+   "index": 0,
+   "pt": "a chave é rodada com estado verificável (nova activa, anterior revogada)",
+   "item_id": "chave.procedure.result"
+  },
+  {
+   "subject": "chave",
+   "task": "procedure",
+   "section": "gap_note",
+   "index": 0,
+   "pt": "os schemas de key manifest e revogação e o efeito estão documentados; um runbook operacional completo de rotação não é publicado",
+   "item_id": "chave.procedure.gap_note"
+  },
+  {
+   "subject": "chave",
+   "task": "procedure",
+   "section": "prerequisites",
+   "index": 0,
+   "pt": "gerar a nova chave",
+   "item_id": "chave.procedure.prerequisites.0"
+  },
+  {
+   "subject": "chave",
+   "task": "procedure",
+   "section": "prerequisites",
+   "index": 1,
+   "pt": "acesso à publicação do key manifest e da lista de revogação",
+   "item_id": "chave.procedure.prerequisites.1"
+  },
+  {
+   "subject": "chave",
+   "task": "procedure",
+   "section": "steps",
+   "index": 0,
+   "pt": "publicar a nova chave no key manifest (schema `key-manifest.production.schema.json`)",
+   "item_id": "chave.procedure.steps.0"
+  },
+  {
+   "subject": "chave",
+   "task": "procedure",
+   "section": "steps",
+   "index": 1,
+   "pt": "revogar a chave anterior (entrada de revogação)",
+   "item_id": "chave.procedure.steps.1"
+  },
+  {
+   "subject": "chave",
+   "task": "procedure",
+   "section": "steps",
+   "index": 2,
+   "pt": "as contrapartes reavaliam a confiança com a nova chave",
+   "item_id": "chave.procedure.steps.2"
+  },
+  {
+   "subject": "chave",
+   "task": "procedure",
+   "section": "validations",
+   "index": 0,
+   "pt": "o key manifest valida contra o schema",
+   "item_id": "chave.procedure.validations.0"
+  },
+  {
+   "subject": "chave",
+   "task": "procedure",
+   "section": "validations",
+   "index": 1,
+   "pt": "a entrada de revogação da chave anterior está publicada",
+   "item_id": "chave.procedure.validations.1"
+  },
+  {
+   "subject": "chave",
+   "task": "template",
+   "section": "schema_note",
+   "index": 0,
+   "pt": "baseada no schema canónico `key-manifest.production.schema.json`. Valores ilustrativos; campos reais do schema.",
+   "item_id": "chave.template.schema_note"
+  },
+  {
+   "subject": "root",
+   "task": "procedure",
+   "section": "result",
+   "index": 0,
+   "pt": "uma raiz de confiança publicada e verificável, com delegações para chaves operacionais",
+   "item_id": "root.procedure.result"
+  },
+  {
+   "subject": "root",
+   "task": "procedure",
+   "section": "gap_note",
+   "index": 0,
+   "pt": "os schemas de raiz, a arquitectura de custódia e o efeito estão documentados; um runbook operacional completo da cerimónia não é publicado no protocolo",
+   "item_id": "root.procedure.gap_note"
+  },
+  {
+   "subject": "root",
+   "task": "procedure",
+   "section": "prerequisites",
+   "index": 0,
+   "pt": "custódios offline distintos (chaves nunca na infraestrutura de serviço — ADR-027)",
+   "item_id": "root.procedure.prerequisites.0"
+  },
+  {
+   "subject": "root",
+   "task": "procedure",
+   "section": "prerequisites",
+   "index": 1,
+   "pt": "acesso à publicação dos metadados de raiz e da lista de revogação",
+   "item_id": "root.procedure.prerequisites.1"
+  },
+  {
+   "subject": "root",
+   "task": "procedure",
+   "section": "steps",
+   "index": 0,
+   "pt": "gerar as chaves de raiz offline, uma por custódio (ADR-027)",
+   "item_id": "root.procedure.steps.0"
+  },
+  {
+   "subject": "root",
+   "task": "procedure",
+   "section": "steps",
+   "index": 1,
+   "pt": "realizar a cerimónia de raiz e registar a evidência (`root-ceremony-evidence.production.schema.json`)",
+   "item_id": "root.procedure.steps.1"
+  },
+  {
+   "subject": "root",
+   "task": "procedure",
+   "section": "steps",
+   "index": 2,
+   "pt": "publicar os metadados de raiz de confiança (`trust-root-metadata.production.schema.json`)",
+   "item_id": "root.procedure.steps.2"
+  },
+  {
+   "subject": "root",
+   "task": "procedure",
+   "section": "steps",
+   "index": 3,
+   "pt": "delegar chaves operacionais a partir da raiz (`root-delegation.production.schema.json`)",
+   "item_id": "root.procedure.steps.3"
+  },
+  {
+   "subject": "root",
+   "task": "procedure",
+   "section": "validations",
+   "index": 0,
+   "pt": "os metadados de raiz validam contra o schema canónico e o threshold é satisfeito",
+   "item_id": "root.procedure.validations.0"
+  },
+  {
+   "subject": "root",
+   "task": "procedure",
+   "section": "validations",
+   "index": 1,
+   "pt": "as chaves de raiz permanecem offline (ADR-027)",
+   "item_id": "root.procedure.validations.1"
+  },
+  {
+   "subject": "root",
+   "task": "template",
+   "section": "schema_note",
+   "index": 0,
+   "pt": "baseada no schema canónico `trust-root-metadata.production.schema.json`. Valores ilustrativos; campos reais do schema.",
+   "item_id": "root.template.schema_note"
+  },
+  {
+   "subject": "interoperabilidade",
+   "task": "example",
+   "section": "framing",
+   "index": 0,
+   "pt": "A interoperabilidade liga dois operadores federados: um roteia/liquida com o outro segundo o manifest de federação e a avaliação de confiança.",
+   "item_id": "interoperabilidade.example.framing"
+  },
+  {
+   "subject": "interoperabilidade",
+   "task": "example",
+   "section": "precondition",
+   "index": 0,
+   "pt": "ambos publicaram o manifest de federação e a evidência de conformidade",
+   "item_id": "interoperabilidade.example.precondition"
+  },
+  {
+   "subject": "interoperabilidade",
+   "task": "example",
+   "section": "result",
+   "index": 0,
+   "pt": "uma interacção verificável entre operadores, sem uma autoridade central",
+   "item_id": "interoperabilidade.example.result"
+  },
+  {
+   "subject": "interoperabilidade",
+   "task": "example",
+   "section": "actors",
+   "index": 0,
+   "pt": "o operador A",
+   "item_id": "interoperabilidade.example.actors.0"
+  },
+  {
+   "subject": "interoperabilidade",
+   "task": "example",
+   "section": "actors",
+   "index": 1,
+   "pt": "o operador B",
+   "item_id": "interoperabilidade.example.actors.1"
+  },
+  {
+   "subject": "interoperabilidade",
+   "task": "example",
+   "section": "sequence",
+   "index": 0,
+   "pt": "o **operador A** e o **operador B** publicam o manifest de federação (endpoint de interop, capacidades)",
+   "item_id": "interoperabilidade.example.sequence.0"
+  },
+  {
+   "subject": "interoperabilidade",
+   "task": "example",
+   "section": "sequence",
+   "index": 1,
+   "pt": "o operador A resolve o operador B e verifica a avaliação de confiança",
+   "item_id": "interoperabilidade.example.sequence.1"
+  },
+  {
+   "subject": "interoperabilidade",
+   "task": "example",
+   "section": "sequence",
+   "index": 2,
+   "pt": "o operador A roteia uma operação para o operador B e regista a obrigação de liquidação",
+   "item_id": "interoperabilidade.example.sequence.2"
+  },
+  {
+   "subject": "interoperabilidade",
+   "task": "template",
+   "section": "schema_note",
+   "index": 0,
+   "pt": "baseada no contrato canónico `federation-manifest.json`. Valores ilustrativos; campos reais do contrato.",
+   "item_id": "interoperabilidade.template.schema_note"
+  }
+ ]
+}
