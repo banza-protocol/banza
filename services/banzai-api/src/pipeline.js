@@ -1919,7 +1919,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         : contextResolved && references.execution_id
         ? [references.execution_id]
         : [];
-      const fam = await answerQuestionFamily(rq, { traceId: String(keyFields.repoIndexHash || ""), receiptsTool, contextTargets });
+      const fam = await answerQuestionFamily(rq, { traceId: String(keyFields.repoIndexHash || ""), receiptsTool, contextTargets, locale });
       // The question-family handler runs its own deterministic plan (reason-code registry / receipt store /
       // canonical corpus). Emit the TOOL events ONLY when a family actually OWNS this turn (grounded /
       // clarification / fallback) — never for a "skip" that merely falls through to the trunk below (that
@@ -1951,6 +1951,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
           fallback_reason: "family_clarification",
           intent: "clarification_required",
           terminal_kind: "clarification",
+          answer_locale: fam.answer_locale,
           question_family: fam.family,
           trace_label: "Clarificação de família de pergunta (Rust)",
           ...ctxMeta,
