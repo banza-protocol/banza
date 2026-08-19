@@ -14,10 +14,15 @@
 import { describe, it, expect } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
 import { DecisionsExplorer } from "./DecisionsExplorer";
+import { DecisionsIndexView } from "./DecisionsIndexView";
+import { DecisionDetailView } from "./DecisionDetailView";
+import { decisions } from "@/lib/decisions";
 import {
   DECISIONS_COPY,
   IDENTICAL_ACROSS_EDITIONS,
   decisionAskQuestion,
+  decisionDetailAskQuestion,
+  decisionDetailStateLabel,
   decisionStateLabel,
   decisionsCopy,
   decisionsCopyIds,
@@ -136,7 +141,7 @@ describe("Q4 — the chrome is the reader's own", () => {
 describe("Q4 — the catalogue is closed and complete", () => {
   it("realizes every id in both editions", () => {
     const ids = decisionsCopyIds();
-    expect(ids.length).toBe(28);
+    expect(ids.length).toBe(77);
     for (const id of ids) {
       for (const l of LOCALES) expect(DECISIONS_COPY[id][l].trim().length, `${id}/${l}`).toBeGreaterThan(0);
       if (IDENTICAL_ACROSS_EDITIONS.includes(id)) {
@@ -146,7 +151,7 @@ describe("Q4 — the catalogue is closed and complete", () => {
         expect(DECISIONS_COPY[id].en, `${id} English is a copy of the Portuguese`).not.toBe(DECISIONS_COPY[id].pt);
       }
     }
-    expect(IDENTICAL_ACROSS_EDITIONS.length).toBe(2);
+    expect(IDENTICAL_ACROSS_EDITIONS.length).toBe(4);
   });
 
   it("requires the locale and throws rather than substituting an edition", () => {
@@ -158,5 +163,88 @@ describe("Q4 — the catalogue is closed and complete", () => {
 
   it("leaves no unresolved placeholder in a rendered edition", () => {
     for (const l of LOCALES) expect(render(l)).not.toMatch(/\{id\}/);
+  });
+});
+
+// ── Q5 — the two decision ROUTE surfaces ─────────────────────────────────────────────────────────────
+//
+// Q4 localized the explorer and left the pages around it Portuguese, which is the failure mode this
+// block keeps producing: a correct component inside an untranslated frame. These render the real route
+// surfaces, in both editions, and read what came out.
+
+const RECORD = decisions[0];
+const BODY = "# Título\n\nCorpo do documento na sua língua original.";
+
+const indexView = (locale: Locale): string =>
+  renderToStaticMarkup(<DecisionsIndexView locale={locale} />);
+const detailView = (locale: Locale): string =>
+  renderToStaticMarkup(<DecisionDetailView decision={RECORD} body={BODY} locale={locale} />);
+
+/** Readable text: markup removed, entities decoded, whitespace collapsed. */
+const readable = (html: string): string =>
+  html.replace(/<[^>]+>/g, " ").replace(/&amp;/g, "&").replace(/&#x27;|&rsquo;/g, "'").replace(/\s+/g, " ").trim();
+
+describe("Q5 — the decision routes are one surface in two editions", () => {
+  it("renders the index page in each edition, with no other edition's prose", () => {
+    const en = readable(indexView("en"));
+    const pt = readable(indexView("pt"));
+    for (const id of ["index.title", "index.lede", "index.note.1", "index.link.governanceProcess"] as const) {
+      expect(en, `${id} is not in English`).toContain(decisionsCopy(id, "en"));
+      expect(pt, `${id} is not in Portuguese`).toContain(decisionsCopy(id, "pt"));
+      expect(en, `${id} leaked the Portuguese realization`).not.toContain(decisionsCopy(id, "pt"));
+      expect(pt).not.toContain(decisionsCopy(id, "en"));
+    }
+  });
+
+  it("renders a record's own page in each edition", () => {
+    const en = readable(detailView("en"));
+    const pt = readable(detailView("pt"));
+    for (const id of ["detail.note.heading", "detail.action.readOnGithub", "detail.normativeLevel", "detail.note.bodyTail"] as const) {
+      expect(en, `${id} is not in English`).toContain(decisionsCopy(id, "en"));
+      expect(pt).toContain(decisionsCopy(id, "pt"));
+      expect(en, `${id} leaked the Portuguese realization`).not.toContain(decisionsCopy(id, "pt"));
+    }
+    // The metadata keys are rendered upper-cased, so they are read that way rather than assumed.
+    for (const id of ["detail.meta.type", "detail.meta.state", "detail.meta.path"] as const) {
+      expect(en, `${id} is not in English`).toContain(decisionsCopy(id, "en").toUpperCase());
+      expect(pt).toContain(decisionsCopy(id, "pt").toUpperCase());
+    }
+    // The long-form state is the record's declared state, said out loud in the reader's language.
+    expect(en).toContain(decisionDetailStateLabel(RECORD.status, "en"));
+    expect(en).not.toContain(decisionDetailStateLabel(RECORD.status, "pt"));
+  });
+
+  it("asserts the SAME facts about the record whatever the edition", () => {
+    // Identity, repository path, canonical URL, neighbours and the document body are the page's factual
+    // claims. A translation may not touch any of them.
+    const en = detailView("en");
+    const pt = detailView("pt");
+    for (const fact of [RECORD.id, RECORD.path, RECORD.canonicalUrl, RECORD.title, RECORD.type]) {
+      expect(en, `${fact} missing from the English page`).toContain(fact);
+      expect(pt).toContain(fact);
+    }
+    const links = (html: string) => (html.match(/href="\/decisoes\/[^"]*"/g) ?? []).sort();
+    expect(links(en)).toEqual(links(pt));
+    // The document body is served in its ORIGINAL language and is byte-identical in both editions.
+    expect(readable(en)).toContain("Corpo do documento na sua língua original.");
+    expect(readable(pt)).toContain("Corpo do documento na sua língua original.");
+  });
+
+  it("asks the record's own question — distinct from the library card's — in the reader's language", () => {
+    const en = detailView("en");
+    expect(en).toContain(encodeURIComponent(decisionDetailAskQuestion(RECORD.type, RECORD.id, "en")));
+    expect(en).not.toContain(encodeURIComponent(decisionDetailAskQuestion(RECORD.type, RECORD.id, "pt")));
+    // The two surfaces close on different clauses, and that difference survives translation.
+    for (const l of LOCALES) {
+      expect(decisionDetailAskQuestion("ADR", "ADR-012", l)).not.toBe(decisionAskQuestion("ADR", "ADR-012", l));
+    }
+    expect(decisionDetailAskQuestion("ADR", "ADR-012", "en")).toMatch(/confers no certification/);
+  });
+
+  it("leaves no unresolved placeholder in either route surface", () => {
+    for (const l of LOCALES) {
+      expect(indexView(l)).not.toMatch(/\{(adr|rfc|id)\}/);
+      expect(detailView(l)).not.toMatch(/\{(adr|rfc|id)\}/);
+    }
   });
 });
