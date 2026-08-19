@@ -414,3 +414,71 @@ describe("Q5 — progress means the same thing in both editions", () => {
     expect(realizeProgress(many, "pt").indexOf("3")).toBeLessThan(realizeProgress(many, "pt").indexOf("2"));
   });
 });
+
+// ── Q5 — the developer draft tool ────────────────────────────────────────────────────────────────────
+//
+// A draft result is deliberately powerless: it advances nothing, produces no receipt, feeds no bundle and
+// never returns VERIFIED. The reader has to be told that in their own language, and the verdict itself —
+// valid or not — has to be the one the validator actually reached.
+
+import { DraftVerdictBadge } from "./DraftValidationTool";
+import { TONE_COPY_ID, traceCopy, traceTone, type TraceReport as TR } from "./traceVerifier";
+
+describe("Q5 — the draft tool reports one verdict in two languages", () => {
+  const badge = (l: Locale, ok: boolean) =>
+    renderToStaticMarkup(
+      <BanzaiLocaleBoundary locale={l}>
+        <DraftVerdictBadge ok={ok} />
+      </BanzaiLocaleBoundary>,
+    );
+  const witness = (html: string) => html.match(/data-draft-verdict="([^"]*)"/)?.[1];
+
+  it("renders the same verdict in both editions, and the words match the witness", () => {
+    for (const ok of [true, false]) {
+      const en = badge("en", ok);
+      const pt = badge("pt", ok);
+      const expected = ok ? "valid" : "invalid";
+      expect(witness(en), `ok=${ok}: wrong witness`).toBe(expected);
+      expect(witness(en), `ok=${ok}: the English badge reached a different verdict`).toBe(witness(pt));
+      // The witness is not decorative: the rendered words must be THIS verdict's realization.
+      expect(readable(en)).toBe(validationCopy(`draft.verdict.${expected}`, "en"));
+      expect(readable(pt)).toBe(validationCopy(`draft.verdict.${expected}`, "pt"));
+      expect(readable(en)).not.toBe(readable(pt));
+    }
+    // The two verdicts stay distinguishable in each edition.
+    for (const l of LOCALES) expect(badge(l, true)).not.toBe(badge(l, false));
+  });
+
+  it("says a draft result is a draft, in both editions", () => {
+    // The powerlessness of a draft result is the point of the tool; neither edition may soften it.
+    for (const l of LOCALES) {
+      for (const id of ["draft.verdict.valid", "draft.verdict.invalid"] as const) {
+        expect(validationCopy(id, l).toLowerCase()).toMatch(/rascunho|draft/);
+      }
+    }
+    const note = validationCopy("draft.resultNote", "en");
+    expect(note).toMatch(/does not advance the journey/);
+    expect(note).toMatch(/never returns VERIFIED/);
+    expect(note).toMatch(/Certification Readiness/);
+  });
+
+  it("keeps the trace verdict a decision and only realizes its sentence", () => {
+    // The runner stores the verdict's copy id, not its words, so the status field means the same thing in
+    // both editions. The verdict itself is computed from the report with no locale in scope.
+    const report = (over: Partial<TR>): TR => ({
+      trace_id: "tr", flow_type: "f", event_count: 0, timeline: [], invariant_checks: [],
+      causal_summary: "", issues: [], ...over,
+    });
+    const cases: Array<[TR, "pass" | "fail" | "unknown"]> = [
+      [report({ issues: ["INV-STL-001 FAIL"], invariant_checks: [{ id: "INV-STL-001", name: "n", status: "FAIL", reason: "r" }] }), "fail"],
+      [report({ invariant_checks: [{ id: "INV-TRACE-001", name: "n", status: "PASS", reason: "r" }] }), "pass"],
+      [report({ invariant_checks: [{ id: "INV-LEDGER-001", name: "n", status: "UNKNOWN", reason: "r" }] }), "unknown"],
+    ];
+    for (const [r, expected] of cases) {
+      expect(traceTone(r)).toBe(expected);
+      const id = TONE_COPY_ID[expected];
+      for (const l of LOCALES) expect(traceCopy(id, l).trim().length).toBeGreaterThan(0);
+      expect(traceCopy(id, "en")).not.toBe(traceCopy(id, "pt"));
+    }
+  });
+});
