@@ -5,11 +5,14 @@
 import { describe, it, expect } from "vitest";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
+// Block E2/Q5 — this surface reads its edition from the workspace boundary and has no default, so the
+// harness declares one. These assertions keep pinning the PORTUGUESE surface.
+import { BanzaiLocaleBoundary } from "./BanzaiWorkspaceProvider";
 import { PersistenceBadge } from "@/components/banzai/BanzaiValidationMode";
 import type { PersistenceInfo } from "@/lib/banzaiValidateClient";
 
 const html = (p: PersistenceInfo, onRetry?: () => void, retrying?: boolean) =>
-  renderToStaticMarkup(createElement(PersistenceBadge, { p, onRetry, retrying }));
+  renderToStaticMarkup(createElement(BanzaiLocaleBoundary, { locale: "pt" as const }, createElement(PersistenceBadge, { p, onRetry, retrying })));
 
 const persisted: PersistenceInfo = {
   status: "PERSISTED", execution_id: "exec_abc123", durable: true, consultable: true, comparable: true, reproducible: true,

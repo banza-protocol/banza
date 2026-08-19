@@ -5,6 +5,9 @@
 import { describe, it, expect } from "vitest";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
+// Block E2/Q5 — this surface reads its edition from the workspace boundary and has no default, so the
+// harness declares one. These assertions keep pinning the PORTUGUESE surface.
+import { BanzaiLocaleBoundary } from "./BanzaiWorkspaceProvider";
 import { ExecutionHistoryPanel } from "@/components/banzai/BanzaiValidationMode";
 import type { ValidationSession } from "@/components/banzai/validationJourney";
 
@@ -12,7 +15,7 @@ const sessionNoTarget = { operatorId: null, implementationId: null, steps: [] } 
 
 describe("ExecutionHistoryPanel — durable archive view", () => {
   it("guides to Validar operador when no implementation is selected (no fetch)", () => {
-    const out = renderToStaticMarkup(createElement(ExecutionHistoryPanel, { session: sessionNoTarget }));
+    const out = renderToStaticMarkup(createElement(BanzaiLocaleBoundary, { locale: "pt" as const }, createElement(ExecutionHistoryPanel, { session: sessionNoTarget })));
     expect(out).toContain("Validar operador");
     expect(out).toContain("append-only");
     // The archive toolbar (Comparar/Actualizar) must NOT render without a target.
