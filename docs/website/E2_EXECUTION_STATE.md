@@ -82,7 +82,7 @@ session picks the next NOT_STARTED row by descending weight and does not re-deri
 | `components/banzai/BanzaiOnboardingMode.tsx` + `ONBOARDING_COPY` (migrated out of `banzai-agent.ts`) | 69 | **DONE** | `0e25d27` |
 | `components/banzai/validationJourney.tsx` | 29 | **DONE — mutation-owned** | `12e3058`, `44aeea0`, `cc39923` |
 | `components/banzai/DraftValidationTool.tsx` (beyond the Q3 `traceStatus` thread) | 26 | **DONE — mutation-owned** | `e896aa9`, `02623f3` |
-| `components/banzai/SourceBlock.tsx` | 19 | NOT_STARTED | — |
+| `components/banzai/SourceBlock.tsx` | 19 | **DONE — mutation-owned** | `4ca8d0b` |
 | `components/banzai/banzaiUi.tsx` | 19 | NOT_STARTED | — |
 | `components/banzai/TransparencyPanel.tsx` | 10 | NOT_STARTED | — |
 | `components/banzai/ProgramadoresTools.tsx` | 2 | NOT_STARTED | — |
@@ -117,6 +117,8 @@ the next owner, follow what it CALLS, not only what it renders.
 | Q5-F | the EN edition reports a different journey outcome | **SURVIVED FIRST, THEN KILLED** — the third instance of the same shape; see below |
 | Q5-G | the draft verdict badge ignores the boundary | **KILLED FIRST TIME** — forced to `"pt"` under an `en` boundary; RED on the rendered verdict; exact restore (`109ca22`), green |
 | Q5-H | the EN edition reports an invalid draft as valid | **KILLED FIRST TIME** — the render owner was built BEFORE localizing, so the Q5-D/Q5-F class had nowhere to hide; RED on "ok=false: wrong witness"; exact restore, green |
+| Q5-I | the source chip ignores the boundary | **KILLED FIRST TIME** — forced to `"pt"` under an `en` boundary; exact restore (`5354afe`), green |
+| Q5-J | the EN edition resolves a source to a different chip | **KILLED FIRST TIME** — a `spec` source resolved to `reference` in English only; RED on "spec/normative: chips diverged"; exact restore, green |
 
 **Q5-B is the most important result in this block so far.** Making the English edition present a PENDING
 run as durably archived passed every property the surface had: it was correct English, the raw
@@ -191,10 +193,21 @@ owners that did not exist and would not otherwise have been written.
 
 | | count |
 |---|---|
-| semantic presentation ids assigned | 607 (Q1 catalogue 126 · Q2 67 · Q3 7 · Q4 77 · Q5 330) |
-| PT realizations complete | 607 / 607 |
-| EN realizations complete | 607 / 607 |
-| unclassified reader occurrences | ~50 (the NOT_STARTED rows above) |
+| semantic presentation ids assigned | 609 + the 10-kind source table (Q1 128 · Q2 67 · Q3 7 · Q4 77 · Q5 330) |
+| PT realizations complete | all |
+| EN realizations complete | all |
+| unclassified reader occurrences | ~31 (the NOT_STARTED rows above) |
+
+`SourceBlock`'s remaining Portuguese literals are the PT column of its own `{pt, en}` kind table —
+classified as owned bilingual copy, not unowned presentation.
+
+**`SourceBlock` is the most instructive owner in Q5 and the only one whose defect was already shipped.**
+It HAD an English label for every source kind — a `{pt, en}` table written long before this block. It was
+unreachable: `sourceKindLabel(kind, lang = "pt")` defaulted in the signature, and the one caller passed no
+language at all. Every reader saw Portuguese, every test passed, and the English column sat unread. **A
+bilingual table is not a bilingual surface until something requires the reader's edition.** The language
+is now required (asserted by arity), the chip is a component that resolves once and reads its own edition,
+and the category map's Portuguese labels — dead since the label moved years ago — are gone.
 
 `DraftValidationTool` is closed-world verified (**0** Portuguese literals). It reused Q3's `traceVerifier`
 rather than duplicating it, and fixed a real defect there on the way: the runner was storing the trace
