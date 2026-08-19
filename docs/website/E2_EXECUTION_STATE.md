@@ -83,7 +83,7 @@ session picks the next NOT_STARTED row by descending weight and does not re-deri
 | `components/banzai/validationJourney.tsx` | 29 | **DONE — mutation-owned** | `12e3058`, `44aeea0`, `cc39923` |
 | `components/banzai/DraftValidationTool.tsx` (beyond the Q3 `traceStatus` thread) | 26 | **DONE — mutation-owned** | `e896aa9`, `02623f3` |
 | `components/banzai/SourceBlock.tsx` | 19 | **DONE — mutation-owned** | `4ca8d0b` |
-| `components/banzai/banzaiUi.tsx` | 19 | NOT_STARTED | — |
+| `components/banzai/banzaiUi.tsx` | 19 | **MACHINE + STYLING — classified, falsifiably** | `2a7b1f0` (see note) |
 | `components/banzai/TransparencyPanel.tsx` | 10 | NOT_STARTED | — |
 | `components/banzai/ProgramadoresTools.tsx` | 2 | NOT_STARTED | — |
 
@@ -119,6 +119,8 @@ the next owner, follow what it CALLS, not only what it renders.
 | Q5-H | the EN edition reports an invalid draft as valid | **KILLED FIRST TIME** — the render owner was built BEFORE localizing, so the Q5-D/Q5-F class had nowhere to hide; RED on "ok=false: wrong witness"; exact restore, green |
 | Q5-I | the source chip ignores the boundary | **KILLED FIRST TIME** — forced to `"pt"` under an `en` boundary; exact restore (`5354afe`), green |
 | Q5-J | the EN edition resolves a source to a different chip | **KILLED FIRST TIME** — a `spec` source resolved to `reference` in English only; RED on "spec/normative: chips diverged"; exact restore, green |
+| Q5-K | `banzaiUi` acquires Portuguese accessibility copy | **KILLED** — replaced the decorative `aria-hidden` with a Portuguese `aria-label`; RED; exact restore (`e1870af`), green |
+| Q5-L | an icon-only control appears with no accessible name | **KILLED** — added an icon-only button in `BanzaiAgent`; RED on the consumer-side invariant; exact restore, green |
 
 **Q5-B is the most important result in this block so far.** Making the English edition present a PENDING
 run as durably archived passed every property the surface had: it was correct English, the raw
@@ -200,6 +202,21 @@ owners that did not exist and would not otherwise have been written.
 
 `SourceBlock`'s remaining Portuguese literals are the PT column of its own `{pt, en}` kind table —
 classified as owned bilingual copy, not unowned presentation.
+
+**`banzaiUi` is not a reader owner at all.** Its 19 inventory occurrences are icon keys and SVG path
+geometry, not copy: the module holds an icon-key enum (machine identity), the geometry each key maps to
+(styling), a decorative `Ico` renderer and a CSS class string. Nothing in it is a sentence, a label, an
+aria string or a state→wording decision, so there was nothing to localize and no semantic mutation to
+fabricate.
+
+The classification is written as PROPERTIES rather than as a note, so it can be falsified: the module
+fails the suite if it acquires prose (Q5-K), and — because the classification depends on consumers, not
+only on the module — it fails if any icon-only control appears anywhere without an accessible name
+(Q5-L). An icon that carried meaning alone would need a name, and that name would be reader copy under
+the full locale contract. Both mutations were executed and killed.
+
+Inspected for the SourceBlock failure class and found clean: no optional locale parameter, no `= "pt"`
+default, no bilingual map, no module-scope Portuguese constant.
 
 **`SourceBlock` is the most instructive owner in Q5 and the only one whose defect was already shipped.**
 It HAD an English label for every source kind — a `{pt, en}` table written long before this block. It was
