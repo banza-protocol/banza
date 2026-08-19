@@ -129,7 +129,7 @@ test("an English request is never served the Portuguese decline", async () => {
   assert.doesNotMatch(a, /Interpretei o teu pedido/, "English was served the Portuguese sentence");
   assert.doesNotMatch(a, /não invento um número/, "English was served Portuguese explanatory prose");
   assert.match(a, /operational measurement/, "English must get the English framing");
-  assert.equal(r.meta.answer_locale, "en", "and must declare the locale it was composed for");
+  assert.equal(r.result.answer_locale, "en", "and must declare the locale it was composed for");
 });
 
 test("a Portuguese request keeps its Portuguese decline and declares it", async () => {
@@ -137,11 +137,11 @@ test("a Portuguese request keeps its Portuguese decline and declares it", async 
   const a = String(r.result.answer);
   assert.match(a, /Interpretei o teu pedido/, "Portuguese must keep its own framing");
   assert.doesNotMatch(a, /operational measurement/, "Portuguese must not carry the English framing");
-  assert.equal(r.meta.answer_locale, "pt-PT");
+  assert.equal(r.result.answer_locale, "pt-PT");
 });
 
 test("a caller that states no locale gets Portuguese by legacy default, never by inference", async () => {
   const r = await pipe().answer(MEASUREMENT_QUERY, {});
   assert.match(String(r.result.answer), /Interpretei o teu pedido/, "legacy callers keep Portuguese");
-  assert.equal(r.meta.answer_locale, "pt-PT", "and the composed locale is still declared");
+  assert.equal(r.result.answer_locale, "pt-PT", "and the composed locale is still declared");
 });

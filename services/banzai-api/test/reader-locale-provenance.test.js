@@ -63,11 +63,18 @@ const QUERIES = [
   "o que é def-operator?",
 ];
 
-/** Provenance, read from wherever a composer put it — and the location, so disagreement is visible. */
+/**
+ * Provenance, read from the ONE canonical field.
+ *
+ * Deliberately NOT `result.answer_locale ?? meta.answer_locale`. A rule written over two fields can
+ * always be satisfied by the wrong one, and that is not hypothetical here: an earlier census read only
+ * `meta` and reported 26 of 30 answers as unprovenanced when the true number was 4. `meta` is still
+ * read, but only to prove it has stopped being a second authority.
+ */
 function provenance(r) {
   const fromResult = r.result?.answer_locale ?? null;
   const fromMeta = r.meta?.answer_locale ?? null;
-  return { fromResult, fromMeta, value: fromResult ?? fromMeta };
+  return { fromResult, fromMeta, value: fromResult };
 }
 
 async function census() {
@@ -114,15 +121,16 @@ test("provenance always agrees with the locale that was resolved", async () => {
   );
 });
 
-test("where both provenance fields exist they cannot disagree", async () => {
-  // Split-brain prevention. Two independent authorities is how the earlier mis-measurement happened, and
-  // it is how a future law would silently read the wrong one.
+test("meta is no longer a provenance authority at all", async () => {
+  // Stronger than "they agree": the second field is GONE from reader-facing results, so a future rule
+  // cannot accidentally read it, and no composer can quietly start owning it again. Agreement was the
+  // interim guarantee while two owners existed; this is the end state that made it unnecessary.
   const rows = await census();
-  const split = rows.filter((r) => r.fromResult && r.fromMeta && r.fromResult !== r.fromMeta);
+  const stillOnMeta = rows.filter((r) => r.fromMeta != null);
   assert.deepEqual(
-    split.map((r) => `${r.kind}: result=${r.fromResult} meta=${r.fromMeta}`),
+    stillOnMeta.map((r) => `${r.kind} [${r.locale}] meta=${r.fromMeta}`),
     [],
-    "a result carries two contradictory composition locales",
+    "a reader-facing result still carries provenance on meta — canonical provenance is result.answer_locale",
   );
 });
 

@@ -700,17 +700,26 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
   // M2.18B — a grounded=false result carrying a specific answer body (clarification / out-of-scope /
   // interpreted-boundary). No source, no model answer. Deterministic; safe by construction.
   function stated(answerText, meta) {
+    // ONE authority for reader-locale provenance, and it sits beside the prose it describes.
+    //
+    // Composers used to pass `answer_locale` inside `meta` while the knowledge realization path put it on
+    // `result`, so the same fact had two homes. That is not a tidiness complaint: a census that read only
+    // `meta` reported 26 of 30 answers as unprovenanced when the true number was 4, because it looked in
+    // the wrong place for the largest composer. A rule written over two fields can always read the wrong
+    // one, so composers keep stamping at composition and this hoists the value to the canonical field.
+    const { answer_locale, ...rest } = meta || {};
     return {
       result: {
         grounded: false,
         answer: answerText,
+        answer_locale: answer_locale ?? null,
         sources: [],
         entry_id: null,
         provider: provider.name,
         mode: isReal ? "real" : "mock",
         guardrails: GUARDRAILS,
       },
-      meta: { deterministic: true, cache: null, llm_called: false, ...meta },
+      meta: { deterministic: true, cache: null, llm_called: false, ...rest },
     };
   }
 
@@ -1835,6 +1844,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
             provider: provider.name,
             mode: isReal ? "real" : "mock",
             guardrails: GUARDRAILS,
+            answer_locale: locale,
           },
           meta: {
             deterministic: true,
@@ -1844,7 +1854,6 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
             fallback_reason: null,
             intent: "grounded",
             terminal_kind: "document_lookup",
-            answer_locale: locale,
             reason_code: "document_lookup_card",
             trace_label: "Consulta documental determinística (0 chamadas de modelo)",
             ...ctxMeta,
@@ -2052,7 +2061,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // Mock provider — deterministic, free, offline. It has no local model, so it never runs the trunk.
     if (!isReal) {
       const r = await provider.answer(rq);
-      return { result: r, meta: { deterministic: true, cache: null, llm_called: false, answer_mode: mode, fallback_reason: null, intent, terminal_kind: "explanatory_trunk", answer_locale: locale, ...ctxMeta, ...docMeta } };
+      return { result: { ...r, answer_locale: locale }, meta: { deterministic: true, cache: null, llm_called: false, answer_mode: mode, fallback_reason: null, intent, terminal_kind: "explanatory_trunk", ...ctxMeta, ...docMeta } };
     }
 
     // The emergency Phase-1 grounding (model-free, degraded, sourced) — used ONLY when the trunk cannot
@@ -2096,9 +2105,9 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // so answer_source=validated_cache. This label makes deterministic coverage (validated_cache +
     // deterministic terminals vs fresh_synthesis) measurable from the /ask meta alone.
     const exactHit = exact.get(keyFields);
-    if (exactHit) return { result: exactHit, meta: { deterministic: false, cache: "exact", answer_source: "validated_cache", llm_called: false, answer_mode: mode, fallback_reason: null, intent, terminal_kind: "explanatory_trunk", answer_locale: locale, ...ctxMeta, ...docMeta } };
+    if (exactHit) return { result: { ...exactHit, answer_locale: locale }, meta: { deterministic: false, cache: "exact", answer_source: "validated_cache", llm_called: false, answer_mode: mode, fallback_reason: null, intent, terminal_kind: "explanatory_trunk", ...ctxMeta, ...docMeta } };
     const semHit = semantic.find(keyFields);
-    if (semHit) return { result: semHit.value, meta: { deterministic: false, cache: "semantic", answer_source: "validated_cache", similarity: semHit.similarity, llm_called: false, answer_mode: mode, fallback_reason: null, intent, terminal_kind: "explanatory_trunk", answer_locale: locale, ...ctxMeta, ...docMeta } };
+    if (semHit) return { result: { ...semHit.value, answer_locale: locale }, meta: { deterministic: false, cache: "semantic", answer_source: "validated_cache", similarity: semHit.similarity, llm_called: false, answer_mode: mode, fallback_reason: null, intent, terminal_kind: "explanatory_trunk", ...ctxMeta, ...docMeta } };
 
     // Budget gate — the USD budget guards HOSTED inference only; local_qwen runs on the VM at ~zero
     // marginal cost and bypasses it (its control is the concurrency/queue limiter + container memory). An
