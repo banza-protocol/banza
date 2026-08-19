@@ -11,55 +11,64 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Ico, CARD } from "@/components/banzai/banzaiUi";
-import { ONBOARDING_COPY as C } from "@/components/banzai/banzai-agent";
+import { useBanzaiLocale } from "@/components/banzai/BanzaiWorkspaceProvider";
+import type { Locale } from "@/lib/i18n";
+import {
+  onboardingCopy,
+  onboardingPresentation,
+  type OnboardingCopyId,
+} from "@/components/banzai/onboardingPresentation";
 import type { WbMode } from "@/components/banzai/banzai-agent";
 import { onboardingClient, type Candidate } from "@/lib/banzaiOnboardingClient";
 import { fetchOptions, type ValidationOptions } from "@/lib/banzaiValidateClient";
 
 type Step = "loading" | "paths" | "email" | "otp" | "authed";
 
-// Human-readable PT labels for the backend state enums (M2.19G.3B — never show a raw enum code to the
-// operator). Unknown values fall through verbatim (faithful, never invented).
-const CANDIDATE_STATE_LABEL: Record<string, string> = {
-  EMAIL_PENDING: "Email por confirmar",
-  EMAIL_VERIFIED: "Email confirmado",
-  DRAFT: "Rascunho",
-  ORIGIN_PENDING: "Origem por verificar",
-  ORIGIN_VERIFIED: "Origem verificada",
-  VALIDATING: "Em validação",
-  BLOCKED: "Bloqueada",
-  VALIDATION_COMPLETED: "Validação concluída",
-  PUBLICATION_ELIGIBLE: "Elegível para publicação",
-  PUBLISHED: "Publicada no registo técnico",
-  EXPIRED: "Expirada",
+// The backend's state enums, mapped to the id of the sentence that NAMES each one (M2.19G.3B — never
+// show a raw enum code to the operator). Block E2/Q5: the STATE is backend data and the map is keyed by
+// it, with no locale in scope; only naming it belongs to the reader. A state neither map knows falls
+// through verbatim — faithful, and never invented in one language and left raw in the other.
+const CANDIDATE_STATE_ID: Record<string, OnboardingCopyId> = {
+  EMAIL_PENDING: "state.emailPending",
+  EMAIL_VERIFIED: "state.emailVerified",
+  DRAFT: "state.draft",
+  ORIGIN_PENDING: "state.originPending",
+  ORIGIN_VERIFIED: "state.originVerified",
+  VALIDATING: "stage.inValidation",
+  BLOCKED: "state.blocked",
+  VALIDATION_COMPLETED: "stage.validationComplete",
+  PUBLICATION_ELIGIBLE: "stage.eligibleForPublication",
+  PUBLISHED: "stage.publishedInRegistry",
+  EXPIRED: "state.expired",
 };
-const ORIGIN_STATE_LABEL: Record<string, string> = {
-  ORIGIN_PENDING: "Origem por verificar",
-  ORIGIN_CHALLENGE_ISSUED: "Desafio de origem emitido",
-  ORIGIN_VERIFIED: "Origem verificada",
-  ORIGIN_FAILED: "Verificação de origem falhou",
+const ORIGIN_STATE_ID: Record<string, OnboardingCopyId> = {
+  ORIGIN_PENDING: "state.originPending",
+  ORIGIN_CHALLENGE_ISSUED: "state.originChallengeIssued",
+  ORIGIN_VERIFIED: "state.originVerified",
+  ORIGIN_FAILED: "stage.originVerificationFailed",
 };
-const VALIDATION_STATE_LABEL: Record<string, string> = {
-  NOT_STARTED: "Por iniciar",
-  VALIDATING: "Em validação",
-  VALIDATION_COMPLETED: "Validação concluída",
-  BLOCKED: "Bloqueada",
+const VALIDATION_STATE_ID: Record<string, OnboardingCopyId> = {
+  NOT_STARTED: "state.notStarted",
+  VALIDATING: "stage.inValidation",
+  VALIDATION_COMPLETED: "stage.validationComplete",
+  BLOCKED: "state.blocked",
 };
-function labelFor(map: Record<string, string>, v: string | null | undefined): string {
+function labelFor(map: Record<string, OnboardingCopyId>, v: string | null | undefined, locale: Locale): string {
   const k = String(v || "");
-  return map[k] || k;
+  const id = map[k];
+  return id ? onboardingCopy(id, locale) : k;
 }
 
 // M2.19G.3 — the onboarding is a clear SEQUENCE, not one big form. These are the six ordered phases; the
 // current phase is derived from the real backend state (auth → candidature → implementation → canonical
 // origin → proof of control → validation readiness), so the header reads as a stepper, not a wall of forms.
-const ONBOARDING_PHASES = [
-  "Autenticação",
-  "Candidatura",
-  "Implementação",
-  "Origem canónica",
-  "Prova de controlo",
-  "Preparação para validação",
+const ONBOARDING_PHASE_IDS: readonly OnboardingCopyId[] = [
+  "step.authentication",
+  "step.candidature",
+  "step.implementation",
+  "step.canonicalOrigin",
+  "step.proofOfControl",
+  "step.validationPrep",
 ] as const;
 
 export function computeOnboardingPhase(step: Step, candidates: Candidate[]): number {
@@ -73,13 +82,16 @@ export function computeOnboardingPhase(step: Step, candidates: Candidate[]): num
 }
 
 function OnboardingStepper({ current }: { current: number }) {
+  const locale = useBanzaiLocale();
+  const t = (id: OnboardingCopyId) => onboardingCopy(id, locale);
+  const C = onboardingPresentation(locale);
   return (
-    <ol aria-label="Sequência de onboarding do operador" className="mt-4 flex flex-wrap items-center gap-x-[8px] gap-y-[8px]">
-      {ONBOARDING_PHASES.map((label, i) => {
+    <ol aria-label={t("aria.sequence")} className="mt-4 flex flex-wrap items-center gap-x-[8px] gap-y-[8px]">
+      {ONBOARDING_PHASE_IDS.map((phaseId, i) => {
         const n = i + 1;
         const state = n < current ? "done" : n === current ? "active" : "upcoming";
         return (
-          <li key={label} aria-current={state === "active" ? "step" : undefined} className="flex items-center gap-[7px]">
+          <li key={phaseId} aria-current={state === "active" ? "step" : undefined} className="flex items-center gap-[7px]">
             <span
               className={`flex h-[20px] w-[20px] flex-none items-center justify-center rounded-full font-mono text-[10px] font-semibold ${
                 state === "done"
@@ -91,8 +103,8 @@ function OnboardingStepper({ current }: { current: number }) {
             >
               {state === "done" ? "✓" : n}
             </span>
-            <span className={`text-[11.5px] ${state === "active" ? "font-semibold text-ink" : "text-ink-4"}`}>{label}</span>
-            {n < ONBOARDING_PHASES.length && <span aria-hidden className="mx-[1px] hidden h-px w-[12px] bg-black/15 sm:block" />}
+            <span className={`text-[11.5px] ${state === "active" ? "font-semibold text-ink" : "text-ink-4"}`}>{t(phaseId)}</span>
+            {n < ONBOARDING_PHASE_IDS.length && <span aria-hidden className="mx-[1px] hidden h-px w-[12px] bg-black/15 sm:block" />}
           </li>
         );
       })}
@@ -119,6 +131,9 @@ function Notice({ children, tone = "info" }: { children: React.ReactNode; tone?:
 }
 
 export function BanzaiOnboardingMode({ onSwitchMode }: { onSwitchMode?: (m: WbMode) => void }) {
+  const locale = useBanzaiLocale();
+  const t = (id: OnboardingCopyId) => onboardingCopy(id, locale);
+  const C = onboardingPresentation(locale);
   const [step, setStep] = useState<Step>("loading");
   const [email, setEmail] = useState("");
   const [challengeId, setChallengeId] = useState("");
@@ -161,13 +176,13 @@ export function BanzaiOnboardingMode({ onSwitchMode }: { onSwitchMode?: (m: WbMo
     if (r.ok && r.challenge_id) {
       setChallengeId(r.challenge_id);
       setStep("otp");
-      setInfo("Código enviado. Verifique o seu email.");
+      setInfo(t("error.codeSent"));
     } else if (r.reason === "rate_limited" || r.reason === "reissue_too_soon") {
       setError("Demasiados pedidos. Aguarde um momento e tente novamente.");
     } else if (r.reason === "email_delivery_failed") {
-      setError("Não foi possível enviar o email. Verifique o endereço e tente novamente.");
+      setError(t("error.emailSendFailed"));
     } else {
-      setError("Email inválido ou serviço indisponível. Tente novamente.");
+      setError(t("error.emailInvalid"));
     }
   }
 
@@ -180,11 +195,11 @@ export function BanzaiOnboardingMode({ onSwitchMode }: { onSwitchMode?: (m: WbMo
       setCode("");
       setStep("authed");
     } else if (r.verdict === "expired" || r.verdict === "already_used") {
-      setError("Código expirado ou já usado. Peça um novo código.");
+      setError(t("error.codeExpired"));
     } else if (r.verdict === "too_many_attempts") {
-      setError("Demasiadas tentativas. Peça um novo código.");
+      setError(t("error.tooManyAttempts"));
     } else {
-      setError("Código incorrecto. Verifique e tente novamente.");
+      setError(t("error.codeIncorrect"));
     }
   }
 
@@ -299,6 +314,9 @@ function AuthedDashboard({
   onLogout: () => void;
   onSwitchMode?: (m: WbMode) => void;
 }) {
+  const locale = useBanzaiLocale();
+  const t = (id: OnboardingCopyId) => onboardingCopy(id, locale);
+  const C = onboardingPresentation(locale);
   const [opName, setOpName] = useState("");
   const [instName, setInstName] = useState("");
   const [creating, setCreating] = useState(false);
@@ -317,14 +335,14 @@ function AuthedDashboard({
     const r = await onboardingClient.createCandidate(opName.trim(), instName.trim());
     setCreating(false);
     if (r.ok) { setOpName(""); setInstName(""); await onRefresh(); }
-    else setErr("Não foi possível criar a candidatura.");
+    else setErr(t("error.candidatureFailed"));
   }
 
   return (
     <div className="mt-5">
       <div className="flex flex-wrap items-center justify-between gap-2 rounded-[10px] border border-black/[0.08] bg-paper-2 px-[13px] py-[10px]">
-        <span className="text-[12.5px] text-ink-3">Sessão iniciada como <strong className="text-ink">{email}</strong></span>
-        <button type="button" onClick={onLogout} className={BTN_GHOST}>Terminar sessão</button>
+        <span className="text-[12.5px] text-ink-3">{t("session.signedInAs")}<strong className="text-ink">{email}</strong></span>
+        <button type="button" onClick={onLogout} className={BTN_GHOST}>{t("session.signOut")}</button>
       </div>
       <p className="mt-3 text-[11.5px] leading-[1.5] text-ink-5">{C.sessionNotice}</p>
 
@@ -334,7 +352,7 @@ function AuthedDashboard({
         <button type="button" onClick={() => void onRefresh()} className="text-[12px] text-bordo hover:underline">Actualizar</button>
       </div>
       <div className="mt-2 flex flex-col gap-[10px]">
-        {candidates.length === 0 && <Notice>Ainda não tem candidaturas. Crie uma abaixo.</Notice>}
+        {candidates.length === 0 && <Notice>{t("candidature.none")}</Notice>}
         {candidates.map((c) => (
           <CandidateCard key={c.candidate_id} candidate={c} options={options} onRefresh={onRefresh} onSwitchMode={onSwitchMode} />
         ))}
@@ -367,6 +385,9 @@ function CandidateCard({
   onRefresh: () => Promise<void>;
   onSwitchMode?: (m: WbMode) => void;
 }) {
+  const locale = useBanzaiLocale();
+  const t = (id: OnboardingCopyId) => onboardingCopy(id, locale);
+  const C = onboardingPresentation(locale);
   const [implName, setImplName] = useState("");
   const [domain, setDomain] = useState("");
   const [protocolVersion, setProtocolVersion] = useState("");
@@ -387,19 +408,19 @@ function CandidateCard({
     });
     setAdding(false);
     if (r.ok) { setImplName(""); setDomain(""); setProtocolVersion(""); setProfile(""); setEnvironment(""); await onRefresh(); }
-    else if (r.error === "invalid_domain") setErr("Domínio inválido.");
-    else if (r.error === "invalid_option") setErr("Versão/perfil/ambiente têm de ser um valor canónico suportado.");
-    else setErr("Não foi possível adicionar a implementação.");
+    else if (r.error === "invalid_domain") setErr(t("error.invalidDomain"));
+    else if (r.error === "invalid_option") setErr(t("error.nonCanonicalOption"));
+    else setErr(t("error.addImplementationFailed"));
   }
 
   return (
     <div className="rounded-[10px] border border-black/[0.08] bg-white p-[14px]">
       <div className="flex items-center justify-between gap-2">
         <span className="text-[14px] font-semibold text-ink">{candidate.operator_name}</span>
-        <span className="rounded-[5px] border border-black/[0.07] bg-paper-2 px-[7px] py-[2px] text-[11px] font-medium text-ink-4">{labelFor(CANDIDATE_STATE_LABEL, candidate.state)}</span>
+        <span className="rounded-[5px] border border-black/[0.07] bg-paper-2 px-[7px] py-[2px] text-[11px] font-medium text-ink-4">{labelFor(CANDIDATE_STATE_ID, candidate.state, locale)}</span>
       </div>
       {candidate.institutional_name && <div className="mt-1 text-[12px] text-ink-4">{candidate.institutional_name}</div>}
-      <p className="mt-1 text-[11px] leading-[1.5] text-ink-5">Um operador; cada implementação declara a sua própria versão, perfil e ambiente e prova a sua própria origem.</p>
+      <p className="mt-1 text-[11px] leading-[1.5] text-ink-5">{t("candidature.oneOperator")}</p>
 
       {candidate.implementations.length > 0 && (
         <div className="mt-3 flex flex-col gap-[8px]">
@@ -411,12 +432,12 @@ function CandidateCard({
 
       {/* Add implementation — version/profile/environment come from the canonical Rust option sets. */}
       <div className="mt-3 grid gap-[8px] sm:grid-cols-2">
-        <input value={implName} onChange={(e) => setImplName(e.target.value)} placeholder="Nome da implementação" aria-label="Nome da implementação" className={INPUT} />
-        <input value={domain} onChange={(e) => setDomain(e.target.value)} placeholder="Domínio canónico (ex.: op.exemplo.ao)" aria-label="Domínio canónico" className={INPUT} />
+        <input value={implName} onChange={(e) => setImplName(e.target.value)} placeholder={t("field.implementationName")} aria-label={t("field.implementationName")} className={INPUT} />
+        <input value={domain} onChange={(e) => setDomain(e.target.value)} placeholder={t("field.canonicalDomainPlaceholder")} aria-label={t("field.canonicalDomain")} className={INPUT} />
       </div>
       <div className="mt-2 grid gap-[8px] sm:grid-cols-3">
-        <select value={protocolVersion} onChange={(e) => setProtocolVersion(e.target.value)} aria-label="Versão do protocolo" className={SELECT}>
-          <option value="">Versão do protocolo…</option>
+        <select value={protocolVersion} onChange={(e) => setProtocolVersion(e.target.value)} aria-label={t("field.protocolVersion")} className={SELECT}>
+          <option value="">{t("field.protocolVersionPlaceholder")}</option>
           {(options?.supported_protocol_versions ?? []).map((v) => <option key={v} value={v}>{v}</option>)}
         </select>
         <select value={profile} onChange={(e) => setProfile(e.target.value)} aria-label="Perfil" className={SELECT}>
@@ -428,12 +449,11 @@ function CandidateCard({
           {(options?.supported_environments ?? []).map((v) => <option key={v} value={v}>{v}</option>)}
         </select>
       </div>
-      {!options && <p className="mt-1 text-[11px] text-ink-5">A carregar as opções canónicas do protocolo…</p>}
+      {!options && <p className="mt-1 text-[11px] text-ink-5">{t("options.loading")}</p>}
       {err && <div className="mt-2"><Notice tone="warn">{err}</Notice></div>}
       <div className="mt-2">
         <button type="button" onClick={addImpl} disabled={adding || !complete} className={BTN_GHOST}>
-          <Ico name="code" size={14} /> Adicionar implementação
-        </button>
+          <Ico name="code" size={14} />{t("action.addImplementation")}</button>
       </div>
     </div>
   );
@@ -446,6 +466,9 @@ function ImplementationRow({
   onRefresh: () => Promise<void>;
   onSwitchMode?: (m: WbMode) => void;
 }) {
+  const locale = useBanzaiLocale();
+  const t = (id: OnboardingCopyId) => onboardingCopy(id, locale);
+  const C = onboardingPresentation(locale);
   const [challengeDoc, setChallengeDoc] = useState<string | null>(null);
   const [publishUrl, setPublishUrl] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -462,7 +485,7 @@ function ImplementationRow({
       setPublishUrl(r.publish_url || null);
       setMsg(C.origin.intro); setMsgTone("info");
     } else {
-      setMsg("Não foi possível emitir o desafio de origem."); setMsgTone("warn");
+      setMsg(t("error.challengeFailed")); setMsgTone("warn");
     }
   }
 
@@ -471,15 +494,15 @@ function ImplementationRow({
     const r = await onboardingClient.verifyOrigin(impl.candidate_implementation_id);
     setBusy(false);
     if (r.ok && r.result === "verified") { setMsg(C.origin.verified); setMsgTone("ok"); await onRefresh(); }
-    else if (r.result === "unreachable") { setMsg("Não foi possível obter o documento no domínio. Confirme que está publicado e acessível por HTTPS."); setMsgTone("warn"); }
-    else { setMsg("A origem ainda não confere. Confirme o documento publicado e tente novamente."); setMsgTone("warn"); }
+    else if (r.result === "unreachable") { setMsg(t("error.documentUnreachable")); setMsgTone("warn"); }
+    else { setMsg(t("error.originMismatch")); setMsgTone("warn"); }
   }
 
   return (
     <div className="rounded-[9px] border border-black/[0.07] bg-paper-2 p-[11px]">
       <div className="flex items-center justify-between gap-2">
         <span className="text-[13px] font-medium text-ink">{impl.implementation_name}</span>
-        <span className={`rounded-[5px] px-[7px] py-[2px] text-[10.5px] font-medium ${verified ? "bg-[rgba(44,99,73,0.1)] text-[#2C6349]" : "bg-white text-ink-4 border border-black/[0.07]"}`}>{labelFor(ORIGIN_STATE_LABEL, impl.origin_verification_state)}</span>
+        <span className={`rounded-[5px] px-[7px] py-[2px] text-[10.5px] font-medium ${verified ? "bg-[rgba(44,99,73,0.1)] text-[#2C6349]" : "bg-white text-ink-4 border border-black/[0.07]"}`}>{labelFor(ORIGIN_STATE_ID, impl.origin_verification_state, locale)}</span>
       </div>
       <div className="mt-1 font-mono text-[11px] text-ink-4">{impl.canonical_domain}</div>
       {(impl.expected_protocol_version || impl.expected_profile || impl.expected_environment) && (
@@ -487,13 +510,13 @@ function ImplementationRow({
           {impl.expected_protocol_version && <code className="rounded-[5px] border border-black/[0.07] bg-white px-[6px] py-[2px] font-mono text-[10px] text-ink-4">protocolo {impl.expected_protocol_version}</code>}
           {impl.expected_profile && <code className="rounded-[5px] border border-black/[0.07] bg-white px-[6px] py-[2px] font-mono text-[10px] text-ink-4">perfil {impl.expected_profile}</code>}
           {impl.expected_environment && <code className="rounded-[5px] border border-black/[0.07] bg-white px-[6px] py-[2px] font-mono text-[10px] text-ink-4">{impl.expected_environment}</code>}
-          <span className="rounded-[5px] px-[6px] py-[2px] text-[10px] text-ink-5">{labelFor(VALIDATION_STATE_LABEL, impl.validation_state)}</span>
+          <span className="rounded-[5px] px-[6px] py-[2px] text-[10px] text-ink-5">{labelFor(VALIDATION_STATE_ID, impl.validation_state, locale)}</span>
         </div>
       )}
 
       {!verified && (
         <div className="mt-2 flex flex-wrap items-center gap-2">
-          <button type="button" onClick={issue} disabled={busy} className={BTN_GHOST}>Preparar prova de origem</button>
+          <button type="button" onClick={issue} disabled={busy} className={BTN_GHOST}>{t("action.prepareOriginProof")}</button>
           {challengeDoc && <button type="button" onClick={verify} disabled={busy} className={BTN_PRIMARY}><Ico name="shield" size={14} /> {C.origin.verifyCta}</button>}
         </div>
       )}
@@ -502,7 +525,7 @@ function ImplementationRow({
 
       {challengeDoc && !verified && (
         <div className="mt-2">
-          {publishUrl && <div className="mb-1 font-mono text-[11px] text-ink-4">Publicar em: <span className="text-ink-3">{publishUrl}</span></div>}
+          {publishUrl && <div className="mb-1 font-mono text-[11px] text-ink-4">{t("action.publishAt")}<span className="text-ink-3">{publishUrl}</span></div>}
           <pre className="overflow-x-auto rounded-[8px] border border-black/[0.08] bg-white p-[10px] font-mono text-[11px] leading-[1.5] text-ink-3">{challengeDoc}</pre>
         </div>
       )}
@@ -510,8 +533,7 @@ function ImplementationRow({
       {verified && onSwitchMode && (
         <div className="mt-2">
           <button type="button" onClick={() => onSwitchMode("validation")} className={BTN_GHOST}>
-            <Ico name="medal" size={14} /> Ir para Validar operador
-          </button>
+            <Ico name="medal" size={14} />{t("action.goToValidate")}</button>
         </div>
       )}
     </div>

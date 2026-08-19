@@ -125,46 +125,9 @@ export const VALIDATION_COPY = {
     `A implementação ${impl}, publicada pelo operador ${operator}, foi avaliada para o perfil ${profile}, versão ${version}, ambiente ${environment} e âmbito indicado.`,
 } as const;
 
-// M2.19G.3 (ADR-037) — BanzAI-hosted operator onboarding copy. Onboarding is a hosted BanzAI service,
-// NOT a protocol rule: the email authenticates the person, the domain confirms the origin, the endpoints
-// supply the artifacts, Rust verifies. A candidate is never a published operator, an active participant
-// nor a certified entity; nothing here moves funds, grants authorisation, or admits into any scheme.
-export const ONBOARDING_COPY = {
-  modeLabel: "Onboarding de operador",
-  header: "Onboarding de operador",
-  intro:
-    "Registe uma candidatura para preparar a validação técnica da sua implementação. A autenticação é sem palavra-passe: recebe um código de acesso no seu email. A candidatura fica guardada e pode ser recuperada a qualquer momento com o mesmo email.",
-  boundary:
-    "Uma candidatura não é um operador publicado, um participante activo nem uma entidade certificada. O onboarding é um serviço do BanzAI, não uma regra do protocolo: o email autentica a pessoa, o domínio confirma a origem, os endpoints fornecem os artefactos e o Rust verifica. Não movimenta fundos, não concede autorização regulatória e não admite em nenhum scheme.",
-  scope: "Âmbito inicial: Angola (AOA). Sem recolha de dados de jurisdição neste passo.",
-  paths: {
-    published: { title: "Consultar operador publicado", desc: "Ver o registo técnico público e as implementações de referência." },
-    submit: { title: "Submeter novo operador", desc: "Criar uma candidatura e declarar a implementação e a sua origem canónica." },
-    recover: { title: "Continuar candidatura", desc: "Recuperar uma candidatura existente com o email já verificado." },
-  },
-  email: {
-    label: "Email institucional",
-    placeholder: "operador@exemplo.ao",
-    cta: "Enviar código de acesso",
-    hint: "Enviamos um código de 6 dígitos, válido por alguns minutos e de uso único. Nunca pedimos palavra-passe.",
-  },
-  otp: {
-    label: "Código de acesso",
-    placeholder: "000000",
-    cta: "Confirmar código",
-    resend: "Reenviar código",
-    hint: "Introduza o código de 6 dígitos que enviámos para o seu email.",
-  },
-  origin: {
-    title: "Prova de controlo da origem canónica",
-    intro:
-      "Publique o documento abaixo em .well-known no domínio canónico da implementação. O backend obtém-no de forma segura e o Rust confirma o controlo da origem.",
-    verifyCta: "Verificar origem",
-    verified: "Origem verificada — controlo do domínio canónico confirmado.",
-  },
-  sessionNotice:
-    "A sua candidatura fica guardada no Registo de Candidaturas privado. A sessão é protegida por um cookie de sessão; termine sessão para a encerrar.",
-} as const;
+// M2.19G.3 (ADR-037) — the operator-onboarding copy moved to `components/banzai/onboardingPresentation`
+// in Block E2/Q5. It is read by exactly one surface and had to become bilingual; leaving a Portuguese
+// copy here as well would have been a second definition of the same sentences.
 
 // M2.19G.1 (ADR-034 §17) — the developer draft tool copy. A draft result is LOCAL, non-authoritative,
 // never evidence, never a step verdict, never Certification Readiness.

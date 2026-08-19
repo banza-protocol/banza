@@ -207,3 +207,62 @@ describe("Q5 — the validation catalogue is closed and complete", () => {
     }
   });
 });
+
+// ── Q5 — operator onboarding ─────────────────────────────────────────────────────────────────────────
+//
+// Onboarding reports backend state: how far a candidature has got, whether the origin proof verified, why
+// an attempt failed. Those decisions are the backend's. What must be the reader's is the sentence naming
+// each one — and, above all, the sentences that say what a candidature is NOT, which are authored in full
+// in both editions rather than softened in either.
+
+import {
+  ONBOARDING_IDENTICAL_ACROSS_EDITIONS,
+  ONBOARDING_SURFACE_COPY,
+  onboardingCopy,
+  onboardingCopyIds,
+  onboardingPresentation,
+} from "./onboardingPresentation";
+
+describe("Q5 — onboarding names backend state without changing it", () => {
+  it("realizes every id in both editions", () => {
+    const ids = onboardingCopyIds();
+    expect(ids.length).toBeGreaterThanOrEqual(50);
+    for (const id of ids) {
+      for (const l of LOCALES) expect(ONBOARDING_SURFACE_COPY[id][l].trim().length, `${id}/${l}`).toBeGreaterThan(0);
+      if (ONBOARDING_IDENTICAL_ACROSS_EDITIONS.includes(id)) {
+        expect(ONBOARDING_SURFACE_COPY[id].en).toBe(ONBOARDING_SURFACE_COPY[id].pt);
+      } else {
+        expect(ONBOARDING_SURFACE_COPY[id].en, `${id} English is a copy of the Portuguese`).not.toBe(
+          ONBOARDING_SURFACE_COPY[id].pt,
+        );
+      }
+    }
+    expect(() => onboardingCopy("no.such" as never, "en")).toThrow(/unknown id/);
+    expect(() => onboardingCopy("modeLabel", "de" as Locale)).toThrow(/no de realization/);
+  });
+
+  it("states what a candidature is NOT, in full, in both editions", () => {
+    // The honest boundary is the reason this surface exists. Neither edition may lose a clause of it.
+    for (const l of LOCALES) {
+      const boundary = onboardingCopy("boundary", l);
+      expect(boundary.length).toBeGreaterThan(200);
+    }
+    const en = onboardingCopy("boundary", "en");
+    expect(en).toMatch(/not a published operator/);
+    expect(en).toMatch(/not a certified entity/);
+    expect(en).toMatch(/moves no funds/);
+    expect(en).toMatch(/grants no regulatory authorisation/);
+    expect(en).toMatch(/admits into no scheme/);
+  });
+
+  it("builds the nested surface shape from the one catalogue, per edition", () => {
+    const en = onboardingPresentation("en");
+    const pt = onboardingPresentation("pt");
+    // Same structure, different words — one definition of each sentence, not two trees.
+    expect(Object.keys(en)).toEqual(Object.keys(pt));
+    expect(Object.keys(en.paths)).toEqual(["published", "submit", "recover"]);
+    expect(en.email.cta).toBe(onboardingCopy("email.cta", "en"));
+    expect(en.email.cta).not.toBe(pt.email.cta);
+    expect(en.origin.verified).not.toBe(pt.origin.verified);
+  });
+});
