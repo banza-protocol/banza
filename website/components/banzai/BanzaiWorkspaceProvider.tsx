@@ -53,7 +53,7 @@ export function useBanzaiLocale(): Locale {
  * The locale boundary itself, split out so the provider below and any test harness use the SAME code
  * path rather than a stand-in. Nothing else in the tree may create a LocaleContext value.
  */
-export function BanzaiLocaleBoundary({ locale, children }: { locale: Locale; children: React.ReactNode }) {
+export function BanzaiLocaleBoundary({ locale, children }: { locale: Locale; children?: React.ReactNode }) {
   return <LocaleContext.Provider value={locale}>{children}</LocaleContext.Provider>;
 }
 

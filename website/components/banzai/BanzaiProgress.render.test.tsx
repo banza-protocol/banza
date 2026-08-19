@@ -5,6 +5,7 @@
 import { describe, it, expect } from "vitest";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
+import { BanzaiLocaleBoundary } from "./BanzaiWorkspaceProvider";
 import { BanzaiProgressView, BanzaiProgressMetrics } from "@/components/banzai/BanzaiProgress";
 import { PROGRESS_SCHEMA_TOKEN, type ProgressEvent, type ProgressMetrics } from "@/lib/banzaiProgress";
 
@@ -13,7 +14,15 @@ function evt(kind: string, payload: Record<string, unknown> = {}): ProgressEvent
   return { kind: kind as ProgressEvent["kind"], schema: PROGRESS_SCHEMA_TOKEN, seq: _seq++, ts: 0, request_id: "rid", ...payload };
 }
 const view = (events: ProgressEvent[], reducedMotion = false) =>
-  renderToStaticMarkup(createElement(BanzaiProgressView, { events, startedAt: Date.now(), reducedMotion }));
+  // Block E2/Q5 — the block reads its edition from the workspace boundary and has no default, so the
+  // harness declares one. These assertions keep pinning the PORTUGUESE surface.
+  renderToStaticMarkup(
+    createElement(
+      BanzaiLocaleBoundary,
+      { locale: "pt" as const },
+      createElement(BanzaiProgressView, { events, startedAt: Date.now(), reducedMotion }),
+    ),
+  );
 
 describe("BanzaiProgressView — §9 processing line", () => {
   it("shows the interpret line at the start and the composite tool/source line", () => {
@@ -83,7 +92,9 @@ describe("BanzaiProgressView — §9 facts-available cards + synthesis state", (
 describe("BanzaiProgressMetrics — §12", () => {
   const metrics: ProgressMetrics = { ttfbMs: 20, timeToFirstProgressMs: 40, timeToFirstVerifiedFactMs: 200, timeToFinalValidatedAnswerMs: 1800 };
   it("renders the three metrics + TTFB for a streamed answer", () => {
-    const out = renderToStaticMarkup(createElement(BanzaiProgressMetrics, { metrics }));
+    const out = renderToStaticMarkup(
+      createElement(BanzaiLocaleBoundary, { locale: "pt" as const }, createElement(BanzaiProgressMetrics, { metrics })),
+    );
     expect(out).toContain("MÉTRICAS PROGRESSIVAS");
     expect(out).toContain("PRIMEIRO PROGRESSO");
     expect(out).toContain("PRIMEIRO FACTO VERIFICÁVEL");
@@ -93,6 +104,10 @@ describe("BanzaiProgressMetrics — §12", () => {
   });
   it("renders nothing when there are no stream metrics (a non-streamed answer)", () => {
     const empty: ProgressMetrics = { ttfbMs: null, timeToFirstProgressMs: null, timeToFirstVerifiedFactMs: null, timeToFinalValidatedAnswerMs: null };
-    expect(renderToStaticMarkup(createElement(BanzaiProgressMetrics, { metrics: empty }))).toBe("");
+    expect(
+      renderToStaticMarkup(
+        createElement(BanzaiLocaleBoundary, { locale: "pt" as const }, createElement(BanzaiProgressMetrics, { metrics: empty })),
+      ),
+    ).toBe("");
   });
 });

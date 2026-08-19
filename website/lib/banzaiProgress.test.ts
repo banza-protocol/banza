@@ -19,12 +19,18 @@ import {
   hasStreamMetrics,
   type ProgressEvent,
 } from "./banzaiProgress";
+import { realizeProgressLine } from "@/components/banzai/progressPresentation";
 
 // A minimal event factory (only the reserved fields + the passed safe payload).
 let _seq = 0;
 function evt(kind: string, payload: Record<string, unknown> = {}): ProgressEvent {
   return { kind: kind as ProgressEvent["kind"], schema: PROGRESS_SCHEMA_TOKEN, seq: _seq++, ts: Date.now(), request_id: "rid", ...payload };
 }
+
+// Block E2/Q5 — progressLineFor now reports the PHASE, not a sentence. These assertions keep pinning the
+// exact Portuguese wording by realizing it explicitly, so the refactor cannot quietly reword the line.
+const ptLine = (events: Parameters<typeof progressLineFor>[0]): string =>
+  realizeProgressLine(progressLineFor(events), "pt");
 
 describe("SPR-5 contract mirror", () => {
   it("mirrors the Rust-owned kind set (18 kinds, schema token banzai-progress/1) with NO model-prose/delta kind", () => {
@@ -53,24 +59,24 @@ describe("SPR-5 contract mirror", () => {
 
 describe("§9 processing line (event kind → label)", () => {
   it("maps each stage to its label, folding tool/source counts into the composite", () => {
-    expect(progressLineFor([]).label).toBe("A interpretar a pergunta");
-    expect(progressLineFor([evt("REQUEST_ACCEPTED")]).label).toBe("A interpretar a pergunta");
-    expect(progressLineFor([evt("INTENT_RESOLVED")]).label).toBe("A interpretar a pergunta");
-    expect(progressLineFor([evt("ENTITY_RESOLVED")]).label).toBe("A interpretar a pergunta");
+    expect(ptLine([])).toBe("A interpretar a pergunta");
+    expect(ptLine([evt("REQUEST_ACCEPTED")])).toBe("A interpretar a pergunta");
+    expect(ptLine([evt("INTENT_RESOLVED")])).toBe("A interpretar a pergunta");
+    expect(ptLine([evt("ENTITY_RESOLVED")])).toBe("A interpretar a pergunta");
     // tool/source phase composite
     const toolStream = [evt("SOURCE_RESOLVED"), evt("TOOL_COMPLETED"), evt("TOOL_COMPLETED"), evt("TOOL_STARTED")];
-    expect(progressLineFor(toolStream).label).toBe("Fontes resolvidas · 2 ferramentas concluídas");
-    expect(progressLineFor([evt("SOURCE_RESOLVED")]).label).toBe("Fontes resolvidas");
-    expect(progressLineFor([evt("TOOL_COMPLETED")]).label).toBe("1 ferramenta concluída");
-    expect(progressLineFor([evt("FACTUAL_PACKAGE_READY")]).label).toBe("A construir os factos verificáveis");
-    expect(progressLineFor([evt("SYNTHESIS_STARTED")]).label).toBe("A preparar a explicação");
-    expect(progressLineFor([evt("SYNTHESIS_COMPLETED")]).label).toBe("A preparar a explicação");
-    expect(progressLineFor([evt("CLAIM_VERIFICATION_STARTED")]).label).toBe("A verificar afirmações");
-    expect(progressLineFor([evt("CITATION_VERIFICATION_STARTED")]).label).toBe("A verificar citações");
+    expect(ptLine(toolStream)).toBe("Fontes resolvidas · 2 ferramentas concluídas");
+    expect(ptLine([evt("SOURCE_RESOLVED")])).toBe("Fontes resolvidas");
+    expect(ptLine([evt("TOOL_COMPLETED")])).toBe("1 ferramenta concluída");
+    expect(ptLine([evt("FACTUAL_PACKAGE_READY")])).toBe("A construir os factos verificáveis");
+    expect(ptLine([evt("SYNTHESIS_STARTED")])).toBe("A preparar a explicação");
+    expect(ptLine([evt("SYNTHESIS_COMPLETED")])).toBe("A preparar a explicação");
+    expect(ptLine([evt("CLAIM_VERIFICATION_STARTED")])).toBe("A verificar afirmações");
+    expect(ptLine([evt("CITATION_VERIFICATION_STARTED")])).toBe("A verificar citações");
   });
   it("ignores terminal/DONE events when deriving the in-flight line", () => {
     const s = [evt("CITATION_VERIFICATION_STARTED"), evt("FINAL_VALIDATED"), evt("DONE")];
-    expect(progressLineFor(s).label).toBe("A verificar citações");
+    expect(ptLine(s)).toBe("A verificar citações");
   });
   it("marks the synthesis window active only after SYNTHESIS_STARTED and before a terminal", () => {
     expect(isSynthesisActive([evt("FACTUAL_PACKAGE_READY")])).toBe(false);

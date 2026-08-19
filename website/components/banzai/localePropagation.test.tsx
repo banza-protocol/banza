@@ -169,3 +169,106 @@ describe("Q3 — traceVerifier localizes the reader and nothing else", () => {
     expect(() => traceFixtureLabel("no-such-fixture", "pt")).toThrow(/unknown fixture/);
   });
 });
+
+// ── Q5 — the live progress block ─────────────────────────────────────────────────────────────────────
+//
+// The block shows engine data: entity ids, closed enums, reason codes, counts, checksums, durations. None
+// of it may be translated. What must be is the word that NAMES each of those, and — less obviously — the
+// way a duration is written: the readout formatted "1,3 s" with a Portuguese decimal comma for every
+// reader. A number is a fact; the notation for it is a convention of the reader's language.
+
+import { createElement } from "react";
+import { BanzaiProgressView, BanzaiProgressMetrics } from "./BanzaiProgress";
+import { PROGRESS_SCHEMA_TOKEN, progressLineFor, type ProgressEvent } from "@/lib/banzaiProgress";
+import {
+  PROGRESS_COPY,
+  PROGRESS_IDENTICAL_ACROSS_EDITIONS,
+  formatProgressMs,
+  progressCopy,
+  progressCopyIds,
+  realizeProgressLine,
+} from "./progressPresentation";
+
+let _seq = 0;
+const evt = (kind: string, payload: Record<string, unknown> = {}): ProgressEvent =>
+  ({ kind: kind as ProgressEvent["kind"], schema: PROGRESS_SCHEMA_TOKEN, seq: _seq++, ts: 0, request_id: "rid", ...payload });
+
+const EVENTS: ProgressEvent[] = [
+  evt("ENTITY_RESOLVED", { entity_id: "operator-zero", entity_type: "operator", artifact_type: "manifest" }),
+  evt("SOURCE_RESOLVED", { source_kind: "live_artifact", document_id: "ADR-012", document_status: "activo", artifact_sha256: "abc123" }),
+  evt("TOOL_COMPLETED", { tool_kind: "REGISTRY_LOOKUP", outcome: "OK" }),
+  evt("TOOL_COMPLETED", { tool_kind: "ARTIFACT_FETCH", outcome: "OK" }),
+];
+
+const progressView = (locale: Locale): string =>
+  renderToStaticMarkup(
+    createElement(
+      BanzaiLocaleBoundary,
+      { locale },
+      createElement(BanzaiProgressView, { events: EVENTS, startedAt: 0 }),
+    ),
+  );
+
+describe("Q5 — the progress block frames engine data in the reader's language", () => {
+  it("names the same facts differently and reports the same facts identically", () => {
+    const en = progressView("en");
+    const pt = progressView("pt");
+    // The chip LABELS are the reader's.
+    expect(en).toContain(progressCopy("block.factsHeading", "en"));
+    expect(en).toContain(progressCopy("chip.entity", "en"));
+    expect(en).not.toContain(progressCopy("chip.entity", "pt"));
+    expect(pt).toContain(progressCopy("chip.entity", "pt"));
+    expect(pt).not.toContain(progressCopy("block.factsHeading", "en"));
+    // The chip VALUES are engine data and are byte-identical in both.
+    for (const fact of ["operator-zero", "REGISTRY_LOOKUP", "abc123", "manifest"]) {
+      expect(en, `${fact} was translated`).toContain(fact);
+      expect(pt).toContain(fact);
+    }
+  });
+
+  it("derives the processing line from the stream, not from the language", () => {
+    // Same events → same phase and the same count, in both editions.
+    const line = progressLineFor(EVENTS);
+    expect(line.segments.map((s) => s.id)).toEqual(["line.sourcesResolved", "line.toolsDone.many"]);
+    expect(realizeProgressLine(line, "pt")).toBe("Fontes resolvidas · 2 ferramentas concluídas");
+    expect(realizeProgressLine(line, "en")).toBe("Sources resolved · 2 tools completed");
+    // Singular and plural are decided per edition, from the same count.
+    const one = progressLineFor([evt("TOOL_COMPLETED")]);
+    expect(realizeProgressLine(one, "en")).toBe("1 tool completed");
+    expect(realizeProgressLine(one, "pt")).toBe("1 ferramenta concluída");
+  });
+
+  it("writes a duration the way the reader's language writes numbers, without changing it", () => {
+    // The measurement is one number; only the decimal mark is a convention.
+    expect(formatProgressMs(1300, "pt")).toBe("1,3 s");
+    expect(formatProgressMs(1300, "en")).toBe("1.3 s");
+    expect(formatProgressMs(640, "pt")).toBe("640 ms");
+    expect(formatProgressMs(640, "en")).toBe("640 ms");
+    expect(formatProgressMs(null, "en")).toBe("—");
+    const metrics = { timeToFirstProgressMs: 120, timeToFirstVerifiedFactMs: 1300, timeToFinalValidatedAnswerMs: 2500, ttfbMs: 80 };
+    const render = (l: Locale) =>
+      renderToStaticMarkup(
+        createElement(BanzaiLocaleBoundary, { locale: l }, createElement(BanzaiProgressMetrics, { metrics })),
+      );
+    expect(render("pt")).toContain("1,3 s");
+    expect(render("en")).toContain("1.3 s");
+    expect(render("en")).not.toContain("1,3 s");
+    expect(render("en")).toContain(progressCopy("metrics.heading", "en"));
+  });
+
+  it("realizes every progress id in both editions", () => {
+    const ids = progressCopyIds();
+    expect(ids.length).toBeGreaterThanOrEqual(40);
+    for (const id of ids) {
+      for (const l of LOCALES) expect(PROGRESS_COPY[id][l].trim().length, `${id}/${l}`).toBeGreaterThan(0);
+      if (PROGRESS_IDENTICAL_ACROSS_EDITIONS.includes(id)) {
+        expect(PROGRESS_COPY[id].en).toBe(PROGRESS_COPY[id].pt);
+      } else {
+        expect(PROGRESS_COPY[id].en, `${id} English is a copy of the Portuguese`).not.toBe(PROGRESS_COPY[id].pt);
+      }
+    }
+    expect(() => progressCopy("no.such" as never, "en")).toThrow(/unknown id/);
+    expect(() => progressCopy("line.toolsDone.one", "en")).toThrow(/needs parameter "n"/);
+    for (const l of LOCALES) expect(progressView(l)).not.toMatch(/\{n\}/);
+  });
+});
