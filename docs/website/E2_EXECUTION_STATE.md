@@ -79,7 +79,7 @@ session picks the next NOT_STARTED row by descending weight and does not re-deri
 | `components/banzai/SafeMarkdown.tsx` | 3 | **TRANSPARENT** — a markdown renderer with no reader copy of its own; nothing to localize | — |
 | `components/banzai/BanzaiValidationMode.tsx` | 151 | **DONE — mutation-owned** | `5abab9c`, `1b7c6c9` |
 | `components/banzai/BanzaiAgent.tsx` (beyond the Q1/Q3 wiring) | 89 | NOT_STARTED | — |
-| `components/banzai/BanzaiOnboardingMode.tsx` | 69 | NOT_STARTED | — |
+| `components/banzai/BanzaiOnboardingMode.tsx` + `ONBOARDING_COPY` (migrated out of `banzai-agent.ts`) | 69 | **DONE** | `0e25d27` |
 | `components/banzai/validationJourney.tsx` | 29 | NOT_STARTED | — |
 | `components/banzai/DraftValidationTool.tsx` (beyond the Q3 `traceStatus` thread) | 26 | NOT_STARTED | — |
 | `components/banzai/SourceBlock.tsx` | 19 | NOT_STARTED | — |
@@ -137,10 +137,15 @@ owners that did not exist and would not otherwise have been written.
 
 | | count |
 |---|---|
-| semantic presentation ids assigned | 407 (Q1 60 · Q2 67 · Q3 7 · Q4 77 · Q5 196) |
-| PT realizations complete | 407 / 407 |
-| EN realizations complete | 407 / 407 |
-| unclassified reader occurrences | ~263 (the NOT_STARTED rows above) |
+| semantic presentation ids assigned | 476 (Q1 60 · Q2 67 · Q3 7 · Q4 77 · Q5 265) |
+| PT realizations complete | 476 / 476 |
+| EN realizations complete | 476 / 476 |
+| unclassified reader occurrences | ~194 (the NOT_STARTED rows above) |
+
+**Three owners in a row hid a Portuguese-only enum map at module or lib scope** — publication status,
+reproduction outcome, and the three onboarding state maps. Each named backend state, each was keyed by
+that state, and each was invisible to a sweep of what a component renders. Expect one in every remaining
+owner: look for `Record<string, string>` next to a backend enum.
 
 `BanzaiValidationMode` is closed-world verified: a sweep for Portuguese text nodes and string literals
 over the whole file returns **0**. Two labels were found living in the wrong place and moved to the
