@@ -13,19 +13,21 @@
 import { useEffect, useLayoutEffect } from "react";
 import { useBanzaiWorkspace } from "@/components/banzai/BanzaiWorkspaceProvider";
 import type { BanzaiState } from "@/lib/banzaiState";
+import type { Locale } from "@/lib/i18n";
 
 // Apply the route context BEFORE the browser paints on the client (so a deep link renders the correct
 // context with no visible settle), while falling back to useEffect during SSR (where useLayoutEffect
 // warns and cannot run). The binder itself renders null in both, so hydration never diverges.
 const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
-export function BanzaiRouteBinder({ state }: { state: BanzaiState }) {
+export function BanzaiRouteBinder({ state, locale }: { state: BanzaiState; locale: Locale }) {
   const { applyRouteState } = useBanzaiWorkspace();
   useIsomorphicLayoutEffect(() => {
-    applyRouteState(state);
+    applyRouteState(state, locale);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     applyRouteState,
+    locale,
     state.context,
     state.mode,
     state.initialOperatorId,

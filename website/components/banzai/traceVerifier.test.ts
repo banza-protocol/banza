@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { TRACE_FIXTURES, traceStatus, type TraceReport } from "./traceVerifier";
+import { TRACE_FIXTURES, traceFixtureLabel, traceStatus, type TraceReport } from "./traceVerifier";
 
 // BX1.1 — the trace-adapter's pure parts (fixtures + display-status derivation). The actual Rust/WASM
 // verification is covered by banzai-core's cargo golden tests and by the browser E2E; here we guard the
@@ -22,7 +22,7 @@ describe("trace demo fixtures", () => {
       "valid", "settlement_fail", "trace_id_fail", "missing_event",
     ]);
     for (const f of TRACE_FIXTURES) {
-      expect(typeof f.label).toBe("string");
+      expect(traceFixtureLabel(f.key, "pt")).toBeTypeOf("string");
       expect(f.trace).toBeTypeOf("object");
     }
   });
@@ -30,17 +30,17 @@ describe("trace demo fixtures", () => {
 
 describe("traceStatus display mapping (rendering only)", () => {
   it("any issue → FAIL técnico", () => {
-    const s = traceStatus(base({ issues: ["INV-STL-001 FAIL on txf_1"], invariant_checks: [{ id: "INV-STL-001", name: "n", status: "FAIL", reason: "r" }] }));
+    const s = traceStatus(base({ issues: ["INV-STL-001 FAIL on txf_1"], invariant_checks: [{ id: "INV-STL-001", name: "n", status: "FAIL", reason: "r" }] }), "pt");
     expect(s.tone).toBe("fail");
     expect(s.label).toContain("FAIL");
   });
   it("all checks PASS, no issues → PASS técnico", () => {
-    const s = traceStatus(base({ invariant_checks: [{ id: "INV-TRACE-001", name: "n", status: "PASS", reason: "r" }] }));
+    const s = traceStatus(base({ invariant_checks: [{ id: "INV-TRACE-001", name: "n", status: "PASS", reason: "r" }] }), "pt");
     expect(s.tone).toBe("pass");
     expect(s.label).toContain("PASS");
   });
   it("only UNKNOWN, no issues → incompleto", () => {
-    const s = traceStatus(base({ invariant_checks: [{ id: "INV-LEDGER-001", name: "n", status: "UNKNOWN", reason: "r" }] }));
+    const s = traceStatus(base({ invariant_checks: [{ id: "INV-LEDGER-001", name: "n", status: "UNKNOWN", reason: "r" }] }), "pt");
     expect(s.tone).toBe("unknown");
   });
 });

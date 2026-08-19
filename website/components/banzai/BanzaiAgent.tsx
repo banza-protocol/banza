@@ -23,20 +23,15 @@ import { SafeMarkdown } from "@/components/banzai/SafeMarkdown";
 import { SourceBlock } from "@/components/banzai/SourceBlock";
 import { TransparencyPanel } from "@/components/banzai/TransparencyPanel";
 import {
-  BANZAI_AGENT, TABS, TAB_META, MODES, type WbTab, type WbMode,
-  AGENT_SUGGESTIONS, AGENT_GUIA_TEXT, AGENT_WHO_DOES_WHAT, AGENT_RULE_SOURCES,
+  TABS, TAB_META, MODES, type WbTab, type WbMode,
+  AGENT_SUGGESTIONS, AGENT_WHO_DOES_WHAT,
   RFC_DOCS, PROTOCOL_MAP_NODES,
 } from "@/components/banzai/banzai-agent";
 import { Ico, CARD } from "@/components/banzai/banzaiUi";
 import { realizeSuggestions } from "@/components/banzai/suggestions";
-import type { Locale } from "@/lib/i18n";
+import { useBanzaiLocale } from "@/components/banzai/BanzaiWorkspaceProvider";
+import { getAgentPresentation } from "@/components/banzai/agentPresentation";
 
-// The locale this surface is served in. /banzai has no English counterpart yet (route registry:
-// BANZAI is one of the routes still without an EN edition), so the Portuguese edition is stated HERE,
-// once, by the presentation owner that renders it — not defaulted inside the suggestion generator,
-// which requires an explicit locale and has no fallback of its own. Q3 replaces this constant with the
-// locale propagated from the route binder; nothing else in the chain changes when it does.
-const SURFACE_LOCALE: Locale = "pt";
 import type { BanzaiState } from "@/lib/banzaiState";
 import { useValidationSession } from "@/components/banzai/validationJourney";
 import {
@@ -263,7 +258,11 @@ function DurationAnswerBlock({ duration }: { duration: KbDuration }) {
 }
 
 /* ── Recursos → Guia ─────────────────────────────────────────────────────────── */
-function GuiaPanel({ onAsk, onValidate }: { onAsk: (t: string) => void; onValidate: () => void }) {
+export function GuiaPanel({ onAsk, onValidate }: { onAsk: (t: string) => void; onValidate: () => void }) {
+  // A NESTED presentation owner: it is rendered several levels below the workspace provider and reads the
+  // reader's language from the boundary itself rather than being handed it down through every parent.
+  // There is nothing to fall back to — outside a boundary this throws instead of choosing Portuguese.
+  const agent = getAgentPresentation(useBanzaiLocale());
   return (
     <div className="mx-auto max-w-[760px] pb-4">
       <div className="mb-6 flex items-start gap-[14px]">
@@ -272,7 +271,7 @@ function GuiaPanel({ onAsk, onValidate }: { onAsk: (t: string) => void; onValida
         </span>
         <div className="pt-0.5">
           <h2 className="m-0 font-serif text-[clamp(20px,2.4vw,26px)] font-semibold leading-[1.2] text-ink">Guia</h2>
-          <p className="mb-0 mt-1.5 max-w-[58ch] text-[14px] leading-[1.55] text-ink-3">{AGENT_GUIA_TEXT}</p>
+          <p className="mb-0 mt-1.5 max-w-[58ch] text-[14px] leading-[1.55] text-ink-3">{agent.guiaText}</p>
         </div>
       </div>
 
@@ -290,7 +289,7 @@ function GuiaPanel({ onAsk, onValidate }: { onAsk: (t: string) => void; onValida
 
       <div className="mb-3 mt-8 font-mono text-[10.5px] tracking-[0.16em] text-ink-5">PROVENIÊNCIA DAS REGRAS</div>
       <div className={`p-[14px] ${CARD}`}>
-        <p className="m-0 font-mono text-[12px] leading-[1.6] text-ink-3">{AGENT_RULE_SOURCES}</p>
+        <p className="m-0 font-mono text-[12px] leading-[1.6] text-ink-3">{agent.ruleSources}</p>
       </div>
 
       <div className="mt-8 flex flex-wrap gap-[8px]">
@@ -415,6 +414,10 @@ export function BanzaiAgent({
   // CONTEXTS are real route segments that seed the validation session below. The shell reflects route
   // changes without ever remounting, so the conversation, the validation selection/receipts and the
   // onboarding candidature survive navigation between contexts.
+  // The edition this workspace is being served in, from the route boundary. Q2's suggestion realizations
+  // and Q1's agent copy both read it from here — one declaration, no per-component guess.
+  const locale = useBanzaiLocale();
+  const agent = getAgentPresentation(locale);
   const router = useRouter();
   const pathname = usePathname();
   const [mode, setMode] = useState<WbMode>(routeState.mode);
@@ -589,7 +592,7 @@ export function BanzaiAgent({
   // terminal and the non-stream fallback so both render the validated answer IDENTICALLY (SafeMarkdown +
   // TransparencyPanel + sources + followUps). This is the ONLY place a BanzAI answer's prose enters the DOM.
   const applyAnswer = (ans: KbAnswer) => {
-    setMsgs((p) => [...p, { role: "ai", text: ans.text, cites: ans.cites, kind: ans.kind, links: ans.links, sources: ans.sources, limits: ans.limits, followUps: ans.followUpSelections ? realizeSuggestions(ans.followUpSelections, SURFACE_LOCALE) : undefined, status: ans.status, resolvedDocument: ans.resolvedDocument ?? null, documentNotFound: Boolean(ans.documentNotFound), documentMode: ans.documentMode ?? null, documentTruncated: Boolean(ans.documentTruncated), correctionDisplay: ans.correctionDisplay ?? [], correctionClarification: ans.correctionClarification ?? [], answerType: ans.answerType, terminalKind: ans.terminalKind, duration: ans.duration, transparency: ans.transparency }]);
+    setMsgs((p) => [...p, { role: "ai", text: ans.text, cites: ans.cites, kind: ans.kind, links: ans.links, sources: ans.sources, limits: ans.limits, followUps: ans.followUpSelections ? realizeSuggestions(ans.followUpSelections, locale) : undefined, status: ans.status, resolvedDocument: ans.resolvedDocument ?? null, documentNotFound: Boolean(ans.documentNotFound), documentMode: ans.documentMode ?? null, documentTruncated: Boolean(ans.documentTruncated), correctionDisplay: ans.correctionDisplay ?? [], correctionClarification: ans.correctionClarification ?? [], answerType: ans.answerType, terminalKind: ans.terminalKind, duration: ans.duration, transparency: ans.transparency }]);
     setLastLinks(ans.links ?? []);
     // BZCI-6 (§2) — carry the backend's SAFE conversation_context forward so the NEXT turn resolves the
     // referent (the ADR→RFC follow-up chain). Runs on BOTH the stream and non-stream paths (applyAnswer is
@@ -806,7 +809,7 @@ export function BanzaiAgent({
         </button>
         <span className="flex items-center gap-2 font-serif text-[15px] font-semibold text-ink">
           <span className="flex h-7 w-7 items-center justify-center rounded-[8px] bg-bordo text-creme-high"><Ico name="sparkle" size={15} sw={1.4} /></span>
-          {BANZAI_AGENT.name}
+          {agent.name}
         </span>
         <button
           type="button"
@@ -853,8 +856,8 @@ export function BanzaiAgent({
                 <Ico name="sparkle" size={18} sw={1.4} />
               </span>
               <span>
-                <span className="block font-serif text-[16px] font-semibold leading-tight text-ink">{BANZAI_AGENT.name}</span>
-                <span className="block text-[11px] leading-[1.3] text-ink-5">{BANZAI_AGENT.subtitle}</span>
+                <span className="block font-serif text-[16px] font-semibold leading-tight text-ink">{agent.name}</span>
+                <span className="block text-[11px] leading-[1.3] text-ink-5">{agent.subtitle}</span>
               </span>
             </div>
           )}
@@ -911,7 +914,7 @@ export function BanzaiAgent({
             </div>
             <div className="mt-2 flex gap-[10px] rounded-[10px] border border-bordo/20 bg-tint-bordo px-[14px] py-[13px]">
               <Ico name="scale" size={15} sw={1.4} className="mt-px flex-none text-bordo" />
-              <p className="m-0 font-mono text-[11px] leading-[1.55] text-pend">{BANZAI_AGENT.shortPhrase}</p>
+              <p className="m-0 font-mono text-[11px] leading-[1.55] text-pend">{agent.shortPhrase}</p>
             </div>
           </div>
         )}
@@ -965,8 +968,8 @@ export function BanzaiAgent({
                 <span className="mx-auto mb-4 flex h-[56px] w-[56px] items-center justify-center rounded-[16px] border border-bordo/15 bg-gradient-to-b from-tint-bordo to-white text-bordo shadow-[0_6px_20px_rgba(142,19,38,0.10)]">
                   <Ico name="sparkle" size={26} sw={1.3} />
                 </span>
-                <h2 className="mb-[10px] font-serif text-[clamp(22px,2.6vw,28px)] font-semibold leading-[1.2] text-ink">{BANZAI_AGENT.heroTitle}</h2>
-                <p className="mx-auto mb-2 max-w-[54ch] text-[15px] leading-[1.6] text-ink-3">{BANZAI_AGENT.heroText}</p>
+                <h2 className="mb-[10px] font-serif text-[clamp(22px,2.6vw,28px)] font-semibold leading-[1.2] text-ink">{agent.heroTitle}</h2>
+                <p className="mx-auto mb-2 max-w-[54ch] text-[15px] leading-[1.6] text-ink-3">{agent.heroText}</p>
                 <p className="mx-auto mb-6 max-w-[56ch] text-[12.5px] leading-[1.6] text-ink-4">{AGENT_STANCE}</p>
 
                 <div className="mb-4 flex items-center justify-center gap-3 font-mono text-[10.5px] tracking-[0.18em] text-ink-5">
@@ -1140,7 +1143,7 @@ export function BanzaiAgent({
             <div className="mx-auto max-w-[760px]">
               <div className="flex items-end gap-[10px] rounded-[14px] border border-black/10 bg-white py-[10px] pl-3 pr-[10px] shadow-[0_1px_2px_rgba(16,19,30,0.04)] transition-shadow focus-within:border-bordo/40 focus-within:shadow-[0_0_0_3px_rgba(142,19,38,0.08)]">
                 <span className="flex h-[38px] w-[38px] flex-none items-center justify-center rounded-[10px] bg-tint-bordo text-bordo"><Ico name="sparkle" size={17} sw={1.4} /></span>
-                <textarea ref={inputRef} onKeyDown={onKey} rows={1} placeholder={BANZAI_AGENT.assistantPlaceholder} aria-label="Pergunte ao BanzAI" className="max-h-[120px] flex-1 resize-none bg-transparent py-[9px] text-[15px] leading-[1.5] text-ink outline-none placeholder:text-ink-5" />
+                <textarea ref={inputRef} onKeyDown={onKey} rows={1} placeholder={agent.assistantPlaceholder} aria-label="Pergunte ao BanzAI" className="max-h-[120px] flex-1 resize-none bg-transparent py-[9px] text-[15px] leading-[1.5] text-ink outline-none placeholder:text-ink-5" />
                 <button onClick={send} aria-label="Enviar" className="flex h-[38px] w-[38px] flex-none items-center justify-center rounded-[10px] bg-bordo text-creme-high shadow-[0_2px_8px_rgba(142,19,38,0.25)] transition-colors hover:bg-[#7a0f20]"><Ico name="send" size={17} sw={1.6} /></button>
               </div>
               <div className="mt-[10px] flex flex-wrap justify-between gap-3 px-1">

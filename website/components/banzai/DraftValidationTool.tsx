@@ -18,6 +18,8 @@ import { validateBundle } from "@/lib/banzaEvidenceBundle";
 import { validateConformanceReport } from "@/lib/banzaConformance";
 import { evaluateTrust, trustStatusTone } from "@/lib/banzaTrust";
 import { verifyTrace, traceStatus } from "@/components/banzai/traceVerifier";
+import { useBanzaiLocale } from "@/components/banzai/BanzaiWorkspaceProvider";
+import type { Locale } from "@/lib/i18n";
 
 const UPLOAD_MAX_BYTES = 256 * 1024;
 
@@ -40,7 +42,9 @@ interface DraftResult {
   file_name?: string;
 }
 
-async function runDraft(type: ArtifactType, jsonText: string): Promise<{ ok: boolean; status: string; reason_codes: string[] }> {
+// `locale` is threaded in rather than read from a module-level default: the only reader-facing string
+// this function produces is the trace verifier's status label, and it belongs to whoever is reading.
+async function runDraft(type: ArtifactType, jsonText: string, locale: Locale): Promise<{ ok: boolean; status: string; reason_codes: string[] }> {
   switch (type) {
     case "manifest": {
       const r = await validateManifest(jsonText);
@@ -70,13 +74,14 @@ async function runDraft(type: ArtifactType, jsonText: string): Promise<{ ok: boo
     case "trace": {
       const parsed = JSON.parse(jsonText);
       const r = await verifyTrace(parsed);
-      const s = traceStatus(r);
+      const s = traceStatus(r, locale);
       return { ok: s.tone === "pass", status: s.label, reason_codes: r.invariant_checks.map((c) => `${c.id}:${c.status}`) };
     }
   }
 }
 
 export function DraftValidationTool() {
+  const locale = useBanzaiLocale();
   const [type, setType] = useState<ArtifactType>("manifest");
   const [text, setText] = useState("");
   const [busy, setBusy] = useState(false);
@@ -118,7 +123,7 @@ export function DraftValidationTool() {
     if (!text.trim()) { setError("Cole ou carregue um artefacto JSON primeiro."); return; }
     setBusy(true);
     try {
-      const out = await runDraft(type, text);
+      const out = await runDraft(type, text, locale);
       setResult({ label: DRAFT_COPY.resultLabel, artifact_type: type, source, ...(uploadName ? { file_name: uploadName } : {}), ...out });
     } catch (e) {
       setError(e instanceof Error ? `JSON inválido ou não suportado: ${e.message}` : "Falha ao validar o rascunho.");

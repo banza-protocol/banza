@@ -32,5 +32,5 @@ export default async function ImplementationContextPage({
   // implementation (ADR-036; ADR-034 closed-registry + no-arbitrary-URL safety).
   if (!isClosedId(operatorId) || !isClosedId(implementationId)) notFound();
   const state = parseBanzaiState(sp, { operatorId, implementationId });
-  return <BanzaiRouteBinder state={state} />;
+  return <BanzaiRouteBinder state={state} locale="pt" />;
 }
