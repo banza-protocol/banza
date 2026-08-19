@@ -73,9 +73,25 @@ describe("Q5 — the validation surface renders in the reader's edition", () => 
       // persistence status than the Portuguese one fails here.
       expect(en, `${name} lost its status attribute`).toContain(`data-persistence="${p.status}"`);
       expect(pt).toContain(`data-persistence="${p.status}"`);
+      // The VERDICT the badge presents is a decision about the run, taken from the archive's status
+      // alone. A mutation that let the English edition present a pending run as durable — correct
+      // English, correct status attribute, different wording from Portuguese — survived until this
+      // assertion existed, because every other check it could have tripped stayed true.
+      const verdict = (html: string) => html.match(/data-persistence-verdict="([^"]*)"/)?.[1];
+      expect(verdict(en), `${name}: the English badge reached a different durability verdict`).toBe(
+        verdict(pt),
+      );
+      expect(verdict(en), `${name}: no verdict rendered`).toBeTruthy();
       // …and the wording really is the reader's.
       expect(readable(en), `${name} is not in English`).not.toBe(readable(pt));
     }
+    // The four verdicts really are four: a badge that collapsed two of them would pass the equality
+    // above while telling every reader the same thing about different runs.
+    const verdicts = Object.values(PERSISTENCE).map(
+      (p) => inBoundary("en", PersistenceBadge, { p }).match(/data-persistence-verdict="([^"]*)"/)?.[1],
+    );
+    expect(new Set(verdicts).size).toBe(4);
+    expect(verdicts).toEqual(["persisted", "disabled", "failed", "pending"]);
     // The archive reference is a fact and survives verbatim; its absence is stated in the reader's words.
     expect(inBoundary("en", PersistenceBadge, { p: PERSISTENCE.persisted })).toContain("exec_7f3a");
     expect(readable(inBoundary("en", PersistenceBadge, { p: PERSISTENCE.pending }))).toContain(

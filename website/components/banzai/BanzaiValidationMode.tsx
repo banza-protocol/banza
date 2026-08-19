@@ -90,15 +90,40 @@ const ST_LEFT: Record<StepStatus, string> = {
    run. The engine result stands regardless of storage; this badge never claims durable/consultable/
    comparable/reproducible when persistence is not confirmed, and NEVER shows an archive reference for a
    non-persisted run. `onRetry` re-checks durability (reads the store) and never re-runs the engine. */
-function persistencePresentation(p: PersistenceInfo, locale: Locale): { label: string; sub: string; cls: string; dot: string } {
+/**
+ * Which durability verdict the archive reached. Block E2/Q5 — this is a DECISION about the run, not copy:
+ * it is taken once, from the archive's status alone, with no locale in scope. A mutation that let the
+ * English edition present a pending run as durable survived a property that only compared wording, so the
+ * verdict is now chosen here as an id and rendered as data alongside its words.
+ */
+type PersistenceVerdict = "persisted" | "disabled" | "failed" | "pending";
+
+function persistenceVerdict(p: PersistenceInfo): PersistenceVerdict {
+  if (p.status === "PERSISTED") return "persisted";
+  if (p.status === "DISABLED") return "disabled";
+  if (p.detail === "FAILED") return "failed";
+  return "pending";
+}
+
+const VERDICT_STYLE: Record<PersistenceVerdict, { cls: string; dot: string }> = {
+  persisted: { cls: "border-ok/40 bg-ok/[0.08] text-ok", dot: "bg-ok" },
+  disabled: { cls: "border-black/10 bg-paper-2 text-ink-5", dot: "bg-ink-5/50" },
+  failed: { cls: "border-bordo/40 bg-tint-bordo text-bordo", dot: "bg-bordo" },
+  pending: { cls: "border-pend/40 bg-pend/[0.08] text-pend", dot: "bg-pend" },
+};
+
+function persistencePresentation(
+  p: PersistenceInfo,
+  locale: Locale,
+): { verdict: PersistenceVerdict; label: string; sub: string; cls: string; dot: string } {
   const t = copy(locale);
-  if (p.status === "PERSISTED")
-    return { label: t("persistence.persisted"), sub: t("persistence.persisted.sub"), cls: "border-ok/40 bg-ok/[0.08] text-ok", dot: "bg-ok" };
-  if (p.status === "DISABLED")
-    return { label: t("persistence.disabled"), sub: t("persistence.disabled.sub"), cls: "border-black/10 bg-paper-2 text-ink-5", dot: "bg-ink-5/50" };
-  if (p.detail === "FAILED")
-    return { label: t("persistence.failed"), sub: t("persistence.failed.sub"), cls: "border-bordo/40 bg-tint-bordo text-bordo", dot: "bg-bordo" };
-  return { label: t("persistence.pending"), sub: t("persistence.pending.sub"), cls: "border-pend/40 bg-pend/[0.08] text-pend", dot: "bg-pend" };
+  const verdict = persistenceVerdict(p);
+  return {
+    verdict,
+    label: t(`persistence.${verdict}` as ValidationCopyId),
+    sub: t(`persistence.${verdict}.sub` as ValidationCopyId),
+    ...VERDICT_STYLE[verdict],
+  };
 }
 
 export function PersistenceBadge({ p, onRetry, retrying }: { p: PersistenceInfo; onRetry?: () => void; retrying?: boolean }) {
@@ -107,7 +132,7 @@ export function PersistenceBadge({ p, onRetry, retrying }: { p: PersistenceInfo;
   const v = persistencePresentation(p, locale);
   const persisted = p.status === "PERSISTED";
   return (
-    <div className={`rounded-[10px] border px-[13px] py-[10px] ${v.cls}`} data-persistence={p.status}>
+    <div className={`rounded-[10px] border px-[13px] py-[10px] ${v.cls}`} data-persistence={p.status} data-persistence-verdict={v.verdict}>
       <div className="flex flex-wrap items-center justify-between gap-2">
         <span className="inline-flex items-center gap-1.5 font-mono text-[11.5px] font-semibold">
           <span className={`h-[6px] w-[6px] rounded-full ${v.dot}`} /> {v.label}
