@@ -803,6 +803,68 @@ pub fn resolve_query(question: &str) -> QueryResolution {
 // ── the contextual fallback (§2 — replaces the fixed topic list) ─────────────────────────────────────
 
 /// The typed contextual fallback the pipeline serves for an understood-but-unmapped, NON-boundary question.
+/// A semantic alternative the engine could not choose between, for a reader who must choose.
+///
+/// The ambiguity MESSAGE names these in Portuguese; this names them in no language at all. That split is
+/// the point: the sentence is presentation and will move to the presentation layer, while the choice
+/// itself is a decision the engine made and must survive serialization for any consumer to act on.
+///
+/// Deliberately NOT `Vec<String>` of reader fragments. The prose path builds exactly such a list (`opts`,
+/// filtered to the entries a human can read) and it is unusable as a contract: it is Portuguese, and it
+/// silently excludes every machine-named ambiguity.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum AmbiguityCandidate {
+    /// The most recent validation execution.
+    LastExecution,
+    /// The median across comparable executions.
+    ComparableExecutionsMedian,
+    /// The limit configured by the timeouts, rather than an observed run.
+    ConfiguredTimeoutLimit,
+    /// The two most recent executions, as a pair.
+    LastTwoExecutions,
+    /// Executions the reader names explicitly by identifier.
+    SpecificExecutionIds,
+    /// A candidate carried by its own ambiguity identifier, for conditions with no declared expansion.
+    /// The payload is a semantic id from the resolution — never reader prose.
+    Ambiguity(String),
+}
+
+/// The declared expansion of an ambiguity identifier into the choices a reader is offered.
+///
+/// Closed-world by construction: a known identifier returns its expansion and anything else carries
+/// itself, so a future ambiguity that offers choices still yields a candidate rather than an empty set.
+pub fn ambiguity_expansion(id: &str) -> Vec<AmbiguityCandidate> {
+    match id {
+        "aggregation_unspecified" => vec![
+            AmbiguityCandidate::LastExecution,
+            AmbiguityCandidate::ComparableExecutionsMedian,
+            AmbiguityCandidate::ConfiguredTimeoutLimit,
+        ],
+        "comparison_targets_unspecified" => vec![
+            AmbiguityCandidate::LastTwoExecutions,
+            AmbiguityCandidate::SpecificExecutionIds,
+        ],
+        other => vec![AmbiguityCandidate::Ambiguity(other.to_string())],
+    }
+}
+
+/// Every candidate the ambiguous decision offers, in detection order, deduplicated.
+///
+/// Order follows the resolution's ambiguity order and is deterministic, but it is DETECTION order, not
+/// precedence: nothing here says the first candidate is likelier or preferred.
+pub fn ambiguity_candidates(ambiguities: &[String]) -> Vec<AmbiguityCandidate> {
+    let mut out: Vec<AmbiguityCandidate> = Vec::new();
+    for id in ambiguities {
+        for c in ambiguity_expansion(id) {
+            if !out.contains(&c) {
+                out.push(c);
+            }
+        }
+    }
+    out
+}
+
 /// The `message` is engine-decided PT copy derived from the resolution — NEVER a generic topic list.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct ContextualFallback {
@@ -814,6 +876,13 @@ pub struct ContextualFallback {
     pub sub_intents: Vec<String>,
     /// The engine-authored PT message.
     pub message: String,
+    /// The semantic alternatives this decision offers the reader; empty when it offers none.
+    ///
+    /// Empty is meaningful: the four non-ambiguous branches state one condition and give no choice. A
+    /// decision whose message names alternatives while this is empty is the defect the completeness
+    /// property exists to catch.
+    #[serde(default)]
+    pub ambiguity_candidates: Vec<AmbiguityCandidate>,
 }
 
 /// A short PT phrase naming the interpreted intent, for the fallback prose.
@@ -914,6 +983,7 @@ concreto (por exemplo, o identificador do documento ou da execução)?"
             interpreted_intent: r.primary_intent.clone(),
             sub_intents: r.sub_intents.clone(),
             message: format!("{msg}{note}"),
+            ambiguity_candidates: ambiguity_candidates(&r.ambiguities),
         };
     }
 
@@ -929,6 +999,7 @@ ferramenta não está disponível neste momento**, por isso não invento a respo
             interpreted_intent: r.primary_intent.clone(),
             sub_intents: r.sub_intents.clone(),
             message: msg,
+            ambiguity_candidates: Vec::new(),
         };
     }
 
@@ -943,6 +1014,7 @@ ferramenta não está disponível neste momento**, por isso não invento a respo
 responde sobre o protocolo BANZA — as suas regras, decisões, contratos e execuções de validação — e \
 não sobre assuntos fora desse âmbito.{note}"
             ),
+            ambiguity_candidates: Vec::new(),
         };
     }
 
@@ -959,6 +1031,7 @@ correspondente, mostro-o.{note}"
             interpreted_intent: r.primary_intent.clone(),
             sub_intents: r.sub_intents.clone(),
             message: msg,
+            ambiguity_candidates: Vec::new(),
         };
     }
 
@@ -972,6 +1045,7 @@ correspondente, mostro-o.{note}"
 **{phrase}**. Prefiro não adivinhar: indique o identificador do documento/decisão ou reformule para eu \
 localizar a fonte canónica.{note}"
         ),
+        ambiguity_candidates: Vec::new(),
     }
 }
 
