@@ -58,6 +58,8 @@ pub mod source_policy;
 pub mod synth;
 pub mod taskcheck;
 pub mod tasked;
+#[path = "tasked_item_ids.generated.rs"]
+pub mod tasked_item_ids;
 pub mod taxonomy;
 pub mod terminal;
 pub mod toolplan;

@@ -26,6 +26,7 @@
 
 import { GUARDRAILS } from "./provider.js";
 import { operationalDomain } from "./operationalDomain.js";
+import { composeTasked } from "./taskedRealizations.js";
 import { normalize, retrieve, CORPUS_HASH, REPO_INDEX_HASH, SAFETY_POLICY_VERSION, contractVersions, validateResponse, route, routeWithJourney, getEntry, resolveDocument, resolveConcept, resolveScope, resolveOperationalMetric, resolveQuery, resolveReferences, contextualFallback, answerClass, buildTerminal, queuePriority, queueShouldDedup, recoverQuery, coveredEntities, isVerbatimEntry, attributeAnswer, taskedAnswer, documentLookup, contextUsedFor, buildOperationalPackage, verifyClaims, answerFor, unavailableRealization, LOCALES, DEFAULT_LOCALE } from "./knowledge.js";
 import { honestLiveFailureAnswer } from "./liveArtifact.js";
 import { isPublicSource } from "./answerContract.js";
@@ -1794,32 +1795,40 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     if (!journeyOwnsTurn) {
       const task = taskedAnswer(correctedQuestion);
       if (task) {
-        return {
-          result: {
-            grounded: true,
-            answer: task.answer_markdown,
-            sources: Array.isArray(task.sources) ? task.sources : [],
-            entry_id: `task-${task.task}`,
-            provider: provider.name,
-            mode: isReal ? "real" : "mock",
-            guardrails: GUARDRAILS,
-          },
-          meta: {
-            deterministic: true,
-            cache: null,
-            llm_called: false,
-            answer_mode: mode,
-            fallback_reason: null,
-            intent: "grounded",
-            terminal_kind: "tasked_terminal",
-            requested_task: task.task,
-            task_kind: task.kind,
-            reason_code: task.reason_code,
-            trace_label: "Tarefa cumprida por Rust (0 chamadas de modelo)",
-            ...ctxMeta,
-            ...routerTrace,
-          },
-        };
+        // The reader's text is realized from the semantic plan for the RESOLVED locale — never from
+        // `task.answer_markdown`, which is Rust-assembled Portuguese and is diagnostics now. A locale
+        // that cannot realize every fact the plan names declines rather than serving a procedure that
+        // reads fluently and is missing a step.
+        const taskedText = composeTasked(task.plan, task.subject, task.kind, locale);
+        if (taskedText) {
+          return {
+            result: {
+              grounded: true,
+              answer: taskedText,
+              answer_locale: locale,
+              sources: Array.isArray(task.sources) ? task.sources : [],
+              entry_id: `task-${task.task}`,
+              provider: provider.name,
+              mode: isReal ? "real" : "mock",
+              guardrails: GUARDRAILS,
+            },
+            meta: {
+              deterministic: true,
+              cache: null,
+              llm_called: false,
+              answer_mode: mode,
+              fallback_reason: null,
+              intent: "grounded",
+              terminal_kind: "tasked_terminal",
+              requested_task: task.task,
+              task_kind: task.kind,
+              reason_code: task.reason_code,
+              trace_label: "Tarefa cumprida por Rust (0 chamadas de modelo)",
+              ...ctxMeta,
+              ...routerTrace,
+            },
+          };
+        }
       }
     }
 

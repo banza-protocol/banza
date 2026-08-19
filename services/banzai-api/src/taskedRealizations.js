@@ -743,3 +743,66 @@ export function taskedItemIds() {
 export function taskedLocator(itemId) {
   return (TASKED_ITEMS[itemId] || {}).locator || null;
 }
+
+// ── the composer ──────────────────────────────────────────────────────────────────────────────────
+
+/** Task framing lines, per locale and task kind. The framing is presentation, the kind is the decision. */
+const TASK_FRAMING = {
+  "pt-PT": {
+    illustrative_example: (subject) => `**Exemplo ilustrativo — ${subject}** (um cenário, não um operador/procedimento real).`,
+    transparent_partial_procedure: (subject) => `**Procedimento parcial — ${subject}.**`,
+    procedure: (subject) => `**Procedimento documentado — ${subject}**.`,
+    real_structure: (subject) => `**Estrutura ilustrativa — ${subject}** —`,
+    requirements: (subject) => `**Requisitos — ${subject}** (das fontes públicas):`,
+  },
+  en: {
+    illustrative_example: (subject) => `**Illustrative example — ${subject}** (a scenario, not a real operator or procedure).`,
+    transparent_partial_procedure: (subject) => `**Partial procedure — ${subject}.**`,
+    procedure: (subject) => `**Documented procedure — ${subject}**.`,
+    real_structure: (subject) => `**Illustrative structure — ${subject}** —`,
+    requirements: (subject) => `**Requirements — ${subject}** (from the public sources):`,
+  },
+};
+
+/** Sections rendered inline after the framing rather than under their own heading. */
+const INLINE_SECTIONS = new Set(["framing", "gap_note", "schema_note"]);
+/** Sections rendered as a numbered list rather than bullets. */
+const ORDERED_SECTIONS = new Set(["steps"]);
+/** Sections whose single item is rendered on the heading line. */
+const ONE_LINE_SECTIONS = new Set(["precondition", "result", "actors"]);
+
+/**
+ * Realize a tasked plan for one locale.
+ *
+ * Fails closed: if the locale has no realization for any item the plan names, this returns null and the
+ * caller declines. Serving the other locale's text, or dropping the item, would produce a procedure that
+ * reads fluently and is missing a step — the failure this whole design exists to prevent.
+ */
+export function composeTasked(plan, subject, kind, locale) {
+  const labels = TASKED_SECTION_LABELS[locale];
+  const framing = (TASK_FRAMING[locale] || {})[kind];
+  if (!labels || !framing || !Array.isArray(plan) || plan.length === 0) return null;
+
+  const text = (id) => taskedItem(id, locale);
+  const parts = [];
+  const head = [framing(subject)];
+
+  for (const section of plan) {
+    const realized = section.items.map((i) => text(i.item_id));
+    if (realized.some((t) => !t)) return null; // fail closed — never a partial procedure
+    if (INLINE_SECTIONS.has(section.section_kind)) {
+      head.push(realized.join(" "));
+      continue;
+    }
+    const label = labels[section.section_kind];
+    if (!label) return null;
+    if (ONE_LINE_SECTIONS.has(section.section_kind)) {
+      parts.push(`**${label}:** ${realized.join("; ")}`);
+    } else if (ORDERED_SECTIONS.has(section.section_kind)) {
+      parts.push(`**${label}:**\n${realized.map((t, i) => `${i + 1}. ${t}`).join("\n")}`);
+    } else {
+      parts.push(`**${label}:**\n${realized.map((t) => `- ${t}`).join("\n")}`);
+    }
+  }
+  return [head.join(" "), ...parts].join("\n\n");
+}
