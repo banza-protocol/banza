@@ -402,7 +402,38 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
       "pt-PT": "Estas são as fontes que sustentam a resposta anterior:",
       en: "These are the sources supporting the previous answer:",
     },
+    // Contextual fallbacks, keyed by the STRUCTURED decision Rust returns (`kind`), not by its prose.
+    // Rust decides that a request is out of scope or ambiguous; what a reader is told about that is a
+    // presentation concern and belongs here. The Portuguese wording is the engine's existing sentence,
+    // moved rather than rewritten, so the decision's meaning is unchanged.
+    contextual_fallback: {
+      out_of_scope: {
+        "pt-PT":
+          "Não encontrei uma operação ou fonte pública do BANZA que suporte este pedido. O BanzAI responde sobre o protocolo BANZA — as suas regras, decisões, contratos e execuções de validação — e não sobre assuntos fora desse âmbito.",
+        en: "I found no BANZA operation or public source that supports this request. BanzAI answers about the BANZA protocol — its rules, decisions, contracts and validation runs — and not about subjects outside that scope.",
+      },
+      ambiguous: {
+        "pt-PT": null, // the engine's own sentence carries the specific disambiguation; see below
+        en: "I could not determine precisely what you are asking for. Rephrase the request naming the operation or the artifact you mean.",
+      },
+    },
   };
+
+  /**
+   * Reader prose for a contextual fallback, in the resolved locale.
+   *
+   * Portuguese keeps the engine's own sentence, which is often more specific than a generic one (the
+   * ambiguity fallback names the exact alternatives it could not choose between). English uses the
+   * presentation table. A locale with no realization for this decision gets the localized unavailable
+   * state — never the Portuguese sentence, which is the defect this exists to remove.
+   */
+  function fallbackProse(fb, locale) {
+    const table = TERMINAL_TEXT.contextual_fallback[fb.kind] || {};
+    const owned = table[locale];
+    if (owned) return owned;
+    if (locale === DEFAULT_LOCALE && fb.message) return fb.message;
+    return unavailableRealization(locale);
+  }
 
   function resolveLocale(requested, question) {
     if (LOCALES.includes(requested)) return { locale: requested, source: "explicit" };
@@ -513,12 +544,16 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
   // Rust what physically happened at the call site ("tool_unavailable" | "insufficient_source" | "" = the
   // engine decides from the resolution). The `kind` + interpreted intent + sub-intents ride in the meta so
   // the /ask envelope surfaces them. This path is NEVER reached for a boundary/refusal (those are Tier 0).
-  function contextualInsufficient(question, situation, meta) {
+  function contextualInsufficient(question, situation, meta, locale = DEFAULT_LOCALE) {
     const fb = contextualFallback(question, situation) || {};
+    // The engine decided; the locale decides what the reader is told about that decision. Composed HERE,
+    // for THIS locale, so answer_locale below is provenance of composition and not a label applied after.
+    const prose = fallbackProse(fb, locale);
     return {
       result: {
         grounded: false,
-        answer: fb.message || "Não encontrei evidência pública suficiente para responder com segurança.",
+        answer: prose,
+        answer_locale: locale,
         sources: [],
         entry_id: null,
         provider: provider.name,
@@ -1413,7 +1448,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
           terminal_kind: "insufficient_evidence",
           ...ctxMeta,
           ...routerTrace,
-        });
+        }, locale);
       }
       // Composed FOR THE RESOLVED LOCALE, in the same shape the corpus uses, so the frontend renders it
       // with no new component and the source cards are the EXISTING objects — Block 5B stays the owner of
@@ -1466,7 +1501,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     if (decisionEffective.action === "deterministic" && (!hasExplanatoryCue || verbatimEntry)) {
       const entry = decision.entry_id ? getEntry(decision.entry_id) : null;
       if (entry && hasExplanatoryCue && publicSourcesOnly(entry.sources).length === 0) {
-        return contextualInsufficient(rq, "", { answer_mode: mode, fallback_reason: "insufficient_sources", intent, terminal_kind: "insufficient_evidence", ...ctxMeta, ...routerTrace });
+        return contextualInsufficient(rq, "", { answer_mode: mode, fallback_reason: "insufficient_sources", intent, terminal_kind: "insufficient_evidence", ...ctxMeta, ...routerTrace }, locale);
       }
       if (entry) {
         // M2.18B.5 — a `def-*` entry is a canonical DEFINITION, never a security boundary: label it
@@ -1481,7 +1516,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         return deterministic(entry, { answer_mode: mode, fallback_reason: null, intent, terminal_kind: kind, trace_label, ...ctxMeta, ...routerTrace }, locale);
       }
       // Safety net: routing selected an unknown entry id → a contextual decline rather than a wrong answer.
-      return contextualInsufficient(rq, "", { answer_mode: mode, fallback_reason: "insufficient_sources", intent, terminal_kind: "insufficient_evidence", ...ctxMeta, ...routerTrace });
+      return contextualInsufficient(rq, "", { answer_mode: mode, fallback_reason: "insufficient_sources", intent, terminal_kind: "insufficient_evidence", ...ctxMeta, ...routerTrace }, locale);
     }
 
     // Tier 1b (M2.18B.7) — EXACT-FACT / ATTRIBUTE terminal (deterministic; 0 model calls). A creation
@@ -1742,7 +1777,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         return exactTerminal(term, { answer_mode: mode, fallback_reason: null, intent, ...ctxMeta, ...docMeta });
       }
       if (term && term.kind === "insufficient_evidence" && !docRes.found) {
-        return contextualInsufficient(rq, "insufficient_source", { answer_mode: mode, fallback_reason: "exact_fact_unsourced", intent, terminal_kind: "insufficient_evidence", ...ctxMeta, ...docMeta });
+        return contextualInsufficient(rq, "insufficient_source", { answer_mode: mode, fallback_reason: "exact_fact_unsourced", intent, terminal_kind: "insufficient_evidence", ...ctxMeta, ...docMeta }, locale);
       }
     }
 
@@ -1766,7 +1801,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
       // Block 4B — this is the terminal a subject-less route actually reaches, so the context-missing reason
       // belongs HERE. Measured, not assumed: the first attempt put it on the unknown-entry safety net above,
       // which this path never touches, and the test that asked for the reason was what said so.
-      return contextualInsufficient(rq, "", { answer_mode: mode, fallback_reason: decision.merge_kind === "CONTEXT_TARGET_MISSING" ? "context_target_missing" : "insufficient_sources", intent, terminal_kind: "insufficient_evidence", ...ctxMeta, ...docMeta });
+      return contextualInsufficient(rq, "", { answer_mode: mode, fallback_reason: decision.merge_kind === "CONTEXT_TARGET_MISSING" ? "context_target_missing" : "insufficient_sources", intent, terminal_kind: "insufficient_evidence", ...ctxMeta, ...docMeta }, locale);
     }
 
     // The seed for the trunk's Rust resolver: the exact record, else the concept's canonical source, else
@@ -1830,7 +1865,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
       if (emergencyHit) {
         return deterministic(emergencyHit, { answer_mode: mode, fallback_reason: reason, degraded: true, intent, terminal_kind: "operational_failure", ...ctxMeta, ...docMeta, ...extra }, locale);
       }
-      return contextualInsufficient(rq, "tool_unavailable", { answer_mode: mode, fallback_reason: reason, intent, terminal_kind: "insufficient_evidence", ...ctxMeta, ...docMeta, ...extra });
+      return contextualInsufficient(rq, "tool_unavailable", { answer_mode: mode, fallback_reason: reason, intent, terminal_kind: "insufficient_evidence", ...ctxMeta, ...docMeta, ...extra }, locale);
     };
 
     // Caches (exact then semantic) — a grounded trunk answer is cached; a cache hit reports llm_called:false
@@ -2086,7 +2121,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         ...tpMeta,
         terminal_kind: "insufficient_evidence",
         fallback_reason: reason,
-      });
+      }, locale);
     }
     // status "fallback" — the trunk could not publish a validated model answer. Derive a FAITHFUL,
     // specific reason from the trace (M2.18B.6): a validator rejection is not "model unavailable", and a
