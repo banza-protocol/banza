@@ -1,4 +1,5 @@
 import { describe, it, expect } from "vitest";
+import { agentCopy } from "@/components/banzai/agentPresentation";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
@@ -70,8 +71,20 @@ describe("M2.19G.4 — navigable contexts are closed, server-resolved route segm
     const agent = read("components/banzai/BanzaiAgent.tsx");
     expect(agent).toContain("engineInfo");
     expect(agent).toContain("externalModelCalled");
-    // The pre-response default is honestly qualified 'por omissão'; a confirmed run says 'confirmado'.
-    expect(agent).toContain("por omissão");
-    expect(agent).toContain("confirmado nesta resposta");
+    // Block E2/Q5 — the wording moved into the bilingual catalogue, so this reads the DERIVATION rather
+    // than grepping the component for a Portuguese sentence. What F5 protects is that the pre-response
+    // state is honestly qualified as a default and only a confirmed run claims the local engine; that is
+    // now a verdict this file asserts through the catalogue, in both editions.
+    expect(agent).toContain("engineVerdict");
+    for (const locale of ["pt", "en"] as const) {
+      expect(agentCopy("engine.default", locale).toLowerCase()).toMatch(/por omissão|by default/);
+      // Word boundaries matter here: the honest unreported state reads "por confirmar" / "unconfirmed",
+      // and a substring match would have accepted both as claims of confirmation.
+      const claimsConfirmation = /\bconfirmado\b|\bconfirmed\b/;
+      expect(agentCopy("engine.confirmed", locale).toLowerCase()).toMatch(claimsConfirmation);
+      // A degraded or unreported engine is never allowed to read as a confirmed local run.
+      expect(agentCopy("engine.degraded", locale).toLowerCase()).not.toMatch(claimsConfirmation);
+      expect(agentCopy("engine.unreported", locale).toLowerCase()).not.toMatch(claimsConfirmation);
+    }
   });
 });

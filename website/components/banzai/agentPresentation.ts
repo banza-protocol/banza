@@ -182,6 +182,239 @@ export const AGENT_COPY = {
   "profile.L2": L("Iniciação de Pagamento", "Payment Initiation"),
   "profile.L3": L("Interoperabilidade entre Operadores", "Operator-to-Operator Interoperability"),
   "profile.L4": L("Interoperabilidade Externa", "External Interoperability"),
+  "answerBadge.operationalMeasurement": L(
+    "MEDIÇÃO OPERACIONAL",
+    "OPERATIONAL MEASUREMENT",
+  ),
+  "answerBadge.insufficientMeasurements": L(
+    "SEM MEDIÇÕES SUFICIENTES",
+    "NOT ENOUGH MEASUREMENTS",
+  ),
+  "answerBadge.safeRefusal": L(
+    "RECUSA SEGURA",
+    "SAFE REFUSAL",
+  ),
+  "answerBadge.serviceUnavailable": L(
+    "SERVIÇO INDISPONÍVEL",
+    "SERVICE UNAVAILABLE",
+  ),
+  "answerBadge.insufficientEvidence": L(
+    "EVIDÊNCIA INSUFICIENTE",
+    "INSUFFICIENT EVIDENCE",
+  ),
+  "section.whoDoesWhat": L(
+    "QUEM FAZ O QUÊ",
+    "WHO DOES WHAT",
+  ),
+  "section.ruleProvenance": L(
+    "PROVENIÊNCIA DAS REGRAS",
+    "PROVENANCE OF THE RULES",
+  ),
+  "section.decisionsAndRfcs": L(
+    "DECISÕES E RFCs",
+    "DECISIONS AND RFCs",
+  ),
+  "section.startHere": L(
+    "COMEÇAR POR AQUI",
+    "START HERE",
+  ),
+  "section.citations": L(
+    "CITAÇÕES",
+    "CITATIONS",
+  ),
+  "section.validationJourney": L(
+    "JORNADA DE VALIDAÇÃO",
+    "VALIDATION JOURNEY",
+  ),
+  "section.validationContext": L(
+    "CONTEXTO DA VALIDAÇÃO",
+    "VALIDATION CONTEXT",
+  ),
+  "rfc.intro": L(
+    "ADRs, RFCs e o mapa do protocolo. Cada cartão pergunta ao BanzAI, que responde com base nas fontes locais.",
+    "ADRs, RFCs and the protocol map. Each card asks BanzAI, which answers from the local sources.",
+  ),
+  "answer.truncated": L(
+    "Resposta resumida para caber no limite actual. Peça detalhes por secção.",
+    "Answer shortened to fit the current limit. Ask for detail section by section.",
+  ),
+  "doc.notFound": L(
+    "Documento não encontrado",
+    "Document not found",
+  ),
+  "input.hint": L(
+    "Enter para enviar · Shift+Enter para nova linha",
+    "Enter to send · Shift+Enter for a new line",
+  ),
+  "validation.selectHint": L(
+    "Seleccione um operador e uma das suas implementações publicadas para activar a jornada. O contexto da validação aparece aqui depois da selecção.",
+    "Select an operator and one of its published implementations to activate the journey. The validation context appears here after the selection.",
+  ),
+  "citations.empty": L(
+    "As citações aparecerão aqui quando o BanzAI responder.",
+    "Citations will appear here once BanzAI answers.",
+  ),
+  "agent.whatItIs": L(
+    "BanzAI é o agente IA do protocolo BANZA. Responde com base nas fontes locais do protocolo, não certifica, não aprova operadores, não emite licenças e não substitui a governação do protocolo.",
+    "BanzAI is the BANZA protocol's AI agent. It answers from the protocol's local sources; it does not certify, does not approve operators, does not issue licences and does not replace the protocol's governance.",
+  ),
+  "agent.noCentralApproval": L(
+    "Ninguém aceita nem aprova operadores por decisão humana central. PASS é evidência verificável de conformidade, não certificado.",
+    "No one accepts or approves operators by central human decision. PASS is verifiable evidence of conformance, not a certificate.",
+  ),
+  "thinking.consultingReference": L(
+    "A consultar a referência…",
+    "Consulting the reference…",
+  ),
+  "thinking.crossingSources": L(
+    "A cruzar fontes verificáveis…",
+    "Cross-checking verifiable sources…",
+  ),
+  "assistant.prompt": L(
+    "Faça perguntas sobre a referência, a jornada de validação e os artefactos técnicos. Os motores verificam. A evidência prova. A autoridade competente decide.",
+    "Ask about the reference, the validation journey and the technical artifacts. The engines verify. The evidence proves. The competent authority decides.",
+  ),
+  "duration.version": L(
+    "Versão",
+    "Version",
+  ),
+  "duration.implementation": L(
+    "Implementação",
+    "Implementation",
+  ),
+  "duration.period": L(
+    "Período",
+    "Period",
+  ),
+  "duration.observed": L(
+    "Duração observada",
+    "Observed duration",
+  ),
+  "duration.last": L(
+    "Última",
+    "Last",
+  ),
+  "duration.mean": L(
+    "Média",
+    "Mean",
+  ),
+  "duration.min": L(
+    "Mínimo",
+    "Minimum",
+  ),
+  "duration.max": L(
+    "Máximo",
+    "Maximum",
+  ),
+  "duration.comparableRuns": L(
+    "Execuções comparáveis:",
+    "Comparable runs:",
+  ),
+  "duration.maxSuffix": L(
+    "máx",
+    "max",
+  ),
+  "guia.askImplement": L(
+    "Como implemento o protocolo BANZA e demonstro conformidade por evidência verificável?",
+    "How do I implement the BANZA protocol and demonstrate conformance through verifiable evidence?",
+  ),
+  "nav.context": L(
+    "Contexto da navegação",
+    "Navigation context",
+  ),
+  "nav.open": L(
+    "Abrir navegação",
+    "Open navigation",
+  ),
+  "nav.sidebar": L(
+    "Navegação lateral do BanzAI",
+    "BanzAI side navigation",
+  ),
+  "nav.expand": L(
+    "Expandir navegação",
+    "Expand navigation",
+  ),
+  "nav.collapse": L(
+    "Colapsar navegação",
+    "Collapse navigation",
+  ),
+  "nav.close": L(
+    "Fechar navegação",
+    "Close navigation",
+  ),
+  "nav.label": L(
+    "Navegação do BanzAI",
+    "BanzAI navigation",
+  ),
+  "ask.whatsTheDifference": L(
+    "qual a diferença?",
+    "what is the difference?",
+  ),
+  "engine.byDefault": L(
+    "por omissão",
+    "by default",
+  ),
+  "engine.default": L(
+    "Motor por omissão: Qwen local (on-host) · sem chamadas externas · estado por resposta",
+    "Engine by default: local Qwen (on-host) · no external calls · state reported per answer",
+  ),
+  "engine.external": L(
+    "Motor: modelo externo utilizado nesta resposta · fora do host",
+    "Engine: an external model was used for this answer · off-host",
+  ),
+  "engine.degraded": L(
+    "Motor: degradado — modelo local indisponível nesta resposta · resposta pelo caminho determinístico/fundamentado",
+    "Engine: degraded — the local model was unavailable for this answer · answered through the deterministic/grounded path",
+  ),
+  "engine.unreported": L(
+    "Motor: estado por confirmar nesta resposta · não normativo",
+    "Engine: state unconfirmed for this answer · non-normative",
+  ),
+  "engine.confirmed": L(
+    "Motor: {name} · sem chamadas externas · confirmado nesta resposta",
+    "Engine: {name} · no external calls · confirmed for this answer",
+  ),
+  "engine.localQwen": L(
+    "Qwen local (on-host)",
+    "local Qwen (on-host)",
+  ),
+  "session.reset": L(
+    "Reiniciar sessão",
+    "Restart session",
+  ),
+  "doc.viewDecision": L(
+    "Ver decisão",
+    "View decision",
+  ),
+  "doc.viewConsequences": L(
+    "Ver consequências",
+    "View consequences",
+  ),
+  "inspector.validationContext": L(
+    "Inspetor · contexto da validação",
+    "Inspector · validation context",
+  ),
+  "results.liveHere": L(
+    "Os resultados da validação de operador vivem aqui, com origem nos endpoints públicos da implementação.",
+    "The operator validation results live here, originating at the implementation's public endpoints.",
+  ),
+  "tools.intro": L(
+    "Referência e ferramentas do protocolo. Use os cartões para perguntar ao BanzAI ou abrir a validação de operador.",
+    "Protocol reference and tools. Use the cards to ask BanzAI or to open operator validation.",
+  ),
+  "runtime.unconfirmed": L(
+    "estado não confirmado",
+    "state unconfirmed",
+  ),
+  "thinking.composingAnswer": L("A compor a resposta…", "Composing the answer…"),
+  "thinking.validatingBoundaries": L("A validar as fronteiras…", "Validating the boundaries…"),
+  "thinking.preparingSources": L("A preparar as fontes…", "Preparing the sources…"),
+  "duration.type": L("Tipo", "Type"),
+  "duration.profile": L("Perfil", "Profile"),
+  "duration.environment": L("Ambiente", "Environment"),
+  "duration.median": L("mediana", "median"),
+  "duration.perStep": L("POR ETAPA", "PER STEP"),
+  "duration.aria": L("Medição operacional", "Operational measurement"),
 } as const;
 
 export type AgentCopyId = keyof typeof AGENT_COPY;
