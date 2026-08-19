@@ -67,11 +67,14 @@ test("the terminal prose owner exists and covers both supported locales", () => 
 test("no terminal composes both locales into one answer", () => {
   // The exact defect that survived the entry migration: a composer gluing PT and EN with the separator.
   const c = code();
-  const composed = [...c.matchAll(/"[^"]*\\n\\n---\\n\\n"\s*\+/g)];
+  // Pin the CONCEPT: the bilingual separator must not appear in ANY reader-facing string literal,
+  // however it is assembled. The first version required the `"..." + "..."` form and a mutation that
+  // put both locales inside ONE literal walked straight through it.
+  const composed = [...c.matchAll(/"[^"\n]*\\n\\n---\\n\\n[^"\n]*"/g)];
   assert.deepEqual(
     composed.map((m) => m[0]),
     [],
-    "a terminal composer still concatenates two locales into one reader-facing answer",
+    "a terminal composer still glues two locales into one reader-facing answer",
   );
 });
 
