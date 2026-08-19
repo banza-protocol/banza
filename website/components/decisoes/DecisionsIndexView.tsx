@@ -11,6 +11,12 @@ import { GitHubMark } from "@/components/GitHubMark";
 import { DecisionsExplorer } from "@/components/decisoes/DecisionsExplorer";
 import { decisionsCopy, type DecisionsCopyId } from "@/components/decisoes/decisionsPresentation";
 import { routeHref } from "@/lib/routeRegistry";
+import { counterpartOf } from "@/lib/i18n";
+
+// The governance PROCESS lives in a Reference chapter, whose slug is a translated word — so the chapter
+// counterpart resolver owns the pairing, exactly as it does for the glossary's outbound links. Writing
+// the English path here by hand is how `/en/referencia/governacao` gets invented.
+const GOVERNANCE_CHAPTER_PT = "/referencia/governacao";
 import { decisions, decisionCategories } from "@/lib/decisions";
 import { GITHUB_URL } from "@/lib/site";
 import type { Locale } from "@/lib/i18n";
@@ -58,7 +64,7 @@ export function DecisionsIndexView({ locale }: { locale: Locale }) {
                 {t("index.link.githubSource")}
               </a>
               <Link
-                href="/referencia/governacao"
+                href={counterpartOf(GOVERNANCE_CHAPTER_PT, locale) ?? GOVERNANCE_CHAPTER_PT}
                 className="inline-flex items-center rounded-[3px] border border-line bg-white px-[14px] py-[9px] text-[13px] text-ink-2 no-underline hover:border-bordo/40 hover:text-bordo"
               >
                 {t("index.link.governanceProcess")}

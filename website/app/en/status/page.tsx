@@ -3,6 +3,7 @@ import Link from "next/link";
 import { PageHero, Section, Container, StatusNote, MoreLink } from "@/components/ui";
 import { GITHUB_URL, BANZAI_GITHUB_URL } from "@/lib/site";
 import { fetchBanzaiRuntimeRow } from "@/lib/runtimeStatusRow";
+import { routeHref } from "@/lib/routeRegistry";
 
 // English edition of the protocol-status page, translated semantically from the Portuguese one.
 //
@@ -298,7 +299,7 @@ export default async function EnStatusPage() {
             <a href={BANZAI_GITHUB_URL} className="link-bordo text-[13.5px]" rel="noopener">
               GitHub — BanzAI <span className="font-mono">↗</span>
             </a>
-            <Link href="/banzai#perguntar" className="link-bordo text-[13.5px]">
+            <Link href={routeHref("BANZAI", "en")} className="link-bordo text-[13.5px]">
               Ask BanzAI <span className="font-mono">→</span>
             </Link>
           </div>

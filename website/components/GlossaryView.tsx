@@ -16,6 +16,7 @@ import Link from "next/link";
 import { PageHero, Section, Container, StatusNote } from "@/components/ui";
 import { GLOSSARY_TERMS, relatedName } from "@/lib/glossaryTerms";
 import type { Locale } from "@/lib/i18n";
+import { counterpartOf } from "@/lib/i18n";
 
 /** The page's own chrome, per locale. The term content itself lives in the semantic records. */
 const CHROME = {
@@ -49,9 +50,27 @@ const CHROME = {
  * Records store the Portuguese path because that is the canonical route; the English site serves the
  * same concepts under `/en`. Query strings are preserved — one term links into a specific BanzAI mode.
  */
+/**
+ * The English destination of a term's "read more" link.
+ *
+ * Block E2/Q7 — this used to be `/en` + the Portuguese path, which is the "locale prefixing as a rule"
+ * failure the route registry was built to stop: it produced `/en/certificacao`, `/en/registo-tecnico` and
+ * `/en/referencia/arquitectura`, none of which exist. The registry knows each route's real English path,
+ * including the Reference chapters whose slugs are translated words, so it is asked instead of guessed at.
+ *
+ * A term whose destination has no English edition keeps the Portuguese one: sending the reader to a page
+ * that is not there would be worse than sending them to one in the other language, and the registry is
+ * what tells the two cases apart.
+ */
 function localizedHref(href: string, locale: Locale): string {
   if (locale === "pt") return href;
-  return `/en${href}`;
+  // One term links into a specific BanzAI mode, so the query is part of the destination and is carried
+  // across: the counterpart of a PATH is what the registry answers, and the parameters ride along.
+  const cut = href.search(/[?#]/);
+  const path = cut === -1 ? href : href.slice(0, cut);
+  const rest = cut === -1 ? "" : href.slice(cut);
+  const en = counterpartOf(path, "en");
+  return en ? `${en}${rest}` : href;
 }
 
 export function GlossaryView({ locale }: { locale: Locale }) {
