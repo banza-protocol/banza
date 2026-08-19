@@ -449,7 +449,12 @@ mod tests {
 
     #[test]
     fn prompt_lists_facts_and_allowed_sources() {
-        let p = build_output_prompt("o que decidiu a ADR-001?", &pkg(), "brief", PromptLocale::PtPt);
+        let p = build_output_prompt(
+            "o que decidiu a ADR-001?",
+            &pkg(),
+            "brief",
+            PromptLocale::PtPt,
+        );
         assert!(p.user.contains("F1 ["));
         assert!(p.user.contains("FONTES PERMITIDAS"));
         assert!(p.user.contains("ADR-001"));
@@ -526,7 +531,12 @@ mod tests {
 
     #[test]
     fn structured_prompt_keeps_prose_guard_drops_fill_instruction() {
-        let p = build_output_prompt_structured("o que decidiu a ADR-001?", &pkg(), "brief", PromptLocale::PtPt);
+        let p = build_output_prompt_structured(
+            "o que decidiu a ADR-001?",
+            &pkg(),
+            "brief",
+            PromptLocale::PtPt,
+        );
         // prose-guard half stays…
         assert!(p.system.contains("NUNCA menciones"));
         // …the "fill cited_source_ids" half is gone.
