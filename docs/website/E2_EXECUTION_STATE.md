@@ -58,7 +58,7 @@ and stays out of the localization catalogue.
 
 | # | unit | state | commit | notes |
 |---|---|---|---|---|
-| Q1 | `banzai-agent.ts` — semantic ids, PT parity, EN authoring, `getAgentPresentation(locale)`, E2-C2 | NOT_STARTED | — | |
+| Q1 | `banzai-agent.ts` — semantic ids, PT parity, EN authoring, `getAgentPresentation(locale)`, E2-C2 | **MUTATION_PROVEN** | `4311d0b` | 60 semantic ids · PT byte-parity vs live module · EN complete · `components/banzai/agentPresentation.ts` + 9-assertion property |
 | Q2 | `suggestions.ts` — one selection algorithm, `contextualSuggestions(ctx, locale)`, PT+EN, selection parity | NOT_STARTED | — | params live in code, not templates |
 | Q3 | `traceVerifier.ts` + locale into `BanzaiRouteBinder → BanzaiWorkspaceProvider`, controlled EN harness, E2-C1 | NOT_STARTED | — | |
 | Q4 | DECISIONS + DECISION — one semantic decision model, PT+EN, E2-F | NOT_STARTED | — | state decides · reason codes explain |
@@ -74,7 +74,7 @@ and stays out of the localization catalogue.
 | E2-A | EN workspace selects PT catalogue | NOT_STARTED |
 | E2-B | remove one EN realization in use | NOT_STARTED |
 | E2-C1 | React locale propagation broken at a nested boundary | NOT_STARTED |
-| E2-C2 | non-React owner ignores explicit locale | NOT_STARTED |
+| E2-C2 | non-React owner ignores explicit locale | **KILLED** — forced `getAgentPresentation` to `"pt"`; RED on "returns the requested locale, never the other one"; exact restore, green |
 | E2-D | operator locale switch changes `operatorId` | NOT_STARTED |
 | E2-E | implementation locale switch changes `implementationId` | NOT_STARTED |
 | E2-F | EN decision carries a different semantic payload | NOT_STARTED |
@@ -88,10 +88,15 @@ owners that did not exist and would not otherwise have been written.
 
 | | count |
 |---|---|
-| semantic presentation ids assigned | 0 |
-| PT realizations complete | 0 |
-| EN realizations complete | 0 |
-| unclassified reader occurrences | 658 (whole surface, pre-Q1) |
+| semantic presentation ids assigned | 60 (Q1) |
+| PT realizations complete | 60 / 60 |
+| EN realizations complete | 60 / 60 |
+| unclassified reader occurrences | ~537 (Q2–Q5 remain) |
+
+Q1 evidence: Website 746/746 across 51 files · tsc 0 · production build 0 · registry unchanged 17/5/1.
+
+`FORBIDDEN_PHRASES` classified **machine-only** — guard input, not reader copy, stays out of the
+catalogue.
 
 ## Final gates (Q8)
 
