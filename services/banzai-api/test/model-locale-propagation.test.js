@@ -124,3 +124,68 @@ test("both supported locales are accepted by that same strict parser", () => {
     assert.ok(out.system, `locale "${good}" must produce a prompt`);
   }
 });
+
+// ── THE BOUNDARY THE LOCALE WAS ACTUALLY LOST AT ──────────────────────────────────────────────────
+//
+// Everything above proves the BUILDERS honour a locale they are handed. That is not the same as proving
+// the locale reaches them, and the difference is not academic: the first attempt at this change threaded
+// the parameter into `runGroundedSynthesis` and stopped there. The prompt is built one function further
+// in, in `runOutputPass`, so the value never arrived — 28 tests went red on an undefined variable, and
+// had the parameter merely had a default instead, English would have quietly been answered in Portuguese
+// with every check green.
+//
+// A mutation confirmed the gap: dropping `locale` at the `runOutputPass` call site left every property
+// above passing. So the boundary itself is exercised here, with a provider that captures the prompt the
+// model would actually have received.
+
+import { _internal } from "../src/grounded-synthesis.js";
+
+/** A provider that answers nothing and records the messages it was handed. */
+function capturingProvider(sink) {
+  return {
+    async synthesize(messages) {
+      sink.messages = messages;
+      throw new Error("no model in tests — the prompt is what is under test");
+    },
+  };
+}
+
+async function promptThroughOutputPass(locale) {
+  const sink = {};
+  const pkg = realPackage(QUESTION);
+  try {
+    await _internal.runOutputPass(
+      QUESTION,
+      pkg,
+      { provider: capturingProvider(sink), timeoutMs: 1000, signal: undefined, maxTokens: 256, model: "m", depth: "brief", taskQuestion: QUESTION, locale },
+      {},
+    );
+  } catch {
+    /* the provider always throws; the captured prompt is the evidence */
+  }
+  return sink.messages;
+}
+
+test("the locale survives the call into the function that builds the prompt", async () => {
+  // ML2's owning assertion. Exercises runOutputPass, not the builder, so a locale dropped between the
+  // pipeline and the prompt is observable rather than silently defaulted.
+  const en = await promptThroughOutputPass("en");
+  assert.ok(Array.isArray(en) && en.length >= 1, "the provider must have received messages to inspect");
+  const system = String(en[0].content);
+  assert.ok(system.length > 500, `captured prompt looks truncated (${system.length} chars)`);
+  assert.match(
+    system,
+    /in English and objective/,
+    "an English request reached the model under a Portuguese instruction — the locale was lost between " +
+      "the pipeline and the prompt builder",
+  );
+  assert.doesNotMatch(system, /em português e objectiva/, "the Portuguese rule must not be active for en");
+});
+
+test("…and Portuguese still arrives as Portuguese through that same boundary", async () => {
+  // Non-vacuity: a boundary that dropped BOTH locales would satisfy the assertion above only by luck.
+  const pt = await promptThroughOutputPass("pt-PT");
+  const system = String(pt[0].content);
+  assert.match(system, /em português e objectiva/, "pt-PT must arrive as Portuguese");
+  assert.doesNotMatch(system, /in English and objective/, "the English rule must not be active for pt-PT");
+});

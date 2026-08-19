@@ -132,7 +132,12 @@ function composeAnswerFromClaims(output) {
 
 // Run the OUTPUT pass: grounded synthesis over the FactualPackage, then Rust factual validation.
 // Returns { output|null, verdict } (output is the validated GroundedOutput).
-async function runOutputPass(question, pkg, { provider, timeoutMs, signal, maxTokens, model, depth, taskQuestion, structured = null, queueWaitMs = 0, locale = DEFAULT_LOCALE }, trace) {
+async function runOutputPass(question, pkg, { provider, timeoutMs, signal, maxTokens, model, depth, taskQuestion, structured = null, queueWaitMs = 0, locale }, trace) {
+  // NO DEFAULT, deliberately. This is internal plumbing, and a default here would mean a locale lost
+  // between the pipeline and the prompt is silently replaced by Portuguese — the exact failure this
+  // change exists to remove, reintroduced one layer down. A mutation proved the point: dropping
+  // `locale` at the call site left every locale property green while English got Portuguese prompts.
+  // Defaulting belongs to `resolveLocale` alone, which records `legacy-default` as its reason.
   // SPR-4 §1 — start the prompt-build timer (obligations + prompt + schema, JS/Rust-side, distinct from the
   // model's own prefill and from the queue wait). Each latency phase is measured separately so none hides.
   const tBuildStart = Date.now();

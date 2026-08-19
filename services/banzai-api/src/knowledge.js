@@ -2786,7 +2786,7 @@ export function buildOutputPromptObliged(question, pkg, depth, obligationsJson, 
   if (typeof kb.build_output_prompt_obliged_json !== "function") return null;
   try {
     const p = JSON.parse(
-      kb.build_output_prompt_obliged_json(String(question || ""), JSON.stringify(pkg), String(depth || "brief"), String(obligationsJson || ""), String(locale || DEFAULT_LOCALE)),
+      kb.build_output_prompt_obliged_json(String(question || ""), JSON.stringify(pkg), String(depth || "brief"), String(obligationsJson || ""), String(locale)),
     );
     return p && p.system ? p : null;
   } catch {
@@ -2890,10 +2890,10 @@ export function detectDocRefs(question) {
 
 // PART 11 — the output-pass prompt built from a FactualPackage at a given `depth` (brief default → a short
 // 3-5 point answer, the dominant latency lever). Returns { system, user } or null.
-export function buildOutputPrompt(question, packageObj, depth = "brief", locale = DEFAULT_LOCALE) {
+export function buildOutputPrompt(question, packageObj, depth = "brief", locale) {
   if (typeof kb.build_output_prompt_json !== "function" || !packageObj) return null;
   try {
-    const r = JSON.parse(kb.build_output_prompt_json(String(question || ""), JSON.stringify(packageObj), String(depth || "brief"), String(locale || DEFAULT_LOCALE)));
+    const r = JSON.parse(kb.build_output_prompt_json(String(question || ""), JSON.stringify(packageObj), String(depth || "brief"), String(locale)));
     return r && !r.error ? r : null;
   } catch {
     return null;
@@ -2915,10 +2915,10 @@ export function outputSchema(packageObj) {
 // SPR-4 §5 — the STRUCTURED-generation output prompt (the model authors only the linguistic core; it is
 // NOT asked to fill cited_source_ids). Returns { system, user } or null → caller falls back to the
 // baseline buildOutputPrompt (fecho por omissão when the export is absent).
-export function buildOutputPromptStructured(question, packageObj, depth = "brief", locale = DEFAULT_LOCALE) {
+export function buildOutputPromptStructured(question, packageObj, depth = "brief", locale) {
   if (typeof kb.build_output_prompt_structured_json !== "function" || !packageObj) return null;
   try {
-    const r = JSON.parse(kb.build_output_prompt_structured_json(String(question || ""), JSON.stringify(packageObj), String(depth || "brief"), String(locale || DEFAULT_LOCALE)));
+    const r = JSON.parse(kb.build_output_prompt_structured_json(String(question || ""), JSON.stringify(packageObj), String(depth || "brief"), String(locale)));
     return r && !r.error ? r : null;
   } catch {
     return null;
@@ -2930,7 +2930,7 @@ export function buildOutputPromptObligedStructured(question, pkg, depth, obligat
   if (typeof kb.build_output_prompt_obliged_structured_json !== "function") return null;
   try {
     const p = JSON.parse(
-      kb.build_output_prompt_obliged_structured_json(String(question || ""), JSON.stringify(pkg), String(depth || "brief"), String(obligationsJson || ""), String(locale || DEFAULT_LOCALE)),
+      kb.build_output_prompt_obliged_structured_json(String(question || ""), JSON.stringify(pkg), String(depth || "brief"), String(obligationsJson || ""), String(locale)),
     );
     return p && p.system ? p : null;
   } catch {
