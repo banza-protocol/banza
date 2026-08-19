@@ -126,7 +126,7 @@ export const ROUTES: readonly RouteRecord[] = Object.freeze([
     policy: "BILINGUAL",
     note: "English URL in English — never /en/federacao.",
   },
-  { id: "GLOSSARY", pt: "/glossario", kind: "STATIC_PAGE", policy: "BILINGUAL" },
+  { id: "GLOSSARY", pt: "/glossario", en: "/en/glossary", kind: "STATIC_PAGE", policy: "BILINGUAL" },
   {
     id: "GOVERNANCE_ALIAS",
     pt: "/governacao",

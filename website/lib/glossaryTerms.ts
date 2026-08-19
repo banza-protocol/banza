@@ -31,6 +31,8 @@ export type Localized = Readonly<Record<Locale, string>>;
 export interface GlossaryTerm {
   /** Stable semantic key. Terms reference each other by this, never by display text. */
   key: string;
+  /** The concept's canonical technical id where the protocol publishes one. Locale-neutral by nature. */
+  technicalId?: string;
   /** Display term. Many English forms are canonical names (Evidence Bundle), not translations. */
   name: Localized;
   short: Localized;
@@ -46,6 +48,7 @@ export interface GlossaryTerm {
 export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
   {
     key: "operator",
+    technicalId: "operator",
     name: { pt: "Operador", en: "Operator" },
     short: {
       pt: "Entidade independente que implementa o protocolo e processa pagamentos sob as suas próprias autorizações.",
@@ -65,6 +68,7 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
   },
   {
     key: "implementation",
+    technicalId: "certified-implementation",
     name: { pt: "Implementação", en: "Implementation" },
     short: {
       pt: "O sistema técnico avaliado e o sujeito da certificação: um build específico, identificado por hash de conteúdo — nunca uma entidade ou marca.",
@@ -84,6 +88,7 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
   },
   {
     key: "scheme-participant",
+    technicalId: "scheme-participant",
     name: { pt: "Participante de esquema", en: "Scheme participant" },
     short: {
       pt: "Entidade/implementação admitida como participante de um esquema operacional específico (Camada 3).",
@@ -95,7 +100,7 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
     },
     href: "/referencia/arquitectura",
     hrefLabel: { pt: "Arquitectura — as três camadas", en: "Architecture — the three layers" },
-    related: ["scheme-admission", "banzami-operational-scheme", "operator"],
+    related: ["scheme-admission", "operational-scheme", "operator"],
     notConfuse: {
       pt: "com «implementação certificada» — constar no registo técnico não é ser admitido a um esquema.",
       en: "with “certified implementation” — appearing in the technical registry is not being admitted to a scheme.",
@@ -103,6 +108,7 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
   },
   {
     key: "certification-profile",
+    technicalId: "interoperability-certification-profile",
     name: { pt: "Perfil", en: "Certification Profile" },
     short: {
       pt: "O padrão público e versionado contra o qual uma implementação é certificada.",
@@ -122,6 +128,7 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
   },
   {
     key: "capability",
+    technicalId: "capability",
     name: { pt: "Capability", en: "Capability" },
     short: {
       pt: "Uma superfície de protocolo que uma implementação declara implementar — descritiva, não uma permissão.",
@@ -141,6 +148,7 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
   },
   {
     key: "conformance",
+    technicalId: "conformance",
     name: { pt: "Conformidade", en: "Conformance" },
     short: {
       pt: "Verificação determinística e reproduzível de que uma implementação respeita os contratos e invariantes.",
@@ -160,6 +168,7 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
   },
   {
     key: "interoperability",
+    technicalId: "interoperability",
     name: { pt: "Interoperabilidade", en: "Interoperability" },
     short: {
       pt: "Capacidade verificada de implementações independentes trocarem pagamentos sob as mesmas regras.",
@@ -179,6 +188,7 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
   },
   {
     key: "certification",
+    technicalId: "conformance-interoperability-certification",
     name: { pt: "Certificação", en: "Certification" },
     short: {
       pt: "Camada 2: determinação por implementação, baseada em evidência e decidida por Rust, contra um perfil versionado.",
@@ -198,6 +208,7 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
   },
   {
     key: "certification-record",
+    technicalId: "certification-record",
     name: { pt: "Registo de certificação", en: "Certification Record" },
     short: {
       pt: "O objecto do veredicto: liga uma implementação a um perfil, com evidência, âmbito, validade, estado e hash.",
@@ -236,6 +247,7 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
   },
   {
     key: "scheme-admission",
+    technicalId: "scheme-admission",
     name: { pt: "Admissão a esquema", en: "Scheme admission" },
     short: {
       pt: "A decisão de um esquema de admitir uma entidade/implementação como participante — separada da certificação.",
@@ -247,7 +259,7 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
     },
     href: "/referencia/arquitectura",
     hrefLabel: { pt: "Arquitectura — as três camadas", en: "Architecture — the three layers" },
-    related: ["scheme-participant", "banzami-operational-scheme", "certification"],
+    related: ["scheme-participant", "operational-scheme", "certification"],
     notConfuse: {
       pt: "com «certificação» (a certificação não admite ninguém) e com «autorização regulatória».",
       en: "with “certification” (certification admits no one) or with “regulatory authorisation”.",
@@ -255,6 +267,7 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
   },
   {
     key: "regulatory-authorisation",
+    technicalId: "regulatory-authorisation",
     name: { pt: "Autorização regulatória", en: "Regulatory authorisation" },
     short: {
       pt: "A concessão, pelo regulador competente, para exercer actividade financeira regulada. O BANZA não é parte.",
@@ -274,6 +287,7 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
   },
   {
     key: "evidence-bundle",
+    technicalId: "evidence-bundle",
     name: { pt: "Evidência", en: "Evidence Bundle" },
     short: {
       pt: "Um pacote reproduzível de artefactos e referências de estado, ligados por hash — um pacote de entradas, não um certificado.",
@@ -293,6 +307,7 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
   },
   {
     key: "open-trust-evaluation",
+    technicalId: "open-trust-evaluation",
     name: { pt: "Confiança", en: "Open Trust Evaluation" },
     short: {
       pt: "Avaliação Aberta de Confiança: verificação determinística, local e sem intervenção humana, de encaminhar para um par.",
@@ -312,6 +327,7 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
   },
   {
     key: "revocation",
+    technicalId: "revocation",
     name: { pt: "Revogação", en: "Revocation" },
     short: {
       pt: "Retirada assinada e datada de chaves/artefactos (ou de uma certificação) — mecanismo de segurança, não sanção.",
@@ -331,6 +347,7 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
   },
   {
     key: "technical-registry",
+    technicalId: "banza-technical-registry",
     name: { pt: "Registo Técnico", en: "BANZA Technical Registry" },
     short: {
       pt: "O índice público e verificável por raiz de artefactos da camada de certificação (Camada 2).",
@@ -350,6 +367,7 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
   },
   {
     key: "federation",
+    technicalId: "federation",
     name: { pt: "Federação", en: "Federation" },
     short: {
       pt: "Avaliação técnica, local e por interacção, das condições para encaminhar pagamentos entre operadores — por evidência + confiança.",
@@ -368,7 +386,28 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
     },
   },
   {
+    key: "operational-scheme",
+    technicalId: "operational-scheme",
+    name: { pt: "Esquema operacional", en: "Operational scheme" },
+    short: {
+      pt: "Camada 3: um esquema independente que adopta o protocolo para operar, definindo participação, operação e responsabilidades.",
+      en: "Layer 3: an independent scheme that adopts the protocol in order to operate, defining participation, operation and responsibilities.",
+    },
+    full: {
+      pt: "Um esquema operacional é uma camada institucional independente (Camada 3) que pode adoptar o protocolo para operar, definindo a participação, a operação e as responsabilidades ao abrigo do quadro aplicável (ADR-006). Os esquemas são independentes entre si e do protocolo: uma implementação pode estar certificada na Camada 2 sem pertencer a qualquer esquema, e um esquema pode operar segundo o seu próprio quadro sem alterar o protocolo da Camada 1. O BANZA não é um esquema e a continuidade do protocolo não depende de nenhum.",
+      en: "An operational scheme is an independent institutional layer (Layer 3) that may adopt the protocol in order to operate, defining participation, operation and responsibilities under the applicable framework (ADR-006). Schemes are independent of one another and of the protocol: an implementation may be certified at Layer 2 without belonging to any scheme, and a scheme may operate under its own framework without altering the Layer 1 protocol. BANZA is not a scheme, and the protocol's continuity does not depend on any.",
+    },
+    href: "/referencia/arquitectura",
+    hrefLabel: { pt: "Arquitectura — as três camadas", en: "Architecture — the three layers" },
+    related: ["banzami-operational-scheme", "scheme-admission", "scheme-participant"],
+    notConfuse: {
+      pt: "com o «protocolo» (Camada 1, aberto e neutro) nem com um esquema em particular — o Esquema Operacional Banzami é o primeiro esquema, não o conceito genérico.",
+      en: "with the “protocol” (Layer 1, open and neutral) or with any particular scheme — the Banzami Operational Scheme is the first scheme, not the generic concept.",
+    },
+  },
+  {
     key: "banzami-operational-scheme",
+    technicalId: "banzami-operational-scheme",
     name: { pt: "Esquema Operacional Banzami", en: "Banzami Operational Scheme" },
     short: {
       pt: "O primeiro esquema operacional independente construído sobre o BANZA (Camada 3), com a Banzami como operadora designada do esquema, em preparação regulatória.",
@@ -388,6 +427,7 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
   },
   {
     key: "receipt",
+    technicalId: "operation-receipt",
     name: { pt: "Recibo", en: "OperationReceipt · JourneyReceipt" },
     short: {
       pt: "Registo por passo (e agregado) de uma jornada de validação: o que correu e o que o motor Rust decidiu.",
@@ -407,6 +447,7 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
   },
   {
     key: "endpoint-originated-validation",
+    technicalId: "endpoint-originated-validation",
     name: { pt: "Validação por endpoints", en: "Endpoint-originated validation" },
     short: {
       pt: "A validação oficial obtém todos os artefactos avaliados exclusivamente dos endpoints públicos da implementação seleccionada.",
@@ -426,6 +467,7 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
   },
   {
     key: "draft-validation",
+    technicalId: "draft-validation",
     name: { pt: "Rascunho de validação", en: "Draft validation" },
     short: {
       pt: "Uma ferramenta local para programadores, separada da jornada oficial, que verifica um conteúdo carregado ou colado.",
@@ -445,6 +487,7 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
   },
   {
     key: "canonical-origin",
+    technicalId: "canonical-origin",
     name: { pt: "Origem canónica", en: "Canonical origin" },
     short: {
       pt: "A origem pública HTTPS de uma implementação, resolvida no Registo Técnico, de onde todos os seus artefactos oficiais são obtidos.",
@@ -464,6 +507,7 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
   },
   {
     key: "discovery",
+    technicalId: "discovery",
     name: { pt: "Descoberta", en: "Discovery" },
     short: {
       pt: "O documento publicado por uma implementação na sua origem canónica que anuncia identidade e o mapa dos seus endpoints públicos.",
@@ -483,6 +527,7 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
   },
   {
     key: "secure-artifact-fetcher",
+    technicalId: "secure-artifact-fetcher",
     name: { pt: "Camada segura de fetch", en: "Secure artifact fetcher" },
     short: {
       pt: "O componente Rust, SSRF-hardened, que realiza toda a obtenção oficial de artefactos — nunca o navegador.",

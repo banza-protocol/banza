@@ -351,7 +351,7 @@ export default async function EnTechnicalRegistryPage() {
             <MoreLink href="/en/certification">How certification works (Layer 2)</MoreLink>
             <MoreLink href="/en/operators">Operators — public registry</MoreLink>
             <MoreLink href="/en/status">The protocol&rsquo;s verifiable state</MoreLink>
-            <MoreLink href="/glossario">Glossary — the concepts, precisely</MoreLink>
+            <MoreLink href="/en/glossary">Glossary — the concepts, precisely</MoreLink>
             <MoreLink href="/banzai">Validate an implementation with BanzAI</MoreLink>
           </div>
         </Container>

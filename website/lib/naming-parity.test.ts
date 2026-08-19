@@ -1,4 +1,5 @@
 import { describe, it, expect } from "vitest";
+import { GLOSSARY_TERMS } from "@/lib/glossaryTerms";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
@@ -27,7 +28,7 @@ const PAGES = [
   // §14 "Evolução do Protocolo" at /referencia/roteiro (no standalone page to scan).
   "app/(pt)/operadores/page.tsx",
   "app/(pt)/page.tsx",
-  "app/(pt)/glossario/page.tsx",
+  "lib/glossaryTerms.ts",
 ];
 
 const EN_RX = /Technical Registry|Public Protocol Registry/;
@@ -46,14 +47,18 @@ describe("M2.19G.5C — Technical Registry naming parity", () => {
   });
 
   it("PT surfaces use the term 'Registo Técnico'", () => {
-    for (const p of ["app/(pt)/registo-tecnico/page.tsx", "app/(pt)/glossario/page.tsx", "app/(pt)/estado/page.tsx", "app/(pt)/operadores/page.tsx"]) {
+    for (const p of ["app/(pt)/registo-tecnico/page.tsx", "lib/glossaryTerms.ts", "app/(pt)/estado/page.tsx", "app/(pt)/operadores/page.tsx"]) {
       expect(raw(p)).toContain("Registo Técnico");
     }
   });
 
   it("the glossary defines the canonical mapping (Registo Técnico → BANZA Technical Registry)", () => {
-    const glo = raw("app/(pt)/glossario/page.tsx");
-    expect(glo).toMatch(/name:\s*"Registo Técnico"/);
-    expect(glo).toMatch(/en:\s*"BANZA Technical Registry"/);
+    // Asserted on the SEMANTIC RECORD, not on source syntax. The previous version matched
+    // `name: "Registo Técnico"` as text, which stopped meaning anything the moment the term became a
+    // per-locale object — and a regex loosened to accept both shapes would have proved nothing at all.
+    const term = GLOSSARY_TERMS.find((t) => t.key === "technical-registry");
+    expect(term, "the technical-registry term must exist in the glossary").toBeTruthy();
+    expect(term!.name.pt).toBe("Registo Técnico");
+    expect(term!.name.en).toBe("BANZA Technical Registry");
   });
 });
