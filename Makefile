@@ -17,7 +17,10 @@ REPO_GUARDS_RS := engines/banza-repo-guards
 # identity/purity/invariant/openapi gate LOGIC lives in the Rust crate engines/banza-repo-guards
 # (R10). The tools/*.sh scripts below are thin RUST_WRAPPER_ONLY wrappers over that binary.
 
-## identity-check: Verify no operator-specific brand contamination in BANZA (Rust gate)
+## ci-guards-local-check:
+	@bash tools/ci-guards-local-check.sh
+
+identity-check: Verify no operator-specific brand contamination in BANZA (Rust gate)
 identity-check:
 	@tools/check-operator-contamination.sh
 

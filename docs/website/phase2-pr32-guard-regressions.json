@@ -1,0 +1,842 @@
+{
+  "artifact": "PR #32 branch-introduced guard regressions",
+  "pr": 32,
+  "branch": "feat/website-phase2-bilingual-parity",
+  "surveyed_at_head": "9151bfc4a37c48c33dd1e20c64a74d59f87ad1f4",
+  "origin_main": "6b6d2261f4ec6c715e5b6cc9b275d5ff684c8645",
+  "survey_method": "every check-*.sh invoked by a workflow, run against branch and against origin/main in a clean worktree; all 43 confirmed CI-invoked with no argument differences",
+  "counts": {
+    "guards_surveyed": 189,
+    "origin_main_pass": 187,
+    "origin_main_fail": 2,
+    "branch_pass": 144,
+    "branch_fail": 45,
+    "branch_introduced": 43,
+    "non_e2_branch_introduced": 14,
+    "e2_branch_introduced": 29
+  },
+  "baseline_failures_not_ours": [
+    {
+      "guard": "check-openapi-compatibility.sh",
+      "verdict": "HARNESS/INVOCATION_DEFECT",
+      "detail": "CI invokes it as `bash tools/check-openapi-compatibility.sh /tmp/openapi-old.yaml` after generating that file. Running it bare is not a valid invocation and must not be counted as a guard failure."
+    },
+    {
+      "guard": "check-open-governance.sh",
+      "verdict": "PENDING_ANALYSIS",
+      "detail": "fails identically on origin/main and on the branch; not branch-introduced"
+    }
+  ],
+  "dominant_finding": "The dominant class is STALE_GUARD_AFTER_AUTHORIZED_CHANGE, not content loss. Blocks A-E replaced literal arrays and inline strings with derived, bilingual, semantic sources; the guards grep the old syntax. Three of the fourteen non-E2 failures were triaged in depth and all three carry the same shape: the semantics survive (often strengthened, now covering both editions) while the literal the guard greps has moved.",
+  "regressions": [
+    {
+      "guard": "check-adr-canonical-clean.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-adr-canonical-clean.sh",
+      "failing_assertion": [
+        "FAIL: reference to an ADR that does not exist:"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "A-D/E1 or shared public surface",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-banzai-accessibility-check.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-accessibility-check.sh",
+      "failing_assertion": [
+        "FAIL: website/components/banzai/DraftValidationTool.tsx textarea must carry an aria-label",
+        "banzai-accessibility-check: FAIL"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-banzai-agent-quality.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-agent-quality.sh",
+      "failing_assertion": [
+        "FAIL: AGENT_GUIA_TEXT must frame the canonical endpoint-originated journey (Rust/WASM engines verify)",
+        "BANZAI AGENT QUALITY CHECK FAILED ✗"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-banzai-answer-rendering-ux.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-answer-rendering-ux.sh",
+      "failing_assertion": [
+        "FAIL: (13) no RECUSA SEGURA badge",
+        "FAIL: (14) source block does not show a count"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-banzai-canonical-protocol-vocabulary.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-canonical-protocol-vocabulary.sh",
+      "failing_assertion": [
+        "### check-banzai-certification-readiness-language-check.sh",
+        "FAIL: website/components/banzai/BanzaiValidationMode.tsx must show Prontidão de Certificação"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-banzai-certification-readiness-language-check.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-certification-readiness-language-check.sh",
+      "failing_assertion": [
+        "FAIL: website/components/banzai/BanzaiValidationMode.tsx must show Prontidão de Certificação",
+        "FAIL: website/components/banzai/BanzaiValidationMode.tsx must show Estado de Certificação"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-banzai-contextual-actions-check.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-contextual-actions-check.sh",
+      "failing_assertion": [
+        "FAIL: missing \"Ver receipt\" action",
+        "FAIL: missing \"Executar novamente\" action"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-banzai-contextual-right-panel-check.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-contextual-right-panel-check.sh",
+      "failing_assertion": [
+        "FAIL: header must carry static field: implementação",
+        "FAIL: header must carry static field: versão do protocolo"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-banzai-degraded-mode-render.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-degraded-mode-render.sh",
+      "failing_assertion": [
+        "FAIL  the degraded branch must state an honest cause (degradado / modelo local indisponível)"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-banzai-document-aware-agent.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-document-aware-agent.sh",
+      "failing_assertion": [
+        "FAIL: the UI must show a not-found state",
+        "FAIL: the 'Explicar com BanzAI' card link must pass ?doc="
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-banzai-document-explanation-quality.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-document-explanation-quality.sh",
+      "failing_assertion": [
+        "ok: only a grounded, sourced trunk answer is cached (source-less/failed answers are never cached)",
+        "FAIL: the UI must tell the visitor when an answer was cut to fit the budget"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-banzai-draft-validation-isolation-check.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-draft-validation-isolation-check.sh",
+      "failing_assertion": [
+        "FAIL: website/components/banzai/DraftValidationTool.tsx must render DRAFT_COPY.banner",
+        "FAIL: DRAFT_COPY.banner must be \"Rascunho local · não publicado · não produz evidência oficial\""
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-banzai-global-answer-format-contract.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-global-answer-format-contract.sh",
+      "failing_assertion": [
+        "FAIL: website/components/banzai/SourceBlock.tsx must label the block 'FONTES USADAS'",
+        "GLOBAL ANSWER FORMAT CONTRACT CHECK FAILED ✗"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-banzai-interface-transparency.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-interface-transparency.sh",
+      "failing_assertion": [
+        "FAIL: website/components/home/banzaiKb.ts must derive followUps from the per-answer generator",
+        "FAIL: website/components/banzai/suggestions.ts must define the safe-reframe set"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-banzai-no-qwen-decision-check.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-no-qwen-decision-check.sh",
+      "failing_assertion": [
+        "FAIL: website/components/banzai/BanzaiValidationMode.tsx explain prompt must state Qwen only explains, never decides",
+        "banzai-no-qwen-decision-check: FAIL"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-banzai-operator-experience.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-operator-experience.sh",
+      "failing_assertion": [
+        "banzai-operator-experience: ✓ OE9: onboarding validates version/profile/environment against the canonical Rust option sets (fail-closed)",
+        "banzai-operator-experience: ✗ OE11: website/components/banzai/BanzaiOnboardingMode.tsx must map candidate state enums to human labels"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-banzai-operator-implementation-model-check.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-operator-implementation-model-check.sh",
+      "failing_assertion": [
+        "FAIL: Fase 0 must render the operator selector (1 · Operador) before the implementation selector (2 · Implementação)",
+        "banzai-operator-implementation-model-check: FAIL"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-banzai-operator-journey.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-operator-journey.sh",
+      "failing_assertion": [
+        "FAIL: website/components/banzai/banzai-agent.ts SESSION_NOTICE must state the session is cleared on reload (rule 20)",
+        "BANZAI OPERATOR JOURNEY CHECK FAILED ✗"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-banzai-operator-validation-mode-check.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-operator-validation-mode-check.sh",
+      "failing_assertion": [
+        "FAIL: MODES validation mode must be labelled \"Validar operador\"",
+        "FAIL: VALIDATION_COPY.modeLabel must be \"Validar operador\""
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-banzai-operator-zero-only-ui.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-operator-zero-only-ui.sh",
+      "failing_assertion": [
+        "FAIL: the draft tool must state 'Não é exemplo oficial'",
+        "FAIL: website/components/banzai/banzai-agent.ts must define onlyOperatorHint = 'Operador disponível para demonstração: Operador Zero'"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-banzai-primary-interface-architecture.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-primary-interface-architecture.sh",
+      "failing_assertion": [
+        "FAIL: banzai-agent.ts must carry the canonical 4-clause phrase",
+        "FAIL: UI subtitle must be 'Interface interactiva do protocolo …'"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-banzai-public-interface.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-public-interface.sh",
+      "failing_assertion": [
+        "FAIL: public status badge must name the configured default engine ('por omissão: Qwen local')",
+        "BANZAI PUBLIC INTERFACE CHECK FAILED ✗"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-banzai-public-surface-final-consistency.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-public-surface-final-consistency.sh",
+      "failing_assertion": [
+        "FAIL: aggregated guard failed: check-banzai-primary-interface-architecture.sh (see below)",
+        "PRIMARY INTERFACE ARCHITECTURE CHECK FAILED ✗"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-banzai-runtime-ssot.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-runtime-ssot.sh",
+      "failing_assertion": [
+        "FAIL  /estado must fetch the runtime SSOT (/banzai/runtime)",
+        "banzai-runtime-ssot: FAIL — the runtime SSOT contract (ADR-036) drifted."
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-banzai-semantic-answer-composition.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-semantic-answer-composition.sh",
+      "failing_assertion": [
+        "FAIL: website/components/banzai/BanzaiAgent.tsx must define ThinkingIndicator + THINKING_STAGES",
+        "SEMANTIC ANSWER COMPOSITION CHECK FAILED ✗"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-banzai-session-context-robustness.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-session-context-robustness.sh",
+      "failing_assertion": [
+        "ok: a FAILED Model B reference is never a positive navigation state",
+        "ok: the FAILED reference is surfaced as a typed pointer to Model B"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-banzai-upload-copy.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-upload-copy.sh",
+      "failing_assertion": [
+        "FAIL: website/components/banzai/DraftValidationTool.tsx must render the permanent draft banner (DRAFT_COPY.banner)",
+        "FAIL: website/components/banzai/banzai-agent.ts DRAFT_COPY.banner must read 'Rascunho local · não publicado · não produz evidência oficial'"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-banzai-workbench-navigation-orchestration.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-workbench-navigation-orchestration.sh",
+      "failing_assertion": [
+        "FAIL: website/components/banzai/banzai-agent.ts must define an ask mode named 'Perguntar ao BanzAI'",
+        "FAIL: website/components/banzai/BanzaiAgent.tsx must show the validation-journey divider"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-footer-banzai-zero-navigation.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-footer-banzai-zero-navigation.sh",
+      "failing_assertion": [
+        "check-footer-banzai-zero-navigation: FAILED (see NEEDS_FIX above)."
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "A-D/E1 or shared public surface",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-global-navigation-final.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-global-navigation-final.sh",
+      "failing_assertion": [
+        "### check-glossary-page.sh",
+        "FAIL  missing required term: Operador"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "A-D/E1 or shared public surface",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-glossary-page.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-glossary-page.sh",
+      "failing_assertion": [
+        "FAIL  missing required term: Operador",
+        "FAIL  missing required term: Implementação"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "A-D/E1 or shared public surface",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE",
+      "property_guarded": "the glossary defines the required current terms, including operator != implementation",
+      "historical_authority": "literal terms inside website/app/(pt)/glossario/page.tsx",
+      "post_change_canonical_authority": "website/lib/glossaryTerms.ts — 25 records, each name: { pt, en }",
+      "evidence": "line 52: name: { pt: \"Operador\", en: \"Operator\" }. The concept is present in both editions; the page renders from the record.",
+      "disposition": "migrate to glossaryTerms.ts; require each term in BOTH editions, and keep proving operator != implementation",
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-home-readiness.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-home-readiness.sh",
+      "failing_assertion": [
+        "FAIL  check-retired-page-removal",
+        "ok:   home_section_order_failures                = 0"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "A-D/E1 or shared public surface",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-homepage-final-validation.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-homepage-final-validation.sh",
+      "failing_assertion": [
+        "### check-open-governance.sh"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "A-D/E1 or shared public surface",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-operator-contamination.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-operator-contamination.sh",
+      "failing_assertion": [
+        "FAIL  [contamination] 3 violation(s):"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-operator-zero-realistic-journey.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-operator-zero-realistic-journey.sh",
+      "failing_assertion": [
+        "FAIL: (6) the validation shell must surface the OZ-only demo hint (VALIDATION_COPY.onlyOperatorHint)",
+        "FAIL: (7) the shell must show the per-step evidence references (st.evidence_refs.map)"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-public-surface-canonical.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-public-surface-canonical.sh",
+      "failing_assertion": [
+        "FAIL  positive claim of a retired framing — central certifying authority (BANZA CA):",
+        "m2-19g-public-surface: FAIL — the rendered public surface drifted from the M2.19G canonical model."
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "A-D/E1 or shared public surface",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-reference-chapter-order.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-reference-chapter-order.sh",
+      "failing_assertion": [
+        "FAIL: CHAPTER_DEFS order is wrong.",
+        "FAIL: chapter numbers are wrong:"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "A-D/E1 or shared public surface",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE",
+      "property_guarded": "the Reference has 15 chapters in the canonical order, Operador Zero at 09",
+      "historical_authority": "literal `{ num: N, slug: \"x\" }` array in website/lib/reference.ts",
+      "post_change_canonical_authority": "website/lib/referenceSlugs.ts REFERENCE_CHAPTER_SLUGS (num + pt + en); CHAPTER_DEFS derives from it",
+      "evidence": "the guard reports `actual: (empty)` — it matched zero chapters, not a wrong order. Its own later assertions still pass: 'Operador Zero is chapter 9 in the source', 'Operadores is chapter 8'.",
+      "disposition": "migrate the guard to REFERENCE_CHAPTER_SLUGS; assert order, numbering AND that both locales' slugs are present",
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-reference-information-architecture.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-reference-information-architecture.sh",
+      "failing_assertion": [
+        "### check-retired-page-removal.sh"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "A-D/E1 or shared public surface",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-retired-page-removal.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-retired-page-removal.sh",
+      "failing_assertion": [
+        "### check-standalone-roadmap-surface.sh",
+        "FAIL: the reference chapter registry must keep slug \"roteiro\" (route /referencia/roteiro)"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "A-D/E1 or shared public surface",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-standalone-roadmap-surface.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-standalone-roadmap-surface.sh",
+      "failing_assertion": [
+        "FAIL: the reference chapter registry must keep slug \"roteiro\" (route /referencia/roteiro)"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "A-D/E1 or shared public surface",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE",
+      "property_guarded": "the standalone /roteiro page is retired and §14 is the only narrative evolution surface",
+      "historical_authority": "slug \"roteiro\" present in website/lib/reference.ts",
+      "post_change_canonical_authority": "website/lib/referenceSlugs.ts line 31: { num: 14, pt: \"roteiro\", en: \"protocol-evolution\" }",
+      "evidence": "the slug exists with its English counterpart; only the file holding it changed",
+      "disposition": "point the guard at referenceSlugs.ts; keep the retirement + redirect assertions unchanged",
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-technical-registry-naming-parity.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-technical-registry-naming-parity.sh",
+      "failing_assertion": [
+        "FAIL  website/app/(pt)/glossario/page.tsx must use the PT term 'Registo Técnico'",
+        "FAIL  glossary must define the canonical mapping (name: Registo Técnico, en: BANZA Technical Registry)"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "A-D/E1 or shared public surface",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-technical-registry-page.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-technical-registry-page.sh",
+      "failing_assertion": [
+        "FAIL  footer (site.ts) does not link /registo-tecnico",
+        "technical-registry-page: FAIL — /registo-tecnico canonical content drifted (M2.19G / ADR-033)."
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "A-D/E1 or shared public surface",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-website-public-copy-current.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-website-public-copy-current.sh",
+      "failing_assertion": [
+        "check-website-public-copy-current: FAILED — public copy drifted from the implemented architecture."
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "A-D/E1 or shared public surface",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    }
+  ]
+}
