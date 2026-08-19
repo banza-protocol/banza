@@ -64,7 +64,7 @@ and stays out of the localization catalogue.
 | Q4 | DECISIONS + DECISION — one semantic decision model, PT+EN, E2-F | **MUTATION_PROVEN** | `c155ae4` | 28 copy ids · `DecisionsExplorer` bilingual · cards expose id/type/status/slug as data · `decisionsLocale.test.tsx` (9 assertions) |
 | Q5 | remaining React reader owners, by descending weight | **COMPLETE — every owner migrated or classified** | see the owner table | 11 owners · 12 mutations executed, 12 killed · 3 required a missing owner to be built first |
 | Q6 | five public EN routes + dynamic identity, E2-D, E2-E | **COMPLETE — mutation-proven** | `7e32384`, `8cef643` | registry **17/5/1 → 22/0/1** |
-| Q7 | EN backlink closure + full mutation campaign A–G | NOT_STARTED | — | |
+| Q7 | EN backlink closure + full mutation campaign A–G | **COMPLETE — E2-G proven** | `fc1384f` | 208/208 English navigation edges stay in the English edition |
 | Q8 | final closure: registry 22/0/1, rendered matrix, all regressions, assurance | NOT_STARTED | — | only Q8 may declare Block E complete |
 
 ## Q5 — owner by owner
@@ -109,7 +109,7 @@ the next owner, follow what it CALLS, not only what it renders.
 | E2-DECISION-ROUTE | EN decision route resolves to a different valid record | **KILLED** — PT `adr-001` paired with EN `adr-002`; RED on the per-record walk. Distinct from E2-F, which changed the payload INSIDE one route; this changes which route the reader lands on |
 | E2-F | EN decision carries a different semantic payload | **KILLED** — the English edition promoted `rascunho` to `activo`; exactly ONE assertion went red ("the English library claims something different about the records") while every string on the page stayed correct English; exact restore (`05340fc`), green |
 | E2-Q2b | a branch condition is dropped so the editions diverge in WHAT they offer | **KILLED** — removed the profile narrowing in `entitySuggestions`; 4 RED incl. the PT fixture and "branch conditions are the same in both editions" |
-| E2-G | EN reader link points back at the PT route | NOT_STARTED |
+| E2-G | EN reader link points back at the PT route | **KILLED** — `/en/status` linked to `routeHref("BANZAI", "pt")`: a valid page, no 404, fluent English, and the reader leaves the edition. RED with `"/en/status → /banzai (BANZAI has /en/banzai)"`; exact restore (`3f4659d`), green |
 | Q5-A | a validation owner ignores the boundary | **KILLED** — `PersistenceBadge` forced to `"pt"` under an `en` boundary; RED on "persisted is not in English"; exact restore (`2bca0c1`), green |
 | Q5-B | the EN edition reports a different durability verdict | **SURVIVED FIRST, THEN KILLED** — see below |
 | Q5-C | a nested agent panel ignores the boundary | **KILLED** — `RfcPanel` forced to `"pt"` under an `en` boundary; RED on the rendered reference panel; exact restore (`b2bcf14`), green |
@@ -399,6 +399,53 @@ emitted) · registry checker exit 0 at **22 / 0 / 1**.
 
 **A verification correction.** See the assurance-correction section above: the production build had been
 failing since `5abab9c`, and the checkpoint claims in that range are formally withdrawn.
+
+## Q7 — English navigation closure
+
+The property renders every English page and reads the hrefs out of the real markup. That matters more
+than it sounds: a source scan resolves literals, and the defects here were built from data tables, map
+callbacks and a helper function. Reading what the reader receives has no computed bucket to escape into.
+
+**Edges, from the rendered surfaces (`fc1384f`):**
+
+| class | count |
+|---|---|
+| total hrefs rendered | 248 |
+| WEBSITE_NAVIGATION | 208 |
+| — resolving to the English edition | **208** |
+| — resolving to the Portuguese edition | **0** |
+| — unclassified (no route owns them) | **0** |
+| PROTOCOL_ENDPOINT | 16 |
+| LANGUAGE_SPECIFIC_DOCUMENT | 8 |
+| EXTERNAL | 16 |
+
+**Three defects found, two of them already shipped.**
+
+1. **The English glossary was doing literal locale prefixing** — `"/en" + the Portuguese path` — which is
+   the exact rule the route registry's own header says it exists to stop. It emitted `/en/certificacao`,
+   `/en/estado`, `/en/operadores`, `/en/registo-tecnico` and four `/en/referencia/*` chapter paths: **eight
+   404s on a published page**. It now asks the registry, which knows the real English path including the
+   Reference chapters whose slugs are translated words, and carries the query of the term that links into
+   a specific BanzAI mode.
+2. **The decisions library** linked the governance process to the Portuguese chapter; that pairing belongs
+   to the chapter counterpart resolver for the same reason.
+3. **The English status page** linked to `/banzai#perguntar` — the Portuguese route, and a fragment
+   matching no anchor anywhere.
+
+**Exception classes are typed, never suppression strings.** `PROTOCOL_ENDPOINT` covers the published paths
+that return JSON (`/operators`, `/conformance/evidence`, `/federation/revocation-list.json`,
+`/banzai/runtime`) and the `.well-known` discovery surface (ADR-080) — machine-addressed, no editions.
+`LANGUAGE_SPECIFIC_DOCUMENT` covers the whitepaper PDFs and the `/whitepaper/pt|en` reading surfaces, where
+the language IS the document's identity: Portuguese is the canonical edition and English its official
+translation, so an English page offering both is correct and must stay legal. An edge fitting no class is
+UNCLASSIFIED and red.
+
+**The Reference exception is preserved.** `[capitulo]` against `[chapter]` is not same-parameter pairing;
+`chapterCounterpart()` still owns it, literal routes still win over patterns, and `/referencia/completa`
+is still its own page.
+
+Evidence, by exit code: Website 841/841 across 58 files · tsc 0 · production build **exit 0** (188 pages)
+· registry checker **exit 0** at 22 / 0 / 1.
 
 ## Final gates (Q8)
 
