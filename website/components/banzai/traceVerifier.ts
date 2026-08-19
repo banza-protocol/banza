@@ -95,12 +95,29 @@ export function traceCopyIds(): TraceCopyId[] {
  * The VERDICT is decided here and is the same in every edition; only the sentence that states it is the
  * reader's own, so `tone` — what the UI colours and what callers branch on — never depends on `locale`.
  */
-export function traceStatus(r: TraceReport, locale: Locale): { label: string; tone: "pass" | "fail" | "unknown" } {
-  if (r.issues.length > 0) return { label: traceCopy("status.fail", locale), tone: "fail" };
-  if (r.invariant_checks.length > 0 && r.invariant_checks.every((c) => c.status === "PASS"))
-    return { label: traceCopy("status.pass", locale), tone: "pass" };
-  return { label: traceCopy("status.unknown", locale), tone: "unknown" };
+export function traceStatus(r: TraceReport, locale: Locale): { label: string; tone: TraceTone } {
+  const tone = traceTone(r);
+  return { label: traceCopy(TONE_COPY_ID[tone], locale), tone };
 }
+
+export type TraceTone = "pass" | "fail" | "unknown";
+
+/**
+ * The engine's verdict on a trace, decided from the report alone with NO locale in scope. Every
+ * consequence — the sentence, the colour, the caller's ok/not-ok — reads this one value.
+ */
+export function traceTone(r: TraceReport): TraceTone {
+  if (r.issues.length > 0) return "fail";
+  if (r.invariant_checks.length > 0 && r.invariant_checks.every((c) => c.status === "PASS")) return "pass";
+  return "unknown";
+}
+
+/** The id of the sentence that states a verdict. Realizing it is the only per-edition step. */
+export const TONE_COPY_ID: Readonly<Record<TraceTone, TraceCopyId>> = {
+  pass: "status.pass",
+  fail: "status.fail",
+  unknown: "status.unknown",
+};
 
 // ── Demo fixtures (each triggers a distinct, honest engine result) ────────────
 

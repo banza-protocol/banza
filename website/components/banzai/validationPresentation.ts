@@ -830,6 +830,106 @@ export const VALIDATION_SURFACE_COPY = {
     "jornada",
     "journey",
   ),
+  "draft.toolNote": L(
+    "ferramenta local para programadores · validação Rust/WASM · sem rede",
+    "local tool for developers · Rust/WASM validation · no network",
+  ),
+  "draft.artifactType": L(
+    "Tipo de artefacto",
+    "Artifact type",
+  ),
+  "draft.artifact.manifest": L(
+    "Operator Manifest",
+    "Operator Manifest",
+  ),
+  "draft.artifact.evidenceBundle": L(
+    "Evidence Bundle",
+    "Evidence Bundle",
+  ),
+  "draft.artifact.conformance": L(
+    "Relatório de conformidade",
+    "Conformance report",
+  ),
+  "draft.artifact.trust": L(
+    "Trust / signed metadata",
+    "Trust / signed metadata",
+  ),
+  "draft.artifact.trace": L(
+    "Trace",
+    "Trace",
+  ),
+  "draft.fileNote": L(
+    "O ficheiro é lido apenas nesta sessão do navegador; nada é enviado nem publicado. Não é exemplo oficial.",
+    "The file is read only in this browser session; nothing is uploaded or published. It is not an official example.",
+  ),
+  "draft.pasteLabel": L(
+    "Colar artefacto JSON para validação de rascunho",
+    "Paste a JSON artifact for draft validation",
+  ),
+  "draft.validating": L(
+    "A validar…",
+    "Validating…",
+  ),
+  "draft.clear": L(
+    "Limpar",
+    "Clear",
+  ),
+  "draft.official": L(
+    "oficial",
+    "official",
+  ),
+  "draft.officialNo": L(
+    "não",
+    "no",
+  ),
+  "draft.field.type": L(
+    "tipo",
+    "type",
+  ),
+  "draft.field.status": L(
+    "estado",
+    "state",
+  ),
+  "draft.field.source": L(
+    "origem",
+    "source",
+  ),
+  "draft.verdict.valid": L(
+    "esquema válido (rascunho)",
+    "valid schema (draft)",
+  ),
+  "draft.verdict.invalid": L(
+    "inválido (rascunho)",
+    "invalid (draft)",
+  ),
+  "draft.resultNote": L(
+    "Resultado de rascunho. Não avança a jornada, não produz recibo oficial, não alimenta o Evidence Bundle e nunca devolve VERIFIED nem Prontidão de Certificação.",
+    "Draft result. It does not advance the journey, does not produce an official receipt, does not feed the Evidence Bundle, and never returns VERIFIED or Certification Readiness.",
+  ),
+  "draft.error.jsonOnly": L(
+    "Apenas ficheiros .json são aceites.",
+    "Only .json files are accepted.",
+  ),
+  "draft.error.emptyFile": L(
+    "Ficheiro vazio.",
+    "Empty file.",
+  ),
+  "draft.error.tooLarge": L(
+    "Ficheiro demasiado grande (máx. 256 kB).",
+    "File too large (max. 256 kB).",
+  ),
+  "draft.error.secretDetected": L(
+    "O ficheiro parece conter dados sensíveis (chaves privadas, segredos ou credenciais). Remova-os e tente de novo.",
+    "The file appears to contain sensitive data (private keys, secrets or credentials). Remove them and try again.",
+  ),
+  "draft.error.unreadable": L(
+    "Não foi possível ler o ficheiro (JSON inválido ou demasiado grande).",
+    "The file could not be read (invalid JSON, or too large).",
+  ),
+  "draft.error.readFailed": L(
+    "Não foi possível ler o ficheiro.",
+    "The file could not be read.",
+  ),
 } as const;
 
 export type ValidationCopyId = keyof typeof VALIDATION_SURFACE_COPY;
@@ -839,6 +939,11 @@ export type ValidationCopyId = keyof typeof VALIDATION_SURFACE_COPY;
  * engines emit verbatim. Declared so the completeness property can insist every OTHER id is realized twice.
  */
 export const VALIDATION_IDENTICAL_ACROSS_EDITIONS: ValidationCopyId[] = [
+  "draft.artifact.manifest",
+  "draft.artifact.evidenceBundle",
+  "draft.artifact.trust",
+  "draft.artifact.trace",
+
   "step.title.discovery",
   "step.title.manifest",
   "step.title.keys",
