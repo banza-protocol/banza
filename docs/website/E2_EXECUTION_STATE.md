@@ -61,8 +61,8 @@ and stays out of the localization catalogue.
 | Q1 | `banzai-agent.ts` — semantic ids, PT parity, EN authoring, `getAgentPresentation(locale)`, E2-C2 | **MUTATION_PROVEN** | `4311d0b` | 60 semantic ids · PT byte-parity vs live module · EN complete · `components/banzai/agentPresentation.ts` + 9-assertion property |
 | Q2 | `suggestions.ts` — one selection algorithm, `contextualSuggestions(ctx, locale)`, PT+EN, selection parity | **MUTATION_PROVEN** | `a7ef509` | 67 semantic ids · `selectSuggestions` locale-free · 47-context PT fixture reproduced byte for byte · `suggestionsLocale.test.ts` (15 assertions) |
 | Q3 | `traceVerifier.ts` + locale into `BanzaiRouteBinder → BanzaiWorkspaceProvider`, controlled EN harness, E2-C1 | **MUTATION_PROVEN** | `5623052` | `BanzaiLocaleBoundary` + `useBanzaiLocale` (no default, throws) · 7 trace copy ids · `SURFACE_LOCALE` retired · `localePropagation.test.tsx` (8 assertions) |
-| Q4 | DECISIONS + DECISION — one semantic decision model, PT+EN, E2-F | NOT_STARTED | — | state decides · reason codes explain |
-| Q5 | remaining 13 React reader owners, by descending weight | NOT_STARTED | — | complete when missing PT = missing EN = unclassified = 0 |
+| Q4 | DECISIONS + DECISION — one semantic decision model, PT+EN, E2-F | **MUTATION_PROVEN** | `c155ae4` | 28 copy ids · `DecisionsExplorer` bilingual · cards expose id/type/status/slug as data · `decisionsLocale.test.tsx` (9 assertions) |
+| Q5 | remaining React reader owners, by descending weight — **including the two decision ROUTE pages** (`app/(pt)/decisoes/page.tsx` hero + prudential note, `app/(pt)/decisoes/[slug]/page.tsx` metadata rows, breadcrumb, aside and footer notes), which Q4 did not touch | NOT_STARTED | — | complete when missing PT = missing EN = unclassified = 0 |
 | Q6 | five public EN routes + dynamic identity, E2-D, E2-E | NOT_STARTED | — | only after Q5 |
 | Q7 | EN backlink closure + full mutation campaign A–G | NOT_STARTED | — | |
 | Q8 | final closure: registry 22/0/1, rendered matrix, all regressions, assurance | NOT_STARTED | — | only Q8 may declare Block E complete |
@@ -77,7 +77,7 @@ and stays out of the localization catalogue.
 | E2-C2 | non-React owner ignores explicit locale | **KILLED** — forced `getAgentPresentation` to `"pt"`; RED on "returns the requested locale, never the other one"; exact restore, green |
 | E2-D | operator locale switch changes `operatorId` | NOT_STARTED |
 | E2-E | implementation locale switch changes `implementationId` | NOT_STARTED |
-| E2-F | EN decision carries a different semantic payload | NOT_STARTED |
+| E2-F | EN decision carries a different semantic payload | **KILLED** — the English edition promoted `rascunho` to `activo`; exactly ONE assertion went red ("the English library claims something different about the records") while every string on the page stayed correct English; exact restore (`05340fc`), green |
 | E2-Q2b | a branch condition is dropped so the editions diverge in WHAT they offer | **KILLED** — removed the profile narrowing in `entitySuggestions`; 4 RED incl. the PT fixture and "branch conditions are the same in both editions" |
 | E2-G | EN reader link points back at the PT route | NOT_STARTED |
 
@@ -89,10 +89,10 @@ owners that did not exist and would not otherwise have been written.
 
 | | count |
 |---|---|
-| semantic presentation ids assigned | 134 (Q1 60 · Q2 67 · Q3 7) |
-| PT realizations complete | 134 / 134 |
-| EN realizations complete | 134 / 134 |
-| unclassified reader occurrences | ~457 (Q4–Q5 remain) |
+| semantic presentation ids assigned | 162 (Q1 60 · Q2 67 · Q3 7 · Q4 28) |
+| PT realizations complete | 162 / 162 |
+| EN realizations complete | 162 / 162 |
+| unclassified reader occurrences | ~429 (Q5 remains) |
 
 Q1 evidence: Website 746/746 across 51 files · tsc 0 · production build 0 · registry unchanged 17/5/1.
 
@@ -109,6 +109,12 @@ The locale boundary lives in `BanzaiWorkspaceProvider` and is exported as `Banza
 provider and the harness exercise the SAME code path — a test that declared its own context would prove
 nothing about production. It holds no default: `useBanzaiLocale` throws outside a boundary rather than
 answering `pt`. Every remaining queue item consumes it; none may re-derive a locale of its own.
+
+Q4 evidence: Website 778/778 across 54 files · tsc 0 · production build 0 · registry unchanged 17/5/1.
+Q4 delivered the semantic decision model and the explorer; the two decision ROUTE pages still carry
+Portuguese-only chrome and are named explicitly in Q5 above rather than left to be rediscovered.
+`DecisionMarkdown` is classified TRANSPARENT: it renders each document body in its original language and
+owns no reader copy of its own — there is nothing in it to localize.
 
 `traceVerifier` is the mixed owner the ledger predicted. Localized: the status label, the four fixture
 names. NOT localized and asserted so: `tone` (the engine's verdict), the fixture `key`s, the INV-*
