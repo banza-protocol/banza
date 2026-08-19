@@ -142,26 +142,32 @@ describe("Block E1 — all eight reader surfaces render in their own language", 
   });
 
   // ── WHITEPAPER VERSIONS ─────────────────────────────────────────────────────────────────────────
-  it("PT versions page renders, and its chrome language is recorded as a KNOWN OPEN DEFECT", async () => {
-    // Measured, not assumed: this page renders "Version history & hashes" — English chrome on the
-    // Portuguese route — and it did so before Block E1 touched anything (verified at eda1c51 and
-    // earlier). So WHITEPAPER_VERSIONS does not yet have real PT/EN parity: the English edition is
-    // close to the Portuguese one because the Portuguese one was already English.
-    //
-    // This asserts only what is TRUE today. It deliberately does not assert Portuguese chrome, because
-    // that would fail on a defect this milestone did not introduce and has not fixed; and it does not
-    // assert English either, because that would freeze the defect in place as though it were intended.
+  it("PT versions page renders in Portuguese", async () => {
+    // This surface rendered ENGLISH chrome until Block E1 — "Version history & hashes", "File / Lang" —
+    // because the page was authored in English and had no locale mechanism. The build, the registry and
+    // the locale switch were all correct throughout; only rendering it and reading it found the defect.
     const t = text(await render(await surface.ptVersions()));
     expect(t.length).toBeGreaterThan(200);
-    expect(t, "the versions page must still list the canonical artifacts").toMatch(/v1\.0|SHA-256|sha256/i);
+    expect(t).toContain("Histórico de versões e hashes");
+    expect(t).toContain("Integridade dos PDF");
+    expect(t).toContain("Ficheiro");
+    expect(t).toContain("Idioma");
+    expect(t, "the Portuguese page must not carry the English chrome").not.toContain("Version history");
+    expect(t).not.toContain("PDF integrity");
+    // Facts are not translated: the artifacts and their hashes render as published.
+    expect(t).toMatch(/v1\.0|SHA-256/i);
   });
 
   it("EN versions page renders in English and invents no English artifact", async () => {
+    // Fixing the Portuguese page must not be done by making English share Portuguese copy: the pair is
+    // the SAME version facts in two realizations, so both directions are asserted.
     const html = await render(await surface.enVersions());
     const t = text(html);
     expect(t.length).toBeGreaterThan(200);
     expect(t).toMatch(/Version|Published|Language/i);
     expect(t, "English versions page must not carry Portuguese chrome").not.toMatch(/histórico de versões/i);
+    expect(t).not.toContain("Integridade dos PDF");
+    expect(t).not.toContain("Ficheiro");
     // Version identity is a fact, not a translation: whatever artifacts the PT page names, this names too.
     const pt = await render(await surface.ptVersions());
     for (const m of pt.match(/banza-whitepaper-v[\d.]+-[a-z]{2}\.pdf/g) ?? []) {
