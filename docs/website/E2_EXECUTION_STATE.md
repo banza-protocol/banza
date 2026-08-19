@@ -78,7 +78,7 @@ session picks the next NOT_STARTED row by descending weight and does not re-deri
 | `components/banzai/BanzaiProgress.tsx` + `lib/banzaiProgress.ts` line ids | 6 | **DONE** | `ea785fc` |
 | `components/banzai/SafeMarkdown.tsx` | 3 | **TRANSPARENT** — a markdown renderer with no reader copy of its own; nothing to localize | — |
 | `components/banzai/BanzaiValidationMode.tsx` | 151 | **DONE — mutation-owned** | `5abab9c`, `1b7c6c9` |
-| `components/banzai/BanzaiAgent.tsx` (beyond the Q1/Q3 wiring) | 89 | NOT_STARTED | — |
+| `components/banzai/BanzaiAgent.tsx` (beyond the Q1/Q3 wiring) | 89 | **DONE — mutation-owned** | `62ac3df`, `4536358`, `6b776fc` |
 | `components/banzai/BanzaiOnboardingMode.tsx` + `ONBOARDING_COPY` (migrated out of `banzai-agent.ts`) | 69 | **DONE** | `0e25d27` |
 | `components/banzai/validationJourney.tsx` | 29 | NOT_STARTED | — |
 | `components/banzai/DraftValidationTool.tsx` (beyond the Q3 `traceStatus` thread) | 26 | NOT_STARTED | — |
@@ -111,6 +111,8 @@ the next owner, follow what it CALLS, not only what it renders.
 | E2-G | EN reader link points back at the PT route | NOT_STARTED |
 | Q5-A | a validation owner ignores the boundary | **KILLED** — `PersistenceBadge` forced to `"pt"` under an `en` boundary; RED on "persisted is not in English"; exact restore (`2bca0c1`), green |
 | Q5-B | the EN edition reports a different durability verdict | **SURVIVED FIRST, THEN KILLED** — see below |
+| Q5-C | a nested agent panel ignores the boundary | **KILLED** — `RfcPanel` forced to `"pt"` under an `en` boundary; RED on the rendered reference panel; exact restore (`b2bcf14`), green |
+| Q5-D | the EN edition reaches a different answer-badge verdict | **SURVIVED FIRST, THEN KILLED** — see below |
 
 **Q5-B is the most important result in this block so far.** Making the English edition present a PENDING
 run as durably archived passed every property the surface had: it was correct English, the raw
@@ -129,6 +131,22 @@ only that two editions differ. It cannot prove they agree.** Whatever a surface 
 as data — a verdict id, a status, a payload — or a mutation can change the claim and leave the prose
 looking perfect.
 
+**Q5-D sharpened that lesson.** Making the English render site badge a no-data outcome as an operational
+measurement survived a property that asserted `answerBadgeVerdict` directly: the function was untouched,
+because the divergence lived at the CALL SITE. Testing the decision function is not testing the decision
+the reader receives.
+
+The fix removed the call site rather than adding an assertion about it. The badge is now a component that
+takes the answer's state and reads its edition from the boundary itself, so the verdict is computed once
+and the words, the styling and the data witness all read that one value; the property reads the witness
+out of the rendered badge in both editions across all five answer states and requires the five to stay
+distinct. Rerun after the rebuild: RED on "the English badge reached a different verdict". Committed at
+`6b776fc`.
+
+**The rule for the remaining owners: put the verdict inside the component that renders it, and read the
+witness out of the render.** A pure function plus a render site is two places a locale can enter; one
+component is one.
+
 A mutation that survives is a finding, not a failure of the campaign: build the missing owner, commit it
 green, rerun. Both surviving mutations in E1 (glossary semantic swap, EN glossary rendering PT) forced
 owners that did not exist and would not otherwise have been written.
@@ -137,10 +155,21 @@ owners that did not exist and would not otherwise have been written.
 
 | | count |
 |---|---|
-| semantic presentation ids assigned | 476 (Q1 60 · Q2 67 · Q3 7 · Q4 77 · Q5 265) |
-| PT realizations complete | 476 / 476 |
-| EN realizations complete | 476 / 476 |
-| unclassified reader occurrences | ~194 (the NOT_STARTED rows above) |
+| semantic presentation ids assigned | 542 (Q1 catalogue now 126 · Q2 67 · Q3 7 · Q4 77 · Q5 265) |
+| PT realizations complete | 542 / 542 |
+| EN realizations complete | 542 / 542 |
+| unclassified reader occurrences | ~105 (the NOT_STARTED rows above) |
+
+`BanzaiAgent` reuses the Q1 catalogue rather than starting a second one: 66 new ids were added to
+`agentPresentation.ts` and the existing `mode.*`, `tab.*`, `validation.*`, `authority.*` and `badge.*`
+ids are consumed as they stand. The new answer-badge verdicts are namespaced `answerBadge.*` so Q1's
+BADGES property keeps its meaning.
+
+Locale-neutral classifications made in this owner: `measure_type` is a CLOSED ENUM emitted by the engine
+whose values are Portuguese words (`observação` | `média` | `mediana` | `percentil`) — engine data in its
+source language, compared against and never read out. It was being compared against a Portuguese literal
+that a second edition would have broken, silently presenting a lone observation as an average; it is now
+a named constant and classified. The same source-language classification the decision document body has.
 
 **Three owners in a row hid a Portuguese-only enum map at module or lib scope** — publication status,
 reproduction outcome, and the three onboarding state maps. Each named backend state, each was keyed by
