@@ -121,7 +121,7 @@ export default function EnOpenGovernancePage() {
             <a href={`${GITHUB_URL}/blob/main/MAINTAINERS.md`} rel="noopener" className="link-bordo">
               MAINTAINERS.md ↗
             </a>
-            <Link href="/decisoes" className="link-bordo">
+            <Link href="/en/decisions" className="link-bordo">
               ADRs and RFCs
             </Link>
           </div>

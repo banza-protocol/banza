@@ -264,7 +264,7 @@ export default function EnOperatorsPage() {
             <MoreLink href="/en/reference/conformance-certification">
               How conformance and evidence work
             </MoreLink>
-            <MoreLink href="/banzai">Explore with BanzAI</MoreLink>
+            <MoreLink href="/en/banzai">Explore with BanzAI</MoreLink>
           </div>
         </Container>
       </Section>

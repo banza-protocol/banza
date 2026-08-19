@@ -206,9 +206,10 @@ describe("Reference language switch — the accessible name is true", () => {
   });
 
   it("still says so honestly where a counterpart really is missing", () => {
-    // BanzAI has no English edition; the switch must not pretend otherwise.
-    const s = switchLink(shell("/banzai"));
-    expect(counterpartOf("/banzai", "en")).toBeNull();
+    // Block E2/Q6 — BanzAI gained an English edition, so the honest-missing case moved to the route whose
+    // Portuguese-only status is a decision: Operator Zero is a demonstration operator, not a backlog item.
+    const s = switchLink(shell("/operador-zero"));
+    expect(counterpartOf("/operador-zero", "en")).toBeNull();
     if (s.aria) expect(s.aria).toMatch(/ainda não existe|is not published/i);
   });
 });

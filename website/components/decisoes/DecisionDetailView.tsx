@@ -17,6 +17,7 @@ import {
   type DecisionsCopyId,
 } from "@/components/decisoes/decisionsPresentation";
 import { decisions, type Decision } from "@/lib/decisions";
+import { routeHref } from "@/lib/routeRegistry";
 import type { Locale } from "@/lib/i18n";
 
 export function DecisionDetailView({
@@ -55,7 +56,7 @@ export function DecisionDetailView({
   const explainer = isADR ? (
     <>
       {t("detail.note.adr.1")}{" "}
-      <Link href="/referencia" className="link-bordo">{t("link.reference")}</Link>
+      <Link href={routeHref("REFERENCE", locale)} className="link-bordo">{t("link.reference")}</Link>
       {t("detail.note.adr.2")}
     </>
   ) : (
@@ -78,7 +79,7 @@ export function DecisionDetailView({
       <Section tone="paper">
         <Container width="site" data-reveal>
           <nav aria-label={t("detail.aria.breadcrumb")} className="mb-8 font-mono text-[12px] text-ink-5">
-            <Link href="/decisoes" className="text-ink-4 no-underline hover:text-bordo">
+            <Link href={routeHref("DECISIONS", locale)} className="text-ink-4 no-underline hover:text-bordo">
               {t("detail.breadcrumb.index")}
             </Link>{" "}
             <span aria-hidden="true">/</span> <span className="text-ink-2">{d.id}</span>
@@ -112,12 +113,12 @@ export function DecisionDetailView({
                   {t("detail.action.readOnGithub")}
                 </a>
                 <Link
-                  href={`/banzai?doc=${encodeURIComponent(d.id)}&q=${encodeURIComponent(banzaiPrompt)}`}
+                  href={`${routeHref("BANZAI", locale)}?doc=${encodeURIComponent(d.id)}&q=${encodeURIComponent(banzaiPrompt)}`}
                   className="inline-flex items-center rounded-[3px] border border-line bg-white px-[15px] py-[10px] text-[13.5px] text-ink-2 no-underline hover:border-seal hover:text-seal"
                 >
                   {t("card.explainWithBanzai")}
                 </Link>
-                <Link href="/decisoes" className="text-[13px] text-ink-4 no-underline hover:text-bordo">
+                <Link href={routeHref("DECISIONS", locale)} className="text-[13px] text-ink-4 no-underline hover:text-bordo">
                   <span aria-hidden="true" className="font-mono">←</span> {t("detail.action.back")}
                 </Link>
               </div>
@@ -131,7 +132,7 @@ export function DecisionDetailView({
                     {related.map((r) => (
                       <li key={r.id}>
                         <Link
-                          href={`/decisoes/${r.slug}`}
+                          href={routeHref("DECISION", locale, { slug: r.slug })}
                           className="inline-flex items-center gap-2 rounded-[3px] border border-line bg-white px-[11px] py-[6px] text-[12.5px] text-ink-3 no-underline hover:border-bordo/40 hover:text-bordo"
                         >
                           <span className="font-mono text-[11px] text-ink-5">{r.id}</span>
@@ -192,7 +193,7 @@ export function DecisionDetailView({
 
             <p className="mt-10 border-t border-line pt-5 text-[12.5px] leading-[1.6] text-ink-5">
               {t("detail.footer.1")}{" "}
-              <Link href="/referencia" className="link-bordo">{t("link.reference")}</Link>
+              <Link href={routeHref("REFERENCE", locale)} className="link-bordo">{t("link.reference")}</Link>
               {t("detail.footer.2")}
             </p>
           </div>

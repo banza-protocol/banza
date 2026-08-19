@@ -10,6 +10,7 @@ import {
   type DecisionsCopyId,
 } from "@/components/decisoes/decisionsPresentation";
 import type { Locale } from "@/lib/i18n";
+import { routeHref } from "@/lib/routeRegistry";
 
 // Client-side explorer for the ADR/RFC library. Pure local state — filters and
 // search operate over the statically-indexed `decisions` array (no network, no
@@ -186,7 +187,7 @@ export function DecisionsExplorer({
                 </span>
               </div>
               <h3 className="m-0 mb-2 text-[15px] font-semibold leading-[1.35] text-ink">
-                <Link href={`/decisoes/${d.slug}`} className="no-underline hover:text-bordo">
+                <Link href={routeHref("DECISION", locale, { slug: d.slug })} className="no-underline hover:text-bordo">
                   {d.title}
                 </Link>
               </h3>
@@ -198,11 +199,11 @@ export function DecisionsExplorer({
               </div>
               <div className="mb-4 font-mono text-[10px] text-ink-6">{t("card.originalLanguage")}</div>
               <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2">
-                <Link href={`/decisoes/${d.slug}`} className="text-[13px] font-semibold text-bordo no-underline hover:underline">
+                <Link href={routeHref("DECISION", locale, { slug: d.slug })} className="text-[13px] font-semibold text-bordo no-underline hover:underline">
                   {t("card.readFull")} <span aria-hidden="true" className="font-mono">→</span>
                 </Link>
                 <Link
-                  href={`/banzai?doc=${encodeURIComponent(d.id)}&q=${encodeURIComponent(
+                  href={`${routeHref("BANZAI", locale)}?doc=${encodeURIComponent(d.id)}&q=${encodeURIComponent(
                     decisionAskQuestion(d.type, d.id, locale),
                   )}`}
                   className="text-[12.5px] text-ink-4 no-underline hover:text-seal"

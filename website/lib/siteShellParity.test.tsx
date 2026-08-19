@@ -173,16 +173,16 @@ describe("full shell — English chrome resolves implemented English counterpart
 
   it("routes with NO English edition keep their canonical Portuguese path — no invented /en URLs", () => {
     const chrome = chromeOnly(renderShell("/en"));
-    // BanzAI and the decisions record are not translated yet; the registry says so, and the chrome obeys.
-    // The Technical Registry used to be listed here, and the licence has now followed it out — each gained
-    // an English edition and the chrome tracked it without this assertion needing to know, which is the
-    // property. What stays here is only what genuinely has no English edition.
-    expect(pathFor("BANZAI", "en")).toBeNull();
-    expect(pathFor("DECISIONS", "en")).toBeNull();
-    expect(chrome).toContain('href="/banzai"');
-    expect(chrome).toContain('href="/decisoes"');
-    expect(chrome).not.toContain('href="/en/banzai"');
-    expect(chrome).not.toContain('href="/en/decisoes"');
+    // The Technical Registry was listed here once, then the licence, and in Block E2/Q6 BanzAI and the
+    // decisions library followed them out — each gained an English edition and the chrome tracked it
+    // without this assertion needing to know, which IS the property. What remains is the one route whose
+    // Portuguese-only status is a DECISION rather than a backlog: Operator Zero is a demonstration
+    // operator and has no English edition by intent.
+    expect(pathFor("OPERATOR_ZERO", "en")).toBeNull();
+    expect(chrome).not.toContain('href="/en/operador-zero"');
+    // …and the routes that gained one in Q6 now resolve to it rather than staying Portuguese.
+    expect(pathFor("BANZAI", "en")).toBe("/en/banzai");
+    expect(pathFor("DECISIONS", "en")).toBe("/en/decisions");
     // Routes that DO have an English edition resolve to it in the English chrome.
     expect(pathFor("TECHNICAL_REGISTRY", "en")).toBe("/en/technical-registry");
     expect(chrome).toContain('href="/en/technical-registry"');

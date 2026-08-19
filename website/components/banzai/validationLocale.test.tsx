@@ -35,11 +35,19 @@ import type { Locale } from "@/lib/i18n";
 
 const LOCALES: Locale[] = ["pt", "en"];
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const inBoundary = (locale: Locale, node: any, props: Record<string, unknown>): string =>
+/** Render a component under a declared edition. The props are per-component, so the element type is
+ *  erased through `unknown` rather than through `any` — no rule is disabled to make this compile. */
+const inBoundary = (
+  locale: Locale,
+  node: unknown,
+  props: Record<string, unknown>,
+): string =>
   renderToStaticMarkup(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    createElement(BanzaiLocaleBoundary, { locale }, createElement(node as any, props as any)),
+    createElement(
+      BanzaiLocaleBoundary,
+      { locale },
+      createElement(node as Parameters<typeof createElement>[0], props),
+    ),
   );
 
 /** Readable text: markup removed, whitespace collapsed. */

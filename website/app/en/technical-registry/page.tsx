@@ -352,7 +352,7 @@ export default async function EnTechnicalRegistryPage() {
             <MoreLink href="/en/operators">Operators — public registry</MoreLink>
             <MoreLink href="/en/status">The protocol&rsquo;s verifiable state</MoreLink>
             <MoreLink href="/en/glossary">Glossary — the concepts, precisely</MoreLink>
-            <MoreLink href="/banzai">Validate an implementation with BanzAI</MoreLink>
+            <MoreLink href="/en/banzai">Validate an implementation with BanzAI</MoreLink>
           </div>
         </Container>
       </Section>

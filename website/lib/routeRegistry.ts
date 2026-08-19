@@ -79,17 +79,19 @@ export const ROUTES: readonly RouteRecord[] = Object.freeze([
     policy: "BILINGUAL",
     note: "English URL in English — never /en/arquitectura.",
   },
-  { id: "BANZAI", pt: "/banzai", kind: "STATIC_PAGE", policy: "BILINGUAL" },
+  { id: "BANZAI", pt: "/banzai", en: "/en/banzai", kind: "STATIC_PAGE", policy: "BILINGUAL" },
   {
     id: "BANZAI_OPERATOR",
     pt: "/banzai/operador/[operatorId]",
+    en: "/en/banzai/operator/[operatorId]",
     kind: "DYNAMIC_PAGE",
     policy: "DYNAMIC_BILINGUAL",
-    note: "Operator identity is language-neutral; the surrounding UI is not.",
+    note: "Operator identity is language-neutral; the surrounding UI is not. The SEGMENT WORD is English on the English side (operator, not operador) and the operatorId itself never changes.",
   },
   {
     id: "BANZAI_OPERATOR_IMPLEMENTATION",
     pt: "/banzai/operador/[operatorId]/[implementationId]",
+    en: "/en/banzai/operator/[operatorId]/[implementationId]",
     kind: "DYNAMIC_PAGE",
     policy: "DYNAMIC_BILINGUAL",
   },
@@ -109,8 +111,15 @@ export const ROUTES: readonly RouteRecord[] = Object.freeze([
     aliasTarget: "/referencia/certificacao",
     note: "Content is owned by the Reference chapter; no separate EN page is owed.",
   },
-  { id: "DECISIONS", pt: "/decisoes", kind: "STATIC_PAGE", policy: "BILINGUAL" },
-  { id: "DECISION", pt: "/decisoes/[slug]", kind: "DYNAMIC_PAGE", policy: "DYNAMIC_BILINGUAL" },
+  { id: "DECISIONS", pt: "/decisoes", en: "/en/decisions", kind: "STATIC_PAGE", policy: "BILINGUAL" },
+  {
+    id: "DECISION",
+    pt: "/decisoes/[slug]",
+    en: "/en/decisions/[slug]",
+    kind: "DYNAMIC_PAGE",
+    policy: "DYNAMIC_BILINGUAL",
+    note: "The slug IS the record's identity and is the same on both sides. A decision's English page is the same decision, not an English decision.",
+  },
   {
     id: "FAQ_ALIAS",
     pt: "/faq",
@@ -297,11 +306,100 @@ export function pathFor(id: string, locale: "pt" | "en"): string | null {
   return locale === "pt" ? r.pt : r.en ?? null;
 }
 
-/** The same page in the other language, or `null` when there is not one. */
+// ── Block E2/Q6 — DYNAMIC ROUTE IDENTITY ──────────────────────────────────────────────────────────
+//
+// A dynamic route's counterpart is not a string transformation. `/banzai/operador/operator-zero` pairs
+// with `/en/banzai/operator/operator-zero`: the SEGMENT WORD is translated and the OPERATOR ID is not,
+// and no amount of prefixing or substring replacement can be trusted to know which is which. So the
+// pattern is matched, the parameters are extracted BY NAME, and they are placed into the counterpart's
+// own pattern — which means the identity a reader carries across a language switch is the identity the
+// route declared, never one reconstructed from what the URL happened to look like.
+
+/** A pattern's parameter names and a regex that captures them, e.g. `[operatorId]` → `([^/]+)`. */
+function compilePattern(pattern: string): { names: string[]; re: RegExp } {
+  const names: string[] = [];
+  const source = pattern.replace(/\[(\w+)\]|[.*+?^${}()|[\]\\]/g, (m, name?: string) => {
+    if (name) {
+      names.push(name);
+      return "([^/]+)";
+    }
+    return `\\${m}`;
+  });
+  return { names, re: new RegExp(`^${source}$`) };
+}
+
+/** What route a concrete pathname is, and with which parameters. `null` when nothing matches. */
+export function matchRoute(pathname: string): { record: RouteRecord; locale: "pt" | "en"; params: Record<string, string> } | null {
+  // Literal routes win over patterns, always. `/referencia/completa` is its OWN record and must never be
+  // read as the chapter pattern `/referencia/[capitulo]` with `capitulo=completa` — a concrete page that
+  // happens to fit a pattern's shape is not an instance of it.
+  const exact = ROUTES.find((r) => r.pt === pathname || r.en === pathname);
+  if (exact) {
+    return { record: exact, locale: exact.pt === pathname ? "pt" : "en", params: {} };
+  }
+  for (const record of ROUTES) {
+    for (const locale of ["pt", "en"] as const) {
+      const pattern = locale === "pt" ? record.pt : record.en;
+      if (!pattern) continue;
+      const { names, re } = compilePattern(pattern);
+      const m = re.exec(pathname);
+      if (!m) continue;
+      const params: Record<string, string> = {};
+      names.forEach((n, i) => (params[n] = m[i + 1]));
+      return { record, locale, params };
+    }
+  }
+  return null;
+}
+
+/** Place named parameters into a pattern. Throws if the pattern needs one the caller did not resolve. */
+export function fillPattern(pattern: string, params: Record<string, string>): string {
+  return pattern.replace(/\[(\w+)\]/g, (_m, name: string) => {
+    const value = params[name];
+    if (!value) throw new Error(`fillPattern: "${pattern}" needs parameter "${name}"`);
+    return value;
+  });
+}
+
+/**
+ * The same page in the other language, or `null` when there is not one.
+ *
+ * For a dynamic route this preserves the route's PARAMETERS: the operator a reader was looking at is the
+ * operator they are still looking at afterwards. It never falls back to the parent context, never picks
+ * another valid operator, and never rebuilds a slug from a display name.
+ */
 export function counterpartOf(pathname: string): string | null {
-  const r = routeAt(pathname);
-  if (!r) return null;
-  return r.pt === pathname ? r.en ?? null : r.pt;
+  const hit = matchRoute(pathname);
+  if (!hit) return null;
+  const target = hit.locale === "pt" ? hit.record.en : hit.record.pt;
+  if (!target) return null;
+  if (!target.includes("[")) return target;
+  // Substituting parameters is only legitimate when they are the SAME parameters — the reference chapter
+  // declares `[capitulo]` against `[chapter]` precisely because its slug is a translated word, and its
+  // counterpart is owned by `chapterCounterpart()` through the semantic chapter number. Carrying a
+  // Portuguese chapter slug into an English URL would invent a 404, which is the failure the registry's
+  // own header warns about. So identity-preserving substitution requires a declared DYNAMIC_BILINGUAL
+  // policy AND identical parameter names on both sides; anything else is not this function's to answer.
+  if (hit.record.policy !== "DYNAMIC_BILINGUAL") return null;
+  const source = hit.locale === "pt" ? hit.record.pt : hit.record.en!;
+  if (patternParams(source).join(",") !== patternParams(target).join(",")) return null;
+  return fillPattern(target, hit.params);
+}
+
+/**
+ * A concrete href for a route in a locale, with its parameters filled in. This is what a component uses
+ * instead of writing a pathname: a hard-coded `/decisoes` inside a shared view is correct in one edition
+ * and wrong in the other, and it is wrong invisibly.
+ */
+export function routeHref(id: string, locale: "pt" | "en", params: Record<string, string> = {}): string {
+  const pattern = pathFor(id, locale);
+  if (!pattern) throw new Error(`routeHref: ${id} has no ${locale} path`);
+  return fillPattern(pattern, params);
+}
+
+/** The parameter names a pattern declares, in order. */
+export function patternParams(pattern: string): string[] {
+  return [...pattern.matchAll(/\[(\w+)\]/g)].map((m) => m[1]);
 }
 
 /** Deterministic counts. The guard prints these and tests assert them. */

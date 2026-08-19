@@ -10,6 +10,7 @@ import { PageHero, Section, Container } from "@/components/ui";
 import { GitHubMark } from "@/components/GitHubMark";
 import { DecisionsExplorer } from "@/components/decisoes/DecisionsExplorer";
 import { decisionsCopy, type DecisionsCopyId } from "@/components/decisoes/decisionsPresentation";
+import { routeHref } from "@/lib/routeRegistry";
 import { decisions, decisionCategories } from "@/lib/decisions";
 import { GITHUB_URL } from "@/lib/site";
 import type { Locale } from "@/lib/i18n";
@@ -41,9 +42,9 @@ export function DecisionsIndexView({ locale }: { locale: Locale }) {
           <div className="grid gap-5 md:grid-cols-[1.4fr_1fr] md:items-center">
             <p className="m-0 max-w-[78ch] text-[14.5px] leading-[1.7] text-ink-4">
               {t("index.note.1")}{" "}
-              <Link href="/referencia" className="link-bordo">{t("link.reference")}</Link>
+              <Link href={routeHref("REFERENCE", locale)} className="link-bordo">{t("link.reference")}</Link>
               {t("index.note.2")}{" "}
-              <Link href="/banzai" className="link-bordo">{t("link.banzai")}</Link>{" "}
+              <Link href={routeHref("BANZAI", locale)} className="link-bordo">{t("link.banzai")}</Link>{" "}
               {t("index.note.3")}
             </p>
             <div className="flex flex-wrap gap-3">

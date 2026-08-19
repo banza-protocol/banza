@@ -54,8 +54,11 @@ function semanticPayload(html: string): string[] {
       .map((n) => attr(c, n))
       .join("|"),
   );
-  const hrefs = (html.match(/href="\/decisoes\/[^"]*"/g) ?? []).sort();
-  return [...ids, ...hrefs];
+  // Block E2/Q6 — the destination PATH is now edition-specific (`/decisoes/x` vs `/en/decisions/x`), so
+  // comparing literal hrefs across editions would fail for the right reason and hide the wrong one. What
+  // must be identical is the record's SLUG — its identity — so that is what the payload carries.
+  const slugs = [...html.matchAll(/href="(?:\/en)?\/decis(?:oes|ions)\/([^"]+)"/g)].map((m) => m[1]).sort();
+  return [...ids, ...slugs];
 }
 
 describe("Q4 — both editions state the same governance facts", () => {
@@ -71,12 +74,19 @@ describe("Q4 — both editions state the same governance facts", () => {
     expect(pt[2]).toContain("ADR-002|ADR|substituido");
   });
 
-  it("links every record to the same destination in both editions", () => {
-    // The library has no English route yet, so both editions link to the canonical Portuguese document.
-    // That is a deliberate fact about the surface, and it is asserted rather than assumed.
-    const hrefs = (html: string) => (html.match(/href="\/decisoes\/[^"]*"/g) ?? []).sort();
-    expect(hrefs(render("en"))).toEqual(hrefs(render("pt")));
-    expect(hrefs(render("en")).length).toBeGreaterThan(0);
+  it("links every record to its own edition's route, for the SAME record", () => {
+    // Q6 gave the library an English route, so the two editions link to different PATHS — and must still
+    // link to the same RECORDS. The slug is the identity; the prefix is the edition.
+    const slugs = (html: string) =>
+      [...html.matchAll(/href="(?:\/en)?\/decis(?:oes|ions)\/([^"]+)"/g)].map((m) => m[1]).sort();
+    expect(slugs(render("en"))).toEqual(slugs(render("pt")));
+    expect(slugs(render("en")).length).toBeGreaterThan(0);
+    // Each edition really does address its own route — an English page linking into /decisoes would send
+    // the reader back to the Portuguese edition mid-journey.
+    expect(render("en")).toContain('href="/en/decisions/');
+    expect(render("en")).not.toContain('href="/decisoes/');
+    expect(render("pt")).toContain('href="/decisoes/');
+    expect(render("pt")).not.toContain('href="/en/decisions/');
   });
 
   it("never translates the record's own identity or its authored title", () => {
@@ -223,8 +233,10 @@ describe("Q5 — the decision routes are one surface in two editions", () => {
       expect(en, `${fact} missing from the English page`).toContain(fact);
       expect(pt).toContain(fact);
     }
-    const links = (html: string) => (html.match(/href="\/decisoes\/[^"]*"/g) ?? []).sort();
-    expect(links(en)).toEqual(links(pt));
+    // Same records, each addressed in its own edition (Q6).
+    const slugs = (html: string) =>
+      [...html.matchAll(/href="(?:\/en)?\/decis(?:oes|ions)\/([^"]+)"/g)].map((m) => m[1]).sort();
+    expect(slugs(en)).toEqual(slugs(pt));
     // The document body is served in its ORIGINAL language and is byte-identical in both editions.
     expect(readable(en)).toContain("Corpo do documento na sua língua original.");
     expect(readable(pt)).toContain("Corpo do documento na sua língua original.");
