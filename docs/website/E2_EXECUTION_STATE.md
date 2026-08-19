@@ -80,7 +80,7 @@ session picks the next NOT_STARTED row by descending weight and does not re-deri
 | `components/banzai/BanzaiValidationMode.tsx` | 151 | **DONE — mutation-owned** | `5abab9c`, `1b7c6c9` |
 | `components/banzai/BanzaiAgent.tsx` (beyond the Q1/Q3 wiring) | 89 | **DONE — mutation-owned** | `62ac3df`, `4536358`, `6b776fc` |
 | `components/banzai/BanzaiOnboardingMode.tsx` + `ONBOARDING_COPY` (migrated out of `banzai-agent.ts`) | 69 | **DONE** | `0e25d27` |
-| `components/banzai/validationJourney.tsx` | 29 | NOT_STARTED | — |
+| `components/banzai/validationJourney.tsx` | 29 | NOT_STARTED — **scouted, see below** | — |
 | `components/banzai/DraftValidationTool.tsx` (beyond the Q3 `traceStatus` thread) | 26 | NOT_STARTED | — |
 | `components/banzai/SourceBlock.tsx` | 19 | NOT_STARTED | — |
 | `components/banzai/banzaiUi.tsx` | 19 | NOT_STARTED | — |
@@ -142,6 +142,25 @@ and the words, the styling and the data witness all read that one value; the pro
 out of the rendered badge in both editions across all five answer states and requires the five to stay
 distinct. Rerun after the rebuild: RED on "the English badge reached a different verdict". Committed at
 `6b776fc`.
+
+**Scouted for the next session — `validationJourney.tsx`.** Three things are already located, so no
+rediscovery is needed:
+
+1. `STATUS_LABEL_PT` (line ~156) is the step-VERDICT map — `NOT_EVALUATED` / `PENDING` / `VERIFIED` /
+   `FAILED` / `BLOCKED` / `NOT_APPLICABLE`. It is the most semantically loaded value on the whole
+   validation surface and it is consumed in FOUR places by `BanzaiValidationMode`, which is already
+   migrated; it was missed there because it is imported, not local. Apply the Q5-D rule: the verdict is
+   already decided by the engine, so this only names it — `stepStatusLabel(status, locale)` — and the
+   rendered witness must be the status itself.
+2. `STEPS` carries a `title` and a `blurb` per step (9 × 2). `Discovery`, `Manifest`, `Keys` and
+   `Evidence Bundle` are protocol terms and identical in both editions; the rest need English. `id`,
+   `num` and `engine` are locale-neutral.
+3. `progressPhrase` composes a Portuguese sentence with singular/plural agreement, exactly like the
+   progress line fixed in the live-progress owner. Return locale-free segments plus counts and realize
+   them per edition; do not translate the assembled sentence.
+
+`lib/banzaiValidation.ts` is clean: the dead `PUBLICATION_STATUS_LABEL_PT` map that the validation owner
+was meant to retire survived an earlier excision and has now been removed.
 
 **The rule for the remaining owners: put the verdict inside the component that renders it, and read the
 witness out of the render.** A pure function plus a render site is two places a locale can enter; one
