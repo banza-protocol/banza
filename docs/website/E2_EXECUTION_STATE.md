@@ -65,7 +65,7 @@ and stays out of the localization catalogue.
 | Q5 | remaining React reader owners, by descending weight | **COMPLETE — every owner migrated or classified** | see the owner table | 11 owners · 12 mutations executed, 12 killed · 3 required a missing owner to be built first |
 | Q6 | five public EN routes + dynamic identity, E2-D, E2-E | **COMPLETE — mutation-proven** | `7e32384`, `8cef643` | registry **17/5/1 → 22/0/1** |
 | Q7 | EN backlink closure + full mutation campaign A–G | **COMPLETE — E2-G proven** | `fc1384f` | 208/208 English navigation edges stay in the English edition |
-| Q8 | final closure: registry 22/0/1, rendered matrix, all regressions, assurance | NOT_STARTED | — | only Q8 may declare Block E complete |
+| Q8 | final closure: registry 22/0/1, rendered matrix, all regressions, assurance | **FINAL_VERIFIED** | `50c1fee`, `485cc81` | one material finding fixed; see below |
 
 ## Q5 — owner by owner
 
@@ -447,11 +447,147 @@ is still its own page.
 Evidence, by exit code: Website 841/841 across 58 files · tsc 0 · production build **exit 0** (188 pages)
 · registry checker **exit 0** at 22 / 0 / 1.
 
-## Final gates (Q8)
+## Q8 — FINAL CLOSURE
 
-Registry 22 / 0 / 1 · Website suite green · TypeScript exit 0 · production build exit 0 · rendered PT/EN
-matrix for all five route classes · E1 frozen regression · Blocks A–D · BanzAI critical battery exit 0 ·
-live required-context inventory · `make assurance-check` exit 0 with AG-0…AG-9 PASS and AG-10 NOT_RUN ·
-tree clean.
+### The finding Q8 existed to catch
 
-No PR, no merge, no deploy until Block E is complete and explicitly approved.
+The closed-world sweep, re-run from FINAL source rather than repeated from the ledger, found **81
+Portuguese literals still in `banzai-agent.ts`** and **eight of its constants still reaching readers**:
+mode names, tab names, the starter questions, the who-does-what table, the ADR cards, the protocol map,
+the draft header and the validation header. An English reader received all of it in Portuguese.
+
+Q1 built the catalogue and mirrored the module, but several consumers were never switched. **Q1's own
+property could not see it, because it compared the catalogue TO the module** — the two agreeing was the
+symptom, not the proof. The per-owner Q5 sweeps missed it too: they scanned each owner's own file, and
+these strings arrived by import. The ledger's own lesson — follow what an owner CALLS — applied at the
+wrong scope.
+
+Fixed at `50c1fee`. The module now holds identity only (keys, modes, icons, groups, hrefs, ADR ids), each
+record carrying the id of its name. Three guards that scanned the module's Portuguese now scan the
+catalogue in BOTH editions, which is strictly stronger: the boundary deny-list is now checked in English,
+and never had been. Two constants (`TRUST_CARDS`, `EVIDENCE_CONTENT`) had no consumer at all — dead
+Portuguese that a guard was scanning, so that guard was proving nothing about what is published; it now
+reads the pages where the vocabulary really appears. The replacement property is the one that would have
+caught this on the day: **the data module must hold no sentence, because a sentence there has only one
+language.**
+
+### Final closed-world state (regenerated from final source)
+
+| | |
+|---|---|
+| inventory source files | 26 |
+| raw occurrences | 1041 |
+| bilingual catalogues | 8 |
+| semantic presentation ids | **715** |
+| PT realizations | **715 / 715** |
+| EN realizations | **715 / 715** |
+| owners scanned (non-catalogue) | 18 |
+| **unclassified reader presentation** | **0** |
+| unknown semantic id | 0 (every id resolves; `agentCopy`/`validationCopy`/… throw on an unknown one) |
+| silent EN→PT fallback | 0 (no default anywhere below the route boundary; `useBanzaiLocale` throws) |
+
+The only literals the scanner still reports in production owners are two TypeScript expressions
+(`BanzaiValidationMode.tsx:805`, `validationJourney.tsx:96`) captured by the `>…<` heuristic. Verified by
+reading them: neither is copy.
+
+### Registry — `node tools/check-website-route-registry.mjs`, exit 0
+
+implemented_en **22** · missing_en **0** · intentional_pt_only **1**. Not hardcoded — the checker derives
+them from the records.
+
+### Rendered matrix — `lib/e2FinalMatrix.test.tsx` (31 assertions)
+
+Ten surfaces across the five route classes, both editions, plus **21 interactive states** each asserted to
+reach the same semantic witness and to differ in wording: five answer badges, four persistence verdicts,
+two draft verdicts, three validator verdicts, two source chips, five journey-progress outcomes, the live
+progress block, the results area and the nine-step journey. Not a happy path — the refusal, the
+service-unavailable, the failed-persistence and the one-blocker outcomes are the ones a reader most needs
+told truthfully.
+
+### Mutation reconciliation
+
+| id | class | result | evidence |
+|---|---|---|---|
+| E2-A | EN realizes from the PT column | KILLED | Q2 · forced `entry.pt`; 4 RED; restore `f9fc84a` |
+| E2-B | an EN realization in use is emptied | KILLED | Q2 · 10 RED, fails closed for both editions |
+| E2-C1 | React propagation broken at a nested boundary | KILLED | Q3 · `GuiaPanel` → `"pt"` under `en`; restore `b2bcf14` |
+| E2-C2 | non-React owner ignores explicit locale | KILLED | Q1 · `getAgentPresentation` → `"pt"`; restore green |
+| E2-D | operator switch changes `operatorId` | KILLED | Q6 · EN → `operator-a`; restore `6a3e53f` |
+| E2-E | implementation switch changes `implementationId` | KILLED | Q6 · operator preserved, EN → `oz-impl-2` |
+| E2-F | EN decision carries a different payload | KILLED | Q4 · `rascunho`→`activo` in EN only; ONE assertion red |
+| E2-G | EN edge points back at the PT route | KILLED | Q7 · `/en/status → /banzai`; restore `3f4659d` |
+| E2-DECISION-ROUTE | EN decision route resolves to another record | KILLED | Q6 · PT `adr-001` ↔ EN `adr-002` |
+| Q5-A…Q5-O | fifteen owner-level mutations | ALL KILLED | see the Q5 table |
+
+### Mutations that SURVIVED first, and the owners they forced
+
+These are the block's most valuable results and are preserved, not summarised away:
+
+1. **Q5-B — persistence verdict.** The English edition presented a PENDING run as durably archived. It
+   passed every property: correct English, untouched status attribute, different wording from Portuguese.
+   **Forced:** `persistenceVerdict()` decided once with no locale in scope, rendered as
+   `data-persistence-verdict`. Reran → RED. (`1b7c6c9`)
+2. **Q5-D — answer badge.** The English RENDER SITE reached a different badge verdict while
+   `answerBadgeVerdict` stayed correct. Testing the decision function is not testing the decision the
+   reader receives. **Forced:** the `AnswerBadge` component — no call site left to diverge. (`6b776fc`)
+3. **Q5-F — journey progress.** Same shape, plus a new failure in the fix itself: the witness existed but
+   read the ORIGINAL value while the words came from the substituted one. **A witness not asserted against
+   the words it accompanies is decorative.** **Forced:** `JourneyProgress`, and the property now requires
+   witness AND text. (`cc39923`)
+
+After the component-first rule was adopted, the remaining six owner mutations died on the first attempt.
+
+### Required-CI reachability — LIVE branch protection
+
+Read with `gh api repos/:owner/:repo/branches/main/protection`. Seven required contexts, strict mode on.
+All seven are jobs of `.github/workflows/identity-guard.yml`.
+
+| # | exact context name | locally reproducible | final local state |
+|---|---|---|---|
+| 1 | `Public technical claims — executable evidence gate` | yes | **exit 0** — owns `npm run build`, `npm test`, `node tools/check-website-route-registry.mjs`, `bash tools/banzai-critical-battery.sh` |
+| 2 | `Whitepaper canonical build is reproducible (hermetic verify)` | **NO** | **NOT_RUN_LOCALLY** — the job is `runs-on: ubuntu-latest` and installs `poppler-utils` via `sudo apt-get`; this host is Darwin, which has no apt and no poppler from that path. No substitute PDF check was run in its place |
+| 3 | `Layer/profile naming split is canonical (Camada 1/2/3 vs L0–L4)` | yes | exit 0 |
+| 4 | `Git authorship identity guard (no Claude attribution)` | yes | exit 0 |
+| 5 | `BANZA three-layer architecture` | yes | exit 0 |
+| 6 | `Certification ≠ admission ≠ authorisation` | yes | exit 0 |
+| 7 | `License, Notice, Trademark and Open Governance` | yes | exit 0 |
+
+**Every E2 property is reached by required context #1**, because that job runs `npm test` and
+`npm run build` in `website/`. Proven empirically rather than inferred from filenames — five
+representative classes, each mutated from the committed green baseline, each producing a non-zero exit
+from the job's own command:
+
+| class | mutation | owning property RED | `npm test` exit |
+|---|---|---|---|
+| A wrong locale | `GuiaPanel` → `getAgentPresentation("pt")` | "renders the English workspace in English, several levels down" | **1** |
+| B missing EN realization | emptied `entity.keys_and_trust` EN | 17 tests | **1** |
+| C non-React locale ownership | `agentCopy(id, "pt")` inside the presentation builder | 3 tests | **1** |
+| D dynamic route identity | counterpart resolves `operatorId` → `operator-a` | "BANZAI_OPERATOR: the operatorId crosses the switch unchanged" | **1** |
+| E EN backlink closure | `/en/status` → `routeHref("BANZAI","pt")` | "never links to the Portuguese edition of a route that HAS an English one" | **1** |
+
+Each was restored by blob hash and the tree reverified clean.
+
+### Regressions, all from the final committed tree, all by exit code
+
+| gate | result |
+|---|---|
+| E1 frozen (`4e13af6`) — 8 rendered surfaces, glossary semantics, 25 terms, related-link closure | PASS |
+| Blocks A–D — route registry, shell/nav parity, reference switch parity, core EN pages | PASS |
+| Q7 EN link closure — 208/208 English edges, 0 defective, 0 unclassified | PASS |
+| BanzAI critical battery (`f336bfa`) — `bash tools/banzai-critical-battery.sh` | **exit 0** |
+| Website suite — `npm test` | **exit 0** · 59 files · **872 tests** |
+| TypeScript — `npx tsc --noEmit` | **exit 0** |
+| Production build — `npm run build` | **exit 0** · 188 pages · all five EN routes emitted |
+| `make assurance-check` | **exit 0** · AG-0…AG-9 **PASS** · AG-10 **NOT_RUN** |
+
+AG-10 is NOT_RUN by design: `assurance/release-readiness.json` has not been produced, and the gate treats
+absence as NOT_RUN rather than PASS. No freeze or release-readiness claim is made beyond that.
+
+### Historical build-evidence correction (preserved)
+
+See the assurance-correction section above. Thirty checkpoints in `5abab9c … 7e32384` were previously
+recorded as production-build green; those claims are **withdrawn**. `next build` compiled, printed
+`Compiled successfully`, then failed linting, and the process exit code was non-zero — while the check
+read the log substring. Git history was not rewritten. Builds are now verified by exit code only.
+
+No PR, no merge, no deploy until explicitly approved.
