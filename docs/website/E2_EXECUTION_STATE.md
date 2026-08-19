@@ -320,6 +320,49 @@ identifiers, and every literal inside the demo trace payloads.
 `FORBIDDEN_PHRASES` classified **machine-only** — guard input, not reader copy, stays out of the
 catalogue.
 
+## Assurance correction — production-build evidence, `5abab9c` … `7e32384`
+
+**Status of the historical claim: PREVIOUSLY_MISREPORTED.**
+
+Every "production build 0" recorded for a checkpoint in the range `5abab9c` … `7e32384` (30 commits,
+covering the `BanzaiValidationMode`, `BanzaiOnboardingMode`, `BanzaiAgent`, `validationJourney`,
+`DraftValidationTool`, `SourceBlock`, `banzaiUi`, `TransparencyPanel` and `ProgramadoresTools` owners) is
+**not valid evidence and is withdrawn**. It is left in place above rather than edited away, with this
+section as its correction.
+
+What actually happened:
+
+1. `next build` ran its compile stage and printed `✓ Compiled successfully`.
+2. It then ran `Linting and checking validity of types` and **failed** — a test file added in `5abab9c`
+   carried `// eslint-disable-next-line @typescript-eslint/no-explicit-any`, and that rule is not
+   configured in this repository, so ESLint errored on the disable directive itself.
+3. The process **exit code was non-zero**. `Failed to compile.` appeared in the log.
+4. The verification step grepped the log for the substring `Compiled successfully` — which Next.js prints
+   BEFORE it lints — and reported the build green.
+
+The defect was in the check, not only in the code: **a log substring was treated as a substitute for
+process exit status.** A build that prints a success line and then fails is exactly the case that
+distinction exists to catch, and the check was blind to it by construction.
+
+What is proven, at `a6a739a`, by reading the exit code:
+
+| evidence | value |
+|---|---|
+| `npm run build` process exit code | **0** |
+| pages emitted | 188 |
+| `/en/banzai` | emitted |
+| `/en/banzai/operator/[operatorId]` | emitted |
+| `/en/banzai/operator/[operatorId]/[implementationId]` | emitted |
+| `/en/decisions` | emitted |
+| `/en/decisions/[slug]` | emitted |
+
+The affected checkpoints' OTHER evidence — Website suite, `tsc`, registry checker, mutation results — was
+gathered by exit code or by reading actual assertion output and is unaffected. Only the build claim is
+withdrawn.
+
+**Standing rule, permanent:** build and check success is the process exit code. A log line is never
+evidence of success, however conclusive it reads. The final assurance report must carry this correction.
+
 ## Q6 — the five English routes
 
 | route | PT | EN | evidence |
@@ -354,10 +397,8 @@ edition addresses its own path — a strictly stronger claim.
 Evidence: Website 834/834 across 57 files · tsc 0 · production build exit 0 (188 pages, all five EN routes
 emitted) · registry checker exit 0 at **22 / 0 / 1**.
 
-**A verification correction.** The production build had been failing since `5abab9c` on an eslint rule that
-a test file of mine disabled but which is not configured in this repository. Reports of a green build in
-that range were wrong: the check was grepping the log for "Compiled successfully" — which `next build`
-prints before linting — instead of reading the exit code. Builds are now verified by exit code.
+**A verification correction.** See the assurance-correction section above: the production build had been
+failing since `5abab9c`, and the checkpoint claims in that range are formally withdrawn.
 
 ## Final gates (Q8)
 
