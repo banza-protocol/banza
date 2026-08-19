@@ -189,3 +189,64 @@ test("…and Portuguese still arrives as Portuguese through that same boundary",
   assert.match(system, /em português e objectiva/, "pt-PT must arrive as Portuguese");
   assert.doesNotMatch(system, /in English and objective/, "the English rule must not be active for pt-PT");
 });
+
+// ── THE WHOLE CHAIN, NOT ITS LINKS ────────────────────────────────────────────────────────────────
+//
+// The two tests above call `runOutputPass` directly, which proves that function honours a locale it is
+// handed. It does NOT prove the locale ARRIVES there, and a mutation showed the difference matters:
+// dropping `locale` at the `runGroundedSynthesis` → `runOutputPass` call site left every property in
+// this file green. The suite failed elsewhere, so the loss was caught — but not by the property that
+// owns locale, which is the one that would have to say WHY.
+//
+// This exercises the public entry point instead, so the boundary that actually lost the locale in the
+// first implementation is inside the chain under test rather than beside it.
+
+import { runGroundedSynthesis } from "../src/grounded-synthesis.js";
+
+/** Run the real synthesis entry point with a provider that captures the prompt and then declines. */
+const GROUNDED_QUESTION = "o que decidiu a ADR-001?";
+
+async function promptThroughPublicEntry(locale) {
+  const sink = {};
+  await runGroundedSynthesis(GROUNDED_QUESTION, {
+    provider: capturingProvider(sink),
+    traceId: "trace-locale-e2e",
+    timeoutMs: 1000,
+    depth: "brief",
+    model: "m",
+    taskQuestion: GROUNDED_QUESTION,
+    locale,
+  }).catch(() => {});
+  return sink.messages;
+}
+
+test("the locale reaches the prompt through the PUBLIC synthesis entry point", async () => {
+  // ML2's owning assertion. If any boundary between here and the builder drops the value — or quietly
+  // substitutes a default for it — the English request arrives under a Portuguese instruction and this
+  // is the assertion that says so.
+  const messages = await promptThroughPublicEntry("en");
+  assert.ok(
+    Array.isArray(messages) && messages.length >= 1,
+    "the prompt never reached the provider. Either the resolved locale did not survive the chain — " +
+      "with no internal defaults left to absorb it, a lost locale makes the strict builder refuse and " +
+      "no prompt is produced — or the witness question stopped grounding and short-circuited as " +
+      "`insufficient` before the model. Check the locale first: that is the failure this owns.",
+  );
+  const system = String(messages[0].content);
+  assert.ok(system.length > 500, `captured prompt looks truncated (${system.length} chars)`);
+  assert.match(
+    system,
+    /in English and objective/,
+    "an English request reached the model under a Portuguese instruction — the resolved locale was " +
+      "lost or defaulted somewhere between the synthesis entry point and the prompt builder",
+  );
+  assert.doesNotMatch(system, /em português e objectiva/, "the Portuguese rule must not be active for en");
+});
+
+test("…and Portuguese reaches it as Portuguese through that same entry point", async () => {
+  // Non-vacuity: a chain that dropped BOTH locales would satisfy the assertion above by accident.
+  const messages = await promptThroughPublicEntry("pt-PT");
+  const system = String(messages[0].content);
+  assert.match(system, /em português e objectiva/, "pt-PT must arrive as Portuguese");
+  assert.doesNotMatch(system, /in English and objective/, "the English rule must not be active for pt-PT");
+});
