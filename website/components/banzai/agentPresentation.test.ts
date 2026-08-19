@@ -1,9 +1,6 @@
 import { describe, it, expect } from "vitest";
-import {
-  BANZAI_AGENT, AGENT_RULE_SOURCES, AGENT_GUIA_TEXT, SESSION_NOTICE,
-  AGENT_WHO_DOES_WHAT, MODES, TAB_META, TABS, REPO_LINK,
-  VALIDATION_COPY, DRAFT_COPY, AUTHORITY_COPY, BADGES, CONFORMIDADE_LEVELS,
-} from "@/components/banzai/banzai-agent";
+import { readFileSync } from "node:fs";
+import { MODES, TAB_META, TABS, REPO_LINK, RFC_DOCS, PROTOCOL_MAP_NODES } from "@/components/banzai/banzai-agent";
 import { AGENT_COPY, agentCopy, agentCopyIds, getAgentPresentation } from "@/components/banzai/agentPresentation";
 
 // The agent data module is where the workspace keeps its largest body of reader copy, and it is a plain
@@ -14,72 +11,69 @@ import { AGENT_COPY, agentCopy, agentCopyIds, getAgentPresentation } from "@/com
 // the L0–L4 ids are routing and protocol identity; duplicating them per locale would let the two
 // languages disagree about which tab a button opens, which is worse than a bad translation.
 
-describe("agent presentation — Portuguese moved without changing", () => {
+describe("agent presentation — the Portuguese surface is frozen, and the data module holds none of it", () => {
   it("every catalogue entry realizes both locales", () => {
     const ids = agentCopyIds();
-    expect(ids.length).toBeGreaterThanOrEqual(50);
+    expect(ids.length).toBeGreaterThanOrEqual(160);
     for (const id of ids) {
-      expect(AGENT_COPY[id].pt, `${id}: missing pt`).toBeTruthy();
-      expect(AGENT_COPY[id].en, `${id}: missing en`).toBeTruthy();
+      for (const l of ["pt", "en"] as const) {
+        expect(AGENT_COPY[id][l].trim().length, `${id}/${l}`).toBeGreaterThan(0);
+      }
     }
   });
 
-  it("the Portuguese realization matches the live agent module byte for byte", () => {
-    const pairs: Array<[string, string]> = [
-      ["agent.subtitle", BANZAI_AGENT.subtitle],
-      ["agent.assistantIntro", BANZAI_AGENT.assistantIntro],
-      ["agent.heroText", BANZAI_AGENT.heroText],
-      ["agent.boundary", BANZAI_AGENT.boundary],
-      ["agent.boundaryTop", BANZAI_AGENT.agentBoundaryTop],
-      ["agent.shortPhrase", BANZAI_AGENT.shortPhrase],
-      ["agent.assistantPlaceholder", BANZAI_AGENT.assistantPlaceholder],
-      ["agent.ruleSources", AGENT_RULE_SOURCES],
-      ["agent.guiaText", AGENT_GUIA_TEXT],
-      ["agent.sessionNotice", SESSION_NOTICE],
-      ["validation.header", VALIDATION_COPY.header],
-      ["validation.intro", VALIDATION_COPY.intro],
-      ["validation.entities", VALIDATION_COPY.entities],
-      ["validation.onlyOperatorHint", VALIDATION_COPY.onlyOperatorHint],
-      ["validation.originNote", VALIDATION_COPY.originNote],
-      ["draft.title", DRAFT_COPY.title],
-      ["draft.subtitle", DRAFT_COPY.subtitle],
-      ["draft.banner", DRAFT_COPY.banner],
-      ["authority.noCertify", AUTHORITY_COPY.noCertify],
-      ["authority.runsTools", AUTHORITY_COPY.runsTools],
-      ["authority.caDecides", AUTHORITY_COPY.caDecides],
-      ["authority.passIsEvidence", AUTHORITY_COPY.passIsEvidence],
-      ["authority.preProduction", AUTHORITY_COPY.preProduction],
-      ["link.repository", REPO_LINK.name],
-    ];
-    for (const [id, live] of pairs) {
-      expect(agentCopy(id as never, "pt"), `${id} drifted from banzai-agent.ts`).toBe(live);
-    }
+  it("keeps the Portuguese surface byte-for-byte", () => {
+    // These are the strings the data module carried before Q8 moved them. Pinning them here is what makes
+    // "the Portuguese did not change" checkable now that there is no module left to compare against.
+    expect(agentCopy("agent.subtitle", "pt")).toBe("Interface interactiva do protocolo · consulta, valida e orienta");
+    expect(agentCopy("agent.shortPhrase", "pt")).toBe("BanzAI guia; os motores verificam; a evidência prova; a autoridade competente decide.");
+    expect(agentCopy("agent.assistantPlaceholder", "pt")).toBe("Pergunte ao BanzAI ou peça uma operação técnica…");
+    expect(agentCopy("mode.ask", "pt")).toBe("Perguntar ao BanzAI");
+    expect(agentCopy("mode.validation", "pt")).toBe("Validar operador");
+    expect(agentCopy("mode.onboarding", "pt")).toBe("Onboarding de operador");
+    expect(agentCopy("tab.resultados", "pt")).toBe("Resultados");
+    expect(agentCopy("tab.rfc", "pt")).toBe("Referência");
+    expect(agentCopy("validation.header", "pt")).toBe("Validação técnica de implementação");
+    expect(agentCopy("draft.title", "pt")).toBe("Validar rascunho");
+    expect(agentCopy("link.repositoryName", "pt")).toBe("Repositório");
+    expect(agentCopy("starter.journeyDuration", "pt")).toBe("Quanto tempo leva uma jornada completa de validação?");
   });
 
-  it("mode, tab and badge labels match the live module", () => {
-    for (const m of MODES) expect(agentCopy(`mode.${m.mode}` as never, "pt")).toBe(m.name);
-    for (const [key, meta] of Object.entries(TAB_META)) {
-      expect(agentCopy(`tab.${key}` as never, "pt")).toBe(meta.name);
-    }
-    for (const t of TABS) expect(agentCopy(`tab.${t.key}` as never, "pt")).toBe(t.name);
-    for (const lvl of CONFORMIDADE_LEVELS) {
-      expect(agentCopy(`profile.${lvl.id}` as never, "pt")).toBe(lvl.name);
-    }
-    const badgeIds = agentCopyIds().filter((i) => i.startsWith("badge."));
-    expect(badgeIds.length).toBe(BADGES.length);
-    expect(badgeIds.map((i) => agentCopy(i, "pt")).sort()).toEqual([...BADGES].sort());
+  it("leaves NO reader copy in the data module", () => {
+    // The assertion that would have caught Q8's finding. The module may hold ids, icons, keys, groups and
+    // hrefs; it may not hold a sentence, because a sentence there has only one language.
+    const src = readFileSync(new URL("./banzai-agent.ts", import.meta.url), "utf8");
+    // FORBIDDEN_PHRASES is machine guard input — a needle list asserted against the catalogue and never
+    // rendered. It is exempted BY NAME, not by pattern, so a new Portuguese constant cannot hide beside it.
+    const withoutGuardInput = src.replace(/export const FORBIDDEN_PHRASES = \[[\s\S]*?\];/, "");
+    const code = withoutGuardInput.replace(/\/\/[^\n]*/g, "").replace(/\/\*[\s\S]*?\*\//g, "");
+    const prose = [...code.matchAll(/"([^"\n]{4,})"/g)]
+      .map((m) => m[1])
+      // Prose has words. A single token like the protocol-map node id `Federação` is IDENTITY — it names
+      // the node in the diagram and carries `idLabelId` beside it for the reader — so it is not copy.
+      .filter((t) => /\s/.test(t.trim()))
+      .filter((t) => /[À-ú]/.test(t) || /[A-Za-z]{3,}\s+[A-Za-z]{3,}\s+[A-Za-z]{3,}/.test(t))
+      .filter((t) => !t.startsWith("@/") && !/^https?:/.test(t));
+    expect(prose, "reader copy left in the agent data module — it can only be Portuguese there").toEqual([]);
   });
 
-  it("who-does-what roles and sentences both survive", () => {
-    expect(AGENT_WHO_DOES_WHAT.length).toBe(6);
-    const sentences = AGENT_WHO_DOES_WHAT.map(([, s]) => s);
-    const roles = AGENT_WHO_DOES_WHAT.map(([r]) => r);
-    for (const id of agentCopyIds().filter((i) => i.startsWith("whoDoesWhat.") && !i.includes(".role."))) {
-      expect(sentences, `${id} is not a live sentence`).toContain(agentCopy(id, "pt"));
+  it("keeps semantic identity on the records and copy ids beside it", () => {
+    // `mode`, `key`, `group`, `href` and the ADR/node ids are routing and protocol identity. They stay on
+    // the record; only the NAME is an id into the catalogue.
+    for (const m of MODES) {
+      expect(m.mode).toMatch(/^(ask|validation|onboarding)$/);
+      expect(agentCopy(m.nameId, "en")).not.toBe(agentCopy(m.nameId, "pt"));
     }
-    for (const id of agentCopyIds().filter((i) => i.startsWith("whoDoesWhat.role."))) {
-      expect(roles, `${id} is not a live role`).toContain(agentCopy(id, "pt"));
+    for (const t of TABS) {
+      expect(TAB_META[t.key].nameId).toBe(t.nameId);
+      expect(t.group).toMatch(/^(recursos|resultados)$/);
     }
+    expect(REPO_LINK.href).toBe("https://github.com/banza-protocol/banza");
+    for (const d of RFC_DOCS) {
+      expect(d.id).toMatch(/^(ADR-\d+|RFCs)$/);
+      expect(agentCopy(d.titleId, "en")).not.toBe(agentCopy(d.titleId, "pt"));
+    }
+    for (const n of PROTOCOL_MAP_NODES) expect(agentCopy(n.qId, "en")).not.toBe(agentCopy(n.qId, "pt"));
   });
 });
 
@@ -95,8 +89,8 @@ describe("agent presentation — locale is explicit and English is real", () => 
     // E2-C2's owning assertion: a selector that ignores its argument fails here.
     const pt = getAgentPresentation("pt");
     const en = getAgentPresentation("en");
-    expect(pt.boundary).toBe(BANZAI_AGENT.boundary);
-    expect(en.boundary).not.toBe(BANZAI_AGENT.boundary);
+    expect(pt.boundary).toBe(agentCopy("agent.boundary", "pt"));
+    expect(en.boundary).not.toBe(agentCopy("agent.boundary", "pt"));
     expect(en.boundary).toMatch(/does not certify/);
     expect(en.assistantPlaceholder).toMatch(/Ask BanzAI/);
     expect(pt.assistantPlaceholder).toMatch(/Pergunte ao BanzAI/);

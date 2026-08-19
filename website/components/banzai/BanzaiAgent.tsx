@@ -24,7 +24,7 @@ import { SourceBlock } from "@/components/banzai/SourceBlock";
 import { TransparencyPanel } from "@/components/banzai/TransparencyPanel";
 import {
   TABS, TAB_META, MODES, type WbTab, type WbMode,
-  AGENT_SUGGESTIONS, AGENT_WHO_DOES_WHAT,
+  AGENT_SUGGESTION_IDS,
   RFC_DOCS, PROTOCOL_MAP_NODES,
 } from "@/components/banzai/banzai-agent";
 import { Ico, CARD } from "@/components/banzai/banzaiUi";
@@ -112,6 +112,9 @@ function useIsDesktop(): boolean {
 }
 
 const cx = (...parts: (string | false | null | undefined)[]) => parts.filter(Boolean).join(" ");
+
+/** The six roles in the "who does what" table. The ORDER is the table; the words are the reader's. */
+const WHO_DOES_WHAT_ROLES = ["operator", "engines", "banzai", "peers", "governance", "regulators"] as const;
 
 /* ── Block E2/Q5 — SEMANTIC VERDICTS, DECIDED ONCE ────────────────────────────────────────────────
    Two stateful presentations in this shell used to decide their meaning inline, in the same expression
@@ -347,10 +350,10 @@ export function GuiaPanel({ onAsk, onValidate }: { onAsk: (t: string) => void; o
       <div className="mb-3 font-mono text-[10.5px] tracking-[0.16em] text-ink-5">{t("section.whoDoesWhat")}</div>
       <div className={`p-[14px] ${CARD}`}>
         <dl className="m-0 grid gap-[8px] sm:grid-cols-2">
-          {AGENT_WHO_DOES_WHAT.map(([who, does]) => (
-            <div key={who} className="flex flex-col gap-[2px]">
-              <dt className="text-[12.5px] font-semibold text-ink">{who}</dt>
-              <dd className="m-0 text-[12px] leading-[1.45] text-ink-4">{does}</dd>
+          {WHO_DOES_WHAT_ROLES.map((role) => (
+            <div key={role} className="flex flex-col gap-[2px]">
+              <dt className="text-[12.5px] font-semibold text-ink">{t(`whoDoesWhat.role.${role}` as AgentCopyId)}</dt>
+              <dd className="m-0 text-[12px] leading-[1.45] text-ink-4">{t(`whoDoesWhat.${role}` as AgentCopyId)}</dd>
             </div>
           ))}
         </dl>
@@ -389,9 +392,9 @@ export function RfcPanel({ onAsk }: { onAsk: (t: string) => void }) {
       <div className="mb-3 font-mono text-[10.5px] tracking-[0.16em] text-ink-5">{t("section.decisionsAndRfcs")}</div>
       <div className="grid gap-[8px] sm:grid-cols-2">
         {RFC_DOCS.map((d) => (
-          <button key={d.id} type="button" onClick={() => onAsk(d.q)} className={`flex flex-col gap-[4px] p-[14px] text-left transition-all hover:-translate-y-px hover:border-bordo/30 hover:shadow-[0_6px_18px_rgba(142,19,38,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bordo/40 ${CARD}`}>
+          <button key={d.id} type="button" onClick={() => onAsk(t(d.qId))} className={`flex flex-col gap-[4px] p-[14px] text-left transition-all hover:-translate-y-px hover:border-bordo/30 hover:shadow-[0_6px_18px_rgba(142,19,38,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bordo/40 ${CARD}`}>
             <span className="font-mono text-[11px] text-bordo">{d.id}</span>
-            <span className="text-[13px] text-ink-2">{d.title}</span>
+            <span className="text-[13px] text-ink-2">{t(d.titleId)}</span>
           </button>
         ))}
       </div>
@@ -399,9 +402,9 @@ export function RfcPanel({ onAsk }: { onAsk: (t: string) => void }) {
       <div className="mb-3 mt-8 font-mono text-[10.5px] tracking-[0.16em] text-ink-5">MAPA DO PROTOCOLO</div>
       <div className="grid gap-[8px] sm:grid-cols-2">
         {PROTOCOL_MAP_NODES.map((n) => (
-          <button key={n.id} type="button" onClick={() => onAsk(n.q)} className={`flex flex-col gap-[3px] p-[13px] text-left transition-all hover:-translate-y-px hover:border-bordo/30 hover:shadow-[0_6px_18px_rgba(142,19,38,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bordo/40 ${CARD}`}>
-            <span className="text-[13px] font-semibold text-ink">{n.id}</span>
-            <span className="text-[11.5px] leading-[1.4] text-ink-4">{n.role}</span>
+          <button key={n.idLabelId ? t(n.idLabelId) : n.id} type="button" onClick={() => onAsk(t(n.qId))} className={`flex flex-col gap-[3px] p-[13px] text-left transition-all hover:-translate-y-px hover:border-bordo/30 hover:shadow-[0_6px_18px_rgba(142,19,38,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bordo/40 ${CARD}`}>
+            <span className="text-[13px] font-semibold text-ink">{n.idLabelId ? t(n.idLabelId) : n.id}</span>
+            <span className="text-[11.5px] leading-[1.4] text-ink-4">{t(n.roleId)}</span>
           </button>
         ))}
       </div>
@@ -790,7 +793,7 @@ export function BanzaiAgent({
   const current = TAB_META[activeTool];
   const isChat = !isValidation && !isOnboarding && activeTool === "assistente";
   // The workspace utility-strip eyebrow: the mode label in validation/onboarding, else the active panel.
-  const mainEyebrow = isValidation ? t("validation.header") : isOnboarding ? t("mode.onboarding") : current.name;
+  const mainEyebrow = isValidation ? t("validation.header") : isOnboarding ? t("mode.onboarding") : t(current.nameId);
 
   const renderPanel = () => {
     switch (activeTool) {
@@ -805,23 +808,23 @@ export function BanzaiAgent({
   // A Recursos/Resultados tab: selecting it drops into ask-panel view and shows that panel. Highlighted
   // only when ask mode is active (in validation mode the journey owns the workspace). `collapsed` renders
   // the icon-only rail (label kept for assistive tech + a native tooltip).
-  const renderTab = (t: (typeof TABS)[number], collapsed = false) => {
-    const active = !isValidation && !isOnboarding && activeTool === t.key;
+  const renderTab = (tab: (typeof TABS)[number], collapsed = false) => {
+    const active = !isValidation && !isOnboarding && activeTool === tab.key;
     return (
       <button
-        key={t.key}
+        key={tab.key}
         type="button"
-        onClick={() => { setMode("ask"); setActiveTool(t.key); setRailOpen(false); }}
+        onClick={() => { setMode("ask"); setActiveTool(tab.key); setRailOpen(false); }}
         aria-current={active ? "page" : undefined}
-        title={collapsed ? t.name : undefined}
+        title={collapsed ? t(tab.nameId) : undefined}
         className={cx(
           "group flex items-center rounded-[9px] py-[10px] text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bordo/40",
           collapsed ? "justify-center px-0" : "gap-[11px] px-3",
           active ? "bg-tint-bordo text-ink shadow-[inset_0_0_0_1px_rgba(142,19,38,0.18)]" : "text-ink-4 hover:bg-black/[0.03]",
         )}
       >
-        <Ico name={t.icon} size={17} className={active ? "text-bordo" : "text-ink-5"} />
-        <span className={cx("flex-1 text-[13.5px]", active && "font-semibold", collapsed && "sr-only")}>{t.name}</span>
+        <Ico name={tab.icon} size={17} className={active ? "text-bordo" : "text-ink-5"} />
+        <span className={cx("flex-1 text-[13.5px]", active && "font-semibold", collapsed && "sr-only")}>{t(tab.nameId)}</span>
         {active && !collapsed ? <span className="h-[6px] w-[6px] rounded-full bg-bordo" /> : null}
       </button>
     );
@@ -837,7 +840,7 @@ export function BanzaiAgent({
         type="button"
         onClick={() => { if (m.mode === "validation") goValidation(); else goGlobal(m.mode); setRailOpen(false); }}
         aria-current={active ? "page" : undefined}
-        title={collapsed ? m.name : undefined}
+        title={collapsed ? t(m.nameId) : undefined}
         className={cx(
           "group flex items-center rounded-[9px] py-[10px] text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bordo/40",
           collapsed ? "justify-center px-0" : "gap-[11px] px-3",
@@ -845,7 +848,7 @@ export function BanzaiAgent({
         )}
       >
         <Ico name={m.icon} size={17} className={active ? "text-creme-high" : "text-ink-5"} />
-        <span className={cx("flex-1 text-[13.5px] font-semibold", collapsed && "sr-only")}>{m.name}</span>
+        <span className={cx("flex-1 text-[13.5px] font-semibold", collapsed && "sr-only")}>{t(m.nameId)}</span>
         {active && !collapsed ? <span className="h-[6px] w-[6px] rounded-full bg-creme-high" /> : null}
       </button>
     );
@@ -1053,10 +1056,10 @@ export function BanzaiAgent({
                   <span className="h-px w-8 bg-black/10" />{t("section.startHere")}<span className="h-px w-8 bg-black/10" />
                 </div>
                 <div className="flex flex-col gap-[10px] text-left">
-                  {AGENT_SUGGESTIONS.map((q) => (
-                    <button key={q} onClick={() => ask(q)} className={`group flex w-full items-center gap-[14px] px-[18px] py-[13px] text-left transition-all hover:-translate-y-px hover:border-bordo/30 hover:shadow-[0_6px_18px_rgba(142,19,38,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bordo/40 ${CARD}`}>
+                  {AGENT_SUGGESTION_IDS.map((qid) => (
+                    <button key={qid} onClick={() => ask(t(qid))} className={`group flex w-full items-center gap-[14px] px-[18px] py-[13px] text-left transition-all hover:-translate-y-px hover:border-bordo/30 hover:shadow-[0_6px_18px_rgba(142,19,38,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bordo/40 ${CARD}`}>
                       <span className="flex h-7 w-7 flex-none items-center justify-center rounded-[8px] bg-tint-bordo font-mono text-[12px] text-bordo">↳</span>
-                      <span className="flex-1 text-[14.5px] text-ink-2">{q}</span>
+                      <span className="flex-1 text-[14.5px] text-ink-2">{t(qid)}</span>
                       <Ico name="chevron" size={16} className="flex-none text-ink-5 transition-transform group-hover:translate-x-0.5 group-hover:text-bordo" />
                     </button>
                   ))}
@@ -1303,7 +1306,7 @@ export function BanzaiAgent({
 
         {!isValidation && !isChat && (
           <section>
-            <div className="mb-[10px] flex items-center gap-2 font-mono text-[10px] tracking-[0.14em] text-ink-5"><Ico name="sliders" size={13} className="text-ink-5" /> CONTEXTO — {current.name.toUpperCase()}</div>
+            <div className="mb-[10px] flex items-center gap-2 font-mono text-[10px] tracking-[0.14em] text-ink-5"><Ico name="sliders" size={13} className="text-ink-5" /> CONTEXTO — {t(current.nameId).toUpperCase()}</div>
             <div className={`p-[16px] ${CARD}`}>
               <p className="m-0 text-[12.5px] leading-[1.55] text-ink-4">{activeTool === "resultados" ? t("results.liveHere") : t("tools.intro")}</p>
             </div>

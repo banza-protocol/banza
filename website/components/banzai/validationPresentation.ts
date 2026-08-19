@@ -930,6 +930,10 @@ export const VALIDATION_SURFACE_COPY = {
     "Não foi possível ler o ficheiro.",
     "The file could not be read.",
   ),
+  "validation.resultPhrase": L(
+    "A implementação {impl}, publicada pelo operador {operator}, foi avaliada para o perfil {profile}, versão {version}, ambiente {environment} e âmbito indicado.",
+    "Implementation {impl}, published by operator {operator}, was evaluated for profile {profile}, version {version}, environment {environment} and the stated scope.",
+  ),
 } as const;
 
 export type ValidationCopyId = keyof typeof VALIDATION_SURFACE_COPY;

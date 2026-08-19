@@ -12,8 +12,8 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { Ico, CARD, type IconKey } from "@/components/banzai/banzaiUi";
-import { VALIDATION_COPY } from "@/components/banzai/banzai-agent";
 import { useBanzaiLocale } from "@/components/banzai/BanzaiWorkspaceProvider";
+import { agentCopy } from "@/components/banzai/agentPresentation";
 import {
   publicationStatusLabelFor,
   realizeProgress,
@@ -242,9 +242,9 @@ export function ValidationContextSetup({ session }: { session: ValidationSession
       <div className={`p-[18px] ${CARD}`}>
         <div className="flex items-center gap-2 font-mono text-[10.5px] uppercase tracking-[0.08em] text-ink-5">
           <span className="flex h-6 w-6 items-center justify-center rounded-[7px] bg-tint-bordo text-bordo"><Ico name="sliders" size={13} /></span>{t("setup.phase0")}</div>
-        <h2 className="m-0 mt-2 font-serif text-[clamp(19px,2.2vw,24px)] font-semibold leading-[1.2] text-ink">{VALIDATION_COPY.header}</h2>
-        <p className="m-0 mt-3 max-w-[62ch] text-[13.5px] leading-[1.6] text-ink-3">{VALIDATION_COPY.intro}</p>
-        <p className="m-0 mt-2 max-w-[62ch] text-[12.5px] leading-[1.55] text-ink-4">{VALIDATION_COPY.entities}</p>
+        <h2 className="m-0 mt-2 font-serif text-[clamp(19px,2.2vw,24px)] font-semibold leading-[1.2] text-ink">{agentCopy("validation.header", locale)}</h2>
+        <p className="m-0 mt-3 max-w-[62ch] text-[13.5px] leading-[1.6] text-ink-3">{agentCopy("validation.intro", locale)}</p>
+        <p className="m-0 mt-2 max-w-[62ch] text-[12.5px] leading-[1.55] text-ink-4">{agentCopy("validation.entities", locale)}</p>
 
         {/* Operator selector — the list is fetched from the closed Technical Registry (Rust-sourced). */}
         <div className="mt-5 font-mono text-[10.5px] uppercase tracking-[0.1em] text-ink-5">{t("setup.step1")}</div>
@@ -284,7 +284,7 @@ export function ValidationContextSetup({ session }: { session: ValidationSession
             );
           })}
         </div>
-        <p className="m-0 mt-2 text-[11.5px] leading-[1.5] text-ink-5">{VALIDATION_COPY.onlyOperatorHint}</p>
+        <p className="m-0 mt-2 text-[11.5px] leading-[1.5] text-ink-5">{agentCopy("validation.onlyOperatorHint", locale)}</p>
 
         {/* Implementation selector (only once an operator is chosen) */}
         {operator && (
@@ -403,7 +403,7 @@ export function ValidationHeader({ session }: { session: ValidationSession }) {
         <div className="flex items-center gap-[11px]">
           <span className="flex h-8 w-8 flex-none items-center justify-center rounded-[9px] bg-tint-bordo text-bordo"><Ico name="medal" size={16} /></span>
           <div>
-            <div className="font-mono text-[9.5px] uppercase tracking-[0.14em] text-ink-5">{VALIDATION_COPY.header}</div>
+            <div className="font-mono text-[9.5px] uppercase tracking-[0.14em] text-ink-5">{agentCopy("validation.header", locale)}</div>
             <div className="text-[15px] font-semibold text-ink">{implementation?.display_name ?? t("setup.selectImplementation")}</div>
           </div>
         </div>
@@ -644,7 +644,7 @@ export function ValidationWorkspace({
         </div>
       )}
 
-      <p className="mt-5 max-w-[62ch] border-t border-black/[0.07] pt-4 text-[12px] leading-[1.55] text-ink-5">{VALIDATION_COPY.originNote}</p>
+      <p className="mt-5 max-w-[62ch] border-t border-black/[0.07] pt-4 text-[12px] leading-[1.55] text-ink-5">{agentCopy("validation.originNote", locale)}</p>
     </div>
   );
 }
@@ -1063,13 +1063,13 @@ export function ValidationResultsPanel({
             <JourneyProgress result={progressResult} className="m-0 mt-2 text-[12.5px] leading-[1.55] text-ink-3" />
             {implementation && operator && (
               <p className="m-0 mt-2 text-[12.5px] leading-[1.6] text-ink-2">
-                {VALIDATION_COPY.resultPhrase(
-                  implementation.implementation_id,
-                  operator.operator_id,
-                  implementation.profile,
-                  implementation.version,
-                  implementation.environment,
-                )}
+                {t("validation.resultPhrase", {
+                  impl: implementation.implementation_id,
+                  operator: operator.operator_id,
+                  profile: implementation.profile,
+                  version: implementation.version,
+                  environment: implementation.environment,
+                })}
               </p>
             )}
             <div className="mt-3 grid grid-cols-2 gap-[6px] font-mono text-[11px] sm:grid-cols-2">

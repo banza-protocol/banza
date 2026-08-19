@@ -1,10 +1,13 @@
 import { describe, it, expect } from "vitest";
-import {
-  BANZAI_AGENT, TABS, AUTHORITY_COPY, AGENT_SUGGESTIONS,
-  CONFORMIDADE_LEVELS, TRUST_CARDS, EVIDENCE_CONTENT,
-  RFC_DOCS, PROTOCOL_MAP_NODES, DEV_COMMANDS, DEV_QUESTIONS, DEV_ENDPOINTS, TRACE_FLOW,
-} from "../components/banzai/banzai-agent";
+import { readFileSync } from "node:fs";
+import { agentCopy, agentCopyIds } from "@/components/banzai/agentPresentation";
 import { navPrimary, footerColumns } from "./site";
+
+// The three starter questions the empty conversation offers, realized from the catalogue.
+const STARTER_QUESTIONS = (["starter.journeyDuration", "starter.slowestStep", "starter.compareRuns"] as const).map((id) =>
+  agentCopy(id, "pt"),
+);
+import { RFC_DOCS, PROTOCOL_MAP_NODES, DEV_COMMANDS, DEV_ENDPOINTS, TRACE_FLOW, TABS } from "@/components/banzai/banzai-agent";
 
 // M2.5 public-surface invariants (pure vitest — no WASM/DOM). This guards the two decisions that shape
 // the public product surface:
@@ -17,22 +20,19 @@ import { navPrimary, footerColumns } from "./site";
 //       (M2.x) UI, no certification-of-operator framing, and no central-CA vocabulary.
 //
 // Genuine boundary NEGATIONS ("não certifica", "não é certificado") are intentionally KEPT and live in
-// AUTHORITY_COPY — the certification-as-goal check below is scoped to AGENT_SUGGESTIONS so those
+// AUTHORITY_COPY — the certification-as-goal check below is scoped to STARTER_QUESTIONS so those
 // negations are never treated as violations.
 
 // Actual user-facing copy constants ONLY. FORBIDDEN_PHRASES is deliberately excluded — it is the
 // forbid-list itself (it literally contains the banned strings by design).
+// Block E2/Q8 — the workspace copy now lives in the bilingual catalogue, so this scans BOTH editions
+// rather than the Portuguese-only module constants it used to read. FORBIDDEN_PHRASES stays excluded: it
+// is the forbid-list itself and literally contains the banned strings by design.
 const workbenchCopy: string[] = [
-  ...Object.values(BANZAI_AGENT),
-  ...TABS.map((t) => t.name),
-  ...Object.values(AUTHORITY_COPY),
-  ...AGENT_SUGGESTIONS,
-  ...CONFORMIDADE_LEVELS.map((l) => l.name),
-  ...TRUST_CARDS.flatMap((c) => [c.title, c.q]),
-  ...EVIDENCE_CONTENT,
-  ...RFC_DOCS.flatMap((d) => [d.title, d.q]),
-  ...PROTOCOL_MAP_NODES.flatMap((n) => [n.role, n.q]),
-  ...DEV_COMMANDS, ...DEV_QUESTIONS, ...DEV_ENDPOINTS,
+  ...agentCopyIds().map((id) => agentCopy(id, "pt")),
+  ...agentCopyIds().map((id) => agentCopy(id, "en")),
+  ...DEV_COMMANDS,
+  ...DEV_ENDPOINTS,
   ...TRACE_FLOW,
 ];
 
@@ -97,7 +97,7 @@ describe("M2.5 — active-model only (no milestone / certification / CA surface)
       expect(publicText).not.toContain(milestone);
     }
     // No public/operator-facing label carries a bare "M2" milestone token either.
-    for (const label of [...TABS.map((t) => t.name), ...navLabels]) {
+    for (const label of [...TABS.map((x) => agentCopy(x.nameId, "pt")), ...navLabels]) {
       expect(label).not.toContain("M2");
     }
   });
@@ -121,7 +121,7 @@ describe("M2.5 — active-model only (no milestone / certification / CA surface)
     // técnica", "Certificação de Conformidade e Interoperabilidade") — never as a bare standalone
     // "Certificação" that would read as an operator credential. The retired operator-certification / CA
     // framing stays forbidden by the test above.
-    for (const label of [...TABS.map((t) => t.name), ...navLabels]) {
+    for (const label of [...TABS.map((x) => agentCopy(x.nameId, "pt")), ...navLabels]) {
       expect(label).not.toBe("Certificação");
       if (label.includes("Certificação")) {
         expect(label).toMatch(/Certificação\s+(técnica|de\s+Conformidade)/i);
@@ -137,7 +137,17 @@ describe("M2.5 — active-model only (no milestone / certification / CA surface)
   });
 
   it("presents the active open-protocol trust vocabulary", () => {
-    const trustText = TRUST_CARDS.flatMap((c) => [c.title, c.q]).join("  ").toLowerCase();
+    // Block E2/Q8 — this used to read TRUST_CARDS, a constant with NO consumer: the guard was passing on
+    // dead code, so the vocabulary it protects was never actually public through that route. It now reads
+    // the surfaces where the vocabulary really is published, in both editions.
+    const trustText = [
+      readFileSync(new URL("../app/(pt)/confianca/page.tsx", import.meta.url), "utf8"),
+      readFileSync(new URL("../app/(pt)/layout.tsx", import.meta.url), "utf8"),
+      readFileSync(new URL("../app/en/trust/page.tsx", import.meta.url), "utf8"),
+      readFileSync(new URL("../app/en/layout.tsx", import.meta.url), "utf8"),
+    ]
+      .join("  ")
+      .toLowerCase();
     for (const term of [
       "signed protocol metadata",
       "delegated signing key",
@@ -154,8 +164,8 @@ describe("M2.5 — active-model only (no milestone / certification / CA surface)
 
 describe("M2.5 — assistant suggestions are task-oriented", () => {
   it("offers non-empty, question-shaped operator tasks", () => {
-    expect(AGENT_SUGGESTIONS.length).toBeGreaterThan(0);
-    for (const s of AGENT_SUGGESTIONS) {
+    expect(STARTER_QUESTIONS.length).toBeGreaterThan(0);
+    for (const s of STARTER_QUESTIONS) {
       expect(s.trim().length).toBeGreaterThan(0);
       // A task/question (or an imperative demonstrator), not a certification-as-goal claim. ADR-036
       // added a broad operational demonstrator phrased as an instruction ("Compara …"), which ends
@@ -166,13 +176,13 @@ describe("M2.5 — assistant suggestions are task-oriented", () => {
   });
 
   it("never frames certification as the goal", () => {
-    for (const s of AGENT_SUGGESTIONS) {
+    for (const s of STARTER_QUESTIONS) {
       expect(s.toLowerCase()).not.toContain("certific");
     }
   });
 
   it("points at the real operator goals — the validation journey's operational telemetry (ADR-036)", () => {
-    const joined = AGENT_SUGGESTIONS.join("  ");
+    const joined = STARTER_QUESTIONS.join("  ");
     expect(joined.toLowerCase()).toContain("valida");
     // ADR-036 operational duration/metric demonstrators: total duration, the slowest step, and a
     // run-over-run comparison.

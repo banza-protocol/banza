@@ -9,7 +9,7 @@
 
 import { Ico, CARD } from "@/components/banzai/banzaiUi";
 import { GitHubMark } from "@/components/GitHubMark";
-import { DEV_COMMANDS, DEV_ENDPOINTS, DEV_QUESTIONS, REPO_LINK } from "@/components/banzai/banzai-agent";
+import { DEV_COMMANDS, DEV_ENDPOINTS, DEV_QUESTION_IDS, REPO_LINK } from "@/components/banzai/banzai-agent";
 import { DraftValidationTool } from "@/components/banzai/DraftValidationTool";
 import { useBanzaiLocale } from "@/components/banzai/BanzaiWorkspaceProvider";
 import { agentCopy, type AgentCopyId } from "@/components/banzai/agentPresentation";
@@ -68,8 +68,8 @@ export function ProgramadoresTools({ onAsk }: { onAsk: (t: string) => void }) {
 
       <div className="mb-3 mt-8 font-mono text-[10.5px] tracking-[0.16em] text-ink-5">{t("dev.section.faq")}</div>
       <div className="flex flex-col gap-[8px]">
-        {DEV_QUESTIONS.map((q) => (
-          <DevQChip key={q} q={q} onAsk={onAsk} />
+        {DEV_QUESTION_IDS.map((qid: AgentCopyId) => (
+          <DevQChip key={qid} q={t(qid)} onAsk={onAsk} />
         ))}
       </div>
 
@@ -81,7 +81,7 @@ export function ProgramadoresTools({ onAsk }: { onAsk: (t: string) => void }) {
         className={`group flex items-center gap-[11px] px-[16px] py-[12px] no-underline transition-colors hover:border-bordo/30 ${CARD}`}
       >
         <GitHubMark size={16} />
-        <span className="flex-1 text-[13.5px] text-ink-2">{REPO_LINK.name}</span>
+        <span className="flex-1 text-[13.5px] text-ink-2">{t(REPO_LINK.nameId)}</span>
         <span className="font-mono text-[10.5px] text-ink-5">{t("dev.opensNewTab")}</span>
         <Ico name="arrow" size={15} className="flex-none text-ink-5 transition-transform group-hover:translate-x-0.5 group-hover:text-bordo" />
       </a>

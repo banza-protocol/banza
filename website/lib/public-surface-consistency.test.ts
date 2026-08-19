@@ -1,4 +1,5 @@
 import { describe, it, expect } from "vitest";
+import { agentCopy } from "@/components/banzai/agentPresentation";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { decisions, getDecision } from "./decisions";
@@ -59,10 +60,18 @@ describe("M2.14J — primary human-operator interface is the leading definition"
     expect(line!).toMatch(/transversal/i);
   });
   it("the BanzAI UI boundary constant names the primary interface + keeps the deny-list", () => {
-    const agent = read("components/banzai/banzai-agent.ts");
-    expect(agent).toMatch(/interface primária de trabalho/i);
+    // Block E2/Q8 — the boundary copy moved from the data module into the bilingual catalogue, so this
+    // reads the catalogue. It now checks BOTH editions, which the module could never carry: an English
+    // reader who is told BanzAI is the primary interface must also be told what it does not do.
+    const pt = agentCopy("agent.boundary", "pt");
+    expect(pt).toMatch(/interface primária de trabalho/i);
     for (const s of ["não certifica", "não decide participação", "não inventa regras"]) {
-      expect(agent).toContain(s);
+      expect(pt).toContain(s);
+    }
+    const en = agentCopy("agent.boundary", "en");
+    expect(en).toMatch(/primary .*interface/i);
+    for (const s of ["does not certify", "does not decide participation", "does not invent rules"]) {
+      expect(en, `the English boundary is missing "${s}"`).toContain(s);
     }
   });
 });
@@ -78,7 +87,7 @@ describe("M2.14J — no POSITIVE forbidden BanzAI-authority claim in key public 
   const files = [
     "app/(pt)/banzai/page.tsx",
     "app/(pt)/estado/page.tsx",
-    "components/banzai/banzai-agent.ts",
+    "components/banzai/agentPresentation.ts",
     // M2.15A: the home architecture section was removed from the homepage; the reference/ADRs/SVGs
     // carry the canonical architecture. The remaining files still guard the positive-claim rule.
   ];

@@ -461,6 +461,170 @@ export const AGENT_COPY = {
   "dev.section.faq": L("PERGUNTAS FREQUENTES", "FREQUENTLY ASKED QUESTIONS"),
   "dev.section.repository": L("REPOSITÓRIO", "REPOSITORY"),
   "dev.opensNewTab": L("abre numa nova aba", "opens in a new tab"),
+  "starter.journeyDuration": L(
+    "Quanto tempo leva uma jornada completa de validação?",
+    "How long does a full validation journey take?",
+  ),
+  "starter.slowestStep": L(
+    "Qual a etapa mais lenta da validação e quanto demora?",
+    "Which validation step is the slowest, and how long does it take?",
+  ),
+  "starter.compareRuns": L(
+    "Compara a duração da última execução com a anterior.",
+    "Compare the duration of the last run with the previous one.",
+  ),
+  "rfcCard.adr001.title": L(
+    "Hierarquia BANZA / BanzAI / Operadores",
+    "BANZA / BanzAI / Operators hierarchy",
+  ),
+  "rfcCard.adr001.q": L(
+    "Explica o ADR-001 — a hierarquia BANZA / BanzAI / Operadores",
+    "Explain ADR-001 — the BANZA / BanzAI / Operators hierarchy",
+  ),
+  "rfcCard.adr036.title": L(
+    "BanzAI — interface primária",
+    "BanzAI — the primary interface",
+  ),
+  "rfcCard.adr036.q": L(
+    "Explica o ADR-036 — o BanzAI como interface primária humano-operador",
+    "Explain ADR-036 — BanzAI as the primary human-operator interface",
+  ),
+  "rfcCard.adr030.title": L(
+    "Evidência e conformidade",
+    "Evidence and conformance",
+  ),
+  "rfcCard.adr030.q": L(
+    "Explica o ADR-030 — evidência e conformidade",
+    "Explain ADR-030 — evidence and conformance",
+  ),
+  "rfcCard.adr025.title": L(
+    "Confiança e chaves",
+    "Trust and keys",
+  ),
+  "rfcCard.adr025.q": L(
+    "Explica o ADR-025 — confiança e chaves",
+    "Explain ADR-025 — trust and keys",
+  ),
+  "rfcCard.adr038.title": L(
+    "Rust-first para engines oficiais",
+    "Rust-first for the official engines",
+  ),
+  "rfcCard.adr038.q": L(
+    "Explica o ADR-038 — a política Rust-first",
+    "Explain ADR-038 — the Rust-first policy",
+  ),
+  "rfcCard.rfcs.title": L(
+    "RFCs do protocolo",
+    "Protocol RFCs",
+  ),
+  "rfcCard.rfcs.q": L(
+    "Quais são as RFCs do protocolo BANZA?",
+    "What are the BANZA protocol's RFCs?",
+  ),
+  "mapNode.banza.role": L(
+    "Protocolo aberto",
+    "Open protocol",
+  ),
+  "mapNode.banza.q": L(
+    "O que é o protocolo BANZA?",
+    "What is the BANZA protocol?",
+  ),
+  "mapNode.governanca.id": L(
+    "Governança",
+    "Governance",
+  ),
+  "mapNode.governanca.role": L(
+    "ADRs / RFCs",
+    "ADRs / RFCs",
+  ),
+  "mapNode.governanca.q": L(
+    "Como funciona a governança do protocolo BANZA?",
+    "How does the BANZA protocol's governance work?",
+  ),
+  "mapNode.protocolGovernance.role": L(
+    "Mantém o protocolo; não autoriza operadores",
+    "Maintains the protocol; authorises no operator",
+  ),
+  "mapNode.protocolGovernance.q": L(
+    "Como funciona a governação do protocolo BANZA sem autoridade central?",
+    "How does BANZA protocol governance work without a central authority?",
+  ),
+  "mapNode.banzai.role": L(
+    "Ferramentas e conhecimento",
+    "Tools and knowledge",
+  ),
+  "mapNode.banzai.q": L(
+    "O que é o BanzAI?",
+    "What is BanzAI?",
+  ),
+  "mapNode.conformidade.id": L(
+    "Conformidade",
+    "Conformance",
+  ),
+  "mapNode.conformidade.role": L(
+    "Evidência PASS",
+    "PASS evidence",
+  ),
+  "mapNode.conformidade.q": L(
+    "O que é a conformidade no protocolo BANZA?",
+    "What is conformance in the BANZA protocol?",
+  ),
+  "mapNode.federacao.id": L(
+    "Federação",
+    "Federation",
+  ),
+  "mapNode.federacao.role": L(
+    "Interoperabilidade",
+    "Interoperability",
+  ),
+  "mapNode.federacao.q": L(
+    "Como funciona a federação entre operadores?",
+    "How does federation between operators work?",
+  ),
+  "mapNode.operadores.id": L(
+    "Operadores",
+    "Operators",
+  ),
+  "mapNode.operadores.role": L(
+    "Implementam o protocolo",
+    "They implement the protocol",
+  ),
+  "mapNode.operadores.q": L(
+    "O que é um operador no protocolo BANZA?",
+    "What is an operator in the BANZA protocol?",
+  ),
+  "mapNode.clientes.id": L(
+    "Clientes",
+    "Clients",
+  ),
+  "mapNode.clientes.role": L(
+    "Usam os operadores",
+    "They use the operators",
+  ),
+  "mapNode.clientes.q": L(
+    "Qual o papel dos clientes no protocolo BANZA?",
+    "What is the role of clients in the BANZA protocol?",
+  ),
+  "devQuestion.manifest": L(
+    "O que é operator manifest?",
+    "What is an operator manifest?",
+  ),
+  "devQuestion.requiredFields": L(
+    "Que campos são obrigatórios no manifest?",
+    "Which manifest fields are required?",
+  ),
+  "devQuestion.validMeaning": L(
+    "Manifesto válido significa compatibilidade demonstrada?",
+    "Does a valid manifest mean compatibility has been demonstrated?",
+  ),
+  "devQuestion.runL0": L(
+    "Como executar conformidade L0 com banza-conformance-rs?",
+    "How do I run L0 conformance with banza-conformance-rs?",
+  ),
+  "link.repositoryName": L(
+    "Repositório",
+    "Repository",
+  ),
 } as const;
 
 export type AgentCopyId = keyof typeof AGENT_COPY;

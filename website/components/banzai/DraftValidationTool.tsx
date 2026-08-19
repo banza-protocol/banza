@@ -11,7 +11,6 @@
 
 import { useRef, useState } from "react";
 import { Ico, CARD } from "@/components/banzai/banzaiUi";
-import { DRAFT_COPY } from "@/components/banzai/banzai-agent";
 import { validationCopy, type ValidationCopyId } from "@/components/banzai/validationPresentation";
 import { scanUpload } from "@/lib/banzaOperatorJourney";
 import { validateManifest } from "@/lib/banzaOperatorManifest";
@@ -20,6 +19,7 @@ import { validateConformanceReport } from "@/lib/banzaConformance";
 import { evaluateTrust, trustStatusTone } from "@/lib/banzaTrust";
 import { verifyTrace, traceTone, TONE_COPY_ID, traceCopy, type TraceCopyId } from "@/components/banzai/traceVerifier";
 import { useBanzaiLocale } from "@/components/banzai/BanzaiWorkspaceProvider";
+import { agentCopy } from "@/components/banzai/agentPresentation";
 import type { Locale } from "@/lib/i18n";
 
 const UPLOAD_MAX_BYTES = 256 * 1024;
@@ -162,7 +162,7 @@ export function DraftValidationTool() {
     setBusy(true);
     try {
       const out = await runDraft(type, text);
-      setResult({ label: DRAFT_COPY.resultLabel, artifact_type: type, source, ...(uploadName ? { file_name: uploadName } : {}), ...out });
+      setResult({ label: "DRAFT_VALIDATION_RESULT", artifact_type: type, source, ...(uploadName ? { file_name: uploadName } : {}), ...out });
     } catch (e) {
       setError(e instanceof Error ? `JSON inválido ou não suportado: ${e.message}` : "Falha ao validar o rascunho.");
       setResult(null);
@@ -178,7 +178,7 @@ export function DraftValidationTool() {
       <div className="flex items-center gap-[10px]">
         <span className="flex h-8 w-8 flex-none items-center justify-center rounded-[8px] bg-tint-bordo text-bordo"><Ico name="code" size={16} /></span>
         <div>
-          <div className="text-[14px] font-semibold text-ink">{DRAFT_COPY.title}</div>
+          <div className="text-[14px] font-semibold text-ink">{agentCopy("draft.title", locale)}</div>
           <div className="font-mono text-[10.5px] text-ink-5">{t("draft.toolNote")}</div>
         </div>
       </div>
@@ -186,10 +186,10 @@ export function DraftValidationTool() {
       {/* Permanent banner (§17) */}
       <div className="mt-3 flex items-start gap-[8px] rounded-[10px] border border-pend/30 bg-pend/[0.07] px-[13px] py-[9px]" role="note">
         <Ico name="info" size={14} className="mt-px flex-none text-pend" />
-        <p className="m-0 font-mono text-[11px] leading-[1.5] text-pend">{DRAFT_COPY.banner}</p>
+        <p className="m-0 font-mono text-[11px] leading-[1.5] text-pend">{agentCopy("draft.banner", locale)}</p>
       </div>
 
-      <p className="m-0 mt-3 text-[12.5px] leading-[1.55] text-ink-4">{DRAFT_COPY.subtitle}</p>
+      <p className="m-0 mt-3 text-[12.5px] leading-[1.55] text-ink-4">{agentCopy("draft.subtitle", locale)}</p>
 
       {/* Artifact type */}
       <div className="mt-4 font-mono text-[10px] uppercase tracking-[0.1em] text-ink-5">{t("draft.artifactType")}</div>

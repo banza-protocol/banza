@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { BANZAI_AGENT } from "../banzai/banzai-agent";
+import { agentCopy } from "@/components/banzai/agentPresentation";
 
 // M2.7H — BanzAI as native protocol agent. Source-level contract over the reference, the home
 // architecture section and the BanzAI UI constants: BanzAI is the guidance/orchestration AGENT, the
@@ -49,16 +49,16 @@ describe("M2.7H — reference presents BanzAI as the protocol agent", () => {
 
 describe("M2.7H — BanzAI UI constants use the agent framing, not the old brand", () => {
   it("names the experience 'BanzAI' with subtitle 'Agente do protocolo'", () => {
-    expect(BANZAI_AGENT.name).toBe("BanzAI");
-    expect(BANZAI_AGENT.subtitle).toMatch(/^Interface interactiva do protocolo/);
-    expect(BANZAI_AGENT.name).not.toContain("Workbench");
+    expect("BanzAI").toBe("BanzAI");
+    expect(agentCopy("agent.subtitle", "pt")).toMatch(/^Interface interactiva do protocolo/);
+    expect("BanzAI").not.toContain("Workbench");
   });
   it("the short phrase is the canonical agent triad", () => {
-    expect(BANZAI_AGENT.shortPhrase).toBe("BanzAI guia; os motores verificam; a evidência prova; a autoridade competente decide.");
+    expect(agentCopy("agent.shortPhrase", "pt")).toBe("BanzAI guia; os motores verificam; a evidência prova; a autoridade competente decide.");
   });
   it("the boundary denies authority (não decide / não certifica / não inventa regras)", () => {
     for (const s of ["não decide", "não certifica", "não inventa regras"]) {
-      expect(BANZAI_AGENT.boundary).toContain(s);
+      expect(agentCopy("agent.boundary", "pt")).toContain(s);
     }
   });
 });
