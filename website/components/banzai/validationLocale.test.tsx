@@ -17,6 +17,7 @@ import {
   ExecutionHistoryPanel,
   PersistenceBadge,
   RESULTS_VIEWS,
+  JourneyProgress,
   ValidationResultsPanel,
 } from "./BanzaiValidationMode";
 import {
@@ -359,6 +360,30 @@ describe("Q5 — progress means the same thing in both editions", () => {
           if (r[k] > 0) for (const out of [en, pt]) expect(out).toContain(String(r[k]));
         }
       }
+    }
+  });
+
+  it("renders the same progress meaning in both editions, for every outcome", () => {
+    // The realization property above is not enough: a mutation that substituted a DIFFERENT result at the
+    // render site left `realizeProgress` untouched and survived — an English reader told a journey with a
+    // blocker had finished clean. This reads the witness out of the RENDERED element and requires it to
+    // agree with the words, in both editions.
+    for (const r of RESULTS) {
+      const render = (l: Locale) =>
+        renderToStaticMarkup(
+          <BanzaiLocaleBoundary locale={l}>
+            <JourneyProgress result={r} />
+          </BanzaiLocaleBoundary>,
+        );
+      const en = render("en");
+      const pt = render("pt");
+      const witness = (html: string) => html.match(/data-journey-progress="([^"]*)"/)?.[1];
+      expect(witness(en), `${r.kind}: no witness rendered`).toBe(r.kind);
+      expect(witness(en), `${r.kind}: the English render reported a different outcome`).toBe(witness(pt));
+      // The witness must agree with the WORDS: the element's text has to be this result's realization and
+      // not another outcome's, or the witness would be decorative.
+      expect(readable(en)).toBe(realizeProgress(r, "en"));
+      expect(readable(pt)).toBe(realizeProgress(r, "pt"));
     }
   });
 

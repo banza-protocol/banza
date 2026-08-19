@@ -17,6 +17,7 @@ import { useBanzaiLocale } from "@/components/banzai/BanzaiWorkspaceProvider";
 import {
   publicationStatusLabelFor,
   realizeProgress,
+  type ProgressResult,
   stepBlurb,
   stepStatusLabel,
   stepTitle,
@@ -93,6 +94,22 @@ const ST_LEFT: Record<StepStatus, string> = {
    run. The engine result stands regardless of storage; this badge never claims durable/consultable/
    comparable/reproducible when persistence is not confirmed, and NEVER shows an archive reference for a
    non-persisted run. `onRetry` re-checks durability (reads the store) and never re-runs the engine. */
+/**
+ * The journey's progress, rendered. Block E2/Q5 — a mutation that substituted a DIFFERENT result at the
+ * render site (an English reader told a journey with a blocker had finished clean) survived a property
+ * that only checked `realizeProgress`, because the divergence lived at the call site. There is no call
+ * site left: the component takes the semantic result and reads its own edition, so the witness and the
+ * words are produced from the same value and cannot disagree.
+ */
+export function JourneyProgress({ result, className }: { result: ProgressResult; className?: string }) {
+  const locale = useBanzaiLocale();
+  return (
+    <p className={className} data-journey-progress={result.kind}>
+      {realizeProgress(result, locale)}
+    </p>
+  );
+}
+
 /**
  * Which durability verdict the archive reached. Block E2/Q5 — this is a DECISION about the run, not copy:
  * it is taken once, from the archive's status alone, with no locale in scope. A mutation that let the
@@ -675,7 +692,7 @@ export function ValidationContextPanel({ session }: { session: ValidationSession
               <div className="h-full rounded-full bg-bordo transition-[width] duration-500" style={{ width: `${Math.round((progress.evaluated / progress.total) * 100)}%` }} />
             </div>
           </div>
-          <p className="m-0 text-[12px] leading-[1.5] text-ink-3" data-journey-progress={progressResult.kind}>{realizeProgress(progressResult, locale)}</p>
+          <JourneyProgress result={progressResult} className="m-0 text-[12px] leading-[1.5] text-ink-3" />
           <div className="grid grid-cols-2 gap-[3px] border-t border-black/[0.05] pt-[8px] font-mono text-[10px] text-ink-4">
             <span>{t("ctx.certificationReadiness")} <span className="text-ink-2">{session.certificationReadiness ?? "—"}</span></span>
             <span>{t("ctx.certificationState")} <span className="text-ink-2">{session.certificationStatus}</span></span>
@@ -1043,7 +1060,7 @@ export function ValidationResultsPanel({
                 <span className={`h-[6px] w-[6px] rounded-full ${ST_DOT[overall]}`} /> {stepStatusLabel(overall, locale)}
               </span>
             </div>
-            <p className="m-0 mt-2 text-[12.5px] leading-[1.55] text-ink-3" data-journey-progress={progressResult.kind}>{realizeProgress(progressResult, locale)}</p>
+            <JourneyProgress result={progressResult} className="m-0 mt-2 text-[12.5px] leading-[1.55] text-ink-3" />
             {implementation && operator && (
               <p className="m-0 mt-2 text-[12.5px] leading-[1.6] text-ink-2">
                 {VALIDATION_COPY.resultPhrase(
