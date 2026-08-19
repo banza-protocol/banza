@@ -59,7 +59,7 @@ and stays out of the localization catalogue.
 | # | unit | state | commit | notes |
 |---|---|---|---|---|
 | Q1 | `banzai-agent.ts` — semantic ids, PT parity, EN authoring, `getAgentPresentation(locale)`, E2-C2 | **MUTATION_PROVEN** | `4311d0b` | 60 semantic ids · PT byte-parity vs live module · EN complete · `components/banzai/agentPresentation.ts` + 9-assertion property |
-| Q2 | `suggestions.ts` — one selection algorithm, `contextualSuggestions(ctx, locale)`, PT+EN, selection parity | NOT_STARTED | — | params live in code, not templates |
+| Q2 | `suggestions.ts` — one selection algorithm, `contextualSuggestions(ctx, locale)`, PT+EN, selection parity | **MUTATION_PROVEN** | `a7ef509` | 67 semantic ids · `selectSuggestions` locale-free · 47-context PT fixture reproduced byte for byte · `suggestionsLocale.test.ts` (15 assertions) |
 | Q3 | `traceVerifier.ts` + locale into `BanzaiRouteBinder → BanzaiWorkspaceProvider`, controlled EN harness, E2-C1 | NOT_STARTED | — | |
 | Q4 | DECISIONS + DECISION — one semantic decision model, PT+EN, E2-F | NOT_STARTED | — | state decides · reason codes explain |
 | Q5 | remaining 13 React reader owners, by descending weight | NOT_STARTED | — | complete when missing PT = missing EN = unclassified = 0 |
@@ -71,13 +71,14 @@ and stays out of the localization catalogue.
 
 | id | target | state |
 |---|---|---|
-| E2-A | EN workspace selects PT catalogue | NOT_STARTED |
-| E2-B | remove one EN realization in use | NOT_STARTED |
+| E2-A | EN workspace selects PT catalogue | **KILLED** — realized from `entry.pt` regardless of locale; 4 RED incl. "never serves a Portuguese sentence to an English reader"; exact restore (`f9fc84a`), green |
+| E2-B | remove one EN realization in use | **KILLED** — emptied the English `entity.keys_and_trust`; 10 RED. Fails CLOSED: a missing realization breaks both editions rather than quietly degrading one |
 | E2-C1 | React locale propagation broken at a nested boundary | NOT_STARTED |
 | E2-C2 | non-React owner ignores explicit locale | **KILLED** — forced `getAgentPresentation` to `"pt"`; RED on "returns the requested locale, never the other one"; exact restore, green |
 | E2-D | operator locale switch changes `operatorId` | NOT_STARTED |
 | E2-E | implementation locale switch changes `implementationId` | NOT_STARTED |
 | E2-F | EN decision carries a different semantic payload | NOT_STARTED |
+| E2-Q2b | a branch condition is dropped so the editions diverge in WHAT they offer | **KILLED** — removed the profile narrowing in `entitySuggestions`; 4 RED incl. the PT fixture and "branch conditions are the same in both editions" |
 | E2-G | EN reader link points back at the PT route | NOT_STARTED |
 
 A mutation that survives is a finding, not a failure of the campaign: build the missing owner, commit it
@@ -88,12 +89,22 @@ owners that did not exist and would not otherwise have been written.
 
 | | count |
 |---|---|
-| semantic presentation ids assigned | 60 (Q1) |
-| PT realizations complete | 60 / 60 |
-| EN realizations complete | 60 / 60 |
-| unclassified reader occurrences | ~537 (Q2–Q5 remain) |
+| semantic presentation ids assigned | 127 (Q1 60 · Q2 67) |
+| PT realizations complete | 127 / 127 |
+| EN realizations complete | 127 / 127 |
+| unclassified reader occurrences | ~464 (Q3–Q5 remain) |
 
 Q1 evidence: Website 746/746 across 51 files · tsc 0 · production build 0 · registry unchanged 17/5/1.
+
+Q2 evidence: Website 761/761 across 52 files · tsc 0 · production build 0 · registry unchanged 17/5/1.
+`components/banzai/suggestions.ptBaseline.json` is the frozen pre-refactor Portuguese output for 47
+contexts; it is a parity fixture, not a snapshot to be refreshed — regenerating it to make a test pass
+would destroy the only evidence that Portuguese behaviour survived the refactor.
+
+Q2 left ONE seam for Q3: `BanzaiAgent.tsx` declares `SURFACE_LOCALE` because `/banzai` has no English
+route yet. It is an explicit statement by the presentation owner, not a default inside the generator —
+`contextualSuggestions` requires its locale and throws rather than substituting one. Q3 replaces that
+constant with the propagated locale and nothing else in the chain changes.
 
 `FORBIDDEN_PHRASES` classified **machine-only** — guard input, not reader copy, stays out of the
 catalogue.
