@@ -28,6 +28,15 @@ import {
   RFC_DOCS, PROTOCOL_MAP_NODES,
 } from "@/components/banzai/banzai-agent";
 import { Ico, CARD } from "@/components/banzai/banzaiUi";
+import { realizeSuggestions } from "@/components/banzai/suggestions";
+import type { Locale } from "@/lib/i18n";
+
+// The locale this surface is served in. /banzai has no English counterpart yet (route registry:
+// BANZAI is one of the routes still without an EN edition), so the Portuguese edition is stated HERE,
+// once, by the presentation owner that renders it — not defaulted inside the suggestion generator,
+// which requires an explicit locale and has no fallback of its own. Q3 replaces this constant with the
+// locale propagated from the route binder; nothing else in the chain changes when it does.
+const SURFACE_LOCALE: Locale = "pt";
 import type { BanzaiState } from "@/lib/banzaiState";
 import { useValidationSession } from "@/components/banzai/validationJourney";
 import {
@@ -580,7 +589,7 @@ export function BanzaiAgent({
   // terminal and the non-stream fallback so both render the validated answer IDENTICALLY (SafeMarkdown +
   // TransparencyPanel + sources + followUps). This is the ONLY place a BanzAI answer's prose enters the DOM.
   const applyAnswer = (ans: KbAnswer) => {
-    setMsgs((p) => [...p, { role: "ai", text: ans.text, cites: ans.cites, kind: ans.kind, links: ans.links, sources: ans.sources, limits: ans.limits, followUps: ans.followUps, status: ans.status, resolvedDocument: ans.resolvedDocument ?? null, documentNotFound: Boolean(ans.documentNotFound), documentMode: ans.documentMode ?? null, documentTruncated: Boolean(ans.documentTruncated), correctionDisplay: ans.correctionDisplay ?? [], correctionClarification: ans.correctionClarification ?? [], answerType: ans.answerType, terminalKind: ans.terminalKind, duration: ans.duration, transparency: ans.transparency }]);
+    setMsgs((p) => [...p, { role: "ai", text: ans.text, cites: ans.cites, kind: ans.kind, links: ans.links, sources: ans.sources, limits: ans.limits, followUps: ans.followUpSelections ? realizeSuggestions(ans.followUpSelections, SURFACE_LOCALE) : undefined, status: ans.status, resolvedDocument: ans.resolvedDocument ?? null, documentNotFound: Boolean(ans.documentNotFound), documentMode: ans.documentMode ?? null, documentTruncated: Boolean(ans.documentTruncated), correctionDisplay: ans.correctionDisplay ?? [], correctionClarification: ans.correctionClarification ?? [], answerType: ans.answerType, terminalKind: ans.terminalKind, duration: ans.duration, transparency: ans.transparency }]);
     setLastLinks(ans.links ?? []);
     // BZCI-6 (§2) — carry the backend's SAFE conversation_context forward so the NEXT turn resolves the
     // referent (the ADR→RFC follow-up chain). Runs on BOTH the stream and non-stream paths (applyAnswer is

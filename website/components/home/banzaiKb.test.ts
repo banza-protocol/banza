@@ -1,5 +1,10 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
-import { banzaiKb, mapAskResponse, safeSourceHref, buildTransparency } from "./banzaiKb";
+import { banzaiKb, mapAskResponse, safeSourceHref, buildTransparency, type KbAnswer } from "./banzaiKb";
+import { realizeSuggestions } from "@/components/banzai/suggestions";
+
+// The mapper now returns SEMANTIC suggestion selections; a test that wants to read the sentences names
+// the edition it is reading, exactly as a presentation owner would.
+const ptFollowUps = (r: KbAnswer): string[] => realizeSuggestions(r.followUpSelections ?? [], "pt");
 
 afterEach(() => {
   vi.restoreAllMocks();
@@ -316,10 +321,10 @@ describe("banzaiKb (same-origin /banzai/ask)", () => {
     })));
     const r = await banzaiKb("onde começo com o meu operador?");
     expect(r.operationalIntent).toBe("operator_onboarding");
-    expect(Array.isArray(r.followUps)).toBe(true);
-    expect((r.followUps || []).length).toBeGreaterThan(0);
+    expect(Array.isArray(r.followUpSelections)).toBe(true);
+    expect(ptFollowUps(r).length).toBeGreaterThan(0);
     // Suggestions are QUESTIONS, never normative claims (no certify/approve/license assertions).
-    for (const f of r.followUps || []) {
+    for (const f of ptFollowUps(r)) {
       expect(f).not.toMatch(/certific|aprova|licenc|garant/i);
     }
   });
@@ -331,7 +336,7 @@ describe("banzaiKb (same-origin /banzai/ask)", () => {
       json: async () => ({ answer: "não encontrei", grounded: false, intent: "no_source", sources: [], meta: {} }),
     })));
     const r = await banzaiKb("qual é a cotação do dólar amanhã?");
-    expect(r.followUps).toBeUndefined();
+    expect(r.followUpSelections).toBeUndefined();
   });
 });
 
@@ -493,8 +498,8 @@ describe("mapAskResponse (§25) — contextual, per-answer follow-up suggestions
       observability: { intent: "grounded", entities: { entity_id: "operator-zero", entity_type: "operator" } },
       meta: {},
     });
-    expect((r.followUps || []).join(" ")).toContain("Operador Zero");
-    expect((r.followUps || []).some((f) => /conformidade/i.test(f))).toBe(true);
+    expect(ptFollowUps(r).join(" ")).toContain("Operador Zero");
+    expect(ptFollowUps(r).some((f) => /conformidade/i.test(f))).toBe(true);
   });
 
   it("a DURATION answer's suggestions differ from an ENTITY answer's (per-answer, not fixed)", () => {
@@ -518,8 +523,8 @@ describe("mapAskResponse (§25) — contextual, per-answer follow-up suggestions
       observability: { intent: "grounded", entities: { entity_id: "operator-zero" } },
       meta: {},
     });
-    expect((durationAnswer.followUps || []).some((f) => /por etapa/i.test(f))).toBe(true);
-    expect(JSON.stringify(durationAnswer.followUps)).not.toBe(JSON.stringify(entityAnswer.followUps));
+    expect(ptFollowUps(durationAnswer).some((f) => /por etapa/i.test(f))).toBe(true);
+    expect(JSON.stringify(durationAnswer.followUpSelections)).not.toBe(JSON.stringify(entityAnswer.followUpSelections));
   });
 
   it("a boundary/refusal answer offers ONLY safe reframes (no reframe toward the refused action)", () => {
@@ -535,8 +540,8 @@ describe("mapAskResponse (§25) — contextual, per-answer follow-up suggestions
       meta: {},
     });
     expect(r.kind).toBe("refusal");
-    expect((r.followUps || []).length).toBeGreaterThan(0);
-    for (const f of r.followUps || []) {
+    expect(ptFollowUps(r).length).toBeGreaterThan(0);
+    for (const f of ptFollowUps(r)) {
       expect(f).not.toMatch(/transfer|transfe|movimenta|chave privada|private key|apaga|elimina|delete/i);
     }
   });

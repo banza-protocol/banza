@@ -1,0 +1,1202 @@
+[
+  {
+    "name": "refusal",
+    "ctx": {
+      "kind": "refusal",
+      "refused": true,
+      "boundary": true,
+      "grounded": false,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "O que é que o BanzAI pode explicar sobre este tema?",
+      "Quais são as fronteiras do BanzAI?",
+      "Como se demonstra conformidade por evidência verificável?"
+    ]
+  },
+  {
+    "name": "boundary_only",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": true,
+      "grounded": false,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "O que é que o BanzAI pode explicar sobre este tema?",
+      "Quais são as fronteiras do BanzAI?",
+      "Como se demonstra conformidade por evidência verificável?"
+    ]
+  },
+  {
+    "name": "boundary_but_grounded",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": true,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "how_it_works",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "O que é que o BanzAI pode explicar sobre este tema?",
+      "Quais são as fronteiras do BanzAI?",
+      "Como se demonstra conformidade por evidência verificável?"
+    ]
+  },
+  {
+    "name": "unavailable",
+    "ctx": {
+      "kind": "unavailable",
+      "refused": false,
+      "boundary": false,
+      "grounded": false,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": []
+  },
+  {
+    "name": "insufficient_measurements_entity",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "insufficient_measurements",
+      "entity": {
+        "id": "operator-zero",
+        "type": "operator",
+        "display": "Operador Zero"
+      },
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "Iniciar a validação de Operador Zero para gerar medições",
+      "O que é que o BanzAI regista durante uma validação?"
+    ]
+  },
+  {
+    "name": "insufficient_measurements_no_entity",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "insufficient_measurements",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "Como executo uma validação para gerar medições?",
+      "O que é que o BanzAI regista durante uma validação?"
+    ]
+  },
+  {
+    "name": "duration_full",
+    "ctx": {
+      "kind": "duration",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "operational_duration",
+      "entity": {
+        "id": "operator-zero",
+        "type": "operator",
+        "display": "Operador Zero"
+      },
+      "scope": null,
+      "toolsRan": [],
+      "duration": {
+        "comparableRuns": 2,
+        "hasPerStep": true
+      },
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "Mostrar a duração por etapa",
+      "Explicar a etapa mais lenta",
+      "Comparar com a execução anterior",
+      "Mostrar a última execução de Operador Zero"
+    ]
+  },
+  {
+    "name": "duration_minimal",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "operational_duration",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": {
+        "comparableRuns": 0,
+        "hasPerStep": false
+      },
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "Mostrar a duração por etapa"
+    ]
+  },
+  {
+    "name": "duration_kind_only",
+    "ctx": {
+      "kind": "duration",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "Mostrar a duração por etapa"
+    ]
+  },
+  {
+    "name": "duration_no_duration_object",
+    "ctx": {
+      "kind": "duration",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": {
+        "id": "impl-a",
+        "type": "implementation",
+        "display": "Implementação A"
+      },
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "Mostrar a duração por etapa",
+      "Mostrar a última execução de Implementação A"
+    ]
+  },
+  {
+    "name": "fallback_out_of_scope",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": false,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": "out_of_scope",
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "O que é o protocolo BANZA?",
+      "O que é que o BanzAI pode responder sobre o protocolo?"
+    ]
+  },
+  {
+    "name": "fallback_tool_unavailable",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": false,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": "tool_unavailable",
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "O que faz esta ferramenta quando está disponível?",
+      "Que alternativa existe para obter isto?"
+    ]
+  },
+  {
+    "name": "fallback_ambiguous",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": false,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": "ambiguous",
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "Pode detalhar a que se refere?",
+      "Que ADR ou RFC está relacionado com isto?"
+    ]
+  },
+  {
+    "name": "fallback_data_missing_entity",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": false,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": "understood_data_missing",
+      "terminalKind": "",
+      "entity": {
+        "id": "operator-zero",
+        "type": "operator",
+        "display": "Operador Zero"
+      },
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "O que é preciso para responder sobre Operador Zero?",
+      "Que evidência é que torna isto respondível?"
+    ]
+  },
+  {
+    "name": "fallback_data_missing_no_entity",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": false,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": "understood_data_missing",
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "O que é preciso para responder a isto?",
+      "Que evidência é que torna isto respondível?"
+    ]
+  },
+  {
+    "name": "fallback_insufficient_source",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": false,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": "insufficient_source",
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "Que fontes é que respondem a isto?",
+      "Que ADR ou RFC define isto?"
+    ]
+  },
+  {
+    "name": "fallback_unknown_kind",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": false,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": "something_new",
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "Que fontes é que respondem a isto?",
+      "Que ADR ou RFC define isto?"
+    ]
+  },
+  {
+    "name": "resolved_document",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "definition",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": true
+    },
+    "pt": []
+  },
+  {
+    "name": "entity_operator_profile",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "how_it_works",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": {
+        "id": "operator-zero",
+        "type": "operator",
+        "display": "Operador Zero"
+      },
+      "scope": {
+        "profile": "L0",
+        "environment": "sandbox",
+        "protocolVersion": "1.0"
+      },
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "Mostrar o manifesto de Operador Zero",
+      "Ver a conformidade de Operador Zero no perfil L0",
+      "Ver as chaves e a confiança de Operador Zero"
+    ]
+  },
+  {
+    "name": "entity_operator_no_profile",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": {
+        "id": "operator-zero",
+        "type": "operator",
+        "display": "Operador Zero"
+      },
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "Mostrar o manifesto de Operador Zero",
+      "Ver a conformidade de Operador Zero",
+      "Ver as chaves e a confiança de Operador Zero"
+    ]
+  },
+  {
+    "name": "entity_implementation",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": {
+        "id": "impl-a",
+        "type": "implementation",
+        "display": "Implementação A"
+      },
+      "scope": {
+        "profile": "L0",
+        "environment": "sandbox",
+        "protocolVersion": "1.0"
+      },
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "Mostrar o manifesto da implementação Implementação A",
+      "Ver a conformidade de Implementação A no perfil L0",
+      "Ver as chaves e a confiança de Implementação A",
+      "Reproduzir a última execução de Implementação A"
+    ]
+  },
+  {
+    "name": "entity_artifact_fetched",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": {
+        "id": "operator-zero",
+        "type": "operator",
+        "display": "Operador Zero"
+      },
+      "scope": {
+        "profile": "L0",
+        "environment": "sandbox",
+        "protocolVersion": "1.0"
+      },
+      "toolsRan": [
+        "LIVE_ARTIFACT_FETCH"
+      ],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "Ver a conformidade de Operador Zero no perfil L0",
+      "Ver as chaves e a confiança de Operador Zero"
+    ]
+  },
+  {
+    "name": "entity_implementation_fetched",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": {
+        "id": "impl-a",
+        "type": "implementation",
+        "display": "Implementação A"
+      },
+      "scope": null,
+      "toolsRan": [
+        "artifact-fetcher"
+      ],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "Ver a conformidade de Implementação A",
+      "Ver as chaves e a confiança de Implementação A",
+      "Reproduzir a última execução de Implementação A"
+    ]
+  },
+  {
+    "name": "entity_not_grounded",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": false,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": {
+        "id": "operator-zero",
+        "type": "operator",
+        "display": "Operador Zero"
+      },
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "Mostrar o manifesto de Operador Zero",
+      "Ver a conformidade de Operador Zero",
+      "Ver as chaves e a confiança de Operador Zero"
+    ]
+  },
+  {
+    "name": "family_compare_executions",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "",
+      "questionFamily": "compare_executions",
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "Explicar a maior diferença entre as execuções",
+      "Reproduzir a execução mais recente"
+    ]
+  },
+  {
+    "name": "family_diagnose_failure",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "",
+      "questionFamily": "diagnose_failure",
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "Qual foi o reason code deste resultado?",
+      "Como é que se corrige isto?"
+    ]
+  },
+  {
+    "name": "family_get_reason_code",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "",
+      "questionFamily": "get_reason_code",
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "O que significa este reason code?",
+      "Como é que se resolve este reason code?"
+    ]
+  },
+  {
+    "name": "non_grounded_plain",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": false,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": []
+  },
+  {
+    "name": "generic_grounded",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "Como é que isto se aplica a um operador?",
+      "Que ADR ou RFC define isto?",
+      "Mostra um exemplo seguro."
+    ]
+  },
+  {
+    "name": "intent_operator_onboarding",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "operator_onboarding",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "mostra um exemplo de manifest de operador",
+      "como preparo evidência de conformidade?",
+      "como federar com outro operador?"
+    ]
+  },
+  {
+    "name": "intent_operator_manifest",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "operator_manifest",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "quais são os campos obrigatórios do manifest?",
+      "mostra um exemplo de evidence bundle",
+      "onde publico o manifest?"
+    ]
+  },
+  {
+    "name": "intent_federation_how_to",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "federation_how_to",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "como funciona trust evaluation?",
+      "como consulto a revocation list?",
+      "que evidência publico para federar?"
+    ]
+  },
+  {
+    "name": "intent_conformance_evidence",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "conformance_evidence",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "mostra um exemplo de evidence bundle",
+      "onde começo com o meu operador?"
+    ]
+  },
+  {
+    "name": "intent_trust_evaluation",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "trust_evaluation",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "como funciona a revogação?",
+      "o que é o key manifest?",
+      "como federar com outro operador?"
+    ]
+  },
+  {
+    "name": "intent_revocation",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "revocation",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "como funciona trust evaluation?",
+      "onde está a revocation list?"
+    ]
+  },
+  {
+    "name": "intent_implementation_steps",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "implementation_steps",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "quais são as invariantes financeiras?",
+      "como funciona o ledger de dupla entrada?",
+      "onde começo com o meu operador?"
+    ]
+  },
+  {
+    "name": "intent_evidence_bundle",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "evidence_bundle",
+      "answerType": "",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "como demonstro conformidade?",
+      "onde começo com o meu operador?"
+    ]
+  },
+  {
+    "name": "answer_type_how_it_works",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "how_it_works",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "Como é que isto se aplica a um operador?",
+      "Que ADR ou RFC define isto?",
+      "Mostra um exemplo seguro."
+    ]
+  },
+  {
+    "name": "answer_type_capabilities_and_limits",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "capabilities_and_limits",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "Onde é que estão os limites disto?",
+      "Que evidência prova isto?",
+      "Que ADR ou RFC define isto?"
+    ]
+  },
+  {
+    "name": "answer_type_yes_no_with_boundary",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "yes_no_with_boundary",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "Porque é que essa é a fronteira?",
+      "Que ADR ou RFC define isto?"
+    ]
+  },
+  {
+    "name": "answer_type_comparison",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "comparison",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "Qual é a diferença na prática para um operador?",
+      "Que ADR define cada um dos lados?"
+    ]
+  },
+  {
+    "name": "answer_type_definition",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "definition",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "Como é que isto se aplica a um operador?",
+      "Que ADR ou RFC define isto?",
+      "Mostra um exemplo seguro."
+    ]
+  },
+  {
+    "name": "answer_type_governance_explanation",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "governance_explanation",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "Como se propõe uma alteração por RFC ou ADR?",
+      "Quem decide isto na governança do protocolo?"
+    ]
+  },
+  {
+    "name": "answer_type_financial_concept",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "financial_concept",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "Que invariante financeira protege isto?",
+      "Como é que um operador implementa isto?"
+    ]
+  },
+  {
+    "name": "answer_type_implementation_stack",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "implementation_stack",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "Quais são os passos seguintes para implementar?",
+      "Que evidência é que eu publico?"
+    ]
+  },
+  {
+    "name": "answer_type_operator_zero_guidance",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "operator_zero_guidance",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "Mostrar o manifesto do Operador Zero",
+      "Ver a conformidade do Operador Zero",
+      "Ver as chaves e a confiança do Operador Zero"
+    ]
+  },
+  {
+    "name": "answer_type_example_safe",
+    "ctx": {
+      "kind": "answer",
+      "refused": false,
+      "boundary": false,
+      "grounded": true,
+      "degraded": false,
+      "operationalIntent": "grounded",
+      "answerType": "example_safe",
+      "questionFamily": null,
+      "contextualFallbackKind": null,
+      "terminalKind": "",
+      "entity": null,
+      "scope": null,
+      "toolsRan": [],
+      "duration": null,
+      "hasResolvedDocument": false
+    },
+    "pt": [
+      "Explica o conceito por trás deste exemplo.",
+      "Que ADR ou RFC define isto?"
+    ]
+  }
+]

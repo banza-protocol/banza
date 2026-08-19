@@ -8,7 +8,7 @@
 // sends the question and maps the JSON response. Reasoning is disabled server-side (no <think>);
 // nothing leaves the host (external_model_called=false). No WASM, no client-side model.
 
-import { contextualSuggestions, type SuggestionContext } from "@/components/banzai/suggestions";
+import { selectSuggestions, type SuggestionContext, type SuggestionSelection } from "@/components/banzai/suggestions";
 
 export type CiteLink = { label: string; href: string };
 
@@ -184,7 +184,10 @@ export type KbAnswer = {
   // which stays for back-compat). Each carries a safe href (or null), category and repo/path.
   sources: Source[];
   limits?: string[];
-  followUps?: string[];
+  // Block E2/Q2 — the follow-up suggestions as SEMANTIC selections (ids + the facts a branch resolved),
+  // not as sentences. The mapper decides WHICH suggestions this answer earns; the presentation owner
+  // that knows the reader's locale realizes them. That is what lets one algorithm serve both editions.
+  followUpSelections?: SuggestionSelection[];
   evidence?: EvidenceBundle;
   engine?: string;
   engineVersion?: string;
@@ -767,8 +770,8 @@ export function mapAskResponse(d: unknown): KbAnswer {
     duration: duration ? { comparableRuns: duration.comparableRuns, hasPerStep: duration.perStep.length > 0 } : null,
     hasResolvedDocument: Boolean(doc),
   };
-  const followUpsList = contextualSuggestions(suggestionCtx);
-  const followUps = followUpsList.length ? followUpsList : undefined;
+  const selected = selectSuggestions(suggestionCtx);
+  const followUpSelections = selected.length ? selected : undefined;
 
   // M2.18B.5 — typo tolerance / intent recovery, from the typed public trace (bands + display forms only;
   // never edit distance or scores). Presentation-only; the correction was already applied server-side.
@@ -800,7 +803,7 @@ export function mapAskResponse(d: unknown): KbAnswer {
     links,
     sources: richSources,
     operationalIntent,
-    ...(followUps ? { followUps } : {}),
+    ...(followUpSelections ? { followUpSelections } : {}),
     ...(limits.length ? { limits } : {}),
     engine: typeof o.engine_state === "string" ? (o.engine_state as string) : undefined,
     llmCalls: 0, // external/billable calls only — local inference is free and on-host
