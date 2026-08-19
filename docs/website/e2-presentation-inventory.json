@@ -1,0 +1,4724 @@
+{
+ "generator": "tools/gen-e2-presentation-inventory.py",
+ "note": "Occurrences, not translation identities. Semantic ids are assigned in E2A.",
+ "roots": [
+  "website/components/banzai",
+  "website/components/decisoes"
+ ],
+ "source_files": 19,
+ "raw_occurrences": 659,
+ "reader_occurrences": 658,
+ "machine_occurrences": 1,
+ "files": [
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "items": 89
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "items": 69
+  },
+  {
+   "file": "website/components/banzai/BanzaiProgress.tsx",
+   "owner_class": "reader-component",
+   "items": 6
+  },
+  {
+   "file": "website/components/banzai/BanzaiRouteBinder.tsx",
+   "owner_class": "transparent",
+   "items": 0
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "items": 151
+  },
+  {
+   "file": "website/components/banzai/BanzaiWorkspaceProvider.tsx",
+   "owner_class": "transparent",
+   "items": 0
+  },
+  {
+   "file": "website/components/banzai/DraftValidationTool.tsx",
+   "owner_class": "reader-component",
+   "items": 26
+  },
+  {
+   "file": "website/components/banzai/ProgramadoresTools.tsx",
+   "owner_class": "reader-component",
+   "items": 2
+  },
+  {
+   "file": "website/components/banzai/SafeMarkdown.tsx",
+   "owner_class": "reader-component",
+   "items": 3
+  },
+  {
+   "file": "website/components/banzai/SourceBlock.tsx",
+   "owner_class": "reader-component",
+   "items": 19
+  },
+  {
+   "file": "website/components/banzai/TransparencyPanel.tsx",
+   "owner_class": "reader-component",
+   "items": 10
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "items": 121
+  },
+  {
+   "file": "website/components/banzai/banzaiUi.tsx",
+   "owner_class": "reader-component",
+   "items": 19
+  },
+  {
+   "file": "website/components/banzai/safeLinks.ts",
+   "owner_class": "machine",
+   "items": 1
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "items": 73
+  },
+  {
+   "file": "website/components/banzai/traceVerifier.ts",
+   "owner_class": "mixed",
+   "items": 12
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "items": 29
+  },
+  {
+   "file": "website/components/decisoes/DecisionMarkdown.tsx",
+   "owner_class": "reader-component",
+   "items": 1
+  },
+  {
+   "file": "website/components/decisoes/DecisionsExplorer.tsx",
+   "owner_class": "reader-component",
+   "items": 28
+  }
+ ],
+ "items": [
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "A preparar a resposta…",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "0)) && (",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "QUEM FAZ O QUÊ",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "PROVENIÊNCIA DAS REGRAS",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Perguntar ao BanzAI",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Referência",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "ADRs, RFCs e o mapa do protocolo. Cada cartão pergunta ao BanzAI, que responde com base nas fontes locais.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "DECISÕES E RFCs",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "MAPA DO PROTOCOLO",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "href && !active ? (",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": ");\n  return (",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(routeState.mode);\n  \n  \n  const [activeTool, setActiveTool] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "([]);\n  \n  \n  \n  const [convState, setConvState] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(null);\n  const [lastLinks, setLastLinks] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "([]);\n  \n  const [lastTransparency, setLastTransparency] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(null);\n  const [busy, setBusy] = useState(false);\n  \n  \n  \n  \n  const [engineInfo, setEngineInfo] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(null);\n  \n  \n  \n  \n  const reducedMotion = usePrefersReducedMotion();\n  const [progressEvents, setProgressEvents] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "([]);\n  const [progressActive, setProgressActive] = useState(false);\n  const [progressStart, setProgressStart] = useState(0);\n  const [lastMetrics, setLastMetrics] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(null);\n  const abortRef = useRef",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(null);\n  const inputRef = useRef",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(null);\n  const scrollRef = useRef",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(null);\n  const pendingDocRef = useRef",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(null);\n\n  \n  \n  \n  const isDesktop = useIsDesktop();\n  const [railCollapsed, setRailCollapsed] = useState(false);\n  const [railOpen, setRailOpen] = useState(false);\n  const [inspectorOpen, setInspectorOpen] = useState(false);\n  const inspectorRef = useRef",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(null);\n  const inspectorToggleRef = useRef",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": ";\n      case \"rfc\": return",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": ";\n      case \"programadores\": return",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": ";\n      case \"resultados\": return",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": ");\n\n  return (",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": ") : isOnboarding ? (",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "COMEÇAR POR AQUI",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Resposta resumida para caber no limite actual. Peça detalhes por secção.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Documento não encontrado",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": ")\n          ) : (",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Enter para enviar · Shift+Enter para nova linha",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "FASE 0 · CONTEXTO",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Seleccione um operador e uma das suas implementações publicadas para activar a jornada. O contexto da validação aparece aqui depois da selecção.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": ")\n        ) : isChat ? (",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "As citações aparecerão aqui quando o BanzAI responder.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "BanzAI é o agente IA do protocolo BANZA. Responde com base nas fontes locais do protocolo, não certifica, não aprova operadores, não emite licenças e não substitui a governação do protocolo.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Ninguém aceita nem aprova operadores por decisão humana central. PASS é evidência verificável de conformidade, não certificado.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "A consultar a referência…",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "A cruzar fontes verificáveis…",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "A compor a resposta…",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "A validar as fronteiras…",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "A preparar as fontes…",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Faça perguntas sobre a referência, a jornada de validação e os artefactos técnicos. Os motores verificam. A evidência prova. A autoridade competente decide.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "observação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Implementação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Duração observada",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "min-w-0 flex-1 truncate",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Contexto da navegação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Motor por omissão: Qwen local (on-host) · sem chamadas externas · estado por resposta",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Motor: modelo externo utilizado nesta resposta · fora do host",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Motor: degradado — modelo local indisponível nesta resposta · resposta pelo caminho determinístico/fundamentado",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Motor: estado por confirmar nesta resposta · não normativo",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Validação técnica de implementação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Onboarding de operador",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "bg-tint-bordo text-ink shadow-[inset_0_0_0_1px_rgba(142,19,38,0.18)]",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "bg-bordo text-creme-high shadow-[0_2px_8px_rgba(142,19,38,0.22)]",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Abrir navegação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "fixed inset-0 z-40 bg-black/30 lg:hidden",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Navegação lateral do BanzAI",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "order-2 flex min-h-0 flex-col overflow-y-auto border-black/[0.07] bg-paper-2 lg:order-1 lg:border-r",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex items-center gap-2 pt-5",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Expandir navegação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Colapsar navegação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Fechar navegação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Navegação do BanzAI",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "JORNADA DE VALIDAÇÃO",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "order-2 flex min-h-0 flex-col lg:order-2",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "bg-bordo text-creme-high shadow-[0_2px_8px_rgba(142,19,38,0.22)]",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border border-black/15 bg-paper-2 text-ink-3",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border border-pend/35 bg-pend/[0.08] text-pend",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border border-bordo/30 bg-tint-bordo text-bordo",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border border-black/15 bg-paper-2 text-ink-4",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border border-pend/35 bg-pend/[0.08] text-pend",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "SEM MEDIÇÕES SUFICIENTES",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border border-pend/25 bg-tint-gold",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Ver decisão",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Ver consequências",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Impacto para operadores",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Pergunte ao BanzAI",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "fixed inset-0 z-30 bg-black/30 lg:hidden",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Inspetor · contexto da validação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Inspetor · fontes e contexto",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex items-center justify-between gap-2",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "FONTES E CONTEXTO",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Os resultados da validação de operador vivem aqui, com origem nos endpoints públicos da implementação.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiAgent.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Referência e ferramentas do protocolo. Use os cartões para perguntar ao BanzAI ou abrir a validação de operador.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(\"loading\");\n  const [email, setEmail] = useState(\"\");\n  const [challengeId, setChallengeId] = useState(\"\");\n  const [code, setCode] = useState(\"\");\n  const [sessionEmail, setSessionEmail] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(null);\n  const [candidates, setCandidates] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "([]);\n  const [busy, setBusy] = useState(false);\n  const [error, setError] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(null);\n  const [info, setInfo] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Fase 0 · onboarding",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": ");\n\n  return (",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(null);\n  \n  \n  const [options, setOptions] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Sessão iniciada como",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Terminar sessão",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "As suas candidaturas",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Ainda não tem candidaturas. Crie uma abaixo.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Um operador; cada implementação declara a sua própria versão, perfil e ambiente e prova a sua própria origem.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Versão do protocolo…",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "A carregar as opções canónicas do protocolo…",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Adicionar implementação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(null);\n  const [publishUrl, setPublishUrl] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(null);\n  const [busy, setBusy] = useState(false);\n  const [msg, setMsg] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(null);\n  const [msgTone, setMsgTone] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Preparar prova de origem",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Ir para Validar operador",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Email por confirmar",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Origem por verificar",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Em validação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Validação concluída",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Elegível para publicação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Publicada no registo técnico",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Origem por verificar",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Desafio de origem emitido",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Verificação de origem falhou",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Em validação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Validação concluída",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Autenticação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Implementação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Origem canónica",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Prova de controlo",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Preparação para validação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Sequência de onboarding do operador",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": ": n === current ?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border border-black/15 bg-white text-ink-5",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-bordo/20 bg-tint-bordo text-pend",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-[rgba(44,99,73,0.3)] bg-[rgba(44,99,73,0.08)] text-[#2C6349]",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-[rgba(190,148,64,0.35)] bg-[rgba(190,148,64,0.10)] text-[#8E6A28]",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Código enviado. Verifique o seu email.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Demasiados pedidos. Aguarde um momento e tente novamente.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Não foi possível enviar o email. Verifique o endereço e tente novamente.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Email inválido ou serviço indisponível. Tente novamente.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "|| r.verdict ===",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Código expirado ou já usado. Peça um novo código.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Demasiadas tentativas. Peça um novo código.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Código incorrecto. Verifique e tente novamente.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "mt-3 flex items-center gap-2",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "mt-3 flex items-center gap-2",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Não foi possível criar a candidatura.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "mt-5 flex items-center justify-between",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Nome do operador",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Domínio inválido.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Versão/perfil/ambiente têm de ser um valor canónico suportado.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Não foi possível adicionar a implementação.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex items-center justify-between gap-2",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Nome da implementação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Nome da implementação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Domínio canónico",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Versão do protocolo",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Não foi possível emitir o desafio de origem.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Não foi possível obter o documento no domínio. Confirme que está publicado e acessível por HTTPS.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "A origem ainda não confere. Confirme o documento publicado e tente novamente.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex items-center justify-between gap-2",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "bg-white text-ink-4 border border-black/[0.07]",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiOnboardingMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "mt-2 flex flex-wrap items-center gap-2",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiProgress.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Progresso do BanzAI:",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiProgress.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "A preparar uma explicação baseada nos factos verificados…",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiProgress.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Intenção",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiProgress.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Agregação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiProgress.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Implementação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiProgress.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Primeiro facto verificável",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Fase 0 · contexto",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "1 · Operador",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "A carregar operadores do registo técnico…",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "2 · Implementação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Reiniciar sessão",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Explicar este resultado",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Consultar documentação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Executar jornada completa",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Executar primeira etapa",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Executar esta etapa",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Executar a partir daqui",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Ainda não avaliado — execute esta etapa para obter o veredicto do motor Rust.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "A evidência verificável (origem consultada, host, HTTP, hash SHA-256, artefactos e assinatura) aparece aqui depois de executar a etapa. É obtida pelo backend a partir do endpoint público — nunca pelo navegador.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "O BanzAI explica em linguagem clara o resultado já calculado pelos motores Rust — o que significa e o que o operador deve publicar. Não altera o estado, os reason codes nem o recibo, e nunca certifica.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Explicar com o BanzAI",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Prontidão de Certificação:",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": ". Estado de Certificação:",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": ". A Prontidão agrega os veredictos das etapas técnicas — não é um Registo de Certificação e nunca devolve CERTIFIED (ADR-034 §4.10).",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Persistência da jornada",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "results[s.id].status === \"NOT_EVALUATED\");\n  return (",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Prontidão de Certificação:",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Estado de Certificação:",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Jornada em execução. Pode cancelar com segurança — nada é publicado.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": ") : nextStep ? (",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Todas as etapas foram avaliadas. Veja o Resumo em Resultados.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Abrir etapa →",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Sem bloqueios registados nesta sessão.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "[\n      r.step,\n      (r.applicability === \"NOT_APPLICABLE\" ? \"NOT_APPLICABLE\" : r.result?.status ?? \"NOT_EVALUATED\") as StepStatus,\n    ]),\n  );\n  return (",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(\"idle\");\n  const [rows, setRows] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "([]);\n  const [detail, setDetail] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(null);\n  const [detailLoading, setDetailLoading] = useState(false);\n  const [selected, setSelected] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "([]);\n  const [comparison, setComparison] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(null);\n  const [action, setAction] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(null);\n  const [note, setNote] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "x !== id) : s.length",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Selecione um operador e uma implementação em",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "para consultar o histórico de execuções persistidas (arquivo durável, append-only e imutável).",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "A carregar o histórico de execuções…",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Ainda não há execuções persistidas para esta implementação. Execute a jornada completa em",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "para criar um arquivo durável.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "A abrir a execução…",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Matriz de 9 etapas",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Comparação de execuções",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "O arquivo é append-only e imutável: preserva os recibos e nunca recalcula um veredicto. A reprodução cria uma NOVA execução a partir das referências e hashes originais — nunca sobrescreve o original.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Uma única área para o resultado da validação de operador: resumo, recibos, relatórios, artefactos obtidos, traces e o Evidence Bundle. Tudo com origem nos endpoints públicos da implementação.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": ") : receipts.length === 0 && !journeyReceipt ? (",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Ainda não há resultados na sessão atual. Abra",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": ", seleccione um operador e uma implementação, e execute a jornada (ou uma etapa) para obter recibos com origem nos endpoints públicos. O histórico persistido de execuções anteriores está em",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Execuções",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": ") : view === \"resumo\" ? (",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Resumo da jornada",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": ") : view === \"receipts\" ? (",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": ") : view === \"relatorios\" ? (",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Veredictos Rust por etapa",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": ") : view === \"artefactos\" ? (",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "r.endpoint).length === 0 ? (",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Nenhum artefacto obtido ainda. Execute a jornada para obter os artefactos publicados e os seus hashes.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": ") : view === \"traces\" ? (",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "As referências de evidência (traces e ligações) aparecem aqui à medida que executa etapas.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Evidence Bundle obtido",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "O Evidence Bundle publicado é obtido e validado na etapa 8 da jornada. Execute-a para ver o bundle obtido, os seus artefactos e a integridade SHA-256.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Evidência técnica verificável, obtida do endpoint público. Não é certificado nem aprovação.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Explicar estes conceitos no BanzAI →",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-ok/40 bg-ok/[0.08] text-ok",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-pend/40 bg-pend/[0.08] text-pend",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-bordo/40 bg-tint-bordo text-bordo",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-[#8957e5]/40 bg-[#8957e5]/[0.08] text-[#6f42c1]",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-black/10 bg-paper-2 text-ink-5",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-dashed border-ink-5/40 bg-paper-2 text-ink-5",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Arquivo durável — o resultado é consultável, comparável e reproduzível.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-ok/40 bg-ok/[0.08] text-ok",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "O arquivo durável não está ativo neste ambiente. O resultado do motor continua válido, mas não fica arquivado.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-black/10 bg-paper-2 text-ink-5",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Resultado disponível · não persistido",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "A gravação no arquivo falhou. O resultado do motor é válido, mas ainda não é durável, consultável, comparável nem reproduzível.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-bordo/40 bg-tint-bordo text-bordo",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Resultado disponível · persistência pendente",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "A gravação no arquivo ainda não confirmou. O resultado do motor é válido; a durabilidade pode ser reconfirmada sem repetir a validação.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-pend/40 bg-pend/[0.08] text-pend",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex flex-wrap items-center justify-between gap-2",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "sem referência de arquivo",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Reconfirmar persistência",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "mt-5 border-t border-black/[0.07] pt-4",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "mb-2 flex items-baseline gap-2",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Relatórios",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Execuções",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "O que significa e o que o operador deve publicar? Nota: o Qwen apenas explica — não altera o estado, o reason nem o recibo já calculados pelos motores Rust.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Não foi possível carregar o registo técnico neste momento. Actualize a página para tentar novamente — o registo é a única fonte de operadores; nenhum operador é assumido.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "O registo técnico não lista operadores elegíveis neste momento.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-black/[0.08] bg-white hover:border-bordo/30",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex items-center justify-between gap-2",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "estado de publicação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "implementações",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "registo técnico",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-black/[0.08] bg-white hover:border-bordo/30",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex items-center justify-between gap-2",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "versão do protocolo",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "origem canónica",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "estado no registo",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "elegível",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Alvo seleccionado. A jornada avalia esta implementação através dos endpoints públicos declarados. Comece pela primeira etapa ou execute a jornada completa.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Seleccione um operador e uma implementação para activar a jornada. O registo é fechado — sem operadores fictícios, sem URLs arbitrários.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "bg-tint-bordo text-ink shadow-[inset_0_0_0_1px_rgba(142,19,38,0.18)]",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-bordo/40 bg-white text-bordo",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-black/15 bg-white text-ink-5",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Reiniciar a sessão de validação? Isto limpa apenas o estado efémero desta jornada (veredictos e recibos em memória). Não altera endpoints, o registo, os artefactos remotos, a evidência, a Certificação nem a implementação.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex flex-wrap items-center justify-between gap-3",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Seleccione uma implementação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex items-center gap-2",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "implementação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "versão do protocolo",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "|| st.status ===",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex flex-wrap items-start justify-between gap-3",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Resultado do motor",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex flex-wrap items-center gap-2",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Evidência verificável",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "recibo com origem no endpoint",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Explicação do BanzAI",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "não decide",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "h-full rounded-full bg-bordo transition-[width] duration-500",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex items-center justify-between gap-2",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Não equivalente",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Inputs originais indisponíveis",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Versão do motor indisponível",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Reprodução bloqueada",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Não foi possível abrir a execução (arquivo indisponível).",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Não foi possível comparar as execuções.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Não foi possível iniciar a reprodução.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex flex-wrap items-center justify-between gap-2",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex items-center gap-2",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex flex-wrap items-center justify-between gap-2",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex items-center gap-2",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "perfil · ambiente",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex flex-wrap items-center justify-between gap-2",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "certificação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "mt-3 flex flex-col divide-y divide-black/[0.05]",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex items-center gap-2",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex flex-wrap items-center justify-between gap-2",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-ok/40 bg-ok/[0.08] text-ok",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-pend/40 bg-pend/[0.08] text-pend",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "mt-3 flex flex-col divide-y divide-black/[0.05]",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex items-center gap-2",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-bordo/40 bg-tint-bordo text-bordo",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-black/10 bg-white text-ink-4 hover:border-bordo/30",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex flex-wrap items-center justify-between gap-2",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Prontidão de Certificação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Estado de Certificação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex items-center justify-between gap-2",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "certificação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex flex-col divide-y divide-black/[0.05]",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/BanzaiValidationMode.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex items-center gap-2",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/DraftValidationTool.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(\"manifest\");\n  const [text, setText] = useState(\"\");\n  const [busy, setBusy] = useState(false);\n  const [error, setError] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/DraftValidationTool.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(null);\n  const [result, setResult] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/DraftValidationTool.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(null);\n  const [uploadName, setUploadName] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/DraftValidationTool.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(null);\n  const [source, setSource] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/DraftValidationTool.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(\"paste\");\n  const inputRef = useRef",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/DraftValidationTool.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(null);\n\n  const onFile = async (e: React.ChangeEvent",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/DraftValidationTool.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "ferramenta local para programadores · validação Rust/WASM · sem rede",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/DraftValidationTool.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Tipo de artefacto",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/DraftValidationTool.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Carregar ficheiro JSON",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/DraftValidationTool.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "O ficheiro é lido apenas nesta sessão do navegador; nada é enviado nem publicado. Não é exemplo oficial.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/DraftValidationTool.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Resultado de rascunho. Não avança a jornada, não produz recibo oficial, não alimenta o Evidence Bundle e nunca devolve VERIFIED nem Prontidão de Certificação.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/DraftValidationTool.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Relatório de conformidade",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/DraftValidationTool.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Apenas ficheiros .json são aceites.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/DraftValidationTool.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Ficheiro demasiado grande (máx. 256 kB).",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/DraftValidationTool.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "O ficheiro parece conter dados sensíveis (chaves privadas, segredos ou credenciais). Remova-os e tente de novo.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/DraftValidationTool.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Não foi possível ler o ficheiro (JSON inválido ou demasiado grande).",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/DraftValidationTool.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Não foi possível ler o ficheiro.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/DraftValidationTool.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Cole ou carregue um artefacto JSON primeiro.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/DraftValidationTool.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Falha ao validar o rascunho.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/DraftValidationTool.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "); setUploadName(null); setSource(",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/DraftValidationTool.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-bordo/40 bg-tint-bordo text-bordo",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/DraftValidationTool.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-black/10 bg-white text-ink-4 hover:border-bordo/30",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/DraftValidationTool.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Colar artefacto JSON para validação de rascunho",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/DraftValidationTool.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex flex-wrap items-center justify-between gap-2",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/DraftValidationTool.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-ok/40 bg-ok/[0.08] text-ok",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/DraftValidationTool.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-bordo/40 bg-tint-bordo text-bordo",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/ProgramadoresTools.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Ferramentas e referência para quem implementa o protocolo. A validação oficial de operador é sempre com origem nos endpoints públicos; aqui vivem as ferramentas locais de rascunho e a referência técnica.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/ProgramadoresTools.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "abre numa nova aba",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/SafeMarkdown.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": ";\n            return (",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/SafeMarkdown.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "noopener noreferrer nofollow",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/SafeMarkdown.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "text-bordo underline decoration-bordo/30 underline-offset-2 transition-colors hover:decoration-bordo",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/SourceBlock.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": ");\n          return (",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/SourceBlock.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-pend/30 bg-tint-gold text-pend",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/SourceBlock.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-pend/25 bg-tint-gold text-pend",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/SourceBlock.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-line-2 bg-paper-2 text-ink-3",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/SourceBlock.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-line-2 bg-paper-2 text-ink-3",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/SourceBlock.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-ink/15 bg-ink/[0.03] text-ink-3",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/SourceBlock.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-ink/15 bg-ink/[0.03] text-ink-3",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/SourceBlock.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-ink/15 bg-ink/[0.03] text-ink-3",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/SourceBlock.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-ink/15 bg-ink/[0.03] text-ink-3",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/SourceBlock.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-ink/15 bg-ink/[0.03] text-ink-3",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/SourceBlock.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-line-2 bg-paper-2 text-ink-3",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/SourceBlock.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-ok/25 bg-tint-green text-ok",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/SourceBlock.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-bordo/30 bg-tint-bordo text-bordo",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/SourceBlock.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-line-2 bg-paper-2 text-ink-3",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/SourceBlock.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-line-2 bg-paper-2 text-ink-3",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/SourceBlock.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "M14 3v4a1 1 0 0 0 1 1h4",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/SourceBlock.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/SourceBlock.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "M7 17 17 7M9 7h8v8",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/SourceBlock.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "noopener noreferrer nofollow",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/TransparencyPanel.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "0;\n  const hasFreshness = t.observedAt !== null || t.sha256 !== null || t.canonicalOrigin !== null;\n  const hasVerification =\n    (t.claimVerification && t.claimVerification.ok !== null) || (t.citationVerification && t.citationVerification.ok !== null);\n  const totalDuration = fmtDuration(t.totalDurationMs);\n  const hasRuntime =\n    t.engine !== null || t.runtimeVersion !== null || t.modelCalled !== null || t.confidenceBand !== null || t.validationStatus !== null || totalDuration !== null;\n\n  return (",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/TransparencyPanel.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "TRANSPARÊNCIA DA RESPOSTA",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/TransparencyPanel.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "não aplicável",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/TransparencyPanel.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "não aplicável",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/TransparencyPanel.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "TIPO DE RESPOSTA",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/TransparencyPanel.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "min-w-0 flex-1 truncate font-mono",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/TransparencyPanel.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "MÉTODO DE CÁLCULO",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/TransparencyPanel.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "VERSÃO DO MOTOR",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/TransparencyPanel.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "VERIFICAÇÃO DE ALEGAÇÕES",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/TransparencyPanel.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "VERIFICAÇÃO DE CITAÇÕES",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Interface interactiva do protocolo · consulta, valida e orienta",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Podes perguntar livremente ou colar um artefacto técnico. O BanzAI identifica o tipo de pedido e encaminha para explicação, análise ou validação técnica quando suportado. Não certifica, não aprova operadores e não substitui os motores verificáveis.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Orienta a implementação e ajuda a usar as ferramentas do protocolo BANZA.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "BanzAI é a interface primária de trabalho entre humanos/operadores e o protocolo BANZA (ADR-036); em concreto, o agente do protocolo. Guia, simula, invoca ferramentas verificáveis e explica resultados com base em fontes oficiais — não aprova, não certifica, não licencia, não publica operadores, não movimenta fundos, não decide participação, não inventa regras e não cria decisões arquitecturais. A conformidade demonstra-se por evidência verificável.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "guia · invoca ferramentas · explica · não decide",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "BanzAI guia; os motores verificam; a evidência prova; a autoridade competente decide.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Pergunte ao BanzAI ou peça uma operação técnica…",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "implementa e publica evidência.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "verificam (Rust/WASM determinísticos).",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "guia e explica.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "verificam evidência e interoperam localmente.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Governança",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "mantém o protocolo e activa novas regras por RFC/ADR.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "tratam do enquadramento fora do protocolo.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Referência · ADR · RFC · Specs · Contracts · Schemas · Invariants · Engines",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Use o BanzAI para percorrer a implementação do protocolo: preparar Manifest, validar Conformidade, verificar Interoperabilidade e Confiança, gerar Evidence Bundle e preparar a Federação. BanzAI guia; os motores Rust/WASM verificam; a evidência prova; a autoridade competente decide. BanzAI guia a implementação do protocolo existente; não cria protocolo novo.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Repositório",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Validação técnica de implementação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Seleccione um operador e uma das suas implementações publicadas. A jornada avalia a implementação seleccionada através dos endpoints públicos declarados pelo operador.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "O operador é a entidade responsável. A implementação é o sistema técnico avaliado.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Operador disponível para demonstração: Operador Zero",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Todos os artefactos são obtidos pelo backend a partir dos endpoints públicos da implementação. O Rust decide; a IA nunca decide. A Prontidão de Certificação não é um Registo de Certificação.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Onboarding de operador",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Onboarding de operador",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Registe uma candidatura para preparar a validação técnica da sua implementação. A autenticação é sem palavra-passe: recebe um código de acesso no seu email. A candidatura fica guardada e pode ser recuperada a qualquer momento com o mesmo email.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Uma candidatura não é um operador publicado, um participante activo nem uma entidade certificada. O onboarding é um serviço do BanzAI, não uma regra do protocolo: o email autentica a pessoa, o domínio confirma a origem, os endpoints fornecem os artefactos e o Rust verifica. Não movimenta fundos, não concede autorização regulatória e não admite em nenhum scheme.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Âmbito inicial: Angola (AOA). Sem recolha de dados de jurisdição neste passo.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Consultar operador publicado",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Ver o registo técnico público e as implementações de referência.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Submeter novo operador",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Criar uma candidatura e declarar a implementação e a sua origem canónica.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Recuperar uma candidatura existente com o email já verificado.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Enviar código de acesso",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Enviamos um código de 6 dígitos, válido por alguns minutos e de uso único. Nunca pedimos palavra-passe.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Código de acesso",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Confirmar código",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Reenviar código",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Introduza o código de 6 dígitos que enviámos para o seu email.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Prova de controlo da origem canónica",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Publique o documento abaixo em .well-known no domínio canónico da implementação. O backend obtém-no de forma segura e o Rust confirma o controlo da origem.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Origem verificada — controlo do domínio canónico confirmado.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "A sua candidatura fica guardada no Registo de Candidaturas privado. A sessão é protegida por um cookie de sessão; termine sessão para a encerrar.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Ferramenta local para programadores: cole ou carregue um artefacto JSON, escolha o tipo e valide o esquema/tipo/invariantes. Não avança a jornada, não produz recibo oficial, não alimenta o Evidence Bundle e nunca devolve VERIFIED nem Prontidão de Certificação.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Rascunho local · não publicado · não produz evidência oficial",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Esta sessão vive apenas no navegador. Ao recarregar a página, os dados desta jornada são limpos.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Motor por omissão: Qwen local",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Sem chamadas externas",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Estado por resposta",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Não normativo",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Pré-produção do protocolo",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "BanzAI não certifica, não aprova e não emite certificados.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "BanzAI executa ferramentas técnicas e explica resultados.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Ninguém aceita nem aprova operadores por decisão humana central; a conformidade demonstra-se por evidência verificável.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "PASS é evidência técnica, não certificado.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "O estado público continua pré-produção: registo público vazio, sem evidência de operador publicada.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "A IA explica a verdade",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Sistema de Conhecimento do Protocolo",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "aprovação automática",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "certificação automática",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "pip install banza-conformance",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "BANZA precisa de licença",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "BANZA é PSP",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "BANZA é prestador de serviços de pagamento",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "BANZA processa pagamentos",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "BANZA liquida pagamentos",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "BANZA movimenta fundos",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "BANZA detém fundos",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "BANZA autoriza operadores",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "protocolo técnico",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "BANZA é operador financeiro",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "BANZA operador financeiro",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "BANZA vira operador",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "BANZA vira PSP",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "transformar BANZA em operador",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "BANZA como operador financeiro",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "certificado de produção",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "certificação de operador",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Assistente de Certificação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Quanto tempo leva uma jornada completa de validação?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Qual a etapa mais lenta da validação e quanto demora?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Compara a duração da última execução com a anterior.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Validar signed protocol metadata",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "O que é signed protocol metadata e como se valida no protocolo BANZA?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Verificar delegated signing key",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "O que são delegated signing keys e como se verificam no protocolo BANZA?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Verificar o Registo Técnico",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "O que é o Registo Técnico do protocolo BANZA?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Verificar revogação e fecho por omissão",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Como funciona a revogação e o fecho por omissão no trust do protocolo BANZA?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Manifesto do operador",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Relatório de conformidade",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Relatório de trace",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Hashes das ferramentas e dos inputs",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Citações da referência",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Explica o ADR-001 — a hierarquia BANZA / BanzAI / Operadores",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Explica o ADR-036 — o BanzAI como interface primária humano-operador",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Explica o ADR-030 — evidência e conformidade",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Explica o ADR-025 — confiança e chaves",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Explica o ADR-038 — a política Rust-first",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Quais são as RFCs do protocolo BANZA?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "O que é o protocolo BANZA?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Governança",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "ADRs / RFCs",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Como funciona a governança do protocolo BANZA?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Mantém o protocolo; não autoriza operadores",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Como funciona a governação do protocolo BANZA sem autoridade central?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "O que é o BanzAI?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Evidência PASS",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "O que é a conformidade no protocolo BANZA?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Federação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Como funciona a federação entre operadores?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Implementam o protocolo",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "O que é um operador no protocolo BANZA?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Usam os operadores",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Qual o papel dos clientes no protocolo BANZA?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "obrigação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "evidência",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "O que é operator manifest?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Que campos são obrigatórios no manifest?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Manifesto válido significa compatibilidade demonstrada?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzai-agent.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Como executar conformidade L0 com banza-conformance-rs?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzaiUi.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "M21 11.5a8.4 8.4 0 0 1-8.5 8.4 8.6 8.6 0 0 1-3.6-.8L3.5 20.5l1.4-5.3a8.4 8.4 0 0 1-.9-3.7A8.5 8.5 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzaiUi.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "M14 3v4a1 1 0 0 0 1 1h4",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzaiUi.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzaiUi.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "16 18 22 12 16 6",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzaiUi.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "8 6 2 12 8 18",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzaiUi.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "M3 5.5A1.5 1.5 0 0 1 4.5 4H9a3 3 0 0 1 3 3 3 3 0 0 1 3-3h4.5A1.5 1.5 0 0 1 21 5.5v12a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 2.6 3 3 0 0 0-3-2.6H4a1 1 0 0 1-1-1z",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzaiUi.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "M10 14 21 3",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzaiUi.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzaiUi.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "M9 7c-2.2.7-3.5 2.4-3.5 4.6V17H10v-5H7.6c0-1.2.6-2 1.9-2.4zM18.5 7C16.3 7.7 15 9.4 15 11.6V17h4.5v-5h-2.4c0-1.2.6-2 1.9-2.4z",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzaiUi.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "M12 3l1.7 5.1a2 2 0 0 0 1.2 1.2L20 11l-5.1 1.7a2 2 0 0 0-1.2 1.2L12 19l-1.7-5.1a2 2 0 0 0-1.2-1.2L4 11l5.1-1.7a2 2 0 0 0 1.2-1.2z",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzaiUi.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "M19 4v3M20.5 5.5h-3",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzaiUi.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "M21.5 3.5 11 14",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzaiUi.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "M21.5 3.5 15 21l-3.8-7.7L3.5 9.5z",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzaiUi.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "9 6 15 12 9 18",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzaiUi.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "4 7 9 12 4 17",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzaiUi.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "M12 3l7 3v5c0 4.6-3 7.9-7 9-4-1.1-7-4.4-7-9V6z",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzaiUi.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "M9 12l2 2 4-4",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzaiUi.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "15 6 9 12 15 18",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/banzaiUi.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "0 0 24 24",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/safeLinks.ts",
+   "owner_class": "machine",
+   "origin": "literal",
+   "pt": ") && !h.startsWith(",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "O que é que o BanzAI pode explicar sobre este tema?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Quais são as fronteiras do BanzAI?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Como se demonstra conformidade por evidência verificável?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "mostra um exemplo de manifest de operador",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "como preparo evidência de conformidade?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "como federar com outro operador?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "quais são os campos obrigatórios do manifest?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "mostra um exemplo de evidence bundle",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "onde publico o manifest?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "como funciona trust evaluation?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "como consulto a revocation list?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "que evidência publico para federar?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "mostra um exemplo de evidence bundle",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "um PASS é um certificado?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "onde começo com o meu operador?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "como funciona a revogação?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "o que é o key manifest?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "como federar com outro operador?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "como funciona trust evaluation?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "onde está a revocation list?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "quais são as invariantes financeiras?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "como funciona o ledger de dupla entrada?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "onde começo com o meu operador?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "como demonstro conformidade?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "onde começo com o meu operador?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Como é que isto se aplica a um operador?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Que ADR ou RFC define isto?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Mostra um exemplo seguro.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Onde é que estão os limites disto?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Que evidência prova isto?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Que ADR ou RFC define isto?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Porque é que essa é a fronteira?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Que ADR ou RFC define isto?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Qual é a diferença na prática para um operador?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Que ADR define cada um dos lados?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Como é que isto se aplica a um operador?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Que ADR ou RFC define isto?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Mostra um exemplo seguro.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Como se propõe uma alteração por RFC ou ADR?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Quem decide isto na governança do protocolo?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Que invariante financeira protege isto?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Como é que um operador implementa isto?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Quais são os passos seguintes para implementar?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Que evidência é que eu publico?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Mostrar o manifesto do Operador Zero",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Ver a conformidade do Operador Zero",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Ver as chaves e a confiança do Operador Zero",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Explica o conceito por trás deste exemplo.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Que ADR ou RFC define isto?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Como é que isto se aplica a um operador?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Que ADR ou RFC define isto?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Mostra um exemplo seguro.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Mostrar a duração por etapa",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Explicar a etapa mais lenta",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Comparar com a execução anterior",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Como executo uma validação para gerar medições?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "O que é que o BanzAI regista durante uma validação?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "O que é o protocolo BANZA?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "O que é que o BanzAI pode responder sobre o protocolo?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "O que faz esta ferramenta quando está disponível?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Que alternativa existe para obter isto?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Pode detalhar a que se refere?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Que ADR ou RFC está relacionado com isto?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "O que é preciso para responder a isto?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Que evidência é que torna isto respondível?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Que fontes é que respondem a isto?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Que ADR ou RFC define isto?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Explicar a maior diferença entre as execuções",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Reproduzir a execução mais recente",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Qual foi o reason code deste resultado?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Como é que se corrige isto?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "O que significa este reason code?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/suggestions.ts",
+   "owner_class": "reader-data-module",
+   "origin": "literal",
+   "pt": "Como é que se resolve este reason code?",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/traceVerifier.ts",
+   "owner_class": "mixed",
+   "origin": "jsx",
+   "pt": "| null = null;\n\nasync function core(): Promise",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/traceVerifier.ts",
+   "owner_class": "mixed",
+   "origin": "literal",
+   "pt": "FAIL técnico",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/traceVerifier.ts",
+   "owner_class": "mixed",
+   "origin": "literal",
+   "pt": "PASS técnico",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/traceVerifier.ts",
+   "owner_class": "mixed",
+   "origin": "literal",
+   "pt": "Incompleto — dados insuficientes",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/traceVerifier.ts",
+   "owner_class": "mixed",
+   "origin": "literal",
+   "pt": "Trace válido",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/traceVerifier.ts",
+   "owner_class": "mixed",
+   "origin": "literal",
+   "pt": ", amount_minor: 5000, currency:",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/traceVerifier.ts",
+   "owner_class": "mixed",
+   "origin": "literal",
+   "pt": ", gross_minor: 5000, net_minor: 4950, fee_minor: 50, status:",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/traceVerifier.ts",
+   "owner_class": "mixed",
+   "origin": "literal",
+   "pt": ", amount_minor: 5000, currency:",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/traceVerifier.ts",
+   "owner_class": "mixed",
+   "origin": "literal",
+   "pt": ", gross_minor: 5000, net_minor: 4950, fee_minor: 100, status:",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/traceVerifier.ts",
+   "owner_class": "mixed",
+   "origin": "literal",
+   "pt": ", amount_minor: 5000, currency:",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/traceVerifier.ts",
+   "owner_class": "mixed",
+   "origin": "literal",
+   "pt": ", gross_minor: 5000, net_minor: 4950, fee_minor: 50, status:",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/traceVerifier.ts",
+   "owner_class": "mixed",
+   "origin": "literal",
+   "pt": ", gross_minor: 5000, net_minor: 4950, fee_minor: 50, status:",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "[s.id, s])) as Record",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "void;\n  \n  workflow: ValidationWorkflow;\n  steps: StepMeta[];\n  results: Record",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "([]);\n  const [operatorsLoading, setOperatorsLoading] = useState(true);\n  const [operatorsError, setOperatorsError] = useState(false);\n  const [operatorId, setOperatorId] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(\n    isClosedId(opts.initialOperatorId) ? opts.initialOperatorId : null,\n  );\n  const [implementationId, setImplementationId] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(\n    isClosedId(opts.initialOperatorId) && isClosedId(opts.initialImplementationId) ? opts.initialImplementationId : null,\n  );\n  const [results, setResults] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(blankResults);\n  const [journeyReceipt, setJourneyReceipt] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(null);\n  const [persistence, setPersistence] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(null);\n  const [recheckingPersistence, setRecheckingPersistence] = useState(false);\n  const [runningAll, setRunningAll] = useState(false);\n  const [activeStep, setActiveStep] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(initialActiveStep(workflow, opts.initialStep));\n\n  \n  \n  const runTokenRef = useRef(0);\n  const abortRef = useRef",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "r != null),\n    [results],\n  );\n\n  const certificationReadiness = useMemo",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Resolve a implementação no registo técnico fechado e obtém o documento de discovery da sua origem canónica. O motor Rust decide se a superfície pública é reconhecível.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Obtém o operator manifest publicado no endpoint declarado e valida campos obrigatórios, tipos, endpoints e a invariante de segurança. Estado VALID/INCOMPLETE/INVALID/MALFORMED calculado em Rust.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Obtém a signed metadata, o key manifest e a lista de revogação publicados e avalia o material de chaves real: assinatura, chave delegada e revogação. O veredicto corre em Rust.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Obtém e verifica a evidência de conformidade publicada pela implementação, incluindo as invariantes financeiras do protocolo. PASS/FAIL técnico calculado em Rust.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Obtém os artefactos de pagamento/refund, ledger e traces publicados e valida o fluxo, a idempotência, o double-entry e o settlement (L2 readiness). Estado calculado em Rust.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Confiança",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Avalia o trust do protocolo a partir da signed metadata publicada: chaves delegadas, manifest, evidência de conformidade, registo e revogação. O estado de trust corre em Rust.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Federação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Obtém a metadata e o manifest de federação publicados e os traces cross-operator e prepara a interoperabilidade entre operadores (L3 readiness). Estado calculado em Rust.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Obtém o Evidence Bundle publicado pela implementação e valida artefactos obrigatórios/em falta e a integridade SHA-256. Tudo calculado em Rust a partir do bundle obtido.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Prontidão de certificação",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Agrega em Rust os veredictos das oito etapas técnicas numa Prontidão de Certificação (READY/BLOCKED). Não emite um Registo de Certificação e nunca devolve CERTIFIED (ADR-034 §4.10).",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Não avaliado",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Não aplicável",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "A executar a jornada…",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Jornada por iniciar",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Jornada concluída com um bloqueio",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Jornada concluída · todas as etapas verificadas",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/banzai/validationJourney.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "|| results[id].status ===",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/decisoes/DecisionMarkdown.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "|| part ===",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/decisoes/DecisionsExplorer.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(\"all\");\n  const [state, setState] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/decisoes/DecisionsExplorer.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(\"all\");\n  const [category, setCategory] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/decisoes/DecisionsExplorer.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "(\"all\");\n  const [query, setQuery] = useState",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/decisoes/DecisionsExplorer.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Pesquisar decisões",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/decisoes/DecisionsExplorer.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Todos os temas",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/decisoes/DecisionsExplorer.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "A biblioteca lista todos os ADRs e RFCs do Protocolo BANZA v1.0 — activos, rascunhos e\n        substituídos. Os registos substituídos mantêm-se publicados: o rasto de decisões é parte da\n        governação aberta.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/decisoes/DecisionsExplorer.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Nenhum documento encontrado.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/decisoes/DecisionsExplorer.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Ajuste os filtros ou limpe a pesquisa.",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/decisoes/DecisionsExplorer.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Não normativo",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/decisoes/DecisionsExplorer.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Conteúdo completo · língua original",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/decisoes/DecisionsExplorer.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Ler conteúdo completo",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/decisoes/DecisionsExplorer.tsx",
+   "owner_class": "reader-component",
+   "origin": "jsx",
+   "pt": "Explicar com BanzAI",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/decisoes/DecisionsExplorer.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Substituído",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/decisoes/DecisionsExplorer.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Substituídos",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/decisoes/DecisionsExplorer.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-line-2 bg-paper-3 text-ink-5",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/decisoes/DecisionsExplorer.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-pend/40 bg-tint-gold text-pend",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/decisoes/DecisionsExplorer.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex flex-col gap-4",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/decisoes/DecisionsExplorer.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex flex-wrap items-center gap-x-6 gap-y-3",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/decisoes/DecisionsExplorer.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex flex-wrap items-center gap-2",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/decisoes/DecisionsExplorer.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-bordo bg-bordo text-white",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/decisoes/DecisionsExplorer.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-line bg-white text-ink-2 hover:border-bordo/40 hover:text-bordo",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/decisoes/DecisionsExplorer.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex flex-wrap items-center gap-2",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/decisoes/DecisionsExplorer.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-seal bg-seal/10 text-seal",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/decisoes/DecisionsExplorer.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "border-line bg-white text-ink-3 hover:border-seal hover:text-seal",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/decisoes/DecisionsExplorer.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "flex flex-wrap items-center gap-x-4 gap-y-3",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/decisoes/DecisionsExplorer.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "Pesquisar por código, título, tema…",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/decisoes/DecisionsExplorer.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "mb-3 flex flex-wrap items-center gap-2",
+   "parameterized": false
+  },
+  {
+   "file": "website/components/decisoes/DecisionsExplorer.tsx",
+   "owner_class": "reader-component",
+   "origin": "literal",
+   "pt": "mt-auto flex flex-wrap items-center gap-x-4 gap-y-2",
+   "parameterized": false
+  }
+ ]
+}
