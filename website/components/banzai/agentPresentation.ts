@@ -453,6 +453,14 @@ export const AGENT_COPY = {
   "tp.validation.rejected": L("rejeitada", "rejected"),
   "tp.validation.passed": L("aprovada", "passed"),
   "tp.validation.notApplicable": L("não aplicável", "not applicable"),
+  "dev.title": L("Programadores", "Developers"),
+  "dev.intro": L("Ferramentas e referência para quem implementa o protocolo. A validação oficial de operador é sempre com origem nos endpoints públicos; aqui vivem as ferramentas locais de rascunho e a referência técnica.", "Tools and reference for those implementing the protocol. Official operator validation always originates at the public endpoints; what lives here is the local draft tooling and the technical reference."),
+  "dev.section.tools": L("FERRAMENTAS", "TOOLS"),
+  "dev.section.commands": L("COMANDOS (RUST-FIRST)", "COMMANDS (RUST-FIRST)"),
+  "dev.section.publicEndpoints": L("ENDPOINTS PÚBLICOS", "PUBLIC ENDPOINTS"),
+  "dev.section.faq": L("PERGUNTAS FREQUENTES", "FREQUENTLY ASKED QUESTIONS"),
+  "dev.section.repository": L("REPOSITÓRIO", "REPOSITORY"),
+  "dev.opensNewTab": L("abre numa nova aba", "opens in a new tab"),
 } as const;
 
 export type AgentCopyId = keyof typeof AGENT_COPY;

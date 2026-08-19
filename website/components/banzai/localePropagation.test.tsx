@@ -515,3 +515,30 @@ describe("Q5 — the transparency panel accounts for itself in the reader's lang
     }
   });
 });
+
+// ── Q5 — the developer tools panel (the last owner) ──────────────────────────────────────────────────
+
+import { ProgramadoresTools } from "./ProgramadoresTools";
+
+describe("Q5 — the developer panel renders in the reader's edition", () => {
+  const render = (l: Locale) =>
+    text(
+      renderToStaticMarkup(
+        <BanzaiLocaleBoundary locale={l}>
+          <ProgramadoresTools onAsk={() => {}} />
+        </BanzaiLocaleBoundary>,
+      ),
+    );
+
+  it("renders each edition's own copy and neither the other's", () => {
+    const en = render("en");
+    const pt = render("pt");
+    for (const id of ["dev.title", "dev.intro", "dev.section.publicEndpoints", "dev.opensNewTab"] as const) {
+      expect(en, `${id} is not in English`).toContain(agentCopy(id, "en"));
+      expect(pt).toContain(agentCopy(id, "pt"));
+      expect(en, `${id} leaked the Portuguese realization`).not.toContain(agentCopy(id, "pt"));
+    }
+    // The panel's whole point is that official validation happens elsewhere; both editions say so.
+    expect(agentCopy("dev.intro", "en")).toMatch(/originates at the public endpoints/);
+  });
+});

@@ -11,6 +11,8 @@ import { Ico, CARD } from "@/components/banzai/banzaiUi";
 import { GitHubMark } from "@/components/GitHubMark";
 import { DEV_COMMANDS, DEV_ENDPOINTS, DEV_QUESTIONS, REPO_LINK } from "@/components/banzai/banzai-agent";
 import { DraftValidationTool } from "@/components/banzai/DraftValidationTool";
+import { useBanzaiLocale } from "@/components/banzai/BanzaiWorkspaceProvider";
+import { agentCopy, type AgentCopyId } from "@/components/banzai/agentPresentation";
 
 function DevQChip({ q, onAsk }: { q: string; onAsk: (t: string) => void }) {
   return (
@@ -27,6 +29,8 @@ function DevQChip({ q, onAsk }: { q: string; onAsk: (t: string) => void }) {
 }
 
 export function ProgramadoresTools({ onAsk }: { onAsk: (t: string) => void }) {
+  const locale = useBanzaiLocale();
+  const t = (id: AgentCopyId) => agentCopy(id, locale);
   return (
     <div className="mx-auto max-w-[760px] pb-4">
       <div className="mb-6 flex items-start gap-[14px]">
@@ -34,17 +38,17 @@ export function ProgramadoresTools({ onAsk }: { onAsk: (t: string) => void }) {
           <Ico name="terminal" size={22} sw={1.5} />
         </span>
         <div className="pt-0.5">
-          <h2 className="m-0 font-serif text-[clamp(20px,2.4vw,26px)] font-semibold leading-[1.2] text-ink">Programadores</h2>
-          <p className="mb-0 mt-1.5 max-w-[58ch] text-[14px] leading-[1.55] text-ink-3">Ferramentas e referência para quem implementa o protocolo. A validação oficial de operador é sempre com origem nos endpoints públicos; aqui vivem as ferramentas locais de rascunho e a referência técnica.</p>
+          <h2 className="m-0 font-serif text-[clamp(20px,2.4vw,26px)] font-semibold leading-[1.2] text-ink">{t("dev.title")}</h2>
+          <p className="mb-0 mt-1.5 max-w-[58ch] text-[14px] leading-[1.55] text-ink-3">{t("dev.intro")}</p>
         </div>
       </div>
 
       {/* Ferramentas — the isolated developer draft tool */}
-      <div className="mb-3 mt-2 font-mono text-[10.5px] tracking-[0.16em] text-ink-5">FERRAMENTAS</div>
+      <div className="mb-3 mt-2 font-mono text-[10.5px] tracking-[0.16em] text-ink-5">{t("dev.section.tools")}</div>
       <DraftValidationTool />
 
       {/* Referência técnica */}
-      <div className="mb-3 mt-8 font-mono text-[10.5px] tracking-[0.16em] text-ink-5">COMANDOS (RUST-FIRST)</div>
+      <div className="mb-3 mt-8 font-mono text-[10.5px] tracking-[0.16em] text-ink-5">{t("dev.section.commands")}</div>
       <div className={`p-[14px] ${CARD}`}>
         <div className="flex flex-col gap-[6px]">
           {DEV_COMMANDS.map((c) => (
@@ -53,7 +57,7 @@ export function ProgramadoresTools({ onAsk }: { onAsk: (t: string) => void }) {
         </div>
       </div>
 
-      <div className="mb-3 mt-8 font-mono text-[10.5px] tracking-[0.16em] text-ink-5">ENDPOINTS PÚBLICOS</div>
+      <div className="mb-3 mt-8 font-mono text-[10.5px] tracking-[0.16em] text-ink-5">{t("dev.section.publicEndpoints")}</div>
       <div className={`p-[14px] ${CARD}`}>
         <div className="flex flex-col gap-[5px]">
           {DEV_ENDPOINTS.map((e) => (
@@ -62,14 +66,14 @@ export function ProgramadoresTools({ onAsk }: { onAsk: (t: string) => void }) {
         </div>
       </div>
 
-      <div className="mb-3 mt-8 font-mono text-[10.5px] tracking-[0.16em] text-ink-5">PERGUNTAS FREQUENTES</div>
+      <div className="mb-3 mt-8 font-mono text-[10.5px] tracking-[0.16em] text-ink-5">{t("dev.section.faq")}</div>
       <div className="flex flex-col gap-[8px]">
         {DEV_QUESTIONS.map((q) => (
           <DevQChip key={q} q={q} onAsk={onAsk} />
         ))}
       </div>
 
-      <div className="mb-3 mt-8 font-mono text-[10.5px] tracking-[0.16em] text-ink-5">REPOSITÓRIO</div>
+      <div className="mb-3 mt-8 font-mono text-[10.5px] tracking-[0.16em] text-ink-5">{t("dev.section.repository")}</div>
       <a
         href={REPO_LINK.href}
         target="_blank"
@@ -78,7 +82,7 @@ export function ProgramadoresTools({ onAsk }: { onAsk: (t: string) => void }) {
       >
         <GitHubMark size={16} />
         <span className="flex-1 text-[13.5px] text-ink-2">{REPO_LINK.name}</span>
-        <span className="font-mono text-[10.5px] text-ink-5">abre numa nova aba</span>
+        <span className="font-mono text-[10.5px] text-ink-5">{t("dev.opensNewTab")}</span>
         <Ico name="arrow" size={15} className="flex-none text-ink-5 transition-transform group-hover:translate-x-0.5 group-hover:text-bordo" />
       </a>
     </div>
