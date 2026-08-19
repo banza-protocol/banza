@@ -378,3 +378,56 @@ describe("Q5 — the agent shell decides its verdicts once", () => {
     }
   });
 });
+
+// ── Q5 — the sources block ───────────────────────────────────────────────────────────────────────────
+//
+// This block already HAD an English label for every source kind. It was unreachable behind a default
+// parameter, so every reader saw Portuguese while the tests passed. That is the shape to check for: a
+// bilingual table is not a bilingual surface until something requires the reader's edition.
+
+import { SourceKindChip, sourceChipKind, sourceKindLabel } from "./SourceBlock";
+
+describe("Q5 — a source's chip is resolved once and named per edition", () => {
+  const chip = (l: Locale, source: { kind?: string; category?: string }) =>
+    renderToStaticMarkup(
+      <BanzaiLocaleBoundary locale={l}>
+        <SourceKindChip source={source} />
+      </BanzaiLocaleBoundary>,
+    );
+  const witness = (html: string) => html.match(/data-source-chip="([^"]*)"/)?.[1];
+
+  const SOURCES = [
+    { kind: "adr", category: "decision" },
+    { kind: "spec", category: "normative" },
+    { kind: "governance", category: "reference" },
+    { kind: "code", category: "implementation" },
+    { kind: "", category: "security-boundary" },
+    { kind: "totally-unknown", category: "" },
+  ];
+
+  it("resolves the same chip for both editions and names it in the reader's language", () => {
+    for (const s of SOURCES) {
+      const en = chip("en", s);
+      const pt = chip("pt", s);
+      expect(witness(en), `${s.kind}/${s.category}: chips diverged`).toBe(witness(pt));
+      expect(witness(en)).toBe(sourceChipKind(s));
+      // The witness is not decorative: the rendered words are this kind's label in this edition.
+      expect(text(en)).toBe(sourceKindLabel(String(s.kind || ""), "en"));
+      expect(text(pt)).toBe(sourceKindLabel(String(s.kind || ""), "pt"));
+    }
+  });
+
+  it("requires the reader's edition and never quietly answers in Portuguese", () => {
+    expect(sourceKindLabel.length).toBe(2);
+    // The pairs that genuinely differ must differ; the acronyms must not be invented in either edition.
+    for (const kind of ["spec", "contract", "conformance", "governance", "reference", "code", "doc"]) {
+      expect(sourceKindLabel(kind, "en"), `${kind} is untranslated`).not.toBe(sourceKindLabel(kind, "pt"));
+    }
+    for (const kind of ["adr", "rfc"]) {
+      expect(sourceKindLabel(kind, "en")).toBe(sourceKindLabel(kind, "pt"));
+    }
+    // An unclassified source is labelled honestly in both — never as a reference it is not.
+    expect(sourceKindLabel("nope", "pt")).toBe("FONTE");
+    expect(sourceKindLabel("nope", "en")).toBe("SOURCE");
+  });
+});
