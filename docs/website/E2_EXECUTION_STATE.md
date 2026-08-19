@@ -81,7 +81,7 @@ session picks the next NOT_STARTED row by descending weight and does not re-deri
 | `components/banzai/BanzaiAgent.tsx` (beyond the Q1/Q3 wiring) | 89 | **DONE — mutation-owned** | `62ac3df`, `4536358`, `6b776fc` |
 | `components/banzai/BanzaiOnboardingMode.tsx` + `ONBOARDING_COPY` (migrated out of `banzai-agent.ts`) | 69 | **DONE** | `0e25d27` |
 | `components/banzai/validationJourney.tsx` | 29 | **DONE — mutation-owned** | `12e3058`, `44aeea0`, `cc39923` |
-| `components/banzai/DraftValidationTool.tsx` (beyond the Q3 `traceStatus` thread) | 26 | NOT_STARTED | — |
+| `components/banzai/DraftValidationTool.tsx` (beyond the Q3 `traceStatus` thread) | 26 | **DONE — mutation-owned** | `e896aa9`, `02623f3` |
 | `components/banzai/SourceBlock.tsx` | 19 | NOT_STARTED | — |
 | `components/banzai/banzaiUi.tsx` | 19 | NOT_STARTED | — |
 | `components/banzai/TransparencyPanel.tsx` | 10 | NOT_STARTED | — |
@@ -115,6 +115,8 @@ the next owner, follow what it CALLS, not only what it renders.
 | Q5-D | the EN edition reaches a different answer-badge verdict | **SURVIVED FIRST, THEN KILLED** — see below |
 | Q5-E | step titles ignore the reader's edition | **KILLED** — `stepTitle` forced to `"pt"`; RED on "conformance title is untranslated"; exact restore (`c040674`), green |
 | Q5-F | the EN edition reports a different journey outcome | **SURVIVED FIRST, THEN KILLED** — the third instance of the same shape; see below |
+| Q5-G | the draft verdict badge ignores the boundary | **KILLED FIRST TIME** — forced to `"pt"` under an `en` boundary; RED on the rendered verdict; exact restore (`109ca22`), green |
+| Q5-H | the EN edition reports an invalid draft as valid | **KILLED FIRST TIME** — the render owner was built BEFORE localizing, so the Q5-D/Q5-F class had nowhere to hide; RED on "ok=false: wrong witness"; exact restore, green |
 
 **Q5-B is the most important result in this block so far.** Making the English edition present a PENDING
 run as durably archived passed every property the surface had: it was correct English, the raw
@@ -176,8 +178,10 @@ could disagree and nothing noticed. **A witness that is not asserted against the
 decorative.** The property now requires both: the witness equals the result's kind in each edition, AND
 the rendered text is exactly that result's realization.
 
-Three owners have now needed the same fix (`AnswerBadge`, `JourneyProgress`, the persistence verdict).
-When a remaining owner renders a state-dependent sentence, build the component first.
+Three owners needed the same fix after the fact (`AnswerBadge`, `JourneyProgress`, the persistence
+verdict). **The draft tool is the first owner where the rule was applied in advance** — `DraftVerdictBadge`
+was extracted before any copy was localized — and both of its mutations died on the first attempt. Build
+the component first; it is cheaper than discovering the survivor.
 
 A mutation that survives is a finding, not a failure of the campaign: build the missing owner, commit it
 green, rerun. Both surviving mutations in E1 (glossary semantic swap, EN glossary rendering PT) forced
@@ -187,10 +191,17 @@ owners that did not exist and would not otherwise have been written.
 
 | | count |
 |---|---|
-| semantic presentation ids assigned | 582 (Q1 catalogue 126 · Q2 67 · Q3 7 · Q4 77 · Q5 305) |
-| PT realizations complete | 582 / 582 |
-| EN realizations complete | 582 / 582 |
-| unclassified reader occurrences | ~76 (the NOT_STARTED rows above) |
+| semantic presentation ids assigned | 607 (Q1 catalogue 126 · Q2 67 · Q3 7 · Q4 77 · Q5 330) |
+| PT realizations complete | 607 / 607 |
+| EN realizations complete | 607 / 607 |
+| unclassified reader occurrences | ~50 (the NOT_STARTED rows above) |
+
+`DraftValidationTool` is closed-world verified (**0** Portuguese literals). It reused Q3's `traceVerifier`
+rather than duplicating it, and fixed a real defect there on the way: the runner was storing the trace
+verdict's realized SENTENCE in `status`, a field that holds an engine enum for every other artifact type,
+and rendering it beside those enums as though it were one. The verdict is now decided by `traceTone` (no
+locale in scope), the runner returns its copy id and takes no locale at all — it produces data — and the
+render realizes it.
 
 `validationJourney` is closed-world verified: a sweep for Portuguese literals over the whole file returns
 **0**. The journey is ONE definition — `id`, `num` and `engine` on the step; title and blurb looked up by
