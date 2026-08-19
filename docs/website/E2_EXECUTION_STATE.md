@@ -1,0 +1,103 @@
+# Website Phase 2 — Block E2 execution state
+
+An engineering ledger, not protocol documentation. It exists so E2 can be executed across sessions
+without re-deriving the plan each time: the queue below is fixed, and each unit records what was
+actually committed and proven rather than what was intended.
+
+Seven earlier attempts at E2 each ended in a corrected measurement rather than shipped work — the file
+count went 28 → 17, the item count 754 → 630, the `.ts` modules were assumed machine-only and turned
+out to be the two largest reader surfaces. That discovery is finished and frozen below. This file is
+what stops it from being repeated.
+
+## Baseline
+
+| | |
+|---|---|
+| branch | `feat/website-phase2-bilingual-parity` |
+| E1 frozen at | `4e13af6` (COMPLETE AND FROZEN) |
+| BanzAI backend frozen at | `f336bfa` (COMPLETE AND FROZEN) |
+| registry at E2 start | implemented_en 17 · missing_en 5 · intentional_pt_only 1 |
+| registry target | implemented_en 22 · missing_en 0 · intentional_pt_only 1 |
+| canonical inventory | `docs/website/e2-presentation-inventory.json` (generated) |
+| inventory generator | `tools/gen-e2-presentation-inventory.py` |
+
+Website locale vocabulary is `pt | en` from `website/lib/i18n.ts`. The BanzAI runtime's `pt-PT` tag is a
+different vocabulary and must not enter Website presentation code.
+
+## Frozen discovery
+
+19 production source files · 659 raw occurrences · 658 reader-facing · 1 machine-only.
+
+| owner class | files | note |
+|---|---|---|
+| reader-component | 13 | React presentation owners |
+| reader-data-module | 2 | `banzai-agent.ts` (121), `suggestions.ts` (73) — no React context reaches them |
+| transparent | 2 | `BanzaiWorkspaceProvider`, `BanzaiRouteBinder` — zero reader items; this is the locale boundary |
+| mixed | 1 | `traceVerifier.ts` — a reader status plus canonical JSON literals |
+| machine | 1 | `safeLinks.ts` — hostnames only |
+
+`FORBIDDEN_PHRASES` in `banzai-agent.ts` is **machine-only**: it is guard input asserted by
+`banzai-agent.test.ts` and deliberately excluded from `lib/publicSurface.test.ts`. It is not reader copy
+and stays out of the localization catalogue.
+
+## Standing rules
+
+- **Localize once.** When an owner enters the semantic presentation architecture, its PT is preserved
+  *and* its EN is authored in the same unit. Do not plan a second pass over the same 658 items.
+- **Public EN routes stay disabled** until closed-world EN coverage is complete (Q6). An EN shell around
+  a Portuguese application is the exact defect mutation C caught in E1.
+- **No silent PT default** below the route boundary — no `locale ?? "pt"`, no global locale, no pathname
+  or browser inference.
+- **Semantic facts stay single-source.** Mixed records keep `mode` / `icon` / `key` / `group` / `href`;
+  only the reader label is localized.
+- A unit is `GREEN_COMMITTED` only when implementation is committed, the relevant suite is green and the
+  tree is clean. A mutation is `MUTATION_PROVEN` only after a green baseline, a real changed-state
+  mutation, RED for the intended reason, exact restore and a green rerun.
+
+## Queue
+
+| # | unit | state | commit | notes |
+|---|---|---|---|---|
+| Q1 | `banzai-agent.ts` — semantic ids, PT parity, EN authoring, `getAgentPresentation(locale)`, E2-C2 | NOT_STARTED | — | |
+| Q2 | `suggestions.ts` — one selection algorithm, `contextualSuggestions(ctx, locale)`, PT+EN, selection parity | NOT_STARTED | — | params live in code, not templates |
+| Q3 | `traceVerifier.ts` + locale into `BanzaiRouteBinder → BanzaiWorkspaceProvider`, controlled EN harness, E2-C1 | NOT_STARTED | — | |
+| Q4 | DECISIONS + DECISION — one semantic decision model, PT+EN, E2-F | NOT_STARTED | — | state decides · reason codes explain |
+| Q5 | remaining 13 React reader owners, by descending weight | NOT_STARTED | — | complete when missing PT = missing EN = unclassified = 0 |
+| Q6 | five public EN routes + dynamic identity, E2-D, E2-E | NOT_STARTED | — | only after Q5 |
+| Q7 | EN backlink closure + full mutation campaign A–G | NOT_STARTED | — | |
+| Q8 | final closure: registry 22/0/1, rendered matrix, all regressions, assurance | NOT_STARTED | — | only Q8 may declare Block E complete |
+
+## Mutations
+
+| id | target | state |
+|---|---|---|
+| E2-A | EN workspace selects PT catalogue | NOT_STARTED |
+| E2-B | remove one EN realization in use | NOT_STARTED |
+| E2-C1 | React locale propagation broken at a nested boundary | NOT_STARTED |
+| E2-C2 | non-React owner ignores explicit locale | NOT_STARTED |
+| E2-D | operator locale switch changes `operatorId` | NOT_STARTED |
+| E2-E | implementation locale switch changes `implementationId` | NOT_STARTED |
+| E2-F | EN decision carries a different semantic payload | NOT_STARTED |
+| E2-G | EN reader link points back at the PT route | NOT_STARTED |
+
+A mutation that survives is a finding, not a failure of the campaign: build the missing owner, commit it
+green, rerun. Both surviving mutations in E1 (glossary semantic swap, EN glossary rendering PT) forced
+owners that did not exist and would not otherwise have been written.
+
+## Debt
+
+| | count |
+|---|---|
+| semantic presentation ids assigned | 0 |
+| PT realizations complete | 0 |
+| EN realizations complete | 0 |
+| unclassified reader occurrences | 658 (whole surface, pre-Q1) |
+
+## Final gates (Q8)
+
+Registry 22 / 0 / 1 · Website suite green · TypeScript exit 0 · production build exit 0 · rendered PT/EN
+matrix for all five route classes · E1 frozen regression · Blocks A–D · BanzAI critical battery exit 0 ·
+live required-context inventory · `make assurance-check` exit 0 with AG-0…AG-9 PASS and AG-10 NOT_RUN ·
+tree clean.
+
+No PR, no merge, no deploy until Block E is complete and explicitly approved.
