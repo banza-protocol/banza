@@ -173,20 +173,23 @@ describe("full shell — English chrome resolves implemented English counterpart
 
   it("routes with NO English edition keep their canonical Portuguese path — no invented /en URLs", () => {
     const chrome = chromeOnly(renderShell("/en"));
-    // BanzAI, the decisions record and the licence are not translated yet; the registry says so, and the
-    // chrome obeys. The Technical Registry used to be listed here and no longer is — it gained an English
-    // edition, and the chrome followed without this assertion needing to know, which is the property.
+    // BanzAI and the decisions record are not translated yet; the registry says so, and the chrome obeys.
+    // The Technical Registry used to be listed here, and the licence has now followed it out — each gained
+    // an English edition and the chrome tracked it without this assertion needing to know, which is the
+    // property. What stays here is only what genuinely has no English edition.
     expect(pathFor("BANZAI", "en")).toBeNull();
     expect(pathFor("DECISIONS", "en")).toBeNull();
-    expect(pathFor("LICENSE", "en")).toBeNull();
     expect(chrome).toContain('href="/banzai"');
     expect(chrome).toContain('href="/decisoes"');
-    expect(chrome).toContain('href="/licenca"');
     expect(chrome).not.toContain('href="/en/banzai"');
     expect(chrome).not.toContain('href="/en/decisoes"');
-    // The Technical Registry now resolves to its English edition in the English chrome.
+    // Routes that DO have an English edition resolve to it in the English chrome.
     expect(pathFor("TECHNICAL_REGISTRY", "en")).toBe("/en/technical-registry");
     expect(chrome).toContain('href="/en/technical-registry"');
+    expect(pathFor("LICENSE", "en")).toBe("/en/license");
+    expect(pathFor("GLOSSARY", "en")).toBe("/en/glossary");
+    expect(pathFor("WHITEPAPER", "en")).toBe("/en/whitepaper");
+    expect(pathFor("WHITEPAPER_VERSIONS", "en")).toBe("/en/whitepaper/versions");
   });
 
   // §17 — the defect was in shared chrome, so one page proves nothing about the other four.

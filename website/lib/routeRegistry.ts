@@ -144,7 +144,7 @@ export const ROUTES: readonly RouteRecord[] = Object.freeze([
     note: "'Governança aberta' — a real page, not the alias above.",
   },
   { id: "HOME", pt: "/", en: "/en", kind: "STATIC_PAGE", policy: "BILINGUAL" },
-  { id: "LICENSE", pt: "/licenca", kind: "STATIC_PAGE", policy: "BILINGUAL" },
+  { id: "LICENSE", pt: "/licenca", en: "/en/license", kind: "STATIC_PAGE", policy: "BILINGUAL" },
   {
     id: "OPERATORS",
     pt: "/operadores",
@@ -229,7 +229,7 @@ export const ROUTES: readonly RouteRecord[] = Object.freeze([
     policy: "BILINGUAL",
     note: "English URL in English — never /en/confianca.",
   },
-  { id: "WHITEPAPER", pt: "/whitepaper", kind: "STATIC_PAGE", policy: "BILINGUAL" },
+  { id: "WHITEPAPER", pt: "/whitepaper", en: "/en/whitepaper", kind: "STATIC_PAGE", policy: "BILINGUAL" },
   {
     id: "WHITEPAPER_DOC_EN",
     pt: "/whitepaper/en",
@@ -243,7 +243,7 @@ export const ROUTES: readonly RouteRecord[] = Object.freeze([
     kind: "DOCUMENT_LOCALE_SURFACE",
     policy: "DOCUMENT_LOCALE_SPECIAL",
   },
-  { id: "WHITEPAPER_VERSIONS", pt: "/whitepaper/versions", kind: "STATIC_PAGE", policy: "BILINGUAL" },
+  { id: "WHITEPAPER_VERSIONS", pt: "/whitepaper/versions", en: "/en/whitepaper/versions", kind: "STATIC_PAGE", policy: "BILINGUAL" },
   {
     id: "WHY_BANZA",
     pt: "/porque-existe",

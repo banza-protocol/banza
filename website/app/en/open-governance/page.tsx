@@ -98,7 +98,7 @@ export default function EnOpenGovernancePage() {
             <p>
               Taking part in governance{" "}
               <strong className="text-ink">does not automatically grant trademark rights</strong> (see{" "}
-              <Link href="/licenca" className="link-bordo">
+              <Link href="/en/license" className="link-bordo">
                 licence and trademarks
               </Link>
               ).
