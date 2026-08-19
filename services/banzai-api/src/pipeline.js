@@ -25,7 +25,7 @@
 // hit/miss, synthesis trace, fallback reason — never keys, secrets or full payloads.
 
 import { GUARDRAILS } from "./provider.js";
-import { normalize, retrieve, CORPUS_HASH, REPO_INDEX_HASH, SAFETY_POLICY_VERSION, contractVersions, validateResponse, route, routeWithJourney, getEntry, resolveDocument, resolveConcept, resolveScope, resolveOperationalMetric, resolveQuery, resolveReferences, contextualFallback, answerClass, buildTerminal, queuePriority, queueShouldDedup, recoverQuery, coveredEntities, isVerbatimEntry, attributeAnswer, taskedAnswer, documentLookup, contextUsedFor, buildOperationalPackage, verifyClaims, answerFor, LOCALES, DEFAULT_LOCALE } from "./knowledge.js";
+import { normalize, retrieve, CORPUS_HASH, REPO_INDEX_HASH, SAFETY_POLICY_VERSION, contractVersions, validateResponse, route, routeWithJourney, getEntry, resolveDocument, resolveConcept, resolveScope, resolveOperationalMetric, resolveQuery, resolveReferences, contextualFallback, answerClass, buildTerminal, queuePriority, queueShouldDedup, recoverQuery, coveredEntities, isVerbatimEntry, attributeAnswer, taskedAnswer, documentLookup, contextUsedFor, buildOperationalPackage, verifyClaims, answerFor, unavailableRealization, LOCALES, DEFAULT_LOCALE } from "./knowledge.js";
 import { honestLiveFailureAnswer } from "./liveArtifact.js";
 import { isPublicSource } from "./answerContract.js";
 
@@ -413,25 +413,117 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         en: "I found no BANZA operation or public source that supports this request. BanzAI answers about the BANZA protocol — its rules, decisions, contracts and validation runs — and not about subjects outside that scope.",
       },
       ambiguous: {
-        "pt-PT": null, // the engine's own sentence carries the specific disambiguation; see below
+        // Used only when the decision offers NO candidates. When it does, the specific sentence is
+        // composed from them below — in both locales, from the same data.
+        "pt-PT":
+          "Não consegui determinar com precisão o que pretende. Reformule o pedido indicando a operação ou o artefacto a que se refere.",
         en: "I could not determine precisely what you are asking for. Rephrase the request naming the operation or the artifact you mean.",
       },
     },
   };
 
   /**
+   * Reader labels for the engine's DECLARED ambiguity candidates, per locale.
+   *
+   * These are the semantic alternatives — the engine decided WHICH choices to offer, and this decides
+   * how each is named to a reader. Closed-world on purpose: a candidate with no label here is a gap in
+   * presentation, and `ambiguityProse` refuses to guess rather than emitting a raw tag.
+   */
+  const AMBIGUITY_CANDIDATE_LABELS = {
+    "pt-PT": {
+      last_execution: "a última execução",
+      comparable_executions_median: "a mediana das execuções comparáveis",
+      configured_timeout_limit: "o limite de timeout configurado",
+      last_two_executions: "as duas execuções mais recentes",
+      specific_execution_ids: "execuções que identifique explicitamente",
+    },
+    en: {
+      last_execution: "the most recent execution",
+      comparable_executions_median: "the median across comparable executions",
+      configured_timeout_limit: "the configured timeout limit",
+      last_two_executions: "the two most recent executions",
+      specific_execution_ids: "executions you name explicitly",
+    },
+  };
+
+  /**
+   * The sentence frames that carry candidates to a reader.
+   *
+   * TWO FRAMES, because the two candidate classes are not the same kind of thing. A semantic candidate
+   * is a MEANING, and is named in the reader's language. A `term_spelling` candidate is a SPELLING the
+   * recovery layer could not choose between — Portuguese catalogue vocabulary — and translating it
+   * would destroy the very thing being asked about. So English keeps the spellings verbatim and frames
+   * them honestly as terms, rather than presenting Portuguese words as though they were English ones.
+   */
+  const AMBIGUITY_FRAME = {
+    "pt-PT": {
+      semantic: (list) => `Não tenho a certeza de qual pretende — refere-se a ${list}?`,
+      spelling: (list) => `Não tenho a certeza de qual pretende — refere-se a ${list}?`,
+      join: " ou ",
+    },
+    en: {
+      semantic: (list) => `I am not sure which you mean — do you mean ${list}?`,
+      spelling: (list) => `I am not sure which you mean. These catalogue terms match: ${list}.`,
+      join: " or ",
+    },
+  };
+
+  /** Join reader fragments with the locale's conjunction, Oxford-free: "a, b or c". */
+  function joinAlternatives(parts, locale) {
+    const join = AMBIGUITY_FRAME[locale].join;
+    if (parts.length <= 1) return parts[0] || "";
+    return parts.slice(0, -1).join(", ") + join + parts[parts.length - 1];
+  }
+
+  /**
+   * The ambiguity sentence, composed in `locale` from the decision's own typed candidates.
+   *
+   * Returns null when the decision offers nothing to compose from, or when a candidate has no label in
+   * this locale — the caller then uses the generic table entry. Guessing a label, or falling through to
+   * the engine's Portuguese sentence, are the two failures this exists to prevent.
+   */
+  function ambiguityProse(fb, locale) {
+    const candidates = Array.isArray(fb.ambiguity_candidates) ? fb.ambiguity_candidates : [];
+    if (candidates.length === 0) return null;
+    const frame = AMBIGUITY_FRAME[locale];
+    const labels = AMBIGUITY_CANDIDATE_LABELS[locale];
+    if (!frame || !labels) return null;
+
+    const spellings = candidates.filter((c) => c && c.candidate === "term_spelling");
+    if (spellings.length === candidates.length) {
+      const terms = spellings.map((c) => String(c.term || "")).filter(Boolean);
+      if (terms.length === 0) return null;
+      return frame.spelling(joinAlternatives(terms, locale));
+    }
+    if (spellings.length > 0) return null; // mixed classes: no honest single frame — use the generic text
+
+    const named = [];
+    for (const c of candidates) {
+      const label = labels[c && c.candidate];
+      if (!label) return null; // closed world: an unlabelled candidate is a presentation gap, not prose
+      named.push(label);
+    }
+    return frame.semantic(joinAlternatives(named, locale));
+  }
+
+  /**
    * Reader prose for a contextual fallback, in the resolved locale.
    *
-   * Portuguese keeps the engine's own sentence, which is often more specific than a generic one (the
-   * ambiguity fallback names the exact alternatives it could not choose between). English uses the
-   * presentation table. A locale with no realization for this decision gets the localized unavailable
-   * state — never the Portuguese sentence, which is the defect this exists to remove.
+   * BOTH locales are realized here, from the same structured decision. Portuguese used to return the
+   * engine's own `fb.message` — a human sentence authored in Rust — which meant the claim "Rust decides,
+   * JS realizes" was false on the serving path readers actually hit. The specificity that sentence
+   * carried (it names the exact alternatives) is not lost: it is recomposed from
+   * `fb.ambiguity_candidates`, which is the same decision expressed as data.
+   *
+   * `fb.message` is now diagnostics only. It stays on the wire for tests and traces; it is never read
+   * as reader text.
    */
   function fallbackProse(fb, locale) {
+    const composed = ambiguityProse(fb, locale);
+    if (composed) return composed;
     const table = TERMINAL_TEXT.contextual_fallback[fb.kind] || {};
     const owned = table[locale];
     if (owned) return owned;
-    if (locale === DEFAULT_LOCALE && fb.message) return fb.message;
     return unavailableRealization(locale);
   }
 
