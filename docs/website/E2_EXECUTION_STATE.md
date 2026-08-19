@@ -60,7 +60,7 @@ and stays out of the localization catalogue.
 |---|---|---|---|---|
 | Q1 | `banzai-agent.ts` — semantic ids, PT parity, EN authoring, `getAgentPresentation(locale)`, E2-C2 | **MUTATION_PROVEN** | `4311d0b` | 60 semantic ids · PT byte-parity vs live module · EN complete · `components/banzai/agentPresentation.ts` + 9-assertion property |
 | Q2 | `suggestions.ts` — one selection algorithm, `contextualSuggestions(ctx, locale)`, PT+EN, selection parity | **MUTATION_PROVEN** | `a7ef509` | 67 semantic ids · `selectSuggestions` locale-free · 47-context PT fixture reproduced byte for byte · `suggestionsLocale.test.ts` (15 assertions) |
-| Q3 | `traceVerifier.ts` + locale into `BanzaiRouteBinder → BanzaiWorkspaceProvider`, controlled EN harness, E2-C1 | NOT_STARTED | — | |
+| Q3 | `traceVerifier.ts` + locale into `BanzaiRouteBinder → BanzaiWorkspaceProvider`, controlled EN harness, E2-C1 | **MUTATION_PROVEN** | `5623052` | `BanzaiLocaleBoundary` + `useBanzaiLocale` (no default, throws) · 7 trace copy ids · `SURFACE_LOCALE` retired · `localePropagation.test.tsx` (8 assertions) |
 | Q4 | DECISIONS + DECISION — one semantic decision model, PT+EN, E2-F | NOT_STARTED | — | state decides · reason codes explain |
 | Q5 | remaining 13 React reader owners, by descending weight | NOT_STARTED | — | complete when missing PT = missing EN = unclassified = 0 |
 | Q6 | five public EN routes + dynamic identity, E2-D, E2-E | NOT_STARTED | — | only after Q5 |
@@ -73,7 +73,7 @@ and stays out of the localization catalogue.
 |---|---|---|
 | E2-A | EN workspace selects PT catalogue | **KILLED** — realized from `entry.pt` regardless of locale; 4 RED incl. "never serves a Portuguese sentence to an English reader"; exact restore (`f9fc84a`), green |
 | E2-B | remove one EN realization in use | **KILLED** — emptied the English `entity.keys_and_trust`; 10 RED. Fails CLOSED: a missing realization breaks both editions rather than quietly degrading one |
-| E2-C1 | React locale propagation broken at a nested boundary | NOT_STARTED |
+| E2-C1 | React locale propagation broken at a nested boundary | **KILLED** — `GuiaPanel` forced to `getAgentPresentation("pt")` while the boundary above it stayed `en` (hook still called, tree still valid, state unchanged); RED on "the nested guide panel is not in English"; exact restore (`0d4d7e1`), green |
 | E2-C2 | non-React owner ignores explicit locale | **KILLED** — forced `getAgentPresentation` to `"pt"`; RED on "returns the requested locale, never the other one"; exact restore, green |
 | E2-D | operator locale switch changes `operatorId` | NOT_STARTED |
 | E2-E | implementation locale switch changes `implementationId` | NOT_STARTED |
@@ -89,10 +89,10 @@ owners that did not exist and would not otherwise have been written.
 
 | | count |
 |---|---|
-| semantic presentation ids assigned | 127 (Q1 60 · Q2 67) |
-| PT realizations complete | 127 / 127 |
-| EN realizations complete | 127 / 127 |
-| unclassified reader occurrences | ~464 (Q3–Q5 remain) |
+| semantic presentation ids assigned | 134 (Q1 60 · Q2 67 · Q3 7) |
+| PT realizations complete | 134 / 134 |
+| EN realizations complete | 134 / 134 |
+| unclassified reader occurrences | ~457 (Q4–Q5 remain) |
 
 Q1 evidence: Website 746/746 across 51 files · tsc 0 · production build 0 · registry unchanged 17/5/1.
 
@@ -101,10 +101,18 @@ Q2 evidence: Website 761/761 across 52 files · tsc 0 · production build 0 · r
 contexts; it is a parity fixture, not a snapshot to be refreshed — regenerating it to make a test pass
 would destroy the only evidence that Portuguese behaviour survived the refactor.
 
-Q2 left ONE seam for Q3: `BanzaiAgent.tsx` declares `SURFACE_LOCALE` because `/banzai` has no English
-route yet. It is an explicit statement by the presentation owner, not a default inside the generator —
-`contextualSuggestions` requires its locale and throws rather than substituting one. Q3 replaces that
-constant with the propagated locale and nothing else in the chain changes.
+Q3 evidence: Website 769/769 across 53 files · tsc 0 · production build 0 (139 static pages) · registry
+unchanged 17/5/1. The `SURFACE_LOCALE` seam Q2 left is retired: `BanzaiAgent` and the nested `GuiaPanel`
+both read `useBanzaiLocale()`, and `DraftValidationTool` threads it into `traceStatus`.
+
+The locale boundary lives in `BanzaiWorkspaceProvider` and is exported as `BanzaiLocaleBoundary` so the
+provider and the harness exercise the SAME code path — a test that declared its own context would prove
+nothing about production. It holds no default: `useBanzaiLocale` throws outside a boundary rather than
+answering `pt`. Every remaining queue item consumes it; none may re-derive a locale of its own.
+
+`traceVerifier` is the mixed owner the ledger predicted. Localized: the status label, the four fixture
+names. NOT localized and asserted so: `tone` (the engine's verdict), the fixture `key`s, the INV-*
+identifiers, and every literal inside the demo trace payloads.
 
 `FORBIDDEN_PHRASES` classified **machine-only** — guard input, not reader copy, stays out of the
 catalogue.
