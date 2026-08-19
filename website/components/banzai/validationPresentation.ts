@@ -670,6 +670,166 @@ export const VALIDATION_SURFACE_COPY = {
     "do bloqueio",
     "of the block",
   ),
+  "step.title.discovery": L(
+    "Discovery",
+    "Discovery",
+  ),
+  "step.title.manifest": L(
+    "Manifest",
+    "Manifest",
+  ),
+  "step.title.keys": L(
+    "Keys",
+    "Keys",
+  ),
+  "step.title.conformance": L(
+    "Conformidade",
+    "Conformance",
+  ),
+  "step.title.interoperability": L(
+    "Interoperabilidade",
+    "Interoperability",
+  ),
+  "step.title.trust": L(
+    "Confiança",
+    "Trust",
+  ),
+  "step.title.federation": L(
+    "Federação",
+    "Federation",
+  ),
+  "step.title.evidence": L(
+    "Evidence Bundle",
+    "Evidence Bundle",
+  ),
+  "step.title.certification": L(
+    "Prontidão de certificação",
+    "Certification Readiness",
+  ),
+  "step.blurb.discovery": L(
+    "Resolve a implementação no registo técnico fechado e obtém o documento de discovery da sua origem canónica. O motor Rust decide se a superfície pública é reconhecível.",
+    "Resolves the implementation in the closed technical registry and fetches the discovery document from its canonical origin. The Rust engine decides whether the public surface is recognisable.",
+  ),
+  "step.blurb.manifest": L(
+    "Obtém o operator manifest publicado no endpoint declarado e valida campos obrigatórios, tipos, endpoints e a invariante de segurança. Estado VALID/INCOMPLETE/INVALID/MALFORMED calculado em Rust.",
+    "Fetches the operator manifest published at the declared endpoint and validates required fields, types, endpoints and the safety invariant. VALID/INCOMPLETE/INVALID/MALFORMED state computed in Rust.",
+  ),
+  "step.blurb.keys": L(
+    "Obtém a signed metadata, o key manifest e a lista de revogação publicados e avalia o material de chaves real: assinatura, chave delegada e revogação. O veredicto corre em Rust.",
+    "Fetches the published signed metadata, key manifest and revocation list and evaluates the real key material: signature, delegated key and revocation. The verdict runs in Rust.",
+  ),
+  "step.blurb.conformance": L(
+    "Obtém e verifica a evidência de conformidade publicada pela implementação, incluindo as invariantes financeiras do protocolo. PASS/FAIL técnico calculado em Rust.",
+    "Fetches and verifies the conformance evidence published by the implementation, including the protocol's financial invariants. Technical PASS/FAIL computed in Rust.",
+  ),
+  "step.blurb.interoperability": L(
+    "Obtém os artefactos de pagamento/refund, ledger e traces publicados e valida o fluxo, a idempotência, o double-entry e o settlement (L2 readiness). Estado calculado em Rust.",
+    "Fetches the published payment/refund artifacts, ledger and traces and validates the flow, the idempotency, the double-entry and the settlement (L2 readiness). State computed in Rust.",
+  ),
+  "step.blurb.trust": L(
+    "Avalia o trust do protocolo a partir da signed metadata publicada: chaves delegadas, manifest, evidência de conformidade, registo e revogação. O estado de trust corre em Rust.",
+    "Evaluates protocol trust from the published signed metadata: delegated keys, manifest, conformance evidence, registry and revocation. The trust state runs in Rust.",
+  ),
+  "step.blurb.federation": L(
+    "Obtém a metadata e o manifest de federação publicados e os traces cross-operator e prepara a interoperabilidade entre operadores (L3 readiness). Estado calculado em Rust.",
+    "Fetches the published federation metadata and manifest and the cross-operator traces, and prepares operator-to-operator interoperability (L3 readiness). State computed in Rust.",
+  ),
+  "step.blurb.evidence": L(
+    "Obtém o Evidence Bundle publicado pela implementação e valida artefactos obrigatórios/em falta e a integridade SHA-256. Tudo calculado em Rust a partir do bundle obtido.",
+    "Fetches the Evidence Bundle published by the implementation and validates required/missing artifacts and SHA-256 integrity. All computed in Rust from the fetched bundle.",
+  ),
+  "step.blurb.certification": L(
+    "Agrega em Rust os veredictos das oito etapas técnicas numa Prontidão de Certificação (READY/BLOCKED). Não emite um Registo de Certificação e nunca devolve CERTIFIED (ADR-034 §4.10).",
+    "Aggregates, in Rust, the verdicts of the eight technical steps into a Certification Readiness (READY/BLOCKED). It issues no Certification Record and never returns CERTIFIED (ADR-034 §4.10).",
+  ),
+  "stepStatus.NOT_EVALUATED": L(
+    "Não avaliado",
+    "Not evaluated",
+  ),
+  "stepStatus.PENDING": L(
+    "Pendente",
+    "Pending",
+  ),
+  "stepStatus.VERIFIED": L(
+    "Verificado",
+    "Verified",
+  ),
+  "stepStatus.FAILED": L(
+    "Falhou",
+    "Failed",
+  ),
+  "stepStatus.BLOCKED": L(
+    "Bloqueado",
+    "Blocked",
+  ),
+  "stepStatus.NOT_APPLICABLE": L(
+    "Não aplicável",
+    "Not applicable",
+  ),
+  "progress.running": L(
+    "A executar a jornada…",
+    "Running the journey…",
+  ),
+  "progress.notStarted": L(
+    "Jornada por iniciar",
+    "Journey not started",
+  ),
+  "progress.partial": L(
+    "{evaluated}/{total} etapas avaliadas",
+    "{evaluated}/{total} steps evaluated",
+  ),
+  "progress.doneOneBlocker": L(
+    "Jornada concluída com um bloqueio",
+    "Journey complete with one blocker",
+  ),
+  "progress.doneAllVerified": L(
+    "Jornada concluída · todas as etapas verificadas",
+    "Journey complete · every step verified",
+  ),
+  "progress.donePrefix": L(
+    "Jornada concluída",
+    "Journey complete",
+  ),
+  "progress.count.verified.one": L(
+    "{n} verificada",
+    "{n} verified",
+  ),
+  "progress.count.verified.many": L(
+    "{n} verificadas",
+    "{n} verified",
+  ),
+  "progress.count.pending.one": L(
+    "{n} pendente",
+    "{n} pending",
+  ),
+  "progress.count.pending.many": L(
+    "{n} pendentes",
+    "{n} pending",
+  ),
+  "progress.count.failed.one": L(
+    "{n} falhada",
+    "{n} failed",
+  ),
+  "progress.count.failed.many": L(
+    "{n} falhadas",
+    "{n} failed",
+  ),
+  "progress.count.blocked.one": L(
+    "{n} bloqueada",
+    "{n} blocked",
+  ),
+  "progress.count.blocked.many": L(
+    "{n} bloqueadas",
+    "{n} blocked",
+  ),
+  "ctx.step": L(
+    "etapa",
+    "step",
+  ),
+  "ctx.journey": L(
+    "jornada",
+    "journey",
+  ),
 } as const;
 
 export type ValidationCopyId = keyof typeof VALIDATION_SURFACE_COPY;
@@ -679,6 +839,11 @@ export type ValidationCopyId = keyof typeof VALIDATION_SURFACE_COPY;
  * engines emit verbatim. Declared so the completeness property can insist every OTHER id is realized twice.
  */
 export const VALIDATION_IDENTICAL_ACROSS_EDITIONS: ValidationCopyId[] = [
+  "step.title.discovery",
+  "step.title.manifest",
+  "step.title.keys",
+  "step.title.evidence",
+
   "tab.receipts",
   "tab.traces",
   "tab.evidenceBundle",
@@ -745,3 +910,64 @@ const REPRO_OUTCOME_ID: Readonly<Record<string, ValidationCopyId>> = {
   ENGINE_VERSION_UNAVAILABLE: "repro.engineVersionUnavailable",
   BLOCKED: "repro.blocked",
 };
+
+/**
+ * Name a step's VERDICT for a reader. The status is the engine's; this only says it in the reader's
+ * language, and an unrecognised status passes through verbatim rather than being invented.
+ */
+export function stepStatusLabel(status: string, locale: Locale): string {
+  const id = `stepStatus.${status}` as ValidationCopyId;
+  if (!(id in VALIDATION_SURFACE_COPY)) return status;
+  return validationCopy(id, locale);
+}
+
+/** A step's reader-facing name and description, bound by its stable id — never by its position. */
+export function stepTitle(stepId: string, locale: Locale): string {
+  return validationCopy(`step.title.${stepId}` as ValidationCopyId, locale);
+}
+export function stepBlurb(stepId: string, locale: Locale): string {
+  return validationCopy(`step.blurb.${stepId}` as ValidationCopyId, locale);
+}
+
+/**
+ * The journey's progress, as the engine's counters describe it — decided once in `validationJourney`,
+ * with no locale in scope. Realizing it is the only thing that differs between editions: the KIND, the
+ * counts and which counters are non-zero are the same facts for every reader.
+ */
+export type ProgressResult =
+  | Readonly<{ kind: "running" }>
+  | Readonly<{ kind: "notStarted" }>
+  | Readonly<{ kind: "partial"; evaluated: number; total: number }>
+  | Readonly<{ kind: "doneOneBlocker" }>
+  | Readonly<{ kind: "doneAllVerified" }>
+  | Readonly<{ kind: "doneWithCounts"; verified: number; pending: number; failed: number; blocked: number }>;
+
+const COUNT_ORDER = ["verified", "pending", "failed", "blocked"] as const;
+
+/** Realize a progress result. The branch was already taken; this only chooses the words. */
+export function realizeProgress(result: ProgressResult, locale: Locale): string {
+  switch (result.kind) {
+    case "running":
+      return validationCopy("progress.running", locale);
+    case "notStarted":
+      return validationCopy("progress.notStarted", locale);
+    case "partial":
+      return validationCopy("progress.partial", locale, {
+        evaluated: String(result.evaluated),
+        total: String(result.total),
+      });
+    case "doneOneBlocker":
+      return validationCopy("progress.doneOneBlocker", locale);
+    case "doneAllVerified":
+      return validationCopy("progress.doneAllVerified", locale);
+    default: {
+      // Singular/plural is decided per edition from the SAME counts, never ported from Portuguese.
+      const parts = COUNT_ORDER.filter((k) => result[k] > 0).map((k) =>
+        validationCopy(`progress.count.${k}.${result[k] === 1 ? "one" : "many"}` as ValidationCopyId, locale, {
+          n: String(result[k]),
+        }),
+      );
+      return [validationCopy("progress.donePrefix", locale), ...parts].join(" · ");
+    }
+  }
+}

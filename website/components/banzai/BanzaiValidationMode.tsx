@@ -16,6 +16,10 @@ import { VALIDATION_COPY } from "@/components/banzai/banzai-agent";
 import { useBanzaiLocale } from "@/components/banzai/BanzaiWorkspaceProvider";
 import {
   publicationStatusLabelFor,
+  realizeProgress,
+  stepBlurb,
+  stepStatusLabel,
+  stepTitle,
   reproOutcomeLabel,
   validationCopy,
   type ValidationCopyId,
@@ -27,7 +31,6 @@ import type { Locale } from "@/lib/i18n";
 const copy = (locale: Locale) => (id: ValidationCopyId, params?: Record<string, string>) =>
   validationCopy(id, locale, params);
 import {
-  STATUS_LABEL_PT,
   STEP_META,
   shortHash,
   type StepId,
@@ -197,7 +200,7 @@ function explainPrompt(session: ValidationSession, id: StepId, locale: Locale): 
   const st = session.results[id];
   const r = st.receipt;
   const impl = session.implementation;
-  const parts: string[] = [t("explain.opening", { title: m.title, engine: m.engine })];
+  const parts: string[] = [t("explain.opening", { title: stepTitle(id, locale), engine: m.engine })];
   if (impl) parts.push(t("explain.identity", { operator: impl.operator_id, implementation: impl.implementation_id }));
   if (r) {
     parts.push(t("explain.status", { status: st.status }));
@@ -320,6 +323,7 @@ export function ValidationContextSetup({ session }: { session: ValidationSession
 
 /* ── Left sidebar: the 9-step spine ─────────────────────────────────────────── */
 export function ValidationStepNav({ session }: { session: ValidationSession }) {
+  const locale = useBanzaiLocale();
   const enabled = session.ready;
   return (
     <ol className="m-0 flex list-none flex-col gap-[3px] p-0">
@@ -340,7 +344,7 @@ export function ValidationStepNav({ session }: { session: ValidationSession }) {
               <span className={`flex h-[22px] w-[22px] flex-none items-center justify-center rounded-full border font-mono text-[10.5px] ${active ? "border-bordo/40 bg-white text-bordo" : "border-black/15 bg-white text-ink-5"}`}>
                 {s.num}
               </span>
-              <span className={`flex-1 text-[13px] ${active ? "font-semibold" : ""}`}>{s.title}</span>
+              <span className={`flex-1 text-[13px] ${active ? "font-semibold" : ""}`}>{stepTitle(s.id, locale)}</span>
               {st.running ? (
                 <span className="h-[12px] w-[12px] flex-none animate-spin rounded-full border-2 border-black/10 border-t-bordo" aria-hidden="true" />
               ) : (
@@ -369,7 +373,7 @@ function HeaderField({ k, v, mono }: { k: string; v: string; mono?: boolean }) {
 export function ValidationHeader({ session }: { session: ValidationSession }) {
   const locale = useBanzaiLocale();
   const t = copy(locale);
-  const { operator, implementation, overall, runningAll, progressLabel } = session;
+  const { operator, implementation, overall, runningAll, progressResult } = session;
   const confirmReset = () => {
     // §25 — restarting the session requires confirmation; clears ONLY ephemeral/session state.
     if (window.confirm(t("header.resetConfirmFull"))) {
@@ -389,7 +393,7 @@ export function ValidationHeader({ session }: { session: ValidationSession }) {
         <div className="flex items-center gap-2">
           <span className={`inline-flex items-center gap-1.5 rounded-full border px-[11px] py-[4px] font-mono text-[11px] font-semibold ${ST_BADGE[overall]}`}>
             <span className={`h-[6px] w-[6px] rounded-full ${ST_DOT[overall]}`} />
-            {STATUS_LABEL_PT[overall]}
+            {stepStatusLabel(overall, locale)}
           </span>
           {implementation && operator && (
             <button type="button" onClick={() => session.selectOperator(operator.operator_id)} disabled={runningAll} className="rounded-[10px] border border-black/10 bg-white px-[11px] py-[6px] font-mono text-[11.5px] text-ink-4 transition-colors hover:border-bordo/30 hover:text-bordo disabled:opacity-60">{t("header.changeTarget")}</button>
@@ -405,7 +409,7 @@ export function ValidationHeader({ session }: { session: ValidationSession }) {
           <HeaderField k="ambiente" v={implementation.environment} />
           <HeaderField k="perfil" v={implementation.profile} />
           <HeaderField k={t("setup.protocolVersion")} v={implementation.protocol_version} mono />
-          <HeaderField k="jornada" v={progressLabel} />
+          <HeaderField k={t("ctx.journey")} v={realizeProgress(progressResult, locale)} />
         </div>
       )}
     </div>
@@ -499,7 +503,7 @@ export function ValidationWorkspace({
         <>
           <button type="button" onClick={() => onOpenResults("resumo")} className={primaryBtn}><Ico name="scale" size={15} /> {t("action.viewBlock")}</button>
           {explainBtn}
-          <button type="button" onClick={() => onAsk(`Consulta a documentação d${t("ask.unblock", { title: active.title, engine: active.engine, codes: st.reason_codes.join(", ") || t("ask.unblock.fallback") })}`)} className={mutedBtn}>{t("action.consultDocs")}</button>
+          <button type="button" onClick={() => onAsk(`Consulta a documentação d${t("ask.unblock", { title: stepTitle(active.id, locale), engine: active.engine, codes: st.reason_codes.join(", ") || t("ask.unblock.fallback") })}`)} className={mutedBtn}>{t("action.consultDocs")}</button>
           <button type="button" onClick={() => session.runOne(activeStep)} className={mutedBtn}>{t("action.runAgain")}</button>
         </>
       );
@@ -538,15 +542,15 @@ export function ValidationWorkspace({
               <span className="flex h-6 w-6 items-center justify-center rounded-[7px] bg-tint-bordo text-bordo"><Ico name={STEP_ICON[active.id]} size={13} /></span>
               Etapa {active.num} · motor {active.engine}
             </div>
-            <h2 className="m-0 mt-2 font-serif text-[clamp(19px,2.2vw,24px)] font-semibold leading-[1.2] text-ink">{active.title}</h2>
+            <h2 className="m-0 mt-2 font-serif text-[clamp(19px,2.2vw,24px)] font-semibold leading-[1.2] text-ink">{stepTitle(active.id, locale)}</h2>
           </div>
           <span className={`inline-flex items-center gap-1.5 rounded-full border px-[11px] py-[4px] font-mono text-[11px] font-semibold ${ST_BADGE[st.status]}`}>
             <span className={`h-[6px] w-[6px] rounded-full ${ST_DOT[st.status]}`} />
-            {st.status} · {STATUS_LABEL_PT[st.status]}
+            {st.status} · {stepStatusLabel(st.status, locale)}
           </span>
         </div>
 
-        <p className="m-0 mt-3 max-w-[62ch] text-[13.5px] leading-[1.6] text-ink-3">{active.blurb}</p>
+        <p className="m-0 mt-3 max-w-[62ch] text-[13.5px] leading-[1.6] text-ink-3">{stepBlurb(active.id, locale)}</p>
 
         <div className="mt-4 flex flex-wrap gap-[8px]">{actions}</div>
 
@@ -654,7 +658,7 @@ function KV({ k, v, mono }: { k: string; v: string; mono?: boolean }) {
 export function ValidationContextPanel({ session }: { session: ValidationSession }) {
   const locale = useBanzaiLocale();
   const t = copy(locale);
-  const { progress, progressLabel, blockers, activeStep, results } = session;
+  const { progress, progressResult, blockers, activeStep, results } = session;
   const st = results[activeStep];
   const r = st.receipt;
   const nextStep = session.steps.find((s) => results[s.id].status === "NOT_EVALUATED");
@@ -671,7 +675,7 @@ export function ValidationContextPanel({ session }: { session: ValidationSession
               <div className="h-full rounded-full bg-bordo transition-[width] duration-500" style={{ width: `${Math.round((progress.evaluated / progress.total) * 100)}%` }} />
             </div>
           </div>
-          <p className="m-0 text-[12px] leading-[1.5] text-ink-3">{progressLabel}</p>
+          <p className="m-0 text-[12px] leading-[1.5] text-ink-3" data-journey-progress={progressResult.kind}>{realizeProgress(progressResult, locale)}</p>
           <div className="grid grid-cols-2 gap-[3px] border-t border-black/[0.05] pt-[8px] font-mono text-[10px] text-ink-4">
             <span>{t("ctx.certificationReadiness")} <span className="text-ink-2">{session.certificationReadiness ?? "—"}</span></span>
             <span>{t("ctx.certificationState")} <span className="text-ink-2">{session.certificationStatus}</span></span>
@@ -685,7 +689,7 @@ export function ValidationContextPanel({ session }: { session: ValidationSession
             <p className="m-0 text-[12px] leading-[1.5] text-ink-4">{t("ctx.running")}</p>
           ) : nextStep ? (
             <button type="button" onClick={() => { session.setActiveStep(nextStep.id); session.runOne(nextStep.id); }} className="self-start font-mono text-[11.5px] text-bordo transition-colors hover:underline">
-              Executar {nextStep.num} {nextStep.title} →
+              {t("action.runThisStep")} {nextStep.num} {stepTitle(nextStep.id, locale)} →
             </button>
           ) : (
             <p className="m-0 text-[12px] leading-[1.5] text-ink-4">{t("ctx.allEvaluated")}</p>
@@ -696,7 +700,7 @@ export function ValidationContextPanel({ session }: { session: ValidationSession
       {r && (
         <CtxSection icon="sliders" title={t("ctx.selectedEndpoint")}>
           <div className={`flex flex-col gap-[6px] p-[14px] ${CARD}`}>
-            <KV k="etapa" v={STEP_META[activeStep].title} />
+            <KV k={t("ctx.step")} v={stepTitle(activeStep, locale)} />
             <KV k="endpoint" v={r.endpoint ?? "—"} mono />
             <KV k="host" v={r.resolved_host ?? "—"} mono />
             <KV k="HTTP" v={r.http_status != null ? String(r.http_status) : "—"} />
@@ -713,7 +717,7 @@ export function ValidationContextPanel({ session }: { session: ValidationSession
               {blockers.map((b) => (
                 <div key={b.step} className="flex flex-col gap-[3px]">
                   <div className="flex items-center justify-between gap-2 font-mono text-[11px]">
-                    <span className="text-ink-2">{STEP_META[b.step].title}</span>
+                    <span className="text-ink-2">{stepTitle(b.step, locale)}</span>
                     <span className={b.status === "FAILED" ? "text-bordo" : "text-[#6f42c1]"}>{b.status}</span>
                   </div>
                   <code className="break-all font-mono text-[10px] text-ink-4">{b.reason}</code>
@@ -749,7 +753,7 @@ function ReceiptCard({ r, onExport }: { r: ServerOperationReceipt; onExport: () 
   return (
     <div className={`p-[14px] ${CARD}`}>
       <div className="flex items-center justify-between gap-2">
-        <span className="text-[13px] font-semibold text-ink">{STEP_META[r.step as StepId]?.num} {STEP_META[r.step as StepId]?.title ?? r.step}</span>
+        <span className="text-[13px] font-semibold text-ink">{STEP_META[r.step as StepId]?.num} {STEP_META[r.step as StepId] ? stepTitle(r.step as StepId, locale) : r.step}</span>
         <button type="button" onClick={onExport} className="rounded-full border border-black/10 bg-white px-[11px] py-[4px] font-mono text-[11px] text-ink-4 transition-colors hover:border-bordo/30 hover:text-bordo">{t("action.exportJson")}</button>
       </div>
       <div className="mt-2 grid grid-cols-2 gap-[4px] font-mono text-[10.5px] text-ink-4 sm:grid-cols-2">
@@ -776,6 +780,7 @@ const REPRO_LABEL_ID: Record<ReproductionOutcome, ValidationCopyId> = {
 };
 
 function ExecMatrix({ session, receipts }: { session: ValidationSession; receipts: ServerOperationReceipt[] }) {
+  const locale = useBanzaiLocale();
   // ADR-030: a NOT_APPLICABLE step surfaces as its own display status (never a failure/omission).
   const byStep = new Map(
     receipts.map((r) => [
@@ -788,7 +793,7 @@ function ExecMatrix({ session, receipts }: { session: ValidationSession; receipt
       {session.steps.map((s) => {
         const st = (byStep.get(s.id) ?? "NOT_EVALUATED") as StepStatus;
         return (
-          <span key={s.id} title={`${s.num} ${s.title} · ${STATUS_LABEL_PT[st]}`} className={`inline-flex items-center gap-1 rounded-full border px-[7px] py-[2px] font-mono text-[10px] ${ST_BADGE[st]}`}>
+          <span key={s.id} title={`${s.num} ${stepTitle(s.id, locale)} · ${stepStatusLabel(st, locale)}`} className={`inline-flex items-center gap-1 rounded-full border px-[7px] py-[2px] font-mono text-[10px] ${ST_BADGE[st]}`}>
             <span className={`h-[5px] w-[5px] rounded-full ${ST_DOT[st]}`} />{s.num}
           </span>
         );
@@ -936,7 +941,7 @@ export function ExecutionHistoryPanel({ session }: { session: ValidationSession 
           <div className="mt-3 flex flex-col divide-y divide-black/[0.05]">
             {detail.step_receipts.map((r) => (
               <div key={r.operation_id} className="flex items-center justify-between gap-2 py-[6px]">
-                <span className="text-[12px] text-ink-2">{STEP_META[r.step as StepId]?.num} {STEP_META[r.step as StepId]?.title ?? r.step}</span>
+                <span className="text-[12px] text-ink-2">{STEP_META[r.step as StepId]?.num} {STEP_META[r.step as StepId] ? stepTitle(r.step as StepId, locale) : r.step}</span>
                 <div className="flex items-center gap-2">
                   <code className="hidden font-mono text-[10px] text-ink-5 sm:inline">{shortHash(r.output_hash)}</code>
                   <button type="button" onClick={() => downloadReceipt(r, `receipt-${r.step}-${r.operation_id}.json`)} className="rounded-full border border-black/10 bg-white px-[9px] py-[3px] font-mono text-[10px] text-ink-4 transition-colors hover:border-bordo/30 hover:text-bordo">{t("exec.export")}</button>
@@ -959,7 +964,7 @@ export function ExecutionHistoryPanel({ session }: { session: ValidationSession 
           <div className="mt-3 flex flex-col divide-y divide-black/[0.05]">
             {comparison.step_deltas.map((d) => (
               <div key={d.step} className="flex items-center justify-between gap-2 py-[6px] font-mono text-[11px]">
-                <span className="text-ink-2">{STEP_META[d.step as StepId]?.title ?? d.step}</span>
+                <span className="text-ink-2">{STEP_META[d.step as StepId] ? stepTitle(d.step as StepId, locale) : d.step}</span>
                 <span className="flex items-center gap-2">
                   <span className="text-ink-4">{d.status_a ?? "—"} → {d.status_b ?? "—"}</span>
                   {d.changed ? <span className="rounded-full border border-pend/40 bg-pend/[0.08] px-[7px] py-[1px] text-[10px] text-pend">{t("exec.changed")}</span> : <span className="text-ink-5">=</span>}
@@ -988,7 +993,7 @@ export function ValidationResultsPanel({
 }) {
   const locale = useBanzaiLocale();
   const t = copy(locale);
-  const { receipts, journeyReceipt, implementation, operator, overall, progressLabel, blockers } = session;
+  const { receipts, journeyReceipt, implementation, operator, overall, progressResult, blockers } = session;
   const evidenceReceipt = session.results.evidence.receipt;
 
   return (
@@ -1035,10 +1040,10 @@ export function ValidationResultsPanel({
             <div className="flex flex-wrap items-center justify-between gap-2">
               <span className="text-[14px] font-semibold text-ink">{t("results.journeySummary")}</span>
               <span className={`inline-flex items-center gap-1.5 rounded-full border px-[11px] py-[4px] font-mono text-[11px] font-semibold ${ST_BADGE[overall]}`}>
-                <span className={`h-[6px] w-[6px] rounded-full ${ST_DOT[overall]}`} /> {STATUS_LABEL_PT[overall]}
+                <span className={`h-[6px] w-[6px] rounded-full ${ST_DOT[overall]}`} /> {stepStatusLabel(overall, locale)}
               </span>
             </div>
-            <p className="m-0 mt-2 text-[12.5px] leading-[1.55] text-ink-3">{progressLabel}</p>
+            <p className="m-0 mt-2 text-[12.5px] leading-[1.55] text-ink-3" data-journey-progress={progressResult.kind}>{realizeProgress(progressResult, locale)}</p>
             {implementation && operator && (
               <p className="m-0 mt-2 text-[12.5px] leading-[1.6] text-ink-2">
                 {VALIDATION_COPY.resultPhrase(
@@ -1062,7 +1067,7 @@ export function ValidationResultsPanel({
               <div className="flex flex-col gap-[6px]">
                 {blockers.map((b) => (
                   <div key={b.step} className="flex items-center justify-between gap-2 font-mono text-[11px]">
-                    <span className="text-ink-2">{STEP_META[b.step].title}</span>
+                    <span className="text-ink-2">{stepTitle(b.step, locale)}</span>
                     <code className="break-all text-ink-4">{b.reason}</code>
                     <span className={b.status === "FAILED" ? "text-bordo" : "text-[#6f42c1]"}>{b.status}</span>
                   </div>
@@ -1105,7 +1110,7 @@ export function ValidationResultsPanel({
               const rs = session.results[s.id];
               return (
                 <div key={s.id} className="flex items-center justify-between gap-2 py-[8px]">
-                  <span className="text-[12.5px] text-ink-2">{s.num} {s.title}</span>
+                  <span className="text-[12.5px] text-ink-2">{s.num} {stepTitle(s.id, locale)}</span>
                   <div className="flex items-center gap-2">
                     {rs.reason_codes[0] && <code className="hidden break-all font-mono text-[10px] text-ink-5 sm:inline">{rs.reason_codes[0]}</code>}
                     <span className={`inline-flex items-center gap-1.5 rounded-full border px-[9px] py-[3px] font-mono text-[10.5px] font-semibold ${ST_BADGE[rs.status]}`}>
@@ -1124,7 +1129,7 @@ export function ValidationResultsPanel({
           ) : (
             receipts.filter((r) => r.endpoint).map((r) => (
               <div key={r.operation_id} className={`p-[14px] ${CARD}`}>
-                <div className="mb-2 text-[13px] font-semibold text-ink">{STEP_META[r.step as StepId]?.title ?? r.step}</div>
+                <div className="mb-2 text-[13px] font-semibold text-ink">{STEP_META[r.step as StepId] ? stepTitle(r.step as StepId, locale) : r.step}</div>
                 <div className="grid grid-cols-2 gap-[4px] font-mono text-[10.5px] text-ink-4 sm:grid-cols-2">
                   <KV k="endpoint" v={r.endpoint ?? "—"} mono />
                   <KV k="host" v={r.resolved_host ?? "—"} mono />
@@ -1145,7 +1150,7 @@ export function ValidationResultsPanel({
               {session.evidence.map((e, i) => (
                 <div key={`${e.step}-${e.ref}-${i}`} className="flex items-center justify-between gap-2 font-mono text-[10.5px]">
                   <code className="truncate text-ink-3">{e.ref}</code>
-                  <span className="flex-none text-ink-5">{STEP_META[e.step].title}</span>
+                  <span className="flex-none text-ink-5">{stepTitle(e.step, locale)}</span>
                 </div>
               ))}
             </div>

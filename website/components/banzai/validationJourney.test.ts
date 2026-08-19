@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { STEPS, STEP_ORDER } from "./validationJourney";
+import { stepBlurb, stepTitle } from "./validationPresentation";
 import { VALIDATION_STEP_IDS } from "@/lib/banzaiValidation";
 
 // M2.19E/F.2 — the single BanzAI validation mode runs the deterministic 9-step journey. This asserts the
@@ -36,11 +37,15 @@ describe("validationJourney STEPS — canonical 9-step contract", () => {
     expect([...VALIDATION_STEP_IDS]).toEqual([...CANONICAL_IDS]);
   });
 
-  it("every step carries a title, an engine and a blurb", () => {
+  it("every step carries an engine and a reader-facing name and description, in both editions", () => {
+    // Block E2/Q5 — the title and the blurb are looked up BY STEP ID rather than stored on the step, so
+    // this asserts the binding rather than the presence of two fields on one object.
     for (const s of STEPS) {
-      expect(s.title.length).toBeGreaterThan(0);
       expect(s.engine.length).toBeGreaterThan(0);
-      expect(s.blurb.length).toBeGreaterThan(0);
+      for (const locale of ["pt", "en"] as const) {
+        expect(stepTitle(s.id, locale).length, `${s.id} title/${locale}`).toBeGreaterThan(0);
+        expect(stepBlurb(s.id, locale).length, `${s.id} blurb/${locale}`).toBeGreaterThan(0);
+      }
     }
   });
 });
