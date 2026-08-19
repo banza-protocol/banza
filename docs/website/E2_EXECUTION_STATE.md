@@ -77,7 +77,7 @@ session picks the next NOT_STARTED row by descending weight and does not re-deri
 | `app/(pt)/decisoes/page.tsx` + `[slug]/page.tsx` (route surfaces) | — | **DONE** | `a0a17db` |
 | `components/banzai/BanzaiProgress.tsx` + `lib/banzaiProgress.ts` line ids | 6 | **DONE** | `ea785fc` |
 | `components/banzai/SafeMarkdown.tsx` | 3 | **TRANSPARENT** — a markdown renderer with no reader copy of its own; nothing to localize | — |
-| `components/banzai/BanzaiValidationMode.tsx` | 151 | NOT_STARTED | — |
+| `components/banzai/BanzaiValidationMode.tsx` | 151 | **DONE — mutation-owned** | `5abab9c`, `1b7c6c9` |
 | `components/banzai/BanzaiAgent.tsx` (beyond the Q1/Q3 wiring) | 89 | NOT_STARTED | — |
 | `components/banzai/BanzaiOnboardingMode.tsx` | 69 | NOT_STARTED | — |
 | `components/banzai/validationJourney.tsx` | 29 | NOT_STARTED | — |
@@ -109,6 +109,25 @@ the next owner, follow what it CALLS, not only what it renders.
 | E2-F | EN decision carries a different semantic payload | **KILLED** — the English edition promoted `rascunho` to `activo`; exactly ONE assertion went red ("the English library claims something different about the records") while every string on the page stayed correct English; exact restore (`05340fc`), green |
 | E2-Q2b | a branch condition is dropped so the editions diverge in WHAT they offer | **KILLED** — removed the profile narrowing in `entitySuggestions`; 4 RED incl. the PT fixture and "branch conditions are the same in both editions" |
 | E2-G | EN reader link points back at the PT route | NOT_STARTED |
+| Q5-A | a validation owner ignores the boundary | **KILLED** — `PersistenceBadge` forced to `"pt"` under an `en` boundary; RED on "persisted is not in English"; exact restore (`2bca0c1`), green |
+| Q5-B | the EN edition reports a different durability verdict | **SURVIVED FIRST, THEN KILLED** — see below |
+
+**Q5-B is the most important result in this block so far.** Making the English edition present a PENDING
+run as durably archived passed every property the surface had: it was correct English, the raw
+`data-persistence` status attribute was untouched, and the two editions still differed in wording — which
+was all the tests compared. An English reader would have been told a non-durable result was queryable,
+comparable and reproducible.
+
+The fix was not the wording. The verdict is now taken once from the archive's status alone, with no locale
+in scope (`persistenceVerdict`), and rendered as `data-persistence-verdict` beside its words; the property
+reads that verdict from both editions and requires it to match, and requires the four verdicts to stay
+four so collapsing two of them cannot pass by agreeing everywhere. Rerun after the rebuild: RED on
+"pending: the English badge reached a different durability verdict". Committed at `1b7c6c9`.
+
+The general lesson, and the one to carry into every remaining owner: **comparing rendered wording proves
+only that two editions differ. It cannot prove they agree.** Whatever a surface CLAIMS must be observable
+as data — a verdict id, a status, a payload — or a mutation can change the claim and leave the prose
+looking perfect.
 
 A mutation that survives is a finding, not a failure of the campaign: build the missing owner, commit it
 green, rerun. Both surviving mutations in E1 (glossary semantic swap, EN glossary rendering PT) forced
@@ -118,10 +137,16 @@ owners that did not exist and would not otherwise have been written.
 
 | | count |
 |---|---|
-| semantic presentation ids assigned | 250 (Q1 60 · Q2 67 · Q3 7 · Q4 77 · Q5 39) |
-| PT realizations complete | 250 / 250 |
-| EN realizations complete | 250 / 250 |
-| unclassified reader occurrences | ~414 (the NOT_STARTED rows above) |
+| semantic presentation ids assigned | 407 (Q1 60 · Q2 67 · Q3 7 · Q4 77 · Q5 196) |
+| PT realizations complete | 407 / 407 |
+| EN realizations complete | 407 / 407 |
+| unclassified reader occurrences | ~263 (the NOT_STARTED rows above) |
+
+`BanzaiValidationMode` is closed-world verified: a sweep for Portuguese text nodes and string literals
+over the whole file returns **0**. Two labels were found living in the wrong place and moved to the
+presentation module — the publication-status map (a Portuguese-only record inside `lib/banzaiValidation`)
+and the reproduction outcomes (a Portuguese-only record at module scope). Both now pass an unknown enum
+through verbatim rather than inventing it in one language.
 
 Q1 evidence: Website 746/746 across 51 files · tsc 0 · production build 0 · registry unchanged 17/5/1.
 
