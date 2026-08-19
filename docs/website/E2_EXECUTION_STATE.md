@@ -447,7 +447,53 @@ is still its own page.
 Evidence, by exit code: Website 841/841 across 58 files · tsc 0 · production build **exit 0** (188 pages)
 · registry checker **exit 0** at 22 / 0 / 1.
 
-## Q8 — FINAL CLOSURE
+## PR #32 — THE Q8 CLOSURE WAS FALSIFIED
+
+**The Q8 section below claimed Block E complete and frozen. That claim is suspended.** It is left standing
+rather than edited away, with this correction above it.
+
+**What happened.** PR #32 ran the repository's guard battery against this branch for the first time. Every
+block in Website Phase 2 — A, B, C, D, E1 and E2 — was declared complete against the same self-selected
+subset: Website suite, TypeScript, production build, route registry, BanzAI critical battery,
+`make assurance-check`. That subset excludes the ~190 guards the workflows invoke, which are the
+repository's largest assurance surface and gate the pull request.
+
+**The measurement.** Running every workflow-invoked guard against the branch and against `origin/main`, in
+clean trees:
+
+| | PASS | FAIL |
+|---|---|---|
+| `origin/main` | 187 | 2 |
+| branch @ `9151bfc` | 144 | 45 |
+
+**43 failures are branch-introduced.** All 43 are confirmed CI-invoked, with no argument differences. The
+two shared with main are not ours: `check-openapi-compatibility.sh` needs an input CI generates in an
+earlier step, and `check-open-governance.sh` fails identically on main.
+
+**The first analysis was wrong about the shape.** It framed this as primarily stale E2 guards. The
+complete comparison shows 14 of the 43 are outside E2, on surfaces owned by Blocks A–D and E1.
+
+**The dominant class is STALE_GUARD_AFTER_AUTHORIZED_CHANGE, not lost content.** Three of the fourteen
+were triaged in depth and all three carry the same shape — the semantics survive, often strengthened into
+both editions, while the literal the guard greps has moved:
+
+| guard | what it greps | where the property now lives |
+|---|---|---|
+| `check-reference-chapter-order.sh` | a literal `{ num: N, slug: "x" }` array in `website/lib/reference.ts` | `website/lib/referenceSlugs.ts` — `CHAPTER_DEFS` derives from it. The guard reports *zero* chapters, not a wrong order, and its own later assertions still confirm Operador Zero at 09 |
+| `check-glossary-page.sh` | the bare term inside the Portuguese glossary page | `website/lib/glossaryTerms.ts` — `name: { pt: "Operador", en: "Operator" }`, present in both editions |
+| `check-standalone-roadmap-surface.sh` | slug `roteiro` in `reference.ts` | `referenceSlugs.ts` — `{ num: 14, pt: "roteiro", en: "protocol-evolution" }` |
+
+**Global Website Phase 2 assurance is therefore REOPENED.** Blocks A–D, E1 and E2 completion claims are
+suspended until the branch passes the required guard surface on PR #32 itself.
+
+The committed inventory of all 43, with each guard's assertion, owning block, classification and
+disposition, is `docs/website/phase2-pr32-guard-regressions.json`. The workflow-faithful runner is
+`tools/ci-guards-local-check.sh` / `make ci-guards-local-check`.
+
+**Remediation status: IN PROGRESS.** Inventory and runner committed; the 43 guard migrations are not yet
+done. Do not read the Q8 section below as current.
+
+## Q8 — FINAL CLOSURE (SUPERSEDED — see the correction above)
 
 ### The finding Q8 existed to catch
 
