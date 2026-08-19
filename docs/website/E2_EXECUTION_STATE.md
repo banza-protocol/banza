@@ -83,7 +83,7 @@ session picks the next NOT_STARTED row by descending weight and does not re-deri
 | `components/banzai/validationJourney.tsx` | 29 | **DONE — mutation-owned** | `12e3058`, `44aeea0`, `cc39923` |
 | `components/banzai/DraftValidationTool.tsx` (beyond the Q3 `traceStatus` thread) | 26 | **DONE — mutation-owned** | `e896aa9`, `02623f3` |
 | `components/banzai/SourceBlock.tsx` | 19 | **DONE — mutation-owned** | `4ca8d0b` |
-| `components/banzai/banzaiUi.tsx` | 19 | **MACHINE + STYLING — classified, falsifiably** | `2a7b1f0` (see note) |
+| `components/banzai/banzaiUi.tsx` | 19 | **MACHINE + STYLING — classified, falsifiably** | `e104c4d` |
 | `components/banzai/TransparencyPanel.tsx` | 10 | NOT_STARTED | — |
 | `components/banzai/ProgramadoresTools.tsx` | 2 | NOT_STARTED | — |
 
