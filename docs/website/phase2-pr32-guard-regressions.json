@@ -13,7 +13,11 @@
     "branch_fail": 45,
     "branch_introduced": 43,
     "non_e2_branch_introduced": 14,
-    "e2_branch_introduced": 29
+    "e2_branch_introduced": 29,
+    "branch_fail_after_remediation": 43,
+    "remediated": 2,
+    "not_run_locally": 1,
+    "reconciliation": "145 PASS + 43 FAIL + 1 NOT_RUN_LOCALLY = 189 — accounting reconciles"
   },
   "baseline_failures_not_ours": [
     {
@@ -23,8 +27,8 @@
     },
     {
       "guard": "check-open-governance.sh",
-      "verdict": "PENDING_ANALYSIS",
-      "detail": "fails identically on origin/main and on the branch; not branch-introduced"
+      "verdict": "HARNESS_INVOCATION_DEFECT + branch-introduced negation gap (BOTH)",
+      "detail": "On origin/main it failed for one reason only: the token scan read website/app without skipping binaries and matched 'KB' inside compressed woff2 font data. On the branch it additionally failed because the guard's negation vocabulary had 'não', 'never' and 'not' but not English's determiner 'no' — and the English edition states its boundaries as 'there is no certificate authority' / 'NO CERTIFICATE AUTHORITY' / 'and no human approval'. Both fixed in e08cd68; verified green on origin/main unchanged and mutation-proven on the branch."
     }
   ],
   "dominant_finding": "The dominant class is STALE_GUARD_AFTER_AUTHORIZED_CHANGE, not content loss. Blocks A-E replaced literal arrays and inline strings with derived, bilingual, semantic sources; the guards grep the old syntax. Three of the fourteen non-E2 failures were triaged in depth and all three carry the same shape: the semantics survive (often strengthened, now covering both editions) while the literal the guard greps has moved.",
@@ -662,13 +666,14 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "E2",
-      "classification": "PENDING_TRIAGE",
+      "classification": "CONTAMINATION_ADMISSION",
       "property_guarded": null,
       "historical_authority": null,
-      "post_change_canonical_authority": null,
+      "post_change_canonical_authority": "banzami_attribution_allowed() — three path-scoped admissions: glossaryTerms.ts (E1 moved the 25 terms out of the admitted PT page into bilingual records), app/en/license/page.tsx (counterpart of the admitted (pt)/licenca — a licence page names its trademark holder because the holder is the licence's subject), blockE1Surfaces.test.tsx (the harness asserts both editions carry the attribution, same basis as the admitted corePageParity.test.ts)",
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": "pending-commit",
+      "mutation_evidence": "inserting 'Multicaixa' into the admitted EN licence page did NOT turn the guard red — see open_findings/NORMATIVE_BRANDS-unenforced. The admission is scoped to the banzami stem, which is the only brand contamination() checks; the survival exposed a pre-existing gap in the gate, not a defect in the admission."
     },
     {
       "guard": "check-operator-zero-realistic-journey.sh",
@@ -837,6 +842,15 @@
       "evidence": null,
       "disposition": null,
       "remediation_commit": null
+    }
+  ],
+  "open_findings": [
+    {
+      "id": "NORMATIVE_BRANDS-unenforced",
+      "severity": "real guard defect, pre-existing, out of this PR's scope",
+      "detail": "engines/banza-repo-guards/src/lib.rs declares NORMATIVE_BRANDS = [multicaixa, unitel money, africell money, e-kwanza] at line 218, and three comments assert 'the NORMATIVE_BRANDS payment operators stay blocked everywhere'. The constant is never read: contamination() checks only the banzami stem. Inserting 'Multicaixa' into an admitted English page did NOT turn the guard red — the mutation surviving is what exposed it.",
+      "consequence": "the contamination admissions are correctly scoped to the only brand this gate checks, so they are not too broad. But the repository's stated protection against commercial payment-operator brands is not enforced by this gate.",
+      "disposition": "wire NORMATIVE_BRANDS into contamination() as a separate, non-admittable class — payment-operator brands must never be cleared by banzami_attribution_allowed. Do this as its own change: it may surface violations in files outside this PR."
     }
   ]
 }

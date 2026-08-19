@@ -490,8 +490,36 @@ The committed inventory of all 43, with each guard's assertion, owning block, cl
 disposition, is `docs/website/phase2-pr32-guard-regressions.json`. The workflow-faithful runner is
 `tools/ci-guards-local-check.sh` / `make ci-guards-local-check`.
 
-**Remediation status: IN PROGRESS.** Inventory and runner committed; the 43 guard migrations are not yet
-done. Do not read the Q8 section below as current.
+**Remediation status: IN PROGRESS — accounting reconciled, 2 of 45 guards remediated.**
+
+`make ci-guards-local-check` → **145 PASS · 43 FAIL · 1 NOT_RUN_LOCALLY = 189**. The accounting now
+reconciles: both origin/main artifacts are resolved, so the 43 remaining failures are exactly the
+branch-introduced set.
+
+**Remediated and mutation-proven**
+
+- `check-open-governance.sh` (`e08cd68`) — its negation vocabulary had `não`, `never` and `not` but not
+  English's determiner **no**, and the English edition states these boundaries as *"there is no certificate
+  authority"*, *"NO CERTIFICATE AUTHORITY"*, *"and no human approval"*. A bare `\bno\b` could not join the
+  shared vocabulary — Portuguese "no" is "em o" and would clear real violations — so the English form is
+  scoped to English paths. Two narrower defects came with it: the architecture scans read code comments, so
+  a comment quoting the term *in order to rule it out* counted as asserting it; and the token scan read
+  binaries, matching "KB" inside woff2 font data (that one affected origin/main too). Verified green on
+  origin/main unchanged; asserting *"BANZA operates a certificate authority"* on the English trust page
+  turns it red.
+- `check-operator-contamination.sh` — three path-scoped admissions on the established
+  `licenca`/`architecture` basis. See the inventory for each claim.
+
+**An open finding the mutation exposed.** `NORMATIVE_BRANDS` (multicaixa, unitel money, africell money,
+e-kwanza) is declared in `banza-repo-guards` and asserted by three comments to be "blocked everywhere" — but
+the constant is never read. `contamination()` checks only the banzami stem, so inserting *Multicaixa* into
+an admitted English page did **not** fail the guard. The admissions are therefore correctly scoped; what
+the survival revealed is a pre-existing gap in the gate itself. Recorded in the inventory under
+`open_findings`; it needs its own change, because wiring it in may surface violations outside this PR.
+
+**Next unresolved record:** the 43 remaining guards in
+`docs/website/phase2-pr32-guard-regressions.json`. Eleven non-E2 guards still need individual triage — do
+not assume they match the three already classified. Do not read the Q8 section below as current.
 
 ## Q8 — FINAL CLOSURE (SUPERSEDED — see the correction above)
 

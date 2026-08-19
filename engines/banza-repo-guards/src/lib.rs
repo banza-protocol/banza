@@ -418,6 +418,27 @@ fn banzami_attribution_allowed(path: &str) -> bool {
         // M2.19G: the canonical glossary names Banzami as the L3 designated scheme operator (the "operador"
         // / "scheme" entries define the term against the L3 role); same ADR-004/060 attribution basis.
         || path == "website/app/(pt)/glossario/page.tsx"
+        // Website Phase 2 / Block E1: the glossary's SEMANTIC records, and the English licence page.
+        //
+        // The glossary moved its 25 terms out of the Portuguese page into bilingual records, so the
+        // "scheme participant" definition — which names the Banzami Operational Scheme as the Layer-3
+        // example, exactly as the already-admitted Portuguese page did — now lives in the data file. Same
+        // ADR-004/060 institutional attribution; it did not become a new claim by changing file.
+        //
+        // The English licence page is the counterpart of the admitted `(pt)/licenca/page.tsx`. A licence
+        // page names its trademark holder because the trademark holder is the licence's SUBJECT: it is the
+        // page that says the Apache grant does not carry the BANZA/BanzAI/Banzami marks. A translation
+        // that had to omit the holder in order to pass this guard would state something weaker than its
+        // source about what the licence does not give away.
+        //
+        // The E1 render harness names it for the same reason `corePageParity.test.ts` above does: it
+        // asserts that both editions carry the attribution, so it must name the subject to assert it.
+        //
+        // Scoped to these three paths. BANZA (L1) and certification (L2) stay operator-neutral, and the
+        // NORMATIVE_BRANDS payment operators stay blocked in all three.
+        || path == "website/lib/glossaryTerms.ts"
+        || path == "website/app/en/license/page.tsx"
+        || path == "website/lib/blockE1Surfaces.test.tsx"
         || path == "website/lib/reference.ts"
         // M2.19G.2: the Home-canonicalization audit artifact and the new Home vitest name the L3
         // designated scheme operator (Banzami Operational Scheme) in their three-layer records/assertions —
