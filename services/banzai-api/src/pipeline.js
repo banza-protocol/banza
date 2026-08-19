@@ -2049,7 +2049,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // Mock provider — deterministic, free, offline. It has no local model, so it never runs the trunk.
     if (!isReal) {
       const r = await provider.answer(rq);
-      return { result: r, meta: { deterministic: true, cache: null, llm_called: false, answer_mode: mode, fallback_reason: null, intent, terminal_kind: "explanatory_trunk", ...ctxMeta, ...docMeta } };
+      return { result: r, meta: { deterministic: true, cache: null, llm_called: false, answer_mode: mode, fallback_reason: null, intent, terminal_kind: "explanatory_trunk", answer_locale: locale, ...ctxMeta, ...docMeta } };
     }
 
     // The emergency Phase-1 grounding (model-free, degraded, sourced) — used ONLY when the trunk cannot
@@ -2093,9 +2093,9 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // so answer_source=validated_cache. This label makes deterministic coverage (validated_cache +
     // deterministic terminals vs fresh_synthesis) measurable from the /ask meta alone.
     const exactHit = exact.get(keyFields);
-    if (exactHit) return { result: exactHit, meta: { deterministic: false, cache: "exact", answer_source: "validated_cache", llm_called: false, answer_mode: mode, fallback_reason: null, intent, terminal_kind: "explanatory_trunk", ...ctxMeta, ...docMeta } };
+    if (exactHit) return { result: exactHit, meta: { deterministic: false, cache: "exact", answer_source: "validated_cache", llm_called: false, answer_mode: mode, fallback_reason: null, intent, terminal_kind: "explanatory_trunk", answer_locale: locale, ...ctxMeta, ...docMeta } };
     const semHit = semantic.find(keyFields);
-    if (semHit) return { result: semHit.value, meta: { deterministic: false, cache: "semantic", answer_source: "validated_cache", similarity: semHit.similarity, llm_called: false, answer_mode: mode, fallback_reason: null, intent, terminal_kind: "explanatory_trunk", ...ctxMeta, ...docMeta } };
+    if (semHit) return { result: semHit.value, meta: { deterministic: false, cache: "semantic", answer_source: "validated_cache", similarity: semHit.similarity, llm_called: false, answer_mode: mode, fallback_reason: null, intent, terminal_kind: "explanatory_trunk", answer_locale: locale, ...ctxMeta, ...docMeta } };
 
     // Budget gate — the USD budget guards HOSTED inference only; local_qwen runs on the VM at ~zero
     // marginal cost and bypasses it (its control is the concurrency/queue limiter + container memory). An
@@ -2135,7 +2135,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         // SPR-2 — the pipeline's emit is threaded in as onProgress so the SINGLE grounded synthesis emits
         // FACTUAL_PACKAGE_READY (after the package is built, BEFORE the model turn) → SYNTHESIS_STARTED →
         // SYNTHESIS_COMPLETED (text held server-side, NEVER streamed). No model-token/delta event exists.
-        (execSignal) => runSynthesis(rq, { provider, traceId: String(keyFields.repoIndexHash || ""), timeoutMs: tpTimeoutMs, model: tpModel, entityId: seededEntity, taskQuestion, signal: execSignal, onProgress: emit, queueWaitMs: Math.max(0, nowFn() - tEnqueued) }),
+        (execSignal) => runSynthesis(rq, { provider, traceId: String(keyFields.repoIndexHash || ""), timeoutMs: tpTimeoutMs, model: tpModel, entityId: seededEntity, taskQuestion, signal: execSignal, onProgress: emit, queueWaitMs: Math.max(0, nowFn() - tEnqueued), locale }),
         { dedupKey, priority, signal },
       );
     } catch (e) {
@@ -2266,6 +2266,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
       const g = groundedAnswer(answerText, tp.package, tp.cited_source_ids, {
         ...tpMeta,
         terminal_kind: "explanatory_trunk",
+        answer_locale: locale,
         fallback_reason: null,
         post_validate_ran: true,
         post_validate_ok: ok,
