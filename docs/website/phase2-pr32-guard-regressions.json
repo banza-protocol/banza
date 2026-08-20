@@ -14,12 +14,16 @@
     "branch_introduced": 43,
     "non_e2_branch_introduced": 14,
     "e2_branch_introduced": 29,
-    "branch_fail_after_remediation": 29,
-    "remediated": 17,
+    "branch_fail_after_remediation": 23,
+    "remediated": 23,
     "not_run_locally": 1,
-    "reconciliation": "162 PASS + 29 FAIL + 1 NOT_RUN_LOCALLY = 192, measured at committed HEAD on a clean tree.",
-    "pass": 162,
-    "total_invocations": 192
+    "reconciliation": "168 PASS + 23 FAIL + 1 NOT_RUN_LOCALLY = 192, measured at committed HEAD on a clean tree via `make ci-guards-local-check`.",
+    "pass": 168,
+    "total_invocations": 192,
+    "unit_of_count": "workflow-faithful CHECKS/INVOCATIONS, not distinct shell guards. The runner takes its list from the workflow files and now includes the `make` steps CI invokes, so one guard can appear once and one make target aggregates several. 192 is invocations; guards_surveyed=189 was the earlier script-only figure.",
+    "superseded_counts": {
+      "189_script_only": "the pre-repair total, before the runner modelled CI's `make` steps"
+    }
   },
   "baseline_failures_not_ours": [
     {
@@ -45,13 +49,17 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "A-D/E1 or shared public surface",
-      "classification": "PENDING_TRIAGE",
+      "classification": "REAL_CONTENT_DEFECT — stale reference after an authorized renumbering",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "root_cause": "the ADR clean-slate renumbered the tree; this branch cited the discovery-surface record by its pre-reset number (ADR-080). Its canonical record is ADR-029 (canonical discovery surface). The guard was right and the content was wrong.",
+      "remediation": "both references point at ADR-029. The scan was also widened to website source: the identical stale number sat in a .tsx comment the guard could not see, which is how it survived beside the one that failed.",
+      "mutation_evidence": "a non-existent ADR reintroduced in a document -> RED; and now in website source -> RED. The first attempt at this mutation landed on the .tsx file BEFORE the widening and passed vacuously — recorded because it is the exact failure mode a mutation is meant to expose.",
+      "final_result": "PASS"
     },
     {
       "guard": "check-banzai-accessibility-check.sh",
@@ -87,13 +95,16 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "E2",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved to the bilingual catalogue)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "remediation": "reads agent.guiaText from the resolved copy in BOTH editions, and asserts the surface that serves it (BanzaiAgent.tsx renders agent.guiaText).",
+      "mutation_evidence": "PT claim removed -> RED; EN claim removed -> RED; the record left intact but disconnected from the reader surface -> RED.",
+      "final_result": "PASS"
     },
     {
       "guard": "check-banzai-answer-rendering-ux.sh",
@@ -125,13 +136,17 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "E2",
-      "classification": "PENDING_TRIAGE",
+      "classification": "DERIVATION_DEFECT — corpus changed without regeneration",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "root_cause": "this branch added two documents under docs/banzai/ (617f318, ed9d48d), which is inside the vocabulary generator's corpus, and never re-ran the generator. Nothing in the local workflow regenerates on corpus change, and Website Phase 2 never ran the guard battery.",
+      "remediation": "regenerated with tools/gen-banzai-vocabulary.mjs — 425 sources, all five artifacts rewritten deterministically. Not hand-patched.",
+      "mutation_evidence": "corpus appended without regeneration -> STALE; generated artifact tampered -> STALE; regenerate -> GREEN.",
+      "final_result": "PASS"
     },
     {
       "guard": "check-banzai-certification-readiness-language-check.sh",
@@ -678,13 +693,17 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "A-D/E1 or shared public surface",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (chrome + bilingual chapter slugs)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "root_cause": "two metrics. reference_cta_wrong_targets tested the label's own LINE for '/referencia', but the chrome now declares a semantic target and derives the path per edition. canonical_o_que_e_sources counted a single-language `slug:` line in reference.ts, but the chapter slugs became bilingual records in referenceSlugs.ts.",
+      "remediation": "the CTA is counted from the resolved chrome in both editions; the chapter metric reads the bilingual record and additionally requires the English counterpart to be an English slug.",
+      "mutation_evidence": "CTA retargeted to a valid but semantically wrong Reference destination (chapter 1) -> RED in both editions; the English Reference route replaced by the Portuguese slug under /en -> RED; the English chapter slug replaced by the Portuguese one -> RED.",
+      "final_result": "PASS"
     },
     {
       "guard": "check-homepage-final-validation.sh",
@@ -754,13 +773,17 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "A-D/E1 or shared public surface",
-      "classification": "PENDING_TRIAGE",
+      "classification": "NEGATION_UNAWARE_IN_ENGLISH — not a content regression",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "root_cause": "all three hits were the English trust page DENYING a certificate authority. The negation list carried Portuguese and several English forms but not the determiner 'no', which is how English states this boundary. A bare \\\\bno\\\\b cannot be added globally: Portuguese 'no' is 'em o'.",
+      "remediation": "an English-scoped negation marker, applied only on English surfaces, with a self-test that must accept the denial and still reject the assertion.",
+      "mutation_evidence": "a genuine positive claim on the English trust page -> RED; the same claim on the Portuguese page -> RED. BOTH SURVIVED FIRST: the filter interpolated the phrase alternation unparenthesised, so `.*no\\\\s+.{0,30}A|B|C` degenerated into a bare match on C and silenced every line containing the phrase. Fixed here and in check-open-governance.sh, which carried the same latent shape.",
+      "final_result": "PASS"
     },
     {
       "guard": "check-reference-chapter-order.sh",
@@ -810,13 +833,17 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "A-D/E1 or shared public surface",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE + silent death under set -e",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "root_cause": "same two stale forms as home-readiness. Worse, its chapter-slug clause assigned from `grep -c`, which returns non-zero on a count of zero — under `set -e` the guard ended at that assignment, printing its banner and nothing else.",
+      "remediation": "chrome clauses read the resolved chrome in both editions and additionally forbid either CTA landing on a chapter; the slug clause reads the bilingual record and tolerates not-found.",
+      "mutation_evidence": "shared with check-home-readiness above; all three killed.",
+      "final_result": "PASS"
     },
     {
       "guard": "check-standalone-roadmap-surface.sh",
@@ -905,7 +932,10 @@
       "pre_existing_on_origin_main": true,
       "detail": "The payment-operator brand list IS consumed — by the L1b scan, over contracts/ and conformance/ only. It is NOT repository-wide. Nine comments in banza-repo-guards claimed those brands 'stay blocked everywhere', which is false for the website surface, and my first analysis compounded it by reporting the constant as never read. Both corrected: the comments now say what the scan actually covers.",
       "consequence": "a payment-operator brand on a website page is not caught by this gate. That is the gate's designed scope, now accurately documented rather than overstated.",
-      "disposition": "if repository-wide payment-brand blocking is wanted, it needs its own change with its own survey — it may surface violations outside this PR."
+      "disposition": "CLOSED — reclassified",
+      "resolution": "Repository truth established: the list IS consumed, by the L1b scan, and its ownership is exactly contracts/ and conformance/. The defect was never the code — it was nine comments asserting a broader 'blocked everywhere' property the executable code does not own. All nine are corrected to state the scan's real scope. Nothing now claims repository-wide payment-brand blocking.",
+      "superseded_claim": "my first report that the constant 'is never read'. False: it is read at the L1b scan. Kept here rather than erased, because the wrong claim is what made the surviving mutation look like dead code.",
+      "still_true": "a payment-operator brand on a website page is outside this gate's scope. That is its design, now accurately documented. Widening it would need its own change and its own survey."
     },
     {
       "id": "contamination-admission-is-path-scoped-not-clause-scoped",
@@ -946,7 +976,31 @@
       "severity": "assurance-legibility defect",
       "detail": "assigning from a helper that greps means a not-found result is a non-zero status, and under `set -euo pipefail` that ends the script. The guard exited 1 with its last section never printed and no failure text at all, so the inventory recorded it as failing without a reason.",
       "remediation": "the lookups tolerate not-found and report it. A guard that dies is worse than one that fails, because there is nothing to read.",
-      "disposition": "CLOSED for this guard; worth watching for the same shape elsewhere"
+      "disposition": "CLOSED for three guards; the shape is `x=$(grep -c ...)` or `x=$(helper-that-greps)` under set -e",
+      "instances": [
+        "check-banzai-degraded-mode-render.sh",
+        "check-retired-page-removal.sh (chapter-slug clause)",
+        "check-home-readiness.sh (same clause, via the sub-guard)"
+      ]
+    },
+    {
+      "id": "unparenthesised-alternation-silenced-a-whole-guard-clause",
+      "found_by": "mutation-proving check-public-surface-canonical.sh",
+      "severity": "assurance defect I introduced, caught before commit",
+      "detail": "interpolating a multi-alternative phrase regex into a longer pattern without parentheses turns `PREFIX.*(A|B|C)` into `PREFIX.*A` OR `B` OR `C`. The bare last alternative then matches any line containing the phrase, so the exclusion filter silenced exactly the lines the guard exists to catch. Two mutations survived and exposed it.",
+      "remediation": "parenthesised in check-public-surface-canonical.sh and in check-open-governance.sh, which carried the same shape from the earlier English-negation fix.",
+      "lesson": "a negation/exclusion filter must be mutation-proven with a real positive claim, not only with the false positive it was written to clear.",
+      "disposition": "CLOSED"
+    }
+  ],
+  "superseded_assurance_claims": [
+    {
+      "claim": "`make ci-guards-local-check` was wired and exercised as the runner's entry point",
+      "made_in": "7e630d9 and the reports that followed it",
+      "status": "FALSE — WITHDRAWN",
+      "why": "that same commit clobbered the Makefile target structure: the `## identity-check:` doc line was overwritten and its recipe orphaned, so `make` did not parse at all on this branch. Every make invocation failed, including the three assurance gates identity-guard.yml runs. The runner was only ever invoked as a bash script directly, which is why the breakage was invisible.",
+      "corrected_by": "48d5453 — Makefile repaired, and the runner now extracts and executes CI's `make` steps too.",
+      "lesson": "claiming a target is wired is not the same as running it through that target."
     }
   ]
 }

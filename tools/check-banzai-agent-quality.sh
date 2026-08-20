@@ -21,6 +21,10 @@ cd "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 FAILED=0
 fail() { echo "FAIL: $*"; FAILED=1; }
+
+# The copy this guard protects lives in the bilingual catalogues, not in the modules that render it.
+# shellcheck source=tools/_banzai-copy.sh
+. tools/_banzai-copy.sh
 ok() { echo "  ok: $*"; }
 
 WASM_DIR="services/banzai-api/src/rustkb"
@@ -138,9 +142,20 @@ if grep -nE 'SimB|banza-simb' "$AGENT_TS" >/dev/null 2>&1; then
 else
   ok "banzai-agent.ts (AGENT_GUIA_TEXT + DEV_COMMANDS) is SimB-free (ADR-036)"
 fi
-grep -q "AGENT_GUIA_TEXT" "$AGENT_TS" && grep -qE 'os motores Rust/WASM verificam' "$AGENT_TS" && grep -qE 'validar Conformidade|Evidence Bundle|Federa' "$AGENT_TS" \
-  && ok "AGENT_GUIA_TEXT frames the canonical journey (engines verify), not SimB" \
-  || fail "AGENT_GUIA_TEXT must frame the canonical endpoint-originated journey (Rust/WASM engines verify)"
+# The guide text moved from a module constant into the bilingual catalogue (agent.guiaText). The property
+# is unchanged — the guide must frame the endpoint-originated journey, with the engines doing the
+# verifying — so it is checked where the sentence now lives, in both editions, AND at the surface that
+# serves it: a catalogue entry no component renders would satisfy a wording check while saying nothing to
+# a reader.
+GUIA_OWNER=website/components/banzai/BanzaiAgent.tsx
+copy_id_says agent agent.guiaText pt 'os motores Rust/WASM verificam' \
+  && copy_id_says agent agent.guiaText pt 'validar Conformidade' \
+  && copy_id_says agent agent.guiaText pt 'Evidence Bundle' \
+  && copy_id_says agent agent.guiaText en 'the Rust/WASM engines verify' \
+  && copy_id_says agent agent.guiaText en 'validate Conformance' \
+  && grep -q 'agent\.guiaText' "$GUIA_OWNER" \
+  && ok "the guide text frames the canonical journey (engines verify) in both editions, and is served" \
+  || fail "the guide text must frame the canonical endpoint-originated journey (Rust/WASM engines verify), in both editions, and be served by $GUIA_OWNER"
 grep -q "banza-conformance-rs" "$AGENT_TS" && grep -q "banza-trust" "$AGENT_TS" \
   && ok "DEV_COMMANDS are Rust-first (banza-conformance-rs / banza-trust), not SimB" \
   || fail "DEV_COMMANDS must reference the Rust-first commands (banza-conformance-rs / banza-trust)"

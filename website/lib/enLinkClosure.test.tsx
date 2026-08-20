@@ -38,7 +38,7 @@ const PROTOCOL_ENDPOINTS = [
   "/federation/revocation-list.json",
   "/banzai/runtime",
 ];
-/** The discovery surface (ADR-080). `.well-known` is machine-addressed by definition and has no edition. */
+/** The discovery surface (ADR-029). `.well-known` is machine-addressed by definition and has no edition. */
 const isWellKnown = (href: string) => href.startsWith("/.well-known/");
 
 /** The whitepaper is published as two PDFs. Portuguese is the canonical edition and English is its

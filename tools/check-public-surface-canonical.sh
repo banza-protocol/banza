@@ -43,6 +43,13 @@ while IFS= read -r f; do [ -n "$f" ] && FILES+=("$f"); done < <(
 
 # Negation / prohibition / enumeration markers.
 NEG='não|nao|nunca|never|\bnot\b|\bnem\b|neither|nor|\bsem\b|\bwithout\b|\bfree of\b|ausência|ausencia|deixa de|isn'"'"'?t|does not|doesn'"'"'?t|proibid|forbidden|evitar|avoid|exemplo|example|«|»|\?'
+# English needs one more negation word than Portuguese does: "no certificate authority" is a denial,
+# not a claim. It cannot go in NEG, because Portuguese "no" is a contraction meaning "in the" — adding
+# it there would silence real Portuguese claims. So it is scoped to the English surfaces, where the word
+# can only be the negation. Without this the trust page's own denial of a certificate authority was
+# being reported as an assertion of one.
+EN_SURFACE='^(website/app/en/|website/content/[a-z-]*/en)'
+EN_NEG='\bno\b'
 # Lines that are operator well-known endpoint data (path:/rel:) or explicit well-known refs are not a
 # BANZA-website route claim; they are excluded from the /certificates positive-claim scan.
 WELLKNOWN='path:|well-known|rel:'
@@ -71,13 +78,21 @@ echo "$BAD"  | grep -qiE "$NEG" && { echo "SELF-TEST BROKEN: bad line carries a 
 echo "$GOOD" | grep -qiE "$NEG" || { echo "SELF-TEST BROKEN: negation not detected" >&2; st=1; }
 # the well-known endpoint line must be treated as NOT a /certificates route claim
 echo '{ path: "/certificates", rel: "Certificates document" }' | grep -qiE "$WELLKNOWN" || { echo "SELF-TEST BROKEN: well-known exclusion not detected" >&2; st=1; }
+# The English negation marker must let a denial through and still catch the assertion.
+printf '%s' 'website/app/en/trust/page.tsx:1:There is no certificate authority here.' \
+  | grep -viE "${EN_SURFACE}[^:]*:[0-9]+:.*${EN_NEG}[[:space:]]+.{0,30}certificate authority" \
+  | grep -q . && { echo 'SELF-TEST BROKEN: English denial still reported as a claim' >&2; st=1; }
+printf '%s' 'website/app/en/trust/page.tsx:1:BANZA is the certificate authority.' \
+  | grep -viE "${EN_SURFACE}[^:]*:[0-9]+:.*${EN_NEG}[[:space:]]+.{0,30}certificate authority" \
+  | grep -q . || { echo 'SELF-TEST BROKEN: English positive claim was silenced' >&2; st=1; }
 [ "$st" -eq 0 ] || { echo "m2-19g-public-surface: guard self-test FAILED"; exit 2; }
 
 # ── [A] no retired framing as a positive claim ──────────────────────────────────────────────────────
 echo "== [A] no retired framing as a positive claim across ${#FILES[@]} public-surface files =="
 for entry in "${FORBIDDEN[@]}"; do
   label="${entry%%::*}"; rx="${entry#*::}"
-  hits="$(grep -HniE "$rx" "${FILES[@]}" 2>/dev/null | grep -viE "$WELLKNOWN" | grep -viE "$NEG" || true)"
+  hits="$(grep -HniE "$rx" "${FILES[@]}" 2>/dev/null | grep -viE "$WELLKNOWN" | grep -viE "$NEG" \
+    | grep -viE "${EN_SURFACE}[^:]*:[0-9]+:.*${EN_NEG}[[:space:]]+.{0,30}(${rx})" || true)"
   if [ -n "$hits" ]; then
     fl "positive claim of a retired framing — $label:"; echo "$hits" | sed 's/^/      /'
   else

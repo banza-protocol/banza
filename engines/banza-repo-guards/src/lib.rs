@@ -501,8 +501,9 @@ fn banzami_attribution_allowed(path: &str) -> bool {
         // semantic audit) faithfully RECORD the live/canonical public surface, which names Banzami as the L3
         // designated scheme operator (M2.19C). They are evidence records of what is published, not authored
         // protocol content; scrubbing the captured name would corrupt the audit. Same ADR-001/ADR-009
-        // attribution basis; payment-operator brands captured by a crawl are still blocked everywhere by the
-        // separate normative-brand list, never allowlisted as content.
+        // attribution basis. This admission covers the designated-scheme stem only; it never allowlists a
+        // payment-operator brand as content. Those brands are scanned by the separate L1b normative-brand
+        // list, whose scope is contracts/ and conformance/ — not this path, and not repository-wide.
         || path.starts_with("artifacts/banzai/")
         // M2.19C: the GENERATED grounding indexes + truth-table now index the Layer-3 scheme ADRs/docs, so
         // they carry the designated-operator name (the indexers stopped dropping "Banzami" so BanzAI can

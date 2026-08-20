@@ -320,6 +320,23 @@ identifiers, and every literal inside the demo trace payloads.
 `FORBIDDEN_PHRASES` classified **machine-only** — guard input, not reader copy, stays out of the
 catalogue.
 
+## Assurance correction — the runner's own entry point, `7e630d9` … `48d5453`
+
+**Status of the historical claim: PREVIOUSLY_MISREPORTED.**
+
+Every report between `7e630d9` and `48d5453` describing the workflow-faithful runner as *wired as
+`make ci-guards-local-check`* is withdrawn. It was never exercised through that target. The same commit
+that added it had overwritten the `## identity-check:` doc line and left its recipe orphaned, so the
+Makefile did not parse: `make` failed on this branch for anything at all, including the three assurance
+gates `identity-guard.yml` runs through it. Invoking the script directly is what hid it.
+
+Both are repaired in `48d5453`, and the runner now models CI's `make` steps as well — which is why the
+total moved 189 → 192.
+
+**On what 192 counts.** It is workflow-faithful *checks and invocations*, not distinct shell guards. The
+list comes from the workflow files; one guard may appear once, and a `make` target may aggregate several.
+The earlier 189 was the script-only figure and is superseded, not corrected — it counted a different thing.
+
 ## Assurance correction — production-build evidence, `5abab9c` … `7e32384`
 
 **Status of the historical claim: PREVIOUSLY_MISREPORTED.**
@@ -434,7 +451,7 @@ callbacks and a helper function. Reading what the reader receives has no compute
 
 **Exception classes are typed, never suppression strings.** `PROTOCOL_ENDPOINT` covers the published paths
 that return JSON (`/operators`, `/conformance/evidence`, `/federation/revocation-list.json`,
-`/banzai/runtime`) and the `.well-known` discovery surface (ADR-080) — machine-addressed, no editions.
+`/banzai/runtime`) and the `.well-known` discovery surface (ADR-029) — machine-addressed, no editions.
 `LANGUAGE_SPECIFIC_DOCUMENT` covers the whitepaper PDFs and the `/whitepaper/pt|en` reading surfaces, where
 the language IS the document's identity: Portuguese is the canonical edition and English its official
 translation, so an English page offering both is correct and must stay legal. An edge fitting no class is
@@ -490,8 +507,16 @@ The committed inventory of all 43, with each guard's assertion, owning block, cl
 disposition, is `docs/website/phase2-pr32-guard-regressions.json`. The workflow-faithful runner is
 `tools/ci-guards-local-check.sh` / `make ci-guards-local-check`.
 
-**Remediation status: IN PROGRESS — 17 guards remediated and mutation-proven; 162 PASS · 29 FAIL · 1
-NOT_RUN_LOCALLY of 192.**
+**Remediation status: IN PROGRESS — 23 guards remediated and mutation-proven; 168 PASS · 23 FAIL · 1
+NOT_RUN_LOCALLY of 192, from `make ci-guards-local-check`.**
+
+**The four non-copy failures were four different things, which is why they were diagnosed separately.**
+One was a real content defect: this branch cited the discovery-surface record by its pre-reset number, and
+its canonical record is ADR-029. One was a derivation defect: two documents were added inside the
+vocabulary generator's corpus and the artifacts were never regenerated. One was a guard that could not read
+English negation — the trust page was DENYING a certificate authority and being reported as asserting one.
+One was navigation, where the reader was never affected: the chrome resolves correctly in both editions and
+the guard was reading a literal that the locale-aware chrome no longer writes.
 
 **The BanzAI copy guards share the chrome guards' root, and get the same treatment.** They asserted
 Portuguese literals inside the modules that rendered them; Block E2 moved those sentences into bilingual

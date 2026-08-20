@@ -125,7 +125,7 @@ filter_hits() {
     | grep -viE "$NEG_SUBJECT" \
     | grep -viE "^[^:]*\.md:[0-9]+:.*$mention" \
     | grep -viE "$DEPRECATION_LINE" \
-    | grep -viE "${EN_SURFACE}[^:]*:[0-9]+:.*${NEG_BEFORE_EN}[[:space:]]+.{0,20}${pat}" || true
+    | grep -viE "${EN_SURFACE}[^:]*:[0-9]+:.*${NEG_BEFORE_EN}[[:space:]]+.{0,20}(${pat})" || true
 }
 
 # Common exclusions: test files and banzai-agent.ts (whose FORBIDDEN_PHRASES lists the forbidden phrases
