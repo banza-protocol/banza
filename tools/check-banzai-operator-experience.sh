@@ -97,8 +97,10 @@ g "OE10: onboarding client sends the implementation protocol/profile/environment
 
 # OE11 — the onboarding UI fetches the canonical options + shows human state labels.
 have "fetchOptions" "$OMODE" || fail "OE11: $OMODE must populate its selectors from fetchOptions (canonical)"
-have "CANDIDATE_STATE_LABEL" "$OMODE" || fail "OE11: $OMODE must map candidate state enums to human labels"
-have "ORIGIN_STATE_LABEL" "$OMODE" || fail "OE11: $OMODE must map origin state enums to human labels"
+# The map became CANDIDATE_STATE_ID: the backend enum is keyed to a catalogue id rather than to one
+# language's label, so the state is named in whichever edition the operator is reading.
+have "CANDIDATE_STATE_ID" "$OMODE" || fail "OE11: $OMODE must map candidate state enums to catalogue ids"
+have "ORIGIN_STATE_ID" "$OMODE" || fail "OE11: $OMODE must map origin state enums to catalogue ids"
 g "OE11: onboarding UI uses canonical option selectors + human state labels"
 
 # OE12 — candidateView surfaces the implementation profile for display.

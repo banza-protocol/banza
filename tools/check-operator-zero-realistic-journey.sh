@@ -124,7 +124,7 @@ grep -q "O Operador Zero é o único exemplo oficial de operador demo no BanzAI.
 # M2.19G.1 (ADR-034) — the OZ-only demo framing is surfaced in Fase 0 of the validation shell (the
 # "Operador disponível para demonstração: Operador Zero" hint over the closed registry) instead of the
 # old SINGLE_OFFICIAL_EXAMPLE copy string in the agent.
-grep -q "VALIDATION_COPY.onlyOperatorHint" "$SHELL" && ok "(6) the validation shell surfaces the OZ-only demo hint (onlyOperatorHint)" || fail "(6) the validation shell must surface the OZ-only demo hint (VALIDATION_COPY.onlyOperatorHint)"
+grep -q "onlyOperatorHint" "$SHELL" && ok "(6) the validation shell surfaces the OZ-only demo hint" || fail "(6) the validation shell must surface the OZ-only demo hint"
 # Every negative scenario label names the operator (not a loose generic example).
 if grep -q 'negativo: "Operador Zero' "$JOURNEY"; then ok "(6) negative scenarios belong to Operador Zero"; else fail "(6) negative scenario labels must name Operador Zero"; fi
 
@@ -136,7 +136,7 @@ echo "journey: evidence references + receipts per step + no secrets…"
 grep -q 'evidence_refs:' "$JOURNEY_TSX" \
   && ok "(7) each step carries its own evidence references (evidence_refs)" \
   || fail "(7) each step must carry evidence_refs"
-grep -q 'Evidence references' "$SHELL" && grep -q 'st.evidence_refs.map' "$SHELL" \
+grep -q '"step.evidenceReferences"' "$SHELL" && grep -q 'st.evidence_refs.map' "$SHELL" \
   && ok "(7) the shell shows the per-step evidence references / files" \
   || fail "(7) the shell must show the per-step evidence references (st.evidence_refs.map)"
 grep -q 'ServerOperationReceipt' "$JOURNEY_TSX" && grep -q 'st.receipt' "$SHELL" \

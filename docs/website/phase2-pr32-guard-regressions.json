@@ -14,11 +14,11 @@
     "branch_introduced": 43,
     "non_e2_branch_introduced": 14,
     "e2_branch_introduced": 29,
-    "branch_fail_after_remediation": 6,
-    "remediated": 41,
+    "branch_fail_after_remediation": 0,
+    "remediated": 46,
     "not_run_locally": 1,
-    "reconciliation": "185 PASS + 6 FAIL + 1 NOT_RUN_LOCALLY = 192, from `make ci-guards-local-check` at committed HEAD on a clean tree. One of the 6 is `make assurance-check`, green on a clean tree (its evidence is tree-derived) — it is listed only because the runner measured mid-edit.",
-    "pass": 185,
+    "reconciliation": "191 PASS + 0 FAIL + 1 NOT_RUN_LOCALLY = 192, from `make ci-guards-local-check` at committed HEAD on a clean tree.",
+    "pass": 191,
     "total_invocations": 192,
     "unit_of_count": "workflow-faithful CHECKS/INVOCATIONS, not distinct shell guards. The runner takes its list from the workflow files and now includes the `make` steps CI invokes, so one guard can appear once and one make target aggregates several. 192 is invocations; guards_surveyed=189 was the earlier script-only figure.",
     "superseded_counts": {
@@ -250,13 +250,16 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "E2",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved / symbol renamed with the locale split)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "the not-found state in both editions, and the BanzAI deep link read at the shared reader surface (the record page is ONE component parameterized by edition; the route file only selects it)",
+      "mutation_evidence": "killed by its own mutation, exactly restored, green after."
     },
     {
       "guard": "check-banzai-document-explanation-quality.sh",
@@ -269,13 +272,16 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "E2",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved / symbol renamed with the locale split)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "the truncation notice, required in both editions",
+      "mutation_evidence": "killed by its own mutation, exactly restored, green after."
     },
     {
       "guard": "check-banzai-draft-validation-isolation-check.sh",
@@ -377,13 +383,16 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "E2",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved / symbol renamed with the locale split)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "CANDIDATE_STATE_LABEL / ORIGIN_STATE_LABEL became CANDIDATE_STATE_ID / ORIGIN_STATE_ID — the backend enum is keyed to a catalogue id rather than to one language's label",
+      "mutation_evidence": "killed by its own mutation, exactly restored, green after."
     },
     {
       "guard": "check-banzai-operator-implementation-model-check.sh",
@@ -593,13 +602,16 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "E2",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved / symbol renamed with the locale split)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "the per-step evidence heading, read by id",
+      "mutation_evidence": "killed by its own mutation, exactly restored, green after."
     },
     {
       "guard": "check-banzai-upload-copy.sh",
@@ -789,13 +801,16 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "E2",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved / symbol renamed with the locale split)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "the OZ-only demo hint and the per-step evidence references, read by id",
+      "mutation_evidence": "killed by its own mutation, exactly restored, green after."
     },
     {
       "guard": "check-public-surface-canonical.sh",
@@ -1078,5 +1093,10 @@
       "corrected_by": "48d5453 — Makefile repaired, and the runner now extracts and executes CI's `make` steps too.",
       "lesson": "claiming a target is wired is not the same as running it through that target."
     }
-  ]
+  ],
+  "status": "ALL BRANCH-INTRODUCED GUARD FAILURES RESOLVED — 0 locally reproducible FAIL",
+  "remaining": {
+    "NOT_RUN_LOCALLY": 1,
+    "note": "check-whitepaper-hermetic.sh and check-openapi-compatibility.sh are declared NOT_RUN_LOCALLY by the runner; one is counted. They stay CI's responsibility — calling their absence green would be the same error as reading a build log instead of an exit code."
+  }
 }
