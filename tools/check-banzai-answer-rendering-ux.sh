@@ -24,6 +24,12 @@ cd "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 FAILED=0
 fail() { echo "FAIL: $*"; FAILED=1; }
+
+# These labels are realized from the bilingual catalogues, so the component names an id rather than
+# holding the sentence. The clauses below assert the id AT THE RENDER SITE and the wording in the
+# catalogue, which is stronger than the literal grep they replace: it covers the English edition too.
+# shellcheck source=tools/_banzai-copy.sh
+. tools/_banzai-copy.sh
 ok() { echo "  ok: $*"; }
 
 KB="services/banzai-api/src/knowledge.js"
@@ -90,13 +96,25 @@ grep -Eq 'font-mono text-\[10.5px\] leading-\[1.4\] text-ink-5.*m\.status|m\.sta
   && grep -q 'text-ink-5' "$AGENT" && ok "(12) metadata line is discreet (mono, muted)" || fail "(12) metadata line not discreet"
 
 # 13 — a refusal keeps its safe-refusal badge.
-grep -q 'RECUSA SEGURA' "$AGENT" && ok "(13) refusal keeps a 'RECUSA SEGURA' badge" || fail "(13) no RECUSA SEGURA badge"
+# The badge id is built from the computed verdict (`answerBadge.${verdict}`), so there is no literal id to
+# find in the component. The property has three parts: the refusal verdict exists, the badge realizes
+# whatever verdict it computed, and the catalogue gives that verdict its wording in both editions.
+grep -q '"safeRefusal"' "$AGENT" \
+  && grep -q 'answerBadge\.\${verdict}' "$AGENT" \
+  && copy_id_says agent answerBadge.safeRefusal pt 'RECUSA SEGURA' \
+  && copy_id_nonempty agent answerBadge.safeRefusal en \
+  && ok "(13) refusal keeps a 'RECUSA SEGURA' badge, realized in both editions" \
+  || fail "(13) no RECUSA SEGURA badge"
 
 # 14 — a source block shows its count.
-grep -q 'FONTES USADAS' "$SRCBLK" && grep -q 'sources.length' "$SRCBLK" && ok "(14) the source block shows a count" || fail "(14) source block does not show a count"
+copy_presented "$SRCBLK" agent sources.heading pt 'FONTES USADAS' && grep -q 'sources.length' "$SRCBLK" && ok "(14) the source block shows a count" || fail "(14) source block does not show a count"
 
 # 15 — sources are truncation/aria-labelled for small screens.
-grep -q 'aria-label="Fontes usadas"' "$SRCBLK" && grep -q 'truncate' "$SRCBLK" && ok "(15) sources are aria-labelled + truncate on small screens" || fail "(15) sources lack aria-label/truncate"
+# The accessible name is realized per edition too — an English reader must not get a Portuguese one.
+copy_presented "$SRCBLK" agent sources.aria pt 'ontes' && copy_id_nonempty agent sources.aria en \
+  && grep -q 'truncate' "$SRCBLK" \
+  && ok "(15) sources are aria-labelled in both editions + truncate on small screens" \
+  || fail "(15) sources lack a bilingual aria-label/truncate"
 
 # Logic tests — the link-safety allowlist + the adapter source/Fonte behaviour (Parts 5/6/7/12). Run
 # ONLY when the website test runner is installed (local / any job with website deps). CI validates the

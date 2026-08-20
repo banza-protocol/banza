@@ -14,11 +14,11 @@
     "branch_introduced": 43,
     "non_e2_branch_introduced": 14,
     "e2_branch_introduced": 29,
-    "branch_fail_after_remediation": 21,
-    "remediated": 26,
+    "branch_fail_after_remediation": 13,
+    "remediated": 34,
     "not_run_locally": 1,
-    "reconciliation": "170 PASS + 21 FAIL + 1 NOT_RUN_LOCALLY = 192, from `make ci-guards-local-check` at committed HEAD on a clean tree.",
-    "pass": 170,
+    "reconciliation": "178 PASS + 13 FAIL + 1 NOT_RUN_LOCALLY = 192, from `make ci-guards-local-check` at committed HEAD on a clean tree.",
+    "pass": 178,
     "total_invocations": 192,
     "unit_of_count": "workflow-faithful CHECKS/INVOCATIONS, not distinct shell guards. The runner takes its list from the workflow files and now includes the `make` steps CI invokes, so one guard can appear once and one make target aggregates several. 192 is invocations; guards_surveyed=189 was the earlier script-only figure.",
     "superseded_counts": {
@@ -117,13 +117,16 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "E2",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved / symbol renamed with the locale split)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "the refusal badge, whose id is built from the computed verdict — so the clause asserts the verdict exists, the badge realizes whatever it computed, and the catalogue words it in both editions; plus a bilingual accessible name on the source block",
+      "mutation_evidence": "killed by its own mutations, exactly restored, green after."
     },
     {
       "guard": "check-banzai-canonical-protocol-vocabulary.sh",
@@ -181,13 +184,16 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "E2",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved / symbol renamed with the locale split)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "the contextual action labels and the hasReceipt branch, read by action id",
+      "mutation_evidence": "killed by its own mutations, exactly restored, green after."
     },
     {
       "guard": "check-banzai-contextual-right-panel-check.sh",
@@ -200,13 +206,16 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "E2",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved / symbol renamed with the locale split)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "the header's realized fields and the right panel's contextual section headings, by id AND wording",
+      "mutation_evidence": "killed by its own mutations, exactly restored, green after."
     },
     {
       "guard": "check-banzai-degraded-mode-render.sh",
@@ -324,13 +333,16 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "E2",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved / symbol renamed with the locale split)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "the adapter returns locale-free followUpSelections rather than realized text; the safe-reframe set became SAFE_REFRAME_IDS + safeReframeSuggestions(locale)",
+      "mutation_evidence": "killed by its own mutations, exactly restored, green after."
     },
     {
       "guard": "check-banzai-no-qwen-decision-check.sh",
@@ -384,13 +396,16 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "E2",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved / symbol renamed with the locale split)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "Fase 0's step ORDER read from the ids the component renders (setup.step1 before setup.step2)",
+      "mutation_evidence": "killed by its own mutations, exactly restored, green after."
     },
     {
       "guard": "check-banzai-operator-journey.sh",
@@ -553,13 +568,16 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "E2",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved / symbol renamed with the locale split)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "THINKING_STAGES became THINKING_STAGE_IDS so the indicator speaks the reader's language",
+      "mutation_evidence": "killed by its own mutations, exactly restored, green after."
     },
     {
       "guard": "check-banzai-session-context-robustness.sh",
@@ -614,13 +632,16 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "E2",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved / symbol renamed with the locale split)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "the ask-mode name in both editions; the validation-journey divider read as a catalogue id, which is also how its ORDER is now established",
+      "mutation_evidence": "killed by its own mutations, exactly restored, green after."
     },
     {
       "guard": "check-footer-banzai-zero-navigation.sh",

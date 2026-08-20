@@ -21,6 +21,12 @@ ROOT="$(git rev-parse --show-toplevel 2>/dev/null || echo .)"
 cd "$ROOT"
 FAILED=0
 fail() { echo "FAIL: $*"; FAILED=1; }
+
+# The sentences these clauses assert moved into the bilingual catalogues, and several symbols were
+# renamed when the surfaces stopped holding their own Portuguese. Read from the resolved copy, which
+# also makes the English clause expressible.
+# shellcheck source=tools/_banzai-copy.sh
+. tools/_banzai-copy.sh
 ok()   { echo "  ok: $*"; }
 
 AGENT_TS="website/components/banzai/banzai-agent.ts"
@@ -37,9 +43,9 @@ echo "-- A. navigation --"
 
 # M2.19EF2 — one /banzai shell, TWO modes. The ask mode is the interactive conversation "Perguntar ao
 # BanzAI"; the validation mode is the 9-step journey. Sidebar tab groups are recursos + resultados.
-grep -Eq 'mode: *"ask".*name: "Perguntar ao BanzAI"' "$AGENT_TS" \
+copy_id_is agent mode.ask pt "Perguntar ao BanzAI" && copy_id_is agent mode.ask en "Ask BanzAI" \
   && ok "MODES: the ask mode is named 'Perguntar ao BanzAI'" \
-  || fail "$AGENT_TS must define an ask mode named 'Perguntar ao BanzAI'"
+  || fail "the ask mode must be named 'Perguntar ao BanzAI' / 'Ask BanzAI'"
 grep -Eq 'mode: *"validation"' "$AGENT_TS" \
   && ok "MODES: the validation mode is present" \
   || fail "$AGENT_TS must define a validation mode"
@@ -70,12 +76,12 @@ grep -q 'MODES.map' "$AGENT_TSX" \
 grep -q 'group === "recursos"' "$AGENT_TSX" && grep -q 'group === "resultados"' "$AGENT_TSX" \
   && ok "renderer maps the recursos + resultados groups" \
   || fail "$AGENT_TSX must render the recursos and resultados groups"
-grep -q 'JORNADA DE VALIDAÇÃO' "$AGENT_TSX" \
+copy_presented "$AGENT_TSX" agent section.validationJourney pt 'JORNADA DE VALIDAÇÃO' \
   && ok "renderer shows the 'JORNADA DE VALIDAÇÃO' divider (validation mode)" \
   || fail "$AGENT_TSX must show the validation-journey divider"
 # The order in source: MODOS → the validation-journey divider → RECURSOS.
 MODIV=$(grep -n 'sidebarDivider("MODOS")' "$AGENT_TSX" | head -1 | cut -d: -f1)
-JDIV=$(grep -n 'JORNADA DE VALIDAÇÃO' "$AGENT_TSX" | head -1 | cut -d: -f1)
+JDIV=$(grep -n 'sidebarDivider(t("section.validationJourney")' "$AGENT_TSX" | head -1 | cut -d: -f1)
 RDIV=$(grep -n 'sidebarDivider("RECURSOS")' "$AGENT_TSX" | head -1 | cut -d: -f1)
 if [ -n "$MODIV" ] && [ -n "$JDIV" ] && [ -n "$RDIV" ] && [ "$MODIV" -lt "$JDIV" ] && [ "$JDIV" -lt "$RDIV" ]; then
   ok "order: Modos → validation-journey divider → Recursos"
@@ -83,7 +89,7 @@ else
   fail "$AGENT_TSX: Modos must precede the validation-journey divider, which must precede Recursos"
 fi
 # The intro banner shows only on the ask conversation.
-grep -q 'assistantIntro' "$AGENT_TS"  && ok "banzai-agent.ts defines assistantIntro copy" || fail "$AGENT_TS must define assistantIntro"
+copy_id_nonempty agent agent.assistantIntro pt  && ok "banzai-agent.ts defines assistantIntro copy" || fail "$AGENT_TS must define assistantIntro"
 grep -q 'isChat' "$AGENT_TSX"         && ok "the intro banner is gated on the conversation (isChat)" || fail "$AGENT_TSX must gate the intro on isChat"
 
 # ─────────────────────────────────────────────────────────────────────────────────────────────
