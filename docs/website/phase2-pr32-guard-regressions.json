@@ -14,11 +14,11 @@
     "branch_introduced": 43,
     "non_e2_branch_introduced": 14,
     "e2_branch_introduced": 29,
-    "branch_fail_after_remediation": 23,
-    "remediated": 23,
+    "branch_fail_after_remediation": 21,
+    "remediated": 26,
     "not_run_locally": 1,
-    "reconciliation": "168 PASS + 23 FAIL + 1 NOT_RUN_LOCALLY = 192, measured at committed HEAD on a clean tree via `make ci-guards-local-check`.",
-    "pass": 168,
+    "reconciliation": "170 PASS + 21 FAIL + 1 NOT_RUN_LOCALLY = 192, from `make ci-guards-local-check` at committed HEAD on a clean tree.",
+    "pass": 170,
     "total_invocations": 192,
     "unit_of_count": "workflow-faithful CHECKS/INVOCATIONS, not distinct shell guards. The runner takes its list from the workflow files and now includes the `make` steps CI invokes, so one guard can appear once and one make target aggregates several. 192 is invocations; guards_surveyed=189 was the earlier script-only figure.",
     "superseded_counts": {
@@ -674,13 +674,16 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "A-D/E1 or shared public surface",
-      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (semantic records replaced page literals)",
       "property_guarded": "the glossary defines the required current terms, including operator != implementation",
       "historical_authority": "literal terms inside website/app/(pt)/glossario/page.tsx",
       "post_change_canonical_authority": "website/lib/glossaryTerms.ts — 25 records, each name: { pt, en }",
       "evidence": "line 52: name: { pt: \"Operador\", en: \"Operator\" }. The concept is present in both editions; the page renders from the record.",
       "disposition": "migrate to glossaryTerms.ts; require each term in BOTH editions, and keep proving operator != implementation",
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "required terms are realized by the bilingual glossary records, and each must have a NON-EMPTY English realization — a term with a Portuguese name and a blank English one is one half the readers cannot look up",
+      "mutation_evidence": "killed by its own mutations, exactly restored, green after."
     },
     {
       "guard": "check-home-readiness.sh",
@@ -715,13 +718,16 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "A-D/E1 or shared public surface",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (semantic records replaced page literals)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "the header's three destinations and their labels, in BOTH editions, from the resolved chrome",
+      "mutation_evidence": "killed by its own mutations, exactly restored, green after."
     },
     {
       "guard": "check-operator-contamination.sh",
@@ -874,13 +880,16 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "A-D/E1 or shared public surface",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (semantic records replaced page literals)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "the registry's canonical PT/EN naming, read from the glossary record that owns it",
+      "mutation_evidence": "killed by its own mutations, exactly restored, green after."
     },
     {
       "guard": "check-technical-registry-page.sh",
@@ -990,6 +999,11 @@
       "detail": "interpolating a multi-alternative phrase regex into a longer pattern without parentheses turns `PREFIX.*(A|B|C)` into `PREFIX.*A` OR `B` OR `C`. The bare last alternative then matches any line containing the phrase, so the exclusion filter silenced exactly the lines the guard exists to catch. Two mutations survived and exposed it.",
       "remediation": "parenthesised in check-public-surface-canonical.sh and in check-open-governance.sh, which carried the same shape from the earlier English-negation fix.",
       "lesson": "a negation/exclusion filter must be mutation-proven with a real positive claim, not only with the false positive it was written to clear.",
+      "disposition": "CLOSED"
+    },
+    {
+      "id": "glossary-added-to-the-resolved-copy-surface",
+      "detail": "the glossary is a table of RECORDS, not a flat id→text map, so it was flattened into the same shape (one entry per reader-visible field). Guards ask it the same way they ask every other catalogue instead of each re-parsing the term array.",
       "disposition": "CLOSED"
     }
   ],

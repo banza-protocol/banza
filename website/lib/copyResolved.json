@@ -2828,6 +2828,312 @@
           "en": "Explain {id} in plain language, making clear that it is the canonical record of the technical proposal or discussion it documents, but that on its own it does not change the protocol's current rules until it is accepted and reflected in the applicable normative documents. This document confers no certification."
         }
       }
+    },
+    "glossary": {
+      "module": "lib/glossaryTerms.ts",
+      "table": "GLOSSARY_TERMS",
+      "entries": {
+        "operator.name": {
+          "pt": "Operador",
+          "en": "Operator"
+        },
+        "operator.short": {
+          "pt": "Entidade independente que implementa o protocolo e processa pagamentos sob as suas próprias autorizações.",
+          "en": "An independent entity that implements the protocol and processes payments under its own authorisations."
+        },
+        "operator.hrefLabel": {
+          "pt": "Operadores — registo público",
+          "en": "Operators — public registry"
+        },
+        "implementation.name": {
+          "pt": "Implementação",
+          "en": "Implementation"
+        },
+        "implementation.short": {
+          "pt": "O sistema técnico avaliado e o sujeito da certificação: um build específico, identificado por hash de conteúdo — nunca uma entidade ou marca.",
+          "en": "The technical system evaluated and the subject of certification: a specific build, identified by content hash — never an entity or a brand."
+        },
+        "implementation.hrefLabel": {
+          "pt": "Certificação (Camada 2)",
+          "en": "Certification (Layer 2)"
+        },
+        "scheme-participant.name": {
+          "pt": "Participante de esquema",
+          "en": "Scheme participant"
+        },
+        "scheme-participant.short": {
+          "pt": "Entidade/implementação admitida como participante de um esquema operacional específico (Camada 3).",
+          "en": "An entity or implementation admitted as a participant of a specific operational scheme (Layer 3)."
+        },
+        "scheme-participant.hrefLabel": {
+          "pt": "Arquitectura — as três camadas",
+          "en": "Architecture — the three layers"
+        },
+        "certification-profile.name": {
+          "pt": "Perfil",
+          "en": "Certification Profile"
+        },
+        "certification-profile.short": {
+          "pt": "O padrão público e versionado contra o qual uma implementação é certificada.",
+          "en": "The public, versioned standard an implementation is certified against."
+        },
+        "certification-profile.hrefLabel": {
+          "pt": "Certificação (Camada 2)",
+          "en": "Certification (Layer 2)"
+        },
+        "capability.name": {
+          "pt": "Capability",
+          "en": "Capability"
+        },
+        "capability.short": {
+          "pt": "Uma superfície de protocolo que uma implementação declara implementar — descritiva, não uma permissão.",
+          "en": "A protocol surface an implementation declares it implements — descriptive, not a permission."
+        },
+        "capability.hrefLabel": {
+          "pt": "Certificação (Camada 2)",
+          "en": "Certification (Layer 2)"
+        },
+        "conformance.name": {
+          "pt": "Conformidade",
+          "en": "Conformance"
+        },
+        "conformance.short": {
+          "pt": "Verificação determinística e reproduzível de que uma implementação respeita os contratos e invariantes.",
+          "en": "Deterministic, reproducible verification that an implementation respects the contracts and invariants."
+        },
+        "conformance.hrefLabel": {
+          "pt": "Certificação (Camada 2)",
+          "en": "Certification (Layer 2)"
+        },
+        "interoperability.name": {
+          "pt": "Interoperabilidade",
+          "en": "Interoperability"
+        },
+        "interoperability.short": {
+          "pt": "Capacidade verificada de implementações independentes trocarem pagamentos sob as mesmas regras.",
+          "en": "The verified ability of independent implementations to exchange payments under the same rules."
+        },
+        "interoperability.hrefLabel": {
+          "pt": "Referência — Federação",
+          "en": "Reference — Federation"
+        },
+        "certification.name": {
+          "pt": "Certificação",
+          "en": "Certification"
+        },
+        "certification.short": {
+          "pt": "Camada 2: determinação por implementação, baseada em evidência e decidida por Rust, contra um perfil versionado.",
+          "en": "Layer 2: a per-implementation, evidence-based determination decided by Rust against a versioned profile."
+        },
+        "certification.hrefLabel": {
+          "pt": "Certificação (Camada 2)",
+          "en": "Certification (Layer 2)"
+        },
+        "certification-record.name": {
+          "pt": "Registo de certificação",
+          "en": "Certification Record"
+        },
+        "certification-record.short": {
+          "pt": "O objecto do veredicto: liga uma implementação a um perfil, com evidência, âmbito, validade, estado e hash.",
+          "en": "The verdict object: it binds an implementation to a profile, with evidence, scope, validity, state and hash."
+        },
+        "certification-record.hrefLabel": {
+          "pt": "Certificação (Camada 2)",
+          "en": "Certification (Layer 2)"
+        },
+        "certification-readiness.name": {
+          "pt": "Prontidão de certificação",
+          "en": "Certification readiness"
+        },
+        "certification-readiness.short": {
+          "pt": "O resultado agregado de validar uma implementação — indica preparação, não é a certificação.",
+          "en": "The aggregated outcome of validating an implementation — it indicates readiness, it is not certification."
+        },
+        "certification-readiness.hrefLabel": {
+          "pt": "Validar com o BanzAI",
+          "en": "Validate with BanzAI"
+        },
+        "scheme-admission.name": {
+          "pt": "Admissão a esquema",
+          "en": "Scheme admission"
+        },
+        "scheme-admission.short": {
+          "pt": "A decisão de um esquema de admitir uma entidade/implementação como participante — separada da certificação.",
+          "en": "A scheme's decision to admit an entity or implementation as a participant — separate from certification."
+        },
+        "scheme-admission.hrefLabel": {
+          "pt": "Arquitectura — as três camadas",
+          "en": "Architecture — the three layers"
+        },
+        "regulatory-authorisation.name": {
+          "pt": "Autorização regulatória",
+          "en": "Regulatory authorisation"
+        },
+        "regulatory-authorisation.short": {
+          "pt": "A concessão, pelo regulador competente, para exercer actividade financeira regulada. O BANZA não é parte.",
+          "en": "The grant, by the competent regulator, to carry on regulated financial activity. BANZA is not a party to it."
+        },
+        "regulatory-authorisation.hrefLabel": {
+          "pt": "Estado verificável",
+          "en": "Verifiable status"
+        },
+        "evidence-bundle.name": {
+          "pt": "Evidência",
+          "en": "Evidence Bundle"
+        },
+        "evidence-bundle.short": {
+          "pt": "Um pacote reproduzível de artefactos e referências de estado, ligados por hash — um pacote de entradas, não um certificado.",
+          "en": "A reproducible package of artifacts and status references, hash-bound — a bundle of inputs, not a certificate."
+        },
+        "evidence-bundle.hrefLabel": {
+          "pt": "Certificação (Camada 2)",
+          "en": "Certification (Layer 2)"
+        },
+        "open-trust-evaluation.name": {
+          "pt": "Confiança",
+          "en": "Open Trust Evaluation"
+        },
+        "open-trust-evaluation.short": {
+          "pt": "Avaliação Aberta de Confiança: verificação determinística, local e sem intervenção humana, de encaminhar para um par.",
+          "en": "Open Trust Evaluation: a deterministic, local, human-free check on whether to route to a peer."
+        },
+        "open-trust-evaluation.hrefLabel": {
+          "pt": "Referência — Confiança",
+          "en": "Reference — Trust"
+        },
+        "revocation.name": {
+          "pt": "Revogação",
+          "en": "Revocation"
+        },
+        "revocation.short": {
+          "pt": "Retirada assinada e datada de chaves/artefactos (ou de uma certificação) — mecanismo de segurança, não sanção.",
+          "en": "The signed, dated withdrawal of keys, artifacts or a certification — a security mechanism, not a sanction."
+        },
+        "revocation.hrefLabel": {
+          "pt": "Referência — Confiança",
+          "en": "Reference — Trust"
+        },
+        "technical-registry.name": {
+          "pt": "Registo Técnico",
+          "en": "BANZA Technical Registry"
+        },
+        "technical-registry.short": {
+          "pt": "O índice público e verificável por raiz de artefactos da camada de certificação (Camada 2).",
+          "en": "The public, root-verifiable index of certification-layer artifacts (Layer 2)."
+        },
+        "technical-registry.hrefLabel": {
+          "pt": "Registo Técnico",
+          "en": "Technical Registry"
+        },
+        "federation.name": {
+          "pt": "Federação",
+          "en": "Federation"
+        },
+        "federation.short": {
+          "pt": "Avaliação técnica, local e por interacção, das condições para encaminhar pagamentos entre operadores — por evidência + confiança.",
+          "en": "The technical, local, per-interaction assessment of the conditions for routing payments between operators — by evidence plus trust."
+        },
+        "federation.hrefLabel": {
+          "pt": "Referência — Federação",
+          "en": "Reference — Federation"
+        },
+        "operational-scheme.name": {
+          "pt": "Esquema operacional",
+          "en": "Operational scheme"
+        },
+        "operational-scheme.short": {
+          "pt": "Camada 3: um esquema independente que adopta o protocolo para operar, definindo participação, operação e responsabilidades.",
+          "en": "Layer 3: an independent scheme that adopts the protocol in order to operate, defining participation, operation and responsibilities."
+        },
+        "operational-scheme.hrefLabel": {
+          "pt": "Arquitectura — as três camadas",
+          "en": "Architecture — the three layers"
+        },
+        "banzami-operational-scheme.name": {
+          "pt": "Esquema Operacional Banzami",
+          "en": "Banzami Operational Scheme"
+        },
+        "banzami-operational-scheme.short": {
+          "pt": "O primeiro esquema operacional independente construído sobre o BANZA (Camada 3), com a Banzami como operadora designada do esquema, em preparação regulatória.",
+          "en": "The first independent operational scheme built on BANZA (Layer 3), with Banzami as the designated scheme operator, in regulatory preparation."
+        },
+        "banzami-operational-scheme.hrefLabel": {
+          "pt": "Arquitectura — as três camadas",
+          "en": "Architecture — the three layers"
+        },
+        "receipt.name": {
+          "pt": "Recibo",
+          "en": "OperationReceipt · JourneyReceipt"
+        },
+        "receipt.short": {
+          "pt": "Registo por passo (e agregado) de uma jornada de validação: o que correu e o que o motor Rust decidiu.",
+          "en": "The per-step (and aggregated) record of a validation journey: what ran, and what the Rust engine decided."
+        },
+        "receipt.hrefLabel": {
+          "pt": "BanzAI",
+          "en": "BanzAI"
+        },
+        "endpoint-originated-validation.name": {
+          "pt": "Validação por endpoints",
+          "en": "Endpoint-originated validation"
+        },
+        "endpoint-originated-validation.short": {
+          "pt": "A validação oficial obtém todos os artefactos avaliados exclusivamente dos endpoints públicos da implementação seleccionada.",
+          "en": "Official validation fetches every evaluated artifact exclusively from the selected implementation's public endpoints."
+        },
+        "endpoint-originated-validation.hrefLabel": {
+          "pt": "Referência — BanzAI",
+          "en": "Reference — BanzAI"
+        },
+        "draft-validation.name": {
+          "pt": "Rascunho de validação",
+          "en": "Draft validation"
+        },
+        "draft-validation.short": {
+          "pt": "Uma ferramenta local para programadores, separada da jornada oficial, que verifica um conteúdo carregado ou colado.",
+          "en": "A local developer tool, separate from the official journey, that checks uploaded or pasted content."
+        },
+        "draft-validation.hrefLabel": {
+          "pt": "Referência — BanzAI",
+          "en": "Reference — BanzAI"
+        },
+        "canonical-origin.name": {
+          "pt": "Origem canónica",
+          "en": "Canonical origin"
+        },
+        "canonical-origin.short": {
+          "pt": "A origem pública HTTPS de uma implementação, resolvida no Registo Técnico, de onde todos os seus artefactos oficiais são obtidos.",
+          "en": "An implementation's public HTTPS origin, resolved from the Technical Registry, from which all its official artifacts are fetched."
+        },
+        "canonical-origin.hrefLabel": {
+          "pt": "Registo Técnico",
+          "en": "Technical Registry"
+        },
+        "discovery.name": {
+          "pt": "Descoberta",
+          "en": "Discovery"
+        },
+        "discovery.short": {
+          "pt": "O documento publicado por uma implementação na sua origem canónica que anuncia identidade e o mapa dos seus endpoints públicos.",
+          "en": "The document an implementation publishes at its canonical origin, announcing its identity and the map of its public endpoints."
+        },
+        "discovery.hrefLabel": {
+          "pt": "Registo Técnico",
+          "en": "Technical Registry"
+        },
+        "secure-artifact-fetcher.name": {
+          "pt": "Camada segura de fetch",
+          "en": "Secure artifact fetcher"
+        },
+        "secure-artifact-fetcher.short": {
+          "pt": "O componente Rust, SSRF-hardened, que realiza toda a obtenção oficial de artefactos — nunca o navegador.",
+          "en": "The SSRF-hardened Rust component that performs all official artifact fetching — never the browser."
+        },
+        "secure-artifact-fetcher.hrefLabel": {
+          "pt": "Referência — BanzAI",
+          "en": "Reference — BanzAI"
+        }
+      }
     }
   }
 }

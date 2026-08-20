@@ -26,6 +26,7 @@ describe("resolved BanzAI copy — derived, current, and bilingual", () => {
     expect(Object.keys(resolved.catalogues).sort()).toEqual([
       "agent",
       "decisions",
+      "glossary",
       "onboarding",
       "progress",
       "suggestions",

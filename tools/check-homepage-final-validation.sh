@@ -69,9 +69,19 @@ for f in "$PAGE" "$FOOTER"; do
 done
 
 # 4. Header: exactly three destinations (Registo técnico · BanzAI · Ler a referência), no dropdowns, single active state.
-grep -q 'label: "Registo técnico"' "$SITE" && grep -q 'label: "BanzAI"' "$SITE" && grep -q 'label: "Ler a referência"' "$SITE" || flag "navPrimary must be Registo técnico · BanzAI · Ler a referência — $SITE"
-np="$(perl -0777 -ne 'print $1 if /navPrimary:\s*NavItem\[\]\s*=\s*\[(.*?)\];/s' "$SITE" | grep -cE '\{ href:')"
-[ "$np" = "3" ] || flag "navPrimary must have exactly 3 items (found $np) — $SITE"
+# The header is read as RESOLVED data, in both editions. Its labels no longer sit beside a pathname in the
+# config, so a literal grep tested a form that no longer exists — and an English reader was never covered
+# by it at all.
+# shellcheck source=tools/_chrome-resolved.sh
+. tools/_chrome-resolved.sh
+[ "$(chrome_nav_labels pt | tr '\n' '·')" = "Registo técnico·BanzAI·Ler a referência·" ] \
+  || flag "the Portuguese header must be Registo técnico · BanzAI · Ler a referência"
+[ "$(chrome_nav_labels en | tr '\n' '·')" = "Technical registry·BanzAI·Read the Reference·" ] \
+  || flag "the English header must be Technical registry · BanzAI · Read the Reference"
+for ed in pt en; do
+  n="$(chrome_nav_hrefs "$ed" | grep -c . || true)"
+  [ "$n" = "3" ] || flag "the $ed header must have exactly 3 destinations (found $n)"
+done
 for bad in "aria-haspopup" "role=\"menu\"" "openKey" "DropdownItem"; do
   grep -qF "$bad" "$NAV" && flag "the header reintroduced a dropdown ($bad) — $NAV" || true
 done

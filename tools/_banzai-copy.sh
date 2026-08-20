@@ -79,3 +79,18 @@ copy_presented() {
   grep -qF "\"$id\"" "$file" || grep -qF "'$id'" "$file" || return 1
   copy_id_says "$cat" "$id" "$loc" "$sub"
 }
+
+# copy_id_nonempty CATALOGUE ID LOCALE — that edition's realization exists and is not blank. A record with
+# a Portuguese name and an empty English one is a term half the readers cannot look up, and it would satisfy
+# any check that only asks whether the id exists.
+copy_id_nonempty() {
+  copy_require || return 1
+  CP_CAT="$1" CP_ID="$2" CP_LOCALE="$3" python3 - "$COPY_RESOLVED" <<'PY'
+import json, os, sys
+d = json.load(open(sys.argv[1]))["catalogues"]
+cat, cid = os.environ["CP_CAT"], os.environ["CP_ID"]
+if cat not in d or cid not in d[cat]["entries"]:
+    sys.stderr.write(f"copy-resolved: unknown id {cat}/{cid}\n"); sys.exit(2)
+sys.exit(0 if d[cat]["entries"][cid][os.environ["CP_LOCALE"]].strip() else 1)
+PY
+}
