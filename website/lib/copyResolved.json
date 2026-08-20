@@ -1,0 +1,2833 @@
+{
+  "note": "Derived by scripts/emit-copy-resolved.mjs. Never hand-edit; run the script.",
+  "catalogues": {
+    "agent": {
+      "module": "components/banzai/agentPresentation.ts",
+      "table": "AGENT_COPY",
+      "entries": {
+        "agent.subtitle": {
+          "pt": "Interface interactiva do protocolo · consulta, valida e orienta",
+          "en": "Interactive protocol interface · consult, validate and guide"
+        },
+        "agent.assistantIntro": {
+          "pt": "Podes perguntar livremente ou colar um artefacto técnico. O BanzAI identifica o tipo de pedido e encaminha para explicação, análise ou validação técnica quando suportado. Não certifica, não aprova operadores e não substitui os motores verificáveis.",
+          "en": "You can ask freely or paste a technical artifact. BanzAI identifies the kind of request and routes it to explanation, analysis or technical validation where supported. It does not certify, does not approve operators and does not replace the verifiable engines."
+        },
+        "agent.heroText": {
+          "pt": "Orienta a implementação e ajuda a usar as ferramentas do protocolo BANZA.",
+          "en": "It guides implementation and helps you use the BANZA protocol's tools."
+        },
+        "agent.boundary": {
+          "pt": "BanzAI é a interface primária de trabalho entre humanos/operadores e o protocolo BANZA (ADR-036); em concreto, o agente do protocolo. Guia, simula, invoca ferramentas verificáveis e explica resultados com base em fontes oficiais — não aprova, não certifica, não licencia, não publica operadores, não movimenta fundos, não decide participação, não inventa regras e não cria decisões arquitecturais. A conformidade demonstra-se por evidência verificável.",
+          "en": "BanzAI is the primary working interface between humans/operators and the BANZA protocol (ADR-036); specifically, the protocol's agent. It guides, simulates, invokes verifiable tools and explains results from official sources — it does not approve, does not certify, does not license, does not publish operators, does not move funds, does not decide participation, does not invent rules and does not create architectural decisions. Conformance is demonstrated by verifiable evidence."
+        },
+        "agent.boundaryTop": {
+          "pt": "guia · invoca ferramentas · explica · não decide",
+          "en": "guides · invokes tools · explains · does not decide"
+        },
+        "agent.shortPhrase": {
+          "pt": "BanzAI guia; os motores verificam; a evidência prova; a autoridade competente decide.",
+          "en": "BanzAI guides; the engines verify; the evidence proves; the competent authority decides."
+        },
+        "agent.assistantPlaceholder": {
+          "pt": "Pergunte ao BanzAI ou peça uma operação técnica…",
+          "en": "Ask BanzAI, or request a technical operation…"
+        },
+        "agent.ruleSources": {
+          "pt": "Referência · ADR · RFC · Specs · Contracts · Schemas · Invariants · Engines",
+          "en": "Reference · ADR · RFC · Specs · Contracts · Schemas · Invariants · Engines"
+        },
+        "agent.guiaText": {
+          "pt": "Use o BanzAI para percorrer a implementação do protocolo: preparar Manifest, validar Conformidade, verificar Interoperabilidade e Confiança, gerar Evidence Bundle e preparar a Federação. BanzAI guia; os motores Rust/WASM verificam; a evidência prova; a autoridade competente decide. BanzAI guia a implementação do protocolo existente; não cria protocolo novo.",
+          "en": "Use BanzAI to work through implementing the protocol: prepare the Manifest, validate Conformance, verify Interoperability and Trust, generate an Evidence Bundle and prepare Federation. BanzAI guides; the Rust/WASM engines verify; the evidence proves; the competent authority decides. BanzAI guides the implementation of the existing protocol; it does not create new protocol."
+        },
+        "agent.sessionNotice": {
+          "pt": "Esta sessão vive apenas no navegador. Ao recarregar a página, os dados desta jornada são limpos.",
+          "en": "This session lives only in the browser. Reloading the page clears this journey's data."
+        },
+        "whoDoesWhat.operator": {
+          "pt": "implementa e publica evidência.",
+          "en": "implements and publishes evidence."
+        },
+        "whoDoesWhat.engines": {
+          "pt": "verificam (Rust/WASM determinísticos).",
+          "en": "verify (deterministic Rust/WASM)."
+        },
+        "whoDoesWhat.banzai": {
+          "pt": "guia e explica.",
+          "en": "guides and explains."
+        },
+        "whoDoesWhat.peers": {
+          "pt": "verificam evidência e interoperam localmente.",
+          "en": "verify evidence and interoperate locally."
+        },
+        "whoDoesWhat.governance": {
+          "pt": "mantém o protocolo e activa novas regras por RFC/ADR.",
+          "en": "maintains the protocol and activates new rules through RFC/ADR."
+        },
+        "whoDoesWhat.regulators": {
+          "pt": "tratam do enquadramento fora do protocolo.",
+          "en": "handle the framework outside the protocol."
+        },
+        "whoDoesWhat.role.operator": {
+          "pt": "Operador",
+          "en": "Operator"
+        },
+        "whoDoesWhat.role.engines": {
+          "pt": "Motores",
+          "en": "Engines"
+        },
+        "whoDoesWhat.role.banzai": {
+          "pt": "BanzAI",
+          "en": "BanzAI"
+        },
+        "whoDoesWhat.role.peers": {
+          "pt": "Pares",
+          "en": "Peers"
+        },
+        "whoDoesWhat.role.governance": {
+          "pt": "Governança",
+          "en": "Governance"
+        },
+        "whoDoesWhat.role.regulators": {
+          "pt": "Reguladores",
+          "en": "Regulators"
+        },
+        "mode.ask": {
+          "pt": "Perguntar ao BanzAI",
+          "en": "Ask BanzAI"
+        },
+        "mode.validation": {
+          "pt": "Validar operador",
+          "en": "Validate operator"
+        },
+        "mode.onboarding": {
+          "pt": "Onboarding de operador",
+          "en": "Operator onboarding"
+        },
+        "tab.assistente": {
+          "pt": "Perguntar ao BanzAI",
+          "en": "Ask BanzAI"
+        },
+        "tab.guia": {
+          "pt": "Guia",
+          "en": "Guide"
+        },
+        "tab.rfc": {
+          "pt": "Referência",
+          "en": "Reference"
+        },
+        "tab.programadores": {
+          "pt": "Programadores",
+          "en": "Developers"
+        },
+        "tab.resultados": {
+          "pt": "Resultados",
+          "en": "Results"
+        },
+        "link.repository": {
+          "pt": "Repositório",
+          "en": "Repository"
+        },
+        "validation.header": {
+          "pt": "Validação técnica de implementação",
+          "en": "Technical validation of an implementation"
+        },
+        "validation.intro": {
+          "pt": "Seleccione um operador e uma das suas implementações publicadas. A jornada avalia a implementação seleccionada através dos endpoints públicos declarados pelo operador.",
+          "en": "Select an operator and one of its published implementations. The journey evaluates the selected implementation through the public endpoints the operator declares."
+        },
+        "validation.entities": {
+          "pt": "O operador é a entidade responsável. A implementação é o sistema técnico avaliado.",
+          "en": "The operator is the responsible entity. The implementation is the technical system evaluated."
+        },
+        "validation.onlyOperatorHint": {
+          "pt": "Operador disponível para demonstração: Operador Zero",
+          "en": "Operator available for demonstration: Operator Zero"
+        },
+        "validation.originNote": {
+          "pt": "Todos os artefactos são obtidos pelo backend a partir dos endpoints públicos da implementação. O Rust decide; a IA nunca decide. A Prontidão de Certificação não é um Registo de Certificação.",
+          "en": "All artifacts are fetched by the backend from the implementation's public endpoints. Rust decides; the AI never decides. Certification Readiness is not a Certification Record."
+        },
+        "draft.title": {
+          "pt": "Validar rascunho",
+          "en": "Validate a draft"
+        },
+        "draft.subtitle": {
+          "pt": "Ferramenta local para programadores: cole ou carregue um artefacto JSON, escolha o tipo e valide o esquema/tipo/invariantes. Não avança a jornada, não produz recibo oficial, não alimenta o Evidence Bundle e nunca devolve VERIFIED nem Prontidão de Certificação.",
+          "en": "A local developer tool: paste or upload a JSON artifact, choose its type and validate the schema, type and invariants. It does not advance the journey, does not produce an official receipt, does not feed the Evidence Bundle, and never returns VERIFIED or Certification Readiness."
+        },
+        "draft.banner": {
+          "pt": "Rascunho local · não publicado · não produz evidência oficial",
+          "en": "Local draft · not published · produces no official evidence"
+        },
+        "authority.noCertify": {
+          "pt": "BanzAI não certifica, não aprova e não emite certificados.",
+          "en": "BanzAI does not certify, does not approve and issues no certificates."
+        },
+        "authority.runsTools": {
+          "pt": "BanzAI executa ferramentas técnicas e explica resultados.",
+          "en": "BanzAI runs technical tools and explains results."
+        },
+        "authority.caDecides": {
+          "pt": "Ninguém aceita nem aprova operadores por decisão humana central; a conformidade demonstra-se por evidência verificável.",
+          "en": "No one accepts or approves operators by central human decision; conformance is demonstrated by verifiable evidence."
+        },
+        "authority.passIsEvidence": {
+          "pt": "PASS é evidência técnica, não certificado.",
+          "en": "PASS is technical evidence, not a certificate."
+        },
+        "authority.preProduction": {
+          "pt": "O estado público continua pré-produção: registo público vazio, sem evidência de operador publicada.",
+          "en": "The public state remains pre-production: the public registry is empty, with no operator evidence published."
+        },
+        "badge.defaultEngine": {
+          "pt": "Motor por omissão: Qwen local",
+          "en": "Default engine: local Qwen"
+        },
+        "badge.localInference": {
+          "pt": "Inferência local (on-host)",
+          "en": "Local inference (on-host)"
+        },
+        "badge.noExternalCalls": {
+          "pt": "Sem chamadas externas",
+          "en": "No external calls"
+        },
+        "badge.perAnswerState": {
+          "pt": "Estado por resposta",
+          "en": "Per-answer state"
+        },
+        "badge.nonNormative": {
+          "pt": "Não normativo",
+          "en": "Non-normative"
+        },
+        "badge.preProduction": {
+          "pt": "Pré-produção do protocolo",
+          "en": "Protocol pre-production"
+        },
+        "profile.L0": {
+          "pt": "Sandbox de Protocolo",
+          "en": "Protocol Sandbox"
+        },
+        "profile.L1": {
+          "pt": "Capacidade de Pagamento Central",
+          "en": "Core Payment Capability"
+        },
+        "profile.L2": {
+          "pt": "Iniciação de Pagamento",
+          "en": "Payment Initiation"
+        },
+        "profile.L3": {
+          "pt": "Interoperabilidade entre Operadores",
+          "en": "Operator-to-Operator Interoperability"
+        },
+        "profile.L4": {
+          "pt": "Interoperabilidade Externa",
+          "en": "External Interoperability"
+        },
+        "answerBadge.operationalMeasurement": {
+          "pt": "MEDIÇÃO OPERACIONAL",
+          "en": "OPERATIONAL MEASUREMENT"
+        },
+        "answerBadge.insufficientMeasurements": {
+          "pt": "SEM MEDIÇÕES SUFICIENTES",
+          "en": "NOT ENOUGH MEASUREMENTS"
+        },
+        "answerBadge.safeRefusal": {
+          "pt": "RECUSA SEGURA",
+          "en": "SAFE REFUSAL"
+        },
+        "answerBadge.serviceUnavailable": {
+          "pt": "SERVIÇO INDISPONÍVEL",
+          "en": "SERVICE UNAVAILABLE"
+        },
+        "answerBadge.insufficientEvidence": {
+          "pt": "EVIDÊNCIA INSUFICIENTE",
+          "en": "INSUFFICIENT EVIDENCE"
+        },
+        "section.whoDoesWhat": {
+          "pt": "QUEM FAZ O QUÊ",
+          "en": "WHO DOES WHAT"
+        },
+        "section.ruleProvenance": {
+          "pt": "PROVENIÊNCIA DAS REGRAS",
+          "en": "PROVENANCE OF THE RULES"
+        },
+        "section.decisionsAndRfcs": {
+          "pt": "DECISÕES E RFCs",
+          "en": "DECISIONS AND RFCs"
+        },
+        "section.startHere": {
+          "pt": "COMEÇAR POR AQUI",
+          "en": "START HERE"
+        },
+        "section.citations": {
+          "pt": "CITAÇÕES",
+          "en": "CITATIONS"
+        },
+        "section.validationJourney": {
+          "pt": "JORNADA DE VALIDAÇÃO",
+          "en": "VALIDATION JOURNEY"
+        },
+        "section.validationContext": {
+          "pt": "CONTEXTO DA VALIDAÇÃO",
+          "en": "VALIDATION CONTEXT"
+        },
+        "rfc.intro": {
+          "pt": "ADRs, RFCs e o mapa do protocolo. Cada cartão pergunta ao BanzAI, que responde com base nas fontes locais.",
+          "en": "ADRs, RFCs and the protocol map. Each card asks BanzAI, which answers from the local sources."
+        },
+        "answer.truncated": {
+          "pt": "Resposta resumida para caber no limite actual. Peça detalhes por secção.",
+          "en": "Answer shortened to fit the current limit. Ask for detail section by section."
+        },
+        "doc.notFound": {
+          "pt": "Documento não encontrado",
+          "en": "Document not found"
+        },
+        "input.hint": {
+          "pt": "Enter para enviar · Shift+Enter para nova linha",
+          "en": "Enter to send · Shift+Enter for a new line"
+        },
+        "validation.selectHint": {
+          "pt": "Seleccione um operador e uma das suas implementações publicadas para activar a jornada. O contexto da validação aparece aqui depois da selecção.",
+          "en": "Select an operator and one of its published implementations to activate the journey. The validation context appears here after the selection."
+        },
+        "citations.empty": {
+          "pt": "As citações aparecerão aqui quando o BanzAI responder.",
+          "en": "Citations will appear here once BanzAI answers."
+        },
+        "agent.whatItIs": {
+          "pt": "BanzAI é o agente IA do protocolo BANZA. Responde com base nas fontes locais do protocolo, não certifica, não aprova operadores, não emite licenças e não substitui a governação do protocolo.",
+          "en": "BanzAI is the BANZA protocol's AI agent. It answers from the protocol's local sources; it does not certify, does not approve operators, does not issue licences and does not replace the protocol's governance."
+        },
+        "agent.noCentralApproval": {
+          "pt": "Ninguém aceita nem aprova operadores por decisão humana central. PASS é evidência verificável de conformidade, não certificado.",
+          "en": "No one accepts or approves operators by central human decision. PASS is verifiable evidence of conformance, not a certificate."
+        },
+        "thinking.consultingReference": {
+          "pt": "A consultar a referência…",
+          "en": "Consulting the reference…"
+        },
+        "thinking.crossingSources": {
+          "pt": "A cruzar fontes verificáveis…",
+          "en": "Cross-checking verifiable sources…"
+        },
+        "assistant.prompt": {
+          "pt": "Faça perguntas sobre a referência, a jornada de validação e os artefactos técnicos. Os motores verificam. A evidência prova. A autoridade competente decide.",
+          "en": "Ask about the reference, the validation journey and the technical artifacts. The engines verify. The evidence proves. The competent authority decides."
+        },
+        "duration.version": {
+          "pt": "Versão",
+          "en": "Version"
+        },
+        "duration.implementation": {
+          "pt": "Implementação",
+          "en": "Implementation"
+        },
+        "duration.period": {
+          "pt": "Período",
+          "en": "Period"
+        },
+        "duration.observed": {
+          "pt": "Duração observada",
+          "en": "Observed duration"
+        },
+        "duration.last": {
+          "pt": "Última",
+          "en": "Last"
+        },
+        "duration.mean": {
+          "pt": "Média",
+          "en": "Mean"
+        },
+        "duration.min": {
+          "pt": "Mínimo",
+          "en": "Minimum"
+        },
+        "duration.max": {
+          "pt": "Máximo",
+          "en": "Maximum"
+        },
+        "duration.comparableRuns": {
+          "pt": "Execuções comparáveis:",
+          "en": "Comparable runs:"
+        },
+        "duration.maxSuffix": {
+          "pt": "máx",
+          "en": "max"
+        },
+        "guia.askImplement": {
+          "pt": "Como implemento o protocolo BANZA e demonstro conformidade por evidência verificável?",
+          "en": "How do I implement the BANZA protocol and demonstrate conformance through verifiable evidence?"
+        },
+        "nav.context": {
+          "pt": "Contexto da navegação",
+          "en": "Navigation context"
+        },
+        "nav.open": {
+          "pt": "Abrir navegação",
+          "en": "Open navigation"
+        },
+        "nav.sidebar": {
+          "pt": "Navegação lateral do BanzAI",
+          "en": "BanzAI side navigation"
+        },
+        "nav.expand": {
+          "pt": "Expandir navegação",
+          "en": "Expand navigation"
+        },
+        "nav.collapse": {
+          "pt": "Colapsar navegação",
+          "en": "Collapse navigation"
+        },
+        "nav.close": {
+          "pt": "Fechar navegação",
+          "en": "Close navigation"
+        },
+        "nav.label": {
+          "pt": "Navegação do BanzAI",
+          "en": "BanzAI navigation"
+        },
+        "ask.whatsTheDifference": {
+          "pt": "qual a diferença?",
+          "en": "what is the difference?"
+        },
+        "engine.byDefault": {
+          "pt": "por omissão",
+          "en": "by default"
+        },
+        "engine.default": {
+          "pt": "Motor por omissão: Qwen local (on-host) · sem chamadas externas · estado por resposta",
+          "en": "Engine by default: local Qwen (on-host) · no external calls · state reported per answer"
+        },
+        "engine.external": {
+          "pt": "Motor: modelo externo utilizado nesta resposta · fora do host",
+          "en": "Engine: an external model was used for this answer · off-host"
+        },
+        "engine.degraded": {
+          "pt": "Motor: degradado — modelo local indisponível nesta resposta · resposta pelo caminho determinístico/fundamentado",
+          "en": "Engine: degraded — the local model was unavailable for this answer · answered through the deterministic/grounded path"
+        },
+        "engine.unreported": {
+          "pt": "Motor: estado por confirmar nesta resposta · não normativo",
+          "en": "Engine: state unconfirmed for this answer · non-normative"
+        },
+        "engine.confirmed": {
+          "pt": "Motor: {name} · sem chamadas externas · confirmado nesta resposta",
+          "en": "Engine: {name} · no external calls · confirmed for this answer"
+        },
+        "engine.localQwen": {
+          "pt": "Qwen local (on-host)",
+          "en": "local Qwen (on-host)"
+        },
+        "session.reset": {
+          "pt": "Reiniciar sessão",
+          "en": "Restart session"
+        },
+        "doc.viewDecision": {
+          "pt": "Ver decisão",
+          "en": "View decision"
+        },
+        "doc.viewConsequences": {
+          "pt": "Ver consequências",
+          "en": "View consequences"
+        },
+        "inspector.validationContext": {
+          "pt": "Inspetor · contexto da validação",
+          "en": "Inspector · validation context"
+        },
+        "results.liveHere": {
+          "pt": "Os resultados da validação de operador vivem aqui, com origem nos endpoints públicos da implementação.",
+          "en": "The operator validation results live here, originating at the implementation's public endpoints."
+        },
+        "tools.intro": {
+          "pt": "Referência e ferramentas do protocolo. Use os cartões para perguntar ao BanzAI ou abrir a validação de operador.",
+          "en": "Protocol reference and tools. Use the cards to ask BanzAI or to open operator validation."
+        },
+        "runtime.unconfirmed": {
+          "pt": "estado não confirmado",
+          "en": "state unconfirmed"
+        },
+        "thinking.composingAnswer": {
+          "pt": "A compor a resposta…",
+          "en": "Composing the answer…"
+        },
+        "thinking.validatingBoundaries": {
+          "pt": "A validar as fronteiras…",
+          "en": "Validating the boundaries…"
+        },
+        "thinking.preparingSources": {
+          "pt": "A preparar as fontes…",
+          "en": "Preparing the sources…"
+        },
+        "duration.type": {
+          "pt": "Tipo",
+          "en": "Type"
+        },
+        "duration.profile": {
+          "pt": "Perfil",
+          "en": "Profile"
+        },
+        "duration.environment": {
+          "pt": "Ambiente",
+          "en": "Environment"
+        },
+        "duration.median": {
+          "pt": "mediana",
+          "en": "median"
+        },
+        "duration.perStep": {
+          "pt": "POR ETAPA",
+          "en": "PER STEP"
+        },
+        "duration.aria": {
+          "pt": "Medição operacional",
+          "en": "Operational measurement"
+        },
+        "sources.heading": {
+          "pt": "FONTES USADAS",
+          "en": "SOURCES USED"
+        },
+        "sources.aria": {
+          "pt": "Fontes usadas",
+          "en": "Sources used"
+        },
+        "tp.heading": {
+          "pt": "TRANSPARÊNCIA DA RESPOSTA",
+          "en": "ANSWER TRANSPARENCY"
+        },
+        "tp.limitations": {
+          "pt": "LIMITAÇÕES",
+          "en": "LIMITATIONS"
+        },
+        "tp.row.claims": {
+          "pt": "ALEGAÇÕES",
+          "en": "CLAIMS"
+        },
+        "tp.row.environment": {
+          "pt": "AMBIENTE",
+          "en": "ENVIRONMENT"
+        },
+        "tp.row.sample": {
+          "pt": "AMOSTRA",
+          "en": "SAMPLE"
+        },
+        "tp.row.artifact": {
+          "pt": "ARTEFACTO",
+          "en": "ARTIFACT"
+        },
+        "tp.row.authority": {
+          "pt": "AUTORIDADE",
+          "en": "AUTHORITY"
+        },
+        "tp.row.confidence": {
+          "pt": "CONFIANÇA",
+          "en": "CONFIDENCE"
+        },
+        "tp.row.totalDuration": {
+          "pt": "DURAÇÃO TOTAL",
+          "en": "TOTAL DURATION"
+        },
+        "tp.row.entity": {
+          "pt": "ENTIDADE",
+          "en": "ENTITY"
+        },
+        "tp.row.family": {
+          "pt": "FAMÍLIA",
+          "en": "FAMILY"
+        },
+        "tp.row.sources": {
+          "pt": "FONTES",
+          "en": "SOURCES"
+        },
+        "tp.row.implementation": {
+          "pt": "IMPLEMENTAÇÃO",
+          "en": "IMPLEMENTATION"
+        },
+        "tp.row.intent": {
+          "pt": "INTENÇÃO",
+          "en": "INTENT"
+        },
+        "tp.row.interpretedAs": {
+          "pt": "INTERPRETADO COMO",
+          "en": "INTERPRETED AS"
+        },
+        "tp.row.model": {
+          "pt": "MODELO",
+          "en": "MODEL"
+        },
+        "tp.row.engine": {
+          "pt": "MOTOR",
+          "en": "ENGINE"
+        },
+        "tp.row.method": {
+          "pt": "MÉTODO DE CÁLCULO",
+          "en": "COMPUTATION METHOD"
+        },
+        "tp.row.observedAt": {
+          "pt": "OBSERVADO EM",
+          "en": "OBSERVED AT"
+        },
+        "tp.row.canonicalOrigin": {
+          "pt": "ORIGEM CANÓNICA",
+          "en": "CANONICAL ORIGIN"
+        },
+        "tp.row.profile": {
+          "pt": "PERFIL",
+          "en": "PROFILE"
+        },
+        "tp.row.period": {
+          "pt": "PERÍODO",
+          "en": "PERIOD"
+        },
+        "tp.row.sha256": {
+          "pt": "SHA-256",
+          "en": "SHA-256"
+        },
+        "tp.row.subIntents": {
+          "pt": "SUB-INTENÇÕES",
+          "en": "SUB-INTENTS"
+        },
+        "tp.row.answerType": {
+          "pt": "TIPO DE RESPOSTA",
+          "en": "ANSWER TYPE"
+        },
+        "tp.row.validation": {
+          "pt": "VALIDAÇÃO",
+          "en": "VALIDATION"
+        },
+        "tp.row.claimVerification": {
+          "pt": "VERIFICAÇÃO DE ALEGAÇÕES",
+          "en": "CLAIM VERIFICATION"
+        },
+        "tp.row.citationVerification": {
+          "pt": "VERIFICAÇÃO DE CITAÇÕES",
+          "en": "CITATION VERIFICATION"
+        },
+        "tp.row.version": {
+          "pt": "VERSÃO",
+          "en": "VERSION"
+        },
+        "tp.row.engineVersion": {
+          "pt": "VERSÃO DO MOTOR",
+          "en": "ENGINE VERSION"
+        },
+        "tp.row.scope": {
+          "pt": "ÂMBITO",
+          "en": "SCOPE"
+        },
+        "tp.model.called": {
+          "pt": "chamado (local)",
+          "en": "called (local)"
+        },
+        "tp.model.notCalled": {
+          "pt": "sem chamada",
+          "en": "not called"
+        },
+        "tp.validation.rejected": {
+          "pt": "rejeitada",
+          "en": "rejected"
+        },
+        "tp.validation.passed": {
+          "pt": "aprovada",
+          "en": "passed"
+        },
+        "tp.validation.notApplicable": {
+          "pt": "não aplicável",
+          "en": "not applicable"
+        },
+        "dev.title": {
+          "pt": "Programadores",
+          "en": "Developers"
+        },
+        "dev.intro": {
+          "pt": "Ferramentas e referência para quem implementa o protocolo. A validação oficial de operador é sempre com origem nos endpoints públicos; aqui vivem as ferramentas locais de rascunho e a referência técnica.",
+          "en": "Tools and reference for those implementing the protocol. Official operator validation always originates at the public endpoints; what lives here is the local draft tooling and the technical reference."
+        },
+        "dev.section.tools": {
+          "pt": "FERRAMENTAS",
+          "en": "TOOLS"
+        },
+        "dev.section.commands": {
+          "pt": "COMANDOS (RUST-FIRST)",
+          "en": "COMMANDS (RUST-FIRST)"
+        },
+        "dev.section.publicEndpoints": {
+          "pt": "ENDPOINTS PÚBLICOS",
+          "en": "PUBLIC ENDPOINTS"
+        },
+        "dev.section.faq": {
+          "pt": "PERGUNTAS FREQUENTES",
+          "en": "FREQUENTLY ASKED QUESTIONS"
+        },
+        "dev.section.repository": {
+          "pt": "REPOSITÓRIO",
+          "en": "REPOSITORY"
+        },
+        "dev.opensNewTab": {
+          "pt": "abre numa nova aba",
+          "en": "opens in a new tab"
+        },
+        "starter.journeyDuration": {
+          "pt": "Quanto tempo leva uma jornada completa de validação?",
+          "en": "How long does a full validation journey take?"
+        },
+        "starter.slowestStep": {
+          "pt": "Qual a etapa mais lenta da validação e quanto demora?",
+          "en": "Which validation step is the slowest, and how long does it take?"
+        },
+        "starter.compareRuns": {
+          "pt": "Compara a duração da última execução com a anterior.",
+          "en": "Compare the duration of the last run with the previous one."
+        },
+        "rfcCard.adr001.title": {
+          "pt": "Hierarquia BANZA / BanzAI / Operadores",
+          "en": "BANZA / BanzAI / Operators hierarchy"
+        },
+        "rfcCard.adr001.q": {
+          "pt": "Explica o ADR-001 — a hierarquia BANZA / BanzAI / Operadores",
+          "en": "Explain ADR-001 — the BANZA / BanzAI / Operators hierarchy"
+        },
+        "rfcCard.adr036.title": {
+          "pt": "BanzAI — interface primária",
+          "en": "BanzAI — the primary interface"
+        },
+        "rfcCard.adr036.q": {
+          "pt": "Explica o ADR-036 — o BanzAI como interface primária humano-operador",
+          "en": "Explain ADR-036 — BanzAI as the primary human-operator interface"
+        },
+        "rfcCard.adr030.title": {
+          "pt": "Evidência e conformidade",
+          "en": "Evidence and conformance"
+        },
+        "rfcCard.adr030.q": {
+          "pt": "Explica o ADR-030 — evidência e conformidade",
+          "en": "Explain ADR-030 — evidence and conformance"
+        },
+        "rfcCard.adr025.title": {
+          "pt": "Confiança e chaves",
+          "en": "Trust and keys"
+        },
+        "rfcCard.adr025.q": {
+          "pt": "Explica o ADR-025 — confiança e chaves",
+          "en": "Explain ADR-025 — trust and keys"
+        },
+        "rfcCard.adr038.title": {
+          "pt": "Rust-first para engines oficiais",
+          "en": "Rust-first for the official engines"
+        },
+        "rfcCard.adr038.q": {
+          "pt": "Explica o ADR-038 — a política Rust-first",
+          "en": "Explain ADR-038 — the Rust-first policy"
+        },
+        "rfcCard.rfcs.title": {
+          "pt": "RFCs do protocolo",
+          "en": "Protocol RFCs"
+        },
+        "rfcCard.rfcs.q": {
+          "pt": "Quais são as RFCs do protocolo BANZA?",
+          "en": "What are the BANZA protocol's RFCs?"
+        },
+        "mapNode.banza.role": {
+          "pt": "Protocolo aberto",
+          "en": "Open protocol"
+        },
+        "mapNode.banza.q": {
+          "pt": "O que é o protocolo BANZA?",
+          "en": "What is the BANZA protocol?"
+        },
+        "mapNode.governanca.id": {
+          "pt": "Governança",
+          "en": "Governance"
+        },
+        "mapNode.governanca.role": {
+          "pt": "ADRs / RFCs",
+          "en": "ADRs / RFCs"
+        },
+        "mapNode.governanca.q": {
+          "pt": "Como funciona a governança do protocolo BANZA?",
+          "en": "How does the BANZA protocol's governance work?"
+        },
+        "mapNode.protocolGovernance.role": {
+          "pt": "Mantém o protocolo; não autoriza operadores",
+          "en": "Maintains the protocol; authorises no operator"
+        },
+        "mapNode.protocolGovernance.q": {
+          "pt": "Como funciona a governação do protocolo BANZA sem autoridade central?",
+          "en": "How does BANZA protocol governance work without a central authority?"
+        },
+        "mapNode.banzai.role": {
+          "pt": "Ferramentas e conhecimento",
+          "en": "Tools and knowledge"
+        },
+        "mapNode.banzai.q": {
+          "pt": "O que é o BanzAI?",
+          "en": "What is BanzAI?"
+        },
+        "mapNode.conformidade.id": {
+          "pt": "Conformidade",
+          "en": "Conformance"
+        },
+        "mapNode.conformidade.role": {
+          "pt": "Evidência PASS",
+          "en": "PASS evidence"
+        },
+        "mapNode.conformidade.q": {
+          "pt": "O que é a conformidade no protocolo BANZA?",
+          "en": "What is conformance in the BANZA protocol?"
+        },
+        "mapNode.federacao.id": {
+          "pt": "Federação",
+          "en": "Federation"
+        },
+        "mapNode.federacao.role": {
+          "pt": "Interoperabilidade",
+          "en": "Interoperability"
+        },
+        "mapNode.federacao.q": {
+          "pt": "Como funciona a federação entre operadores?",
+          "en": "How does federation between operators work?"
+        },
+        "mapNode.operadores.id": {
+          "pt": "Operadores",
+          "en": "Operators"
+        },
+        "mapNode.operadores.role": {
+          "pt": "Implementam o protocolo",
+          "en": "They implement the protocol"
+        },
+        "mapNode.operadores.q": {
+          "pt": "O que é um operador no protocolo BANZA?",
+          "en": "What is an operator in the BANZA protocol?"
+        },
+        "mapNode.clientes.id": {
+          "pt": "Clientes",
+          "en": "Clients"
+        },
+        "mapNode.clientes.role": {
+          "pt": "Usam os operadores",
+          "en": "They use the operators"
+        },
+        "mapNode.clientes.q": {
+          "pt": "Qual o papel dos clientes no protocolo BANZA?",
+          "en": "What is the role of clients in the BANZA protocol?"
+        },
+        "devQuestion.manifest": {
+          "pt": "O que é operator manifest?",
+          "en": "What is an operator manifest?"
+        },
+        "devQuestion.requiredFields": {
+          "pt": "Que campos são obrigatórios no manifest?",
+          "en": "Which manifest fields are required?"
+        },
+        "devQuestion.validMeaning": {
+          "pt": "Manifesto válido significa compatibilidade demonstrada?",
+          "en": "Does a valid manifest mean compatibility has been demonstrated?"
+        },
+        "devQuestion.runL0": {
+          "pt": "Como executar conformidade L0 com banza-conformance-rs?",
+          "en": "How do I run L0 conformance with banza-conformance-rs?"
+        },
+        "link.repositoryName": {
+          "pt": "Repositório",
+          "en": "Repository"
+        }
+      }
+    },
+    "validation": {
+      "module": "components/banzai/validationPresentation.ts",
+      "table": "VALIDATION_SURFACE_COPY",
+      "entries": {
+        "persistence.persisted": {
+          "pt": "Persistido",
+          "en": "Persisted"
+        },
+        "persistence.persisted.sub": {
+          "pt": "Arquivo durável — o resultado é consultável, comparável e reproduzível.",
+          "en": "Durable archive — the result is queryable, comparable and reproducible."
+        },
+        "persistence.disabled": {
+          "pt": "Arquivo desativado",
+          "en": "Archive disabled"
+        },
+        "persistence.disabled.sub": {
+          "pt": "O arquivo durável não está ativo neste ambiente. O resultado do motor continua válido, mas não fica arquivado.",
+          "en": "The durable archive is not active in this environment. The engine's result remains valid, but it is not archived."
+        },
+        "persistence.failed": {
+          "pt": "Resultado disponível · não persistido",
+          "en": "Result available · not persisted"
+        },
+        "persistence.failed.sub": {
+          "pt": "A gravação no arquivo falhou. O resultado do motor é válido, mas ainda não é durável, consultável, comparável nem reproduzível.",
+          "en": "Writing to the archive failed. The engine's result is valid, but it is not yet durable, queryable, comparable or reproducible."
+        },
+        "persistence.pending": {
+          "pt": "Resultado disponível · persistência pendente",
+          "en": "Result available · persistence pending"
+        },
+        "persistence.pending.sub": {
+          "pt": "A gravação no arquivo ainda não confirmou. O resultado do motor é válido; a durabilidade pode ser reconfirmada sem repetir a validação.",
+          "en": "Writing to the archive has not confirmed yet. The engine's result is valid; durability can be reconfirmed without repeating the validation."
+        },
+        "persistence.noArchiveRef": {
+          "pt": "sem referência de arquivo",
+          "en": "no archive reference"
+        },
+        "persistence.archivePrefix": {
+          "pt": "arquivo: {id}",
+          "en": "archive: {id}"
+        },
+        "persistence.retrying": {
+          "pt": "A reconfirmar…",
+          "en": "Reconfirming…"
+        },
+        "persistence.retry": {
+          "pt": "Reconfirmar persistência",
+          "en": "Reconfirm persistence"
+        },
+        "persistence.heading": {
+          "pt": "Persistência da jornada",
+          "en": "Journey persistence"
+        },
+        "publication.published": {
+          "pt": "Publicado no registo técnico",
+          "en": "Published in the technical registry"
+        },
+        "publication.draft": {
+          "pt": "Rascunho",
+          "en": "Draft"
+        },
+        "publication.withdrawn": {
+          "pt": "Retirado",
+          "en": "Withdrawn"
+        },
+        "publication.suspended": {
+          "pt": "Suspenso",
+          "en": "Suspended"
+        },
+        "tab.summary": {
+          "pt": "Resumo",
+          "en": "Summary"
+        },
+        "tab.receipts": {
+          "pt": "Receipts",
+          "en": "Receipts"
+        },
+        "tab.artifacts": {
+          "pt": "Artefactos",
+          "en": "Artifacts"
+        },
+        "tab.traces": {
+          "pt": "Traces",
+          "en": "Traces"
+        },
+        "tab.reports": {
+          "pt": "Relatórios",
+          "en": "Reports"
+        },
+        "tab.evidenceBundle": {
+          "pt": "Evidence Bundle",
+          "en": "Evidence Bundle"
+        },
+        "tab.executions": {
+          "pt": "Execuções",
+          "en": "Executions"
+        },
+        "action.explainResult": {
+          "pt": "Explicar este resultado",
+          "en": "Explain this result"
+        },
+        "setup.step1": {
+          "pt": "1 · Operador",
+          "en": "1 · Operator"
+        },
+        "setup.step2": {
+          "pt": "2 · Implementação",
+          "en": "2 · Implementation"
+        },
+        "setup.registryError": {
+          "pt": "Não foi possível carregar o registo técnico neste momento. Actualize a página para tentar novamente — o registo é a fonte de verdade e nunca é substituído por dados locais.",
+          "en": "The technical registry could not be loaded right now. Refresh the page to try again — the registry is the source of truth and is never replaced by local data."
+        },
+        "setup.noOperators": {
+          "pt": "O registo técnico não lista operadores elegíveis neste momento.",
+          "en": "The technical registry lists no eligible operators right now."
+        },
+        "setup.publicationState": {
+          "pt": "estado de publicação",
+          "en": "publication state"
+        },
+        "setup.implementations": {
+          "pt": "implementações",
+          "en": "implementations"
+        },
+        "setup.technicalRegistry": {
+          "pt": "registo técnico",
+          "en": "technical registry"
+        },
+        "setup.environment": {
+          "pt": "ambiente",
+          "en": "environment"
+        },
+        "setup.profile": {
+          "pt": "perfil",
+          "en": "profile"
+        },
+        "setup.yes": {
+          "pt": "sim",
+          "en": "yes"
+        },
+        "setup.version": {
+          "pt": "versão",
+          "en": "version"
+        },
+        "setup.protocolVersion": {
+          "pt": "versão do protocolo",
+          "en": "protocol version"
+        },
+        "setup.canonicalOrigin": {
+          "pt": "origem canónica",
+          "en": "canonical origin"
+        },
+        "setup.registryState": {
+          "pt": "estado no registo",
+          "en": "registry state"
+        },
+        "setup.eligible": {
+          "pt": "elegível",
+          "en": "eligible"
+        },
+        "setup.no": {
+          "pt": "não",
+          "en": "no"
+        },
+        "setup.targetSelected": {
+          "pt": "Alvo seleccionado. A jornada avalia esta implementação através dos endpoints públicos declarados. Comece pela etapa 1.",
+          "en": "Target selected. The journey evaluates this implementation through the public endpoints it declares. Start at step 1."
+        },
+        "setup.selectPrompt": {
+          "pt": "Seleccione um operador e uma implementação para activar a jornada. O registo é fechado — sem operadores fictícios.",
+          "en": "Select an operator and an implementation to activate the journey. The registry is closed — no fictitious operators."
+        },
+        "setup.selectImplementation": {
+          "pt": "Seleccione uma implementação",
+          "en": "Select an implementation"
+        },
+        "header.implementation": {
+          "pt": "implementação",
+          "en": "implementation"
+        },
+        "header.resetConfirm": {
+          "pt": "Reiniciar a sessão de validação? Isto limpa apenas o estado efémero desta jornada (veredictos e recibos em memória). Nada publicado é alterado.",
+          "en": "Restart the validation session? This clears only this journey's ephemeral state (in-memory verdicts and receipts). Nothing published is changed."
+        },
+        "receipt.endpointQueried": {
+          "pt": "endpoint consultado",
+          "en": "endpoint queried"
+        },
+        "receipt.canonicalOrigin": {
+          "pt": "canonical origin",
+          "en": "canonical origin"
+        },
+        "receipt.resolvedHost": {
+          "pt": "resolved host",
+          "en": "resolved host"
+        },
+        "receipt.httpStatus": {
+          "pt": "HTTP status",
+          "en": "HTTP status"
+        },
+        "receipt.contentType": {
+          "pt": "content type",
+          "en": "content type"
+        },
+        "receipt.contentLength": {
+          "pt": "content length",
+          "en": "content length"
+        },
+        "receipt.outputHash": {
+          "pt": "hash (output)",
+          "en": "hash (output)"
+        },
+        "receipt.signatureStatus": {
+          "pt": "signature status",
+          "en": "signature status"
+        },
+        "action.cancel": {
+          "pt": "Cancelar",
+          "en": "Cancel"
+        },
+        "action.viewSummary": {
+          "pt": "Ver resumo",
+          "en": "View summary"
+        },
+        "action.viewResults": {
+          "pt": "Ver Resultados",
+          "en": "View Results"
+        },
+        "action.exportJourneyReceipt": {
+          "pt": "Exportar JourneyReceipt",
+          "en": "Export JourneyReceipt"
+        },
+        "action.runAgain": {
+          "pt": "Executar novamente",
+          "en": "Run again"
+        },
+        "action.viewBlock": {
+          "pt": "Ver bloqueio",
+          "en": "View block"
+        },
+        "action.consultDocs": {
+          "pt": "Consultar documentação",
+          "en": "Consult the documentation"
+        },
+        "action.viewReceipt": {
+          "pt": "Ver receipt",
+          "en": "View receipt"
+        },
+        "action.runFullJourney": {
+          "pt": "Executar jornada completa",
+          "en": "Run the full journey"
+        },
+        "action.runFirstStep": {
+          "pt": "Executar primeira etapa",
+          "en": "Run the first step"
+        },
+        "action.runThisStep": {
+          "pt": "Executar esta etapa",
+          "en": "Run this step"
+        },
+        "action.runFromHere": {
+          "pt": "Executar a partir daqui",
+          "en": "Run from here"
+        },
+        "step.engineResult": {
+          "pt": "Resultado do motor",
+          "en": "Engine result"
+        },
+        "step.notEvaluated": {
+          "pt": "Ainda não avaliado — execute esta etapa para obter o veredicto do motor Rust.",
+          "en": "Not evaluated yet — run this step to obtain the Rust engine's verdict."
+        },
+        "step.reasonCodes": {
+          "pt": "Reason codes",
+          "en": "Reason codes"
+        },
+        "step.verifiableEvidence": {
+          "pt": "Evidência verificável",
+          "en": "Verifiable evidence"
+        },
+        "step.receiptFromEndpoint": {
+          "pt": "recibo com origem no endpoint",
+          "en": "receipt originating at the endpoint"
+        },
+        "step.evidenceReferences": {
+          "pt": "Evidence references",
+          "en": "Evidence references"
+        },
+        "step.evidenceHint": {
+          "pt": "A evidência verificável (origem consultada, host, HTTP, hash SHA-256, artefactos e assinatura) aparece aqui depois de executar esta etapa.",
+          "en": "The verifiable evidence (origin queried, host, HTTP, SHA-256 hash, artifacts and signature) appears here once you run this step."
+        },
+        "step.banzaiExplanation": {
+          "pt": "Explicação do BanzAI",
+          "en": "BanzAI explanation"
+        },
+        "step.doesNotDecide": {
+          "pt": "não decide",
+          "en": "does not decide"
+        },
+        "step.banzaiHint": {
+          "pt": "O BanzAI explica em linguagem clara o resultado já calculado pelos motores Rust — o que significa e o que o operador deve publicar.",
+          "en": "BanzAI explains, in plain language, the result the Rust engines already computed — what it means and what the operator must publish."
+        },
+        "step.explainWithBanzai": {
+          "pt": "Explicar com o BanzAI",
+          "en": "Explain with BanzAI"
+        },
+        "ctx.steps": {
+          "pt": "ETAPAS",
+          "en": "STEPS"
+        },
+        "ctx.certificationReadiness": {
+          "pt": "Prontidão de Certificação:",
+          "en": "Certification Readiness:"
+        },
+        "ctx.certificationState": {
+          "pt": "Estado de Certificação:",
+          "en": "Certification State:"
+        },
+        "ctx.nextAction": {
+          "pt": "PRÓXIMA ACÇÃO",
+          "en": "NEXT ACTION"
+        },
+        "ctx.running": {
+          "pt": "Jornada em execução. Pode cancelar com segurança — nada é publicado.",
+          "en": "Journey running. You can cancel safely — nothing is published."
+        },
+        "ctx.allEvaluated": {
+          "pt": "Todas as etapas foram avaliadas. Veja o Resumo em Resultados.",
+          "en": "Every step has been evaluated. See the Summary under Results."
+        },
+        "ctx.selectedEndpoint": {
+          "pt": "ENDPOINT SELECCIONADO",
+          "en": "SELECTED ENDPOINT"
+        },
+        "ctx.openStep": {
+          "pt": "Abrir etapa →",
+          "en": "Open step →"
+        },
+        "ctx.noBlocks": {
+          "pt": "Sem bloqueios registados nesta sessão.",
+          "en": "No blocks recorded in this session."
+        },
+        "action.exportJson": {
+          "pt": "Exportar (JSON)",
+          "en": "Export (JSON)"
+        },
+        "repro.equivalent": {
+          "pt": "Semanticamente equivalente",
+          "en": "Semantically equivalent"
+        },
+        "repro.notEquivalent": {
+          "pt": "Não equivalente",
+          "en": "Not equivalent"
+        },
+        "repro.inputsUnavailable": {
+          "pt": "Inputs originais indisponíveis",
+          "en": "Original inputs unavailable"
+        },
+        "repro.engineVersionUnavailable": {
+          "pt": "Versão do motor indisponível",
+          "en": "Engine version unavailable"
+        },
+        "repro.blocked": {
+          "pt": "Reprodução bloqueada",
+          "en": "Reproduction blocked"
+        },
+        "exec.openFailed": {
+          "pt": "Não foi possível abrir a execução (arquivo indisponível).",
+          "en": "The execution could not be opened (archive unavailable)."
+        },
+        "exec.compareFailed": {
+          "pt": "Não foi possível comparar as execuções.",
+          "en": "The executions could not be compared."
+        },
+        "exec.replayFailed": {
+          "pt": "Não foi possível iniciar a reprodução.",
+          "en": "The reproduction could not be started."
+        },
+        "exec.selectPrefix": {
+          "pt": "Selecione um operador e uma implementação em",
+          "en": "Select an operator and an implementation under"
+        },
+        "exec.selectSuffix": {
+          "pt": "para consultar o histórico de execuções persistidas (arquivo durável, append-only e imutável).",
+          "en": "to consult the history of persisted executions (durable, append-only, immutable archive)."
+        },
+        "exec.comparing": {
+          "pt": "A comparar…",
+          "en": "Comparing…"
+        },
+        "exec.refresh": {
+          "pt": "Actualizar",
+          "en": "Refresh"
+        },
+        "exec.loading": {
+          "pt": "A carregar o histórico de execuções…",
+          "en": "Loading the execution history…"
+        },
+        "exec.retry": {
+          "pt": "Tentar novamente",
+          "en": "Try again"
+        },
+        "exec.emptyPrefix": {
+          "pt": "Ainda não há execuções persistidas para esta implementação. Execute a jornada completa em",
+          "en": "There are no persisted executions for this implementation yet. Run the full journey under"
+        },
+        "exec.emptySuffix": {
+          "pt": "para criar um arquivo durável.",
+          "en": "to create a durable archive."
+        },
+        "exec.start": {
+          "pt": "início",
+          "en": "start"
+        },
+        "exec.profileEnvironment": {
+          "pt": "perfil · ambiente",
+          "en": "profile · environment"
+        },
+        "exec.receiptSha": {
+          "pt": "receipt sha",
+          "en": "receipt sha"
+        },
+        "exec.open": {
+          "pt": "Abrir",
+          "en": "Open"
+        },
+        "exec.replaying": {
+          "pt": "A reproduzir…",
+          "en": "Replaying…"
+        },
+        "exec.opening": {
+          "pt": "A abrir a execução…",
+          "en": "Opening the execution…"
+        },
+        "exec.certification": {
+          "pt": "certificação",
+          "en": "certification"
+        },
+        "exec.matrix9": {
+          "pt": "Matriz de 9 etapas",
+          "en": "9-step matrix"
+        },
+        "exec.evidenceBundleLabel": {
+          "pt": "Evidence Bundle:",
+          "en": "Evidence Bundle:"
+        },
+        "exec.export": {
+          "pt": "Exportar",
+          "en": "Export"
+        },
+        "exec.comparison": {
+          "pt": "Comparação de execuções",
+          "en": "Execution comparison"
+        },
+        "exec.changed": {
+          "pt": "alterou",
+          "en": "changed"
+        },
+        "exec.archiveNote": {
+          "pt": "O arquivo é append-only e imutável: preserva os recibos e nunca recalcula um veredicto. A reprodução cria uma nova execução e compara-a com a original.",
+          "en": "The archive is append-only and immutable: it preserves the receipts and never recomputes a verdict. A reproduction creates a new execution and compares it with the original."
+        },
+        "results.title": {
+          "pt": "Resultados",
+          "en": "Results"
+        },
+        "results.intro": {
+          "pt": "Uma única área para o resultado da validação de operador: resumo, recibos, relatórios, artefactos obtidos, traces e o Evidence Bundle.",
+          "en": "A single area for the operator validation result: summary, receipts, reports, fetched artifacts, traces and the Evidence Bundle."
+        },
+        "results.emptyPrefix": {
+          "pt": "Ainda não há resultados na sessão atual. Abra",
+          "en": "There are no results in the current session yet. Open"
+        },
+        "results.emptySuffix": {
+          "pt": ", seleccione um operador e uma implementação, e execute a jornada (ou uma etapa) para obter recibos com origem verificável.",
+          "en": ", select an operator and an implementation, and run the journey (or a step) to obtain receipts with verifiable origin."
+        },
+        "results.journeySummary": {
+          "pt": "Resumo da jornada",
+          "en": "Journey summary"
+        },
+        "results.readiness": {
+          "pt": "Prontidão de Certificação",
+          "en": "Certification Readiness"
+        },
+        "results.certificationState": {
+          "pt": "Estado de Certificação",
+          "en": "Certification State"
+        },
+        "results.viewReceipts": {
+          "pt": "Ver receipts",
+          "en": "View receipts"
+        },
+        "results.journeyReceipt": {
+          "pt": "JourneyReceipt",
+          "en": "JourneyReceipt"
+        },
+        "results.rustVerdicts": {
+          "pt": "Veredictos Rust por etapa",
+          "en": "Rust verdicts per step"
+        },
+        "results.noArtifacts": {
+          "pt": "Nenhum artefacto obtido ainda. Execute a jornada para obter os artefactos publicados e os seus hashes.",
+          "en": "No artifact fetched yet. Run the journey to fetch the published artifacts and their hashes."
+        },
+        "results.tracesTitle": {
+          "pt": "Traces / evidence references (read-only)",
+          "en": "Traces / evidence references (read-only)"
+        },
+        "results.tracesHint": {
+          "pt": "As referências de evidência (traces e ligações) aparecem aqui à medida que executa etapas.",
+          "en": "The evidence references (traces and links) appear here as you run steps."
+        },
+        "results.bundleFetched": {
+          "pt": "Evidence Bundle obtido",
+          "en": "Evidence Bundle fetched"
+        },
+        "results.exportReceipt": {
+          "pt": "Exportar recibo (JSON)",
+          "en": "Export receipt (JSON)"
+        },
+        "results.bundleHint": {
+          "pt": "O Evidence Bundle publicado é obtido e validado na etapa 8 da jornada. Execute-a para ver o bundle obtido, os seus hashes e o estado de assinatura.",
+          "en": "The published Evidence Bundle is fetched and validated at step 8 of the journey. Run it to see the fetched bundle, its hashes and its signature status."
+        },
+        "results.evidenceNote": {
+          "pt": "Evidência técnica verificável, obtida do endpoint público. Não é certificado nem aprovação.",
+          "en": "Verifiable technical evidence, fetched from the public endpoint. It is neither a certificate nor an approval."
+        },
+        "results.askBundle": {
+          "pt": "Explica o que é o Evidence Bundle e a Prontidão de Certificação na validação de operador do protocolo BANZA.",
+          "en": "Explain what the Evidence Bundle and Certification Readiness are in BANZA protocol operator validation."
+        },
+        "explain.opening": {
+          "pt": "Explica este resultado da etapa \"{title}\" da validação de operador no BanzAI (motor {engine}).",
+          "en": "Explain this result from the \"{title}\" step of operator validation in BanzAI (engine {engine})."
+        },
+        "explain.identity": {
+          "pt": "Operador: {operator}. Implementação: {implementation}.",
+          "en": "Operator: {operator}. Implementation: {implementation}."
+        },
+        "explain.status": {
+          "pt": "Estado: {status}.",
+          "en": "State: {status}."
+        },
+        "explain.endpoint": {
+          "pt": "Endpoint consultado: {endpoint}.",
+          "en": "Endpoint queried: {endpoint}."
+        },
+        "explain.fetchedAt": {
+          "pt": "Obtido em: {at}.",
+          "en": "Fetched at: {at}."
+        },
+        "explain.reasonCodes": {
+          "pt": "Reason codes: {codes}.",
+          "en": "Reason codes: {codes}."
+        },
+        "explain.evidence": {
+          "pt": "Evidência: {refs}.",
+          "en": "Evidence: {refs}."
+        },
+        "explain.closing": {
+          "pt": "O que significa e o que o operador deve publicar? Nota: o Qwen apenas explica — não altera o estado, o reason nem o recibo já calculados pelos motores Rust.",
+          "en": "What does it mean and what must the operator publish? Note: Qwen only explains — it does not change the state, the reason or the receipt the Rust engines already computed."
+        },
+        "step.evidenceHintFull": {
+          "pt": "A evidência verificável (origem consultada, host, HTTP, hash SHA-256, artefactos e assinatura) aparece aqui depois de executar a etapa. É obtida pelo backend a partir do endpoint público — nunca pelo navegador.",
+          "en": "The verifiable evidence (origin queried, host, HTTP, SHA-256 hash, artifacts and signature) appears here once you run the step. It is fetched by the backend from the public endpoint — never by the browser."
+        },
+        "step.banzaiHintFull": {
+          "pt": "O BanzAI explica em linguagem clara o resultado já calculado pelos motores Rust — o que significa e o que o operador deve publicar. Não altera o estado, os reason codes nem o recibo, e nunca certifica.",
+          "en": "BanzAI explains, in plain language, the result the Rust engines already computed — what it means and what the operator must publish. It changes neither the state, nor the reason codes, nor the receipt, and it never certifies."
+        },
+        "exec.archiveNoteFull": {
+          "pt": "O arquivo é append-only e imutável: preserva os recibos e nunca recalcula um veredicto. A reprodução cria uma NOVA execução a partir das referências e hashes originais — nunca sobrescreve o original.",
+          "en": "The archive is append-only and immutable: it preserves the receipts and never recomputes a verdict. A reproduction creates a NEW execution from the original references and hashes — it never overwrites the original."
+        },
+        "results.introFull": {
+          "pt": "Uma única área para o resultado da validação de operador: resumo, recibos, relatórios, artefactos obtidos, traces e o Evidence Bundle. Tudo com origem nos endpoints públicos da implementação.",
+          "en": "A single area for the operator validation result: summary, receipts, reports, fetched artifacts, traces and the Evidence Bundle. All of it originating at the implementation's public endpoints."
+        },
+        "results.emptyMiddle": {
+          "pt": ", seleccione um operador e uma implementação, e execute a jornada (ou uma etapa) para obter recibos com origem nos endpoints públicos. O histórico persistido de execuções anteriores está em ",
+          "en": ", select an operator and an implementation, and run the journey (or a step) to obtain receipts originating at the public endpoints. The persisted history of earlier executions is under "
+        },
+        "results.bundleHintFull": {
+          "pt": "O Evidence Bundle publicado é obtido e validado na etapa 8 da jornada. Execute-a para ver o bundle obtido, os seus artefactos e a integridade SHA-256.",
+          "en": "The published Evidence Bundle is fetched and validated at step 8 of the journey. Run it to see the fetched bundle, its artifacts and its SHA-256 integrity."
+        },
+        "setup.phase0": {
+          "pt": "Fase 0 · contexto",
+          "en": "Phase 0 · context"
+        },
+        "setup.loadingOperators": {
+          "pt": "A carregar operadores do registo técnico…",
+          "en": "Loading operators from the technical registry…"
+        },
+        "header.changeTarget": {
+          "pt": "Alterar alvo",
+          "en": "Change target"
+        },
+        "header.resetSession": {
+          "pt": "Reiniciar sessão",
+          "en": "Restart session"
+        },
+        "header.resetConfirmFull": {
+          "pt": "Reiniciar a sessão de validação? Isto limpa apenas o estado efémero desta jornada (veredictos e recibos em memória). Não altera endpoints, o registo, os artefactos remotos, a evidência, a Certificação nem a implementação.",
+          "en": "Restart the validation session? This clears only this journey's ephemeral state (in-memory verdicts and receipts). It changes neither the endpoints, the registry, the remote artifacts, the evidence, the Certification, nor the implementation."
+        },
+        "results.askConcepts": {
+          "pt": "Explicar estes conceitos no BanzAI →",
+          "en": "Explain these concepts in BanzAI →"
+        },
+        "ctx.certificationStateInline": {
+          "pt": ". Estado de Certificação: ",
+          "en": ". Certification State: "
+        },
+        "ctx.readinessInline": {
+          "pt": "Prontidão de Certificação:",
+          "en": "Certification Readiness:"
+        },
+        "ctx.readinessNote": {
+          "pt": ". A Prontidão agrega os veredictos das etapas técnicas — não é um Registo de Certificação e nunca devolve CERTIFIED (ADR-034 §4.10).",
+          "en": ". Readiness aggregates the verdicts of the technical steps — it is not a Certification Record and never returns CERTIFIED (ADR-034 §4.10)."
+        },
+        "setup.registryErrorFull": {
+          "pt": "Não foi possível carregar o registo técnico neste momento. Actualize a página para tentar novamente — o registo é a única fonte de operadores; nenhum operador é assumido.",
+          "en": "The technical registry could not be loaded right now. Refresh the page to try again — the registry is the only source of operators; no operator is assumed."
+        },
+        "setup.targetSelectedFull": {
+          "pt": "Alvo seleccionado. A jornada avalia esta implementação através dos endpoints públicos declarados. Comece pela primeira etapa ou execute a jornada completa.",
+          "en": "Target selected. The journey evaluates this implementation through the public endpoints it declares. Start at the first step or run the full journey."
+        },
+        "setup.selectPromptFull": {
+          "pt": "Seleccione um operador e uma implementação para activar a jornada. O registo é fechado — sem operadores fictícios, sem URLs arbitrários.",
+          "en": "Select an operator and an implementation to activate the journey. The registry is closed — no fictitious operators, no arbitrary URLs."
+        },
+        "ask.unblock": {
+          "pt": "o protocolo sobre a etapa \"{title}\" da validação de operador (motor {engine}) e os reason codes {codes}. O que é preciso publicar para desbloquear?",
+          "en": "the protocol about the \"{title}\" step of operator validation (engine {engine}) and the reason codes {codes}. What must be published to unblock it?"
+        },
+        "ask.unblock.fallback": {
+          "pt": "do bloqueio",
+          "en": "of the block"
+        },
+        "step.title.discovery": {
+          "pt": "Discovery",
+          "en": "Discovery"
+        },
+        "step.title.manifest": {
+          "pt": "Manifest",
+          "en": "Manifest"
+        },
+        "step.title.keys": {
+          "pt": "Keys",
+          "en": "Keys"
+        },
+        "step.title.conformance": {
+          "pt": "Conformidade",
+          "en": "Conformance"
+        },
+        "step.title.interoperability": {
+          "pt": "Interoperabilidade",
+          "en": "Interoperability"
+        },
+        "step.title.trust": {
+          "pt": "Confiança",
+          "en": "Trust"
+        },
+        "step.title.federation": {
+          "pt": "Federação",
+          "en": "Federation"
+        },
+        "step.title.evidence": {
+          "pt": "Evidence Bundle",
+          "en": "Evidence Bundle"
+        },
+        "step.title.certification": {
+          "pt": "Prontidão de certificação",
+          "en": "Certification Readiness"
+        },
+        "step.blurb.discovery": {
+          "pt": "Resolve a implementação no registo técnico fechado e obtém o documento de discovery da sua origem canónica. O motor Rust decide se a superfície pública é reconhecível.",
+          "en": "Resolves the implementation in the closed technical registry and fetches the discovery document from its canonical origin. The Rust engine decides whether the public surface is recognisable."
+        },
+        "step.blurb.manifest": {
+          "pt": "Obtém o operator manifest publicado no endpoint declarado e valida campos obrigatórios, tipos, endpoints e a invariante de segurança. Estado VALID/INCOMPLETE/INVALID/MALFORMED calculado em Rust.",
+          "en": "Fetches the operator manifest published at the declared endpoint and validates required fields, types, endpoints and the safety invariant. VALID/INCOMPLETE/INVALID/MALFORMED state computed in Rust."
+        },
+        "step.blurb.keys": {
+          "pt": "Obtém a signed metadata, o key manifest e a lista de revogação publicados e avalia o material de chaves real: assinatura, chave delegada e revogação. O veredicto corre em Rust.",
+          "en": "Fetches the published signed metadata, key manifest and revocation list and evaluates the real key material: signature, delegated key and revocation. The verdict runs in Rust."
+        },
+        "step.blurb.conformance": {
+          "pt": "Obtém e verifica a evidência de conformidade publicada pela implementação, incluindo as invariantes financeiras do protocolo. PASS/FAIL técnico calculado em Rust.",
+          "en": "Fetches and verifies the conformance evidence published by the implementation, including the protocol's financial invariants. Technical PASS/FAIL computed in Rust."
+        },
+        "step.blurb.interoperability": {
+          "pt": "Obtém os artefactos de pagamento/refund, ledger e traces publicados e valida o fluxo, a idempotência, o double-entry e o settlement (L2 readiness). Estado calculado em Rust.",
+          "en": "Fetches the published payment/refund artifacts, ledger and traces and validates the flow, the idempotency, the double-entry and the settlement (L2 readiness). State computed in Rust."
+        },
+        "step.blurb.trust": {
+          "pt": "Avalia o trust do protocolo a partir da signed metadata publicada: chaves delegadas, manifest, evidência de conformidade, registo e revogação. O estado de trust corre em Rust.",
+          "en": "Evaluates protocol trust from the published signed metadata: delegated keys, manifest, conformance evidence, registry and revocation. The trust state runs in Rust."
+        },
+        "step.blurb.federation": {
+          "pt": "Obtém a metadata e o manifest de federação publicados e os traces cross-operator e prepara a interoperabilidade entre operadores (L3 readiness). Estado calculado em Rust.",
+          "en": "Fetches the published federation metadata and manifest and the cross-operator traces, and prepares operator-to-operator interoperability (L3 readiness). State computed in Rust."
+        },
+        "step.blurb.evidence": {
+          "pt": "Obtém o Evidence Bundle publicado pela implementação e valida artefactos obrigatórios/em falta e a integridade SHA-256. Tudo calculado em Rust a partir do bundle obtido.",
+          "en": "Fetches the Evidence Bundle published by the implementation and validates required/missing artifacts and SHA-256 integrity. All computed in Rust from the fetched bundle."
+        },
+        "step.blurb.certification": {
+          "pt": "Agrega em Rust os veredictos das oito etapas técnicas numa Prontidão de Certificação (READY/BLOCKED). Não emite um Registo de Certificação e nunca devolve CERTIFIED (ADR-034 §4.10).",
+          "en": "Aggregates, in Rust, the verdicts of the eight technical steps into a Certification Readiness (READY/BLOCKED). It issues no Certification Record and never returns CERTIFIED (ADR-034 §4.10)."
+        },
+        "stepStatus.NOT_EVALUATED": {
+          "pt": "Não avaliado",
+          "en": "Not evaluated"
+        },
+        "stepStatus.PENDING": {
+          "pt": "Pendente",
+          "en": "Pending"
+        },
+        "stepStatus.VERIFIED": {
+          "pt": "Verificado",
+          "en": "Verified"
+        },
+        "stepStatus.FAILED": {
+          "pt": "Falhou",
+          "en": "Failed"
+        },
+        "stepStatus.BLOCKED": {
+          "pt": "Bloqueado",
+          "en": "Blocked"
+        },
+        "stepStatus.NOT_APPLICABLE": {
+          "pt": "Não aplicável",
+          "en": "Not applicable"
+        },
+        "progress.running": {
+          "pt": "A executar a jornada…",
+          "en": "Running the journey…"
+        },
+        "progress.notStarted": {
+          "pt": "Jornada por iniciar",
+          "en": "Journey not started"
+        },
+        "progress.partial": {
+          "pt": "{evaluated}/{total} etapas avaliadas",
+          "en": "{evaluated}/{total} steps evaluated"
+        },
+        "progress.doneOneBlocker": {
+          "pt": "Jornada concluída com um bloqueio",
+          "en": "Journey complete with one blocker"
+        },
+        "progress.doneAllVerified": {
+          "pt": "Jornada concluída · todas as etapas verificadas",
+          "en": "Journey complete · every step verified"
+        },
+        "progress.donePrefix": {
+          "pt": "Jornada concluída",
+          "en": "Journey complete"
+        },
+        "progress.count.verified.one": {
+          "pt": "{n} verificada",
+          "en": "{n} verified"
+        },
+        "progress.count.verified.many": {
+          "pt": "{n} verificadas",
+          "en": "{n} verified"
+        },
+        "progress.count.pending.one": {
+          "pt": "{n} pendente",
+          "en": "{n} pending"
+        },
+        "progress.count.pending.many": {
+          "pt": "{n} pendentes",
+          "en": "{n} pending"
+        },
+        "progress.count.failed.one": {
+          "pt": "{n} falhada",
+          "en": "{n} failed"
+        },
+        "progress.count.failed.many": {
+          "pt": "{n} falhadas",
+          "en": "{n} failed"
+        },
+        "progress.count.blocked.one": {
+          "pt": "{n} bloqueada",
+          "en": "{n} blocked"
+        },
+        "progress.count.blocked.many": {
+          "pt": "{n} bloqueadas",
+          "en": "{n} blocked"
+        },
+        "ctx.step": {
+          "pt": "etapa",
+          "en": "step"
+        },
+        "ctx.journey": {
+          "pt": "jornada",
+          "en": "journey"
+        },
+        "draft.toolNote": {
+          "pt": "ferramenta local para programadores · validação Rust/WASM · sem rede",
+          "en": "local tool for developers · Rust/WASM validation · no network"
+        },
+        "draft.artifactType": {
+          "pt": "Tipo de artefacto",
+          "en": "Artifact type"
+        },
+        "draft.artifact.manifest": {
+          "pt": "Operator Manifest",
+          "en": "Operator Manifest"
+        },
+        "draft.artifact.evidenceBundle": {
+          "pt": "Evidence Bundle",
+          "en": "Evidence Bundle"
+        },
+        "draft.artifact.conformance": {
+          "pt": "Relatório de conformidade",
+          "en": "Conformance report"
+        },
+        "draft.artifact.trust": {
+          "pt": "Trust / signed metadata",
+          "en": "Trust / signed metadata"
+        },
+        "draft.artifact.trace": {
+          "pt": "Trace",
+          "en": "Trace"
+        },
+        "draft.fileNote": {
+          "pt": "O ficheiro é lido apenas nesta sessão do navegador; nada é enviado nem publicado. Não é exemplo oficial.",
+          "en": "The file is read only in this browser session; nothing is uploaded or published. It is not an official example."
+        },
+        "draft.pasteLabel": {
+          "pt": "Colar artefacto JSON para validação de rascunho",
+          "en": "Paste a JSON artifact for draft validation"
+        },
+        "draft.validating": {
+          "pt": "A validar…",
+          "en": "Validating…"
+        },
+        "draft.clear": {
+          "pt": "Limpar",
+          "en": "Clear"
+        },
+        "draft.official": {
+          "pt": "oficial",
+          "en": "official"
+        },
+        "draft.officialNo": {
+          "pt": "não",
+          "en": "no"
+        },
+        "draft.field.type": {
+          "pt": "tipo",
+          "en": "type"
+        },
+        "draft.field.status": {
+          "pt": "estado",
+          "en": "state"
+        },
+        "draft.field.source": {
+          "pt": "origem",
+          "en": "source"
+        },
+        "draft.verdict.valid": {
+          "pt": "esquema válido (rascunho)",
+          "en": "valid schema (draft)"
+        },
+        "draft.verdict.invalid": {
+          "pt": "inválido (rascunho)",
+          "en": "invalid (draft)"
+        },
+        "draft.resultNote": {
+          "pt": "Resultado de rascunho. Não avança a jornada, não produz recibo oficial, não alimenta o Evidence Bundle e nunca devolve VERIFIED nem Prontidão de Certificação.",
+          "en": "Draft result. It does not advance the journey, does not produce an official receipt, does not feed the Evidence Bundle, and never returns VERIFIED or Certification Readiness."
+        },
+        "draft.error.jsonOnly": {
+          "pt": "Apenas ficheiros .json são aceites.",
+          "en": "Only .json files are accepted."
+        },
+        "draft.error.emptyFile": {
+          "pt": "Ficheiro vazio.",
+          "en": "Empty file."
+        },
+        "draft.error.tooLarge": {
+          "pt": "Ficheiro demasiado grande (máx. 256 kB).",
+          "en": "File too large (max. 256 kB)."
+        },
+        "draft.error.secretDetected": {
+          "pt": "O ficheiro parece conter dados sensíveis (chaves privadas, segredos ou credenciais). Remova-os e tente de novo.",
+          "en": "The file appears to contain sensitive data (private keys, secrets or credentials). Remove them and try again."
+        },
+        "draft.error.unreadable": {
+          "pt": "Não foi possível ler o ficheiro (JSON inválido ou demasiado grande).",
+          "en": "The file could not be read (invalid JSON, or too large)."
+        },
+        "draft.error.readFailed": {
+          "pt": "Não foi possível ler o ficheiro.",
+          "en": "The file could not be read."
+        },
+        "validation.resultPhrase": {
+          "pt": "A implementação {impl}, publicada pelo operador {operator}, foi avaliada para o perfil {profile}, versão {version}, ambiente {environment} e âmbito indicado.",
+          "en": "Implementation {impl}, published by operator {operator}, was evaluated for profile {profile}, version {version}, environment {environment} and the stated scope."
+        }
+      }
+    },
+    "onboarding": {
+      "module": "components/banzai/onboardingPresentation.ts",
+      "table": "ONBOARDING_SURFACE_COPY",
+      "entries": {
+        "modeLabel": {
+          "pt": "Onboarding de operador",
+          "en": "Operator onboarding"
+        },
+        "header": {
+          "pt": "Onboarding de operador",
+          "en": "Operator onboarding"
+        },
+        "intro": {
+          "pt": "Registe uma candidatura para preparar a validação técnica da sua implementação. A autenticação é sem palavra-passe: recebe um código de acesso no seu email. A candidatura fica guardada e pode ser recuperada a qualquer momento com o mesmo email.",
+          "en": "Register a candidature to prepare your implementation's technical validation. Authentication is passwordless: you receive an access code by email. The candidature is saved and can be recovered at any time with the same email address."
+        },
+        "boundary": {
+          "pt": "Uma candidatura não é um operador publicado, um participante activo nem uma entidade certificada. O onboarding é um serviço do BanzAI, não uma regra do protocolo: o email autentica a pessoa, o domínio confirma a origem, os endpoints fornecem os artefactos e o Rust verifica. Não movimenta fundos, não concede autorização regulatória e não admite em nenhum scheme.",
+          "en": "A candidature is not a published operator, not an active participant and not a certified entity. Onboarding is a BanzAI service, not a protocol rule: the email authenticates the person, the domain confirms the origin, the endpoints supply the artifacts, and Rust verifies. It moves no funds, grants no regulatory authorisation and admits into no scheme."
+        },
+        "scope": {
+          "pt": "Âmbito inicial: Angola (AOA). Sem recolha de dados de jurisdição neste passo.",
+          "en": "Initial scope: Angola (AOA). No jurisdiction data is collected at this step."
+        },
+        "paths.published.title": {
+          "pt": "Consultar operador publicado",
+          "en": "Consult a published operator"
+        },
+        "paths.published.desc": {
+          "pt": "Ver o registo técnico público e as implementações de referência.",
+          "en": "See the public technical registry and the reference implementations."
+        },
+        "paths.submit.title": {
+          "pt": "Submeter novo operador",
+          "en": "Submit a new operator"
+        },
+        "paths.submit.desc": {
+          "pt": "Criar uma candidatura e declarar a implementação e a sua origem canónica.",
+          "en": "Create a candidature and declare the implementation and its canonical origin."
+        },
+        "paths.recover.title": {
+          "pt": "Continuar candidatura",
+          "en": "Continue a candidature"
+        },
+        "paths.recover.desc": {
+          "pt": "Recuperar uma candidatura existente com o email já verificado.",
+          "en": "Recover an existing candidature with the email already verified."
+        },
+        "email.label": {
+          "pt": "Email institucional",
+          "en": "Institutional email"
+        },
+        "email.placeholder": {
+          "pt": "operador@exemplo.ao",
+          "en": "operator@example.ao"
+        },
+        "email.cta": {
+          "pt": "Enviar código de acesso",
+          "en": "Send access code"
+        },
+        "email.hint": {
+          "pt": "Enviamos um código de 6 dígitos, válido por alguns minutos e de uso único. Nunca pedimos palavra-passe.",
+          "en": "We send a 6-digit code, valid for a few minutes and single-use. We never ask for a password."
+        },
+        "otp.label": {
+          "pt": "Código de acesso",
+          "en": "Access code"
+        },
+        "otp.placeholder": {
+          "pt": "000000",
+          "en": "000000"
+        },
+        "otp.cta": {
+          "pt": "Confirmar código",
+          "en": "Confirm code"
+        },
+        "otp.resend": {
+          "pt": "Reenviar código",
+          "en": "Resend code"
+        },
+        "otp.hint": {
+          "pt": "Introduza o código de 6 dígitos que enviámos para o seu email.",
+          "en": "Enter the 6-digit code we sent to your email."
+        },
+        "origin.title": {
+          "pt": "Prova de controlo da origem canónica",
+          "en": "Proof of control of the canonical origin"
+        },
+        "origin.intro": {
+          "pt": "Publique o documento abaixo em .well-known no domínio canónico da implementação. O backend obtém-no de forma segura e o Rust confirma o controlo da origem.",
+          "en": "Publish the document below under .well-known on the implementation's canonical domain. The backend fetches it securely and Rust confirms control of the origin."
+        },
+        "origin.verifyCta": {
+          "pt": "Verificar origem",
+          "en": "Verify origin"
+        },
+        "origin.verified": {
+          "pt": "Origem verificada — controlo do domínio canónico confirmado.",
+          "en": "Origin verified — control of the canonical domain confirmed."
+        },
+        "sessionNotice": {
+          "pt": "A sua candidatura fica guardada no Registo de Candidaturas privado. A sessão é protegida por um cookie de sessão; termine sessão para a encerrar.",
+          "en": "Your candidature is kept in the private Candidate Registry. The session is protected by a session cookie; sign out to end it."
+        },
+        "stage.inValidation": {
+          "pt": "Em validação",
+          "en": "In validation"
+        },
+        "stage.validationComplete": {
+          "pt": "Validação concluída",
+          "en": "Validation complete"
+        },
+        "stage.eligibleForPublication": {
+          "pt": "Elegível para publicação",
+          "en": "Eligible for publication"
+        },
+        "stage.publishedInRegistry": {
+          "pt": "Publicada no registo técnico",
+          "en": "Published in the technical registry"
+        },
+        "stage.originVerificationFailed": {
+          "pt": "Verificação de origem falhou",
+          "en": "Origin verification failed"
+        },
+        "step.authentication": {
+          "pt": "Autenticação",
+          "en": "Authentication"
+        },
+        "step.implementation": {
+          "pt": "Implementação",
+          "en": "Implementation"
+        },
+        "step.canonicalOrigin": {
+          "pt": "Origem canónica",
+          "en": "Canonical origin"
+        },
+        "step.validationPrep": {
+          "pt": "Preparação para validação",
+          "en": "Preparation for validation"
+        },
+        "aria.sequence": {
+          "pt": "Sequência de onboarding do operador",
+          "en": "Operator onboarding sequence"
+        },
+        "session.signedInAs": {
+          "pt": "Sessão iniciada como",
+          "en": "Signed in as"
+        },
+        "session.signOut": {
+          "pt": "Terminar sessão",
+          "en": "Sign out"
+        },
+        "candidature.none": {
+          "pt": "Ainda não tem candidaturas. Crie uma abaixo.",
+          "en": "You have no candidatures yet. Create one below."
+        },
+        "candidature.oneOperator": {
+          "pt": "Um operador; cada implementação declara a sua própria versão, perfil e ambiente e prova a sua própria origem.",
+          "en": "One operator; each implementation declares its own version, profile and environment, and proves its own origin."
+        },
+        "field.implementationName": {
+          "pt": "Nome da implementação",
+          "en": "Implementation name"
+        },
+        "field.canonicalDomain": {
+          "pt": "Domínio canónico",
+          "en": "Canonical domain"
+        },
+        "field.canonicalDomainPlaceholder": {
+          "pt": "Domínio canónico (ex.: op.exemplo.ao)",
+          "en": "Canonical domain (e.g. op.example.ao)"
+        },
+        "field.protocolVersion": {
+          "pt": "Versão do protocolo",
+          "en": "Protocol version"
+        },
+        "field.protocolVersionPlaceholder": {
+          "pt": "Versão do protocolo…",
+          "en": "Protocol version…"
+        },
+        "options.loading": {
+          "pt": "A carregar as opções canónicas do protocolo…",
+          "en": "Loading the canonical protocol options…"
+        },
+        "action.addImplementation": {
+          "pt": "Adicionar implementação",
+          "en": "Add implementation"
+        },
+        "action.prepareOriginProof": {
+          "pt": "Preparar prova de origem",
+          "en": "Prepare origin proof"
+        },
+        "action.publishAt": {
+          "pt": "Publicar em:",
+          "en": "Publish at:"
+        },
+        "action.goToValidate": {
+          "pt": "Ir para Validar operador",
+          "en": "Go to Validate operator"
+        },
+        "error.codeSent": {
+          "pt": "Código enviado. Verifique o seu email.",
+          "en": "Code sent. Check your email."
+        },
+        "error.emailSendFailed": {
+          "pt": "Não foi possível enviar o email. Verifique o endereço e tente novamente.",
+          "en": "The email could not be sent. Check the address and try again."
+        },
+        "error.emailInvalid": {
+          "pt": "Email inválido ou serviço indisponível. Tente novamente.",
+          "en": "Invalid email, or the service is unavailable. Try again."
+        },
+        "error.codeExpired": {
+          "pt": "Código expirado ou já usado. Peça um novo código.",
+          "en": "The code has expired or was already used. Request a new one."
+        },
+        "error.tooManyAttempts": {
+          "pt": "Demasiadas tentativas. Peça um novo código.",
+          "en": "Too many attempts. Request a new code."
+        },
+        "error.codeIncorrect": {
+          "pt": "Código incorrecto. Verifique e tente novamente.",
+          "en": "Incorrect code. Check it and try again."
+        },
+        "error.candidatureFailed": {
+          "pt": "Não foi possível criar a candidatura.",
+          "en": "The candidature could not be created."
+        },
+        "error.invalidDomain": {
+          "pt": "Domínio inválido.",
+          "en": "Invalid domain."
+        },
+        "error.nonCanonicalOption": {
+          "pt": "Versão/perfil/ambiente têm de ser um valor canónico suportado.",
+          "en": "Version/profile/environment must be a supported canonical value."
+        },
+        "error.addImplementationFailed": {
+          "pt": "Não foi possível adicionar a implementação.",
+          "en": "The implementation could not be added."
+        },
+        "error.challengeFailed": {
+          "pt": "Não foi possível emitir o desafio de origem.",
+          "en": "The origin challenge could not be issued."
+        },
+        "error.documentUnreachable": {
+          "pt": "Não foi possível obter o documento no domínio. Confirme que está publicado e acessível por HTTPS.",
+          "en": "The document could not be fetched from the domain. Confirm it is published and reachable over HTTPS."
+        },
+        "error.originMismatch": {
+          "pt": "A origem ainda não confere. Confirme o documento publicado e tente novamente.",
+          "en": "The origin does not match yet. Confirm the published document and try again."
+        },
+        "state.emailPending": {
+          "pt": "Email por confirmar",
+          "en": "Email not yet confirmed"
+        },
+        "state.emailVerified": {
+          "pt": "Email confirmado",
+          "en": "Email confirmed"
+        },
+        "state.draft": {
+          "pt": "Rascunho",
+          "en": "Draft"
+        },
+        "state.originPending": {
+          "pt": "Origem por verificar",
+          "en": "Origin not yet verified"
+        },
+        "state.originVerified": {
+          "pt": "Origem verificada",
+          "en": "Origin verified"
+        },
+        "state.blocked": {
+          "pt": "Bloqueada",
+          "en": "Blocked"
+        },
+        "state.expired": {
+          "pt": "Expirada",
+          "en": "Expired"
+        },
+        "state.originChallengeIssued": {
+          "pt": "Desafio de origem emitido",
+          "en": "Origin challenge issued"
+        },
+        "state.notStarted": {
+          "pt": "Por iniciar",
+          "en": "Not started"
+        },
+        "step.candidature": {
+          "pt": "Candidatura",
+          "en": "Candidature"
+        },
+        "step.proofOfControl": {
+          "pt": "Prova de controlo",
+          "en": "Proof of control"
+        }
+      }
+    },
+    "progress": {
+      "module": "components/banzai/progressPresentation.ts",
+      "table": "PROGRESS_COPY",
+      "entries": {
+        "line.interpreting": {
+          "pt": "A interpretar a pergunta",
+          "en": "Interpreting the question"
+        },
+        "line.buildingFacts": {
+          "pt": "A construir os factos verificáveis",
+          "en": "Building the verifiable facts"
+        },
+        "line.preparingExplanation": {
+          "pt": "A preparar a explicação",
+          "en": "Preparing the explanation"
+        },
+        "line.verifyingClaims": {
+          "pt": "A verificar afirmações",
+          "en": "Verifying claims"
+        },
+        "line.verifyingCitations": {
+          "pt": "A verificar citações",
+          "en": "Verifying citations"
+        },
+        "line.processing": {
+          "pt": "A processar a pergunta",
+          "en": "Processing the question"
+        },
+        "line.sourcesResolved": {
+          "pt": "Fontes resolvidas",
+          "en": "Sources resolved"
+        },
+        "line.resolvingSourcesAndTools": {
+          "pt": "A resolver fontes e ferramentas",
+          "en": "Resolving sources and tools"
+        },
+        "line.toolsDone.one": {
+          "pt": "{n} ferramenta concluída",
+          "en": "{n} tool completed"
+        },
+        "line.toolsDone.many": {
+          "pt": "{n} ferramentas concluídas",
+          "en": "{n} tools completed"
+        },
+        "block.srPrefix": {
+          "pt": "Progresso do BanzAI: ",
+          "en": "BanzAI progress: "
+        },
+        "block.synthesis": {
+          "pt": "A preparar uma explicação baseada nos factos verificados…",
+          "en": "Preparing an explanation based on the verified facts…"
+        },
+        "block.cancel": {
+          "pt": "Cancelar",
+          "en": "Cancel"
+        },
+        "block.factsHeading": {
+          "pt": "FACTOS VERIFICÁVEIS (EM CURSO)",
+          "en": "VERIFIABLE FACTS (IN PROGRESS)"
+        },
+        "chip.entity": {
+          "pt": "Entidade",
+          "en": "Entity"
+        },
+        "chip.type": {
+          "pt": "Tipo",
+          "en": "Type"
+        },
+        "chip.artifact": {
+          "pt": "Artefacto",
+          "en": "Artifact"
+        },
+        "chip.scope": {
+          "pt": "Âmbito",
+          "en": "Scope"
+        },
+        "chip.authority": {
+          "pt": "Autoridade",
+          "en": "Authority"
+        },
+        "chip.source": {
+          "pt": "Fonte",
+          "en": "Source"
+        },
+        "chip.live": {
+          "pt": "ao vivo",
+          "en": "live"
+        },
+        "chip.package": {
+          "pt": "Pacote",
+          "en": "Package"
+        },
+        "chip.intent": {
+          "pt": "Intenção",
+          "en": "Intent"
+        },
+        "chip.family": {
+          "pt": "Família",
+          "en": "Family"
+        },
+        "chip.reasonCode": {
+          "pt": "Reason code",
+          "en": "Reason code"
+        },
+        "chip.facts": {
+          "pt": "Factos",
+          "en": "Facts"
+        },
+        "chip.sample": {
+          "pt": "Amostra",
+          "en": "Sample"
+        },
+        "chip.aggregation": {
+          "pt": "Agregação",
+          "en": "Aggregation"
+        },
+        "chip.depth": {
+          "pt": "Profundidade",
+          "en": "Depth"
+        },
+        "chip.checksum": {
+          "pt": "Checksum",
+          "en": "Checksum"
+        },
+        "chip.doc": {
+          "pt": "Doc",
+          "en": "Doc"
+        },
+        "chip.state": {
+          "pt": "Estado",
+          "en": "State"
+        },
+        "chip.implementation": {
+          "pt": "Implementação",
+          "en": "Implementation"
+        },
+        "chip.origin": {
+          "pt": "Origem",
+          "en": "Origin"
+        },
+        "chip.version": {
+          "pt": "Versão",
+          "en": "Version"
+        },
+        "chip.sha256": {
+          "pt": "sha256",
+          "en": "sha256"
+        },
+        "chip.tool": {
+          "pt": "Ferramenta",
+          "en": "Tool"
+        },
+        "chip.outcome": {
+          "pt": "Resultado",
+          "en": "Outcome"
+        },
+        "chip.code": {
+          "pt": "Código",
+          "en": "Code"
+        },
+        "chip.n": {
+          "pt": "N",
+          "en": "N"
+        },
+        "chip.metric": {
+          "pt": "Métrica",
+          "en": "Metric"
+        },
+        "metrics.heading": {
+          "pt": "MÉTRICAS PROGRESSIVAS",
+          "en": "PROGRESSIVE METRICS"
+        },
+        "metrics.firstProgress": {
+          "pt": "Primeiro progresso",
+          "en": "First progress"
+        },
+        "metrics.firstVerifiedFact": {
+          "pt": "Primeiro facto verificável",
+          "en": "First verifiable fact"
+        },
+        "metrics.validatedAnswer": {
+          "pt": "Resposta validada",
+          "en": "Validated answer"
+        },
+        "metrics.ttfb": {
+          "pt": "TTFB (distinto)",
+          "en": "TTFB (separate)"
+        }
+      }
+    },
+    "suggestions": {
+      "module": "components/banzai/suggestions.ts",
+      "table": "SUGGESTION_COPY",
+      "entries": {
+        "safe.what_can_explain": {
+          "pt": "O que é que o BanzAI pode explicar sobre este tema?",
+          "en": "What can BanzAI explain about this topic?"
+        },
+        "safe.boundaries": {
+          "pt": "Quais são as fronteiras do BanzAI?",
+          "en": "What are BanzAI's boundaries?"
+        },
+        "safe.conformance_by_evidence": {
+          "pt": "Como se demonstra conformidade por evidência verificável?",
+          "en": "How is conformance demonstrated through verifiable evidence?"
+        },
+        "entity.manifest": {
+          "pt": "Mostrar o manifesto de {label}",
+          "en": "Show the manifest of {label}"
+        },
+        "entity.manifest_implementation": {
+          "pt": "Mostrar o manifesto da implementação {label}",
+          "en": "Show the manifest of implementation {label}"
+        },
+        "entity.conformance": {
+          "pt": "Ver a conformidade de {label}",
+          "en": "See the conformance of {label}"
+        },
+        "entity.conformance_in_profile": {
+          "pt": "Ver a conformidade de {label} no perfil {profile}",
+          "en": "See the conformance of {label} in profile {profile}"
+        },
+        "entity.keys_and_trust": {
+          "pt": "Ver as chaves e a confiança de {label}",
+          "en": "See the keys and trust of {label}"
+        },
+        "entity.replay_last_run": {
+          "pt": "Reproduzir a última execução de {label}",
+          "en": "Replay the last run of {label}"
+        },
+        "duration.per_step": {
+          "pt": "Mostrar a duração por etapa",
+          "en": "Show the duration per step"
+        },
+        "duration.slowest_step": {
+          "pt": "Explicar a etapa mais lenta",
+          "en": "Explain the slowest step"
+        },
+        "duration.compare_previous": {
+          "pt": "Comparar com a execução anterior",
+          "en": "Compare with the previous run"
+        },
+        "duration.entity_last_run": {
+          "pt": "Mostrar a última execução de {label}",
+          "en": "Show the last run of {label}"
+        },
+        "measurements.start_validation": {
+          "pt": "Iniciar a validação de {label} para gerar medições",
+          "en": "Start the validation of {label} to generate measurements"
+        },
+        "measurements.how_to_run": {
+          "pt": "Como executo uma validação para gerar medições?",
+          "en": "How do I run a validation to generate measurements?"
+        },
+        "measurements.what_is_recorded": {
+          "pt": "O que é que o BanzAI regista durante uma validação?",
+          "en": "What does BanzAI record during a validation?"
+        },
+        "fallback.what_is_banza": {
+          "pt": "O que é o protocolo BANZA?",
+          "en": "What is the BANZA protocol?"
+        },
+        "fallback.what_can_banzai_answer": {
+          "pt": "O que é que o BanzAI pode responder sobre o protocolo?",
+          "en": "What can BanzAI answer about the protocol?"
+        },
+        "fallback.tool_when_available": {
+          "pt": "O que faz esta ferramenta quando está disponível?",
+          "en": "What does this tool do when it is available?"
+        },
+        "fallback.tool_alternative": {
+          "pt": "Que alternativa existe para obter isto?",
+          "en": "What alternative is there to obtain this?"
+        },
+        "fallback.clarify_reference": {
+          "pt": "Pode detalhar a que se refere?",
+          "en": "Can you say what this refers to?"
+        },
+        "fallback.related_adr_rfc": {
+          "pt": "Que ADR ou RFC está relacionado com isto?",
+          "en": "Which ADR or RFC is related to this?"
+        },
+        "fallback.what_is_needed_for_entity": {
+          "pt": "O que é preciso para responder sobre {label}?",
+          "en": "What is needed to answer about {label}?"
+        },
+        "fallback.what_is_needed": {
+          "pt": "O que é preciso para responder a isto?",
+          "en": "What is needed to answer this?"
+        },
+        "fallback.what_makes_answerable": {
+          "pt": "Que evidência é que torna isto respondível?",
+          "en": "What evidence makes this answerable?"
+        },
+        "fallback.which_sources_answer": {
+          "pt": "Que fontes é que respondem a isto?",
+          "en": "Which sources answer this?"
+        },
+        "family.biggest_difference": {
+          "pt": "Explicar a maior diferença entre as execuções",
+          "en": "Explain the biggest difference between the runs"
+        },
+        "family.replay_most_recent": {
+          "pt": "Reproduzir a execução mais recente",
+          "en": "Replay the most recent run"
+        },
+        "family.reason_code_of_result": {
+          "pt": "Qual foi o reason code deste resultado?",
+          "en": "What was the reason code of this result?"
+        },
+        "family.how_to_fix": {
+          "pt": "Como é que se corrige isto?",
+          "en": "How is this fixed?"
+        },
+        "family.what_reason_code_means": {
+          "pt": "O que significa este reason code?",
+          "en": "What does this reason code mean?"
+        },
+        "family.how_to_resolve_reason_code": {
+          "pt": "Como é que se resolve este reason code?",
+          "en": "How is this reason code resolved?"
+        },
+        "op.manifest_example": {
+          "pt": "mostra um exemplo de manifest de operador",
+          "en": "show an example of an operator manifest"
+        },
+        "op.prepare_conformance_evidence": {
+          "pt": "como preparo evidência de conformidade?",
+          "en": "how do I prepare conformance evidence?"
+        },
+        "op.federate_with_operator": {
+          "pt": "como federar com outro operador?",
+          "en": "how do I federate with another operator?"
+        },
+        "op.manifest_required_fields": {
+          "pt": "quais são os campos obrigatórios do manifest?",
+          "en": "which manifest fields are required?"
+        },
+        "op.evidence_bundle_example": {
+          "pt": "mostra um exemplo de evidence bundle",
+          "en": "show an example of an evidence bundle"
+        },
+        "op.where_publish_manifest": {
+          "pt": "onde publico o manifest?",
+          "en": "where do I publish the manifest?"
+        },
+        "op.how_trust_evaluation": {
+          "pt": "como funciona trust evaluation?",
+          "en": "how does trust evaluation work?"
+        },
+        "op.consult_revocation_list": {
+          "pt": "como consulto a revocation list?",
+          "en": "how do I consult the revocation list?"
+        },
+        "op.evidence_to_federate": {
+          "pt": "que evidência publico para federar?",
+          "en": "what evidence do I publish in order to federate?"
+        },
+        "op.pass_is_certificate": {
+          "pt": "um PASS é um certificado?",
+          "en": "is a PASS a certificate?"
+        },
+        "op.start_with_my_operator": {
+          "pt": "onde começo com o meu operador?",
+          "en": "where do I start with my operator?"
+        },
+        "op.how_revocation_works": {
+          "pt": "como funciona a revogação?",
+          "en": "how does revocation work?"
+        },
+        "op.what_is_key_manifest": {
+          "pt": "o que é o key manifest?",
+          "en": "what is the key manifest?"
+        },
+        "op.financial_invariants": {
+          "pt": "quais são as invariantes financeiras?",
+          "en": "what are the financial invariants?"
+        },
+        "op.double_entry_ledger": {
+          "pt": "como funciona o ledger de dupla entrada?",
+          "en": "how does the double-entry ledger work?"
+        },
+        "op.where_is_revocation_list": {
+          "pt": "onde está a revocation list?",
+          "en": "where is the revocation list?"
+        },
+        "op.how_demonstrate_conformance": {
+          "pt": "como demonstro conformidade?",
+          "en": "how do I demonstrate conformance?"
+        },
+        "ans.applies_to_operator": {
+          "pt": "Como é que isto se aplica a um operador?",
+          "en": "How does this apply to an operator?"
+        },
+        "ans.which_adr_rfc": {
+          "pt": "Que ADR ou RFC define isto?",
+          "en": "Which ADR or RFC defines this?"
+        },
+        "ans.safe_example": {
+          "pt": "Mostra um exemplo seguro.",
+          "en": "Show a safe example."
+        },
+        "ans.where_are_limits": {
+          "pt": "Onde é que estão os limites disto?",
+          "en": "Where are the limits of this?"
+        },
+        "ans.what_evidence_proves": {
+          "pt": "Que evidência prova isto?",
+          "en": "What evidence proves this?"
+        },
+        "ans.why_is_that_boundary": {
+          "pt": "Porque é que essa é a fronteira?",
+          "en": "Why is that the boundary?"
+        },
+        "ans.practical_difference": {
+          "pt": "Qual é a diferença na prática para um operador?",
+          "en": "What is the difference in practice for an operator?"
+        },
+        "ans.which_adr_each_side": {
+          "pt": "Que ADR define cada um dos lados?",
+          "en": "Which ADR defines each of the two sides?"
+        },
+        "ans.propose_change_rfc_adr": {
+          "pt": "Como se propõe uma alteração por RFC ou ADR?",
+          "en": "How is a change proposed through an RFC or ADR?"
+        },
+        "ans.who_decides_governance": {
+          "pt": "Quem decide isto na governança do protocolo?",
+          "en": "Who decides this in the protocol's governance?"
+        },
+        "ans.which_financial_invariant": {
+          "pt": "Que invariante financeira protege isto?",
+          "en": "Which financial invariant protects this?"
+        },
+        "ans.how_operator_implements": {
+          "pt": "Como é que um operador implementa isto?",
+          "en": "How does an operator implement this?"
+        },
+        "ans.next_steps_to_implement": {
+          "pt": "Quais são os passos seguintes para implementar?",
+          "en": "What are the next steps to implement?"
+        },
+        "ans.what_evidence_i_publish": {
+          "pt": "Que evidência é que eu publico?",
+          "en": "What evidence do I publish?"
+        },
+        "ans.oz_manifest": {
+          "pt": "Mostrar o manifesto do Operador Zero",
+          "en": "Show the Operator Zero manifest"
+        },
+        "ans.oz_conformance": {
+          "pt": "Ver a conformidade do Operador Zero",
+          "en": "See the conformance of Operator Zero"
+        },
+        "ans.oz_keys_trust": {
+          "pt": "Ver as chaves e a confiança do Operador Zero",
+          "en": "See the keys and trust of Operator Zero"
+        },
+        "ans.explain_concept_behind_example": {
+          "pt": "Explica o conceito por trás deste exemplo.",
+          "en": "Explain the concept behind this example."
+        }
+      }
+    },
+    "decisions": {
+      "module": "components/decisoes/decisionsPresentation.ts",
+      "table": "DECISIONS_COPY",
+      "entries": {
+        "filter.type.all": {
+          "pt": "Todos",
+          "en": "All"
+        },
+        "filter.type.adr": {
+          "pt": "ADRs",
+          "en": "ADRs"
+        },
+        "filter.type.rfc": {
+          "pt": "RFCs",
+          "en": "RFCs"
+        },
+        "filter.state.all": {
+          "pt": "Todos os estados",
+          "en": "All states"
+        },
+        "filter.state.activo": {
+          "pt": "Activos",
+          "en": "Active"
+        },
+        "filter.state.rascunho": {
+          "pt": "Rascunhos",
+          "en": "Drafts"
+        },
+        "filter.state.substituido": {
+          "pt": "Substituídos",
+          "en": "Superseded"
+        },
+        "state.all": {
+          "pt": "Todos",
+          "en": "All"
+        },
+        "state.activo": {
+          "pt": "Activo",
+          "en": "Active"
+        },
+        "state.rascunho": {
+          "pt": "Rascunho",
+          "en": "Draft"
+        },
+        "state.substituido": {
+          "pt": "Substituído",
+          "en": "Superseded"
+        },
+        "aria.filterByType": {
+          "pt": "Filtrar por tipo",
+          "en": "Filter by type"
+        },
+        "aria.filterByState": {
+          "pt": "Filtrar por estado",
+          "en": "Filter by state"
+        },
+        "search.label": {
+          "pt": "Pesquisar decisões",
+          "en": "Search decisions"
+        },
+        "search.placeholder": {
+          "pt": "Pesquisar por código, título, tema…",
+          "en": "Search by code, title, theme…"
+        },
+        "facet.theme": {
+          "pt": "Tema",
+          "en": "Theme"
+        },
+        "facet.allThemes": {
+          "pt": "Todos os temas",
+          "en": "All themes"
+        },
+        "count.one": {
+          "pt": "DOCUMENTO",
+          "en": "DOCUMENT"
+        },
+        "count.many": {
+          "pt": "DOCUMENTOS",
+          "en": "DOCUMENTS"
+        },
+        "library.note": {
+          "pt": "A biblioteca lista todos os ADRs e RFCs do Protocolo BANZA v1.0 — activos, rascunhos e substituídos. Os registos substituídos mantêm-se publicados: o rasto de decisões é parte da governação aberta.",
+          "en": "The library lists every ADR and RFC of BANZA Protocol v1.0 — active, draft and superseded. Superseded records stay published: the trail of decisions is part of open governance."
+        },
+        "empty.title": {
+          "pt": "Nenhum documento encontrado.",
+          "en": "No document found."
+        },
+        "empty.hint": {
+          "pt": "Ajuste os filtros ou limpe a pesquisa.",
+          "en": "Adjust the filters or clear the search."
+        },
+        "card.nonNormative": {
+          "pt": "Não normativo",
+          "en": "Not normative"
+        },
+        "card.originalLanguage": {
+          "pt": "Conteúdo completo · língua original",
+          "en": "Full content · original language"
+        },
+        "card.readFull": {
+          "pt": "Ler conteúdo completo",
+          "en": "Read the full content"
+        },
+        "card.explainWithBanzai": {
+          "pt": "Explicar com BanzAI",
+          "en": "Explain with BanzAI"
+        },
+        "ask.adr": {
+          "pt": "Explica o {id} em linguagem simples, destacando que é o registo canónico da decisão de arquitectura que documenta, mas que deve ser lido em conjunto com a Referência BANZA, contratos e invariantes aplicáveis. Este documento não confere estatuto a nenhum operador.",
+          "en": "Explain {id} in plain language, making clear that it is the canonical record of the architecture decision it documents, but that it must be read together with the BANZA Reference, the contracts and the applicable invariants. This document confers status on no operator."
+        },
+        "ask.rfc": {
+          "pt": "Explica o {id} em linguagem simples, destacando que é o registo canónico da proposta ou discussão técnica que documenta, mas que não altera por si só as regras actuais enquanto não for aceite e reflectida nos documentos normativos aplicáveis. Este documento não confere estatuto a nenhum operador.",
+          "en": "Explain {id} in plain language, making clear that it is the canonical record of the technical proposal or discussion it documents, but that on its own it does not change the current rules until it is accepted and reflected in the applicable normative documents. This document confers status on no operator."
+        },
+        "index.metaTitle": {
+          "pt": "Decisões do Protocolo · ADRs e RFCs · BANZA",
+          "en": "Protocol Decisions · ADRs and RFCs · BANZA"
+        },
+        "index.metaDescription": {
+          "pt": "Consulte ADRs e RFCs do protocolo BANZA — o registo canónico das decisões técnicas e propostas que documentam. Para implementar o protocolo, leia-os em conjunto com a Referência BANZA, contratos e invariantes aplicáveis.",
+          "en": "Browse the ADRs and RFCs of the BANZA protocol — the canonical record of the technical decisions and proposals they document. To implement the protocol, read them together with the BANZA Reference, the contracts and the applicable invariants."
+        },
+        "index.eyebrow": {
+          "pt": "GOVERNAÇÃO · DECISÕES",
+          "en": "GOVERNANCE · DECISIONS"
+        },
+        "index.title": {
+          "pt": "Decisões do Protocolo",
+          "en": "Protocol Decisions"
+        },
+        "index.lede": {
+          "pt": "ADRs e RFCs que documentam a evolução técnica do BANZA. Cada documento é o registo canónico da decisão ou proposta que documenta; para implementar o protocolo, leia-os em conjunto com a Referência BANZA, os contratos e os invariantes aplicáveis.",
+          "en": "ADRs and RFCs documenting BANZA's technical evolution. Each document is the canonical record of the decision or proposal it documents; to implement the protocol, read them together with the BANZA Reference, the contracts and the applicable invariants."
+        },
+        "index.chip.protocol": {
+          "pt": "PROTOCOLO",
+          "en": "PROTOCOL"
+        },
+        "index.chip.governance": {
+          "pt": "GOVERNAÇÃO",
+          "en": "GOVERNANCE"
+        },
+        "index.chip.banzaiExplains": {
+          "pt": "BANZAI EXPLICA, NÃO DECIDE",
+          "en": "BANZAI EXPLAINS, IT DOES NOT DECIDE"
+        },
+        "index.chip.counts": {
+          "pt": "{adr} ADRs · {rfc} RFCs",
+          "en": "{adr} ADRs · {rfc} RFCs"
+        },
+        "index.note.1": {
+          "pt": "As ADRs (Registos de Decisão de Arquitectura, nível normativo N3) são o registo canónico das decisões técnicas que documentam. As RFCs (Pedidos de Comentários, N4) são o registo canónico das propostas e discussões técnicas que documentam — algumas ainda em rascunho. Para implementar o protocolo, leia estes documentos em conjunto com a",
+          "en": "ADRs (Architecture Decision Records, normative level N3) are the canonical record of the technical decisions they document. RFCs (Requests for Comments, N4) are the canonical record of the technical proposals and discussions they document — some still in draft. To implement the protocol, read these documents together with the"
+        },
+        "index.note.2": {
+          "pt": ", os contratos e os invariantes aplicáveis. O",
+          "en": ", the contracts and the applicable invariants. "
+        },
+        "index.note.3": {
+          "pt": "é explicativo e não normativo.",
+          "en": "is explanatory and not normative."
+        },
+        "link.reference": {
+          "pt": "Referência BANZA",
+          "en": "BANZA Reference"
+        },
+        "link.banzai": {
+          "pt": "BanzAI",
+          "en": "BanzAI"
+        },
+        "index.link.githubSource": {
+          "pt": "Código-fonte no GitHub",
+          "en": "Source code on GitHub"
+        },
+        "index.link.governanceProcess": {
+          "pt": "Processo de governação",
+          "en": "Governance process"
+        },
+        "detail.metaTitleNotFound": {
+          "pt": "Documento não encontrado · Decisões · BANZA",
+          "en": "Document not found · Decisions · BANZA"
+        },
+        "detail.metaTitle": {
+          "pt": "{id} · Decisões do Protocolo · BANZA",
+          "en": "{id} · Protocol Decisions · BANZA"
+        },
+        "detail.metaDescription.adr": {
+          "pt": "Leia esta decisão de arquitectura do protocolo BANZA, apresentada na língua original. Uma ADR é o registo canónico da decisão que documenta e deve ser lida em conjunto com a Referência BANZA, contratos e invariantes aplicáveis.",
+          "en": "Read this BANZA protocol architecture decision, presented in its original language. An ADR is the canonical record of the decision it documents and must be read together with the BANZA Reference, the contracts and the applicable invariants."
+        },
+        "detail.metaDescription.rfc": {
+          "pt": "Leia esta proposta ou discussão técnica do protocolo BANZA, apresentada na língua original. Uma RFC é o registo canónico da proposta que documenta, mas não altera por si só as regras actuais enquanto não for aceite e reflectida nos documentos aplicáveis.",
+          "en": "Read this BANZA protocol technical proposal or discussion, presented in its original language. An RFC is the canonical record of the proposal it documents, but on its own it does not change the current rules until it is accepted and reflected in the applicable documents."
+        },
+        "detail.chip.nonNormative": {
+          "pt": "NÃO NORMATIVO",
+          "en": "NOT NORMATIVE"
+        },
+        "detail.state.activo": {
+          "pt": "Activo",
+          "en": "Active"
+        },
+        "detail.state.rascunho": {
+          "pt": "Rascunho — proposta em discussão, não aceite",
+          "en": "Draft — proposal under discussion, not accepted"
+        },
+        "detail.state.substituido": {
+          "pt": "Substituído",
+          "en": "Superseded"
+        },
+        "detail.meta.type": {
+          "pt": "Tipo",
+          "en": "Type"
+        },
+        "detail.meta.state": {
+          "pt": "Estado",
+          "en": "State"
+        },
+        "detail.meta.normativeLevel": {
+          "pt": "Nível normativo",
+          "en": "Normative level"
+        },
+        "detail.meta.path": {
+          "pt": "Caminho",
+          "en": "Path"
+        },
+        "detail.type.adr": {
+          "pt": "ADR · Registo de Decisão de Arquitectura",
+          "en": "ADR · Architecture Decision Record"
+        },
+        "detail.type.rfc": {
+          "pt": "RFC · Pedido de Comentários",
+          "en": "RFC · Request for Comments"
+        },
+        "detail.normativeLevel": {
+          "pt": "Não normativo — explica a arquitectura; não vincula uma implementação",
+          "en": "Not normative — it explains the architecture; it does not bind an implementation"
+        },
+        "detail.aria.breadcrumb": {
+          "pt": "Trilho",
+          "en": "Breadcrumb"
+        },
+        "detail.breadcrumb.index": {
+          "pt": "Decisões do Protocolo",
+          "en": "Protocol Decisions"
+        },
+        "detail.action.readOnGithub": {
+          "pt": "Ler documento completo no GitHub",
+          "en": "Read the full document on GitHub"
+        },
+        "detail.action.back": {
+          "pt": "Voltar às decisões",
+          "en": "Back to the decisions"
+        },
+        "detail.section.related": {
+          "pt": "RELACIONADOS",
+          "en": "RELATED"
+        },
+        "detail.section.originalDocument": {
+          "pt": "DOCUMENTO ORIGINAL · CONTEÚDO COMPLETO",
+          "en": "ORIGINAL DOCUMENT · FULL CONTENT"
+        },
+        "detail.note.heading": {
+          "pt": "O que este documento é — e não é.",
+          "en": "What this document is — and is not."
+        },
+        "detail.note.adr.1": {
+          "pt": "Uma ADR é o registo canónico da decisão de arquitectura que documenta. Explica o contexto técnico, a decisão tomada e as suas razões. Para implementar o protocolo, deve ser lida em conjunto com a",
+          "en": "An ADR is the canonical record of the architecture decision it documents. It explains the technical context, the decision taken and the reasons for it. To implement the protocol, it must be read together with the"
+        },
+        "detail.note.adr.2": {
+          "pt": ", os contratos e os invariantes aplicáveis.",
+          "en": ", the contracts and the applicable invariants."
+        },
+        "detail.note.rfc": {
+          "pt": "Uma RFC é o registo canónico da proposta ou discussão técnica que documenta. Explica o contexto técnico, a proposta, as alternativas em análise e a possível evolução do protocolo. Enquanto não for aceite e reflectida nos documentos normativos aplicáveis, não altera por si só as regras actuais do protocolo.",
+          "en": "An RFC is the canonical record of the technical proposal or discussion it documents. It explains the technical context, the proposal, the alternatives under consideration and the protocol's possible evolution. Until it is accepted and reflected in the applicable normative documents, on its own it does not change the protocol's current rules."
+        },
+        "detail.note.asideTail": {
+          "pt": "Não aprova operadores nem confere certificação. O BanzAI explica, mas não decide, não certifica e não substitui os documentos normativos aplicáveis.",
+          "en": "It approves no operator and confers no certification. BanzAI explains, but it does not decide, does not certify and does not replace the applicable normative documents."
+        },
+        "detail.note.bodyTail": {
+          "pt": "Este documento é apresentado na sua língua original e não aprova operadores, não confere certificação e não substitui obrigações legais ou regulatórias. O BanzAI pode ajudar a explicar este documento, mas não decide, não certifica e não substitui os documentos normativos aplicáveis.",
+          "en": "This document is presented in its original language and approves no operator, confers no certification and replaces no legal or regulatory obligation. BanzAI can help explain this document, but it does not decide, does not certify and does not replace the applicable normative documents."
+        },
+        "detail.protocolState": {
+          "pt": "Estado do protocolo: pré-produção ·",
+          "en": "Protocol state: pre-production ·"
+        },
+        "detail.body.unavailable": {
+          "pt": "Conteúdo completo temporariamente indisponível. Consulte o documento original no GitHub através da ligação acima.",
+          "en": "The full content is temporarily unavailable. Consult the original document on GitHub through the link above."
+        },
+        "detail.footer.1": {
+          "pt": "Para implementar o protocolo, leia este documento em conjunto com a",
+          "en": "To implement the protocol, read this document together with the"
+        },
+        "detail.footer.2": {
+          "pt": ", os contratos e os invariantes aplicáveis. O BanzAI ajuda a explicar, mas não decide, não certifica e não substitui os documentos normativos aplicáveis.",
+          "en": ", the contracts and the applicable invariants. BanzAI helps explain, but it does not decide, does not certify and does not replace the applicable normative documents."
+        },
+        "detail.ask.adr": {
+          "pt": "Explica o {id} em linguagem simples, destacando que é o registo canónico da decisão de arquitectura que documenta, mas que deve ser lido em conjunto com a Referência BANZA, contratos e invariantes aplicáveis para implementação. Este documento não confere certificação.",
+          "en": "Explain {id} in plain language, making clear that it is the canonical record of the architecture decision it documents, but that it must be read together with the BANZA Reference, the contracts and the invariants applicable to an implementation. This document confers no certification."
+        },
+        "detail.ask.rfc": {
+          "pt": "Explica o {id} em linguagem simples, destacando que é o registo canónico da proposta ou discussão técnica que documenta, mas que não altera por si só as regras actuais do protocolo enquanto não for aceite e reflectida nos documentos normativos aplicáveis. Este documento não confere certificação.",
+          "en": "Explain {id} in plain language, making clear that it is the canonical record of the technical proposal or discussion it documents, but that on its own it does not change the protocol's current rules until it is accepted and reflected in the applicable normative documents. This document confers no certification."
+        }
+      }
+    }
+  }
+}

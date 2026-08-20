@@ -172,7 +172,15 @@ root-threshold-model-check:
 banza-whitepaper-check:
 	@bash tools/check-banza-whitepaper.sh
 
-.PHONY: l0-regulatory-boundary-check canonical-profiles-rs profile-vocabulary-check website-hermetic-build-check website-guard-targets-check website-locale-roots-check banzai-entries-index banzai-entries-index-check banzai-source-paths-check banzai-answer-policy-check banzai-lifecycle-facts-check banzai-wasm-source-bound-check current-doc-links-check website-chrome-resolved website-chrome-resolved-check website-reference-mirror website-reference-source-boundary-check reference-source-authority-check reference-structural-parity-check reference-check
+.PHONY: l0-regulatory-boundary-check canonical-profiles-rs profile-vocabulary-check website-hermetic-build-check website-guard-targets-check website-locale-roots-check banzai-entries-index banzai-entries-index-check banzai-source-paths-check banzai-answer-policy-check banzai-lifecycle-facts-check banzai-wasm-source-bound-check current-doc-links-check website-copy-resolved website-copy-resolved-check website-chrome-resolved website-chrome-resolved-check website-reference-mirror website-reference-source-boundary-check reference-source-authority-check reference-structural-parity-check reference-check
+## website-copy-resolved: GENERATOR — realize every BanzAI catalogue id in both editions into website/lib/copyResolved.json. Block E2 moved the surfaces' sentences into bilingual catalogues, so a guard can no longer grep a component for the copy it renders; it reads this instead. Never hand-edited.
+website-copy-resolved:
+	@cd website && node scripts/emit-copy-resolved.mjs
+
+## website-copy-resolved-check: the tracked resolved copy is exactly what the live catalogues produce — re-derives and compares, writing nothing
+website-copy-resolved-check:
+	@cd website && node scripts/emit-copy-resolved.mjs --check
+
 ## website-chrome-resolved: GENERATOR — resolve every header/footer destination, per edition, into website/lib/chromeResolved.json. The chrome declares semantic route targets and derives pathnames per edition, so guards can no longer read an href out of the config; they read this instead of re-implementing the derivation. Never hand-edited.
 website-chrome-resolved:
 	@cd website && node scripts/emit-chrome-resolved.mjs

@@ -20,6 +20,12 @@ FAILED=0
 fail() { echo "FAIL: $*"; FAILED=1; }
 ok()   { echo "  ok: $*"; }
 
+# Block E2 moved these sentences out of the module and into the bilingual catalogues, so grepping the
+# module stopped proving anything about them. They are read from the resolved copy instead — which also
+# lets the English edition be checked, which grepping a Portuguese literal never could.
+# shellcheck source=tools/_banzai-copy.sh
+. tools/_banzai-copy.sh
+
 NGINX=infra/banza-network/nginx/conf.d/banza.conf
 KB=website/components/home/banzaiKb.ts
 BADGES_FILE=website/components/banzai/banzai-agent.ts
@@ -102,9 +108,9 @@ labels="$(git grep -hInE 'modo demonstra|mock provider|provider mock|provider: ?
 # 7. Accurate CONFIGURED-DEFAULT badge present (M2.8F): the standing badge names the default
 # engine ("por omissão: Qwen local") WITHOUT asserting that every answer used it — the per-answer
 # status line carries that truth. The old "Qwen local activo" phrasing over-stated per-answer state.
-grep -qi 'por omissão: *qwen local' "$BADGES_FILE" && ok "public badge names the configured default (Qwen local, por omissão)" \
+copy_id_says agent badge.defaultEngine pt "por omissão: Qwen local" && ok "public badge names the configured default (Qwen local, por omissão)" \
   || fail "public status badge must name the configured default engine ('por omissão: Qwen local')"
-grep -q 'Qwen local activo' "$BADGES_FILE" \
+copy_says pt 'Qwen local activo' \
   && fail "badge must NOT claim 'Qwen local activo' (over-states per-answer state; use 'por omissão' + per-answer status)" \
   || ok "no over-stated 'Qwen local activo' badge"
 

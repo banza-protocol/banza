@@ -14,11 +14,11 @@
     "branch_introduced": 43,
     "non_e2_branch_introduced": 14,
     "e2_branch_introduced": 29,
-    "branch_fail_after_remediation": 41,
-    "remediated": 5,
+    "branch_fail_after_remediation": 38,
+    "remediated": 8,
     "not_run_locally": 1,
-    "reconciliation": "150 PASS + 41 FAIL + 1 NOT_RUN_LOCALLY = 192. The total grew from 189 because the runner now also executes the `make` targets the workflows run, which it had been ignoring.",
-    "pass": 150,
+    "reconciliation": "153 PASS + 38 FAIL + 1 NOT_RUN_LOCALLY = 192, measured at committed HEAD on a clean tree.",
+    "pass": 153,
     "total_invocations": 192
   },
   "baseline_failures_not_ours": [
@@ -386,13 +386,16 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "E2",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved to the bilingual catalogue)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "root_cause": "grepped the module for a Portuguese literal. Block E2 moved the sentence into a bilingual catalogue, so the module no longer contains it — and the guard could only ever have checked Portuguese.",
+      "remediation": "reads website/lib/copyResolved.json — PT and EN mode label + validation header, read from the agent catalogue"
     },
     {
       "guard": "check-banzai-operator-zero-only-ui.sh",
@@ -424,13 +427,16 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "E2",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved to the bilingual catalogue)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "root_cause": "grepped the module for a Portuguese literal. Block E2 moved the sentence into a bilingual catalogue, so the module no longer contains it — and the guard could only ever have checked Portuguese.",
+      "remediation": "reads website/lib/copyResolved.json — the 4-clause boundary phrase in BOTH editions + the subtitle"
     },
     {
       "guard": "check-banzai-public-interface.sh",
@@ -443,13 +449,16 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "E2",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved to the bilingual catalogue)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "root_cause": "grepped the module for a Portuguese literal. Block E2 moved the sentence into a bilingual catalogue, so the module no longer contains it — and the guard could only ever have checked Portuguese.",
+      "remediation": "reads website/lib/copyResolved.json — the configured-default engine badge, and the over-stating wording it forbids"
     },
     {
       "guard": "check-banzai-public-surface-final-consistency.sh",
@@ -889,6 +898,14 @@
       "remediation": "Makefile repaired; the runner now extracts and executes the `make` steps too, which is why the invocation total moved from 189 to 192.",
       "lesson": "a local model of CI that runs a convenient subset will report a clean count over a broken build. Claiming a target is wired is not the same as running it.",
       "disposition": "CLOSED"
+    },
+    {
+      "id": "copy-guards-were-structurally-blind-to-english",
+      "severity": "coverage gap, closed for the guards migrated so far",
+      "detail": "every BanzAI copy guard asserted a Portuguese literal in a module. Even before Block E2 moved the strings, that design could not see the English edition at all — so once English copy existed it was ungoverned by construction.",
+      "remediation": "the catalogues are realized once into lib/copyResolved.json and guards assert through it, which makes the English clause writable at all.",
+      "mutation_evidence": "changing ONLY the English validation-mode label now turns the guard red. Under the previous design that mutation was invisible.",
+      "disposition": "IN PROGRESS — applies to each copy guard as it is migrated"
     }
   ]
 }

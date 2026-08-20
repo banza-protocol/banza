@@ -490,8 +490,19 @@ The committed inventory of all 43, with each guard's assertion, owning block, cl
 disposition, is `docs/website/phase2-pr32-guard-regressions.json`. The workflow-faithful runner is
 `tools/ci-guards-local-check.sh` / `make ci-guards-local-check`.
 
-**Remediation status: IN PROGRESS — 5 guards remediated and mutation-proven; 150 PASS · 41 FAIL · 1
+**Remediation status: IN PROGRESS — 8 guards remediated and mutation-proven; 153 PASS · 38 FAIL · 1
 NOT_RUN_LOCALLY of 192.**
+
+**The BanzAI copy guards share the chrome guards' root, and get the same treatment.** They asserted
+Portuguese literals inside the modules that rendered them; Block E2 moved those sentences into bilingual
+catalogues, so the modules no longer contain them. The catalogues are realized once
+(`make website-copy-resolved`) into `lib/copyResolved.json`, kept current by `copyResolved.test.ts`, and
+read through `tools/_banzai-copy.sh`.
+
+This is not only a repair. The old design could not see English **by construction** — a guard grepping a
+Portuguese literal has no way to express an English clause, so once the English edition existed it was
+ungoverned. Changing only the English validation-mode label now turns a guard red; before, that mutation
+was invisible.
 
 **The chrome guards had a common root, so they were given a common surface.** Several guards read a
 pathname straight out of `lib/site.ts`. The chrome stopped writing pathnames when it became locale-aware —
