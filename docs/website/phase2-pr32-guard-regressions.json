@@ -1094,7 +1094,7 @@
       "lesson": "claiming a target is wired is not the same as running it through that target."
     }
   ],
-  "status": "MERGED AND DEPLOYED — PR #32 merged as 93be456; production serving 93be456",
+  "status": "COMPLETE AND FROZEN — PR #32 merged as 93be456; production deployed and verified at 93be456",
   "remaining": {
     "NOT_RUN_LOCALLY": 1,
     "note": "check-whitepaper-hermetic.sh and check-openapi-compatibility.sh are declared NOT_RUN_LOCALLY by the runner; one is counted. They stay CI's responsibility — calling their absence green would be the same error as reading a build log instead of an exit code."
@@ -1184,8 +1184,37 @@
       "literal_routes": "/referencia/completa and /en/reference/full both 200 — the literal record wins over the chapter pattern",
       "registry_truth": "pre-production, zero entries, in both editions",
       "banzai_bundle": "the served EN bundle carries every representative E2 realization — validation header, certification readiness, journey divider, engine badges, source heading, OZ-only hint",
-      "banzai_live_answer": "the English ask returns the honest degraded realization rather than Portuguese: \"A deterministic answer is not yet available in English for this question.\" That is the designed behaviour — the deterministic KB is Portuguese-first and declines in English instead of falling back."
+      "banzai_live_answer": "the English ask returns the honest degraded realization rather than Portuguese: \"A deterministic answer is not yet available in English for this question.\" That is the designed behaviour — the deterministic KB is Portuguese-first and declines in English instead of falling back.",
+      "reference_navigation": {
+        "chapter_counterparts": "/referencia/o-que-e ↔ /en/reference/what-banza-is, both 200",
+        "pt_slug_under_en": "/en/reference/o-que-e → 404, intentionally — the chapter pattern does not leak across editions",
+        "literal_routes": "/referencia/completa → 200 and /en/reference/full → 200",
+        "probe_correction": "/en/reference/complete was probed and returned 404. The registry declares the English address as /en/reference/full. The 404 was the probe asking for an undeclared route — a mistake in the check, not a defect in the application. Recorded rather than dropped: a wrong smoke result quietly discarded is indistinguishable from one never run.",
+        "en_navigation": "the English header resolves entirely within /en/*. The one Portuguese link on English pages is the language selector (aria-label \"Current language: English\"), pointing at the correct counterpart — the selector doing its job, NOT an English-backlink defect."
+      },
+      "banzai_completeness_boundary": "no claim of model or knowledge completeness in English is made. The bundle carries the English realizations; the deterministic knowledge base remains Portuguese-first and declines explicitly in English."
     },
-    "rollback_performed": false
+    "rollback_performed": false,
+    "stack_health": {
+      "containers_running": 7,
+      "healthy": "every container declaring a healthcheck reports healthy",
+      "reverse_proxy": "declares no healthcheck — its truth is 'running', not 'healthy'",
+      "restart_counts": {
+        "website": 0,
+        "banzai-api": 0
+      },
+      "postgres": "start time and restart count unchanged"
+    }
+  },
+  "final_status": {
+    "website_phase_2": "COMPLETE AND FROZEN",
+    "block_e2": "COMPLETE AND FROZEN",
+    "block_e": "COMPLETE AND FROZEN",
+    "pr_32": "MERGED",
+    "main": "VERIFIED",
+    "production": "DEPLOYED AND VERIFIED",
+    "production_sha": "93be4566265b6d3b8dece84de22ef24e73682283",
+    "ag_10": "NOT_RUN",
+    "boundary": "a deployed website is not a production-ready protocol. AG-10 is NOT_RUN — its evidence has not been produced and the gate treats absence as NOT_RUN, never PASS. The public surface still says pre-production, empty registry, no certified operator."
   }
 }
