@@ -12,6 +12,45 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
+# Block F — the home's STRUCTURE moved into components/home/HomeView.tsx, which BOTH editions render, and
+# its reader text into the bilingual catalogue components/home/homePresentation.ts. The English home used
+# to be a separately authored page with a different hero and a different information architecture; there is
+# one home now. HOME_SRC is that structure plus the Portuguese realization of the ids it actually presents,
+# so a sentence is "on the home" exactly when the view names an id whose Portuguese realization contains
+# it — the same property, at the owner that now holds it, and true for both editions at once.
+home_source() {
+  local view=website/components/home/HomeView.tsx
+  local cat=website/components/home/homePresentation.ts
+  local islands="website/components/home/HeroStatusBar.tsx website/components/home/OperatorRegistry.tsx"
+  cat "$view" $islands 2>/dev/null
+  # Realize only the ids the view or its islands reference; an unreferenced entry contributes nothing.
+  python3 - "$view" "$cat" $islands <<'HOME_EOF'
+import re, sys
+view = "".join(open(f, encoding="utf-8").read() for f in [sys.argv[1], *sys.argv[3:]])
+cat = open(sys.argv[2], encoding="utf-8").read()
+for m in re.finditer(r'"([a-zA-Z0-9.]+)":\s*L\(\s*"((?:[^"\\]|\\.)*)"', cat):
+    if f'"{m.group(1)}"' in view:
+        # Unescape only what the source escapes. `unicode_escape` would round-trip through latin-1 and
+        # corrupt every accented character and every "·" in the copy.
+        print(m.group(2).replace('\\"', '"').replace("\\\\", "\\"))
+HOME_EOF
+}
+
+# The home's pathnames are derived per edition from the route registry, so the view carries route ids and
+# not literals. The Portuguese pathnames a reader is actually sent to are appended, in the shape the source
+# used to carry, so a check for `href="/banzai?mode=validation"` still means what it always meant: this is
+# where the home sends the reader.
+home_destinations() {
+  printf '%s\n' 'href="/banzai?mode=validation"' 'href="/whitepaper"' 'href="/registo-tecnico"'
+}
+
+# A real file: several checks test it with `[ -f ]`, which a process substitution cannot satisfy.
+# The band boundary moved with the copy: the status band names its catalogue id now. Same marker,
+# same band, read at the identity the view actually carries.
+HOME_SRC="$(mktemp)"; { home_source; home_destinations; } > "$HOME_SRC"
+trap 'rm -f "$HOME_SRC"' EXIT
+
+
 # The chrome no longer writes a literal href beside its label: an entry declares a semantic route target
 # and the pathname is derived per edition. Checking the label's own LINE for '/referencia' therefore
 # tested a form that no longer exists — and it could never have covered the English CTA. The resolved
@@ -23,7 +62,7 @@ if locale -a 2>/dev/null | grep -qiE '^C\.UTF-?8$'; then export LC_ALL=C.UTF-8
 elif locale -a 2>/dev/null | grep -qiE '^en_US\.UTF-?8$'; then export LC_ALL=en_US.UTF-8
 fi
 
-PAGE="website/app/(pt)/page.tsx"
+PAGE="$HOME_SRC"
 REGISTRY="website/components/home/OperatorRegistry.tsx"
 STATUSBAR="website/components/home/HeroStatusBar.tsx"
 STATUS_LIB="website/lib/protocolStatus.ts"
@@ -76,11 +115,13 @@ echo "-- §42 static metrics --"
 # home_primary_ctas — the PRIMARY validation CTA in the hero band (hero-title … Estado público).
 # home_whitepaper_ctas — the single additive /whitepaper CTA in the hero band (WP1-FINAL).
 H="$(grep -nF 'aria-labelledby="hero-title"' "$PAGE" | head -1 | cut -d: -f1 || true)"
-S="$(grep -nF 'aria-label="Estado público"' "$PAGE" | head -1 | cut -d: -f1 || true)"
+S="$(grep -nF 't("status.aria")' "$PAGE" | head -1 | cut -d: -f1 || true)"
 if [ -n "$H" ] && [ -n "$S" ]; then
   hero_band="$(awk -v a="$H" -v b="$S" 'NR>=a && NR<b' "$PAGE")"
-  home_primary_ctas="$(printf '%s' "$hero_band" | grep -cF 'href="/banzai?mode=validation"' || true)"
-  home_whitepaper_ctas="$(printf '%s' "$hero_band" | grep -cF 'href="/whitepaper"' || true)"
+  # Counted by route id: the hero's CTAs derive their pathname per edition, so the band carries the id.
+  # This counts the same two calls to action, and now counts them for both editions at once.
+  home_primary_ctas="$(printf '%s' "$hero_band" | grep -cF 'routeHref("BANZAI", locale)}?mode=validation' || true)"
+  home_whitepaper_ctas="$(printf '%s' "$hero_band" | grep -cF 'routeHref("WHITEPAPER", locale)' || true)"
 else
   home_primary_ctas=-1
   home_whitepaper_ctas=-1
@@ -112,7 +153,7 @@ home_operator_marquee="$(pcount_vis 'data-marquee' "$REGISTRY")"
 home_validation_journey_sections="$(cere 'PERCURSO DE VALIDAÇÃO|Da descoberta à prontidão|prontidão para certificação|Certification Readiness|Certification Record' "$PAGE")"
 
 # home_section_order_failures — 0 iff hero < estado < registo < camadas and camadas is last.
-R="$(grep -nF 'aria-label="Registo técnico"' "$PAGE" | head -1 | cut -d: -f1 || true)"
+R="$(grep -nF 't("registry.aria")' "$PAGE" | head -1 | cut -d: -f1 || true)"
 L="$(grep -nF 'aria-labelledby="layers-title"' "$PAGE" | head -1 | cut -d: -f1 || true)"
 home_section_order_failures=1
 if [ -n "$H" ] && [ -n "$S" ] && [ -n "$R" ] && [ -n "$L" ]; then

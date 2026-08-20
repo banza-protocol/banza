@@ -1,0 +1,175 @@
+import { readFileSync, existsSync } from "node:fs";
+import { join } from "node:path";
+import { ROUTES, routeAt } from "./routeRegistry";
+import { REFERENCE_CHAPTER_SLUGS } from "./referenceSlugs";
+
+// Structural parity between the two editions of the same page.
+//
+// The assurance around the bilingual website protected translation coverage, route existence, semantic
+// identity, backlink closure and locale propagation. Every one of those passed while the English home was
+// a SEPARATE page — a different hero, a different composition, a different information architecture. A
+// reader moving between `/` and `/en` met what looked like two different products, and nothing in the
+// repository could see it, because no property said *the two editions are the same page*.
+//
+// That is the property here. Portuguese is the canonical edition; English is a realization of it. What may
+// differ is the words, the natural length of a headline, how a line wraps, and pathnames with an official
+// translated address. What may not differ is the structure: which view renders the page, which sections it
+// has and in what order, which components it mounts, which semantic destinations it offers.
+//
+// Deliberately NOT a byte comparison of rendered HTML. English is longer or shorter than Portuguese and
+// that is legitimate. The signature below ignores text and keeps structure.
+
+const ROOT = join(__dirname, "..");
+
+export type PageSignature = {
+  /** The view module each route delegates to, if it delegates. Two editions of one page share it. */
+  view: string | null;
+  /** Section identities in source order — `aria-label`/`aria-labelledby`/heading ids. */
+  sections: string[];
+  /** Component identities the page mounts, sorted. */
+  components: string[];
+  /** Semantic route ids the page links, in source order. */
+  destinations: string[];
+  /** Heading levels in source order — the information hierarchy. */
+  headings: string[];
+};
+
+export function pageFileFor(path: string): string | null {
+  const en = path.startsWith("/en");
+  const seg = (en ? path.slice(3) : path).replace(/^\/+|\/+$/g, "");
+  const base = en ? "app/en" : "app/(pt)";
+  const f = seg ? join(ROOT, base, seg, "page.tsx") : join(ROOT, base, "page.tsx");
+  return existsSync(f) ? f : null;
+}
+
+/** The view a thin route file delegates to, e.g. `<HomeView locale="pt" />` → `HomeView`. */
+function delegatedView(src: string): string | null {
+  const m = src.match(/<([A-Z]\w+)\s+locale=\{?["']?(?:pt|en|locale)["']?\}?\s*\/>/);
+  return m ? m[1] : null;
+}
+
+function resolveSource(file: string): { src: string; view: string | null } {
+  const src = readFileSync(file, "utf8");
+  const view = delegatedView(src);
+  if (!view) return { src, view: null };
+  // Follow the delegation: the structure lives in the shared view, not in the route file.
+  const m = src.match(new RegExp(`import\\s*\\{[^}]*\\b${view}\\b[^}]*\\}\\s*from\\s*"@/([^"]+)"`));
+  if (!m) return { src, view };
+  for (const ext of [".tsx", ".ts"]) {
+    const p = join(ROOT, m[1] + ext);
+    if (existsSync(p)) return { src: readFileSync(p, "utf8"), view };
+  }
+  return { src, view };
+}
+
+function stripComments(s: string): string {
+  return s.replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:])\/\/.*$/gm, "$1");
+}
+
+
+/**
+ * A pathname as a semantic destination.
+ *
+ * Reference chapters are the case worth naming: `/referencia/arquitectura` and
+ * `/en/reference/protocol-architecture` are the SAME chapter, addressed in each edition's own language.
+ * Comparing the literals would report a correctly translated address as structural drift — exactly the
+ * mistake this file exists to avoid — so a chapter resolves to its number, which is its identity.
+ */
+function semanticDestination(pathname: string): string {
+  const chapter = pathname.match(/^\/(?:en\/reference|referencia)\/([a-z0-9-]+)$/);
+  if (chapter) {
+    const slug = chapter[1];
+    const hit = REFERENCE_CHAPTER_SLUGS.find((c) => c.pt === slug || c.en === slug);
+    if (hit) return `REFERENCE_CHAPTER:${hit.num}`;
+  }
+  const known = routeAt(pathname);
+  return known ? known.id : pathname;
+}
+
+export function signatureOf(path: string): PageSignature | null {
+  const file = pageFileFor(path);
+  if (!file) return null;
+  const { src: raw, view } = resolveSource(file);
+  const src = stripComments(raw);
+
+  const sections: string[] = [];
+  // Scan the whole opening tag: the label may sit after other attributes. A section identifies itself
+  // either by an id its heading carries (aria-labelledby) or by a catalogue id (aria-label={t("...")}).
+  for (const tag of src.matchAll(/<section\b([\s\S]*?)>/g)) {
+    const attrs = tag[1];
+    const by = attrs.match(/aria-labelledby="([^"]+)"/);
+    if (by) { sections.push(by[1]); continue; }
+    const lbl = attrs.match(/aria-label=\{t\("([^"]+)"\)\}/) || attrs.match(/aria-label="([^"]+)"/);
+    if (lbl) sections.push(lbl[1]);
+  }
+
+  const components = new Set<string>();
+  for (const m of src.matchAll(/<([A-Z]\w+)[\s/>]/g)) components.add(m[1]);
+
+  // Destinations are compared SEMANTICALLY. A literal pathname is resolved back to its route id, so the
+  // Portuguese page's `/referencia` and the English page's `/en/reference` are the same destination — as
+  // they should be. Comparing the literals instead would report every correctly translated address as a
+  // structural difference, which is the opposite of the property. A pathname the registry does not know
+  // stays as written, because an unregistered destination is worth seeing.
+  const destinations: string[] = [];
+  for (const m of src.matchAll(/routeHref\("([A-Z_]+)"/g)) destinations.push(m[1]);
+  for (const m of src.matchAll(/href="(\/[a-z0-9/-]*)"/g)) {
+    destinations.push(semanticDestination(m[1]));
+  }
+
+  const headings: string[] = [];
+  for (const m of src.matchAll(/<(h[1-6])\b/g)) headings.push(m[1]);
+
+  return {
+    view,
+    sections,
+    components: [...components].sort(),
+    destinations,
+    headings,
+  };
+}
+
+/** Every bilingual pair the registry declares, as (id, pt, en). */
+export function bilingualPairs(): { id: string; pt: string; en: string }[] {
+  return ROUTES.filter((r) => (r.policy === "BILINGUAL" || r.policy === "DYNAMIC_BILINGUAL") && r.en)
+    .map((r) => ({ id: r.id, pt: r.pt, en: r.en as string }));
+}
+
+export type ParityVerdict = {
+  id: string;
+  pt: string;
+  en: string;
+  shared_view: string | null;
+  differences: string[];
+};
+
+/**
+ * Compare the two editions of one route.
+ *
+ * A pair that delegates to the SAME view is structurally identical by construction — there is one
+ * structure and both editions render it — so that is the strongest verdict and needs no field-by-field
+ * comparison. Anything else is compared field by field, and every difference is reported.
+ */
+export function parityOf(pair: { id: string; pt: string; en: string }): ParityVerdict {
+  const a = signatureOf(pair.pt);
+  const b = signatureOf(pair.en);
+  const out: ParityVerdict = { id: pair.id, pt: pair.pt, en: pair.en, shared_view: null, differences: [] };
+  if (!a || !b) {
+    out.differences.push(!a ? `no Portuguese page file for ${pair.pt}` : `no English page file for ${pair.en}`);
+    return out;
+  }
+  if (a.view && a.view === b.view) {
+    out.shared_view = a.view;
+    return out; // one structure, two realizations — nothing can drift
+  }
+  const cmp = (name: string, x: string[], y: string[]) => {
+    if (JSON.stringify(x) !== JSON.stringify(y)) {
+      out.differences.push(`${name}: pt=${JSON.stringify(x)} en=${JSON.stringify(y)}`);
+    }
+  };
+  cmp("sections", a.sections, b.sections);
+  cmp("components", a.components, b.components);
+  cmp("headings", a.headings, b.headings);
+  cmp("destinations", a.destinations, b.destinations);
+  return out;
+}

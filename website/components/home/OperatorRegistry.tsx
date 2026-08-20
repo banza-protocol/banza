@@ -1,7 +1,10 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { homeCopy } from "@/components/home/homePresentation";
+import type { Locale } from "@/lib/i18n";
 import { REGISTRY_SUMMARY } from "@/lib/protocolStatus";
+import { routeHref } from "@/lib/routeRegistry";
 
 // Home v2 (dossier-home-v2 · Home.dc.html registry) — "REGISTO DE OPERADORES": counters + a horizontal
 // marquee of operator cards. Data comes from the public registry (GET /operators, no auth); while the
@@ -21,11 +24,14 @@ const FALLBACK: Operator[] = [
   { name: "Operador Zero", id: "operator-zero", status: "implementação de referência (demo, só leitura) · não certificado", level: "KZ_DEMO", href: "https://zero.banza.network/", demo: true },
 ];
 
-function decorate(o: Operator) {
+function decorate(o: Operator, locale: Locale) {
   const initials = o.empty ? "—" : (o.name || "").slice(0, 2).toUpperCase();
   return {
     ...o,
-    href: o.href || "/operadores",
+    // Per edition: an entry with no page of its own falls back to the registry — in the READER'S
+    // edition, not always the Portuguese one. Operator Zero's own host is external and locale-neutral,
+    // so it is left exactly as declared.
+    href: o.href || routeHref("OPERATORS", locale),
     initials,
     bg: o.empty ? "transparent" : "linear-gradient(180deg,#FFFFFF 0%,#FCF9F3 100%)",
     bd: o.empty ? "rgba(184,152,96,0.45)" : "rgba(218,204,180,0.9)",
@@ -39,7 +45,8 @@ function decorate(o: Operator) {
   };
 }
 
-export function OperatorRegistry() {
+export function OperatorRegistry({ locale }: { locale: Locale }) {
+  const t = (id: Parameters<typeof homeCopy>[0]) => homeCopy(id, locale);
   const [operators, setOperators] = useState<Operator[]>(FALLBACK);
   // Count of REAL registry entries only (the fallback Operador Zero reference implementation is never
   // counted as a registered operator). Defaults to the canonical pre-production count (0) from the
@@ -64,11 +71,12 @@ export function OperatorRegistry() {
   }, []);
 
   const opCount = String(registryCount).padStart(2, "0");
+  const decorateFor = (o: Operator) => decorate(o, locale);
   const cards = useMemo(() => {
-    const empty: Operator = { name: "Sem operador", id: "registo vazio", status: "nenhum registo publicado", level: "—", empty: true };
+    const empty: Operator = { name: t("operators.empty.name"), id: t("operators.empty.id"), status: t("operators.empty.status"), level: "—", empty: true };
     const base = [...operators, empty, empty, empty, empty, empty];
-    return [...base, ...base].map(decorate); // doubled for the seamless marquee loop
-  }, [operators]);
+    return [...base, ...base].map(decorateFor); // doubled for the seamless marquee loop
+  }, [operators, locale]);
 
   const pause = () => { if (mqRef.current) mqRef.current.style.animationPlayState = "paused"; };
   const play = () => { if (mqRef.current) mqRef.current.style.animationPlayState = "running"; };
@@ -79,16 +87,16 @@ export function OperatorRegistry() {
         <div style={{ minWidth: 0 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
             <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#2C6349", flex: "none", animation: "banzaGlow 2.4s ease-in-out infinite" }} />
-            <span style={{ fontFamily: F_MONO, fontSize: 11, letterSpacing: "0.18em", color: "#7A7263" }}>REGISTO DE OPERADORES · PÚBLICO</span>
+            <span style={{ fontFamily: F_MONO, fontSize: 11, letterSpacing: "0.18em", color: "#7A7263" }}>{t("operators.eyebrow")}</span>
           </div>
-          <h2 style={{ fontFamily: F_DISPLAY, fontWeight: 600, fontSize: "clamp(26px,3vw,42px)", lineHeight: 1.06, letterSpacing: "-0.02em", color: "#1A1512", margin: 0 }}>Quem faz parte <span style={{ color: "#8B1428", fontStyle: "italic" }}>do protocolo</span></h2>
+          <h2 style={{ fontFamily: F_DISPLAY, fontWeight: 600, fontSize: "clamp(26px,3vw,42px)", lineHeight: 1.06, letterSpacing: "-0.02em", color: "#1A1512", margin: 0 }}>{t("operators.title.1")} <span style={{ color: "#8B1428", fontStyle: "italic" }}>{t("operators.title.2")}</span></h2>
         </div>
         <div style={{ display: "flex", alignItems: "stretch", gap: "clamp(18px,2.4vw,36px)" }}>
-          <div><div style={{ fontFamily: F_MONO, fontSize: "clamp(26px,2.6vw,34px)", color: "#1A1512", lineHeight: 1 }}>0</div><div style={{ fontSize: 12, color: "#8A7F70", marginTop: 8, letterSpacing: "0.02em" }}>Certificados</div></div>
+          <div><div style={{ fontFamily: F_MONO, fontSize: "clamp(26px,2.6vw,34px)", color: "#1A1512", lineHeight: 1 }}>0</div><div style={{ fontSize: 12, color: "#8A7F70", marginTop: 8, letterSpacing: "0.02em" }}>{t("operators.stat.certified")}</div></div>
           <span style={{ width: 1, background: "linear-gradient(180deg,rgba(184,152,96,0),rgba(184,152,96,0.5),rgba(184,152,96,0))" }} />
-          <div><div style={{ fontFamily: F_MONO, fontSize: "clamp(26px,2.6vw,34px)", color: "#1A1512", lineHeight: 1 }}>0</div><div style={{ fontSize: 12, color: "#8A7F70", marginTop: 8, letterSpacing: "0.02em" }}>Em conformidade</div></div>
+          <div><div style={{ fontFamily: F_MONO, fontSize: "clamp(26px,2.6vw,34px)", color: "#1A1512", lineHeight: 1 }}>0</div><div style={{ fontSize: 12, color: "#8A7F70", marginTop: 8, letterSpacing: "0.02em" }}>{t("operators.stat.conformant")}</div></div>
           <span style={{ width: 1, background: "linear-gradient(180deg,rgba(184,152,96,0),rgba(184,152,96,0.5),rgba(184,152,96,0))" }} />
-          <div><div style={{ fontFamily: F_MONO, fontSize: "clamp(26px,2.6vw,34px)", color: "#8B1428", lineHeight: 1 }}>{opCount}</div><div style={{ fontSize: 12, color: "#8A7F70", marginTop: 8, letterSpacing: "0.02em" }}>Operadores registados</div></div>
+          <div><div style={{ fontFamily: F_MONO, fontSize: "clamp(26px,2.6vw,34px)", color: "#8B1428", lineHeight: 1 }}>{opCount}</div><div style={{ fontSize: 12, color: "#8A7F70", marginTop: 8, letterSpacing: "0.02em" }}>{t("operators.stat.registered")}</div></div>
         </div>
       </div>
 
@@ -113,7 +121,7 @@ export function OperatorRegistry() {
       </div>
 
       <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 16, marginTop: "clamp(30px,3.4vw,44px)", paddingTop: "clamp(18px,2vw,24px)", borderTop: "1px solid rgba(184,152,96,0.30)" }}>
-        <p style={{ fontSize: 14, lineHeight: 1.6, color: "#5D5348", margin: 0, maxWidth: "62ch" }}>Nenhum operador está certificado hoje. O registo é público e consultável sem autenticação — a entrada é verificável, não autorizada.</p>
+        <p style={{ fontSize: 14, lineHeight: 1.6, color: "#5D5348", margin: 0, maxWidth: "62ch" }}>{t("operators.note")}</p>
       </div>
     </>
   );
