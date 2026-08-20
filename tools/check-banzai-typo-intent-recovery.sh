@@ -87,8 +87,12 @@ if command -v node >/dev/null 2>&1; then
     # no name — so the difference between the two environments could not be read from the guard's own
     # evidence. A guard that fails without saying what failed sends someone back to guessing.
     fail "behavioural suite FAILED: $(grep -oE 'fail [0-9]+' /tmp/b5_typo.$$ | head -1); see test/typo-recovery.test.js"
-    sed -n '/failing tests:/,$p' /tmp/b5_typo.$$ | head -25 | sed 's/^/      /'
-    grep -E '^\s*✖ |AssertionError|Error:|expected:|actual:' /tmp/b5_typo.$$ | head -15 | sed 's/^/      /'
+    # Dump the suite's own output verbatim. Filtering it was a mistake twice over: the patterns matched
+    # nothing on the runner, so the log still said only "fail 1"; and a non-matching grep returns non-zero,
+    # which under `set -e` ended the guard right there — no summary line, no remaining checks. `cat` cannot
+    # fail, and the whole point of this block is to be readable from a CI log by someone who is not here.
+    echo "      ── suite output ──"
+    tail -60 /tmp/b5_typo.$$ | sed 's/^/      /'
   fi
   rm -f /tmp/b5_typo.$$
 else
