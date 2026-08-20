@@ -25,6 +25,12 @@ ROOT="$(git rev-parse --show-toplevel 2>/dev/null || echo .)"
 cd "$ROOT"
 FAILED=0
 fail() { echo "FAIL: $*"; FAILED=1; }
+
+# Block E2 moved these sentences into the bilingual catalogues, so grepping the module or the component
+# for them stopped proving anything. They are read from the resolved copy instead, which also makes the
+# English clause expressible — a guard grepping a Portuguese literal never could.
+# shellcheck source=tools/_banzai-copy.sh
+. tools/_banzai-copy.sh
 ok()   { echo "  ok: $*"; }
 
 AGENT=website/components/banzai/BanzaiAgent.tsx
@@ -81,15 +87,19 @@ if [ -f "$DRAFT" ]; then
   # The result is explicitly non-authoritative: the DRAFT_VALIDATION_RESULT label + permanent banner.
   grep -q "DRAFT_VALIDATION_RESULT" "$DRAFT" && ok "draft result carries the DRAFT_VALIDATION_RESULT label" \
     || fail "$DRAFT must label its result DRAFT_VALIDATION_RESULT"
-  grep -q "DRAFT_COPY.banner" "$DRAFT" && ok "draft tool renders the permanent non-authoritative banner" \
+  grep -qE '"draft\.banner"|DRAFT_COPY\.banner' "$DRAFT" && ok "draft tool renders the permanent non-authoritative banner" \
     || fail "$DRAFT must render the permanent draft banner (DRAFT_COPY.banner)"
 else
   fail "$DRAFT not found (the isolated developer draft tool is missing)"
 fi
 # The banner text itself lives in the data module and must be the exact, honest wording.
-grep -q "Rascunho local · não publicado · não produz evidência oficial" "$AGENTDATA" \
+copy_id_is agent draft.banner pt "Rascunho local · não publicado · não produz evidência oficial" \
   && ok "the draft banner reads 'Rascunho local · não publicado · não produz evidência oficial'" \
-  || fail "$AGENTDATA DRAFT_COPY.banner must read 'Rascunho local · não publicado · não produz evidência oficial'"
+  || fail "the draft banner must read 'Rascunho local · não publicado · não produz evidência oficial'"
+# The English reader gets the same warning or none at all, which is the failure mode worth guarding.
+copy_id_says agent draft.banner en "no official evidence" \
+  && ok "the English draft banner carries the same warning" \
+  || fail "the English draft banner must carry the same warning"
 # NO manual-input affordance (upload, paste textarea, or the draft scan) leaks into the OFFICIAL journey.
 for f in "$VJOURNEY" "$VSHELL"; do
   [ -f "$f" ] || { fail "$f not found"; continue; }
@@ -105,9 +115,9 @@ if [ -f "$DRAFT" ]; then
   grep -q "UPLOAD_MAX_BYTES" "$DRAFT" && grep -qE "256 \* 1024|262144" "$DRAFT" \
     && ok "draft upload enforces a size limit (256 KB)" \
     || fail "$DRAFT upload must enforce a size limit (UPLOAD_MAX_BYTES = 256 KB)"
-  grep -qE "apenas nesta sessão do navegador|lid[oa] apenas nesta sessão|recarregar a página" "$DRAFT" && ok "draft upload states it is read only in this session (reload clears)" \
+  copy_presented "$DRAFT" validation draft.fileNote pt "apenas nesta sessão do navegador" && ok "draft upload states it is read only in this session (reload clears)" \
     || fail "$DRAFT upload must state the file is read only in this browser session"
-  grep -qE "não avança a jornada|não produz recibo oficial|nunca devolve VERIFIED" "$DRAFT" \
+  copy_presented "$DRAFT" validation draft.resultNote pt "Não avança a jornada" \
     && ok "draft result states it does not advance the journey / produce official evidence" \
     || fail "$DRAFT must state its result does not advance the journey nor produce official evidence"
 fi
@@ -145,7 +155,7 @@ grep -qE 'const clear = \(\) =>' "$DRAFT" && grep -q 'setText("")' "$DRAFT" \
 
 # 6. The draft never claims to certify/approve or produce official evidence (honest boundary present).
 if [ -f "$DRAFT" ]; then
-  grep -qiE "não produz recibo oficial|não é exemplo oficial|não alimenta o Evidence Bundle" "$DRAFT" \
+  copy_presented "$DRAFT" validation draft.resultNote pt "não produz recibo oficial" \
     && ok "draft boundary present (validating does not certify/approve/produce official evidence)" \
     || fail "$DRAFT must state validating a draft does not certify/approve/produce official evidence"
 fi

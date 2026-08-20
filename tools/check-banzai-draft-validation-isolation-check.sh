@@ -17,6 +17,12 @@ fail=0
 ok() { printf '  ok: %s\n' "$1"; }
 fl() { printf 'FAIL: %s\n' "$1"; fail=1; }
 
+# Block E2 moved these sentences into the bilingual catalogues, so grepping the module or the component
+# for them stopped proving anything. They are read from the resolved copy instead, which also makes the
+# English clause expressible — a guard grepping a Portuguese literal never could.
+# shellcheck source=tools/_banzai-copy.sh
+. tools/_banzai-copy.sh
+
 DRAFT=website/components/banzai/DraftValidationTool.tsx
 PROG=website/components/banzai/ProgramadoresTools.tsx
 
@@ -35,8 +41,8 @@ if [ -f "$DRAFT" ]; then
   grep -qE 'DRAFT_VALIDATION_RESULT' "$DRAFT" && ok "emits DRAFT_VALIDATION_RESULT" || fl "$DRAFT must emit DRAFT_VALIDATION_RESULT"
 
   # 2. Carries the non-authoritative banner (from DRAFT_COPY.banner).
-  grep -qE 'DRAFT_COPY\.banner' "$DRAFT" && ok "renders the DRAFT_COPY.banner" || fl "$DRAFT must render DRAFT_COPY.banner"
-  grep -qE 'Rascunho local · não publicado · não produz evidência oficial' website/components/banzai/banzai-agent.ts \
+  grep -qE '"draft\.banner"|DRAFT_COPY\.banner' "$DRAFT" && ok "renders the draft banner" || fl "$DRAFT must render the draft banner"
+  copy_id_is agent draft.banner pt "Rascunho local · não publicado · não produz evidência oficial" \
     && ok 'banner copy is "Rascunho local · não publicado · não produz evidência oficial"' \
     || fl 'DRAFT_COPY.banner must be "Rascunho local · não publicado · não produz evidência oficial"'
 

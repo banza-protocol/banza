@@ -14,11 +14,11 @@
     "branch_introduced": 43,
     "non_e2_branch_introduced": 14,
     "e2_branch_introduced": 29,
-    "branch_fail_after_remediation": 38,
-    "remediated": 8,
+    "branch_fail_after_remediation": 34,
+    "remediated": 12,
     "not_run_locally": 1,
-    "reconciliation": "153 PASS + 38 FAIL + 1 NOT_RUN_LOCALLY = 192, measured at committed HEAD on a clean tree.",
-    "pass": 153,
+    "reconciliation": "157 PASS + 34 FAIL + 1 NOT_RUN_LOCALLY = 192, measured at committed HEAD on a clean tree.",
+    "pass": 157,
     "total_invocations": 192
   },
   "baseline_failures_not_ours": [
@@ -253,13 +253,17 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "E2",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved to the bilingual catalogue)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "root_cause": "grepped a module or component for a Portuguese literal that Block E2 moved into a bilingual catalogue.",
+      "remediation": "reads website/lib/copyResolved.json — the exact draft banner wording",
+      "mutation_evidence": "each clause killed by its own mutation of the catalogue, exactly restored, green after."
     },
     {
       "guard": "check-banzai-global-answer-format-contract.sh",
@@ -367,13 +371,17 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "E2",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved to the bilingual catalogue)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "root_cause": "grepped a module or component for a Portuguese literal that Block E2 moved into a bilingual catalogue.",
+      "remediation": "reads website/lib/copyResolved.json — the session notice's reload clause, in both editions",
+      "mutation_evidence": "each clause killed by its own mutation of the catalogue, exactly restored, green after."
     },
     {
       "guard": "check-banzai-operator-validation-mode-check.sh",
@@ -408,13 +416,17 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "E2",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved to the bilingual catalogue)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "root_cause": "grepped a module or component for a Portuguese literal that Block E2 moved into a bilingual catalogue.",
+      "remediation": "reads website/lib/copyResolved.json — the OZ-only demo hint, the closed-registry prompt and the draft tool's not-an-official-example note",
+      "mutation_evidence": "each clause killed by its own mutation of the catalogue, exactly restored, green after."
     },
     {
       "guard": "check-banzai-primary-interface-architecture.sh",
@@ -547,13 +559,17 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "E2",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved to the bilingual catalogue)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "root_cause": "grepped a module or component for a Portuguese literal that Block E2 moved into a bilingual catalogue.",
+      "remediation": "reads website/lib/copyResolved.json — the draft banner in BOTH editions, the read-only-this-session note and the result's journey boundary",
+      "mutation_evidence": "each clause killed by its own mutation of the catalogue, exactly restored, green after."
     },
     {
       "guard": "check-banzai-workbench-navigation-orchestration.sh",
