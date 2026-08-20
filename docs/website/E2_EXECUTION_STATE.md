@@ -490,7 +490,23 @@ The committed inventory of all 43, with each guard's assertion, owning block, cl
 disposition, is `docs/website/phase2-pr32-guard-regressions.json`. The workflow-faithful runner is
 `tools/ci-guards-local-check.sh` / `make ci-guards-local-check`.
 
-**Remediation status: IN PROGRESS — 3 guards remediated and mutation-proven.**
+**Remediation status: IN PROGRESS — 4 guards remediated and mutation-proven; 147 PASS · 41 FAIL · 1
+NOT_RUN_LOCALLY.**
+
+**Triage found one real gap, and it was not the one the failure named.** `check-technical-registry-page.sh`
+reported that the footer does not link `/registo-tecnico`, which reads like a navigation regression. It is
+not: the Portuguese footer still resolves that path, and an executed assertion pins the derived href. The
+guard was grepping for a literal href that the locale-aware chrome no longer writes — it had quietly
+stopped testing reachability. It now checks the property through the mechanism that produces the link, and
+each of its three clauses fails under its own mutation.
+
+What the triage did surface is that **nothing ever executed the English chrome derivation**. Both editions
+come from one configuration, but the module exports the Portuguese realization, so every assertion read
+Portuguese and the English half ran nowhere. A withdrawn English route would have silently fallen back to
+the Portuguese path and still looked like a working link. `lib/chromeLocaleDerivation.test.ts` closes that:
+both editions, no silent fallback, pathnames from the registry rather than from prefixing a Portuguese
+slug. Three of its five assertions turn red under mutation; the other two hold by construction today and
+say so in the file instead of borrowing credit.
 
 `make ci-guards-local-check` → **146 PASS · 42 FAIL · 1 NOT_RUN_LOCALLY = 189**, measured from committed
 HEAD. The count moved from 43 to 42 only after the contamination fix was verified from a clean tree: the

@@ -14,11 +14,11 @@
     "branch_introduced": 43,
     "non_e2_branch_introduced": 14,
     "e2_branch_introduced": 29,
-    "branch_fail_after_remediation": 42,
-    "remediated": 3,
+    "branch_fail_after_remediation": 41,
+    "remediated": 4,
     "not_run_locally": 1,
-    "reconciliation": "146 PASS + 42 FAIL + 1 NOT_RUN_LOCALLY = 189, measured at committed HEAD",
-    "pass": 146
+    "reconciliation": "147 PASS + 41 FAIL + 1 NOT_RUN_LOCALLY = 189, measured at committed HEAD",
+    "pass": 147
   },
   "baseline_failures_not_ours": [
     {
@@ -819,13 +819,18 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "A-D/E1 or shared public surface",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "triaged_not_by_grep": "the failure read like a navigation regression, so it was checked against the derived value rather than the source: the Portuguese footer still resolves /registo-tecnico, pinned by an executed assertion (lib/footer-navigation.test.ts). No reader lost the link.",
+      "root_cause": "the guard grepped site.ts for a literal href. Since the chrome became locale-aware an entry declares a semantic route target and the href is derived per edition, so the literal form no longer exists and the check had stopped testing reachability.",
+      "remediation": "the same property, checked through the mechanism that now produces the link: the footer declares the route target, the registry maps it to /registo-tecnico, and an executed assertion pins the derived href.",
+      "mutation_evidence": "three clauses, three distinct mutations, each red for its own reason and exactly restored: footer target retargeted to BANZAI -> 'does not reach the Technical Registry'; registry PT path changed -> 'does not map'; the derived-href assertion deleted from the test -> 'no executed assertion pins'. No clause is vacuous."
     },
     {
       "guard": "check-website-public-copy-current.sh",
@@ -861,6 +866,15 @@
       "detail": "the institutional-attribution allowlist admits the designated-scheme stem for a WHOLE FILE. Within an admitted page it cannot distinguish a legitimate attribution from an illegitimate claim: asserting that the scheme operates BANZA as its own payment network on the admitted English licence page does not fail the gate.",
       "consequence": "the three admissions are correctly scoped to paths whose Portuguese counterparts are already admitted, but they do inherit this limit.",
       "disposition": "clause-scoped admission would be a redesign of the gate; out of this PR's scope."
+    },
+    {
+      "id": "english-chrome-derivation-was-never-executed",
+      "found_by": "triage of check-technical-registry-page.sh",
+      "severity": "real coverage gap in this branch, now closed",
+      "detail": "the chrome became locale-aware, but navPrimary/footerColumns are the Portuguese realizations, so every existing assertion read one edition and the English derivation was produced by code no test ran. A withdrawn English route would have fallen back to the Portuguese path and read as a working link.",
+      "remediation": "lib/chromeLocaleDerivation.test.ts asserts both editions: same shape, own language, no silent Portuguese fallback, pathnames from the registry rather than from prefixing, locale-neutral destinations unchanged.",
+      "mutation_evidence": "English route withdrawn -> fallback + registry checks red; English URL built by prefixing the Portuguese slug -> registry check red; empty English label -> label check red. Two of the five assertions hold by construction today and are documented as such in the file rather than claimed as proven.",
+      "disposition": "CLOSED"
     }
   ]
 }
