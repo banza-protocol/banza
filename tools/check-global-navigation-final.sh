@@ -46,26 +46,36 @@ mp "neutral language"   'certificad|aprovad|licenciad' 'Registo público de oper
 
 navv="$(vis "$NAV")"
 sitev="$(vis "$SITE")"
-# The navPrimary array literal (config source, comments already irrelevant here).
-np="$(sed -n '/export const navPrimary/,/^];/p' "$SITE")"
+# `navPrimary` is a function call now, not an array literal, so slicing the config between two lines
+# yielded a single line with no hrefs in it — every count and every destination check below read from an
+# empty string and, being a config-shaped test, could only ever have covered Portuguese. The header is read
+# as RESOLVED data instead: what each edition actually gives a reader.
+# shellcheck source=tools/_chrome-resolved.sh
+. tools/_chrome-resolved.sh
 
-# ── 1. Exactly three primary destinations. ──
-count="$(printf '%s' "$np" | grep -cE 'href:')"
-[ "$count" -eq 3 ] || flag "the global nav must have exactly three destinations (found $count in navPrimary) — $SITE"
+# ── 1. Exactly three primary destinations, in each edition. ──
+for ed in pt en; do
+  count="$(chrome_nav_hrefs "$ed" | grep -c . || true)"
+  [ "$count" -eq 3 ] || flag "the $ed global nav must have exactly three destinations (found $count)"
+done
 
-# ── 2/3/4. Registo técnico, BanzAI and 'Ler a referência' are present. ──
-printf '%s' "$np" | grep -q '"/registo-tecnico"' || flag "Registo técnico (/registo-tecnico) missing from navPrimary — $SITE"
-printf '%s' "$np" | grep -q '"/banzai"' || flag "BanzAI (/banzai) missing from navPrimary — $SITE"
-printf '%s' "$np" | grep -q '"/referencia"' || flag "Ler a referência (/referencia) missing from navPrimary — $SITE"
-printf '%s' "$np" | grep -q 'label: "Registo técnico"' || flag "Registo técnico label missing — $SITE"
-printf '%s' "$np" | grep -q 'label: "BanzAI"' || flag "BanzAI label missing — $SITE"
-printf '%s' "$np" | grep -q 'label: "Ler a referência"' || flag "'Ler a referência' label missing — $SITE"
-# 'Ler a referência' points DIRECTLY at /referencia — never the retired /o-que-e route.
-printf '%s' "$np" | grep -q '"/o-que-e"' && flag "navPrimary must not link the retired /o-que-e route — $SITE" || true
-
-# ── 5. Exact order: Registo técnico → BanzAI → Ler a referência. ──
-order="$(printf '%s' "$np" | grep -oE 'href: "[^"]+"' | sed -E 's/.*"([^"]+)".*/\1/' | tr '\n' ' ')"
-[ "$order" = "/registo-tecnico /banzai /referencia " ] || flag "navPrimary order must be /registo-tecnico /banzai /referencia (got: $order) — $SITE"
+# ── 2/3/4/5. The three destinations, their labels, and their exact order — per edition. ──
+pt_order="$(chrome_nav_hrefs pt | tr '\n' ' ')"
+en_order="$(chrome_nav_hrefs en | tr '\n' ' ')"
+[ "$pt_order" = "/registo-tecnico /banzai /referencia " ] \
+  || flag "the Portuguese nav order must be /registo-tecnico /banzai /referencia (got: $pt_order)"
+[ "$en_order" = "/en/technical-registry /en/banzai /en/reference " ] \
+  || flag "the English nav order must be /en/technical-registry /en/banzai /en/reference (got: $en_order)"
+chrome_links pt nav "Registo técnico" "/registo-tecnico" || flag "Registo técnico missing from the Portuguese nav"
+chrome_links pt nav "BanzAI" "/banzai"                   || flag "BanzAI missing from the Portuguese nav"
+chrome_links pt nav "Ler a referência" "/referencia"     || flag "'Ler a referência' missing from the Portuguese nav"
+chrome_links en nav "Technical registry" "/en/technical-registry" || flag "Technical registry missing from the English nav"
+chrome_links en nav "BanzAI" "/en/banzai"                         || flag "BanzAI missing from the English nav"
+chrome_links en nav "Read the Reference" "/en/reference"          || flag "'Read the Reference' missing from the English nav"
+# The reference CTA points DIRECTLY at the Reference — never the retired /o-que-e route.
+chrome_nav_hrefs pt | grep -q '^/o-que-e$' && flag "the nav must not link the retired /o-que-e route" || true
+# `np` stays defined for the removed-item sweep below, now built from the resolved labels.
+np="$(chrome_nav_labels pt; chrome_nav_labels en; chrome_nav_hrefs pt; chrome_nav_hrefs en)"
 
 # ── 6/7/8. No dropdown / submenu / arrow / popup machinery in the header. ──
 printf '%s' "$navv" | grep -q "▾" && flag "dropdown arrow (▾) must not appear in the header — $NAV" || true
@@ -83,8 +93,16 @@ for tok in "Operador Zero" "GitHub" "FAQ" "ADRs e RFCs" "Protocolo" "Programador
 done
 
 # ── 16/17. Exactly one BanzAI link and one Reference link in the header. ──
-b="$(printf '%s' "$np" | grep -cE '"/banzai"')"; [ "$b" -eq 1 ] || flag "the header must have exactly one BanzAI link (found $b) — $SITE"
-r="$(printf '%s' "$np" | grep -cE '"/referencia"')"; [ "$r" -eq 1 ] || flag "the header must have exactly one Reference link (found $r) — $SITE"
+# Counted on the resolved hrefs, per edition. `grep -c` returns non-zero on a count of zero, which under
+# `set -e` would end the guard at the assignment instead of reporting the miss — so each count tolerates it.
+b="$(chrome_nav_hrefs pt | grep -cx '/banzai' || true)"
+[ "$b" -eq 1 ] || flag "the Portuguese header must have exactly one BanzAI link (found $b)"
+r="$(chrome_nav_hrefs pt | grep -cx '/referencia' || true)"
+[ "$r" -eq 1 ] || flag "the Portuguese header must have exactly one Reference link (found $r)"
+be="$(chrome_nav_hrefs en | grep -cx '/en/banzai' || true)"
+[ "$be" -eq 1 ] || flag "the English header must have exactly one BanzAI link (found $be)"
+re_="$(chrome_nav_hrefs en | grep -cx '/en/reference' || true)"
+[ "$re_" -eq 1 ] || flag "the English header must have exactly one Reference link (found $re_)"
 
 # ── 18-22. A single, unambiguous active state keyed on the three exclusive prefixes. ──
 printf '%s' "$navv" | grep -q "sectionActive" || flag "the header must compute a single active state (sectionActive) — $NAV"

@@ -18,7 +18,7 @@ cd "$(dirname "$0")/.."
 export LC_ALL="${LC_ALL:-en_US.UTF-8}" LANG="${LANG:-en_US.UTF-8}"
 
 REF="docs/reference/pt/BANZA_REFERENCIA.md"
-DEFS="website/lib/reference.ts"
+DEFS="website/lib/referenceSlugs.ts"
 
 # Canonical order: position -> slug (public route, stable) and the markdown heading title.
 # M2.12B — Operador Zero inserted at 09, between Operadores (08) and Federação (10), shifting the
@@ -32,7 +32,9 @@ err() { echo "  ✗ $*"; fail=1; }
 
 # ── 1. CHAPTER_DEFS order (num + slug) matches the canonical order ──
 check_defs_order() {
-  local got; got="$(grep -oE '\{ num: [0-9]+, slug: "[a-z-]+"' "$DEFS" | sed -E 's/.*num: ([0-9]+), slug: "([a-z-]+)"/\1:\2/')"
+  # CHAPTER_DEFS is derived from the bilingual slug pairing, so the single-language literal this parsed no
+  # longer exists — it was reading zero chapters and reporting a mismatch against the canonical order.
+  local got; got="$(grep -oE '\{ num: [0-9]+, pt: "[a-z-]+"' "$DEFS" | sed -E 's/.*num: ([0-9]+), pt: "([a-z-]+)"/\1:\2/')"
   local i=1 line
   local want=""
   for s in "${EXPECT_SLUG[@]}"; do want+="$i:$s"$'\n'; i=$((i+1)); done
@@ -77,7 +79,12 @@ check_routes() {
   [ -e "website/app/(pt)/referencia/[capitulo]/page.tsx" ] || err "missing chapter route [capitulo]"
   [ -e "website/app/(pt)/referencia/completa/page.tsx" ] || err "missing /referencia/completa"
   [ -e "website/app/(pt)/referencia/racional/page.tsx" ] || err "missing /referencia/racional redirect"
-  grep -q 'slug: "estado-protocolar"' "$DEFS" || err "estado-protocolar slug not stable in CHAPTER_DEFS"
+  # Slug stability is a bilingual property now: the chapter must keep its Portuguese address AND carry an
+  # English one, or the English edition loses a chapter it is supposed to reach.
+  grep -qE 'pt: "estado-protocolar", en: "[a-z0-9-]+"' "$DEFS" \
+    || err "estado-protocolar must keep its Portuguese slug and carry an English address"
+  # The English chapter route exists as its own segment, never a Portuguese slug under /en.
+  [ -e "website/app/en/reference/[chapter]/page.tsx" ] || err "missing English chapter route [chapter]"
   [ -d "website/app/(pt)/decisoes" ] || err "missing /decisoes"
   # Derived from the tree, never a frozen list: after a reorganisation a hardcoded set reports the
   # past as the present. EVERY current record must be indexed and mirrored — a stronger property than
