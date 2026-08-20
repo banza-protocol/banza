@@ -17,8 +17,8 @@
     "branch_fail_after_remediation": 0,
     "remediated": 46,
     "not_run_locally": 1,
-    "reconciliation": "191 PASS + 0 FAIL + 1 NOT_RUN_LOCALLY = 192, from `make ci-guards-local-check` at committed HEAD on a clean tree.",
-    "pass": 191,
+    "reconciliation": "192 PASS + 0 FAIL + 1 NOT_RUN_LOCALLY, from `make ci-guards-local-check` on a clean tree; and every one of PR #32's 307 GitHub contexts SUCCESS.",
+    "pass": 192,
     "total_invocations": 192,
     "unit_of_count": "workflow-faithful CHECKS/INVOCATIONS, not distinct shell guards. The runner takes its list from the workflow files and now includes the `make` steps CI invokes, so one guard can appear once and one make target aggregates several. 192 is invocations; guards_surveyed=189 was the earlier script-only figure.",
     "superseded_counts": {
@@ -1094,9 +1094,40 @@
       "lesson": "claiming a target is wired is not the same as running it through that target."
     }
   ],
-  "status": "ALL BRANCH-INTRODUCED GUARD FAILURES RESOLVED — 0 locally reproducible FAIL",
+  "status": "ALL BRANCH-INTRODUCED GUARD FAILURES RESOLVED — GitHub CI fully green (307/307)",
   "remaining": {
     "NOT_RUN_LOCALLY": 1,
     "note": "check-whitepaper-hermetic.sh and check-openapi-compatibility.sh are declared NOT_RUN_LOCALLY by the runner; one is counted. They stay CI's responsibility — calling their absence green would be the same error as reading a build log instead of an exit code."
-  }
+  },
+  "ci_convergence": [
+    {
+      "root_cause": "website/scripts/*.mjs were never tracked — .gitignore carries a bare `scripts/`, which matches at any depth",
+      "ci_symptom": "Cannot find module emit-chrome-resolved.mjs / emit-copy-resolved.mjs; two freshness tests failed",
+      "fix": "the ignore is narrowed to admit the website's own generators; both emitters are tracked",
+      "lesson": "a local file that exists but is not tracked is not evidence. A generator that is not in the repository is not a generator."
+    },
+    {
+      "root_cause": "a header comparison joined labels with the multibyte '·' via `tr`",
+      "ci_symptom": "check-homepage-final-validation reported wrong header labels that were in fact correct",
+      "fix": "ASCII separator, and the guard now prints what it actually got",
+      "lesson": "`tr` translates bytes; a multibyte separator is not portable across locales."
+    },
+    {
+      "root_cause": "the Rust Rule job invokes its binary inside a `run:` block the local runner never extracted",
+      "ci_symptom": "'No new non-Rust engine' failed while the local runner said 0 FAIL",
+      "fix": "the runner lists that gate explicitly and names any workflow whose gate it cannot model; the three real failures were prose and data, not engines, and the classifier now scans CODE (comments and string literals stripped)",
+      "mutation_evidence": "a real tokenizer added to an allowed presentation catalogue -> RED; a marker restored in a comment -> still green"
+    },
+    {
+      "root_cause": "operationalDomain.js imported STEP_ORDER from validate.js, which carries the receipt store and a PostgreSQL client (introduced by 09b39f9, on this branch)",
+      "ci_symptom": "the typo-recovery behavioural suite could not start on a clean checkout — Cannot find package 'pg'",
+      "fix": "the nine-step spine moved to journeySteps.js as data; validate.js re-exports it; the owning guard reads the definition and additionally forbids a second copy",
+      "lesson": "asking which step follows another should not load a database driver."
+    },
+    {
+      "root_cause": "the typo guard reported only a failure COUNT",
+      "ci_symptom": "'fail 1' with no name; the environment difference could not be read from the log, and a non-matching grep under set -e ended the guard silently",
+      "fix": "the suite's output is dumped verbatim on failure"
+    }
+  ]
 }

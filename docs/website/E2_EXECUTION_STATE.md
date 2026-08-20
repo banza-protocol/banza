@@ -507,8 +507,20 @@ The committed inventory of all 43, with each guard's assertion, owning block, cl
 disposition, is `docs/website/phase2-pr32-guard-regressions.json`. The workflow-faithful runner is
 `tools/ci-guards-local-check.sh` / `make ci-guards-local-check`.
 
-**Remediation status: ZERO locally reproducible failures — 46 guards remediated and mutation-proven;
-191 PASS · 0 FAIL · 1 NOT_RUN_LOCALLY of 192, from `make ci-guards-local-check` on a clean tree.**
+**Remediation status: COMPLETE — GitHub CI green, 307/307 contexts SUCCESS. Locally 192 PASS · 0 FAIL ·
+1 NOT_RUN_LOCALLY from `make ci-guards-local-check` on a clean tree.**
+
+**The local battery went green before CI did, and was wrong.** Five discrepancies, four of them defects in
+my own measurement rather than in the work: two generators that existed locally and were never tracked
+(a bare `scripts/` in `.gitignore` matches at any depth); a label comparison joined with a multibyte
+separator, which `tr` does not translate portably; a CI gate invoked as a binary inside a `run:` block that
+the runner never extracted, hiding three real Rust-rule failures behind a "0 FAIL" report; and a guard that
+reported a failure count with no name, so the one genuine product defect could not be read from its log.
+
+That defect was mine too: `operationalDomain.js` imported a constant from `validate.js`, which carries the
+receipt store and a PostgreSQL client, so asking which step follows another loaded a database driver — and
+a clean checkout without it could not run the suite at all. The nine-step spine is data now, in its own
+module.
 
 The one NOT_RUN_LOCALLY is declared, not assumed: it cannot execute on this host and stays CI's
 responsibility. Calling its absence green would be the same error as reading a build log instead of an exit
