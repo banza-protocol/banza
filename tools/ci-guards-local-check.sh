@@ -40,13 +40,26 @@ not_local_reason() {
 
 # The invocation list, extracted from the workflows themselves so it cannot drift from CI.
 # `mapfile` is bash 4+; macOS ships bash 3.2, so read the list portably.
-INVOCATION_LIST="$(grep -ohE "bash tools/check-[a-z0-9._-]+\.sh[^\"']*" .github/workflows/*.yml | sed 's/[[:space:]]*$//' | sort -u)"
+#
+# CI does not only call scripts. It also calls `make` targets, and this runner used to ignore them —
+# which is how a Makefile broken by an edit in this branch went unnoticed while the runner reported a
+# clean count: `make` could not even parse, so every `make` step in CI would have failed, and nothing
+# here looked. A local runner that models CI must run what CI runs, not the subset that is convenient.
+INVOCATION_LIST="$(
+  {
+    grep -ohE "bash tools/check-[a-z0-9._-]+\.sh[^\"']*" .github/workflows/*.yml
+    grep -ohE "run: make [a-z0-9-]+" .github/workflows/*.yml | sed 's/run: //'
+  } | sed 's/[[:space:]]*$//' | sort -u
+)"
 
 pass=0; fail=0; skipped=0
 FAILED=""
 while IFS= read -r inv; do
   [ -z "$inv" ] && continue
-  script="${inv#bash tools/}"; script="${script%% *}"
+  case "$inv" in
+    "make "*) script="$inv" ;;
+    *) script="${inv#bash tools/}"; script="${script%% *}" ;;
+  esac
   [ -n "$ONLY" ] && [[ "$script" != *"$ONLY"* ]] && continue
   if reason="$(not_local_reason "$script")"; then
     printf '  %-58s %s\n' "$script" "NOT_RUN_LOCALLY — $reason"

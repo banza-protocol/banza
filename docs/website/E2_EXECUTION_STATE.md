@@ -490,8 +490,23 @@ The committed inventory of all 43, with each guard's assertion, owning block, cl
 disposition, is `docs/website/phase2-pr32-guard-regressions.json`. The workflow-faithful runner is
 `tools/ci-guards-local-check.sh` / `make ci-guards-local-check`.
 
-**Remediation status: IN PROGRESS — 4 guards remediated and mutation-proven; 147 PASS · 41 FAIL · 1
-NOT_RUN_LOCALLY.**
+**Remediation status: IN PROGRESS — 5 guards remediated and mutation-proven; 150 PASS · 41 FAIL · 1
+NOT_RUN_LOCALLY of 192.**
+
+**The chrome guards had a common root, so they were given a common surface.** Several guards read a
+pathname straight out of `lib/site.ts`. The chrome stopped writing pathnames when it became locale-aware —
+an entry declares a semantic route target and the path is derived per edition — so those greps matched a
+form that no longer exists, and they only ever saw the Portuguese edition. Teaching each guard to
+re-implement the derivation would have produced copies that drift from the real one and fail silently, so
+the derivation is run once (`make website-chrome-resolved`) and published as `lib/chromeResolved.json`,
+with `chromeResolved.test.ts` re-deriving it and failing if the committed artifact is stale — proven in
+both directions: changing the chrome without regenerating, and hand-editing the artifact.
+
+**And the runner was reporting a clean count over a build that could not parse.** Adding a target exposed
+that `7e630d9` had overwritten a doc-comment line and orphaned its recipe: `make` has been broken on this
+branch since, including the three assurance gates CI runs through it. The runner never noticed because it
+extracted only `bash tools/check-*.sh` from the workflows and ignored `run: make`. Both are fixed, and the
+invocation total moves 189 → 192 — the three steps that were never being modelled.
 
 **Triage found one real gap, and it was not the one the failure named.** `check-technical-registry-page.sh`
 reported that the footer does not link `/registo-tecnico`, which reads like a navigation regression. It is

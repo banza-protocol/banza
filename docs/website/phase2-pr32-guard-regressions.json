@@ -15,10 +15,11 @@
     "non_e2_branch_introduced": 14,
     "e2_branch_introduced": 29,
     "branch_fail_after_remediation": 41,
-    "remediated": 4,
+    "remediated": 5,
     "not_run_locally": 1,
-    "reconciliation": "147 PASS + 41 FAIL + 1 NOT_RUN_LOCALLY = 189, measured at committed HEAD",
-    "pass": 147
+    "reconciliation": "150 PASS + 41 FAIL + 1 NOT_RUN_LOCALLY = 192. The total grew from 189 because the runner now also executes the `make` targets the workflows run, which it had been ignoring.",
+    "pass": 150,
+    "total_invocations": 192
   },
   "baseline_failures_not_ours": [
     {
@@ -574,13 +575,17 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "A-D/E1 or shared public surface",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (chrome literals)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "root_cause": "grepped site.ts for literal href/label pairs. The chrome now declares semantic route targets and derives the pathname per edition, so the literal form is gone — and the guard only ever saw Portuguese.",
+      "remediation": "reads website/lib/chromeResolved.json, the resolved chrome, and checks BOTH editions.",
+      "mutation_evidence": "footer BanzAI retargeted to TRUST -> both editions flagged; English registry label corrupted -> English clause flagged; Operador Zero added to the header -> both header clauses flagged. Each exactly restored, green after."
     },
     {
       "guard": "check-global-navigation-final.sh",
@@ -874,6 +879,15 @@
       "detail": "the chrome became locale-aware, but navPrimary/footerColumns are the Portuguese realizations, so every existing assertion read one edition and the English derivation was produced by code no test ran. A withdrawn English route would have fallen back to the Portuguese path and read as a working link.",
       "remediation": "lib/chromeLocaleDerivation.test.ts asserts both editions: same shape, own language, no silent Portuguese fallback, pathnames from the registry rather than from prefixing, locale-neutral destinations unchanged.",
       "mutation_evidence": "English route withdrawn -> fallback + registry checks red; English URL built by prefixing the Portuguese slug -> registry check red; empty English label -> label check red. Two of the five assertions hold by construction today and are documented as such in the file rather than claimed as proven.",
+      "disposition": "CLOSED"
+    },
+    {
+      "id": "make-was-unparseable-on-this-branch-and-the-runner-did-not-look",
+      "found_by": "adding a make target while migrating the chrome guards",
+      "severity": "CI-breaking defect introduced by this branch, now fixed",
+      "detail": "commit 7e630d9 overwrote the `## identity-check:` doc line and left its recipe orphaned, so the Makefile stopped parsing. Every `make` invocation on this branch failed at parse — including the three assurance gates identity-guard.yml runs. It went unnoticed because the runner extracted only `bash tools/check-*.sh` invocations from the workflows and ignored `run: make` steps, and because I reported the runner as wired into make without ever invoking it that way.",
+      "remediation": "Makefile repaired; the runner now extracts and executes the `make` steps too, which is why the invocation total moved from 189 to 192.",
+      "lesson": "a local model of CI that runs a convenient subset will report a clean count over a broken build. Claiming a target is wired is not the same as running it.",
       "disposition": "CLOSED"
     }
   ]
