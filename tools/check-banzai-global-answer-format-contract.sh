@@ -12,6 +12,12 @@ ROOT="$(git rev-parse --show-toplevel 2>/dev/null || echo .)"
 cd "$ROOT"
 FAILED=0
 fail() { echo "FAIL: $*"; FAILED=1; }
+
+# Block E2 moved these sentences into the bilingual catalogues, so grepping the component for them
+# stopped proving anything. They are read from the resolved copy instead, which also makes the English
+# clause expressible — a guard grepping a Portuguese literal never could.
+# shellcheck source=tools/_banzai-copy.sh
+. tools/_banzai-copy.sh
 ok()   { echo "  ok: $*"; }
 
 KB="services/banzai-api/src/knowledge.js"
@@ -59,7 +65,7 @@ grep -qF 'cit[aá]veis' "$ADAPTER" && ok "frontend strip covers 'Fontes citávei
   || fail "$ADAPTER strip must also cover 'Fontes citáveis:'"
 grep -q "<SourceBlock" "$AGENT" && ok "sources render in a dedicated SourceBlock" \
   || fail "$AGENT must render sources in SourceBlock"
-grep -q "FONTES USADAS" "$SRCBLOCK" && ok "source block labelled 'FONTES USADAS'" \
+copy_presented "$SRCBLOCK" agent sources.heading pt "FONTES USADAS" && ok "source block labelled 'FONTES USADAS'" \
   || fail "$SRCBLOCK must label the block 'FONTES USADAS'"
 # Unsafe = actual IMPORT/USE, not a comment saying "no rehype-raw".
 if grep -qE "from ['\"]rehype-raw['\"]|rehypeRaw\(" "$SAFEMD" || grep -q "dangerouslySetInnerHTML" "$AGENT"; then

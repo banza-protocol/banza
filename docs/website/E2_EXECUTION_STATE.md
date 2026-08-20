@@ -490,7 +490,7 @@ The committed inventory of all 43, with each guard's assertion, owning block, cl
 disposition, is `docs/website/phase2-pr32-guard-regressions.json`. The workflow-faithful runner is
 `tools/ci-guards-local-check.sh` / `make ci-guards-local-check`.
 
-**Remediation status: IN PROGRESS — 12 guards remediated and mutation-proven; 157 PASS · 34 FAIL · 1
+**Remediation status: IN PROGRESS — 17 guards remediated and mutation-proven; 162 PASS · 29 FAIL · 1
 NOT_RUN_LOCALLY of 192.**
 
 **The BanzAI copy guards share the chrome guards' root, and get the same treatment.** They asserted

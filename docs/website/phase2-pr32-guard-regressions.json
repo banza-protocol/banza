@@ -14,11 +14,11 @@
     "branch_introduced": 43,
     "non_e2_branch_introduced": 14,
     "e2_branch_introduced": 29,
-    "branch_fail_after_remediation": 34,
-    "remediated": 12,
+    "branch_fail_after_remediation": 29,
+    "remediated": 17,
     "not_run_locally": 1,
-    "reconciliation": "157 PASS + 34 FAIL + 1 NOT_RUN_LOCALLY = 192, measured at committed HEAD on a clean tree.",
-    "pass": 157,
+    "reconciliation": "162 PASS + 29 FAIL + 1 NOT_RUN_LOCALLY = 192, measured at committed HEAD on a clean tree.",
+    "pass": 162,
     "total_invocations": 192
   },
   "baseline_failures_not_ours": [
@@ -64,13 +64,17 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "E2",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved to the bilingual catalogue)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "reads website/lib/copyResolved.json — a multi-line-aware read of the textarea's accessible name",
+      "mutation_evidence": "each clause killed by its own mutation, exactly restored, green after.",
+      "root_cause": "not moved copy: the accessible name is present, but the element is written across several lines and the guard's grep was line-oriented. `[^>]*` also stopped at the `>` inside an inline arrow handler."
     },
     {
       "guard": "check-banzai-agent-quality.sh",
@@ -140,13 +144,16 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "E2",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved to the bilingual catalogue)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "reads website/lib/copyResolved.json — the readiness and certification-state labels the validation shell renders",
+      "mutation_evidence": "each clause killed by its own mutation, exactly restored, green after."
     },
     {
       "guard": "check-banzai-contextual-actions-check.sh",
@@ -196,13 +203,17 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "E2",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved to the bilingual catalogue)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "reads website/lib/copyResolved.json — the degraded cause, the engine-verdict ordering, and the unreported wording in BOTH editions",
+      "mutation_evidence": "each clause killed by its own mutation, exactly restored, green after.",
+      "root_cause": "two things. The honest-cause literals moved to the catalogue; and the ordering clause read literal labels through a helper that returns non-zero when it finds nothing, so under `set -e` the guard DIED MID-RUN — exit 1, no message, section 3 never printed. The engine verdict is now a named computation rather than ordered early-returns, which is the stronger shape."
     },
     {
       "guard": "check-banzai-document-aware-agent.sh",
@@ -276,13 +287,16 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "E2",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved to the bilingual catalogue)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "reads website/lib/copyResolved.json — the source block's heading",
+      "mutation_evidence": "each clause killed by its own mutation, exactly restored, green after."
     },
     {
       "guard": "check-banzai-interface-transparency.sh",
@@ -314,13 +328,16 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "E2",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved to the bilingual catalogue)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "reads website/lib/copyResolved.json — the explain affordance's boundary — the model explains, it does not decide",
+      "mutation_evidence": "each clause killed by its own mutation, exactly restored, green after."
     },
     {
       "guard": "check-banzai-operator-experience.sh",
@@ -922,6 +939,14 @@
       "remediation": "the catalogues are realized once into lib/copyResolved.json and guards assert through it, which makes the English clause writable at all.",
       "mutation_evidence": "changing ONLY the English validation-mode label now turns the guard red. Under the previous design that mutation was invisible.",
       "disposition": "IN PROGRESS — applies to each copy guard as it is migrated"
+    },
+    {
+      "id": "a-guard-can-die-silently-under-set-e",
+      "found_by": "check-banzai-degraded-mode-render.sh",
+      "severity": "assurance-legibility defect",
+      "detail": "assigning from a helper that greps means a not-found result is a non-zero status, and under `set -euo pipefail` that ends the script. The guard exited 1 with its last section never printed and no failure text at all, so the inventory recorded it as failing without a reason.",
+      "remediation": "the lookups tolerate not-found and report it. A guard that dies is worse than one that fails, because there is nothing to read.",
+      "disposition": "CLOSED for this guard; worth watching for the same shape elsewhere"
     }
   ]
 }
