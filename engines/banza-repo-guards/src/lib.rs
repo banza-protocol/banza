@@ -247,8 +247,8 @@ fn contam_excluded(path: &str) -> bool {
 
 /// Files where BANZAMI INSTITUTIONAL ATTRIBUTION is allowed (ADR-009 / M2.7M): the creator and initial
 /// institutional maintainer is named as origin and steward. This is a governance/legal attribution role,
-/// distinct from a payment-OPERATOR brand — the NORMATIVE_BRANDS payment operators stay blocked
-/// everywhere, and the brand stem stays forbidden in filenames and on all other surfaces.
+/// distinct from a payment-OPERATOR brand — the NORMATIVE_BRANDS payment operators are blocked on the
+/// NORMATIVE surface (contracts/, conformance/) by the L1b scan below — not repository-wide, and the brand stem stays forbidden in filenames and on all other surfaces.
 fn banzami_attribution_allowed(path: &str) -> bool {
     let base = path.rsplit('/').next().unwrap_or(path);
     matches!(
@@ -318,7 +318,7 @@ fn banzami_attribution_allowed(path: &str) -> bool {
         // DESIGNATED OPERATOR of the first BANZA-based operational scheme (Layer 3). This is a first-class
         // institutional role — the ADR-001/ADR-009 attribution basis extended from "creator/initial
         // maintainer" to "designated scheme operator". BANZA stays operator-neutral (BANZA != Banzami; the
-        // protocol + certification remain non-exclusive to the scheme); the NORMATIVE_BRANDS payment
+        // protocol + certification remain non-exclusive to the scheme); the L1b normative-surface payment
         // operators (Multicaixa, …) stay blocked EVERYWHERE, and Banzami is never presented as a BANZA
         // payment operator nor as regulator-authorised without evidence. One ADR per decision:
         //   059 three-layer architecture · 060 Banzami Operational Scheme (designated operator) ·
@@ -388,7 +388,8 @@ fn banzami_attribution_allowed(path: &str) -> bool {
         // pages, so they name Banzami as the L3 designated scheme operator — the same M2.19C/ADR-004/060
         // institutional-attribution basis as the governanca/licenca pages above. BANZA (L1) + certification
         // (L2) stay operator-neutral; Banzami is never framed as a BANZA payment operator nor regulator-
-        // authorised without evidence; the NORMATIVE_BRANDS payment operators stay blocked everywhere.
+        // authorised without evidence; the NORMATIVE_BRANDS payment operators are blocked on the normative
+        // surface (contracts/, conformance/) by L1b — this admission does not touch that scan.
         || path == "website/app/(pt)/page.tsx"
         || path == "website/app/(pt)/arquitectura/page.tsx"
         || path == "website/app/(pt)/estado/page.tsx"
@@ -400,7 +401,8 @@ fn banzami_attribution_allowed(path: &str) -> bool {
         // this guard would say something WEAKER than its source, which is the failure mode the parity
         // harness exists to prevent; the harness asserts the attribution, so it names the subject too
         // (the same basis on which home-canonical.test.ts is listed below). BANZA (L1) and certification
-        // (L2) stay operator-neutral and the NORMATIVE_BRANDS payment operators stay blocked everywhere.
+        // (L2) stay operator-neutral; the NORMATIVE_BRANDS payment operators are blocked on the normative
+        // surface (contracts/, conformance/) by L1b, which this admission does not reach.
         || path == "website/app/en/architecture/page.tsx"
         || path == "website/lib/corePageParity.test.ts"
         // Website Phase 2 / Block D: the ENGLISH editions of the protocol-status and open-governance
@@ -434,8 +436,10 @@ fn banzami_attribution_allowed(path: &str) -> bool {
         // The E1 render harness names it for the same reason `corePageParity.test.ts` above does: it
         // asserts that both editions carry the attribution, so it must name the subject to assert it.
         //
-        // Scoped to these three paths. BANZA (L1) and certification (L2) stay operator-neutral, and the
-        // NORMATIVE_BRANDS payment operators stay blocked in all three.
+        // Scoped to these three paths, and PATH-scoped rather than clause-scoped: this gate admits the
+        // designated-scheme stem for the whole file, so it cannot tell a legitimate attribution from an
+        // illegitimate claim WITHIN an admitted page. That limit is the gate's design, not this
+        // admission's — recorded in docs/website/phase2-pr32-guard-regressions.json under open_findings.
         || path == "website/lib/glossaryTerms.ts"
         || path == "website/app/en/license/page.tsx"
         || path == "website/lib/blockE1Surfaces.test.tsx"
@@ -444,13 +448,15 @@ fn banzami_attribution_allowed(path: &str) -> bool {
         // designated scheme operator (Banzami Operational Scheme) in their three-layer records/assertions —
         // the same ADR-004/060 institutional-attribution basis as the M2.19G editorial pages above (the
         // Home page.tsx itself is already allowlisted). Not a payment-OPERATOR brand; the NORMATIVE_BRANDS
-        // payment operators stay blocked everywhere.
+        // payment operators are blocked on the normative surface
+        // (contracts/, conformance/) by the L1b NORMATIVE_BRANDS scan — not repository-wide.
         || path == "artifacts/banzai/home-current-surface-audit.json"
         || base == "home-canonical.test.ts"
         // ADR-009 / M2.8F: the BanzAI knowledge base carries the same institutional attribution
         // when a user asks "o que é o Banzami?" — the answer names Banzami as the creator/initial
         // maintainer (a governance role), grounded in GOVERNANCE.md. This is attribution, not a
-        // payment-OPERATOR brand; payment operators stay blocked everywhere via NORMATIVE_BRANDS.
+        // payment-OPERATOR brand; payment operators are blocked on the normative surface
+        // (contracts/, conformance/) by the L1b NORMATIVE_BRANDS scan — not repository-wide.
         || path == "services/banzai-api/src/knowledge.js"
         || path == "services/banzai-api/src/pipeline.js"
         || path == "engines/banzai-query-core/src/entries-index.json"
@@ -471,12 +477,14 @@ fn banzami_attribution_allowed(path: &str) -> bool {
         // M2.18B.6-FIX1: the typo-recovery engine PROTECTS the ecosystem-identity distinction (ADR-001) —
         // it names Banzami / BANZA / BanzAI precisely so a spelling variant of one is never silently
         // rewritten into another. Same ADR-001/ADR-009 institutional-attribution basis as route.rs above;
-        // not a payment operator, payment-OPERATOR brands stay blocked everywhere via NORMATIVE_BRANDS.
+        // not a payment operator, payment-operator brands are blocked on the normative surface
+        // (contracts/, conformance/) by the L1b NORMATIVE_BRANDS scan — not repository-wide.
         || path == "engines/banzai-query-core/src/fuzzy.rs"
         // M2.18B.7: the canonical coverage + attribute registries bind each ecosystem identity
         // (BANZA/BanzAI/Banzami) to its primary sources and answer exact facts about it. They NAME the
         // creator/organization for the same ADR-001/ADR-009 institutional-attribution reason as route.rs
-        // above; not a payment operator, payment-OPERATOR brands stay blocked everywhere.
+        // above; not a payment operator, payment-operator brands are blocked on the normative surface
+        // (contracts/, conformance/) by the L1b NORMATIVE_BRANDS scan — not repository-wide.
         || path == "engines/banzai-query-core/src/coverage.rs"
         || path == "engines/banzai-query-core/src/attribute.rs"
         || path == "engines/banzai-query-core/src/scenarios.rs"
@@ -505,7 +513,7 @@ fn banzami_attribution_allowed(path: &str) -> bool {
         // M2.18B.4: the typed-terminal engine returns the origin EXACT FACT — "Banzami — criador e
         // mantenedor inicial do protocolo" — bound to NOTICE/MAINTAINERS. Same ADR-009 institutional-
         // attribution basis as route.rs / knowledge.js above; not a payment operator, payment-OPERATOR
-        // brands stay blocked everywhere.
+        // brands are blocked on the normative surface (contracts/, conformance/) by the L1b scan.
         || path == "engines/banzai-query-core/src/terminal.rs"
         // M2.13C-B: the protocol-origin / creation-date phase report names the creator as institutional
         // origin (same ADR-009 attribution basis). Not a payment operator; brand stays barred elsewhere.
@@ -513,43 +521,50 @@ fn banzami_attribution_allowed(path: &str) -> bool {
         // (the Banzami Operational Scheme, designated operator) — the guard-convergence, README-sweep,
         // reference, SVG and verification-battery reports name Banzami exactly to record the L3 framing.
         // Internal engineering reports; same ADR-004/060 + ADR-009 attribution basis; payment-operator
-        // brands stay blocked everywhere.
+        // brands are blocked on the normative surface (contracts/, conformance/) by the L1b scan.
         // M2.14C: the global rendering contract report documents the "Banzami" origin-answer before/after
         // (§10/§11), and the contract test + guard verify that same answer renders with a clean body.
         // Same ADR-009 institutional-attribution basis as route.rs / knowledge.js above — not a payment
-        // operator; the payment-OPERATOR brands stay blocked everywhere.
+        // operator; the payment-operator brands are blocked on the normative surface
+        // (contracts/, conformance/) by the L1b NORMATIVE_BRANDS scan — not repository-wide.
         || path == "services/banzai-api/test/answer-contract.test.js"
         || path == "tools/check-banzai-global-answer-format-contract.sh"
         // M2.14C Part 16: the minimal-highlight pass lists the ecosystem ENTITIES it bolds (Banzami /
         // BANZA / BanzAI) so every answer shares one look — same ADR-009 attribution basis as
-        // knowledge.js above. Not a payment operator; payment-OPERATOR brands stay blocked everywhere.
+        // knowledge.js above. Not a payment operator; payment-operator brands are blocked on the normative surface
+        // (contracts/, conformance/) by the L1b NORMATIVE_BRANDS scan — not repository-wide.
         || path == "services/banzai-api/src/answerContract.js"
         // M2.14C-FIX1: the entity-emphasis consistency test + guard drive the same canonical-entity
         // table (Banzami / BANZA / BanzAI …) to prove every occurrence is bold. Same ADR-009
-        // institutional-attribution basis; payment-OPERATOR brands stay blocked everywhere.
+        // institutional-attribution basis; payment-operator brands are blocked on the normative surface
+        // (contracts/, conformance/) by the L1b NORMATIVE_BRANDS scan — not repository-wide.
         || path == "services/banzai-api/test/entity-formatting-consistency.test.js"
         || path == "tools/check-banzai-entity-formatting-consistency.sh"
         // M2.14C-FIX2: the short-query/fallback test + guard + report drive the same slash-separated
         // canonical-entity list (Banzami/BANZA/BanzAI) to prove each segment is bolded. Same ADR-009
-        // institutional-attribution basis; payment-OPERATOR brands stay blocked everywhere.
+        // institutional-attribution basis; payment-operator brands are blocked on the normative surface
+        // (contracts/, conformance/) by the L1b NORMATIVE_BRANDS scan — not repository-wide.
         || path == "services/banzai-api/test/short-query-recovery.test.js"
         || path == "tools/check-banzai-short-query-recovery.sh"
         // M2.14F: the semantic-answer-composition report + test + guard exercise the same
         // institutional-identity query ("o que é o banzami") and canonical entities to prove the
         // composed answers keep the ADR-009 attribution. Same basis as knowledge.js / route.rs above;
-        // payment-OPERATOR brands stay blocked everywhere.
+        // payment-operator brands are blocked on the normative surface
+        // (contracts/, conformance/) by the L1b NORMATIVE_BRANDS scan — not repository-wide.
         || path == "services/banzai-api/test/semantic-answer-composition.test.js"
         || path == "tools/check-banzai-semantic-answer-composition.sh"
         // M2.14F-FIX2: the SafeMarkdown render test drives the same institutional entity table
         // (Banzami / BANZA / BanzAI) to prove every occurrence renders as bold <strong>. Same ADR-009
-        // attribution basis as knowledge.js / route.rs; payment-OPERATOR brands stay blocked everywhere.
+        // attribution basis as knowledge.js / route.rs; payment-operator brands are blocked on the normative surface
+        // (contracts/, conformance/) by the L1b NORMATIVE_BRANDS scan — not repository-wide.
         || path == "website/components/banzai/SafeMarkdown.render.test.tsx"
         // WP1-FINAL: the official BANZA Whitepaper v1.0 (autonomous documental program) names Banzami as
         // the authors' affiliation + institutional PUBLISHER, and once as the L3 designated scheme operator
         // — the same ADR-001/043/059/060 institutional-attribution basis as the ADRs and editorial pages
         // above. Scoped STRICTLY to the Whitepaper surfaces (content/routes/components/loader/build/report);
         // the Home hero change lives in website/app/(pt)/page.tsx, already allowlisted. BANZA (L1) + certification
-        // (L2) stay operator-neutral; the NORMATIVE_BRANDS payment operators stay blocked everywhere.
+        // (L2) stay operator-neutral; the NORMATIVE_BRANDS payment operators are blocked on the normative surface
+        // (contracts/, conformance/) by the L1b NORMATIVE_BRANDS scan — not repository-wide.
         || path.starts_with("docs/whitepaper/")
         || path.starts_with("artifacts/whitepaper-v1/")
         || path.starts_with("website/content/whitepaper/")

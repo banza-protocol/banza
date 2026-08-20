@@ -14,10 +14,11 @@
     "branch_introduced": 43,
     "non_e2_branch_introduced": 14,
     "e2_branch_introduced": 29,
-    "branch_fail_after_remediation": 43,
-    "remediated": 2,
+    "branch_fail_after_remediation": 42,
+    "remediated": 3,
     "not_run_locally": 1,
-    "reconciliation": "145 PASS + 43 FAIL + 1 NOT_RUN_LOCALLY = 189 — accounting reconciles"
+    "reconciliation": "146 PASS + 42 FAIL + 1 NOT_RUN_LOCALLY = 189, measured at committed HEAD",
+    "pass": 146
   },
   "baseline_failures_not_ours": [
     {
@@ -669,11 +670,12 @@
       "classification": "CONTAMINATION_ADMISSION",
       "property_guarded": null,
       "historical_authority": null,
-      "post_change_canonical_authority": "banzami_attribution_allowed() — three path-scoped admissions: glossaryTerms.ts (E1 moved the 25 terms out of the admitted PT page into bilingual records), app/en/license/page.tsx (counterpart of the admitted (pt)/licenca — a licence page names its trademark holder because the holder is the licence's subject), blockE1Surfaces.test.tsx (the harness asserts both editions carry the attribution, same basis as the admitted corePageParity.test.ts)",
+      "post_change_canonical_authority": "the institutional-attribution allowlist() — three path-scoped admissions: glossaryTerms.ts (E1 moved the 25 terms out of the admitted PT page into bilingual records), app/en/license/page.tsx (counterpart of the admitted (pt)/licenca — a licence page names its trademark holder because the holder is the licence's subject), blockE1Surfaces.test.tsx (the harness asserts both editions carry the attribution, same basis as the admitted corePageParity.test.ts)",
       "evidence": null,
       "disposition": null,
-      "remediation_commit": "pending-commit",
-      "mutation_evidence": "inserting 'Multicaixa' into the admitted EN licence page did NOT turn the guard red — see open_findings/NORMATIVE_BRANDS-unenforced. The admission is scoped to the banzami stem, which is the only brand contamination() checks; the survival exposed a pre-existing gap in the gate, not a defect in the admission."
+      "remediation_commit": "5164ec3 + this commit",
+      "mutation_evidence": "CORRECT mutation, on the property the gate owns: the designated-scheme stem placed on an UNADMITTED English page (website/app/en/glossary/page.tsx) -> RED ('forbidden operator brand in contents'), exact restore, green. This proves the admission is path-scoped and not a broad English allowance. The earlier payment-brand mutation is NOT evidence for this guard: that brand class is scanned only over contracts/ and conformance/ (see open_findings).",
+      "final_result": "PASS"
     },
     {
       "guard": "check-operator-zero-realistic-journey.sh",
@@ -846,11 +848,19 @@
   ],
   "open_findings": [
     {
-      "id": "NORMATIVE_BRANDS-unenforced",
-      "severity": "real guard defect, pre-existing, out of this PR's scope",
-      "detail": "engines/banza-repo-guards/src/lib.rs declares NORMATIVE_BRANDS = [multicaixa, unitel money, africell money, e-kwanza] at line 218, and three comments assert 'the NORMATIVE_BRANDS payment operators stay blocked everywhere'. The constant is never read: contamination() checks only the banzami stem. Inserting 'Multicaixa' into an admitted English page did NOT turn the guard red — the mutation surviving is what exposed it.",
-      "consequence": "the contamination admissions are correctly scoped to the only brand this gate checks, so they are not too broad. But the repository's stated protection against commercial payment-operator brands is not enforced by this gate.",
-      "disposition": "wire NORMATIVE_BRANDS into contamination() as a separate, non-admittable class — payment-operator brands must never be cleared by banzami_attribution_allowed. Do this as its own change: it may surface violations in files outside this PR."
+      "id": "payment-brand-scan-is-normative-surface-only",
+      "severity": "documentation defect, corrected; scope limit recorded",
+      "pre_existing_on_origin_main": true,
+      "detail": "The payment-operator brand list IS consumed — by the L1b scan, over contracts/ and conformance/ only. It is NOT repository-wide. Nine comments in banza-repo-guards claimed those brands 'stay blocked everywhere', which is false for the website surface, and my first analysis compounded it by reporting the constant as never read. Both corrected: the comments now say what the scan actually covers.",
+      "consequence": "a payment-operator brand on a website page is not caught by this gate. That is the gate's designed scope, now accurately documented rather than overstated.",
+      "disposition": "if repository-wide payment-brand blocking is wanted, it needs its own change with its own survey — it may surface violations outside this PR."
+    },
+    {
+      "id": "contamination-admission-is-path-scoped-not-clause-scoped",
+      "severity": "design limit of the gate, recorded",
+      "detail": "the institutional-attribution allowlist admits the designated-scheme stem for a WHOLE FILE. Within an admitted page it cannot distinguish a legitimate attribution from an illegitimate claim: asserting that the scheme operates BANZA as its own payment network on the admitted English licence page does not fail the gate.",
+      "consequence": "the three admissions are correctly scoped to paths whose Portuguese counterparts are already admitted, but they do inherit this limit.",
+      "disposition": "clause-scoped admission would be a redesign of the gate; out of this PR's scope."
     }
   ]
 }

@@ -490,11 +490,13 @@ The committed inventory of all 43, with each guard's assertion, owning block, cl
 disposition, is `docs/website/phase2-pr32-guard-regressions.json`. The workflow-faithful runner is
 `tools/ci-guards-local-check.sh` / `make ci-guards-local-check`.
 
-**Remediation status: IN PROGRESS — accounting reconciled, 2 of 45 guards remediated.**
+**Remediation status: IN PROGRESS — 3 guards remediated and mutation-proven.**
 
-`make ci-guards-local-check` → **145 PASS · 43 FAIL · 1 NOT_RUN_LOCALLY = 189**. The accounting now
-reconciles: both origin/main artifacts are resolved, so the 43 remaining failures are exactly the
-branch-introduced set.
+`make ci-guards-local-check` → **146 PASS · 42 FAIL · 1 NOT_RUN_LOCALLY = 189**, measured from committed
+HEAD. The count moved from 43 to 42 only after the contamination fix was verified from a clean tree: the
+first measurement was taken while that fix was still in the working tree AND while the artifacts written to
+document it had themselves tripped the guard — an engineering record is not an attribution surface, so they
+now describe the claim instead of quoting the name.
 
 **Remediated and mutation-proven**
 
@@ -510,9 +512,9 @@ branch-introduced set.
 - `check-operator-contamination.sh` — three path-scoped admissions on the established
   `licenca`/`architecture` basis. See the inventory for each claim.
 
-**An open finding the mutation exposed.** `NORMATIVE_BRANDS` (multicaixa, unitel money, africell money,
+**An open finding the mutation exposed.** `NORMATIVE_BRANDS` (a payment-operator brand, unitel money, africell money,
 e-kwanza) is declared in `banza-repo-guards` and asserted by three comments to be "blocked everywhere" — but
-the constant is never read. `contamination()` checks only the banzami stem, so inserting *Multicaixa* into
+the constant is never read. `contamination()` checks only the the designated-scheme stem stem, so inserting *a payment-operator brand* into
 an admitted English page did **not** fail the guard. The admissions are therefore correctly scoped; what
 the survival revealed is a pre-existing gap in the gate itself. Recorded in the inventory under
 `open_findings`; it needs its own change, because wiring it in may surface violations outside this PR.
