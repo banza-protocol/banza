@@ -14,11 +14,11 @@
     "branch_introduced": 43,
     "non_e2_branch_introduced": 14,
     "e2_branch_introduced": 29,
-    "branch_fail_after_remediation": 13,
-    "remediated": 34,
+    "branch_fail_after_remediation": 10,
+    "remediated": 37,
     "not_run_locally": 1,
-    "reconciliation": "178 PASS + 13 FAIL + 1 NOT_RUN_LOCALLY = 192, from `make ci-guards-local-check` at committed HEAD on a clean tree.",
-    "pass": 178,
+    "reconciliation": "181 PASS + 10 FAIL + 1 NOT_RUN_LOCALLY = 192, from `make ci-guards-local-check` at committed HEAD on a clean tree.",
+    "pass": 181,
     "total_invocations": 192,
     "unit_of_count": "workflow-faithful CHECKS/INVOCATIONS, not distinct shell guards. The runner takes its list from the workflow files and now includes the `make` steps CI invokes, so one guard can appear once and one make target aggregates several. 192 is invocations; guards_surveyed=189 was the earlier script-only figure.",
     "superseded_counts": {
@@ -768,7 +768,8 @@
       "disposition": null,
       "remediation_commit": "5164ec3 + this commit",
       "mutation_evidence": "CORRECT mutation, on the property the gate owns: the designated-scheme stem placed on an UNADMITTED English page (website/app/en/glossary/page.tsx) -> RED ('forbidden operator brand in contents'), exact restore, green. This proves the admission is path-scoped and not a broad English allowance. The earlier payment-brand mutation is NOT evidence for this guard: that brand class is scanned only over contracts/ and conformance/ (see open_findings).",
-      "final_result": "PASS"
+      "final_result": "PASS",
+      "remediation": "admits the DERIVED lib/copyResolved.json, generated from the already-admitted glossaryTerms.ts"
     },
     {
       "guard": "check-operator-zero-realistic-journey.sh",
@@ -823,13 +824,15 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "A-D/E1 or shared public surface",
-      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (chapter registry became a bilingual pairing)",
       "property_guarded": "the Reference has 15 chapters in the canonical order, Operador Zero at 09",
       "historical_authority": "literal `{ num: N, slug: \"x\" }` array in website/lib/reference.ts",
       "post_change_canonical_authority": "website/lib/referenceSlugs.ts REFERENCE_CHAPTER_SLUGS (num + pt + en); CHAPTER_DEFS derives from it",
       "evidence": "the guard reports `actual: (empty)` — it matched zero chapters, not a wrong order. Its own later assertions still pass: 'Operador Zero is chapter 9 in the source', 'Operadores is chapter 8'.",
       "disposition": "migrate the guard to REFERENCE_CHAPTER_SLUGS; assert order, numbering AND that both locales' slugs are present",
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "reads the bilingual chapter pairing (referenceSlugs.ts) for the canonical order, and additionally requires every chapter to carry its OWN English address"
     },
     {
       "guard": "check-reference-information-architecture.sh",
@@ -882,13 +885,15 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "A-D/E1 or shared public surface",
-      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (chapter registry became a bilingual pairing)",
       "property_guarded": "the standalone /roteiro page is retired and §14 is the only narrative evolution surface",
       "historical_authority": "slug \"roteiro\" present in website/lib/reference.ts",
       "post_change_canonical_authority": "website/lib/referenceSlugs.ts line 31: { num: 14, pt: \"roteiro\", en: \"protocol-evolution\" }",
       "evidence": "the slug exists with its English counterpart; only the file holding it changed",
       "disposition": "point the guard at referenceSlugs.ts; keep the retirement + redirect assertions unchanged",
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "the roteiro chapter is checked as a bilingual record, English address included"
     },
     {
       "guard": "check-technical-registry-naming-parity.sh",
@@ -1025,6 +1030,20 @@
     {
       "id": "glossary-added-to-the-resolved-copy-surface",
       "detail": "the glossary is a table of RECORDS, not a flat id→text map, so it was flattened into the same shape (one entry per reader-visible field). Guards ask it the same way they ask every other catalogue instead of each re-parsing the term array.",
+      "disposition": "CLOSED"
+    },
+    {
+      "id": "two-chapters-share-an-address-and-nothing-said-so",
+      "found_by": "adding the English-address clause to check-reference-chapter-order.sh",
+      "severity": "latent ambiguity, now explicit",
+      "detail": "chapters 12 (banzai) and 15 (faq) use the same address in both editions. That is correct — a proper name and an acronym that is the same token in Portuguese — but nothing recorded it, so an accidental copy-paste would have been indistinguishable from a deliberate choice.",
+      "remediation": "LOCALE_NEUTRAL_CHAPTER_SLUGS declares the exception in the slug source, and the guard reads that declaration instead of carrying its own list. Adding a new identical slug now requires declaring it.",
+      "mutation_evidence": "an undeclared chapter reusing its Portuguese slug -> RED, naming that chapter.",
+      "disposition": "CLOSED"
+    },
+    {
+      "id": "derived-artifacts-inherit-their-source-admission",
+      "detail": "lib/copyResolved.json is generated from glossaryTerms.ts, which is admitted to name the Layer-3 designated scheme. The derived file inherited the name and tripped the contamination gate. Admitted by path, on the ground that it is regenerated rather than authored — it adds no surface a human can write to. Proven narrow: the same stem placed in the OTHER derived artifact, which is not admitted, still fails.",
       "disposition": "CLOSED"
     }
   ],

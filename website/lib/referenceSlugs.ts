@@ -14,6 +14,17 @@
 export type ReferenceSlugPair = { num: number; pt: string; en: string };
 
 /** All fifteen chapters, in canonical order. `num` is the semantic identity; the slugs are addresses. */
+/**
+ * Chapters whose address is deliberately the same in both editions.
+ *
+ * "banzai" is a proper name and "faq" is the same token in Portuguese and English, so translating either
+ * would invent an address no reader looks for. Every OTHER chapter must have its own English address: a
+ * chapter reachable only at its Portuguese slug under /en is a chapter the English reader cannot address
+ * in their own edition. Declaring the exception here rather than in a guard means adding one is a decision
+ * someone has to make on purpose, instead of a copy-paste that looks exactly like these two.
+ */
+export const LOCALE_NEUTRAL_CHAPTER_SLUGS: readonly string[] = Object.freeze(["banzai", "faq"]);
+
 export const REFERENCE_CHAPTER_SLUGS: readonly ReferenceSlugPair[] = Object.freeze([
   { num: 1, pt: "o-que-e", en: "what-banza-is" },
   { num: 2, pt: "porque-existe", en: "why-banza-exists" },
@@ -26,6 +37,7 @@ export const REFERENCE_CHAPTER_SLUGS: readonly ReferenceSlugPair[] = Object.free
   { num: 9, pt: "operador-zero", en: "operator-zero" },
   { num: 10, pt: "federacao", en: "federation" },
   { num: 11, pt: "governacao", en: "governance" },
+  // Same address in both editions — declared in LOCALE_NEUTRAL_CHAPTER_SLUGS below.
   { num: 12, pt: "banzai", en: "banzai" },
   { num: 13, pt: "programadores", en: "developer-resources" },
   { num: 14, pt: "roteiro", en: "protocol-evolution" },
