@@ -82,7 +82,13 @@ if command -v node >/dev/null 2>&1; then
   if (cd services/banzai-api && node --test test/typo-recovery.test.js >/tmp/b5_typo.$$ 2>&1); then
     ok "behavioural suite passed ($(grep -oE 'pass [0-9]+' /tmp/b5_typo.$$ | head -1))"
   else
+    # Print WHICH test failed. A count alone is unactionable from a CI log, and that is exactly what
+    # happened here: this suite passed locally and failed on the runner, and the log said "fail 1" with
+    # no name — so the difference between the two environments could not be read from the guard's own
+    # evidence. A guard that fails without saying what failed sends someone back to guessing.
     fail "behavioural suite FAILED: $(grep -oE 'fail [0-9]+' /tmp/b5_typo.$$ | head -1); see test/typo-recovery.test.js"
+    sed -n '/failing tests:/,$p' /tmp/b5_typo.$$ | head -25 | sed 's/^/      /'
+    grep -E '^\s*✖ |AssertionError|Error:|expected:|actual:' /tmp/b5_typo.$$ | head -15 | sed 's/^/      /'
   fi
   rm -f /tmp/b5_typo.$$
 else

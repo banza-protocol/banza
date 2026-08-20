@@ -45,12 +45,36 @@ not_local_reason() {
 # which is how a Makefile broken by an edit in this branch went unnoticed while the runner reported a
 # clean count: `make` could not even parse, so every `make` step in CI would have failed, and nothing
 # here looked. A local runner that models CI must run what CI runs, not the subset that is convenient.
+#
+# A third form exists and is NOT extractable: some jobs build a binary and invoke it directly from a
+# multi-line `run: |` block. Pattern-matching arbitrary run blocks would be guesswork, so those gates are
+# listed explicitly below — with the make target that runs the same logic, and a reason. The list is short
+# and visible on purpose: an unlisted gate is a gate this runner reports nothing about, which is how three
+# real Rust-rule failures sat behind a "0 FAIL" result.
+EXPLICIT_INVOCATIONS='make rust-rule-check'
 INVOCATION_LIST="$(
   {
     grep -ohE "bash tools/check-[a-z0-9._-]+\.sh[^\"']*" .github/workflows/*.yml
     grep -ohE "run: make [a-z0-9-]+" .github/workflows/*.yml | sed 's/run: //'
+    printf '%s\n' "$EXPLICIT_INVOCATIONS"
   } | sed 's/[[:space:]]*$//' | sort -u
 )"
+
+# Every workflow must be represented. A new workflow whose gate this runner cannot see is a silent gap, so
+# it is named here rather than discovered later by a red pull request.
+for wf in .github/workflows/*.yml; do
+  name="$(basename "$wf" .yml)"
+  case "$name" in
+    # Not guard jobs: build/deploy/release pipelines have no check for this runner to mirror.
+    deploy*|release*|publish*|pages*) continue ;;
+  esac
+  if ! grep -qE "bash tools/check-|run: make " "$wf"; then
+    case " $EXPLICIT_INVOCATIONS " in
+      *"rust-rule"*) [ "$name" = "rust-rule-guard" ] && continue ;;
+    esac
+    echo "  NOTE: $name has no extractable guard invocation and is not listed explicitly — its gate is unmodelled here" >&2
+  fi
+done
 
 pass=0; fail=0; skipped=0
 FAILED=""

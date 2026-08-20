@@ -271,10 +271,69 @@ pub fn allowlist_covers(allow: &BTreeSet<String>, path: &str) -> bool {
     false
 }
 
+/// The CODE of a source file: comments and string literals removed.
+///
+/// The marker list below is documented as "code-specific … chosen to be rare in prose/data", but the scan
+/// read the whole file, so prose and data tripped it anyway. Three files failed for exactly that reason:
+/// a module explaining that it is fail-closed IN A COMMENT, a bilingual catalogue whose reader-facing tab
+/// label is the words "Evidence Bundle", and a realization table whose KEYS name the facts a procedure
+/// contains. None of them decides anything; they say things.
+///
+/// Engine responsibility shows up as code — a function that tokenizes, a comparison that verifies a
+/// signature, a branch that scores. That is what is scanned now. A file that genuinely evaluates trust
+/// still trips the marker in its identifiers and control flow, where the marker list was aimed all along.
+pub fn code_only(content: &str) -> String {
+    let b: Vec<char> = content.chars().collect();
+    let mut out = String::with_capacity(content.len());
+    let mut i = 0usize;
+    while i < b.len() {
+        let c = b[i];
+        // line comment
+        if c == '/' && i + 1 < b.len() && b[i + 1] == '/' {
+            while i < b.len() && b[i] != '\n' {
+                i += 1;
+            }
+            continue;
+        }
+        // block comment
+        if c == '/' && i + 1 < b.len() && b[i + 1] == '*' {
+            i += 2;
+            while i + 1 < b.len() && !(b[i] == '*' && b[i + 1] == '/') {
+                i += 1;
+            }
+            i = (i + 2).min(b.len());
+            continue;
+        }
+        // string literal (kept as an empty pair so adjacent tokens do not fuse)
+        if c == '"' || c == '\'' || c == '`' {
+            let quote = c;
+            i += 1;
+            while i < b.len() {
+                if b[i] == '\\' {
+                    i += 2;
+                    continue;
+                }
+                if b[i] == quote {
+                    i += 1;
+                    break;
+                }
+                i += 1;
+            }
+            out.push(' ');
+            continue;
+        }
+        out.push(c);
+        i += 1;
+    }
+    out
+}
+
 pub fn classify(rel_path: &str, content: &str, allow: &BTreeSet<String>) -> FileReport {
     let path = normalize_path(rel_path);
     let ext = ext_of(&path);
-    let lower = content.to_lowercase();
+    // Markers are looked for in the CODE only: a marker in a comment is prose about the file, and a marker
+    // in a string literal is a name or a sentence the file carries. Neither is an algorithm.
+    let lower = code_only(content).to_lowercase();
     let markers: Vec<String> = STRONG_MARKERS
         .iter()
         .filter(|m| lower.contains(**m))

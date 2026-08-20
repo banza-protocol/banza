@@ -74,10 +74,13 @@ done
 # by it at all.
 # shellcheck source=tools/_chrome-resolved.sh
 . tools/_chrome-resolved.sh
-[ "$(chrome_nav_labels pt | tr '\n' '·')" = "Registo técnico·BanzAI·Ler a referência·" ] \
-  || flag "the Portuguese header must be Registo técnico · BanzAI · Ler a referência"
-[ "$(chrome_nav_labels en | tr '\n' '·')" = "Technical registry·BanzAI·Read the Reference·" ] \
-  || flag "the English header must be Technical registry · BanzAI · Read the Reference"
+# Joined with an ASCII separator, deliberately. Using "·" here passed on macOS and failed on the CI
+# runner: `tr` translates BYTES, and a multibyte separator under the runner's locale does not produce the
+# string this comparison expects. The guard was reporting wrong header labels that were in fact correct.
+[ "$(chrome_nav_labels pt | tr '\n' '|')" = "Registo técnico|BanzAI|Ler a referência|" ] \
+  || flag "the Portuguese header must be Registo técnico · BanzAI · Ler a referência (got: $(chrome_nav_labels pt | tr '\n' '|'))"
+[ "$(chrome_nav_labels en | tr '\n' '|')" = "Technical registry|BanzAI|Read the Reference|" ] \
+  || flag "the English header must be Technical registry · BanzAI · Read the Reference (got: $(chrome_nav_labels en | tr '\n' '|'))"
 for ed in pt en; do
   n="$(chrome_nav_hrefs "$ed" | grep -c . || true)"
   [ "$n" = "3" ] || flag "the $ed header must have exactly 3 destinations (found $n)"
