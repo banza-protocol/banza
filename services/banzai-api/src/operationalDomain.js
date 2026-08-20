@@ -15,7 +15,9 @@
 // Everything here is REQUEST-INDEPENDENT. What a particular reader asked about — subject, metric,
 // aggregation — is decision data and stays on the decision.
 
-import { STEP_ORDER } from "./validate.js";
+// The step ORDER only — deliberately not from validate.js, which carries the receipt store and a
+// PostgreSQL driver that this module has no use for.
+import { STEP_ORDER } from "./journeySteps.js";
 
 /**
  * The statistics BanzAI promises once comparable executions exist.
