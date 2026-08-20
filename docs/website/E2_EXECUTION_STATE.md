@@ -507,7 +507,7 @@ The committed inventory of all 43, with each guard's assertion, owning block, cl
 disposition, is `docs/website/phase2-pr32-guard-regressions.json`. The workflow-faithful runner is
 `tools/ci-guards-local-check.sh` / `make ci-guards-local-check`.
 
-**Remediation status: IN PROGRESS — 39 guards remediated and mutation-proven; 183 PASS · 8 FAIL · 1
+**Remediation status: IN PROGRESS — 41 guards remediated and mutation-proven; 185 PASS · 6 FAIL · 1
 NOT_RUN_LOCALLY of 192, from `make ci-guards-local-check`.**
 
 **The four non-copy failures were four different things, which is why they were diagnosed separately.**

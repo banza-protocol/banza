@@ -14,11 +14,11 @@
     "branch_introduced": 43,
     "non_e2_branch_introduced": 14,
     "e2_branch_introduced": 29,
-    "branch_fail_after_remediation": 8,
-    "remediated": 39,
+    "branch_fail_after_remediation": 6,
+    "remediated": 41,
     "not_run_locally": 1,
-    "reconciliation": "183 PASS + 8 FAIL + 1 NOT_RUN_LOCALLY = 192, from `make ci-guards-local-check` at committed HEAD on a clean tree. One of the 8 is `make assurance-check`, which passes on a clean tree and fails only while the working tree is dirty (its evidence bundle is tree-derived).",
-    "pass": 183,
+    "reconciliation": "185 PASS + 6 FAIL + 1 NOT_RUN_LOCALLY = 192, from `make ci-guards-local-check` at committed HEAD on a clean tree. One of the 6 is `make assurance-check`, green on a clean tree (its evidence is tree-derived) — it is listed only because the runner measured mid-edit.",
+    "pass": 185,
     "total_invocations": 192,
     "unit_of_count": "workflow-faithful CHECKS/INVOCATIONS, not distinct shell guards. The runner takes its list from the workflow files and now includes the `make` steps CI invokes, so one guard can appear once and one make target aggregates several. 192 is invocations; guards_surveyed=189 was the earlier script-only figure.",
     "superseded_counts": {
@@ -549,13 +549,16 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "E2",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (page prose became a shared, per-edition derivation)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "the runtime row is derived once (lib/runtimeStatusRow.ts) and consumed by BOTH status pages, each realizing it in its own edition; comments are stripped before scanning",
+      "mutation_evidence": "the wording removed from the derivation -> RED; the derivation ceasing to fetch the SSOT -> RED; the English page hardcoding its row -> RED; an independent posture claim returning as page prose -> RED."
     },
     {
       "guard": "check-banzai-semantic-answer-composition.sh",
@@ -958,13 +961,16 @@
       "origin_main_result": "PASS",
       "branch_result": "FAIL",
       "owning_block": "A-D/E1 or shared public surface",
-      "classification": "PENDING_TRIAGE",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (page prose became a shared, per-edition derivation)",
       "property_guarded": null,
       "historical_authority": null,
       "post_change_canonical_authority": null,
       "evidence": null,
       "disposition": null,
-      "remediation_commit": null
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "the BanzAI posture wording is checked where it is now emitted — the shared derivation — with comments stripped",
+      "mutation_evidence": "the wording removed from the derivation -> RED; the derivation ceasing to fetch the SSOT -> RED; the English page hardcoding its row -> RED; an independent posture claim returning as page prose -> RED."
     }
   ],
   "open_findings": [
@@ -1051,6 +1057,15 @@
     {
       "id": "derived-artifacts-inherit-their-source-admission",
       "detail": "lib/copyResolved.json is generated from glossaryTerms.ts, which is admitted to name the Layer-3 designated scheme. The derived file inherited the name and tripped the contamination gate. Admitted by path, on the ground that it is regenerated rather than authored — it adds no surface a human can write to. Proven narrow: the same stem placed in the OTHER derived artifact, which is not admitted, still fails.",
+      "disposition": "CLOSED"
+    },
+    {
+      "id": "a-comment-satisfied-a-copy-check",
+      "found_by": "mutation-proving the runtime SSOT family",
+      "severity": "assurance defect, caught by mutation",
+      "detail": "runtimeStatusRow.ts explains the SSOT in its header and quotes the posture wording while doing so. Both migrated clauses scanned the raw file, so the module could have stopped emitting every one of those phrases, and stopped calling the route entirely, and still passed on its own documentation. Two mutations survived and exposed it.",
+      "remediation": "both clauses strip comments before scanning.",
+      "lesson": "when a check moves from a page to the module behind it, the module's prose about itself becomes a false witness. The first mutation after a move should target the CODE, not the file.",
       "disposition": "CLOSED"
     }
   ],
