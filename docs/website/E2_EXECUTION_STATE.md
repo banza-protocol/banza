@@ -507,8 +507,31 @@ The committed inventory of all 43, with each guard's assertion, owning block, cl
 disposition, is `docs/website/phase2-pr32-guard-regressions.json`. The workflow-faithful runner is
 `tools/ci-guards-local-check.sh` / `make ci-guards-local-check`.
 
-**Remediation status: COMPLETE — GitHub CI green, 307/307 contexts SUCCESS. Locally 192 PASS · 0 FAIL ·
-1 NOT_RUN_LOCALLY from `make ci-guards-local-check` on a clean tree.**
+**Phase 2 status: MERGED AND DEPLOYED.**
+
+PR #32 merged into `main` as `93be456`, parents `6b6d226` (previous main) and `fc4ea6f` (approved head), by
+normal merge commit. All 307 GitHub contexts were SUCCESS at the merged head; the nine workflows the merge
+triggered on `main` all succeeded. Post-merge on `main`: guard gate 192 PASS · 0 FAIL · 1 NOT_RUN_LOCALLY,
+route registry 22 / 0 / 1, production build exit 0, no generated-file drift, tree clean.
+
+Production serves `93be456`. Two services were rebuilt — `website` and `banzai-api` — and the second needs
+its reason recorded: PR #32 changed 29 files under `services/banzai-api`, including the bilingual
+realization and the compiled KB, so deploying only the website would have served English routes backed by
+a Portuguese-only agent. Nothing else was touched: postgres, verification-api, the fetcher, llama-local and
+the reverse proxy kept their uptime and their revisions, and no migration ran.
+
+Before the deploy, `/en/reference` and `/en/banzai` were 404 — the English surface did not exist in
+production. Both now answer, in English, with the Portuguese slug still unaddressable under `/en`.
+
+The one live result worth stating plainly: asking BanzAI a question in English returns *"A deterministic
+answer is not yet available in English for this question"*, not a Portuguese answer. That is the designed
+behaviour and the point of the whole locale architecture — the deterministic knowledge base is
+Portuguese-first, and it declines in the reader's language rather than pretending.
+
+Everything above this line stays as written. The premature Q8 freeze, the withdrawn build evidence, the
+incomplete local guard coverage, the Makefile invocation defect and the CI/local divergence are the record
+of how this was actually done, and deleting them once the result is green would be the same class of error
+they document.
 
 **The local battery went green before CI did, and was wrong.** Five discrepancies, four of them defects in
 my own measurement rather than in the work: two generators that existed locally and were never tracked
