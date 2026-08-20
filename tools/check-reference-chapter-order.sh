@@ -22,7 +22,7 @@ elif grep -qiE '^en_US\.UTF-?8$' <<<"$LOCALES"; then export LC_ALL=en_US.UTF-8
 fi
 
 SRC="docs/reference/pt/BANZA_REFERENCIA.md"
-DEFS="website/lib/reference.ts"
+DEFS="website/lib/referenceSlugs.ts"
 
 fail=0
 ok()  { echo "  ok: $1"; }
@@ -36,7 +36,26 @@ TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
 CANON="o-que-e porque-existe principios arquitectura estado-protocolar confianca certificacao operadores operador-zero federacao governacao banzai programadores roteiro faq"
 
 echo "reference-chapter-order: CHAPTER_DEFS…"
-grep -oE '\{ num: [0-9]+, slug: "[a-z0-9-]+"' "$DEFS" | sed 's/.*slug: "//; s/"//' > "$TMP/defs.txt" || true
+grep -oE '\{ num: [0-9]+, pt: "[a-z0-9-]+"' "$DEFS" | sed 's/.*pt: "//; s/"//' > "$TMP/defs.txt" || true
+# Every chapter must also carry an English address, and it must not be the Portuguese slug reused: a
+# chapter addressed in Portuguese under /en is a chapter the English reader cannot reach in their own
+# edition. This is checked here because this is the guard that owns the chapter registry.
+grep -oE '\{ num: [0-9]+, pt: "[a-z0-9-]+", en: "[a-z0-9-]+"' "$DEFS" \
+  | sed -E 's/.*pt: "([a-z0-9-]+)", en: "([a-z0-9-]+)".*/\1 \2/' > "$TMP/pairs.txt" || true
+# Identical addresses are allowed only where the source DECLARES them locale-neutral (a proper name, an
+# acronym that is the same token in both languages). The guard reads that declaration rather than carrying
+# its own list, so a new identical slug is a decision someone made on purpose, not a copy-paste.
+NEUTRAL="$(sed -n 's/.*LOCALE_NEUTRAL_CHAPTER_SLUGS.*Object.freeze(\[\(.*\)\]).*/\1/p' "$DEFS" | tr -d '" ' | tr ',' ' ')"
+same="$(awk '$1 == $2 { print $1 }' "$TMP/pairs.txt" || true)"
+undeclared=""
+for c in $same; do
+  case " $NEUTRAL " in *" $c "*) : ;; *) undeclared="$undeclared $c" ;; esac
+done
+[ -z "$undeclared" ] \
+  && ok "every chapter carries its own English address (locale-neutral:${NEUTRAL:+ $NEUTRAL})" \
+  || bad "these chapters reuse the Portuguese slug without being declared locale-neutral:$undeclared"
+[ "$(grep -c . "$TMP/pairs.txt" || true)" = "$(grep -c . "$TMP/defs.txt" || true)" ] \
+  || bad "a chapter is missing its English address"
 DEF_ORDER=$(tr '\n' ' ' < "$TMP/defs.txt" | sed 's/ $//')
 [ "$DEF_ORDER" = "$CANON" ] \
   && ok "CHAPTER_DEFS is in the canonical order ($(wc -l < "$TMP/defs.txt" | tr -d ' ') chapters)" \

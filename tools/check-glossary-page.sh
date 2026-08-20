@@ -24,6 +24,13 @@ fail=0
 ok()   { printf 'PASS  %s\n' "$1"; }
 fl()   { printf 'FAIL  %s\n' "$1"; fail=1; }
 
+# The glossary terms became bilingual records in website/lib/glossaryTerms.ts, rendered by GlossaryView —
+# the page itself no longer contains a term's wording. Reading the page for a Portuguese literal therefore
+# tested a form that no longer exists, and could never have covered the English edition. The resolved copy
+# publishes each term's name in both editions.
+# shellcheck source=tools/_banzai-copy.sh
+. tools/_banzai-copy.sh
+
 NEG='não|nao|nunca|never|\bnot\b|\bnem\b|neither|nor|\bsem\b|ausência|ausencia|deixa de|isn'"'"'?t|does not|doesn'"'"'?t|proibid|forbidden|evitar|avoid|exemplo|example|«|»|\?'
 
 # Required CURRENT terms — asserted by their canonical PT headwords (a representative subset of the
@@ -74,7 +81,19 @@ if [ -f "$PAGE" ]; then ok "$PAGE present"; else fl "missing required page: $PAG
 echo "== [2/4] required current terms defined =="
 if [ -f "$PAGE" ]; then
   for term in "${REQUIRED_TERMS[@]}"; do
-    grep -qF "$term" "$PAGE" && ok "defines \"$term\"" || fl "missing required term: $term"
+    # A term counts as defined when the glossary REALIZES it in both editions and the page renders the
+    # glossary. A Portuguese name with an empty English one is a term half the readers cannot look up.
+    ids="$(copy_ids_saying pt "$term" | grep '^glossary/' | grep '\.name$' || true)"
+    if [ -z "$ids" ]; then
+      fl "missing required term: $term"
+    else
+      key="$(printf '%s' "$ids" | head -1)"; key="${key#glossary/}"; key="${key%.name}"
+      if copy_id_nonempty glossary "$key.name" en; then
+        ok "defines \"$term\" in both editions"
+      else
+        fl "required term has no English realization: $term"
+      fi
+    fi
   done
 fi
 

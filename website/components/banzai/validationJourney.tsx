@@ -12,6 +12,8 @@
 // Qwen only explains. `qwen_calls`/`external_model_calls` are 0 by construction on every receipt.
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { stepTitle, type ProgressResult } from "@/components/banzai/validationPresentation";
+import type { Locale } from "@/lib/i18n";
 import {
   VALIDATION_STEP_IDS,
   resolveOperatorIn,
@@ -34,86 +36,60 @@ export type StepId = ValidationStepId;
 
 export const STEP_ORDER: readonly StepId[] = VALIDATION_STEP_IDS;
 
+// Block E2/Q5 — ONE journey definition. `id`, `num` and `engine` are the journey itself and are the same
+// for every reader; the title and the description are looked up from `validationPresentation` BY STEP ID,
+// so there is never a second ordered array whose correctness depends on the two staying index-aligned.
 export interface StepMeta {
   id: StepId;
   num: number;
-  title: string;
   engine: string;
-  blurb: string;
 }
 
 export const STEPS: StepMeta[] = [
   {
     id: "discovery",
     num: 1,
-    title: "Discovery",
     engine: "banza-target-registry",
-    blurb:
-      "Resolve a implementação no registo técnico fechado e obtém o documento de discovery da sua origem canónica. O motor Rust decide se a superfície pública é reconhecível.",
   },
   {
     id: "manifest",
     num: 2,
-    title: "Manifest",
     engine: "banza-operator-manifest",
-    blurb:
-      "Obtém o operator manifest publicado no endpoint declarado e valida campos obrigatórios, tipos, endpoints e a invariante de segurança. Estado VALID/INCOMPLETE/INVALID/MALFORMED calculado em Rust.",
   },
   {
     id: "keys",
     num: 3,
-    title: "Keys",
     engine: "banza-trust",
-    blurb:
-      "Obtém a signed metadata, o key manifest e a lista de revogação publicados e avalia o material de chaves real: assinatura, chave delegada e revogação. O veredicto corre em Rust.",
   },
   {
     id: "conformance",
     num: 4,
-    title: "Conformidade",
     engine: "banza-conformance",
-    blurb:
-      "Obtém e verifica a evidência de conformidade publicada pela implementação, incluindo as invariantes financeiras do protocolo. PASS/FAIL técnico calculado em Rust.",
   },
   {
     id: "interoperability",
     num: 5,
-    title: "Interoperabilidade",
     engine: "banza-l2-readiness",
-    blurb:
-      "Obtém os artefactos de pagamento/refund, ledger e traces publicados e valida o fluxo, a idempotência, o double-entry e o settlement (L2 readiness). Estado calculado em Rust.",
   },
   {
     id: "trust",
     num: 6,
-    title: "Confiança",
     engine: "banza-trust",
-    blurb:
-      "Avalia o trust do protocolo a partir da signed metadata publicada: chaves delegadas, manifest, evidência de conformidade, registo e revogação. O estado de trust corre em Rust.",
   },
   {
     id: "federation",
     num: 7,
-    title: "Federação",
     engine: "banza-l3-readiness",
-    blurb:
-      "Obtém a metadata e o manifest de federação publicados e os traces cross-operator e prepara a interoperabilidade entre operadores (L3 readiness). Estado calculado em Rust.",
   },
   {
     id: "evidence",
     num: 8,
-    title: "Evidence Bundle",
     engine: "banza-evidence-bundle",
-    blurb:
-      "Obtém o Evidence Bundle publicado pela implementação e valida artefactos obrigatórios/em falta e a integridade SHA-256. Tudo calculado em Rust a partir do bundle obtido.",
   },
   {
     id: "certification",
     num: 9,
-    title: "Prontidão de certificação",
     engine: "banza-target-registry",
-    blurb:
-      "Agrega em Rust os veredictos das oito etapas técnicas numa Prontidão de Certificação (READY/BLOCKED). Não emite um Registo de Certificação e nunca devolve CERTIFIED (ADR-034 §4.10).",
   },
 ];
 
@@ -122,9 +98,9 @@ export const STEP_META: Record<StepId, StepMeta> = Object.fromEntries(STEPS.map(
   StepMeta
 >;
 
-export function stepLabel(id: StepId): string {
-  const m = STEP_META[id];
-  return `${m.num} ${m.title}`;
+/** "3 Keys" — the step's number is a fact, its name is the reader's. */
+export function stepLabel(id: StepId, locale: Locale): string {
+  return `${STEP_META[id].num} ${stepTitle(id, locale)}`;
 }
 
 // ---------------------------------------------------------------------------------------------------
@@ -153,15 +129,9 @@ function blankResults(): Record<StepId, StepState> {
   return Object.fromEntries(STEP_ORDER.map((id) => [id, { ...BLANK_STEP }])) as Record<StepId, StepState>;
 }
 
-export const STATUS_LABEL_PT: Record<StepStatus, string> = {
-  NOT_EVALUATED: "Não avaliado",
-  PENDING: "Pendente",
-  VERIFIED: "Verificado",
-  FAILED: "Falhou",
-  BLOCKED: "Bloqueado",
-  // ADR-030: a step out of scope for the declared profile — never a failure.
-  NOT_APPLICABLE: "Não aplicável",
-};
+// Block E2/Q5 — the step VERDICT is the engine's and stays a `StepStatus`; naming it moved to
+// `validationPresentation` (`stepStatusLabel`). ADR-030 still holds: NOT_APPLICABLE means a step is out of
+// scope for the declared profile — never a failure — and that meaning lives in the status, not the words.
 
 export function statusClass(s: StepStatus): string {
   return `st-${s.toLowerCase()}`;
@@ -198,18 +168,25 @@ interface ProgressCounts {
   current: StepId;
 }
 
-function progressPhrase(c: ProgressCounts, runningAll: boolean): string {
-  if (runningAll) return "A executar a jornada…";
-  if (c.evaluated === 0) return "Jornada por iniciar";
-  if (c.evaluated < c.total) return `${c.evaluated}/${c.total} etapas avaliadas`;
-  const parts: string[] = [];
-  if (c.verified) parts.push(`${c.verified} ${c.verified === 1 ? "verificada" : "verificadas"}`);
-  if (c.pending) parts.push(`${c.pending} ${c.pending === 1 ? "pendente" : "pendentes"}`);
-  if (c.failed) parts.push(`${c.failed} ${c.failed === 1 ? "falhada" : "falhadas"}`);
-  if (c.blocked) parts.push(`${c.blocked} ${c.blocked === 1 ? "bloqueada" : "bloqueadas"}`);
-  if (c.failed === 0 && c.pending === 0 && c.blocked === 1) return "Jornada concluída com um bloqueio";
-  if (c.failed === 0 && c.pending === 0 && c.blocked === 0) return "Jornada concluída · todas as etapas verificadas";
-  return `Jornada concluída · ${parts.join(" · ")}`;
+/**
+ * Block E2/Q5 — what the journey's counters MEAN, decided once from the counters alone with no locale in
+ * scope. Every edition receives the same kind and the same numbers; only the sentence differs. The order
+ * of the branches is the semantics and is preserved exactly: a single blocker and an all-verified run are
+ * distinct outcomes, and both are reported before the generic count summary.
+ */
+function progressResultFor(c: ProgressCounts, runningAll: boolean): ProgressResult {
+  if (runningAll) return { kind: "running" };
+  if (c.evaluated === 0) return { kind: "notStarted" };
+  if (c.evaluated < c.total) return { kind: "partial", evaluated: c.evaluated, total: c.total };
+  if (c.failed === 0 && c.pending === 0 && c.blocked === 1) return { kind: "doneOneBlocker" };
+  if (c.failed === 0 && c.pending === 0 && c.blocked === 0) return { kind: "doneAllVerified" };
+  return {
+    kind: "doneWithCounts",
+    verified: c.verified,
+    pending: c.pending,
+    failed: c.failed,
+    blocked: c.blocked,
+  };
 }
 
 // ---------------------------------------------------------------------------------------------------
@@ -272,7 +249,8 @@ export interface ValidationSession {
   exportJourney: () => void;
   exportStep: (id: StepId) => void;
   progress: ProgressCounts;
-  progressLabel: string;
+  /** The journey's progress as a SEMANTIC result. The wording is realized at the render site. */
+  progressResult: ProgressResult;
   blockers: ValidationBlocker[];
   evidence: ValidationEvidenceRef[];
   receipts: ServerOperationReceipt[];
@@ -570,7 +548,7 @@ export function useValidationSession(opts: {
     return "NOT_EVALUATED";
   }, [journeyReceipt, results]);
 
-  const progressLabel = useMemo(() => progressPhrase(progress, runningAll), [progress, runningAll]);
+  const progressResult = useMemo(() => progressResultFor(progress, runningAll), [progress, runningAll]);
 
   const blockers = useMemo<ValidationBlocker[]>(
     () =>
@@ -634,7 +612,7 @@ export function useValidationSession(opts: {
     exportJourney,
     exportStep,
     progress,
-    progressLabel,
+    progressResult,
     blockers,
     evidence,
     receipts,

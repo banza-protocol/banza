@@ -17,6 +17,8 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 PAGE="website/app/(pt)/registo-tecnico/page.tsx"
+ROUTES="website/lib/routeRegistry.ts"
+FOOTER_PROOF="website/lib/footer-navigation.test.ts"
 SITE="website/lib/site.ts"
 SITEMAP="website/app/sitemap.ts"
 
@@ -101,7 +103,22 @@ if [ -f "$PAGE" ]; then
 fi
 
 echo "== [6/7] linked from footer + sitemap =="
-grep -qE 'href:[[:space:]]*"/registo-tecnico"' "$SITE" && ok "footer links /registo-tecnico (site.ts)" || fl "footer (site.ts) does not link /registo-tecnico"
+# The footer no longer carries literal hrefs. Since the site chrome became locale-aware, an entry
+# declares a SEMANTIC target and the href is derived per edition from the route registry, so grepping
+# site.ts for the PT literal tested a form that no longer exists and said nothing about reachability.
+# The property is unchanged — the footer must reach the Technical Registry — so it is checked through
+# the mechanism that actually produces the link: the footer declares the route target, the registry
+# maps that route to /registo-tecnico, and an executed assertion pins the DERIVED href.
+FOOTER_BLOCK="$(awk '/^const FOOTER_ENTRIES/,/^\];/' "$SITE")"
+printf '%s' "$FOOTER_BLOCK" | grep -qE 'route:[[:space:]]*"TECHNICAL_REGISTRY"' \
+  && ok "footer declares the TECHNICAL_REGISTRY route target (site.ts)" \
+  || fl "footer (site.ts) does not reach the Technical Registry"
+grep -A4 -E 'id:[[:space:]]*"TECHNICAL_REGISTRY"' "$ROUTES" | grep -qE 'pt:[[:space:]]*"/registo-tecnico"' \
+  && ok "route registry maps TECHNICAL_REGISTRY → /registo-tecnico" \
+  || fl "route registry does not map TECHNICAL_REGISTRY to /registo-tecnico"
+grep -qE '"/registo-tecnico"' "$FOOTER_PROOF" \
+  && ok "derived footer href /registo-tecnico is pinned by an executed assertion" \
+  || fl "no executed assertion pins the derived footer href /registo-tecnico"
 grep -qE '"/registo-tecnico"' "$SITEMAP" && ok "sitemap lists /registo-tecnico" || fl "sitemap does not list /registo-tecnico"
 
 echo "== [7/7] layer written 'Camada N', never abbreviated (L2)/(L3) =="

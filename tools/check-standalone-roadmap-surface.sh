@@ -29,6 +29,7 @@ run_checks() {
   local sitemap="$root/website/app/sitemap.ts"
   local corpus="$root/docs/reference/pt/BANZA_REFERENCIA.md"
   local refts="$root/website/lib/reference.ts"
+  refslugs="website/lib/referenceSlugs.ts"
 
   # 1. No standalone /roteiro page.
   [ ! -e "$root/website/app/roteiro/page.tsx" ] || fail "website/app/roteiro/page.tsx must not exist — the standalone roadmap surface is retired (redirect only)"
@@ -67,8 +68,11 @@ run_checks() {
   # 6. The canonical evolution surface still exists.
   [ -f "$corpus" ] && grep -Eq '^## 14\. Evolução do Protocolo' "$corpus" \
     || fail "the canonical chapter §14 'Evolução do Protocolo' must exist in the reference corpus"
-  [ -f "$refts" ] && grep -Eq 'slug:[[:space:]]*"roteiro"' "$refts" \
-    || fail "the reference chapter registry must keep slug \"roteiro\" (route $CANON_ROUTE)"
+  # The chapter registry became a bilingual pairing in referenceSlugs.ts: one record carries the Portuguese
+  # address and its English counterpart. A single-language `slug:` line no longer exists, and the English
+  # route matters as much as the Portuguese one — an English reader must reach this chapter too.
+  [ -f "$refslugs" ] && grep -Eq 'pt:[[:space:]]*"roteiro",[[:space:]]*en:[[:space:]]*"[a-z0-9-]+"' "$refslugs" \
+    || fail "the reference chapter registry must keep the roteiro chapter with its English address (route $CANON_ROUTE)"
   ok "canonical evolution surface intact — §14 'Evolução do Protocolo' at $CANON_ROUTE"
 
   # 7. No served milestone-roadmap SVG. Everything under website/public is served by direct URL, so a

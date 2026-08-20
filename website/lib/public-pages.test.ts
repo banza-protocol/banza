@@ -16,11 +16,38 @@ const flat = (p: string) => strip(raw(p)).replace(/\s+/g, " ");
 
 const CERT = "app/(pt)/certificacao/page.tsx";
 const REG = "app/(pt)/registo-tecnico/page.tsx";
-const GLO = "app/(pt)/glossario/page.tsx";
+// The glossary's semantic content moved to lib/glossaryTerms.ts so PT and EN could share one set of
+// records. Reading the page source would now find only markup, so these assertions follow the content
+// to its owner — and become stronger for it: they inspect the actual term records rather than whatever
+// happens to appear as a string in a JSX file.
+const GLO = "lib/glossaryTerms.ts";
 
-const cert = flat(CERT);
-const reg = flat(REG);
-const glo = flat(GLO);
+/**
+ * Drop the phrasings that mention a retired concept only in order to DENY it.
+ *
+ * The blunt substring checks below exist to catch a retired architecture being reintroduced as current
+ * copy. A truthful denial is the opposite of that — "there is no certificate authority" is the protocol's
+ * own position, stated in both languages — and once the glossary carried Portuguese and English in one
+ * file, the English denial started tripping a check written when only Portuguese was present.
+ *
+ * The fix keeps the guard protecting BOTH locales rather than exempting either: negated mentions are
+ * removed first, so a POSITIVE reintroduction still fails while the denial passes. Anything not matched
+ * here is still checked verbatim.
+ */
+function withoutDenials(text: string): string {
+  const DENIALS = [
+    /sem (?:uma )?autoridade certificadora/gi,
+    /não (?:há|existe|tem) (?:uma )?autoridade certificadora/gi,
+    /(?:with )?no certificate authority/gi,
+    /without a certificate authority/gi,
+    /there is no certificate authority/gi,
+  ];
+  return DENIALS.reduce((acc, re) => acc.replace(re, " "), text);
+}
+
+const cert = withoutDenials(flat(CERT));
+const reg = withoutDenials(flat(REG));
+const glo = withoutDenials(flat(GLO));
 
 // Retired framings that must never appear as rendered content on any of the three pages. (Terms that the
 // pages legitimately mention only inside a negation — e.g. "não há autoridade certificadora" — are covered

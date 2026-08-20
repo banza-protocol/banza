@@ -1,0 +1,1133 @@
+{
+  "artifact": "PR #32 branch-introduced guard regressions",
+  "pr": 32,
+  "branch": "feat/website-phase2-bilingual-parity",
+  "surveyed_at_head": "9151bfc4a37c48c33dd1e20c64a74d59f87ad1f4",
+  "origin_main": "6b6d2261f4ec6c715e5b6cc9b275d5ff684c8645",
+  "survey_method": "every check-*.sh invoked by a workflow, run against branch and against origin/main in a clean worktree; all 43 confirmed CI-invoked with no argument differences",
+  "counts": {
+    "guards_surveyed": 189,
+    "origin_main_pass": 187,
+    "origin_main_fail": 2,
+    "branch_pass": 144,
+    "branch_fail": 45,
+    "branch_introduced": 43,
+    "non_e2_branch_introduced": 14,
+    "e2_branch_introduced": 29,
+    "branch_fail_after_remediation": 0,
+    "remediated": 46,
+    "not_run_locally": 1,
+    "reconciliation": "192 PASS + 0 FAIL + 1 NOT_RUN_LOCALLY, from `make ci-guards-local-check` on a clean tree; and every one of PR #32's 307 GitHub contexts SUCCESS.",
+    "pass": 192,
+    "total_invocations": 192,
+    "unit_of_count": "workflow-faithful CHECKS/INVOCATIONS, not distinct shell guards. The runner takes its list from the workflow files and now includes the `make` steps CI invokes, so one guard can appear once and one make target aggregates several. 192 is invocations; guards_surveyed=189 was the earlier script-only figure.",
+    "superseded_counts": {
+      "189_script_only": "the pre-repair total, before the runner modelled CI's `make` steps"
+    }
+  },
+  "baseline_failures_not_ours": [
+    {
+      "guard": "check-openapi-compatibility.sh",
+      "verdict": "HARNESS/INVOCATION_DEFECT",
+      "detail": "CI invokes it as `bash tools/check-openapi-compatibility.sh /tmp/openapi-old.yaml` after generating that file. Running it bare is not a valid invocation and must not be counted as a guard failure."
+    },
+    {
+      "guard": "check-open-governance.sh",
+      "verdict": "HARNESS_INVOCATION_DEFECT + branch-introduced negation gap (BOTH)",
+      "detail": "On origin/main it failed for one reason only: the token scan read website/app without skipping binaries and matched 'KB' inside compressed woff2 font data. On the branch it additionally failed because the guard's negation vocabulary had 'não', 'never' and 'not' but not English's determiner 'no' — and the English edition states its boundaries as 'there is no certificate authority' / 'NO CERTIFICATE AUTHORITY' / 'and no human approval'. Both fixed in e08cd68; verified green on origin/main unchanged and mutation-proven on the branch."
+    }
+  ],
+  "dominant_finding": "The dominant class is STALE_GUARD_AFTER_AUTHORIZED_CHANGE, not content loss. Blocks A-E replaced literal arrays and inline strings with derived, bilingual, semantic sources; the guards grep the old syntax. Three of the fourteen non-E2 failures were triaged in depth and all three carry the same shape: the semantics survive (often strengthened, now covering both editions) while the literal the guard greps has moved.",
+  "regressions": [
+    {
+      "guard": "check-adr-canonical-clean.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-adr-canonical-clean.sh",
+      "failing_assertion": [
+        "FAIL: reference to an ADR that does not exist:"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "A-D/E1 or shared public surface",
+      "classification": "REAL_CONTENT_DEFECT — stale reference after an authorized renumbering",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "root_cause": "the ADR clean-slate renumbered the tree; this branch cited the discovery-surface record by its pre-reset number (ADR-080). Its canonical record is ADR-029 (canonical discovery surface). The guard was right and the content was wrong.",
+      "remediation": "both references point at ADR-029. The scan was also widened to website source: the identical stale number sat in a .tsx comment the guard could not see, which is how it survived beside the one that failed.",
+      "mutation_evidence": "a non-existent ADR reintroduced in a document -> RED; and now in website source -> RED. The first attempt at this mutation landed on the .tsx file BEFORE the widening and passed vacuously — recorded because it is the exact failure mode a mutation is meant to expose.",
+      "final_result": "PASS"
+    },
+    {
+      "guard": "check-banzai-accessibility-check.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-accessibility-check.sh",
+      "failing_assertion": [
+        "FAIL: website/components/banzai/DraftValidationTool.tsx textarea must carry an aria-label",
+        "banzai-accessibility-check: FAIL"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved to the bilingual catalogue)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "reads website/lib/copyResolved.json — a multi-line-aware read of the textarea's accessible name",
+      "mutation_evidence": "each clause killed by its own mutation, exactly restored, green after.",
+      "root_cause": "not moved copy: the accessible name is present, but the element is written across several lines and the guard's grep was line-oriented. `[^>]*` also stopped at the `>` inside an inline arrow handler."
+    },
+    {
+      "guard": "check-banzai-agent-quality.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-agent-quality.sh",
+      "failing_assertion": [
+        "FAIL: AGENT_GUIA_TEXT must frame the canonical endpoint-originated journey (Rust/WASM engines verify)",
+        "BANZAI AGENT QUALITY CHECK FAILED ✗"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved to the bilingual catalogue)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "remediation": "reads agent.guiaText from the resolved copy in BOTH editions, and asserts the surface that serves it (BanzaiAgent.tsx renders agent.guiaText).",
+      "mutation_evidence": "PT claim removed -> RED; EN claim removed -> RED; the record left intact but disconnected from the reader surface -> RED.",
+      "final_result": "PASS"
+    },
+    {
+      "guard": "check-banzai-answer-rendering-ux.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-answer-rendering-ux.sh",
+      "failing_assertion": [
+        "FAIL: (13) no RECUSA SEGURA badge",
+        "FAIL: (14) source block does not show a count"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved / symbol renamed with the locale split)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "the refusal badge, whose id is built from the computed verdict — so the clause asserts the verdict exists, the badge realizes whatever it computed, and the catalogue words it in both editions; plus a bilingual accessible name on the source block",
+      "mutation_evidence": "killed by its own mutations, exactly restored, green after."
+    },
+    {
+      "guard": "check-banzai-canonical-protocol-vocabulary.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-canonical-protocol-vocabulary.sh",
+      "failing_assertion": [
+        "### check-banzai-certification-readiness-language-check.sh",
+        "FAIL: website/components/banzai/BanzaiValidationMode.tsx must show Prontidão de Certificação"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "DERIVATION_DEFECT — corpus changed without regeneration",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "root_cause": "this branch added two documents under docs/banzai/ (617f318, ed9d48d), which is inside the vocabulary generator's corpus, and never re-ran the generator. Nothing in the local workflow regenerates on corpus change, and Website Phase 2 never ran the guard battery.",
+      "remediation": "regenerated with tools/gen-banzai-vocabulary.mjs — 425 sources, all five artifacts rewritten deterministically. Not hand-patched.",
+      "mutation_evidence": "corpus appended without regeneration -> STALE; generated artifact tampered -> STALE; regenerate -> GREEN.",
+      "final_result": "PASS"
+    },
+    {
+      "guard": "check-banzai-certification-readiness-language-check.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-certification-readiness-language-check.sh",
+      "failing_assertion": [
+        "FAIL: website/components/banzai/BanzaiValidationMode.tsx must show Prontidão de Certificação",
+        "FAIL: website/components/banzai/BanzaiValidationMode.tsx must show Estado de Certificação"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved to the bilingual catalogue)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "reads website/lib/copyResolved.json — the readiness and certification-state labels the validation shell renders",
+      "mutation_evidence": "each clause killed by its own mutation, exactly restored, green after."
+    },
+    {
+      "guard": "check-banzai-contextual-actions-check.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-contextual-actions-check.sh",
+      "failing_assertion": [
+        "FAIL: missing \"Ver receipt\" action",
+        "FAIL: missing \"Executar novamente\" action"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved / symbol renamed with the locale split)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "the contextual action labels and the hasReceipt branch, read by action id",
+      "mutation_evidence": "killed by its own mutations, exactly restored, green after."
+    },
+    {
+      "guard": "check-banzai-contextual-right-panel-check.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-contextual-right-panel-check.sh",
+      "failing_assertion": [
+        "FAIL: header must carry static field: implementação",
+        "FAIL: header must carry static field: versão do protocolo"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved / symbol renamed with the locale split)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "the header's realized fields and the right panel's contextual section headings, by id AND wording",
+      "mutation_evidence": "killed by its own mutations, exactly restored, green after."
+    },
+    {
+      "guard": "check-banzai-degraded-mode-render.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-degraded-mode-render.sh",
+      "failing_assertion": [
+        "FAIL  the degraded branch must state an honest cause (degradado / modelo local indisponível)"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved to the bilingual catalogue)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "reads website/lib/copyResolved.json — the degraded cause, the engine-verdict ordering, and the unreported wording in BOTH editions",
+      "mutation_evidence": "each clause killed by its own mutation, exactly restored, green after.",
+      "root_cause": "two things. The honest-cause literals moved to the catalogue; and the ordering clause read literal labels through a helper that returns non-zero when it finds nothing, so under `set -e` the guard DIED MID-RUN — exit 1, no message, section 3 never printed. The engine verdict is now a named computation rather than ordered early-returns, which is the stronger shape."
+    },
+    {
+      "guard": "check-banzai-document-aware-agent.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-document-aware-agent.sh",
+      "failing_assertion": [
+        "FAIL: the UI must show a not-found state",
+        "FAIL: the 'Explicar com BanzAI' card link must pass ?doc="
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved / symbol renamed with the locale split)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "the not-found state in both editions, and the BanzAI deep link read at the shared reader surface (the record page is ONE component parameterized by edition; the route file only selects it)",
+      "mutation_evidence": "killed by its own mutation, exactly restored, green after."
+    },
+    {
+      "guard": "check-banzai-document-explanation-quality.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-document-explanation-quality.sh",
+      "failing_assertion": [
+        "ok: only a grounded, sourced trunk answer is cached (source-less/failed answers are never cached)",
+        "FAIL: the UI must tell the visitor when an answer was cut to fit the budget"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved / symbol renamed with the locale split)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "the truncation notice, required in both editions",
+      "mutation_evidence": "killed by its own mutation, exactly restored, green after."
+    },
+    {
+      "guard": "check-banzai-draft-validation-isolation-check.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-draft-validation-isolation-check.sh",
+      "failing_assertion": [
+        "FAIL: website/components/banzai/DraftValidationTool.tsx must render DRAFT_COPY.banner",
+        "FAIL: DRAFT_COPY.banner must be \"Rascunho local · não publicado · não produz evidência oficial\""
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved to the bilingual catalogue)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "root_cause": "grepped a module or component for a Portuguese literal that Block E2 moved into a bilingual catalogue.",
+      "remediation": "reads website/lib/copyResolved.json — the exact draft banner wording",
+      "mutation_evidence": "each clause killed by its own mutation of the catalogue, exactly restored, green after."
+    },
+    {
+      "guard": "check-banzai-global-answer-format-contract.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-global-answer-format-contract.sh",
+      "failing_assertion": [
+        "FAIL: website/components/banzai/SourceBlock.tsx must label the block 'FONTES USADAS'",
+        "GLOBAL ANSWER FORMAT CONTRACT CHECK FAILED ✗"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved to the bilingual catalogue)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "reads website/lib/copyResolved.json — the source block's heading",
+      "mutation_evidence": "each clause killed by its own mutation, exactly restored, green after."
+    },
+    {
+      "guard": "check-banzai-interface-transparency.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-interface-transparency.sh",
+      "failing_assertion": [
+        "FAIL: website/components/home/banzaiKb.ts must derive followUps from the per-answer generator",
+        "FAIL: website/components/banzai/suggestions.ts must define the safe-reframe set"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved / symbol renamed with the locale split)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "the adapter returns locale-free followUpSelections rather than realized text; the safe-reframe set became SAFE_REFRAME_IDS + safeReframeSuggestions(locale)",
+      "mutation_evidence": "killed by its own mutations, exactly restored, green after."
+    },
+    {
+      "guard": "check-banzai-no-qwen-decision-check.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-no-qwen-decision-check.sh",
+      "failing_assertion": [
+        "FAIL: website/components/banzai/BanzaiValidationMode.tsx explain prompt must state Qwen only explains, never decides",
+        "banzai-no-qwen-decision-check: FAIL"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved to the bilingual catalogue)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "reads website/lib/copyResolved.json — the explain affordance's boundary — the model explains, it does not decide",
+      "mutation_evidence": "each clause killed by its own mutation, exactly restored, green after."
+    },
+    {
+      "guard": "check-banzai-operator-experience.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-operator-experience.sh",
+      "failing_assertion": [
+        "banzai-operator-experience: ✓ OE9: onboarding validates version/profile/environment against the canonical Rust option sets (fail-closed)",
+        "banzai-operator-experience: ✗ OE11: website/components/banzai/BanzaiOnboardingMode.tsx must map candidate state enums to human labels"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved / symbol renamed with the locale split)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "CANDIDATE_STATE_LABEL / ORIGIN_STATE_LABEL became CANDIDATE_STATE_ID / ORIGIN_STATE_ID — the backend enum is keyed to a catalogue id rather than to one language's label",
+      "mutation_evidence": "killed by its own mutation, exactly restored, green after."
+    },
+    {
+      "guard": "check-banzai-operator-implementation-model-check.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-operator-implementation-model-check.sh",
+      "failing_assertion": [
+        "FAIL: Fase 0 must render the operator selector (1 · Operador) before the implementation selector (2 · Implementação)",
+        "banzai-operator-implementation-model-check: FAIL"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved / symbol renamed with the locale split)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "Fase 0's step ORDER read from the ids the component renders (setup.step1 before setup.step2)",
+      "mutation_evidence": "killed by its own mutations, exactly restored, green after."
+    },
+    {
+      "guard": "check-banzai-operator-journey.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-operator-journey.sh",
+      "failing_assertion": [
+        "FAIL: website/components/banzai/banzai-agent.ts SESSION_NOTICE must state the session is cleared on reload (rule 20)",
+        "BANZAI OPERATOR JOURNEY CHECK FAILED ✗"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved to the bilingual catalogue)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "root_cause": "grepped a module or component for a Portuguese literal that Block E2 moved into a bilingual catalogue.",
+      "remediation": "reads website/lib/copyResolved.json — the session notice's reload clause, in both editions",
+      "mutation_evidence": "each clause killed by its own mutation of the catalogue, exactly restored, green after."
+    },
+    {
+      "guard": "check-banzai-operator-validation-mode-check.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-operator-validation-mode-check.sh",
+      "failing_assertion": [
+        "FAIL: MODES validation mode must be labelled \"Validar operador\"",
+        "FAIL: VALIDATION_COPY.modeLabel must be \"Validar operador\""
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved to the bilingual catalogue)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "root_cause": "grepped the module for a Portuguese literal. Block E2 moved the sentence into a bilingual catalogue, so the module no longer contains it — and the guard could only ever have checked Portuguese.",
+      "remediation": "reads website/lib/copyResolved.json — PT and EN mode label + validation header, read from the agent catalogue"
+    },
+    {
+      "guard": "check-banzai-operator-zero-only-ui.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-operator-zero-only-ui.sh",
+      "failing_assertion": [
+        "FAIL: the draft tool must state 'Não é exemplo oficial'",
+        "FAIL: website/components/banzai/banzai-agent.ts must define onlyOperatorHint = 'Operador disponível para demonstração: Operador Zero'"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved to the bilingual catalogue)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "root_cause": "grepped a module or component for a Portuguese literal that Block E2 moved into a bilingual catalogue.",
+      "remediation": "reads website/lib/copyResolved.json — the OZ-only demo hint, the closed-registry prompt and the draft tool's not-an-official-example note",
+      "mutation_evidence": "each clause killed by its own mutation of the catalogue, exactly restored, green after."
+    },
+    {
+      "guard": "check-banzai-primary-interface-architecture.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-primary-interface-architecture.sh",
+      "failing_assertion": [
+        "FAIL: banzai-agent.ts must carry the canonical 4-clause phrase",
+        "FAIL: UI subtitle must be 'Interface interactiva do protocolo …'"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved to the bilingual catalogue)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "root_cause": "grepped the module for a Portuguese literal. Block E2 moved the sentence into a bilingual catalogue, so the module no longer contains it — and the guard could only ever have checked Portuguese.",
+      "remediation": "reads website/lib/copyResolved.json — the 4-clause boundary phrase in BOTH editions + the subtitle"
+    },
+    {
+      "guard": "check-banzai-public-interface.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-public-interface.sh",
+      "failing_assertion": [
+        "FAIL: public status badge must name the configured default engine ('por omissão: Qwen local')",
+        "BANZAI PUBLIC INTERFACE CHECK FAILED ✗"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved to the bilingual catalogue)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "root_cause": "grepped the module for a Portuguese literal. Block E2 moved the sentence into a bilingual catalogue, so the module no longer contains it — and the guard could only ever have checked Portuguese.",
+      "remediation": "reads website/lib/copyResolved.json — the configured-default engine badge, and the over-stating wording it forbids"
+    },
+    {
+      "guard": "check-banzai-public-surface-final-consistency.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-public-surface-final-consistency.sh",
+      "failing_assertion": [
+        "FAIL: aggregated guard failed: check-banzai-primary-interface-architecture.sh (see below)",
+        "PRIMARY INTERFACE ARCHITECTURE CHECK FAILED ✗"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "PENDING_TRIAGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null
+    },
+    {
+      "guard": "check-banzai-runtime-ssot.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-runtime-ssot.sh",
+      "failing_assertion": [
+        "FAIL  /estado must fetch the runtime SSOT (/banzai/runtime)",
+        "banzai-runtime-ssot: FAIL — the runtime SSOT contract (ADR-036) drifted."
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (page prose became a shared, per-edition derivation)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "the runtime row is derived once (lib/runtimeStatusRow.ts) and consumed by BOTH status pages, each realizing it in its own edition; comments are stripped before scanning",
+      "mutation_evidence": "the wording removed from the derivation -> RED; the derivation ceasing to fetch the SSOT -> RED; the English page hardcoding its row -> RED; an independent posture claim returning as page prose -> RED."
+    },
+    {
+      "guard": "check-banzai-semantic-answer-composition.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-semantic-answer-composition.sh",
+      "failing_assertion": [
+        "FAIL: website/components/banzai/BanzaiAgent.tsx must define ThinkingIndicator + THINKING_STAGES",
+        "SEMANTIC ANSWER COMPOSITION CHECK FAILED ✗"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved / symbol renamed with the locale split)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "THINKING_STAGES became THINKING_STAGE_IDS so the indicator speaks the reader's language",
+      "mutation_evidence": "killed by its own mutations, exactly restored, green after."
+    },
+    {
+      "guard": "check-banzai-session-context-robustness.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-session-context-robustness.sh",
+      "failing_assertion": [
+        "ok: a FAILED Model B reference is never a positive navigation state",
+        "ok: the FAILED reference is surfaced as a typed pointer to Model B"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved / symbol renamed with the locale split)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "the per-step evidence heading, read by id",
+      "mutation_evidence": "killed by its own mutation, exactly restored, green after."
+    },
+    {
+      "guard": "check-banzai-upload-copy.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-upload-copy.sh",
+      "failing_assertion": [
+        "FAIL: website/components/banzai/DraftValidationTool.tsx must render the permanent draft banner (DRAFT_COPY.banner)",
+        "FAIL: website/components/banzai/banzai-agent.ts DRAFT_COPY.banner must read 'Rascunho local · não publicado · não produz evidência oficial'"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved to the bilingual catalogue)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "root_cause": "grepped a module or component for a Portuguese literal that Block E2 moved into a bilingual catalogue.",
+      "remediation": "reads website/lib/copyResolved.json — the draft banner in BOTH editions, the read-only-this-session note and the result's journey boundary",
+      "mutation_evidence": "each clause killed by its own mutation of the catalogue, exactly restored, green after."
+    },
+    {
+      "guard": "check-banzai-workbench-navigation-orchestration.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-banzai-workbench-navigation-orchestration.sh",
+      "failing_assertion": [
+        "FAIL: website/components/banzai/banzai-agent.ts must define an ask mode named 'Perguntar ao BanzAI'",
+        "FAIL: website/components/banzai/BanzaiAgent.tsx must show the validation-journey divider"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved / symbol renamed with the locale split)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "the ask-mode name in both editions; the validation-journey divider read as a catalogue id, which is also how its ORDER is now established",
+      "mutation_evidence": "killed by its own mutations, exactly restored, green after."
+    },
+    {
+      "guard": "check-footer-banzai-zero-navigation.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-footer-banzai-zero-navigation.sh",
+      "failing_assertion": [
+        "check-footer-banzai-zero-navigation: FAILED (see NEEDS_FIX above)."
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "A-D/E1 or shared public surface",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (chrome literals)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "root_cause": "grepped site.ts for literal href/label pairs. The chrome now declares semantic route targets and derives the pathname per edition, so the literal form is gone — and the guard only ever saw Portuguese.",
+      "remediation": "reads website/lib/chromeResolved.json, the resolved chrome, and checks BOTH editions.",
+      "mutation_evidence": "footer BanzAI retargeted to TRUST -> both editions flagged; English registry label corrupted -> English clause flagged; Operador Zero added to the header -> both header clauses flagged. Each exactly restored, green after."
+    },
+    {
+      "guard": "check-global-navigation-final.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-global-navigation-final.sh",
+      "failing_assertion": [
+        "### check-glossary-page.sh",
+        "FAIL  missing required term: Operador"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "A-D/E1 or shared public surface",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (chrome + chapter registry)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "reads the RESOLVED header in both editions — count, destinations, labels and exact order",
+      "mutation_evidence": "nav order changed -> both editions RED; the English chapter route deleted -> RED; a chapter's English address emptied -> RED.",
+      "root_cause": "`navPrimary` became a function call, so slicing site.ts between `export const navPrimary` and `];` returned ONE line containing no hrefs. Every count and destination check then read an empty string — the guard was not failing on a wrong answer, it was asking a question about nothing. It also died silently at a `grep -c` assignment under set -e, printing no output at all."
+    },
+    {
+      "guard": "check-glossary-page.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-glossary-page.sh",
+      "failing_assertion": [
+        "FAIL  missing required term: Operador",
+        "FAIL  missing required term: Implementação"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "A-D/E1 or shared public surface",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (semantic records replaced page literals)",
+      "property_guarded": "the glossary defines the required current terms, including operator != implementation",
+      "historical_authority": "literal terms inside website/app/(pt)/glossario/page.tsx",
+      "post_change_canonical_authority": "website/lib/glossaryTerms.ts — 25 records, each name: { pt, en }",
+      "evidence": "line 52: name: { pt: \"Operador\", en: \"Operator\" }. The concept is present in both editions; the page renders from the record.",
+      "disposition": "migrate to glossaryTerms.ts; require each term in BOTH editions, and keep proving operator != implementation",
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "required terms are realized by the bilingual glossary records, and each must have a NON-EMPTY English realization — a term with a Portuguese name and a blank English one is one half the readers cannot look up",
+      "mutation_evidence": "killed by its own mutations, exactly restored, green after."
+    },
+    {
+      "guard": "check-home-readiness.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-home-readiness.sh",
+      "failing_assertion": [
+        "FAIL  check-retired-page-removal",
+        "ok:   home_section_order_failures                = 0"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "A-D/E1 or shared public surface",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (chrome + bilingual chapter slugs)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "root_cause": "two metrics. reference_cta_wrong_targets tested the label's own LINE for '/referencia', but the chrome now declares a semantic target and derives the path per edition. canonical_o_que_e_sources counted a single-language `slug:` line in reference.ts, but the chapter slugs became bilingual records in referenceSlugs.ts.",
+      "remediation": "the CTA is counted from the resolved chrome in both editions; the chapter metric reads the bilingual record and additionally requires the English counterpart to be an English slug.",
+      "mutation_evidence": "CTA retargeted to a valid but semantically wrong Reference destination (chapter 1) -> RED in both editions; the English Reference route replaced by the Portuguese slug under /en -> RED; the English chapter slug replaced by the Portuguese one -> RED.",
+      "final_result": "PASS"
+    },
+    {
+      "guard": "check-homepage-final-validation.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-homepage-final-validation.sh",
+      "failing_assertion": [
+        "### check-open-governance.sh"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "A-D/E1 or shared public surface",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (semantic records replaced page literals)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "the header's three destinations and their labels, in BOTH editions, from the resolved chrome",
+      "mutation_evidence": "killed by its own mutations, exactly restored, green after."
+    },
+    {
+      "guard": "check-operator-contamination.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-operator-contamination.sh",
+      "failing_assertion": [
+        "FAIL  [contamination] 3 violation(s):"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "CONTAMINATION_ADMISSION",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": "the institutional-attribution allowlist() — three path-scoped admissions: glossaryTerms.ts (E1 moved the 25 terms out of the admitted PT page into bilingual records), app/en/license/page.tsx (counterpart of the admitted (pt)/licenca — a licence page names its trademark holder because the holder is the licence's subject), blockE1Surfaces.test.tsx (the harness asserts both editions carry the attribution, same basis as the admitted corePageParity.test.ts)",
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": "5164ec3 + this commit",
+      "mutation_evidence": "CORRECT mutation, on the property the gate owns: the designated-scheme stem placed on an UNADMITTED English page (website/app/en/glossary/page.tsx) -> RED ('forbidden operator brand in contents'), exact restore, green. This proves the admission is path-scoped and not a broad English allowance. The earlier payment-brand mutation is NOT evidence for this guard: that brand class is scanned only over contracts/ and conformance/ (see open_findings).",
+      "final_result": "PASS",
+      "remediation": "admits the DERIVED lib/copyResolved.json, generated from the already-admitted glossaryTerms.ts"
+    },
+    {
+      "guard": "check-operator-zero-realistic-journey.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-operator-zero-realistic-journey.sh",
+      "failing_assertion": [
+        "FAIL: (6) the validation shell must surface the OZ-only demo hint (VALIDATION_COPY.onlyOperatorHint)",
+        "FAIL: (7) the shell must show the per-step evidence references (st.evidence_refs.map)"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "E2",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (copy moved / symbol renamed with the locale split)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "the OZ-only demo hint and the per-step evidence references, read by id",
+      "mutation_evidence": "killed by its own mutation, exactly restored, green after."
+    },
+    {
+      "guard": "check-public-surface-canonical.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-public-surface-canonical.sh",
+      "failing_assertion": [
+        "FAIL  positive claim of a retired framing — central certifying authority (BANZA CA):",
+        "m2-19g-public-surface: FAIL — the rendered public surface drifted from the M2.19G canonical model."
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "A-D/E1 or shared public surface",
+      "classification": "NEGATION_UNAWARE_IN_ENGLISH — not a content regression",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "root_cause": "all three hits were the English trust page DENYING a certificate authority. The negation list carried Portuguese and several English forms but not the determiner 'no', which is how English states this boundary. A bare \\\\bno\\\\b cannot be added globally: Portuguese 'no' is 'em o'.",
+      "remediation": "an English-scoped negation marker, applied only on English surfaces, with a self-test that must accept the denial and still reject the assertion.",
+      "mutation_evidence": "a genuine positive claim on the English trust page -> RED; the same claim on the Portuguese page -> RED. BOTH SURVIVED FIRST: the filter interpolated the phrase alternation unparenthesised, so `.*no\\\\s+.{0,30}A|B|C` degenerated into a bare match on C and silenced every line containing the phrase. Fixed here and in check-open-governance.sh, which carried the same latent shape.",
+      "final_result": "PASS"
+    },
+    {
+      "guard": "check-reference-chapter-order.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-reference-chapter-order.sh",
+      "failing_assertion": [
+        "FAIL: CHAPTER_DEFS order is wrong.",
+        "FAIL: chapter numbers are wrong:"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "A-D/E1 or shared public surface",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (chapter registry became a bilingual pairing)",
+      "property_guarded": "the Reference has 15 chapters in the canonical order, Operador Zero at 09",
+      "historical_authority": "literal `{ num: N, slug: \"x\" }` array in website/lib/reference.ts",
+      "post_change_canonical_authority": "website/lib/referenceSlugs.ts REFERENCE_CHAPTER_SLUGS (num + pt + en); CHAPTER_DEFS derives from it",
+      "evidence": "the guard reports `actual: (empty)` — it matched zero chapters, not a wrong order. Its own later assertions still pass: 'Operador Zero is chapter 9 in the source', 'Operadores is chapter 8'.",
+      "disposition": "migrate the guard to REFERENCE_CHAPTER_SLUGS; assert order, numbering AND that both locales' slugs are present",
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "reads the bilingual chapter pairing (referenceSlugs.ts) for the canonical order, and additionally requires every chapter to carry its OWN English address"
+    },
+    {
+      "guard": "check-reference-information-architecture.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-reference-information-architecture.sh",
+      "failing_assertion": [
+        "### check-retired-page-removal.sh"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "A-D/E1 or shared public surface",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (chrome + chapter registry)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "reads the bilingual chapter pairing; slug stability is bilingual, and the English chapter route must exist as its own segment",
+      "mutation_evidence": "nav order changed -> both editions RED; the English chapter route deleted -> RED; a chapter's English address emptied -> RED."
+    },
+    {
+      "guard": "check-retired-page-removal.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-retired-page-removal.sh",
+      "failing_assertion": [
+        "### check-standalone-roadmap-surface.sh",
+        "FAIL: the reference chapter registry must keep slug \"roteiro\" (route /referencia/roteiro)"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "A-D/E1 or shared public surface",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE + silent death under set -e",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "root_cause": "same two stale forms as home-readiness. Worse, its chapter-slug clause assigned from `grep -c`, which returns non-zero on a count of zero — under `set -e` the guard ended at that assignment, printing its banner and nothing else.",
+      "remediation": "chrome clauses read the resolved chrome in both editions and additionally forbid either CTA landing on a chapter; the slug clause reads the bilingual record and tolerates not-found.",
+      "mutation_evidence": "shared with check-home-readiness above; all three killed.",
+      "final_result": "PASS"
+    },
+    {
+      "guard": "check-standalone-roadmap-surface.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-standalone-roadmap-surface.sh",
+      "failing_assertion": [
+        "FAIL: the reference chapter registry must keep slug \"roteiro\" (route /referencia/roteiro)"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "A-D/E1 or shared public surface",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (chapter registry became a bilingual pairing)",
+      "property_guarded": "the standalone /roteiro page is retired and §14 is the only narrative evolution surface",
+      "historical_authority": "slug \"roteiro\" present in website/lib/reference.ts",
+      "post_change_canonical_authority": "website/lib/referenceSlugs.ts line 31: { num: 14, pt: \"roteiro\", en: \"protocol-evolution\" }",
+      "evidence": "the slug exists with its English counterpart; only the file holding it changed",
+      "disposition": "point the guard at referenceSlugs.ts; keep the retirement + redirect assertions unchanged",
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "the roteiro chapter is checked as a bilingual record, English address included"
+    },
+    {
+      "guard": "check-technical-registry-naming-parity.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-technical-registry-naming-parity.sh",
+      "failing_assertion": [
+        "FAIL  website/app/(pt)/glossario/page.tsx must use the PT term 'Registo Técnico'",
+        "FAIL  glossary must define the canonical mapping (name: Registo Técnico, en: BANZA Technical Registry)"
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "A-D/E1 or shared public surface",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (semantic records replaced page literals)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "the registry's canonical PT/EN naming, read from the glossary record that owns it",
+      "mutation_evidence": "killed by its own mutations, exactly restored, green after."
+    },
+    {
+      "guard": "check-technical-registry-page.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-technical-registry-page.sh",
+      "failing_assertion": [
+        "FAIL  footer (site.ts) does not link /registo-tecnico",
+        "technical-registry-page: FAIL — /registo-tecnico canonical content drifted (M2.19G / ADR-033)."
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "A-D/E1 or shared public surface",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "triaged_not_by_grep": "the failure read like a navigation regression, so it was checked against the derived value rather than the source: the Portuguese footer still resolves /registo-tecnico, pinned by an executed assertion (lib/footer-navigation.test.ts). No reader lost the link.",
+      "root_cause": "the guard grepped site.ts for a literal href. Since the chrome became locale-aware an entry declares a semantic route target and the href is derived per edition, so the literal form no longer exists and the check had stopped testing reachability.",
+      "remediation": "the same property, checked through the mechanism that now produces the link: the footer declares the route target, the registry maps it to /registo-tecnico, and an executed assertion pins the derived href.",
+      "mutation_evidence": "three clauses, three distinct mutations, each red for its own reason and exactly restored: footer target retargeted to BANZAI -> 'does not reach the Technical Registry'; registry PT path changed -> 'does not map'; the derived-href assertion deleted from the test -> 'no executed assertion pins'. No clause is vacuous."
+    },
+    {
+      "guard": "check-website-public-copy-current.sh",
+      "workflow": ".github/workflows/identity-guard.yml",
+      "ci_invocation": "bash tools/check-website-public-copy-current.sh",
+      "failing_assertion": [
+        "check-website-public-copy-current: FAILED — public copy drifted from the implemented architecture."
+      ],
+      "origin_main_result": "PASS",
+      "branch_result": "FAIL",
+      "owning_block": "A-D/E1 or shared public surface",
+      "classification": "STALE_GUARD_AFTER_AUTHORIZED_CHANGE (page prose became a shared, per-edition derivation)",
+      "property_guarded": null,
+      "historical_authority": null,
+      "post_change_canonical_authority": null,
+      "evidence": null,
+      "disposition": null,
+      "remediation_commit": null,
+      "final_result": "PASS",
+      "remediation": "the BanzAI posture wording is checked where it is now emitted — the shared derivation — with comments stripped",
+      "mutation_evidence": "the wording removed from the derivation -> RED; the derivation ceasing to fetch the SSOT -> RED; the English page hardcoding its row -> RED; an independent posture claim returning as page prose -> RED."
+    }
+  ],
+  "open_findings": [
+    {
+      "id": "payment-brand-scan-is-normative-surface-only",
+      "severity": "documentation defect, corrected; scope limit recorded",
+      "pre_existing_on_origin_main": true,
+      "detail": "The payment-operator brand list IS consumed — by the L1b scan, over contracts/ and conformance/ only. It is NOT repository-wide. Nine comments in banza-repo-guards claimed those brands 'stay blocked everywhere', which is false for the website surface, and my first analysis compounded it by reporting the constant as never read. Both corrected: the comments now say what the scan actually covers.",
+      "consequence": "a payment-operator brand on a website page is not caught by this gate. That is the gate's designed scope, now accurately documented rather than overstated.",
+      "disposition": "CLOSED — reclassified",
+      "resolution": "Repository truth established: the list IS consumed, by the L1b scan, and its ownership is exactly contracts/ and conformance/. The defect was never the code — it was nine comments asserting a broader 'blocked everywhere' property the executable code does not own. All nine are corrected to state the scan's real scope. Nothing now claims repository-wide payment-brand blocking.",
+      "superseded_claim": "my first report that the constant 'is never read'. False: it is read at the L1b scan. Kept here rather than erased, because the wrong claim is what made the surviving mutation look like dead code.",
+      "still_true": "a payment-operator brand on a website page is outside this gate's scope. That is its design, now accurately documented. Widening it would need its own change and its own survey."
+    },
+    {
+      "id": "contamination-admission-is-path-scoped-not-clause-scoped",
+      "severity": "design limit of the gate, recorded",
+      "detail": "the institutional-attribution allowlist admits the designated-scheme stem for a WHOLE FILE. Within an admitted page it cannot distinguish a legitimate attribution from an illegitimate claim: asserting that the scheme operates BANZA as its own payment network on the admitted English licence page does not fail the gate.",
+      "consequence": "the three admissions are correctly scoped to paths whose Portuguese counterparts are already admitted, but they do inherit this limit.",
+      "disposition": "clause-scoped admission would be a redesign of the gate; out of this PR's scope."
+    },
+    {
+      "id": "english-chrome-derivation-was-never-executed",
+      "found_by": "triage of check-technical-registry-page.sh",
+      "severity": "real coverage gap in this branch, now closed",
+      "detail": "the chrome became locale-aware, but navPrimary/footerColumns are the Portuguese realizations, so every existing assertion read one edition and the English derivation was produced by code no test ran. A withdrawn English route would have fallen back to the Portuguese path and read as a working link.",
+      "remediation": "lib/chromeLocaleDerivation.test.ts asserts both editions: same shape, own language, no silent Portuguese fallback, pathnames from the registry rather than from prefixing, locale-neutral destinations unchanged.",
+      "mutation_evidence": "English route withdrawn -> fallback + registry checks red; English URL built by prefixing the Portuguese slug -> registry check red; empty English label -> label check red. Two of the five assertions hold by construction today and are documented as such in the file rather than claimed as proven.",
+      "disposition": "CLOSED"
+    },
+    {
+      "id": "make-was-unparseable-on-this-branch-and-the-runner-did-not-look",
+      "found_by": "adding a make target while migrating the chrome guards",
+      "severity": "CI-breaking defect introduced by this branch, now fixed",
+      "detail": "commit 7e630d9 overwrote the `## identity-check:` doc line and left its recipe orphaned, so the Makefile stopped parsing. Every `make` invocation on this branch failed at parse — including the three assurance gates identity-guard.yml runs. It went unnoticed because the runner extracted only `bash tools/check-*.sh` invocations from the workflows and ignored `run: make` steps, and because I reported the runner as wired into make without ever invoking it that way.",
+      "remediation": "Makefile repaired; the runner now extracts and executes the `make` steps too, which is why the invocation total moved from 189 to 192.",
+      "lesson": "a local model of CI that runs a convenient subset will report a clean count over a broken build. Claiming a target is wired is not the same as running it.",
+      "disposition": "CLOSED"
+    },
+    {
+      "id": "copy-guards-were-structurally-blind-to-english",
+      "severity": "coverage gap, closed for the guards migrated so far",
+      "detail": "every BanzAI copy guard asserted a Portuguese literal in a module. Even before Block E2 moved the strings, that design could not see the English edition at all — so once English copy existed it was ungoverned by construction.",
+      "remediation": "the catalogues are realized once into lib/copyResolved.json and guards assert through it, which makes the English clause writable at all.",
+      "mutation_evidence": "changing ONLY the English validation-mode label now turns the guard red. Under the previous design that mutation was invisible.",
+      "disposition": "IN PROGRESS — applies to each copy guard as it is migrated"
+    },
+    {
+      "id": "a-guard-can-die-silently-under-set-e",
+      "found_by": "check-banzai-degraded-mode-render.sh",
+      "severity": "assurance-legibility defect",
+      "detail": "assigning from a helper that greps means a not-found result is a non-zero status, and under `set -euo pipefail` that ends the script. The guard exited 1 with its last section never printed and no failure text at all, so the inventory recorded it as failing without a reason.",
+      "remediation": "the lookups tolerate not-found and report it. A guard that dies is worse than one that fails, because there is nothing to read.",
+      "disposition": "CLOSED for three guards; the shape is `x=$(grep -c ...)` or `x=$(helper-that-greps)` under set -e",
+      "instances": [
+        "check-banzai-degraded-mode-render.sh",
+        "check-retired-page-removal.sh (chapter-slug clause)",
+        "check-home-readiness.sh (same clause, via the sub-guard)"
+      ]
+    },
+    {
+      "id": "unparenthesised-alternation-silenced-a-whole-guard-clause",
+      "found_by": "mutation-proving check-public-surface-canonical.sh",
+      "severity": "assurance defect I introduced, caught before commit",
+      "detail": "interpolating a multi-alternative phrase regex into a longer pattern without parentheses turns `PREFIX.*(A|B|C)` into `PREFIX.*A` OR `B` OR `C`. The bare last alternative then matches any line containing the phrase, so the exclusion filter silenced exactly the lines the guard exists to catch. Two mutations survived and exposed it.",
+      "remediation": "parenthesised in check-public-surface-canonical.sh and in check-open-governance.sh, which carried the same shape from the earlier English-negation fix.",
+      "lesson": "a negation/exclusion filter must be mutation-proven with a real positive claim, not only with the false positive it was written to clear.",
+      "disposition": "CLOSED"
+    },
+    {
+      "id": "glossary-added-to-the-resolved-copy-surface",
+      "detail": "the glossary is a table of RECORDS, not a flat id→text map, so it was flattened into the same shape (one entry per reader-visible field). Guards ask it the same way they ask every other catalogue instead of each re-parsing the term array.",
+      "disposition": "CLOSED"
+    },
+    {
+      "id": "two-chapters-share-an-address-and-nothing-said-so",
+      "found_by": "adding the English-address clause to check-reference-chapter-order.sh",
+      "severity": "latent ambiguity, now explicit",
+      "detail": "chapters 12 (banzai) and 15 (faq) use the same address in both editions. That is correct — a proper name and an acronym that is the same token in Portuguese — but nothing recorded it, so an accidental copy-paste would have been indistinguishable from a deliberate choice.",
+      "remediation": "LOCALE_NEUTRAL_CHAPTER_SLUGS declares the exception in the slug source, and the guard reads that declaration instead of carrying its own list. Adding a new identical slug now requires declaring it.",
+      "mutation_evidence": "an undeclared chapter reusing its Portuguese slug -> RED, naming that chapter.",
+      "disposition": "CLOSED"
+    },
+    {
+      "id": "derived-artifacts-inherit-their-source-admission",
+      "detail": "lib/copyResolved.json is generated from glossaryTerms.ts, which is admitted to name the Layer-3 designated scheme. The derived file inherited the name and tripped the contamination gate. Admitted by path, on the ground that it is regenerated rather than authored — it adds no surface a human can write to. Proven narrow: the same stem placed in the OTHER derived artifact, which is not admitted, still fails.",
+      "disposition": "CLOSED"
+    },
+    {
+      "id": "a-comment-satisfied-a-copy-check",
+      "found_by": "mutation-proving the runtime SSOT family",
+      "severity": "assurance defect, caught by mutation",
+      "detail": "runtimeStatusRow.ts explains the SSOT in its header and quotes the posture wording while doing so. Both migrated clauses scanned the raw file, so the module could have stopped emitting every one of those phrases, and stopped calling the route entirely, and still passed on its own documentation. Two mutations survived and exposed it.",
+      "remediation": "both clauses strip comments before scanning.",
+      "lesson": "when a check moves from a page to the module behind it, the module's prose about itself becomes a false witness. The first mutation after a move should target the CODE, not the file.",
+      "disposition": "CLOSED"
+    }
+  ],
+  "superseded_assurance_claims": [
+    {
+      "claim": "`make ci-guards-local-check` was wired and exercised as the runner's entry point",
+      "made_in": "7e630d9 and the reports that followed it",
+      "status": "FALSE — WITHDRAWN",
+      "why": "that same commit clobbered the Makefile target structure: the `## identity-check:` doc line was overwritten and its recipe orphaned, so `make` did not parse at all on this branch. Every make invocation failed, including the three assurance gates identity-guard.yml runs. The runner was only ever invoked as a bash script directly, which is why the breakage was invisible.",
+      "corrected_by": "48d5453 — Makefile repaired, and the runner now extracts and executes CI's `make` steps too.",
+      "lesson": "claiming a target is wired is not the same as running it through that target."
+    }
+  ],
+  "status": "ALL BRANCH-INTRODUCED GUARD FAILURES RESOLVED — GitHub CI fully green (307/307)",
+  "remaining": {
+    "NOT_RUN_LOCALLY": 1,
+    "note": "check-whitepaper-hermetic.sh and check-openapi-compatibility.sh are declared NOT_RUN_LOCALLY by the runner; one is counted. They stay CI's responsibility — calling their absence green would be the same error as reading a build log instead of an exit code."
+  },
+  "ci_convergence": [
+    {
+      "root_cause": "website/scripts/*.mjs were never tracked — .gitignore carries a bare `scripts/`, which matches at any depth",
+      "ci_symptom": "Cannot find module emit-chrome-resolved.mjs / emit-copy-resolved.mjs; two freshness tests failed",
+      "fix": "the ignore is narrowed to admit the website's own generators; both emitters are tracked",
+      "lesson": "a local file that exists but is not tracked is not evidence. A generator that is not in the repository is not a generator."
+    },
+    {
+      "root_cause": "a header comparison joined labels with the multibyte '·' via `tr`",
+      "ci_symptom": "check-homepage-final-validation reported wrong header labels that were in fact correct",
+      "fix": "ASCII separator, and the guard now prints what it actually got",
+      "lesson": "`tr` translates bytes; a multibyte separator is not portable across locales."
+    },
+    {
+      "root_cause": "the Rust Rule job invokes its binary inside a `run:` block the local runner never extracted",
+      "ci_symptom": "'No new non-Rust engine' failed while the local runner said 0 FAIL",
+      "fix": "the runner lists that gate explicitly and names any workflow whose gate it cannot model; the three real failures were prose and data, not engines, and the classifier now scans CODE (comments and string literals stripped)",
+      "mutation_evidence": "a real tokenizer added to an allowed presentation catalogue -> RED; a marker restored in a comment -> still green"
+    },
+    {
+      "root_cause": "operationalDomain.js imported STEP_ORDER from validate.js, which carries the receipt store and a PostgreSQL client (introduced by 09b39f9, on this branch)",
+      "ci_symptom": "the typo-recovery behavioural suite could not start on a clean checkout — Cannot find package 'pg'",
+      "fix": "the nine-step spine moved to journeySteps.js as data; validate.js re-exports it; the owning guard reads the definition and additionally forbids a second copy",
+      "lesson": "asking which step follows another should not load a database driver."
+    },
+    {
+      "root_cause": "the typo guard reported only a failure COUNT",
+      "ci_symptom": "'fail 1' with no name; the environment difference could not be read from the log, and a non-matching grep under set -e ended the guard silently",
+      "fix": "the suite's output is dumped verbatim on failure"
+    }
+  ]
+}

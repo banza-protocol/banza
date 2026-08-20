@@ -26,11 +26,18 @@ SERVER="services/banzai-api/src/server.js"
 KB_TS="website/components/home/banzaiKb.ts"
 AGENT_TSX="website/components/banzai/BanzaiAgent.tsx"
 EXPLORER="website/components/decisoes/DecisionsExplorer.tsx"
-DETAIL="website/app/(pt)/decisoes/[slug]/page.tsx"
+# The record page became ONE reader surface parameterized by edition; the route file only selects it.
+DETAIL="website/components/decisoes/DecisionDetailView.tsx"
 
 fail=0
 ok()   { echo "  ok: $1"; }
 bad()  { echo "  FAIL: $1"; fail=1; }
+
+# These sentences moved into the bilingual catalogues, and some symbols were renamed when the surfaces
+# stopped holding their own Portuguese. Read from the resolved copy, which also makes the English clause
+# expressible at all.
+# shellcheck source=tools/_banzai-copy.sh
+. tools/_banzai-copy.sh
 has()  { grep -q "$1" "$2" 2>/dev/null; }
 
 [ -f "$WASM_DIR/banzai_api_kb.js" ] || { echo "FAIL: $WASM_DIR not built (run wasm-pack)"; exit 2; }
@@ -142,11 +149,17 @@ has 'document_id' "$SERVER"   && ok "/ask accepts a structured document_id" || b
 has 'resolved_document_id' "$SERVER" && ok "/ask reports resolved_document_id" || bad "/ask must report resolved_document_id"
 has 'document_id' "$KB_TS"    && ok "the client forwards document_id"        || bad "banzaiKb must forward document_id"
 has 'Documento resolvido' "$AGENT_TSX" && ok "the UI shows 'Documento resolvido'" || bad "the UI must show 'Documento resolvido: <id>'"
-has 'Documento não encontrado' "$AGENT_TSX" && ok "the UI shows 'Documento não encontrado'" || bad "the UI must show a not-found state"
+copy_presented "$AGENT_TSX" agent doc.notFound pt 'Documento não encontrado' \
+  && copy_id_nonempty agent doc.notFound en \
+  && ok "the UI shows a not-found state in both editions" || bad "the UI must show a not-found state"
 
 # The decision pages must hand over the document id, not only free text.
-has 'banzai?doc=' "$EXPLORER" && ok "decision cards pass ?doc= to BanzAI" || bad "the 'Explicar com BanzAI' card link must pass ?doc="
-has 'banzai?doc=' "$DETAIL"   && ok "decision detail passes ?doc= to BanzAI" || bad "the 'Explicar com BanzAI' detail link must pass ?doc="
+grep -q 'routeHref("BANZAI", locale)' "$EXPLORER" && grep -q '?doc=' "$EXPLORER" \
+  && ok "decision cards link to BanzAI in the reader's edition and pass ?doc=" \
+  || bad "the 'Explicar com BanzAI' card link must reach BanzAI with ?doc="
+grep -q 'routeHref("BANZAI", locale)' "$DETAIL" && grep -q '?doc=' "$DETAIL" \
+  && ok "decision detail links to BanzAI in the reader's edition and passes ?doc=" \
+  || bad "the 'Explicar com BanzAI' detail link must reach BanzAI with ?doc="
 
 if [ "$fail" -ne 0 ]; then
   echo "banzai-document-aware-agent: FAILED ✗" >&2

@@ -226,10 +226,19 @@ if ! perl -0777 -pe 's/\s+/ /g' "website/app/(pt)/page.tsx" \
      | grep -q 'PROTOCOLO FINANCEIRO ABERTO · v1.0'; then
   flag "The homepage lost the open-protocol framing ('PROTOCOLO FINANCEIRO ABERTO · v1.0')."
 fi
+# The BanzAI posture is no longer prose on the page: it is derived server-side from the runtime SSOT by
+# website/lib/runtimeStatusRow.ts and realized per edition, which is why the page no longer carries these
+# words. Checking the page for them tested a form that was deliberately removed — and worse, it would keep
+# passing on a page that hardcoded the posture, which is the failure this clause exists to prevent. The
+# wording is checked where it is now emitted, in both editions.
+RUNTIME_ROW="website/lib/runtimeStatusRow.ts"
+# Comments are stripped first. The module's own header prose quotes these phrases while explaining them, so
+# scanning the raw file would pass on a module that had stopped emitting a single one of them.
+row_code="$(perl -0777 -pe 's{/\*.*?\*/}{}gs; s{(^|[^:])//[^\n]*}{$1}g' "$RUNTIME_ROW")"
 for phrase in 'Qwen local activo' 'inferência local on-host' 'sem chamadas externas' \
               'estado por resposta' 'não normativo' 'pré-produção'; do
-  if ! grep -qi "$phrase" "website/app/(pt)/estado/page.tsx"; then
-    flag "website/app/(pt)/estado/page.tsx no longer states the current BanzAI posture: '$phrase'."
+  if ! printf '%s' "$row_code" | grep -qi "$phrase"; then
+    flag "the runtime status row no longer states the current BanzAI posture: '$phrase'."
   fi
 done
 

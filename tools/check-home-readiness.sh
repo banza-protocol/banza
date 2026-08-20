@@ -11,6 +11,14 @@
 
 set -euo pipefail
 cd "$(dirname "$0")/.."
+
+# The chrome no longer writes a literal href beside its label: an entry declares a semantic route target
+# and the pathname is derived per edition. Checking the label's own LINE for '/referencia' therefore
+# tested a form that no longer exists — and it could never have covered the English CTA. The resolved
+# chrome answers what the reader is actually given, in each edition.
+# shellcheck source=tools/_chrome-resolved.sh
+. tools/_chrome-resolved.sh
+
 if locale -a 2>/dev/null | grep -qiE '^C\.UTF-?8$'; then export LC_ALL=C.UTF-8
 elif locale -a 2>/dev/null | grep -qiE '^en_US\.UTF-?8$'; then export LC_ALL=en_US.UTF-8
 fi
@@ -117,11 +125,17 @@ reference_cta_wrong_targets=0
 website_src="$(find website/app website/components website/lib -type f \( -name '*.tsx' -o -name '*.ts' \) 2>/dev/null | grep -vE '/\.next/|node_modules|\.test\.|\.spec\.' || true)"
 while IFS= read -r f; do
   [ -n "$f" ] || continue
+  # The chrome config is counted from the RESOLVED chrome below, not by line: its labels no longer sit
+  # beside a pathname, so a line-scoped test of it counts a false miss.
+  case "$f" in website/lib/site.ts) continue ;; esac
   while IFS= read -r ln; do
     [ -n "$ln" ] || continue
     printf '%s' "$ln" | grep -qF '/referencia' || reference_cta_wrong_targets=$(( reference_cta_wrong_targets + 1 ))
   done < <(vis "$f" | grep -F 'Ler a referência' || true)
 done <<< "$website_src"
+# The header CTA, as each edition resolves it. English is its own route, never a prefixed Portuguese slug.
+chrome_links pt nav "Ler a referência" "/referencia" || reference_cta_wrong_targets=$(( reference_cta_wrong_targets + 1 ))
+chrome_links en nav "Read the Reference" "/en/reference" || reference_cta_wrong_targets=$(( reference_cta_wrong_targets + 1 ))
 
 # legacy_o_que_e_route_files
 legacy_o_que_e_route_files=0
@@ -156,7 +170,13 @@ while IFS= read -r sw; do
 done <<< "$sw_files"
 
 # canonical_o_que_e_sources — the reference chapter slug "o-que-e" (the SINGLE canonical definition).
-canonical_o_que_e_sources="$(cere 'slug: "o-que-e"' "$REF")"
+# The chapter slugs became bilingual records in referenceSlugs.ts — one record carries both editions'
+# slugs — so counting a single-language `slug: "o-que-e"` line in reference.ts counts a form that no longer
+# exists. The property is unchanged: exactly ONE canonical definition chapter, and its English counterpart
+# must be an English slug rather than the Portuguese one reused.
+canonical_o_que_e_sources="$(grep -cE 'pt:[[:space:]]*"o-que-e"' website/lib/referenceSlugs.ts || true)"
+grep -qE 'pt:[[:space:]]*"o-que-e",[[:space:]]*en:[[:space:]]*"what-banza-is"' website/lib/referenceSlugs.ts \
+  || canonical_o_que_e_sources=0
 # duplicated_banza_introductory_definitions — extras beyond the single canonical source.
 duplicated_banza_introductory_definitions=$(( canonical_o_que_e_sources > 1 ? canonical_o_que_e_sources - 1 : 0 ))
 

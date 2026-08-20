@@ -13,7 +13,7 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { ENTRIES } from "../src/knowledge.js";
+import { ENTRIES , realizedLocales } from "../src/knowledge.js";
 import { relation, assertsEquality } from "./_relation.mjs";
 
 // Claims the protocol must never make, as relations rather than as strings.
@@ -39,7 +39,16 @@ const PROHIBITED = [
   ["a certificate binds to an entity", /certificado|certificate/i, /liga-se a uma entidade|binds to an entity/i],
 ];
 
-const settled = ENTRIES.filter((e) => e.deterministic === true && e.answer);
+// Every SUBSTANTIVE realization of every settled entry — not the Portuguese projection.
+//
+// `e.answer` reads exactly realizations["pt-PT"], so sweeping it would leave an English realization
+// entirely unchecked: a forbidden claim could sit in the English answer while Portuguese stayed clean
+// and this file stayed green. The compatibility getter's one real danger is hiding English policy
+// failures, and this is the sweep that would have hidden them.
+const settled = ENTRIES.filter((e) => e.deterministic === true && realizedLocales(e).length);
+const REALIZATIONS = settled.flatMap((e) =>
+  realizedLocales(e).map((locale) => ({ id: e.id, locale, text: e.realizations[locale] })),
+);
 
 test("the settled corpus is large enough for this sweep to mean something", () => {
   // A sweep over an empty set passes. If the corpus shrinks or the filter stops matching, say so here
@@ -49,19 +58,30 @@ test("the settled corpus is large enough for this sweep to mean something", () =
 
 test("no settled answer asserts a claim the protocol forbids", () => {
   const violations = [];
-  for (const e of settled) {
+  for (const r0 of REALIZATIONS) {
     for (const [claim, subject, predicate] of PROHIBITED) {
-      const r = relation(e.answer, subject, predicate);
-      if (r.asserted) violations.push(`${e.id}: "${claim}" — ${r.why}\n      clause: ${r.clause}`);
+      const r = relation(r0.text, subject, predicate);
+      if (r.asserted) violations.push(`${r0.id} [${r0.locale}]: "${claim}" — ${r.why}\n      clause: ${r.clause}`);
     }
-    if (assertsEquality(e.answer, /operador|operator/i, /implementa[çc][ãa]o|implementation/i)) {
-      violations.push(`${e.id}: "an operator is an implementation"`);
+    if (assertsEquality(r0.text, /operador|operator/i, /implementa[çc][ãa]o|implementation/i)) {
+      violations.push(`${r0.id} [${r0.locale}]: "an operator is an implementation"`);
     }
   }
   assert.deepEqual(
     violations,
     [],
-    `${violations.length} prohibited claim(s) across ${settled.length} settled answers:\n    ${violations.join("\n    ")}`,
+    `${violations.length} prohibited claim(s) across ${REALIZATIONS.length} realizations of ${settled.length} settled entries:\n    ${violations.join("\n    ")}`,
+  );
+});
+
+test("the sweep covers every locale, not just the Portuguese projection", () => {
+  // Without this the sweep could silently be PT-only and still look complete.
+  const locales = new Set(REALIZATIONS.map((r) => r.locale));
+  assert.ok(locales.has("pt-PT"), "Portuguese realizations must be swept");
+  assert.ok(locales.has("en"), "English realizations must be swept");
+  assert.ok(
+    REALIZATIONS.length > settled.length,
+    `${REALIZATIONS.length} realizations for ${settled.length} entries — the English side is not being read`,
   );
 });
 

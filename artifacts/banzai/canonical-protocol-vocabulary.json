@@ -5,7 +5,7 @@
     "principle": "The vocabulary is a semantic registry of real protocol terms derived from the engine's own registries + closed protocol sets; corpus terms are candidates (Phase 1), lexical noise never enters here."
   },
   "source_registry": {
-    "total": 423,
+    "total": 425,
     "by_type": {
       "root-doc": 9,
       "conformance": 81,
@@ -14,22 +14,22 @@
       "openapi": 11,
       "adr": 42,
       "rfc": 7,
-      "doc": 58,
+      "doc": 60,
       "example": 48,
       "spec": 33
     },
     "by_status": {
-      "current": 423
+      "current": 425
     },
     "by_authority_class": {
-      "current": 375,
+      "current": 377,
       "illustrative": 48
     },
     "by_language": {
-      "pt-or-neutral": 423
+      "pt-or-neutral": 425
     },
     "by_origin": {
-      "authored": 423,
+      "authored": 425,
       "generated": 0
     },
     "duplicates": [
@@ -3448,6 +3448,17 @@
         "checksum": "39b5425cc64b60a0"
       },
       {
+        "id": "docs-banzai-deterministic-answer-consumers-md",
+        "path": "docs/banzai/DETERMINISTIC_ANSWER_CONSUMERS.md",
+        "type": "doc",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "c19a71d3c6063ffb"
+      },
+      {
         "id": "docs-banzai-knowledge-index-md",
         "path": "docs/banzai/KNOWLEDGE_INDEX.md",
         "type": "doc",
@@ -3545,6 +3556,17 @@
         "generated": false,
         "public_eligible": true,
         "checksum": "256e910e551d700e"
+      },
+      {
+        "id": "docs-banzai-tasked-item-inventory-json",
+        "path": "docs/banzai/tasked-item-inventory.json",
+        "type": "doc",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "bc82ae8c06374a3f"
       },
       {
         "id": "docs-governance-annex-banza-network-infrastructure-md",
@@ -4995,7 +5017,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "d6b1dd5b3756c5e2"
+    "checksum": "c3cdda3ae649cad8"
   },
   "subjects": [
     {
@@ -8458,5 +8480,5 @@
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "2350241dfba42e8a"
+  "checksum": "1e54f2d5369e54a3"
 }

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { PageHero, Section, Container, StatusNote, MoreLink } from "@/components/ui";
-import { RegistrySearch, type RegistryEntry } from "./RegistrySearch";
+import { RegistrySearch, type RegistryEntry } from "@/components/registry/RegistrySearch";
 
 // /registo-tecnico is the REAL owning page for the BANZA Technical Registry (Camada 2, ADR-033): the single
 // public, root-verifiable, read-only INDEX of L2 artefacts — implementations, certification records,
@@ -197,7 +197,7 @@ export default async function RegistoTecnicoPage() {
       <Section tone="paper">
         <Container width="site" data-reveal>
           <div className="eyebrow mb-[18px]">PESQUISAR NO REGISTO</div>
-          <RegistrySearch entries={entries} />
+          <RegistrySearch entries={entries} locale="pt" />
         </Container>
       </Section>
 

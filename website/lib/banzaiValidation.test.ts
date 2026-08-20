@@ -10,8 +10,8 @@ import {
   mapCatalogueToOperators,
   resolveOperatorIn,
   resolveImplementationIn,
-  publicationStatusLabel,
 } from "./banzaiValidation";
+import { publicationStatusLabelFor } from "@/components/banzai/validationPresentation";
 
 // M2.19E/F (ADR-035) — the deep-link contract is SSRF-safe by construction: closed target registry +
 // closed workflow allowlist, no caller-supplied URL is ever fetched.
@@ -203,9 +203,9 @@ describe("banzaiValidation — dynamic Technical Registry mapper + resolvers (M2
     }
   });
 
-  it("publicationStatusLabel maps known enums and passes unknown through verbatim", () => {
-    expect(publicationStatusLabel("published")).toBe("Publicado no registo técnico");
-    expect(publicationStatusLabel("draft")).toBe("Rascunho");
-    expect(publicationStatusLabel("something-new")).toBe("something-new");
+  it("publicationStatusLabelFor maps known enums and passes unknown through verbatim", () => {
+    expect(publicationStatusLabelFor("published", "pt")).toBe("Publicado no registo técnico");
+    expect(publicationStatusLabelFor("draft", "pt")).toBe("Rascunho");
+    expect(publicationStatusLabelFor("something-new", "pt")).toBe("something-new");
   });
 });

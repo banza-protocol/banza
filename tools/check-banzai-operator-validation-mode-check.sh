@@ -16,6 +16,12 @@ fail=0
 ok() { printf '  ok: %s\n' "$1"; }
 fl() { printf 'FAIL: %s\n' "$1"; fail=1; }
 
+# Block E2 moved these sentences out of the module and into the bilingual catalogues, so grepping the
+# module stopped proving anything about them. They are read from the resolved copy instead — which also
+# lets the English edition be checked, which grepping a Portuguese literal never could.
+# shellcheck source=tools/_banzai-copy.sh
+. tools/_banzai-copy.sh
+
 AGENT=website/components/banzai/banzai-agent.ts
 SHELL_TSX=website/components/banzai/BanzaiAgent.tsx
 
@@ -34,16 +40,16 @@ printf '%s\n' '{ mode: "validation", name: "Validar implementação" }' | grep -
 if [ -f "$AGENT" ]; then
   # 1. The validation MODE carries the human label "Validar operador".
   if grep -nE 'mode:[[:space:]]*"validation"' "$AGENT" | grep -q .; then ok "MODES has a 'validation' mode"; else fl "MODES must define a 'validation' mode"; fi
-  grep -qE 'name:[[:space:]]*"Validar operador"' "$AGENT" \
+  copy_id_is agent mode.validation pt "Validar operador" \
     && ok 'MODES validation label is "Validar operador"' \
     || fl 'MODES validation mode must be labelled "Validar operador"'
-  grep -qE 'modeLabel:[[:space:]]*"Validar operador"' "$AGENT" \
+  copy_id_is agent mode.validation en "Validate operator" \
     && ok 'VALIDATION_COPY.modeLabel is "Validar operador"' \
-    || fl 'VALIDATION_COPY.modeLabel must be "Validar operador"'
+    || fl 'the English validation mode must be labelled "Validate operator"'
   # The object evaluated is still an implementation (§4.2) — the header names "implementação".
-  grep -qE 'header:[[:space:]]*"Validação técnica de implementação"' "$AGENT" \
+  copy_id_is agent validation.header pt "Validação técnica de implementação" \
     && ok 'header names the technical object (implementação)' \
-    || fl 'VALIDATION_COPY.header must be "Validação técnica de implementação"'
+    || fl 'the validation header must be "Validação técnica de implementação"'
 fi
 
 # 2. The shell actually renders the modes group (so the label reaches the UI).

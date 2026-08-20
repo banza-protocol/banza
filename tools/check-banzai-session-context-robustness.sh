@@ -30,6 +30,12 @@ fail=0
 ok()  { echo "  ok: $1"; }
 bad() { echo "  FAIL: $1"; fail=1; }
 
+# These sentences moved into the bilingual catalogues, and some symbols were renamed when the surfaces
+# stopped holding their own Portuguese. Read from the resolved copy, which also makes the English clause
+# expressible at all.
+# shellcheck source=tools/_banzai-copy.sh
+. tools/_banzai-copy.sh
+
 [ -f "$WASM" ] || { echo "FAIL: journey WASM not built at $WASM"; exit 2; }
 
 echo "banzai-session-context-robustness: driving the committed guidance engine…"
@@ -117,7 +123,8 @@ fi
 grep -q 'PROGRESSO' "$VALMODE" && grep -q 'progress.total' "$VALMODE" \
   && ok "the validation panel shows Progresso (n/total steps evaluated)" \
   || bad "the validation panel must show Progresso as n/total steps"
-grep -q 'DA ETAPA' "$VALMODE" && grep -q 'st.evidence_refs' "$VALMODE" && grep -qE 'name: "Receipts"|Ver receipt' "$VALMODE" \
+grep -q '"step.evidenceReferences"' "$VALMODE" && grep -q 'st.evidence_refs' "$VALMODE" \
+  && grep -qE 'name: "Receipts"|action\.viewReceipt' "$VALMODE" \
   && ok "the surface shows per-step Evidence (EVIDÊNCIA DA ETAPA / evidence_refs) + Receipts separately from progress" \
   || bad "the panel must surface Evidence and Receipts (verifiable per-step evidence)"
 grep -q 'BLOQUEIOS' "$VALMODE" && grep -q 'blockers' "$VALMODE" \

@@ -1,7 +1,9 @@
 import { describe, it, expect } from "vitest";
+import { agentCopy } from "@/components/banzai/agentPresentation";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { decisions, getDecision } from "./decisions";
+import { getReferenceChapters } from "./reference";
 
 // Public-surface consistency. Source-level contract over the website: every decision record resolves
 // and has a mirrored body; the primary human-operator interface is the leading definition (agente
@@ -46,9 +48,10 @@ describe("M2.14J — primary human-operator interface is the leading definition"
     expect(estado).not.toContain("a evidência prova.</strong>");
   });
   it("the /referencia chapter-12 card leads with the primary interface (not only 'agente')", () => {
-    // The chapter-card summary lives in lib/reference.ts (num: 12, slug: "banzai").
-    const refLib = read("lib/reference.ts");
-    const line = refLib.split("\n").find((l) => l.includes('slug: "banzai"'));
+    // Read the RESOLVED chapter rather than a line of lib/reference.ts: chapter slugs moved to
+    // lib/referenceSlugs.ts so the site chrome could resolve them too, and a source-text assertion
+    // would have gone quiet at exactly that point without the property changing at all.
+    const line = getReferenceChapters("pt").find((c) => c.slug === "banzai")?.summary;
     expect(line, "chapter-12 card must exist").toBeTruthy();
     // M2.19G.5F closure: the canonical formulation is "interface humana primária e
     // transversal" (avoids the mandatory-dependency reading of "única"); the protocol
@@ -57,10 +60,18 @@ describe("M2.14J — primary human-operator interface is the leading definition"
     expect(line!).toMatch(/transversal/i);
   });
   it("the BanzAI UI boundary constant names the primary interface + keeps the deny-list", () => {
-    const agent = read("components/banzai/banzai-agent.ts");
-    expect(agent).toMatch(/interface primária de trabalho/i);
+    // Block E2/Q8 — the boundary copy moved from the data module into the bilingual catalogue, so this
+    // reads the catalogue. It now checks BOTH editions, which the module could never carry: an English
+    // reader who is told BanzAI is the primary interface must also be told what it does not do.
+    const pt = agentCopy("agent.boundary", "pt");
+    expect(pt).toMatch(/interface primária de trabalho/i);
     for (const s of ["não certifica", "não decide participação", "não inventa regras"]) {
-      expect(agent).toContain(s);
+      expect(pt).toContain(s);
+    }
+    const en = agentCopy("agent.boundary", "en");
+    expect(en).toMatch(/primary .*interface/i);
+    for (const s of ["does not certify", "does not decide participation", "does not invent rules"]) {
+      expect(en, `the English boundary is missing "${s}"`).toContain(s);
     }
   });
 });
@@ -76,7 +87,7 @@ describe("M2.14J — no POSITIVE forbidden BanzAI-authority claim in key public 
   const files = [
     "app/(pt)/banzai/page.tsx",
     "app/(pt)/estado/page.tsx",
-    "components/banzai/banzai-agent.ts",
+    "components/banzai/agentPresentation.ts",
     // M2.15A: the home architecture section was removed from the homepage; the reference/ADRs/SVGs
     // carry the canonical architecture. The remaining files still guard the positive-claim rule.
   ];

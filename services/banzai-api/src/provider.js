@@ -16,7 +16,7 @@
 // `local_qwen` needs no key. Every answer keeps the BanzAI guardrails: explanatory,
 // cited, non-normative — never certifies, never decides.
 
-import { retrieve, buildPrompt } from "./knowledge.js";
+import { retrieve, buildPrompt, answerFor, DEFAULT_LOCALE } from "./knowledge.js";
 
 const GUARDRAILS = Object.freeze({
   authoritative: false,
@@ -43,7 +43,7 @@ const REAL_DEFAULTS = Object.freeze({
 
 // Compose a grounded, deterministic context from the retrieved knowledge entry.
 // Shared by mock and real adapters so every provider cites the same sources.
-function ground(question) {
+function ground(question, locale = DEFAULT_LOCALE) {
   const hit = retrieve(question);
   if (!hit) {
     return {
@@ -54,7 +54,16 @@ function ground(question) {
       entry_id: null,
     };
   }
-  return { grounded: true, answer: hit.answer, sources: hit.sources, entry_id: hit.id };
+  // Serving path: the realization is chosen by locale, never by reading the compatibility projection.
+  const realization = answerFor(hit, locale);
+  return {
+    grounded: true,
+    answer: realization.text,
+    answer_locale: realization.locale,
+    answer_locale_available: realization.available,
+    sources: hit.sources,
+    entry_id: hit.id,
+  };
 }
 
 // mock: deterministic, offline. The reference provider for all local tests.

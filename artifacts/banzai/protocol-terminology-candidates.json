@@ -1,5 +1,5 @@
 {
-  "total": 3130,
+  "total": 3136,
   "rows": [
     {
       "raw_text": "Contributing to BANZA",
@@ -7202,6 +7202,87 @@
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "BanzAI deterministic-answer consumer inventory",
+      "normalized": "banzai deterministic-answer consumer inventory",
+      "sources": [
+        "docs-banzai-deterministic-answer-consumers-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "Totals",
+      "normalized": "totals",
+      "sources": [
+        "docs-banzai-deterministic-answer-consumers-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "RUNTIME",
+      "normalized": "runtime",
+      "sources": [
+        "docs-banzai-deterministic-answer-consumers-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "TEST",
+      "normalized": "test",
+      "sources": [
+        "docs-banzai-deterministic-answer-consumers-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "GUARD",
+      "normalized": "guard",
+      "sources": [
+        "docs-banzai-deterministic-answer-consumers-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "total",
+      "normalized": "total",
+      "sources": [
+        "docs-banzai-deterministic-answer-consumers-md",
+        "spec-federation-federation-conformance-model-md",
+        "spec-federation-federation-fixture-catalog-md"
+      ],
+      "frequency": 3,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "BanzAI certifica",
+      "normalized": "banzai certifica",
+      "sources": [
+        "docs-banzai-deterministic-answer-consumers-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
     },
     {
       "raw_text": "BanzAI — Local Knowledge & Documentary Index",
@@ -26620,18 +26701,6 @@
         "spec-federation-federation-conformance-model-md"
       ],
       "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
-      "raw_text": "Total",
-      "normalized": "total",
-      "sources": [
-        "spec-federation-federation-conformance-model-md",
-        "spec-federation-federation-fixture-catalog-md"
-      ],
-      "frequency": 2,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"

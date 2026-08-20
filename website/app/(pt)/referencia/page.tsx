@@ -12,7 +12,7 @@ import { GITHUB_URL } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Referência do Protocolo",
   description:
-    "A referência normativa oficial do protocolo BANZA v1.0 (pré-produção), organizada por capítulos: arquitectura, confiança, conformidade, evidência, federação e governação. Descreve o protocolo; não confere estatuto a qualquer operador.",
+    "A referência descritiva oficial do protocolo BANZA v1.0 (pré-produção), organizada por capítulos: arquitectura, confiança, conformidade, evidência, federação e governação. Descreve o protocolo; não confere estatuto a qualquer operador.",
   alternates: { canonical: "/referencia" },
 };
 
@@ -67,7 +67,7 @@ export default function ReferenciaPage() {
           <div className="eyebrow mb-4">SOBRE ESTA REFERÊNCIA</div>
           <div className="max-w-[74ch] space-y-4 text-[15px] leading-[1.7] text-ink-4">
             <p>
-              Esta é a referência normativa oficial do protocolo BANZA. Organiza por capítulos os
+              Esta é a referência descritiva oficial do protocolo BANZA. Organiza por capítulos os
               conceitos, regras e superfícies públicas do protocolo. As fontes canónicas e
               verificáveis — os contratos, os invariantes, os vectores de conformidade, a metadata
               assinada e a evidência publicada — definem os requisitos aplicáveis; esta referência

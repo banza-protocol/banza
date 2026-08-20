@@ -52,7 +52,12 @@ fi
 
 # 4. The draft tool's free-text control is labelled.
 if [ -f "$DRAFT" ]; then
-  grep -qE '<textarea[^>]*aria-label=|aria-label="Colar' "$DRAFT" && ok "draft textarea has an aria-label" || fl "$DRAFT textarea must carry an aria-label"
+  # The label is present but the element is written across several lines, and a line-oriented grep cannot
+  # see an attribute that is not on the opening line. Read the whole element instead. The value is now a
+  # catalogue id rather than a literal, so an accessible name in one edition only is no longer possible.
+  # Scanning must stop at the element's own `/>`, not at the first `>`: an inline handler contains `=>`.
+  perl -0777 -ne 'exit(/<textarea\b(?:(?!\/>).)*?\baria-label=/s ? 0 : 1)' "$DRAFT" \
+    && ok "draft textarea has an aria-label" || fl "$DRAFT textarea must carry an aria-label"
   # A visually-hidden file input still needs an accessible name / hidden treatment.
   grep -qE 'type="file"' "$DRAFT" && grep -qE 'aria-hidden="true"|aria-label=' "$DRAFT" && ok "draft file input is a11y-annotated" || fl "$DRAFT file input must be a11y-annotated"
 else

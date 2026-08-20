@@ -91,18 +91,9 @@ export interface ValidationOperator {
 // listing) and means no operator — not even Operador Zero — is hardcoded as "the only operator". The
 // backend re-resolves + re-decides every id in Rust; the mapper below is display glue only.
 
-/** Human-readable PT label for a Technical-Registry publication status enum (display only). */
-export const PUBLICATION_STATUS_LABEL_PT: Readonly<Record<string, string>> = {
-  published: "Publicado no registo técnico",
-  draft: "Rascunho",
-  withdrawn: "Retirado",
-  suspended: "Suspenso",
-};
-
-/** Label a publication-status enum for display; unknown values pass through verbatim (never invented). */
-export function publicationStatusLabel(status: string): string {
-  return PUBLICATION_STATUS_LABEL_PT[status] ?? status;
-}
+// Block E2/Q5 — naming a publication status is a reader-facing decision, so it moved to
+// `components/banzai/validationPresentation` (`publicationStatusLabelFor`). The STATUS itself is registry
+// data and stays here; the Portuguese-only label map that used to live beside it does not.
 
 /** Map the closed catalogue JSON (from GET /banzai/validate/registry — sourced from the Rust registry)
  *  into the display shape. PURE + defensive: unknown/malformed input yields an empty list, never throws,

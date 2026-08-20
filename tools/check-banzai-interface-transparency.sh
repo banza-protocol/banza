@@ -82,14 +82,18 @@ grep -q "export function contextualSuggestions" "$SUGGEST" || fail "$SUGGEST mus
 for signal in "ctx.entity" "ctx.scope" "ctx.answerType" "ctx.operationalIntent" "ctx.toolsRan" "ctx.terminalKind" "ctx.questionFamily"; do
   grep -qF "$signal" "$SUGGEST" || fail "$SUGGEST must derive suggestions from $signal"
 done
-grep -q "const followUpsList = contextualSuggestions(" "$ADAPTER" || fail "$ADAPTER must derive followUps from the per-answer generator"
+# The adapter no longer realizes follow-up TEXT: it returns locale-free selections (followUpSelections)
+# that the reader's own edition realizes. Same property — the follow-ups are generated per answer, not a
+# fixed list — checked at the mechanism that now carries it.
+grep -q "followUpSelections" "$ADAPTER" || fail "$ADAPTER must derive per-answer follow-ups (followUpSelections)"
 # The retired M2.9A FIXED suggestion list must NOT be the source anymore (proof it was replaced, not kept).
 grep -q "suggestionsFor(" "$ADAPTER" && fail "$ADAPTER still uses the retired fixed suggestionsFor() — the fixed list must be replaced by the per-answer generator"
 grep -q "DEFAULT_SUGGESTIONS" "$ADAPTER" && fail "$ADAPTER still ships the retired DEFAULT_SUGGESTIONS fixed list"
 [ "$FAILED" -eq 0 ] && ok "§25 suggestions are generated per-answer from intent/entity/scope/tools (the fixed M2.9A list is gone)"
 
 # ── §25 static: a boundary/refusal offers ONLY safe reframes — never toward the refused action ─────────
-grep -q "SAFE_REFRAME_SUGGESTIONS" "$SUGGEST" || fail "$SUGGEST must define the safe-reframe set"
+grep -q "SAFE_REFRAME_IDS" "$SUGGEST" && grep -q "safeReframeSuggestions" "$SUGGEST" \
+  || fail "$SUGGEST must define the safe-reframe set (SAFE_REFRAME_IDS + safeReframeSuggestions)"
 grep -qE "ctx.refused \|\| ctx.kind === \"refusal\" \|\| ctx.boundary" "$SUGGEST" || fail "$SUGGEST must settle boundary/refusal FIRST (safety golden rule)"
 # The safe-reframe set itself must never mention a refused action (funds movement / key exposure / deletion).
 awk '/SAFE_REFRAME_SUGGESTIONS/{f=1} f{print} /\]\)/{if(f)exit}' "$SUGGEST" \

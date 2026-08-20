@@ -29,6 +29,12 @@ PROMPT_RS="engines/banzai-query-core/src/prompt.rs"
 fail=0
 ok()  { echo "  ok: $1"; }
 bad() { echo "  FAIL: $1"; fail=1; }
+
+# These sentences moved into the bilingual catalogues, and some symbols were renamed when the surfaces
+# stopped holding their own Portuguese. Read from the resolved copy, which also makes the English clause
+# expressible at all.
+# shellcheck source=tools/_banzai-copy.sh
+. tools/_banzai-copy.sh
 has() { grep -q "$1" "$2" 2>/dev/null; }
 
 [ -f "$WASM_DIR/banzai_api_kb.js" ] || { echo "FAIL: $WASM_DIR not built (run wasm-pack)"; exit 2; }
@@ -114,9 +120,10 @@ has 'document_answer_truncated' "$SERVER" \
 has 'cacheable' "$SERVER" \
   && ok "/ask reports cacheability" \
   || bad "/ask must report cacheable"
-has 'Resposta resumida para caber no limite actual' "$AGENT_TSX" \
+copy_presented "$AGENT_TSX" agent answer.truncated pt 'Resposta resumida' \
+  && copy_id_nonempty agent answer.truncated en \
   && ok "the UI states truncation honestly" \
-  || bad "the UI must tell the visitor when an answer was cut to fit the budget"
+  || bad "the UI must tell the visitor, in their own edition, when an answer was cut to fit the budget"
 
 if [ "$fail" -ne 0 ]; then
   echo "banzai-document-explanation-quality: FAILED ✗" >&2

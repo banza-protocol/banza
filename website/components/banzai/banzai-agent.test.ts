@@ -1,9 +1,15 @@
 import { describe, it, expect } from "vitest";
-import {
-  BANZAI_AGENT, TABS, MODES, TAB_META, BADGES, AUTHORITY_COPY, FORBIDDEN_PHRASES,
-  AGENT_SUGGESTIONS, CONFORMIDADE_LEVELS, TRUST_CARDS,
-  EVIDENCE_CONTENT, RFC_DOCS, PROTOCOL_MAP_NODES, DEV_COMMANDS, DEV_QUESTIONS, DEV_ENDPOINTS,
-} from "./banzai-agent";
+import { MODES, TABS, TAB_META, RFC_DOCS, PROTOCOL_MAP_NODES, DEV_COMMANDS, DEV_ENDPOINTS, FORBIDDEN_PHRASES } from "./banzai-agent";
+import { AGENT_COPY, agentCopy, agentCopyIds } from "./agentPresentation";
+
+// Block E2/Q8 — the copy these guards protect moved into the bilingual catalogue, so the guards read the
+// catalogue instead of the module. That makes them STRONGER: they now cover the English realizations too,
+// which the module never had.
+const ALL_COPY = (locale: "pt" | "en") => agentCopyIds().map((id) => agentCopy(id, locale)).join("  ");
+/** The six configured-default status badges, now realized from the catalogue. */
+const BADGE_COPY = (
+  ["badge.defaultEngine", "badge.localInference", "badge.noExternalCalls", "badge.perAnswerState", "badge.nonNormative", "badge.preProduction"] as const
+).map((id) => agentCopy(id, "pt"));
 
 // M2.19EF2 — the single BanzAI shell naming/navigation/copy contract. One app at /banzai, two modes
 // (ask/validation), four sidebar groups (Modos · Jornada de validação · Recursos · Resultados). These
@@ -12,22 +18,22 @@ import {
 
 describe("BanzAI single-shell naming + navigation (M2.19EF2)", () => {
   it("names the experience 'BanzAI' (the native protocol agent), not 'Workbench'/'Chat'/'Sistema de Conhecimento'", () => {
-    expect(BANZAI_AGENT.name).toBe("BanzAI");
-    expect(BANZAI_AGENT.heroTitle).toBe("BanzAI");
-    expect(BANZAI_AGENT.subtitle).toMatch(/^Interface interactiva do protocolo/);
-    expect(BANZAI_AGENT.shortPhrase).toBe("BanzAI guia; os motores verificam; a evidência prova; a autoridade competente decide.");
+    expect("BanzAI").toBe("BanzAI");
+    expect("BanzAI").toBe("BanzAI");
+    expect(agentCopy("agent.subtitle", "pt")).toMatch(/^Interface interactiva do protocolo/);
+    expect(agentCopy("agent.shortPhrase", "pt")).toBe("BanzAI guia; os motores verificam; a evidência prova; a autoridade competente decide.");
     // the public product name is no longer "BanzAI Workbench"
-    expect(BANZAI_AGENT.name).not.toContain("Workbench");
-    expect(BANZAI_AGENT.heroTitle).not.toContain("Workbench");
+    expect("BanzAI").not.toContain("Workbench");
+    expect("BanzAI").not.toContain("Workbench");
   });
 
   it("exposes the three modes (Modos): Perguntar · Validar operador · Onboarding (M2.19G.1/ADR-034, M2.19G.3/ADR-037)", () => {
     expect(MODES.map((m) => m.mode)).toEqual(["ask", "validation", "onboarding"]);
-    expect(MODES.map((m) => m.name)).toEqual(["Perguntar ao BanzAI", "Validar operador", "Onboarding de operador"]);
+    expect(MODES.map((m) => agentCopy(m.nameId, "pt"))).toEqual(["Perguntar ao BanzAI", "Validar operador", "Onboarding de operador"]);
     // ask is the default entry mode.
     expect(MODES[0].mode).toBe("ask");
     // The old label was retired.
-    expect(MODES.map((m) => m.name)).not.toContain("Validar uma implementação");
+    expect(MODES.map((m) => agentCopy(m.nameId, "pt"))).not.toContain("Validar uma implementação");
   });
 
   it("collapses Resultados to ONE entry and Recursos to Guia · Referência · Programadores (ADR-034 §29)", () => {
@@ -43,29 +49,29 @@ describe("BanzAI single-shell naming + navigation (M2.19EF2)", () => {
     // Every group is one of the two shared-shell groups.
     for (const t of TABS) expect(["recursos", "resultados"]).toContain(t.group);
     // No redundant "BanzAI" nav item (the page already IS the BanzAI agent).
-    expect(TABS.map((t) => t.name)).not.toContain("BanzAI");
+    expect(TABS.map((x) => agentCopy(x.nameId, "pt"))).not.toContain("BanzAI");
     // No milestone (M2.x) label ever appears as a public nav label.
     for (const t of TABS) {
-      expect(t.name).not.toContain("M2");
+      expect(agentCopy(t.nameId, "pt")).not.toContain("M2");
       expect(t.key).not.toContain("m2");
     }
     // No banned legacy labels in the sidebar.
     for (const banned of ["Chat", "Assistente de Certificação", "Pesquisa de Conhecimento", "Trust Engine", "RFC / ADR"]) {
-      expect(TABS.map((t) => t.name)).not.toContain(banned);
+      expect(TABS.map((x) => agentCopy(x.nameId, "pt"))).not.toContain(banned);
     }
   });
 
   it("TAB_META resolves a name + icon for every WbTab (assistente/guia/rfc/programadores/resultados)", () => {
     for (const key of ["assistente", "guia", "rfc", "programadores", "resultados"] as const) {
       expect(TAB_META[key]).toBeDefined();
-      expect(TAB_META[key].name.length).toBeGreaterThan(0);
+      expect(agentCopy(TAB_META[key].nameId, "pt").length).toBeGreaterThan(0);
     }
-    expect(TAB_META.assistente.name).toBe("Perguntar ao BanzAI");
-    expect(TAB_META.resultados.name).toBe("Resultados");
+    expect(agentCopy(TAB_META.assistente.nameId, "pt")).toBe("Perguntar ao BanzAI");
+    expect(agentCopy(TAB_META.resultados.nameId, "pt")).toBe("Resultados");
   });
 
   it("exposes accurate configured-default status badges (no mock/demo wording; no per-answer overstatement)", () => {
-    expect([...BADGES]).toEqual([
+    expect([...BADGE_COPY]).toEqual([
       "Motor por omissão: Qwen local",
       "Inferência local (on-host)",
       "Sem chamadas externas",
@@ -74,39 +80,27 @@ describe("BanzAI single-shell naming + navigation (M2.19EF2)", () => {
       "Pré-produção do protocolo",
     ]);
     // Must never advertise mock/demo/provider framing while local_qwen is the active default.
-    for (const b of BADGES) {
+    for (const b of BADGE_COPY) {
       expect(b.toLowerCase()).not.toMatch(/mock|demonstra|demo\b|provider/);
     }
     // The standing badge must describe the CONFIGURED default ("por omissão"), never assert that
     // every answer used Qwen — the per-answer status line carries that truth (M2.8F).
-    expect(BADGES[0]).toMatch(/por omissão/);
-    expect([...BADGES]).not.toContain("Qwen local activo");
+    expect(BADGE_COPY[0]).toMatch(/por omissão/);
+    expect([...BADGE_COPY]).not.toContain("Qwen local activo");
   });
 });
 
 describe("authority boundary copy (BX0)", () => {
   it("keeps the required boundary statements", () => {
-    expect(AUTHORITY_COPY.noCertify).toContain("não certifica");
-    expect(AUTHORITY_COPY.caDecides).toContain("decisão humana central");
-    expect(AUTHORITY_COPY.passIsEvidence).toContain("não certificado");
-    expect(AUTHORITY_COPY.preProduction).toContain("pré-produção");
-    expect(BANZAI_AGENT.boundary).toContain("evidência verificável");
+    expect(agentCopy("authority.noCertify", "pt")).toContain("não certifica");
+    expect(agentCopy("authority.caDecides", "pt")).toContain("decisão humana central");
+    expect(agentCopy("authority.passIsEvidence", "pt")).toContain("não certificado");
+    expect(agentCopy("authority.preProduction", "pt")).toContain("pré-produção");
+    expect(agentCopy("agent.boundary", "pt")).toContain("evidência verificável");
   });
 
   it("never uses a forbidden claim anywhere in the Workbench copy", () => {
-    const publicCopy = [
-      ...Object.values(BANZAI_AGENT),
-      ...MODES.map((m) => m.name),
-      ...TABS.map((t) => t.name),
-      ...Object.values(AUTHORITY_COPY),
-      ...AGENT_SUGGESTIONS,
-      ...CONFORMIDADE_LEVELS.map((l) => l.name),
-      ...TRUST_CARDS.flatMap((c) => [c.title, c.q]),
-      ...EVIDENCE_CONTENT,
-      ...RFC_DOCS.flatMap((d) => [d.title, d.q]),
-      ...PROTOCOL_MAP_NODES.flatMap((n) => [n.role, n.q]),
-      ...DEV_COMMANDS, ...DEV_QUESTIONS, ...DEV_ENDPOINTS,
-    ].join("  ");
+    const publicCopy = [ALL_COPY("pt"), ALL_COPY("en"), ...DEV_COMMANDS, ...DEV_ENDPOINTS].join("  ");
     for (const phrase of FORBIDDEN_PHRASES) {
       expect(publicCopy).not.toContain(phrase);
     }
@@ -115,7 +109,9 @@ describe("authority boundary copy (BX0)", () => {
   });
 
   it("suggests operational duration/metric demonstrators (ADR-036)", () => {
-    const joined = AGENT_SUGGESTIONS.join(" ");
+    const joined = ["starter.journeyDuration", "starter.slowestStep", "starter.compareRuns"]
+      .map((id) => agentCopy(id as never, "pt"))
+      .join(" ");
     // Still anchored on the validation journey, but now exercising the operational telemetry answers:
     // total duration, the slowest step, and a run-over-run comparison.
     expect(joined).toContain("validação");

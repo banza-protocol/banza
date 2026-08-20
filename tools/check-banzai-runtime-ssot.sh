@@ -67,7 +67,24 @@ runtime_region | grep -qE 'authoritative:[[:space:]]*false' && ok "projection ca
 
 echo "== [4/5] /estado consumes the SSOT + no hardcoded engine claim =="
 [ -f "$ESTADO" ] || fl "missing $ESTADO"
-grep -qE 'fetch\(' "$ESTADO" && grep -qE '/banzai/runtime' "$ESTADO" && ok "/estado fetches /banzai/runtime (route-derived BanzAI row)" || fl "/estado must fetch the runtime SSOT (/banzai/runtime)"
+RUNTIME_ROW="website/lib/runtimeStatusRow.ts"
+EN_STATUS="website/app/en/status/page.tsx"
+# Comments stripped: this module explains the SSOT in its header, so the raw file would satisfy the check
+# even if the code had stopped calling the route.
+row_code="$(perl -0777 -pe 's{/\*.*?\*/}{}gs; s{(^|[^:])//[^\n]*}{$1}g' "$RUNTIME_ROW")"
+printf '%s' "$row_code" | grep -qE 'fetch\(' && printf '%s' "$row_code" | grep -qE '/banzai/runtime' \
+  && ok "the runtime row is derived from /banzai/runtime" \
+  || fl "$RUNTIME_ROW must fetch the runtime SSOT (/banzai/runtime)"
+grep -q 'fetchBanzaiRuntimeRow' "$ESTADO" \
+  && ok "/estado derives its BanzAI row from the SSOT" \
+  || fl "/estado must derive its BanzAI row from the runtime SSOT"
+# The English status page is the same claim to a different reader: it must not fall back to static prose.
+[ -f "$EN_STATUS" ] && grep -q 'fetchBanzaiRuntimeRow' "$EN_STATUS" \
+  && ok "/en/status derives its BanzAI row from the same SSOT" \
+  || fl "$EN_STATUS must derive its BanzAI row from the runtime SSOT"
+grep -qE 'fetchBanzaiRuntimeRow\("en"\)' "$EN_STATUS" \
+  && ok "/en/status realizes the row in its own edition" \
+  || fl "$EN_STATUS must realize the runtime row in the English edition"
 # PANEL_STATIC must not name the live engine.
 if awk '/const PANEL_STATIC/,/\] as const;/' "$ESTADO" | grep -qE 'Qwen local'; then
   fl "PANEL_STATIC hardcodes a 'Qwen local' engine claim — the BanzAI row must be route-derived"
@@ -76,7 +93,10 @@ else
 fi
 # 'Qwen local activo' as a live claim may appear ONLY inside the route-derived branch (parts.push). Any
 # non-comment, non-route-push line asserting it is an independent prose claim — forbidden.
-prose_claim="$(grep -nE 'Qwen local' "$ESTADO" | grep -iE 'activ' | grep -vE '^[0-9]+:[[:space:]]*//' | grep -vE 'parts\.push' || true)"
+# The live wording is emitted by the shared derivation, so an INDEPENDENT claim is now one that appears on
+# a page rather than inside that derivation. Scanning the page for it is exactly right; scanning the
+# derivation would report the mechanism itself.
+prose_claim="$(grep -nE 'Qwen local' "$ESTADO" "$EN_STATUS" | grep -iE 'activ' | grep -vE ':[0-9]+:[[:space:]]*//' | grep -vE 'parts\.push' || true)"
 if [ -n "$prose_claim" ]; then fl "an independent (non-route) 'Qwen local … activo' claim survives on /estado:"; echo "$prose_claim" | sed 's/^/      /'; else ok "'Qwen local activo' appears only in the route-derived branch (never as an independent prose/panel claim)"; fi
 
 echo "== [5/5] machine-routes-win contract note on /estado =="

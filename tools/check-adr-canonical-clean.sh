@@ -35,8 +35,13 @@ fi
 # 2. Every referenced ADR exists. Scanned over current surfaces only; the report of this sweep is
 #    excluded because it narrates the renumbering itself, and ADR-999 is excluded because it is the
 #    deliberate nonexistent id the retrieval evaluation uses to test a lookup that must not resolve.
+# Website source is scanned too. A stale ADR number in a code comment is the same defect as one in a
+# document — it sends a reader to a record that does not exist — and leaving that surface unscanned is how
+# one survived the renumbering here: the document reference failed the guard while the identical reference
+# in a .tsx comment beside it went unseen.
 missing=$(git ls-files 'decisions/**/*.md' 'docs/**/*.md' 'spec/**/*.md' 'contracts/**/*.json' \
-                      'website/content/**/*.md' 'tools/*.sh' 'engines/**/*.rs' 2>/dev/null \
+                      'website/content/**/*.md' 'website/**/*.ts' 'website/**/*.tsx' \
+                      'tools/*.sh' 'engines/**/*.rs' 2>/dev/null \
   | grep -v '^docs/audit/' \
   | xargs grep -ohaE 'ADR-[0-9]{3}' 2>/dev/null | sort -u \
   | grep -v '^ADR-999$' \

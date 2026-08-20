@@ -17,6 +17,11 @@ REPO_GUARDS_RS := engines/banza-repo-guards
 # identity/purity/invariant/openapi gate LOGIC lives in the Rust crate engines/banza-repo-guards
 # (R10). The tools/*.sh scripts below are thin RUST_WRAPPER_ONLY wrappers over that binary.
 
+.PHONY: ci-guards-local-check
+## ci-guards-local-check: run the guards the CI workflows invoke, with the arguments they pass — PASS / FAIL / NOT_RUN_LOCALLY
+ci-guards-local-check:
+	@bash tools/ci-guards-local-check.sh
+
 ## identity-check: Verify no operator-specific brand contamination in BANZA (Rust gate)
 identity-check:
 	@tools/check-operator-contamination.sh
@@ -167,7 +172,23 @@ root-threshold-model-check:
 banza-whitepaper-check:
 	@bash tools/check-banza-whitepaper.sh
 
-.PHONY: l0-regulatory-boundary-check canonical-profiles-rs profile-vocabulary-check website-hermetic-build-check website-guard-targets-check website-locale-roots-check banzai-entries-index banzai-entries-index-check banzai-source-paths-check banzai-answer-policy-check banzai-lifecycle-facts-check banzai-wasm-source-bound-check current-doc-links-check website-reference-mirror website-reference-source-boundary-check reference-source-authority-check reference-structural-parity-check reference-check
+.PHONY: l0-regulatory-boundary-check canonical-profiles-rs profile-vocabulary-check website-hermetic-build-check website-guard-targets-check website-locale-roots-check banzai-entries-index banzai-entries-index-check banzai-source-paths-check banzai-answer-policy-check banzai-lifecycle-facts-check banzai-wasm-source-bound-check current-doc-links-check website-copy-resolved website-copy-resolved-check website-chrome-resolved website-chrome-resolved-check website-reference-mirror website-reference-source-boundary-check reference-source-authority-check reference-structural-parity-check reference-check
+## website-copy-resolved: GENERATOR — realize every BanzAI catalogue id in both editions into website/lib/copyResolved.json. Block E2 moved the surfaces' sentences into bilingual catalogues, so a guard can no longer grep a component for the copy it renders; it reads this instead. Never hand-edited.
+website-copy-resolved:
+	@cd website && node scripts/emit-copy-resolved.mjs
+
+## website-copy-resolved-check: the tracked resolved copy is exactly what the live catalogues produce — re-derives and compares, writing nothing
+website-copy-resolved-check:
+	@cd website && node scripts/emit-copy-resolved.mjs --check
+
+## website-chrome-resolved: GENERATOR — resolve every header/footer destination, per edition, into website/lib/chromeResolved.json. The chrome declares semantic route targets and derives pathnames per edition, so guards can no longer read an href out of the config; they read this instead of re-implementing the derivation. Never hand-edited.
+website-chrome-resolved:
+	@cd website && node scripts/emit-chrome-resolved.mjs
+
+## website-chrome-resolved-check: the tracked resolved chrome is exactly what the live chrome produces — re-derives and compares, writing nothing
+website-chrome-resolved-check:
+	@cd website && node scripts/emit-chrome-resolved.mjs --check
+
 ## website-reference-mirror: GENERATOR — mirror the two canonical Reference editions into website/content/reference/{pt,en}.md. The website builds with website/ as its Docker context and cannot read docs/ at build time; the mirror exists for that boundary and is never hand-edited.
 website-reference-mirror:
 	@python3 tools/gen-website-reference-mirror.py

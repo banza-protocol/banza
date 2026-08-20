@@ -25,7 +25,9 @@
 // hit/miss, synthesis trace, fallback reason — never keys, secrets or full payloads.
 
 import { GUARDRAILS } from "./provider.js";
-import { normalize, retrieve, CORPUS_HASH, REPO_INDEX_HASH, SAFETY_POLICY_VERSION, contractVersions, validateResponse, route, routeWithJourney, getEntry, resolveDocument, resolveConcept, resolveScope, resolveOperationalMetric, resolveQuery, resolveReferences, contextualFallback, answerClass, buildTerminal, queuePriority, queueShouldDedup, recoverQuery, coveredEntities, isVerbatimEntry, attributeAnswer, taskedAnswer, documentLookup, contextUsedFor, buildOperationalPackage, verifyClaims } from "./knowledge.js";
+import { operationalDomain } from "./operationalDomain.js";
+import { composeTasked } from "./taskedRealizations.js";
+import { normalize, retrieve, CORPUS_HASH, REPO_INDEX_HASH, SAFETY_POLICY_VERSION, contractVersions, validateResponse, route, routeWithJourney, getEntry, resolveDocument, resolveConcept, resolveScope, resolveOperationalMetric, resolveQuery, resolveReferences, contextualFallback, answerClass, buildTerminal, queuePriority, queueShouldDedup, recoverQuery, coveredEntities, isVerbatimEntry, attributeAnswer, taskedAnswer, documentLookup, contextUsedFor, buildOperationalPackage, verifyClaims, answerFor, unavailableRealization, LOCALES, DEFAULT_LOCALE } from "./knowledge.js";
 import { honestLiveFailureAnswer } from "./liveArtifact.js";
 import { isPublicSource } from "./answerContract.js";
 
@@ -383,11 +385,197 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
 
 
 
-  function deterministic(hit, meta) {
+  /**
+   * Which language to answer in — decided by the CALLER, not by the question's spelling.
+   *
+   * Explicit locale always wins. "L0?" carries no language at all, and a site that knows its own edition
+   * must not have that overridden by a lexical guess; inference exists only for legacy callers that send
+   * no locale, and it is allowed to answer "undetermined" rather than pretend.
+   */
+  /**
+   * Reader prose owned by pre-composed terminals, per locale.
+   *
+   * A terminal is text the pipeline writes itself, so it has no knowledge-entry realization to select.
+   * That is exactly why it needs its own locale table: the alternative is what was here before, which was
+   * to emit every language at once and let the reader sort it out.
+   */
+  const TERMINAL_TEXT = {
+    source_evidence: {
+      "pt-PT": "Estas são as fontes que sustentam a resposta anterior:",
+      en: "These are the sources supporting the previous answer:",
+    },
+    // Contextual fallbacks, keyed by the STRUCTURED decision Rust returns (`kind`), not by its prose.
+    // Rust decides that a request is out of scope or ambiguous; what a reader is told about that is a
+    // presentation concern and belongs here. The Portuguese wording is the engine's existing sentence,
+    // moved rather than rewritten, so the decision's meaning is unchanged.
+    contextual_fallback: {
+      out_of_scope: {
+        "pt-PT":
+          "Não encontrei uma operação ou fonte pública do BANZA que suporte este pedido. O BanzAI responde sobre o protocolo BANZA — as suas regras, decisões, contratos e execuções de validação — e não sobre assuntos fora desse âmbito.",
+        en: "I found no BANZA operation or public source that supports this request. BanzAI answers about the BANZA protocol — its rules, decisions, contracts and validation runs — and not about subjects outside that scope.",
+      },
+      ambiguous: {
+        // Used only when the decision offers NO candidates. When it does, the specific sentence is
+        // composed from them below — in both locales, from the same data.
+        "pt-PT":
+          "Não consegui determinar com precisão o que pretende. Reformule o pedido indicando a operação ou o artefacto a que se refere.",
+        en: "I could not determine precisely what you are asking for. Rephrase the request naming the operation or the artifact you mean.",
+      },
+    },
+  };
+
+  /**
+   * Reader labels for the engine's DECLARED ambiguity candidates, per locale.
+   *
+   * These are the semantic alternatives — the engine decided WHICH choices to offer, and this decides
+   * how each is named to a reader. Closed-world on purpose: a candidate with no label here is a gap in
+   * presentation, and `ambiguityProse` refuses to guess rather than emitting a raw tag.
+   */
+  const AMBIGUITY_CANDIDATE_LABELS = {
+    "pt-PT": {
+      last_execution: "a última execução",
+      comparable_executions_median: "a mediana das execuções comparáveis",
+      configured_timeout_limit: "o limite de timeout configurado",
+      last_two_executions: "as duas execuções mais recentes",
+      specific_execution_ids: "execuções que identifique explicitamente",
+    },
+    en: {
+      last_execution: "the most recent execution",
+      comparable_executions_median: "the median across comparable executions",
+      configured_timeout_limit: "the configured timeout limit",
+      last_two_executions: "the two most recent executions",
+      specific_execution_ids: "executions you name explicitly",
+    },
+  };
+
+  /**
+   * The sentence frames that carry candidates to a reader.
+   *
+   * TWO FRAMES, because the two candidate classes are not the same kind of thing. A semantic candidate
+   * is a MEANING, and is named in the reader's language. A `term_spelling` candidate is a SPELLING the
+   * recovery layer could not choose between — Portuguese catalogue vocabulary — and translating it
+   * would destroy the very thing being asked about. So English keeps the spellings verbatim and frames
+   * them honestly as terms, rather than presenting Portuguese words as though they were English ones.
+   */
+  const AMBIGUITY_FRAME = {
+    "pt-PT": {
+      semantic: (list) => `Não tenho a certeza de qual pretende — refere-se a ${list}?`,
+      spelling: (list) => `Não tenho a certeza de qual pretende — refere-se a ${list}?`,
+      join: " ou ",
+    },
+    en: {
+      semantic: (list) => `I am not sure which you mean — do you mean ${list}?`,
+      spelling: (list) => `I am not sure which you mean. These catalogue terms match: ${list}.`,
+      join: " or ",
+    },
+  };
+
+  /** Join reader fragments with the locale's conjunction, Oxford-free: "a, b or c". */
+  function joinAlternatives(parts, locale) {
+    const join = AMBIGUITY_FRAME[locale].join;
+    if (parts.length <= 1) return parts[0] || "";
+    return parts.slice(0, -1).join(", ") + join + parts[parts.length - 1];
+  }
+
+  /**
+   * The ambiguity sentence, composed in `locale` from the decision's own typed candidates.
+   *
+   * Returns null when the decision offers nothing to compose from, or when a candidate has no label in
+   * this locale — the caller then uses the generic table entry. Guessing a label, or falling through to
+   * the engine's Portuguese sentence, are the two failures this exists to prevent.
+   */
+  function ambiguityProse(fb, locale) {
+    const candidates = Array.isArray(fb.ambiguity_candidates) ? fb.ambiguity_candidates : [];
+    if (candidates.length === 0) return null;
+    const frame = AMBIGUITY_FRAME[locale];
+    const labels = AMBIGUITY_CANDIDATE_LABELS[locale];
+    if (!frame || !labels) return null;
+
+    const spellings = candidates.filter((c) => c && c.candidate === "term_spelling");
+    if (spellings.length === candidates.length) {
+      const terms = spellings.map((c) => String(c.term || "")).filter(Boolean);
+      if (terms.length === 0) return null;
+      return frame.spelling(joinAlternatives(terms, locale));
+    }
+    if (spellings.length > 0) return null; // mixed classes: no honest single frame — use the generic text
+
+    const named = [];
+    for (const c of candidates) {
+      const label = labels[c && c.candidate];
+      if (!label) return null; // closed world: an unlabelled candidate is a presentation gap, not prose
+      named.push(label);
+    }
+    return frame.semantic(joinAlternatives(named, locale));
+  }
+
+  /**
+   * Reader prose for a contextual fallback, in the resolved locale.
+   *
+   * BOTH locales are realized here, from the same structured decision. Portuguese used to return the
+   * engine's own `fb.message` — a human sentence authored in Rust — which meant the claim "Rust decides,
+   * JS realizes" was false on the serving path readers actually hit. The specificity that sentence
+   * carried (it names the exact alternatives) is not lost: it is recomposed from
+   * `fb.ambiguity_candidates`, which is the same decision expressed as data.
+   *
+   * `fb.message` is now diagnostics only. It stays on the wire for tests and traces; it is never read
+   * as reader text.
+   */
+  function fallbackProse(fb, locale) {
+    const composed = ambiguityProse(fb, locale);
+    if (composed) return composed;
+    const table = TERMINAL_TEXT.contextual_fallback[fb.kind] || {};
+    const owned = table[locale];
+    if (owned) return owned;
+    return unavailableRealization(locale);
+  }
+
+  function resolveLocale(requested, question) {
+    if (LOCALES.includes(requested)) return { locale: requested, source: "explicit" };
+    // NO INFERENCE for legacy callers, and this is a measured decision rather than a simplification.
+    //
+    // The corpus is Portuguese: 163 of 178 deterministic entries have only a pt-PT realization. Guessing
+    // "en" from an English-worded question and then failing closed would take every such question from
+    // "answered in Portuguese" to "not available in English" for clients that have no way to ask for
+    // Portuguese yet — a regression for callers that did nothing wrong. Lexical inference also cannot
+    // read "L0?" or "BCJ/1?" at all, which is the case the explicit signal exists for.
+    //
+    // So: the caller states its locale, or it gets the canonical one. The website sends it explicitly,
+    // which is where English correctness is actually enforced.
+    return { locale: DEFAULT_LOCALE, source: "legacy-default" };
+  }
+
+  function deterministic(hit, meta, locale) {
+    // Locale chooses the realization; it never changes which entry was selected or which sources
+    // establish it. A missing realization fails closed in the REQUESTED locale (knowledge.answerFor).
+    // Two kinds of thing reach this function. A KNOWLEDGE ENTRY carries `realizations` and the locale
+    // selects one. A PRE-COMPOSED terminal (source-evidence follow-ups, operational failures) is built by
+    // the pipeline itself in the already-resolved locale and carries a plain `answer`; asking answerFor
+    // for a realization it never had would report "unavailable" for text that is right there and correct.
+    // This is not a locale fallback: the composer produced that string for THIS locale.
+    // WHICH KIND OF THING IS THIS? Asked by declaration, not by shape.
+    //
+    // A knowledge entry carries `realizations` and the locale selects one. A PRE-COMPOSED TERMINAL says so
+    // — `precomposed_terminal` names its class — and carries prose the pipeline already wrote for the
+    // resolved locale, so asking answerFor for a realization it never had would report "unavailable" for
+    // correct text. Recognising terminals by the ABSENCE of `realizations` was too weak: any malformed or
+    // legacy object satisfies that shape and would have been served as though it were deliberate.
+    const isPrecomposedTerminal = Boolean(hit && hit.precomposed_terminal);
+    if (isPrecomposedTerminal && hit.answer_locale && hit.answer_locale !== locale) {
+      // A terminal must be composed FOR the resolved locale. Metadata cannot relabel prose after the fact.
+      throw new Error(
+        `pipeline: ${hit.precomposed_terminal} terminal composed for ${hit.answer_locale} but the request ` +
+          `resolved to ${locale} — terminal prose must be written for the locale that was resolved`,
+      );
+    }
+    const realization = isPrecomposedTerminal
+      ? { text: hit.answer || "", available: true, locale }
+      : answerFor(hit, locale);
     return {
       result: {
         grounded: true,
-        answer: hit.answer,
+        answer: realization.text,
+        answer_locale: realization.locale,
+        answer_locale_available: realization.available,
         // Public eligibility is decided HERE, at the evidence layer, not later at the contract boundary.
         // Measured: "implementar o protocolo" reaches implementation-steps and served CLAUDE.md — an
         // internal repository guide — in result.sources. `normalizeBanzaiAnswer` would have dropped it
@@ -450,12 +638,16 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
   // Rust what physically happened at the call site ("tool_unavailable" | "insufficient_source" | "" = the
   // engine decides from the resolution). The `kind` + interpreted intent + sub-intents ride in the meta so
   // the /ask envelope surfaces them. This path is NEVER reached for a boundary/refusal (those are Tier 0).
-  function contextualInsufficient(question, situation, meta) {
+  function contextualInsufficient(question, situation, meta, locale = DEFAULT_LOCALE) {
     const fb = contextualFallback(question, situation) || {};
+    // The engine decided; the locale decides what the reader is told about that decision. Composed HERE,
+    // for THIS locale, so answer_locale below is provenance of composition and not a label applied after.
+    const prose = fallbackProse(fb, locale);
     return {
       result: {
         grounded: false,
-        answer: fb.message || "Não encontrei evidência pública suficiente para responder com segurança.",
+        answer: prose,
+        answer_locale: locale,
         sources: [],
         entry_id: null,
         provider: provider.name,
@@ -509,17 +701,26 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
   // M2.18B — a grounded=false result carrying a specific answer body (clarification / out-of-scope /
   // interpreted-boundary). No source, no model answer. Deterministic; safe by construction.
   function stated(answerText, meta) {
+    // ONE authority for reader-locale provenance, and it sits beside the prose it describes.
+    //
+    // Composers used to pass `answer_locale` inside `meta` while the knowledge realization path put it on
+    // `result`, so the same fact had two homes. That is not a tidiness complaint: a census that read only
+    // `meta` reported 26 of 30 answers as unprovenanced when the true number was 4, because it looked in
+    // the wrong place for the largest composer. A rule written over two fields can always read the wrong
+    // one, so composers keep stamping at composition and this hoists the value to the canonical field.
+    const { answer_locale, ...rest } = meta || {};
     return {
       result: {
         grounded: false,
         answer: answerText,
+        answer_locale: answer_locale ?? null,
         sources: [],
         entry_id: null,
         provider: provider.name,
         mode: isReal ? "real" : "mock",
         guardrails: GUARDRAILS,
       },
-      meta: { deterministic: true, cache: null, llm_called: false, ...meta },
+      meta: { deterministic: true, cache: null, llm_called: false, ...rest },
     };
   }
 
@@ -651,25 +852,151 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     };
   }
 
+  /**
+   * Reader prose for the clarification terminal, per locale and per CANDIDATE CLASS.
+   *
+   * Two classes reach this terminal and they are not the same question. `document` candidates are
+   * canonical artifact identifiers — "did you mean ADR-001 or ADR-012?". `term` candidates come from the
+   * typo-recovery layer and are Portuguese catalogue SPELLINGS — "operador / operar". Asking an English
+   * reader "which document do you mean: operador or operar?" is wrong twice: they are not documents, and
+   * they are not English. So the frame follows the class, and the spellings themselves are never
+   * translated — translating the vocabulary being matched would destroy the thing being asked about.
+   */
+  const CLARIFY_TEXT = {
+    "pt-PT": {
+      document: {
+        many: (list) => `Encontrei mais do que um documento relacionado. Refere-se a ${list}?`,
+        one: (only) =>
+          `Não tenho a certeza de qual documento pretende — refere-se a ${only}? Se sim, confirme; caso contrário, indique o identificador (ex.: ADR-001).`,
+        none: "Não consegui determinar com segurança qual documento ou regra pretende consultar. Pode indicar o identificador (ex.: ADR-001) ou reformular a pergunta?",
+      },
+      term: {
+        many: (list) => `Não tenho a certeza de qual termo pretende — refere-se a ${list}?`,
+        one: (only) => `Não tenho a certeza do termo — refere-se a ${only}?`,
+        none: "Não consegui determinar com segurança o termo pretendido. Pode reformular a pergunta?",
+      },
+      join: " ou ",
+    },
+    en: {
+      document: {
+        many: (list) => `I found more than one related document. Do you mean ${list}?`,
+        one: (only) =>
+          `I am not sure which document you mean — do you mean ${only}? If so, confirm; otherwise give the identifier (e.g. ADR-001).`,
+        none: "I could not determine which document or rule you want to consult. Give the identifier (e.g. ADR-001) or rephrase the question.",
+      },
+      term: {
+        // The terms stay in their catalogue spelling; the framing says so rather than presenting
+        // Portuguese vocabulary as though it were English.
+        many: (list) => `I am not sure which term you mean. These catalogue terms match: ${list}.`,
+        one: (only) => `I am not sure about the term. The closest catalogue term is: ${only}.`,
+        none: "I could not determine which term you mean. Please rephrase the question.",
+      },
+      join: " or ",
+    },
+  };
+
+  /**
+   * Reader vocabulary for the operational-measurement decline, per locale.
+   *
+   * Two input kinds, kept apart on purpose. `subject`/`metric`/`statistic` name values that came from
+   * the REQUEST DECISION; `frame` writes the sentences around the STATIC domain description. Neither
+   * table restates a fact — the nine steps and the receipt name arrive from `operationalDomain()`, so
+   * a translation cannot quietly drop one or let the two locales disagree about what the journey is.
+   */
+  const MEASUREMENT_TEXT = {
+    "pt-PT": {
+      subject: {
+        validation_journey: "uma jornada de validação",
+        certification: "a certificação",
+        federation: "a federação",
+      },
+      subjectFallback: "uma operação do protocolo",
+      metric: {
+        elapsed_time: "a duração",
+        slowest_step: "o passo mais lento",
+      },
+      metricFallback: "a medição pedida",
+      statistic: { median_total: "a **mediana**", p95_total: "o **percentil 95**" },
+      numeral: { 7: "sete", 8: "oito", 9: "nove", 10: "dez", 11: "onze", 12: "doze" },
+      frame: ({ subject, metric, steps, stepCount, receipt, stats }) =>
+        `Interpretei o teu pedido como uma pergunta sobre **${metric} de ${subject} (uma medição operacional, não um conceito do protocolo)**.\n\n` +
+        `Para responder com um valor fiável preciso de **execuções concluídas** no mesmo perfil, ambiente e versão do protocolo — a medição depende da disponibilidade dos artefactos, da latência da origem canónica, dos *timeouts* e dos passos aplicáveis ao perfil.\n\n` +
+        `Consultei a **telemetria de execuções persistidas** (apenas leitura, execuções públicas). Ainda **não existem execuções públicas comparáveis suficientes** para calcular um valor representativo, por isso **não invento um número**.\n\n` +
+        `O que posso afirmar sem medição: a jornada tem **${stepCount} etapas** (${steps.join(", ")}) e a duração observada de cada execução fica registada no respectivo **${receipt}**.\n\n` +
+        `Assim que existir uma execução pública concluída, mostro a **duração observada** dessa execução e, com várias execuções comparáveis, ${stats.join(" e ")} — distinguindo sempre uma observação individual de uma média.`,
+    },
+    en: {
+      subject: {
+        validation_journey: "a validation journey",
+        certification: "certification",
+        federation: "federation",
+      },
+      subjectFallback: "a protocol operation",
+      metric: {
+        elapsed_time: "the duration",
+        slowest_step: "the slowest step",
+      },
+      metricFallback: "the requested measurement",
+      statistic: { median_total: "the **median**", p95_total: "the **95th percentile**" },
+      numeral: { 7: "seven", 8: "eight", 9: "nine", 10: "ten", 11: "eleven", 12: "twelve" },
+      frame: ({ subject, metric, steps, stepCount, receipt, stats }) =>
+        `I read your request as a question about **${metric} of ${subject} (an operational measurement, not a protocol concept)**.\n\n` +
+        `To answer with a reliable value I need **completed executions** on the same profile, environment and protocol version — the measurement depends on artifact availability, canonical-origin latency, *timeouts* and the steps that apply to the profile.\n\n` +
+        `I consulted the **persisted execution telemetry** (read-only, public executions). There are still **not enough comparable public executions** to compute a representative value, so **I will not invent a number**.\n\n` +
+        `What I can state without measuring: the journey has **${stepCount} steps** (${steps.join(", ")}) and each execution's observed duration is recorded in its **${receipt}**.\n\n` +
+        `Once a public execution has completed I will report that execution's **observed duration**, and with several comparable executions ${stats.join(" and ")} — always distinguishing a single observation from an average.`,
+    },
+  };
+
+  /**
+   * The measurement decline, composed in `locale` from the decision plus the static domain description.
+   *
+   * The Rust layer still authors `honest_fallback`; it is diagnostics now. Reader text is built here so
+   * both locales carry the SAME facts — which is why the steps and the receipt name are read from the
+   * domain descriptor rather than written into either sentence.
+   */
+  function measurementProse(decision, locale) {
+    const t = MEASUREMENT_TEXT[locale] || MEASUREMENT_TEXT[DEFAULT_LOCALE];
+    const domain = operationalDomain();
+    const steps = domain.journey_steps;
+    return t.frame({
+      subject: t.subject[decision.subject] || t.subjectFallback,
+      metric: t.metric[decision.metric] || t.metricFallback,
+      steps,
+      // The count is DERIVED, so it cannot disagree with the list beside it — but it still reads as a
+      // written numeral, because "a jornada tem 9 etapas" is not how the sentence is spoken. The map
+      // covers the counts a step spine plausibly has and falls back to the digit rather than guessing,
+      // so adding a tenth step changes the sentence instead of leaving a stale word behind.
+      stepCount: (t.numeral && t.numeral[steps.length]) || String(steps.length),
+      receipt: domain.receipt_artifact,
+      stats: domain.supported_statistics.map((s) => t.statistic[s]).filter(Boolean),
+    });
+  }
+
   // Ask for clarification instead of silently choosing. The question is composed deterministically from
-  // the Rust resolver's real candidates; no model is called here.
-  function clarify(envelope, meta) {
+  // the Rust resolver's real candidates in the RESOLVED locale; no model is called here.
+  function clarify(envelope, meta, locale, candidateClass = "document") {
     const cands = (envelope && Array.isArray(envelope.entity_candidates) ? envelope.entity_candidates : [])
       .map((c) => String((c && (c.proposed_canonical_id || c.label)) || "").trim())
       .filter(Boolean)
       .slice(0, 4);
+    const table = CLARIFY_TEXT[locale] || CLARIFY_TEXT[DEFAULT_LOCALE];
+    const frame = table[candidateClass] || table.document;
     let a;
     if (cands.length >= 2) {
-      a = `Encontrei mais do que um documento relacionado. Refere-se a ${cands.slice(0, -1).join(", ")} ou ${cands[cands.length - 1]}?`;
+      a = frame.many(cands.slice(0, -1).join(", ") + table.join + cands[cands.length - 1]);
     } else if (cands.length === 1) {
-      a = `Não tenho a certeza de qual documento pretende — refere-se a ${cands[0]}? Se sim, confirme; caso contrário, indique o identificador (ex.: ADR-001).`;
+      a = frame.one(cands[0]);
     } else {
-      a = "Não consegui determinar com segurança qual documento ou regra pretende consultar. Pode indicar o identificador (ex.: ADR-001) ou reformular a pergunta?";
+      a = frame.none;
     }
-    return stated(a, meta);
+    return stated(a, { ...meta, answer_locale: locale });
   }
 
-  async function answer(question, { mode: requestedMode, contextQuestions, conversationContext, journeyStep, documentId, journeyNextActionSentence, signal, requestId, onProgress } = {}) {
+  async function answer(question, { mode: requestedMode, contextQuestions, conversationContext, journeyStep, documentId, journeyNextActionSentence, signal, requestId, onProgress, locale: requestedLocale } = {}) {
+    // The reader's language is decided ONCE, here, and never inferred from the answer's content.
+    const localeDecision = resolveLocale(requestedLocale, question);
+    const locale = localeDecision.locale;
     const mode = requestedMode === "deep" || requestedMode === "fast" ? requestedMode : defaultMode;
     // SPR-2 — the Channel-A progress emitter. When the caller (the SSE endpoint) supplies onProgress, the
     // pipeline emits typed, PUBLIC-SAFE progress events at the REAL stage boundaries; when it is absent (the
@@ -998,6 +1325,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         fallback_reason: "context_reference_unresolved",
         intent: "clarification_required",
         terminal_kind: "clarification",
+        answer_locale: locale,
         trace_label: "Referência conversacional por resolver (Rust)",
         reference_referent_kind: references.referent_kind || "none",
         ...ctxMeta,
@@ -1296,8 +1624,9 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
       // Understood, but not enough comparable measurements (or telemetry disabled/unavailable) → the
       // Rust-authored honest, request-oriented fallback. NEVER the fixed list; NEVER a fabricated number.
       const failCode = t && t.error && t.error.code ? String(t.error.code) : "INSUFFICIENT_MEASUREMENTS";
-      return stated(opMetric.honest_fallback, {
+      return stated(measurementProse(opMetric, locale), {
         answer_mode: mode,
+        answer_locale: locale,
         fallback_reason: "insufficient_measurements",
         reason_code: "INSUFFICIENT_MEASUREMENTS",
         terminal_kind: "insufficient_measurements",
@@ -1347,16 +1676,22 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
           terminal_kind: "insufficient_evidence",
           ...ctxMeta,
           ...routerTrace,
-        });
+        }, locale);
       }
-      // Bilingual and deterministic, in the same shape the corpus uses, so the frontend renders it with no
-      // new component and the source cards are the EXISTING objects — Block 5B stays the owner of what an
-      // ADR, a spec or an unclassified source is called.
+      // Composed FOR THE RESOLVED LOCALE, in the same shape the corpus uses, so the frontend renders it
+      // with no new component and the source cards are the EXISTING objects — Block 5B stays the owner of
+      // what an ADR, a spec or an unclassified source is called.
+      //
+      // This line used to emit the Portuguese sentence, a separator and the English sentence together,
+      // regardless of who was asking — the same concatenation the knowledge entries were migrated out of,
+      // surviving in a terminal composer because terminals were never part of that migration.
       const record = {
         id: targetEntry.id,
-        answer:
-          "Estas são as fontes que sustentam a resposta anterior:\n\n---\n\n" +
-          "These are the sources supporting the previous answer:",
+        // Declared identity, not inferred shape: a terminal says what it is rather than being recognised
+        // by the absence of `realizations`, which any malformed object also satisfies.
+        precomposed_terminal: "source_evidence",
+        answer_locale: locale,
+        answer: TERMINAL_TEXT.source_evidence[locale] || TERMINAL_TEXT.source_evidence[DEFAULT_LOCALE],
         // The validated identities only. A tampered id never reaches a card because it never survived
         // revalidation — the same set `previous_sources_available` is computed from.
         sources: evidence,
@@ -1369,7 +1704,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         trace_label: "Fontes da resposta anterior, confirmadas por Rust",
         ...ctxMeta,
         ...routerTrace,
-      });
+      }, locale);
     }
 
     // Tier 1 — a deterministic critical-boundary / canonical-definition entry (source-bound, model-free).
@@ -1394,7 +1729,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     if (decisionEffective.action === "deterministic" && (!hasExplanatoryCue || verbatimEntry)) {
       const entry = decision.entry_id ? getEntry(decision.entry_id) : null;
       if (entry && hasExplanatoryCue && publicSourcesOnly(entry.sources).length === 0) {
-        return contextualInsufficient(rq, "", { answer_mode: mode, fallback_reason: "insufficient_sources", intent, terminal_kind: "insufficient_evidence", ...ctxMeta, ...routerTrace });
+        return contextualInsufficient(rq, "", { answer_mode: mode, fallback_reason: "insufficient_sources", intent, terminal_kind: "insufficient_evidence", ...ctxMeta, ...routerTrace }, locale);
       }
       if (entry) {
         // M2.18B.5 — a `def-*` entry is a canonical DEFINITION, never a security boundary: label it
@@ -1406,10 +1741,10 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         const isBoundary = !isDefinition && (intent === "critical_boundary" || intent === "action_boundary");
         const kind = isBoundary ? "safety_refusal" : "canonical_definition";
         const trace_label = isBoundary ? "Limite de segurança aplicado por Rust" : "Definição canónica confirmada por Rust";
-        return deterministic(entry, { answer_mode: mode, fallback_reason: null, intent, terminal_kind: kind, trace_label, ...ctxMeta, ...routerTrace });
+        return deterministic(entry, { answer_mode: mode, fallback_reason: null, intent, terminal_kind: kind, trace_label, ...ctxMeta, ...routerTrace }, locale);
       }
       // Safety net: routing selected an unknown entry id → a contextual decline rather than a wrong answer.
-      return contextualInsufficient(rq, "", { answer_mode: mode, fallback_reason: "insufficient_sources", intent, terminal_kind: "insufficient_evidence", ...ctxMeta, ...routerTrace });
+      return contextualInsufficient(rq, "", { answer_mode: mode, fallback_reason: "insufficient_sources", intent, terminal_kind: "insufficient_evidence", ...ctxMeta, ...routerTrace }, locale);
     }
 
     // Tier 1b (M2.18B.7) — EXACT-FACT / ATTRIBUTE terminal (deterministic; 0 model calls). A creation
@@ -1460,32 +1795,40 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     if (!journeyOwnsTurn) {
       const task = taskedAnswer(correctedQuestion);
       if (task) {
-        return {
-          result: {
-            grounded: true,
-            answer: task.answer_markdown,
-            sources: Array.isArray(task.sources) ? task.sources : [],
-            entry_id: `task-${task.task}`,
-            provider: provider.name,
-            mode: isReal ? "real" : "mock",
-            guardrails: GUARDRAILS,
-          },
-          meta: {
-            deterministic: true,
-            cache: null,
-            llm_called: false,
-            answer_mode: mode,
-            fallback_reason: null,
-            intent: "grounded",
-            terminal_kind: "tasked_terminal",
-            requested_task: task.task,
-            task_kind: task.kind,
-            reason_code: task.reason_code,
-            trace_label: "Tarefa cumprida por Rust (0 chamadas de modelo)",
-            ...ctxMeta,
-            ...routerTrace,
-          },
-        };
+        // The reader's text is realized from the semantic plan for the RESOLVED locale — never from
+        // `task.answer_markdown`, which is Rust-assembled Portuguese and is diagnostics now. A locale
+        // that cannot realize every fact the plan names declines rather than serving a procedure that
+        // reads fluently and is missing a step.
+        const taskedText = composeTasked(task.plan, task.subject, task.kind, locale);
+        if (taskedText) {
+          return {
+            result: {
+              grounded: true,
+              answer: taskedText,
+              answer_locale: locale,
+              sources: Array.isArray(task.sources) ? task.sources : [],
+              entry_id: `task-${task.task}`,
+              provider: provider.name,
+              mode: isReal ? "real" : "mock",
+              guardrails: GUARDRAILS,
+            },
+            meta: {
+              deterministic: true,
+              cache: null,
+              llm_called: false,
+              answer_mode: mode,
+              fallback_reason: null,
+              intent: "grounded",
+              terminal_kind: "tasked_terminal",
+              requested_task: task.task,
+              task_kind: task.kind,
+              reason_code: task.reason_code,
+              trace_label: "Tarefa cumprida por Rust (0 chamadas de modelo)",
+              ...ctxMeta,
+              ...routerTrace,
+            },
+          };
+        }
       }
     }
 
@@ -1510,6 +1853,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
             provider: provider.name,
             mode: isReal ? "real" : "mock",
             guardrails: GUARDRAILS,
+            answer_locale: locale,
           },
           meta: {
             deterministic: true,
@@ -1593,7 +1937,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         : contextResolved && references.execution_id
         ? [references.execution_id]
         : [];
-      const fam = await answerQuestionFamily(rq, { traceId: String(keyFields.repoIndexHash || ""), receiptsTool, contextTargets });
+      const fam = await answerQuestionFamily(rq, { traceId: String(keyFields.repoIndexHash || ""), receiptsTool, contextTargets, locale });
       // The question-family handler runs its own deterministic plan (reason-code registry / receipt store /
       // canonical corpus). Emit the TOOL events ONLY when a family actually OWNS this turn (grounded /
       // clarification / fallback) — never for a "skip" that merely falls through to the trunk below (that
@@ -1625,6 +1969,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
           fallback_reason: "family_clarification",
           intent: "clarification_required",
           terminal_kind: "clarification",
+          answer_locale: fam.answer_locale,
           question_family: fam.family,
           trace_label: "Clarificação de família de pergunta (Rust)",
           ...ctxMeta,
@@ -1670,7 +2015,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         return exactTerminal(term, { answer_mode: mode, fallback_reason: null, intent, ...ctxMeta, ...docMeta });
       }
       if (term && term.kind === "insufficient_evidence" && !docRes.found) {
-        return contextualInsufficient(rq, "insufficient_source", { answer_mode: mode, fallback_reason: "exact_fact_unsourced", intent, terminal_kind: "insufficient_evidence", ...ctxMeta, ...docMeta });
+        return contextualInsufficient(rq, "insufficient_source", { answer_mode: mode, fallback_reason: "exact_fact_unsourced", intent, terminal_kind: "insufficient_evidence", ...ctxMeta, ...docMeta }, locale);
       }
     }
 
@@ -1689,12 +2034,14 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         return clarify(
           { entity_candidates: recovery.clarification.map((label) => ({ label: String(label || "") })) },
           { answer_mode: mode, fallback_reason: "typo_clarification", intent: "clarification_required", terminal_kind: "clarification", trace_label: "É necessário esclarecer a referência", ...ctxMeta, ...docMeta },
+          locale,
+          "term",
         );
       }
       // Block 4B — this is the terminal a subject-less route actually reaches, so the context-missing reason
       // belongs HERE. Measured, not assumed: the first attempt put it on the unknown-entry safety net above,
       // which this path never touches, and the test that asked for the reason was what said so.
-      return contextualInsufficient(rq, "", { answer_mode: mode, fallback_reason: decision.merge_kind === "CONTEXT_TARGET_MISSING" ? "context_target_missing" : "insufficient_sources", intent, terminal_kind: "insufficient_evidence", ...ctxMeta, ...docMeta });
+      return contextualInsufficient(rq, "", { answer_mode: mode, fallback_reason: decision.merge_kind === "CONTEXT_TARGET_MISSING" ? "context_target_missing" : "insufficient_sources", intent, terminal_kind: "insufficient_evidence", ...ctxMeta, ...docMeta }, locale);
     }
 
     // The seed for the trunk's Rust resolver: the exact record, else the concept's canonical source, else
@@ -1723,7 +2070,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // Mock provider — deterministic, free, offline. It has no local model, so it never runs the trunk.
     if (!isReal) {
       const r = await provider.answer(rq);
-      return { result: r, meta: { deterministic: true, cache: null, llm_called: false, answer_mode: mode, fallback_reason: null, intent, terminal_kind: "explanatory_trunk", ...ctxMeta, ...docMeta } };
+      return { result: { ...r, answer_locale: locale }, meta: { deterministic: true, cache: null, llm_called: false, answer_mode: mode, fallback_reason: null, intent, terminal_kind: "explanatory_trunk", ...ctxMeta, ...docMeta } };
     }
 
     // The emergency Phase-1 grounding (model-free, degraded, sourced) — used ONLY when the trunk cannot
@@ -1756,9 +2103,9 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // falsely reads routing_result=null / synthesis_called=false. Pre-synthesis emergencies pass nothing.
     const emergency = (reason, extra = {}) => {
       if (emergencyHit) {
-        return deterministic(emergencyHit, { answer_mode: mode, fallback_reason: reason, degraded: true, intent, terminal_kind: "operational_failure", ...ctxMeta, ...docMeta, ...extra });
+        return deterministic(emergencyHit, { answer_mode: mode, fallback_reason: reason, degraded: true, intent, terminal_kind: "operational_failure", ...ctxMeta, ...docMeta, ...extra }, locale);
       }
-      return contextualInsufficient(rq, "tool_unavailable", { answer_mode: mode, fallback_reason: reason, intent, terminal_kind: "insufficient_evidence", ...ctxMeta, ...docMeta, ...extra });
+      return contextualInsufficient(rq, "tool_unavailable", { answer_mode: mode, fallback_reason: reason, intent, terminal_kind: "insufficient_evidence", ...ctxMeta, ...docMeta, ...extra }, locale);
     };
 
     // Caches (exact then semantic) — a grounded trunk answer is cached; a cache hit reports llm_called:false
@@ -1767,9 +2114,9 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // so answer_source=validated_cache. This label makes deterministic coverage (validated_cache +
     // deterministic terminals vs fresh_synthesis) measurable from the /ask meta alone.
     const exactHit = exact.get(keyFields);
-    if (exactHit) return { result: exactHit, meta: { deterministic: false, cache: "exact", answer_source: "validated_cache", llm_called: false, answer_mode: mode, fallback_reason: null, intent, terminal_kind: "explanatory_trunk", ...ctxMeta, ...docMeta } };
+    if (exactHit) return { result: { ...exactHit, answer_locale: locale }, meta: { deterministic: false, cache: "exact", answer_source: "validated_cache", llm_called: false, answer_mode: mode, fallback_reason: null, intent, terminal_kind: "explanatory_trunk", ...ctxMeta, ...docMeta } };
     const semHit = semantic.find(keyFields);
-    if (semHit) return { result: semHit.value, meta: { deterministic: false, cache: "semantic", answer_source: "validated_cache", similarity: semHit.similarity, llm_called: false, answer_mode: mode, fallback_reason: null, intent, terminal_kind: "explanatory_trunk", ...ctxMeta, ...docMeta } };
+    if (semHit) return { result: { ...semHit.value, answer_locale: locale }, meta: { deterministic: false, cache: "semantic", answer_source: "validated_cache", similarity: semHit.similarity, llm_called: false, answer_mode: mode, fallback_reason: null, intent, terminal_kind: "explanatory_trunk", ...ctxMeta, ...docMeta } };
 
     // Budget gate — the USD budget guards HOSTED inference only; local_qwen runs on the VM at ~zero
     // marginal cost and bypasses it (its control is the concurrency/queue limiter + container memory). An
@@ -1809,7 +2156,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         // SPR-2 — the pipeline's emit is threaded in as onProgress so the SINGLE grounded synthesis emits
         // FACTUAL_PACKAGE_READY (after the package is built, BEFORE the model turn) → SYNTHESIS_STARTED →
         // SYNTHESIS_COMPLETED (text held server-side, NEVER streamed). No model-token/delta event exists.
-        (execSignal) => runSynthesis(rq, { provider, traceId: String(keyFields.repoIndexHash || ""), timeoutMs: tpTimeoutMs, model: tpModel, entityId: seededEntity, taskQuestion, signal: execSignal, onProgress: emit, queueWaitMs: Math.max(0, nowFn() - tEnqueued) }),
+        (execSignal) => runSynthesis(rq, { provider, traceId: String(keyFields.repoIndexHash || ""), timeoutMs: tpTimeoutMs, model: tpModel, entityId: seededEntity, taskQuestion, signal: execSignal, onProgress: emit, queueWaitMs: Math.max(0, nowFn() - tEnqueued), locale }),
         { dedupKey, priority, signal },
       );
     } catch (e) {
@@ -1940,6 +2287,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
       const g = groundedAnswer(answerText, tp.package, tp.cited_source_ids, {
         ...tpMeta,
         terminal_kind: "explanatory_trunk",
+        answer_locale: locale,
         fallback_reason: null,
         post_validate_ran: true,
         post_validate_ok: ok,
@@ -1957,6 +2305,8 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
       return clarify(
         { entity_candidates: (tp.clarification_candidates || []).map((id) => ({ proposed_canonical_id: id })) },
         { ...tpMeta, intent: "clarification_required", terminal_kind: "clarification", fallback_reason: "synthesis_clarify" },
+        locale,
+        "document",
       );
     }
     if (tp.status === "insufficient") {
@@ -2014,7 +2364,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         ...tpMeta,
         terminal_kind: "insufficient_evidence",
         fallback_reason: reason,
-      });
+      }, locale);
     }
     // status "fallback" — the trunk could not publish a validated model answer. Derive a FAITHFUL,
     // specific reason from the trace (M2.18B.6): a validator rejection is not "model unavailable", and a

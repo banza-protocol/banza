@@ -3,16 +3,16 @@
 // BanzAI — the single protocol-agent shell (ADR-036), rebuilt for endpoint-originated operator
 // validation (M2.19G.1, ADR-034). ONE app at /banzai, TWO modes of the SAME shell:
 //
-//   • "Perguntar ao BanzAI" (ask)        — the conversation, answered by the live Rust-controlled
+//   • t("tab.assistente") (ask)        — the conversation, answered by the live Rust-controlled
 //                                           banzai-api backend (local Qwen, same-origin /banzai/ask).
-//   • "Validar operador"    (validation) — the endpoint-originated 9-step journey: Fase 0 selects an
+//   • t("mode.validation")    (validation) — the endpoint-originated 9-step journey: Fase 0 selects an
 //                                           operator + a published implementation from the CLOSED
 //                                           registry, then each step calls the Rust backend which
 //                                           FETCHES from the implementation's public endpoints and
 //                                           decides the verdict. No manual input in this official path.
 //
 // The manual paste/upload developer tooling lives ONLY under Recursos → Programadores ("Validar
-// rascunho"). Results live in ONE "Resultados" area with in-area sub-views. BanzAI guides and explains;
+// rascunho"). Results live in ONE t("tab.resultados") area with in-area sub-views. BanzAI guides and explains;
 // it decides nothing and confers no status on operators.
 
 import { useEffect, useRef, useState } from "react";
@@ -23,11 +23,16 @@ import { SafeMarkdown } from "@/components/banzai/SafeMarkdown";
 import { SourceBlock } from "@/components/banzai/SourceBlock";
 import { TransparencyPanel } from "@/components/banzai/TransparencyPanel";
 import {
-  BANZAI_AGENT, TABS, TAB_META, MODES, type WbTab, type WbMode,
-  AGENT_SUGGESTIONS, AGENT_GUIA_TEXT, AGENT_WHO_DOES_WHAT, AGENT_RULE_SOURCES,
+  TABS, TAB_META, MODES, type WbTab, type WbMode,
+  AGENT_SUGGESTION_IDS,
   RFC_DOCS, PROTOCOL_MAP_NODES,
 } from "@/components/banzai/banzai-agent";
 import { Ico, CARD } from "@/components/banzai/banzaiUi";
+import { realizeSuggestions } from "@/components/banzai/suggestions";
+import { useBanzaiLocale } from "@/components/banzai/BanzaiWorkspaceProvider";
+import { agentCopy, getAgentPresentation, type AgentCopyId } from "@/components/banzai/agentPresentation";
+import type { Locale } from "@/lib/i18n";
+
 import type { BanzaiState } from "@/lib/banzaiState";
 import { useValidationSession } from "@/components/banzai/validationJourney";
 import {
@@ -69,12 +74,12 @@ type Msg = {
 
 // M2.14F — dynamic "thinking" indicator. Public wording only; never names the model/runtime. Honours
 // prefers-reduced-motion and announces a single stable status to assistive tech.
-const THINKING_STAGES = [
-  "A consultar a referência…",
-  "A cruzar fontes verificáveis…",
-  "A compor a resposta…",
-  "A validar as fronteiras…",
-  "A preparar as fontes…",
+const THINKING_STAGE_IDS: readonly AgentCopyId[] = [
+  "thinking.consultingReference",
+  "thinking.crossingSources",
+  "thinking.composingAnswer",
+  "thinking.validatingBoundaries",
+  "thinking.preparingSources",
 ];
 
 function usePrefersReducedMotion(): boolean {
@@ -108,6 +113,63 @@ function useIsDesktop(): boolean {
 
 const cx = (...parts: (string | false | null | undefined)[]) => parts.filter(Boolean).join(" ");
 
+/** The six roles in the "who does what" table. The ORDER is the table; the words are the reader's. */
+const WHO_DOES_WHAT_ROLES = ["operator", "engines", "banzai", "peers", "governance", "regulators"] as const;
+
+/* ── Block E2/Q5 — SEMANTIC VERDICTS, DECIDED ONCE ────────────────────────────────────────────────
+   Two stateful presentations in this shell used to decide their meaning inline, in the same expression
+   that produced the Portuguese words — and in the badge's case, a SECOND time for its styling. Both are
+   decisions about the answer, not copy: they are taken here from the runtime state alone, with no locale
+   in scope, and every consumer (the sentence, the styling, the data witness) reads the same verdict. */
+
+type EngineVerdict = "default" | "external" | "degraded" | "unreported" | "confirmed";
+
+/** Which badge an answer earns. terminalKind wins over kind so an operational answer with no data reads
+ *  "not enough measurements" rather than the generic "insufficient evidence" (ADR-036). */
+export type AnswerBadgeVerdict =
+  | "operationalMeasurement"
+  | "insufficientMeasurements"
+  | "safeRefusal"
+  | "serviceUnavailable"
+  | "insufficientEvidence";
+
+export function answerBadgeVerdict(kind: string | undefined, terminalKind: string | undefined): AnswerBadgeVerdict {
+  if (terminalKind === "operational_duration") return "operationalMeasurement";
+  if (terminalKind === "insufficient_measurements") return "insufficientMeasurements";
+  if (kind === "refusal") return "safeRefusal";
+  if (kind === "unavailable") return "serviceUnavailable";
+  return "insufficientEvidence";
+}
+
+/**
+ * The badge itself. Block E2/Q5 — a mutation that made the ENGLISH render site reach a different verdict
+ * survived a property that only checked `answerBadgeVerdict`, because the divergence lived at the call
+ * site rather than in the function. There is now no call site to diverge: the verdict is computed once,
+ * inside this component, and the words, the styling and the data witness all read that one value. The
+ * component takes the answer's state and NOT a locale — it reads its edition from the boundary itself.
+ */
+export function AnswerBadge({ kind, terminalKind }: { kind?: string; terminalKind?: string }) {
+  const locale = useBanzaiLocale();
+  const verdict = answerBadgeVerdict(kind, terminalKind);
+  return (
+    <span
+      data-answer-badge={verdict}
+      className={`inline-flex items-center gap-1.5 rounded-full px-[10px] py-[3px] font-mono text-[10px] tracking-[0.06em] ${ANSWER_BADGE_STYLE[verdict]}`}
+    >
+      <span className="h-[5px] w-[5px] rounded-full bg-current" />
+      {agentCopy(`answerBadge.${verdict}` as AgentCopyId, locale)}
+    </span>
+  );
+}
+
+const ANSWER_BADGE_STYLE: Record<AnswerBadgeVerdict, string> = {
+  operationalMeasurement: "border border-black/15 bg-paper-2 text-ink-3",
+  insufficientMeasurements: "border border-pend/35 bg-pend/[0.08] text-pend",
+  safeRefusal: "border border-bordo/30 bg-tint-bordo text-bordo",
+  serviceUnavailable: "border border-black/15 bg-paper-2 text-ink-4",
+  insufficientEvidence: "border border-pend/35 bg-pend/[0.08] text-pend",
+};
+
 // The four literal grid templates for the shell (rail expanded/collapsed × inspector closed/open). They
 // are FULL literals — Tailwind's JIT only emits arbitrary-value classes it can see verbatim, and the
 // responsive guard anchors on `lg:grid-cols-[clamp(`. The inspector is a real third column ONLY on lg
@@ -120,14 +182,16 @@ const SHELL_GRID = {
 } as const;
 
 function ThinkingIndicator() {
+  const locale = useBanzaiLocale();
+  const t = (id: AgentCopyId) => agentCopy(id, locale);
   const reduced = usePrefersReducedMotion();
   const [i, setI] = useState(0);
   useEffect(() => {
     if (reduced) return;
-    const id = window.setInterval(() => setI((n) => (n + 1) % THINKING_STAGES.length), 2200);
+    const id = window.setInterval(() => setI((n) => (n + 1) % THINKING_STAGE_IDS.length), 2200);
     return () => window.clearInterval(id);
   }, [reduced]);
-  const line = reduced ? THINKING_STAGES[0] : THINKING_STAGES[i];
+  const line = t(reduced ? THINKING_STAGE_IDS[0] : THINKING_STAGE_IDS[i]);
   return (
     <div className="flex items-center gap-[12px] text-ink-5" role="status" aria-live="polite" data-thinking="1">
       <span className="flex h-8 w-8 flex-none items-center justify-center rounded-[9px] bg-bordo text-creme-high">
@@ -144,58 +208,68 @@ function ThinkingIndicator() {
   );
 }
 
-const AGENT_STANCE =
-  "Faça perguntas sobre a referência, a jornada de validação e os artefactos técnicos. Os motores verificam. A evidência prova. A autoridade competente decide.";
+const AGENT_STANCE_ID: AgentCopyId = "assistant.prompt";
 
-// ADR-036 — format a millisecond count for display: ≥1000ms → seconds with a PT decimal comma
-// ("12,8 s"); below that → whole milliseconds ("640 ms"). Returns null for an absent value so the
-// caller renders nothing (the UI only ever shows numbers the backend actually measured).
-function fmtMs(ms: number | null | undefined): string | null {
+// ADR-036 — format a millisecond count for display: ≥1000ms → seconds ("12,8 s" / "12.8 s"), below that
+// whole milliseconds ("640 ms"). Returns null for an absent value so the caller renders nothing (the UI
+// only ever shows numbers the backend actually measured). Block E2/Q5 — the MEASUREMENT is one number in
+// both editions; only the decimal mark is a convention of the reader's language.
+function fmtMs(ms: number | null | undefined, locale: Locale): string | null {
   if (ms == null || !Number.isFinite(ms)) return null;
-  if (ms >= 1000) return `${(ms / 1000).toFixed(1).replace(".", ",")} s`;
+  if (ms >= 1000) {
+    const seconds = (ms / 1000).toFixed(1);
+    return `${locale === "pt" ? seconds.replace(".", ",") : seconds} s`;
+  }
   return `${Math.round(ms)} ms`;
 }
 
+// Block E2/Q5 — `measure_type` is a CLOSED ENUM emitted by the engine ("observação" | "média" |
+// "mediana" | "percentil"). Its values are Portuguese words, but they are engine data in its source
+// language, not reader copy: they are compared against, not read out, and they are byte-identical for
+// every reader. Translating this constant would break the comparison in one edition and silently present
+// a single observation as an average.
+const MEASURE_TYPE_SINGLE_OBSERVATION = "observação";
+
 // ADR-036 — the operational duration/metric answer, rendered as a TYPED block (not markdown, because
 // SafeMarkdown drops tables/headings). It renders ONLY the values present in `duration`; it never
-// invents or hardcodes a number. A single run (measureType "observação") reads as one observation —
-// never an average — so both the summary and the per-step lines drop aggregate wording in that case.
-function DurationAnswerBlock({ duration }: { duration: KbDuration }) {
-  const single = duration.measureType === "observação";
+// invents or hardcodes a number. A single run reads as one observation — never an average — so both the
+// summary and the per-step lines drop aggregate wording in that case.
+function DurationAnswerBlock({ duration, locale }: { duration: KbDuration; locale: Locale }) {
+  const t = (id: AgentCopyId) => agentCopy(id, locale);
+  const single = duration.measureType === MEASURE_TYPE_SINGLE_OBSERVATION;
 
   const meta: [string, string][] = [];
   if (duration.profile) meta.push(["Perfil", duration.profile]);
   if (duration.environment) meta.push(["Ambiente", duration.environment]);
-  if (duration.protocolVersion) meta.push(["Versão", duration.protocolVersion]);
-  if (duration.implementationId) meta.push(["Implementação", duration.implementationId]);
+  if (duration.protocolVersion) meta.push([t("duration.version"), duration.protocolVersion]);
+  if (duration.implementationId) meta.push([t("duration.implementation"), duration.implementationId]);
   if (duration.observedFrom || duration.observedTo) {
-    meta.push(["Período", `${duration.observedFrom ?? "—"} – ${duration.observedTo ?? "—"}`]);
+    meta.push([t("duration.period"), `${duration.observedFrom ?? "—"} – ${duration.observedTo ?? "—"}`]);
   }
 
   const nums: [string, string][] = [];
   const pushNum = (label: string, ms: number | null) => {
-    const v = fmtMs(ms);
+    const v = fmtMs(ms, locale);
     if (v) nums.push([label, v]);
   };
   if (single) {
     // n=1: one observed value, never labelled as a median/average.
-    pushNum("Duração observada", duration.latestMs ?? duration.medianMs);
+    pushNum(t("duration.observed"), duration.latestMs ?? duration.medianMs);
   } else {
-    pushNum("Última", duration.latestMs);
+    pushNum(t("duration.last"), duration.latestMs);
     pushNum("Mediana", duration.medianMs);
-    pushNum("Média", duration.avgMs);
+    pushNum(t("duration.mean"), duration.avgMs);
     pushNum("P95", duration.p95Ms);
-    pushNum("Mínimo", duration.minMs);
-    pushNum("Máximo", duration.maxMs);
+    pushNum(t("duration.min"), duration.minMs);
+    pushNum(t("duration.max"), duration.maxMs);
   }
 
   return (
-    <section data-duration-block="1" aria-label="Medição operacional" className="mt-[12px] rounded-[10px] border border-black/[0.07] bg-paper-2/60 p-[14px]">
+    <section data-duration-block="1" aria-label={t("duration.aria")} className="mt-[12px] rounded-[10px] border border-black/[0.07] bg-paper-2/60 p-[14px]">
       <div className="mb-[8px] flex items-center gap-[6px] font-mono text-[10px] tracking-[0.14em] text-ink-4">
-        <Ico name="graph" size={13} className="text-bordo-soft" /> MEDIÇÃO OPERACIONAL
-      </div>
+        <Ico name="graph" size={13} className="text-bordo-soft" />{t("answerBadge.operationalMeasurement")}</div>
       <p className="m-0 mb-[10px] font-mono text-[11.5px] leading-[1.5] text-ink-3">
-        Tipo: <span className="text-ink-2">{duration.measureType || "—"}</span> · Execuções comparáveis:{" "}
+        {t("duration.type")}: <span className="text-ink-2">{duration.measureType || "—"}</span> · {t("duration.comparableRuns")}{" "}
         <span className="text-ink-2">{duration.comparableRuns}</span>
       </p>
       {meta.length > 0 && (
@@ -220,14 +294,14 @@ function DurationAnswerBlock({ duration }: { duration: KbDuration }) {
       )}
       {duration.perStep.length > 0 && (
         <div className="mt-[12px]">
-          <div className="mb-[6px] font-mono text-[9.5px] tracking-[0.12em] text-ink-5">POR ETAPA</div>
+          <div className="mb-[6px] font-mono text-[9.5px] tracking-[0.12em] text-ink-5">{t("duration.perStep")}</div>
           <ul className="m-0 flex list-none flex-col gap-[5px] p-0">
             {duration.perStep.map((s) => {
-              const med = fmtMs(s.medianMs);
-              const mx = fmtMs(s.maxMs);
+              const med = fmtMs(s.medianMs, locale);
+              const mx = fmtMs(s.maxMs, locale);
               const value = single
                 ? med ?? "—"
-                : `mediana ${med ?? "—"}${mx ? ` (máx ${mx})` : ""}`;
+                : `${t("duration.median")} ${med ?? "—"}${mx ? ` (${t("duration.maxSuffix")} ${mx})` : ""}`;
               return (
                 <li key={s.stepId || s.label} className="flex items-start justify-between gap-[10px] text-[12.5px] leading-[1.45] text-ink-2">
                   <span className="min-w-0 flex-1 truncate">{s.label || s.stepId}</span>
@@ -254,7 +328,13 @@ function DurationAnswerBlock({ duration }: { duration: KbDuration }) {
 }
 
 /* ── Recursos → Guia ─────────────────────────────────────────────────────────── */
-function GuiaPanel({ onAsk, onValidate }: { onAsk: (t: string) => void; onValidate: () => void }) {
+export function GuiaPanel({ onAsk, onValidate }: { onAsk: (t: string) => void; onValidate: () => void }) {
+  // A NESTED presentation owner: it is rendered several levels below the workspace provider and reads the
+  // reader's language from the boundary itself rather than being handed it down through every parent.
+  // There is nothing to fall back to — outside a boundary this throws instead of choosing Portuguese.
+  const locale = useBanzaiLocale();
+  const t = (id: AgentCopyId) => agentCopy(id, locale);
+  const agent = getAgentPresentation(locale);
   return (
     <div className="mx-auto max-w-[760px] pb-4">
       <div className="mb-6 flex items-start gap-[14px]">
@@ -262,42 +342,41 @@ function GuiaPanel({ onAsk, onValidate }: { onAsk: (t: string) => void; onValida
           <Ico name="info" size={22} sw={1.5} />
         </span>
         <div className="pt-0.5">
-          <h2 className="m-0 font-serif text-[clamp(20px,2.4vw,26px)] font-semibold leading-[1.2] text-ink">Guia</h2>
-          <p className="mb-0 mt-1.5 max-w-[58ch] text-[14px] leading-[1.55] text-ink-3">{AGENT_GUIA_TEXT}</p>
+          <h2 className="m-0 font-serif text-[clamp(20px,2.4vw,26px)] font-semibold leading-[1.2] text-ink">{t("tab.guia")}</h2>
+          <p className="mb-0 mt-1.5 max-w-[58ch] text-[14px] leading-[1.55] text-ink-3">{agent.guiaText}</p>
         </div>
       </div>
 
-      <div className="mb-3 font-mono text-[10.5px] tracking-[0.16em] text-ink-5">QUEM FAZ O QUÊ</div>
+      <div className="mb-3 font-mono text-[10.5px] tracking-[0.16em] text-ink-5">{t("section.whoDoesWhat")}</div>
       <div className={`p-[14px] ${CARD}`}>
         <dl className="m-0 grid gap-[8px] sm:grid-cols-2">
-          {AGENT_WHO_DOES_WHAT.map(([who, does]) => (
-            <div key={who} className="flex flex-col gap-[2px]">
-              <dt className="text-[12.5px] font-semibold text-ink">{who}</dt>
-              <dd className="m-0 text-[12px] leading-[1.45] text-ink-4">{does}</dd>
+          {WHO_DOES_WHAT_ROLES.map((role) => (
+            <div key={role} className="flex flex-col gap-[2px]">
+              <dt className="text-[12.5px] font-semibold text-ink">{t(`whoDoesWhat.role.${role}` as AgentCopyId)}</dt>
+              <dd className="m-0 text-[12px] leading-[1.45] text-ink-4">{t(`whoDoesWhat.${role}` as AgentCopyId)}</dd>
             </div>
           ))}
         </dl>
       </div>
 
-      <div className="mb-3 mt-8 font-mono text-[10.5px] tracking-[0.16em] text-ink-5">PROVENIÊNCIA DAS REGRAS</div>
+      <div className="mb-3 mt-8 font-mono text-[10.5px] tracking-[0.16em] text-ink-5">{t("section.ruleProvenance")}</div>
       <div className={`p-[14px] ${CARD}`}>
-        <p className="m-0 font-mono text-[12px] leading-[1.6] text-ink-3">{AGENT_RULE_SOURCES}</p>
+        <p className="m-0 font-mono text-[12px] leading-[1.6] text-ink-3">{agent.ruleSources}</p>
       </div>
 
       <div className="mt-8 flex flex-wrap gap-[8px]">
         <button type="button" onClick={onValidate} className="inline-flex items-center gap-2 rounded-[10px] bg-bordo px-[15px] py-[9px] text-[13px] font-semibold text-creme-high shadow-[0_2px_8px_rgba(142,19,38,0.25)] transition-colors hover:bg-[#7a0f20]">
-          <Ico name="medal" size={15} /> Validar operador
-        </button>
-        <button type="button" onClick={() => onAsk("Como implemento o protocolo BANZA e demonstro conformidade por evidência verificável?")} className="rounded-[10px] border border-bordo/30 bg-white px-[13px] py-[8px] text-[12.5px] font-semibold text-bordo transition-colors hover:bg-tint-bordo">
-          Perguntar ao BanzAI
-        </button>
+          <Ico name="medal" size={15} />{t("mode.validation")}</button>
+        <button type="button" onClick={() => onAsk(t("guia.askImplement"))} className="rounded-[10px] border border-bordo/30 bg-white px-[13px] py-[8px] text-[12.5px] font-semibold text-bordo transition-colors hover:bg-tint-bordo">{t("tab.assistente")}</button>
       </div>
     </div>
   );
 }
 
 /* ── Recursos → Referência (ADR/RFC ask-cards + protocol map) ────────────────── */
-function RfcPanel({ onAsk }: { onAsk: (t: string) => void }) {
+export function RfcPanel({ onAsk }: { onAsk: (t: string) => void }) {
+  const locale = useBanzaiLocale();
+  const t = (id: AgentCopyId) => agentCopy(id, locale);
   return (
     <div className="mx-auto max-w-[760px] pb-4">
       <div className="mb-6 flex items-start gap-[14px]">
@@ -305,17 +384,17 @@ function RfcPanel({ onAsk }: { onAsk: (t: string) => void }) {
           <Ico name="doc" size={22} sw={1.5} />
         </span>
         <div className="pt-0.5">
-          <h2 className="m-0 font-serif text-[clamp(20px,2.4vw,26px)] font-semibold leading-[1.2] text-ink">Referência</h2>
-          <p className="mb-0 mt-1.5 max-w-[58ch] text-[14px] leading-[1.55] text-ink-3">ADRs, RFCs e o mapa do protocolo. Cada cartão pergunta ao BanzAI, que responde com base nas fontes locais.</p>
+          <h2 className="m-0 font-serif text-[clamp(20px,2.4vw,26px)] font-semibold leading-[1.2] text-ink">{t("tab.rfc")}</h2>
+          <p className="mb-0 mt-1.5 max-w-[58ch] text-[14px] leading-[1.55] text-ink-3">{t("rfc.intro")}</p>
         </div>
       </div>
 
-      <div className="mb-3 font-mono text-[10.5px] tracking-[0.16em] text-ink-5">DECISÕES E RFCs</div>
+      <div className="mb-3 font-mono text-[10.5px] tracking-[0.16em] text-ink-5">{t("section.decisionsAndRfcs")}</div>
       <div className="grid gap-[8px] sm:grid-cols-2">
         {RFC_DOCS.map((d) => (
-          <button key={d.id} type="button" onClick={() => onAsk(d.q)} className={`flex flex-col gap-[4px] p-[14px] text-left transition-all hover:-translate-y-px hover:border-bordo/30 hover:shadow-[0_6px_18px_rgba(142,19,38,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bordo/40 ${CARD}`}>
+          <button key={d.id} type="button" onClick={() => onAsk(t(d.qId))} className={`flex flex-col gap-[4px] p-[14px] text-left transition-all hover:-translate-y-px hover:border-bordo/30 hover:shadow-[0_6px_18px_rgba(142,19,38,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bordo/40 ${CARD}`}>
             <span className="font-mono text-[11px] text-bordo">{d.id}</span>
-            <span className="text-[13px] text-ink-2">{d.title}</span>
+            <span className="text-[13px] text-ink-2">{t(d.titleId)}</span>
           </button>
         ))}
       </div>
@@ -323,9 +402,9 @@ function RfcPanel({ onAsk }: { onAsk: (t: string) => void }) {
       <div className="mb-3 mt-8 font-mono text-[10.5px] tracking-[0.16em] text-ink-5">MAPA DO PROTOCOLO</div>
       <div className="grid gap-[8px] sm:grid-cols-2">
         {PROTOCOL_MAP_NODES.map((n) => (
-          <button key={n.id} type="button" onClick={() => onAsk(n.q)} className={`flex flex-col gap-[3px] p-[13px] text-left transition-all hover:-translate-y-px hover:border-bordo/30 hover:shadow-[0_6px_18px_rgba(142,19,38,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bordo/40 ${CARD}`}>
-            <span className="text-[13px] font-semibold text-ink">{n.id}</span>
-            <span className="text-[11.5px] leading-[1.4] text-ink-4">{n.role}</span>
+          <button key={n.idLabelId ? t(n.idLabelId) : n.id} type="button" onClick={() => onAsk(t(n.qId))} className={`flex flex-col gap-[3px] p-[13px] text-left transition-all hover:-translate-y-px hover:border-bordo/30 hover:shadow-[0_6px_18px_rgba(142,19,38,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bordo/40 ${CARD}`}>
+            <span className="text-[13px] font-semibold text-ink">{n.idLabelId ? t(n.idLabelId) : n.id}</span>
+            <span className="text-[11.5px] leading-[1.4] text-ink-4">{t(n.roleId)}</span>
           </button>
         ))}
       </div>
@@ -352,6 +431,8 @@ function BanzaiContextTrail({
   implementationId: string | null;
   implementationName: string | null;
 }) {
+  const locale = useBanzaiLocale();
+  const t = (id: AgentCopyId) => agentCopy(id, locale);
   const crumb = (label: string, href: string | null, active: boolean) =>
     href && !active ? (
       <Link
@@ -367,7 +448,7 @@ function BanzaiContextTrail({
     );
   return (
     <nav
-      aria-label="Contexto da navegação"
+      aria-label={t("nav.context")}
       data-context={context}
       className="flex flex-wrap items-center gap-[3px] border-b border-black/[0.06] bg-paper-2/60 px-[clamp(16px,4vw,28px)] py-[9px] font-mono text-[11px]"
     >
@@ -406,6 +487,11 @@ export function BanzaiAgent({
   // CONTEXTS are real route segments that seed the validation session below. The shell reflects route
   // changes without ever remounting, so the conversation, the validation selection/receipts and the
   // onboarding candidature survive navigation between contexts.
+  // The edition this workspace is being served in, from the route boundary. Q2's suggestion realizations
+  // and Q1's agent copy both read it from here — one declaration, no per-component guess.
+  const locale = useBanzaiLocale();
+  const t = (id: AgentCopyId) => agentCopy(id, locale);
+  const agent = getAgentPresentation(locale);
   const router = useRouter();
   const pathname = usePathname();
   const [mode, setMode] = useState<WbMode>(routeState.mode);
@@ -446,7 +532,7 @@ export function BanzaiAgent({
   const [msgs, setMsgs] = useState<Msg[]>([]);
   // BZCI-6 (§2) — the SAFE typed conversational state the backend returned on the LAST turn. The browser
   // carries it verbatim into the NEXT ask so the Rust reference resolver can inherit the subject/intent/
-  // referent (the ADR→RFC→"qual a diferença?" chain). It is a referent re-resolved server-side, never a fact.
+  // referent (the ADR→RFC→t("ask.whatsTheDifference") chain). It is a referent re-resolved server-side, never a fact.
   const [convState, setConvState] = useState<ConversationState | null>(null);
   const [lastLinks, setLastLinks] = useState<CiteLink[]>([]);
   // Increment 9 (§24) — the transparency projection of the LAST answer, shown in the inspector.
@@ -454,7 +540,7 @@ export function BanzaiAgent({
   const [busy, setBusy] = useState(false);
   // M2.19G.4 (F5) — runtime-truth. The engine label is NOT hardcoded: it is derived from the real /ask
   // telemetry (engine_state + external_model_called) once a response arrives; before that it shows the
-  // CONFIGURED default (honestly qualified "por omissão"). Never asserts "Qwen local" as observed fact
+  // CONFIGURED default (honestly qualified t("engine.byDefault")). Never asserts "Qwen local" as observed fact
   // until the backend has actually confirmed it.
   const [engineInfo, setEngineInfo] = useState<{ engine: string | null; external: boolean; degraded: boolean } | null>(null);
   // SPR-5 — the in-flight progressive stream state (§9) + the last answer's progressive metrics (§12).
@@ -580,7 +666,7 @@ export function BanzaiAgent({
   // terminal and the non-stream fallback so both render the validated answer IDENTICALLY (SafeMarkdown +
   // TransparencyPanel + sources + followUps). This is the ONLY place a BanzAI answer's prose enters the DOM.
   const applyAnswer = (ans: KbAnswer) => {
-    setMsgs((p) => [...p, { role: "ai", text: ans.text, cites: ans.cites, kind: ans.kind, links: ans.links, sources: ans.sources, limits: ans.limits, followUps: ans.followUps, status: ans.status, resolvedDocument: ans.resolvedDocument ?? null, documentNotFound: Boolean(ans.documentNotFound), documentMode: ans.documentMode ?? null, documentTruncated: Boolean(ans.documentTruncated), correctionDisplay: ans.correctionDisplay ?? [], correctionClarification: ans.correctionClarification ?? [], answerType: ans.answerType, terminalKind: ans.terminalKind, duration: ans.duration, transparency: ans.transparency }]);
+    setMsgs((p) => [...p, { role: "ai", text: ans.text, cites: ans.cites, kind: ans.kind, links: ans.links, sources: ans.sources, limits: ans.limits, followUps: ans.followUpSelections ? realizeSuggestions(ans.followUpSelections, locale) : undefined, status: ans.status, resolvedDocument: ans.resolvedDocument ?? null, documentNotFound: Boolean(ans.documentNotFound), documentMode: ans.documentMode ?? null, documentTruncated: Boolean(ans.documentTruncated), correctionDisplay: ans.correctionDisplay ?? [], correctionClarification: ans.correctionClarification ?? [], answerType: ans.answerType, terminalKind: ans.terminalKind, duration: ans.duration, transparency: ans.transparency }]);
     setLastLinks(ans.links ?? []);
     // BZCI-6 (§2) — carry the backend's SAFE conversation_context forward so the NEXT turn resolves the
     // referent (the ADR→RFC follow-up chain). Runs on BOTH the stream and non-stream paths (applyAnswer is
@@ -645,29 +731,35 @@ export function BanzaiAgent({
   const cancelAsk = () => abortRef.current?.abort();
 
   // F5 / ADR-036 CD-9 — the runtime-truth engine label + status dot. Derived from the last observed /ask
-  // telemetry; the pre-response state is the configured default, honestly marked "por omissão". A
+  // telemetry; the pre-response state is the configured default, honestly marked t("engine.byDefault"). A
   // confirmed local run shows "· confirmado"; an (unexpected) external call, a degraded state, or an
   // unreported engine are each surfaced honestly rather than hidden — and NEVER collapse to a hardcoded
   // "Qwen local activo" (only a route/telemetry-confirmed local_qwen may claim the local engine).
-  const engineLabel = (() => {
-    if (!engineInfo) return "Motor por omissão: Qwen local (on-host) · sem chamadas externas · estado por resposta";
-    if (engineInfo.external) return "Motor: modelo externo utilizado nesta resposta · fora do host";
-    // Degraded: the local model was unavailable this response, so the answer came from the deterministic/
-    // grounded path. State the honest cause; do NOT append "sem chamadas externas · confirmado".
-    if (engineInfo.engine === "degraded" || engineInfo.degraded) {
-      return "Motor: degradado — modelo local indisponível nesta resposta · resposta pelo caminho determinístico/fundamentado";
-    }
-    // A response arrived but the runtime engine was not reported → stay neutral, never assume local.
-    if (!engineInfo.engine) return "Motor: estado por confirmar nesta resposta · não normativo";
-    const name = engineInfo.engine === "local_qwen" ? "Qwen local (on-host)" : engineInfo.engine;
-    return `Motor: ${name} · sem chamadas externas · confirmado nesta resposta`;
-  })();
-  const engineOk = !engineInfo
-    ? true
-    : !engineInfo.external && engineInfo.engine !== "degraded" && !engineInfo.degraded && Boolean(engineInfo.engine);
+  // Block E2/Q5 — the engine VERDICT is decided once, from the telemetry alone, with no locale in scope.
+  // The label and the status dot both derive from that one verdict, so the two can no longer disagree —
+  // they used to be computed by two separate expressions over the same fields. A wrong-locale or a
+  // reworded edition changes the words; it cannot change which verdict was reached.
+  const engineVerdict: EngineVerdict = !engineInfo
+    ? "default"
+    : engineInfo.external
+      ? "external"
+      : engineInfo.engine === "degraded" || engineInfo.degraded
+        ? "degraded"
+        : !engineInfo.engine
+          ? "unreported"
+          : "confirmed";
+  const engineLabel =
+    engineVerdict === "confirmed"
+      ? agentCopy("engine.confirmed", locale).replace(
+          "{name}",
+          engineInfo!.engine === "local_qwen" ? agentCopy("engine.localQwen", locale) : String(engineInfo!.engine),
+        )
+      : agentCopy(`engine.${engineVerdict}` as AgentCopyId, locale);
+  // The dot is green for the two verdicts that carry no caveat; everything else is honestly flagged.
+  const engineOk = engineVerdict === "default" || engineVerdict === "confirmed";
 
   // Clear the ask-side, in-memory state (conversation + citations). In-memory only. The validation
-  // session has its own "Reiniciar sessão".
+  // session has its own t("session.reset").
   const clearConversation = () => {
     setMsgs([]);
     setLastLinks([]);
@@ -701,7 +793,7 @@ export function BanzaiAgent({
   const current = TAB_META[activeTool];
   const isChat = !isValidation && !isOnboarding && activeTool === "assistente";
   // The workspace utility-strip eyebrow: the mode label in validation/onboarding, else the active panel.
-  const mainEyebrow = isValidation ? "Validação técnica de implementação" : isOnboarding ? "Onboarding de operador" : current.name;
+  const mainEyebrow = isValidation ? t("validation.header") : isOnboarding ? t("mode.onboarding") : t(current.nameId);
 
   const renderPanel = () => {
     switch (activeTool) {
@@ -716,23 +808,23 @@ export function BanzaiAgent({
   // A Recursos/Resultados tab: selecting it drops into ask-panel view and shows that panel. Highlighted
   // only when ask mode is active (in validation mode the journey owns the workspace). `collapsed` renders
   // the icon-only rail (label kept for assistive tech + a native tooltip).
-  const renderTab = (t: (typeof TABS)[number], collapsed = false) => {
-    const active = !isValidation && !isOnboarding && activeTool === t.key;
+  const renderTab = (tab: (typeof TABS)[number], collapsed = false) => {
+    const active = !isValidation && !isOnboarding && activeTool === tab.key;
     return (
       <button
-        key={t.key}
+        key={tab.key}
         type="button"
-        onClick={() => { setMode("ask"); setActiveTool(t.key); setRailOpen(false); }}
+        onClick={() => { setMode("ask"); setActiveTool(tab.key); setRailOpen(false); }}
         aria-current={active ? "page" : undefined}
-        title={collapsed ? t.name : undefined}
+        title={collapsed ? t(tab.nameId) : undefined}
         className={cx(
           "group flex items-center rounded-[9px] py-[10px] text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bordo/40",
           collapsed ? "justify-center px-0" : "gap-[11px] px-3",
           active ? "bg-tint-bordo text-ink shadow-[inset_0_0_0_1px_rgba(142,19,38,0.18)]" : "text-ink-4 hover:bg-black/[0.03]",
         )}
       >
-        <Ico name={t.icon} size={17} className={active ? "text-bordo" : "text-ink-5"} />
-        <span className={cx("flex-1 text-[13.5px]", active && "font-semibold", collapsed && "sr-only")}>{t.name}</span>
+        <Ico name={tab.icon} size={17} className={active ? "text-bordo" : "text-ink-5"} />
+        <span className={cx("flex-1 text-[13.5px]", active && "font-semibold", collapsed && "sr-only")}>{t(tab.nameId)}</span>
         {active && !collapsed ? <span className="h-[6px] w-[6px] rounded-full bg-bordo" /> : null}
       </button>
     );
@@ -748,7 +840,7 @@ export function BanzaiAgent({
         type="button"
         onClick={() => { if (m.mode === "validation") goValidation(); else goGlobal(m.mode); setRailOpen(false); }}
         aria-current={active ? "page" : undefined}
-        title={collapsed ? m.name : undefined}
+        title={collapsed ? t(m.nameId) : undefined}
         className={cx(
           "group flex items-center rounded-[9px] py-[10px] text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bordo/40",
           collapsed ? "justify-center px-0" : "gap-[11px] px-3",
@@ -756,7 +848,7 @@ export function BanzaiAgent({
         )}
       >
         <Ico name={m.icon} size={17} className={active ? "text-creme-high" : "text-ink-5"} />
-        <span className={cx("flex-1 text-[13.5px] font-semibold", collapsed && "sr-only")}>{m.name}</span>
+        <span className={cx("flex-1 text-[13.5px] font-semibold", collapsed && "sr-only")}>{t(m.nameId)}</span>
         {active && !collapsed ? <span className="h-[6px] w-[6px] rounded-full bg-creme-high" /> : null}
       </button>
     );
@@ -788,7 +880,7 @@ export function BanzaiAgent({
         <button
           type="button"
           onClick={() => setRailOpen(true)}
-          aria-label="Abrir navegação"
+          aria-label={t("nav.open")}
           aria-controls="banzai-rail"
           aria-expanded={railOpen}
           className="flex h-9 w-9 flex-none items-center justify-center rounded-[9px] border border-black/10 bg-white text-ink-3 transition-colors hover:border-bordo/30 hover:text-bordo focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bordo/40"
@@ -797,7 +889,7 @@ export function BanzaiAgent({
         </button>
         <span className="flex items-center gap-2 font-serif text-[15px] font-semibold text-ink">
           <span className="flex h-7 w-7 items-center justify-center rounded-[8px] bg-bordo text-creme-high"><Ico name="sparkle" size={15} sw={1.4} /></span>
-          {BANZAI_AGENT.name}
+          {agent.name}
         </span>
         <button
           type="button"
@@ -829,7 +921,7 @@ export function BanzaiAgent({
           only) · Resultados · Recursos. */}
       <aside
         id="banzai-rail"
-        aria-label="Navegação lateral do BanzAI"
+        aria-label={t("nav.sidebar")}
         className={cx(
           "order-2 flex min-h-0 flex-col overflow-y-auto border-black/[0.07] bg-paper-2 lg:order-1 lg:border-r",
           "max-lg:fixed max-lg:inset-y-0 max-lg:left-0 max-lg:z-50 max-lg:w-[min(84vw,300px)] max-lg:border-r max-lg:shadow-[8px_0_28px_rgba(16,19,30,0.14)] max-lg:transition-transform max-lg:duration-200 motion-reduce:max-lg:transition-none",
@@ -844,15 +936,15 @@ export function BanzaiAgent({
                 <Ico name="sparkle" size={18} sw={1.4} />
               </span>
               <span>
-                <span className="block font-serif text-[16px] font-semibold leading-tight text-ink">{BANZAI_AGENT.name}</span>
-                <span className="block text-[11px] leading-[1.3] text-ink-5">{BANZAI_AGENT.subtitle}</span>
+                <span className="block font-serif text-[16px] font-semibold leading-tight text-ink">{agent.name}</span>
+                <span className="block text-[11px] leading-[1.3] text-ink-5">{agent.subtitle}</span>
               </span>
             </div>
           )}
           <button
             type="button"
             onClick={() => setRailCollapsed((v) => !v)}
-            aria-label={railCollapsed ? "Expandir navegação" : "Colapsar navegação"}
+            aria-label={railCollapsed ? t("nav.expand") : t("nav.collapse")}
             aria-expanded={!railCollapsed}
             title={railCollapsed ? "Expandir" : "Colapsar"}
             className="hidden h-8 w-8 flex-none items-center justify-center rounded-[8px] border border-black/10 bg-white text-ink-4 transition-colors hover:border-bordo/30 hover:text-bordo focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bordo/40 lg:flex"
@@ -862,7 +954,7 @@ export function BanzaiAgent({
           <button
             type="button"
             onClick={() => setRailOpen(false)}
-            aria-label="Fechar navegação"
+            aria-label={t("nav.close")}
             className="flex h-8 w-8 flex-none items-center justify-center rounded-[8px] border border-black/10 bg-white text-ink-4 transition-colors hover:border-bordo/30 hover:text-bordo focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bordo/40 lg:hidden"
           >
             <Ico name="x" size={16} />
@@ -872,7 +964,7 @@ export function BanzaiAgent({
 
         {/* Modos (ask/validation/onboarding) · Jornada de validação (active session only) · Resultados
             (ONE entry) · Recursos (Guia · Referência · Programadores). */}
-        <nav className={cx("flex flex-1 flex-col gap-[3px] pb-4", railCollapsed ? "px-[8px]" : "px-[10px]")} aria-label="Navegação do BanzAI">
+        <nav className={cx("flex flex-1 flex-col gap-[3px] pb-4", railCollapsed ? "px-[8px]" : "px-[10px]")} aria-label={t("nav.label")}>
           {sidebarDivider("MODOS")}
           {MODES.map((m) => renderMode(m, railCollapsed))}
 
@@ -882,7 +974,7 @@ export function BanzaiAgent({
               icon strip (expand to see the step spine). Before a selection, Fase 0 owns the workspace. */}
           {isValidation && validation.ready && !railCollapsed && (
             <>
-              {sidebarDivider("JORNADA DE VALIDAÇÃO")}
+              {sidebarDivider(t("section.validationJourney"))}
               <ValidationStepNav session={validation} />
             </>
           )}
@@ -902,7 +994,7 @@ export function BanzaiAgent({
             </div>
             <div className="mt-2 flex gap-[10px] rounded-[10px] border border-bordo/20 bg-tint-bordo px-[14px] py-[13px]">
               <Ico name="scale" size={15} sw={1.4} className="mt-px flex-none text-bordo" />
-              <p className="m-0 font-mono text-[11px] leading-[1.55] text-pend">{BANZAI_AGENT.shortPhrase}</p>
+              <p className="m-0 font-mono text-[11px] leading-[1.55] text-pend">{agent.shortPhrase}</p>
             </div>
           </div>
         )}
@@ -956,18 +1048,18 @@ export function BanzaiAgent({
                 <span className="mx-auto mb-4 flex h-[56px] w-[56px] items-center justify-center rounded-[16px] border border-bordo/15 bg-gradient-to-b from-tint-bordo to-white text-bordo shadow-[0_6px_20px_rgba(142,19,38,0.10)]">
                   <Ico name="sparkle" size={26} sw={1.3} />
                 </span>
-                <h2 className="mb-[10px] font-serif text-[clamp(22px,2.6vw,28px)] font-semibold leading-[1.2] text-ink">{BANZAI_AGENT.heroTitle}</h2>
-                <p className="mx-auto mb-2 max-w-[54ch] text-[15px] leading-[1.6] text-ink-3">{BANZAI_AGENT.heroText}</p>
-                <p className="mx-auto mb-6 max-w-[56ch] text-[12.5px] leading-[1.6] text-ink-4">{AGENT_STANCE}</p>
+                <h2 className="mb-[10px] font-serif text-[clamp(22px,2.6vw,28px)] font-semibold leading-[1.2] text-ink">{agent.heroTitle}</h2>
+                <p className="mx-auto mb-2 max-w-[54ch] text-[15px] leading-[1.6] text-ink-3">{agent.heroText}</p>
+                <p className="mx-auto mb-6 max-w-[56ch] text-[12.5px] leading-[1.6] text-ink-4">{t(AGENT_STANCE_ID)}</p>
 
                 <div className="mb-4 flex items-center justify-center gap-3 font-mono text-[10.5px] tracking-[0.18em] text-ink-5">
-                  <span className="h-px w-8 bg-black/10" /> COMEÇAR POR AQUI <span className="h-px w-8 bg-black/10" />
+                  <span className="h-px w-8 bg-black/10" />{t("section.startHere")}<span className="h-px w-8 bg-black/10" />
                 </div>
                 <div className="flex flex-col gap-[10px] text-left">
-                  {AGENT_SUGGESTIONS.map((q) => (
-                    <button key={q} onClick={() => ask(q)} className={`group flex w-full items-center gap-[14px] px-[18px] py-[13px] text-left transition-all hover:-translate-y-px hover:border-bordo/30 hover:shadow-[0_6px_18px_rgba(142,19,38,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bordo/40 ${CARD}`}>
+                  {AGENT_SUGGESTION_IDS.map((qid) => (
+                    <button key={qid} onClick={() => ask(t(qid))} className={`group flex w-full items-center gap-[14px] px-[18px] py-[13px] text-left transition-all hover:-translate-y-px hover:border-bordo/30 hover:shadow-[0_6px_18px_rgba(142,19,38,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bordo/40 ${CARD}`}>
                       <span className="flex h-7 w-7 flex-none items-center justify-center rounded-[8px] bg-tint-bordo font-mono text-[12px] text-bordo">↳</span>
-                      <span className="flex-1 text-[14.5px] text-ink-2">{q}</span>
+                      <span className="flex-1 text-[14.5px] text-ink-2">{t(qid)}</span>
                       <Ico name="chevron" size={16} className="flex-none text-ink-5 transition-transform group-hover:translate-x-0.5 group-hover:text-bordo" />
                     </button>
                   ))}
@@ -986,26 +1078,9 @@ export function BanzaiAgent({
                         {ai && m.kind && m.kind !== "answer" && (
                           <div className="mb-[7px]">
                             {/* ADR-036 — an operational answer keys the badge on terminalKind FIRST so a
-                                measurement reads "MEDIÇÃO OPERACIONAL" and a no-data outcome reads "SEM
-                                MEDIÇÕES SUFICIENTES" — never the generic "EVIDÊNCIA INSUFICIENTE". */}
-                            <span className={`inline-flex items-center gap-1.5 rounded-full px-[10px] py-[3px] font-mono text-[10px] tracking-[0.06em] ${
-                              m.terminalKind === "operational_duration" ? "border border-black/15 bg-paper-2 text-ink-3"
-                              : m.terminalKind === "insufficient_measurements" ? "border border-pend/35 bg-pend/[0.08] text-pend"
-                              : m.kind === "refusal" ? "border border-bordo/30 bg-tint-bordo text-bordo"
-                              : m.kind === "unavailable" ? "border border-black/15 bg-paper-2 text-ink-4"
-                              : "border border-pend/35 bg-pend/[0.08] text-pend"
-                            }`}>
-                              <span className="h-[5px] w-[5px] rounded-full bg-current" />
-                              {m.terminalKind === "operational_duration"
-                                ? "MEDIÇÃO OPERACIONAL"
-                                : m.terminalKind === "insufficient_measurements"
-                                  ? "SEM MEDIÇÕES SUFICIENTES"
-                                  : m.kind === "refusal"
-                                    ? "RECUSA SEGURA"
-                                    : m.kind === "unavailable"
-                                      ? "SERVIÇO INDISPONÍVEL"
-                                      : "EVIDÊNCIA INSUFICIENTE"}
-                            </span>
+                                measurement reads t("answerBadge.operationalMeasurement") and a no-data outcome reads "SEM
+                                MEDIÇÕES SUFICIENTES" — never the generic t("answerBadge.insufficientEvidence"). */}
+                            <AnswerBadge kind={m.kind} terminalKind={m.terminalKind} />
                           </div>
                         )}
                         <div className={`rounded-[12px] px-[18px] py-[14px] ${ai ? CARD : "border border-pend/25 bg-tint-gold"}`}>
@@ -1021,7 +1096,7 @@ export function BanzaiAgent({
                           )}
                           {/* ADR-036 — the measured numbers as a typed block (SafeMarkdown drops tables,
                               so per-step MUST render here). Shown only when the backend sent duration. */}
-                          {ai && m.duration && <DurationAnswerBlock duration={m.duration} />}
+                          {ai && m.duration && <DurationAnswerBlock locale={locale} duration={m.duration} />}
                           {ai && m.limits && m.limits.length > 0 && (
                             <ul className="m-0 mt-[10px] flex list-none flex-col gap-[4px] p-0">
                               {m.limits.map((l) => (
@@ -1056,15 +1131,13 @@ export function BanzaiAgent({
                           </div>
                         )}
                         {ai && m.documentTruncated && (
-                          <p className="m-0 mt-[8px] rounded-[6px] border border-pend/30 bg-tint-gold px-[10px] py-[6px] text-[11.5px] leading-[1.45] text-pend">
-                            Resposta resumida para caber no limite actual. Peça detalhes por secção.
-                          </p>
+                          <p className="m-0 mt-[8px] rounded-[6px] border border-pend/30 bg-tint-gold px-[10px] py-[6px] text-[11.5px] leading-[1.45] text-pend">{t("answer.truncated")}</p>
                         )}
                         {ai && m.resolvedDocument && (
                           <div className="mt-[10px] flex flex-wrap gap-[7px]">
                             {[
-                              ["Ver decisão", `Qual foi a decisão do ${m.resolvedDocument.id}?`],
-                              ["Ver consequências", `Quais foram as consequências do ${m.resolvedDocument.id}?`],
+                              [t("doc.viewDecision"), `Qual foi a decisão do ${m.resolvedDocument.id}?`],
+                              [t("doc.viewConsequences"), `Quais foram as consequências do ${m.resolvedDocument.id}?`],
                               ["Impacto para operadores", `Como o ${m.resolvedDocument.id} afecta implementadores?`],
                               ["Resumir", `Resume o ${m.resolvedDocument.id}`],
                             ].map(([label, q]) => (
@@ -1074,9 +1147,7 @@ export function BanzaiAgent({
                         )}
                         {ai && m.documentNotFound && (
                           <div className="mt-[10px]">
-                            <span className="inline-flex items-center gap-[6px] rounded-full border border-pend/40 bg-tint-gold px-[10px] py-[4px] font-mono text-[10.5px] font-semibold text-pend">
-                              Documento não encontrado
-                            </span>
+                            <span className="inline-flex items-center gap-[6px] rounded-full border border-pend/40 bg-tint-gold px-[10px] py-[4px] font-mono text-[10.5px] font-semibold text-pend">{t("doc.notFound")}</span>
                           </div>
                         )}
                         {ai && m.status && (
@@ -1131,11 +1202,11 @@ export function BanzaiAgent({
             <div className="mx-auto max-w-[760px]">
               <div className="flex items-end gap-[10px] rounded-[14px] border border-black/10 bg-white py-[10px] pl-3 pr-[10px] shadow-[0_1px_2px_rgba(16,19,30,0.04)] transition-shadow focus-within:border-bordo/40 focus-within:shadow-[0_0_0_3px_rgba(142,19,38,0.08)]">
                 <span className="flex h-[38px] w-[38px] flex-none items-center justify-center rounded-[10px] bg-tint-bordo text-bordo"><Ico name="sparkle" size={17} sw={1.4} /></span>
-                <textarea ref={inputRef} onKeyDown={onKey} rows={1} placeholder={BANZAI_AGENT.assistantPlaceholder} aria-label="Pergunte ao BanzAI" className="max-h-[120px] flex-1 resize-none bg-transparent py-[9px] text-[15px] leading-[1.5] text-ink outline-none placeholder:text-ink-5" />
+                <textarea ref={inputRef} onKeyDown={onKey} rows={1} placeholder={agent.assistantPlaceholder} aria-label="Pergunte ao BanzAI" className="max-h-[120px] flex-1 resize-none bg-transparent py-[9px] text-[15px] leading-[1.5] text-ink outline-none placeholder:text-ink-5" />
                 <button onClick={send} aria-label="Enviar" className="flex h-[38px] w-[38px] flex-none items-center justify-center rounded-[10px] bg-bordo text-creme-high shadow-[0_2px_8px_rgba(142,19,38,0.25)] transition-colors hover:bg-[#7a0f20]"><Ico name="send" size={17} sw={1.6} /></button>
               </div>
               <div className="mt-[10px] flex flex-wrap justify-between gap-3 px-1">
-                <span className="font-mono text-[11px] text-ink-5">Enter para enviar · Shift+Enter para nova linha</span>
+                <span className="font-mono text-[11px] text-ink-5">{t("input.hint")}</span>
                 {msgs.length > 0 && (
                   <button type="button" onClick={clearConversation} className="font-mono text-[11px] text-bordo transition-colors hover:underline">Limpar conversa</button>
                 )}
@@ -1168,7 +1239,7 @@ export function BanzaiAgent({
         id="banzai-inspector"
         ref={inspectorRef}
         tabIndex={-1}
-        aria-label={isValidation ? "Inspetor · contexto da validação" : "Inspetor · fontes e contexto"}
+        aria-label={isValidation ? t("inspector.validationContext") : "Inspetor · fontes e contexto"}
         className={cx(
           "order-3 min-h-0 flex-col gap-5 overflow-y-auto border-black/[0.07] bg-paper-2 px-[20px] py-6 focus-visible:outline-none lg:order-3 lg:border-l",
           inspectorOpen ? "flex" : "hidden",
@@ -1177,7 +1248,7 @@ export function BanzaiAgent({
       >
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 font-mono text-[11px] tracking-[0.16em] text-ink-4">
-            <Ico name="book" size={15} className="text-bordo-soft" /> {isValidation ? "CONTEXTO DA VALIDAÇÃO" : "FONTES E CONTEXTO"}
+            <Ico name="book" size={15} className="text-bordo-soft" /> {isValidation ? t("section.validationContext") : "FONTES E CONTEXTO"}
           </div>
           <button
             type="button"
@@ -1199,16 +1270,16 @@ export function BanzaiAgent({
             <section>
               <div className="mb-[10px] flex items-center gap-2 font-mono text-[10px] tracking-[0.14em] text-ink-5"><Ico name="sliders" size={13} className="text-ink-5" /> FASE 0 · CONTEXTO</div>
               <div className={`p-[14px] ${CARD}`}>
-                <p className="m-0 text-[12.5px] leading-[1.55] text-ink-4">Seleccione um operador e uma das suas implementações publicadas para activar a jornada. O contexto da validação aparece aqui depois da selecção.</p>
+                <p className="m-0 text-[12.5px] leading-[1.55] text-ink-4">{t("validation.selectHint")}</p>
               </div>
             </section>
           )
         ) : isChat ? (
           <section>
-            <div className="mb-[10px] flex items-center gap-2 font-mono text-[10px] tracking-[0.14em] text-ink-5"><Ico name="quote" size={13} className="text-ink-5" /> CITAÇÕES</div>
+            <div className="mb-[10px] flex items-center gap-2 font-mono text-[10px] tracking-[0.14em] text-ink-5"><Ico name="quote" size={13} className="text-ink-5" />{t("section.citations")}</div>
             <div className={`min-h-[60px] p-[14px] ${CARD}`}>
               {lastLinks.length === 0 ? (
-                <span className="text-[12.5px] italic text-ink-5">As citações aparecerão aqui quando o BanzAI responder.</span>
+                <span className="text-[12.5px] italic text-ink-5">{t("citations.empty")}</span>
               ) : (
                 <div className="flex flex-col gap-[9px]">
                   {lastLinks.map((c) => (
@@ -1235,9 +1306,9 @@ export function BanzaiAgent({
 
         {!isValidation && !isChat && (
           <section>
-            <div className="mb-[10px] flex items-center gap-2 font-mono text-[10px] tracking-[0.14em] text-ink-5"><Ico name="sliders" size={13} className="text-ink-5" /> CONTEXTO — {current.name.toUpperCase()}</div>
+            <div className="mb-[10px] flex items-center gap-2 font-mono text-[10px] tracking-[0.14em] text-ink-5"><Ico name="sliders" size={13} className="text-ink-5" /> CONTEXTO — {t(current.nameId).toUpperCase()}</div>
             <div className={`p-[16px] ${CARD}`}>
-              <p className="m-0 text-[12.5px] leading-[1.55] text-ink-4">{activeTool === "resultados" ? "Os resultados da validação de operador vivem aqui, com origem nos endpoints públicos da implementação." : "Referência e ferramentas do protocolo. Use os cartões para perguntar ao BanzAI ou abrir a validação de operador."}</p>
+              <p className="m-0 text-[12.5px] leading-[1.55] text-ink-4">{activeTool === "resultados" ? t("results.liveHere") : t("tools.intro")}</p>
             </div>
           </section>
         )}
@@ -1245,14 +1316,14 @@ export function BanzaiAgent({
         <section>
           <div className="mb-[10px] flex items-center gap-2 font-mono text-[10px] tracking-[0.14em] text-ink-5"><Ico name="scale" size={13} className="text-ink-5" /> FRONTEIRA</div>
           <div className={`flex flex-col gap-[11px] p-[16px] ${CARD}`}>
-            <p className="m-0 text-[12px] leading-[1.55] text-ink-3">BanzAI é o agente IA do protocolo BANZA. Responde com base nas fontes locais do protocolo, não certifica, não aprova operadores, não emite licenças e não substitui a governação do protocolo.</p>
-            <p className="m-0 text-[12px] leading-[1.55] text-ink-3">Ninguém aceita nem aprova operadores por decisão humana central. PASS é evidência verificável de conformidade, não certificado.</p>
+            <p className="m-0 text-[12px] leading-[1.55] text-ink-3">{t("agent.whatItIs")}</p>
+            <p className="m-0 text-[12px] leading-[1.55] text-ink-3">{t("agent.noCentralApproval")}</p>
           </div>
         </section>
 
         {/* ADR-036 — runtime/provider state is DERIVED from the runtime SSOT (GET /banzai/runtime),
             not asserted by static green pills. The strip (server component, ISR + fail-safe) states its
-            source, shows the live projection or an honest "estado não confirmado" fallback, and never
+            source, shows the live projection or an honest t("runtime.unconfirmed") fallback, and never
             presents last-known state as current. Replaces the former hardcoded BADGES + "Pré-produção…". */}
         {runtimeStrip && (
           <section>

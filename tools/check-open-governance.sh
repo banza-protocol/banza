@@ -86,7 +86,14 @@ SURFACES=(
 #   DEPRECATION_LINE — line-level, deliberately: a doc line explicitly marked removed/deprecated/legacy is
 #               the record of the removal, and may discuss the old concept in prose.
 # NOTE: use the literal UTF-8 "não" (a bracket like [ãa] does not match the multibyte ã under grep -E).
-NEG_BEFORE='não|nao|nunca|never|\bnot\b|nobody|neither|\bnem\b|\bsem\b|without|evitar|avoid|deny|nenhum|nenhuma|ninguém|ninguem|removid|removed|deprecat|depreciad|obsolet|antigo|antiga|\bold\b|former|previously|formerly|used to|deixou de|já não|ja nao|rather than|instead of|unlike|ao contrário|ao contrario|face a|em vez de|diferença|diferenca'
+#
+# ENGLISH NEGATION (Website Phase 2). English states these boundaries with the DETERMINER "no" — "there is
+# no certificate authority", "and no human approval", "with no certificate authority" — which this list
+# originally lacked, so the English edition read as a violation while saying exactly what the Portuguese
+# says. A bare \bno\b cannot be added: Portuguese "no" is "em o" and appears constantly, so it would clear
+# real violations wholesale. The English constructions are bound to their verbs/conjunctions instead, which
+# the Portuguese sense cannot produce.
+NEG_BEFORE='não|nao|nunca|never|\bnot\b|(there (is|are|was|were)|and|with|has|have|is|are|was|were) no\b|nobody|neither|\bnem\b|\bsem\b|without|evitar|avoid|deny|nenhum|nenhuma|ninguém|ninguem|removid|removed|deprecat|depreciad|obsolet|antigo|antiga|\bold\b|former|previously|formerly|used to|deixou de|já não|ja nao|rather than|instead of|unlike|ao contrário|ao contrario|face a|em vez de|diferença|diferenca'
 DEPRECATION_LINE='removid|removed|deprecat|depreciad|histórico|historico|obsolet|já não|ja nao|deixou de|superseded|supersed|substituíd|substituid'
 QUOTE='[«»"*`_]'
 # The mention rule applies to MARKDOWN ONLY. In prose, quoting a term is how you name it. In code every
@@ -106,18 +113,34 @@ MENTION_SPAN="$QUOTE[^|]{0,90}(PAT)[^|]{0,90}$QUOTE"
 NEG_SUBJECT='banza[^.!?]{0,25}(não|nao|nunca|never|\bsem\b|nenhum|ningu[ée]m)'
 
 # Drop the hits that a clause-scoped marker exculpates. $1 = the pattern that produced the hits.
+# A `//` or `/* */` line in a .ts/.tsx file is engineering commentary, not reader copy. The comment on
+# website/app/en/trust/page.tsx explains why the page says what it says — quoting the term in order to
+# rule it out. Treating that as a public claim penalises the explanation.
+strip_code_comments() { grep -viE '^[^:]*\.tsx?:[0-9]+:[[:space:]]*(//|/\*|\*)' || true; }
+
 filter_hits() {
   local pat="$1"
   local mention="${MENTION_SPAN/PAT/$pat}"
   grep -viE "($NEG_BEFORE)[^.!?]{0,90}($pat)" \
     | grep -viE "$NEG_SUBJECT" \
     | grep -viE "^[^:]*\.md:[0-9]+:.*$mention" \
-    | grep -viE "$DEPRECATION_LINE" || true
+    | grep -viE "$DEPRECATION_LINE" \
+    | grep -viE "${EN_SURFACE}[^:]*:[0-9]+:.*${NEG_BEFORE_EN}[[:space:]]+.{0,20}(${pat})" || true
 }
 
 # Common exclusions: test files and banzai-agent.ts (whose FORBIDDEN_PHRASES lists the forbidden phrases
 # verbatim; its real UI copy is guarded by components/banzai/workbench.test.ts).
-GREP_EXCL=(--exclude='*.test.ts' --exclude='*.test.tsx' --exclude='*.spec.ts' --exclude='banzai-agent.ts')
+# `-I` skips binary files. Without it the token scan reads the woff2 fonts under website/app/fonts and
+# matches "KB" inside compressed font data — a public-copy violation reported against a typeface. This
+# affected origin/main too; it is a defect in the scan, not in any copy.
+# Block E2 — the English edition negates with the determiner "no" ("NO CERTIFICATE AUTHORITY",
+# "there is no certificate authority"). That reading is unambiguous on an English surface and impossible on
+# a Portuguese one, where "no" means "em o", so the extra token is scoped to the English paths rather than
+# added to the shared vocabulary.
+EN_SURFACE='^(website/app/en/|website/content/[a-z-]*/en)'
+NEG_BEFORE_EN='\bno\b'
+
+GREP_EXCL=(-I --exclude='*.test.ts' --exclude='*.test.tsx' --exclude='*.spec.ts' --exclude='banzai-agent.ts')
 
 fail=0
 warn=0
@@ -252,7 +275,7 @@ AUTHORITY=(
   '(aprovação|aprovacao) (humana|manual) (de|do) operador'
 )
 for pat in "${AUTHORITY[@]}"; do
-  hits="$(grep -rniE "${GREP_EXCL[@]}" "$pat" "${SURFACES[@]}" 2>/dev/null | filter_hits "$pat" || true)"
+  hits="$(grep -rniE "${GREP_EXCL[@]}" "$pat" "${SURFACES[@]}" 2>/dev/null | strip_code_comments | filter_hits "$pat" || true)"
   if [ -n "$hits" ]; then
     echo "NEEDS_FIX  removed central-authority architecture matching /$pat/ (humans maintain the protocol; they do not authorise/certify/accept/approve operators):"
     echo "$hits" | sed 's/^/    /'
@@ -291,7 +314,7 @@ CERTIFICATE=(
   '\b(validou|validava|validavam|validaram|valida|validam|validate|validated|validates|validating)\b[^.]{0,20}certificad'
 )
 for pat in "${CERTIFICATE[@]}"; do
-  hits="$(grep -rniE "${GREP_EXCL[@]}" "$pat" "${SURFACES[@]}" 2>/dev/null | filter_hits "$pat" || true)"
+  hits="$(grep -rniE "${GREP_EXCL[@]}" "$pat" "${SURFACES[@]}" 2>/dev/null | strip_code_comments | filter_hits "$pat" || true)"
   if [ -n "$hits" ]; then
     echo "NEEDS_FIX  operator-certificate semantics matching /$pat/ (use conformance evidence / operador com evidência verificável de conformidade protocolar):"
     echo "$hits" | sed 's/^/    /'
@@ -325,7 +348,11 @@ ca_mention="${MENTION_SPAN/PAT/banza[ -]ca}"
 # "supersede one another" (versioning), and secrets may leak through git "históricos" (history) — neither
 # tells the reader about a design BANZA discarded. So the terms are the shapes that actually narrate one.
 NARRATIVE='superseded \(|superseded by|supersession|deprecated|deprecation|registo histórico|como histórico|mantidos publicados|modelo antigo|antigo modelo|old model|former model|previous model|foi removid|foi substitu|antigamente|antes era|verificação tripla|verificacao tripla|triple verification'
-narrative="$(grep -rniE "${GREP_EXCL[@]}" "$NARRATIVE" "${SURFACES[@]}" 2>/dev/null || true)"
+# A Technical Registry record can BE superseded — that is a record state the registry publishes, not a
+# narrative about a previous protocol architecture. The status rows carry the state token beside its own
+# label, so they are recognised and left alone; a sentence teaching a retired model still fires.
+REGISTRY_STATE_ROW='"?(SUPERSEDED|SUBSTITUÍDO|SUBSTITUIDO)"?[,:]|s: "SUPERSEDED"'
+narrative="$(grep -rniE "${GREP_EXCL[@]}" "$NARRATIVE" "${SURFACES[@]}" 2>/dev/null | strip_code_comments | grep -viE "$REGISTRY_STATE_ROW" || true)"
 if [ -n "$narrative" ]; then
   echo "NEEDS_FIX  transition narrative on a product surface — present the active model directly (signed protocol metadata, conformance evidence, public protocol registry, trust root, delegated signing keys, revocation with closed-by-default semantics). There is no previous model to describe here:"
   echo "$narrative" | sed 's/^/    /'
@@ -363,7 +390,7 @@ fi
 # decisions, byte-copied from decisions/adr|rfc); technical ADRs legitimately use "corpus" (e.g. ADR-036/056
 # "canonical corpus"). The marketing-token block targets user-facing product copy, not verbatim ADR text.
 for pat in '\bcorpus\b' '\bKB\b'; do
-  hits="$(grep -rnE --exclude-dir=decisions "${GREP_EXCL[@]}" "$pat" website/content website/app website/components 2>/dev/null | grep -viE 'CORPUS_HASH|load_corpus|toContain|//|/\*' || true)"
+  hits="$(grep -rnEI --exclude-dir=decisions "${GREP_EXCL[@]}" "$pat" website/content website/app website/components 2>/dev/null | grep -viE 'CORPUS_HASH|load_corpus|toContain|//|/\*' || true)"
   if [ -n "$hits" ]; then
     echo "NEEDS_FIX  forbidden public token /$pat/ in UI/content:"
     echo "$hits" | sed 's/^/    /'

@@ -96,20 +96,20 @@ export function build_operational_package_json(trace_id: string, question: strin
  * Node WASM (M2.18B.3 PART 11): build the output-pass prompt from a FactualPackage JSON. Returns
  * {system, user}. The system prompt enforces synthesis from the numbered facts only + the claim map.
  */
-export function build_output_prompt_json(question: string, package_json: string, depth: string): string;
+export function build_output_prompt_json(question: string, package_json: string, depth: string, locale: string): string;
 
 /**
  * The obligations-aware output-synthesis prompt: the base grounding prompt PLUS the per-task output-shape
  * directive so the model FULFILS the task (example→scenario, procedure→steps, template→fields).
  */
-export function build_output_prompt_obliged_json(question: string, package_json: string, depth: string, obligations_json: string): string;
+export function build_output_prompt_obliged_json(question: string, package_json: string, depth: string, obligations_json: string, locale: string): string;
 
 /**
  * SPR-4 §5 — the STRUCTURED-generation output prompt: the model authors only the linguistic core; it is
  * not asked to fill `cited_source_ids` (derived deterministically downstream). See
  * [`synth::build_output_prompt_structured`].
  */
-export function build_output_prompt_structured_json(question: string, package_json: string, depth: string): string;
+export function build_output_prompt_structured_json(question: string, package_json: string, depth: string, locale: string): string;
 
 /**
  * Node WASM (ADR-036): build the `{system, user}` prompt for a language model from the

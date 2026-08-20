@@ -491,6 +491,8 @@ jobs:
       # directory and compares — it never rewrites the tracked file.
       - name: Website decision-registry reproduction and coverage guard
         run: bash tools/check-website-decisions-parity.sh
+      - name: Website route registry integrity (locale counterpart ownership)
+        run: node tools/check-website-route-registry.mjs
 
       # The BanzAI properties that decide what the protocol is allowed to SAY, wired into this required
       # context because none of the seven was able to fail for them. Audited at 21bb77c: every required

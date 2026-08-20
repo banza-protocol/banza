@@ -56,6 +56,11 @@ Thumbs.db:encryptable
 /integrations/
 /docker/
 scripts/
+# …except the website's own generators. The bare `scripts/` above matches at any depth, which silently
+# swallowed website/scripts/*.mjs: the emitters existed locally, were never committed, and CI failed on a
+# clean checkout with "Cannot find module". A generator that is not in the repository is not a generator.
+!website/scripts/
+!website/scripts/*.mjs
 
 # Temp/cache
 tmp/

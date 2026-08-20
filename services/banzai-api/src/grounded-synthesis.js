@@ -18,6 +18,7 @@ import {
   buildOutputPromptStructured,
   outputSchemaStructured,
   buildOutputPromptObligedStructured,
+  DEFAULT_LOCALE,
   deriveCitedSourceIds,
   isCriticalSubject,
 } from "./knowledge.js";
@@ -131,7 +132,12 @@ function composeAnswerFromClaims(output) {
 
 // Run the OUTPUT pass: grounded synthesis over the FactualPackage, then Rust factual validation.
 // Returns { output|null, verdict } (output is the validated GroundedOutput).
-async function runOutputPass(question, pkg, { provider, timeoutMs, signal, maxTokens, model, depth, taskQuestion, structured = null, queueWaitMs = 0 }, trace) {
+async function runOutputPass(question, pkg, { provider, timeoutMs, signal, maxTokens, model, depth, taskQuestion, structured = null, queueWaitMs = 0, locale }, trace) {
+  // NO DEFAULT, deliberately. This is internal plumbing, and a default here would mean a locale lost
+  // between the pipeline and the prompt is silently replaced by Portuguese — the exact failure this
+  // change exists to remove, reintroduced one layer down. A mutation proved the point: dropping
+  // `locale` at the call site left every locale property green while English got Portuguese prompts.
+  // Defaulting belongs to `resolveLocale` alone, which records `legacy-default` as its reason.
   // SPR-4 §1 — start the prompt-build timer (obligations + prompt + schema, JS/Rust-side, distinct from the
   // model's own prefill and from the queue wait). Each latency phase is measured separately so none hides.
   const tBuildStart = Date.now();
@@ -152,8 +158,8 @@ async function runOutputPass(question, pkg, { provider, timeoutMs, signal, maxTo
   let structuredActive = false;
   if (useStructured) {
     const sp =
-      (obligations && buildOutputPromptObligedStructured(question, pkg, depth || "brief", obligations._raw)) ||
-      buildOutputPromptStructured(question, pkg, depth || "brief");
+      (obligations && buildOutputPromptObligedStructured(question, pkg, depth || "brief", obligations._raw, locale)) ||
+      buildOutputPromptStructured(question, pkg, depth || "brief", locale);
     const ss = outputSchemaStructured(pkg);
     if (sp && ss) {
       prompt = sp;
@@ -163,8 +169,8 @@ async function runOutputPass(question, pkg, { provider, timeoutMs, signal, maxTo
   }
   if (!prompt || !schema) {
     prompt =
-      (obligations && buildOutputPromptObliged(question, pkg, depth || "brief", obligations._raw)) ||
-      buildOutputPrompt(question, pkg, depth || "brief");
+      (obligations && buildOutputPromptObliged(question, pkg, depth || "brief", obligations._raw, locale)) ||
+      buildOutputPrompt(question, pkg, depth || "brief", locale);
     schema = outputSchema(pkg);
     structuredActive = false;
   }
@@ -309,7 +315,7 @@ async function runOutputPass(question, pkg, { provider, timeoutMs, signal, maxTo
 // verdict, trace }. status ∈ grounded | clarify | insufficient | fallback.
 export async function runGroundedSynthesis(
   question,
-  { provider, traceId = "", timeoutMs, signal, outputMaxTokens = null, depth = null, model = null, entityId = null, taskQuestion = null, onProgress = null, structured = null, queueWaitMs = 0 } = {},
+  { provider, traceId = "", timeoutMs, signal, outputMaxTokens = null, depth = null, model = null, entityId = null, taskQuestion = null, onProgress = null, structured = null, queueWaitMs = 0, locale = DEFAULT_LOCALE } = {},
 ) {
   const trace = emptyTrace();
   // SPR-2 — the safe Channel-A emitter (the pipeline threads its `emit` in as onProgress). It NEVER throws
@@ -434,7 +440,7 @@ export async function runGroundedSynthesis(
   // SYNTHESIS_STARTED — the ONE model call begins. Safe metadata only (model/depth/facts) — never the prompt.
   progress("SYNTHESIS_STARTED", { model: model || "", depth: effectiveDepth, facts_count: pkg.facts.length });
   const tOutputPass = Date.now();
-  const { output, verdict } = await runOutputPass(question, pkg, { provider, timeoutMs, signal, maxTokens: outBudget, model, depth: effectiveDepth, taskQuestion: taskQuestion || question, structured, queueWaitMs }, trace);
+  const { output, verdict } = await runOutputPass(question, pkg, { provider, timeoutMs, signal, maxTokens: outBudget, model, depth: effectiveDepth, taskQuestion: taskQuestion || question, structured, queueWaitMs, locale }, trace);
   // SPR-4 §1 — total_ms is the whole output pass (build + prefill + generation + validation + verification),
   // stamped here so every return path in runOutputPass carries it; queue_wait_ms sits outside it.
   if (trace.output_timings) trace.output_timings.total_ms = Date.now() - tOutputPass;

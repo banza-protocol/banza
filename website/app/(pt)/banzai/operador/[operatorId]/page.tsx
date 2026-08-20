@@ -32,5 +32,5 @@ export default async function OperatorContextPage({
   // context segment → honest notFound(), never treated as an operator (ADR-036; ADR-034 safety).
   if (!isClosedId(operatorId)) notFound();
   const state = parseBanzaiState(sp, { operatorId });
-  return <BanzaiRouteBinder state={state} />;
+  return <BanzaiRouteBinder state={state} locale="pt" />;
 }

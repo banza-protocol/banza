@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { footerColumns, navPrimary } from "./site";
+import { footerColumns, navPrimary, CHROME_TEXT } from "./site";
 
 // M2.17A / M2.19G.2 §26 — footer navigation. The footer was rebuilt into three groups
 // (Protocolo · Implementar e validar · Governança); the standalone "BanzAI" and "Implementação" columns
@@ -86,6 +86,9 @@ describe("M2.17A — footer external links open in a new tab safely", () => {
     const footer = read("components/SiteFooter.tsx");
     expect(footer).toContain('"_blank"');
     expect(footer).toContain("noopener noreferrer");
-    expect(footer).toContain("abre numa nova aba"); // accessible new-tab hint
+    // The accessible new-tab hint is announced in the reader's language: it is screen-reader-only
+    // text, so a Portuguese hint on an English page is a leak nobody can see.
+    expect(CHROME_TEXT.pt.newTabHint).toBe("(abre numa nova aba)");
+    expect(CHROME_TEXT.en.newTabHint).toBe("(opens in a new tab)");
   });
 });

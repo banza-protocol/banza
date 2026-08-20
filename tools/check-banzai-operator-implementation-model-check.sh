@@ -16,6 +16,12 @@ fail=0
 ok() { printf '  ok: %s\n' "$1"; }
 fl() { printf 'FAIL: %s\n' "$1"; fail=1; }
 
+# The sentences these clauses assert moved into the bilingual catalogues, and several symbols were
+# renamed when the surfaces stopped holding their own Portuguese. Read from the resolved copy, which
+# also makes the English clause expressible.
+# shellcheck source=tools/_banzai-copy.sh
+. tools/_banzai-copy.sh
+
 MODEL=engines/banza-target-registry/src/model.rs
 UILIB=website/lib/banzaiValidation.ts
 MODE_TSX=website/components/banzai/BanzaiValidationMode.tsx
@@ -55,12 +61,14 @@ fi
 
 # 3. Fase 0 selects OPERATOR then IMPLEMENTATION (operator step precedes implementation step).
 if [ -f "$MODE_TSX" ]; then
-  op_line=$(grep -nE '1 · Operador' "$MODE_TSX" | head -1 | cut -d: -f1 || true)
-  impl_line=$(grep -nE '2 · Implementação' "$MODE_TSX" | head -1 | cut -d: -f1 || true)
+  # Fase 0's step labels are realized from the catalogue, so the ORDER is read from the ids the
+  # component renders, and the wording is asserted against the record in both editions.
+  op_line=$(grep -n '"setup.step1"' "$MODE_TSX" | head -1 | cut -d: -f1 || true)
+  impl_line=$(grep -n '"setup.step2"' "$MODE_TSX" | head -1 | cut -d: -f1 || true)
   if [ -n "$op_line" ] && [ -n "$impl_line" ] && [ "$op_line" -lt "$impl_line" ]; then
     ok "Fase 0 renders Operador (step 1) BEFORE Implementação (step 2)"
   else
-    fl "Fase 0 must render the operator selector (1 · Operador) before the implementation selector (2 · Implementação)"
+    fl "Fase 0 must render the operator selector (setup.step1) before the implementation selector (setup.step2)"
   fi
 else
   fl "$MODE_TSX not found"

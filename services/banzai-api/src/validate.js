@@ -38,18 +38,11 @@ export const RECEIPT_VERSION = "1.1.0";
 export const WORKFLOW = "operator-validation"; // ADR-034 §4.1 "Validar operador"
 
 // Canonical nine-step spine (ADR-034 §21). Each step names its engine and the registry endpoint keys
-// it fetches (the FIRST key is the receipt's primary endpoint).
-export const STEP_ORDER = [
-  "discovery",
-  "manifest",
-  "keys",
-  "conformance",
-  "interoperability",
-  "trust",
-  "federation",
-  "evidence",
-  "certification",
-];
+// it fetches (the FIRST key is the receipt's primary endpoint). The ORDER itself lives in journeySteps.js
+// so that reading it does not require this module's dependencies — importing it from here pulled in the
+// receipt store and a PostgreSQL driver. Re-exported so existing callers are unaffected.
+import { STEP_ORDER } from "./journeySteps.js";
+export { STEP_ORDER } from "./journeySteps.js";
 
 const STEP_SPEC = {
   discovery: { engine: "banza-target-registry", endpoints: ["discovery"] },

@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { navPrimary, footerColumns } from "./site";
+import { navPrimary, footerColumns, CHROME_TEXT } from "./site";
 
 // M2.17 — Homepage final audit & premium polish. Source-level assertions over the audit outcomes:
 // canonical copy, the three-tier header, real CTA routes, the hardened BanzAI field, the calm
@@ -71,8 +71,10 @@ describe("M2.17 — CTAs (single hero CTA per M2.19G.2 §10)", () => {
 
 describe("M2.17 — footer", () => {
   it("brand text drops 'A base para' and uses evidência verificável", () => {
-    expect(footer).not.toContain("A base para");
-    expect(footer).toContain("evidência verificável");
+    // The brand sentence moved into CHROME_TEXT so the English shell could stop rendering it in
+    // Portuguese. Assert the value the footer renders, not the file it used to be written in.
+    expect(CHROME_TEXT.pt.brand).not.toContain("A base para");
+    expect(CHROME_TEXT.pt.brand).toContain("evidência verificável");
   });
   it("carries both boundary statements", () => {
     expect(footer).toContain("O BANZA não é banco, PSP, carteira ou operador financeiro.");

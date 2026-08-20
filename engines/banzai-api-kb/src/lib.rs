@@ -531,9 +531,21 @@ pub fn detect_doc_refs_json(question: &str) -> String {
 /// {system, user}. The system prompt enforces synthesis from the numbered facts only + the claim map.
 #[cfg(target_arch = "wasm32")]
 #[wasm_bindgen]
-pub fn build_output_prompt_json(question: &str, package_json: &str, depth: &str) -> String {
+pub fn build_output_prompt_json(
+    question: &str,
+    package_json: &str,
+    depth: &str,
+    locale: &str,
+) -> String {
+    let loc = match synth::PromptLocale::from_tag(locale) {
+        Some(l) => l,
+        None => {
+            return serde_json::json!({ "error": format!("unsupported locale: {locale}") })
+                .to_string()
+        }
+    };
     match serde_json::from_str::<factpack::FactualPackage>(package_json) {
-        Ok(pkg) => serde_json::to_string(&synth::build_output_prompt(question, &pkg, depth))
+        Ok(pkg) => serde_json::to_string(&synth::build_output_prompt(question, &pkg, depth, loc))
             .unwrap_or_else(|_| "{}".to_string()),
         Err(e) => serde_json::json!({ "error": format!("bad package: {e}") }).to_string(),
     }
@@ -560,10 +572,18 @@ pub fn build_output_prompt_structured_json(
     question: &str,
     package_json: &str,
     depth: &str,
+    locale: &str,
 ) -> String {
+    let loc = match synth::PromptLocale::from_tag(locale) {
+        Some(l) => l,
+        None => {
+            return serde_json::json!({ "error": format!("unsupported locale: {locale}") })
+                .to_string()
+        }
+    };
     match serde_json::from_str::<factpack::FactualPackage>(package_json) {
         Ok(pkg) => serde_json::to_string(&synth::build_output_prompt_structured(
-            question, &pkg, depth,
+            question, &pkg, depth, loc,
         ))
         .unwrap_or_else(|_| "{}".to_string()),
         Err(e) => serde_json::json!({ "error": format!("bad package: {e}") }).to_string(),
@@ -778,7 +798,15 @@ pub fn build_output_prompt_obliged_json(
     package_json: &str,
     depth: &str,
     obligations_json: &str,
+    locale: &str,
 ) -> String {
+    let loc = match synth::PromptLocale::from_tag(locale) {
+        Some(l) => l,
+        None => {
+            return serde_json::json!({ "error": format!("unsupported locale: {locale}") })
+                .to_string()
+        }
+    };
     let pkg = match serde_json::from_str::<factpack::FactualPackage>(package_json) {
         Ok(p) => p,
         Err(e) => return serde_json::json!({ "error": format!("bad package: {e}") }).to_string(),
@@ -786,12 +814,12 @@ pub fn build_output_prompt_obliged_json(
     let ob = match serde_json::from_str::<obligations::AnswerObligationSet>(obligations_json) {
         Ok(o) => o,
         Err(_) => {
-            return serde_json::to_string(&synth::build_output_prompt(question, &pkg, depth))
+            return serde_json::to_string(&synth::build_output_prompt(question, &pkg, depth, loc))
                 .unwrap_or_else(|_| "{}".to_string())
         }
     };
     serde_json::to_string(&synth::build_output_prompt_obliged(
-        question, &pkg, depth, &ob,
+        question, &pkg, depth, &ob, loc,
     ))
     .unwrap_or_else(|_| "{}".to_string())
 }

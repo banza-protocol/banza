@@ -124,7 +124,7 @@ function reasonCodeFamily(question, traceId) {
 // ── §11 — comparison (compare_executions) ───────────────────────────────────────────────────────────────
 // Two execution operands → the receipt store's field-by-field diff. With one/zero operands the plan already
 // inserts a CLARIFICATION; we mirror that. With no receipts tool/data available → the honest fallback.
-async function compareFamily(question, resolution, traceId, receiptsTool, contextTargets = []) {
+async function compareFamily(question, resolution, traceId, receiptsTool, contextTargets = [], locale) {
   // Increment 6 — a conversational reference ("compare com a anterior") resolves the two operands in Rust
   // from the prior context; those take precedence over any operand the current phrase names.
   const targets =
@@ -137,10 +137,8 @@ async function compareFamily(question, resolution, traceId, receiptsTool, contex
     return {
       kind: "clarification",
       family: "compare_executions",
-      answer:
-        "Interpretei o teu pedido como uma **comparação entre execuções** da jornada de validação, mas não " +
-        "indicaste quais: refere-se às **duas últimas execuções**, ou a execuções específicas (indica os " +
-        "identificadores exec-…)?",
+      answer: COMPARE_EXECUTIONS_CLARIFICATION[locale] || COMPARE_EXECUTIONS_CLARIFICATION["pt-PT"],
+      answer_locale: locale,
     };
   }
   if (!receiptsTool || typeof receiptsTool.compareExecutions !== "function") {
@@ -350,7 +348,29 @@ function versionChangeFamily() {
 //   { kind: "fallback", family, situation, override_message? }   → the pipeline serves the contextual fallback
 //   { kind: "skip", family }                                     → the pipeline continues to its next tier
 //   null                                                          → not a family question at all
-export async function answerQuestionFamily(question, { traceId = "", receiptsTool = null, contextTargets = [] } = {}) {
+/**
+ * The one clarification a question family asks, per locale.
+ *
+ * Family MATCHING is semantic and locale-independent: which family a question belongs to is a property
+ * of the question, not of the reader. Only the sentence changes. Keeping those two apart is why the
+ * locale arrives as a presentation input here and never reaches the matcher.
+ *
+ * Before this, the sentence was a Portuguese string literal with no locale anywhere near it, so an
+ * English reader was asked in Portuguese — and stamping `answer_locale: "en"` on it would have recorded
+ * a composition that never happened. This is the composition.
+ */
+const COMPARE_EXECUTIONS_CLARIFICATION = {
+  "pt-PT":
+    "Interpretei o teu pedido como uma **comparação entre execuções** da jornada de validação, mas não " +
+    "indicaste quais: refere-se às **duas últimas execuções**, ou a execuções específicas (indica os " +
+    "identificadores exec-…)?",
+  en:
+    "I read your request as a **comparison between executions** of the validation journey, but you did " +
+    "not say which: do you mean the **two most recent executions**, or specific executions (give the " +
+    "exec-… identifiers)?",
+};
+
+export async function answerQuestionFamily(question, { traceId = "", receiptsTool = null, contextTargets = [], locale } = {}) {
   const resolution = resolveQuery(question) || {};
   const intent = String(resolution.primary_intent || "");
   // A boundary/refusal never reaches a data/act family (double-guard; the pipeline settles it at Tier 0).
@@ -361,7 +381,7 @@ export async function answerQuestionFamily(question, { traceId = "", receiptsToo
     case "get_reason_code":
       return reasonCodeFamily(question, traceId);
     case "compare_executions":
-      return compareFamily(question, resolution, traceId, receiptsTool, contextTargets);
+      return compareFamily(question, resolution, traceId, receiptsTool, contextTargets, locale);
     case "diagnose_failure":
       return diagnoseFamily(question, resolution, traceId, receiptsTool, contextTargets);
     case "get_version_change":

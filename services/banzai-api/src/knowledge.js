@@ -34,6 +34,7 @@ const kb = createRequire(import.meta.url)("./rustkb/banzai_api_kb.js");
 // that goes stale is always the one a reader sees. The prose around them is localized presentation; the
 // facts inside are not translated and not re-authored.
 const PROFILE_FACTS = createRequire(import.meta.url)("./canonicalProfiles.generated.json");
+import { profilePurpose } from "./profilePurposeLocale.js";
 
 // Current lifecycle state, DERIVED from contracts/production/protocol-version.json by
 // tools/gen-banzai-lifecycle-facts.py. Read here, never written here: version, pre-production and the
@@ -192,27 +193,46 @@ const s = (...keys) => keys.map((k) => SOURCES[k]);
 // Knowledge entries. `keywords` drive matching; `answer` is the deterministic body.
 
 /** The profile levels, in registry order, as a compact PT/EN line each. */
-function profileLines(lang) {
+function profileLines(locale) {
   return PROFILE_FACTS.profiles
     .map((p) => {
       const builds =
         p.includes && p.includes.length
-          ? lang === "pt"
+          ? locale === "pt-PT"
             ? ` Inclui ${p.includes.join(", ")}.`
             : ` Includes ${p.includes.join(", ")}.`
           : "";
-      return `- **${p.level} — ${p.name}**: ${p.purpose}${builds}`;
+      // NOT p.purpose: that is canonical English source prose from the normative registry, and
+      // interpolating it here is what put an English sentence inside the Portuguese answer.
+      return `- **${p.level} — ${p.name}**: ${requirePurpose(p.level, locale)}${builds}`;
     })
     .join("\n");
 }
 
+/**
+ * The localized purpose for a level, or a loud failure.
+ *
+ * Closed-world against the registry: the registry decides which levels exist, this refuses to render one
+ * it has no prose for. Falling back to `p.purpose` would restore the exact defect in the exact place.
+ */
+function requirePurpose(level, locale) {
+  const text = profilePurpose(level, locale);
+  if (!text) {
+    throw new Error(
+      `knowledge: conformance profile ${level} has no ${locale} presentation in profilePurposeLocale.js. ` +
+        `Add it there — the canonical registry's English purpose must never be used as a fallback.`,
+    );
+  }
+  return text;
+}
+
 /** The L4 state, which readers ask about directly and which the registry states plainly. */
-function l4Note(lang) {
+function l4Note(locale) {
   const l4 = PROFILE_FACTS.profiles.find((p) => p.external_profile_required);
   if (!l4) return "";
   const none = !(l4.published_external_profiles || []).length;
   if (!none) return "";
-  return lang === "pt"
+  return locale === "pt-PT"
     ? ` O **${l4.level}** é parametrizado por um **perfil externo**: a sua reivindicação nomeia um perfil de interoperabilidade externa concreto. **Nenhum perfil externo está publicado**, pelo que o **${l4.level}** define o mecanismo e não existe hoje demonstração executável dele.`
     : ` **${l4.level}** is parameterized by an **external profile**: a claim names a concrete external-interoperability profile. **No external profile is published**, so ${l4.level} defines the mechanism and no executable demonstration of it exists today.`;
 }
@@ -232,8 +252,12 @@ function profileEntries() {
       "banza profiles", "what are banza profiles", "conformance profiles", "profile levels",
       "list of profiles", "l0 to l4",
     ],
-    answer:
-      `Os **perfis de conformidade** do **BANZA** são **${PROFILE_FACTS.profiles.length}**, do **${PROFILE_FACTS.profiles[0].level}** ao **${PROFILE_FACTS.profiles[PROFILE_FACTS.profiles.length - 1].level}**:\n\n${profileLines("pt")}\n\nUm perfil mede **capacidade técnica demonstrada**, e não é um estado de certificação, uma admissão operacional, uma permissão regulatória nem uma aprovação para produção.${l4Note("pt")}\n\n---\n\nBANZA defines **${PROFILE_FACTS.profiles.length}** conformance profiles, **${PROFILE_FACTS.profiles[0].level}** through **${PROFILE_FACTS.profiles[PROFILE_FACTS.profiles.length - 1].level}**:\n\n${profileLines("en")}\n\nA profile measures **demonstrated technical capability**. It is never a certification state, an operational admission, a regulatory permission or a production approval.${l4Note("en")}`,
+    realizations: {
+      "pt-PT":
+        `Os **perfis de conformidade** do **BANZA** são **${PROFILE_FACTS.profiles.length}**, do **${PROFILE_FACTS.profiles[0].level}** ao **${PROFILE_FACTS.profiles[PROFILE_FACTS.profiles.length - 1].level}**:\n\n${profileLines("pt-PT")}\n\nUm perfil mede **capacidade técnica demonstrada**, e não é um estado de certificação, uma admissão operacional, uma permissão regulatória nem uma aprovação para produção.${l4Note("pt-PT")}`,
+      en:
+        `BANZA defines **${PROFILE_FACTS.profiles.length}** conformance profiles, **${PROFILE_FACTS.profiles[0].level}** through **${PROFILE_FACTS.profiles[PROFILE_FACTS.profiles.length - 1].level}**:\n\n${profileLines("en")}\n\nA profile measures **demonstrated technical capability**. It is never a certification state, an operational admission, a regulatory permission or a production approval.${l4Note("en")}`,
+    },
     sources: s("profilesRegistry", "govGlossary"),
   };
 
@@ -245,21 +269,24 @@ function profileEntries() {
       `o que e ${p.level.toLowerCase()}`, `o que e o ${p.level.toLowerCase()}`, `perfil ${p.level.toLowerCase()}`,
       `what is ${p.level.toLowerCase()}`, `${p.level.toLowerCase()} profile`, `profile ${p.level.toLowerCase()}`,
     ],
-    answer:
-      `O **${p.level}** é o perfil **${p.name}**. ${p.purpose}` +
-      (p.includes && p.includes.length ? ` Inclui ${p.includes.join(", ")}.` : "") +
-      (p.awarded_by_sandbox_runner
-        ? ` É demonstrável por um executor de sandbox.`
-        : ` **Não** é atribuído por um executor de sandbox — a sua evidência não pode ser produzida por uma única implementação em ambiente simulado.`) +
-      ` Um perfil mede **capacidade técnica**, não é certificação, admissão operacional nem autorização regulatória.` +
-      (p.external_profile_required ? l4Note("pt") : "") +
-      `\n\n---\n\n**${p.level}** is the **${p.name}** profile. ${p.purpose}` +
-      (p.includes && p.includes.length ? ` Includes ${p.includes.join(", ")}.` : "") +
-      (p.awarded_by_sandbox_runner
-        ? ` It is demonstrable by a sandbox runner.`
-        : ` It is **not** awarded by a sandbox runner — its evidence cannot be produced by a single implementation in a simulated environment.`) +
-      ` A profile measures **technical capability**; it is not certification, operational admission or regulatory authorization.` +
-      (p.external_profile_required ? l4Note("en") : ""),
+    realizations: {
+      "pt-PT":
+        `O **${p.level}** é o perfil **${p.name}**. ${requirePurpose(p.level, "pt-PT")}` +
+        (p.includes && p.includes.length ? ` Inclui ${p.includes.join(", ")}.` : "") +
+        (p.awarded_by_sandbox_runner
+          ? ` É demonstrável por um executor de sandbox.`
+          : ` **Não** é atribuído por um executor de sandbox — a sua evidência não pode ser produzida por uma única implementação em ambiente simulado.`) +
+        ` Um perfil mede **capacidade técnica**, não é certificação, admissão operacional nem autorização regulatória.` +
+        (p.external_profile_required ? l4Note("pt-PT") : ""),
+      en:
+        `**${p.level}** is the **${p.name}** profile. ${requirePurpose(p.level, "en")}` +
+        (p.includes && p.includes.length ? ` Includes ${p.includes.join(", ")}.` : "") +
+        (p.awarded_by_sandbox_runner
+          ? ` It is demonstrable by a sandbox runner.`
+          : ` It is **not** awarded by a sandbox runner — its evidence cannot be produced by a single implementation in a simulated environment.`) +
+        ` A profile measures **technical capability**; it is not certification, operational admission or regulatory authorization.` +
+        (p.external_profile_required ? l4Note("en") : ""),
+    },
     sources: s("profilesRegistry", "govGlossary"),
   }));
 
@@ -2027,6 +2054,136 @@ export const ENTRIES = [
   },
 ];
 
+// ── RESPONSE LOCALE ───────────────────────────────────────────────────────────────────────────────
+//
+// A knowledge entry is ONE semantic target with one evidence decision, and the reader's language is a
+// property of the REALIZATION, not of the target. That separation did not exist: every entry carried a
+// single `answer`, so 163 entries answered English questions in Portuguese, and 15 more had been made
+// "bilingual" by concatenating a Portuguese answer, a separator and an English one — which is what a
+// reader saw when they asked "o que é L0?" and got both editions at once.
+//
+// After normalization below NO entry has an `answer` property. Every entry has `realizations`, keyed by
+// locale. Reading `entry.answer` now yields undefined rather than silently serving the wrong language:
+// the legacy path is structurally gone, not merely discouraged.
+
+export const LOCALES = Object.freeze(["pt-PT", "en"]);
+export const DEFAULT_LOCALE = "pt-PT";
+
+/** The separator the pre-migration entries used to glue two locales into one string. */
+const LEGACY_BILINGUAL_SEPARATOR = "\n\n---\n\n";
+
+/**
+ * Entries whose single `answer` was an AUDITED PT+EN concatenation, and may therefore be split.
+ *
+ * This list makes splitting an adjudication rather than a mechanism. Any other entry arriving with the
+ * separator is a new defect and normalization throws instead of guessing which half belongs to which
+ * reader — the profile entries proved a "Portuguese half" can itself contain raw English, so halves are
+ * not automatically trustworthy.
+ */
+const AUDITED_BILINGUAL = new Set([
+  "def-profiles",
+  "def-implementation",
+  "def-operator-vs-implementation",
+  "def-certification-actor",
+  "def-lifecycle-version",
+  "def-lifecycle-status",
+  "def-lifecycle-protocol-freeze",
+  "def-lifecycle-l0-freeze",
+  "def-lifecycle-independent-implementation",
+  "def-lifecycle-trial",
+]);
+
+/** Give every entry `realizations` and remove `answer`. */
+function normalizeRealizations(entry) {
+  if (!entry.realizations) {
+    const text = typeof entry.answer === "string" ? entry.answer : "";
+    if (text.includes(LEGACY_BILINGUAL_SEPARATOR)) {
+      if (!AUDITED_BILINGUAL.has(entry.id)) {
+        throw new Error(
+          `knowledge: entry "${entry.id}" concatenates two locales into one answer. Split it into ` +
+            `realizations; do not add it to AUDITED_BILINGUAL without reading both halves.`,
+        );
+      }
+      const [pt, en] = text.split(LEGACY_BILINGUAL_SEPARATOR);
+      entry.realizations = { "pt-PT": pt, en };
+    } else if (text) {
+      entry.realizations = { "pt-PT": text };
+    } else {
+      entry.realizations = {};
+    }
+  }
+  // ── DEPRECATED COMPATIBILITY PROJECTION ─────────────────────────────────────────────────────────
+  //
+  // `entry.answer` survives, but only as a fixed view of ONE locale. Its semantics are exactly
+  // `realizations["pt-PT"]` and nothing else: it never returns English, never returns the unavailable
+  // state, never picks "the best available" realization and never concatenates. That is the whole
+  // difference between a projection and a fallback — a fallback chooses a language, and this one cannot.
+  //
+  // It exists because measurement showed 70 readers of this field and only FOUR of them are serving
+  // code; the other 66 are tests and guards whose property genuinely is "the Portuguese answer says X".
+  // Deleting the field would have rewritten 66 assertions to prove what they already proved. Serving
+  // paths must use answerFor(); a guard enforces that, and this projection is unreachable from them.
+  //
+  // Non-enumerable so canonical schema inspection — Object.keys, spreads, snapshots, serializers —
+  // sees `realizations` and not a second answer field competing with it.
+  //
+  // SUNSET: remove once the PT-specific verification suite has migrated naturally. Until then no NEW
+  // consumer may appear; the closed-world consumer guard fails on one.
+  Object.defineProperty(entry, "answer", {
+    get() {
+      return this.realizations ? this.realizations["pt-PT"] : undefined;
+    },
+    // Writable through to the SAME locale it reads. Tests that simulate answer drift assign to this
+    // field (`live.answer = "..."` then restore it in a finally), and under ESM strict mode a
+    // getter-only property makes that a TypeError rather than a no-op. The setter keeps the projection
+    // honest — it can only ever write the Portuguese realization, so a writer cannot use it to reach
+    // another locale any more than a reader can.
+    set(v) {
+      if (!this.realizations) this.realizations = {};
+      this.realizations["pt-PT"] = v;
+    },
+    enumerable: false,
+    configurable: true,
+  });
+  return entry;
+}
+
+for (const e of ENTRIES) normalizeRealizations(e);
+
+/** Wording for "this exists, but not yet in your language". Deterministic, never another locale. */
+const UNAVAILABLE = Object.freeze({
+  "pt-PT":
+    "Ainda não existe uma resposta determinística disponível em português para esta questão. As fontes que a sustentam continuam listadas abaixo.",
+  en: "A deterministic answer is not yet available in English for this question. The sources that support it are still listed below.",
+});
+
+export function unavailableRealization(locale) {
+  return UNAVAILABLE[locale] || UNAVAILABLE[DEFAULT_LOCALE];
+}
+
+/**
+ * The reader-facing answer for an entry in a locale.
+ *
+ * FAILS CLOSED. When the requested locale has no realization the caller gets `available: false` and the
+ * unavailable wording IN THE REQUESTED LOCALE — never another locale's prose, never both, never the
+ * evidence text, and never a model call. The semantic target and the sources are unaffected: the answer
+ * is missing, not the knowledge.
+ */
+export function answerFor(entry, locale) {
+  if (!entry) return { text: "", available: false, locale };
+  const wanted = LOCALES.includes(locale) ? locale : DEFAULT_LOCALE;
+  const text = entry.realizations ? entry.realizations[wanted] : undefined;
+  if (typeof text === "string" && text.length) return { text, available: true, locale: wanted };
+  return { text: unavailableRealization(wanted), available: false, locale: wanted };
+}
+
+/** Which locales an entry can actually answer in. The coverage report and the guards read this. */
+export function realizedLocales(entry) {
+  if (!entry || !entry.realizations) return [];
+  return LOCALES.filter((l) => typeof entry.realizations[l] === "string" && entry.realizations[l].length);
+}
+
+
 // Normalise for matching: lowercase, strip accents and punctuation, collapse spaces.
 export function normalize(q) {
   // Normalization is Rust (WASM). No JS normalization logic here.
@@ -2625,11 +2782,11 @@ export function documentLookup(question, documentId = "") {
 // The obligations-aware output-synthesis prompt ({system,user}) — base grounding PLUS the per-task
 // output-shape directive so the model FULFILS the task. `obligationsJson` is the raw string from
 // answerObligations(...)._raw. Falls back to null so the caller can use the plain prompt.
-export function buildOutputPromptObliged(question, pkg, depth, obligationsJson) {
+export function buildOutputPromptObliged(question, pkg, depth, obligationsJson, locale) {
   if (typeof kb.build_output_prompt_obliged_json !== "function") return null;
   try {
     const p = JSON.parse(
-      kb.build_output_prompt_obliged_json(String(question || ""), JSON.stringify(pkg), String(depth || "brief"), String(obligationsJson || "")),
+      kb.build_output_prompt_obliged_json(String(question || ""), JSON.stringify(pkg), String(depth || "brief"), String(obligationsJson || ""), String(locale)),
     );
     return p && p.system ? p : null;
   } catch {
@@ -2733,10 +2890,10 @@ export function detectDocRefs(question) {
 
 // PART 11 — the output-pass prompt built from a FactualPackage at a given `depth` (brief default → a short
 // 3-5 point answer, the dominant latency lever). Returns { system, user } or null.
-export function buildOutputPrompt(question, packageObj, depth = "brief") {
+export function buildOutputPrompt(question, packageObj, depth = "brief", locale) {
   if (typeof kb.build_output_prompt_json !== "function" || !packageObj) return null;
   try {
-    const r = JSON.parse(kb.build_output_prompt_json(String(question || ""), JSON.stringify(packageObj), String(depth || "brief")));
+    const r = JSON.parse(kb.build_output_prompt_json(String(question || ""), JSON.stringify(packageObj), String(depth || "brief"), String(locale)));
     return r && !r.error ? r : null;
   } catch {
     return null;
@@ -2758,10 +2915,10 @@ export function outputSchema(packageObj) {
 // SPR-4 §5 — the STRUCTURED-generation output prompt (the model authors only the linguistic core; it is
 // NOT asked to fill cited_source_ids). Returns { system, user } or null → caller falls back to the
 // baseline buildOutputPrompt (fecho por omissão when the export is absent).
-export function buildOutputPromptStructured(question, packageObj, depth = "brief") {
+export function buildOutputPromptStructured(question, packageObj, depth = "brief", locale) {
   if (typeof kb.build_output_prompt_structured_json !== "function" || !packageObj) return null;
   try {
-    const r = JSON.parse(kb.build_output_prompt_structured_json(String(question || ""), JSON.stringify(packageObj), String(depth || "brief")));
+    const r = JSON.parse(kb.build_output_prompt_structured_json(String(question || ""), JSON.stringify(packageObj), String(depth || "brief"), String(locale)));
     return r && !r.error ? r : null;
   } catch {
     return null;
@@ -2769,11 +2926,11 @@ export function buildOutputPromptStructured(question, packageObj, depth = "brief
 }
 
 // SPR-4 §5 — the obligations-aware STRUCTURED output prompt. Returns { system, user } or null.
-export function buildOutputPromptObligedStructured(question, pkg, depth, obligationsJson) {
+export function buildOutputPromptObligedStructured(question, pkg, depth, obligationsJson, locale) {
   if (typeof kb.build_output_prompt_obliged_structured_json !== "function") return null;
   try {
     const p = JSON.parse(
-      kb.build_output_prompt_obliged_structured_json(String(question || ""), JSON.stringify(pkg), String(depth || "brief"), String(obligationsJson || "")),
+      kb.build_output_prompt_obliged_structured_json(String(question || ""), JSON.stringify(pkg), String(depth || "brief"), String(obligationsJson || ""), String(locale)),
     );
     return p && p.system ? p : null;
   } catch {
@@ -2845,7 +3002,11 @@ export function buildContext(question, { maxChunks = 3, maxChars = 6000, docChun
 
   if (!entries.length && !excerpts.length) return null;
   for (const e of entries) {
-    const text = e.answer.length + used > maxChars ? e.answer.slice(0, Math.max(0, maxChars - used)) : e.answer;
+    // Context packing for retrieval, not reader prose: the model is grounded in the canonical
+    // Portuguese realization regardless of the reader's locale, and the READER's language is decided
+    // later by answerFor at the serving boundary. Pinned explicitly rather than read off `.answer`.
+    const body = answerFor(e, DEFAULT_LOCALE).text;
+    const text = body.length + used > maxChars ? body.slice(0, Math.max(0, maxChars - used)) : body;
     if (!text) break;
     used += text.length;
     excerpts.push({ id: e.id, text });
@@ -2914,7 +3075,9 @@ export function buildContext(question, { maxChunks = 3, maxChars = 6000, docChun
     document_mode: document && document.mode ? document.mode : undefined,
     entry_id: lead ? lead.id : document ? document.id : null,
     critical: Boolean(lead && lead.critical),
-    answer: lead ? lead.answer : document ? `${document.title} — ${document.path}` : "",
+    // Same boundary: this is the grounding body handed to the composer, pinned to the canonical
+    // locale. The reader-facing realization is selected by answerFor() in the pipeline.
+    answer: lead ? answerFor(lead, DEFAULT_LOCALE).text : document ? `${document.title} — ${document.path}` : "",
     excerpts,
     // M2.18 (defence-in-depth): drop internal sources (assistant-instruction / secret files, e.g.
     // CLAUDE.md) here at the retrieval half too, via the Rust authority kb.source_is_public — so the

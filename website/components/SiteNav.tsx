@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { navFor } from "@/lib/site";
+import { navFor, CHROME_TEXT } from "@/lib/site";
 import { LocaleSwitch } from "@/components/LocaleSwitch";
 import type { Locale } from "@/lib/i18n";
 import { BanzaiMark } from "@/components/BanzaiMark";
@@ -36,6 +36,7 @@ export function SiteNav({ locale = "pt" }: { locale?: Locale }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const navPrimary = navFor(locale);
+  const text = CHROME_TEXT[locale];
   const home = locale === "en" ? "/en" : "/";
 
   const path = (pathname || "/").replace(/\/+$/, "") || "/";
@@ -108,7 +109,7 @@ export function SiteNav({ locale = "pt" }: { locale?: Locale }) {
           onClick={() => setMobileOpen((v) => !v)}
           aria-expanded={mobileOpen}
           aria-controls="mobile-menu"
-          aria-label={mobileOpen ? "Fechar menu" : "Abrir menu"}
+          aria-label={mobileOpen ? text.closeMenu : text.openMenu}
           className="site-nav-toggle"
           style={{ display: "none", height: 40, width: 40, alignItems: "center", justifyContent: "center", borderRadius: 11, border: "1px solid rgba(94,12,24,0.10)", background: "transparent", cursor: "pointer" }}
         >

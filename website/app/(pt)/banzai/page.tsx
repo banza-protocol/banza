@@ -36,5 +36,5 @@ export default async function BanzaiPage({
 }) {
   const sp = await searchParams;
   const state = parseBanzaiState(sp);
-  return <BanzaiRouteBinder state={state} />;
+  return <BanzaiRouteBinder state={state} locale="pt" />;
 }

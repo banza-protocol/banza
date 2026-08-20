@@ -105,37 +105,66 @@ export type ProgressEvent = {
 
 // ── §9 — the live processing line, driven by the REAL events (never a timer) ────────────────────────────
 
-// Each in-flight event kind maps to a compact, human processing line. The tool/source phase is a COMPOSITE
-// (it folds in the resolved-sources + completed-tools counts), computed in progressLineFor.
-const _LINE_BY_KIND: Record<string, string> = {
-  REQUEST_ACCEPTED: "A interpretar a pergunta",
-  INTENT_RESOLVED: "A interpretar a pergunta",
-  ENTITY_RESOLVED: "A interpretar a pergunta",
-  FACTUAL_PACKAGE_READY: "A construir os factos verificáveis",
-  SYNTHESIS_STARTED: "A preparar a explicação",
-  SYNTHESIS_COMPLETED: "A preparar a explicação",
-  CLAIM_VERIFICATION_STARTED: "A verificar afirmações",
-  CITATION_VERIFICATION_STARTED: "A verificar citações",
+// Each in-flight event kind maps to a compact processing PHASE. Block E2/Q5 — this is a phase id, not a
+// sentence: which phase the stream is in is the same fact for every reader, and the words for it are
+// chosen in `components/banzai/progressPresentation` once the reader's edition is known. The tool/source
+// phase is a COMPOSITE (it folds in the resolved-sources + completed-tools counts), computed below.
+const _LINE_BY_KIND: Record<string, ProgressLineId> = {
+  REQUEST_ACCEPTED: "line.interpreting",
+  INTENT_RESOLVED: "line.interpreting",
+  ENTITY_RESOLVED: "line.interpreting",
+  FACTUAL_PACKAGE_READY: "line.buildingFacts",
+  SYNTHESIS_STARTED: "line.preparingExplanation",
+  SYNTHESIS_COMPLETED: "line.preparingExplanation",
+  CLAIM_VERIFICATION_STARTED: "line.verifyingClaims",
+  CITATION_VERIFICATION_STARTED: "line.verifyingCitations",
 };
+
+/** The phase ids this module can report. Realized by `progressPresentation`, never here. */
+export type ProgressLineId =
+  | "line.interpreting"
+  | "line.buildingFacts"
+  | "line.preparingExplanation"
+  | "line.verifyingClaims"
+  | "line.verifyingCitations"
+  | "line.processing"
+  | "line.sourcesResolved"
+  | "line.resolvingSourcesAndTools"
+  | "line.toolsDone.one"
+  | "line.toolsDone.many";
+
+export type ProgressLineSegment = Readonly<{ id: ProgressLineId; params?: Readonly<Record<string, string>> }>;
 
 const _TOOL_PHASE = new Set(["TOOL_PLAN_READY", "TOOL_STARTED", "TOOL_COMPLETED", "SOURCE_RESOLVED"]);
 
-/** The current processing line for a stream so far — derived from the LATEST in-flight event, never a timer. */
-export function progressLineFor(events: ProgressEvent[]): { label: string; kind: ProgressKind | null } {
+/**
+ * The current processing line for a stream so far — derived from the LATEST in-flight event, never a timer.
+ * Returns the phase as SEGMENTS (ids plus the counts a phase resolved), so the same stream produces the
+ * same line in every edition and only the wording differs.
+ */
+export function progressLineFor(events: ProgressEvent[]): {
+  segments: ProgressLineSegment[];
+  kind: ProgressKind | null;
+} {
   const inflight = events.filter((e) => e && !isTerminalKind(e.kind) && e.kind !== "DONE");
   const last = inflight[inflight.length - 1];
-  if (!last) return { label: "A interpretar a pergunta", kind: null };
+  if (!last) return { segments: [{ id: "line.interpreting" }], kind: null };
   const k = last.kind;
   if (_TOOL_PHASE.has(k)) {
     const toolsDone = events.filter((e) => e.kind === "TOOL_COMPLETED").length;
     const anySource = events.some((e) => e.kind === "SOURCE_RESOLVED");
-    const parts: string[] = [];
-    if (anySource) parts.push("Fontes resolvidas");
-    if (toolsDone > 0) parts.push(`${toolsDone} ${toolsDone === 1 ? "ferramenta concluída" : "ferramentas concluídas"}`);
-    if (parts.length === 0) parts.push("A resolver fontes e ferramentas");
-    return { label: parts.join(" · "), kind: k };
+    const segments: ProgressLineSegment[] = [];
+    if (anySource) segments.push({ id: "line.sourcesResolved" });
+    if (toolsDone > 0) {
+      segments.push({
+        id: toolsDone === 1 ? "line.toolsDone.one" : "line.toolsDone.many",
+        params: { n: String(toolsDone) },
+      });
+    }
+    if (segments.length === 0) segments.push({ id: "line.resolvingSourcesAndTools" });
+    return { segments, kind: k };
   }
-  return { label: _LINE_BY_KIND[k] || "A processar a pergunta", kind: k };
+  return { segments: [{ id: _LINE_BY_KIND[k] || "line.processing" }], kind: k };
 }
 
 /** True while the stream is in the synthesis window (SYNTHESIS_STARTED … CITATION_VERIFICATION_STARTED). */

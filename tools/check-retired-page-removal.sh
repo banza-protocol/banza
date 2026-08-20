@@ -32,6 +32,13 @@ fi
 fail=0
 flag() { echo "  NEEDS_FIX: $1"; fail=1; }
 
+# The chrome no longer writes a literal href beside its label: an entry declares a semantic route target
+# and the pathname is derived per edition. Checking the label's own LINE for '/referencia' therefore
+# tested a form that no longer exists — and it could never have covered the English CTA. The resolved
+# chrome answers what the reader is actually given, in each edition.
+# shellcheck source=tools/_chrome-resolved.sh
+. tools/_chrome-resolved.sh
+
 # vis(): strip block + line comments (protect https://) — the rendered/source stream (no prose comments).
 vis() { perl -0777 -pe 's{/\*.*?\*/}{}gs; s{(^|[^:])//[^\n]*}{$1}g' "$1"; }
 
@@ -119,6 +126,9 @@ done <<< "$website_src"
 while IFS= read -r f; do
   [ -n "$f" ] || continue
   # comment-stripped lines that carry the label
+  # website/lib/site.ts is excluded here and checked below as RESOLVED data: its labels no longer sit on
+  # the same line as a pathname, so a line-scoped test of it can only produce a false finding.
+  case "$f" in website/lib/site.ts) continue ;; esac
   labels="$(vis "$f" | grep -nF 'Ler a referência' || true)"
   [ -n "$labels" ] || continue
   while IFS= read -r ln; do
@@ -129,13 +139,26 @@ while IFS= read -r f; do
   done <<< "$labels"
 done <<< "$website_src"
 # The navPrimary reference entry is explicit.
-grep -qF 'href: "/referencia", label: "Ler a referência"' website/lib/site.ts || flag "navPrimary 'Ler a referência' must be href /referencia — website/lib/site.ts"
+chrome_links pt nav "Ler a referência" "/referencia" \
+  || flag "the Portuguese header CTA 'Ler a referência' must resolve to /referencia"
+chrome_links en nav "Read the Reference" "/en/reference" \
+  || flag "the English header CTA 'Read the Reference' must resolve to /en/reference"
+# Neither edition's CTA may land on a chapter instead of the Reference entry point.
+chrome_nav_hrefs pt | grep -qE '^/referencia/' && flag "the Portuguese header CTA must not point at a Reference chapter" || true
+chrome_nav_hrefs en | grep -qE '^/en/reference/' && flag "the English header CTA must not point at a Reference chapter" || true
 
 # ── [G] /referencia/o-que-e is the SINGLE canonical introductory definition. ──
-REF="website/lib/reference.ts"
+# The chapter slugs became bilingual records — one record carries both editions — so counting a
+# single-language `slug: "o-que-e"` line counts a form that no longer exists. The property is unchanged:
+# exactly ONE canonical introductory chapter, whose English counterpart is an English slug rather than the
+# Portuguese one reused. `grep -c` also returns non-zero on a count of 0, which under `set -e` ended this
+# guard at the assignment — silently, before its remaining sections ran.
+REF="website/lib/referenceSlugs.ts"
 if [ -f "$REF" ]; then
-  n="$(grep -cE 'slug: "o-que-e"' "$REF")"
-  [ "$n" -eq 1 ] || flag "the reference-chapter slug \"o-que-e\" must appear exactly once (found $n) — $REF"
+  n="$(grep -cE 'pt:[[:space:]]*"o-que-e"' "$REF" || true)"
+  [ "$n" -eq 1 ] || flag "the canonical introductory chapter slug \"o-que-e\" must appear exactly once (found $n) — $REF"
+  grep -qE 'pt:[[:space:]]*"o-que-e",[[:space:]]*en:[[:space:]]*"what-banza-is"' "$REF" \
+    || flag "the canonical introductory chapter must carry its own English slug — $REF"
 fi
 
 # ── [H] BanzAI grounding base: no /o-que-e as a source/href/citation URL. ──

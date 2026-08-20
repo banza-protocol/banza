@@ -16,6 +16,12 @@ fail=0
 ok() { printf '  ok: %s\n' "$1"; }
 fl() { printf 'FAIL: %s\n' "$1"; fail=1; }
 
+# Block E2 moved these sentences into the bilingual catalogues, so grepping the component for them
+# stopped proving anything. They are read from the resolved copy instead, which also makes the English
+# clause expressible — a guard grepping a Portuguese literal never could.
+# shellcheck source=tools/_banzai-copy.sh
+. tools/_banzai-copy.sh
+
 VALIDATE=services/banzai-api/src/validate.js
 MODE=website/components/banzai/BanzaiValidationMode.tsx
 JOURNEY=website/components/banzai/validationJourney.tsx
@@ -48,8 +54,8 @@ fi
 
 # 3. The UI shows both as distinct labels.
 if [ -f "$MODE" ]; then
-  grep -qE 'Prontidão de Certificação' "$MODE" && ok "UI shows Prontidão de Certificação (readiness)" || fl "$MODE must show Prontidão de Certificação"
-  grep -qE 'Estado de Certificação'    "$MODE" && ok "UI shows Estado de Certificação (status)"        || fl "$MODE must show Estado de Certificação"
+  copy_presented "$MODE" validation results.readiness pt "Prontidão de Certificação" && ok "UI shows Prontidão de Certificação (readiness)" || fl "$MODE must show Prontidão de Certificação"
+  copy_presented "$MODE" validation results.certificationState pt "Estado de Certificação" && ok "UI shows Estado de Certificação (status)"        || fl "$MODE must show Estado de Certificação"
 fi
 
 # 4. No "9/9 · Bloqueado" (or "N/N · Bloqueado") score-style phrasing anywhere in the validation surface.

@@ -21,6 +21,12 @@ ROOT="$(git rev-parse --show-toplevel 2>/dev/null || echo .)"
 cd "$ROOT"
 FAILED=0
 fail() { echo "FAIL: $*"; FAILED=1; }
+
+# Block E2 moved these sentences into the bilingual catalogues, so grepping the module or the component
+# for them stopped proving anything. They are read from the resolved copy instead, which also makes the
+# English clause expressible — a guard grepping a Portuguese literal never could.
+# shellcheck source=tools/_banzai-copy.sh
+. tools/_banzai-copy.sh
 ok()   { echo "  ok: $*"; }
 
 ENGINE=engines/banzai-operator-journey/src/lib.rs
@@ -131,9 +137,9 @@ if [ -f "$AGENTDATA" ]; then
     || fail "$AGENTDATA must define the MODES ask + validation"
   grep -q 'REPO_LINK' "$AGENTDATA" && ok "REPO_LINK defined (marker-free data module)" \
     || fail "$AGENTDATA must define REPO_LINK"
-  grep -q 'SESSION_NOTICE' "$AGENTDATA" && grep -qiE 'recarregar|reload' "$AGENTDATA" \
+  copy_id_says agent agent.sessionNotice pt 'recarregar' && copy_id_says agent agent.sessionNotice en 'clears' \
     && ok "session notice states a reload clears the journey" \
-    || fail "$AGENTDATA SESSION_NOTICE must state the session is cleared on reload (rule 20)"
+    || fail "the session notice must state, in both editions, that the session is cleared on reload (rule 20)"
 fi
 if [ -f "$AGENT" ]; then
   grep -qE 'group === "recursos"' "$AGENT" && grep -qE 'group === "resultados"' "$AGENT" \

@@ -32,6 +32,13 @@ fail=0
 ok() { printf 'PASS  %s\n' "$1"; }
 fl() { printf 'FAIL  %s\n' "$1"; fail=1; }
 
+# The glossary terms became bilingual records in website/lib/glossaryTerms.ts, rendered by GlossaryView —
+# the page itself no longer contains a term's wording. Reading the page for a Portuguese literal therefore
+# tested a form that no longer exists, and could never have covered the English edition. The resolved copy
+# publishes each term's name in both editions.
+# shellcheck source=tools/_banzai-copy.sh
+. tools/_banzai-copy.sh
+
 # Drop dev comments and the deliberate glossary `en:` gloss fields from grep -n output.
 strip_allowed() { grep -vE '^[0-9]+:[[:space:]]*(//|\*|/\*)' | grep -vE 'en:[[:space:]]*"'; }
 
@@ -60,10 +67,16 @@ fi
 
 echo "== [3/3] PT surfaces use 'Registo Técnico' (glossary is the source of truth) =="
 for f in "website/app/(pt)/registo-tecnico/page.tsx" "website/app/(pt)/glossario/page.tsx" "website/app/(pt)/estado/page.tsx" "website/app/(pt)/operadores/page.tsx"; do
-  if grep -qF 'Registo Técnico' "$f"; then ok "$f uses 'Registo Técnico'"; else fl "$f must use the PT term 'Registo Técnico'"; fi
+  # The glossary page renders its terms from the bilingual records, so the wording is not in the page.
+  if [ "$f" = "website/app/(pt)/glossario/page.tsx" ]; then
+    copy_id_is glossary technical-registry.name pt 'Registo Técnico' \
+      && ok "the glossary realizes 'Registo Técnico' for the Portuguese reader" \
+      || fl "the glossary must realize the PT term 'Registo Técnico'"
+  elif grep -qF 'Registo Técnico' "$f"; then ok "$f uses 'Registo Técnico'"; else fl "$f must use the PT term 'Registo Técnico'"; fi
 done
 # The glossary mapping is the canonical pt→en source of truth.
-if grep -qE 'name:[[:space:]]*"Registo Técnico"' "website/app/(pt)/glossario/page.tsx" && grep -qE 'en:[[:space:]]*"BANZA Technical Registry"' "website/app/(pt)/glossario/page.tsx"; then
+if copy_id_is glossary technical-registry.name pt "Registo Técnico" \
+   && copy_id_is glossary technical-registry.name en "BANZA Technical Registry"; then
   ok "glossary defines the canonical mapping (Registo Técnico → BANZA Technical Registry)"
 else
   fl "glossary must define the canonical mapping (name: Registo Técnico, en: BANZA Technical Registry)"

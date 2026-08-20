@@ -303,11 +303,12 @@ exports.build_operational_package_json = build_operational_package_json;
  * @param {string} question
  * @param {string} package_json
  * @param {string} depth
+ * @param {string} locale
  * @returns {string}
  */
-function build_output_prompt_json(question, package_json, depth) {
-    let deferred4_0;
-    let deferred4_1;
+function build_output_prompt_json(question, package_json, depth, locale) {
+    let deferred5_0;
+    let deferred5_1;
     try {
         const ptr0 = passStringToWasm0(question, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
         const len0 = WASM_VECTOR_LEN;
@@ -315,12 +316,14 @@ function build_output_prompt_json(question, package_json, depth) {
         const len1 = WASM_VECTOR_LEN;
         const ptr2 = passStringToWasm0(depth, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
         const len2 = WASM_VECTOR_LEN;
-        const ret = wasm.build_output_prompt_json(ptr0, len0, ptr1, len1, ptr2, len2);
-        deferred4_0 = ret[0];
-        deferred4_1 = ret[1];
+        const ptr3 = passStringToWasm0(locale, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len3 = WASM_VECTOR_LEN;
+        const ret = wasm.build_output_prompt_json(ptr0, len0, ptr1, len1, ptr2, len2, ptr3, len3);
+        deferred5_0 = ret[0];
+        deferred5_1 = ret[1];
         return getStringFromWasm0(ret[0], ret[1]);
     } finally {
-        wasm.__wbindgen_free(deferred4_0, deferred4_1, 1);
+        wasm.__wbindgen_free(deferred5_0, deferred5_1, 1);
     }
 }
 exports.build_output_prompt_json = build_output_prompt_json;
@@ -332,11 +335,12 @@ exports.build_output_prompt_json = build_output_prompt_json;
  * @param {string} package_json
  * @param {string} depth
  * @param {string} obligations_json
+ * @param {string} locale
  * @returns {string}
  */
-function build_output_prompt_obliged_json(question, package_json, depth, obligations_json) {
-    let deferred5_0;
-    let deferred5_1;
+function build_output_prompt_obliged_json(question, package_json, depth, obligations_json, locale) {
+    let deferred6_0;
+    let deferred6_1;
     try {
         const ptr0 = passStringToWasm0(question, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
         const len0 = WASM_VECTOR_LEN;
@@ -346,12 +350,14 @@ function build_output_prompt_obliged_json(question, package_json, depth, obligat
         const len2 = WASM_VECTOR_LEN;
         const ptr3 = passStringToWasm0(obligations_json, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
         const len3 = WASM_VECTOR_LEN;
-        const ret = wasm.build_output_prompt_obliged_json(ptr0, len0, ptr1, len1, ptr2, len2, ptr3, len3);
-        deferred5_0 = ret[0];
-        deferred5_1 = ret[1];
+        const ptr4 = passStringToWasm0(locale, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len4 = WASM_VECTOR_LEN;
+        const ret = wasm.build_output_prompt_obliged_json(ptr0, len0, ptr1, len1, ptr2, len2, ptr3, len3, ptr4, len4);
+        deferred6_0 = ret[0];
+        deferred6_1 = ret[1];
         return getStringFromWasm0(ret[0], ret[1]);
     } finally {
-        wasm.__wbindgen_free(deferred5_0, deferred5_1, 1);
+        wasm.__wbindgen_free(deferred6_0, deferred6_1, 1);
     }
 }
 exports.build_output_prompt_obliged_json = build_output_prompt_obliged_json;
@@ -363,11 +369,12 @@ exports.build_output_prompt_obliged_json = build_output_prompt_obliged_json;
  * @param {string} question
  * @param {string} package_json
  * @param {string} depth
+ * @param {string} locale
  * @returns {string}
  */
-function build_output_prompt_structured_json(question, package_json, depth) {
-    let deferred4_0;
-    let deferred4_1;
+function build_output_prompt_structured_json(question, package_json, depth, locale) {
+    let deferred5_0;
+    let deferred5_1;
     try {
         const ptr0 = passStringToWasm0(question, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
         const len0 = WASM_VECTOR_LEN;
@@ -375,12 +382,14 @@ function build_output_prompt_structured_json(question, package_json, depth) {
         const len1 = WASM_VECTOR_LEN;
         const ptr2 = passStringToWasm0(depth, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
         const len2 = WASM_VECTOR_LEN;
-        const ret = wasm.build_output_prompt_structured_json(ptr0, len0, ptr1, len1, ptr2, len2);
-        deferred4_0 = ret[0];
-        deferred4_1 = ret[1];
+        const ptr3 = passStringToWasm0(locale, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len3 = WASM_VECTOR_LEN;
+        const ret = wasm.build_output_prompt_structured_json(ptr0, len0, ptr1, len1, ptr2, len2, ptr3, len3);
+        deferred5_0 = ret[0];
+        deferred5_1 = ret[1];
         return getStringFromWasm0(ret[0], ret[1]);
     } finally {
-        wasm.__wbindgen_free(deferred4_0, deferred4_1, 1);
+        wasm.__wbindgen_free(deferred5_0, deferred5_1, 1);
     }
 }
 exports.build_output_prompt_structured_json = build_output_prompt_structured_json;

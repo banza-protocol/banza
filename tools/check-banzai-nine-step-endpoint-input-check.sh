@@ -17,6 +17,8 @@ ok() { printf '  ok: %s\n' "$1"; }
 fl() { printf 'FAIL: %s\n' "$1"; fail=1; }
 
 VALIDATE=services/banzai-api/src/validate.js
+# The spine is DATA and lives on its own; validate.js re-exports it (see journeySteps.js).
+STEPS_SRC=services/banzai-api/src/journeySteps.js
 UILIB=website/lib/banzaiValidation.ts
 
 STEPS="discovery manifest keys conformance interoperability trust federation evidence certification"
@@ -29,13 +31,22 @@ n=$(printf '%s\n' $STEPS | grep -c .)
 [ "$n" = "9" ] || { echo "SELF-TEST BROKEN: expected 9 steps, counted $n" >&2; st=1; }
 [ "$st" -eq 0 ] || { echo "guard self-test FAILED"; exit 2; }
 
-# 1. validate.js STEP_ORDER has exactly the 9 ids.
-if [ -f "$VALIDATE" ]; then
-  order=$(awk '/STEP_ORDER = \[/{c=1} c{print} c&&/\];/{exit}' "$VALIDATE" | grep -oE '"[a-z]+"' | sed 's/"//g' | tr '\n' ' ' | sed 's/ *$//')
+# 1. The canonical spine has exactly the 9 ids, read where it is DEFINED.
+#    The order moved out of validate.js into journeySteps.js so that reading it no longer drags in the
+#    receipt store and a PostgreSQL driver. Same property, same nine ids — read at the definition, and
+#    validate.js is additionally required to keep re-exporting it, so its callers still see one spine and
+#    a second copy cannot appear there unnoticed.
+if [ -f "$STEPS_SRC" ] && [ -f "$VALIDATE" ]; then
+  order=$(awk '/STEP_ORDER = \[/{c=1} c{print} c&&/\];/{exit}' "$STEPS_SRC" | grep -oE '"[a-z]+"' | sed 's/"//g' | tr '\n' ' ' | sed 's/ *$//')
   cnt=$(printf '%s\n' $order | grep -c .)
-  [ "$cnt" = "9" ] && ok "validate.js STEP_ORDER has 9 steps" || fl "validate.js STEP_ORDER must have 9 steps (found $cnt)"
-  for s in $STEPS; do printf '%s\n' $order | grep -qx "$s" && : || fl "validate.js STEP_ORDER missing step: $s"; done
-  [ "$fail" -eq 0 ] && ok "validate.js STEP_ORDER carries the canonical nine" || true
+  [ "$cnt" = "9" ] && ok "the canonical spine has 9 steps" || fl "the canonical spine must have 9 steps (found $cnt)"
+  for s in $STEPS; do printf '%s\n' $order | grep -qx "$s" && : || fl "the canonical spine is missing step: $s"; done
+  grep -qE 'export \{ STEP_ORDER \} from "\./journeySteps\.js"' "$VALIDATE" \
+    && ok "validate.js re-exports the single canonical spine" \
+    || fl "validate.js must re-export STEP_ORDER from journeySteps.js (never redefine it)"
+  awk '/STEP_ORDER = \[/{print "REDEFINED"}' "$VALIDATE" | grep -q REDEFINED \
+    && fl "validate.js must not define its own STEP_ORDER — one spine only" || true
+  [ "$fail" -eq 0 ] && ok "the canonical nine are carried by a single definition" || true
 
   # 2. Each technical step maps to an endpoint fetch (STEP_SPEC endpoints non-empty; certification empty/aggregate).
   grep -qE 'const STEP_SPEC' "$VALIDATE" && ok "STEP_SPEC step→endpoint map present" || fl "$VALIDATE must define STEP_SPEC"

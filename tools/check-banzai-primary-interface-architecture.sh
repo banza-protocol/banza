@@ -13,6 +13,12 @@ ROOT="$(git rev-parse --show-toplevel 2>/dev/null || echo .)"
 cd "$ROOT"
 FAILED=0
 fail() { echo "FAIL: $*"; FAILED=1; }
+
+# Block E2 moved these sentences out of the module and into the bilingual catalogues, so grepping the
+# module stopped proving anything about them. They are read from the resolved copy instead — which also
+# lets the English edition be checked, which grepping a Portuguese literal never could.
+# shellcheck source=tools/_banzai-copy.sh
+. tools/_banzai-copy.sh
 ok()   { echo "  ok: $*"; }
 
 ADR=$(ls decisions/adr/ADR-036-*.md 2>/dev/null | head -1)
@@ -50,8 +56,15 @@ else
   ok "no doc claims APIs / M2M depend mandatorily on BanzAI"
 fi
 # The 4-clause phrase is the canonical UI/docs phrase now.
-grep -q "a autoridade competente decide" "$AGENT_TS" && ok "banzai-agent.ts carries the 4-clause phrase" || fail "banzai-agent.ts must carry the canonical 4-clause phrase"
-grep -q 'subtitle: "Interface interactiva do protocolo' "$AGENT_TS" && ok "UI subtitle = 'Interface interactiva do protocolo …'" || fail "UI subtitle must be 'Interface interactiva do protocolo …'"
+copy_id_says agent agent.shortPhrase pt "a autoridade competente decide" \
+  && ok "the agent copy carries the 4-clause boundary phrase" \
+  || fail "the agent copy must carry the canonical 4-clause phrase"
+copy_id_says agent agent.shortPhrase en "the competent authority decides" \
+  && ok "the English edition carries the same boundary phrase" \
+  || fail "the English agent copy must carry the same 4-clause phrase"
+copy_id_says agent agent.subtitle pt "Interface interactiva do protocolo" \
+  && ok "UI subtitle = 'Interface interactiva do protocolo …'" \
+  || fail "UI subtitle must be 'Interface interactiva do protocolo …'"
 
 # ─────────────────────────────────────────────────────────────────────────────────────────────
 # C. Engine: role/architecture answers + the primary-interface router exist.

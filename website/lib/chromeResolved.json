@@ -1,0 +1,201 @@
+{
+  "note": "Derived from lib/site.ts by scripts/emit-chrome-resolved.mjs. Never hand-edit; run the script.",
+  "editions": {
+    "pt": {
+      "nav": [
+        {
+          "key": "registo",
+          "label": "Registo técnico",
+          "href": "/registo-tecnico"
+        },
+        {
+          "key": "banzai",
+          "label": "BanzAI",
+          "href": "/banzai"
+        },
+        {
+          "key": "referencia",
+          "label": "Ler a referência",
+          "href": "/referencia"
+        }
+      ],
+      "footer": [
+        {
+          "title": "Protocolo",
+          "items": [
+            {
+              "key": "f-referencia",
+              "label": "O que é o BANZA",
+              "href": "/referencia/o-que-e"
+            },
+            {
+              "key": "f-decisoes",
+              "label": "Arquitectura",
+              "href": "/arquitectura"
+            },
+            {
+              "key": "f-referencia",
+              "label": "Referência",
+              "href": "/referencia"
+            },
+            {
+              "key": "f-estado",
+              "label": "Estado",
+              "href": "/estado"
+            }
+          ]
+        },
+        {
+          "title": "Implementar e validar",
+          "items": [
+            {
+              "key": "f-programadores",
+              "label": "Programadores",
+              "href": "/referencia/programadores"
+            },
+            {
+              "key": "f-decisoes",
+              "label": "Registo técnico",
+              "href": "/registo-tecnico"
+            },
+            {
+              "key": "f-banzai-open",
+              "label": "BanzAI",
+              "href": "/banzai"
+            },
+            {
+              "key": "f-operador-zero",
+              "label": "Operador Zero",
+              "href": "https://zero.banza.network/",
+              "external": true
+            }
+          ]
+        },
+        {
+          "title": "Governança",
+          "items": [
+            {
+              "key": "f-decisoes",
+              "label": "Decisões",
+              "href": "/decisoes"
+            },
+            {
+              "key": "f-security",
+              "label": "Segurança",
+              "href": "/confianca"
+            },
+            {
+              "key": "f-licenca",
+              "label": "Licença",
+              "href": "/licenca"
+            },
+            {
+              "key": "f-github",
+              "label": "GitHub",
+              "href": "https://github.com/banza-protocol/banza",
+              "external": true
+            }
+          ]
+        }
+      ]
+    },
+    "en": {
+      "nav": [
+        {
+          "key": "registo",
+          "label": "Technical registry",
+          "href": "/en/technical-registry"
+        },
+        {
+          "key": "banzai",
+          "label": "BanzAI",
+          "href": "/en/banzai"
+        },
+        {
+          "key": "referencia",
+          "label": "Read the Reference",
+          "href": "/en/reference"
+        }
+      ],
+      "footer": [
+        {
+          "title": "Protocol",
+          "items": [
+            {
+              "key": "f-referencia",
+              "label": "What BANZA is",
+              "href": "/en/reference/what-banza-is"
+            },
+            {
+              "key": "f-decisoes",
+              "label": "Architecture",
+              "href": "/en/architecture"
+            },
+            {
+              "key": "f-referencia",
+              "label": "Reference",
+              "href": "/en/reference"
+            },
+            {
+              "key": "f-estado",
+              "label": "Status",
+              "href": "/en/status"
+            }
+          ]
+        },
+        {
+          "title": "Implement and validate",
+          "items": [
+            {
+              "key": "f-programadores",
+              "label": "Developers",
+              "href": "/en/reference/developer-resources"
+            },
+            {
+              "key": "f-decisoes",
+              "label": "Technical registry",
+              "href": "/en/technical-registry"
+            },
+            {
+              "key": "f-banzai-open",
+              "label": "BanzAI",
+              "href": "/en/banzai"
+            },
+            {
+              "key": "f-operador-zero",
+              "label": "Operator Zero",
+              "href": "https://zero.banza.network/",
+              "external": true
+            }
+          ]
+        },
+        {
+          "title": "Governance",
+          "items": [
+            {
+              "key": "f-decisoes",
+              "label": "Decisions",
+              "href": "/en/decisions"
+            },
+            {
+              "key": "f-security",
+              "label": "Security",
+              "href": "/en/trust"
+            },
+            {
+              "key": "f-licenca",
+              "label": "Licence",
+              "href": "/en/license"
+            },
+            {
+              "key": "f-github",
+              "label": "GitHub",
+              "href": "https://github.com/banza-protocol/banza",
+              "external": true
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

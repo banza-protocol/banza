@@ -49,7 +49,8 @@ grep -qE 'answer_type: (meta\.answer_type \|\| )?answerType\(question\)' "$SERVE
   && ok "/ask response carries answer_type" || fail "$SERVER must include answer_type in the /ask body"
 
 # ── Static — dynamic loading animation (website), and NO internal terms in it. ────────────────
-grep -q 'THINKING_STAGES' "$AGENT" && grep -q 'function ThinkingIndicator' "$AGENT" \
+# The stages became catalogue ids (THINKING_STAGE_IDS) so the indicator speaks the reader's language.
+grep -q 'THINKING_STAGE_IDS' "$AGENT" && grep -q 'function ThinkingIndicator' "$AGENT" \
   && ok "ThinkingIndicator + THINKING_STAGES present" || fail "$AGENT must define ThinkingIndicator + THINKING_STAGES"
 grep -q 'usePrefersReducedMotion' "$AGENT" && grep -q 'prefers-reduced-motion' "$AGENT" \
   && ok "loader honours prefers-reduced-motion" || fail "$AGENT loader must honour prefers-reduced-motion"

@@ -15,6 +15,12 @@ ROOT="$(git rev-parse --show-toplevel 2>/dev/null || echo .)"
 cd "$ROOT"
 FAILED=0
 fail() { echo "FAIL: $*"; FAILED=1; }
+
+# Block E2 moved these sentences into the bilingual catalogues, so grepping the module or the component
+# for them stopped proving anything. They are read from the resolved copy instead, which also makes the
+# English clause expressible — a guard grepping a Portuguese literal never could.
+# shellcheck source=tools/_banzai-copy.sh
+. tools/_banzai-copy.sh
 ok()   { echo "  ok: $*"; }
 
 AGENT=website/components/banzai/BanzaiAgent.tsx
@@ -41,16 +47,16 @@ done
 # 2. The manual upload is quarantined to the developer draft tool, explicitly not an official example.
 grep -q "Validar rascunho" "$DRAFT" && ok "manual upload lives in the developer draft tool ('Validar rascunho')" \
   || fail "the manual upload must live in the developer draft tool ('Validar rascunho')"
-grep -qE "Não é exemplo oficial" "$DRAFT" && ok "draft tool states it is not an official example ('Não é exemplo oficial')" \
+copy_presented "$DRAFT" validation draft.fileNote pt "Não é exemplo oficial" && ok "draft tool states it is not an official example ('Não é exemplo oficial')" \
   || fail "the draft tool must state 'Não é exemplo oficial'"
 
 # 3. The OZ-only demo framing is surfaced in Fase 0 of the validation mode.
-grep -q 'onlyOperatorHint: "Operador disponível para demonstração: Operador Zero"' "$AGENTDATA" \
+copy_id_is agent validation.onlyOperatorHint pt "Operador disponível para demonstração: Operador Zero" \
   && ok "Fase 0 copy names Operador Zero as the demo operator ('Operador disponível para demonstração: Operador Zero')" \
-  || fail "$AGENTDATA must define onlyOperatorHint = 'Operador disponível para demonstração: Operador Zero'"
-grep -q "VALIDATION_COPY.onlyOperatorHint" "$VSHELL" && ok "the validation UI surfaces the OZ-only demo hint" \
+  || fail "the agent copy must define the OZ-only demo hint = 'Operador disponível para demonstração: Operador Zero'"
+grep -qE '"validation\.onlyOperatorHint"|onlyOperatorHint' "$VSHELL" && ok "the validation UI surfaces the OZ-only demo hint" \
   || fail "$VSHELL must surface VALIDATION_COPY.onlyOperatorHint (the OZ-only demo hint)"
-grep -q "sem operadores fictícios" "$VSHELL" && ok "the validation UI states the registry is closed — sem operadores fictícios" \
+copy_presented "$VSHELL" validation setup.selectPromptFull pt "sem operadores fictícios" && ok "the validation UI states the registry is closed — sem operadores fictícios" \
   || fail "$VSHELL must state the registry is closed (sem operadores fictícios)"
 
 # 4. The UI names NO operator other than Operador Zero (operator-zero). M2.19G.3B — the operator LIST is

@@ -16,6 +16,12 @@ fail=0
 ok() { printf '  ok: %s\n' "$1"; }
 fl() { printf 'FAIL: %s\n' "$1"; fail=1; }
 
+# Block E2 moved these sentences into the bilingual catalogues, so grepping the component for them
+# stopped proving anything. They are read from the resolved copy instead, which also makes the English
+# clause expressible — a guard grepping a Portuguese literal never could.
+# shellcheck source=tools/_banzai-copy.sh
+. tools/_banzai-copy.sh
+
 VALIDATE=services/banzai-api/src/validate.js
 MODE=website/components/banzai/BanzaiValidationMode.tsx
 
@@ -50,7 +56,7 @@ fi
 
 # 4. The UI's "Explicar este resultado" prompt explicitly states Qwen only explains, never decides.
 if [ -f "$MODE" ]; then
-  grep -qE 'apenas explica|não altera o estado|Qwen apenas explica' "$MODE" \
+  copy_presented "$MODE" validation explain.closing pt "apenas explica" \
     && ok "explain affordance states Qwen only explains (never decides)" \
     || fl "$MODE explain prompt must state Qwen only explains, never decides"
 fi

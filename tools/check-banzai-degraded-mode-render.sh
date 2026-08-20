@@ -24,6 +24,12 @@ KB="website/components/home/banzaiKb.ts"
 fail=0
 ok() { printf 'PASS  %s\n' "$1"; }
 fl() { printf 'FAIL  %s\n' "$1"; fail=1; }
+
+# Block E2 moved these sentences into the bilingual catalogues, so grepping the component for them
+# stopped proving anything. They are read from the resolved copy instead, which also makes the English
+# clause expressible — a guard grepping a Portuguese literal never could.
+# shellcheck source=tools/_banzai-copy.sh
+. tools/_banzai-copy.sh
 lineE() { grep -nE -- "$2" "$1" 2>/dev/null | head -1 | cut -d: -f1; }
 
 # ── Self-test ─────────────────────────────────────────────────────────────────────────────────────
@@ -41,7 +47,7 @@ if grep -qE 'engineInfo\.engine === "degraded" \|\| engineInfo\.degraded' "$AGEN
 else
   fl "engineLabel must branch on the degraded telemetry (engineInfo.degraded / engine === \"degraded\")"
 fi
-if grep -qE 'degradado' "$AGENT" && grep -qE 'modelo local indisponível' "$AGENT"; then
+if copy_id_says agent engine.degraded pt 'degradado' && copy_id_says agent engine.degraded pt 'modelo local indisponível'; then
   ok "the degraded branch states an honest cause (degradado — modelo local indisponível)"
 else
   fl "the degraded branch must state an honest cause (degradado / modelo local indisponível)"
@@ -57,15 +63,30 @@ else
 fi
 # Ordering: the degraded and the unknown/unreported early-returns precede the 'confirmado' label, so the
 # confirmed label is only reachable for a known, non-degraded engine.
-degraded_ret="$(lineE "$AGENT" 'engineInfo\.engine === "degraded" \|\| engineInfo\.degraded')"
-unknown_ret="$(lineE "$AGENT" 'estado por confirmar nesta resposta')"
-confirmed_ret="$(lineE "$AGENT" 'confirmado nesta resposta')"
+# The component no longer decides this with ordered early-returns over literal labels; it computes a
+# named verdict (engineVerdict) and realizes the wording from the catalogue. That is a stronger shape —
+# "confirmed" is the final fallback, structurally reachable only once external, degraded and unreported
+# are excluded — so the check reads the verdict chain rather than the label text it used to grep.
+#
+# Note on `set -e`: this used to assign from `lineE`, which returns non-zero when it finds nothing, so a
+# moved literal killed the script mid-run with no message and exit 1. A guard that dies silently is worse
+# than one that fails, because there is nothing to read. Every lookup below tolerates "not found" and
+# reports it.
+degraded_ret="$(lineE "$AGENT" 'engineInfo\.engine === "degraded" \|\| engineInfo\.degraded' || true)"
+unknown_ret="$(lineE "$AGENT" '\? "unreported"' || true)"
+confirmed_ret="$(lineE "$AGENT" ': "confirmed"' || true)"
 if [ -n "$degraded_ret" ] && [ -n "$unknown_ret" ] && [ -n "$confirmed_ret" ] \
    && [ "$degraded_ret" -lt "$confirmed_ret" ] && [ "$unknown_ret" -lt "$confirmed_ret" ]; then
-  ok "'confirmado nesta resposta' (:$confirmed_ret) is reachable only after the degraded (:$degraded_ret) + unknown (:$unknown_ret) early-returns"
+  ok "the 'confirmed' verdict (:$confirmed_ret) is reachable only after the degraded (:$degraded_ret) + unreported (:$unknown_ret) branches"
 else
-  fl "'confirmado nesta resposta' must be guarded by the degraded + unknown early-returns"
+  fl "the 'confirmed' engine verdict must be guarded by the degraded + unreported branches"
 fi
+# And the wording each verdict realizes must never claim confirmation it does not have, in EITHER edition.
+for ed in pt en; do
+  copy_id_says agent engine.unreported "$ed" "$( [ "$ed" = pt ] && echo "por confirmar" || echo "unconfirmed" )" \
+    && ok "the unreported verdict states its own uncertainty ($ed)" \
+    || fl "the unreported verdict must state its own uncertainty ($ed)"
+done
 
 echo "== [3/3] banzaiKb.ts reads degraded telemetry and renders an honest cause =="
 [ -f "$KB" ] || fl "missing $KB"

@@ -22,6 +22,24 @@ pub struct TaskedSource {
     pub title: String,
 }
 
+/// One reader-visible fact, named by its stable semantic identity.
+///
+/// The plan carries `item_id`, not the source coordinate it happens to sit at: inserting a step
+/// renumbers coordinates while the facts themselves are unchanged, so a coordinate cannot be an
+/// identity. The realization catalogue on the serving side is keyed by exactly this id.
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+pub struct TaskedPlanItem {
+    pub item_id: String,
+}
+
+/// A section of the tasked answer, identified semantically rather than by its Portuguese heading.
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+pub struct TaskedPlanSection {
+    /// actors | precondition | sequence | result | prerequisites | steps | validations | framing | …
+    pub section_kind: String,
+    pub items: Vec<TaskedPlanItem>,
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct TaskedAnswer {
     pub matched: bool,
@@ -33,6 +51,10 @@ pub struct TaskedAnswer {
     pub source_ids: Vec<String>,
     pub sources: Vec<TaskedSource>,
     pub reason_code: String,
+    /// The semantic plan: WHICH facts, in WHICH order. `answer_markdown` above is Rust-assembled
+    /// Portuguese and is diagnostics only — the reader's text is realized from this plan, per locale.
+    #[serde(default)]
+    pub plan: Vec<TaskedPlanSection>,
 }
 
 // ─────────────────────────── the typed catalogue ───────────────────────────
@@ -626,6 +648,46 @@ pub fn catalogue_templates() -> Vec<CatalogueTemplate> {
         .collect()
 }
 
+/// Resolve one source coordinate to its semantic identity, dropping coordinates the catalogue has no
+/// name for. A dropped item is visible as a plan/parity failure rather than as silently missing prose.
+fn plan_item(
+    subject: &str,
+    task: &str,
+    section: &str,
+    index: Option<usize>,
+) -> Option<TaskedPlanItem> {
+    let locator = match index {
+        Some(i) => format!("{subject}.{task}.{section}.{i}"),
+        None => format!("{subject}.{task}.{section}"),
+    };
+    crate::tasked_item_ids::item_id_for(&locator).map(|id| TaskedPlanItem {
+        item_id: id.to_string(),
+    })
+}
+
+/// A section built from a scalar field (framing, precondition, result, gap_note, schema_note).
+fn plan_scalar(subject: &str, task: &str, section: &str) -> Option<TaskedPlanSection> {
+    plan_item(subject, task, section, None).map(|it| TaskedPlanSection {
+        section_kind: section.to_string(),
+        items: vec![it],
+    })
+}
+
+/// A section built from a list field, preserving list order.
+fn plan_list(subject: &str, task: &str, section: &str, len: usize) -> Option<TaskedPlanSection> {
+    let items: Vec<TaskedPlanItem> = (0..len)
+        .filter_map(|i| plan_item(subject, task, section, Some(i)))
+        .collect();
+    if items.is_empty() {
+        None
+    } else {
+        Some(TaskedPlanSection {
+            section_kind: section.to_string(),
+            items,
+        })
+    }
+}
+
 fn bullets(items: &[&str]) -> String {
     items.iter().map(|s| format!("- {s}\n")).collect()
 }
@@ -642,13 +704,25 @@ fn render_example(p: &SubjectProfile, ex: &ExampleData) -> TaskedAnswer {
         bullets(ex.sequence),
         ex.result
     ));
-    tasked(
+    let plan = [
+        plan_scalar(p.subject, "example", "framing"),
+        plan_list(p.subject, "example", "actors", ex.actors.len()),
+        plan_scalar(p.subject, "example", "precondition"),
+        plan_list(p.subject, "example", "sequence", ex.sequence.len()),
+        plan_scalar(p.subject, "example", "result"),
+    ]
+    .into_iter()
+    .flatten()
+    .collect();
+    let mut a = tasked(
         p,
         RequestedTask::Example,
         "illustrative_example",
         md,
         "TASK_EXAMPLE_ILLUSTRATIVE",
-    )
+    );
+    a.plan = plan;
+    a
 }
 
 fn render_procedure(p: &SubjectProfile, pr: &ProcedureData) -> TaskedAnswer {
@@ -687,7 +761,28 @@ fn render_procedure(p: &SubjectProfile, pr: &ProcedureData) -> TaskedAnswer {
     } else {
         "TASK_PROCEDURE_TRANSPARENT_PARTIAL"
     };
-    tasked(p, RequestedTask::Procedure, kind, md, reason)
+    let plan = [
+        if pr.complete {
+            None
+        } else {
+            plan_scalar(p.subject, "procedure", "gap_note")
+        },
+        plan_list(
+            p.subject,
+            "procedure",
+            "prerequisites",
+            pr.prerequisites.len(),
+        ),
+        plan_list(p.subject, "procedure", "steps", pr.steps.len()),
+        plan_list(p.subject, "procedure", "validations", pr.validations.len()),
+        plan_scalar(p.subject, "procedure", "result"),
+    ]
+    .into_iter()
+    .flatten()
+    .collect();
+    let mut a = tasked(p, RequestedTask::Procedure, kind, md, reason);
+    a.plan = plan;
+    a
 }
 
 fn render_requirements(p: &SubjectProfile, pr: &ProcedureData) -> TaskedAnswer {
@@ -714,13 +809,19 @@ fn render_template(p: &SubjectProfile, t: &TemplateData) -> TaskedAnswer {
         t.body_json,
         t.required_fields.iter().map(|f| format!("`{f}`")).collect::<Vec<_>>().join(", ")
     );
-    tasked(
+    let plan = [plan_scalar(p.subject, "template", "schema_note")]
+        .into_iter()
+        .flatten()
+        .collect();
+    let mut a = tasked(
         p,
         RequestedTask::Template,
         "real_structure",
         md,
         "TASK_TEMPLATE_FROM_SCHEMA",
-    )
+    );
+    a.plan = plan;
+    a
 }
 
 fn tasked(
@@ -740,6 +841,7 @@ fn tasked(
         source_ids: sources.iter().map(|s| s.id.clone()).collect(),
         sources,
         reason_code: reason.to_string(),
+        plan: Vec::new(),
     }
 }
 

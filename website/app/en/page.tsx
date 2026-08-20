@@ -82,7 +82,10 @@ const STATUS: { label: string; value: string }[] = [
 ];
 
 export default function EnglishHome() {
-  const untranslated = ROUTE_PAIRS.filter((p) => p.en === null && p.key !== "operator-zero");
+  // Derived from the route registry, so this list shrinks as English pages are published rather than
+  // having to be remembered. Operator Zero is excluded because it is a standalone demonstration lab on
+  // its own host, not a page of this site awaiting translation.
+  const untranslated = ROUTE_PAIRS.filter((p) => p.en === null && p.key !== "OPERATOR_ZERO");
 
   return (
     <>

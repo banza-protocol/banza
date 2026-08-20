@@ -48,7 +48,68 @@ pub struct GroundedOutput {
 /// must set `insufficient_evidence` (not invent) when the facts do not answer the question. `depth`
 /// (brief | standard | deep) sets a LENGTH directive — brief is the default for normal public questions
 /// (M2.18B.3A Round B: shorter answers cut output-pass token generation, the dominant latency cost).
-pub fn build_output_prompt(question: &str, pkg: &FactualPackage, depth: &str) -> OutputPrompt {
+/// The locale the model is asked to compose in.
+///
+/// The reader's language is decided ONCE, at the API boundary, and travels here as a resolved value.
+/// Before this existed the prompt said "Responde em português (se a pergunta o for)" — the model was told
+/// to infer the output language from the question, which is a SECOND language decision taken by a
+/// component that cannot see the request. An explicit `locale=en` call reached a prompt instructing
+/// Portuguese, and nothing in the pipeline could observe the disagreement.
+///
+/// A closed set rather than a string: whatever reaches this type becomes a model instruction, so an
+/// unvalidated tag must not be able to travel that far. Unknown tags resolve to the canonical locale
+/// rather than composing an undefined instruction.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum PromptLocale {
+    /// pt-PT — the canonical locale, and the legacy default for callers that state none.
+    #[serde(rename = "pt-PT")]
+    PtPt,
+    /// en
+    En,
+}
+
+impl PromptLocale {
+    /// Resolve a locale tag, STRICTLY.
+    ///
+    /// An unknown tag is an error, not a default. Defaulting belongs to exactly one place — the API
+    /// boundary, which resolves an absent locale to the canonical one and records `legacy-default` as
+    /// the reason. A second silent default here would mean an invalid locale could reach a model prompt
+    /// and be answered in Portuguese as though the caller had asked for it, with nothing to observe.
+    pub fn from_tag(tag: &str) -> Option<Self> {
+        match tag {
+            "pt-PT" => Some(PromptLocale::PtPt),
+            "en" => Some(PromptLocale::En),
+            _ => None,
+        }
+    }
+
+    /// The tag this locale serializes as, for provenance on the far side of the boundary.
+    pub fn tag(self) -> &'static str {
+        match self {
+            PromptLocale::PtPt => "pt-PT",
+            PromptLocale::En => "en",
+        }
+    }
+
+    /// The OUTPUT-LANGUAGE clause of the prompt. This is the only instruction the locale controls —
+    /// the grounding rules, the citation rules and the output-shape directives are the model contract
+    /// and are not translated, because they constrain what the model may DO, not what language it
+    /// answers in.
+    fn answer_language_rule(self) -> &'static str {
+        match self {
+            PromptLocale::PtPt => "em português e objectiva",
+            PromptLocale::En => "in English and objective",
+        }
+    }
+}
+
+pub fn build_output_prompt(
+    question: &str,
+    pkg: &FactualPackage,
+    depth: &str,
+    locale: PromptLocale,
+) -> OutputPrompt {
     let length_rule = match depth {
         "deep" => "6. Responde de forma completa mas objectiva; podes usar vários parágrafos e cobrir contexto, decisão e consequências quando os factos os suportarem.\n",
         "standard" => "6. Responde de forma objectiva em até ~6 pontos ou parágrafos curtos; cobre o essencial sem alongar.\n",
@@ -56,7 +117,7 @@ pub fn build_output_prompt(question: &str, pkg: &FactualPackage, depth: &str) ->
         _ => "6. Responde de forma BREVE: 3 a 5 pontos curtos (ou 2-3 frases), apenas o essencial directamente perguntado. Não incluas contexto, consequências ou relações não pedidos.\n",
     };
     let system = format!(
-        "{}{}{}",
+        "{}{}{}{}{}",
         concat!(
             "És o BanzAI a redigir uma resposta FUNDAMENTADA sobre o protocolo BANZA. ",
             "REGRAS OBRIGATÓRIAS:\n",
@@ -71,8 +132,11 @@ pub fn build_output_prompt(question: &str, pkg: &FactualPackage, depth: &str) ->
             "4. Se os factos não suportarem uma resposta, define insufficient_evidence=true e explica ",
             "brevemente que não há base documental — NÃO inventes.\n",
             "5. Preenche PRIMEIRO claims (as afirmações e os seus fact_ids) e SÓ DEPOIS escreve ",
-            "answer_markdown. answer_markdown TEM de conter a resposta em prosa (NUNCA vazio), em ",
-            "português e objectiva, fundamentada apenas nesses factos. Não incluas um cabeçalho de ",
+            "answer_markdown. answer_markdown TEM de conter a resposta em prosa (NUNCA vazio), ",
+        ),
+        locale.answer_language_rule(),
+        concat!(
+            ", fundamentada apenas nesses factos. Não incluas um cabeçalho de ",
             "fontes no answer_markdown (as fontes vêm de cited_source_ids).\n",
         ),
         length_rule,
@@ -121,6 +185,7 @@ pub fn build_output_prompt_structured(
     question: &str,
     pkg: &FactualPackage,
     depth: &str,
+    locale: PromptLocale,
 ) -> OutputPrompt {
     let length_rule = match depth {
         "deep" => "6. Responde de forma completa mas objectiva; podes usar vários parágrafos e cobrir contexto, decisão e consequências quando os factos os suportarem.\n",
@@ -129,7 +194,7 @@ pub fn build_output_prompt_structured(
         _ => "6. Responde de forma BREVE: 3 a 5 pontos curtos (ou 2-3 frases), apenas o essencial directamente perguntado. Não incluas contexto, consequências ou relações não pedidos.\n",
     };
     let system = format!(
-        "{}{}{}",
+        "{}{}{}{}{}",
         concat!(
             "És o BanzAI a redigir uma resposta FUNDAMENTADA sobre o protocolo BANZA. ",
             "REGRAS OBRIGATÓRIAS:\n",
@@ -143,8 +208,11 @@ pub fn build_output_prompt_structured(
             "4. Se os factos não suportarem uma resposta, define insufficient_evidence=true e explica ",
             "brevemente que não há base documental — NÃO inventes.\n",
             "5. Preenche PRIMEIRO claims (as afirmações e os seus fact_ids) e SÓ DEPOIS escreve ",
-            "answer_markdown. answer_markdown TEM de conter a resposta em prosa (NUNCA vazio), em ",
-            "português e objectiva, fundamentada apenas nesses factos. Não incluas um cabeçalho de ",
+            "answer_markdown. answer_markdown TEM de conter a resposta em prosa (NUNCA vazio), ",
+        ),
+        locale.answer_language_rule(),
+        concat!(
+            ", fundamentada apenas nesses factos. Não incluas um cabeçalho de ",
             "fontes no answer_markdown (as fontes são derivadas automaticamente dos fact_ids).\n",
         ),
         length_rule,
@@ -189,8 +257,9 @@ pub fn build_output_prompt_obliged(
     pkg: &FactualPackage,
     depth: &str,
     obligations: &crate::obligations::AnswerObligationSet,
+    locale: PromptLocale,
 ) -> OutputPrompt {
-    let base = build_output_prompt(question, pkg, depth);
+    let base = build_output_prompt(question, pkg, depth, locale);
     let directive = match obligations.output_shape.as_str() {
         "scenario" => "FORMATO OBRIGATÓRIO (pergunta de EXEMPLO): dá um exemplo CONCRETO com cenário — actores, pré-condição, sequência e resultado. Marca claramente se é ilustrativo (\"exemplo ilustrativo\"). Uma definição ou descrição abstracta NÃO cumpre o pedido.",
         "steps" => "FORMATO OBRIGATÓRIO (pergunta de PROCEDIMENTO): dá PASSOS ordenados (pré-requisitos → passos → validação → resultado). Se as fontes não publicarem um procedimento completo, di-lo explicitamente e lista os requisitos confirmados. Enumerar documentos (ADR-X ou ADR-Y) NÃO é um procedimento.",
@@ -225,8 +294,9 @@ pub fn build_output_prompt_obliged_structured(
     pkg: &FactualPackage,
     depth: &str,
     obligations: &crate::obligations::AnswerObligationSet,
+    locale: PromptLocale,
 ) -> OutputPrompt {
-    let base = build_output_prompt_structured(question, pkg, depth);
+    let base = build_output_prompt_structured(question, pkg, depth, locale);
     let directive = match obligations.output_shape.as_str() {
         "scenario" => "FORMATO OBRIGATÓRIO (pergunta de EXEMPLO): dá um exemplo CONCRETO com cenário — actores, pré-condição, sequência e resultado. Marca claramente se é ilustrativo (\"exemplo ilustrativo\"). Uma definição ou descrição abstracta NÃO cumpre o pedido.",
         "steps" => "FORMATO OBRIGATÓRIO (pergunta de PROCEDIMENTO): dá PASSOS ordenados (pré-requisitos → passos → validação → resultado). Se as fontes não publicarem um procedimento completo, di-lo explicitamente e lista os requisitos confirmados. Enumerar documentos (ADR-X ou ADR-Y) NÃO é um procedimento.",
@@ -379,7 +449,12 @@ mod tests {
 
     #[test]
     fn prompt_lists_facts_and_allowed_sources() {
-        let p = build_output_prompt("o que decidiu a ADR-001?", &pkg(), "brief");
+        let p = build_output_prompt(
+            "o que decidiu a ADR-001?",
+            &pkg(),
+            "brief",
+            PromptLocale::PtPt,
+        );
         assert!(p.user.contains("F1 ["));
         assert!(p.user.contains("FONTES PERMITIDAS"));
         assert!(p.user.contains("ADR-001"));
@@ -456,7 +531,12 @@ mod tests {
 
     #[test]
     fn structured_prompt_keeps_prose_guard_drops_fill_instruction() {
-        let p = build_output_prompt_structured("o que decidiu a ADR-001?", &pkg(), "brief");
+        let p = build_output_prompt_structured(
+            "o que decidiu a ADR-001?",
+            &pkg(),
+            "brief",
+            PromptLocale::PtPt,
+        );
         // prose-guard half stays…
         assert!(p.system.contains("NUNCA menciones"));
         // …the "fill cited_source_ids" half is gone.
