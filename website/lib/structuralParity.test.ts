@@ -30,7 +30,6 @@ describe("PT and EN are two realizations of the same page", () => {
   // visible in the diff and is not what the list is for.
   const KNOWN_DIVERGENT = [
     "CERTIFICATION",
-    "PROTOCOL_STATUS",
     "REFERENCE",
   ] as const;
 

@@ -62,8 +62,48 @@ function resolveSource(file: string): { src: string; view: string | null } {
   return { src, view };
 }
 
-function stripComments(s: string): string {
-  return s.replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:])\/\/.*$/gm, "$1");
+/**
+ * Remove comments — but only real ones.
+ *
+ * A naive block-comment strip is wrong here, and was wrong in practice: the status page contains the
+ * string "/.well-known/banza" followed by a star, and that opened a block comment which then ran until
+ * the next closing marker almost twenty lines later, swallowing the page's hero and its h1. The signature
+ * reported a page with no hero and no heading, and the mismatch looked like a real structural difference
+ * between the two editions when the page was fine.
+ *
+ * So the scan walks the source and skips string literals before deciding whether a slash starts a comment.
+ */
+function stripComments(src: string): string {
+  let out = "";
+  let i = 0;
+  while (i < src.length) {
+    const c = src[i];
+    if (c === '"' || c === "'" || c === "`") {
+      const quote = c;
+      out += c;
+      i += 1;
+      while (i < src.length) {
+        if (src[i] === "\\") { out += src.slice(i, i + 2); i += 2; continue; }
+        out += src[i];
+        if (src[i] === quote) { i += 1; break; }
+        i += 1;
+      }
+      continue;
+    }
+    if (c === "/" && src[i + 1] === "/") {
+      while (i < src.length && src[i] !== "\n") i += 1;
+      continue;
+    }
+    if (c === "/" && src[i + 1] === "*") {
+      i += 2;
+      while (i + 1 < src.length && !(src[i] === "*" && src[i + 1] === "/")) i += 1;
+      i = Math.min(i + 2, src.length);
+      continue;
+    }
+    out += c;
+    i += 1;
+  }
+  return out;
 }
 
 

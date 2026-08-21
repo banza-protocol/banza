@@ -13,6 +13,18 @@ import { join } from "node:path";
 const root = join(__dirname, "..");
 const raw = (p: string) => readFileSync(join(root, p), "utf8");
 
+// A per-edition content module holds BOTH editions in one file, so scanning it whole would report the
+// English edition's own correct term as a Portuguese-surface violation. Only the Portuguese entry is a
+// Portuguese surface; the English entry is checked by the English naming rules, not these.
+const PT_EDITION_ONLY = new Set(["components/pages/statusContent.tsx"]);
+const ptSurface = (p: string) => {
+  const src = raw(p);
+  if (!PT_EDITION_ONLY.has(p)) return src;
+  const start = src.indexOf("\n  pt: {");
+  const end = src.indexOf("\n  en: {");
+  return start >= 0 && end > start ? src.slice(start, end) : src;
+};
+
 // Keep only "rendered" source lines: drop dev comments and the glossary `en:` gloss fields.
 const renderedLines = (src: string) =>
   src
@@ -22,7 +34,7 @@ const renderedLines = (src: string) =>
     .join("\n");
 
 const PAGES = [
-  "app/(pt)/estado/page.tsx",
+  "components/pages/statusContent.tsx",
   "app/(pt)/registo-tecnico/page.tsx",
   // app/roteiro/page.tsx retired — the standalone roadmap surface now permanent-redirects to
   // §14 "Evolução do Protocolo" at /referencia/roteiro (no standalone page to scan).
@@ -33,10 +45,13 @@ const PAGES = [
 
 const EN_RX = /Technical Registry|Public Protocol Registry/;
 
+// Block F — the status page's structure and copy moved into one shared view plus a per-edition content
+// module, which is why the route file no longer carries this text. Reading the content module is the
+// same property at its new owner, and it now covers both editions at once.
 describe("M2.19G.5C — Technical Registry naming parity", () => {
   for (const p of PAGES) {
     it(`${p} uses no EN 'Technical Registry' / 'Public Protocol Registry' in rendered strings`, () => {
-      const rendered = renderedLines(raw(p));
+      const rendered = renderedLines(ptSurface(p));
       expect(rendered).not.toMatch(EN_RX);
     });
   }
@@ -47,8 +62,8 @@ describe("M2.19G.5C — Technical Registry naming parity", () => {
   });
 
   it("PT surfaces use the term 'Registo Técnico'", () => {
-    for (const p of ["app/(pt)/registo-tecnico/page.tsx", "lib/glossaryTerms.ts", "app/(pt)/estado/page.tsx", "app/(pt)/operadores/page.tsx"]) {
-      expect(raw(p)).toContain("Registo Técnico");
+    for (const p of ["app/(pt)/registo-tecnico/page.tsx", "lib/glossaryTerms.ts", "components/pages/statusContent.tsx", "app/(pt)/operadores/page.tsx"]) {
+      expect(ptSurface(p)).toContain("Registo Técnico");
     }
   });
 
