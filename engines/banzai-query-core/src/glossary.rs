@@ -67,6 +67,55 @@ fn is_canonicalization_phrase(nq: &str) -> bool {
     )
 }
 
+/// A COMPARISON frame — "qual a diferença entre A e B", "what is the difference between A and B".
+///
+/// A comparison names TWO subjects, and the term table names one. So the arms below, which match the
+/// first term they recognise, answered a two-sided question with one side and stopped. Measured in
+/// production at `src-2a01974`, `Qual é a diferença entre L2 e L3?` returned the L2 definition alone,
+/// never mentioning L3, with `degraded: true` — while the reader saw a complete, confident answer to a
+/// question that had not been answered.
+///
+/// The English twin fell to the model instead and confabulated: "L2 and L3 differ in their level of
+/// abstraction and coordination [...] L3 introduces a lineage that ties keys to a trusted set", citing
+/// ADR-021 (reason codes) and ADR-039 (root authority). Neither document discusses profiles.
+fn is_comparison_query(nq: &str) -> bool {
+    has(
+        nq,
+        &[
+            "diferenca entre",
+            "diferencas entre",
+            "difference between",
+            "differences between",
+            "distingue entre",
+            "distinguish between",
+            "comparar ",
+            "compare ",
+            "versus",
+            " vs ",
+        ],
+    )
+}
+
+/// How many distinct conformance profiles a query names.
+///
+/// Whole-token, so "l3" inside another token cannot inflate the count, and "level 3" is read as well as
+/// "L3" — the two spellings reach the same registry.
+fn profiles_named(nq: &str) -> usize {
+    let mut seen = 0;
+    for (short, long) in [
+        ("l0", "level 0"),
+        ("l1", "level 1"),
+        ("l2", "level 2"),
+        ("l3", "level 3"),
+        ("l4", "level 4"),
+    ] {
+        if word(nq, short) || has(nq, &[long]) {
+            seen += 1;
+        }
+    }
+    seen
+}
+
 /// A LOCATIVE question — "onde ficam os saldos?", "where do balances live?".
 ///
 /// It asks about a concept as much as "o que é um saldo?" does, and the answer is the same fact:
@@ -1992,6 +2041,10 @@ pub fn glossary_entry(nq: &str) -> Option<&'static str> {
         || is_locative_query(nq)
         // The canonicalization rules, asked without the acronym. See `is_canonicalization_phrase`.
         || is_canonicalization_phrase(nq)
+        // A comparison, so the block below decides it rather than an arm that names one side. It opens
+        // the gate for every comparison and narrows it again immediately: only a comparison of profiles
+        // resolves, and every other one returns None, exactly as before.
+        || is_comparison_query(nq)
         // Read from the SAME table the term resolver reads — the structural fix for "the gate opens and
         // nothing is behind it", which is how the Root threshold became unanswerable while looking handled.
         || critical_subject(nq).is_some();
@@ -2000,6 +2053,21 @@ pub fn glossary_entry(nq: &str) -> Option<&'static str> {
     // "setup de operador") is NOT captured and still grounds.
     let bare_term = toks <= 2;
     if !(definition || bare_term || boundary) {
+        return None;
+    }
+    // A comparison names TWO subjects; every arm below names one. Decided here, before any of them.
+    //
+    // Two profiles are answered by the entry that carries ALL of them, with each profile's purpose and
+    // inheritance, derived from the canonical registry and realized in both locales — a real answer to
+    // "what is the difference between L2 and L3", not a restatement of one side.
+    //
+    // Any other comparison returns None rather than serving one side as though it were the answer. That
+    // is not an improvement in what is known; it is the difference between an incomplete answer a reader
+    // can see and a confident one they cannot.
+    if is_comparison_query(nq) {
+        if profiles_named(nq) >= 2 {
+            return Some("def-profiles");
+        }
         return None;
     }
     // "como se substitui uma autoridade da raiz?" reads as operational, and the operational arm would

@@ -60,3 +60,30 @@
 {"question_id":"S-PT-03","locale":"pt-PT","intent":"BANZA_DIRECT","criticality":"P1","question":"Posso implementar o BANZA em Go?"}
 {"question_id":"S-PT-04","locale":"pt-PT","intent":"IMPLEMENTATION_GUIDANCE","criticality":"P1","question":"Tenho de usar Rust para implementar o BANZA?"}
 {"question_id":"S-PT-05","locale":"pt-PT","intent":"IMPLEMENTATION_GUIDANCE","criticality":"P1","question":"Preciso de blockchain para implementar o BANZA?"}
+{"question_id":"X-PT-01","locale":"pt-PT","intent":"DOMAIN_EXPLANATION","criticality":"P2","question":"Explica BCJ/1 de forma simples."}
+{"question_id":"X-PT-02","locale":"pt-PT","intent":"BANZA_DIRECT","criticality":"P1","question":"O que é canonicalização?"}
+{"question_id":"X-PT-03","locale":"pt-PT","intent":"BANZA_DIRECT","criticality":"P1","question":"O BCJ/1 aceita chaves duplicadas?"}
+{"question_id":"X-PT-04","locale":"pt-PT","intent":"WRONG_ANSWER_REGRESSION","criticality":"P1","question":"O que é um canal seguro?"}
+{"question_id":"X-PT-05","locale":"pt-PT","intent":"WRONG_ANSWER_REGRESSION","criticality":"P1","question":"O que é transporte seguro?"}
+{"question_id":"X-PT-06","locale":"pt-PT","intent":"BANZA_DIRECT","criticality":"P1","question":"O que significa Robusto no BANZA?"}
+{"question_id":"X-PT-07","locale":"pt-PT","intent":"HYBRID_DOMAIN_BANZA","criticality":"P1","question":"O BANZA exige dupla entrada?"}
+{"question_id":"X-PT-08","locale":"pt-PT","intent":"IMPLEMENTATION_GUIDANCE","criticality":"P1","question":"Posso implementar o BANZA em Go?"}
+{"question_id":"X-PT-09","locale":"pt-PT","intent":"BANZA_DIRECT","criticality":"P1","question":"Onde ficam os saldos?"}
+{"question_id":"X-PT-10","locale":"pt-PT","intent":"MECHANICS_REGRESSION","criticality":"P1","question":"Como um operador na rede BANZA processa pagamentos?"}
+{"question_id":"X-EN-01","locale":"en","intent":"DOMAIN_EXPLANATION","criticality":"P2","question":"Explain BCJ/1 simply."}
+{"question_id":"X-EN-02","locale":"en","intent":"BANZA_DIRECT","criticality":"P1","question":"What is canonicalization?"}
+{"question_id":"X-EN-03","locale":"en","intent":"BANZA_DIRECT","criticality":"P1","question":"Does BCJ/1 accept duplicate keys?"}
+{"question_id":"X-EN-04","locale":"en","intent":"BANZA_DIRECT","criticality":"P1","question":"What is the scope of idempotency?"}
+{"question_id":"X-EN-05","locale":"en","intent":"BANZA_DIRECT","criticality":"P1","question":"What is settlement?"}
+{"question_id":"X-EN-06","locale":"en","intent":"BANZA_DIRECT","criticality":"P1","question":"What is a trust root?"}
+{"question_id":"X-EN-07","locale":"en","intent":"BANZA_DIRECT","criticality":"P0","question":"How many root authorities does BANZA have?"}
+{"question_id":"X-EN-08","locale":"en","intent":"BANZA_DIRECT","criticality":"P1","question":"Is BanzAI mandatory?"}
+{"question_id":"X-EN-09","locale":"en","intent":"ONBOARDING_REGRESSION","criticality":"P1","question":"I want to run a BANZA operator, where do I start?"}
+{"question_id":"X-EN-10","locale":"en","intent":"BANZA_DIRECT","criticality":"P1","question":"Where do balances live?"}
+{"question_id":"J-PT-PROFILES","locale":"pt-PT","intent":"MULTI_TURN","criticality":"P0","turns":[{"question":"O que é L2?"},{"question":"E L3?"},{"question":"Qual é a diferença entre os dois?"},{"question":"Se passar L3 fico certificado?"},{"question":"E certificação dá-me autorização do regulador?"},{"question":"Que fonte diz isso?"}]}
+{"question_id":"J-PT-LEDGER","locale":"pt-PT","intent":"MULTI_TURN","criticality":"P0","turns":[{"question":"O que é um ledger?"},{"question":"O BANZA exige um ledger?"},{"question":"Então onde ficam os saldos?"},{"question":"Uma implementação pode usar PostgreSQL?"},{"question":"Outra implementação pode usar outra tecnologia?"}]}
+{"question_id":"J-PT-TRUST","locale":"pt-PT","intent":"MULTI_TURN","criticality":"P0","turns":[{"question":"O que é uma raiz de confiança?"},{"question":"Como é que o BANZA a usa?"},{"question":"Quantas autoridades raiz existem?"},{"question":"Qual é o limiar?"},{"question":"Isso significa consenso global?"},{"question":"O que acontece se a validação de trust falhar?"}]}
+{"question_id":"J-PT-READY","locale":"pt-PT","intent":"MULTI_TURN","criticality":"P0","turns":[{"question":"O BANZA está pronto para produção?"},{"question":"Porquê?"},{"question":"Já existe uma implementação independente demonstrada?"}]}
+{"question_id":"J-EN-PROFILES","locale":"en","intent":"MULTI_TURN","criticality":"P0","turns":[{"question":"What is L2?"},{"question":"And L3?"},{"question":"What is the difference between them?"},{"question":"If I pass L3 am I certified?"},{"question":"Does certification authorise me with the regulator?"},{"question":"Which source says that?"}]}
+{"question_id":"J-EN-LEDGER","locale":"en","intent":"MULTI_TURN","criticality":"P0","turns":[{"question":"What is a ledger?"},{"question":"Does BANZA require one?"},{"question":"So where do balances live?"},{"question":"Can an implementation use PostgreSQL?"}]}
+{"question_id":"J-EN-READY","locale":"en","intent":"MULTI_TURN","criticality":"P0","turns":[{"question":"Is BANZA production ready?"},{"question":"Why not?"},{"question":"Has an independent implementation been demonstrated?"}]}
