@@ -27,6 +27,95 @@ fn count(nq: &str) -> usize {
 /// A definition question STARTS with a definition lead (PT + EN). A starts-with test (not substring)
 /// keeps "Como funciona a federação entre operadores na BANZA?" — an operational/mechanics question —
 /// out of the definition class.
+/// The CANONICALIZATION rules, asked without naming BCJ/1.
+///
+/// `Por que não posso normalizar Unicode antes de verificar?` is a question about BCJ/1 — the profile
+/// fixes the byte form and the verifier applies no Unicode normalization — and it never names it, so it
+/// reached no concept at all. Measured in production, the Portuguese form was then composed by the model
+/// citing `federation-trust-evaluation.production.schema.json` and
+/// `public-protocol-registry.production.schema.json`, neither of which discusses canonicalization, while
+/// the English form happened to cite ADR-011. A citation right by coin-flip is not a derivation, and the
+/// two are indistinguishable to a reader.
+///
+/// A general "why" gate was tried first and was wrong. It also captured `Porque é que os saldos das
+/// carteiras são sempre derivados do ledger?` — an explanatory question that SHOULD ground, because the
+/// deterministic entry states the fact and the reader asked for the reason. Pre-empting grounding with a
+/// definition is a different failure, not a fix.
+///
+/// So these are unambiguous multi-word phrases that bypass the token gate, exactly like
+/// `is_governance_phrase` and `is_trust_guarantee_phrase` above, and for the same reason: they name
+/// their subject wherever they appear.
+fn is_canonicalization_phrase(nq: &str) -> bool {
+    has(
+        nq,
+        &[
+            "normalizar unicode",
+            "normalizacao unicode",
+            "normalizacao de unicode",
+            "normalize unicode",
+            "unicode normalization",
+            "unicode normalisation",
+            "canonicalizacao",
+            "canonicalization",
+            "canonicalisation",
+            "chaves duplicadas",
+            "membros duplicados",
+            "duplicate keys",
+            "duplicate members",
+            "rfc 8785",
+        ],
+    )
+}
+
+/// A LOCATIVE question — "onde ficam os saldos?", "where do balances live?".
+///
+/// It asks about a concept as much as "o que é um saldo?" does, and the answer is the same fact:
+/// INV-WALLET-001 states balances are derived from the ledger, and ADR-013 states where they are not
+/// held. Neither reached a reader. `onde ficam os saldos` was refused outright, and `Onde está o ledger
+/// central do BANZA?` — a false premise, which the corpus corrects — was answered by the model from
+/// ADR-001 as "o ledger central do BANZA não existe, pois cada operador constrói os modelos necessários
+/// para o sistema de pagamento novamente, de forma privada".
+///
+/// The gate opens; `term_of` still has to recognise the concept, and where it does not, nothing changes.
+fn is_locative_query(nq: &str) -> bool {
+    // START of the question only, and never an onboarding one.
+    //
+    // A mid-sentence "where do" is not a locative question about a concept: "I want to run a BANZA
+    // operator, where do I start?" is onboarding, and capturing it took a question with its own route
+    // away from that route. The Portuguese forms are anchored the same way.
+    if is_onboarding(nq)
+        || has(
+            nq,
+            &[
+                "por onde comeco",
+                "where do i start",
+                "where should i start",
+            ],
+        )
+    {
+        return false;
+    }
+    // A leading discourse connector is dropped first: "Então onde ficam os saldos?" is the follow-up
+    // form, and it is the exact phrasing the baseline recorded as refused.
+    let q = {
+        let mut q = nq;
+        for lead in [
+            "entao ", "e entao ", "mas ", "so ", "then ", "and ", "but ", "ok ",
+        ] {
+            if let Some(rest) = q.strip_prefix(lead) {
+                q = rest.trim_start();
+                break;
+            }
+        }
+        q
+    };
+    q.starts_with("onde ")
+        || q.starts_with("where is ")
+        || q.starts_with("where are ")
+        || q.starts_with("where do ")
+        || q.starts_with("where does ")
+}
+
 fn starts_definition_lead(nq: &str) -> bool {
     [
         "o que e ",
@@ -37,6 +126,19 @@ fn starts_definition_lead(nq: &str) -> bool {
         "o significado de",
         "define ",
         "definicao de",
+        // "Explain X" asks for the same thing "what is X" asks for, and was missing here while
+        // `is_r2s2_acronym` — twenty lines down, in this file — already read both leads. So
+        // "Explica BCJ/1." resolved (two tokens, through the bare-term gate) and "Explica BCJ/1 de
+        // forma simples." did not, which is the phrasing a reader actually uses.
+        "explica ",
+        "explica-me ",
+        "explique ",
+        "explicar ",
+        "podes explicar ",
+        "pode explicar ",
+        "explain ",
+        "explain me ",
+        "can you explain ",
         "what is ",
         "what are ",
         "what does ",
@@ -45,6 +147,52 @@ fn starts_definition_lead(nq: &str) -> bool {
     ]
     .iter()
     .any(|l| nq.starts_with(l))
+}
+
+/// The query with a trailing request about STYLE removed.
+///
+/// "de forma simples", "in simple terms", "para um iniciante" say how the answer should read; they say
+/// nothing about what is being asked. They were nevertheless counted against the six-token definition
+/// gate, so asking politely for a simpler answer made the question unanswerable: `Explica BCJ/1.`
+/// resolved and `Explica BCJ/1 de forma simples.` was refused.
+///
+/// Stripping is a no-op for every query that does not end in one of these phrases, so nothing else moves.
+fn without_style_qualifier(nq: &str) -> &str {
+    const QUALIFIERS: &[&str] = &[
+        " de forma simples",
+        " de forma clara",
+        " de forma resumida",
+        " de maneira simples",
+        " em termos simples",
+        " de modo simples",
+        " por favor",
+        " para um iniciante",
+        " para leigos",
+        " simplesmente",
+        " in simple terms",
+        " in plain terms",
+        " in plain english",
+        " simply",
+        " briefly",
+        " please",
+        " for a beginner",
+        " like i am five",
+    ];
+    let mut out = nq.trim_end_matches('?').trim();
+    // Repeat so a doubled qualifier ("explain X simply please") is fully removed; each pass removes at
+    // most one, and the loop ends when none matches.
+    loop {
+        let before = out;
+        for q in QUALIFIERS {
+            if let Some(stripped) = out.strip_suffix(*q) {
+                out = stripped.trim_end();
+                break;
+            }
+        }
+        if out == before {
+            return out;
+        }
+    }
 }
 
 /// An operational how-to — let grounding handle it, do NOT hijack with a definition.
@@ -136,14 +284,35 @@ fn is_r2s2_acronym(nq: &str) -> bool {
     if has(nq, &["r2s2", "r²s²"]) {
         return true;
     }
-    let subject = [
+    let subject = definition_subject(nq);
+    subject == "r s" || subject == "o r s" || subject == "the r s"
+}
+
+/// What a definition question is ASKING ABOUT — the query with its definition lead removed.
+///
+/// Factored out of `is_r2s2_acronym`, which needed it first and had it inline. A second predicate now
+/// needs the same test, and the reason it needs it is worth stating: a term that is PRESENT in a
+/// question is not the term the question is ABOUT. "o que é seguro" asks about `seguro`; "o que é um
+/// canal seguro" asks about a channel. A `has()` test cannot tell those apart, and answering the second
+/// one from the first one's table is a wrong answer served with a deterministic terminal's confidence.
+///
+/// Returns the trimmed remainder with the leading article dropped, so `o`/`a`/`the`/`um`/`uma`/`an` do
+/// not have to be enumerated by every caller. A query with no recognised lead returns itself, which
+/// makes the equality test fail closed for the callers that compare against a fixed name.
+fn definition_subject(nq: &str) -> &str {
+    let rest = [
         "o que e ",
         "o que sao ",
+        "o que significa ",
+        "o que quer dizer ",
         "what is ",
         "what are ",
+        "what does ",
         "define ",
         "explica ",
         "explain ",
+        "meaning of ",
+        "significado de ",
     ]
     .iter()
     .find_map(|lead| nq.strip_prefix(*lead))
@@ -151,7 +320,193 @@ fn is_r2s2_acronym(nq: &str) -> bool {
     .trim()
     .trim_end_matches('?')
     .trim();
-    subject == "r s" || subject == "o r s" || subject == "the r s"
+    // Trailing qualifiers say where the term applies, or ask for its meaning, and neither is part of
+    // the subject. "o que significa Robusto no BANZA?" asks about `robusto`; "what does robust mean in
+    // BANZA?" asks about the same thing with the verb trailing. A subject test that counted either
+    // would reject the very questions the term table exists to answer.
+    //
+    // Stripping repeats until stable, because they combine ("robust mean in banza" carries both), and
+    // it widens nothing: "o que é um canal seguro no BANZA" still has the subject "canal seguro", which
+    // is not a principle name and still does not reach the principles.
+    const TRAILING: &[&str] = &[
+        " no banza",
+        " na banza",
+        " do banza",
+        " da banza",
+        " em banza",
+        " no protocolo",
+        " do protocolo",
+        " in banza",
+        " in the banza protocol",
+        " in the protocol",
+        " of banza",
+        " for banza",
+        " mean",
+        " means",
+        " significa",
+        " quer dizer",
+    ];
+    let mut rest = rest;
+    loop {
+        let before = rest;
+        for suffix in TRAILING {
+            if let Some(stripped) = rest.strip_suffix(*suffix) {
+                rest = stripped.trim_end();
+                break;
+            }
+        }
+        if rest == before {
+            break;
+        }
+    }
+    for article in ["o ", "a ", "os ", "as ", "um ", "uma ", "the ", "an "] {
+        if let Some(stripped) = rest.strip_prefix(article) {
+            return stripped.trim();
+        }
+    }
+    rest
+}
+
+/// "Does BANZA ⟨verb⟩ ⟨concept⟩?" — a question ABOUT the concept, in its relation to the protocol.
+///
+/// These are exactly the questions that need BANZA authority behind them: "BANZA requires X", "BANZA
+/// defines X", "BANZA guarantees X" are claims about the protocol, not opinions about a concept. They
+/// arrive with no definition lead and five or six tokens, so every gate above closed on them and they
+/// fell to grounding — where no subject resolved and the package was assembled from the generic
+/// protocol-identity entry instead.
+///
+/// The model was then handed a normative question with ADR-001 in front of it, and answered from
+/// ADR-001. Measured against production at `src-14df955`:
+///
+///   `o banza exige um ledger` → `what-is-banza` → "O BANZA não exige um ledger específico, pois os
+///   modelos subjacentes a qualquer sistema de pagamento [...] não são comercialmente distintivos"
+///
+/// which contradicts INV-LEDGER-001…005 and INV-WALLET-001 — all severity `critical` — and ADR-012.
+/// The corpus already states it correctly, in `financial-invariants`, and that entry was never reached.
+/// The English twin produced the same claim. Half of every model answer in the baseline cited ADR-001
+/// and nothing else, which is the signature of a subject that never resolved.
+///
+/// Opening the gate does not invent an answer: `term_of` still has to recognise the concept, and when
+/// it does not this returns to the behaviour it had. What it stops is a specific question about a
+/// specific concept being answered from the one document that is always retrievable.
+fn is_banza_relation_query(nq: &str) -> bool {
+    // BANZA must be the SUBJECT of the frame, not a word the sentence passes through.
+    //
+    // "como um operador na rede BANZA processa pagamentos?" contains "banza processa" as a substring,
+    // and it is a question about how an OPERATOR works — grounded mechanics, which has its own route.
+    // Reading it as a claim about the protocol took a question away from the path written for it.
+    //
+    // Two exclusions, both narrow: a "como/how" opener is asking about mechanics rather than about what
+    // the protocol requires, and a sentence whose acting subject is an operator is not a sentence about
+    // the protocol. Neither touches "o BANZA exige um ledger" or "does BANZA require a ledger", which
+    // are what this frame exists for.
+    if nq.starts_with("como ") || nq.starts_with("how ") {
+        return false;
+    }
+    if has(
+        nq,
+        &[
+            "um operador",
+            "o operador",
+            "an operator",
+            "the operator",
+            "operador na",
+            "operator on",
+        ],
+    ) {
+        return false;
+    }
+    has(
+        nq,
+        &[
+            // Portuguese — "o BANZA exige/usa/define/garante/proíbe/permite ⟨X⟩"
+            "banza exige",
+            "banza requer",
+            "banza obriga",
+            "banza impoe",
+            "banza precisa",
+            "banza usa",
+            "banza utiliza",
+            "banza define",
+            "banza garante",
+            "banza proibe",
+            "banza permite",
+            "banza suporta",
+            "banza implementa",
+            "banza depende",
+            "banza faz",
+            "banza processa",
+            "banza executa",
+            "banza mantem",
+            "banza guarda",
+            "banza armazena",
+            "banza aceita",
+            "banza rejeita",
+            // English — the same frame, including the auxiliary form "does BANZA require ⟨X⟩"
+            "banza require",
+            "banza use",
+            "banza define",
+            "banza defines",
+            "banza guarantee",
+            "banza prohibit",
+            "banza forbid",
+            "banza allow",
+            "banza support",
+            "banza need",
+            "banza mandate",
+            "banza implement",
+            "banza depend",
+            "banza do ",
+            "banza does ",
+            "banza perform",
+            "banza process",
+            "banza execute",
+            "banza store",
+            "banza keep",
+            "banza hold",
+            "banza accept",
+            "banza reject",
+        ],
+    ) || is_protocol_artifact_relation_query(nq)
+}
+
+/// The same frame with a named protocol ARTIFACT as its subject: "does BCJ/1 accept duplicate keys?".
+///
+/// `o bcj/i aceita chaves duplicadas` was refused, while `o que é BCJ/1?` answered — and the answer it
+/// gives already contains the rule ("membros duplicados rejeitados antes de qualquer interpretação
+/// semântica"). The question was not unanswerable; its shape had no gate.
+///
+/// Token tests on both halves, so an artifact named mid-sentence and a verb that merely appears as a
+/// substring cannot combine into a frame that was never asked. `normalize` folds "BCJ/1" to "bcj/i",
+/// which is why the artifact is spelled that way here — the same documented collision `def-bcj` matches
+/// in both forms.
+fn is_protocol_artifact_relation_query(nq: &str) -> bool {
+    const ARTIFACTS: &[&str] = &["bcj/i", "bcj"];
+    const RELATIONS: &[&str] = &[
+        "aceita",
+        "rejeita",
+        "permite",
+        "proibe",
+        "exige",
+        "requer",
+        "garante",
+        "suporta",
+        "accept",
+        "accepts",
+        "reject",
+        "rejects",
+        "allow",
+        "allows",
+        "prohibit",
+        "prohibits",
+        "require",
+        "requires",
+        "guarantee",
+        "guarantees",
+        "support",
+        "supports",
+    ];
+    ARTIFACTS.iter().any(|a| word(nq, a)) && RELATIONS.iter().any(|v| word(nq, v))
 }
 
 /// M2.14C SEC-FIX — a MULTI-WORD governance/documentation phrase (e.g. PT "relatório de auditoria",
@@ -453,21 +808,25 @@ fn is_named_principle_query(nq: &str) -> bool {
     if !names_one {
         return false;
     }
-    has(
-        nq,
-        &[
-            "o que e ",
-            "o que significa",
-            "o que quer dizer",
-            "significa o principio",
-            "principio",
-            "principios",
-            "what does",
-            "what is the",
-            "meaning of",
-            "principle",
-        ],
-    )
+    // The word `princípio`/`principle` is what turns an ordinary adjective into the NAME of one of the
+    // four. When the reader supplies it, the name may sit anywhere in the sentence — "o que significa o
+    // princípio robusto", "the simple principle" — because the framing has already fixed what is being
+    // asked about.
+    if has(nq, &["principio", "principios", "principle", "principles"]) {
+        return true;
+    }
+    // Without that framing the principle must BE the subject, not merely a word inside it.
+    //
+    // `robusto`, `seguro`, `simples`, `resiliente` and their English twins are ordinary vocabulary in
+    // both languages, and the earlier `has(nq, ["o que e ", ...])` test only asked whether the query was
+    // a definition question AT ALL. So every definition question containing one of those adjectives was
+    // answered with the four Fundamental Principles — measured in production: "o que é um canal seguro",
+    // "o que é transporte seguro", "what is the secure boot" and "o que é um ledger simples" all
+    // resolved to `def-r2s2`, deterministically and with `grounded: true`. A reader asking about a
+    // secure channel was told about R²S² as though that were the answer.
+    //
+    // Same subject test as `is_r2s2_acronym`, from the same helper, for the same reason.
+    NAMES.contains(&definition_subject(nq))
 }
 
 /// Critical subjects whose aliases open the gate AND resolve the term — ONE table, read by both.
@@ -552,6 +911,21 @@ const CRITICAL_SUBJECTS: &[(&str, &[&str])] = &[
             // `normalize` turns "PRE-PRODUCTION" into "pre production": the hyphen goes and the words
             // stay. Measured — without this the question reached the generic BANZA description.
             "pre production",
+            // READINESS is the way the question is actually asked, and it was the one phrasing missing.
+            // "O BANZA está pronto para produção?" and "Is BANZA production ready?" reached the generic
+            // BANZA description instead: Portuguese returned "BANZA é um protocolo financeiro aberto e
+            // neutro em relação a operadores" — a definition, degraded, in place of the status — and
+            // English confabulated a reason, "BANZA is not production ready as it is an open financial
+            // protocol and not a commercially distinctive payment system component".
+            //
+            // The lifecycle facts are derived into `lifecycleFacts.generated.json` and were sitting
+            // unused while the model invented an answer with the same conclusion and none of the reasons.
+            "pronto para producao",
+            "pronta para producao",
+            "prontos para producao",
+            "production ready",
+            "ready for production",
+            "production readiness",
         ],
     ),
     (
@@ -1047,6 +1421,31 @@ fn term_of(nq: &str) -> Option<&'static str> {
             "banza canonical json",
             "canonical json",
             "json canonico",
+            // The canonicalization RULES, asked without the acronym. "Por que não posso normalizar
+            // Unicode antes de verificar?" is a question about BCJ/1 — the profile fixes the byte form
+            // and the verifier applies no Unicode normalization — and it did not name it, so it reached
+            // no concept. Measured in production, the Portuguese form was answered by the model citing
+            // `federation-trust-evaluation.production.schema.json` and
+            // `public-protocol-registry.production.schema.json`, neither of which discusses
+            // canonicalization; the English form happened to cite ADR-011. A citation that is right by
+            // coin-flip is not a derivation.
+            "normalizar unicode",
+            "normalizacao unicode",
+            "normalize unicode",
+            "unicode normalization",
+            "unicode normalisation",
+            "normalizacao de unicode",
+            "canonicalizacao",
+            "canonicalization",
+            "canonicalisation",
+            "forma canonica",
+            "canonical form",
+            "chaves duplicadas",
+            "membros duplicados",
+            "duplicate keys",
+            "duplicate members",
+            "rfc 8785",
+            "jcs",
         ],
     ) {
         return Some("def-bcj");
@@ -1231,7 +1630,12 @@ fn term_of(nq: &str) -> Option<&'static str> {
         return Some("def-reserved-balance");
     }
     if word(nq, "saldo")
+        || word(nq, "saldos")
         || word(nq, "balance")
+        // The plural was missing on one side only. Portuguese "saldos" is caught by a substring arm
+        // further down; English "balances" matched nothing, so `does banza store balances` fell through
+        // while `o banza guarda saldos` resolved. A term must not depend on which language asks.
+        || word(nq, "balances")
         || has(nq, &["what is balance", "what is a balance"])
     {
         return Some("def-balance");
@@ -1543,6 +1947,11 @@ fn term_of(nq: &str) -> Option<&'static str> {
 /// It never fires for operational how-tos, onboarding, or long mechanics questions — those stay
 /// grounded. A more-specific critical arm always wins first (this runs last in critical_entry).
 pub fn glossary_entry(nq: &str) -> Option<&'static str> {
+    // A trailing request about STYLE is not part of the subject, and counting it against the token gate
+    // is what made "Explica BCJ/1 de forma simples." unanswerable while "Explica BCJ/1." resolved. The
+    // stripped form is used for the WHOLE decision below — gate and term alike — so the two cannot
+    // disagree about what the question is, which is the failure this file documents repeatedly.
+    let nq = without_style_qualifier(nq);
     let toks = count(nq);
     let boundary = is_boundary_query(nq);
     // M2.14C SEC-FIX — an unambiguous multi-word governance/dev phrase bypasses the token gate (e.g. PT
@@ -1576,6 +1985,13 @@ pub fn glossary_entry(nq: &str) -> Option<&'static str> {
         || is_resilience_boundary_phrase(nq)
         || is_local_execution_phrase(nq)
         || is_named_principle_query(nq)
+        // A claim about what the protocol requires must be answered from the concept's own authority,
+        // never from whatever document retrieval reaches for. See `is_banza_relation_query`.
+        || is_banza_relation_query(nq)
+        // "Where does X live?" asks about X. See `is_locative_query`.
+        || is_locative_query(nq)
+        // The canonicalization rules, asked without the acronym. See `is_canonicalization_phrase`.
+        || is_canonicalization_phrase(nq)
         // Read from the SAME table the term resolver reads — the structural fix for "the gate opens and
         // nothing is behind it", which is how the Root threshold became unanswerable while looking handled.
         || critical_subject(nq).is_some();

@@ -18,12 +18,25 @@ import { ENTRIES, realizedLocales, answerFor } from "../src/knowledge.js";
 const BILINGUAL = ENTRIES.filter((e) => realizedLocales(e).includes("en"));
 const PT_ONLY = ENTRIES.filter((e) => !realizedLocales(e).includes("en"));
 
-test("the corpus is the size the locale migration measured, split as it measured", () => {
+/**
+ * The bilingual floor. It RATCHETS: raise it when English realizations are added, never lower it.
+ *
+ * This was an exact equality at 15, and equality was the wrong instrument. The failure the comment
+ * below names is a bilingual pair being LOST — a floor catches that. What equality also caught was a
+ * pair being GAINED, so every English realization added to the corpus arrived as a red test, and the
+ * corpus is 178 entries of which most still have no English. A guard that fails on the work it exists
+ * to encourage gets read as noise, and then it gets weakened.
+ */
+const BILINGUAL_FLOOR = 30;
+
+test("the corpus is the size the locale migration measured, and the bilingual set has not shrunk", () => {
   // Non-vacuity, and a drift alarm: if entries are added without realizations, or a bilingual pair is
   // lost, the counts move and this says so before the per-entry rules run against a changed world.
   assert.equal(ENTRIES.length, 178, "deterministic entry count changed");
-  assert.equal(BILINGUAL.length, 15, "bilingual entry count changed");
-  assert.equal(PT_ONLY.length, 163, "Portuguese-only entry count changed");
+  assert.ok(
+    BILINGUAL.length >= BILINGUAL_FLOOR,
+    `bilingual entries fell to ${BILINGUAL.length}, below the floor of ${BILINGUAL_FLOOR} — a realization was lost`,
+  );
   assert.equal(BILINGUAL.length + PT_ONLY.length, ENTRIES.length, "every entry must fall in exactly one class");
 });
 

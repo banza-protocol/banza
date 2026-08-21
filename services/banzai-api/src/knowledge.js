@@ -451,8 +451,12 @@ export const ENTRIES = [
     lexicalCandidate: true,
     critical: true,
     keywords: ["pass da conformance", "pass e certificado", "conformance suite e certificado", "pass conformance certificado", "pass is a certificate"],
-    answer:
-      "Não. Um PASS da conformance suite é evidência técnica verificável, não um certificado. Não confere estatuto a nenhum operador: no BANZA a participação demonstra-se por evidência, não por certificação central. A publicação de produção depende da cerimónia offline da chave raiz e da primeira evidência de conformidade de produção publicada.",
+    realizations: {
+      "pt-PT":
+        "Não. Um PASS da conformance suite é evidência técnica verificável, não um certificado. Não confere estatuto a nenhum operador: no BANZA a participação demonstra-se por evidência, não por certificação central. A publicação de produção depende da cerimónia offline da chave raiz e da primeira evidência de conformidade de produção publicada.",
+      en:
+        "No. A PASS from the conformance suite is verifiable technical evidence, not a certificate. It confers status on no operator: in BANZA participation is demonstrated by evidence, not by central certification. Production publication depends on the offline root-key ceremony and on the first published production conformance evidence.",
+    },
     sources: s("adr048", "state", "annex"),
   },
   {
@@ -461,8 +465,12 @@ export const ENTRIES = [
     lexicalCandidate: true,
     critical: true,
     keywords: ["banzai pode emitir certificado", "banzai emite certificado", "banzai can certify", "banzai certifica"],
-    answer:
-      "Não. O BanzAI é o agente nativo do protocolo, não normativo: guia, invoca os motores verificáveis, explica regras, documentos e evidência e cita as suas fontes. Não emite certificados, não confere estatuto a nenhum operador e não substitui a conformance suite. BanzAI guia; os motores verificam; a evidência prova; a autoridade competente decide — o output de IA nunca é regra do protocolo.",
+    realizations: {
+      "pt-PT":
+        "Não. O BanzAI é o agente nativo do protocolo, não normativo: guia, invoca os motores verificáveis, explica regras, documentos e evidência e cita as suas fontes. Não emite certificados, não confere estatuto a nenhum operador e não substitui a conformance suite. BanzAI guia; os motores verificam; a evidência prova; a autoridade competente decide — o output de IA nunca é regra do protocolo.",
+      en:
+        "No. BanzAI is the protocol's native agent and is non-normative: it guides, invokes the verifiable engines, explains rules, documents and evidence, and cites its sources. It issues no certificates, confers status on no operator and does not replace the conformance suite. BanzAI guides; the engines verify; the evidence proves; the competent authority decides — AI output is never a protocol rule.",
+    },
     sources: s("adr050", "annex"),
   },
   {
@@ -495,8 +503,12 @@ export const ENTRIES = [
     id: "banzai-not-mandatory",
     critical: true,
     keywords: [],
-    answer:
-      "Para a experiência interactiva do workbench, o **BanzAI** é a interface primária recomendada para humanos e operadores.\n\nMas o protocolo **BANZA** continua aberto e verificável por APIs, manifests, schemas, endpoints públicos e motores verificáveis — superfícies técnicas independentes da IA. **Integrações máquina-máquina não dependem obrigatoriamente do BanzAI**; qualquer sistema pode verificar o protocolo directamente pelos motores, schemas, manifests e endpoints.\n\nO **BanzAI** é a interface primária humano-operador, não um gatekeeper central nem um requisito de integração máquina-máquina.",
+    realizations: {
+      "pt-PT":
+        "Para a experiência interactiva do workbench, o **BanzAI** é a interface primária recomendada para humanos e operadores.\n\nMas o protocolo **BANZA** continua aberto e verificável por APIs, manifests, schemas, endpoints públicos e motores verificáveis — superfícies técnicas independentes da IA. **Integrações máquina-máquina não dependem obrigatoriamente do BanzAI**; qualquer sistema pode verificar o protocolo directamente pelos motores, schemas, manifests e endpoints.\n\nO **BanzAI** é a interface primária humano-operador, não um gatekeeper central nem um requisito de integração máquina-máquina.",
+      en:
+        "For the interactive workbench experience, **BanzAI** is the recommended primary interface for humans and operators.\n\nBut the **BANZA** protocol remains open and verifiable through APIs, manifests, schemas, public endpoints and verifiable engines — technical surfaces that are independent of the AI. **Machine-to-machine integrations do not depend on BanzAI**; any system can verify the protocol directly through the engines, schemas, manifests and endpoints.\n\n**BanzAI** is the primary human-operator interface, not a central gatekeeper and not a machine-to-machine integration requirement.",
+    },
     sources: s("adr050", "annex", "claudeMd"),
   },
   {
@@ -570,8 +582,12 @@ export const ENTRIES = [
     // Eligible for the lexical keyword index consulted by retrieve_topk_ids.
     lexicalCandidate: true,
     keywords: ["limites do banza", "limits of banza", "o que banza nao faz", "banza nao tem", "limites banza", "limites do protocolo", "limite do protocolo", "limite de estado", "protocol limits", "postgresql", "postgres", "saldos financeiros", "operador de referencia deixar de operar", "reference operator ceases", "independencia do protocolo", "protocol independence"],
-    answer:
-      "BANZA não tem carteira, ledger de operador, KYC/KYB, pagamentos, contas de utilizador final nem nomes comerciais de operadores. Qualquer coisa dessa natureza pertence a um operador, noutro lugar. BANZA define apenas as regras do protocolo, conformidade, certificação e federação. O PostgreSQL guarda estado de protocolo (marcador de pré-produção, Registo Técnico), não valor financeiro nem saldos. O protocolo é independente de qualquer operador: se o operador de referência deixar de operar, as especificações, contratos e conformidade do BANZA permanecem disponíveis.",
+    realizations: {
+      "pt-PT":
+        "BANZA não tem carteira, ledger de operador, KYC/KYB, pagamentos, contas de utilizador final nem nomes comerciais de operadores. Qualquer coisa dessa natureza pertence a um operador, noutro lugar. BANZA define apenas as regras do protocolo, conformidade, certificação e federação. O PostgreSQL guarda estado de protocolo (marcador de pré-produção, Registo Técnico), não valor financeiro nem saldos. O protocolo é independente de qualquer operador: se o operador de referência deixar de operar, as especificações, contratos e conformidade do BANZA permanecem disponíveis.",
+      en:
+        "BANZA has no wallet, no operator ledger, no KYC/KYB, no payments, no end-user accounts and no operator brand names. Anything of that nature belongs to an operator, elsewhere. BANZA defines only the protocol rules, conformance, certification and federation. PostgreSQL holds protocol state — the pre-production marker, the Technical Registry — not financial value and not balances. The protocol is independent of any operator: if the reference operator ceases to operate, BANZA's specifications, contracts and conformance material remain available.",
+    },
     sources: s("annex", "claudeMd", "state"),
   },
   {
@@ -806,8 +822,12 @@ export const ENTRIES = [
       "o operador zero e um banco", "operador zero e um psp", "operador zero e real",
       "operador zero certifica", "adr-052", "adr052", "zero.banza.network",
     ],
-    answer:
-      "O Operador Zero é a **implementação de referência só de leitura** do protocolo BANZA (demo). Demonstra o protocolo de ponta a ponta — contas, saldos, pagamentos QR, reembolsos, reconciliação, confiança, federação e evidence bundle — na unidade de demonstração KZ_DEMO (sem valor real); é só de leitura, não tem ledger interactivo nem mutável e não se auto-valida. Não é banco, não é PSP, não é carteira, não é operador financeiro licenciado e não movimenta dinheiro real; não presta serviços financeiros e não representa autorização, certificação ou licença. Cada artefacto que publica declara demo_only: true, monetary_value: false e production_allowed: false, e nunca aparece em /operators como operador real. Serve para demonstrar e verificar o protocolo de ponta a ponta; a evidência que produz é evidência técnica local, não certificação. Tem superfície própria e dedicada, só de leitura, em zero.banza.network (a antiga rota do apex /operador-zero foi descontinuada e responde 410).",
+    realizations: {
+      "pt-PT":
+        "O Operador Zero é a **implementação de referência só de leitura** do protocolo BANZA (demo). Demonstra o protocolo de ponta a ponta — contas, saldos, pagamentos QR, reembolsos, reconciliação, confiança, federação e evidence bundle — na unidade de demonstração KZ_DEMO (sem valor real); é só de leitura, não tem ledger interactivo nem mutável e não se auto-valida. Não é banco, não é PSP, não é carteira, não é operador financeiro licenciado e não movimenta dinheiro real; não presta serviços financeiros e não representa autorização, certificação ou licença. Cada artefacto que publica declara demo_only: true, monetary_value: false e production_allowed: false, e nunca aparece em /operators como operador real. Serve para demonstrar e verificar o protocolo de ponta a ponta; a evidência que produz é evidência técnica local, não certificação. Tem superfície própria e dedicada, só de leitura, em zero.banza.network (a antiga rota do apex /operador-zero foi descontinuada e responde 410).",
+      en:
+        "Operator Zero is the **read-only reference implementation** of the BANZA protocol (a demo). It demonstrates the protocol end to end — accounts, balances, QR payments, refunds, reconciliation, trust, federation and evidence bundle — in the KZ_DEMO demonstration unit, which has no real value; it is read-only, has no interactive or mutable ledger, and does not validate itself. It is not a bank, not a PSP, not a wallet, not a licensed financial operator and it moves no real money; it provides no financial services and represents no authorization, certification or licence. Every artifact it publishes declares demo_only: true, monetary_value: false and production_allowed: false, and it never appears in /operators as a real operator. Its purpose is to demonstrate and verify the protocol end to end; the evidence it produces is local technical evidence, not certification. It has its own dedicated read-only surface at zero.banza.network (the former apex route /operador-zero is retired and answers 410).",
+    },
     sources: s("adr052", "annex"),
   },
   {
@@ -1494,8 +1514,12 @@ export const ENTRIES = [
     id: "def-trust-root",
     deterministic: true,
     critical: true, keywords: ["trust root", "o que e trust root", "raiz de confianca", "o que e a trust root", "what is the trust root", "root do protocolo"],
-    answer:
-      "A **Trust Root** é a raiz de confiança do **próprio protocolo** (estabelecida pela cerimónia de raiz), **independente de qualquer operador**. É distinta da **Demo Operator Root** do Operador Zero, que é apenas uma raiz demonstrativa e **não** é a Trust Root do protocolo.",
+    realizations: {
+      "pt-PT":
+        "A **Trust Root** é a raiz de confiança do **próprio protocolo** (estabelecida pela cerimónia de raiz), **independente de qualquer operador**. É distinta da **Demo Operator Root** do Operador Zero, que é apenas uma raiz demonstrativa e **não** é a Trust Root do protocolo.",
+      en:
+        "The **Trust Root** is the root of trust of the **protocol itself**, established by the root ceremony and **independent of any operator**. It is distinct from Operator Zero's **Demo Operator Root**, which is only a demonstration root and is **not** the protocol's Trust Root.",
+    },
     sources: s("fedTrustModel", "adr038"),
   },
   {
@@ -1510,8 +1534,12 @@ export const ENTRIES = [
     id: "def-conformance",
     deterministic: true,
     critical: true, keywords: ["conformidade", "o que e conformidade", "conformance", "o que e conformance", "what is conformance"],
-    answer:
-      "**Conformidade** é demonstrar compatibilidade com o protocolo por **evidência verificável** — verificações determinísticas que produzem PASS/WARN/FAIL. Um resultado é **evidência técnica**, não aprovação humana, licença ou certificação.",
+    realizations: {
+      "pt-PT":
+        "**Conformidade** é demonstrar compatibilidade com o protocolo por **evidência verificável** — verificações determinísticas que produzem PASS/WARN/FAIL. Um resultado é **evidência técnica**, não aprovação humana, licença ou certificação.",
+      en:
+        "**Conformance** is demonstrating compatibility with the protocol through **verifiable evidence** — deterministic checks that produce PASS/WARN/FAIL. A result is **technical evidence**, not human approval, a licence or a certification.",
+    },
     sources: s("conformanceSuite", "evidenceModel", "adr039"),
   },
   {
@@ -1587,16 +1615,24 @@ export const ENTRIES = [
     id: "def-bcj",
     deterministic: true,
     critical: true, keywords: ["bcj", "bcj 1", "bcj/1", "o que e bcj", "o que e o bcj", "banza canonical json", "canonical json", "what is bcj", "json canonico", "canonicalizacao"],
-    answer:
-      "O **BCJ/1** (*BANZA Canonical JSON*) é a **forma canónica de bytes** do protocolo: um perfil restrito do RFC 8785 (JCS). Fixa como um documento JSON se converte numa sequência de bytes única e determinística — UTF-8, membros duplicados rejeitados antes de qualquer interpretação semântica, inteiros no domínio ±(2^53−1), e **sem normalização Unicode do lado do verificador**. Assinatura, digest e identidade de pedido comparam bytes produzidos por esta regra, pelo que duas implementações que discordem aqui discordam em tudo o resto. É a primeira coisa a ler e a primeira a testar. Especificação: `spec/canonicalization.md`.",
+    realizations: {
+      "pt-PT":
+        "O **BCJ/1** (*BANZA Canonical JSON*) é a **forma canónica de bytes** do protocolo: um perfil restrito do RFC 8785 (JCS). Fixa como um documento JSON se converte numa sequência de bytes única e determinística — UTF-8, membros duplicados rejeitados antes de qualquer interpretação semântica, inteiros no domínio ±(2^53−1), e **sem normalização Unicode do lado do verificador**. Assinatura, digest e identidade de pedido comparam bytes produzidos por esta regra, pelo que duas implementações que discordem aqui discordam em tudo o resto. É a primeira coisa a ler e a primeira a testar. Especificação: `spec/canonicalization.md`.",
+      en:
+        "**BCJ/1** (*BANZA Canonical JSON*) is the protocol's **canonical byte form**: a restricted profile of RFC 8785 (JCS). It fixes how a JSON document becomes a single deterministic byte sequence — UTF-8, duplicate members rejected before any semantic interpretation, integers within ±(2^53−1), and **no Unicode normalization on the verifier side**. Signature, digest and request identity all compare bytes produced by this rule, so two implementations that disagree here disagree about everything else. It is the first thing to read and the first thing to test. Specification: `spec/canonicalization.md`.",
+    },
     sources: s("specDir", "specOverview"),
   },
   {
     id: "def-root-authorization",
     deterministic: true,
     critical: true, keywords: ["quantas autoridades", "how many authorities", "threshold da raiz", "threshold da trust root", "root threshold", "trust root threshold", "quorum da raiz", "root quorum", "autoridades da raiz", "root authorities", "2 de 3", "2-de-3", "2 of 3", "2-of-3"],
-    answer:
-      "A **Trust Root** do **BANZA** é controlada por **três autoridades de assinatura independentes**. Uma acção autorizada pela raiz requer assinaturas de **quaisquer duas das três** (**2-de-3**); **nenhuma chave de raiz autoriza sozinha**. Perdida, comprometida ou obstrutiva **uma** autoridade, as **duas sobreviventes** substituem-na sem a sua participação; perdidas **duas**, a continuidade canónica fica **bloqueada** — uma só sobrevivente **não** restaura a raiz e **não existe chave-mestra de emergência nem via de uma só parte** (ADR-039). O limiar conta **autoridades distintas**, não entradas de assinatura: duas assinaturas da mesma autoridade valem uma aprovação. A autorização é **criptográfica e lógica** — quantos módulos seguros existem e onde vivem os dispositivos são **controlos de custódia**, e o número de dispositivos nunca determina o limiar. **Nenhuma cerimónia de produção foi realizada, não existe chave de raiz de produção e não há raiz de produção publicada.** Modelo: `docs/security/ROOT_KEY_CUSTODY_MODEL.md`; validador: `engines/banza-root-ceremony`; sucessão: `spec/root-authority-set.md`.",
+    realizations: {
+      "pt-PT":
+        "A **Trust Root** do **BANZA** é controlada por **três autoridades de assinatura independentes**. Uma acção autorizada pela raiz requer assinaturas de **quaisquer duas das três** (**2-de-3**); **nenhuma chave de raiz autoriza sozinha**. Perdida, comprometida ou obstrutiva **uma** autoridade, as **duas sobreviventes** substituem-na sem a sua participação; perdidas **duas**, a continuidade canónica fica **bloqueada** — uma só sobrevivente **não** restaura a raiz e **não existe chave-mestra de emergência nem via de uma só parte** (ADR-039). O limiar conta **autoridades distintas**, não entradas de assinatura: duas assinaturas da mesma autoridade valem uma aprovação. A autorização é **criptográfica e lógica** — quantos módulos seguros existem e onde vivem os dispositivos são **controlos de custódia**, e o número de dispositivos nunca determina o limiar. **Nenhuma cerimónia de produção foi realizada, não existe chave de raiz de produção e não há raiz de produção publicada.** Modelo: `docs/security/ROOT_KEY_CUSTODY_MODEL.md`; validador: `engines/banza-root-ceremony`; sucessão: `spec/root-authority-set.md`.",
+      en:
+        "**BANZA**'s **Trust Root** is controlled by **three independent signing authorities**. A root-authorized action requires signatures from **any two of the three** (**2-of-3**); **no single root key authorizes alone**. If **one** authority is lost, compromised or obstructive, the **two survivors** replace it without its participation; if **two** are lost, canonical continuity is **blocked** — a single survivor does **not** restore the root, and there is **no emergency master key and no single-party path** (ADR-039). The threshold counts **distinct authorities**, not signature entries: two signatures from the same authority count as one approval. Authorization is **cryptographic and logical** — how many secure modules exist and where the devices live are **custody controls**, and the number of devices never determines the threshold. **No production ceremony has been held, no production root key exists, and no production root is published.** Model: `docs/security/ROOT_KEY_CUSTODY_MODEL.md`; validator: `engines/banza-root-ceremony`; succession: `spec/root-authority-set.md`.",
+    },
     sources: s("fedTrustModel", "specDir"),
   },
   {
@@ -1721,11 +1757,15 @@ export const ENTRIES = [
     id: "def-local-execution",
     deterministic: true,
     critical: true, keywords: ["execucao local", "execução local", "servidor central", "central server", "processador central", "central processor", "central transaction processor", "consenso global", "global consensus", "execucao federada", "federated execution", "infraestrutura central", "ponto central", "banza e uma blockchain", "is banza a blockchain"],
-    answer:
-      "**Não.** O **BANZA** **não** exige um **processador central de transacções**, **não** usa **consenso global** e **não** reside num **servidor central** — não é uma blockchain nem uma infraestrutura partilhada de execução. A execução é **local a cada operador**: cada implementação corre na infraestrutura do próprio operador, e dois operadores interoperam por **respeitarem as mesmas regras públicas**, não por se ligarem a um ponto central comum. A execução **não é** um plano do protocolo — processar pagamentos, guardar saldos e cumprir obrigações legais pertence aos operadores, **sob** as regras do protocolo mas **fora** dele; o protocolo **não detém nem movimenta fundos** e não mantém um livro-razão global sobre o qual houvesse que chegar a acordo. As únicas superfícies comuns são de **descoberta e ancoragem de confiança** — o **Registo Técnico**, a **metadata de protocolo assinada**, a **Lista de Revogação** e o **Manifesto de Chaves** —, e **nenhuma delas movimenta fundos nem executa pagamentos**. Referência **§4 Arquitectura do Protocolo** (execução local, sem servidor central).",
+    realizations: {
+      "pt-PT":
+        "**Não.** O **BANZA** **não** exige um **processador central de transacções**, **não** usa **consenso global** e **não** reside num **servidor central** — não é uma blockchain nem uma infraestrutura partilhada de execução. A execução é **local a cada operador**: cada implementação corre na infraestrutura do próprio operador, e dois operadores interoperam por **respeitarem as mesmas regras públicas**, não por se ligarem a um ponto central comum. A execução **não é** um plano do protocolo — processar pagamentos, guardar saldos e cumprir obrigações legais pertence aos operadores, **sob** as regras do protocolo mas **fora** dele; o protocolo **não detém nem movimenta fundos** e não mantém um livro-razão global sobre o qual houvesse que chegar a acordo. As únicas superfícies comuns são de **descoberta e ancoragem de confiança** — o **Registo Técnico**, a **metadata de protocolo assinada**, a **Lista de Revogação** e o **Manifesto de Chaves** —, e **nenhuma delas movimenta fundos nem executa pagamentos**. Referência **§4 Arquitectura do Protocolo** (execução local, sem servidor central).",
     // `claudeMd` removed for the same reason as what-is-banza: an internal repository guide is not public
     // establishing evidence, and a presentation filter hiding it does not make the declaration true. Found
-    // by auditing every deterministic entry rather than only the one that prompted the audit.
+    // by auditing every deterministic entry rather than only the one that prompted the audit.,
+      en:
+        "**No.** **BANZA** does **not** require a **central transaction processor**, does **not** use **global consensus** and does **not** live on a **central server** — it is neither a blockchain nor a shared execution infrastructure. Execution is **local to each operator**: every implementation runs on that operator's own infrastructure, and two operators interoperate by **following the same public rules**, not by connecting to a common central point. Execution **is not** a plane of the protocol — processing payments, holding balances and meeting legal obligations belong to operators, **under** the protocol's rules but **outside** it; the protocol **neither holds nor moves funds** and keeps no global ledger that would have to be agreed upon. The only shared surfaces are for **discovery and trust anchoring** — the **Technical Registry**, **signed protocol metadata**, the **Revocation List** and the **Key Manifest** — and **none of them moves funds or executes payments**. Reference **§4 Protocol Architecture** (local execution, no central server).",
+    },
     sources: s("specOverview", "readme", "adr018"),
   },
   {
@@ -1854,8 +1894,12 @@ export const ENTRIES = [
     id: "def-ledger",
     deterministic: true,
     critical: true, keywords: ["ledger", "o que e ledger", "o que e o ledger", "livro razao", "what is a ledger"],
-    answer:
-      "**Ledger** é o registo de movimentos financeiros. No **BANZA**, o protocolo define **invariantes** de ledger de **dupla-entrada** (cada débito tem o crédito correspondente, aritmética inteira, sem floats); o BANZA **não mantém contas reais** — os saldos são sempre derivados do ledger.",
+    realizations: {
+      "pt-PT":
+        "**Ledger** é o registo de movimentos financeiros. No **BANZA**, o protocolo define **invariantes** de ledger de **dupla-entrada** (cada débito tem o crédito correspondente, aritmética inteira, sem floats); o BANZA **não mantém contas reais** — os saldos são sempre derivados do ledger.",
+      en:
+        "A **ledger** is the record of financial movements. In **BANZA** the protocol defines **double-entry** ledger **invariants** — every debit has its matching credit, integer arithmetic, no floats — and **BANZA holds no real accounts**: balances are always derived from the ledger.",
+    },
     sources: s("adr006", "invariants"),
   },
   {
@@ -1870,8 +1914,12 @@ export const ENTRIES = [
     id: "def-balance",
     deterministic: true,
     critical: true, keywords: ["saldo", "o que e saldo", "balance", "what is balance", "what is a balance"],
-    answer:
-      "**Saldo (balance)** é o valor de uma conta. No **BANZA**, os saldos são sempre **derivados do ledger** (nunca actualizados directamente) e nunca podem ficar negativos — é um invariante de comportamento. O protocolo não mantém contas reais.",
+    realizations: {
+      "pt-PT":
+        "**Saldo (balance)** é o valor de uma conta. No **BANZA**, os saldos são sempre **derivados do ledger** (nunca actualizados directamente) e nunca podem ficar negativos — é um invariante de comportamento. O protocolo não mantém contas reais.",
+      en:
+        "A **balance** is the value of an account. In **BANZA**, balances are always **derived from the ledger** — never updated directly — and can never go negative; that is a behavioural invariant. The protocol holds no real accounts.",
+    },
     sources: s("invariants", "adr006"),
   },
   {
@@ -1926,8 +1974,12 @@ export const ENTRIES = [
     id: "def-idempotency",
     deterministic: true,
     critical: true, keywords: ["idempotencia", "o que e idempotencia", "idempotency", "idempotent", "what is idempotency", "chave de idempotencia"],
-    answer:
-      "**Idempotência** significa que repetir o mesmo pedido (com a mesma **chave de idempotência**) produz o mesmo resultado, sem duplicar efeitos. No **BANZA** é um **invariante** (INV-IDEM) — toda operação financeira é replay-safe.",
+    realizations: {
+      "pt-PT":
+        "**Idempotência** significa que repetir o mesmo pedido (com a mesma **chave de idempotência**) produz o mesmo resultado, sem duplicar efeitos. No **BANZA** é um **invariante** (INV-IDEM) — toda operação financeira é replay-safe.",
+      en:
+        "**Idempotency** means that repeating the same request — with the same **idempotency key** — produces the same result without duplicating effects. In **BANZA** it is an **invariant** (INV-IDEM): every financial operation is replay-safe.",
+    },
     sources: s("invariants", "gettingStarted"),
   },
   {
@@ -1958,16 +2010,24 @@ export const ENTRIES = [
     id: "def-settlement",
     deterministic: true,
     critical: true, keywords: ["liquidacao", "o que e liquidacao", "settlement", "what is settlement"],
-    answer:
-      "Em finanças, **liquidação (settlement)** é o processo pelo qual uma obrigação de pagamento é **finalizada** entre as partes. No **BANZA**, o protocolo pode definir evidência, invariantes e interoperabilidade, mas **não liquida dinheiro real nem movimenta fundos** — a liquidação real pertence aos operadores/infra-estruturas financeiras aplicáveis.",
+    realizations: {
+      "pt-PT":
+        "Em finanças, **liquidação (settlement)** é o processo pelo qual uma obrigação de pagamento é **finalizada** entre as partes. No **BANZA**, o protocolo pode definir evidência, invariantes e interoperabilidade, mas **não liquida dinheiro real nem movimenta fundos** — a liquidação real pertence aos operadores/infra-estruturas financeiras aplicáveis.",
+      en:
+        "In finance, **settlement** is the process by which a payment obligation is **finalised** between the parties. In **BANZA** the protocol may define evidence, invariants and interoperability, but it **does not settle real money and moves no funds** — actual settlement belongs to the applicable operators and financial infrastructures.",
+    },
     sources: s("invariants", "specOverview", "glossary"),
   },
   {
     id: "def-clearing",
     deterministic: true,
     critical: true, keywords: ["compensacao", "o que e compensacao", "clearing", "what is clearing"],
-    answer:
-      "**Compensação (clearing)** é a fase de apuramento e troca de instruções de pagamento antes da liquidação. É um conceito do domínio de pagamentos; o **BANZA não compensa nem liquida fundos reais** — é uma camada de protocolo/interoperabilidade.",
+    realizations: {
+      "pt-PT":
+        "**Compensação (clearing)** é a fase de apuramento e troca de instruções de pagamento antes da liquidação. É um conceito do domínio de pagamentos; o **BANZA não compensa nem liquida fundos reais** — é uma camada de protocolo/interoperabilidade.",
+      en:
+        "**Clearing** is the phase in which payment instructions are reconciled and exchanged before settlement. It is a payments-domain concept; **BANZA neither clears nor settles real funds** — it is a protocol and interoperability layer.",
+    },
     sources: s("glossary", "specOverview"),
   },
   {

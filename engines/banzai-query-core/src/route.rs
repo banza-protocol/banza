@@ -5377,6 +5377,52 @@ fn critical_entry(nq: &str) -> Option<&'static str> {
     if nq.contains("quem implementa") && any(nq, &["protocolo", "banza", "banzai"]) {
         return Some("who-implements-protocol");
     }
+    // And with WHAT — the technology-choice form of the same question.
+    //
+    // `who-implements-protocol` already states the rule: any operator may implement the protocol in any
+    // language or stack that satisfies the invariants. Only "quem implementa" reached it, so the way the
+    // question is actually asked did not. Measured in production, each of these fell through to the
+    // generic protocol-identity entry and was composed by the model from ADR-001:
+    //
+    //   "Posso implementar o BANZA em Go?"        → "Sim, pode implementar o BANZA em Go, pois BANZA é
+    //                                                um protocolo de finanças aberto" — right answer,
+    //                                                invented reasoning, ADR-001 cited
+    //   "Tenho de usar Rust para implementar?"     → "Não é necessário usar trust para implementar
+    //                                                BANZA, pois a implementação privada dos modelos
+    //                                                não é considerada"
+    //   "Preciso de blockchain para implementar?"  → a paragraph of ADR-001 about models being rebuilt
+    //
+    // A protocol requirement and a reference-implementation choice are different facts. The entry holds
+    // both correctly; nothing here authors an answer, it only lets the question arrive.
+    if any(
+        nq,
+        &[
+            "implementar o banza em",
+            "implementar banza em",
+            "implementar o protocolo em",
+            "posso implementar o banza",
+            "posso implementar banza",
+            "implement banza in",
+            "implement the banza protocol in",
+            "can i implement banza",
+            "tenho de usar rust",
+            "tenho que usar rust",
+            "sou obrigado a usar rust",
+            "must i use rust",
+            "do i have to use rust",
+            "preciso de blockchain",
+            "preciso de uma blockchain",
+            "preciso de blockchain para implementar",
+            "do i need blockchain",
+            "do i need a blockchain",
+            "que linguagem devo usar",
+            "que linguagem posso usar",
+            "which language should i use",
+            "what language should i use",
+        ],
+    ) {
+        return Some("who-implements-protocol");
+    }
     // Which CI validates BanzAI?
     if is_banzai
         && any(

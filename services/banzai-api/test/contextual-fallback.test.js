@@ -10,6 +10,7 @@ import assert from "node:assert/strict";
 import { createProvider } from "../src/provider.js";
 import { createPipeline } from "../src/pipeline.js";
 import { resolveQuery, contextualFallback } from "../src/knowledge.js";
+import { SUPPORTED_SYNTHESIS_QUERY } from "./_pipeline-harness.mjs";
 
 // A fragment of the RETIRED fixed topic list — it must NEVER appear in a NON-boundary answer.
 const FIXED_LIST_FRAGMENT = "Posso responder, com base nas fontes do protocolo";
@@ -128,7 +129,7 @@ test("out-of-scope question → contextual out_of_scope fallback (never the fixe
 test("trunk-insufficient → contextual insufficient_source fallback (never the fixed list)", async () => {
   const stub = trunkStub({ status: "insufficient", answer_markdown: null });
   const { pipeline } = pipe(stub);
-  const { result, meta } = await pipeline.answer("explica a federação");
+  const { result, meta } = await pipeline.answer(SUPPORTED_SYNTHESIS_QUERY);
   assert.equal(result.grounded, false);
   assert.equal(meta.terminal_kind, "insufficient_evidence", "meta unchanged");
   assert.equal(meta.fallback_reason, "synthesis_insufficient", "meta unchanged");
