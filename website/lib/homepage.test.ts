@@ -1,4 +1,5 @@
 import { describe, it, expect } from "vitest";
+import { SITE_METADATA } from "@/lib/siteMetadata";
 import { routeHref } from "@/lib/routeRegistry";
 import { homeCopy, homeCopyIds } from "@/components/home/homePresentation";
 import { readFileSync } from "node:fs";
@@ -114,8 +115,15 @@ describe("M2.17 — footer", () => {
 
 describe("M2.17 — SEO", () => {
   it("metadata description is the canonical M2.17 sentence", () => {
-    expect(layout).toContain(
+    // Site metadata moved into lib/siteMetadata.ts, which owns both editions under one shape — the English
+    // half had been carrying the removed independent homepage's framing. Same sentence, asserted at the
+    // owner that now holds it, and the English realization is asserted alongside so the two cannot drift
+    // apart again.
+    expect(SITE_METADATA.pt.description).toContain(
       "O BANZA define regras públicas, perfis versionados, testes de conformidade, verificação de interoperabilidade e certificação técnica para implementações independentes"
+    );
+    expect(SITE_METADATA.en.description).toContain(
+      "BANZA defines public rules, versioned profiles, conformance tests, interoperability verification and technical certification so that independent implementations"
     );
   });
 });

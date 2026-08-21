@@ -2,53 +2,39 @@ import type { Metadata } from "next";
 import { serif, sans, mono, display } from "../fonts";
 import { SiteShell } from "@/components/SiteShell";
 import { HTML_LANG } from "@/lib/i18n";
+import { SITE_METADATA, OG_IMAGE, OG_IMAGE_SIZE } from "@/lib/siteMetadata";
 import "../globals.css";
 
 const SITE_URL = "https://banza.network";
 
+// Site metadata comes from lib/siteMetadata.ts, which owns both editions under one shape. It used to be
+// written twice, and the English half was not a translation: it carried the headline of the independent
+// English homepage that has since been removed, and dropped "Angola" from the title, the description and
+// the keywords while Portuguese kept it. A share card in English claimed something different from the
+// same card in Portuguese.
+const META = SITE_METADATA["pt"];
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: {
-    default: "BANZA — Protocolo financeiro aberto para interoperabilidade em Angola",
-    template: "%s · BANZA",
-  },
-  description:
-    "O BANZA define regras públicas, perfis versionados, testes de conformidade, verificação de interoperabilidade e certificação técnica para implementações independentes interoperarem em Angola, sem reconstruir integrações técnicas bilaterais entre cada par.",
+  title: { default: META.title, template: "%s · BANZA" },
+  description: META.description,
   applicationName: "BANZA",
-  keywords: [
-    "BANZA",
-    "protocolo",
-    "protocolo financeiro aberto",
-    "interoperabilidade",
-    "Angola",
-    "conformidade",
-    "evidência verificável",
-    "federação",
-  ],
+  keywords: META.keywords,
   authors: [{ name: "BANZA Protocol" }],
   openGraph: {
     type: "website",
-    locale: "pt_PT",
+    locale: META.ogLocale,
     url: `${SITE_URL}/`,
     siteName: "BANZA",
-    title: "BANZA — Protocolo financeiro aberto para interoperabilidade em Angola",
-    description:
-      "O BANZA define regras públicas, perfis versionados, testes de conformidade, verificação de interoperabilidade e certificação técnica para implementações independentes interoperarem em Angola, sem reconstruir integrações técnicas bilaterais entre cada par.",
-    images: [
-      {
-        url: "/og-card.png",
-        width: 1200,
-        height: 630,
-        alt: "BANZA — Protocolo financeiro aberto para interoperabilidade entre implementações independentes em Angola. Regras públicas, perfis versionados, testes de conformidade e certificação técnica, sem reconstruir integrações técnicas bilaterais entre cada par.",
-      },
-    ],
+    title: META.title,
+    description: META.description,
+    images: [{ url: OG_IMAGE, ...OG_IMAGE_SIZE, alt: META.imageAlt }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "BANZA — Protocolo financeiro aberto para interoperabilidade em Angola",
-    description:
-      "O BANZA define regras públicas, perfis versionados, testes de conformidade, verificação de interoperabilidade e certificação técnica para implementações independentes interoperarem em Angola, sem reconstruir integrações técnicas bilaterais entre cada par.",
-    images: ["/og-card.png"],
+    title: META.title,
+    description: META.description,
+    images: [OG_IMAGE],
   },
   robots: { index: true, follow: true },
   icons: { icon: "/banza-mark-bordo.png", apple: "/banza-mark-bordo.png" },
