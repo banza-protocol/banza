@@ -2916,6 +2916,50 @@
         "degraded.default": {
           "pt": "Fallback seguro · erro temporário · sem chamada externa",
           "en": "Safe fallback · temporary error · no external call"
+        },
+        "outage.busy.text": {
+          "pt": "O BanzAI está a processar muitos pedidos neste momento. Tenta novamente dentro de alguns segundos.",
+          "en": "BanzAI is handling a lot of requests right now. Try again in a few seconds."
+        },
+        "outage.busy.status": {
+          "pt": "BanzAI ocupado · muitos pedidos",
+          "en": "BanzAI busy · many requests"
+        },
+        "outage.timeout.text": {
+          "pt": "A resposta demorou mais do que o esperado. Tenta novamente ou reformula a pergunta.",
+          "en": "The answer took longer than expected. Try again, or rephrase the question."
+        },
+        "outage.timeout.status": {
+          "pt": "Tempo de resposta excedido",
+          "en": "Response timed out"
+        },
+        "outage.rate_limited.text": {
+          "pt": "Muitos pedidos em pouco tempo. Aguarda alguns segundos e tenta novamente.",
+          "en": "Too many requests in a short time. Wait a few seconds and try again."
+        },
+        "outage.rate_limited.status": {
+          "pt": "Demasiados pedidos",
+          "en": "Too many requests"
+        },
+        "outage.unavailable.text": {
+          "pt": "O BanzAI está temporariamente indisponível. Tenta novamente dentro de instantes.",
+          "en": "BanzAI is temporarily unavailable. Try again in a moment."
+        },
+        "outage.unavailable.status": {
+          "pt": "Temporariamente indisponível",
+          "en": "Temporarily unavailable"
+        },
+        "status.postValidationLimit": {
+          "pt": "Fallback seguro — resposta não validada (limite de autoridade) — sem chamada externa",
+          "en": "Safe fallback — answer not validated (authority limit) — no external call"
+        },
+        "answer.postValidationLimit": {
+          "pt": "Resposta em modo degradado: a resposta do modelo não passou a validação de autoridade (ADR-036); resposta determinística a partir das fontes do protocolo.",
+          "en": "Degraded mode: the model's answer did not pass authority validation (ADR-036); this is a deterministic answer from the protocol sources."
+        },
+        "status.insufficientMeasurements": {
+          "pt": "Sem medições suficientes · sem chamada ao modelo",
+          "en": "Not enough measurements · no model call"
         }
       }
     },

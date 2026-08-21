@@ -65,6 +65,48 @@ export const ASK_STATUS_COPY = {
     "Fallback seguro · erro temporário · sem chamada externa",
     "Safe fallback · temporary error · no external call",
   ),
+
+  // Availability states. These are not chrome: `outage.*.text` becomes the ANSWER the reader sees, so an
+  // English reader whose request timed out was being told so in Portuguese, in the answer bubble itself.
+  // Safe and non-technical in both editions — never a stack trace, never internal architecture.
+  "outage.busy.text": L(
+    "O BanzAI está a processar muitos pedidos neste momento. Tenta novamente dentro de alguns segundos.",
+    "BanzAI is handling a lot of requests right now. Try again in a few seconds.",
+  ),
+  "outage.busy.status": L("BanzAI ocupado · muitos pedidos", "BanzAI busy · many requests"),
+  "outage.timeout.text": L(
+    "A resposta demorou mais do que o esperado. Tenta novamente ou reformula a pergunta.",
+    "The answer took longer than expected. Try again, or rephrase the question.",
+  ),
+  "outage.timeout.status": L("Tempo de resposta excedido", "Response timed out"),
+  "outage.rate_limited.text": L(
+    "Muitos pedidos em pouco tempo. Aguarda alguns segundos e tenta novamente.",
+    "Too many requests in a short time. Wait a few seconds and try again.",
+  ),
+  "outage.rate_limited.status": L("Demasiados pedidos", "Too many requests"),
+  "outage.unavailable.text": L(
+    "O BanzAI está temporariamente indisponível. Tenta novamente dentro de instantes.",
+    "BanzAI is temporarily unavailable. Try again in a moment.",
+  ),
+  "outage.unavailable.status": L("Temporariamente indisponível", "Temporarily unavailable"),
+
+  // ADR-036 — the model answered, the authority validator rejected it, and the deterministic sources were
+  // served instead. The reader is told which of those happened.
+  "status.postValidationLimit": L(
+    "Fallback seguro — resposta não validada (limite de autoridade) — sem chamada externa",
+    "Safe fallback — answer not validated (authority limit) — no external call",
+  ),
+  "answer.postValidationLimit": L(
+    "Resposta em modo degradado: a resposta do modelo não passou a validação de autoridade (ADR-036); resposta determinística a partir das fontes do protocolo.",
+    "Degraded mode: the model's answer did not pass authority validation (ADR-036); this is a deterministic answer from the protocol sources.",
+  ),
+
+  // ADR-036 — an operational duration question with no comparable data. Distinct from insufficient
+  // evidence, and it must not borrow that wording in either edition.
+  "status.insufficientMeasurements": L(
+    "Sem medições suficientes · sem chamada ao modelo",
+    "Not enough measurements · no model call",
+  ),
 } as const;
 
 export type AskStatusId = keyof typeof ASK_STATUS_COPY;

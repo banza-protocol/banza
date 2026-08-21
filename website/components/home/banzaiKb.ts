@@ -275,18 +275,6 @@ const ASK_TIMEOUT_MS = 65000; // slightly above the backend's 60s local-inferenc
 // returns a `public_message` (Rust single source of truth); we prefer it when present and fall back
 // to these constants when there is no response body (network error / abort). Kept phrase-free and in
 // sync with engines/banzai-api-kb/queue_policy.rs.
-const PUBLIC_MESSAGES: Record<string, string> = {
-  busy: "O BanzAI está a processar muitos pedidos neste momento. Tenta novamente dentro de alguns segundos.",
-  timeout: "A resposta demorou mais do que o esperado. Tenta novamente ou reformula a pergunta.",
-  rate_limited: "Muitos pedidos em pouco tempo. Aguarda alguns segundos e tenta novamente.",
-  unavailable: "O BanzAI está temporariamente indisponível. Tenta novamente dentro de instantes.",
-};
-const STATUS_LABEL: Record<string, string> = {
-  busy: "BanzAI ocupado · muitos pedidos",
-  timeout: "Tempo de resposta excedido",
-  rate_limited: "Demasiados pedidos",
-  unavailable: "Temporariamente indisponível",
-};
 type OutageKind = "busy" | "timeout" | "rate_limited" | "unavailable";
 
 // M2.18B.6 — a degraded (safe-fallback) answer must state its REAL cause, never a blanket
@@ -323,20 +311,20 @@ const DEGRADED_LIMIT_DEFAULT =
 // backend degraded to the deterministic grounding. The reject reason is a stable enum in the
 // `post_validation_*` FAMILY (authority/leak rule, unsupported-claim, or contradiction), so a single
 // faithful label covers the whole family — never the generic "erro temporário" default.
-const POST_VALIDATION_STATUS =
-  "Fallback seguro — resposta não validada (limite de autoridade) — sem chamada externa";
-const POST_VALIDATION_LIMIT =
-  "Resposta em modo degradado: a resposta do modelo não passou a validação de autoridade (ADR-036); resposta determinística a partir das fontes do protocolo.";
+
 
 // ADR-036 — an operational duration question with NO comparable data (or telemetry disabled). This is a
 // distinct, honest outcome (backend meta.terminal_kind/fallback_reason === "insufficient_measurements"):
 // it must NEVER borrow the generic "Evidência insuficiente" wording. The answer body is an honest
 // request-oriented paragraph (backend-provided); this is only the short per-answer status line.
-const INSUFFICIENT_MEASUREMENTS_STATUS = "Sem medições suficientes · sem chamada ao modelo";
+
 
 // A safe, non-technical availability answer — never a stack trace, never internal architecture.
-function outage(kind: OutageKind, publicMessage?: string): KbAnswer {
-  const text = (publicMessage && publicMessage.trim()) || PUBLIC_MESSAGES[kind] || PUBLIC_MESSAGES.unavailable;
+function outage(kind: OutageKind, locale: Locale, publicMessage?: string): KbAnswer {
+  // `text` IS the answer the reader sees, so it is composed for their edition like any other answer. The
+  // backend's own `public_message` wins when present: it is already safe, reader-facing prose and this
+  // layer does not translate what another layer wrote.
+  const text = (publicMessage && publicMessage.trim()) || askStatus(`outage.${kind}.text`, locale);
   return {
     intent: "unavailable",
     kind: "unavailable",
@@ -344,13 +332,13 @@ function outage(kind: OutageKind, publicMessage?: string): KbAnswer {
     cites: [],
     links: [],
     sources: [],
-    status: STATUS_LABEL[kind] || STATUS_LABEL.unavailable,
+    status: askStatus(`outage.${kind}.status`, locale),
   };
 }
 
 // Generic outage (network error / abort / no body).
-function unavailable(): KbAnswer {
-  return outage("unavailable");
+function unavailable(locale: Locale): KbAnswer {
+  return outage("unavailable", locale);
 }
 
 // ── Increment 9 (§24) — build the per-answer transparency projection from the /ask envelope ──────────
@@ -657,7 +645,7 @@ export function mapAskResponse(d: unknown, locale: Locale = DEFAULT_LOCALE): KbA
   if (degraded) {
     limits.push(
       fallbackReason.startsWith("post_validation")
-        ? POST_VALIDATION_LIMIT
+        ? askStatus("answer.postValidationLimit", locale)
         : DEGRADED_LIMIT[fallbackReason] || DEGRADED_LIMIT_DEFAULT,
     );
   }
@@ -698,7 +686,7 @@ export function mapAskResponse(d: unknown, locale: Locale = DEFAULT_LOCALE): KbA
     status = `${askStatus("status.localModel", locale)}${docTag} · ${askStatus("status.externalCalls", locale)} · ${fontes}${secs ? ` · ${secs}` : ""}${ctx}`;
   } else if (degraded) {
     status = fallbackReason.startsWith("post_validation")
-      ? POST_VALIDATION_STATUS
+      ? askStatus("status.postValidationLimit", locale)
       : degradedStatus(fallbackReason, locale);
   } else if (cachedLocal) {
     // A previously Qwen-generated answer served from cache — honest that no NEW call was made.
@@ -709,7 +697,7 @@ export function mapAskResponse(d: unknown, locale: Locale = DEFAULT_LOCALE): KbA
   } else if (isInsufficientMeasurements) {
     // ADR-036 — honest, distinct from "Evidência insuficiente": there simply is no comparable
     // telemetry (or it is disabled), which is a truthful statement about operational data, not sources.
-    status = INSUFFICIENT_MEASUREMENTS_STATUS;
+    status = askStatus("status.insufficientMeasurements", locale);
   } else if (!grounded) {
     status = askStatus("status.insufficientEvidence", locale);
   } else {
@@ -969,7 +957,7 @@ export async function banzaiKb(
   locale: Locale = DEFAULT_LOCALE,
 ): Promise<KbAnswer> {
   const q = (raw || "").trim();
-  if (!q) return unavailable();
+  if (!q) return unavailable(locale);
   const body = buildAskBody(q, history, journey, convState, locale);
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), ASK_TIMEOUT_MS);
@@ -990,10 +978,10 @@ export async function banzaiKb(
       } catch {
         /* non-JSON body (e.g. an upstream 502/503 HTML) — fall back to the safe constant */
       }
-      if (res.status === 429) return outage("rate_limited", publicMessage);
-      if (res.status === 503) return outage("busy", publicMessage);
-      if (res.status === 504) return outage("timeout", publicMessage);
-      return outage("unavailable", publicMessage);
+      if (res.status === 429) return outage("rate_limited", locale, publicMessage);
+      if (res.status === 503) return outage("busy", locale, publicMessage);
+      if (res.status === 504) return outage("timeout", locale, publicMessage);
+      return outage("unavailable", locale, publicMessage);
     }
     const data = await res.json();
     // Verify the answer was composed for the edition that asked, and fail closed when it was not.
@@ -1007,10 +995,10 @@ export async function banzaiKb(
     // A null declaration is not treated as a mismatch: composers that leave no provenance are a separate,
     // already-owned problem, and refusing those answers would take working replies away from readers for
     // a reason they cannot act on.
-    if (!localeMatches(data, locale)) return outage("unavailable");
+    if (!localeMatches(data, locale)) return outage("unavailable", locale);
     return mapAskResponse(data, locale);
   } catch {
-    return unavailable();
+    return unavailable(locale);
   } finally {
     clearTimeout(timer);
   }

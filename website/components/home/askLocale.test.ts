@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { buildAskBody, mapAskResponse, localeMatches } from "./banzaiKb";
+import { buildAskBody, mapAskResponse, localeMatches, banzaiKb } from "./banzaiKb";
 import { askStatus, sourcesLabel } from "./askStatusPresentation";
 import { LOCALES, type Locale } from "@/lib/i18n";
 
@@ -184,5 +184,81 @@ describe("the response declares its own locale, and the client checks it", () =>
 
   it("keeps the legacy omitted-locale caller on Portuguese, declared", () => {
     expect(localeMatches({ answer_locale: "pt-PT" }, "pt")).toBe(true);
+  });
+});
+
+describe("an unavailable BanzAI says so in the reader's language", () => {
+  // These are not chrome. `outage.*.text` is rendered as the ANSWER, so an English reader whose request
+  // timed out was reading Portuguese prose in the answer bubble itself — the same visible defect as a
+  // Portuguese answer to an English question, arriving through a different door.
+  const KINDS = ["busy", "timeout", "rate_limited", "unavailable"] as const;
+
+  it("realizes every availability state in both editions, distinctly", () => {
+    for (const kind of KINDS) {
+      for (const part of ["text", "status"] as const) {
+        const id = `outage.${kind}.${part}` as const;
+        for (const locale of editions) {
+          expect(askStatus(id, locale).trim().length, `${id} / ${locale}`).toBeGreaterThan(0);
+        }
+        // Identical in both editions means one edition was never given the string.
+        expect(askStatus(id, "pt"), id).not.toBe(askStatus(id, "en"));
+      }
+    }
+  });
+
+  it("never leaks the Portuguese availability copy into the English edition", () => {
+    for (const kind of KINDS) {
+      for (const part of ["text", "status"] as const) {
+        const en = askStatus(`outage.${kind}.${part}` as const, "en");
+        expect(en, `${kind}.${part}`).not.toMatch(/indisponível|Tenta novamente|pedidos|excedido/i);
+      }
+    }
+  });
+
+  it("keeps the degraded and measurement statuses honest in English", () => {
+    // ADR-036 — "not enough measurements" must not borrow the "insufficient evidence" wording in either
+    // edition: one is a statement about telemetry, the other about sources.
+    for (const locale of editions) {
+      expect(askStatus("status.insufficientMeasurements", locale)).not.toBe(
+        askStatus("status.insufficientEvidence", locale),
+      );
+    }
+    expect(askStatus("status.postValidationLimit", "en")).not.toMatch(/Fallback seguro|validada/);
+    expect(askStatus("answer.postValidationLimit", "en")).not.toMatch(/Resposta em modo degradado/);
+    // The ADR reference is a protocol identifier, not prose — it survives translation unchanged.
+    expect(askStatus("answer.postValidationLimit", "en")).toMatch(/ADR-036/);
+  });
+});
+
+describe("the adapter composes its outage answer for the reader, not for the default edition", () => {
+  // Catalogue coverage above proves the strings exist in both editions. It does NOT prove the adapter
+  // reaches for the reader's one: a call site that passed DEFAULT_LOCALE would keep every catalogue test
+  // green while still serving Portuguese to an English reader. This drives the real path.
+  const withFetch = async (status: number, locale: Locale) => {
+    const original = globalThis.fetch;
+    globalThis.fetch = (async () =>
+      new Response("{}", { status, headers: { "Content-Type": "application/json" } })) as typeof fetch;
+    try {
+      return await banzaiKb("What is L2", [], undefined, null, locale);
+    } finally {
+      globalThis.fetch = original;
+    }
+  };
+
+  it.each([
+    [503, /handling a lot of requests/i, /muitos pedidos/i],
+    [504, /took longer than expected/i, /demorou mais/i],
+    [429, /too many requests/i, /pouco tempo/i],
+    [500, /temporarily unavailable/i, /temporariamente indisponível/i],
+  ])("serves the %i state in English to an English reader", async (status, english, portuguese) => {
+    const en = await withFetch(status as number, "en");
+    expect(en.kind).toBe("unavailable");
+    expect(en.text).toMatch(english as RegExp);
+    expect(en.text).not.toMatch(portuguese as RegExp);
+  });
+
+  it("still serves Portuguese to a Portuguese reader", async () => {
+    const pt = await withFetch(503, "pt");
+    expect(pt.text).toMatch(/muitos pedidos/i);
   });
 });

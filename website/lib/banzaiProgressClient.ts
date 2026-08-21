@@ -20,6 +20,7 @@
 
 import { mapAskResponse, buildAskBody, localeMatches, type KbAnswer, type ChatTurn, type AskJourney, type ConversationState } from "@/components/home/banzaiKb";
 import { DEFAULT_LOCALE, type Locale } from "@/lib/i18n";
+import { askStatus } from "@/components/home/askStatusPresentation";
 import {
   PROGRESS_SCHEMA_TOKEN,
   isProgressKind,
@@ -172,16 +173,16 @@ type AskViaStreamOpts = {
 
 // Build the honest, non-technical "temporarily unavailable" answer from an in-band ERROR terminal's safe
 // `final` payload (a public message only — never a stack trace or secret). Mirrors banzaiKb's outage shape.
-function errorAnswer(final: Record<string, unknown> | null | undefined): KbAnswer {
+function errorAnswer(final: Record<string, unknown> | null | undefined, locale: Locale): KbAnswer {
   const pm = final && typeof final.public_message === "string" ? final.public_message.trim() : "";
   return {
     intent: "unavailable",
     kind: "unavailable",
-    text: pm || "O BanzAI está temporariamente indisponível. Tenta novamente dentro de instantes.",
+    text: pm || askStatus("outage.unavailable.text", locale),
     cites: [],
     links: [],
     sources: [],
-    status: "Temporariamente indisponível",
+    status: askStatus("outage.unavailable.status", locale),
   };
 }
 
@@ -265,7 +266,7 @@ export async function askViaStream(
     return finish({ answer: null, cancelled: true, usedFallback: false, terminalKind: tk, disposition });
   }
   if (tk === "ERROR") {
-    return finish({ answer: errorAnswer(terminal.final), cancelled: false, usedFallback: false, terminalKind: tk, disposition });
+    return finish({ answer: errorAnswer(terminal.final, locale), cancelled: false, usedFallback: false, terminalKind: tk, disposition });
   }
 
   // FINAL_VALIDATED / HONEST_FALLBACK / REFUSED — the ONLY place prose is read: the terminal `.final` is the
