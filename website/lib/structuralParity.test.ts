@@ -29,12 +29,9 @@ describe("PT and EN are two realizations of the same page", () => {
   // ratchet: a route may LEAVE this list, never join it. Adding a name here to make a build pass would be
   // visible in the diff and is not what the list is for.
   const KNOWN_DIVERGENT = [
-    "ARCHITECTURE",
     "CERTIFICATION",
-    "FEDERATION",
     "PROTOCOL_STATUS",
     "REFERENCE",
-    "TRUST",
   ] as const;
 
   it("lets no route become structurally divergent", () => {
