@@ -231,12 +231,167 @@ fn definition_subject(nq: &str) -> &str {
     .trim()
     .trim_end_matches('?')
     .trim();
+    // Trailing qualifiers say where the term applies, or ask for its meaning, and neither is part of
+    // the subject. "o que significa Robusto no BANZA?" asks about `robusto`; "what does robust mean in
+    // BANZA?" asks about the same thing with the verb trailing. A subject test that counted either
+    // would reject the very questions the term table exists to answer.
+    //
+    // Stripping repeats until stable, because they combine ("robust mean in banza" carries both), and
+    // it widens nothing: "o que é um canal seguro no BANZA" still has the subject "canal seguro", which
+    // is not a principle name and still does not reach the principles.
+    const TRAILING: &[&str] = &[
+        " no banza",
+        " na banza",
+        " do banza",
+        " da banza",
+        " em banza",
+        " no protocolo",
+        " do protocolo",
+        " in banza",
+        " in the banza protocol",
+        " in the protocol",
+        " of banza",
+        " for banza",
+        " mean",
+        " means",
+        " significa",
+        " quer dizer",
+    ];
+    let mut rest = rest;
+    loop {
+        let before = rest;
+        for suffix in TRAILING {
+            if let Some(stripped) = rest.strip_suffix(*suffix) {
+                rest = stripped.trim_end();
+                break;
+            }
+        }
+        if rest == before {
+            break;
+        }
+    }
     for article in ["o ", "a ", "os ", "as ", "um ", "uma ", "the ", "an "] {
         if let Some(stripped) = rest.strip_prefix(article) {
             return stripped.trim();
         }
     }
     rest
+}
+
+/// "Does BANZA ⟨verb⟩ ⟨concept⟩?" — a question ABOUT the concept, in its relation to the protocol.
+///
+/// These are exactly the questions that need BANZA authority behind them: "BANZA requires X", "BANZA
+/// defines X", "BANZA guarantees X" are claims about the protocol, not opinions about a concept. They
+/// arrive with no definition lead and five or six tokens, so every gate above closed on them and they
+/// fell to grounding — where no subject resolved and the package was assembled from the generic
+/// protocol-identity entry instead.
+///
+/// The model was then handed a normative question with ADR-001 in front of it, and answered from
+/// ADR-001. Measured against production at `src-14df955`:
+///
+///   `o banza exige um ledger` → `what-is-banza` → "O BANZA não exige um ledger específico, pois os
+///   modelos subjacentes a qualquer sistema de pagamento [...] não são comercialmente distintivos"
+///
+/// which contradicts INV-LEDGER-001…005 and INV-WALLET-001 — all severity `critical` — and ADR-012.
+/// The corpus already states it correctly, in `financial-invariants`, and that entry was never reached.
+/// The English twin produced the same claim. Half of every model answer in the baseline cited ADR-001
+/// and nothing else, which is the signature of a subject that never resolved.
+///
+/// Opening the gate does not invent an answer: `term_of` still has to recognise the concept, and when
+/// it does not this returns to the behaviour it had. What it stops is a specific question about a
+/// specific concept being answered from the one document that is always retrievable.
+fn is_banza_relation_query(nq: &str) -> bool {
+    has(
+        nq,
+        &[
+            // Portuguese — "o BANZA exige/usa/define/garante/proíbe/permite ⟨X⟩"
+            "banza exige",
+            "banza requer",
+            "banza obriga",
+            "banza impoe",
+            "banza precisa",
+            "banza usa",
+            "banza utiliza",
+            "banza define",
+            "banza garante",
+            "banza proibe",
+            "banza permite",
+            "banza suporta",
+            "banza implementa",
+            "banza depende",
+            "banza faz",
+            "banza processa",
+            "banza executa",
+            "banza mantem",
+            "banza guarda",
+            "banza armazena",
+            "banza aceita",
+            "banza rejeita",
+            // English — the same frame, including the auxiliary form "does BANZA require ⟨X⟩"
+            "banza require",
+            "banza use",
+            "banza define",
+            "banza defines",
+            "banza guarantee",
+            "banza prohibit",
+            "banza forbid",
+            "banza allow",
+            "banza support",
+            "banza need",
+            "banza mandate",
+            "banza implement",
+            "banza depend",
+            "banza do ",
+            "banza does ",
+            "banza perform",
+            "banza process",
+            "banza execute",
+            "banza store",
+            "banza keep",
+            "banza hold",
+            "banza accept",
+            "banza reject",
+        ],
+    ) || is_protocol_artifact_relation_query(nq)
+}
+
+/// The same frame with a named protocol ARTIFACT as its subject: "does BCJ/1 accept duplicate keys?".
+///
+/// `o bcj/i aceita chaves duplicadas` was refused, while `o que é BCJ/1?` answered — and the answer it
+/// gives already contains the rule ("membros duplicados rejeitados antes de qualquer interpretação
+/// semântica"). The question was not unanswerable; its shape had no gate.
+///
+/// Token tests on both halves, so an artifact named mid-sentence and a verb that merely appears as a
+/// substring cannot combine into a frame that was never asked. `normalize` folds "BCJ/1" to "bcj/i",
+/// which is why the artifact is spelled that way here — the same documented collision `def-bcj` matches
+/// in both forms.
+fn is_protocol_artifact_relation_query(nq: &str) -> bool {
+    const ARTIFACTS: &[&str] = &["bcj/i", "bcj"];
+    const RELATIONS: &[&str] = &[
+        "aceita",
+        "rejeita",
+        "permite",
+        "proibe",
+        "exige",
+        "requer",
+        "garante",
+        "suporta",
+        "accept",
+        "accepts",
+        "reject",
+        "rejects",
+        "allow",
+        "allows",
+        "prohibit",
+        "prohibits",
+        "require",
+        "requires",
+        "guarantee",
+        "guarantees",
+        "support",
+        "supports",
+    ];
+    ARTIFACTS.iter().any(|a| word(nq, a)) && RELATIONS.iter().any(|v| word(nq, v))
 }
 
 /// M2.14C SEC-FIX — a MULTI-WORD governance/documentation phrase (e.g. PT "relatório de auditoria",
@@ -1320,7 +1475,12 @@ fn term_of(nq: &str) -> Option<&'static str> {
         return Some("def-reserved-balance");
     }
     if word(nq, "saldo")
+        || word(nq, "saldos")
         || word(nq, "balance")
+        // The plural was missing on one side only. Portuguese "saldos" is caught by a substring arm
+        // further down; English "balances" matched nothing, so `does banza store balances` fell through
+        // while `o banza guarda saldos` resolved. A term must not depend on which language asks.
+        || word(nq, "balances")
         || has(nq, &["what is balance", "what is a balance"])
     {
         return Some("def-balance");
@@ -1670,6 +1830,9 @@ pub fn glossary_entry(nq: &str) -> Option<&'static str> {
         || is_resilience_boundary_phrase(nq)
         || is_local_execution_phrase(nq)
         || is_named_principle_query(nq)
+        // A claim about what the protocol requires must be answered from the concept's own authority,
+        // never from whatever document retrieval reaches for. See `is_banza_relation_query`.
+        || is_banza_relation_query(nq)
         // Read from the SAME table the term resolver reads — the structural fix for "the gate opens and
         // nothing is behind it", which is how the Root threshold became unanswerable while looking handled.
         || critical_subject(nq).is_some();

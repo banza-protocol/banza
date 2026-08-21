@@ -448,7 +448,7 @@ test("trunk clarify → a clarification terminal (asks, never silently picks)", 
 test("trunk insufficient → an insufficient-evidence terminal (never a guess)", async () => {
   const stub = trunkStub({ status: "insufficient", answer_markdown: null });
   const { pipeline } = pipe({}, stub);
-  const { result, meta } = await pipeline.answer("explica a federação"); // grounded route, but trunk declines
+  const { result, meta } = await pipeline.answer(SUPPORTED_SYNTHESIS_QUERY); // grounded route, but trunk declines
   assert.equal(meta.terminal_kind, "insufficient_evidence");
   assert.equal(result.grounded, false);
 });
