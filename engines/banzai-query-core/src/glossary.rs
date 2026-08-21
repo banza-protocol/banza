@@ -1135,6 +1135,17 @@ const CRITICAL_SUBJECTS: &[(&str, &[&str])] = &[
             "controls the root",
             "quem controla a trust root",
             "who controls the trust root",
+            // THE threshold. Measured across the canonical corpus, every occurrence of "limiar" is the
+            // root authority threshold — there is no competing threshold in BANZA — so the word names
+            // its subject unqualified, and a reader who asks for it after being told there are three
+            // authorities is asking about that one.
+            //
+            // "Qual é o limiar?" was refused in production at `src-acfba64`: turn 3 of the trust journey
+            // answered "três autoridades de assinatura independentes [...] quaisquer duas das três", and
+            // turn 4 was told no public source supports the request. The engine held the answer and
+            // declined to give it because the question named its subject in one fewer word.
+            "limiar",
+            "threshold",
         ],
     ),
 ];
