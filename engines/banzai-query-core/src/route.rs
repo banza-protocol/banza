@@ -7707,6 +7707,30 @@ pub fn route_with_journey_json(question: &str, journey_step: &str) -> String {
 /// happened to fail. The defect is not retrieval scoring and not the validator: post-validation was asked to
 /// adjudicate a critical institutional fact it is not the right layer to decide. A false premise is a
 /// DENIAL, exactly like the cases above, and a denial recomposed by a model is a denial with a softer edge.
+/// `def-profiles` joins them as a CLOSED ENUMERATION, the same shape as `def-r2s2`, and its absence was
+/// measured in production rather than reasoned about.
+///
+/// "What is the difference between L2 and L3?" routes deterministically to `def-profiles` — the entry
+/// that carries all five profiles, each with its purpose and inheritance, derived from the canonical
+/// registry and realized in both locales. The question carries an explanatory cue, so it escalated into
+/// the trunk, and the model wrote:
+///
+///   "L2 and L3 differ in their level of abstraction and coordination. L2 implementations can extend
+///    independently without affecting outcomes, while L3 introduces a lineage that ties keys to a
+///    trusted set."
+///
+/// citing ADR-021 and ADR-039 — reason codes and root authority. Neither document discusses profiles.
+/// The escalation exists so that an explanation is a real explanation rather than a canned definition;
+/// here it replaced a complete, registry-derived enumeration with an invented one.
+///
+/// The Portuguese twin was served correctly on the same deployment, and that is the part worth
+/// recording: its synthesis failed, the pipeline degraded to the emergency grounding, and the emergency
+/// grounding for a settled entry IS the correct record. One language got the answer; the other got a
+/// confabulation; the difference was whether the model happened to succeed. Exactly the consolation-prize
+/// shape documented for `def-certification-actor` above, in a different entry.
+///
+/// A guard already forbids a sixth profile appearing on the public surface. Letting a model restate the
+/// set at answer time reopens the same door.
 pub fn is_verbatim_entry(entry_id: &str) -> bool {
     matches!(
         entry_id,
@@ -7714,6 +7738,7 @@ pub fn is_verbatim_entry(entry_id: &str) -> bool {
             | "def-local-execution"
             | "def-r2s2"
             | "def-l0-regulatory-boundary"
+            | "def-profiles"
     ) || corrects_a_prohibited_relation(entry_id)
 }
 
