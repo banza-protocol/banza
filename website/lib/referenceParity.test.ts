@@ -130,8 +130,12 @@ const pageCode = (p: string) =>
     .replace(/^\s*\/\/.*$/gm, "");
 
 describe("Reference authority boundary", () => {
-  const PT_INDEX = "../app/(pt)/referencia/page.tsx";
-  const EN_INDEX = "../app/en/reference/page.tsx";
+  // Block F — the Reference landing became ONE view rendering both editions, with the framing text in a
+  // per-edition content module. That is where these claims live now. The English edition used to be a
+  // smaller page than the Portuguese one; there is one page left to check, and this file checks both of
+  // its realizations at their source.
+  const PT_INDEX = "../components/pages/referenceContent.ts";
+  const EN_INDEX = "../components/pages/referenceContent.ts";
 
   it("the PT index presents the Reference as descriptive, never normative", () => {
     const src = pageSource(PT_INDEX);
@@ -204,8 +208,14 @@ describe("Reference route parity", () => {
       ["../app/en/reference/full/page.tsx", "/en/reference/full"],
     ] as const) {
       const src = pageSource(p);
-      expect(src).toContain(`canonical: "${canonical}"`);
-      expect(src).toContain('"pt-PT"');
+      // A page that delegates to a shared view declares its alternates through `alternatesFor`, which
+      // emits exactly this canonical/hreflang pair for the path it is given.
+      if (src.includes("alternatesFor(")) {
+        expect(src).toContain(`alternatesFor("${canonical}")`);
+      } else {
+        expect(src).toContain(`canonical: "${canonical}"`);
+        expect(src).toContain('"pt-PT"');
+      }
     }
     // The chapter route derives both from the semantic id rather than hard-coding them.
     expect(pageSource(EN_CHAPTER_ROUTE)).toContain("chapterCounterpart(slug, \"en\")");
