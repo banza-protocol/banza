@@ -27,7 +27,7 @@ const PT_ONLY = ENTRIES.filter((e) => !realizedLocales(e).includes("en"));
  * corpus is 178 entries of which most still have no English. A guard that fails on the work it exists
  * to encourage gets read as noise, and then it gets weakened.
  */
-const BILINGUAL_FLOOR = 30;
+const BILINGUAL_FLOOR = 38;
 
 test("the corpus is the size the locale migration measured, and the bilingual set has not shrunk", () => {
   // Non-vacuity, and a drift alarm: if entries are added without realizations, or a bilingual pair is

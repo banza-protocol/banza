@@ -441,8 +441,12 @@ export const ENTRIES = [
     lexicalCandidate: true,
     critical: true,
     keywords: ["operadores certificados", "certified operators", "quem sao os operadores", "que operadores"],
-    answer:
-      "No BANZA a participação demonstra-se por evidência verificável, não é concedida por uma autoridade central — não existem operadores certificados. Neste estado de pré-produção nenhum operador publicou evidência: a rota /operators reflecte o registo ao vivo, que não lista operadores. Operador A/B/C existem apenas em documentação e exemplos, nunca no registo ao vivo. A publicação de produção depende da cerimónia offline da chave raiz e da primeira evidência de conformidade de produção publicada.",
+    realizations: {
+      "pt-PT":
+        "No BANZA a participação demonstra-se por evidência verificável, não é concedida por uma autoridade central — não existem operadores certificados. Neste estado de pré-produção nenhum operador publicou evidência: a rota /operators reflecte o registo ao vivo, que não lista operadores. Operador A/B/C existem apenas em documentação e exemplos, nunca no registo ao vivo. A publicação de produção depende da cerimónia offline da chave raiz e da primeira evidência de conformidade de produção publicada.",
+      en:
+        "In BANZA, participation is demonstrated by verifiable evidence; it is not granted by a central authority — there are no certified operators. In this pre-production state no operator has published evidence: the /operators route reflects the live registry, which lists none. Operator A/B/C exist only in documentation and examples, never in the live registry. Production publication depends on the offline root-key ceremony and on the first published production conformance evidence.",
+    },
     sources: s("annex", "adr048", "state"),
   },
   {
@@ -492,8 +496,12 @@ export const ENTRIES = [
     id: "banzai-role",
     critical: true,
     keywords: [],
-    answer:
-      "O **BanzAI** é a interface humana primária e transversal para humanos e operadores interagirem com o protocolo **BANZA**.\n\nInterpreta pedidos, consulta a referência, orienta implementação, encaminha para motores verificáveis, explica resultados e ajuda a preparar evidência técnica. Sabe onde estão as capacidades — Guia, Manifest, Conformidade, Trust, Federação, Evidence Bundle, Traces, Referência, Programadores e Repositório — e encaminha para a etapa, documento, motor ou evidência correcta.\n\nMas o **BanzAI** **não** é fonte normativa, não certifica, não aprova operadores, não licencia, não publica operadores e não movimenta fundos, e **não substitui os motores verificáveis**, a evidência técnica ou a governança aberta.\n\nRegra prática: **BanzAI** guia; os motores verificam; a evidência prova; a autoridade competente decide.",
+    realizations: {
+      "pt-PT":
+        "O **BanzAI** é a interface humana primária e transversal para humanos e operadores interagirem com o protocolo **BANZA**.\n\nInterpreta pedidos, consulta a referência, orienta implementação, encaminha para motores verificáveis, explica resultados e ajuda a preparar evidência técnica. Sabe onde estão as capacidades — Guia, Manifest, Conformidade, Trust, Federação, Evidence Bundle, Traces, Referência, Programadores e Repositório — e encaminha para a etapa, documento, motor ou evidência correcta.\n\nMas o **BanzAI** **não** é fonte normativa, não certifica, não aprova operadores, não licencia, não publica operadores e não movimenta fundos, e **não substitui os motores verificáveis**, a evidência técnica ou a governança aberta.\n\nRegra prática: **BanzAI** guia; os motores verificam; a evidência prova; a autoridade competente decide.",
+      en:
+        "**BanzAI** is the primary, transversal human interface through which people and operators interact with the **BANZA** protocol.\n\nIt interprets requests, consults the Reference, guides implementation, routes to the verifiable engines, explains results and helps prepare technical evidence. It knows where the capabilities are — Guide, Manifest, Conformance, Trust, Federation, Evidence Bundle, Traces, Reference, Developers and Repository — and routes to the right step, document, engine or piece of evidence.\n\nBut **BanzAI** is **not** a normative source. It does not certify, does not approve operators, does not license, does not publish operators and moves no funds, and it **does not replace** the verifiable engines, the technical evidence or open governance.\n\nThe working rule: **BanzAI** guides; the engines verify; the evidence proves; the competent authority decides.",
+    },
     sources: s("adr050", "annex", "claudeMd"),
   },
   {
@@ -573,8 +581,12 @@ export const ENTRIES = [
     lexicalCandidate: true,
     critical: true,
     keywords: ["banza processa pagamentos", "banza processes payments", "banza faz pagamentos", "banza executa pagamentos", "banza paga", "processa pagamentos"],
-    answer:
-      "Não. BANZA não processa pagamentos. É o protocolo que define as regras (invariantes, contratos, conformidade); a execução de pagamentos pertence aos operadores, na infraestrutura deles. A infraestrutura BANZA não tem carteira, ledger de operador, KYC/KYB nem contas de utilizador final.",
+    realizations: {
+      "pt-PT":
+        "Não. BANZA não processa pagamentos. É o protocolo que define as regras (invariantes, contratos, conformidade); a execução de pagamentos pertence aos operadores, na infraestrutura deles. A infraestrutura BANZA não tem carteira, ledger de operador, KYC/KYB nem contas de utilizador final.",
+      en:
+        "No. BANZA does not process payments. It is the protocol that defines the rules — invariants, contracts, conformance; executing payments belongs to operators, on their own infrastructure. BANZA infrastructure has no wallet, no operator ledger, no KYC/KYB and no end-user accounts.",
+    },
     sources: s("annex", "adr019", "claudeMd"),
   },
   {
@@ -929,8 +941,12 @@ export const ENTRIES = [
     id: "protocol-license",
     critical: true,
     keywords: ["qual e a licenca", "licenca do protocolo", "que licenca", "licenca banza", "protocol license", "which license", "licenciamento", "licenca do repo", "licenca do codigo", "e open source", "codigo aberto"],
-    answer:
-      "O **código** do protocolo BANZA é open source sob a **Apache License 2.0** (ficheiro LICENSE na raiz do repositório, com um NOTICE de atribuição): uma licença permissiva que qualquer operador pode usar para implementar o protocolo. **Distinção de domínios importante:** esta é uma licença de *software* — **não** é uma licença/autorização *financeira*. Não autoriza operar pagamentos nem prestar serviços financeiros; essa autorização pertence às entidades competentes e fica fora do protocolo. As **marcas** (trademarks) também não são concedidas pela licença de código (regidas por NOTICE/TRADEMARKS). O BANZA não licencia, aprova nem certifica operadores.",
+    realizations: {
+      "pt-PT":
+        "O **código** do protocolo BANZA é open source sob a **Apache License 2.0** (ficheiro LICENSE na raiz do repositório, com um NOTICE de atribuição): uma licença permissiva que qualquer operador pode usar para implementar o protocolo. **Distinção de domínios importante:** esta é uma licença de *software* — **não** é uma licença/autorização *financeira*. Não autoriza operar pagamentos nem prestar serviços financeiros; essa autorização pertence às entidades competentes e fica fora do protocolo. As **marcas** (trademarks) também não são concedidas pela licença de código (regidas por NOTICE/TRADEMARKS). O BANZA não licencia, aprova nem certifica operadores.",
+      en:
+        "The BANZA protocol's **code** is open source under the **Apache License 2.0** (the LICENSE file at the repository root, with an attribution NOTICE): a permissive licence any operator may use to implement the protocol. **An important separation of domains:** this is a *software* licence — it is **not** a *financial* licence or authorisation. It does not authorise operating payments or providing financial services; that authorisation belongs to the competent authorities and sits outside the protocol. **Trademarks** are likewise not granted by the code licence (they are governed by NOTICE/TRADEMARKS). BANZA does not license, approve or certify operators.",
+    },
     sources: s("license", "notice"),
   },
   {
@@ -938,8 +954,12 @@ export const ENTRIES = [
     id: "financial-authorization",
     critical: true,
     keywords: ["licenca financeira", "autorizacao financeira", "autorizacao regulatoria", "licenca de operador", "operador precisa de licenca", "quem licencia um operador", "o banza licencia operadores", "regulador", "entidade competente", "apache autoriza pagamentos", "financial license", "financial authorization", "does an operator need a license"],
-    answer:
-      "**Não** — e é importante separar dois domínios. (1) A licença do **código** do protocolo é a **Apache-2.0** (open source): permite implementar o protocolo, mas **não substitui** uma licença ou autorização *financeira*. (2) A **autorização financeira/regulatória** (por exemplo perante o banco central ou a entidade competente, para operar pagamentos ou prestar serviços financeiros) é responsabilidade do **próprio operador**, perante as autoridades competentes, e fica **fora do protocolo BANZA**. O BANZA **não emite licenças financeiras, não licencia, não aprova e não certifica operadores**; no protocolo, a participação técnica demonstra-se por **evidência de conformidade verificável**, não por uma licença concedida por uma autoridade central.",
+    realizations: {
+      "pt-PT":
+        "**Não** — e é importante separar dois domínios. (1) A licença do **código** do protocolo é a **Apache-2.0** (open source): permite implementar o protocolo, mas **não substitui** uma licença ou autorização *financeira*. (2) A **autorização financeira/regulatória** (por exemplo perante o banco central ou a entidade competente, para operar pagamentos ou prestar serviços financeiros) é responsabilidade do **próprio operador**, perante as autoridades competentes, e fica **fora do protocolo BANZA**. O BANZA **não emite licenças financeiras, não licencia, não aprova e não certifica operadores**; no protocolo, a participação técnica demonstra-se por **evidência de conformidade verificável**, não por uma licença concedida por uma autoridade central.",
+      en:
+        "**No** — and two domains need separating. (1) The protocol's **code** licence is **Apache-2.0** (open source): it permits implementing the protocol, but it **does not replace** a *financial* licence or authorisation. (2) **Financial and regulatory authorisation** — before the central bank or the competent authority, to operate payments or provide financial services — is the **operator's own** responsibility, before those authorities, and sits **outside the BANZA protocol**. BANZA **issues no financial licences, licenses nobody, approves nobody and certifies no operator**; within the protocol, technical participation is demonstrated by **verifiable conformance evidence**, not by a licence granted by a central authority.",
+    },
     sources: s("gettingStarted", "adr018", "adr019"),
   },
   {
@@ -1044,8 +1064,12 @@ export const ENTRIES = [
     id: "def-l2-certification", critical: true,
     deterministic: true,
     keywords: ["certificacao de conformidade e interoperabilidade", "certificacao tecnica", "certification record", "certified implementation", "certification profile", "technical registry"],
-    answer:
-      "A **Certificação de Conformidade e Interoperabilidade** é a Camada 2 do BANZA: certifica **tecnicamente** que uma *implementação* (identificada pelo hash do artefacto) demonstrou conformidade e interoperabilidade contra um perfil público e versionado. O resultado é um registo decidido por Rust, vinculado a evidência e hash, com âmbito e validade limitados, e sujeito a expiração, suspensão, revogação e supersession (a renovação é sempre um registo novo). Certifica uma **implementação**, nunca uma entidade. **Não** é licença, **não** é autorização regulatória e **não** é admissão a scheme — a certificação nunca implica admissão e a admissão nunca implica autorização. Os registos são publicados no **Registo Técnico** do BANZA, verificável por qualquer terceiro sem conta e independente do directório de participantes de um scheme.",
+    realizations: {
+      "pt-PT":
+        "A **Certificação de Conformidade e Interoperabilidade** é a Camada 2 do BANZA: certifica **tecnicamente** que uma *implementação* (identificada pelo hash do artefacto) demonstrou conformidade e interoperabilidade contra um perfil público e versionado. O resultado é um registo decidido por Rust, vinculado a evidência e hash, com âmbito e validade limitados, e sujeito a expiração, suspensão, revogação e supersession (a renovação é sempre um registo novo). Certifica uma **implementação**, nunca uma entidade. **Não** é licença, **não** é autorização regulatória e **não** é admissão a scheme — a certificação nunca implica admissão e a admissão nunca implica autorização. Os registos são publicados no **Registo Técnico** do BANZA, verificável por qualquer terceiro sem conta e independente do directório de participantes de um scheme.",
+      en:
+        "**Conformance and Interoperability Certification** is BANZA's Layer 2: it certifies **technically** that an *implementation* — identified by its artifact hash — has demonstrated conformance and interoperability against a public, versioned profile. The result is a Rust-decided record, bound to evidence and hash, with limited scope and validity, and subject to expiry, suspension, revocation and supersession (a renewal is always a new record). It certifies an **implementation**, never an entity. It is **not** a licence, **not** a regulatory authorisation and **not** admission to a scheme — certification never implies admission, and admission never implies authorisation. Records are published in BANZA's **Technical Registry**, verifiable by any third party without an account and independent of any scheme's participant directory.",
+    },
     sources: s("adr064", "adr065", "adr066"),
   },
   {
@@ -1474,8 +1498,12 @@ export const ENTRIES = [
     id: "def-federation",
     deterministic: true,
     critical: true, keywords: ["federar", "o que e federar", "federacao", "o que e federacao", "o que significa federacao", "como federar", "federation", "what is federation", "what does federate mean", "federate", "peer"],
-    answer:
-      "No **BANZA**, a **federação** é a avaliação técnica, **local e por interacção**, das condições para o encaminhamento de pagamentos entre operadores independentes — sobre metadados de federação, manifest, trust/key manifest, revogação e **evidência verificável** publicada. Publicar evidência demonstra elegibilidade; cada encaminhamento continua sujeito à avaliação completa. Federar **não** é aprovação central, certificação, licença financeira nem entrada automática em produção.",
+    realizations: {
+      "pt-PT":
+        "No **BANZA**, a **federação** é a avaliação técnica, **local e por interacção**, das condições para o encaminhamento de pagamentos entre operadores independentes — sobre metadados de federação, manifest, trust/key manifest, revogação e **evidência verificável** publicada. Publicar evidência demonstra elegibilidade; cada encaminhamento continua sujeito à avaliação completa. Federar **não** é aprovação central, certificação, licença financeira nem entrada automática em produção.",
+      en:
+        "In **BANZA**, **federation** is the technical evaluation — **local, and per interaction** — of the conditions for routing payments between independent operators, over federation metadata, manifest, trust/key manifest, revocation and published **verifiable evidence**. Publishing evidence demonstrates eligibility; every routing decision remains subject to the full evaluation. Federating is **not** central approval, certification, a financial licence, or automatic entry into production.",
+    },
     sources: s("fedQuickstart", "fedFlow", "specOverview", "adr040"),
   },
   {
@@ -1506,8 +1534,12 @@ export const ENTRIES = [
     id: "def-trust",
     deterministic: true,
     critical: true, keywords: ["trust", "o que e trust", "confianca", "o que e confianca", "what is trust"],
-    answer:
-      "**Trust**, no **BANZA**, é a **avaliação verificável por máquina** sobre metadados assinados, key manifest e revogação, com **fecho por omissão (fail-closed)** — material inválido ou revogado bloqueia. Não é aprovação central nem certificação.",
+    realizations: {
+      "pt-PT":
+        "**Trust**, no **BANZA**, é a **avaliação verificável por máquina** sobre metadados assinados, key manifest e revogação, com **fecho por omissão (fail-closed)** — material inválido ou revogado bloqueia. Não é aprovação central nem certificação.",
+      en:
+        "**Trust**, in **BANZA**, is the **machine-verifiable evaluation** over signed metadata, key manifest and revocation, closing by default (fail-closed) — invalid or revoked material blocks. It is not central approval and it is not certification.",
+    },
     sources: s("fedTrustModel", "adr038", "keyManifestSchema"),
   },
   {

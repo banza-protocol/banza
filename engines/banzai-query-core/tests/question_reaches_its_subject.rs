@@ -100,6 +100,29 @@ fn a_canonicalization_rule_is_reachable_without_naming_the_acronym() {
 }
 
 #[test]
+fn a_found_entry_is_not_thrown_away_on_the_way_to_the_reader() {
+    // `Uma implementação pode usar PostgreSQL?` reached `banza-limits` — the right entry, which states
+    // that PostgreSQL holds protocol state and not financial value — and was routed to synthesis, where
+    // no subject resolved. The settled entry was discarded and the reader was told there was not enough
+    // public evidence for a question the corpus answers directly.
+    //
+    // The action is asserted, not just the entry: reaching the right entry and then handing it to a path
+    // that drops it is exactly the failure this pins.
+    for q in [
+        "uma implementacao pode usar postgresql",
+        "can an implementation use postgresql",
+        "outra implementacao pode usar outra tecnologia",
+    ] {
+        let r = route(q);
+        assert_eq!(r.entry_id.as_deref(), Some("banza-limits"), "{q:?}");
+        assert_eq!(
+            r.action, "deterministic",
+            "{q:?} must be served, not re-derived"
+        );
+    }
+}
+
+#[test]
 fn none_of_these_gates_takes_a_question_from_a_route_it_already_had() {
     // Each of these was captured by a first, broader version of the gates above, and each has its own
     // route that is the right one. They are pinned because the failure mode of a rescue gate is not
