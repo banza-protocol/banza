@@ -452,6 +452,72 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
   };
 
   /**
+   * Reader prose for an UNBOUND conversational reference, per locale and per referent kind.
+   *
+   * The engine authors this sentence in Portuguese — `context.rs :: clarification_for`, whose own doc
+   * comment says "Honest, request-oriented PT clarification". It was served verbatim to every reader,
+   * stamped `answer_locale: locale`. So an English reader asking "Why not?" as a follow-up received a
+   * paragraph of Portuguese that DECLARED itself English.
+   *
+   * A false declaration is worse than an absent one: `localeMatches` compares the declaration against the
+   * request, they agreed, and the gate passed a Portuguese answer through to an English reader without
+   * anything to notice. It was found by a multi-turn journey; no single-shot question reaches this path.
+   *
+   * Realized here from `referent_kind`, which is the same decision expressed as data — the discipline the
+   * contextual-fallback table already states, applied to the one reader-facing sentence that still read
+   * the engine's prose.
+   */
+  const REFERENCE_CLARIFICATION = {
+    "pt-PT": {
+      reproduce: "reproduzir uma execução anterior",
+      comparison: "comparar com uma execução anterior",
+      diagnose: "diagnosticar por que uma execução falhou ou ficou bloqueada",
+      duration: "saber quanto demorou uma execução anterior",
+      receipt: "consultar o recibo de uma execução anterior",
+      keys: "abrir o manifesto de chaves de um operador/implementação",
+      manifest: "abrir o manifesto de um operador/implementação",
+      execution: "mostrar uma execução anterior",
+      none: "este pedido",
+    },
+    en: {
+      reproduce: "reproducing an earlier run",
+      comparison: "comparing against an earlier run",
+      diagnose: "diagnosing why a run failed or was blocked",
+      duration: "how long an earlier run took",
+      receipt: "opening the receipt of an earlier run",
+      keys: "opening the key manifest of an operator or implementation",
+      manifest: "opening the manifest of an operator or implementation",
+      execution: "showing an earlier run",
+      none: "this request",
+    },
+  };
+
+  const REFERENCE_CLARIFICATION_FRAME = {
+    "pt-PT": (what) =>
+      `Interpretei o teu pedido como uma referência a um turno anterior — **${what}** —, mas **não tenho ` +
+      "o contexto dessa conversa** (nenhuma execução, operador ou artefacto anterior). Não adivinho a " +
+      "referência: indica o identificador concreto (por exemplo `exec-…`, o operador, ou a decisão/documento) " +
+      "e prossigo.",
+    en: (what) =>
+      `I read your request as referring to an earlier turn — **${what}** — but **I do not have that ` +
+      "conversation's context** (no earlier run, operator or artifact). I will not guess the reference: name " +
+      "the concrete identifier — `exec-…`, the operator, or the decision or document — and I will continue.",
+  };
+
+  /**
+   * The unbound-reference clarification in the reader's locale.
+   *
+   * Closed-world on the referent kind: an unknown kind falls back to the generic one rather than to the
+   * engine's Portuguese, so a new `Anaphor` variant degrades to a vaguer sentence in the right language
+   * instead of a precise one in the wrong language.
+   */
+  function referenceClarificationProse(referentKind, locale) {
+    const table = REFERENCE_CLARIFICATION[locale] || REFERENCE_CLARIFICATION[DEFAULT_LOCALE];
+    const frame = REFERENCE_CLARIFICATION_FRAME[locale] || REFERENCE_CLARIFICATION_FRAME[DEFAULT_LOCALE];
+    return frame(table[referentKind] || table.none);
+  }
+
+  /**
    * Reader labels for the engine's DECLARED ambiguity candidates, per locale.
    *
    * These are the semantic alternatives — the engine decided WHICH choices to offer, and this decides
@@ -1358,7 +1424,10 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // AFTER the Tier-0 safety refusal (a boundary follow-up is refused first) and only when the client
     // actually carried a prior context that this specific anaphor could not resolve against.
     if (contextActive && references.requires_clarification && references.clarification) {
-      return stated(references.clarification, {
+      // `references.clarification` is the ENGINE's Portuguese sentence and is diagnostics here, exactly as
+      // `fb.message` is on the contextual-fallback path. The reader gets the realization of the same
+      // decision in their own language — see `referenceClarificationProse`.
+      return stated(referenceClarificationProse(references.referent_kind || "none", locale), {
         answer_mode: mode,
         fallback_reason: "context_reference_unresolved",
         intent: "clarification_required",
