@@ -27,6 +27,38 @@ fn count(nq: &str) -> usize {
 /// A definition question STARTS with a definition lead (PT + EN). A starts-with test (not substring)
 /// keeps "Como funciona a federação entre operadores na BANZA?" — an operational/mechanics question —
 /// out of the definition class.
+/// A LOCATIVE question — "onde ficam os saldos?", "where do balances live?".
+///
+/// It asks about a concept as much as "o que é um saldo?" does, and the answer is the same fact:
+/// INV-WALLET-001 states balances are derived from the ledger, and ADR-013 states where they are not
+/// held. Neither reached a reader. `onde ficam os saldos` was refused outright, and `Onde está o ledger
+/// central do BANZA?` — a false premise, which the corpus corrects — was answered by the model from
+/// ADR-001 as "o ledger central do BANZA não existe, pois cada operador constrói os modelos necessários
+/// para o sistema de pagamento novamente, de forma privada".
+///
+/// The gate opens; `term_of` still has to recognise the concept, and where it does not, nothing changes.
+fn is_locative_query(nq: &str) -> bool {
+    nq.starts_with("onde ")
+        || nq.starts_with("where ")
+        || has(
+            nq,
+            &[
+                "onde e que",
+                "onde fica",
+                "onde ficam",
+                "onde esta",
+                "onde estao",
+                "onde vivem",
+                "onde sao guardados",
+                "onde e guardado",
+                "where do ",
+                "where is ",
+                "where are ",
+                "where does ",
+            ],
+        )
+}
+
 fn starts_definition_lead(nq: &str) -> bool {
     [
         "o que e ",
@@ -796,6 +828,21 @@ const CRITICAL_SUBJECTS: &[(&str, &[&str])] = &[
             // `normalize` turns "PRE-PRODUCTION" into "pre production": the hyphen goes and the words
             // stay. Measured — without this the question reached the generic BANZA description.
             "pre production",
+            // READINESS is the way the question is actually asked, and it was the one phrasing missing.
+            // "O BANZA está pronto para produção?" and "Is BANZA production ready?" reached the generic
+            // BANZA description instead: Portuguese returned "BANZA é um protocolo financeiro aberto e
+            // neutro em relação a operadores" — a definition, degraded, in place of the status — and
+            // English confabulated a reason, "BANZA is not production ready as it is an open financial
+            // protocol and not a commercially distinctive payment system component".
+            //
+            // The lifecycle facts are derived into `lifecycleFacts.generated.json` and were sitting
+            // unused while the model invented an answer with the same conclusion and none of the reasons.
+            "pronto para producao",
+            "pronta para producao",
+            "prontos para producao",
+            "production ready",
+            "ready for production",
+            "production readiness",
         ],
     ),
     (
@@ -1833,6 +1880,8 @@ pub fn glossary_entry(nq: &str) -> Option<&'static str> {
         // A claim about what the protocol requires must be answered from the concept's own authority,
         // never from whatever document retrieval reaches for. See `is_banza_relation_query`.
         || is_banza_relation_query(nq)
+        // "Where does X live?" asks about X. See `is_locative_query`.
+        || is_locative_query(nq)
         // Read from the SAME table the term resolver reads — the structural fix for "the gate opens and
         // nothing is behind it", which is how the Root threshold became unanswerable while looking handled.
         || critical_subject(nq).is_some();
